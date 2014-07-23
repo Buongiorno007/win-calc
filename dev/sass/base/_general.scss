@@ -1,3 +1,38 @@
-body > section:not(.active) {
-  display: none;
+@import 'sizes';
+@import 'fonts';
+
+body {
+  width: $ipadHeight;
+  height: $ipadWidth;
+  margin: 0;
+  padding: 0;
+}
+
+.page-container {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  background: image-url('dummies/aux-bg.png') no-repeat;
+  background-size: cover;
+}
+
+.button {
+  border-width: 1px;
+  border-style: solid;
+  outline: none;
+  cursor: pointer;
+}
+
+.big-button {
+  @include roboto-lt(48px);
+  @extend .button;
+
+  border-radius: $radius_general-big_button;
+}
+
+.small-button {
+  @include roboto-lt(36px);
+  @extend .button;
+
+  border-radius: $radius_general-small_button;
 }

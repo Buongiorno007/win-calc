@@ -1,4 +1,4 @@
-@import 'compass/css3';
+@import 'compass';
 
 // BASE
 
@@ -18,9 +18,13 @@
 @import 'parts/header';
 @import 'parts/footer';
 
+@import 'parts/config-menu';
+
 // PLUGINS
 
 
 // PAGES
 
 @import 'pages/index';
+
+@import 'pages/auxiliaries';
