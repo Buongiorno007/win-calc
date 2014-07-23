@@ -227,4 +227,6 @@ gulp.task('upload-css', ['build'], function () {
 
 gulp.task('upload', ['upload-js', 'upload-css']);
 
-gulp.task('default', ['watch']);
+gulp.task('default', ['build'], function () {
+  gulp.start(['watch']);
+});
