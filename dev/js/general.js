@@ -1,85 +1,97 @@
-/* exported typingTextByChar, createPrice, showElementWithDelay, makeButtonActive */
+/* exported STEP, typingTextByChar, createPrice, showElementWithDelay, makeButtonActive */
 
 'use strict';
 
-function typingTextByChar(obj, obj2) {
-  //-------Typing Text
-  var source = $(obj).attr('name'),
+var STEP = 100;
+
+function typingTextByChar($textElem1, $textElem2) {
+  var source = $textElem1.attr('name'),
       newText = '',
-      hasChar = newText.length < source.length,
       delay = 100,
       timerId;
 
-  if (hasChar) {
+  if (source.length) {
     timerId = setInterval(function () {
-      newText = buildTypingText.call(this, newText, source);
-      $(obj).text(newText);
+      var hasChar = newText.length < source.length;
 
-      if (newText.length === source.length) {
+      newText = this.buildTypingText(newText, source);
+      $textElem1.text(newText);
+
+      if (!hasChar) {
         clearInterval(timerId);
-        if (obj2) {
-          typingTextByChar(obj2);
+
+        if ($textElem2) {
+          typingTextByChar($textElem2);
         }
       }
     }, delay);
   }
+
+  this.buildTypingText = function (currentTxt, sourceTxt) {
+    if (currentTxt.length < sourceTxt.length) {
+      currentTxt += sourceTxt[currentTxt.length];
+      return currentTxt;
+    }
+  };
 }
 
-function buildTypingText(curentTxt, sourceTxt) {
-  if (curentTxt.length === 0) {
-    curentTxt = sourceTxt[0];
-    //console.log(sourceTxt +'  =  '+ curentTxt);
-    return curentTxt;
-  }
-  if (curentTxt.length < sourceTxt.length) {
-    curentTxt += sourceTxt[curentTxt.length];
-    //console.log(sourceTxt +'  -  '+ curentTxt);
-    return curentTxt;
-  }
-}
+// TODO: Переделать в виде плагина, с возможностью передачи в scroll() цены в качестве аргумента
+function createPrice($price) {
+  var DELAY_PRICE_DIGIT = STEP * 2,
+      DIGIT_CELL_HEIGHT = 60,
+      price = $price.attr('name'),
+      priceNumberByDigit = price.split(''),
+      digit, digitCell, scrollDigitY,
+      i, n;
 
-//---------Typing Price
-function createPrice(obj) {
-  var digitObjs = [],
-      source = $(obj).attr('name'),
-      sourceArr = source.split(''),
-      keySource, keyDigit, digitCell, scrollDigitY,
-      n;
+  this.init = function () {
+    for (i = 0; i < priceNumberByDigit.length; i++) {
+      digit = priceNumberByDigit[i];
 
-  console.log(source);
+      if (digit === '.') {
+        digitCell = $('<div class="digit-cell" data-digit="' + digit + '">.</div>');
+      } else {
+        digitCell = $('<div class="digit-cell" data-digit="' + digit + '"></div>');
 
-  for (keySource in sourceArr) {
-    if (sourceArr[keySource] === '.') {
-      digitCell = $('<div class="digitCell pricePoint">.</div>');
-    } else {
-      digitCell = $('<div class="digitCell"></div>');
-
-      for (n = 9; n >= 0; n--) {
-        digitCell.append($('<div class="digit">' + n + '</div>'));
+        for (n = 0; n < 10; n++) {
+          digitCell.append($('<div class="digit">' + n + '</div>'));
+        }
       }
+      $price.append(digitCell);
     }
-    $(obj).append(digitCell);
-    digitCell.scrollTop(700);
-    digitObjs.push(digitCell);
-  }
+  };
 
-  for (keyDigit in digitObjs) {
-    if (sourceArr[keyDigit] === '.') {
-      continue;
+  this.scroll = function () {
+    var digitCells = $price.children(),
+        $digitCell;
+
+    for (i = 0; i < digitCells.length; i++) {
+      $digitCell = $(digitCells[i]);
+      digit = $digitCell.data('digit');
+
+      if (digit === '.') {
+        continue;
+      }
+
+      scrollDigitY = digit * DIGIT_CELL_HEIGHT;
+
+      $digitCell
+        .delay(i * DELAY_PRICE_DIGIT)
+        .animate({ top: -scrollDigitY }, 'slow');
     }
-    scrollDigitY = digitObjs[keyDigit].children().eq(sourceArr[keyDigit]).position().top;
-    digitObjs[keyDigit].delay(keyDigit * 200).animate({scrollTop: Math.abs(scrollDigitY)}, 'slow');
-  }
+  };
+
+  this.init();
+  this.scroll();
 }
 
-//-------Showing Element
 function showElementWithDelay(obj, delay) {
   setTimeout(function () {
     $(obj).show();
   }, delay);
 }
 
-//-------Small Button make active
+// TODO: Передалать функцию на изменение классов, а не css-свойств
 function makeButtonActive() {
   var butClass = this.attr('class'),
       butClassGeneral = butClass.split(' '),

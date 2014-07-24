@@ -1,35 +1,58 @@
-/* globals typingTextByChar, createPrice, showElementWithDelay */
+/* globals STEP, typingTextByChar, createPrice, showElementWithDelay */
 
-'use strict';
+(function ($) {
+  'use strict';
 
-showElementWithDelay($('.configList'), 100);
+  var $configList = $('.items-list'),
+      $configItem = $configList.find('.item'),
+      $configItemIcon = $configItem.find('.icon'),
 
-setTimeout(function () {
-  $('.configItem_title').each(function () {
-    typingTextByChar($(this));
-  });
-  $('.configItem_label').each(function () {
-    typingTextByChar($(this));
-  });
-  $('.configItem_value').each(function () {
-    var descriptlabel = $(this).next('.descript-label');
-    if (descriptlabel.length > 0) {
-      typingTextByChar($(this), $(descriptlabel));
-    } else {
+
+      DELAY_SHOW_CONFIG_LIST = STEP,
+      DELAY_FILL_CONFIG_LIST = DELAY_SHOW_CONFIG_LIST + 4 * STEP,
+      DELAY_SHOW_CONFIG_ITEM_ICON = DELAY_FILL_CONFIG_LIST + 5 * STEP;
+
+  showElementWithDelay($configList, DELAY_SHOW_CONFIG_LIST);
+
+  setTimeout(function () {
+    var $configItemTitle = $configItem.find('.title'),
+        $configItemName = $configItem.find('.name'),
+        $configItemValue = $configItem.find('.value'),
+        $price = $('#price'),
+        $currency = $('#currency');
+
+    $configItemTitle.each(function () {
       typingTextByChar($(this));
-    }
+    });
+
+    $configItemName.each(function () {
+      typingTextByChar($(this));
+    });
+
+    $configItemValue.each(function () {
+      var $configItemNameAside = $(this).next('.name_aside');
+
+      if ($configItemNameAside.length) {
+        typingTextByChar($(this), $configItemNameAside);
+      } else {
+        typingTextByChar($(this));
+      }
+    });
+
+    createPrice($price);
+    // TODO: Валюта должна быть включена в функцию создания цены
+    $currency.show();
+  }, DELAY_FILL_CONFIG_LIST);
+
+  showElementWithDelay($configItemIcon, DELAY_SHOW_CONFIG_ITEM_ICON);
+
+  $configItem.click(function () {
+    var activeClass = 'item_active';
+
+    $configItem.each(function () {
+      $(this).removeClass(activeClass);
+    });
+
+    $(this).addClass(activeClass);
   });
-
-  createPrice($('#price'));
-  $('#currency').show();
-}, 500);
-
-showElementWithDelay($('.configItem_icon'), 1000);
-
-//-----Menu Navigation
-$('.configItem').click(function () {
-  $('.configItem').each(function () {
-    $(this).removeClass('configItem_active');
-  });
-  $(this).addClass('configItem_active');
-});
+})(jQuery);
