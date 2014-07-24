@@ -1,7 +1,6 @@
 @import 'compass';
 
 // BASE
-
 @import 'base/boilerplate';
 @import 'base/normalize';
 
@@ -11,20 +10,18 @@
 @import 'base/colors';
 @import 'base/general';
 
-// PARTS
-
-@import 'parts/loader';
-
-@import 'parts/header';
-@import 'parts/footer';
-
-@import 'parts/config-menu';
-
 // PLUGINS
 
 
 // PAGES
-
-@import 'pages/index';
 @import 'pages/login';
-@import 'pages/auxiliaries';
+@import 'pages/main';
+
+// PANELS
+@import 'panels/additional-elements';
+
+// MENUS
+@import 'menus/config-menu';
+
+// PARTS
+@import 'parts/loader';

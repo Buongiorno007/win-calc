@@ -1,0 +1,29 @@
+@include font-face('roboto-regular', font-files('roboto/Roboto-Regular.ttf'));
+
+@include font-face('roboto-bold', font-files('roboto/Roboto-Bold.ttf'));
+
+@include font-face('roboto-light', font-files('roboto/Roboto-Light.ttf'));
+
+@include font-face('roboto-medium', font-files('roboto/Roboto-Medium.ttf'));
+
+@include font-face('roboto-thin', font-files('roboto/Roboto-Thin.ttf'));
+
+@mixin roboto-rg($size, $line-height: normal) {
+  font: normal #{$size}/#{$line-height} roboto-regular, sans-serif;
+}
+
+@mixin roboto-bd($size, $line-height: normal) {
+  font: normal #{$size}/#{$line-height} roboto-bold, sans-serif;
+}
+
+@mixin roboto-lt($size, $line-height: normal) {
+  font: normal #{$size}/#{$line-height} roboto-light, sans-serif;
+}
+
+@mixin roboto-md($size, $line-height: normal) {
+  font: normal #{$size}/#{$line-height} roboto-medium, sans-serif;
+}
+
+@mixin roboto-th($size, $line-height: normal) {
+  font: normal #{$size}/#{$line-height} roboto-thin, sans-serif;
+}

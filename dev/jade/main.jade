@@ -1,0 +1,9 @@
+extend _template
+
+block pageTitle
+  - var pageTitle = 'Main'
+block prepend body
+  body
+    section.page-container
+      include menus/_config-menu
+      include panels/_additional-elements

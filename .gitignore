@@ -1,0 +1,6 @@
+node_modules/
+www/
+*.mp4
+docs/psd/
+bower_components/
+docs/fonts/**/not_used/
