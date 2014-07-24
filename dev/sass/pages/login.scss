@@ -1,0 +1,30 @@
+@import 'compass/css3';
+@import '../base/colors';
+@import '../base/mixins';
+@import '../base/fonts';
+@import '../base/sizes';
+
+.login-container {
+  width: 100%;
+  height: 100%;
+
+}
+.login-dialog {
+  width: 1000px;
+  height: 870px;
+  margin: 25px auto;
+  padding: 20px;
+  border-radius: $radius_login-dialog;
+  background-color: #fff;
+}
+.logo {
+  background: image-url('general/logo.png') no-repeat;
+  background-size: cover;
+}
+.user-datefield {
+  border-radius: $radius_glob-big_btn;
+}
+.login-btn {
+  @extend .glob-big-btn;
+  color: #fff;
+}

@@ -1,0 +1,14 @@
+extend _template
+
+block pageTitle
+  - var pageTitle = 'Login'
+block prepend body
+  body
+    section.login-page
+      .login-container(ng-controller="RegistrationCtrl")
+            //.login-dialog
+          .logo
+          form
+            input.user-datefield(type="text", ng-model="user_phone", placeholder="Phone")
+            input.user-datefield(type="password", ng-model="user_password", placeholder="Password")
+            button(type="submit", ng-click="submit()") login
