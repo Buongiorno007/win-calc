@@ -1,3 +1,6 @@
+// TODO: Вынести анимацию в отдельные классы
+// TODO: Проверить анимацию на соответствие видео
+
 @import 'compass/css3';
 @import '../base/fonts';
 @import '../base/mixins';
@@ -33,9 +36,22 @@
     border-bottom: 1px solid #ccc;
     cursor: pointer;
     &.active {
+      position: relative;
       margin-left: -$config_menu-side_padding;
       padding-left: $config_menu-side_padding;
       background-color: #f0f0f0;
+
+      &:before {
+        content: "";
+        display: block;
+        width: 17px;
+        // TODO: Заменить на стрелку
+        background-color: #f98000;
+        height: 86px;
+        position: absolute;
+        left: -48px;
+        top: 16px;
+      }
     }
     &:last-child {
       @include flex-grow(1);

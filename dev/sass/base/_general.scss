@@ -54,6 +54,7 @@ body {
 .main-content {
   width: $main_content-width;
   height: 100%;
+  overflow: hidden;
 }
 
 .button {

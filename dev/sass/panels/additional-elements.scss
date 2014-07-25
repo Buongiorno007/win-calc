@@ -1,3 +1,7 @@
+// TODO: Проверить координаты
+// TODO: Вынести анимацию в отдельные классы
+// TODO: Добавить состояния для контейнеров (focused, selected)
+
 @import 'compass/css3';
 @import '../base/colors';
 @import '../base/mixins';
@@ -8,8 +12,7 @@
   @include animation(move-aux-container, .5s, 0, linear, 1);
 
   position: relative;
-  display: none;
-  width: 80%;
+//  display: none;
   height: 100%;
   background: rgba(255, 255, 255, .9);
 }
@@ -375,11 +378,10 @@
 
 .aux-choose-but {
   @extend .small-button;
-  @include box-sizing(border-box);
+  @extend .ghost-button;
   @include animation(splashing, .5s, 0, ease, 1);
 
   display: none;
-  /*height: 46px;*/
   padding: 0 30px;
   background-color: transparent;
 }
