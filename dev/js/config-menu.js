@@ -26,11 +26,14 @@
     });
 
     $configItemName.each(function () {
-      typingTextByChar($(this));
+      // элементы с классом name могут иметь класс aside, который выводится позже
+      if (!$(this).hasClass('aside')) {
+        typingTextByChar($(this));
+      }
     });
 
     $configItemValue.each(function () {
-      var $configItemNameAside = $(this).next('.name_aside');
+      var $configItemNameAside = $(this).next('.name.aside');
 
       if ($configItemNameAside.length) {
         typingTextByChar($(this), $configItemNameAside);
@@ -47,7 +50,7 @@
   showElementWithDelay($configItemIcon, DELAY_SHOW_CONFIG_ITEM_ICON);
 
   $configItem.click(function () {
-    var activeClass = 'item_active';
+    var activeClass = 'active';
 
     $configItem.each(function () {
       $(this).removeClass(activeClass);

@@ -14,7 +14,7 @@
       .value(name="4/16/4")
     li.item
       .title(name="Фурнитура")
-      .value(name="Maco")
+      .value(name="Длинный текст, который не влезет в строку")
     li.item
       .title(name="Ламинация")
       .row
@@ -22,19 +22,32 @@
         .value(name="без ламинации")
       .row
         .name(name="в комнате")
-        .value(name="без ламинации")
+        .value(name="Длинный текст, который не влезет в строку")
     li.item
       .title(name="Дополнительно")
-      .row
-        span.value(name="УВ-100Х100")
-        span.name_aside(name="нащельник")
-      .row
-        span.value(name="ОБ-120")
-        span.name_aside(name="водоотлив")
+      ul.additional-items-list
+        li.additional-item
+          span.value(name="УВ-100Х100")
+          span.name.aside(name="Длинный текст, который не влезет в строку")
+        li.additional-item
+          span.value(name="ОБ-120")
+          span.name.aside(name="водоотлив")
+        li.additional-item
+          span.value(name="УВ-100Х100")
+          span.name.aside(name="нащельник")
+        li.additional-item
+          span.value(name="ОБ-120")
+          span.name.aside(name="водоотлив")
+        li.additional-item
+          span.value(name="УВ-100Х100")
+          span.name.aside(name="нащельник")
+        li.additional-item
+          span.value(name="ОБ-120")
+          span.name.aside(name="водоотлив")
 
   footer.menu-footer
     .price.clearfix
-      #price.price.total-price(name="4855268.52")
-      #currency.currency &#8372;
+      #price.price-value(name="4855268.52")
+      #currency.price-currency &#8372;
     button.cart-btn В корзину
       .qty 22

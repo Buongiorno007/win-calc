@@ -1,40 +1,44 @@
 @import 'compass/css3';
 @import '../base/fonts';
 @import '../base/mixins';
+@import '../base/sizes';
 
 .config-menu {
-  @include animation(move-config-menu, .5s, 0, linear, 1);
+//  @include animation(move-config-menu, .5s, 0, linear, 1);
+  @include display-flex();
 
-  position: absolute;
-  z-index: 5;
-  top: 0;
-  right: 0;
-  width: 20%;
   height: 100%;
-  border-left: 1px solid #bebebe;
-  background: rgba(#fff, .9);
+  padding-left: $config_menu-side_padding;
+  background: rgba(#f8f8f8, .85);
   box-shadow: -3px 0 15px -5px rgba(0, 0, 0, .5);
+
+  @include flex-flow(column wrap);
+  @include align-content(space-between);
   .items-list {
     @include animation(move-config-list, 1s, 0, ease, 1);
 
-    display: none;
+//    display: none;
+    @include display-flex();
+    width: 100%;
     margin: 0;
-    padding: 0;
+    padding: 0 0 20px 0;
     list-style: none;
+    @include flex-grow(1);
+    @include flex-flow(column wrap);
   }
   .item {
-    @include border-image(image-url('config-menu/configMenu_separator.png') 1 0 0);
-
+    max-width: 100%;
     min-height: 120px;
-    padding: 10px 0 10px 40px;
-    border-width: 1px 0 0;
-    border-style: solid;
+    padding: 10px $config_menu-side_padding 10px 0;
+    border-bottom: 1px solid #ccc;
     cursor: pointer;
-    &:first-child {
-      border-width: 0;
-    }
-    &_active {
+    &.active {
+      margin-left: -$config_menu-side_padding;
+      padding-left: $config_menu-side_padding;
       background-color: #f0f0f0;
+    }
+    &:last-child {
+      @include flex-grow(1);
     }
   }
   .item-header {
@@ -51,47 +55,53 @@
     @include animation(splashing, .5s, 0, ease, 1);
 
     display: none;
-    width: 126px;
     height: 120px;
     margin: 20px 0;
-    background-image: image-url('config-menu/configMenu_itemIMG.png');
+    background: image-url('config-menu/configMenu_itemIMG.png') no-repeat;
   }
   .name {
     @include roboto-lt(22px);
 
-    margin: 5px 0;
     color: #8c8c8c;
-    &_aside {
+    &.aside {
       @extend .name;
 
-      margin-left: 5px;
+      margin-left: 10px;
       word-wrap: break-word;
     }
   }
   .value {
+    @extend .truncated;
     @include roboto-lt(36px);
 
     margin: 5px 0;
     color: #363636;
   }
+  .additional-items-list {
+    max-height: 200px;
+    overflow-y: auto;
+    list-style: none;
+    padding: 0;
+  }
+  .additional-item {
+    @extend .truncated;
+  }
   .menu-footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
     width: 100%;
     text-align: center;
+    padding-right: $config_menu-side_padding;
   }
   .price {
-    @include flexbox();
+    @include display-flex();
 
-    justify-content: center;
+    @include justify-content(center);
   }
-  .total-price {
-    @include roboto-md(60px, 60px);
+  .price-value {
+    @include roboto-md($price_container-height, 1);
 
     display: inline-flex;
     overflow: hidden;
-    height: 60px;
+    height: $price_container-height;
     text-align: center;
     color: #363636;
   }
@@ -99,28 +109,28 @@
     position: relative;
     float: left;
     &:nth-last-child(3n+3) {
-      margin-left: 3%;
+      margin-left: 4px;
     }
     &:nth-last-child(3) {
       margin-left: 0;
     }
   }
-  .currency {
-    @include roboto-lt(50px, 60px);
+  .price-currency {
+    @include roboto-lt(50px, $price_container-height - 8px);
 
     display: none;
-    margin-left: 1%;
+    margin-left: 10px;
+    padding-top: 8px;
     color: #363636;
   }
   .cart-btn {
     @extend .big-button;
 
     position: relative;
-    width: 380px;
+    width: 100%;
     height: 110px;
     margin: 20px 0;
     color: #fff;
-    border-width: 0;
     background-color: #f98000;
   }
   .qty {
