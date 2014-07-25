@@ -1,38 +1,15 @@
+@import "sizes";
+
 @function perc($px, $base: $base-screen-width) {
   @return ($px / $base) * 100%;
 }
 
 @function rem($px) {
-  @return ($px / $base-font-size) * 1rem;
+  @return ($px / $base-font_size) * 1rem;
 }
 
-@function em($px, $base: $base-font-size) {
+@function em($px, $base: $base-font_size) {
   @return ($px / $base) * 1em;
-}
-
-// Flexbox
-@mixin flexbox() {
-  display: -webkit-box;
-  display:    -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display:         flex;
-}
-
-@mixin flex($values) {
-  -webkit-box-flex: $values;
-     -moz-box-flex: $values;
-  -webkit-flex: $values;
-      -ms-flex: $values;
-          flex: $values;
-}
-
-@mixin order($val) {
-  -webkit-box-ordinal-group: $val;
-     -moz-box-ordinal-group: $val;
-  -ms-flex-order: $val;
-  -webkit-order: $val;
-          order: $val;
 }
 
 @mixin top_left_coord($top, $left) {

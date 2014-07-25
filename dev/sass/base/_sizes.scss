@@ -1,8 +1,24 @@
-$base-font-size: 16px;
-$base-line-height: 1.42857;
+$ipad-width: 2048px;
+$ipad-height: 1536px;
 
-$ipadHeight: 2048px;
-$ipadWidth: 1536px;
+$base-screen-width: $ipad-width;
 
-$radius_general-big_button: 30px;
+$base-font_size: 16px;
+$base-line_height: 1.42857;
+
+$main_content-width: 1448px;
+$main_content-width-right_menu: 1574px;
+$right_menu-width: 474px;
+
+$left_side-width: 600px;
+$right_side-width: $main_content-width + $right_menu-width;
+$right_side-width-right_menu: $main_content-width-right_menu + $right_menu-width;
+
+$page_container-width: $left_side-width + $right_side-width;
+$page_container-width-right_menu: $left_side-width + $right_side-width-right_menu;
+
+$config_menu-side_padding: 44px;
+$price_container-height: 64px;
+
+$radius_general-big_button: 32px;
 $radius_general-small_button: 20px;

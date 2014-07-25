@@ -1,26 +1,72 @@
+@import 'compass/css3';
 @import 'sizes';
 @import 'fonts';
 
+* {
+  @include box-sizing(border-box);
+}
+
+html,
 body {
-  width: $ipadHeight;
-  height: $ipadWidth;
+  overflow: hidden;
+  width: $ipad-width;
+  height: $ipad-height;
+}
+
+body {
   margin: 0;
   padding: 0;
 }
 
 .page-container {
-  position: relative;
-  overflow: hidden;
+  @include display-flex();
+
+  width: $page_container-width;
   height: 100%;
-  background: image-url('dummies/aux-bg.png') no-repeat;
-  background-size: cover;
+  &.swiped {
+    width: $page_container-width-right_menu;
+    .main-content {
+      width: $main_content-width-right_menu;
+    }
+  }
+}
+
+.swiped {
+  @include translateX(-$left_side-width);
+}
+
+.left-side {
+  width: $left_side-width;
+  height: 100%;
+}
+
+.right-side {
+  @include display-flex();
+
+  height: 100%;
+}
+
+.right-menu {
+  width: $right_menu-width;
+  height: 100%;
+}
+
+.main-content {
+  width: $main_content-width;
+  height: 100%;
 }
 
 .button {
-  border-width: 1px;
-  border-style: solid;
   outline: none;
   cursor: pointer;
+  border: 0;
+}
+
+.ghost-button {
+  @extend .button;
+
+  border-width: 1px;
+  border-style: solid;
 }
 
 .big-button {
@@ -35,4 +81,18 @@ body {
   @extend .button;
 
   border-radius: $radius_general-small_button;
+}
+
+.truncated {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Room backgrounds
+.right-side {
+  &.child-room {
+    background: image-url('rooms/child-bg.jpg') no-repeat;
+    background-size: cover;
+  }
 }

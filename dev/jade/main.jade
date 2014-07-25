@@ -4,6 +4,10 @@ block pageTitle
   - var pageTitle = 'Main'
 block prepend body
   body
-    section.page-container
-      include menus/_config-menu
-      include panels/_additional-elements
+    section.page-container.swiped
+      section.left-side
+      section.right-side.child-room
+        section.main-content
+          include panels/_additional-elements
+        section.right-menu
+          include menus/_config-menu

@@ -51,7 +51,7 @@ function compassTask() {
 
 
 // Собираем css из Compass
-gulp.task('compass', ['csscomb'], function() {
+gulp.task('compass', function() {
   compassTask()
     .pipe(reload({ stream: true }));
 });
