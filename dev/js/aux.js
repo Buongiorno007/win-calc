@@ -3,8 +3,7 @@
 (function ($) {
   'use strict';
 
-  var $auxChooseButton = $('.aux-choose-but'),
-      $auxContainer = $('.auxiliaries-container'),
+  var $auxContainer = $('.auxiliaries-container'),
       $auxGrid = $('.aux-grid'),
       $auxVisor = $('.aux-visor'),
       $auxSpillway = $('.aux-spillway'),
@@ -21,6 +20,7 @@
       $auxHandle = $('.aux-handle'),
       $auxFan = $('.aux-fan'),
       $auxOthers = $('.aux-others'),
+      $auxChooseButton = $('.aux-choose-but'),
       $auxLabel = $('.aux-label'),
       $auxParamsBtn = $('.aux-params-but'),
 
@@ -44,7 +44,7 @@
       DELAY_SHOW_AUX_CHOOSEBUTTON = STEP * 50,
       DELAY_SHOW_AUX_LABEL = STEP * 50;
 
-  showElementWithDelay($auxContainer, DELAY_SHOW_AUX_CONTAINER);
+//  showElementWithDelay($auxContainer, DELAY_SHOW_AUX_CONTAINER);
   showElementWithDelay($auxGrid, DELAY_SHOW_AUX_GRID);
   showElementWithDelay($auxVisor, DELAY_SHOW_AUX_VISOR);
   showElementWithDelay($auxSpillway, DELAY_SHOW_AUX_SPILLWAY);

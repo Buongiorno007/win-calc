@@ -38,7 +38,7 @@ function typingTextByChar($textElem1, $textElem2) {
 // TODO: Переделать в виде плагина, с возможностью передачи в scroll() цены в качестве аргумента
 function createPrice($price) {
   var DELAY_PRICE_DIGIT = STEP * 2,
-      DIGIT_CELL_HEIGHT = 60,
+      DIGIT_CELL_HEIGHT = 64,
       price = $price.attr('name'),
       priceNumberByDigit = price.split(''),
       digit, digitCell, scrollDigitY,
