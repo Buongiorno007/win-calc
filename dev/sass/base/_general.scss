@@ -18,6 +18,7 @@ body {
   padding: 0;
 }
 
+
 .page-container {
   @include display-flex();
 
@@ -57,6 +58,9 @@ body {
   overflow: hidden;
 }
 
+
+// Buttons
+
 .button {
   outline: none;
   cursor: pointer;
@@ -84,13 +88,25 @@ body {
   border-radius: $radius_general-small_button;
 }
 
+.orange-big-btn {
+  @extend .big-button;
+
+  height: 110px;
+  color: #fff;
+  background-color: #f98000;
+}
+
+// shorten the text
+
 .truncated {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+
 // Room backgrounds
+
 .right-side {
   &.child-room {
     background: image-url('rooms/child-bg.jpg') no-repeat;

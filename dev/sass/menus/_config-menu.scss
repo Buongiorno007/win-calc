@@ -140,14 +140,11 @@
     color: #363636;
   }
   .cart-btn {
-    @extend .big-button;
+    @extend .orange-big-btn;
 
     position: relative;
     width: 100%;
-    height: 110px;
     margin: 20px 0;
-    color: #fff;
-    background-color: #f98000;
   }
   .qty {
     @include roboto-lt(36px, 60px);

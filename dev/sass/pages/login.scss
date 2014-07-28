@@ -4,27 +4,93 @@
 @import '../base/fonts';
 @import '../base/sizes';
 
-.login-container {
-  width: 100%;
-  height: 100%;
+$img_logo: 'login/logo.png';
 
+.login-page {
+  @include display-flex();
+
+  height: 100%;
+  background: image-url('login/login-bg.jpg') no-repeat;
+  background-size: cover;
 }
-.login-dialog {
+
+.login-container {
+  @include box-shadow(rgba(98, 67, 48, 0.5) 0px 0px 14.72px 1.28px);
+
   width: 1000px;
   height: 870px;
-  margin: 25px auto;
-  padding: 20px;
-  border-radius: $radius_login-dialog;
+  margin: auto;
+  padding: 60px 110px;
+  border-radius: $radius_login-container;
   background-color: #fff;
 }
 .logo {
-  background: image-url('general/logo.png') no-repeat;
+  width:  image-width($img_logo);
+  height: image-height($img_logo);
+  margin: 0 auto 73px auto;
+  background: image-url($img_logo) no-repeat;
   background-size: cover;
 }
-.user-datefield {
-  border-radius: $radius_glob-big_btn;
+.input-field {
+  position: relative;
+
+  &.has-error > .user-field{
+    border-color: #f74f2e;
+  }
 }
-.login-btn {
-  @extend .glob-big-btn;
-  color: #fff;
+.user-field {
+  @include roboto-lt(36px);
+
+  display: block;
+  width: 786px;
+  height: 112px;
+  margin: 0 auto 44px auto;
+  padding: 15px 20px;
+  border:  1px solid #8c8c8c;
+  border-radius: $radius_general-big_button;
+  outline: none;
+
+  &.ng-invalid-minlength,
+  &.ng-invalid-pattern {
+    border-color: #f74f2e;
+  }
+
+}
+
+
+.error-tooltip {
+  @include top_left_coord(-10, 600);
+  @include roboto-lt(36px);
+
+  position: absolute;
+  display: table;
+  max-width: 600px;
+  padding: 20px 40px;
+  border-radius: $radius_general-small_button;
+  background: #f74f2e;
+  color:  #fff;
+  z-index: 2;
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 15px;
+    left: -20px;
+    width: 0;
+    border-width: 30px 25px 30px 0;
+    border-style: solid;
+    border-color: transparent #f74f2e;
+
+
+  }
+}
+
+.login-submit {
+  @extend .orange-big-btn;
+
+  display: block;
+  width: 382px;
+  margin: 62px auto 0 auto;
+  border-width: 0;
 }
