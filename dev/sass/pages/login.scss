@@ -35,7 +35,7 @@ $img_logo: 'login/logo.png';
   position: relative;
 
   &.has-error > .user-field{
-    border-color: #f74f2e;
+    border-color: $error_color;
   }
 }
 .user-field {
@@ -52,7 +52,7 @@ $img_logo: 'login/logo.png';
 
   &.ng-invalid-minlength,
   &.ng-invalid-pattern {
-    border-color: #f74f2e;
+    border-color: $error_color;
   }
 
 }
@@ -67,7 +67,7 @@ $img_logo: 'login/logo.png';
   max-width: 600px;
   padding: 20px 40px;
   border-radius: $radius_general-small_button;
-  background: #f74f2e;
+  background: $error_color;
   color:  #fff;
   z-index: 2;
 
@@ -80,7 +80,7 @@ $img_logo: 'login/logo.png';
     width: 0;
     border-width: 30px 25px 30px 0;
     border-style: solid;
-    border-color: transparent #f74f2e;
+    border-color: transparent $error_color;
 
 
   }

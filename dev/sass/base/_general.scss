@@ -1,6 +1,7 @@
 @import 'compass/css3';
 @import 'sizes';
 @import 'fonts';
+@import '../base/colors';
 
 * {
   @include box-sizing(border-box);
@@ -93,7 +94,7 @@ body {
 
   height: 110px;
   color: #fff;
-  background-color: #f98000;
+  background-color: $main_orange;
 }
 
 // shorten the text

@@ -3,7 +3,7 @@
 (function ($) {
   'use strict';
 
-  var $configList = $('.items-list'),
+  var $configList = $('.config-menu .items-list'),
       $configItem = $configList.find('.item'),
       $configItemIcon = $configItem.find('.icon'),
 

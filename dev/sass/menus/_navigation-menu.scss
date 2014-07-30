@@ -1,0 +1,165 @@
+@import 'compass/css3';
+@import '../base/fonts';
+@import '../base/mixins';
+@import '../base/sizes';
+@import '../base/colors';
+
+.nav-menu {
+  @include display-flex();
+  @include flex-flow(column wrap);
+  @include align-content(space-between);
+
+  height: 100%;
+  background-color: #0f0f0f;
+
+  .nav-menu-header {
+    width: 100%;
+    height: 85%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .items-list {
+    @include display-flex();
+    @include flex-flow(column wrap);
+    display: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &.move {
+      @include animation(move-navmenu-list, 1s, 0, ease, 1);
+    }
+  }
+
+  .item {
+    @include display-flex();
+
+    min-height: 100px;
+    padding-left: 50px;
+    background-color: rgba(255,255,255,.1);
+    cursor: pointer;
+    &.active {
+      background-color: #0f0f0f;
+    }
+    &:last-child .item-content{
+      border-bottom: none;
+    }
+  }
+
+  .item-content {
+    @include display-flex();
+    @include align-items(center);
+    width: 100%;
+    border-bottom: 1px solid #0f0f0f;
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  .icon {
+    @include animation(splashing, .5s, 0, ease, 1);
+    display: none;
+    margin-right: 40px;
+  }
+
+  [class^="icon-"], [class*=" icon-"] {
+    @include font-nav-menu(40px);
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .icon-additionalComponents:before {
+    content: "\e600";
+    color: $main_yellow;
+  }
+  .icon-addLocation:before {
+    content: "\e601";
+    color: $main_yellow;
+  }
+  .icon-basketOfCalculation:before {
+    content: "\e602";
+    color: $main_orange;
+  }
+  .icon-calculation:before {
+    content: "\e603";
+    color: $main_yellow;
+  }
+  .icon-calculationsHistory:before {
+    content: "\e604";
+    color: $main_yellow;
+  }
+  .icon-geoLocation:before {
+    content: "\e605";
+    color: $main_orange;
+  }
+  .icon-information:before {
+    content: "\e606";
+    color: #34aadc;
+  }
+  .icon-location:before {
+    content: "\e607";
+    color: #6e6e6e;
+  }
+  .icon-settings:before {
+    content: "\e608";
+    color: #6ed44a;
+  }
+
+
+
+
+
+  .title {
+    @extend .truncated;
+    @include roboto-lt(36px);
+
+    max-width: 400px;
+    color: #fff;
+  }
+  .badge {
+    @include roboto-md(24px);
+    display: none;
+    margin-left: 20px;
+    color:  #999;
+  }
+
+  .divider {
+    @include roboto-md(24px, 90px);
+    min-height: 90px;
+    padding-left: 50px;
+    text-transform: uppercase;
+    color:  #999;
+  }
+
+
+  .nav-menu-footer {
+    @include display-flex();
+    @include align-items(flex-end);
+
+    height: 15%;
+    padding: 0 50px 50px;
+  }
+  .new-calc {
+    @extend .big-button;
+
+    width: 100%;
+    height: 110px;
+    color: $main_orange;
+    border: 1px solid $main_orange;
+    background: transparent;
+  }
+}
+
+@include behavior-widening(move-navmenu-list, 0, 100%);
+@include behavior-splash(splashing, 0, 1.3, 1);

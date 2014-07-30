@@ -29,3 +29,13 @@
 @mixin roboto-th($size, $line-height: $base-line_height) {
   font: normal #{$size}/#{$line-height} roboto-thin, sans-serif;
 }
+
+
+
+// Navigation Menu
+
+@include font-face('nav-menu', font-files('nav-menu/icomoon.ttf'));
+
+@mixin font-nav-menu($size, $line-height: $base-line_height) {
+  font: normal #{$size}/#{$line-height} nav-menu, sans-serif;
+}
