@@ -59,65 +59,55 @@
     }
   }
 
-  .icon {
-    @include animation(splashing, .5s, 0, ease, 1);
+  [class^="nav-icon-"],
+  [class*=" nav-icon-"] {
+    @include font-nav-menu(40px);
+    @extend .icon-setting;
+
     display: none;
     margin-right: 40px;
   }
 
-  [class^="icon-"], [class*=" icon-"] {
-    @include font-nav-menu(40px);
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-
-    /* Better Font Rendering =========== */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  .icon-additionalComponents:before {
+  .nav-icon-additionalComponents:before {
     content: "\e600";
     color: $main_yellow;
   }
-  .icon-addLocation:before {
+  .nav-icon-addLocation:before {
     content: "\e601";
     color: $main_yellow;
   }
-  .icon-basketOfCalculation:before {
+  .nav-icon-basketOfCalculation:before {
     content: "\e602";
     color: $main_orange;
   }
-  .icon-calculation:before {
+  .nav-icon-calculation:before {
     content: "\e603";
     color: $main_yellow;
   }
-  .icon-calculationsHistory:before {
+  .nav-icon-calculationsHistory:before {
     content: "\e604";
     color: $main_yellow;
   }
-  .icon-geoLocation:before {
+  .nav-icon-geoLocation:before {
     content: "\e605";
     color: $main_orange;
   }
-  .icon-information:before {
+  .nav-icon-information:before {
     content: "\e606";
     color: #34aadc;
   }
-  .icon-location:before {
+  .nav-icon-location:before {
     content: "\e607";
     color: #6e6e6e;
   }
-  .icon-settings:before {
+  .nav-icon-settings:before {
     content: "\e608";
     color: #6ed44a;
   }
 
-
-
+  .icon-splash {
+    @include animation(splashing, .5s, 0, ease, 1);
+  }
 
 
   .title {

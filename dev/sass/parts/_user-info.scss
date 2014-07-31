@@ -1,0 +1,67 @@
+@import 'compass/css3';
+@import '../base/fonts';
+@import '../base/mixins';
+@import '../base/sizes';
+@import '../base/colors';
+
+$img_avatar: 'userPhoto.png';
+
+.user-info-container {
+  @include display-flex();
+  @include flex-flow(row wrap);
+  @include align-items(center);
+  @include top_left_coord(40, 0);
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+
+  .nav-menu-btn {
+    @extend .button;
+    @include font-general-icon(50px, 50px);
+    @extend .icon-setting;
+    //display: none;
+    margin-right: 10px;
+    background: transparent;
+
+    &:before {
+      content: "\e60e";
+      color: $main_orange;
+    }
+    &.rotate{
+      @include animation(nav-menu-btn-rotate, .5s, 0, ease, 1);
+      @include rotate(90deg);
+    }
+  }
+
+  .avatar {
+    @include animation(splashing, .5s, 0, ease, 1);
+    width:  image-width($img_avatar);
+    height: image-height($img_avatar);
+    background: image-url($img_avatar) no-repeat;
+  }
+  .user-info-block {
+    margin-left: 20px;
+  }
+  .icon-cityLocation {
+    @include font-general-icon(25px, 25px);
+    @extend .icon-setting;
+    display: none;
+
+    &:before {
+      content: "\e600";
+      color: $main_orange;
+    }
+  }
+  .city-location {
+    @include roboto-md(36px, 54px);
+    color: #363636;
+  }
+  .user-name {
+    @include roboto-lt(24px, 40px);
+    padding-left: 80px;
+    color: #363636;
+  }
+}
+
+@include behavior-rotate(nav-menu-btn-rotate, 0deg, 90deg);
+@include behavior-splash(splashing, 0, 1.3, 1);

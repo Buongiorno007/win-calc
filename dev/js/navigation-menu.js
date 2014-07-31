@@ -21,7 +21,7 @@
                 DELAY_SHOW_NAV_TITLE = DELAY_SHOW_NAV_CONTENT + STEP_NAV_ICON * 4,
                 DELAY_SHOW_NAV_BADGE = DELAY_SHOW_NAV_TITLE + STEP_NAV_LIST * 5,
                 $navmenuContent = $($navmenuList[ul]).find('.item-content'),
-                $navmenuItemIcon = $($navmenuList[ul]).find('.icon'),
+                $navmenuItemIcon = $($navmenuList[ul]).find('.icon-splash'),
                 $navmenuItemTitle = $($navmenuList[ul]).find('.title'),
                 $navmenuItemBadge = $($navmenuList[ul]).find('.badge');
 

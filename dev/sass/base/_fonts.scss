@@ -30,7 +30,12 @@
   font: normal #{$size}/#{$line-height} roboto-thin, sans-serif;
 }
 
+// General Icons
+@include font-face('general-icons', font-files('general-icons/icomoon.ttf'));
 
+@mixin font-general-icon($size, $line-height: $base-line_height) {
+  font: normal #{$size}/#{$line-height} general-icons, sans-serif;
+}
 
 // Navigation Menu
 

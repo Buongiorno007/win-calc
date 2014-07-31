@@ -54,6 +54,7 @@ body {
 }
 
 .main-content {
+  position: relative;
   width: $main_content-width;
   height: 100%;
   overflow: hidden;
@@ -113,4 +114,17 @@ body {
     background: image-url('rooms/child-bg.jpg') no-repeat;
     background-size: cover;
   }
+}
+
+// Icons setting
+.icon-setting {
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
