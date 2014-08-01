@@ -1,0 +1,120 @@
+@import 'compass/css3';
+@import '../base/fonts';
+@import '../base/mixins';
+@import '../base/sizes';
+@import '../base/colors';
+
+.rooms-selector-dialog {
+  @include display-flex();
+  @include flex-flow(column nowrap);
+  @include top_left_coord(300, 80);
+
+  position: absolute;
+  display: none;
+  width: 1370px;
+  padding:  80px;
+  border-radius: $radius_rooms-dialog;
+  background-color: rgba(#fff, .85);
+
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -24px;
+    right: 500px;
+    border-style: solid;
+    border-width: 25px 25px 0;
+    border-color: rgba(#fff, .85) transparent;
+    display: block;
+    width: 0;
+    z-index: 1;
+  }
+  &.show-dialog {
+    @include animation(show-rooms-dialog, 1s, 0, ease, 1);
+    display: block;
+  }
+  &.hide-dialog {
+    @include animation(hide-rooms-dialog, .5s, 0, ease, 1);
+    @include translateX(-2000px);
+    display: block;
+  }
+
+
+  .rooms-row {
+    @include display-flex();
+    @include justify-content(space-between);
+
+    &:first-of-type {
+      margin-bottom: 25px;
+    }
+  }
+
+  .room-box {
+    width:  402px;
+    height: 314px;
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: $radius_room-box_dialog;
+    cursor: pointer;
+
+    &:hover,
+    &.selected {
+      background-color: #6ed44a;
+    }
+  }
+  .room-img {
+    @include animation(splashing, .5s, 0, ease, 1);
+    display: none;
+    position: relative;
+    width:  368px;
+    height: 279px;
+
+    &.kitchen {
+      background: image-url('rooms-dialog/kitchen.jpg') no-repeat;
+    }
+    &.livingroom {
+      background: image-url('rooms-dialog/livingroom.jpg') no-repeat;
+    }
+    &.balcony {
+      background: image-url('rooms-dialog/balcony.jpg') no-repeat;
+    }
+    &.childroom {
+      background: image-url('rooms-dialog/childroom.jpg') no-repeat;
+    }
+    &.bedroom {
+      background: image-url('rooms-dialog/bedroom.jpg') no-repeat;
+    }
+    &.door {
+      background: image-url('rooms-dialog/door.jpg') no-repeat;
+    }
+  }
+  .room-titile {
+    @include background-image(linear-gradient(color-stops(rgba(#efefef, .1), #474747)));
+    @include roboto-rg(36px, 72px);
+    position: absolute;
+    width: 100%;
+    height: 80px;
+    bottom: 0;
+    left: 0;
+    padding-left: 30px;
+    color: #fff;
+  }
+
+  .close-dialog {
+    @extend .icon-setting;
+    @include font-general-icon(50px, 50px);
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    z-index: 2;
+    cursor: pointer;
+
+    &:after {
+      content: "\e60b";
+      color: $main_orange;
+    }
+  }
+}
+
+@include behavior-move(show-rooms-dialog, -2000px, 0, 0, 0);
+@include behavior-move(hide-rooms-dialog, 0, 0, -2000px, 0);
+@include behavior-splash(splashing, 0, 1.3, 1);

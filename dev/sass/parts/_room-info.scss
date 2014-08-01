@@ -7,7 +7,7 @@
 
 .room-info-container {
   position: absolute;
-  bottom: 400px;
+  bottom: 360px;
   left: 0;
   width: 100%;
   z-index: 2;
@@ -35,7 +35,7 @@
   .coeff-container {
     @include display-flex();
     @include flex-flow(row wrap);
-    @include top_left_coord(250, 0);
+    @include top_left_coord(230, 0);
 
     position: absolute;
     width: 100%;
@@ -56,15 +56,20 @@
 
   .coeff-max {
     @include roboto-md(36px, 36px);
+    position: absolute;
     top: -50px;
     right: 0;
-    position: absolute;
+    color: #fff;
   }
   .coeff {
     @include roboto-lt(80px, 80px);
     position: relative;
     float: left;
     min-width: 50px;
+
+    &.coeff-low {
+      color: #ff9500;
+    }
   }
   .coeff-title {
     @include roboto-lt(32px, 36px);

@@ -20,7 +20,13 @@ $page_container-width-right_menu: $left_side-width + $right_side-width-right_men
 $config_menu-side_padding: 44px;
 $price_container-height: 64px;
 
+// Buttons
 $radius_general-big_button: 32px;
 $radius_general-small_button: 20px;
 
+// Login
 $radius_login-container: 32px;
+
+// Room Selector Dialog
+$radius_rooms-dialog: 20px;
+$radius_room-box_dialog: 15px;

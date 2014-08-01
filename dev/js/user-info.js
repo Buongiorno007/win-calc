@@ -6,6 +6,10 @@
         $userLocation = $('.user-info-container .city-location'),
         $userName = $('.user-info-container .user-name'),
         $userIconLocation = $('.user-info-container .icon-cityLocation'),
+
+        showNavMemuClass = 'show-navmenu',
+        hideNavMenuClass = 'hide-navmenu',
+
         DELAY_SHOW_USER_INFO = 20 * STEP;
 
     showElementWithDelay($userIconLocation, DELAY_SHOW_USER_INFO);
@@ -14,6 +18,12 @@
 
     // Click on button to show nav-menu
     $navmenuBTN.click(function(){
-        $(this).toggleClass('rotate');
+        $(this).removeClass('move-btn');
+        if($(this).hasClass(showNavMemuClass)) {
+            $(this).removeClass(showNavMemuClass).addClass(hideNavMenuClass);
+        } else {
+            $(this).removeClass(hideNavMenuClass).addClass(showNavMemuClass);
+        }
     });
+
 })(jQuery);

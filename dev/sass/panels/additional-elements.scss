@@ -15,6 +15,7 @@
 //  display: none;
   height: 100%;
   background: rgba(255, 255, 255, .9);
+  z-index: 10;
 }
 
 @include behavior-widening(move-aux-container, 0, 80%);
