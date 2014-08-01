@@ -21,14 +21,15 @@
     $selectRoomsBTN.click(function() {
         if($roomsDialog.hasClass(showRoomDialogClass)) {
             $roomsDialog.removeClass(showRoomDialogClass).addClass(hideRoomDialogClass);
-        } else {
+        } else if($roomsDialog.hasClass(hideRoomDialogClass)) {
             $roomsDialog.removeClass(hideRoomDialogClass).addClass(showRoomDialogClass);
+        } else {
+            $roomsDialog.addClass(showRoomDialogClass);
             for(var room = 0; room < $roomIMG.length; room++) {
                 var DELAY_SHOW_ROOM = DELAY_SHOW_ROOM_DIALOG + STEP_SHOW_ROOM * room;
                 FINISH_SHOW_ROOM = DELAY_SHOW_ROOM;
                 showElementWithDelay($roomIMG[room], DELAY_SHOW_ROOM);
             }
-
             var DELAY_ROOM_CURRENT = FINISH_SHOW_ROOM + 500;
             addClassWithDelay($roomBox[roomCurrent], selectedRoomClass, DELAY_ROOM_CURRENT);
         }

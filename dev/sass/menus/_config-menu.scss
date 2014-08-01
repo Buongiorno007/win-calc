@@ -43,15 +43,15 @@
       background-color: #f0f0f0;
 
       &:before {
-        content: "";
+        @extend .icon-setting;
+        @include font-general-icon(84px, 84px);
         display: block;
-        width: 17px;
-        // TODO: Заменить на стрелку
-        background-color: $main_orange;
-        height: 86px;
         position: absolute;
-        left: -48px;
+        left: -80px;
         top: 16px;
+        content: "\e613";
+        color: $main_orange;
+        z-index: 11;
       }
     }
     &:last-child {
@@ -92,7 +92,7 @@
     @include roboto-lt(36px);
 
     margin: 5px 0;
-    color: #363636;
+    color: $main_gray_txt;
   }
   .additional-items-list {
     max-height: 200px;
@@ -120,7 +120,7 @@
     overflow: hidden;
     height: $price_container-height;
     text-align: center;
-    color: #363636;
+    color: $main_gray_txt;
   }
   .digit-cell {
     position: relative;
@@ -138,7 +138,7 @@
     display: none;
     margin-left: 10px;
     padding-top: 8px;
-    color: #363636;
+    color: $main_gray_txt;
   }
   .cart-btn {
     @extend .orange-big-btn;

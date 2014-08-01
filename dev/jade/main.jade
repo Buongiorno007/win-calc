@@ -4,6 +4,7 @@ block pageTitle
   - var pageTitle = 'Main'
 block prepend body
   body
+          //section.page-container.swiped
     section.page-container.swiped
       section.left-side
         include menus/_navigation-menu
@@ -12,6 +13,7 @@ block prepend body
           include parts/_user-info
           include parts/_room-info
           include parts/_rooms-selector
+          include panels/_template-selector
           //include panels/_additional-elements
         section.right-menu
           include menus/_config-menu

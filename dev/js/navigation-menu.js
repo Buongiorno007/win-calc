@@ -6,8 +6,11 @@
     var $navmenuList = $('.nav-menu-header .items-list'),
         $navmenuItem = $navmenuList.find('.item'),
         $navmenuDivider = $('.nav-menu-header .divider'),
+        $newCalcBTN = $('.nav-menu-footer .new-calc'),
+
         DELAY_SHOW_NAV_MENU = STEP,
-        DELAY_SHOW_NAV_LISTS = DELAY_SHOW_NAV_MENU + 2*STEP;
+        DELAY_SHOW_NAV_LISTS = DELAY_SHOW_NAV_MENU + 2*STEP,
+        DELAY_SHOW_NEWCALC_BNT = DELAY_SHOW_NAV_LISTS * 20;
 
 
     function animateNavMenuLists() {
@@ -44,6 +47,7 @@
 
     typingElementWithDelay($navmenuDivider, DELAY_SHOW_NAV_LISTS * 5);
     animateNavMenuLists();
+    showElementWithDelay($newCalcBTN, DELAY_SHOW_NEWCALC_BNT);
 
 // menu click
     $navmenuItem.click(function () {

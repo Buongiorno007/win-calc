@@ -71,12 +71,12 @@ $img_avatar: 'userPhoto.png';
   }
   .city-location {
     @include roboto-md(36px, 54px);
-    color: #363636;
+    color: $main_gray_txt;
   }
   .user-name {
     @include roboto-lt(24px, 40px);
     padding-left: 40px;
-    color: #363636;
+    color: $main_gray_txt;
   }
 }
 

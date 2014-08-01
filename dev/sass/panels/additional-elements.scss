@@ -8,16 +8,9 @@
 @import '../base/fonts';
 
 .auxiliaries-container {
-  @include top_left_coord(0, 0);
+  @extend .config-panel;
   @include animation(move-aux-container, .5s, 0, linear, 1);
-
-  position: relative;
-//  display: none;
-  height: 100%;
-  background: rgba(255, 255, 255, .9);
-  z-index: 10;
 }
-
 @include behavior-widening(move-aux-container, 0, 80%);
 
 .auxiliary-item {
@@ -405,8 +398,8 @@
 }
 
 .aux_slope_but {
-  color: $aux_slope_color;
-  border-color: $aux_slope_color;
+  color: $main_green;
+  border-color: $main_green;
 }
 
 .aux_connect_but {
@@ -418,7 +411,7 @@
   @include roboto-lt(22px);
 
   display: none;
-  color: #363636;
+  color: $main_gray_txt;
 }
 
 .aux-selected {
@@ -429,7 +422,7 @@
   @include roboto-lt(36px);
 
   display: none;
-  color: #363636;
+  color: $main_gray_txt;
 }
 
 .aux-params {

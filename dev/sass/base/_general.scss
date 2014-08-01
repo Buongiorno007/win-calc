@@ -83,6 +83,13 @@ body {
   border-radius: $radius_general-big_button;
 }
 
+.middle-button {
+  @extend .button;
+  @include roboto-rg(24px, 36px);
+
+  border-radius: $radius_general-big_button;
+}
+
 .small-button {
   @include roboto-lt(36px);
   @extend .button;
@@ -127,4 +134,15 @@ body {
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+// Configuration Panels
+.config-panel {
+  @include top_left_coord(0, 0);
+
+  position: relative;
+  //  display: none;
+  height: 100%;
+  background: rgba(255, 255, 255, .9);
+  z-index: 10;
 }
