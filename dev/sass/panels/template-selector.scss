@@ -115,7 +115,7 @@
   }
   .prev-btn {
     @extend .icon-setting;
-    @include font-general-icon(40px, 0px);
+    @include font-general-icon(35px, 0px);
     position: relative;
     width: 80px;
     cursor: pointer;
@@ -137,6 +137,7 @@
   }
   .other-template-img {
     @include animation(splashing, .5s, 0, ease, 1);
+    text-align: center;
     img {
       max-height: 123px;
     }
@@ -147,6 +148,14 @@
     margin: 20px auto 0 auto;
     text-align: center;
     word-wrap: break-word;
+    color: #666;
+  }
+  .other-template-subscr {
+    @extend .truncated;
+    @include roboto-lt(24px);
+    max-width: 200px;
+    margin: 0 auto;
+    text-align: center;
     color: #666;
   }
 }
