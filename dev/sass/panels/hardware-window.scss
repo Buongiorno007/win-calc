@@ -34,10 +34,12 @@
     @include flex-flow(row wrap);
     @include justify-content(flex-start);
   }
+
   .hardware-title {
     @include roboto-bd(48px);
     color: $main_gray_txt;
   }
+
   .info {
     position: relative;
 

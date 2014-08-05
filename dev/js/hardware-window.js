@@ -17,7 +17,6 @@
     showElementWithDelay($hardwareBox[g], DELAY_SHOW_PROF);
   }
 
-
   // Select hardware
   $hardwareBox.click(function(){
     $hardwareBlock.each(function () {
