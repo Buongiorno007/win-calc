@@ -1,14 +1,17 @@
-/* globals STEP, showElementWithDelay, typingTextByChar, typingElementWithDelay */
+/* globals STEP, showElementWithDelay, typingElementWithDelay */
 
 (function ($) {
   'use strict';
   var $navmenuBTN = $('.user-info-container .nav-menu-btn'),
-      $userLocation = $('.user-info-container .city-location'),
+      $userLocation = $('.user-info-container .user-location'),
       $userName = $('.user-info-container .user-name'),
-      $userIconLocation = $('.user-info-container .icon-cityLocation'),
+      $userIconLocation = $('.user-info-container .icon-location'),
+
+      $pageContainer = $('.page-container'),
 
       showNavMemuClass = 'show-navmenu',
       hideNavMenuClass = 'hide-navmenu',
+      showLeftSideClass = 'swiped',
 
       DELAY_SHOW_USER_INFO = 20 * STEP;
 
@@ -18,11 +21,14 @@
 
   // Click on button to show nav-menu
   $navmenuBTN.click(function () {
+
     $(this).removeClass('move-btn');
     if ($(this).hasClass(showNavMemuClass)) {
       $(this).removeClass(showNavMemuClass).addClass(hideNavMenuClass);
+      $pageContainer.addClass(showLeftSideClass);
     } else {
       $(this).removeClass(hideNavMenuClass).addClass(showNavMemuClass);
+      $pageContainer.removeClass(showLeftSideClass);
     }
   });
 

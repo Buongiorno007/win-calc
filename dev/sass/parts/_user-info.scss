@@ -49,27 +49,35 @@ $img_avatar: 'userPhoto.png';
     margin: 0 20px;
     background: image-url($img_avatar) no-repeat;
   }
-  .city-location {
+  .icon-location {
+    @include animation(splashing, .5s, 0, ease, 1);
+    display: none;
+    position: relative;
+    width: 35px;
+
+    &:before {
+      @extend .icon-setting;
+      @include font-general-icon(30px, 1);
+
+      position: absolute;
+      top: -30px;
+      margin-right: 6px;
+      color: $main_orange;
+      content: $geolocation_filled-icon;
+    }
+  }
+
+  .user-info-block {
+    text-align: center;
+  }
+  .user-location {
     @include roboto-md(36px, 54px);
 
     color: $main_gray_txt;
-    &.current-location {
-      &:before {
-        @extend .icon-setting;
-        @include animation(move-location-icon, 1s, 0, ease, 1);
-        @include font-general-icon(30px, 1);
-
-        margin-right: 6px;
-        color: $main_orange;
-        content: $geolocation_filled-icon;
-      }
-    }
   }
   .user-name {
     @include roboto-lt(24px, 40px);
 
-    padding-left: 30px;
-    text-align: center;
     color: $main_gray_txt;
   }
 }
