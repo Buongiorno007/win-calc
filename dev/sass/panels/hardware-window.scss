@@ -3,6 +3,7 @@
 @import '../base/mixins';
 @import '../base/sizes';
 @import '../base/colors';
+@import '../base/icons';
 
 .hardware-container {
   @extend .config-panel;
@@ -23,16 +24,16 @@
         @include top_left_coord(56, -27);
         @include font-general-icon(90px, 60px);
         position: absolute;
-        content: "\e612";
+        content: $triangle-panel-icon;
         color: $main_green;
       }
     }
   }
 
   .hardware-block-header {
-    @include display-flex();
-    @include flex-flow(row wrap);
-    @include justify-content(flex-start);
+    //@include display-flex();
+    //@include flex-flow(row wrap);
+    //@include justify-content(flex-start);
   }
 
   .hardware-title {
@@ -40,21 +41,10 @@
     color: $main_gray_txt;
   }
 
-  .info {
-    position: relative;
-
-    &:before {
-      @include top_left_coord(15, 15);
-      @include font-general-icon(50px, 50px);
-      position: absolute;
-      content: "\e60d";
-      color: $main_green;
-    }
-  }
-
   .hardware-box {
     @include animation(splashing, .5s, 0, ease, 1);
     display: none;
+    position: relative;
     width: 100%;
     margin-top: 50px;
     cursor: pointer;
@@ -70,7 +60,7 @@
           top: 40px;
           right: 30px;
           position: absolute;
-          content: "\e61e";
+          content: $check-panel-icon;
           color: #fff;
         }
 
@@ -80,6 +70,20 @@
 
       }
 
+    }
+  }
+
+  .info {
+    @include top_left_coord(15, 15);
+
+    position: absolute;
+    text-decoration: none;
+
+    &:before {
+      @include font-general-icon(50px, 50px);
+
+      content: $info-panel-icon;
+      color: $main_green;
     }
   }
 
