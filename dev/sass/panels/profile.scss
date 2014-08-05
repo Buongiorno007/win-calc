@@ -1,0 +1,217 @@
+@import 'compass/css3';
+@import '../base/fonts';
+@import '../base/mixins';
+@import '../base/sizes';
+@import '../base/colors';
+
+.profile-container {
+  @extend .config-panel;
+  @include animation(show-config-panel, .5s, 0, linear, 1);
+  overflow-y: scroll;
+
+  .profile-block {
+    width: 98%;
+    padding: 50px 80px;
+    padding-right: 0;
+    border-bottom: 1px solid $main_gray_btn;
+
+    &.selected {
+      position: relative;
+
+      &:before {
+        @include top_left_coord(56, -27);
+        @include font-general-icon(90px, 60px);
+        position: absolute;
+        content: "\e612";
+        color: $main_green;
+      }
+    }
+  }
+
+  .profile-header {
+    @include roboto-bd(48px);
+    color: $main_gray_txt;
+  }
+
+  .profile-box {
+    @include animation(splashing, .5s, 0, ease, 1);
+    display: none;
+    position: relative;
+    float: left;
+    width: 424px;
+    height: 532px;
+    margin: 25px 50px 25px 0;
+    padding: 45px;
+    border-radius: $radius_profile-box;
+    background-color: #fff;
+    cursor: pointer;
+
+    &.selected {
+      position: relative;
+      background-color: $main_green;
+
+      .profile-type {
+        background-color: #57b23c;
+      }
+      &:after {
+        @include font-general-icon(50px, 50px);
+        position: absolute;
+        top: 45px;
+        right: 45px;
+        content: "\e61e";
+        color: #fff;
+      }
+
+      .profile-label {
+        color: $main_gray_txt;
+      }
+
+      .coef-index {
+        &:first-child {
+          background-color: #3db26a;
+        }
+        &:nth-child(2) {
+          background-color: #42b260;
+        }
+        &:nth-child(3) {
+          background-color: #4ab253;
+        }
+        &:nth-child(4) {
+          background-color: #51b247;
+        }
+        &:last-child {
+          background-color: #57b23c;
+        }
+      }
+
+    }
+  }
+
+  .profile-box-bottom {
+    position: absolute;
+    bottom: 45px;
+    left: 45px;
+  }
+
+  .profile-type {
+    @include roboto-md(36px, 56px);
+    display: inline;
+    padding: 5px 20px;
+    border-radius: $radius_general-big_button;
+    background-color: $main_green;
+    color: #fff;
+  }
+
+  .profile-descr {
+    @include roboto-md(36px);
+    margin: 30px 0;
+    color: $main_gray_txt;
+    word-wrap: break-word;
+  }
+  .profile-country {
+    @include roboto-lt(36px);
+    color: $main_gray_txt;
+  }
+  .profile-label {
+    @include roboto-lt(22px);
+    color: #8c8c8c;
+  }
+
+  .coef-level {
+    @include display-flex();
+    @include flex-flow(row wrap);
+    @include justify-content(flex-start);
+    margin-top: 10px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+    &.level-1 {
+      .coef-index {
+        display: none;
+
+        &:first-child {
+          display: block;
+          border-top-right-radius: $radius_coef-index;
+          border-bottom-right-radius: $radius_coef-index;
+        }
+      }
+    }
+
+    &.level-2 {
+      .coef-index {
+        display: none;
+
+        &:first-child,
+        &:nth-child(2) {
+          display: block;
+        }
+        &:nth-child(2) {
+          border-top-right-radius: $radius_coef-index;
+          border-bottom-right-radius: $radius_coef-index;
+        }
+      }
+    }
+
+    &.level-3 {
+      .coef-index {
+        display: none;
+
+        &:first-child,
+        &:nth-child(2),
+        &:nth-child(3) {
+          display: block;
+        }
+        &:nth-child(3) {
+          border-top-right-radius: $radius_coef-index;
+          border-bottom-right-radius: $radius_coef-index;
+        }
+      }
+    }
+
+    &.level-4 {
+      .coef-index {
+        display: block;
+
+        &:nth-child(4) {
+          border-top-right-radius: $radius_coef-index;
+          border-bottom-right-radius: $radius_coef-index;
+        }
+        &:last-child {
+          display: none;
+        }
+      }
+    }
+
+  }
+
+  .coef-index {
+    width: 65px;
+    height: 25px;
+    margin-right: 1px;
+
+    &:first-child {
+      border-top-left-radius: $radius_coef-index;
+      border-bottom-left-radius: $radius_coef-index;
+      background-color: #55d995;
+    }
+    &:nth-child(2) {
+      background-color: #5bd883;
+    }
+    &:nth-child(3) {
+      background-color: #61d771;
+    }
+    &:nth-child(4) {
+      background-color: #68d55c;
+    }
+    &:last-child {
+      border-top-right-radius: $radius_coef-index;
+      border-bottom-right-radius: $radius_coef-index;
+      background-color: $main_green;
+    }
+  }
+
+}
+
+@include behavior-widening(show-config-panel, 0, 80%);
+@include behavior-splash(splashing, 0, 1.3, 1);
