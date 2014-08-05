@@ -1,34 +1,33 @@
 // TODO: Вынести анимацию в отдельные классы
 // TODO: Проверить анимацию на соответствие видео
-
 @import 'compass/css3';
 @import '../base/fonts';
+@import '../base/icons';
 @import '../base/mixins';
 @import '../base/sizes';
 @import '../base/colors';
 
 .config-menu {
-//  @include animation(move-config-menu, .5s, 0, linear, 1);
+  //  @include animation(move-config-menu, .5s, 0, linear, 1);
   @include display-flex();
+  @include flex-flow(column wrap);
+  @include align-content(space-between);
 
   height: 100%;
   padding-left: $config_menu-side_padding;
   background: rgba(#f8f8f8, .95);
   box-shadow: -3px 0 15px -5px rgba(0, 0, 0, .5);
-
-  @include flex-flow(column wrap);
-  @include align-content(space-between);
   .items-list {
     @include animation(move-config-list, 1s, 0, ease, 1);
-
-//    display: none;
+    //    display: none;
     @include display-flex();
+    @include flex-grow(1);
+    @include flex-flow(column wrap);
+
     width: 100%;
     margin: 0;
     padding: 0 0 20px 0;
     list-style: none;
-    @include flex-grow(1);
-    @include flex-flow(column wrap);
   }
   .item {
     max-width: 100%;
@@ -41,17 +40,17 @@
       margin-left: -$config_menu-side_padding;
       padding-left: $config_menu-side_padding;
       background-color: #f0f0f0;
-
       &:before {
         @extend .icon-setting;
-        @include font-general-icon(84px, 84px);
-        display: block;
+        @include font-general-icon(84px, 1);
+
         position: absolute;
-        left: -80px;
-        top: 16px;
-        content: "\e613";
-        color: $main_orange;
         z-index: 11;
+        top: 16px;
+        left: -80px;
+        display: block;
+        color: $main_orange;
+        content: $config_menu-arrow-icon;
       }
     }
     &:last-child {
@@ -95,22 +94,21 @@
     color: $main_gray_txt;
   }
   .additional-items-list {
-    max-height: 200px;
     overflow-y: auto;
-    list-style: none;
+    max-height: 200px;
     padding: 0;
+    list-style: none;
   }
   .additional-item {
     @extend .truncated;
   }
   .menu-footer {
     width: 100%;
-    text-align: center;
     padding-right: $config_menu-side_padding;
+    text-align: center;
   }
   .price {
     @include display-flex();
-
     @include justify-content(center);
   }
   .price-value {

@@ -15,7 +15,7 @@ $img_logo: 'login/logo.png';
 }
 
 .login-container {
-  @include box-shadow(rgba(98, 67, 48, 0.5) 0px 0px 14.72px 1.28px);
+  @include box-shadow(rgba(98, 67, 48, .5) 0px 0px 15px 1px);
 
   width: 1000px;
   height: 870px;
@@ -24,39 +24,38 @@ $img_logo: 'login/logo.png';
   border-radius: $radius_login-container;
   background-color: #fff;
 }
+
 .logo {
-  width:  image-width($img_logo);
+  width: image-width($img_logo);
   height: image-height($img_logo);
   margin: 0 auto 73px auto;
   background: image-url($img_logo) no-repeat;
   background-size: cover;
 }
+
 .input-field {
   position: relative;
-
-  &.has-error > .user-field{
+  margin-bottom: 44px;
+  &.has-error > .user-field {
     border-color: $error_color;
   }
 }
+
 .user-field {
   @include roboto-lt(36px);
 
   display: block;
-  width: 786px;
+  width: 100%;
   height: 112px;
-  margin: 0 auto 44px auto;
-  padding: 15px 20px;
-  border:  1px solid #8c8c8c;
+  padding: 20px;
+  border: 1px solid #8c8c8c;
   border-radius: $radius_general-big_button;
   outline: none;
-
   &.ng-invalid-minlength,
   &.ng-invalid-pattern {
     border-color: $error_color;
   }
-
 }
-
 
 .error-tooltip {
   @include top_left_coord(-10, 600);
@@ -66,23 +65,20 @@ $img_logo: 'login/logo.png';
   display: table;
   max-width: 600px;
   padding: 20px 40px;
+  color: #fff;
   border-radius: $radius_general-small_button;
   background: $error_color;
-  color:  #fff;
-  z-index: 2;
-
   &:before {
-    content: "";
-    display: block;
     position: absolute;
-    top: 15px;
-    left: -20px;
-    width: 0;
-    border-width: 30px 25px 30px 0;
-    border-style: solid;
-    border-color: transparent $error_color;
-
-
+    top: 25px;
+    left: -15px;
+    display: block;
+    content: '';
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
+    background-color: $error_color;
+    @include transform(rotate(45deg));
   }
 }
 
@@ -92,5 +88,4 @@ $img_logo: 'login/logo.png';
   display: block;
   width: 382px;
   margin: 62px auto 0 auto;
-  border-width: 0;
 }
