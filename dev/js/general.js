@@ -92,26 +92,26 @@ function showElementWithDelay(obj, delay) {
 }
 
 
-function typingElementWithDelay(element, delay){
-    setTimeout(function () {
-        element.each(function () {
-            typingTextByChar($(this));
-        });
-    }, delay);
+function typingElementWithDelay(element, delay) {
+  setTimeout(function () {
+    element.each(function () {
+      typingTextByChar($(this));
+    });
+  }, delay);
 }
 
 
 function addClassWithDelay(element, className, delay) {
-    setTimeout(function(){
-        $(element).addClass(className);
-    }, delay);
+  setTimeout(function () {
+    $(element).addClass(className);
+  }, delay);
 }
 
 
 function removeClassWithDelay(element, className, delay) {
-    setTimeout(function(){
-        $(element).removeClass(className);
-    }, delay);
+  setTimeout(function () {
+    $(element).removeClass(className);
+  }, delay);
 }
 
 // TODO: Передалать функцию на изменение классов, а не css-свойств

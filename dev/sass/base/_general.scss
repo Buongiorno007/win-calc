@@ -1,7 +1,8 @@
 @import 'compass/css3';
 @import 'sizes';
 @import 'fonts';
-@import '../base/colors';
+@import 'mixins';
+@import 'colors';
 
 * {
   @include box-sizing(border-box);
@@ -18,7 +19,6 @@ body {
   margin: 0;
   padding: 0;
 }
-
 
 .page-container {
   @include display-flex();
@@ -55,18 +55,17 @@ body {
 
 .main-content {
   position: relative;
+  overflow: hidden;
   width: $main_content-width;
   height: 100%;
-  overflow: hidden;
 }
-
 
 // Buttons
 
 .button {
+  border: 0;
   outline: none;
   cursor: pointer;
-  border: 0;
 }
 
 .ghost-button {
@@ -109,10 +108,9 @@ body {
 
 .truncated {
   overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
+  text-overflow: ellipsis;
 }
-
 
 // Room backgrounds
 
@@ -125,12 +123,13 @@ body {
 
 // Icons setting
 .icon-setting {
-  speak: none;
-  font-style: normal;
   font-weight: normal;
+  font-style: normal;
   font-variant: normal;
-  text-transform: none;
   line-height: 1;
+  text-transform: none;
+
+  speak: none;
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -141,8 +140,8 @@ body {
   @include top_left_coord(0, 0);
 
   position: relative;
+  z-index: 10;
   //  display: none;
   height: 100%;
   background: rgba(255, 255, 255, .9);
-  z-index: 10;
 }

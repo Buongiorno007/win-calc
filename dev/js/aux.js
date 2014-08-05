@@ -44,7 +44,7 @@
       DELAY_SHOW_AUX_CHOOSEBUTTON = STEP * 50,
       DELAY_SHOW_AUX_LABEL = STEP * 50;
 
-//  showElementWithDelay($auxContainer, DELAY_SHOW_AUX_CONTAINER);
+  //  showElementWithDelay($auxContainer, DELAY_SHOW_AUX_CONTAINER);
   showElementWithDelay($auxGrid, DELAY_SHOW_AUX_GRID);
   showElementWithDelay($auxVisor, DELAY_SHOW_AUX_VISOR);
   showElementWithDelay($auxSpillway, DELAY_SHOW_AUX_SPILLWAY);

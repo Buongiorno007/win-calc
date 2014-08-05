@@ -1,5 +1,6 @@
 @import 'compass/css3';
 @import '../base/fonts';
+@import '../base/icons';
 @import '../base/mixins';
 @import '../base/sizes';
 @import '../base/colors';
@@ -11,71 +12,64 @@ $img_avatar: 'userPhoto.png';
   @include flex-flow(row wrap);
   @include align-items(center);
   @include top_left_coord(40, 10);
+
   position: absolute;
   width: 100%;
-  z-index: 2;
-
   .nav-menu-btn {
     @extend .button;
     @extend .icon-setting;
-    @include font-general-icon(50px, 50px);
-    @include top_left_coord(40, 0);
-    //display: none;
-    position: absolute;
-    background: transparent;
-    z-index: 2;
+    @include font-general-icon(50px, 1);
 
+    width: 60px;
+    height: 60px;
+    margin: 0;
+    padding: 0;
+    background: transparent;
     &:before {
-      content: "\e60e";
       color: $main_orange;
+      content: $menu-icon;
     }
-    &.show-navmenu{
+    &.show-navmenu {
       @include animation(show-navmenu-btn, .5s, 0, ease, 1);
       @include rotate(90deg);
     }
-    &.hide-navmenu{
+    &.hide-navmenu {
       @include animation(hide-navmenu-btn, .5s, 0, ease, 1);
       @include rotate(0deg);
     }
-    &.move-btn{
+    &.move-btn {
       @include animation(move-nav-btn, 1s, 0, ease, 1);
     }
   }
-
   .avatar {
     @include animation(splashing, .5s, 0, ease, 1);
-    position: relative;
-    width:  image-width($img_avatar);
+
+    width: image-width($img_avatar);
     height: image-height($img_avatar);
-    margin: 0 50px 0 70px;
+    margin: 0 20px;
     background: image-url($img_avatar) no-repeat;
-    z-index: 3;
-  }
-
-  .user-info-block {
-    position: relative;
-  }
-  .icon-cityLocation {
-    @extend .icon-setting;
-    @include animation(move-location-icon, 1s, 0, ease, 1);
-    @include font-general-icon(25px, 25px);
-    @include top_left_coord(20, -30);
-    display: none;
-    position: absolute;
-    z-index: 2;
-
-    &:before {
-      content: "\e600";
-      color: $main_orange;
-    }
   }
   .city-location {
     @include roboto-md(36px, 54px);
+
     color: $main_gray_txt;
+    &.current-location {
+      &:before {
+        @extend .icon-setting;
+        @include animation(move-location-icon, 1s, 0, ease, 1);
+        @include font-general-icon(30px, 1);
+
+        margin-right: 6px;
+        color: $main_orange;
+        content: $geolocation_filled-icon;
+      }
+    }
   }
   .user-name {
     @include roboto-lt(24px, 40px);
-    padding-left: 40px;
+
+    padding-left: 30px;
+    text-align: center;
     color: $main_gray_txt;
   }
 }

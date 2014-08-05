@@ -1,5 +1,6 @@
 @import 'compass/css3';
 @import '../base/fonts';
+@import '../base/icons';
 @import '../base/mixins';
 @import '../base/sizes';
 @import '../base/colors';
@@ -7,54 +8,51 @@
 .template-container {
   @extend .config-panel;
   @include animation(show-config-panel, .5s, 0, linear, 1);
-  padding: 50px;
 
+  padding: 50px;
   .template-title {
     @include roboto-lt(80px, 80px);
     @include animation(splashing, .5s, 0, ease, 1);
 
-    display: block;
     position: relative;
+    display: block;
     width: 236px;
-    height:  92px;
+    height: 92px;
     margin: 0 auto 30px auto;
     text-align: center;
+    color: $main_green;
     border: 1px solid $main_green;
     border-radius: 16px;
     background-color: transparent;
-    color: $main_green;
     cursor: pointer;
-
     &.active {
-      background-color: $main_green;
       color: #fff;
+      background-color: $main_green;
     }
   }
-
   .window-type {
     @include display-flex();
     @include flex-flow(row nowrap);
     @include roboto-lt(36px, 72px);
     @include top_left_coord(-30, 170);
-
     //display: none;
+
     position: absolute;
-    border-radius: 16px;
-    background-color: #242424;
     white-space: nowrap;
     color: #fff;
-
+    border-radius: 16px;
+    background-color: #242424;
     &:before {
-      content: "";
       position: absolute;
+      z-index: 1;
       bottom: -20px;
       left: 30px;
-      border-style: solid;
-      border-width: 20px 20px 0;
-      border-color: #242424 transparent;
       display: block;
       width: 0;
-      z-index: 1;
+      border-width: 20px 20px 0;
+      border-style: solid;
+      border-color: #242424 transparent;
+      content: '';
     }
   }
   .balcon-config {
@@ -66,35 +64,32 @@
     padding: 0 30px;
     cursor: pointer;
   }
-
   .template-discr {
     @include roboto-lt(80px);
+
     text-align: center;
     color: $main_gray_txt;
   }
-
   .template-section {
     height: 1000px;
     background: image-url('templateDraft.jpg') no-repeat;
     background-size: cover;
   }
-
   .template-footer {
     @include display-flex();
     @include flex-flow(row nowrap);
     @include justify-content(space-between);
   }
-
   .template-edit {
     @extend .big-button;
     @include animation(splashing, .5s, 0, ease, 1);
 
     display: block;
     width: 462px;
-    height:  112px;
+    height: 112px;
     margin: 0 auto 30px auto;
-    background-color: $main_green;
     color: #fff;
+    background-color: $main_green;
   }
   .template-default {
     @extend .middle-button;
@@ -102,12 +97,11 @@
 
     display: block;
     width: 318px;
-    height:  72px;
+    height: 72px;
     margin: 0 auto;
-    background-color: $main_gray_btn;
     color: $main_gray_txt;
+    background-color: $main_gray_btn;
   }
-
   .other-template {
     @include display-flex();
     @include flex-flow(row nowrap);
@@ -116,27 +110,27 @@
   .prev-btn {
     @extend .icon-setting;
     @include font-general-icon(35px, 0px);
+
     position: relative;
     width: 80px;
     cursor: pointer;
-
     &:after {
-      content: "\e609";
       position: absolute;
       color: $main_gray_btn;
+      content: $arrow-icon;
     }
   }
   .next-btn {
     @extend .prev-btn;
     @include rotate(180deg);
   }
-
   .template-prev,
   .template-next {
     cursor: pointer;
   }
   .other-template-img {
     @include animation(splashing, .5s, 0, ease, 1);
+
     text-align: center;
     img {
       max-height: 123px;
@@ -144,6 +138,7 @@
   }
   .other-template-label {
     @include roboto-lt(24px);
+
     max-width: 150px;
     margin: 20px auto 0 auto;
     text-align: center;
@@ -153,6 +148,7 @@
   .other-template-subscr {
     @extend .truncated;
     @include roboto-lt(24px);
+
     max-width: 200px;
     margin: 0 auto;
     text-align: center;
@@ -162,6 +158,3 @@
 
 @include behavior-widening(show-config-panel, 0, 80%);
 @include behavior-splash(splashing, 0, 1.3, 1);
-
-
-

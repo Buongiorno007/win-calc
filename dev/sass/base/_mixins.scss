@@ -1,4 +1,4 @@
-@import "sizes";
+@import 'sizes';
 
 @function perc($px, $base: $base-screen-width) {
   @return ($px / $base) * 100%;
