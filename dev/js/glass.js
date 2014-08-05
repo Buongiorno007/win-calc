@@ -7,7 +7,7 @@
       $glassBox = $('.glass-container .glass-box'),
       $glassTitle = $('.glass-container .glass-title'),
 
-      selectProfileClass = 'selected',
+      selectedClass = 'selected',
 
       DELAY_SHOW_PROFILES = 20 * STEP;
 
@@ -22,13 +22,13 @@
   // Select glass
   $glassBox.click(function(){
     $glassBlock.each(function () {
-      $(this).removeClass(selectProfileClass);
+      $(this).removeClass(selectedClass);
     });
     $glassBox.each(function () {
-      $(this).removeClass(selectProfileClass);
+      $(this).removeClass(selectedClass);
     });
-    $(this).parents($glassBlock).addClass(selectProfileClass);
-    $(this).addClass(selectProfileClass);
+    $(this).parents($glassBlock).addClass(selectedClass);
+    $(this).addClass(selectedClass);
   });
 
   // Define width for footer-inner depends on children qty

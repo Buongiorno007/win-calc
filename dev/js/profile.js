@@ -6,7 +6,7 @@
         $profileBox = $('.profile-container .profile-box'),
         $profileHead = $('.profile-container .profile-header'),
 
-        selectProfileClass = 'selected',
+        selectedClass = 'selected',
 
         DELAY_SHOW_PROFILES = 20 * STEP;
 
@@ -21,13 +21,13 @@
     // Select profile
     $profileBox.click(function(){
         $profileBlock.each(function () {
-            $(this).removeClass(selectProfileClass);
+            $(this).removeClass(selectedClass);
         });
         $profileBox.each(function () {
-            $(this).removeClass(selectProfileClass);
+            $(this).removeClass(selectedClass);
         });
-        $(this).parent().addClass(selectProfileClass);
-        $(this).addClass(selectProfileClass);
+        $(this).parent().addClass(selectedClass);
+        $(this).addClass(selectedClass);
     });
 
 })(jQuery);

@@ -1,0 +1,139 @@
+@import 'compass/css3';
+@import '../base/fonts';
+@import '../base/mixins';
+@import '../base/sizes';
+@import '../base/colors';
+
+.hardware-container {
+  @extend .config-panel;
+  @include animation(show-config-panel, .5s, 0, linear, 1);
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  .hardware-block {
+    width: 94%;
+    padding: 50px 80px;
+    padding-right: 0;
+    border-bottom: 1px solid $main_gray_btn;
+
+    &.selected {
+      position: relative;
+
+      &:before {
+        @include top_left_coord(56, -27);
+        @include font-general-icon(90px, 60px);
+        position: absolute;
+        content: "\e612";
+        color: $main_green;
+      }
+    }
+  }
+
+  .hardware-block-header {
+    @include display-flex();
+    @include flex-flow(row wrap);
+    @include justify-content(flex-start);
+  }
+  .hardware-title {
+    @include roboto-bd(48px);
+    color: $main_gray_txt;
+  }
+  .info {
+    position: relative;
+
+    &:before {
+      @include top_left_coord(15, 15);
+      @include font-general-icon(50px, 50px);
+      position: absolute;
+      content: "\e60d";
+      color: $main_green;
+    }
+  }
+
+  .hardware-box {
+    @include animation(splashing, .5s, 0, ease, 1);
+    display: none;
+    width: 100%;
+    margin-top: 50px;
+    cursor: pointer;
+
+    &.selected {
+
+      .hardware-box-data {
+        position: relative;
+        background-color: $main_green;
+
+        &:after {
+          @include font-general-icon(150px, 130px);
+          top: 40px;
+          right: 30px;
+          position: absolute;
+          content: "\e61e";
+          color: #fff;
+        }
+
+        .hardware-label {
+          color: $main_gray_txt;
+        }
+
+      }
+
+    }
+  }
+
+  .hardware-box-inner {
+    @include display-flex();
+    @include flex-flow(row wrap);
+    @include justify-content(space-between);
+  }
+
+  .hardware-box-view {
+    @include display-flex();
+    @include align-items(center);
+    @include justify-content(center);
+    width: 305px;
+    border-top-left-radius: $radius_profile-box;
+    border-bottom-left-radius: $radius_profile-box;
+    background-color: #fff;
+  }
+
+  .hardware-logo {
+    img {
+      max-width: 200px;
+    }
+  }
+
+  .hardware-box-data {
+    @include flex-grow(2);
+    padding: 35px;
+    border-top-right-radius: $radius_profile-box;
+    border-bottom-right-radius: $radius_profile-box;
+    background-color: #fff;
+  }
+
+  .hardware-data {
+    float: left;
+    margin-right: 45px;
+  }
+
+  .hardware-descr {
+    @include roboto-md(36px);
+    margin-bottom: 5px;
+    color: $main_gray_txt;
+  }
+
+  .hardware-brand {
+    @include roboto-lt(36px);
+    margin-bottom: 5px;
+    color: $main_gray_txt;
+  }
+
+  .hardware-label {
+    @include roboto-lt(22px);
+    color: #8c8c8c;
+  }
+
+}
+
+@include behavior-widening(show-config-panel, 0, 80%);
+@include behavior-splash(splashing, 0, 1.3, 1);
