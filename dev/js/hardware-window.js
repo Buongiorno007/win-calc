@@ -1,4 +1,4 @@
-/* globals STEP, showElementWithDelay, typingTextByChar, typingElementWithDelay */
+/* globals STEP, showElementWithDelay, typingElementWithDelay */
 
 (function ($) {
   'use strict';
