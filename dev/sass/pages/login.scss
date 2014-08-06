@@ -69,16 +69,17 @@ $img_logo: 'login/logo.png';
   border-radius: $radius_general-small_button;
   background: $error_color;
   &:before {
+    @include transform(rotate(45deg));
+
     position: absolute;
     top: 25px;
     left: -15px;
     display: block;
-    content: '';
-    border-radius: 5px;
     width: 40px;
     height: 40px;
+    border-radius: 5px;
     background-color: $error_color;
-    @include transform(rotate(45deg));
+    content: '';
   }
 }
 

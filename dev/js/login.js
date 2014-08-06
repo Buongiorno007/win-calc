@@ -13,15 +13,15 @@ app.controller('LoginCtrl', ['$scope', function ($scope, $http) {
     $scope.submitted = true;
 
     if (form.$valid) {
-//      $http.post('users.php', $scope.user)
-//        .success(function (respond) {
-//          console.log(respond);
-//          if (respond.success) {
-//            alert('Добро пожаловать');
-//          } else {
-//            alert('Нет такого пользователя');
-//          }
-//        });
+      //      $http.post('users.php', $scope.user)
+      //        .success(function (respond) {
+      //          console.log(respond);
+      //          if (respond.success) {
+      //            alert('Добро пожаловать');
+      //          } else {
+      //            alert('Нет такого пользователя');
+      //          }
+      //        });
     }
   };
 }]);
