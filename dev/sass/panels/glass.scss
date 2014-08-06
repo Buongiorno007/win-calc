@@ -7,121 +7,67 @@
 .glass-container {
   @extend .config-panel;
   @include animation(show-config-panel, .5s, 0, linear, 1);
-  overflow-y: auto;
-  overflow-x: hidden;
-
   .glass-block {
-    width: 98%;
-    padding: 50px 80px;
-    padding-right: 0;
-    border-bottom: 1px solid $main_gray_btn;
-
-    &.selected {
-      position: relative;
-
-      &:before {
-        @include top_left_coord(56, -27);
-        @include font-general-icon(90px, 60px);
-        position: absolute;
-        content: "\e612";
-        color: $main_green;
-      }
-    }
+    @extend .config-section;
   }
-
   .glass-block-header,
   .glass-block-footer {
     @include display-flex();
     @include flex-flow(row wrap);
     @include justify-content(flex-start);
   }
-  .glass-title {
-    @include roboto-bd(48px);
-    color: $main_gray_txt;
-  }
   .info {
     position: relative;
-
     &:before {
       @include top_left_coord(15, 15);
-      @include font-general-icon(50px, 50px);
+      @include font-general-icon(50px, 1);
+
       position: absolute;
-      content: "\e60d";
       color: $main_green;
+      content: '\e60d';
     }
   }
 
+
   .glass-block-footer {
+    //@include display-flex();
+    //@include flex-flow(row nowrap);
     min-width: 98%;
     height: 350px;
     margin-top: 50px;
     overflow-x: auto;
-    overflow-y: hidden;
+    margin-top: 50px;
   }
   .footer-inner {
-    min-width: 2000px;
+    @include display-flex();
   }
-
   .glass-box {
-    @include animation(splashing, .5s, 0, ease, 1);
-    display: none;
-    position: relative;
-    float: left;
     width: 515px;
+    min-width: 515px;
     height: 310px;
     margin-right: 50px;
-    padding: 45px;
-    border-radius: $radius_profile-box;
-    background-color: #fff;
-    cursor: pointer;
-
     &.selected {
       position: relative;
       background-color: $main_green;
 
+      .glass-type {
+        background-color: #57b23c;
+      }
       &:after {
         @include top_left_coord(40, 30);
-        @include font-general-icon(50px, 50px);
-        position: absolute;
-        content: "\e61e";
-        color: #fff;
       }
-
-      .glass-label {
-        color: $main_gray_txt;
-      }
-
-      .coef-index {
-        &:first-child {
-          background-color: #3db26a;
-        }
-        &:nth-child(2) {
-          background-color: #42b260;
-        }
-        &:nth-child(3) {
-          background-color: #4ab253;
-        }
-        &:nth-child(4) {
-          background-color: #51b247;
-        }
-        &:last-child {
-          background-color: #57b23c;
-        }
-      }
-
     }
   }
-
   .glass-box-view {
     @include display-flex();
     @include flex-flow(column wrap);
     @include justify-content(space-between);
-    float: left;
-    max-width: 150px;
-    overflow: hidden;
-    text-align: center;
 
-    .glass-label {
+    float: left;
+    overflow: hidden;
+    max-width: 150px;
+    text-align: center;
+    .label {
       max-width: 150px;
       word-wrap: break-word;
     }
@@ -131,118 +77,22 @@
       max-width: 150px;
     }
   }
-
   .glass-box-data {
     float: right;
+    width: 225px;
   }
-
   .glass-descr {
     @extend .truncated;
     @include roboto-md(36px);
-    max-width: 225px;
+
     margin-bottom: 50px;
     color: $main_gray_txt;
   }
-
-  .glass-label {
+  .label {
     @include roboto-lt(22px);
+
     color: #8c8c8c;
   }
-
-  .coef-level {
-    @include display-flex();
-    @include flex-flow(row wrap);
-    @include justify-content(flex-start);
-    margin-top: 10px;
-
-    &:first-child {
-      margin-top: 0;
-    }
-    &.level-1 {
-      .coef-index {
-        display: none;
-
-        &:first-child {
-          display: block;
-          border-top-right-radius: $radius_coef-index;
-          border-bottom-right-radius: $radius_coef-index;
-        }
-      }
-    }
-
-    &.level-2 {
-      .coef-index {
-        display: none;
-
-        &:first-child,
-        &:nth-child(2) {
-          display: block;
-        }
-        &:nth-child(2) {
-          border-top-right-radius: $radius_coef-index;
-          border-bottom-right-radius: $radius_coef-index;
-        }
-      }
-    }
-
-    &.level-3 {
-      .coef-index {
-        display: none;
-
-        &:first-child,
-        &:nth-child(2),
-        &:nth-child(3) {
-          display: block;
-        }
-        &:nth-child(3) {
-          border-top-right-radius: $radius_coef-index;
-          border-bottom-right-radius: $radius_coef-index;
-        }
-      }
-    }
-
-    &.level-4 {
-      .coef-index {
-        display: block;
-
-        &:nth-child(4) {
-          border-top-right-radius: $radius_coef-index;
-          border-bottom-right-radius: $radius_coef-index;
-        }
-        &:last-child {
-          display: none;
-        }
-      }
-    }
-
-  }
-
-  .coef-index {
-    width: 47px;
-    height: 25px;
-    margin-right: 2px;
-
-    &:first-child {
-      border-top-left-radius: $radius_coef-index;
-      border-bottom-left-radius: $radius_coef-index;
-      background-color: #55d995;
-    }
-    &:nth-child(2) {
-      background-color: #5bd883;
-    }
-    &:nth-child(3) {
-      background-color: #61d771;
-    }
-    &:nth-child(4) {
-      background-color: #68d55c;
-    }
-    &:last-child {
-      border-top-right-radius: $radius_coef-index;
-      border-bottom-right-radius: $radius_coef-index;
-      background-color: $main_green;
-    }
-  }
-
 }
 
 @include behavior-widening(show-config-panel, 0, 80%);
