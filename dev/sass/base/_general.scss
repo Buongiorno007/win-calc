@@ -31,6 +31,7 @@ body {
       width: $main_content-width-right_menu;
     }
   }
+  @include transition(transform 1s linear, width 1s linear);
 }
 
 .swiped {
@@ -58,6 +59,7 @@ body {
   overflow: hidden;
   width: $main_content-width;
   height: 100%;
+  @include transition(width 1s linear);
 }
 
 // Buttons
