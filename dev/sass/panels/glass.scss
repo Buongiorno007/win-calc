@@ -27,7 +27,14 @@
       content: '\e60d';
     }
   }
+
+
   .glass-block-footer {
+    //@include display-flex();
+    //@include flex-flow(row nowrap);
+    min-width: 98%;
+    height: 350px;
+    margin-top: 50px;
     overflow-x: auto;
     margin-top: 50px;
   }
@@ -40,6 +47,12 @@
     height: 310px;
     margin-right: 50px;
     &.selected {
+      position: relative;
+      background-color: $main_green;
+
+      .glass-type {
+        background-color: #57b23c;
+      }
       &:after {
         @include top_left_coord(40, 30);
       }

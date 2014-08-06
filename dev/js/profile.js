@@ -1,37 +1,33 @@
-/* globals STEP, showElementWithDelay, typingElementWithDelay */
+/* globals STEP, showElementWithDelay, typingTextByChar, typingElementWithDelay */
 
-// TODO: Код идентичен glass.js
 (function ($) {
-  'use strict';
-  var $profileContainer = $('.profile-container'),
-      $profileBlock = $profileContainer.find('.profile-block'),
-      $profileBox = $profileContainer.find('.profile-box'),
-      $profileHead = $profileContainer.find('.title'),
+    'use strict';
+    var $profileBlock = $('.profile-container .profile-block'),
+        $profileBox = $('.profile-container .profile-box'),
+        $profileHead = $('.profile-container .profile-header'),
 
-      selectProfileClass = 'selected',
+        selectedClass = 'selected',
 
-      DELAY_SHOW_PROFILES = 20 * STEP,
-      DELAY_SHOW_PROF,
-      prof;
+        DELAY_SHOW_PROFILES = 20 * STEP;
 
-  typingElementWithDelay($profileHead, DELAY_SHOW_PROFILES);
+    typingElementWithDelay($profileHead, DELAY_SHOW_PROFILES);
 
-  for (prof = 0; prof < $profileBox.length; prof++) {
-    DELAY_SHOW_PROF = DELAY_SHOW_PROFILES + prof * (STEP * 2);
-    showElementWithDelay($profileBox[prof], DELAY_SHOW_PROF);
-  }
+    for(var prof = 0; prof < $profileBox.length; prof++) {
+        var DELAY_SHOW_PROF = DELAY_SHOW_PROFILES + prof * 200;
+        showElementWithDelay($profileBox[prof], DELAY_SHOW_PROF);
+    }
 
 
-  // Select profile
-  $profileBox.click(function () {
-    $profileBlock.each(function () {
-      $(this).removeClass(selectProfileClass);
+    // Select profile
+    $profileBox.click(function(){
+        $profileBlock.each(function () {
+            $(this).removeClass(selectedClass);
+        });
+        $profileBox.each(function () {
+            $(this).removeClass(selectedClass);
+        });
+        $(this).closest('.profile-block').addClass(selectedClass);
+        $(this).addClass(selectedClass);
     });
-    $profileBox.each(function () {
-      $(this).removeClass(selectProfileClass);
-    });
-    $(this).closest('.profile-block').addClass(selectProfileClass);
-    $(this).addClass(selectProfileClass);
-  });
 
 })(jQuery);
