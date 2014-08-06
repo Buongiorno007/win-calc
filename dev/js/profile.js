@@ -2,9 +2,10 @@
 
 (function ($) {
   'use strict';
-  var $profileBlock = $('.profile-container .profile-block'),
-      $profileBox = $('.profile-container .profile-box'),
-      $profileHead = $('.profile-container .profile-header'),
+  var $profileContainer = $('.profile-container'),
+      $profileBlock = $profileContainer.find('.profile-block'),
+      $profileBox = $profileContainer.find('.profile-box'),
+      $profileHead = $profileContainer.find('.profile-header'),
 
       selectedClass = 'selected',
 
