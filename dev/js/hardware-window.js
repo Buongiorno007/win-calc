@@ -2,19 +2,21 @@
 
 (function ($) {
   'use strict';
-  var $hardwareBlock = $('.hardware-container .hardware-block'),
-      $hardwareBox = $('.hardware-container .hardware-box'),
-      $hardwareTitle = $('.hardware-container .hardware-title'),
-
+  var $hardwareContainer = $('.hardware-container'),
+      $hardwareBlock = $hardwareContainer.find('.hardware-block'),
+      $hardwareBox = $hardwareContainer.find('.hardware-box'),
+      $hardwareTitle = $hardwareContainer.find('.hardware-title'),
+      g,
       selectedClass = 'selected',
 
-      DELAY_SHOW_PROFILES = 20 * STEP;
+      DELAY_SHOW_BOX,
+      DELAY_SHOW_HW_BOX = 20 * STEP;
 
   typingElementWithDelay($hardwareTitle, STEP);
 
-  for(var g = 0; g < $hardwareBox.length; g++) {
-    var DELAY_SHOW_PROF = DELAY_SHOW_PROFILES + g * 200;
-    showElementWithDelay($hardwareBox[g], DELAY_SHOW_PROF);
+  for(g = 0; g < $hardwareBox.length; g++) {
+    DELAY_SHOW_BOX = DELAY_SHOW_HW_BOX + g * 2 * STEP;
+    showElementWithDelay($hardwareBox[g], DELAY_SHOW_BOX);
   }
 
   // Select hardware

@@ -5,8 +5,6 @@
 @import '../base/sizes';
 @import '../base/colors';
 
-$img_avatar: 'userPhoto.png';
-
 .user-info-container {
   @include display-flex();
   @include flex-flow(row wrap);
@@ -16,19 +14,8 @@ $img_avatar: 'userPhoto.png';
   position: absolute;
   width: 100%;
   .nav-menu-btn {
-    @extend .button;
-    @extend .icon-setting;
-    @include font-general-icon(50px, 1);
+    @extend .menu-btn;
 
-    width: 60px;
-    height: 60px;
-    margin: 0;
-    padding: 0;
-    background: transparent;
-    &:before {
-      color: $main_orange;
-      content: $menu-icon;
-    }
     &.show-navmenu {
       @include animation(show-navmenu-btn, .5s, 0, ease, 1);
       @include rotate(90deg);
@@ -41,13 +28,10 @@ $img_avatar: 'userPhoto.png';
       @include animation(move-nav-btn, 1s, 0, ease, 1);
     }
   }
-  .avatar {
-    @include animation(splashing, .5s, 0, ease, 1);
+  .user-foto {
+    @extend .avatar;
 
-    width: image-width($img_avatar);
-    height: image-height($img_avatar);
     margin: 0 20px;
-    background: image-url($img_avatar) no-repeat;
   }
   .icon-location {
     @include animation(splashing, .5s, 0, ease, 1);

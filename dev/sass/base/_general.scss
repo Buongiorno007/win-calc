@@ -60,6 +60,20 @@ body {
   height: 100%;
 }
 
+// Icons setting
+.icon-setting {
+  font-weight: normal;
+  font-style: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-transform: none;
+
+  speak: none;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 // Buttons
 
 .button {
@@ -104,6 +118,22 @@ body {
   background-color: $main_orange;
 }
 
+.menu-btn {
+  @extend .button;
+  @extend .icon-setting;
+  @include font-general-icon(50px, 1);
+
+  width: 60px;
+  height: 60px;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  &:before {
+    color: $main_orange;
+    content: $menu-icon;
+  }
+}
+
 // shorten the text
 
 .truncated {
@@ -121,21 +151,17 @@ body {
   }
 }
 
-// Icons setting
-.icon-setting {
-  font-weight: normal;
-  font-style: normal;
-  font-variant: normal;
-  line-height: 1;
-  text-transform: none;
+// User avatar
+.avatar {
+  @include animation(splashing, .5s, 0, ease, 1);
 
-  speak: none;
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  width: image-width($img_avatar);
+  height: image-height($img_avatar);
+  background: image-url($img_avatar) no-repeat;
 }
 
 // Configuration Panels
+
 .config-panel {
   @include top_left_coord(0, 0);
 
