@@ -4,7 +4,7 @@
   'use strict';
   var $glassContainer = $('.glass-container'),
       $glassBlock = $glassContainer.find('.glass-block'),
-      $glassFooterInner = $glassContainer.find('.footer-inner'),
+//      $glassFooterInner = $glassContainer.find('.footer-inner'),
       $glassBox = $glassContainer.find('.box'),
       $glassTitle = $glassContainer.find('.title'),
 
