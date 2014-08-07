@@ -3,67 +3,71 @@ block pageTitle
   - var pageTitle = 'Login'
 block prepend body
   body
-    section.setting-page
-      .setting-header
-        button.setting-back
-        .setting-title(name="Настройки")
-          //button.setting-save Сохранить
+    section.settings.setting-page
+      .header
+        button.back
+        .title(name="Настройки")
+          //button.save. Сохранить
 
       .setting-container
         .setting-user-foto
           .change-foto Изменить
 
-        .setting-lists
-          ul.setting-list
-            li.setting-item
+        .lists
+          ul.list
+            li.item
               .divider(name="Авторизация:")
-            li.setting-item
+            li.item
               .setting-item-label(name="+38 (066) 322-3334")
-            li.setting-item.click
+            li.item.click
               .setting-item-label(name="**********")
               .setting-item-change(name="Изменить пароль")
 
-          ul.setting-list
-            li.setting-item
+          ul.list
+            li.item
               .divider(name="Личная информация:")
-            li.setting-item.click
+            li.item.click
               .setting-item-label(name="Контактное лицо")
               .setting-item-data(name="John Appleseed")
+              input.set-input-txt.new
               .setting-item-change
-            li.setting-item.click
+            li.item.click
               .setting-item-label(name="Город")
               .setting-item-data(name="Ивано-Франковск, Ивано-Франковская обл., Украина Ивано-Франковск, Ивано-Франковская обл.,")
+              input.set-input-txt.new
               .setting-item-change
-            li.setting-item.click
+            li.item.click
               .setting-item-label(name="Адрес")
               .setting-item-data(name="John Appleseed")
+              input.set-input-txt.new
               .setting-item-change
-            li.setting-item.click
+            li.item.click
               .setting-item-label(name="Электронная почта")
               .setting-item-data(name="John Appleseed")
+              input.set-input-txt.new
               .setting-item-change
 
-          ul.setting-list
-            li.setting-item
+          ul.list
+            li.item
               .divider(name="Дополнительные телефоны:")
-            li.setting-item
+            li.item
               button.phone-btn.delete-phone
               .setting-item-label(name="+38 (066) 322-3334")
-            li.setting-item
+            li.item
               button.phone-btn.delete-phone
               .setting-item-label(name="+38 (066) 322-3334")
-            li.setting-item
+            li.item
               button.phone-btn.add-phone
               .setting-item-label(name="Добавить телефон")
 
 
-          ul.setting-list
-            li.setting-item.click
+          ul.list
+            li.item.click
               .setting-item-data(name="Голосовой помошник")
               .setting-item-change
-            li.setting-item.click
+            li.item.click
               .setting-item-data(name="Подержка пользователей")
               .setting-item-change
-            li.setting-item.click
+            li.item.click
               .setting-item-data(name="Голосовой помошник")
               .setting-item-change
