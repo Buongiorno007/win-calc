@@ -11,7 +11,6 @@
   width: 100%;
   .nav-menu-btn {
     @extend .menu-btn;
-
     &.show-navmenu {
       @include animation(show-navmenu-btn .5s 0 ease 1);
       @include rotate(90deg);
@@ -31,10 +30,10 @@
   }
   .icon-location {
     @include animation(splashing .5s 0 ease 1);
-    display: none;
-    position: relative;
-    width: 35px;
 
+    position: relative;
+    display: none;
+    width: 35px;
     &:before {
       @extend .icon-setting;
       @include font-general-icon(30px, 1);
@@ -46,7 +45,6 @@
       content: $geolocation_filled-icon;
     }
   }
-
   .user-info-block {
     text-align: center;
   }

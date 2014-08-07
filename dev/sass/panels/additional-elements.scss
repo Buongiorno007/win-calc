@@ -247,12 +247,12 @@
 
 .aux-fan-img {
   @include top_left_coord(0, 0);
+  @include animation(move-fan 2s ease 1, rot-fan 1s 2s ease 1);
 
   position: absolute;
   width: 114px;
   height: 120px;
   background: image-url('auxiliaries/fan.png') no-repeat;
-  @include animation(move-fan 2s ease 1, rot-fan 1s 2s ease 1);
 }
 
 @include behavior-move(move-fan, 0px, 2000px, 0, 0);

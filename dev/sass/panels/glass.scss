@@ -24,14 +24,13 @@
       content: '\e60d';
     }
   }
-
   .glass-block-footer {
+    overflow-x: auto;
     //@include display-flex();
     //@include flex-flow(row nowrap);
     min-width: 98%;
     height: 350px;
     margin-top: 50px;
-    overflow-x: auto;
   }
   .footer-inner {
     @include display-flex();
@@ -44,7 +43,6 @@
     &.selected {
       position: relative;
       background-color: $main_green;
-
       .glass-type {
         background-color: #57b23c;
       }
