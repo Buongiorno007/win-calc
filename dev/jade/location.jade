@@ -1,0 +1,19 @@
+extend _template
+block pageTitle
+  - var pageTitle = 'Login'
+block prepend body
+  body
+    section.settings.location-page
+      .header
+        button.back
+        .location-current(name="Днепропетровск")
+        button.save Отмена
+      .location-container
+        .lists
+          ul.list
+            li.item.click
+              .location-label(name="Днепропетровск, Лнепропетровская область, Украина")
+            li.item.click
+              .location-label(name="Днепропетровск, Лнепропетровская область, Украина")
+            li.item.click
+              .location-label(name="Днепропетровск, Лнепропетровская область, Украина")

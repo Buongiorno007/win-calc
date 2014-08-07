@@ -1,10 +1,10 @@
-/* globals STEP, typingTextByChar, showElementWithDelay, typingElementWithDelay, showElementWithDelay */
+/* globals STEP, typingTextByChar, showElementWithDelay, typingElementWithDelay */
 
 (function ($) {
   'use strict';
   var $setPage = $('.setting-page'),
-      $setList = $setPage.find('.setting-list'),
-      $setTitle = $setPage.find('.setting-title'),
+      $setTitle = $setPage.find('.title'),
+      $setList = $setPage.find('.list'),
       $setListDivider = $setPage.find('.divider'),
       $setListLabel = $setPage.find('.setting-item-label'),
       $setListData = $setPage.find('.setting-item-data'),

@@ -10,11 +10,12 @@ function typingTextByChar($textElem1, $textElem2) {
       delay = 100,
       timerId;
 
-  if (source.length) {
+  if (source !== undefined && source.length) {
     timerId = setInterval(function () {
       var hasChar = newText.length < source.length;
 
-      newText = this.buildTypingText(newText, source);
+      //newText = this.buildTypingText(newText, source);
+      newText = buildTypingText(newText, source);
       $textElem1.text(newText);
 
       if (!hasChar) {
@@ -27,12 +28,13 @@ function typingTextByChar($textElem1, $textElem2) {
     }, delay);
   }
 
-  this.buildTypingText = function (currentTxt, sourceTxt) {
+  //this.buildTypingText = function (currentTxt, sourceTxt) {
+  function buildTypingText (currentTxt, sourceTxt) {
     if (currentTxt.length < sourceTxt.length) {
       currentTxt += sourceTxt[currentTxt.length];
       return currentTxt;
     }
-  };
+  }
 }
 
 // TODO: Переделать в виде плагина, с возможностью передачи в scroll() цены в качестве аргумента
@@ -43,8 +45,8 @@ function createPrice($price) {
       priceNumberByDigit = price.split(''),
       digit, digitCell, scrollDigitY,
       i, n;
-
-  this.init = function () {
+  //this.init = function () {
+  function init () {
     for (i = 0; i < priceNumberByDigit.length; i++) {
       digit = priceNumberByDigit[i];
 
@@ -59,9 +61,10 @@ function createPrice($price) {
       }
       $price.append(digitCell);
     }
-  };
+  }
 
-  this.scroll = function () {
+  //this.scroll = function () {
+  function scroll () {
     var digitCells = $price.children(),
         $digitCell;
 
@@ -79,10 +82,12 @@ function createPrice($price) {
         .delay(i * DELAY_PRICE_DIGIT)
         .animate({ top: -scrollDigitY }, 'slow');
     }
-  };
+  }
 
-  this.init();
-  this.scroll();
+  //this.init();
+  //this.scroll();
+  init();
+  scroll();
 }
 
 function showElementWithDelay(obj, delay) {

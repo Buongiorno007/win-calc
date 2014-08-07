@@ -8,6 +8,9 @@
   width: 100%;
   height: 100%;
   background-color: #0f0f0f;
+  .back {
+    @extend .menu-btn;
+  }
 }
 
 .setting-header {
@@ -73,13 +76,8 @@
     overflow-y: auto;
   }
 
-  .setting-list {
-    display: none;
-    width: 100%;
-    list-style: none;
-    margin: 0;
+  .list {
     margin-top: 50px;
-    padding: 0;
 
     &:first-child {
       margin-top: -30px;
@@ -87,23 +85,9 @@
     &:last-child {
       margin-top: 90px;
 
-      .setting-item:first-child {
+      .item:first-child {
         border-top: 1px solid #222;
       }
-    }
-  }
-  .setting-item {
-    @include display-flex();
-    @include flex-flow(row nowrap);
-    @include justify-content(flex-start);
-    @include align-items(center);
-
-    position: relative;
-    width: 100%;
-    border-bottom: 1px solid #222;
-
-    &.click {
-      cursor: pointer;
     }
   }
 

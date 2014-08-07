@@ -9,11 +9,24 @@
 
 // PLUGINS
 
+// PARTS
+@import 'parts/loader';
+@import 'parts/user-info';
+@import 'parts/room-info';
+@import 'parts/rooms-selector';
+@import 'parts/settings-panel';
+@import 'parts/config-panel';
 
 // PAGES
 @import 'pages/login';
 @import 'pages/main';
 @import 'pages/settings';
+@import 'pages/change-pass';
+@import 'pages/location';
+
+// MENUS
+@import 'menus/navigation-menu';
+@import 'menus/config-menu';
 
 // PANELS
 @import 'panels/template-selector';
@@ -22,13 +35,3 @@
 @import 'panels/hardware-window';
 @import 'panels/lamination';
 @import 'panels/additional-elements';
-
-// MENUS
-@import 'menus/navigation-menu';
-@import 'menus/config-menu';
-
-// PARTS
-@import 'parts/loader';
-@import 'parts/user-info';
-@import 'parts/room-info';
-@import 'parts/rooms-selector';
