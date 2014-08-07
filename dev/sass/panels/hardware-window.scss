@@ -1,13 +1,9 @@
 @import 'compass/css3';
-@import '../base/fonts';
-@import '../base/mixins';
-@import '../base/sizes';
-@import '../base/colors';
-@import '../base/icons';
+@import '../base/base';
 
 .hardware-container {
   @extend .config-panel;
-  @include animation(show-config-panel, .5s, 0, linear, 1);
+  @include animation(show-config-panel .5s 0 linear 1);
   overflow-y: auto;
   overflow-x: hidden;
 
@@ -42,7 +38,7 @@
   }
 
   .hardware-box {
-    @include animation(splashing, .5s, 0, ease, 1);
+    @include animation(splashing .5s 0 ease 1);
     display: none;
     position: relative;
     width: 100%;

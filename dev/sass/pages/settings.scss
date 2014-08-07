@@ -1,8 +1,5 @@
 @import 'compass/css3';
-@import '../base/colors';
-@import '../base/mixins';
-@import '../base/fonts';
-@import '../base/sizes';
+@import '../base/base';
 
 
 .setting-page {
@@ -27,7 +24,7 @@
 .setting-back {
   @extend .menu-btn;
   @include top_left_coord(15, 0);
-  @include animation(splashing, .5s, 0, ease, 1);
+  @include animation(splashing .5s 0 ease 1);
 
   position: absolute;
 }
@@ -38,7 +35,7 @@
 /*
 .setting-save {
   @extend .middle-button;
-  @include animation(splashing, .5s, 0, ease, 1);
+  @include animation(splashing .5s 0 ease 1);
 
   height: 70px;
   padding: 0 28px;

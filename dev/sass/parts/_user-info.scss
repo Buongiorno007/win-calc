@@ -1,9 +1,5 @@
 @import 'compass/css3';
-@import '../base/fonts';
-@import '../base/icons';
-@import '../base/mixins';
-@import '../base/sizes';
-@import '../base/colors';
+@import '../base/base';
 
 .user-info-container {
   @include display-flex();
@@ -17,15 +13,15 @@
     @extend .menu-btn;
 
     &.show-navmenu {
-      @include animation(show-navmenu-btn, .5s, 0, ease, 1);
+      @include animation(show-navmenu-btn .5s 0 ease 1);
       @include rotate(90deg);
     }
     &.hide-navmenu {
-      @include animation(hide-navmenu-btn, .5s, 0, ease, 1);
+      @include animation(hide-navmenu-btn .5s 0 ease 1);
       @include rotate(0deg);
     }
     &.move-btn {
-      @include animation(move-nav-btn, 1s, 0, ease, 1);
+      @include animation(move-nav-btn 1s 0 ease 1);
     }
   }
   .user-foto {
@@ -34,7 +30,7 @@
     margin: 0 20px;
   }
   .icon-location {
-    @include animation(splashing, .5s, 0, ease, 1);
+    @include animation(splashing .5s 0 ease 1);
     display: none;
     position: relative;
     width: 35px;

@@ -1,9 +1,5 @@
 @import 'compass/css3';
-@import '../base/fonts';
-@import '../base/icons';
-@import '../base/mixins';
-@import '../base/sizes';
-@import '../base/colors';
+@import '../base/base';
 
 .nav-menu {
   @include display-flex();
@@ -25,7 +21,7 @@
     padding: 0;
     list-style: none;
     &.move {
-      @include animation(move-navmenu-list, 1s, 0, ease, 1);
+      @include animation(move-navmenu-list 1s 0 ease 1);
     }
   }
   .item {
@@ -95,7 +91,7 @@
     content: $settings-icon;
   }
   .icon-splash {
-    @include animation(splashing, .5s, 0, ease, 1);
+    @include animation(splashing .5s 0 ease 1);
   }
   .title {
     @extend .truncated;

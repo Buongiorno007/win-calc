@@ -1,12 +1,9 @@
 @import 'compass/css3';
-@import '../base/fonts';
-@import '../base/mixins';
-@import '../base/sizes';
-@import '../base/colors';
+@import '../base/base';
 
 .profile-container {
   @extend .config-panel;
-  @include animation(show-config-panel, .5s, 0, linear, 1);
+  @include animation(show-config-panel .5s 0 linear 1);
   .profile-block {
     @extend .config-section;
   }

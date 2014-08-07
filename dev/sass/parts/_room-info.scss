@@ -1,8 +1,5 @@
 @import 'compass/css3';
-@import '../base/fonts';
-@import '../base/mixins';
-@import '../base/sizes';
-@import '../base/colors';
+@import '../base/base';
 
 .room-info-container {
   position: absolute;
@@ -11,7 +8,7 @@
   width: 100%;
   .room-header {
     @include top_left_coord(0, 0);
-    @include animation(moveRoomHeader, 1s, 0, ease, 1);
+    @include animation(moveRoomHeader 1s 0 ease 1);
 
     position: absolute;
     padding-left: 50px;
@@ -33,7 +30,7 @@
     @include display-flex();
     @include flex-flow(row wrap);
     @include top_left_coord(230, 0);
-    @include animation(moveCoeff, 1s, 0, ease, 1);
+    @include animation(moveCoeff 1s 0 ease 1);
 
     position: absolute;
     width: 100%;
