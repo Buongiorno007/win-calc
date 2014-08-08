@@ -1,8 +1,3 @@
-@import 'compass/css3';
-@import '../base/colors';
-@import '../base/mixins';
-@import '../base/fonts';
-
 .settings {
   @include display-flex();
   @include flex-flow(column nowrap);

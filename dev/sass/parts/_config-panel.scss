@@ -1,11 +1,3 @@
-@import 'compass/css3';
-@import '../base/colors';
-@import '../base/mixins';
-@import '../base/fonts';
-@import '../base/sizes';
-
-// Configuration Panels
-
 .config-panel {
   @include top_left_coord(0, 0);
 

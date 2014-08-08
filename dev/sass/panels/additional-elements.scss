@@ -1,9 +1,6 @@
 // TODO: Проверить координаты
 // TODO: Вынести анимацию в отдельные классы
 // TODO: Добавить состояния для контейнеров (focused, selected)
-@import 'compass/css3';
-@import '../base/base';
-
 .auxiliaries-container {
   @extend .config-panel;
   @include animation(move-aux-container .5s 0 linear 1);
