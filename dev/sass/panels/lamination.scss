@@ -1,7 +1,6 @@
 .lamination-container {
-  @extend .config-panel;
-  @include animation(show-config-panel .5s 0 linear 1);
-
+  //display: none;
+  overflow-y: auto;
   overflow-x: hidden;
   overflow-y: auto;
   padding: 50px 80px;
@@ -72,5 +71,5 @@
   }
 }
 
-@include behavior-widening(show-config-panel, 0, 80%);
+//@include behavior-widening(show-config-panel, 0, 80%);
 @include behavior-splash(splashing, 0, 1.3, 1);
