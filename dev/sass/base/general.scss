@@ -1,8 +1,5 @@
 @import 'compass/css3';
-@import 'sizes';
-@import 'fonts';
-@import 'mixins';
-@import 'colors';
+@import 'base';
 
 * {
   @include box-sizing(border-box);
@@ -22,6 +19,7 @@ body {
 
 .page-container {
   @include display-flex();
+  @include transition(transform 1s linear, width 1s linear);
 
   width: $page_container-width;
   height: 100%;
@@ -31,7 +29,6 @@ body {
       width: $main_content-width-right_menu;
     }
   }
-  @include transition(transform 1s linear, width 1s linear);
 }
 
 .swiped {
@@ -55,11 +52,12 @@ body {
 }
 
 .main-content {
+  @include transition(width 1s linear);
+
   position: relative;
   overflow: hidden;
   width: $main_content-width;
   height: 100%;
-  @include transition(width 1s linear);
 }
 
 // Icons setting
@@ -155,10 +153,9 @@ body {
 
 // User avatar
 .avatar {
-  @include animation(splashing, .5s, 0, ease, 1);
+  @include animation(splashing .5s 0 ease 1);
 
   width: image-width($img_avatar);
   height: image-height($img_avatar);
   background: image-url($img_avatar) no-repeat;
 }
-

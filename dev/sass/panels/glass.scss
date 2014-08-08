@@ -1,8 +1,5 @@
 @import 'compass/css3';
-@import '../base/fonts';
-@import '../base/mixins';
-@import '../base/sizes';
-@import '../base/colors';
+@import '../base/base';
 
 .glass-container {
   //@include animation(show-config-panel, .5s, 0, linear, 1);
@@ -29,15 +26,12 @@
       content: '\e60d';
     }
   }
-
-
   .glass-block-footer {
+    overflow-x: auto;
     //@include display-flex();
     //@include flex-flow(row nowrap);
     min-width: 98%;
     height: 350px;
-    margin-top: 50px;
-    overflow-x: auto;
     margin-top: 50px;
   }
   .footer-inner {
@@ -51,7 +45,6 @@
     &.selected {
       position: relative;
       background-color: $main_green;
-
       .glass-type {
         background-color: #57b23c;
       }
