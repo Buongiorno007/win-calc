@@ -9,14 +9,28 @@
 .config-panel {
   @include top_left_coord(0, 0);
 
+  display: none;
   position: relative;
   z-index: 10;
   overflow-x: hidden;
   overflow-y: auto;
-  //  display: none;
   height: 100%;
   background: rgba(#fff, .9);
+
+  &.show {
+    @include animation(show-config-panel, .5s, 0, linear, 1);
+    display: block;
+  }
+
+  &.hide {
+    @include animation(hide-config-panel, .5s, 0, linear, 1);
+    display: block;
+  }
 }
+
+@include behavior-widening(show-config-panel, 0, 80%);
+@include behavior-widening(hide-config-panel, 80%, 0);
+
 .config-section {
   width: 98%;
   padding: 50px 0 50px 80px;

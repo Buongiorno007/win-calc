@@ -1,21 +1,21 @@
 .menu.config-menu
   ul.items-list
-    li.item.item-header
+    li.item.item-header(data-panel="template-container")
       .title(name="Конфигурация и размеры")
       .icon
       .name(name="ширина * высота -")
       .value(name="1060000 мм*")
       .value(name="1320000 мм")
-    li.item
+    li.item(data-panel="profile-container")
       .title(name="Профиль")
       .value(name="Окошко S58")
-    li.item
+    li.item(data-panel="glass-container")
       .title(name="Стеклопакет")
       .value(name="4/16/4")
-    li.item
+    li.item(data-panel="hardware-container")
       .title(name="Фурнитура")
       .value(name="Длинный текст, который не влезет в строку")
-    li.item
+    li.item(data-panel="lamination-container")
       .title(name="Ламинация")
       .row
         .name(name="фасад")
@@ -23,7 +23,7 @@
       .row
         .name(name="в комнате")
         .value(name="Длинный текст, который не влезет в строку")
-    li.item
+    li.item(data-panel="auxiliaries-container")
       .title(name="Дополнительно")
       ul.additional-items-list
         li.additional-item

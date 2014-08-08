@@ -7,11 +7,10 @@
 @import '../base/fonts';
 
 .auxiliaries-container {
-  @extend .config-panel;
-  @include animation(move-aux-container, .5s, 0, linear, 1);
+  //@include animation(move-aux-container, .5s, 0, linear, 1);
 }
 
-@include behavior-widening(move-aux-container, 0, 80%);
+//@include behavior-widening(move-aux-container, 0, 80%);
 
 .auxiliary-item {
   position: absolute;
