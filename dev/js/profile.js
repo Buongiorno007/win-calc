@@ -1,21 +1,23 @@
 /* globals STEP, showElementWithDelay, typingTextByChar, typingElementWithDelay */
 
-(function ($) {
+function initProfileContainer() {
+//(function ($) {
   'use strict';
   var $profileContainer = $('.profile-container'),
       $profileBlock = $profileContainer.find('.profile-block'),
       $profileBox = $profileContainer.find('.profile-box'),
-      $profileHead = $profileContainer.find('.profile-header'),
+      $profileTitle = $profileContainer.find('.title'),
 
       selectedClass = 'selected',
 
-      DELAY_SHOW_PROFILES = 20 * STEP;
+      DELAY_SHOW_PROFILES = 5 * STEP,
+      prof, DELAY_SHOW_PROF;
 
-  typingElementWithDelay($profileHead, DELAY_SHOW_PROFILES);
+  typingElementWithDelay($profileTitle, DELAY_SHOW_PROFILES);
 
-  for (var prof = 0; prof < $profileBox.length; prof++) {
-    var DELAY_SHOW_PROF = DELAY_SHOW_PROFILES + prof * 200;
-    showElementWithDelay($profileBox[prof], DELAY_SHOW_PROF);
+  for (prof = 0; prof < $profileBox.length; prof++) {
+    DELAY_SHOW_PROF = DELAY_SHOW_PROFILES + prof * 200;
+    showElementWithDelay($profileBox[prof], 'flex', DELAY_SHOW_PROF);
   }
 
 
@@ -30,4 +32,6 @@
     $(this).closest('.profile-block').addClass(selectedClass);
     $(this).addClass(selectedClass);
   });
-})(jQuery);
+
+  //})(jQuery);
+}

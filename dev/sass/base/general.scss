@@ -1,5 +1,5 @@
 @import 'compass/css3';
-@import 'base';
+//@import 'base';
 
 * {
   @include box-sizing(border-box);
@@ -153,7 +153,7 @@ body {
 
 // User avatar
 .avatar {
-  @include animation(splashing .5s 0 ease 1);
+  @extend .splash;
 
   width: image-width($img_avatar);
   height: image-height($img_avatar);

@@ -11,7 +11,7 @@
       DELAY_SHOW_PSW = 10 * STEP;
 
   typingTextByChar($pswTitle);
-  showElementWithDelay($pswList, DELAY_SHOW_PSW);
+  showElementWithDelay($pswList, 'block', DELAY_SHOW_PSW);
   typingElementWithDelay($pswLabel, DELAY_SHOW_PSW);
   typingElementWithDelay($pswData, DELAY_SHOW_PSW);
 

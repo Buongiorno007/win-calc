@@ -44,6 +44,8 @@
       DELAY_SHOW_AUX_CHOOSEBUTTON = STEP * 50,
       DELAY_SHOW_AUX_LABEL = STEP * 50;
 
+  function initAuxContainer() {}
+
   //  showElementWithDelay($auxContainer, DELAY_SHOW_AUX_CONTAINER);
   showElementWithDelay($auxGrid, DELAY_SHOW_AUX_GRID);
   showElementWithDelay($auxVisor, DELAY_SHOW_AUX_VISOR);
@@ -69,6 +71,7 @@
       typingTextByChar($(this));
     });
   }, DELAY_SHOW_AUX_LABEL);
+
 
   //------Select additional element
   // TODO: Переделать на назначение класса родителю

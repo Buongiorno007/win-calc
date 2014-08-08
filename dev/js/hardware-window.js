@@ -1,26 +1,27 @@
 /* globals STEP, showElementWithDelay, typingElementWithDelay */
 
-(function ($) {
+function initHardwareContainer() {
+  //(function ($) {
   'use strict';
   var $hardwareContainer = $('.hardware-container'),
       $hardwareBlock = $hardwareContainer.find('.hardware-block'),
       $hardwareBox = $hardwareContainer.find('.hardware-box'),
       $hardwareTitle = $hardwareContainer.find('.hardware-title'),
-      g,
+
       selectedClass = 'selected',
+      DELAY_SHOW_HW_BOX = 5 * STEP,
+      g, DELAY_SHOW_BOX;
 
-      DELAY_SHOW_BOX,
-      DELAY_SHOW_HW_BOX = 20 * STEP;
 
-  typingElementWithDelay($hardwareTitle, STEP);
+    typingElementWithDelay($hardwareTitle, STEP);
 
-  for(g = 0; g < $hardwareBox.length; g++) {
-    DELAY_SHOW_BOX = DELAY_SHOW_HW_BOX + g * 2 * STEP;
-    showElementWithDelay($hardwareBox[g], DELAY_SHOW_BOX);
-  }
+    for (g = 0; g < $hardwareBox.length; g++) {
+      DELAY_SHOW_BOX = DELAY_SHOW_HW_BOX + g * 2 * STEP;
+      showElementWithDelay($hardwareBox[g], 'block', DELAY_SHOW_BOX);
+    }
 
   // Select hardware
-  $hardwareBox.click(function(){
+  $hardwareBox.click(function () {
     $hardwareBlock.each(function () {
       $(this).removeClass(selectedClass);
     });
@@ -31,6 +32,6 @@
     $(this).addClass(selectedClass);
   });
 
-
-})(jQuery);
+  //})(jQuery);
+}
 

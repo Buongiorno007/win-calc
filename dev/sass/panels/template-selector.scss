@@ -1,15 +1,14 @@
 @import 'compass/css3';
-@import '../base/base';
+//@import '../base/base';
 
 .template-container {
-  display: none;
   padding: 50px;
   .template-title {
+    @extend .splash;
     @include roboto-lt(80px, 80px);
-    @include animation(splashing .5s 0 ease 1);
 
     position: relative;
-    display: block;
+    display: none;
     width: 236px;
     height: 92px;
     margin: 0 auto 30px auto;
@@ -19,9 +18,14 @@
     border-radius: 16px;
     background-color: transparent;
     cursor: pointer;
-    &.active {
+    &.selected {
       color: #fff;
       background-color: $main_green;
+
+      .window-type {
+        display: block;
+        @include display-flex();
+      }
     }
   }
   .window-type {
@@ -29,8 +33,8 @@
     @include flex-flow(row nowrap);
     @include roboto-lt(36px, 72px);
     @include top_left_coord(-30, 170);
-    //display: none;
 
+    display: none;
     position: absolute;
     white-space: nowrap;
     color: #fff;
@@ -76,9 +80,9 @@
   }
   .template-edit {
     @extend .big-button;
-    @include animation(splashing .5s 0 ease 1);
+    @extend .splash;
 
-    display: block;
+    display: none;
     width: 462px;
     height: 112px;
     margin: 0 auto 30px auto;
@@ -87,9 +91,9 @@
   }
   .template-default {
     @extend .middle-button;
-    @include animation(splashing .5s 0 ease 1);
+    @extend .splash;
 
-    display: block;
+    display: none;
     width: 318px;
     height: 72px;
     margin: 0 auto;
@@ -123,8 +127,9 @@
     cursor: pointer;
   }
   .other-template-img {
-    @include animation(splashing .5s 0 ease 1);
+    @extend .splash;
 
+    display: none;
     text-align: center;
     img {
       max-height: 123px;
@@ -150,5 +155,4 @@
   }
 }
 
-//@include behavior-widening(show-config-panel, 0, 80%);
-@include behavior-splash(splashing, 0, 1.3, 1);
+//@include behavior-splash(splashing, 0, 1.3, 1);

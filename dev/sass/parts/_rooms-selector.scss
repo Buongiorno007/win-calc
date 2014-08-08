@@ -1,5 +1,5 @@
 @import 'compass/css3';
-@import '../base/base';
+//@import '../base/base';
 
 .rooms-selector-dialog {
   @include display-flex();
@@ -53,7 +53,7 @@
     }
   }
   .room-img {
-    @include animation(splashing .5s 0 ease 1);
+    @extend .splash;
 
     position: relative;
     display: none;

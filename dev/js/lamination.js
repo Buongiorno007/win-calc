@@ -1,6 +1,7 @@
 /* globals STEP, showElementWithDelay, typingElementWithDelay */
 
-(function ($) {
+function initLaminationContainer() {
+//(function ($) {
   'use strict';
 
   var lamBlockClass = '.lamination-block',
@@ -14,31 +15,29 @@
       $lamTitle = $lamContainer.find('.lamination-title'),
       $lamWhiteLabel = $lamContainer.find('.for-white'),
       $lamImg = $lamContainer.find(lamImgClass),
-      $lamBoxLabel,
-      $lamImgParent,
-      w, l,
+      $lamBoxLabel, $lamImgParent, w, l,
 
       DELAY_SHOW_WHITE_BOX,
       DELAY_SHOW_IMG_BOX,
-      DELAY_SHOW_LAMINATION = 10 * STEP;
+      DELAY_SHOW_LAMINATION = 5 * STEP;
 
   typingElementWithDelay($lamTitle, DELAY_SHOW_LAMINATION);
   typingElementWithDelay($lamWhiteLabel, DELAY_SHOW_LAMINATION);
 
-  for(w = 0; w < $lamWhiteBox.length; w++) {
+  for (w = 0; w < $lamWhiteBox.length; w++) {
     DELAY_SHOW_WHITE_BOX = DELAY_SHOW_LAMINATION + w * 2 * STEP;
-    showElementWithDelay($lamWhiteBox[w], DELAY_SHOW_WHITE_BOX);
+    showElementWithDelay($lamWhiteBox[w], 'block', DELAY_SHOW_WHITE_BOX);
   }
 
-  for(l = 0; l < $lamOptionBox.length; l++) {
+  for (l = 0; l < $lamOptionBox.length; l++) {
     DELAY_SHOW_IMG_BOX = DELAY_SHOW_LAMINATION + l * 2 * STEP;
     $lamBoxLabel = $($lamOptionBox[l]).find(lamLabelClass);
-    showElementWithDelay($lamOptionBox[l], DELAY_SHOW_IMG_BOX);
+    showElementWithDelay($lamOptionBox[l],  'block', DELAY_SHOW_IMG_BOX);
     typingElementWithDelay($lamBoxLabel, DELAY_SHOW_IMG_BOX);
   }
 
   // Select lamination
-  $lamImg.click(function(){
+  $lamImg.click(function () {
     $lamImgParent = $(this).closest(lamBlockClass);
     $lamImgParent.find(lamImgClass).each(function () {
       $(this).removeClass(selectedClass);
@@ -46,6 +45,7 @@
     $(this).addClass(selectedClass);
   });
 
-})(jQuery);
+  //})(jQuery);
+}
 
 

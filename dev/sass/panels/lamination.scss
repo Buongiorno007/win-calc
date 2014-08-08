@@ -1,11 +1,9 @@
 @import 'compass/css3';
-@import '../base/base';
+//@import '../base/base';
 
 .lamination-container {
-  //display: none;
   overflow-y: auto;
   overflow-x: hidden;
-  overflow-y: auto;
   padding: 50px 80px;
   .lamination-block {
     margin-bottom: 100px;
@@ -34,10 +32,10 @@
     margin-right: 15px;
   }
   .lamination-img {
+    @extend .splash;
     @include display-flex();
     @include align-items(center);
     @include justify-content(center);
-    @include animation(splashing .5s 0 ease 1);
 
     width: 225px;
     min-width: 190px;
@@ -74,5 +72,4 @@
   }
 }
 
-//@include behavior-widening(show-config-panel, 0, 80%);
 @include behavior-splash(splashing, 0, 1.3, 1);

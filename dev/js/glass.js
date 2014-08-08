@@ -1,24 +1,24 @@
 /* globals STEP, showElementWithDelay, typingElementWithDelay */
 
-(function ($) {
+function initGlassContainer() {
+  //(function ($) {
   'use strict';
   var $glassContainer = $('.glass-container'),
       $glassBlock = $glassContainer.find('.glass-block'),
-//      $glassFooterInner = $glassContainer.find('.footer-inner'),
+      //$glassFooterInner = $glassContainer.find('.footer-inner'),
       $glassBox = $glassContainer.find('.box'),
       $glassTitle = $glassContainer.find('.title'),
 
       selectedClass = 'selected',
 
-      DELAY_SHOW_PROFILES = 50 * STEP,
-      DELAY_SHOW_PROF,
-      g;
+      DELAY_SHOW_PROFILES = 5 * STEP,
+      g, DELAY_SHOW_PROF;
 
   typingElementWithDelay($glassTitle, DELAY_SHOW_PROFILES);
 
   for (g = 0; g < $glassBox.length; g++) {
-    DELAY_SHOW_PROF = DELAY_SHOW_PROFILES + g * (STEP * 5);
-    showElementWithDelay($glassBox[g], DELAY_SHOW_PROF);
+    DELAY_SHOW_PROF = DELAY_SHOW_PROFILES + g * (STEP * 3);
+    showElementWithDelay($glassBox[g], 'block', DELAY_SHOW_PROF);
   }
 
   // Select glass
@@ -33,19 +33,21 @@
     $(this).addClass(selectedClass);
   });
   /*
-  // Define width for footer-inner depends on children qty
-  $glassFooterInner.each(function () {
-    defineWidthContaner($(this));
-  });
+   // Define width for footer-inner depends on children qty
+   $glassFooterInner.each(function () {
+   defineWidthContaner($(this));
+   });
 
 
-  function defineWidthContaner(container) {
-    var parent = container,
-        $children = parent.children(),
-        childWidthWithMargin = $children.outerWidth(true),
-        parentWidth = childWidthWithMargin * $children.length;
+   function defineWidthContaner(container) {
+   var parent = container,
+   $children = parent.children(),
+   childWidthWithMargin = $children.outerWidth(true),
+   parentWidth = childWidthWithMargin * $children.length;
 
-    parent.css('min-width', parentWidth);
-  }
-  */
-})(jQuery);
+   parent.css('min-width', parentWidth);
+   }
+   */
+
+  //})(jQuery);
+}

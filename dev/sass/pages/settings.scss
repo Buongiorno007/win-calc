@@ -1,5 +1,5 @@
 @import 'compass/css3';
-@import '../base/base';
+//@import '../base/base';
 
 
 .setting-page {
@@ -28,7 +28,7 @@
 .setting-back {
   @extend .menu-btn;
   @include top_left_coord(15, 0);
-  @include animation(splashing .5s 0 ease 1);
+  @extend .splash;
 
   position: absolute;
 }

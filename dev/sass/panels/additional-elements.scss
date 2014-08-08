@@ -2,440 +2,437 @@
 // TODO: Вынести анимацию в отдельные классы
 // TODO: Добавить состояния для контейнеров (focused, selected)
 @import 'compass/css3';
-@import '../base/base';
+//@import '../base/base';
 
 .auxiliaries-container {
-//  @include animation(move-aux-container .5s 0 linear 1);
-}
+  .auxiliary-item {
+    position: absolute;
+    display: none;
+  }
 
-////@include behavior-widening(move-aux-container, 0, 80%);
+  //------Grid
+  .aux-grid {
+    @include top_left_coord(360, 960);
 
-.auxiliary-item {
-  position: absolute;
-  display: none;
-}
+    z-index: 3;
+  }
 
-//------Grid
-.aux-grid {
-  @include top_left_coord(360, 960);
+  .aux-grid-img {
+    @include top_left_coord(0, 0);
+    @include animation(move-grid 1s 0 ease 1);
 
-  z-index: 3;
-}
+    position: absolute;
+    width: 220px;
+    height: 390px;
+    background: image-url('auxiliaries/grid.png') no-repeat;
+  }
 
-.aux-grid-img {
-  @include top_left_coord(0, 0);
-  @include animation(move-grid 1s 0 ease 1);
+  @include behavior-move(move-grid, 1000px, -2000px, 0, 0);
 
-  position: absolute;
-  width: 220px;
-  height: 390px;
-  background: image-url('auxiliaries/grid.png') no-repeat;
-}
+  //------Visor
+  .aux-visor {
+    @include top_left_coord(140, 540);
 
-@include behavior-move(move-grid, 1000px, -2000px, 0, 0);
+    z-index: 3;
+  }
 
-//------Visor
-.aux-visor {
-  @include top_left_coord(140, 540);
+  .aux-visor-img {
+    @include top_left_coord(0, 0);
+    @include animation(move-visor 1s 0 ease 1);
 
-  z-index: 3;
-}
+    position: absolute;
+    width: 893px;
+    height: 261px;
+    background: image-url('auxiliaries/visor.png') no-repeat;
+  }
 
-.aux-visor-img {
-  @include top_left_coord(0, 0);
-  @include animation(move-visor 1s 0 ease 1);
+  @include behavior-move(move-visor, 1000px, -2000px, 0, 0);
 
-  position: absolute;
-  width: 893px;
-  height: 261px;
-  background: image-url('auxiliaries/visor.png') no-repeat;
-}
+  //------Spillway
+  .aux-spillway {
+    @include top_left_coord(690, 595);
 
-@include behavior-move(move-visor, 1000px, -2000px, 0, 0);
+    z-index: 3;
+  }
 
-//------Spillway
-.aux-spillway {
-  @include top_left_coord(690, 595);
+  .aux-spillway-img {
+    @include top_left_coord(0, 0);
+    @include animation(move-spillway 1s 0 ease 1);
 
-  z-index: 3;
-}
+    position: absolute;
+    width: 719px;
+    height: 206px;
+    background: image-url('auxiliaries/spillway.png') no-repeat;
+  }
 
-.aux-spillway-img {
-  @include top_left_coord(0, 0);
-  @include animation(move-spillway 1s 0 ease 1);
+  @include behavior-move(move-spillway, 2000px, -2000px, 0, 0);
 
-  position: absolute;
-  width: 719px;
-  height: 206px;
-  background: image-url('auxiliaries/spillway.png') no-repeat;
-}
+  //-------Outside
+  .aux-outside {
+    @include top_left_coord(380, 440);
 
-@include behavior-move(move-spillway, 2000px, -2000px, 0, 0);
+    z-index: 3;
+  }
 
-//-------Outside
-.aux-outside {
-  @include top_left_coord(380, 440);
+  .aux-outside-img {
+    @include top_left_coord(0, 0);
+    @include animation(move-outside 1s 0 ease 1);
 
-  z-index: 3;
-}
+    position: absolute;
+    width: 650px;
+    height: 610px;
+    background: image-url('auxiliaries/outside.png') no-repeat;
+  }
 
-.aux-outside-img {
-  @include top_left_coord(0, 0);
-  @include animation(move-outside 1s 0 ease 1);
+  @include behavior-move(move-outside, 0px, -2000px, 0, 0);
 
-  position: absolute;
-  width: 650px;
-  height: 610px;
-  background: image-url('auxiliaries/outside.png') no-repeat;
-}
+  //-----Windowsill
+  .aux-windowsill {
+    @include top_left_coord(1160, 100);
 
-@include behavior-move(move-outside, 0px, -2000px, 0, 0);
+    z-index: 3;
+  }
 
-//-----Windowsill
-.aux-windowsill {
-  @include top_left_coord(1160, 100);
+  .aux-windowsill-img {
+    @include top_left_coord(0, 0);
+    @include animation(move-windowsill 2s 0 ease 1);
 
-  z-index: 3;
-}
+    position: absolute;
+    width: 720px;
+    height: 236px;
+    background: image-url('auxiliaries/windowsill.png') no-repeat;
+  }
 
-.aux-windowsill-img {
-  @include top_left_coord(0, 0);
-  @include animation(move-windowsill 2s 0 ease 1);
+  @include behavior-move(move-windowsill, -1000px, 2000px, 0, 0);
 
-  position: absolute;
-  width: 720px;
-  height: 236px;
-  background: image-url('auxiliaries/windowsill.png') no-repeat;
-}
+  //-----Louvers
 
-@include behavior-move(move-windowsill, -1000px, 2000px, 0, 0);
+  .aux-louver {
+    @include top_left_coord(750, 570);
 
-//-----Louvers
+    z-index: 4;
+  }
 
-.aux-louver {
-  @include top_left_coord(750, 570);
+  .aux-louver-img {
+    @include top_left_coord(0, 0);
+    @include animation(move-louvers 2s 0 ease 1);
 
-  z-index: 4;
-}
+    position: relative;
+  }
 
-.aux-louver-img {
-  @include top_left_coord(0, 0);
-  @include animation(move-louvers 2s 0 ease 1);
+  @include behavior-move(move-louvers, 0, -2000px, 0, 0);
 
-  position: relative;
-}
+  .aux-louver-top {
+    @include top_left_coord(0, 50);
 
-@include behavior-move(move-louvers, 0, -2000px, 0, 0);
+    position: absolute;
+    z-index: 10;
+    width: 261px;
+    height: 79px;
+    background: image-url('auxiliaries/louvers-top.png') no-repeat;
+  }
 
-.aux-louver-top {
-  @include top_left_coord(0, 50);
+  .aux-louver-midle {
+    position: absolute;
+    left: 50px;
+    width: 261px;
+    height: 99px;
+    background: image-url('auxiliaries/louvers-middle.png') no-repeat;
+  }
 
-  position: absolute;
-  z-index: 10;
-  width: 261px;
-  height: 79px;
-  background: image-url('auxiliaries/louvers-top.png') no-repeat;
-}
+  .louver-midle-1 {
+    @include animation(move-louver-1 2s 2s ease 1);
 
-.aux-louver-midle {
-  position: absolute;
-  left: 50px;
-  width: 261px;
-  height: 99px;
-  background: image-url('auxiliaries/louvers-middle.png') no-repeat;
-}
+    z-index: 9;
+    top: 27px;
+  }
 
-.louver-midle-1 {
-  @include animation(move-louver-1 2s 2s ease 1);
+  @include behavior-louvers-move(move-louver-1, 0, 0, 0, -30px, 0, 0);
 
-  z-index: 9;
-  top: 27px;
-}
+  .louver-midle-2 {
+    @include animation(move-louver-2 2s 2s ease 1);
 
-@include behavior-louvers-move(move-louver-1, 0, 0, 0, -30px, 0, 0);
+    z-index: 8;
+    top: 65px;
+  }
 
-.louver-midle-2 {
-  @include animation(move-louver-2 2s 2s ease 1);
+  @include behavior-louvers-move(move-louver-2, 0, 0, 0, -60px, 0, 0);
 
-  z-index: 8;
-  top: 65px;
-}
+  .louver-midle-3 {
+    @include animation(move-louver-3 2s 2s ease 1);
 
-@include behavior-louvers-move(move-louver-2, 0, 0, 0, -60px, 0, 0);
+    z-index: 7;
+    top: 103px;
+  }
 
-.louver-midle-3 {
-  @include animation(move-louver-3 2s 2s ease 1);
+  @include behavior-louvers-move(move-louver-3, 0, 0, 0, -90px, 0, 0);
 
-  z-index: 7;
-  top: 103px;
-}
+  .aux-louver-bottom {
+    @include top_left_coord(143, 50);
+    @include animation(move-louver-bottom 2s 2s ease 1);
 
-@include behavior-louvers-move(move-louver-3, 0, 0, 0, -90px, 0, 0);
+    position: absolute;
+    z-index: 6;
+    width: 261px;
+    height: 104px;
+    background: image-url('auxiliaries/louvers-bottom.png') no-repeat;
+  }
 
-.aux-louver-bottom {
-  @include top_left_coord(143, 50);
-  @include animation(move-louver-bottom 2s 2s ease 1);
+  @include behavior-louvers-move(move-louver-bottom, 0, 0, 0, -120px, 0, 0);
 
-  position: absolute;
-  z-index: 6;
-  width: 261px;
-  height: 104px;
-  background: image-url('auxiliaries/louvers-bottom.png') no-repeat;
-}
+  //-----Inside-slope
+  .aux-inside-slope {
+    @include top_left_coord(510, 210);
 
-@include behavior-louvers-move(move-louver-bottom, 0, 0, 0, -120px, 0, 0);
+    z-index: 3;
+  }
 
-//-----Inside-slope
-.aux-inside-slope {
-  @include top_left_coord(510, 210);
+  .aux-inside-slope-img {
+    @include top_left_coord(0, 0);
 
-  z-index: 3;
-}
+    position: relative;
+  }
 
-.aux-inside-slope-img {
-  @include top_left_coord(0, 0);
+  .aux-inside-slope-top {
+    @include top_left_coord(0, 50);
+    @include animation(move-slope-top 1s 0 ease 1);
 
-  position: relative;
-}
+    position: absolute;
+    display: none;
+    width: 660px;
+    height: 183px;
+    background: image-url('auxiliaries/inside-slope-top.png') no-repeat;
+  }
 
-.aux-inside-slope-top {
-  @include top_left_coord(0, 50);
-  @include animation(move-slope-top 1s 0 ease 1);
+  @include behavior-move(move-slope-top, 0, -2000px, 0, 0);
 
-  position: absolute;
-  display: none;
-  width: 660px;
-  height: 183px;
-  background: image-url('auxiliaries/inside-slope-top.png') no-repeat;
-}
+  .aux-inside-slope-right {
+    @include top_left_coord(180, 680);
+    @include animation(move-slope-right 1s 0 ease 1);
 
-@include behavior-move(move-slope-top, 0, -2000px, 0, 0);
+    position: absolute;
+    display: none;
+    width: 90px;
+    height: 434px;
+    background: image-url('auxiliaries/inside-slope-right.png') no-repeat;
+  }
 
-.aux-inside-slope-right {
-  @include top_left_coord(180, 680);
-  @include animation(move-slope-right 1s 0 ease 1);
+  @include behavior-move(move-slope-right, 2000px, 2000px, 0, 0);
 
-  position: absolute;
-  display: none;
-  width: 90px;
-  height: 434px;
-  background: image-url('auxiliaries/inside-slope-right.png') no-repeat;
-}
+  .aux-inside-slope-left {
+    @include top_left_coord(60, 0);
+    @include animation(move-slope-left 1s 0 ease 1);
 
-@include behavior-move(move-slope-right, 2000px, 2000px, 0, 0);
+    position: absolute;
+    display: none;
+    width: 97px;
+    height: 408px;
+    background: image-url('auxiliaries/inside-slope-left.png') no-repeat;
+  }
 
-.aux-inside-slope-left {
-  @include top_left_coord(60, 0);
-  @include animation(move-slope-left 1s 0 ease 1);
+  @include behavior-move(move-slope-left, -1000px, 0px, 0, 0);
 
-  position: absolute;
-  display: none;
-  width: 97px;
-  height: 408px;
-  background: image-url('auxiliaries/inside-slope-left.png') no-repeat;
-}
+  //------Fun
+  .aux-fan {
+    @include top_left_coord(990, 358);
 
-@include behavior-move(move-slope-left, -1000px, 0px, 0, 0);
+    z-index: 5;
+  }
 
-//------Fun
-.aux-fan {
-  @include top_left_coord(990, 358);
+  .aux-fan-img {
+    @include top_left_coord(0, 0);
+    @include animation(move-fan 2s ease 1, rot-fan 1s 2s ease 1);
 
-  z-index: 5;
-}
+    position: absolute;
+    width: 114px;
+    height: 120px;
+    background: image-url('auxiliaries/fan.png') no-repeat;
+  }
 
-.aux-fan-img {
-  @include top_left_coord(0, 0);
-  @include animation(move-fan 2s ease 1, rot-fan 1s 2s ease 1);
+  @include behavior-move(move-fan, 0px, 2000px, 0, 0);
+  @include behavior-rotate(rot-fan, 0deg, 360deg);
 
-  position: absolute;
-  width: 114px;
-  height: 120px;
-  background: image-url('auxiliaries/fan.png') no-repeat;
-}
+  //-----Connectors
+  .aux-connectors {
+    @include top_left_coord(990, 1010);
 
-@include behavior-move(move-fan, 0px, 2000px, 0, 0);
-@include behavior-rotate(rot-fan, 0deg, 360deg);
+    z-index: 3;
+  }
 
-//-----Connectors
-.aux-connectors {
-  @include top_left_coord(990, 1010);
+  .aux-connectors-img {
+    @include top_left_coord(0, 0);
 
-  z-index: 3;
-}
+    position: relative;
+  }
 
-.aux-connectors-img {
-  @include top_left_coord(0, 0);
+  .aux-force-connect {
+    @extend .splash;
+    @include top_left_coord(0, 0);
 
-  position: relative;
-}
+    position: absolute;
+    display: none;
+    width: 205px;
+    height: 168px;
+    background: image-url('auxiliaries/force-connector.png') no-repeat;
+  }
 
-.aux-force-connect {
-  @include top_left_coord(0, 0);
-  @include animation(splashing .5s 0 ease 1);
+  .aux-balcon-connect {
+    @extend .splash;
+    @include top_left_coord(30, 90);
 
-  position: absolute;
-  display: none;
-  width: 205px;
-  height: 168px;
-  background: image-url('auxiliaries/force-connector.png') no-repeat;
-}
+    position: absolute;
+    display: none;
+    width: 205px;
+    height: 168px;
+    background: image-url('auxiliaries/balcon-connector.png') no-repeat;
+  }
 
-.aux-balcon-connect {
-  @include top_left_coord(30, 90);
-  @include animation(splashing 1s 0 ease 1);
+  //-----Handle
+  .aux-handle {
+    @include top_left_coord(1290, 50);
 
-  position: absolute;
-  display: none;
-  width: 205px;
-  height: 168px;
-  background: image-url('auxiliaries/balcon-connector.png') no-repeat;
-}
+    z-index: 3;
+  }
 
-//-----Handle
-.aux-handle {
-  @include top_left_coord(1290, 50);
+  .aux-handle-img {
+    @include top_left_coord(0, 0);
+    @include animation(move-handle 1s 0 ease 1);
 
-  z-index: 3;
-}
+    position: absolute;
+    width: 106px;
+    height: 126px;
+    background: image-url('auxiliaries/handle.png') no-repeat;
+  }
 
-.aux-handle-img {
-  @include top_left_coord(0, 0);
-  @include animation(move-handle 1s 0 ease 1);
+  @include behavior-move(move-handle, -1000px, 2000px, 0, 0);
 
-  position: absolute;
-  width: 106px;
-  height: 126px;
-  background: image-url('auxiliaries/handle.png') no-repeat;
-}
+  //-----Others
+  .aux-others {
+    @include top_left_coord(1350, 1260);
 
-@include behavior-move(move-handle, -1000px, 2000px, 0, 0);
+    z-index: 3;
+  }
 
-//-----Others
-.aux-others {
-  @include top_left_coord(1350, 1260);
+  .aux-txt-box {
+    position: absolute;
+  }
 
-  z-index: 3;
-}
+  .aux-grid-txt {
+    @include top_left_coord(100, 350);
+  }
 
-.aux-txt-box {
-  position: absolute;
-}
+  .aux-visor-txt {
+    @include top_left_coord(10, 650);
+  }
 
-.aux-grid-txt {
-  @include top_left_coord(100, 350);
-}
+  .aux-spillway-txt {
+    @include top_left_coord(110, 800);
+  }
 
-.aux-visor-txt {
-  @include top_left_coord(10, 650);
-}
+  .aux-outside-txt {
+    @include top_left_coord(-100, -350);
+  }
 
-.aux-spillway-txt {
-  @include top_left_coord(110, 800);
-}
+  .aux-louver-txt {
+    @include top_left_coord(280, 50);
+  }
 
-.aux-outside-txt {
-  @include top_left_coord(-100, -350);
-}
+  .aux-inside-slope-txt {
+    @include top_left_coord(-80, -120);
+  }
 
-.aux-louver-txt {
-  @include top_left_coord(280, 50);
-}
+  .aux-connectors-txt {
+    @include top_left_coord(70, 250);
+  }
 
-.aux-inside-slope-txt {
-  @include top_left_coord(-80, -120);
-}
+  .aux-fan-txt {
+    @include top_left_coord(20, -250);
+  }
 
-.aux-connectors-txt {
-  @include top_left_coord(70, 250);
-}
+  .aux-windowsill-txt {
+    @include top_left_coord(100, 750);
+  }
 
-.aux-fan-txt {
-  @include top_left_coord(20, -250);
-}
+  .aux-handle-txt {
+    @include top_left_coord(10, 150);
+  }
 
-.aux-windowsill-txt {
-  @include top_left_coord(100, 750);
-}
+  .aux-choose-but {
+    @extend .splash;
+    @extend .small-button;
+    @extend .ghost-button;
 
-.aux-handle-txt {
-  @include top_left_coord(10, 150);
-}
+    display: none;
+    padding: 0 30px;
+    background-color: transparent;
+  }
 
-.aux-choose-but {
-  @extend .small-button;
-  @extend .ghost-button;
-  @include animation(splashing .5s 0 ease 1);
 
-  display: none;
-  padding: 0 30px;
-  background-color: transparent;
+
+  .aux_big_but {
+    color: $aux_big_color;
+    border-color: $aux_big_color;
+  }
+
+  .aux_middle_but {
+    color: $aux_middle_color;
+    border-color: $aux_middle_color;
+  }
+
+  .aux_small_but {
+    color: $aux_small_color;
+    border-color: $aux_small_color;
+  }
+
+  .aux_slope_but {
+    color: $main_green;
+    border-color: $main_green;
+  }
+
+  .aux_connect_but {
+    color: $aux_connect_color;
+    border-color: $aux_connect_color;
+  }
+
+  .aux-label {
+    @include roboto-lt(22px);
+
+    display: none;
+    color: $main_gray_txt;
+  }
+
+  .aux-selected {
+    display: none;
+  }
+
+  .aux-title {
+    @include roboto-lt(36px);
+
+    display: none;
+    color: $main_gray_txt;
+  }
+
+  .aux-params {
+    display: none;
+    float: left;
+    margin-right: 10px;
+  }
+
+  .aux-params-but {
+    @extend .splash;
+    @extend .small-button;
+    @include box-sizing(border-box);
+
+    padding: 0 20px;
+    background-color: transparent;
+  }
+
+
+  .aux-params-label {
+    @extend .aux-label;
+
+    display: block;
+  }
 }
 
 @include behavior-splash(splashing, 0, 1.3, 1);
-
-.aux_big_but {
-  color: $aux_big_color;
-  border-color: $aux_big_color;
-}
-
-.aux_middle_but {
-  color: $aux_middle_color;
-  border-color: $aux_middle_color;
-}
-
-.aux_small_but {
-  color: $aux_small_color;
-  border-color: $aux_small_color;
-}
-
-.aux_slope_but {
-  color: $main_green;
-  border-color: $main_green;
-}
-
-.aux_connect_but {
-  color: $aux_connect_color;
-  border-color: $aux_connect_color;
-}
-
-.aux-label {
-  @include roboto-lt(22px);
-
-  display: none;
-  color: $main_gray_txt;
-}
-
-.aux-selected {
-  display: none;
-}
-
-.aux-title {
-  @include roboto-lt(36px);
-
-  display: none;
-  color: $main_gray_txt;
-}
-
-.aux-params {
-  display: none;
-  float: left;
-  margin-right: 10px;
-}
-
-.aux-params-but {
-  @extend .small-button;
-  @include box-sizing(border-box);
-  @include animation(splashing .5s 0 ease 1);
-
-  padding: 0 20px;
-  background-color: transparent;
-}
-
-@include behavior-splash(splashing, 0, 1.3, 1);
-
-.aux-params-label {
-  @extend .aux-label;
-
-  display: block;
-}

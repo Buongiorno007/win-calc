@@ -90,9 +90,9 @@ function createPrice($price) {
   scroll();
 }
 
-function showElementWithDelay(obj, delay) {
+function showElementWithDelay(element, typeDisplay, delay) {
   setTimeout(function () {
-    $(obj).show();
+    $(element).css('display', typeDisplay);
   }, delay);
 }
 

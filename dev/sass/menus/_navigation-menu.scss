@@ -1,5 +1,5 @@
 @import 'compass/css3';
-@import '../base/base';
+//@import '../base/base';
 
 .nav-menu {
   @include display-flex();
@@ -91,7 +91,7 @@
     content: $settings-icon;
   }
   .icon-splash {
-    @include animation(splashing .5s 0 ease 1);
+    @extend .splash;
   }
   .title {
     @extend .truncated;

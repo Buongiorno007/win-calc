@@ -1,8 +1,5 @@
 @import 'compass/css3';
-@import '../base/colors';
-@import '../base/mixins';
-@import '../base/fonts';
-@import '../base/sizes';
+//@import '../base/base';
 
 // Configuration Panels
 
@@ -16,20 +13,7 @@
   overflow-y: auto;
   height: 100%;
   background: rgba(#fff, .9);
-
-  &.show {
-    @include animation(show-config-panel, .5s, 0, linear, 1);
-    display: block;
-  }
-
-  &.hide {
-    @include animation(hide-config-panel, .5s, 0, linear, 1);
-    display: block;
-  }
 }
-
-@include behavior-widening(show-config-panel, 0, 80%);
-@include behavior-widening(hide-config-panel, 80%, 0);
 
 .config-section {
   width: 98%;
@@ -85,7 +69,7 @@
     }
   }
   .box {
-    @include animation(splashing, .5s, 0, ease, 1);
+    @extend .splash;
 
     position: relative;
     display: none;
@@ -188,3 +172,4 @@
     }
   }
 }
+@include behavior-splash(splashing, 0, 1.3, 1);
