@@ -1,8 +1,5 @@
 // TODO: Вынести анимацию в отдельные классы
 // TODO: Проверить анимацию на соответствие видео
-@import 'compass/css3';
-//@import '../base/base';
-
 .config-menu {
   //  @include animation(move-config-menu .5s 0 linear 1);
   @include display-flex();
