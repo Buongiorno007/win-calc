@@ -14,6 +14,10 @@ body {
   padding: 0;
 }
 
+.app-container {
+  height: 100%;
+}
+
 .page-container {
   @include display-flex();
   @include transition(transform 1s linear, width 1s linear);
