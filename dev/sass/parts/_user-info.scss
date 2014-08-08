@@ -1,10 +1,3 @@
-@import 'compass/css3';
-@import '../base/fonts';
-@import '../base/icons';
-@import '../base/mixins';
-@import '../base/sizes';
-@import '../base/colors';
-
 .user-info-container {
   @include display-flex();
   @include flex-flow(row wrap);
@@ -15,17 +8,16 @@
   width: 100%;
   .nav-menu-btn {
     @extend .menu-btn;
-
     &.show-navmenu {
-      @include animation(show-navmenu-btn, .5s, 0, ease, 1);
+      @include animation(show-navmenu-btn .5s 0 ease 1);
       @include rotate(90deg);
     }
     &.hide-navmenu {
-      @include animation(hide-navmenu-btn, .5s, 0, ease, 1);
+      @include animation(hide-navmenu-btn .5s 0 ease 1);
       @include rotate(0deg);
     }
     &.move-btn {
-      @include animation(move-nav-btn, 1s, 0, ease, 1);
+      @include animation(move-nav-btn 1s 0 ease 1);
     }
   }
   .user-foto {
@@ -34,11 +26,11 @@
     margin: 0 20px;
   }
   .icon-location {
-    @include animation(splashing, .5s, 0, ease, 1);
-    display: none;
-    position: relative;
-    width: 35px;
+    @include animation(splashing .5s 0 ease 1);
 
+    position: relative;
+    display: none;
+    width: 35px;
     &:before {
       @extend .icon-setting;
       @include font-general-icon(30px, 1);
@@ -50,7 +42,6 @@
       content: $geolocation_filled-icon;
     }
   }
-
   .user-info-block {
     text-align: center;
   }

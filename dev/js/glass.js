@@ -10,14 +10,14 @@
 
       selectedClass = 'selected',
 
-      DELAY_SHOW_PROFILES = 20 * STEP,
+      DELAY_SHOW_PROFILES = 50 * STEP,
       DELAY_SHOW_PROF,
       g;
 
   typingElementWithDelay($glassTitle, DELAY_SHOW_PROFILES);
 
   for (g = 0; g < $glassBox.length; g++) {
-    DELAY_SHOW_PROF = DELAY_SHOW_PROFILES + g * (STEP * 2);
+    DELAY_SHOW_PROF = DELAY_SHOW_PROFILES + g * (STEP * 5);
     showElementWithDelay($glassBox[g], DELAY_SHOW_PROF);
   }
 

@@ -1,16 +1,9 @@
-@import 'compass/css3';
-@import '../base/colors';
-@import '../base/mixins';
-@import '../base/fonts';
-@import '../base/icons';
-
-
 .location-page {
   .header {
     @include justify-content(flex-start);
+
     padding-left: 100px;
   }
-
   .back {
     @extend .icon-setting;
     @include font-nav-menu(50px, 1);
@@ -25,15 +18,12 @@
       content: $select_location-icon;
     }
   }
-
   .location-container {
     padding-left: 50px;
     color: #fff;
   }
-
   .location-current,
   .location-label {
     @include roboto-lt(36px, 99px);
   }
 }
-

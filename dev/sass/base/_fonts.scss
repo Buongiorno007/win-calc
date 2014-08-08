@@ -1,6 +1,3 @@
-@import 'compass/css3/font-face';
-@import 'sizes';
-
 @include font-face('roboto-regular', font-files('roboto/Roboto-Regular.ttf'));
 
 @include font-face('roboto-bold', font-files('roboto/Roboto-Bold.ttf'));

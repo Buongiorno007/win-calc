@@ -1,9 +1,3 @@
-@import 'compass/css3';
-@import '../base/colors';
-@import '../base/mixins';
-@import '../base/fonts';
-@import '../base/icons';
-
 .password-page {
   .back {
     @extend .icon-setting;
@@ -19,19 +13,16 @@
       content: $config_menu-arrow-icon;
     }
   }
-
   .psw-container {
     padding-left: 50px;
     color: #fff;
   }
-
   .psw-label {
     @include roboto-lt(36px, 88px);
 
     min-width: 400px;
     color: $main_gray_btn;
   }
-
   .psw-data {
     color: $main_orange;
   }

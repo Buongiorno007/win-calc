@@ -1,17 +1,11 @@
 // TODO: Проверить координаты
 // TODO: Вынести анимацию в отдельные классы
 // TODO: Добавить состояния для контейнеров (focused, selected)
-@import 'compass/css3';
-@import '../base/colors';
-@import '../base/mixins';
-@import '../base/fonts';
-
 .auxiliaries-container {
-  @extend .config-panel;
-  @include animation(move-aux-container, .5s, 0, linear, 1);
+//  @include animation(move-aux-container .5s 0 linear 1);
 }
 
-@include behavior-widening(move-aux-container, 0, 80%);
+////@include behavior-widening(move-aux-container, 0, 80%);
 
 .auxiliary-item {
   position: absolute;
@@ -27,7 +21,7 @@
 
 .aux-grid-img {
   @include top_left_coord(0, 0);
-  @include animation(move-grid, 1s, 0, ease, 1);
+  @include animation(move-grid 1s 0 ease 1);
 
   position: absolute;
   width: 220px;
@@ -46,7 +40,7 @@
 
 .aux-visor-img {
   @include top_left_coord(0, 0);
-  @include animation(move-visor, 1s, 0, ease, 1);
+  @include animation(move-visor 1s 0 ease 1);
 
   position: absolute;
   width: 893px;
@@ -65,7 +59,7 @@
 
 .aux-spillway-img {
   @include top_left_coord(0, 0);
-  @include animation(move-spillway, 1s, 0, ease, 1);
+  @include animation(move-spillway 1s 0 ease 1);
 
   position: absolute;
   width: 719px;
@@ -84,7 +78,7 @@
 
 .aux-outside-img {
   @include top_left_coord(0, 0);
-  @include animation(move-outside, 1s, 0, ease, 1);
+  @include animation(move-outside 1s 0 ease 1);
 
   position: absolute;
   width: 650px;
@@ -103,7 +97,7 @@
 
 .aux-windowsill-img {
   @include top_left_coord(0, 0);
-  @include animation(move-windowsill, 2s, 0, ease, 1);
+  @include animation(move-windowsill 2s 0 ease 1);
 
   position: absolute;
   width: 720px;
@@ -123,7 +117,7 @@
 
 .aux-louver-img {
   @include top_left_coord(0, 0);
-  @include animation(move-louvers, 2s, 0, ease, 1);
+  @include animation(move-louvers 2s 0 ease 1);
 
   position: relative;
 }
@@ -149,7 +143,7 @@
 }
 
 .louver-midle-1 {
-  @include animation(move-louver-1, 2s, 2s, ease, 1);
+  @include animation(move-louver-1 2s 2s ease 1);
 
   z-index: 9;
   top: 27px;
@@ -158,7 +152,7 @@
 @include behavior-louvers-move(move-louver-1, 0, 0, 0, -30px, 0, 0);
 
 .louver-midle-2 {
-  @include animation(move-louver-2, 2s, 2s, ease, 1);
+  @include animation(move-louver-2 2s 2s ease 1);
 
   z-index: 8;
   top: 65px;
@@ -167,7 +161,7 @@
 @include behavior-louvers-move(move-louver-2, 0, 0, 0, -60px, 0, 0);
 
 .louver-midle-3 {
-  @include animation(move-louver-3, 2s, 2s, ease, 1);
+  @include animation(move-louver-3 2s 2s ease 1);
 
   z-index: 7;
   top: 103px;
@@ -177,7 +171,7 @@
 
 .aux-louver-bottom {
   @include top_left_coord(143, 50);
-  @include animation(move-louver-bottom, 2s, 2s, ease, 1);
+  @include animation(move-louver-bottom 2s 2s ease 1);
 
   position: absolute;
   z-index: 6;
@@ -203,7 +197,7 @@
 
 .aux-inside-slope-top {
   @include top_left_coord(0, 50);
-  @include animation(move-slope-top, 1s, 0, ease, 1);
+  @include animation(move-slope-top 1s 0 ease 1);
 
   position: absolute;
   display: none;
@@ -216,7 +210,7 @@
 
 .aux-inside-slope-right {
   @include top_left_coord(180, 680);
-  @include animation(move-slope-right, 1s, 0, ease, 1);
+  @include animation(move-slope-right 1s 0 ease 1);
 
   position: absolute;
   display: none;
@@ -229,7 +223,7 @@
 
 .aux-inside-slope-left {
   @include top_left_coord(60, 0);
-  @include animation(move-slope-left, 1s, 0, ease, 1);
+  @include animation(move-slope-left 1s 0 ease 1);
 
   position: absolute;
   display: none;
@@ -249,17 +243,12 @@
 
 .aux-fan-img {
   @include top_left_coord(0, 0);
+  @include animation(move-fan 2s ease 1, rot-fan 1s 2s ease 1);
 
   position: absolute;
   width: 114px;
   height: 120px;
   background: image-url('auxiliaries/fan.png') no-repeat;
-  // TODO: Заменить animation миксином
-  -webkit-animation: move-fan 2s ease 1, rot-fan 1s 2s ease 1;
-     -moz-animation: move-fan 2s ease 1, rot-fan 1s 2s ease 1;
-      -ms-animation: move-fan 2s ease 1, rot-fan 1s 2s ease 1;
-       -o-animation: move-fan 2s ease 1, rot-fan 1s 2s ease 1;
-          animation: move-fan 2s ease 1, rot-fan 1s 2s ease 1;
 }
 
 @include behavior-move(move-fan, 0px, 2000px, 0, 0);
@@ -280,7 +269,7 @@
 
 .aux-force-connect {
   @include top_left_coord(0, 0);
-  @include animation(splashing, .5s, 0, ease, 1);
+  @include animation(splashing .5s 0 ease 1);
 
   position: absolute;
   display: none;
@@ -291,7 +280,7 @@
 
 .aux-balcon-connect {
   @include top_left_coord(30, 90);
-  @include animation(splashing, 1s, 0, ease, 1);
+  @include animation(splashing 1s 0 ease 1);
 
   position: absolute;
   display: none;
@@ -309,7 +298,7 @@
 
 .aux-handle-img {
   @include top_left_coord(0, 0);
-  @include animation(move-handle, 1s, 0, ease, 1);
+  @include animation(move-handle 1s 0 ease 1);
 
   position: absolute;
   width: 106px;
@@ -373,7 +362,7 @@
 .aux-choose-but {
   @extend .small-button;
   @extend .ghost-button;
-  @include animation(splashing, .5s, 0, ease, 1);
+  @include animation(splashing .5s 0 ease 1);
 
   display: none;
   padding: 0 30px;
@@ -434,7 +423,7 @@
 .aux-params-but {
   @extend .small-button;
   @include box-sizing(border-box);
-  @include animation(splashing, .5s, 0, ease, 1);
+  @include animation(splashing .5s 0 ease 1);
 
   padding: 0 20px;
   background-color: transparent;
