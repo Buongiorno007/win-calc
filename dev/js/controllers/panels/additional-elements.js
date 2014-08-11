@@ -1,8 +1,8 @@
-/* globals STEP, typingTextByChar, showElementWithDelay, makeButtonActive */
+/* globals BauVoiceApp, STEP, typingTextByChar, showElementWithDelay, makeButtonActive */
 
-(function ($) {
-  'use strict';
+'use strict';
 
+BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
   var $auxContainer = $('.auxiliaries-container'),
       $auxGrid = $('.aux-grid'),
       $auxVisor = $('.aux-visor'),
@@ -121,4 +121,4 @@
   //$(this).dequeue();
   //});
   //});
-})(jQuery);
+}]);

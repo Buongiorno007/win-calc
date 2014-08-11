@@ -1,7 +1,8 @@
-/* globals STEP, showElementWithDelay, typingElementWithDelay */
+/* globals BauVoiceApp, STEP, showElementWithDelay, typingElementWithDelay */
 
-(function ($) {
-  'use strict';
+'use strict';
+
+BauVoiceApp.controller('UserInfoCtrl', ['$scope', function ($scope) {
   var $navmenuBTN = $('.user-info-container .nav-menu-btn'),
       $userLocation = $('.user-info-container .user-location'),
       $userName = $('.user-info-container .user-name'),
@@ -31,5 +32,4 @@
       $pageContainer.removeClass(showLeftSideClass);
     }
   });
-
-})(jQuery);
+}]);

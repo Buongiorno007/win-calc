@@ -1,17 +1,16 @@
-/* globals STEP, showElementWithDelay, addClassWithDelay*/
+/* globals BauVoiceApp, STEP, showElementWithDelay, addClassWithDelay */
 
-var newClimateCoeff,
-    newHeatTransfCoeff,
-    newHeatExchangeCoeff;
+'use strict';
 
-(function ($) {
-  'use strict';
+BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', function ($scope) {
   var $roomInfoContainer = $('.room-info-container'),
       $selectRoomsBTN = $roomInfoContainer.find('.select-rooms'),
       $climateCoeff = $roomInfoContainer.find('.climate'),
       $heatTransfCoeff = $roomInfoContainer.find('.heat-transfer'),
       $heatExchangeCoeff = $roomInfoContainer.find('.heat-exchange'),
-
+      newClimateCoeff,
+      newHeatTransfCoeff,
+      newHeatExchangeCoeff,
       $roomsDialog = $('.rooms-selector-dialog'),
       $roomsDialogClose = $roomsDialog.find('.close-dialog'),
       $roomBox = $roomsDialog.find('.room-box'),
@@ -23,7 +22,7 @@ var newClimateCoeff,
       roomCurrent = 3,
 
       DELAY_SHOW_ROOM_DIALOG = 10 * STEP,
-      STEP_SHOW_ROOM = 100,
+      STEP_SHOW_ROOM = STEP,
       FINISH_SHOW_ROOM;
 
   // Show/Close Room Selector Dialog
@@ -39,7 +38,7 @@ var newClimateCoeff,
         FINISH_SHOW_ROOM = DELAY_SHOW_ROOM;
         showElementWithDelay($roomIMG[room], DELAY_SHOW_ROOM);
       }
-      var DELAY_ROOM_CURRENT = FINISH_SHOW_ROOM + 500;
+      var DELAY_ROOM_CURRENT = FINISH_SHOW_ROOM + 5 * STEP;
       addClassWithDelay($roomBox[roomCurrent], selectedRoomClass, DELAY_ROOM_CURRENT);
     }
   });
@@ -50,19 +49,17 @@ var newClimateCoeff,
 
   // Room Select
   $roomBox.click(function () {
-    $('.rooms-selector-dialog .room-box').each(function () {
+    $roomBox.each(function () {
       $(this).removeClass(selectedRoomClass);
     });
     $(this).addClass(selectedRoomClass);
 
-    newClimateCoeff = $(this).data('climate'),
-    newHeatTransfCoeff = $(this).data('heat-transfer'),
+    newClimateCoeff = $(this).data('climate');
+    newHeatTransfCoeff = $(this).data('heat-transfer');
     newHeatExchangeCoeff = $(this).data('heat-exchange');
 
     $climateCoeff.text(newClimateCoeff);
     $heatTransfCoeff.text(newHeatTransfCoeff);
     $heatExchangeCoeff.text(newHeatExchangeCoeff);
-
   });
-
-})(jQuery);
+}]);

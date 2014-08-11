@@ -1,7 +1,8 @@
-/* globals STEP, typingTextByChar, showElementWithDelay, typingElementWithDelay */
+/* globals BauVoiceApp, STEP, typingTextByChar, showElementWithDelay, typingElementWithDelay */
 
-(function ($) {
-  'use strict';
+'use strict';
+
+BauVoiceApp.controller('LocationCtrl', ['$scope', function ($scope) {
   var $locationPage = $('.location-page'),
       $locCurr = $locationPage.find('.location-current'),
       $locList = $locationPage.find('.list'),
@@ -13,5 +14,4 @@
   typingTextByChar($locCurr);
   showElementWithDelay($locList, DELAY_SHOW_LOC);
   typingElementWithDelay($locLabel, DELAY_SHOW_LOC);
-
-})(jQuery);
+}]);

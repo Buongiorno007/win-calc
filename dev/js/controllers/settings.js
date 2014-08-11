@@ -1,7 +1,8 @@
-/* globals STEP, typingTextByChar, showElementWithDelay, typingElementWithDelay */
+/* globals BauVoiceApp, STEP, typingTextByChar, showElementWithDelay, typingElementWithDelay */
 
-(function ($) {
-  'use strict';
+'use strict';
+
+BauVoiceApp.controller('SettingsCtrl', ['$scope', function ($scope) {
   var $setPage = $('.setting-page'),
       $setTitle = $setPage.find('.title'),
       $setList = $setPage.find('.list'),
@@ -21,8 +22,4 @@
 
   showElementWithDelay($setListChang, 2*DELAY_SHOW_TXT);
   showElementWithDelay($setPhoneBTN, 2*DELAY_SHOW_TXT);
-
-})(jQuery);
-
-
-
+}]);
