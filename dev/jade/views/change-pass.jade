@@ -1,21 +1,21 @@
 section.settings.password-page
   .header
     button.back
-    .title(name="Изменить пароль")
+    .title(data-output="Изменить пароль")
     button.save Сохранить
 
   .psw-container
     .lists
       ul.list
         li.item
-          .psw-label(name="Текущий")
-          .psw-data(name="************")
+          .psw-label(data-output="Текущий")
+          .psw-data(data-output="************")
           input.set-input-txt.current
         li.item.click
-          .psw-label(name="Новый")
-          .psw-data(name="****************")
+          .psw-label(data-output="Новый")
+          .psw-data(data-output="****************")
           input.set-input-txt.new
         li.item.click
-          .psw-label(name="Подтвердить")
-          .psw-data(name="*****************")
+          .psw-label(data-output="Подтвердить")
+          .psw-data(data-output="*****************")
           input.set-input-txt.confirm
