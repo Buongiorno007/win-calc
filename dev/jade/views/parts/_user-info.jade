@@ -1,7 +1,7 @@
 .user-info-container(ng-controller="UserInfoCtrl")
-  button.nav-menu-btn.move-btn
+  button.nav-menu-btn(ng-class="{ 'show-navmenu': !userInfo.isConfigMenuShow }", ng-click="swipeMainPage()")
   .user-foto
   .icon-location
   .user-info-block
-    .user-location(name="Днепропетровск")
-    .user-name(name="John Appleseed")
+    .user-location(name="{{ userInfo.location }}")
+    .user-name(name="{{ userInfo.name }}")
