@@ -1,8 +1,8 @@
-/* globals STEP, showElementWithDelay, typingElementWithDelay */
+/* globals BauVoiceApp, STEP, showElementWithDelay, typingElementWithDelay */
 
-function initHardwareContainer() {
-  //(function ($) {
-  'use strict';
+'use strict';
+
+BauVoiceApp.controller('HardwareWindowCtrl', ['$scope', function ($scope) {
   var $hardwareContainer = $('.hardware-container'),
       $hardwareBlock = $hardwareContainer.find('.hardware-block'),
       $hardwareBox = $hardwareContainer.find('.hardware-box'),
@@ -31,7 +31,4 @@ function initHardwareContainer() {
     $(this).parents($hardwareBlock).addClass(selectedClass);
     $(this).addClass(selectedClass);
   });
-
-  //})(jQuery);
-}
-
+}]);

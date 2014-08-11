@@ -1,7 +1,8 @@
-/* globals STEP, typingTextByChar, showElementWithDelay, addClassWithDelay, removeClassWithDelay, typingElementWithDelay */
+/* globals BauVoiceApp, STEP, typingTextByChar, showElementWithDelay, addClassWithDelay, removeClassWithDelay, typingElementWithDelay */
 
-(function ($) {
-  'use strict';
+'use strict';
+
+BauVoiceApp.controller('NavMenuCtrl', ['$scope', function ($scope) {
 
   var $navmenuList = $('.nav-menu-header .items-list'),
       $navmenuItem = $navmenuList.find('.item'),
@@ -59,5 +60,4 @@
 
     $(this).addClass(activeClass);
   });
-
-})(jQuery);
+}]);

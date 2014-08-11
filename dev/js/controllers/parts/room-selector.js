@@ -1,7 +1,8 @@
-/* globals STEP, showElementWithDelay, addClassWithDelay*/
+/* globals BauVoiceApp, STEP, showElementWithDelay, addClassWithDelay */
 
-(function ($) {
-  'use strict';
+'use strict';
+
+BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', function ($scope) {
   var $selectRoomsBTN = $('.room-info-container .select-rooms'),
       $roomsDialog = $('.rooms-selector-dialog'),
       $roomsDialogClose = $roomsDialog.find('.close-dialog'),
@@ -46,5 +47,4 @@
     });
     $(this).addClass(selectedRoomClass);
   });
-
-})(jQuery);
+}]);

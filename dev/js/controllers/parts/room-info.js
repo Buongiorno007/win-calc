@@ -1,9 +1,10 @@
-/* globals STEP, typingElementWithDelay */
+/* globals BauVoiceApp, STEP, typingElementWithDelay */
 
-(function ($) {
-  'use strict';
+'use strict';
+
+BauVoiceApp.controller('RoomInfoCtrl', ['$scope', function ($scope) {
   var $coeffTitle = $('.coeff-container .coeff-title'),
       DELAY_SHOW_COEFF_TITLE = 20 * STEP;
 
   typingElementWithDelay($coeffTitle, DELAY_SHOW_COEFF_TITLE);
-})(jQuery);
+}]);

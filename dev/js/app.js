@@ -17,6 +17,21 @@ var BauVoiceApp = angular.module('BauVoiceApp', [
         controller: 'MainCtrl',
         title: 'Main'
       })
+      .when('/settings', {
+        templateUrl: '../views/settings.html',
+        controller: 'SettingsCtrl',
+        title: 'Settings'
+      })
+      .when('/change-pass', {
+        templateUrl: '../views/change-pass.html',
+        controller: 'ChangePassCtrl',
+        title: 'Change Pass'
+      })
+      .when('/location', {
+        templateUrl: '../views/location.html',
+        controller: 'LocationCtrl',
+        title: 'Location'
+      })
       .otherwise({
         redirectTo: '/'
       });

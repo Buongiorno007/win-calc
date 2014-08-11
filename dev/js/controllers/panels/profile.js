@@ -1,8 +1,8 @@
-/* globals STEP, showElementWithDelay, typingTextByChar, typingElementWithDelay */
+/* globals BauVoiceApp, STEP, showElementWithDelay, typingTextByChar, typingElementWithDelay */
 
-function initProfileContainer() {
-//(function ($) {
-  'use strict';
+'use strict';
+
+BauVoiceApp.controller('ProfileCtrl', ['$scope', function ($scope) {
   var $profileContainer = $('.profile-container'),
       $profileBlock = $profileContainer.find('.profile-block'),
       $profileBox = $profileContainer.find('.profile-box'),
@@ -32,6 +32,4 @@ function initProfileContainer() {
     $(this).closest('.profile-block').addClass(selectedClass);
     $(this).addClass(selectedClass);
   });
-
-  //})(jQuery);
-}
+}]);

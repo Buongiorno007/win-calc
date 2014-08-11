@@ -1,9 +1,8 @@
-/* globals STEP, showElementWithDelay, typingElementWithDelay */
+/* globals BauVoiceApp, STEP, showElementWithDelay, typingElementWithDelay */
 
-function initLaminationContainer() {
-//(function ($) {
-  'use strict';
+'use strict';
 
+BauVoiceApp.controller('LaminationCtrl', ['$scope', function ($scope) {
   var lamBlockClass = '.lamination-block',
       lamImgClass = '.lamination-img',
       lamLabelClass = '.lamination-label',
@@ -44,8 +43,4 @@ function initLaminationContainer() {
     });
     $(this).addClass(selectedClass);
   });
-
-  //})(jQuery);
-}
-
-
+}]);

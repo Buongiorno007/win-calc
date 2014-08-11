@@ -1,12 +1,11 @@
-/* globals STEP, typingTextByChar, createPrice, showElementWithDelay, removeClassWithDelay, addClassWithDelay, initTemplateContainer, initProfileContainer, initGlassContainer, initHardwareContainer, initLaminationContainer, initAuxContainer */
+/* globals BauVoiceApp, STEP, typingTextByChar, createPrice, showElementWithDelay, removeClassWithDelay, addClassWithDelay */
 
-(function ($) {
-  'use strict';
+'use strict';
 
+BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', function ($scope) {
   var $configList = $('.config-menu .items-list'),
       $configItem = $configList.find('.item'),
       $configItemIcon = $configItem.find('.icon'),
-
 
       DELAY_SHOW_CONFIG_LIST = STEP,
       DELAY_FILL_CONFIG_LIST = DELAY_SHOW_CONFIG_LIST + 4 * STEP,
@@ -49,7 +48,6 @@
 
   showElementWithDelay($configItemIcon, 'block', DELAY_SHOW_CONFIG_ITEM_ICON);
 
-
   $configItem.click(function () {
     var activeClass = 'active',
         panel = $(this).data('panel');
@@ -59,20 +57,19 @@
         $(this).removeClass(activeClass);
       });
       $(this).addClass(activeClass);
-      switchConfigPanels('.'+panel, false);
+      switchConfigPanels('.' + panel, false);
     } else {
       $(this).removeClass(activeClass);
-      switchConfigPanels('.'+panel, true);
+      switchConfigPanels('.' + panel, true);
     }
   });
 
-      /*
-      function testAnim(x) {
-        $('#animationSandbox').removeClass().addClass(x + ' animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-        $(this).removeClass();
-      });
-      */
-
+  /*
+   function testAnim(x) {
+   $('#animationSandbox').removeClass().addClass(x + ' animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+   $(this).removeClass();
+   });
+   */
 
   function switchConfigPanels(itemSelected, onlyHide) {
     var itemGroup = '.config-panel',
@@ -90,7 +87,7 @@
           $itemCurr.addClass(classHide).removeClass(classShow);
           removeClassWithDelay($itemCurr, classHide, DELAY);
           addClassWithDelay(itemSelected, classShow, DELAY);
-          initConfigPanel(itemSelected);
+//          initConfigPanel(itemSelected);
         }
       }
     } else if (checkOpenItem && onlyHide) {
@@ -98,27 +95,30 @@
       removeClassWithDelay(itemSelected, classHide, DELAY);
     } else {
       $(itemSelected).addClass(classShow);
-      initConfigPanel(itemSelected);
+//      initConfigPanel(itemSelected);
     }
-
   }
-
 
   function initConfigPanel(panelClass) {
-    switch(panelClass) {
-      case '.template-container': initTemplateContainer();
+    switch (panelClass) {
+      case '.template-container':
+        initTemplateContainer();
         break;
-      case '.profile-container': initProfileContainer();
+      case '.profile-container':
+        initProfileContainer();
         break;
-      case '.glass-container': initGlassContainer();
+      case '.glass-container':
+        initGlassContainer();
         break;
-      case '.hardware-container': initHardwareContainer();
+      case '.hardware-container':
+        initHardwareContainer();
         break;
-      case '.lamination-container': initLaminationContainer();
+      case '.lamination-container':
+        initLaminationContainer();
         break;
-      case '.auxiliaries-container': initAuxContainer();
+      case '.auxiliaries-container':
+        initAuxContainer();
         break;
     }
   }
-
-})(jQuery);
+}]);
