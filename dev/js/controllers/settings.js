@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, typingTextByChar, showElementWithDelay, typingElementWithDelay */
+/* globals BauVoiceApp, STEP, typingTextByChar, showElementWithDelay, typingTextWithDelay */
 
 'use strict';
 
@@ -16,9 +16,9 @@ BauVoiceApp.controller('SettingsCtrl', ['$scope', function ($scope) {
 
   typingTextByChar($setTitle);
   showElementWithDelay($setList, DELAY_SHOW_TXT);
-  typingElementWithDelay($setListDivider, DELAY_SHOW_TXT);
-  typingElementWithDelay($setListLabel, DELAY_SHOW_TXT);
-  typingElementWithDelay($setListData, 2*DELAY_SHOW_TXT);
+  typingTextWithDelay($setListDivider, DELAY_SHOW_TXT);
+  typingTextWithDelay($setListLabel, DELAY_SHOW_TXT);
+  typingTextWithDelay($setListData, 2*DELAY_SHOW_TXT);
 
   showElementWithDelay($setListChang, 2*DELAY_SHOW_TXT);
   showElementWithDelay($setPhoneBTN, 2*DELAY_SHOW_TXT);

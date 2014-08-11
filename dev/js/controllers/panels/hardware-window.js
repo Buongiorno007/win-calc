@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, showElementWithDelay, typingElementWithDelay */
+/* globals BauVoiceApp, STEP, showElementWithDelay, typingTextWithDelay */
 
 'use strict';
 
@@ -13,11 +13,11 @@ BauVoiceApp.controller('HardwareWindowCtrl', ['$scope', function ($scope) {
       g, DELAY_SHOW_BOX;
 
 
-    typingElementWithDelay($hardwareTitle, STEP);
+    typingTextWithDelay($hardwareTitle, STEP);
 
     for (g = 0; g < $hardwareBox.length; g++) {
       DELAY_SHOW_BOX = DELAY_SHOW_HW_BOX + g * 2 * STEP;
-      showElementWithDelay($hardwareBox[g], DELAY_SHOW_BOX);
+      showElementWithDelay($($hardwareBox[g]), DELAY_SHOW_BOX);
     }
 
   // Select hardware

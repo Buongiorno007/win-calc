@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, showElementWithDelay, typingElementWithDelay */
+/* globals BauVoiceApp, STEP, showElementWithDelay, typingTextWithDelay */
 
 'use strict';
 
@@ -13,11 +13,11 @@ BauVoiceApp.controller('ProfileCtrl', ['$scope', function ($scope) {
       DELAY_SHOW_PROFILES = 5 * STEP,
       prof, DELAY_SHOW_PROF;
 
-  typingElementWithDelay($profileTitle, DELAY_SHOW_PROFILES);
+  typingTextWithDelay($profileTitle, DELAY_SHOW_PROFILES);
 
   for (prof = 0; prof < $profileBox.length; prof++) {
     DELAY_SHOW_PROF = DELAY_SHOW_PROFILES + prof * 200;
-    showElementWithDelay($profileBox[prof], DELAY_SHOW_PROF);
+    showElementWithDelay($profileBox.eq(prof), DELAY_SHOW_PROF);
   }
 
 

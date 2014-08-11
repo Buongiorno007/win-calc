@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, typingTextByChar, showElementWithDelay, typingElementWithDelay */
+/* globals BauVoiceApp, STEP, typingTextByChar, showElementWithDelay, typingTextWithDelay */
 
 'use strict';
 
@@ -13,5 +13,5 @@ BauVoiceApp.controller('LocationCtrl', ['$scope', function ($scope) {
 
   typingTextByChar($locCurr);
   showElementWithDelay($locList, DELAY_SHOW_LOC);
-  typingElementWithDelay($locLabel, DELAY_SHOW_LOC);
+  typingTextWithDelay($locLabel, DELAY_SHOW_LOC);
 }]);

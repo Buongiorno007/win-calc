@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, showElementWithDelay, typingElementWithDelay */
+/* globals BauVoiceApp, STEP, showElementWithDelay, typingTextWithDelay */
 
 'use strict';
 
@@ -14,11 +14,11 @@ BauVoiceApp.controller('GlassCtrl', ['$scope', function ($scope) {
       DELAY_SHOW_PROFILES = 5 * STEP,
       g, DELAY_SHOW_PROF;
 
-  typingElementWithDelay($glassTitle, DELAY_SHOW_PROFILES);
+  typingTextWithDelay($glassTitle, DELAY_SHOW_PROFILES);
 
   for (g = 0; g < $glassBox.length; g++) {
     DELAY_SHOW_PROF = DELAY_SHOW_PROFILES + g * (STEP * 3);
-    showElementWithDelay($glassBox[g], DELAY_SHOW_PROF);
+    showElementWithDelay($($glassBox[g]), DELAY_SHOW_PROF);
   }
 
   // Select glass

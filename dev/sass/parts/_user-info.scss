@@ -8,16 +8,9 @@
   width: 100%;
   .nav-menu-btn {
     @extend .menu-btn;
+    @include transition(transform 1s ease);
     &.show-navmenu {
-      @include animation(show-navmenu-btn .5s 0 ease 1);
       @include rotate(90deg);
-    }
-    &.hide-navmenu {
-      @include animation(hide-navmenu-btn .5s 0 ease 1);
-      @include rotate(0deg);
-    }
-    &.move-btn {
-      @include animation(move-nav-btn 1s 0 ease 1);
     }
   }
   .user-foto {
