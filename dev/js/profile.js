@@ -17,7 +17,7 @@ function initProfileContainer() {
 
   for (prof = 0; prof < $profileBox.length; prof++) {
     DELAY_SHOW_PROF = DELAY_SHOW_PROFILES + prof * 200;
-    showElementWithDelay($profileBox[prof], 'flex', DELAY_SHOW_PROF);
+    showElementWithDelay($profileBox[prof], DELAY_SHOW_PROF);
   }
 
 

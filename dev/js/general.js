@@ -1,8 +1,9 @@
-/* exported STEP, typingTextByChar, createPrice, showElementWithDelay, makeButtonActive */
+/* exported STEP, typingIndex, typingTextByChar, createPrice, showElementWithDelay, makeButtonActive */
 
 'use strict';
 
-var STEP = 100;
+var STEP = 100,
+    typingIndex = true;
 
 function typingTextByChar($textElem1, $textElem2) {
   var source = $textElem1.attr('name'),
@@ -30,7 +31,7 @@ function typingTextByChar($textElem1, $textElem2) {
 
   //this.buildTypingText = function (currentTxt, sourceTxt) {
   function buildTypingText (currentTxt, sourceTxt) {
-    if (currentTxt.length < sourceTxt.length) {
+    if (typingIndex && currentTxt.length < sourceTxt.length) {
       currentTxt += sourceTxt[currentTxt.length];
       return currentTxt;
     }
@@ -90,9 +91,9 @@ function createPrice($price) {
   scroll();
 }
 
-function showElementWithDelay(element, typeDisplay, delay) {
+function showElementWithDelay(element, delay) {
   setTimeout(function () {
-    $(element).css('display', typeDisplay);
+    $(element).addClass('visible');
   }, delay);
 }
 

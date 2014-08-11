@@ -1,8 +1,17 @@
 /* globals STEP, showElementWithDelay, addClassWithDelay*/
 
+var newClimateCoeff,
+    newHeatTransfCoeff,
+    newHeatExchangeCoeff;
+
 (function ($) {
   'use strict';
-  var $selectRoomsBTN = $('.room-info-container .select-rooms'),
+  var $roomInfoContainer = $('.room-info-container'),
+      $selectRoomsBTN = $roomInfoContainer.find('.select-rooms'),
+      $climateCoeff = $roomInfoContainer.find('.climate'),
+      $heatTransfCoeff = $roomInfoContainer.find('.heat-transfer'),
+      $heatExchangeCoeff = $roomInfoContainer.find('.heat-exchange'),
+
       $roomsDialog = $('.rooms-selector-dialog'),
       $roomsDialogClose = $roomsDialog.find('.close-dialog'),
       $roomBox = $roomsDialog.find('.room-box'),
@@ -45,6 +54,15 @@
       $(this).removeClass(selectedRoomClass);
     });
     $(this).addClass(selectedRoomClass);
+
+    newClimateCoeff = $(this).data('climate'),
+    newHeatTransfCoeff = $(this).data('heat-transfer'),
+    newHeatExchangeCoeff = $(this).data('heat-exchange');
+
+    $climateCoeff.text(newClimateCoeff);
+    $heatTransfCoeff.text(newHeatTransfCoeff);
+    $heatExchangeCoeff.text(newHeatExchangeCoeff);
+
   });
 
 })(jQuery);

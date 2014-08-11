@@ -1,4 +1,4 @@
-/* globals STEP, typingTextByChar, createPrice, showElementWithDelay, removeClassWithDelay, addClassWithDelay, initTemplateContainer, initProfileContainer, initGlassContainer, initHardwareContainer, initLaminationContainer, initAuxContainer */
+/* globals STEP, typingIndex, typingTextByChar, createPrice, showElementWithDelay, removeClassWithDelay, addClassWithDelay, initTemplateContainer, initProfileContainer, initGlassContainer, initHardwareContainer, initLaminationContainer, initAuxContainer */
 
 (function ($) {
   'use strict';
@@ -12,7 +12,7 @@
       DELAY_FILL_CONFIG_LIST = DELAY_SHOW_CONFIG_LIST + 4 * STEP,
       DELAY_SHOW_CONFIG_ITEM_ICON = DELAY_FILL_CONFIG_LIST + 5 * STEP;
 
-  showElementWithDelay($configList, 'block', DELAY_SHOW_CONFIG_LIST);
+  showElementWithDelay($configList, DELAY_SHOW_CONFIG_LIST);
 
   setTimeout(function () {
     var $configItemTitle = $configItem.find('.title'),
@@ -47,7 +47,7 @@
     $currency.show();
   }, DELAY_FILL_CONFIG_LIST);
 
-  showElementWithDelay($configItemIcon, 'block', DELAY_SHOW_CONFIG_ITEM_ICON);
+  showElementWithDelay($configItemIcon, DELAY_SHOW_CONFIG_ITEM_ICON);
 
 
   $configItem.click(function () {
@@ -89,22 +89,24 @@
         if ($itemCurr.hasClass(classShow)) {
           $itemCurr.addClass(classHide).removeClass(classShow);
           removeClassWithDelay($itemCurr, classHide, DELAY);
+          hideConfigPanelContent(DELAY);
           addClassWithDelay(itemSelected, classShow, DELAY);
-          initConfigPanel(itemSelected);
+          showConfigPanelContent(itemSelected);
         }
       }
     } else if (checkOpenItem && onlyHide) {
       $(itemSelected).addClass(classHide).removeClass(classShow);
       removeClassWithDelay(itemSelected, classHide, DELAY);
+      hideConfigPanelContent(DELAY);
     } else {
       $(itemSelected).addClass(classShow);
-      initConfigPanel(itemSelected);
+      showConfigPanelContent(itemSelected);
     }
 
   }
 
 
-  function initConfigPanel(panelClass) {
+  function showConfigPanelContent(panelClass) {
     switch(panelClass) {
       case '.template-container': initTemplateContainer();
         break;
@@ -119,6 +121,13 @@
       case '.auxiliaries-container': initAuxContainer();
         break;
     }
+  }
+
+  function hideConfigPanelContent(delay) {
+    setTimeout(function () {
+      $('.config-panel').find('.visible').removeClass('visible');
+      typingIndex = false;
+    }, delay);
   }
 
 })(jQuery);

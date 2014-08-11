@@ -18,7 +18,7 @@ function initGlassContainer() {
 
   for (g = 0; g < $glassBox.length; g++) {
     DELAY_SHOW_PROF = DELAY_SHOW_PROFILES + g * (STEP * 3);
-    showElementWithDelay($glassBox[g], 'block', DELAY_SHOW_PROF);
+    showElementWithDelay($glassBox[g], DELAY_SHOW_PROF);
   }
 
   // Select glass

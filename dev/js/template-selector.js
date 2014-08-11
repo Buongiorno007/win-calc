@@ -12,11 +12,11 @@ function initTemplateContainer() {
 
       DELAY_SHOW_CONTENT = 5 * STEP;
 
-  showElementWithDelay($tempTitle, 'block', DELAY_SHOW_CONTENT);
+  showElementWithDelay($tempTitle, DELAY_SHOW_CONTENT);
   typingElementWithDelay($tempDiscr, DELAY_SHOW_CONTENT);
-  showElementWithDelay($tempEditBTN, 'block', 2 * DELAY_SHOW_CONTENT);
-  showElementWithDelay($tempDefaultBTN, 'block', 2 * DELAY_SHOW_CONTENT);
-  showElementWithDelay($tempOtherIMG, 'block', 2 * DELAY_SHOW_CONTENT);
+  showElementWithDelay($tempEditBTN, 2 * DELAY_SHOW_CONTENT);
+  showElementWithDelay($tempDefaultBTN, 2 * DELAY_SHOW_CONTENT);
+  showElementWithDelay($tempOtherIMG, 2 * DELAY_SHOW_CONTENT);
 
   // click on Buttons
   $tempTitle.click(function () {
