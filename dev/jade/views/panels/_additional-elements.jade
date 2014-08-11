@@ -1,7 +1,7 @@
 .config-panel.auxiliaries-container(ng-controller="AdditionalElementsCtrl")
 
   .auxiliary-item.aux-grid
-    .aux-grid-img
+    .aux-grid-img.move-grid
     .aux-txt-box.aux-grid-txt
       button.aux-choose-but.aux_middle_but Выбрать
       .aux-label(name="москитная сетка")
@@ -10,7 +10,7 @@
         .aux-label(name="москитная сетка")
 
   .auxiliary-item.aux-visor
-    .aux-visor-img
+    .aux-visor-img.move-visor
     .aux-txt-box.aux-visor-txt
       button.aux-choose-but.aux_big_but Выбрать
       .aux-label(name="козырек")
@@ -23,11 +23,11 @@
             .aux-params-label(name="шт")
           .aux-params
             button.aux-params-but.aux_big_but 1000
-            .aux-params-label(name="ширина")
+            .aux-params-label(name="размер")
         .aux-more(name="Еще 3 компонента...")
 
   .auxiliary-item.aux-spillway
-    .aux-spillway-img
+    .aux-spillway-img.move-spillway
     .aux-txt-box.aux-spillway-txt
       button.aux-choose-but.aux_middle_but Выбрать
       .aux-label(name="водоотлив")
@@ -40,11 +40,11 @@
             .aux-params-label(name="шт")
           .aux-params
             button.aux-params-but.aux_middle_but 1000
-            .aux-params-label(name="ширина")
+            .aux-params-label(name="размер")
         .aux-more(name="Еще 3 компонента...")
 
   .auxiliary-item.aux-outside
-    .aux-outside-img
+    .aux-outside-img.move-outside
     .aux-txt-box.aux-outside-txt
       button.aux-choose-but.aux_slope_but Выбрать
       .aux-label(name="наружные откосы")
@@ -54,12 +54,12 @@
 
 
   .auxiliary-item.aux-louver
-    .aux-louver-img
+    .aux-louver-img.move-louvers
       .aux-louver-top
-      .aux-louver-midle.louver-midle-1
-      .aux-louver-midle.louver-midle-2
-      .aux-louver-midle.louver-midle-3
-      .aux-louver-bottom
+      .aux-louver-midle.louver-midle-1.move-louver-midle-1
+      .aux-louver-midle.louver-midle-2.move-louver-midle-2
+      .aux-louver-midle.louver-midle-3.move-louver-midle-3
+      .aux-louver-bottom.move-louver-bottom
     .aux-txt-box.aux-louver-txt
       button.aux-choose-but.aux_middle_but Выбрать
       .aux-label(name="жалюзи")
@@ -78,12 +78,12 @@
             .aux-params-label(name="высота")
         .aux-more(name="Еще 3 компонента...")
 
-  .auxiliary-item.aux-inside-slope
-    .aux-inside-slope-img
-      .aux-inside-slope-top
-      .aux-inside-slope-right
-      .aux-inside-slope-left
-    .aux-txt-box.aux-inside-slope-txt
+  .auxiliary-item.aux-inside
+    .aux-inside-img
+      .aux-inside-top.move-inside-top
+      .aux-inside-right.move-inside-right
+      .aux-inside-left.move-inside-left
+    .aux-txt-box.aux-inside-txt
       button.aux-choose-but.aux_slope_but Выбрать
       .aux-label(name="внутренние откосы")
       .aux-selected
@@ -106,11 +106,11 @@
             .aux-params-label(name="шт")
           .aux-params
             button.aux-params-but.aux_connect_but 1000
-            .aux-params-label(name="ширина")
+            .aux-params-label(name="размер")
         .aux-more(name="Еще 3 компонента...")
 
   .auxiliary-item.aux-fan
-    .aux-fan-img
+    .aux-fan-img.move-fan
     .aux-txt-box.aux-fan-txt
       button.aux-choose-but.aux_small_but Выбрать
       .aux-label(name="микропроветривание")
@@ -119,7 +119,7 @@
         .aux-label(name="микропроветривание")
 
   .auxiliary-item.aux-windowsill
-    .aux-windowsill-img
+    .aux-windowsill-img.move-windowsill
     .aux-txt-box.aux-windowsill-txt
       button.aux-choose-but.aux_big_but Выбрать
       .aux-label(name="подоконник")
@@ -132,11 +132,11 @@
             .aux-params-label(name="шт")
           .aux-params
             button.aux-params-but.aux_big_but 1000
-            .aux-params-label(name="ширина")
+            .aux-params-label(name="размер")
         .aux-more(name="Еще 3 компонента...")
 
   .auxiliary-item.aux-handle
-    .aux-handle-img
+    .aux-handle-img.move-handle
     .aux-txt-box.aux-handle-txt
       button.aux-choose-but.aux_small_but Выбрать
       .aux-label(name="ручка")

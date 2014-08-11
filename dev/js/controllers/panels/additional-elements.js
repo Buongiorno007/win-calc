@@ -10,10 +10,10 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
       $auxOutside = $('.aux-outside'),
       $auxWindowsill = $('.aux-windowsill'),
       $auxLouver = $('.aux-louver'),
-      $auxInsideSlope = $('.aux-inside-slope'),
-      $auxInsideSlopeTop = $('.aux-inside-slope-top'),
-      $auxInsideSlopeLeft = $('.aux-inside-slope-left'),
-      $auxInsideSlopeRight = $('.aux-inside-slope-right'),
+      $auxInsideSlope = $('.aux-inside'),
+      $auxInsideSlopeTop = $('.aux-inside-top'),
+      $auxInsideSlopeLeft = $('.aux-inside-left'),
+      $auxInsideSlopeRight = $('.aux-inside-right'),
       $auxConnectors = $('.aux-connectors'),
       $auxForceConnect = $('.aux-force-connect'),
       $auxBalconConnect = $('.aux-balcon-connect'),
@@ -44,7 +44,7 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
       DELAY_SHOW_AUX_CHOOSEBUTTON = STEP * 50,
       DELAY_SHOW_AUX_LABEL = STEP * 50;
 
-  function initAuxContainer() {}
+//  function initAuxContainer() {}
 
   //  showElementWithDelay($auxContainer, DELAY_SHOW_AUX_CONTAINER);
   showElementWithDelay($auxGrid, DELAY_SHOW_AUX_GRID);

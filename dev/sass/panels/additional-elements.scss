@@ -1,11 +1,25 @@
 // TODO: Проверить координаты
-// TODO: Вынести анимацию в отдельные классы
-// TODO: Добавить состояния для контейнеров (focused, selected)
 .auxiliaries-container {
   .auxiliary-item {
     position: absolute;
     display: none;
+
+    &.focused {
+      z-index: 10;
+
+      .aux-grid-img {
+        background: image-url('auxiliaries-focused/grid.png') no-repeat;
+      }
+    }
+
+    &.selected {
+      .aux-grid-img {
+        background: image-url('auxiliaries-selected/grid.png') no-repeat;
+      }
+    }
+
   }
+34aadc
 
   //------Grid
   .aux-grid {
@@ -16,15 +30,12 @@
 
   .aux-grid-img {
     @include top_left_coord(0, 0);
-    @include animation(move-grid 1s 0 ease 1);
 
     position: absolute;
     width: 220px;
     height: 390px;
     background: image-url('auxiliaries/grid.png') no-repeat;
   }
-
-  @include behavior-move(move-grid, 1000px, -2000px, 0, 0);
 
   //------Visor
   .aux-visor {
@@ -35,15 +46,12 @@
 
   .aux-visor-img {
     @include top_left_coord(0, 0);
-    @include animation(move-visor 1s 0 ease 1);
 
     position: absolute;
     width: 893px;
     height: 261px;
     background: image-url('auxiliaries/visor.png') no-repeat;
   }
-
-  @include behavior-move(move-visor, 1000px, -2000px, 0, 0);
 
   //------Spillway
   .aux-spillway {
@@ -54,15 +62,12 @@
 
   .aux-spillway-img {
     @include top_left_coord(0, 0);
-    @include animation(move-spillway 1s 0 ease 1);
 
     position: absolute;
     width: 719px;
     height: 206px;
     background: image-url('auxiliaries/spillway.png') no-repeat;
   }
-
-  @include behavior-move(move-spillway, 2000px, -2000px, 0, 0);
 
   //-------Outside
   .aux-outside {
@@ -73,15 +78,12 @@
 
   .aux-outside-img {
     @include top_left_coord(0, 0);
-    @include animation(move-outside 1s 0 ease 1);
 
     position: absolute;
     width: 650px;
     height: 610px;
     background: image-url('auxiliaries/outside.png') no-repeat;
   }
-
-  @include behavior-move(move-outside, 0px, -2000px, 0, 0);
 
   //-----Windowsill
   .aux-windowsill {
@@ -92,15 +94,12 @@
 
   .aux-windowsill-img {
     @include top_left_coord(0, 0);
-    @include animation(move-windowsill 2s 0 ease 1);
 
     position: absolute;
     width: 720px;
     height: 236px;
     background: image-url('auxiliaries/windowsill.png') no-repeat;
   }
-
-  @include behavior-move(move-windowsill, -1000px, 2000px, 0, 0);
 
   //-----Louvers
 
@@ -112,12 +111,9 @@
 
   .aux-louver-img {
     @include top_left_coord(0, 0);
-    @include animation(move-louvers 2s 0 ease 1);
 
     position: relative;
   }
-
-  @include behavior-move(move-louvers, 0, -2000px, 0, 0);
 
   .aux-louver-top {
     @include top_left_coord(0, 50);
@@ -138,35 +134,22 @@
   }
 
   .louver-midle-1 {
-    @include animation(move-louver-1 2s 2s ease 1);
-
     z-index: 9;
     top: 27px;
   }
 
-  @include behavior-louvers-move(move-louver-1, 0, 0, 0, -30px, 0, 0);
-
   .louver-midle-2 {
-    @include animation(move-louver-2 2s 2s ease 1);
-
     z-index: 8;
     top: 65px;
   }
 
-  @include behavior-louvers-move(move-louver-2, 0, 0, 0, -60px, 0, 0);
-
   .louver-midle-3 {
-    @include animation(move-louver-3 2s 2s ease 1);
-
     z-index: 7;
     top: 103px;
   }
 
-  @include behavior-louvers-move(move-louver-3, 0, 0, 0, -90px, 0, 0);
-
   .aux-louver-bottom {
     @include top_left_coord(143, 50);
-    @include animation(move-louver-bottom 2s 2s ease 1);
 
     position: absolute;
     z-index: 6;
@@ -175,24 +158,21 @@
     background: image-url('auxiliaries/louvers-bottom.png') no-repeat;
   }
 
-  @include behavior-louvers-move(move-louver-bottom, 0, 0, 0, -120px, 0, 0);
-
   //-----Inside-slope
-  .aux-inside-slope {
+  .aux-inside {
     @include top_left_coord(510, 210);
 
     z-index: 3;
   }
 
-  .aux-inside-slope-img {
+  .aux-inside-img {
     @include top_left_coord(0, 0);
 
     position: relative;
   }
 
-  .aux-inside-slope-top {
+  .aux-inside-top {
     @include top_left_coord(0, 50);
-    @include animation(move-slope-top 1s 0 ease 1);
 
     position: absolute;
     display: none;
@@ -201,11 +181,8 @@
     background: image-url('auxiliaries/inside-slope-top.png') no-repeat;
   }
 
-  @include behavior-move(move-slope-top, 0, -2000px, 0, 0);
-
-  .aux-inside-slope-right {
+  .aux-inside-right {
     @include top_left_coord(180, 680);
-    @include animation(move-slope-right 1s 0 ease 1);
 
     position: absolute;
     display: none;
@@ -214,11 +191,8 @@
     background: image-url('auxiliaries/inside-slope-right.png') no-repeat;
   }
 
-  @include behavior-move(move-slope-right, 2000px, 2000px, 0, 0);
-
-  .aux-inside-slope-left {
+  .aux-inside-left {
     @include top_left_coord(60, 0);
-    @include animation(move-slope-left 1s 0 ease 1);
 
     position: absolute;
     display: none;
@@ -226,8 +200,6 @@
     height: 408px;
     background: image-url('auxiliaries/inside-slope-left.png') no-repeat;
   }
-
-  @include behavior-move(move-slope-left, -1000px, 0px, 0, 0);
 
   //------Fun
   .aux-fan {
@@ -293,7 +265,6 @@
 
   .aux-handle-img {
     @include top_left_coord(0, 0);
-    @include animation(move-handle 1s 0 ease 1);
 
     position: absolute;
     width: 106px;
@@ -301,7 +272,6 @@
     background: image-url('auxiliaries/handle.png') no-repeat;
   }
 
-  @include behavior-move(move-handle, -1000px, 2000px, 0, 0);
 
   //-----Others
   .aux-others {
@@ -309,6 +279,9 @@
 
     z-index: 3;
   }
+
+
+
 
   .aux-txt-box {
     position: absolute;
@@ -319,23 +292,23 @@
   }
 
   .aux-visor-txt {
-    @include top_left_coord(10, 650);
+    @include top_left_coord(0, 620);
   }
 
   .aux-spillway-txt {
-    @include top_left_coord(110, 800);
+    @include top_left_coord(110, 737);
   }
 
   .aux-outside-txt {
-    @include top_left_coord(-100, -350);
+    @include top_left_coord(-125, -350);
   }
 
   .aux-louver-txt {
     @include top_left_coord(280, 50);
   }
 
-  .aux-inside-slope-txt {
-    @include top_left_coord(-80, -120);
+  .aux-inside-txt {
+    @include top_left_coord(-115, -120);
   }
 
   .aux-connectors-txt {
@@ -351,7 +324,7 @@
   }
 
   .aux-handle-txt {
-    @include top_left_coord(10, 150);
+    @include top_left_coord(35, 150);
   }
 
   .aux-choose-but {
@@ -363,8 +336,6 @@
     padding: 0 30px;
     background-color: transparent;
   }
-
-
 
   .aux_big_but {
     color: $aux_big_color;
@@ -431,5 +402,3 @@
     display: block;
   }
 }
-
-@include behavior-splash(splashing, 0, 1.3, 1);
