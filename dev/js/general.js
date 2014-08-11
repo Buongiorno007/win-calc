@@ -91,14 +91,14 @@ function createPrice($price) {
   scroll();
 }
 
-function showElementWithDelay(element, delay) {
+function showElementWithDelay($element, delay) {
   setTimeout(function () {
-    $(element).addClass('visible');
+    $element.addClass('visible');
   }, delay);
 }
 
 
-function typingElementWithDelay(element, delay) {
+function typingTextWithDelay(element, delay) {
   setTimeout(function () {
     element.each(function () {
       typingTextByChar($(this));

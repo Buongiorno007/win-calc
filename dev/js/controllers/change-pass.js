@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, typingTextByChar, showElementWithDelay, typingElementWithDelay */
+/* globals BauVoiceApp, STEP, typingTextByChar, showElementWithDelay, typingTextWithDelay */
 
 'use strict';
 
@@ -13,6 +13,6 @@ BauVoiceApp.controller('ChangePassCtrl', ['$scope', function ($scope) {
 
   typingTextByChar($pswTitle);
   showElementWithDelay($pswList, 'block', DELAY_SHOW_PSW);
-  typingElementWithDelay($pswLabel, DELAY_SHOW_PSW);
-  typingElementWithDelay($pswData, DELAY_SHOW_PSW);
+  typingTextWithDelay($pswLabel, DELAY_SHOW_PSW);
+  typingTextWithDelay($pswData, DELAY_SHOW_PSW);
 }]);

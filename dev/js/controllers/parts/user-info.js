@@ -1,35 +1,30 @@
-/* globals BauVoiceApp, STEP, showElementWithDelay, typingElementWithDelay */
+/* globals BauVoiceApp, STEP, showElementWithDelay, typingTextWithDelay */
 
 'use strict';
 
-BauVoiceApp.controller('UserInfoCtrl', ['$scope', function ($scope) {
-  var $navmenuBTN = $('.user-info-container .nav-menu-btn'),
-      $userLocation = $('.user-info-container .user-location'),
-      $userName = $('.user-info-container .user-name'),
-      $userIconLocation = $('.user-info-container .icon-location'),
-
-      $pageContainer = $('.page-container'),
-
-      showNavMemuClass = 'show-navmenu',
-      hideNavMenuClass = 'hide-navmenu',
-      showLeftSideClass = 'swiped',
+BauVoiceApp.controller('UserInfoCtrl', ['$rootScope', '$scope', function ($rootScope, $scope) {
+  var $userInfoContainer = $('.user-info-container'),
+      $userLocation = $userInfoContainer.find('.user-location'),
+      $userName = $userInfoContainer.find('.user-name'),
+      $userIconLocation = $userInfoContainer.find('.icon-location'),
 
       DELAY_SHOW_USER_INFO = 20 * STEP;
 
   showElementWithDelay($userIconLocation, DELAY_SHOW_USER_INFO);
-  typingElementWithDelay($userLocation, DELAY_SHOW_USER_INFO);
-  typingElementWithDelay($userName, DELAY_SHOW_USER_INFO);
+  typingTextWithDelay($userLocation, DELAY_SHOW_USER_INFO);
+  typingTextWithDelay($userName, DELAY_SHOW_USER_INFO);
 
-  // Click on button to show nav-menu
-  $navmenuBTN.click(function () {
+  $scope.userInfo = {
+    isConfigMenuShow: false,
+    location: 'Днепропетровск',
+    name: 'John Appleseed'
+  };
 
-    $(this).removeClass('move-btn');
-    if ($(this).hasClass(showNavMemuClass)) {
-      $(this).removeClass(showNavMemuClass).addClass(hideNavMenuClass);
-      $pageContainer.addClass(showLeftSideClass);
-    } else {
-      $(this).removeClass(hideNavMenuClass).addClass(showNavMemuClass);
-      $pageContainer.removeClass(showLeftSideClass);
-    }
+  $scope.swipeMainPage = function() {
+    $rootScope.$broadcast('swipeMainPage', true);
+  };
+
+  $rootScope.$on('swipeMainPage', function() {
+    $scope.userInfo.isConfigMenuShow = !$scope.userInfo.isConfigMenuShow;
   });
 }]);
