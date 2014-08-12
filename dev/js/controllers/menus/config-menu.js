@@ -86,18 +86,16 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', function ($scope) {
         if ($itemCurr.hasClass(classShow)) {
           $itemCurr.addClass(classHide).removeClass(classShow);
           removeClassWithDelay($itemCurr, classHide, DELAY);
-          hideConfigPanelContent(DELAY);
           addClassWithDelay(itemSelected, classShow, DELAY);
-//          showConfigPanelContent(itemSelected);
+//          initConfigPanel(itemSelected);
         }
       }
     } else if (checkOpenItem && onlyHide) {
       $(itemSelected).addClass(classHide).removeClass(classShow);
       removeClassWithDelay(itemSelected, classHide, DELAY);
-      hideConfigPanelContent(DELAY);
     } else {
       $(itemSelected).addClass(classShow);
-//      showConfigPanelContent(itemSelected);
+//      initConfigPanel(itemSelected);
     }
   }
 
