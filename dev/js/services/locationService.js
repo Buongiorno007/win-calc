@@ -2,8 +2,8 @@
 
 BauVoiceApp.factory('locationService', function () {
   return {
-    getCity: function () {
-      return new OkResult({
+    getCity: function (callback) {
+      callback(new OkResult({
         city: {
           id: 156,
           name: 'Днепропетровск'
@@ -11,7 +11,7 @@ BauVoiceApp.factory('locationService', function () {
         zone: {
           id: 1
         }
-      });
+      }));
     }
   }
 });

@@ -2,8 +2,8 @@
 
 BauVoiceApp.factory('constructService', function () {
   return {
-    getCoefs: function () {
-      return new OkResult({
+    getCoefs: function (callback) {
+      callback(new OkResult({
         coefs: {
           thermalResistance: {
             required: 0.75,
@@ -14,40 +14,40 @@ BauVoiceApp.factory('constructService', function () {
             actual: 0
           }
         }
-      });
+      }));
     },
-    getRoomInfo: function () {
-      return new OkResult({
+    getRoomInfo: function (callback) {
+      callback(new OkResult({
         id: 1,
         name: 'Детская'
-      });
+      }));
     },
-    getConstructSize: function () {
-      return new OkResult({
+    getConstructSize: function (callback) {
+      callback(new OkResult({
         width: 1200,
         height: 1250
-      });
+      }));
     },
-    getProfileSystem: function () {
-      return new OkResult({
+    getProfileSystem: function (callback) {
+      callback(new OkResult({
         id: 12,
         name: 'Окошко S58'
-      });
+      }));
     },
-    getGlass: function () {
-      return new OkResult({
+    getGlass: function (callback) {
+      callback(new OkResult({
         id: 42,
         name: '4/16/4'
-      });
+      }));
     },
-    getWindowHardware: function () {
-      return new OkResult({
+    getWindowHardware: function (callback) {
+      callback(new OkResult({
         id: 1,
         name: 'Немецкая'
-      });
+      }));
     },
-    getLamination: function () {
-      return new OkResult({
+    getLamination: function (callback) {
+      callback(new OkResult({
         color: {
           id: 15,
           name: 'Махагон'
@@ -56,19 +56,19 @@ BauVoiceApp.factory('constructService', function () {
           id: 4,
           name: 'Внутренняя'
         }
-      });
+      }));
     },
-    getPrice: function () {
-      return new OkResult({
+    getPrice: function (callback) {
+      callback(new OkResult({
         price: 2654.45,
         currency: {
           id: 3,
           name: 'uah'
         }
-      });
+      }));
     },
-    getAdditionalElements: function () {
-      return new OkResult({
+    getAdditionalElements: function (callback) {
+      callback(new OkResult({
         elements: [
           {
             element: {
@@ -91,17 +91,17 @@ BauVoiceApp.factory('constructService', function () {
             }
           }
         ]
-      });
+      }));
     },
-    getConstructNoteText: function () {
-      return new OkResult({
+    getConstructNoteText: function (callback) {
+      callback(new OkResult({
         note: 'Срочный заказ'
-      });
+      }));
     },
-    getConstructThumb: function () {
-      return new OkResult({
+    getConstructThumb: function (callback) {
+      callback(new OkResult({
         thumburl: 'url_path'
-      });
+      }));
     },
     getAllLaminations: function (factoryId, callback) {
       var selectLaminations = "SELECT id, name FROM lamination_colors WHERE factory_id = " + factoryId,

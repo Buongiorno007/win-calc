@@ -1,6 +1,6 @@
 "use strict";
 
-BauVoiceApp.factory('localeStorage', function () {
+BauVoiceApp.factory('localStorage', function () {
   return {
     md5: function (string) {
       function RotateLeft(lValue, iShiftBits) {
@@ -221,28 +221,26 @@ BauVoiceApp.factory('localeStorage', function () {
         });
       });
     },
-    getOrdersCart: function () {
-      return new OkResult({
+    getOrdersCart: function (callback) {
+      callback(new OkResult({
         ordersInCart: 22
-      });
+      }));
     }
   }
 });
 
-/*
 
- localeStorage.login({login : 'zavod', password : 'zavod'}, function (results) {
- if (results.status) {
- $scope.user = results.data;
- console.log($scope.user);
- console.log(results);
- } else {
- console.log(results);
- }
- });
+//localStorage.login({login: 'zavod', password: 'zavod'}, function (results) {
+//  if (results.status) {
+//    $scope.user = results.data;
+//    console.log($scope.user);
+//    console.log(results);
+//  } else {
+//    console.log(results);
+//  }
+//});
+//
+//$scope.ordersInCart = localeStorage.getOrdersCart();
+//console.log($scope.ordersInCart);
+//console.log($scope.ordersInCart.data);
 
- $scope.ordersInCart = localeStorage.getOrdersCart();
- console.log($scope.ordersInCart);
- console.log($scope.ordersInCart.data);
-
- */
