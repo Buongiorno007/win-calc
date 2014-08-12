@@ -1,17 +1,17 @@
 .room-info-container(ng-controller="RoomInfoCtrl")
   .room-header
-    .room-name Детская
+    .room-name {{ roomInfo.room }}
       button.select-rooms Все
 
   .coeff-container
     .coeff-block
-      .coeff.climate 1
+      .coeff.climate {{ roomInfo.zone }}
       .coeff-title(data-output="климатическая зона")
     .coeff-block
-      .coeff.heat-transfer.coeff-low 0.44
-        .coeff-max 0.75
+      .coeff.heat-transfer.coeff-low {{ roomInfo.coefs.thermalResistance.actual }}
+        .coeff-max {{ roomInfo.coefs.thermalResistance.required }}
       .coeff-title(data-output="сопротивление теплопередаче")
     .coeff-block
-      .coeff.heat-exchange 90
-        .coeff-max 90
-      .coeff-title(data-output="коэффициент теплообмена")
+      .coeff.heat-exchange {{ roomInfo.coefs.airCirculation.actual }}
+        .coeff-max {{ roomInfo.coefs.airCirculation.required }}
+      .coeff-title(data-output="коэффициент воздухообмена")
