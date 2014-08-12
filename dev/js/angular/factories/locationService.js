@@ -10,7 +10,7 @@ myApp.factory('locationService', function(){
 
 /*
 
- $scope.city = helperFactory.getCity();
+ $scope.city = locationService.getCity();
  console.log($scope.city);
  console.log($scope.city.data);
 
