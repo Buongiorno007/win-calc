@@ -1,6 +1,9 @@
 {
   "globals": {
-    "angular": false
+    "angular": false,
+    "BauVoiceApp": false,
+    "OkResult": false,
+    "ErrorResult": false
   },
   "eqnull": true,
   "noyield": true,
@@ -49,6 +52,7 @@
   "freeze": true,
   "laxbreak": true,
   "multistr": true,
-  "globalstrict": true
+  "globalstrict": true,
+  "quotmark": false
 }
 
