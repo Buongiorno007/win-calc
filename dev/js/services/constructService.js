@@ -5,10 +5,14 @@ BauVoiceApp.factory('constructService', function () {
     getCoefs: function () {
       return new OkResult({
         coefs: {
-          requiredT: 0.75,
-          actualT: 0.44,
-          requiredO: 50,
-          actualO: 0
+          thermalResistance: {
+            required: 0.75,
+            actual: 0.44
+          },
+          airCirculation: {
+            required: 50,
+            actual: 0
+          }
         }
       });
     },
@@ -27,7 +31,7 @@ BauVoiceApp.factory('constructService', function () {
     getProfileSystem: function () {
       return new OkResult({
         id: 12,
-        name: 'S58'
+        name: 'Окошко S58'
       });
     },
     getGlass: function () {
