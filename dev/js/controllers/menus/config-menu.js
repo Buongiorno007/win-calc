@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', function ($scope) {
+BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructService', function ($scope, localStorage, constructService) {
   var $configList = $('.config-menu .items-list'),
       $configItem = $configList.find('.item'),
       $configItemIcon = $configItem.find('.icon'),
@@ -128,4 +128,95 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', function ($scope) {
       //typingIndex = false;
     }, delay);
   }
+
+  $scope.configMenu = {};
+
+  constructService.getConstructThumb(function (results) {
+    if (results.status) {
+      $scope.configMenu.constructThumb = results.data.url;
+    } else {
+      console.log(results);
+    }
+  });
+
+  constructService.getConstructSize(function (results) {
+    if (results.status) {
+      $scope.configMenu.construction = {
+        width: results.data.width,
+        height: results.data.height
+      };
+    } else {
+      console.log(results);
+    }
+  });
+
+  constructService.getProfileSystem(function (results) {
+    if (results.status) {
+      $scope.configMenu.profileName = results.data.name;
+    } else {
+      console.log(results);
+    }
+  });
+
+  constructService.getGlass(function (results) {
+    if (results.status) {
+      $scope.configMenu.glassName = results.data.name;
+    } else {
+      console.log(results);
+    }
+  });
+
+  constructService.getWindowHardware(function (results) {
+    if (results.status) {
+      $scope.configMenu.windowHardware = results.data.name;
+    } else {
+      console.log(results);
+    }
+  });
+
+  constructService.getLamination(function (results) {
+    if (results.status) {
+      $scope.configMenu.lamination = {
+        outer: results.data.outer.name,
+        inner: results.data.inner.name
+      };
+    } else {
+      console.log(results);
+    }
+  });
+
+  constructService.getAdditionalElements(function (results) {
+    if (results.status) {
+      $scope.configMenu.additionalElments = results.data.elements;
+    } else {
+      console.log(results);
+    }
+  });
+
+  constructService.getPrice(function (results) {
+    if (results.status) {
+      $scope.configMenu.price = results.data.price;
+      $scope.configMenu.currency = results.data.currency.name;
+    } else {
+      console.log(results);
+    }
+  });
+
+  $scope.setCurrencySymbol = function (currency) {
+    var currencySymbol = 'I';
+
+    if (currency === 'uah') {
+      currencySymbol = '₴';
+    }
+
+    return currencySymbol;
+  };
+
+  localStorage.getOrdersCart(function (results) {
+    if (results.status) {
+      $scope.configMenu.ordersInCart = results.data.ordersInCart;
+    } else {
+      console.log(results);
+    }
+  });
 }]);

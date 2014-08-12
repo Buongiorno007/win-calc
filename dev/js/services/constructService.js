@@ -22,6 +22,11 @@ BauVoiceApp.factory('constructService', function () {
         name: 'Детская'
       }));
     },
+    getConstructThumb: function (callback) {
+      callback(new OkResult({
+        url: '../img/config-menu/configMenu_itemIMG.png'
+      }));
+    },
     getConstructSize: function (callback) {
       callback(new OkResult({
         width: 1200,
@@ -48,22 +53,13 @@ BauVoiceApp.factory('constructService', function () {
     },
     getLamination: function (callback) {
       callback(new OkResult({
-        color: {
+        outer: {
           id: 15,
           name: 'Махагон'
         },
-        type: {
+        inner: {
           id: 4,
           name: 'Внутренняя'
-        }
-      }));
-    },
-    getPrice: function (callback) {
-      callback(new OkResult({
-        price: 2654.45,
-        currency: {
-          id: 3,
-          name: 'uah'
         }
       }));
     },
@@ -71,20 +67,16 @@ BauVoiceApp.factory('constructService', function () {
       callback(new OkResult({
         elements: [
           {
-            element: {
-              id: 152,
-              name: 'УВ-100х100'
-            },
+            id: 152,
+            name: 'УВ-100х100',
             group: {
               id: 65,
               name: 'Нащельник'
             }
           },
           {
-            element: {
-              id: 22,
-              name: 'ОБ-120'
-            },
+            id: 22,
+            name: 'ОБ-120',
             group: {
               id: 66,
               name: 'Водоотлив'
@@ -93,14 +85,18 @@ BauVoiceApp.factory('constructService', function () {
         ]
       }));
     },
+    getPrice: function (callback) {
+      callback(new OkResult({
+        price: 4855268.52,
+        currency: {
+          id: 3,
+          name: 'uah'
+        }
+      }));
+    },
     getConstructNoteText: function (callback) {
       callback(new OkResult({
         note: 'Срочный заказ'
-      }));
-    },
-    getConstructThumb: function (callback) {
-      callback(new OkResult({
-        thumburl: 'url_path'
       }));
     },
     getAllLaminations: function (factoryId, callback) {
@@ -130,61 +126,3 @@ BauVoiceApp.factory('constructService', function () {
     }
   }
 });
-
-/*
-
- $scope.coefs = constructService.getCoefs();
- console.log($scope.coefs);
- console.log($scope.coefs.data);
-
- $scope.room = constructService.getRoomInfo();
- console.log($scope.room);
- console.log($scope.room.data);
-
- $scope.constructSize = constructService.getConstructSize();
- console.log($scope.constructSize);
- console.log($scope.constructSize.data);
-
- $scope.profileSystem = constructService.getProfileSystem();
- console.log($scope.profileSystem);
- console.log($scope.profileSystem.data);
-
- $scope.glass = constructService.getGlass();
- console.log($scope.glass);
- console.log($scope.glass.data);
-
- $scope.windowHardware = constructService.getWindowHardware();
- console.log($scope.windowHardware);
- console.log($scope.windowHardware.data);
-
- $scope.lamination = constructService.getLamination();
- console.log($scope.lamination);
- console.log($scope.lamination.data);
-
- $scope.price = constructService.getPrice();
- console.log($scope.price);
- console.log($scope.price.data);
-
- $scope.additionalElement = constructService.getAdditionalElement();
- console.log($scope.additionalElement);
- console.log($scope.additionalElement.data);
-
- $scope.сonstructNoteText = constructService.getConstructNoteText();
- console.log($scope.сonstructNoteText);
- console.log($scope.сonstructNoteText.data);
-
- $scope.constructThumb = constructService.getConstructThumb();
- console.log($scope.constructThumb);
- console.log($scope.constructThumb.data);
-
- helperFactory.getAllLaminations(208, function (results) {
- if (results.status) {
- $scope.laminations = results.data;
- console.log($scope.laminations);
- console.log(results);
- } else {
- console.log(results);
- }
- });
-
- */

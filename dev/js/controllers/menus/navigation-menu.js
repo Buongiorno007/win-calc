@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('NavMenuCtrl', ['$scope', function ($scope) {
+BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'localStorage', function ($scope, $location, localStorage) {
   var $navMenuHeader = $('.nav-menu-header'),
       $navmenuList = $navMenuHeader.find('.items-list'),
       $navmenuItem = $navmenuList.find('.item'),
@@ -32,10 +32,10 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', function ($scope) {
         ul, icon;
 
     for (ul = 0; ul < $navmenuList.length; ul++) {
-      DELAY_SHOW_NAV_LIST = (DELAY_SHOW_NAV_LISTS + STEP_NAV_LIST * ul),
-      DELAY_SHOW_NAV_CONTENT = DELAY_SHOW_NAV_LIST + STEP_NAV_LIST * 2,
-      DELAY_SHOW_NAV_TITLE = DELAY_SHOW_NAV_CONTENT + STEP_NAV_ICON * 4,
-      DELAY_SHOW_NAV_BADGE = DELAY_SHOW_NAV_TITLE + STEP_NAV_LIST * 5,
+      DELAY_SHOW_NAV_LIST = (DELAY_SHOW_NAV_LISTS + STEP_NAV_LIST * ul);
+      DELAY_SHOW_NAV_CONTENT = DELAY_SHOW_NAV_LIST + STEP_NAV_LIST * 2;
+      DELAY_SHOW_NAV_TITLE = DELAY_SHOW_NAV_CONTENT + STEP_NAV_ICON * 4;
+      DELAY_SHOW_NAV_BADGE = DELAY_SHOW_NAV_TITLE + STEP_NAV_LIST * 5;
 
       $navmenuContent = $navmenuList.eq(ul).find('.item-content');
       $navmenuItemIcon = $navmenuList.eq(ul).find('.icon-splash');
@@ -43,7 +43,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', function ($scope) {
       $navmenuItemBadge = $navmenuList.eq(ul).find('.badge');
 
       addClassWithDelay($navmenuList.eq(ul), movingClass, DELAY_SHOW_NAV_CONTENT);
-//      showElementWithDelay($navmenuList.eq(ul), DELAY_SHOW_NAV_LIST);
+      showElementWithDelay($navmenuList.eq(ul), DELAY_SHOW_NAV_LIST);
       removeClassWithDelay($navmenuContent, 'hidden', DELAY_SHOW_NAV_CONTENT);
 
       for (icon = 0; icon < $navmenuItemIcon.length; icon++) {
@@ -73,4 +73,26 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', function ($scope) {
 
     $(this).addClass(activeClass);
   });
+
+  $scope.navMenu = {};
+
+  localStorage.getOrdersCart(function (results) {
+    if (results.status) {
+      $scope.navMenu.ordersInCart = results.data.ordersInCart;
+    } else {
+      console.log(results);
+    }
+  });
+
+  $scope.gotoLocationPage = function () {
+    $location.path('/location');
+  };
+
+  $scope.gotoSettingsPage = function () {
+    $location.path('/settings');
+  };
+
+  $scope.getCurrentGeolocation = function () {};
+
+  $scope.setCurrentCity = function (city) {};
 }]);

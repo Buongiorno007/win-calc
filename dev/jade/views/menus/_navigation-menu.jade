@@ -1,19 +1,19 @@
 .menu.nav-menu(ng-controller="NavMenuCtrl")
   header.nav-menu-header
     ul.items-list
-      li.item
+      li.item(ng-click="gotoLocationPage()")
         .item-content.hidden
           span.nav-icon-addLocation.icon-splash
           span.title(data-output="Выбрать расположение")
-      li.item
+      li.item(ng-click="getCurrentGeolocation()")
         .item-content.hidden
           span.nav-icon-geoLocation.icon-splash
           span.title(data-output="Текущее расположение")
-      li.item
+      li.item(ng-click="setCurrentCity(city)")
         .item-content.hidden
           span.nav-icon-location.icon-splash
           span.title(data-output="Ивано-Франковск")
-      li.item
+      li.item(ng-click="setCurrentCity(city)")
         .item-content.hidden
           span.nav-icon-location.icon-splash
           span.title(data-output="Днепропетровск")
@@ -29,7 +29,7 @@
         .item-content.hidden
           span.nav-icon-basketOfCalculation.icon-splash
           span.title(data-output="Корзина расчета")
-          span.badge 22
+          span.badge {{ navMenu.ordersInCart }}
       li.item
         .item-content.hidden
           span.nav-icon-additionalComponents.icon-splash
@@ -42,7 +42,7 @@
     .divider(data-output="Приложение")
 
     ul.items-list
-      li.item
+      li.item(ng-click="gotoSettingsPage()")
         .item-content.hidden
           span.nav-icon-settings.icon-splash
           span.title(data-output="Настройки")
@@ -57,7 +57,7 @@
       li.item
         .item-content.hidden
           span.nav-icon-information.icon-splash
-          span.title(data-output="Выбрать расположение")
+          span.title(data-output="Еще один пункт меню")
 
   footer.nav-menu-footer
     button.new-calc.icon-splash + Новый расчет
