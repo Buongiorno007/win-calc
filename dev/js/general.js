@@ -6,7 +6,7 @@ var STEP = 100,
     typingIndex = true;
 
 function typingTextByChar($textElem1, $textElem2) {
-  var source = $textElem1.attr('name'),
+  var source = $textElem1.data('output'),
       newText = '',
       delay = 100,
       timerId;
@@ -42,7 +42,8 @@ function typingTextByChar($textElem1, $textElem2) {
 function createPrice($price) {
   var DELAY_PRICE_DIGIT = STEP * 2,
       DIGIT_CELL_HEIGHT = 64,
-      price = $price.attr('name'),
+      // $price.data('output') не работает
+      price = $price.attr('data-output'),
       priceNumberByDigit = price.split(''),
       digit, digitCell, scrollDigitY,
       i, n;

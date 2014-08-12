@@ -1,7 +1,7 @@
-section.login-page(ng-app="Login")
-  .login-container(ng-controller="LoginCtrl")
+section.login-page
+  .login-container
     .logo
-    form(name='loginForm', novalidate)
+    form(name='loginForm', novalidate, ng-submit="submitForm(loginForm)")
       .input-field(ng-class="{ 'has-error' : submitted && loginForm.phone.$error.required }")
         input.user-field(type="tel", name="phone", ng-model="user.phone", ng-pattern="", placeholder="Мобильный телефон", required)
         .error-tooltip(ng-show="submitted && loginForm.phone.$error.required") Заполните это поле.
@@ -12,4 +12,4 @@ section.login-page(ng-app="Login")
         .error-tooltip(ng-show='submitted && loginForm.password.$error.required') Заполните это поле.
         .error-tooltip(ng-show='submitted && loginForm.password.$error.minlength || loginForm.password.$dirty && loginForm.password.$error.minlength') Слишком маленький пароль.
 
-      button.login-submit(type="submit" ng-click="submitForm(loginForm)") Войти
+      button.login-submit(type="submit") Войти
