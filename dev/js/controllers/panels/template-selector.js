@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, showElementWithDelay, typingElementWithDelay */
+/* globals BauVoiceApp, STEP, showElementWithDelay, typingTextWithDelay */
 
 'use strict';
 
@@ -14,7 +14,7 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', function ($scope) {
       DELAY_SHOW_CONTENT = 5 * STEP;
 
   showElementWithDelay($templateTitle, DELAY_SHOW_CONTENT);
-  typingElementWithDelay($templateDescr, DELAY_SHOW_CONTENT);
+  typingTextWithDelay($templateDescr, DELAY_SHOW_CONTENT);
   showElementWithDelay($tempEditBTN, 2 * DELAY_SHOW_CONTENT);
   showElementWithDelay($tempDefaultBTN, 2 * DELAY_SHOW_CONTENT);
   showElementWithDelay($tempOtherIMG, 2 * DELAY_SHOW_CONTENT);
