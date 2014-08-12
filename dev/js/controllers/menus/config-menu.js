@@ -75,6 +75,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', function ($scope) {
     var itemGroup = '.config-panel',
         classShow = 'showConfigPanel',
         classHide = 'hideConfigPanel',
+        classUnvisible = 'unvisible',
         checkOpenItem = $(itemGroup).hasClass(classShow),
         DELAY = 300,
         item,
@@ -86,7 +87,9 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', function ($scope) {
         if ($itemCurr.hasClass(classShow)) {
           $itemCurr.addClass(classHide).removeClass(classShow);
           removeClassWithDelay($itemCurr, classHide, DELAY);
+          addClassWithDelay($itemCurr, classUnvisible, DELAY);
           hideConfigPanelContent(DELAY);
+          removeClassWithDelay(itemSelected, classUnvisible, DELAY);
           addClassWithDelay(itemSelected, classShow, DELAY);
 //          showConfigPanelContent(itemSelected);
         }
@@ -94,9 +97,10 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', function ($scope) {
     } else if (checkOpenItem && onlyHide) {
       $(itemSelected).addClass(classHide).removeClass(classShow);
       removeClassWithDelay(itemSelected, classHide, DELAY);
+      addClassWithDelay(itemSelected, classUnvisible, DELAY);
       hideConfigPanelContent(DELAY);
     } else {
-      $(itemSelected).addClass(classShow);
+      $(itemSelected).removeClass(classUnvisible).addClass(classShow);
 //      showConfigPanelContent(itemSelected);
     }
   }

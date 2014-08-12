@@ -22,7 +22,6 @@
     @extend .splash;
 
     position: relative;
-    display: none;
     width: 35px;
     &:before {
       @extend .icon-setting;
@@ -49,9 +48,3 @@
     color: $main_gray_txt;
   }
 }
-
-//@include behavior-splash(splashing, 0, 1.3, 1);
-//@include behavior-move(move-nav-btn, 100px, 0, 0, 0);
-//@include behavior-move(move-location-icon, -100px, 0, 0, 0);
-//@include behavior-rotate(show-navmenu-btn, 0deg, 90deg);
-//@include behavior-rotate(hide-navmenu-btn, 90deg, 0deg);

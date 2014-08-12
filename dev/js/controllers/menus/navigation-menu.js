@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, typingTextByChar, showElementWithDelay, addClassWithDelay, removeClassWithDelay, typingTextWithDelay */
+/* globals BauVoiceApp, STEP, typingTextByChar, showElementWithDelay, addClassWithDelay, typingTextWithDelay */
 
 'use strict';
 
@@ -38,13 +38,13 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', function ($scope) {
       DELAY_SHOW_NAV_BADGE = DELAY_SHOW_NAV_TITLE + STEP_NAV_LIST * 5,
 
       $navmenuContent = $navmenuList.eq(ul).find('.item-content');
-      $navmenuItemIcon = $navmenuList.eq(ul).find('.icon-splash');
+      $navmenuItemIcon = $navmenuList.eq(ul).find('span[class^="nav-icon"]');
       $navmenuItemTitle = $navmenuList.eq(ul).find('.title');
       $navmenuItemBadge = $navmenuList.eq(ul).find('.badge');
 
       addClassWithDelay($navmenuList.eq(ul), movingClass, DELAY_SHOW_NAV_CONTENT);
 //      showElementWithDelay($navmenuList.eq(ul), DELAY_SHOW_NAV_LIST);
-      removeClassWithDelay($navmenuContent, 'hidden', DELAY_SHOW_NAV_CONTENT);
+      showElementWithDelay($navmenuContent, DELAY_SHOW_NAV_CONTENT);
 
       for (icon = 0; icon < $navmenuItemIcon.length; icon++) {
         DELAY_SHOW_NAV_ICON = DELAY_SHOW_NAV_CONTENT + STEP_NAV_ICON * icon;

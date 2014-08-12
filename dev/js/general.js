@@ -93,7 +93,7 @@ function createPrice($price) {
 
 function showElementWithDelay($element, delay) {
   setTimeout(function () {
-    $element.addClass('visible');
+    $element.removeClass('unvisible');
   }, delay);
 }
 

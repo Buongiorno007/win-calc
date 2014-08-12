@@ -11,7 +11,6 @@
   background: rgba(#f8f8f8, .95);
   box-shadow: -3px 0 15px -5px rgba(0, 0, 0, .5);
   .items-list {
-    display: none;
     @include display-flex();
     @include flex-grow(1);
     @include flex-flow(column wrap);
@@ -62,7 +61,6 @@
   .icon {
     @extend .splash;
 
-    display: none;
     height: 120px;
     margin: 20px 0;
     background: image-url('config-menu/configMenu_itemIMG.png') no-repeat;
@@ -125,7 +123,6 @@
   .price-currency {
     @include roboto-lt(50px, $price_container-height - 8px);
 
-    display: none;
     margin-left: 10px;
     padding-top: 8px;
     color: $main_gray_txt;
@@ -154,4 +151,3 @@
 }
 
 @include behavior-move(move-config-menu, 100%, 0, 0, 0);
-@include behavior-splash(splashing, 0, 1.3, 1);
