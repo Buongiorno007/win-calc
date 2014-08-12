@@ -2,6 +2,7 @@
 
 BauVoiceApp.factory('constructService', function () {
   return {
+    // TODO: Сервис готов
     getCoefs: function (callback) {
       callback(new OkResult({
         coefs: {
@@ -16,41 +17,48 @@ BauVoiceApp.factory('constructService', function () {
         }
       }));
     },
+    // TODO: Сервис готов
     getRoomInfo: function (callback) {
       callback(new OkResult({
         id: 1,
         name: 'Детская'
       }));
     },
+    // TODO: Сервис готов
     getConstructThumb: function (callback) {
       callback(new OkResult({
         url: '../img/config-menu/configMenu_itemIMG.png'
       }));
     },
+    // TODO: Сервис готов
     getConstructSize: function (callback) {
       callback(new OkResult({
         width: 1200,
         height: 1250
       }));
     },
+    // TODO: Сервис готов
     getProfileSystem: function (callback) {
       callback(new OkResult({
         id: 12,
         name: 'Окошко S58'
       }));
     },
+    // TODO: Сервис готов
     getGlass: function (callback) {
       callback(new OkResult({
         id: 42,
         name: '4/16/4'
       }));
     },
+    // TODO: Сервис готов
     getWindowHardware: function (callback) {
       callback(new OkResult({
         id: 1,
         name: 'Немецкая'
       }));
     },
+    // TODO: Сервис готов
     getLamination: function (callback) {
       callback(new OkResult({
         outer: {
@@ -63,6 +71,7 @@ BauVoiceApp.factory('constructService', function () {
         }
       }));
     },
+    // TODO: Сервис готов
     getAdditionalElements: function (callback) {
       callback(new OkResult({
         elements: [
@@ -85,6 +94,7 @@ BauVoiceApp.factory('constructService', function () {
         ]
       }));
     },
+    // TODO: Сервис готов
     getPrice: function (callback) {
       callback(new OkResult({
         price: 4855268.52,
