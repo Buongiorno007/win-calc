@@ -127,3 +127,86 @@
 
 @include behavior-move(show-config-panel, -1600px, 0, 0, 0);
 @include behavior-move(hide-config-panel, 0, 0, -1600px, 0);
+
+
+// Additional elements panel
+//------Grid
+.move-grid {
+  @include animation(move-grid 1s 0 ease 1);
+}
+@include behavior-move(move-grid, 1000px, -2000px, 0, 0);
+//------Visor
+.move-visor {
+  @include animation(move-visor 1s 0 ease 1);
+}
+@include behavior-move(move-visor, 1000px, -2000px, 0, 0);
+//------Spillway
+.move-spillway {
+  @include animation(move-spillway 1s 0 ease 1);
+}
+@include behavior-move(move-spillway, 2000px, -2000px, 0, 0);
+//-------Outside
+.move-outside {
+  @include animation(move-outside 1s 0 ease 1);
+}
+@include behavior-move(move-outside, 0px, -2000px, 0, 0);
+//-----Windowsill
+.move-windowsill {
+  @include animation(move-windowsill 2s 0 ease 1);
+}
+@include behavior-move(move-windowsill, -1000px, 2000px, 0, 0);
+
+//-----Louvers
+.move-louvers {
+  @include animation(move-louvers 2s 0 ease 1);
+}
+@include behavior-move(move-louvers, 0, -2000px, 0, 0);
+
+.move-louver-midle-1 {
+  @include animation(move-louver-1 2s 2s ease 1);
+}
+@include behavior-louvers-move(move-louver-1, 0, 0, 0, -30px, 0, 0);
+
+.move-louver-midle-2 {
+  @include animation(move-louver-2 2s 2s ease 1);
+}
+@include behavior-louvers-move(move-louver-2, 0, 0, 0, -60px, 0, 0);
+
+.move-louver-midle-3 {
+  @include animation(move-louver-3 2s 2s ease 1);
+}
+@include behavior-louvers-move(move-louver-3, 0, 0, 0, -90px, 0, 0);
+
+.move-louver-bottom {
+  @include animation(move-louver-bottom 2s 2s ease 1);
+}
+@include behavior-louvers-move(move-louver-bottom, 0, 0, 0, -120px, 0, 0);
+
+//-----Inside-slope
+.move-inside-top {
+  @include animation(move-slope-top 1s 0 ease 1);
+}
+@include behavior-move(move-slope-top, 0, -2000px, 0, 0);
+
+.move-inside-right {
+  @include animation(move-slope-right 1s 0 ease 1);
+}
+@include behavior-move(move-slope-right, 2000px, 2000px, 0, 0);
+
+.move-inside-left {
+  @include animation(move-slope-left 1s 0 ease 1);
+}
+@include behavior-move(move-slope-left, -1000px, 0px, 0, 0);
+
+//------Fun
+.move-fan {
+  @include animation(move-fan 2s ease 1, rot-fan 1s 2s ease 1);
+}
+@include behavior-move(move-fan, 0px, 2000px, 0, 0);
+@include behavior-rotate(rot-fan, 0deg, 360deg);
+
+//-----Handle
+.move-handle {
+  @include animation(move-handle 1s 0 ease 1);
+}
+@include behavior-move(move-handle, -1000px, 2000px, 0, 0);

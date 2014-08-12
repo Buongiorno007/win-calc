@@ -205,7 +205,7 @@ myApp.factory('localeStorage', function(){
 
 /*
 
- helperFactory.login({login : 'zavod', password : 'zavod'}, function (results) {
+ localeStorage.login({login : 'zavod', password : 'zavod'}, function (results) {
      if (results.status) {
          $scope.user = results.data;
          console.log($scope.user);
@@ -215,7 +215,7 @@ myApp.factory('localeStorage', function(){
      }
  });
 
- $scope.ordersInCart = helperFactory.getOrdersCart();
+ $scope.ordersInCart = localeStorage.getOrdersCart();
  console.log($scope.ordersInCart);
  console.log($scope.ordersInCart.data);
 
