@@ -1,87 +1,167 @@
-.config-panel.hardware-container(ng-controller="HardwareWindowCtrl")
+.config-panel.hardware-container.unvisible(ng-controller="HardwareWindowCtrl")
   .hardware-block.selected
     .hardware-block-header
       .hardware-title(data-output="Аккадо")
 
-    .hardware-box.selected
+    .hardware-box.unvisible.selected
       a.info(href="#")
       .hardware-box-inner
         .hardware-box-view
           .hardware-logo
             img(src="../img/hardware-logos/accado.png")
         .hardware-box-data
-          .hardware-descr(data-output="ACCADO 7mm") ACCADO 7mm
-          .hardware-data
-            .hardware-brand(data-output="ACCADO") ACCADO
-            .hardware-label(data-output="торговая марка") торговая марка
-          .hardware-data
-            .hardware-brand(data-output="Турция") Турция
-            .hardware-label(data-output="страна") страна
+          .hardware-data-txt
+            .hardware-descr(data-output="ACCADO 7mm") ACCADO 7mm
+            .hardware-data
+              .hardware-brand(data-output="ACCADO") ACCADO
+              .hardware-label(data-output="торговая марка") торговая марка
+            .hardware-data
+              .hardware-brand(data-output="Турция") Турция
+              .hardware-label(data-output="страна") страна
+          .hardware-data-coeff
+            .coef-level.heat-insulation.coef-level-1
+              .coef-index
+              .coef-index
+              .coef-index
+              .coef-index
+              .coef-index
+            .hardware-label(data-output="теплоизоляция") теплоизоляция
+            .coef-level.noise-insulation.coef-level-2
+              .coef-index
+              .coef-index
+              .coef-index
+              .coef-index
+              .coef-index
+            .hardware-label(data-output="шумоизоляция") шумоизоляция
 
   .hardware-block
     .hardware-block-header
       .hardware-title(data-output="Мако")
 
-    .hardware-box
+    .hardware-box.unvisible
       a.info(href="#")
       .hardware-box-inner
         .hardware-box-view
           .hardware-logo
             img(src="../img/hardware-logos/maco.png")
         .hardware-box-data
-          .hardware-descr(data-output="ACCADO 7mm") ACCADO 7mm
-          .hardware-data
-            .hardware-brand(data-output="ACCADO") ACCADO
-            .hardware-label(data-output="торговая марка") торговая марка
-          .hardware-data
-            .hardware-brand(data-output="Турция") Турция
-            .hardware-label(data-output="страна") страна
+          .hardware-data-txt
+            .hardware-descr(data-output="ACCADO 7mm") ACCADO 7mm
+            .hardware-data
+              .hardware-brand(data-output="ACCADO") ACCADO
+              .hardware-label(data-output="торговая марка") торговая марка
+            .hardware-data
+              .hardware-brand(data-output="Турция") Турция
+              .hardware-label(data-output="страна") страна
+          .hardware-data-coeff
+            .coef-level.heat-insulation.coef-level-4
+              .coef-index
+              .coef-index
+              .coef-index
+              .coef-index
+              .coef-index
+            .hardware-label(data-output="теплоизоляция") теплоизоляция
+            .coef-level.noise-insulation.coef-level-3
+              .coef-index
+              .coef-index
+              .coef-index
+              .coef-index
+              .coef-index
+            .hardware-label(data-output="шумоизоляция") шумоизоляция
 
-    .hardware-box
+    .hardware-box.unvisible
       a.info(href="#")
       .hardware-box-inner
         .hardware-box-view
           .hardware-logo
             img(src="../img/hardware-logos/maco.png")
         .hardware-box-data
-          .hardware-descr(data-output="ACCADO 7mm") ACCADO 7mm
-          .hardware-data
-            .hardware-brand(data-output="ACCADO") ACCADO
-            .hardware-label(data-output="торговая марка") торговая марка
-          .hardware-data
-            .hardware-brand(data-output="Турция") Турция
-            .hardware-label(data-output="страна") страна
+          .hardware-data-txt
+            .hardware-descr(data-output="ACCADO 7mm") ACCADO 7mm
+            .hardware-data
+              .hardware-brand(data-output="ACCADO") ACCADO
+              .hardware-label(data-output="торговая марка") торговая марка
+            .hardware-data
+              .hardware-brand(data-output="Турция") Турция
+              .hardware-label(data-output="страна") страна
+          .hardware-data-coeff
+            .coef-level.heat-insulation.coef-level-3
+              .coef-index
+              .coef-index
+              .coef-index
+              .coef-index
+              .coef-index
+            .hardware-label(data-output="теплоизоляция") теплоизоляция
+            .coef-level.noise-insulation.coef-level-3
+              .coef-index
+              .coef-index
+              .coef-index
+              .coef-index
+              .coef-index
+            .hardware-label(data-output="шумоизоляция") шумоизоляция
 
   .hardware-block
     .hardware-block-header
       .hardware-title(data-output="Другие")
 
-    .hardware-box
+    .hardware-box.unvisible
       a.info(href="#")
       .hardware-box-inner
         .hardware-box-view
           .hardware-logo
             img(src="../img/hardware-logos/siegenia.png")
         .hardware-box-data
-          .hardware-descr(data-output="ACCADO 7mm") ACCADO 7mm
-          .hardware-data
-            .hardware-brand(data-output="ACCADO") ACCADO
-            .hardware-label(data-output="торговая марка") торговая марка
-          .hardware-data
-            .hardware-brand(data-output="Турция") Турция
-            .hardware-label(data-output="страна") страна
+          .hardware-data-txt
+            .hardware-descr(data-output="ACCADO 7mm") ACCADO 7mm
+            .hardware-data
+              .hardware-brand(data-output="ACCADO") ACCADO
+              .hardware-label(data-output="торговая марка") торговая марка
+            .hardware-data
+              .hardware-brand(data-output="Турция") Турция
+              .hardware-label(data-output="страна") страна
+          .hardware-data-coeff
+            .coef-level.heat-insulation.coef-level-1
+              .coef-index
+              .coef-index
+              .coef-index
+              .coef-index
+              .coef-index
+            .hardware-label(data-output="теплоизоляция") теплоизоляция
+            .coef-level.noise-insulation.coef-level-2
+              .coef-index
+              .coef-index
+              .coef-index
+              .coef-index
+              .coef-index
+            .hardware-label(data-output="шумоизоляция") шумоизоляция
 
-    .hardware-box
+    .hardware-box.unvisible
       a.info(href="#")
       .hardware-box-inner
         .hardware-box-view
           .hardware-logo
             img(src="../img/hardware-logos/romb.png")
         .hardware-box-data
-          .hardware-descr(data-output="ACCADO 7mm") ACCADO 7mm
-          .hardware-data
-            .hardware-brand(data-output="ACCADO") ACCADO
-            .hardware-label(data-output="торговая марка") торговая марка
-          .hardware-data
-            .hardware-brand(data-output="Турция") Турция
-            .hardware-label(data-output="страна") страна
+          .hardware-data-txt
+            .hardware-descr(data-output="ACCADO 7mm") ACCADO 7mm
+            .hardware-data
+              .hardware-brand(data-output="ACCADO") ACCADO
+              .hardware-label(data-output="торговая марка") торговая марка
+            .hardware-data
+              .hardware-brand(data-output="Турция") Турция
+              .hardware-label(data-output="страна") страна
+          .hardware-data-coeff
+            .coef-level.heat-insulation.coef-level-1
+              .coef-index
+              .coef-index
+              .coef-index
+              .coef-index
+              .coef-index
+            .hardware-label(data-output="теплоизоляция") теплоизоляция
+            .coef-level.noise-insulation.coef-level-2
+              .coef-index
+              .coef-index
+              .coef-index
+              .coef-index
+              .coef-index
+            .hardware-label(data-output="шумоизоляция") шумоизоляция

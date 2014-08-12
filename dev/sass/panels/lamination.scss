@@ -11,9 +11,6 @@
     margin-bottom: 15px;
     color: $main_gray_txt;
   }
-  .lam-white-box {
-    display: none;
-  }
   .lamination-white {
     @include display-flex();
     @include flex-flow(row wrap);
@@ -23,7 +20,6 @@
     margin-bottom: 15px;
   }
   .lam-option-box {
-    display: none;
     float: left;
     min-height: 326px;
     margin-right: 15px;
@@ -68,5 +64,3 @@
     }
   }
 }
-
-//@include behavior-splash(splashing, 0, 1.3, 1);

@@ -1,63 +1,63 @@
 .menu.nav-menu(ng-controller="NavMenuCtrl")
   header.nav-menu-header
     ul.items-list
-      li.item(ng-click="gotoLocationPage()")
-        .item-content.hidden
-          span.nav-icon-addLocation.icon-splash
+      li.item
+        .item-content.unvisible(ng-click="gotoLocationPage()")
+          span.nav-icon-addLocation.unvisible
           span.title(data-output="Выбрать расположение")
       li.item(ng-click="getCurrentGeolocation()")
-        .item-content.hidden
-          span.nav-icon-geoLocation.icon-splash
+        .item-content.unvisible
+          span.nav-icon-geoLocation.unvisible
           span.title(data-output="Текущее расположение")
       li.item(ng-click="setCurrentCity(city)")
-        .item-content.hidden
-          span.nav-icon-location.icon-splash
+        .item-content.unvisible
+          span.nav-icon-location.unvisible
           span.title(data-output="Ивано-Франковск")
       li.item(ng-click="setCurrentCity(city)")
-        .item-content.hidden
-          span.nav-icon-location.icon-splash
+        .item-content.unvisible
+          span.nav-icon-location.unvisible
           span.title(data-output="Днепропетровск")
 
     .divider(data-output="Расчеты")
 
     ul.items-list
       li.item
-        .item-content.hidden
-          span.nav-icon-calculation.icon-splash
+        .item-content.unvisible
+          span.nav-icon-calculation.unvisible
           span.title(data-output="Текущий расчет")
       li.item
-        .item-content.hidden
-          span.nav-icon-basketOfCalculation.icon-splash
+        .item-content.unvisible
+          span.nav-icon-basketOfCalculation.unvisible
           span.title(data-output="Корзина расчета")
-          span.badge {{ navMenu.ordersInCart }}
+          span.badge.unvisible {{ navMenu.ordersInCart }}
       li.item
-        .item-content.hidden
-          span.nav-icon-additionalComponents.icon-splash
+        .item-content.unvisible
+          span.nav-icon-additionalComponents.unvisible
           span.title(data-output="Дополнительные элементы")
       li.item
-        .item-content.hidden
-          span.nav-icon-calculationsHistory.icon-splash
+        .item-content.unvisible
+          span.nav-icon-calculationsHistory.unvisible
           span.title(data-output="Все расчеты")
 
     .divider(data-output="Приложение")
 
     ul.items-list
       li.item(ng-click="gotoSettingsPage()")
-        .item-content.hidden
-          span.nav-icon-settings.icon-splash
+        .item-content.unvisible
+          span.nav-icon-settings.unvisible
           span.title(data-output="Настройки")
       li.item
-        .item-content.hidden
-          span.nav-icon-information.icon-splash
+        .item-content.unvisible
+          span.nav-icon-information.unvisible
           span.title(data-output="Больше информации")
       li.item
-        .item-content.hidden
-          span.nav-icon-information.icon-splash
+        .item-content.unvisible
+          span.nav-icon-information.unvisible
           span.title(data-output="Голосовой помощник")
       li.item
-        .item-content.hidden
-          span.nav-icon-information.icon-splash
+        .item-content.unvisible
+          span.nav-icon-information.unvisible
           span.title(data-output="Еще один пункт меню")
 
   footer.nav-menu-footer
-    button.new-calc.icon-splash + Новый расчет
+    button.new-calc.unvisible + Новый расчет

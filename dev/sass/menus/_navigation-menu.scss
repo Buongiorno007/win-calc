@@ -12,7 +12,6 @@
     height: 85%;
   }
   .items-list {
-//    display: none;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -39,16 +38,13 @@
     width: 100%;
     height: 100px;
     border-bottom: 1px solid #0f0f0f;
-    &.hidden {
-      display: none;
-    }
   }
   [class^='nav-icon-'],
   [class*=' nav-icon-'] {
     @include font-nav-menu(40px);
     @extend .icon-setting;
+    @extend .splash;
 
-    display: none;
     margin-right: 40px;
   }
   .nav-icon-additionalComponents:before {
@@ -87,9 +83,6 @@
     color: #6ed44a;
     content: $settings-icon;
   }
-  .icon-splash {
-    @extend .splash;
-  }
   .title {
     @extend .truncated;
     @include roboto-lt(36px);
@@ -100,7 +93,6 @@
   .badge {
     @include roboto-md(24px);
 
-    display: none;
     color: #999;
   }
   .divider {
@@ -116,8 +108,8 @@
   .new-calc {
     @extend .big-button;
     @extend .ghost-button;
+    @extend .splash;
 
-    display: none;
     width: 100%;
     height: 110px;
     color: $main_orange;
@@ -126,5 +118,4 @@
   }
 }
 
-@include behavior-move(move-navmenu-list, -100%, 0, 0, 0);
-@include behavior-splash(splashing, 0, 1.3, 1);
+@include behavior-move(move-navmenu-list, 100%, 0, 0, 0);

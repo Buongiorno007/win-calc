@@ -1,7 +1,7 @@
-.config-panel.template-container(ng-controller="TemplateSelectorCtrl")
+.config-panel.template-container.unvisible(ng-controller="TemplateSelectorCtrl")
   .template-header
-    .template-title Oкно
-      .window-type
+    .template-title.unvisible Oкно
+      .window-type.unvisible
         .balcon-config Выход на балкон
         .window-config Oкно
     .template-discr(data-output="т-образное, две створки")
@@ -12,16 +12,16 @@
     .other-template
       .prev-btn
       .template-prev
-        .other-template-img
+        .other-template-img.unvisible
           img(src="../img/templates/balcony.png")
         .other-template-label(data-output="т-образное, две створки") Балкон.
         .other-template-subscr(data-output="т-образное, две створки") 1 - 4 секционный
     .template-setting
-      button.template-edit Редактировать
-      button.template-default Проект по умолчанию
+      button.template-edit.unvisible Редактировать
+      button.template-default.unvisible Проект по умолчанию
     .other-template
       .template-next
-        .other-template-img
+        .other-template-img.unvisible
           img(src="../img/templates/window.png")
         .other-template-label(data-output="т-образное, две створки") Окно.
         .other-template-subscr(data-output="т-образное, две створки") т-образное, две створки

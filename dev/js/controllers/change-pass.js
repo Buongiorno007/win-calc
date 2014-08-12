@@ -12,7 +12,7 @@ BauVoiceApp.controller('ChangePassCtrl', ['$scope', function ($scope) {
       DELAY_SHOW_PSW = 10 * STEP;
 
   typingTextByChar($pswTitle);
-  showElementWithDelay($pswList, 'block', DELAY_SHOW_PSW);
+  showElementWithDelay($pswList, DELAY_SHOW_PSW);
   typingTextWithDelay($pswLabel, DELAY_SHOW_PSW);
   typingTextWithDelay($pswData, DELAY_SHOW_PSW);
 }]);
