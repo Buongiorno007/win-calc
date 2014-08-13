@@ -120,16 +120,3 @@ function removeClassWithDelay(element, className, delay) {
     $(element).removeClass(className);
   }, delay);
 }
-
-// TODO: Передалать функцию на изменение классов, а не css-свойств
-function makeButtonActive() {
-  var butClass = this.attr('class'),
-      butClassGeneral = butClass.split(' '),
-      butColor = this.css('border-color');
-
-  $('.' + butClassGeneral[0]).each(function () {
-    $(this).css('background-color', 'transparent').css('color', $(this).css('border-color'));
-  });
-
-  this.css('background-color', butColor).css('color', '#fff');
-}

@@ -1,25 +1,132 @@
 // TODO: Проверить координаты
+
+$aux-img-path: 'auxiliaries';
+$aux-img-focus-path: 'auxiliaries-focused';
+$aux-img-select-path: 'auxiliaries-selected';
+
 .auxiliaries-container {
   .auxiliary-item {
     position: absolute;
-    display: none;
 
     &.focused {
-      z-index: 10;
-
       .aux-grid-img {
-        background: image-url('auxiliaries-focused/grid.png') no-repeat;
+        background: image-url($aux-img-focus-path+'/grid.png') no-repeat;
       }
+      .aux-visor-img {
+        background: image-url($aux-img-focus-path+'/visor.png') no-repeat;
+      }
+      .aux-spillway-img {
+        background: image-url($aux-img-focus-path+'/spillway.png') no-repeat;
+      }
+      .aux-windowsill-img {
+        background: image-url($aux-img-focus-path+'/windowsill.png') no-repeat;
+      }
+      .aux-louver-top {
+        background: image-url($aux-img-focus-path+'/louvers-top.png') no-repeat;
+      }
+      .aux-louver-midle {
+        background: image-url($aux-img-focus-path+'/louvers-middle.png') no-repeat;
+      }
+      .aux-louver-bottom {
+        background: image-url($aux-img-focus-path+'/louvers-bottom.png') no-repeat;
+      }
+      .aux-inside-top {
+        background: image-url($aux-img-focus-path+'/inside-slope-top.png') no-repeat;
+      }
+      .aux-inside-right {
+        background: image-url($aux-img-focus-path+'/inside-slope-right.png') no-repeat;
+      }
+      .aux-inside-left {
+        background: image-url($aux-img-focus-path+'/inside-slope-left.png') no-repeat;
+      }
+      .aux-fan-img {
+        background: image-url($aux-img-focus-path+'/fan.png') no-repeat;
+      }
+      .aux-force-connect {
+        background: image-url($aux-img-focus-path+'/force-connector.png') no-repeat;
+      }
+      .aux-balcon-connect {
+        background: image-url($aux-img-focus-path+'/balcon-connector.png') no-repeat;
+      }
+      .aux-handle-img {
+        background: image-url($aux-img-focus-path+'/handle.png') no-repeat;
+      }
+
+      //Buttons Colors
+      .aux-choose-but {
+        color: #fff;
+      }
+      .choose-block {
+        .aux_big_but {
+          background-color: $aux_big_color;
+        }
+        .aux_middle_but {
+          background-color: $aux_middle_color;
+        }
+        .aux_small_but {
+          background-color: $aux_small_color;
+        }
+        .aux_slope_but {
+          background-color: $main_green;
+        }
+        .aux_connect_but {
+          background-color: $aux_connect_color;
+        }
+      }
+
     }
 
     &.selected {
       .aux-grid-img {
-        background: image-url('auxiliaries-selected/grid.png') no-repeat;
+        background: image-url($aux-img-select-path+'/grid.png') no-repeat;
+      }
+      .aux-visor-img {
+        background: image-url($aux-img-select-path+'/visor.png') no-repeat;
+      }
+      .aux-spillway-img {
+        background: image-url($aux-img-select-path+'/spillway.png') no-repeat;
+      }
+      .aux-windowsill-img {
+        background: image-url($aux-img-select-path+'/windowsill.png') no-repeat;
+      }
+      .aux-louver-top {
+        background: image-url($aux-img-select-path+'/louvers-top.png') no-repeat;
+      }
+      .aux-louver-midle {
+        background: image-url($aux-img-select-path+'/louvers-middle.png') no-repeat;
+      }
+      .aux-louver-bottom {
+        background: image-url($aux-img-select-path+'/louvers-bottom.png') no-repeat;
+      }
+      .aux-inside-top {
+        background: image-url($aux-img-select-path+'/inside-slope-top.png') no-repeat;
+      }
+      .aux-inside-right {
+        background: image-url($aux-img-select-path+'/inside-slope-right.png') no-repeat;
+      }
+      .aux-inside-left {
+        background: image-url($aux-img-select-path+'/inside-slope-left.png') no-repeat;
+      }
+      .aux-fan-img {
+        background: image-url($aux-img-select-path+'/fan.png') no-repeat;
+      }
+      .aux-force-connect {
+        background: image-url($aux-img-select-path+'/force-connector.png') no-repeat;
+      }
+      .aux-balcon-connect {
+        background: image-url($aux-img-select-path+'/balcon-connector.png') no-repeat;
+      }
+      .aux-handle-img {
+        background: image-url($aux-img-select-path+'/handle.png') no-repeat;
       }
     }
-
   }
 
+  .aux-grid.focused,
+  .aux-spillway.focused,
+  .aux-outside.focused {
+    z-index: 10;
+  }
 
   //------Grid
   .aux-grid {
@@ -34,7 +141,7 @@
     position: absolute;
     width: 220px;
     height: 390px;
-    background: image-url('auxiliaries/grid.png') no-repeat;
+    background: image-url($aux-img-path+'/grid.png') no-repeat;
   }
 
   //------Visor
@@ -50,7 +157,7 @@
     position: absolute;
     width: 893px;
     height: 261px;
-    background: image-url('auxiliaries/visor.png') no-repeat;
+    background: image-url($aux-img-path+'/visor.png') no-repeat;
   }
 
   //------Spillway
@@ -66,7 +173,7 @@
     position: absolute;
     width: 719px;
     height: 206px;
-    background: image-url('auxiliaries/spillway.png') no-repeat;
+    background: image-url($aux-img-path+'/spillway.png') no-repeat;
   }
 
   //-------Outside
@@ -82,7 +189,7 @@
     position: absolute;
     width: 650px;
     height: 610px;
-    background: image-url('auxiliaries/outside.png') no-repeat;
+    background: image-url($aux-img-path+'/outside.png') no-repeat;
   }
 
   //-----Windowsill
@@ -98,7 +205,7 @@
     position: absolute;
     width: 720px;
     height: 236px;
-    background: image-url('auxiliaries/windowsill.png') no-repeat;
+    background: image-url($aux-img-path+'/windowsill.png') no-repeat;
   }
 
   //-----Louvers
@@ -122,7 +229,7 @@
     z-index: 10;
     width: 261px;
     height: 79px;
-    background: image-url('auxiliaries/louvers-top.png') no-repeat;
+    background: image-url($aux-img-path+'/louvers-top.png') no-repeat;
   }
 
   .aux-louver-midle {
@@ -130,7 +237,7 @@
     left: 50px;
     width: 261px;
     height: 99px;
-    background: image-url('auxiliaries/louvers-middle.png') no-repeat;
+    background: image-url($aux-img-path+'/louvers-middle.png') no-repeat;
   }
 
   .louver-midle-1 {
@@ -155,7 +262,7 @@
     z-index: 6;
     width: 261px;
     height: 104px;
-    background: image-url('auxiliaries/louvers-bottom.png') no-repeat;
+    background: image-url($aux-img-path+'/louvers-bottom.png') no-repeat;
   }
 
   //-----Inside-slope
@@ -175,30 +282,27 @@
     @include top_left_coord(0, 50);
 
     position: absolute;
-    display: none;
     width: 660px;
     height: 183px;
-    background: image-url('auxiliaries/inside-slope-top.png') no-repeat;
+    background: image-url($aux-img-path+'/inside-slope-top.png') no-repeat;
   }
 
   .aux-inside-right {
     @include top_left_coord(180, 680);
 
     position: absolute;
-    display: none;
     width: 90px;
     height: 434px;
-    background: image-url('auxiliaries/inside-slope-right.png') no-repeat;
+    background: image-url($aux-img-path+'/inside-slope-right.png') no-repeat;
   }
 
   .aux-inside-left {
     @include top_left_coord(60, 0);
 
     position: absolute;
-    display: none;
     width: 97px;
     height: 408px;
-    background: image-url('auxiliaries/inside-slope-left.png') no-repeat;
+    background: image-url($aux-img-path+'/inside-slope-left.png') no-repeat;
   }
 
   //------Fun
@@ -210,16 +314,12 @@
 
   .aux-fan-img {
     @include top_left_coord(0, 0);
-    @include animation(move-fan 2s ease 1, rot-fan 1s 2s ease 1);
 
     position: absolute;
     width: 114px;
     height: 120px;
-    background: image-url('auxiliaries/fan.png') no-repeat;
+    background: image-url($aux-img-path+'/fan.png') no-repeat;
   }
-
-  @include behavior-move(move-fan, 0px, 2000px, 0, 0);
-  @include behavior-rotate(rot-fan, 0deg, 360deg);
 
   //-----Connectors
   .aux-connectors {
@@ -239,10 +339,9 @@
     @include top_left_coord(0, 0);
 
     position: absolute;
-    display: none;
     width: 205px;
     height: 168px;
-    background: image-url('auxiliaries/force-connector.png') no-repeat;
+    background: image-url($aux-img-path+'/force-connector.png') no-repeat;
   }
 
   .aux-balcon-connect {
@@ -250,10 +349,9 @@
     @include top_left_coord(30, 90);
 
     position: absolute;
-    display: none;
     width: 205px;
     height: 168px;
-    background: image-url('auxiliaries/balcon-connector.png') no-repeat;
+    background: image-url($aux-img-path+'/balcon-connector.png') no-repeat;
   }
 
   //-----Handle
@@ -269,7 +367,7 @@
     position: absolute;
     width: 106px;
     height: 126px;
-    background: image-url('auxiliaries/handle.png') no-repeat;
+    background: image-url($aux-img-path+'/handle.png') no-repeat;
   }
 
 
@@ -281,18 +379,16 @@
   }
 
 
-
-
   .aux-txt-box {
     position: absolute;
   }
 
   .aux-grid-txt {
-    @include top_left_coord(100, 350);
+    @include top_left_coord(100, 300);
   }
 
   .aux-visor-txt {
-    @include top_left_coord(0, 620);
+    @include top_left_coord(-50, 550);
   }
 
   .aux-spillway-txt {
@@ -300,7 +396,7 @@
   }
 
   .aux-outside-txt {
-    @include top_left_coord(-125, -350);
+    @include top_left_coord(-150, -350);
   }
 
   .aux-louver-txt {
@@ -316,7 +412,7 @@
   }
 
   .aux-fan-txt {
-    @include top_left_coord(20, -250);
+    @include top_left_coord(20, -325);
   }
 
   .aux-windowsill-txt {
@@ -332,7 +428,6 @@
     @extend .small-button;
     @extend .ghost-button;
 
-    display: none;
     padding: 0 30px;
     background-color: transparent;
   }
@@ -365,40 +460,90 @@
   .aux-label {
     @include roboto-lt(22px);
 
-    display: none;
     color: $main_gray_txt;
   }
 
-  .aux-selected {
-    display: none;
+  .selected-block {
+    @include display-flex();
+    @include justify-content(flex-start);
+
+    &.horisontal {
+      @include flex-flow(row wrap);
+      @include align-items(center);
+      min-width: 520px;
+    }
+    &.vertival {
+      @include flex-flow(column wrap);
+    }
+  }
+
+  .aux-info-box {
+    width: 250px;
   }
 
   .aux-title {
+    @extend .truncated;
     @include roboto-lt(36px);
 
-    display: none;
     color: $main_gray_txt;
+    cursor: pointer;
   }
 
   .aux-params {
-    display: none;
     float: left;
     margin-right: 10px;
+
+    &.selected {
+      .aux-params-but {
+        color: #fff;
+      }
+      .aux_big_but {
+        background-color: $aux_big_color;
+      }
+      .aux_middle_but {
+        background-color: $aux_middle_color;
+      }
+      .aux_small_but {
+        background-color: $aux_small_color;
+      }
+      .aux_slope_but {
+        background-color: $main_green;
+      }
+      .aux_connect_but {
+        background-color: $aux_connect_color;
+      }
+
+    }
   }
 
   .aux-params-but {
     @extend .splash;
+    @extend .ghost-button;
     @extend .small-button;
-    @include box-sizing(border-box);
 
     padding: 0 20px;
     background-color: transparent;
   }
 
-
   .aux-params-label {
     @extend .aux-label;
-
-    display: block;
   }
+
+
+  .scheme-info {
+    @extend .button;
+    @include top_left_coord(420, 520);
+    @include font-general-icon(50px, 1);
+
+    position: absolute;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #fff;
+    z-index: 11;
+    &:after {
+      color: $main_orange;
+      content: '\e60d';
+    }
+  }
+
 }

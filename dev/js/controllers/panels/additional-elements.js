@@ -4,25 +4,34 @@
 
 BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
   var $auxContainer = $('.auxiliaries-container'),
-      $auxGrid = $('.aux-grid'),
-      $auxVisor = $('.aux-visor'),
-      $auxSpillway = $('.aux-spillway'),
-      $auxOutside = $('.aux-outside'),
-      $auxWindowsill = $('.aux-windowsill'),
-      $auxLouver = $('.aux-louver'),
-      $auxInsideSlope = $('.aux-inside'),
-      $auxInsideSlopeTop = $('.aux-inside-top'),
-      $auxInsideSlopeLeft = $('.aux-inside-left'),
-      $auxInsideSlopeRight = $('.aux-inside-right'),
-      $auxConnectors = $('.aux-connectors'),
-      $auxForceConnect = $('.aux-force-connect'),
-      $auxBalconConnect = $('.aux-balcon-connect'),
-      $auxHandle = $('.aux-handle'),
-      $auxFan = $('.aux-fan'),
-      $auxOthers = $('.aux-others'),
-      $auxChooseButton = $('.aux-choose-but'),
-      $auxLabel = $('.aux-label'),
-      $auxParamsBtn = $('.aux-params-but'),
+      $auxItem = $auxContainer.find('.auxiliary-item'),
+      $auxGrid = $auxContainer.find('.aux-grid'),
+      $auxVisor = $auxContainer.find('.aux-visor'),
+      $auxSpillway = $auxContainer.find('.aux-spillway'),
+      $auxOutside = $auxContainer.find('.aux-outside'),
+      $auxWindowsill = $auxContainer.find('.aux-windowsill'),
+      $auxLouver = $auxContainer.find('.aux-louver'),
+      $auxInsideSlope = $auxContainer.find('.aux-inside'),
+      $auxInsideSlopeTop = $auxContainer.find('.aux-inside-top'),
+      $auxInsideSlopeLeft = $auxContainer.find('.aux-inside-left'),
+      $auxInsideSlopeRight = $auxContainer.find('.aux-inside-right'),
+      $auxConnectors = $auxContainer.find('.aux-connectors'),
+      $auxForceConnect = $auxContainer.find('.aux-force-connect'),
+      $auxBalconConnect = $auxContainer.find('.aux-balcon-connect'),
+      $auxHandle = $auxContainer.find('.aux-handle'),
+      $auxFan = $auxContainer.find('.aux-fan'),
+      $auxOthers = $auxContainer.find('.aux-others'),
+
+      $auxChoosenBlock = $auxContainer.find('.choose-block'),
+      $auxChooseButton = $auxContainer.find('.aux-choose-but'),
+      $auxTitle = $auxContainer.find('.aux-title'),
+      $auxLabel = $auxContainer.find('.aux-label'),
+      $auxParams = $auxContainer.find('.aux-params'),
+      $auxParamsBtn = $auxContainer.find('.aux-params-but'),
+      $auxParamsLabel = $auxContainer.find('.aux-params-label'),
+      $auxMore = $auxContainer.find('.aux-more'),
+
+
 
       DELAY_SHOW_AUX_CONTAINER = STEP * 4,
       DELAY_SHOW_AUX_GRID = STEP * 5,
@@ -35,16 +44,16 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
       DELAY_SHOW_AUX_INSIDESLOPETOP = STEP * 20,
       DELAY_SHOW_AUX_INSIDESLOPELEFT = STEP * 21,
       DELAY_SHOW_AUX_INSIDESLOPERIGHT = STEP * 22,
-      DELAY_SHOW_AUX_CONNECTORS = STEP * 24,
-      DELAY_SHOW_AUX_FORCECONNECT = STEP * 24,
-      DELAY_SHOW_AUX_BALCONCONNECT = STEP * 25,
+      DELAY_SHOW_AUX_CONNECTORS = STEP * 50,
+      DELAY_SHOW_AUX_FORCECONNECT = STEP * 50,
+      DELAY_SHOW_AUX_BALCONCONNECT = STEP * 70,
       DELAY_SHOW_AUX_HANDLE = STEP * 28,
       DELAY_SHOW_AUX_FAN = STEP * 31,
       DELAY_SHOW_AUX_OTHERS = STEP * 31,
-      DELAY_SHOW_AUX_CHOOSEBUTTON = STEP * 50,
+      DELAY_SHOW_AUX_CHOOSEBUTTON = STEP * 80,
       DELAY_SHOW_AUX_LABEL = STEP * 50;
 
-//  function initAuxContainer() {}
+
 
   //  showElementWithDelay($auxContainer, DELAY_SHOW_AUX_CONTAINER);
   showElementWithDelay($auxGrid, DELAY_SHOW_AUX_GRID);
@@ -63,62 +72,45 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
   showElementWithDelay($auxHandle, DELAY_SHOW_AUX_HANDLE);
   showElementWithDelay($auxFan, DELAY_SHOW_AUX_FAN);
   showElementWithDelay($auxOthers, DELAY_SHOW_AUX_OTHERS);
-  showElementWithDelay($auxChooseButton, DELAY_SHOW_AUX_CHOOSEBUTTON);
-  showElementWithDelay($auxLabel, DELAY_SHOW_AUX_LABEL);
+  showElementWithDelay($auxChoosenBlock, DELAY_SHOW_AUX_CHOOSEBUTTON);
+  //showElementWithDelay($auxLabel, DELAY_SHOW_AUX_LABEL);
 
   setTimeout(function () {
     $auxLabel.each(function () {
       typingTextByChar($(this));
     });
+
+    $auxTitle.each(function () {
+      typingTextByChar($(this));
+    });
+
+    $auxParamsLabel.each(function () {
+      typingTextByChar($(this));
+    });
+
+    $auxMore.each(function () {
+      typingTextByChar($(this));
+    });
+
   }, DELAY_SHOW_AUX_LABEL);
 
 
   //------Select additional element
-  // TODO: Переделать на назначение класса родителю
   $auxChooseButton.click(function () {
-    var $auxTxtBox = $('.aux-txt-box'),
-        $title = $(this).parent().find('.aux-title'),
-        $params = $(this).find('.aux-params > .aux-params-label'),
-        $more = $(this).parent().find('.aux-more');
-
-    //change button color
-    makeButtonActive.call($(this));
-
-    $auxTxtBox.each(function () {
-      $(this).children().each(function () {
-        var classCheck = $(this).attr('class');
-
-        if (classCheck.indexOf('aux-choose-but') + 1 === 0 && classCheck.indexOf('aux-label') + 1 === 0) {
-          $(this).hide();
-        }
-      });
+    var focuseClass = 'focused';
+    $auxItem.each(function() {
+      $(this).removeClass(focuseClass);
     });
-
-    $(this).parent().children().each(function () {
-      $(this).show();
-    });
-
-    typingTextByChar($title);
-
-    if ($params.length > 0) {
-      $params.each(function () {
-        typingTextByChar(this);
-      });
-    }
-
-    if ($more.length > 0) {
-      typingTextByChar($more);
-    }
+    $(this).closest('.auxiliary-item').addClass(focuseClass);
+    $(this).closest('.aux-txt-box').find('.selected-block').removeClass('unvisible');
   });
-
+  //------Select parameters
   $auxParamsBtn.click(function () {
-    makeButtonActive.call($(this));
+    var selectClass = 'selected';
+    $auxParams.each(function() {
+      $(this).removeClass(selectClass);
+    });
+    $(this).parent('.aux-params').addClass(selectClass);
   });
-
-  //$('#start').click(function(){
-  //$('.aux-fan').delay(2500).queue( function(){
-  //$(this).toggle();
-  //$(this).dequeue();
-  //});
-  //});
+  //  function initAuxContainer() {}
 }]);

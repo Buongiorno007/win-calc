@@ -1,22 +1,26 @@
 .config-panel.auxiliaries-container.unvisible(ng-controller="AdditionalElementsCtrl")
 
-  .auxiliary-item.aux-grid
+  .auxiliary-item.aux-grid.unvisible
     .aux-grid-img.move-grid
     .aux-txt-box.aux-grid-txt
-      button.aux-choose-but.aux_middle_but Выбрать
-      .aux-label(data-output="москитная сетка")
-      .aux-selected
-        .aux-title(data-output="москитная сетка")
+      .choose-block.unvisible
+        button.aux-choose-but.aux_connect_but Выбрать
         .aux-label(data-output="москитная сетка")
+      .selected-block.vertival.unvisible
+        .aux-info-box
+          .aux-title(data-output="москитная сетка")
+          .aux-label(data-output="москитная сетка")
 
-  .auxiliary-item.aux-visor
+  .auxiliary-item.aux-visor.unvisible
     .aux-visor-img.move-visor
     .aux-txt-box.aux-visor-txt
-      button.aux-choose-but.aux_big_but Выбрать
-      .aux-label(data-output="козырек")
-      .aux-selected
-        .aux-title(data-output="Kозырек")
+      .choose-block.unvisible
+        button.aux-choose-but.aux_big_but Выбрать
         .aux-label(data-output="козырек")
+      .selected-block.horisontal.unvisible
+        .aux-info-box
+          .aux-title(data-output="KO-300, оцинкованный")
+          .aux-label(data-output="козырек")
         .aux-sizing-box
           .aux-params
             button.aux-params-but.aux_big_but 1
@@ -26,14 +30,16 @@
             .aux-params-label(data-output="размер")
         .aux-more(data-output="Еще 3 компонента...")
 
-  .auxiliary-item.aux-spillway
+  .auxiliary-item.aux-spillway.unvisible
     .aux-spillway-img.move-spillway
     .aux-txt-box.aux-spillway-txt
-      button.aux-choose-but.aux_middle_but Выбрать
-      .aux-label(data-output="водоотлив")
-      .aux-selected
-        .aux-title(data-output="водоотлив")
+      .choose-block.unvisible
+        button.aux-choose-but.aux_middle_but Выбрать
         .aux-label(data-output="водоотлив")
+      .selected-block.vertival.unvisible
+        .aux-info-box
+          .aux-title(data-output="водоотлив")
+          .aux-label(data-output="водоотлив")
         .aux-sizing-box
           .aux-params
             button.aux-params-but.aux_middle_but 1
@@ -43,17 +49,19 @@
             .aux-params-label(data-output="размер")
         .aux-more(data-output="Еще 3 компонента...")
 
-  .auxiliary-item.aux-outside
+  .auxiliary-item.aux-outside.unvisible
     .aux-outside-img.move-outside
     .aux-txt-box.aux-outside-txt
-      button.aux-choose-but.aux_slope_but Выбрать
-      .aux-label(data-output="наружные откосы")
-      .aux-selected
-        .aux-title(data-output="наружные откосы")
+      .choose-block.unvisible
+        button.aux-choose-but.aux_slope_but Выбрать
         .aux-label(data-output="наружные откосы")
+      .selected-block.vertival.unvisible
+        .aux-info-box
+          .aux-title(data-output="наружные откосы")
+          .aux-label(data-output="наружные откосы")
 
 
-  .auxiliary-item.aux-louver
+  .auxiliary-item.aux-louver.unvisible
     .aux-louver-img.move-louvers
       .aux-louver-top
       .aux-louver-midle.louver-midle-1.move-louver-midle-1
@@ -61,11 +69,13 @@
       .aux-louver-midle.louver-midle-3.move-louver-midle-3
       .aux-louver-bottom.move-louver-bottom
     .aux-txt-box.aux-louver-txt
-      button.aux-choose-but.aux_middle_but Выбрать
-      .aux-label(data-output="жалюзи")
-      .aux-selected
-        .aux-title(data-output="жалюзи")
+      .choose-block.unvisible
+        button.aux-choose-but.aux_middle_but Выбрать
         .aux-label(data-output="жалюзи")
+      .selected-block.vertival.unvisible
+        .aux-info-box
+          .aux-title(data-output="жалюзи")
+          .aux-label(data-output="жалюзи")
         .aux-sizing-box
           .aux-params
             button.aux-params-but.aux_middle_but 1
@@ -78,28 +88,32 @@
             .aux-params-label(data-output="высота")
         .aux-more(data-output="Еще 3 компонента...")
 
-  .auxiliary-item.aux-inside
+  .auxiliary-item.aux-inside.unvisible
     .aux-inside-img
-      .aux-inside-top.move-inside-top
-      .aux-inside-right.move-inside-right
-      .aux-inside-left.move-inside-left
+      .aux-inside-top.move-inside-top.unvisible
+      .aux-inside-right.move-inside-right.unvisible
+      .aux-inside-left.move-inside-left.unvisible
     .aux-txt-box.aux-inside-txt
-      button.aux-choose-but.aux_slope_but Выбрать
-      .aux-label(data-output="внутренние откосы")
-      .aux-selected
-        .aux-title(data-output="внутренние откосы")
+      .choose-block.unvisible
+        button.aux-choose-but.aux_slope_but Выбрать
         .aux-label(data-output="внутренние откосы")
+      .selected-block.vertival.unvisible
+        .aux-info-box
+          .aux-title(data-output="внутренние откосы")
+          .aux-label(data-output="внутренние откосы")
 
-  .auxiliary-item.aux-connectors
+  .auxiliary-item.aux-connectors.unvisible
     .aux-connectors-img
-      .aux-force-connect
-      .aux-balcon-connect
+      .aux-force-connect.unvisible
+      .aux-balcon-connect.unvisible
     .aux-txt-box.aux-connectors-txt
-      button.aux-choose-but.aux_connect_but Выбрать
-      .aux-label(data-output="соединитель")
-      .aux-selected
-        .aux-title(data-output="соединитель")
+      .choose-block.unvisible
+        button.aux-choose-but.aux_connect_but Выбрать
         .aux-label(data-output="соединитель")
+      .selected-block.vertival.unvisible
+        .aux-info-box
+          .aux-title(data-output="соединитель")
+          .aux-label(data-output="соединитель")
         .aux-sizing-box
           .aux-params
             button.aux-params-but.aux_connect_but 1
@@ -109,23 +123,27 @@
             .aux-params-label(data-output="размер")
         .aux-more(data-output="Еще 3 компонента...")
 
-  .auxiliary-item.aux-fan
+  .auxiliary-item.aux-fan.unvisible
     .aux-fan-img.move-fan
     .aux-txt-box.aux-fan-txt
-      button.aux-choose-but.aux_small_but Выбрать
-      .aux-label(data-output="микропроветривание")
-      .aux-selected
-        .aux-title(data-output="Mикропроветривание")
+      .choose-block.unvisible
+        button.aux-choose-but.aux_small_but Выбрать
         .aux-label(data-output="микропроветривание")
+      .selected-block.vertival.unvisible
+        .aux-info-box
+          .aux-title(data-output="Mикропроветривание")
+          .aux-label(data-output="микропроветривание")
 
-  .auxiliary-item.aux-windowsill
+  .auxiliary-item.aux-windowsill.unvisible
     .aux-windowsill-img.move-windowsill
     .aux-txt-box.aux-windowsill-txt
-      button.aux-choose-but.aux_big_but Выбрать
-      .aux-label(data-output="подоконник")
-      .aux-selected
-        .aux-title(data-output="подоконник")
+      .choose-block.unvisible
+        button.aux-choose-but.aux_big_but Выбрать
         .aux-label(data-output="подоконник")
+      .selected-block.vertival.unvisible
+        .aux-info-box
+          .aux-title(data-output="подоконник")
+          .aux-label(data-output="подоконник")
         .aux-sizing-box
           .aux-params
             button.aux-params-but.aux_big_but 1
@@ -135,24 +153,30 @@
             .aux-params-label(data-output="размер")
         .aux-more(data-output="Еще 3 компонента...")
 
-  .auxiliary-item.aux-handle
+  .auxiliary-item.aux-handle.unvisible
     .aux-handle-img.move-handle
     .aux-txt-box.aux-handle-txt
-      button.aux-choose-but.aux_small_but Выбрать
-      .aux-label(data-output="ручка")
-      .aux-selected
-        .aux-title(data-output="Pучка")
+      .choose-block.unvisible
+        button.aux-choose-but.aux_middle_but Выбрать
         .aux-label(data-output="ручка")
+      .selected-block.horisontal.unvisible
+        .aux-info-box
+          .aux-title(data-output="Pучка")
+          .aux-label(data-output="ручка")
         .aux-sizing-box
           .aux-params
-            button.aux-params-but.aux_small_but 1
+            button.aux-params-but.aux_middle_but 1
             .aux-params-label(data-output="шт")
         .aux-more(data-output="Еще 3 компонента...")
 
-  .auxiliary-item.aux-others
+  .auxiliary-item.aux-others.unvisible
     .aux-txt-box.aux-others-txt
-      button.aux-choose-but.aux_small_but Выбрать
-      .aux-label(data-output="прочее")
-      .aux-selected
-        .aux-title(data-output="прочее")
+      .choose-block.unvisible
+        button.aux-choose-but.aux_small_but Выбрать
         .aux-label(data-output="прочее")
+      .selected-block.vertival.unvisible
+        .aux-info-box
+          .aux-title(data-output="прочее")
+          .aux-label(data-output="прочее")
+
+  button.scheme-info

@@ -34,7 +34,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', function ($scope) {
     for (ul = 0; ul < $navmenuList.length; ul++) {
       DELAY_SHOW_NAV_LIST = (DELAY_SHOW_NAV_LISTS + STEP_NAV_LIST * ul),
       DELAY_SHOW_NAV_CONTENT = DELAY_SHOW_NAV_LIST + STEP_NAV_LIST * 2,
-      DELAY_SHOW_NAV_TITLE = DELAY_SHOW_NAV_CONTENT + STEP_NAV_ICON * 4,
+      DELAY_SHOW_NAV_TITLE = DELAY_SHOW_NAV_CONTENT + STEP_NAV_ICON * 5,
       DELAY_SHOW_NAV_BADGE = DELAY_SHOW_NAV_TITLE + STEP_NAV_LIST * 5,
 
       $navmenuContent = $navmenuList.eq(ul).find('.item-content');
@@ -47,7 +47,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', function ($scope) {
       showElementWithDelay($navmenuContent, DELAY_SHOW_NAV_CONTENT);
 
       for (icon = 0; icon < $navmenuItemIcon.length; icon++) {
-        DELAY_SHOW_NAV_ICON = DELAY_SHOW_NAV_CONTENT + STEP_NAV_ICON * icon;
+        DELAY_SHOW_NAV_ICON = 2*DELAY_SHOW_NAV_CONTENT + STEP_NAV_ICON * icon;
         showElementWithDelay($navmenuItemIcon.eq(icon), DELAY_SHOW_NAV_ICON);
       }
 
