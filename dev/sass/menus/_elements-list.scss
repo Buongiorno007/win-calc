@@ -1,0 +1,100 @@
+.elements-menu {
+  @extend .menu-right-general;
+
+  position: absolute;
+  top: 0;
+
+  .menu-header {
+    @include display-flex();
+    @include flex-flow(row nowrap);
+    @include justify-content(space-between);
+    @include align-items(center);
+
+    min-height: 170px;
+    margin-right: $config_menu-side_padding;
+    background-color: #f8f8f8;
+  }
+
+  .tip {
+    @include roboto-lt(22px);
+    max-width: 70%;
+    color: #8c8c8c;
+  }
+  .close-elements-menu {
+    @extend .button;
+
+    position: relative;
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    background-color: $main_gray_btn;
+    &:after {
+      @extend .icon-setting;
+      @include font-general-icon(40px, 1);
+
+      position: absolute;
+      top: 25%;
+      left: 25%;
+      display: block;
+      color: #fff;
+      content: $cross-icon;
+    }
+  }
+
+  .menu-lists {
+    margin-left: -$config_menu-side_padding;
+    padding-left: $config_menu-side_padding;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  .title {
+    margin: 45px 0 0px 0;
+    padding-bottom: 15px;
+    color: $main_gray_txt;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .item {
+    @include display-flex();
+    @include flex-flow(row nowrap);
+    @include justify-content(space-between);
+    @include align-items(center);
+
+    &.active {
+      background-color: #f0f0f0;
+    }
+  }
+  .value {
+    max-width: 90%;
+  }
+  .element-info {
+    @extend .button;
+
+    position: relative;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #fff;
+    &:after {
+      @extend .icon-setting;
+      @include font-general-icon(40px, 1);
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      color: $main_gray_btn;
+      content: $info-panel-icon;
+    }
+  }
+
+
+  .menu-tab {
+    @extend .button;
+
+    position: absolute;
+    width: 60px;
+    width: 860px;
+    min-height: 310px;
+  }
+}

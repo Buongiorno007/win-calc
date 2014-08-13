@@ -1,0 +1,64 @@
+.elements-menu(ng-controller="ElementsListCtrl")
+  header.menu-header
+    .tip(data-output="Выберите элемент из списка") Выберите элемент из списка
+    button.close-elements-menu
+
+  .menu-lists
+    ul.items-list
+      li.item.active
+        .value(data-output="Без элемента") Без элемента
+
+    .title(data-output="оцинкованный") оцинкованный
+    ul.items-list
+      li.item
+        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+        button.element-info
+      li.item
+        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+        button.element-info
+      li.item
+        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+        button.element-info
+
+    .title(data-output="оцинкованный") оцинкованный
+    ul.items-list
+      li.item
+        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+        button.element-info
+      li.item
+        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+        button.element-info
+      li.item
+        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+        button.element-info
+      li.item
+        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+        button.element-info
+      li.item
+        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+        button.element-info
+      li.item
+        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+        button.element-info
+      li.item
+        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+        button.element-info
+      li.item
+        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+        button.element-info
+      li.item
+        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+        button.element-info
+
+  footer.menu-footer
+    //.price-element
+      #price.price-value(data-output="{{ configMenu.price }}")
+      #currency.price-currency {{ setCurrencySymbol(configMenu.currency) }}
+    .size-calculator
+    .qty-calculator
+    .color-selector
+  button.menu-tab.simple-frame
+    .frame-tab
+  button.menu-tab.hard-frame
+    .frame-tab
+

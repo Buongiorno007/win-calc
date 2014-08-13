@@ -1,35 +1,9 @@
 // TODO: Вынести анимацию в отдельные классы
 // TODO: Проверить анимацию на соответствие видео
 .config-menu {
-  @include animation(move-config-menu .5s 0 linear 1);
-  @include display-flex();
-  @include flex-flow(column wrap);
-  @include align-content(space-between);
-
-  height: 100%;
-  padding-left: $config_menu-side_padding;
-  background: rgba(#f8f8f8, .95);
-  box-shadow: -3px 0 15px -5px rgba(0, 0, 0, .5);
-  .items-list {
-    @include display-flex();
-    @include flex-grow(1);
-    @include flex-flow(column wrap);
-
-    width: 100%;
-    margin: 0;
-    padding: 0 0 20px 0;
-    list-style: none;
-  }
+  @extend .menu-right-general;
   .item {
-    max-width: 100%;
-    min-height: 120px;
-    padding: 10px $config_menu-side_padding 10px 0;
-    border-bottom: 1px solid #ccc;
-    cursor: pointer;
     &.active {
-      position: relative;
-      margin-left: -$config_menu-side_padding;
-      padding-left: $config_menu-side_padding;
       background-color: #f0f0f0;
       &:before {
         @extend .icon-setting;
@@ -44,18 +18,12 @@
         content: $config_menu-arrow-icon;
       }
     }
-    &:last-child {
-      @include flex-grow(1);
-    }
   }
   .item-header {
     min-height: 350px;
   }
   .title {
-    @include roboto-bd(24px);
-
     margin: 10px 0;
-    text-transform: uppercase;
     color: $main_orange;
   }
   .icon {
@@ -78,13 +46,6 @@
       word-wrap: break-word;
     }
   }
-  .value {
-    @extend .truncated;
-    @include roboto-lt(36px);
-
-    margin: 5px 0;
-    color: $main_gray_txt;
-  }
   .additional-items-list {
     overflow-y: auto;
     max-height: 200px;
@@ -93,41 +54,6 @@
   }
   .additional-item {
     @extend .truncated;
-  }
-  .menu-footer {
-    width: 100%;
-    padding-right: $config_menu-side_padding;
-    text-align: center;
-  }
-  .price {
-    @include display-flex();
-    @include justify-content(center);
-  }
-  .price-value {
-    @include roboto-md($price_container-height, 1);
-
-    display: inline-flex;
-    overflow: hidden;
-    height: $price_container-height;
-    text-align: center;
-    color: $main_gray_txt;
-  }
-  .digit-cell {
-    position: relative;
-    float: left;
-    &:nth-last-child(3n+3) {
-      margin-left: 4px;
-    }
-    &:nth-last-child(3) {
-      margin-left: 0;
-    }
-  }
-  .price-currency {
-    @include roboto-lt(50px, $price_container-height - 8px);
-
-    margin-left: 10px;
-    padding-top: 8px;
-    color: $main_gray_txt;
   }
   .cart-btn {
     @extend .orange-big-btn;
@@ -151,5 +77,3 @@
     background-color: #fff;
   }
 }
-
-@include behavior-move(move-config-menu, 100%, 0, 0, 0);
