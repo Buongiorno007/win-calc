@@ -1,6 +1,6 @@
 "use strict";
 
-BauVoiceApp.factory('localeStorage', function () {
+BauVoiceApp.factory('localStorage', function () {
   return {
     md5: function (string) {
       function RotateLeft(lValue, iShiftBits) {
@@ -208,10 +208,16 @@ BauVoiceApp.factory('localeStorage', function () {
         transaction.executeSql(selectUser, [], function (transaction, result) {
           if (result.rows.length) {
             callback(new OkResult({
-              username: result.rows.item(0).name,
-              cityid: result.rows.item(0).city_id,
-              cityname: result.rows.item(0).city_name,
-              avatar: result.rows.item(0).avatar
+              user: {
+                // TODO: У пользователя есть Id?
+                // id: 1,
+                name: result.rows.item(0).name,
+                avatar: result.rows.item(0).avatar
+              },
+              city: {
+                id: result.rows.item(0).city_id,
+                name: result.rows.item(0).city_name,
+              }
             }));
           } else {
             callback(new ErrorResult(1, 'Incorrect username or password!'));
@@ -221,28 +227,10 @@ BauVoiceApp.factory('localeStorage', function () {
         });
       });
     },
-    getOrdersCart: function () {
-      return new OkResult({
+    getOrdersCart: function (callback) {
+      callback(new OkResult({
         ordersInCart: 22
-      });
+      }));
     }
   }
 });
-
-/*
-
- localeStorage.login({login : 'zavod', password : 'zavod'}, function (results) {
- if (results.status) {
- $scope.user = results.data;
- console.log($scope.user);
- console.log(results);
- } else {
- console.log(results);
- }
- });
-
- $scope.ordersInCart = localeStorage.getOrdersCart();
- console.log($scope.ordersInCart);
- console.log($scope.ordersInCart.data);
-
- */

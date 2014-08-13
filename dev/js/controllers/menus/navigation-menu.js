@@ -1,8 +1,8 @@
-/* globals BauVoiceApp, STEP, typingTextByChar, showElementWithDelay, addClassWithDelay, typingTextWithDelay */
+/* globals STEP, typingTextByChar, showElementWithDelay, addClassWithDelay, typingTextWithDelay */
 
 'use strict';
 
-BauVoiceApp.controller('NavMenuCtrl', ['$scope', function ($scope) {
+BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'localStorage', function ($scope, $location, localStorage) {
   var $navMenuHeader = $('.nav-menu-header'),
       $navmenuList = $navMenuHeader.find('.items-list'),
       $navmenuItem = $navmenuList.find('.item'),
@@ -73,4 +73,26 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', function ($scope) {
 
     $(this).addClass(activeClass);
   });
+
+  $scope.navMenu = {};
+
+  localStorage.getOrdersCart(function (results) {
+    if (results.status) {
+      $scope.navMenu.ordersInCart = results.data.ordersInCart;
+    } else {
+      console.log(results);
+    }
+  });
+
+  $scope.gotoLocationPage = function () {
+    $location.path('/location');
+  };
+
+  $scope.gotoSettingsPage = function () {
+    $location.path('/settings');
+  };
+
+  $scope.getCurrentGeolocation = function () {};
+
+  $scope.setCurrentCity = function (city) {};
 }]);

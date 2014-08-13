@@ -63,7 +63,9 @@
 
     height: 120px;
     margin: 20px 0;
-    background: image-url('config-menu/configMenu_itemIMG.png') no-repeat;
+    img {
+      max-height: 100%;
+    }
   }
   .name {
     @include roboto-lt(22px);
