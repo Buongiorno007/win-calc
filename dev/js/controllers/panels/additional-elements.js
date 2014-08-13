@@ -31,7 +31,7 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
       $auxParamsLabel = $auxContainer.find('.aux-params-label'),
       $auxMore = $auxContainer.find('.aux-more'),
 
-
+      $schemeInfo = $auxContainer.find('.scheme-info'),
 
       DELAY_SHOW_AUX_CONTAINER = STEP * 4,
       DELAY_SHOW_AUX_GRID = STEP * 5,
@@ -51,7 +51,8 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
       DELAY_SHOW_AUX_FAN = STEP * 31,
       DELAY_SHOW_AUX_OTHERS = STEP * 31,
       DELAY_SHOW_AUX_CHOOSEBUTTON = STEP * 80,
-      DELAY_SHOW_AUX_LABEL = STEP * 50;
+      DELAY_SHOW_AUX_LABEL = STEP * 50,
+      DELAY_SHOW_SCHEME_ICON = STEP * 80;
 
 
 
@@ -73,7 +74,7 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
   showElementWithDelay($auxFan, DELAY_SHOW_AUX_FAN);
   showElementWithDelay($auxOthers, DELAY_SHOW_AUX_OTHERS);
   showElementWithDelay($auxChoosenBlock, DELAY_SHOW_AUX_CHOOSEBUTTON);
-  //showElementWithDelay($auxLabel, DELAY_SHOW_AUX_LABEL);
+  showElementWithDelay($schemeInfo, DELAY_SHOW_SCHEME_ICON);
 
   setTimeout(function () {
     $auxLabel.each(function () {
@@ -112,5 +113,6 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
     });
     $(this).parent('.aux-params').addClass(selectClass);
   });
+
   //  function initAuxContainer() {}
 }]);

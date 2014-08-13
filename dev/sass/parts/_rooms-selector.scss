@@ -1,13 +1,8 @@
 .rooms-selector-dialog {
+  @extend .modal-dialog;
   @include display-flex();
   @include flex-flow(column nowrap);
-  @include top_left_coord(300, 80);
 
-  position: absolute;
-  width: 1350px;
-  padding: 80px 60px;
-  border-radius: $radius_rooms-dialog;
-  background-color: rgba(#fff, .85);
   &:after {
     position: absolute;
     right: 35%;
@@ -19,13 +14,7 @@
     border-color: rgba(#fff, .85) transparent;
     content: '';
   }
-  &.show-dialog {
-    @include animation(show-rooms-dialog 1s 0 ease 1);
-  }
-  &.hide-dialog {
-    @include animation(hide-rooms-dialog .5s 0 ease 1);
-    @include translateX(-2000px);
-  }
+
   .rooms-row {
     @include display-flex();
     @include justify-content(space-between);
@@ -80,20 +69,4 @@
     padding-left: 30px;
     color: #fff;
   }
-  .close-dialog {
-    @extend .icon-setting;
-    @include font-general-icon(50px, 1);
-
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    cursor: pointer;
-    &:after {
-      color: $main_orange;
-      content: $close-icon;
-    }
-  }
 }
-
-@include behavior-move(show-rooms-dialog, -2000px, 0, 0, 0);
-@include behavior-move(hide-rooms-dialog, 0, 0, -2000px, 0);

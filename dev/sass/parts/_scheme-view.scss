@@ -1,0 +1,13 @@
+.scheme-view-dialog {
+  @extend .modal-dialog;
+
+  height: 900px;
+  z-index: 20;
+
+  .scheme-view {
+    @extend .splash;
+
+    width: 100%;
+    height: 100%;
+  }
+}

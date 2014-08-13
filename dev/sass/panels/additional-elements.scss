@@ -532,6 +532,7 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   .scheme-info {
     @extend .button;
+    @extend .splash;
     @include top_left_coord(420, 520);
     @include font-general-icon(50px, 1);
 

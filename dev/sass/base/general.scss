@@ -165,3 +165,41 @@ body {
   height: image-height($img_avatar);
   background: image-url($img_avatar) no-repeat;
 }
+
+
+// Modal dialog
+.modal-dialog {
+  @include top_left_coord(300, 80);
+
+  position: absolute;
+  width: 1350px;
+  padding: 80px 60px;
+  border-radius: $radius_rooms-dialog;
+  background-color: rgba(#fff, .85);
+
+  &.show-dialog {
+    @include animation(show-dialog 1s 0 ease 1);
+  }
+  &.hide-dialog {
+    @include animation(hide-dialog .5s 0 ease 1);
+    @include translateX(-2000px);
+  }
+}
+
+@include behavior-move(show-dialog, -2000px, 0, 0, 0);
+@include behavior-move(hide-dialog, 0, 0, -2000px, 0);
+
+// Close button for dialog
+.close-dialog {
+  @extend .icon-setting;
+  @include font-general-icon(50px, 1);
+
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  cursor: pointer;
+  &:after {
+    color: $main_orange;
+    content: $close-icon;
+  }
+}
