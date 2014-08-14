@@ -1,12 +1,11 @@
 "use strict";
 
-BauVoiceApp.factory('localStorage', function () {
+BauVoiceApp.factory('localStorage', ['$http', function ($http) {
   return {
     md5: function (string) {
       function RotateLeft(lValue, iShiftBits) {
         return (lValue << iShiftBits) | (lValue >>> (32 - iShiftBits));
       }
-
       function AddUnsigned(lX, lY) {
         var lX4, lY4, lX8, lY8, lResult;
         lX8 = (lX & 0x80000000);
@@ -27,23 +26,18 @@ BauVoiceApp.factory('localStorage', function () {
           return (lResult ^ lX8 ^ lY8);
         }
       }
-
       function F(x, y, z) {
         return (x & y) | ((~x) & z);
       }
-
       function G(x, y, z) {
         return (x & z) | (y & (~z));
       }
-
       function H(x, y, z) {
         return (x ^ y ^ z);
       }
-
       function I(x, y, z) {
         return (y ^ (x | (~z)));
       }
-
       function FF(a, b, c, d, x, s, ac) {
         a = AddUnsigned(a, AddUnsigned(AddUnsigned(F(b, c, d), x), ac));
         return AddUnsigned(RotateLeft(a, s), b);
@@ -200,27 +194,468 @@ BauVoiceApp.factory('localStorage', function () {
       var temp = WordToHex(a) + WordToHex(b) + WordToHex(c) + WordToHex(d);
       return temp.toLowerCase();
     },
-    login: function (loginData, callback) {
-      var db = openDatabase('shopping-list', '1.0', 'shopping-list', 65536),
-          selectUser = "SELECT users.name, users.city_id, cities.name as city_name, users.avatar FROM users LEFT JOIN cities ON users.city_id = cities.id WHERE phone = '" + loginData.login + "' AND password = '" + this.md5(loginData.password) + "'";
+    getDeviceCodeLDb: function (callback) {
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
+      var newDeviceCode = '';
+      var words = '0123456789qwertyuiopasdfghjklzxcvbnm';
+      var maxPosition = words.length - 1;
+      for (var i = 0; i < 8; ++i) {
+        var position = Math.floor(Math.random() * maxPosition);
+        newDeviceCode = newDeviceCode + words.substring(position, position + 1);
+      }
+      var createDevice = "CREATE TABLE IF NOT EXISTS device (id INTEGER PRIMARY KEY AUTOINCREMENT, device_code VARCHAR(255), sync INTEGER)";
+      db.transaction(function (transaction) {
+        transaction.executeSql(createDevice, []);
+      });
+      db.transaction(function (transaction) {
+        transaction.executeSql("SELECT device_code as code, sync FROM device", [], function (transaction, result) {
+          if (result.rows.length) {
+            if (result.rows.item(0).sync) {
+              callback(new OkResult({sync: true}));
+            } else {
+              callback(new OkResult({sync: false, deviceCode: result.rows.item(0).code}));
+            }
+          } else {
+            db.transaction(function (transaction) {
+              transaction.executeSql("INSERT INTO device (id, device_code, sync) VALUES (?, ?, ?)", [1, newDeviceCode, 0], function () {
+              }, function () {
+                callback(new ErrorResult(2, 'Something went wrong with inserting device record'));
+              });
+            });
+            callback(new OkResult({sync: false, deviceCode: newDeviceCode}));
+          }
+        }, function () {
+          callback(new ErrorResult(2, 'Something went wrong with selection device_code record'));
+        });
+      });
+    },
+    getDeviceCodeGDb: function (deviceCode, callback) {
+      if (deviceCode) {
+        $http.get('http://api.voice-creator.net/sync/elements?device_code=' + deviceCode).success(function (data) {
+          if (data[0].rows.length > 0) {
+            if (data[0].rows.length < 2) {
+              callback(new OkResult(data));
+            } else {
+              callback(new ErrorResult(2, 'Device Code is already use in other device!'));
+            }
+          } else {
+            callback(new ErrorResult(2, 'No Device Code in Database yet!'));
+          }
+        }).error(function () {
+          callback(new ErrorResult(2, 'Something went wrong with selecting data from Database'));
+        });
+      } else {
+        callback(new ErrorResult(2, 'Bad Device Code!'));
+      }
+    },
+    importDb: function (factoryId, userId, deviceCode, callback) {
+      $http.get('http://api.voice-creator.net/sync/elements?factory_id=' + factoryId + '&user_id=' + userId + '&access_token=' + deviceCode).success(function (data) {
+        var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
+        var createFactories = "CREATE TABLE IF NOT EXISTS factories (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createFactories, []);
+        });
+        var insertFactories = 'INSERT INTO factories (id, name) VALUES (?, ?)';
+        db.transaction(function (transaction) {
+          transaction.executeSql(insertFactories, [data[0].rows[0][0], "" + data[0].rows[0][1] + ""], function () {
+          }, function () {
+            callback(new ErrorResult(2, 'Something went wrong with inserting factories record'));
+          });
+        });
 
+        var createElementsGroups = "CREATE TABLE IF NOT EXISTS elements_groups (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(100), base_unit INTEGER, position INTEGER)";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createElementsGroups, []);
+        });
+        var insertElementsGroups = 'INSERT INTO elements_groups (id, name, base_unit, position) VALUES (?, ?, ?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[1].rows.length; i++) {
+            transaction.executeSql(insertElementsGroups, [data[1].rows[i][0], "" + data[1].rows[i][1] + "", data[1].rows[i][2], data[1].rows[i][3]], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting elements_groups record'));
+            });
+          }
+        });
+
+        var createGlassFolders = "CREATE TABLE IF NOT EXISTS glass_folders (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), factory_id INTEGER, position INTEGER, FOREIGN KEY(factory_id) REFERENCES factories(id))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createGlassFolders, []);
+        });
+        var insertGlassFolders = 'INSERT INTO glass_folders (id, name, factory_id, position) VALUES (?, ?, ?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[2].rows.length; i++) {
+            transaction.executeSql(insertGlassFolders, [data[2].rows[i][0], "" + data[2].rows[i][1] + "", data[2].rows[i][2], data[2].rows[i][3]], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting glass_folders record'));
+            });
+          }
+        });
+
+        var createListsTypes = "CREATE TABLE IF NOT EXISTS lists_types (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), image_add_param VARCHAR(100))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createListsTypes, []);
+        });
+        var insertListsTypes = 'INSERT INTO lists_types (id, name, image_add_param) VALUES (?, ?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[3].rows.length; i++) {
+            transaction.executeSql(insertListsTypes, [data[3].rows[i][0], "" + data[3].rows[i][1] + "", "" + data[3].rows[i][2] + ""], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting lists_types record'));
+            });
+          }
+        });
+
+        var createAdditionColors = "CREATE TABLE IF NOT EXISTS addition_colors (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), lists_type_id INTEGER, FOREIGN KEY(lists_type_id) REFERENCES lists_types(id))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createAdditionColors, []);
+        });
+        var insertAdditionColors = 'INSERT INTO addition_colors (id, name, lists_type_id) VALUES (?, ?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[4].rows.length; i++) {
+            transaction.executeSql(insertAdditionColors, [data[4].rows[i][0], "" + data[4].rows[i][1] + "", data[4].rows[i][2]], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting addition_colors record'));
+            });
+          }
+        });
+
+        var createMarginTypes = "CREATE TABLE IF NOT EXISTS margin_types (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createMarginTypes, []);
+        });
+        var insertMarginTypes = 'INSERT INTO margin_types (id, name) VALUES (?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[5].rows.length; i++) {
+            transaction.executeSql(insertMarginTypes, [data[5].rows[i][0], "" + data[5].rows[i][1] + ""], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting margin_types record'));
+            });
+          }
+        });
+
+        var createSuppliers = "CREATE TABLE IF NOT EXISTS suppliers (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), factory_id INTEGER, FOREIGN KEY(factory_id) REFERENCES factories(id))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createSuppliers, []);
+        });
+        var insertSuppliers = 'INSERT INTO suppliers (id, name, factory_id) VALUES (?, ?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[6].rows.length; i++) {
+            transaction.executeSql(insertSuppliers, [data[6].rows[i][0], "" + data[6].rows[i][1] + "", data[6].rows[i][2]], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting suppliers record'));
+            });
+          }
+        });
+
+        var createCurrencies = "CREATE TABLE IF NOT EXISTS currencies (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(100), value NUMERIC(10, 2), factory_id INTEGER, is_base INTEGER,  FOREIGN KEY(factory_id) REFERENCES factories(id))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createCurrencies, []);
+        });
+        var insertCurrencies = 'INSERT INTO currencies (id, name, value, factory_id, is_base) VALUES (?, ?, ?, ?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[7].rows.length; i++) {
+            transaction.executeSql(insertCurrencies, [data[7].rows[i][0], "" + data[7].rows[i][1] + "", data[7].rows[i][2], data[7].rows[i][3], data[7].rows[i][4]], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting currencies record'));
+            });
+          }
+        });
+
+        var createCountries = "CREATE TABLE IF NOT EXISTS countries (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), currency_id INTEGER, FOREIGN KEY(currency_id) REFERENCES currencies(id))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createCountries, []);
+        });
+        var insertCountries = 'INSERT INTO countries (id, name, currency_id) VALUES (?, ?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[8].rows.length; i++) {
+            transaction.executeSql(insertCountries, [data[8].rows[i][0], "" + data[8].rows[i][1] + "", data[8].rows[i][2]], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting countries record'));
+            });
+          }
+        });
+
+        var createRegions = "CREATE TABLE IF NOT EXISTS regions (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), country_id INTEGER, heat_transfer NUMERIC(10, 2), climatic_zone NUMERIC, FOREIGN KEY(country_id) REFERENCES countries(id))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createRegions, []);
+        });
+        var insertRegions = 'INSERT INTO regions (id, name, country_id, heat_transfer, climatic_zone) VALUES (?, ?, ?, ?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[9].rows.length; i++) {
+            transaction.executeSql(insertRegions, [data[9].rows[i][0], "" + data[9].rows[i][1] + "", data[9].rows[i][2], data[9].rows[i][3], data[9].rows[i][4]], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting regions record'));
+            });
+          }
+        });
+
+        var createCities = "CREATE TABLE IF NOT EXISTS cities (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), region_id INTEGER, transport VARCHAR(2), FOREIGN KEY(region_id) REFERENCES regions(id))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createCities, []);
+        });
+        var insertCities = 'INSERT INTO cities (id, region_id, name, transport) VALUES (?, ?, ?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[10].rows.length; i++) {
+            transaction.executeSql(insertCities, [data[10].rows[i][0], "" + data[10].rows[i][1] + "", data[10].rows[i][2], "" + data[10].rows[i][3] + ""], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting cities record'));
+            });
+          }
+        });
+
+        var createLaminationColors = "CREATE TABLE IF NOT EXISTS lamination_colors (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), factory_id INTEGER, FOREIGN KEY(factory_id) REFERENCES factories(id))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createLaminationColors, []);
+        });
+        var insertLaminationColors = 'INSERT INTO lamination_colors (id, name, factory_id) VALUES (?, ?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[11].rows.length; i++) {
+            transaction.executeSql(insertLaminationColors, [data[11].rows[i][0], "" + data[11].rows[i][1] + "", data[11].rows[i][2]], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting lamination_colors record'));
+            });
+          }
+        });
+
+        var createElements = "CREATE TABLE IF NOT EXISTS elements (id INTEGER PRIMARY KEY AUTOINCREMENT, sku VARCHAR(100), name VARCHAR(255), element_group_id INTEGER, price NUMERIC(10, 2), currency_id INTEGER, supplier_id INTEGER, margin_id INTEGER, waste NUMERIC(10, 2), is_optimized INTEGER, is_virtual INTEGER, is_additional INTEGER, weight_accounting_unit NUMERIC(10, 3), glass_type_id INTEGER, min_width NUMERIC, min_height NUMERIC, max_width NUMERIC, max_height NUMERIC, max_sq NUMERIC, transcalency NUMERIC(10, 2), amendment_pruning NUMERIC(10, 2), glass_width INTEGER, factory_id INTEGER, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(glass_type_id) REFERENCES glass_types(id), FOREIGN KEY(margin_id) REFERENCES margin_types(id), FOREIGN KEY(supplier_id) REFERENCES suppliers(id), FOREIGN KEY(currency_id) REFERENCES currencies(id), FOREIGN KEY(element_group_id) REFERENCES elements_groups(id))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createElements, []);
+        });
+        var insertElements = 'INSERT INTO elements (id, sku, name, element_group_id, price, currency_id, supplier_id, margin_id, waste, is_optimized, is_virtual, is_additional, weight_accounting_unit, glass_type_id, min_width, min_height, max_width, max_height, max_sq, transcalency, amendment_pruning, glass_width, factory_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[12].rows.length; i++) {
+            transaction.executeSql(insertElements, [data[12].rows[i][0], "" + data[12].rows[i][1] + "", "" + data[12].rows[i][2] + "", data[12].rows[i][3], data[12].rows[i][4], data[12].rows[i][5], data[12].rows[i][6], data[12].rows[i][7], data[12].rows[i][8], data[12].rows[i][9], data[12].rows[i][10], data[12].rows[i][11], data[12].rows[i][12], data[12].rows[i][13], data[12].rows[i][14], data[12].rows[i][15], data[12].rows[i][16], data[12].rows[i][17], data[12].rows[i][18], data[12].rows[i][19], data[12].rows[i][20], data[12].rows[i][21], data[12].rows[i][22]], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting elements record'));
+            });
+          }
+        });
+
+        var createUsers = "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, email VARCHAR(255), password VARCHAR(255), short_id VARCHAR(2), parent_id INTEGER, factory_id INTEGER, discount_construct_max NUMERIC(10, 1), discount_construct_default NUMERIC(10, 1), discount_additional_elements_max NUMERIC(10, 1), discount_additional_elements_default NUMERIC(10, 1), name VARCHAR(255), phone VARCHAR(100), inn VARCHAR(100), okpo VARCHAR(100), mfo VARCHAR(100), bank_name VARCHAR(100), bank_acc_no VARCHAR(100), director VARCHAR(255), stamp_file_name VARCHAR(255), locked INTEGER, user_type INTEGER, contact_name VARCHAR(100), city_phone VARCHAR(100), city_id INTEGER, legal_name VARCHAR(255), fax VARCHAR(100), avatar VARCHAR(255), birthday DATE, sex VARCHAR(100), margin_mounting_mon NUMERIC(10, 2), margin_mounting_tue NUMERIC(10, 2), margin_mounting_wed NUMERIC(10, 2), margin_mounting_thu NUMERIC(10, 2), margin_mounting_fri NUMERIC(10, 2), margin_mounting_sat NUMERIC(10, 2), margin_mounting_sun NUMERIC(10, 2), min_term INTEGER, base_term INTEGER, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createUsers, []);
+        });
+        var insertUsers = 'INSERT INTO users (id, email, password, short_id, parent_id, factory_id, discount_construct_max, discount_construct_default, discount_additional_elements_max, discount_additional_elements_default, name, phone, inn, okpo, mfo, bank_name, bank_acc_no, director, stamp_file_name, locked, user_type, contact_name, city_phone, city_id, legal_name, fax, avatar, birthday, sex, margin_mounting_mon, margin_mounting_tue, margin_mounting_wed, margin_mounting_thu, margin_mounting_fri, margin_mounting_sat, margin_mounting_sun, min_term, base_term) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[13].rows.length; i++) {
+            transaction.executeSql(insertUsers, [data[13].rows[i][0], "" + data[13].rows[i][1] + "", "" + data[13].rows[i][2] + "", "" + data[13].rows[i][3] + "", data[13].rows[i][4], data[13].rows[i][5], data[13].rows[i][6], data[13].rows[i][7], data[13].rows[i][8], data[13].rows[i][9], "" + data[13].rows[i][10] + "", "" + data[13].rows[i][11] + "", "" + data[13].rows[i][12] + "", "" + data[13].rows[i][13] + "", "" + data[13].rows[i][14] + "", "" + data[13].rows[i][15] + "", "" + data[13].rows[i][16] + "", "" + data[13].rows[i][17] + "", "" + data[13].rows[i][18] + "", data[13].rows[i][19], data[13].rows[i][20], "" + data[13].rows[i][21] + "", "" + data[13].rows[i][22] + "", data[13].rows[i][23], "" + data[13].rows[i][24] + "", "" + data[13].rows[i][25] + "", "" + data[13].rows[i][26] + "", "" + data[13].rows[i][27] + "", data[13].rows[i][28], data[13].rows[i][29], data[13].rows[i][30], data[13].rows[i][31], data[13].rows[i][32], data[13].rows[i][33], data[13].rows[i][34], data[13].rows[i][35], data[13].rows[i][36], data[13].rows[i][37]], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting users record'));
+            });
+          }
+        });
+
+        var createListsGroups = "CREATE TABLE IF NOT EXISTS lists_groups (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createListsGroups, []);
+        });
+        var insertListsGroups = 'INSERT INTO lists_groups (id, name) VALUES (?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[14].rows.length; i++) {
+            transaction.executeSql(insertListsGroups, [data[14].rows[i][0], "" + data[14].rows[i][1] + ""], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting lists_groups record'));
+            });
+          }
+        });
+
+        var createLists = "CREATE TABLE IF NOT EXISTS lists (id INTEGER PRIMARY KEY AUTOINCREMENT, parent_element_id INTEGER, name VARCHAR(255), list_group_id INTEGER, list_type_id INTEGER, add_color_id INTEGER, a NUMERIC(10, 2), b NUMERIC(10, 2), c NUMERIC(10, 2), d NUMERIC(10, 2), position NUMERIC, FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createLists, []);
+        });
+        var insertLists = 'INSERT INTO lists (id, parent_element_id, name, list_group_id, list_type_id, add_color_id, a, b, c, d, position) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[15].rows.length; i++) {
+            transaction.executeSql(insertLists, [data[15].rows[i][0], data[15].rows[i][1], "" + data[15].rows[i][2] + "", data[15].rows[i][3], data[15].rows[i][4], data[15].rows[i][5], data[15].rows[i][6], data[15].rows[i][7], data[15].rows[i][8], data[15].rows[i][9], data[15].rows[i][10]], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting lists record'));
+            });
+          }
+        });
+
+        var createDirections = "CREATE TABLE IF NOT EXISTS directions (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createDirections, []);
+        });
+        var insertDirections = 'INSERT INTO directions (id, name) VALUES (?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[16].rows.length; i++) {
+            transaction.executeSql(insertDirections, [data[16].rows[i][0], "" + data[16].rows[i][1] + ""], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting directions record'));
+            });
+          }
+        });
+
+        var createRulesTypes = "CREATE TABLE IF NOT EXISTS rules_types (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), parent_unit INTEGER, child_unit INTEGER, suffix VARCHAR(15))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createRulesTypes, []);
+        });
+        var insertRulesTypes = 'INSERT INTO rules_types (id, name, parent_unit, child_unit, suffix) VALUES (?, ?, ?, ?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[17].rows.length; i++) {
+            transaction.executeSql(insertRulesTypes, [data[17].rows[i][0], "" + data[17].rows[i][1] + "", data[17].rows[i][2], data[17].rows[i][3], data[17].rows[i][4]], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting rules_types record'));
+            });
+          }
+        });
+
+        var createWindowHardwareColors = "CREATE TABLE IF NOT EXISTS window_hardware_colors (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createWindowHardwareColors, []);
+        });
+        var insertWindowHardwareColors = 'INSERT INTO window_hardware_colors (id, name) VALUES (?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[18].rows.length; i++) {
+            transaction.executeSql(insertWindowHardwareColors, [data[18].rows[i][0], "" + data[18].rows[i][1] + ""], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting window_hardware_colors record'));
+            });
+          }
+        });
+
+        var createListContents = "CREATE TABLE IF NOT EXISTS list_contents (id INTEGER PRIMARY KEY AUTOINCREMENT, parent_list_id INTEGER, child_id INTEGER, child_type VARCHAR(255), value NUMERIC(10, 3), rules_type_id INTEGER, direction_id INTEGER, lamination_type_id INTEGER, window_hardware_color_id INTEGER, FOREIGN KEY(parent_list_id) REFERENCES lists(id), FOREIGN KEY(rules_type_id) REFERENCES rules_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(lamination_type_id) REFERENCES lamination_types(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createListContents, []);
+        });
+        var insertListContents = 'INSERT INTO list_contents (id, parent_list_id, child_id, child_type, value, rules_type_id, direction_id, lamination_type_id, window_hardware_color_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[19].rows.length; i++) {
+            transaction.executeSql(insertListContents, [data[19].rows[i][0], data[19].rows[i][1], data[19].rows[i][2], "" + data[19].rows[i][3] + "", data[19].rows[i][4], data[19].rows[i][5], data[19].rows[i][6], data[19].rows[i][7], data[19].rows[i][8]], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting list_contents record'));
+            });
+          }
+        });
+
+        var createWindowHardwareTypes = "CREATE TABLE IF NOT EXISTS window_hardware_types (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), short_name VARCHAR(100))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createWindowHardwareTypes, []);
+        });
+        var insertWindowHardwareTypes = 'INSERT INTO window_hardware_types (id, name, short_name) VALUES (?, ?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[20].rows.length; i++) {
+            transaction.executeSql(insertWindowHardwareTypes, [data[20].rows[i][0], "" + data[20].rows[i][1] + "", "" + data[20].rows[i][2] + ""], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting window_hardware_types record'));
+            });
+          }
+        });
+
+        var createWindowHardwareTypesBase = "CREATE TABLE IF NOT EXISTS window_hardware_types_base (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createWindowHardwareTypesBase, []);
+        });
+        var insertWindowHardwareTypesBase = 'INSERT INTO window_hardware_types_base (id, name) VALUES (?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[21].rows.length; i++) {
+            transaction.executeSql(insertWindowHardwareTypesBase, [data[21].rows[i][0], "" + data[21].rows[i][1] + ""], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting window_hardware_types_base record'));
+            });
+          }
+        });
+
+        var createWindowHardwareGroups = "CREATE TABLE IF NOT EXISTS window_hardware_groups (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), short_name VARCHAR(100), factory_id INTEGER, is_editable INTEGER, parent_id INTEGER, is_group INTEGER, is_in_calculation INTEGER, base_type_id INTEGER, position INTEGER, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(base_type_id) REFERENCES window_hardware_types_base(id))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createWindowHardwareGroups, []);
+        });
+        var insertWindowHardwareGroups = 'INSERT INTO window_hardware_groups (id, name, short_name, factory_id, is_editable, parent_id, is_group, is_in_calculation, base_type_id, position) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[22].rows.length; i++) {
+            transaction.executeSql(insertWindowHardwareGroups, [data[22].rows[i][0], "" + data[22].rows[i][1] + "", "" + data[22].rows[i][2] + "", data[22].rows[i][3], data[22].rows[i][4], data[22].rows[i][5], data[22].rows[i][6], data[22].rows[i][7], data[22].rows[i][8], data[22].rows[i][9]], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting window_hardware_groups record'));
+            });
+          }
+        });
+
+        var createWindowHardware = "CREATE TABLE IF NOT EXISTS window_hardware (id INTEGER PRIMARY KEY AUTOINCREMENT, window_hardware_type_id INTEGER, min_width INTEGER, max_width INTEGER, min_height INTEGER, max_height INTEGER, direction_id INTEGER, window_hardware_color_id INTEGER, length INTEGER, count INTEGER, child_id INTEGER, child_type VARCHAR(100), position INTEGER, factory_id INTEGER, window_hardware_group_id INTEGER, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(window_hardware_type_id) REFERENCES window_hardware_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(window_hardware_group_id) REFERENCES window_hardware_groups(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createWindowHardware, []);
+        });
+        var insertWindowHardware = 'INSERT INTO window_hardware (id, window_hardware_type_id, min_width, max_width, min_height, max_height, direction_id, window_hardware_color_id, length, count, child_id, child_type, position, factory_id, window_hardware_group_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[23].rows.length; i++) {
+            transaction.executeSql(insertWindowHardware, [data[23].rows[i][0], data[23].rows[i][1], data[23].rows[i][2], data[23].rows[i][3], data[23].rows[i][4], data[23].rows[i][5], data[23].rows[i][6], data[23].rows[i][7], data[23].rows[i][8], data[23].rows[i][9], data[23].rows[i][10], "" + data[23].rows[i][11] + "", data[23].rows[i][12], data[23].rows[i][13], data[23].rows[i][14]], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting window_hardware record'));
+            });
+          }
+        });
+
+        var createProfileSystemFolders = "CREATE TABLE IF NOT EXISTS profile_system_folders (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), factory_id INTEGER, position INTEGER, FOREIGN KEY(factory_id) REFERENCES factories(id))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createProfileSystemFolders, []);
+        });
+        var insertProfileSystemFolders = 'INSERT INTO profile_system_folders (id, name, factory_id, position) VALUES (?, ?, ?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[24].rows.length; i++) {
+            transaction.executeSql(insertProfileSystemFolders, [data[24].rows[i][0], "" + data[24].rows[i][1] + "", data[24].rows[i][2], data[24].rows[i][3]], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting profile_system_folders record'));
+            });
+          }
+        });
+
+        var createProfileSystems = "CREATE TABLE IF NOT EXISTS profile_systems (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), short_name VARCHAR(100), profile_system_folder_id INTEGER, rama_list_id INTEGER, rama_still_list_id INTEGER, stvorka_list_id INTEGER, impost_list_id INTEGER, shtulp_list_id INTEGER, is_editable INTEGER, is_default INTEGER, position INTEGER, country VARCHAR(100), FOREIGN KEY(profile_system_folder_id) REFERENCES profile_system_folders(id))";
+        db.transaction(function (transaction) {
+          transaction.executeSql(createProfileSystems, []);
+        });
+        var insertProfileSystems = 'INSERT INTO profile_systems (id, name, short_name, profile_system_folder_id, rama_list_id, rama_still_list_id, stvorka_list_id, impost_list_id, shtulp_list_id, is_editable, is_default, position, country) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        db.transaction(function (transaction) {
+          for (var i = 0; i < data[25].rows.length; i++) {
+            transaction.executeSql(insertProfileSystems, [data[25].rows[i][0], "" + data[25].rows[i][1] + "", "" + data[25].rows[i][2] + "", data[25].rows[i][3], data[25].rows[i][4], data[25].rows[i][5], data[25].rows[i][6], data[25].rows[i][7], data[25].rows[i][8], data[25].rows[i][9], data[25].rows[i][10], data[25].rows[i][11], "" + data[25].rows[i][12] + ""], function () {
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with inserting profile_systems record'));
+            });
+          }
+        });
+        var updateDeviceSync = "UPDATE device SET sync = 1 WHERE id = 1";
+        db.transaction(function (transaction) {
+          transaction.executeSql(updateDeviceSync, [], null, function () {
+            callback(new ErrorResult(2, 'Something went wrong with updating device table!'));
+          });
+        });
+        callback(new OkResult({import: true}));
+      }).error(function () {
+        callback(new ErrorResult(2, 'Something went wrong with importing Database!'));
+      });
+    },
+    login: function (loginData, callback) {
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536),
+        selectUser = "SELECT count(id) as login FROM users WHERE phone = '" + loginData.login + "' AND password = '" + this.md5(loginData.password) + "'";
+      db.transaction(function (transaction) {
+        transaction.executeSql(selectUser, [], function (transaction, result) {
+          if (result.rows.item(0).login) {
+            callback(new OkResult({loginStatus : true}));
+          } else {
+            callback(new OkResult({loginStatus : false}));
+          }
+        }, function () {
+          callback(new ErrorResult(2, 'Something went wrong with selection user record'));
+        });
+      });
+    },
+    getUserInfo : function (callback) {
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536),
+      selectUser = "SELECT users.name, users.city_id, cities.name as city_name, users.avatar FROM users LEFT JOIN cities ON users.city_id = cities.id";
       db.transaction(function (transaction) {
         transaction.executeSql(selectUser, [], function (transaction, result) {
           if (result.rows.length) {
             callback(new OkResult({
               user: {
-                // TODO: У пользователя есть Id?
-                // id: 1,
                 name: result.rows.item(0).name,
                 avatar: result.rows.item(0).avatar
               },
               city: {
                 id: result.rows.item(0).city_id,
-                name: result.rows.item(0).city_name,
+                name: result.rows.item(0).city_name
               }
             }));
           } else {
-            callback(new ErrorResult(1, 'Incorrect username or password!'));
+            callback(new ErrorResult(1, 'Incorrect userId!'));
           }
         }, function () {
           callback(new ErrorResult(2, 'Something went wrong with selection user record'));
@@ -233,4 +668,4 @@ BauVoiceApp.factory('localStorage', function () {
       }));
     }
   }
-});
+}]);
