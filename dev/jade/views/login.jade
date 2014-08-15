@@ -1,5 +1,5 @@
 section.login-page
-  .login-container
+  #login-container.login-container(ng-hide="!isCodeValid")
     .logo
     form(name='loginForm', novalidate, ng-submit="submitForm(loginForm)")
       .input-field(ng-class="{ 'has-error' : submitted && loginForm.phone.$error.required }")
@@ -13,3 +13,13 @@ section.login-page
         .error-tooltip(ng-show='submitted && loginForm.password.$error.minlength || loginForm.password.$dirty && loginForm.password.$error.minlength') Слишком маленький пароль.
 
       button.login-submit(type="submit") Войти
+  #code-container.login-container(ng-hide="isCodeValid")
+    .logo
+    .text-container
+      p Сообщите этот код кому-нибудь.
+    .text-container
+      span Ваш код:
+      span  drKJKsdf5645
+    .text-container.error(ng-show="!isCodeCheckingSuccess")
+      p Произошло что-то страшное, поэтому вы видите это сообщение об ошибке.
+    button.login-submit(type="button", ng-click="checkCode()") ОК
