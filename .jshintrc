@@ -3,7 +3,9 @@
     "angular": false,
     "BauVoiceApp": false,
     "OkResult": false,
-    "ErrorResult": false
+    "ErrorResult": false,
+    "englishDictionary": false,
+    "russianDictionary": false
   },
   "eqnull": true,
   "noyield": true,
@@ -21,7 +23,6 @@
   "esnext": true,
   "trailing": true,
   "noempty": true,
-  "quotmark": true,
   "smarttabs": true,
   "asi": true,
   "supernew": true,
@@ -55,4 +56,3 @@
   "globalstrict": true,
   "quotmark": false
 }
-

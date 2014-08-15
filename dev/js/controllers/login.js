@@ -1,5 +1,3 @@
-/* globals BauVoiceApp */
-
 'use strict';
 
 BauVoiceApp.controller('LoginCtrl', ['$scope', '$location', '$translate', function ($scope, $location, $translate) {
@@ -29,5 +27,9 @@ BauVoiceApp.controller('LoginCtrl', ['$scope', '$location', '$translate', functi
     if (form.$valid) {
       $location.path('/main');
     }
+  };
+
+  $scope.switchLang = function () {
+    $translate.use() === 'en' ? $translate.use('ru') : $translate.use('en');
   };
 }]);

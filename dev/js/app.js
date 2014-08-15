@@ -1,11 +1,15 @@
-/* exported BauVoiceApp */
-
 'use strict';
 
-var BauVoiceApp = angular.module('BauVoiceApp', [
-  'ngRoute'
+window.BauVoiceApp = angular.module('BauVoiceApp', [
+  'ngRoute',
+  'pascalprecht.translate'
 ])
-  .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+.config([
+  '$routeProvider',
+  '$locationProvider',
+  '$httpProvider',
+  '$translateProvider',
+  function ($routeProvider, $locationProvider, $httpProvider, $translateProvider) {
     $routeProvider
       .when('/', {
         templateUrl: '../views/login.html',
@@ -38,4 +42,14 @@ var BauVoiceApp = angular.module('BauVoiceApp', [
 
 //    $locationProvider
 //      .html5Mode(true);
-  }]);
+
+    $translateProvider.translations('ru', russianDictionary);
+    $translateProvider.translations('en', englishDictionary);
+
+    $translateProvider.preferredLanguage('ru');
+
+
+    $httpProvider.defaults.useXDomain = true;
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+  }
+]);
