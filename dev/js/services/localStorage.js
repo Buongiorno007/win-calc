@@ -669,3 +669,46 @@ BauVoiceApp.factory('localStorage', ['$http', function ($http) {
     }
   }
 }]);
+
+/*
+Пример первой инициализации App
+helperFactory.getDeviceCode(function (results) {
+  if (results.status) {
+    $scope.deviceCode = results.data;
+    console.log($scope.deviceCode);
+    console.log(results);
+  } else {
+    console.log(results);
+  }
+});
+
+Код вызываемый при нажатии кнопки инициализации App - переделай как тебе удобней
+helperFactory.getDeviceCodeLDb(function (results) {
+  if (results.status) {
+    $scope.deviceCodeLDb = results.data;
+    console.log($scope.deviceCodeLDb);
+    console.log(results);
+    helperFactory.getDeviceCodeGDb($scope.deviceCodeLDb.deviceCode, function (results) {
+      if (results.status) {
+        $scope.deviceCodeGDb = results.data;
+        if ($scope.deviceCodeLDb.deviceCode === $scope.deviceCodeGDb[0].rows[0][2] && !$scope.deviceCodeLDb.sync) {
+          console.log('Import database begin!');
+          helperFactory.importDb($scope.deviceCodeGDb[0].rows[0][1], $scope.deviceCodeGDb[0].rows[0][0], $scope.deviceCodeGDb[0].rows[0][2], function (results) {
+            if (results.status) {
+              console.log('Database import is finished!');
+            } else {
+              console.log(results.status);
+            }
+          });
+        }
+        console.log($scope.deviceCodeDb);
+        console.log(results);
+      } else {
+        console.log(results);
+      }
+    });
+  } else {
+    console.log(results);
+  }
+});
+*/
