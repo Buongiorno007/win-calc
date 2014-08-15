@@ -56,12 +56,17 @@
         #price.price-value(data-output="{{ configMenu.price }}")
         #currency.price-currency {{ setCurrencySymbol(configMenu.currency) }}
       .size-calculator.unvisible
-      .qty-calculator.unvisible
+        include ../parts/_size-calculator
+      .qty-calculator
+        include ../parts/_qty-calculator
       .color-selector.unvisible
 
   .menu-right-tabs
     .tab-block.simple-frame
       button.frame-tab Простая конструкция
+
+    .tab-block.hard-frame
+      button.frame-tab Составная конструкция
       .tab-content
         .tab-aux-row
           .aux-title(data-output="подоконник") подоконник подоконник подоконник
@@ -145,7 +150,3 @@
             button.aux-params-but.aux_big_but 1000
             .aux-label(data-output="размер") размер
           .aux-delete
-
-
-    .tab-block.hard-frame
-      button.frame-tab Составная конструкция

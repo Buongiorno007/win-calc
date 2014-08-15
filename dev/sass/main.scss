@@ -37,6 +37,10 @@
 @import 'menus/config-menu';
 @import 'menus/elements-list';
 
+@import 'parts/calculator-general';
+@import 'parts/size-calculator';
+@import 'parts/qty-calculator';
+
 // PANELS
 @import 'panels/template-selector';
 @import 'panels/profile';
