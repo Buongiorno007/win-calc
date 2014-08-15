@@ -37,10 +37,6 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
       $frameTab = $elementsListContainer.find('.frame-tab'),
       $auxTabParamsBTN = $elementsListContainer.find('.aux-params-but'),
 
-      showElementsListClass = 'show-elements-list',
-      hideElementsListClass = 'hide-elements-list',
-      showTabBlockClass = 'show-tab-block',
-      hideTabBlockClass = 'hide-tab-block',
       tabBlockClass = '.tab-block',
 
       DELAY_SHOW_AUX_CONTAINER = STEP * 4,
@@ -123,17 +119,17 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
     //Show/Close Element List
     var elementsListClass = $(this).data('elements-list-style');
 
-    if($elementsListContainer.hasClass(unvisibleClass)) {
-      $elementsListContainer.removeClass().addClass('elements-list-container').addClass(elementsListClass).addClass(showElementsListClass);
+    if(!$elementsListContainer.hasClass(activeClass)) {
+      $elementsListContainer.removeClass().addClass('elements-list-container').addClass(elementsListClass).addClass(activeClass);
     } else {
 
       //close tab
       if($frameTab.hasClass(activeClass)) {
         var activTab = $elementsListContainer.find('.frame-tab.active');
         var $parentBlock = activTab.closest(tabBlockClass);
-        $parentBlock.removeClass(showTabBlockClass).removeClass(activeClass).addClass(hideTabBlockClass);
-        removeClassWithDelay($parentBlock, hideTabBlockClass, 5*STEP);
+        $parentBlock.removeClass(activeClass);
         removeClassWithDelay(activTab, activeClass, 5*STEP);
+
         // deselect Tab Params buttons
         $auxTabParamsBTN.each(function() {
           $(this).removeClass(selectClass);
@@ -141,12 +137,11 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
       }
 
       // hide elements list
-      $elementsListContainer.removeClass(showElementsListClass).addClass(hideElementsListClass);
+      $elementsListContainer.removeClass(activeClass);
       setTimeout(function() {
-        $elementsListContainer.removeClass().addClass('elements-list-container').addClass(unvisibleClass).addClass(elementsListClass);
+        $elementsListContainer.removeClass().addClass('elements-list-container').addClass(elementsListClass);
       }, 5 * STEP);
-      removeClassWithDelay($elementsListContainer, unvisibleClass, 6 * STEP);
-      addClassWithDelay($elementsListContainer, showElementsListClass, 6 * STEP);
+      addClassWithDelay($elementsListContainer, activeClass, 6 * STEP);
     }
 
 

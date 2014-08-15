@@ -16,10 +16,6 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', function ($scope) {
       $auxiliaryItem = $auxContainer.find('.auxiliary-item'),
       $auxChooseButton = $auxContainer.find('.aux-choose-but'),
 
-      showElementsListClass = 'show-elements-list',
-      hideElementsListClass = 'hide-elements-list',
-      showTabBlockClass = 'show-tab-block',
-      hideTabBlockClass = 'hide-tab-block',
       tabBlockClass = '.tab-block',
 
       DELAY_HIDE_LIST = 5 * STEP;
@@ -44,8 +40,7 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', function ($scope) {
       deselectTabParamsBTN();
     }
     // Close right menu
-    $elementsListContainer.removeClass(showElementsListClass).addClass(hideElementsListClass);
-    addClassWithDelay($elementsListContainer, unvisibleClass, DELAY_HIDE_LIST);
+    $elementsListContainer.removeClass(activeClass);
 
     // Choose Buttons deactivation
     $auxChooseButton.removeAttr('disabled');
@@ -70,14 +65,12 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', function ($scope) {
   function openTab(tab) {
     var $parentBlock = $(tab).closest(tabBlockClass);
     $(tab).addClass(activeClass);
-    $parentBlock.addClass(showTabBlockClass);
-    addClassWithDelay($parentBlock, activeClass, 5.2*STEP);
+    $parentBlock.addClass(activeClass);
   }
   function closeTab(tab) {
     var $parentBlock = $(tab).closest(tabBlockClass);
-    $parentBlock.removeClass(showTabBlockClass).removeClass(activeClass).addClass(hideTabBlockClass);
-    removeClassWithDelay($parentBlock, hideTabBlockClass, 5*STEP);
-    removeClassWithDelay($(tab), activeClass, 5*STEP);
+    $parentBlock.removeClass(activeClass);
+    $(tab).removeClass(activeClass);
   }
 
   // Delete auxiliary row in tabs
