@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, typingTextByChar, showElementWithDelay, makeButtonActive */
+/* globals BauVoiceApp, STEP, unvisibleClass, selectClass, activeClass, focuseClass, typingTextByChar, showElementWithDelay, makeButtonActive, removeClassWithDelay, addClassWithDelay */
 
 'use strict';
 
@@ -32,6 +32,16 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
       $auxMore = $auxContainer.find('.aux-more'),
 
       $schemeInfo = $auxContainer.find('.scheme-info'),
+
+      $elementsListContainer = $('.elements-list-container'),
+      $frameTab = $elementsListContainer.find('.frame-tab'),
+      $auxTabParamsBTN = $elementsListContainer.find('.aux-params-but'),
+
+      showElementsListClass = 'show-elements-list',
+      hideElementsListClass = 'hide-elements-list',
+      showTabBlockClass = 'show-tab-block',
+      hideTabBlockClass = 'hide-tab-block',
+      tabBlockClass = '.tab-block',
 
       DELAY_SHOW_AUX_CONTAINER = STEP * 4,
       DELAY_SHOW_AUX_GRID = STEP * 5,
@@ -98,12 +108,49 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
 
   //------Select additional element
   $auxChooseButton.click(function () {
-    var focuseClass = 'focused';
     $auxItem.each(function() {
       $(this).removeClass(focuseClass);
     });
     $(this).closest('.auxiliary-item').addClass(focuseClass);
     $(this).closest('.aux-txt-box').find('.selected-block').removeClass('unvisible');
+
+    // Button disabled
+    $auxChooseButton.each(function() {
+      $auxChooseButton.removeAttr('disabled');
+    });
+    $(this).attr('disabled', 'disabled');
+
+    //Show/Close Element List
+    var elementsListClass = $(this).data('elements-list-style');
+
+    if($elementsListContainer.hasClass(unvisibleClass)) {
+      $elementsListContainer.removeClass().addClass('elements-list-container').addClass(elementsListClass).addClass(showElementsListClass);
+    } else {
+
+      //close tab
+      if($frameTab.hasClass(activeClass)) {
+        var activTab = $elementsListContainer.find('.frame-tab.active');
+        var $parentBlock = activTab.closest(tabBlockClass);
+        $parentBlock.removeClass(showTabBlockClass).removeClass(activeClass).addClass(hideTabBlockClass);
+        removeClassWithDelay($parentBlock, hideTabBlockClass, 5*STEP);
+        removeClassWithDelay(activTab, activeClass, 5*STEP);
+        // deselect Tab Params buttons
+        $auxTabParamsBTN.each(function() {
+          $(this).removeClass(selectClass);
+        });
+      }
+
+      // hide elements list
+      $elementsListContainer.removeClass(showElementsListClass).addClass(hideElementsListClass);
+      setTimeout(function() {
+        $elementsListContainer.removeClass().addClass('elements-list-container').addClass(unvisibleClass).addClass(elementsListClass);
+      }, 5 * STEP);
+      removeClassWithDelay($elementsListContainer, unvisibleClass, 6 * STEP);
+      addClassWithDelay($elementsListContainer, showElementsListClass, 6 * STEP);
+    }
+
+
+
   });
   //------Select parameters
   $auxParamsBtn.click(function () {
@@ -111,7 +158,7 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
     $auxParams.each(function() {
       $(this).removeClass(selectClass);
     });
-    $(this).parent('.aux-params').addClass(selectClass);
+    $(this).closest('.aux-params').addClass(selectClass);
   });
 
   //  function initAuxContainer() {}

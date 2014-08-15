@@ -1,9 +1,16 @@
-/* exported STEP, typingIndex, typingTextByChar, createPrice, showElementWithDelay, makeButtonActive */
+/* exported STEP, typingIndex, unvisibleClass, selectClass, activeClass, focuseClass, typingTextByChar, createPrice, showElementWithDelay, makeButtonActive */
 
 'use strict';
 
 var STEP = 100,
-    typingIndex = true;
+    typingIndex = true,
+
+    selectClass = 'selected',
+    focuseClass = 'focused',
+    activeClass = 'active',
+    unvisibleClass = 'unvisible';
+
+
 
 function typingTextByChar($textElem1, $textElem2) {
   var source = $textElem1.data('output'),
@@ -94,7 +101,7 @@ function createPrice($price) {
 
 function showElementWithDelay($element, delay) {
   setTimeout(function () {
-    $element.removeClass('unvisible');
+    $element.removeClass(unvisibleClass);
   }, delay);
 }
 

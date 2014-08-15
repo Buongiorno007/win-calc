@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, showElementWithDelay, typingTextWithDelay */
+/* globals BauVoiceApp, STEP, selectClass, showElementWithDelay, typingTextWithDelay */
 
 'use strict';
 
@@ -9,7 +9,6 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', function ($scope) {
       $tempEditBTN = $templateContainer.find('.template-edit'),
       $tempDefaultBTN = $templateContainer.find('.template-default'),
       $tempOtherIMG = $templateContainer.find('.other-template-img'),
-      selectedClass = 'selected',
 
       DELAY_SHOW_CONTENT = 5 * STEP;
 
@@ -21,6 +20,6 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', function ($scope) {
 
   // click on Buttons
   $templateTitle.click(function () {
-    $(this).toggleClass(selectedClass);
+    $(this).toggleClass(selectClass);
   });
 }]);

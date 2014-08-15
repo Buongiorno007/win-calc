@@ -1,0 +1,19 @@
+.parameters-block {
+  .aux-title {
+    @extend .truncated;
+    @include roboto-lt(36px);
+  }
+  .aux-params-but {
+    @extend .splash;
+    @extend .ghost-button;
+    @extend .small-button;
+
+    padding: 0 20px;
+    background-color: transparent;
+  }
+  .aux-label {
+    @include roboto-lt(22px);
+
+    color: $main_gray_txt;
+  }
+}

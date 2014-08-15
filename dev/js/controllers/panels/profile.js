@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, showElementWithDelay, typingTextWithDelay */
+/* globals BauVoiceApp, STEP, selectClass, showElementWithDelay, typingTextWithDelay */
 
 'use strict';
 
@@ -7,8 +7,6 @@ BauVoiceApp.controller('ProfileCtrl', ['$scope', function ($scope) {
       $profileBlock = $profileContainer.find('.profile-block'),
       $profileBox = $profileContainer.find('.profile-box'),
       $profileTitle = $profileContainer.find('.title'),
-
-      selectedClass = 'selected',
 
       DELAY_SHOW_PROFILES = 5 * STEP,
       prof, DELAY_SHOW_PROF;
@@ -24,12 +22,12 @@ BauVoiceApp.controller('ProfileCtrl', ['$scope', function ($scope) {
   // Select profile
   $profileBox.click(function () {
     $profileBlock.each(function () {
-      $(this).removeClass(selectedClass);
+      $(this).removeClass(selectClass);
     });
     $profileBox.each(function () {
-      $(this).removeClass(selectedClass);
+      $(this).removeClass(selectClass);
     });
-    $(this).closest('.profile-block').addClass(selectedClass);
-    $(this).addClass(selectedClass);
+    $(this).closest('.profile-block').addClass(selectClass);
+    $(this).addClass(selectClass);
   });
 }]);

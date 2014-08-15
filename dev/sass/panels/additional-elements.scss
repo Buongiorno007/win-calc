@@ -5,6 +5,8 @@ $aux-img-focus-path: 'auxiliaries-focused';
 $aux-img-select-path: 'auxiliaries-selected';
 
 .auxiliaries-container {
+  @extend .parameters-block;
+
   .auxiliary-item {
     position: absolute;
 
@@ -457,12 +459,6 @@ $aux-img-select-path: 'auxiliaries-selected';
     border-color: $aux_connect_color;
   }
 
-  .aux-label {
-    @include roboto-lt(22px);
-
-    color: $main_gray_txt;
-  }
-
   .selected-block {
     @include display-flex();
     @include justify-content(flex-start);
@@ -482,9 +478,6 @@ $aux-img-select-path: 'auxiliaries-selected';
   }
 
   .aux-title {
-    @extend .truncated;
-    @include roboto-lt(36px);
-
     color: $main_gray_txt;
     cursor: pointer;
   }
@@ -512,38 +505,24 @@ $aux-img-select-path: 'auxiliaries-selected';
       .aux_connect_but {
         background-color: $aux_connect_color;
       }
-
     }
   }
-
-  .aux-params-but {
-    @extend .splash;
-    @extend .ghost-button;
-    @extend .small-button;
-
-    padding: 0 20px;
-    background-color: transparent;
-  }
-
-  .aux-params-label {
-    @extend .aux-label;
-  }
-
 
   .scheme-info {
     @extend .button;
     @extend .splash;
     @include top_left_coord(420, 520);
-    @include font-general-icon(50px, 1);
+    @include font-general-icon(30px, 1);
 
     position: absolute;
+    width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: #fff;
+    background-color: $main_orange;
     z-index: 11;
     &:after {
-      color: $main_orange;
-      content: '\e60d';
+      color: #fff;
+      content: $info-i-icon;
     }
   }
 

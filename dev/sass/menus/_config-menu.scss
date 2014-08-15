@@ -1,7 +1,7 @@
-// TODO: Вынести анимацию в отдельные классы
 // TODO: Проверить анимацию на соответствие видео
 .config-menu {
   @extend .menu-right-general;
+  @extend .move-menu-right;
   .item {
     &.active {
       background-color: #f0f0f0;

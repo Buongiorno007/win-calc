@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, showElementWithDelay, typingTextWithDelay */
+/* globals BauVoiceApp, STEP, selectClass, showElementWithDelay, typingTextWithDelay */
 
 'use strict';
 
@@ -6,7 +6,6 @@ BauVoiceApp.controller('LaminationCtrl', ['$scope', function ($scope) {
   var lamBlockClass = '.lamination-block',
       lamImgClass = '.lamination-img',
       lamLabelClass = '.lamination-label',
-      selectedClass = 'selected',
 
       $lamContainer = $('.lamination-container'),
       $lamWhiteBox = $lamContainer.find('.lam-white-box'),
@@ -39,8 +38,8 @@ BauVoiceApp.controller('LaminationCtrl', ['$scope', function ($scope) {
   $lamImg.click(function () {
     $lamImgParent = $(this).closest(lamBlockClass);
     $lamImgParent.find(lamImgClass).each(function () {
-      $(this).removeClass(selectedClass);
+      $(this).removeClass(selectClass);
     });
-    $(this).addClass(selectedClass);
+    $(this).addClass(selectClass);
   });
 }]);

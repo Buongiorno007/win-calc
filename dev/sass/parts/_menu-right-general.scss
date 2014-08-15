@@ -1,5 +1,4 @@
 .menu-right-general {
-  @include animation(move-menu-right .5s 0 linear 1);
   @include display-flex();
   @include flex-flow(column nowrap);
   @include align-content(space-between);
@@ -85,5 +84,3 @@
     color: $main_gray_txt;
   }
 }
-
-@include behavior-move(move-menu-right, 100%, 0, 0, 0);

@@ -1,8 +1,139 @@
+.elements-list-container {
+  //@extend .move-menu-right;
+  @extend .parameters-block;
+  @include top_left_coord(0, 0);
+
+  position: absolute;
+  height: 100%;
+
+
+  &.aux_color_big {
+    .item {
+      &.active {
+        background-color: $aux_big_color;
+      }
+    }
+    .frame-tab {
+      &.active {
+        border-top-color: $aux_big_color;
+      }
+    }
+    .aux-title {
+      color: $aux_big_color;
+    }
+    .aux-params-but {
+      color: $aux_big_color;
+      border-color: $aux_big_color;
+      &.selected {
+        color: #fff;
+        background-color: $aux_big_color;
+      }
+    }
+  }
+
+  &.aux_color_middle {
+    .item {
+      &.active {
+        background-color: $aux_middle_color;
+      }
+    }
+    .frame-tab {
+      &.active {
+        border-top-color: $aux_middle_color;
+      }
+    }
+    .aux-title {
+      color: $aux_middle_color;
+    }
+    .aux-params-but {
+      color: $aux_middle_color;
+      border-color: $aux_middle_color;
+      &.selected {
+        color: #fff;
+        background-color: $aux_middle_color;
+      }
+    }
+  }
+
+  &.aux_color_connect {
+    .item {
+      &.active {
+        background-color: $aux_connect_color;
+      }
+    }
+    .frame-tab {
+      &.active {
+        border-top-color: $aux_connect_color;
+      }
+    }
+    .aux-title {
+      color: $aux_connect_color;
+    }
+    .aux-params-but {
+      color: $aux_connect_color;
+      border-color: $aux_connect_color;
+      &.selected {
+        color: #fff;
+        background-color: $aux_connect_color;
+      }
+    }
+  }
+
+  &.aux_color_slope {
+    .item {
+      &.active {
+        background-color: $main_green;
+      }
+    }
+    .frame-tab {
+      &.active {
+        border-top-color: $main_green;
+      }
+    }
+    .aux-title {
+      color: $main_green;
+    }
+    .aux-params-but {
+      color: $main_green;
+      border-color: $main_green;
+      &.selected {
+        color: #fff;
+        background-color: $main_green;
+      }
+    }
+  }
+
+  &.aux_color_small {
+    .item {
+      &.active {
+        background-color: $aux_small_color;
+      }
+    }
+    .frame-tab {
+      &.active {
+        border-top-color: $aux_small_color;
+      }
+    }
+    .aux-title {
+      color: $aux_small_color;
+    }
+    .aux-params-but {
+      color: $aux_small_color;
+      border-color: $aux_small_color;
+      &.selected {
+        color: #fff;
+        background-color: $aux_small_color;
+      }
+    }
+  }
+}
+
 .elements-menu {
   @extend .menu-right-general;
 
   position: absolute;
   top: 0;
+  z-index: 2;
 
   .menu-header {
     @include display-flex();
@@ -46,6 +177,7 @@
     padding-left: $config_menu-side_padding;
     overflow-x: hidden;
     overflow-y: auto;
+    background-color: #fff;
   }
   .title {
     margin: 45px 0 0px 0;
@@ -59,10 +191,6 @@
     @include flex-flow(row nowrap);
     @include justify-content(space-between);
     @include align-items(center);
-
-    &.active {
-      background-color: #f0f0f0;
-    }
   }
   .value {
     max-width: 90%;
@@ -71,30 +199,119 @@
     @extend .button;
 
     position: relative;
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
-    background-color: #fff;
+    background-color: $main_gray_btn;
     &:after {
       @extend .icon-setting;
-      @include font-general-icon(40px, 1);
+      @include font-general-icon(30px, 0);
 
       position: absolute;
-      top: 0;
-      left: 0;
       display: block;
-      color: $main_gray_btn;
-      content: $info-panel-icon;
+      color: #fff;
+      content: $info-i-icon;
     }
   }
 
+  .menu-footer {
+    @include display-flex();
+    @include flex-flow(column nowrap);
+    margin-left: -44px;
+    margin-right: 44px;
+    padding-right: 0;
+  }
 
-  .menu-tab {
-    @extend .button;
+  .size-calculator {
+    height: 100px;
+    border: 1px solid red;
+  }
+  .qty-calculator {
+    height: 100px;
+    border: 1px solid blue;
+  }
+  .color-selector {
 
+  }
+
+}
+
+.menu-right-tabs {
+  @include top_left_coord(60, 0);
+  position: absolute;
+
+  .tab-block {
     position: absolute;
-    width: 60px;
     width: 860px;
     min-height: 310px;
+    max-height: 600px;
+    padding: 50px;
+    background-color: #fff;
+    border-color: $main_gray_btn;
+    border-width: 1px 0 1px 1px;
+    border-style: solid;
+    z-index: 1;
+
+    &.active {
+      left: -860px;
+      z-index: 2;
+    }
+  }
+  .simple-frame {
+    @include top_left_coord(0, 0);
+  }
+  .hard-frame {
+    @include top_left_coord(350, 0);
+  }
+
+  .frame-tab {
+    @extend .button;
+    @include rotate(-90deg);
+    @include top_left_coord(123, -185);
+    @include roboto-bd(24px);
+
+    position: absolute;
+    width: 310px;
+    height: 60px;
+    background-color: #dcdcdc;
+    border-color: $main_gray_btn;
+    border-width: 1px 1px 0 1px;
+    border-style: solid;
+    border-top-left-radius: $radius_frame-tab;
+    border-top-right-radius: $radius_frame-tab;
+    color: $main_gray_txt;
+    z-index: 1;
+    &.active {
+      border-top-width: 5px;
+      background-color: #fff;
+    }
+  }
+  .tab-content {
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 500px;
+  }
+  .tab-aux-row {
+    @include display-flex();
+    @include flex-flow(row nowrap);
+    @include justify-content(space-between);
+    @include align-items(flex-start);
+    margin-bottom: 20px;
+
+    &:last-child{
+      margin: 0;
+    }
+  }
+  .aux-title {
+    width: 370px;
+  }
+  .aux-delete {
+    @extend .close-dialog;
+    @include top_left_coord(0, 0);
+    position: relative;
+    &:after {
+      color: $main_gray_btn;
+    }
   }
 }
+

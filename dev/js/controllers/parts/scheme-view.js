@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, addClassWithDelay, showElementWithDelay */
+/* globals BauVoiceApp, STEP, unvisibleClass, addClassWithDelay, showElementWithDelay */
 
 'use strict';
 
@@ -10,7 +10,6 @@ BauVoiceApp.controller('SchemeViewCtrl', ['$scope', function ($scope) {
       $closeDialog = $schemeDialog.find('.close-dialog'),
       $schemeView = $schemeDialog.find('.scheme-view'),
 
-      unvisibleClass = 'unvisible',
       showDialogClass = 'show-dialog',
       hideDialogClass = 'hide-dialog';
 

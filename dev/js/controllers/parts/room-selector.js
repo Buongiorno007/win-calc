@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, showElementWithDelay, addClassWithDelay, removeClassWithDelay */
+/* globals BauVoiceApp, STEP, unvisibleClass, selectClass, showElementWithDelay, addClassWithDelay, removeClassWithDelay */
 
 'use strict';
 
@@ -16,10 +16,8 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', function ($scope) {
       $roomBox = $roomsDialog.find('.room-box'),
       $roomIMG = $roomBox.find('.room-img'),
 
-      unvisibleClass = 'unvisible',
       showRoomDialogClass = 'show-dialog',
       hideRoomDialogClass = 'hide-dialog',
-      selectedRoomClass = 'selected',
       roomCurrent = 3,
 
       DELAY_SHOW_ROOM_DIALOG = 10 * STEP,
@@ -41,7 +39,7 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', function ($scope) {
         showElementWithDelay($roomIMG.eq(room), DELAY_SHOW_ROOM);
       }
       var DELAY_ROOM_CURRENT = FINISH_SHOW_ROOM + 5 * STEP;
-      addClassWithDelay($roomBox[roomCurrent], selectedRoomClass, DELAY_ROOM_CURRENT);
+      addClassWithDelay($roomBox[roomCurrent], selectClass, DELAY_ROOM_CURRENT);
     }
   });
 
@@ -53,9 +51,9 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', function ($scope) {
   // Room Select
   $roomBox.click(function () {
     $roomBox.each(function () {
-      $(this).removeClass(selectedRoomClass);
+      $(this).removeClass(selectClass);
     });
-    $(this).addClass(selectedRoomClass);
+    $(this).addClass(selectClass);
 
     newClimateCoeff = $(this).data('climate');
     newHeatTransfCoeff = $(this).data('heat-transfer');

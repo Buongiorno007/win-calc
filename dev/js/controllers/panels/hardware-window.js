@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, showElementWithDelay, typingTextWithDelay */
+/* globals BauVoiceApp, STEP, selectClass, showElementWithDelay, typingTextWithDelay */
 
 'use strict';
 
@@ -8,7 +8,6 @@ BauVoiceApp.controller('HardwareWindowCtrl', ['$scope', function ($scope) {
       $hardwareBox = $hardwareContainer.find('.hardware-box'),
       $hardwareTitle = $hardwareContainer.find('.hardware-title'),
 
-      selectedClass = 'selected',
       DELAY_SHOW_HW_BOX = 5 * STEP,
       g, DELAY_SHOW_BOX;
 
@@ -23,12 +22,12 @@ BauVoiceApp.controller('HardwareWindowCtrl', ['$scope', function ($scope) {
   // Select hardware
   $hardwareBox.click(function () {
     $hardwareBlock.each(function () {
-      $(this).removeClass(selectedClass);
+      $(this).removeClass(selectClass);
     });
     $hardwareBox.each(function () {
-      $(this).removeClass(selectedClass);
+      $(this).removeClass(selectClass);
     });
-    $(this).parents($hardwareBlock).addClass(selectedClass);
-    $(this).addClass(selectedClass);
+    $(this).parents($hardwareBlock).addClass(selectClass);
+    $(this).addClass(selectClass);
   });
 }]);

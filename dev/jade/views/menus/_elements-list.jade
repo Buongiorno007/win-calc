@@ -1,64 +1,151 @@
-.elements-menu(ng-controller="ElementsListCtrl")
-  header.menu-header
-    .tip(data-output="Выберите элемент из списка") Выберите элемент из списка
-    button.close-elements-menu
+.elements-list-container.unvisible(ng-controller="ElementsListCtrl")
+  .elements-menu
+    header.menu-header
+      .tip(data-output="Выберите элемент из списка") Выберите элемент из списка
+      button.close-elements-menu
 
-  .menu-lists
-    ul.items-list
-      li.item.active
-        .value(data-output="Без элемента") Без элемента
+    .menu-lists
+      ul.items-list
+        li.item.empty-element.active
+          .value(data-output="Без элемента") Без элемента
 
-    .title(data-output="оцинкованный") оцинкованный
-    ul.items-list
-      li.item
-        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-        button.element-info
-      li.item
-        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-        button.element-info
-      li.item
-        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-        button.element-info
+      .title(data-output="оцинкованный") оцинкованный
+      ul.items-list
+        li.item
+          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+          button.element-info
+        li.item
+          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+          button.element-info
+        li.item
+          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+          button.element-info
 
-    .title(data-output="оцинкованный") оцинкованный
-    ul.items-list
-      li.item
-        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-        button.element-info
-      li.item
-        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-        button.element-info
-      li.item
-        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-        button.element-info
-      li.item
-        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-        button.element-info
-      li.item
-        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-        button.element-info
-      li.item
-        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-        button.element-info
-      li.item
-        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-        button.element-info
-      li.item
-        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-        button.element-info
-      li.item
-        .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-        button.element-info
+      .title(data-output="оцинкованный") оцинкованный
+      ul.items-list
+        li.item
+          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+          button.element-info
+        li.item
+          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+          button.element-info
+        li.item
+          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+          button.element-info
+        li.item
+          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+          button.element-info
+        li.item
+          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+          button.element-info
+        li.item
+          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+          button.element-info
+        li.item
+          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+          button.element-info
+        li.item
+          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+          button.element-info
+        li.item
+          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+          button.element-info
 
-  footer.menu-footer
-    //.price-element
-      #price.price-value(data-output="{{ configMenu.price }}")
-      #currency.price-currency {{ setCurrencySymbol(configMenu.currency) }}
-    .size-calculator
-    .qty-calculator
-    .color-selector
-  button.menu-tab.simple-frame
-    .frame-tab
-  button.menu-tab.hard-frame
-    .frame-tab
+    footer.menu-footer
+      .price-element.unvisible
+        #price.price-value(data-output="{{ configMenu.price }}")
+        #currency.price-currency {{ setCurrencySymbol(configMenu.currency) }}
+      .size-calculator.unvisible
+      .qty-calculator.unvisible
+      .color-selector.unvisible
 
+  .menu-right-tabs
+    .tab-block.simple-frame
+      button.frame-tab Простая конструкция
+      .tab-content
+        .tab-aux-row
+          .aux-title(data-output="подоконник") подоконник подоконник подоконник
+          .aux-params
+            button.aux-params-but.aux_big_but 1
+            .aux-label(data-output="шт") шт
+          .aux-params
+            button.aux-params-but.aux_big_but 1000
+            .aux-label(data-output="размер") размер
+          .aux-delete
+
+        .tab-aux-row
+          .aux-title(data-output="подоконник") подоконник
+          .aux-params
+            button.aux-params-but.aux_big_but 1
+            .aux-label(data-output="шт") шт
+          .aux-params
+            button.aux-params-but.aux_big_but 1000
+            .aux-label(data-output="размер") размер
+          .aux-delete
+        .tab-aux-row
+          .aux-title(data-output="подоконник") подоконник
+          .aux-params
+            button.aux-params-but.aux_big_but 1
+            .aux-label(data-output="шт") шт
+          .aux-params
+            button.aux-params-but.aux_big_but 1000
+            .aux-label(data-output="размер") размер
+          .aux-delete
+        .tab-aux-row
+          .aux-title(data-output="подоконник") подоконник
+          .aux-params
+            button.aux-params-but.aux_big_but 1
+            .aux-label(data-output="шт") шт
+          .aux-params
+            button.aux-params-but.aux_big_but 1000
+            .aux-label(data-output="размер") размер
+          .aux-delete
+        .tab-aux-row
+          .aux-title(data-output="подоконник") подоконник
+          .aux-params
+            button.aux-params-but.aux_big_but 1
+            .aux-label(data-output="шт") шт
+          .aux-params
+            button.aux-params-but.aux_big_but 1000
+            .aux-label(data-output="размер") размер
+          .aux-delete
+        .tab-aux-row
+          .aux-title(data-output="подоконник") подоконник
+          .aux-params
+            button.aux-params-but.aux_big_but 1
+            .aux-label(data-output="шт") шт
+          .aux-params
+            button.aux-params-but.aux_big_but 1000
+            .aux-label(data-output="размер") размер
+          .aux-delete
+        .tab-aux-row
+          .aux-title(data-output="подоконник") подоконник
+          .aux-params
+            button.aux-params-but.aux_big_but 1
+            .aux-label(data-output="шт") шт
+          .aux-params
+            button.aux-params-but.aux_big_but 1000
+            .aux-label(data-output="размер") размер
+          .aux-delete
+        .tab-aux-row
+          .aux-title(data-output="подоконник") подоконник
+          .aux-params
+            button.aux-params-but.aux_big_but 1
+            .aux-label(data-output="шт") шт
+          .aux-params
+            button.aux-params-but.aux_big_but 1000
+            .aux-label(data-output="размер") размер
+          .aux-delete
+        .tab-aux-row
+          .aux-title(data-output="подоконник") подоконник
+          .aux-params
+            button.aux-params-but.aux_big_but 1
+            .aux-label(data-output="шт") шт
+          .aux-params
+            button.aux-params-but.aux_big_but 1000
+            .aux-label(data-output="размер") размер
+          .aux-delete
+
+
+    .tab-block.hard-frame
+      button.frame-tab Составная конструкция

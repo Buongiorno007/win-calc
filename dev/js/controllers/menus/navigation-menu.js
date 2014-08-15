@@ -1,4 +1,4 @@
-/* globals STEP, typingTextByChar, showElementWithDelay, addClassWithDelay, typingTextWithDelay */
+/* globals STEP, activeClass, typingTextByChar, showElementWithDelay, addClassWithDelay, typingTextWithDelay */
 
 'use strict';
 
@@ -65,8 +65,6 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'localStorage', fu
 
   // menu click
   $navmenuItem.click(function () {
-    var activeClass = 'active';
-
     $navmenuItem.each(function () {
       $(this).removeClass(activeClass);
     });

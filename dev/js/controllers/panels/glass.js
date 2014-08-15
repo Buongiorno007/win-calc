@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, showElementWithDelay, typingTextWithDelay */
+/* globals BauVoiceApp, STEP, selectClass, showElementWithDelay, typingTextWithDelay */
 
 'use strict';
 
@@ -8,8 +8,6 @@ BauVoiceApp.controller('GlassCtrl', ['$scope', function ($scope) {
       //$glassFooterInner = $glassContainer.find('.footer-inner'),
       $glassBox = $glassContainer.find('.box'),
       $glassTitle = $glassContainer.find('.title'),
-
-      selectedClass = 'selected',
 
       DELAY_SHOW_PROFILES = 5 * STEP,
       g, DELAY_SHOW_PROF;
@@ -24,13 +22,13 @@ BauVoiceApp.controller('GlassCtrl', ['$scope', function ($scope) {
   // Select glass
   $glassBox.click(function () {
     $glassBlock.each(function () {
-      $(this).removeClass(selectedClass);
+      $(this).removeClass(selectClass);
     });
     $glassBox.each(function () {
-      $(this).removeClass(selectedClass);
+      $(this).removeClass(selectClass);
     });
-    $(this).closest('.glass-block').addClass(selectedClass);
-    $(this).addClass(selectedClass);
+    $(this).closest('.glass-block').addClass(selectClass);
+    $(this).addClass(selectClass);
   });
 
 //  // Define width for footer-inner depends on children qty
