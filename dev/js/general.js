@@ -1,4 +1,4 @@
-/* exported STEP, typingIndex, unvisibleClass, selectClass, activeClass, focuseClass, typingTextByChar, createPrice, showElementWithDelay, makeButtonActive */
+/* exported STEP, typingIndex, unvisibleClass, selectClass, activeClass, focuseClass, typingTextByChar, showElementWithDelay, typingTextWithDelay, addClassWithDelay, removeClassWithDelay */
 
 'use strict';
 
@@ -9,7 +9,6 @@ var STEP = 100,
     focuseClass = 'focused',
     activeClass = 'active',
     unvisibleClass = 'unvisible';
-
 
 
 function typingTextByChar($textElem1, $textElem2) {
@@ -45,66 +44,11 @@ function typingTextByChar($textElem1, $textElem2) {
   }
 }
 
-// TODO: Переделать в виде плагина, с возможностью передачи в scroll() цены в качестве аргумента
-function createPrice($price) {
-  var DELAY_PRICE_DIGIT = STEP * 2,
-      DIGIT_CELL_HEIGHT = 64,
-      // $price.data('output') не работает
-      price = $price.attr('data-output'),
-      priceNumberByDigit = price.split(''),
-      digit, digitCell, scrollDigitY,
-      i, n;
-  //this.init = function () {
-  function init () {
-    for (i = 0; i < priceNumberByDigit.length; i++) {
-      digit = priceNumberByDigit[i];
-
-      if (digit === '.') {
-        digitCell = $('<div class="digit-cell" data-digit="' + digit + '">.</div>');
-      } else {
-        digitCell = $('<div class="digit-cell" data-digit="' + digit + '"></div>');
-
-        for (n = 0; n < 10; n++) {
-          digitCell.append($('<div class="digit">' + n + '</div>'));
-        }
-      }
-      $price.append(digitCell);
-    }
-  }
-
-  //this.scroll = function () {
-  function scroll () {
-    var digitCells = $price.children(),
-        $digitCell;
-
-    for (i = 0; i < digitCells.length; i++) {
-      $digitCell = $(digitCells[i]);
-      digit = $digitCell.data('digit');
-
-      if (digit === '.') {
-        continue;
-      }
-
-      scrollDigitY = digit * DIGIT_CELL_HEIGHT;
-
-      $digitCell
-        .delay(i * DELAY_PRICE_DIGIT)
-        .animate({ top: -scrollDigitY }, 'slow');
-    }
-  }
-
-  //this.init();
-  //this.scroll();
-  init();
-  scroll();
-}
-
 function showElementWithDelay($element, delay) {
   setTimeout(function () {
     $element.removeClass(unvisibleClass);
   }, delay);
 }
-
 
 function typingTextWithDelay(element, delay) {
   setTimeout(function () {
@@ -114,13 +58,11 @@ function typingTextWithDelay(element, delay) {
   }, delay);
 }
 
-
 function addClassWithDelay(element, className, delay) {
   setTimeout(function () {
     $(element).addClass(className);
   }, delay);
 }
-
 
 function removeClassWithDelay(element, className, delay) {
   setTimeout(function () {
