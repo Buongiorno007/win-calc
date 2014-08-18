@@ -260,11 +260,22 @@
   }
 
   .size-calculator {
-    height: 1088px;
+    @include transition(all 0.5s linear);
+    height: 0;
+
+    &.active {
+      position: relative;
+      height: 1088px;
+    }
   }
   .qty-calculator {
-    height: 320px;
-    background-color: #f8f8f8;
+    @include transition(all 0.5s linear);
+    height: 0;
+
+    &.active {
+      position: relative;
+      height: 318px;
+    }
   }
   .color-selector {
 
