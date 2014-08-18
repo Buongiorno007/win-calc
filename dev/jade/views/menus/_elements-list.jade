@@ -55,16 +55,64 @@
       .price-element.unvisible
         #price.price-value(data-output="{{ configMenu.price }}")
         #currency.price-currency {{ setCurrencySymbol(configMenu.currency) }}
-      .size-calculator
+      .elements-tools.size-calculator
         include ../parts/_size-calculator
-      .qty-calculator
+      .elements-tools.qty-calculator
         include ../parts/_qty-calculator
-      .color-selector.unvisible
+      .elements-tools.color-selector
+        .color-label(data-output="Доступные цвета подоконника:") Доступные цвета подоконника:
+
+        .color-block
+          .color-img.selected
+            img(src="../img/lamination/empty.png")
+          .color-labels
+            .aux-label(data-output="Белый") Белый
+            .aux-label-bold(data-output="матовый") матовый
+
+        .color-block
+          .color-img
+            img(src="../img/lamination/empty.png")
+          .color-labels
+            .aux-label(data-output="Белый") Белый
+            .aux-label-bold(data-output="глянцевый") глянцевый
+
+        .color-block.color-options
+          .color-option
+            .color-img
+              img(src="../img/lamination/Birch.png")
+            .aux-label(data-output="светлый дуб") светлый дуб
+
+          .color-option
+            .color-img
+              img(src="../img/lamination/Birch.png")
+            .aux-label(data-output="светлый дуб") светлый дуб
+
+          .color-option
+            .color-img
+              img(src="../img/lamination/Birch.png")
+            .aux-label(data-output="светлый дуб") светлый дуб
+
+          .color-option
+            .color-img
+              img(src="../img/lamination/Birch.png")
+            .aux-label(data-output="светлый дуб") светлый дуб
+
+          .color-option
+            .color-img
+              img(src="../img/lamination/Birch.png")
+            .aux-label(data-output="светлый дуб") светлый дуб
+
+          .color-option
+            .color-img
+              img(src="../img/lamination/Birch.png")
+            .aux-label(data-output="светлый дуб") светлый дуб
+
 
   .menu-right-tabs
     .tab-block.simple-frame
       button.frame-tab Простая конструкция
-
+      .tab-content-empty
+        .tab-empty Выберите из списка первый козырек, чтобы начать составлять конструкцию.
     .tab-block.hard-frame
       button.frame-tab Составная конструкция
       .tab-content

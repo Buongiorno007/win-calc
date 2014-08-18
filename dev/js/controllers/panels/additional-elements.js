@@ -30,14 +30,17 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
       $auxParamsBtn = $auxContainer.find('.aux-params-but'),
       $auxParamsLabel = $auxContainer.find('.aux-params-label'),
       $auxMore = $auxContainer.find('.aux-more'),
+      $auxColor = $auxContainer.find('.aux-color'),
 
       $schemeInfo = $auxContainer.find('.scheme-info'),
 
       $elementsListContainer = $('.elements-list-container'),
       $frameTab = $elementsListContainer.find('.frame-tab'),
       $auxTabParamsBTN = $elementsListContainer.find('.aux-params-but'),
+      $elementsTools = $elementsListContainer.find('.elements-tools'),
       $sizeCalculator = $elementsListContainer.find('.size-calculator'),
       $qtyCalculator = $elementsListContainer.find('.qty-calculator'),
+      $colorSelector = $elementsListContainer.find('.color-selector'),
 
       tabBlockClass = '.tab-block',
 
@@ -111,6 +114,7 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
     });
     $(this).closest('.auxiliary-item').addClass(focuseClass);
     $(this).closest('.aux-txt-box').find('.selected-block').removeClass('unvisible');
+    deselectParamsBTN();
 
     // Button disabled
     $auxChooseButton.each(function() {
@@ -136,9 +140,8 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
         deselectTabParamsBTN();
       }
 
-      //Close all calculators
-      $sizeCalculator.removeClass(activeClass);
-      $qtyCalculator.removeClass(activeClass);
+      //Close all calculators and color selector
+      hideElementsTools();
       // hide elements list
       $elementsListContainer.removeClass(activeClass);
       setTimeout(function() {
@@ -153,27 +156,43 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
   //------Select parameters
   $auxParamsBtn.click(function () {
     deselectTabParamsBTN();
-    $auxParams.each(function() {
-      $(this).removeClass(selectClass);
-    });
+    deselectParamsBTN();
     $(this).closest('.aux-params').addClass(selectClass);
 
     // Activation calculators
+    hideElementsTools();
     if($(this).hasClass('size-calc')){
-      $qtyCalculator.removeClass(activeClass);
       $sizeCalculator.addClass(activeClass);
     }
     if($(this).hasClass('qty-calc')){
-      $sizeCalculator.removeClass(activeClass);
       $qtyCalculator.addClass(activeClass);
     }
   });
+
+  // click on color
+  $auxColor.click(function() {
+    $(this).addClass('aux_big_but').addClass(activeClass);
+    deselectParamsBTN();
+    hideElementsTools();
+    $colorSelector.addClass(activeClass);
+  });
+
+  function hideElementsTools() {
+    $elementsTools.each(function() {
+      $(this).removeClass(activeClass);
+    });
+  }
+
+  function deselectParamsBTN() {
+    $auxParams.each(function() {
+      $(this).removeClass(selectClass);
+    });
+  }
 
   function deselectTabParamsBTN() {
     $auxTabParamsBTN.each(function() {
       $(this).removeClass(selectClass);
     });
   }
-
   //  function initAuxContainer() {}
 }]);
