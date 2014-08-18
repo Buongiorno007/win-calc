@@ -55,97 +55,98 @@
       .price-element.unvisible
         #price.price-value(data-output="{{ configMenu.price }}")
         #currency.price-currency {{ setCurrencySymbol(configMenu.currency) }}
-      .size-calculator.unvisible
-      .qty-calculator.unvisible
+      .size-calculator
+        include ../parts/_size-calculator
+      .qty-calculator
+        include ../parts/_qty-calculator
       .color-selector.unvisible
 
   .menu-right-tabs
     .tab-block.simple-frame
       button.frame-tab Простая конструкция
+
+    .tab-block.hard-frame
+      button.frame-tab Составная конструкция
       .tab-content
         .tab-aux-row
           .aux-title(data-output="подоконник") подоконник подоконник подоконник
           .aux-params
-            button.aux-params-but.aux_big_but 1
+            button.aux-params-but.aux_big_but.qty-calc 1
             .aux-label(data-output="шт") шт
           .aux-params
-            button.aux-params-but.aux_big_but 1000
+            button.aux-params-but.aux_big_but.size-calc 1000
             .aux-label(data-output="размер") размер
           .aux-delete
 
         .tab-aux-row
           .aux-title(data-output="подоконник") подоконник
           .aux-params
-            button.aux-params-but.aux_big_but 1
+            button.aux-params-but.aux_big_but.qty-calc 1
             .aux-label(data-output="шт") шт
           .aux-params
-            button.aux-params-but.aux_big_but 1000
+            button.aux-params-but.aux_big_but.size-calc 1000
             .aux-label(data-output="размер") размер
           .aux-delete
         .tab-aux-row
           .aux-title(data-output="подоконник") подоконник
           .aux-params
-            button.aux-params-but.aux_big_but 1
+            button.aux-params-but.aux_big_but.qty-calc 1
             .aux-label(data-output="шт") шт
           .aux-params
-            button.aux-params-but.aux_big_but 1000
+            button.aux-params-but.aux_big_but.size-calc 1000
             .aux-label(data-output="размер") размер
           .aux-delete
         .tab-aux-row
           .aux-title(data-output="подоконник") подоконник
           .aux-params
-            button.aux-params-but.aux_big_but 1
+            button.aux-params-but.aux_big_but.qty-calc 1
             .aux-label(data-output="шт") шт
           .aux-params
-            button.aux-params-but.aux_big_but 1000
+            button.aux-params-but.aux_big_but.size-calc 1000
             .aux-label(data-output="размер") размер
           .aux-delete
         .tab-aux-row
           .aux-title(data-output="подоконник") подоконник
           .aux-params
-            button.aux-params-but.aux_big_but 1
+            button.aux-params-but.aux_big_but.qty-calc 1
             .aux-label(data-output="шт") шт
           .aux-params
-            button.aux-params-but.aux_big_but 1000
+            button.aux-params-but.aux_big_but.size-calc 1000
             .aux-label(data-output="размер") размер
           .aux-delete
         .tab-aux-row
           .aux-title(data-output="подоконник") подоконник
           .aux-params
-            button.aux-params-but.aux_big_but 1
+            button.aux-params-but.aux_big_but.qty-calc 1
             .aux-label(data-output="шт") шт
           .aux-params
-            button.aux-params-but.aux_big_but 1000
+            button.aux-params-but.aux_big_but.size-calc 1000
             .aux-label(data-output="размер") размер
           .aux-delete
         .tab-aux-row
           .aux-title(data-output="подоконник") подоконник
           .aux-params
-            button.aux-params-but.aux_big_but 1
+            button.aux-params-but.aux_big_but.qty-calc 1
             .aux-label(data-output="шт") шт
           .aux-params
-            button.aux-params-but.aux_big_but 1000
+            button.aux-params-but.aux_big_but.size-calc 1000
             .aux-label(data-output="размер") размер
           .aux-delete
         .tab-aux-row
           .aux-title(data-output="подоконник") подоконник
           .aux-params
-            button.aux-params-but.aux_big_but 1
+            button.aux-params-but.aux_big_but.qty-calc 1
             .aux-label(data-output="шт") шт
           .aux-params
-            button.aux-params-but.aux_big_but 1000
+            button.aux-params-but.aux_big_but.size-calc 1000
             .aux-label(data-output="размер") размер
           .aux-delete
         .tab-aux-row
           .aux-title(data-output="подоконник") подоконник
           .aux-params
-            button.aux-params-but.aux_big_but 1
+            button.aux-params-but.aux_big_but.qty-calc 1
             .aux-label(data-output="шт") шт
           .aux-params
-            button.aux-params-but.aux_big_but 1000
+            button.aux-params-but.aux_big_but.size-calc 1000
             .aux-label(data-output="размер") размер
           .aux-delete
-
-
-    .tab-block.hard-frame
-      button.frame-tab Составная конструкция

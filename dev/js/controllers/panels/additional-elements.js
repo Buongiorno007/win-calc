@@ -36,6 +36,8 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
       $elementsListContainer = $('.elements-list-container'),
       $frameTab = $elementsListContainer.find('.frame-tab'),
       $auxTabParamsBTN = $elementsListContainer.find('.aux-params-but'),
+      $sizeCalculator = $elementsListContainer.find('.size-calculator'),
+      $qtyCalculator = $elementsListContainer.find('.qty-calculator'),
 
       tabBlockClass = '.tab-block',
 
@@ -131,11 +133,12 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
         removeClassWithDelay(activTab, activeClass, 5*STEP);
 
         // deselect Tab Params buttons
-        $auxTabParamsBTN.each(function() {
-          $(this).removeClass(selectClass);
-        });
+        deselectTabParamsBTN();
       }
 
+      //Close all calculators
+      $sizeCalculator.removeClass(activeClass);
+      $qtyCalculator.removeClass(activeClass);
       // hide elements list
       $elementsListContainer.removeClass(activeClass);
       setTimeout(function() {
@@ -149,12 +152,28 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
   });
   //------Select parameters
   $auxParamsBtn.click(function () {
-    var selectClass = 'selected';
+    deselectTabParamsBTN();
     $auxParams.each(function() {
       $(this).removeClass(selectClass);
     });
     $(this).closest('.aux-params').addClass(selectClass);
+
+    // Activation calculators
+    if($(this).hasClass('size-calc')){
+      $qtyCalculator.removeClass(activeClass);
+      $sizeCalculator.addClass(activeClass);
+    }
+    if($(this).hasClass('qty-calc')){
+      $sizeCalculator.removeClass(activeClass);
+      $qtyCalculator.addClass(activeClass);
+    }
   });
+
+  function deselectTabParamsBTN() {
+    $auxTabParamsBTN.each(function() {
+      $(this).removeClass(selectClass);
+    });
+  }
 
   //  function initAuxContainer() {}
 }]);

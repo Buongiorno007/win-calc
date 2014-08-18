@@ -1,0 +1,12 @@
+.qty-calc-container {
+  @extend .calculator;
+
+  .calc-interval {
+    @include justify-content(center);
+  }
+
+  .calc-qty-limit {
+    @include roboto-bd(36px);
+    color: $main_gray_txt;
+  }
+}

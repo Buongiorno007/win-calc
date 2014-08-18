@@ -1,0 +1,38 @@
+.size-calc-container {
+  @extend .calculator;
+
+  .calc-delete {
+    position: relative;
+    background-color: $main_gray_btn;
+    &:after {
+      @extend .icon-setting;
+      @include font-general-icon(36px, 0);
+
+      left: 30%;
+      position: absolute;
+      color: $main_gray_txt;
+      content: $calc-clean-icon;
+    }
+  }
+
+  .calc-interval {
+    @include justify-content(space-around);
+
+    position: relative;
+
+    &:after {
+      @extend .icon-setting;
+      @include font-general-icon(36px, 0);
+
+      top: 45%;
+      left: 40%;
+      position: absolute;
+      color: $main_gray_btn;
+      content: $calc-more-icon;
+    }
+  }
+
+  .calc-value-limit {
+    @include roboto-lt(36px);
+  }
+}

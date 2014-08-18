@@ -11,10 +11,13 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', function ($scope) {
       $auxTabParamsBTN = $elementsListContainer.find('.aux-params-but'),
       $priceElement = $elementsListContainer.find('.price-element'),
       $price = $elementsListContainer.find('#price'),
+      $sizeCalculator = $elementsListContainer.find('.size-calculator'),
+      $qtyCalculator = $elementsListContainer.find('.qty-calculator'),
 
       $auxContainer = $('.auxiliaries-container'),
       $auxiliaryItem = $auxContainer.find('.auxiliary-item'),
       $auxChooseButton = $auxContainer.find('.aux-choose-but'),
+      $auxParams = $auxContainer.find('.aux-params'),
 
       tabBlockClass = '.tab-block',
 
@@ -34,6 +37,9 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', function ($scope) {
 
   // Close Elements Lists
   $closeElementsMenuBTN.click(function () {
+    //Close all calculators
+    $sizeCalculator.removeClass(activeClass);
+    $qtyCalculator.removeClass(activeClass);
     // Close Tabs
     if($frameTab.hasClass(activeClass)) {
       closeTab($('.frame-tab.active'));
@@ -82,7 +88,20 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', function ($scope) {
   //------Select parameters
   $auxTabParamsBTN.click(function () {
     deselectTabParamsBTN();
+    $auxParams.each(function() {
+      $(this).removeClass(selectClass);
+    });
     $(this).addClass(selectClass);
+
+    // Activation calculators
+    if($(this).hasClass('size-calc')){
+      $qtyCalculator.removeClass(activeClass);
+      $sizeCalculator.addClass(activeClass);
+    }
+    if($(this).hasClass('qty-calc')){
+      $sizeCalculator.removeClass(activeClass);
+      $qtyCalculator.addClass(activeClass);
+    }
   });
 
   function deselectTabParamsBTN() {
