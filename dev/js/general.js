@@ -8,7 +8,8 @@ var STEP = 100,
     selectClass = 'selected',
     focuseClass = 'focused',
     activeClass = 'active',
-    unvisibleClass = 'unvisible';
+    unvisibleClass = 'unvisible',
+    movePanelClass = 'move-panel';
 
 
 function typingTextByChar($textElem1, $textElem2) {

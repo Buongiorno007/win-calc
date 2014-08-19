@@ -121,21 +121,6 @@
 
 
 
-// Config Panels
-.showConfigPanel {
-  @include animation(show-config-panel .3s 0 linear 1);
-  display: block;
-}
-
-.hideConfigPanel {
-  @include animation(hide-config-panel .3s 0 linear 1);
-  display: block;
-}
-
-@include behavior-move(show-config-panel, -1600px, 0, 0, 0);
-@include behavior-move(hide-config-panel, 0, 0, -1600px, 0);
-
-
 // Additional elements panel
 //------Grid
 .move-grid {

@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, unvisibleClass, selectClass, activeClass, focuseClass, typingTextByChar, showElementWithDelay, makeButtonActive, removeClassWithDelay, addClassWithDelay */
+/* globals BauVoiceApp, STEP, unvisibleClass, selectClass, activeClass, focuseClass, movePanelClass, typingTextByChar, showElementWithDelay, makeButtonActive, removeClassWithDelay, addClassWithDelay */
 
 'use strict';
 
@@ -199,8 +199,11 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
 
   // Open additional List View
   $viewSwitcher.click(function() {
-    $auxContainer.addClass(unvisibleClass);
-    $auxListContainer.removeClass(unvisibleClass);
+    $auxContainer.removeClass(movePanelClass);
+    removeClassWithDelay($auxContainer, activeClass, 5*STEP);
+    //$auxListContainer.addClass(activeClass);
+    addClassWithDelay($auxListContainer, activeClass, 5*STEP);
+    addClassWithDelay($auxListContainer, movePanelClass, 6*STEP);
   });
   //  function initAuxContainer() {}
 }]);

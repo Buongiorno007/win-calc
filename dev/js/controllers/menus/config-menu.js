@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, typingTextByChar, showElementWithDelay, removeClassWithDelay, addClassWithDelay, initTemplateContainer, initProfileContainer, initGlassContainer, initHardwareContainer, initLaminationContainer, initAuxContainer */
+/* globals BauVoiceApp, STEP, unvisibleClass, selectClass, activeClass, movePanelClass, typingTextByChar, showElementWithDelay, removeClassWithDelay, addClassWithDelay, initTemplateContainer, initProfileContainer, initGlassContainer, initHardwareContainer, initLaminationContainer, initAuxContainer */
 
 'use strict';
 
@@ -43,8 +43,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
   showElementWithDelay($configItemIcon, DELAY_SHOW_CONFIG_ITEM_ICON);
 
   $configItem.click(function () {
-    var activeClass = 'active',
-        panel = $(this).data('panel');
+    //var activeClass = 'active',
+     var panel = $(this).data('panel');
 
     if (!$(this).hasClass(activeClass)) {
       $configItem.each(function () {
@@ -58,47 +58,36 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
     }
   });
 
-  /*
-   function testAnim(x) {
-   $('#animationSandbox').removeClass().addClass(x + ' animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-   $(this).removeClass();
-   });
-   */
-
   function switchConfigPanels(itemSelected, onlyHide) {
     var itemGroup = '.config-panel',
-        classShow = 'showConfigPanel',
-        classHide = 'hideConfigPanel',
-        classUnvisible = 'unvisible',
-        checkOpenItem = $(itemGroup).hasClass(classShow),
-        DELAY = 300,
+        checkOpenItem = $(itemGroup).hasClass(activeClass),
+        DELAY = 500,
         item,
         $itemCurr;
 
     if (checkOpenItem && !onlyHide) {
       for (item = 0; item < $(itemGroup).length; item++) {
         $itemCurr = $(itemGroup).eq(item);
-        if ($itemCurr.hasClass(classShow)) {
-          $itemCurr.addClass(classHide).removeClass(classShow);
-          removeClassWithDelay($itemCurr, classHide, DELAY);
-          addClassWithDelay($itemCurr, classUnvisible, DELAY);
+
+        if ($itemCurr.hasClass(activeClass)) {
+          $itemCurr.removeClass(movePanelClass);
+          removeClassWithDelay($itemCurr, activeClass, DELAY);
           hideConfigPanelContent(DELAY);
-          removeClassWithDelay(itemSelected, classUnvisible, DELAY);
-          addClassWithDelay(itemSelected, classShow, DELAY);
-//          showConfigPanelContent(itemSelected);
+          addClassWithDelay(itemSelected, activeClass, DELAY);
+          addClassWithDelay(itemSelected, movePanelClass, DELAY+STEP);
         }
       }
     } else if (checkOpenItem && onlyHide) {
-      $(itemSelected).addClass(classHide).removeClass(classShow);
-      removeClassWithDelay(itemSelected, classHide, DELAY);
-      addClassWithDelay(itemSelected, classUnvisible, DELAY);
+      $(itemSelected).removeClass(movePanelClass);
+      removeClassWithDelay(itemSelected, activeClass, DELAY);
       hideConfigPanelContent(DELAY);
     } else {
-      $(itemSelected).removeClass(classUnvisible).addClass(classShow);
-//      showConfigPanelContent(itemSelected);
+      $(itemSelected).addClass(activeClass);
+      addClassWithDelay(itemSelected, movePanelClass, STEP);
     }
   }
 
+/*
   function showConfigPanelContent(panelClass) {
     switch(panelClass) {
       case '.template-container':
@@ -121,7 +110,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
         break;
     }
   }
-
+*/
   function hideConfigPanelContent(delay) {
     setTimeout(function () {
       $('.config-panel').find('.visible').removeClass('visible');

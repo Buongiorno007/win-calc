@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, unvisibleClass, selectClass, activeClass, showElementWithDelay, removeClassWithDelay, addClassWithDelay */
+/* globals BauVoiceApp, STEP, unvisibleClass, selectClass, activeClass, movePanelClass, showElementWithDelay, removeClassWithDelay, addClassWithDelay */
 
 'use strict';
 
@@ -65,8 +65,10 @@ BauVoiceApp.controller('AdditionalElementsListCtrl', ['$scope', function ($scope
 
   // Open additional Scheme View
   $viewSwitcher.click(function() {
-    $auxListContainer.addClass(unvisibleClass);
-    $auxContainer.removeClass(unvisibleClass);
+    $auxListContainer.removeClass(movePanelClass);
+    removeClassWithDelay($auxListContainer, activeClass, 5*STEP);
+    addClassWithDelay($auxContainer, activeClass, 5*STEP);
+    addClassWithDelay($auxContainer, movePanelClass, 6*STEP);
   });
 
 }]);
