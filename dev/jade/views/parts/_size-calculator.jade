@@ -1,0 +1,37 @@
+table.size-calc-container
+  thead
+    td
+      button.cell.calc-delete
+    td(colspan= "2")
+      .calc-interval
+        .interval
+          .calc-value-limit 0
+          .calc-label-limit min.
+        .interval
+          .calc-value-limit 5000
+          .calc-label-limit max.
+  tr
+    - for (var cell = 1; cell < 4; ++cell) {
+      td
+        button.cell.calc-digit(value = cell)= cell
+    - }
+  tr
+    - for (var cell = 4; cell < 7; ++cell) {
+      td
+        button.cell.calc-digit(value = cell)= cell
+    - }
+  tr
+    - for (var cell = 7; cell < 10; ++cell) {
+      td
+        button.cell.calc-digit(value = cell)= cell
+    - }
+  tr
+    td
+      button.cell.calc-digit(value = "0") 0
+    td
+      button.cell.calc-digit(value = "00") 00
+    td
+      button.cell.calc-equal =
+
+
+

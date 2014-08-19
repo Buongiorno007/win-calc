@@ -10,10 +10,17 @@
   &.active {
     @include top_left_coord(0, 0);
   }
+  .item {
+    &.active {
+      .value {
+        color: #fff;
+      }
+    }
+  }
+
   &.aux_color_big {
     .item {
       &.active {
-        color: #fff;
         background-color: $aux_big_color;
       }
     }
@@ -22,9 +29,7 @@
         border-top-color: $aux_big_color;
       }
     }
-    .aux-title {
-      color: $aux_big_color;
-    }
+
     .aux-params-but {
       color: $aux_big_color;
       border-color: $aux_big_color;
@@ -32,6 +37,15 @@
         color: #fff;
         background-color: $aux_big_color;
       }
+    }
+
+    .aux-title,
+    .calc-value-limit {
+      color: $aux_big_color;
+    }
+
+    .calc-equal {
+      background-color: $aux_big_color;
     }
   }
 
@@ -46,9 +60,6 @@
         border-top-color: $aux_middle_color;
       }
     }
-    .aux-title {
-      color: $aux_middle_color;
-    }
     .aux-params-but {
       color: $aux_middle_color;
       border-color: $aux_middle_color;
@@ -56,6 +67,15 @@
         color: #fff;
         background-color: $aux_middle_color;
       }
+    }
+
+    .aux-title,
+    .calc-value-limit {
+      color: $aux_middle_color;
+    }
+
+    .calc-equal {
+      background-color: $aux_middle_color;
     }
   }
 
@@ -70,9 +90,6 @@
         border-top-color: $aux_connect_color;
       }
     }
-    .aux-title {
-      color: $aux_connect_color;
-    }
     .aux-params-but {
       color: $aux_connect_color;
       border-color: $aux_connect_color;
@@ -80,6 +97,15 @@
         color: #fff;
         background-color: $aux_connect_color;
       }
+    }
+
+    .aux-title,
+    .calc-value-limit {
+      color: $aux_connect_color;
+    }
+
+    .calc-equal {
+      background-color: $aux_connect_color;
     }
   }
 
@@ -94,9 +120,7 @@
         border-top-color: $main_green;
       }
     }
-    .aux-title {
-      color: $main_green;
-    }
+
     .aux-params-but {
       color: $main_green;
       border-color: $main_green;
@@ -104,6 +128,15 @@
         color: #fff;
         background-color: $main_green;
       }
+    }
+
+    .aux-title,
+    .calc-value-limit {
+      color: $main_green;
+    }
+
+    .calc-equal {
+      background-color: $main_green;
     }
   }
 
@@ -118,9 +151,7 @@
         border-top-color: $aux_small_color;
       }
     }
-    .aux-title {
-      color: $aux_small_color;
-    }
+
     .aux-params-but {
       color: $aux_small_color;
       border-color: $aux_small_color;
@@ -128,6 +159,15 @@
         color: #fff;
         background-color: $aux_small_color;
       }
+    }
+
+    .aux-title,
+    .calc-value-limit {
+      color: $aux_small_color;
+    }
+
+    .calc-equal {
+      background-color: $aux_small_color;
     }
   }
 }
@@ -142,7 +182,7 @@
   .menu-header {
     @include display-flex();
     @include flex-flow(row nowrap);
-    @include justify-content(space-between);
+    @include justify-content(space-around);
     @include align-items(center);
 
     min-height: 170px;
@@ -187,7 +227,7 @@
     margin: 45px 0 0px 0;
     padding-bottom: 15px;
     color: $main_gray_txt;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid $main_gray_btn;
   }
 
   .item {
@@ -197,7 +237,7 @@
     @include align-items(center);
   }
   .value {
-    max-width: 90%;
+    max-width: 88%;
   }
   .element-info {
     @extend .button;
@@ -221,21 +261,84 @@
   .menu-footer {
     @include display-flex();
     @include flex-flow(column nowrap);
+
+    position: relative;
     margin-left: -44px;
     margin-right: 44px;
     padding-right: 0;
   }
+  .elements-tools {
+    @include transition(all 0.5s linear);
 
-  .size-calculator {
-    height: 100px;
-    border: 1px solid red;
-  }
-  .qty-calculator {
-    height: 100px;
-    border: 1px solid blue;
+    position: absolute;
+    bottom: -1000px;
+    width: 475px;
+    background-color: #f8f8f8;
+    &.active {
+      bottom: 0px;
+    }
   }
   .color-selector {
+    padding: 20px 44px;
+    text-align: left;
+  }
+  .color-label {
+    @extend .aux-label;
+    margin-bottom: 10px;
+  }
+  .color-block {
+    @include display-flex();
+    @include flex-flow(row wrap);
+    @include justify-content(flex-start);
+    @include align-items(flex-start);
+    margin-bottom: 15px;
+    &:first-child {
+      margin-top: 10px;
+    }
+  }
+  .color-img {
+    @extend .splash;
+    @include display-flex();
+    @include align-items(center);
+    @include justify-content(center);
 
+    width: 96px;
+    height: 96px;
+    cursor: pointer;
+    img {
+      max-width: 88px;
+    }
+    &.selected {
+      position: relative;
+      border-radius: 5px;
+      background-color: $main_green;
+
+      &:after {
+        @include font-general-icon(50px, 88px);
+
+        position: absolute;
+        left: 25px;
+        color: $main_green;
+        content: $check-panel-icon;
+      }
+    }
+  }
+  .color-labels {
+    margin-left: 10px;
+  }
+  .aux-label-bold {
+    @include roboto-bd(22px);
+
+    color: $main_gray_txt;
+  }
+  .color-options {
+    height: 310px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  .color-option {
+    width: 96px;
+    margin-right: 15px;
   }
 
 }
@@ -273,7 +376,7 @@
   .frame-tab {
     @extend .button;
     @include rotate(-90deg);
-    @include top_left_coord(123, -185);
+    @include top_left_coord(124, -186);
     @include roboto-bd(24px);
     @include transition(all 0.5s linear);
 
@@ -298,6 +401,17 @@
     overflow-x: hidden;
     overflow-y: auto;
     max-height: 500px;
+  }
+  .tab-content-empty {
+    @include display-flex();
+    @include flex-flow(column nowrap);
+    @include justify-content(center);
+    height: 208px;
+  }
+  .tab-empty {
+    @include roboto-lt(36px);
+    text-align: center;
+    color: $main_gray_btn;
   }
   .tab-aux-row {
     @include display-flex();

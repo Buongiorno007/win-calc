@@ -1,15 +1,27 @@
 section.login-page
-  .login-container
+  #login-container.login-container(ng-hide="!isCodeValid")
     .logo
     form(name='loginForm', novalidate, ng-submit="submitForm(loginForm)")
       .input-field(ng-class="{ 'has-error' : submitted && loginForm.phone.$error.required }")
-        input.user-field(type="tel", name="phone", ng-model="user.phone", ng-pattern="", placeholder="Мобильный телефон", required)
-        .error-tooltip(ng-show="submitted && loginForm.phone.$error.required") Заполните это поле.
-        .error-tooltip(ng-show="submitted && loginForm.phone.$error.pattern || loginForm.phone.$dirty && loginForm.phone.$error.pattern") Неверный номер, формат +XX(XXX)XXX-XXXX.
+        input.user-field(type="tel", name="phone", ng-model="user.phone", ng-pattern="", placeholder="{{ 'login.MOBILE' | translate }}", required)
+        .error-tooltip(ng-show="submitted && loginForm.phone.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+        .error-tooltip(ng-show="submitted && loginForm.phone.$error.pattern || loginForm.phone.$dirty && loginForm.phone.$error.pattern") {{ 'login.WRONG_NUMBER' | translate }}
 
       .input-field(ng-class="{ 'has-error' : submitted && loginForm.password.$error.required }")
-        input.user-field(type="password", name="password", ng-model="user.password", ng-minlength="3", placeholder="Пароль", required)
-        .error-tooltip(ng-show='submitted && loginForm.password.$error.required') Заполните это поле.
-        .error-tooltip(ng-show='submitted && loginForm.password.$error.minlength || loginForm.password.$dirty && loginForm.password.$error.minlength') Слишком маленький пароль.
+        input.user-field(type="password", name="password", ng-model="user.password", ng-minlength="3", placeholder="{{ 'login.PASSWORD' | translate }}", required)
+        .error-tooltip(ng-show='submitted && loginForm.password.$error.required') {{ 'login.EMPTY_FIELD' | translate }}
+        .error-tooltip(ng-show='submitted && loginForm.password.$error.minlength || loginForm.password.$dirty && loginForm.password.$error.minlength') {{ 'login.SHORT_PASSWORD' | translate }}
 
-      button.login-submit(type="submit") Войти
+      button.login-submit(type="submit") {{ 'login.ENTER' | translate }}
+  #code-container.login-container(ng-hide="isCodeValid")
+    .logo
+    .text-container
+      p {{ 'login.PASS_CODE' | translate }}
+    .text-container
+      span {{ 'login.YOUR_CODE' | translate }}
+      span  drKJKsdf5645
+    .text-container.error(ng-show="!isCodeCheckingSuccess")
+      p {{ 'login.SOMETHING_WRONG' | translate }}
+
+    button.login-submit(type="button", ng-click="switchLang()") {{ 'SWITCH_LANG' | translate }}
+    button.login-submit(type="button", ng-click="checkCode()") ОК

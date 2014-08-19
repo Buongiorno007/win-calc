@@ -1,0 +1,49 @@
+.calculator {
+  border: none;
+  background-color: #f8f8f8;
+
+  td {
+    border-style: solid;
+    border-color: $main_gray_btn;
+    border-width: 1px 0 0 1px;
+
+    &:first-child {
+      border-left-width: 0;
+    }
+  }
+
+  .cell {
+    @extend .button;
+    @include roboto-lt(36px);
+
+    display: block;
+    width: 156px;
+    height: 100px;
+  }
+
+  .calc-interval {
+    @include display-flex();
+    @include flex-flow(row wrap);
+    @include align-items(center);
+
+    height: 100px;
+    background-color: #fff;
+  }
+
+  .calc-label-limit {
+    @include roboto-lt(22px);
+
+    text-align: center;
+    color: $main_gray_btn;
+  }
+
+  .calc-digit {
+    @extend .button;
+
+    background-color: transparent;
+    color: $main_gray_txt;
+  }
+  .calc-equal {
+    color: #fff;
+  }
+}

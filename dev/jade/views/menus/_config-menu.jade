@@ -32,8 +32,9 @@
           span.name.aside(data-output="{{ element.group.name }}")
 
   footer.menu-footer
-    .price.clearfix
-      #price.price-value(data-output="{{ configMenu.price }}")
-      #currency.price-currency {{ setCurrencySymbol(configMenu.currency) }}
+    price
     button.cart-btn В корзину
       .qty {{ configMenu.ordersInCart }}
+
+  .test
+    input(ng-model="configMenu.price")

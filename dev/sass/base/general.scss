@@ -205,3 +205,19 @@ body {
     content: $close-icon;
   }
 }
+
+.test {
+  position: absolute;
+  left: 50px;
+  top: 50px;
+  z-index: 999;
+  padding: 20px;
+  background-color: red;
+  box-shadow: 0px 0px 20px 10px rgba(0,0,0,0.3);
+
+  input {
+    height: 50px;
+    width: 300px;
+    font-size: 36px;
+  }
+}

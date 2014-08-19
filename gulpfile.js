@@ -63,6 +63,7 @@ gulp.task('jade', function() {
     .pipe(newer(config.build.dest.html, '.html'))
     .pipe(plumber({ errorHandler: notify.onError("<%= error.message %>") }))
     .pipe(jade({
+      doctype: 'html',
       pretty: true
     }))
     .pipe(gulp.dest(config.build.dest.html))

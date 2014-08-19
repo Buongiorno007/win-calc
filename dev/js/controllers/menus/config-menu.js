@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, typingIndex, typingTextByChar, createPrice, showElementWithDelay, removeClassWithDelay, addClassWithDelay, initTemplateContainer, initProfileContainer, initGlassContainer, initHardwareContainer, initLaminationContainer, initAuxContainer */
+/* globals BauVoiceApp, STEP, typingTextByChar, showElementWithDelay, removeClassWithDelay, addClassWithDelay, initTemplateContainer, initProfileContainer, initGlassContainer, initHardwareContainer, initLaminationContainer, initAuxContainer */
 
 'use strict';
 
@@ -16,9 +16,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
   setTimeout(function () {
     var $configItemTitle = $configItem.find('.title'),
         $configItemName = $configItem.find('.name'),
-        $configItemValue = $configItem.find('.value'),
-        $price = $('#price'),
-        $currency = $('#currency');
+        $configItemValue = $configItem.find('.value');
 
     $configItemTitle.each(function () {
       typingTextByChar($(this));
@@ -40,10 +38,6 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
         typingTextByChar($(this));
       }
     });
-
-    createPrice($price);
-    // TODO: Валюта должна быть включена в функцию создания цены
-    $currency.show();
   }, DELAY_FILL_CONFIG_LIST);
 
   showElementWithDelay($configItemIcon, DELAY_SHOW_CONFIG_ITEM_ICON);
@@ -209,7 +203,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
   });
 
   $scope.setCurrencySymbol = function (currency) {
-    var currencySymbol = 'I';
+    var currencySymbol = '';
 
     if (currency === 'uah') {
       currencySymbol = '₴';
@@ -225,4 +219,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
       console.log(results);
     }
   });
+
+  $scope.changePrice = function (price) {
+    $scope.configMenu.price = price;
+  };
 }]);

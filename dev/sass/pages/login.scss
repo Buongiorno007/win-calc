@@ -12,11 +12,21 @@ $img_logo: 'login/logo.png';
   @include box-shadow(rgba(98, 67, 48, .5) 0px 0px 15px 1px);
 
   width: 1000px;
-  height: 870px;
   margin: auto;
   padding: 60px 110px;
   border-radius: $radius_login-container;
   background-color: #fff;
+
+  .text-container {
+    @include roboto-lt(48px);
+
+    overflow: hidden;
+    text-align: center;
+    color: #000;
+    &.error {
+      color: red;
+    }
+  }
 }
 
 .logo {
