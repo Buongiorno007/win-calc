@@ -18,158 +18,6 @@
     }
   }
 
-  &.aux_color_big {
-    .item {
-      &.active {
-        background-color: $aux_big_color;
-      }
-    }
-    .frame-tab {
-      &.active {
-        border-top-color: $aux_big_color;
-      }
-    }
-
-    .aux-params-but {
-      color: $aux_big_color;
-      border-color: $aux_big_color;
-      &.selected {
-        color: #fff;
-        background-color: $aux_big_color;
-      }
-    }
-
-    .aux-title,
-    .calc-value-limit {
-      color: $aux_big_color;
-    }
-
-    .calc-equal {
-      background-color: $aux_big_color;
-    }
-  }
-
-  &.aux_color_middle {
-    .item {
-      &.active {
-        background-color: $aux_middle_color;
-      }
-    }
-    .frame-tab {
-      &.active {
-        border-top-color: $aux_middle_color;
-      }
-    }
-    .aux-params-but {
-      color: $aux_middle_color;
-      border-color: $aux_middle_color;
-      &.selected {
-        color: #fff;
-        background-color: $aux_middle_color;
-      }
-    }
-
-    .aux-title,
-    .calc-value-limit {
-      color: $aux_middle_color;
-    }
-
-    .calc-equal {
-      background-color: $aux_middle_color;
-    }
-  }
-
-  &.aux_color_connect {
-    .item {
-      &.active {
-        background-color: $aux_connect_color;
-      }
-    }
-    .frame-tab {
-      &.active {
-        border-top-color: $aux_connect_color;
-      }
-    }
-    .aux-params-but {
-      color: $aux_connect_color;
-      border-color: $aux_connect_color;
-      &.selected {
-        color: #fff;
-        background-color: $aux_connect_color;
-      }
-    }
-
-    .aux-title,
-    .calc-value-limit {
-      color: $aux_connect_color;
-    }
-
-    .calc-equal {
-      background-color: $aux_connect_color;
-    }
-  }
-
-  &.aux_color_slope {
-    .item {
-      &.active {
-        background-color: $main_green;
-      }
-    }
-    .frame-tab {
-      &.active {
-        border-top-color: $main_green;
-      }
-    }
-
-    .aux-params-but {
-      color: $main_green;
-      border-color: $main_green;
-      &.selected {
-        color: #fff;
-        background-color: $main_green;
-      }
-    }
-
-    .aux-title,
-    .calc-value-limit {
-      color: $main_green;
-    }
-
-    .calc-equal {
-      background-color: $main_green;
-    }
-  }
-
-  &.aux_color_small {
-    .item {
-      &.active {
-        background-color: $aux_small_color;
-      }
-    }
-    .frame-tab {
-      &.active {
-        border-top-color: $aux_small_color;
-      }
-    }
-
-    .aux-params-but {
-      color: $aux_small_color;
-      border-color: $aux_small_color;
-      &.selected {
-        color: #fff;
-        background-color: $aux_small_color;
-      }
-    }
-
-    .aux-title,
-    .calc-value-limit {
-      color: $aux_small_color;
-    }
-
-    .calc-equal {
-      background-color: $aux_small_color;
-    }
-  }
 }
 
 .elements-menu {
@@ -196,26 +44,18 @@
     color: #8c8c8c;
   }
   .close-elements-menu {
-    @extend .button;
+    @extend .cross-btn;
+    @include font-general-icon(40px, 1);
 
     position: relative;
     width: 85px;
     height: 85px;
-    border-radius: 50%;
     background-color: $main_gray_btn;
     &:after {
-      @extend .icon-setting;
-      @include font-general-icon(40px, 1);
-
-      position: absolute;
       top: 25%;
       left: 25%;
-      display: block;
-      color: #fff;
-      content: $cross-icon;
     }
   }
-
   .menu-lists {
     margin-left: -$config_menu-side_padding;
     padding-left: $config_menu-side_padding;
@@ -277,6 +117,10 @@
     &.active {
       bottom: 0px;
     }
+  }
+  .price-element {
+    min-height: 130px;
+    background-color: #f8f8f8;
   }
   .color-selector {
     padding: 20px 44px;
@@ -427,13 +271,4 @@
   .aux-title {
     width: 370px;
   }
-  .aux-delete {
-    @extend .close-dialog;
-    @include top_left_coord(0, 0);
-    position: relative;
-    &:after {
-      color: $main_gray_btn;
-    }
-  }
 }
-

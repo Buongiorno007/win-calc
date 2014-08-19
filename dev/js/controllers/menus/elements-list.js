@@ -35,7 +35,7 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', function ($scope) {
 
     // show element price
     $priceElement.removeClass(unvisibleClass);
-    createPrice($price);
+    //createPrice($price);
 
     // update additional element
     $auxContainer.find('.'+focuseClass).removeClass(focuseClass).addClass(selectClass);
@@ -53,7 +53,8 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', function ($scope) {
     }
     // Close right menu
     $elementsListContainer.removeClass(activeClass);
-
+    // deselect all parameters buttons
+    deselectParamsBTN();
     // Choose Buttons deactivation
     $auxChooseButton.removeAttr('disabled');
     $auxiliaryItem.removeClass(focuseClass);
@@ -94,9 +95,7 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', function ($scope) {
   //------Select parameters
   $auxTabParamsBTN.click(function () {
     deselectTabParamsBTN();
-    $auxParams.each(function() {
-      $(this).removeClass(selectClass);
-    });
+    deselectParamsBTN();
     $(this).addClass(selectClass);
 
     // Activation calculators
@@ -121,6 +120,12 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', function ($scope) {
     });
     $(this).addClass(selectClass);
   });
+
+  function deselectParamsBTN() {
+    $auxParams.each(function() {
+      $(this).removeClass(selectClass);
+    });
+  }
 
   function deselectTabParamsBTN() {
     $auxTabParamsBTN.each(function() {

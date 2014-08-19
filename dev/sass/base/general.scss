@@ -191,19 +191,47 @@ body {
 @include behavior-move(show-dialog, -2000px, 0, 0, 0);
 @include behavior-move(hide-dialog, 0, 0, -2000px, 0);
 
+
+.cross-btn {
+  @extend .button;
+  @extend .icon-setting;
+
+  border-radius: 50%;
+  &:after {
+    position: absolute;
+    color: #fff;
+    content: $cross-icon;
+  }
+}
+.small-cross-btn {
+  @extend .cross-btn;
+  @include font-general-icon(40px, 1);
+
+  width: 50px;
+  height: 50px;
+  &:after {
+    top: 8%;
+    left: 10%;
+  }
+}
+
 // Close button for dialog
 .close-dialog {
-  @extend .icon-setting;
-  @include font-general-icon(50px, 1);
+  @extend .small-cross-btn;
 
   position: absolute;
   top: 30px;
   right: 30px;
-  cursor: pointer;
-  &:after {
-    color: $main_orange;
-    content: $close-icon;
-  }
+  background-color: $main_orange;
+}
+
+// Delete element button
+.aux-delete {
+  @extend .small-cross-btn;
+  @include top_left_coord(0, 0);
+
+  position: relative;
+  background-color: $main_gray_btn;
 }
 
 .test {

@@ -12,5 +12,20 @@ window.russianDictionary = {
     MOBILE: 'Мобильный телефон',
     PASSWORD: 'Пароль'
   },
+  additional_elements: {
+    VISOR: 'Козырек',
+    GRID: 'Москитная сетка',
+    NAME_LABEL: 'наименование',
+    QTY_LABEL: 'шт.',
+    SIZE_LABEL: 'размер',
+    SCHEME_VIEW: 'Схематически',
+    LIST_VIEW: 'Cписок',
+    INPUT_ADD_ELEMENT: 'Добавить компонент',
+    CANCEL: 'Отмена',
+    VISORS: 'Козырьки',
+    GRIDS: 'Москитные сетки',
+    TOTAL_PRICE_TXT: 'Итого дополнительных компонентов на сумму:'
+  },
+
   'SWITCH_LANG': 'English'
 };

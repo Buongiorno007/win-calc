@@ -1,0 +1,189 @@
+.additional-list-container {
+  position: relative;
+  padding: 50px 80px;
+
+  .aux-search-block {
+    position: relative;
+    margin-bottom: 50px;
+
+    &:before {
+      @extend .icon-setting;
+      @include font-general-icon(50px, 1);
+
+      position: absolute;
+      top: 25%;
+      left: 3%;
+      color: $main_orange;
+      content: $search-icon;
+    }
+  }
+  .search-input {
+    @include roboto-lt(36px);
+
+    width: 1150px;
+    height: 115px;
+    padding-left: 100px;
+    border: 1px solid #dcdcdc;
+    border-radius: $radius_login-container;
+    background-color: #fff;
+    outline: none;
+    color: #8c8c8c;
+
+    &:focus {
+      border-color: $main_orange;
+    }
+  }
+
+  .delete-search {
+    @extend .cross-btn;
+    @extend .splash;
+    @include font-general-icon(40px, 1);
+
+    position: absolute;
+    top: 25%;
+    right: 20%;
+    width: 60px;
+    height: 60px;
+    background-color: $main_gray_btn;
+    &:after {
+      top: 16%;
+      left: 18%;
+    }
+  }
+  .cancel-search {
+    @extend .middle-button;
+    @extend .splash;
+
+    position: absolute;
+    top: 25%;
+    right: 6%;
+    height: 70px;
+    padding: 0 28px;
+    color: #fff;
+    background-color: $main_orange;
+  }
+
+  .search-input:focus ~ .cancel-search {
+    display: block;
+  }
+
+  .aux-search-content {
+    @include transition(left .5s linear);
+
+    position: absolute;
+    left: -2000px;
+    height: 80%;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: rgba(#fff, .9);
+    z-index: 10;
+    &.active {
+      left: 0;
+    }
+  }
+  .aux-list-groups {
+    list-style: none;
+    padding-left: 70px;
+  }
+  .aux-list-group {
+    @include roboto-lt(36px, 100px);
+    @include transition(color .5s linear);
+
+    position: relative;
+    border-bottom: 1px solid $main_gray_btn;
+    color: $main_gray_txt;
+    cursor: pointer;
+    &.selected {
+      color: #fff;
+      .group-indicator{
+        &.active {
+          width: 100%;
+        }
+      }
+    }
+  }
+  .group-indicator {
+    @extend .button;
+    @include top_left_coord(10, -82);
+    @include transition(width .5s linear);
+
+    position: absolute;
+    width: 0;
+    height: 80px;
+    z-index: -1;
+    &:before {
+      position: absolute;
+      display: block;
+      top: 0;
+      right: -40px;
+      width: 0;
+      border-width: 40px 0 40px 40px;
+      border-style: solid;
+      content: '';
+    }
+  }
+  .search-elements-block {
+    @include display-flex();
+    @include flex-flow(row wrap);
+    @include align-items(flex-start);
+  }
+  .search-element {
+    @extend .button;
+    @extend .splash;
+    @include roboto-lt(36px, 36px);
+
+    margin: 20px;
+    margin-left: 0;
+    padding: 18px 20px;
+    border-radius: $radius_general-big_button;
+    color: #fff;
+  }
+
+
+  .aux-list-content {
+    @extend .parameters-block;
+
+  }
+  .aux-list-block {
+    padding: 50px 0;
+    border-bottom: 1px solid $main_gray_btn;
+
+    &:last-child {
+      padding: 50px 0 0 0;
+      border: none;
+    }
+  }
+
+  .aux-list-block-title,
+  .aux-price,
+  .aux-total-label {
+    @include roboto-bd(36px);
+
+    color: $main_gray_txt;
+  }
+
+  .aux-list-row {
+    @include display-flex();
+    @include flex-flow(row nowrap);
+    @include justify-content(space-between);
+    @include align-items(flex-start);
+    margin-bottom: 20px;
+  }
+  .aux-name {
+    max-width: 50%;
+  }
+  .aux-title {
+    max-width: 90%;
+  }
+  .aux-price {
+    min-width: 20%;
+    text-align: right;
+  }
+  .aux-total-price {
+    @extend .aux-price;
+  }
+  .aux-total-label {
+    min-width: 69%;
+  }
+}

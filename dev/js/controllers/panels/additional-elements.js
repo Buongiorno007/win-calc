@@ -33,6 +33,8 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
       $auxColor = $auxContainer.find('.aux-color'),
 
       $schemeInfo = $auxContainer.find('.scheme-info'),
+      $viewSwitcher = $auxContainer.find('.view-switch-tab'),
+      $auxListContainer = $('.additional-list-container'),
 
       $elementsListContainer = $('.elements-list-container'),
       $frameTab = $elementsListContainer.find('.frame-tab'),
@@ -194,5 +196,11 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
       $(this).removeClass(selectClass);
     });
   }
+
+  // Open additional List View
+  $viewSwitcher.click(function() {
+    $auxContainer.addClass(unvisibleClass);
+    $auxListContainer.removeClass(unvisibleClass);
+  });
   //  function initAuxContainer() {}
 }]);

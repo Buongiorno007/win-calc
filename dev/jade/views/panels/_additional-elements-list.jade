@@ -1,0 +1,111 @@
+.config-panel.additional-list-container.unvisible(ng-controller="AdditionalElementsListCtrl")
+  form(name='searchForm')
+    .aux-search-block
+      input.search-input(placeholder="{{ 'additional_elements.INPUT_ADD_ELEMENT' | translate }}")
+      button.delete-search
+      button.cancel-search.unvisible {{ 'additional_elements.CANCEL' | translate }}
+
+  .aux-search-content
+    ul.aux-list-groups
+      li.aux-list-group.aux_color_small(data-output="") {{ 'additional_elements.VISORS' | translate }}
+        button.group-indicator
+        .search-elements-block
+      li.aux-list-group.aux_color_slope(data-output="") {{ 'additional_elements.VISORS' | translate }}
+        button.group-indicator
+        .search-elements-block
+      li.aux-list-group.aux_color_big(data-output="") {{ 'additional_elements.VISORS' | translate }}
+        button.group-indicator
+        .search-elements-block
+          button.search-element KO-350
+          button.search-element KO-350
+          button.search-element KO-350
+          button.search-element KO-350
+          button.search-element KO-350-258-000
+          button.search-element KO-350
+          button.search-element KO-350
+          button.search-element KO-350
+          button.search-element KO-350
+          button.search-element KO-350
+          button.search-element KO-350
+          button.search-element KO-350
+
+      li.aux-list-group.aux_color_middle(data-output="") {{ 'additional_elements.GRIDS' | translate }}
+        button.group-indicator
+        .search-elements-block
+          button.search-element KO-350
+          button.search-element KO-350
+          button.search-element KO-350
+          button.search-element KO-350
+          button.search-element KO-350-258-000
+          button.search-element KO-350
+          button.search-element KO-350
+          button.search-element KO-350
+          button.search-element KO-350
+          button.search-element KO-350
+          button.search-element KO-350
+          button.search-element KO-350
+
+  .aux-list-content
+    .aux-list-block.aux_color_big
+      .aux-list-block-title {{ 'additional_elements.VISORS' | translate }}
+      .aux-list-row
+        .aux-name
+          .aux-title(data-output="подоконник") подоконник подоконник подоконник
+          .aux-label(data-output="шт") {{ 'additional_elements.NAME_LABEL' | translate }}
+        .aux-params
+          button.aux-params-but.aux_big_but.qty-calc 1
+          .aux-label(data-output="шт") {{ 'additional_elements.QTY_LABEL' | translate }}
+        .aux-params
+          button.aux-params-but.aux_big_but.size-calc 1000
+          .aux-label(data-output="размер") {{ 'additional_elements.SIZE_LABEL' | translate }}
+        .aux-price(data-output="+12 300.00") +12 300.00
+        .aux-delete
+
+      .aux-list-row
+        .aux-name
+          .aux-title(data-output="подоконник") подоконник подоконник подоконник
+          .aux-label(data-output="шт") {{ 'additional_elements.NAME_LABEL' | translate }}
+        .aux-params
+          button.aux-params-but.aux_big_but.qty-calc 1
+          .aux-label(data-output="шт") {{ 'additional_elements.QTY_LABEL' | translate }}
+        .aux-params
+          button.aux-params-but.aux_big_but.size-calc 1000
+          .aux-label(data-output="размер") {{ 'additional_elements.SIZE_LABEL' | translate }}
+        .aux-price(data-output="+12 300.00") +12 300.00
+        .aux-delete
+
+    .aux-list-block.aux_color_middle
+      .aux-list-block-title {{ 'additional_elements.VISORS' | translate }}
+      .aux-list-row
+        .aux-name
+          .aux-title(data-output="подоконник") подоконник подоконник подоконник
+          .aux-label(data-output="шт") {{ 'additional_elements.NAME_LABEL' | translate }}
+        .aux-params
+          button.aux-params-but.aux_big_but.qty-calc 1
+          .aux-label(data-output="шт") {{ 'additional_elements.QTY_LABEL' | translate }}
+        .aux-params
+          button.aux-params-but.aux_big_but.size-calc 1000
+          .aux-label(data-output="размер") {{ 'additional_elements.SIZE_LABEL' | translate }}
+        .aux-price(data-output="+12 300.00") +12 300.00
+        .aux-delete
+
+      .aux-list-row
+        .aux-name
+          .aux-title(data-output="подоконник") подоконник подоконник подоконник
+          .aux-label(data-output="шт") {{ 'additional_elements.NAME_LABEL' | translate }}
+        .aux-params
+          button.aux-params-but.aux_big_but.qty-calc 1
+          .aux-label(data-output="шт") {{ 'additional_elements.QTY_LABEL' | translate }}
+        .aux-params
+          button.aux-params-but.aux_big_but.size-calc 1000
+          .aux-label(data-output="размер") {{ 'additional_elements.SIZE_LABEL' | translate }}
+        .aux-price(data-output="+12 300.00") +12 300.00
+        .aux-delete
+
+    .aux-list-block
+      .aux-list-row
+         .aux-total-label {{ 'additional_elements.TOTAL_PRICE_TXT' | translate }}
+         .aux-total-price +12 300.00
+         .aux-delete
+
+  button.view-switch-tab {{ 'additional_elements.SCHEME_VIEW' | translate }}

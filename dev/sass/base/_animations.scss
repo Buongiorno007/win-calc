@@ -217,3 +217,9 @@
   @include animation(move-handle 1s 0 ease 1);
 }
 @include behavior-move(move-handle, -1000px, 2000px, 0, 0);
+
+//----View Tab
+.move-view-tab {
+  @include animation(move-tab 2s 0 ease 1);
+}
+@include behavior-move(move-tab, -200px, 700px, -126px, 700px);
