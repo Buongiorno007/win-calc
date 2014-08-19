@@ -3,5 +3,11 @@
   .user-foto
   .icon-location.unvisible
   .user-info-block
-    .user-location(data-output="{{ userInfo.location }}")
-    .user-name(data-output="{{ userInfo.name }}")
+    .user-location(data-output="{{ userInfo.location }}", typing="{{ userInfo.typing }}", typing-delay="2000")
+    .user-name(data-output="{{ userInfo.name }}", typing="{{ userInfo.typing }}", typing-delay="2000")
+
+  //.test
+    input(type="checkbox", ng-model="userInfo.checked", ng-click="changeTyping()")
+    span {{userInfo.checked}}
+    span {{userInfo.typing}}
+    input(ng-model="userInfo.location")

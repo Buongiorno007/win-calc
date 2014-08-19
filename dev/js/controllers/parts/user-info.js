@@ -1,24 +1,37 @@
-/* globals BauVoiceApp, STEP, showElementWithDelay, typingTextWithDelay */
+/* globals STEP, showElementWithDelay, typingTextWithDelay */
 
 'use strict';
 
-BauVoiceApp.controller('UserInfoCtrl', ['$rootScope', '$scope', function ($rootScope, $scope) {
+BauVoiceApp.controller('UserInfoCtrl', ['$rootScope', '$scope', 'locationService', function ($rootScope, $scope, locationService) {
   var $userInfoContainer = $('.user-info-container'),
-      $userLocation = $userInfoContainer.find('.user-location'),
-      $userName = $userInfoContainer.find('.user-name'),
       $userIconLocation = $userInfoContainer.find('.icon-location'),
 
       DELAY_SHOW_USER_INFO = 20 * STEP;
 
   showElementWithDelay($userIconLocation, DELAY_SHOW_USER_INFO);
-  typingTextWithDelay($userLocation, DELAY_SHOW_USER_INFO);
-  typingTextWithDelay($userName, DELAY_SHOW_USER_INFO);
 
   $scope.userInfo = {
     isConfigMenuShow: false,
-    location: 'Днепропетровск',
-    name: 'John Appleseed'
+    name: 'John Appleseed',
+    typing: 'on',
+    checked: false
   };
+
+  $scope.changeTyping = function () {
+    if ($scope.userInfo.checked) {
+      $scope.userInfo.typing = 'off';
+    } else {
+      $scope.userInfo.typing = 'on';
+    }
+  };
+
+  locationService.getCity(function (results) {
+    if (results.status) {
+      $scope.userInfo.location = results.data.city.name;
+    } else {
+      console.log(results);
+    }
+  });
 
   $scope.swipeMainPage = function() {
     $rootScope.$broadcast('swipeMainPage', true);
