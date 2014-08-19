@@ -1,16 +1,8 @@
-/* globals STEP, showElementWithDelay, typingTextWithDelay */
-
 'use strict';
 
 BauVoiceApp.controller('UserInfoCtrl', ['$rootScope', '$scope', 'locationService', function ($rootScope, $scope, locationService) {
-  var $userInfoContainer = $('.user-info-container'),
-      $userIconLocation = $userInfoContainer.find('.icon-location'),
-
-      DELAY_SHOW_USER_INFO = 20 * STEP;
-
-  showElementWithDelay($userIconLocation, DELAY_SHOW_USER_INFO);
-
   $scope.userInfo = {
+    DELAY_SHOW_USER_INFO: 2000,
     isConfigMenuShow: false,
     name: 'John Appleseed',
     typing: 'on',
