@@ -1,5 +1,3 @@
-/* globals STEP */
-
 'use strict';
 
 BauVoiceApp.directive('price', function () {
@@ -31,10 +29,11 @@ BauVoiceApp.directive('price', function () {
       function changePrice(price) {
         var DELAY_PRICE_DIGIT = STEP * 2,
             DIGIT_CELL_HEIGHT = 64,
-            MAX_DIGITS = 11,
-            n = 0,
             priceByDigit = price.toString().split(''),
             digitCells = elem.find('#price').children(),
+            MAX_DIGITS = digitCells.length,
+            COLUMN_LENGTH = $(digitCells[0]).children().length,
+            n = 0,
             $digitCell,
             digit, scrollDigitY,
             i;
@@ -49,7 +48,7 @@ BauVoiceApp.directive('price', function () {
 
         changePrice.animateDigit = function () {
           if (digit === '.') {
-            scrollDigitY = MAX_DIGITS * DIGIT_CELL_HEIGHT;
+            scrollDigitY = (COLUMN_LENGTH - 1) * DIGIT_CELL_HEIGHT;
           } else {
             scrollDigitY = (parseInt(digit, 10) + 1) * DIGIT_CELL_HEIGHT;
           }
