@@ -17,10 +17,15 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', function ($scope) {
       $auxColor = $elementsListContainer.find('.color-img'),
       $calculatorEqualBTN = $elementsListContainer.find('.calc-equal'),
 
+      $auxListItem = $elementsListContainer.find('.aux-list-item'),
+      $auxListRow = $elementsListContainer.find('.aux-list-row'),
+
       $auxContainer = $('.auxiliaries-container'),
       $auxiliaryItem = $auxContainer.find('.auxiliary-item'),
       $auxChooseButton = $auxContainer.find('.aux-choose-but'),
       $auxParams = $auxContainer.find('.aux-params'),
+
+      $auxListContainer = $('.additional-list-container'),
 
       tabBlockClass = '.tab-block',
 
@@ -40,6 +45,18 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', function ($scope) {
     // update additional element
     $auxContainer.find('.'+focuseClass).removeClass(focuseClass).addClass(selectClass);
 
+    // Open element if additional List View ia active
+    if($auxListContainer.hasClass(activeClass)) {
+      $auxListRow.each(function() {
+        $(this).addClass(unvisibleClass);
+      });
+      $auxListItem.each(function() {
+        $(this).removeClass(selectClass);
+      });
+      var currListItem = $(this).find('.aux-list-item');
+      currListItem.addClass(selectClass);
+      removeClassWithDelay(currListItem.find('.aux-list-row'), unvisibleClass, 5*STEP);
+    }
   });
 
   // Close Elements Lists

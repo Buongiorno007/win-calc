@@ -15,18 +15,20 @@
           .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
           button.element-info
 
-          //.aux-list-row
-            .aux-name
-              .aux-title(data-output="подоконник") подоконник подоконник подоконник
-              .aux-label(data-output="шт") {{ 'additional_elements.NAME_LABEL' | translate }}
-            .aux-params
-              button.aux-params-but.aux_big_but.qty-calc 1
-              .aux-label(data-output="шт") {{ 'additional_elements.QTY_LABEL' | translate }}
-            .aux-params
-              button.aux-params-but.aux_big_but.size-calc 1000
-              .aux-label(data-output="размер") {{ 'additional_elements.SIZE_LABEL' | translate }}
-            .aux-price(data-output="+12 300.00") +12 300.00
-            button.aux-choose-but
+          .list-item
+            .aux-list-item
+              .aux-list-row.unvisible
+                .aux-name
+                  .aux-title(data-output="подоконник") подоконник подоконник подоконник
+                  .aux-label(data-output="шт") {{ 'additional_elements.NAME_LABEL' | translate }}
+                .aux-params
+                  button.aux-params-but.aux_big_but.qty-calc 1
+                  .aux-label(data-output="шт") {{ 'additional_elements.QTY_LABEL' | translate }}
+                .aux-params
+                  button.aux-params-but.aux_big_but.size-calc 1000
+                  .aux-label(data-output="размер") {{ 'additional_elements.SIZE_LABEL' | translate }}
+                .aux-price(data-output="+12 300.00") +12 300.00
+                button.aux-choose-but Выбрать
 
 
         li.item

@@ -425,7 +425,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   .aux-handle-txt {
     @include top_left_coord(35, 150);
   }
-
+/*
   .aux-choose-but {
     @extend .splash;
     @extend .small-button;
@@ -434,7 +434,7 @@ $aux-img-select-path: 'auxiliaries-selected';
     padding: 0 30px;
     background-color: transparent;
   }
-
+*/
   .aux_big_but {
     color: $aux_big_color;
     border-color: $aux_big_color;

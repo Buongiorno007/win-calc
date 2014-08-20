@@ -75,6 +75,8 @@
     @include flex-flow(row nowrap);
     @include justify-content(space-between);
     @include align-items(center);
+
+    position: relative;
   }
   .value {
     max-width: 88%;
@@ -95,6 +97,28 @@
       display: block;
       color: #fff;
       content: $info-i-icon;
+    }
+  }
+
+  .list-item {
+    position: fixed;
+  }
+  .aux-list-item {
+    @include top_left_coord(-10, -1936);
+    @include transition(all 0.3s linear);
+
+    position: absolute;
+    width: 0px;
+    border-style: solid;
+    border-color:#dcdcdc;
+    border-width: 0;
+    border-top-left-radius: $radius_login-container;
+    border-bottom-left-radius: $radius_login-container;
+    background-color: #fff;
+    &.selected {
+      width: 1500px;
+      border-width: 1px 0 1px 1px;
+      padding: 20px 40px;
     }
   }
 

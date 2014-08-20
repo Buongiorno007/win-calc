@@ -156,7 +156,7 @@
   }
 
   .aux-list-block-title,
-  .aux-price,
+  //.aux-price,
   .aux-total-label {
     @include roboto-bd(36px);
 
@@ -164,12 +164,13 @@
   }
 
   .aux-list-row {
-    @include display-flex();
-    @include flex-flow(row nowrap);
-    @include justify-content(space-between);
-    @include align-items(flex-start);
+    //@include display-flex();
+    //@include flex-flow(row nowrap);
+    //@include justify-content(space-between);
+    //@include align-items(flex-start);
     margin-bottom: 20px;
   }
+  /*
   .aux-name {
     max-width: 50%;
   }
@@ -180,6 +181,7 @@
     min-width: 20%;
     text-align: right;
   }
+  */
   .aux-total-price {
     @extend .aux-price;
   }

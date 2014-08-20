@@ -1,3 +1,12 @@
+.aux-choose-but {
+  @extend .splash;
+  @extend .small-button;
+  @extend .ghost-button;
+
+  padding: 0 30px;
+  background-color: transparent;
+}
+
 .parameters-block {
   .aux-title {
     @extend .truncated;
@@ -38,10 +47,41 @@
   z-index: 1;
 }
 
+// List View
+
+.aux-list-row {
+  @include display-flex();
+  @include flex-flow(row nowrap);
+  @include justify-content(space-between);
+  @include align-items(flex-start);
+}
+.aux-name {
+  max-width: 50%;
+}
+.aux-title {
+  max-width: 90%;
+}
+.aux-price {
+  @include roboto-bd(36px);
+  min-width: 20%;
+  text-align: right;
+  color: $main_gray_txt;
+}
+
+
 .aux_color_big {
   .item {
     &.active {
       background-color: $aux_big_color;
+    }
+  }
+  .aux-list-item {
+    &.selected {
+      .aux-choose-but {
+        color: #fff;
+        border-color: $aux_big_color;
+        background-color: $aux_big_color;
+      }
     }
   }
   .frame-tab {
@@ -84,6 +124,15 @@
       background-color: $aux_middle_color;
     }
   }
+  .aux-list-item {
+    &.selected {
+      .aux-choose-but {
+        color: #fff;
+        border-color: $aux_middle_color;
+        background-color: $aux_middle_color;
+      }
+    }
+  }
   .frame-tab {
     &.active {
       border-top-color: $aux_middle_color;
@@ -121,6 +170,15 @@
   .item {
     &.active {
       background-color: $aux_connect_color;
+    }
+  }
+  .aux-list-item {
+    &.selected {
+      .aux-choose-but {
+        color: #fff;
+        border-color: $aux_connect_color;
+        background-color: $aux_connect_color;
+      }
     }
   }
   .frame-tab {
@@ -162,6 +220,15 @@
       background-color: $main_green;
     }
   }
+  .aux-list-item {
+    &.selected {
+      .aux-choose-but {
+        color: #fff;
+        border-color: $main_green;
+        background-color: $main_green;
+      }
+    }
+  }
   .frame-tab {
     &.active {
       border-top-color: $main_green;
@@ -200,6 +267,15 @@
   .item {
     &.active {
       background-color: $aux_small_color;
+    }
+  }
+  .aux-list-item {
+    &.selected {
+      .aux-choose-but {
+        color: #fff;
+        border-color: $aux_small_color;
+        background-color: $aux_small_color;
+      }
     }
   }
   .frame-tab {
