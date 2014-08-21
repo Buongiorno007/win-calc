@@ -34,7 +34,8 @@ BauVoiceApp.factory('localStorage', ['$http', function ($http) {
   // SQL requests for select data from tables
   var selectDeviceCodeLocalDb = "SELECT device_code as code, sync FROM device",
     selectUser = "SELECT count(id) as login FROM users WHERE phone = ? AND password = ?",
-    selectUserInfo = "SELECT users.name, users.city_id, cities.name as city_name, users.avatar FROM users LEFT JOIN cities ON users.city_id = cities.id";
+    selectUserInfo = "SELECT users.name, users.city_id, cities.name as city_name, users.avatar FROM users LEFT JOIN cities ON users.city_id = cities.id",
+    selectLastSync = "SELECT last_sync FROM device";
 
   // SQL requests for inserting data into tables
   var insertDeviceCodeLocalDb = "INSERT INTO device (id, device_code, sync) VALUES (?, ?, ?)";
@@ -356,6 +357,61 @@ BauVoiceApp.factory('localStorage', ['$http', function ($http) {
         callback(new ErrorResult(2, 'Something went wrong with importing Database!'));
       });
 
+    },
+
+    getLastSync: function (callback) {
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
+      db.transaction(function (transaction) {
+        transaction.executeSql(selectLastSync, [], function (transaction, result) {
+          if (result.rows.length) {
+            callback(new OkResult({last_sync: result.rows.item(0).last_sync}));
+          } else {
+            callback(new ErrorResult(2, 'No last_sync data in database!'));
+          }
+        }, function () {
+          callback(new ErrorResult(2, 'Something went wrong with selection last_sync record'));
+        });
+      });
+    },
+
+    syncDb: function (callback) {
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, k, table, updateSql, lastSyncDate, deviceCode;
+      var self = this;
+
+      this.getDeviceCodeLocalDb(function (result) {
+        deviceCode = result.data.deviceCode;
+        self.getLastSync(function (result) {
+          lastSyncDate = result.data.last_sync;
+
+          $http.get('http://api.voice-creator.net/sync/elements?access_token=' + deviceCode + '&last_sync=' + lastSyncDate).success(function (result) {
+
+            db.transaction(function (transaction) {
+              for (table in result.tables) {
+                for (i = 0; i < result.tables[table].rows.length; i++) {
+                  updateSql = '';
+                  for(k = 0; k < result.tables[table].fields.length; k++){
+                    if(!k)
+                      updateSql += result.tables[table].fields[k] + " = '" + result.tables[table].rows[i][k] + "'";
+                    else
+                      updateSql += ", " + result.tables[table].fields[k] + " = '" + result.tables[table].rows[i][k] + "'";
+                  }
+                  transaction.executeSql("UPDATE " + table + " SET " + updateSql + " WHERE id = " + result.tables[table].rows[i][0], [], function () {
+                  }, function () {
+                    callback(new ErrorResult(2, 'Something went wrong with updating ' + table + ' record'));
+                  });
+                }
+              }
+              transaction.executeSql(updateDeviceSync, [""+result.last_sync+""], null, function () {
+                callback(new ErrorResult(2, 'Something went wrong with updating device table!'));
+              });
+              callback({status: true});
+            });
+
+          }).error(function () {
+            callback(new ErrorResult(2, 'Something went wrong with sync Database!'));
+          });
+        });
+      });
     },
 
     clearDb: function (callback) {
