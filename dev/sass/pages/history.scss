@@ -1,0 +1,453 @@
+.history-page {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.accounts-container {
+  @include top_left_coord(0, -2500);
+  @include transition(all 0.5s linear);
+
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 50px;
+  padding-left: 100px;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  background-color: #fafafa;
+
+  &.active {
+    @include top_left_coord(0, 0);
+  }
+
+  .history-header {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    margin-bottom: 50px;
+  }
+  .user-info-container {
+    top: 0;
+  }
+  .history-tools-panel {
+    @include display-flex();
+
+    position: absolute;
+    top: 30%;
+    right: 0;
+  }
+  .tools-block {
+    @include display-flex();
+    @include flex-flow(row nowrap);
+    @include align-items(center);
+
+    position: relative;
+    margin-right: 50px;
+    &:last-child {
+      margin: 0;
+    }
+    &.active {
+      .search-btn {
+        display: none;
+      }
+      .dropdown-tool-dialog {
+        display: block;
+      }
+    }
+  }
+  .tool {
+    @extend .button;
+    @extend .splash;
+    @extend .icon-setting;
+
+    position: relative;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    &:after {
+      position: absolute;
+      top: 8%;
+      left: 10%;
+      color: $main_orange;
+    }
+  }
+  .search-btn {
+    @include font-general-icon(40px, 1);
+    &:after {
+      content: $search-icon;
+    }
+  }
+  .calendar-btn {
+    @include font-general-icon(40px, 1);
+    &:after {
+      content: $calendar-icon;
+    }
+  }
+  .settings-btn {
+    @include font-nav-menu(40px, 1);
+    &:after {
+      content: $settings-icon;
+    }
+  }
+  .time-interval {
+    @include roboto-bd(24px, 24px);
+
+    margin-left: 20px;
+    color: $main_gray_txt;
+  }
+
+  .dropdown-tool-dialog {
+    @extend .splash;
+
+    display: none;
+    position: absolute;
+    top: 78px;
+    right: -15px;
+    width: 655px;
+    border-radius: $radius_rooms-dialog;
+    background-color: #fff;
+    z-index: 999;
+    &:after {
+      position: absolute;
+      top: -24px;
+      width: 0;
+      border-width: 0 25px 25px;
+      border-style: solid;
+      border-color: #f8f8f8 transparent;
+      content: '';
+    }
+  }
+  .date-filter {
+    &:after {
+      left: 36%;
+    }
+  }
+  .sort-filter {
+    &:after {
+      right: 2%;
+    }
+  }
+  // если не указан временной интервал
+  .time-interval.empty ~ .date-filter {
+    &:after {
+      left: 88%;
+    }
+  }
+
+//------Settings Filter
+
+  .filter-divider {
+    @include roboto-bd(24px, 74px);
+
+    padding-left: $config_menu-side_padding;
+    background-color: #f8f8f8;
+    color: #8c8c8c;
+    text-transform: uppercase;
+    border-style: solid;
+    border-color: #c4c3c3;
+    border-width: 1px 0;
+    &:first-child {
+      border-top-width: 0;
+      border-top-left-radius: $radius_rooms-dialog;
+      border-top-right-radius: $radius_rooms-dialog;
+    }
+  }
+
+  .filter-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    padding-left: $config_menu-side_padding;
+  }
+  .filter-item {
+    @include display-flex();
+    @include flex-flow(row nowrap);
+    @include justify-content(space-between);
+
+    border-bottom: 1px solid $main_gray_btn;
+    cursor: pointer;
+    &:last-child {
+      border-bottom: none;
+    }
+    &.selected {
+      .filter-select-icon {
+        display: block;
+      }
+    }
+  }
+  .filter-label {
+    @include roboto-lt(36px, 87px);
+
+    color: $main_gray_txt;
+  }
+
+  .select-icon {
+    position: relative;
+    width: 65px;
+    &:after {
+      @include top_left_coord(10, 0);
+
+      position: absolute;
+      color: $main_orange;
+      content: $select-history-icon;
+    }
+  }
+
+  .filter-select-icon {
+    @extend .select-icon;
+    @include font-general-icon(30px, 70px);
+
+    display: none;
+  }
+
+//------Date Filter
+
+  .date-filter {
+    text-align: center;
+  }
+  .filter-title {
+    @include roboto-bd(24px, 88px);
+
+    border-top-left-radius: $radius_rooms-dialog;
+    border-top-right-radius: $radius_rooms-dialog;
+    text-transform: uppercase;
+    background-color: #f8f8f8;
+    color: $main_gray_txt;
+  }
+
+  .period {
+    @include roboto-lt(36px, 88px);
+
+    color: $main_orange;
+    background-color: #fff;
+    cursor: pointer;
+    &.selected {
+      color: #fff;
+      background-color: $main_orange;
+    }
+  }
+
+  .tatal-date {
+    border-bottom-left-radius: $radius_rooms-dialog;
+    border-bottom-right-radius: $radius_rooms-dialog;
+  }
+
+  .date-list {
+    margin: 0;
+    padding: 0;
+    max-height: 400px;
+    list-style: none;
+    overflow-y: auto;
+    background-color: #f8f8f8;
+  }
+  .date-item {
+    @include display-flex();
+    @include flex-flow(row nowrap);
+    @include justify-content(space-around);
+    @include roboto-lt(36px, 64px);
+
+    color: $main_gray_btn;
+    cursor: pointer;
+    &.selected {
+      border-style: solid;
+      border-color: $main_gray_btn;
+      border-width: 1px 0;
+      color: $main_gray_txt;
+    }
+  }
+
+//-----Accounts
+
+  .account-block {
+    @extend .splash;
+
+    position: relative;
+    width: 93%;
+    height: 446px;
+    margin-bottom: 50px;
+  }
+
+  .account {
+    @include box-shadow($main_gray_btn 0px 0px 15px 1px);
+
+    position: absolute;
+    width: 100%;
+    border: 1px solid $main_gray_btn;
+    border-radius: $radius_account-top $radius_account-top $radius_account-bottom $radius_account-bottom;
+    background-color: #fff;
+    z-index: 2;
+    &.current {
+      .footer {
+        background-color: $main_green;
+      }
+    }
+    &.wait {
+      .footer {
+        background-color: #f9b000;
+      }
+    }
+    &.done {
+      background-color: #f0f0f0;
+      .account-select-btn,
+      .account-delete-btn {
+        display: none;
+      }
+    }
+  }
+  .account-row {
+    @include display-flex();
+    @include flex-flow(row nowrap);
+    @include align-items(center);
+    padding: 20px 30px;
+
+    &:first-child {
+      border-bottom: 1px solid $main_gray_btn;
+    }
+    &:last-of-type {
+      border-top: 1px solid $main_gray_btn;
+    }
+    &.header,
+    &.footer {
+      @include justify-content(space-between);
+    }
+    &.footer {
+      @include roboto-bd(48px);
+
+      border-bottom-left-radius: $radius_account-bottom;
+      border-bottom-right-radius: $radius_account-bottom;
+      color: $main_gray_txt;
+    }
+  }
+  .account-data {
+    &.title {
+      @include display-flex();
+      @include flex-flow(row nowrap);
+    }
+    &.phone {
+      margin-right: 30px;
+      padding-right: 30px;
+      border-right: 1px solid $main_gray_btn;
+    }
+  }
+  .complete-icon {
+    @extend .select-icon;
+    @include font-general-icon(30px, 1);
+  }
+  .account-id {
+    @include roboto-md(36px);
+
+    color: $main_gray_txt;
+  }
+  .account-addinfo {
+    @include roboto-lt(36px);
+    margin-left: 10px;
+    color: #8c8c8c;
+  }
+
+  .account-date-filter,
+  .account-label {
+    @include roboto-lt(22px);
+
+    color: #8c8c8c;
+  }
+
+  .user-data {
+    @include roboto-lt(36px);
+
+    color: $main_gray_txt;
+  }
+
+  .account-tool {
+    @extend .button;
+    @extend .icon-setting;
+    @include font-general-icon(45px, 1);
+
+    position: absolute;
+    width: 120px;
+    height: 112px;
+    border-top-right-radius: $radius_account-tool;
+    border-bottom-right-radius: $radius_account-tool;
+    z-index: 1;
+  }
+  .account-select-btn {
+    @include font-general-icon(30px, 1);
+    top: 50px;
+    right: -120px;
+    background-color: $main_green;
+    &:after {
+      color: #fff;
+      content: $select-history-icon;
+    }
+  }
+  .account-copy-btn {
+    top: 180px;
+    right: -120px;
+    background-color: #c6c6c6;
+    &:after {
+      color: $main_gray_txt;
+      content: $copy-doc-icon;
+    }
+  }
+  .account-print-btn {
+    top: 310px;
+    right: -120px;
+    background-color: #c6c6c6;
+    &:after {
+      color: $main_gray_txt;
+      content: $printer-icon;
+    }
+  }
+  .account-delete-btn {
+    @extend .small-cross-btn;
+
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    background-color: $main_green;
+    z-index: 2;
+  }
+  .account-change-btn {
+    @extend .button;
+    @include roboto-rg(24px);
+
+    position: absolute;
+    top: 200px;
+    right: 0px;
+    width: 160px;
+    height: 70px;
+    border-top-left-radius: $radius_account-tool;
+    border-bottom-left-radius: $radius_account-tool;
+    background-color: $main_green;
+    color: #fff;
+    z-index: 2;
+  }
+}
+
+
+.draft-view {
+  .account-block {
+    height: 204px;
+  }
+  .account-row {
+    &:first-child {
+      background-color: #e5e5e5;
+      border-bottom: none;
+    }
+    &:last-of-type {
+      background-color: #d8d8d8;
+    }
+  }
+  .account-print-btn {
+    top: 50px;
+  }
+}
+
+
+.dark-fon {
+  background-color: #e1e1e1;
+  .account,
+  .account.done {
+    background-color: #e5e5e5;
+  }
+}

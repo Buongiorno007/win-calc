@@ -1,6 +1,9 @@
 "use strict";
 
 window.russianDictionary = {
+  common_words: {
+    CHANGE: 'Изменить'
+  },
   login: {
     ENTER: 'Войти',
     PASS_CODE: 'Сообщите этот код кому-нибудь.',
@@ -25,6 +28,10 @@ window.russianDictionary = {
     VISORS: 'Козырьки',
     GRIDS: 'Москитные сетки',
     TOTAL_PRICE_TXT: 'Итого дополнительных компонентов на сумму:'
+  },
+  history: {
+    DRAFT_VIEW: 'Черновики расчетов',
+    HISTORY_VIEW: 'История расчетов'
   },
 
   'SWITCH_LANG': 'English'

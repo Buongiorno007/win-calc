@@ -1,0 +1,240 @@
+section.history-page
+
+  section.accounts-container.history-view.active
+    .history-header
+      include parts/_user-info
+      .history-search.unvisible
+        include parts/_search-block
+      .history-tools-panel
+        .tools-block.search-tool
+          button.tool.search-btn
+        .tools-block.tool-drop
+          button.tool.calendar-btn
+          .time-interval 19 April, 2012 - 23 March, 2014
+          //.time-interval.empty
+          .dropdown-tool-dialog.date-filter
+            .filter-title Диапазон дат
+            .period.start-date.selected От 12 июня, 2012
+            .period.finish-date До 23 марта, 2014
+            ul.date-list
+              li.date-item
+                .day 9
+                .month Октябрь
+                .year 2013
+              li.date-item
+                .day 10
+                .month Октябрь
+                .year 2013
+              li.date-item.selected
+                .day 10
+                .month Октябрь
+                .year 2013
+              li.date-item
+                .day 10
+                .month Октябрь
+                .year 2013
+              li.date-item
+                .day 10
+                .month Октябрь
+                .year 2013
+              li.date-item
+                .day 10
+                .month Октябрь
+                .year 2013
+              li.date-item
+                .day 10
+                .month Октябрь
+                .year 2013
+            .period.tatal-date За все время
+
+        .tools-block.tool-drop
+          button.tool.settings-btn
+          .dropdown-tool-dialog.sort-filter
+            .filter-divider Сортировка
+            ul.filter-list
+              li.filter-item
+                .filter-label По времени: новые в начале
+                .filter-select-icon
+              li.filter-item
+                .filter-label По времени: новые в конце
+                .filter-select-icon
+              li.filter-item
+                .filter-label По типам
+                .filter-select-icon
+            .filter-divider Показать
+            ul.filter-list
+              li.filter-item
+                .filter-label Все
+                .filter-select-icon
+              li.filter-item
+                .filter-label Только активные
+                .filter-select-icon
+              li.filter-item
+                .filter-label Только в ожидании
+                .filter-select-icon
+              li.filter-item
+                .filter-label Только завершенные
+                .filter-select-icon
+
+
+
+    .account-block
+      .account.current
+        .account-row.header
+          .account-data.title
+            .complete-icon
+            .account-id id 541321234566
+            .account-addinfo - включены доставка и монтаж
+          .account-data
+            .account-label.account-date-filter от 19 April, 2012
+        .account-row
+          .account-data
+            .user-data.account-user Андреева Светлана Петровна
+            .account-label клиент
+        .account-row
+          .account-data.phone
+            .user-data.account-user-phone +38(074)326-3366
+            .account-label телефон
+          .account-data
+            .user-data.account-user-adress Днепропетровск, ул.Карла Маркса, 48
+            .account-label адрес
+        .account-row.footer
+          .account-value 100 455.00, 10 платежей по 9 125.00
+          .account-date 1561 изделий на 18.04.2014
+
+      button.account-tool.account-select-btn
+      button.account-tool.account-copy-btn
+      button.account-tool.account-print-btn
+      button.account-delete-btn
+      button.account-change-btn {{ 'common_words.CHANGE' | translate }}
+
+    .account-block
+      .account.wait
+        .account-row.header
+          .account-data.title
+            .complete-icon
+            .account-id id 541321234566
+            .account-addinfo - включены доставка и монтаж
+          .account-data
+            .account-label.account-date-filter от 19 April, 2012
+        .account-row
+          .account-data
+            .user-data.account-user Андреева Светлана Петровна
+            .account-label клиент
+        .account-row
+          .account-data.phone
+            .user-data.account-user-phone +38(074)326-3366
+            .account-label телефон
+          .account-data
+            .user-data.account-user-adress Днепропетровск, ул.Карла Маркса, 48
+            .account-label адрес
+        .account-row.footer
+          .account-value 100 455.00, 10 платежей по 9 125.00
+          .account-date 1561 изделий на 18.04.2014
+
+      button.account-tool.account-select-btn
+      button.account-tool.account-copy-btn
+      button.account-tool.account-print-btn
+      button.account-delete-btn
+      button.account-change-btn {{ 'common_words.CHANGE' | translate }}
+
+    .account-block
+      .account.done
+        .account-row.header
+          .account-data.title
+            .complete-icon
+            .account-id id 541321234566
+            .account-addinfo - включены доставка и монтаж
+          .account-data
+            .account-label.account-date-filter от 19 April, 2012
+        .account-row
+          .account-data
+            .user-data.account-user Андреева Светлана Петровна
+            .account-label клиент
+        .account-row
+          .account-data.phone
+            .user-data.account-user-phone +38(074)326-3366
+            .account-label телефон
+          .account-data
+            .user-data.account-user-adress Днепропетровск, ул.Карла Маркса, 48
+            .account-label адрес
+        .account-row.footer
+          .account-value 100 455.00, 10 платежей по 9 125.00
+          .account-date 1561 изделий на 18.04.2014
+
+      button.account-tool.account-select-btn
+      button.account-tool.account-copy-btn
+      button.account-tool.account-print-btn
+      button.account-delete-btn
+      button.account-change-btn {{ 'common_words.CHANGE' | translate }}
+
+    button.view-switch-tab {{ 'history.DRAFT_VIEW' | translate }}
+
+
+  section.accounts-container.draft-view
+    .history-header
+      include parts/_user-info
+      .history-tools-panel
+        .tools-block.tool-drop
+          button.tool.calendar-btn
+          //.time-interval 19 April, 2012 - 23 March, 2014
+          .time-interval.empty
+          .dropdown-tool-dialog.date-filter
+            .filter-title Диапазон дат
+            .period.start-date.selected От 12 июня, 2012
+            .period.finish-date До 23 марта, 2014
+            ul.date-list
+              li.date-item
+                .day 9
+                .month Октябрь
+                .year 2013
+              li.date-item
+                .day 10
+                .month Октябрь
+                .year 2013
+              li.date-item.selected
+                .day 10
+                .month Октябрь
+                .year 2013
+              li.date-item
+                .day 10
+                .month Октябрь
+                .year 2013
+            .period.tatal-date За все время
+
+        .tools-block.tool-drop
+          button.tool.settings-btn
+          .dropdown-tool-dialog.sort-filter
+            .filter-divider Сортировка
+            ul.filter-list
+              li.filter-item
+                .filter-label По времени: новые в начале
+                .filter-select-icon
+              li.filter-item
+                .filter-label По времени: новые в конце
+                .filter-select-icon
+
+    .account-block
+      .account
+        .account-row.header
+          .account-id Черновик
+          .account-label.account-date-filter от 19 April, 2012
+        .account-row.footer
+          .account-value 100 455.00, 10 платежей по 9 125.00
+          .account-qty 1561 изделий на 18.04.2014
+      button.account-tool.account-print-btn
+      button.account-delete-btn
+
+    .account-block
+      .account
+        .account-row.header
+          .account-id Черновик
+          .account-label.account-date-filter от 19 April, 2012
+        .account-row.footer
+          .account-value 100 455.00, 10 платежей по 9 125.00
+          .account-qty 1561 изделий на 18.04.2014
+      button.account-tool.account-print-btn
+      button.account-delete-btn
+
+    button.view-switch-tab {{ 'history.HISTORY_VIEW' | translate }}
+

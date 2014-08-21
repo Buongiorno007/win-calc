@@ -1,0 +1,65 @@
+.search-block {
+  position: relative;
+  margin-bottom: 50px;
+
+  &:before {
+    @extend .icon-setting;
+    @include font-general-icon(50px, 1);
+
+    position: absolute;
+    top: 25%;
+    left: 30px;
+    color: $main_orange;
+    content: $search-icon;
+  }
+
+  .search-input {
+    @include roboto-lt(36px);
+
+    width: 1150px;
+    height: 115px;
+    padding-left: 100px;
+    border: 1px solid #dcdcdc;
+    border-radius: $radius_login-container;
+    background-color: #fff;
+    outline: none;
+    color: #8c8c8c;
+
+    &:focus {
+      border-color: $main_orange;
+    }
+  }
+
+  .delete-search {
+    @extend .cross-btn;
+    @extend .splash;
+    @include font-general-icon(40px, 1);
+
+    position: absolute;
+    top: 25%;
+    left: 1060px;
+    width: 60px;
+    height: 60px;
+    background-color: $main_gray_btn;
+    &:after {
+      top: 16%;
+      left: 18%;
+    }
+  }
+  .cancel-search {
+    @extend .middle-button;
+    @extend .splash;
+
+    position: absolute;
+    top: 25%;
+    left: 1180px;
+    height: 70px;
+    padding: 0 28px;
+    color: #fff;
+    background-color: $main_orange;
+  }
+  .search-input:focus ~ .cancel-search {
+    display: block;
+  }
+
+}

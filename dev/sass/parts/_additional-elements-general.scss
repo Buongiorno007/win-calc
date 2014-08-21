@@ -27,26 +27,6 @@
   }
 }
 
-.view-switch-tab {
-  @extend .button;
-  @include rotate(90deg);
-  @include top_left_coord(700, -126);
-  @include roboto-bd(24px);
-
-  position: absolute;
-  width: 312px;
-  height: 60px;
-  background-color: #fff;
-  border-color: $main_gray_btn;
-  border-top-color: $main_orange;
-  border-width: 5px 1px 0 1px;
-  border-style: solid;
-  border-top-left-radius: $radius_frame-tab;
-  border-top-right-radius: $radius_frame-tab;
-  color: $main_gray_txt;
-  z-index: 1;
-}
-
 // List View
 
 .aux-list-row {

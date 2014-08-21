@@ -36,6 +36,11 @@ window.BauVoiceApp = angular.module('BauVoiceApp', [
         controller: 'LocationCtrl',
         title: 'Location'
       })
+      .when('/history', {
+        templateUrl: '../views/history.html',
+        controller: 'HistoryCtrl',
+        title: 'History'
+      })
       .otherwise({
         redirectTo: '/'
       });

@@ -1,5 +1,6 @@
 .config-panel.additional-list-container(ng-controller="AdditionalElementsListCtrl")
-  form(name='searchForm')
+  include ../parts/_search-block
+  //form(name='searchForm')
     .aux-search-block
       input.search-input(placeholder="{{ 'additional_elements.INPUT_ADD_ELEMENT' | translate }}")
       button.delete-search
