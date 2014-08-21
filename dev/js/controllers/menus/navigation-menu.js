@@ -90,6 +90,10 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'localStorage', fu
     $location.path('/settings');
   };
 
+  $scope.gotoHistoryPage = function () {
+    $location.path('/history');
+  };
+
   $scope.getCurrentGeolocation = function () {};
 
   $scope.setCurrentCity = function (city) {};
