@@ -41,6 +41,11 @@ window.BauVoiceApp = angular.module('BauVoiceApp', [
         controller: 'HistoryCtrl',
         title: 'History'
       })
+      .when('/cart', {
+        templateUrl: '../views/cart.html',
+        controller: 'CartCtrl',
+        title: 'Cart'
+      })
       .otherwise({
         redirectTo: '/'
       });

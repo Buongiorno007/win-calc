@@ -33,6 +33,12 @@ window.russianDictionary = {
     DRAFT_VIEW: 'Черновики расчетов',
     HISTORY_VIEW: 'История расчетов'
   },
+  cart: {
+    ALL_ADD_ELEMENTS: 'Все доп.элементы заказа',
+    ADD_ORDER: 'Добавить изделие',
+    LIGHT_VIEW: 'Сокращенный вид',
+    FULL_VIEW: 'Полный вид'
+  },
 
   'SWITCH_LANG': 'English'
 };

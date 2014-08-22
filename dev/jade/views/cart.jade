@@ -1,0 +1,376 @@
+section.cart-page
+
+  section.cart-container.full-view.active
+    .cart-header
+      include parts/_user-info
+      button.cart-tool.additional-elements {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
+      button.cart-tool.new-order {{ 'cart.ADD_ORDER' | translate }}
+
+    .order-block
+      .order
+        button.order-delete
+        .order-header
+          img.order-header-fon(src="../img/rooms-dialog/livingroom.jpg")
+          .order-template
+            img.icon-thumb(src="../img/templates/balcony.png")
+          .order-coeff Коэффициент телопередачи
+        .order-content
+          ul.order-list
+            li.order-item(data-panel="template-container")
+              .order-value(data-output="{{ configMenu.construction.width }}000 мм*") 1060 000 мм
+              .order-value(data-output="{{ configMenu.construction.height }}000 мм") 1060 000 мм
+              .order-label(data-output="ширина * высота -") ширина * высота -
+            li.order-item(data-panel="profile-container")
+              .order-value(data-output="{{ configMenu.profileName }}") ширина * высота -
+              .order-label(data-output="Профиль") Профиль
+            li.order-item(data-panel="glass-container")
+              .order-value(data-output="{{ configMenu.glassName }}") Стеклопакет
+              .order-label(data-output="Стеклопакет") Стеклопакет
+            li.order-item(data-panel="hardware-container")
+              .order-value(data-output="{{ configMenu.windowHardware }}") Фурнитура
+              .order-label(data-output="Фурнитура") Фурнитура
+            li.order-item(data-panel="lamination-container")
+              .row
+                .order-label(data-output="фасад") фасад
+                .order-value(data-output="{{ configMenu.lamination.outer }}") фасад
+              .row
+                .order-label(data-output="в комнате") в комнате
+                .order-value(data-output="{{ configMenu.lamination.inner }}") в комнате
+              .order-label(data-output="Ламинация") Ламинация
+            li.order-item(data-panel="auxiliaries-container")
+              .order-value(data-output="{{ configMenu.lamination.outer }}") 127 компонентов
+              .order-label(data-output="Дополнительно") Дополнительно
+          .order-qty
+            button.order-tool -
+            .order-value(data-output="{{ configMenu.lamination.outer }}") 127
+            button.order-tool +
+            .order-label.qty-label(data-output="Дополнительно") количество изделий
+        .order-footer 20455.00
+
+
+      .order
+        button.order-delete
+        .order-header
+          img.order-header-fon(src="../img/rooms-dialog/livingroom.jpg")
+          .order-template
+            img.icon-thumb(src="../img/templates/balcony.png")
+          .order-coeff Коэффициент телопередачи
+        .order-content
+          ul.order-list
+            li.order-item(data-panel="template-container")
+              .order-value(data-output="{{ configMenu.construction.width }}000 мм*") 1060 000 мм
+              .order-value(data-output="{{ configMenu.construction.height }}000 мм") 1060 000 мм
+              .order-label(data-output="ширина * высота -") ширина * высота -
+            li.order-item(data-panel="profile-container")
+              .order-value(data-output="{{ configMenu.profileName }}") ширина * высота -
+              .order-label(data-output="Профиль") Профиль
+            li.order-item(data-panel="glass-container")
+              .order-value(data-output="{{ configMenu.glassName }}") Стеклопакет
+              .order-label(data-output="Стеклопакет") Стеклопакет
+            li.order-item(data-panel="hardware-container")
+              .order-value(data-output="{{ configMenu.windowHardware }}") Фурнитура
+              .order-label(data-output="Фурнитура") Фурнитура
+            li.order-item(data-panel="lamination-container")
+              .row
+                .order-label(data-output="фасад") фасад
+                .order-value(data-output="{{ configMenu.lamination.outer }}") фасад
+              .row
+                .order-label(data-output="в комнате") в комнате
+                .order-value(data-output="{{ configMenu.lamination.inner }}") в комнате
+              .order-label(data-output="Ламинация") Ламинация
+            li.order-item(data-panel="auxiliaries-container")
+              .order-value(data-output="{{ configMenu.lamination.outer }}") 127 компонентов
+              .order-label(data-output="Дополнительно") Дополнительно
+          .order-qty
+            button.order-tool -
+            .order-value(data-output="{{ configMenu.lamination.outer }}") 127
+            button.order-tool +
+            .order-label.qty-label(data-output="Дополнительно") количество изделий
+        .order-footer 20455.00
+
+
+
+      .order
+        button.order-delete
+        .order-header
+          img.order-header-fon(src="../img/rooms-dialog/livingroom.jpg")
+          .order-template
+            img.icon-thumb(src="../img/templates/balcony.png")
+          .order-coeff Коэффициент телопередачи
+        .order-content
+          ul.order-list
+            li.order-item(data-panel="template-container")
+              .order-value(data-output="{{ configMenu.construction.width }}000 мм*") 1060 000 мм
+              .order-value(data-output="{{ configMenu.construction.height }}000 мм") 1060 000 мм
+              .order-label(data-output="ширина * высота -") ширина * высота -
+            li.order-item(data-panel="profile-container")
+              .order-value(data-output="{{ configMenu.profileName }}") ширина * высота -
+              .order-label(data-output="Профиль") Профиль
+            li.order-item(data-panel="glass-container")
+              .order-value(data-output="{{ configMenu.glassName }}") Стеклопакет
+              .order-label(data-output="Стеклопакет") Стеклопакет
+            li.order-item(data-panel="hardware-container")
+              .order-value(data-output="{{ configMenu.windowHardware }}") Фурнитура
+              .order-label(data-output="Фурнитура") Фурнитура
+            li.order-item(data-panel="lamination-container")
+              .row
+                .order-label(data-output="фасад") фасад
+                .order-value(data-output="{{ configMenu.lamination.outer }}") фасад
+              .row
+                .order-label(data-output="в комнате") в комнате
+                .order-value(data-output="{{ configMenu.lamination.inner }}") в комнате
+              .order-label(data-output="Ламинация") Ламинация
+            li.order-item(data-panel="auxiliaries-container")
+              .order-value(data-output="{{ configMenu.lamination.outer }}") 127 компонентов
+              .order-label(data-output="Дополнительно") Дополнительно
+          .order-qty
+            button.order-tool -
+            .order-value(data-output="{{ configMenu.lamination.outer }}") 127
+            button.order-tool +
+            .order-label.qty-label(data-output="Дополнительно") количество изделий
+        .order-footer 20455.00
+
+      .order
+        button.order-delete
+        .order-header
+          img.order-header-fon(src="../img/rooms-dialog/livingroom.jpg")
+          .order-template
+            img.icon-thumb(src="../img/templates/balcony.png")
+          .order-coeff Коэффициент телопередачи
+        .order-content
+          ul.order-list
+            li.order-item(data-panel="template-container")
+              .order-value(data-output="{{ configMenu.construction.width }}000 мм*") 1060 000 мм
+              .order-value(data-output="{{ configMenu.construction.height }}000 мм") 1060 000 мм
+              .order-label(data-output="ширина * высота -") ширина * высота -
+            li.order-item(data-panel="profile-container")
+              .order-value(data-output="{{ configMenu.profileName }}") ширина * высота -
+              .order-label(data-output="Профиль") Профиль
+            li.order-item(data-panel="glass-container")
+              .order-value(data-output="{{ configMenu.glassName }}") Стеклопакет
+              .order-label(data-output="Стеклопакет") Стеклопакет
+            li.order-item(data-panel="hardware-container")
+              .order-value(data-output="{{ configMenu.windowHardware }}") Фурнитура
+              .order-label(data-output="Фурнитура") Фурнитура
+            li.order-item(data-panel="lamination-container")
+              .row
+                .order-label(data-output="фасад") фасад
+                .order-value(data-output="{{ configMenu.lamination.outer }}") фасад
+              .row
+                .order-label(data-output="в комнате") в комнате
+                .order-value(data-output="{{ configMenu.lamination.inner }}") в комнате
+              .order-label(data-output="Ламинация") Ламинация
+            li.order-item(data-panel="auxiliaries-container")
+              .order-value(data-output="{{ configMenu.lamination.outer }}") 127 компонентов
+              .order-label(data-output="Дополнительно") Дополнительно
+          .order-qty
+            button.order-tool -
+            .order-value(data-output="{{ configMenu.lamination.outer }}") 127
+            button.order-tool +
+            .order-label.qty-label(data-output="Дополнительно") количество изделий
+        .order-footer 20455.00
+
+      .order
+        button.order-delete
+        .order-header
+          img.order-header-fon(src="../img/rooms-dialog/livingroom.jpg")
+          .order-template
+            img.icon-thumb(src="../img/templates/balcony.png")
+          .order-coeff Коэффициент телопередачи
+        .order-content
+          ul.order-list
+            li.order-item(data-panel="template-container")
+              .order-value(data-output="{{ configMenu.construction.width }}000 мм*") 1060 000 мм
+              .order-value(data-output="{{ configMenu.construction.height }}000 мм") 1060 000 мм
+              .order-label(data-output="ширина * высота -") ширина * высота -
+            li.order-item(data-panel="profile-container")
+              .order-value(data-output="{{ configMenu.profileName }}") ширина * высота -
+              .order-label(data-output="Профиль") Профиль
+            li.order-item(data-panel="glass-container")
+              .order-value(data-output="{{ configMenu.glassName }}") Стеклопакет
+              .order-label(data-output="Стеклопакет") Стеклопакет
+            li.order-item(data-panel="hardware-container")
+              .order-value(data-output="{{ configMenu.windowHardware }}") Фурнитура
+              .order-label(data-output="Фурнитура") Фурнитура
+            li.order-item(data-panel="lamination-container")
+              .row
+                .order-label(data-output="фасад") фасад
+                .order-value(data-output="{{ configMenu.lamination.outer }}") фасад
+              .row
+                .order-label(data-output="в комнате") в комнате
+                .order-value(data-output="{{ configMenu.lamination.inner }}") в комнате
+              .order-label(data-output="Ламинация") Ламинация
+            li.order-item(data-panel="auxiliaries-container")
+              .order-value(data-output="{{ configMenu.lamination.outer }}") 127 компонентов
+              .order-label(data-output="Дополнительно") Дополнительно
+          .order-qty
+            button.order-tool -
+            .order-value(data-output="{{ configMenu.lamination.outer }}") 127
+            button.order-tool +
+            .order-label.qty-label(data-output="Дополнительно") количество изделий
+        .order-footer 20455.00
+
+    button.view-switch-tab {{ 'cart.LIGHT_VIEW' | translate }}
+
+  section.cart-container.light-view
+    .cart-header
+      include parts/_user-info
+      button.cart-tool.additional-elements {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
+      button.cart-tool.new-order {{ 'cart.ADD_ORDER' | translate }}
+
+    .order-block
+      .order
+        button.order-delete
+        .order-header
+          .order-template
+            img.icon-thumb(src="../img/templates/balcony.png")
+        .order-content
+          .order-value(data-output="{{ configMenu.construction.width }}000 мм*") 1060 000 * 1060 000 мм
+          .order-qty
+            button.order-tool -
+            .order-value(data-output="{{ configMenu.lamination.outer }}") 127
+            button.order-tool +
+          .order-label(data-output="Дополнительно") количество изделий
+        .order-footer 20455.00
+
+      .order
+        button.order-delete
+        .order-header
+          .order-template
+            img.icon-thumb(src="../img/templates/balcony.png")
+        .order-content
+          .order-value(data-output="{{ configMenu.construction.width }}000 мм*") 1060 000 * 1060 000 мм
+          .order-qty
+            button.order-tool -
+            .order-value(data-output="{{ configMenu.lamination.outer }}") 127
+            button.order-tool +
+          .order-label(data-output="Дополнительно") количество изделий
+        .order-footer 20455.00
+
+      .order
+        button.order-delete
+        .order-header
+          .order-template
+            img.icon-thumb(src="../img/templates/balcony.png")
+        .order-content
+          .order-value(data-output="{{ configMenu.construction.width }}000 мм*") 1060 000 * 1060 000 мм
+          .order-qty
+            button.order-tool -
+            .order-value(data-output="{{ configMenu.lamination.outer }}") 127
+            button.order-tool +
+          .order-label(data-output="Дополнительно") количество изделий
+        .order-footer 20455.00
+
+      .order
+        button.order-delete
+        .order-header
+          .order-template
+            img.icon-thumb(src="../img/templates/balcony.png")
+        .order-content
+          .order-value(data-output="{{ configMenu.construction.width }}000 мм*") 1060 000 * 1060 000 мм
+          .order-qty
+            button.order-tool -
+            .order-value(data-output="{{ configMenu.lamination.outer }}") 127
+            button.order-tool +
+          .order-label(data-output="Дополнительно") количество изделий
+        .order-footer 20455.00
+
+      .order
+        button.order-delete
+        .order-header
+          .order-template
+            img.icon-thumb(src="../img/templates/balcony.png")
+        .order-content
+          .order-value(data-output="{{ configMenu.construction.width }}000 мм*") 1060 000 * 1060 000 мм
+          .order-qty
+            button.order-tool -
+            .order-value(data-output="{{ configMenu.lamination.outer }}") 127
+            button.order-tool +
+          .order-label(data-output="Дополнительно") количество изделий
+        .order-footer 20455.00
+
+      .order
+        button.order-delete
+        .order-header
+          .order-template
+            img.icon-thumb(src="../img/templates/balcony.png")
+        .order-content
+          .order-value(data-output="{{ configMenu.construction.width }}000 мм*") 1060 000 * 1060 000 мм
+          .order-qty
+            button.order-tool -
+            .order-value(data-output="{{ configMenu.lamination.outer }}") 127
+            button.order-tool +
+          .order-label(data-output="Дополнительно") количество изделий
+        .order-footer 20455.00
+
+      .order
+        button.order-delete
+        .order-header
+          .order-template
+            img.icon-thumb(src="../img/templates/balcony.png")
+        .order-content
+          .order-value(data-output="{{ configMenu.construction.width }}000 мм*") 1060 000 * 1060 000 мм
+          .order-qty
+            button.order-tool -
+            .order-value(data-output="{{ configMenu.lamination.outer }}") 127
+            button.order-tool +
+          .order-label(data-output="Дополнительно") количество изделий
+        .order-footer 20455.00
+
+      .order
+        button.order-delete
+        .order-header
+          .order-template
+            img.icon-thumb(src="../img/templates/balcony.png")
+        .order-content
+          .order-value(data-output="{{ configMenu.construction.width }}000 мм*") 1060 000 * 1060 000 мм
+          .order-qty
+            button.order-tool -
+            .order-value(data-output="{{ configMenu.lamination.outer }}") 127
+            button.order-tool +
+          .order-label(data-output="Дополнительно") количество изделий
+        .order-footer 20455.00
+
+      .order
+        button.order-delete
+        .order-header
+          .order-template
+            img.icon-thumb(src="../img/templates/balcony.png")
+        .order-content
+          .order-value(data-output="{{ configMenu.construction.width }}000 мм*") 1060 000 * 1060 000 мм
+          .order-qty
+            button.order-tool -
+            .order-value(data-output="{{ configMenu.lamination.outer }}") 127
+            button.order-tool +
+          .order-label(data-output="Дополнительно") количество изделий
+        .order-footer 20455.00
+
+      .order
+        button.order-delete
+        .order-header
+          .order-template
+            img.icon-thumb(src="../img/templates/balcony.png")
+        .order-content
+          .order-value(data-output="{{ configMenu.construction.width }}000 мм*") 1060 000 * 1060 000 мм
+          .order-qty
+            button.order-tool -
+            .order-value(data-output="{{ configMenu.lamination.outer }}") 127
+            button.order-tool +
+          .order-label(data-output="Дополнительно") количество изделий
+        .order-footer 20455.00
+
+      .order
+        button.order-delete
+        .order-header
+          .order-template
+            img.icon-thumb(src="../img/templates/balcony.png")
+        .order-content
+          .order-value(data-output="{{ configMenu.construction.width }}000 мм*") 1060 000 * 1060 000 мм
+          .order-qty
+            button.order-tool -
+            .order-value(data-output="{{ configMenu.lamination.outer }}") 127
+            button.order-tool +
+          .order-label(data-output="Дополнительно") количество изделий
+        .order-footer 20455.00
+
+    button.view-switch-tab {{ 'cart.FULL_VIEW' | translate }}

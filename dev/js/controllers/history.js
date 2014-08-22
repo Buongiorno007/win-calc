@@ -13,7 +13,7 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', function ($scope) {
       $viewSwitcher = $historyPage.find('.view-switch-tab'),
       $accountsСontainer = $historyPage.find('.accounts-container'),
 
-      $historyView = $('.history-view'),
+      $historyView = $historyPage.find('.history-view'),
       $userInfoContainer = $historyView.find('.user-info-container'),
       $toolDrop = $historyView.find('.tool'),
       $toolsBlock = $historyView.find('.tool-drop'),
@@ -21,7 +21,7 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', function ($scope) {
       $periodDateFilter = $historyView.find('.period'),
       $dateItemDateFilter = $historyView.find('.date-item'),
 
-      $draftView = $('.draft-view'),
+      $draftView = $historyPage.find('.draft-view'),
       $toolDropDraft = $draftView.find('.tool'),
       $toolsBlockDraft = $draftView.find('.tool-drop'),
       $sortFilterItemDraft = $draftView.find('.filter-item'),
