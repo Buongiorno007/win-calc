@@ -5,7 +5,8 @@ BauVoiceApp.factory('constructService', function () {
   // SQL requests for select data from tables
   var selectLaminations = "SELECT id, name FROM lamination_colors ORDER BY id",
     selectProfileSystemFolders = "SELECT id, name FROM profile_system_folders order by position",
-    selectProfileSystems = "SELECT profile_systems.id, profile_system_folders.name as folder_name, profile_systems.name, profile_systems.short_name, profile_systems.country FROM profile_systems LEFT JOIN profile_system_folders ON  profile_systems.profile_system_folder_id = profile_system_folders.id WHERE profile_system_folder_id = ? order by profile_systems.position";
+    selectProfileSystems = "SELECT profile_systems.id, profile_system_folders.name as folder_name, profile_systems.name, profile_systems.short_name, profile_systems.country FROM profile_systems LEFT JOIN profile_system_folders ON  profile_systems.profile_system_folder_id = profile_system_folders.id WHERE profile_system_folder_id = ? order by profile_systems.position",
+    selectWindowHardware = "SELECT id, name, short_name as shortName FROM window_hardware_groups WHERE is_in_calculation = 1";
 
   return {
 
@@ -183,6 +184,28 @@ BauVoiceApp.factory('constructService', function () {
           }
         }, function () {
           callback(new ErrorResult(2, 'Something went wrong with selection profile_system_folders record'));
+        });
+      });
+    },
+
+    getAllWindowHardwares: function (callback) {
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, AllWindowHardwares = [];
+      db.transaction(function (transaction) {
+        transaction.executeSql(selectWindowHardware, [], function (transaction, result) {
+          if (result.rows.length) {
+            for (i = 0; i < result.rows.length; i++) {
+              AllWindowHardwares.push({
+                id: result.rows.item(i).id,
+                name: result.rows.item(i).name + "",
+                shortName: result.rows.item(i).shortName + ""
+              });
+            }
+            callback(new OkResult(AllWindowHardwares));
+          } else {
+            callback(new ErrorResult(1, 'No window_hardware in database!'));
+          }
+        }, function () {
+          callback(new ErrorResult(2, 'Something went wrong with selection window_hardware_groups record'));
         });
       });
     }
