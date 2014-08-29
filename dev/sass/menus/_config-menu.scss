@@ -35,17 +35,7 @@
       max-height: 100%;
     }
   }
-  .name {
-    @include roboto-lt(22px);
 
-    color: #8c8c8c;
-    &.aside {
-      @extend .name;
-
-      margin-left: 10px;
-      word-wrap: break-word;
-    }
-  }
   .additional-items-list {
     overflow-y: auto;
     max-height: 200px;
@@ -54,14 +44,6 @@
   }
   .additional-item {
     @extend .truncated;
-  }
-  .cart-btn {
-    @extend .orange-big-btn;
-    @extend .splash;
-
-    position: relative;
-    width: 100%;
-    margin: 20px 0;
   }
   .qty {
     @extend .splash;

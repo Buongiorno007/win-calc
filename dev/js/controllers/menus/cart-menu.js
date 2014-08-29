@@ -2,7 +2,12 @@
 
 'use strict';
 
-BauVoiceApp.controller('CartMenuCtrl', ['$scope', 'localStorage', 'constructService', function ($scope, localStorage, constructService) {
-  var $configList = $('.config-menu .items-list');
+BauVoiceApp.controller('CartMenuCtrl', ['$scope', function ($scope) {
+  var $cartMenu = $('.cart-menu'),
+      $calendar = $cartMenu.find('.calendar-box');
+
+  $calendar.pickmeup({
+    flat	: true
+  });
 
 }]);

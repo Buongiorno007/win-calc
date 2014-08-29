@@ -1,0 +1,223 @@
+.cart-menu {
+  @extend .menu-right-general;
+  @extend .move-menu-right;
+  @include justify-content(space-between);
+
+  .items-list {
+    @include flex-grow(0);
+  }
+  .item {
+    position: relative;
+
+    &:after {
+      @extend .icon-setting;
+      @include font-general-icon(60px, 1.5);
+      @include rotate(180deg);
+      @include transition(transform 1s ease);
+
+      position: absolute;
+      z-index: 11;
+      top: 16px;
+      right: 20px;
+      display: block;
+      color: $main_orange;
+      content: $config_menu-arrow-icon;
+    }
+    &.active {
+      background-color: #f0f0f0;
+      border-bottom: none;
+      &:after {
+        @include rotate(270deg);
+      }
+    }
+    &.switcher {
+      &:after {
+        content: none;
+      }
+    }
+  }
+
+  .check-switcher {
+    @include display-flex();
+    @include flex-flow(row nowrap);
+
+    position: absolute;
+    top: 25%;
+    right: 20px;
+    width: 106px;
+    height: 66px;
+    overflow: hidden;
+    border-radius: 60px;
+    border: 1px solid #d2d2d2;
+
+    &.active {
+      .check-bg-active {
+        width: 116px;
+      }
+    }
+  }
+  .check-switcher.active ~ .check-handle {
+    right: 20px;
+  }
+  .check-bg-active {
+    @include transition(all 0.5s linear);
+
+    width: 30px;
+    height: 100%;
+    background-color: $main_orange;
+  }
+  .check-bg-passive {
+    width: 100px;
+    height: 100%;
+    margin-left: -30px;
+    border-top-left-radius: 28px;
+    border-bottom-left-radius: 28px;
+    background-color: #fff;
+  }
+  .check-handle {
+    @include transition(all 0.5s linear);
+    @include box-shadow($main_gray_btn 0px 5px 10px );
+
+    top: 26%;
+    right: 62px;
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #fff;
+  }
+
+  .title {
+    margin: 10px 0;
+    color: $main_orange;
+  }
+
+
+
+// Dropdown menu list
+
+  .dropdown-cart-menu {
+    @include transition(all 0.5s linear);
+
+    height: 0;
+    margin-left: -44px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #fff;
+    &.active {
+      border-top: 1px solid $main_gray_btn;
+      border-bottom: 1px solid $main_gray_btn;
+    }
+  }
+  .drop-delivery {
+    &.active {
+      height: 326px;
+    }
+  }
+  .drop-assembling {
+    &.active {
+      height: 265px;
+    }
+  }
+  .drop-calendar {
+    &.active {
+      height: 363px;
+    }
+  }
+  .dropdown-items-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .dropdown-item {
+    padding: 0 25px 0 44px;
+    cursor: pointer;
+    &:last-child {
+      .dropdown-item-inner {
+        border-bottom: none;
+      }
+    }
+    &.selected {
+      background-color: $main_orange;
+      .drop-txt {
+        color: #fff;
+      }
+    }
+  }
+  .dropdown-item-inner {
+    @include display-flex();
+    @include flex-flow(row nowrap);
+    @include justify-content(space-between);
+    @include align-items(center);
+
+    height: 65px;
+    border-style: solid;
+    border-width: 0 0 1px 0;
+    border-color: $main_gray_btn;
+  }
+
+  .drop-instalment {
+    &.active {
+      height: 336px;
+    }
+    .dropdown-item-inner {
+      border-color: #fff;
+    }
+    .value {
+      color: $main_gray_btn;
+    }
+    .value-percent {
+      position: relative;
+      padding-right: 70px;
+    }
+
+    .dropdown-item {
+      &.selected {
+        background-color: #fff;
+        .dropdown-item-inner {
+          border-width: 1px 0;
+          border-color: $main_gray_btn;
+        }
+        .value {
+          @include roboto-rg(36px, 36px);
+          color: $main_gray_txt;
+        }
+        .value-percent {
+          &:after {
+            @extend .icon-setting;
+            @include font-general-icon(36px, 1.5);
+            position: absolute;
+            right: 0px;
+            line-height: 1;
+            color: $main_orange;
+            content: $check-panel-icon;
+          }
+        }
+      }
+    }
+  }
+
+  .price-with-instalments {
+    display: block;
+  }
+  .price-without-instalments {
+    display: none;
+  }
+
+
+  .order-btn {
+    @extend .cart-btn;
+  }
+  .measure-btn {
+    @extend .big-button;
+    @extend.ghost-button;
+    @extend .splash;
+
+    width: 100%;
+    height: 110px;
+    margin: 20px 0;
+    color: $main_gray_txt;
+    background-color: #fff;
+    border-color: $main_gray_btn;
+  }
+}

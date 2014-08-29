@@ -1,1 +1,104 @@
+.cart-menu(ng-controller="CartMenuCtrl")
+  ul.items-list
+    li.item(data-panel="profile-container")
+      .title(data-output="Профиль") {{ 'cart.DELIVERY' | translate }}
+      .value(data-output="{{ configMenu.profileName }}") {{ 'cart.PICKUP' | translate }}
+    .dropdown-cart-menu.drop-delivery
+      ul.dropdown-items-list
+        li.dropdown-item.selected
+          .dropdown-item-inner
+            .value.drop-txt {{ 'cart.PICKUP' | translate }}
+            .name.drop-txt +100.00
+        li.dropdown-item
+          .dropdown-item-inner
+            .value.drop-txt 1 {{ 'cart.FLOOR' | translate }}
+            .name.drop-txt +100.00
+        li.dropdown-item
+          .dropdown-item-inner
+            .value.drop-txt 2 {{ 'cart.FLOOR' | translate }}
+            .name.drop-txt +100.00
+        li.dropdown-item
+          .dropdown-item-inner
+            .value.drop-txt 3 {{ 'cart.FLOOR' | translate }}
+            .name.drop-txt +100.00
+        li.dropdown-item
+          .dropdown-item-inner
+            .value.drop-txt 4 {{ 'cart.FLOOR' | translate }}
+            .name.drop-txt +100.00
+        li.dropdown-item
+          .dropdown-item-inner
+            .value.drop-txt 5 {{ 'cart.FLOOR' | translate }}
+            .name.drop-txt +100.00
 
+    li.item(data-panel="glass-container")
+      .title(data-output="Стеклопакет") {{ 'cart.ASSEMBLING' | translate }}
+      .value(data-output="{{ configMenu.glassName }}") стандартный
+        span.name.aside +100.00
+    .dropdown-cart-menu.drop-assembling
+      ul.dropdown-items-list
+        li.dropdown-item.selected
+          .dropdown-item-inner
+            .value.drop-txt {{ 'cart.WITHOUT_ASSEMBLING' | translate }}
+            .name.drop-txt {{ 'cart.FREE' | translate }}
+        li.dropdown-item
+          .dropdown-item-inner
+            .value.drop-txt {{ 'cart.WITHOUT_DISASSEMBLING' | translate }}
+            .name.drop-txt +100.00
+        li.dropdown-item
+          .dropdown-item-inner
+            .value.drop-txt {{ 'cart.STANDARD_ASSEMBLING' | translate }}
+            .name.drop-txt +100.00
+        li.dropdown-item
+          .dropdown-item-inner
+            .value.drop-txt {{ 'cart.VIP_ASSEMBLING' | translate }}
+            .name.drop-txt +100.00
+
+    li.item.switcher(data-panel="hardware-container")
+      .title(data-output="Фурнитура") {{ 'cart.PAYMENT_BY_INSTALMENTS' | translate }}
+      .value(data-output="{{ configMenu.windowHardware }}") без рассрочки
+      .check-switcher
+        .check-bg-active
+        .check-bg-passive
+      .check-handle
+    .dropdown-cart-menu.drop-instalment
+      ul.dropdown-items-list
+        li.dropdown-item
+          .dropdown-item-inner
+            .value
+            .value.value-percent 15%
+        li.dropdown-item
+          .dropdown-item-inner
+            .value 2 {{ 'cart.MONTH' | translate }}
+            .value.value-percent 20%
+        li.dropdown-item.selected
+          .dropdown-item-inner
+            .value 3 {{ 'cart.MONTH' | translate }}
+            .value.value-percent 25%
+        li.dropdown-item
+          .dropdown-item-inner
+            .value 4 {{ 'cart.MONTH' | translate }}
+            .value.value-percent 30%
+        li.dropdown-item
+          .dropdown-item-inner
+            .value 5 {{ 'cart.MONTHS' | translate }}
+            .value.value-percent 35%
+
+    li.item.active(data-panel="lamination-container")
+      .title(data-output="Ламинация") {{ 'cart.DELIVERY_DATE' | translate }}
+      .value(data-output="{{ configMenu.lamination.outer }}") 01.04.2014
+    .dropdown-cart-menu.drop-calendar.active
+      .calendar-box
+
+
+  footer.menu-footer
+    .price-with-instalments
+      .name {{ 'cart.FIRST_PAYMENT_LABEL' | translate }} 25%
+      .name {{ 'cart.DATE_DELIVERY_LABEL' | translate }} 25.01.2015
+      price
+      .name 3 {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }} 100
+      price
+    .price-without-instalments
+      .name {{ 'cart.TOTAL_PRICE_LABEL' | translate }}
+      price
+    button.order-btn {{ 'cart.ORDER' | translate }}
+    button.measure-btn {{ 'cart.MEASURE' | translate }}

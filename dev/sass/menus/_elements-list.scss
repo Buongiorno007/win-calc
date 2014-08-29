@@ -1,7 +1,7 @@
 .elements-list-container {
   //@extend .move-menu-right;
   @extend .parameters-block;
-  @include top_left_coord(0, 530);
+  @include top_left_coord(0, 540);
   @include transition(all 0.5s linear);
 
   position: absolute;

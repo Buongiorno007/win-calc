@@ -37,7 +37,26 @@ window.russianDictionary = {
     ALL_ADD_ELEMENTS: 'Все доп.элементы заказа',
     ADD_ORDER: 'Добавить изделие',
     LIGHT_VIEW: 'Сокращенный вид',
-    FULL_VIEW: 'Полный вид'
+    FULL_VIEW: 'Полный вид',
+    DELIVERY: 'Доставка',
+    PICKUP: 'самовывоз',
+    FLOOR: 'этаж',
+    ASSEMBLING: 'Монтаж',
+    WITHOUT_ASSEMBLING: 'без монтажа',
+    WITHOUT_DISASSEMBLING: 'без демонтажа',
+    STANDARD_ASSEMBLING: 'стандартный',
+    VIP_ASSEMBLING: 'VIP-монтаж',
+    FREE: 'бесплатно',
+    PAYMENT_BY_INSTALMENTS: 'Рассрочка',
+    MONTH: 'месяца',
+    MONTHS: 'месяцев',
+    DELIVERY_DATE: 'Дата поставки',
+    TOTAL_PRICE_LABEL: 'Итого при поставке на',
+    MONTHLY_PAYMENT_LABEL: 'ежемесячных платежа по',
+    DATE_DELIVERY_LABEL: 'при поставке на',
+    FIRST_PAYMENT_LABEL: 'Первый платеж',
+    ORDER: 'Заказать',
+    MEASURE: 'Замерить'
   },
 
   'SWITCH_LANG': 'English'

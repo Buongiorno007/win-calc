@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('CartCtrl', ['$scope', function ($scope) {
+BauVoiceApp.controller('CartCtrl', ['$rootScope', '$scope', function ($rootScope, $scope) {
 
   var $cartPage = $('.cart-page'),
       $fullView = $cartPage.find('.full-view'),
