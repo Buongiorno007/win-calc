@@ -70,7 +70,7 @@
           .dropdown-item-inner
             .value 2 {{ 'cart.MONTH' | translate }}
             .value.value-percent 20%
-        li.dropdown-item.selected
+        li.dropdown-item
           .dropdown-item-inner
             .value 3 {{ 'cart.MONTH' | translate }}
             .value.value-percent 25%
@@ -83,22 +83,32 @@
             .value 5 {{ 'cart.MONTHS' | translate }}
             .value.value-percent 35%
 
-    li.item.active(data-panel="lamination-container")
+    li.item(data-panel="lamination-container")
       .title(data-output="Ламинация") {{ 'cart.DELIVERY_DATE' | translate }}
       .value(data-output="{{ configMenu.lamination.outer }}") 01.04.2014
-    .dropdown-cart-menu.drop-calendar.active
+    .dropdown-cart-menu.drop-calendar
       .calendar-box
+    .calendar-prices
+      .calendar-price.up 2655.28
+      .calendar-price.down 2655.28
 
 
   footer.menu-footer
-    .price-with-instalments
+    .price-block.price-with-instalments
       .name {{ 'cart.FIRST_PAYMENT_LABEL' | translate }} 25%
       .name {{ 'cart.DATE_DELIVERY_LABEL' | translate }} 25.01.2015
       price
       .name 3 {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }} 100
       price
-    .price-without-instalments
+    .price-block.price-without-instalments.active
       .name {{ 'cart.TOTAL_PRICE_LABEL' | translate }}
       price
     button.order-btn {{ 'cart.ORDER' | translate }}
     button.measure-btn {{ 'cart.MEASURE' | translate }}
+
+.old-price-tab
+  .name {{ 'cart.FIRST_PAYMENT_LABEL' | translate }} 25%
+  .name {{ 'cart.DATE_DELIVERY_LABEL' | translate }} 25.01.2015
+  span price
+  .name 3 {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }} 100
+  span price

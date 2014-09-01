@@ -2,7 +2,8 @@
   @extend .menu-right-general;
   @extend .move-menu-right;
   @include justify-content(space-between);
-
+  position: relative;
+  z-index: 2;
   .items-list {
     @include flex-grow(0);
   }
@@ -197,13 +198,58 @@
     }
   }
 
-  .price-with-instalments {
-    display: block;
+  .calendar-prices {
+    @include display-flex();
+    @include flex-flow(row nowrap);
+    @include justify-content(space-between);
+    @include align-items(center);
   }
-  .price-without-instalments {
-    display: none;
+  .calendar-price {
+    @include roboto-lt(24px, 2);
+    @extend .icon-setting;
+    position: relative;
+    &.up {
+      color: $error_color;
+      &:before {
+        @include font-general-icon(26px, 1);
+        @include top_left_coord(12, -30);
+        position: absolute;
+        content: $triangle-up-icon;
+      }
+    }
+    &.down {
+      margin-right: 25px;
+      color: $main_green;
+      &:before {
+        @include font-general-icon(26px, 1);
+        @include top_left_coord(12, -30);
+
+        position: absolute;
+        content: $triangle-down-icon;
+      }
+    }
   }
 
+  // Footer menu
+  .menu-footer {
+    position: relative;
+  }
+  .price-block {
+    @include transition(left .5s ease);
+
+    position: absolute;
+    left: 500px;
+
+    &.active {
+     left: 0;
+    }
+  }
+  .price-without-instalments {
+    top: -120px
+  }
+  .price-with-instalments {
+    top: -220px
+  }
 
   .order-btn {
     @extend .cart-btn;
@@ -219,5 +265,30 @@
     color: $main_gray_txt;
     background-color: #fff;
     border-color: $main_gray_btn;
+  }
+}
+
+// Price Tab
+.old-price-tab {
+  @include transition(left .5s ease);
+
+  position: absolute;
+  bottom: 320px;
+  left: 500px;
+  width: 400px;
+  min-height: 230px;
+  padding: 30px;
+  background: rgba(#f8f8f8, .95);
+  border-top-left-radius: $radius_order;
+  border-bottom-left-radius: $radius_order;
+  z-index: 1;
+
+  &.active {
+    left: -400px;
+  }
+  .name {
+    @include roboto-lt(22px);
+
+    color: #8c8c8c;
   }
 }
