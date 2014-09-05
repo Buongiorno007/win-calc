@@ -154,7 +154,7 @@
     margin-top: 10%;
   }
 }
-#call-order-dialog {
+.order-dialog {
   .cart-dialogs-container {
     margin-top: 1%;
     margin-bottom: 1%;
@@ -188,6 +188,31 @@
   &.ng-invalid-pattern {
     border-color: $error_color;
   }
+}
+
+.time-block {
+  display: inline-block;
+  &:first-child {
+    margin: 0 15% 0 3%;
+  }
+}
+.time-label {
+  @include roboto-lt(36px);
+
+  margin-right: 10px;
+  color: #8c8c8c;
+}
+.time-field {
+  @include roboto-lt(36px);
+
+  display: inline-block;
+  width: 175px;
+  height: 112px;
+  padding: 20px;
+  border: 1px solid #8c8c8c;
+  border-radius: $radius_general-big_button;
+  text-align: center;
+  outline: none;
 }
 
 .error-tooltip {

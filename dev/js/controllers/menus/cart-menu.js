@@ -109,6 +109,10 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', function 
     $('#call-master-dialog').removeClass(unvisibleClass);
   };
   $scope.showCallOrderDialog = function() {
-    $('#call-order-dialog').removeClass(unvisibleClass);
+    if($scope.cartMenuData.activeInstalmentSwitcher) {
+      $('#call-credit-dialog').removeClass(unvisibleClass);
+    } else {
+      $('#call-order-dialog').removeClass(unvisibleClass);
+    }
   };
 }]);

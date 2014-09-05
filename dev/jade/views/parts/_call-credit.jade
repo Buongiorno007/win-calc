@@ -1,0 +1,64 @@
+#call-credit-dialog.cart-dialogs.order-dialog.unvisible(ng-controller="CallCreditCtrl")
+  .cart-dialogs-container
+    form(name='callCreditForm', novalidate, ng-submit="submitForm(callCreditForm)")
+      .cart-dialog-header
+        button.cart-dialog-tool.back(ng-click="hideCallCreditDialog()", type="button")
+        button.cart-dialog-tool.print(ng-click="", type="button")
+        .cart-dialog-title(data-output="Вызов замерщика для рассчета") {{ 'cart.CALL_CREDIT' | translate }} 2554112554
+        button.save(type="submit") {{ 'cart.READY' | translate }}
+      .cart-dialog-body
+        .cart-dialog-descrip(data-output="Вызов замерщика для рассчета") {{ 'cart.CALL_CREDIT_DESCRIP' | translate }}
+
+        .cart-dialog-label(data-output="Вызов замерщика для рассчета") {{ 'cart.CALL_CREDIT_CLIENT_INFO' | translate }}
+
+        .input-field(ng-class="{ 'has-error' : submitted && callCreditForm.name.$error.required }")
+          input.user-field(type="text", name="name", ng-model="user.name", placeholder="{{ 'cart.CLIENT_NAME' | translate }}", required)
+          .error-tooltip(ng-show="submitted && callCreditForm.name.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+
+        .input-field(ng-class="{ 'has-error' : submitted && callCreditForm.target.$error.required }")
+          input.user-field(type="text", name="target", ng-model="user.target", placeholder="{{ 'cart.CREDIT_TARGET' | translate }}", required)
+          .error-tooltip(ng-show="submitted && callCreditForm.target.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+
+        .input-field(ng-class="{ 'has-error' : submitted && callCreditForm.itn.$error.required }")
+          input.user-field(type="number", name="itn", ng-model="user.itn", placeholder="{{ 'cart.CLIENT_ITN' | translate }}", required)
+          .error-tooltip(ng-show="submitted && callCreditForm.itn.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+
+        .input-field(ng-class="{ 'has-error' : submitted && callCreditForm.phone.$error.required }")
+          input.user-field(type="tel", name="phone", ng-model="user.phone", ng-pattern="", placeholder="{{ 'login.MOBILE' | translate }}", required)
+          .error-tooltip(ng-show="submitted && callCreditForm.phone.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+          .error-tooltip(ng-show="submitted && callCreditForm.phone.$error.pattern || callCreditForm.phone.$dirty && callCreditForm.phone.$error.pattern") {{ 'login.WRONG_NUMBER' | translate }}
+
+
+        .input-field
+          .time-block
+            span.time-label {{ 'cart.CALL_START_TIME' | translate }}
+            input.time-field(type="nubmer", name="starttime", ng-model="user.starttime", placeholder="00:00")
+          .time-block
+            span.time-label {{ 'cart.CALL_END_TIME' | translate }}
+            input.time-field(type="nubmer", name="endtime", ng-model="user.endtime", placeholder="00:00")
+
+        .input-field
+          input.user-field(type="text", name="instalment", ng-model="user.instalment", disabled)
+
+        .cart-dialog-label(data-output="Вызов замерщика для рассчета") {{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }} 14042014 {{ 'cart.CALL_CREDIT_PARTIAL_PRICE' | translate }} 14.04.2014
+
+        .cart-dialog-label(data-output="Вызов замерщика для рассчета") {{ 'cart.CALL_ORDER_DELIVERY' | translate }} 14.04.2014
+
+        .input-field(ng-class="{ 'has-error' : submitted && callCreditForm.location.$error.required, 'current-city' : currentCity }")
+          input.user-field(type="text", name="location", ng-model="user.location", ng-change="checkChanges()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", ng-focus="isFocused=true", ng-blur="isFocused=false", required)
+          .error-tooltip(ng-show='submitted && callCreditForm.location.$error.required') {{ 'login.EMPTY_FIELD' | translate }}
+          ul.location-list-tooltip(ng-show="showTipCity && isFocused", ng-focus="isFocused=true", ng-blur="isFocused=false", tabindex="1")
+            li.location-option(ng-repeat="location in filteredCity", ng-click="selectCity(location.city, location.current)", ng-class="{ 'current-city' : location.current }") {{location.city}}
+
+        .input-field(ng-class="{ 'has-error' : submitted && callCreditForm.address.$error.required }")
+          input.user-field(type="text", name="address", ng-model="user.address", placeholder="{{ 'cart.CLIENT_ADDRESS' | translate }}", required)
+          .error-tooltip(ng-show="submitted && callCreditForm.address.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+
+
+        .cart-dialog-label(data-output="Вызов замерщика для рассчета") {{ 'cart.CALL_ORDER_ADD_INFO' | translate }}
+
+        .input-field
+          input.user-field(type="email", name="mail", ng-model="user.mail", placeholder="{{ 'cart.CLIENT_EMAIL' | translate }}")
+
+        .input-field
+          input.user-field(type="tel", name="phone2", ng-model="user.phone2", ng-pattern="", placeholder="{{ 'cart.ADD_PHONE' | translate }}")

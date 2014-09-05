@@ -61,7 +61,15 @@ window.russianDictionary = {
     CALL_ORDER_TOTAL_PRICE: 'Всего',
     CALL_ORDER_ADD_INFO: 'Дополнительно (заполняйте по желанию):',
     CLIENT_EMAIL: 'Электронная почта',
-    ADD_PHONE: 'Дополнительный телефон'
+    ADD_PHONE: 'Дополнительный телефон',
+    CALL_CREDIT: 'Оформление рассрочки и заказа для рассчета',
+    CALL_CREDIT_DESCRIP: 'Для того, чтобы оформить рассрочку и выполнить заказ, мы должны кое-что о вас знать.',
+    CALL_CREDIT_CLIENT_INFO: 'Розстрочка (заповнюйте українською):',
+    CREDIT_TARGET: 'Мета оформлення розстрочки',
+    CLIENT_ITN: 'Iндивiдуальний податковий номер',
+    CALL_START_TIME: 'Дзвонити вiд:',
+    CALL_END_TIME: 'до:',
+    CALL_CREDIT_PARTIAL_PRICE: 'по'
   },
 
   'SWITCH_LANG': 'English'
