@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', function ($scope, constructService) {
+BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'globalData', function ($scope, constructService, globalData) {
   var $cartMenu = $('.cart-menu'),
       $itemMenu = $cartMenu.find('.item'),
       $dropdownMenu = $cartMenu.find('.dropdown-cart-menu'),
@@ -22,6 +22,9 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', function 
   $calendar.pickmeup({
     flat	: true
   });
+
+  $scope.global = globalData;
+
 
   $scope.cartMenuData = {
     activeMenuItem: false,
@@ -100,19 +103,16 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', function 
 
 
   // show Call Master Dialog
-  /*
-   $measureBTN.click(function() {
-    $('.cart-dialogs').removeClass(unvisibleClass);
-   });
-   */
   $scope.showCallMasterDialog = function() {
-    $('#call-master-dialog').removeClass(unvisibleClass);
+    $scope.global.showMasterDialog = true;
   };
+
+  // show Order/Credit Dialog
   $scope.showCallOrderDialog = function() {
     if($scope.cartMenuData.activeInstalmentSwitcher) {
-      $('#call-credit-dialog').removeClass(unvisibleClass);
+      $scope.global.showCreditDialog = true;
     } else {
-      $('#call-order-dialog').removeClass(unvisibleClass);
+      $scope.global.showOrderDialog = true;
     }
   };
 }]);

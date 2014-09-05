@@ -1,9 +1,11 @@
 'use strict';
 
-BauVoiceApp.controller('CallCreditCtrl', ['$scope', 'constructService', function ($scope, constructService) {
+BauVoiceApp.controller('CallCreditCtrl', ['$scope', 'constructService', 'globalData', function ($scope, constructService, globalData) {
 
+  $scope.global = globalData;
   $scope.user = {};
   $scope.user.instalment = 54513123;
+
   // Search Location
   $scope.showTipCity = false;
   $scope.currentCity = false;
@@ -61,7 +63,7 @@ BauVoiceApp.controller('CallCreditCtrl', ['$scope', 'constructService', function
     $scope.user = {};
     $scope.showTipCity = false;
     $scope.currentCity = false;
-    $('.cart-dialogs').addClass(unvisibleClass);
+    $scope.global.showCreditDialog = false;
   };
 
   // Send Form Data

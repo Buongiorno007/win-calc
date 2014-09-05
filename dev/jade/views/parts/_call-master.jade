@@ -1,4 +1,4 @@
-#call-master-dialog.cart-dialogs.unvisible(ng-controller="CallMasterCtrl")
+#call-master-dialog.cart-dialogs(ng-controller="CallMasterCtrl", ng-class="{ 'unvisible' : !global.showMasterDialog }")
   .cart-dialogs-container
     form(name='callMasterForm', novalidate, ng-submit="submitForm(callMasterForm)")
       .cart-dialog-header

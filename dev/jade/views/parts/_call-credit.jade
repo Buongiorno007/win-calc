@@ -1,4 +1,4 @@
-#call-credit-dialog.cart-dialogs.order-dialog.unvisible(ng-controller="CallCreditCtrl")
+#call-credit-dialog.cart-dialogs.order-dialog(ng-controller="CallCreditCtrl", ng-class="{ 'unvisible' : !global.showCreditDialog }")
   .cart-dialogs-container
     form(name='callCreditForm', novalidate, ng-submit="submitForm(callCreditForm)")
       .cart-dialog-header

@@ -1,7 +1,8 @@
 'use strict';
 
-BauVoiceApp.controller('CallOrderCtrl', ['$scope', 'constructService', function ($scope, constructService) {
+BauVoiceApp.controller('CallOrderCtrl', ['$scope', 'constructService', 'globalData', function ($scope, constructService, globalData) {
 
+  $scope.global = globalData;
   $scope.user = {};
 
   // Search Location
@@ -61,7 +62,7 @@ BauVoiceApp.controller('CallOrderCtrl', ['$scope', 'constructService', function 
     $scope.user = {};
     $scope.showTipCity = false;
     $scope.currentCity = false;
-    $('.cart-dialogs').addClass(unvisibleClass);
+    $scope.global.showOrderDialog = false;
   };
 
   // Send Form Data
