@@ -1,8 +1,8 @@
-.cart-dialogs.unvisible(ng-controller="CallMasterCtrl")
+#call-master-dialog.cart-dialogs.unvisible(ng-controller="CallMasterCtrl")
   .cart-dialogs-container
     form(name='callMasterForm', novalidate, ng-submit="submitForm(callMasterForm)")
       .cart-dialog-header
-        button.back(ng-click="hideCallMasterDialog()", type="button")
+        button.cart-dialog-tool.back(ng-click="hideCallMasterDialog()", type="button")
         .cart-dialog-title(data-output="Вызов замерщика для рассчета") {{ 'cart.CALL_MASTER' | translate }} 2554112554
         button.save(type="submit") {{ 'cart.READY' | translate }}
       .cart-dialog-body

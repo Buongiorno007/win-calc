@@ -106,7 +106,9 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', function 
    });
    */
   $scope.showCallMasterDialog = function() {
-    $('.cart-dialogs').removeClass(unvisibleClass);
+    $('#call-master-dialog').removeClass(unvisibleClass);
   };
-
+  $scope.showCallOrderDialog = function() {
+    $('#call-order-dialog').removeClass(unvisibleClass);
+  };
 }]);

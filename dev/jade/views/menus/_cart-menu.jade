@@ -60,7 +60,7 @@
       .price-block.price-without-instalments(ng-class="{'active': !cartMenuData.activeInstalmentSwitcher}")
         .name {{ 'cart.TOTAL_PRICE_LABEL' | translate }}
         span price
-      button.order-btn {{ 'cart.ORDER' | translate }}
+      button.order-btn(ng-click="showCallOrderDialog()") {{ 'cart.ORDER' | translate }}
       button.measure-btn(ng-click="showCallMasterDialog()") {{ 'cart.MEASURE' | translate }}
 
   .old-price-tab(ng-class="{'active': cartMenuData.activeInstalmentSwitcher}")
