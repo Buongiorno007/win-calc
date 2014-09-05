@@ -1,0 +1,183 @@
+.cart-dialogs {
+  @include transition(all 1.5s linear);
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(#000, .8);
+  z-index: 3;
+}
+.cart-dialogs-container {
+  @include box-shadow(rgba(98, 67, 48, .5) 0px 0px 15px 1px);
+
+  width: 1000px;
+  margin-left: 42%;
+  margin-top: 10%;
+
+  .cart-dialog-header{
+    position: relative;
+    padding: 30px;
+    border-top-left-radius: $radius_login-container;
+    border-top-right-radius: $radius_login-container;
+    background-color: #fff;
+  }
+
+  .back {
+    @extend .splash;
+    @extend .icon-setting;
+    @include font-general-icon(50px, 1);
+
+    position: absolute;
+    top: 25%;
+    left: 3%;
+    width: 60px;
+    height: 60px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    &:before {
+      color: $main_orange;
+      content: $arrow-icon;
+    }
+  }
+  .cart-dialog-title {
+    @include roboto-md(36px);
+
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+    color: $main_gray_txt;
+  }
+  .save {
+    @extend .middle-button;
+    @extend .splash;
+
+    position: absolute;
+    top: 25%;
+    right: 3%;
+    height: 70px;
+    padding: 0 28px;
+    color: #fff;
+    background-color: $main_orange;
+  }
+  .cart-dialog-body {
+    padding: 60px;
+    background-color: #f0f0f0;
+    border-bottom-left-radius: $radius_login-container;
+    border-bottom-right-radius: $radius_login-container;
+  }
+  .cart-dialog-descrip {
+    @include roboto-lt(36px);
+
+    margin-bottom: 20px;
+    text-align: center;
+    color: $main_gray_txt;
+  }
+
+  .location-list-tooltip {
+    @include top_left_coord(0, 600);
+
+    position: absolute;
+    width: 640px;
+    list-style: none;
+    border-radius: $radius_login-container;
+    background-color: #f8f8f8;
+    outline: none;
+    z-index: 5;
+    &:before {
+      @include transform(rotate(45deg));
+
+      position: absolute;
+      top: 25px;
+      left: -15px;
+      display: block;
+      width: 40px;
+      height: 40px;
+      border-radius: 5px;
+      background-color: #f8f8f8;
+      content: '';
+    }
+  }
+  .location-option {
+    @include roboto-lt(36px, 88px);
+
+    border-bottom: 1px solid #c4c3c3;
+    color: $main_gray_txt;
+    cursor: pointer;
+    &:last-child {
+      border-bottom: none;
+    }
+    &:first-letter {
+      color: $main_orange;
+    }
+  }
+  .current-city {
+    position: relative;
+
+    &:after {
+      @extend .icon-setting;
+      @include font-general-icon(30px, 1);
+
+      position: absolute;
+      top: 35%;
+      right: 30px;
+      color: $main_orange;
+      content: $geolocation_filled-icon;
+    }
+  }
+}
+
+
+
+.input-field {
+  position: relative;
+  margin-bottom: 44px;
+  &.has-error > .user-field {
+    border-color: $error_color;
+  }
+}
+
+.user-field {
+  @include roboto-lt(36px);
+
+  display: block;
+  width: 100%;
+  height: 112px;
+  padding: 20px;
+  border: 1px solid #8c8c8c;
+  border-radius: $radius_general-big_button;
+  outline: none;
+  &.ng-invalid-minlength,
+  &.ng-invalid-pattern {
+    border-color: $error_color;
+  }
+}
+
+.error-tooltip {
+  @include top_left_coord(-10, 600);
+  @include roboto-lt(36px);
+
+  position: absolute;
+  display: table;
+  max-width: 600px;
+  padding: 20px 40px;
+  color: #fff;
+  border-radius: $radius_general-small_button;
+  background: $error_color;
+  &:before {
+    @include transform(rotate(45deg));
+
+    position: absolute;
+    top: 25px;
+    left: -15px;
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: $error_color;
+    content: '';
+  }
+}
+

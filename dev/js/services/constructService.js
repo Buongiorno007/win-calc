@@ -208,6 +208,134 @@ BauVoiceApp.factory('constructService', function () {
           callback(new ErrorResult(2, 'Something went wrong with selection window_hardware_groups record'));
         });
       });
+    },
+
+    getFloorPrice: function (callback) {
+      callback(new OkResult({
+
+        floors: [
+          {
+            floor: 'самовывоз',
+            price: ''
+          },
+          {
+            floor: '1 этаж',
+            price: '+100'
+          },
+          {
+            floor: '2 этаж',
+            price: '+200'
+          },
+          {
+            floor: '3 этаж',
+            price: '+300'
+          },
+          {
+            floor: '4 этаж',
+            price: '+400'
+          },
+          {
+            floor: '5 этаж',
+            price: '+500'
+          }
+        ]
+
+      }));
+    },
+
+    getAssemblingPrice: function (callback) {
+      callback(new OkResult({
+
+        assembling: [
+          {
+            name: 'без монтажа',
+            price: 'бесплатно'
+          },
+          {
+            name: 'без демонтажа',
+            price: '+200'
+          },
+          {
+            name: 'стандартный',
+            price: '+300'
+          },
+          {
+            name: 'VIP-монтаж',
+            price: '+400'
+          }
+        ]
+
+      }));
+    },
+
+    getInstalment: function (callback) {
+      callback(new OkResult({
+
+        instalment: [
+          {
+            period: '',
+            percent: '15%'
+          },
+          {
+            period: '2 месяца',
+            percent: '20%'
+          },
+          {
+            period: '3 месяца',
+            percent: '25%'
+          },
+          {
+            period: '4 месяца',
+            percent: '30%'
+          },
+          {
+            period: '5 месяцed',
+            percent: '35%'
+          }
+        ]
+
+      }));
+    },
+
+    getLocations: function (callback) {
+      callback(new OkResult({
+
+        locations: [
+          {
+            current: true,
+            city: 'Днепропетровск'
+          },
+          {
+            current: false,
+            city: 'Ивано-Франковск'
+          },
+          {
+            current: false,
+            city: 'Кировоград'
+          },
+          {
+            current: false,
+            city: 'Львов'
+          },
+          {
+            current: false,
+            city: 'Владимир-Волынский'
+          },
+          {
+            current: false,
+            city: 'Корсунь-Шевченковский'
+          },
+          {
+            current: false,
+            city: 'Днепродзержинск'
+          },
+          {
+            current: false,
+            city: 'Каменец-Подольский'
+          }
+        ]
+
+      }));
     }
 
   }

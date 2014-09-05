@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('CartMenuCtrl', ['$scope', function ($scope) {
+BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', function ($scope, constructService) {
   var $cartMenu = $('.cart-menu'),
       $itemMenu = $cartMenu.find('.item'),
       $dropdownMenu = $cartMenu.find('.dropdown-cart-menu'),
@@ -15,77 +15,98 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope', function ($scope) {
       $checkSwitcher = $cartMenu.find('.check-switcher'),
       $priceBlock = $cartMenu.find('.price-block'),
       $oldPriceTab = $('.old-price-tab'),
-      $calendar = $cartMenu.find('.calendar-box');
+      $calendar = $cartMenu.find('.calendar-box'),
+      $measureBTN  = $cartMenu.find('.measure-btn');
 
   // Calendar
   $calendar.pickmeup({
     flat	: true
   });
 
-  //Select menu item
-  $itemMenu.click(function() {
+  $scope.cartMenuData = {
+    activeMenuItem: false,
+    selectedFloor: 'самовывоз',
+    selectedFloorPrice: '',
+    selectedAssembling: 'стандартный',
+    selectedAssemblingPrice: '+300',
+    selectedInstalmentPeriodDefault: 'без рассрочки',
+    selectedInstalmentPercentDefault: '',
+    selectedInstalmentPeriod: 'без рассрочки',
+    selectedInstalmentPercent: '',
+    activeInstalmentSwitcher: false
+  };
 
-    if (!$(this).hasClass(activeClass)) {
-
-      $itemMenu.each(function () {
-        $(this).removeClass(activeClass);
-      });
-      $(this).addClass(activeClass);
-
-      $dropdownMenu.each(function () {
-        $(this).removeClass(activeClass);
-      });
-      $(this).next('.dropdown-cart-menu').addClass(activeClass);
-
+  constructService.getFloorPrice(function (results) {
+    if (results.status) {
+      $scope.floorPrice = results.data.floors;
     } else {
-      $(this).removeClass(activeClass);
-      $(this).next('.dropdown-cart-menu').removeClass(activeClass);
+      console.log(results);
     }
-
   });
+
+  constructService.getAssemblingPrice(function (results) {
+    if (results.status) {
+      $scope.assemblingPrice = results.data.assembling;
+    } else {
+      console.log(results);
+    }
+  });
+
+  constructService.getInstalment(function (results) {
+    if (results.status) {
+      $scope.instalmentPercent = results.data.instalment;
+    } else {
+      console.log(results);
+    }
+  });
+
+
+  //Select menu item
+
+  $scope.selectMenuItem = function(id) {
+    if($scope.cartMenuData.activeMenuItem === id) {
+      $scope.cartMenuData.activeMenuItem = false;
+    } else {
+      $scope.cartMenuData.activeMenuItem = id;
+    }
+  };
+
 
   // Select dropdown menu item
 
-  $dropDeliveryItem.click(function() {
-    deselectMenuItem($dropDeliveryItem, selectClass);
-    $(this).addClass(selectClass);
-  });
-  $dropAssemblingItem.click(function() {
-    deselectMenuItem($dropAssemblingItem, selectClass);
-    $(this).addClass(selectClass);
-  });
-  $dropInstalmentItem.click(function() {
-    deselectMenuItem($dropInstalmentItem, selectClass);
-    $(this).addClass(selectClass);
-    // Turn on Instalment
-    if(!$checkSwitcher.hasClass(activeClass)) {
-      $checkSwitcher.addClass(activeClass);
+  $scope.selectFloorPrice = function(floor, price) {
+    $scope.cartMenuData.selectedFloor = floor;
+    $scope.cartMenuData.selectedFloorPrice = price;
+  };
 
-      $priceBlock.toggleClass(activeClass);
-      $oldPriceTab.toggleClass(activeClass);
-    }
-  });
+  $scope.selectAssembling = function(name, price) {
+    $scope.cartMenuData.selectedAssembling = name;
+    $scope.cartMenuData.selectedAssemblingPrice = price;
+  };
 
-  // Turn off Instalment
-  $('.check-switcher, .check-handle').click(function() {
-    if($checkSwitcher.hasClass(activeClass)) {
-      $dropdownMenu.each(function () {
-        $(this).removeClass(activeClass);
-      });
-      $checkSwitcher.removeClass(activeClass);
-      deselectMenuItem($dropInstalmentItem, selectClass);
+  $scope.selectInstalment = function(period, percent) {
+    $scope.cartMenuData.selectedInstalmentPeriod = period;
+    $scope.cartMenuData.selectedInstalmentPercent = percent;
+    $scope.cartMenuData.activeInstalmentSwitcher = true;
+  };
 
-      $priceBlock.toggleClass(activeClass);
-      $oldPriceTab.toggleClass(activeClass);
-    }
-  });
+  $scope.turnOffInstalment = function() {
+    $scope.cartMenuData.activeInstalmentSwitcher = false;
+    $scope.cartMenuData.selectedInstalmentPeriod = $scope.cartMenuData.selectedInstalmentPeriodDefault;
+    $scope.cartMenuData.selectedInstalmentPercent = $scope.cartMenuData.selectedInstalmentPercentDefault;
+    $scope.cartMenuData.activeMenuItem = false;
+  };
 
 
 
-  function deselectMenuItem(item, className) {
-    item.each(function() {
-      $(this).removeClass(className);
-    });
-  }
+  // show Call Master Dialog
+  /*
+   $measureBTN.click(function() {
+    $('.cart-dialogs').removeClass(unvisibleClass);
+   });
+   */
+  $scope.showCallMasterDialog = function() {
+    $('.cart-dialogs').removeClass(unvisibleClass);
+  };
 
 }]);

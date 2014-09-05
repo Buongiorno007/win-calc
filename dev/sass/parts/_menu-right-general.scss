@@ -1,3 +1,7 @@
+.right-menu-controller {
+  height: 100%;
+}
+
 .menu-right-general {
   @include display-flex();
   @include flex-flow(column nowrap);

@@ -93,6 +93,9 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'localStorage', fu
   $scope.gotoHistoryPage = function () {
     $location.path('/history');
   };
+  $scope.gotoCartPage = function () {
+    $location.path('/cart');
+  };
 
   $scope.getCurrentGeolocation = function () {};
 

@@ -1,114 +1,71 @@
-.cart-menu(ng-controller="CartMenuCtrl")
-  ul.items-list
-    li.item(data-panel="profile-container")
-      .title(data-output="Профиль") {{ 'cart.DELIVERY' | translate }}
-      .value(data-output="{{ configMenu.profileName }}") {{ 'cart.PICKUP' | translate }}
-    .dropdown-cart-menu.drop-delivery
-      ul.dropdown-items-list
-        li.dropdown-item.selected
-          .dropdown-item-inner
-            .value.drop-txt {{ 'cart.PICKUP' | translate }}
-            .name.drop-txt +100.00
-        li.dropdown-item
-          .dropdown-item-inner
-            .value.drop-txt 1 {{ 'cart.FLOOR' | translate }}
-            .name.drop-txt +100.00
-        li.dropdown-item
-          .dropdown-item-inner
-            .value.drop-txt 2 {{ 'cart.FLOOR' | translate }}
-            .name.drop-txt +100.00
-        li.dropdown-item
-          .dropdown-item-inner
-            .value.drop-txt 3 {{ 'cart.FLOOR' | translate }}
-            .name.drop-txt +100.00
-        li.dropdown-item
-          .dropdown-item-inner
-            .value.drop-txt 4 {{ 'cart.FLOOR' | translate }}
-            .name.drop-txt +100.00
-        li.dropdown-item
-          .dropdown-item-inner
-            .value.drop-txt 5 {{ 'cart.FLOOR' | translate }}
-            .name.drop-txt +100.00
+.right-menu-controller(ng-controller="CartMenuCtrl")
+  .cart-menu
+    ul.items-list
+      li.item(ng-class="{'active': cartMenuData.activeMenuItem==1}", ng-click="selectMenuItem(1)")
+        .title(data-output="Профиль") {{ 'cart.DELIVERY' | translate }}
+        .value(data-output="{{ configMenu.profileName }}") {{ cartMenuData.selectedFloor }}
+          span.name.aside {{ cartMenuData.selectedFloorPrice }}
+      .dropdown-cart-menu.drop-delivery(ng-class="{'active': cartMenuData.activeMenuItem==1}")
+        ul.dropdown-items-list
+          li.dropdown-item(ng-repeat="floorList in floorPrice", ng-class="{'selected': cartMenuData.selectedFloor === floorList.floor}", ng-click="selectFloorPrice(floorList.floor, floorList.price)")
+            .dropdown-item-inner
+              .value.drop-txt {{floorList.floor}}
+              .name.drop-txt {{floorList.price}}
 
-    li.item(data-panel="glass-container")
-      .title(data-output="Стеклопакет") {{ 'cart.ASSEMBLING' | translate }}
-      .value(data-output="{{ configMenu.glassName }}") стандартный
-        span.name.aside +100.00
-    .dropdown-cart-menu.drop-assembling
-      ul.dropdown-items-list
-        li.dropdown-item.selected
-          .dropdown-item-inner
-            .value.drop-txt {{ 'cart.WITHOUT_ASSEMBLING' | translate }}
-            .name.drop-txt {{ 'cart.FREE' | translate }}
-        li.dropdown-item
-          .dropdown-item-inner
-            .value.drop-txt {{ 'cart.WITHOUT_DISASSEMBLING' | translate }}
-            .name.drop-txt +100.00
-        li.dropdown-item
-          .dropdown-item-inner
-            .value.drop-txt {{ 'cart.STANDARD_ASSEMBLING' | translate }}
-            .name.drop-txt +100.00
-        li.dropdown-item
-          .dropdown-item-inner
-            .value.drop-txt {{ 'cart.VIP_ASSEMBLING' | translate }}
-            .name.drop-txt +100.00
-
-    li.item.switcher(data-panel="hardware-container")
-      .title(data-output="Фурнитура") {{ 'cart.PAYMENT_BY_INSTALMENTS' | translate }}
-      .value(data-output="{{ configMenu.windowHardware }}") без рассрочки
-      .check-switcher
-        .check-bg-active
-        .check-bg-passive
-      .check-handle
-    .dropdown-cart-menu.drop-instalment
-      ul.dropdown-items-list
-        li.dropdown-item
-          .dropdown-item-inner
-            .value
-            .value.value-percent 15%
-        li.dropdown-item
-          .dropdown-item-inner
-            .value 2 {{ 'cart.MONTH' | translate }}
-            .value.value-percent 20%
-        li.dropdown-item
-          .dropdown-item-inner
-            .value 3 {{ 'cart.MONTH' | translate }}
-            .value.value-percent 25%
-        li.dropdown-item
-          .dropdown-item-inner
-            .value 4 {{ 'cart.MONTH' | translate }}
-            .value.value-percent 30%
-        li.dropdown-item
-          .dropdown-item-inner
-            .value 5 {{ 'cart.MONTHS' | translate }}
-            .value.value-percent 35%
-
-    li.item(data-panel="lamination-container")
-      .title(data-output="Ламинация") {{ 'cart.DELIVERY_DATE' | translate }}
-      .value(data-output="{{ configMenu.lamination.outer }}") 01.04.2014
-    .dropdown-cart-menu.drop-calendar
-      .calendar-box
-    .calendar-prices
-      .calendar-price.up 2655.28
-      .calendar-price.down 2655.28
+      li.item(ng-class="{'active': cartMenuData.activeMenuItem==2}", ng-click="selectMenuItem(2)")
+        .title(data-output="Стеклопакет") {{ 'cart.ASSEMBLING' | translate }}
+        .value(data-output="{{ configMenu.glassName }}") {{ cartMenuData.selectedAssembling }}
+          span.name.aside {{ cartMenuData.selectedAssemblingPrice }}
+      .dropdown-cart-menu.drop-assembling(ng-class="{'active': cartMenuData.activeMenuItem==2}")
+        ul.dropdown-items-list
+          li.dropdown-item(ng-repeat="assemb in assemblingPrice", ng-class="{'selected': cartMenuData.selectedAssembling === assemb.name}", ng-click="selectAssembling(assemb.name, assemb.price)")
+            .dropdown-item-inner
+              .value.drop-txt {{ assemb.name }}
+              .name.drop-txt {{ assemb.price }}
 
 
-  footer.menu-footer
-    .price-block.price-with-instalments
-      .name {{ 'cart.FIRST_PAYMENT_LABEL' | translate }} 25%
-      .name {{ 'cart.DATE_DELIVERY_LABEL' | translate }} 25.01.2015
-      price
-      .name 3 {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }} 100
-      price
-    .price-block.price-without-instalments.active
-      .name {{ 'cart.TOTAL_PRICE_LABEL' | translate }}
-      price
-    button.order-btn {{ 'cart.ORDER' | translate }}
-    button.measure-btn {{ 'cart.MEASURE' | translate }}
+      li.item.switcher(ng-class="{'active': cartMenuData.activeMenuItem==3}", ng-click="selectMenuItem(3)")
+        .title(data-output="Фурнитура") {{ 'cart.PAYMENT_BY_INSTALMENTS' | translate }}
+        .value(data-output="{{ configMenu.windowHardware }}") {{ cartMenuData.selectedInstalmentPeriod }}
+          span.name.aside {{ cartMenuData.selectedInstalmentPercent }}
+        .check-switcher(ng-class="{'active': cartMenuData.activeInstalmentSwitcher}", ng-click="turnOffInstalment()")
+          .check-bg-active
+          .check-bg-passive
+        .check-handle(ng-class="{'active': cartMenuData.activeInstalmentSwitcher}", ng-click="turnOffInstalment()")
+      .dropdown-cart-menu.drop-instalment(ng-class="{'active': cartMenuData.activeMenuItem==3}")
+        ul.dropdown-items-list
+          li.dropdown-item(ng-repeat="payment in instalmentPercent", ng-class="{'selected': cartMenuData.selectedInstalmentPercent === payment.percent}", ng-click="selectInstalment(payment.period, payment.percent)")
+            .dropdown-item-inner
+              .value {{ payment.period }}
+              .value.value-percent {{ payment.percent }}
 
-.old-price-tab
-  .name {{ 'cart.FIRST_PAYMENT_LABEL' | translate }} 25%
-  .name {{ 'cart.DATE_DELIVERY_LABEL' | translate }} 25.01.2015
-  span price
-  .name 3 {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }} 100
-  span price
+
+      li.item(ng-class="{'active': cartMenuData.activeMenuItem==4}", ng-click="selectMenuItem(4)")
+        .title(data-output="Ламинация") {{ 'cart.DELIVERY_DATE' | translate }}
+        .value(data-output="{{ configMenu.lamination.outer }}") 01.04.2014
+      .dropdown-cart-menu.drop-calendar(ng-class="{'active': cartMenuData.activeMenuItem==4}")
+        .calendar-box
+      .calendar-prices
+        .calendar-price.up 2655.28
+        .calendar-price.down 2655.28
+
+
+    footer.menu-footer
+      .price-block.price-with-instalments(ng-class="{'active': cartMenuData.activeInstalmentSwitcher}")
+        .name {{ 'cart.FIRST_PAYMENT_LABEL' | translate }} 25%
+        .name {{ 'cart.DATE_DELIVERY_LABEL' | translate }} 25.01.2015
+        span price
+        .name 3 {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }} 100
+        span price
+      .price-block.price-without-instalments(ng-class="{'active': !cartMenuData.activeInstalmentSwitcher}")
+        .name {{ 'cart.TOTAL_PRICE_LABEL' | translate }}
+        span price
+      button.order-btn {{ 'cart.ORDER' | translate }}
+      button.measure-btn(ng-click="showCallMasterDialog()") {{ 'cart.MEASURE' | translate }}
+
+  .old-price-tab(ng-class="{'active': cartMenuData.activeInstalmentSwitcher}")
+    .name {{ 'cart.FIRST_PAYMENT_LABEL' | translate }} 25%
+    .name {{ 'cart.DATE_DELIVERY_LABEL' | translate }} 25.01.2015
+    span price
+    .name 3 {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }} 100
+    span price
