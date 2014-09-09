@@ -2,8 +2,8 @@
   .cart-menu
     ul.items-list
       li.item(ng-class="{'active': cartMenuData.activeMenuItem==1}", ng-click="selectMenuItem(1)")
-        .title(data-output="Профиль") {{ 'cart.DELIVERY' | translate }}
-        .value(data-output="{{ configMenu.profileName }}") {{ cartMenuData.selectedFloor }}
+        .title(data-output="{{ 'cart.DELIVERY' | translate }}")
+        .value(data-output="{{ cartMenuData.selectedFloor }}") {{ cartMenuData.selectedFloor }}
           span.name.aside {{ cartMenuData.selectedFloorPrice }}
       .dropdown-cart-menu.drop-delivery(ng-class="{'active': cartMenuData.activeMenuItem==1}")
         ul.dropdown-items-list
@@ -13,8 +13,8 @@
               .name.drop-txt {{floorList.price}}
 
       li.item(ng-class="{'active': cartMenuData.activeMenuItem==2}", ng-click="selectMenuItem(2)")
-        .title(data-output="Стеклопакет") {{ 'cart.ASSEMBLING' | translate }}
-        .value(data-output="{{ configMenu.glassName }}") {{ cartMenuData.selectedAssembling }}
+        .title(data-output="{{ 'cart.ASSEMBLING' | translate }}")
+        .value(data-output="{{ cartMenuData.selectedAssembling }}") {{ cartMenuData.selectedAssembling }}
           span.name.aside {{ cartMenuData.selectedAssemblingPrice }}
       .dropdown-cart-menu.drop-assembling(ng-class="{'active': cartMenuData.activeMenuItem==2}")
         ul.dropdown-items-list
@@ -25,8 +25,8 @@
 
 
       li.item.switcher(ng-class="{'active': cartMenuData.activeMenuItem==3}", ng-click="selectMenuItem(3)")
-        .title(data-output="Фурнитура") {{ 'cart.PAYMENT_BY_INSTALMENTS' | translate }}
-        .value(data-output="{{ configMenu.windowHardware }}") {{ cartMenuData.selectedInstalmentPeriod }}
+        .title(data-output="{{ 'cart.PAYMENT_BY_INSTALMENTS' | translate }}")
+        .value(data-output="{{ cartMenuData.selectedInstalmentPeriod }}") {{ cartMenuData.selectedInstalmentPeriod }}
           span.name.aside {{ cartMenuData.selectedInstalmentPercent }}
         .check-switcher(ng-class="{'active': cartMenuData.activeInstalmentSwitcher}", ng-click="turnOffInstalment()")
           .check-bg-active
@@ -41,8 +41,8 @@
 
 
       li.item(ng-class="{'active': cartMenuData.activeMenuItem==4}", ng-click="selectMenuItem(4)")
-        .title(data-output="Ламинация") {{ 'cart.DELIVERY_DATE' | translate }}
-        .value(data-output="{{ configMenu.lamination.outer }}") {{ cartMenuData.newDeliveryDate }}
+        .title(data-output="{{ 'cart.DELIVERY_DATE' | translate }}")
+        .value(data-output="{{ cartMenuData.newDeliveryDate }}") {{ cartMenuData.newDeliveryDate }}
       .dropdown-cart-menu.drop-calendar(ng-class="{'active': cartMenuData.activeMenuItem==4}")
         calendar.calendar-box
       .calendar-prices
@@ -52,20 +52,20 @@
 
     footer.menu-footer
       .price-block.price-with-instalments(ng-class="{'active': cartMenuData.activeInstalmentSwitcher}")
-        .name {{ 'cart.FIRST_PAYMENT_LABEL' | translate }} 25%
-        .name {{ 'cart.DATE_DELIVERY_LABEL' | translate }} 25.01.2015
-        span price
-        .name 3 {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }} 100
-        span price
+        .name {{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ cartMenuData.selectedInstalmentPercent }}
+        .name {{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{ cartMenuData.newDeliveryDate }}
+        price
+        .name {{ cartMenuData.selectedInstalmentPeriod }} {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }} 100
+        price
       .price-block.price-without-instalments(ng-class="{'active': !cartMenuData.activeInstalmentSwitcher}")
-        .name {{ 'cart.TOTAL_PRICE_LABEL' | translate }}
+        .name(data-output="") {{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{ cartMenuData.newDeliveryDate }}
         price
       button.order-btn(ng-click="showCallOrderDialog()") {{ 'cart.ORDER' | translate }}
       button.measure-btn(ng-click="showCallMasterDialog()") {{ 'cart.MEASURE' | translate }}
 
   .old-price-tab(ng-class="{'active': cartMenuData.activeInstalmentSwitcher}")
-    .name {{ 'cart.FIRST_PAYMENT_LABEL' | translate }} 25%
-    .name {{ 'cart.DATE_DELIVERY_LABEL' | translate }} 25.01.2015
-    span price
-    .name 3 {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }} 100
-    span price
+    .name {{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ cartMenuData.selectedInstalmentPercent }}
+    .name {{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{ cartMenuData.newDeliveryDate }}
+    price
+    .name {{ cartMenuData.selectedInstalmentPeriod }} {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }} 100
+    price

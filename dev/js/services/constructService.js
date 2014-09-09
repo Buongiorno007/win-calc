@@ -289,7 +289,7 @@ BauVoiceApp.factory('constructService', function () {
             percent: '30%'
           },
           {
-            period: '5 месяцed',
+            period: '5 месяцeв',
             percent: '35%'
           }
         ]

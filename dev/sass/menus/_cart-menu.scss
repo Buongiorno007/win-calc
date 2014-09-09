@@ -240,7 +240,7 @@
     left: 500px;
 
     &.active {
-     left: 0;
+     left: -44px;
     }
   }
   .price-without-instalments {
@@ -269,25 +269,38 @@
 
 // Price Tab
 .old-price-tab {
+  @extend .menu-right-general;
   @include transition(left .5s ease);
 
   position: absolute;
-  bottom: 320px;
+  bottom: 248px;
   left: 500px;
-  width: 400px;
-  min-height: 230px;
+  width: 500px;
+  max-height: 300px;
   padding: 30px;
+  text-align: center;
   background: rgba(#f8f8f8, .95);
   border-top-left-radius: $radius_order;
   border-bottom-left-radius: $radius_order;
   z-index: 1;
 
   &.active {
-    left: -400px;
+    left: -500px;
   }
   .name {
     @include roboto-lt(22px);
 
     color: #8c8c8c;
+  }
+  .price {
+    position: relative;
+    &:before {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      border-top: 1px solid $main_gray_txt;
+      text-decoration: line-through;
+      z-index: 2;
+    }
   }
 }

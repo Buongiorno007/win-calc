@@ -5,6 +5,8 @@
 BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'globalData', function ($scope, constructService, globalData) {
   var $cartMenu = $('.cart-menu'),
       $itemMenu = $cartMenu.find('.item'),
+
+      $priceBlock = $cartMenu.find('.price-block'),
       $dropdownMenu = $cartMenu.find('.dropdown-cart-menu'),
       $dropDeliveryMenu = $cartMenu.find('.drop-delivery'),
       $dropAssemblingMenu = $cartMenu.find('.drop-assembling'),
@@ -13,13 +15,34 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'globalDa
       $dropAssemblingItem = $dropAssemblingMenu.find('.dropdown-item'),
       $dropInstalmentItem = $dropInstalmentMenu.find('.dropdown-item'),
       $checkSwitcher = $cartMenu.find('.check-switcher'),
-      $priceBlock = $cartMenu.find('.price-block'),
+
       $oldPriceTab = $('.old-price-tab'),
       $calendar = $cartMenu.find('.calendar-box'),
       $measureBTN  = $cartMenu.find('.measure-btn');
 
 
   $scope.global = globalData;
+
+  $scope.configMenu = {};
+
+  constructService.getPrice(function (results) {
+    if (results.status) {
+      $scope.configMenu.price = results.data.price;
+      $scope.configMenu.currency = results.data.currency.name;
+    } else {
+      console.log(results);
+    }
+  });
+
+  $scope.setCurrencySymbol = function (currency) {
+    var currencySymbol = '';
+
+    if (currency === 'uah') {
+      currencySymbol = '₴';
+    }
+
+    return currencySymbol;
+  };
 
 
   $scope.cartMenuData = {
@@ -43,7 +66,17 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'globalDa
     deliveryPriceMore: ''
   };
 
-  //for Calendar
+  setTimeout(function () {
+    var $itemMenuTitle = $itemMenu.find('.title');
+
+    $itemMenuTitle.each(function () {
+      typingTextByChar($(this));
+    });
+
+  }, 500);
+
+
+  // Calendar
 
   var currentDate = new Date(),
       valuesDate,
