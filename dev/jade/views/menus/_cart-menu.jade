@@ -42,12 +42,12 @@
 
       li.item(ng-class="{'active': cartMenuData.activeMenuItem==4}", ng-click="selectMenuItem(4)")
         .title(data-output="Ламинация") {{ 'cart.DELIVERY_DATE' | translate }}
-        .value(data-output="{{ configMenu.lamination.outer }}") 01.04.2014
+        .value(data-output="{{ configMenu.lamination.outer }}") {{ cartMenuData.newDeliveryDate }}
       .dropdown-cart-menu.drop-calendar(ng-class="{'active': cartMenuData.activeMenuItem==4}")
-        .calendar-box
+        calendar.calendar-box
       .calendar-prices
-        .calendar-price.up 2655.28
-        .calendar-price.down 2655.28
+        .calendar-price.up(ng-show="cartMenuData.datePriceLess") {{ cartMenuData.deliveryPriceLess }}
+        .calendar-price.down(ng-show="cartMenuData.datePriceMore") {{ cartMenuData.deliveryPriceMore }}
 
 
     footer.menu-footer
@@ -59,7 +59,7 @@
         span price
       .price-block.price-without-instalments(ng-class="{'active': !cartMenuData.activeInstalmentSwitcher}")
         .name {{ 'cart.TOTAL_PRICE_LABEL' | translate }}
-        span price
+        price
       button.order-btn(ng-click="showCallOrderDialog()") {{ 'cart.ORDER' | translate }}
       button.measure-btn(ng-click="showCallMasterDialog()") {{ 'cart.MEASURE' | translate }}
 

@@ -18,10 +18,6 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'globalDa
       $calendar = $cartMenu.find('.calendar-box'),
       $measureBTN  = $cartMenu.find('.measure-btn');
 
-  // Calendar
-  $calendar.pickmeup({
-    flat	: true
-  });
 
   $scope.global = globalData;
 
@@ -36,8 +32,56 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'globalDa
     selectedInstalmentPercentDefault: '',
     selectedInstalmentPeriod: 'без рассрочки',
     selectedInstalmentPercent: '',
-    activeInstalmentSwitcher: false
+    activeInstalmentSwitcher: false,
+    deliveryDate: '',
+    newDeliveryDate: '',
+    datePriceLess: false,
+    datePriceMore: false,
+    ratePriceLess: 100,
+    ratePriceMore: 100,
+    deliveryPriceLess: '',
+    deliveryPriceMore: ''
   };
+
+  //for Calendar
+
+  var currentDate = new Date(),
+      valuesDate,
+      idDate,
+      today;
+
+  valuesDate = [ currentDate.getDate(), currentDate.getMonth() + 1 ];
+  for(idDate in valuesDate) {
+    valuesDate[ idDate ] = valuesDate[ idDate ].toString().replace( /^([0-9])$/, '0$1' );
+  }
+  today = valuesDate[ 0 ]+'.'+valuesDate[ 1 ]+'.'+currentDate.getFullYear();
+
+  $scope.cartMenuData.deliveryDate = today;
+  $scope.cartMenuData.newDeliveryDate = $scope.cartMenuData.deliveryDate;
+
+  $scope.checkDifferentDate = function(lastday, newday) {
+    var lastDateArr, newDateArr, lastDate, newDate, qtyDays;
+
+    lastDateArr = lastday.split(".");
+    newDateArr = newday.split(".");
+    lastDate = new Date(lastDateArr[ 2 ], lastDateArr[ 1 ]-1, lastDateArr[0]);
+    newDate = new Date(newDateArr[ 2 ], newDateArr[ 1 ]-1, newDateArr[0]);
+    qtyDays = Math.floor((newDate - lastDate)/(1000*60*60*24));
+    //console.log(' different ' + qtyDays);
+    if(qtyDays > 0 && qtyDays < 15) {
+      $scope.cartMenuData.deliveryPriceLess = $scope.cartMenuData.ratePriceLess * qtyDays;
+      $scope.cartMenuData.datePriceLess = true;
+      $scope.cartMenuData.datePriceMore = false;
+    } else if (qtyDays > 14 && qtyDays < 30) {
+      $scope.cartMenuData.deliveryPriceMore = $scope.cartMenuData.ratePriceMore * qtyDays;
+      $scope.cartMenuData.datePriceMore = true;
+      $scope.cartMenuData.datePriceLess = false;
+    } else {
+      $scope.cartMenuData.datePriceLess = false;
+      $scope.cartMenuData.datePriceMore = false;
+    }
+  };
+
 
   constructService.getFloorPrice(function (results) {
     if (results.status) {

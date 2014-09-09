@@ -590,6 +590,7 @@
 			el	= el.closest('.pmu-button');
 		}
 		if (el.length) {
+
 			if (el.hasClass('pmu-disabled')) {
 				return false;
 			}

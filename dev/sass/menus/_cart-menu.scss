@@ -198,17 +198,15 @@
     }
   }
 
-  .calendar-prices {
-    @include display-flex();
-    @include flex-flow(row nowrap);
-    @include justify-content(space-between);
-    @include align-items(center);
-  }
   .calendar-price {
     @include roboto-lt(24px, 2);
     @extend .icon-setting;
+    @extend .splash;
+
     position: relative;
     &.up {
+      float: left;
+      margin-left: 25px;
       color: $error_color;
       &:before {
         @include font-general-icon(26px, 1);
@@ -218,6 +216,7 @@
       }
     }
     &.down {
+      float: right;
       margin-right: 25px;
       color: $main_green;
       &:before {
