@@ -1,0 +1,42 @@
+section.construction-page(ng-controller="ConstructionCtrl")
+  section.construction-container
+
+    .construction-left-menu
+      ul.figure-lists
+        li.figure-item(ng-class="{'selected': constructData.activeMenuItem==1}", ng-click="selectMenuItem(1)")
+          .figure-icon.sash-shape
+          .figure-label(data-output="{{ 'construction.SASH_SHAPE' | translate }}")
+        li.figure-item(ng-class="{'selected': constructData.activeMenuItem==2}", ng-click="selectMenuItem(2)")
+          .figure-icon.angel-shape
+          .figure-label(data-output="{{ 'construction.ANGEL_SHAPE' | translate }}")
+        li.figure-item(ng-class="{'selected': constructData.activeMenuItem==3}", ng-click="selectMenuItem(3)")
+          .figure-icon.impost-shape
+          .figure-label(data-output="{{ 'construction.IMPOST_SHAPE' | translate }}")
+        li.figure-item(ng-class="{'selected': constructData.activeMenuItem==4}", ng-click="selectMenuItem(4)")
+          .figure-icon.arch-shape
+          .figure-label(data-output="{{ 'construction.ARCH_SHAPE' | translate }}")
+        li.figure-item(ng-class="{'selected': constructData.activeMenuItem==5}", ng-click="selectMenuItem(5)")
+          .figure-icon.position-shape
+          .figure-label(data-output="{{ 'construction.POSITION_SHAPE' | translate }}")
+
+      .left-menu-footer
+        .footer-description(data-output="{{ 'construction.UNITS_DESCRIP' | translate }}")
+        .project-default {{ 'construction.PROJECT_DEFAULT' | translate }}
+
+    .construction-block
+
+    .construction-right-menu
+      .right-menu-header
+        button.construct-tools.save-construction
+        button.construct-tools.close-construction
+
+      .door-config-menu
+        button.door-config-btn(ng-class="{'active': constructData.showDoorConfig}", ng-click="getDoorConfig()")
+        .door-config-label(data-output="{{ 'construction.DOOR_CONFIG_LABEL' | translate }}")
+        .door-config-description(data-output="{{ 'construction.DOOR_CONFIG_DESCTIPT' | translate }}")
+
+      .right-menu-footer
+        .size-calculator
+          include parts/_size-calculator
+
+    section.door-configuration(ng-class="{'active': constructData.showDoorConfig}")

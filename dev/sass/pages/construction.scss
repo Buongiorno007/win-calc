@@ -1,0 +1,204 @@
+.construction-container {
+  position: relative;
+  width: $ipad-width;
+  height: $ipad-height;
+}
+.construction-menu {
+  position: absolute;
+  height: 100%;
+
+  .construction-label {
+    @include roboto-bd(24px, 24px);
+
+    margin-top: 20px;
+    text-transform: uppercase;
+    color: $main_gray_txt;
+  }
+  .construction-descrip {
+    @include roboto-lt(24px);
+
+    margin-bottom: 10px;
+    color: #666;
+  }
+}
+
+
+.construction-left-menu {
+  @extend .construction-menu;
+  @include top_left_coord(0, 0);
+
+  .figure-lists {
+    width: 220px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .figure-item {
+    height: 215px;
+    border-style: solid;
+    border-color: #d2d2d2;
+    border-width: 0 1px 1px 0;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+
+    &.selected {
+      background-color: $main_green;
+      .figure-icon {
+        color: #fff;
+      }
+    }
+  }
+  .figure-icon {
+    @extend .splash;
+    @include font-general-icon(88px, 1);
+    color: $main_green;
+  }
+
+  .sash-shape {
+    &:after {
+      content: $sash-shape-icon;
+    }
+  }
+  .angel-shape {
+    &:after {
+      content: $angel-shape-icon;
+    }
+  }
+  .impost-shape {
+    &:after {
+      content: $impost-shape-icon;
+    }
+  }
+  .arch-shape {
+    &:after {
+      content: $arch-shape-icon;
+    }
+  }
+  .position-shape {
+    &:after {
+      content: $position-shape-icon;
+    }
+  }
+
+  .figure-label {
+    @extend .construction-label;
+    @extend .truncated;
+  }
+
+  .left-menu-footer {
+    position: absolute;
+    left: 60px;
+    bottom: 50px;
+    width: 350px;
+  }
+  .footer-description {
+    @extend .construction-descrip;
+  }
+  .project-default {
+    @extend .middle-button;
+    @extend .splash;
+
+    display: block;
+    width: 318px;
+    height: 72px;
+    padding: 13px 26px;
+    color: #fff;
+    background-color: $main_green;
+  }
+}
+
+.construction-right-menu {
+  @extend .construction-menu;
+
+  top: 0;
+  right: 0;
+
+  .right-menu-header {
+    margin-top: 50px;
+  }
+  .construct-tools {
+    @extend .cross-btn;
+    @extend .splash;
+
+    position: relative;
+    width: 85px;
+    height: 85px;
+    margin-right: 50px;
+    &:after {
+      top: 25%;
+      left: 25%;
+    }
+  }
+  .save-construction {
+    @include font-general-icon(28px, 1.5);
+
+    background-color: $main_green;
+    &:after{
+      content: $select-history-icon;
+    }
+  }
+  .close-construction {
+    @include font-general-icon(40px, 1);
+    background-color: $main_gray_btn;
+  }
+
+  .right-menu-footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  .door-config-menu {
+    position: absolute;
+    top: 25%;
+    right: 50px;
+    width: 240px;
+    text-align: right;
+  }
+  .door-config-btn {
+    @extend .button;
+    @extend .splash;
+    @extend .icon-setting;
+    @include font-general-icon(130px, 1);
+
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    &:after {
+      color: $main_green;
+      content: $door-config-default-icon;
+    }
+    &.active {
+      &:after {
+        content: $door-config-active-icon;
+      }
+    }
+  }
+  .door-config-label {
+    @extend .construction-label;
+    margin-bottom: 30px;
+  }
+  .door-config-description {
+    @extend .construction-descrip;
+  }
+
+  .size-calculator {
+    border-left: 1px solid $main_gray_btn;
+  }
+}
+
+.door-configuration {
+  @include top_left_coord(0, -2500);
+  @include transition(all 0.5s linear);
+
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 50px;
+  background-color: #fafafa;
+  z-index: 2;
+
+  &.active {
+    @include top_left_coord(0, 0);
+  }
+}

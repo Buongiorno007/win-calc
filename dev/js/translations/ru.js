@@ -29,6 +29,17 @@ window.russianDictionary = {
     GRIDS: 'Москитные сетки',
     TOTAL_PRICE_TXT: 'Итого дополнительных компонентов на сумму:'
   },
+  construction: {
+    SASH_SHAPE: 'створки',
+    ANGEL_SHAPE: 'углы',
+    IMPOST_SHAPE: 'импосты',
+    ARCH_SHAPE: 'арки',
+    POSITION_SHAPE: 'позиция',
+    UNITS_DESCRIP: 'В качестве единиц измерения используются миллиметры',
+    PROJECT_DEFAULT: 'Проект по умолчанию',
+    DOOR_CONFIG_LABEL: 'конфигурация двери',
+    DOOR_CONFIG_DESCTIPT: 'рама по периметру, межкомнатная створка 98 мм, ручка с нажимным гарнитуром, однозапорный замок с защелкой'
+  },
   history: {
     DRAFT_VIEW: 'Черновики расчетов',
     HISTORY_VIEW: 'История расчетов'
