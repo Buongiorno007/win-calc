@@ -23,27 +23,8 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'globalDa
 
   $scope.global = globalData;
 
-  $scope.configMenu = {};
-
-  constructService.getPrice(function (results) {
-    if (results.status) {
-      $scope.configMenu.price = results.data.price;
-      $scope.configMenu.currency = results.data.currency.name;
-    } else {
-      console.log(results);
-    }
-  });
-
-  $scope.setCurrencySymbol = function (currency) {
-    var currencySymbol = '';
-
-    if (currency === 'uah') {
-      currencySymbol = '₴';
-    }
-
-    return currencySymbol;
-  };
-
+  $scope.price = $scope.global.cartPrice;
+  $scope.currency = $scope.global.currency;
 
   $scope.cartMenuData = {
     activeMenuItem: false,

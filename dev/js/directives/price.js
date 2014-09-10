@@ -5,7 +5,8 @@ BauVoiceApp.directive('price', function () {
     restrict: 'E',
     replace: true,
     template:
-      '<div class="price clearfix" data-output="configMenu.price">' +
+      //'<div class="price clearfix" data-output="configMenu.price">' +
+      '<div class="price clearfix" data-output="price">' +
         '<div id="price" class="price-value">' +
           '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
           '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
@@ -19,7 +20,8 @@ BauVoiceApp.directive('price', function () {
           '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
           '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
         '</div>' +
-        '<div id="currency" class="price-currency">{{ setCurrencySymbol(configMenu.currency) }}</div>' +
+        '<div id="currency" class="price-currency">{{ currency }}</div>' +
+        //'<div id="currency" class="price-currency">{{ setCurrencySymbol(configMenu.currency) }}</div>' +
       '</div>',
     link: function (scope, elem, attrs) {
       scope.$watch(attrs.output, function (price) {

@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructService', function ($scope, localStorage, constructService) {
+BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructService', 'globalData', function ($scope, localStorage, constructService, globalData) {
   var $configList = $('.config-menu .items-list'),
       $configItem = $configList.find('.item'),
       $configItemIcon = $configItem.find('.icon'),
@@ -118,6 +118,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
     }, delay);
   }
 
+  $scope.global = globalData;
   $scope.configMenu = {};
 
   constructService.getConstructThumb(function (results) {
@@ -184,13 +185,22 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
 
   constructService.getPrice(function (results) {
     if (results.status) {
-      $scope.configMenu.price = results.data.price;
-      $scope.configMenu.currency = results.data.currency.name;
+      //$scope.configMenu.price = results.data.price;
+      //$scope.configMenu.currency = results.data.currency.name;
+
+      $scope.price = results.data.price;
+
+      var currencySymbol = '';
+      if (results.data.currency.name === 'uah') {
+        currencySymbol = '₴';
+      }
+      $scope.currency = currencySymbol;
+      $scope.global.currency = currencySymbol;
     } else {
       console.log(results);
     }
   });
-
+/*
   $scope.setCurrencySymbol = function (currency) {
     var currencySymbol = '';
 
@@ -200,7 +210,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
 
     return currencySymbol;
   };
-
+*/
   localStorage.getOrdersCart(function (results) {
     if (results.status) {
       $scope.configMenu.ordersInCart = results.data.ordersInCart;
@@ -210,6 +220,6 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
   });
 
   $scope.changePrice = function (price) {
-    $scope.configMenu.price = price;
+    $scope.price = price;
   };
 }]);
