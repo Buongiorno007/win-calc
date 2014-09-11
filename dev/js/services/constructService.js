@@ -336,6 +336,85 @@ BauVoiceApp.factory('constructService', function () {
         ]
 
       }));
+    },
+
+    getDoorConfig: function (callback) {
+      callback(new OkResult({
+
+        doorType: [
+          {
+            shapeId: 1,
+            shapeLabel: 'без порога',
+            shapeIcon: '../img/door-config/no-doorstep.png',
+            shapeIconSelect: '../img/door-config-selected/no-doorstep.png'
+          },
+          {
+            shapeId: 2,
+            shapeLabel: 'по периметру',
+            shapeIcon: '../img/door-config/doorstep.png',
+            shapeIconSelect: '../img/door-config-selected/doorstep.png'
+          },
+          {
+            shapeId: 3,
+            shapeLabel: 'алюминевый порог, тип1',
+            shapeIcon: '../img/door-config/doorstep-al1.png',
+            shapeIconSelect: '../img/door-config-selected/doorstep-al1.png'
+          },
+          {
+            shapeId: 4,
+            shapeLabel: 'алюминевый порог, тип2',
+            shapeIcon: '../img/door-config/doorstep-al2.png',
+            shapeIconSelect: '../img/door-config-selected/doorstep-al2.png'
+          }
+        ],
+
+        sashType: [
+          {
+            shapeId: 1,
+            shapeLabel: 'межкомнатная, 98мм'
+          },
+          {
+            shapeId: 2,
+            shapeLabel: 'дверная т-образная, 116мм'
+          },
+          {
+            shapeId: 3,
+            shapeLabel: 'оконная, 76мм'
+          }
+        ],
+
+        handleType: [
+          {
+            shapeId: 1,
+            shapeLabel: 'нажимной гарнитур',
+            shapeIcon: '../img/door-config/lever-handle.png',
+            shapeIconSelect: '../img/door-config-selected/lever-handle.png'
+          },
+          {
+            shapeId: 2,
+            shapeLabel: 'стандартная офисная ручка',
+            shapeIcon: '../img/door-config/standart-handle.png',
+            shapeIconSelect: '../img/door-config-selected/standart-handle.png'
+          }
+        ],
+
+        lockType: [
+          {
+            shapeId: 1,
+            shapeLabel: 'однозапорный с защелкой',
+            shapeIcon: '../img/door-config/onelock.png',
+            shapeIconSelect: '../img/door-config-selected/onelock.png'
+          },
+          {
+            shapeId: 2,
+            shapeLabel: 'многозапорный с защелкой',
+            shapeIcon: '../img/door-config/multilock.png',
+            shapeIconSelect: '../img/door-config-selected/multilock.png'
+          }
+        ]
+
+
+      }));
     }
 
   }

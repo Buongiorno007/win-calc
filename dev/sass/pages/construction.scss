@@ -1,3 +1,6 @@
+$door-config-header: 355px;
+$door-config-content: $ipad-height - $door-config-header;
+
 .construction-container {
   position: relative;
   width: $ipad-width;
@@ -187,6 +190,10 @@
   }
 }
 
+
+
+
+
 .door-configuration {
   @include top_left_coord(0, -2500);
   @include transition(all 0.5s linear);
@@ -194,11 +201,139 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  padding: 50px;
   background-color: #fafafa;
   z-index: 2;
 
   &.active {
     @include top_left_coord(0, 0);
+  }
+
+  .door-config-column {
+    @include transition(all 0.5s linear);
+    @include box-shadow($main_gray_btn 0px 5px 10px );
+
+    position: absolute;
+    width: 452px;
+    border-right: 1px solid #d2d2d2;
+    background-color: #fafafa;
+  }
+
+  .step1 {
+    @include top_left_coord(0, 0);
+
+    z-index: 6;
+  }
+  .step2 {
+    @include top_left_coord(0, -460);
+
+    z-index: 5;
+
+    &.active {
+      @include top_left_coord(0, 452);
+    }
+  }
+  .step3 {
+    @include top_left_coord(0, -900);
+
+    z-index: 4;
+
+    &.active {
+      @include top_left_coord(0, 900);
+    }
+  }
+  .step4 {
+    @include top_left_coord(0, -1360);
+
+    z-index: 3;
+
+    &.active {
+      @include top_left_coord(0, 1352);
+    }
+  }
+
+  .door-config-header {
+    height: $door-config-header;
+    padding-left: 50px;
+  }
+  .door-inner {
+    width: 100%;
+    height: 100%;
+    padding: 40px 20px;
+    border-bottom: 1px solid #d2d2d2;
+  }
+  .door-title {
+    @include roboto-bd(48px);
+    padding: 20px 0 30px 0;
+    color: $main_gray_txt;
+  }
+  .door-subtitle {
+    @include roboto-bd(36px, 44px);
+
+    color: $main_gray_txt;
+  }
+  .door-config-content {
+    height: $door-config-content;
+  }
+  ul.door-config-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  li.door-config-option {
+    padding-left: 50px;
+    cursor: pointer;
+    &.selected {
+      background-color: $main_green;
+
+      &:after {
+        background-color: $main_green;
+      }
+    }
+  }
+
+  .door-option-icon {
+
+  }
+  .door-option-label {
+    @include roboto-lt(36px);
+
+    color: $main_gray_txt;
+  }
+
+
+  .door-config-tools {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 260px;
+  }
+  .door-config-btn {
+    @extend button;
+    @extend .icon-setting;
+
+    width: 100%;
+    color: #fff;
+    outline: none;
+    border: none;
+  }
+  .close-door-config {
+    height: $door-config-header;
+    background-color: $main_gray_btn;
+    &:after {
+      @include font-general-icon(80px, 1);
+
+      content: $cross-icon;
+    }
+  }
+  .save-door-config {
+    height: $door-config-content;
+    background-color: $main_green;
+    &:after {
+      @include font-general-icon(60px, 1);
+
+      content: $select-history-icon;
+    }
   }
 }
