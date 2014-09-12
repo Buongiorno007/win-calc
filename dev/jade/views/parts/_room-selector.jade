@@ -1,22 +1,22 @@
-.rooms-selector-dialog.unvisible(ng-controller="RoomSelectorCtrl")
+.rooms-selector-dialog(ng-controller="RoomSelectorCtrl", ng-class="{'active': global.showRoomSelectorDialog}")
   .rooms-row
-    .room-box
-      .room-img.kitchen.unvisible(data-climate = "1", data-heat-transfer = "0.75", data-heat-exchange = "90")
+    .room-box(ng-class="{'selected': roomData.selectedRoom === 1}", ng-click="selectRoom(1)")
+      .room-img.kitchen.unvisible(showDelay)
         .room-title Кухня
-    .room-box
-      .room-img.livingroom.unvisible(data-climate = "2", data-heat-transfer = "0.45", data-heat-exchange = "80")
+    .room-box(ng-class="{'selected': roomData.selectedRoom === 2}", ng-click="selectRoom(2)")
+      .room-img.livingroom(ng-show="isRoom2")
         .room-title Гостиная
-    .room-box
-      .room-img.balcony.unvisible(data-climate = "3", data-heat-transfer = "0.15", data-heat-exchange = "60")
+    .room-box(ng-class="{'selected': roomData.selectedRoom === 3}", ng-click="selectRoom(3)")
+      .room-img.balcony(ng-show="isRoom3")
         .room-title Балкон
   .rooms-row
-    .room-box
-      .room-img.childroom.unvisible(data-climate = "4", data-heat-transfer = "0.75", data-heat-exchange = "90")
+    .room-box(ng-class="{'selected': roomData.selectedRoom === 4}", ng-click="selectRoom(4)")
+      .room-img.childroom(ng-show="isRoom4")
         .room-title Детская
-    .room-box
-      .room-img.bedroom.unvisible(data-climate = "5", data-heat-transfer = "0.75", data-heat-exchange = "90")
+    .room-box(ng-class="{'selected': roomData.selectedRoom === 5}", ng-click="selectRoom(5)")
+      .room-img.bedroom(ng-show="isRoom5")
         .room-title Спальня
-    .room-box
-      .room-img.door.unvisible(data-climate = "6", data-heat-transfer = "0.75", data-heat-exchange = "90")
+    .room-box(ng-class="{'selected': roomData.selectedRoom === 6}", ng-click="selectRoom(6); gotoDoorPage()")
+      .room-img.door(ng-show="isRoom6")
         .room-title Вход
-  .close-dialog
+  .close-dialog(ng-click="closeRoomSelectorDialog()")

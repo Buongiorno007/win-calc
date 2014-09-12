@@ -1,17 +1,17 @@
 .room-info-container(ng-controller="RoomInfoCtrl")
   .room-header
     .room-name {{ roomInfo.room }}
-      button.select-rooms.unvisible Все
+      button.select-rooms.unvisible(ng-click="showRoomSelectorDialog()") {{ 'mainpage.ALL_ROOMS' | translate }}
 
   .coeff-container
     .coeff-block
       .coeff.climate {{ roomInfo.zone }}
-      .coeff-title(data-output="климатическая зона")
+      .coeff-title(data-output="{{ 'mainpage.CLIMATE_ZONE' | translate }}")
     .coeff-block
       .coeff.heat-transfer.coeff-low {{ roomInfo.coefs.thermalResistance.actual }}
         .coeff-max {{ roomInfo.coefs.thermalResistance.required }}
-      .coeff-title(data-output="сопротивление теплопередаче")
+      .coeff-title(data-output="{{ 'mainpage.THERMAL_RESISTANCE' | translate }}")
     .coeff-block
       .coeff.heat-exchange {{ roomInfo.coefs.airCirculation.actual }}
         .coeff-max {{ roomInfo.coefs.airCirculation.required }}
-      .coeff-title(data-output="коэффициент воздухообмена")
+      .coeff-title(data-output="{{ 'mainpage.AIR_CIRCULATION' | translate }}")

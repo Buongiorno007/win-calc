@@ -15,6 +15,12 @@ window.russianDictionary = {
     MOBILE: 'Мобильный телефон',
     PASSWORD: 'Пароль'
   },
+  mainpage: {
+    ALL_ROOMS: 'Все',
+    CLIMATE_ZONE: 'климатическая зона',
+    THERMAL_RESISTANCE: 'сопротивление теплопередаче',
+    AIR_CIRCULATION: 'коэффициент воздухообмена'
+  },
   additional_elements: {
     VISOR: 'Козырек',
     GRID: 'Москитная сетка',
@@ -38,7 +44,10 @@ window.russianDictionary = {
     UNITS_DESCRIP: 'В качестве единиц измерения используются миллиметры',
     PROJECT_DEFAULT: 'Проект по умолчанию',
     DOOR_CONFIG_LABEL: 'конфигурация двери',
-    DOOR_CONFIG_DESCTIPT: 'рама по периметру, межкомнатная створка 98 мм, ручка с нажимным гарнитуром, однозапорный замок с защелкой',
+    DOOR_CONFIG_DESCTIPT: 'рама двери',
+    SASH_CONFIG_DESCTIPT: 'створка двери',
+    HANDLE_CONFIG_DESCTIPT: 'ручка',
+    LOCK_CONFIG_DESCTIPT: 'замок',
     STEP: 'шаг',
     LABEL_DOOR_TYPE: 'Выберите конструкцию рамы двери',
     LABEL_SASH_TYPE: 'Выберите тип створки двери',

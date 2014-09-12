@@ -27,13 +27,16 @@ section.construction-page(ng-controller="ConstructionCtrl")
 
     .construction-right-menu
       .right-menu-header
-        button.construct-tools.save-construction
-        button.construct-tools.close-construction
+        button.construct-tools.save-construction(ng-click="gotoMainPageEmpty()")
+        button.construct-tools.close-construction(ng-click="gotoMainPageSaved()")
 
-      .door-config-menu
+      .door-config-menu(ng-show="isDoorPage")
         button.door-config-btn(ng-class="{'active': constructData.showDoorConfig}", ng-click="getDoorConfig()")
-        .door-config-label(data-output="{{ 'construction.DOOR_CONFIG_LABEL' | translate }}")
-        .door-config-description(data-output="{{ 'construction.DOOR_CONFIG_DESCTIPT' | translate }}")
+        .door-config-label {{ 'construction.DOOR_CONFIG_LABEL' | translate }}
+        .door-config-description {{ 'construction.DOOR_CONFIG_DESCTIPT' | translate }}: {{ constructData.doorShape }};
+        .door-config-description {{ 'construction.SASH_CONFIG_DESCTIPT' | translate }}: {{ constructData.sashShape }};
+        .door-config-description {{ 'construction.HANDLE_CONFIG_DESCTIPT' | translate }}: {{ constructData.handleShape }};
+        .door-config-description {{ 'construction.LOCK_CONFIG_DESCTIPT' | translate }}: {{ constructData.lockShape }};
 
       .right-menu-footer
         .size-calculator
@@ -42,59 +45,66 @@ section.construction-page(ng-controller="ConstructionCtrl")
     section.door-configuration(ng-class="{'active': constructData.showDoorConfig}")
 
       .door-config-column.step1
+        .door-config-backfon
         .door-config-header
           .door-inner
             .door-title 1 {{ 'construction.STEP' | translate }}
             .door-subtitle {{ 'construction.LABEL_DOOR_TYPE' | translate }}
-        .door-config-content
+        .door-config-content(ng-class="{'scroll-box': !constructData.selectedStep2}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="door in doorShape", ng-class="{'selected': constructData.selectedDoorShape === door.shapeId}", ng-click="selectDoor(door.shapeId)")
+            li.door-config-option(ng-repeat="door in doorShape", ng-class="{'selected': constructData.selectedDoorShape === door.shapeId}", ng-click="selectDoor(door.shapeId, door.shapeLabel)")
               .door-inner
                 .door-option-icon
                   img(ng-src="{{ door.shapeIcon }}" ng-hide="constructData.selectedDoorShape === door.shapeId")
                   img(ng-src="{{ door.shapeIconSelect }}", ng-show="constructData.selectedDoorShape === door.shapeId")
                 .door-option-label {{ door.shapeLabel }}
+              .selected-item-arrow(ng-show="constructData.selectedDoorShape === door.shapeId")
 
       .door-config-column.step2(ng-class="{'active': constructData.selectedStep1}")
+        .door-config-backfon
         .door-config-header
           .door-inner
             .door-title 2 {{ 'construction.STEP' | translate }}
             .door-subtitle {{ 'construction.LABEL_SASH_TYPE' | translate }}
-        .door-config-content
+        .door-config-content(ng-class="{'scroll-box': !constructData.selectedStep3}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="sash in sashShape", ng-class="{'selected': constructData.selectedSashShape === sash.shapeId}", ng-click="selectSash(sash.shapeId)")
+            li.door-config-option(ng-repeat="sash in sashShape", ng-class="{'selected': constructData.selectedSashShape === sash.shapeId}", ng-click="selectSash(sash.shapeId, sash.shapeLabel)")
               .door-inner
                 .door-option-label {{ sash.shapeLabel }}
+              .selected-item-arrow(ng-show="constructData.selectedSashShape === sash.shapeId")
 
       .door-config-column.step3(ng-class="{'active': constructData.selectedStep2}")
+        .door-config-backfon
         .door-config-header
           .door-inner
             .door-title 3 {{ 'construction.STEP' | translate }}
             .door-subtitle {{ 'construction.LABEL_HANDLE_TYPE' | translate }}
-        .door-config-content
+        .door-config-content(ng-class="{'scroll-box': !constructData.selectedStep4}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="handle in handleShape", ng-class="{'selected': constructData.selectedHandleShape === handle.shapeId}", ng-click="selectHandle(handle.shapeId)")
+            li.door-config-option(ng-repeat="handle in handleShape", ng-class="{'selected': constructData.selectedHandleShape === handle.shapeId}", ng-click="selectHandle(handle.shapeId, handle.shapeLabel)")
               .door-inner
                 .door-option-icon
                   img(ng-src="{{ handle.shapeIcon }}" ng-hide="constructData.selectedHandleShape === handle.shapeId")
                   img(ng-src="{{ handle.shapeIconSelect }}", ng-show="constructData.selectedHandleShape === handle.shapeId")
                 .door-option-label {{ handle.shapeLabel }}
+              .selected-item-arrow(ng-show="constructData.selectedHandleShape === handle.shapeId")
 
       .door-config-column.step4(ng-class="{'active': constructData.selectedStep3}")
+        .door-config-backfon
         .door-config-header
           .door-inner
             .door-title 4 {{ 'construction.STEP' | translate }}
             .door-subtitle {{ 'construction.LABEL_LOCK_TYPE' | translate }}
-        .door-config-content
+        .door-config-content(ng-class="{'scroll-box': constructData.selectedStep3}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="lock in lockShape", ng-class="{'selected': constructData.selectedLockShape === lock.shapeId}", ng-click="selectLock(lock.shapeId)")
+            li.door-config-option(ng-repeat="lock in lockShape", ng-class="{'selected': constructData.selectedLockShape === lock.shapeId}", ng-click="selectLock(lock.shapeId, lock.shapeLabel)")
               .door-inner
                 .door-option-icon
                   img(ng-src="{{ lock.shapeIcon }}" ng-hide="constructData.selectedLockShape === lock.shapeId")
                   img(ng-src="{{ lock.shapeIconSelect }}", ng-show="constructData.selectedLockShape === lock.shapeId")
                 .door-option-label {{ lock.shapeLabel }}
-
+              .selected-item-arrow(ng-show="constructData.selectedLockShape === lock.shapeId")
 
       .door-config-tools
-        button.door-config-btn.close-door-config
-        button.door-config-btn.save-door-config(ng-show="constructData.selectedStep4")
+        button.door-config-btn.close-door-config(ng-click="closeDoorConfig()")
+        button.door-config-btn.save-door-config(ng-show="constructData.selectedStep4", ng-click="saveDoorConfig()")

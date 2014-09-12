@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('RoomInfoCtrl', ['$scope', 'locationService', 'constructService', function ($scope, locationService, constructService) {
+BauVoiceApp.controller('RoomInfoCtrl', ['$scope', 'locationService', 'constructService', 'globalData', function ($scope, locationService, constructService, globalData) {
     var $roomInfo = $('.room-info-container'),
         $coeffTitle = $roomInfo.find('.coeff-title'),
         $selectRoomsBTN = $roomInfo.find('.select-rooms'),
@@ -11,7 +11,18 @@ BauVoiceApp.controller('RoomInfoCtrl', ['$scope', 'locationService', 'constructS
   typingTextWithDelay($coeffTitle, DELAY_SHOW_COEFF_TITLE);
   showElementWithDelay($selectRoomsBTN, DELAY_SHOW_COEFF_TITLE);
 
+  $scope.global = globalData;
   $scope.roomInfo = {};
+
+  // Show/Close Room Selector Dialog
+  $scope.showRoomSelectorDialog = function() {
+    if($scope.global.showRoomSelectorDialog === false) {
+      $scope.global.showRoomSelectorDialog = true;
+    } else {
+      $scope.global.showRoomSelectorDialog = false;
+    }
+  };
+
 
   locationService.getCity(function (results) {
     if (results.status) {

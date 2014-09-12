@@ -6,6 +6,10 @@ $door-config-content: $ipad-height - $door-config-header;
   width: $ipad-width;
   height: $ipad-height;
 }
+
+
+// General Menu Properties
+
 .construction-menu {
   position: absolute;
   height: 100%;
@@ -25,6 +29,8 @@ $door-config-content: $ipad-height - $door-config-header;
   }
 }
 
+
+// Construction Left Menu
 
 .construction-left-menu {
   @extend .construction-menu;
@@ -111,6 +117,9 @@ $door-config-content: $ipad-height - $door-config-header;
   }
 }
 
+
+// Construction Right Menu
+
 .construction-right-menu {
   @extend .construction-menu;
 
@@ -155,7 +164,7 @@ $door-config-content: $ipad-height - $door-config-header;
     position: absolute;
     top: 25%;
     right: 50px;
-    width: 240px;
+    width: 300px;
     text-align: right;
   }
   .door-config-btn {
@@ -192,7 +201,7 @@ $door-config-content: $ipad-height - $door-config-header;
 
 
 
-
+// Door Configuration Panel
 
 .door-configuration {
   @include top_left_coord(0, -2500);
@@ -210,53 +219,51 @@ $door-config-content: $ipad-height - $door-config-header;
 
   .door-config-column {
     @include transition(all 0.5s linear);
-    @include box-shadow($main_gray_btn 0px 5px 10px );
+    @include top_left_coord(0, -460);
 
     position: absolute;
-    width: 452px;
-    border-right: 1px solid #d2d2d2;
-    background-color: #fafafa;
+    width: 512px;
   }
-
   .step1 {
     @include top_left_coord(0, 0);
 
     z-index: 6;
   }
   .step2 {
-    @include top_left_coord(0, -460);
-
     z-index: 5;
-
     &.active {
       @include top_left_coord(0, 452);
     }
   }
   .step3 {
-    @include top_left_coord(0, -900);
-
     z-index: 4;
-
     &.active {
       @include top_left_coord(0, 900);
     }
   }
   .step4 {
-    @include top_left_coord(0, -1360);
-
     z-index: 3;
-
     &.active {
       @include top_left_coord(0, 1352);
     }
   }
+  .door-config-backfon {
+    @include box-shadow($main_gray_btn 0px 5px 10px );
+    @include top_left_coord(0, 0);
 
+    width: 452px;
+    height: 100%;
+    position: absolute;
+    border-right: 1px solid #d2d2d2;
+    background-color: #fafafa;
+    z-index: -1;
+  }
   .door-config-header {
     height: $door-config-header;
     padding-left: 50px;
+    width: 452px;
   }
   .door-inner {
-    width: 100%;
     height: 100%;
     padding: 40px 20px;
     border-bottom: 1px solid #d2d2d2;
@@ -273,45 +280,51 @@ $door-config-content: $ipad-height - $door-config-header;
   }
   .door-config-content {
     height: $door-config-content;
+    overflow: hidden;
+    &.scroll-box {
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
   }
   ul.door-config-list {
+    width: 512px;
     list-style: none;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
   }
   li.door-config-option {
+    width: 452px;
     padding-left: 50px;
     cursor: pointer;
+    position: relative;
     &.selected {
       background-color: $main_green;
-
-      &:after {
-        background-color: $main_green;
-      }
     }
   }
-
-  .door-option-icon {
-
+  .selected-item-arrow {
+    position: absolute;
+    top: 0;
+    right: -58px;
+    width: 60px;
+    height: 100%;
+    background: image-url('door-arrow.png') no-repeat;
+    background-size: 100% 100%;
   }
   .door-option-label {
     @include roboto-lt(36px);
 
     color: $main_gray_txt;
   }
-
-
   .door-config-tools {
     position: absolute;
     top: 0;
     right: 0;
-    width: 260px;
+    width: 244px;
   }
   .door-config-btn {
     @extend button;
     @extend .icon-setting;
+    @include font-general-icon(60px, 1);
 
     width: 100%;
     color: #fff;
@@ -322,17 +335,13 @@ $door-config-content: $ipad-height - $door-config-header;
     height: $door-config-header;
     background-color: $main_gray_btn;
     &:after {
-      @include font-general-icon(80px, 1);
-
-      content: $cross-icon;
+      content: $cross-big-icon;
     }
   }
   .save-door-config {
     height: $door-config-content;
     background-color: $main_green;
     &:after {
-      @include font-general-icon(60px, 1);
-
       content: $select-history-icon;
     }
   }

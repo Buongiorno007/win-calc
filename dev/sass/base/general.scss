@@ -171,25 +171,20 @@ body {
 
 // Modal dialog
 .modal-dialog {
-  @include top_left_coord(300, 80);
+  @include top_left_coord(300, -2000);
+  @include transition(all 0.5s linear);
 
+  display: none;
   position: absolute;
   width: 1350px;
   padding: 80px 60px;
   border-radius: $radius_rooms-dialog;
   background-color: rgba(#fff, .85);
 
-  &.show-dialog {
-    @include animation(show-dialog 1s 0 ease 1);
-  }
-  &.hide-dialog {
-    @include animation(hide-dialog .5s 0 ease 1);
-    @include translateX(-2000px);
+  &.active {
+    @include top_left_coord(300, 80);
   }
 }
-
-@include behavior-move(show-dialog, -2000px, 0, 0, 0);
-@include behavior-move(hide-dialog, 0, 0, -2000px, 0);
 
 
 .cross-btn {

@@ -6,6 +6,8 @@ BauVoiceApp.factory('globalData', function () {
     cartPrice: '0',
     showMasterDialog: false,
     showOrderDialog: false,
-    showCreditDialog: false
+    showCreditDialog: false,
+    doorConstructionPage: false,
+    showRoomSelectorDialog: false
   }
 });

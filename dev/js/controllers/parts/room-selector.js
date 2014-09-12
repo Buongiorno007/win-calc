@@ -2,7 +2,14 @@
 
 'use strict';
 
-BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', function ($scope) {
+BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', '$location', 'globalData', function ($scope, $location, globalData) {
+
+  $scope.global = globalData;
+
+  $scope.roomData = {
+    selectedRoom: false
+  };
+
   var $roomInfoContainer = $('.room-info-container'),
       $selectRoomsBTN = $roomInfoContainer.find('.select-rooms'),
       $climateCoeff = $roomInfoContainer.find('.climate'),
@@ -25,18 +32,22 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', function ($scope) {
       FINISH_SHOW_ROOM;
 
   // Show/Close Room Selector Dialog
-  $selectRoomsBTN.click(function () {
+  /*$selectRoomsBTN.click(function () {
     if ($roomsDialog.hasClass(showRoomDialogClass)) {
       $roomsDialog.removeClass(showRoomDialogClass).addClass(hideRoomDialogClass);
       addClassWithDelay($roomsDialog, unvisibleClass, 5 * STEP);
     } else if ($roomsDialog.hasClass(hideRoomDialogClass)) {
       $roomsDialog.removeClass(hideRoomDialogClass).removeClass(unvisibleClass).addClass(showRoomDialogClass);
     } else {
+
+
       $roomsDialog.removeClass(unvisibleClass).addClass(showRoomDialogClass);
       for (var room = 0; room < $roomIMG.length; room++) {
         var DELAY_SHOW_ROOM = DELAY_SHOW_ROOM_DIALOG + STEP_SHOW_ROOM * room;
         FINISH_SHOW_ROOM = DELAY_SHOW_ROOM;
         showElementWithDelay($roomIMG.eq(room), DELAY_SHOW_ROOM);
+
+
       }
       var DELAY_ROOM_CURRENT = FINISH_SHOW_ROOM + 5 * STEP;
       addClassWithDelay($roomBox[roomCurrent], selectClass, DELAY_ROOM_CURRENT);
@@ -47,7 +58,7 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', function ($scope) {
     $roomsDialog.removeClass(showRoomDialogClass).addClass(hideRoomDialogClass);
     addClassWithDelay($roomsDialog, unvisibleClass, 5 * STEP);
   });
-
+   */
   // Room Select
   $roomBox.click(function () {
     $roomBox.each(function () {
@@ -63,4 +74,25 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', function ($scope) {
     $heatTransfCoeff.text(newHeatTransfCoeff);
     $heatExchangeCoeff.text(newHeatExchangeCoeff);
   });
+
+
+  // Room Select
+  $scope.selectRoom = function(id, coeff) {
+    if($scope.roomData.selectedRoom === id) {
+      $scope.moomData.selectedRoom = false;
+    } else {
+      $scope.roomData.selectedRoom = id;
+    }
+  };
+
+
+  $scope.gotoDoorPage = function() {
+    $scope.global.doorConstructionPage = true;
+    $location.path('/construction');
+  };
+
+  // Close Room Selector Dialog
+  $scope.closeRoomSelectorDialog = function() {
+    $scope.global.showRoomSelectorDialog = false;
+  };
 }]);
