@@ -172,7 +172,7 @@ body {
 // Modal dialog
 .modal-dialog {
   @include top_left_coord(300, -2000);
-  @include transition(all 0.5s linear);
+  @include transition(all 0.3s linear);
 
   display: none;
   position: absolute;

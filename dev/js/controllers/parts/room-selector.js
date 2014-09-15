@@ -7,7 +7,7 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', '$location', 'globalData',
   $scope.global = globalData;
 
   $scope.roomData = {
-    selectedRoom: 4,
+    selectedRoom: $scope.global.currentRoomId,
     DELAY_SHOW_ROOM1: 5*STEP,
     DELAY_SHOW_ROOM2: 6*STEP,
     DELAY_SHOW_ROOM3: 7*STEP,
@@ -23,6 +23,7 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', '$location', 'globalData',
       $scope.roomData.selectedRoom = false;
     } else {
       $scope.roomData.selectedRoom = id;
+      $scope.global.currentRoomId = id;
     }
   };
 

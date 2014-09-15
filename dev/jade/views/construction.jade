@@ -5,22 +5,22 @@ section.construction-page(ng-controller="ConstructionCtrl")
       ul.figure-lists
         li.figure-item(ng-class="{'selected': constructData.activeMenuItem==1}", ng-click="selectMenuItem(1)")
           .figure-icon.sash-shape
-          .figure-label(data-output="{{ 'construction.SASH_SHAPE' | translate }}")
+          .figure-label(data-output="{{ 'construction.SASH_SHAPE' | translate }}", typing="{{ constructData.typing }}", typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}")
         li.figure-item(ng-class="{'selected': constructData.activeMenuItem==2}", ng-click="selectMenuItem(2)")
           .figure-icon.angel-shape
-          .figure-label(data-output="{{ 'construction.ANGEL_SHAPE' | translate }}")
+          .figure-label(data-output="{{ 'construction.ANGEL_SHAPE' | translate }}", typing="{{ constructData.typing }}", typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}")
         li.figure-item(ng-class="{'selected': constructData.activeMenuItem==3}", ng-click="selectMenuItem(3)")
           .figure-icon.impost-shape
-          .figure-label(data-output="{{ 'construction.IMPOST_SHAPE' | translate }}")
+          .figure-label(data-output="{{ 'construction.IMPOST_SHAPE' | translate }}", typing="{{ constructData.typing }}", typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}")
         li.figure-item(ng-class="{'selected': constructData.activeMenuItem==4}", ng-click="selectMenuItem(4)")
           .figure-icon.arch-shape
-          .figure-label(data-output="{{ 'construction.ARCH_SHAPE' | translate }}")
+          .figure-label(data-output="{{ 'construction.ARCH_SHAPE' | translate }}", typing="{{ constructData.typing }}", typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}")
         li.figure-item(ng-class="{'selected': constructData.activeMenuItem==5}", ng-click="selectMenuItem(5)")
           .figure-icon.position-shape
-          .figure-label(data-output="{{ 'construction.POSITION_SHAPE' | translate }}")
+          .figure-label(data-output="{{ 'construction.POSITION_SHAPE' | translate }}", typing="{{ constructData.typing }}", typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}")
 
       .left-menu-footer
-        .footer-description(data-output="{{ 'construction.UNITS_DESCRIP' | translate }}")
+        .footer-description(data-output="{{ 'construction.UNITS_DESCRIP' | translate }}", typing="{{ constructData.typing }}", typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}")
         .project-default {{ 'construction.PROJECT_DEFAULT' | translate }}
 
     .construction-block

@@ -12,12 +12,15 @@
   }
   .room-name {
     @include display-flex();
+    @include justify-content(space-between);
     @include roboto-th(200px, 150px);
 
+    min-width: 960px;
     color: #fff;
   }
   .select-rooms {
     @extend .orange-big-btn;
+    @extend .splash;
 
     width: 136px;
     height: 72px;

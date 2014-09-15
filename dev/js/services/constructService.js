@@ -13,24 +13,85 @@ BauVoiceApp.factory('constructService', function () {
     // TODO: Сервис готов
     getCoefs: function (callback) {
       callback(new OkResult({
-        coefs: {
-          thermalResistance: {
-            required: 0.75,
-            actual: 0.44
+        coefs: [
+          {
+            id: 1,
+            thermalResistance: {
+              required: 0.75,
+              actual: 0.54
+            },
+            airCirculation: {
+              required: 50,
+              actual: 20
+            }
           },
-          airCirculation: {
-            required: 50,
-            actual: 0
+          {
+            id: 2,
+            thermalResistance: {
+              required: 0.75,
+              actual: 0.4
+            },
+            airCirculation: {
+              required: 50,
+              actual: 90
+            }
+          },
+          {
+            id: 3,
+            thermalResistance: {
+              required: 0.75,
+              actual: 0.14
+            },
+            airCirculation: {
+              required: 50,
+              actual: 10
+            }
+          },
+          {
+            id: 4,
+            thermalResistance: {
+              required: 0.75,
+              actual: 0.44
+            },
+            airCirculation: {
+              required: 50,
+              actual: 0
+            }
           }
-        }
+        ]
+
       }));
     },
 
     // TODO: Сервис готов
     getRoomInfo: function (callback) {
       callback(new OkResult({
-        id: 1,
-        name: 'Детская'
+        roomName: [
+          {
+            id: 1,
+            name: 'Кухня'
+          },
+          {
+            id: 2,
+            name: 'Гостиная'
+          },
+          {
+            id: 3,
+            name: 'Балкон'
+          },
+          {
+            id: 4,
+            name: 'Детская'
+          },
+          {
+            id: 5,
+            name: 'Спальня'
+          },
+          {
+            id: 6,
+            name: 'Вход'
+          }
+        ]
       }));
     },
 

@@ -3,16 +3,14 @@
 'use strict';
 
 BauVoiceApp.controller('RoomInfoCtrl', ['$scope', 'locationService', 'constructService', 'globalData', function ($scope, locationService, constructService, globalData) {
-    var $roomInfo = $('.room-info-container'),
-        $coeffTitle = $roomInfo.find('.coeff-title'),
-        $selectRoomsBTN = $roomInfo.find('.select-rooms'),
-        DELAY_SHOW_COEFF_TITLE = 20 * STEP;
-
-  typingTextWithDelay($coeffTitle, DELAY_SHOW_COEFF_TITLE);
-  showElementWithDelay($selectRoomsBTN, DELAY_SHOW_COEFF_TITLE);
 
   $scope.global = globalData;
-  $scope.roomInfo = {};
+
+  $scope.roomInfo = {
+    DELAY_SHOW_COEFF: 20 * STEP,
+    DELAY_SHOW_ALLROOMS_BTN: 15 * STEP,
+    typing: 'on'
+  };
 
   // Show/Close Room Selector Dialog
   $scope.showRoomSelectorDialog = function() {
@@ -34,7 +32,7 @@ BauVoiceApp.controller('RoomInfoCtrl', ['$scope', 'locationService', 'constructS
 
   constructService.getRoomInfo(function (results) {
     if (results.status) {
-      $scope.roomInfo.room = results.data.name;
+      $scope.roomInfo.roomArr = results.data.roomName;
     } else {
       console.log(results);
     }
@@ -42,6 +40,23 @@ BauVoiceApp.controller('RoomInfoCtrl', ['$scope', 'locationService', 'constructS
 
   constructService.getCoefs(function (results) {
     if (results.status) {
+      $scope.roomInfo.coefsArr = [
+
+      ];
+      for(var c = 0; c < results.data.coefs.length; c++) {
+        var coefsObj = {
+          thermalResistance: {
+            required: results.data.coefs[c].thermalResistance.required,
+            actual: results.data.coefs[c].thermalResistance.actual
+          },
+          airCirculation: {
+            required: results.data.coefs[c].airCirculation.required,
+            actual: results.data.coefs[c].airCirculation.actual
+          }
+        };
+        $scope.roomInfo.coefsArr.push(coefsObj);
+      }
+ /*
       $scope.roomInfo.coefs = {
         thermalResistance: {
           required: results.data.coefs.thermalResistance.required,
@@ -52,6 +67,7 @@ BauVoiceApp.controller('RoomInfoCtrl', ['$scope', 'locationService', 'constructS
             actual: results.data.coefs.airCirculation.actual
         }
       };
+ */
     } else {
       console.log(results);
     }

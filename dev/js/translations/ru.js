@@ -19,7 +19,13 @@ window.russianDictionary = {
     ALL_ROOMS: 'Все',
     CLIMATE_ZONE: 'климатическая зона',
     THERMAL_RESISTANCE: 'сопротивление теплопередаче',
-    AIR_CIRCULATION: 'коэффициент воздухообмена'
+    AIR_CIRCULATION: 'коэффициент воздухообмена',
+    ROOM_KITCHEN: 'Кухня',
+    ROOM_LIVINGROOM: 'Гостиная',
+    ROOM_BALCONY: 'Балкон',
+    ROOM_CHILDROOM: 'Детская',
+    ROOM_BEDROOM: 'Спальня',
+    ROOM_DOOR: 'Вход'
   },
   additional_elements: {
     VISOR: 'Козырек',

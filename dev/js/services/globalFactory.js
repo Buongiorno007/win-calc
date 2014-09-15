@@ -8,6 +8,7 @@ BauVoiceApp.factory('globalData', function () {
     showOrderDialog: false,
     showCreditDialog: false,
     doorConstructionPage: false,
-    showRoomSelectorDialog: false
+    showRoomSelectorDialog: false,
+    currentRoomId: 4
   }
 });

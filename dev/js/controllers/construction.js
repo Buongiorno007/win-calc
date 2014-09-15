@@ -4,14 +4,6 @@
 
 BauVoiceApp.controller('ConstructionCtrl', ['$scope',  'constructService', 'globalData', '$location', function ($scope, constructService, globalData, $location) {
 
-  var $constructLeftMenu = $('.construction-left-menu'),
-      $figureLabel = $constructLeftMenu.find('.figure-label'),
-      $footerLabel = $constructLeftMenu.find('.footer-description'),
-      $constructionRightMenu = $('.construction-right-menu'),
-      $doorConfigLabel = $constructionRightMenu.find('.door-config-label'),
-      $doorConfigDescrip = $constructionRightMenu.find('.door-config-description');
-
-
   $scope.global = globalData;
   $scope.isDoorPage =  $scope.global.doorConstructionPage;
 
@@ -44,7 +36,9 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  'constructService', 'glob
     selectedStep1: false,
     selectedStep2: false,
     selectedStep3: false,
-    selectedStep4: false
+    selectedStep4: false,
+    DELAY_SHOW_FIGURE_ITEM: 2000,
+    typing: 'on'
   };
 
   $scope.constructData.doorShapeDefault = $scope.doorShape[0].shapeLabel;
@@ -56,19 +50,6 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  'constructService', 'glob
   $scope.constructData.sashShape = $scope.constructData.sashShapeDefault;
   $scope.constructData.handleShape = $scope.constructData.handleShapeDefault;
   $scope.constructData.lockShape = $scope.constructData.lockShapeDefault;
-
-  setTimeout(function () {
-
-    $figureLabel.each(function () {
-      typingTextByChar($(this));
-    });
-
-    typingTextByChar($footerLabel);
-    //typingTextByChar($doorConfigLabel);
-    //typingTextByChar($doorConfigDescrip);
-
-  }, 500);
-
 
   //Select menu item
   $scope.selectMenuItem = function(id) {
@@ -86,7 +67,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  'constructService', 'glob
     } else {
       $scope.constructData.showDoorConfig = true;
     }
-  }
+  };
 
 
   // Select door shape
