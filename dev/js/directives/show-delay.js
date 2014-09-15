@@ -20,3 +20,24 @@ BauVoiceApp.directive('showDelay', function () {
     }
   };
 });
+
+BauVoiceApp.directive('styleDelay', function () {
+  return {
+    scope: {
+      styleDelay: '@'
+    },
+    link: function (scope, elem, attrs) {
+      attrs.$observe('styleDelay', function () {
+        addClassWithDelay();
+      });
+
+      function addClassWithDelay() {
+        var selectedClass = 'selected';
+
+        setTimeout(function () {
+          elem.addClass(selectedClass);
+        }, parseInt(scope.styleDelay, 10));
+      }
+    }
+  };
+});

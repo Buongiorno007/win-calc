@@ -1,22 +1,28 @@
 .rooms-selector-dialog(ng-controller="RoomSelectorCtrl", ng-class="{'active': global.showRoomSelectorDialog}")
   .rooms-row
-    .room-box(ng-class="{'selected': roomData.selectedRoom === 1}", ng-click="selectRoom(1)")
-      .room-img.kitchen.unvisible(showDelay)
-        .room-title Кухня
-    .room-box(ng-class="{'selected': roomData.selectedRoom === 2}", ng-click="selectRoom(2)")
-      .room-img.livingroom(ng-show="isRoom2")
-        .room-title Гостиная
-    .room-box(ng-class="{'selected': roomData.selectedRoom === 3}", ng-click="selectRoom(3)")
-      .room-img.balcony(ng-show="isRoom3")
-        .room-title Балкон
+    .room-block
+      .room-box.unvisible(ng-if="global.showRoomSelectorDialog", show-delay="{{ roomData.DELAY_SHOW_ROOM1 }}", ng-class="{'selected': roomData.selectedRoom === 1}", ng-click="selectRoom(1)")
+        .room-img.kitchen
+          .room-title Кухня
+    .room-block
+      .room-box.unvisible(ng-if="global.showRoomSelectorDialog", show-delay="{{ roomData.DELAY_SHOW_ROOM2 }}", ng-class="{'selected': roomData.selectedRoom === 2}", ng-click="selectRoom(2)")
+        .room-img.livingroom
+          .room-title Гостиная
+    .room-block
+      .room-box.unvisible(ng-if="global.showRoomSelectorDialog", show-delay="{{ roomData.DELAY_SHOW_ROOM3 }}", ng-class="{'selected': roomData.selectedRoom === 3}", ng-click="selectRoom(3)")
+        .room-img.balcony
+          .room-title Балкон
   .rooms-row
-    .room-box(ng-class="{'selected': roomData.selectedRoom === 4}", ng-click="selectRoom(4)")
-      .room-img.childroom(ng-show="isRoom4")
-        .room-title Детская
-    .room-box(ng-class="{'selected': roomData.selectedRoom === 5}", ng-click="selectRoom(5)")
-      .room-img.bedroom(ng-show="isRoom5")
-        .room-title Спальня
-    .room-box(ng-class="{'selected': roomData.selectedRoom === 6}", ng-click="selectRoom(6); gotoDoorPage()")
-      .room-img.door(ng-show="isRoom6")
-        .room-title Вход
+    .room-block
+      .room-box.unvisible(ng-if="global.showRoomSelectorDialog", show-delay="{{ roomData.DELAY_SHOW_ROOM4 }}", ng-class="{'selected': roomData.selectedRoom === 4}", ng-click="selectRoom(4)")
+        .room-img.childroom
+          .room-title Детская
+    .room-block
+      .room-box.unvisible(ng-if="global.showRoomSelectorDialog", show-delay="{{ roomData.DELAY_SHOW_ROOM5 }}", ng-class="{'selected': roomData.selectedRoom === 5}", ng-click="selectRoom(5)")
+        .room-img.bedroom
+          .room-title Спальня
+    .room-block
+      .room-box.unvisible(ng-if="global.showRoomSelectorDialog", show-delay="{{ roomData.DELAY_SHOW_ROOM6 }}", ng-class="{'selected': roomData.selectedRoom === 6}", ng-click="selectRoom(6); gotoDoorPage()")
+        .room-img.door
+          .room-title Вход
   .close-dialog(ng-click="closeRoomSelectorDialog()")

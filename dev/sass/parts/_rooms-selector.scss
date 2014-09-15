@@ -22,9 +22,13 @@
       margin-bottom: 25px;
     }
   }
-  .room-box {
+  .room-block {
     width: 404px;
     height: 314px;
+  }
+  .room-box {
+    width: 100%;
+    height: 100%;
     padding: 16px;
     border-radius: $radius_room-box_dialog;
     cursor: pointer;
