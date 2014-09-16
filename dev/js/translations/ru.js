@@ -25,7 +25,19 @@ window.russianDictionary = {
     ROOM_BALCONY: 'Балкон',
     ROOM_CHILDROOM: 'Детская',
     ROOM_BEDROOM: 'Спальня',
-    ROOM_DOOR: 'Вход'
+    ROOM_DOOR: 'Вход',
+    NAVMENU_GEOLOCATION: 'Выбрать расположение',
+    NAVMENU_CURRENT_GEOLOCATION: 'Текущее расположение',
+    NAVMENU_CURRENT_CALCULATION: 'Текущий расчет',
+    NAVMENU_CART: 'Корзина расчета',
+    NAVMENU_ADD_ELEMENTS: 'Дополнительные элементы',
+    NAVMENU_ALL_CALCULATIONS: 'Все расчеты',
+    NAVMENU_SETTINGS: 'Настройки',
+    NAVMENU_MORE_INFO: 'Больше информации',
+    NAVMENU_VOICE_HELPER: 'Голосовой помощник',
+    NAVMENU_CALCULATIONS: 'Расчеты',
+    NAVMENU_APPENDIX: 'Приложение',
+    NAVMENU_NEW_CALC: '+ Новый расчет'
   },
   additional_elements: {
     VISOR: 'Козырек',

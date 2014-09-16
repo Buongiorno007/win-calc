@@ -12,19 +12,18 @@
     height: 85%;
   }
   .items-list {
+    @include animation(move-navmenu-list 1s 0 ease 1);
+
     width: 100%;
     margin: 0;
     padding: 0;
     list-style: none;
-    &.move {
-      @include animation(move-navmenu-list 1s 0 ease 1);
-    }
   }
   .item {
     padding-left: 50px;
     background-color: rgba(#fff, .1);
     cursor: pointer;
-    &.active {
+    &.selected {
       background-color: #0f0f0f;
     }
     &:last-child .item-content {
@@ -118,4 +117,4 @@
   }
 }
 
-@include behavior-move(move-navmenu-list, 100%, 0, 0, 0);
+@include behavior-move(move-navmenu-list, -600px, 0, 0, 0);

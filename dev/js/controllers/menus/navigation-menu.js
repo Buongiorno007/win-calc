@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'localStorage', function ($scope, $location, localStorage) {
+BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'localStorage', 'globalData', function ($scope, $location, localStorage, globalData) {
   var $navMenuHeader = $('.nav-menu-header'),
       $navmenuList = $navMenuHeader.find('.items-list'),
       $navmenuItem = $navmenuList.find('.item'),
@@ -14,69 +14,23 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'localStorage', fu
       DELAY_SHOW_NEWCALC_BNT = DELAY_SHOW_NAV_LISTS * 20;
 
 
-  function animateNavMenuLists() {
-    var movingClass = 'move',
-        STEP_NAV_LIST = 500,
-        STEP_NAV_ICON = 200,
 
-        $navmenuContent,
-        $navmenuItemIcon,
-        $navmenuItemTitle,
-        $navmenuItemBadge,
+  $scope.global = globalData;
 
-        DELAY_SHOW_NAV_LIST,
-        DELAY_SHOW_NAV_CONTENT,
-        DELAY_SHOW_NAV_TITLE,
-        DELAY_SHOW_NAV_BADGE,
-        DELAY_SHOW_NAV_ICON,
-        ul, icon;
-
-    for (ul = 0; ul < $navmenuList.length; ul++) {
-      DELAY_SHOW_NAV_LIST = (DELAY_SHOW_NAV_LISTS + STEP_NAV_LIST * ul),
-      DELAY_SHOW_NAV_CONTENT = DELAY_SHOW_NAV_LIST + STEP_NAV_LIST * 2,
-      DELAY_SHOW_NAV_TITLE = DELAY_SHOW_NAV_CONTENT + STEP_NAV_ICON * 5,
-      DELAY_SHOW_NAV_BADGE = DELAY_SHOW_NAV_TITLE + STEP_NAV_LIST * 5,
-
-      $navmenuContent = $navmenuList.eq(ul).find('.item-content');
-      $navmenuItemIcon = $navmenuList.eq(ul).find('span[class^="nav-icon"]');
-      $navmenuItemTitle = $navmenuList.eq(ul).find('.title');
-      $navmenuItemBadge = $navmenuList.eq(ul).find('.badge');
-
-      addClassWithDelay($navmenuList.eq(ul), movingClass, DELAY_SHOW_NAV_CONTENT);
-//      showElementWithDelay($navmenuList.eq(ul), DELAY_SHOW_NAV_LIST);
-      showElementWithDelay($navmenuContent, DELAY_SHOW_NAV_CONTENT);
-
-      for (icon = 0; icon < $navmenuItemIcon.length; icon++) {
-        DELAY_SHOW_NAV_ICON = 2*DELAY_SHOW_NAV_CONTENT + STEP_NAV_ICON * icon;
-        showElementWithDelay($navmenuItemIcon.eq(icon), DELAY_SHOW_NAV_ICON);
-      }
-
-      typingTextWithDelay($navmenuItemTitle, DELAY_SHOW_NAV_TITLE);
-
-      if ($navmenuItemBadge.length) {
-        showElementWithDelay($navmenuItemBadge, DELAY_SHOW_NAV_BADGE);
-      }
-    }
-  }
-
-  typingTextWithDelay($navmenuDivider, DELAY_SHOW_NAV_LISTS * 5);
-  animateNavMenuLists();
-  showElementWithDelay($newCalcBTN, DELAY_SHOW_NEWCALC_BNT);
-
-  // menu click
-  $navmenuItem.click(function () {
-    $navmenuItem.each(function () {
-      $(this).removeClass(activeClass);
-    });
-
-    $(this).addClass(activeClass);
-  });
-
-  $scope.navMenu = {};
+  $scope.navMenu = {
+    DELAY_SHOW_NAV_LIST: 5 * STEP,
+    DELAY_SHOW_STEP: 0.2,
+    DELAY_SHOW_NAVICON: 10 * STEP,
+    DELAY_TYPE_NAVTITLE: 10 * STEP,
+    DELAY_TYPE_DIVIDER: 10 * STEP,
+    DELAY_SHOW_ORDERS: 35 * STEP,
+    DELAY_SHOW_NEWCALC_BTN: 35 * STEP,
+    typing: 'on'
+  };
 
   localStorage.getOrdersCart(function (results) {
     if (results.status) {
-      $scope.navMenu.ordersInCart = results.data.ordersInCart;
+      $scope.global.ordersInCart = results.data.ordersInCart;
     } else {
       console.log(results);
     }
@@ -100,4 +54,21 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'localStorage', fu
   $scope.getCurrentGeolocation = function () {};
 
   $scope.setCurrentCity = function (city) {};
+
+  $scope.gotoAddElementsPanel = function() {
+
+  };
+  $scope.showNewProject = function() {
+
+  };
+
+  //Select menu item
+  $scope.selectMenuItem = function(id) {
+    if($scope.navMenu.activeMenuItem === id) {
+      $scope.navMenu.activeMenuItem = false;
+    } else {
+      $scope.navMenu.activeMenuItem = id;
+    }
+  };
+
 }]);
