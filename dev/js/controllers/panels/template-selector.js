@@ -2,37 +2,72 @@
 
 'use strict';
 
-BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'globalData', function ($scope, globalData) {
-  var $templateContainer = $('.template-container'),
-      $templateTitle = $templateContainer.find('.template-title'),
-      $templateDescr = $templateContainer.find('.template-discr'),
-      $tempEditBTN = $templateContainer.find('.template-edit'),
-      $tempDefaultBTN = $templateContainer.find('.template-default'),
-      $tempOtherIMG = $templateContainer.find('.other-template-img'),
-
-      DELAY_SHOW_CONTENT = 5 * STEP;
-
-  showElementWithDelay($templateTitle, DELAY_SHOW_CONTENT);
-  typingTextWithDelay($templateDescr, DELAY_SHOW_CONTENT);
-  showElementWithDelay($tempEditBTN, 2 * DELAY_SHOW_CONTENT);
-  showElementWithDelay($tempDefaultBTN, 2 * DELAY_SHOW_CONTENT);
-  showElementWithDelay($tempOtherIMG, 2 * DELAY_SHOW_CONTENT);
-
-  // click on Buttons
-  $templateTitle.click(function () {
-    $(this).toggleClass(selectClass);
-  });
-
-
+BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$location', 'globalData', function ($scope, constructService, $location, globalData) {
 
   $scope.global = globalData;
 
   $scope.templatePanel = {
-    DELAY_SHOW_CONFIG_LIST: 5 * STEP,
-    DELAY_SHOW_FOOTER: 5 * STEP,
-    DELAY_TYPE_ITEM_TITLE: 10 * STEP,
-    DELAY_SHOW_ORDERS: 40 * STEP,
+    DELAY_TEMPLATE_ELEMENT: 5 * STEP,
+    switcherTemplate: false,
+    templateCurrID: 1,
     typing: 'on'
+  };
+
+  constructService.getTemplates(function (results) {
+    if (results.status) {
+      $scope.templatePanel.templates = results.data.templatesWindow;
+      $scope.templatePanel.templateQty = results.data.templatesWindow.length - 1;
+    } else {
+      console.log(results);
+    }
+  });
+
+  // Select Window/Balcony Template
+  $scope.toggleTemplate = function() {
+    $scope.templatePanel.switcherTemplate = !$scope.templatePanel.switcherTemplate;
+  };
+
+  $scope.gotoConstructionPage = function () {
+    $location.path('/construction');
+  };
+
+  // Templates Slider
+  $scope.initTemplates = function() {
+    var currTemplateId = $scope.templatePanel.templateCurrID;
+    var prevTemplateId = currTemplateId - 1;
+    var nextTemplateId = currTemplateId + 1;
+
+    if(prevTemplateId < 0) {
+      prevTemplateId = $scope.templatePanel.templateQty;
+    }
+    if(nextTemplateId > $scope.templatePanel.templateQty) {
+      nextTemplateId = 0;
+    }
+
+    $scope.templatePanel.templateDescription = $scope.templatePanel.templates[currTemplateId].templateDescrip;
+
+    $scope.templatePanel.templateTitlePrev = $scope.templatePanel.templates[prevTemplateId].templateTitle;
+    $scope.templatePanel.templateImgPrev = $scope.templatePanel.templates[prevTemplateId].templateUrl;
+    $scope.templatePanel.templateDescriptionPrev = $scope.templatePanel.templates[prevTemplateId].templateDescrip;
+
+    $scope.templatePanel.templateTitleNext = $scope.templatePanel.templates[nextTemplateId].templateTitle;
+    $scope.templatePanel.templateImgNext = $scope.templatePanel.templates[nextTemplateId].templateUrl;
+    $scope.templatePanel.templateDescriptionNext = $scope.templatePanel.templates[nextTemplateId].templateDescrip;
+  };
+
+  $scope.showTemplatePrev = function() {
+    $scope.templatePanel.templateCurrID -= 1;
+    if($scope.templatePanel.templateCurrID < 0) {
+      $scope.templatePanel.templateCurrID = $scope.templatePanel.templateQty;
+    }
+    $scope.initTemplates();
+  };
+  $scope.showTemplateNext = function() {
+    $scope.templatePanel.templateCurrID += 1;
+    if($scope.templatePanel.templateCurrID > $scope.templatePanel.templateQty) {
+      $scope.templatePanel.templateCurrID = 0;
+    }
+    $scope.initTemplates();
   };
 
 }]);

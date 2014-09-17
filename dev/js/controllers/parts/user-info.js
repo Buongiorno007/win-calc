@@ -31,7 +31,7 @@ BauVoiceApp.controller('UserInfoCtrl', ['$rootScope', '$scope', 'locationService
   $scope.swipeMainPage = function() {
     //$rootScope.$broadcast('swipeMainPage', true);
     $scope.global.showNavMenu = !$scope.global.showNavMenu;
-    $scope.global.showConfigMenu = true;
+    $scope.global.isConfigMenu = true;
   };
 /*
   $rootScope.$on('swipeMainPage', function() {

@@ -271,6 +271,52 @@ BauVoiceApp.factory('constructService', function () {
       });
     },
 
+    getTemplates: function (callback) {
+      callback(new OkResult({
+        templatesWindow: [
+          {
+            templateId: 1,
+            templateSVG: '',
+            templateUrl: '../img/templates/balcony.png',
+            templateTitle: 'Окно',
+            templateDescrip: 'т-образное, две створки'
+          },
+          {
+            templateId: 2,
+            templateSVG: '',
+            templateUrl: '../img/templates/window.png',
+            templateTitle: 'Окно',
+            templateDescrip: 'т-образное, одна створка'
+          },
+          {
+            templateId: 3,
+            templateSVG: '',
+            templateUrl: '../img/templates/window.png',
+            templateTitle: 'Окно',
+            templateDescrip: 'т-образное'
+          },
+          {
+            templateId: 4,
+            templateSVG: '',
+            templateUrl: '../img/templates/window.png',
+            templateTitle: 'Окно',
+            templateDescrip: 'две створки'
+          }
+        ],
+        templatesBalcony: [
+          {
+            templateId: 1,
+            templateSVG: '',
+            templateUrl: '../img/templates/balcony.png',
+            templateTitle: 'Балкон',
+            templateDescrip: '1 - 4 секционный'
+          }
+        ]
+
+      }));
+    },
+
+
     getFloorPrice: function (callback) {
       callback(new OkResult({
 

@@ -49,6 +49,12 @@ window.russianDictionary = {
     CONFIGMENU_ADDITIONAL: 'Дополнительно',
     CONFIGMENU_IN_CART: 'В корзину'
   },
+  panels: {
+    TEMPLATE_WINDOW: 'Oкно',
+    TEMPLATE_BALCONY: 'Выход на балкон',
+    TEMPLATE_EDIT: 'Редактировать',
+    TEMPLATE_DEFAULT: 'Проект по умолчанию'
+  },
   additional_elements: {
     VISOR: 'Козырек',
     GRID: 'Москитная сетка',

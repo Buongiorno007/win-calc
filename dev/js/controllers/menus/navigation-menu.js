@@ -50,17 +50,19 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'localStorage', 'g
 
   $scope.gotoAddElementsPanel = function() {
     $scope.global.showNavMenu = false;
-    $scope.global.showConfigMenu = true;
+    $scope.global.isConfigMenu = true;
     $scope.global.showPanels = {};
-    $scope.global.showPanels.showAddElements = true;
+    $scope.global.showPanels.showAddElementsPanel = true;
+    $scope.global.isAddElementsPanel = true;
   };
 
   $scope.showNewProject = function() {
     $scope.navMenu.activeMenuItem = false;
     $scope.global.showNavMenu = false;
-    $scope.global.showConfigMenu = true;
+    $scope.global.isConfigMenu = true;
     $scope.global.showPanels = {};
     $scope.global.showPanels.showTemplatePanel = true;
+    $scope.global.isTemplatePanel = true;
   };
 
   //Select menu item

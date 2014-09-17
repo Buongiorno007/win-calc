@@ -1,28 +1,31 @@
 .config-panel.template-container(ng-controller="TemplateSelectorCtrl", ng-class="{'active': global.showPanels.showTemplatePanel}")
-  .template-header
-    .template-title.unvisible Oкно
-      .window-type.unvisible
-        .balcon-config Выход на балкон
-        .window-config Oкно
-    .template-discr(data-output="т-образное, две створки")
+  .template-inner(ng-if="global.isTemplatePanel", ng-init="initTemplates()")
+    .template-header
+      .template-title.unvisible(ng-class="{'active': templatePanel.switcherTemplate}", ng-click="toggleTemplate()", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ 'panels.TEMPLATE_WINDOW' | translate }}
+        .window-type(ng-if="templatePanel.switcherTemplate")
+          .balcon-config {{ 'panels.TEMPLATE_BALCONY' | translate }}
+          .window-config {{ 'panels.TEMPLATE_WINDOW' | translate }}
+      .template-discr {{ templatePanel.templateDescription }}
 
-  .template-section
+    .template-section
 
-  .template-footer
-    .other-template
-      .prev-btn
-      .template-prev
-        .other-template-img.unvisible
-          img(src="../img/templates/balcony.png")
-        .other-template-label(data-output="т-образное, две створки") Балкон.
-        .other-template-subscr(data-output="т-образное, две створки") 1 - 4 секционный
-    .template-setting
-      button.template-edit.unvisible Редактировать
-      button.template-default.unvisible Проект по умолчанию
-    .other-template
-      .template-next
-        .other-template-img.unvisible
-          img(src="../img/templates/window.png")
-        .other-template-label(data-output="т-образное, две створки") Окно.
-        .other-template-subscr(data-output="т-образное, две створки") т-образное, две створки
-      .next-btn
+    .template-footer
+      .other-template.prev(ng-click="showTemplatePrev()")
+        .prev-btn
+        .template-prev
+          .other-template-img.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}")
+            img(ng-src="{{ templatePanel.templateImgPrev }}")
+          .other-template-label {{ templatePanel.templateTitlePrev }}
+          .other-template-subscr {{ templatePanel.templateDescriptionPrev }}
+
+      .template-setting
+        button.template-edit.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}", ng-click="gotoConstructionPage()") {{ 'panels.TEMPLATE_EDIT' | translate }}
+        button.template-default.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ 'panels.TEMPLATE_DEFAULT' | translate }}
+
+      .other-template.next(ng-click="showTemplateNext()")
+        .template-next
+          .other-template-img.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}")
+            img(ng-src="{{ templatePanel.templateImgNext }}")
+          .other-template-label {{ templatePanel.templateTitleNext }}
+          .other-template-subscr {{ templatePanel.templateDescriptionNext }}
+        .next-btn

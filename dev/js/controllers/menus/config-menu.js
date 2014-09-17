@@ -132,6 +132,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
     } else {
       clearShowPanelsObj();
       $scope.global.showPanels.showTemplatePanel = true;
+      $scope.global.isTemplatePanel = true;
     }
   };
   $scope.selectProfilePanel = function() {
@@ -140,6 +141,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
     } else {
       clearShowPanelsObj();
       $scope.global.showPanels.showProfilePanel = true;
+      $scope.global.isProfilePanel = true;
     }
   };
   $scope.selectGlassPanel = function() {
@@ -148,6 +150,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
     } else {
       clearShowPanelsObj();
       $scope.global.showPanels.showGlassPanel = true;
+      $scope.global.isGlassPanel = true;
     }
   };
   $scope.selectHardwarePanel = function() {
@@ -156,6 +159,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
     } else {
       clearShowPanelsObj();
       $scope.global.showPanels.showHardwarePanel = true;
+      $scope.global.isHardwarePanel = true;
     }
   };
   $scope.selectLaminationPanel = function() {
@@ -164,6 +168,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
     } else {
       clearShowPanelsObj();
       $scope.global.showPanels.showLaminationPanel = true;
+      $scope.global.isLaminationPanel = true;
     }
   };
   $scope.selectAddElementsPanel = function() {
@@ -172,6 +177,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
     } else {
       clearShowPanelsObj();
       $scope.global.showPanels.showAddElementsPanel = true;
+      $scope.global.isAddElementsPanel = true;
     }
   };
 

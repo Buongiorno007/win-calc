@@ -14,10 +14,11 @@ BauVoiceApp.controller('RoomInfoCtrl', ['$scope', 'locationService', 'constructS
 
   // Show/Close Room Selector Dialog
   $scope.showRoomSelectorDialog = function() {
-    if($scope.global.showRoomSelectorDialog === false) {
-      $scope.global.showRoomSelectorDialog = true;
-    } else {
+    if($scope.global.showRoomSelectorDialog === true) {
       $scope.global.showRoomSelectorDialog = false;
+    } else {
+      $scope.global.showRoomSelectorDialog = true;
+      $scope.global.isRoomsDialog = true;
     }
   };
 

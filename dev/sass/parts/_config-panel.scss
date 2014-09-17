@@ -13,9 +13,6 @@
   &.active {
     @include top_left_coord(0, 0);
   }
-  &.move-panel {
-    @include top_left_coord(0, 0);
-  }
 }
 
 .config-section {

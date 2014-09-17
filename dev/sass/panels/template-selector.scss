@@ -98,6 +98,15 @@
     @include display-flex();
     @include flex-flow(row nowrap);
     @include align-items(center);
+
+    min-width: 400px;
+    cursor: pointer;
+    &.prev {
+      @include justify-content(flex-start);
+    }
+    &.next {
+      @include justify-content(flex-end);
+    }
   }
   .prev-btn {
     @extend .icon-setting;
@@ -105,7 +114,7 @@
 
     position: relative;
     width: 80px;
-    cursor: pointer;
+
     &:after {
       position: absolute;
       color: $main_gray_btn;
@@ -115,10 +124,6 @@
   .next-btn {
     @extend .prev-btn;
     @include rotate(180deg);
-  }
-  .template-prev,
-  .template-next {
-    cursor: pointer;
   }
   .other-template-img {
     @extend .splash;
