@@ -1,9 +1,12 @@
 'use strict';
 
-BauVoiceApp.controller('UserInfoCtrl', ['$rootScope', '$scope', 'locationService', function ($rootScope, $scope, locationService) {
+BauVoiceApp.controller('UserInfoCtrl', ['$rootScope', '$scope', 'locationService', 'globalData', function ($rootScope, $scope, locationService, globalData) {
+
+  $scope.global = globalData;
+
   $scope.userInfo = {
     DELAY_SHOW_USER_INFO: 2000,
-    isConfigMenuShow: false,
+    //isConfigMenuShow: false,
     name: 'John Appleseed',
     typing: 'on',
     checked: false
@@ -26,10 +29,14 @@ BauVoiceApp.controller('UserInfoCtrl', ['$rootScope', '$scope', 'locationService
   });
 
   $scope.swipeMainPage = function() {
-    $rootScope.$broadcast('swipeMainPage', true);
+    //$rootScope.$broadcast('swipeMainPage', true);
+    $scope.global.showNavMenu = !$scope.global.showNavMenu;
+    $scope.global.showConfigMenu = true;
   };
-
+/*
   $rootScope.$on('swipeMainPage', function() {
     $scope.userInfo.isConfigMenuShow = !$scope.userInfo.isConfigMenuShow;
   });
+*/
+
 }]);

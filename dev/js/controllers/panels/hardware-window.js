@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('HardwareWindowCtrl', ['$scope', function ($scope) {
+BauVoiceApp.controller('HardwareWindowCtrl', ['$scope', 'globalData', function ($scope, globalData) {
   var $hardwareContainer = $('.hardware-container'),
       $hardwareBlock = $hardwareContainer.find('.hardware-block'),
       $hardwareBox = $hardwareContainer.find('.hardware-box'),
@@ -30,4 +30,15 @@ BauVoiceApp.controller('HardwareWindowCtrl', ['$scope', function ($scope) {
     $(this).parents($hardwareBlock).addClass(selectClass);
     $(this).addClass(selectClass);
   });
+
+  $scope.global = globalData;
+
+  $scope.hardwarePanel = {
+    DELAY_SHOW_CONFIG_LIST: 5 * STEP,
+    DELAY_SHOW_FOOTER: 5 * STEP,
+    DELAY_TYPE_ITEM_TITLE: 10 * STEP,
+    DELAY_SHOW_ORDERS: 40 * STEP,
+    typing: 'on'
+  };
+
 }]);

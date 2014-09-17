@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('GlassCtrl', ['$scope', function ($scope) {
+BauVoiceApp.controller('GlassCtrl', ['$scope', 'globalData', function ($scope, globalData) {
   var $glassContainer = $('.glass-container'),
       $glassBlock = $glassContainer.find('.glass-block'),
       //$glassFooterInner = $glassContainer.find('.footer-inner'),
@@ -45,4 +45,15 @@ BauVoiceApp.controller('GlassCtrl', ['$scope', function ($scope) {
 //
 //    parent.css('min-width', parentWidth);
 //  }
+
+  $scope.global = globalData;
+
+  $scope.glassPanel = {
+    DELAY_SHOW_CONFIG_LIST: 5 * STEP,
+    DELAY_SHOW_FOOTER: 5 * STEP,
+    DELAY_TYPE_ITEM_TITLE: 10 * STEP,
+    DELAY_SHOW_ORDERS: 40 * STEP,
+    typing: 'on'
+  };
+
 }]);

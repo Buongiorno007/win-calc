@@ -2,7 +2,9 @@
 
 'use strict';
 
-BauVoiceApp.controller('MainCtrl', ['$rootScope', '$scope', function ($rootScope, $scope) {
+BauVoiceApp.controller('MainCtrl', ['$rootScope', '$scope', 'globalData', function ($rootScope, $scope, globalData) {
+  $scope.global = globalData;
+/*
   $scope.main = {
     isConfigMenuShow: false
   };
@@ -10,4 +12,6 @@ BauVoiceApp.controller('MainCtrl', ['$rootScope', '$scope', function ($rootScope
   $rootScope.$on('swipeMainPage', function() {
     $scope.main.isConfigMenuShow = !$scope.main.isConfigMenuShow;
   });
+*/
+
 }]);

@@ -1,125 +1,31 @@
-/* globals BauVoiceApp, STEP, unvisibleClass, selectClass, activeClass, movePanelClass, typingTextByChar, showElementWithDelay, removeClassWithDelay, addClassWithDelay, initTemplateContainer, initProfileContainer, initGlassContainer, initHardwareContainer, initLaminationContainer, initAuxContainer */
+/* globals BauVoiceApp, STEP, typingTextByChar */
 
 'use strict';
 
-BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructService', 'globalData', function ($scope, localStorage, constructService, globalData) {
-  var $configList = $('.config-menu .items-list'),
-      $configItem = $configList.find('.item'),
-      $configItemIcon = $configItem.find('.icon'),
-
-      DELAY_SHOW_CONFIG_LIST = STEP,
-      DELAY_FILL_CONFIG_LIST = DELAY_SHOW_CONFIG_LIST + 4 * STEP,
-      DELAY_SHOW_CONFIG_ITEM_ICON = DELAY_FILL_CONFIG_LIST + 5 * STEP;
-
-  showElementWithDelay($configList, DELAY_SHOW_CONFIG_LIST);
-
-  setTimeout(function () {
-    var $configItemTitle = $configItem.find('.title'),
-        $configItemName = $configItem.find('.name'),
-        $configItemValue = $configItem.find('.value');
-
-    $configItemTitle.each(function () {
-      typingTextByChar($(this));
-    });
-
-    $configItemName.each(function () {
-      // элементы с классом name могут иметь класс aside, который выводится позже
-      if (!$(this).hasClass('aside')) {
-        typingTextByChar($(this));
-      }
-    });
-
-    $configItemValue.each(function () {
-      var $configItemNameAside = $(this).next('.name.aside');
-
-      if ($configItemNameAside.length) {
-        typingTextByChar($(this), $configItemNameAside);
-      } else {
-        typingTextByChar($(this));
-      }
-    });
-  }, DELAY_FILL_CONFIG_LIST);
-
-  showElementWithDelay($configItemIcon, DELAY_SHOW_CONFIG_ITEM_ICON);
-
-  $configItem.click(function () {
-    //var activeClass = 'active',
-     var panel = $(this).data('panel');
-
-    if (!$(this).hasClass(activeClass)) {
-      $configItem.each(function () {
-        $(this).removeClass(activeClass);
-      });
-      $(this).addClass(activeClass);
-      switchConfigPanels('.' + panel, false);
-    } else {
-      $(this).removeClass(activeClass);
-      switchConfigPanels('.' + panel, true);
-    }
-  });
-
-  function switchConfigPanels(itemSelected, onlyHide) {
-    var itemGroup = '.config-panel',
-        checkOpenItem = $(itemGroup).hasClass(activeClass),
-        DELAY = 500,
-        item,
-        $itemCurr;
-
-    if (checkOpenItem && !onlyHide) {
-      for (item = 0; item < $(itemGroup).length; item++) {
-        $itemCurr = $(itemGroup).eq(item);
-
-        if ($itemCurr.hasClass(activeClass)) {
-          $itemCurr.removeClass(movePanelClass);
-          removeClassWithDelay($itemCurr, activeClass, DELAY);
-          hideConfigPanelContent(DELAY);
-          addClassWithDelay(itemSelected, activeClass, DELAY);
-          addClassWithDelay(itemSelected, movePanelClass, DELAY+STEP);
-        }
-      }
-    } else if (checkOpenItem && onlyHide) {
-      $(itemSelected).removeClass(movePanelClass);
-      removeClassWithDelay(itemSelected, activeClass, DELAY);
-      hideConfigPanelContent(DELAY);
-    } else {
-      $(itemSelected).addClass(activeClass);
-      addClassWithDelay(itemSelected, movePanelClass, STEP);
-    }
-  }
-
-/*
-  function showConfigPanelContent(panelClass) {
-    switch(panelClass) {
-      case '.template-container':
-        initTemplateContainer();
-        break;
-      case '.profile-container':
-        initProfileContainer();
-        break;
-      case '.glass-container':
-        initGlassContainer();
-        break;
-      case '.hardware-container':
-        initHardwareContainer();
-        break;
-      case '.lamination-container':
-        initLaminationContainer();
-        break;
-      case '.auxiliaries-container':
-        initAuxContainer();
-        break;
-    }
-  }
-*/
-  function hideConfigPanelContent(delay) {
-    setTimeout(function () {
-      $('.config-panel').find('.visible').removeClass('visible');
-      //typingIndex = false;
-    }, delay);
-  }
+BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructService', 'globalData', '$timeout', function ($scope, localStorage, constructService, globalData, $timeout) {
 
   $scope.global = globalData;
-  $scope.configMenu = {};
+
+  $scope.configMenu = {
+    DELAY_SHOW_CONFIG_LIST: 5 * STEP,
+    DELAY_SHOW_FOOTER: 5 * STEP,
+    DELAY_TYPE_ITEM_TITLE: 10 * STEP,
+    DELAY_SHOW_ORDERS: 40 * STEP,
+    typing: 'on'
+  };
+
+  $scope.dubleTyping = function() {
+    $timeout(function() {
+      var $configItemValue = $('.config-menu .value');
+      $configItemValue.each(function () {
+        var $configItemNameAside = $(this).next('.name.aside');
+        if ($configItemNameAside.length) {
+          typingTextByChar($(this), $configItemNameAside);
+        }
+      });
+    },  $scope.configMenu.DELAY_TYPE_ITEM_TITLE);
+  };
+
 
   constructService.getConstructThumb(function (results) {
     if (results.status) {
@@ -219,6 +125,61 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
     }
   });
 
+  //Select menu item
+  $scope.selectTemplatePanel = function() {
+    if($scope.global.showPanels.showTemplatePanel) {
+      $scope.global.showPanels.showTemplatePanel = false;
+    } else {
+      clearShowPanelsObj();
+      $scope.global.showPanels.showTemplatePanel = true;
+    }
+  };
+  $scope.selectProfilePanel = function() {
+    if($scope.global.showPanels.showProfilePanel) {
+      $scope.global.showPanels.showProfilePanel = false;
+    } else {
+      clearShowPanelsObj();
+      $scope.global.showPanels.showProfilePanel = true;
+    }
+  };
+  $scope.selectGlassPanel = function() {
+    if($scope.global.showPanels.showGlassPanel) {
+      $scope.global.showPanels.showGlassPanel = false;
+    } else {
+      clearShowPanelsObj();
+      $scope.global.showPanels.showGlassPanel = true;
+    }
+  };
+  $scope.selectHardwarePanel = function() {
+    if($scope.global.showPanels.showHardwarePanel) {
+      $scope.global.showPanels.showHardwarePanel = false;
+    } else {
+      clearShowPanelsObj();
+      $scope.global.showPanels.showHardwarePanel = true;
+    }
+  };
+  $scope.selectLaminationPanel = function() {
+    if($scope.global.showPanels.showLaminationPanel) {
+      $scope.global.showPanels.showLaminationPanel = false;
+    } else {
+      clearShowPanelsObj();
+      $scope.global.showPanels.showLaminationPanel = true;
+    }
+  };
+  $scope.selectAddElementsPanel = function() {
+    if($scope.global.showPanels.showAddElementsPanel) {
+      $scope.global.showPanels.showAddElementsPanel = false;
+    } else {
+      clearShowPanelsObj();
+      $scope.global.showPanels.showAddElementsPanel = true;
+    }
+  };
+
+  function clearShowPanelsObj() {
+    for (var item in $scope.global.showPanels) {
+      delete $scope.global.showPanels[item];
+    }
+  }
   $scope.changePrice = function (price) {
     $scope.price = price;
   };

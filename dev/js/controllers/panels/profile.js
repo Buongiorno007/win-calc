@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('ProfileCtrl', ['$scope', function ($scope) {
+BauVoiceApp.controller('ProfileCtrl', ['$scope', 'globalData', function ($scope, globalData) {
   var $profileContainer = $('.profile-container'),
       $profileBlock = $profileContainer.find('.profile-block'),
       $profileBox = $profileContainer.find('.profile-box'),
@@ -30,4 +30,16 @@ BauVoiceApp.controller('ProfileCtrl', ['$scope', function ($scope) {
     $(this).closest('.profile-block').addClass(selectClass);
     $(this).addClass(selectClass);
   });
+
+
+  $scope.global = globalData;
+
+  $scope.profilePanel = {
+    DELAY_SHOW_CONFIG_LIST: 5 * STEP,
+    DELAY_SHOW_FOOTER: 5 * STEP,
+    DELAY_TYPE_ITEM_TITLE: 10 * STEP,
+    DELAY_SHOW_ORDERS: 40 * STEP,
+    typing: 'on'
+  };
+
 }]);

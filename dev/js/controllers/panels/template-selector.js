@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', function ($scope) {
+BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'globalData', function ($scope, globalData) {
   var $templateContainer = $('.template-container'),
       $templateTitle = $templateContainer.find('.template-title'),
       $templateDescr = $templateContainer.find('.template-discr'),
@@ -22,4 +22,17 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', function ($scope) {
   $templateTitle.click(function () {
     $(this).toggleClass(selectClass);
   });
+
+
+
+  $scope.global = globalData;
+
+  $scope.templatePanel = {
+    DELAY_SHOW_CONFIG_LIST: 5 * STEP,
+    DELAY_SHOW_FOOTER: 5 * STEP,
+    DELAY_TYPE_ITEM_TITLE: 10 * STEP,
+    DELAY_SHOW_ORDERS: 40 * STEP,
+    typing: 'on'
+  };
+
 }]);

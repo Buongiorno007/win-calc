@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('LaminationCtrl', ['$scope', function ($scope) {
+BauVoiceApp.controller('LaminationCtrl', ['$scope', 'globalData', function ($scope, globalData) {
   var lamBlockClass = '.lamination-block',
       lamImgClass = '.lamination-img',
       lamLabelClass = '.lamination-label',
@@ -42,4 +42,16 @@ BauVoiceApp.controller('LaminationCtrl', ['$scope', function ($scope) {
     });
     $(this).addClass(selectClass);
   });
+
+
+  $scope.global = globalData;
+
+  $scope.laminationPanel = {
+    DELAY_SHOW_CONFIG_LIST: 5 * STEP,
+    DELAY_SHOW_FOOTER: 5 * STEP,
+    DELAY_TYPE_ITEM_TITLE: 10 * STEP,
+    DELAY_SHOW_ORDERS: 40 * STEP,
+    typing: 'on'
+  };
+
 }]);

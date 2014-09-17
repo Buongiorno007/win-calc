@@ -16,6 +16,7 @@ window.russianDictionary = {
     PASSWORD: 'Пароль'
   },
   mainpage: {
+    MM: ' мм',
     ALL_ROOMS: 'Все',
     CLIMATE_ZONE: 'климатическая зона',
     THERMAL_RESISTANCE: 'сопротивление теплопередаче',
@@ -37,7 +38,16 @@ window.russianDictionary = {
     NAVMENU_VOICE_HELPER: 'Голосовой помощник',
     NAVMENU_CALCULATIONS: 'Расчеты',
     NAVMENU_APPENDIX: 'Приложение',
-    NAVMENU_NEW_CALC: '+ Новый расчет'
+    NAVMENU_NEW_CALC: '+ Новый расчет',
+    CONFIGMENU_CONFIGURATION: 'Конфигурация и размеры',
+    CONFIGMENU_SIZING: 'ширина * высота -',
+    CONFIGMENU_PROFILE: 'Профиль',
+    CONFIGMENU_GLASS: 'Стеклопакет',
+    CONFIGMENU_HARDWARE: 'Фурнитура',
+    CONFIGMENU_LAMINATION: 'Ламинация',
+    CONFIGMENU_LAMINATION_TYPE: 'фасад / в комнате',
+    CONFIGMENU_ADDITIONAL: 'Дополнительно',
+    CONFIGMENU_IN_CART: 'В корзину'
   },
   additional_elements: {
     VISOR: 'Козырек',

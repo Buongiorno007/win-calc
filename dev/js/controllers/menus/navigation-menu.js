@@ -3,17 +3,6 @@
 'use strict';
 
 BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'localStorage', 'globalData', function ($scope, $location, localStorage, globalData) {
-  var $navMenuHeader = $('.nav-menu-header'),
-      $navmenuList = $navMenuHeader.find('.items-list'),
-      $navmenuItem = $navmenuList.find('.item'),
-      $navmenuDivider = $navMenuHeader.find('.divider'),
-      $newCalcBTN = $('.nav-menu-footer .new-calc'),
-
-      DELAY_SHOW_NAV_MENU = STEP,
-      DELAY_SHOW_NAV_LISTS = DELAY_SHOW_NAV_MENU + 2 * STEP,
-      DELAY_SHOW_NEWCALC_BNT = DELAY_SHOW_NAV_LISTS * 20;
-
-
 
   $scope.global = globalData;
 
@@ -51,15 +40,27 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'localStorage', 'g
     $location.path('/cart');
   };
 
-  $scope.getCurrentGeolocation = function () {};
-
-  $scope.setCurrentCity = function (city) {};
-
-  $scope.gotoAddElementsPanel = function() {
+  $scope.getCurrentGeolocation = function () {
 
   };
-  $scope.showNewProject = function() {
 
+  $scope.setCurrentCity = function (city) {
+
+  };
+
+  $scope.gotoAddElementsPanel = function() {
+    $scope.global.showNavMenu = false;
+    $scope.global.showConfigMenu = true;
+    $scope.global.showPanels = {};
+    $scope.global.showPanels.showAddElements = true;
+  };
+
+  $scope.showNewProject = function() {
+    $scope.navMenu.activeMenuItem = false;
+    $scope.global.showNavMenu = false;
+    $scope.global.showConfigMenu = true;
+    $scope.global.showPanels = {};
+    $scope.global.showPanels.showTemplatePanel = true;
   };
 
   //Select menu item

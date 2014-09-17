@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
+BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'globalData', function ($scope, globalData) {
   var $auxContainer = $('.auxiliaries-container'),
       $auxItem = $auxContainer.find('.auxiliary-item'),
       $auxGrid = $auxContainer.find('.aux-grid'),
@@ -206,4 +206,17 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', function ($scope) {
     addClassWithDelay($auxListContainer, movePanelClass, 6*STEP);
   });
   //  function initAuxContainer() {}
+
+
+  $scope.global = globalData;
+
+  $scope.addElementsPanel = {
+    DELAY_SHOW_CONFIG_LIST: 5 * STEP,
+    DELAY_SHOW_FOOTER: 5 * STEP,
+    DELAY_TYPE_ITEM_TITLE: 10 * STEP,
+    DELAY_SHOW_ORDERS: 40 * STEP,
+    typing: 'on'
+  };
+
+
 }]);

@@ -17,7 +17,6 @@ function typingTextByChar($textElem1, $textElem2) {
       newText = '',
       delay = 100,
       timerId;
-
   if (source !== undefined && source.length) {
     timerId = setInterval(function () {
       var hasChar = newText.length < source.length;

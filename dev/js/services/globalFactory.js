@@ -3,6 +3,8 @@
 BauVoiceApp.factory('globalData', function () {
   return {
     showNavMenu: true,
+    showConfigMenu: false,
+    showPanels: {},
     currency: '₴',
     cartPrice: '0',
     showMasterDialog: false,

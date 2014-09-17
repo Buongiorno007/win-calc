@@ -1,6 +1,5 @@
 .cart-menu {
   @extend .menu-right-general;
-  @extend .move-menu-right;
   @include justify-content(space-between);
   position: relative;
   z-index: 2;
