@@ -48,7 +48,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
 
   constructService.getProfileSystem(function (results) {
     if (results.status) {
-      $scope.configMenu.profileName = results.data.name;
+      //$scope.configMenu.profileName = results.data.name;
+      $scope.global.profileName = results.data.name;
     } else {
       console.log(results);
     }
@@ -56,7 +57,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
 
   constructService.getGlass(function (results) {
     if (results.status) {
-      $scope.configMenu.glassName = results.data.name;
+      $scope.global.glassName = results.data.name;
     } else {
       console.log(results);
     }
@@ -64,7 +65,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
 
   constructService.getWindowHardware(function (results) {
     if (results.status) {
-      $scope.configMenu.windowHardware = results.data.name;
+      $scope.global.windowHardware = results.data.name;
     } else {
       console.log(results);
     }
@@ -72,7 +73,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
 
   constructService.getLamination(function (results) {
     if (results.status) {
-      $scope.configMenu.lamination = {
+      $scope.global.lamination = {
         outer: results.data.outer.name,
         inner: results.data.inner.name
       };
@@ -94,7 +95,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
       //$scope.configMenu.price = results.data.price;
       //$scope.configMenu.currency = results.data.currency.name;
 
-      $scope.price = results.data.price;
+      $scope.global.orderPrice = results.data.price;
 
       var currencySymbol = '';
       if (results.data.currency.name === 'uah') {
@@ -186,7 +187,9 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
       delete $scope.global.showPanels[item];
     }
   }
+  /*
   $scope.changePrice = function (price) {
     $scope.price = price;
   };
+  */
 }]);

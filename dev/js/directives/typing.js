@@ -12,6 +12,9 @@ BauVoiceApp.directive('typing', function () {
           typingTextWithDelay();
         }
       });
+      attrs.$observe('output', function () {
+          typingTextWithDelay();
+      });
 
       function typingTextWithDelay() {
         setTimeout(function () {

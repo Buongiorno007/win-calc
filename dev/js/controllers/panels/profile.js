@@ -1,45 +1,38 @@
-/* globals BauVoiceApp, STEP, selectClass, showElementWithDelay, typingTextWithDelay */
+/* globals BauVoiceApp, STEP */
 
 'use strict';
 
-BauVoiceApp.controller('ProfileCtrl', ['$scope', 'globalData', function ($scope, globalData) {
-  var $profileContainer = $('.profile-container'),
-      $profileBlock = $profileContainer.find('.profile-block'),
-      $profileBox = $profileContainer.find('.profile-box'),
-      $profileTitle = $profileContainer.find('.title'),
-
-      DELAY_SHOW_PROFILES = 5 * STEP,
-      prof, DELAY_SHOW_PROF;
-
-  typingTextWithDelay($profileTitle, DELAY_SHOW_PROFILES);
-
-  for (prof = 0; prof < $profileBox.length; prof++) {
-    DELAY_SHOW_PROF = DELAY_SHOW_PROFILES + prof * 200;
-    showElementWithDelay($profileBox.eq(prof), DELAY_SHOW_PROF);
-  }
-
-
-  // Select profile
-  $profileBox.click(function () {
-    $profileBlock.each(function () {
-      $(this).removeClass(selectClass);
-    });
-    $profileBox.each(function () {
-      $(this).removeClass(selectClass);
-    });
-    $(this).closest('.profile-block').addClass(selectClass);
-    $(this).addClass(selectClass);
-  });
-
+BauVoiceApp.controller('ProfileCtrl', ['$scope', 'globalData', 'constructService', function ($scope, globalData, constructService) {
 
   $scope.global = globalData;
 
   $scope.profilePanel = {
-    DELAY_SHOW_CONFIG_LIST: 5 * STEP,
-    DELAY_SHOW_FOOTER: 5 * STEP,
-    DELAY_TYPE_ITEM_TITLE: 10 * STEP,
-    DELAY_SHOW_ORDERS: 40 * STEP,
+    DELAY_START: 5 * STEP,
+    DELAY_BLOCK: 2 * STEP,
+    DELAY_TYPING: 2.5 * STEP,
+    isSelectedProducer: 0,
+    isSelectedProfile: 0,
     typing: 'on'
+  };
+
+  constructService.getAllProfiles(function (results) {
+    if (results.status) {
+      $scope.profilePanel.producers = results.data.producers;
+      $scope.profilePanel.profiles = results.data.profiles;
+    } else {
+      console.log(results);
+    }
+  });
+
+  // Select profile
+  $scope.selectProfile = function(producerId, profileId) {
+    $scope.profilePanel.isSelectedProducer = producerId;
+    $scope.profilePanel.isSelectedProfile = profileId;
+
+    var selectedProfile = $scope.profilePanel.profiles[producerId][profileId];
+    //$scope.global.profileId = selectedProfile.profileId;
+    $scope.global.profileName = selectedProfile.profileDescrip;
+    $scope.global.orderPrice += selectedProfile.profilePrice;
   };
 
 }]);

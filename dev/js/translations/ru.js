@@ -53,7 +53,10 @@ window.russianDictionary = {
     TEMPLATE_WINDOW: 'Oкно',
     TEMPLATE_BALCONY: 'Выход на балкон',
     TEMPLATE_EDIT: 'Редактировать',
-    TEMPLATE_DEFAULT: 'Проект по умолчанию'
+    TEMPLATE_DEFAULT: 'Проект по умолчанию',
+    PROFILE_COUNTRY: 'страна',
+    PROFILE_HEAT: 'теплоизоляция',
+    PROFILE_NOICE: 'шумоизоляция'
   },
   additional_elements: {
     VISOR: 'Козырек',

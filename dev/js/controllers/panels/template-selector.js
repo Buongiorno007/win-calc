@@ -13,7 +13,7 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$
     typing: 'on'
   };
 
-  constructService.getTemplates(function (results) {
+  constructService.getAllTemplates(function (results) {
     if (results.status) {
       $scope.templatePanel.templates = results.data.templatesWindow;
       $scope.templatePanel.templateQty = results.data.templatesWindow.length - 1;

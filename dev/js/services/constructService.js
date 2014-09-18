@@ -271,7 +271,7 @@ BauVoiceApp.factory('constructService', function () {
       });
     },
 
-    getTemplates: function (callback) {
+    getAllTemplates: function (callback) {
       callback(new OkResult({
         templatesWindow: [
           {
@@ -316,6 +316,56 @@ BauVoiceApp.factory('constructService', function () {
       }));
     },
 
+    getAllProfiles: function (callback) {
+      callback(new OkResult({
+        producers: [
+          'Окошко',
+          'Другие...'
+        ],
+        profiles: [
+          [
+            {
+              profileId: 1,
+              profileType: '3 камеры',
+              profileDescrip: 'Окошко S50 Special S50 Special',
+              profileCountry: 'Украина',
+              profileHeat: 5,
+              profileNoise: 4,
+              profilePrice: 100
+            },
+            {
+              profileId: 2,
+              profileType: '3 камеры',
+              profileDescrip: 'Окошко S50 Special',
+              profileCountry: 'Украина',
+              profileHeat: 2,
+              profileNoise: 3,
+              profilePrice: 200
+            },
+            {
+              profileId: 3,
+              profileType: '2 камеры',
+              profileDescrip: 'Окошко S50',
+              profileCountry: 'Украина',
+              profileHeat: 1,
+              profileNoise: 5,
+              profilePrice: 300
+            }
+          ],
+          [
+            {
+              profileId: 3,
+              profileType: '1 камерa',
+              profileDescrip: 'Окошко S50',
+              profileCountry: 'Украина',
+              profileHeat: 1,
+              profileNoise: 5,
+              profilePrice: 500
+            }
+          ]
+        ]
+      }));
+    },
 
     getFloorPrice: function (callback) {
       callback(new OkResult({
