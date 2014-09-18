@@ -367,6 +367,78 @@ BauVoiceApp.factory('constructService', function () {
       }));
     },
 
+    getAllGlass: function (callback) {
+      callback(new OkResult({
+        glassTypes: [
+          'Стандартные',
+          'Зеркальные',
+          'Матовые'
+        ],
+        glasses: [
+          [
+            {
+              glassId: 1,
+              glassName: '4/24/4/16/4i555555555',
+              glassUrl: '../img/glass.png',
+              glassDescrip: '3 камеры +энергосбережение',
+              glassHeat: 5,
+              glassNoise: 4,
+              glassPrice: 100
+            },
+            {
+              glassId: 2,
+              glassName: '4/24/4',
+              glassUrl: '../img/glass.png',
+              glassDescrip: '3 камеры +энергосбережение',
+              glassHeat: 2,
+              glassNoise: 5,
+              glassPrice: 200
+            },
+            {
+              glassId: 3,
+              glassName: '4/24/4/16/4i',
+              glassUrl: '../img/glass.png',
+              glassDescrip: '3 камеры +энергосбережение',
+              glassHeat: 1,
+              glassNoise: 1,
+              glassPrice: 600
+            }
+          ],
+          [
+            {
+              glassId: 1,
+              glassName: '4/24/4/16/4i555555555',
+              glassUrl: '../img/glass.png',
+              glassDescrip: '3 камеры +энергосбережение',
+              glassHeat: 5,
+              glassNoise: 4,
+              glassPrice: 100
+            },
+            {
+              glassId: 2,
+              glassName: '4/24/4/16/4i555555555',
+              glassUrl: '../img/glass.png',
+              glassDescrip: '3 камеры +энергосбережение',
+              glassHeat: 3,
+              glassNoise: 1,
+              glassPrice: 800
+            }
+          ],
+          [
+            {
+              glassId: 1,
+              glassName: '4/24/4/16/4i555555555',
+              glassUrl: '../img/glass.png',
+              glassDescrip: '3 камеры +энергосбережение',
+              glassHeat: 5,
+              glassNoise: 4,
+              glassPrice: 100
+            }
+          ]
+        ]
+      }));
+    },
+
     getFloorPrice: function (callback) {
       callback(new OkResult({
 

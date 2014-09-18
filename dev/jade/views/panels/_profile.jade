@@ -9,7 +9,7 @@
           .type {{ profile.profileType }}
           .profile-descr(data-output="{{ profile.profileDescrip }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}")
           .profile-country(data-output="{{ profile.profileCountry }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}")
-          .label(data-output="{{ 'panels.PROFILE_COUNTRY' | translate }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}")
+          .label(data-output="{{ 'panels.COUNTRY' | translate }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}")
         .profile-box-bottom
           .coef-level.heat-insulation(ng-class="{'coef-level-1': profile.profileHeat == 1, 'coef-level-2': profile.profileHeat == 2, 'coef-level-3': profile.profileHeat == 3, 'coef-level-4': profile.profileHeat == 4}")
             .coef-index
@@ -17,11 +17,11 @@
             .coef-index
             .coef-index
             .coef-index
-          .label(data-output="{{ 'panels.PROFILE_HEAT' | translate }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}")
+          .label(data-output="{{ 'panels.HEAT_INSULATION' | translate }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}")
           .coef-level.noise-insulation(ng-class="{'coef-level-1': profile.profileNoise == 1, 'coef-level-2': profile.profileNoise == 2, 'coef-level-3': profile.profileNoise == 3, 'coef-level-4': profile.profileNoise == 4}")
             .coef-index
             .coef-index
             .coef-index
             .coef-index
             .coef-index
-          .label(data-output="{{ 'panels.PROFILE_NOICE' | translate }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}")
+          .label(data-output="{{ 'panels.NOICE_INSULATION' | translate }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}")

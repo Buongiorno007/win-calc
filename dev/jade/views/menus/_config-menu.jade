@@ -15,7 +15,7 @@
       .value(data-output="{{ global.glassName }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
     li.item(ng-class="{'active': global.showPanels.showHardwarePanel}", ng-click="selectHardwarePanel()")
       .title(data-output="{{ 'mainpage.CONFIGMENU_HARDWARE' | translate }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
-      .value(data-output="{{ global.windowHardware }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
+      .value(data-output="{{ global.hardwareName }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
     li.item(ng-class="{'active': global.showPanels.showLaminationPanel}", ng-click="selectLaminationPanel()")
       .title(data-output="{{ 'mainpage.CONFIGMENU_LAMINATION' | translate }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
       .name(data-output="{{ 'mainpage.CONFIGMENU_LAMINATION_TYPE' | translate }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")

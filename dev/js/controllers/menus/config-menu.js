@@ -65,7 +65,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
 
   constructService.getWindowHardware(function (results) {
     if (results.status) {
-      $scope.global.windowHardware = results.data.name;
+      $scope.global.hardwareName = results.data.name;
     } else {
       console.log(results);
     }

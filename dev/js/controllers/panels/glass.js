@@ -1,59 +1,37 @@
-/* globals BauVoiceApp, STEP, selectClass, showElementWithDelay, typingTextWithDelay */
+/* globals BauVoiceApp, STEP */
 
 'use strict';
 
-BauVoiceApp.controller('GlassCtrl', ['$scope', 'globalData', function ($scope, globalData) {
-  var $glassContainer = $('.glass-container'),
-      $glassBlock = $glassContainer.find('.glass-block'),
-      //$glassFooterInner = $glassContainer.find('.footer-inner'),
-      $glassBox = $glassContainer.find('.box'),
-      $glassTitle = $glassContainer.find('.title'),
-
-      DELAY_SHOW_PROFILES = 5 * STEP,
-      g, DELAY_SHOW_PROF;
-
-  typingTextWithDelay($glassTitle, DELAY_SHOW_PROFILES);
-
-  for (g = 0; g < $glassBox.length; g++) {
-    DELAY_SHOW_PROF = DELAY_SHOW_PROFILES + g * (STEP * 3);
-    showElementWithDelay($($glassBox[g]), DELAY_SHOW_PROF);
-  }
-
-  // Select glass
-  $glassBox.click(function () {
-    $glassBlock.each(function () {
-      $(this).removeClass(selectClass);
-    });
-    $glassBox.each(function () {
-      $(this).removeClass(selectClass);
-    });
-    $(this).closest('.glass-block').addClass(selectClass);
-    $(this).addClass(selectClass);
-  });
-
-//  // Define width for footer-inner depends on children qty
-//  $glassFooterInner.each(function () {
-//    defineWidthContaner($(this));
-//  });
-//
-//
-//  function defineWidthContaner(container) {
-//    var parent = container,
-//        $children = parent.children(),
-//        childWidthWithMargin = $children.outerWidth(true),
-//        parentWidth = childWidthWithMargin * $children.length;
-//
-//    parent.css('min-width', parentWidth);
-//  }
+BauVoiceApp.controller('GlassCtrl', ['$scope', 'globalData', 'constructService', function ($scope, globalData, constructService) {
 
   $scope.global = globalData;
 
   $scope.glassPanel = {
-    DELAY_SHOW_CONFIG_LIST: 5 * STEP,
-    DELAY_SHOW_FOOTER: 5 * STEP,
-    DELAY_TYPE_ITEM_TITLE: 10 * STEP,
-    DELAY_SHOW_ORDERS: 40 * STEP,
+    DELAY_START: 5 * STEP,
+    DELAY_BLOCK: 2 * STEP,
+    DELAY_TYPING: 2.5 * STEP,
+    isSelectedGlassType: 0,
+    isSelectedGlass: 0,
     typing: 'on'
+  };
+
+  constructService.getAllGlass(function (results) {
+    if (results.status) {
+      $scope.glassPanel.glassTypes = results.data.glassTypes;
+      $scope.glassPanel.glasses = results.data.glasses;
+    } else {
+      console.log(results);
+    }
+  });
+
+  // Select glass
+  $scope.selectGlass = function(typeId, glassId) {
+    $scope.glassPanel.isSelectedGlassType = typeId;
+    $scope.glassPanel.isSelectedGlass = glassId;
+
+    var selectedGlass = $scope.glassPanel.glasses[typeId][glassId];
+    $scope.global.glassName = selectedGlass.glassName;
+    $scope.global.orderPrice += selectedGlass.glassPrice;
   };
 
 }]);

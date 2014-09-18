@@ -1,218 +1,31 @@
 .config-panel.glass-container(ng-controller="GlassCtrl", ng-class="{'active': global.showPanels.showGlassPanel}")
-  .glass-block.selected
-    .glass-block-header
-      .title(data-output="Стандартные")
-      .info
-    .glass-block-footer.clearfix
-      .footer-inner
-        .box.selected.glass-box
-          .glass-box-view
-            .glass-img
-              img(src="../img/glass.png")
-            .label(data-output="3 камеры") 3 камеры +энергосбережение
-          .glass-box-data
-            .glass-descr(data-output="4/24/4/16/4i") 4/24/4/16/4i555555555
-            .coef-level.heat-insulation.coef-level-1
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-            .label(data-output="теплоизоляция") теплоизоляция
-            .coef-level.noise-insulation.coef-level-2
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-            .label(data-output="шумоизоляция") шумоизоляция
+  .glass-inner(ng-if="global.isGlassPanel")
+    .glass-block(ng-repeat="type in glassPanel.glasses", ng-class="{'selected': glassPanel.isSelectedGlassType == $index}")
 
-        .box.glass-box
-          .glass-box-view
-            .glass-img
-              img(src="../img/glass.png")
-            .label(data-output="3 камеры") 3 камеры +энергосбережение
-          .glass-box-data
-            .glass-descr(data-output="4/24/4/16/4i") 4/24/4
-            .coef-level.heat-insulation.coef-level-3
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-            .label(data-output="теплоизоляция") теплоизоляция
-            .coef-level.noise-insulation.coef-level-4
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-            .label(data-output="шумоизоляция") шумоизоляция
+      .glass-block-header
+        .title(data-output="{{ glassPanel.glassTypes[$index] }}", typing="{{ glassPanel.typing }}", typing-delay="{{ glassPanel.DELAY_START }}")
+        .info
 
-        .box.glass-box
-          .glass-box-view
-            .glass-img
-              img(src="../img/glass.png")
-            .label(data-output="3 камеры") 3 камеры +энергосбережение
-          .glass-box-data
-            .glass-descr(data-output="4/24/4/16/4i") 4/24/4/16/4i
-            .coef-level.heat-insulation
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-            .label(data-output="теплоизоляция") теплоизоляция
-            .coef-level.noise-insulation.coef-level-2
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-            .label(data-output="шумоизоляция") шумоизоляция
-
-        .box.glass-box
-          .glass-box-view
-            .glass-img
-              img(src="../img/glass.png")
-            .label(data-output="3 камеры") 3 камеры +энергосбережение
-          .glass-box-data
-            .glass-descr(data-output="4/24/4/16/4i") 4/24/4/16/4i
-            .coef-level.heat-insulation
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-            .label(data-output="теплоизоляция") теплоизоляция
-            .coef-level.noise-insulation.coef-level-2
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-            .label(data-output="шумоизоляция") шумоизоляция
-
-
-  .glass-block.clearfix
-    .glass-block-header
-      .title(data-output="Зеркальные")
-
-    .glass-block-footer.clearfix
-      .footer-inner
-        .box.glass-box
-          .glass-box-view
-            .glass-img
-              img(src="../img/glass.png")
-            .label(data-output="3 камеры") 3 камеры +энергосбережение
-          .glass-box-data
-            .glass-descr(data-output="4/24/4/16/4i") 4/24/4/16/4i
-            .coef-level.heat-insulation
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-            .label(data-output="теплоизоляция") теплоизоляция
-            .coef-level.noise-insulation.coef-level-2
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-            .label(data-output="шумоизоляция") шумоизоляция
-
-        .box.glass-box
-          .glass-box-view
-            .glass-img
-              img(src="../img/glass.png")
-            .label(data-output="3 камеры") 3 камеры +энергосбережение
-          .glass-box-data
-            .glass-descr(data-output="4/24/4/16/4i") 4/24/4/16/4i
-            .coef-level.heat-insulation
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-            .label(data-output="теплоизоляция") теплоизоляция
-            .coef-level.noise-insulation.coef-level-2
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-            .label(data-output="шумоизоляция") шумоизоляция
-
-        .box.glass-box
-          .glass-box-view
-            .glass-img
-              img(src="../img/glass.png")
-            .label(data-output="3 камеры") 3 камеры +энергосбережение
-          .glass-box-data
-            .glass-descr(data-output="4/24/4/16/4i") 4/24/4/16/4i
-            .coef-level.heat-insulation
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-            .label(data-output="теплоизоляция") теплоизоляция
-            .coef-level.noise-insulation.coef-level-2
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-            .label(data-output="шумоизоляция") шумоизоляция
-
-
-  .glass-block.clearfix
-    .glass-block-header
-      .title(data-output="Матовые")
-
-    .glass-block-footer.clearfix
-      .footer-inner
-        .box.glass-box
-          .glass-box-view
-            .glass-img
-              img(src="../img/glass.png")
-            .label(data-output="3 камеры") 3 камеры +энергосбережение
-          .glass-box-data
-            .glass-descr(data-output="4/24/4/16/4i") 4/24/4/16/4i
-            .coef-level.heat-insulation
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-            .label(data-output="теплоизоляция") теплоизоляция
-            .coef-level.noise-insulation.coef-level-2
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-            .label(data-output="шумоизоляция") шумоизоляция
-
-        .box.glass-box
-          .glass-box-view
-            .glass-img
-              img(src="../img/glass.png")
-            .label(data-output="3 камеры") 3 камеры +энергосбережение
-          .glass-box-data
-            .glass-descr(data-output="4/24/4/16/4i") 4/24/4/16/4i
-            .coef-level.heat-insulation
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-            .label(data-output="теплоизоляция") теплоизоляция
-            .coef-level.noise-insulation.coef-level-2
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-            .label(data-output="шумоизоляция") шумоизоляция
+      .glass-block-footer.clearfix
+        .footer-inner
+          .box.glass-box.unvisible(ng-repeat="glass in type", show-delay="{{ glassPanel.DELAY_START + (glassPanel.DELAY_BLOCK * $index) }}", ng-class="{'selected': glassPanel.isSelectedGlass == $index && glassPanel.isSelectedGlassType == $parent.$index}", ng-click="selectGlass($parent.$index, $index)")
+            .glass-box-view
+              .glass-img
+                img(ng-src="{{ glass.glassUrl }}")
+              .label(data-output="{{ glass.glassDescrip }}", typing="{{ glassPanel.typing }}", typing-delay="{{ glassPanel.DELAY_START + (glassPanel.DELAY_TYPING * $index) }}")
+            .glass-box-data
+              .glass-descr(data-output="{{ glass.glassName }}", typing="{{ glassPanel.typing }}", typing-delay="{{ glassPanel.DELAY_START + (glassPanel.DELAY_TYPING * $index) }}")
+              .coef-level.heat-insulation(ng-class="{'coef-level-1': glass.glassHeat == 1, 'coef-level-2': glass.glassHeat == 2, 'coef-level-3': glass.glassHeat == 3, 'coef-level-4': glass.glassHeat == 4}")
+                .coef-index
+                .coef-index
+                .coef-index
+                .coef-index
+                .coef-index
+              .label(data-output="{{ 'panels.HEAT_INSULATION' | translate }}", typing="{{ glassPanel.typing }}", typing-delay="{{ glassPanel.DELAY_START + (glassPanel.DELAY_TYPING * $index) }}")
+              .coef-level.noise-insulation(ng-class="{'coef-level-1': glass.glassNoise == 1, 'coef-level-2': glass.glassNoise == 2, 'coef-level-3': glass.glassNoise == 3, 'coef-level-4': glass.glassNoise == 4}")
+                .coef-index
+                .coef-index
+                .coef-index
+                .coef-index
+                .coef-index
+              .label(data-output="{{ 'panels.NOICE_INSULATION' | translate }}", typing="{{ glassPanel.typing }}", typing-delay="{{ glassPanel.DELAY_START + (glassPanel.DELAY_TYPING * $index) }}")
