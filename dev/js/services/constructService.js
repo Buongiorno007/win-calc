@@ -439,6 +439,90 @@ BauVoiceApp.factory('constructService', function () {
       }));
     },
 
+    getAllHardware: function (callback) {
+      callback(new OkResult({
+        producers: [
+          'Аккадо',
+          'Мако',
+          'Другие...'
+        ],
+        hardwares: [
+          [
+            {
+              hardwareId: 1,
+              hardwareName: 'ACCADO 7mm',
+              hardwareProducer: 'ACCADO',
+              hardwareCountry: 'Турция',
+              hardwareLogo: '../img/hardware-logos/accado.png',
+              hardwareLink: '#',
+              hardwareHeat: 5,
+              hardwareNoise: 4,
+              hardwarePrice: 100
+            },
+            {
+              hardwareId: 2,
+              hardwareName: 'ACCADO 7mm',
+              hardwareProducer: 'ACCADO',
+              hardwareCountry: 'Турция',
+              hardwareLogo: '../img/hardware-logos/accado.png',
+              hardwareLink: '#',
+              hardwareHeat: 2,
+              hardwareNoise: 5,
+              hardwarePrice: 200
+            }
+          ],
+          [
+            {
+              hardwareId: 1,
+              hardwareName: 'ACCADO 7mm',
+              hardwareProducer: 'Мако',
+              hardwareCountry: 'Турция',
+              hardwareLogo: '../img/hardware-logos/maco.png',
+              hardwareLink: '#',
+              hardwareHeat: 5,
+              hardwareNoise: 4,
+              hardwarePrice: 100
+            },
+            {
+              hardwareId: 2,
+              hardwareName: 'ACCADO 7mm',
+              hardwareProducer: 'Мако',
+              hardwareCountry: 'Турция',
+              hardwareLogo: '../img/hardware-logos/maco.png',
+              hardwareLink: '#',
+              hardwareHeat: 3,
+              hardwareNoise: 1,
+              hardwarePrice: 800
+            }
+          ],
+          [
+            {
+              hardwareId: 1,
+              hardwareName: 'ACCADO 7mm',
+              hardwareProducer: 'ACCADO',
+              hardwareCountry: 'Турция',
+              hardwareLogo: '../img/hardware-logos/siegenia.png',
+              hardwareLink: '#',
+              hardwareHeat: 5,
+              hardwareNoise: 4,
+              hardwarePrice: 900
+            },
+            {
+              hardwareId: 2,
+              hardwareName: 'ACCADO 7mm',
+              hardwareProducer: 'ACCADO',
+              hardwareCountry: 'Турция',
+              hardwareLogo: '../img/hardware-logos/romb.png',
+              hardwareLink: '#',
+              hardwareHeat: 1,
+              hardwareNoise: 1,
+              hardwarePrice: 800
+            }
+          ]
+        ]
+      }));
+    },
+
     getFloorPrice: function (callback) {
       callback(new OkResult({
 

@@ -1,40 +1,42 @@
 .config-panel.hardware-container(ng-controller="HardwareWindowCtrl", ng-class="{'active': global.showPanels.showHardwarePanel}")
-  .hardware-block.selected
-    .hardware-block-header
-      .hardware-title(data-output="Аккадо")
+  .hardware-inner(ng-if="global.isHardwarePanel")
 
-    .hardware-box.unvisible.selected
-      a.info(href="#")
-      .hardware-box-inner
-        .hardware-box-view
-          .hardware-logo
-            img(src="../img/hardware-logos/accado.png")
-        .hardware-box-data
-          .hardware-data-txt
-            .hardware-descr(data-output="ACCADO 7mm") ACCADO 7mm
-            .hardware-data
-              .hardware-brand(data-output="ACCADO") ACCADO
-              .hardware-label(data-output="торговая марка") торговая марка
-            .hardware-data
-              .hardware-brand(data-output="Турция") Турция
-              .hardware-label(data-output="страна") страна
-          .hardware-data-coeff
-            .coef-level.heat-insulation.coef-level-1
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-            .hardware-label(data-output="теплоизоляция") теплоизоляция
-            .coef-level.noise-insulation.coef-level-2
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-              .coef-index
-            .hardware-label(data-output="шумоизоляция") шумоизоляция
+    .hardware-block(ng-repeat="producer in hardwarePanel.hardwares", ng-class="{'selected': hardwarePanel.isSelectedHardwareProducer == $index}")
+      .hardware-block-header
+        .hardware-title(data-output="{{ hardwarePanel.hardwareProducers[$index] }}", typing="{{ hardwarePanel.typing }}", typing-delay="{{ hardwarePanel.DELAY_START }}")
 
-  .hardware-block
+      .hardware-box.unvisible(ng-repeat="hardware in producer", show-delay="{{ hardwarePanel.DELAY_START + (hardwarePanel.DELAY_BLOCK * $index) }}", ng-class="{'selected': hardwarePanel.isSelectedHardware == $index && hardwarePanel.isSelectedHardwareProducer == $parent.$index}", ng-click="selectHardware($parent.$index, $index)")
+        a.info(ng-href="{{ hardware.hardwareLink }}")
+        .hardware-box-inner
+          .hardware-box-view
+            .hardware-logo
+              img(ng-src="{{ hardware.hardwareLogo }}")
+          .hardware-box-data
+            .hardware-data-txt
+              .hardware-descr(data-output="{{ hardware.hardwareName }}", typing="{{ hardwarePanel.typing }}", typing-delay="{{ hardwarePanel.DELAY_START + (hardwarePanel.DELAY_TYPING * $index) }}")
+              .hardware-data
+                .hardware-brand(data-output="{{ hardware.hardwareProducer }}", typing="{{ hardwarePanel.typing }}", typing-delay="{{ hardwarePanel.DELAY_START + (hardwarePanel.DELAY_TYPING * $index) }}")
+                .hardware-label(data-output="{{ 'panels.BRAND' | translate }}", typing="{{ hardwarePanel.typing }}", typing-delay="{{ hardwarePanel.DELAY_START + (hardwarePanel.DELAY_TYPING * $index) }}")
+              .hardware-data
+                .hardware-brand(data-output="{{ hardware.hardwareCountry }}", typing="{{ hardwarePanel.typing }}", typing-delay="{{ hardwarePanel.DELAY_START + (hardwarePanel.DELAY_TYPING * $index) }}")
+                .hardware-label(data-output="{{ 'panels.COUNTRY' | translate }}", typing="{{ hardwarePanel.typing }}", typing-delay="{{ hardwarePanel.DELAY_START + (hardwarePanel.DELAY_TYPING * $index) }}")
+            .hardware-data-coeff
+              .coef-level.heat-insulation(ng-class="{'coef-level-1': hardware.hardwareHeat == 1, 'coef-level-2': hardware.hardwareHeat == 2, 'coef-level-3': hardware.hardwareHeat == 3, 'coef-level-4': hardware.hardwareHeat == 4}")
+                .coef-index
+                .coef-index
+                .coef-index
+                .coef-index
+                .coef-index
+              .hardware-label(data-output="{{ 'panels.HEAT_INSULATION' | translate }}", typing="{{ hardwarePanel.typing }}", typing-delay="{{ hardwarePanel.DELAY_START + (hardwarePanel.DELAY_TYPING * $index) }}")
+              .coef-level.noise-insulation(ng-class="{'coef-level-1': hardware.hardwareHeat == 1, 'coef-level-2': hardware.hardwareHeat == 2, 'coef-level-3': hardware.hardwareHeat == 3, 'coef-level-4': hardware.hardwareHeat == 4}")
+                .coef-index
+                .coef-index
+                .coef-index
+                .coef-index
+                .coef-index
+              .hardware-label(data-output="{{ 'panels.NOICE_INSULATION' | translate }}", typing="{{ hardwarePanel.typing }}", typing-delay="{{ hardwarePanel.DELAY_START + (hardwarePanel.DELAY_TYPING * $index) }}")
+
+  //.hardware-block
     .hardware-block-header
       .hardware-title(data-output="Мако")
 
@@ -100,11 +102,11 @@
               .coef-index
             .hardware-label(data-output="шумоизоляция") шумоизоляция
 
-  .hardware-block
+  //.hardware-block
     .hardware-block-header
       .hardware-title(data-output="Другие")
 
-    .hardware-box.unvisible
+    //.hardware-box.unvisible
       a.info(href="#")
       .hardware-box-inner
         .hardware-box-view
@@ -135,7 +137,7 @@
               .coef-index
             .hardware-label(data-output="шумоизоляция") шумоизоляция
 
-    .hardware-box.unvisible
+    //.hardware-box.unvisible
       a.info(href="#")
       .hardware-box-inner
         .hardware-box-view

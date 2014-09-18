@@ -55,6 +55,7 @@ window.russianDictionary = {
     TEMPLATE_EDIT: 'Редактировать',
     TEMPLATE_DEFAULT: 'Проект по умолчанию',
     COUNTRY: 'страна',
+    BRAND: 'торговая марка',
     HEAT_INSULATION: 'теплоизоляция',
     NOICE_INSULATION: 'шумоизоляция'
   },

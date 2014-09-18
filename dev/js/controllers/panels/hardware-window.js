@@ -2,43 +2,36 @@
 
 'use strict';
 
-BauVoiceApp.controller('HardwareWindowCtrl', ['$scope', 'globalData', function ($scope, globalData) {
-  var $hardwareContainer = $('.hardware-container'),
-      $hardwareBlock = $hardwareContainer.find('.hardware-block'),
-      $hardwareBox = $hardwareContainer.find('.hardware-box'),
-      $hardwareTitle = $hardwareContainer.find('.hardware-title'),
-
-      DELAY_SHOW_HW_BOX = 5 * STEP,
-      g, DELAY_SHOW_BOX;
-
-
-    typingTextWithDelay($hardwareTitle, STEP);
-
-    for (g = 0; g < $hardwareBox.length; g++) {
-      DELAY_SHOW_BOX = DELAY_SHOW_HW_BOX + g * 2 * STEP;
-      showElementWithDelay($($hardwareBox[g]), DELAY_SHOW_BOX);
-    }
-
-  // Select hardware
-  $hardwareBox.click(function () {
-    $hardwareBlock.each(function () {
-      $(this).removeClass(selectClass);
-    });
-    $hardwareBox.each(function () {
-      $(this).removeClass(selectClass);
-    });
-    $(this).parents($hardwareBlock).addClass(selectClass);
-    $(this).addClass(selectClass);
-  });
+BauVoiceApp.controller('HardwareWindowCtrl', ['$scope', 'globalData', 'constructService', function ($scope, globalData, constructService) {
 
   $scope.global = globalData;
 
   $scope.hardwarePanel = {
-    DELAY_SHOW_CONFIG_LIST: 5 * STEP,
-    DELAY_SHOW_FOOTER: 5 * STEP,
-    DELAY_TYPE_ITEM_TITLE: 10 * STEP,
-    DELAY_SHOW_ORDERS: 40 * STEP,
+    DELAY_START: 5 * STEP,
+    DELAY_BLOCK: 2 * STEP,
+    DELAY_TYPING: 2.5 * STEP,
+    isSelectedHardwareProducer: 0,
+    isSelectedHardware: 0,
     typing: 'on'
+  };
+
+  constructService.getAllHardware(function (results) {
+    if (results.status) {
+      $scope.hardwarePanel.hardwareProducers = results.data.producers;
+      $scope.hardwarePanel.hardwares = results.data.hardwares;
+    } else {
+      console.log(results);
+    }
+  });
+
+  // Select hardware
+  $scope.selectHardware = function(producerId, hardwareId) {
+    $scope.hardwarePanel.isSelectedHardwareProducer = producerId;
+    $scope.hardwarePanel.isSelectedHardware = hardwareId;
+
+    var selectedHardware = $scope.hardwarePanel.hardwares[producerId][hardwareId];
+    $scope.global.hardwareName = selectedHardware.hardwareName;
+    $scope.global.orderPrice += selectedHardware.hardwarePrice;
   };
 
 }]);
