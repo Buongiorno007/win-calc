@@ -2,56 +2,48 @@
 
 'use strict';
 
-BauVoiceApp.controller('LaminationCtrl', ['$scope', 'globalData', function ($scope, globalData) {
-  var lamBlockClass = '.lamination-block',
-      lamImgClass = '.lamination-img',
-      lamLabelClass = '.lamination-label',
-
-      $lamContainer = $('.lamination-container'),
-      $lamWhiteBox = $lamContainer.find('.lam-white-box'),
-      $lamOptionBox = $lamContainer.find('.lam-option-box'),
-      $lamTitle = $lamContainer.find('.lamination-title'),
-      $lamWhiteLabel = $lamContainer.find('.for-white'),
-      $lamImg = $lamContainer.find(lamImgClass),
-      $lamBoxLabel, $lamImgParent, w, l,
-
-      DELAY_SHOW_WHITE_BOX,
-      DELAY_SHOW_IMG_BOX,
-      DELAY_SHOW_LAMINATION = 5 * STEP;
-
-  typingTextWithDelay($lamTitle, DELAY_SHOW_LAMINATION);
-  typingTextWithDelay($lamWhiteLabel, DELAY_SHOW_LAMINATION);
-
-  for (w = 0; w < $lamWhiteBox.length; w++) {
-    DELAY_SHOW_WHITE_BOX = DELAY_SHOW_LAMINATION + w * 2 * STEP;
-    showElementWithDelay($($lamWhiteBox[w]), DELAY_SHOW_WHITE_BOX);
-  }
-
-  for (l = 0; l < $lamOptionBox.length; l++) {
-    DELAY_SHOW_IMG_BOX = DELAY_SHOW_LAMINATION + l * 2 * STEP;
-    $lamBoxLabel = $($lamOptionBox[l]).find(lamLabelClass);
-    showElementWithDelay($($lamOptionBox[l]), DELAY_SHOW_IMG_BOX);
-    typingTextWithDelay($lamBoxLabel, DELAY_SHOW_IMG_BOX);
-  }
-
-  // Select lamination
-  $lamImg.click(function () {
-    $lamImgParent = $(this).closest(lamBlockClass);
-    $lamImgParent.find(lamImgClass).each(function () {
-      $(this).removeClass(selectClass);
-    });
-    $(this).addClass(selectClass);
-  });
-
+BauVoiceApp.controller('LaminationCtrl', ['$scope', 'globalData', 'constructService', function ($scope, globalData, constructService) {
 
   $scope.global = globalData;
 
   $scope.laminationPanel = {
-    DELAY_SHOW_CONFIG_LIST: 5 * STEP,
-    DELAY_SHOW_FOOTER: 5 * STEP,
-    DELAY_TYPE_ITEM_TITLE: 10 * STEP,
-    DELAY_SHOW_ORDERS: 40 * STEP,
+    DELAY_START: 5 * STEP,
+    DELAY_BLOCK: 2 * STEP,
+    DELAY_TYPING: 2.5 * STEP,
+    isSelectedLaminatInner: 'white',
+    isSelectedLaminatOuter: 'white',
     typing: 'on'
+  };
+
+  constructService.getAllLamination(function (results) {
+    if (results.status) {
+      $scope.laminationPanel.laminatWhite = results.data.laminationWhite;
+      $scope.laminationPanel.laminatIn = results.data.laminationInside;
+      $scope.laminationPanel.laminatOut = results.data.laminationOutside;
+    } else {
+      console.log(results);
+    }
+  });
+
+  // Select lamination
+  $scope.selectLaminatIn = function(laminatId) {
+    $scope.laminationPanel.isSelectedLaminatInner = laminatId;
+    if(laminatId !== 'white') {
+      $scope.global.lamination.inner = $scope.laminationPanel.laminatIn[laminatId].laminationName;
+      $scope.global.orderPrice += $scope.laminationPanel.laminatIn[laminatId].laminationPrice;
+    } else {
+      $scope.global.lamination.inner =  $scope.laminationPanel.laminatWhite;
+    }
+  };
+
+  $scope.selectLaminatOut = function(laminatId) {
+    $scope.laminationPanel.isSelectedLaminatOuter = laminatId;
+    if(laminatId !== 'white') {
+      $scope.global.lamination.outer = $scope.laminationPanel.laminatOut[laminatId].laminationName;
+      $scope.global.orderPrice += $scope.laminationPanel.laminatOut[laminatId].laminationPrice;
+    } else {
+      $scope.global.lamination.outer =  $scope.laminationPanel.laminatWhite;
+    }
   };
 
 }]);

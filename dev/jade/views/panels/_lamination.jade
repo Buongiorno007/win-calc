@@ -1,78 +1,33 @@
 .config-panel.lamination-container(ng-controller="LaminationCtrl", ng-class="{'active': global.showPanels.showLaminationPanel}")
+  .lamination-inner(ng-if="global.isLaminationPanel")
 
-  .lamination-block
-    .lamination-title(data-output="Ламинация рамы в комнате")
-    .lamination-white
-      .lamination-img.selected
-        img(src="../img/lamination/empty.png")
-      .lamination-label.for-white(data-output="без ламинации, радикальный белый цвет")
+    .lamination-block
+      .lamination-title(data-output="{{ 'panels.LAMINAT_INSIDE' | translate }}", typing="{{ laminationPanel.typing }}", typing-delay="{{ laminationPanel.DELAY_START }}")
 
-    .lamination-options.clearfix
-      .lam-option-box.unvisible
-        .lamination-img
-          img(src="../img/lamination/Birch.png")
-        .lamination-label(data-output="светлый дуб")
+      .lamination-white.unvisible(show-delay="{{ laminationPanel.DELAY_START }}")
+        .lamination-img(ng-class="{'selected': laminationPanel.isSelectedLaminatInner === 'white'}", ng-click="selectLaminatIn('white')")
+          img(src="../img/lamination/empty.png")
+        .lamination-label.for-white(data-output="{{ 'panels.LAMINAT_WHITE' | translate }}", typing="{{ laminationPanel.typing }}", typing-delay="{{ laminationPanel.DELAY_START }}")
 
-      .lam-option-box.unvisible
-        .lamination-img
-          img(src="../img/lamination/Birch.png")
-        .lamination-label(data-output="светлый дуб")
+      .lamination-options.clearfix
 
-      .lam-option-box.unvisible
-        .lamination-img
-          img(src="../img/lamination/Birch.png")
-        .lamination-label(data-output="светлый дуб")
-
-      .lam-option-box.unvisible
-        .lamination-img
-          img(src="../img/lamination/Birch.png")
-        .lamination-label(data-output="светлый дуб")
-
-      .lam-option-box.unvisible
-        .lamination-img
-          img(src="../img/lamination/Birch.png")
-        .lamination-label(data-output="светлый дуб")
-
-      .lam-option-box.unvisible
-        .lamination-img
-          img(src="../img/lamination/Birch.png")
-        .lamination-label(data-output="светлый дуб")
-
-      .lam-option-box.unvisible
-        .lamination-img
-          img(src="../img/lamination/Birch.png")
-        .lamination-label(data-output="светлый дуб")
-
-      .lam-option-box.unvisible
-        .lamination-img
-          img(src="../img/lamination/Birch.png")
-        .lamination-label(data-output="светлый дуб")
-
-      .lam-option-box.unvisible
-        .lamination-img
-          img(src="../img/lamination/Birch.png")
-        .lamination-label(data-output="светлый дуб")
+        .lam-option-box.unvisible(ng-repeat="laminatInner in laminationPanel.laminatIn", show-delay="{{ laminationPanel.DELAY_START + (laminationPanel.DELAY_BLOCK * $index) }}")
+          .lamination-img(ng-class="{'selected': laminationPanel.isSelectedLaminatInner == $index}", ng-click="selectLaminatIn($index)")
+            img(ng-src="{{ laminatInner.laminationUrl }}")
+          .lamination-label(data-output="{{ laminatInner.laminationName }}", typing="{{ laminationPanel.typing }}", typing-delay="{{ laminationPanel.DELAY_START + (laminationPanel.DELAY_TYPING * $index) }}")
 
 
-  .lamination-block
-    .lamination-title(data-output="Ламинация со стороны фасада")
-    .lamination-white
-      .lamination-img.selected
-        img(src="../img/lamination/empty.png")
-      .lamination-label.for-white(data-output="без ламинации, радикальный белый цвет")
+    .lamination-block
+      .lamination-title(data-output="{{ 'panels.LAMINAT_OUTSIDE' | translate }}", typing="{{ laminationPanel.typing }}", typing-delay="{{ laminationPanel.DELAY_START }}")
 
-    .lamination-options.clearfix
-      .lam-option-box.unvisible
-        .lamination-img.select
-          img(src="../img/lamination/Birch.png")
-        .lamination-label(data-output="светлый дуб")
+      .lamination-white.unvisible(show-delay="{{ laminationPanel.DELAY_START }}")
+        .lamination-img(ng-class="{'selected': laminationPanel.isSelectedLaminatOuter === 'white'}", ng-click="selectLaminatOut('white')")
+          img(src="../img/lamination/empty.png")
+        .lamination-label.for-white(data-output="{{ 'panels.LAMINAT_WHITE' | translate }}", typing="{{ laminationPanel.typing }}", typing-delay="{{ laminationPanel.DELAY_START }}")
 
-      .lam-option-box.unvisible
-        .lamination-img
-          img(src="../img/lamination/Birch.png")
-        .lamination-label(data-output="светлый дуб")
+      .lamination-options.clearfix
 
-      .lam-option-box.unvisible
-        .lamination-img
-          img(src="../img/lamination/Birch.png")
-        .lamination-label(data-output="светлый дуб")
+        .lam-option-box.unvisible(ng-repeat="laminatOuter in laminationPanel.laminatOut", show-delay="{{ laminationPanel.DELAY_START + (laminationPanel.DELAY_BLOCK * $index) }}")
+          .lamination-img(ng-class="{'selected': laminationPanel.isSelectedLaminatOuter == $index}", ng-click="selectLaminatOut($index)")
+            img(ng-src="{{ laminatOuter.laminationUrl }}")
+          .lamination-label(data-output="{{ laminatOuter.laminationName }}", typing="{{ laminationPanel.typing }}", typing-delay="{{ laminationPanel.DELAY_START + (laminationPanel.DELAY_TYPING * $index) }}")

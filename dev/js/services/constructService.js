@@ -139,11 +139,11 @@ BauVoiceApp.factory('constructService', function () {
       callback(new OkResult({
         outer: {
           id: 15,
-          name: 'Махагон'
+          name: 'без ламинации'
         },
         inner: {
           id: 4,
-          name: 'Внутренняя'
+          name: 'без ламинации'
         }
       }));
     },
@@ -519,6 +519,82 @@ BauVoiceApp.factory('constructService', function () {
               hardwarePrice: 800
             }
           ]
+        ]
+      }));
+    },
+
+    getAllLamination: function (callback) {
+      callback(new OkResult({
+        laminationWhite: 'без ламинации',
+        laminationInside: [
+          {
+            laminationId: 1,
+            laminationName: 'светлый дуб',
+            laminationUrl: '../img/lamination/Birch.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 2,
+            laminationName: 'светлый дуб',
+            laminationUrl: '../img/lamination/Birch.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 3,
+            laminationName: 'светлый дуб',
+            laminationUrl: '../img/lamination/Birch.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 4,
+            laminationName: 'светлый дуб',
+            laminationUrl: '../img/lamination/Birch.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 5,
+            laminationName: 'светлый дуб',
+            laminationUrl: '../img/lamination/Birch.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 6,
+            laminationName: 'светлый дуб',
+            laminationUrl: '../img/lamination/Birch.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 7,
+            laminationName: 'светлый дуб',
+            laminationUrl: '../img/lamination/Birch.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 8,
+            laminationName: 'светлый дуб',
+            laminationUrl: '../img/lamination/Birch.png',
+            laminationPrice: 100
+          }
+        ],
+        laminationOutside: [
+          {
+            laminationId: 1,
+            laminationName: 'темный дуб',
+            laminationUrl: '../img/lamination/Birch.png',
+            laminationPrice: 400
+          },
+          {
+            laminationId: 2,
+            laminationName: 'темный дуб',
+            laminationUrl: '../img/lamination/Birch.png',
+            laminationPrice: 600
+          },
+          {
+            laminationId: 3,
+            laminationName: 'темный дуб',
+            laminationUrl: '../img/lamination/Birch.png',
+            laminationPrice: 100
+          }
         ]
       }));
     },

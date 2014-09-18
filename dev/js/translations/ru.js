@@ -57,7 +57,10 @@ window.russianDictionary = {
     COUNTRY: 'страна',
     BRAND: 'торговая марка',
     HEAT_INSULATION: 'теплоизоляция',
-    NOICE_INSULATION: 'шумоизоляция'
+    NOICE_INSULATION: 'шумоизоляция',
+    LAMINAT_INSIDE: 'Ламинация рамы в комнате',
+    LAMINAT_OUTSIDE: 'Ламинация со стороны фасада',
+    LAMINAT_WHITE: 'без ламинации, радикальный белый цвет'
   },
   additional_elements: {
     VISOR: 'Козырек',
