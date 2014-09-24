@@ -172,6 +172,314 @@ BauVoiceApp.factory('constructService', function () {
       }));
     },
 
+    getAllGrids: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'Стандартные',
+          'оцинкованный',
+          'Матовые'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementName: 'КO-100, оцинкованный',
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'КO-100, оцинкованный',
+              elementPrice: 100
+            },
+            {
+              elementId: 3,
+              elementName: 'КO-100, оцинкованный',
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'КO-100, оцинкованный',
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'КO-100, оцинкованный',
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'КO-100, оцинкованный',
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+    getAllVisors: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'Стандартные',
+          'оцинкованный',
+          'Матовые'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementName: 'КO-200, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 3,
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 3,
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 4,
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+    getAllWindowSills: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'Стандартные',
+          'оцинкованный',
+          'Матовые'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementName: 'КO-200, оцинкованный',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: '../img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: '../img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 3,
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: '../img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: '../img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: '../img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: '../img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: '../img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 3,
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: '../img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 4,
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: '../img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+    getLaminationAddElements: function (callback) {
+      callback(new OkResult({
+        laminationWhiteMatt: {
+          laminationName: 'Белый',
+          laminationLabel: 'матовый',
+          laminationUrl: '../img/lamination/empty.png'
+        },
+        laminationWhiteGlossy: {
+          laminationName: 'Белый',
+          laminationLabel: 'глянцевый',
+          laminationUrl: '../img/lamination/empty.png'
+        },
+        laminations: [
+          {
+            laminationId: 1,
+            laminationName: 'светлый дуб',
+            laminationUrl: '../img/lamination/Birch.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 2,
+            laminationName: 'светлый дуб',
+            laminationUrl: '../img/lamination/Birch.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 3,
+            laminationName: 'светлый дуб',
+            laminationUrl: '../img/lamination/Birch.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 4,
+            laminationName: 'светлый дуб',
+            laminationUrl: '../img/lamination/Birch.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 5,
+            laminationName: 'светлый дуб',
+            laminationUrl: '../img/lamination/Birch.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 6,
+            laminationName: 'светлый дуб',
+            laminationUrl: '../img/lamination/Birch.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 7,
+            laminationName: 'светлый дуб',
+            laminationUrl: '../img/lamination/Birch.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 8,
+            laminationName: 'светлый дуб',
+            laminationUrl: '../img/lamination/Birch.png',
+            laminationPrice: 100
+          }
+        ]
+      }));
+    },
+
     // TODO: Сервис готов
     getPrice: function (callback) {
       callback(new OkResult({

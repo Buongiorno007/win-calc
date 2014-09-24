@@ -62,12 +62,28 @@ window.russianDictionary = {
     LAMINAT_OUTSIDE: 'Ламинация со стороны фасада',
     LAMINAT_WHITE: 'без ламинации, радикальный белый цвет'
   },
-  additional_elements: {
-    VISOR: 'Козырек',
-    GRID: 'Москитная сетка',
+  add_elements: {
+    CHOOSE: 'Выбрать',
+    VISOR: 'козырек',
+    GRID: 'москитная сетка',
+    SPILLWAY: 'водоотлив',
+    OUTSIDE: 'наружные откосы',
+    LOUVERS: 'жалюзи',
+    INSIDE: 'внутренние откосы',
+    CONNECTORS: 'соединитель',
+    FAN: 'микропроветривание',
+    WINDOWSILL: 'подоконник',
+    HANDLEL: 'ручка',
+    OTHERS: 'прочее',
+
     NAME_LABEL: 'наименование',
     QTY_LABEL: 'шт.',
     SIZE_LABEL: 'размер',
+    WIDTH_LABEL: 'ширина',
+    HEIGHT_LABEL: 'высота',
+    COLOR_LABEL: 'цвет',
+    OTHER_ELEMENTS1: 'Еще',
+    OTHER_ELEMENTS2: 'компонента...',
     SCHEME_VIEW: 'Схематически',
     LIST_VIEW: 'Cписок',
     INPUT_ADD_ELEMENT: 'Добавить компонент',
@@ -75,6 +91,14 @@ window.russianDictionary = {
     VISORS: 'Козырьки',
     GRIDS: 'Москитные сетки',
     TOTAL_PRICE_TXT: 'Итого дополнительных компонентов на сумму:'
+  },
+  add_elements_menu: {
+    TIP: 'Выберите элемент из списка',
+    EMPTY_ELEMENT: 'Без элемента',
+    COLOR_AVAILABLE: 'Доступные цвета:',
+    TAB_NAME_SIMPLE_FRAME: 'Простая конструкция',
+    TAB_NAME_HARD_FRAME: 'Составная конструкция',
+    TAB_EMPTY_EXPLAIN: 'Выберите из списка первый элемент, чтобы начать составлять конструкцию.'
   },
   construction: {
     SASH_SHAPE: 'створки',

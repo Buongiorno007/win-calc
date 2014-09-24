@@ -1,217 +1,277 @@
-.elements-list-container(ng-controller="ElementsListCtrl")
+.elements-list-container(ng-controller="ElementsListCtrl", ng-class="[global.showAddElementsMenu, global.addElementsMenuStyle]")
   .elements-menu
     header.menu-header
-      .tip(data-output="Выберите элемент из списка") Выберите элемент из списка
-      button.close-elements-menu
+      .tip(data-output="{{ 'add_elements_menu.TIP' | translate }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+      button.close-elements-menu(ng-click="closeAddElementsMenu()")
 
     .menu-lists
       ul.items-list
-        li.item.empty-element.active
-          .value(data-output="Без элемента") Без элемента
+        li.item.empty-element(ng-class="{'active': global.isAddElement == false}", ng-click="chooseAddElement()")
+          .value(data-output="{{ 'add_elements_menu.EMPTY_ELEMENT' | translate }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
 
-      .title(data-output="оцинкованный") оцинкованный
-      ul.items-list
-        li.item
-          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
+      ul.items-list(ng-repeat="type in global.addElementsList")
+        .title(data-output="{{ global.addElementsType[$index] }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+
+        li.item(ng-repeat="addElement in type", ng-class="{'active': global.isAddElement === $parent.$index+'-'+$index}", ng-click="chooseAddElement($parent.$index, $index)")
+          .value(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
           button.element-info
 
           .list-item
             .aux-list-item
               .aux-list-row.unvisible
                 .aux-name
-                  .aux-title(data-output="подоконник") подоконник подоконник подоконник
-                  .aux-label(data-output="шт") {{ 'additional_elements.NAME_LABEL' | translate }}
+                  .aux-title {{ addElement.elementName }}
+                  .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
                 .aux-params
                   button.aux-params-but.aux_big_but.qty-calc 1
-                  .aux-label(data-output="шт") {{ 'additional_elements.QTY_LABEL' | translate }}
+                  .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
                 .aux-params
-                  button.aux-params-but.aux_big_but.size-calc 1000
-                  .aux-label(data-output="размер") {{ 'additional_elements.SIZE_LABEL' | translate }}
-                .aux-price(data-output="+12 300.00") +12 300.00
-                button.aux-choose-but Выбрать
+                  button.aux-params-but.aux_big_but.size-calc {{ addElement.elementSize }}
+                  .aux-label {{ 'add_elements.SIZE_LABEL' | translate }}
+                .aux-price +{{ addElement.elementPrice }}
+                button.aux-choose-but {{ 'add_elements.CHOOSE' | translate }}
 
-
-        li.item
-          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-          button.element-info
-        li.item
-          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-          button.element-info
-
-      .title(data-output="оцинкованный") оцинкованный
-      ul.items-list
-        li.item
-          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-          button.element-info
-        li.item
-          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-          button.element-info
-        li.item
-          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-          button.element-info
-        li.item
-          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-          button.element-info
-        li.item
-          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-          button.element-info
-        li.item
-          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-          button.element-info
-        li.item
-          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-          button.element-info
-        li.item
-          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-          button.element-info
-        li.item
-          .value(data-output="КO-100, оцинкованный") КO-100, оцинкованный
-          button.element-info
 
     footer.menu-footer
-      .price-element.unvisible
-        #price.price-value(data-output="{{ configMenu.price }}")
-        #currency.price-currency {{ setCurrencySymbol(configMenu.currency) }}
-      .elements-tools.size-calculator
+      .price-element(ng-show="addElementsMenu.isAddElementPrice")
+        //price.price-value(data-output="{{ configMenu.price }}")
+        price
+      .elements-tools.size-calculator(ng-class="{'active': global.isSizeCalculator}")
         include ../parts/_size-calculator
-      .elements-tools.qty-calculator
+      .elements-tools.qty-calculator(ng-class="{'active': global.isQtyCalculator}")
         include ../parts/_qty-calculator
-      .elements-tools.color-selector
-        .color-label(data-output="Доступные цвета подоконника:") Доступные цвета подоконника:
+      .elements-tools.color-selector(ng-class="{'active': global.isColorSelector}")
+        .color-label {{ 'add_elements_menu.COLOR_AVAILABLE' | translate }}
 
         .color-block
-          .color-img.selected
-            img(src="../img/lamination/empty.png")
+          .color-img(ng-class="{'selected': global.isAddElementColor === 'matt'}", ng-click="selectAddElementColor('matt')")
+            img(ng-src="{{ global.addElementLaminatWhiteMatt.laminationUrl }}")
           .color-labels
-            .aux-label(data-output="Белый") Белый
-            .aux-label-bold(data-output="матовый") матовый
+            .aux-label(data-output="{{ global.addElementLaminatWhiteMatt.laminationName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+            .aux-label-bold(data-output="{{ global.addElementLaminatWhiteMatt.laminationLabel }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
 
         .color-block
-          .color-img
-            img(src="../img/lamination/empty.png")
+          .color-img(ng-class="{'selected': global.isAddElementColor === 'glossy'}", ng-click="selectAddElementColor('glossy')")
+            img(ng-src="{{ global.addElementLaminatWhiteGlossy.laminationUrl }}")
           .color-labels
-            .aux-label(data-output="Белый") Белый
-            .aux-label-bold(data-output="глянцевый") глянцевый
+            .aux-label(data-output="{{ global.addElementLaminatWhiteGlossy.laminationName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+            .aux-label-bold(data-output="{{ global.addElementLaminatWhiteGlossy.laminationLabel }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+
 
         .color-block.color-options
-          .color-option
-            .color-img
-              img(src="../img/lamination/Birch.png")
-            .aux-label(data-output="светлый дуб") светлый дуб
-
-          .color-option
-            .color-img
-              img(src="../img/lamination/Birch.png")
-            .aux-label(data-output="светлый дуб") светлый дуб
-
-          .color-option
-            .color-img
-              img(src="../img/lamination/Birch.png")
-            .aux-label(data-output="светлый дуб") светлый дуб
-
-          .color-option
-            .color-img
-              img(src="../img/lamination/Birch.png")
-            .aux-label(data-output="светлый дуб") светлый дуб
-
-          .color-option
-            .color-img
-              img(src="../img/lamination/Birch.png")
-            .aux-label(data-output="светлый дуб") светлый дуб
-
-          .color-option
-            .color-img
-              img(src="../img/lamination/Birch.png")
-            .aux-label(data-output="светлый дуб") светлый дуб
+          .color-option(ng-repeat="color in global.addElementLaminatColor")
+            .color-img(ng-class="{'selected': global.isAddElementColor === $index}", ng-click="selectAddElementColor($index)")
+              img(ng-src="{{ color.laminationUrl }}")
+            .aux-label(data-output="{{ color.laminationName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
 
 
-  .menu-right-tabs
-    .tab-block.simple-frame
-      button.frame-tab Простая конструкция
-      .tab-content-empty
-        .tab-empty Выберите из списка первый козырек, чтобы начать составлять конструкцию.
-    .tab-block.hard-frame
-      button.frame-tab Составная конструкция
-      .tab-content
-        .tab-aux-row
-          .aux-title(data-output="подоконник") подоконник подоконник подоконник
-          .aux-params
-            button.aux-params-but.aux_big_but.qty-calc 1
-            .aux-label(data-output="шт") шт
-          .aux-params
-            button.aux-params-but.aux_big_but.size-calc 1000
-            .aux-label(data-output="размер") размер
-          .aux-delete
 
-        .tab-aux-row
-          .aux-title(data-output="подоконник") подоконник
+  // Tabs Grids
+  .menu-right-tabs(ng-if="global.isFocusedAddElement === 1")
+    .tab-block.simple-frame(ng-class="{'active': global.isTabFrame === 1}")
+      button.frame-tab(ng-class="{'active': global.isTabFrame === 1}", ng-click="showFrameTabs(1)") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      .tab-content-empty(ng-if="global.chosenAddElements.selectedGrids.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+    .tab-block.hard-frame(ng-class="{'active': global.isTabFrame === 2}")
+      button.frame-tab(ng-class="{'active': global.isTabFrame === 2}", ng-click="showFrameTabs(2)") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="global.chosenAddElements.selectedGrids.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+      .tab-content(ng-if="global.chosenAddElements.selectedGrids.length > 0")
+        .tab-aux-row(ng-repeat="addElement in global.chosenAddElements.selectedGrids track by $index")
+          .aux-title {{ addElement.elementName }}
+
+
+  // Tabs Visors
+  .menu-right-tabs(ng-if="global.isFocusedAddElement === 2")
+    .tab-block.simple-frame(ng-class="{'active': global.isTabFrame === 1}")
+      button.frame-tab(ng-class="{'active': global.isTabFrame === 1}", ng-click="showFrameTabs(1)") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      .tab-content-empty(ng-if="global.chosenAddElements.selectedVisors.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+    .tab-block.hard-frame(ng-class="{'active': global.isTabFrame === 2}")
+      button.frame-tab(ng-class="{'active': global.isTabFrame === 2}", ng-click="showFrameTabs(2)") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="global.chosenAddElements.selectedVisors.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+      .tab-content(ng-if="global.chosenAddElements.selectedVisors.length > 0")
+        .tab-aux-row(ng-repeat="addElement in global.chosenAddElements.selectedVisors track by $index")
+          .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+          .aux-params(ng-class="{'selected': global.auxParameter === '2-1-'+$index && global.currentAddElementId === $index}")
+            button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+            .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
+          .aux-params(ng-class="{'selected': global.auxParameter === '2-2-'+$index && global.currentAddElementId === $index}")
+            button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
+            .aux-label {{ 'add_elements.SIZE_LABEL' | translate }}
+          .aux-delete(ng-click="deleteAddElement($index)")
+
+
+
+  // Tabs Spillways
+  .menu-right-tabs(ng-if="global.isFocusedAddElement === 3")
+    .tab-block.simple-frame(ng-class="{'active': global.isTabFrame === 1}")
+      button.frame-tab(ng-class="{'active': global.isTabFrame === 1}", ng-click="showFrameTabs(1)") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      .tab-content-empty(ng-if="global.chosenAddElements.selectedSpillways.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+    .tab-block.hard-frame(ng-class="{'active': global.isTabFrame === 2}")
+      button.frame-tab(ng-class="{'active': global.isTabFrame === 2}", ng-click="showFrameTabs(2)") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="global.chosenAddElements.selectedSpillways.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+      .tab-content(ng-if="global.chosenAddElements.selectedSpillways.length > 0")
+        .tab-aux-row(ng-repeat="addElement in global.chosenAddElements.selectedSpillways track by $index")
+          .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+          .aux-params(ng-class="{'selected': global.auxParameter === '3-1-'+$index && global.currentAddElementId === $index}")
+            button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+            .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
+          .aux-params(ng-class="{'selected': global.auxParameter === '3-2-'+$index && global.currentAddElementId === $index}")
+            button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
+            .aux-label {{ 'add_elements.SIZE_LABEL' | translate }}
+          .aux-delete(ng-click="deleteAddElement($index)")
+
+
+
+  // Tabs OutsideSlope
+  .menu-right-tabs(ng-if="global.isFocusedAddElement === 4")
+    .tab-block.simple-frame(ng-class="{'active': global.isTabFrame === 1}")
+      button.frame-tab(ng-class="{'active': global.isTabFrame === 1}", ng-click="showFrameTabs(1)") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      .tab-content-empty(ng-if="global.chosenAddElements.selectedOutsideSlope.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+    .tab-block.hard-frame(ng-class="{'active': global.isTabFrame === 2}")
+      button.frame-tab(ng-class="{'active': global.isTabFrame === 2}", ng-click="showFrameTabs(2)") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="global.chosenAddElements.selectedOutsideSlope.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+      .tab-content(ng-if="global.chosenAddElements.selectedOutsideSlope.length > 0")
+        .tab-aux-row(ng-repeat="addElement in global.chosenAddElements.selectedOutsideSlope track by $index")
+          .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+
+
+  // Tabs Louvers
+  .menu-right-tabs(ng-if="global.isFocusedAddElement === 5")
+    .tab-block.simple-frame(ng-class="{'active': global.isTabFrame === 1}")
+      button.frame-tab(ng-class="{'active': global.isTabFrame === 1}", ng-click="showFrameTabs(1)") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      .tab-content-empty(ng-if="global.chosenAddElements.selectedLouvers.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+    .tab-block.hard-frame(ng-class="{'active': global.isTabFrame === 2}")
+      button.frame-tab(ng-class="{'active': global.isTabFrame === 2}", ng-click="showFrameTabs(2)") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="global.chosenAddElements.selectedLouvers.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+      .tab-content(ng-if="global.chosenAddElements.selectedLouvers.length > 0")
+        .tab-aux-row(ng-repeat="addElement in global.chosenAddElements.selectedLouvers track by $index")
+          .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+          .aux-params(ng-class="{'selected': global.auxParameter === '5-1-'+$index && global.currentAddElementId === $index}")
+            button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+            .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
+          .aux-params(ng-class="{'selected': global.auxParameter === '5-2-'+$index && global.currentAddElementId === $index}")
+            button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
+            .aux-label {{ 'add_elements.WIDTH_LABEL' | translate }}
+          .aux-params(ng-class="{'selected': global.auxParameter === '5-3-'+$index && global.currentAddElementId === $index}")
+            button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(3, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementHeight }}
+            .aux-label {{ 'add_elements.HEIGHT_LABEL' | translate }}
+          .aux-delete(ng-click="deleteAddElement($index)")
+
+
+
+  // Tabs InsideSlope
+  .menu-right-tabs(ng-if="global.isFocusedAddElement === 6")
+    .tab-block.simple-frame(ng-class="{'active': global.isTabFrame === 1}")
+      button.frame-tab(ng-class="{'active': global.isTabFrame === 1}", ng-click="showFrameTabs(1)") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      .tab-content-empty(ng-if="global.chosenAddElements.selectedInsideSlope.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+    .tab-block.hard-frame(ng-class="{'active': global.isTabFrame === 2}")
+      button.frame-tab(ng-class="{'active': global.isTabFrame === 2}", ng-click="showFrameTabs(2)") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="global.chosenAddElements.selectedInsideSlope.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+      .tab-content(ng-if="global.chosenAddElements.selectedInsideSlope.length > 0")
+        .tab-aux-row(ng-repeat="addElement in global.chosenAddElements.selectedInsideSlope track by $index")
+          .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+
+
+  // Tabs Connectors
+  .menu-right-tabs(ng-if="global.isFocusedAddElement === 7")
+    .tab-block.simple-frame(ng-class="{'active': global.isTabFrame === 1}")
+      button.frame-tab(ng-class="{'active': global.isTabFrame === 1}", ng-click="showFrameTabs(1)") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      .tab-content-empty(ng-if="global.chosenAddElements.selectedConnectors.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+    .tab-block.hard-frame(ng-class="{'active': global.isTabFrame === 2}")
+      button.frame-tab(ng-class="{'active': global.isTabFrame === 2}", ng-click="showFrameTabs(2)") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="global.chosenAddElements.selectedConnectors.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+      .tab-content(ng-if="global.chosenAddElements.selectedConnectors.length > 0")
+        .tab-aux-row(ng-repeat="addElement in global.chosenAddElements.selectedConnectors track by $index")
+          .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+
+
+
+
+  // Tabs Fans
+  .menu-right-tabs(ng-if="global.isFocusedAddElement === 8")
+    .tab-block.simple-frame(ng-class="{'active': global.isTabFrame === 1}")
+      button.frame-tab(ng-class="{'active': global.isTabFrame === 1}", ng-click="showFrameTabs(1)") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      .tab-content-empty(ng-if="global.chosenAddElements.selectedFans.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+    .tab-block.hard-frame(ng-class="{'active': global.isTabFrame === 2}")
+      button.frame-tab(ng-class="{'active': global.isTabFrame === 2}", ng-click="showFrameTabs(2)") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="global.chosenAddElements.selectedFans.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+      .tab-content(ng-if="global.chosenAddElements.selectedFans.length > 0")
+        .tab-aux-row(ng-repeat="addElement in global.chosenAddElements.selectedFans track by $index")
+          .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+
+
+
+  // Tabs WindowSill
+  .menu-right-tabs(ng-if="global.isFocusedAddElement === 9")
+    .tab-block.simple-frame(ng-class="{'active': global.isTabFrame === 1}")
+      button.frame-tab(ng-class="{'active': global.isTabFrame === 1}", ng-click="showFrameTabs(1)") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      .tab-content-empty(ng-if="global.chosenAddElements.selectedWindowSill.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+    .tab-block.hard-frame(ng-class="{'active': global.isTabFrame === 2}")
+      button.frame-tab(ng-class="{'active': global.isTabFrame === 2}", ng-click="showFrameTabs(2)") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="global.chosenAddElements.selectedWindowSill.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+      .tab-content(ng-if="global.chosenAddElements.selectedWindowSill.length > 0")
+        .tab-aux-row(ng-repeat="addElement in global.chosenAddElements.selectedWindowSill track by $index")
+          .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+          .aux-params(ng-class="{'selected': global.auxParameter === '9-1-'+$index && global.currentAddElementId === $index}")
+            button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+            .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
+          .aux-params(ng-class="{'selected': global.auxParameter === '9-2-'+$index && global.currentAddElementId === $index}")
+            button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
+            .aux-label {{ 'add_elements.WIDTH_LABEL' | translate }}
           .aux-params
-            button.aux-params-but.aux_big_but.qty-calc 1
-            .aux-label(data-output="шт") шт
-          .aux-params
-            button.aux-params-but.aux_big_but.size-calc 1000
-            .aux-label(data-output="размер") размер
-          .aux-delete
-        .tab-aux-row
-          .aux-title(data-output="подоконник") подоконник
-          .aux-params
-            button.aux-params-but.aux_big_but.qty-calc 1
-            .aux-label(data-output="шт") шт
-          .aux-params
-            button.aux-params-but.aux_big_but.size-calc 1000
-            .aux-label(data-output="размер") размер
-          .aux-delete
-        .tab-aux-row
-          .aux-title(data-output="подоконник") подоконник
-          .aux-params
-            button.aux-params-but.aux_big_but.qty-calc 1
-            .aux-label(data-output="шт") шт
-          .aux-params
-            button.aux-params-but.aux_big_but.size-calc 1000
-            .aux-label(data-output="размер") размер
-          .aux-delete
-        .tab-aux-row
-          .aux-title(data-output="подоконник") подоконник
-          .aux-params
-            button.aux-params-but.aux_big_but.qty-calc 1
-            .aux-label(data-output="шт") шт
-          .aux-params
-            button.aux-params-but.aux_big_but.size-calc 1000
-            .aux-label(data-output="размер") размер
-          .aux-delete
-        .tab-aux-row
-          .aux-title(data-output="подоконник") подоконник
-          .aux-params
-            button.aux-params-but.aux_big_but.qty-calc 1
-            .aux-label(data-output="шт") шт
-          .aux-params
-            button.aux-params-but.aux_big_but.size-calc 1000
-            .aux-label(data-output="размер") размер
-          .aux-delete
-        .tab-aux-row
-          .aux-title(data-output="подоконник") подоконник
-          .aux-params
-            button.aux-params-but.aux_big_but.qty-calc 1
-            .aux-label(data-output="шт") шт
-          .aux-params
-            button.aux-params-but.aux_big_but.size-calc 1000
-            .aux-label(data-output="размер") размер
-          .aux-delete
-        .tab-aux-row
-          .aux-title(data-output="подоконник") подоконник
-          .aux-params
-            button.aux-params-but.aux_big_but.qty-calc 1
-            .aux-label(data-output="шт") шт
-          .aux-params
-            button.aux-params-but.aux_big_but.size-calc 1000
-            .aux-label(data-output="размер") размер
-          .aux-delete
-        .tab-aux-row
-          .aux-title(data-output="подоконник") подоконник
-          .aux-params
-            button.aux-params-but.aux_big_but.qty-calc 1
-            .aux-label(data-output="шт") шт
-          .aux-params
-            button.aux-params-but.aux_big_but.size-calc 1000
-            .aux-label(data-output="размер") размер
-          .aux-delete
+            button.aux-color(ng-class="{'selected': global.auxParameter === '9-4-'+$index && global.currentAddElementId === $index}", ng-click="global.initAddElementMenuTools(4, $index)")
+              img(ng-src="{{ addElement.elementColor }}")
+            .aux-label {{ 'add_elements.COLOR_LABEL' | translate }}
+          .aux-delete(ng-click="deleteAddElement($index)")
+
+
+
+  // Tabs Handles
+  .menu-right-tabs(ng-if="global.isFocusedAddElement === 10")
+    .tab-block.simple-frame(ng-class="{'active': global.isTabFrame === 1}")
+      button.frame-tab(ng-class="{'active': global.isTabFrame === 1}", ng-click="showFrameTabs(1)") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      .tab-content-empty(ng-if="global.chosenAddElements.selectedHandles.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+    .tab-block.hard-frame(ng-class="{'active': global.isTabFrame === 2}")
+      button.frame-tab(ng-class="{'active': global.isTabFrame === 2}", ng-click="showFrameTabs(2)") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="global.chosenAddElements.selectedHandles.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+      .tab-content(ng-if="global.chosenAddElements.selectedHandles.length > 0")
+        .tab-aux-row(ng-repeat="addElement in global.chosenAddElements.selectedHandles track by $index")
+          .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+          .aux-params(ng-class="{'selected': global.auxParameter === '10-1-'+$index && global.currentAddElementId === $index}")
+            button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+            .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
+
+
+
+  // Tabs Others
+  .menu-right-tabs(ng-if="global.isFocusedAddElement === 11")
+    .tab-block.simple-frame(ng-class="{'active': global.isTabFrame === 1}")
+      button.frame-tab(ng-class="{'active': global.isTabFrame === 1}", ng-click="showFrameTabs(1)") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      .tab-content-empty(ng-if="global.chosenAddElements.selectedOthers.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+    .tab-block.hard-frame(ng-class="{'active': global.isTabFrame === 2}")
+      button.frame-tab(ng-class="{'active': global.isTabFrame === 2}", ng-click="showFrameTabs(2)") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="global.chosenAddElements.selectedOthers.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+      .tab-content(ng-if="global.chosenAddElements.selectedOthers.length > 0")
+        .tab-aux-row(ng-repeat="addElement in global.chosenAddElements.selectedOthers track by $index")
+          .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")

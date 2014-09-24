@@ -6,6 +6,7 @@
 
   position: absolute;
   height: 100%;
+  width: 100%;
 
   &.active {
     @include top_left_coord(0, 0);
@@ -62,6 +63,7 @@
     overflow-x: hidden;
     overflow-y: auto;
     background-color: #fff;
+    height: 100%;
   }
   .title {
     margin: 45px 0 0px 0;
@@ -80,6 +82,7 @@
   }
   .value {
     max-width: 88%;
+    width: 370px;
   }
   .element-info {
     @extend .button;
@@ -144,6 +147,7 @@
   }
   .price-element {
     min-height: 130px;
+    padding-top: 20px;
     background-color: #f8f8f8;
   }
   .color-selector {

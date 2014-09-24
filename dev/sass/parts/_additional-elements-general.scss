@@ -27,6 +27,59 @@
   }
 }
 
+.aux-params {
+  float: left;
+  margin-right: 10px;
+
+  &.selected {
+    .aux-params-but {
+      color: #fff;
+    }
+    .aux_big_but {
+      background-color: $aux_big_color;
+    }
+    .aux_middle_but {
+      background-color: $aux_middle_color;
+    }
+    .aux_small_but {
+      background-color: $aux_small_color;
+    }
+    .aux_slope_but {
+      background-color: $main_green;
+    }
+    .aux_connect_but {
+      background-color: $aux_connect_color;
+    }
+  }
+}
+
+
+.aux-color {
+  @include font-general-icon(30px, 1);
+  @extend .splash;
+  @extend .button;
+
+  position: relative;
+  width: 45px;
+  height: 45px;
+  padding: 0;
+  &.selected {
+    border-style: solid;
+    border-width: 1px;
+    border-color: $main_green;
+    &:after {
+      position: absolute;
+      left: 20%;
+      top: 15%;
+      content: $check-panel-icon;
+      color: $main_green;
+    }
+  }
+  img {
+    width: 45px;
+  }
+}
+
 // List View
 
 .aux-list-row {
