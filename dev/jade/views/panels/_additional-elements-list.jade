@@ -1,4 +1,5 @@
-.config-panel.additional-list-container(ng-controller="AdditionalElementsListCtrl")
+.config-panel.additional-list-container(ng-controller="AdditionalElementsListCtrl", ng-class="{'active': global.isAddElementListView}")
+  //.aux-list-inner(ng-if="global.isAddElementsPanel")
   include ../parts/_search-block
   //form(name='searchForm')
     .aux-search-block

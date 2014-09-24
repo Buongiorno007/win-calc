@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('AdditionalElementsListCtrl', ['$scope', function ($scope) {
+BauVoiceApp.controller('AdditionalElementsListCtrl', ['$scope', 'globalData', function ($scope, globalData) {
   var $auxListContainer = $('.additional-list-container'),
       $auxListDeleteBTN = $auxListContainer.find('.aux-delete'),
       $auxListParamsBTN = $auxListContainer.find('.aux-params-but'),
