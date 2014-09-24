@@ -227,7 +227,7 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'globalData', 'const
 
   // Open Add Elements in List View
   $scope.viewSwitching = function() {
-    $scope.global.isAddElementListView = !$scope.global.isAddElementListView;
+    $scope.global.isAddElementListView = true;
   };
 
 }]);

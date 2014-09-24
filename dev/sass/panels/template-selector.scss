@@ -64,8 +64,6 @@
   }
   .template-section {
     height: 1000px;
-    background: image-url('templateDraft.jpg') no-repeat;
-    background-size: cover;
   }
   .template-footer {
     @include display-flex();

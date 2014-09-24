@@ -71,4 +71,20 @@ BauVoiceApp.controller('AdditionalElementsListCtrl', ['$scope', 'globalData', fu
     addClassWithDelay($auxContainer, movePanelClass, 6*STEP);
   });
 
+
+
+  $scope.global = globalData;
+
+  $scope.addElementsList = {
+    DELAY_START: STEP,
+    DELAY_SHOW_ELEMENTS_MENU: STEP * 6,
+    typing: 'on'
+  };
+
+
+  // Close Add Elements in List View
+  $scope.viewSwitching = function() {
+    $scope.global.isAddElementListView = false;
+  };
+
 }]);
