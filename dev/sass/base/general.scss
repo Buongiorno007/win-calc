@@ -174,7 +174,7 @@ body {
   @include top_left_coord(300, -2000);
   @include transition(all 0.3s linear);
 
-  display: none;
+  //display: none;
   position: absolute;
   width: 1350px;
   padding: 80px 60px;

@@ -128,7 +128,18 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'globalData', '$timeout', 
           $scope.global.chosenAddElements.selectedOthers.push(cloneAddElement);
           break;
       }
+    }
+  };
 
+
+  // Select Add Element when open List View
+  $scope.selectElementListView = function(typeId, elementId) {
+    if(typeId === undefined && elementId === undefined) {
+      $scope.global.isAddElement = false;
+    //} else if($scope.global.isAddElement === typeId+'-'+elementId) {
+   //   $scope.global.isAddElement = 0;
+    } else {
+      $scope.global.isAddElement = typeId+'-'+elementId;
     }
   };
 
@@ -141,9 +152,9 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'globalData', '$timeout', 
     }
   };
 
-  // Delete AddElement in Tabs
-  $scope.deleteAddElement = function(elementId) {
-    switch($scope.global.isFocusedAddElement) {
+  // Delete AddElement from global object
+  $scope.global.deleteAddElement = function(typeId, elementId) {
+    switch(typeId) {
       case 1:
         $scope.global.chosenAddElements.selectedGrids.splice(elementId, 1);
         break;

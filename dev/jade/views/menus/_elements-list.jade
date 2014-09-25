@@ -12,24 +12,32 @@
       ul.items-list(ng-repeat="type in global.addElementsList")
         .title(data-output="{{ global.addElementsType[$index] }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
 
-        li.item(ng-repeat="addElement in type", ng-class="{'active': global.isAddElement === $parent.$index+'-'+$index}", ng-click="chooseAddElement($parent.$index, $index)")
+        //li.item(ng-repeat="addElement in type", ng-class="{'active': global.isAddElement === $parent.$index+'-'+$index}", ng-click="chooseAddElement($parent.$index, $index)")
+          .value(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+          button.element-info
+
+        li.item(ng-hide="global.isAddElementListView", ng-repeat="addElement in type", ng-class="{'active': global.isAddElement === $parent.$index+'-'+$index}", ng-click="chooseAddElement($parent.$index, $index)")
+          .value(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+          button.element-info
+
+        li.item(ng-show="global.isAddElementListView", ng-repeat="addElement in type", ng-class="{'active': global.isAddElement === $parent.$index+'-'+$index}", ng-click="selectElementListView($parent.$index, $index)")
           .value(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
           button.element-info
 
           .list-item
-            .aux-list-item
-              .aux-list-row.unvisible
+            .aux-list-item(ng-class="{'selected': global.isAddElement == $parent.$index +'-'+ $index}")
+              .aux-list-row
                 .aux-name
                   .aux-title {{ addElement.elementName }}
                   .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
                 .aux-params
-                  button.aux-params-but.aux_big_but.qty-calc 1
+                  button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(1, $index)") {{ addElement.elementQty }}
                   .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
                 .aux-params
-                  button.aux-params-but.aux_big_but.size-calc {{ addElement.elementSize }}
+                  button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(2, $index)") {{ addElement.elementWidth }}
                   .aux-label {{ 'add_elements.SIZE_LABEL' | translate }}
                 .aux-price +{{ addElement.elementPrice }}
-                button.aux-choose-but {{ 'add_elements.CHOOSE' | translate }}
+                button.aux-choose-but(ng-click="chooseAddElement($parent.$index, $index)") {{ 'add_elements.CHOOSE' | translate }}
 
 
     footer.menu-footer
@@ -100,7 +108,7 @@
           .aux-params(ng-class="{'selected': global.auxParameter === '2-2-'+$index && global.currentAddElementId === $index}")
             button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
             .aux-label {{ 'add_elements.SIZE_LABEL' | translate }}
-          .aux-delete(ng-click="deleteAddElement($index)")
+          .aux-delete(ng-click="global.deleteAddElement(2, $index)")
 
 
 
@@ -123,7 +131,7 @@
           .aux-params(ng-class="{'selected': global.auxParameter === '3-2-'+$index && global.currentAddElementId === $index}")
             button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
             .aux-label {{ 'add_elements.SIZE_LABEL' | translate }}
-          .aux-delete(ng-click="deleteAddElement($index)")
+          .aux-delete(ng-click="global.deleteAddElement(3, $index)")
 
 
 
@@ -164,7 +172,7 @@
           .aux-params(ng-class="{'selected': global.auxParameter === '5-3-'+$index && global.currentAddElementId === $index}")
             button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(3, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementHeight }}
             .aux-label {{ 'add_elements.HEIGHT_LABEL' | translate }}
-          .aux-delete(ng-click="deleteAddElement($index)")
+          .aux-delete(ng-click="global.deleteAddElement(5, $index)")
 
 
 
@@ -239,7 +247,7 @@
             button.aux-color(ng-class="{'selected': global.auxParameter === '9-4-'+$index && global.currentAddElementId === $index}", ng-click="global.initAddElementMenuTools(4, $index)")
               img(ng-src="{{ addElement.elementColor }}")
             .aux-label {{ 'add_elements.COLOR_LABEL' | translate }}
-          .aux-delete(ng-click="deleteAddElement($index)")
+          .aux-delete(ng-click="global.deleteAddElement(9, $index)")
 
 
 
@@ -259,6 +267,7 @@
           .aux-params(ng-class="{'selected': global.auxParameter === '10-1-'+$index && global.currentAddElementId === $index}")
             button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
             .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
+          .aux-delete(ng-click="global.deleteAddElement(10, $index)")
 
 
 

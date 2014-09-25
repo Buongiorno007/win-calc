@@ -175,6 +175,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
   $scope.selectAddElementsPanel = function() {
     if($scope.global.showPanels.showAddElementsPanel) {
       $scope.global.showPanels.showAddElementsPanel = false;
+      $scope.global.isAddElementListView = false;
     } else {
       clearShowPanelsObj();
       $scope.global.showPanels.showAddElementsPanel = true;

@@ -1,90 +1,77 @@
-/* globals BauVoiceApp, STEP, unvisibleClass, selectClass, activeClass, movePanelClass, showElementWithDelay, removeClassWithDelay, addClassWithDelay */
+/* globals BauVoiceApp, STEP, selectClass, activeClass */
 
 'use strict';
 
-BauVoiceApp.controller('AdditionalElementsListCtrl', ['$scope', 'globalData', function ($scope, globalData) {
-  var $auxListContainer = $('.additional-list-container'),
-      $auxListDeleteBTN = $auxListContainer.find('.aux-delete'),
-      $auxListParamsBTN = $auxListContainer.find('.aux-params-but'),
-      $searchInput = $auxListContainer.find('.search-input'),
-      $cancelSearchBTN = $auxListContainer.find('.cancel-search'),
-      $auxSearchContent = $auxListContainer.find('.aux-search-content'),
-      $auxListGroup = $auxListContainer.find('.aux-list-group'),
-
-      $viewSwitcher = $auxListContainer.find('.view-switch-tab'),
-      $auxContainer = $('.auxiliaries-container');
-
-  // Search elements
-  $searchInput.click(function () {
-    $cancelSearchBTN.removeClass(unvisibleClass);
-    $auxSearchContent.addClass(activeClass);
-  });
-  $cancelSearchBTN.click(function () {
-    $auxSearchContent.removeClass(activeClass);
-    $(this).addClass(unvisibleClass);
-  });
-
-  //Select group
-  $auxListGroup.click(function () {
-    $auxListGroup.each(function() {
-      $(this).removeClass(selectClass);
-      $(this).find('.group-indicator').removeClass(activeClass);
-    });
-    $(this).addClass(selectClass);
-    $(this).find('.group-indicator').addClass(activeClass);
-  });
-
-  // Delete auxiliary row
-  $auxListDeleteBTN.click(function () {
-    $(this).closest('.aux-list-row').remove();
-  });
-
-  //------Select parameters
-  $auxListParamsBTN.click(function () {
-    //deselectTabParamsBTN();
-    deselectListParamsBTN();
-    $(this).addClass(selectClass);
-
-    // Activation calculators
-    /*
-    hideElementsTools();
-    if($(this).hasClass('size-calc')){
-      $sizeCalculator.addClass(activeClass);
-    }
-    if($(this).hasClass('qty-calc')){
-      $qtyCalculator.addClass(activeClass);
-    }
-    */
-  });
-
-  function deselectListParamsBTN() {
-    $auxListParamsBTN.each(function() {
-      $(this).removeClass(selectClass);
-    });
-  }
-
-  // Open additional Scheme View
-  $viewSwitcher.click(function() {
-    $auxListContainer.removeClass(movePanelClass);
-    removeClassWithDelay($auxListContainer, activeClass, 5*STEP);
-    addClassWithDelay($auxContainer, activeClass, 5*STEP);
-    addClassWithDelay($auxContainer, movePanelClass, 6*STEP);
-  });
-
-
+BauVoiceApp.controller('AdditionalElementsListCtrl', ['$scope', 'globalData', 'constructService', function ($scope, globalData, constructService) {
 
   $scope.global = globalData;
 
   $scope.addElementsList = {
     DELAY_START: STEP,
     DELAY_SHOW_ELEMENTS_MENU: STEP * 6,
+
+    showAddElementGroups: false,
+    filteredGroups: [],
     typing: 'on'
   };
+
+  // Search Add Elements Group
+  var regex, checkedGroup, indexGroup, currGroup, groupTempObj;
+
+  constructService.getAddElementsGroups(function (results) {
+    if (results.status) {
+      $scope.addElementsList.addElementsGroup = results.data.groups;
+    } else {
+      console.log(results);
+    }
+  });
+
+  // Create regExpresion
+  function escapeRegExp(string){
+    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+  }
+
+  $scope.checkChanges = function() {
+
+    $scope.addElementsList.filteredGroups.length = 0;
+    if($scope.searchingWord && $scope.searchingWord.length > 0) {
+      regex = new RegExp('^' + escapeRegExp($scope.searchingWord), 'i');
+      for(indexGroup = 0; indexGroup < $scope.addElementsList.addElementsGroup.length; indexGroup++){
+        currGroup = $scope.addElementsList.addElementsGroup[indexGroup];
+        checkedGroup = regex.test(currGroup);
+        if(checkedGroup) {
+          groupTempObj = {};
+          groupTempObj.groupId = indexGroup+1;
+          groupTempObj.groupName = currGroup;
+          groupTempObj.groupClass = $scope.global.addElementsGroupClass[indexGroup];
+          $scope.addElementsList.filteredGroups.push(groupTempObj);
+        }
+      }
+    }
+    if( $scope.addElementsList.filteredGroups.length > 0) {
+      $scope.addElementsList.showAddElementGroups = true;
+    } else {
+      $scope.addElementsList.showAddElementGroups = false;
+    }
+  };
+
+  // Delete searching word
+  $scope.cancelSearching = function() {
+    $scope.searchingWord = '';
+    $scope.addElementsList.showAddElementGroups = false;
+  };
+  // Delete last chart searching word
+  $scope.deleteSearchChart = function() {
+    $scope.searchingWord = $scope.searchingWord.slice(0,-1);
+  };
+
 
 
   // Close Add Elements in List View
   $scope.viewSwitching = function() {
     $scope.global.isAddElementListView = false;
+    $scope.global.showAddElementsMenu = false;
+    $scope.global.isAddElement = false;
   };
 
 }]);

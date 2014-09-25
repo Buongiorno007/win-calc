@@ -31,7 +31,7 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'globalData', 'const
   };
 
   //Select additional element
-  $scope.selectAddElement = function(id) {
+  $scope.global.selectAddElement = function(id) {
     if($scope.global.isFocusedAddElement !== id && $scope.global.showAddElementsMenu) {
       $scope.global.isFocusedAddElement = id;
       $scope.global.isTabFrame = false;
@@ -41,19 +41,19 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'globalData', 'const
         $scope.global.isAddElement = false;
         $scope.global.addElementsMenuStyle = false;
         $scope.global.showAddElementsMenu = activeClass;
-        $scope.downloadAddElementsData(id);
+        $scope.global.downloadAddElementsData(id);
       }, $scope.addElementsPanel.DELAY_SHOW_ELEMENTS_MENU);
     } else {
       $scope.global.isFocusedAddElement = id;
       $scope.global.showAddElementsMenu = activeClass;
-      $scope.downloadAddElementsData(id);
+      $scope.global.downloadAddElementsData(id);
     }
   };
 
-  $scope.downloadAddElementsData = function(id) {
+  $scope.global.downloadAddElementsData = function(id) {
     switch(id) {
       case 1:
-        $scope.global.addElementsMenuStyle = 'aux_color_connect';
+        $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[0];
         constructService.getAllGrids(function (results) {
           if (results.status) {
             $scope.global.addElementsType = results.data.elementType;
@@ -64,7 +64,7 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'globalData', 'const
         });
         break;
       case 2:
-        $scope.global.addElementsMenuStyle = 'aux_color_big';
+        $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[1];
         constructService.getAllVisors(function (results) {
           if (results.status) {
             $scope.global.addElementsType = results.data.elementType;
@@ -75,7 +75,7 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'globalData', 'const
         });
         break;
       case 3:
-        $scope.global.addElementsMenuStyle = 'aux_color_middle';
+        $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[2];
         constructService.getAllSpillways(function (results) {
           if (results.status) {
             $scope.global.addElementsType = results.data.elementType;
@@ -86,7 +86,7 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'globalData', 'const
         });
         break;
       case 4:
-        $scope.global.addElementsMenuStyle = 'aux_color_slope';
+        $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[3];
         constructService.getAllOutsideSlope(function (results) {
           if (results.status) {
             $scope.global.addElementsType = results.data.elementType;
@@ -97,7 +97,7 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'globalData', 'const
         });
         break;
       case 5:
-        $scope.global.addElementsMenuStyle = 'aux_color_middle';
+        $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[4];
         constructService.getAllLouvers(function (results) {
           if (results.status) {
             $scope.global.addElementsType = results.data.elementType;
@@ -108,7 +108,7 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'globalData', 'const
         });
         break;
       case 6:
-        $scope.global.addElementsMenuStyle = 'aux_color_slope';
+        $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[5];
         constructService.getAllInsideSlope(function (results) {
           if (results.status) {
             $scope.global.addElementsType = results.data.elementType;
@@ -119,7 +119,7 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'globalData', 'const
         });
         break;
       case 7:
-        $scope.global.addElementsMenuStyle = 'aux_color_connect';
+        $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[6];
         constructService.getAllConnectors(function (results) {
           if (results.status) {
             $scope.global.addElementsType = results.data.elementType;
@@ -130,7 +130,7 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'globalData', 'const
         });
         break;
       case 8:
-        $scope.global.addElementsMenuStyle = 'aux_color_small';
+        $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[7];
         constructService.getAllFans(function (results) {
           if (results.status) {
             $scope.global.addElementsType = results.data.elementType;
@@ -141,7 +141,7 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'globalData', 'const
         });
         break;
       case 9:
-        $scope.global.addElementsMenuStyle = 'aux_color_big';
+        $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[8];
         constructService.getAllWindowSills(function (results) {
           if (results.status) {
             $scope.global.addElementsType = results.data.elementType;
@@ -152,7 +152,7 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'globalData', 'const
         });
         break;
       case 10:
-        $scope.global.addElementsMenuStyle = 'aux_color_middle';
+        $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[9];
         constructService.getAllHandles(function (results) {
           if (results.status) {
             $scope.global.addElementsType = results.data.elementType;
@@ -163,7 +163,7 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'globalData', 'const
         });
         break;
       case 11:
-        $scope.global.addElementsMenuStyle = 'aux_color_small';
+        $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[10];
         constructService.getAllOthers(function (results) {
           if (results.status) {
             $scope.global.addElementsType = results.data.elementType;
@@ -228,6 +228,20 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'globalData', 'const
   // Open Add Elements in List View
   $scope.viewSwitching = function() {
     $scope.global.isAddElementListView = true;
+    $scope.global.isFocusedAddElement = false;
+    $scope.global.isTabFrame = false;
+    $scope.global.showAddElementsMenu = false;
+    $scope.global.isAddElement = false;
+    $scope.global.desactiveAddElementParameters();
+    $timeout(function() {
+
+      $scope.global.addElementsMenuStyle = false;
+    }, $scope.addElementsPanel.DELAY_SHOW_ELEMENTS_MENU);
   };
+
+  // Show Window Scheme Dialog
+  $scope.showWindowScheme = function() {
+    $scope.global.isWindowSchemeDialog = true;
+  }
 
 }]);

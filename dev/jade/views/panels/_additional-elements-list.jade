@@ -1,21 +1,15 @@
 .config-panel.additional-list-container(ng-controller="AdditionalElementsListCtrl", ng-class="{'active': global.isAddElementListView}")
-  //.aux-list-inner(ng-if="global.isAddElementsPanel")
+
   include ../parts/_search-block
-  //form(name='searchForm')
-    .aux-search-block
-      input.search-input(placeholder="{{ 'additional_elements.INPUT_ADD_ELEMENT' | translate }}")
-      button.delete-search
-      button.cancel-search.unvisible {{ 'additional_elements.CANCEL' | translate }}
 
-  .aux-search-content
+  .aux-search-content(ng-class="{'active': addElementsList.showAddElementGroups}")
     ul.aux-list-groups
-      li.aux-list-group.aux_color_small(data-output="") {{ 'add_elements.VISORS' | translate }}
-        button.group-indicator
+      li.aux-list-group(ng-repeat="typeAddElement in addElementsList.filteredGroups", ng-click="global.selectAddElement(typeAddElement.groupId)", class="{{ typeAddElement.groupClass }}", ng-class="{'selected': global.isFocusedAddElement == typeAddElement.groupId}") {{ typeAddElement.groupName }}
+        button.group-indicator(ng-class="{'active': global.isFocusedAddElement == typeAddElement.groupId}")
         .search-elements-block
-      li.aux-list-group.aux_color_slope(data-output="") {{ 'add_elements.VISORS' | translate }}
-        button.group-indicator
-        .search-elements-block
-      li.aux-list-group.aux_color_big(data-output="") {{ 'add_elements.VISORS' | translate }}
+
+
+      //li.aux-list-group.aux_color_big(data-output="") {{ 'add_elements.VISORS' | translate }}
         button.group-indicator
         .search-elements-block
           button.search-element KO-350
@@ -31,83 +25,264 @@
           button.search-element KO-350
           button.search-element KO-350
 
-      li.aux-list-group.aux_color_middle(data-output="") {{ 'add_elements.GRIDS' | translate }}
-        button.group-indicator
-        .search-elements-block
-          button.search-element KO-350
-          button.search-element KO-350
-          button.search-element KO-350
-          button.search-element KO-350
-          button.search-element KO-350-258-000
-          button.search-element KO-350
-          button.search-element KO-350
-          button.search-element KO-350
-          button.search-element KO-350
-          button.search-element KO-350
-          button.search-element KO-350
-          button.search-element KO-350
 
   .aux-list-content
-    .aux-list-block.aux_color_big
-      .aux-list-block-title {{ 'add_elements.VISORS' | translate }}
-      .aux-list-row
-        .aux-name
-          .aux-title(data-output="подоконник") подоконник подоконник подоконник
-          .aux-label(data-output="шт") {{ 'add_elements.NAME_LABEL' | translate }}
-        .aux-params
-          button.aux-params-but.aux_big_but.qty-calc 1
-          .aux-label(data-output="шт") {{ 'add_elements.QTY_LABEL' | translate }}
-        .aux-params
-          button.aux-params-but.aux_big_but.size-calc 1000
-          .aux-label(data-output="размер") {{ 'add_elements.SIZE_LABEL' | translate }}
-        .aux-price(data-output="+12 300.00") +12 300.00
-        .aux-delete
 
-      .aux-list-row
-        .aux-name
-          .aux-title(data-output="подоконник") подоконник подоконник подоконник
-          .aux-label(data-output="шт") {{ 'add_elements.NAME_LABEL' | translate }}
-        .aux-params
-          button.aux-params-but.aux_big_but.qty-calc 1
-          .aux-label(data-output="шт") {{ 'add_elements.QTY_LABEL' | translate }}
-        .aux-params
-          button.aux-params-but.aux_big_but.size-calc 1000
-          .aux-label(data-output="размер") {{ 'add_elements.SIZE_LABEL' | translate }}
-        .aux-price(data-output="+12 300.00") +12 300.00
-        .aux-delete
+    // List Grids
+    .aux-list-block.aux_color_connect(ng-if="global.chosenAddElements.selectedGrids.length > 0")
+      .aux-list-block-title(data-output="{{ 'add_elements.GRIDS' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+      table.aux-list-addellement
+        tr.aux-list-row(ng-repeat="addElement in global.chosenAddElements.selectedGrids track by $index")
+          td.aux-tablecell-name
+            .aux-name
+              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(1)") )
+              .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+          td.aux-tablecell-qty
+          td.aux-tablecell-width
+          td.aux-tablecell-height
+          td.aux-tablecell-color
+          td.aux-tablecell-price
+            .aux-price + {{ addElement.elementPrice }}
+          td.aux-tablecell-delete
+            .aux-delete(ng-click="global.deleteAddElement(1, $index)")
 
-    .aux-list-block.aux_color_middle
-      .aux-list-block-title {{ 'add_elements.VISORS' | translate }}
-      .aux-list-row
-        .aux-name
-          .aux-title(data-output="подоконник") подоконник подоконник подоконник
-          .aux-label(data-output="шт") {{ 'add_elements.NAME_LABEL' | translate }}
-        .aux-params
-          button.aux-params-but.aux_big_but.qty-calc 1
-          .aux-label(data-output="шт") {{ 'add_elements.QTY_LABEL' | translate }}
-        .aux-params
-          button.aux-params-but.aux_big_but.size-calc 1000
-          .aux-label(data-output="размер") {{ 'add_elements.SIZE_LABEL' | translate }}
-        .aux-price(data-output="+12 300.00") +12 300.00
-        .aux-delete
 
-      .aux-list-row
-        .aux-name
-          .aux-title(data-output="подоконник") подоконник подоконник подоконник
-          .aux-label(data-output="шт") {{ 'add_elements.NAME_LABEL' | translate }}
-        .aux-params
-          button.aux-params-but.aux_big_but.qty-calc 1
-          .aux-label(data-output="шт") {{ 'add_elements.QTY_LABEL' | translate }}
-        .aux-params
-          button.aux-params-but.aux_big_but.size-calc 1000
-          .aux-label(data-output="размер") {{ 'add_elements.SIZE_LABEL' | translate }}
-        .aux-price(data-output="+12 300.00") +12 300.00
-        .aux-delete
+    // List Visors
+    .aux-list-block.aux_color_big(ng-if="global.chosenAddElements.selectedVisors.length > 0")
+      .aux-list-block-title(data-output="{{ 'add_elements.VISORS' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
 
-    .aux-list-block
+      table.aux-list-addellement
+        tr.aux-list-row(ng-repeat="addElement in global.chosenAddElements.selectedVisors track by $index")
+          td.aux-tablecell-name
+            .aux-name
+              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(2)")
+              .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+          td.aux-tablecell-qty
+            .aux-params(ng-class="{'selected': global.auxParameter === '2-1-'+$index && global.currentAddElementId === $index}")
+              button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+              .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+          td.aux-tablecell-width
+            .aux-params(ng-class="{'selected': global.auxParameter === '2-2-'+$index && global.currentAddElementId === $index}")
+              button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
+              .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+          td.aux-tablecell-height
+          td.aux-tablecell-color
+          td.aux-tablecell-price
+            .aux-price + {{ addElement.elementPrice }}
+          td.aux-tablecell-delete
+            .aux-delete(ng-click="global.deleteAddElement(2, $index)")
+
+
+    // List Spillways
+    .aux-list-block.aux_color_middle(ng-if="global.chosenAddElements.selectedSpillways.length > 0")
+      .aux-list-block-title(data-output="{{ 'add_elements.SPILLWAYS' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+      table.aux-list-addellement
+        tr.aux-list-row(ng-repeat="addElement in global.chosenAddElements.selectedSpillways track by $index")
+          td.aux-tablecell-name
+            .aux-name
+              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(3)")
+              .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+          td.aux-tablecell-qty
+            .aux-params(ng-class="{'selected': global.auxParameter === '3-1-'+$index && global.currentAddElementId === $index}")
+              button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+              .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+          td.aux-tablecell-width
+            .aux-params(ng-class="{'selected': global.auxParameter === '3-2-'+$index && global.currentAddElementId === $index}")
+              button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
+              .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+          td.aux-tablecell-height
+          td.aux-tablecell-color
+          td.aux-tablecell-price
+            .aux-price + {{ addElement.elementPrice }}
+          td.aux-tablecell-delete
+            .aux-delete(ng-click="global.deleteAddElement(3, $index)")
+
+
+
+    // List OutsideSlope
+    .aux-list-block.aux_color_slope(ng-if="global.chosenAddElements.selectedOutsideSlope.length > 0")
+      .aux-list-block-title(data-output="{{ 'add_elements.OUTSIDE' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+      table.aux-list-addellement
+        tr.aux-list-row(ng-repeat="addElement in global.chosenAddElements.selectedOutsideSlope track by $index")
+          td.aux-tablecell-name
+            .aux-name
+              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(4)")
+              .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+          td.aux-tablecell-qty
+          td.aux-tablecell-width
+          td.aux-tablecell-height
+          td.aux-tablecell-color
+          td.aux-tablecell-price
+            .aux-price + {{ addElement.elementPrice }}
+          td.aux-tablecell-delete
+            .aux-delete(ng-click="global.deleteAddElement(4, $index)")
+
+
+    // List Louvers
+    .aux-list-block.aux_color_middle(ng-if="global.chosenAddElements.selectedLouvers.length > 0")
+      .aux-list-block-title(data-output="{{ 'add_elements.LOUVERS' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+      table.aux-list-addellement
+        tr.aux-list-row(ng-repeat="addElement in global.chosenAddElements.selectedLouvers track by $index")
+          td.aux-tablecell-name
+            .aux-name
+              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(5)")
+              .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+          td.aux-tablecell-qty
+            .aux-params(ng-class="{'selected': global.auxParameter === '5-1-'+$index && global.currentAddElementId === $index}")
+              button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+              .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+          td.aux-tablecell-width
+            .aux-params(ng-class="{'selected': global.auxParameter === '5-2-'+$index && global.currentAddElementId === $index}")
+              button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
+              .aux-label(data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+          td.aux-tablecell-height
+            .aux-params(ng-class="{'selected': global.auxParameter === '5-3-'+$index && global.currentAddElementId === $index}")
+              button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(3, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
+              .aux-label(data-output="{{ 'add_elements.HEIGHT_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+          td.aux-tablecell-color
+          td.aux-tablecell-price
+            .aux-price + {{ addElement.elementPrice }}
+          td.aux-tablecell-delete
+            .aux-delete(ng-click="global.deleteAddElement(5, $index)")
+
+
+    // List InsideSlope
+    .aux-list-block.aux_color_slope(ng-if="global.chosenAddElements.selectedInsideSlope.length > 0")
+      .aux-list-block-title(data-output="{{ 'add_elements.INSIDE' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+      table.aux-list-addellement
+        tr.aux-list-row(ng-repeat="addElement in global.chosenAddElements.selectedInsideSlope track by $index")
+          td.aux-tablecell-name
+            .aux-name
+              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(6)")
+              .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+          td.aux-tablecell-qty
+          td.aux-tablecell-width
+          td.aux-tablecell-height
+          td.aux-tablecell-color
+          td.aux-tablecell-price
+            .aux-price + {{ addElement.elementPrice }}
+          td.aux-tablecell-delete
+            .aux-delete(ng-click="global.deleteAddElement(6, $index)")
+
+
+    // List Connectors
+    .aux-list-block.aux_color_connect(ng-if="global.chosenAddElements.selectedConnectors.length > 0")
+      .aux-list-block-title(data-output="{{ 'add_elements.CONNECTORS' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+      table.aux-list-addellement
+        tr.aux-list-row(ng-repeat="addElement in global.chosenAddElements.selectedConnectors track by $index")
+          td.aux-tablecell-name
+            .aux-name
+              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(7)")
+              .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+          td.aux-tablecell-qty
+          td.aux-tablecell-width
+          td.aux-tablecell-height
+          td.aux-tablecell-color
+          td.aux-tablecell-price
+            .aux-price + {{ addElement.elementPrice }}
+          td.aux-tablecell-delete
+            .aux-delete(ng-click="global.deleteAddElement(7, $index)")
+
+
+    // List Fans
+    .aux-list-block.aux_color_small(ng-if="global.chosenAddElements.selectedFans.length > 0")
+      .aux-list-block-title(data-output="{{ 'add_elements.FANS' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+      table.aux-list-addellement
+      tr.aux-list-row(ng-repeat="addElement in global.chosenAddElements.selectedFans track by $index")
+        td.aux-tablecell-name
+          .aux-name
+            .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(8)")
+            .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+        td.aux-tablecell-qty
+        td.aux-tablecell-width
+        td.aux-tablecell-height
+        td.aux-tablecell-color
+        td.aux-tablecell-price
+          .aux-price + {{ addElement.elementPrice }}
+        td.aux-tablecell-delete
+          .aux-delete(ng-click="global.deleteAddElement(8, $index)")
+
+
+    // List WindowSill
+    .aux-list-block.aux_color_big(ng-if="global.chosenAddElements.selectedWindowSill.length > 0")
+      .aux-list-block-title(data-output="{{ 'add_elements.WINDOWSILLS' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+      table.aux-list-addellement
+        tr.aux-list-row(ng-repeat="addElement in global.chosenAddElements.selectedWindowSill track by $index")
+          td.aux-tablecell-name
+            .aux-name
+              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(9)")
+              .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+          td.aux-tablecell-qty
+            .aux-params(ng-class="{'selected': global.auxParameter === '9-1-'+$index && global.currentAddElementId === $index}")
+              button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+              .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+          td.aux-tablecell-width
+            .aux-params(ng-class="{'selected': global.auxParameter === '9-2-'+$index && global.currentAddElementId === $index}")
+              button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
+              .aux-label(data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+          td.aux-tablecell-height
+          td.aux-tablecell-color
+            .aux-params
+              button.aux-color(ng-class="{'selected': global.auxParameter === '9-4-'+$index && global.currentAddElementId === $index}", ng-click="global.initAddElementMenuTools(4, $index)")
+                img(ng-src="{{ addElement.elementColor }}")
+              .aux-label {{ 'add_elements.COLOR_LABEL' | translate }}
+          td.aux-tablecell-price
+            .aux-price + {{ addElement.elementPrice }}
+          td.aux-tablecell-delete
+            .aux-delete(ng-click="global.deleteAddElement(9, $index)")
+
+
+
+    // List Handles
+    .aux-list-block.aux_color_middle(ng-if="global.chosenAddElements.selectedHandles.length > 0")
+      .aux-list-block-title(data-output="{{ 'add_elements.HANDLELS' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+      table.aux-list-addellement
+        tr.aux-list-row(ng-repeat="addElement in global.chosenAddElements.selectedHandles track by $index")
+          td.aux-tablecell-name
+            .aux-name
+              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(10)")
+              .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+          td.aux-tablecell-qty
+            .aux-params(ng-class="{'selected': global.auxParameter === '10-1-'+$index && global.currentAddElementId === $index}")
+              button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+              .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+          td.aux-tablecell-width
+          td.aux-tablecell-height
+          td.aux-tablecell-color
+          td.aux-tablecell-price
+            .aux-price + {{ addElement.elementPrice }}
+          td.aux-tablecell-delete
+            .aux-delete(ng-click="global.deleteAddElement(10, $index)")
+
+
+
+    // List Others
+    .aux-list-block.aux_color_middle(ng-if="global.chosenAddElements.selectedOthers.length > 0")
+      .aux-list-block-title(data-output="{{ 'add_elements.OTHERS' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+      table.aux-list-addellement
+        tr.aux-list-row(ng-repeat="addElement in global.chosenAddElements.selectedOthers track by $index")
+          td.aux-tablecell-name
+            .aux-name
+              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(11)")
+              .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+          td.aux-tablecell-qty
+            .aux-params(ng-class="{'selected': global.auxParameter === '10-1-'+$index && global.currentAddElementId === $index}")
+              button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+              .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+          td.aux-tablecell-width
+          td.aux-tablecell-height
+          td.aux-tablecell-color
+          td.aux-tablecell-price
+            .aux-price + {{ addElement.elementPrice }}
+          td.aux-tablecell-delete
+            .aux-delete(ng-click="global.deleteAddElement(11, $index)")
+
+
+
+    .aux-list-block(ng-if="global.chosenAddElements")
       .aux-list-row
-         .aux-total-label {{ 'add_elements.TOTAL_PRICE_TXT' | translate }}
-         .aux-total-price +12 300.00
-         .aux-delete
+         .aux-total-label(data-output="{{ 'add_elements.TOTAL_PRICE_TXT' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+         .aux-total-price {{ totalAddElementsPrice }}
+         .aux-delete(ng-click="")
 
   button.view-switch-tab(ng-click="viewSwitching()") {{ 'add_elements.SCHEME_VIEW' | translate }}

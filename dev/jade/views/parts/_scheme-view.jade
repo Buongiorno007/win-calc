@@ -1,3 +1,3 @@
-.scheme-view-dialog.unvisible(ng-controller="SchemeViewCtrl")
-  img.scheme-view.unvisible(src = "../img/templateDraft.jpg")
-  .close-dialog
+.scheme-view-dialog(ng-controller="SchemeViewCtrl", ng-class="{'active': global.isWindowSchemeDialog}")
+  object(type="image/svg+xml" data="img/windowConstuction.svg" class="")
+  .close-dialog(ng-click="closeWindowScheme()")

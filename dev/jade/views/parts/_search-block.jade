@@ -1,5 +1,5 @@
 form(name='searchForm')
   .search-block
-    input.search-input(placeholder="{{ 'add_elements.INPUT_ADD_ELEMENT' | translate }}")
-    button.delete-search
-    button.cancel-search.unvisible {{ 'add_elements.CANCEL' | translate }}
+    input.search-input(type="text", name="searching", ng-model="searchingWord", ng-change="checkChanges()", placeholder="{{ 'add_elements.INPUT_ADD_ELEMENT' | translate }}")
+    button.delete-search(ng-click="deleteSearchChart()")
+    button.cancel-search(ng-show="searchingWord", ng-click="cancelSearching()") {{ 'add_elements.CANCEL' | translate }}

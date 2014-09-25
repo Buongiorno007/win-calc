@@ -11,6 +11,19 @@ BauVoiceApp.factory('globalData', function () {
     isHardwarePanel: false,
     isLaminationPanel: false,
     isAddElementsPanel: false,
+    addElementsGroupClass: [
+      'aux_color_connect',
+      'aux_color_big',
+      'aux_color_middle',
+      'aux_color_slope',
+      'aux_color_middle',
+      'aux_color_slope',
+      'aux_color_connect',
+      'aux_color_small',
+      'aux_color_big',
+      'aux_color_middle',
+      'aux_color_small'
+    ],
     chosenAddElements: {
       selectedGrids: [],
       selectedVisors: [],

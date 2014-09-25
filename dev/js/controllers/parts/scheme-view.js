@@ -1,27 +1,14 @@
-/* globals BauVoiceApp, STEP, unvisibleClass, addClassWithDelay, showElementWithDelay */
+/* globals BauVoiceApp, STEP */
 
 'use strict';
 
-BauVoiceApp.controller('SchemeViewCtrl', ['$scope', function ($scope) {
+BauVoiceApp.controller('SchemeViewCtrl', ['$scope', 'globalData', function ($scope, globalData) {
 
-  var $auxContainer = $('.auxiliaries-container'),
-      $schemeDialog = $('.scheme-view-dialog'),
-      $schemeInfo = $auxContainer.find('.scheme-info'),
-      $closeDialog = $schemeDialog.find('.close-dialog'),
-      $schemeView = $schemeDialog.find('.scheme-view'),
+  $scope.global = globalData;
 
-      showDialogClass = 'show-dialog',
-      hideDialogClass = 'hide-dialog';
-
-  // Showing Scheme View Dialog
-  $schemeInfo.click(function () {
-    $schemeDialog.removeClass(hideDialogClass).removeClass(unvisibleClass).addClass(showDialogClass);
-    showElementWithDelay($schemeView, 5 * STEP);
-  });
-  // Hide Scheme View Dialog
-  $closeDialog.click(function () {
-    $schemeDialog.removeClass(showDialogClass).addClass(hideDialogClass);
-    addClassWithDelay($schemeView, unvisibleClass, 5 * STEP);
-  });
+  // Close Window Scheme Dialog
+  $scope.closeWindowScheme = function() {
+    $scope.global.isWindowSchemeDialog = false;
+  }
 
 }]);

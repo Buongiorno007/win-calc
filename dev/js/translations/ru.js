@@ -64,8 +64,9 @@ window.russianDictionary = {
   },
   add_elements: {
     CHOOSE: 'Выбрать',
-    VISOR: 'козырек',
+
     GRID: 'москитная сетка',
+    VISOR: 'козырек',
     SPILLWAY: 'водоотлив',
     OUTSIDE: 'наружные откосы',
     LOUVERS: 'жалюзи',
@@ -75,6 +76,12 @@ window.russianDictionary = {
     WINDOWSILL: 'подоконник',
     HANDLEL: 'ручка',
     OTHERS: 'прочее',
+
+    GRIDS: 'москитные сетки',
+    VISORS: 'козырьки',
+    SPILLWAYS: 'водоотливы',
+    WINDOWSILLS: 'подоконники',
+    HANDLELS: 'ручки',
 
     NAME_LABEL: 'наименование',
     QTY_LABEL: 'шт.',
@@ -88,8 +95,6 @@ window.russianDictionary = {
     LIST_VIEW: 'Cписок',
     INPUT_ADD_ELEMENT: 'Добавить компонент',
     CANCEL: 'Отмена',
-    VISORS: 'Козырьки',
-    GRIDS: 'Москитные сетки',
     TOTAL_PRICE_TXT: 'Итого дополнительных компонентов на сумму:'
   },
   add_elements_menu: {

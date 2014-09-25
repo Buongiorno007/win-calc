@@ -172,6 +172,24 @@ BauVoiceApp.factory('constructService', function () {
       }));
     },
 
+    getAddElementsGroups: function (callback) {
+      callback(new OkResult({
+        groups: [
+          'Москитные сетки',
+          'Козырьки',
+          'Водоотливы',
+          'Наружные откосы',
+          'Жалюзи',
+          'Внутренние откосы',
+          'Соединитель',
+          'Микропроветривание',
+          'Подоконники',
+          'Ручки',
+          'Прочее'
+        ]
+      }));
+    },
+
     getAllGrids: function (callback) {
       callback(new OkResult({
 

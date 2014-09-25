@@ -96,7 +96,9 @@
 
     color: $main_gray_txt;
   }
-
+  .aux-list-block-title:first-letter {
+    text-transform: uppercase;
+  }
   .aux-list-row {
     margin-bottom: 20px;
   }
@@ -105,5 +107,35 @@
   }
   .aux-total-label {
     min-width: 69%;
+  }
+
+  .aux-list-addellement {
+    width: 100%;
+
+    .aux-tablecell-name {
+      width: 500px;
+      .aux-name {
+        max-width: 100%;
+      }
+    }
+    .aux-tablecell-qty {
+      width: 100px;
+    }
+    .aux-tablecell-width,
+    .aux-tablecell-height {
+      width: 150px;
+    }
+    .aux-tablecell-color {
+      width: 100px;
+    }
+    .aux-tablecell-price {
+      width: 200px;
+      .aux-price {
+        text-align: center;
+      }
+    }
+    .aux-tablecell-delete {
+      width: 100px;
+    }
   }
 }
