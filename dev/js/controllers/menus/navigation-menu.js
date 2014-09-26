@@ -25,6 +25,10 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'localStorage', 'g
     }
   });
 
+  $scope.gotoMainPage = function () {
+    $location.path('/main');
+  };
+
   $scope.gotoLocationPage = function () {
     $location.path('/location');
   };
@@ -56,7 +60,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'localStorage', 'g
     $scope.global.isAddElementsPanel = true;
   };
 
-  $scope.showNewProject = function() {
+  $scope.createNewProject = function() {
     $scope.navMenu.activeMenuItem = false;
     $scope.global.showNavMenu = false;
     $scope.global.isConfigMenu = true;

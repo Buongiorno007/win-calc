@@ -1,24 +1,26 @@
-/* globals BauVoiceApp, STEP, unvisibleClass, selectClass, activeClass, typingTextByChar, showElementWithDelay, typingTextWithDelay */
+/* globals BauVoiceApp, STEP */
 
 'use strict';
 
-BauVoiceApp.controller('CartCtrl', ['$rootScope', '$scope', function ($rootScope, $scope) {
+BauVoiceApp.controller('CartCtrl', ['$scope', 'globalData', '$location', function ($scope, globalData, $location) {
 
-  var $cartPage = $('.cart-page'),
-      $fullView = $cartPage.find('.full-view'),
-      $lightView = $cartPage.find('.light-view'),
-      $orderDeleteBTN = $cartPage.find('.order-delete'),
-      $viewSwitcher = $cartPage.find('.view-switch-tab'),
-      $cartContainer = $cartPage.find('.cart-container');
+  $scope.global = globalData;
 
-  // History/Draft View switcher
-  $viewSwitcher.click(function() {
-    $cartContainer.toggleClass(activeClass);
-  });
+  $scope.createNewProduct = function() {
+    $location.path('/main');
+    //$scope.global.showNavMenu = false;
+    //$scope.global.isConfigMenu = true;
+    $scope.global.showPanels = {};
+    //$scope.global.showPanels.showTemplatePanel = true;
+    //$scope.global.isTemplatePanel = true;
+  };
 
-  // Delete account
-  $orderDeleteBTN.click(function() {
-    $(this).closest('.order').remove();
-  });
+
+  // Full/Light View switcher
+  $scope.isCartLightView = false;
+  $scope.viewSwitching = function() {
+    $scope.isCartLightView = !$scope.isCartLightView;
+  };
+
 
 }]);

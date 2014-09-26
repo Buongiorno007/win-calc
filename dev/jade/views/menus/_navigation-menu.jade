@@ -57,4 +57,4 @@
 
 
   footer.nav-menu-footer
-    button.new-calc.unvisible(show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}", ng-click="showNewProject()") {{ 'mainpage.NAVMENU_NEW_CALC' | translate }}
+    button.new-calc.unvisible(show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}", ng-click="gotoMainPage(); createNewProject()") {{ 'mainpage.NAVMENU_NEW_CALC' | translate }}

@@ -1,15 +1,11 @@
 .cart-page {
-  @include background-image(linear-gradient(color-stops(#f7f7f7), #d7dbd8));
-
   position: relative;
   width: 100%;
   height: 100%;
 }
 
 .cart-container {
-  @include top_left_coord(0, -2500);
   @include background-image(linear-gradient(color-stops(#f7f7f7), #d7dbd8));
-  @include transition(all 0.5s linear);
 
   position: absolute;
   width: 100%;
@@ -18,6 +14,15 @@
   padding-left: 100px;
   overflow-x: auto;
   overflow-y: auto;
+  &.full-view {
+    @include top_left_coord(0, 0);
+  }
+  &.light-view {
+    @include top_left_coord(0, -2500);
+    @include transition(all 0.5s linear);
+
+    z-index: 5;
+  }
   &.active {
     @include top_left_coord(0, 0);
   }
@@ -40,7 +45,9 @@
     @extend .middle-button;
     @extend .splash;
 
+    position: relative;
     padding: 18px 30px;
+    z-index: 2;
   }
   .additional-elements {
     margin-right: 20px;
@@ -133,7 +140,9 @@
     height: 100px;
   }
   .order-coeff {
-    @include top_left_coord(0, 0);
+    @include roboto-lt(22px);
+    bottom: 0;
+    right: 0;
     position: absolute;
     background-color: #fff;
   }
