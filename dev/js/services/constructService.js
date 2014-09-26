@@ -149,6 +149,7 @@ BauVoiceApp.factory('constructService', function () {
     },
 
     // TODO: Сервис готов
+/*
     getAdditionalElements: function (callback) {
       callback(new OkResult({
         elements: [
@@ -171,7 +172,7 @@ BauVoiceApp.factory('constructService', function () {
         ]
       }));
     },
-
+*/
     getAddElementsGroups: function (callback) {
       callback(new OkResult({
         groups: [

@@ -93,6 +93,7 @@
 }
 .aux-title {
   max-width: 90%;
+  cursor: pointer;
 }
 .aux-price {
   @include roboto-bd(36px);

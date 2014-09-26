@@ -45,6 +45,10 @@
     padding: 0;
     list-style: none;
   }
+  .additional-items-group {
+    margin: 0;
+    padding: 0;
+  }
   .additional-item {
     @extend .truncated;
   }

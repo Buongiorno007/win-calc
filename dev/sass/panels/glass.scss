@@ -9,7 +9,9 @@
     @include justify-content(flex-start);
   }
   .info {
-    position: relative;
+    position: absolute;
+    top: -30px;
+    right: 35px;
     &:before {
       @include top_left_coord(15, 15);
       @include font-general-icon(50px, 1);
@@ -29,8 +31,10 @@
   }
   .footer-inner {
     @include display-flex();
+    @include align-items(center);
   }
   .glass-box {
+    @include transition(all .5s linear);
     width: 515px;
     min-width: 515px;
     height: 310px;

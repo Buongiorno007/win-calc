@@ -86,12 +86,14 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'globalData', '$timeout', 
     } else {
       $scope.global.isAddElement = typeId+'-'+elementId;
 
-      // show element price
-      $scope.addElementsMenu.isAddElementPrice = true;
-      //$scope.price = $scope.global.addElementsList[typeId][elementId].elementPrice;
-
       sourceAddElement = $scope.global.addElementsList[typeId][elementId];
       cloneAddElement = $.extend(true, {}, sourceAddElement);
+
+      // Show element price
+      $scope.addElementsMenu.isAddElementPrice = true;
+      //$scope.price = $scope.global.addElementsList[typeId][elementId].elementPrice;
+      $scope.currAddElementPrice = sourceAddElement.elementPrice;
+      $scope.global.totalAddElementsPrice += $scope.currAddElementPrice;
 
       switch($scope.global.isFocusedAddElement) {
         case 1:

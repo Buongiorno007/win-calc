@@ -42,8 +42,9 @@
 
     footer.menu-footer
       .price-element(ng-show="addElementsMenu.isAddElementPrice")
-        //price.price-value(data-output="{{ configMenu.price }}")
-        price
+        .price-value + {{ currAddElementPrice }}
+        //price
+
       .elements-tools.size-calculator(ng-class="{'active': global.isSizeCalculator}")
         include ../parts/_size-calculator
       .elements-tools.qty-calculator(ng-class="{'active': global.isQtyCalculator}")

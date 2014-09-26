@@ -39,6 +39,7 @@ BauVoiceApp.factory('globalData', function () {
     },
     isAddElement: false,
     isAddElementListView: false,
+    totalAddElementsPrice: 0,
     currency: '₴',
     cartPrice: '0',
     showMasterDialog: false,

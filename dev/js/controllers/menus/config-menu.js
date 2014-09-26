@@ -10,7 +10,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
     DELAY_SHOW_CONFIG_LIST: 5 * STEP,
     DELAY_SHOW_FOOTER: 5 * STEP,
     DELAY_TYPE_ITEM_TITLE: 10 * STEP,
-    DELAY_SHOW_ORDERS: 40 * STEP,
+    //DELAY_SHOW_ORDERS: 40 * STEP,
     typing: 'on'
   };
 
@@ -81,7 +81,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
       console.log(results);
     }
   });
-
+/*
   constructService.getAdditionalElements(function (results) {
     if (results.status) {
       $scope.configMenu.additionalElments = results.data.elements;
@@ -89,7 +89,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
       console.log(results);
     }
   });
-
+*/
   constructService.getPrice(function (results) {
     if (results.status) {
       //$scope.configMenu.price = results.data.price;
@@ -117,7 +117,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
 
     return currencySymbol;
   };
-*/
+
   localStorage.getOrdersCart(function (results) {
     if (results.status) {
       $scope.configMenu.ordersInCart = results.data.ordersInCart;
@@ -125,7 +125,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
       console.log(results);
     }
   });
-
+ */
   //Select menu item
   $scope.selectTemplatePanel = function() {
     if($scope.global.showPanels.showTemplatePanel) {
@@ -193,4 +193,10 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
     $scope.price = price;
   };
   */
+
+  // Save Order in Cart
+  $scope.inputOrderInCart = function() {
+    $scope.global.ordersInCart ++;
+  }
+
 }]);

@@ -279,10 +279,10 @@
 
 
 
-    .aux-list-block(ng-if="global.chosenAddElements")
+    .aux-list-block(ng-if="global.totalAddElementsPrice")
       .aux-list-row
          .aux-total-label(data-output="{{ 'add_elements.TOTAL_PRICE_TXT' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
-         .aux-total-price {{ totalAddElementsPrice }}
+         .aux-total-price {{ global.totalAddElementsPrice }}
          .aux-delete(ng-click="")
 
   button.view-switch-tab(ng-click="viewSwitching()") {{ 'add_elements.SCHEME_VIEW' | translate }}

@@ -22,15 +22,16 @@
       .value(data-output="{{ global.lamination.outer }} / {{ global.lamination.inner }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
     li.item(ng-class="{'active': global.showPanels.showAddElementsPanel}", ng-click="selectAddElementsPanel()")
       .title(data-output="{{ 'mainpage.CONFIGMENU_ADDITIONAL' | translate }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
-      ul.additional-items-list
-        li.additional-item(ng-repeat="element in configMenu.additionalElments", ng-init="dubleTyping()")
-          span.value(data-output="{{ element.name }}")
-          span.name.aside(data-output="{{ element.group.name }}")
+      .additional-items-list
+        ul.additional-items-group(ng-repeat="addElementGroup in global.chosenAddElements")
+          li.additional-item(ng-repeat="addElement in addElementGroup", ng-init="dubleTyping()")
+            span.value(data-output="") {{ addElement.elementName }}
+            span.name.aside(data-output="")
 
   footer.menu-footer.unvisible(ng-if="global.isConfigMenu", show-delay="{{ configMenu.DELAY_SHOW_FOOTER }}")
     price
-    button.cart-btn {{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
-      .qty.unvisible(ng-if="global.ordersInCart > 0", show-delay="{{ configMenu.DELAY_SHOW_ORDERS }}") {{ global.ordersInCart }}
+    button.cart-btn(ng-click="inputOrderInCart(); global.gotoCartPage()") {{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
+      .qty.unvisible(ng-if="global.ordersInCart > 0", show-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}") {{ global.ordersInCart }}
 
   //.test
     input(ng-model="global.orderPrice")

@@ -4,7 +4,6 @@
 
       .glass-block-header
         .title(data-output="{{ glassPanel.glassTypes[$index] }}", typing="{{ glassPanel.typing }}", typing-delay="{{ glassPanel.DELAY_START }}")
-        .info
 
       .glass-block-footer.clearfix
         .footer-inner
@@ -29,3 +28,4 @@
                 .coef-index
                 .coef-index
               .label(data-output="{{ 'panels.NOICE_INSULATION' | translate }}", typing="{{ glassPanel.typing }}", typing-delay="{{ glassPanel.DELAY_START + (glassPanel.DELAY_TYPING * $index) }}")
+            .info

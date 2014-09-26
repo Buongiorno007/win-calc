@@ -454,7 +454,7 @@ BauVoiceApp.factory('localStorage', ['$http', function ($http) {
 
     getOrdersCart: function (callback) {
       callback(new OkResult({
-        ordersInCart: 22
+        ordersInCart: 0
       }));
     },
 

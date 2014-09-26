@@ -36,7 +36,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'localStorage', 'g
   $scope.gotoHistoryPage = function () {
     $location.path('/history');
   };
-  $scope.gotoCartPage = function () {
+  $scope.global.gotoCartPage = function () {
     $location.path('/cart');
   };
 

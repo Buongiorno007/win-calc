@@ -29,6 +29,7 @@
     @include display-flex();
     @include align-items(center);
     @include justify-content(center);
+    @include transition(all .5s linear);
 
     width: 225px;
     min-width: 190px;
