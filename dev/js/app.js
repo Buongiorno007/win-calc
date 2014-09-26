@@ -2,6 +2,7 @@
 
 window.BauVoiceApp = angular.module('BauVoiceApp', [
   'ngRoute',
+  'ngCookies',
   'pascalprecht.translate'
 ])
 .config([

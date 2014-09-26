@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'localStorage', 'globalData', function ($scope, $location, localStorage, globalData) {
+BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'localStorage', 'globalData', '$cookieStore', function ($scope, $location, localStorage, globalData, $cookieStore) {
 
   $scope.global = globalData;
 
@@ -17,13 +17,17 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'localStorage', 'g
     typing: 'on'
   };
 
-  localStorage.getOrdersCart(function (results) {
-    if (results.status) {
-      $scope.global.ordersInCart = results.data.ordersInCart;
-    } else {
-      console.log(results);
-    }
-  });
+  if($cookieStore.get('totalProjectsQty')) {
+    $scope.global.ordersInCart = $cookieStore.get('totalProjectsQty');
+  } else {
+    localStorage.getOrdersCart(function (results) {
+      if (results.status) {
+        $scope.global.ordersInCart = results.data.ordersInCart;
+      } else {
+        console.log(results);
+      }
+    });
+  }
 
   $scope.gotoMainPage = function () {
     $location.path('/main');

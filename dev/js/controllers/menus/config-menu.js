@@ -2,11 +2,12 @@
 
 'use strict';
 
-BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructService', 'globalData', '$timeout', function ($scope, localStorage, constructService, globalData, $timeout) {
+BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructService', 'globalData', '$timeout', '$cookieStore', function ($scope, localStorage, constructService, globalData, $timeout, $cookieStore) {
 
   $scope.global = globalData;
 
   $scope.configMenu = {
+    DELAY_START: STEP,
     DELAY_SHOW_CONFIG_LIST: 5 * STEP,
     DELAY_SHOW_FOOTER: 5 * STEP,
     DELAY_TYPE_ITEM_TITLE: 10 * STEP,
@@ -195,8 +196,20 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
   */
 
   // Save Order in Cart
+
+  if($cookieStore.get('totalProjectsQty')) {
+    $scope.global.ordersInCart = $cookieStore.get('totalProjectsQty');
+  }
+
   $scope.inputOrderInCart = function() {
-    $scope.global.ordersInCart ++;
+
+    var projectQtyValue = ++ $scope.global.ordersInCart;
+    //$cookies.totalProjectsQty = projectQtyValue;
+
+    $cookieStore.put('totalProjectsQty', projectQtyValue);
+    $timeout(function(){
+      $scope.global.gotoCartPage();
+    }, 2*STEP);
   }
 
 }]);

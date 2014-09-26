@@ -22,5 +22,4 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'globalData', '$location', functio
     $scope.isCartLightView = !$scope.isCartLightView;
   };
 
-
 }]);

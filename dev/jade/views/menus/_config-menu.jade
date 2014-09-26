@@ -30,8 +30,9 @@
 
   footer.menu-footer.unvisible(ng-if="global.isConfigMenu", show-delay="{{ configMenu.DELAY_SHOW_FOOTER }}")
     price
-    button.cart-btn(ng-click="inputOrderInCart(); global.gotoCartPage()") {{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
-      .qty.unvisible(ng-if="global.ordersInCart > 0", show-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}") {{ global.ordersInCart }}
+    //button.cart-btn(ng-click="inputOrderInCart(); global.gotoCartPage()") {{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
+    button.cart-btn(ng-click="inputOrderInCart()") {{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
+      .qty.unvisible(ng-if="global.ordersInCart > 0", show-delay="{{ configMenu.DELAY_START }}") {{ global.ordersInCart }}
 
   //.test
     input(ng-model="global.orderPrice")
