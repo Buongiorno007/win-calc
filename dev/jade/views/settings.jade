@@ -1,8 +1,7 @@
-section.settings.setting-page
+section.settings.setting-page(ng-controller="SettingsCtrl")
   .header
-    button.back
+    button.back(ng-click="global.gotoMainPage()")
     .title(data-output="Настройки")
-      //button.save. Сохранить
 
   .setting-container
     .setting-user-foto

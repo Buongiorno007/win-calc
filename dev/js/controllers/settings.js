@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('SettingsCtrl', ['$scope', function ($scope) {
+BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalData', function ($scope, globalData) {
   var $setPage = $('.setting-page'),
       $setTitle = $setPage.find('.title'),
       $setList = $setPage.find('.list'),
@@ -22,4 +22,8 @@ BauVoiceApp.controller('SettingsCtrl', ['$scope', function ($scope) {
 
   showElementWithDelay($setListChang, 2*DELAY_SHOW_TXT);
   showElementWithDelay($setPhoneBTN, 2*DELAY_SHOW_TXT);
+
+  $scope.global = globalData;
+
+
 }]);

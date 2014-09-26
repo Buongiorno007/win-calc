@@ -29,7 +29,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'localStorage', 'g
     });
   }
 
-  $scope.gotoMainPage = function () {
+  $scope.global.gotoMainPage = function () {
     $location.path('/main');
   };
 

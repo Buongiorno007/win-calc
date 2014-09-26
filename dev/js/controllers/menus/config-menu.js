@@ -196,16 +196,12 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
   */
 
   // Save Order in Cart
-
   if($cookieStore.get('totalProjectsQty')) {
     $scope.global.ordersInCart = $cookieStore.get('totalProjectsQty');
   }
 
   $scope.inputOrderInCart = function() {
-
     var projectQtyValue = ++ $scope.global.ordersInCart;
-    //$cookies.totalProjectsQty = projectQtyValue;
-
     $cookieStore.put('totalProjectsQty', projectQtyValue);
     $timeout(function(){
       $scope.global.gotoCartPage();
