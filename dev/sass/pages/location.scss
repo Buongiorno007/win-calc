@@ -22,8 +22,19 @@
     padding-left: 50px;
     color: #fff;
   }
+  .lists {
+    height: 1450px;
+  }
   .location-current,
   .location-label {
     @include roboto-lt(36px, 99px);
+  }
+  .location-current {
+    width: 65%;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
   }
 }

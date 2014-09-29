@@ -1,17 +1,56 @@
-/* globals BauVoiceApp, STEP, typingTextByChar, showElementWithDelay, typingTextWithDelay */
+/* globals BauVoiceApp, STEP */
 
 'use strict';
 
-BauVoiceApp.controller('LocationCtrl', ['$scope', function ($scope) {
-  var $locationPage = $('.location-page'),
-      $locCurr = $locationPage.find('.location-current'),
-      $locList = $locationPage.find('.list'),
-      $locLabel = $locationPage.find('.location-label'),
+BauVoiceApp.controller('LocationCtrl', ['$scope', 'constructService', 'localStorage', 'globalData', function ($scope, constructService, localStorage, globalData) {
 
+  $scope.global = globalData;
+  $scope.location = {};
 
-      DELAY_SHOW_LOC = 10 * STEP;
+  localStorage.getUser(function (results) {
+    if (results.status) {
+      $scope.location.currCity = results.data.user.city;
+    } else {
+      console.log(results);
+    }
+  });
 
-  typingTextByChar($locCurr);
-  showElementWithDelay($locList, DELAY_SHOW_LOC);
-  typingTextWithDelay($locLabel, DELAY_SHOW_LOC);
+  constructService.getLocations(function (results) {
+    if (results.status) {
+      $scope.location.cities = results.data.locations;
+    } else {
+      console.log(results);
+    }
+  });
+
+  // Search Location
+  $scope.filteredCity = [];
+  var regex, checkCity, indexCity, cityObj;
+
+  // Create regExpresion
+  function escapeRegExp(string){
+    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+  }
+
+  $scope.checkChanges = function() {
+    $scope.filteredCity.length = 0;
+    if($scope.location.currCity && $scope.location.currCity.length > 0) {
+      regex = new RegExp('^' + escapeRegExp($scope.location.currCity), 'i');
+      for(indexCity = 0; indexCity < $scope.location.cities.length; indexCity++){
+        checkCity = regex.test($scope.location.cities[indexCity].city);
+        if(checkCity) {
+          cityObj = {};
+          cityObj.city = $scope.location.cities[indexCity].city;
+          cityObj.current = $scope.location.cities[indexCity].current;
+          $scope.filteredCity.push(cityObj);
+        }
+      }
+    }
+  };
+
+  // Select City
+  $scope.selectCity = function() {
+    $scope.global.gotoMainPage();
+  };
+
 }]);

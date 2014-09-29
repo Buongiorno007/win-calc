@@ -1,14 +1,12 @@
 section.settings.location-page
   .header
     button.back
-    .location-current(data-output="Днепропетровск")
-    button.save Отмена
+    input.location-current(type="text", ng-model="location.currCity", ng-change="checkChanges()")
+    button.save(ng-click="global.gotoMainPage()") {{ 'add_elements.CANCEL' | translate }}
   .location-container
     .lists
-      ul.list.unvisible
-        li.item.click
-          .location-label(data-output="Днепропетровск, Лнепропетровская область, Украина")
-        li.item.click
-          .location-label(data-output="Днепропетровск, Лнепропетровская область, Украина")
-        li.item.click
-          .location-label(data-output="Днепропетровск, Лнепропетровская область, Украина")
+      ul.list
+        li.item.click(ng-repeat="location in filteredCity", ng-click="selectCity($index)")
+          .location-label {{location.city}}
+
+
