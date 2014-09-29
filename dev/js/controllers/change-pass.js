@@ -1,18 +1,40 @@
-/* globals BauVoiceApp, STEP, typingTextByChar, showElementWithDelay, typingTextWithDelay */
+/* globals BauVoiceApp, STEP */
 
 'use strict';
 
-BauVoiceApp.controller('ChangePassCtrl', ['$scope', function ($scope) {
-  var $pswPage = $('.password-page'),
-      $pswTitle = $pswPage.find('.title'),
-      $pswList = $pswPage.find('.list'),
-      $pswLabel = $pswPage.find('.psw-label'),
-      $pswData = $pswPage.find('.psw-data'),
+BauVoiceApp.controller('ChangePassCtrl', ['$scope', 'localStorage', '$location', function ($scope, localStorage, $location) {
 
-      DELAY_SHOW_PSW = 10 * STEP;
+  $scope.password = {
+    DELAY_START: STEP,
 
-  typingTextByChar($pswTitle);
-  showElementWithDelay($pswList, DELAY_SHOW_PSW);
-  typingTextWithDelay($pswLabel, DELAY_SHOW_PSW);
-  typingTextWithDelay($pswData, DELAY_SHOW_PSW);
+    isErrorPassword: false,
+    typing: 'on'
+  };
+
+  localStorage.getUser(function (results) {
+    if (results.status) {
+      $scope.password.old = results.data.user.password;
+    } else {
+      console.log(results);
+    }
+  });
+
+  $scope.gotoSettingsPage = function() {
+    $location.path('/settings');
+  };
+
+  $scope.saveNewPassword = function() {
+    if($scope.password.newPassword !== $scope.password.confirmPassword) {
+      $scope.password.isErrorPassword = true;
+    } else {
+      $scope.password.isErrorPassword = false;
+    }
+    if($scope.password.newPassword == '' && $scope.password.confirmPassword == '') {
+      $scope.password.isErrorPassword = true;
+    }
+  };
+  $scope.checkError = function() {
+    $scope.password.isErrorPassword = false;
+  };
+
 }]);

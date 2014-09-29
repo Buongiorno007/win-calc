@@ -1,21 +1,22 @@
 section.settings.password-page
   .header
-    button.back
-    .title(data-output="Изменить пароль")
-    button.save Сохранить
+    button.back(ng-click="gotoSettingsPage()")
+    .title(data-output="{{ 'settings.CHANGE_PASSWORD' | translate }}", typing="{{ password.typing }}", typing-delay="{{ password.DELAY_START }}")
+    button.save(ng-click="saveNewPassword()") {{ 'settings.SAVE' | translate }}
 
   .psw-container
     .lists
-      ul.list.unvisible
-        li.item
-          .psw-label(data-output="Текущий")
-          .psw-data(data-output="************")
-          input.set-input-txt.current
-        li.item.click
-          .psw-label(data-output="Новый")
-          .psw-data(data-output="****************")
-          input.set-input-txt.new
-        li.item.click
-          .psw-label(data-output="Подтвердить")
-          .psw-data(data-output="*****************")
-          input.set-input-txt.confirm
+      form(name="passForm")
+        ul.list
+          li.item
+            .psw-label(data-output="{{ 'settings.CURRENT_PASSWORD' | translate }}", typing="{{ password.typing }}", typing-delay="{{ password.DELAY_START }}")
+            .psw-data(data-output="{{ password.old }}", typing="{{ password.typing }}", typing-delay="{{ password.DELAY_START }}")
+          li.item.click
+            .psw-label(data-output="{{ 'settings.NEW_PASSWORD' | translate }}", typing="{{ password.typing }}", typing-delay="{{ password.DELAY_START }}")
+            input.set-input-txt(type="text", name="newPassword", ng-model="password.newPassword", ng-minlength="3")
+            .error-tooltip(ng-show="passForm.newPassword.$dirty && passForm.newPassword.$error.minlength") {{ 'login.SHORT_PASSWORD' | translate }}
+          li.item.click
+            .psw-label(data-output="{{ 'settings.CONFIRM_PASSWORD' | translate }}", typing="{{ password.typing }}", typing-delay="{{ password.DELAY_START }}")
+            input.set-input-txt(type="text", name="confirmPassword", ng-model="password.confirmPassword", ng-minlength="3", ng-change="checkError()")
+            .error-tooltip(ng-show="passForm.confirmPassword.$dirty && passForm.confirmPassword.$error.minlength") {{ 'login.SHORT_PASSWORD' | translate }}
+            .error-tooltip(ng-show="password.isErrorPassword") {{ 'settings.NO_CONFIRM_PASS' | translate }}

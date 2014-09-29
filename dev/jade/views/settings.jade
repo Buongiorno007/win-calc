@@ -50,10 +50,8 @@ section.settings.setting-page(ng-controller="SettingsCtrl")
         li.item
           button.phone-btn.add-phone(ng-click="appendInputPhone()") +
           .setting-item-label(ng-hide="settings.isInsertPhone", data-output="{{ 'settings.INSERT_PHONE' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
-          form(name="forma")
-            input.set-input-phone(ng-show="settings.isInsertPhone", name="phone", type="text", ng-model="settings.tempAddPhone", ng-focus="settings.isInsertPhone", ng-blur="addPhone()")
-            //.error-tooltip(ng-show="forma.phone.$dirty && forma.phone.$error.pattern") {{ 'login.WRONG_NUMBER' | translate }}
-            .error-tooltip(ng-show="settings.isErrorPhone") {{ 'login.WRONG_NUMBER' | translate }}
+          input.set-input-phone(ng-show="settings.isInsertPhone", type="text", ng-model="settings.tempAddPhone", ng-focus="settings.isInsertPhone", ng-blur="addPhone()")
+          .error-tooltip(ng-show="settings.isErrorPhone") {{ 'login.WRONG_NUMBER' | translate }}
 
 
       ul.list

@@ -17,6 +17,9 @@
     padding-left: 50px;
     color: #fff;
   }
+  .lists {
+    overflow: visible;
+  }
   .psw-label {
     @include roboto-lt(36px, 88px);
 
@@ -24,6 +27,7 @@
     color: $main_gray_btn;
   }
   .psw-data {
+    @include roboto-lt(36px, 88px);
     color: $main_orange;
   }
 }

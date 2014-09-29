@@ -175,7 +175,12 @@ window.russianDictionary = {
     ADD_PHONES: 'Дополнительные телефоны:',
     INSERT_PHONE: 'Добавить телефон',
     CLIENT_SUPPORT: 'Подержка пользователей',
-    LOGOUT: 'Выйти из приложения'
+    LOGOUT: 'Выйти из приложения',
+    SAVE: 'Сохранить',
+    CURRENT_PASSWORD: 'Текущий',
+    NEW_PASSWORD: 'Новый',
+    CONFIRM_PASSWORD: 'Подтвердить',
+    NO_CONFIRM_PASS: 'Неверный пароль'
   },
 
   'SWITCH_LANG': 'English'
