@@ -166,6 +166,17 @@ window.russianDictionary = {
     CALL_END_TIME: 'до:',
     CALL_CREDIT_PARTIAL_PRICE: 'по'
   },
+  settings: {
+    AUTHORIZATION: 'Авторизация:',
+    CHANGE_PASSWORD: 'Изменить пароль',
+    PRIVATE_INFO: 'Личная информация:',
+    USER_NAME: 'Контактное лицо',
+    CITY: 'Город',
+    ADD_PHONES: 'Дополнительные телефоны:',
+    INSERT_PHONE: 'Добавить телефон',
+    CLIENT_SUPPORT: 'Подержка пользователей',
+    LOGOUT: 'Выйти из приложения'
+  },
 
   'SWITCH_LANG': 'English'
 };

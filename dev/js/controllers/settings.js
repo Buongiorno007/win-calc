@@ -1,29 +1,67 @@
-/* globals BauVoiceApp, STEP, typingTextByChar, showElementWithDelay, typingTextWithDelay */
+/* globals BauVoiceApp, STEP */
 
 'use strict';
 
-BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalData', function ($scope, globalData) {
-  var $setPage = $('.setting-page'),
-      $setTitle = $setPage.find('.title'),
-      $setList = $setPage.find('.list'),
-      $setListDivider = $setPage.find('.divider'),
-      $setListLabel = $setPage.find('.setting-item-label'),
-      $setListData = $setPage.find('.setting-item-data'),
-      $setListChang = $setPage.find('.setting-item-change'),
-      $setPhoneBTN = $setPage.find('.phone-btn'),
-
-      DELAY_SHOW_TXT = 10 * STEP;
-
-  typingTextByChar($setTitle);
-  showElementWithDelay($setList, DELAY_SHOW_TXT);
-  typingTextWithDelay($setListDivider, DELAY_SHOW_TXT);
-  typingTextWithDelay($setListLabel, DELAY_SHOW_TXT);
-  typingTextWithDelay($setListData, 2*DELAY_SHOW_TXT);
-
-  showElementWithDelay($setListChang, 2*DELAY_SHOW_TXT);
-  showElementWithDelay($setPhoneBTN, 2*DELAY_SHOW_TXT);
+BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalData', 'localStorage', '$location', function ($scope, globalData, localStorage, $location) {
 
   $scope.global = globalData;
 
+  $scope.settings = {
+    DELAY_START: STEP,
+    DELAY_SHOW_ICONS: STEP * 10,
+    isInsertPhone: false,
+    tempAddPhone: '',
+    regex: /^[0-9]{1,10}$/,
+    typing: 'on'
+  };
+
+  localStorage.getUser(function (results) {
+    if (results.status) {
+
+      $scope.settings.userName = results.data.user.name;
+      $scope.settings.avatar = results.data.user.avatarUrl;
+      $scope.settings.password = results.data.user.password;
+      $scope.settings.email = results.data.user.email;
+      $scope.settings.currPhone = results.data.user.currentPhone;
+      $scope.settings.addPhones = results.data.user.addPhone;
+      //$scope.settings.country = results.data.user.country;
+      //$scope.settings.region = results.data.user.region;
+      $scope.settings.city = results.data.user.city;
+      $scope.settings.address = results.data.user.address;
+
+    } else {
+      console.log(results);
+    }
+  });
+
+  $scope.changeSettingData = function(id) {
+    $scope.settings.selectedSetting = id;
+  };
+
+  $scope.deletePhone = function(phoneId) {
+    $scope.settings.addPhones.splice(phoneId, 1);
+  };
+
+  $scope.appendInputPhone = function() {
+    $scope.settings.isInsertPhone = !$scope.settings.isInsertPhone;
+    $scope.settings.tempAddPhone = '';
+    $scope.settings.isErrorPhone = false;
+  };
+
+  $scope.addPhone = function() {
+    var checkPhone = $scope.settings.regex.test($scope.settings.tempAddPhone);
+    if(checkPhone) {
+      $scope.settings.isInsertPhone = false;
+      $scope.settings.isErrorPhone = false;
+      $scope.settings.addPhones.push($scope.settings.tempAddPhone);
+      $scope.settings.tempAddPhone = '';
+    } else {
+      $scope.settings.isErrorPhone = true;
+    }
+  };
+
+  $scope.gotoPasswordPage = function() {
+    $location.path('/change-pass');
+  };
 
 }]);

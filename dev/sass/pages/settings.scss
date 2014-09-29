@@ -32,17 +32,7 @@
 .setting-title {
   @include roboto-md(36px, 99px);
 }
-/*
-.setting-save {
-  @extend .middle-button;
-  @include animation(splashing .5s 0 ease 1);
 
-  height: 70px;
-  padding: 0 28px;
-  color: #fff;
-  background-color: $main_orange;
-}
-*/
 .setting-container {
   @include display-flex();
   @include flex-flow(row nowrap);
@@ -107,7 +97,6 @@
     position: absolute;
     top: 0;
     right: 100px;
-    display: none;
     color: $main_orange;
     &:after {
       @extend .icon-setting;
@@ -123,30 +112,17 @@
   }
   .phone-btn {
     @extend .button;
-    @extend .icon-setting;
-    @include font-general-icon(78px, 68px);
-
+    @include roboto-lt(50px, 1px);
     width: 60px;
     height: 60px;
     margin-right: 40px;
     border-radius: 50%;
-    background-color: #fff;
-    &:after {
-      position: absolute;
-      top: 10px;
-      left: -6px;
-    }
+    color: #fff;
     &.delete-phone {
-      &:after {
-        color: $error_color;
-        content: $delete-icon;
-      }
+      background-color: $error_color;
     }
     &.add-phone {
-      &:after {
-        color: $aux_big_color;
-        content: $add-icon;
-      }
+      background-color: $aux_big_color;
     }
   }
 }

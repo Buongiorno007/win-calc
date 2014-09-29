@@ -452,6 +452,28 @@ BauVoiceApp.factory('localStorage', ['$http', function ($http) {
       });
     },
 
+    getUser: function (callback) {
+      callback(new OkResult({
+
+        user: {
+          name: 'John Appleseed',
+          password: '***',
+          avatarUrl: 'userPhoto.png',
+          email: 'possumwood@gmail.ru',
+          currentPhone: '+38 (066) 322-3334',
+          addPhone: [
+            '+38 (066) 322-5555',
+            '+38 (066) 333-4444'
+          ],
+          //country: '',
+          //region: '',
+          city: 'Ивано-Франковск, Ивано-Франковская обл., Украина',
+          address: 'ул.Победы, 15'
+        }
+
+      }));
+    },
+
     getOrdersCart: function (callback) {
       callback(new OkResult({
         ordersInCart: 0

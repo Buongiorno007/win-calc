@@ -1,67 +1,68 @@
 section.settings.setting-page(ng-controller="SettingsCtrl")
   .header
     button.back(ng-click="global.gotoMainPage()")
-    .title(data-output="Настройки")
+    .title(data-output="{{ 'mainpage.NAVMENU_SETTINGS' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
 
   .setting-container
     .setting-user-foto
-      .change-foto Изменить
+      .change-foto {{ 'common_words.CHANGE' | translate }}
 
     .lists
-      ul.list.unvisible
+      ul.list
         li.item
-          .divider(data-output="Авторизация:")
+          .divider(data-output="{{ 'settings.AUTHORIZATION' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
         li.item
-          .setting-item-label(data-output="+38 (066) 322-3334")
+          .setting-item-label(data-output="{{ settings.currPhone }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
         li.item.click
-          .setting-item-label(data-output="**********")
-          .setting-item-change.unvisible(data-output="Изменить пароль")
+          .setting-item-label(data-output="{{ settings.password }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
+          .setting-item-change(data-output="{{ 'settings.CHANGE_PASSWORD' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_SHOW_ICONS }}", ng-click="gotoPasswordPage()")
 
-      ul.list.unvisible
+      ul.list
         li.item
-          .divider(data-output="Личная информация:")
-        li.item.click
-          .setting-item-label(data-output="Контактное лицо")
-          .setting-item-data(data-output="John Appleseed")
-          input.set-input-txt.new
-          .setting-item-change.unvisible
-        li.item.click
-          .setting-item-label(data-output="Город")
-          .setting-item-data(data-output="Ивано-Франковск, Ивано-Франковская обл., Украина Ивано-Франковск, Ивано-Франковская обл.,")
-          input.set-input-txt.new
-          .setting-item-change.unvisible
-        li.item.click
-          .setting-item-label(data-output="Адрес")
-          .setting-item-data(data-output="John Appleseed")
-          input.set-input-txt.new
-          .setting-item-change.unvisible
-        li.item.click
-          .setting-item-label(data-output="Электронная почта")
-          .setting-item-data(data-output="John Appleseed")
-          input.set-input-txt.new
-          .setting-item-change.unvisible
+          .divider(data-output="{{ 'settings.PRIVATE_INFO' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
+        li.item.click(ng-click="changeSettingData(1)")
+          .setting-item-label(data-output="{{ 'settings.USER_NAME' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
+          .setting-item-data(ng-hide="settings.selectedSetting == 1", data-output="{{ settings.userName }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
+          input.set-input-txt(ng-show="settings.selectedSetting == 1", type="text", ng-model="settings.userName")
+          .setting-item-change
+        li.item.click(ng-click="changeSettingData(2)")
+          .setting-item-label(data-output="{{ 'settings.CITY' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
+          .setting-item-data(ng-hide="settings.selectedSetting == 2", data-output="{{ settings.city }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
+          input.set-input-txt(ng-show="settings.selectedSetting == 2", type="text", ng-model="settings.city")
+          .setting-item-change
+        li.item.click(ng-click="changeSettingData(3)")
+          .setting-item-label(data-output="{{ 'cart.CLIENT_ADDRESS' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
+          .setting-item-data(ng-hide="settings.selectedSetting == 3", data-output="{{ settings.address }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
+          input.set-input-txt(ng-show="settings.selectedSetting == 3", type="text", ng-model="settings.address")
+          .setting-item-change
+        li.item.click(ng-click="changeSettingData(4)")
+          .setting-item-label(data-output="{{ 'cart.CLIENT_EMAIL' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
+          .setting-item-data(ng-hide="settings.selectedSetting == 4", data-output="{{ settings.email }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
+          input.set-input-txt(ng-show="settings.selectedSetting == 4", type="text", ng-model="settings.email")
+          .setting-item-change
 
-      ul.list.unvisible
+      ul.list
         li.item
-          .divider(data-output="Дополнительные телефоны:")
+          .divider(data-output="{{ 'settings.ADD_PHONES' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
+        li.item(ng-repeat="phone in settings.addPhones")
+          button.phone-btn.delete-phone(ng-click="deletePhone($index)") &#8211;
+          .setting-item-label(data-output="{{ phone }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
         li.item
-          button.phone-btn.delete-phone.unvisible
-          .setting-item-label(data-output="+38 (066) 322-3334")
-        li.item
-          button.phone-btn.delete-phone.unvisible
-          .setting-item-label(data-output="+38 (066) 322-3334")
-        li.item
-          button.phone-btn.add-phone.unvisible
-          .setting-item-label(data-output="Добавить телефон")
+          button.phone-btn.add-phone(ng-click="appendInputPhone()") +
+          .setting-item-label(ng-hide="settings.isInsertPhone", data-output="{{ 'settings.INSERT_PHONE' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
+          form(name="forma")
+            input.set-input-phone(ng-show="settings.isInsertPhone", name="phone", type="text", ng-model="settings.tempAddPhone", ng-focus="settings.isInsertPhone", ng-blur="addPhone()")
+            //.error-tooltip(ng-show="forma.phone.$dirty && forma.phone.$error.pattern") {{ 'login.WRONG_NUMBER' | translate }}
+            .error-tooltip(ng-show="settings.isErrorPhone") {{ 'login.WRONG_NUMBER' | translate }}
 
 
-      ul.list.unvisible
+      ul.list
         li.item.click
-          .setting-item-data(data-output="Голосовой помошник")
-          .setting-item-change.unvisible
+          .setting-item-data(data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
+          .setting-item-change
         li.item.click
-          .setting-item-data(data-output="Подержка пользователей")
-          .setting-item-change.unvisible
+          .setting-item-data(data-output="{{ 'settings.CLIENT_SUPPORT' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
+          .setting-item-change
         li.item.click
-          .setting-item-data(data-output="Голосовой помошник")
-          .setting-item-change.unvisible
+          .setting-item-data(data-output="{{ 'settings.LOGOUT' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
+          .setting-item-change

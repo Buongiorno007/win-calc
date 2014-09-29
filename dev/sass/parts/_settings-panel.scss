@@ -41,7 +41,6 @@
     width: 100%;
   }
   .list {
-    display: none;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -55,12 +54,24 @@
 
     position: relative;
     width: 100%;
+    height: 90px;
     border-bottom: 1px solid #222;
     &.click {
       cursor: pointer;
     }
   }
   .set-input-txt {
-    display: none;
+    @include roboto-lt(36px, 88px);
+
+    width: 65%;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: $main_orange;
+  }
+  .set-input-phone {
+    @extend .set-input-txt;
+    color: #fff;
   }
 }
