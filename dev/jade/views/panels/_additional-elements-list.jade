@@ -280,9 +280,13 @@
 
 
     .aux-list-block(ng-if="global.totalAddElementsPrice")
-      .aux-list-row
-         .aux-total-label(data-output="{{ 'add_elements.TOTAL_PRICE_TXT' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
-         .aux-total-price {{ global.totalAddElementsPrice }}
-         .aux-delete(ng-click="")
+      table.aux-list-addellement
+        tr.aux-list-row
+          td.aux-tablecell-total
+            .aux-total-label(data-output="{{ 'add_elements.TOTAL_PRICE_TXT' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+          td.aux-tablecell-price
+            .aux-total-price {{ global.totalAddElementsPrice }}
+          td.aux-tablecell-delete
+            .aux-delete(ng-click="")
 
   button.view-switch-tab(ng-click="viewSwitching()") {{ 'add_elements.SCHEME_VIEW' | translate }}

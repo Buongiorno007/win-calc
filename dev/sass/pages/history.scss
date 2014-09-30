@@ -2,12 +2,8 @@
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: #fafafa;
 }
 .accounts-container {
-  @include top_left_coord(0, -2500);
-  @include transition(all 0.5s linear);
-
   position: absolute;
   width: 100%;
   height: 100%;
@@ -17,6 +13,15 @@
   overflow-y: auto;
   background-color: #fafafa;
 
+  &.history-view {
+    @include top_left_coord(0, 0);
+  }
+  &.draft-view {
+    @include top_left_coord(0, -2500);
+    @include transition(all 0.5s linear);
+
+    z-index: 5;
+  }
   &.active {
     @include top_left_coord(0, 0);
   }
@@ -107,7 +112,7 @@
     width: 655px;
     border-radius: $radius_rooms-dialog;
     background-color: #fff;
-    z-index: 999;
+    z-index: 5;
     &:after {
       position: absolute;
       top: -24px;

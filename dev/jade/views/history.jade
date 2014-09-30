@@ -1,15 +1,16 @@
 section.history-page(ng-controller="HistoryCtrl")
 
-  section.accounts-container.history-view.active
+  section.accounts-container.history-view(ng-class="{'dark-fon': history.isIntervalDate || history.isOrderSort }")
     .history-header
-      include parts/_user-info
-      .history-search.unvisible
+      .history-user-info(ng-hide="history.isOrderSearch")
+        include parts/_user-info
+      .history-search(ng-show="history.isOrderSearch")
         include parts/_search-block
       .history-tools-panel
-        .tools-block.search-tool
-          button.tool.search-btn
-        .tools-block.tool-drop
-          button.tool.calendar-btn
+        .tools-block.search-tool(ng-class="{ 'active': history.isOrderSearch }")
+          button.tool.search-btn(ng-click="orderSearching()")
+        .tools-block.tool-drop(ng-class="{ 'active': history.isIntervalDate }")
+          button.tool.calendar-btn(ng-click="intervalDateSelecting()")
           .time-interval 19 April, 2012 - 23 March, 2014
           //.time-interval.empty
           .dropdown-tool-dialog.date-filter
@@ -47,8 +48,8 @@ section.history-page(ng-controller="HistoryCtrl")
                 .year 2013
             .period.tatal-date За все время
 
-        .tools-block.tool-drop
-          button.tool.settings-btn
+        .tools-block.tool-drop(ng-class="{ 'active': history.isOrderSort }")
+          button.tool.settings-btn(ng-click="orderSorting()")
           .dropdown-tool-dialog.sort-filter
             .filter-divider Сортировка
             ul.filter-list
@@ -168,18 +169,18 @@ section.history-page(ng-controller="HistoryCtrl")
       button.account-delete-btn
       button.account-change-btn {{ 'common_words.CHANGE' | translate }}
 
-    button.view-switch-tab {{ 'history.DRAFT_VIEW' | translate }}
+    button.view-switch-tab(ng-click="viewSwitching()") {{ 'history.DRAFT_VIEW' | translate }}
 
-    .empty-search-result
+    .empty-search-result(ng-show="history.isEmptySearchResult")
       .result-icon
       .result-text По вашему запросу "<span class="searchin-text"> Константино </span>" ничего не найдено.
 
-  section.accounts-container.draft-view
+  section.accounts-container.draft-view(ng-class="{'active': history.isDraftView, 'dark-fon': history.isIntervalDateDraft || history.isOrderSortDraft }")
     .history-header
       include parts/_user-info
       .history-tools-panel
-        .tools-block.tool-drop
-          button.tool.calendar-btn
+        .tools-block.tool-drop(ng-class="{ 'active': history.isIntervalDateDraft }")
+          button.tool.calendar-btn(ng-click="intervalDateSelecting()")
           //.time-interval 19 April, 2012 - 23 March, 2014
           .time-interval.empty
           .dropdown-tool-dialog.date-filter
@@ -205,8 +206,8 @@ section.history-page(ng-controller="HistoryCtrl")
                 .year 2013
             .period.tatal-date За все время
 
-        .tools-block.tool-drop
-          button.tool.settings-btn
+        .tools-block.tool-drop(ng-class="{ 'active': history.isOrderSortDraft }")
+          button.tool.settings-btn(ng-click="orderSorting()")
           .dropdown-tool-dialog.sort-filter
             .filter-divider Сортировка
             ul.filter-list
@@ -239,5 +240,5 @@ section.history-page(ng-controller="HistoryCtrl")
       button.account-tool.account-print-btn
       button.account-delete-btn
 
-    button.view-switch-tab {{ 'history.HISTORY_VIEW' | translate }}
+    button.view-switch-tab(ng-click="viewSwitching()") {{ 'history.HISTORY_VIEW' | translate }}
 

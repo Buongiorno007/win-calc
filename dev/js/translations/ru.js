@@ -125,6 +125,7 @@ window.russianDictionary = {
     LABEL_LOCK_TYPE: 'Выберите тип замка'
   },
   history: {
+    SEARCH_PLACEHOLDER: 'Поиск по ключевым словам',
     DRAFT_VIEW: 'Черновики расчетов',
     HISTORY_VIEW: 'История расчетов'
   },

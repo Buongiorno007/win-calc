@@ -502,7 +502,7 @@ BauVoiceApp.factory('constructService', function () {
     // TODO: Сервис готов
     getPrice: function (callback) {
       callback(new OkResult({
-        price: 12345678.52,
+        price: 12345678.51,
         currency: {
           id: 3,
           name: 'uah'

@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('HistoryCtrl', ['$scope', function ($scope) {
+BauVoiceApp.controller('HistoryCtrl', ['$scope', 'globalData', 'constructService', function ($scope, globalData, constructService) {
 
   var $historyPage = $('.history-page'),
       $searchTool = $historyPage.find('.search-tool'),
@@ -35,45 +35,6 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', function ($scope) {
 
 
 
-  // Click on tools panel in History View
-  $toolDrop.click(function() {
-    var currToolBlock = $(this).closest('.tool-drop');
-    if(currToolBlock.hasClass(activeClass)) {
-      currToolBlock.removeClass(activeClass);
-      $historyView.removeClass(backFonClass);
-    } else {
-      $toolsBlock.removeClass(activeClass);
-      currToolBlock.addClass(activeClass);
-      $historyView.addClass(backFonClass);
-    }
-  });
-  // Click on tools panel in Draft View
-  $toolDropDraft.click(function() {
-    var currToolBlock = $(this).closest('.tool-drop');
-    if(currToolBlock.hasClass(activeClass)) {
-      currToolBlock.removeClass(activeClass);
-      $draftView.removeClass(backFonClass);
-    } else {
-      $toolsBlockDraft.removeClass(activeClass);
-      currToolBlock.addClass(activeClass);
-      $draftView.addClass(backFonClass);
-    }
-  });
-
-  // Searching
-  $searchBTN.click(function() {
-    $userInfoContainer.addClass(unvisibleClass);
-    $historySearch.removeClass(unvisibleClass);
-    $cancelSearch.removeClass(unvisibleClass);
-    $searchTool.addClass(activeClass);
-    $historyView.removeClass(backFonClass);
-  });
-  $cancelSearch.click(function() {
-    $historySearch.addClass(unvisibleClass);
-    $userInfoContainer.removeClass(unvisibleClass);
-    $searchTool.removeClass(activeClass);
-  });
-
   // Select Date Filter period in History View
   $periodDateFilter.click(function() {
     selectItem($periodDateFilter, $(this), selectClass);
@@ -102,10 +63,7 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', function ($scope) {
     selectItem($sortFilterItemDraft, $(this), selectClass);
   });
 
-  // History/Draft View switcher
-  $viewSwitcher.click(function() {
-    $accountsСontainer.toggleClass(activeClass);
-  });
+
 
   // Delete account
   $accountDeleteBTN.click(function() {
@@ -118,4 +76,100 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', function ($scope) {
     });
     currItem.addClass(currClass);
   }
+
+
+  $scope.global = globalData;
+
+  // indicator for user info block and searching block
+  $scope.global.isHistoryPage = true;
+
+  $scope.history = {
+    isOrderSearch: false,
+    isIntervalDate: false,
+    isOrderSort: false,
+    isIntervalDateDraft: false,
+    isOrderSortDraft: false,
+    filteredOrders: [],
+    isEmptySearchResult: false,
+    isDraftView: false
+  };
+
+  // Click on tools panel in History View
+  $scope.orderSearching = function() {
+    $scope.history.isOrderSearch = true;
+  };
+
+  $scope.intervalDateSelecting  = function() {
+    if($scope.history.isDraftView) {
+      $scope.history.isIntervalDateDraft = !$scope.history.isIntervalDateDraft;
+    } else {
+      $scope.history.isIntervalDate = !$scope.history.isIntervalDate;
+    }
+  };
+
+  $scope.orderSorting  = function() {
+    if($scope.history.isDraftView) {
+      $scope.history.isOrderSortDraft = !$scope.history.isOrderSortDraft;
+    } else {
+      $scope.history.isOrderSort = !$scope.history.isOrderSort;
+    }
+  };
+
+
+  // Search Orders
+  var regex, checkedGroup, indexGroup, currGroup, groupTempObj;
+/*
+  constructService.getOrders(function (results) {
+    if (results.status) {
+      $scope.history.ordersGroup = results.data.orders;
+    } else {
+      console.log(results);
+    }
+  });
+*/
+  // Create regExpresion
+  function escapeRegExp(string){
+    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+  }
+
+  $scope.checkChanges = function() {
+    $scope.history.filteredOrders.length = 0;
+    if($scope.searchingWord && $scope.searchingWord.length > 0) {
+      regex = new RegExp('^' + escapeRegExp($scope.searchingWord), 'i');
+      for(indexGroup = 0; indexGroup < $scope.history.ordersGroup.length; indexGroup++){
+        currGroup = $scope.history.ordersGroup[indexGroup];
+        checkedGroup = regex.test(currGroup);
+        if(checkedGroup) {
+          groupTempObj = {};
+          groupTempObj.groupId = indexGroup+1;
+          groupTempObj.groupName = currGroup;
+          $scope.history.filteredOrders.push(groupTempObj);
+        }
+      }
+    }
+    if( $scope.history.filteredOrders.length == 0) {
+      $scope.history.isEmptySearchResult = true;
+    }
+  };
+
+  // Delete searching word
+  $scope.cancelSearching = function() {
+    $scope.searchingWord = '';
+    $scope.history.showAddElementGroups = false;
+    $scope.history.isOrderSearch = false;
+  };
+  // Delete last chart searching word
+  $scope.deleteSearchChart = function() {
+    $scope.searchingWord = $scope.searchingWord.slice(0,-1);
+  };
+
+
+
+
+
+  // History/Draft View switcher
+  $scope.viewSwitching = function() {
+    $scope.history.isDraftView = !$scope.history.isDraftView;
+  };
+
 }]);

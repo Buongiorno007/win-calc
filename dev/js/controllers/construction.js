@@ -20,7 +20,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  'constructService', 'glob
 
   $scope.constructData = {
     activeMenuItem: false,
-    showDoorConfig: true,
+    showDoorConfig: false,
     selectedDoorShape: false,
     selectedSashShape: false,
     selectedHandleShape: false,

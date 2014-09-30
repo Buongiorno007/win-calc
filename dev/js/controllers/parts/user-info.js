@@ -23,6 +23,7 @@ BauVoiceApp.controller('UserInfoCtrl', ['$rootScope', '$scope', 'locationService
   locationService.getCity(function (results) {
     if (results.status) {
       $scope.userInfo.location = results.data.city.name;
+      $scope.global.userGeoLocation = results.data.city.name;
     } else {
       console.log(results);
     }

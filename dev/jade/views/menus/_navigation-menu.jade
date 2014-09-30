@@ -12,7 +12,7 @@
       li.item(ng-class="{'selected': navMenu.activeMenuItem==3}", ng-click="selectMenuItem(3); setCurrentCity(city)")
         .item-content
           span.nav-icon-location.unvisible(show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 3) }}")
-          span.title(data-output="{{ 'mainpage.NAVMENU_CURRENT_GEOLOCATION' | translate }}", typing="{{ navMenu.typing }}", typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 3) }}")
+          span.title(data-output="{{ global.userGeoLocation }}", typing="{{ navMenu.typing }}", typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 3) }}")
       li.item(ng-class="{'selected': navMenu.activeMenuItem==4}", ng-click="selectMenuItem(4); setCurrentCity(city)")
         .item-content
           span.nav-icon-location.unvisible(show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 4) }}")
