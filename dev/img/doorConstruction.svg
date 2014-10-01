@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="556px"
+	 height="809px" viewBox="0 0 556 809" enable-background="new 0 0 556 809" xml:space="preserve">
+<g id="window">
+	<line fill="none" stroke="#D2D2D2" stroke-width="2" stroke-miterlimit="10" x1="237" y1="208" x2="276" y2="247"/>
+	<g opacity="0.07">
+		<rect x="279" y="250" fill="#99CCFF" width="217" height="503"/>
+	</g>
+	<line fill="none" stroke="#D2D2D2" stroke-width="2" stroke-miterlimit="10" x1="276" y1="756" x2="254" y2="778"/>
+	<line fill="none" stroke="#D2D2D2" stroke-width="2" stroke-miterlimit="10" x1="276" y1="247" x2="254" y2="225"/>
+	<line fill="none" stroke="#D2D2D2" stroke-width="2" stroke-miterlimit="10" x1="259" y1="773" x2="237" y2="795"/>
+	<line fill="none" stroke="#D2D2D2" stroke-width="2" stroke-miterlimit="10" x1="499" y1="756" x2="538" y2="795"/>
+	<line fill="none" stroke="#D2D2D2" stroke-width="2" stroke-miterlimit="10" x1="499" y1="247" x2="538" y2="208"/>
+	<g>
+		<path fill="#363636" d="M537,209v585H238V209H537 M539,207H236v589h303V207L539,207z"/>
+	</g>
+	<polyline fill="none" stroke="#D2D2D2" stroke-width="2" stroke-miterlimit="10" points="283.5,254 491.5,506.09 283.5,749 	"/>
+	<g>
+		<path fill="#363636" d="M520,226v551H255V226H520 M522,224H253v555h269V224L522,224z"/>
+	</g>
+	<g>
+		<g>
+			<path fill="#D2D2D2" d="M498,248v507H277V248H498 M500,246H275v511h225V246L500,246z"/>
+		</g>
+	</g>
+	<g>
+		<path fill="#363636" d="M494,252v499H281V252H494 M496,250H279v503h217V250L496,250z"/>
+	</g>
+</g>
+<g id="sizes">
+	<line fill="none" stroke="#D2D2D2" stroke-width="2" stroke-miterlimit="10" x1="235" y1="217.028" x2="235" y2="39"/>
+	<line fill="none" stroke="#D2D2D2" stroke-width="2" stroke-miterlimit="10" x1="246" y1="206" x2="69" y2="206"/>
+	<g>
+		<line fill="none" stroke="#D2D2D2" stroke-width="2" stroke-miterlimit="10" x1="240" y1="61" x2="535" y2="61"/>
+		
+			<polyline fill="none" stroke="#D2D2D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+			244.656,66.656 239,61 244.656,55.344 		"/>
+		
+			<polyline fill="none" stroke="#D2D2D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+			530.344,55.344 536,61 530.344,66.656 		"/>
+	</g>
+	<g>
+		<line fill="none" stroke="#D2D2D2" stroke-width="2" stroke-miterlimit="10" x1="91" y1="211" x2="91" y2="793"/>
+		
+			<polyline fill="none" stroke="#D2D2D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+			85.344,215.656 91,210 96.656,215.656 		"/>
+		
+			<polyline fill="none" stroke="#D2D2D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+			96.656,788.343 91,794 85.344,788.343 		"/>
+	</g>
+	<line fill="none" stroke="#D2D2D2" stroke-width="2" stroke-miterlimit="10" x1="540" y1="227.028" x2="540" y2="49"/>
+	<line fill="none" stroke="#D2D2D2" stroke-width="2" stroke-miterlimit="10" x1="246" y1="798" x2="69" y2="798"/>
+	<text transform="matrix(1 0 0 1 16 503)" font-family="'MyriadPro-Regular'" font-size="30">2100</text>
+	<text transform="matrix(1 0 0 1 369 29)" font-family="'MyriadPro-Regular'" font-size="30">1000</text>
+</g>
+</svg>

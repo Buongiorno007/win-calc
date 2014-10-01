@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructService', 'globalData', '$timeout', '$cookieStore', function ($scope, localStorage, constructService, globalData, $timeout, $cookieStore) {
+BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructService', 'globalData', '$timeout', '$cookieStore', '$webSql', function ($scope, localStorage, constructService, globalData, $timeout, $cookieStore, $webSql) {
 
   $scope.global = globalData;
 
@@ -199,10 +199,45 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
   if($cookieStore.get('totalProjectsQty')) {
     $scope.global.ordersInCart = $cookieStore.get('totalProjectsQty');
   }
-
+/*
   $scope.inputOrderInCart = function() {
     var projectQtyValue = ++ $scope.global.ordersInCart;
     $cookieStore.put('totalProjectsQty', projectQtyValue);
+    $timeout(function(){
+      $scope.global.gotoCartPage();
+    }, 2*STEP);
+  }
+*/
+  $scope.inputOrderInCart = function() {
+    var projectQtyValue = ++ $scope.global.ordersInCart;
+
+    var db = $webSql.openDatabase('mydb', '1.0', 'Test DB', 2 * 1024 * 1024);
+    db.createTable('products', {
+
+      "id":{
+        "type": "INTEGER",
+        "null": "NOT NULL", // default is "NULL" (if not defined)
+        "primary": true, // primary
+        "auto_increment": true // auto increment
+      },
+      "created":{
+        "type": "TIMESTAMP",
+        "null": "NOT NULL",
+        "default": "CURRENT_TIMESTAMP" // default value
+      },
+      "productName":{
+        "type": "TEXT",
+        "null": "NOT NULL"
+      },
+      "productQty":{
+        "type": "INTEGER",
+        "null": "NOT NULL"
+      }
+
+    });
+    db.insert('products', { "productQty": projectQtyValue }).then(function(results) {
+        console.log(results.insertId);
+      });
     $timeout(function(){
       $scope.global.gotoCartPage();
     }, 2*STEP);
