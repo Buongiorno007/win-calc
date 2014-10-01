@@ -65,7 +65,13 @@ BauVoiceApp.controller('AdditionalElementsListCtrl', ['$scope', 'globalData', 'c
     $scope.searchingWord = $scope.searchingWord.slice(0,-1);
   };
 
-
+   //Delete All Add Elements
+  $scope.clearAllAddElements = function() {
+    for(var group in $scope.global.chosenAddElements) {
+      $scope.global.chosenAddElements[group].length = 0;
+    }
+    $scope.global.totalAddElementsPrice = false;
+  };
 
   // Close Add Elements in List View
   $scope.viewSwitching = function() {

@@ -24,22 +24,19 @@ section.settings.setting-page(ng-controller="SettingsCtrl")
           .setting-item-label(data-output="{{ 'settings.USER_NAME' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           .setting-item-data(ng-hide="settings.selectedSetting == 1", data-output="{{ settings.userName }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           input.set-input-txt(ng-show="settings.selectedSetting == 1", type="text", ng-model="settings.userName")
-          .setting-item-change
-        li.item.click(ng-click="changeSettingData(2)")
+        li.item.click(ng-click="global.gotoLocationPage()")
           .setting-item-label(data-output="{{ 'settings.CITY' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
-          .setting-item-data(ng-hide="settings.selectedSetting == 2", data-output="{{ settings.city }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
-          input.set-input-txt(ng-show="settings.selectedSetting == 2", type="text", ng-model="settings.city")
+          .setting-item-data(data-output="{{ settings.city }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
+          //input.set-input-txt(ng-show="settings.selectedSetting == 2", type="text", ng-model="settings.city")
           .setting-item-change
         li.item.click(ng-click="changeSettingData(3)")
           .setting-item-label(data-output="{{ 'cart.CLIENT_ADDRESS' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           .setting-item-data(ng-hide="settings.selectedSetting == 3", data-output="{{ settings.address }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           input.set-input-txt(ng-show="settings.selectedSetting == 3", type="text", ng-model="settings.address")
-          .setting-item-change
         li.item.click(ng-click="changeSettingData(4)")
           .setting-item-label(data-output="{{ 'cart.CLIENT_EMAIL' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           .setting-item-data(ng-hide="settings.selectedSetting == 4", data-output="{{ settings.email }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           input.set-input-txt(ng-show="settings.selectedSetting == 4", type="text", ng-model="settings.email")
-          .setting-item-change
 
       ul.list
         li.item

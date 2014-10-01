@@ -172,4 +172,10 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'globalData', 'constructService
     $scope.history.isDraftView = !$scope.history.isDraftView;
   };
 
+  $scope.gotoCartPage = function() {
+    $scope.global.isHistoryPage = false;
+    $scope.global.showNavMenu = false;
+    $scope.global.gotoCartPage();
+  };
+
 }]);

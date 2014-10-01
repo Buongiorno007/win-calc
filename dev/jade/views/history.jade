@@ -46,7 +46,7 @@ section.history-page(ng-controller="HistoryCtrl")
                 .day 10
                 .month Октябрь
                 .year 2013
-            .period.tatal-date За все время
+            .period.total-date За все время
 
         .tools-block.tool-drop(ng-class="{ 'active': history.isOrderSort }")
           button.tool.settings-btn(ng-click="orderSorting()")
@@ -99,7 +99,7 @@ section.history-page(ng-controller="HistoryCtrl")
           .account-data
             .user-data.account-user-adress Днепропетровск, ул.Карла Маркса, 48
             .account-label адрес
-        .account-row.footer
+        .account-row.footer(ng-click="gotoCartPage()")
           .account-value 100 455.00, 10 платежей по 9 125.00
           .account-date 1561 изделий на 18.04.2014
 
@@ -129,7 +129,7 @@ section.history-page(ng-controller="HistoryCtrl")
           .account-data
             .user-data.account-user-adress Днепропетровск, ул.Карла Маркса, 48
             .account-label адрес
-        .account-row.footer
+        .account-row.footer(ng-click="gotoCartPage()")
           .account-value 100 455.00, 10 платежей по 9 125.00
           .account-date 1561 изделий на 18.04.2014
 
@@ -159,15 +159,15 @@ section.history-page(ng-controller="HistoryCtrl")
           .account-data
             .user-data.account-user-adress Днепропетровск, ул.Карла Маркса, 48
             .account-label адрес
-        .account-row.footer
+        .account-row.footer(ng-click="gotoCartPage()")
           .account-value 100 455.00, 10 платежей по 9 125.00
           .account-date 1561 изделий на 18.04.2014
 
-      button.account-tool.account-select-btn
-      button.account-tool.account-copy-btn
+      //button.account-tool.account-select-btn
+      //button.account-tool.account-copy-btn
       button.account-tool.account-print-btn
       button.account-delete-btn
-      button.account-change-btn {{ 'common_words.CHANGE' | translate }}
+      //button.account-change-btn {{ 'common_words.CHANGE' | translate }}
 
     button.view-switch-tab(ng-click="viewSwitching()") {{ 'history.DRAFT_VIEW' | translate }}
 
@@ -204,7 +204,7 @@ section.history-page(ng-controller="HistoryCtrl")
                 .day 10
                 .month Октябрь
                 .year 2013
-            .period.tatal-date За все время
+            .period.total-date За все время
 
         .tools-block.tool-drop(ng-class="{ 'active': history.isOrderSortDraft }")
           button.tool.settings-btn(ng-click="orderSorting()")
@@ -223,7 +223,7 @@ section.history-page(ng-controller="HistoryCtrl")
         .account-row.header
           .account-id Черновик
           .account-label.account-date-filter от 19 April, 2012
-        .account-row.footer
+        .account-row.footer(ng-click="gotoCartPage()")
           .account-value 100 455.00, 10 платежей по 9 125.00
           .account-qty 1561 изделий на 18.04.2014
       button.account-tool.account-print-btn
@@ -234,7 +234,7 @@ section.history-page(ng-controller="HistoryCtrl")
         .account-row.header
           .account-id Черновик
           .account-label.account-date-filter от 19 April, 2012
-        .account-row.footer
+        .account-row.footer(ng-click="gotoCartPage()")
           .account-value 100 455.00, 10 платежей по 9 125.00
           .account-qty 1561 изделий на 18.04.2014
       button.account-tool.account-print-btn

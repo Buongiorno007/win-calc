@@ -26,7 +26,7 @@
 
   position: absolute;
   top: 0;
-  z-index: 2;
+  z-index: 3;
 
   .menu-header {
     @include display-flex();
@@ -103,27 +103,6 @@
     }
   }
 
-  .list-item {
-    position: fixed;
-  }
-  .aux-list-item {
-    @include transition(all 0.3s linear);
-
-    position: absolute;
-    top: -10px;
-    right: -1936px;
-    width: 1500px;
-    padding: 20px 40px;
-    border-style: solid;
-    border-color:#dcdcdc;
-    border-width: 1px 0 1px 1px;
-    border-top-left-radius: $radius_login-container;
-    border-bottom-left-radius: $radius_login-container;
-    background-color: #fff;
-    &.selected {
-      left: -1930px;
-    }
-  }
 
   .menu-footer {
     @include display-flex();
@@ -214,6 +193,33 @@
   }
 
 }
+.list-items {
+  position: relative;
+}
+.list-item {
+  @include top_left_coord(0, 0);
+  position: absolute;
+  //position: relative;
+}
+.aux-list-item {
+  @include transition(all .5s linear);
+
+  position: absolute;
+  left: 0;
+  width: 1500px;
+  padding: 20px 40px;
+  border-style: solid;
+  border-color:#dcdcdc;
+  border-width: 1px 0 1px 1px;
+  border-top-left-radius: $radius_login-container;
+  border-bottom-left-radius: $radius_login-container;
+  background-color: #fff;
+  z-index: 2;
+  &.selected {
+    left: -1500px;
+  }
+}
+
 
 .menu-right-tabs {
   @include top_left_coord(60, 0);

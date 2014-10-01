@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', '$location', 'globalData', function ($scope, $location, globalData) {
+BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', 'globalData', function ($scope, globalData) {
 
   $scope.global = globalData;
 
@@ -28,10 +28,16 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', '$location', 'globalData',
   };
 
   // Open Door Page
-  $scope.gotoDoorPage = function() {
+  $scope.createNewDoor = function() {
     $scope.global.doorConstructionPage = true;
-    $location.path('/construction');
+    $scope.global.showRoomSelectorDialog = false;
+    $scope.global.showNavMenu = false;
+    $scope.global.isConfigMenu = true;
+    $scope.global.showPanels = {};
+    $scope.global.showPanels.showTemplatePanel = true;
+    $scope.global.isTemplatePanel = true;
   };
+
 
   // Close Room Selector Dialog
   $scope.closeRoomSelectorDialog = function() {

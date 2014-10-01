@@ -8,7 +8,7 @@
       .template-discr {{ templatePanel.templateDescription }}
 
     .template-section
-      object(type="image/svg+xml" data="img/windowConstuction.svg" class="")
+      object(type="image/svg+xml" data="{{ templatePanel.templateSVG }}" class="")
 
     .template-footer
       .other-template.prev(ng-click="showTemplatePrev()")

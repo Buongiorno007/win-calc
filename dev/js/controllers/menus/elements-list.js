@@ -3,6 +3,7 @@
 'use strict';
 
 BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'globalData', '$timeout', function ($scope, globalData, $timeout) {
+/*
   var $elementsListContainer = $('.elements-list-container'),
       $elementsListItem = $elementsListContainer.find('.item'),
       $auxListItem = $elementsListContainer.find('.aux-list-item'),
@@ -27,7 +28,7 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'globalData', '$timeout', 
       removeClassWithDelay(currListItem.find('.aux-list-row'), unvisibleClass, 5*STEP);
     }
   });
-
+*/
 
   var sourceAddElement, cloneAddElement;
 
@@ -130,28 +131,40 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'globalData', '$timeout', 
           $scope.global.chosenAddElements.selectedOthers.push(cloneAddElement);
           break;
       }
+      if($scope.global.isAddElementListView) {
+        $scope.global.isAddElement = 1;
+      }
     }
   };
 
 
   // Select Add Element when open List View
-  $scope.selectElementListView = function(typeId, elementId) {
+  $scope.selectElementListView = function(typeId, elementId, clickEvent) {
     if(typeId === undefined && elementId === undefined) {
       $scope.global.isAddElement = false;
-    //} else if($scope.global.isAddElement === typeId+'-'+elementId) {
-   //   $scope.global.isAddElement = 0;
+    } else if($scope.global.isAddElement === typeId+'-'+elementId) {
+      $scope.global.isAddElement = 1;
+    } else if($scope.global.isAddElement === false || $scope.global.isAddElement === 1) {
+      var coord = $(clickEvent.target).offset();
+      $scope.addElementsMenu.coordinats = {'top': coord.top-34};
+      $timeout(function() {
+        $scope.global.isAddElement = typeId + '-' + elementId;
+      }, 500);
     } else {
-      $scope.global.isAddElement = typeId+'-'+elementId;
+      $scope.global.isAddElement = 1;
+      $timeout(function() {
+        var coord = $(clickEvent.target).offset();
+        $scope.addElementsMenu.coordinats = {'top': coord.top-34};
+      }, 500);
+      $timeout(function() {
+        $scope.global.isAddElement = typeId + '-' + elementId;
+      }, 1000);
     }
   };
 
   // Show Tabs
-  $scope.showFrameTabs = function(id) {
-    if($scope.global.isTabFrame === id) {
-      $scope.global.isTabFrame = false;
-    } else {
-      $scope.global.isTabFrame = id;
-    }
+  $scope.showFrameTabs = function() {
+      $scope.global.isTabFrame = !$scope.global.isTabFrame;
   };
 
   // Delete AddElement from global object
@@ -345,6 +358,12 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'globalData', '$timeout', 
       $scope.global.chosenAddElements.selectedWindowSill[elementId].elementColor = $scope.global.addElementLaminatColor[id].laminationUrl;
       $scope.global.chosenAddElements.selectedWindowSill[elementId].elementColorId = id;
     }
-  }
+  };
+
+  $scope.clearSelectedAddElement = function() {
+
+    $scope.global.isAddElement = false;
+
+  };
 
 }]);

@@ -2,8 +2,10 @@
   .hardware-inner(ng-if="global.isHardwarePanel")
 
     .hardware-block(ng-repeat="producer in hardwarePanel.hardwares", ng-class="{'selected': hardwarePanel.isSelectedHardwareProducer == $index}")
-      .hardware-block-header
+      .group-block-header
         .hardware-title(data-output="{{ hardwarePanel.hardwareProducers[$index] }}", typing="{{ hardwarePanel.typing }}", typing-delay="{{ hardwarePanel.DELAY_START }}")
+        .group-info
+          .info
 
       .hardware-box.unvisible(ng-repeat="hardware in producer", show-delay="{{ hardwarePanel.DELAY_START + (hardwarePanel.DELAY_BLOCK * $index) }}", ng-class="{'selected': hardwarePanel.isSelectedHardware == $index && hardwarePanel.isSelectedHardwareProducer == $parent.$index}", ng-click="selectHardware($parent.$index, $index)")
         a.info(ng-href="{{ hardware.hardwareLink }}")

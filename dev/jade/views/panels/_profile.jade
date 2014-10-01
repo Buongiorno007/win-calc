@@ -2,7 +2,10 @@
   .profile-inner(ng-if="global.isProfilePanel")
 
     .profile-block.clearfix(ng-repeat="producer in profilePanel.profiles", ng-class="{'selected': profilePanel.isSelectedProducer == $index}")
-      .title(data-output="{{ profilePanel.producers[$index] }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START }}")
+      .group-block-header
+        .title(data-output="{{ profilePanel.producers[$index] }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START }}")
+        .group-info
+          .info
 
       .box.profile-box.unvisible(ng-repeat="profile in producer", show-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_BLOCK * $index) }}", ng-class="{'selected': profilePanel.isSelectedProfile == $index && profilePanel.isSelectedProducer == $parent.$index}", ng-click="selectProfile($parent.$index, $index)")
         .profile-box-top
@@ -25,3 +28,4 @@
             .coef-index
             .coef-index
           .label(data-output="{{ 'panels.NOICE_INSULATION' | translate }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}")
+        .info

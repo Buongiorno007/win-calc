@@ -13,6 +13,17 @@
   &.active {
     @include top_left_coord(0, 0);
   }
+  .info {
+    position: absolute;
+    &:before {
+      @include top_left_coord(15, 15);
+      @include font-general-icon(50px, 1);
+
+      position: absolute;
+      color: $main_green;
+      content: '\e60d';
+    }
+  }
 }
 
 .config-section {
@@ -30,10 +41,24 @@
       content: '\e612';
     }
   }
+
+  .group-block-header {
+    @include display-flex();
+    @include flex-flow(row wrap);
+    @include justify-content(flex-start);
+  }
   .title {
     @include roboto-bd(48px);
 
     color: $main_gray_txt;
+  }
+  .group-info {
+    position: relative;
+
+    .info {
+      top: 0;
+      right: 0;
+    }
   }
   .type {
     @include roboto-md(36px, 56px);
@@ -70,6 +95,7 @@
   }
   .box {
     @extend .splash;
+    @include transition(all .5s linear);
 
     position: relative;
     float: left;

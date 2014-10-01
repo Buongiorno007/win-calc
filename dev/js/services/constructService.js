@@ -139,11 +139,11 @@ BauVoiceApp.factory('constructService', function () {
       callback(new OkResult({
         outer: {
           id: 15,
-          name: 'без ламинации'
+          name: 'без лам.'
         },
         inner: {
           id: 4,
-          name: 'без ламинации'
+          name: 'без лам.'
         }
       }));
     },
@@ -603,28 +603,28 @@ BauVoiceApp.factory('constructService', function () {
         templatesWindow: [
           {
             templateId: 1,
-            templateSVG: '',
+            templateSVG: 'img/windowConstruction.svg',
             templateUrl: '../img/templates/balcony.png',
             templateTitle: 'Окно',
             templateDescrip: 'т-образное, две створки'
           },
           {
             templateId: 2,
-            templateSVG: '',
+            templateSVG: 'img/doorConstruction.svg',
             templateUrl: '../img/templates/window.png',
             templateTitle: 'Окно',
             templateDescrip: 'т-образное, одна створка'
           },
           {
             templateId: 3,
-            templateSVG: '',
+            templateSVG: 'img/windowConstruction.svg',
             templateUrl: '../img/templates/window.png',
             templateTitle: 'Окно',
             templateDescrip: 'т-образное'
           },
           {
             templateId: 4,
-            templateSVG: '',
+            templateSVG: 'img/doorConstruction.svg',
             templateUrl: '../img/templates/window.png',
             templateTitle: 'Окно',
             templateDescrip: 'две створки'
@@ -633,7 +633,7 @@ BauVoiceApp.factory('constructService', function () {
         templatesBalcony: [
           {
             templateId: 1,
-            templateSVG: '',
+            templateSVG: 'img/doorConstruction.svg',
             templateUrl: '../img/templates/balcony.png',
             templateTitle: 'Балкон',
             templateDescrip: '1 - 4 секционный'

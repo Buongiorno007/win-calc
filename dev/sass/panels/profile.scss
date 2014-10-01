@@ -19,7 +19,10 @@
       }
     }
   }
-
+  .info {
+    top: -30px;
+    right: 35px;
+  }
   .profile-descr {
     @include roboto-md(36px);
 

@@ -2,8 +2,10 @@
   .glass-inner(ng-if="global.isGlassPanel")
     .glass-block(ng-repeat="type in glassPanel.glasses", ng-class="{'selected': glassPanel.isSelectedGlassType == $index}")
 
-      .glass-block-header
+      .group-block-header
         .title(data-output="{{ glassPanel.glassTypes[$index] }}", typing="{{ glassPanel.typing }}", typing-delay="{{ glassPanel.DELAY_START }}")
+        .group-info
+          .info
 
       .glass-block-footer.clearfix
         .footer-inner

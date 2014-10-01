@@ -9,22 +9,11 @@
     @include justify-content(flex-start);
   }
   .info {
-    position: absolute;
     top: -30px;
     right: 35px;
-    &:before {
-      @include top_left_coord(15, 15);
-      @include font-general-icon(50px, 1);
-
-      position: absolute;
-      color: $main_green;
-      content: '\e60d';
-    }
   }
   .glass-block-footer {
     overflow-x: auto;
-    //@include display-flex();
-    //@include flex-flow(row nowrap);
     min-width: 98%;
     height: 370px;
     margin-top: 50px;

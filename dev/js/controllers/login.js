@@ -1,6 +1,6 @@
 'use strict';
 
-BauVoiceApp.controller('LoginCtrl', ['$scope', '$location', '$translate', function ($scope, $location, $translate) {
+BauVoiceApp.controller('LoginCtrl', ['$scope', '$location', '$translate', 'localStorage', function ($scope, $location, $translate, localStorage) {
   $scope.isCodeValid = false;
   $scope.isCodeCheckingSuccess = true;
 

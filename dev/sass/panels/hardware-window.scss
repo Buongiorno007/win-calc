@@ -21,11 +21,6 @@
       }
     }
   }
-  .hardware-block-header {
-    //@include display-flex();
-    //@include flex-flow(row wrap);
-    //@include justify-content(flex-start);
-  }
   .hardware-title {
     @include roboto-bd(48px);
 
@@ -111,6 +106,7 @@
     @include flex-flow(row wrap);
     @include justify-content(flex-start);
     @include flex-grow(2);
+    @include transition(all .5s linear);
 
     padding: 35px;
     border-top-right-radius: $radius_profile-box;

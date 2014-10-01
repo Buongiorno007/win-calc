@@ -45,6 +45,7 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$
     }
 
     $scope.templatePanel.templateDescription = $scope.templatePanel.templates[currTemplateId].templateDescrip;
+    $scope.templatePanel.templateSVG = $scope.templatePanel.templates[currTemplateId].templateSVG;
 
     $scope.templatePanel.templateTitlePrev = $scope.templatePanel.templates[prevTemplateId].templateTitle;
     $scope.templatePanel.templateImgPrev = $scope.templatePanel.templates[prevTemplateId].templateUrl;

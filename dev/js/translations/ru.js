@@ -31,7 +31,7 @@ window.russianDictionary = {
     NAVMENU_CURRENT_GEOLOCATION: 'Текущее расположение',
     NAVMENU_CURRENT_CALCULATION: 'Текущий расчет',
     NAVMENU_CART: 'Корзина расчета',
-    NAVMENU_ADD_ELEMENTS: 'Дополнительные элементы',
+    NAVMENU_ADD_ELEMENTS: 'Доп. элементы',
     NAVMENU_ALL_CALCULATIONS: 'Все расчеты',
     NAVMENU_SETTINGS: 'Настройки',
     NAVMENU_MORE_INFO: 'Больше информации',
@@ -64,6 +64,7 @@ window.russianDictionary = {
   },
   add_elements: {
     CHOOSE: 'Выбрать',
+    ADD: 'Добавить',
 
     GRID: 'москитная сетка',
     VISOR: 'козырек',
@@ -95,7 +96,8 @@ window.russianDictionary = {
     LIST_VIEW: 'Cписок',
     INPUT_ADD_ELEMENT: 'Добавить компонент',
     CANCEL: 'Отмена',
-    TOTAL_PRICE_TXT: 'Итого дополнительных компонентов на сумму:'
+    TOTAL_PRICE_TXT: 'Итого дополнительных компонентов на сумму:',
+    ELEMENTS: 'компонентов'
   },
   add_elements_menu: {
     TIP: 'Выберите элемент из списка',

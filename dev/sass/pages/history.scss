@@ -233,7 +233,7 @@
     }
   }
 
-  .tatal-date {
+  .total-date {
     border-bottom-left-radius: $radius_rooms-dialog;
     border-bottom-right-radius: $radius_rooms-dialog;
   }
@@ -300,6 +300,7 @@
       }
     }
   }
+
   .account-row {
     @include display-flex();
     @include flex-flow(row nowrap);
@@ -322,6 +323,7 @@
       border-bottom-left-radius: $radius_account-bottom;
       border-bottom-right-radius: $radius_account-bottom;
       color: $main_gray_txt;
+      cursor: pointer;
     }
   }
   .account-data {
@@ -402,6 +404,9 @@
       color: $main_gray_txt;
       content: $printer-icon;
     }
+  }
+  .account.done ~ .account-print-btn {
+    top: 50px;
   }
   .account-delete-btn {
     @extend .small-cross-btn;

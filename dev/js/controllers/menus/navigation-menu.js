@@ -34,7 +34,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'localStorage', 'g
     $location.path('/main');
   };
 
-  $scope.gotoLocationPage = function () {
+  $scope.global.gotoLocationPage = function () {
     $location.path('/location');
   };
 

@@ -287,6 +287,6 @@
           td.aux-tablecell-price
             .aux-total-price {{ global.totalAddElementsPrice }}
           td.aux-tablecell-delete
-            .aux-delete(ng-click="")
+            .aux-delete(ng-click="clearAllAddElements()")
 
   button.view-switch-tab(ng-click="viewSwitching()") {{ 'add_elements.SCHEME_VIEW' | translate }}

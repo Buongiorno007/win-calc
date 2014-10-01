@@ -20,6 +20,7 @@
     margin-bottom: 15px;
   }
   .lam-option-box {
+    position: relative;
     float: left;
     min-height: 326px;
     margin-right: 15px;
@@ -63,5 +64,13 @@
     &.for-white {
       max-width: 500px;
     }
+  }
+  .info {
+    top: -20px;
+    right: 50px;
+  }
+  .lamination-img.selected ~ .info {
+    top: -30px;
+    right: 30px;
   }
 }

@@ -15,7 +15,7 @@
           .lamination-img(ng-class="{'selected': laminationPanel.isSelectedLaminatInner == $index}", ng-click="selectLaminatIn($index)")
             img(ng-src="{{ laminatInner.laminationUrl }}")
           .lamination-label(data-output="{{ laminatInner.laminationName }}", typing="{{ laminationPanel.typing }}", typing-delay="{{ laminationPanel.DELAY_START + (laminationPanel.DELAY_TYPING * $index) }}")
-
+          .info
 
     .lamination-block
       .lamination-title(data-output="{{ 'panels.LAMINAT_OUTSIDE' | translate }}", typing="{{ laminationPanel.typing }}", typing-delay="{{ laminationPanel.DELAY_START }}")
@@ -31,3 +31,4 @@
           .lamination-img(ng-class="{'selected': laminationPanel.isSelectedLaminatOuter == $index}", ng-click="selectLaminatOut($index)")
             img(ng-src="{{ laminatOuter.laminationUrl }}")
           .lamination-label(data-output="{{ laminatOuter.laminationName }}", typing="{{ laminationPanel.typing }}", typing-delay="{{ laminationPanel.DELAY_START + (laminationPanel.DELAY_TYPING * $index) }}")
+          .info

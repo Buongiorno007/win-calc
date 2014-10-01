@@ -23,8 +23,10 @@ section.construction-page(ng-controller="ConstructionCtrl")
         .footer-description(data-output="{{ 'construction.UNITS_DESCRIP' | translate }}", typing="{{ constructData.typing }}", typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}")
         .project-default {{ 'construction.PROJECT_DEFAULT' | translate }}
 
-    .construction-block
-      object(type="image/svg+xml" data="img/windowConstuction.svg" class="")
+    .construction-block(ng-hide="isDoorPage")
+      object(type="image/svg+xml" data="img/windowConstruction.svg" class="")
+    .construction-block(ng-show="isDoorPage")
+      object(type="image/svg+xml" data="img/doorConstruction.svg" class="")
 
     .construction-right-menu
       .right-menu-header
