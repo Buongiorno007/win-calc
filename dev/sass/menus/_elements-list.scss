@@ -193,13 +193,14 @@
   }
 
 }
+
+
 .list-items {
   position: relative;
 }
 .list-item {
   @include top_left_coord(0, 0);
   position: absolute;
-  //position: relative;
 }
 .aux-list-item {
   @include transition(all .5s linear);

@@ -2,9 +2,10 @@
   .cart-menu
     ul.items-list
       li.item(ng-class="{'active': cartMenuData.activeMenuItem==1}", ng-click="selectMenuItem(1)")
-        .title(data-output="{{ 'cart.DELIVERY' | translate }}")
-        .value(data-output="{{ cartMenuData.selectedFloor }}") {{ cartMenuData.selectedFloor }}
-          span.name.aside {{ cartMenuData.selectedFloorPrice }}
+        .title(data-output="{{ 'cart.DELIVERY' | translate }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
+        .cart-item-data
+          .value(data-output="{{ cartMenuData.selectedFloor }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
+          span.name.aside(data-output="{{ cartMenuData.selectedFloorPrice }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
       .dropdown-cart-menu.drop-delivery(ng-class="{'active': cartMenuData.activeMenuItem==1}")
         ul.dropdown-items-list
           li.dropdown-item(ng-repeat="floorList in floorPrice", ng-class="{'selected': cartMenuData.selectedFloor === floorList.floor}", ng-click="selectFloorPrice(floorList.floor, floorList.price)")
@@ -13,9 +14,10 @@
               .name.drop-txt {{floorList.price}}
 
       li.item(ng-class="{'active': cartMenuData.activeMenuItem==2}", ng-click="selectMenuItem(2)")
-        .title(data-output="{{ 'cart.ASSEMBLING' | translate }}")
-        .value(data-output="{{ cartMenuData.selectedAssembling }}") {{ cartMenuData.selectedAssembling }}
-          span.name.aside {{ cartMenuData.selectedAssemblingPrice }}
+        .title(data-output="{{ 'cart.ASSEMBLING' | translate }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
+        .cart-item-data
+          .value(data-output="{{ cartMenuData.selectedAssembling }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
+          span.name.aside(data-output="{{ cartMenuData.selectedAssemblingPrice }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
       .dropdown-cart-menu.drop-assembling(ng-class="{'active': cartMenuData.activeMenuItem==2}")
         ul.dropdown-items-list
           li.dropdown-item(ng-repeat="assemb in assemblingPrice", ng-class="{'selected': cartMenuData.selectedAssembling === assemb.name}", ng-click="selectAssembling(assemb.name, assemb.price)")
@@ -25,9 +27,10 @@
 
 
       li.item.switcher(ng-class="{'active': cartMenuData.activeMenuItem==3}", ng-click="selectMenuItem(3)")
-        .title(data-output="{{ 'cart.PAYMENT_BY_INSTALMENTS' | translate }}")
-        .value(data-output="{{ cartMenuData.selectedInstalmentPeriod }}") {{ cartMenuData.selectedInstalmentPeriod }}
-          span.name.aside {{ cartMenuData.selectedInstalmentPercent }}
+        .title(data-output="{{ 'cart.PAYMENT_BY_INSTALMENTS' | translate }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
+        .cart-item-data
+          .value(data-output="{{ cartMenuData.selectedInstalmentPeriod }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
+          span.name.aside(data-output="{{ cartMenuData.selectedInstalmentPercent }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
         .check-switcher(ng-class="{'active': cartMenuData.activeInstalmentSwitcher}", ng-click="turnOffInstalment()")
           .check-bg-active
           .check-bg-passive
@@ -41,8 +44,8 @@
 
 
       li.item(ng-class="{'active': cartMenuData.activeMenuItem==4}", ng-click="selectMenuItem(4)")
-        .title(data-output="{{ 'cart.DELIVERY_DATE' | translate }}")
-        .value(data-output="{{ cartMenuData.newDeliveryDate }}") {{ cartMenuData.newDeliveryDate }}
+        .title(data-output="{{ 'cart.DELIVERY_DATE' | translate }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
+        .value(data-output="{{ cartMenuData.newDeliveryDate }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
       .dropdown-cart-menu.drop-calendar(ng-class="{'active': cartMenuData.activeMenuItem==4}")
         calendar.calendar-box
       .calendar-prices
@@ -63,9 +66,12 @@
       button.order-btn(ng-click="showCallOrderDialog()") {{ 'cart.ORDER' | translate }}
       button.measure-btn(ng-click="showCallMasterDialog()") {{ 'cart.MEASURE' | translate }}
 
-  .old-price-tab(ng-class="{'active': cartMenuData.activeInstalmentSwitcher}")
+  .old-price-inst-tab(ng-class="{'active': cartMenuData.isOldPrice && cartMenuData.activeInstalmentSwitcher}")
     .name {{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ cartMenuData.selectedInstalmentPercent }}
     .name {{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{ cartMenuData.newDeliveryDate }}
     price
     .name {{ cartMenuData.selectedInstalmentPeriod }} {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }} 100
+    price
+  .old-price-tab(ng-class="{'active': cartMenuData.isOldPrice && !cartMenuData.activeInstalmentSwitcher}")
+    .name(data-output="") {{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{ cartMenuData.newDeliveryDate }}
     price

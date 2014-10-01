@@ -3,23 +3,6 @@
 'use strict';
 
 BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'globalData', function ($scope, constructService, globalData) {
-  var $cartMenu = $('.cart-menu'),
-      $itemMenu = $cartMenu.find('.item'),
-
-      $priceBlock = $cartMenu.find('.price-block'),
-      $dropdownMenu = $cartMenu.find('.dropdown-cart-menu'),
-      $dropDeliveryMenu = $cartMenu.find('.drop-delivery'),
-      $dropAssemblingMenu = $cartMenu.find('.drop-assembling'),
-      $dropInstalmentMenu = $cartMenu.find('.drop-instalment'),
-      $dropDeliveryItem = $dropDeliveryMenu.find('.dropdown-item'),
-      $dropAssemblingItem = $dropAssemblingMenu.find('.dropdown-item'),
-      $dropInstalmentItem = $dropInstalmentMenu.find('.dropdown-item'),
-      $checkSwitcher = $cartMenu.find('.check-switcher'),
-
-      $oldPriceTab = $('.old-price-tab'),
-      $calendar = $cartMenu.find('.calendar-box'),
-      $measureBTN  = $cartMenu.find('.measure-btn');
-
 
   $scope.global = globalData;
 
@@ -44,18 +27,10 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'globalDa
     ratePriceLess: 100,
     ratePriceMore: 100,
     deliveryPriceLess: '',
-    deliveryPriceMore: ''
+    deliveryPriceMore: '',
+    DELAY_START: STEP,
+    typing: 'on'
   };
-
-  setTimeout(function () {
-    var $itemMenuTitle = $itemMenu.find('.title');
-
-    $itemMenuTitle.each(function () {
-      typingTextByChar($(this));
-    });
-
-  }, 500);
-
 
   // Calendar
 
@@ -82,17 +57,20 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'globalDa
     newDate = new Date(newDateArr[ 2 ], newDateArr[ 1 ]-1, newDateArr[0]);
     qtyDays = Math.floor((newDate - lastDate)/(1000*60*60*24));
     //console.log(' different ' + qtyDays);
-    if(qtyDays > 0 && qtyDays < 15) {
+    if(qtyDays > 0 && qtyDays < 10) {
       $scope.cartMenuData.deliveryPriceLess = $scope.cartMenuData.ratePriceLess * qtyDays;
       $scope.cartMenuData.datePriceLess = true;
       $scope.cartMenuData.datePriceMore = false;
-    } else if (qtyDays > 14 && qtyDays < 30) {
+      $scope.cartMenuData.isOldPrice = true;
+    } else if (qtyDays > 10 && qtyDays < 30) {
       $scope.cartMenuData.deliveryPriceMore = $scope.cartMenuData.ratePriceMore * qtyDays;
       $scope.cartMenuData.datePriceMore = true;
       $scope.cartMenuData.datePriceLess = false;
+      $scope.cartMenuData.isOldPrice = true;
     } else {
       $scope.cartMenuData.datePriceLess = false;
       $scope.cartMenuData.datePriceMore = false;
+      $scope.cartMenuData.isOldPrice = false;
     }
   };
 
