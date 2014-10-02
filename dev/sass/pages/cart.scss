@@ -130,8 +130,8 @@
   }
   .order-template {
     position: absolute;
-    bottom: -40px;
-    left: 30px;
+    bottom: -73px;
+    left: 10px;
     padding: 20px;
     background-color: #fff;
     border-radius: $radius_order-template;
@@ -140,14 +140,22 @@
     height: 100px;
   }
   .order-coeff {
-    @include roboto-lt(22px);
-    bottom: 0;
-    right: 0;
+    bottom: -60px;
+    right: 5px;
     position: absolute;
     background-color: #fff;
   }
+  .coeff-label {
+    @include roboto-lt(28px);
+    color: #8c8c8c;
+  }
+  .coeff-value {
+    @include roboto-lt(42px);
+    color: $main_green;
+    margin-left: 5px;
+  }
   .order-content {
-    padding: 30px 40px 0 50px;
+    padding: 70px 40px 0 50px;
     background-color: #fff;
   }
   .order-list {

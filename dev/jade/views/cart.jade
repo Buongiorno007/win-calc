@@ -1,4 +1,4 @@
-section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
+section.page-container(ng-init="initCartPage()", ng-class="{ 'swiped': !global.showNavMenu }")
   section.left-side
     include menus/_navigation-menu
   section.right-side
@@ -19,7 +19,9 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                 img.order-header-fon(src="../img/rooms-dialog/livingroom.jpg")
                 .order-template
                   img.icon-thumb(src="../img/templates/balcony.png")
-                .order-coeff Коэффициент телопередачи
+                .order-coeff
+                  span.coeff-label телопередача
+                  span.coeff-value 0.63
               .order-content
                 ul.order-list
                   li.order-item

@@ -606,7 +606,9 @@ BauVoiceApp.factory('constructService', function () {
             templateSVG: 'img/windowConstruction.svg',
             templateUrl: '../img/templates/balcony.png',
             templateTitle: 'Окно',
-            templateDescrip: 'т-образное, две створки'
+            templateDescrip: 'т-образное, две створки',
+            templateWidth: '1200',
+            templateHeight: '1200'
           },
           {
             templateId: 2,
@@ -636,7 +638,20 @@ BauVoiceApp.factory('constructService', function () {
             templateSVG: 'img/doorConstruction.svg',
             templateUrl: '../img/templates/balcony.png',
             templateTitle: 'Балкон',
-            templateDescrip: '1 - 4 секционный'
+            templateDescrip: '1 - 4 секционный',
+            templateWidth: '1200',
+            templateHeight: '1200'
+          }
+        ],
+        templatesDoor: [
+          {
+            templateId: 1,
+            templateSVG: 'img/doorConstruction.svg',
+            templateUrl: '../img/templates/balcony.png',
+            templateTitle: 'Дверь',
+            templateDescrip: '1 - 4 секционный',
+            templateWidth: '1200',
+            templateHeight: '1200'
           }
         ]
 

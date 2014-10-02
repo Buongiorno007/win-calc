@@ -32,4 +32,6 @@ BauVoiceApp.controller('LoginCtrl', ['$scope', '$location', '$translate', 'local
   $scope.switchLang = function () {
     $translate.use() === 'en' ? $translate.use('ru') : $translate.use('en');
   };
+
+  localStorage.initApp(function(result){});
 }]);
