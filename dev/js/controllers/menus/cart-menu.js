@@ -1,10 +1,10 @@
-/* globals BauVoiceApp, STEP, unvisibleClass, selectClass, activeClass, typingTextByChar, showElementWithDelay, removeClassWithDelay, addClassWithDelay */
+/* globals BauVoiceApp, STEP */
 
 'use strict';
 
-BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'globalData', function ($scope, constructService, globalData) {
+BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localStorage', function ($scope, constructService, localStorage) {
 
-  $scope.global = globalData;
+  $scope.global = localStorage;
 
   $scope.price = $scope.global.cartPrice;
   $scope.currency = $scope.global.currency;

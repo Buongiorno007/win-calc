@@ -2,9 +2,9 @@
 
 'use strict';
 
-BauVoiceApp.controller('AdditionalElementsListCtrl', ['$scope', 'globalData', 'constructService', function ($scope, globalData, constructService) {
+BauVoiceApp.controller('AdditionalElementsListCtrl', ['$scope', 'constructService', 'localStorage', function ($scope, constructService, localStorage) {
 
-  $scope.global = globalData;
+  $scope.global = localStorage;
 
   $scope.addElementsList = {
     DELAY_START: STEP,

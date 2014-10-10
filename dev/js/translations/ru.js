@@ -134,6 +134,7 @@ window.russianDictionary = {
   cart: {
     ALL_ADD_ELEMENTS: 'Все доп.элементы заказа',
     ADD_ORDER: 'Добавить изделие',
+    PRODUCT_QTY: 'количество изделий',
     LIGHT_VIEW: 'Сокращенный вид',
     FULL_VIEW: 'Полный вид',
     DELIVERY: 'Доставка',

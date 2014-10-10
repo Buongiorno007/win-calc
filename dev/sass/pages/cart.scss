@@ -79,9 +79,13 @@
   }
 
   .order-value {
+    @extend .truncated;
     @include roboto-lt(36px);
 
     color: $main_gray_txt;
+  }
+  .addelements-btn {
+    cursor: pointer;
   }
   .order-label {
     @include roboto-lt(22px);

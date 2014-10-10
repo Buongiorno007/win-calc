@@ -2,9 +2,9 @@
 
 'use strict';
 
-BauVoiceApp.controller('HardwareWindowCtrl', ['$scope', 'globalData', 'constructService', function ($scope, globalData, constructService) {
+BauVoiceApp.controller('HardwareWindowCtrl', ['$scope', 'constructService', 'localStorage', function ($scope, constructService, localStorage) {
 
-  $scope.global = globalData;
+  $scope.global = localStorage;
 
   $scope.hardwarePanel = {
     DELAY_START: 5 * STEP,

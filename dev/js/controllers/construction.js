@@ -1,10 +1,10 @@
-/* globals BauVoiceApp, STEP, unvisibleClass, selectClass, activeClass, typingTextByChar, showElementWithDelay, removeClassWithDelay, addClassWithDelay */
+/* globals BauVoiceApp, STEP */
 
 'use strict';
 
-BauVoiceApp.controller('ConstructionCtrl', ['$scope',  'constructService', 'globalData', '$location', function ($scope, constructService, globalData, $location) {
+BauVoiceApp.controller('ConstructionCtrl', ['$scope',  'constructService', 'localStorage', '$location', function ($scope, constructService, localStorage, $location) {
 
-  $scope.global = globalData;
+  $scope.global = localStorage;
   $scope.isDoorPage =  $scope.global.doorConstructionPage;
 
   constructService.getDoorConfig(function (results) {

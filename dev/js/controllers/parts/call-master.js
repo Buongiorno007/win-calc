@@ -1,8 +1,8 @@
 'use strict';
 
-BauVoiceApp.controller('CallMasterCtrl', ['$scope', 'constructService', 'globalData', function ($scope, constructService, globalData) {
+BauVoiceApp.controller('CallMasterCtrl', ['$scope', 'constructService', 'localStorage', function ($scope, constructService, localStorage) {
 
-  $scope.global = globalData;
+  $scope.global = localStorage;
   $scope.user = {};
 
   // Search Location

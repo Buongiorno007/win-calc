@@ -2,9 +2,9 @@
 
 'use strict';
 
-BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', 'globalData', function ($scope, globalData) {
+BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', 'localStorage', function ($scope, localStorage) {
 
-  $scope.global = globalData;
+  $scope.global = localStorage;
 
   $scope.roomData = {
     selectedRoom: $scope.global.currentRoomId,
@@ -15,7 +15,6 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', 'globalData', function ($s
     DELAY_SHOW_ROOM5: 9*STEP,
     DELAY_SHOW_ROOM6: 10*STEP
   };
-
 
   // Room Select
   $scope.selectRoom = function(id) {
@@ -37,7 +36,6 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', 'globalData', function ($s
     $scope.global.showPanels.showTemplatePanel = true;
     $scope.global.isTemplatePanel = true;
   };
-
 
   // Close Room Selector Dialog
   $scope.closeRoomSelectorDialog = function() {

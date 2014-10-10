@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('HistoryCtrl', ['$scope', 'globalData', 'constructService', function ($scope, globalData, constructService) {
+BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStorage', function ($scope, constructService, localStorage) {
 
   var $historyPage = $('.history-page'),
       $searchTool = $historyPage.find('.search-tool'),
@@ -78,7 +78,7 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'globalData', 'constructService
   }
 
 
-  $scope.global = globalData;
+  $scope.global = localStorage;
 
   // indicator for user info block and searching block
   $scope.global.isHistoryPage = true;
@@ -162,9 +162,6 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'globalData', 'constructService
   $scope.deleteSearchChart = function() {
     $scope.searchingWord = $scope.searchingWord.slice(0,-1);
   };
-
-
-
 
 
   // History/Draft View switcher

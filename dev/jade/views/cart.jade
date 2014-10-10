@@ -1,4 +1,4 @@
-section.page-container(ng-init="initCartPage()", ng-class="{ 'swiped': !global.showNavMenu }")
+section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
   section.left-side
     include menus/_navigation-menu
   section.right-side
@@ -13,8 +13,9 @@ section.page-container(ng-init="initCartPage()", ng-class="{ 'swiped': !global.s
             button.cart-tool.new-order(ng-click="createNewProduct()") {{ 'cart.ADD_ORDER' | translate }}
 
           .order-block
-            .order
-              button.order-delete
+
+            .order(ng-repeat="product in global.order")
+              button.order-delete(ng-click="deletProduct()")
               .order-header
                 img.order-header-fon(src="../img/rooms-dialog/livingroom.jpg")
                 .order-template
@@ -25,31 +26,33 @@ section.page-container(ng-init="initCartPage()", ng-class="{ 'swiped': !global.s
               .order-content
                 ul.order-list
                   li.order-item
-                    .order-value(data-output="{{ configMenu.construction.width }}000 мм*") 1060 000 мм
-                    .order-value(data-output="{{ configMenu.construction.height }}000 мм") 1060 000 мм
+                    .order-value {{ product.productWidth }} 000 мм
+                    .order-value {{ product.productHeight }} 000 мм
                     .order-label {{ 'mainpage.CONFIGMENU_SIZING' | translate }}
                   li.order-item
-                    .order-value {{ global.profileName }}
+                    .order-value {{ product.profileName }}
                     .order-label {{ 'mainpage.CONFIGMENU_PROFILE' | translate }}
                   li.order-item
-                    .order-value {{ global.glassName }}
+                    .order-value {{ product.glassName }}
                     .order-label {{ 'mainpage.CONFIGMENU_GLASS' | translate }}
                   li.order-item
-                    .order-value {{ global.hardwareName }}
+                    .order-value {{ product.hardwareName }}
                     .order-label {{ 'mainpage.CONFIGMENU_HARDWARE' | translate }}
                   li.order-item
                     .order-label {{ 'mainpage.CONFIGMENU_LAMINATION_TYPE' | translate }}
-                    .order-value {{ global.lamination.outer }} / {{ global.lamination.inner }}
+                    .order-value {{ product.laminationNameOut }} / {{ product.laminationNameIn }}
                     .order-label {{ 'mainpage.CONFIGMENU_LAMINATION' | translate }}
-                  li.order-item(ng-click="")
-                    .order-value(data-output="{{ configMenu.lamination.outer }}") 127 компонентов
+                  li.order-item.addelements-btn(ng-click="showAllAddElementList()")
+                    .order-value 127 компонентов
                     .order-label {{ 'mainpage.CONFIGMENU_ADDITIONAL' | translate }}
                 .order-qty
-                  button.order-tool -
-                  .order-value(data-output="{{ configMenu.lamination.outer }}") 127
-                  button.order-tool +
-                  .order-label.qty-label(data-output="Дополнительно") количество изделий
+                  button.order-tool(ng-click="lessProduct()") -
+                  .order-value {{ product.productQty }}
+                  button.order-tool(ng-click="moreProduct()") +
+                  .order-label.qty-label {{ 'cart.PRODUCT_QTY' | translate }}
               .order-footer 20455.00
+
+            .addelements-list
 
 
           button.view-switch-tab(ng-click="viewSwitching()") {{ 'cart.LIGHT_VIEW' | translate }}

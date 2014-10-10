@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('ChangePassCtrl', ['$scope', 'localStorage', '$location', function ($scope, localStorage, $location) {
+BauVoiceApp.controller('ChangePassCtrl', ['$scope', 'globalDB', '$location', function ($scope, globalDB, $location) {
 
   $scope.password = {
     DELAY_START: STEP,
@@ -11,7 +11,7 @@ BauVoiceApp.controller('ChangePassCtrl', ['$scope', 'localStorage', '$location',
     typing: 'on'
   };
 
-  localStorage.getUser(function (results) {
+  globalDB.getUser(function (results) {
     if (results.status) {
       $scope.password.old = results.data.user.password;
     } else {

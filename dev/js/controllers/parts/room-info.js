@@ -2,9 +2,9 @@
 
 'use strict';
 
-BauVoiceApp.controller('RoomInfoCtrl', ['$scope', 'locationService', 'constructService', 'globalData', function ($scope, locationService, constructService, globalData) {
+BauVoiceApp.controller('RoomInfoCtrl', ['$scope', 'locationService', 'constructService', 'localStorage', function ($scope, locationService, constructService, localStorage) {
 
-  $scope.global = globalData;
+  $scope.global = localStorage;
 
   $scope.roomInfo = {
     DELAY_SHOW_COEFF: 20 * STEP,

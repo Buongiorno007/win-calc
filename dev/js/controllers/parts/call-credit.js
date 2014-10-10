@@ -1,8 +1,8 @@
 'use strict';
 
-BauVoiceApp.controller('CallCreditCtrl', ['$scope', 'constructService', 'globalData', function ($scope, constructService, globalData) {
+BauVoiceApp.controller('CallCreditCtrl', ['$scope', 'constructService', 'localStorage', function ($scope, constructService, localStorage) {
 
-  $scope.global = globalData;
+  $scope.global = localStorage;
   $scope.user = {};
   $scope.user.instalment = 54513123;
 

@@ -2,12 +2,12 @@
 
 'use strict';
 
-BauVoiceApp.controller('LocationCtrl', ['$scope', 'constructService', 'localStorage', 'globalData', function ($scope, constructService, localStorage, globalData) {
+BauVoiceApp.controller('LocationCtrl', ['$scope', 'globalDB', 'constructService', 'localStorage', function ($scope, globalDB, constructService, localStorage) {
 
-  $scope.global = globalData;
+  $scope.global = localStorage;
   $scope.location = {};
 
-  localStorage.getUser(function (results) {
+  globalDB.getUser(function (results) {
     if (results.status) {
       $scope.location.currCity = results.data.user.city;
     } else {

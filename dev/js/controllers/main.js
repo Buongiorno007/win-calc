@@ -2,8 +2,8 @@
 
 'use strict';
 
-BauVoiceApp.controller('MainCtrl', ['$rootScope', '$scope', 'globalData', function ($rootScope, $scope, globalData) {
-  $scope.global = globalData;
+BauVoiceApp.controller('MainCtrl', ['$rootScope', '$scope', 'localStorage', function ($rootScope, $scope, localStorage) {
+  $scope.global = localStorage;
 /*
   $scope.main = {
     isConfigMenuShow: false

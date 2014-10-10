@@ -1,38 +1,12 @@
-/* globals BauVoiceApp, STEP, activeClass */
+/* globals BauVoiceApp, STEP */
 
 'use strict';
 
-BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'globalData', '$timeout', function ($scope, globalData, $timeout) {
-/*
-  var $elementsListContainer = $('.elements-list-container'),
-      $elementsListItem = $elementsListContainer.find('.item'),
-      $auxListItem = $elementsListContainer.find('.aux-list-item'),
-      $auxListRow = $elementsListContainer.find('.aux-list-row'),
-      $auxListContainer = $('.additional-list-container'),
-
-      DELAY_HIDE_LIST = 5 * STEP;
-
-  // Click on Elements Lists
-  $elementsListItem.click(function () {
-
-    // Open element if additional List View ia active
-    if($auxListContainer.hasClass(activeClass)) {
-      $auxListRow.each(function() {
-        $(this).addClass(unvisibleClass);
-      });
-      $auxListItem.each(function() {
-        $(this).removeClass(selectClass);
-      });
-      var currListItem = $(this).find('.aux-list-item');
-      currListItem.addClass(selectClass);
-      removeClassWithDelay(currListItem.find('.aux-list-row'), unvisibleClass, 5*STEP);
-    }
-  });
-*/
+BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout', function ($scope, localStorage, $timeout) {
 
   var sourceAddElement, cloneAddElement;
 
-  $scope.global = globalData;
+  $scope.global = localStorage;
 
   $scope.addElementsMenu = {
     DELAY_START: STEP,

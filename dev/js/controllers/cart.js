@@ -2,15 +2,21 @@
 
 'use strict';
 
-BauVoiceApp.controller('CartCtrl', ['$scope', 'globalData', 'localDB', '$location', function ($scope, globalData, localDB, $location) {
+BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$location', function ($scope, localDB, localStorage, $location) {
 
-  $scope.global = globalData;
+  $scope.global = localStorage;
 
-  $scope.initCartPage = function() {
-    $scope.datas = localDB.select({
-      'id': {"value": '10'}
-    });
-  };
+
+  // Get Products Data
+  localDB.selectAll(function (results) {
+    if (results.status) {
+      $scope.global.order = results.data;
+      console.log($scope.global.order);
+      //$scope.$apply();
+    } else {
+      console.log(results);
+    }
+  });
 
   $scope.createNewProduct = function() {
     $location.path('/main');
@@ -20,17 +26,6 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'globalData', 'localDB', '$locatio
     //$scope.global.showPanels.showTemplatePanel = true;
     //$scope.global.isTemplatePanel = true;
   };
-
-
-
-
-
-  //$scope.datas = localDB.selectAll();
-  console.log('first '+$scope.datas);
-  setTimeout(function(){
-    console.log($scope.datas);
-  }, 500);
-
 
   // Full/Light View switcher
   $scope.isCartLightView = false;

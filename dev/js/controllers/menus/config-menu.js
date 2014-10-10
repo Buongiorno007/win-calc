@@ -2,16 +2,15 @@
 
 'use strict';
 
-BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructService', 'globalData', '$timeout', '$cookieStore', 'localDB', function ($scope, localStorage, constructService, globalData, $timeout, $cookieStore, localDB) {
+BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'localStorage', 'constructService', '$timeout', function ($scope, globalDB, localDB, localStorage, constructService,  $timeout) {
 
-  $scope.global = globalData;
+  $scope.global = localStorage;
 
   $scope.configMenu = {
     DELAY_START: STEP,
     DELAY_SHOW_CONFIG_LIST: 5 * STEP,
     DELAY_SHOW_FOOTER: 5 * STEP,
     DELAY_TYPE_ITEM_TITLE: 10 * STEP,
-    //DELAY_SHOW_ORDERS: 40 * STEP,
     typing: 'on'
   };
 
@@ -30,7 +29,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
 
   constructService.getConstructThumb(function (results) {
     if (results.status) {
-      $scope.configMenu.constructThumb = results.data.url;
+      $scope.global.constructThumb = results.data.url;
     } else {
       console.log(results);
     }
@@ -38,7 +37,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
 
   constructService.getConstructSize(function (results) {
     if (results.status) {
-      $scope.configMenu.construction = {
+      $scope.global.constructionSize = {
         width: results.data.width,
         height: results.data.height
       };
@@ -49,7 +48,6 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
 
   constructService.getProfileSystem(function (results) {
     if (results.status) {
-      //$scope.configMenu.profileName = results.data.name;
       $scope.global.profileName = results.data.name;
     } else {
       console.log(results);
@@ -96,7 +94,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
       //$scope.configMenu.price = results.data.price;
       //$scope.configMenu.currency = results.data.currency.name;
 
-      $scope.global.orderPrice = results.data.price;
+      $scope.global.productPrice = results.data.price;
 
       var currencySymbol = '';
       if (results.data.currency.name === 'uah') {
@@ -195,24 +193,50 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'localStorage', 'constructSe
   };
   */
 
-  // Save Order in Cart
-  if($cookieStore.get('totalProjectsQty')) {
-    $scope.global.ordersInCart = $cookieStore.get('totalProjectsQty');
-  }
-/*
-  $scope.inputOrderInCart = function() {
-    var projectQtyValue = ++ $scope.global.ordersInCart;
-    $cookieStore.put('totalProjectsQty', projectQtyValue);
-    $timeout(function(){
-      $scope.global.gotoCartPage();
-    }, 2*STEP);
-  }
-*/
-  $scope.inputOrderInCart = function() {
-    var projectQtyValue = ++ $scope.global.ordersInCart+5;
-    var datas = { "productName": 'window', "productQty": projectQtyValue };
 
-    localDB.insert(datas);
+  // Save Product in Order and enter in Cart
+  $scope.inputOrderInCart = function() {
+
+    //localDB.deleteTable();
+
+    var productQtyValue,
+        productData,
+        addElementsObj = $scope.global.chosenAddElements,
+        addElementsString;
+
+    if($scope.global.ordersInCart) {
+      productQtyValue = ++$scope.global.ordersInCart;
+    } else {
+      productQtyValue = 1;
+    }
+/*
+    if(addElementsObj) {
+      for(var prop in addElementsObj) {
+        if (!addElementsObj.hasOwnProperty(prop)) continue
+        for (var element = 0; element < addElementsObj.prop.length; prop++) {
+          addElementsString += addElementsObj.prop[element].toString();
+        }
+      }
+      console.log($scope.global.chosenAddElements);
+      console.log(addElementsString);
+    } else {
+      addElementsString = false;
+    }
+*/
+    productData = {
+      "productName": 'window',
+      "productWidth": $scope.global.constructionSize.width,
+      "productHeight": $scope.global.constructionSize.height,
+      "profileName": $scope.global.profileName,
+      "glassName": $scope.global.glassName,
+      "hardwareName": $scope.global.hardwareName,
+      "laminationNameOut": $scope.global.lamination.outer,
+      "laminationNameIn": $scope.global.lamination.inner,
+      //"addElements": addElementsString,
+      "productQty": 1
+    };
+
+    localDB.insert(productData);
 
     $timeout(function(){
       $scope.global.gotoCartPage();

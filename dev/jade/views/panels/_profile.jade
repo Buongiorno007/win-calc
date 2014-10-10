@@ -10,8 +10,8 @@
       .box.profile-box.unvisible(ng-repeat="profile in producer", show-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_BLOCK * $index) }}", ng-class="{'selected': profilePanel.isSelectedProfile == $index && profilePanel.isSelectedProducer == $parent.$index}", ng-click="selectProfile($parent.$index, $index)")
         .profile-box-top
           .type {{ profile.profileType }}
-          .profile-descr(data-output="{{ profile.profileDescrip }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}")
-          .profile-country(data-output="{{ profile.profileCountry }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}")
+          .profile-descr(data-output="{{ profile.name }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}")
+          .profile-country(data-output="{{ profile.country }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}")
           .label(data-output="{{ 'panels.COUNTRY' | translate }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}")
         .profile-box-bottom
           .coef-level.heat-insulation(ng-class="{'coef-level-1': profile.profileHeat == 1, 'coef-level-2': profile.profileHeat == 2, 'coef-level-3': profile.profileHeat == 3, 'coef-level-4': profile.profileHeat == 4}")

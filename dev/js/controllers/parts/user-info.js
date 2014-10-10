@@ -1,8 +1,8 @@
 'use strict';
 
-BauVoiceApp.controller('UserInfoCtrl', ['$rootScope', '$scope', 'localStorage', 'locationService', 'globalData', function ($rootScope, $scope, localStorage, locationService, globalData) {
+BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localStorage', function ($scope, globalDB, localStorage) {
 
-  $scope.global = globalData;
+  $scope.global = localStorage;
 
   $scope.userInfo = {
     DELAY_SHOW_USER_INFO: 2000,
@@ -18,11 +18,11 @@ BauVoiceApp.controller('UserInfoCtrl', ['$rootScope', '$scope', 'localStorage', 
     }
   };
 
-  localStorage.getUserInfo(function (results) {
+  globalDB.getUserInfo(function (results) {
     if (results.status) {
       $scope.userInfo.name = results.data.user.name;
       $scope.userInfo.location = results.data.city.name;
-      $scope.global.userGeoLocation = results.data.city.name;
+      $scope.global.userGeoLocation = $scope.userInfo.location;
       $scope.$apply();
     } else {
       console.log(results);

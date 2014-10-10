@@ -2,9 +2,9 @@
 
 'use strict';
 
-BauVoiceApp.controller('GlassCtrl', ['$scope', 'globalData', 'constructService', function ($scope, globalData, constructService) {
+BauVoiceApp.controller('GlassCtrl', ['$scope', 'constructService', 'localStorage', function ($scope, constructService, localStorage) {
 
-  $scope.global = globalData;
+  $scope.global = localStorage;
 
   $scope.glassPanel = {
     DELAY_START: 5 * STEP,

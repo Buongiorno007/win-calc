@@ -1,10 +1,10 @@
-/* globals BauVoiceApp, STEP, selectClass, showElementWithDelay, typingTextWithDelay */
+/* globals BauVoiceApp, STEP, */
 
 'use strict';
 
-BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$location', 'globalData', function ($scope, constructService, $location, globalData) {
+BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$location', 'localStorage', function ($scope, constructService, $location, localStorage) {
 
-  $scope.global = globalData;
+  $scope.global = localStorage;
 
   $scope.templatePanel = {
     DELAY_TEMPLATE_ELEMENT: 5 * STEP,

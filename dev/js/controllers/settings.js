@@ -2,9 +2,9 @@
 
 'use strict';
 
-BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalData', 'localStorage', '$location', function ($scope, globalData, localStorage, $location) {
+BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalDB', 'localStorage', '$location', function ($scope, globalDB, localStorage, $location) {
 
-  $scope.global = globalData;
+  $scope.global = localStorage;
 
   $scope.settings = {
     DELAY_START: STEP,
@@ -15,7 +15,7 @@ BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalData', 'localStorage', 
     typing: 'on'
   };
 
-  localStorage.getUser(function (results) {
+  globalDB.getUser(function (results) {
     if (results.status) {
 
       $scope.settings.userName = results.data.user.name;

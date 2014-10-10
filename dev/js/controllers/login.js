@@ -1,6 +1,6 @@
 'use strict';
 
-BauVoiceApp.controller('LoginCtrl', ['$scope', '$location', '$translate', 'localStorage', function ($scope, $location, $translate, localStorage) {
+BauVoiceApp.controller('LoginCtrl', ['$scope', '$location', '$translate', 'globalDB', function ($scope, $location, $translate, globalDB) {
   $scope.isCodeValid = false;
   $scope.isCodeCheckingSuccess = true;
 
@@ -33,5 +33,6 @@ BauVoiceApp.controller('LoginCtrl', ['$scope', '$location', '$translate', 'local
     $translate.use() === 'en' ? $translate.use('ru') : $translate.use('en');
   };
 
-  localStorage.initApp(function(result){});
+  globalDB.initApp(function(result){});
+
 }]);

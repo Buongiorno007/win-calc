@@ -2,9 +2,9 @@
 
 'use strict';
 
-BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'localStorage', 'globalData', '$cookieStore', function ($scope, $location, localStorage, globalData, $cookieStore) {
+BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'localDB', 'localStorage', function ($scope, $location, globalDB, localDB, localStorage) {
 
-  $scope.global = globalData;
+  $scope.global = localStorage;
 
   $scope.navMenu = {
     DELAY_SHOW_NAV_LIST: 5 * STEP,
@@ -17,17 +17,26 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'localStorage', 'g
     typing: 'on'
   };
 
-  if($cookieStore.get('totalProjectsQty')) {
-    $scope.global.ordersInCart = $cookieStore.get('totalProjectsQty');
-  } else {
-    localStorage.getOrdersCart(function (results) {
-      if (results.status) {
-        $scope.global.ordersInCart = results.data.ordersInCart;
-      } else {
-        console.log(results);
-      }
-    });
-  }
+
+  // Check Products in Order
+  localDB.selectAll(function (results) {
+    if (results.status) {
+      $scope.global.ordersInCart = results.data.length;
+      //$scope.$apply();
+    } else {
+      console.log(results);
+      /*
+       globalDB.getOrdersCart(function (results) {
+        if (results.status) {
+          $scope.global.ordersInCart = results.data.ordersInCart;
+        } else {
+          console.log(results);
+        }
+       });
+       */
+    }
+  });
+
 
   $scope.global.gotoMainPage = function () {
     $scope.global.isHistoryPage = false;

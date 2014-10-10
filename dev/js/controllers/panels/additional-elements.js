@@ -2,9 +2,9 @@
 
 'use strict';
 
-BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'globalData', 'constructService', '$timeout', function ($scope, globalData, constructService, $timeout) {
+BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'constructService', 'localStorage', '$timeout', function ($scope, constructService, localStorage, $timeout) {
 
-  $scope.global = globalData;
+  $scope.global = localStorage;
 
   $scope.addElementsPanel = {
     DELAY_START: STEP,
