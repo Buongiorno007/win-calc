@@ -62,7 +62,7 @@
         price
       .price-block.price-without-instalments(ng-class="{'active': !cartMenuData.activeInstalmentSwitcher}")
         .name(data-output="") {{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{ cartMenuData.newDeliveryDate }}
-        price
+        orderprice
       button.order-btn(ng-click="showCallOrderDialog()") {{ 'cart.ORDER' | translate }}
       button.measure-btn(ng-click="showCallMasterDialog()") {{ 'cart.MEASURE' | translate }}
 

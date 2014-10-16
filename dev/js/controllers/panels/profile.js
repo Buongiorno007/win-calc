@@ -15,19 +15,19 @@ BauVoiceApp.controller('ProfileCtrl', ['$scope', 'constructService', 'localStora
     typing: 'on'
   };
 
-  /*
+/*
   constructService.getAllProfileSystems(function (results) {
     if (results.status) {
       $scope.profilePanel.producers = results.data[0].folder;
       $scope.profilePanel.profiles = results.data[0].profiles;
-      //console.log($scope.profilePanel.profiles);
-      //console.log($scope.profilePanel.producers);
+      console.log($scope.profilePanel.profiles);
+      console.log($scope.profilePanel.producers);
       //$scope.$apply();
     } else {
       console.log(results);
     }
   });
-   */
+  */
   constructService.getAllProfiles(function (results) {
     if (results.status) {
       $scope.profilePanel.producers = results.data.producers;
@@ -45,7 +45,7 @@ BauVoiceApp.controller('ProfileCtrl', ['$scope', 'constructService', 'localStora
     var selectedProfile = $scope.profilePanel.profiles[producerId][profileId];
     //$scope.global.profileId = selectedProfile.profileId;
     $scope.global.profileName = selectedProfile.profileDescrip;
-    $scope.global.orderPrice += selectedProfile.profilePrice;
+    $scope.global.productPrice += selectedProfile.profilePrice;
   };
 
 }]);

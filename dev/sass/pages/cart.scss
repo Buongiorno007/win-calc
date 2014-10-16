@@ -113,6 +113,118 @@
     background-color: #f0f0f0;
     color: $main_gray_txt;
   }
+
+  // AddElements Detail Block
+  .addelements-detail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 512px;
+    background-color: #fff;
+    border-bottom-left-radius: $radius_order;
+    border-bottom-right-radius: $radius_order;
+    z-index: 10;
+  }
+  .addelements-detail-tools {
+    @include display-flex();
+    @include flex-flow(row nowrap);
+
+    height: 100px;
+  }
+  .addelements-detail-edit {
+    @extend .button;
+    @extend .icon-setting;
+    @include flex-grow(3);
+    @include roboto-lt(28px, 100px);
+    background-color: $main_green;
+    color: #fff;
+  }
+  .addelements-detail-close {
+    @extend .button;
+    @extend .icon-setting;
+    @include flex-grow(1);
+    background-color: $main_gray_btn;
+    &:after {
+      @include font-general-icon(40px, 1);
+      color: #fff;
+      content: $cross-icon;
+    }
+  }
+  .product-template {
+    padding: 50px;
+    border-bottom: 1px solid $main_gray_btn;
+  }
+  .product-template-icon {
+    margin-bottom: 20px;
+  }
+  .product-icon-thumb {
+    width: 200px;
+    margin-right: 10px;
+  }
+  .product-value {
+    @extend .order-value;
+  }
+  .product-icon-label,
+  .product-label {
+    @extend .order-label;
+  }
+  .product-icon-label {
+    max-width: 115px;
+    text-align: right;
+  }
+  .addelements-detail-row {
+    @include display-flex();
+    @include flex-flow(row wrap);
+    @include justify-content(space-between);
+    @include align-items(center);
+  }
+  .addelements-detail-content {
+    height: 740px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 30px 50px;
+  }
+  .addelements-detail-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .addelements-detail-item {
+    padding-top: 20px;
+    border-bottom: 1px solid $main_gray_btn;
+  }
+  .addelement-parameters {
+    @include display-flex();
+    @include flex-flow(row wrap);
+    @include justify-content(flex-start);
+    @include align-items(center);
+    margin: 20px 0;
+  }
+  .addelement-value {
+    @extend .order-value;
+    margin-right: 20px;
+
+    img {
+      width: 45px;
+    }
+  }
+  .addelement-label {
+    @extend .order-label;
+  }
+  .addelement-price-value {
+    @include roboto-bd(36px);
+
+    color: $main_gray_txt;
+    margin-right: 20px;
+  }
+  .price-one-product {
+    margin-top: 30px;
+  }
+  .addelements-detail-footer {
+    @extend .order-footer;
+    @extend .addelements-detail-row;
+    padding-right: 50px;
+  }
 }
 
 

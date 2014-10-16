@@ -3,25 +3,36 @@
 BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
 
   var dbName = 'localDB',
-      dbTableName = 'order',
+      tableOrder = 'order',
+      tableGrids = 'grids',
+      tableVisors = 'visors',
+      tableSpillways = 'spillways',
+      tableOutsideSlopes = 'outside_slopes',
+      tableLouvers = 'louvers',
+      tableInsideSlopes = 'inside_slopes',
+      tableConnectors = 'connectors',
+      tableFans = 'fans',
+      tableWindowSills = 'windowsills',
+      tableHandles = 'handles',
+      tableOthers = 'other_elements',
       db;
 
   db = $webSql.openDatabase(dbName, '1.0', 'Test DB', 65536);
-  db.createTable(dbTableName, {
+  db.createTable(tableOrder, {
 
     "id":{
       "type": "INTEGER",
-      "null": "NOT NULL", // default is "NULL" (if not defined)
-      "primary": true, // primary
-      "auto_increment": true // auto increment
+      "null": "NOT NULL",
+      "primary": true,
+      "auto_increment": true
     },
     "created":{
       "type": "TIMESTAMP",
       "null": "NOT NULL",
-      "default": "CURRENT_TIMESTAMP" // default value
+      "default": "CURRENT_TIMESTAMP"
     },
-    "productName":{
-      "type": "TEXT",
+    "productId":{
+      "type": "INTEGER",
       "null": "NOT NULL"
     },
     "productWidth":{
@@ -52,7 +63,95 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "type": "TEXT",
       "null": "NOT NULL"
     },
+    "productPrice":{
+      "type": "FLOAT",
+      "null": "NOT NULL"
+    },
     "productQty":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    }
+
+  });
+
+  db.createTable(tableVisors, {
+
+    "id":{
+      "type": "INTEGER",
+      "null": "NOT NULL",
+      "primary": true,
+      "auto_increment": true
+    },
+    "created":{
+      "type": "TIMESTAMP",
+      "null": "NOT NULL",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    "productId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementType":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementName":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementWidth":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementPrice":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementQty":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    }
+
+  });
+
+  db.createTable(tableWindowSills, {
+
+    "id":{
+      "type": "INTEGER",
+      "null": "NOT NULL",
+      "primary": true,
+      "auto_increment": true
+    },
+    "created":{
+      "type": "TIMESTAMP",
+      "null": "NOT NULL",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    "productId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementType":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementName":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementWidth":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementColor":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementPrice":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementQty":{
       "type": "INTEGER",
       "null": "NOT NULL"
     }
@@ -61,21 +160,21 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
 
   return {
 
-    deleteTable: function() {
-      db.dropTable(dbTableName).then(function(results) {
+    deleteTable: function(tableName) {
+      db.dropTable(tableName).then(function(results) {
         console.log(results);
       });
     },
 
-    insert: function(elem) {
-      db.insert(dbTableName, elem).then(function(results) {
+    insertDB: function(tableName, elem) {
+      db.insert(tableName, elem).then(function(results) {
         //console.log(results.insertId);
       });
     },
 
-    select: function(options, callback) {
+    selectDB: function(tableName, options, callback) {
       var handler = [];
-      db.select(dbTableName, options).then(function(results) {
+      db.select(tableName, options).then(function(results) {
         if (results.rows.length) {
           for(var i = 0; i < results.rows.length; i++) {
             handler.push(results.rows.item(i));
@@ -87,9 +186,9 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       });
     },
 
-    selectAll: function(callback) {
+    selectAllDB: function(tableName, callback) {
       var handler = [];
-      db.selectAll(dbTableName).then(function(results) {
+      db.selectAll(tableName).then(function(results) {
         if (results.rows.length) {
           for(var i = 0; i < results.rows.length; i++) {
             handler.push(results.rows.item(i));
@@ -98,6 +197,18 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
         } else {
           callback(new ErrorResult(1, 'No in database!'));
         }
+      });
+    },
+
+    deleteDB: function(tableName, options) {
+      db.del(tableName, options).then(function(results) {
+        console.log(results);
+      });
+    },
+
+    updateDB: function(tableName, elem, options) {
+      db.update(tableName, elem, options).then(function(results) {
+        console.log(results);
       });
     }
 

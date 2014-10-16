@@ -62,7 +62,8 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
       $scope.global.isAddElement = typeId+'-'+elementId;
 
       sourceAddElement = $scope.global.addElementsList[typeId][elementId];
-      cloneAddElement = $.extend(true, {}, sourceAddElement);
+      cloneAddElement = angular.copy(sourceAddElement);
+      //cloneAddElement = $.extend(true, {}, sourceAddElement);
 
       // Show element price
       $scope.addElementsMenu.isAddElementPrice = true;

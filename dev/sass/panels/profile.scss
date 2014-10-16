@@ -24,10 +24,10 @@
     right: 35px;
   }
   .profile-descr {
+    @extend .truncated;
     @include roboto-md(36px);
 
     margin: 30px 0;
-    word-wrap: break-word;
     color: $main_gray_txt;
   }
   .profile-country {

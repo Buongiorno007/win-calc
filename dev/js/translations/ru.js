@@ -97,7 +97,9 @@ window.russianDictionary = {
     INPUT_ADD_ELEMENT: 'Добавить компонент',
     CANCEL: 'Отмена',
     TOTAL_PRICE_TXT: 'Итого дополнительных компонентов на сумму:',
-    ELEMENTS: 'компонентов'
+    ELEMENTS: 'компонентов',
+    ELEMENT: 'компонент',
+    ELEMENTA: 'компонента'
   },
   add_elements_menu: {
     TIP: 'Выберите элемент из списка',
@@ -168,7 +170,9 @@ window.russianDictionary = {
     CLIENT_ITN: 'Iндивiдуальний податковий номер',
     CALL_START_TIME: 'Дзвонити вiд:',
     CALL_END_TIME: 'до:',
-    CALL_CREDIT_PARTIAL_PRICE: 'по'
+    CALL_CREDIT_PARTIAL_PRICE: 'по',
+    ADDELEMENTS_EDIT_LIST: 'Редактировать список',
+    ADDELEMENTS_PRODUCT_COST: 'в одном изделии'
   },
   settings: {
     AUTHORIZATION: 'Авторизация:',

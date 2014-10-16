@@ -30,7 +30,7 @@ BauVoiceApp.controller('LaminationCtrl', ['$scope', 'constructService', 'localSt
     $scope.laminationPanel.isSelectedLaminatInner = laminatId;
     if(laminatId !== 'white') {
       $scope.global.lamination.inner = $scope.laminationPanel.laminatIn[laminatId].laminationName;
-      $scope.global.orderPrice += $scope.laminationPanel.laminatIn[laminatId].laminationPrice;
+      $scope.global.productPrice += $scope.laminationPanel.laminatIn[laminatId].laminationPrice;
     } else {
       $scope.global.lamination.inner =  $scope.laminationPanel.laminatWhite;
     }
@@ -40,7 +40,7 @@ BauVoiceApp.controller('LaminationCtrl', ['$scope', 'constructService', 'localSt
     $scope.laminationPanel.isSelectedLaminatOuter = laminatId;
     if(laminatId !== 'white') {
       $scope.global.lamination.outer = $scope.laminationPanel.laminatOut[laminatId].laminationName;
-      $scope.global.orderPrice += $scope.laminationPanel.laminatOut[laminatId].laminationPrice;
+      $scope.global.productPrice += $scope.laminationPanel.laminatOut[laminatId].laminationPrice;
     } else {
       $scope.global.lamination.outer =  $scope.laminationPanel.laminatWhite;
     }

@@ -19,23 +19,32 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'local
 
 
   // Check Products in Order
-  localDB.selectAll(function (results) {
-    if (results.status) {
-      $scope.global.ordersInCart = results.data.length;
-      //$scope.$apply();
-    } else {
-      console.log(results);
-      /*
-       globalDB.getOrdersCart(function (results) {
+//  if($scope.global.order && $scope.global.order.length > 0) {
+//    $scope.global.ordersInCart = $scope.global.order.length;
+//  } else {
+    try {
+
+      localDB.selectAllDB($scope.global.orderTableBD, function (results) {
         if (results.status) {
-          $scope.global.ordersInCart = results.data.ordersInCart;
+          $scope.global.ordersInCart = results.data.length;
         } else {
           console.log(results);
         }
+      });
+
+    } catch(e) {
+
+       globalDB.getOrdersCart(function (results) {
+         if (results.status) {
+          $scope.global.ordersInCart = results.data.ordersInCart;
+         } else {
+          console.log(results);
+         }
        });
-       */
+
     }
-  });
+//  }
+
 
 
   $scope.global.gotoMainPage = function () {

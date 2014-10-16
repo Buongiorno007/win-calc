@@ -253,6 +253,7 @@ BauVoiceApp.factory('constructService', function () {
           [
             {
               elementId: 1,
+              elementType: 'Стандартные',
               elementName: 'КO-200, оцинкованный',
               elementWidth: 1500,
               elementQty: 1,
@@ -260,6 +261,7 @@ BauVoiceApp.factory('constructService', function () {
             },
             {
               elementId: 2,
+              elementType: 'Стандартные',
               elementName: 'КO-300, оцинкованный',
               elementWidth: 1500,
               elementQty: 1,
@@ -267,6 +269,7 @@ BauVoiceApp.factory('constructService', function () {
             },
             {
               elementId: 3,
+              elementType: 'Стандартные',
               elementName: 'КO-300, оцинкованный',
               elementWidth: 1500,
               elementQty: 1,
@@ -276,6 +279,7 @@ BauVoiceApp.factory('constructService', function () {
           [
             {
               elementId: 1,
+              elementType: 'оцинкованный',
               elementName: 'КO-300, оцинкованный',
               elementWidth: 1500,
               elementQty: 1,
@@ -283,6 +287,7 @@ BauVoiceApp.factory('constructService', function () {
             },
             {
               elementId: 2,
+              elementType: 'оцинкованный',
               elementName: 'КO-300, оцинкованный',
               elementWidth: 1500,
               elementQty: 1,
@@ -292,6 +297,7 @@ BauVoiceApp.factory('constructService', function () {
           [
             {
               elementId: 1,
+              elementType: 'Матовые',
               elementName: 'КO-300, оцинкованный',
               elementWidth: 1500,
               elementQty: 1,
@@ -299,6 +305,7 @@ BauVoiceApp.factory('constructService', function () {
             },
             {
               elementId: 2,
+              elementType: 'Матовые',
               elementName: 'КO-300, оцинкованный',
               elementWidth: 1500,
               elementQty: 1,
@@ -306,6 +313,7 @@ BauVoiceApp.factory('constructService', function () {
             },
             {
               elementId: 3,
+              elementType: 'Матовые',
               elementName: 'КO-300, оцинкованный',
               elementWidth: 1500,
               elementQty: 1,
@@ -313,6 +321,7 @@ BauVoiceApp.factory('constructService', function () {
             },
             {
               elementId: 4,
+              elementType: 'Матовые',
               elementName: 'КO-300, оцинкованный',
               elementWidth: 1500,
               elementQty: 1,
@@ -336,6 +345,7 @@ BauVoiceApp.factory('constructService', function () {
           [
             {
               elementId: 1,
+              elementType: 'Матовые',
               elementName: 'КO-200, оцинкованный',
               elementWidth: 1500,
               elementHeight: 1500,
@@ -346,6 +356,7 @@ BauVoiceApp.factory('constructService', function () {
             },
             {
               elementId: 2,
+              elementType: 'Матовые',
               elementName: 'КO-300, оцинкованный',
               elementWidth: 1500,
               elementHeight: 1500,
@@ -356,6 +367,7 @@ BauVoiceApp.factory('constructService', function () {
             },
             {
               elementId: 3,
+              elementType: 'Матовые',
               elementName: 'КO-300, оцинкованный',
               elementWidth: 1500,
               elementHeight: 1500,
@@ -368,6 +380,7 @@ BauVoiceApp.factory('constructService', function () {
           [
             {
               elementId: 1,
+              elementType: 'Матовые',
               elementName: 'КO-300, оцинкованный',
               elementWidth: 1500,
               elementHeight: 1500,
@@ -378,6 +391,7 @@ BauVoiceApp.factory('constructService', function () {
             },
             {
               elementId: 2,
+              elementType: 'Матовые',
               elementName: 'КO-300, оцинкованный',
               elementWidth: 1500,
               elementHeight: 1500,
@@ -390,6 +404,7 @@ BauVoiceApp.factory('constructService', function () {
           [
             {
               elementId: 1,
+              elementType: 'Матовые',
               elementName: 'КO-300, оцинкованный',
               elementWidth: 1500,
               elementHeight: 1500,
@@ -400,6 +415,7 @@ BauVoiceApp.factory('constructService', function () {
             },
             {
               elementId: 2,
+              elementType: 'Матовые',
               elementName: 'КO-300, оцинкованный',
               elementWidth: 1500,
               elementHeight: 1500,
@@ -410,6 +426,7 @@ BauVoiceApp.factory('constructService', function () {
             },
             {
               elementId: 3,
+              elementType: 'Матовые',
               elementName: 'КO-300, оцинкованный',
               elementWidth: 1500,
               elementHeight: 1500,
@@ -420,6 +437,7 @@ BauVoiceApp.factory('constructService', function () {
             },
             {
               elementId: 4,
+              elementType: 'Матовые',
               elementName: 'КO-300, оцинкованный',
               elementWidth: 1500,
               elementHeight: 1500,

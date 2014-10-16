@@ -187,44 +187,27 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       delete $scope.global.showPanels[item];
     }
   }
-  /*
-  $scope.changePrice = function (price) {
-    $scope.price = price;
-  };
-  */
 
 
   // Save Product in Order and enter in Cart
   $scope.inputOrderInCart = function() {
-
-    //localDB.deleteTable();
-
-    var productQtyValue,
-        productData,
-        addElementsObj = $scope.global.chosenAddElements,
-        addElementsString;
+/*
+    localDB.deleteTable($scope.global.orderTableBD);
+    localDB.deleteTable($scope.global.visorsTableBD);
+    localDB.deleteTable($scope.global.windowSillsTableBD);
+*/
+    var productData,
+        addElementsData,
+        addElementsObj = $scope.global.chosenAddElements;
 
     if($scope.global.ordersInCart) {
-      productQtyValue = ++$scope.global.ordersInCart;
+      ++$scope.global.ordersInCart;
     } else {
-      productQtyValue = 1;
+      $scope.global.ordersInCart = 1;
     }
-/*
-    if(addElementsObj) {
-      for(var prop in addElementsObj) {
-        if (!addElementsObj.hasOwnProperty(prop)) continue
-        for (var element = 0; element < addElementsObj.prop.length; prop++) {
-          addElementsString += addElementsObj.prop[element].toString();
-        }
-      }
-      console.log($scope.global.chosenAddElements);
-      console.log(addElementsString);
-    } else {
-      addElementsString = false;
-    }
-*/
+
     productData = {
-      "productName": 'window',
+      "productId": $scope.global.ordersInCart,
       "productWidth": $scope.global.constructionSize.width,
       "productHeight": $scope.global.constructionSize.height,
       "profileName": $scope.global.profileName,
@@ -232,15 +215,55 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       "hardwareName": $scope.global.hardwareName,
       "laminationNameOut": $scope.global.lamination.outer,
       "laminationNameIn": $scope.global.lamination.inner,
-      //"addElements": addElementsString,
+      "productPrice": $scope.global.productPrice,
       "productQty": 1
     };
 
-    localDB.insert(productData);
 
+    for(var prop in addElementsObj) {
+      if (!addElementsObj.hasOwnProperty(prop)) {
+        continue;
+      }
+      for (var elem = 0; elem < addElementsObj[prop].length; elem++) {
+
+        switch (prop) {
+          case 'selectedVisors':
+            addElementsData = {
+              "productId": $scope.global.ordersInCart,
+              "elementType": addElementsObj[prop][elem].elementType,
+              "elementName": addElementsObj[prop][elem].elementName,
+              "elementQty": addElementsObj[prop][elem].elementQty,
+              "elementWidth": addElementsObj[prop][elem].elementWidth,
+              "elementPrice": addElementsObj[prop][elem].elementPrice
+            };
+            localDB.insertDB($scope.global.visorsTableBD, addElementsData);
+            break;
+
+          case 'selectedWindowSill':
+            addElementsData = {
+              "productId": $scope.global.ordersInCart,
+              "elementType": addElementsObj[prop][elem].elementType,
+              "elementName": addElementsObj[prop][elem].elementName,
+              "elementQty": addElementsObj[prop][elem].elementQty,
+              "elementWidth": addElementsObj[prop][elem].elementWidth,
+              "elementColor": addElementsObj[prop][elem].elementColor,
+              "elementPrice": addElementsObj[prop][elem].elementPrice
+            };
+            localDB.insertDB($scope.global.windowSillsTableBD, addElementsData);
+            break;
+
+        }
+      }
+    }
+
+    //console.log(productData);
+
+    localDB.insertDB($scope.global.orderTableBD, productData);
+///*
     $timeout(function(){
       $scope.global.gotoCartPage();
     }, 2*STEP);
+//*/
   }
 
 }]);

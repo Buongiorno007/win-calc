@@ -55,13 +55,28 @@ BauVoiceApp.factory('localStorage', function () {
     isAddElementListView: false,
     totalAddElementsPrice: 0,
     currency: '₴',
-    cartPrice: '0',
+    //cartPrice: '0',
+    orderPrice: 0,
     showMasterDialog: false,
     showOrderDialog: false,
     showCreditDialog: false,
     doorConstructionPage: false,
     showRoomSelectorDialog: false,
     isRoomsDialog: false,
-    currentRoomId: 4
+    currentRoomId: 4,
+
+    orderTableBD: 'order',
+    gridsTableBD: 'grids',
+    visorsTableBD: 'visors',
+    spillwaysTableBD: 'spillways',
+    outSlopesTableBD: 'outside_slopes',
+    louversTableBD: 'louvers',
+    inSlopesTableBD: 'inside_slopes',
+    connectorsTableBD: 'connectors',
+    fansTableBD: 'fans',
+    windowSillsTableBD: 'windowsills',
+    handlesTableBD: 'handles',
+    othersTableBD: 'other_elements'
+
   }
 });
