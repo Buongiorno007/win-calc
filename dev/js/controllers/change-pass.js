@@ -2,7 +2,9 @@
 
 'use strict';
 
-BauVoiceApp.controller('ChangePassCtrl', ['$scope', 'globalDB', '$location', function ($scope, globalDB, $location) {
+BauVoiceApp.controller('ChangePassCtrl', ['$scope', 'globalDB', 'localStorage', function ($scope, globalDB, localStorage) {
+
+  $scope.global = localStorage;
 
   $scope.password = {
     DELAY_START: STEP,
@@ -19,17 +21,13 @@ BauVoiceApp.controller('ChangePassCtrl', ['$scope', 'globalDB', '$location', fun
     }
   });
 
-  $scope.gotoSettingsPage = function() {
-    $location.path('/settings');
-  };
-
   $scope.saveNewPassword = function() {
     if($scope.password.newPassword !== $scope.password.confirmPassword) {
       $scope.password.isErrorPassword = true;
     } else {
       $scope.password.isErrorPassword = false;
     }
-    if($scope.password.newPassword == '' && $scope.password.confirmPassword == '') {
+    if($scope.password.newPassword === '' && $scope.password.confirmPassword === '') {
       $scope.password.isErrorPassword = true;
     }
   };

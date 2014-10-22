@@ -91,6 +91,10 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "type": "INTEGER",
       "null": "NOT NULL"
     },
+    "elementId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
     "elementType":{
       "type": "TEXT",
       "null": "NOT NULL"
@@ -128,6 +132,10 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "default": "CURRENT_TIMESTAMP"
     },
     "productId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementId":{
       "type": "INTEGER",
       "null": "NOT NULL"
     },

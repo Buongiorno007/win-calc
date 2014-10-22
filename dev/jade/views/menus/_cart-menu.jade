@@ -49,8 +49,8 @@
       .dropdown-cart-menu.drop-calendar(ng-class="{'active': cartMenuData.activeMenuItem==4}")
         calendar.calendar-box
       .calendar-prices
-        .calendar-price.up(ng-show="cartMenuData.datePriceLess") {{ cartMenuData.deliveryPriceLess }}
-        .calendar-price.down(ng-show="cartMenuData.datePriceMore") {{ cartMenuData.deliveryPriceMore }}
+        .calendar-price.up(ng-show="cartMenuData.datePriceLess") {{ cartMenuData.deliveryPriceLess }} {{ global.currency }}
+        .calendar-price.down(ng-show="cartMenuData.datePriceMore") {{ cartMenuData.deliveryPriceMore }} {{ global.currency }}
 
 
     footer.menu-footer

@@ -1,6 +1,6 @@
 section.settings.password-page
   .header
-    button.back(ng-click="gotoSettingsPage()")
+    button.back(ng-click="global.gotoSettingsPage()")
     .title(data-output="{{ 'settings.CHANGE_PASSWORD' | translate }}", typing="{{ password.typing }}", typing-delay="{{ password.DELAY_START }}")
     button.save(ng-click="saveNewPassword()") {{ 'settings.SAVE' | translate }}
 

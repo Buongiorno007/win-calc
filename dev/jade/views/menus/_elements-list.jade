@@ -86,7 +86,7 @@
   // Tabs Grids
   .menu-right-tabs(ng-if="global.isFocusedAddElement === 1")
     .tab-block.simple-frame
-      button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedGrids.length < 2}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedGrids.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
     .tab-block.hard-frame(ng-class="{'active': global.isTabFrame}")
       button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedGrids.length > 1}", ng-click="showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
       .tab-content-empty(ng-if="global.chosenAddElements.selectedGrids.length === 0")
@@ -99,7 +99,7 @@
   // Tabs Visors
   .menu-right-tabs(ng-if="global.isFocusedAddElement === 2")
     .tab-block.simple-frame
-      button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedVisors.length < 2}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedVisors.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
     .tab-block.hard-frame(ng-class="{'active': global.isTabFrame}")
       button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedVisors.length > 1}", ng-click="showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
       .tab-content-empty(ng-if="global.chosenAddElements.selectedVisors.length === 0")
@@ -120,7 +120,7 @@
   // Tabs Spillways
   .menu-right-tabs(ng-if="global.isFocusedAddElement === 3")
     .tab-block.simple-frame
-      button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedSpillways.length < 2}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedSpillways.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
     .tab-block.hard-frame(ng-class="{'active': global.isTabFrame}")
       button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedSpillways.length > 1}", ng-click="showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
       .tab-content-empty(ng-if="global.chosenAddElements.selectedSpillways.length === 0")
@@ -141,7 +141,7 @@
   // Tabs OutsideSlope
   .menu-right-tabs(ng-if="global.isFocusedAddElement === 4")
     .tab-block.simple-frame
-      button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedOutsideSlope.length < 2}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedOutsideSlope.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
     .tab-block.hard-frame(ng-class="{'active': global.isTabFrame}")
       button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedOutsideSlope.length > 1}", ng-click="showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
       .tab-content-empty(ng-if="global.chosenAddElements.selectedOutsideSlope.length === 0")
@@ -154,7 +154,7 @@
   // Tabs Louvers
   .menu-right-tabs(ng-if="global.isFocusedAddElement === 5")
     .tab-block.simple-frame
-      button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedLouvers.length < 2}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedLouvers.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
     .tab-block.hard-frame(ng-class="{'active': global.isTabFrame}")
       button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedLouvers.length > 1}", ng-click="showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
       .tab-content-empty(ng-if="global.chosenAddElements.selectedLouvers.length === 0")
@@ -178,7 +178,7 @@
   // Tabs InsideSlope
   .menu-right-tabs(ng-if="global.isFocusedAddElement === 6")
     .tab-block.simple-frame
-      button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedInsideSlope.length < 2}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedInsideSlope.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
     .tab-block.hard-frame(ng-class="{'active': global.isTabFrame}")
       button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedInsideSlope.length > 1}", ng-click="showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
       .tab-content-empty(ng-if="global.chosenAddElements.selectedInsideSlope.length === 0")
@@ -191,7 +191,7 @@
   // Tabs Connectors
   .menu-right-tabs(ng-if="global.isFocusedAddElement === 7")
     .tab-block.simple-frame
-      button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedConnectors.length < 2}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedConnectors.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
     .tab-block.hard-frame(ng-class="{'active': global.isTabFrame}")
       button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedConnectors.length > 1}", ng-click="showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
       .tab-content-empty(ng-if="global.chosenAddElements.selectedConnectors.length === 0")
@@ -206,7 +206,7 @@
   // Tabs Fans
   .menu-right-tabs(ng-if="global.isFocusedAddElement === 8")
     .tab-block.simple-frame
-      button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedFans.length < 2}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedFans.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
     .tab-block.hard-frame(ng-class="{'active': global.isTabFrame}")
       button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedFans.length > 1}", ng-click="showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
       .tab-content-empty(ng-if="global.chosenAddElements.selectedFans.length === 0")
@@ -220,7 +220,7 @@
   // Tabs WindowSill
   .menu-right-tabs(ng-if="global.isFocusedAddElement === 9")
     .tab-block.simple-frame
-      button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedWindowSill.length < 2}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedWindowSill.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
     .tab-block.hard-frame(ng-class="{'active': global.isTabFrame}")
       button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedWindowSill.length > 1}", ng-click="showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
       .tab-content-empty(ng-if="global.chosenAddElements.selectedWindowSill.length === 0")
@@ -245,7 +245,7 @@
   // Tabs Handles
   .menu-right-tabs(ng-if="global.isFocusedAddElement === 10")
     .tab-block.simple-frame
-      button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedHandles.length < 2}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedHandles.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
     .tab-block.hard-frame(ng-class="{'active': global.isTabFrame}")
       button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedHandles.length > 1}", ng-click="showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
       .tab-content-empty(ng-if="global.chosenAddElements.selectedHandles.length === 0")
@@ -263,7 +263,7 @@
   // Tabs Others
   .menu-right-tabs(ng-if="global.isFocusedAddElement === 11")
     .tab-block.simple-frame
-      button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedOthers.length < 2}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedOthers.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
     .tab-block.hard-frame(ng-class="{'active': global.isTabFrame}")
       button.frame-tab(ng-class="{'active': global.chosenAddElements.selectedOthers.length > 1}", ng-click="showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
       .tab-content-empty(ng-if="global.chosenAddElements.selectedOthers.length === 0")

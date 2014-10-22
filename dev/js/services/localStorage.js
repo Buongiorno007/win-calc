@@ -2,18 +2,7 @@
 
 BauVoiceApp.factory('localStorage', function () {
   return {
-    constructThumb: '',
-    constructionSize: {
-      width: '',
-      height: ''
-    },
-    profileName: '',
-    glassName: '',
-    hardwareName: '',
-    lamination: {
-      outer: '',
-      inner: ''
-    },
+    product: {},
     chosenAddElements: {
       selectedGrids: [],
       selectedVisors: [],
@@ -27,7 +16,9 @@ BauVoiceApp.factory('localStorage', function () {
       selectedHandles: [],
       selectedOthers: []
     },
-    productPrice: 0,
+
+    productCounter: 0,
+    productEditNumber: 0,
 
     showNavMenu: true,
     isConfigMenu: false,

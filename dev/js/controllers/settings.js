@@ -64,4 +64,12 @@ BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalDB', 'localStorage', '$
     $location.path('/change-pass');
   };
 
+  $scope.global.gotoSettingsPage = function() {
+    $location.path('/settings');
+  };
+
+  $scope.logOut = function() {
+    $location.path('/login');
+  };
+
 }]);

@@ -84,6 +84,8 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'local
   };
 
   $scope.createNewProject = function() {
+    $scope.global.productEditNumber = false;
+    $scope.global.checkIsEditProduct();
     $scope.navMenu.activeMenuItem = false;
     $scope.global.showNavMenu = false;
     $scope.global.isConfigMenu = true;

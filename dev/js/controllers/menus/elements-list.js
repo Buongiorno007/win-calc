@@ -73,36 +73,47 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
 
       switch($scope.global.isFocusedAddElement) {
         case 1:
+          cloneAddElement.elementId = 1;
           $scope.global.chosenAddElements.selectedGrids.push(cloneAddElement);
           break;
         case 2:
+          cloneAddElement.elementId = 2;
           $scope.global.chosenAddElements.selectedVisors.push(cloneAddElement);
           break;
         case 3:
+          cloneAddElement.elementId = 3;
           $scope.global.chosenAddElements.selectedSpillways.push(cloneAddElement);
           break;
         case 4:
+          cloneAddElement.elementId = 4;
           $scope.global.chosenAddElements.selectedOutsideSlope.push(cloneAddElement);
           break;
         case 5:
+          cloneAddElement.elementId = 5;
           $scope.global.chosenAddElements.selectedLouvers.push(cloneAddElement);
           break;
         case 6:
+          cloneAddElement.elementId = 6;
           $scope.global.chosenAddElements.selectedInsideSlope.push(cloneAddElement);
           break;
         case 7:
+          cloneAddElement.elementId = 7;
           $scope.global.chosenAddElements.selectedConnectors.push(cloneAddElement);
           break;
         case 8:
+          cloneAddElement.elementId = 8;
           $scope.global.chosenAddElements.selectedFans.push(cloneAddElement);
           break;
         case 9:
+          cloneAddElement.elementId = 9;
           $scope.global.chosenAddElements.selectedWindowSill.push(cloneAddElement);
           break;
         case 10:
+          cloneAddElement.elementId = 10;
           $scope.global.chosenAddElements.selectedHandles.push(cloneAddElement);
           break;
         case 11:
+          cloneAddElement.elementId = 11;
           $scope.global.chosenAddElements.selectedOthers.push(cloneAddElement);
           break;
       }

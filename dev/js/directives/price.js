@@ -6,7 +6,7 @@ BauVoiceApp.directive('productprice', function () {
     restrict: 'E',
     replace: true,
     template:
-      '<div class="price clearfix" data-output="global.productPrice">' +
+      '<div class="price clearfix" data-output="global.product.productPrice">' +
         '<div id="price" class="price-value">' +
           '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
           '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +

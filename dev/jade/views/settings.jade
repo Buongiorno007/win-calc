@@ -58,6 +58,6 @@ section.settings.setting-page(ng-controller="SettingsCtrl")
         li.item.click
           .setting-item-data(data-output="{{ 'settings.CLIENT_SUPPORT' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           .setting-item-change
-        li.item.click
+        li.item.click(ng-click="logOut()")
           .setting-item-data(data-output="{{ 'settings.LOGOUT' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           .setting-item-change

@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP */
+/* globals BauVoiceApp */
 
 'use strict';
 
@@ -50,7 +50,7 @@ BauVoiceApp.controller('LocationCtrl', ['$scope', 'globalDB', 'constructService'
 
   // Select City
   $scope.selectCity = function() {
-    $scope.global.gotoMainPage();
+    $scope.global.gotoSettingsPage();
   };
 
 }]);
