@@ -1,8 +1,8 @@
-/* globals BauVoiceApp, STEP, typingTextByChar */
+/* globals BauVoiceApp, STEP, typingTextByChar, Template */
 
 'use strict';
 
-BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'localStorage', 'constructService', '$timeout', function ($scope, globalDB, localDB, localStorage, constructService,  $timeout) {
+BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'localStorage', 'constructService', '$timeout', '$q', function ($scope, globalDB, localDB, localStorage, constructService,  $timeout, $q) {
 
   $scope.global = localStorage;
 
@@ -15,6 +15,16 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   };
 
 
+  var templateObjXPrice = {
+    cityId: $scope.global.userGeoLocationId,
+    profileId: '',
+    glassId: '',
+    frames: [],
+    sashs: [],
+    beads: [],
+    imposts: [],
+    shtulps: []
+  };
 /*
   $scope.dubleTyping = function() {
     $timeout(function() {
@@ -28,7 +38,6 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     },  $scope.configMenu.DELAY_TYPE_ITEM_TITLE);
   };
 */
-
 
   //------ Check Product Edit
   $scope.global.checkIsEditProduct = function () {
@@ -87,6 +96,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
     } else {
 
+
+
       constructService.getConstructThumb(function (results) {
         if (results.status) {
           $scope.global.product.constructThumb = results.data.url;
@@ -95,26 +106,181 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
         }
       });
 
-      constructService.getConstructSize(function (results) {
-        if (results.status) {
-          $scope.global.product.constructionWidth = results.data.width;
-          $scope.global.product.constructionHeight = results.data.height;
+
+      //----------- get all profiles
+      $scope.downloadAllProfiles = function(results) {
+          if (results) {
+            $scope.global.product.producers = results[0].folder;
+            $scope.global.product.profiles = results[0].profiles;
+            $scope.global.product.profileId = $scope.global.product.profiles[0].id;
+            $scope.global.product.profileName = $scope.global.product.profiles[0].name;
+
+            //console.log($scope.global.product.producers);
+            //console.log($scope.global.product.profiles);
+
+            templateObjXPrice.profileId = $scope.global.product.profileId;
+            templateObjXPrice.cityId = $scope.global.userGeoLocationId;
+
+          } else {
+            console.log(results);
+          }
+      };
+
+      //---------- get element section sizes as to profile
+      $scope.downloadProfileElementSizes = function(results, type) {
+        if(results) {
+          switch(type) {
+            case 'frame': $scope.global.allProfileFrameSizes = angular.copy(results);
+              break;
+            case 'frame-still': $scope.global.allProfileFrameStillSizes = angular.copy(results);
+              break;
+            case 'sash': $scope.global.allProfileSashSizes = angular.copy(results);
+              break;
+            case 'impost': $scope.global.allProfileImpostSizes = angular.copy(results);
+              break;
+            case 'shtulp': $scope.global.allProfileShtulpSizes = angular.copy(results);
+              break;
+          }
         } else {
           console.log(results);
         }
+      };
+
+
+      //-------- get default json template
+      $scope.downloadDefaultTemplate = function() {
+          constructService.getDefaultConstructTemplate(function (results) {
+          if (results.status) {
+
+            $scope.templateSource1 = results.data;
+
+            // парсинг шаблона, расчет размеров
+            //var depth = frameSize[0].c;
+            var depth = 44;
+            console.log('c = ' + $scope.global.allProfileFrameSizes[0].c);
+            var templateDefault = new Template($scope.templateSource1, depth);
+            //console.log(JSON.stringify(templateDefault));
+            console.log(templateDefault);
+
+            // создание объекта для отправки в базу, чтобы рассчитать цену шаблона
+            for (var item = 0; item < templateDefault.objects.length; item++) {
+              //var element = {};
+              var elementSize;
+              if (templateDefault.objects[item].type) {
+                switch (templateDefault.objects[item].type) {
+                  case 'frame_line':
+                    elementSize = templateDefault.objects[item].lengthVal;
+                    templateObjXPrice.frames.push(elementSize);
+                    break;
+                  case 'sash_line':
+                    elementSize = templateDefault.objects[item].lengthVal;
+                    templateObjXPrice.sashs.push(elementSize);
+                    break;
+                  case 'bead_box_line':
+                    elementSize = templateDefault.objects[item].lengthVal;
+                    templateObjXPrice.beads.push(elementSize);
+                    break;
+                }
+              }
+            }
+            console.log(templateObjXPrice);
+            //console.log(JSON.stringify(templateObjXPrice));
+
+            // габариты шаблона
+            $scope.global.product.constructionWidth = templateObjXPrice.frames[0];
+            $scope.global.product.constructionHeight = templateObjXPrice.frames[1];
+
+          } else {
+            console.log(results);
+          }
+        });
+      };
+
+
+
+
+      constructService.getAllProfileSystems().then(function (data) {
+          $scope.downloadAllProfiles(data);
+        }).then(function () {
+
+          var ramaQueries = [],
+              sashQueries = [],
+              ramaStillQueries = [],
+              impostQueries = [],
+              shtulpQueries = [],
+              k;
+
+          for(k = 0; k < $scope.global.product.profiles.length; k++) {
+            ramaQueries.push(constructService.getAllProfileSizes($scope.global.product.profiles[k].rama_id));
+            ramaStillQueries.push(constructService.getAllProfileSizes($scope.global.product.profiles[k].rama_still_id));
+            sashQueries.push(constructService.getAllProfileSizes($scope.global.product.profiles[k].sash_id));
+            impostQueries.push(constructService.getAllProfileSizes($scope.global.product.profiles[k].impost_id));
+            shtulpQueries.push(constructService.getAllProfileSizes($scope.global.product.profiles[k].shtulp_id));
+          }
+
+          $q.all(ramaQueries).then(function (data) {
+            $scope.downloadProfileElementSizes(data, 'frame');
+          });
+          $q.all(ramaStillQueries).then(function (data) {
+            $scope.downloadProfileElementSizes(data, 'frame-still');
+          });
+          $q.all(sashQueries).then(function (data) {
+            $scope.downloadProfileElementSizes(data, 'sash');
+          });
+          $q.all(impostQueries).then(function (data) {
+            $scope.downloadProfileElementSizes(data, 'impost');
+          });
+          $q.all(shtulpQueries).then(function (data) {
+            $scope.downloadProfileElementSizes(data, 'shtulp');
+          }).then(function () {
+            $scope.downloadDefaultTemplate();
+          });
       });
 
-      constructService.getProfileSystem(function (results) {
-        if (results.status) {
-          $scope.global.product.profileName = results.data.name;
-        } else {
-          console.log(results);
-        }
-      });
+
+/*
+      var deferred = new Deferred();
+      //Deferred.define();
+      deferred.next(function () {
+          console.log("Profiles");
+          return constructService.getAllProfileSystems().next(function (data) {
+            $scope.downloadAllProfilesData(data);
+          });
+          //return wait(1);
+        }).next(function () {
+          console.log("a, b, c");
+          console.log($scope.global.product.profiles[0].rama_id);
+          //if ($scope.global.product.profiles[0].rama_id) {
+        return constructService.getAllProfileSizes($scope.global.product.profiles[0].rama_id).next(function (data) {
+              $scope.downloadProfileSectionSize(data);
+            });
+          //}
+
+        //return localDB.selectDBGlobal('lists', {'id': $scope.global.product.profiles[0].rama_id}).next(function (data) {
+        //  $scope.downloadProfileSectionSize(data);
+       // });
+
+        })*/
+        /*.loop($scope.global.product.profiles.length, function (i) {
+          if ($scope.global.product.profiles[i].rama_id) {
+            return localDB.selectDBGlobal('lists', {'id': $scope.global.product.profiles[i].rama_id}).next(function (data) {
+              $scope.downloadProfileSectionSize(data);
+            });
+          }
+        })*//*
+        .next(function () {
+          console.log("template");
+          $scope.downloadDefaultTemplate();
+        });
+      deferred.call();
+*/
+
 
       constructService.getGlass(function (results) {
         if (results.status) {
+          $scope.global.product.glassId = results.data.id;
           $scope.global.product.glassName = results.data.name;
+          templateObjXPrice.glassId = $scope.global.product.glassId;
         } else {
           console.log(results);
         }
@@ -136,6 +302,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
           console.log(results);
         }
       });
+
+
 
       // Clear All AddElements in localStorage
       for (var prop in $scope.global.chosenAddElements) {
@@ -192,6 +360,12 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
        }
        });
        */
+
+      //
+
+
+
+
     }
   };
 

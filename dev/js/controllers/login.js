@@ -34,5 +34,6 @@ BauVoiceApp.controller('LoginCtrl', ['$scope', '$location', '$translate', 'globa
   };
 
   globalDB.initApp(function(result){});
+  //globalDB.clearDb(function(result){});
 
 }]);

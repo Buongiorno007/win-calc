@@ -1,12 +1,16 @@
 /* STEP */
 'use strict';
 
-BauVoiceApp.directive('productprice', function () {
+BauVoiceApp.directive('price', function () {
   return {
     restrict: 'E',
     replace: true,
+    scope: {
+      priceValue: '=',
+      priceCurrency: '='
+    },
     template:
-      '<div class="price clearfix" data-output="global.product.productPrice">' +
+      '<div class="price clearfix" data-output="priceValue">' +
         '<div id="price" class="price-value">' +
           '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
           '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
@@ -20,38 +24,7 @@ BauVoiceApp.directive('productprice', function () {
           '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
           '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
         '</div>' +
-        '<div id="currency" class="price-currency">{{ currency }}</div>' +
-        //'<div id="currency" class="price-currency">{{ setCurrencySymbol(configMenu.currency) }}</div>' +
-      '</div>',
-    link: function (scope, elem, attrs) {
-      scope.$watch(attrs.output, function (price) {
-        changePrice(price, elem);
-      });
-
-    }
-  };
-});
-
-BauVoiceApp.directive('orderprice', function () {
-  return {
-    restrict: 'E',
-    replace: true,
-    template:
-      '<div class="price clearfix" data-output="global.orderPrice">' +
-      '<div id="price" class="price-value">' +
-      '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-      '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-      '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-      '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-      '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-      '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-      '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-      '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-      '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-      '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-      '<div class="digit-cell"><div class="digit">&nbsp;</div><div class="digit">0</div><div class="digit">1</div><div class="digit">2</div><div class="digit">3</div><div class="digit">4</div><div class="digit">5</div><div class="digit">6</div><div class="digit">7</div><div class="digit">8</div><div class="digit">9</div><div class="digit">.</div></div>' +
-      '</div>' +
-      '<div id="currency" class="price-currency">{{ currency }}</div>' +
+        '<div id="currency" class="price-currency">{{ priceCurrency }}</div>' +
       '</div>',
     link: function (scope, elem, attrs) {
       scope.$watch(attrs.output, function (price) {
@@ -66,7 +39,7 @@ BauVoiceApp.directive('orderprice', function () {
 function changePrice(price, elem) {
   var DELAY_PRICE_DIGIT = STEP * 2,
       DIGIT_CELL_HEIGHT = 64,
-      priceByDigit = price.toString().split(''),
+      priceByDigit,
       digitCells = elem.find('#price').children(),
       MAX_DIGITS = digitCells.length,
       COLUMN_LENGTH = $(digitCells[0]).children().length,
@@ -74,6 +47,12 @@ function changePrice(price, elem) {
       $digitCell,
       digit, scrollDigitY,
       i;
+
+  if(price === undefined) {
+    return false;
+  } else {
+    priceByDigit = price.toString().split('');
+  }
 
   changePrice.revertDigitState = function () {
     $digitCell.animate({ top: 0 }, 'slow');

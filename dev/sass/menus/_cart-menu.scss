@@ -241,9 +241,10 @@
 
     position: absolute;
     left: 500px;
+    width: 415px;
 
     &.active {
-     left: -44px;
+     left: 0px;
     }
   }
   .price-without-instalments {

@@ -142,6 +142,7 @@ window.russianDictionary = {
     DELIVERY: 'Доставка',
     ASSEMBLING: 'Монтаж',
     PAYMENT_BY_INSTALMENTS: 'Рассрочка',
+    WITHOUT_INSTALMENTS: 'без рассрочки',
     DELIVERY_DATE: 'Дата поставки',
     TOTAL_PRICE_LABEL: 'Итого при поставке на',
     MONTHLY_PAYMENT_LABEL: 'ежемесячных платежа по',

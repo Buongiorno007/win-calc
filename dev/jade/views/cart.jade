@@ -74,19 +74,19 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                       .product-label {{ 'add_elements.HEIGHT_LABEL' | translate }}
                 .addelements-detail-content
                   ul.addelements-detail-list
-                    li.addelements-detail-item(ng-repeat="addelement in cart.allAddElements[$index]")
+                    li.addelements-detail-item(ng-repeat="addelement in cart.allAddElements[$index]", ng-switch="addelement.elementId")
                       .product-value {{ addelement.elementName }}
-                      .product-value(ng-if="addelement.elementId == 1") {{ 'add_elements.GRID' | translate }}
-                      .product-value(ng-if="addelement.elementId == 2") {{ 'add_elements.VISOR' | translate }}
-                      .product-value(ng-if="addelement.elementId == 3") {{ 'add_elements.SPILLWAY' | translate }}
-                      .product-value(ng-if="addelement.elementId == 4") {{ 'add_elements.OUTSIDE' | translate }}
-                      .product-value(ng-if="addelement.elementId == 5") {{ 'add_elements.LOUVERS' | translate }}
-                      .product-value(ng-if="addelement.elementId == 6") {{ 'add_elements.INSIDE' | translate }}
-                      .product-value(ng-if="addelement.elementId == 7") {{ 'add_elements.CONNECTORS' | translate }}
-                      .product-value(ng-if="addelement.elementId == 8") {{ 'add_elements.FAN' | translate }}
-                      .product-value(ng-if="addelement.elementId == 9") {{ 'add_elements.WINDOWSILL' | translate }}
-                      .product-value(ng-if="addelement.elementId == 10") {{ 'add_elements.HANDLEL' | translate }}
-                      .product-value(ng-if="addelement.elementId == 11") {{ 'add_elements.OTHERS' | translate }}
+                      .product-value(ng-switch-when="1") {{ 'add_elements.GRID' | translate }}
+                      .product-value(ng-switch-when="2") {{ 'add_elements.VISOR' | translate }}
+                      .product-value(ng-switch-when="3") {{ 'add_elements.SPILLWAY' | translate }}
+                      .product-value(ng-switch-when="4") {{ 'add_elements.OUTSIDE' | translate }}
+                      .product-value(ng-switch-when="5") {{ 'add_elements.LOUVERS' | translate }}
+                      .product-value(ng-switch-when="6") {{ 'add_elements.INSIDE' | translate }}
+                      .product-value(ng-switch-when="7") {{ 'add_elements.CONNECTORS' | translate }}
+                      .product-value(ng-switch-when="8") {{ 'add_elements.FAN' | translate }}
+                      .product-value(ng-switch-when="9") {{ 'add_elements.WINDOWSILL' | translate }}
+                      .product-value(ng-switch-when="10") {{ 'add_elements.HANDLEL' | translate }}
+                      .product-value(ng-switch-when="11") {{ 'add_elements.OTHERS' | translate }}
                       .addelement-parameters
                         .addelement-parameter(ng-show="addelement.elementWidth")
                           .addelement-value {{ addelement.elementWidth }}

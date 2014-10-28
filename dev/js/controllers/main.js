@@ -2,7 +2,8 @@
 
 'use strict';
 
-BauVoiceApp.controller('MainCtrl', ['$rootScope', '$scope', 'localStorage', function ($rootScope, $scope, localStorage) {
+BauVoiceApp.controller('MainCtrl', ['$rootScope', '$scope', 'localStorage', 'constructService', function ($rootScope, $scope, localStorage, constructService) {
+
   $scope.global = localStorage;
 /*
   $scope.main = {

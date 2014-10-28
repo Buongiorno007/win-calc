@@ -30,8 +30,8 @@ BauVoiceApp.controller('GlassCtrl', ['$scope', 'constructService', 'localStorage
     $scope.glassPanel.isSelectedGlass = glassId;
 
     var selectedGlass = $scope.glassPanel.glasses[typeId][glassId];
-    $scope.global.glassName = selectedGlass.glassName;
-    $scope.global.productPrice += selectedGlass.glassPrice;
+    $scope.global.product.glassName = selectedGlass.glassName;
+    $scope.global.product.productPrice += selectedGlass.glassPrice;
   };
 
 }]);

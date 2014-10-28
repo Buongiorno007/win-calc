@@ -39,6 +39,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
       $scope.global.ordersInCart = $scope.global.order.length;
 
       calculateOrderPrice();
+      $scope.global.orderTotalPrice = $scope.global.orderPrice;
 
       for(prod = 0; prod < $scope.global.ordersInCart; prod++) {
 

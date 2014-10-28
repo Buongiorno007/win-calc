@@ -22,6 +22,7 @@ BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localStorage', fu
     if (results.status) {
       $scope.userInfo.name = results.data.user.name;
       $scope.userInfo.location = results.data.city.name;
+      $scope.global.userGeoLocationId = results.data.city.id;
       $scope.global.userGeoLocation = $scope.userInfo.location;
       $scope.$apply();
     } else {

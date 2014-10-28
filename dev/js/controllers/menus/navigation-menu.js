@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'localDB', 'localStorage', function ($scope, $location, globalDB, localDB, localStorage) {
+BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'constructService', 'localDB', 'localStorage', function ($scope, $location, globalDB, constructService, localDB, localStorage) {
 
   $scope.global = localStorage;
 
@@ -44,8 +44,6 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'local
 
     }
 //  }
-
-
 
   $scope.global.gotoMainPage = function () {
     $scope.global.isHistoryPage = false;

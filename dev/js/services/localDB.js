@@ -15,8 +15,9 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       tableWindowSills = 'windowsills',
       tableHandles = 'handles',
       tableOthers = 'other_elements',
-      db;
+      dbGlobal, db;
 
+  dbGlobal = $webSql.openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
   db = $webSql.openDatabase(dbName, '1.0', 'Test DB', 65536);
   db.createTable(tableOrder, {
 
@@ -218,8 +219,44 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       db.update(tableName, elem, options).then(function(results) {
         console.log(results);
       });
+    },
+
+
+
+
+    // Global DataBase
+  /*
+    selectDBGlobal: function(tableName, options) {
+      var handler = [],
+          deferred = new Deferred(),
+          i;
+      dbGlobal.select(tableName, options).then(function(results) {
+        if (results.rows.length) {
+          for(i = 0; i < results.rows.length; i++) {
+            handler.push(results.rows.item(i));
+          }
+          deferred.call(handler);
+        } else {
+          deferred.fail('No in database');
+        }
+      });
+      return deferred;
     }
 
+    selectDBGlobal: function(tableName, options, callback) {
+      var handler = [];
+      dbGlobal.select(tableName, options).then(function(results) {
+        if (results.rows.length) {
+          for(var i = 0; i < results.rows.length; i++) {
+            handler.push(results.rows.item(i));
+          }
+          callback(new OkResult(handler));
+        } else {
+          callback(new ErrorResult(1, 'No in database!'));
+        }
+      });
+    }
+*/
   }
 
 }]);

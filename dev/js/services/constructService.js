@@ -1,12 +1,14 @@
 "use strict";
 
-BauVoiceApp.factory('constructService', function () {
+BauVoiceApp.factory('constructService', function ($q) {
 
   // SQL requests for select data from tables
   var selectLaminations = "SELECT id, name FROM lamination_colors ORDER BY id",
     selectProfileSystemFolders = "SELECT id, name FROM profile_system_folders order by position",
-    selectProfileSystems = "SELECT profile_systems.id, profile_system_folders.name as folder_name, profile_systems.name, profile_systems.short_name, profile_systems.country FROM profile_systems LEFT JOIN profile_system_folders ON  profile_systems.profile_system_folder_id = profile_system_folders.id WHERE profile_system_folder_id = ? order by profile_systems.position",
-    selectWindowHardware = "SELECT id, name, short_name as shortName FROM window_hardware_groups WHERE is_in_calculation = 1";
+    //selectProfileSystems = "SELECT profile_systems.id, profile_system_folders.name as folder_name, profile_systems.name, profile_systems.short_name, profile_systems.country FROM profile_systems LEFT JOIN profile_system_folders ON  profile_systems.profile_system_folder_id = profile_system_folders.id WHERE profile_system_folder_id = ? order by profile_systems.id", // position
+    selectProfileSystems = "SELECT profile_systems.id, profile_system_folders.name as folder_name, profile_systems.name, profile_systems.short_name, profile_systems.country, rama_list_id, rama_still_list_id, stvorka_list_id, impost_list_id, shtulp_list_id FROM profile_systems LEFT JOIN profile_system_folders ON  profile_systems.profile_system_folder_id = profile_system_folders.id WHERE profile_system_folder_id = ? order by profile_systems.id",
+    selectWindowHardware = "SELECT id, name, short_name as shortName FROM window_hardware_groups WHERE is_in_calculation = 1",
+    selectSectionSize = "SELECT id, a, b, c, d FROM lists WHERE id = ?";
 
   return {
 
@@ -95,6 +97,181 @@ BauVoiceApp.factory('constructService', function () {
       }));
     },
 
+    getAllLaminations: function (callback) {
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, allLaminations = [];
+      db.transaction(function (transaction) {
+        transaction.executeSql(selectLaminations, [], function (transaction, result) {
+          if (result.rows.length) {
+            for (i = 0; i < result.rows.length; i++) {
+              allLaminations.push({
+                id: result.rows.item(i).id,
+                name: result.rows.item(i).name + ""
+              });
+            }
+            callback(new OkResult(allLaminations));
+          } else {
+            callback(new ErrorResult(1, 'No laminations in database!'));
+          }
+        }, function () {
+          callback(new ErrorResult(2, 'Something went wrong with selection lamination_colors record'));
+        });
+      });
+    },
+
+
+    getAllProfileSystems: function () {
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), AllProfileSystems = [], allFolders, count, folder_id, resultObj = {}, j, i;
+      var deferred = $q.defer();
+      db.transaction(function (transaction) {
+        transaction.executeSql(selectProfileSystemFolders, [], function (transaction, result) {
+          if (result.rows.length) {
+            allFolders = result.rows.length - 1;
+            db.transaction(function (transaction) {
+              for (j = 0; j < result.rows.length; j++) {
+                count = 0;
+                folder_id = result.rows.item(j).id;
+                transaction.executeSql(selectProfileSystems, [folder_id], function (transaction, result) {
+                  if (result.rows.length) {
+                    resultObj = {folder: result.rows.item(0).folder_name, profiles: [], rama: []};
+                    for (i = 0; i < result.rows.length; i++) {
+                      resultObj.profiles.push({
+                        id: result.rows.item(i).id,
+                        name: result.rows.item(i).name,
+                        short_name: result.rows.item(i).short_name,
+                        country: result.rows.item(i).country,
+                        rama_id: result.rows.item(i).rama_list_id,
+                        rama_still_id: result.rows.item(i).rama_still_list_id,
+                        sash_id: result.rows.item(i).stvorka_list_id,
+                        impost_id: result.rows.item(i).impost_list_id,
+                        shtulp_id: result.rows.item(i).shtulp_list_id
+                      });
+                    }
+                    AllProfileSystems.push(resultObj);
+                    if (allFolders === count) {
+                      deferred.resolve(AllProfileSystems);
+                    }
+                    count++;
+                  } else {
+                    deferred.reject('No ProfileSystems in database!');
+                  }
+                }, function () {
+                  deferred.reject('Something went wrong with selection profile_systems record');
+                });
+              }
+            });
+          } else {
+            deferred.reject('Something went wrong with selection profile_systems record');
+          }
+        }, function () {
+          deferred.reject('Something went wrong with selection profile_systems record');
+        });
+      });
+      return deferred.promise;
+    },
+
+
+    
+    getAllProfileSizes: function (elementId) {
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), resultObj = {};
+      var deferred = $q.defer();
+      db.transaction(function (transaction) {
+        transaction.executeSql(selectSectionSize, [elementId], function (transaction, result) {
+          if (result.rows.length) {
+            resultObj = {
+              id: result.rows.item(0).id,
+              a: result.rows.item(0).a,
+              b: result.rows.item(0).b,
+              c: result.rows.item(0).c,
+              d: result.rows.item(0).d
+            };
+            deferred.resolve(resultObj);
+          } else {
+            resultObj = {};
+            deferred.resolve(resultObj);
+          }
+
+        }, function () {
+          deferred.reject('Something went wrong with selection profile_systems record');
+        });
+      });
+      return deferred.promise;
+    },
+
+
+
+/*
+    getAllProfileSystems: function (callback) {
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), AllProfileSystems = [], allFolders, count, folder_id, resultObj = {}, j, i;
+      db.transaction(function (transaction) {
+        transaction.executeSql(selectProfileSystemFolders, [], function (transaction, result) {
+          if (result.rows.length) {
+            allFolders = result.rows.length - 1;
+            db.transaction(function (transaction) {
+              for (j = 0; j < result.rows.length; j++) {
+                count = 0;
+                folder_id = result.rows.item(j).id;
+                transaction.executeSql(selectProfileSystems, [folder_id], function (transaction, result) {
+                  if (result.rows.length) {
+                    resultObj = {folder: result.rows.item(0).folder_name, profiles: []};
+                    for (i = 0; i < result.rows.length; i++) {
+                      resultObj.profiles.push({
+                        id: result.rows.item(i).id,
+                        name: result.rows.item(i).name,
+                        short_name: result.rows.item(i).short_name,
+                        country: result.rows.item(i).country,
+                        rama_id: result.rows.item(i).rama_list_id,
+                        rama_still_id: result.rows.item(i).rama_still_list_id,
+                        sash_id: result.rows.item(i).stvorka_list_id,
+                        impost_id: result.rows.item(i).impost_list_id,
+                        shtulp_id: result.rows.item(i).shtulp_list_id
+                      });
+                    }
+                    AllProfileSystems.push(resultObj);
+                    if (allFolders === count) {
+                      callback(new OkResult(AllProfileSystems));
+                    }
+                    count++;
+                  } else {
+                    callback(new ErrorResult(1, 'No ProfileSystems in database!'));
+                  }
+                }, function () {
+                  callback(new ErrorResult(2, 'Something went wrong with selection profile_systems record'));
+                });
+              }
+            });
+          } else {
+            callback(new ErrorResult(1, 'No ProfileSystemFolders in database!'));
+          }
+        }, function () {
+          callback(new ErrorResult(2, 'Something went wrong with selection profile_system_folders record'));
+        });
+      });
+    },
+*/
+
+    getAllWindowHardwares: function (callback) {
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, AllWindowHardwares = [];
+      db.transaction(function (transaction) {
+        transaction.executeSql(selectWindowHardware, [], function (transaction, result) {
+          if (result.rows.length) {
+            for (i = 0; i < result.rows.length; i++) {
+              AllWindowHardwares.push({
+                id: result.rows.item(i).id,
+                name: result.rows.item(i).name + "",
+                shortName: result.rows.item(i).shortName + ""
+              });
+            }
+            callback(new OkResult(AllWindowHardwares));
+          } else {
+            callback(new ErrorResult(1, 'No window_hardware in database!'));
+          }
+        }, function () {
+          callback(new ErrorResult(2, 'Something went wrong with selection window_hardware_groups record'));
+        });
+      });
+    },
+
+
     // TODO: Сервис готов
     getConstructThumb: function (callback) {
       callback(new OkResult({
@@ -110,10 +287,70 @@ BauVoiceApp.factory('constructService', function () {
       }));
     },
 
+    getDefaultConstructTemplate: function(callback) {
+      callback(new OkResult({
+
+        'name':'Одностворчатый глухой',
+        'short_name':'ОГ',
+        'objects':[
+          {'type':'fixed_point', 'id':'fp1', 'x':'0', 'y': '0'},
+          {'type':'fixed_point', id:'fp2', x:'1400', y:'0'},
+          {'type':'fixed_point', id:'fp3', x:'1400', y:'1300'},
+          {'type':'fixed_point', id:'fp4', x:'0', y:'1300'},
+          {'type':'frame_line', id:'frame1', from:'fp1', to:'fp2'},
+          {'type':'frame_line', id:'frame2', from:'fp2', to:'fp3'},
+          {'type':'frame_line', id:'frame3', from:'fp3', to:'fp4'},
+          {'type':'frame_line', id:'frame4', from:'fp4', to:'fp1'},
+          {'type':'cross_point', id:'cp1', line1:'frame1', line2:'frame2'},
+          {'type':'cross_point', id:'cp2', line1:'frame2', line2:'frame3'},
+          {'type':'cross_point', id:'cp3', line1:'frame3', line2:'frame4'},
+          {'type':'cross_point', id:'cp4', line1:'frame4', line2:'frame1'},
+          {'type':'bead_box_line', id:'bead1', from:'cp1', to:'cp2'},
+          {'type':'bead_box_line', id:'bead2', from:'cp2', to:'cp3'},
+          {'type':'bead_box_line', id:'bead3', from:'cp3', to:'cp4'},
+          {'type':'bead_box_line', id:'bead4', from:'cp4', to:'cp1'}
+          /*
+          {'type':'sash_line', id:'s1', from:'cp1', to:'cp2'},
+          {'type':'sash_line', id:'s2', from:'cp2', to:'cp3'},
+          {'type':'sash_line', id:'s3', from:'cp3', to:'cp4'},
+          {'type':'sash_line', id:'s4', from:'cp4', to:'cp1'},
+           {'type':'cross_point', id:'cp5', line1:'s1', line2:'s2'},
+           {'type':'cross_point', id:'cp6', line1:'s2', line2:'s3'},
+           {'type':'cross_point', id:'cp7', line1:'s3', line2:'s4'},
+           {'type':'cross_point', id:'cp8', line1:'s4', line2:'s1'},
+           {'type':'bead_box_line', id:'s1', from:'cp5', to:'cp6'},
+           {'type':'bead_box_line', id:'s2', from:'cp6', to:'cp7'},
+           {'type':'bead_box_line', id:'s3', from:'cp7', to:'cp8'},
+           {'type':'bead_box_line', id:'s4', from:'cp8', to:'cp5'}*/
+        ]
+
+      }));
+    },
+/*
+    getTemplatePrice: function(profileId, callback) {
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
+      var self = this;
+      db.transaction(function (transaction) {
+        transaction.executeSql(selectUser, [loginData.login, self.md5(loginData.password)], function (transaction, result) {
+          console.log(result.rows.item(0).login);
+          if (result.rows.item(0).login) {
+            callback(new OkResult({loginStatus : true}));
+          } else {
+            callback(new OkResult({loginStatus : false}));
+          }
+        }, function () {
+          callback(new ErrorResult(2, 'Something went wrong with selection user record'));
+        });
+      });
+    },
+*/
+
+
+
     // TODO: Сервис готов
     getProfileSystem: function (callback) {
       callback(new OkResult({
-        id: 12,
+        id: 7,
         name: 'Окошко S58'
       }));
     },
@@ -121,8 +358,8 @@ BauVoiceApp.factory('constructService', function () {
     // TODO: Сервис готов
     getGlass: function (callback) {
       callback(new OkResult({
-        id: 42,
-        name: '4/16/4'
+        id: 145,
+        name: '6/12/6'
       }));
     },
 
@@ -535,86 +772,7 @@ BauVoiceApp.factory('constructService', function () {
       }));
     },
 
-    getAllLaminations: function (callback) {
-      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, allLaminations = [];
-      db.transaction(function (transaction) {
-        transaction.executeSql(selectLaminations, [], function (transaction, result) {
-          if (result.rows.length) {
-            for (i = 0; i < result.rows.length; i++) {
-              allLaminations.push({
-                id: result.rows.item(i).id,
-                name: result.rows.item(i).name + ""
-              });
-            }
-            callback(new OkResult(allLaminations));
-          } else {
-            callback(new ErrorResult(1, 'No laminations in database!'));
-          }
-        }, function () {
-          callback(new ErrorResult(2, 'Something went wrong with selection lamination_colors record'));
-        });
-      });
-    },
 
-    getAllProfileSystems: function (callback) {
-      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), AllProfileSystems = [], allFolders, count, folder_id, resultObj = {}, j, i;
-      db.transaction(function (transaction) {
-        transaction.executeSql(selectProfileSystemFolders, [], function (transaction, result) {
-          if (result.rows.length) {
-            allFolders = result.rows.length - 1;
-            db.transaction(function (transaction) {
-              for (j = 0; j < result.rows.length; j++) {
-                count = 0;
-                folder_id = result.rows.item(j).id;
-                transaction.executeSql(selectProfileSystems, [folder_id], function (transaction, result) {
-                  if (result.rows.length) {
-                    resultObj = {folder: result.rows.item(0).folder_name, profiles: []};
-                    for (i = 0; i < result.rows.length; i++) {
-                      resultObj.profiles.push({id: result.rows.item(i).id, name: "" + result.rows.item(i).name + "", short_name: "" + result.rows.item(i).short_name + "", country: "" + result.rows.item(i).country + ""});
-                    }
-                    AllProfileSystems.push(resultObj);
-                    if (allFolders === count) {
-                      callback(new OkResult(AllProfileSystems));
-                    }
-                    count++;
-                  } else {
-                    callback(new ErrorResult(1, 'No ProfileSystems in database!'));
-                  }
-                }, function () {
-                  callback(new ErrorResult(2, 'Something went wrong with selection profile_systems record'));
-                });
-              }
-            });
-          } else {
-            callback(new ErrorResult(1, 'No ProfileSystemFolders in database!'));
-          }
-        }, function () {
-          callback(new ErrorResult(2, 'Something went wrong with selection profile_system_folders record'));
-        });
-      });
-    },
-
-    getAllWindowHardwares: function (callback) {
-      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, AllWindowHardwares = [];
-      db.transaction(function (transaction) {
-        transaction.executeSql(selectWindowHardware, [], function (transaction, result) {
-          if (result.rows.length) {
-            for (i = 0; i < result.rows.length; i++) {
-              AllWindowHardwares.push({
-                id: result.rows.item(i).id,
-                name: result.rows.item(i).name + "",
-                shortName: result.rows.item(i).shortName + ""
-              });
-            }
-            callback(new OkResult(AllWindowHardwares));
-          } else {
-            callback(new ErrorResult(1, 'No window_hardware in database!'));
-          }
-        }, function () {
-          callback(new ErrorResult(2, 'Something went wrong with selection window_hardware_groups record'));
-        });
-      });
-    },
 
     getAllTemplates: function (callback) {
       callback(new OkResult({
@@ -964,28 +1122,28 @@ BauVoiceApp.factory('constructService', function () {
 
         floors: [
           {
-            floor: 'самовывоз',
+            name: 'самовывоз',
             price: ''
           },
           {
-            floor: '1 этаж',
-            price: '+100'
+            name: '1 этаж',
+            price: '100'
           },
           {
-            floor: '2 этаж',
-            price: '+200'
+            name: '2 этаж',
+            price: '200'
           },
           {
-            floor: '3 этаж',
-            price: '+300'
+            name: '3 этаж',
+            price: '300'
           },
           {
-            floor: '4 этаж',
-            price: '+400'
+            name: '4 этаж',
+            price: '400'
           },
           {
-            floor: '5 этаж',
-            price: '+500'
+            name: '5 этаж',
+            price: '500'
           }
         ]
 
@@ -1002,15 +1160,15 @@ BauVoiceApp.factory('constructService', function () {
           },
           {
             name: 'без демонтажа',
-            price: '+200'
+            price: '200'
           },
           {
             name: 'стандартный',
-            price: '+300'
+            price: '300'
           },
           {
             name: 'VIP-монтаж',
-            price: '+400'
+            price: '400'
           }
         ]
 

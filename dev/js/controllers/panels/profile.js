@@ -44,8 +44,8 @@ BauVoiceApp.controller('ProfileCtrl', ['$scope', 'constructService', 'localStora
 
     var selectedProfile = $scope.profilePanel.profiles[producerId][profileId];
     //$scope.global.profileId = selectedProfile.profileId;
-    $scope.global.profileName = selectedProfile.profileDescrip;
-    $scope.global.productPrice += selectedProfile.profilePrice;
+    $scope.global.product.profileName = selectedProfile.profileDescrip;
+    $scope.global.product.productPrice += selectedProfile.profilePrice;
   };
 
 }]);

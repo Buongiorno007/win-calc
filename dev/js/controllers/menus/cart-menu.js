@@ -6,19 +6,16 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
 
   $scope.global = localStorage;
 
-  $scope.price = $scope.global.cartPrice;
-  $scope.currency = $scope.global.currency;
-
   $scope.cartMenuData = {
+    floorData: [],
+    assemblingData: [],
+    instalmentsData: [],
     activeMenuItem: false,
-    selectedFloor: 'самовывоз',
-    selectedFloorPrice: '',
-    selectedAssembling: 'стандартный',
-    selectedAssemblingPrice: '+300',
-    selectedInstalmentPeriodDefault: 'без рассрочки',
-    selectedInstalmentPercentDefault: '',
-    selectedInstalmentPeriod: 'без рассрочки',
-    selectedInstalmentPercent: '',
+    activeFloor: 0,
+    activeAssembling: 0,
+    activeInstalment: 'default',
+
+
     activeInstalmentSwitcher: false,
     deliveryDate: '',
     newDeliveryDate: '',
@@ -32,7 +29,11 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
     typing: 'on'
   };
 
-  // Calendar
+  var floorSource, fl, assemblingSource, ass;
+
+
+
+  //------- Calendar
 
   var currentDate = new Date(),
       valuesDate,
@@ -77,7 +78,19 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
 
   constructService.getFloorPrice(function (results) {
     if (results.status) {
-      $scope.floorPrice = results.data.floors;
+      floorSource = results.data.floors;
+      for(fl = 0; fl < floorSource.length; fl++) {
+        var tempFloor = {};
+        tempFloor.name = floorSource[fl].name;
+        if($.isNumeric(parseFloat(floorSource[fl].price))) {
+          tempFloor.price = '+' + floorSource[fl].price + ' ' + $scope.global.currency;
+        } else {
+          tempFloor.price = ' ';
+        }
+        $scope.cartMenuData.floorData.push(tempFloor);
+      }
+      $scope.cartMenuData.selectedFloor = $scope.cartMenuData.floorData[0].name;
+      $scope.cartMenuData.selectedFloorPrice = $scope.cartMenuData.floorData[0].price;
     } else {
       console.log(results);
     }
@@ -85,7 +98,19 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
 
   constructService.getAssemblingPrice(function (results) {
     if (results.status) {
-      $scope.assemblingPrice = results.data.assembling;
+      assemblingSource = results.data.assembling;
+      for(ass = 0; ass < assemblingSource.length; ass++) {
+        var tempAssembling = {};
+        tempAssembling.name = assemblingSource[ass].name;
+        if($.isNumeric(parseFloat(assemblingSource[ass].price))) {
+          tempAssembling.price = '+' + assemblingSource[ass].price + ' ' + $scope.global.currency;
+        } else {
+          tempAssembling.price = assemblingSource[ass].price;
+        }
+        $scope.cartMenuData.assemblingData.push(tempAssembling);
+      }
+      $scope.cartMenuData.selectedAssembling = $scope.cartMenuData.assemblingData[0].name;
+      $scope.cartMenuData.selectedAssemblingPrice = $scope.cartMenuData.assemblingData[0].price;
     } else {
       console.log(results);
     }
@@ -93,14 +118,16 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
 
   constructService.getInstalment(function (results) {
     if (results.status) {
-      $scope.instalmentPercent = results.data.instalment;
+      $scope.cartMenuData.instalmentsData = results.data.instalment;
     } else {
       console.log(results);
     }
   });
 
 
-  //Select menu item
+
+
+  //----- Select menu item
 
   $scope.selectMenuItem = function(id) {
     if($scope.cartMenuData.activeMenuItem === id) {
@@ -110,29 +137,38 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
     }
   };
 
+  //------- Select dropdown menu item
 
-  // Select dropdown menu item
-
-  $scope.selectFloorPrice = function(floor, price) {
-    $scope.cartMenuData.selectedFloor = floor;
-    $scope.cartMenuData.selectedFloorPrice = price;
+  $scope.selectFloorPrice = function(floorId) {
+    if($scope.cartMenuData.activeFloor !== floorId) {
+      $scope.cartMenuData.activeFloor = floorId;
+      $scope.cartMenuData.selectedFloor = $scope.cartMenuData.floorData[floorId].name;
+      $scope.cartMenuData.selectedFloorPrice = $scope.cartMenuData.floorData[floorId].price;
+      calculateTotalOrderPrice();
+    }
   };
 
-  $scope.selectAssembling = function(name, price) {
-    $scope.cartMenuData.selectedAssembling = name;
-    $scope.cartMenuData.selectedAssemblingPrice = price;
+  $scope.selectAssembling = function(assemblingId) {
+    if($scope.cartMenuData.activeAssembling !== assemblingId) {
+      $scope.cartMenuData.activeAssembling = assemblingId;
+      $scope.cartMenuData.selectedAssembling = $scope.cartMenuData.assemblingData[assemblingId].name;
+      $scope.cartMenuData.selectedAssemblingPrice = $scope.cartMenuData.assemblingData[assemblingId].price;
+      calculateTotalOrderPrice();
+    }
   };
 
-  $scope.selectInstalment = function(period, percent) {
-    $scope.cartMenuData.selectedInstalmentPeriod = period;
-    $scope.cartMenuData.selectedInstalmentPercent = percent;
-    $scope.cartMenuData.activeInstalmentSwitcher = true;
+  $scope.selectInstalment = function(instalmentId) {
+    if($scope.cartMenuData.activeInstalment !== instalmentId) {
+      $scope.cartMenuData.activeInstalment = instalmentId;
+      $scope.cartMenuData.selectedInstalmentPeriod = $scope.cartMenuData.instalmentsData[instalmentId].period;
+      $scope.cartMenuData.selectedInstalmentPercent = $scope.cartMenuData.instalmentsData[instalmentId].percent;
+      $scope.cartMenuData.activeInstalmentSwitcher = true;
+    }
   };
 
   $scope.turnOffInstalment = function() {
     $scope.cartMenuData.activeInstalmentSwitcher = false;
-    $scope.cartMenuData.selectedInstalmentPeriod = $scope.cartMenuData.selectedInstalmentPeriodDefault;
-    $scope.cartMenuData.selectedInstalmentPercent = $scope.cartMenuData.selectedInstalmentPercentDefault;
+    $scope.cartMenuData.activeInstalment = 'default';
     $scope.cartMenuData.activeMenuItem = false;
   };
 
@@ -151,4 +187,21 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
       $scope.global.showOrderDialog = true;
     }
   };
+
+  // Calculate Total Order Price
+  function calculateTotalOrderPrice() {
+    $scope.global.orderTotalPrice = 0;
+    $scope.global.orderTotalPrice += $scope.global.orderPrice;
+
+    var floorPrice = parseFloat(floorSource[$scope.cartMenuData.activeFloor].price),
+        assemblingPrice = parseFloat(assemblingSource[$scope.cartMenuData.activeAssembling].price);
+
+    if( $.isNumeric(floorPrice) ) {
+      $scope.global.orderTotalPrice += floorPrice;
+    }
+    if( $.isNumeric(assemblingPrice) ) {
+      $scope.global.orderTotalPrice += assemblingPrice;
+    }
+  }
+
 }]);
