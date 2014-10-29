@@ -170,7 +170,7 @@ BauVoiceApp.factory('constructService', function ($q) {
     },
 
 
-    
+
     getAllProfileSizes: function (elementId) {
       var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), resultObj = {};
       var deferred = $q.defer();
@@ -297,27 +297,41 @@ BauVoiceApp.factory('constructService', function ($q) {
           {'type':'fixed_point', id:'fp2', x:'1400', y:'0'},
           {'type':'fixed_point', id:'fp3', x:'1400', y:'1300'},
           {'type':'fixed_point', id:'fp4', x:'0', y:'1300'},
-          {'type':'frame_line', id:'frame1', from:'fp1', to:'fp2'},
-          {'type':'frame_line', id:'frame2', from:'fp2', to:'fp3'},
-          {'type':'frame_line', id:'frame3', from:'fp3', to:'fp4'},
-          {'type':'frame_line', id:'frame4', from:'fp4', to:'fp1'},
-          {'type':'cross_point', id:'cp1', line1:'frame1', line2:'frame2'},
-          {'type':'cross_point', id:'cp2', line1:'frame2', line2:'frame3'},
-          {'type':'cross_point', id:'cp3', line1:'frame3', line2:'frame4'},
-          {'type':'cross_point', id:'cp4', line1:'frame4', line2:'frame1'},
-          {'type':'bead_box_line', id:'bead1', from:'cp1', to:'cp2'},
-          {'type':'bead_box_line', id:'bead2', from:'cp2', to:'cp3'},
-          {'type':'bead_box_line', id:'bead3', from:'cp3', to:'cp4'},
-          {'type':'bead_box_line', id:'bead4', from:'cp4', to:'cp1'}
+          {'type':'frame_line', id:'frameline1', from:'fp1', to:'fp2'},
+          {'type':'frame_line', id:'frameline2', from:'fp2', to:'fp3'},
+          {'type':'frame_line', id:'frameline3', from:'fp3', to:'fp4', sill: true},
+          {'type':'frame_line', id:'frameline4', from:'fp4', to:'fp1'},
+          {'type':'cross_point', id:'cp1', line1:'frameline1', line2:'frameline2'},
+          {'type':'cross_point', id:'cp2', line1:'frameline2', line2:'frameline3'},
+          {'type':'cross_point', id:'cp3', line1:'frameline3', line2:'frameline4'},
+          {'type':'cross_point', id:'cp4', line1:'frameline4', line2:'frameline1'},
+          {'type':'bead_box_line', id:'beadline1', from:'cp1', to:'cp2'},
+          {'type':'bead_box_line', id:'beadline2', from:'cp2', to:'cp3'},
+          {'type':'bead_box_line', id:'beadline3', from:'cp3', to:'cp4'},
+          {'type':'bead_box_line', id:'beadline4', from:'cp4', to:'cp1'},
+
+          {'type':'cross_point_glass', id:'cpg1', line1:'frameline1', line2:'frameline2'},
+          {'type':'cross_point_glass', id:'cpg2', line1:'frameline2', line2:'frameline3'},
+          {'type':'cross_point_glass', id:'cpg3', line1:'frameline3', line2:'frameline4'},
+          {'type':'cross_point_glass', id:'cpg4', line1:'frameline4', line2:'frameline1'},
+          {'type':'glass_line', id:'glassline1', from:'cpg1', to:'cpg2'},
+          {'type':'glass_line', id:'glassline2', from:'cpg2', to:'cpg3'},
+          {'type':'glass_line', id:'glassline3', from:'cpg3', to:'cpg4'},
+          {'type':'glass_line', id:'glassline4', from:'cpg4', to:'cpg1'},
+
+          {'type': 'frame', id:'frame1', parts: ['frameline1', 'beadline4']},
+          {'type': 'frame', id:'frame2', parts: ['frameline2', 'beadline1']},
+          {'type': 'frame', id:'frame3', parts: ['frameline3', 'beadline2']},
+          {'type': 'frame', id:'frame4', parts: ['frameline4', 'beadline3']},
+          //{'type': 'bead_box', id:'bead1', parts: ['frameline4', 'beadline4']},
+
+          {'type': 'glass_paсkage', id:'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']}
           /*
           {'type':'sash_line', id:'s1', from:'cp1', to:'cp2'},
           {'type':'sash_line', id:'s2', from:'cp2', to:'cp3'},
           {'type':'sash_line', id:'s3', from:'cp3', to:'cp4'},
           {'type':'sash_line', id:'s4', from:'cp4', to:'cp1'},
-           {'type':'cross_point', id:'cp5', line1:'s1', line2:'s2'},
-           {'type':'cross_point', id:'cp6', line1:'s2', line2:'s3'},
-           {'type':'cross_point', id:'cp7', line1:'s3', line2:'s4'},
-           {'type':'cross_point', id:'cp8', line1:'s4', line2:'s1'},
+
            {'type':'bead_box_line', id:'s1', from:'cp5', to:'cp6'},
            {'type':'bead_box_line', id:'s2', from:'cp6', to:'cp7'},
            {'type':'bead_box_line', id:'s3', from:'cp7', to:'cp8'},

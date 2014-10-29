@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, typingTextByChar, Template */
+/* globals BauVoiceApp, STEP, typingTextByChar, Template, drawSVG */
 
 'use strict';
 
@@ -13,17 +13,22 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     DELAY_TYPE_ITEM_TITLE: 10 * STEP,
     typing: 'on'
   };
-
+var svgId = 'constructThumbSVG',
+    svgWidth = 120,
+    svgHeight = 120;
 
   var templateObjXPrice = {
     cityId: $scope.global.userGeoLocationId,
     profileId: '',
     glassId: '',
-    frames: [],
-    sashs: [],
-    beads: [],
-    imposts: [],
-    shtulps: []
+    framesSize: [],
+    sashsSize: [],
+    beadsSize: [],
+    impostsSize: [],
+    shtulpsSize: [],
+    glassSize: [],
+    glassSquare: 0,
+    frameSillSize: 0
   };
 /*
   $scope.dubleTyping = function() {
@@ -117,10 +122,6 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
             //console.log($scope.global.product.producers);
             //console.log($scope.global.product.profiles);
-
-            templateObjXPrice.profileId = $scope.global.product.profileId;
-            templateObjXPrice.cityId = $scope.global.userGeoLocationId;
-
           } else {
             console.log(results);
           }
@@ -156,47 +157,71 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
             // парсинг шаблона, расчет размеров
             //var depth = frameSize[0].c;
-            var depth = 44;
-            console.log('c = ' + $scope.global.allProfileFrameSizes[0].c);
-            var templateDefault = new Template($scope.templateSource1, depth);
-            //console.log(JSON.stringify(templateDefault));
+            var depths = {
+              frameDepth: $scope.global.allProfileFrameSizes[0],
+              sashDepth: $scope.global.allProfileSashSizes[0],
+              impostDepth: $scope.global.allProfileImpostSizes[0],
+              shtulpDepth: $scope.global.allProfileShtulpSizes[0]
+
+            };
+            console.log(depths);
+            var templateDefault = new Template($scope.templateSource1, depths);
             console.log(templateDefault);
 
             // создание объекта для отправки в базу, чтобы рассчитать цену шаблона
             for (var item = 0; item < templateDefault.objects.length; item++) {
-              //var element = {};
               var elementSize;
               if (templateDefault.objects[item].type) {
                 switch (templateDefault.objects[item].type) {
                   case 'frame_line':
                     elementSize = templateDefault.objects[item].lengthVal;
-                    templateObjXPrice.frames.push(elementSize);
+                    templateObjXPrice.framesSize.push(elementSize);
+                    if(templateDefault.objects[item].sill) {
+                      templateObjXPrice.frameSillSize = templateDefault.objects[item].lengthVal;
+                    }
                     break;
                   case 'sash_line':
                     elementSize = templateDefault.objects[item].lengthVal;
-                    templateObjXPrice.sashs.push(elementSize);
+                    templateObjXPrice.sashsSize.push(elementSize);
                     break;
                   case 'bead_box_line':
                     elementSize = templateDefault.objects[item].lengthVal;
-                    templateObjXPrice.beads.push(elementSize);
+                    templateObjXPrice.beadsSize.push(elementSize);
+                    break;
+                  case 'glass_line':
+                    elementSize = templateDefault.objects[item].lengthVal;
+                    templateObjXPrice.glassSize.push(elementSize);
                     break;
                 }
               }
             }
-            console.log(templateObjXPrice);
+            templateObjXPrice.glassSquare = (templateObjXPrice.glassSize[0] * templateObjXPrice.glassSize[1])/1000000;
+            templateObjXPrice.profileId = $scope.global.product.profileId;
+            templateObjXPrice.cityId = $scope.global.userGeoLocationId;
+            templateObjXPrice.frameId = $scope.global.allProfileFrameSizes[0].id;
+            templateObjXPrice.frameSillId = $scope.global.allProfileFrameStillSizes[0].id;
+            templateObjXPrice.sashId = $scope.global.allProfileSashSizes[0].id;
+            templateObjXPrice.impostId = $scope.global.allProfileImpostSizes[0].id;
+            templateObjXPrice.shtulpId = $scope.global.allProfileShtulpSizes[0].id;
+
+              console.log(templateObjXPrice);
             //console.log(JSON.stringify(templateObjXPrice));
 
             // габариты шаблона
-            $scope.global.product.constructionWidth = templateObjXPrice.frames[0];
-            $scope.global.product.constructionHeight = templateObjXPrice.frames[1];
+            $scope.global.product.constructionWidth = templateObjXPrice.framesSize[0];
+            $scope.global.product.constructionHeight = templateObjXPrice.framesSize[1];
+
+            // draw SVG
+            setTimeout(function() {
+              drawSVG(svgId, svgWidth, svgHeight, templateDefault);
+            }, 5000);
+            $scope.global.templateDefault = templateDefault;
 
           } else {
             console.log(results);
           }
         });
       };
-
-
 
 
       constructService.getAllProfileSystems().then(function (data) {

@@ -13,6 +13,13 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$
     typing: 'on'
   };
 
+  var svgId = 'constructSVG',
+      svgWidth = 1000,
+      svgHeight = 1000;
+  setTimeout(function() {
+    drawSVG(svgId, svgWidth, svgHeight, $scope.global.templateDefault);
+  }, 10000);
+
   constructService.getAllTemplates(function (results) {
     if (results.status) {
       $scope.templatePanel.templates = results.data.templatesWindow;

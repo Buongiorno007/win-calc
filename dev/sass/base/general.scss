@@ -276,3 +276,28 @@ body {
   background-color: rgba(black, .4);
   z-index: 9;
 }
+
+//------- SVG
+.glass {
+  fill: rgba(155, 204, 255, 0.20);
+  cursor: pointer;
+}
+.glass:hover {
+  fill: rgba(34, 34, 255, 0.69);
+}
+.frame {
+  fill: #fff;
+  stroke: #363636;
+  stroke-width: 2;
+}
+.main-line {
+  fill: #363636;
+}
+.size-line {
+  fill: none;
+  stroke: #D2D2D2;
+  stroke-width: 2;
+  stroke-linejoin: "round";
+  stroke-miterlimit: "10";
+  stroke-linecap: "round";
+}
