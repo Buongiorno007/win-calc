@@ -214,6 +214,18 @@ var Glass = function (sourceObj) {
 };
 Glass.prototype = FrameObject;
 
+//-----------Dimension-------------------
+var Dimension = function (sourceObj) {
+  LineObject.call(this, sourceObj);
+  this.level = sourceObj.level;
+  this.height = sourceObj.height;
+
+  this.fromPointId = sourceObj.from[0];
+  this.toPointId = sourceObj.to[0];
+
+};
+//Dimension.prototype = FrameObject;
+FrameLine.prototype = LineObject;
 
 
 
@@ -247,6 +259,10 @@ var Template = function (sourceObj, depths) {
         break;
       case 'glass_paсkage':  tmpObject = new Glass(sourceObj.objects[i]);
         break;
+      case 'dimensionsH':  tmpObject = new Dimension(sourceObj.objects[i]);
+        break;
+      case 'dimensionsV':  tmpObject = new Dimension(sourceObj.objects[i]);
+        break;
     }
     if (tmpObject) {
       this.objects.push(tmpObject);
@@ -276,65 +292,4 @@ var Template = function (sourceObj, depths) {
   };
 
   this.parseIds();
-};
-
-
-//---------- SVG
-var drawSVG = function(selector, canvasWidth, canvasHeight, template) {
-  console.log(selector);
-  var draw = SVG(selector).size(canvasWidth, canvasHeight);
-  var box = draw.viewbox(0, 0, 1500, 1500);
-  box.zoom = 1;
-
-  console.log(template);
-  var elementsSVG = {
-    frames: [],
-    glasses: [],
-    imposts: [],
-    sashes: []
-  };
-
-  for (var i = 0; i < template.objects.length; i++) {
-    var path = '';
-    switch(template.objects[i].type) {
-      case 'frame':
-        //for(var p = 0; p < template.objects[i].parts.length; p++) {
-          path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ' + template.objects[i].parts[0].toPoint.x + ' ' + template.objects[i].parts[0].toPoint.y + ' ';
-          path += template.objects[i].parts[1].toPoint.x + ' ' + template.objects[i].parts[1].toPoint.y + ' ' + template.objects[i].parts[1].fromPoint.x + ' ' + template.objects[i].parts[1].fromPoint.y + ' ';
-          path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ';
-        //}
-        elementsSVG.frames.push(path);
-        break;
-      case 'glass_paсkage':
-        for(var p = 0; p < template.objects[i].parts.length; p++) {
-          path += template.objects[i].parts[p].fromPoint.x + ' ' + template.objects[i].parts[p].fromPoint.y + ' ' + template.objects[i].parts[p].toPoint.x + ' ' + template.objects[i].parts[p].toPoint.y + ' ';
-        }
-        elementsSVG.glasses.push(path);
-        break;
-    }
-
-  }
-  console.log(elementsSVG);
-
-
-
-  for(var prop in elementsSVG) {
-    if (!elementsSVG.hasOwnProperty(prop)) {
-      continue;
-    }
-    var group = draw.group();
-    for (var elem = 0; elem < elementsSVG[prop].length; elem++) {
-
-      switch (prop) {
-        case 'frames':
-          group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'frame');
-          break;
-
-        case 'glasses':
-          group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'glass');
-          break;
-      }
-    }
-  }
-
 };

@@ -164,7 +164,7 @@ var svgId = 'constructThumbSVG',
               shtulpDepth: $scope.global.allProfileShtulpSizes[0]
 
             };
-            console.log(depths);
+            //console.log(depths);
             var templateDefault = new Template($scope.templateSource1, depths);
             console.log(templateDefault);
 
@@ -211,12 +211,7 @@ var svgId = 'constructThumbSVG',
             $scope.global.product.constructionWidth = templateObjXPrice.framesSize[0];
             $scope.global.product.constructionHeight = templateObjXPrice.framesSize[1];
 
-            // draw SVG
-            setTimeout(function() {
-              drawSVG(svgId, svgWidth, svgHeight, templateDefault);
-            }, 5000);
             $scope.global.templateDefault = templateDefault;
-
           } else {
             console.log(results);
           }

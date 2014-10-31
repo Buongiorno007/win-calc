@@ -4,7 +4,7 @@
       .title(data-output="{{ 'mainpage.CONFIGMENU_CONFIGURATION' | translate }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
       .icon.unvisible(ng-if="global.isConfigMenu", show-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
         //img(ng-src="{{ global.product.constructThumb }}")
-        div(id="constructThumbSVG", height="100%", width="100%")
+        svg-template(template = "global.templateDefault", template-width="120", template-height="120")
       .name(data-output="{{ 'mainpage.CONFIGMENU_SIZING' | translate }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
       .value(data-output="{{ global.product.constructionWidth }} {{ 'mainpage.MM' | translate }}*", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
       .value(data-output="{{ global.product.constructionHeight }} {{ 'mainpage.MM' | translate }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
@@ -31,9 +31,5 @@
 
   footer.menu-footer.unvisible(ng-if="global.isConfigMenu", show-delay="{{ configMenu.DELAY_SHOW_FOOTER }}")
     price(price-value="global.product.productPrice", price-currency="global.currency")
-    //button.cart-btn(ng-click="inputOrderInCart(); global.gotoCartPage()") {{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
     button.cart-btn(ng-click="inputOrderInCart()") {{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
       .qty.unvisible(ng-if="global.ordersInCart > 0", show-delay="{{ configMenu.DELAY_START }}") {{ global.ordersInCart }}
-
-  //.test
-    input(ng-model="global.orderPrice")
