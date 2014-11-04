@@ -1,20 +1,35 @@
 'use strict';
 
-BauVoiceApp.directive('calendar', function() {
+BauVoiceApp.directive('calendar', [ function() {
   return {
     restrict: 'E',
-    link : function (scope, element, attrs) {
+    transclude: true,
+    scope: {
+      dataMonths: '@calendarOption',
+      dataMonthsShort: '@calendarOptionShort'
+    },
+    link: function (scope, element, attrs) {
       $(function(){
-        element.pickmeup({
-          flat	: true,
+        var opt = {
+          flat: true,
           format: 'd.m.Y',
+          locale			: {
+            days: [],
+            daysShort: [],
+            daysMin: [],
+            monthsShort: [],
+            months: []
+          },
           change: function (date) {
-            scope.cartMenuData.newDeliveryDate = date;
-            scope.checkDifferentDate(scope.cartMenuData.deliveryDate, date);
+            scope.$parent.cartMenuData.newDeliveryDate = date;
+            scope.$parent.checkDifferentDate(scope.$parent.cartMenuData.deliveryDate, date);
             scope.$apply();
           }
-        });
+        };
+        opt.locale.monthsShort = scope.dataMonthsShort.split(', ');
+        opt.locale.months = scope.dataMonths.split(', ');
+        element.pickmeup(opt);
       });
     }
-  }
-});
+  };
+}]);

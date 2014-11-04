@@ -166,4 +166,77 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  'constructService', 'loca
     $location.path('/main');
   };
 
+  //-------- CHANGE CONSTRUCTION SIZE -----------
+
+
+
+  $('svg-template').off().on("click", ".size-box-edited", function() {
+    var sizeId = $(this).find('text').attr('id');
+    console.log(sizeId);
+    console.log($(this).find('text').text());
+    $scope.constructData.tempSizeId = sizeId;
+  });
+
+  $('.construction-right-menu .size-calculator .calc-digit').off().click(function() {
+    var number = $(this).text();
+    console.log(number);
+    $('#'+$scope.constructData.tempSizeId).text(number);
+
+  });
+  /*
+  // Change Size parameter
+  $scope.setValueSize = function(newValue) {
+    //console.log($scope.addElementsMenu.tempSize);
+    if($scope.constructData.tempSize.length == 1 && $scope.constructData.tempSize[0] === 0) {
+      $scope.constructData.tempSize.length = 0;
+    }
+
+    if($scope.constructData.tempSize.length < 4) {
+      if(newValue === '00'){
+        $scope.constructData.tempSize.push(0, 0);
+      } else {
+        $scope.constructData.tempSize.push(newValue);
+      }
+    }
+    //changeElementSize();
+  };
+
+  // Delete last number
+  $scope.deleteLastNumber = function() {
+    $scope.addElementsMenu.tempSize.pop();
+    if($scope.addElementsMenu.tempSize.length < 1) {
+      $scope.addElementsMenu.tempSize.push(0);
+    }
+    changeElementSize();
+  };
+
+  // Close Size Calculator
+  $scope.closeSizeCaclulator = function() {
+    $scope.global.isWidthCalculator = false;
+    $scope.addElementsMenu.tempSize.length = 0;
+    $scope.global.desactiveAddElementParameters();
+  };
+
+  function changeElementSize(){
+    var newElementSize = '';
+    for(var numer = 0; numer < $scope.addElementsMenu.tempSize.length; numer++) {
+      newElementSize += $scope.addElementsMenu.tempSize[numer].toString();
+    }
+    var elementId = $scope.global.currentAddElementId;
+
+    if($scope.global.isWidthCalculator) {
+      switch($scope.global.isFocusedAddElement) {
+        case 2:
+          $scope.global.chosenAddElements.selectedVisors[elementId].elementWidth = newElementSize;
+          break;
+      }
+    } else {
+      if($scope.global.isFocusedAddElement === 5) {
+        $scope.global.chosenAddElements.selectedLouvers[elementId].elementHeight = newElementSize;
+      }
+    }
+  }
+
+*/
+
 }]);

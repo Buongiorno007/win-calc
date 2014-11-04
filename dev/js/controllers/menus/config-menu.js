@@ -153,7 +153,7 @@ var svgId = 'constructThumbSVG',
           constructService.getDefaultConstructTemplate(function (results) {
           if (results.status) {
 
-            $scope.templateSource1 = results.data;
+            $scope.global.templateSource = results.data;
 
             // парсинг шаблона, расчет размеров
             //var depth = frameSize[0].c;
@@ -165,7 +165,7 @@ var svgId = 'constructThumbSVG',
 
             };
             //console.log(depths);
-            var templateDefault = new Template($scope.templateSource1, depths);
+            var templateDefault = new Template($scope.global.templateSource, depths);
             console.log(templateDefault);
 
             // создание объекта для отправки в базу, чтобы рассчитать цену шаблона

@@ -24,7 +24,7 @@ section.construction-page(ng-controller="ConstructionCtrl")
         .project-default {{ 'construction.PROJECT_DEFAULT' | translate }}
 
     .construction-block(ng-hide="isDoorPage")
-      object(type="image/svg+xml" data="img/windowConstruction.svg" class="")
+      svg-template(template = "global.templateDefault", template-width="1500", template-height="1000", type-construction="edit")
     .construction-block(ng-show="isDoorPage")
       object(type="image/svg+xml" data="img/doorConstruction.svg" class="")
 
@@ -44,6 +44,8 @@ section.construction-page(ng-controller="ConstructionCtrl")
       .right-menu-footer
         .size-calculator
           include parts/_size-calculator
+
+
 
     section.door-configuration(ng-class="{'active': constructData.showDoorConfig}")
 

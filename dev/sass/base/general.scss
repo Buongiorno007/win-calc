@@ -277,7 +277,7 @@ body {
   z-index: 9;
 }
 
-//------- SVG
+//------- SVG ----------
 .glass {
   fill: rgba(155, 204, 255, 0.20);
   cursor: pointer;
@@ -301,7 +301,35 @@ body {
   //stroke-miterlimit: "10";
   //stroke-linecap: "round";
 }
+.size-box {
+  cursor: pointer;
+}
+.size-box-edited {
+  cursor: pointer;
+  .size-rect {
+    fill: $main_green;
+  }
+  .size-value {
+    stroke: #fff;
+    fill: #fff;
+  }
+}
+
+.size-rect {
+  stroke: $main_green;
+  stroke-width: 3px;
+  fill: none;
+}
 .size-value {
   font-size: 80px;
-  fill: #363636;
+  stroke: #D2D2D2;
+  stroke-width: 1px;
+  text-anchor: middle;
+}
+.size-value-vertical {
+  @extend .size-value;
+  text-anchor: end;
+  //writing-mode: tb;
+  //glyph-orientation-vertical: 190;
+  //@include rotate(180deg);
 }

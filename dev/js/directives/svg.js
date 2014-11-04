@@ -1,5 +1,3 @@
-/* STEP */
-
 'use strict';
 
 //BauVoiceApp.directive('svgTemplate', ['$compile', function($compile) {
@@ -10,6 +8,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
     replace: true,
     transclude: true,
     scope: {
+      typeConstruction: '@',
       template: '=',
       templateWidth: '=',
       templateHeight: '='
@@ -27,9 +26,12 @@ BauVoiceApp.directive('svgTemplate', [ function() {
 
       function buildTemplateSVG(template, canvasWidth, canvasHeight) {
         var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"),
-            draw = SVG(svg).size(canvasWidth, canvasHeight);
-        draw.viewbox(-300, -300, 2000, 2000);
+            draw = SVG(svg).size(canvasWidth, canvasHeight),
+            sizeClass = 'size-box',
+            sizeEditClass = 'size-box-edited';
 
+        draw.viewbox(-300, -300, 2000, 2000);
+        //draw.attr('preserveAspectRatio', "xMinYMin meet");
         var elementsSVG = {
           frames: [],
           glasses: [],
@@ -77,6 +79,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                 dim.lengthVal =  template.objects[i].lengthVal;
                 dim.textX = (template.objects[i].lengthVal / 2);
                 dim.textY = (-height);
+                dim.id = template.objects[i].id;
               //}
               elementsSVG.dimensionsH.push(dim);
               break;
@@ -102,7 +105,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               dim.lengthVal =  template.objects[i].lengthVal;
               dim.textX = (-height);
               dim.textY = (template.objects[i].lengthVal / 2);
-
+              dim.id = template.objects[i].id;
               elementsSVG.dimensionsV.push(dim);
               break;
 
@@ -127,6 +130,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
 
               case 'dimensionsH':
               case 'dimensionsV':
+
                 for(var l = 0; l < elementsSVG[prop][elem].lines.length; l++) {
                   if(l === 1) {
 
@@ -150,16 +154,58 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                     group.path('M' + elementsSVG[prop][elem].lines[l] + 'z').attr('class', 'size-line');
                   }
                 }
-                group.text(' ' + elementsSVG[prop][elem].lengthVal + ' ').attr('class', 'size-value').dx(elementsSVG[prop][elem].textX).dy(elementsSVG[prop][elem].textY);
-                break;
 
+                // Create box
+                var groupTxt = group.group().attr('class', sizeClass);
+                if(scope.typeConstruction === 'edit') {
+                  if(prop === 'dimensionsH') {
+                    groupTxt.rect(250, 120).attr('class', 'size-rect').cx(elementsSVG[prop][elem].textX).cy(elementsSVG[prop][elem].textY - 10).radius(35);
+                  } else if(prop === 'dimensionsV') {
+                    groupTxt.rect(250, 120).attr('class', 'size-rect').cx(elementsSVG[prop][elem].textX - 90).cy(elementsSVG[prop][elem].textY - 10).radius(35);
+                  }
+                }
+
+                // Create sizeText
+                var dimension = groupTxt.text(' ' + elementsSVG[prop][elem].lengthVal + ' ').dx(elementsSVG[prop][elem].textX).dy(elementsSVG[prop][elem].textY);
+                if(prop === 'dimensionsV') {
+                  dimension.attr({class: 'size-value-vertical', id: elementsSVG[prop][elem].id});
+                } else {
+                  dimension.attr({class: 'size-value', id: elementsSVG[prop][elem].id});
+                }
+
+                // Click on size
+                groupTxt.click(function() {
+                  if(scope.typeConstruction === 'edit') {
+                    if (this.hasClass(sizeEditClass)) {
+                      deactiveSizeBox();
+                      $('.size-calculator').removeClass('active');
+                    } else {
+                      if(!$('.size-calculator').hasClass('active')) {
+                        deactiveSizeBox();
+                        this.toggleClass(sizeClass);
+                        this.toggleClass(sizeEditClass);
+                        $('.size-calculator').addClass('active');
+                      }
+                    }
+                  }
+                });
+
+
+                break;
 
             }
           }
         }
+
+        function deactiveSizeBox() {
+          $('g.size-box-edited').each(function () {
+            this.instance.removeClass(sizeEditClass);
+            this.instance.addClass(sizeClass);
+          });
+        }
+
         return svg;
       }
-
     }
   };
 }]);

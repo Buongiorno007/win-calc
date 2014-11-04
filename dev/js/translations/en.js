@@ -1,6 +1,11 @@
 "use strict";
 
 window.englishDictionary = {
+  common_words: {
+    CHANGE: 'Change',
+    MONTHS: 'January, February, March, April, May, June, July, August, September, October, November, December',
+    MONTHS_SHOT: 'Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec'
+  },
   login: {
     ENTER: 'Enter',
     PASS_CODE: 'Please provide this code to someone.',

@@ -166,6 +166,8 @@ $door-config-content: $ipad-height - $door-config-header;
     position: absolute;
     right: 0;
     bottom: 0;
+    width: 478px;
+    height: 510px;
   }
   .door-config-menu {
     position: absolute;
@@ -202,7 +204,20 @@ $door-config-content: $ipad-height - $door-config-header;
   }
 
   .size-calculator {
+    @include transition(all 0.5s linear);
+
+    position: absolute;
+    bottom: -1000px;
+    width: 475px;
+    background-color: #f8f8f8;
     border-left: 1px solid $main_gray_btn;
+    &.active {
+      bottom: 0px;
+    }
+  }
+
+  .calc-equal {
+    background-color: $main_green;
   }
 }
 
