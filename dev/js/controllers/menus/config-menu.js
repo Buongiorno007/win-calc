@@ -13,9 +13,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     DELAY_TYPE_ITEM_TITLE: 10 * STEP,
     typing: 'on'
   };
-var svgId = 'constructThumbSVG',
-    svgWidth = 120,
-    svgHeight = 120;
+
 
   var templateObjXPrice = {
     cityId: $scope.global.userGeoLocationId,
@@ -157,7 +155,7 @@ var svgId = 'constructThumbSVG',
 
             // парсинг шаблона, расчет размеров
             //var depth = frameSize[0].c;
-            var depths = {
+            $scope.global.templateDepths = {
               frameDepth: $scope.global.allProfileFrameSizes[0],
               sashDepth: $scope.global.allProfileSashSizes[0],
               impostDepth: $scope.global.allProfileImpostSizes[0],
@@ -165,7 +163,7 @@ var svgId = 'constructThumbSVG',
 
             };
             //console.log(depths);
-            var templateDefault = new Template($scope.global.templateSource, depths);
+            var templateDefault = new Template($scope.global.templateSource, $scope.global.templateDepths);
             console.log(templateDefault);
 
             // создание объекта для отправки в базу, чтобы рассчитать цену шаблона
@@ -482,13 +480,13 @@ var svgId = 'constructThumbSVG',
 
     productData = {
       "productId": $scope.global.productCounter,
-      "productWidth": $scope.global.constructionSize.width,
-      "productHeight": $scope.global.constructionSize.height,
+      "productWidth": $scope.global.product.constructionWidth,
+      "productHeight": $scope.global.product.constructionHeight,
       "profileName": $scope.global.profileName,
       "glassName": $scope.global.glassName,
       "hardwareName": $scope.global.hardwareName,
-      "laminationNameOut": $scope.global.lamination.outer,
-      "laminationNameIn": $scope.global.lamination.inner,
+      "laminationNameOut": $scope.global.product.laminationOuter,
+      "laminationNameIn": $scope.global.product.laminationInner,
       "productPrice": $scope.global.productPrice,
       "productQty": 1
     };

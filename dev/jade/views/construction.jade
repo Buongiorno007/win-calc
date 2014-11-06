@@ -24,7 +24,7 @@ section.construction-page(ng-controller="ConstructionCtrl")
         .project-default {{ 'construction.PROJECT_DEFAULT' | translate }}
 
     .construction-block(ng-hide="isDoorPage")
-      svg-template(template = "global.templateDefault", template-width="1500", template-height="1000", type-construction="edit")
+      svg-template(template="global.templateDefault", template-width="global.svgTemplateWidth", template-height="global.svgTemplateHeight", type-construction="edit")
     .construction-block(ng-show="isDoorPage")
       object(type="image/svg+xml" data="img/doorConstruction.svg" class="")
 

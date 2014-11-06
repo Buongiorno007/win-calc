@@ -2,6 +2,11 @@
 
 BauVoiceApp.factory('localStorage', function () {
   return {
+    svgTemplateThumbWidth: 120,
+    svgTemplateThumbHeight: 120,
+    svgTemplateWidth: 1500,
+    svgTemplateHeight: 1000,
+
     product: {},
     chosenAddElements: {
       selectedGrids: [],

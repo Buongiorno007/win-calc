@@ -327,8 +327,8 @@ BauVoiceApp.factory('constructService', function ($q) {
 
           {'type': 'glass_paсkage', id:'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
 
-          {'type': 'dimensionsH', id:'dimH', from: ['fp1','fp4'], to:['fp2', 'fp3'], level: 1, height: 150},
-          {'type': 'dimensionsV', id:'dimV', from: ['fp1','fp2'], to:['fp4', 'fp3'], level: 1, height: 150}
+          {'type': 'dimensionsH', id:'dimH', from: ['fp1', 'fp4'], to:['fp2', 'fp3'], level: 1, height: 150},
+          {'type': 'dimensionsV', id:'dimV', from: ['fp1', 'fp2'], to:['fp4', 'fp3'], level: 1, height: 150}
           //{'type': 'dimensionsV', id:'dimV', from:'fp1', to:'fp4', height: 150}
 
           /*

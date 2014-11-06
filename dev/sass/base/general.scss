@@ -309,7 +309,7 @@ body {
   .size-rect {
     fill: $main_green;
   }
-  .size-value {
+  .size-value-edit {
     stroke: #fff;
     fill: #fff;
   }
@@ -318,7 +318,7 @@ body {
 .size-rect {
   stroke: $main_green;
   stroke-width: 3px;
-  fill: none;
+  fill: #fff;
 }
 .size-value {
   font-size: 80px;
@@ -332,4 +332,15 @@ body {
   //writing-mode: tb;
   //glyph-orientation-vertical: 190;
   //@include rotate(180deg);
+}
+.size-value-edit {
+  font-size: 80px;
+  stroke: $main_green;
+  fill: $main_green;
+  stroke-width: 1px;
+  text-anchor: middle;
+}
+.size-value-edit-vertical {
+  @extend .size-value-edit;
+  text-anchor: end;
 }

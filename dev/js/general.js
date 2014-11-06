@@ -223,6 +223,9 @@ var Dimension = function (sourceObj) {
   this.fromPointId = sourceObj.from[0];
   this.toPointId = sourceObj.to[0];
 
+  this.fromPointsArrId = sourceObj.from;
+  this.toPointsArrId = sourceObj.to;
+
 };
 //Dimension.prototype = FrameObject;
 FrameLine.prototype = LineObject;

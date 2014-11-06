@@ -4,7 +4,7 @@
       .title(data-output="{{ 'mainpage.CONFIGMENU_CONFIGURATION' | translate }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
       .icon.unvisible(ng-if="global.isConfigMenu", show-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
         //img(ng-src="{{ global.product.constructThumb }}")
-        svg-template(template = "global.templateDefault", template-width="120", template-height="120")
+        svg-template(template = "global.templateDefault", template-width="global.svgTemplateThumbWidth", template-height="global.svgTemplateThumbHeight")
       .name(data-output="{{ 'mainpage.CONFIGMENU_SIZING' | translate }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
       .value(data-output="{{ global.product.constructionWidth }} {{ 'mainpage.MM' | translate }}*", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
       .value(data-output="{{ global.product.constructionHeight }} {{ 'mainpage.MM' | translate }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")

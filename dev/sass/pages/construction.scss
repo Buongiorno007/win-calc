@@ -41,6 +41,7 @@ $door-config-content: $ipad-height - $door-config-header;
     list-style: none;
     margin: 0;
     padding: 0;
+    background-color: #fff;
   }
   .figure-item {
     height: 215px;
@@ -120,8 +121,11 @@ $door-config-content: $ipad-height - $door-config-header;
 // Construction SVG
 
 .construction-block {
+  //width: $ipad-width;
+  //height: $ipad-height;
   padding: 250px;
   text-align: center;
+  overflow: auto;
 }
 
 

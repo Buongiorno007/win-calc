@@ -1,6 +1,5 @@
 'use strict';
 
-//BauVoiceApp.directive('svgTemplate', ['$compile', function($compile) {
 BauVoiceApp.directive('svgTemplate', [ function() {
 
   return {
@@ -16,13 +15,11 @@ BauVoiceApp.directive('svgTemplate', [ function() {
     link: function (scope, elem, attrs) {
       var svg = buildTemplateSVG(scope.template, scope.templateWidth, scope.templateHeight);
       elem.html(svg);
-      //$compile(temp)(scope);
-      //$compile(elem.contents())(scope);
 
-      scope.$watch(scope.template, function () {
-        buildTemplateSVG(scope.template, scope.templateWidth, scope.templateHeight);
+      scope.$watch('template', function () {
+        var svg = buildTemplateSVG(scope.template, scope.templateWidth, scope.templateHeight);
+        elem.html(svg);
       });
-
 
       function buildTemplateSVG(template, canvasWidth, canvasHeight) {
         var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"),
@@ -31,7 +28,6 @@ BauVoiceApp.directive('svgTemplate', [ function() {
             sizeEditClass = 'size-box-edited';
 
         draw.viewbox(-300, -300, 2000, 2000);
-        //draw.attr('preserveAspectRatio', "xMinYMin meet");
         var elementsSVG = {
           frames: [],
           glasses: [],
@@ -167,10 +163,24 @@ BauVoiceApp.directive('svgTemplate', [ function() {
 
                 // Create sizeText
                 var dimension = groupTxt.text(' ' + elementsSVG[prop][elem].lengthVal + ' ').dx(elementsSVG[prop][elem].textX).dy(elementsSVG[prop][elem].textY);
+
                 if(prop === 'dimensionsV') {
-                  dimension.attr({class: 'size-value-vertical', id: elementsSVG[prop][elem].id});
+                  dimension.attr({id: elementsSVG[prop][elem].id, style: 'font-size: 80px;'});
                 } else {
-                  dimension.attr({class: 'size-value', id: elementsSVG[prop][elem].id});
+                  dimension.attr({id: elementsSVG[prop][elem].id, style: 'font-size: 80px;'});
+                }
+                if(scope.typeConstruction === 'edit') {
+                  if(prop === 'dimensionsV') {
+                    dimension.attr({class: 'size-value-edit-vertical'});
+                  } else {
+                    dimension.attr({class: 'size-value-edit'});
+                  }
+                } else {
+                  if(prop === 'dimensionsV') {
+                    dimension.attr({class: 'size-value-vertical'});
+                  } else {
+                    dimension.attr({class: 'size-value'});
+                  }
                 }
 
                 // Click on size
