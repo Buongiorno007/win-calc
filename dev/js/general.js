@@ -57,7 +57,7 @@ function typingTextWithDelay(element, delay) {
     });
   }, delay);
 }
-
+/*
 function addClassWithDelay(element, className, delay) {
   setTimeout(function () {
     $(element).addClass(className);
@@ -70,7 +70,7 @@ function removeClassWithDelay(element, className, delay) {
   }, delay);
 }
 
-
+*/
 
 
 
@@ -235,6 +235,7 @@ FrameLine.prototype = LineObject;
 var Template = function (sourceObj, depths) {
   this.name      = sourceObj.name;
   this.shortName = sourceObj.short_name;
+  this.icon = sourceObj.iconUrl;
   this.objects = [];
 /*
     impostDepth:

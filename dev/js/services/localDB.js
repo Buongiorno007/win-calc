@@ -3,7 +3,8 @@
 BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
 
   var dbName = 'localDB',
-      tableOrder = 'order',
+      tableProducts = 'products',
+      tableConstructionParts = 'construction_parts',
       tableGrids = 'grids',
       tableVisors = 'visors',
       tableSpillways = 'spillways',
@@ -19,8 +20,7 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
 
   dbGlobal = $webSql.openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
   db = $webSql.openDatabase(dbName, '1.0', 'Test DB', 65536);
-  db.createTable(tableOrder, {
-
+  db.createTable(tableProducts, {
     "id":{
       "type": "INTEGER",
       "null": "NOT NULL",
@@ -36,6 +36,14 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "type": "INTEGER",
       "null": "NOT NULL"
     },
+    "productName":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "productIcon":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
     "productWidth":{
       "type": "INTEGER",
       "null": "NOT NULL"
@@ -44,23 +52,43 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "type": "INTEGER",
       "null": "NOT NULL"
     },
+    "profileId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
     "profileName":{
       "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "glassId":{
+      "type": "INTEGER",
       "null": "NOT NULL"
     },
     "glassName":{
       "type": "TEXT",
       "null": "NOT NULL"
     },
+    "hardwareId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
     "hardwareName":{
       "type": "TEXT",
       "null": "NOT NULL"
     },
-    "laminationNameOut":{
+    "laminationOutId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "laminationOutName":{
       "type": "TEXT",
       "null": "NOT NULL"
     },
-    "laminationNameIn":{
+    "laminationInId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "laminationInName":{
       "type": "TEXT",
       "null": "NOT NULL"
     },
@@ -75,6 +103,23 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
 
   });
 
+  db.createTable(tableConstructionParts, {
+    "id":{
+      "type": "INTEGER",
+      "null": "NOT NULL",
+      "primary": true,
+      "auto_increment": true
+    },
+    "productId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "components":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    }
+  });
+
   db.createTable(tableVisors, {
 
     "id":{
@@ -82,11 +127,6 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "null": "NOT NULL",
       "primary": true,
       "auto_increment": true
-    },
-    "created":{
-      "type": "TIMESTAMP",
-      "null": "NOT NULL",
-      "default": "CURRENT_TIMESTAMP"
     },
     "productId":{
       "type": "INTEGER",
@@ -126,11 +166,6 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "null": "NOT NULL",
       "primary": true,
       "auto_increment": true
-    },
-    "created":{
-      "type": "TIMESTAMP",
-      "null": "NOT NULL",
-      "default": "CURRENT_TIMESTAMP"
     },
     "productId":{
       "type": "INTEGER",

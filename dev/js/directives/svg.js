@@ -22,21 +22,27 @@ BauVoiceApp.directive('svgTemplate', [ function() {
       });
 
       function buildTemplateSVG(template, canvasWidth, canvasHeight) {
+
         var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"),
             draw = SVG(svg).size(canvasWidth, canvasHeight),
             sizeClass = 'size-box',
-            sizeEditClass = 'size-box-edited';
+            sizeEditClass = 'size-box-edited',
+            activeClass = 'active',
+            elementsSVG = {
+              frames: [],
+              glasses: [],
+              imposts: [],
+              sashes: [],
+              dimensionsH: [],
+              dimensionsV: []
+            },
+            sizeBoxWidth = 250,
+            sizeBoxHeight = 120,
+            sizeBoxRadius = 35;
 
-        draw.viewbox(-300, -300, 2000, 2000);
-        var elementsSVG = {
-          frames: [],
-          glasses: [],
-          imposts: [],
-          sashes: [],
-          dimensionsH: [],
-          dimensionsV: []
-        };
 
+
+        //------- Create elements of construction
         for (var i = 0; i < template.objects.length; i++) {
           var path = '';
           switch(template.objects[i].type) {
@@ -48,42 +54,41 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               //}
               elementsSVG.frames.push(path);
               break;
+
             case 'glass_paсkage':
               for(var p = 0; p < template.objects[i].parts.length; p++) {
                 path += template.objects[i].parts[p].fromPoint.x + ' ' + template.objects[i].parts[p].fromPoint.y + ' ' + template.objects[i].parts[p].toPoint.x + ' ' + template.objects[i].parts[p].toPoint.y + ' ';
               }
               elementsSVG.glasses.push(path);
               break;
+
             case 'dimensionsH':
               //for(var p = 0; p < template.objects[i].parts.length; p++) {
-                var dim = {},
-                    height = template.objects[i].height * template.objects[i].level;
-                dim.lines = [];
-                dim.lines[0] = template.objects[i].fromPoint.x  + ' ' +
-                  template.objects[i].fromPoint.y  + ' ' +
-                  template.objects[i].fromPoint.x  + ' ' +
-                  (template.objects[i].fromPoint.y -  height);
-                dim.lines[1] = template.objects[i].fromPoint.x  + ' ' +
-                  (template.objects[i].fromPoint.y -  height / 2) + ' ' +
-                  template.objects[i].toPoint.x   + ' ' +
-                  (template.objects[i].fromPoint.y -  height / 2);
-                dim.lines[2] = template.objects[i].toPoint.x   + ' ' +
-                  (template.objects[i].toPoint.y -  height) + ' ' +
-                  template.objects[i].toPoint.x   + ' ' +
-                  template.objects[i].toPoint.y;
+              var dim = {}, height = template.objects[i].height * template.objects[i].level;
+              dim.lines = [];
+              dim.lines[0] = template.objects[i].fromPoint.x  + ' ' +
+                template.objects[i].fromPoint.y  + ' ' +
+                template.objects[i].fromPoint.x  + ' ' +
+                (template.objects[i].fromPoint.y -  height);
+              dim.lines[1] = template.objects[i].fromPoint.x  + ' ' +
+                (template.objects[i].fromPoint.y -  height / 2) + ' ' +
+                template.objects[i].toPoint.x   + ' ' +
+                (template.objects[i].fromPoint.y -  height / 2);
+              dim.lines[2] = template.objects[i].toPoint.x   + ' ' +
+                (template.objects[i].toPoint.y -  height) + ' ' +
+                template.objects[i].toPoint.x   + ' ' +
+                template.objects[i].toPoint.y;
 
-                dim.lengthVal =  template.objects[i].lengthVal;
-                dim.textX = (template.objects[i].lengthVal / 2);
-                dim.textY = (-height);
-                dim.id = template.objects[i].id;
+              dim.lengthVal =  template.objects[i].lengthVal;
+              dim.textX = (template.objects[i].lengthVal / 2);
+              dim.textY = (-height);
+              dim.id = template.objects[i].id;
               //}
               elementsSVG.dimensionsH.push(dim);
               break;
 
             case 'dimensionsV':
-
-              var dim = {},
-                  height = template.objects[i].height * template.objects[i].level;
+              var dim = {}, height = template.objects[i].height * template.objects[i].level;
               dim.lines = [];
               dim.lines[0] = template.objects[i].fromPoint.x  + ' ' +
                 template.objects[i].fromPoint.y  + ' ' +
@@ -104,17 +109,19 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               dim.id = template.objects[i].id;
               elementsSVG.dimensionsV.push(dim);
               break;
-
           }
         }
-        console.log(elementsSVG);
+        //console.log(elementsSVG);
+
+        //------- Drawing elements SVG of construction
+
+        draw.viewbox(-300, -300, 2000, 2000);
         for(var prop in elementsSVG) {
           if (!elementsSVG.hasOwnProperty(prop)) {
             continue;
           }
           var group = draw.group();
           for (var elem = 0; elem < elementsSVG[prop].length; elem++) {
-
             switch (prop) {
               case 'frames':
                 group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'frame');
@@ -126,10 +133,9 @@ BauVoiceApp.directive('svgTemplate', [ function() {
 
               case 'dimensionsH':
               case 'dimensionsV':
-
+                //---- draw dimension lines
                 for(var l = 0; l < elementsSVG[prop][elem].lines.length; l++) {
                   if(l === 1) {
-
                     var line = group.path('M' + elementsSVG[prop][elem].lines[l] + 'z').attr('class', 'size-line');
                     line.marker('start', 30, 30, function(add) {
                       add.path('M 0,0 L -4,-2 0,-4 z').attr('class', 'size-line');
@@ -151,35 +157,34 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                   }
                 }
 
-                // Create box
+                //----- draw dimension size box if construction is aditible
                 var groupTxt = group.group().attr('class', sizeClass);
                 if(scope.typeConstruction === 'edit') {
                   if(prop === 'dimensionsH') {
-                    groupTxt.rect(250, 120).attr('class', 'size-rect').cx(elementsSVG[prop][elem].textX).cy(elementsSVG[prop][elem].textY - 10).radius(35);
+                    groupTxt.rect(sizeBoxWidth, sizeBoxHeight).attr('class', 'size-rect').cx(elementsSVG[prop][elem].textX).cy(elementsSVG[prop][elem].textY - 10).radius(sizeBoxRadius);
                   } else if(prop === 'dimensionsV') {
-                    groupTxt.rect(250, 120).attr('class', 'size-rect').cx(elementsSVG[prop][elem].textX - 90).cy(elementsSVG[prop][elem].textY - 10).radius(35);
+                    groupTxt.rect(sizeBoxWidth, sizeBoxHeight).attr('class', 'size-rect').cx(elementsSVG[prop][elem].textX - 90).cy(elementsSVG[prop][elem].textY - 10).radius(sizeBoxRadius);
                   }
                 }
 
-                // Create sizeText
-                var dimension = groupTxt.text(' ' + elementsSVG[prop][elem].lengthVal + ' ').dx(elementsSVG[prop][elem].textX).dy(elementsSVG[prop][elem].textY);
-
+                //----- draw dimension size text
+                var sizeText = groupTxt.text(' ' + elementsSVG[prop][elem].lengthVal + ' ').dx(elementsSVG[prop][elem].textX).dy(elementsSVG[prop][elem].textY);
                 if(prop === 'dimensionsV') {
-                  dimension.attr({id: elementsSVG[prop][elem].id, style: 'font-size: 80px;'});
+                  sizeText.attr({id: elementsSVG[prop][elem].id});
                 } else {
-                  dimension.attr({id: elementsSVG[prop][elem].id, style: 'font-size: 80px;'});
+                  sizeText.attr({id: elementsSVG[prop][elem].id});
                 }
-                if(scope.typeConstruction === 'edit') {
+                if(scope.typeConstruction === 'edit') { //----- if construction is aditible
                   if(prop === 'dimensionsV') {
-                    dimension.attr({class: 'size-value-edit-vertical'});
+                    sizeText.attr('class', 'size-value-edit-vertical');
                   } else {
-                    dimension.attr({class: 'size-value-edit'});
+                    sizeText.attr('class', 'size-value-edit');
                   }
                 } else {
                   if(prop === 'dimensionsV') {
-                    dimension.attr({class: 'size-value-vertical'});
+                    sizeText.attr('class', 'size-value-vertical');
                   } else {
-                    dimension.attr({class: 'size-value'});
+                    sizeText.attr('class', 'size-value');
                   }
                 }
 
@@ -188,21 +193,18 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                   if(scope.typeConstruction === 'edit') {
                     if (this.hasClass(sizeEditClass)) {
                       deactiveSizeBox();
-                      $('.size-calculator').removeClass('active');
+                      $('.size-calculator').removeClass(activeClass);
                     } else {
-                      if(!$('.size-calculator').hasClass('active')) {
+                      if(!$('.size-calculator').hasClass(activeClass)) {
                         deactiveSizeBox();
                         this.toggleClass(sizeClass);
                         this.toggleClass(sizeEditClass);
-                        $('.size-calculator').addClass('active');
+                        $('.size-calculator').addClass(activeClass);
                       }
                     }
                   }
                 });
-
-
                 break;
-
             }
           }
         }

@@ -121,8 +121,8 @@ $door-config-content: $ipad-height - $door-config-header;
 // Construction SVG
 
 .construction-block {
-  //width: $ipad-width;
-  //height: $ipad-height;
+  width: $ipad-width;
+  height: $ipad-height;
   padding: 250px;
   text-align: center;
   overflow: auto;

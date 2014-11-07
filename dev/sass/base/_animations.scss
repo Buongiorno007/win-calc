@@ -193,7 +193,7 @@
 
 // Left Menu
 .move-menu-left {
-  @include animation(move-navmenu-list 1s 0 ease 1);
+  @include animation(move-navmenu-list .5s 0 ease 1);
 }
 @include behavior-move(move-navmenu-list, -600px, 0, 0, 0);
 
@@ -289,6 +289,6 @@
 
 //----View Tab
 .move-view-tab {
-  @include animation(move-tab 2s 0 ease 1);
+  @include animation(move-tab 1s 0 ease 1);
 }
 @include behavior-move(move-tab, -200px, 700px, -126px, 700px);

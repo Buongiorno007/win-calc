@@ -24,9 +24,9 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
 //  } else {
     try {
 
-      localDB.selectAllDB($scope.global.orderTableBD, function (results) {
+      localDB.selectAllDB($scope.global.productsTableBD, function (results) {
         if (results.status) {
-          $scope.global.ordersInCart = results.data.length;
+          $scope.global.productCounter = results.data.length;
         } else {
           console.log(results);
         }
@@ -34,9 +34,9 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
 
     } catch(e) {
 
-       globalDB.getOrdersCart(function (results) {
+       globalDB.getProductsInCart(function (results) {
          if (results.status) {
-          $scope.global.ordersInCart = results.data.ordersInCart;
+          $scope.global.productCounter = results.data.productsInCart;
          } else {
           console.log(results);
          }
@@ -81,15 +81,18 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
     $scope.global.isAddElementsPanel = true;
   };
 
-  $scope.createNewProject = function() {
+  $scope.global.createNewProject = function() {
     $scope.global.productEditNumber = false;
-    $scope.global.checkIsEditProduct();
+    $scope.global.templateSource = null;
+    delete $scope.global.templateSource;
+    $scope.global.productInit();
     $scope.navMenu.activeMenuItem = false;
     $scope.global.showNavMenu = false;
     $scope.global.isConfigMenu = true;
     $scope.global.showPanels = {};
     $scope.global.showPanels.showTemplatePanel = true;
     $scope.global.isTemplatePanel = true;
+    $location.path('/main');
   };
 
   //Select menu item

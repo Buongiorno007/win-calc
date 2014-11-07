@@ -30,8 +30,8 @@ section.construction-page(ng-controller="ConstructionCtrl")
 
     .construction-right-menu
       .right-menu-header
-        button.construct-tools.save-construction(ng-click="gotoMainPageEmpty()")
-        button.construct-tools.close-construction(ng-click="gotoMainPageSaved()")
+        button.construct-tools.save-construction(ng-click="gotoMainPageSaved()")
+        button.construct-tools.close-construction(ng-click="gotoMainPageCancel()")
 
       .door-config-menu(ng-show="isDoorPage")
         button.door-config-btn(ng-class="{'active': constructData.showDoorConfig}", ng-click="getDoorConfig()")

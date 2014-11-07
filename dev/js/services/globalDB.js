@@ -474,9 +474,9 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
       }));
     },
 
-    getOrdersCart: function (callback) {
+    getProductsInCart: function (callback) {
       callback(new OkResult({
-        ordersInCart: 0
+        productsInCart: 0
       }));
     },
 

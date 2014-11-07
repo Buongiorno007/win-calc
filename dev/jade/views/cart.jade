@@ -10,11 +10,11 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
           .cart-header
             include parts/_user-info
             button.cart-tool.additional-elements {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
-            button.cart-tool.new-order(ng-click="createNewProduct()") {{ 'cart.ADD_ORDER' | translate }}
+            button.cart-tool.new-order(ng-click="global.createNewProject()") {{ 'cart.ADD_ORDER' | translate }}
 
           .order-block
 
-            .order(ng-repeat="product in global.order")
+            .order(ng-repeat="product in global.productObj")
               button.order-delete(ng-click="deleteProduct(product.productId, $index)")
               .order-header
                 img.order-header-fon(ng-src="../img/rooms-dialog/livingroom.jpg", ng-click="editProduct(product.productId)")
@@ -40,7 +40,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                     .order-label {{ 'mainpage.CONFIGMENU_HARDWARE' | translate }}
                   li.order-item
                     .order-label {{ 'mainpage.CONFIGMENU_LAMINATION_TYPE' | translate }}
-                    .order-value {{ product.laminationNameOut }} / {{ product.laminationNameIn }}
+                    .order-value {{ product.laminationOutName }} / {{ product.laminationInName }}
                     .order-label {{ 'mainpage.CONFIGMENU_LAMINATION' | translate }}
                   li.order-item.addelements-btn(ng-click="showAllAddElementDetail(product.productId, $index)")
                     .order-value(ng-if="cart.allAddElements[$index].length > 4 || !cart.allAddElements[$index].length") {{cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENTS' | translate }}
@@ -123,7 +123,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
             button.cart-tool.new-order(ng-click="createNewProduct()") {{ 'cart.ADD_ORDER' | translate }}
 
           .order-block
-            .order(ng-repeat="product in global.order")
+            .order(ng-repeat="product in global.productObj")
               button.order-delete(ng-click="deleteProduct(product.productId, $index)")
               .order-header
                 .order-template

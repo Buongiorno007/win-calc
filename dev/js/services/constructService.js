@@ -97,28 +97,6 @@ BauVoiceApp.factory('constructService', function ($q) {
       }));
     },
 
-    getAllLaminations: function (callback) {
-      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, allLaminations = [];
-      db.transaction(function (transaction) {
-        transaction.executeSql(selectLaminations, [], function (transaction, result) {
-          if (result.rows.length) {
-            for (i = 0; i < result.rows.length; i++) {
-              allLaminations.push({
-                id: result.rows.item(i).id,
-                name: result.rows.item(i).name + ""
-              });
-            }
-            callback(new OkResult(allLaminations));
-          } else {
-            callback(new ErrorResult(1, 'No laminations in database!'));
-          }
-        }, function () {
-          callback(new ErrorResult(2, 'Something went wrong with selection lamination_colors record'));
-        });
-      });
-    },
-
-
     getAllProfileSystems: function () {
       var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), AllProfileSystems = [], allFolders, count, folder_id, resultObj = {}, j, i;
       var deferred = $q.defer();
@@ -249,49 +227,12 @@ BauVoiceApp.factory('constructService', function ($q) {
     },
 */
 
-    getAllWindowHardwares: function (callback) {
-      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, AllWindowHardwares = [];
-      db.transaction(function (transaction) {
-        transaction.executeSql(selectWindowHardware, [], function (transaction, result) {
-          if (result.rows.length) {
-            for (i = 0; i < result.rows.length; i++) {
-              AllWindowHardwares.push({
-                id: result.rows.item(i).id,
-                name: result.rows.item(i).name + "",
-                shortName: result.rows.item(i).shortName + ""
-              });
-            }
-            callback(new OkResult(AllWindowHardwares));
-          } else {
-            callback(new ErrorResult(1, 'No window_hardware in database!'));
-          }
-        }, function () {
-          callback(new ErrorResult(2, 'Something went wrong with selection window_hardware_groups record'));
-        });
-      });
-    },
-
-
-    // TODO: Сервис готов
-    getConstructThumb: function (callback) {
-      callback(new OkResult({
-        url: '../img/config-menu/configMenu_itemIMG.png'
-      }));
-    },
-
-    // TODO: Сервис готов
-    getConstructSize: function (callback) {
-      callback(new OkResult({
-        width: 1200,
-        height: 1250
-      }));
-    },
-
     getDefaultConstructTemplate: function(callback) {
       callback(new OkResult({
 
         'name':'Одностворчатый глухой',
-        'short_name':'ОГ',
+        //'short_name':'ОГ',
+        'iconUrl': '../img/config-menu/configMenu_itemIMG.png',
         'objects':[
           {'type':'fixed_point', 'id':'fp1', 'x':'0', 'y': '0'},
           {'type':'fixed_point', id:'fp2', x:'1400', y:'0'},
@@ -329,7 +270,6 @@ BauVoiceApp.factory('constructService', function ($q) {
 
           {'type': 'dimensionsH', id:'dimH', from: ['fp1', 'fp4'], to:['fp2', 'fp3'], level: 1, height: 150},
           {'type': 'dimensionsV', id:'dimV', from: ['fp1', 'fp2'], to:['fp4', 'fp3'], level: 1, height: 150}
-          //{'type': 'dimensionsV', id:'dimV', from:'fp1', to:'fp4', height: 150}
 
           /*
           {'type':'sash_line', id:'s1', from:'cp1', to:'cp2'},
@@ -364,7 +304,49 @@ BauVoiceApp.factory('constructService', function ($q) {
     },
 */
 
+    getAllWindowHardwares: function (callback) {
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, AllWindowHardwares = [];
+      db.transaction(function (transaction) {
+        transaction.executeSql(selectWindowHardware, [], function (transaction, result) {
+          if (result.rows.length) {
+            for (i = 0; i < result.rows.length; i++) {
+              AllWindowHardwares.push({
+                id: result.rows.item(i).id,
+                name: result.rows.item(i).name + "",
+                shortName: result.rows.item(i).shortName + ""
+              });
+            }
+            callback(new OkResult(AllWindowHardwares));
+          } else {
+            callback(new ErrorResult(1, 'No window_hardware in database!'));
+          }
+        }, function () {
+          callback(new ErrorResult(2, 'Something went wrong with selection window_hardware_groups record'));
+        });
+      });
+    },
 
+
+    getAllLaminations: function (callback) {
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, allLaminations = [];
+      db.transaction(function (transaction) {
+        transaction.executeSql(selectLaminations, [], function (transaction, result) {
+          if (result.rows.length) {
+            for (i = 0; i < result.rows.length; i++) {
+              allLaminations.push({
+                id: result.rows.item(i).id,
+                name: result.rows.item(i).name + ""
+              });
+            }
+            callback(new OkResult(allLaminations));
+          } else {
+            callback(new ErrorResult(1, 'No laminations in database!'));
+          }
+        }, function () {
+          callback(new ErrorResult(2, 'Something went wrong with selection lamination_colors record'));
+        });
+      });
+    },
 
     // TODO: Сервис готов
     getProfileSystem: function (callback) {

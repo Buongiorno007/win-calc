@@ -22,7 +22,7 @@ BauVoiceApp.factory('localStorage', function () {
       selectedOthers: []
     },
 
-    productCounter: 0,
+    //productCounter: 0,
     productEditNumber: 0,
 
     showNavMenu: true,
@@ -60,8 +60,9 @@ BauVoiceApp.factory('localStorage', function () {
     showRoomSelectorDialog: false,
     isRoomsDialog: false,
     currentRoomId: 4,
-
-    orderTableBD: 'order',
+//------ DB table names
+    productsTableBD: 'products',
+    componentsTableBD: 'construction_parts',
     gridsTableBD: 'grids',
     visorsTableBD: 'visors',
     spillwaysTableBD: 'spillways',
