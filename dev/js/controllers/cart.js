@@ -38,7 +38,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
       $scope.global.productObj = angular.copy(results.data);
       $scope.global.productCounter = $scope.global.productObj.length;
 
-      calculateOrderPrice();
+      $scope.global.calculateOrderPrice();
       $scope.global.orderTotalPrice = $scope.global.orderPrice;
 
       for(prod = 0; prod < $scope.global.productCounter; prod++) {
@@ -78,7 +78,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     $scope.cart.allAddElements.splice(productIdArr, 1);
     --$scope.global.productCounter;
     // Change order price
-    calculateOrderPrice();
+    $scope.global.calculateOrderPrice();
     localDB.deleteDB($scope.global.productsTableBD, {"productId": productIdBD});
     localDB.deleteDB($scope.global.componentsTableBD, {"productId": productIdBD});
     localDB.deleteDB($scope.global.visorsTableBD, {"productId": productIdBD});
@@ -103,10 +103,10 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
       $scope.deleteProduct(productIdBD, productIdArr);
     } else {
       $scope.global.productObj[productIdArr].productQty = --newProductsQty;
-      oldProductPrice = Math.round(parseFloat($scope.cart.productObjSource[productIdArr].productPrice) * 100) / 100;
-      newProductPrice = Math.round(parseFloat($scope.global.productObj[productIdArr].productPrice) * 100) / 100;
-      $scope.global.productObj[productIdArr].productPrice = Math.round((newProductPrice - oldProductPrice) * 100) / 100;
-      calculateOrderPrice();
+      oldProductPrice = parseFloat($scope.cart.productObjSource[productIdArr].productPrice);
+      newProductPrice = parseFloat($scope.global.productObj[productIdArr].productPrice);
+      $scope.global.productObj[productIdArr].productPrice = parseFloat((newProductPrice - oldProductPrice).toFixed(2));
+      $scope.global.calculateOrderPrice();
 
       // Change product value in DB
       localDB.updateDB($scope.global.productsTableBD, {"productQty": newProductsQty}, {"productId": productIdBD});
@@ -114,22 +114,18 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   };
 
 
-
-
   //----- Increase Product Qty
   $scope.moreProduct = function(productIdBD, productIdArr) {
     newProductsQty = $scope.global.productObj[productIdArr].productQty;
     $scope.global.productObj[productIdArr].productQty = ++newProductsQty;
-    oldProductPrice = Math.round(parseFloat($scope.cart.productObjSource[productIdArr].productPrice) * 100) / 100;
-    newProductPrice = Math.round(parseFloat($scope.global.productObj[productIdArr].productPrice) * 100) / 100;
-    $scope.global.productObj[productIdArr].productPrice = Math.round((oldProductPrice + newProductPrice) * 100) / 100;
-    calculateOrderPrice();
+    oldProductPrice = parseFloat($scope.cart.productObjSource[productIdArr].productPrice);
+    newProductPrice = parseFloat($scope.global.productObj[productIdArr].productPrice);
+    $scope.global.productObj[productIdArr].productPrice = parseFloat((oldProductPrice + newProductPrice).toFixed(2));
 
+    $scope.global.calculateOrderPrice();
     // Change product value in DB
     localDB.updateDB($scope.global.productsTableBD, {"productQty": newProductsQty}, {"productId": productIdBD});
   };
-
-
 
 
   //----- AddElements detail block
@@ -152,11 +148,13 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   };
 
   // Calculate Order Price
-  function calculateOrderPrice() {
+  $scope.global.calculateOrderPrice = function() {
     $scope.global.orderPrice = 0;
     for(p = 0; p < $scope.global.productCounter; p++) {
       $scope.global.orderPrice += parseFloat($scope.global.productObj[p].productPrice);
     }
-  }
+    //
+    $scope.global.calculateTotalOrderPrice();
+  };
 
 }]);

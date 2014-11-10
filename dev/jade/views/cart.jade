@@ -19,15 +19,16 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
               .order-header
                 img.order-header-fon(ng-src="../img/rooms-dialog/livingroom.jpg", ng-click="editProduct(product.productId)")
                 .order-template
-                  img.icon-thumb(ng-src="../img/templates/balcony.png")
+                  //img.icon-thumb(ng-src="../img/templates/balcony.png")
+                  img.icon-thumb(ng-src="{{ product.productIcon }}")
                 .order-coeff
                   span.coeff-label телопередача
                   span.coeff-value 0.63
               .order-content
                 ul.order-list
                   li.order-item
-                    .order-value {{ product.productWidth }} 000 мм
-                    .order-value {{ product.productHeight }} 000 мм
+                    .order-value {{ product.productWidth }} {{ 'mainpage.MM' | translate }}
+                    .order-value {{ product.productHeight }} {{ 'mainpage.MM' | translate }}
                     .order-label {{ 'mainpage.CONFIGMENU_SIZING' | translate }}
                   li.order-item
                     .order-value {{ product.profileName }}

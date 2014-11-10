@@ -254,7 +254,7 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       db.update(tableName, elem, options).then(function(results) {
         console.log(results);
       });
-    },
+    }
 
 
 

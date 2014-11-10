@@ -329,15 +329,12 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
 
     importDb: function (deviceCode, callback) {
       var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, table;
-
       db.transaction(function (transaction) {
         for (i = 0; i < createTablesSQL.length; i++) {
           transaction.executeSql(createTablesSQL[i], []);
         }
       });
-
       $http.get('http://api.voice-creator.net/sync/elements?access_token=' + deviceCode).success(function (result) {
-
         db.transaction(function (transaction) {
           for (table in result.tables) {
             for (i = 0; i < result.tables[table].rows.length; i++) {
@@ -352,11 +349,9 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
           });
           callback({status: true});
         });
-
       }).error(function () {
         callback(new ErrorResult(2, 'Something went wrong with importing Database!'));
       });
-
     },
 
     getLastSync: function (callback) {
@@ -382,9 +377,7 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
         deviceCode = result.data.deviceCode;
         self.getLastSync(function (result) {
           lastSyncDate = result.data.last_sync;
-
           $http.get('http://api.voice-creator.net/sync/elements?access_token=' + deviceCode + '&last_sync=' + lastSyncDate).success(function (result) {
-
             db.transaction(function (transaction) {
               for (table in result.tables) {
                 for (i = 0; i < result.tables[table].rows.length; i++) {
@@ -406,7 +399,6 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
               });
               callback({status: true});
             });
-
           }).error(function () {
             callback(new ErrorResult(2, 'Something went wrong with sync Database!'));
           });
@@ -416,7 +408,6 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
 
     clearDb: function (callback) {
       var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i;
-
       db.transaction(function (transaction) {
         for (i = 0; i < deleteTablesSQL.length; i++) {
           transaction.executeSql(deleteTablesSQL[i], [], function () {

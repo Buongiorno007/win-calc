@@ -43,7 +43,7 @@ $today-color						: $selected;
 		.pmu-today {
       border-radius   : $border-radius;
 			background : $today-background;
-			color      : $today-color;
+			color      : $today-color !important;
 		}
 
 		.pmu-button:hover {

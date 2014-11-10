@@ -386,7 +386,6 @@ BauVoiceApp.factory('constructService', function ($q) {
       }));
     },
 
-    // TODO: Сервис готов
 /*
     getAdditionalElements: function (callback) {
       callback(new OkResult({
@@ -758,7 +757,8 @@ BauVoiceApp.factory('constructService', function ($q) {
     // TODO: Сервис готов
     getPrice: function (callback) {
       callback(new OkResult({
-        price: 12345678.51,
+        //price: 12345678.51,
+        price: 1500.51,
         currency: {
           id: 3,
           name: 'uah'
@@ -1181,24 +1181,24 @@ BauVoiceApp.factory('constructService', function ($q) {
 
         instalment: [
           {
-            period: '',
-            percent: '15%'
+            period: 1,
+            percent: 15
           },
           {
-            period: '2 месяца',
-            percent: '20%'
+            period: 2,
+            percent: 20
           },
           {
-            period: '3 месяца',
-            percent: '25%'
+            period: 3,
+            percent: 25
           },
           {
-            period: '4 месяца',
-            percent: '30%'
+            period: 4,
+            percent: 30
           },
           {
-            period: '5 месяцeв',
-            percent: '35%'
+            period: 5,
+            percent: 35
           }
         ]
 
