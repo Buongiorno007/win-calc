@@ -4,6 +4,7 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
 
   var dbName = 'localDB',
       tableProducts = 'products',
+      tableOrders = 'orders',
       tableConstructionParts = 'construction_parts',
       tableGrids = 'grids',
       tableVisors = 'visors',
@@ -114,8 +115,73 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "type": "INTEGER",
       "null": "NOT NULL"
     },
-    "components":{
+    "componentsId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "property":{
       "type": "TEXT",
+      "null": "NOT NULL"
+    }
+  });
+
+  db.createTable(tableOrders, {
+    "id":{
+      "type": "INTEGER",
+      "null": "NOT NULL",
+      "primary": true,
+      "auto_increment": true
+    },
+    "orderId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "floor":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "floorPrice":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "assembling":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "assemblingPrice":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "deliveryDatePrimary":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "deliveryDate":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "totalPrice":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "totalPricePrimary":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "totalPriceFirst":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "totalPriceMonthly":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "totalPriceFirstPrimary":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "totalPriceMonthlyPrimary":{
+      "type": "INTEGER",
       "null": "NOT NULL"
     }
   });
@@ -251,9 +317,12 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
     },
 
     updateDB: function(tableName, elem, options) {
+      db.update(tableName, elem, options);
+      /*
       db.update(tableName, elem, options).then(function(results) {
         console.log(results);
       });
+      */
     }
 
 

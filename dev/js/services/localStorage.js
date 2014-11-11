@@ -22,6 +22,20 @@ BauVoiceApp.factory('localStorage', function () {
       selectedOthers: []
     },
 
+    objXFormedPrice: {
+      cityId: '',
+      profileId: '',
+      glassId: '',
+      framesSize: [],
+      sashsSize: [],
+      beadsSize: [],
+      impostsSize: [],
+      shtulpsSize: [],
+      glassSizes: [],
+      glassSquares: [],
+      frameSillSize: 0
+    },
+
     //productCounter: 0,
     productEditNumber: 0,
 
@@ -73,7 +87,8 @@ BauVoiceApp.factory('localStorage', function () {
     fansTableBD: 'fans',
     windowSillsTableBD: 'windowsills',
     handlesTableBD: 'handles',
-    othersTableBD: 'other_elements'
+    othersTableBD: 'other_elements',
+    ordersTableBD: 'orders'
 
   }
 });

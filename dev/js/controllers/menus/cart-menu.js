@@ -204,6 +204,7 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
 
   //-------- Calculate Total Order Price
   $scope.global.calculateTotalOrderPrice = function() {
+
     var floorPrice = parseFloat(floorSource[$scope.cartMenuData.activeFloor].price),
         assemblingPrice = parseFloat(assemblingSource[$scope.cartMenuData.activeAssembling].price);
     $scope.global.orderTotalPrice = 0;
@@ -229,6 +230,7 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
     } else {
       $scope.global.orderTotalPrice = $scope.global.orderTotalPricePrimary;
     }
+
     $scope.global.orderTotalPrice = parseFloat($scope.global.orderTotalPrice.toFixed(2));
     //------ get price with instalment
     $scope.calculateInstalmentPrice($scope.global.orderTotalPrice, $scope.global.orderTotalPricePrimary);
@@ -236,11 +238,11 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
 
   $scope.calculateInstalmentPrice = function(price, pricePrimary) {
     if($scope.cartMenuData.activeInstalmentSwitcher) {
-      $scope.cartMenuData.paymentFirst = (price * $scope.cartMenuData.selectedInstalmentPercent / 100).toFixed(2);
-      $scope.cartMenuData.paymentMonthly = ((price - $scope.cartMenuData.paymentFirst) / $scope.cartMenuData.selectedInstalmentPeriod).toFixed(2);
+      $scope.cartMenuData.paymentFirst = parseFloat((price * $scope.cartMenuData.selectedInstalmentPercent / 100).toFixed(2));
+      $scope.cartMenuData.paymentMonthly = parseFloat(((price - $scope.cartMenuData.paymentFirst) / $scope.cartMenuData.selectedInstalmentPeriod).toFixed(2));
       if(pricePrimary) {
-        $scope.cartMenuData.paymentFirstPrimary = (pricePrimary * $scope.cartMenuData.selectedInstalmentPercent / 100).toFixed(2);
-        $scope.cartMenuData.paymentMonthlyPrimary = ((pricePrimary - $scope.cartMenuData.paymentFirstPrimary) / $scope.cartMenuData.selectedInstalmentPeriod).toFixed(2);
+        $scope.cartMenuData.paymentFirstPrimary = parseFloat((pricePrimary * $scope.cartMenuData.selectedInstalmentPercent / 100).toFixed(2));
+        $scope.cartMenuData.paymentMonthlyPrimary = parseFloat(((pricePrimary - $scope.cartMenuData.paymentFirstPrimary) / $scope.cartMenuData.selectedInstalmentPeriod).toFixed(2));
       }
     }
   };

@@ -51,7 +51,8 @@ function changePrice(price, elem) {
   if(price === undefined) {
     return false;
   } else {
-    priceByDigit = price.toString().split('');
+    //priceByDigit = price.toString().split('');
+    priceByDigit = price.toFixed(2).split('');
   }
 
   changePrice.revertDigitState = function () {

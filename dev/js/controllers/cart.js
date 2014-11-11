@@ -83,6 +83,10 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     localDB.deleteDB($scope.global.componentsTableBD, {"productId": productIdBD});
     localDB.deleteDB($scope.global.visorsTableBD, {"productId": productIdBD});
     localDB.deleteDB($scope.global.windowSillsTableBD, {"productId": productIdBD});
+    //----- if all products were deleted go to main page
+    if(!$scope.global.productCounter) {
+      $scope.global.createNewProject();
+    }
   };
 
 
@@ -147,13 +151,19 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     $scope.isCartLightView = !$scope.isCartLightView;
   };
 
-  // Calculate Order Price
-  $scope.global.calculateOrderPrice = function() {
+  //----- Calculate All Products Price
+  $scope.calculateProductsPrice = function() {
     $scope.global.orderPrice = 0;
     for(p = 0; p < $scope.global.productCounter; p++) {
-      $scope.global.orderPrice += parseFloat($scope.global.productObj[p].productPrice);
+      $scope.global.orderPrice += ($scope.global.productObj[p].productPrice * $scope.global.productObj[p].productQty);
     }
-    //
+    $scope.global.orderPrice = parseFloat($scope.global.orderPrice.toFixed(2));
+  };
+
+  // Calculate Order Price
+  $scope.global.calculateOrderPrice = function() {
+    $scope.calculateProductsPrice();
+    //----- join together product prices and order option
     $scope.global.calculateTotalOrderPrice();
   };
 

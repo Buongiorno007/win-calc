@@ -22,7 +22,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                   //img.icon-thumb(ng-src="../img/templates/balcony.png")
                   img.icon-thumb(ng-src="{{ product.productIcon }}")
                 .order-coeff
-                  span.coeff-label телопередача
+                  span.coeff-label {{ 'cart.HEAT_TRANSFER' | translate }}
                   span.coeff-value 0.63
               .order-content
                 ul.order-list
@@ -53,7 +53,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                   .order-value {{ product.productQty }}
                   button.order-tool(ng-click="moreProduct(product.productId, $index)") +
                   .order-label.qty-label {{ 'cart.PRODUCT_QTY' | translate }}
-              .order-footer {{ product.productPrice }} {{ global.currency }}
+              .order-footer {{ product.productPrice * product.productQty }} {{ global.currency }}
 
 
               .addelements-detail(ng-show="cart.isAddElementDetail === product.productId")

@@ -178,7 +178,8 @@ window.russianDictionary = {
     CALL_END_TIME: 'до:',
     CALL_CREDIT_PARTIAL_PRICE: 'по',
     ADDELEMENTS_EDIT_LIST: 'Редактировать список',
-    ADDELEMENTS_PRODUCT_COST: 'в одном изделии'
+    ADDELEMENTS_PRODUCT_COST: 'в одном изделии',
+    HEAT_TRANSFER: 'теплопередача'
   },
   settings: {
     AUTHORIZATION: 'Авторизация:',

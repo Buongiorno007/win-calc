@@ -35,11 +35,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
   var newLength,
       minDimension = 100,
       maxDimension = 5000,
-      fromPointsId, toPointsId,
-      fromPoints = [],
-      toPoints = [],
-      newPoints = [];
-
+      fromPointsId, toPointsId;
 
   constructService.getDoorConfig(function (results) {
     if (results.status) {
@@ -247,6 +243,9 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
 
   //---------- Close Size Calculator
   $scope.closeSizeCaclulator = function() {
+    var fromPoints = [],
+        toPoints = [],
+        newPoints = [];
 
     newLength = parseInt($scope.constructData.tempSize.join(''), 10);
 
@@ -265,15 +264,16 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
       //------ parse template, get points relate to points id
       for (var p = 0; p < fromPointsId.length; p++) {
         for (var j = 0; j < $scope.global.templateDefault.objects.length; j++) {
+          var point = {};
           switch ($scope.global.templateDefault.objects[j].id) {
             case fromPointsId[p]:
-              var point = {};
+              //var point = {};
               point.x = parseInt($scope.global.templateDefault.objects[j].x, 10);
               point.y = parseInt($scope.global.templateDefault.objects[j].y, 10);
               fromPoints.push(point);
               break;
             case toPointsId[p]:
-              var point = {};
+              //var point = {};
               point.x = parseInt($scope.global.templateDefault.objects[j].x, 10);
               point.y = parseInt($scope.global.templateDefault.objects[j].y, 10);
               toPoints.push(point);
@@ -304,6 +304,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
       }
       //-------- build new template
       $scope.global.templateDefault = new Template($scope.global.templateSource, $scope.global.templateDepths);
+      $scope.global.createObjXFormedPrice($scope.global.templateDefault);
       //console.log($scope.global.templateDefault);
       $scope.constructData.tempSize.length = 0;
     }
