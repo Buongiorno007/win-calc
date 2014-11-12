@@ -20,11 +20,11 @@ BauVoiceApp.directive('calendar', [ function() {
             monthsShort: [],
             months: []
           },
-          date: scope.$parent.cartMenuData.deliveryDate,
+          date: scope.$parent.global.deliveryDate,
           min: scope.$parent.cartMenuData.minDeliveryDate,
           max: scope.$parent.cartMenuData.maxDeliveryDate,
           change: function (date) {
-            scope.$parent.checkDifferentDate(scope.$parent.cartMenuData.deliveryDate, date);
+            scope.$parent.checkDifferentDate(scope.$parent.global.deliveryDate, date);
             scope.$apply();
           }
         };

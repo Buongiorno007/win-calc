@@ -4,12 +4,12 @@
       .cart-dialog-header
         button.cart-dialog-tool.back(ng-click="hideCallOrderDialog()", type="button")
         button.cart-dialog-tool.print(ng-click="", type="button")
-        .cart-dialog-title(data-output="Вызов замерщика для рассчета") {{ 'cart.CALL_ORDER' | translate }} 2554112554
+        .cart-dialog-title {{ 'cart.CALL_ORDER' | translate }} {{ global.orderNumber }}
         button.save(type="submit") {{ 'cart.READY' | translate }}
       .cart-dialog-body
-        .cart-dialog-descrip(data-output="Вызов замерщика для рассчета") {{ 'cart.CALL_ORDER_DESCRIP' | translate }}
+        .cart-dialog-descrip {{ 'cart.CALL_ORDER_DESCRIP' | translate }}
 
-        .cart-dialog-label(data-output="Вызов замерщика для рассчета") {{ 'cart.CALL_ORDER_CLIENT_INFO' | translate }}
+        .cart-dialog-label {{ 'cart.CALL_ORDER_CLIENT_INFO' | translate }}
 
         .input-field(ng-class="{ 'has-error' : submitted && callOrderForm.name.$error.required }")
           input.user-field(type="text", name="name", ng-model="user.name", placeholder="{{ 'cart.CLIENT_NAME' | translate }}", required)
@@ -22,7 +22,7 @@
 
 
 
-        .cart-dialog-label(data-output="Вызов замерщика для рассчета") {{ 'cart.CALL_ORDER_DELIVERY' | translate }} 14.04.2014
+        .cart-dialog-label {{ 'cart.CALL_ORDER_DELIVERY' | translate }} {{ global.newDeliveryDate }}
 
         .input-field(ng-class="{ 'has-error' : submitted && callOrderForm.location.$error.required, 'current-city' : currentCity }")
           input.user-field(type="text", name="location", ng-model="user.location", ng-change="checkChanges()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", ng-focus="isFocused=true", ng-blur="isFocused=false", required)
@@ -35,11 +35,12 @@
           .error-tooltip(ng-show="submitted && callOrderForm.address.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
 
 
-        .cart-dialog-label(data-output="Вызов замерщика для рассчета") {{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }} 14042014
-        .cart-dialog-label(data-output="Вызов замерщика для рассчета") {{ 'cart.CALL_ORDER_ADD_INFO' | translate }}
+        .cart-dialog-label {{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }}: {{ global.orderTotalPrice }} {{ global.currency }}
+        .cart-dialog-label {{ 'cart.CALL_ORDER_ADD_INFO' | translate }}
 
         .input-field
           input.user-field(type="email", name="mail", ng-model="user.mail", placeholder="{{ 'cart.CLIENT_EMAIL' | translate }}")
+          .error-tooltip(ng-show="submitted && callOrderForm.mail.$error.email") {{ 'cart.WRONG_EMAIL' | translate }}
 
         .input-field
           input.user-field(type="tel", name="phone2", ng-model="user.phone2", ng-pattern="", placeholder="{{ 'cart.ADD_PHONE' | translate }}")

@@ -71,7 +71,7 @@ BauVoiceApp.controller('CallOrderCtrl', ['$scope', 'constructService', 'localSto
     $scope.submitted = true;
 
     if (form.$valid) {
-
+      $scope.global.insertOrderInLocalDB($scope.user, 'order');
       $scope.hideCallOrderDialog();
     }
   };

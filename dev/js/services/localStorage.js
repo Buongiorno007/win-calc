@@ -65,11 +65,12 @@ BauVoiceApp.factory('localStorage', function () {
     isAddElementListView: false,
     totalAddElementsPrice: 0,
     currency: '₴',
-    //cartPrice: '0',
+
     orderPrice: 0,
     showMasterDialog: false,
     showOrderDialog: false,
     showCreditDialog: false,
+
     doorConstructionPage: false,
     showRoomSelectorDialog: false,
     isRoomsDialog: false,

@@ -460,6 +460,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     localDB.deleteTable($scope.global.componentsTableBD);
     localDB.deleteTable($scope.global.visorsTableBD);
     localDB.deleteTable($scope.global.windowSillsTableBD);
+    localDB.deleteTable($scope.global.ordersTableBD);
 */
     var productData,
         constructionData,

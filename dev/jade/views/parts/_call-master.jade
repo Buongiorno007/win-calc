@@ -3,10 +3,10 @@
     form(name='callMasterForm', novalidate, ng-submit="submitForm(callMasterForm)")
       .cart-dialog-header
         button.cart-dialog-tool.back(ng-click="hideCallMasterDialog()", type="button")
-        .cart-dialog-title(data-output="Вызов замерщика для рассчета") {{ 'cart.CALL_MASTER' | translate }} 2554112554
+        .cart-dialog-title {{ 'cart.CALL_MASTER' | translate }} {{ global.orderNumber }}
         button.save(type="submit") {{ 'cart.READY' | translate }}
       .cart-dialog-body
-        .cart-dialog-descrip(data-output="Вызов замерщика для рассчета") {{ 'cart.CALL_MASTER_DESCRIP' | translate }}
+        .cart-dialog-descrip {{ 'cart.CALL_MASTER_DESCRIP' | translate }}
 
         //.input-field(ng-class="{ 'has-error' : submitted && callMasterForm.location.$error.required }")
           input.user-field(type="text", name="location", ng-model="user.location", ng-change="checkChanges()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", ng-focus="isFocused=true", ng-blur="isFocused=false", required)
@@ -15,6 +15,10 @@
           ul.location-list-tooltip(ng-show="locationDirty && isFocused", ng-focus="isFocused=true", ng-blur="isFocused=false", tabindex="1")
             li.location-option(ng-hide="filteredCity.length") {{ 'cart.EMPTY_SEARCH' | translate }}
             li.location-option(ng-repeat="city in filteredCity = (cities | filter: filterBySearch)", ng-click="selectCity(city)") {{city}}
+
+        .input-field(ng-class="{ 'has-error' : submitted && callMasterForm.name.$error.required }")
+          input.user-field(type="text", name="name", ng-model="user.name", placeholder="{{ 'cart.CLIENT_NAME' | translate }}", required)
+          .error-tooltip(ng-show="submitted && callMasterForm.name.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
 
         .input-field(ng-class="{ 'has-error' : submitted && callMasterForm.location.$error.required, 'current-city' : currentCity }")
           input.user-field(type="text", name="location", ng-model="user.location", ng-change="checkChanges()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", ng-focus="isFocused=true", ng-blur="isFocused=false", required)

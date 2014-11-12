@@ -132,8 +132,17 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "primary": true,
       "auto_increment": true
     },
+    "created":{
+      "type": "TIMESTAMP",
+      "null": "NOT NULL",
+      "default": "CURRENT_TIMESTAMP"
+    },
     "orderId":{
       "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "orderType": {
+      "type": "TEXT",
       "null": "NOT NULL"
     },
     "floor":{
@@ -160,6 +169,14 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "type": "TEXT",
       "null": "NOT NULL"
     },
+    "instalmentPeriod":{
+      "type": "TEXT",
+        "null": "NOT NULL"
+    },
+    "instalmentPercent": {
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
     "totalPrice":{
       "type": "INTEGER",
       "null": "NOT NULL"
@@ -182,6 +199,50 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
     },
     "totalPriceMonthlyPrimary":{
       "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "name":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "location":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "address":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "mail": {
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "phone":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "phone2": {
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "itn": {
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "instalment": {
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "starttime": {
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "endtime": {
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "target": {
+      "type": "TEXT",
       "null": "NOT NULL"
     }
   });

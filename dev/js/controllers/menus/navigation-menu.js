@@ -62,6 +62,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
     $location.path('/history');
   };
   $scope.global.gotoCartPage = function () {
+    $scope.global.showNavMenu = false;
     $location.path('/cart');
   };
 
