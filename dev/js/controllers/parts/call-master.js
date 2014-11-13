@@ -90,7 +90,6 @@ BauVoiceApp.controller('CallMasterCtrl', ['$scope', 'constructService', 'localSt
 
     if (form.$valid) {
       $scope.global.insertOrderInLocalDB($scope.user, 'master');
-      $scope.hideCallMasterDialog();
     }
   };
 

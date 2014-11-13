@@ -82,7 +82,8 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
     $scope.global.isAddElementsPanel = true;
   };
 
-  $scope.global.createNewProject = function() {
+  //---------- clearing for create new Product
+  $scope.global.createNewProduct = function() {
     $scope.global.productEditNumber = false;
     $scope.global.templateSource = null;
     delete $scope.global.templateSource;
@@ -94,6 +95,12 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
     $scope.global.showPanels.showTemplatePanel = true;
     $scope.global.isTemplatePanel = true;
     $location.path('/main');
+  };
+
+  //----------- Create new Project
+  $scope.global.createNewProject = function() {
+    $scope.global.isCreatedNewProject = true;
+    $scope.global.createNewProduct();
   };
 
   //Select menu item

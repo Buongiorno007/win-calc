@@ -136,7 +136,14 @@ window.russianDictionary = {
   history: {
     SEARCH_PLACEHOLDER: 'Поиск по ключевым словам',
     DRAFT_VIEW: 'Черновики расчетов',
-    HISTORY_VIEW: 'История расчетов'
+    HISTORY_VIEW: 'История расчетов',
+    PHONE: 'телефон',
+    CLIENT: 'клиент',
+    ADDRESS: 'адрес',
+    FROM: 'от',
+    PAYMENTS: 'платежей по',
+    ALLPRODUCTS: 'изделий',
+    ON: 'на'
   },
   cart: {
     ALL_ADD_ELEMENTS: 'Все доп.элементы заказа',

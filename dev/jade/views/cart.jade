@@ -10,7 +10,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
           .cart-header
             include parts/_user-info
             button.cart-tool.additional-elements {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
-            button.cart-tool.new-order(ng-click="global.createNewProject()") {{ 'cart.ADD_ORDER' | translate }}
+            button.cart-tool.new-order(ng-click="global.isCreatedNewProject = false; global.createNewProduct()") {{ 'cart.ADD_ORDER' | translate }}
 
           .order-block
 

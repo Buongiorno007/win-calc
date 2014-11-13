@@ -33,6 +33,10 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "null": "NOT NULL",
       "default": "CURRENT_TIMESTAMP"
     },
+    "orderId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
     "productId":{
       "type": "INTEGER",
       "null": "NOT NULL"
@@ -111,6 +115,10 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "primary": true,
       "auto_increment": true
     },
+    "orderId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
     "productId":{
       "type": "INTEGER",
       "null": "NOT NULL"
@@ -143,6 +151,10 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
     },
     "orderType": {
       "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "productsQty": {
+      "type": "INTEGER",
       "null": "NOT NULL"
     },
     "floor":{
@@ -255,6 +267,10 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "primary": true,
       "auto_increment": true
     },
+    "orderId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
     "productId":{
       "type": "INTEGER",
       "null": "NOT NULL"
@@ -293,6 +309,10 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "null": "NOT NULL",
       "primary": true,
       "auto_increment": true
+    },
+    "orderId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
     },
     "productId":{
       "type": "INTEGER",

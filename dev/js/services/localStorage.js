@@ -36,7 +36,7 @@ BauVoiceApp.factory('localStorage', function () {
       frameSillSize: 0
     },
 
-    //productCounter: 0,
+    isCreatedNewProject: false,
     productEditNumber: 0,
 
     showNavMenu: true,

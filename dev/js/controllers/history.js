@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStorage', function ($scope, constructService, localStorage) {
+BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStorage', 'localDB', function ($scope, constructService, localStorage, localDB) {
 
   var $historyPage = $('.history-page'),
       $searchTool = $historyPage.find('.search-tool'),
@@ -78,6 +78,12 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
   }
 
 
+
+
+
+
+
+
   $scope.global = localStorage;
 
   // indicator for user info block and searching block
@@ -93,6 +99,46 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
     isEmptySearchResult: false,
     isDraftView: false
   };
+
+  //------ Download Product Data from localDB
+  localDB.selectAllDB($scope.global.ordersTableBD, function (results) {
+    if (results.status) {
+      $scope.orders = angular.copy(results.data);
+      console.log($scope.orders);
+
+
+
+      /*
+      $scope.global.product.productQty = tempProduct[0].productQty;
+
+
+      // change add element quantity as to product quantity
+      for (var prop in $scope.global.chosenAddElements) {
+        if (!$scope.global.chosenAddElements.hasOwnProperty(prop)) {
+          continue;
+        } else {
+          if($scope.global.chosenAddElements[prop].length > 0) {
+            for(var elem = 0; elem < $scope.global.chosenAddElements[prop].length; elem++) {
+              $scope.global.chosenAddElements[prop][elem].elementQty *= $scope.global.product.productQty;
+            }
+          }
+        }
+      }
+      */
+
+
+    } else {
+      console.log(results);
+    }
+  });
+
+
+
+
+
+
+
+
 
   // Click on tools panel in History View
   $scope.orderSearching = function() {

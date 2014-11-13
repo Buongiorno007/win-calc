@@ -255,6 +255,7 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
     $scope.orderData = {
       "orderId": $scope.global.orderNumber,
       "orderType": orderType,
+      "productsQty": $scope.global.productCounter,
       "floor": $scope.global.selectedFloor,
       "floorPrice": $scope.global.selectedFloorPrice,
       "assembling": $scope.global.selectedAssembling,
@@ -300,15 +301,12 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
     }
 
     console.log($scope.orderData);
-    //totalOrderData = angular.extend({}, orderData, newOptions);
     localDB.insertDB($scope.global.ordersTableBD, $scope.orderData);
 
+    //--------- Close cart dialog, go to main page and create new project
+    $scope.global.createNewProject();
   };
 
-  //-------- random order number
-  $scope.getOrderNumber = function() {
-    $scope.global.orderNumber = Math.floor((Math.random()*100000));
-  };
 
 
 }]);

@@ -79,6 +79,67 @@ section.history-page(ng-controller="HistoryCtrl")
 
 
 
+
+
+
+
+
+
+
+
+
+    .account-block(ng-repeat="order in orders")
+      .account(ng-class="{'current': order.orderType == 'order', 'wait': order.orderType == 'master' }")
+        .account-row.header
+          .account-data.title
+            .complete-icon
+            .account-id id {{ order.orderId }}
+            .account-addinfo - включены доставка и монтаж
+          .account-data
+            .account-label.account-date-filter {{ 'history.FROM' | translate }}
+              order-date( date-old="{{ order.created }}", months-label=" {{ 'common_words.MONTHS' | translate }} ")
+        .account-row
+          .account-data
+            .user-data.account-user {{ order.name }}
+            .account-label {{ 'history.CLIENT' | translate }}
+        .account-row
+          .account-data.phone
+            .user-data.account-user-phone {{ order.phone }}
+            .account-label {{ 'history.PHONE' | translate }}
+          .account-data
+            .user-data.account-user-adress {{ order.location }}, {{ order.address }}
+            .account-label {{ 'history.ADDRESS' | translate }}
+        .account-row.footer(ng-click="gotoCartPage()")
+          .account-value(ng-if="order.instalment === ''") {{ order.totalPrice }}{{ global.currency }}
+          .account-value(ng-if="order.instalment !== ''") {{ order.totalPrice }}{{ global.currency }}, {{ order.instalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.totalPriceMonthly}}{{ global.currency }}
+          .account-date {{ order.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{ order.deliveryDate }}
+
+      button.account-tool.account-select-btn(ng-if="order.orderType == 'order' || order.orderType == 'master'")
+      button.account-tool.account-copy-btn(ng-if="order.orderType == 'order' || order.orderType == 'master'")
+      button.account-tool.account-print-btn
+      button.account-delete-btn(ng-if="order.orderType == 'order' || order.orderType == 'master'")
+      button.account-change-btn(ng-if="order.orderType == 'order' || order.orderType == 'master'") {{ 'common_words.CHANGE' | translate }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     .account-block
       .account.current
         .account-row.header

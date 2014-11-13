@@ -29,6 +29,12 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   };
 */
 
+  //-------- Create random order number
+  $scope.global.getOrderNumber = function() {
+    $scope.global.orderNumber = Math.floor((Math.random()*100000));
+  };
+
+
   //------ Start download Product Data
   $scope.global.productInit = function () {
 
@@ -146,6 +152,10 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     //------ Check new Product
     } else if(!$scope.global.templateSource) {
 
+      //----------- create order number for new project
+      if($scope.global.isCreatedNewProject) {
+        $scope.global.getOrderNumber();
+      }
       //----------- get all profiles
       $scope.downloadAllProfiles = function(results) {
           if (results) {
@@ -477,6 +487,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
     //-------- insert product into local DB
     productData = {
+      "orderId": $scope.global.orderNumber,
       "productId": $scope.global.productCounter,
       'productName': $scope.global.templateSource.name,
       "productIcon": $scope.global.product.constructThumb,
@@ -506,6 +517,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
           continue;
         } else {
           constructionData = {
+            "orderId": $scope.global.orderNumber,
             "productId": $scope.global.productCounter,
             "componentsId": componentCount,
             "property": JSON.stringify(prop + ':' + $scope.global.templateSource.objects[part][prop])
@@ -527,6 +539,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
         switch (prop) {
           case 'selectedVisors':
             addElementsData = {
+              "orderId": $scope.global.orderNumber,
               "productId": $scope.global.productCounter,
               "elementId": addElementsObj[prop][elem].elementId,
               "elementType": addElementsObj[prop][elem].elementType,
@@ -540,6 +553,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
           case 'selectedWindowSill':
             addElementsData = {
+              "orderId": $scope.global.orderNumber,
               "productId": $scope.global.productCounter,
               "elementId": addElementsObj[prop][elem].elementId,
               "elementType": addElementsObj[prop][elem].elementType,
@@ -561,7 +575,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     $timeout(function(){
       $scope.global.gotoCartPage();
     }, 2*STEP);
-//*/
+// */
   }
 
 }]);

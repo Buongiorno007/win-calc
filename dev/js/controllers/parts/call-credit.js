@@ -73,7 +73,6 @@ BauVoiceApp.controller('CallCreditCtrl', ['$scope', 'constructService', 'localSt
 
     if (form.$valid) {
       $scope.global.insertOrderInLocalDB($scope.user, 'credit');
-      $scope.hideCallCreditDialog();
     }
   };
 
