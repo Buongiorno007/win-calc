@@ -250,11 +250,12 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
   };
 
   //-------- save Order into Local DB
-  $scope.global.insertOrderInLocalDB = function(newOptions, orderType) {
+  $scope.global.insertOrderInLocalDB = function(newOptions, orderType, orderStyle) {
 
     $scope.orderData = {
       "orderId": $scope.global.orderNumber,
       "orderType": orderType,
+      "orderStyle": orderStyle,
       "productsQty": $scope.global.productCounter,
       "floor": $scope.global.selectedFloor,
       "floorPrice": $scope.global.selectedFloorPrice,

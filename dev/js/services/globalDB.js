@@ -2,6 +2,8 @@
 
 BauVoiceApp.factory('globalDB', ['$http', function ($http) {
 
+  var elemLists = [];
+
   // SQL requests for creating tables if they are not exists yet
   var createTablesSQL = ["CREATE TABLE IF NOT EXISTS factories (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
       "CREATE TABLE IF NOT EXISTS elements_groups (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(100), base_unit INTEGER, position INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
@@ -464,13 +466,13 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
 
       }));
     },
-
+/*
     getProductsInCart: function (callback) {
       callback(new OkResult({
         productsInCart: 0
       }));
     },
-
+*/
     login: function (loginData, callback) {
       var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
       var self = this;
@@ -486,7 +488,588 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
           callback(new ErrorResult(2, 'Something went wrong with selection user record'));
         });
       });
+    },
+
+
+
+
+    getCurrentCurrency: function(cityId, callback){
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
+      db.transaction(function (transaction) {
+        transaction.executeSql('select id, name, value from currencies where id = (select country_id from regions where id = (select region_id from cities where id = ?))', [cityId], function (transaction, result) {
+          if (result.rows.length) {
+            callback(new OkResult(result.rows.item(0)));
+          } else {
+            callback(new ErrorResult(1, 'Incorrect cityId!'));
+          }
+        }, function () {
+          callback(new ErrorResult(2, 'Something went wrong when get current currency'));
+        });
+      });
+    },
+
+    getPriceByIdList: function(liId, i, callback){
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
+      db.transaction(function (transaction) {
+        transaction.executeSql('select parent_element_id from lists where id = ?', [liId], function (transaction, result){
+          transaction.executeSql('select id, currency_id, price, waste from elements where id = ?', [result.rows.item(0).parent_element_id], function (transaction, result){
+            callback(new OkResult({"currency":result.rows.item(0), "index":i}));
+          }, function () {
+            callback(new ErrorResult(2, 'Something went wrong when get element price'));
+          });
+        }, function () {
+          callback(new ErrorResult(2, 'Something went wrong when get parent_element_id'));
+        });
+      });
+    },
+
+    getPriceById: function(elId, i, callback){
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
+      db.transaction(function (transaction) {
+        transaction.executeSql('select id, currency_id, price, waste from elements where id = ?', [elId], function (transaction, result){
+          callback(new OkResult({"currency":result.rows.item(0), "index":i}));
+        }, function () {
+          callback(new ErrorResult(2, 'Something went wrong when get element price'));
+        });
+      });
+    },
+
+    parseList: function(listId, callback){
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), currListId;
+      var lists = [];
+      var self = this;
+      function addL(el){
+        return lists.push(el);
+      }
+      addL(listId);
+      (function nextRecord() {
+        if (lists.length) {
+          currListId = lists[0];
+          db.transaction(function (transaction) {
+            transaction.executeSql('select * from list_contents where parent_list_id = ?', [currListId], function(transaction, result){
+              for (var i = 0; i < result.rows.length; i++) {
+                elemLists.push({"elemLists":result.rows.item(i)});
+                if(result.rows.item(i).child_type === 'list') {
+                  addL(result.rows.item(i).child_id);
+                }
+              }
+              nextRecord();
+            });
+          });
+          lists.shift(0);
+        } else {
+          callback(new OkResult(elemLists));
+        }
+      })();
+    },
+
+    getValueByRule: function (parentValue, childValue, rule){
+      var value = 0;
+      switch (rule) {
+        case 1:
+          value = parentValue - childValue;
+          break;
+        case 3:
+          value = Math.round(parentValue * childValue);
+          break;
+        case 5:
+          value = parentValue * childValue;
+          break;
+        case 6:
+          value = (parentValue * childValue).toFixed(3);
+          break;
+        case 7:
+          value = (parentValue * childValue).toFixed(3);
+          break;
+        case 8:
+          value = (parentValue * childValue).toFixed(3);
+          break;
+        case 9:
+          value = (parentValue * childValue).toFixed(3);
+          break;
+        case 12:
+          value = Math.round(parentValue * childValue);
+          break;
+        case 13:
+          value = parentValue * childValue;
+          break;
+        case 14:
+          value = Math.round(parentValue * childValue);
+          break;
+        case 21:
+          break;
+        case 22:
+          break;
+        case 23:
+          value = (parentValue * childValue).toFixed(3);
+          break;
+        default:
+          value = childValue;
+          break;
+      }
+      return value;
+    },
+
+    calculationPrice: function (construction, callback) {
+      var self = this;
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), price = 0, profSys, priceObj = {};
+      this.getCurrentCurrency(construction.cityId, function (result){next_1(result);});
+      function next_1(result){
+        if(result.status){
+          priceObj.currentCurrency = result.data;
+          self.parseList(construction.frameId, function (result){next_2(result);});
+        } else {
+          console.log(result);
+        }
+      }
+
+      function next_2(result){
+        if(result.status){
+          priceObj.framesIds =  result.data;
+          elemLists = [];
+          self.parseList(construction.frameSillId, function (result){next_3(result);});
+        } else {
+          console.log(result);
+        }
+      }
+      function next_3(result){
+        if(result.status){
+          priceObj.frameSillsIds =  result.data;
+          elemLists = [];
+          self.parseList(construction.sashId, function (result){next_4(result);});
+        } else {
+          console.log(result);
+        }
+      }
+      function next_4(result){
+        if(result.status){
+          priceObj.sashsIds = result.data;
+          elemLists = [];
+          self.parseList(construction.impostId, function (result){next_5(result);});
+        } else {
+          console.log(result);
+        }
+      }
+      function next_5(result) {
+        if (result.status) {
+          priceObj.impostIds = result.data;
+          elemLists = [];
+          self.parseList(construction.glassId, function (result){next_glass(result);});
+        }
+      }
+      function next_glass(result){
+        if(result.status){
+          priceObj.glassIds = result.data;
+          elemLists = [];
+          db.transaction(function (transaction) {
+            transaction.executeSql('select parent_element_id from lists where id in (?, ?, ?, ?, ?)', [construction.frameId, construction.frameSillId, construction.sashId, construction.impostId, construction.glassId], function (transaction, result){next_6(result);}, function () {
+              callback(new ErrorResult(2, 'Something went wrong when get parent_element_id'));
+            });
+          });
+        } else {
+          console.log(result);
+        }
+      }
+      function next_6(result){
+        if(result.rows.length){
+          priceObj.framesIds.parent_element_id = result.rows.item(0).parent_element_id;
+          priceObj.frameSillsIds.parent_element_id = result.rows.item(1).parent_element_id;
+          priceObj.sashsIds.parent_element_id = result.rows.item(2).parent_element_id;
+          priceObj.impostIds.parent_element_id = result.rows.item(3).parent_element_id;
+          priceObj.glassIds.parent_element_id = result.rows.item(4).parent_element_id;
+          db.transaction(function (transaction) {
+            transaction.executeSql('select id, currency_id, price, waste from elements where id in (?, ?, ?, ?, ?)', [result.rows.item(0).parent_element_id, result.rows.item(1).parent_element_id, result.rows.item(2).parent_element_id, result.rows.item(3).parent_element_id, result.rows.item(4).parent_element_id], function (transaction, result){next_7(result);}, function () {
+              callback(new ErrorResult(2, 'Something went wrong when get element price'));
+            });
+          });
+        } else {
+          console.log(result);
+        }
+      }
+      function next_7(result) {
+        if(result.rows.length){
+          for (var i = 0; i < result.rows.length; i++) {
+            if(result.rows.item(i).id == priceObj.framesIds.parent_element_id){
+              priceObj.framesIds.price = result.rows.item(i);
+            }
+            if(result.rows.item(i).id == priceObj.frameSillsIds.parent_element_id){
+              priceObj.frameSillsIds.price = result.rows.item(i);
+            }
+            if(result.rows.item(i).id == priceObj.sashsIds.parent_element_id){
+              priceObj.sashsIds.price = result.rows.item(i);
+            }
+            if(result.rows.item(i).id == priceObj.impostIds.parent_element_id){
+              priceObj.impostIds.price = result.rows.item(i);
+            }
+            if(result.rows.item(i).id == priceObj.glassIds.parent_element_id){
+              priceObj.glassIds.price = result.rows.item(i);
+            }
+          }
+          if(priceObj.framesIds.length) {
+            for (var i = 0; i < priceObj.framesIds.length; i++) {
+              if (priceObj.framesIds[i].elemLists.child_type === 'element'){
+                self.getPriceById(priceObj.framesIds[i].elemLists.child_id, i, function (result){
+                  priceObj.framesIds[result.data.index].priceEl = result.data.currency;
+                });
+              } else {
+                self.getPriceByIdList(priceObj.framesIds[i].elemLists.child_id, i, function (result){
+                  priceObj.framesIds[result.data.index].priceEl = result.data.currency;
+                });
+              }
+            }
+          }
+          if(priceObj.frameSillsIds.length) {
+            for (var i = 0; i < priceObj.frameSillsIds.length; i++) {
+              if (priceObj.frameSillsIds[i].elemLists.child_type === 'element'){
+                self.getPriceById(priceObj.frameSillsIds[i].elemLists.child_id, i, function (result){
+                  priceObj.frameSillsIds[result.data.index].priceEl = result.data.currency;
+                });
+              } else {
+                self.getPriceByIdList(priceObj.frameSillsIds[i].elemLists.child_id, i, function (result){
+                  priceObj.frameSillsIds[result.data.index].priceEl = result.data.currency;
+                });
+              }
+            }
+          }
+          if(priceObj.sashsIds.length) {
+            for (var i = 0; i < priceObj.sashsIds.length; i++) {
+              if (priceObj.sashsIds[i].elemLists.child_type === 'element'){
+                self.getPriceById(priceObj.sashsIds[i].elemLists.child_id, i, function (result){
+                  priceObj.sashsIds[result.data.index].priceEl = result.data.currency;
+                });
+              } else {
+                self.getPriceByIdList(priceObj.sashsIds[i].elemLists.child_id, i, function (result){
+                  priceObj.sashsIds[result.data.index].priceEl = result.data.currency;
+                });
+              }
+            }
+          }
+          if(priceObj.impostIds.length) {
+            for (var i = 0; i < priceObj.impostIds.length; i++) {
+              if (priceObj.impostIds[i].elemLists.child_type === 'element'){
+                self.getPriceById(priceObj.impostIds[i].elemLists.child_id, i, function (result){
+                  priceObj.impostIds[result.data.index].priceEl = result.data.currency;
+                });
+              } else {
+                self.getPriceByIdList(priceObj.impostIds[i].elemLists.child_id, i, function (result){
+                  priceObj.impostIds[result.data.index].priceEl = result.data.currency;
+                });
+              }
+            }
+          }
+          if(priceObj.glassIds.length) {
+            for (var i = 0; i < priceObj.glassIds.length; i++) {
+              if (priceObj.glassIds[i].elemLists.child_type === 'element'){
+                self.getPriceById(priceObj.glassIds[i].elemLists.child_id, i, function (result){
+                  priceObj.glassIds[result.data.index].priceEl = result.data.currency;
+                });
+              } else {
+                self.getPriceByIdList(priceObj.glassIds[i].elemLists.child_id, i, function (result){
+                  priceObj.glassIds[result.data.index].priceEl = result.data.currency;
+                });
+              }
+            }
+          }
+          db.transaction(function (transaction) {
+            transaction.executeSql('select id, name, value from currencies', [], function (transaction, result){next_8(result);}, function () {
+              callback(new ErrorResult(2, 'Something went wrong when get parent_element_id'));
+            });
+          });
+        } else {
+          console.log(result);
+        }
+      }
+      function next_8(result) {
+        if(result.rows.length){
+          priceObj.currencies = [];
+          priceObj.price = 0;
+          for (var i = 0; i < result.rows.length; i++) {
+            priceObj.currencies.push(result.rows.item(i));
+          }
+          var priceTmp = 0;
+          //console.log(priceObj.framesIds);
+          if(construction.framesSize.length) {
+            for (var i = 0; i < construction.framesSize.length; i++) {
+              //console.log('('+construction.framesSize[i]+'/1000)*'+priceObj.framesIds.price.price+')*(1+('+priceObj.framesIds.price.waste+'/100)');
+              priceTmp += ((construction.framesSize[i] / 1000) * priceObj.framesIds.price.price) * (1 + (priceObj.framesIds.price.waste / 100));
+            }
+            if (priceObj.currentCurrency.id != priceObj.framesIds.price.currency_id){
+              for (var i = 0; i < priceObj.currencies.length; i++) {
+                if(priceObj.currencies[i].id == priceObj.framesIds.price.currency_id){
+                  priceTmp = priceTmp * priceObj.currencies[i].value;
+                }
+              }
+            }
+          }
+          priceObj.price += priceTmp;
+          var priceTmp = 0;
+          //console.log(priceObj.frameSillsIds);
+          if(construction.frameSillId) {
+            //console.log('('+construction.frameSillSize+'/1000)*'+priceObj.frameSillsIds.price.price+')*(1+('+priceObj.frameSillsIds.price.waste+'/100)');
+            priceTmp += ((construction.frameSillSize / 1000) * priceObj.frameSillsIds.price.price) * (1 + (priceObj.frameSillsIds.price.waste / 100));
+            if (priceObj.currentCurrency.id != priceObj.frameSillsIds.price.currency_id){
+              for (var i = 0; i < priceObj.currencies.length; i++) {
+                if(priceObj.currencies[i].id == priceObj.frameSillsIds.price.currency_id){
+                  priceTmp = priceTmp * priceObj.currencies[i].value;
+                }
+              }
+            }
+          }
+          priceObj.price += priceTmp;
+          var priceTmp = 0;
+          //console.log(priceObj.sashsIds);
+          if(construction.sashsSize.length) {
+            for (var i = 0; i < construction.sashsSize.length; i++) {
+              //console.log('('+construction.sashsSize[i]+'/1000)*'+priceObj.sashsIds.price.price+')*(1+('+priceObj.sashsIds.price.waste+'/100)');
+              priceTmp += ((construction.sashsSize[i] / 1000) * priceObj.sashsIds.price.price) * (1 + (priceObj.sashsIds.price.waste / 100));
+            }
+            if (priceObj.currentCurrency.id != priceObj.sashsIds.price.currency_id){
+              for (var i = 0; i < priceObj.currencies.length; i++) {
+                if(priceObj.currencies[i].id == priceObj.sashsIds.price.currency_id){
+                  priceTmp = priceTmp * priceObj.currencies[i].value;
+                }
+              }
+            }
+          }
+          priceObj.price += priceTmp;
+          var priceTmp = 0;
+          //console.log(priceObj.impostIds);
+          if(construction.impostsSize.length) {
+            for (var i = 0; i < construction.impostsSize.length; i++) {
+              //console.log('('+construction.impostsSize[i]+'/1000)*'+priceObj.impostIds.price.price+')*(1+('+priceObj.impostIds.price.waste+'/100)');
+              priceTmp += ((construction.impostsSize[i] / 1000) * priceObj.impostIds.price.price) * (1 + (priceObj.impostIds.price.waste / 100));
+            }
+            if (priceObj.currentCurrency.id != priceObj.impostIds.price.currency_id){
+              for (var i = 0; i < priceObj.currencies.length; i++) {
+                if(priceObj.currencies[i].id == priceObj.impostIds.price.currency_id){
+                  priceTmp = priceTmp * priceObj.currencies[i].value;
+                }
+              }
+            }
+          }
+          priceObj.price += priceTmp;
+          var priceTmp = 0;
+          //console.log(construction.glassSquares);
+          if(construction.glassSquares.length) {
+            for (var i = 0; i < construction.glassSquares.length; i++) {
+              //console.log('('+construction.glassSquares[i]+'*'+priceObj.glassIds.price.price+')');
+              priceTmp += construction.glassSquares[i] * priceObj.glassIds.price.price;
+            }
+            if (priceObj.currentCurrency.id != priceObj.glassIds.price.currency_id){
+              for (var i = 0; i < priceObj.currencies.length; i++) {
+                if(priceObj.currencies[i].id == priceObj.glassIds.price.currency_id){
+                  priceTmp = priceTmp * priceObj.currencies[i].value;
+                }
+              }
+            }
+          }
+          priceObj.price += priceTmp;
+          if(construction.framesSize.length) {
+            for (var i = 0; i < construction.framesSize.length; i++) {
+              if(priceObj.framesIds.length) {
+                for (var j = 0; j < priceObj.framesIds.length; j++) {
+                  var priceTmp = 0;
+                  if(priceObj.framesIds[j].elemLists.parent_list_id == construction.frameId){
+                    var value = self.getValueByRule(construction.framesSize[i], priceObj.framesIds[j].elemLists.value, priceObj.framesIds[j].elemLists.rules_type_id);
+                    priceObj.framesIds[j].elemLists.newValue = value;
+                    //console.log('('+value+'/1000)*'+priceObj.framesIds[j].priceEl.price+')*(1+('+priceObj.framesIds[j].priceEl.waste+'/100)');
+                    priceTmp += ((value / 1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
+                    if (priceObj.currentCurrency.id != priceObj.framesIds[j].priceEl.currency_id){
+                      for (var k = 0; k < priceObj.currencies.length; k++) {
+                        if(priceObj.currencies[k].id == priceObj.framesIds[j].priceEl.currency_id){
+                          priceTmp = priceTmp * priceObj.currencies[k].value;
+                        }
+                      }
+                    }
+                  } else {
+                    for (var g = 0; g < priceObj.framesIds.length; g++) {
+                      if(priceObj.framesIds[j].elemLists.parent_list_id == priceObj.framesIds[g].elemLists.child_id){
+                        var value = self.getValueByRule(priceObj.framesIds[g].elemLists.newValue, priceObj.framesIds[j].elemLists.value, priceObj.framesIds[g].elemLists.rules_type_id);
+                        priceObj.framesIds[j].elemLists.newValue = value;
+                      }
+                    }
+                    //console.log('('+value+'/1000)*'+priceObj.framesIds[j].priceEl.price+')*(1+('+priceObj.framesIds[j].priceEl.waste+'/100)');
+                    priceTmp += ((value / 1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
+                    if (priceObj.currentCurrency.id != priceObj.framesIds[j].priceEl.currency_id){
+                      for (var k = 0; k < priceObj.currencies.length; k++) {
+                        if(priceObj.currencies[k].id == priceObj.framesIds[j].priceEl.currency_id){
+                          priceTmp = priceTmp * priceObj.currencies[k].value;
+                        }
+                      }
+                    }
+                  }
+                  priceObj.price += priceTmp;
+                }
+              }
+            }
+          }
+          if(construction.frameSillSize) {
+            if(priceObj.frameSillsIds.length) {
+              for (var j = 0; j < priceObj.frameSillsIds.length; j++) {
+                var priceTmp = 0;
+                if(priceObj.frameSillsIds[j].elemLists.parent_list_id == construction.frameSillId){
+                  var value = self.getValueByRule(construction.frameSillSize, priceObj.frameSillsIds[j].elemLists.value, priceObj.frameSillsIds[j].elemLists.rules_type_id);
+                  priceObj.frameSillsIds[j].elemLists.newValue = value;
+                  //console.log('('+value+'/1000)*'+priceObj.frameSillsIds[j].priceEl.price+')*(1+('+priceObj.frameSillsIds[j].priceEl.waste+'/100)');
+                  priceTmp += ((value / 1000) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
+                  if (priceObj.currentCurrency.id != priceObj.frameSillsIds[j].priceEl.currency_id){
+                    for (var k = 0; k < priceObj.currencies.length; k++) {
+                      if(priceObj.currencies[k].id == priceObj.frameSillsIds[j].priceEl.currency_id){
+                        priceTmp = priceTmp * priceObj.currencies[k].value;
+                      }
+                    }
+                  }
+                } else {
+                  for (var g = 0; g < priceObj.frameSillsIds.length; g++) {
+                    if(priceObj.frameSillsIds[j].elemLists.parent_list_id == priceObj.frameSillsIds[g].elemLists.child_id){
+                      var value = self.getValueByRule(priceObj.frameSillsIds[g].elemLists.newValue, priceObj.frameSillsIds[j].elemLists.value, priceObj.frameSillsIds[g].elemLists.rules_type_id);
+                      priceObj.frameSillsIds[j].elemLists.newValue = value;
+                    }
+                  }
+                  //console.log('('+value+'/1000)*'+priceObj.frameSillsIds[j].priceEl.price+')*(1+('+priceObj.frameSillsIds[j].priceEl.waste+'/100)');
+                  priceTmp += ((value / 1000) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
+                  if (priceObj.currentCurrency.id != priceObj.frameSillsIds[j].priceEl.currency_id){
+                    for (var k = 0; k < priceObj.currencies.length; k++) {
+                      if(priceObj.currencies[k].id == priceObj.frameSillsIds[j].priceEl.currency_id){
+                        priceTmp = priceTmp * priceObj.currencies[k].value;
+                      }
+                    }
+                  }
+                }
+                priceObj.price += priceTmp;
+              }
+            }
+          }
+          if(construction.sashsSize.length) {
+            for (var i = 0; i < construction.sashsSize.length; i++) {
+              if(priceObj.sashsIds.length) {
+                for (var j = 0; j < priceObj.sashsIds.length; j++) {
+                  var priceTmp = 0;
+                  if(priceObj.sashsIds[j].elemLists.parent_list_id == construction.sashId){
+                    var value = self.getValueByRule(construction.sashsSize[i], priceObj.sashsIds[j].elemLists.value, priceObj.sashsIds[j].elemLists.rules_type_id);
+                    priceObj.sashsIds[j].elemLists.newValue = value;
+                    //console.log('('+value+'/1000)*'+priceObj.sashsIds[j].priceEl.price+')*(1+('+priceObj.sashsIds[j].priceEl.waste+'/100)');
+                    priceTmp += ((value / 1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
+                    if (priceObj.currentCurrency.id != priceObj.sashsIds[j].priceEl.currency_id){
+                      for (var k = 0; k < priceObj.currencies.length; k++) {
+                        if(priceObj.currencies[k].id == priceObj.sashsIds[j].priceEl.currency_id){
+                          priceTmp = priceTmp * priceObj.currencies[k].value;
+                        }
+                      }
+                    }
+                  } else {
+                    for (var g = 0; g < priceObj.sashsIds.length; g++) {
+                      if(priceObj.sashsIds[j].elemLists.parent_list_id == priceObj.sashsIds[g].elemLists.child_id){
+                        var value = self.getValueByRule(priceObj.sashsIds[g].elemLists.newValue, priceObj.sashsIds[j].elemLists.value, priceObj.sashsIds[g].elemLists.rules_type_id);
+                        priceObj.sashsIds[j].elemLists.newValue = value;
+                      }
+                    }
+                    //console.log('('+value+'/1000)*'+priceObj.sashsIds[j].priceEl.price+')*(1+('+priceObj.sashsIds[j].priceEl.waste+'/100)');
+                    priceTmp += ((value / 1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
+                    if (priceObj.currentCurrency.id != priceObj.sashsIds[j].priceEl.currency_id){
+                      for (var k = 0; k < priceObj.currencies.length; k++) {
+                        if(priceObj.currencies[k].id == priceObj.sashsIds[j].priceEl.currency_id){
+                          priceTmp = priceTmp * priceObj.currencies[k].value;
+                        }
+                      }
+                    }
+                  }
+                  priceObj.price += priceTmp;
+                }
+              }
+            }
+          }
+          if(construction.impostsSize.length) {
+            for (var i = 0; i < construction.impostsSize.length; i++) {
+              if(priceObj.impostIds.length) {
+                for (var j = 0; j < priceObj.impostIds.length; j++) {
+                  var priceTmp = 0;
+                  if(priceObj.impostIds[j].elemLists.parent_list_id == construction.impostId){
+                    var value = self.getValueByRule(construction.impostsSize[i], priceObj.impostIds[j].elemLists.value, priceObj.impostIds[j].elemLists.rules_type_id);
+                    priceObj.impostIds[j].elemLists.newValue = value;
+                    //console.log('('+value+'/1000)*'+priceObj.impostIds[j].priceEl.price+')*(1+('+priceObj.impostIds[j].priceEl.waste+'/100)');
+                    priceTmp += ((value / 1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
+                    if (priceObj.currentCurrency.id != priceObj.impostIds[j].priceEl.currency_id){
+                      for (var k = 0; k < priceObj.currencies.length; k++) {
+                        if(priceObj.currencies[k].id == priceObj.impostIds[j].priceEl.currency_id){
+                          priceTmp = priceTmp * priceObj.currencies[k].value;
+                        }
+                      }
+                    }
+                  } else {
+                    for (var g = 0; g < priceObj.impostIds.length; g++) {
+                      if(priceObj.impostIds[j].elemLists.parent_list_id == priceObj.impostIds[g].elemLists.child_id){
+                        var value = self.getValueByRule(priceObj.impostIds[g].elemLists.newValue, priceObj.impostIds[j].elemLists.value, priceObj.impostIds[g].elemLists.rules_type_id);
+                        priceObj.impostIds[j].elemLists.newValue = value;
+                      }
+                    }
+                    //console.log('('+value+'/1000)*'+priceObj.impostIds[j].priceEl.price+')*(1+('+priceObj.impostIds[j].priceEl.waste+'/100)');
+                    priceTmp += ((value / 1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
+                    if (priceObj.currentCurrency.id != priceObj.impostIds[j].priceEl.currency_id){
+                      for (var k = 0; k < priceObj.currencies.length; k++) {
+                        if(priceObj.currencies[k].id == priceObj.impostIds[j].priceEl.currency_id){
+                          priceTmp = priceTmp * priceObj.currencies[k].value;
+                        }
+                      }
+                    }
+                  }
+                  priceObj.price += priceTmp;
+                }
+              }
+            }
+          }
+          if(construction.glassSquares.length) {
+            for (var i = 0; i < construction.glassSquares.length; i++) {
+              if(priceObj.glassIds.length) {
+                for (var j = 0; j < priceObj.glassIds.length; j++) {
+                  var priceTmp = 0;
+                  if(priceObj.glassIds[j].elemLists.parent_list_id == construction.glassId){
+                    var value = self.getValueByRule(1, priceObj.glassIds[j].elemLists.value, priceObj.glassIds[j].elemLists.rules_type_id);
+                    priceObj.glassIds[j].elemLists.newValue = value;
+                    //console.log('('+value+'*'+priceObj.glassIds[j].priceEl.price+')*(1+('+priceObj.glassIds[j].priceEl.waste+'/100)');
+                    priceTmp += (value * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
+                    if (priceObj.currentCurrency.id != priceObj.glassIds[j].priceEl.currency_id){
+                      for (var k = 0; k < priceObj.currencies.length; k++) {
+                        if(priceObj.currencies[k].id == priceObj.glassIds[j].priceEl.currency_id){
+                          priceTmp = priceTmp * priceObj.currencies[k].value;
+                        }
+                      }
+                    }
+                  } else {
+                    for (var g = 0; g < priceObj.glassIds.length; g++) {
+                      if(priceObj.glassIds[j].elemLists.parent_list_id == priceObj.glassIds[g].elemLists.child_id){
+                        var value = self.getValueByRule(priceObj.glassIds[g].elemLists.newValue, priceObj.glassIds[j].elemLists.value, priceObj.glassIds[g].elemLists.rules_type_id);
+                        priceObj.glassIds[j].elemLists.newValue = value;
+                      }
+                    }
+                    //console.log('('+value+'*'+priceObj.glassIds[j].priceEl.price+')*(1+('+priceObj.glassIds[j].priceEl.waste+'/100)');
+                    priceTmp += (value * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
+                    if (priceObj.currentCurrency.id != priceObj.glassIds[j].priceEl.currency_id){
+                      for (var k = 0; k < priceObj.currencies.length; k++) {
+                        if(priceObj.currencies[k].id == priceObj.glassIds[j].priceEl.currency_id){
+                          priceTmp = priceTmp * priceObj.currencies[k].value;
+                        }
+                      }
+                    }
+                  }
+                  priceObj.price += priceTmp;
+                }
+              }
+            }
+          }
+          priceObj.price = priceObj.price.toFixed(2);
+          callback(new OkResult(priceObj));
+        } else {
+          console.log(result);
+        }
+      }
     }
+
+
+
+
+
+
 
   }
 }]);

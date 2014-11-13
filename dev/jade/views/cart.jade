@@ -128,7 +128,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
               button.order-delete(ng-click="deleteProduct(product.productId, $index)")
               .order-header
                 .order-template
-                  img.icon-thumb(ng-src="../img/templates/balcony.png", ng-click="editProduct(product.productId)")
+                  img.icon-thumb(ng-src="{{ product.productIcon }}", ng-click="editProduct(product.productId)")
               .order-content
                 .order-value {{ product.productWidth }} * {{ product.productHeight }} {{ 'mainpage.MM' | translate }}
 

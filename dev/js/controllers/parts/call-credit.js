@@ -3,8 +3,9 @@
 BauVoiceApp.controller('CallCreditCtrl', ['$scope', 'constructService', 'localStorage', function ($scope, constructService, localStorage) {
 
   $scope.global = localStorage;
+  $scope.orderStyle = 'credit';
   $scope.user = {};
-  $scope.user.instalment = 54513123;
+  //$scope.user.instalment = 54513123;
 
   // Search Location
   $scope.showTipCity = false;
@@ -72,7 +73,7 @@ BauVoiceApp.controller('CallCreditCtrl', ['$scope', 'constructService', 'localSt
     $scope.submitted = true;
 
     if (form.$valid) {
-      $scope.global.insertOrderInLocalDB($scope.user, 'credit');
+      $scope.global.insertOrderInLocalDB($scope.user, 'complete', $scope.orderStyle);
     }
   };
 

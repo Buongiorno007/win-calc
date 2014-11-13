@@ -755,18 +755,6 @@ BauVoiceApp.factory('constructService', function ($q) {
     },
 
     // TODO: Сервис готов
-    getPrice: function (callback) {
-      callback(new OkResult({
-        //price: 12345678.51,
-        price: 1500.51,
-        currency: {
-          id: 3,
-          name: 'uah'
-        }
-      }));
-    },
-
-    // TODO: Сервис готов
     getConstructNoteText: function (callback) {
       callback(new OkResult({
         note: 'Срочный заказ'

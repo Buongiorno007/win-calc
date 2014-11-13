@@ -99,6 +99,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
 
   //----------- Create new Project
   $scope.global.createNewProject = function() {
+    $scope.global.insertOrderInLocalDB({}, 'draft', '');
     $scope.global.isCreatedNewProject = true;
     $scope.global.createNewProduct();
   };

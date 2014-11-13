@@ -3,6 +3,7 @@
 BauVoiceApp.controller('CallOrderCtrl', ['$scope', 'constructService', 'localStorage', function ($scope, constructService, localStorage) {
 
   $scope.global = localStorage;
+  $scope.orderStyle = 'order';
   $scope.user = {};
 
   // Search Location
@@ -71,7 +72,7 @@ BauVoiceApp.controller('CallOrderCtrl', ['$scope', 'constructService', 'localSto
     $scope.submitted = true;
 
     if (form.$valid) {
-      $scope.global.insertOrderInLocalDB($scope.user, 'order');
+      $scope.global.insertOrderInLocalDB($scope.user, 'complete', $scope.orderStyle);
     }
   };
 

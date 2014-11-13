@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalDB', 'localStorage', '$location', function ($scope, globalDB, localStorage, $location) {
+BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalDB', 'localStorage', '$location', 'localDB', function ($scope, globalDB, localStorage, $location, localDB) {
 
   $scope.global = localStorage;
 
@@ -69,6 +69,12 @@ BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalDB', 'localStorage', '$
   };
 
   $scope.logOut = function() {
+    //------- clearing local DB
+    localDB.deleteTable($scope.global.productsTableBD);
+    localDB.deleteTable($scope.global.componentsTableBD);
+    localDB.deleteTable($scope.global.visorsTableBD);
+    localDB.deleteTable($scope.global.windowSillsTableBD);
+    localDB.deleteTable($scope.global.ordersTableBD);
     $location.path('/login');
   };
 

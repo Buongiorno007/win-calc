@@ -38,7 +38,12 @@
             input.time-field(type="nubmer", name="endtime", ng-model="user.endtime", placeholder="00:00")
 
         .input-field
-          input.user-field(type="text", name="instalment", ng-model="user.instalment", disabled)
+          .user-field(ng-if="global.selectedInstalmentPeriod == 1") {{global.selectedInstalmentPeriod}}  {{'common_words.MONTH_LABEL' | translate}}, {{global.selectedInstalmentPercent}}%
+          .user-field(ng-if="global.selectedInstalmentPeriod > 1 && global.selectedInstalmentPeriod < 5") {{global.selectedInstalmentPeriod}}  {{'common_words.MONTHA_LABEL' | translate}}, {{global.selectedInstalmentPercent}} %
+          .user-field(ng-if="global.selectedInstalmentPeriod > 4") {{global.selectedInstalmentPeriod}}  {{'common_words.MONTHS_LABEL' | translate}},  {{global.selectedInstalmentPercent}} %
+          //input.user-field(ng-if="global.selectedInstalmentPeriod == 1", type="text", name="instalment", ng-model="global.selectedInstalmentPeriod {{'common_words.MONTH_LABEL' | translate}} , global.selectedInstalmentPercent %", disabled)
+          //input.user-field(ng-if="global.selectedInstalmentPeriod > 1 && global.selectedInstalmentPeriod < 5", type="text", name="instalment", ng-model=" global.selectedInstalmentPeriod  {{'common_words.MONTHA_LABEL' | translate}} , global.selectedInstalmentPercent %", disabled)
+          //input.user-field(ng-if="global.selectedInstalmentPeriod > 4", type="text", name="instalment", ng-model="global.selectedInstalmentPeriod  {{'common_words.MONTHS_LABEL' | translate}} ,  global.selectedInstalmentPercent %", disabled)
 
         .cart-dialog-label {{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }} {{ global.orderTotalPrice }}{{ global.currency }} {{ 'cart.CALL_CREDIT_PARTIAL_PRICE' | translate }} {{ global.paymentMonthly }}{{ global.currency }}
 

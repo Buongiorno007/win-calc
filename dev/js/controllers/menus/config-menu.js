@@ -32,6 +32,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   //-------- Create random order number
   $scope.global.getOrderNumber = function() {
     $scope.global.orderNumber = Math.floor((Math.random()*100000));
+    $scope.global.isCreatedNewProject = false;
   };
 
 
@@ -292,7 +293,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
           console.log(results);
         }
       });
-
+/*
       //--------- get product default price
       constructService.getPrice(function (results) {
         if (results.status) {
@@ -307,7 +308,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
           console.log(results);
         }
       });
-
+*/
       //-------- Clear All AddElements in localStorage
       for (var prop in $scope.global.chosenAddElements) {
         if (!$scope.global.chosenAddElements.hasOwnProperty(prop)) {
@@ -379,12 +380,25 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
     console.log($scope.global.objXFormedPrice);
     //console.log(JSON.stringify(templateObjXPrice));
+
+
+    //--------- get product default price
+    globalDB.calculationPrice($scope.global.objXFormedPrice, function (result) {
+      if(result.status){
+        //console.log(result.data);
+        $scope.global.product.productPrice = result.data.price;
+        var currencySymbol = '';
+        if (result.data.currentCurrency.name === 'uah') {
+          currencySymbol = '₴';
+        }
+        $scope.global.currency = currencySymbol;
+
+      } else {
+        console.log(result);
+      }
+    });
+
   };
-
-
-
-
-
 
 
 

@@ -52,7 +52,12 @@ function changePrice(price, elem) {
     return false;
   } else {
     //priceByDigit = price.toString().split('');
-    priceByDigit = price.toFixed(2).split('');
+    if(typeof price === 'string') {
+      priceByDigit = price.split('');
+    } else {
+      priceByDigit = price.toFixed(2).split('');
+    }
+
   }
 
   changePrice.revertDigitState = function () {
