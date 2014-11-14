@@ -90,7 +90,11 @@ BauVoiceApp.controller('CallMasterCtrl', ['$scope', 'constructService', 'localSt
     $scope.submitted = true;
 
     if (form.$valid) {
+      $scope.global.isSavedOrderInHistory = true;
       $scope.global.insertOrderInLocalDB($scope.user, 'complete', $scope.orderStyle);
+      //--------- Close cart dialog, go to main page and create new project
+      $scope.global.createNewProject();
+      $scope.hideCallMasterDialog();
     }
   };
 

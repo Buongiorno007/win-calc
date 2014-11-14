@@ -73,6 +73,9 @@ BauVoiceApp.controller('CallOrderCtrl', ['$scope', 'constructService', 'localSto
 
     if (form.$valid) {
       $scope.global.insertOrderInLocalDB($scope.user, 'complete', $scope.orderStyle);
+      //--------- Close cart dialog, go to main page and create new project
+      $scope.global.createNewProject();
+      $scope.hideCallOrderDialog();
     }
   };
 

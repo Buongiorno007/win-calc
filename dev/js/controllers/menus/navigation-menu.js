@@ -16,34 +16,33 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
     DELAY_SHOW_NEWCALC_BTN: 35 * STEP,
     typing: 'on'
   };
-
+  //console.log('start');
+  //console.log('navmenu - ' + $scope.global.isCreatedNewProject);
+  //console.log('navmenu orderNumber - ' + $scope.global.orderNumber);
 
   // Check Products in Order
-//  if($scope.global.order && $scope.global.order.length > 0) {
-//    $scope.global.ordersInCart = $scope.global.order.length;
-//  } else {
-    try {
-
-      localDB.selectAllDB($scope.global.productsTableBD, function (results) {
+  $scope.checkingForNewOrder = function() {
+    if ($scope.global.isCreatedNewProject) {
+      //----------- create order number for new project
+      $scope.global.orderNumber = Math.floor((Math.random() * 100000));
+      $scope.global.isCreatedNewProject = false;
+      $scope.global.productCounter = false;
+      //console.log('navmenu NEW - ' + $scope.global.isCreatedNewProject);
+      //console.log('navmenu NEW orderNumber - ' + $scope.global.orderNumber);
+    } else {
+      //console.log('navmenu OLD - ' + $scope.global.orderNumber);
+      localDB.selectDB($scope.global.productsTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
         if (results.status) {
           $scope.global.productCounter = results.data.length;
         } else {
           console.log(results);
         }
       });
-
-    } catch(e) {
-
-       globalDB.getProductsInCart(function (results) {
-         if (results.status) {
-          $scope.global.productCounter = results.data.productsInCart;
-         } else {
-          console.log(results);
-         }
-       });
-
     }
-//  }
+  };
+
+  $scope.checkingForNewOrder();
+
 
   $scope.global.gotoMainPage = function () {
     $scope.global.isHistoryPage = false;
@@ -87,7 +86,15 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
     $scope.global.productEditNumber = false;
     $scope.global.templateSource = null;
     delete $scope.global.templateSource;
-    $scope.global.productInit();
+    //$scope.global.templateDefault = null;
+    //delete $scope.global.templateDefault;
+    //$scope.global.product = {};
+    $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
+
+    if(!$scope.global.isOpenedCartPage) {
+      $scope.global.productInit();
+    }
+    $scope.global.isOpenedCartPage = false;
     $scope.navMenu.activeMenuItem = false;
     $scope.global.showNavMenu = false;
     $scope.global.isConfigMenu = true;
@@ -99,8 +106,16 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
 
   //----------- Create new Project
   $scope.global.createNewProject = function() {
-    $scope.global.insertOrderInLocalDB({}, 'draft', '');
+    if(!$scope.global.isCreatedNewProject && !$scope.global.isSavedOrderInHistory) {
+      $scope.global.insertOrderInLocalDB({}, 'draft', '');
+    }
+    //------ если не были в корзине, сохраняем проект в черновик
+    if(!$scope.global.isOpenedCartPage) {
+      $scope.global.inputProductInOrder();
+    }
     $scope.global.isCreatedNewProject = true;
+    //console.log('press button');
+    $scope.checkingForNewOrder();
     $scope.global.createNewProduct();
   };
 
@@ -111,6 +126,66 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
     } else {
       $scope.navMenu.activeMenuItem = id;
     }
+  };
+
+
+  //-------- save Order into Local DB
+  $scope.global.insertOrderInLocalDB = function(newOptions, orderType, orderStyle) {
+
+    $scope.orderData = {
+      "orderId": $scope.global.orderNumber,
+      "orderType": orderType,
+      "orderStyle": orderStyle,
+      "productsQty": $scope.global.productCounter,
+      "floor": $scope.global.selectedFloor,
+      "floorPrice": $scope.global.selectedFloorPrice,
+      "assembling": $scope.global.selectedAssembling,
+      "assemblingPrice": $scope.global.selectedAssemblingPrice,
+      "deliveryDatePrimary": $scope.global.deliveryDate,
+      "deliveryDate": $scope.global.newDeliveryDate ,
+      "instalmentPeriod": $scope.global.selectedInstalmentPeriod,
+      "instalmentPercent": $scope.global.selectedInstalmentPercent,
+      "totalPrice": $scope.global.orderTotalPrice,
+      "totalPricePrimary": $scope.global.orderTotalPricePrimary,
+      "totalPriceFirst":  $scope.global.paymentFirst,
+      "totalPriceMonthly": $scope.global.paymentMonthly,
+      "totalPriceFirstPrimary": $scope.global.paymentFirstPrimary,
+      "totalPriceMonthlyPrimary": $scope.global.paymentMonthlyPrimary,
+      "name": '',
+      "location": '',
+      "address": '',
+      "mail": '',
+      "phone": '',
+      "phone2": '',
+      "itn": 0,
+      "instalment": '',
+      "starttime": '',
+      "endtime": '',
+      "target": ''
+    };
+
+    //------- merge objects for save in local db
+    if(newOptions.length > 0) {
+      for(var opt in newOptions) {
+        if (!newOptions.hasOwnProperty(opt)) {
+          continue;
+        } else {
+          for(var d in $scope.orderData) {
+            if (!newOptions.hasOwnProperty(d)) {
+              continue;
+            } else {
+              if(d === opt) {
+                $scope.orderData[d] = newOptions[opt];
+              }
+            }
+          }
+        }
+      }
+    }
+
+    //console.log($scope.orderData);
+    localDB.insertDB($scope.global.ordersTableBD, $scope.orderData);
+
   };
 
 }]);

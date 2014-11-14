@@ -74,6 +74,9 @@ BauVoiceApp.controller('CallCreditCtrl', ['$scope', 'constructService', 'localSt
 
     if (form.$valid) {
       $scope.global.insertOrderInLocalDB($scope.user, 'complete', $scope.orderStyle);
+      //--------- Close cart dialog, go to main page and create new project
+      $scope.global.createNewProject();
+      $scope.hideCallCreditDialog();
     }
   };
 

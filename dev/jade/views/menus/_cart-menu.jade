@@ -60,23 +60,23 @@
 
     footer.menu-footer
       .price-block.price-with-instalments(ng-class="{'active': cartMenuData.activeInstalmentSwitcher}")
-        .name {{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ cartMenuData.selectedInstalmentPercent }}
-        .name {{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{ cartMenuData.newDeliveryDate }}
+        .name {{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ global.selectedInstalmentPercent }}
+        .name {{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{ global.newDeliveryDate }}
         price(price-value="global.paymentFirst", price-currency="global.currency")
-        .name {{ cartMenuData.selectedInstalmentPeriod }} {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }}
+        .name {{ global.selectedInstalmentPeriod }} {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }}
         price(price-value="global.paymentMonthly", price-currency="global.currency")
       .price-block.price-without-instalments(ng-class="{'active': !cartMenuData.activeInstalmentSwitcher}")
-        .name {{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{ cartMenuData.newDeliveryDate }}
+        .name {{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{ global.newDeliveryDate }}
         price(price-value="global.orderTotalPrice", price-currency="global.currency")
       button.order-btn(ng-click="showCallOrderDialog()") {{ 'cart.ORDER' | translate }}
       button.measure-btn(ng-click="showCallMasterDialog()") {{ 'cart.MEASURE' | translate }}
 
   .old-price-inst-tab(ng-class="{'active': cartMenuData.isOldPrice && cartMenuData.activeInstalmentSwitcher}")
-    .name {{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ cartMenuData.selectedInstalmentPercent }} %
-    .name {{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{ cartMenuData.deliveryDate }}
+    .name {{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ global.selectedInstalmentPercent }} %
+    .name {{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{ global.deliveryDate }}
     price(price-value="global.paymentFirstPrimary", price-currency="global.currency")
-    .name {{ cartMenuData.selectedInstalmentPeriod }} {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }}
+    .name {{ global.selectedInstalmentPeriod }} {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }}
     price(price-value="global.paymentMonthlyPrimary", price-currency="global.currency")
   .old-price-tab(ng-class="{'active': cartMenuData.isOldPrice && !cartMenuData.activeInstalmentSwitcher}")
-    .name {{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{ cartMenuData.deliveryDate }}
+    .name {{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{ global.deliveryDate }}
     price(price-value="global.orderTotalPricePrimary", price-currency="global.currency")

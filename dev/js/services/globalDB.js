@@ -466,13 +466,7 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
 
       }));
     },
-/*
-    getProductsInCart: function (callback) {
-      callback(new OkResult({
-        productsInCart: 0
-      }));
-    },
-*/
+
     login: function (loginData, callback) {
       var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
       var self = this;

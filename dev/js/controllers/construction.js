@@ -304,6 +304,8 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
       }
       //-------- build new template
       $scope.global.templateDefault = new Template($scope.global.templateSource, $scope.global.templateDepths);
+      //------- cleaning object for get profile price
+      $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
       $scope.global.createObjXFormedPrice($scope.global.templateDefault);
       //console.log($scope.global.templateDefault);
       $scope.constructData.tempSize.length = 0;

@@ -22,7 +22,7 @@ BauVoiceApp.factory('localStorage', function () {
       selectedOthers: []
     },
 
-    objXFormedPrice: {
+    objXFormedPriceSource: {
       cityId: '',
       profileId: '',
       glassId: '',

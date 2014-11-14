@@ -249,64 +249,7 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
     }
   };
 
-  //-------- save Order into Local DB
-  $scope.global.insertOrderInLocalDB = function(newOptions, orderType, orderStyle) {
 
-    $scope.orderData = {
-      "orderId": $scope.global.orderNumber,
-      "orderType": orderType,
-      "orderStyle": orderStyle,
-      "productsQty": $scope.global.productCounter,
-      "floor": $scope.global.selectedFloor,
-      "floorPrice": $scope.global.selectedFloorPrice,
-      "assembling": $scope.global.selectedAssembling,
-      "assemblingPrice": $scope.global.selectedAssemblingPrice,
-      "deliveryDatePrimary": $scope.global.deliveryDate,
-      "deliveryDate": $scope.global.newDeliveryDate ,
-      "instalmentPeriod": $scope.global.selectedInstalmentPeriod,
-      "instalmentPercent": $scope.global.selectedInstalmentPercent,
-      "totalPrice": $scope.global.orderTotalPrice,
-      "totalPricePrimary": $scope.global.orderTotalPricePrimary,
-      "totalPriceFirst":  $scope.global.paymentFirst,
-      "totalPriceMonthly": $scope.global.paymentMonthly,
-      "totalPriceFirstPrimary": $scope.global.paymentFirstPrimary,
-      "totalPriceMonthlyPrimary": $scope.global.paymentMonthlyPrimary,
-      "name": '',
-      "location": '',
-      "address": '',
-      "mail": '',
-      "phone": '',
-      "phone2": '',
-      "itn": 0,
-      "instalment": '',
-      "starttime": '',
-      "endtime": '',
-      "target": ''
-    };
-
-    //------- merge objects for save in local db
-    for(var opt in newOptions) {
-      if (!newOptions.hasOwnProperty(opt)) {
-        continue;
-      } else {
-        for(var d in $scope.orderData) {
-          if (!newOptions.hasOwnProperty(d)) {
-            continue;
-          } else {
-            if(d === opt) {
-              $scope.orderData[d] = newOptions[opt];
-            }
-          }
-        }
-      }
-    }
-
-    console.log($scope.orderData);
-    localDB.insertDB($scope.global.ordersTableBD, $scope.orderData);
-
-    //--------- Close cart dialog, go to main page and create new project
-    $scope.global.createNewProject();
-  };
 
 
 
