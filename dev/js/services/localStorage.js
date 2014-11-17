@@ -6,6 +6,8 @@ BauVoiceApp.factory('localStorage', function () {
     svgTemplateThumbHeight: 120,
     svgTemplateWidth: 1500,
     svgTemplateHeight: 1000,
+    productionDays: 15,
+    currentDate: new Date(),
 
     product: {},
     chosenAddElements: {
@@ -64,12 +66,14 @@ BauVoiceApp.factory('localStorage', function () {
     isAddElement: false,
     isAddElementListView: false,
     totalAddElementsPrice: 0,
-    currency: '₴',
+    //currency: '',
 
     orderPrice: 0,
     showMasterDialog: false,
     showOrderDialog: false,
     showCreditDialog: false,
+    fullOrderType: 'complete',
+    draftOrderType: 'draft',
 
     doorConstructionPage: false,
     showRoomSelectorDialog: false,

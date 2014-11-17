@@ -2,18 +2,30 @@
 
 BauVoiceApp.directive('orderDate', [ function() {
   return {
-    restrict: 'E',
-    replace: true,
+    restrict: 'A',
     scope: {
-      oldDate: '@dateOld',
+      orderDate: '@',
       dataMonths: '@monthsLabel'
     },
-    template: '<span>{{ newDateFormat }}</span>',
     link: function (scope, element, attrs) {
-      var oldDateFormat = new Date(scope.oldDate);
-      scope.monthsArr = scope.dataMonths.split(', ');
-      scope.newDateFormat = oldDateFormat.getDate() + ' ' + scope.monthsArr[oldDateFormat.getMonth()] + ', ' + oldDateFormat.getFullYear();
+
+      function getDateInNewFormat(oldD, months) {
+        if(oldD !== '') {
+          var oldDateFormat = new Date(oldD),
+              monthsArr = months.split(', '),
+              newDateFormat = oldDateFormat.getDate() + ' ' + monthsArr[oldDateFormat.getMonth()] + ', ' + oldDateFormat.getFullYear();
+          element.text(newDateFormat);
+        } else {
+          element.text('');
+        }
+      }
+
+      getDateInNewFormat(scope.orderDate, scope.dataMonths);
+
+      attrs.$observe('orderDate', function () {
+        getDateInNewFormat(scope.orderDate, scope.dataMonths);
+      });
+
     }
   };
 }]);
-

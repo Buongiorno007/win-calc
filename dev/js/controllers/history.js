@@ -33,7 +33,7 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
 
       DELAY_SHOW_LOC = 10 * STEP;
 
-
+/*
 
   // Select Date Filter period in History View
   $periodDateFilter.click(function() {
@@ -65,11 +65,6 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
 
 
 
-  // Delete account
-  $accountDeleteBTN.click(function() {
-    $(this).closest('.account-block').remove();
-  });
-
   function selectItem(items, currItem, currClass) {
     items.each(function() {
         $(this).removeClass(currClass);
@@ -77,7 +72,7 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
     currItem.addClass(currClass);
   }
 
-
+*/
 
 
 
@@ -97,45 +92,23 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
     isOrderSortDraft: false,
     filteredOrders: [],
     isEmptySearchResult: false,
-    isDraftView: false
+    isDraftView: false,
+    isStartDate: false,
+    isFinishDate: false,
+    isAllPeriod: true,
+    startDate: '',
+    finishDate: ''
   };
 
-  //------ Download Product Data from localDB
-  localDB.selectAllDB($scope.global.ordersTableBD, function (results) {
+  //------ Download complete Orders from localDB
+  localDB.selectDB($scope.global.ordersTableBD, {'orderType': $scope.global.fullOrderType}, function (results) {
     if (results.status) {
       $scope.orders = angular.copy(results.data);
-      console.log($scope.orders);
-
-
-
-      /*
-      $scope.global.product.productQty = tempProduct[0].productQty;
-
-
-      // change add element quantity as to product quantity
-      for (var prop in $scope.global.chosenAddElements) {
-        if (!$scope.global.chosenAddElements.hasOwnProperty(prop)) {
-          continue;
-        } else {
-          if($scope.global.chosenAddElements[prop].length > 0) {
-            for(var elem = 0; elem < $scope.global.chosenAddElements[prop].length; elem++) {
-              $scope.global.chosenAddElements[prop][elem].elementQty *= $scope.global.product.productQty;
-            }
-          }
-        }
-      }
-      */
-
-
+      //console.log($scope.orders);
     } else {
       console.log(results);
     }
   });
-
-
-
-
-
 
 
 
@@ -210,10 +183,60 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
   };
 
 
+  //------ Select calendar-scroll
+  $scope.openCalendarScroll = function(dataType) {
+    if(dataType === 'start-date' && !$scope.history.isStartDate) {
+      $scope.history.isStartDate = true;
+      $scope.history.isFinishDate = false;
+      $scope.history.isAllPeriod = false;
+    } else if(dataType === 'finish-date' && !$scope.history.isFinishDate){
+      $scope.history.isStartDate = false;
+      $scope.history.isFinishDate = true;
+      $scope.history.isAllPeriod = false;
+    } else if(dataType === 'full-date' && !$scope.history.isAllPeriod){
+      $scope.history.isStartDate = false;
+      $scope.history.isFinishDate = false;
+      $scope.history.isAllPeriod = true;
+      $scope.history.startDate = '';
+      $scope.history.finishDate = '';
+    } else {
+      $scope.history.isStartDate = false;
+      $scope.history.isFinishDate = false;
+      $scope.history.isAllPeriod = false;
+    }
+  };
+
   // History/Draft View switcher
   $scope.viewSwitching = function() {
     $scope.history.isDraftView = !$scope.history.isDraftView;
+
+    //------ Download draft Orders from localDB
+    localDB.selectDB($scope.global.ordersTableBD, {'orderType': $scope.global.draftOrderType}, function (results) {
+      if (results.status) {
+        $scope.drafts = angular.copy(results.data);
+        //console.log($scope.orders);
+      } else {
+        console.log(results);
+      }
+    });
   };
+
+  //--------- Delete order
+  $scope.deleteOrder = function(orderType, orderId, orderIdArr) {
+    //-------- delete order in Local Objects
+    if(orderType === $scope.global.fullOrderType) {
+      $scope.orders.splice(orderIdArr, 1);
+    } else {
+      $scope.drafts.splice(orderIdArr, 1);
+    }
+    //------- delete order in Local DB
+    localDB.deleteDB($scope.global.productsTableBD, {'orderId': orderId});
+    localDB.deleteDB($scope.global.componentsTableBD, {'orderId': orderId});
+    localDB.deleteDB($scope.global.visorsTableBD, {'orderId': orderId});
+    localDB.deleteDB($scope.global.windowSillsTableBD, {'orderId': orderId});
+    localDB.deleteDB($scope.global.ordersTableBD, {'orderId': orderId});
+  };
+
 
   $scope.gotoCartPage = function() {
     $scope.global.isHistoryPage = false;

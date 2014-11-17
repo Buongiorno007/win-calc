@@ -125,7 +125,7 @@
   }
   .date-filter {
     &:after {
-      left: 36%;
+      left: 50%;
     }
   }
   .sort-filter {
@@ -232,6 +232,16 @@
       background-color: $main_orange;
     }
   }
+
+  .dropdown-calendar-scroll {
+    @include transition(all 0.5s linear);
+    height: 0;
+    overflow: hidden;
+    &.active {
+      height: 326px;
+    }
+  }
+
 
   .total-date {
     border-bottom-left-radius: $radius_rooms-dialog;

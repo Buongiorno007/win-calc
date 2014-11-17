@@ -29,6 +29,24 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   };
 */
 
+  //---------- Create Order Date
+  $scope.createOrderDate = function() {
+    var valuesDate,
+        idDate,
+        today;
+    //------ set delivery day
+    $scope.global.currentDate.setDate( $scope.global.currentDate.getDate() + $scope.global.productionDays );
+
+    valuesDate = [ $scope.global.currentDate.getDate(), $scope.global.currentDate.getMonth() + 1 ];
+    for(idDate in valuesDate) {
+      valuesDate[ idDate ] = valuesDate[ idDate ].toString().replace( /^([0-9])$/, '0$1' );
+    }
+    today = valuesDate[ 0 ] + '.' + valuesDate[ 1 ] + '.' + $scope.global.currentDate.getFullYear();
+    $scope.global.deliveryDate = today;
+    $scope.global.newDeliveryDate = $scope.global.deliveryDate;
+  };
+
+
 
   //------ Start download Product Data
   $scope.global.productInit = function () {
@@ -144,9 +162,11 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       });
 
 
-    //------ Check new Product
+    //================= Check new Product
     } else if(!$scope.global.templateSource) {
       //console.log('да templateSource пустой' + $scope.global.templateSource);
+      //------- create order date
+      $scope.createOrderDate();
 
       //----------- get all profiles
       $scope.downloadAllProfiles = function(results) {
@@ -382,7 +402,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       if(result.status){
         //console.log('find template price');
         //console.log(result.data);
-        $scope.global.product.productPrice = result.data.price;
+        $scope.global.product.productPrice = parseFloat(angular.copy(result.data.price));
         var currencySymbol = '';
         if (result.data.currentCurrency.name === 'uah') {
           currencySymbol = '₴';
@@ -584,6 +604,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     $timeout(function(){
       $scope.global.gotoCartPage();
     }, 2*STEP);
-  }
+  };
+
+
 
 }]);

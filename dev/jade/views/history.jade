@@ -11,42 +11,26 @@ section.history-page(ng-controller="HistoryCtrl")
           button.tool.search-btn(ng-click="orderSearching()")
         .tools-block.tool-drop(ng-class="{ 'active': history.isIntervalDate }")
           button.tool.calendar-btn(ng-click="intervalDateSelecting()")
-          .time-interval 19 April, 2012 - 23 March, 2014
-          //.time-interval.empty
+          .time-interval(ng-class="{ 'empty': history.startDate === '' &&  history.finishDate === ''}")
+            span(ng-if="history.startDate !== ''") {{ 'history.FROM' | translate }}
+            span(order-date="{{ history.startDate }}", months-label=" {{ 'common_words.MONTHA' | translate }} ")
+            span(ng-if="history.finishDate !== ''") &nbsp; - &nbsp;
+            span(ng-if="history.finishDate !== ''") {{ 'history.UNTIL' | translate }}
+            span(order-date="{{ history.finishDate }}", months-label=" {{ 'common_words.MONTHA' | translate }} ")
+
           .dropdown-tool-dialog.date-filter
             .filter-title Диапазон дат
-            .period.start-date.selected От 12 июня, 2012
-            .period.finish-date До 23 марта, 2014
-            ul.date-list
-              li.date-item
-                .day 9
-                .month Октябрь
-                .year 2013
-              li.date-item
-                .day 10
-                .month Октябрь
-                .year 2013
-              li.date-item.selected
-                .day 10
-                .month Октябрь
-                .year 2013
-              li.date-item
-                .day 10
-                .month Октябрь
-                .year 2013
-              li.date-item
-                .day 10
-                .month Октябрь
-                .year 2013
-              li.date-item
-                .day 10
-                .month Октябрь
-                .year 2013
-              li.date-item
-                .day 10
-                .month Октябрь
-                .year 2013
-            .period.total-date За все время
+            .period.start-date(ng-class="{ 'selected': history.isStartDate }", ng-click="openCalendarScroll('start-date')") {{ 'history.FROM' | translate }}
+              span(order-date="{{ history.startDate }}", months-label=" {{ 'common_words.MONTHA' | translate }} ")
+            .dropdown-calendar-scroll(ng-class="{ 'active': history.isStartDate }")
+              calendar-scroll(calendar-time="history.startDate", calendar-option=" {{ 'common_words.MONTHS' | translate }} ")
+
+            .period.finish-date(ng-class="{ 'selected': history.isFinishDate }", ng-click="openCalendarScroll('finish-date')") {{ 'history.UNTIL' | translate }}
+              span(order-date="{{ history.finishDate }}", months-label=" {{ 'common_words.MONTHA' | translate }} ")
+            .dropdown-calendar-scroll(ng-class="{ 'active': history.isFinishDate }")
+              calendar-scroll(calendar-time="history.finishDate", calendar-option=" {{ 'common_words.MONTHS' | translate }} ")
+
+            .period.total-date(ng-class="{ 'selected': history.isAllPeriod }", ng-click="openCalendarScroll('full-date')") За все время
 
         .tools-block.tool-drop(ng-class="{ 'active': history.isOrderSort }")
           button.tool.settings-btn(ng-click="orderSorting()")
@@ -89,7 +73,7 @@ section.history-page(ng-controller="HistoryCtrl")
 
 
     .account-block(ng-repeat="order in orders")
-      .account(ng-class="{'current': order.orderType == 'order', 'wait': order.orderType == 'master' }")
+      .account(ng-class="{'current': order.orderStyle == 'order', 'wait': order.orderStyle == 'master' }")
         .account-row.header
           .account-data.title
             .complete-icon
@@ -97,7 +81,7 @@ section.history-page(ng-controller="HistoryCtrl")
             .account-addinfo - включены доставка и монтаж
           .account-data
             .account-label.account-date-filter {{ 'history.FROM' | translate }}
-              order-date( date-old="{{ order.created }}", months-label=" {{ 'common_words.MONTHS' | translate }} ")
+              span(order-date="{{ order.created }}", months-label=" {{ 'common_words.MONTHA' | translate }} ")
         .account-row
           .account-data
             .user-data.account-user {{ order.name }}
@@ -114,11 +98,11 @@ section.history-page(ng-controller="HistoryCtrl")
           .account-value(ng-if="order.instalment !== ''") {{ order.totalPrice }}{{ global.currency }}, {{ order.instalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.totalPriceMonthly}}{{ global.currency }}
           .account-date {{ order.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{ order.deliveryDate }}
 
-      button.account-tool.account-select-btn(ng-if="order.orderType == 'order' || order.orderType == 'master'")
-      button.account-tool.account-copy-btn(ng-if="order.orderType == 'order' || order.orderType == 'master'")
-      button.account-tool.account-print-btn
-      button.account-delete-btn(ng-if="order.orderType == 'order' || order.orderType == 'master'")
-      button.account-change-btn(ng-if="order.orderType == 'order' || order.orderType == 'master'") {{ 'common_words.CHANGE' | translate }}
+      button.account-tool.account-select-btn(ng-if="order.orderStyle == 'order' || order.orderStyle == 'master'", ng-click="")
+      button.account-tool.account-copy-btn(ng-if="order.orderStyle == 'order' || order.orderStyle == 'master'", ng-click="")
+      button.account-tool.account-print-btn(ng-click="")
+      button.account-delete-btn(ng-if="order.orderStyle == 'order' || order.orderStyle == 'master'", ng-click="deleteOrder(order.orderType, order.orderId, $index)")
+      button.account-change-btn(ng-if="order.orderStyle == 'order' || order.orderStyle == 'master'", ng-click="") {{ 'common_words.CHANGE' | translate }}
 
 
 
@@ -279,16 +263,26 @@ section.history-page(ng-controller="HistoryCtrl")
                 .filter-label По времени: новые в конце
                 .filter-select-icon
 
-    .account-block
+
+
+
+
+    .account-block(ng-repeat="draft in drafts")
       .account
         .account-row.header
-          .account-id Черновик
-          .account-label.account-date-filter от 19 April, 2012
+          .account-id {{ 'history.DRAFT' | translate }}
+          .account-label.account-date-filter {{ 'history.FROM' | translate }}
+            order-date( date-old="{{ draft.created }}", months-label=" {{ 'common_words.MONTHA' | translate }} ")
         .account-row.footer(ng-click="gotoCartPage()")
-          .account-value 100 455.00, 10 платежей по 9 125.00
-          .account-qty 1561 изделий на 18.04.2014
-      button.account-tool.account-print-btn
-      button.account-delete-btn
+          .account-value(ng-if="draft.instalment === ''") {{ draft.totalPrice }}{{ global.currency }}
+          .account-value(ng-if="draft.instalment !== ''") {{ draft.totalPrice }}{{ global.currency }}, {{ draft.instalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.totalPriceMonthly}}{{ global.currency }}
+          .account-qty {{ draft.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{ draft.deliveryDate }}
+      button.account-tool.account-print-btn(ng-click="")
+      button.account-delete-btn(ng-click="deleteOrder(draft.orderType, draft.orderId, $index)")
+
+
+
+
 
     .account-block
       .account
@@ -300,6 +294,7 @@ section.history-page(ng-controller="HistoryCtrl")
           .account-qty 1561 изделий на 18.04.2014
       button.account-tool.account-print-btn
       button.account-delete-btn
+
 
     button.view-switch-tab(ng-click="viewSwitching()") {{ 'history.HISTORY_VIEW' | translate }}
 

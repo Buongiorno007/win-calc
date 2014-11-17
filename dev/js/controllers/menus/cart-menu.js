@@ -15,7 +15,6 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
     activeAssembling: 0,
     activeInstalment: 'default',
     //------- Calendar
-    currentDate: new Date(),
     maxDeliveryDate: new Date(),
     minDeliveryDate: new Date(),
 
@@ -36,27 +35,14 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
 
   //------- Calendar
 
-  var valuesDate,
-      idDate,
-      today,
-      daysBeforeDelivery = 15,
-      minDays = 2,
+  var minDays = 2,
       maxDays = 30;
 
   //------ set min delivery day
-  $scope.cartMenuData.minDeliveryDate.setDate( $scope.cartMenuData.currentDate.getDate() + minDays);
+  $scope.cartMenuData.minDeliveryDate.setDate( $scope.global.currentDate.getDate() + minDays);
   //------ set max delivery day
-  $scope.cartMenuData.maxDeliveryDate.setDate( $scope.cartMenuData.currentDate.getDate() + maxDays);
-  //------ set delivery day
-  $scope.cartMenuData.currentDate.setDate( $scope.cartMenuData.currentDate.getDate() + daysBeforeDelivery);
+  $scope.cartMenuData.maxDeliveryDate.setDate( $scope.global.currentDate.getDate() + maxDays);
 
-  valuesDate = [ $scope.cartMenuData.currentDate.getDate(), $scope.cartMenuData.currentDate.getMonth() + 1 ];
-  for(idDate in valuesDate) {
-    valuesDate[ idDate ] = valuesDate[ idDate ].toString().replace( /^([0-9])$/, '0$1' );
-  }
-  today = valuesDate[ 0 ] + '.' + valuesDate[ 1 ] + '.' + $scope.cartMenuData.currentDate.getFullYear();
-  $scope.global.deliveryDate = today;
-  $scope.global.newDeliveryDate = $scope.global.deliveryDate;
 
   //------ change date
   $scope.checkDifferentDate = function(lastday, newday) {

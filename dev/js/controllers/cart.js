@@ -13,11 +13,10 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
   var p, prod, product, newProductsQty, oldProductPrice, newProductPrice;
 
-  //-------- for checking cart page open
+  //-------- checking cart page open for save draft order
   $scope.global.isOpenedCartPage = true;
 
-//console.log('cart - ' + $scope.global.isCreatedNewProject);
-//console.log('orderNumber - ' + $scope.global.orderNumber);
+
   //------ Download Add Elements from localDB
   localDB.selectDB($scope.global.visorsTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
     if (results.status) {
