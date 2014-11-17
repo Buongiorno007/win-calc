@@ -19,7 +19,7 @@ section.history-page(ng-controller="HistoryCtrl")
             span(order-date="{{ history.finishDate }}", months-label=" {{ 'common_words.MONTHA' | translate }} ")
 
           .dropdown-tool-dialog.date-filter
-            .filter-title Диапазон дат
+            .filter-title {{ 'history.DATE_RANGE' | translate }}
             .period.start-date(ng-class="{ 'selected': history.isStartDate }", ng-click="openCalendarScroll('start-date')") {{ 'history.FROM' | translate }}
               span(order-date="{{ history.startDate }}", months-label=" {{ 'common_words.MONTHA' | translate }} ")
             .dropdown-calendar-scroll(ng-class="{ 'active': history.isStartDate }")
@@ -30,35 +30,35 @@ section.history-page(ng-controller="HistoryCtrl")
             .dropdown-calendar-scroll(ng-class="{ 'active': history.isFinishDate }")
               calendar-scroll(calendar-time="history.finishDate", calendar-option=" {{ 'common_words.MONTHS' | translate }} ")
 
-            .period.total-date(ng-class="{ 'selected': history.isAllPeriod }", ng-click="openCalendarScroll('full-date')") За все время
+            .period.total-date(ng-class="{ 'selected': history.isAllPeriod }", ng-click="openCalendarScroll('full-date')") {{ 'history.ALL_TIME' | translate }}
 
         .tools-block.tool-drop(ng-class="{ 'active': history.isOrderSort }")
           button.tool.settings-btn(ng-click="orderSorting()")
           .dropdown-tool-dialog.sort-filter
-            .filter-divider Сортировка
+            .filter-divider {{ 'history.SORTING' | translate }}
             ul.filter-list
               li.filter-item
-                .filter-label По времени: новые в начале
+                .filter-label {{ 'history.NEWEST_FIRST' | translate }}
                 .filter-select-icon
               li.filter-item
-                .filter-label По времени: новые в конце
+                .filter-label {{ 'history.NEWEST_LAST' | translate }}
                 .filter-select-icon
               li.filter-item
-                .filter-label По типам
+                .filter-label {{ 'history.SORT_BY_TYPE' | translate }}
                 .filter-select-icon
-            .filter-divider Показать
+            .filter-divider {{ 'history.SORT_SHOW' | translate }}
             ul.filter-list
               li.filter-item
-                .filter-label Все
+                .filter-label {{ 'common_words.ALL' | translate }}
                 .filter-select-icon
               li.filter-item
-                .filter-label Только активные
+                .filter-label {{ 'history.SORT_SHOW_ACTIVE' | translate }}
                 .filter-select-icon
               li.filter-item
-                .filter-label Только в ожидании
+                .filter-label {{ 'history.SORT_SHOW_WAIT' | translate }}
                 .filter-select-icon
               li.filter-item
-                .filter-label Только завершенные
+                .filter-label {{ 'history.SORT_SHOW_DONE' | translate }}
                 .filter-select-icon
 
 

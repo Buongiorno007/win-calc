@@ -1,7 +1,7 @@
 .room-info-container(ng-controller="RoomInfoCtrl")
   .room-header
     .room-name {{ roomInfo.roomArr[(global.currentRoomId-1)].name }}
-      button.select-rooms.unvisible(show-delay="{{ roomInfo.DELAY_SHOW_ALLROOMS_BTN }}", ng-click="showRoomSelectorDialog()") {{ 'mainpage.ALL_ROOMS' | translate }}
+      button.select-rooms.unvisible(show-delay="{{ roomInfo.DELAY_SHOW_ALLROOMS_BTN }}", ng-click="showRoomSelectorDialog()") {{ 'mainpage.ALL' | translate }}
 
   .coeff-container
     .coeff-block

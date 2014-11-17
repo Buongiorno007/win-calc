@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStorage', 'localDB', function ($scope, constructService, localStorage, localDB) {
+BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStorage', 'localDB', '$filter', function ($scope, constructService, localStorage, localDB, $filter) {
 
   var $historyPage = $('.history-page'),
       $searchTool = $historyPage.find('.search-tool'),
@@ -103,6 +103,7 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
   //------ Download complete Orders from localDB
   localDB.selectDB($scope.global.ordersTableBD, {'orderType': $scope.global.fullOrderType}, function (results) {
     if (results.status) {
+      $scope.ordersSource = angular.copy(results.data);
       $scope.orders = angular.copy(results.data);
       //console.log($scope.orders);
     } else {
@@ -120,11 +121,38 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
 
   $scope.intervalDateSelecting  = function() {
     if($scope.history.isDraftView) {
+      if($scope.history.isIntervalDateDraft) {
+        //-------- sorting orders by selected date
+        $scope.orders = $scope.sortingByDate($scope.ordersSource, $scope.history.startDate, $scope.history.finishDate);
+      }
       $scope.history.isIntervalDateDraft = !$scope.history.isIntervalDateDraft;
     } else {
+      if($scope.history.isIntervalDate) {
+        //-------- sorting orders by selected date
+        $scope.orders = $scope.sortingByDate($scope.ordersSource, $scope.history.startDate, $scope.history.finishDate);
+      }
       $scope.history.isIntervalDate = !$scope.history.isIntervalDate;
     }
   };
+
+  //------- Sorting orders by Dates
+  $scope.sortingByDate = function(obj, start, end) {
+    if(start !== '' || end !== '') {
+      var newObj, startDate, finishDate;
+      newObj = angular.copy(obj);
+      startDate = new Date(start).valueOf();
+      finishDate = new Date(end).valueOf();
+      for(var t = 0; t < newObj.length; t++) {
+        var objDate = new Date(newObj[t].created).valueOf();
+        if(objDate < startDate || objDate > finishDate) {
+          newObj.splice(t, 1);
+        }
+      }
+      return newObj;
+    }
+  };
+
+
 
   $scope.orderSorting  = function() {
     if($scope.history.isDraftView) {
@@ -199,6 +227,7 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
       $scope.history.isAllPeriod = true;
       $scope.history.startDate = '';
       $scope.history.finishDate = '';
+      $scope.orders = angular.copy($scope.ordersSource);
     } else {
       $scope.history.isStartDate = false;
       $scope.history.isFinishDate = false;

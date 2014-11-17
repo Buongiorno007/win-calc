@@ -8,7 +8,8 @@ window.russianDictionary = {
     MONTHA: 'Января, Февраля, Марта, Апреля, Мая, Июня, Июля, Августа, Сентября, Октября, Ноября, Декабря',
     MONTH_LABEL: 'месяц',
     MONTHA_LABEL: 'месяца',
-    MONTHS_LABEL: 'месяцeв'
+    MONTHS_LABEL: 'месяцeв',
+    ALL: 'Все'
   },
   login: {
     ENTER: 'Войти',
@@ -23,7 +24,6 @@ window.russianDictionary = {
   },
   mainpage: {
     MM: ' мм',
-    ALL_ROOMS: 'Все',
     CLIMATE_ZONE: 'климатическая зона',
     THERMAL_RESISTANCE: 'сопротивление теплопередаче',
     AIR_CIRCULATION: 'коэффициент воздухообмена',
@@ -146,7 +146,17 @@ window.russianDictionary = {
     PAYMENTS: 'платежей по',
     ALLPRODUCTS: 'изделий',
     ON: 'на',
-    DRAFT: 'Черновик'
+    DRAFT: 'Черновик',
+    DATE_RANGE: 'Диапазон дат',
+    ALL_TIME: 'За все время',
+    SORTING: 'Сортировка',
+    NEWEST_FIRST: 'По времени: новые в начале',
+    NEWEST_LAST: 'По времени: новые в конце',
+    SORT_BY_TYPE: 'По типам',
+    SORT_SHOW: 'Показать',
+    SORT_SHOW_ACTIVE: 'Только активные',
+    SORT_SHOW_WAIT: 'Только в ожидании',
+    SORT_SHOW_DONE: 'Только завершенные'
   },
   cart: {
     ALL_ADD_ELEMENTS: 'Все доп.элементы заказа',

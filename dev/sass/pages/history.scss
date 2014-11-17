@@ -500,3 +500,18 @@
     @include roboto-md(36px);
   }
 }
+
+//----- Calendar scroll
+.mbsc-ios7 {
+  .dw-li {
+    text-align: center !important;
+    .dw-i {
+      div {
+        display: none !important;
+      }
+      .dw-mon {
+        font-size: 35px !important;
+      }
+    }
+  }
+}
