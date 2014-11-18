@@ -161,7 +161,6 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
       "phone": '',
       "phone2": '',
       "itn": 0,
-      "instalment": '',
       "starttime": '',
       "endtime": '',
       "target": ''

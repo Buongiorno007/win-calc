@@ -37,10 +37,10 @@ section.history-page(ng-controller="HistoryCtrl")
           .dropdown-tool-dialog.sort-filter
             .filter-divider {{ 'history.SORTING' | translate }}
             ul.filter-list
-              li.filter-item
+              li.filter-item(ng-class="{ 'selected': history.isSortType == 'first' }", ng-click="sortingInit('first')")
                 .filter-label {{ 'history.NEWEST_FIRST' | translate }}
                 .filter-select-icon
-              li.filter-item
+              li.filter-item(ng-class="{ 'selected': history.isSortType == 'last' }", ng-click="sortingInit('last')")
                 .filter-label {{ 'history.NEWEST_LAST' | translate }}
                 .filter-select-icon
               li.filter-item
@@ -48,37 +48,32 @@ section.history-page(ng-controller="HistoryCtrl")
                 .filter-select-icon
             .filter-divider {{ 'history.SORT_SHOW' | translate }}
             ul.filter-list
-              li.filter-item
+              //li.filter-item(ng-class="{ 'selected': history.isSortType == 'all-order' }", ng-click="sortingInit('all-order')")
                 .filter-label {{ 'common_words.ALL' | translate }}
                 .filter-select-icon
-              li.filter-item
+              li.filter-item(ng-class="{ 'selected': history.isSortType == 'current-order' }", ng-click="sortingInit('current-order')")
                 .filter-label {{ 'history.SORT_SHOW_ACTIVE' | translate }}
                 .filter-select-icon
-              li.filter-item
+              li.filter-item(ng-class="{ 'selected': history.isSortType == 'wait-order' }", ng-click="sortingInit('wait-order')")
                 .filter-label {{ 'history.SORT_SHOW_WAIT' | translate }}
                 .filter-select-icon
-              li.filter-item
+              li.filter-item(ng-class="{ 'selected': history.isSortType == 'done-order' }", ng-click="sortingInit('done-order')")
                 .filter-label {{ 'history.SORT_SHOW_DONE' | translate }}
                 .filter-select-icon
 
 
 
 
-
-
-
-
-
-
-
-
-    .account-block(ng-repeat="order in orders")
-      .account(ng-class="{'current': order.orderStyle == 'order', 'wait': order.orderStyle == 'master' }")
+    .account-block(ng-repeat="order in orders | orderBy:createdDate:reverse", ng-hide="order.orderStyle == 'order' && history.isCurrentOrdersHide || order.orderStyle == 'credit' && history.isCurrentOrdersHide || order.orderStyle == 'master' && history.isWaitOrdersHide || order.orderStyle == 'done' && history.isDoneOrdersHide")
+      .account(ng-class="{'current': order.orderStyle == 'order' || order.orderStyle == 'credit', 'wait': order.orderStyle == 'master', 'done': order.orderStyle == 'done' }")
         .account-row.header
           .account-data.title
             .complete-icon
             .account-id id {{ order.orderId }}
-            .account-addinfo - включены доставка и монтаж
+            .account-addinfo
+              span(ng-hide="order.floorPrice == 0 || order.assemblingPrice == 0") - включены:
+              span(ng-hide="order.floorPrice == 0") доставка
+              span(ng-hide="order.assemblingPrice == 0") и монтаж
           .account-data
             .account-label.account-date-filter {{ 'history.FROM' | translate }}
               span(order-date="{{ order.created }}", months-label=" {{ 'common_words.MONTHA' | translate }} ")
@@ -94,15 +89,15 @@ section.history-page(ng-controller="HistoryCtrl")
             .user-data.account-user-adress {{ order.location }}, {{ order.address }}
             .account-label {{ 'history.ADDRESS' | translate }}
         .account-row.footer(ng-click="gotoCartPage()")
-          .account-value(ng-if="order.instalment === ''") {{ order.totalPrice }}{{ global.currency }}
-          .account-value(ng-if="order.instalment !== ''") {{ order.totalPrice }}{{ global.currency }}, {{ order.instalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.totalPriceMonthly}}{{ global.currency }}
+          .account-value(ng-hide="order.orderStyle == 'credit'") {{ order.totalPrice }}{{ global.currency }}
+          .account-value(ng-show="order.orderStyle == 'credit'") {{ order.totalPrice }}{{ global.currency }}, {{ order.instalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.totalPriceMonthly}}{{ global.currency }}
           .account-date {{ order.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{ order.deliveryDate }}
 
-      button.account-tool.account-select-btn(ng-if="order.orderStyle == 'order' || order.orderStyle == 'master'", ng-click="")
-      button.account-tool.account-copy-btn(ng-if="order.orderStyle == 'order' || order.orderStyle == 'master'", ng-click="")
+      button.account-tool.account-select-btn(ng-hide="order.orderStyle == 'done'", ng-click="")
+      button.account-tool.account-copy-btn(ng-hide="order.orderStyle == 'done'", ng-click="")
       button.account-tool.account-print-btn(ng-click="")
-      button.account-delete-btn(ng-if="order.orderStyle == 'order' || order.orderStyle == 'master'", ng-click="deleteOrder(order.orderType, order.orderId, $index)")
-      button.account-change-btn(ng-if="order.orderStyle == 'order' || order.orderStyle == 'master'", ng-click="") {{ 'common_words.CHANGE' | translate }}
+      button.account-delete-btn(ng-hide="order.orderStyle == 'done'", ng-click="deleteOrder(order.orderType, order.orderId, $index)")
+      button.account-change-btn(ng-hide="order.orderStyle == 'done'", ng-click="") {{ 'common_words.CHANGE' | translate }}
 
 
 
@@ -112,77 +107,6 @@ section.history-page(ng-controller="HistoryCtrl")
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    .account-block
-      .account.current
-        .account-row.header
-          .account-data.title
-            .complete-icon
-            .account-id id 541321234566
-            .account-addinfo - включены доставка и монтаж
-          .account-data
-            .account-label.account-date-filter от 19 April, 2012
-        .account-row
-          .account-data
-            .user-data.account-user Андреева Светлана Петровна
-            .account-label клиент
-        .account-row
-          .account-data.phone
-            .user-data.account-user-phone +38(074)326-3366
-            .account-label телефон
-          .account-data
-            .user-data.account-user-adress Днепропетровск, ул.Карла Маркса, 48
-            .account-label адрес
-        .account-row.footer(ng-click="gotoCartPage()")
-          .account-value 100 455.00, 10 платежей по 9 125.00
-          .account-date 1561 изделий на 18.04.2014
-
-      button.account-tool.account-select-btn
-      button.account-tool.account-copy-btn
-      button.account-tool.account-print-btn
-      button.account-delete-btn
-      button.account-change-btn {{ 'common_words.CHANGE' | translate }}
-
-    .account-block
-      .account.wait
-        .account-row.header
-          .account-data.title
-            .complete-icon
-            .account-id id 541321234566
-            .account-addinfo - включены доставка и монтаж
-          .account-data
-            .account-label.account-date-filter от 19 April, 2012
-        .account-row
-          .account-data
-            .user-data.account-user Андреева Светлана Петровна
-            .account-label клиент
-        .account-row
-          .account-data.phone
-            .user-data.account-user-phone +38(074)326-3366
-            .account-label телефон
-          .account-data
-            .user-data.account-user-adress Днепропетровск, ул.Карла Маркса, 48
-            .account-label адрес
-        .account-row.footer(ng-click="gotoCartPage()")
-          .account-value 100 455.00, 10 платежей по 9 125.00
-          .account-date 1561 изделий на 18.04.2014
-
-      button.account-tool.account-select-btn
-      button.account-tool.account-copy-btn
-      button.account-tool.account-print-btn
-      button.account-delete-btn
-      button.account-change-btn {{ 'common_words.CHANGE' | translate }}
 
     .account-block
       .account.done
@@ -213,6 +137,10 @@ section.history-page(ng-controller="HistoryCtrl")
       button.account-tool.account-print-btn
       //button.account-delete-btn
       //button.account-change-btn {{ 'common_words.CHANGE' | translate }}
+
+
+
+
 
     button.view-switch-tab(ng-click="viewSwitching()") {{ 'history.DRAFT_VIEW' | translate }}
 

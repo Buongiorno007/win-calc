@@ -245,10 +245,6 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "type": "INTEGER",
       "null": "NOT NULL"
     },
-    "instalment": {
-      "type": "TEXT",
-      "null": "NOT NULL"
-    },
     "starttime": {
       "type": "TEXT",
       "null": "NOT NULL"

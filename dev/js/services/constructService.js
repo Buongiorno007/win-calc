@@ -1111,28 +1111,24 @@ BauVoiceApp.factory('constructService', function ($q) {
 
         floors: [
           {
-            name: 'самовывоз',
-            price: ''
+            name: 1,
+            price: 100
           },
           {
-            name: '1 этаж',
-            price: '100'
+            name: 2,
+            price: 200
           },
           {
-            name: '2 этаж',
-            price: '200'
+            name: 3,
+            price: 300
           },
           {
-            name: '3 этаж',
-            price: '300'
+            name: 4,
+            price: 400
           },
           {
-            name: '4 этаж',
-            price: '400'
-          },
-          {
-            name: '5 этаж',
-            price: '500'
+            name: 5,
+            price: 500
           }
         ]
 
@@ -1144,20 +1140,16 @@ BauVoiceApp.factory('constructService', function ($q) {
 
         assembling: [
           {
-            name: 'без монтажа',
-            price: 'бесплатно'
-          },
-          {
             name: 'без демонтажа',
-            price: '200'
+            price: 200
           },
           {
             name: 'стандартный',
-            price: '300'
+            price: 300
           },
           {
             name: 'VIP-монтаж',
-            price: '400'
+            price: 400
           }
         ]
 

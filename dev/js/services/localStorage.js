@@ -8,6 +8,7 @@ BauVoiceApp.factory('localStorage', function () {
     svgTemplateHeight: 1000,
     productionDays: 15,
     currentDate: new Date(),
+    deliveryDate: new Date(),
 
     product: {},
     chosenAddElements: {

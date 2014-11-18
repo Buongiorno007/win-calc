@@ -11,8 +11,8 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
     assemblingData: [],
     instalmentsData: [],
     activeMenuItem: false,
-    activeFloor: 0,
-    activeAssembling: 0,
+    activeFloor: 'free',
+    activeAssembling: 'free',
     activeInstalment: 'default',
     //------- Calendar
     maxDeliveryDate: new Date(),
@@ -29,9 +29,6 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
     typing: 'on'
   };
 
-  var floorSource, fl, assemblingSource, ass;
-
-
 
   //------- Calendar
 
@@ -42,8 +39,6 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
   $scope.cartMenuData.minDeliveryDate.setDate( $scope.global.currentDate.getDate() + minDays);
   //------ set max delivery day
   $scope.cartMenuData.maxDeliveryDate.setDate( $scope.global.currentDate.getDate() + maxDays);
-
-
   //------ change date
   $scope.checkDifferentDate = function(lastday, newday) {
     var lastDateArr, newDateArr, lastDate, newDate, qtyDays;
@@ -77,19 +72,9 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
 
   constructService.getFloorPrice(function (results) {
     if (results.status) {
-      floorSource = results.data.floors;
-      for(fl = 0; fl < floorSource.length; fl++) {
-        var tempFloor = {};
-        tempFloor.name = floorSource[fl].name;
-        if($.isNumeric(parseFloat(floorSource[fl].price))) {
-          tempFloor.price = '+' + floorSource[fl].price + ' ' + $scope.global.currency;
-        } else {
-          tempFloor.price = ' ';
-        }
-        $scope.cartMenuData.floorData.push(tempFloor);
-      }
-      $scope.global.selectedFloor = $scope.cartMenuData.floorData[0].name;
-      $scope.global.selectedFloorPrice = $scope.cartMenuData.floorData[0].price;
+      $scope.cartMenuData.floorData = angular.copy(results.data.floors);
+      $scope.global.selectedFloor = 'free';
+      $scope.global.selectedFloorPrice = 0;
     } else {
       console.log(results);
     }
@@ -97,19 +82,9 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
 
   constructService.getAssemblingPrice(function (results) {
     if (results.status) {
-      assemblingSource = results.data.assembling;
-      for(ass = 0; ass < assemblingSource.length; ass++) {
-        var tempAssembling = {};
-        tempAssembling.name = assemblingSource[ass].name;
-        if($.isNumeric(parseFloat(assemblingSource[ass].price))) {
-          tempAssembling.price = '+' + assemblingSource[ass].price + ' ' + $scope.global.currency;
-        } else {
-          tempAssembling.price = assemblingSource[ass].price;
-        }
-        $scope.cartMenuData.assemblingData.push(tempAssembling);
-      }
-      $scope.global.selectedAssembling = $scope.cartMenuData.assemblingData[0].name;
-      $scope.global.selectedAssemblingPrice = $scope.cartMenuData.assemblingData[0].price;
+      $scope.cartMenuData.assemblingData = angular.copy(results.data.assembling);
+      $scope.global.selectedAssembling = 'free';
+      $scope.global.selectedAssemblingPrice = 0;
     } else {
       console.log(results);
     }
@@ -141,8 +116,13 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
   $scope.selectFloorPrice = function(floorId) {
     if($scope.cartMenuData.activeFloor !== floorId) {
       $scope.cartMenuData.activeFloor = floorId;
-      $scope.global.selectedFloor = $scope.cartMenuData.floorData[floorId].name;
-      $scope.global.selectedFloorPrice = $scope.cartMenuData.floorData[floorId].price;
+      if(floorId === 'free') {
+        $scope.global.selectedFloor = 'free';
+        $scope.global.selectedFloorPrice = 0;
+      } else {
+        $scope.global.selectedFloor = $scope.cartMenuData.floorData[floorId].name;
+        $scope.global.selectedFloorPrice = $scope.cartMenuData.floorData[floorId].price;
+      }
       $scope.global.calculateTotalOrderPrice();
     }
   };
@@ -150,8 +130,13 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
   $scope.selectAssembling = function(assemblingId) {
     if($scope.cartMenuData.activeAssembling !== assemblingId) {
       $scope.cartMenuData.activeAssembling = assemblingId;
-      $scope.global.selectedAssembling = $scope.cartMenuData.assemblingData[assemblingId].name;
-      $scope.global.selectedAssemblingPrice = $scope.cartMenuData.assemblingData[assemblingId].price;
+      if(assemblingId === 'free') {
+        $scope.global.selectedAssembling = 'free';
+        $scope.global.selectedAssemblingPrice = 0;
+      } else {
+        $scope.global.selectedAssembling = $scope.cartMenuData.assemblingData[assemblingId].name;
+        $scope.global.selectedAssemblingPrice = $scope.cartMenuData.assemblingData[assemblingId].price;
+      }
       $scope.global.calculateTotalOrderPrice();
     }
   };
@@ -193,8 +178,8 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
   //-------- Calculate Total Order Price
   $scope.global.calculateTotalOrderPrice = function() {
 
-    var floorPrice = parseFloat(floorSource[$scope.cartMenuData.activeFloor].price),
-        assemblingPrice = parseFloat(assemblingSource[$scope.cartMenuData.activeAssembling].price);
+    var floorPrice = parseFloat($scope.global.selectedFloorPrice),
+        assemblingPrice = parseFloat($scope.global.selectedAssemblingPrice);
     $scope.global.orderTotalPrice = 0;
     //----- add product prices
     $scope.global.orderTotalPrice += $scope.global.orderPrice;

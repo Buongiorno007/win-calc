@@ -4,26 +4,36 @@
       li.item(ng-class="{'active': cartMenuData.activeMenuItem==1}", ng-click="selectMenuItem(1)")
         .title(data-output="{{ 'cart.DELIVERY' | translate }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
         .cart-item-data
-          .value(data-output="{{ global.selectedFloor }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
-          span.name.aside(data-output="{{ global.selectedFloorPrice }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
+          .value(ng-show="global.selectedFloor == 'free'", data-output="{{ 'cart.SELF_EXPORT' | translate }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
+          .value(ng-hide="global.selectedFloor == 'free'", data-output="{{ global.selectedFloor }} {{ 'cart.FLOOR' | translate }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
+          span.name.aside(ng-hide="global.selectedFloor == 'free'", data-output=" + {{ global.selectedFloorPrice }} {{ global.currency }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
       .dropdown-cart-menu.drop-delivery(ng-class="{'active': cartMenuData.activeMenuItem==1}")
         ul.dropdown-items-list
+          li.dropdown-item(ng-class="{'selected': cartMenuData.activeFloor == 'free'}", ng-click="selectFloorPrice('free')")
+            .dropdown-item-inner
+              .value.drop-txt {{ 'cart.SELF_EXPORT' | translate }}
+              .name.drop-txt
           li.dropdown-item(ng-repeat="floorList in cartMenuData.floorData", ng-class="{'selected': cartMenuData.activeFloor == $index}", ng-click="selectFloorPrice($index)")
             .dropdown-item-inner
-              .value.drop-txt {{floorList.name}}
-              .name.drop-txt {{floorList.price}}
+              .value.drop-txt {{floorList.name}} {{ 'cart.FLOOR' | translate }}
+              .name.drop-txt + {{floorList.price}} {{ global.currency }}
 
       li.item(ng-class="{'active': cartMenuData.activeMenuItem==2}", ng-click="selectMenuItem(2)")
         .title(data-output="{{ 'cart.ASSEMBLING' | translate }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
         .cart-item-data
-          .value(data-output="{{ global.selectedAssembling }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
-          span.name.aside(data-output="{{ global.selectedAssemblingPrice }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
+          .value(ng-show="global.selectedAssembling == 'free'", data-output="{{ 'cart.WITHOUT_ASSEMBLING' | translate }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
+          .value(ng-hide="global.selectedAssembling == 'free'", data-output="{{ global.selectedAssembling }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
+          span.name.aside(ng-hide="global.selectedAssembling == 'free'", data-output=" + {{ global.selectedAssemblingPrice }} {{ global.currency }}", typing="{{ cartMenuData.typing }}", typing-delay="{{ cartMenuData.DELAY_START }}")
       .dropdown-cart-menu.drop-assembling(ng-class="{'active': cartMenuData.activeMenuItem==2}")
         ul.dropdown-items-list
+          li.dropdown-item(ng-class="{'selected': cartMenuData.activeAssembling == 'free'}", ng-click="selectAssembling('free')")
+            .dropdown-item-inner
+              .value.drop-txt {{ 'cart.WITHOUT_ASSEMBLING' | translate }}
+              .name.drop-txt {{ 'cart.FREE' | translate }}
           li.dropdown-item(ng-repeat="assemb in cartMenuData.assemblingData", ng-class="{'selected': cartMenuData.activeAssembling == $index}", ng-click="selectAssembling($index)")
             .dropdown-item-inner
               .value.drop-txt {{ assemb.name }}
-              .name.drop-txt {{ assemb.price }}
+              .name.drop-txt + {{ assemb.price }} {{ global.currency }}
 
 
       li.item.switcher(ng-class="{'active': cartMenuData.activeMenuItem==3}", ng-click="selectMenuItem(3)")
