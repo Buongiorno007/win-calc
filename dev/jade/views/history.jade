@@ -1,4 +1,4 @@
-section.history-page(ng-controller="HistoryCtrl")
+section.history-page(ng-controller="HistoryCtrl", ng-init="startDownloadData()")
 
   section.accounts-container.history-view(ng-class="{'dark-fon': history.isIntervalDate || history.isOrderSort }")
     .history-header
@@ -14,7 +14,7 @@ section.history-page(ng-controller="HistoryCtrl")
           .time-interval(ng-class="{ 'empty': history.startDate === '' &&  history.finishDate === ''}")
             span(ng-if="history.startDate !== ''") {{ 'history.FROM' | translate }}
             span(order-date="{{ history.startDate }}", months-label=" {{ 'common_words.MONTHA' | translate }} ")
-            span(ng-if="history.finishDate !== ''") &nbsp; - &nbsp;
+            span(ng-show="history.startDate !== ''") &nbsp; - &nbsp;
             span(ng-if="history.finishDate !== ''") {{ 'history.UNTIL' | translate }}
             span(order-date="{{ history.finishDate }}", months-label=" {{ 'common_words.MONTHA' | translate }} ")
 
@@ -23,12 +23,12 @@ section.history-page(ng-controller="HistoryCtrl")
             .period.start-date(ng-class="{ 'selected': history.isStartDate }", ng-click="openCalendarScroll('start-date')") {{ 'history.FROM' | translate }}
               span(order-date="{{ history.startDate }}", months-label=" {{ 'common_words.MONTHA' | translate }} ")
             .dropdown-calendar-scroll(ng-class="{ 'active': history.isStartDate }")
-              calendar-scroll(calendar-time="history.startDate", calendar-option=" {{ 'common_words.MONTHS' | translate }} ")
+              calendar-scroll(calendar-time="history.startDate", max-time="{{ history.maxDeliveryDateOrder }}", calendar-option=" {{ 'common_words.MONTHS' | translate }} ")
 
             .period.finish-date(ng-class="{ 'selected': history.isFinishDate }", ng-click="openCalendarScroll('finish-date')") {{ 'history.UNTIL' | translate }}
               span(order-date="{{ history.finishDate }}", months-label=" {{ 'common_words.MONTHA' | translate }} ")
             .dropdown-calendar-scroll(ng-class="{ 'active': history.isFinishDate }")
-              calendar-scroll(calendar-time="history.finishDate", calendar-option=" {{ 'common_words.MONTHS' | translate }} ")
+              calendar-scroll(calendar-time="history.finishDate", max-time="{{ history.maxDeliveryDateOrder }}", calendar-option=" {{ 'common_words.MONTHS' | translate }} ")
 
             .period.total-date(ng-class="{ 'selected': history.isAllPeriod }", ng-click="openCalendarScroll('full-date')") {{ 'history.ALL_TIME' | translate }}
 
@@ -63,17 +63,17 @@ section.history-page(ng-controller="HistoryCtrl")
 
 
 
-
-    .account-block(ng-repeat="order in orders | orderBy:createdDate:reverse", ng-hide="order.orderStyle == 'order' && history.isCurrentOrdersHide || order.orderStyle == 'credit' && history.isCurrentOrdersHide || order.orderStyle == 'master' && history.isWaitOrdersHide || order.orderStyle == 'done' && history.isDoneOrdersHide")
+    .account-block(ng-repeat="order in orders | orderBy:createdDate:reverse | filter:searchingWord", ng-hide="order.orderStyle == 'order' && history.isCurrentOrdersHide || order.orderStyle == 'credit' && history.isCurrentOrdersHide || order.orderStyle == 'master' && history.isWaitOrdersHide || order.orderStyle == 'done' && history.isDoneOrdersHide")
       .account(ng-class="{'current': order.orderStyle == 'order' || order.orderStyle == 'credit', 'wait': order.orderStyle == 'master', 'done': order.orderStyle == 'done' }")
         .account-row.header
           .account-data.title
             .complete-icon
             .account-id id {{ order.orderId }}
             .account-addinfo
-              span(ng-hide="order.floorPrice == 0 || order.assemblingPrice == 0") - включены:
-              span(ng-hide="order.floorPrice == 0") доставка
-              span(ng-hide="order.assemblingPrice == 0") и монтаж
+              span(ng-hide="order.floorPrice == 0 && order.assemblingPrice == 0") - включены:
+              span(ng-hide="order.floorPrice == 0") &nbsp;доставка
+              span(ng-hide="order.floorPrice == 0 || order.assemblingPrice == 0") &nbsp;и
+              span(ng-hide="order.assemblingPrice == 0") &nbsp;монтаж
           .account-data
             .account-label.account-date-filter {{ 'history.FROM' | translate }}
               span(order-date="{{ order.created }}", months-label=" {{ 'common_words.MONTHA' | translate }} ")
@@ -100,14 +100,7 @@ section.history-page(ng-controller="HistoryCtrl")
       button.account-change-btn(ng-hide="order.orderStyle == 'done'", ng-click="") {{ 'common_words.CHANGE' | translate }}
 
 
-
-
-
-
-
-
-
-
+      //=============== example
     .account-block
       .account.done
         .account-row.header
@@ -139,14 +132,20 @@ section.history-page(ng-controller="HistoryCtrl")
       //button.account-change-btn {{ 'common_words.CHANGE' | translate }}
 
 
-
-
-
     button.view-switch-tab(ng-click="viewSwitching()") {{ 'history.DRAFT_VIEW' | translate }}
 
-    .empty-search-result(ng-show="history.isEmptySearchResult")
+    .empty-search-result(ng-show="(orders | filter:searchingWord).length == 0")
       .result-icon
-      .result-text По вашему запросу "<span class="searchin-text"> Константино </span>" ничего не найдено.
+      .result-text {{ 'history.BY_YOUR_REQUEST' | translate }} "<span class="searchin-text"> {{ searchingWord }} </span>" {{ 'history.NOT_FIND' | translate }}.
+
+    .empty-search-result(ng-show="history.isEmptySortResult")
+      .result-icon
+      .result-text {{ 'history.BY_YOUR_REQUEST' | translate }} {{ 'history.NOT_FIND' | translate }}.
+
+
+
+
+
 
   section.accounts-container.draft-view(ng-class="{'active': history.isDraftView, 'dark-fon': history.isIntervalDateDraft || history.isOrderSortDraft }")
     .history-header
@@ -154,64 +153,55 @@ section.history-page(ng-controller="HistoryCtrl")
       .history-tools-panel
         .tools-block.tool-drop(ng-class="{ 'active': history.isIntervalDateDraft }")
           button.tool.calendar-btn(ng-click="intervalDateSelecting()")
-          //.time-interval 19 April, 2012 - 23 March, 2014
-          .time-interval.empty
+          .time-interval(ng-class="{ 'empty': history.startDateDraft === '' &&  history.finishDateDraft === ''}")
+            span(ng-if="history.startDateDraft !== ''") {{ 'history.FROM' | translate }}
+            span(order-date="{{ history.startDateDraft }}", months-label=" {{ 'common_words.MONTHA' | translate }} ")
+            span(ng-show="history.startDateDraft !== ''") &nbsp; - &nbsp;
+            span(ng-if="history.finishDateDraft !== ''") {{ 'history.UNTIL' | translate }}
+            span(order-date="{{ history.finishDateDraft }}", months-label=" {{ 'common_words.MONTHA' | translate }} ")
+
           .dropdown-tool-dialog.date-filter
-            .filter-title Диапазон дат
-            .period.start-date.selected От 12 июня, 2012
-            .period.finish-date До 23 марта, 2014
-            ul.date-list
-              li.date-item
-                .day 9
-                .month Октябрь
-                .year 2013
-              li.date-item
-                .day 10
-                .month Октябрь
-                .year 2013
-              li.date-item.selected
-                .day 10
-                .month Октябрь
-                .year 2013
-              li.date-item
-                .day 10
-                .month Октябрь
-                .year 2013
-            .period.total-date За все время
+            .filter-title {{ 'history.DATE_RANGE' | translate }}
+            .period.start-date(ng-class="{ 'selected': history.isStartDateDraft }", ng-click="openCalendarScroll('start-date')") {{ 'history.FROM' | translate }}
+              span(order-date="{{ history.startDateDraft }}", months-label=" {{ 'common_words.MONTHA' | translate }} ")
+            .dropdown-calendar-scroll(ng-class="{ 'active': history.isStartDateDraft }")
+              calendar-scroll(calendar-time="history.startDateDraft", max-time="{{ history.maxDeliveryDateDraft }}", calendar-option=" {{ 'common_words.MONTHS' | translate }} ")
+
+            .period.finish-date(ng-class="{ 'selected': history.isFinishDateDraft }", ng-click="openCalendarScroll('finish-date')") {{ 'history.UNTIL' | translate }}
+              span(order-date="{{ history.finishDateDraft }}", months-label=" {{ 'common_words.MONTHA' | translate }} ")
+            .dropdown-calendar-scroll(ng-class="{ 'active': history.isFinishDateDraft }")
+              calendar-scroll(calendar-time="history.finishDateDraft", max-time="{{ history.maxDeliveryDateDraft }}", calendar-option=" {{ 'common_words.MONTHS' | translate }} ")
+
+            .period.total-date(ng-class="{ 'selected': history.isAllPeriodDraft }", ng-click="openCalendarScroll('full-date')") {{ 'history.ALL_TIME' | translate }}
 
         .tools-block.tool-drop(ng-class="{ 'active': history.isOrderSortDraft }")
           button.tool.settings-btn(ng-click="orderSorting()")
           .dropdown-tool-dialog.sort-filter
-            .filter-divider Сортировка
+            .filter-divider {{ 'history.SORTING' | translate }}
             ul.filter-list
-              li.filter-item
-                .filter-label По времени: новые в начале
+              li.filter-item(ng-class="{ 'selected': history.isSortTypeDraft == 'first' }", ng-click="sortingInit('first')")
+                .filter-label {{ 'history.NEWEST_FIRST' | translate }}
                 .filter-select-icon
-              li.filter-item
-                .filter-label По времени: новые в конце
+              li.filter-item(ng-class="{ 'selected': history.isSortTypeDraft == 'last' }", ng-click="sortingInit('last')")
+                .filter-label {{ 'history.NEWEST_LAST' | translate }}
                 .filter-select-icon
 
 
-
-
-
-    .account-block(ng-repeat="draft in drafts")
+    .account-block(ng-repeat="draft in drafts | orderBy:createdDate:reverseDraft")
       .account
         .account-row.header
           .account-id {{ 'history.DRAFT' | translate }}
           .account-label.account-date-filter {{ 'history.FROM' | translate }}
-            order-date( date-old="{{ draft.created }}", months-label=" {{ 'common_words.MONTHA' | translate }} ")
+            span(order-date="{{ draft.created }}", months-label=" {{ 'common_words.MONTHA' | translate }} ")
         .account-row.footer(ng-click="gotoCartPage()")
-          .account-value(ng-if="draft.instalment === ''") {{ draft.totalPrice }}{{ global.currency }}
-          .account-value(ng-if="draft.instalment !== ''") {{ draft.totalPrice }}{{ global.currency }}, {{ draft.instalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.totalPriceMonthly}}{{ global.currency }}
+          .account-value(ng-hide="draft.orderStyle == 'credit'") {{ draft.totalPrice }}{{ global.currency }}
+          .account-value(ng-show="draft.orderStyle == 'credit'") {{ draft.totalPrice }}{{ global.currency }}, {{ draft.instalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.totalPriceMonthly}}{{ global.currency }}
           .account-qty {{ draft.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{ draft.deliveryDate }}
       button.account-tool.account-print-btn(ng-click="")
       button.account-delete-btn(ng-click="deleteOrder(draft.orderType, draft.orderId, $index)")
 
 
-
-
-
+      //=============== example
     .account-block
       .account
         .account-row.header
@@ -223,6 +213,8 @@ section.history-page(ng-controller="HistoryCtrl")
       button.account-tool.account-print-btn
       button.account-delete-btn
 
-
     button.view-switch-tab(ng-click="viewSwitching()") {{ 'history.HISTORY_VIEW' | translate }}
 
+    .empty-search-result(ng-show="history.isEmptySortResultDraft")
+      .result-icon
+      .result-text {{ 'history.BY_YOUR_REQUEST' | translate }} {{ 'history.NOT_FIND' | translate }}.

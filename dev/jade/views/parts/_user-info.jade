@@ -4,8 +4,8 @@
   .user-foto
   .icon-location.unvisible(show-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}")
   .user-info-block
-    .user-location(data-output="{{ userInfo.location }}", typing="{{ userInfo.typing }}", typing-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}")
-    .user-name(data-output="{{ userInfo.name }}", typing="{{ userInfo.typing }}", typing-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}")
+    .user-location(data-output="{{ global.userGeoLocation }}", typing="{{ userInfo.typing }}", typing-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}")
+    .user-name(data-output="{{ global.userName }}", typing="{{ userInfo.typing }}", typing-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}")
 
   //.test
     input(type="checkbox", ng-model="userInfo.checked", ng-click="changeTyping()")

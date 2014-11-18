@@ -4,168 +4,84 @@
 
 BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStorage', 'localDB', '$filter', function ($scope, constructService, localStorage, localDB, $filter) {
 
-  var $historyPage = $('.history-page'),
-      $searchTool = $historyPage.find('.search-tool'),
-      $searchBTN = $historyPage.find('.search-btn'),
-      $historySearch = $historyPage.find('.history-search'),
-      $cancelSearch = $historyPage.find('.cancel-search'),
-
-      $viewSwitcher = $historyPage.find('.view-switch-tab'),
-      $accountsСontainer = $historyPage.find('.accounts-container'),
-
-      $historyView = $historyPage.find('.history-view'),
-      $userInfoContainer = $historyView.find('.user-info-container'),
-      $toolDrop = $historyView.find('.tool'),
-      $toolsBlock = $historyView.find('.tool-drop'),
-      $sortFilterItem = $historyView.find('.filter-item'),
-      $periodDateFilter = $historyView.find('.period'),
-      $dateItemDateFilter = $historyView.find('.date-item'),
-
-      $draftView = $historyPage.find('.draft-view'),
-      $toolDropDraft = $draftView.find('.tool'),
-      $toolsBlockDraft = $draftView.find('.tool-drop'),
-      $sortFilterItemDraft = $draftView.find('.filter-item'),
-      $periodDateFilterDraft = $draftView.find('.period'),
-      $dateItemDateFilterDraft = $draftView.find('.date-item'),
-
-      backFonClass = 'dark-fon',
-      $accountDeleteBTN = $historyPage.find('.account-delete-btn'),
-
-      DELAY_SHOW_LOC = 10 * STEP;
-
-/*
-
-  // Select Date Filter period in History View
-  $periodDateFilter.click(function() {
-    selectItem($periodDateFilter, $(this), selectClass);
-  });
-  // Select Date Filter item in History View
-  $dateItemDateFilter.click(function() {
-    selectItem($dateItemDateFilter, $(this), selectClass);
-  });
-
-  // Select Date Filter period in Draft View
-  $periodDateFilterDraft.click(function() {
-    selectItem($periodDateFilterDraft, $(this), selectClass);
-  });
-  // Select Date Filter item in Draft View
-  $dateItemDateFilterDraft.click(function() {
-    selectItem($dateItemDateFilterDraft, $(this), selectClass);
-  });
-
-
-  // Select Sort Filter item in History View
-  $sortFilterItem.click(function() {
-    selectItem($sortFilterItem, $(this), selectClass);
-  });
-  // Select Sort Filter item in Draft View
-  $sortFilterItemDraft.click(function() {
-    selectItem($sortFilterItemDraft, $(this), selectClass);
-  });
-
-
-
-  function selectItem(items, currItem, currClass) {
-    items.each(function() {
-        $(this).removeClass(currClass);
-    });
-    currItem.addClass(currClass);
-  }
-
-*/
-
-
-
-
-
-
   $scope.global = localStorage;
 
   // indicator for user info block and searching block
   $scope.global.isHistoryPage = true;
 
   $scope.history = {
+    //filteredOrders: [],
+
     isOrderSearch: false,
     isIntervalDate: false,
     isOrderSort: false,
-    isIntervalDateDraft: false,
-    isOrderSortDraft: false,
-    filteredOrders: [],
-    isEmptySearchResult: false,
-    isDraftView: false,
     isStartDate: false,
     isFinishDate: false,
     isAllPeriod: true,
     startDate: '',
     finishDate: '',
+
     isCurrentOrdersHide: false,
     isWaitOrdersHide: false,
-    isDoneOrdersHide: false
+    isDoneOrdersHide: false,
+    isEmptySortResult: false,
+
+    //------- Draft
+    isDraftView: false,
+    isIntervalDateDraft: false,
+    isOrderSortDraft: false,
+    isStartDateDraft: false,
+    isFinishDateDraft: false,
+    isAllPeriodDraft: true,
+    startDateDraft: '',
+    finishDateDraft: '',
+    isEmptySortResultDraft: false
+
   };
   //----- variables for orders sorting
   $scope.createdDate = 'created';
   $scope.reverse = true;
+  $scope.reverseDraft = true;
 
-  //------ Download complete Orders from localDB
-  localDB.selectDB($scope.global.ordersTableBD, {'orderType': $scope.global.fullOrderType}, function (results) {
-    if (results.status) {
-      $scope.ordersSource = angular.copy(results.data);
-      $scope.orders = angular.copy(results.data);
-      console.log($scope.orders);
-    } else {
-      console.log(results);
+  $scope.startDownloadData = function() {
+    //------ Download complete Orders from localDB
+    localDB.selectDB($scope.global.ordersTableBD, {'orderType': $scope.global.fullOrderType}, function (results) {
+      if (results.status) {
+        $scope.ordersSource = angular.copy(results.data);
+        $scope.orders = angular.copy(results.data);
+        $scope.history.maxDeliveryDateOrder = getOrderMaxDate($scope.orders);
+      } else {
+        console.log(results);
+      }
+    });
+
+    //------- defind Order MaxDate
+    function getOrderMaxDate(orders) {
+      var ordersDateArr = [];
+      for (var it = 0; it < orders.length; it++) {
+        var oldDateArr = orders[it].deliveryDate.split('.');
+        var newDateStr = oldDateArr[1]+'-'+oldDateArr[0]+'-'+oldDateArr[2];
+        var orderDate = new Date(newDateStr);
+        ordersDateArr.push(orderDate);
+      }
+      ordersDateArr.sort(function (a, b) {
+        return b - a
+      });
+      return ordersDateArr[0].getTime();
     }
-  });
-
-
-
+  };
 
   //=========== Searching
 
   $scope.orderSearching = function() {
     $scope.history.isOrderSearch = true;
-  };
-
-  // Search Orders
-  var regex, checkedGroup, indexGroup, currGroup, groupTempObj;
-  /*
-   constructService.getOrders(function (results) {
-   if (results.status) {
-   $scope.history.ordersGroup = results.data.orders;
-   } else {
-   console.log(results);
-   }
-   });
-   */
-  // Create regExpresion
-  function escapeRegExp(string){
-    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
-  }
-
-  $scope.checkChanges = function() {
-    $scope.history.filteredOrders.length = 0;
-    if($scope.searchingWord && $scope.searchingWord.length > 0) {
-      regex = new RegExp('^' + escapeRegExp($scope.searchingWord), 'i');
-      for(indexGroup = 0; indexGroup < $scope.history.ordersGroup.length; indexGroup++){
-        currGroup = $scope.history.ordersGroup[indexGroup];
-        checkedGroup = regex.test(currGroup);
-        if(checkedGroup) {
-          groupTempObj = {};
-          groupTempObj.groupId = indexGroup+1;
-          groupTempObj.groupName = currGroup;
-          $scope.history.filteredOrders.push(groupTempObj);
-        }
-      }
-    }
-    if( $scope.history.filteredOrders.length == 0) {
-      $scope.history.isEmptySearchResult = true;
-    }
+    $scope.history.isIntervalDate = false;
+    $scope.history.isOrderSort = false;
   };
 
   // Delete searching word
   $scope.cancelSearching = function() {
     $scope.searchingWord = '';
-    $scope.history.showAddElementGroups = false;
     $scope.history.isOrderSearch = false;
   };
   // Delete last chart searching word
@@ -178,42 +94,75 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
   //=========== Filtering by Date
   //------- show Date filter tool dialog
   $scope.intervalDateSelecting  = function() {
+    var filterResult;
     if($scope.history.isDraftView) {
       if($scope.history.isIntervalDateDraft) {
         //-------- filtering orders by selected date
-        $scope.orders = $scope.filteringByDate($scope.ordersSource, $scope.history.startDate, $scope.history.finishDate);
+        filterResult = $scope.filteringByDate($scope.draftsSource, $scope.history.startDateDraft, $scope.history.finishDateDraft);
+        if(filterResult) {
+          $scope.drafts = filterResult;
+        }
       }
       $scope.history.isIntervalDateDraft = !$scope.history.isIntervalDateDraft;
+      $scope.history.isOrderSortDraft = false;
     } else {
       if($scope.history.isIntervalDate) {
         //-------- filtering orders by selected date
-        $scope.orders = $scope.filteringByDate($scope.ordersSource, $scope.history.startDate, $scope.history.finishDate);
+        filterResult = $scope.filteringByDate($scope.ordersSource, $scope.history.startDate, $scope.history.finishDate);
+        if(filterResult) {
+          $scope.orders = filterResult;
+        }
       }
       $scope.history.isIntervalDate = !$scope.history.isIntervalDate;
+      $scope.history.isOrderSearch = false;
+      $scope.history.isOrderSort = false;
     }
   };
 
   //------ Select calendar-scroll
   $scope.openCalendarScroll = function(dataType) {
-    if(dataType === 'start-date' && !$scope.history.isStartDate) {
-      $scope.history.isStartDate = true;
-      $scope.history.isFinishDate = false;
-      $scope.history.isAllPeriod = false;
-    } else if(dataType === 'finish-date' && !$scope.history.isFinishDate){
-      $scope.history.isStartDate = false;
-      $scope.history.isFinishDate = true;
-      $scope.history.isAllPeriod = false;
-    } else if(dataType === 'full-date' && !$scope.history.isAllPeriod){
-      $scope.history.isStartDate = false;
-      $scope.history.isFinishDate = false;
-      $scope.history.isAllPeriod = true;
-      $scope.history.startDate = '';
-      $scope.history.finishDate = '';
-      $scope.orders = angular.copy($scope.ordersSource);
+    if($scope.history.isDraftView) {
+      if (dataType === 'start-date' && !$scope.history.isStartDateDraft ) {
+        $scope.history.isStartDateDraft  = true;
+        $scope.history.isFinishDateDraft  = false;
+        $scope.history.isAllPeriodDraft  = false;
+      } else if (dataType === 'finish-date' && !$scope.history.isFinishDateDraft ) {
+        $scope.history.isStartDateDraft  = false;
+        $scope.history.isFinishDateDraft  = true;
+        $scope.history.isAllPeriodDraft  = false;
+      } else if (dataType === 'full-date' && !$scope.history.isAllPeriodDraft ) {
+        $scope.history.isStartDateDraft  = false;
+        $scope.history.isFinishDateDraft  = false;
+        $scope.history.isAllPeriodDraft  = true;
+        $scope.history.startDateDraft  = '';
+        $scope.history.finishDateDraft  = '';
+        $scope.drafts = angular.copy($scope.draftsSource);
+      } else {
+        $scope.history.isStartDateDraft  = false;
+        $scope.history.isFinishDateDraft  = false;
+        $scope.history.isAllPeriodDraft = false;
+      }
     } else {
-      $scope.history.isStartDate = false;
-      $scope.history.isFinishDate = false;
-      $scope.history.isAllPeriod = false;
+      if (dataType === 'start-date' && !$scope.history.isStartDate) {
+        $scope.history.isStartDate = true;
+        $scope.history.isFinishDate = false;
+        $scope.history.isAllPeriod = false;
+      } else if (dataType === 'finish-date' && !$scope.history.isFinishDate) {
+        $scope.history.isStartDate = false;
+        $scope.history.isFinishDate = true;
+        $scope.history.isAllPeriod = false;
+      } else if (dataType === 'full-date' && !$scope.history.isAllPeriod) {
+        $scope.history.isStartDate = false;
+        $scope.history.isFinishDate = false;
+        $scope.history.isAllPeriod = true;
+        $scope.history.startDate = '';
+        $scope.history.finishDate = '';
+        $scope.orders = angular.copy($scope.ordersSource);
+      } else {
+        $scope.history.isStartDate = false;
+        $scope.history.isFinishDate = false;
+        $scope.history.isAllPeriod = false;
+      }
     }
   };
 
@@ -231,6 +180,8 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
         }
       }
       return newObj;
+    } else {
+      return false;
     }
   };
 
@@ -240,53 +191,93 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
   $scope.orderSorting  = function() {
     if($scope.history.isDraftView) {
       $scope.history.isOrderSortDraft = !$scope.history.isOrderSortDraft;
+      $scope.history.isIntervalDateDraft = false;
     } else {
       $scope.history.isOrderSort = !$scope.history.isOrderSort;
+      $scope.history.isOrderSearch = false;
+      $scope.history.isIntervalDate = false;
     }
   };
 
   //------ Select sorting type item in list
   $scope.sortingInit = function(sortType) {
-    if ($scope.history.isSortType === sortType) {
-      $scope.history.isSortType = false;
-      $scope.history.isCurrentOrdersHide = false;
-      $scope.history.isWaitOrdersHide = false;
-      $scope.history.isDoneOrdersHide = false;
-      $scope.reverse = true;
-    } else {
-      $scope.history.isSortType = sortType;
+    if($scope.history.isDraftView) {
 
-      if ($scope.history.isSortType === 'first') {
+      if ($scope.history.isSortTypeDraft === sortType) {
+        $scope.history.isSortTypeDraft = false;
+        $scope.reverseDraft = true;
+      } else {
+        $scope.history.isSortTypeDraft = sortType;
+
+        if ($scope.history.isSortTypeDraft === 'first') {
+          $scope.reverseDraft = true;
+        }
+        if ($scope.history.isSortTypeDraft === 'last') {
+          $scope.reverseDraft = false;
+        }
+      }
+
+    } else {
+      if ($scope.history.isSortType === sortType) {
+        $scope.history.isSortType = false;
         $scope.reverse = true;
-      }
-      if ($scope.history.isSortType === 'last') {
-        $scope.reverse = false;
-      }
-      /*if($scope.history.isSortType === 'all-order') {
-        $scope.history.isCurrentOrdersHide = false;
-        $scope.history.isWaitOrdersHide = false;
-        $scope.history.isDoneOrdersHide = false;
-      }*/
-      if($scope.history.isSortType === 'current-order') {
-        $scope.history.isCurrentOrdersHide = false;
-        $scope.history.isWaitOrdersHide = true;
-        $scope.history.isDoneOrdersHide = true;
-      }
-      if($scope.history.isSortType === 'wait-order') {
-        $scope.history.isCurrentOrdersHide = true;
-        $scope.history.isWaitOrdersHide = false;
-        $scope.history.isDoneOrdersHide = true;
-      }
-      if($scope.history.isSortType === 'done-order') {
-        $scope.history.isWaitOrdersHide = true;
-        $scope.history.isCurrentOrdersHide = true;
-        $scope.history.isDoneOrdersHide = false;
+        deSelectSortingType();
+      } else {
+        $scope.history.isSortType = sortType;
+
+        if ($scope.history.isSortType === 'first') {
+          deSelectSortingType();
+          $scope.reverse = true;
+        }
+        if ($scope.history.isSortType === 'last') {
+          deSelectSortingType();
+          $scope.reverse = false;
+        }
+        /*if($scope.history.isSortType === 'all-order') {
+         deSelectSortingType()ж
+         }*/
+        if ($scope.history.isSortType === 'current-order') {
+          $scope.history.isCurrentOrdersHide = false;
+          $scope.history.isWaitOrdersHide = true;
+          $scope.history.isDoneOrdersHide = true;
+          checkExestingOrderType('order', 'credit');
+        }
+        if ($scope.history.isSortType === 'wait-order') {
+          $scope.history.isCurrentOrdersHide = true;
+          $scope.history.isWaitOrdersHide = false;
+          $scope.history.isDoneOrdersHide = true;
+          checkExestingOrderType('master')
+        }
+        if ($scope.history.isSortType === 'done-order') {
+          $scope.history.isWaitOrdersHide = true;
+          $scope.history.isCurrentOrdersHide = true;
+          $scope.history.isDoneOrdersHide = false;
+          checkExestingOrderType('done')
+        }
       }
     }
   };
 
+  function deSelectSortingType() {
+    $scope.history.isCurrentOrdersHide = false;
+    $scope.history.isWaitOrdersHide = false;
+    $scope.history.isDoneOrdersHide = false;
+  }
 
-
+  //-------- checking orders quantity during order sorting
+  function checkExestingOrderType(marker1, marker2) {
+    var ordersSortCounter = 0;
+    for(var ord = 0; ord < $scope.orders.length; ord++) {
+      if($scope.orders[ord].orderStyle === marker1 || $scope.orders[ord].orderStyle === marker2) {
+        ordersSortCounter++;
+      }
+    }
+    if(ordersSortCounter > 0) {
+      $scope.history.isEmptySortResult = false;
+    } else {
+      $scope.history.isEmptySortResult = true;
+    }
+  }
 
 
   // History/Draft View switcher
@@ -296,8 +287,9 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
     //------ Download draft Orders from localDB
     localDB.selectDB($scope.global.ordersTableBD, {'orderType': $scope.global.draftOrderType}, function (results) {
       if (results.status) {
+        $scope.draftsSource = angular.copy(results.data);
         $scope.drafts = angular.copy(results.data);
-        //console.log($scope.orders);
+        $scope.history.maxDeliveryDateDraft = getOrderMaxDate($scope.drafts);
       } else {
         console.log(results);
       }
@@ -309,8 +301,10 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
     //-------- delete order in Local Objects
     if(orderType === $scope.global.fullOrderType) {
       $scope.orders.splice(orderIdArr, 1);
+      $scope.ordersSource.splice(orderIdArr, 1);
     } else {
       $scope.drafts.splice(orderIdArr, 1);
+      $scope.draftsSource.splice(orderIdArr, 1);
     }
     //------- delete order in Local DB
     localDB.deleteDB($scope.global.productsTableBD, {'orderId': orderId});

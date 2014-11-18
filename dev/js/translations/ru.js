@@ -156,7 +156,9 @@ window.russianDictionary = {
     SORT_SHOW: 'Показать',
     SORT_SHOW_ACTIVE: 'Только активные',
     SORT_SHOW_WAIT: 'Только в ожидании',
-    SORT_SHOW_DONE: 'Только завершенные'
+    SORT_SHOW_DONE: 'Только завершенные',
+    BY_YOUR_REQUEST: 'По вашему запросу',
+    NOT_FIND: 'ничего не найдено'
   },
   cart: {
     ALL_ADD_ELEMENTS: 'Все доп.элементы заказа',
