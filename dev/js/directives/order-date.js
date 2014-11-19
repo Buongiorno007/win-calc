@@ -5,11 +5,12 @@ BauVoiceApp.directive('orderDate', [ function() {
     restrict: 'A',
     scope: {
       orderDate: '@',
-      dataMonths: '@monthsLabel'
+      dataMonths: '@monthsLabel',
+      typeDate: '='
     },
     link: function (scope, element, attrs) {
 
-      function getDateInNewFormat(oldD, months) {
+      function getDateInNewFormat(oldD, months, type) {
         var oldDateFormat, monthsArr, newDateFormat;
         if(oldD !== '') {
           oldDateFormat = new Date(oldD);
@@ -18,13 +19,17 @@ BauVoiceApp.directive('orderDate', [ function() {
         }
         monthsArr = months.split(', ');
         newDateFormat = oldDateFormat.getDate() + ' ' + monthsArr[oldDateFormat.getMonth()] + ', ' + oldDateFormat.getFullYear();
-        element.text(newDateFormat);
+        if(!type && oldD === '') {
+          element.text('');
+        } else {
+          element.text(newDateFormat);
+        }
       }
 
-      getDateInNewFormat(scope.orderDate, scope.dataMonths);
+      getDateInNewFormat(scope.orderDate, scope.dataMonths, scope.typeDate);
 
       attrs.$observe('orderDate', function () {
-        getDateInNewFormat(scope.orderDate, scope.dataMonths);
+        getDateInNewFormat(scope.orderDate, scope.dataMonths, scope.typeDate);
       });
 
     }

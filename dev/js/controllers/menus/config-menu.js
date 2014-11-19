@@ -31,18 +31,21 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
   //---------- Create Order Date
   $scope.createOrderDate = function() {
-    var valuesDate,
+    var productionDays = 15,
+        deliveryDate = new Date(),
+        valuesDate,
         idDate;
+
     //------ set delivery day
-    $scope.global.deliveryDate.setDate( $scope.global.currentDate.getDate() + $scope.global.productionDays );
+    deliveryDate.setDate( $scope.global.currentDate.getDate() + productionDays );
     valuesDate = [
-      $scope.global.deliveryDate.getDate(),
-      $scope.global.deliveryDate.getMonth() + 1
+      deliveryDate.getDate(),
+      deliveryDate.getMonth() + 1
     ];
     for(idDate in valuesDate) {
       valuesDate[ idDate ] = valuesDate[ idDate ].toString().replace( /^([0-9])$/, '0$1' );
     }
-    $scope.global.deliveryDate = valuesDate[ 0 ] + '.' + valuesDate[ 1 ] + '.' + $scope.global.deliveryDate.getFullYear();
+    $scope.global.deliveryDate = valuesDate[ 0 ] + '.' + valuesDate[ 1 ] + '.' + deliveryDate.getFullYear();
     $scope.global.newDeliveryDate = $scope.global.deliveryDate;
   };
 

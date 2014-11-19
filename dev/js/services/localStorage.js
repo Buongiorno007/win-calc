@@ -6,9 +6,7 @@ BauVoiceApp.factory('localStorage', function () {
     svgTemplateThumbHeight: 120,
     svgTemplateWidth: 1500,
     svgTemplateHeight: 1000,
-    productionDays: 15,
     currentDate: new Date(),
-    deliveryDate: new Date(),
 
     product: {},
     chosenAddElements: {
@@ -40,7 +38,6 @@ BauVoiceApp.factory('localStorage', function () {
     },
 
     isCreatedNewProject: true,
-    //orderEditNumber: 0,
     productEditNumber: 0,
 
     showNavMenu: true,

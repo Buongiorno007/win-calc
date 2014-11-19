@@ -13,9 +13,10 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
   var p, prod, product, newProductsQty, oldProductPrice, newProductPrice;
 
-  //-------- checking cart page open for save draft order
-  $scope.global.isOpenedCartPage = true;
-
+  //-------- checking cart page was opened for save draft order
+  $scope.global.wasOpenedCartPage = true;
+  //------- если из корзины пойти в историю а потом вернуться через редактирование и нажать на nav-menu button
+  $scope.global.isHistoryPage = false;
 
   //------ Download Add Elements from localDB
   localDB.selectDB($scope.global.visorsTableBD, {'orderId': $scope.global.orderNumber}, function (results) {

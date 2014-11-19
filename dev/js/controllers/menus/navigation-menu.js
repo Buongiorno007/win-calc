@@ -16,9 +16,8 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
     DELAY_SHOW_NEWCALC_BTN: 35 * STEP,
     typing: 'on'
   };
-  //console.log('start');
-  //console.log('navmenu - ' + $scope.global.isCreatedNewProject);
-  //console.log('navmenu orderNumber - ' + $scope.global.orderNumber);
+  //---- чтобы не создавался черновик при запуске проги
+  $scope.global.startFirstStep = true;
 
   // Check Products in Order
   $scope.checkingForNewOrder = function() {
@@ -40,10 +39,20 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
       });
     }
   };
-
+  //----- generate new order number or calculate products in order
   $scope.checkingForNewOrder();
 
 
+  //------- Select menu item
+  $scope.selectMenuItem = function(id) {
+    if($scope.navMenu.activeMenuItem === id) {
+      $scope.navMenu.activeMenuItem = false;
+    } else {
+      $scope.navMenu.activeMenuItem = id;
+    }
+  };
+
+  //-------- links of nav-menu items
   $scope.global.gotoMainPage = function () {
     $scope.global.isHistoryPage = false;
     $location.path('/main');
@@ -81,6 +90,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
     $scope.global.isAddElementsPanel = true;
   };
 
+
   //---------- clearing for create new Product
   $scope.global.createNewProduct = function() {
     $scope.global.productEditNumber = false;
@@ -90,11 +100,11 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
     //delete $scope.global.templateDefault;
     //$scope.global.product = {};
     $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
-
-    if(!$scope.global.isOpenedCartPage) {
+    //----- повторный запуск если создается новый заказ на главной странице
+    if(!$scope.global.wasOpenedCartPage) {
       $scope.global.productInit();
     }
-    $scope.global.isOpenedCartPage = false;
+    $scope.global.wasOpenedCartPage = false;
     $scope.navMenu.activeMenuItem = false;
     $scope.global.showNavMenu = false;
     $scope.global.isConfigMenu = true;
@@ -104,32 +114,31 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
     $location.path('/main');
   };
 
+
   //----------- Create new Project
   $scope.global.createNewProject = function() {
-    //------ если не были в корзине, сохраняем проект в черновик
-    if(!$scope.global.isOpenedCartPage) {
-      $scope.global.inputProductInOrder();
-    }
-    //------ если не вызывались окна оформления заказа
-    if(!$scope.global.isCreatedNewProject && !$scope.global.isSavedOrderInHistory) {
-      $scope.global.orderTotalPrice = $scope.global.product.productPrice;
+
+    //------ save draft if we have not first step
+    if(!$scope.global.startFirstStep) {
+      //------ save draft
+      //------ сохраняем черновик продукта в LocalDB если создается новый заказ на главной странице
+      if (!$scope.global.wasOpenedCartPage) {
+        $scope.global.inputProductInOrder();
+        $scope.global.orderTotalPrice = $scope.global.product.productPrice;
+      }
+      //------ сохраняем черновик заказа в LocalDB
       $scope.global.insertOrderInLocalDB({}, $scope.global.draftOrderType, '');
     }
-
+    //------ create new order
     $scope.global.isCreatedNewProject = true;
     //console.log('press button');
     $scope.checkingForNewOrder();
+    $scope.global.startFirstStep = false;
+    $scope.global.isHistoryPage = false;
     $scope.global.createNewProduct();
   };
 
-  //Select menu item
-  $scope.selectMenuItem = function(id) {
-    if($scope.navMenu.activeMenuItem === id) {
-      $scope.navMenu.activeMenuItem = false;
-    } else {
-      $scope.navMenu.activeMenuItem = id;
-    }
-  };
+
 
 
   //-------- save Order into Local DB
@@ -189,7 +198,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
     //console.log(newOptions);
     //console.log($scope.orderData);
     localDB.insertDB($scope.global.ordersTableBD, $scope.orderData);
-
+    $scope.global.startFirstStep = true;
   };
 
 }]);

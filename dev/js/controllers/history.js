@@ -40,7 +40,6 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
   var orderMasterStyle = 'master',
       orderDoneStyle = 'done';
 
-
     //------ Download complete Orders from localDB
     localDB.selectDB($scope.global.ordersTableBD, {'orderType': $scope.global.fullOrderType}, function (results) {
       if (results.status) {
