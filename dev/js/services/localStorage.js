@@ -40,6 +40,7 @@ BauVoiceApp.factory('localStorage', function () {
     },
 
     isCreatedNewProject: true,
+    //orderEditNumber: 0,
     productEditNumber: 0,
 
     showNavMenu: true,

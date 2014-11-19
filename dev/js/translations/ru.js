@@ -158,7 +158,8 @@ window.russianDictionary = {
     SORT_SHOW_WAIT: 'Только в ожидании',
     SORT_SHOW_DONE: 'Только завершенные',
     BY_YOUR_REQUEST: 'По вашему запросу',
-    NOT_FIND: 'ничего не найдено'
+    NOT_FIND: 'ничего не найдено',
+    WAIT_MASTER: 'ожидает замерщика'
   },
   cart: {
     ALL_ADD_ELEMENTS: 'Все доп.элементы заказа',

@@ -27,11 +27,14 @@ BauVoiceApp.directive('calendarScroll', [ function() {
           }
         };
         opt.monthNames = scope.dataMonths.split(', ');
+        element.mobiscroll().date(opt);
 
         attrs.$observe('maxTime', function () {
-          today.setTime(scope.maxTime);
-          opt.maxDate = today;
-          element.mobiscroll().date(opt);
+          if(scope.maxTime) {
+            today.setTime(scope.maxTime);
+            opt.maxDate = today;
+            element.mobiscroll().date(opt);
+          }
         });
 
       });
