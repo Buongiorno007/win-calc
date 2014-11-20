@@ -39,7 +39,6 @@ BauVoiceApp.controller('ProfileCtrl', ['$scope', 'constructService', 'localStora
 
   // Select profile
   $scope.selectProfile = function(producerId, profileIndexOld, profileId) {
-    var profileIndex;
     $scope.profilePanel.isSelectedProducer = producerId;
     $scope.profilePanel.isSelectedProfile = profileIndexOld;
 
@@ -50,10 +49,10 @@ BauVoiceApp.controller('ProfileCtrl', ['$scope', 'constructService', 'localStora
     //---- find profile index
     for(var pr = 0; pr < $scope.global.product.profiles.length; pr++) {
       if($scope.global.product.profiles[pr].id === profileId) {
-        profileIndex = pr;
+        $scope.global.profileIndex = pr;
       }
     }
-    $scope.global.parseTemplate(profileIndex, profileId);
+    $scope.global.parseTemplate($scope.global.profileIndex, profileId);
   };
 
 }]);

@@ -7,6 +7,9 @@ BauVoiceApp.factory('localStorage', function () {
     svgTemplateWidth: 1500,
     svgTemplateHeight: 1000,
     currentDate: new Date(),
+    //-------- defined default profile index
+    templateIndex: 0,
+    profileIndex: 0,
 
     product: {},
     chosenAddElements: {
@@ -74,7 +77,7 @@ BauVoiceApp.factory('localStorage', function () {
     fullOrderType: 'complete',
     draftOrderType: 'draft',
 
-    doorConstructionPage: false,
+    isConstructDoor: false,
     showRoomSelectorDialog: false,
     isRoomsDialog: false,
     currentRoomId: 4,

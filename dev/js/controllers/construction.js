@@ -5,7 +5,7 @@
 BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructService', 'localStorage', '$location', function ($scope, $rootScope, constructService, localStorage, $location) {
 
   $scope.global = localStorage;
-  $scope.isDoorPage =  $scope.global.doorConstructionPage;
+  $scope.isDoorPage =  $scope.global.isConstructDoor;
 
   $scope.constructData = {
     tempSize: [],
@@ -164,7 +164,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
   //-------- Back to Template Panel
   $scope.backtoTemplatePanel = function() {
     $scope.global.showNavMenu = false;
-    $scope.global.doorConstructionPage = false;
+    //$scope.global.doorConstructionPage = false;
     $scope.global.showPanels = {};
     $scope.global.showPanels.showTemplatePanel = true;
     $scope.global.isTemplatePanel = true;
@@ -306,7 +306,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
       $scope.global.templateDefault = new Template($scope.global.templateSource, $scope.global.templateDepths);
       //------- cleaning object for get profile price
       $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
-      $scope.global.createObjXFormedPrice($scope.global.templateDefault);
+      $scope.global.createObjXFormedPrice($scope.global.templateDefault, $scope.global.profileIndex, $scope.global.product.profileId);
       //console.log($scope.global.templateDefault);
       $scope.constructData.tempSize.length = 0;
     }

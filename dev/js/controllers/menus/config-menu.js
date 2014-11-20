@@ -167,8 +167,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
     //================= Check new Product
     } else if(!$scope.global.templateSource) {
-      //-------- defined default profile index
-      $scope.profileIndex = 0;
+
       //------- create order date
       $scope.createOrderDate();
 
@@ -177,8 +176,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
           if (results) {
             $scope.global.product.producers = results[0].folder;
             $scope.global.product.profiles = results[0].profiles;
-            $scope.global.product.profileId = $scope.global.product.profiles[$scope.profileIndex].id;
-            $scope.global.product.profileName = $scope.global.product.profiles[$scope.profileIndex].name;
+            $scope.global.product.profileId = $scope.global.product.profiles[$scope.global.profileIndex].id;
+            $scope.global.product.profileName = $scope.global.product.profiles[$scope.global.profileIndex].name;
 
             //console.log($scope.global.product.producers);
             //console.log($scope.global.product.profiles);
@@ -212,10 +211,14 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       $scope.downloadDefaultTemplate = function() {
           constructService.getDefaultConstructTemplate(function (results) {
           if (results.status) {
+            //------ check door or window creating
+            if($scope.global.isConstructDoor) {
+              $scope.global.templateSource = angular.copy(results.data.doors[$scope.global.templateIndex]);
+            } else {
+              $scope.global.templateSource = angular.copy(results.data.windows[$scope.global.templateIndex]);
+            }
 
-            $scope.global.templateSource = angular.copy(results.data);
-
-            $scope.global.parseTemplate($scope.profileIndex, $scope.global.product.profileId);
+            $scope.global.parseTemplate($scope.global.profileIndex, $scope.global.product.profileId);
 /*
             // парсинг шаблона, расчет размеров
             $scope.global.templateDepths = {

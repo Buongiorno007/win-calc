@@ -24,17 +24,19 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', 'localStorage', function (
       $scope.roomData.selectedRoom = id;
       $scope.global.currentRoomId = id;
     }
+    if(id === 6) {
+      $scope.global.isConstructDoor = true;
+      $scope.createNewProduct();
+    } else {
+      $scope.global.isConstructDoor = false;
+      $scope.createNewProduct();
+    }
   };
 
-  // Open Door Page
-  $scope.createNewDoor = function() {
-    $scope.global.doorConstructionPage = true;
+  //------- create new project after select room
+  $scope.createNewProduct = function() {
     $scope.global.showRoomSelectorDialog = false;
-    $scope.global.showNavMenu = false;
-    $scope.global.isConfigMenu = true;
-    $scope.global.showPanels = {};
-    $scope.global.showPanels.showTemplatePanel = true;
-    $scope.global.isTemplatePanel = true;
+    $scope.global.createNewProject();
   };
 
   // Close Room Selector Dialog

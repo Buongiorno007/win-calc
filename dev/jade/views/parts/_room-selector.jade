@@ -23,7 +23,7 @@
           .room-img.bedroom
             .room-title {{ 'mainpage.ROOM_BEDROOM' | translate }}
       .room-block
-        .room-box.unvisible(show-delay="{{ roomData.DELAY_SHOW_ROOM6 }}", ng-class="{'selected': roomData.selectedRoom === 6}", ng-click="selectRoom(6); createNewDoor()")
+        .room-box.unvisible(show-delay="{{ roomData.DELAY_SHOW_ROOM6 }}", ng-class="{'selected': roomData.selectedRoom === 6}", ng-click="selectRoom(6)")
           .room-img.door
             .room-title {{ 'mainpage.ROOM_DOOR' | translate }}
     .close-dialog(ng-click="closeRoomSelectorDialog()")

@@ -95,13 +95,12 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
   $scope.global.createNewProduct = function() {
     //------- finish edit product
     $scope.global.productEditNumber = 0;
+    $scope.global.profileIndex = 0;
     $scope.global.templateSource = false;
     //$scope.global.templateSource = null;
     //delete $scope.global.templateSource;
     //$scope.global.templateDefault = null;
     //delete $scope.global.templateDefault;
-    //$scope.global.product = {};
-    //$scope.global.product.productPrice = 0;
     $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
     //----- повторный запуск если создается новый заказ на главной странице
     if(!$scope.global.wasOpenedCartPage) {

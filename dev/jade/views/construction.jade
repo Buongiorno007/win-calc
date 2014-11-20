@@ -26,7 +26,7 @@ section.construction-page(ng-controller="ConstructionCtrl")
     .construction-block(ng-hide="isDoorPage")
       svg-template(template="global.templateDefault", template-width="global.svgTemplateWidth", template-height="global.svgTemplateHeight", type-construction="edit")
     .construction-block(ng-show="isDoorPage")
-      object(type="image/svg+xml" data="img/doorConstruction.svg" class="")
+      svg-template(template="global.templateDefault", template-width="global.svgTemplateWidth", template-height="global.svgTemplateHeight", type-construction="edit")
 
     .construction-right-menu
       .right-menu-header

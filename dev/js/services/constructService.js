@@ -229,60 +229,221 @@ BauVoiceApp.factory('constructService', function ($q) {
 
     getDefaultConstructTemplate: function(callback) {
       callback(new OkResult({
+        windows: [
+          {
+            'name': 'Одностворчатый глухой',
+            //'short_name':'ОГ',
+            'iconUrl': '../img/config-menu/configMenu_itemIMG.png',
+            'objects': [
+              {'type': 'fixed_point', 'id': 'fp1', 'x': '0', 'y': '0'},
+              {'type': 'fixed_point', id: 'fp2', x: '1300', y: '0'},
+              {'type': 'fixed_point', id: 'fp3', x: '1300', y: '1400'},
+              {'type': 'fixed_point', id: 'fp4', x: '0', y: '1400'},
+              {'type': 'frame_line', id: 'frameline1', from: 'fp1', to: 'fp2'},
+              {'type': 'frame_line', id: 'frameline2', from: 'fp2', to: 'fp3'},
+              {'type': 'frame_line', id: 'frameline3', from: 'fp3', to: 'fp4', sill: true},
+              {'type': 'frame_line', id: 'frameline4', from: 'fp4', to: 'fp1'},
+              {'type': 'cross_point', id: 'cp1', line1: 'frameline1', line2: 'frameline2'},
+              {'type': 'cross_point', id: 'cp2', line1: 'frameline2', line2: 'frameline3'},
+              {'type': 'cross_point', id: 'cp3', line1: 'frameline3', line2: 'frameline4'},
+              {'type': 'cross_point', id: 'cp4', line1: 'frameline4', line2: 'frameline1'},
+              {'type': 'bead_box_line', id: 'beadline1', from: 'cp4', to: 'cp1'},
+              {'type': 'bead_box_line', id: 'beadline2', from: 'cp1', to: 'cp2'},
+              {'type': 'bead_box_line', id: 'beadline3', from: 'cp2', to: 'cp3'},
+              {'type': 'bead_box_line', id: 'beadline4', from: 'cp3', to: 'cp4'},
+              /*
+               {'type': 'cross_point_bead', id: 'cpbead1', line1: 'beadline1', line2: 'beadline2'},
+               {'type': 'cross_point_bead', id: 'cpbead2', line1: 'beadline2', line2: 'beadline3'},
+               {'type': 'cross_point_bead', id: 'cpbead3', line1: 'beadline3', line2: 'beadline4'},
+               {'type': 'cross_point_bead', id: 'cpbead4', line1: 'beadline4', line2: 'beadline1'},
+               {'type':'bead_box_line_end', id:'beadendline1', from:'cpbead4', to:'cpbead1'},
+               {'type':'bead_box_line_end', id:'beadendline2', from:'cpbead1', to:'cpbead2'},
+               {'type':'bead_box_line_end', id:'beadendline3', from:'cpbead2', to:'cpbead3'},
+               {'type':'bead_box_line_end', id:'beadendline4', from:'cpbead3', to:'cpbead4'}
+               */
+              {'type': 'cross_point_glass', id: 'cpg1', line1: 'frameline1', line2: 'frameline2'},
+              {'type': 'cross_point_glass', id: 'cpg2', line1: 'frameline2', line2: 'frameline3'},
+              {'type': 'cross_point_glass', id: 'cpg3', line1: 'frameline3', line2: 'frameline4'},
+              {'type': 'cross_point_glass', id: 'cpg4', line1: 'frameline4', line2: 'frameline1'},
+              {'type': 'glass_line', id: 'glassline1', from: 'cpg4', to: 'cpg1'},
+              {'type': 'glass_line', id: 'glassline2', from: 'cpg1', to: 'cpg2'},
+              {'type': 'glass_line', id: 'glassline3', from: 'cpg2', to: 'cpg3'},
+              {'type': 'glass_line', id: 'glassline4', from: 'cpg3', to: 'cpg4'},
 
-        'name':'Одностворчатый глухой',
-        //'short_name':'ОГ',
-        'iconUrl': '../img/config-menu/configMenu_itemIMG.png',
-        'objects':[
-          {'type':'fixed_point', 'id':'fp1', 'x':'0', 'y': '0'},
-          {'type':'fixed_point', id:'fp2', x:'1400', y:'0'},
-          {'type':'fixed_point', id:'fp3', x:'1400', y:'1300'},
-          {'type':'fixed_point', id:'fp4', x:'0', y:'1300'},
-          {'type':'frame_line', id:'frameline1', from:'fp1', to:'fp2'},
-          {'type':'frame_line', id:'frameline2', from:'fp2', to:'fp3'},
-          {'type':'frame_line', id:'frameline3', from:'fp3', to:'fp4', sill: true},
-          {'type':'frame_line', id:'frameline4', from:'fp4', to:'fp1'},
-          {'type':'cross_point', id:'cp1', line1:'frameline1', line2:'frameline2'},
-          {'type':'cross_point', id:'cp2', line1:'frameline2', line2:'frameline3'},
-          {'type':'cross_point', id:'cp3', line1:'frameline3', line2:'frameline4'},
-          {'type':'cross_point', id:'cp4', line1:'frameline4', line2:'frameline1'},
-          {'type':'bead_box_line', id:'beadline1', from:'cp1', to:'cp2'},
-          {'type':'bead_box_line', id:'beadline2', from:'cp2', to:'cp3'},
-          {'type':'bead_box_line', id:'beadline3', from:'cp3', to:'cp4'},
-          {'type':'bead_box_line', id:'beadline4', from:'cp4', to:'cp1'},
+              {'type': 'frame', id: 'frame1', parts: ['frameline1', 'beadline1']},
+              {'type': 'frame', id: 'frame2', parts: ['frameline2', 'beadline2']},
+              {'type': 'frame', id: 'frame3', parts: ['frameline3', 'beadline3']},
+              {'type': 'frame', id: 'frame4', parts: ['frameline4', 'beadline4']},
+              /*
+               {'type': 'bead_box', id:'bead1', parts: ['beadline1', 'beadendline1']},
+               {'type': 'bead_box', id:'bead2', parts: ['beadline2', 'beadendline2']},
+               {'type': 'bead_box', id:'bead3', parts: ['beadline3', 'beadendline3']},
+               {'type': 'bead_box', id:'bead4', parts: ['beadline4', 'beadendline4']},
+               */
 
-          {'type':'cross_point_glass', id:'cpg1', line1:'frameline1', line2:'frameline2'},
-          {'type':'cross_point_glass', id:'cpg2', line1:'frameline2', line2:'frameline3'},
-          {'type':'cross_point_glass', id:'cpg3', line1:'frameline3', line2:'frameline4'},
-          {'type':'cross_point_glass', id:'cpg4', line1:'frameline4', line2:'frameline1'},
-          {'type':'glass_line', id:'glassline1', from:'cpg1', to:'cpg2'},
-          {'type':'glass_line', id:'glassline2', from:'cpg2', to:'cpg3'},
-          {'type':'glass_line', id:'glassline3', from:'cpg3', to:'cpg4'},
-          {'type':'glass_line', id:'glassline4', from:'cpg4', to:'cpg1'},
+              {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
 
-          {'type': 'frame', id:'frame1', parts: ['frameline1', 'beadline4']},
-          {'type': 'frame', id:'frame2', parts: ['frameline2', 'beadline1']},
-          {'type': 'frame', id:'frame3', parts: ['frameline3', 'beadline2']},
-          {'type': 'frame', id:'frame4', parts: ['frameline4', 'beadline3']},
-          //{'type': 'bead_box', id:'bead1', parts: ['frameline4', 'beadline4']},
+              {'type': 'dimensionsH', id: 'dimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 1, height: 150},
+              {'type': 'dimensionsV', id: 'dimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150}
 
-          {'type': 'glass_paсkage', id:'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
+              /*
+               {'type':'sash_line', id:'s1', from:'cp1', to:'cp2'},
+               {'type':'sash_line', id:'s2', from:'cp2', to:'cp3'},
+               {'type':'sash_line', id:'s3', from:'cp3', to:'cp4'},
+               {'type':'sash_line', id:'s4', from:'cp4', to:'cp1'},
+*/
+            ]
+          },
+          {
+            'name':'Одностворчатый',
+            'objects':[
+              {'type':'fixed_point', 'id':'fp1', 'x':'0', 'y': '0'},
+              {'type':'fixed_point', id:'fp2', x:'700', y:'0'},
+              {'type':'fixed_point', id:'fp3', x:'700', y:'1400'},
+              {'type':'fixed_point', id:'fp4', x:'0', y:'1400'},
+              {'type': 'frame_line', id: 'frameline1', from: 'fp1', to: 'fp2'},
+              {'type': 'frame_line', id: 'frameline2', from: 'fp2', to: 'fp3'},
+              {'type': 'frame_line', id: 'frameline3', from: 'fp3', to: 'fp4', sill: true},
+              {'type': 'frame_line', id: 'frameline4', from: 'fp4', to: 'fp1'},
+              {'type': 'cross_point', id: 'cp1', line1: 'frameline1', line2: 'frameline2'},
+              {'type': 'cross_point', id: 'cp2', line1: 'frameline2', line2: 'frameline3'},
+              {'type': 'cross_point', id: 'cp3', line1: 'frameline3', line2: 'frameline4'},
+              {'type': 'cross_point', id: 'cp4', line1: 'frameline4', line2: 'frameline1'},
 
-          {'type': 'dimensionsH', id:'dimH', from: ['fp1', 'fp4'], to:['fp2', 'fp3'], level: 1, height: 150},
-          {'type': 'dimensionsV', id:'dimV', from: ['fp1', 'fp2'], to:['fp4', 'fp3'], level: 1, height: 150}
+              {'type': 'sash_line', id: 'sashline1', from: 'cp4', to: 'cp1'},
+              {'type': 'sash_line', id: 'sashline2', from: 'cp1', to: 'cp2'},
+              {'type': 'sash_line', id: 'sashline3', from: 'cp2', to: 'cp3'},
+              {'type': 'sash_line', id: 'sashline4', from: 'cp3', to: 'cp4'},
 
-          /*
-          {'type':'sash_line', id:'s1', from:'cp1', to:'cp2'},
-          {'type':'sash_line', id:'s2', from:'cp2', to:'cp3'},
-          {'type':'sash_line', id:'s3', from:'cp3', to:'cp4'},
-          {'type':'sash_line', id:'s4', from:'cp4', to:'cp1'},
+              {'type': 'cross_point_sash_out', id: 'cpsout1', line1: 'sashline1', line2: 'sashline2'},
+              {'type': 'cross_point_sash_out', id: 'cpsout2', line1: 'sashline2', line2: 'sashline3'},
+              {'type': 'cross_point_sash_out', id: 'cpsout3', line1: 'sashline3', line2: 'sashline4'},
+              {'type': 'cross_point_sash_out', id: 'cpsout4', line1: 'sashline4', line2: 'sashline1'},
+              {'type': 'cross_point_sash_in', id: 'cpsin1', line1: 'sashline1', line2: 'sashline2'},
+              {'type': 'cross_point_sash_in', id: 'cpsin2', line1: 'sashline2', line2: 'sashline3'},
+              {'type': 'cross_point_sash_in', id: 'cpsin3', line1: 'sashline3', line2: 'sashline4'},
+              {'type': 'cross_point_sash_in', id: 'cpsin4', line1: 'sashline4', line2: 'sashline1'},
 
-           {'type':'bead_box_line', id:'s1', from:'cp5', to:'cp6'},
-           {'type':'bead_box_line', id:'s2', from:'cp6', to:'cp7'},
-           {'type':'bead_box_line', id:'s3', from:'cp7', to:'cp8'},
-           {'type':'bead_box_line', id:'s4', from:'cp8', to:'cp5'}*/
+              {'type': 'sash_out_line', id: 'sashoutline1', from: 'cpsout4', to: 'cpsout1'},
+              {'type': 'sash_out_line', id: 'sashoutline2', from: 'cpsout1', to: 'cpsout2'},
+              {'type': 'sash_out_line', id: 'sashoutline3', from: 'cpsout2', to: 'cpsout3'},
+              {'type': 'sash_out_line', id: 'sashoutline4', from: 'cpsout3', to: 'cpsout4'},
+
+              {'type': 'bead_box_line', id: 'beadline1', from: 'cpsin4', to: 'cpsin1'},
+              {'type': 'bead_box_line', id: 'beadline2', from: 'cpsin1', to: 'cpsin2'},
+              {'type': 'bead_box_line', id: 'beadline3', from: 'cpsin2', to: 'cpsin3'},
+              {'type': 'bead_box_line', id: 'beadline4', from: 'cpsin3', to: 'cpsin4'},
+              /*
+              {'type': 'cross_point_bead', id: 'cpbead1', line1: 'beadline1', line2: 'beadline2'},
+              {'type': 'cross_point_bead', id: 'cpbead2', line1: 'beadline2', line2: 'beadline3'},
+              {'type': 'cross_point_bead', id: 'cpbead3', line1: 'beadline3', line2: 'beadline4'},
+              {'type': 'cross_point_bead', id: 'cpbead4', line1: 'beadline4', line2: 'beadline1'},
+              {'type':'bead_box_line_end', id:'beadendline1', from:'cpbead4', to:'cpbead1'},
+              {'type':'bead_box_line_end', id:'beadendline2', from:'cpbead1', to:'cpbead2'},
+              {'type':'bead_box_line_end', id:'beadendline3', from:'cpbead2', to:'cpbead3'},
+              {'type':'bead_box_line_end', id:'beadendline4', from:'cpbead3', to:'cpbead4'}
+               */
+              {'type': 'cross_point_glass', id: 'cpg1', line1: 'frameline1', line2: 'frameline2'},
+              {'type': 'cross_point_glass', id: 'cpg2', line1: 'frameline2', line2: 'frameline3'},
+              {'type': 'cross_point_glass', id: 'cpg3', line1: 'frameline3', line2: 'frameline4'},
+              {'type': 'cross_point_glass', id: 'cpg4', line1: 'frameline4', line2: 'frameline1'},
+              {'type': 'glass_line', id: 'glassline1', from: 'cpg4', to: 'cpg1'},
+              {'type': 'glass_line', id: 'glassline2', from: 'cpg1', to: 'cpg2'},
+              {'type': 'glass_line', id: 'glassline3', from: 'cpg2', to: 'cpg3'},
+              {'type': 'glass_line', id: 'glassline4', from: 'cpg3', to: 'cpg4'},
+
+              {'type': 'frame', id: 'frame1', parts: ['frameline1', 'beadline1']},
+              {'type': 'frame', id: 'frame2', parts: ['frameline2', 'beadline2']},
+              {'type': 'frame', id: 'frame3', parts: ['frameline3', 'beadline3']},
+              {'type': 'frame', id: 'frame4', parts: ['frameline4', 'beadline4']},
+
+              {'type': 'sash', id: 'sash1', parts: ['sashoutline1', 'beadline1']},
+              {'type': 'sash', id: 'sash2', parts: ['sashoutline2', 'beadline2']},
+              {'type': 'sash', id: 'sash3', parts: ['sashoutline3', 'beadline3']},
+              {'type': 'sash', id: 'sash4', parts: ['sashoutline4', 'beadline4']},
+              /*
+               {'type': 'bead_box', id:'bead1', parts: ['beadline1', 'beadendline1']},
+               {'type': 'bead_box', id:'bead2', parts: ['beadline2', 'beadendline2']},
+               {'type': 'bead_box', id:'bead3', parts: ['beadline3', 'beadendline3']},
+               {'type': 'bead_box', id:'bead4', parts: ['beadline4', 'beadendline4']},
+               */
+
+              {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
+
+              {'type': 'dimensionsH', id: 'dimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 1, height: 150},
+              {'type': 'dimensionsV', id: 'dimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150}
+
+              /*
+               {'type':'sash_line', id:'s1', from:'cp1', to:'cp2'},
+               {'type':'sash_line', id:'s2', from:'cp2', to:'cp3'},
+               {'type':'sash_line', id:'s3', from:'cp3', to:'cp4'},
+               {'type':'sash_line', id:'s4', from:'cp4', to:'cp1'},
+               */
+            ]
+          }
+        ],
+        windowDoor: [
+
+        ],
+        doors: [
+          {
+            'name': 'Одностворчатый глухой',
+            'objects': [
+              {'type': 'fixed_point', 'id': 'fp1', 'x': '0', 'y': '0'},
+              {'type': 'fixed_point', id: 'fp2', x: '700', y: '0'},
+              {'type': 'fixed_point', id: 'fp3', x: '700', y: '2100'},
+              {'type': 'fixed_point', id: 'fp4', x: '0', y: '2100'},
+              {'type': 'frame_line', id: 'frameline1', from: 'fp1', to: 'fp2'},
+              {'type': 'frame_line', id: 'frameline2', from: 'fp2', to: 'fp3'},
+              {'type': 'frame_line', id: 'frameline3', from: 'fp3', to: 'fp4'},
+              {'type': 'frame_line', id: 'frameline4', from: 'fp4', to: 'fp1'},
+              {'type': 'cross_point', id: 'cp1', line1: 'frameline1', line2: 'frameline2'},
+              {'type': 'cross_point', id: 'cp2', line1: 'frameline2', line2: 'frameline3'},
+              {'type': 'cross_point', id: 'cp3', line1: 'frameline3', line2: 'frameline4'},
+              {'type': 'cross_point', id: 'cp4', line1: 'frameline4', line2: 'frameline1'},
+              {'type': 'bead_box_line', id: 'beadline1', from: 'cp4', to: 'cp1'},
+              {'type': 'bead_box_line', id: 'beadline2', from: 'cp1', to: 'cp2'},
+              {'type': 'bead_box_line', id: 'beadline3', from: 'cp2', to: 'cp3'},
+              {'type': 'bead_box_line', id: 'beadline4', from: 'cp3', to: 'cp4'},
+              /*
+               {'type': 'cross_point_bead', id: 'cpbead1', line1: 'beadline1', line2: 'beadline2'},
+               {'type': 'cross_point_bead', id: 'cpbead2', line1: 'beadline2', line2: 'beadline3'},
+               {'type': 'cross_point_bead', id: 'cpbead3', line1: 'beadline3', line2: 'beadline4'},
+               {'type': 'cross_point_bead', id: 'cpbead4', line1: 'beadline4', line2: 'beadline1'},
+               {'type':'bead_box_line_end', id:'beadendline1', from:'cpbead4', to:'cpbead1'},
+               {'type':'bead_box_line_end', id:'beadendline2', from:'cpbead1', to:'cpbead2'},
+               {'type':'bead_box_line_end', id:'beadendline3', from:'cpbead2', to:'cpbead3'},
+               {'type':'bead_box_line_end', id:'beadendline4', from:'cpbead3', to:'cpbead4'}
+               */
+              {'type': 'cross_point_glass', id: 'cpg1', line1: 'frameline1', line2: 'frameline2'},
+              {'type': 'cross_point_glass', id: 'cpg2', line1: 'frameline2', line2: 'frameline3'},
+              {'type': 'cross_point_glass', id: 'cpg3', line1: 'frameline3', line2: 'frameline4'},
+              {'type': 'cross_point_glass', id: 'cpg4', line1: 'frameline4', line2: 'frameline1'},
+              {'type': 'glass_line', id: 'glassline1', from: 'cpg4', to: 'cpg1'},
+              {'type': 'glass_line', id: 'glassline2', from: 'cpg1', to: 'cpg2'},
+              {'type': 'glass_line', id: 'glassline3', from: 'cpg2', to: 'cpg3'},
+              {'type': 'glass_line', id: 'glassline4', from: 'cpg3', to: 'cpg4'},
+
+              {'type': 'frame', id: 'frame1', parts: ['frameline1', 'beadline1']},
+              {'type': 'frame', id: 'frame2', parts: ['frameline2', 'beadline2']},
+              {'type': 'frame', id: 'frame3', parts: ['frameline3', 'beadline3']},
+              {'type': 'frame', id: 'frame4', parts: ['frameline4', 'beadline4']},
+              /*
+              {'type': 'bead_box', id:'bead1', parts: ['beadline1', 'beadendline1']},
+              {'type': 'bead_box', id:'bead2', parts: ['beadline2', 'beadendline2']},
+              {'type': 'bead_box', id:'bead3', parts: ['beadline3', 'beadendline3']},
+              {'type': 'bead_box', id:'bead4', parts: ['beadline4', 'beadendline4']},
+              */
+
+              {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
+
+              {'type': 'dimensionsH', id: 'dimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 1, height: 150},
+              {'type': 'dimensionsV', id: 'dimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150}
+
+
+            ]
+          }
         ]
-
       }));
     },
 /*
