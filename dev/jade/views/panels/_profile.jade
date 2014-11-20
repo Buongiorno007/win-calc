@@ -7,7 +7,7 @@
         .group-info
           .info
 
-      .box.profile-box.unvisible(ng-repeat="profile in producer", show-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_BLOCK * $index) }}", ng-class="{'selected': profilePanel.isSelectedProfile == $index && profilePanel.isSelectedProducer == $parent.$index}", ng-click="selectProfile($parent.$index, $index)")
+      .box.profile-box.unvisible(ng-repeat="profile in producer", show-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_BLOCK * $index) }}", ng-class="{'selected': profilePanel.isSelectedProfile == $index && profilePanel.isSelectedProducer == $parent.$index}", ng-click="selectProfile($parent.$index, $index, profile.profileId)")
         .profile-box-top
           .type {{ profile.profileType }}
           .profile-descr(data-output="{{ profile.name }} {{ profile.profileDescrip }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}")

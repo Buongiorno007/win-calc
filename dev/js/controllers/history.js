@@ -457,13 +457,19 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
 
   //--------------- Edit Order
   $scope.editOrder = function(orderNum) {
-    $scope.global.orderNumber = orderNum;
+    editOrderAndDraft(orderNum);
     $location.path('/cart');
   };
 
   $scope.editDraft = function(orderNum) {
-    $scope.global.orderNumber = orderNum;
+    editOrderAndDraft(orderNum);
     $location.path('/main');
   };
+
+  function editOrderAndDraft(orderNum) {
+    $scope.global.orderNumber = orderNum;
+    $scope.global.showNavMenu = false;
+    $scope.global.isConfigMenu = true;
+  }
 
 }]);

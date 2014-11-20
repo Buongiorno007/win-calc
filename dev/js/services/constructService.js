@@ -832,7 +832,7 @@ BauVoiceApp.factory('constructService', function ($q) {
         profiles: [
           [
             {
-              profileId: 1,
+              profileId: 35,
               profileType: '3 камеры',
               profileDescrip: 'Окошко S50 Special S50 Special',
               profileCountry: 'Украина',
@@ -841,7 +841,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               profilePrice: 100
             },
             {
-              profileId: 2,
+              profileId: 36,
               profileType: '3 камеры',
               profileDescrip: 'Окошко S50 Special',
               profileCountry: 'Украина',
@@ -850,18 +850,27 @@ BauVoiceApp.factory('constructService', function ($q) {
               profilePrice: 200
             },
             {
-              profileId: 3,
+              profileId: 37,
               profileType: '2 камеры',
               profileDescrip: 'Окошко S50',
               profileCountry: 'Украина',
               profileHeat: 1,
               profileNoise: 5,
               profilePrice: 300
+            },
+            {
+              profileId: 38,
+              profileType: '4 камеры',
+              profileDescrip: 'Окошко S556',
+              profileCountry: 'Украина',
+              profileHeat: 3,
+              profileNoise: 4,
+              profilePrice: 300
             }
           ],
           [
             {
-              profileId: 3,
+              profileId: 39,
               profileType: '1 камерa',
               profileDescrip: 'Окошко S50',
               profileCountry: 'Украина',

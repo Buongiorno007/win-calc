@@ -29,7 +29,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   };
 */
 
-  //---------- Create Order Date
+  //============= Create Order Date
   $scope.createOrderDate = function() {
     var productionDays = 15,
         deliveryDate = new Date(),
@@ -51,21 +51,21 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
 
 
-  //------ Start download Product Data
+  //=============== Start download Product Data
   $scope.global.productInit = function () {
 
     //------ Check Product Edit
     if ($scope.global.productEditNumber) {
 
       //------ Download Add Elements from localDB
-      localDB.selectDB($scope.global.visorsTableBD, {'productId': $scope.global.productEditNumber}, function (results) {
+      localDB.selectDB($scope.global.visorsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
         if (results.status) {
           $scope.global.chosenAddElements.selectedVisors = angular.copy(results.data);
         } else {
           console.log(results);
         }
       });
-      localDB.selectDB($scope.global.windowSillsTableBD, {'productId': $scope.global.productEditNumber}, function (results) {
+      localDB.selectDB($scope.global.windowSillsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
         if (results.status) {
           $scope.global.chosenAddElements.selectedWindowSill = angular.copy(results.data);
         } else {
@@ -74,7 +74,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       });
 
       //------ Download Product Data from localDB
-      localDB.selectDB($scope.global.productsTableBD, {'productId': $scope.global.productEditNumber}, function (results) {
+      localDB.selectDB($scope.global.productsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
         if (results.status) {
           var tempProduct = angular.copy(results.data);
           $scope.global.product.constructThumb = tempProduct[0].productIcon;
@@ -109,7 +109,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       });
 
       //------ Download Template from localDB
-      localDB.selectDB($scope.global.componentsTableBD, {'productId': $scope.global.productEditNumber}, function (results) {
+      localDB.selectDB($scope.global.componentsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
         if (results.status) {
           var tempTemplateSource = angular.copy(results.data),
               componentsArr = [],
@@ -156,9 +156,9 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
           }
 
           $scope.global.templateSource.objects = componentsArr;
-          console.log($scope.global.templateSource);
+          //console.log($scope.global.templateSource);
           $scope.global.templateDefault = new Template($scope.global.templateSource, $scope.global.templateDepths);
-          console.log($scope.global.templateDefault);
+          //console.log($scope.global.templateDefault);
         } else {
           console.log(results);
         }
@@ -167,7 +167,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
     //================= Check new Product
     } else if(!$scope.global.templateSource) {
-      //console.log('да templateSource пустой' + $scope.global.templateSource);
+      //-------- defined default profile index
+      $scope.profileIndex = 0;
       //------- create order date
       $scope.createOrderDate();
 
@@ -176,8 +177,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
           if (results) {
             $scope.global.product.producers = results[0].folder;
             $scope.global.product.profiles = results[0].profiles;
-            $scope.global.product.profileId = $scope.global.product.profiles[0].id;
-            $scope.global.product.profileName = $scope.global.product.profiles[0].name;
+            $scope.global.product.profileId = $scope.global.product.profiles[$scope.profileIndex].id;
+            $scope.global.product.profileName = $scope.global.product.profiles[$scope.profileIndex].name;
 
             //console.log($scope.global.product.producers);
             //console.log($scope.global.product.profiles);
@@ -214,12 +215,14 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
             $scope.global.templateSource = angular.copy(results.data);
 
+            $scope.global.parseTemplate($scope.profileIndex, $scope.global.product.profileId);
+/*
             // парсинг шаблона, расчет размеров
             $scope.global.templateDepths = {
-              frameDepth: $scope.global.allProfileFrameSizes[0],
-              sashDepth: $scope.global.allProfileSashSizes[0],
-              impostDepth: $scope.global.allProfileImpostSizes[0],
-              shtulpDepth: $scope.global.allProfileShtulpSizes[0]
+              frameDepth: $scope.global.allProfileFrameSizes[$scope.profileIndex],
+              sashDepth: $scope.global.allProfileSashSizes[$scope.profileIndex],
+              impostDepth: $scope.global.allProfileImpostSizes[$scope.profileIndex],
+              shtulpDepth: $scope.global.allProfileShtulpSizes[$scope.profileIndex]
 
             };
 
@@ -230,8 +233,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
             // Data for config-menu
             $scope.global.product.constructThumb = $scope.global.templateDefault.icon;
 
-            $scope.global.createObjXFormedPrice($scope.global.templateDefault);
-
+            $scope.global.createObjXFormedPrice($scope.global.templateDefault, $scope.profileIndex, $scope.global.product.profileId);
+*/
           } else {
             console.log(results);
           }
@@ -325,25 +328,16 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       });
 */
       //-------- Clear All AddElements in localStorage
-      for (var prop in $scope.global.chosenAddElements) {
-        if (!$scope.global.chosenAddElements.hasOwnProperty(prop)) {
-          continue;
-        } else {
-          $scope.global.chosenAddElements[prop].length = 0;
-        }
-      }
+      $scope.global.clearAllAddElements();
 
     }
   };
 
-  $scope.global.productInit();
-  //console.log('global.product');
-  //console.log($scope.global.product);
 
 
 
   // создание объекта для отправки в базу, чтобы рассчитать цену шаблона
-  $scope.global.createObjXFormedPrice = function(template) {
+  $scope.global.createObjXFormedPrice = function(template, profileIndex, profileId) {
     $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
     //console.log('source --'+$scope.global.objXFormedPrice);
     for (var item = 0; item < template.objects.length; item++) {
@@ -388,12 +382,13 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     }
     $scope.global.objXFormedPrice.cityId = $scope.global.userGeoLocationId;
     $scope.global.objXFormedPrice.glassId = $scope.global.product.glassId;
-    $scope.global.objXFormedPrice.profileId = $scope.global.product.profileId;
-    $scope.global.objXFormedPrice.frameId = $scope.global.allProfileFrameSizes[0].id;
-    $scope.global.objXFormedPrice.frameSillId = $scope.global.allProfileFrameStillSizes[0].id;
-    $scope.global.objXFormedPrice.sashId = $scope.global.allProfileSashSizes[0].id;
-    $scope.global.objXFormedPrice.impostId = $scope.global.allProfileImpostSizes[0].id;
-    $scope.global.objXFormedPrice.shtulpId = $scope.global.allProfileShtulpSizes[0].id;
+    //$scope.global.objXFormedPrice.profileId = $scope.global.product.profileId;
+    $scope.global.objXFormedPrice.profileId = profileId;
+    $scope.global.objXFormedPrice.frameId = $scope.global.allProfileFrameSizes[profileIndex].id;
+    $scope.global.objXFormedPrice.frameSillId = $scope.global.allProfileFrameStillSizes[profileIndex].id;
+    $scope.global.objXFormedPrice.sashId = $scope.global.allProfileSashSizes[profileIndex].id;
+    $scope.global.objXFormedPrice.impostId = $scope.global.allProfileImpostSizes[profileIndex].id;
+    $scope.global.objXFormedPrice.shtulpId = $scope.global.allProfileShtulpSizes[profileIndex].id;
 
     //console.log('object for price');
     //console.log($scope.global.objXFormedPrice);
@@ -406,6 +401,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
         //console.log('find template price');
         //console.log(result.data);
         $scope.global.product.productPrice = parseFloat(angular.copy(result.data.price));
+        $scope.$apply();
         var currencySymbol = '';
         if (result.data.currentCurrency.name === 'uah') {
           currencySymbol = '₴';
@@ -421,6 +417,40 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       }
     });
 
+  };
+
+
+  $scope.global.parseTemplate = function(profileIndex, profileId) {
+    // парсинг шаблона, расчет размеров
+    $scope.global.templateDepths = {
+      frameDepth: $scope.global.allProfileFrameSizes[profileIndex],
+      sashDepth: $scope.global.allProfileSashSizes[profileIndex],
+      impostDepth: $scope.global.allProfileImpostSizes[profileIndex],
+      shtulpDepth: $scope.global.allProfileShtulpSizes[profileIndex]
+
+    };
+
+    $scope.global.templateDefault = new Template($scope.global.templateSource, $scope.global.templateDepths);
+    //console.log('template ' + $scope.global.templateDefault);
+    //console.log($scope.global.templateDefault);
+
+    // Data for config-menu
+    $scope.global.product.constructThumb = $scope.global.templateDefault.icon;
+
+    $scope.global.createObjXFormedPrice($scope.global.templateDefault, profileIndex, profileId);
+  };
+
+
+
+  //-------- Clear All AddElements in localStorage
+  $scope.global.clearAllAddElements = function() {
+    for (var prop in $scope.global.chosenAddElements) {
+      if (!$scope.global.chosenAddElements.hasOwnProperty(prop)) {
+        continue;
+      } else {
+        $scope.global.chosenAddElements[prop].length = 0;
+      }
+    }
   };
 
 
@@ -534,7 +564,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       "laminationOutName": $scope.global.product.laminationOuter,
       "laminationInId": $scope.global.product.laminationInnerId,
       "laminationInName": $scope.global.product.laminationInner,
-      "productPrice": $scope.global.product.productPrice,
+      "productPrice": parseFloat($scope.global.product.productPrice.toFixed(2)),
       "productQty": 1
     };
     localDB.insertDB($scope.global.productsTableBD, productData);
@@ -610,5 +640,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   };
 
 
+  $scope.global.productInit();
+  //console.log('global.product');
+  //console.log($scope.global.product);
 
 }]);

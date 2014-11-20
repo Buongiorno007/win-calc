@@ -17,6 +17,8 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   $scope.global.wasOpenedCartPage = true;
   //------- если из корзины пойти в историю а потом вернуться через редактирование и нажать на nav-menu button
   $scope.global.isHistoryPage = false;
+  //------- finish edit product
+  $scope.global.productEditNumber = 0;
 
   //------ Download Add Elements from localDB
   localDB.selectDB($scope.global.visorsTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
@@ -27,7 +29,6 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     }
   });
   localDB.selectDB($scope.global.windowSillsTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
-  //localDB.selectAllDB($scope.global.windowSillsTableBD, function (results) {
     if (results.status) {
       $scope.cart.allWindowSillsDB = angular.copy(results.data);
     } else {
@@ -66,7 +67,6 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
         }
 
         $scope.cart.allAddElements.push(product);
-        //console.log($scope.cart.allAddElements);
       }
       $scope.cart.allAddElementsSource = angular.copy($scope.cart.allAddElements);
     } else {
@@ -83,10 +83,10 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     --$scope.global.productCounter;
     // Change order price
     $scope.global.calculateOrderPrice();
-    localDB.deleteDB($scope.global.productsTableBD, {'orderId': $scope.global.orderNumber, "productId": productIdBD});
-    localDB.deleteDB($scope.global.componentsTableBD, {'orderId': $scope.global.orderNumber, "productId": productIdBD});
-    localDB.deleteDB($scope.global.visorsTableBD, {'orderId': $scope.global.orderNumber, "productId": productIdBD});
-    localDB.deleteDB($scope.global.windowSillsTableBD, {'orderId': $scope.global.orderNumber, "productId": productIdBD});
+    localDB.deleteDB($scope.global.productsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, "productId": productIdBD});
+    localDB.deleteDB($scope.global.componentsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, "productId": productIdBD});
+    localDB.deleteDB($scope.global.visorsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, "productId": productIdBD});
+    localDB.deleteDB($scope.global.windowSillsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, "productId": productIdBD});
     //----- if all products were deleted go to main page
     if(!$scope.global.productCounter) {
       $scope.global.createNewProject();
@@ -100,6 +100,8 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     $scope.global.productEditNumber = productId;
     $scope.global.showNavMenu = false;
     $scope.global.isConfigMenu = true;
+    $scope.global.showPanels = {};
+    $scope.global.clearAllAddElements();
     $location.path('/main');
   };
 
@@ -117,7 +119,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
       $scope.global.calculateOrderPrice();
 
       // Change product value in DB
-      localDB.updateDB($scope.global.productsTableBD, {"productQty": newProductsQty}, {'orderId': $scope.global.orderNumber, "productId": productIdBD});
+      localDB.updateDB($scope.global.productsTableBD, {"productQty": newProductsQty}, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, "productId": productIdBD});
     }
   };
 
@@ -132,7 +134,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
     $scope.global.calculateOrderPrice();
     // Change product value in DB
-    localDB.updateDB($scope.global.productsTableBD, {"productQty": newProductsQty}, {'orderId': $scope.global.orderNumber, "productId": productIdBD});
+    localDB.updateDB($scope.global.productsTableBD, {"productQty": newProductsQty}, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, "productId": productIdBD});
   };
 
 

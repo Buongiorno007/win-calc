@@ -90,7 +90,6 @@ BauVoiceApp.controller('CallMasterCtrl', ['$scope', 'constructService', 'localSt
     $scope.submitted = true;
 
     if (form.$valid) {
-      //$scope.global.isSavedOrderInHistory = true;
       $scope.global.insertOrderInLocalDB($scope.user, $scope.global.fullOrderType, $scope.orderStyle);
       //--------- Close cart dialog, go to history
       $scope.hideCallMasterDialog();

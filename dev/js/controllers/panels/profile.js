@@ -38,14 +38,22 @@ BauVoiceApp.controller('ProfileCtrl', ['$scope', 'constructService', 'localStora
   });
 
   // Select profile
-  $scope.selectProfile = function(producerId, profileId) {
+  $scope.selectProfile = function(producerId, profileIndexOld, profileId) {
+    var profileIndex;
     $scope.profilePanel.isSelectedProducer = producerId;
-    $scope.profilePanel.isSelectedProfile = profileId;
+    $scope.profilePanel.isSelectedProfile = profileIndexOld;
 
-    var selectedProfile = $scope.profilePanel.profiles[producerId][profileId];
-    //$scope.global.profileId = selectedProfile.profileId;
+    var selectedProfile = $scope.profilePanel.profiles[producerId][profileIndexOld];
+    $scope.global.product.profileId = profileId;
     $scope.global.product.profileName = selectedProfile.profileDescrip;
-    $scope.global.product.productPrice += selectedProfile.profilePrice;
+
+    //---- find profile index
+    for(var pr = 0; pr < $scope.global.product.profiles.length; pr++) {
+      if($scope.global.product.profiles[pr].id === profileId) {
+        profileIndex = pr;
+      }
+    }
+    $scope.global.parseTemplate(profileIndex, profileId);
   };
 
 }]);
