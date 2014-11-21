@@ -34,7 +34,8 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               imposts: [],
               sashes: [],
               dimensionsH: [],
-              dimensionsV: []
+              dimensionsV: [],
+              openDirections: []
             },
             sizeBoxWidth = 250,
             sizeBoxHeight = 120,
@@ -44,7 +45,9 @@ BauVoiceApp.directive('svgTemplate', [ function() {
 
         //------- Create elements of construction
         for (var i = 0; i < template.objects.length; i++) {
-          var path = '';
+          var path = '',
+              openSashLine = '';
+
           switch(template.objects[i].type) {
             case 'frame':
               //for(var p = 0; p < template.objects[i].parts.length; p++) {
@@ -53,6 +56,24 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ';
               //}
               elementsSVG.frames.push(path);
+              break;
+
+            case 'sash':
+              path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ' + template.objects[i].parts[0].toPoint.x + ' ' + template.objects[i].parts[0].toPoint.y + ' ';
+              path += template.objects[i].parts[1].toPoint.x + ' ' + template.objects[i].parts[1].toPoint.y + ' ' + template.objects[i].parts[1].fromPoint.x + ' ' + template.objects[i].parts[1].fromPoint.y + ' ';
+              path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ';
+              elementsSVG.sashes.push(path);
+
+              //---- open directions lines
+              if(template.objects[i].openType.length > 0) {
+                var middleX = template.objects[i].openType[1].fromPoint.x + ((template.objects[i].openType[1].lengthVal/2) * (template.objects[i].openType[1].toPoint.x - template.objects[i].openType[1].fromPoint.x) / template.objects[i].openType[1].lengthVal);
+                var middleY = template.objects[i].openType[1].fromPoint.y + ((template.objects[i].openType[1].lengthVal/2) * (template.objects[i].openType[1].toPoint.y - template.objects[i].openType[1].fromPoint.y) / template.objects[i].openType[1].lengthVal);
+
+                openSashLine += template.objects[i].openType[0].fromPoint.x + ' ' + template.objects[i].openType[0].fromPoint.y + ' ' + middleX + ' ' + middleY + ' ';
+                openSashLine += template.objects[i].openType[0].toPoint.x + ' ' + template.objects[i].openType[0].toPoint.y + ' ';
+
+                elementsSVG.openDirections.push(openSashLine);
+              }
               break;
 
             case 'glass_paсkage':
@@ -126,10 +147,16 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               case 'frames':
                 group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'frame');
                 break;
-
+              case 'sashes':
+                group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'sash');
+                break;
               case 'glasses':
                 group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'glass');
                 break;
+              case 'openDirections':
+                group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'open-direction');
+                break;
+
 
               case 'dimensionsH':
               case 'dimensionsV':

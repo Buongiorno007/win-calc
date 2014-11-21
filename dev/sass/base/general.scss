@@ -285,7 +285,7 @@ body {
 .glass:hover {
   fill: rgba(34, 34, 255, 0.69);
 }
-.frame {
+.frame, .sash {
   fill: #fff;
   stroke: #363636;
   stroke-width: 2;
@@ -343,4 +343,9 @@ body {
 .size-value-edit-vertical {
   @extend .size-value-edit;
   text-anchor: end;
+}
+.open-direction {
+  fill: none;
+  stroke: $main_orange;
+  stroke-width: 2;
 }

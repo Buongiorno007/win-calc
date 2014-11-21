@@ -200,6 +200,28 @@ var Frame = function (sourceObj) {
 };
 Frame.prototype = FrameObject;
 
+//-----------Sash Object-------------------
+var Sash = function (sourceObj) {
+  FrameObject.call(this, sourceObj);
+  this.parts = [];
+  this.openType = [];
+
+  this.parseParts = function(fullTemplate) {
+    for(var p = 0; p < sourceObj.parts.length; p++) {
+      var part = fullTemplate.findById(sourceObj.parts[p]);
+      this.parts.push(part);
+    }
+    if(sourceObj.openType) {
+      for(var t = 0; t < sourceObj.openType.length; t++) {
+        var direction = fullTemplate.findById(sourceObj.openType[t]);
+        this.openType.push(direction);
+      }
+    }
+  };
+
+};
+Sash.prototype = FrameObject;
+
 //-----------Glass Object-------------------
 var Glass = function (sourceObj) {
   FrameObject.call(this, sourceObj);
@@ -251,15 +273,31 @@ var Template = function (sourceObj, depths) {
         break;
       case 'cross_point':  tmpObject = new CrossPoint(sourceObj.objects[i], depths.frameDepth.c);
         break;
-      case 'sash_line':  tmpObject = new SashLine(sourceObj.objects[i], depths.sashDepth.c);
+      case 'sash_line':  tmpObject = new SashLine(sourceObj.objects[i]);
         break;
+      case 'cross_point_sash_out':  tmpObject = new CrossPoint(sourceObj.objects[i], -depths.sashDepth.b);
+        break;
+      case 'cross_point_sash_in':  tmpObject = new CrossPoint(sourceObj.objects[i], (depths.sashDepth.c - depths.sashDepth.b));
+        break;
+      case 'sash_out_line':  tmpObject = new SashLine(sourceObj.objects[i]);
+        break;
+
       case 'bead_box_line':  tmpObject = new BeadBoxLine(sourceObj.objects[i]);
         break;
-      case 'cross_point_glass':  tmpObject = new CrossPoint(sourceObj.objects[i], depths.frameDepth.d);
+      case 'cross_point_glass':
+        if(sourceObj.objects[i].blockType === 'frame') {
+          //---- is close type block
+          tmpObject = new CrossPoint(sourceObj.objects[i], depths.frameDepth.d);
+        } else if(sourceObj.objects[i].blockType === 'sash') {
+          //---- is open type block
+          tmpObject = new CrossPoint(sourceObj.objects[i], (depths.sashDepth.d - depths.sashDepth.b));
+        }
         break;
       case 'glass_line':  tmpObject = new GlassLine(sourceObj.objects[i]);
         break;
       case 'frame':  tmpObject = new Frame(sourceObj.objects[i]);
+        break;
+      case 'sash':  tmpObject = new Sash(sourceObj.objects[i]);
         break;
       case 'glass_paсkage':  tmpObject = new Glass(sourceObj.objects[i]);
         break;

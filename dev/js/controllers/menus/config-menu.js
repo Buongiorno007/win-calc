@@ -434,8 +434,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     };
 
     $scope.global.templateDefault = new Template($scope.global.templateSource, $scope.global.templateDepths);
-    //console.log('template ' + $scope.global.templateDefault);
-    //console.log($scope.global.templateDefault);
+    console.log($scope.global.templateSource);
+    console.log($scope.global.templateDefault);
 
     // Data for config-menu
     $scope.global.product.constructThumb = $scope.global.templateDefault.icon;

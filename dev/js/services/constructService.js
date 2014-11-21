@@ -261,10 +261,10 @@ BauVoiceApp.factory('constructService', function ($q) {
                {'type':'bead_box_line_end', id:'beadendline3', from:'cpbead2', to:'cpbead3'},
                {'type':'bead_box_line_end', id:'beadendline4', from:'cpbead3', to:'cpbead4'}
                */
-              {'type': 'cross_point_glass', id: 'cpg1', line1: 'frameline1', line2: 'frameline2'},
-              {'type': 'cross_point_glass', id: 'cpg2', line1: 'frameline2', line2: 'frameline3'},
-              {'type': 'cross_point_glass', id: 'cpg3', line1: 'frameline3', line2: 'frameline4'},
-              {'type': 'cross_point_glass', id: 'cpg4', line1: 'frameline4', line2: 'frameline1'},
+              {'type': 'cross_point_glass', id: 'cpg1', line1: 'frameline1', line2: 'frameline2', blockType: 'frame'},
+              {'type': 'cross_point_glass', id: 'cpg2', line1: 'frameline2', line2: 'frameline3', blockType: 'frame'},
+              {'type': 'cross_point_glass', id: 'cpg3', line1: 'frameline3', line2: 'frameline4', blockType: 'frame'},
+              {'type': 'cross_point_glass', id: 'cpg4', line1: 'frameline4', line2: 'frameline1', blockType: 'frame'},
               {'type': 'glass_line', id: 'glassline1', from: 'cpg4', to: 'cpg1'},
               {'type': 'glass_line', id: 'glassline2', from: 'cpg1', to: 'cpg2'},
               {'type': 'glass_line', id: 'glassline3', from: 'cpg2', to: 'cpg3'},
@@ -285,13 +285,6 @@ BauVoiceApp.factory('constructService', function ($q) {
 
               {'type': 'dimensionsH', id: 'dimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 1, height: 150},
               {'type': 'dimensionsV', id: 'dimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150}
-
-              /*
-               {'type':'sash_line', id:'s1', from:'cp1', to:'cp2'},
-               {'type':'sash_line', id:'s2', from:'cp2', to:'cp3'},
-               {'type':'sash_line', id:'s3', from:'cp3', to:'cp4'},
-               {'type':'sash_line', id:'s4', from:'cp4', to:'cp1'},
-*/
             ]
           },
           {
@@ -343,10 +336,10 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type':'bead_box_line_end', id:'beadendline3', from:'cpbead2', to:'cpbead3'},
               {'type':'bead_box_line_end', id:'beadendline4', from:'cpbead3', to:'cpbead4'}
                */
-              {'type': 'cross_point_glass', id: 'cpg1', line1: 'frameline1', line2: 'frameline2'},
-              {'type': 'cross_point_glass', id: 'cpg2', line1: 'frameline2', line2: 'frameline3'},
-              {'type': 'cross_point_glass', id: 'cpg3', line1: 'frameline3', line2: 'frameline4'},
-              {'type': 'cross_point_glass', id: 'cpg4', line1: 'frameline4', line2: 'frameline1'},
+              {'type': 'cross_point_glass', id: 'cpg1', line1: 'sashline1', line2: 'sashline2', blockType: 'sash'},
+              {'type': 'cross_point_glass', id: 'cpg2', line1: 'sashline2', line2: 'sashline3', blockType: 'sash'},
+              {'type': 'cross_point_glass', id: 'cpg3', line1: 'sashline3', line2: 'sashline4', blockType: 'sash'},
+              {'type': 'cross_point_glass', id: 'cpg4', line1: 'sashline4', line2: 'sashline1', blockType: 'sash'},
               {'type': 'glass_line', id: 'glassline1', from: 'cpg4', to: 'cpg1'},
               {'type': 'glass_line', id: 'glassline2', from: 'cpg1', to: 'cpg2'},
               {'type': 'glass_line', id: 'glassline3', from: 'cpg2', to: 'cpg3'},
@@ -358,8 +351,8 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'frame', id: 'frame4', parts: ['frameline4', 'beadline4']},
 
               {'type': 'sash', id: 'sash1', parts: ['sashoutline1', 'beadline1']},
-              {'type': 'sash', id: 'sash2', parts: ['sashoutline2', 'beadline2']},
-              {'type': 'sash', id: 'sash3', parts: ['sashoutline3', 'beadline3']},
+              {'type': 'sash', id: 'sash2', parts: ['sashoutline2', 'beadline2'], openType: ['beadline2', 'beadline4']},
+              {'type': 'sash', id: 'sash3', parts: ['sashoutline3', 'beadline3'], openType: ['beadline3', 'beadline1']},
               {'type': 'sash', id: 'sash4', parts: ['sashoutline4', 'beadline4']},
               /*
                {'type': 'bead_box', id:'bead1', parts: ['beadline1', 'beadendline1']},
@@ -372,13 +365,6 @@ BauVoiceApp.factory('constructService', function ($q) {
 
               {'type': 'dimensionsH', id: 'dimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 1, height: 150},
               {'type': 'dimensionsV', id: 'dimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150}
-
-              /*
-               {'type':'sash_line', id:'s1', from:'cp1', to:'cp2'},
-               {'type':'sash_line', id:'s2', from:'cp2', to:'cp3'},
-               {'type':'sash_line', id:'s3', from:'cp3', to:'cp4'},
-               {'type':'sash_line', id:'s4', from:'cp4', to:'cp1'},
-               */
             ]
           }
         ],
@@ -415,10 +401,10 @@ BauVoiceApp.factory('constructService', function ($q) {
                {'type':'bead_box_line_end', id:'beadendline3', from:'cpbead2', to:'cpbead3'},
                {'type':'bead_box_line_end', id:'beadendline4', from:'cpbead3', to:'cpbead4'}
                */
-              {'type': 'cross_point_glass', id: 'cpg1', line1: 'frameline1', line2: 'frameline2'},
-              {'type': 'cross_point_glass', id: 'cpg2', line1: 'frameline2', line2: 'frameline3'},
-              {'type': 'cross_point_glass', id: 'cpg3', line1: 'frameline3', line2: 'frameline4'},
-              {'type': 'cross_point_glass', id: 'cpg4', line1: 'frameline4', line2: 'frameline1'},
+              {'type': 'cross_point_glass', id: 'cpg1', line1: 'frameline1', line2: 'frameline2', blockType: 'frame'},
+              {'type': 'cross_point_glass', id: 'cpg2', line1: 'frameline2', line2: 'frameline3', blockType: 'frame'},
+              {'type': 'cross_point_glass', id: 'cpg3', line1: 'frameline3', line2: 'frameline4', blockType: 'frame'},
+              {'type': 'cross_point_glass', id: 'cpg4', line1: 'frameline4', line2: 'frameline1', blockType: 'frame'},
               {'type': 'glass_line', id: 'glassline1', from: 'cpg4', to: 'cpg1'},
               {'type': 'glass_line', id: 'glassline2', from: 'cpg1', to: 'cpg2'},
               {'type': 'glass_line', id: 'glassline3', from: 'cpg2', to: 'cpg3'},
