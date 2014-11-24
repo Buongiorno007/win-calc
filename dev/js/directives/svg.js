@@ -58,6 +58,13 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               elementsSVG.frames.push(path);
               break;
 
+            case 'impost':
+              path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ' + template.objects[i].parts[0].toPoint.x + ' ' + template.objects[i].parts[0].toPoint.y + ' ';
+              path += template.objects[i].parts[1].fromPoint.x + ' ' + template.objects[i].parts[1].fromPoint.y + ' ' + template.objects[i].parts[1].toPoint.x + ' ' + template.objects[i].parts[1].toPoint.y + ' ';
+              path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ';
+              elementsSVG.imposts.push(path);
+              break;
+
             case 'sash':
               path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ' + template.objects[i].parts[0].toPoint.x + ' ' + template.objects[i].parts[0].toPoint.y + ' ';
               path += template.objects[i].parts[1].toPoint.x + ' ' + template.objects[i].parts[1].toPoint.y + ' ' + template.objects[i].parts[1].fromPoint.x + ' ' + template.objects[i].parts[1].fromPoint.y + ' ';
@@ -146,6 +153,9 @@ BauVoiceApp.directive('svgTemplate', [ function() {
             switch (prop) {
               case 'frames':
                 group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'frame');
+                break;
+              case 'imposts':
+                group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'impost');
                 break;
               case 'sashes':
                 group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'sash');

@@ -165,6 +165,86 @@ var CrossPoint = function (sourceObj, depthSource) {
 };
 CrossPoint.prototype = FrameObject;
 
+
+//--------- Cross Point for Impost ---------
+var CrossPointImpost = function(sourceObj, depthSource) {
+  FrameObject.call(this, sourceObj);
+  this.lineId1 = sourceObj.line1;
+  this.lineId2 = sourceObj.line2;
+  this.depth = depthSource;
+
+  this.parseIds = function(fullTemplate) {
+    this.line1 = fullTemplate.findById(this.lineId1);
+    this.line2 = fullTemplate.findById(this.lineId2);
+    this.getCoordinates(this.line1, this.line2, this.depth);
+  };
+
+  this.getCoordinates = function(line1, line2, depth) {
+    var newCoefC1 = this.getNewCoefC(depth ,line1);
+    this.getCoordCrossPoint (line1, line2, newCoefC1);
+  };
+
+  this.getNewCoefC = function (depth, line) {
+    var newCoefC = line.coefC - (depth * Math.sqrt(Math.pow(line.coefA, 2) + Math.pow(line.coefB, 2)));
+    return newCoefC;
+  };
+
+  this.getCoordCrossPoint = function(line1, line2, coefC1) {
+    var coefA1 = line1.coefA,
+        coefB1 = line1.coefB,
+        coefA2 = line2.coefA,
+        coefB2 = line2.coefB,
+        coefC2 = line2.coefC,
+        base = (coefA1 * coefB2) - (coefA2 * coefB1),
+        baseX = ((-coefC1) * coefB2) - (coefB1 * (-coefC2)),
+        baseY = (coefA1 * (-coefC2)) - (coefA2 * (-coefC1));
+    this.x = baseX / base;
+    this.y = baseY / base;
+  };
+};
+CrossPointImpost.prototype = FrameObject;
+
+
+//-----------Cross Point Glass Package-------------------
+var CrossPointGlass = function (sourceObj, depthSource, depthSource2) {
+  FrameObject.call(this, sourceObj);
+  this.lineId1 = sourceObj.line1;
+  this.lineId2 = sourceObj.line2;
+  this.depth = depthSource;
+  this.depthImpost = depthSource2;
+
+  this.parseIds = function(fullTemplate) {
+    this.line1 = fullTemplate.findById(this.lineId1);
+    this.line2 = fullTemplate.findById(this.lineId2);
+    this.getCoordinates(this.line1, this.line2, this.depth, this.depthImpost);
+  };
+
+  this.getCoordinates = function(line1, line2, depth, depthImpost) {
+    var newCoefC1 = this.getNewCoefC(depth ,line1),
+        newCoefC2 = this.getNewCoefC(depthImpost ,line2);
+    this.getCoordCrossPoint (line1, line2, newCoefC1, newCoefC2);
+  };
+
+  this.getNewCoefC = function (depth, line) {
+    var newCoefC = line.coefC - (depth * Math.sqrt(Math.pow(line.coefA, 2) + Math.pow(line.coefB, 2)));
+    return newCoefC;
+  };
+
+  this.getCoordCrossPoint = function(line1, line2, coefC1, coefC2) {
+    var coefA1 = line1.coefA,
+        coefB1 = line1.coefB,
+        coefA2 = line2.coefA,
+        coefB2 = line2.coefB,
+        base = (coefA1 * coefB2) - (coefA2 * coefB1),
+        baseX = ((-coefC1) * coefB2) - (coefB1 * (-coefC2)),
+        baseY = (coefA1 * (-coefC2)) - (coefA2 * (-coefC1));
+    this.x = baseX / base;
+    this.y = baseY / base;
+  };
+};
+CrossPointGlass.prototype = FrameObject;
+
+
 //-----------SashLine-------------------
 var SashLine = function (sourceObj) {
   LineObject.call(this, sourceObj);
@@ -177,6 +257,12 @@ var BeadBoxLine = function (sourceObj) {
   LineObject.call(this, sourceObj);
 };
 BeadBoxLine.prototype = LineObject;
+
+//-----------ImpostLine-------------------
+var ImpostLine = function (sourceObj) {
+  LineObject.call(this, sourceObj);
+};
+ImpostLine.prototype = LineObject;
 
 //-----------GlassLine-------------------
 var GlassLine = function (sourceObj) {
@@ -267,11 +353,19 @@ var Template = function (sourceObj, depths) {
   for (var i = 0; i < sourceObj.objects.length; i++) {
     tmpObject = null;
     switch(sourceObj.objects[i].type) {
-      case 'fixed_point':  tmpObject = new FixedPoint(sourceObj.objects[i]);
+      case 'fixed_point':
+      case 'fixed_point_impost': tmpObject = new FixedPoint(sourceObj.objects[i]);
         break;
-      case 'frame_line':  tmpObject = new FrameLine(sourceObj.objects[i]);
+      case 'frame_line':
+      case 'frame_in_line': tmpObject = new FrameLine(sourceObj.objects[i]);
         break;
       case 'cross_point':  tmpObject = new CrossPoint(sourceObj.objects[i], depths.frameDepth.c);
+        break;
+      case 'impost_line':
+      case 'impost_in_line': tmpObject = new ImpostLine(sourceObj.objects[i]);
+        break;
+      case 'cross_point_impost':
+          tmpObject = new CrossPointImpost(sourceObj.objects[i], depths.impostDepth.c/2);
         break;
       case 'sash_line':  tmpObject = new SashLine(sourceObj.objects[i]);
         break;
@@ -281,21 +375,27 @@ var Template = function (sourceObj, depths) {
         break;
       case 'sash_out_line':  tmpObject = new SashLine(sourceObj.objects[i]);
         break;
-
       case 'bead_box_line':  tmpObject = new BeadBoxLine(sourceObj.objects[i]);
         break;
       case 'cross_point_glass':
         if(sourceObj.objects[i].blockType === 'frame') {
           //---- is close type block
-          tmpObject = new CrossPoint(sourceObj.objects[i], depths.frameDepth.d);
+          if(sourceObj.objects[i].isImpost) {
+            tmpObject = new CrossPointGlass(sourceObj.objects[i], depths.frameDepth.d, depths.impostDepth.b);
+          } else {
+            tmpObject = new CrossPointGlass(sourceObj.objects[i], depths.frameDepth.d, depths.frameDepth.d);
+          }
         } else if(sourceObj.objects[i].blockType === 'sash') {
           //---- is open type block
-          tmpObject = new CrossPoint(sourceObj.objects[i], (depths.sashDepth.d - depths.sashDepth.b));
+          var dep = (depths.sashDepth.d - depths.sashDepth.b);
+          tmpObject = new CrossPointGlass(sourceObj.objects[i], dep, dep);
         }
         break;
       case 'glass_line':  tmpObject = new GlassLine(sourceObj.objects[i]);
         break;
-      case 'frame':  tmpObject = new Frame(sourceObj.objects[i]);
+      case 'frame':
+      case 'impost':
+        tmpObject = new Frame(sourceObj.objects[i]);
         break;
       case 'sash':  tmpObject = new Sash(sourceObj.objects[i]);
         break;
@@ -305,6 +405,7 @@ var Template = function (sourceObj, depths) {
         break;
       case 'dimensionsV':  tmpObject = new Dimension(sourceObj.objects[i]);
         break;
+
     }
     if (tmpObject) {
       this.objects.push(tmpObject);
