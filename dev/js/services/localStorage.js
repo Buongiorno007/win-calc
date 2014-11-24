@@ -8,7 +8,7 @@ BauVoiceApp.factory('localStorage', function () {
     svgTemplateHeight: 1000,
     currentDate: new Date(),
     //-------- defined default profile index
-    templateIndex: 2,
+    templateIndex: 3,
     profileIndex: 0,
 
     product: {},
