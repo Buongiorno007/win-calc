@@ -327,6 +327,7 @@ var Dimension = function (sourceObj) {
   LineObject.call(this, sourceObj);
   this.level = sourceObj.level;
   this.height = sourceObj.height;
+  this.side = sourceObj.side;
 
   this.fromPointId = sourceObj.from[0];
   this.toPointId = sourceObj.to[0];

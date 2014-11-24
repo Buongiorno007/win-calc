@@ -108,7 +108,8 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                 template.objects[i].toPoint.y;
 
               dim.lengthVal =  template.objects[i].lengthVal;
-              dim.textX = (template.objects[i].lengthVal / 2);
+              //dim.textX = (template.objects[i].lengthVal / 2);
+              dim.textX = + template.objects[i].fromPoint.x + (template.objects[i].lengthVal / 2);
               dim.textY = (-height);
               dim.id = template.objects[i].id;
               //}
@@ -118,21 +119,42 @@ BauVoiceApp.directive('svgTemplate', [ function() {
             case 'dimensionsV':
               var dim = {}, height = template.objects[i].height * template.objects[i].level;
               dim.lines = [];
-              dim.lines[0] = template.objects[i].fromPoint.x  + ' ' +
-                template.objects[i].fromPoint.y  + ' ' +
-                (template.objects[i].fromPoint.x -  height) + ' ' +
-                template.objects[i].fromPoint.y;
-              dim.lines[1] = (template.objects[i].fromPoint.x -  height / 2) + ' ' +
-                template.objects[i].fromPoint.y + ' ' +
-                (template.objects[i].toPoint.x  -  height / 2) + ' ' +
-                template.objects[i].toPoint.y;
-              dim.lines[2] = template.objects[i].toPoint.x  + ' ' +
-                template.objects[i].toPoint.y + ' ' +
-                (template.objects[i].toPoint.x -  height) + ' ' +
-                template.objects[i].toPoint.y;
+              if(template.objects[i].side && template.objects[i].side === 'right') {
+                dim.lines[0] = template.objects[i].fromPoint.x  + ' ' +
+                  template.objects[i].fromPoint.y  + ' ' +
+                  (template.objects[i].fromPoint.x +  height) + ' ' +
+                  template.objects[i].fromPoint.y;
+                dim.lines[1] = (template.objects[i].fromPoint.x +  height / 2) + ' ' +
+                  template.objects[i].fromPoint.y + ' ' +
+                  (template.objects[i].toPoint.x  +  height / 2) + ' ' +
+                  template.objects[i].toPoint.y;
+                dim.lines[2] = template.objects[i].toPoint.x  + ' ' +
+                  template.objects[i].toPoint.y + ' ' +
+                  (template.objects[i].toPoint.x +  height) + ' ' +
+                  template.objects[i].toPoint.y;
+
+                dim.textX = (+template.objects[i].toPoint.x + height);
+              } else {
+                dim.lines[0] = template.objects[i].fromPoint.x  + ' ' +
+                  template.objects[i].fromPoint.y  + ' ' +
+                  (template.objects[i].fromPoint.x -  height) + ' ' +
+                  template.objects[i].fromPoint.y;
+                dim.lines[1] = (template.objects[i].fromPoint.x -  height / 2) + ' ' +
+                  template.objects[i].fromPoint.y + ' ' +
+                  (template.objects[i].toPoint.x  -  height / 2) + ' ' +
+                  template.objects[i].toPoint.y;
+                dim.lines[2] = template.objects[i].toPoint.x  + ' ' +
+                  template.objects[i].toPoint.y + ' ' +
+                  (template.objects[i].toPoint.x -  height) + ' ' +
+                  template.objects[i].toPoint.y;
+
+                dim.textX = (-height);
+              }
+
 
               dim.lengthVal =  template.objects[i].lengthVal;
-              dim.textX = (-height);
+
+              console.log(dim.textX);
               dim.textY = (template.objects[i].lengthVal / 2);
               dim.id = template.objects[i].id;
               elementsSVG.dimensionsV.push(dim);

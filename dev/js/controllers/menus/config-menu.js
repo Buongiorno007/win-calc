@@ -215,7 +215,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
             if($scope.global.isConstructDoor) {
               $scope.global.templateSource = angular.copy(results.data.doors[$scope.global.templateIndex]);
             } else {
-              $scope.global.templateSource = angular.copy(results.data.windows[$scope.global.templateIndex]);
+              //$scope.global.templateSource = angular.copy(results.data.windows[$scope.global.templateIndex]);
+              $scope.global.templateSource = angular.copy(results.data.windowDoor[$scope.global.templateIndex]);
             }
 
             $scope.global.parseTemplate($scope.global.profileIndex, $scope.global.product.profileId);
