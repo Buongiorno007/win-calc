@@ -21,7 +21,9 @@
         .template-prev(ng-show="templatePanel.templateQty > 1")
           .other-template-img.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}")
             svg-template(template = "templatePanel.templateIconPrev", template-width="global.svgTemplateThumbWidth", template-height="global.svgTemplateThumbHeight", type-construction="icon")
-          .other-template-label {{ templatePanel.templateTitlePrev }}
+          .other-template-label(ng-show="global.isConstructDoor") {{ 'panels.TEMPLATE_DOOR' | translate }}
+          .other-template-label(ng-show="global.isConstructWindDoor") {{ 'panels.TEMPLATE_BALCONY' | translate }}
+          .other-template-label(ng-hide="global.isConstructWindDoor") {{ 'panels.TEMPLATE_WINDOW' | translate }}
           .other-template-subscr {{ templatePanel.templateDescriptionPrev }}
 
       .template-setting
@@ -32,6 +34,8 @@
         .template-next(ng-show="templatePanel.templateQty > 1")
           .other-template-img.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}")
             svg-template(template = "templatePanel.templateIconNext", template-width="global.svgTemplateThumbWidth", template-height="global.svgTemplateThumbHeight", type-construction="icon")
-          .other-template-label {{ templatePanel.templateTitleNext }}
+          .other-template-label(ng-show="global.isConstructDoor") {{ 'panels.TEMPLATE_DOOR' | translate }}
+          .other-template-label(ng-show="global.isConstructWindDoor") {{ 'panels.TEMPLATE_BALCONY' | translate }}
+          .other-template-label(ng-hide="global.isConstructWindDoor") {{ 'panels.TEMPLATE_WINDOW' | translate }}
           .other-template-subscr {{ templatePanel.templateDescriptionNext }}
         .next-btn(ng-show="templatePanel.templateQty > 1")

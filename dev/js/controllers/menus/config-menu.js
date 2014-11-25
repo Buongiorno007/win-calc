@@ -348,7 +348,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   // создание объекта для отправки в базу, чтобы рассчитать цену шаблона
   $scope.global.createObjXFormedPrice = function(template, profileIndex, profileId) {
     $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
-    //console.log('source --'+$scope.global.objXFormedPrice);
+    //console.log('$scope.global.objXFormedPrice');
+    //console.log($scope.global.objXFormedPrice);
     for (var item = 0; item < template.objects.length; item++) {
       var elementSize;
       if (template.objects[item].type) {
@@ -465,10 +466,6 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       $scope.global.product.constructThumb = $scope.global.templatesWindThumbList[$scope.global.templateIndex];
 
     }
-
-
-    //$scope.global.templateDefault = new Template($scope.global.templateSource, $scope.global.templateDepths);
-    //$scope.global.product.constructThumb = new TemplateIcon($scope.global.templateSource, $scope.global.templateDepths);
 
     $scope.global.createObjXFormedPrice($scope.global.templateDefault, profileIndex, profileId);
   };

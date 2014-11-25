@@ -42,7 +42,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
             overallDimH = 2000,
             overallDimV = 2000,
             edgeTop = 300,
-            edgeLeft = 300,
+            edgeLeft = 0,
             sizeBoxWidth = 250,
             sizeBoxHeight = 120,
             sizeBoxRadius = 35;

@@ -13,13 +13,11 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$
     typing: 'on'
   };
 
-
-
-  // Select Window/Balcony Template
+  //------ click on top Window button
   $scope.toggleTemplate = function() {
     $scope.templatePanel.switcherTemplate = !$scope.templatePanel.switcherTemplate;
   };
-
+  //------- Select Window/Balcony Template
   $scope.turnOnTemplate = function(marker) {
     if(marker === 'balcon') {
       $scope.global.isConstructWindDoor = true;
@@ -35,13 +33,14 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$
     $location.path('/construction');
   };
 
+  //------- return to the first template
   $scope.backDefaultTemplate = function() {
     $scope.templatePanel.switcherTemplate = false;
     $scope.templatePanel.templateCurrID = 0;
     $scope.initTemplates();
   };
 
-  // Templates Slider
+  //=========== Templates Slider
   $scope.initTemplates = function() {
     var currTemplateId = $scope.templatePanel.templateCurrID,
         prevTemplateId = currTemplateId - 1,
@@ -85,7 +84,6 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$
     if($scope.templatePanel.templateCurrID < 0) {
       $scope.templatePanel.templateCurrID = $scope.templatePanel.templateQty;
     }
-    $scope.selectNewTemplate();
     $scope.initTemplates();
   };
   //--------- click on next template
@@ -94,7 +92,6 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$
     if($scope.templatePanel.templateCurrID > $scope.templatePanel.templateQty) {
       $scope.templatePanel.templateCurrID = 0;
     }
-    $scope.selectNewTemplate();
     $scope.initTemplates();
   };
 
@@ -117,7 +114,8 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$
         $scope.global.product.constructThumb = $scope.global.templatesWindThumbList[$scope.global.templateIndex];
       }
     }
-
+    //------ define product price
+    $scope.global.createObjXFormedPrice($scope.global.templateDefault, $scope.global.profileIndex, $scope.global.product.profileId);
   };
 
 }]);
