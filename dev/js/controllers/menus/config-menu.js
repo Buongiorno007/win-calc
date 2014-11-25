@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, typingTextByChar, Template, drawSVG */
+/* globals BauVoiceApp, STEP, typingTextByChar, Template, TemplateIcon, drawSVG */
 
 'use strict';
 
@@ -89,7 +89,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
           $scope.global.product.productQty = tempProduct[0].productQty;
 
           $scope.global.templateSource.name = tempProduct[0].productName;
-          $scope.global.templateSource.iconUrl = tempProduct[0].productIcon;
+          //$scope.global.templateSource.iconUrl = tempProduct[0].productIcon;
           // change add element quantity as to product quantity
           for (var prop in $scope.global.chosenAddElements) {
             if (!$scope.global.chosenAddElements.hasOwnProperty(prop)) {
@@ -213,13 +213,18 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
           if (results.status) {
             //------ check door or window creating
             if($scope.global.isConstructDoor) {
-              $scope.global.templateSource = angular.copy(results.data.doors[$scope.global.templateIndex]);
+              $scope.global.templatesDoorSource = angular.copy(results.data.doors);
+              //$scope.global.templateSource = angular.copy(results.data.doors[$scope.global.templateIndex]);
             } else {
+              $scope.global.templatesWindSource = angular.copy(results.data.windows);
+              $scope.global.templatesWindDoorSource = angular.copy(results.data.windowDoor);
+
               //$scope.global.templateSource = angular.copy(results.data.windows[$scope.global.templateIndex]);
-              $scope.global.templateSource = angular.copy(results.data.windowDoor[$scope.global.templateIndex]);
+              //$scope.global.templateSource = angular.copy(results.data.windowDoor[$scope.global.templateIndex]);
             }
 
             $scope.global.parseTemplate($scope.global.profileIndex, $scope.global.product.profileId);
+
 /*
             // парсинг шаблона, расчет размеров
             $scope.global.templateDepths = {
@@ -434,12 +439,36 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
     };
 
-    $scope.global.templateDefault = new Template($scope.global.templateSource, $scope.global.templateDepths);
-    console.log($scope.global.templateSource);
-    console.log($scope.global.templateDefault);
+    if($scope.global.isConstructDoor) {
 
-    // Data for config-menu
-    $scope.global.product.constructThumb = $scope.global.templateDefault.icon;
+      for(var tem = 0; tem < $scope.global.templatesDoorSource.length; tem++) {
+        $scope.global.templatesDoorList.push( new Template($scope.global.templatesDoorSource[tem], $scope.global.templateDepths) );
+        $scope.global.templatesDoorThumbList.push( new TemplateIcon($scope.global.templatesDoorSource[tem], $scope.global.templateDepths) );
+      }
+      $scope.global.templateSource = $scope.global.templatesDoorSource[$scope.global.templateIndex];
+      $scope.global.templateDefault = $scope.global.templatesDoorList[$scope.global.templateIndex];
+      $scope.global.product.constructThumb = $scope.global.templatesDoorThumbList[$scope.global.templateIndex];
+
+    } else {
+
+      for(var tem = 0; tem < $scope.global.templatesWindSource.length; tem++) {
+        $scope.global.templatesWindList.push( new Template($scope.global.templatesWindSource[tem], $scope.global.templateDepths) );
+        $scope.global.templatesWindThumbList.push( new TemplateIcon($scope.global.templatesWindSource[tem], $scope.global.templateDepths) );
+      }
+      for(var tem = 0; tem < $scope.global.templatesWindDoorSource.length; tem++) {
+        $scope.global.templatesWindDoorList.push( new Template($scope.global.templatesWindDoorSource[tem], $scope.global.templateDepths) );
+        $scope.global.templatesWindDoorThumbList.push( new TemplateIcon($scope.global.templatesWindDoorSource[tem], $scope.global.templateDepths) );
+      }
+
+      $scope.global.templateSource = $scope.global.templatesWindSource[$scope.global.templateIndex];
+      $scope.global.templateDefault = $scope.global.templatesWindList[$scope.global.templateIndex];
+      $scope.global.product.constructThumb = $scope.global.templatesWindThumbList[$scope.global.templateIndex];
+
+    }
+
+
+    //$scope.global.templateDefault = new Template($scope.global.templateSource, $scope.global.templateDepths);
+    //$scope.global.product.constructThumb = new TemplateIcon($scope.global.templateSource, $scope.global.templateDepths);
 
     $scope.global.createObjXFormedPrice($scope.global.templateDefault, profileIndex, profileId);
   };

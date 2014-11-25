@@ -10,6 +10,8 @@ BauVoiceApp.factory('localStorage', function () {
     //-------- defined default profile index
     templateIndex: 0,
     profileIndex: 0,
+    isConstructWindDoor: false,
+    isConstructDoor: false,
 
     product: {},
     chosenAddElements: {
@@ -39,6 +41,12 @@ BauVoiceApp.factory('localStorage', function () {
       glassSquares: [],
       frameSillSize: 0
     },
+    templatesDoorList: [],
+    templatesDoorThumbList: [],
+    templatesWindList: [],
+    templatesWindThumbList: [],
+    templatesWindDoorList: [],
+    templatesWindDoorThumbList: [],
 
     isCreatedNewProject: true,
     productEditNumber: 0,
@@ -77,7 +85,6 @@ BauVoiceApp.factory('localStorage', function () {
     fullOrderType: 'complete',
     draftOrderType: 'draft',
 
-    isConstructDoor: false,
     showRoomSelectorDialog: false,
     isRoomsDialog: false,
     currentRoomId: 4,

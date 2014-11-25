@@ -1,32 +1,37 @@
 .config-panel.template-container(ng-controller="TemplateSelectorCtrl", ng-class="{'active': global.showPanels.showTemplatePanel}")
   .template-inner(ng-if="global.isTemplatePanel", ng-init="initTemplates()")
     .template-header
-      .template-title.unvisible(ng-class="{'active': templatePanel.switcherTemplate}", ng-click="toggleTemplate()", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ 'panels.TEMPLATE_WINDOW' | translate }}
+      button.template-title.unvisible(ng-if="global.isConstructDoor", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ 'panels.TEMPLATE_DOOR' | translate }}
+      button.template-title.unvisible(ng-if="global.isConstructWindDoor", ng-class="{'active': templatePanel.switcherTemplate}", ng-click="toggleTemplate()", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ 'panels.TEMPLATE_BALCONY' | translate }}
         .window-type(ng-if="templatePanel.switcherTemplate")
-          .balcon-config {{ 'panels.TEMPLATE_BALCONY' | translate }}
-          .window-config {{ 'panels.TEMPLATE_WINDOW' | translate }}
+          .balcon-config(ng-click="turnOnTemplate('balcon')") {{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}
+          .window-config(ng-click="turnOnTemplate('window')") {{ 'panels.TEMPLATE_WINDOW' | translate }}
+      button.template-title.unvisible(ng-if="!global.isConstructWindDoor", ng-class="{'active': templatePanel.switcherTemplate}", ng-click="toggleTemplate()", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ 'panels.TEMPLATE_WINDOW' | translate }}
+        .window-type(ng-if="templatePanel.switcherTemplate")
+          .balcon-config(ng-click="turnOnTemplate('balcon')") {{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}
+          .window-config(ng-click="turnOnTemplate('window')") {{ 'panels.TEMPLATE_WINDOW' | translate }}
       .template-discr {{ templatePanel.templateDescription }}
 
     .template-section
-      svg-template(template = "global.templateDefault", template-width="global.svgTemplateWidth", template-height="global.svgTemplateHeight")
+      svg-template(template = "templatePanel.templateSVG", template-width="global.svgTemplateWidth", template-height="global.svgTemplateHeight")
 
     .template-footer
       .other-template.prev(ng-click="showTemplatePrev()")
-        .prev-btn
-        .template-prev
+        .prev-btn(ng-show="templatePanel.templateQty > 1")
+        .template-prev(ng-show="templatePanel.templateQty > 1")
           .other-template-img.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}")
-            img(ng-src="{{ templatePanel.templateImgPrev }}")
+            svg-template(template = "templatePanel.templateIconPrev", template-width="global.svgTemplateThumbWidth", template-height="global.svgTemplateThumbHeight", type-construction="icon")
           .other-template-label {{ templatePanel.templateTitlePrev }}
           .other-template-subscr {{ templatePanel.templateDescriptionPrev }}
 
       .template-setting
         button.template-edit.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}", ng-click="gotoConstructionPage()") {{ 'panels.TEMPLATE_EDIT' | translate }}
-        button.template-default.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ 'panels.TEMPLATE_DEFAULT' | translate }}
+        button.template-default.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}", ng-click="backDefaultTemplate()") {{ 'panels.TEMPLATE_DEFAULT' | translate }}
 
       .other-template.next(ng-click="showTemplateNext()")
-        .template-next
+        .template-next(ng-show="templatePanel.templateQty > 1")
           .other-template-img.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}")
-            img(ng-src="{{ templatePanel.templateImgNext }}")
+            svg-template(template = "templatePanel.templateIconNext", template-width="global.svgTemplateThumbWidth", template-height="global.svgTemplateThumbHeight", type-construction="icon")
           .other-template-label {{ templatePanel.templateTitleNext }}
           .other-template-subscr {{ templatePanel.templateDescriptionNext }}
-        .next-btn
+        .next-btn(ng-show="templatePanel.templateQty > 1")

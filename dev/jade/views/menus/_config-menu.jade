@@ -3,7 +3,7 @@
     li.item.item-header(ng-class="{'active': global.showPanels.showTemplatePanel}", ng-click="selectTemplatePanel()")
       .title(data-output="{{ 'mainpage.CONFIGMENU_CONFIGURATION' | translate }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
       .icon.unvisible(ng-if="global.isConfigMenu", show-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
-        img(ng-src="{{ global.product.constructThumb }}")
+        svg-template(template="global.product.constructThumb", template-width="global.svgTemplateThumbWidth", template-height="global.svgTemplateThumbHeight", type-construction="icon")
       .name(data-output="{{ 'mainpage.CONFIGMENU_SIZING' | translate }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
       .value(data-output="{{ global.product.constructionWidth }} {{ 'mainpage.MM' | translate }}*", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
       .value(data-output="{{ global.product.constructionHeight }} {{ 'mainpage.MM' | translate }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")

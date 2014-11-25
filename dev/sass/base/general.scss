@@ -278,11 +278,11 @@ body {
 }
 
 //------- SVG ----------
-.glass {
+.glass, .glass-active {
   fill: rgba(155, 204, 255, 0.20);
   cursor: pointer;
 }
-.glass:hover {
+.glass-active:hover {
   fill: rgba(34, 34, 255, 0.69);
 }
 .frame, .sash, .impost {

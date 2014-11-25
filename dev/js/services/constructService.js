@@ -739,10 +739,11 @@ BauVoiceApp.factory('constructService', function ($q) {
                */
               {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
               {'type': 'glass_paсkage', id: 'glass2', parts: ['glassline5', 'glassline6', 'glassline7', 'glassline8']},
-              {'type': 'dimensionsH', id: 'dimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 1, height: 150},
-              {'type': 'dimensionsV', id: 'dimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150},
-              {'type': 'dimensionsH', id: 'dimH', from: ['fp5', 'fp8'], to: ['fp6', 'fp7'], level: 1, height: 150},
-              {'type': 'dimensionsV', id: 'dimV', from: ['fp6', 'fp5'], to: ['fp7', 'fp8'], level: 1, height: 150, side: 'right'}
+              {'type': 'dimensionsH', id: 'dimH1', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 1, height: 150, side: 'top'},
+              {'type': 'dimensionsV', id: 'dimV1', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'},
+              {'type': 'dimensionsH', id: 'dimH2', from: ['fp5', 'fp8'], to: ['fp6', 'fp7'], level: 1, height: 150, side: 'top'},
+              {'type': 'dimensionsV', id: 'overallDimV', from: ['fp6', 'fp5'], to: ['fp7', 'fp8'], level: 1, height: 150, side: 'right'},
+              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp6', 'fp7'], level: 3, height: 150, side: 'top'}
             ]
           }
         ],

@@ -37,6 +37,12 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               dimensionsV: [],
               openDirections: []
             },
+            coefScaleW = 0.75,
+            coefScaleH = 0.5,
+            overallDimH = 2000,
+            overallDimV = 2000,
+            edgeTop = 300,
+            edgeLeft = 300,
             sizeBoxWidth = 250,
             sizeBoxHeight = 120,
             sizeBoxRadius = 35;
@@ -91,50 +97,79 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               break;
 
             case 'dimensionsH':
-              //for(var p = 0; p < template.objects[i].parts.length; p++) {
-              var dim = {}, height = template.objects[i].height * template.objects[i].level;
+              var dim = {}, height = template.objects[i].height * template.objects[i].level,
+                heightSizeLine = height;
               dim.lines = [];
-              dim.lines[0] = template.objects[i].fromPoint.x  + ' ' +
-                template.objects[i].fromPoint.y  + ' ' +
-                template.objects[i].fromPoint.x  + ' ' +
-                (template.objects[i].fromPoint.y -  height);
-              dim.lines[1] = template.objects[i].fromPoint.x  + ' ' +
-                (template.objects[i].fromPoint.y -  height / 2) + ' ' +
-                template.objects[i].toPoint.x   + ' ' +
-                (template.objects[i].fromPoint.y -  height / 2);
-              dim.lines[2] = template.objects[i].toPoint.x   + ' ' +
-                (template.objects[i].toPoint.y -  height) + ' ' +
-                template.objects[i].toPoint.x   + ' ' +
-                template.objects[i].toPoint.y;
 
+              if(template.objects[i].side === 'top') {
+                if(+template.objects[i].level > 1) {
+                  heightSizeLine = template.objects[i].height * template.objects[i].level/1.5;
+                  edgeTop = heightSizeLine * 2;
+                  //console.log('edgeTop = '+edgeTop);
+                }
+
+                dim.lines[0] = template.objects[i].fromPoint.x  + ' ' +
+                  template.objects[i].fromPoint.y  + ' ' +
+                  template.objects[i].fromPoint.x  + ' ' +
+                  (template.objects[i].fromPoint.y -  heightSizeLine);
+                dim.lines[1] = template.objects[i].fromPoint.x  + ' ' +
+                  (template.objects[i].fromPoint.y -  height / 2) + ' ' +
+                  template.objects[i].toPoint.x   + ' ' +
+                  (template.objects[i].fromPoint.y -  height / 2);
+                dim.lines[2] = template.objects[i].toPoint.x   + ' ' +
+                  (template.objects[i].toPoint.y -  heightSizeLine) + ' ' +
+                  template.objects[i].toPoint.x   + ' ' +
+                  template.objects[i].toPoint.y;
+
+                dim.textY = (-heightSizeLine);
+
+
+              } else if(template.objects[i].side === 'bottom') {
+                dim.lines[0] = template.objects[i].fromPoint.x  + ' ' +
+                  template.objects[i].fromPoint.y  + ' ' +
+                  template.objects[i].fromPoint.x  + ' ' +
+                  (+template.objects[i].fromPoint.y +  height);
+                dim.lines[1] = template.objects[i].fromPoint.x  + ' ' +
+                  (+template.objects[i].fromPoint.y +  height / 2) + ' ' +
+                  template.objects[i].toPoint.x   + ' ' +
+                  (+template.objects[i].fromPoint.y +  height / 2);
+                dim.lines[2] = template.objects[i].toPoint.x   + ' ' +
+                  (+template.objects[i].toPoint.y +  height) + ' ' +
+                  template.objects[i].toPoint.x   + ' ' +
+                  template.objects[i].toPoint.y;
+              }
               dim.lengthVal =  template.objects[i].lengthVal;
-              //dim.textX = (template.objects[i].lengthVal / 2);
               dim.textX = + template.objects[i].fromPoint.x + (template.objects[i].lengthVal / 2);
-              dim.textY = (-height);
+
               dim.id = template.objects[i].id;
-              //}
               elementsSVG.dimensionsH.push(dim);
+
+              //-------- scale svg
+              if (scope.typeConstruction !== 'icon' && template.objects[i].id === 'overallDimV') {
+                canvasWidth = template.objects[i].lengthVal;
+                overallDimH = canvasWidth / coefScaleW;
+              }
               break;
 
             case 'dimensionsV':
               var dim = {}, height = template.objects[i].height * template.objects[i].level;
               dim.lines = [];
-              if(template.objects[i].side && template.objects[i].side === 'right') {
+              if(template.objects[i].side === 'right') {
                 dim.lines[0] = template.objects[i].fromPoint.x  + ' ' +
                   template.objects[i].fromPoint.y  + ' ' +
-                  (template.objects[i].fromPoint.x +  height) + ' ' +
+                  (+template.objects[i].fromPoint.x +  height) + ' ' +
                   template.objects[i].fromPoint.y;
-                dim.lines[1] = (template.objects[i].fromPoint.x +  height / 2) + ' ' +
+                dim.lines[1] = (+template.objects[i].fromPoint.x +  height / 2) + ' ' +
                   template.objects[i].fromPoint.y + ' ' +
-                  (template.objects[i].toPoint.x  +  height / 2) + ' ' +
+                  (+template.objects[i].toPoint.x  +  height / 2) + ' ' +
                   template.objects[i].toPoint.y;
                 dim.lines[2] = template.objects[i].toPoint.x  + ' ' +
                   template.objects[i].toPoint.y + ' ' +
-                  (template.objects[i].toPoint.x +  height) + ' ' +
+                  (+template.objects[i].toPoint.x +  height) + ' ' +
                   template.objects[i].toPoint.y;
 
-                dim.textX = (+template.objects[i].toPoint.x + height);
-              } else {
+                dim.textX = (+template.objects[i].toPoint.x + height * 2);
+              } else if(template.objects[i].side === 'left') {
                 dim.lines[0] = template.objects[i].fromPoint.x  + ' ' +
                   template.objects[i].fromPoint.y  + ' ' +
                   (template.objects[i].fromPoint.x -  height) + ' ' +
@@ -149,15 +184,24 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                   template.objects[i].toPoint.y;
 
                 dim.textX = (-height);
+                if(+template.objects[i].level > 1) {
+                  edgeLeft = height * 2;
+                  //console.log('edgeLeft = '+edgeLeft);
+                }
+
               }
 
-
               dim.lengthVal =  template.objects[i].lengthVal;
-
-              console.log(dim.textX);
               dim.textY = (template.objects[i].lengthVal / 2);
               dim.id = template.objects[i].id;
               elementsSVG.dimensionsV.push(dim);
+
+              //-------- scale svg
+              if (scope.typeConstruction !== 'icon' && template.objects[i].id === 'overallDimV') {
+                canvasHeight = template.objects[i].lengthVal;
+                overallDimV = canvasHeight / coefScaleH;
+              }
+
               break;
           }
         }
@@ -165,7 +209,8 @@ BauVoiceApp.directive('svgTemplate', [ function() {
 
         //------- Drawing elements SVG of construction
 
-        draw.viewbox(-300, -300, 2000, 2000);
+        draw = SVG(svg).size(canvasWidth, canvasHeight);
+        //draw.viewbox(-300, -300, 2000, 2000);
         for(var prop in elementsSVG) {
           if (!elementsSVG.hasOwnProperty(prop)) {
             continue;
@@ -183,7 +228,11 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                 group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'sash');
                 break;
               case 'glasses':
-                group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'glass');
+                if(scope.typeConstruction === 'edit') {
+                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'glass-active');
+                } else {
+                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'glass');
+                }
                 break;
               case 'openDirections':
                 group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'open-direction');
@@ -192,81 +241,103 @@ BauVoiceApp.directive('svgTemplate', [ function() {
 
               case 'dimensionsH':
               case 'dimensionsV':
-                //---- draw dimension lines
-                for(var l = 0; l < elementsSVG[prop][elem].lines.length; l++) {
-                  if(l === 1) {
-                    var line = group.path('M' + elementsSVG[prop][elem].lines[l] + 'z').attr('class', 'size-line');
-                    line.marker('start', 30, 30, function(add) {
-                      add.path('M 0,0 L -4,-2 0,-4 z').attr('class', 'size-line');
-                      add.ref(-5, -2);
-                      add.viewbox(-5, -5, 4, 5);
-                    });
 
-                    line.marker('mid', 30, 30, function(add) {
-                      add.path('M 0,0 L 4,2 0,4 z').attr('class', 'size-line');
-                      add.ref(5, 2);
-                      add.viewbox(1, -1, 4, 5);
-                      if(prop === 'dimensionsV') {
-                        add.attr('orient', 90);
-                      }
-                    });
-
+                if(scope.typeConstruction === 'icon') { //----- if construction for icon
+                  if (prop === 'dimensionsV') {
+                    if (elementsSVG[prop][elem].id === 'overallDimV') {
+                      overallDimV = elementsSVG[prop][elem].lengthVal;
+                    }
                   } else {
-                    group.path('M' + elementsSVG[prop][elem].lines[l] + 'z').attr('class', 'size-line');
-                  }
-                }
-
-                //----- draw dimension size box if construction is aditible
-                var groupTxt = group.group().attr('class', sizeClass);
-                if(scope.typeConstruction === 'edit') {
-                  if(prop === 'dimensionsH') {
-                    groupTxt.rect(sizeBoxWidth, sizeBoxHeight).attr('class', 'size-rect').cx(elementsSVG[prop][elem].textX).cy(elementsSVG[prop][elem].textY - 10).radius(sizeBoxRadius);
-                  } else if(prop === 'dimensionsV') {
-                    groupTxt.rect(sizeBoxWidth, sizeBoxHeight).attr('class', 'size-rect').cx(elementsSVG[prop][elem].textX - 90).cy(elementsSVG[prop][elem].textY - 10).radius(sizeBoxRadius);
-                  }
-                }
-
-                //----- draw dimension size text
-                var sizeText = groupTxt.text(' ' + elementsSVG[prop][elem].lengthVal + ' ').dx(elementsSVG[prop][elem].textX).dy(elementsSVG[prop][elem].textY);
-                if(prop === 'dimensionsV') {
-                  sizeText.attr({id: elementsSVG[prop][elem].id});
-                } else {
-                  sizeText.attr({id: elementsSVG[prop][elem].id});
-                }
-                if(scope.typeConstruction === 'edit') { //----- if construction is aditible
-                  if(prop === 'dimensionsV') {
-                    sizeText.attr('class', 'size-value-edit-vertical');
-                  } else {
-                    sizeText.attr('class', 'size-value-edit');
-                  }
-                } else {
-                  if(prop === 'dimensionsV') {
-                    sizeText.attr('class', 'size-value-vertical');
-                  } else {
-                    sizeText.attr('class', 'size-value');
-                  }
-                }
-
-                // Click on size
-                groupTxt.click(function() {
-                  if(scope.typeConstruction === 'edit') {
-                    if (this.hasClass(sizeEditClass)) {
-                      deactiveSizeBox();
-                      $('.size-calculator').removeClass(activeClass);
-                    } else {
-                      if(!$('.size-calculator').hasClass(activeClass)) {
-                        deactiveSizeBox();
-                        this.toggleClass(sizeClass);
-                        this.toggleClass(sizeEditClass);
-                        $('.size-calculator').addClass(activeClass);
-                      }
+                    if (elementsSVG[prop][elem].id === 'overallDimH') {
+                      overallDimH = elementsSVG[prop][elem].lengthVal;
                     }
                   }
-                });
+                  edgeTop = edgeLeft = 0;
+                } else {
+
+                  //---- draw dimension lines
+                  for(var l = 0; l < elementsSVG[prop][elem].lines.length; l++) {
+                    if(l === 1) {
+                      var line = group.path('M' + elementsSVG[prop][elem].lines[l] + 'z').attr('class', 'size-line');
+                      line.marker('start', 30, 30, function(add) {
+                        add.path('M 0,0 L -4,-2 0,-4 z').attr('class', 'size-line');
+                        add.ref(-5, -2);
+                        add.viewbox(-5, -5, 4, 5);
+                      });
+
+                      line.marker('mid', 30, 30, function(add) {
+                        add.path('M 0,0 L 4,2 0,4 z').attr('class', 'size-line');
+                        add.ref(5, 2);
+                        add.viewbox(1, -1, 4, 5);
+                        if(prop === 'dimensionsV') {
+                          add.attr('orient', 90);
+                        }
+                      });
+
+                    } else {
+                      group.path('M' + elementsSVG[prop][elem].lines[l] + 'z').attr('class', 'size-line');
+                    }
+                  }
+
+                  //----- draw dimension size box if construction is aditible
+                  var groupTxt = group.group().attr('class', sizeClass);
+                  if(scope.typeConstruction === 'edit') {
+                    if(prop === 'dimensionsH') {
+                      groupTxt.rect(sizeBoxWidth, sizeBoxHeight).attr('class', 'size-rect').cx(elementsSVG[prop][elem].textX).cy(elementsSVG[prop][elem].textY - 10).radius(sizeBoxRadius);
+                    } else if(prop === 'dimensionsV') {
+                      groupTxt.rect(sizeBoxWidth, sizeBoxHeight).attr('class', 'size-rect').cx(elementsSVG[prop][elem].textX - 90).cy(elementsSVG[prop][elem].textY - 10).radius(sizeBoxRadius);
+                    }
+                  }
+
+                  //----- draw dimension size text
+                  var sizeText = groupTxt.text(' ' + elementsSVG[prop][elem].lengthVal + ' ').dx(elementsSVG[prop][elem].textX).dy(elementsSVG[prop][elem].textY);
+                  /*
+                   if(prop === 'dimensionsV') {
+                   sizeText.attr({id: elementsSVG[prop][elem].id});
+                   } else {
+                   sizeText.attr({id: elementsSVG[prop][elem].id});
+                   }
+                   */
+                  sizeText.attr({id: elementsSVG[prop][elem].id});
+                  if(scope.typeConstruction === 'edit') { //----- if construction is aditible
+                    if(prop === 'dimensionsV') {
+                      sizeText.attr('class', 'size-value-edit-vertical');
+                    } else {
+                      sizeText.attr('class', 'size-value-edit');
+                    }
+                  } else {
+                    if(prop === 'dimensionsV') {
+                      sizeText.attr('class', 'size-value-vertical');
+                    } else {
+                      sizeText.attr('class', 'size-value');
+                    }
+                  }
+
+                  // Click on size
+                  groupTxt.click(function() {
+                    if(scope.typeConstruction === 'edit') {
+                      if (this.hasClass(sizeEditClass)) {
+                        deactiveSizeBox();
+                        $('.size-calculator').removeClass(activeClass);
+                      } else {
+                        if(!$('.size-calculator').hasClass(activeClass)) {
+                          deactiveSizeBox();
+                          this.toggleClass(sizeClass);
+                          this.toggleClass(sizeEditClass);
+                          $('.size-calculator').addClass(activeClass);
+                        }
+                      }
+                    }
+                  });
+
+                }
+
                 break;
             }
           }
         }
+
+        draw.viewbox(-edgeLeft, -edgeTop, overallDimH, overallDimV);
 
         function deactiveSizeBox() {
           $('g.size-box-edited').each(function () {

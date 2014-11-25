@@ -1,19 +1,22 @@
 .template-container {
   padding: 50px;
+  .template-header {
+    text-align: center;
+  }
   .template-title {
     @extend .splash;
     @include roboto-lt(80px, 80px);
 
     position: relative;
-    width: 236px;
+    //width: 236px;
     height: 92px;
-    margin: 0 auto 30px auto;
+    //margin: 0 auto 30px auto;
     text-align: center;
     color: $main_green;
     border: 1px solid $main_green;
     border-radius: 16px;
     background-color: transparent;
-    cursor: pointer;
+    outline: none;
     &.active {
       color: #fff;
       background-color: $main_green;
@@ -63,8 +66,10 @@
     color: $main_gray_txt;
   }
   .template-section {
+    width: 1500px;
     height: 1000px;
     text-align: center;
+    overflow: auto;
   }
   .template-footer {
     @include display-flex();

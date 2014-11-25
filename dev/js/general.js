@@ -343,13 +343,10 @@ FrameLine.prototype = LineObject;
 
 var Template = function (sourceObj, depths) {
   this.name      = sourceObj.name;
-  this.shortName = sourceObj.short_name;
-  this.icon = sourceObj.iconUrl;
+  //this.shortName = sourceObj.short_name;
+  //this.icon = sourceObj.iconUrl;
   this.objects = [];
-/*
-    impostDepth:
-    shtulpDepth:
-*/
+
   var tmpObject;
   for (var i = 0; i < sourceObj.objects.length; i++) {
     tmpObject = null;
@@ -407,6 +404,101 @@ var Template = function (sourceObj, depths) {
       case 'dimensionsV':  tmpObject = new Dimension(sourceObj.objects[i]);
         break;
 
+    }
+    if (tmpObject) {
+      this.objects.push(tmpObject);
+    }
+  }
+
+  //эта функция  пройдет по всем objects и свяжет ID по имени с объектами,
+  // но только после того как будут все объекты уже распарсены
+
+  this.parseIds = function() {
+    for (var i = 0; i < this.objects.length; i++) {
+      if('parseIds' in this.objects[i]) {
+        this.objects[i].parseIds(this);
+      }
+      if('parseParts' in this.objects[i]) {
+        this.objects[i].parseParts(this);
+      }
+    }
+  };
+
+  this.findById = function (id) {
+    for (var i = 0; i < this.objects.length; i++) {
+      if (this.objects[i].id === id) {
+        return this.objects[i];
+      }
+    }
+  };
+
+  this.parseIds();
+};
+
+//--------- TEMPLATE JSON PARSE FOR ICON----------------
+
+var TemplateIcon = function (sourceObj, depths) {
+  this.name      = sourceObj.name;
+  this.objects = [];
+
+  var tmpObject,
+      coeffScale = 3;
+
+  for (var i = 0; i < sourceObj.objects.length; i++) {
+    tmpObject = null;
+    switch(sourceObj.objects[i].type) {
+      case 'fixed_point':
+      case 'fixed_point_impost': tmpObject = new FixedPoint(sourceObj.objects[i]);
+        break;
+      case 'frame_line':
+      case 'frame_in_line': tmpObject = new FrameLine(sourceObj.objects[i]);
+        break;
+      case 'cross_point':  tmpObject = new CrossPoint(sourceObj.objects[i], depths.frameDepth.c * coeffScale);
+        break;
+      case 'impost_line':
+      case 'impost_in_line': tmpObject = new ImpostLine(sourceObj.objects[i]);
+        break;
+      case 'cross_point_impost':
+        tmpObject = new CrossPointImpost(sourceObj.objects[i], (depths.impostDepth.c/2) * coeffScale);
+        break;
+      case 'sash_line':  tmpObject = new SashLine(sourceObj.objects[i]);
+        break;
+      case 'cross_point_sash_out':  tmpObject = new CrossPoint(sourceObj.objects[i], -depths.sashDepth.b * coeffScale);
+        break;
+      case 'cross_point_sash_in':  tmpObject = new CrossPoint(sourceObj.objects[i], (depths.sashDepth.c - depths.sashDepth.b) * coeffScale);
+        break;
+      case 'sash_out_line':  tmpObject = new SashLine(sourceObj.objects[i]);
+        break;
+      case 'bead_box_line':  tmpObject = new BeadBoxLine(sourceObj.objects[i]);
+        break;
+      case 'cross_point_glass':
+        if(sourceObj.objects[i].blockType === 'frame') {
+          //---- is close type block
+          if(sourceObj.objects[i].isImpost) {
+            tmpObject = new CrossPointGlass(sourceObj.objects[i], depths.frameDepth.d * coeffScale, depths.impostDepth.b * coeffScale);
+          } else {
+            tmpObject = new CrossPointGlass(sourceObj.objects[i], depths.frameDepth.d * coeffScale, depths.frameDepth.d * coeffScale);
+          }
+        } else if(sourceObj.objects[i].blockType === 'sash') {
+          //---- is open type block
+          var dep = (depths.sashDepth.d - depths.sashDepth.b) * coeffScale;
+          tmpObject = new CrossPointGlass(sourceObj.objects[i], dep, dep);
+        }
+        break;
+      case 'glass_line':  tmpObject = new GlassLine(sourceObj.objects[i]);
+        break;
+      case 'frame':
+      case 'impost':
+        tmpObject = new Frame(sourceObj.objects[i]);
+        break;
+      case 'sash':  tmpObject = new Sash(sourceObj.objects[i]);
+        break;
+      case 'glass_paсkage':  tmpObject = new Glass(sourceObj.objects[i]);
+        break;
+      case 'dimensionsH':  tmpObject = new Dimension(sourceObj.objects[i]);
+        break;
+      case 'dimensionsV':  tmpObject = new Dimension(sourceObj.objects[i]);
+        break;
     }
     if (tmpObject) {
       this.objects.push(tmpObject);

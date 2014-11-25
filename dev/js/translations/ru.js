@@ -57,7 +57,9 @@ window.russianDictionary = {
   },
   panels: {
     TEMPLATE_WINDOW: 'Oкно',
-    TEMPLATE_BALCONY: 'Выход на балкон',
+    TEMPLATE_BALCONY: 'Балкон',
+    TEMPLATE_DOOR: 'Дверь',
+    TEMPLATE_BALCONY_ENTER: 'Выход на балкон',
     TEMPLATE_EDIT: 'Редактировать',
     TEMPLATE_DEFAULT: 'Проект по умолчанию',
     COUNTRY: 'страна',
