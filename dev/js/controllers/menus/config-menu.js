@@ -417,7 +417,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
           currencySymbol = '₴';
         }
         $scope.global.currency = currencySymbol;
-
+        $scope.global.isFindPriceProcess = false;
         //console.log('price');
         //console.log($scope.global.product.productPrice);
         //console.log('orderNumber - ' + $scope.global.orderNumber);
@@ -550,6 +550,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     for (var item in $scope.global.showPanels) {
       delete $scope.global.showPanels[item];
     }
+    //---- close Scheme Dialog in AddElements
+    $scope.global.isWindowSchemeDialog = false;
   }
 
 

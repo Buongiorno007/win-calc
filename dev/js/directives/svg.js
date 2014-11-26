@@ -22,7 +22,6 @@ BauVoiceApp.directive('svgTemplate', [ function() {
       });
 
       function buildTemplateSVG(template, canvasWidth, canvasHeight) {
-
         var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"),
             draw = SVG(svg).size(canvasWidth, canvasHeight),
             sizeClass = 'size-box',
@@ -123,7 +122,6 @@ BauVoiceApp.directive('svgTemplate', [ function() {
 
                 dim.textY = (-heightSizeLine);
 
-
               } else if(template.objects[i].side === 'bottom') {
                 dim.lines[0] = template.objects[i].fromPoint.x  + ' ' +
                   template.objects[i].fromPoint.y  + ' ' +
@@ -137,10 +135,12 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                   (+template.objects[i].toPoint.y +  height) + ' ' +
                   template.objects[i].toPoint.x   + ' ' +
                   template.objects[i].toPoint.y;
+
+                dim.textY = (+template.objects[i].toPoint.y + height * 1.5);
               }
+
               dim.lengthVal =  template.objects[i].lengthVal;
               dim.textX = + template.objects[i].fromPoint.x + (template.objects[i].lengthVal / 2);
-
               dim.id = template.objects[i].id;
               elementsSVG.dimensionsH.push(dim);
 
@@ -219,13 +219,25 @@ BauVoiceApp.directive('svgTemplate', [ function() {
           for (var elem = 0; elem < elementsSVG[prop].length; elem++) {
             switch (prop) {
               case 'frames':
-                group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'frame');
+                if(scope.typeConstruction === 'icon') {
+                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'frame-icon');
+                } else {
+                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'frame');
+                }
                 break;
               case 'imposts':
-                group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'impost');
+                if(scope.typeConstruction === 'icon') {
+                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'impost-icon');
+                } else {
+                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'impost');
+                }
                 break;
               case 'sashes':
-                group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'sash');
+                if(scope.typeConstruction === 'icon') {
+                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'sash-icon');
+                } else {
+                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'sash');
+                }
                 break;
               case 'glasses':
                 if(scope.typeConstruction === 'edit') {

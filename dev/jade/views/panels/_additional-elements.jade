@@ -230,4 +230,10 @@
 
 
     button.scheme-info.unvisible(show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}", ng-click="showWindowScheme()")
+
+    .scheme-view-dialog(ng-class="{'active': global.isWindowSchemeDialog}")
+      .template-scheme
+        svg-template(template="global.templateDefault", template-width="global.svgTemplateWidth", template-height="global.svgTemplateHeight")
+      .close-dialog(ng-click="closeWindowScheme()")
+
     button.view-switch-tab.unvisible(show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}", ng-click="viewSwitching()") {{ 'add_elements.LIST_VIEW' | translate }}

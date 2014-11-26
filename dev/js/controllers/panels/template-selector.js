@@ -80,19 +80,27 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$
   };
   //--------- click on prev template
   $scope.showTemplatePrev = function() {
-    $scope.templatePanel.templateCurrID -= 1;
-    if($scope.templatePanel.templateCurrID < 0) {
-      $scope.templatePanel.templateCurrID = $scope.templatePanel.templateQty;
+    event.preventDefault();
+    if(!$scope.global.isFindPriceProcess) {
+      $scope.global.isFindPriceProcess = true;
+      $scope.templatePanel.templateCurrID -= 1;
+      if($scope.templatePanel.templateCurrID < 0) {
+        $scope.templatePanel.templateCurrID = $scope.templatePanel.templateQty;
+      }
+      $scope.initTemplates();
     }
-    $scope.initTemplates();
   };
   //--------- click on next template
   $scope.showTemplateNext = function() {
-    $scope.templatePanel.templateCurrID += 1;
-    if($scope.templatePanel.templateCurrID > $scope.templatePanel.templateQty) {
-      $scope.templatePanel.templateCurrID = 0;
+    event.preventDefault();
+    if(!$scope.global.isFindPriceProcess) {
+      $scope.global.isFindPriceProcess = true;
+      $scope.templatePanel.templateCurrID += 1;
+      if ($scope.templatePanel.templateCurrID > $scope.templatePanel.templateQty) {
+        $scope.templatePanel.templateCurrID = 0;
+      }
+      $scope.initTemplates();
     }
-    $scope.initTemplates();
   };
 
   //---------- select new template and recalculate it price

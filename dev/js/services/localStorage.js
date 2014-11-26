@@ -12,6 +12,7 @@ BauVoiceApp.factory('localStorage', function () {
     profileIndex: 0,
     isConstructWindDoor: false,
     isConstructDoor: false,
+    isFindPriceProcess: false,
 
     product: {},
     chosenAddElements: {

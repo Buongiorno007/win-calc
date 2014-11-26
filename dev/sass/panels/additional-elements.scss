@@ -490,5 +490,17 @@ $aux-img-select-path: 'auxiliaries-selected';
       content: $info-i-icon;
     }
   }
+  .scheme-view-dialog {
+    @extend .modal-dialog;
 
+    height: 900px;
+    overflow: hidden;
+    z-index: 20;
+
+    .template-scheme {
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+    }
+  }
 }

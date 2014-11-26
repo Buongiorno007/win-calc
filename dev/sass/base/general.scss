@@ -287,11 +287,17 @@ body {
 }
 .frame, .sash, .impost {
   fill: #fff;
-  stroke: #363636;
+  stroke: $main_gray_txt;
   stroke-width: 2;
 }
+.frame-icon, .sash-icon, .impost-icon {
+  fill: #ccc;
+  stroke: #000;
+  stroke-width: 4;
+}
+
 .main-line {
-  fill: #363636;
+  fill: $main_gray_txt;
 }
 .size-line {
   fill: none;

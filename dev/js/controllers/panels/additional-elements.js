@@ -242,6 +242,10 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'constructService', 
   // Show Window Scheme Dialog
   $scope.showWindowScheme = function() {
     $scope.global.isWindowSchemeDialog = true;
-  }
+  };
+
+  $scope.closeWindowScheme = function() {
+    $scope.global.isWindowSchemeDialog = false;
+  };
 
 }]);
