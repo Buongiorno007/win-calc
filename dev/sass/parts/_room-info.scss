@@ -1,6 +1,6 @@
 .room-info-container {
   position: absolute;
-  bottom: 360px;
+  bottom: rem(360px);
   left: 0;
   width: 100%;
   .room-header {
@@ -8,23 +8,23 @@
     @include animation(moveRoomHeader 1s 0 ease 1);
 
     position: absolute;
-    padding-left: 50px;
+    padding-left: rem(50px);
   }
   .room-name {
     @include display-flex();
     @include justify-content(space-between);
-    @include roboto-th(200px, 150px);
+    @include roboto-th(rem(200px), rem(150px));
 
-    min-width: 960px;
+    min-width: rem(960px);
     color: #fff;
   }
   .select-rooms {
     @extend .orange-big-btn;
     @extend .splash;
 
-    width: 136px;
-    height: 72px;
-    margin-left: 35px;
+    width: rem(136px);
+    height: rem(72px);
+    margin-left: rem(35px);
   }
   .coeff-container {
     @include display-flex();
@@ -39,7 +39,7 @@
     @include single-text-shadow(1px, 2px, 0px, false, rgba(black, .4));
 
     margin: 0;
-    padding: 0 45px;
+    padding: 0 rem(45px);
     color: #fff;
     border-left: 2px dotted #fff;
     &:first-child {
@@ -47,19 +47,19 @@
     }
     &:nth-child(2),
     &:last-child {
-      min-width: 520px;
+      min-width: rem(520px);
     }
   }
   .coeff-max {
-    @include roboto-md(36px, 1);
+    @include roboto-md(rem(36px), 1);
 
     position: absolute;
-    top: -50px;
+    top: rem(-50px);
     right: 0;
     color: #fff;
   }
   .coeff {
-    @include roboto-lt(80px, 1);
+    @include roboto-lt(rem(80px), 1);
 
     position: relative;
     float: left;
@@ -70,14 +70,14 @@
     }
   }
   .coeff-title {
-    @include roboto-lt(32px, 36px);
+    @include roboto-lt(rem(32px), rem(36px));
 
     float: left;
-    width: 250px;
-    margin-left: 20px;
+    width: rem(250px);
+    margin-left: rem(20px);
     word-wrap: break-word;
   }
 }
 
-@include behavior-move(moveRoomHeader, 2000px, 0, 0, 0);
-@include behavior-move(moveCoeff, 0, 2000px, 250, 0);
+@include behavior-move(moveRoomHeader, rem(2000px), 0, 0, 0);
+@include behavior-move(moveCoeff, 0, rem(2000px), 250, 0);

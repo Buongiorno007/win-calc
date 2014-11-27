@@ -17,7 +17,7 @@
     position: absolute;
     &:before {
       @include top_left_coord(15, 15);
-      @include font-general-icon(50px, 1);
+      @include font-general-icon(rem(50px), 1);
 
       position: absolute;
       color: $main_green;
@@ -28,13 +28,13 @@
 
 .config-section {
   width: 98%;
-  padding: 50px 0 50px 80px;
+  padding: rem(50px) 0 rem(50px) rem(80px);
   border-bottom: 1px solid $main_gray_btn;
   &.selected {
     position: relative;
     &:before {
       @include top_left_coord(56, -27);
-      @include font-general-icon(90px, 60px);
+      @include font-general-icon(rem(90px), rem(60px));
 
       position: absolute;
       color: $main_green;
@@ -48,7 +48,7 @@
     @include justify-content(flex-start);
   }
   .title {
-    @include roboto-bd(48px);
+    @include roboto-bd(rem(48px));
 
     color: $main_gray_txt;
   }
@@ -61,17 +61,17 @@
     }
   }
   .type {
-    @include roboto-md(36px, 56px);
+    @include roboto-md(rem(36px), rem(56px));
 
     display: inline;
-    padding: 5px 20px;
+    padding: rem(5px) rem(20px);
     color: #fff;
     border-radius: $radius_general-big_button;
     background-color: $main_green;
   }
   .coef-index {
     width: 19%;
-    height: 25px;
+    height: rem(25px);
     margin-right: 1%;
     &:first-child {
       border-top-left-radius: $radius_coef-index;
@@ -99,7 +99,7 @@
 
     position: relative;
     float: left;
-    padding: 45px;
+    padding: rem(45px);
     border-radius: $radius_profile-box;
     background-color: #fff;
     cursor: pointer;
@@ -110,7 +110,7 @@
         background-color: #57b23c;
       }
       &:after {
-        @include font-general-icon(50px, 1);
+        @include font-general-icon(rem(50px), 1);
 
         position: absolute;
         color: #fff;
@@ -141,7 +141,7 @@
   .coef-level {
     @include display-flex();
 
-    margin-top: 10px;
+    margin-top: rem(10px);
     &:first-child {
       margin-top: 0;
     }

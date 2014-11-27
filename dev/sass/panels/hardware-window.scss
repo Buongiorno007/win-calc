@@ -6,14 +6,14 @@
     @extend .config-section;
 
     width: 94%;
-    padding: 50px 80px;
+    padding: rem(50px) rem(80px);
     padding-right: 0;
     border-bottom: 1px solid $main_gray_btn;
     &.selected {
       position: relative;
       &:before {
         @include top_left_coord(56, -27);
-        @include font-general-icon(90px, 60px);
+        @include font-general-icon(rem(90px), rem(60px));
 
         position: absolute;
         color: $main_green;
@@ -22,7 +22,7 @@
     }
   }
   .hardware-title {
-    @include roboto-bd(48px);
+    @include roboto-bd(rem(48px));
 
     color: $main_gray_txt;
   }
@@ -31,18 +31,18 @@
 
     position: relative;
     width: 100%;
-    margin-top: 50px;
+    margin-top: rem(50px);
     cursor: pointer;
     &.selected {
       .hardware-box-data {
         position: relative;
         background-color: $main_green;
         &:after {
-          @include font-general-icon(150px, 130px);
+          @include font-general-icon(rem(150px), rem(130px));
 
           position: absolute;
-          top: 40px;
-          right: 30px;
+          top: rem(40px);
+          right: rem(30px);
           color: #fff;
           content: $check-panel-icon;
         }
@@ -75,7 +75,7 @@
     position: absolute;
     text-decoration: none;
     &:before {
-      @include font-general-icon(50px, 50px);
+      @include font-general-icon(rem(50px), rem(50px));
 
       color: $main_green;
       content: $info-panel-icon;
@@ -91,14 +91,14 @@
     @include align-items(center);
     @include justify-content(center);
 
-    width: 305px;
+    width: rem(305px);
     border-top-left-radius: $radius_profile-box;
     border-bottom-left-radius: $radius_profile-box;
     background-color: #fff;
   }
   .hardware-logo {
     img {
-      max-width: 200px;
+      max-width: rem(200px);
     }
   }
   .hardware-box-data {
@@ -108,29 +108,29 @@
     @include flex-grow(2);
     @include transition(all .5s linear);
 
-    padding: 35px;
+    padding: rem(35px);
     border-top-right-radius: $radius_profile-box;
     border-bottom-right-radius: $radius_profile-box;
     background-color: #fff;
   }
   .hardware-data {
     float: left;
-    margin-right: 45px;
+    margin-right: rem(45px);
   }
   .hardware-descr {
-    @include roboto-md(36px);
+    @include roboto-md(rem(36px));
 
-    margin-bottom: 5px;
+    margin-bottom: rem(5px);
     color: $main_gray_txt;
   }
   .hardware-brand {
-    @include roboto-lt(36px);
+    @include roboto-lt(rem(36px));
 
-    margin-bottom: 5px;
+    margin-bottom: rem(5px);
     color: $main_gray_txt;
   }
   .hardware-label {
-    @include roboto-lt(22px);
+    @include roboto-lt(rem(22px));
 
     color: #8c8c8c;
   }

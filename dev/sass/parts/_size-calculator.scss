@@ -6,7 +6,7 @@
     background-color: $main_gray_btn;
     &:after {
       @extend .icon-setting;
-      @include font-general-icon(36px, 0);
+      @include font-general-icon(rem(36px), 0);
 
       left: 30%;
       position: absolute;
@@ -22,7 +22,7 @@
 
     &:after {
       @extend .icon-setting;
-      @include font-general-icon(36px, 0);
+      @include font-general-icon(rem(36px), 0);
 
       top: 45%;
       left: 40%;
@@ -33,6 +33,6 @@
   }
 
   .calc-value-limit {
-    @include roboto-lt(36px);
+    @include roboto-lt(rem(36px));
   }
 }

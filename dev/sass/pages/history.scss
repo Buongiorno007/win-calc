@@ -7,8 +7,8 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  padding: 50px;
-  padding-left: 100px;
+  padding: rem(50px);
+  padding-left: rem(100px);
   overflow-x: hidden;
   overflow-y: auto;
   background-color: #fafafa;
@@ -29,8 +29,8 @@
   .history-header {
     position: relative;
     width: 100%;
-    height: 150px;
-    margin-bottom: 50px;
+    height: rem(150px);
+    margin-bottom: rem(50px);
   }
   .user-info-container {
     top: 0;
@@ -48,7 +48,7 @@
     @include align-items(center);
 
     position: relative;
-    margin-right: 50px;
+    margin-right: rem(50px);
     &:last-child {
       margin: 0;
     }
@@ -67,8 +67,8 @@
     @extend .icon-setting;
 
     position: relative;
-    width: 50px;
-    height: 50px;
+    width: rem(50px);
+    height: rem(50px);
     background-color: transparent;
     &:after {
       position: absolute;
@@ -78,27 +78,27 @@
     }
   }
   .search-btn {
-    @include font-general-icon(40px, 1);
+    @include font-general-icon(rem(40px), 1);
     &:after {
       content: $search-icon;
     }
   }
   .calendar-btn {
-    @include font-general-icon(40px, 1);
+    @include font-general-icon(rem(40px), 1);
     &:after {
       content: $calendar-icon;
     }
   }
   .settings-btn {
-    @include font-nav-menu(40px, 1);
+    @include font-nav-menu(rem(40px), 1);
     &:after {
       content: $settings-icon;
     }
   }
   .time-interval {
-    @include roboto-bd(24px, 24px);
+    @include roboto-bd(rem(24px), rem(24px));
 
-    margin-left: 20px;
+    margin-left: rem(20px);
     color: $main_gray_txt;
   }
 
@@ -107,17 +107,17 @@
 
     display: none;
     position: absolute;
-    top: 78px;
-    right: -15px;
-    width: 655px;
+    top: rem(78px);
+    right: rem(-15px);
+    width: rem(655px);
     border-radius: $radius_rooms-dialog;
     background-color: #fff;
     z-index: 5;
     &:after {
       position: absolute;
-      top: -24px;
+      top: rem(-24px);
       width: 0;
-      border-width: 0 25px 25px;
+      border-width: 0 rem(25px) rem(25px);
       border-style: solid;
       border-color: #f8f8f8 transparent;
       content: '';
@@ -143,7 +143,7 @@
 //------Settings Filter
 
   .filter-divider {
-    @include roboto-bd(24px, 74px);
+    @include roboto-bd(rem(24px), rem(74px));
 
     padding-left: $config_menu-side_padding;
     background-color: #f8f8f8;
@@ -182,14 +182,14 @@
     }
   }
   .filter-label {
-    @include roboto-lt(36px, 87px);
+    @include roboto-lt(rem(36px), rem(87px));
 
     color: $main_gray_txt;
   }
 
   .select-icon {
     position: relative;
-    width: 65px;
+    width: rem(65px);
     &:after {
       @include top_left_coord(10, 0);
 
@@ -201,7 +201,7 @@
 
   .filter-select-icon {
     @extend .select-icon;
-    @include font-general-icon(30px, 70px);
+    @include font-general-icon(rem(30px), rem(70px));
 
     display: none;
   }
@@ -212,7 +212,7 @@
     text-align: center;
   }
   .filter-title {
-    @include roboto-bd(24px, 88px);
+    @include roboto-bd(rem(24px), rem(88px));
 
     border-top-left-radius: $radius_rooms-dialog;
     border-top-right-radius: $radius_rooms-dialog;
@@ -222,7 +222,7 @@
   }
 
   .period {
-    @include roboto-lt(36px, 88px);
+    @include roboto-lt(rem(36px), rem(88px));
 
     color: $main_orange;
     background-color: #fff;
@@ -238,7 +238,7 @@
     height: 0;
     overflow: hidden;
     &.active {
-      height: 326px;
+      height: rem(326px);
     }
   }
 
@@ -251,7 +251,7 @@
   .date-list {
     margin: 0;
     padding: 0;
-    max-height: 400px;
+    max-height: rem(400px);
     list-style: none;
     overflow-y: auto;
     background-color: #f8f8f8;
@@ -260,7 +260,7 @@
     @include display-flex();
     @include flex-flow(row nowrap);
     @include justify-content(space-around);
-    @include roboto-lt(36px, 64px);
+    @include roboto-lt(rem(36px), rem(64px));
 
     color: $main_gray_btn;
     cursor: pointer;
@@ -279,12 +279,12 @@
 
     position: relative;
     width: 93%;
-    height: 446px;
-    margin-bottom: 50px;
+    height: rem(446px);
+    margin-bottom: rem(50px);
   }
 
   .account {
-    @include box-shadow($main_gray_btn 0px 0px 15px 1px);
+    @include box-shadow($main_gray_btn 0 0 rem(15px) 1px);
 
     position: absolute;
     width: 100%;
@@ -315,7 +315,7 @@
     @include display-flex();
     @include flex-flow(row nowrap);
     @include align-items(center);
-    padding: 20px 30px;
+    padding: rem(20px) rem(30px);
 
     &:first-child {
       border-bottom: 1px solid $main_gray_btn;
@@ -328,7 +328,7 @@
       @include justify-content(space-between);
     }
     &.footer {
-      @include roboto-bd(48px);
+      @include roboto-bd(rem(48px));
 
       border-bottom-left-radius: $radius_account-bottom;
       border-bottom-right-radius: $radius_account-bottom;
@@ -342,35 +342,35 @@
       @include flex-flow(row nowrap);
     }
     &.phone {
-      margin-right: 30px;
-      padding-right: 30px;
+      margin-right: rem(30px);
+      padding-right: rem(30px);
       border-right: 1px solid $main_gray_btn;
     }
   }
   .complete-icon {
     @extend .select-icon;
-    @include font-general-icon(30px, 1);
+    @include font-general-icon(rem(30px), 1);
   }
   .account-id {
-    @include roboto-md(36px);
+    @include roboto-md(rem(36px));
 
     color: $main_gray_txt;
   }
   .account-addinfo {
-    @include roboto-lt(36px);
-    margin-left: 10px;
+    @include roboto-lt(rem(36px));
+    margin-left: rem(10px);
     color: #8c8c8c;
   }
 
   .account-date-filter,
   .account-label {
-    @include roboto-lt(22px);
+    @include roboto-lt(rem(22px));
 
     color: #8c8c8c;
   }
 
   .user-data {
-    @include roboto-lt(36px);
+    @include roboto-lt(rem(36px));
 
     color: $main_gray_txt;
   }
@@ -378,19 +378,19 @@
   .account-tool {
     @extend .button;
     @extend .icon-setting;
-    @include font-general-icon(45px, 1);
+    @include font-general-icon(rem(45px), 1);
 
     position: absolute;
-    width: 120px;
-    height: 112px;
+    width: rem(120px);
+    height: rem(112px);
     border-top-right-radius: $radius_account-tool;
     border-bottom-right-radius: $radius_account-tool;
     z-index: 1;
   }
   .account-select-btn {
-    @include font-general-icon(30px, 1);
-    top: 50px;
-    right: -120px;
+    @include font-general-icon(rem(30px), 1);
+    top: rem(50px);
+    right: rem(-120px);
     background-color: $main_green;
     &:after {
       color: #fff;
@@ -398,8 +398,8 @@
     }
   }
   .account-copy-btn {
-    top: 180px;
-    right: -120px;
+    top: rem(180px);
+    right: rem(-120px);
     background-color: #c6c6c6;
     &:after {
       color: $main_gray_txt;
@@ -407,8 +407,8 @@
     }
   }
   .account-print-btn {
-    top: 310px;
-    right: -120px;
+    top: rem(310px);
+    right: rem(-120px);
     background-color: #c6c6c6;
     &:after {
       color: $main_gray_txt;
@@ -416,26 +416,26 @@
     }
   }
   .account.done ~ .account-print-btn {
-    top: 50px;
+    top: rem(50px);
   }
   .account-delete-btn {
     @extend .small-cross-btn;
 
     position: absolute;
-    top: -20px;
-    right: -20px;
+    top: rem(-20px);
+    right: rem(-20px);
     background-color: $main_green;
     z-index: 2;
   }
   .account-change-btn {
     @extend .button;
-    @include roboto-rg(24px);
+    @include roboto-rg(rem(24px));
 
     position: absolute;
-    top: 200px;
-    right: 0px;
-    width: 160px;
-    height: 70px;
+    top: rem(200px);
+    right: 0;
+    width: rem(160px);
+    height: rem(70px);
     border-top-left-radius: $radius_account-tool;
     border-bottom-left-radius: $radius_account-tool;
     background-color: $main_green;
@@ -447,7 +447,7 @@
 
 .draft-view {
   .account-block {
-    height: 204px;
+    height: rem(204px);
   }
   .account-row {
     &:first-child {
@@ -459,7 +459,7 @@
     }
   }
   .account-print-btn {
-    top: 50px;
+    top: rem(50px);
   }
 }
 
@@ -485,7 +485,7 @@
   .result-icon {
     @extend .splash;
     @extend .icon-setting;
-    @include font-general-icon(370px, 1.5);
+    @include font-general-icon(rem(370px), 1.5);
 
     &:after {
       color: #c6c6c6;
@@ -493,11 +493,11 @@
     }
   }
   .result-text {
-    @include roboto-lt(36px);
+    @include roboto-lt(rem(36px));
     color: $main_gray_txt;
   }
   .searchin-text {
-    @include roboto-md(36px);
+    @include roboto-md(rem(36px));
   }
 }
 
@@ -506,12 +506,12 @@
   .dw-li {
     text-align: center !important;
     .dw-i {
-      font-size: 35px !important;
+      font-size: rem(35px) !important;
       div {
         display: none !important;
       }
       .dw-mon {
-        font-size: 35px !important;
+        font-size: rem(35px) !important;
       }
     }
   }

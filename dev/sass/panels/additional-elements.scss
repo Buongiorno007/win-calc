@@ -141,8 +141,8 @@ $aux-img-select-path: 'auxiliaries-selected';
     @include top_left_coord(0, 0);
 
     position: absolute;
-    width: 220px;
-    height: 390px;
+    width: rem(220px);
+    height: rem(390px);
     background: image-url($aux-img-path+'/grid.png') no-repeat;
   }
 
@@ -157,8 +157,8 @@ $aux-img-select-path: 'auxiliaries-selected';
     @include top_left_coord(0, 0);
 
     position: absolute;
-    width: 893px;
-    height: 261px;
+    width: rem(893px);
+    height: rem(261px);
     background: image-url($aux-img-path+'/visor.png') no-repeat;
   }
 
@@ -173,8 +173,8 @@ $aux-img-select-path: 'auxiliaries-selected';
     @include top_left_coord(0, 0);
 
     position: absolute;
-    width: 719px;
-    height: 206px;
+    width: rem(719px);
+    height: rem(206px);
     background: image-url($aux-img-path+'/spillway.png') no-repeat;
   }
 
@@ -189,8 +189,8 @@ $aux-img-select-path: 'auxiliaries-selected';
     @include top_left_coord(0, 0);
 
     position: absolute;
-    width: 650px;
-    height: 610px;
+    width: rem(650px);
+    height: rem(610px);
     background: image-url($aux-img-path+'/outside.png') no-repeat;
   }
 
@@ -205,8 +205,8 @@ $aux-img-select-path: 'auxiliaries-selected';
     @include top_left_coord(0, 0);
 
     position: absolute;
-    width: 720px;
-    height: 236px;
+    width: rem(720px);
+    height: rem(236px);
     background: image-url($aux-img-path+'/windowsill.png') no-repeat;
   }
 
@@ -229,32 +229,32 @@ $aux-img-select-path: 'auxiliaries-selected';
 
     position: absolute;
     z-index: 10;
-    width: 261px;
-    height: 79px;
+    width: rem(261px);
+    height: rem(79px);
     background: image-url($aux-img-path+'/louvers-top.png') no-repeat;
   }
 
   .aux-louver-midle {
     position: absolute;
-    left: 50px;
-    width: 261px;
-    height: 99px;
+    left: rem(50px);
+    width: rem(261px);
+    height: rem(99px);
     background: image-url($aux-img-path+'/louvers-middle.png') no-repeat;
   }
 
   .louver-midle-1 {
     z-index: 9;
-    top: 27px;
+    top: rem(27px);
   }
 
   .louver-midle-2 {
     z-index: 8;
-    top: 65px;
+    top: rem(65px);
   }
 
   .louver-midle-3 {
     z-index: 7;
-    top: 103px;
+    top: rem(103px);
   }
 
   .aux-louver-bottom {
@@ -262,8 +262,8 @@ $aux-img-select-path: 'auxiliaries-selected';
 
     position: absolute;
     z-index: 6;
-    width: 261px;
-    height: 104px;
+    width: rem(261px);
+    height: rem(104px);
     background: image-url($aux-img-path+'/louvers-bottom.png') no-repeat;
   }
 
@@ -284,8 +284,8 @@ $aux-img-select-path: 'auxiliaries-selected';
     @include top_left_coord(0, 50);
 
     position: absolute;
-    width: 660px;
-    height: 183px;
+    width: rem(660px);
+    height: rem(183px);
     background: image-url($aux-img-path+'/inside-slope-top.png') no-repeat;
   }
 
@@ -293,8 +293,8 @@ $aux-img-select-path: 'auxiliaries-selected';
     @include top_left_coord(180, 680);
 
     position: absolute;
-    width: 90px;
-    height: 434px;
+    width: rem(90px);
+    height: rem(434px);
     background: image-url($aux-img-path+'/inside-slope-right.png') no-repeat;
   }
 
@@ -302,8 +302,8 @@ $aux-img-select-path: 'auxiliaries-selected';
     @include top_left_coord(60, 0);
 
     position: absolute;
-    width: 97px;
-    height: 408px;
+    width: rem(97px);
+    height: rem(408px);
     background: image-url($aux-img-path+'/inside-slope-left.png') no-repeat;
   }
 
@@ -318,8 +318,8 @@ $aux-img-select-path: 'auxiliaries-selected';
     @include top_left_coord(0, 0);
 
     position: absolute;
-    width: 114px;
-    height: 120px;
+    width: rem(114px);
+    height: rem(120px);
     background: image-url($aux-img-path+'/fan.png') no-repeat;
   }
 
@@ -341,8 +341,8 @@ $aux-img-select-path: 'auxiliaries-selected';
     @include top_left_coord(0, 0);
 
     position: absolute;
-    width: 205px;
-    height: 168px;
+    width: rem(205px);
+    height: rem(168px);
     background: image-url($aux-img-path+'/force-connector.png') no-repeat;
   }
 
@@ -351,8 +351,8 @@ $aux-img-select-path: 'auxiliaries-selected';
     @include top_left_coord(30, 90);
 
     position: absolute;
-    width: 205px;
-    height: 168px;
+    width: rem(205px);
+    height: rem(168px);
     background: image-url($aux-img-path+'/balcon-connector.png') no-repeat;
   }
 
@@ -367,8 +367,8 @@ $aux-img-select-path: 'auxiliaries-selected';
     @include top_left_coord(0, 0);
 
     position: absolute;
-    width: 106px;
-    height: 126px;
+    width: rem(106px);
+    height: rem(126px);
     background: image-url($aux-img-path+'/handle.png') no-repeat;
   }
 
@@ -419,7 +419,7 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   .aux-windowsill-txt {
     @include top_left_coord(100, 750);
-    width: 300px;
+    width: rem(300px);
   }
 
   .aux-handle-txt {
@@ -458,7 +458,7 @@ $aux-img-select-path: 'auxiliaries-selected';
     &.horisontal {
       @include flex-flow(row wrap);
       @include align-items(center);
-      min-width: 520px;
+      min-width: rem(520px);
     }
     &.vertival {
       @include flex-flow(column wrap);
@@ -466,7 +466,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   }
 
   .aux-info-box {
-    width: 250px;
+    width: rem(250px);
   }
 
   .aux-title {
@@ -477,11 +477,11 @@ $aux-img-select-path: 'auxiliaries-selected';
     @extend .button;
     @extend .splash;
     @include top_left_coord(420, 520);
-    @include font-general-icon(30px, 1);
+    @include font-general-icon(rem(30px), 1);
 
     position: absolute;
-    width: 50px;
-    height: 50px;
+    width: rem(50px);
+    height: rem(50px);
     border-radius: 50%;
     background-color: $main_orange;
     z-index: 11;
@@ -493,7 +493,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   .scheme-view-dialog {
     @extend .modal-dialog;
 
-    height: 900px;
+    height: rem(900px);
     overflow: hidden;
     z-index: 20;
 

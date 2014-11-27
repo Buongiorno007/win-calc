@@ -14,11 +14,11 @@
 
   .cell {
     @extend .button;
-    @include roboto-lt(36px);
+    @include roboto-lt(rem(36px));
 
     display: block;
-    width: 156px;
-    height: 100px;
+    width: rem(156px);
+    height: rem(100px);
   }
 
   .calc-interval {
@@ -26,12 +26,12 @@
     @include flex-flow(row wrap);
     @include align-items(center);
 
-    height: 100px;
+    height: rem(100px);
     background-color: #fff;
   }
 
   .calc-label-limit {
-    @include roboto-lt(22px);
+    @include roboto-lt(rem(22px));
 
     text-align: center;
     color: $main_gray_btn;

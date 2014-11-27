@@ -3,25 +3,25 @@
   @extend .small-button;
   @extend .ghost-button;
 
-  padding: 0 30px;
+  padding: 0 rem(30px);
   background-color: transparent;
 }
 
 .parameters-block {
   .aux-title {
     @extend .truncated;
-    @include roboto-lt(36px);
+    @include roboto-lt(rem(36px));
   }
   .aux-params-but {
     @extend .splash;
     @extend .ghost-button;
     @extend .small-button;
 
-    padding: 0 20px;
+    padding: 0 rem(20px);
     background-color: transparent;
   }
   .aux-label {
-    @include roboto-lt(22px);
+    @include roboto-lt(rem(22px));
 
     color: $main_gray_txt;
   }
@@ -29,7 +29,7 @@
 
 .aux-params {
   float: left;
-  margin-right: 10px;
+  margin-right: rem(10px);
 
   &.selected {
     .aux-params-but {
@@ -55,13 +55,13 @@
 
 
 .aux-color {
-  @include font-general-icon(30px, 1);
+  @include font-general-icon(rem(30px), 1);
   @extend .splash;
   @extend .button;
 
   position: relative;
-  width: 45px;
-  height: 45px;
+  width: rem(45px);
+  height: rem(45px);
   padding: 0;
   &.selected {
     border-style: solid;
@@ -76,7 +76,7 @@
     }
   }
   img {
-    width: 45px;
+    width: rem(45px);
   }
 }
 
@@ -96,7 +96,7 @@
   cursor: pointer;
 }
 .aux-price {
-  @include roboto-bd(36px);
+  @include roboto-bd(rem(36px));
   min-width: 20%;
   text-align: right;
   color: $main_gray_txt;

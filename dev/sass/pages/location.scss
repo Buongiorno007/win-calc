@@ -2,14 +2,14 @@
   .header {
     @include justify-content(flex-start);
 
-    padding-left: 100px;
+    padding-left: rem(100px);
   }
   .back {
     @extend .icon-setting;
-    @include font-nav-menu(50px, 1);
+    @include font-nav-menu(rem(50px), 1);
 
-    width: 60px;
-    height: 60px;
+    width: rem(60px);
+    height: rem(60px);
     margin: 0;
     padding: 0;
     background: transparent;
@@ -19,15 +19,15 @@
     }
   }
   .location-container {
-    padding-left: 50px;
+    padding-left: rem(50px);
     color: #fff;
   }
   .lists {
-    height: 1450px;
+    height: rem(1450px);
   }
   .location-current,
   .location-label {
-    @include roboto-lt(36px, 99px);
+    @include roboto-lt(rem(36px), rem(99px));
   }
   .location-current {
     width: 65%;

@@ -16,7 +16,7 @@
   @include justify-content(center);
 
   position: relative;
-  padding: 0 20px;
+  padding: 0 rem(20px);
   color: #fff;
   background-color: #222;
 }
@@ -30,7 +30,7 @@
 }
 
 .setting-title {
-  @include roboto-md(36px, 99px);
+  @include roboto-md(rem(36px), rem(99px));
 }
 
 .setting-container {
@@ -38,17 +38,17 @@
   @include flex-flow(row nowrap);
 
   overflow: hidden;
-  padding: 50px 0 0 50px;
+  padding: rem(50px) 0 0 rem(50px);
   color: #fff;
   .setting-user-foto {
     @extend .avatar;
 
     position: relative;
-    margin-right: 50px;
+    margin-right: rem(50px);
     cursor: pointer;
   }
   .change-foto {
-    @include roboto-lt(24px, 38px);
+    @include roboto-lt(rem(24px), rem(38px));
 
     position: absolute;
     bottom: 0;
@@ -62,60 +62,60 @@
     width: 100%;
   }
   .list {
-    margin-top: 50px;
+    margin-top: rem(50px);
     &:first-child {
-      margin-top: -30px;
+      margin-top: rem(-30px);
     }
     &:last-child {
-      margin-top: 90px;
+      margin-top: rem(90px);
       .item:first-child {
         border-top: 1px solid #222;
       }
     }
   }
   .divider {
-    @include roboto-bd(24px, 88px);
+    @include roboto-bd(rem(24px), rem(88px));
 
     text-transform: uppercase;
     color: $main_gray_btn;
   }
   .setting-item-label {
-    @include roboto-lt(36px, 88px);
+    @include roboto-lt(rem(36px), rem(88px));
 
-    min-width: 500px;
+    min-width: rem(500px);
   }
   .setting-item-data {
     @extend .truncated;
-    @include roboto-lt(36px, 88px);
+    @include roboto-lt(rem(36px), rem(88px));
 
     max-width: 65%;
     color: $main_orange;
   }
   .setting-item-change {
-    @include roboto-lt(36px, 88px);
+    @include roboto-lt(rem(36px), rem(88px));
 
     position: absolute;
     top: 0;
-    right: 100px;
+    right: rem(100px);
     color: $main_orange;
     &:after {
       @extend .icon-setting;
-      @include font-general-icon(50px, 50px);
+      @include font-general-icon(rem(50px), rem(50px));
       @include rotate(180deg);
 
       position: absolute;
-      top: 20px;
-      right: -48px;
+      top: rem(20px);
+      right: rem(-48px);
       display: block;
       content: $config_menu-arrow-icon;
     }
   }
   .phone-btn {
     @extend .button;
-    @include roboto-lt(50px, 1px);
-    width: 60px;
-    height: 60px;
-    margin-right: 40px;
+    @include roboto-lt(rem(50px), 1px);
+    width: rem(60px);
+    height: rem(60px);
+    margin-right: rem(40px);
     border-radius: 50%;
     color: #fff;
     &.delete-phone {

@@ -11,6 +11,6 @@
 }
 
 @mixin top_left_coord($top, $left) {
-  top: $top + px;
-  left: $left + px;
+  top: rem($top + px);
+  left: rem($left + px);
 }

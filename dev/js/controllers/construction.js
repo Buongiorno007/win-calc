@@ -204,7 +204,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
 
   //-------- Get number from calculator
   function setValueSize(newValue) {
-    if($scope.constructData.tempSize.length == 1 && $scope.constructData.tempSize[0] === 0) {
+    if($scope.constructData.tempSize.length === 1 && $scope.constructData.tempSize[0] === 0) {
       $scope.constructData.tempSize.length = 0;
     }
     if($scope.constructData.tempSize.length < 4) {

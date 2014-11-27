@@ -6,7 +6,7 @@
   }
 
   .calc-qty-limit {
-    @include roboto-bd(36px);
+    @include roboto-bd(rem(36px));
     color: $main_gray_txt;
   }
 }

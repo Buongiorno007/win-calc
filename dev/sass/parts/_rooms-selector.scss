@@ -6,10 +6,10 @@
   &:after {
     position: absolute;
     right: 35%;
-    bottom: -24px;
+    bottom: rem(-24px);
     display: block;
     width: 0;
-    border-width: 25px 25px 0;
+    border-width: rem(25px) rem(25px) 0;
     border-style: solid;
     border-color: rgba(#fff, .85) transparent;
     content: '';
@@ -19,17 +19,17 @@
     @include display-flex();
     @include justify-content(space-between);
     &:first-of-type {
-      margin-bottom: 25px;
+      margin-bottom: rem(25px);
     }
   }
   .room-block {
-    width: 404px;
-    height: 314px;
+    width: rem(404px);
+    height: rem(314px);
   }
   .room-box {
     width: 100%;
     height: 100%;
-    padding: 16px;
+    padding: rem(16px);
     border-radius: $radius_room-box_dialog;
     cursor: pointer;
     &:hover,
@@ -64,13 +64,13 @@
   }
   .room-title {
     @include background-image(linear-gradient(color-stops(rgba(#efefef, .1), #474747)));
-    @include roboto-rg(36px, 80px);
+    @include roboto-rg(rem(36px), rem(80px));
 
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    padding-left: 30px;
+    padding-left: rem(30px);
     color: #fff;
   }
 }

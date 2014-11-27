@@ -11,14 +11,14 @@
 
     &:after {
       @extend .icon-setting;
-      @include font-general-icon(60px, 1.5);
+      @include font-general-icon(rem(60px), 1.5);
       @include rotate(180deg);
       @include transition(transform 1s ease);
 
       position: absolute;
       z-index: 11;
-      top: 16px;
-      right: 20px;
+      top: rem(16px);
+      right: rem(20px);
       display: block;
       color: $main_orange;
       content: $config_menu-arrow-icon;
@@ -47,52 +47,52 @@
 
     position: absolute;
     top: 25%;
-    right: 20px;
-    width: 106px;
-    height: 66px;
+    right: rem(20px);
+    width: rem(106px);
+    height: rem(66px);
     overflow: hidden;
-    border-radius: 60px;
+    border-radius: rem(60px);
     border: 1px solid #d2d2d2;
 
     &.active {
       .check-bg-active {
-        width: 116px;
+        width: rem(116px);
       }
     }
   }
   .check-switcher.active ~ .check-handle {
-    right: 20px;
+    right: rem(20px);
   }
   .check-bg-active {
     @include transition(all 0.5s linear);
 
-    width: 30px;
+    width: rem(30px);
     height: 100%;
     background-color: $main_orange;
   }
   .check-bg-passive {
-    width: 100px;
+    width: rem(100px);
     height: 100%;
-    margin-left: -30px;
-    border-top-left-radius: 28px;
-    border-bottom-left-radius: 28px;
+    margin-left: rem(-30px);
+    border-top-left-radius: rem(28px);
+    border-bottom-left-radius: rem(28px);
     background-color: #fff;
   }
   .check-handle {
     @include transition(all 0.5s linear);
-    @include box-shadow($main_gray_btn 0px 5px 10px );
+    @include box-shadow($main_gray_btn 0 rem(5px) rem(10px) );
 
     top: 26%;
-    right: 62px;
+    right: rem(62px);
     position: absolute;
-    width: 60px;
-    height: 60px;
+    width: rem(60px);
+    height: rem(60px);
     border-radius: 50%;
     background-color: #fff;
   }
 
   .title {
-    margin: 10px 0;
+    margin: rem(10px) 0;
     color: $main_orange;
   }
 
@@ -104,7 +104,7 @@
     @include transition(all 0.5s linear);
 
     height: 0;
-    margin-left: -44px;
+    margin-left: rem(-44px);
     overflow-x: hidden;
     overflow-y: auto;
     background-color: #fff;
@@ -115,17 +115,17 @@
   }
   .drop-delivery {
     &.active {
-      height: 326px;
+      height: rem(326px);
     }
   }
   .drop-assembling {
     &.active {
-      height: 265px;
+      height: rem(265px);
     }
   }
   .drop-calendar {
     &.active {
-      height: 363px;
+      height: rem(363px);
     }
   }
   .dropdown-items-list {
@@ -134,7 +134,7 @@
     list-style: none;
   }
   .dropdown-item {
-    padding: 0 25px 0 44px;
+    padding: 0 rem(25px) 0 rem(44px);
     cursor: pointer;
     &:last-child {
       .dropdown-item-inner {
@@ -154,7 +154,7 @@
     @include justify-content(space-between);
     @include align-items(center);
 
-    height: 65px;
+    height: rem(65px);
     border-style: solid;
     border-width: 0 0 1px 0;
     border-color: $main_gray_btn;
@@ -162,7 +162,7 @@
 
   .drop-instalment {
     &.active {
-      height: 336px;
+      height: rem(336px);
     }
     .dropdown-item-inner {
       border-color: #fff;
@@ -172,7 +172,7 @@
     }
     .value-percent {
       position: relative;
-      padding-right: 70px;
+      padding-right: rem(70px);
     }
 
     .dropdown-item {
@@ -183,15 +183,15 @@
           border-color: $main_gray_btn;
         }
         .value {
-          @include roboto-rg(36px, 36px);
+          @include roboto-rg(rem(36px), rem(36px));
           color: $main_gray_txt;
         }
         .value-percent {
           &:after {
             @extend .icon-setting;
-            @include font-general-icon(36px, 1.5);
+            @include font-general-icon(rem(36px), 1.5);
             position: absolute;
-            right: 0px;
+            right: 0;
             line-height: 1;
             color: $main_orange;
             content: $check-panel-icon;
@@ -209,17 +209,17 @@
   }
 
   .calendar-price {
-    @include roboto-lt(24px, 2);
+    @include roboto-lt(rem(24px), 2);
     @extend .icon-setting;
     @extend .splash;
 
     position: relative;
     &.up {
       float: left;
-      margin-left: 25px;
+      margin-left: rem(25px);
       color: $error_color;
       &:before {
-        @include font-general-icon(26px, 1);
+        @include font-general-icon(rem(26px), 1);
         @include top_left_coord(12, -30);
         position: absolute;
         content: $triangle-up-icon;
@@ -227,10 +227,10 @@
     }
     &.down {
       float: right;
-      margin-right: 25px;
+      margin-right: rem(25px);
       color: $main_green;
       &:before {
-        @include font-general-icon(26px, 1);
+        @include font-general-icon(rem(26px), 1);
         @include top_left_coord(12, -30);
 
         position: absolute;
@@ -247,18 +247,18 @@
     @include transition(left .5s ease);
 
     position: absolute;
-    left: 500px;
-    width: 415px;
+    left: rem(500px);
+    width: rem(415px);
 
     &.active {
-     left: 0px;
+     left: 0;
     }
   }
   .price-without-instalments {
-    top: -120px
+    top: rem(-120px);
   }
   .price-with-instalments {
-    top: -220px
+    top: rem(-220px);
   }
 
   .order-btn {
@@ -270,8 +270,8 @@
     @extend .splash;
 
     width: 100%;
-    height: 110px;
-    margin: 20px 0;
+    height: rem(110px);
+    margin: rem(20px) 0;
     color: $main_gray_txt;
     background-color: #fff;
     border-color: $main_gray_btn;
@@ -284,11 +284,11 @@
   @include transition(left .5s ease);
 
   position: absolute;
-  bottom: 248px;
-  left: 500px;
-  width: 500px;
-  max-height: 200px;
-  padding: 30px;
+  bottom: rem(248px);
+  left: rem(500px);
+  width: rem(500px);
+  max-height: rem(200px);
+  padding: rem(30px);
   text-align: center;
   background: rgba(#f8f8f8, .95);
   border-top-left-radius: $radius_order;
@@ -296,10 +296,10 @@
   z-index: 1;
 
   &.active {
-    left: -500px;
+    left: rem(-500px);
   }
   .name {
-    @include roboto-lt(22px);
+    @include roboto-lt(rem(22px));
 
     color: #8c8c8c;
   }
@@ -317,5 +317,5 @@
 }
 .old-price-inst-tab {
   @extend .old-price-tab;
-  max-height: 300px;
+  max-height: rem(300px);
 }

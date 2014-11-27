@@ -22,17 +22,17 @@
     border: none;
   }
   .title {
-    @include roboto-md(36px, 99px);
+    @include roboto-md(rem(36px), rem(99px));
   }
   .save {
     @extend .middle-button;
     @extend .splash;
 
     position: absolute;
-    top: 13px;
-    right: 20px;
-    height: 70px;
-    padding: 0 28px;
+    top: rem(13px);
+    right: rem(20px);
+    height: rem(70px);
+    padding: 0 rem(28px);
     color: #fff;
     background-color: $main_orange;
   }
@@ -54,14 +54,14 @@
 
     position: relative;
     width: 100%;
-    height: 90px;
+    height: rem(90px);
     border-bottom: 1px solid #222;
     &.click {
       cursor: pointer;
     }
   }
   .set-input-txt {
-    @include roboto-lt(36px, 88px);
+    @include roboto-lt(rem(36px), rem(88px));
 
     width: 65%;
     padding: 0;

@@ -9,14 +9,14 @@
     @include justify-content(flex-start);
   }
   .info {
-    top: -30px;
-    right: 35px;
+    top: rem(-30px);
+    right: rem(35px);
   }
   .glass-block-footer {
     overflow-x: auto;
     min-width: 98%;
-    height: 370px;
-    margin-top: 50px;
+    height: rem(370px);
+    margin-top: rem(50px);
   }
   .footer-inner {
     @include display-flex();
@@ -24,10 +24,10 @@
   }
   .glass-box {
     @include transition(all .5s linear);
-    width: 515px;
-    min-width: 515px;
-    height: 310px;
-    margin-right: 50px;
+    width: rem(515px);
+    min-width: rem(515px);
+    height: rem(310px);
+    margin-right: rem(50px);
     &.selected {
       position: relative;
       background-color: $main_green;
@@ -46,31 +46,31 @@
 
     float: left;
     overflow: hidden;
-    max-width: 150px;
+    max-width: rem(150px);
     text-align: center;
     .label {
-      max-width: 150px;
+      max-width: rem(150px);
       word-wrap: break-word;
     }
   }
   .glass-img {
     img {
-      max-width: 150px;
+      max-width: rem(150px);
     }
   }
   .glass-box-data {
     float: right;
-    width: 225px;
+    width: rem(225px);
   }
   .glass-descr {
     @extend .truncated;
-    @include roboto-md(36px);
+    @include roboto-md(rem(36px));
 
-    margin-bottom: 50px;
+    margin-bottom: rem(50px);
     color: $main_gray_txt;
   }
   .label {
-    @include roboto-lt(22px);
+    @include roboto-lt(rem(22px));
 
     color: #8c8c8c;
   }

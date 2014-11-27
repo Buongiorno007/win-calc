@@ -10,7 +10,7 @@
   height: 100%;
   padding-left: $config_menu-side_padding;
   background: rgba(#f8f8f8, .95);
-  box-shadow: -3px 0 15px -5px rgba(0, 0, 0, .5);
+  box-shadow: rem(-3px) 0 rem(15px) rem(-5px) rgba(0, 0, 0, .5);
 
   .items-list {
     @include display-flex();
@@ -19,14 +19,14 @@
 
     width: 100%;
     margin: 0;
-    padding: 0 0 20px 0;
+    padding: 0 0 rem(20px) 0;
     list-style: none;
   }
 
   .item {
     max-width: 100%;
-    min-height: 120px;
-    padding: 10px $config_menu-side_padding 10px 0;
+    min-height: rem(120px);
+    padding: rem(10px) $config_menu-side_padding rem(10px) 0;
     border-bottom: 1px solid $main_gray_btn;
     cursor: pointer;
     &.active {
@@ -40,27 +40,27 @@
   }
 
   .title {
-    @include roboto-bd(24px);
+    @include roboto-bd(rem(24px));
 
     text-transform: uppercase;
   }
 
   .value {
     @extend .truncated;
-    @include roboto-lt(36px);
+    @include roboto-lt(rem(36px));
 
-    margin: 5px 0;
+    margin: rem(5px) 0;
     color: $main_gray_txt;
   }
 
   .name {
-    @include roboto-lt(22px);
+    @include roboto-lt(rem(22px));
 
     color: #8c8c8c;
     &.aside {
       @extend .name;
 
-      margin-left: 10px;
+      margin-left: rem(10px);
       word-wrap: break-word;
     }
   }
@@ -87,17 +87,17 @@
     position: relative;
     float: left;
     &:nth-last-child(3n+3) {
-      margin-left: 4px;
+      margin-left: rem(4px);
     }
     &:nth-last-child(3) {
       margin-left: 0;
     }
   }
   .price-currency {
-    @include roboto-lt(50px, $price_container-height - 8px);
+    @include roboto-lt(rem(50px), $price_container-height - rem(8px));
 
-    margin-left: 10px;
-    padding-top: 8px;
+    margin-left: rem(10px);
+    padding-top: rem(8px);
     color: $main_gray_txt;
   }
   .cart-btn {
@@ -106,6 +106,6 @@
 
     position: relative;
     width: 100%;
-    margin: 20px 0;
+    margin: rem(20px) 0;
   }
 }

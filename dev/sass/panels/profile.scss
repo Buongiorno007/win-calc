@@ -8,35 +8,35 @@
     @include justify-content(space-between);
     @include align-items(space-between);
 
-    width: 424px;
-    min-width: 424px;
-    height: 532px;
-    margin: 25px 50px 25px 0;
+    width: rem(424px);
+    min-width: rem(424px);
+    height: rem(532px);
+    margin: rem(25px) rem(50px) rem(25px) 0;
     &.selected {
       &:after {
-        top: 45px;
-        right: 45px;
+        top: rem(45px);
+        right: rem(45px);
       }
     }
   }
   .info {
-    top: -30px;
-    right: 35px;
+    top: rem(-30px);
+    right: rem(35px);
   }
   .profile-descr {
     @extend .truncated;
-    @include roboto-md(36px);
+    @include roboto-md(rem(36px));
 
-    margin: 30px 0;
+    margin: rem(30px) 0;
     color: $main_gray_txt;
   }
   .profile-country {
-    @include roboto-lt(36px);
+    @include roboto-lt(rem(36px));
 
     color: $main_gray_txt;
   }
   .label {
-    @include roboto-lt(22px);
+    @include roboto-lt(rem(22px));
 
     color: #8c8c8c;
   }

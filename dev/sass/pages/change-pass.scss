@@ -1,10 +1,10 @@
 .password-page {
   .back {
     @extend .icon-setting;
-    @include font-general-icon(50px, 1);
+    @include font-general-icon(rem(50px), 1);
 
-    width: 60px;
-    height: 60px;
+    width: rem(60px);
+    height: rem(60px);
     margin: 0;
     padding: 0;
     background: transparent;
@@ -14,20 +14,20 @@
     }
   }
   .psw-container {
-    padding-left: 50px;
+    padding-left: rem(50px);
     color: #fff;
   }
   .lists {
     overflow: visible;
   }
   .psw-label {
-    @include roboto-lt(36px, 88px);
+    @include roboto-lt(rem(36px), rem(88px));
 
-    min-width: 400px;
+    min-width: rem(400px);
     color: $main_gray_btn;
   }
   .psw-data {
-    @include roboto-lt(36px, 88px);
+    @include roboto-lt(rem(36px), rem(88px));
     color: $main_orange;
   }
 }

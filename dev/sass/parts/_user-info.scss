@@ -16,20 +16,20 @@
   .user-foto {
     @extend .avatar;
 
-    margin: 0 20px;
+    margin: 0 rem(20px);
   }
   .icon-location {
     @extend .splash;
 
     position: relative;
-    width: 35px;
+    width: rem(35px);
     &:before {
       @extend .icon-setting;
-      @include font-general-icon(30px, 1);
+      @include font-general-icon(rem(30px), 1);
 
       position: absolute;
-      top: -30px;
-      margin-right: 6px;
+      top: rem(-30px);
+      margin-right: rem(6px);
       color: $main_orange;
       content: $geolocation_filled-icon;
     }
@@ -38,12 +38,12 @@
     text-align: center;
   }
   .user-location {
-    @include roboto-md(36px, 54px);
+    @include roboto-md(rem(36px), rem(54px));
 
     color: $main_gray_txt;
   }
   .user-name {
-    @include roboto-lt(24px, 40px);
+    @include roboto-lt(rem(24px), rem(40px));
 
     color: $main_gray_txt;
   }

@@ -10,12 +10,12 @@
       background-color: #f0f0f0;
       &:before {
         @extend .icon-setting;
-        @include font-general-icon(84px, 1);
+        @include font-general-icon(rem(84px), 1);
 
         position: absolute;
         z-index: 11;
-        top: 16px;
-        left: -80px;
+        top: rem(16px);
+        left: rem(-80px);
         display: block;
         color: $main_orange;
         content: $config_menu-arrow-icon;
@@ -23,17 +23,17 @@
     }
   }
   .item-header {
-    min-height: 350px;
+    min-height: rem(350px);
   }
   .title {
-    margin: 10px 0;
+    margin: rem(10px) 0;
     color: $main_orange;
   }
   .icon {
     @extend .splash;
 
-    height: 120px;
-    margin: 20px 0;
+    height: rem(120px);
+    margin: rem(20px) 0;
     img {
       max-height: 100%;
     }
@@ -41,7 +41,7 @@
 
   .additional-items-list {
     overflow-y: auto;
-    max-height: 200px;
+    max-height: rem(200px);
     padding: 0;
     list-style: none;
   }
@@ -54,13 +54,13 @@
   }
   .qty {
     @extend .splash;
-    @include roboto-lt(36px, 60px);
+    @include roboto-lt(rem(36px), rem(60px));
 
     position: absolute;
-    top: -20px;
-    right: -10px;
-    width: 60px;
-    height: 60px;
+    top: rem(-20px);
+    right: rem(-10px);
+    width: rem(60px);
+    height: rem(60px);
     color: #8c8c8c;
     border-radius: 50%;
     background-color: #fff;

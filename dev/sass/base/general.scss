@@ -98,7 +98,7 @@ body {
 }
 
 .big-button {
-  @include roboto-lt(48px);
+  @include roboto-lt(rem(48px));
   @extend .button;
 
   border-radius: $radius_general-big_button;
@@ -106,13 +106,13 @@ body {
 
 .middle-button {
   @extend .button;
-  @include roboto-rg(24px, 36px);
+  @include roboto-rg(rem(24px), rem(36px));
 
   border-radius: $radius_general-big_button;
 }
 
 .small-button {
-  @include roboto-lt(36px);
+  @include roboto-lt(rem(36px));
   @extend .button;
 
   border-radius: $radius_general-small_button;
@@ -121,7 +121,7 @@ body {
 .orange-big-btn {
   @extend .big-button;
 
-  height: 110px;
+  height: rem(110px);
   color: #fff;
   background-color: $main_orange;
 }
@@ -129,10 +129,10 @@ body {
 .menu-btn {
   @extend .button;
   @extend .icon-setting;
-  @include font-general-icon(50px, 1);
+  @include font-general-icon(rem(50px), 1);
 
-  width: 60px;
-  height: 60px;
+  width: rem(60px);
+  height: rem(60px);
   margin: 0;
   padding: 0;
   background: transparent;
@@ -176,8 +176,8 @@ body {
 
   //display: none;
   position: absolute;
-  width: 1350px;
-  padding: 80px 60px;
+  width: rem(1350px);
+  padding: rem(80px) rem(60px);
   border-radius: $radius_rooms-dialog;
   background-color: rgba(#fff, .85);
 
@@ -200,10 +200,10 @@ body {
 }
 .small-cross-btn {
   @extend .cross-btn;
-  @include font-general-icon(40px, 1);
+  @include font-general-icon(rem(40px), 1);
 
-  width: 50px;
-  height: 50px;
+  width: rem(50px);
+  height: rem(50px);
   &:after {
     top: 8%;
     left: 10%;
@@ -215,8 +215,8 @@ body {
   @extend .small-cross-btn;
 
   position: absolute;
-  top: 30px;
-  right: 30px;
+  top: rem(30px);
+  right: rem(30px);
   background-color: $main_orange;
 }
 
@@ -234,15 +234,15 @@ body {
   @extend .button;
   @include rotate(90deg);
   @include top_left_coord(700, -126);
-  @include roboto-bd(24px);
+  @include roboto-bd(rem(24px));
 
   position: absolute;
-  width: 312px;
-  height: 60px;
+  width: rem(312px);
+  height: rem(60px);
   background-color: #fff;
   border-color: $main_gray_btn;
   border-top-color: $main_orange;
-  border-width: 5px 1px 0 1px;
+  border-width: rem(5px) 1px 0 1px;
   border-style: solid;
   border-top-left-radius: $radius_frame-tab;
   border-top-right-radius: $radius_frame-tab;
@@ -252,17 +252,17 @@ body {
 
 .test {
   position: absolute;
-  left: 50px;
-  top: 50px;
+  left: rem(50px);
+  top: rem(50px);
   z-index: 999;
-  padding: 20px;
+  padding: rem(20px);
   background-color: red;
-  box-shadow: 0px 0px 20px 10px rgba(0,0,0,0.3);
+  box-shadow: 0 0 rem(20px) rem(10px) rgba(0,0,0,0.3);
 
   input {
-    height: 50px;
-    width: 300px;
-    font-size: 36px;
+    height: rem(50px);
+    width: rem(300px);
+    font-size: rem(36px);
   }
 }
 
@@ -323,11 +323,11 @@ body {
 
 .size-rect {
   stroke: $main_green;
-  stroke-width: 3px;
+  stroke-width: rem(3px);
   fill: #fff;
 }
 .size-value {
-  font-size: 80px;
+  font-size: rem(80px);
   stroke: #D2D2D2;
   stroke-width: 1px;
   text-anchor: middle;
@@ -340,7 +340,7 @@ body {
   //@include rotate(180deg);
 }
 .size-value-edit {
-  font-size: 80px;
+  font-size: rem(80px);
   stroke: $main_green;
   fill: $main_green;
   stroke-width: 1px;

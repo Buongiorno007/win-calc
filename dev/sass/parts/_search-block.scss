@@ -1,24 +1,24 @@
 .search-block {
   position: relative;
-  margin-bottom: 50px;
+  margin-bottom: rem(50px);
 
   &:before {
     @extend .icon-setting;
-    @include font-general-icon(50px, 1);
+    @include font-general-icon(rem(50px), 1);
 
     position: absolute;
     top: 25%;
-    left: 30px;
+    left: rem(30px);
     color: $main_orange;
     content: $search-icon;
   }
 
   .search-input {
-    @include roboto-lt(36px);
+    @include roboto-lt(rem(36px));
 
-    width: 1150px;
-    height: 115px;
-    padding-left: 100px;
+    width: rem(1150px);
+    height: rem(115px);
+    padding-left: rem(100px);
     border: 1px solid #dcdcdc;
     border-radius: $radius_login-container;
     background-color: #fff;
@@ -33,13 +33,13 @@
   .delete-search {
     @extend .cross-btn;
     @extend .splash;
-    @include font-general-icon(40px, 1);
+    @include font-general-icon(rem(40px), 1);
 
     position: absolute;
     top: 25%;
-    left: 1060px;
-    width: 60px;
-    height: 60px;
+    left: rem(1060px);
+    width: rem(60px);
+    height: rem(60px);
     background-color: $main_gray_btn;
     &:after {
       top: 16%;
@@ -52,9 +52,9 @@
 
     position: absolute;
     top: 25%;
-    left: 1180px;
-    height: 70px;
-    padding: 0 28px;
+    left: rem(1180px);
+    height: rem(70px);
+    padding: 0 rem(28px);
     color: #fff;
     background-color: $main_orange;
   }

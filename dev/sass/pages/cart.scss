@@ -10,8 +10,8 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  padding: 50px;
-  padding-left: 100px;
+  padding: rem(50px);
+  padding-left: rem(100px);
   overflow-x: auto;
   overflow-y: auto;
   &.full-view {
@@ -35,8 +35,8 @@
 
     position: relative;
     width: 100%;
-    height: 150px;
-    margin-bottom: 40px;
+    height: rem(150px);
+    margin-bottom: rem(40px);
   }
   .user-info-container {
     top: 0;
@@ -46,11 +46,11 @@
     @extend .splash;
 
     position: relative;
-    padding: 18px 30px;
+    padding: rem(18px) rem(30px);
     z-index: 2;
   }
   .additional-elements {
-    margin-right: 20px;
+    margin-right: rem(20px);
     background-color: #dcdcdc;
     color: $main_gray_txt;
   }
@@ -61,10 +61,10 @@
 
   .order {
     @extend .splash;
-    @include box-shadow(rgba(black, .3) 15px 10px 30px 0px);
+    @include box-shadow(rgba(black, .3) rem(15px) rem(10px) rem(30px) 0);
 
     position: relative;
-    margin-right: 50px;
+    margin-right: rem(50px);
   }
   .order-header {
     position: relative;
@@ -73,15 +73,15 @@
     @extend .small-cross-btn;
 
     position: absolute;
-    top: -20px;
-    right: -20px;
+    top: rem(-20px);
+    right: rem(-20px);
     background-color: $main_green;
     z-index: 1;
   }
 
   .order-value {
     @extend .truncated;
-    @include roboto-lt(36px);
+    @include roboto-lt(rem(36px));
 
     color: $main_gray_txt;
   }
@@ -89,7 +89,7 @@
     cursor: pointer;
   }
   .order-label {
-    @include roboto-lt(22px);
+    @include roboto-lt(rem(22px));
 
     color: #8c8c8c;
   }
@@ -99,16 +99,16 @@
   }
   .order-tool {
     @extend .small-button;
-    width: 65px;
-    height: 45px;
+    width: rem(65px);
+    height: rem(45px);
     line-height: 1;
     background-color: $main_green;
     color: #fff;
   }
   .order-footer {
-    @include roboto-md(48px, 100px);
+    @include roboto-md(rem(48px), rem(100px));
 
-    padding-left: 50px;
+    padding-left: rem(50px);
     border-bottom-left-radius: $radius_order;
     border-bottom-right-radius: $radius_order;
     background-color: #f0f0f0;
@@ -118,9 +118,9 @@
   // AddElements Detail Block
   .addelements-detail {
     position: fixed;
-    top: 240px;
-    left: 1260px;
-    width: 512px;
+    top: rem(240px);
+    left: rem(1260px);
+    width: rem(512px);
     background-color: #fff;
     border-bottom-left-radius: $radius_order;
     border-bottom-right-radius: $radius_order;
@@ -130,13 +130,13 @@
     @include display-flex();
     @include flex-flow(row nowrap);
 
-    height: 100px;
+    height: rem(100px);
   }
   .addelements-detail-edit {
     @extend .button;
     @extend .icon-setting;
     @include flex-grow(3);
-    @include roboto-lt(28px, 100px);
+    @include roboto-lt(rem(28px), rem(100px));
     background-color: $main_green;
     color: #fff;
   }
@@ -146,21 +146,21 @@
     @include flex-grow(1);
     background-color: $main_gray_btn;
     &:after {
-      @include font-general-icon(40px, 1);
+      @include font-general-icon(rem(40px), 1);
       color: #fff;
       content: $cross-icon;
     }
   }
   .product-template {
-    padding: 50px;
+    padding: rem(50px);
     border-bottom: 1px solid $main_gray_btn;
   }
   .product-template-icon {
-    margin-bottom: 20px;
+    margin-bottom: rem(20px);
   }
   .product-icon-thumb {
-    width: 200px;
-    margin-right: 10px;
+    width: rem(200px);
+    margin-right: rem(10px);
   }
   .product-value {
     @extend .order-value;
@@ -170,7 +170,7 @@
     @extend .order-label;
   }
   .product-icon-label {
-    max-width: 115px;
+    max-width: rem(115px);
     text-align: right;
   }
   .addelements-detail-row {
@@ -180,10 +180,10 @@
     @include align-items(center);
   }
   .addelements-detail-content {
-    height: 740px;
+    height: rem(740px);
     overflow-x: hidden;
     overflow-y: auto;
-    padding: 30px 50px;
+    padding: rem(30px) rem(50px);
   }
   .addelements-detail-list {
     list-style: none;
@@ -191,7 +191,7 @@
     padding: 0;
   }
   .addelements-detail-item {
-    padding-top: 20px;
+    padding-top: rem(20px);
     border-bottom: 1px solid $main_gray_btn;
   }
   .addelement-parameters {
@@ -199,32 +199,32 @@
     @include flex-flow(row wrap);
     @include justify-content(flex-start);
     @include align-items(center);
-    margin: 20px 0;
+    margin: rem(20px) 0;
   }
   .addelement-value {
     @extend .order-value;
-    margin-right: 20px;
+    margin-right: rem(20px);
 
     img {
-      width: 45px;
+      width: rem(45px);
     }
   }
   .addelement-label {
     @extend .order-label;
   }
   .addelement-price-value {
-    @include roboto-bd(36px);
+    @include roboto-bd(rem(36px));
 
     color: $main_gray_txt;
-    margin-right: 20px;
+    margin-right: rem(20px);
   }
   .price-one-product {
-    margin-top: 30px;
+    margin-top: rem(30px);
   }
   .addelements-detail-footer {
     @extend .order-footer;
     @extend .addelements-detail-row;
-    padding-right: 50px;
+    padding-right: rem(50px);
   }
 }
 
@@ -235,47 +235,47 @@
     display: inline-flex;
   }
   .order {
-    width: 512px;
+    width: rem(512px);
     float: left;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: rem(20px);
+    border-bottom-left-radius: rem(20px);
   }
   .order-header {
-    height: 320px;
+    height: rem(320px);
   }
   .order-header-fon {
-    width: 512px;
-    height: 320px;
+    width: rem(512px);
+    height: rem(320px);
     cursor: pointer;
   }
   .order-template {
     position: absolute;
-    bottom: -73px;
-    left: 10px;
-    padding: 20px;
+    bottom: rem(-73px);
+    left: rem(10px);
+    padding: rem(20px);
     background-color: #fff;
     border-radius: $radius_order-template;
   }
   .icon-thumb {
-    height: 100px;
+    height: rem(100px);
   }
   .order-coeff {
-    bottom: -60px;
-    right: 5px;
+    bottom: rem(-60px);
+    right: rem(5px);
     position: absolute;
     background-color: #fff;
   }
   .coeff-label {
-    @include roboto-lt(28px);
+    @include roboto-lt(rem(28px));
     color: #8c8c8c;
   }
   .coeff-value {
-    @include roboto-lt(42px);
+    @include roboto-lt(rem(42px));
     color: $main_green;
-    margin-left: 5px;
+    margin-left: rem(5px);
   }
   .order-content {
-    padding: 70px 40px 0 50px;
+    padding: rem(70px) rem(40px) 0 rem(50px);
     background-color: #fff;
   }
   .order-list {
@@ -284,19 +284,19 @@
     padding: 0;
   }
   .order-item {
-    padding: 7px 0;
+    padding: rem(7px) 0;
     border-bottom: 1px solid $main_gray_btn;
   }
   .order-qty {
     @include flex-flow(row nowrap);
     @include justify-content(space-between);
-    height: 100px;
+    height: rem(100px);
   }
   .qty-label {
-    max-width: 170px;
+    max-width: rem(170px);
   }
   .order-footer {
-    padding-left: 50px;
+    padding-left: rem(50px);
   }
 
 }
@@ -307,39 +307,39 @@
     @include flex-flow(row wrap);
   }
   .order {
-    width: 420px;
-    margin-bottom: 50px;
-    margin-right: 44px;
+    width: rem(420px);
+    margin-bottom: rem(50px);
+    margin-right: rem(44px);
     border-radius: $radius_order;
     background-color: #fff;
     text-align: center;
   }
   .icon-thumb {
-    height: 126px;
+    height: rem(126px);
     cursor: pointer;
   }
   .order-header {
-    padding-top: 40px;
+    padding-top: rem(40px);
   }
   .order-content {
-    padding: 40px 20px;
+    padding: rem(40px) rem(20px);
   }
   .order-value {
     @extend .truncated;
   }
   .addelements-btn {
-    margin-top: 10px;
-    padding: 10px 0;
+    margin-top: rem(10px);
+    padding: rem(10px) 0;
     border-top: 1px solid $main_gray_btn;
     border-bottom: 1px solid $main_gray_btn;
   }
   .order-qty {
     @include flex-flow(row wrap);
     @include justify-content(space-around);
-    padding-top: 40px;
+    padding-top: rem(40px);
   }
   .order-label {
-    padding-top: 10px;
+    padding-top: rem(10px);
   }
 }
 

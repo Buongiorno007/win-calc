@@ -1,4 +1,4 @@
-$door-config-header: 355px;
+$door-config-header: rem(355px);
 $door-config-content: $ipad-height - $door-config-header;
 
 .construction-container {
@@ -15,16 +15,16 @@ $door-config-content: $ipad-height - $door-config-header;
   height: 100%;
 
   .construction-label {
-    @include roboto-bd(24px, 24px);
+    @include roboto-bd(rem(24px), rem(24px));
 
-    margin-top: 20px;
+    margin-top: rem(20px);
     text-transform: uppercase;
     color: $main_gray_txt;
   }
   .construction-descrip {
-    @include roboto-lt(24px);
+    @include roboto-lt(rem(24px));
 
-    margin-bottom: 10px;
+    margin-bottom: rem(10px);
     color: #666;
   }
 }
@@ -37,18 +37,18 @@ $door-config-content: $ipad-height - $door-config-header;
   @include top_left_coord(0, 0);
 
   .figure-lists {
-    width: 220px;
+    width: rem(220px);
     list-style: none;
     margin: 0;
     padding: 0;
     background-color: #fff;
   }
   .figure-item {
-    height: 215px;
+    height: rem(215px);
     border-style: solid;
     border-color: #d2d2d2;
     border-width: 0 1px 1px 0;
-    padding: 40px;
+    padding: rem(40px);
     text-align: center;
     cursor: pointer;
 
@@ -61,7 +61,7 @@ $door-config-content: $ipad-height - $door-config-header;
   }
   .figure-icon {
     @extend .splash;
-    @include font-general-icon(88px, 1);
+    @include font-general-icon(rem(88px), 1);
     color: $main_green;
   }
 
@@ -98,9 +98,9 @@ $door-config-content: $ipad-height - $door-config-header;
 
   .left-menu-footer {
     position: absolute;
-    left: 60px;
-    bottom: 50px;
-    width: 350px;
+    left: rem(60px);
+    bottom: rem(50px);
+    width: rem(350px);
   }
   .footer-description {
     @extend .construction-descrip;
@@ -110,9 +110,9 @@ $door-config-content: $ipad-height - $door-config-header;
     @extend .splash;
 
     display: block;
-    width: 318px;
-    height: 72px;
-    padding: 13px 26px;
+    width: rem(318px);
+    height: rem(72px);
+    padding: rem(13px) rem(26px);
     color: #fff;
     background-color: $main_green;
   }
@@ -123,7 +123,7 @@ $door-config-content: $ipad-height - $door-config-header;
 .construction-block {
   width: $ipad-width;
   height: $ipad-height;
-  //padding: 250px;
+  //padding: rem(250px);
   text-align: center;
   //overflow: auto;
 }
@@ -144,23 +144,23 @@ $door-config-content: $ipad-height - $door-config-header;
   right: 0;
 
   .right-menu-header {
-    margin-top: 50px;
+    margin-top: rem(50px);
   }
   .construct-tools {
     @extend .cross-btn;
     @extend .splash;
 
     position: relative;
-    width: 85px;
-    height: 85px;
-    margin-right: 50px;
+    width: rem(85px);
+    height: rem(85px);
+    margin-right: rem(50px);
     &:after {
       top: 25%;
       left: 25%;
     }
   }
   .save-construction {
-    @include font-general-icon(28px, 1.5);
+    @include font-general-icon(rem(28px), 1.5);
 
     background-color: $main_green;
     &:after{
@@ -168,7 +168,7 @@ $door-config-content: $ipad-height - $door-config-header;
     }
   }
   .close-construction {
-    @include font-general-icon(40px, 1);
+    @include font-general-icon(rem(40px), 1);
     background-color: $main_gray_btn;
   }
 
@@ -176,21 +176,21 @@ $door-config-content: $ipad-height - $door-config-header;
     position: absolute;
     right: 0;
     bottom: 0;
-    width: 478px;
-    height: 510px;
+    width: rem(478px);
+    height: rem(510px);
   }
   .door-config-menu {
     position: absolute;
     top: 25%;
-    right: 50px;
-    width: 300px;
+    right: rem(50px);
+    width: rem(300px);
     text-align: right;
   }
   .door-config-btn {
     @extend .button;
     @extend .splash;
     @extend .icon-setting;
-    @include font-general-icon(130px, 1);
+    @include font-general-icon(rem(130px), 1);
 
     margin: 0;
     padding: 0;
@@ -207,7 +207,7 @@ $door-config-content: $ipad-height - $door-config-header;
   }
   .door-config-label {
     @extend .construction-label;
-    margin-bottom: 30px;
+    margin-bottom: rem(30px);
   }
   .door-config-description {
     @extend .construction-descrip;
@@ -217,12 +217,12 @@ $door-config-content: $ipad-height - $door-config-header;
     @include transition(all 0.5s linear);
 
     position: absolute;
-    bottom: -1000px;
-    width: 475px;
+    bottom: rem(-1000px);
+    width: rem(475px);
     background-color: #f8f8f8;
     border-left: 1px solid $main_gray_btn;
     &.active {
-      bottom: 0px;
+      bottom: 0;
     }
   }
 
@@ -254,7 +254,7 @@ $door-config-content: $ipad-height - $door-config-header;
     @include top_left_coord(0, -460);
 
     position: absolute;
-    width: 512px;
+    width: rem(512px);
   }
   .step1 {
     @include top_left_coord(0, 0);
@@ -280,10 +280,10 @@ $door-config-content: $ipad-height - $door-config-header;
     }
   }
   .door-config-backfon {
-    @include box-shadow($main_gray_btn 0px 5px 10px );
+    @include box-shadow($main_gray_btn 0 rem(5px) rem(10px) );
     @include top_left_coord(0, 0);
 
-    width: 452px;
+    width: rem(452px);
     height: 100%;
     position: absolute;
     border-right: 1px solid #d2d2d2;
@@ -292,21 +292,21 @@ $door-config-content: $ipad-height - $door-config-header;
   }
   .door-config-header {
     height: $door-config-header;
-    padding-left: 50px;
-    width: 452px;
+    padding-left: rem(50px);
+    width: rem(452px);
   }
   .door-inner {
     height: 100%;
-    padding: 40px 20px;
+    padding: rem(40px) rem(20px);
     border-bottom: 1px solid #d2d2d2;
   }
   .door-title {
-    @include roboto-bd(48px);
-    padding: 20px 0 30px 0;
+    @include roboto-bd(rem(48px));
+    padding: rem(20px) 0 rem(30px) 0;
     color: $main_gray_txt;
   }
   .door-subtitle {
-    @include roboto-bd(36px, 44px);
+    @include roboto-bd(rem(36px), rem(44px));
 
     color: $main_gray_txt;
   }
@@ -319,14 +319,14 @@ $door-config-content: $ipad-height - $door-config-header;
     }
   }
   ul.door-config-list {
-    width: 512px;
+    width: rem(512px);
     list-style: none;
     margin: 0;
     padding: 0;
   }
   li.door-config-option {
-    width: 452px;
-    padding-left: 50px;
+    width: rem(452px);
+    padding-left: rem(50px);
     cursor: pointer;
     position: relative;
     &.selected {
@@ -336,14 +336,14 @@ $door-config-content: $ipad-height - $door-config-header;
   .selected-item-arrow {
     position: absolute;
     top: 0;
-    right: -58px;
-    width: 60px;
+    right: rem(-58px);
+    width: rem(60px);
     height: 100%;
     background: image-url('door-arrow.png') no-repeat;
     background-size: 100% 100%;
   }
   .door-option-label {
-    @include roboto-lt(36px);
+    @include roboto-lt(rem(36px));
 
     color: $main_gray_txt;
   }
@@ -351,12 +351,12 @@ $door-config-content: $ipad-height - $door-config-header;
     position: absolute;
     top: 0;
     right: 0;
-    width: 244px;
+    width: rem(244px);
   }
   .door-config-btn {
     @extend button;
     @extend .icon-setting;
-    @include font-general-icon(60px, 1);
+    @include font-general-icon(rem(60px), 1);
 
     width: 100%;
     color: #fff;

@@ -1,12 +1,12 @@
 .additional-list-container {
   position: relative;
-  padding: 50px 80px;
+  padding: rem(50px) rem(80px);
 
   .aux-search-content {
     @include transition(left .5s linear);
 
     position: absolute;
-    left: -2000px;
+    left: rem(-2000px);
     height: 80%;
     width: 100%;
     overflow-x: hidden;
@@ -19,10 +19,10 @@
   }
   .aux-list-groups {
     list-style: none;
-    padding-left: 70px;
+    padding-left: rem(70px);
   }
   .aux-list-group {
-    @include roboto-lt(36px, 100px);
+    @include roboto-lt(rem(36px), rem(100px));
     @include transition(color .5s linear);
 
     position: relative;
@@ -45,15 +45,15 @@
 
     position: absolute;
     width: 0;
-    height: 80px;
+    height: rem(80px);
     z-index: -1;
     &:before {
       position: absolute;
       display: block;
       top: 0;
-      right: -40px;
+      right: rem(-40px);
       width: 0;
-      border-width: 40px 0 40px 40px;
+      border-width: rem(40px) 0 rem(40px) rem(40px);
       border-style: solid;
       content: '';
     }
@@ -66,11 +66,11 @@
   .search-element {
     @extend .button;
     @extend .splash;
-    @include roboto-lt(36px, 36px);
+    @include roboto-lt(rem(36px), rem(36px));
 
-    margin: 20px;
+    margin: rem(20px);
     margin-left: 0;
-    padding: 18px 20px;
+    padding: rem(18px) rem(20px);
     border-radius: $radius_general-big_button;
     color: #fff;
   }
@@ -81,18 +81,18 @@
 
   }
   .aux-list-block {
-    padding: 50px 0;
+    padding: rem(50px) 0;
     border-bottom: 1px solid $main_gray_btn;
 
     &:last-child {
-      padding: 50px 0 0 0;
+      padding: rem(50px) 0 0 0;
       border: none;
     }
   }
 
   .aux-list-block-title,
   .aux-total-label {
-    @include roboto-bd(36px);
+    @include roboto-bd(rem(36px));
 
     color: $main_gray_txt;
   }
@@ -100,7 +100,7 @@
     text-transform: uppercase;
   }
   .aux-list-row {
-    margin-bottom: 20px;
+    margin-bottom: rem(20px);
   }
   .aux-total-price {
     @extend .aux-price;
@@ -113,7 +113,7 @@
     width: 100%;
 
     .aux-tablecell-name {
-      width: 500px;
+      width: rem(500px);
       .aux-name {
         max-width: 100%;
       }
@@ -122,23 +122,23 @@
       width: 75%;
     }
     .aux-tablecell-qty {
-      width: 100px;
+      width: rem(100px);
     }
     .aux-tablecell-width,
     .aux-tablecell-height {
-      width: 150px;
+      width: rem(150px);
     }
     .aux-tablecell-color {
-      width: 100px;
+      width: rem(100px);
     }
     .aux-tablecell-price {
-      width: 200px;
+      width: rem(200px);
       .aux-price {
         text-align: center;
       }
     }
     .aux-tablecell-delete {
-      width: 100px;
+      width: rem(100px);
     }
   }
 }
