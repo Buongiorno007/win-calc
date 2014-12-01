@@ -77,6 +77,7 @@ BauVoiceApp.factory('localStorage', function () {
     isAddElement: false,
     isAddElementListView: false,
     totalAddElementsPrice: 0,
+    isConstructSizeCalculator: false,
     //currency: '',
 
     orderPrice: 0,

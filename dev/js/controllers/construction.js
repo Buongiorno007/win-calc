@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP */
+/* globals BauVoiceApp, STEP, deactiveSizeBox */
 
 'use strict';
 
@@ -31,11 +31,16 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
     typing: 'on'
   };
   $scope.global.templateDefaultOLD = angular.copy($scope.global.templateDefault);
+  $scope.global.templateSourceOLD = angular.copy($scope.global.templateSource);
+  //console.log('start');
+  //console.log($scope.global.templateDefaultOLD);
+  //console.log($scope.global.templateSourceOLD);
 
-  var newLength,
+  var sizeClass = 'size-box',
+      sizeEditClass = 'size-box-edited',
       minDimension = 100,
       maxDimension = 5000,
-      fromPointsId, toPointsId;
+      newLength, fromPointsId, toPointsId;
 
   constructService.getDoorConfig(function (results) {
     if (results.status) {
@@ -182,14 +187,37 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
     $scope.backtoTemplatePanel();
   };
 
-
+  //------- set Default Construction
+  $scope.setDefaultConstruction = function() {
+    $scope.global.templateDefault = angular.copy($scope.global.templateDefaultOLD);
+    $scope.global.templateSource = angular.copy($scope.global.templateSourceOLD);
+    //-------- build new template
+    //console.log('new');
+    //console.log($scope.global.templateDefault);
+    //console.log($scope.global.templateSource);
+    //------- cleaning object for get profile price
+    $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
+    $scope.global.createObjXFormedPrice($scope.global.templateDefault, $scope.global.profileIndex, $scope.global.product.profileId);
+    //console.log($scope.global.templateDefault);
+    $scope.constructData.tempSize.length = 0;
+    //------ close size calculator
+    $scope.global.isConstructSizeCalculator = false;
+    //------- deactive size box in svg
+    deactiveSizeBox(sizeEditClass, sizeClass);
+  };
 
   //-------- CHANGE CONSTRUCTION SIZE -----------
 
   //----- click on size SVG and get size value and Id
   $('svg-template').off().on("click", ".size-box-edited", function() {
-    $scope.constructData.oldSizeValue = $(this).find('text').text();
-    $scope.constructData.tempSizeId = $(this).find('text').attr('id');
+    if(!$scope.global.isConstructSizeCalculator) {
+      $scope.constructData.oldSizeValue = $(this).find('text').text();
+      $scope.constructData.tempSizeId = $(this).find('text').attr('id');
+      getOldSizeValue();
+      //--- show size calculator
+      $scope.global.isConstructSizeCalculator = true;
+      $scope.$apply();
+    }
   });
   //------ click on size calculator, get number
   $('.construction-right-menu .size-calculator .calc-digit').off().click(function() {
@@ -204,27 +232,56 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
 
   //-------- Get number from calculator
   function setValueSize(newValue) {
+    //console.log($scope.constructData.tempSize);
+    //---- clear array from 0 after delete all number in array
     if($scope.constructData.tempSize.length === 1 && $scope.constructData.tempSize[0] === 0) {
       $scope.constructData.tempSize.length = 0;
     }
-    if($scope.constructData.tempSize.length < 4) {
-      if(newValue === '00'){
-        $scope.constructData.tempSize.push(0, 0);
-      } else {
+    if($scope.constructData.tempSize.length === 4) {
+      $scope.constructData.tempSize.length = 0;
+    }
+    if (newValue === '0') {
+      if ($scope.constructData.tempSize.length !== 0 && $scope.constructData.tempSize[0] !== 0) {
         $scope.constructData.tempSize.push(newValue);
+        changeSize();
       }
     }
-    //console.log(newValue);
-    changeSize();
+    if (newValue === '00') {
+      if ($scope.constructData.tempSize.length !== 0 && $scope.constructData.tempSize[0] !== 0) {
+        if ($scope.constructData.tempSize.length < 3) {
+          $scope.constructData.tempSize.push(0, 0);
+        } else if ($scope.constructData.tempSize.length === 3) {
+          $scope.constructData.tempSize.push(0);
+        }
+        changeSize();
+      }
+    }
+    if (newValue !== '0' && newValue !== '00') {
+      $scope.constructData.tempSize.push(newValue);
+      changeSize();
+    }
   }
 
   //------ Delete last number from calculator
   function deleteLastNumber() {
-    $scope.constructData.tempSize.pop();
-    if($scope.constructData.tempSize.length < 1) {
-      $scope.constructData.tempSize.push(0);
-    }
+      $scope.constructData.tempSize.pop();
+      if($scope.constructData.tempSize.length < 1) {
+        $scope.constructData.tempSize.push(0);
+      }
     changeSize();
+  }
+
+  //------- get Old Size Value from SVG size box
+  function getOldSizeValue() {
+    var oldNumbersArr = [], old, oldNumber;
+    //console.log($scope.constructData.oldSizeValue);
+    oldNumbersArr = $scope.constructData.oldSizeValue.split('');
+    for(old = 0; old < oldNumbersArr.length; old++) {
+      oldNumber = parseInt(oldNumbersArr[old], 10);
+      if($.isNumeric(oldNumber)) {
+        $scope.constructData.tempSize.push(oldNumbersArr[old]);
+      }
+    }
   }
 
   //------ Change size on SVG
@@ -234,11 +291,12 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
       newSizeString += $scope.constructData.tempSize[numer].toString();
     }
     //console.log(newSizeString);
-    var svg = document.getElementsByTagName("svg");
+    var svg = document.getElementsByTagName("svg-template");
 
     $('#'+$scope.constructData.tempSizeId).find('tspan').text(newSizeString);
     SVG(svg[0]).viewbox();
-    SVG(svg[0]).size($scope.global.svgTemplateWidth, $scope.global.svgTemplateHeight);
+    //SVG(svg[0]).size($scope.global.svgTemplateWidth, $scope.global.svgTemplateHeight);
+    SVG(svg[0]).size();
   }
 
   //---------- Close Size Calculator
@@ -246,69 +304,80 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
     var fromPoints = [],
         toPoints = [],
         newPoints = [];
+    //console.log($scope.constructData.tempSize);
+    if($scope.constructData.tempSize.length > 0) {
+      newLength = parseInt($scope.constructData.tempSize.join(''), 10);
+      //console.log(newLength);
+      //------- Dimensions limits checking
+      if (newLength > minDimension && newLength < maxDimension) {
+        //------ close size calculator
+        $scope.global.isConstructSizeCalculator = false;
+        //------- deactive size box in svg
+        deactiveSizeBox(sizeEditClass, sizeClass);
 
-    newLength = parseInt($scope.constructData.tempSize.join(''), 10);
+        //------ parse template, get pointsId relate to changed dimension id
+        for (var i = 0; i < $scope.global.templateDefault.objects.length; i++) {
+          if ($scope.global.templateDefault.objects[i].id === $scope.constructData.tempSizeId) {
+            fromPointsId = $scope.global.templateDefault.objects[i].fromPointsArrId;
+            toPointsId = $scope.global.templateDefault.objects[i].toPointsArrId;
+          }
+        }
+        //console.log($scope.global.templateDefault);
+        //------ parse template, get points relate to points id
+        for (var p = 0; p < fromPointsId.length; p++) {
+          for (var j = 0; j < $scope.global.templateDefault.objects.length; j++) {
+            var point = {};
+            switch ($scope.global.templateDefault.objects[j].id) {
+              case fromPointsId[p]:
+                //var point = {};
+                point.x = parseInt($scope.global.templateDefault.objects[j].x, 10);
+                point.y = parseInt($scope.global.templateDefault.objects[j].y, 10);
+                fromPoints.push(point);
+                break;
+              case toPointsId[p]:
+                //var point = {};
+                point.x = parseInt($scope.global.templateDefault.objects[j].x, 10);
+                point.y = parseInt($scope.global.templateDefault.objects[j].y, 10);
+                toPoints.push(point);
+                break;
+            }
+          }
+        }
+        //console.log(fromPoints);
+        //console.log(toPoints);
 
-    //------- Dimensions limits checking
-    if(newLength > minDimension && newLength < maxDimension) {
+        //------ get new points
+        for (var point = 0; point < fromPoints.length; point++) {
+          var newPoint = {};
+          newPoint.newPointX = fromPoints[point].x + (newLength * (toPoints[point].x - fromPoints[point].x) / $scope.constructData.oldSizeValue);
+          newPoint.newPointY = fromPoints[point].y + (newLength * (toPoints[point].y - fromPoints[point].y) / $scope.constructData.oldSizeValue);
+          newPoints.push(newPoint);
+        }
+        //console.log(newPoints);
+
+        //-------- change point coordinates in templateSource
+        for (var n = 0; n < toPointsId.length; n++) {
+          for (var k = 0; k < $scope.global.templateSource.objects.length; k++) {
+            if ($scope.global.templateSource.objects[k].id === toPointsId[n]) {
+              $scope.global.templateSource.objects[k].x = newPoints[n].newPointX;
+              $scope.global.templateSource.objects[k].y = newPoints[n].newPointY;
+            }
+          }
+        }
+        //-------- build new template
+        $scope.global.templateDefault = new Template($scope.global.templateSource, $scope.global.templateDepths);
+        //------- cleaning object for get profile price
+        $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
+        $scope.global.createObjXFormedPrice($scope.global.templateDefault, $scope.global.profileIndex, $scope.global.product.profileId);
+        //console.log('after size change');
+        //console.log($scope.global.templateDefault);
+        //console.log($scope.global.templateSource);
+        $scope.constructData.tempSize.length = 0;
+      }
+    } else {
       //------ close size calculator
-      $('.size-calculator').removeClass('active');
-      //------ parse template, get pointsId relate to changed dimension id
-      for (var i = 0; i < $scope.global.templateDefault.objects.length; i++) {
-        if ($scope.global.templateDefault.objects[i].id === $scope.constructData.tempSizeId) {
-          fromPointsId = $scope.global.templateDefault.objects[i].fromPointsArrId;
-          toPointsId = $scope.global.templateDefault.objects[i].toPointsArrId;
-        }
-      }
-
-      //------ parse template, get points relate to points id
-      for (var p = 0; p < fromPointsId.length; p++) {
-        for (var j = 0; j < $scope.global.templateDefault.objects.length; j++) {
-          var point = {};
-          switch ($scope.global.templateDefault.objects[j].id) {
-            case fromPointsId[p]:
-              //var point = {};
-              point.x = parseInt($scope.global.templateDefault.objects[j].x, 10);
-              point.y = parseInt($scope.global.templateDefault.objects[j].y, 10);
-              fromPoints.push(point);
-              break;
-            case toPointsId[p]:
-              //var point = {};
-              point.x = parseInt($scope.global.templateDefault.objects[j].x, 10);
-              point.y = parseInt($scope.global.templateDefault.objects[j].y, 10);
-              toPoints.push(point);
-              break;
-          }
-        }
-      }
-      //console.log(fromPoints);
-      //console.log(toPoints);
-
-      //------ get new points
-      for (var point = 0; point < fromPoints.length; point++) {
-        var newPoint = {};
-        newPoint.newPointX = fromPoints[point].x + (newLength * (toPoints[point].x - fromPoints[point].x) / $scope.constructData.oldSizeValue);
-        newPoint.newPointY = fromPoints[point].y + (newLength * (toPoints[point].y - fromPoints[point].y) / $scope.constructData.oldSizeValue);
-        newPoints.push(newPoint);
-      }
-      //console.log(newPoints);
-
-      //-------- change point coordinates in templateSource
-      for (var n = 0; n < toPointsId.length; n++) {
-        for (var k = 0; k < $scope.global.templateSource.objects.length; k++) {
-          if ($scope.global.templateSource.objects[k].id === toPointsId[n]) {
-            $scope.global.templateSource.objects[k].x = newPoints[n].newPointX;
-            $scope.global.templateSource.objects[k].y = newPoints[n].newPointY;
-          }
-        }
-      }
-      //-------- build new template
-      $scope.global.templateDefault = new Template($scope.global.templateSource, $scope.global.templateDepths);
-      //------- cleaning object for get profile price
-      $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
-      $scope.global.createObjXFormedPrice($scope.global.templateDefault, $scope.global.profileIndex, $scope.global.product.profileId);
-      //console.log($scope.global.templateDefault);
-      $scope.constructData.tempSize.length = 0;
+      $scope.global.isConstructSizeCalculator = false;
+      deactiveSizeBox(sizeEditClass, sizeClass);
     }
   };
 

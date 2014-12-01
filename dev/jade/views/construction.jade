@@ -21,7 +21,7 @@ section.construction-page(ng-controller="ConstructionCtrl")
 
       .left-menu-footer
         .footer-description(data-output="{{ 'construction.UNITS_DESCRIP' | translate }}", typing="{{ constructData.typing }}", typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}")
-        .project-default {{ 'construction.PROJECT_DEFAULT' | translate }}
+        .project-default(ng-click="setDefaultConstruction()") {{ 'construction.PROJECT_DEFAULT' | translate }}
 
     .construction-block(ng-hide="isDoorPage")
       .construction-scrollbox
@@ -44,7 +44,7 @@ section.construction-page(ng-controller="ConstructionCtrl")
         .door-config-description {{ 'construction.LOCK_CONFIG_DESCTIPT' | translate }}: {{ constructData.lockShape }};
 
       .right-menu-footer
-        .size-calculator
+        .size-calculator(ng-class="{'active': global.isConstructSizeCalculator}")
           include parts/_size-calculator
 
 

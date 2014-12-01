@@ -72,6 +72,14 @@ function removeClassWithDelay(element, className, delay) {
 
 */
 
+//---------- Deactivate Size Box for SVG Construction
+function deactiveSizeBox(sizeEditClass, sizeClass) {
+  $('g.size-box-edited').each(function () {
+    this.instance.removeClass(sizeEditClass);
+    this.instance.addClass(sizeClass);
+  });
+}
+
 
 
 

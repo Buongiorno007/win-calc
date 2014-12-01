@@ -26,7 +26,6 @@ BauVoiceApp.directive('svgTemplate', [ function() {
             draw = SVG(svg).size(canvasWidth, canvasHeight),
             sizeClass = 'size-box',
             sizeEditClass = 'size-box-edited',
-            activeClass = 'active',
             elementsSVG = {
               frames: [],
               glasses: [],
@@ -327,21 +326,12 @@ BauVoiceApp.directive('svgTemplate', [ function() {
 
                   // Click on size
                   groupTxt.click(function() {
-                    if(scope.typeConstruction === 'edit') {
-                      if (this.hasClass(sizeEditClass)) {
-                        deactiveSizeBox();
-                        $('.size-calculator').removeClass(activeClass);
-                      } else {
-                        if(!$('.size-calculator').hasClass(activeClass)) {
-                          deactiveSizeBox();
-                          this.toggleClass(sizeClass);
-                          this.toggleClass(sizeEditClass);
-                          $('.size-calculator').addClass(activeClass);
-                        }
-                      }
+                    if(scope.typeConstruction === 'edit' && !scope.$parent.global.isConstructSizeCalculator) {
+                      deactiveSizeBox(sizeEditClass, sizeClass);
+                      this.toggleClass(sizeClass);
+                      this.toggleClass(sizeEditClass);
                     }
                   });
-
                 }
 
                 break;
@@ -350,14 +340,6 @@ BauVoiceApp.directive('svgTemplate', [ function() {
         }
 
         draw.viewbox(-edgeLeft, -edgeTop, overallDimH, overallDimV);
-
-        function deactiveSizeBox() {
-          $('g.size-box-edited').each(function () {
-            this.instance.removeClass(sizeEditClass);
-            this.instance.addClass(sizeClass);
-          });
-        }
-
         return svg;
       }
     }
