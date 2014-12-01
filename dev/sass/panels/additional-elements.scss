@@ -132,13 +132,13 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //------Grid
   .aux-grid {
-    @include top_left_coord(360, 960);
+    @include top_left_coord(360px, 960px);
 
     z-index: 3;
   }
 
   .aux-grid-img {
-    @include top_left_coord(0, 0);
+    @include top_left_coord(0px, 0px);
 
     position: absolute;
     width: rem(220px);
@@ -148,13 +148,13 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //------Visor
   .aux-visor {
-    @include top_left_coord(140, 540);
+    @include top_left_coord(140px, 540px);
 
     z-index: 3;
   }
 
   .aux-visor-img {
-    @include top_left_coord(0, 0);
+    @include top_left_coord(0px, 0px);
 
     position: absolute;
     width: rem(893px);
@@ -164,13 +164,13 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //------Spillway
   .aux-spillway {
-    @include top_left_coord(690, 595);
+    @include top_left_coord(690px, 595px);
 
     z-index: 3;
   }
 
   .aux-spillway-img {
-    @include top_left_coord(0, 0);
+    @include top_left_coord(0px, 0px);
 
     position: absolute;
     width: rem(719px);
@@ -180,13 +180,13 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //-------Outside
   .aux-outside {
-    @include top_left_coord(380, 440);
+    @include top_left_coord(380px, 440px);
 
     z-index: 3;
   }
 
   .aux-outside-img {
-    @include top_left_coord(0, 0);
+    @include top_left_coord(0px, 0px);
 
     position: absolute;
     width: rem(650px);
@@ -196,13 +196,13 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //-----Windowsill
   .aux-windowsill {
-    @include top_left_coord(1160, 100);
+    @include top_left_coord(1160px, 100px);
 
     z-index: 3;
   }
 
   .aux-windowsill-img {
-    @include top_left_coord(0, 0);
+    @include top_left_coord(0px, 0px);
 
     position: absolute;
     width: rem(720px);
@@ -213,19 +213,19 @@ $aux-img-select-path: 'auxiliaries-selected';
   //-----Louvers
 
   .aux-louver {
-    @include top_left_coord(750, 570);
+    @include top_left_coord(750px, 570px);
 
     z-index: 4;
   }
 
   .aux-louver-img {
-    @include top_left_coord(0, 0);
+    @include top_left_coord(0px, 0px);
 
     position: relative;
   }
 
   .aux-louver-top {
-    @include top_left_coord(0, 50);
+    @include top_left_coord(0px, 50px);
 
     position: absolute;
     z-index: 10;
@@ -258,7 +258,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   }
 
   .aux-louver-bottom {
-    @include top_left_coord(143, 50);
+    @include top_left_coord(143px, 50px);
 
     position: absolute;
     z-index: 6;
@@ -269,19 +269,19 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //-----Inside-slope
   .aux-inside {
-    @include top_left_coord(510, 210);
+    @include top_left_coord(510px, 210px);
 
     z-index: 3;
   }
 
   .aux-inside-img {
-    @include top_left_coord(0, 0);
+    @include top_left_coord(0px, 0px);
 
     position: relative;
   }
 
   .aux-inside-top {
-    @include top_left_coord(0, 50);
+    @include top_left_coord(0px, 50px);
 
     position: absolute;
     width: rem(660px);
@@ -290,7 +290,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   }
 
   .aux-inside-right {
-    @include top_left_coord(180, 680);
+    @include top_left_coord(180px, 680px);
 
     position: absolute;
     width: rem(90px);
@@ -299,7 +299,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   }
 
   .aux-inside-left {
-    @include top_left_coord(60, 0);
+    @include top_left_coord(60px, 0px);
 
     position: absolute;
     width: rem(97px);
@@ -309,13 +309,13 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //------Fun
   .aux-fan {
-    @include top_left_coord(990, 358);
+    @include top_left_coord(990px, 358px);
 
     z-index: 5;
   }
 
   .aux-fan-img {
-    @include top_left_coord(0, 0);
+    @include top_left_coord(0px, 0px);
 
     position: absolute;
     width: rem(114px);
@@ -325,20 +325,20 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //-----Connectors
   .aux-connectors {
-    @include top_left_coord(990, 1010);
+    @include top_left_coord(990px, 1010px);
 
     z-index: 3;
   }
 
   .aux-connectors-img {
-    @include top_left_coord(0, 0);
+    @include top_left_coord(0px, 0px);
 
     position: relative;
   }
 
   .aux-force-connect {
     @extend .splash;
-    @include top_left_coord(0, 0);
+    @include top_left_coord(0px, 0px);
 
     position: absolute;
     width: rem(205px);
@@ -348,7 +348,7 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   .aux-balcon-connect {
     @extend .splash;
-    @include top_left_coord(30, 90);
+    @include top_left_coord(30px, 90px);
 
     position: absolute;
     width: rem(205px);
@@ -358,13 +358,13 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //-----Handle
   .aux-handle {
-    @include top_left_coord(1290, 50);
+    @include top_left_coord(1290px, 50px);
 
     z-index: 3;
   }
 
   .aux-handle-img {
-    @include top_left_coord(0, 0);
+    @include top_left_coord(0px, 0px);
 
     position: absolute;
     width: rem(106px);
@@ -375,7 +375,7 @@ $aux-img-select-path: 'auxiliaries-selected';
 
   //-----Others
   .aux-others {
-    @include top_left_coord(1350, 1260);
+    @include top_left_coord(1350px, 1260px);
 
     z-index: 3;
   }
@@ -386,44 +386,44 @@ $aux-img-select-path: 'auxiliaries-selected';
   }
 
   .aux-grid-txt {
-    @include top_left_coord(100, 300);
+    @include top_left_coord(100px, 300px);
   }
 
   .aux-visor-txt {
-    @include top_left_coord(-50, 515);
+    @include top_left_coord(-50px, 515px);
   }
 
   .aux-spillway-txt {
-    @include top_left_coord(110, 737);
+    @include top_left_coord(110px, 737px);
   }
 
   .aux-outside-txt {
-    @include top_left_coord(-150, -350);
+    @include top_left_coord(-150px, -350px);
   }
 
   .aux-louver-txt {
-    @include top_left_coord(280, 50);
+    @include top_left_coord(280px, 50px);
   }
 
   .aux-inside-txt {
-    @include top_left_coord(-115, -120);
+    @include top_left_coord(-115px, -120px);
   }
 
   .aux-connectors-txt {
-    @include top_left_coord(70, 250);
+    @include top_left_coord(70px, 250px);
   }
 
   .aux-fan-txt {
-    @include top_left_coord(20, -325);
+    @include top_left_coord(20px, -325px);
   }
 
   .aux-windowsill-txt {
-    @include top_left_coord(100, 750);
+    @include top_left_coord(100px, 750px);
     width: rem(300px);
   }
 
   .aux-handle-txt {
-    @include top_left_coord(35, 150);
+    @include top_left_coord(35px, 150px);
   }
 
   .aux_big_but {
@@ -476,7 +476,7 @@ $aux-img-select-path: 'auxiliaries-selected';
   .scheme-info {
     @extend .button;
     @extend .splash;
-    @include top_left_coord(420, 520);
+    @include top_left_coord(420px, 520px);
     @include font-general-icon(rem(30px), 1);
 
     position: absolute;

@@ -1,9 +1,11 @@
+$base-font_size: 16px;
 @function perc($px, $base: $base-screen-width) {
   @return ($px / $base) * 100%;
 }
 
 @function rem($px) {
-  @return ($px / $base-font_size) * 1rem;
+  //@return ($px / $base-font_size)*1rem;
+  @return #{($px/16px) + "rem"};
 }
 
 @function em($px, $base: $base-font_size) {
@@ -11,6 +13,6 @@
 }
 
 @mixin top_left_coord($top, $left) {
-  top: rem($top + px);
-  left: rem($left + px);
+  top: rem($top);
+  left: rem($left);
 }

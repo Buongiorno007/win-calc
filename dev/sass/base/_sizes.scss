@@ -1,49 +1,51 @@
-$ipad-width: rem(2048px);
-$ipad-height: rem(1536px);
+
+$ipad-width: 2048px;
+$ipad-height: 1536px;
 
 $base-screen-width: $ipad-width;
 
 $base-font_size: 16px;
 $base-line_height: 1.42857;
 
-$main_content-width: rem(1448px);
-$main_content-width-right_menu: rem(1574px);
-$right_menu-width: rem(474px);
+$main_content-width: 1448px;
+$main_content-width-right_menu: 1574px;
+$right_menu-width: 474px;
 
-$left_side-width: rem(600px);
+$left_side-width: 600px;
 $right_side-width: $main_content-width + $right_menu-width;
 $right_side-width-right_menu: $main_content-width-right_menu + $right_menu-width;
 
 $page_container-width: $left_side-width + $right_side-width;
 $page_container-width-right_menu: $left_side-width + $right_side-width-right_menu;
 
-$config_menu-side_padding: rem(44px);
-$price_container-height: rem(64px);
+$config_menu-side_padding: 44px;
+$price_container-height: 64px;
 
 // Buttons
-$radius_general-big_button: rem(32px);
-$radius_general-small_button: rem(20px);
+$radius_general-big_button: 32px;
+$radius_general-small_button: 20px;
 
 // Login
-$radius_login-container: rem(32px);
+$radius_login-container: 32px;
 
 // Room Selector Dialog
-$radius_rooms-dialog: rem(20px);
-$radius_room-box_dialog: rem(15px);
+$radius_rooms-dialog: 20px;
+$radius_room-box_dialog: 15px;
 
 // Profile
-$radius_profile-box: rem(16px);
-$radius_coef-index: rem(8px);
-$radius_lamination: rem(15px);
+$radius_profile-box: 16px;
+$radius_coef-index: 8px;
+$radius_lamination: 15px;
 
 // Elements List
-$radius_frame-tab: rem(15px);
+$radius_frame-tab: 15px;
 
 // History
-$radius_account-top: rem(5px);
-$radius_account-bottom: rem(15px);
-$radius_account-tool: rem(30px);
+$radius_account-top: 5px;
+$radius_account-bottom: 15px;
+$radius_account-tool: 30px;
 
 // Cart
-$radius_order: rem(20px);
-$radius_order-template: rem(10px);
+$radius_order: 20px;
+$radius_order-template: 10px;
+

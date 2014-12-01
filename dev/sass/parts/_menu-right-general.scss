@@ -8,7 +8,7 @@
   @include align-content(space-between);
 
   height: 100%;
-  padding-left: $config_menu-side_padding;
+  padding-left: rem($config_menu-side_padding);
   background: rgba(#f8f8f8, .95);
   box-shadow: rem(-3px) 0 rem(15px) rem(-5px) rgba(0, 0, 0, .5);
 
@@ -26,13 +26,13 @@
   .item {
     max-width: 100%;
     min-height: rem(120px);
-    padding: rem(10px) $config_menu-side_padding rem(10px) 0;
+    padding: rem(10px) rem($config_menu-side_padding) rem(10px) 0;
     border-bottom: 1px solid $main_gray_btn;
     cursor: pointer;
     &.active {
       position: relative;
-      margin-left: -$config_menu-side_padding;
-      padding-left: $config_menu-side_padding;
+      margin-left: rem(-$config_menu-side_padding);
+      padding-left: rem($config_menu-side_padding);
     }
     &:last-child {
       @include flex-grow(1);
@@ -67,7 +67,7 @@
 
   .menu-footer {
     width: 100%;
-    padding-right: $config_menu-side_padding;
+    padding-right: rem($config_menu-side_padding);
     text-align: center;
   }
   .price {
@@ -75,11 +75,11 @@
     @include justify-content(center);
   }
   .price-value {
-    @include roboto-md($price_container-height, 1);
+    @include roboto-md(rem($price_container-height), 1);
 
     display: inline-flex;
     overflow: hidden;
-    height: $price_container-height;
+    height: rem($price_container-height);
     text-align: center;
     color: $main_gray_txt;
   }
@@ -94,7 +94,7 @@
     }
   }
   .price-currency {
-    @include roboto-lt(rem(50px), $price_container-height - rem(8px));
+    @include roboto-lt(rem(50px), rem($price_container-height - 8px));
 
     margin-left: rem(10px);
     padding-top: rem(8px);

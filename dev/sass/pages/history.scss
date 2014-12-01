@@ -14,16 +14,16 @@
   background-color: #fafafa;
 
   &.history-view {
-    @include top_left_coord(0, 0);
+    @include top_left_coord(0px, 0px);
   }
   &.draft-view {
-    @include top_left_coord(0, -2500);
+    @include top_left_coord(0px, -2500px);
     @include transition(all 0.5s linear);
 
     z-index: 5;
   }
   &.active {
-    @include top_left_coord(0, 0);
+    @include top_left_coord(0px, 0px);
   }
 
   .history-header {
@@ -110,7 +110,7 @@
     top: rem(78px);
     right: rem(-15px);
     width: rem(655px);
-    border-radius: $radius_rooms-dialog;
+    border-radius: rem($radius_rooms-dialog);
     background-color: #fff;
     z-index: 5;
     &:after {
@@ -145,7 +145,7 @@
   .filter-divider {
     @include roboto-bd(rem(24px), rem(74px));
 
-    padding-left: $config_menu-side_padding;
+    padding-left: rem($config_menu-side_padding);
     background-color: #f8f8f8;
     color: #8c8c8c;
     text-transform: uppercase;
@@ -154,8 +154,8 @@
     border-width: 1px 0;
     &:first-child {
       border-top-width: 0;
-      border-top-left-radius: $radius_rooms-dialog;
-      border-top-right-radius: $radius_rooms-dialog;
+      border-top-left-radius: rem($radius_rooms-dialog);
+      border-top-right-radius: rem($radius_rooms-dialog);
     }
   }
 
@@ -163,7 +163,7 @@
     margin: 0;
     padding: 0;
     list-style: none;
-    padding-left: $config_menu-side_padding;
+    padding-left: rem($config_menu-side_padding);
   }
   .filter-item {
     @include display-flex();
@@ -191,7 +191,7 @@
     position: relative;
     width: rem(65px);
     &:after {
-      @include top_left_coord(10, 0);
+      @include top_left_coord(10px, 0px);
 
       position: absolute;
       color: $main_orange;
@@ -214,8 +214,8 @@
   .filter-title {
     @include roboto-bd(rem(24px), rem(88px));
 
-    border-top-left-radius: $radius_rooms-dialog;
-    border-top-right-radius: $radius_rooms-dialog;
+    border-top-left-radius: rem($radius_rooms-dialog);
+    border-top-right-radius: rem($radius_rooms-dialog);
     text-transform: uppercase;
     background-color: #f8f8f8;
     color: $main_gray_txt;
@@ -244,8 +244,8 @@
 
 
   .total-date {
-    border-bottom-left-radius: $radius_rooms-dialog;
-    border-bottom-right-radius: $radius_rooms-dialog;
+    border-bottom-left-radius: rem($radius_rooms-dialog);
+    border-bottom-right-radius: rem($radius_rooms-dialog);
   }
 
   .date-list {
@@ -289,7 +289,7 @@
     position: absolute;
     width: 100%;
     border: 1px solid $main_gray_btn;
-    border-radius: $radius_account-top $radius_account-top $radius_account-bottom $radius_account-bottom;
+    border-radius: rem($radius_account-top) rem($radius_account-top) rem($radius_account-bottom) rem($radius_account-bottom);
     background-color: #fff;
     z-index: 2;
     &.current {
@@ -330,8 +330,8 @@
     &.footer {
       @include roboto-bd(rem(48px));
 
-      border-bottom-left-radius: $radius_account-bottom;
-      border-bottom-right-radius: $radius_account-bottom;
+      border-bottom-left-radius: rem($radius_account-bottom);
+      border-bottom-right-radius: rem($radius_account-bottom);
       color: $main_gray_txt;
       cursor: pointer;
     }
@@ -383,8 +383,8 @@
     position: absolute;
     width: rem(120px);
     height: rem(112px);
-    border-top-right-radius: $radius_account-tool;
-    border-bottom-right-radius: $radius_account-tool;
+    border-top-right-radius: rem($radius_account-tool);
+    border-bottom-right-radius: rem($radius_account-tool);
     z-index: 1;
   }
   .account-select-btn {
@@ -436,8 +436,8 @@
     right: 0;
     width: rem(160px);
     height: rem(70px);
-    border-top-left-radius: $radius_account-tool;
-    border-bottom-left-radius: $radius_account-tool;
+    border-top-left-radius: rem($radius_account-tool);
+    border-bottom-left-radius: rem($radius_account-tool);
     background-color: $main_green;
     color: #fff;
     z-index: 2;

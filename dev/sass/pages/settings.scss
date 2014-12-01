@@ -23,7 +23,7 @@
 
 .setting-back {
   @extend .menu-btn;
-  @include top_left_coord(15, 0);
+  @include top_left_coord(15px, 0px);
   @extend .splash;
 
   position: absolute;

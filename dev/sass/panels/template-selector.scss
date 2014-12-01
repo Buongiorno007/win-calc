@@ -30,7 +30,7 @@
     @include display-flex();
     @include flex-flow(row nowrap);
     @include roboto-lt(rem(36px), rem(72px));
-    @include top_left_coord(-30, 170);
+    @include top_left_coord(-30px, 170px);
 
     position: absolute;
     white-space: nowrap;

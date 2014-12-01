@@ -19,8 +19,8 @@
   .cart-dialog-header{
     position: relative;
     padding: rem(30px);
-    border-top-left-radius: $radius_login-container;
-    border-top-right-radius: $radius_login-container;
+    border-top-left-radius: rem($radius_login-container);
+    border-top-right-radius: rem($radius_login-container);
     background-color: #fff;
   }
   .cart-dialog-tool {
@@ -77,8 +77,8 @@
   .cart-dialog-body {
     padding: rem(60px);
     background-color: #f0f0f0;
-    border-bottom-left-radius: $radius_login-container;
-    border-bottom-right-radius: $radius_login-container;
+    border-bottom-left-radius: rem($radius_login-container);
+    border-bottom-right-radius: rem($radius_login-container);
   }
   .cart-dialog-descrip {
     @include roboto-lt(rem(36px));
@@ -89,12 +89,12 @@
   }
 
   .location-list-tooltip {
-    @include top_left_coord(0, 600);
+    @include top_left_coord(0px, 600px);
 
     position: absolute;
     width: rem(640px);
     list-style: none;
-    border-radius: $radius_login-container;
+    border-radius: rem($radius_login-container);
     background-color: #f8f8f8;
     outline: none;
     z-index: 5;
@@ -182,7 +182,7 @@
   height: rem(112px);
   padding: rem(20px);
   border: 1px solid #8c8c8c;
-  border-radius: $radius_general-big_button;
+  border-radius: rem($radius_general-big_button);
   outline: none;
   &.ng-invalid-minlength,
   &.ng-invalid-pattern {
@@ -210,13 +210,13 @@
   height: rem(112px);
   padding: rem(20px);
   border: 1px solid #8c8c8c;
-  border-radius: $radius_general-big_button;
+  border-radius: rem($radius_general-big_button);
   text-align: center;
   outline: none;
 }
 
 .error-tooltip {
-  @include top_left_coord(-10, 600);
+  @include top_left_coord(-10px, 600px);
   @include roboto-lt(rem(36px));
 
   position: absolute;
@@ -224,7 +224,7 @@
   max-width: rem(600px);
   padding: rem(20px) rem(40px);
   color: #fff;
-  border-radius: $radius_general-small_button;
+  border-radius: rem($radius_general-small_button);
   background: $error_color;
   &:before {
     @include transform(rotate(45deg));

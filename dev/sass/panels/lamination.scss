@@ -41,7 +41,7 @@
     }
     &.selected {
       position: relative;
-      border-radius: $radius_lamination;
+      border-radius: rem($radius_lamination);
       background-color: $main_green;
       &:after {
         @include font-general-icon(rem(130px), rem(130px));

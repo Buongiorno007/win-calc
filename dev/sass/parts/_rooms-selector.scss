@@ -30,7 +30,7 @@
     width: 100%;
     height: 100%;
     padding: rem(16px);
-    border-radius: $radius_room-box_dialog;
+    border-radius: rem($radius_room-box_dialog);
     cursor: pointer;
     &:hover,
     &.selected {

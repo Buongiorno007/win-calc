@@ -220,7 +220,7 @@
       color: $error_color;
       &:before {
         @include font-general-icon(rem(26px), 1);
-        @include top_left_coord(12, -30);
+        @include top_left_coord(12px, -30px);
         position: absolute;
         content: $triangle-up-icon;
       }
@@ -231,7 +231,7 @@
       color: $main_green;
       &:before {
         @include font-general-icon(rem(26px), 1);
-        @include top_left_coord(12, -30);
+        @include top_left_coord(12px, -30px);
 
         position: absolute;
         content: $triangle-down-icon;
@@ -291,8 +291,8 @@
   padding: rem(30px);
   text-align: center;
   background: rgba(#f8f8f8, .95);
-  border-top-left-radius: $radius_order;
-  border-bottom-left-radius: $radius_order;
+  border-top-left-radius: rem($radius_order);
+  border-bottom-left-radius: rem($radius_order);
   z-index: 1;
 
   &.active {

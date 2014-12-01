@@ -1,10 +1,10 @@
-$door-config-header: rem(355px);
+$door-config-header: 355px;
 $door-config-content: $ipad-height - $door-config-header;
 
 .construction-container {
   position: relative;
-  width: $ipad-width;
-  height: $ipad-height;
+  width: rem($ipad-width);
+  height: rem($ipad-height);
 }
 
 
@@ -34,7 +34,7 @@ $door-config-content: $ipad-height - $door-config-header;
 
 .construction-left-menu {
   @extend .construction-menu;
-  @include top_left_coord(0, 0);
+  @include top_left_coord(0px, 0px);
 
   .figure-lists {
     width: rem(220px);
@@ -121,8 +121,8 @@ $door-config-content: $ipad-height - $door-config-header;
 // Construction SVG
 
 .construction-block {
-  width: $ipad-width;
-  height: $ipad-height;
+  width: rem($ipad-width);
+  height: rem($ipad-height);
   //padding: rem(250px);
   text-align: center;
   //overflow: auto;
@@ -236,7 +236,7 @@ $door-config-content: $ipad-height - $door-config-header;
 // Door Configuration Panel
 
 .door-configuration {
-  @include top_left_coord(0, -2500);
+  @include top_left_coord(0px, -2500px);
   @include transition(all 0.5s linear);
 
   position: absolute;
@@ -246,42 +246,42 @@ $door-config-content: $ipad-height - $door-config-header;
   z-index: 2;
 
   &.active {
-    @include top_left_coord(0, 0);
+    @include top_left_coord(0px, 0px);
   }
 
   .door-config-column {
     @include transition(all 0.5s linear);
-    @include top_left_coord(0, -460);
+    @include top_left_coord(0px, -460px);
 
     position: absolute;
     width: rem(512px);
   }
   .step1 {
-    @include top_left_coord(0, 0);
+    @include top_left_coord(0px, 0px);
 
     z-index: 6;
   }
   .step2 {
     z-index: 5;
     &.active {
-      @include top_left_coord(0, 452);
+      @include top_left_coord(0px, 452px);
     }
   }
   .step3 {
     z-index: 4;
     &.active {
-      @include top_left_coord(0, 900);
+      @include top_left_coord(0px, 900px);
     }
   }
   .step4 {
     z-index: 3;
     &.active {
-      @include top_left_coord(0, 1352);
+      @include top_left_coord(0px, 1352px);
     }
   }
   .door-config-backfon {
     @include box-shadow($main_gray_btn 0 rem(5px) rem(10px) );
-    @include top_left_coord(0, 0);
+    @include top_left_coord(0px, 0px);
 
     width: rem(452px);
     height: 100%;
@@ -291,7 +291,7 @@ $door-config-content: $ipad-height - $door-config-header;
     z-index: -1;
   }
   .door-config-header {
-    height: $door-config-header;
+    height: rem($door-config-header);
     padding-left: rem(50px);
     width: rem(452px);
   }
@@ -311,7 +311,7 @@ $door-config-content: $ipad-height - $door-config-header;
     color: $main_gray_txt;
   }
   .door-config-content {
-    height: $door-config-content;
+    height: rem($door-config-content);
     overflow: hidden;
     &.scroll-box {
       overflow-x: hidden;
@@ -364,14 +364,14 @@ $door-config-content: $ipad-height - $door-config-header;
     border: none;
   }
   .close-door-config {
-    height: $door-config-header;
+    height: rem($door-config-header);
     background-color: $main_gray_btn;
     &:after {
       content: $cross-big-icon;
     }
   }
   .save-door-config {
-    height: $door-config-content;
+    height: rem($door-config-content);
     background-color: $main_green;
     &:after {
       content: $select-history-icon;

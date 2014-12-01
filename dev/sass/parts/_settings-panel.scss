@@ -16,7 +16,7 @@
   }
   .back {
     @extend .splash;
-    @include top_left_coord(20, 20);
+    @include top_left_coord(20px, 20px);
 
     position: absolute;
     border: none;

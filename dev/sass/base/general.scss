@@ -5,8 +5,8 @@
 html,
 body {
   overflow: hidden;
-  width: $ipad-width;
-  height: $ipad-height;
+  width: rem($ipad-width);
+  height: rem($ipad-height);
 }
 
 body {
@@ -22,22 +22,22 @@ body {
   @include display-flex();
   @include transition(transform .5s linear, width .5s linear);
 
-  width: $page_container-width;
+  width: rem($page_container-width);
   height: 100%;
   &.swiped {
-    width: $page_container-width-right_menu;
+    width: rem($page_container-width-right_menu);
     .main-content {
-      width: $main_content-width-right_menu;
+      width: rem($main_content-width-right_menu);
     }
   }
 }
 
 .swiped {
-  @include translateX(-$left_side-width);
+  @include translateX(rem(-$left_side-width));
 }
 
 .left-side {
-  width: $left_side-width;
+  width: rem($left_side-width);
   height: 100%;
 }
 
@@ -49,7 +49,7 @@ body {
 
 .right-menu {
   position: relative;
-  width: $right_menu-width;
+  width: rem($right_menu-width);
   height: 100%;
 }
 
@@ -101,21 +101,21 @@ body {
   @include roboto-lt(rem(48px));
   @extend .button;
 
-  border-radius: $radius_general-big_button;
+  border-radius: rem($radius_general-big_button);
 }
 
 .middle-button {
   @extend .button;
   @include roboto-rg(rem(24px), rem(36px));
 
-  border-radius: $radius_general-big_button;
+  border-radius: rem($radius_general-big_button);
 }
 
 .small-button {
   @include roboto-lt(rem(36px));
   @extend .button;
 
-  border-radius: $radius_general-small_button;
+  border-radius: rem($radius_general-small_button);
 }
 
 .orange-big-btn {
@@ -171,18 +171,18 @@ body {
 
 // Modal dialog
 .modal-dialog {
-  @include top_left_coord(300, -2000);
+  @include top_left_coord(300px, -2000px);
   @include transition(all 0.3s linear);
 
   //display: none;
   position: absolute;
   width: rem(1350px);
   padding: rem(80px) rem(60px);
-  border-radius: $radius_rooms-dialog;
+  border-radius: rem($radius_rooms-dialog);
   background-color: rgba(#fff, .85);
 
   &.active {
-    @include top_left_coord(300, 80);
+    @include top_left_coord(300px, 80px);
   }
 }
 
@@ -223,7 +223,7 @@ body {
 // Delete element button
 .aux-delete {
   @extend .small-cross-btn;
-  @include top_left_coord(0, 0);
+  @include top_left_coord(0px, 0px);
 
   position: relative;
   background-color: $main_gray_btn;
@@ -233,7 +233,7 @@ body {
 .view-switch-tab {
   @extend .button;
   @include rotate(90deg);
-  @include top_left_coord(700, -126);
+  @include top_left_coord(700px, -126px);
   @include roboto-bd(rem(24px));
 
   position: absolute;
@@ -244,8 +244,8 @@ body {
   border-top-color: $main_orange;
   border-width: rem(5px) 1px 0 1px;
   border-style: solid;
-  border-top-left-radius: $radius_frame-tab;
-  border-top-right-radius: $radius_frame-tab;
+  border-top-left-radius: rem($radius_frame-tab);
+  border-top-right-radius: rem($radius_frame-tab);
   color: $main_gray_txt;
   z-index: 1;
 }

@@ -1,6 +1,6 @@
 .config-panel {
   @include transition(all .5s linear);
-  @include top_left_coord(0, -2000);
+  @include top_left_coord(0px, -2000px);
 
   position: absolute;
   width: 100%;
@@ -11,12 +11,12 @@
   z-index: 10;
 
   &.active {
-    @include top_left_coord(0, 0);
+    @include top_left_coord(0px, 0px);
   }
   .info {
     position: absolute;
     &:before {
-      @include top_left_coord(15, 15);
+      @include top_left_coord(15px, 15px);
       @include font-general-icon(rem(50px), 1);
 
       position: absolute;
@@ -33,7 +33,7 @@
   &.selected {
     position: relative;
     &:before {
-      @include top_left_coord(56, -27);
+      @include top_left_coord(56px, -27px);
       @include font-general-icon(rem(90px), rem(60px));
 
       position: absolute;
@@ -66,7 +66,7 @@
     display: inline;
     padding: rem(5px) rem(20px);
     color: #fff;
-    border-radius: $radius_general-big_button;
+    border-radius: rem($radius_general-big_button);
     background-color: $main_green;
   }
   .coef-index {
@@ -74,8 +74,8 @@
     height: rem(25px);
     margin-right: 1%;
     &:first-child {
-      border-top-left-radius: $radius_coef-index;
-      border-bottom-left-radius: $radius_coef-index;
+      border-top-left-radius: rem($radius_coef-index);
+      border-bottom-left-radius: rem($radius_coef-index);
       background-color: #55d995;
     }
     &:nth-child(2) {
@@ -88,8 +88,8 @@
       background-color: #68d55c;
     }
     &:last-child {
-      border-top-right-radius: $radius_coef-index;
-      border-bottom-right-radius: $radius_coef-index;
+      border-top-right-radius: rem($radius_coef-index);
+      border-bottom-right-radius: rem($radius_coef-index);
       background-color: $main_green;
     }
   }
@@ -100,7 +100,7 @@
     position: relative;
     float: left;
     padding: rem(45px);
-    border-radius: $radius_profile-box;
+    border-radius: rem($radius_profile-box);
     background-color: #fff;
     cursor: pointer;
     &.selected {
@@ -154,8 +154,8 @@
           display: none;
         }
         &:first-child {
-          border-top-right-radius: $radius_coef-index;
-          border-bottom-right-radius: $radius_coef-index;
+          border-top-right-radius: rem($radius_coef-index);
+          border-bottom-right-radius: rem($radius_coef-index);
         }
       }
     }
@@ -167,8 +167,8 @@
           display: none;
         }
         &:nth-child(2) {
-          border-top-right-radius: $radius_coef-index;
-          border-bottom-right-radius: $radius_coef-index;
+          border-top-right-radius: rem($radius_coef-index);
+          border-bottom-right-radius: rem($radius_coef-index);
         }
       }
     }
@@ -179,16 +179,16 @@
           display: none;
         }
         &:nth-child(3) {
-          border-top-right-radius: $radius_coef-index;
-          border-bottom-right-radius: $radius_coef-index;
+          border-top-right-radius: rem($radius_coef-index);
+          border-bottom-right-radius: rem($radius_coef-index);
         }
       }
     }
     &.coef-level-4 {
       .coef-index {
         &:nth-child(4) {
-          border-top-right-radius: $radius_coef-index;
-          border-bottom-right-radius: $radius_coef-index;
+          border-top-right-radius: rem($radius_coef-index);
+          border-bottom-right-radius: rem($radius_coef-index);
         }
         &:last-child {
           display: none;

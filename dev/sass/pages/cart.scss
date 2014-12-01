@@ -15,16 +15,16 @@
   overflow-x: auto;
   overflow-y: auto;
   &.full-view {
-    @include top_left_coord(0, 0);
+    @include top_left_coord(0px, 0px);
   }
   &.light-view {
-    @include top_left_coord(0, -2500);
+    @include top_left_coord(0px, -2500px);
     @include transition(all 0.5s linear);
 
     z-index: 5;
   }
   &.active {
-    @include top_left_coord(0, 0);
+    @include top_left_coord(0px, 0px);
   }
 
   .cart-header {
@@ -109,8 +109,8 @@
     @include roboto-md(rem(48px), rem(100px));
 
     padding-left: rem(50px);
-    border-bottom-left-radius: $radius_order;
-    border-bottom-right-radius: $radius_order;
+    border-bottom-left-radius: rem($radius_order);
+    border-bottom-right-radius: rem($radius_order);
     background-color: #f0f0f0;
     color: $main_gray_txt;
   }
@@ -122,8 +122,8 @@
     left: rem(1260px);
     width: rem(512px);
     background-color: #fff;
-    border-bottom-left-radius: $radius_order;
-    border-bottom-right-radius: $radius_order;
+    border-bottom-left-radius: rem($radius_order);
+    border-bottom-right-radius: rem($radius_order);
     z-index: 10;
   }
   .addelements-detail-tools {
@@ -254,7 +254,7 @@
     left: rem(10px);
     padding: rem(20px);
     background-color: #fff;
-    border-radius: $radius_order-template;
+    border-radius: rem($radius_order-template);
   }
   .icon-thumb {
     height: rem(100px);
@@ -310,7 +310,7 @@
     width: rem(420px);
     margin-bottom: rem(50px);
     margin-right: rem(44px);
-    border-radius: $radius_order;
+    border-radius: rem($radius_order);
     background-color: #fff;
     text-align: center;
   }

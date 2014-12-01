@@ -2,7 +2,7 @@
   @include display-flex();
   @include flex-flow(row wrap);
   @include align-items(center);
-  @include top_left_coord(40, 10);
+  @include top_left_coord(40px, 10px);
 
   position: absolute;
   width: 100%;

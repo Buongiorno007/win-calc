@@ -20,7 +20,7 @@
     height: rem(115px);
     padding-left: rem(100px);
     border: 1px solid #dcdcdc;
-    border-radius: $radius_login-container;
+    border-radius: rem($radius_login-container);
     background-color: #fff;
     outline: none;
     color: #8c8c8c;

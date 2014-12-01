@@ -35,7 +35,7 @@
         background-color: #57b23c;
       }
       &:after {
-        @include top_left_coord(40, 30);
+        @include top_left_coord(40px, 30px);
       }
     }
   }

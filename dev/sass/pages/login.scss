@@ -14,7 +14,7 @@ $img_logo: 'login/logo.png';
   width: rem(1000px);
   margin: auto;
   padding: rem(60px) rem(110px);
-  border-radius: $radius_login-container;
+  border-radius: rem($radius_login-container);
   background-color: #fff;
 
   .text-container {
@@ -53,7 +53,7 @@ $img_logo: 'login/logo.png';
   height: rem(112px);
   padding: rem(20px);
   border: 1px solid #8c8c8c;
-  border-radius: $radius_general-big_button;
+  border-radius: rem($radius_general-big_button);
   outline: none;
   &.ng-invalid-minlength,
   &.ng-invalid-pattern {
@@ -62,7 +62,7 @@ $img_logo: 'login/logo.png';
 }
 
 .error-tooltip {
-  @include top_left_coord(-10, 600);
+  @include top_left_coord(-10px, 600px);
   @include roboto-lt(rem(36px));
 
   position: absolute;
@@ -70,7 +70,7 @@ $img_logo: 'login/logo.png';
   max-width: rem(600px);
   padding: rem(20px) rem(40px);
   color: #fff;
-  border-radius: $radius_general-small_button;
+  border-radius: rem($radius_general-small_button);
   background: $error_color;
   &:before {
     @include transform(rotate(45deg));

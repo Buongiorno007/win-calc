@@ -40,7 +40,7 @@
   }
   .group-indicator {
     @extend .button;
-    @include top_left_coord(10, -82);
+    @include top_left_coord(10px, -82px);
     @include transition(width .5s linear);
 
     position: absolute;
@@ -71,7 +71,7 @@
     margin: rem(20px);
     margin-left: 0;
     padding: rem(18px) rem(20px);
-    border-radius: $radius_general-big_button;
+    border-radius: rem($radius_general-big_button);
     color: #fff;
   }
 
