@@ -40,7 +40,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
             overallDimH = 2000,
             overallDimV = 2000,
             edgeTop = 300,
-            edgeLeft = 0,
+            edgeLeft = 300,
             sizeBoxWidth = 250,
             sizeBoxHeight = 120,
             sizeBoxRadius = 35;
@@ -103,7 +103,6 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                 if(+template.objects[i].level > 1) {
                   heightSizeLine = template.objects[i].height * template.objects[i].level/1.5;
                   edgeTop = heightSizeLine * 2;
-                  //console.log('edgeTop = '+edgeTop);
                 }
 
                 dim.lines[0] = template.objects[i].fromPoint.x  + ' ' +
@@ -144,8 +143,8 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               elementsSVG.dimensionsH.push(dim);
 
               //-------- scale svg
-              if (scope.typeConstruction !== 'icon' && template.objects[i].id === 'overallDimV') {
-                canvasWidth = template.objects[i].lengthVal;
+              if (scope.typeConstruction !== 'icon' && template.objects[i].id === 'overallDimH') {
+                canvasWidth = template.objects[i].lengthVal + edgeLeft;
                 overallDimH = canvasWidth / coefScaleW;
               }
               break;
@@ -197,8 +196,9 @@ BauVoiceApp.directive('svgTemplate', [ function() {
 
               //-------- scale svg
               if (scope.typeConstruction !== 'icon' && template.objects[i].id === 'overallDimV') {
-                canvasHeight = template.objects[i].lengthVal;
+                canvasHeight = template.objects[i].lengthVal + edgeTop;
                 overallDimV = canvasHeight / coefScaleH;
+                //canvasHeight += edgeTop;
               }
 
               break;

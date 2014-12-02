@@ -612,9 +612,11 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
               {'type': 'glass_paсkage', id: 'glass2', parts: ['glassline5', 'glassline6', 'glassline7', 'glassline8']},
               {'type': 'glass_paсkage', id: 'glass2', parts: ['glassline9', 'glassline10', 'glassline11', 'glassline12']},
-              {'type': 'dimensionsH', id: 'dimH1', from: ['fp4', 'fp1'], to: ['fpimpost2', 'fpimpost1'], level: 1, height: 150, side: 'bottom'},
-              {'type': 'dimensionsH', id: 'dimH2', from: ['fpimpost2', 'fpimpost1'], to: ['fpimpost4', 'fpimpost3'], level: 1, height: 150, side: 'bottom'},
-              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 1, height: 150, side: 'top'},
+              //{'type': 'dimensionsH', id: 'dimH1', from: ['fp4', 'fp1'], to: ['fpimpost2', 'fpimpost1'], level: 1, height: 150, side: 'bottom'},
+              //{'type': 'dimensionsH', id: 'dimH2', from: ['fpimpost2', 'fpimpost1'], to: ['fpimpost4', 'fpimpost3'], level: 1, height: 150, side: 'bottom'},
+              {'type': 'dimensionsH', id: 'dimH1', from: ['fp1', 'fp4'], to: ['fpimpost1', 'fpimpost2'], level: 1, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'dimH2', from: ['fpimpost1', 'fpimpost2'], to: ['fpimpost3', 'fpimpost4'], level: 1, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 3, height: 150, side: 'top'},
               {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'}
             ]
           }
@@ -741,7 +743,7 @@ BauVoiceApp.factory('constructService', function ($q) {
                */
               {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
               {'type': 'glass_paсkage', id: 'glass2', parts: ['glassline5', 'glassline6', 'glassline7', 'glassline8']},
-              {'type': 'dimensionsH', id: 'dimH1', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 1, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'dimH1', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], links: ['fp5', 'fp8'], level: 1, height: 150, side: 'top'},
               {'type': 'dimensionsV', id: 'dimV1', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'},
               {'type': 'dimensionsH', id: 'dimH2', from: ['fp5', 'fp8'], to: ['fp6', 'fp7'], level: 1, height: 150, side: 'top'},
               {'type': 'dimensionsV', id: 'overallDimV', from: ['fp6', 'fp5'], to: ['fp7', 'fp8'], level: 1, height: 150, side: 'right'},

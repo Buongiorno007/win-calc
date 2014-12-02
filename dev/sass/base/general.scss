@@ -7,6 +7,7 @@ body {
   overflow: hidden;
   width: rem($ipad-width);
   height: rem($ipad-height);
+  //font-size: 8px;
 }
 
 body {
@@ -163,9 +164,10 @@ body {
 .avatar {
   @extend .splash;
 
-  width: image-width($img_avatar);
-  height: image-height($img_avatar);
-  background: image-url($img_avatar) no-repeat;
+  width: rem(image-width($img_avatar));
+  height: rem(image-height($img_avatar));
+  background-image: image-url($img_avatar);
+  background-size: cover;
 }
 
 

@@ -336,6 +336,7 @@ var Dimension = function (sourceObj) {
   this.level = sourceObj.level;
   this.height = sourceObj.height;
   this.side = sourceObj.side;
+  this.links = sourceObj.links;
 
   this.fromPointId = sourceObj.from[0];
   this.toPointId = sourceObj.to[0];

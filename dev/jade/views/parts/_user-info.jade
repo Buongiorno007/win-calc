@@ -6,9 +6,3 @@
   .user-info-block
     .user-location(data-output="{{ global.userGeoLocation }}", typing="{{ userInfo.typing }}", typing-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}")
     .user-name(data-output="{{ global.userName }}", typing="{{ userInfo.typing }}", typing-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}")
-
-  //.test
-    input(type="checkbox", ng-model="userInfo.checked", ng-click="changeTyping()")
-    span {{userInfo.checked}}
-    span {{userInfo.typing}}
-    input(ng-model="userInfo.location")
