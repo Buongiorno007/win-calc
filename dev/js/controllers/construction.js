@@ -184,9 +184,33 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
   //------- Close and Save Construction Page
   $scope.gotoMainPageSaved = function () {
     if(!$scope.global.isConstructSizeCalculator) {
+      //----- create new template icon
+      $scope.global.product.constructThumb = new TemplateIcon($scope.global.templateSource, $scope.global.templateDepths);
+
+      //------ save new template in templates Array
+      if($scope.global.isConstructDoor) {
+        changeTemplateInArray($scope.global.templateIndex, $scope.global.templatesDoorList, $scope.global.templatesDoorThumbList, $scope.global.templateDefault, $scope.global.product.constructThumb);
+      } else {
+        if($scope.global.isConstructWindDoor) {
+          changeTemplateInArray($scope.global.templateIndex, $scope.global.templatesWindDoorList, $scope.global.templatesWindDoorThumbList, $scope.global.templateDefault, $scope.global.product.constructThumb);
+        } else {
+          changeTemplateInArray($scope.global.templateIndex, $scope.global.templatesWindList, $scope.global.templatesWindThumbList, $scope.global.templateDefault, $scope.global.product.constructThumb);
+        }
+      }
       $scope.backtoTemplatePanel();
     }
   };
+
+  function changeTemplateInArray(templateIndex, templateList, templateIconList, newTemplate, newTemplateIcon) {
+    //----- delete old template
+    delete templateList[templateIndex];
+    delete templateIconList[templateIndex];
+    //----- write new template in array
+    templateList[templateIndex] = newTemplate;
+    templateIconList[templateIndex] = newTemplateIcon;
+  }
+
+
 
   //------- set Default Construction
   $scope.setDefaultConstruction = function() {
@@ -412,9 +436,6 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
 
         //-------- build new template
         $scope.global.templateDefault = new Template($scope.global.templateSource, $scope.global.templateDepths);
-        //------- cleaning object for get profile price
-        $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
-        $scope.global.createObjXFormedPrice($scope.global.templateDefault, $scope.global.profileIndex, $scope.global.product.profileId);
         $scope.constructData.tempSize.length = 0;
       }
     } else {

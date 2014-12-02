@@ -390,19 +390,14 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       var square = $scope.global.objXFormedPrice.glassSizes[i][0] * $scope.global.objXFormedPrice.glassSizes[i][1] / 1000000;
       $scope.global.objXFormedPrice.glassSquares.push(square);
     }
-    $scope.global.objXFormedPrice.cityId = $scope.global.userGeoLocationId;
+    $scope.global.objXFormedPrice.cityId = $scope.global.userInfo.city_id;
     $scope.global.objXFormedPrice.glassId = $scope.global.product.glassId;
-    //$scope.global.objXFormedPrice.profileId = $scope.global.product.profileId;
     $scope.global.objXFormedPrice.profileId = profileId;
     $scope.global.objXFormedPrice.frameId = $scope.global.allProfileFrameSizes[profileIndex].id;
     $scope.global.objXFormedPrice.frameSillId = $scope.global.allProfileFrameStillSizes[profileIndex].id;
     $scope.global.objXFormedPrice.sashId = $scope.global.allProfileSashSizes[profileIndex].id;
     $scope.global.objXFormedPrice.impostId = $scope.global.allProfileImpostSizes[profileIndex].id;
     $scope.global.objXFormedPrice.shtulpId = $scope.global.allProfileShtulpSizes[profileIndex].id;
-
-    //console.log('object for price');
-    //console.log($scope.global.objXFormedPrice);
-    //console.log(JSON.stringify(templateObjXPrice));
 
 
     //--------- get product default price

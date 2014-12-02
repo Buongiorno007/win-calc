@@ -9,7 +9,7 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$
   $scope.templatePanel = {
     DELAY_TEMPLATE_ELEMENT: 5 * STEP,
     switcherTemplate: false,
-    templateCurrID: 0,
+    templateCurrID: $scope.global.templateIndex,
     typing: 'on'
   };
 

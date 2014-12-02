@@ -404,29 +404,12 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
         console.log(results);
       });
       */
-    }
+    },
 
 
 
 
     // Global DataBase
-  /*
-    selectDBGlobal: function(tableName, options) {
-      var handler = [],
-          deferred = new Deferred(),
-          i;
-      dbGlobal.select(tableName, options).then(function(results) {
-        if (results.rows.length) {
-          for(i = 0; i < results.rows.length; i++) {
-            handler.push(results.rows.item(i));
-          }
-          deferred.call(handler);
-        } else {
-          deferred.fail('No in database');
-        }
-      });
-      return deferred;
-    }
 
     selectDBGlobal: function(tableName, options, callback) {
       var handler = [];
@@ -440,8 +423,22 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
           callback(new ErrorResult(1, 'No in database!'));
         }
       });
+    },
+
+    selectAllDBGlobal: function(tableName, callback) {
+      var handler = [];
+      dbGlobal.selectAll(tableName).then(function(results) {
+        if (results.rows.length) {
+          for(var i = 0; i < results.rows.length; i++) {
+            handler.push(results.rows.item(i));
+          }
+          callback(new OkResult(handler));
+        } else {
+          callback(new ErrorResult(1, 'No in database!'));
+        }
+      });
     }
-*/
+
   }
 
 }]);

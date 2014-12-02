@@ -1,12 +1,12 @@
 section.settings.location-page
   .header
     button.back
-    input.location-current(type="text", ng-model="location.currCity", ng-change="checkChanges()")
+    input.location-current(type="text", ng-model="location.userDefaultLocation", ng-change="checkChanges()")
     button.save(ng-click="global.gotoSettingsPage()") {{ 'add_elements.CANCEL' | translate }}
   .location-container
     .lists
       ul.list
-        li.item.click(ng-repeat="location in filteredCity", ng-click="selectCity($index)")
+        li.item.click(ng-repeat="location in locations | filter:searchingWord", ng-click="selectCity($index)")
           .location-label {{location.city}}
 
 

@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('RoomInfoCtrl', ['$scope', 'locationService', 'constructService', 'localStorage', function ($scope, locationService, constructService, localStorage) {
+BauVoiceApp.controller('RoomInfoCtrl', ['$scope', 'constructService', 'localStorage', function ($scope, constructService, localStorage) {
 
   $scope.global = localStorage;
 
@@ -22,14 +22,6 @@ BauVoiceApp.controller('RoomInfoCtrl', ['$scope', 'locationService', 'constructS
     }
   };
 
-
-  locationService.getCity(function (results) {
-    if (results.status) {
-      $scope.roomInfo.zone = results.data.zone.id;
-    } else {
-      console.log(results);
-    }
-  });
 
   constructService.getRoomInfo(function (results) {
     if (results.status) {

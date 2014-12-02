@@ -2,18 +2,79 @@
 
 'use strict';
 
-BauVoiceApp.controller('LocationCtrl', ['$scope', 'globalDB', 'constructService', 'localStorage', function ($scope, globalDB, constructService, localStorage) {
+BauVoiceApp.controller('LocationCtrl', ['$scope', 'localDB', 'constructService', 'localStorage', function ($scope, localDB, constructService, localStorage) {
 
   $scope.global = localStorage;
-  $scope.location = {};
+  $scope.location = {
+    userDefaultLocation: ''
+  };
 
-  globalDB.getUser(function (results) {
+  $scope.location.userDefaultLocation += $scope.global.userInfo.cityName + ', ' + $scope.global.userInfo.regionName + ', ' + $scope.global.userInfo.countryName;
+
+  //--------- get all cities
+  localDB.selectAllDBGlobal($scope.global.citiesTableDBGlobal, function (results) {
     if (results.status) {
-      $scope.location.currCity = results.data.user.city;
+      //console.log(results.data);
+      var locations = [],
+          cities = results.data;
+
+      for(var c = 0; c < cities.length; c++) {
+        var location = {};
+        location.cityId = cities[c].id;
+        location.fullLocation = cities[c].name;
+        console.log(location.cityId);
+        //------ find region
+        localDB.selectDBGlobal($scope.global.regionsTableDBGlobal, {'id': cities[c].region_id }, function (results) {
+          if (results.status) {
+            console.log(results.data[0].name);
+            location.fullLocation += ', '+results.data[0].name + ', ';
+            console.log(location.fullLocation);
+/*
+            //------ find country
+            localDB.selectDBGlobal($scope.global.countriesTableDBGlobal, {'id': results.data[0].country_id }, function (results) {
+              if (results.status) {
+                //console.log()
+                location.fullLocation += results.data[0].name;
+                locations.push(location);
+                location.length = 0;
+                console.log(locations);
+                console.log(location);
+              } else {
+                console.log(results);
+              }
+            });
+*/
+
+
+          } else {
+            console.log(results);
+          }
+        });
+
+      }
+      //$scope.global.userInfo = angular.copy(results.data[0]);
+
+ /*
+      //------ find user city in global DB
+      localDB.selectDBGlobal($scope.global.citiesTableDBGlobal, {'id': $scope.global.userInfo.city_id }, function (results) {
+        if (results.status) {
+          $scope.global.userInfo.cityName = results.data[0].name;
+
+        } else {
+          console.log(results);
+        }
+      });
+ */
+
     } else {
       console.log(results);
     }
   });
+
+
+
+
+
 
   constructService.getLocations(function (results) {
     if (results.status) {
@@ -22,7 +83,7 @@ BauVoiceApp.controller('LocationCtrl', ['$scope', 'globalDB', 'constructService'
       console.log(results);
     }
   });
-
+/*
   // Search Location
   $scope.filteredCity = [];
   var regex, checkCity, indexCity, cityObj;
@@ -33,6 +94,7 @@ BauVoiceApp.controller('LocationCtrl', ['$scope', 'globalDB', 'constructService'
   }
 
   $scope.checkChanges = function() {
+    console.log($scope.location.currCity);
     $scope.filteredCity.length = 0;
     if($scope.location.currCity && $scope.location.currCity.length > 0) {
       regex = new RegExp('^' + escapeRegExp($scope.location.currCity), 'i');
@@ -47,7 +109,7 @@ BauVoiceApp.controller('LocationCtrl', ['$scope', 'globalDB', 'constructService'
       }
     }
   };
-
+*/
   // Select City
   $scope.selectCity = function() {
     $scope.global.gotoSettingsPage();

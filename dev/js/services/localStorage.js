@@ -13,7 +13,7 @@ BauVoiceApp.factory('localStorage', function () {
     isConstructWindDoor: false,
     isConstructDoor: false,
     isFindPriceProcess: false,
-
+    userInfo: {},
     product: {},
     chosenAddElements: {
       selectedGrids: [],
@@ -104,7 +104,11 @@ BauVoiceApp.factory('localStorage', function () {
     windowSillsTableBD: 'windowsills',
     handlesTableBD: 'handles',
     othersTableBD: 'other_elements',
-    ordersTableBD: 'orders'
+    ordersTableBD: 'orders',
 
+    usersTableDBGlobal: 'users',
+    citiesTableDBGlobal: 'cities',
+    regionsTableDBGlobal: 'regions',
+    countriesTableDBGlobal: 'countries'
   }
 });

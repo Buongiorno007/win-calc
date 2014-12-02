@@ -913,30 +913,7 @@ BauVoiceApp.factory('constructService', function ($q) {
       }));
     },
 
-/*
-    getAdditionalElements: function (callback) {
-      callback(new OkResult({
-        elements: [
-          {
-            id: 152,
-            name: 'УВ-100х100',
-            group: {
-              id: 65,
-              name: 'Нащельник'
-            }
-          },
-          {
-            id: 22,
-            name: 'ОБ-120',
-            group: {
-              id: 66,
-              name: 'Водоотлив'
-            }
-          }
-        ]
-      }));
-    },
-*/
+
     getAddElementsGroups: function (callback) {
       callback(new OkResult({
         groups: [
@@ -1289,67 +1266,6 @@ BauVoiceApp.factory('constructService', function ($q) {
     },
 
 
-/*
-    getAllTemplates: function (callback) {
-      callback(new OkResult({
-        templatesWindow: [
-          {
-            templateId: 1,
-            templateSVG: 'img/windowConstruction.svg',
-            templateUrl: '../img/templates/balcony.png',
-            templateTitle: 'Окно',
-            templateDescrip: 'т-образное, две створки',
-            templateWidth: '1200',
-            templateHeight: '1200'
-          },
-          {
-            templateId: 2,
-            templateSVG: 'img/doorConstruction.svg',
-            templateUrl: '../img/templates/window.png',
-            templateTitle: 'Окно',
-            templateDescrip: 'т-образное, одна створка'
-          },
-          {
-            templateId: 3,
-            templateSVG: 'img/windowConstruction.svg',
-            templateUrl: '../img/templates/window.png',
-            templateTitle: 'Окно',
-            templateDescrip: 'т-образное'
-          },
-          {
-            templateId: 4,
-            templateSVG: 'img/doorConstruction.svg',
-            templateUrl: '../img/templates/window.png',
-            templateTitle: 'Окно',
-            templateDescrip: 'две створки'
-          }
-        ],
-        templatesBalcony: [
-          {
-            templateId: 1,
-            templateSVG: 'img/doorConstruction.svg',
-            templateUrl: '../img/templates/balcony.png',
-            templateTitle: 'Балкон',
-            templateDescrip: '1 - 4 секционный',
-            templateWidth: '1200',
-            templateHeight: '1200'
-          }
-        ],
-        templatesDoor: [
-          {
-            templateId: 1,
-            templateSVG: 'img/doorConstruction.svg',
-            templateUrl: '../img/templates/balcony.png',
-            templateTitle: 'Дверь',
-            templateDescrip: '1 - 4 секционный',
-            templateWidth: '1200',
-            templateHeight: '1200'
-          }
-        ]
-
-      }));
-    },
-*/
     getAllProfiles: function (callback) {
       callback(new OkResult({
         producers: [

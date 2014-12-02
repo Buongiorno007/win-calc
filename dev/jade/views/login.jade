@@ -19,7 +19,7 @@ section.login-page
       p {{ 'login.PASS_CODE' | translate }}
     .text-container
       span {{ 'login.YOUR_CODE' | translate }}
-      span  drKJKsdf5645
+      span {{ deviceCode }}
     .text-container.error(ng-show="!isCodeCheckingSuccess")
       p {{ 'login.SOMETHING_WRONG' | translate }}
 

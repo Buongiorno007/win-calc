@@ -5,11 +5,12 @@
 
   .coeff-container
     .coeff-block
-      .coeff.climate {{ roomInfo.zone }}
+      .coeff.climate {{ global.userInfo.climaticZone }}
       .coeff-title(data-output="{{ 'mainpage.CLIMATE_ZONE' | translate }}", typing="{{ roomInfo.typing }}", typing-delay="{{ roomInfo.DELAY_SHOW_COEFF }}")
     .coeff-block
       .coeff.heat-transfer.coeff-low {{ roomInfo.coefsArr[(global.currentRoomId-1)].thermalResistance.actual }}
-        .coeff-max {{ roomInfo.coefsArr[(global.currentRoomId-1)].thermalResistance.required }}
+        //.coeff-max {{ roomInfo.coefsArr[(global.currentRoomId-1)].thermalResistance.required }}
+        .coeff-max {{ global.userInfo.heatTransfer }}
       .coeff-title(data-output="{{ 'mainpage.THERMAL_RESISTANCE' | translate }}", typing="{{ roomInfo.typing }}", typing-delay="{{ roomInfo.DELAY_SHOW_COEFF }}")
     .coeff-block
       .coeff.heat-exchange {{ roomInfo.coefsArr[(global.currentRoomId-1)].airCirculation.actual }}

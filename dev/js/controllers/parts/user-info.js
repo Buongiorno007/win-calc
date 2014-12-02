@@ -1,6 +1,6 @@
 'use strict';
 
-BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localStorage', function ($scope, globalDB, localStorage) {
+BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localDB', 'localStorage', function ($scope, globalDB, localDB, localStorage) {
 
   $scope.global = localStorage;
 
@@ -18,21 +18,48 @@ BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localStorage', fu
     }
   };
 
+  //--------- get user data and location
+  localDB.selectAllDBGlobal($scope.global.usersTableDBGlobal, function (results) {
+    if (results.status) {
+      $scope.global.userInfo = angular.copy(results.data[0]);
+      //------ find user city in global DB
+      localDB.selectDBGlobal($scope.global.citiesTableDBGlobal, {'id': $scope.global.userInfo.city_id }, function (results) {
+        if (results.status) {
+          $scope.global.userInfo.cityName = results.data[0].name;
+      //------ find user region in global DB
+          localDB.selectDBGlobal($scope.global.regionsTableDBGlobal, {'id': results.data[0].region_id }, function (results) {
+            if (results.status) {
+              $scope.global.userInfo.regionName = results.data[0].name;
+              $scope.global.userInfo.climaticZone = results.data[0].climatic_zone;
+              $scope.global.userInfo.heatTransfer = results.data[0].heat_transfer;
+      //------ find user country in global DB
+              localDB.selectDBGlobal($scope.global.countriesTableDBGlobal, {'id': results.data[0].country_id }, function (results) {
+                if (results.status) {
+                  $scope.global.userInfo.countryName = results.data[0].name;
+                } else {
+                  console.log(results);
+                }
+              });
+
+            } else {
+              console.log(results);
+            }
+          });
+        } else {
+          console.log(results);
+        }
+      });
+    } else {
+      console.log(results);
+    }
+  });
+/*
   globalDB.getUserInfo(function (results) {
     if (results.status) {
       $scope.global.userName = results.data.user.name;
       $scope.global.userGeoLocationId = results.data.city.id;
       $scope.global.userGeoLocation = results.data.city.name;
       $scope.$apply();
-    } else {
-      console.log(results);
-    }
-  });
-/*
-  locationService.getCity(function (results) {
-    if (results.status) {
-      $scope.userInfo.location = results.data.city.name;
-      $scope.global.userGeoLocation = results.data.city.name;
     } else {
       console.log(results);
     }

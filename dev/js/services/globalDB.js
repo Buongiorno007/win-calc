@@ -421,6 +421,7 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
       });
     },
 
+/*
     getUserInfo : function (callback) {
       var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
       db.transaction(function (transaction) {
@@ -444,7 +445,7 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
         });
       });
     },
-
+*/
     getUser: function (callback) {
       callback(new OkResult({
 
@@ -458,9 +459,6 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
             '+38 (066) 322-5555',
             '+38 (066) 333-4444'
           ],
-          //country: '',
-          //region: '',
-          city: 'Ивано-Франковск, Ивано-Франковская обл., Украина',
           address: 'ул.Победы, 15'
         }
 

@@ -33,6 +33,11 @@ BauVoiceApp.controller('LoginCtrl', ['$scope', '$location', '$translate', 'globa
     $translate.use() === 'en' ? $translate.use('ru') : $translate.use('en');
   };
 
+  //--- get device code
+  globalDB.getDeviceCodeLocalDb(function(result){
+    $scope.deviceCode = result.data.deviceCode;
+  });
+  //---- impost global DB
   globalDB.initApp(function(result){});
   //globalDB.clearDb(function(result){});
 
