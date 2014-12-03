@@ -1,5 +1,5 @@
 .config-panel.template-container(ng-controller="TemplateSelectorCtrl", ng-class="{'active': global.showPanels.showTemplatePanel}")
-  .template-inner(ng-if="global.isTemplatePanel", ng-init="initTemplates()")
+  .template-inner(ng-if="global.isTemplatePanel")
     .template-header
       button.template-title.unvisible(ng-if="global.isConstructDoor", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ 'panels.TEMPLATE_DOOR' | translate }}
       button.template-title.unvisible(ng-if="global.isConstructBalcony", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ 'panels.TEMPLATE_BALCONY' | translate }}

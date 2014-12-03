@@ -450,14 +450,14 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 */
 
 
-      for(var tem = 0; tem < $scope.global.templatesWindSource.length; tem++) {
-        $scope.global.templatesWindList.push( new Template($scope.global.templatesWindSource[tem], $scope.global.templateDepths) );
-        $scope.global.templatesWindThumbList.push( new TemplateIcon($scope.global.templatesWindSource[tem], $scope.global.templateDepths) );
-      }
-      for(var tem = 0; tem < $scope.global.templatesWindDoorSource.length; tem++) {
-        $scope.global.templatesWindDoorList.push( new Template($scope.global.templatesWindDoorSource[tem], $scope.global.templateDepths) );
-        $scope.global.templatesWindDoorThumbList.push( new TemplateIcon($scope.global.templatesWindDoorSource[tem], $scope.global.templateDepths) );
-      }
+    for(var tem = 0; tem < $scope.global.templatesWindSource.length; tem++) {
+      $scope.global.templatesWindList.push( new Template($scope.global.templatesWindSource[tem], $scope.global.templateDepths) );
+      $scope.global.templatesWindThumbList.push( new TemplateIcon($scope.global.templatesWindSource[tem], $scope.global.templateDepths) );
+    }
+    for(var tem = 0; tem < $scope.global.templatesWindDoorSource.length; tem++) {
+      $scope.global.templatesWindDoorList.push( new Template($scope.global.templatesWindDoorSource[tem], $scope.global.templateDepths) );
+      $scope.global.templatesWindDoorThumbList.push( new TemplateIcon($scope.global.templatesWindDoorSource[tem], $scope.global.templateDepths) );
+    }
     for(var tem = 0; tem < $scope.global.templatesBalconySource.length; tem++) {
       $scope.global.templatesBalconyList.push( new Template($scope.global.templatesBalconySource[tem], $scope.global.templateDepths) );
       $scope.global.templatesBalconyThumbList.push( new TemplateIcon($scope.global.templatesBalconySource[tem], $scope.global.templateDepths) );
@@ -468,9 +468,9 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     }
 
 
-      $scope.global.templateSource = $scope.global.templatesWindSource[$scope.global.templateIndex];
-      $scope.global.templateDefault = $scope.global.templatesWindList[$scope.global.templateIndex];
-      $scope.global.product.constructThumb = $scope.global.templatesWindThumbList[$scope.global.templateIndex];
+    $scope.global.templateSource = $scope.global.templatesWindSource[$scope.global.templateIndex];
+    $scope.global.templateDefault = $scope.global.templatesWindList[$scope.global.templateIndex];
+    $scope.global.product.constructThumb = $scope.global.templatesWindThumbList[$scope.global.templateIndex];
 
 //    }
 
@@ -503,6 +503,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       clearShowPanelsObj();
       $scope.global.showPanels.showTemplatePanel = true;
       $scope.global.isTemplatePanel = true;
+      $scope.global.initTemplates();
     }
   };
   $scope.selectProfilePanel = function() {

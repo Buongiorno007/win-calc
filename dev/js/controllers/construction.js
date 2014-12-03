@@ -190,12 +190,12 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
       //------ save new template in templates Array
       if($scope.global.isConstructDoor) {
         changeTemplateInArray($scope.global.templateIndex, $scope.global.templatesDoorList, $scope.global.templatesDoorThumbList, $scope.global.templateDefault, $scope.global.product.constructThumb);
-      } else {
-        if($scope.global.isConstructWindDoor) {
-          changeTemplateInArray($scope.global.templateIndex, $scope.global.templatesWindDoorList, $scope.global.templatesWindDoorThumbList, $scope.global.templateDefault, $scope.global.product.constructThumb);
-        } else {
-          changeTemplateInArray($scope.global.templateIndex, $scope.global.templatesWindList, $scope.global.templatesWindThumbList, $scope.global.templateDefault, $scope.global.product.constructThumb);
-        }
+      } else if($scope.global.isConstructBalcony) {
+        changeTemplateInArray($scope.global.templateIndex, $scope.global.templatesBalconyList, $scope.global.templatesBalconyThumbList, $scope.global.templateDefault, $scope.global.product.constructThumb);
+      } else if($scope.global.isConstructWindDoor) {
+        changeTemplateInArray($scope.global.templateIndex, $scope.global.templatesWindDoorList, $scope.global.templatesWindDoorThumbList, $scope.global.templateDefault, $scope.global.product.constructThumb);
+      } else if($scope.global.isConstructWind) {
+        changeTemplateInArray($scope.global.templateIndex, $scope.global.templatesWindList, $scope.global.templatesWindThumbList, $scope.global.templateDefault, $scope.global.product.constructThumb);
       }
       $scope.backtoTemplatePanel();
     }

@@ -21,9 +21,11 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', 'localStorage', function (
   $scope.selectRoom = function(id) {
     $scope.roomData.selectedRoom = id;
     $scope.global.currentRoomId = id;
+    $scope.global.templateIndex = 0;
     //----- if select Door
     if(id === 6) {
       $scope.global.isConstructWind = false;
+      $scope.global.isConstructWindDoor = false;
       $scope.global.isConstructBalcony = false;
       $scope.global.isConstructDoor = true;
       //------- change template and price relate to Door
@@ -34,6 +36,7 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', 'localStorage', function (
     } else if(id === 3) {
       //------- if select Balcony
       $scope.global.isConstructWind = false;
+      $scope.global.isConstructWindDoor = false;
       $scope.global.isConstructBalcony = true;
       $scope.global.isConstructDoor = false;
       //------- change template and price relate to Balcony
@@ -43,6 +46,7 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', 'localStorage', function (
       $scope.global.createObjXFormedPrice($scope.global.templateDefault, $scope.global.profileIndex, $scope.global.product.profileId);
     } else {
       $scope.global.isConstructWind = true;
+      $scope.global.isConstructWindDoor = false;
       $scope.global.isConstructBalcony = false;
       $scope.global.isConstructDoor = false;
       //------- change template and price relate to Window
