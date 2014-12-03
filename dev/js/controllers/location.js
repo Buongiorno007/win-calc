@@ -2,117 +2,77 @@
 
 'use strict';
 
-BauVoiceApp.controller('LocationCtrl', ['$scope', 'localDB', 'constructService', 'localStorage', function ($scope, localDB, constructService, localStorage) {
+BauVoiceApp.controller('LocationCtrl', ['$scope', 'localDB', 'localStorage', function ($scope, localDB, localStorage) {
 
   $scope.global = localStorage;
-  $scope.location = {
-    userDefaultLocation: ''
-  };
+  var generalLocations = [];
+  $scope.locations = [];
 
-  $scope.location.userDefaultLocation += $scope.global.userInfo.cityName + ', ' + $scope.global.userInfo.regionName + ', ' + $scope.global.userInfo.countryName;
+  //----- default user location
+  $scope.userDefaultLocation = '' + $scope.global.userInfo.cityName + ', ' + $scope.global.userInfo.regionName + ', ' + $scope.global.userInfo.countryName;
 
   //--------- get all cities
+  localDB.selectAllDBGlobal($scope.global.regionsTableDBGlobal, function (results) {
+    if (results.status) {
+      $scope.regions = angular.copy(results.data);
+    } else {
+      console.log(results);
+    }
+  });
+  localDB.selectAllDBGlobal($scope.global.countriesTableDBGlobal, function (results) {
+    if (results.status) {
+      $scope.countries = angular.copy(results.data);
+    } else {
+      console.log(results);
+    }
+  });
   localDB.selectAllDBGlobal($scope.global.citiesTableDBGlobal, function (results) {
     if (results.status) {
-      //console.log(results.data);
-      var locations = [],
-          cities = results.data;
+      $scope.cities = angular.copy(results.data);
 
-      for(var c = 0; c < cities.length; c++) {
+      for(var c = 0; c < $scope.cities.length; c++) {
         var location = {};
-        location.cityId = cities[c].id;
-        location.fullLocation = cities[c].name;
-        console.log(location.cityId);
-        //------ find region
-        localDB.selectDBGlobal($scope.global.regionsTableDBGlobal, {'id': cities[c].region_id }, function (results) {
-          if (results.status) {
-            console.log(results.data[0].name);
-            location.fullLocation += ', '+results.data[0].name + ', ';
-            console.log(location.fullLocation);
-/*
-            //------ find country
-            localDB.selectDBGlobal($scope.global.countriesTableDBGlobal, {'id': results.data[0].country_id }, function (results) {
-              if (results.status) {
-                //console.log()
-                location.fullLocation += results.data[0].name;
-                locations.push(location);
-                location.length = 0;
-                console.log(locations);
-                console.log(location);
-              } else {
-                console.log(results);
+        location.cityId = $scope.cities[c].id;
+        location.cityName = $scope.cities[c].name;
+        for(var r = 0; r <  $scope.regions.length; r++) {
+          if($scope.cities[c].region_id === $scope.regions[r].id) {
+            location.regionName = $scope.regions[r].name;
+            location.climaticZone = $scope.regions[r].climatic_zone;
+            location.heatTransfer = $scope.regions[r].heat_transfer;
+            for(var s = 0; s < $scope.countries.length; s++) {
+              if($scope.regions[r].country_id === $scope.countries[s].id) {
+                location.countryName = $scope.countries[s].name;
+                generalLocations.push(location);
               }
-            });
-*/
-
-
-          } else {
-            console.log(results);
+            }
           }
-        });
-
-      }
-      //$scope.global.userInfo = angular.copy(results.data[0]);
-
- /*
-      //------ find user city in global DB
-      localDB.selectDBGlobal($scope.global.citiesTableDBGlobal, {'id': $scope.global.userInfo.city_id }, function (results) {
-        if (results.status) {
-          $scope.global.userInfo.cityName = results.data[0].name;
-
-        } else {
-          console.log(results);
         }
-      });
- */
+      }
 
+      //-------- build locations object for searching
+      for(var i = 0; i < generalLocations.length; i++) {
+        var tempObj = {
+          cityId: generalLocations[i].cityId,
+          climaticZone: generalLocations[i].climaticZone,
+          heatTransfer: generalLocations[i].heatTransfer,
+          fullLocation: '' + generalLocations[i].cityName + ', ' + generalLocations[i].regionName + ', ' + generalLocations[i].countryName,
+        };
+        $scope.locations.push(tempObj);
+      }
+      console.log($scope.locations);
     } else {
       console.log(results);
     }
   });
 
-
-
-
-
-
-  constructService.getLocations(function (results) {
-    if (results.status) {
-      $scope.location.cities = results.data.locations;
-    } else {
-      console.log(results);
-    }
-  });
-/*
-  // Search Location
-  $scope.filteredCity = [];
-  var regex, checkCity, indexCity, cityObj;
-
-  // Create regExpresion
-  function escapeRegExp(string){
-    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
-  }
-
-  $scope.checkChanges = function() {
-    console.log($scope.location.currCity);
-    $scope.filteredCity.length = 0;
-    if($scope.location.currCity && $scope.location.currCity.length > 0) {
-      regex = new RegExp('^' + escapeRegExp($scope.location.currCity), 'i');
-      for(indexCity = 0; indexCity < $scope.location.cities.length; indexCity++){
-        checkCity = regex.test($scope.location.cities[indexCity].city);
-        if(checkCity) {
-          cityObj = {};
-          cityObj.city = $scope.location.cities[indexCity].city;
-          cityObj.current = $scope.location.cities[indexCity].current;
-          $scope.filteredCity.push(cityObj);
-        }
+  //-------- Select City
+  $scope.selectCity = function(locationId) {
+    console.log(locationId);
+    for(var j = 0; j < $scope.locations.length; j++) {
+      if($scope.locations[j].cityId === locationId) {
+        $scope.userDefaultLocation = $scope.locations[j].fullLocation;
       }
     }
-  };
-*/
-  // Select City
-  $scope.selectCity = function() {
-    $scope.global.gotoSettingsPage();
   };
 
 }]);
