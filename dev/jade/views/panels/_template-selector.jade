@@ -2,11 +2,12 @@
   .template-inner(ng-if="global.isTemplatePanel", ng-init="initTemplates()")
     .template-header
       button.template-title.unvisible(ng-if="global.isConstructDoor", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ 'panels.TEMPLATE_DOOR' | translate }}
-      button.template-title.unvisible(ng-if="global.isConstructWindDoor", ng-class="{'active': templatePanel.switcherTemplate}", ng-click="toggleTemplate()", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ 'panels.TEMPLATE_BALCONY' | translate }}
+      button.template-title.unvisible(ng-if="global.isConstructBalcony", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ 'panels.TEMPLATE_BALCONY' | translate }}
+      button.template-title.unvisible(ng-if="global.isConstructWindDoor", ng-class="{'active': templatePanel.switcherTemplate}", ng-click="toggleTemplate()", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}
         .window-type(ng-if="templatePanel.switcherTemplate")
           .balcon-config(ng-click="turnOnTemplate('balcon')") {{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}
           .window-config(ng-click="turnOnTemplate('window')") {{ 'panels.TEMPLATE_WINDOW' | translate }}
-      button.template-title.unvisible(ng-if="!global.isConstructWindDoor", ng-class="{'active': templatePanel.switcherTemplate}", ng-click="toggleTemplate()", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ 'panels.TEMPLATE_WINDOW' | translate }}
+      button.template-title.unvisible(ng-if="global.isConstructWind", ng-class="{'active': templatePanel.switcherTemplate}", ng-click="toggleTemplate()", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ 'panels.TEMPLATE_WINDOW' | translate }}
         .window-type(ng-if="templatePanel.switcherTemplate")
           .balcon-config(ng-click="turnOnTemplate('balcon')") {{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}
           .window-config(ng-click="turnOnTemplate('window')") {{ 'panels.TEMPLATE_WINDOW' | translate }}

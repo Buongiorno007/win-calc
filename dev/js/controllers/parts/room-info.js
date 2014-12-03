@@ -12,25 +12,22 @@ BauVoiceApp.controller('RoomInfoCtrl', ['$scope', 'constructService', 'localStor
     typing: 'on'
   };
 
-  // Show/Close Room Selector Dialog
-  $scope.showRoomSelectorDialog = function() {
-    if($scope.global.showRoomSelectorDialog === true) {
-      $scope.global.showRoomSelectorDialog = false;
-    } else {
-      $scope.global.showRoomSelectorDialog = true;
-      $scope.global.isRoomsDialog = true;
-    }
-  };
+
 
 
   constructService.getRoomInfo(function (results) {
     if (results.status) {
-      $scope.roomInfo.roomArr = results.data.roomName;
+      $scope.roomInfo.roomsData = angular.copy(results.data.roomInfo);
+      for(var room = 0; room < $scope.roomInfo.roomsData.length; room++) {
+        if($scope.roomInfo.roomsData[room].current) {
+          $scope.global.currentRoomId = $scope.roomInfo.roomsData[room].id;
+        }
+      }
     } else {
       console.log(results);
     }
   });
-
+/*
   constructService.getCoefs(function (results) {
     if (results.status) {
       $scope.roomInfo.coefsArr = [
@@ -49,20 +46,25 @@ BauVoiceApp.controller('RoomInfoCtrl', ['$scope', 'constructService', 'localStor
         };
         $scope.roomInfo.coefsArr.push(coefsObj);
       }
- /*
-      $scope.roomInfo.coefs = {
-        thermalResistance: {
-          required: results.data.coefs.thermalResistance.required,
-            actual: results.data.coefs.thermalResistance.actual
-        },
-        airCirculation: {
-          required: results.data.coefs.airCirculation.required,
-            actual: results.data.coefs.airCirculation.actual
-        }
-      };
- */
+
+
+
+
     } else {
       console.log(results);
     }
   });
+*/
+
+  // Show/Close Room Selector Dialog
+  $scope.showRoomSelectorDialog = function() {
+    if($scope.global.showRoomSelectorDialog === true) {
+      $scope.global.showRoomSelectorDialog = false;
+    } else {
+      $scope.global.showRoomSelectorDialog = true;
+      $scope.global.isRoomsDialog = true;
+    }
+  };
+
+
 }]);

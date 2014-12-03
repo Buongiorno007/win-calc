@@ -437,6 +437,10 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
           callback(new ErrorResult(1, 'No in database!'));
         }
       });
+    },
+
+    updateDBGlobal: function(tableName, elem, options) {
+      dbGlobal.update(tableName, elem, options);
     }
 
   }

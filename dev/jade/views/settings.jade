@@ -1,6 +1,6 @@
 section.settings.setting-page(ng-controller="SettingsCtrl")
   .header
-    button.back(ng-click="global.gotoMainPage()")
+    button.back(ng-click="closeSettingsPage()")
     .title(data-output="{{ 'mainpage.NAVMENU_SETTINGS' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
 
   .setting-container
@@ -26,8 +26,7 @@ section.settings.setting-page(ng-controller="SettingsCtrl")
           input.set-input-txt(ng-show="settings.selectedSetting == 1", type="text", ng-model="settings.userName")
         li.item.click(ng-click="global.gotoLocationPage()")
           .setting-item-label(data-output="{{ 'settings.CITY' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
-          .setting-item-data(data-output="{{ settings.city }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
-          //input.set-input-txt(ng-show="settings.selectedSetting == 2", type="text", ng-model="settings.city")
+          .setting-item-data(data-output="{{ global.userInfo.fullLocation }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           .setting-item-change
         li.item.click(ng-click="changeSettingData(3)")
           .setting-item-label(data-output="{{ 'cart.CLIENT_ADDRESS' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")

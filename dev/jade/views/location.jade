@@ -1,12 +1,12 @@
 section.settings.location-page
   .header
     button.back
-    input.location-current(type="text", ng-model="userDefaultLocation")
-    button.save(ng-click="global.gotoSettingsPage()") {{ 'add_elements.CANCEL' | translate }}
+    input.location-current(type="text", ng-model="userNewLocation")
+    button.save(ng-click="cancelLocationPage()") {{ 'add_elements.CANCEL' | translate }}
   .location-container
     .lists
       ul.list
-        li.item.click(ng-repeat="location in locations | filter:userDefaultLocation", ng-click="selectCity(location.cityId)")
+        li.item.click(ng-repeat="location in locations | filter:userNewLocation", ng-click="selectCity(location.cityId)")
           .location-label {{location.fullLocation}}
 
 

@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'constructService', 'localDB', 'localStorage', function ($scope, $location, globalDB, constructService, localDB, localStorage) {
+BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'constructService', 'localDB', 'localStorage', '$timeout', function ($scope, $location, globalDB, constructService, localDB, localStorage, $timeout) {
 
   $scope.global = localStorage;
 
@@ -52,6 +52,14 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
     }
   };
 
+  //------- Select menu item with time out
+  $scope.selectMenuItemTimeOut = function(id) {
+    $scope.navMenu.activeMenuItem = id;
+    $timeout(function() {
+      $scope.navMenu.activeMenuItem = false;
+    }, 100);
+  };
+
   //-------- links of nav-menu items
   $scope.global.gotoMainPage = function () {
     $scope.global.isHistoryPage = false;
@@ -69,17 +77,34 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
   $scope.gotoHistoryPage = function () {
     $location.path('/history');
   };
+
   $scope.global.gotoCartPage = function () {
     $scope.global.showNavMenu = false;
     $location.path('/cart');
   };
 
   $scope.getCurrentGeolocation = function () {
+    //------ Data from GPS device
 
+    //----- save previous current location
+    $scope.global.prevGeoLocation = angular.copy($scope.global.currentGeoLocation);
+
+    $scope.global.currentGeoLocation = {
+      cityId: 156,
+      cityName: 'Dnepro',
+      regionName: 'Dnepro',
+      countryName: 'Ukraine',
+      climaticZone: 7,
+      heatTransfer: 0.99,
+      fullLocation: 'Dnepro, Dnepro, Dnepro'
+    };
   };
 
-  $scope.setCurrentCity = function (city) {
-
+  $scope.setCurrentGeoLocation = function () {
+    var prevLocation = angular.copy( $scope.global.prevGeoLocation),
+        currLocation = angular.copy($scope.global.currentGeoLocation);
+    $scope.global.currentGeoLocation = prevLocation;
+    $scope.global.prevGeoLocation = currLocation;
   };
 
   $scope.gotoAddElementsPanel = function() {

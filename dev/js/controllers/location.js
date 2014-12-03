@@ -8,8 +8,8 @@ BauVoiceApp.controller('LocationCtrl', ['$scope', 'localDB', 'localStorage', fun
   var generalLocations = [];
   $scope.locations = [];
 
-  //----- default user location
-  $scope.userDefaultLocation = '' + $scope.global.userInfo.cityName + ', ' + $scope.global.userInfo.regionName + ', ' + $scope.global.userInfo.countryName;
+  //----- current user location
+  $scope.userNewLocation = angular.copy($scope.global.currentGeoLocation.fullLocation);
 
   //--------- get all cities
   localDB.selectAllDBGlobal($scope.global.regionsTableDBGlobal, function (results) {
@@ -59,7 +59,6 @@ BauVoiceApp.controller('LocationCtrl', ['$scope', 'localDB', 'localStorage', fun
         };
         $scope.locations.push(tempObj);
       }
-      console.log($scope.locations);
     } else {
       console.log(results);
     }
@@ -67,12 +66,52 @@ BauVoiceApp.controller('LocationCtrl', ['$scope', 'localDB', 'localStorage', fun
 
   //-------- Select City
   $scope.selectCity = function(locationId) {
-    console.log(locationId);
     for(var j = 0; j < $scope.locations.length; j++) {
       if($scope.locations[j].cityId === locationId) {
-        $scope.userDefaultLocation = $scope.locations[j].fullLocation;
+        $scope.userNewLocation = $scope.locations[j].fullLocation;
+        //----- if user settings changing
+        if($scope.global.isOpenSettingsPage) {
+          $scope.global.userInfo.fullLocation = $scope.userNewLocation;
+          $scope.global.userInfo.city_id = locationId;
+          for(var i = 0; i < generalLocations.length; i++) {
+            if (generalLocations[i].cityId === locationId) {
+              $scope.global.userInfo.cityName = generalLocations[i].cityName;
+              $scope.global.userInfo.regionName = generalLocations[i].regionName;
+              $scope.global.userInfo.countryName = generalLocations[i].countryName;
+              $scope.global.userInfo.climaticZone = generalLocations[i].climaticZone;
+              $scope.global.userInfo.heatTransfer = generalLocations[i].heatTransfer;
+            }
+          }
+          //----- save changes in Global DB
+          localDB.updateDBGlobal($scope.global.usersTableDBGlobal, {"city_id": locationId}, {"id": $scope.global.userInfo.id});
+        //-------- if current geolocation changing
+        } else {
+          for(var c = 0; c < generalLocations.length; c++) {
+            if (generalLocations[c].cityId === locationId) {
+              //----- save previous current location
+              $scope.global.prevGeoLocation = angular.copy($scope.global.currentGeoLocation);
+              //----- build new currentGeoLocation
+              $scope.global.currentGeoLocation = angular.copy(generalLocations[c]);
+              $scope.global.currentGeoLocation.fullLocation = $scope.userNewLocation;
+            }
+          }
+        }
+        closeLocationPage();
       }
     }
+
   };
+  //-------- close Location Page
+  $scope.cancelLocationPage = function() {
+    closeLocationPage()
+  };
+
+  function closeLocationPage() {
+    if($scope.global.isOpenSettingsPage) {
+      $scope.global.gotoSettingsPage();
+    } else {
+      $scope.global.gotoMainPage();
+    }
+  }
 
 }]);

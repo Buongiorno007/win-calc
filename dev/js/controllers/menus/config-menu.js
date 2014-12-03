@@ -212,16 +212,17 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
           constructService.getDefaultConstructTemplate(function (results) {
           if (results.status) {
             //------ check door or window creating
-            if($scope.global.isConstructDoor) {
-              $scope.global.templatesDoorSource = angular.copy(results.data.doors);
+            //if($scope.global.isConstructDoor) {
+            //  $scope.global.templatesDoorSource = angular.copy(results.data.doors);
               //$scope.global.templateSource = angular.copy(results.data.doors[$scope.global.templateIndex]);
-            } else {
+            //} else {
               $scope.global.templatesWindSource = angular.copy(results.data.windows);
               $scope.global.templatesWindDoorSource = angular.copy(results.data.windowDoor);
-
+              $scope.global.templatesBalconySource = angular.copy(results.data.balconies);
+              $scope.global.templatesDoorSource = angular.copy(results.data.doors);
               //$scope.global.templateSource = angular.copy(results.data.windows[$scope.global.templateIndex]);
               //$scope.global.templateSource = angular.copy(results.data.windowDoor[$scope.global.templateIndex]);
-            }
+            //}
 
             $scope.global.parseTemplate($scope.global.profileIndex, $scope.global.product.profileId);
 
@@ -434,7 +435,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       shtulpDepth: $scope.global.allProfileShtulpSizes[profileIndex]
 
     };
-
+/*
     if($scope.global.isConstructDoor) {
 
       for(var tem = 0; tem < $scope.global.templatesDoorSource.length; tem++) {
@@ -446,6 +447,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       $scope.global.product.constructThumb = $scope.global.templatesDoorThumbList[$scope.global.templateIndex];
 
     } else {
+*/
+
 
       for(var tem = 0; tem < $scope.global.templatesWindSource.length; tem++) {
         $scope.global.templatesWindList.push( new Template($scope.global.templatesWindSource[tem], $scope.global.templateDepths) );
@@ -455,12 +458,21 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
         $scope.global.templatesWindDoorList.push( new Template($scope.global.templatesWindDoorSource[tem], $scope.global.templateDepths) );
         $scope.global.templatesWindDoorThumbList.push( new TemplateIcon($scope.global.templatesWindDoorSource[tem], $scope.global.templateDepths) );
       }
+    for(var tem = 0; tem < $scope.global.templatesBalconySource.length; tem++) {
+      $scope.global.templatesBalconyList.push( new Template($scope.global.templatesBalconySource[tem], $scope.global.templateDepths) );
+      $scope.global.templatesBalconyThumbList.push( new TemplateIcon($scope.global.templatesBalconySource[tem], $scope.global.templateDepths) );
+    }
+    for(var tem = 0; tem < $scope.global.templatesDoorSource.length; tem++) {
+      $scope.global.templatesDoorList.push( new Template($scope.global.templatesDoorSource[tem], $scope.global.templateDepths) );
+      $scope.global.templatesDoorThumbList.push( new TemplateIcon($scope.global.templatesDoorSource[tem], $scope.global.templateDepths) );
+    }
+
 
       $scope.global.templateSource = $scope.global.templatesWindSource[$scope.global.templateIndex];
       $scope.global.templateDefault = $scope.global.templatesWindList[$scope.global.templateIndex];
       $scope.global.product.constructThumb = $scope.global.templatesWindThumbList[$scope.global.templateIndex];
 
-    }
+//    }
 
     $scope.global.createObjXFormedPrice($scope.global.templateDefault, profileIndex, profileId);
   };

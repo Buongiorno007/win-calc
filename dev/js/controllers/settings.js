@@ -14,6 +14,8 @@ BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalDB', 'localStorage', '$
     regex: /^[0-9]{1,10}$/,
     typing: 'on'
   };
+  //----- for location page
+  $scope.global.isOpenSettingsPage = true;
 
   globalDB.getUser(function (results) {
     if (results.status) {
@@ -67,6 +69,12 @@ BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalDB', 'localStorage', '$
   $scope.global.gotoSettingsPage = function() {
     $location.path('/settings');
   };
+
+  $scope.closeSettingsPage = function() {
+    $scope.global.isOpenSettingsPage = false;
+    $scope.global.gotoMainPage();
+  };
+
 
   $scope.logOut = function() {
     //------- clearing local DB

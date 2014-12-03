@@ -1,18 +1,18 @@
 .room-info-container(ng-controller="RoomInfoCtrl")
   .room-header
-    .room-name {{ roomInfo.roomArr[(global.currentRoomId-1)].name }}
+    .room-name {{ roomInfo.roomsData[(global.currentRoomId-1)].name }}
       button.select-rooms.unvisible(show-delay="{{ roomInfo.DELAY_SHOW_ALLROOMS_BTN }}", ng-click="showRoomSelectorDialog()") {{ 'common_words.ALL' | translate }}
 
   .coeff-container
     .coeff-block
-      .coeff.climate {{ global.userInfo.climaticZone }}
+      .coeff.climate {{ global.currentGeoLocation.climaticZone }}
       .coeff-title(data-output="{{ 'mainpage.CLIMATE_ZONE' | translate }}", typing="{{ roomInfo.typing }}", typing-delay="{{ roomInfo.DELAY_SHOW_COEFF }}")
     .coeff-block
-      .coeff.heat-transfer.coeff-low {{ roomInfo.coefsArr[(global.currentRoomId-1)].thermalResistance.actual }}
+      .coeff.heat-transfer.coeff-low {{ roomInfo.roomsData[(global.currentRoomId-1)].thermalResistance.actual }}
         //.coeff-max {{ roomInfo.coefsArr[(global.currentRoomId-1)].thermalResistance.required }}
-        .coeff-max {{ global.userInfo.heatTransfer }}
+        .coeff-max {{ global.currentGeoLocation.heatTransfer }}
       .coeff-title(data-output="{{ 'mainpage.THERMAL_RESISTANCE' | translate }}", typing="{{ roomInfo.typing }}", typing-delay="{{ roomInfo.DELAY_SHOW_COEFF }}")
     .coeff-block
-      .coeff.heat-exchange {{ roomInfo.coefsArr[(global.currentRoomId-1)].airCirculation.actual }}
-        .coeff-max {{ roomInfo.coefsArr[(global.currentRoomId-1)].airCirculation.required }}
+      .coeff.heat-exchange {{ roomInfo.roomsData[(global.currentRoomId-1)].airCirculation }}
+        .coeff-max {{ roomInfo.roomsData[(global.currentRoomId-1)].airCirculation }}
       .coeff-title(data-output="{{ 'mainpage.AIR_CIRCULATION' | translate }}", typing="{{ roomInfo.typing }}", typing-delay="{{ roomInfo.DELAY_SHOW_COEFF }}")

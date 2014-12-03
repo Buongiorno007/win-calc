@@ -2,6 +2,7 @@
 
 BauVoiceApp.factory('localStorage', function () {
   return {
+    doFirstTime: true,
     svgTemplateThumbWidth: 120,
     svgTemplateThumbHeight: 120,
     svgTemplateWidth: 1500,
@@ -10,9 +11,21 @@ BauVoiceApp.factory('localStorage', function () {
     //-------- defined default profile index
     templateIndex: 0,
     profileIndex: 0,
+    isConstructWind: true,
     isConstructWindDoor: false,
+    isConstructBalcony: false,
     isConstructDoor: false,
     isFindPriceProcess: false,
+
+    templatesWindList: [],
+    templatesWindThumbList: [],
+    templatesWindDoorList: [],
+    templatesWindDoorThumbList: [],
+    templatesBalconyList: [],
+    templatesBalconyThumbList: [],
+    templatesDoorList: [],
+    templatesDoorThumbList: [],
+
     userInfo: {},
     product: {},
     chosenAddElements: {
@@ -42,12 +55,8 @@ BauVoiceApp.factory('localStorage', function () {
       glassSquares: [],
       frameSillSize: 0
     },
-    templatesDoorList: [],
-    templatesDoorThumbList: [],
-    templatesWindList: [],
-    templatesWindThumbList: [],
-    templatesWindDoorList: [],
-    templatesWindDoorThumbList: [],
+
+
 
     isCreatedNewProject: true,
     productEditNumber: 0,
@@ -89,7 +98,7 @@ BauVoiceApp.factory('localStorage', function () {
 
     showRoomSelectorDialog: false,
     isRoomsDialog: false,
-    currentRoomId: 4,
+    isOpenSettingsPage: false,
 //------ DB table names
     productsTableBD: 'products',
     componentsTableBD: 'construction_parts',

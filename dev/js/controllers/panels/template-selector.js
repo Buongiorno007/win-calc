@@ -17,12 +17,14 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$
   $scope.toggleTemplate = function() {
     $scope.templatePanel.switcherTemplate = !$scope.templatePanel.switcherTemplate;
   };
-  //------- Select Window/Balcony Template
+  //------- Select Window/Balcony Entry Template
   $scope.turnOnTemplate = function(marker) {
     if(marker === 'balcon') {
       $scope.global.isConstructWindDoor = true;
+      $scope.global.isConstructWind = false;
     } else if(marker === 'window') {
       $scope.global.isConstructWindDoor = false;
+      $scope.global.isConstructWind = true;
     }
     $scope.templatePanel.switcherTemplate = false;
     $scope.templatePanel.templateCurrID = 0;

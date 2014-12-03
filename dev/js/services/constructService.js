@@ -13,85 +13,44 @@ BauVoiceApp.factory('constructService', function ($q) {
   return {
 
     // TODO: Сервис готов
-    getCoefs: function (callback) {
-      callback(new OkResult({
-        coefs: [
-          {
-            id: 1,
-            thermalResistance: {
-              required: 0.75,
-              actual: 0.54
-            },
-            airCirculation: {
-              required: 50,
-              actual: 20
-            }
-          },
-          {
-            id: 2,
-            thermalResistance: {
-              required: 0.75,
-              actual: 0.4
-            },
-            airCirculation: {
-              required: 50,
-              actual: 90
-            }
-          },
-          {
-            id: 3,
-            thermalResistance: {
-              required: 0.75,
-              actual: 0.14
-            },
-            airCirculation: {
-              required: 50,
-              actual: 10
-            }
-          },
-          {
-            id: 4,
-            thermalResistance: {
-              required: 0.75,
-              actual: 0.44
-            },
-            airCirculation: {
-              required: 50,
-              actual: 0
-            }
-          }
-        ]
-
-      }));
-    },
-
-    // TODO: Сервис готов
     getRoomInfo: function (callback) {
       callback(new OkResult({
-        roomName: [
+        roomInfo: [
           {
             id: 1,
-            name: 'Кухня'
+            current: false,
+            name: 'Кухня',
+            airCirculation: 90
           },
           {
             id: 2,
-            name: 'Гостиная'
+            current: false,
+            name: 'Гостиная',
+            airCirculation: 50
           },
           {
             id: 3,
-            name: 'Балкон'
+            name: 'Балкон',
+            current: false,
+            airCirculation: 0
           },
           {
             id: 4,
-            name: 'Детская'
+            name: 'Детская',
+            current: true,
+            airCirculation: 30
           },
           {
             id: 5,
-            name: 'Спальня'
+            name: 'Спальня',
+            current: false,
+            airCirculation: 40
           },
           {
             id: 6,
-            name: 'Вход'
+            name: 'Вход',
+            current: false,
+            airCirculation: 0
           }
         ]
       }));
@@ -751,6 +710,150 @@ BauVoiceApp.factory('constructService', function ($q) {
             ]
           }
         ],
+
+        balconies: [
+          {
+            'name':'Трехстворчатый балкон',
+            'objects':[
+              //------- main points
+              {'type':'fixed_point', id:'fp1', x:'0', y: '0'},
+              {'type':'fixed_point', id:'fp2', x:'2100', y:'0'},
+              {'type':'fixed_point', id:'fp3', x:'2100', y:'1400'},
+              {'type':'fixed_point', id:'fp4', x:'0', y:'1400'},
+              {'type':'fixed_point_impost', id:'fpimpost1', x:'700', y:'0'},
+              {'type':'fixed_point_impost', id:'fpimpost2', x:'700', y:'1400'},
+              {'type':'fixed_point_impost', id:'fpimpost3', x:'1400', y:'0'},
+              {'type':'fixed_point_impost', id:'fpimpost4', x:'1400', y:'1400'},
+              //------- frame
+              {'type': 'frame_line', id: 'frameline1', from: 'fp1', to: 'fp2'},
+              {'type': 'frame_line', id: 'frameline2', from: 'fp2', to: 'fp3'},
+              {'type': 'frame_line', id: 'frameline3', from: 'fp3', to: 'fp4', sill: true},
+              {'type': 'frame_line', id: 'frameline4', from: 'fp4', to: 'fp1'},
+              {'type': 'cross_point', id: 'cp1', line1: 'frameline1', line2: 'frameline2'},
+              {'type': 'cross_point', id: 'cp2', line1: 'frameline2', line2: 'frameline3'},
+              {'type': 'cross_point', id: 'cp3', line1: 'frameline3', line2: 'frameline4'},
+              {'type': 'cross_point', id: 'cp4', line1: 'frameline4', line2: 'frameline1'},
+              {'type': 'frame_in_line', id: 'frameinline1', from: 'cp4', to: 'cp1'},
+              {'type': 'frame_in_line', id: 'frameinline2', from: 'cp1', to: 'cp2'},
+              {'type': 'frame_in_line', id: 'frameinline3', from: 'cp2', to: 'cp3'},
+              {'type': 'frame_in_line', id: 'frameinline4', from: 'cp3', to: 'cp4'},
+              //-------- impost
+              {'type': 'impost_line', id: 'impostcenterline1', from: 'fpimpost1', to: 'fpimpost2'},
+              {'type': 'impost_line', id: 'impostcenterline2', from: 'fpimpost2', to: 'fpimpost1'},
+              {'type': 'impost_line', id: 'impostcenterline3', from: 'fpimpost3', to: 'fpimpost4'},
+              {'type': 'impost_line', id: 'impostcenterline4', from: 'fpimpost4', to: 'fpimpost3'},
+              {'type': 'cross_point_impost', id: 'cpimpost1', line1: 'impostcenterline1', line2: 'frameinline1'},
+              {'type': 'cross_point_impost', id: 'cpimpost2', line1: 'impostcenterline2', line2: 'frameinline1'},
+              {'type': 'cross_point_impost', id: 'cpimpost3', line1: 'impostcenterline2', line2: 'frameinline3'},
+              {'type': 'cross_point_impost', id: 'cpimpost4', line1: 'impostcenterline1', line2: 'frameinline3'},
+              {'type': 'cross_point_impost', id: 'cpimpost5', line1: 'impostcenterline3', line2: 'frameinline1'},
+              {'type': 'cross_point_impost', id: 'cpimpost6', line1: 'impostcenterline4', line2: 'frameinline1'},
+              {'type': 'cross_point_impost', id: 'cpimpost7', line1: 'impostcenterline4', line2: 'frameinline3'},
+              {'type': 'cross_point_impost', id: 'cpimpost8', line1: 'impostcenterline3', line2: 'frameinline3'},
+              {'type': 'impost_in_line', id: 'impostinline1', from: 'cpimpost1', to: 'cpimpost4'},
+              {'type': 'impost_in_line', id: 'impostinline2', from: 'cpimpost3', to: 'cpimpost2'},
+              {'type': 'impost_in_line', id: 'impostinline3', from: 'cpimpost5', to: 'cpimpost8'},
+              {'type': 'impost_in_line', id: 'impostinline4', from: 'cpimpost7', to: 'cpimpost6'},
+              //-------- sash
+              {'type': 'cross_point_sash_out', id: 'cpsout1', line1: 'frameinline1', line2: 'impostinline4'},
+              {'type': 'cross_point_sash_out', id: 'cpsout2', line1: 'impostinline4', line2: 'frameinline3'},
+              {'type': 'cross_point_sash_out', id: 'cpsout3', line1: 'frameinline3', line2: 'impostinline1'},
+              {'type': 'cross_point_sash_out', id: 'cpsout4', line1: 'impostinline1', line2: 'frameinline1'},
+              {'type': 'cross_point_sash_in', id: 'cpsin1', line1: 'frameinline1', line2: 'impostinline3'},
+              {'type': 'cross_point_sash_in', id: 'cpsin2', line1: 'impostinline3', line2: 'frameinline3'},
+              {'type': 'cross_point_sash_in', id: 'cpsin3', line1: 'frameinline3', line2: 'impostinline2'},
+              {'type': 'cross_point_sash_in', id: 'cpsin4', line1: 'impostinline2', line2: 'frameinline1'},
+              {'type': 'sash_out_line', id: 'sashoutline1', from: 'cpsout4', to: 'cpsout1'},
+              {'type': 'sash_out_line', id: 'sashoutline2', from: 'cpsout1', to: 'cpsout2'},
+              {'type': 'sash_out_line', id: 'sashoutline3', from: 'cpsout2', to: 'cpsout3'},
+              {'type': 'sash_out_line', id: 'sashoutline4', from: 'cpsout3', to: 'cpsout4'},
+              {'type': 'sash_line', id: 'sashline1', from: 'cpsin4', to: 'cpsin1'},
+              {'type': 'sash_line', id: 'sashline2', from: 'cpsin1', to: 'cpsin2'},
+              {'type': 'sash_line', id: 'sashline3', from: 'cpsin2', to: 'cpsin3'},
+              {'type': 'sash_line', id: 'sashline4', from: 'cpsin3', to: 'cpsin4'},
+              //----------- bead box
+              /*
+               {'type': 'cross_point_bead', id: 'cpbead1', line1: 'frameinline1', line2: 'impostinline1'},
+               {'type': 'cross_point_bead', id: 'cpbead2', line1: 'impostinline1', line2: 'frameinline3'},
+               {'type': 'cross_point_bead', id: 'cpbead3', line1: 'frameinline3', line2: 'frameinline4'},
+               {'type': 'cross_point_bead', id: 'cpbead4', line1: 'frameinline4', line2: 'frameinline1'},
+               {'type':'bead_box_line', id:'beadline1', from:'cpbead4', to:'cpbead1'},
+               {'type':'bead_box_line', id:'beadline2', from:'cpbead1', to:'cpbead2'},
+               {'type':'bead_box_line', id:'beadline3', from:'cpbead2', to:'cpbead3'},
+               {'type':'bead_box_line', id:'beadline4', from:'cpbead3', to:'cpbead4'}
+
+               {'type': 'cross_point_bead', id: 'cpbead5', line1: 'sashline1', line2: 'sashline2'},
+               {'type': 'cross_point_bead', id: 'cpbead6', line1: 'sashline2', line2: 'sashline3'},
+               {'type': 'cross_point_bead', id: 'cpbead7', line1: 'sashline3', line2: 'sashline4'},
+               {'type': 'cross_point_bead', id: 'cpbead8', line1: 'sashline4', line2: 'sashline1'},
+               {'type':'bead_box_line', id:'beadline5', from:'cpbead8', to:'cpbead5'},
+               {'type':'bead_box_line', id:'beadline6', from:'cpbead5', to:'cpbead6'},
+               {'type':'bead_box_line', id:'beadline7', from:'cpbead6', to:'cpbead7'},
+               {'type':'bead_box_line', id:'beadline8', from:'cpbead7', to:'cpbead8'}
+               */
+              //---- left glass
+              {'type': 'cross_point_glass', id: 'cpg1', line1: 'frameline1', line2: 'impostcenterline1', blockType: 'frame', isImpost: true},
+              {'type': 'cross_point_glass', id: 'cpg2', line1: 'frameline3', line2: 'impostcenterline1', blockType: 'frame', isImpost: true},
+              {'type': 'cross_point_glass', id: 'cpg3', line1: 'frameline3', line2: 'frameline4', blockType: 'frame', isImpost: false},
+              {'type': 'cross_point_glass', id: 'cpg4', line1: 'frameline4', line2: 'frameline1', blockType: 'frame', isImpost: false},
+              {'type': 'glass_line', id: 'glassline1', from: 'cpg4', to: 'cpg1'},
+              {'type': 'glass_line', id: 'glassline2', from: 'cpg1', to: 'cpg2'},
+              {'type': 'glass_line', id: 'glassline3', from: 'cpg2', to: 'cpg3'},
+              {'type': 'glass_line', id: 'glassline4', from: 'cpg3', to: 'cpg4'},
+              //----- center glass
+              {'type': 'cross_point_glass', id: 'cpg5', line1: 'frameinline1', line2: 'impostinline3', blockType: 'sash'},
+              {'type': 'cross_point_glass', id: 'cpg6', line1: 'impostinline3', line2: 'frameinline3', blockType: 'sash'},
+              {'type': 'cross_point_glass', id: 'cpg7', line1: 'frameinline3', line2: 'impostinline2', blockType: 'sash'},
+              {'type': 'cross_point_glass', id: 'cpg8', line1: 'impostinline2', line2: 'frameinline1', blockType: 'sash'},
+              {'type': 'glass_line', id: 'glassline5', from: 'cpg8', to: 'cpg5'},
+              {'type': 'glass_line', id: 'glassline6', from: 'cpg5', to: 'cpg6'},
+              {'type': 'glass_line', id: 'glassline7', from: 'cpg6', to: 'cpg7'},
+              {'type': 'glass_line', id: 'glassline8', from: 'cpg7', to: 'cpg8'},
+              //------ right glass
+              {'type': 'cross_point_glass', id: 'cpg9', line1: 'frameline1', line2: 'frameline2', blockType: 'frame', isImpost: false},
+              {'type': 'cross_point_glass', id: 'cpg10', line1: 'frameline2', line2: 'frameline3', blockType: 'frame', isImpost: false},
+              {'type': 'cross_point_glass', id: 'cpg11', line1: 'frameline3', line2: 'impostcenterline4', blockType: 'frame', isImpost: true},
+              {'type': 'cross_point_glass', id: 'cpg12', line1: 'frameline1', line2: 'impostcenterline4', blockType: 'frame', isImpost: true},
+              {'type': 'glass_line', id: 'glassline9', from: 'cpg12', to: 'cpg9'},
+              {'type': 'glass_line', id: 'glassline10', from: 'cpg9', to: 'cpg10'},
+              {'type': 'glass_line', id: 'glassline11', from: 'cpg10', to: 'cpg11'},
+              {'type': 'glass_line', id: 'glassline12', from: 'cpg11', to: 'cpg12'},
+              //------- essential parts
+              {'type': 'frame', id: 'frame1', parts: ['frameline1', 'frameinline1']},
+              {'type': 'frame', id: 'frame2', parts: ['frameline2', 'frameinline2']},
+              {'type': 'frame', id: 'frame3', parts: ['frameline3', 'frameinline3']},
+              {'type': 'frame', id: 'frame4', parts: ['frameline4', 'frameinline4']},
+              {'type': 'impost', id: 'impost1', parts: ['impostinline1', 'impostinline2']},
+              {'type': 'impost', id: 'impost2', parts: ['impostinline3', 'impostinline4']},
+              {'type': 'sash', id: 'sash1', parts: ['sashoutline1', 'sashline1']},
+              {'type': 'sash', id: 'sash2', parts: ['sashoutline2', 'sashline2'], openType: ['sashline2', 'sashline4']},
+              {'type': 'sash', id: 'sash3', parts: ['sashoutline3', 'sashline3'], openType: ['sashline3', 'sashline1']},
+              {'type': 'sash', id: 'sash4', parts: ['sashoutline4', 'sashline4']},
+              /*
+               {'type': 'bead_box', id:'bead1', parts: ['frameinline1', 'beadline1']},
+               {'type': 'bead_box', id:'bead2', parts: ['impostinline1', 'beadline2']},
+               {'type': 'bead_box', id:'bead3', parts: ['frameinline3', 'beadline3']},
+               {'type': 'bead_box', id:'bead4', parts: ['frameinline4', 'beadline4']},
+
+               {'type': 'bead_box', id:'bead5', parts: ['sashline1', 'beadline5']},
+               {'type': 'bead_box', id:'bead6', parts: ['sashline2', 'beadline6']},
+               {'type': 'bead_box', id:'bead7', parts: ['sashline3', 'beadline7']},
+               {'type': 'bead_box', id:'bead8', parts: ['sashline4', 'beadline8']},
+               */
+              {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
+              {'type': 'glass_paсkage', id: 'glass2', parts: ['glassline5', 'glassline6', 'glassline7', 'glassline8']},
+              {'type': 'glass_paсkage', id: 'glass2', parts: ['glassline9', 'glassline10', 'glassline11', 'glassline12']},
+              //{'type': 'dimensionsH', id: 'dimH1', from: ['fp4', 'fp1'], to: ['fpimpost2', 'fpimpost1'], level: 1, height: 150, side: 'bottom'},
+              //{'type': 'dimensionsH', id: 'dimH2', from: ['fpimpost2', 'fpimpost1'], to: ['fpimpost4', 'fpimpost3'], level: 1, height: 150, side: 'bottom'},
+              {'type': 'dimensionsH', id: 'dimH1', from: ['fp1', 'fp4'], to: ['fpimpost1', 'fpimpost2'], level: 1, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'dimH2', from: ['fpimpost1', 'fpimpost2'], to: ['fpimpost3', 'fpimpost4'], level: 1, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 3, height: 150, side: 'top'},
+              {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'}
+            ]
+          }
+
+        ],
+
         doors: [
           {
             'name': 'Одностворчатый глухой',
