@@ -450,10 +450,7 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
       callback(new OkResult({
 
         user: {
-          name: 'John Appleseed',
-          password: '***',
           avatarUrl: 'userPhoto.png',
-          email: 'possumwood@gmail.ru',
           currentPhone: '+38 (066) 322-3334',
           addPhone: [
             '+38 (066) 322-5555',

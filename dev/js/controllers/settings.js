@@ -19,25 +19,18 @@ BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalDB', 'localStorage', '$
 
   globalDB.getUser(function (results) {
     if (results.status) {
-
-      $scope.settings.userName = results.data.user.name;
       $scope.settings.avatar = results.data.user.avatarUrl;
-      $scope.settings.password = results.data.user.password;
-      $scope.settings.email = results.data.user.email;
       $scope.settings.currPhone = results.data.user.currentPhone;
       $scope.settings.addPhones = results.data.user.addPhone;
-      //$scope.settings.country = results.data.user.country;
-      //$scope.settings.region = results.data.user.region;
-      $scope.settings.city = results.data.user.city;
       $scope.settings.address = results.data.user.address;
-
     } else {
       console.log(results);
     }
   });
 
-  $scope.changeSettingData = function(id) {
+  $scope.changeSettingData = function(id, obj) {
     $scope.settings.selectedSetting = id;
+    findInput(obj.currentTarget.id);
   };
 
   $scope.deletePhone = function(phoneId) {
@@ -48,17 +41,52 @@ BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalDB', 'localStorage', '$
     $scope.settings.isInsertPhone = !$scope.settings.isInsertPhone;
     $scope.settings.tempAddPhone = '';
     $scope.settings.isErrorPhone = false;
+    findInputPhone();
   };
 
-  $scope.addPhone = function() {
-    var checkPhone = $scope.settings.regex.test($scope.settings.tempAddPhone);
-    if(checkPhone) {
-      $scope.settings.isInsertPhone = false;
-      $scope.settings.isErrorPhone = false;
-      $scope.settings.addPhones.push($scope.settings.tempAddPhone);
-      $scope.settings.tempAddPhone = '';
-    } else {
-      $scope.settings.isErrorPhone = true;
+  $scope.cancelAddPhone = function() {
+    $scope.settings.isInsertPhone = false;
+    $scope.settings.isErrorPhone = false;
+  };
+
+  $scope.saveChanges = function(marker, newTxt) {
+    if (event.which == 13) {
+      $scope.saveTxtInBD(marker, newTxt);
+    }
+  };
+
+  $scope.saveChangesBlur = function(marker, newTxt) {
+    $scope.saveTxtInBD(marker, newTxt);
+  };
+
+  $scope.saveTxtInBD = function(marker, newTxt) {
+    switch(marker) {
+      case 'user-name':
+        localDB.updateDBGlobal($scope.global.usersTableDBGlobal, {"name": newTxt}, {"id": $scope.global.userInfo.id});
+        break;
+      /*
+      case 'user-address':
+        localDB.updateDBGlobal($scope.global.usersTableDBGlobal, {"address": newTxt}, {"id": $scope.global.userInfo.id});
+        break;
+        */
+      case 'user-email':
+        localDB.updateDBGlobal($scope.global.usersTableDBGlobal, {"email": newTxt}, {"id": $scope.global.userInfo.id});
+        break;
+    }
+  };
+
+
+  $scope.saveChangesPhone = function() {
+    if (event.which == 13) {
+      var checkPhone = $scope.settings.regex.test($scope.settings.tempAddPhone);
+      if(checkPhone) {
+        $scope.settings.isInsertPhone = false;
+        $scope.settings.isErrorPhone = false;
+        $scope.settings.addPhones.push($scope.settings.tempAddPhone);
+        $scope.settings.tempAddPhone = '';
+      } else {
+        $scope.settings.isErrorPhone = true;
+      }
     }
   };
 
@@ -66,9 +94,6 @@ BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalDB', 'localStorage', '$
     $location.path('/change-pass');
   };
 
-  $scope.global.gotoSettingsPage = function() {
-    $location.path('/settings');
-  };
 
   $scope.closeSettingsPage = function() {
     $scope.global.isOpenSettingsPage = false;
@@ -85,5 +110,17 @@ BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalDB', 'localStorage', '$
     localDB.deleteTable($scope.global.ordersTableBD);
     $location.path('/login');
   };
+
+  function findInput(idElement) {
+    setTimeout(function() {
+      $('#'+idElement).find('input').focus();
+    }, 100);
+  }
+
+  function findInputPhone() {
+    setTimeout(function() {
+      $('.set-input-phone').focus();
+    }, 100);
+  }
 
 }]);

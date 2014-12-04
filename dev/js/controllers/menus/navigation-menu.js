@@ -70,7 +70,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
     $location.path('/location');
   };
 
-  $scope.gotoSettingsPage = function () {
+  $scope.global.gotoSettingsPage = function() {
     $location.path('/settings');
   };
 
