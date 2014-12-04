@@ -446,21 +446,6 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
       });
     },
 */
-    getUser: function (callback) {
-      callback(new OkResult({
-
-        user: {
-          avatarUrl: 'userPhoto.png',
-          currentPhone: '+38 (066) 322-3334',
-          addPhone: [
-            '+38 (066) 322-5555',
-            '+38 (066) 333-4444'
-          ],
-          address: 'ул.Победы, 15'
-        }
-
-      }));
-    },
 
     login: function (loginData, callback) {
       var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
