@@ -33,7 +33,7 @@ $today-color						: $selected;
 		width      : 25em;
 
 		.pmu-button {
-      @include roboto-lt(30px, 1);
+      @include roboto-lt(rem(30px), 1);
 			color           : $main_gray_txt;
 			cursor          : pointer;
 			outline         : none;
@@ -84,7 +84,7 @@ $today-color						: $selected;
 			.pmu-prev,
 			.pmu-next {
         @extend .icon-setting;
-        @include font-general-icon(35px, 1);
+        @include font-general-icon(rem(35px), 1);
 
 				display : none;
 				height  : 2em;
@@ -101,7 +101,7 @@ $today-color						: $selected;
       }
 
 			.pmu-month {
-        @include roboto-md(36px, 36px);
+        @include roboto-md(rem(36px), rem(36px));
         color: $main_gray_txt;
 			}
 		}

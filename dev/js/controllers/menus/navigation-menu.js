@@ -115,6 +115,9 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
     $scope.global.isAddElementsPanel = true;
   };
 
+  $scope.switchVoiceHelper = function() {
+    $scope.global.isVoiceHelper = !$scope.global.isVoiceHelper;
+  };
 
   //---------- clearing for create new Product
   $scope.global.createNewProduct = function() {

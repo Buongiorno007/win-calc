@@ -102,6 +102,7 @@ BauVoiceApp.factory('localStorage', function () {
     isRoomsDialog: false,
     isOpenSettingsPage: false,
     isReturnFromConstructionPage: false,
+    isVoiceHelper: false,
 //------ DB table names
     productsTableBD: 'products',
     componentsTableBD: 'construction_parts',

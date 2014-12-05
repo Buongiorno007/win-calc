@@ -29,6 +29,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
     DELAY_SHOW_FIGURE_ITEM: 2000,
     typing: 'on'
   };
+  $scope.openVoiceHelper = false;
 
   $scope.templateDefaultOLD = angular.copy($scope.global.templateDefault);
   $scope.templateSourceOLD = angular.copy($scope.global.templateSource);
@@ -258,8 +259,12 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
       $scope.constructData.oldSizeValue = $(this).find('text').text();
       $scope.constructData.tempSizeId = $(this).find('text').attr('id');
       getOldSizeValue();
-      //--- show size calculator
-      $scope.global.isConstructSizeCalculator = true;
+      //--- show size calculator if voice helper is turn off
+      if(!$scope.global.isVoiceHelper) {
+        $scope.global.isConstructSizeCalculator = true;
+      } else {
+        $scope.openVoiceHelper = true;
+      }
       $scope.$apply();
     }
   });
