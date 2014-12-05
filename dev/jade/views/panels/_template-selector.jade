@@ -14,7 +14,8 @@
       .template-discr {{ templatePanel.templateDescription }}
 
     .template-section
-      svg-template(template = "templatePanel.templateSVG", template-width="global.svgTemplateWidth", template-height="global.svgTemplateHeight")
+      //svg-template(template = "templatePanel.templateSVG", template-width="global.svgTemplateWidth", template-height="global.svgTemplateHeight")
+      svg-template(template = "templatePanel.templateSVG", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="bigIcon")
 
     .template-footer
       .other-template.prev(ng-click="showTemplatePrev()")

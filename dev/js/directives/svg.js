@@ -35,15 +35,22 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               dimensionsV: [],
               openDirections: []
             },
-            coefScaleW = 0.75,
-            coefScaleH = 0.5,
+            //coefScaleW = 0.75,
+            //coefScaleH = 0.5,
+            coefScaleW = 0.6,
+            coefScaleH = 0.35,
             overallDimH = 2000,
             overallDimV = 2000,
             edgeTop = 300,
-            edgeLeft = 300,
-            sizeBoxWidth = 250,
-            sizeBoxHeight = 120,
-            sizeBoxRadius = 35;
+            edgeLeft = 250,
+
+            //sizeBoxWidth = 250,
+            //sizeBoxHeight = 120,
+            //sizeBoxRadius = 35,
+
+            sizeBoxWidth = 140,
+            sizeBoxHeight = 60,
+            sizeBoxRadius = 20;
 
 
 
@@ -143,9 +150,11 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               elementsSVG.dimensionsH.push(dim);
 
               //-------- scale svg
-              if (scope.typeConstruction !== 'icon' && template.objects[i].id === 'overallDimH') {
-                canvasWidth = template.objects[i].lengthVal + edgeLeft;
-                overallDimH = canvasWidth / coefScaleW;
+              if (template.objects[i].id === 'overallDimH') {
+                if(scope.typeConstruction !== 'icon' && scope.typeConstruction !== 'bigIcon') {
+                  canvasWidth = template.objects[i].lengthVal + edgeLeft;
+                  overallDimH = canvasWidth / coefScaleW;
+                }
               }
               break;
 
@@ -195,10 +204,12 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               elementsSVG.dimensionsV.push(dim);
 
               //-------- scale svg
-              if (scope.typeConstruction !== 'icon' && template.objects[i].id === 'overallDimV') {
-                canvasHeight = template.objects[i].lengthVal + edgeTop;
-                overallDimV = canvasHeight / coefScaleH;
-                //canvasHeight += edgeTop;
+              if (template.objects[i].id === 'overallDimV') {
+                if(scope.typeConstruction !== 'icon' && scope.typeConstruction !== 'bigIcon') {
+                  canvasHeight = template.objects[i].lengthVal + edgeTop;
+                  overallDimV = canvasHeight / coefScaleH;
+                  //canvasHeight += edgeTop;
+                }
               }
 
               break;
@@ -253,7 +264,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               case 'dimensionsH':
               case 'dimensionsV':
 
-                if(scope.typeConstruction === 'icon') { //----- if construction for icon
+                if(scope.typeConstruction === 'icon') {
                   if (prop === 'dimensionsV') {
                     if (elementsSVG[prop][elem].id === 'overallDimV') {
                       overallDimV = elementsSVG[prop][elem].lengthVal;
@@ -294,9 +305,9 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                   var groupTxt = group.group().attr('class', sizeClass);
                   if(scope.typeConstruction === 'edit') {
                     if(prop === 'dimensionsH') {
-                      groupTxt.rect(sizeBoxWidth, sizeBoxHeight).attr('class', 'size-rect').cx(elementsSVG[prop][elem].textX).cy(elementsSVG[prop][elem].textY - 10).radius(sizeBoxRadius);
+                      groupTxt.rect(sizeBoxWidth, sizeBoxHeight).attr('class', 'size-rect').cx(elementsSVG[prop][elem].textX).cy(elementsSVG[prop][elem].textY + 5).radius(sizeBoxRadius);
                     } else if(prop === 'dimensionsV') {
-                      groupTxt.rect(sizeBoxWidth, sizeBoxHeight).attr('class', 'size-rect').cx(elementsSVG[prop][elem].textX - 90).cy(elementsSVG[prop][elem].textY - 10).radius(sizeBoxRadius);
+                      groupTxt.rect(sizeBoxWidth, sizeBoxHeight).attr('class', 'size-rect').cx(elementsSVG[prop][elem].textX - 40).cy(elementsSVG[prop][elem].textY + 5).radius(sizeBoxRadius);
                     }
                   }
 
@@ -334,10 +345,25 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                   });
                 }
 
+                if(scope.typeConstruction === 'bigIcon') {
+                  if (prop === 'dimensionsV') {
+                    if (elementsSVG[prop][elem].id === 'overallDimV') {
+                      overallDimV = elementsSVG[prop][elem].lengthVal + edgeTop;
+                    }
+                  } else {
+                    if (elementsSVG[prop][elem].id === 'overallDimH') {
+                      overallDimH = elementsSVG[prop][elem].lengthVal + edgeLeft;
+                    }
+                  }
+                }
+
+
                 break;
             }
           }
         }
+
+
 
         draw.viewbox(-edgeLeft, -edgeTop, overallDimH, overallDimV);
         return svg;

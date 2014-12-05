@@ -3,8 +3,10 @@
 BauVoiceApp.factory('localStorage', function () {
   return {
     doFirstTime: true,
-    svgTemplateThumbWidth: 120,
-    svgTemplateThumbHeight: 120,
+    svgTemplateThumbWidth: 70,
+    svgTemplateThumbHeight: 70,
+    svgTemplateIconWidth: 500,
+    svgTemplateIconHeight: 450,
     svgTemplateWidth: 1500,
     svgTemplateHeight: 1000,
     currentDate: new Date(),
