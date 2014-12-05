@@ -325,7 +325,12 @@ var Glass = function (sourceObj) {
     for(var p = 0; p < sourceObj.parts.length; p++) {
       var part = fullTemplate.findById(sourceObj.parts[p]);
       this.parts.push(part);
+      //-------- calculate glass square
+      if(p  === sourceObj.parts.length - 1) {
+        this.square = (this.parts[0].lengthVal * this.parts[p].lengthVal) / 1000000;
+      }
     }
+
   };
 };
 Glass.prototype = FrameObject;
@@ -347,6 +352,32 @@ var Dimension = function (sourceObj) {
 };
 //Dimension.prototype = FrameObject;
 FrameLine.prototype = LineObject;
+
+//-----------Square-------------------
+var Square = function (sourceObj) {
+  FrameObject.call(this, sourceObj);
+  this.squares = [];
+  this.widths = [];
+  this.heights = [];
+
+  this.parseParts = function(fullTemplate) {
+    for (var p = 0; p < sourceObj.widths.length; p++) {
+      var width = fullTemplate.findById(sourceObj.widths[p]);
+      this.widths.push(width);
+      var height = fullTemplate.findById(sourceObj.heights[p]);
+      this.heights.push(height);
+      //-------- calculate glass square
+      if (p === sourceObj.widths.length - 1) {
+        for (var s = 0; s < this.widths.length; s++) {
+          var square = (this.widths[s].lengthVal * this.heights[s].lengthVal) / 1000000;
+          this.squares.push(square);
+        }
+      }
+    }
+  }
+};
+Square.prototype = FrameObject;
+
 
 
 
@@ -412,7 +443,8 @@ var Template = function (sourceObj, depths) {
         break;
       case 'dimensionsV':  tmpObject = new Dimension(sourceObj.objects[i]);
         break;
-
+      case 'square':  tmpObject = new Square(sourceObj.objects[i]);
+        break;
     }
     if (tmpObject) {
       this.objects.push(tmpObject);

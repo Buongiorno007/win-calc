@@ -8,11 +8,13 @@
       .coeff.climate {{ global.currentGeoLocation.climaticZone }}
       .coeff-title(data-output="{{ 'mainpage.CLIMATE_ZONE' | translate }}", typing="{{ roomInfo.typing }}", typing-delay="{{ roomInfo.DELAY_SHOW_COEFF }}")
     .coeff-block
-      .coeff.heat-transfer.coeff-low {{ roomInfo.roomsData[(global.currentRoomId-1)].thermalResistance.actual }}
+      //.coeff.heat-transfer.coeff-low {{ roomInfo.roomsData[(global.currentRoomId-1)].thermalResistance.actual }}
+      .coeff.heat-transfer(ng-class="{'coeff-low': global.heatTransferTotal < global.currentGeoLocation.heatTransfer}") {{ global.heatTransferTotal }}
         //.coeff-max {{ roomInfo.coefsArr[(global.currentRoomId-1)].thermalResistance.required }}
         .coeff-max {{ global.currentGeoLocation.heatTransfer }}
       .coeff-title(data-output="{{ 'mainpage.THERMAL_RESISTANCE' | translate }}", typing="{{ roomInfo.typing }}", typing-delay="{{ roomInfo.DELAY_SHOW_COEFF }}")
     .coeff-block
-      .coeff.heat-exchange {{ roomInfo.roomsData[(global.currentRoomId-1)].airCirculation }}
+      //.coeff.heat-exchange {{ roomInfo.roomsData[(global.currentRoomId-1)].airCirculation }}
+      .coeff.heat-exchange {{ global.airCirculationTotal }}
         .coeff-max {{ roomInfo.roomsData[(global.currentRoomId-1)].airCirculation }}
       .coeff-title(data-output="{{ 'mainpage.AIR_CIRCULATION' | translate }}", typing="{{ roomInfo.typing }}", typing-delay="{{ roomInfo.DELAY_SHOW_COEFF }}")

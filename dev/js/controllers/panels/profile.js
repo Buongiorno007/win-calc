@@ -14,7 +14,7 @@ BauVoiceApp.controller('ProfileCtrl', ['$scope', 'constructService', 'localStora
     isSelectedProfile: 0,
     typing: 'on'
   };
-
+  //$scope.global.profileIndex
 /*
   constructService.getAllProfileSystems(function (results) {
     if (results.status) {

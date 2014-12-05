@@ -57,8 +57,8 @@ BauVoiceApp.factory('localStorage', function () {
       glassSquares: [],
       frameSillSize: 0
     },
-
-
+    heatTransferTotal: 0,
+    airCirculationTotal: 0,
 
     isCreatedNewProject: true,
     productEditNumber: false,

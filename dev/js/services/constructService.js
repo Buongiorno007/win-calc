@@ -245,7 +245,8 @@ BauVoiceApp.factory('constructService', function ($q) {
                */
               {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
               {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 1, height: 150, side: 'top'},
-              {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'}
+              {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'},
+              {'type': 'square', id: 'sqr', widths: ['overallDimH'], heights: ['overallDimV']}
             ]
           },
           {
@@ -323,7 +324,8 @@ BauVoiceApp.factory('constructService', function ($q) {
                */
               {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
               {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 1, height: 150, side: 'top'},
-              {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'}
+              {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'},
+              {'type': 'square', id: 'sqr', widths: ['overallDimH'], heights: ['overallDimV']}
             ]
           },
           {
@@ -437,7 +439,8 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
               {'type': 'glass_paсkage', id: 'glass2', parts: ['glassline5', 'glassline6', 'glassline7', 'glassline8']},
               {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 1, height: 150, side: 'top'},
-              {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'}
+              {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'},
+              {'type': 'square', id: 'sqr', widths: ['overallDimH'], heights: ['overallDimV']}
             ]
           },
           {
@@ -576,7 +579,8 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'dimensionsH', id: 'dimH1', from: ['fp1', 'fp4'], to: ['fpimpost1', 'fpimpost2'], level: 1, height: 150, side: 'top'},
               {'type': 'dimensionsH', id: 'dimH2', from: ['fpimpost1', 'fpimpost2'], to: ['fpimpost3', 'fpimpost4'], level: 1, height: 150, side: 'top'},
               {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 3, height: 150, side: 'top'},
-              {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'}
+              {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'},
+              {'type': 'square', id: 'sqr', widths: ['overallDimH'], heights: ['overallDimV']}
             ]
           }
 
@@ -706,7 +710,8 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'dimensionsV', id: 'dimV1', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'},
               {'type': 'dimensionsH', id: 'dimH2', from: ['fp5', 'fp8'], to: ['fp6', 'fp7'], level: 1, height: 150, side: 'top'},
               {'type': 'dimensionsV', id: 'overallDimV', from: ['fp6', 'fp5'], to: ['fp7', 'fp8'], level: 1, height: 150, side: 'right'},
-              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp6', 'fp7'], level: 3, height: 150, side: 'top'}
+              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp6', 'fp7'], level: 3, height: 150, side: 'top'},
+              {'type': 'square', id: 'sqr', widths: ['dimH1', 'dimH2'], heights: ['dimV1', 'overallDimV']}
             ]
           }
         ],
@@ -848,7 +853,8 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'dimensionsH', id: 'dimH1', from: ['fp1', 'fp4'], to: ['fpimpost1', 'fpimpost2'], level: 1, height: 150, side: 'top'},
               {'type': 'dimensionsH', id: 'dimH2', from: ['fpimpost1', 'fpimpost2'], to: ['fpimpost3', 'fpimpost4'], level: 1, height: 150, side: 'top'},
               {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 3, height: 150, side: 'top'},
-              {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'}
+              {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'},
+              {'type': 'square', id: 'sqr', widths: ['overallDimH'], heights: ['overallDimV']}
             ]
           }
 
@@ -909,7 +915,8 @@ BauVoiceApp.factory('constructService', function ($q) {
                */
               {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
               {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 1, height: 150, side: 'top'},
-              {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'}
+              {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'},
+              {'type': 'square', id: 'sqr', widths: ['overallDimH'], heights: ['overallDimV']}
             ]
           }
         ]
@@ -977,19 +984,23 @@ BauVoiceApp.factory('constructService', function ($q) {
         });
       });
     },
-/*
+
     getProfileSystem: function (callback) {
       callback(new OkResult({
         id: 7,
-        name: 'Окошко S58'
+        name: 'Окошко S58',
+        heatCoeff: 5,
+        airCoeff: 10
       }));
     },
-*/
+
     // TODO: Сервис готов
     getGlass: function (callback) {
       callback(new OkResult({
         id: 145,
-        name: '6/12/6'
+        name: '6/12/6',
+        heatCoeff: 2,
+        airCoeff: 9
       }));
     },
 
@@ -1381,36 +1392,36 @@ BauVoiceApp.factory('constructService', function ($q) {
               profileType: '3 камеры',
               profileDescrip: 'Окошко S50 Special S50 Special',
               profileCountry: 'Украина',
-              profileHeat: 5,
               profileNoise: 4,
-              profilePrice: 100
+              heatCoeff: 5,
+              airCoeff: 10
             },
             {
               profileId: 36,
               profileType: '3 камеры',
               profileDescrip: 'Окошко S50 Special',
               profileCountry: 'Украина',
-              profileHeat: 2,
               profileNoise: 3,
-              profilePrice: 200
+              heatCoeff: 4,
+              airCoeff: 11
             },
             {
               profileId: 37,
               profileType: '2 камеры',
               profileDescrip: 'Окошко S50',
               profileCountry: 'Украина',
-              profileHeat: 1,
               profileNoise: 5,
-              profilePrice: 300
+              heatCoeff: 4,
+              airCoeff: 9
             },
             {
               profileId: 38,
               profileType: '4 камеры',
               profileDescrip: 'Окошко S556',
               profileCountry: 'Украина',
-              profileHeat: 3,
               profileNoise: 4,
-              profilePrice: 300
+              heatCoeff: 3,
+              airCoeff: 8
             }
           ],
           [
@@ -1419,9 +1430,9 @@ BauVoiceApp.factory('constructService', function ($q) {
               profileType: '1 камерa',
               profileDescrip: 'Окошко S50',
               profileCountry: 'Украина',
-              profileHeat: 1,
               profileNoise: 5,
-              profilePrice: 500
+              heatCoeff: 5,
+              airCoeff: 10
             }
           ]
         ]
@@ -1442,8 +1453,9 @@ BauVoiceApp.factory('constructService', function ($q) {
               glassName: '4/24/4/16/4i555555555',
               glassUrl: '../img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
-              glassHeat: 5,
               glassNoise: 4,
+              heatCoeff: 2,
+              airCoeff: 9,
               glassPrice: 100
             },
             {
@@ -1451,8 +1463,9 @@ BauVoiceApp.factory('constructService', function ($q) {
               glassName: '4/24/4',
               glassUrl: '../img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
-              glassHeat: 2,
               glassNoise: 5,
+              heatCoeff: 4,
+              airCoeff: 9,
               glassPrice: 200
             },
             {
@@ -1460,8 +1473,9 @@ BauVoiceApp.factory('constructService', function ($q) {
               glassName: '4/24/4/16/4i',
               glassUrl: '../img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
-              glassHeat: 1,
               glassNoise: 1,
+              heatCoeff: 3,
+              airCoeff: 9,
               glassPrice: 600
             }
           ],
@@ -1471,8 +1485,9 @@ BauVoiceApp.factory('constructService', function ($q) {
               glassName: '4/24/4/16/4i555555555',
               glassUrl: '../img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
-              glassHeat: 5,
               glassNoise: 4,
+              heatCoeff: 2,
+              airCoeff: 9,
               glassPrice: 100
             },
             {
@@ -1480,8 +1495,9 @@ BauVoiceApp.factory('constructService', function ($q) {
               glassName: '4/24/4/16/4i555555555',
               glassUrl: '../img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
-              glassHeat: 3,
               glassNoise: 1,
+              heatCoeff: 1,
+              airCoeff: 9,
               glassPrice: 800
             }
           ],
@@ -1491,8 +1507,9 @@ BauVoiceApp.factory('constructService', function ($q) {
               glassName: '4/24/4/16/4i555555555',
               glassUrl: '../img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
-              glassHeat: 5,
               glassNoise: 4,
+              heatCoeff: 5,
+              airCoeff: 9,
               glassPrice: 100
             }
           ]
