@@ -59,7 +59,7 @@ BauVoiceApp.factory('localStorage', function () {
 
 
     isCreatedNewProject: true,
-    productEditNumber: 0,
+    productEditNumber: false,
 
     showNavMenu: true,
     isConfigMenu: false,
@@ -99,6 +99,7 @@ BauVoiceApp.factory('localStorage', function () {
     showRoomSelectorDialog: false,
     isRoomsDialog: false,
     isOpenSettingsPage: false,
+    isReturnFromConstructionPage: false,
 //------ DB table names
     productsTableBD: 'products',
     componentsTableBD: 'construction_parts',

@@ -23,19 +23,17 @@ section.construction-page(ng-controller="ConstructionCtrl")
         .footer-description(data-output="{{ 'construction.UNITS_DESCRIP' | translate }}", typing="{{ constructData.typing }}", typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}")
         .project-default(ng-click="setDefaultConstruction()") {{ 'construction.PROJECT_DEFAULT' | translate }}
 
-    .construction-block(ng-hide="isDoorPage")
+
+    .construction-block
       .construction-scrollbox
-        svg-template(template="global.templateDefault", template-width="global.svgTemplateWidth", template-height="global.svgTemplateHeight", type-construction="edit")
-    .construction-block(ng-show="isDoorPage")
-      .construction-scrollbox
-        svg-template(template="global.templateDefault", template-width="global.svgTemplateWidth", template-height="global.svgTemplateHeight", type-construction="edit")
+        svg-template(template="templateDefaultTEMP", template-width="svgTemplateWidthTEMP", template-height="svgTemplateHeightTEMP", type-construction="edit")
 
     .construction-right-menu
       .right-menu-header
         button.construct-tools.save-construction(ng-click="gotoMainPageSaved()")
         button.construct-tools.close-construction(ng-click="gotoMainPageCancel()")
 
-      .door-config-menu(ng-show="isDoorPage")
+      .door-config-menu(ng-show="global.isConstructDoor")
         button.door-config-btn(ng-class="{'active': constructData.showDoorConfig}", ng-click="getDoorConfig()")
         .door-config-label {{ 'construction.DOOR_CONFIG_LABEL' | translate }}
         .door-config-description {{ 'construction.DOOR_CONFIG_DESCTIPT' | translate }}: {{ constructData.doorShape }};

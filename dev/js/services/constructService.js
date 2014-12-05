@@ -977,15 +977,14 @@ BauVoiceApp.factory('constructService', function ($q) {
         });
       });
     },
-
-    // TODO: Сервис готов
+/*
     getProfileSystem: function (callback) {
       callback(new OkResult({
         id: 7,
         name: 'Окошко S58'
       }));
     },
-
+*/
     // TODO: Сервис готов
     getGlass: function (callback) {
       callback(new OkResult({

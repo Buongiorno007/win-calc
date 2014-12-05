@@ -136,8 +136,8 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
     $scope.global.showNavMenu = false;
     $scope.global.isConfigMenu = true;
     $scope.global.showPanels = {};
-    $scope.global.showPanels.showTemplatePanel = true;
-    $scope.global.isTemplatePanel = true;
+    //$scope.global.showPanels.showTemplatePanel = true;
+    //$scope.global.isTemplatePanel = true;
     $location.path('/main');
   };
 

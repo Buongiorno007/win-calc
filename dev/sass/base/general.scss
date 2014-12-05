@@ -5,9 +5,11 @@
 html,
 body {
   overflow: hidden;
-  width: rem($ipad-width);
-  height: rem($ipad-height);
-  //font-size: 8px;
+  //width: rem($ipad-width);
+  //height: rem($ipad-height);
+  width: 100%;
+  height: 100%;
+  font-size: 8px;
 }
 
 body {
@@ -59,7 +61,7 @@ body {
 
   position: relative;
   overflow: hidden;
-  width: $main_content-width;
+  width: rem($main_content-width);
   height: 100%;
   z-index: 0;
 }

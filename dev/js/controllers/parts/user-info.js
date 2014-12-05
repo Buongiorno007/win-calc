@@ -50,7 +50,7 @@ BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localDB', 'localS
                       heatTransfer: angular.copy($scope.global.userInfo.heatTransfer),
                       fullLocation: angular.copy($scope.global.userInfo.fullLocation)
                     };
-                    console.log($scope.global.userInfo);
+                    //console.log($scope.global.userInfo);
                   } else {
                     console.log(results);
                   }

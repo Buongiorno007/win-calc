@@ -31,13 +31,33 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$
   };
 
   $scope.gotoConstructionPage = function () {
+    console.log('template');
+    console.log($scope.global.templateSource);
     $location.path('/construction');
   };
 
-  //------- return to the first template
+  //------- return to the initial template
   $scope.backDefaultTemplate = function() {
     $scope.templatePanel.switcherTemplate = false;
-    $scope.global.templateIndex = 0;
+
+    if($scope.global.isConstructDoor) {
+      $scope.global.templatesDoorSource[$scope.global.templateIndex] = angular.copy($scope.global.templatesDoorSTORE[$scope.global.templateIndex]);
+      $scope.global.templatesDoorList[$scope.global.templateIndex] = angular.copy($scope.global.templatesDoorListSTORE[$scope.global.templateIndex]);
+      $scope.global.templatesDoorThumbList[$scope.global.templateIndex] = angular.copy($scope.global.templatesDoorThumbListSTORE[$scope.global.templateIndex]);
+    } else if($scope.global.isConstructBalcony) {
+      $scope.global.templatesBalconySource[$scope.global.templateIndex] = angular.copy($scope.global.templatesBalconySTORE[$scope.global.templateIndex]);
+      $scope.global.templatesBalconyList[$scope.global.templateIndex] = angular.copy($scope.global.templatesBalconyListSTORE[$scope.global.templateIndex]);
+      $scope.global.templatesBalconyThumbList[$scope.global.templateIndex] = angular.copy($scope.global.templatesBalconyThumbListSTORE[$scope.global.templateIndex]);
+    } else if($scope.global.isConstructWindDoor) {
+      $scope.global.templatesWindDoorSource[$scope.global.templateIndex] = angular.copy($scope.global.templatesWindDoorSTORE[$scope.global.templateIndex]);
+      $scope.global.templatesWindDoorList[$scope.global.templateIndex] = angular.copy($scope.global.templatesWindDoorListSTORE[$scope.global.templateIndex]);
+      $scope.global.templatesWindDoorThumbList[$scope.global.templateIndex] = angular.copy($scope.global.templatesWindDoorThumbListSTORE[$scope.global.templateIndex]);
+    } else if($scope.global.isConstructWind){
+      $scope.global.templatesWindSource[$scope.global.templateIndex] = angular.copy($scope.global.templatesWindSTORE[$scope.global.templateIndex]);
+      $scope.global.templatesWindList[$scope.global.templateIndex] = angular.copy($scope.global.templatesWindListSTORE[$scope.global.templateIndex]);
+      $scope.global.templatesWindThumbList[$scope.global.templateIndex] = angular.copy($scope.global.templatesWindThumbListSTORE[$scope.global.templateIndex]);
+    }
+
     $scope.global.initTemplates();
   };
 
@@ -134,4 +154,10 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$
     $scope.global.createObjXFormedPrice($scope.global.templateDefault, $scope.global.profileIndex, $scope.global.product.profileId);
   };
 
+
+  //------- запускаем карусель шаблонов после как изменили размеры
+  if($scope.global.isReturnFromConstructionPage) {
+    $scope.global.initTemplates();
+    $scope.global.isReturnFromConstructionPage = false;
+  }
 }]);

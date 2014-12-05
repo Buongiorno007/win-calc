@@ -77,7 +77,7 @@ function changePrice(price, elem) {
 
     $digitCell
       .delay(n * DELAY_PRICE_DIGIT)
-      .animate({ top: -scrollDigitY }, 'slow');
+      .animate({ top: (-scrollDigitY/16) + "rem" }, 'slow');
   };
 
   for (i = MAX_DIGITS; i > 0; i--) {

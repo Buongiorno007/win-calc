@@ -30,8 +30,8 @@ $img_logo: 'login/logo.png';
 }
 
 .logo {
-  width: image-width($img_logo);
-  height: image-height($img_logo);
+  width: rem(image-width($img_logo));
+  height: rem(image-height($img_logo));
   margin: 0 auto rem(73px) auto;
   background: image-url($img_logo) no-repeat;
   background-size: cover;

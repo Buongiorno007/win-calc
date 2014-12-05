@@ -55,6 +55,7 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', 'localStorage', function (
       $scope.global.product.constructThumb = $scope.global.templatesWindThumbList[$scope.global.templateIndex];
       $scope.global.createObjXFormedPrice($scope.global.templateDefault, $scope.global.profileIndex, $scope.global.product.profileId);
     }
+    $scope.closeRoomSelectorDialog();
   };
 
   //------- create new project after select room

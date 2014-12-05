@@ -211,40 +211,22 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       $scope.downloadDefaultTemplate = function() {
           constructService.getDefaultConstructTemplate(function (results) {
           if (results.status) {
-            //------ check door or window creating
-            //if($scope.global.isConstructDoor) {
-            //  $scope.global.templatesDoorSource = angular.copy(results.data.doors);
-              //$scope.global.templateSource = angular.copy(results.data.doors[$scope.global.templateIndex]);
-            //} else {
-              $scope.global.templatesWindSource = angular.copy(results.data.windows);
-              $scope.global.templatesWindDoorSource = angular.copy(results.data.windowDoor);
-              $scope.global.templatesBalconySource = angular.copy(results.data.balconies);
-              $scope.global.templatesDoorSource = angular.copy(results.data.doors);
-              //$scope.global.templateSource = angular.copy(results.data.windows[$scope.global.templateIndex]);
-              //$scope.global.templateSource = angular.copy(results.data.windowDoor[$scope.global.templateIndex]);
-            //}
+
+            //-------- Save Source Templates in Store
+            $scope.global.templatesWindSTORE = angular.copy(results.data.windows);
+            $scope.global.templatesWindDoorSTORE = angular.copy(results.data.windowDoor);
+            $scope.global.templatesBalconySTORE = angular.copy(results.data.balconies);
+            $scope.global.templatesDoorSTORE = angular.copy(results.data.doors);
+
+            //-------- Templates for use
+            $scope.global.templatesWindSource = angular.copy(results.data.windows);
+            $scope.global.templatesWindDoorSource = angular.copy(results.data.windowDoor);
+            $scope.global.templatesBalconySource = angular.copy(results.data.balconies);
+            $scope.global.templatesDoorSource = angular.copy(results.data.doors);
+
 
             $scope.global.parseTemplate($scope.global.profileIndex, $scope.global.product.profileId);
 
-/*
-            // парсинг шаблона, расчет размеров
-            $scope.global.templateDepths = {
-              frameDepth: $scope.global.allProfileFrameSizes[$scope.profileIndex],
-              sashDepth: $scope.global.allProfileSashSizes[$scope.profileIndex],
-              impostDepth: $scope.global.allProfileImpostSizes[$scope.profileIndex],
-              shtulpDepth: $scope.global.allProfileShtulpSizes[$scope.profileIndex]
-
-            };
-
-            $scope.global.templateDefault = new Template($scope.global.templateSource, $scope.global.templateDepths);
-            //console.log('template ' + $scope.global.templateDefault);
-            //console.log($scope.global.templateDefault);
-
-            // Data for config-menu
-            $scope.global.product.constructThumb = $scope.global.templateDefault.icon;
-
-            $scope.global.createObjXFormedPrice($scope.global.templateDefault, $scope.profileIndex, $scope.global.product.profileId);
-*/
           } else {
             console.log(results);
           }
@@ -435,20 +417,6 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       shtulpDepth: $scope.global.allProfileShtulpSizes[profileIndex]
 
     };
-/*
-    if($scope.global.isConstructDoor) {
-
-      for(var tem = 0; tem < $scope.global.templatesDoorSource.length; tem++) {
-        $scope.global.templatesDoorList.push( new Template($scope.global.templatesDoorSource[tem], $scope.global.templateDepths) );
-        $scope.global.templatesDoorThumbList.push( new TemplateIcon($scope.global.templatesDoorSource[tem], $scope.global.templateDepths) );
-      }
-      $scope.global.templateSource = $scope.global.templatesDoorSource[$scope.global.templateIndex];
-      $scope.global.templateDefault = $scope.global.templatesDoorList[$scope.global.templateIndex];
-      $scope.global.product.constructThumb = $scope.global.templatesDoorThumbList[$scope.global.templateIndex];
-
-    } else {
-*/
-
 
     for(var tem = 0; tem < $scope.global.templatesWindSource.length; tem++) {
       $scope.global.templatesWindList.push( new Template($scope.global.templatesWindSource[tem], $scope.global.templateDepths) );
@@ -467,12 +435,26 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       $scope.global.templatesDoorThumbList.push( new TemplateIcon($scope.global.templatesDoorSource[tem], $scope.global.templateDepths) );
     }
 
+    //-------- Save Template Arrays in Store
+      //---- window
+    $scope.global.templatesWindListSTORE = angular.copy($scope.global.templatesWindList);
+    $scope.global.templatesWindThumbListSTORE = angular.copy($scope.global.templatesWindThumbList);
+      //---- window-door
+    $scope.global.templatesWindDoorListSTORE = angular.copy($scope.global.templatesWindDoorList);
+    $scope.global.templatesWindDoorThumbListSTORE = angular.copy($scope.global.templatesWindDoorThumbList);
+      //---- balcony
+    $scope.global.templatesBalconyListSTORE = angular.copy($scope.global.templatesBalconyList);
+    $scope.global.templatesBalconyThumbListSTORE = angular.copy($scope.global.templatesBalconyThumbList);
+      //---- door
+    $scope.global.templatesDoorListSTORE = angular.copy($scope.global.templatesDoorList);
+    $scope.global.templatesDoorThumbListSTORE = angular.copy($scope.global.templatesDoorThumbList);
 
-    $scope.global.templateSource = $scope.global.templatesWindSource[$scope.global.templateIndex];
-    $scope.global.templateDefault = $scope.global.templatesWindList[$scope.global.templateIndex];
-    $scope.global.product.constructThumb = $scope.global.templatesWindThumbList[$scope.global.templateIndex];
+    //------- first of all default select Window Construction
+    $scope.global.templateSource = angular.copy($scope.global.templatesWindSource[$scope.global.templateIndex]);
+    $scope.global.templateDefault = angular.copy($scope.global.templatesWindList[$scope.global.templateIndex]);
+    $scope.global.product.constructThumb = angular.copy($scope.global.templatesWindThumbList[$scope.global.templateIndex]);
 
-//    }
+    console.log($scope.global.templateSource);
 
     $scope.global.createObjXFormedPrice($scope.global.templateDefault, profileIndex, profileId);
   };
@@ -578,11 +560,15 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
         addElementsData,
         addElementsObj = $scope.global.chosenAddElements;
 
-    //-------- get product quantity
-    if($scope.global.productCounter) {
-      ++$scope.global.productCounter;
+    if (!$scope.global.productEditNumber) {
+      //-------- get product quantity
+      if ($scope.global.productCounter) {
+        ++$scope.global.productCounter;
+      } else {
+        $scope.global.productCounter = 1;
+      }
     } else {
-      $scope.global.productCounter = 1;
+      localDB.deleteDB($scope.global.productsTableBD, options);
     }
 
 
@@ -675,7 +661,9 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   //--------- moving to Cart when click on Cart button
   $scope.movetoCart = function() {
     $timeout(function(){
-      $scope.global.gotoCartPage();
+      console.log($scope.global.productCounter);
+      console.log($scope.global.productEditNumber);
+      //$scope.global.gotoCartPage();
     }, 2*STEP);
   };
 

@@ -30,6 +30,5 @@
 
   footer.menu-footer.unvisible(ng-if="global.isConfigMenu", show-delay="{{ configMenu.DELAY_SHOW_FOOTER }}")
     price(price-value="global.product.productPrice", price-currency="global.currency")
-    button.cart-btn(ng-hide="global.productEditNumber", ng-click="global.inputProductInOrder(); movetoCart()") {{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
-    button.cart-btn(ng-show="global.productEditNumber", ng-click="movetoCart()") {{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
+    button.cart-btn(ng-click="global.inputProductInOrder(); movetoCart()") {{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
       .qty.unvisible(ng-if="global.productCounter && global.productCounter > 0 && !global.isCreatedNewProject", show-delay="{{ configMenu.DELAY_START }}") {{ global.productCounter }}
