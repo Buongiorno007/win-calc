@@ -25,13 +25,14 @@ BauVoiceApp.controller('GlassCtrl', ['$scope', 'constructService', 'localStorage
   });
 
   // Select glass
-  $scope.selectGlass = function(typeId, glassId) {
+  $scope.selectGlass = function(typeId, glassIndex, glassId) {
+    var selectedGlass = $scope.glassPanel.glasses[typeId][glassIndex];
     $scope.glassPanel.isSelectedGlassType = typeId;
-    $scope.glassPanel.isSelectedGlass = glassId;
-
-    var selectedGlass = $scope.glassPanel.glasses[typeId][glassId];
+    $scope.global.product.glassId = glassId;
     $scope.global.product.glassName = selectedGlass.glassName;
-    $scope.global.product.productPrice += selectedGlass.glassPrice;
+    $scope.global.product.glassHeatCoeff = selectedGlass.heatCoeff;
+    $scope.global.product.glassAirCoeff = selectedGlass.airCoeff;
+    $scope.global.createObjXFormedPrice($scope.global.templateDefault, $scope.global.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
   };
 
 }]);

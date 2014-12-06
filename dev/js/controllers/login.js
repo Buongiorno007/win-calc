@@ -7,7 +7,7 @@ BauVoiceApp.controller('LoginCtrl', ['$scope', '$location', '$translate', 'globa
   $scope.checkCode = function () {
     // запрос на сервер с проверкой кода. Если проверка прошла успешно, то синхронизировать базу данных.
     // Если неуспешно, то выдать сообщение об ошибке.
-    $scope.isCodeCheckingSuccess = !$scope.isCodeCheckingSuccess;
+    //$scope.isCodeCheckingSuccess = !$scope.isCodeCheckingSuccess;
 
     if ($scope.isCodeCheckingSuccess) {
       $scope.isCodeValid = true;

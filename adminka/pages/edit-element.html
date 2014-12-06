@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="main.css" />
+  <link rel="stylesheet" type="text/css" href="screen.css" />
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+<body>
+<style>
+  .edited-container {
+    margin: 20px;
+    border: 1px solid #fff;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0, .5);
+    -moz-box-shadow: inset 0 0 5px rgba(0,0,0, .5);
+    -o-box-shadow: inset 0 0 5px rgba(0,0,0, .5);
+    -ms-box-shadow: inset 0 0 5px rgba(0,0,0, .5);
+    box-shadow: inset 0 0 5px rgba(0,0,0, .5);
+  }
+  .edit-block {
+    position: relative;
+    padding: 10px 0;
+  }
+  .edit-block.odd {
+    border-top: 1px solid #afafaf;
+  }
+  .edit-block.even {
+    background-color: #e9e9e9;
+    border-top: 1px solid #afafaf;
+  }
+
+  .edit-block-inner {
+    width: 500px;
+    margin: 0 auto;
+  }
+  .edit-block-row {
+    margin: 20px 0;
+  }
+  .edit-block-label {
+    position: absolute;
+    top: 0px;
+    left: 10px;
+    font-family: tahoma-reg;
+    font-size: 10px;
+    color: #7b7a7a;
+  }
+  .edit-input-box {
+    text-align: left;
+  }
+  .edit-input-box.left {
+    float: left;
+  }
+  .edit-input-box.right {
+    float: right;
+  }
+  .edit-input-label {
+    color: #333333;
+    font-family: tahoma-reg;
+    font-size: 12px;
+    line-height: 30px;
+  }
+  .edit-input-txt {
+    width: 420px;
+    height: 26px;
+    border-radius: 5px;
+    border: none;
+    border: 1px solid #afafaf;
+    color: #7b7a7a;
+    text-indent: 10px;
+  }
+  .edit-select-box {
+    float: left;
+    margin-right: 5px;
+  }
+  .edit-select-box:last-child {
+    margin-right: 0;
+  }
+  .select-elem-group {
+    width: 125px;
+    margin: 0;
+  }
+  .select-elem-group select {
+    width: 125px;
+  }
+  .select-elem-type {
+    width: 200px;
+    margin: 0;
+  }
+  .select-elem-type select {
+    width: 200px;
+  }
+  .select-elem-currency {
+    width: 60px;
+    margin: 0;
+  }
+  .select-elem-currency select {
+    width: 60px;
+  }
+  .input-elem-cost {
+    width: 75px;
+    height: 24px;
+    border-radius: 5px;
+    border: none;
+    border: 1px solid #afafaf;
+    color: #7b7a7a;
+    text-indent: 10px;
+    margin: 0;
+    padding: 0;
+  }
+  .select-all-profiles {
+    position: relative;
+    top: -4px;
+  }
+  .all-profiles-block {
+    width: 100%;
+    height: 100px;
+    background-color: #fff;
+    overflow: auto;
+    border: 1px solid #b8b8b8;
+    border-radius: 5px;
+  }
+  .profiles-block-inner {
+    padding: 5px;
+  }
+  .profile-box {
+    float: left;
+    border-right: 1px solid #eaeaea;
+    width: 28%;
+    padding: 10px;
+  }
+  .profile-box.edge {
+    border: none;
+  }
+  .checkbox-special.prof {
+    top: -5px;
+  }
+  .profile-label {
+    font-family: tahoma-reg;
+    font-size: 12px;
+    color: #7b7a7a;
+    line-height: 24px;
+    margin-left: 5px;
+  }
+
+  .glass-block {
+    padding-right: 30px;
+    float: left;
+  }
+  .glass-block:last-child {
+    padding-right: 0;
+  }
+  .select-glass-type {
+    width: 160px;
+    margin: 0;
+  }
+  .select-glass-type select {
+    width: 160px;
+  }
+  .glass-size-label {
+    color: #606060;
+    font-family: tahoma-reg;
+    font-size: 12px;
+  }
+  .input-glass-size {
+    width: 40px;
+  }
+  .glass-box-left {
+    float: left;
+    margin-bottom: 10px;
+  }
+  .glass-box-right {
+    float: right;
+    margin-bottom: 10px;
+  }
+  .glass-param {
+    width: 160px;
+    float: left;
+    line-height: 26px;
+  }
+
+  .glass-sizes {
+    height: 19px;
+    border-radius: 5px;
+    border: 1px solid #afafaf;
+    color: #7b7a7a;
+    margin: 0;
+    background-color: #fff;
+  }
+  .glass-size {
+    float: left;
+    width: 87px;
+    padding: 0;
+    border-right: 1px solid #afafaf;
+    text-align: center;
+    line-height: 19px;
+  }
+  .glass-size.selected {
+    background-color: #e5fdc3;
+  }
+  .sale-box{
+    height: 19px;
+    border-bottom: 1px solid #fff;
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0, .3);
+    -moz-box-shadow: inset 0 -1px 0 rgba(0,0,0, .3);
+    -o-box-shadow: inset 0 -1px 0 rgba(0,0,0, .3);
+    -ms-box-shadow: inset 0 -1px 0 rgba(0,0,0, .3);
+    box-shadow: inset 0 -1px 0 rgba(0,0,0, .3);
+  }
+  .sale {
+    float: left;
+    width: 87px;
+    text-align: center;
+    line-height: 19px;
+  }
+
+  .select-glass-supplier {
+    width: 125px;
+    margin: 0;
+  }
+  .select-glass-supplier select {
+    width: 125px;
+  }
+  .margin-box {
+    float: left;
+    margin: 0 20px;
+  }
+  .reject-box {
+    float: left;
+    margin-right: 20px;
+  }
+  .reject-label {
+    line-height: 26px;
+  }
+  .footer-label,
+  .footer-label-right {
+    line-height: 35px;
+  }
+  .footer-label-right {
+    margin-left: 5px;
+  }
+  .save-change-block,
+  .footer-note {
+    text-align: center;
+  }
+  .footer-note {
+    margin-top: 20px;
+    font-family: tahoma-reg;
+    font-size: 12px;
+    color: #7b7a7a;
+  }
+</style>
+
+<div id="content">
+
+  <div class="breadcrumbs">
+    <a href="/">Главная</a> » <a href="/base">База элементов</a> » <span>Элементы</span>
+  </div>
+
+
+  <div id="main-container" class="main-container clearfix">
+    <div class="edited-container">
+
+      <div class="edit-block even">
+        <div class="edit-block-label">id: 10506</div>
+
+        <div class="edit-block-inner">
+
+          <div class="edit-block-row clearfix">
+            <div class="edit-input-box left">
+              <label class="edit-input-label">Артикул: </label>
+            </div>
+            <div class="edit-input-box right">
+              <input type="text" class="edit-input-txt" value="БР-2сл (225) 4/12/4/16/4">
+            </div>
+          </div>
+
+          <div class="edit-block-row clearfix">
+            <div class="edit-input-box left">
+              <label class="edit-input-label">Название: </label>
+            </div>
+            <div class="edit-input-box right">
+              <input type="text" class="edit-input-txt" value="Бронированный двухслойный 225 мкр 4/12/4/16/4">
+            </div>
+          </div>
+
+          <div class="edit-block-row clearfix">
+            <div class="edit-select-box">
+              <div class="edit-input-label">Группа: </div>
+
+              <div class="filter-block select-elem-group">
+                <div class="input-filter">
+                  <form action="" method="post">
+                    <select name="filtr_element_group" id="filtr_element_group">
+                      <option value="0">Ламинация</option>
+                      <option value="1">Профили</option>
+                      <option value="2">Фурнитура</option>
+                      <option value="3">Армирование</option>
+                      <option value="5">Уплотнители</option>
+                      <option value="6">Штучные</option>
+                      <option value="8">Стеклопакеты</option>
+                      <option value="9">Поверхностные</option>
+                      <option value="10">Жидкие</option>
+                      <option value="19">Профили дополнительные</option>
+                      <option value="21">Весовые</option>
+                    </select>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="edit-select-box">
+              <div class="edit-input-label">Тип элемента: </div>
+
+              <div class="filter-block select-elem-type">
+                <div class="input-filter">
+                  <form action="" method="post">
+                    <select name="filtr_element_type" id="filtr_element_group2">
+                      <option value="0">Ламинация</option>
+                      <option value="1">Профили</option>
+                      <option value="2">Фурнитура</option>
+                      <option value="3">Армирование</option>
+                      <option value="5">Уплотнители</option>
+                      <option value="6">Штучные</option>
+                      <option value="8">Стеклопакеты</option>
+                      <option value="9">Поверхностные</option>
+                      <option value="10">Жидкие</option>
+                      <option value="19">Профили дополнительные</option>
+                      <option value="21">Весовые</option>
+                    </select>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="edit-select-box">
+              <div class="edit-input-label">Валюта: </div>
+
+              <div class="filter-block select-elem-currency">
+                <div class="input-filter">
+                  <form action="" method="post">
+                    <select name="filtr_element_curr" id="filtr_element_group3">
+                      <option value="0">Ламинация</option>
+                      <option value="1">Профили</option>
+                      <option value="2">Фурнитура</option>
+                      <option value="3">Армирование</option>
+                      <option value="5">Уплотнители</option>
+                      <option value="6">Штучные</option>
+                      <option value="8">Стеклопакеты</option>
+                      <option value="9">Поверхностные</option>
+                      <option value="10">Жидкие</option>
+                      <option value="19">Профили дополнительные</option>
+                      <option value="21">Весовые</option>
+                    </select>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="edit-select-box">
+              <div class="edit-input-label">Цена: </div>
+
+              <div class="edit-elem-cost">
+                <input type="text" class="input-elem-cost" value="164">
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+      <div class="edit-block odd">
+        <div class="edit-block-label">Стеклопакет:</div>
+
+          <div class="edit-block-inner">
+
+            <div class="clearfix">
+
+              <div class="edit-input-box left">
+                <span class="edit-input-label">Принадлежность к системе профилей:</span>
+              </div>
+              <div class="edit-input-box right">
+                <span class="edit-input-label">Выбрать все</span>
+                <div class="checkbox-special select-all-profiles">
+                  <input type="checkbox" value="None" id="lamin-checkbox-1" class="lamin-checkbox" name="check" />
+                  <label for="lamin-checkbox-1"></label>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="all-profiles-block clearfix">
+              <div class="profiles-block-inner">
+
+                <div class="profile-box">
+                  <div class="checkbox-special prof">
+                    <input type="checkbox" value="None" id="lamin-checkbox-2" class="lamin-checkbox" name="check" />
+                    <label for="lamin-checkbox-2"></label>
+                  </div>
+                  <span class="profile-label">Окошко S58</span>
+                </div>
+
+                <div class="profile-box">
+                  <div class="checkbox-special prof">
+                    <input type="checkbox" value="None" id="lamin-checkbox-3" class="lamin-checkbox" name="check" />
+                    <label for="lamin-checkbox-3"></label>
+                  </div>
+                  <span class="profile-label">Окошко S58</span>
+                </div>
+
+                <div class="profile-box edge">
+                  <div class="checkbox-special prof">
+                    <input type="checkbox" value="None" id="lamin-checkbox-4" class="lamin-checkbox" name="check" />
+                    <label for="lamin-checkbox-4"></label>
+                  </div>
+                  <span class="profile-label">Окошко S58</span>
+                </div>
+
+                <div class="profile-box">
+                  <div class="checkbox-special prof">
+                    <input type="checkbox" value="None" id="lamin-checkbox-5" class="lamin-checkbox" name="check" />
+                    <label for="lamin-checkbox-5"></label>
+                  </div>
+                  <span class="profile-label">Окошко S58</span>
+                </div>
+
+                <div class="profile-box">
+                  <div class="checkbox-special prof">
+                    <input type="checkbox" value="None" id="lamin-checkbox-5" class="lamin-checkbox" name="check" />
+                    <label for="lamin-checkbox-5"></label>
+                  </div>
+                  <span class="profile-label">Окошко S58</span>
+                </div>
+                <div class="profile-box edge">
+                  <div class="checkbox-special prof">
+                    <input type="checkbox" value="None" id="lamin-checkbox-5" class="lamin-checkbox" name="check" />
+                    <label for="lamin-checkbox-5"></label>
+                  </div>
+                  <span class="profile-label">Окошко S58</span>
+                </div>
+                <div class="profile-box">
+                  <div class="checkbox-special prof">
+                    <input type="checkbox" value="None" id="lamin-checkbox-5" class="lamin-checkbox" name="check" />
+                    <label for="lamin-checkbox-5"></label>
+                  </div>
+                  <span class="profile-label">Окошко S58</span>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="edit-block-row clearfix">
+              <div class="glass-block">
+
+                <div class="edit-select-box">
+                  <div class="edit-input-label">Группа: </div>
+
+                  <div class="filter-block select-glass-type">
+                    <div class="input-filter">
+                      <form action="" method="post">
+                        <select name="filtr_element_group" id="filtr_element_group">
+                          <option value="0">Ламинация</option>
+                          <option value="1">Профили</option>
+                          <option value="2">Фурнитура</option>
+                          <option value="3">Армирование</option>
+                          <option value="5">Уплотнители</option>
+                          <option value="6">Штучные</option>
+                          <option value="8">Стеклопакеты</option>
+                          <option value="9">Поверхностные</option>
+                          <option value="10">Жидкие</option>
+                          <option value="19">Профили дополнительные</option>
+                          <option value="21">Весовые</option>
+                        </select>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="glass-block">
+                <div class="edit-select-box">
+                  <div class="edit-input-label">Ширина: </div>
+
+                  <div class="edit-glass-size">
+                    <span class="glass-size-label">min</span>
+                    <input type="text" class="input-elem-cost input-glass-size" value="164">
+                    <span class="glass-size-label">max</span>
+                    <input type="text" class="input-elem-cost input-glass-size" value="164">
+                  </div>
+                </div>
+              </div>
+              <div class="glass-block">
+                <div class="edit-select-box">
+                  <div class="edit-input-label">Высота: </div>
+
+                  <div class="edit-glass-size">
+                    <span class="glass-size-label">min</span>
+                    <input type="text" class="input-elem-cost input-glass-size" value="164">
+                    <span class="glass-size-label">max</span>
+                    <input type="text" class="input-elem-cost input-glass-size" value="164">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="edit-block-row clearfix">
+              <div class="glass-box-left">
+                <div class="glass-size-label glass-param">max площадь (м²)	</div>
+                <input type="text" class="input-elem-cost input-glass-size" value="164">
+              </div>
+              <div class="glass-box-right">
+                <div class="glass-size-label glass-param">K теплопроводности (м²•К/Вт) </div>
+                <input type="text" class="input-elem-cost input-glass-size" value="164">
+              </div>
+
+              <div class="glass-box-left">
+                <div class="glass-size-label glass-param">Толщина стеклопакета (мм)</div>
+                <input type="text" class="input-elem-cost input-glass-size" value="164">
+              </div>
+              <div class="glass-box-right">
+                <div class="glass-size-label glass-param">Шумоизоляция (дБ)</div>
+                <input type="text" class="input-elem-cost input-glass-size" value="164">
+              </div>
+            </div>
+
+            <div class="edit-block-row clearfix">
+              <div class="glass-size-label">Ввод скидок за опт:</div>
+
+              <div class="glass-sizes clearfix">
+                <div class="glass-size">0-5 m.kv</div>
+                <div class="glass-size selected">0-5 m.kv</div>
+                <div class="glass-size">0-5 m.kv</div>
+              </div>
+              <div class="sale-box clearfix">
+                <div class="sale">10%</div>
+                <div class="sale">20%</div>
+                <div class="sale">30%</div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+
+
+        <div class="edit-block even">
+          <div class="edit-block-row clearfix">
+            <div class="edit-block-inner">
+
+              <div class="edit-select-box">
+                <div class="edit-input-label">Поставщик: </div>
+
+                <div class="filter-block select-glass-supplier">
+                  <div class="input-filter">
+                    <form action="" method="post">
+                      <select name="filtr_element_supply" id="filtr_element_supply">
+                        <option value="0">Ламинация</option>
+                        <option value="1">Профили</option>
+                        <option value="2">Фурнитура</option>
+                        <option value="3">Армирование</option>
+                        <option value="5">Уплотнители</option>
+                        <option value="6">Штучные</option>
+                        <option value="8">Стеклопакеты</option>
+                        <option value="9">Поверхностные</option>
+                        <option value="10">Жидкие</option>
+                        <option value="19">Профили дополнительные</option>
+                        <option value="21">Весовые</option>
+                      </select>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <div class="margin-box">
+                <div class="edit-input-label">Наценка: </div>
+
+                <span class="profile-label">Наценка на проект</span>
+                <div class="radio-special">
+                  <input type="radio" value="None" id="supply-margin-1" class="input-radio" name="check" />
+                  <label for="supply-margin-1"></label>
+                </div>
+
+              </div>
+
+              <div class="margin-box">
+                <div class="edit-input-label">Наценка: </div>
+
+                <span class="profile-label">Наценка на проект</span>
+                <div class="radio-special">
+                  <input type="radio" value="None" id="supply-margin-2" class="input-radio" name="check" />
+                  <label for="supply-margin-2"></label>
+                </div>
+
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+        <div class="edit-block odd">
+          <div class="edit-block-label">Наценка на доп. элемент:</div>
+          <div class="edit-block-inner">
+
+            <div class="edit-block-row clearfix">
+
+              <div class="reject-box">
+                <span class="glass-size-label reject-label">max площадь (м²)	</span>
+                <input type="text" class="input-elem-cost input-glass-size" value="164">
+              </div>
+              <div class="reject-box">
+                <span class="glass-size-label reject-label">K теплопроводности (м²•К/Вт) </span>
+                <input type="text" class="input-elem-cost input-glass-size" value="164">
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="edit-block even">
+          <div class="edit-block-inner">
+
+            <div class="edit-block-row clearfix">
+
+              <div class="glass-box-left">
+                <div>
+                  <div class="checkbox-special prof">
+                    <input type="checkbox" value="None" id="lamin-checkbox-5" class="lamin-checkbox" name="check" />
+                    <label for="lamin-checkbox-5"></label>
+                  </div>
+                  <span class="glass-size-label footer-label-right">Дополнительный элемент</span>
+                </div>
+
+                <div>
+                  <div class="checkbox-special prof">
+                    <input type="checkbox" value="None" id="lamin-checkbox-5" class="lamin-checkbox" name="check" />
+                    <label for="lamin-checkbox-5"></label>
+                  </div>
+                  <span class="glass-size-label footer-label-right">Дополнительный элемент</span>
+                </div>
+
+                <div class="reject-box">
+                  <span class="glass-size-label footer-label">Вес (кг) </span>
+                  <input type="text" class="input-elem-cost input-glass-size" value="164">
+                </div>
+              </div>
+              <div class="glass-box-right">
+
+                <div>
+                  <div class="checkbox-special prof">
+                    <input type="checkbox" value="None" id="lamin-checkbox-5" class="lamin-checkbox" name="check" />
+                    <label for="lamin-checkbox-5"></label>
+                  </div>
+                  <span class="glass-size-label footer-label-right">Дополнительный элемент</span>
+                </div>
+
+              </div>
+
+            </div>
+            <div class="edit-block-row clearfix">
+              <div class="save-change-block">
+                <button id="save_element_btn" class="green-small-btn">Сохранить</button>
+              </div>
+              <div class="footer-note">
+                Дата последнего изменения :05.05.2014 изменено Andrey Kukushka
+              </div>
+            </div>
+
+
+
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+<script>
+
+  document.getElementById('addlamin-img-btn').onclick = function() {
+    document.getElementById('select_lamin_file').click();
+  };
+
+</script>
+
+
+</body>
+</html>

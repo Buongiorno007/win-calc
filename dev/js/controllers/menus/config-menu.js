@@ -392,13 +392,13 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
     console.log($scope.global.templateDefault);
 
-    $scope.global.createObjXFormedPrice($scope.global.templateDefault, profileIndex, profileId);
+    $scope.global.createObjXFormedPrice($scope.global.templateDefault, profileIndex, profileId, $scope.global.product.glassId);
   };
 
 
 
   // создание объекта для отправки в базу, чтобы рассчитать цену шаблона
-  $scope.global.createObjXFormedPrice = function(template, profileIndex, profileId) {
+  $scope.global.createObjXFormedPrice = function(template, profileIndex, profileId, glassId) {
     $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
     //console.log('$scope.global.objXFormedPrice');
     //console.log($scope.global.objXFormedPrice);
@@ -440,7 +440,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     }
 
     $scope.global.objXFormedPrice.cityId = $scope.global.userInfo.city_id;
-    $scope.global.objXFormedPrice.glassId = $scope.global.product.glassId;
+    $scope.global.objXFormedPrice.glassId = glassId;
     $scope.global.objXFormedPrice.profileId = profileId;
     $scope.global.objXFormedPrice.frameId = $scope.global.allProfileFrameSizes[profileIndex].id;
     $scope.global.objXFormedPrice.frameSillId = $scope.global.allProfileFrameStillSizes[profileIndex].id;
@@ -480,22 +480,27 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
   //---------- Coeffs define
   $scope.global.calculateCoeffs = function() {
-    //-------- calculate Heat Coeff Total
-    //------- total square define
-    for (var item = 0; item < $scope.global.templateDefault.objects.length; item++) {
+    var constructionSquareTotal,
+        glassSquareTotal,
+        prifileHeatCoeffTotal,
+        glassHeatCoeffTotal,
+        item;
+    //------- total construction square define
+    for (item = 0; item < $scope.global.templateDefault.objects.length; item++) {
       if($scope.global.templateDefault.objects[item].type === "square") {
-        var constructionSquareTotal = $scope.global.templateDefault.objects[item].squares.reduce(function(a, b) {
+        constructionSquareTotal = $scope.global.templateDefault.objects[item].squares.reduce(function(a, b) {
           return a + b;
         });
       }
     }
     //-------- total glasses square define
-    var glassSquareTotal = $scope.global.objXFormedPrice.glassSquares.reduce(function(a, b) {
+    glassSquareTotal = $scope.global.objXFormedPrice.glassSquares.reduce(function(a, b) {
       return a + b;
     });
     //-------- coeffs define
-    var prifileHeatCoeffTotal = $scope.global.product.profileHeatCoeff * (constructionSquareTotal - glassSquareTotal);
-    var glassHeatCoeffTotal = $scope.global.product.glassHeatCoeff * glassSquareTotal;
+    prifileHeatCoeffTotal = $scope.global.product.profileHeatCoeff * (constructionSquareTotal - glassSquareTotal);
+    glassHeatCoeffTotal = $scope.global.product.glassHeatCoeff * glassSquareTotal;
+    //-------- calculate Heat Coeff Total
     $scope.global.heatTransferTotal = parseFloat(((prifileHeatCoeffTotal + glassHeatCoeffTotal)/constructionSquareTotal).toFixed(2));
 
     //-------- calculate Air Coeff Total

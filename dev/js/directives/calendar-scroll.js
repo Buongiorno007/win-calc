@@ -18,7 +18,8 @@ BauVoiceApp.directive('calendarScroll', [ function() {
           display: 'inline',
           showLabel: false,
           maxDate: today,
-          height: 80,
+          //height: 80,
+          height: 40,
           fixedWidth: 656,
           maxWidth: 656,
           onChange : function (valueText) {

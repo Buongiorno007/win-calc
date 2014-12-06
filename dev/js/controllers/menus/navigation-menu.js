@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'constructService', 'localDB', 'localStorage', '$timeout', function ($scope, $location, globalDB, constructService, localDB, localStorage, $timeout) {
+BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB', 'constructService', 'localDB', 'localStorage', '$timeout', function ($scope, $http, $location, globalDB, constructService, localDB, localStorage, $timeout) {
 
   $scope.global = localStorage;
 
@@ -85,19 +85,34 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$location', 'globalDB', 'const
 
   $scope.getCurrentGeolocation = function () {
     //------ Data from GPS device
+    navigator.geolocation.getCurrentPosition(successLocation, errorLocation);
+    function successLocation(position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+      $http.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true&language=ru').
+        success(function(data, status, headers, config) {
+          //----- save previous current location
+          $scope.global.prevGeoLocation = angular.copy($scope.global.currentGeoLocation);
 
-    //----- save previous current location
-    $scope.global.prevGeoLocation = angular.copy($scope.global.currentGeoLocation);
-
-    $scope.global.currentGeoLocation = {
-      cityId: 156,
-      cityName: 'Dnepro',
-      regionName: 'Dnepro',
-      countryName: 'Ukraine',
-      climaticZone: 7,
-      heatTransfer: 0.99,
-      fullLocation: 'Dnepro, Dnepro, Dnepro'
-    };
+          var deviceLocation = data.results[0].formatted_address.split(', ');
+          $scope.global.currentGeoLocation = {
+            cityId: 156,
+            cityName: deviceLocation[deviceLocation.length-3],
+            regionName: deviceLocation[deviceLocation.length-2],
+            countryName: deviceLocation[deviceLocation.length-1],
+            climaticZone: 7,
+            heatTransfer: 0.99,
+            fullLocation: deviceLocation[deviceLocation.length-3] + ', ' + deviceLocation[deviceLocation.length-2] + ', ' + deviceLocation[deviceLocation.length-1]
+          };
+          console.log($scope.global.currentGeoLocation.cityName);
+        }).
+        error(function(data, status, headers, config) {
+          alert(status);
+        });
+    }
+    function errorLocation(error) {
+      alert(error.message);
+    }
   };
 
   $scope.setCurrentGeoLocation = function () {

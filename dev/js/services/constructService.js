@@ -1449,7 +1449,7 @@ BauVoiceApp.factory('constructService', function ($q) {
         glasses: [
           [
             {
-              glassId: 1,
+              glassId: 145,
               glassName: '4/24/4/16/4i555555555',
               glassUrl: '../img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
@@ -1459,7 +1459,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               glassPrice: 100
             },
             {
-              glassId: 2,
+              glassId: 146,
               glassName: '4/24/4',
               glassUrl: '../img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
@@ -1469,7 +1469,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               glassPrice: 200
             },
             {
-              glassId: 3,
+              glassId: 147,
               glassName: '4/24/4/16/4i',
               glassUrl: '../img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
@@ -1481,7 +1481,7 @@ BauVoiceApp.factory('constructService', function ($q) {
           ],
           [
             {
-              glassId: 1,
+              glassId: 149,
               glassName: '4/24/4/16/4i555555555',
               glassUrl: '../img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
@@ -1491,7 +1491,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               glassPrice: 100
             },
             {
-              glassId: 2,
+              glassId: 150,
               glassName: '4/24/4/16/4i555555555',
               glassUrl: '../img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
@@ -1503,7 +1503,7 @@ BauVoiceApp.factory('constructService', function ($q) {
           ],
           [
             {
-              glassId: 1,
+              glassId: 152,
               glassName: '4/24/4/16/4i555555555',
               glassUrl: '../img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',

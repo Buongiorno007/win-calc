@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="main.css" />
+  <link rel="stylesheet" type="text/css" href="screen.css" />
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+<body>
+<style>
+.main-container {
+  border: 1px solid #c3c3c3;
+}
+
+.lamin-block {
+  width: 33.33%;
+  float: left;
+  padding: 20px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.lamin-block-left {
+  margin-right: 20px;
+}
+.lamin-block-left,
+.lamin-block-right {
+  float: left;
+}
+
+.lamin-label {
+  font-family: tahoma-reg;
+  font-size: 13px;
+  line-height: 30px;
+}
+.lamin-img img,
+.add-lamin {
+  width: 160px;
+  height: 60px;
+  border-radius: 10px;
+}
+.add-lamin-img {
+  position: relative;
+  margin: 30px 0 0 40px;
+}
+.add-lamin {
+  background-color: #d0d0d0;
+  color: #7b7b7b;
+  font-family: tahoma-bold;
+  font-size: 14px;
+  line-height: 30px;
+  text-shadow: 0 1px 1px #fff;
+  -webkit-box-shadow: 0 1px 0 rgba(0,0,0, .5), inset 0 -1px 0 rgba(255, 255, 255,.5);
+  -moz-box-shadow: 0 1px 0 rgba(0,0,0, .5), inset 0 -1px 0 rgba(255, 255, 255,.5);
+  -o-box-shadow: 0 1px 0 rgba(0,0,0, .5), inset 0 -1px 0 rgba(255, 255, 255,.5);
+  -ms-box-shadow: 0 1px 0 rgba(0,0,0, .5), inset 0 -1px 0 rgba(255, 255, 255,.5);
+  box-shadow: 0 1px 0 rgba(0,0,0, .5), inset 0 -1px 0 rgba(255, 255, 255,.5);
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+/*--------- Add lamination dialog-----*/
+.add-lamin-dialog {
+  position: absolute;
+  bottom: 0;
+  right: -20px;
+}
+.lamin-dialog-top {
+  line-height: 40px;
+}
+.addlamin-label {
+  color: #7b7b7b;
+  font-family: tahoma-reg;
+  font-size: 13px;
+}
+#addlamin-title {
+  height: 20px;
+  border-radius: 5px;
+  border: none;
+  border: 1px solid #afafaf;
+}
+
+#addlamin-img-btn {
+  margin-left: 58px;
+}
+.addlamin-icon-btn {
+  vertical-align: middle;
+}
+#select_lamin_file {
+  display: none;
+}
+/*---------- Checkbox--------*/
+input[type=checkbox] {
+  visibility: hidden;
+}
+
+.checkbox-special {
+  display: inline;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin: 20px auto;
+
+}
+
+.checkbox-special  label {
+  cursor: pointer;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #c1c1c1;
+  left: 0;
+  top: 0;
+  border-radius: 3px;
+}
+
+.checkbox-special  label:after {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  opacity: 0;
+  content: '';
+  position: absolute;
+  width: 11px;
+  height: 5px;
+  background: transparent;
+  top: 4px;
+  left: 3px;
+  border: 3px solid #61b53d;
+  border-top: none;
+  border-right: none;
+
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.checkbox-special  label:hover::after {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+  filter: alpha(opacity=30);
+  opacity: 0.3;
+}
+
+.checkbox-special  input[type=checkbox]:checked + label:after {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
+  opacity: 1;
+}
+
+/*-------- Save button------*/
+
+.save-element-block {
+  float: right;
+  margin-top: 12px;
+  padding-right: 50px;
+}
+#save_element_btn {
+  width: 146px;
+  height: 34px;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-family: tahoma-bold;
+  font-size: 15px;
+  color: #fff;
+  text-shadow: 0 1px 1px #000;
+
+  -webkit-box-shadow: 0 2px 2px rgba(0,0,0, .5), inset 0 0 5px rgba(255, 255, 255,.5);
+  -moz-box-shadow: 0 2px 2px rgba(0,0,0, .5), inset 0 0 5px rgba(255, 255, 255,.5);
+  -o-box-shadow: 0 2px 2px rgba(0,0,0, .5), inset 0 0 5px rgba(255, 255, 255,.5);
+  -ms-box-shadow: 0 2px 2px rgba(0,0,0, .5), inset 0 0 5px rgba(255, 255, 255,.5);
+  box-shadow: 0 2px 2px rgba(0,0,0, .5), inset 0 0 5px rgba(255, 255, 255,.5);
+}
+
+
+
+
+</style>
+
+<div id="content">
+
+  <div class="breadcrumbs">
+    <a href="/">Главная</a> » <a href="/base">База элементов</a> » <span>Элементы</span>
+  </div>
+  <div class="header-tools">
+    <div class="filter-block">
+      <div class="input-filter">
+        <form action="" method="post">
+          <select name="filtr_element_group" id="filtr_element_group">
+            <option value="0">Ламинация</option>
+            <option value="1">Профили</option>
+            <option value="2">Фурнитура</option>
+            <option value="3">Армирование</option>
+            <option value="5">Уплотнители</option>
+            <option value="6">Штучные</option>
+            <option value="8">Стеклопакеты</option>
+            <option value="9">Поверхностные</option>
+            <option value="10">Жидкие</option>
+            <option value="19">Профили дополнительные</option>
+            <option value="21">Весовые</option>
+          </select>
+        </form>
+      </div>
+      <div class="arrow-bg"></div>
+    </div>
+    <div class="clear"></div>
+  </div>
+
+  <div id="main-container" class="main-container clearfix">
+
+    <div class="lamin-block clearfix">
+      <div class="lamin-block-left">
+        <div class="checkbox-special ">
+          <input type="checkbox" value="None" id="lamin-checkbox-1" class="lamin-checkbox" name="check" />
+          <label for="lamin-checkbox-1"></label>
+        </div>
+      </div>
+      <div class="lamin-block-right">
+        <div class="lamin-label">
+          Темный дуб
+        </div>
+        <div class="lamin-img">
+          <img src="images/lamination1.jpg" alt="" title="" />
+        </div>
+      </div>
+    </div>
+
+    <div class="lamin-block clearfix">
+      <div class="lamin-block-left">
+        <div class="checkbox-special ">
+          <input type="checkbox" value="None" id="lamin-checkbox-2" class="lamin-checkbox" name="check" />
+          <label for="lamin-checkbox-2"></label>
+        </div>
+      </div>
+      <div class="lamin-block-right">
+        <div class="lamin-label">
+          Темный дуб
+        </div>
+        <div class="lamin-img">
+          <img src="images/lamination1.jpg" alt="" title="" />
+        </div>
+      </div>
+    </div>
+
+    <div class="lamin-block clearfix">
+      <div class="lamin-block-left">
+        <div class="checkbox-special ">
+          <input type="checkbox" value="None" id="lamin-checkbox-3" class="lamin-checkbox" name="check" />
+          <label for="lamin-checkbox-3"></label>
+        </div>
+      </div>
+      <div class="lamin-block-right">
+        <div class="lamin-label">
+          Темный дуб
+        </div>
+        <div class="lamin-img">
+          <img src="images/lamination1.jpg" alt="" title="" />
+        </div>
+      </div>
+    </div>
+
+    <div class="lamin-block clearfix">
+      <div class="lamin-block-left">
+        <div class="checkbox-special ">
+          <input type="checkbox" value="None" id="lamin-checkbox-4" class="lamin-checkbox" name="check" />
+          <label for="lamin-checkbox-4"></label>
+        </div>
+      </div>
+      <div class="lamin-block-right">
+        <div class="lamin-label">
+          Темный дуб
+        </div>
+        <div class="lamin-img">
+          <img src="images/lamination1.jpg" alt="" title="" />
+        </div>
+      </div>
+    </div>
+
+    <div class="lamin-block clearfix">
+      <div class="lamin-block-left">
+        <div class="checkbox-special ">
+          <input type="checkbox" value="None" id="lamin-checkbox-5" class="lamin-checkbox" name="check" />
+          <label for="lamin-checkbox-5"></label>
+        </div>
+      </div>
+      <div class="lamin-block-right">
+        <div class="lamin-label">
+          Темный дуб
+        </div>
+        <div class="lamin-img">
+          <img src="images/lamination1.jpg" alt="" title="" />
+        </div>
+      </div>
+    </div>
+
+    <div class="lamin-block clearfix">
+
+      <div class="add-lamin-img">
+        <button id="add-lamin" class="add-lamin">Добавить +</button>
+
+        <div class="add-lamin-dialog">
+          <div class="lamin-dialog-top">
+            <label class="addlamin-label">Название: </label>
+            <input type="text" id="addlamin-title" value="">
+            <button id="addlamin-submit" class="green-small-btn ok-small-btn">Ok</button>
+          </div>
+          <button id="addlamin-img-btn" class="add-lamin">
+            <img src="images/add_img.png" class="addlamin-icon-btn" alt="Зонтик" />
+          </button>
+          <input type="file" id="select_lamin_file">
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+
+  <div class="filter-block action-filter">
+    <div class="input-filter">
+      <select name="actionName" id="actionName">
+        <option value="">Действие</option>
+        <option value="del">Удалить</option>
+        <option value="copy">Копировать</option>
+      </select>
+    </div>
+    <div class="arrow-bg"></div>
+  </div>
+  <input type="button" id="tool-action-btn" class="green-small-btn" value="Ок" onclick="act();">
+
+  <div class="save-element-block">
+    <button id="save_element_btn" class="green-small-btn">Сохранить</button>
+  </div>
+
+</div>
+
+
+
+<script>
+
+  document.getElementById('addlamin-img-btn').onclick = function() {
+    document.getElementById('select_lamin_file').click();
+  };
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="main.css" />
+  <link rel="stylesheet" type="text/css" href="screen.css" />
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+<body>
+<style>
+  .truncated {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .user-profile-block {
+    height: 77px;
+  }
+  .user-data-box {
+    float: left;
+    min-width: 210px;
+    margin-top: 5px;
+    border-right: 1px solid #c4c4c4;
+  }
+  .user-avatar {
+    position: relative;
+    float: left;
+    width: 64px;
+    height: 64px;
+    margin-right: 20px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  .avatar-img {
+    position: absolute;
+    top: 0;
+    left: -17px;
+  }
+  .user-text {
+    font-family: tahoma-reg;
+    color: #515151;
+  }
+  .user-name {
+    font-size: 20px;
+    line-height: 2;
+  }
+  .user-location {
+    font-size: 14px;
+    line-height: 1;
+  }
+  .general-btn {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+  #my_profile {
+    position: relative;
+    bottom: -34px;
+    left: 10px;
+    width: 108px;
+    height: 26px;
+    font-size: 13px;
+    background-color: #ebebeb;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0, .2), inset 0 -1px 0 rgba(255, 255, 255,.5);
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0, .2), inset 0 -1px 0 rgba(255, 255, 255,.5);
+    -o-box-shadow: 0 1px 1px rgba(0,0,0, .2), inset 0 -1px 0 rgba(255, 255, 255,.5);
+    -ms-box-shadow: 0 1px 1px rgba(0,0,0, .2), inset 0 -1px 0 rgba(255, 255, 255,.5);
+    box-shadow: 0 1px 1px rgba(0,0,0, .2), inset 0 -1px 0 rgba(255, 255, 255,.5);
+  }
+  .main-menu-container {
+    position: relative;
+    overflow: hidden;
+  }
+  .menu-item-icon {
+    width: 75px;
+  }
+  ul.main-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  li.main-menu-item {
+    display: inline-block;
+    width: 150px;
+    margin: 50px 0;
+    text-align: center;
+  }
+  .menu-item-label {
+    word-break: break-all;
+    font-size: 16px;
+  }
+
+  .submenu-block {
+    position: absolute;
+    top: 230px;
+    right: -200px;
+    width: 156px;
+    padding: 10px;
+    border-color: #c9c9c9;
+    border-style: solid;
+    border-width: 1px 0 1px 1px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    background-color: #edecec;
+    -webkit-box-shadow: inset -2px 0 0 rgba(0,0,0, .2);
+    -moz-box-shadow: inset -2px 0 0 rgba(0,0,0, .2);
+    -o-box-shadow: inset -2px 0 0 rgba(0,0,0, .2);
+    -ms-box-shadow: inset -2px 0 0 rgba(0,0,0, .2);
+    box-shadow: inset -2px 0 0 rgba(0,0,0, .2);
+    -webkit-transition: right .5s ease;
+    -moz-transition: right .5s ease;
+    -ms-transition: right .5s ease;
+    -o-transition: right .5s ease;
+    transition: right .5s ease;
+  }
+  .submenu-block.active {
+    right: 0;
+  }
+  .submenu-item {
+    font-family: tahoma-reg;
+    font-size: 15px;
+    color: #515151;
+    line-height: 2;
+  }
+  .submenu-item a:hover {
+    color: #ff7a4b;
+  }
+</style>
+
+<div id="content">
+
+  <div class="user-profile-block">
+    <a href="/">
+      <div class="user-data-box">
+        <div class="user-avatar">
+          <img class="avatar-img" src="images/user-avatar.jpg" alt="" title="" />
+        </div>
+        <div class="user-text user-name">
+          SuperMan
+        </div>
+        <div class="user-text user-location">
+          Dnepr
+        </div>
+      </div>
+    </a>
+    <button id="my_profile" class="general-btn user-text">Мой профиль</button>
+  </div>
+
+
+  <div id="main-container" class="main-container clearfix">
+    <div class="edited-container">
+      <div class="main-menu-container">
+
+        <ul class="main-menu">
+          <li class="main-menu-item">
+            <a href="">
+              <object type="image/svg+xml" data="images/main-menu/users.svg" class="menu-item-icon"></object>
+              <div class="user-text menu-item-label truncated">Расчет окна</div>
+            </a>
+          </li>
+
+          <li class="main-menu-item">
+            <a href="">
+              <object type="image/svg+xml" data="images/main-menu/users.svg" class="menu-item-icon"></object>
+              <div class="user-text menu-item-label truncated">История gdfgfhfhfh заказов</div>
+            </a>
+          </li>
+
+          <li class="main-menu-item">
+            <a href="">
+              <object type="image/svg+xml" data="images/main-menu/users.svg" class="menu-item-icon"></object>
+              <div class="user-text menu-item-label truncated">Заявки на замер</div>
+            </a>
+          </li>
+
+          <li class="main-menu-item">
+            <a href="">
+              <object type="image/svg+xml" data="images/main-menu/users.svg" class="menu-item-icon"></object>
+              <div class="user-text menu-item-label truncated">Заявки на замер</div>
+            </a>
+          </li>
+
+          <li class="main-menu-item">
+            <a href="">
+              <object type="image/svg+xml" data="images/main-menu/users.svg" class="menu-item-icon"></object>
+              <div class="user-text menu-item-label truncated">Заявки на замер</div>
+            </a>
+          </li>
+
+          <li class="main-menu-item">
+            <a href="">
+              <object type="image/svg+xml" data="images/main-menu/users.svg" class="menu-item-icon"></object>
+              <div class="user-text menu-item-label truncated">Заявки на замер</div>
+            </a>
+          </li>
+
+          <li class="main-menu-item">
+            <a href="">
+              <object type="image/svg+xml" data="images/main-menu/users.svg" class="menu-item-icon"></object>
+              <div class="user-text menu-item-label truncated">Заявки на замер</div>
+            </a>
+          </li>
+
+          <li class="main-menu-item">
+            <a href="">
+              <object type="image/svg+xml" data="images/main-menu/users.svg" class="menu-item-icon"></object>
+              <div class="user-text menu-item-label truncated">Заявки на замер</div>
+            </a>
+          </li>
+        </ul>
+
+
+
+        <div class="submenu-block active">
+          <ul class="main-menu submenu-list">
+            <li class="submenu-item">
+              <a href="">
+                Элементы
+              </a>
+            </li>
+            <li class="submenu-item">
+              <a href="">
+                Элементы
+              </a>
+            </li>
+            <li class="submenu-item">
+              <a href="">
+                Элементы
+              </a>
+            </li>
+            <li class="submenu-item">
+              <a href="">
+                Элементы
+              </a>
+            </li>
+          </ul>
+        </div>
+
+
+
+      </div>
+
+
+    </div>
+  </div>
+
+
+
+</body>
+</html>

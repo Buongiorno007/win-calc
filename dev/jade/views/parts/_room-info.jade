@@ -15,6 +15,6 @@
       .coeff-title(data-output="{{ 'mainpage.THERMAL_RESISTANCE' | translate }}", typing="{{ roomInfo.typing }}", typing-delay="{{ roomInfo.DELAY_SHOW_COEFF }}")
     .coeff-block
       //.coeff.heat-exchange {{ roomInfo.roomsData[(global.currentRoomId-1)].airCirculation }}
-      .coeff.heat-exchange {{ global.airCirculationTotal }}
+      .coeff.heat-exchange(ng-class="{'coeff-low': global.airCirculationTotal < roomInfo.roomsData[(global.currentRoomId-1)].airCirculation}") {{ global.airCirculationTotal }}
         .coeff-max {{ roomInfo.roomsData[(global.currentRoomId-1)].airCirculation }}
       .coeff-title(data-output="{{ 'mainpage.AIR_CIRCULATION' | translate }}", typing="{{ roomInfo.typing }}", typing-delay="{{ roomInfo.DELAY_SHOW_COEFF }}")
