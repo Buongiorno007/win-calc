@@ -283,6 +283,45 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
     }
   });
 
+  db.createTable(tableGrids, {
+
+    "id":{
+      "type": "INTEGER",
+      "null": "NOT NULL",
+      "primary": true,
+      "auto_increment": true
+    },
+    "orderId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "productId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementType":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementName":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementPrice":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementQty":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    }
+
+  });
+
   db.createTable(tableVisors, {
 
     "id":{
@@ -325,6 +364,249 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
     }
 
   });
+
+
+  db.createTable(tableSpillways, {
+
+    "id":{
+      "type": "INTEGER",
+      "null": "NOT NULL",
+      "primary": true,
+      "auto_increment": true
+    },
+    "orderId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "productId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementType":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementName":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementWidth":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementPrice":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementQty":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    }
+
+  });
+
+
+  db.createTable(tableOutsideSlopes, {
+
+    "id":{
+      "type": "INTEGER",
+      "null": "NOT NULL",
+      "primary": true,
+      "auto_increment": true
+    },
+    "orderId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "productId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementType":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementName":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementPrice":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    }
+
+  });
+
+  db.createTable(tableInsideSlopes, {
+
+    "id":{
+      "type": "INTEGER",
+      "null": "NOT NULL",
+      "primary": true,
+      "auto_increment": true
+    },
+    "orderId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "productId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementType":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementName":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementPrice":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    }
+
+  });
+
+
+  db.createTable(tableLouvers, {
+
+    "id":{
+      "type": "INTEGER",
+      "null": "NOT NULL",
+      "primary": true,
+      "auto_increment": true
+    },
+    "orderId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "productId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementType":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementName":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementWidth":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementHeight":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementPrice":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementQty":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    }
+
+  });
+
+
+  db.createTable(tableConnectors, {
+
+    "id":{
+      "type": "INTEGER",
+      "null": "NOT NULL",
+      "primary": true,
+      "auto_increment": true
+    },
+    "orderId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "productId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementType":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementName":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementWidth":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementPrice":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementQty":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    }
+
+  });
+
+  db.createTable(tableFans, {
+
+    "id":{
+      "type": "INTEGER",
+      "null": "NOT NULL",
+      "primary": true,
+      "auto_increment": true
+    },
+    "orderId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "productId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementType":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementName":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementPrice":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    }
+
+  });
+
 
   db.createTable(tableWindowSills, {
 
@@ -372,6 +654,85 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
     }
 
   });
+
+  db.createTable(tableHandles, {
+
+    "id":{
+      "type": "INTEGER",
+      "null": "NOT NULL",
+      "primary": true,
+      "auto_increment": true
+    },
+    "orderId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "productId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementType":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementName":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementPrice":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementQty":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    }
+
+  });
+
+  db.createTable(tableOthers, {
+
+    "id":{
+      "type": "INTEGER",
+      "null": "NOT NULL",
+      "primary": true,
+      "auto_increment": true
+    },
+    "orderId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "productId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementType":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementName":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "elementPrice":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementQty":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    }
+
+  });
+
 
   return {
 

@@ -9,7 +9,9 @@ window.russianDictionary = {
     MONTH_LABEL: 'месяц',
     MONTHA_LABEL: 'месяца',
     MONTHS_LABEL: 'месяцeв',
-    ALL: 'Все'
+    ALL: 'Все',
+    MIN: 'мин.',
+    MAX: 'макс.'
   },
   login: {
     ENTER: 'Войти',

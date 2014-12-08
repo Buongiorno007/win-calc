@@ -34,5 +34,9 @@
 
   .calc-value-limit {
     @include roboto-lt(rem(36px));
+
+    &.restriction {
+      color: $error_color;
+    }
   }
 }

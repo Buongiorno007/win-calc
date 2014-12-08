@@ -8,6 +8,10 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
 
   $scope.constructData = {
     tempSize: [],
+    minSizeLimit: 200,
+    maxSizeLimit: 5000,
+    isMinSizeRestriction: false,
+    isMaxSizeRestriction: false,
     activeMenuItem: false,
     showDoorConfig: false,
     selectedDoorShape: false,
@@ -39,8 +43,6 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
 
   var sizeClass = 'size-box',
       sizeEditClass = 'size-box-edited',
-      minDimension = 200,
-      maxDimension = 5000,
       newLength, fromPointsId, toPointsId;
 
 
@@ -246,7 +248,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
       //-------- build new template
       //------- cleaning object for get profile price
       $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
-      $scope.global.createObjXFormedPrice($scope.templateDefaultTEMP, $scope.global.profileIndex, $scope.global.product.profileId);
+      $scope.global.createObjXFormedPrice($scope.templateDefaultTEMP, $scope.global.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
       $scope.constructData.tempSize.length = 0;
     }
   };
@@ -256,9 +258,55 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
   //----- click on size SVG and get size value and Id
   $('svg-template').off().on("click", ".size-box-edited", function() {
     if(!$scope.global.isConstructSizeCalculator) {
-      $scope.constructData.oldSizeValue = $(this).find('text').text();
-      $scope.constructData.tempSizeId = $(this).find('text').attr('id');
-      getOldSizeValue();
+      var thisSize = $(this).find('text');
+      $scope.constructData.oldSizeValue = thisSize.text();
+      $scope.constructData.tempSizeId = thisSize.attr('id');
+
+      //------- определение зависимых размеров и установка лимита
+      var limitSizesAtrr = thisSize.attr('limits');
+
+      if(limitSizesAtrr) {
+        var sizeType = thisSize.attr('type');
+        var limitSizesIds = limitSizesAtrr.split(' ');
+        if(sizeType === 'dimensionsH') {
+          if($scope.constructData.tempSizeId === 'overallDimH') {
+            for(var siz = 0; siz < limitSizesIds.length; siz++) {
+              var limitSizeValue = $('svg-template').find('#'+limitSizesIds[siz]).text();
+              $scope.constructData.minSizeLimit += parseInt(limitSizeValue, 10);
+            }
+          } else {
+            $scope.constructData.maxSizeLimit = -200;
+            for(var siz = 0; siz < limitSizesIds.length; siz++) {
+              var limitSizeValue = $('svg-template').find('#'+limitSizesIds[siz]).text();
+              if(limitSizesIds[siz] === 'overallDimH') {
+                $scope.constructData.maxSizeLimit += parseInt(limitSizeValue, 10);
+              } else {
+                $scope.constructData.maxSizeLimit -= parseInt(limitSizeValue, 10);
+              }
+            }
+          }
+        } else if(sizeType === 'dimensionsV') {
+          if($scope.constructData.tempSizeId === 'overallDimV') {
+            for(var siz = 0; siz < limitSizesIds.length; siz++) {
+              var limitSizeValue = $('svg-template').find('#'+limitSizesIds[siz]).text();
+              $scope.constructData.minSizeLimit += parseInt(limitSizeValue, 10);
+            }
+          } else {
+            $scope.constructData.maxSizeLimit = -200;
+            for(var siz = 0; siz < limitSizesIds.length; siz++) {
+              var limitSizeValue = $('svg-template').find('#'+limitSizesIds[siz]).text();
+              if(limitSizesIds[siz] === 'overallDimV') {
+                $scope.constructData.maxSizeLimit += parseInt(limitSizeValue, 10);
+              } else {
+                $scope.constructData.maxSizeLimit -= parseInt(limitSizeValue, 10);
+              }
+            }
+          }
+        }
+
+      }
+
+      //getOldSizeValue();
       //--- show size calculator if voice helper is turn off
       if(!$scope.global.isVoiceHelper) {
         $scope.global.isConstructSizeCalculator = true;
@@ -318,7 +366,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
       }
     changeSize();
   }
-
+/*
   //------- get Old Size Value from SVG size box
   function getOldSizeValue() {
     var oldNumbersArr = [], old, oldNumber;
@@ -330,7 +378,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
       }
     }
   }
-
+*/
   //------ Change size on SVG
   function changeSize() {
     var newSizeString = '';
@@ -360,8 +408,9 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
     if($scope.constructData.tempSize.length > 0) {
       newLength = parseInt($scope.constructData.tempSize.join(''), 10);
       //------- Dimensions limits checking
-      if (newLength > minDimension && newLength < maxDimension) {
-
+      if (newLength > $scope.constructData.minSizeLimit && newLength < $scope.constructData.maxSizeLimit) {
+        $scope.constructData.isMinSizeRestriction = false;
+        $scope.constructData.isMaxSizeRestriction = false;
         //------ parse template, get pointsId relate to changed dimension id
         for (var i = 0; i < $scope.templateDefaultTEMP.objects.length; i++) {
           if ($scope.templateDefaultTEMP.objects[i].id === $scope.constructData.tempSizeId) {
@@ -371,10 +420,15 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
             curDimensionType = $scope.templateDefaultTEMP.objects[i].type;
           }
         }
+        /*
         // limit inside dimension relate to overall dimensions
         if(curDimensionType === 'dimensionsH') {
           if($scope.constructData.tempSizeId !== 'overallDimH') {
-            if(newLength > $scope.svgTemplateWidthTEMP) {return;}
+            if(newLength > $scope.constructData.maxSizeLimit) {
+              $scope.constructData.isMaxSizeRestriction = true;
+              $scope.constructData.isMinSizeRestriction = false;
+              return;
+            }
           }
         } else if(curDimensionType === 'dimensionsV') {
           if($scope.constructData.tempSizeId !== 'overallDimV') {
@@ -394,7 +448,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
             return;
           }
         }
-
+         */
 
         //console.log($scope.global.templateDefault);
         //------ parse template, get points relate to points id
@@ -458,7 +512,8 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
           }
         }
 
-
+        $scope.constructData.minSizeLimit = 200;
+        $scope.constructData.maxSizeLimit = 5000;
         //------ close size calculator
         $scope.global.isConstructSizeCalculator = false;
         //------- deactive size box in svg
@@ -469,10 +524,24 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
 
         //------- cleaning object for get profile price
         $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
-        $scope.global.createObjXFormedPrice($scope.templateDefaultTEMP, $scope.global.profileIndex, $scope.global.product.profileId);
+        $scope.global.createObjXFormedPrice($scope.templateDefaultTEMP, $scope.global.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
         $scope.constructData.tempSize.length = 0;
+        $scope.constructData.isMinSizeRestriction = false;
+        $scope.constructData.isMaxSizeRestriction = false;
+      } else {
+        //------ show error size
+        if(newLength < $scope.constructData.minSizeLimit) {
+          $scope.constructData.isMinSizeRestriction = true;
+          $scope.constructData.isMaxSizeRestriction = false;
+        } else if(newLength > $scope.constructData.maxSizeLimit) {
+          $scope.constructData.isMinSizeRestriction = false;
+          $scope.constructData.isMaxSizeRestriction = true;
+        }
+
       }
     } else {
+      $scope.constructData.minSizeLimit = 200;
+      $scope.constructData.maxSizeLimit = 5000;
       //------ close size calculator
       $scope.global.isConstructSizeCalculator = false;
       deactiveSizeBox(sizeEditClass, sizeClass);

@@ -52,6 +52,15 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
   //=============== Download Add Elements from localDB for Edit Product
   $scope.downloadAddElementsEDIT = function() {
+
+    localDB.selectDB($scope.global.gridsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
+      if (results.status) {
+        $scope.global.chosenAddElements.selectedGrids = angular.copy(results.data);
+      } else {
+        console.log(results);
+      }
+    });
+
     localDB.selectDB($scope.global.visorsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
       if (results.status) {
         $scope.global.chosenAddElements.selectedVisors = angular.copy(results.data);
@@ -59,6 +68,55 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
         console.log(results);
       }
     });
+
+    localDB.selectDB($scope.global.spillwaysTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
+      if (results.status) {
+        $scope.global.chosenAddElements.selectedSpillways = angular.copy(results.data);
+      } else {
+        console.log(results);
+      }
+    });
+
+    localDB.selectDB($scope.global.outSlopesTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
+      if (results.status) {
+        $scope.global.chosenAddElements.selectedOutsideSlope = angular.copy(results.data);
+      } else {
+        console.log(results);
+      }
+    });
+
+    localDB.selectDB($scope.global.inSlopesTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
+      if (results.status) {
+        $scope.global.chosenAddElements.selectedInsideSlope = angular.copy(results.data);
+      } else {
+        console.log(results);
+      }
+    });
+
+    localDB.selectDB($scope.global.louversTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
+      if (results.status) {
+        $scope.global.chosenAddElements.selectedLouvers = angular.copy(results.data);
+      } else {
+        console.log(results);
+      }
+    });
+
+    localDB.selectDB($scope.global.connectorsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
+      if (results.status) {
+        $scope.global.chosenAddElements.selectedConnectors = angular.copy(results.data);
+      } else {
+        console.log(results);
+      }
+    });
+
+    localDB.selectDB($scope.global.fansTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
+      if (results.status) {
+        $scope.global.chosenAddElements.selectedFans = angular.copy(results.data);
+      } else {
+        console.log(results);
+      }
+    });
+
     localDB.selectDB($scope.global.windowSillsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
       if (results.status) {
         $scope.global.chosenAddElements.selectedWindowSill = angular.copy(results.data);
@@ -66,6 +124,23 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
         console.log(results);
       }
     });
+
+    localDB.selectDB($scope.global.handlesTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
+      if (results.status) {
+        $scope.global.chosenAddElements.selectedHandles = angular.copy(results.data);
+      } else {
+        console.log(results);
+      }
+    });
+
+    localDB.selectDB($scope.global.othersTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
+      if (results.status) {
+        $scope.global.chosenAddElements.selectedOthers = angular.copy(results.data);
+      } else {
+        console.log(results);
+      }
+    });
+
   };
 
 
@@ -459,7 +534,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     $scope.global.objXFormedPrice.impostId = $scope.global.allProfileImpostSizes[profileIndex].id;
     $scope.global.objXFormedPrice.shtulpId = $scope.global.allProfileShtulpSizes[profileIndex].id;
 
-    console.log($scope.global.objXFormedPrice);
+    //console.log($scope.global.objXFormedPrice);
 
     //------ calculate coeffs
     $scope.global.calculateCoeffs();
@@ -693,6 +768,21 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       for (var elem = 0; elem < addElementsObj[prop].length; elem++) {
 
         switch (prop) {
+
+          case 'selectedGrids':
+            addElementsData = {
+              "orderId": $scope.global.orderNumber,
+              "productId": $scope.global.productCounter,
+              "elementId": addElementsObj[prop][elem].elementId,
+              "elementType": addElementsObj[prop][elem].elementType,
+              "elementName": addElementsObj[prop][elem].elementName,
+              //"elementQty": addElementsObj[prop][elem].elementQty,
+              //"elementWidth": addElementsObj[prop][elem].elementWidth,
+              "elementPrice": addElementsObj[prop][elem].elementPrice
+            };
+            localDB.insertDB($scope.global.gridsTableBD, addElementsData);
+            break;
+
           case 'selectedVisors':
             addElementsData = {
               "orderId": $scope.global.orderNumber,
@@ -705,6 +795,90 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
               "elementPrice": addElementsObj[prop][elem].elementPrice
             };
             localDB.insertDB($scope.global.visorsTableBD, addElementsData);
+            break;
+
+          case 'selectedSpillways':
+            addElementsData = {
+              "orderId": $scope.global.orderNumber,
+              "productId": $scope.global.productCounter,
+              "elementId": addElementsObj[prop][elem].elementId,
+              "elementType": addElementsObj[prop][elem].elementType,
+              "elementName": addElementsObj[prop][elem].elementName,
+              "elementQty": addElementsObj[prop][elem].elementQty,
+              "elementWidth": addElementsObj[prop][elem].elementWidth,
+              "elementPrice": addElementsObj[prop][elem].elementPrice
+            };
+            localDB.insertDB($scope.global.spillwaysTableBD, addElementsData);
+            break;
+
+          case 'selectedOutsideSlope':
+            addElementsData = {
+              "orderId": $scope.global.orderNumber,
+              "productId": $scope.global.productCounter,
+              "elementId": addElementsObj[prop][elem].elementId,
+              "elementType": addElementsObj[prop][elem].elementType,
+              "elementName": addElementsObj[prop][elem].elementName,
+              //"elementQty": addElementsObj[prop][elem].elementQty,
+              //"elementWidth": addElementsObj[prop][elem].elementWidth,
+              "elementPrice": addElementsObj[prop][elem].elementPrice
+            };
+            localDB.insertDB($scope.global.outSlopesTableBD, addElementsData);
+            break;
+
+          case 'selectedInsideSlope':
+            addElementsData = {
+              "orderId": $scope.global.orderNumber,
+              "productId": $scope.global.productCounter,
+              "elementId": addElementsObj[prop][elem].elementId,
+              "elementType": addElementsObj[prop][elem].elementType,
+              "elementName": addElementsObj[prop][elem].elementName,
+              //"elementQty": addElementsObj[prop][elem].elementQty,
+              //"elementWidth": addElementsObj[prop][elem].elementWidth,
+              "elementPrice": addElementsObj[prop][elem].elementPrice
+            };
+            localDB.insertDB($scope.global.inSlopesTableBD, addElementsData);
+            break;
+
+          case 'selectedLouvers':
+            addElementsData = {
+              "orderId": $scope.global.orderNumber,
+              "productId": $scope.global.productCounter,
+              "elementId": addElementsObj[prop][elem].elementId,
+              "elementType": addElementsObj[prop][elem].elementType,
+              "elementName": addElementsObj[prop][elem].elementName,
+              "elementQty": addElementsObj[prop][elem].elementQty,
+              "elementWidth": addElementsObj[prop][elem].elementWidth,
+              "elementHeight": addElementsObj[prop][elem].elementHeight,
+              "elementPrice": addElementsObj[prop][elem].elementPrice
+            };
+            localDB.insertDB($scope.global.louversTableBD, addElementsData);
+            break;
+
+          case 'selectedConnectors':
+            addElementsData = {
+              "orderId": $scope.global.orderNumber,
+              "productId": $scope.global.productCounter,
+              "elementId": addElementsObj[prop][elem].elementId,
+              "elementType": addElementsObj[prop][elem].elementType,
+              "elementName": addElementsObj[prop][elem].elementName,
+              "elementQty": addElementsObj[prop][elem].elementQty,
+              "elementWidth": addElementsObj[prop][elem].elementWidth,
+              "elementPrice": addElementsObj[prop][elem].elementPrice
+            };
+            localDB.insertDB($scope.global.connectorsTableBD, addElementsData);
+            break;
+
+          case 'selectedFans':
+            addElementsData = {
+              "orderId": $scope.global.orderNumber,
+              "productId": $scope.global.productCounter,
+              "elementId": addElementsObj[prop][elem].elementId,
+              "elementType": addElementsObj[prop][elem].elementType,
+              "elementName": addElementsObj[prop][elem].elementName,
+              //"elementQty": addElementsObj[prop][elem].elementQty,
+              "elementPrice": addElementsObj[prop][elem].elementPrice
+            };
+            localDB.insertDB($scope.global.fansTableBD, addElementsData);
             break;
 
           case 'selectedWindowSill':
@@ -720,6 +894,32 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
               "elementPrice": addElementsObj[prop][elem].elementPrice
             };
             localDB.insertDB($scope.global.windowSillsTableBD, addElementsData);
+            break;
+
+          case 'selectedHandles':
+            addElementsData = {
+              "orderId": $scope.global.orderNumber,
+              "productId": $scope.global.productCounter,
+              "elementId": addElementsObj[prop][elem].elementId,
+              "elementType": addElementsObj[prop][elem].elementType,
+              "elementName": addElementsObj[prop][elem].elementName,
+              "elementQty": addElementsObj[prop][elem].elementQty,
+              "elementPrice": addElementsObj[prop][elem].elementPrice
+            };
+            localDB.insertDB($scope.global.handlesTableBD, addElementsData);
+            break;
+
+          case 'selectedOthers':
+            addElementsData = {
+              "orderId": $scope.global.orderNumber,
+              "productId": $scope.global.productCounter,
+              "elementId": addElementsObj[prop][elem].elementId,
+              "elementType": addElementsObj[prop][elem].elementType,
+              "elementName": addElementsObj[prop][elem].elementName,
+              //"elementQty": addElementsObj[prop][elem].elementQty,
+              "elementPrice": addElementsObj[prop][elem].elementPrice
+            };
+            localDB.insertDB($scope.global.othersTableBD, addElementsData);
             break;
 
         }

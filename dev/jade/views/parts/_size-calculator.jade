@@ -5,11 +5,13 @@ table.size-calc-container
     td(colspan= "2")
       .calc-interval
         .interval
-          .calc-value-limit 0
-          .calc-label-limit min.
+          .calc-value-limit(ng-hide="global.isConstructSizeCalculator") 0
+          .calc-value-limit(ng-show="global.isConstructSizeCalculator", ng-class="{'restriction': constructData.isMinSizeRestriction}") {{ constructData.minSizeLimit }}
+          .calc-label-limit {{ 'common_words.MIN' | translate }}
         .interval
-          .calc-value-limit 5000
-          .calc-label-limit max.
+          .calc-value-limit(ng-hide="global.isConstructSizeCalculator") 5000
+          .calc-value-limit(ng-show="global.isConstructSizeCalculator", ng-class="{'restriction': constructData.isMaxSizeRestriction}") {{ constructData.maxSizeLimit }}
+          .calc-label-limit {{ 'common_words.MAX' | translate }}
   tr
     - for (var cell = 1; cell < 4; ++cell) {
       td
