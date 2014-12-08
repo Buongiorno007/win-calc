@@ -13,7 +13,7 @@
         .title(data-output="{{ global.addElementsType[$index] }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
 
         li.item(ng-hide="global.isAddElementListView", ng-repeat="addElement in type track by $index", ng-class="{'active': global.isAddElement === $parent.$index+'-'+$index}", ng-click="chooseAddElement($parent.$index, $index)")
-          .value(data-output="{{ addElement.name }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+          .value(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
           button.element-info
 
         li.item(ng-show="global.isAddElementListView", ng-repeat="addElement in type track by $index", ng-class="{'active': global.isAddElement === $parent.$index+'-'+$index}", ng-click="selectElementListView($parent.$index, $index, $event)")

@@ -1043,338 +1043,6 @@ BauVoiceApp.factory('constructService', function ($q) {
       }));
     },
 
-    getAllGrids: function (callback) {
-      callback(new OkResult({
-
-        elementType: [
-          'Стандартные',
-          'оцинкованный',
-          'Матовые'
-        ],
-        elementsList: [
-          [
-            {
-              elementId: 1,
-              elementName: 'КO-100, оцинкованный',
-              elementPrice: 100
-            },
-            {
-              elementId: 2,
-              elementName: 'КO-100, оцинкованный',
-              elementPrice: 100
-            },
-            {
-              elementId: 3,
-              elementName: 'КO-100, оцинкованный',
-              elementPrice: 100
-            }
-          ],
-          [
-            {
-              elementId: 1,
-              elementName: 'КO-100, оцинкованный',
-              elementPrice: 100
-            },
-            {
-              elementId: 2,
-              elementName: 'КO-100, оцинкованный',
-              elementPrice: 100
-            }
-          ],
-          [
-            {
-              elementId: 1,
-              elementName: 'КO-100, оцинкованный',
-              elementPrice: 100
-            }
-          ]
-        ]
-
-      }));
-    },
-
-    getAllVisors: function (callback) {
-      callback(new OkResult({
-
-        elementType: [
-          'Стандартные',
-          'оцинкованный',
-          'Матовые'
-        ],
-        elementsList: [
-          [
-            {
-              elementId: 1,
-              elementType: 'Стандартные',
-              elementName: 'КO-200, оцинкованный',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 2,
-              elementType: 'Стандартные',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 3,
-              elementType: 'Стандартные',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            }
-          ],
-          [
-            {
-              elementId: 1,
-              elementType: 'оцинкованный',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 2,
-              elementType: 'оцинкованный',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            }
-          ],
-          [
-            {
-              elementId: 1,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 2,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 3,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 4,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            }
-          ]
-        ]
-
-      }));
-    },
-
-    getAllWindowSills: function (callback) {
-      callback(new OkResult({
-
-        elementType: [
-          'Стандартные',
-          'оцинкованный',
-          'Матовые'
-        ],
-        elementsList: [
-          [
-            {
-              elementId: 1,
-              elementType: 'Матовые',
-              elementName: 'КO-200, оцинкованный',
-              elementWidth: 1500,
-              elementHeight: 1500,
-              elementColorId: 'matt',
-              elementColor: '../img/lamination/empty.png',
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 2,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementHeight: 1500,
-              elementColorId: 'matt',
-              elementColor: '../img/lamination/empty.png',
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 3,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementHeight: 1500,
-              elementColorId: 'matt',
-              elementColor: '../img/lamination/empty.png',
-              elementQty: 1,
-              elementPrice: 100
-            }
-          ],
-          [
-            {
-              elementId: 1,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementHeight: 1500,
-              elementColorId: 'matt',
-              elementColor: '../img/lamination/empty.png',
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 2,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementHeight: 1500,
-              elementColorId: 'matt',
-              elementColor: '../img/lamination/empty.png',
-              elementQty: 1,
-              elementPrice: 100
-            }
-          ],
-          [
-            {
-              elementId: 1,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementHeight: 1500,
-              elementColorId: 'matt',
-              elementColor: '../img/lamination/empty.png',
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 2,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementHeight: 1500,
-              elementColorId: 'matt',
-              elementColor: '../img/lamination/empty.png',
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 3,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementHeight: 1500,
-              elementColorId: 'matt',
-              elementColor: '../img/lamination/empty.png',
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 4,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementHeight: 1500,
-              elementColorId: 'matt',
-              elementColor: '../img/lamination/empty.png',
-              elementQty: 1,
-              elementPrice: 100
-            }
-          ]
-        ]
-
-      }));
-    },
-
-    getLaminationAddElements: function (callback) {
-      callback(new OkResult({
-        laminationWhiteMatt: {
-          laminationName: 'Белый',
-          laminationLabel: 'матовый',
-          laminationUrl: '../img/lamination/empty.png'
-        },
-        laminationWhiteGlossy: {
-          laminationName: 'Белый',
-          laminationLabel: 'глянцевый',
-          laminationUrl: '../img/lamination/empty.png'
-        },
-        laminations: [
-          {
-            laminationId: 1,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 100
-          },
-          {
-            laminationId: 2,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 100
-          },
-          {
-            laminationId: 3,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 100
-          },
-          {
-            laminationId: 4,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 100
-          },
-          {
-            laminationId: 5,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 100
-          },
-          {
-            laminationId: 6,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 100
-          },
-          {
-            laminationId: 7,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 100
-          },
-          {
-            laminationId: 8,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 100
-          }
-        ]
-      }));
-    },
-
-    // TODO: Сервис готов
-    getConstructNoteText: function (callback) {
-      callback(new OkResult({
-        note: 'Срочный заказ'
-      }));
-    },
 
 
     getAllProfiles: function (callback) {
@@ -1611,69 +1279,899 @@ BauVoiceApp.factory('constructService', function ($q) {
           },
           {
             laminationId: 2,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
+            laminationName: 'золотой дуб',
+            laminationUrl: '../img/lamination/GoldenOak.png',
             laminationPrice: 100
           },
           {
             laminationId: 3,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
+            laminationName: 'береза',
+            laminationUrl: '../img/lamination/LightOak.png',
             laminationPrice: 100
           },
           {
             laminationId: 4,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
+            laminationName: 'махагон',
+            laminationUrl: '../img/lamination/Mahagon.png',
             laminationPrice: 100
           },
           {
             laminationId: 5,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 100
-          },
-          {
-            laminationId: 6,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 100
-          },
-          {
-            laminationId: 7,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 100
-          },
-          {
-            laminationId: 8,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
+            laminationName: 'сосна',
+            laminationUrl: '../img/lamination/Pine.png',
             laminationPrice: 100
           }
         ],
         laminationOutside: [
+
           {
             laminationId: 1,
-            laminationName: 'темный дуб',
+            laminationName: 'светлый дуб',
             laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 400
+            laminationPrice: 100
           },
           {
             laminationId: 2,
-            laminationName: 'темный дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 600
+            laminationName: 'золотой дуб',
+            laminationUrl: '../img/lamination/GoldenOak.png',
+            laminationPrice: 100
           },
           {
             laminationId: 3,
-            laminationName: 'темный дуб',
+            laminationName: 'береза',
+            laminationUrl: '../img/lamination/LightOak.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 4,
+            laminationName: 'махагон',
+            laminationUrl: '../img/lamination/Mahagon.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 5,
+            laminationName: 'сосна',
+            laminationUrl: '../img/lamination/Pine.png',
+            laminationPrice: 100
+          }
+
+        ]
+      }));
+    },
+
+
+    getAllGrids: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'Стандартные',
+          'оцинкованный',
+          'Матовые'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementName: 'Сетка СO-100',
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'Сетка СO-200',
+              elementPrice: 100
+            },
+            {
+              elementId: 3,
+              elementName: 'Сетка СO-200',
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'Сетка СO-300',
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'Сетка СO-300',
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'Сетка СO-300',
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+    getAllVisors: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'Стандартные',
+          'оцинкованный',
+          'Матовые'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementType: 'Стандартные',
+              elementName: 'КO-200, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'Стандартные',
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 3,
+              elementType: 'Стандартные',
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementType: 'оцинкованный',
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'оцинкованный',
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementType: 'Матовые',
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'Матовые',
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 3,
+              elementType: 'Матовые',
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 4,
+              elementType: 'Матовые',
+              elementName: 'КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+    getAllSpillways: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'Стандартные',
+          'оцинкованный',
+          'Матовые'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementType: 'Стандартные',
+              elementName: 'Отлив КO-200',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'Стандартные',
+              elementName: 'Отлив КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementType: 'оцинкованный',
+              elementName: 'Отлив КO-100, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'оцинкованный',
+              elementName: 'Отлив КO-300',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementType: 'Матовые',
+              elementName: 'Отлив КO-300',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'Матовые',
+              elementName: 'Отлив КO-300',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 3,
+              elementType: 'Матовые',
+              elementName: 'Отлив КO-300',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 4,
+              elementType: 'Матовые',
+              elementName: 'Отлив КO-300',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+    getAllOutsideSlope: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'Стандартные',
+          'оцинкованный',
+          'Матовые'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementType: 'Стандартные',
+              elementName: 'Наружные откосы КO-200',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'Стандартные',
+              elementName: 'Наружные откосы КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementType: 'оцинкованный',
+              elementName: 'Наружные откосы КO-100, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'оцинкованный',
+              elementName: 'Наружные откосы КO-300',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementType: 'Матовые',
+              elementName: 'Наружные откосы КO-300',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'Матовые',
+              elementName: 'Наружные откосы КO-300',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+
+    getAllInsideSlope: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'Стандартные',
+          'оцинкованный',
+          'Матовые'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementType: 'Стандартные',
+              elementName: 'Внутренние откосы КO-200',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'Стандартные',
+              elementName: 'Внутренние откосы КO-300, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementType: 'оцинкованный',
+              elementName: 'Внутренние откосы КO-100, оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'оцинкованный',
+              elementName: 'Внутренние откосы КO-300',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementType: 'Матовые',
+              elementName: 'Внутренние откосы КO-300',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'Матовые',
+              elementName: 'Внутренние откосы КO-300',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+
+    getAllLouvers: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'Стандартные',
+          'оцинкованный',
+          'Матовые'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementType: 'Стандартные',
+              elementName: 'Жалюзи КO-200',
+              elementWidth: 700,
+              elementHeight: 700,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'Стандартные',
+              elementName: 'Жалюзи КO-300, оцинкованный',
+              elementWidth: 700,
+              elementHeight: 700,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementType: 'оцинкованный',
+              elementName: 'Жалюзи КO-100, оцинкованный',
+              elementWidth: 700,
+              elementHeight: 700,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'оцинкованный',
+              elementName: 'Жалюзи КO-300',
+              elementWidth: 700,
+              elementHeight: 700,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementType: 'Матовые',
+              elementName: 'Жалюзи КO-300',
+              elementWidth: 700,
+              elementHeight: 700,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'Матовые',
+              elementName: 'Жалюзи КO-300',
+              elementWidth: 700,
+              elementHeight: 700,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+
+    getAllConnectors: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'Стандартные',
+          'усиленный',
+          'балконный'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementName: 'Соединитель СO-100',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'Соединитель СO-200',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 3,
+              elementName: 'Соединитель СO-200',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'Соединитель СO-300',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'Соединитель СO-300',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'Соединитель СO-300',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+    getAllFans: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'Стандартные',
+          'усиленный',
+          'балконный'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementName: 'Микропроветривание СO-100',
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'Микропроветривание СO-200',
+              elementPrice: 100
+            },
+            {
+              elementId: 3,
+              elementName: 'Микропроветривание СO-200',
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'Микропроветривание СO-300',
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'Микропроветривание СO-300',
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'Микропроветривание СO-300',
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+    getAllWindowSills: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'Стандартные',
+          'оцинкованный',
+          'Матовые'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementType: 'Матовые',
+              elementName: 'Подоконник ПO-200',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: '../img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'Матовые',
+              elementName: 'Подоконник ПO-300',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: '../img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 3,
+              elementType: 'Матовые',
+              elementName: 'Подоконник ПO-300',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: '../img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementType: 'Матовые',
+              elementName: 'Подоконник ПO-100',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: '../img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'Матовые',
+              elementName: 'Подоконник ПO-300',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: '../img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementType: 'Матовые',
+              elementName: 'Подоконник ПO-200',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: '../img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'Матовые',
+              elementName: 'Подоконник ПO-200',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: '../img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 3,
+              elementType: 'Матовые',
+              elementName: 'Подоконник ПO-200',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: '../img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 4,
+              elementType: 'Матовые',
+              elementName: 'Подоконник ПO-200',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: '../img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+    getAllHandles: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'Стандартные',
+          'усиленный',
+          'балконный'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementName: 'Ручки Р-100',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'Ручки Р-200',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 3,
+              elementName: 'Ручки Р-200',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'Ручки Р-300',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'Ручки Р-300',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'Ручки Р-300',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+
+    getAllOthers: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'Стандартные',
+          'усиленный',
+          'балконный'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementName: 'Шпингалет Ш-100',
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'Шпингалет Ш-200',
+              elementPrice: 100
+            },
+            {
+              elementId: 3,
+              elementName: 'Шпингалет Ш-200',
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'Петля П-300',
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'Петля П-300',
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'Крышка К-300',
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+    getLaminationAddElements: function (callback) {
+      callback(new OkResult({
+        laminationWhiteMatt: {
+          laminationName: 'Белый',
+          laminationLabel: 'матовый',
+          laminationUrl: '../img/lamination/empty.png'
+        },
+        laminationWhiteGlossy: {
+          laminationName: 'Белый',
+          laminationLabel: 'глянцевый',
+          laminationUrl: '../img/lamination/empty.png'
+        },
+        laminations: [
+          {
+            laminationId: 1,
+            laminationName: 'светлый дуб',
             laminationUrl: '../img/lamination/Birch.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 2,
+            laminationName: 'золотой дуб',
+            laminationUrl: '../img/lamination/GoldenOak.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 3,
+            laminationName: 'береза',
+            laminationUrl: '../img/lamination/LightOak.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 4,
+            laminationName: 'махагон',
+            laminationUrl: '../img/lamination/Mahagon.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 5,
+            laminationName: 'сосна',
+            laminationUrl: '../img/lamination/Pine.png',
             laminationPrice: 100
           }
         ]
       }));
     },
+
+    // TODO: Сервис готов
+    getConstructNoteText: function (callback) {
+      callback(new OkResult({
+        note: 'Срочный заказ'
+      }));
+    },
+
+
 
     getFloorPrice: function (callback) {
       callback(new OkResult({
