@@ -36,6 +36,7 @@
     @include roboto-lt(rem(36px));
 
     &.restriction {
+      @extend .flashing;
       color: $error_color;
     }
   }

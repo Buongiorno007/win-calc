@@ -707,9 +707,9 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
               {'type': 'glass_paсkage', id: 'glass2', parts: ['glassline5', 'glassline6', 'glassline7', 'glassline8']},
               {'type': 'dimensionsH', id: 'dimH1', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], limits: ['overallDimH'],  links: ['fp5', 'fp8'], level: 1, height: 150, side: 'top'},
-              {'type': 'dimensionsV', id: 'dimV1', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], limits: ['overallDimV'], level: 1, height: 150, side: 'left'},
+              {'type': 'dimensionsV', id: 'dimV1', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'},
               {'type': 'dimensionsH', id: 'dimH2', from: ['fp5', 'fp8'], to: ['fp6', 'fp7'], level: 1, height: 150, side: 'top'},
-              {'type': 'dimensionsV', id: 'overallDimV', from: ['fp6', 'fp5'], to: ['fp7', 'fp8'], limits: ['dimV1'], level: 1, height: 150, side: 'right'},
+              {'type': 'dimensionsV', id: 'overallDimV', from: ['fp6', 'fp5'], to: ['fp7', 'fp8'], level: 1, height: 150, side: 'right'},
               {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp6', 'fp7'], limits: ['dimH1'], level: 3, height: 150, side: 'top'},
               {'type': 'square', id: 'sqr', widths: ['dimH1', 'dimH2'], heights: ['dimV1', 'overallDimV']}
             ]
@@ -1397,8 +1397,8 @@ BauVoiceApp.factory('constructService', function ($q) {
       callback(new OkResult({
 
         elementType: [
-          'Стандартные',
-          'оцинкованный',
+          'стандартные',
+          'оцинкованные',
           'Матовые'
         ],
         elementsList: [
@@ -1406,7 +1406,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 1,
               elementType: 'Стандартные',
-              elementName: 'КO-200, оцинкованный',
+              elementName: 'Козырек белый 100мм',
               elementWidth: 1500,
               elementQty: 1,
               elementPrice: 200
@@ -1414,7 +1414,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 2,
               elementType: 'Стандартные',
-              elementName: 'КO-300, оцинкованный',
+              elementName: 'Козырек белый 200мм',
               elementWidth: 1500,
               elementQty: 1,
               elementPrice: 300
@@ -1422,7 +1422,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 3,
               elementType: 'Стандартные',
-              elementName: 'КO-300, оцинкованный',
+              elementName: 'Козырек белый 300мм',
               elementWidth: 1500,
               elementQty: 1,
               elementPrice: 140
@@ -1432,7 +1432,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 1,
               elementType: 'оцинкованный',
-              elementName: 'КO-300, оцинкованный',
+              elementName: 'Козырек 100мм оцинкованный',
               elementWidth: 1500,
               elementQty: 1,
               elementPrice: 150
@@ -1440,7 +1440,31 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 2,
               elementType: 'оцинкованный',
-              elementName: 'КO-300, оцинкованный',
+              elementName: 'Козырек 200мм оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 180
+            },
+            {
+              elementId: 3,
+              elementType: 'оцинкованный',
+              elementName: 'Козырек 300мм оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 180
+            },
+            {
+              elementId: 4,
+              elementType: 'оцинкованный',
+              elementName: 'Козырек 400мм оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 180
+            },
+            {
+              elementId: 5,
+              elementType: 'оцинкованный',
+              elementName: 'Козырек 500мм оцинкованный',
               elementWidth: 1500,
               elementQty: 1,
               elementPrice: 180
@@ -1450,34 +1474,10 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 1,
               elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
+              elementName: 'Козырёк нестандартный',
               elementWidth: 1500,
               elementQty: 1,
               elementPrice: 110
-            },
-            {
-              elementId: 2,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 120
-            },
-            {
-              elementId: 3,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 220
-            },
-            {
-              elementId: 4,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 200
             }
           ]
         ]
@@ -1489,15 +1489,15 @@ BauVoiceApp.factory('constructService', function ($q) {
       callback(new OkResult({
 
         elementType: [
-          'Стандартные',
-          'оцинкованный',
-          'Матовые'
+          'стандартные',
+          'оцинкованные',
+          'нестандартные'
         ],
         elementsList: [
           [
             {
               elementId: 1,
-              elementType: 'Стандартные',
+              elementType: 'Отлив белый 200мм',
               elementName: 'Отлив КO-200',
               elementWidth: 1500,
               elementQty: 1,
@@ -1506,7 +1506,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 2,
               elementType: 'Стандартные',
-              elementName: 'Отлив КO-300, оцинкованный',
+              elementName: 'Отлив коричневый 260мм',
               elementWidth: 1500,
               elementQty: 1,
               elementPrice: 100
@@ -1516,7 +1516,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 1,
               elementType: 'оцинкованный',
-              elementName: 'Отлив КO-100, оцинкованный',
+              elementName: 'Отлив оцинкованный 20мм',
               elementWidth: 1500,
               elementQty: 1,
               elementPrice: 100
@@ -1524,7 +1524,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 2,
               elementType: 'оцинкованный',
-              elementName: 'Отлив КO-300',
+              elementName: 'Отлив оцинкованный 50мм',
               elementWidth: 1500,
               elementQty: 1,
               elementPrice: 100
@@ -1533,32 +1533,8 @@ BauVoiceApp.factory('constructService', function ($q) {
           [
             {
               elementId: 1,
-              elementType: 'Матовые',
-              elementName: 'Отлив КO-300',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 2,
-              elementType: 'Матовые',
-              elementName: 'Отлив КO-300',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 3,
-              elementType: 'Матовые',
-              elementName: 'Отлив КO-300',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 4,
-              elementType: 'Матовые',
-              elementName: 'Отлив КO-300',
+              elementType: 'нестандартные',
+              elementName: 'Отлив нестандартный',
               elementWidth: 1500,
               elementQty: 1,
               elementPrice: 100
@@ -1573,50 +1549,26 @@ BauVoiceApp.factory('constructService', function ($q) {
       callback(new OkResult({
 
         elementType: [
-          'Стандартные',
-          'оцинкованный',
-          'Матовые'
+          'стандартные'
         ],
         elementsList: [
           [
             {
               elementId: 1,
               elementType: 'Стандартные',
-              elementName: 'Наружные откосы КO-200',
+              elementName: 'Откос пластиковый',
               elementPrice: 100
             },
             {
               elementId: 2,
               elementType: 'Стандартные',
-              elementName: 'Наружные откосы КO-300, оцинкованный',
-              elementPrice: 100
-            }
-          ],
-          [
-            {
-              elementId: 1,
-              elementType: 'оцинкованный',
-              elementName: 'Наружные откосы КO-100, оцинкованный',
+              elementName: 'Откос гипсокартонный',
               elementPrice: 100
             },
             {
-              elementId: 2,
-              elementType: 'оцинкованный',
-              elementName: 'Наружные откосы КO-300',
-              elementPrice: 100
-            }
-          ],
-          [
-            {
-              elementId: 1,
-              elementType: 'Матовые',
-              elementName: 'Наружные откосы КO-300',
-              elementPrice: 100
-            },
-            {
-              elementId: 2,
-              elementType: 'Матовые',
-              elementName: 'Наружные откосы КO-300',
+              elementId: 3,
+              elementType: 'Стандартные',
+              elementName: 'Откос песчаноцементный',
               elementPrice: 100
             }
           ]
@@ -1630,50 +1582,26 @@ BauVoiceApp.factory('constructService', function ($q) {
       callback(new OkResult({
 
         elementType: [
-          'Стандартные',
-          'оцинкованный',
-          'Матовые'
+          'стандартные'
         ],
         elementsList: [
           [
             {
               elementId: 1,
               elementType: 'Стандартные',
-              elementName: 'Внутренние откосы КO-200',
+              elementName: 'Откос пластиковый',
               elementPrice: 100
             },
             {
               elementId: 2,
               elementType: 'Стандартные',
-              elementName: 'Внутренние откосы КO-300, оцинкованный',
-              elementPrice: 100
-            }
-          ],
-          [
-            {
-              elementId: 1,
-              elementType: 'оцинкованный',
-              elementName: 'Внутренние откосы КO-100, оцинкованный',
+              elementName: 'Откос гипсокартонный',
               elementPrice: 100
             },
             {
-              elementId: 2,
-              elementType: 'оцинкованный',
-              elementName: 'Внутренние откосы КO-300',
-              elementPrice: 100
-            }
-          ],
-          [
-            {
-              elementId: 1,
-              elementType: 'Матовые',
-              elementName: 'Внутренние откосы КO-300',
-              elementPrice: 100
-            },
-            {
-              elementId: 2,
-              elementType: 'Матовые',
-              elementName: 'Внутренние откосы КO-300',
+              elementId: 3,
+              elementType: 'Стандартные',
+              elementName: 'Откос песчаноцементный',
               elementPrice: 100
             }
           ]
@@ -1762,29 +1690,22 @@ BauVoiceApp.factory('constructService', function ($q) {
       callback(new OkResult({
 
         elementType: [
-          'Стандартные',
-          'усиленный',
-          'балконный'
+          'стандартные',
+          'усиленные',
+          'балконные'
         ],
         elementsList: [
           [
             {
               elementId: 1,
-              elementName: 'Соединитель СO-100',
+              elementName: 'Соединитель стандартный 5/10',
               elementWidth: 1500,
               elementQty: 1,
               elementPrice: 100
             },
             {
               elementId: 2,
-              elementName: 'Соединитель СO-200',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 3,
-              elementName: 'Соединитель СO-200',
+              elementName: 'Соединитель стандартный 3/10',
               elementWidth: 1500,
               elementQty: 1,
               elementPrice: 100
@@ -1793,14 +1714,7 @@ BauVoiceApp.factory('constructService', function ($q) {
           [
             {
               elementId: 1,
-              elementName: 'Соединитель СO-300',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 2,
-              elementName: 'Соединитель СO-300',
+              elementName: 'Соединитель усиленный 5/13',
               elementWidth: 1500,
               elementQty: 1,
               elementPrice: 100
@@ -1809,7 +1723,7 @@ BauVoiceApp.factory('constructService', function ($q) {
           [
             {
               elementId: 1,
-              elementName: 'Соединитель СO-300',
+              elementName: 'Соединитель балконный 5/13',
               elementWidth: 1500,
               elementQty: 1,
               elementPrice: 100
@@ -1825,43 +1739,38 @@ BauVoiceApp.factory('constructService', function ($q) {
 
         elementType: [
           'Стандартные',
-          'усиленный',
-          'балконный'
+          'GECCO',
+          'Aereco'
         ],
         elementsList: [
           [
             {
               elementId: 1,
-              elementName: 'Микропроветривание СO-100',
+              elementName: 'С-ма прит. вентиляции 4-х ст.',
               elementPrice: 100
             },
             {
               elementId: 2,
-              elementName: 'Микропроветривание СO-200',
-              elementPrice: 100
-            },
-            {
-              elementId: 3,
-              elementName: 'Микропроветривание СO-200',
+              elementName: 'С-ма вентиляции 4-х ст.',
               elementPrice: 100
             }
           ],
           [
             {
               elementId: 1,
-              elementName: 'Микропроветривание СO-300',
+              elementName: 'Система приточной вентиляции помещений GECCO',
               elementPrice: 100
             },
             {
               elementId: 2,
-              elementName: 'Микропроветривание СO-300',
+              elementName: 'GECCO Система вентиляции помещений',
               elementPrice: 100
             }
           ],
           [
             {
               elementId: 1,
-              elementName: 'Микропроветривание СO-300',
+              elementName: 'Aereco С-ма оконной вентиляции',
               elementPrice: 100
             }
           ]
@@ -1874,16 +1783,16 @@ BauVoiceApp.factory('constructService', function ($q) {
       callback(new OkResult({
 
         elementType: [
-          'Стандартные',
-          'оцинкованный',
-          'Матовые'
+          'LIGNODUR',
+          'ДАНКЕ',
+          'OpenTeck'
         ],
         elementsList: [
           [
             {
               elementId: 1,
               elementType: 'Матовые',
-              elementName: 'Подоконник ПO-200',
+              elementName: 'LIGNODUR 200 мм белый',
               elementWidth: 1500,
               elementHeight: 1500,
               elementColorId: 'matt',
@@ -1894,7 +1803,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 2,
               elementType: 'Матовые',
-              elementName: 'Подоконник ПO-300',
+              elementName: 'LIGNODUR 300 мм белый',
               elementWidth: 1500,
               elementHeight: 1500,
               elementColorId: 'matt',
@@ -1905,7 +1814,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 3,
               elementType: 'Матовые',
-              elementName: 'Подоконник ПO-300',
+              elementName: 'LIGNODUR 400 мм белый',
               elementWidth: 1500,
               elementHeight: 1500,
               elementColorId: 'matt',
@@ -1918,7 +1827,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 1,
               elementType: 'Матовые',
-              elementName: 'Подоконник ПO-100',
+              elementName: 'ДАНКЕ 100 мм белый матовый',
               elementWidth: 1500,
               elementHeight: 1500,
               elementColorId: 'matt',
@@ -1929,7 +1838,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 2,
               elementType: 'Матовые',
-              elementName: 'Подоконник ПO-300',
+              elementName: 'ДАНКЕ 300 мм белый матовый',
               elementWidth: 1500,
               elementHeight: 1500,
               elementColorId: 'matt',
@@ -1942,7 +1851,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 1,
               elementType: 'Матовые',
-              elementName: 'Подоконник ПO-200',
+              elementName: 'OpenTeck 100 мм белый',
               elementWidth: 1500,
               elementHeight: 1500,
               elementColorId: 'matt',
@@ -1953,7 +1862,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 2,
               elementType: 'Матовые',
-              elementName: 'Подоконник ПO-200',
+              elementName: 'OpenTeck 200 мм белый',
               elementWidth: 1500,
               elementHeight: 1500,
               elementColorId: 'matt',
@@ -1964,7 +1873,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 3,
               elementType: 'Матовые',
-              elementName: 'Подоконник ПO-200',
+              elementName: 'OpenTeck 300 мм белый',
               elementWidth: 1500,
               elementHeight: 1500,
               elementColorId: 'matt',
@@ -1975,7 +1884,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 4,
               elementType: 'Матовые',
-              elementName: 'Подоконник ПO-200',
+              elementName: 'OpenTeck 400 мм белый',
               elementWidth: 1500,
               elementHeight: 1500,
               elementColorId: 'matt',
@@ -1994,26 +1903,20 @@ BauVoiceApp.factory('constructService', function ($q) {
 
         elementType: [
           'Стандартные',
-          'усиленный',
-          'балконный'
+          'HOPPE',
+          'нестандартные'
         ],
         elementsList: [
           [
             {
               elementId: 1,
-              elementName: 'Ручки Р-100',
+              elementName: 'Ручка оконная белая',
               elementQty: 1,
               elementPrice: 100
             },
             {
               elementId: 2,
-              elementName: 'Ручки Р-200',
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 3,
-              elementName: 'Ручки Р-200',
+              elementName: 'Ручка оконная с ключом белая',
               elementQty: 1,
               elementPrice: 100
             }
@@ -2021,13 +1924,13 @@ BauVoiceApp.factory('constructService', function ($q) {
           [
             {
               elementId: 1,
-              elementName: 'Ручки Р-300',
+              elementName: 'Ручка HOPPE (Tokyo) белая',
               elementQty: 1,
               elementPrice: 100
             },
             {
               elementId: 2,
-              elementName: 'Ручки Р-300',
+              elementName: 'Ручка HOPPE (Tokyo) серебр.',
               elementQty: 1,
               elementPrice: 100
             }
@@ -2035,7 +1938,7 @@ BauVoiceApp.factory('constructService', function ($q) {
           [
             {
               elementId: 1,
-              elementName: 'Ручки Р-300',
+              elementName: 'Ручка нестандартная',
               elementQty: 1,
               elementPrice: 100
             }
@@ -2050,44 +1953,44 @@ BauVoiceApp.factory('constructService', function ($q) {
       callback(new OkResult({
 
         elementType: [
-          'Стандартные',
-          'усиленный',
-          'балконный'
+          'стандартные',
+          'усиленные',
+          'балконные'
         ],
         elementsList: [
           [
             {
               elementId: 1,
-              elementName: 'Шпингалет Ш-100',
+              elementName: 'Армирование квадрат 40х40',
               elementPrice: 100
             },
             {
               elementId: 2,
-              elementName: 'Шпингалет Ш-200',
+              elementName: 'Штифт верхней петли',
               elementPrice: 100
             },
             {
               elementId: 3,
-              elementName: 'Шпингалет Ш-200',
+              elementName: 'П-О запор NT константный 170 (481-600), KS',
               elementPrice: 100
             }
           ],
           [
             {
               elementId: 1,
-              elementName: 'Петля П-300',
+              elementName: 'Армирующий профиль 15х30',
               elementPrice: 100
             },
             {
               elementId: 2,
-              elementName: 'Петля П-300',
+              elementName: 'Нижняя петля на раме K3/100',
               elementPrice: 100
             }
           ],
           [
             {
               elementId: 1,
-              elementName: 'Крышка К-300',
+              elementName: 'Поворотная петля Komfort 12/20-13 левая',
               elementPrice: 100
             }
           ]
