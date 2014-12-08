@@ -23,6 +23,23 @@ BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalDB', 'localStorage', '$
     $scope.settings.addPhones = $scope.global.userInfo.contact_name.split(',');
   }
 
+  //----- change avatar
+  $scope.changeAvatar = function() {
+    navigator.camera.getPicture( function( data ) {
+      $scope.global.AvatarUrl = 'data:image/jpeg;base64,' + data;
+    }, function( error ) {
+      console.log( 'Error upload user avatar' + error );
+      console.log($scope.global.AvatarUrl);
+    }, {
+      destinationType: Camera.DestinationType.DATA_URL,
+      sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+      allowEdit: false,
+      targetWidth: 76,
+      targetHeight: 76,
+      mediaType: Camera.MediaType.PICTURE
+    } );
+  };
+
   $scope.changeSettingData = function(id, obj) {
     $scope.settings.selectedSetting = id;
     findInput(obj.currentTarget.id);

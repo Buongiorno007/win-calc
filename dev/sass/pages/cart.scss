@@ -159,6 +159,7 @@
     margin-bottom: rem(20px);
   }
   .product-icon-thumb {
+    display: inline-block;
     width: rem(200px);
     margin-right: rem(10px);
   }
@@ -256,9 +257,6 @@
     background-color: #fff;
     border-radius: rem($radius_order-template);
   }
-  .icon-thumb {
-    height: rem(100px);
-  }
   .order-coeff {
     bottom: rem(-60px);
     right: rem(5px);
@@ -314,10 +312,12 @@
     background-color: #fff;
     text-align: center;
   }
-  .icon-thumb {
-    height: rem(126px);
+  .order-template {
     cursor: pointer;
   }
+  //.icon-thumb {
+  //  height: rem(126px);
+ // }
   .order-header {
     padding-top: rem(40px);
   }

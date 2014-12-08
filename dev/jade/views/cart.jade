@@ -16,14 +16,19 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
 
             .order(ng-repeat="product in global.productObj")
               button.order-delete(ng-click="deleteProduct(product.productId, $index)")
-              .order-header
-                img.order-header-fon(ng-src="../img/rooms-dialog/livingroom.jpg", ng-click="editProduct(product.productId)")
+              .order-header(ng-switch="product.roomId", ng-click="editProduct(product.productId)")
+                img.order-header-fon(ng-switch-when="1", ng-src="../img/rooms-dialog/kitchen.jpg")
+                img.order-header-fon(ng-switch-when="2", ng-src="../img/rooms-dialog/livingroom.jpg")
+                img.order-header-fon(ng-switch-when="3", ng-src="../img/rooms-dialog/balcony.jpg")
+                img.order-header-fon(ng-switch-when="4", ng-src="../img/rooms-dialog/childroom.jpg")
+                img.order-header-fon(ng-switch-when="5", ng-src="../img/rooms-dialog/bedroom.jpg")
+                img.order-header-fon(ng-switch-when="6", ng-src="../img/rooms-dialog/door.jpg")
+
                 .order-template
-                  //img.icon-thumb(ng-src="../img/templates/balcony.png")
-                  img.icon-thumb(ng-src="{{ product.productIcon }}")
+                  svg-template(template="product.icon", template-width="global.svgTemplateThumbWidth", template-height="global.svgTemplateThumbHeight", type-construction="icon")
                 .order-coeff
                   span.coeff-label {{ 'cart.HEAT_TRANSFER' | translate }}
-                  span.coeff-value 0.63
+                  span.coeff-value {{ product.heatCoeff }}
               .order-content
                 ul.order-list
                   li.order-item
@@ -64,7 +69,8 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                   .product-template
                     .addelements-detail-row
                       .product-value
-                        img.product-icon-thumb(src="../img/templates/balcony.png")
+                        .product-icon-thumb
+                          svg-template(template="product.icon", template-width="global.svgTemplateThumbWidth", template-height="global.svgTemplateThumbHeight", type-construction="icon")
                         span.product-template-qty X {{ product.productQty }}
                       .product-icon-label {{ 'cart.PRODUCT_QTY' | translate }}
                     .addelements-detail-row
@@ -127,8 +133,9 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
             .order(ng-repeat="product in global.productObj")
               button.order-delete(ng-click="deleteProduct(product.productId, $index)")
               .order-header
-                .order-template
-                  img.icon-thumb(ng-src="{{ product.productIcon }}", ng-click="editProduct(product.productId)")
+                .order-template(ng-click="editProduct(product.productId)")
+                  //img.icon-thumb(ng-src="{{ product.productIcon }}", ng-click="editProduct(product.productId)")
+                  svg-template(template="product.icon", template-width="global.svgTemplateThumbWidth", template-height="global.svgTemplateThumbHeight", type-construction="icon")
               .order-content
                 .order-value {{ product.productWidth }} * {{ product.productHeight }} {{ 'mainpage.MM' | translate }}
 

@@ -41,12 +41,28 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "type": "INTEGER",
       "null": "NOT NULL"
     },
-    "productName":{
+    "roomId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "heatCoeff":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "airCoeff":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "addElementsOnly":{
+      "type": "BOOLEAN",
+      "null": "NOT NULL"
+    },
+    "templateName":{
       "type": "TEXT",
       "null": "NOT NULL"
     },
-    "productIcon":{
-      "type": "TEXT",
+    "templateIndex":{
+      "type": "INTEGER",
       "null": "NOT NULL"
     },
     "productWidth":{
@@ -58,6 +74,10 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "null": "NOT NULL"
     },
     "profileId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "profileIndex":{
       "type": "INTEGER",
       "null": "NOT NULL"
     },
@@ -128,6 +148,10 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "null": "NOT NULL"
     },
     "property":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "value":{
       "type": "TEXT",
       "null": "NOT NULL"
     }

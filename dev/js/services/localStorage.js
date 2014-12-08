@@ -18,6 +18,7 @@ BauVoiceApp.factory('localStorage', function () {
     isConstructBalcony: false,
     isConstructDoor: false,
     isFindPriceProcess: false,
+    isAddElementsONLY: false,
 
     templatesWindList: [],
     templatesWindThumbList: [],
@@ -103,7 +104,8 @@ BauVoiceApp.factory('localStorage', function () {
     isOpenSettingsPage: false,
     isReturnFromConstructionPage: false,
     isVoiceHelper: false,
-//------ DB table names
+//------ WebSQL DB table names
+    //--- Local
     productsTableBD: 'products',
     componentsTableBD: 'construction_parts',
     gridsTableBD: 'grids',
@@ -118,10 +120,15 @@ BauVoiceApp.factory('localStorage', function () {
     handlesTableBD: 'handles',
     othersTableBD: 'other_elements',
     ordersTableBD: 'orders',
-
+    //---- Global
     usersTableDBGlobal: 'users',
     citiesTableDBGlobal: 'cities',
     regionsTableDBGlobal: 'regions',
-    countriesTableDBGlobal: 'countries'
+    countriesTableDBGlobal: 'countries',
+    listsTableDBGlobal: 'lists',
+    visorDBId: 21,
+    gridDBId: 20,
+    spillwayDBId: 9,
+    windowsillDBId: 8
   }
 });

@@ -191,8 +191,6 @@ BauVoiceApp.factory('constructService', function ($q) {
         windows: [
           {
             'name': 'Одностворчатый глухой',
-            //'short_name':'ОГ',
-            'iconUrl': '../img/config-menu/configMenu_itemIMG.png',
             'objects': [
               //------- main points
               {'type': 'fixed_point', id: 'fp1', x: '0', y: '0'},

@@ -8,6 +8,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
   $scope.cart = {
     allAddElements: [],
+    allTemplateIcons: [],
     isAddElementDetail: false
   };
 
@@ -20,7 +21,9 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   //------- finish edit product
   $scope.global.productEditNumber = 0;
 
-  //------ Download Add Elements from localDB
+
+
+  //------ Download All Add Elements for Order
   localDB.selectDB($scope.global.visorsTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
     if (results.status) {
       $scope.cart.allVisorsDB = angular.copy(results.data);
@@ -36,43 +39,84 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     }
   });
 
-  //------ Download Products Data from localDB
+  //------ Download All Products Data for Order
   localDB.selectDB($scope.global.productsTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
   //localDB.selectAllDB($scope.global.productsTableBD, function (results) {
     if (results.status) {
       $scope.cart.productObjSource = angular.copy(results.data);
-      $scope.global.productObj = angular.copy(results.data);
-      $scope.global.productCounter = $scope.global.productObj.length;
+      //$scope.global.productObj = angular.copy(results.data);
+      //$scope.global.productCounter = $scope.global.productObj.length;
 
-      $scope.global.calculateOrderPrice();
-      $scope.global.orderTotalPrice = $scope.global.orderPrice;
+      var productObj = angular.copy(results.data);
+      var productCounter = productObj.length;
 
-      for(prod = 0; prod < $scope.global.productCounter; prod++) {
 
-        product = [];
-        if($scope.cart.allVisorsDB && $scope.cart.allVisorsDB.length > 0) {
-          for(var elem = 0; elem < $scope.cart.allVisorsDB.length; elem++) {
-            if($scope.cart.allVisorsDB[elem].productId === $scope.global.productObj[prod].productId) {
-              product.push($scope.cart.allVisorsDB[elem]);
+      //------------- Download All Templates for Order
+      localDB.selectDB($scope.global.componentsTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
+        if (results.status) {
+          $scope.global.productObj = productObj;
+          $scope.global.productCounter = productCounter;
+          console.log($scope.global.productObj);
+          var tempTemplateSource = angular.copy(results.data);
+          for(var prod = 1; prod <=  $scope.global.productCounter; prod++) {
+            var productIconSource,
+                productIcon;
+            //------ if Add Elements only
+            if($scope.global.productObj.addElementsOnly) {
+              productIcon = {};
+            } else {
+              productIconSource = $scope.global.parseTemplateLocalDB(tempTemplateSource, prod);
+              productIcon = new TemplateIcon(productIconSource, $scope.global.templateDepths);
             }
-          }
-        }
 
-        if($scope.cart.allWindowSillsDB && $scope.cart.allWindowSillsDB.length > 0) {
-          for (var elem = 0; elem < $scope.cart.allWindowSillsDB.length; elem++) {
-            if ($scope.cart.allWindowSillsDB[elem].productId === $scope.global.productObj[prod].productId) {
-              product.push($scope.cart.allWindowSillsDB[elem]);
-            }
-          }
-        }
+            $scope.cart.allTemplateIcons.push(productIcon);
+            $scope.global.productObj[prod-1].icon = productIcon;
 
-        $scope.cart.allAddElements.push(product);
-      }
-      $scope.cart.allAddElementsSource = angular.copy($scope.cart.allAddElements);
+          }
+          console.log($scope.cart.allTemplateIcons);
+
+          $scope.global.calculateOrderPrice();
+          $scope.global.orderTotalPrice = $scope.global.orderPrice;
+
+          $scope.parseAddElements();
+
+        } else {
+          console.log(results);
+        }
+      });
+
     } else {
       console.log(results);
     }
   });
+
+
+
+  $scope.parseAddElements = function() {
+    for(prod = 0; prod < $scope.global.productCounter; prod++) {
+
+      product = [];
+      if($scope.cart.allVisorsDB && $scope.cart.allVisorsDB.length > 0) {
+        for(var elem = 0; elem < $scope.cart.allVisorsDB.length; elem++) {
+          if($scope.cart.allVisorsDB[elem].productId === $scope.global.productObj[prod].productId) {
+            product.push($scope.cart.allVisorsDB[elem]);
+          }
+        }
+      }
+
+      if($scope.cart.allWindowSillsDB && $scope.cart.allWindowSillsDB.length > 0) {
+        for (var elem = 0; elem < $scope.cart.allWindowSillsDB.length; elem++) {
+          if ($scope.cart.allWindowSillsDB[elem].productId === $scope.global.productObj[prod].productId) {
+            product.push($scope.cart.allWindowSillsDB[elem]);
+          }
+        }
+      }
+
+      $scope.cart.allAddElements.push(product);
+    }
+    $scope.cart.allAddElementsSource = angular.copy($scope.cart.allAddElements);
+  };
+
 
 
   //----- Delete Product

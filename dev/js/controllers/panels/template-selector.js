@@ -151,7 +151,7 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$
       $scope.global.product.constructThumb = $scope.global.templatesWindThumbList[$scope.global.templateIndex];
     }
     //------ define product price
-    $scope.global.createObjXFormedPrice($scope.global.templateDefault, $scope.global.profileIndex, $scope.global.product.profileId);
+    $scope.global.createObjXFormedPrice($scope.global.templateDefault, $scope.global.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
   };
 
 

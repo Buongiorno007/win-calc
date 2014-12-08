@@ -22,6 +22,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
       });
 
       function buildTemplateSVG(template, canvasWidth, canvasHeight) {
+        //console.log(template);
         var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"),
             draw = SVG(svg).size(canvasWidth, canvasHeight),
             sizeClass = 'size-box',

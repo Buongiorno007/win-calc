@@ -123,6 +123,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
   };
 
   $scope.gotoAddElementsPanel = function() {
+    $scope.global.isAddElementsONLY = true;
     $scope.global.showNavMenu = false;
     $scope.global.isConfigMenu = true;
     $scope.global.showPanels = {};
