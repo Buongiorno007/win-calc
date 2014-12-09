@@ -1,0 +1,80 @@
+
+<section ng-controller="SettingsCtrl" class="settings setting-page">
+  <div class="header">
+    <button ng-click="closeSettingsPage()" class="back"></button>
+    <div data-output="{{ 'mainpage.NAVMENU_SETTINGS' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="title"></div>
+  </div>
+  <div class="setting-container">
+    <div class="setting-user-foto">
+      <div class="change-foto">{{ 'common_words.CHANGE' | translate }}</div>
+    </div>
+    <div class="lists">
+      <ul class="list">
+        <li class="item">
+          <div data-output="{{ 'settings.AUTHORIZATION' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="divider"></div>
+        </li>
+        <li class="item">
+          <div data-output="{{ global.userInfo.phone }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
+        </li>
+        <li ng-click="gotoPasswordPage()" class="item click">
+          <div data-output="{{ global.userInfo.password }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
+          <div data-output="{{ 'settings.CHANGE_PASSWORD' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_SHOW_ICONS }}" class="setting-item-change"></div>
+        </li>
+      </ul>
+      <ul class="list">
+        <li class="item">
+          <div data-output="{{ 'settings.PRIVATE_INFO' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="divider"></div>
+        </li>
+        <li id="user-name" ng-click="changeSettingData(1, $event)" class="item click">
+          <div data-output="{{ 'settings.USER_NAME' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
+          <div ng-hide="settings.selectedSetting == 1" data-output="{{ global.userInfo.name }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-data"></div>
+          <input ng-show="settings.selectedSetting == 1" type="text" ng-model="global.userInfo.name" ng-keypress="saveChanges('user-name', global.userInfo.name)" ng-blur="saveChangesBlur('user-name', global.userInfo.name)" class="set-input-txt">
+        </li>
+        <li ng-click="global.gotoLocationPage()" class="item click">
+          <div data-output="{{ 'settings.CITY' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
+          <div data-output="{{ global.userInfo.fullLocation }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-data"></div>
+          <div class="setting-item-change"></div>
+        </li>
+        <li id="user-address" ng-click="changeSettingData(3, $event)" class="item click">
+          <div data-output="{{ 'cart.CLIENT_ADDRESS' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
+          <div ng-hide="settings.selectedSetting == 3" data-output="{{ global.userInfo.city_phone }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-data"></div>
+          <input ng-show="settings.selectedSetting == 3" type="text" ng-model="global.userInfo.city_phone" ng-keypress="saveChanges('user-address', global.userInfo.city_phone)" ng-blur="saveChangesBlur('user-address', global.userInfo.city_phone)" class="set-input-txt">
+        </li>
+        <li id="user-email" ng-click="changeSettingData(4, $event)" class="item click">
+          <div data-output="{{ 'cart.CLIENT_EMAIL' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
+          <div ng-hide="settings.selectedSetting == 4" data-output="{{ global.userInfo.email }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-data"></div>
+          <input ng-show="settings.selectedSetting == 4" type="text" ng-model="global.userInfo.email" ng-keypress="saveChanges('user-email', global.userInfo.email)" ng-blur="saveChangesBlur('user-email', global.userInfo.email)" class="set-input-txt">
+        </li>
+      </ul>
+      <ul class="list">
+        <li class="item">
+          <div data-output="{{ 'settings.ADD_PHONES' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="divider"></div>
+        </li>
+        <li ng-repeat="phone in settings.addPhones" class="item">
+          <button ng-click="deletePhone($index)" class="phone-btn delete-phone">&#8211;</button>
+          <div data-output="{{ phone }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
+        </li>
+        <li class="item">
+          <button ng-click="appendInputPhone()" class="phone-btn add-phone">+</button>
+          <div ng-hide="settings.isInsertPhone" ng-click="appendInputPhone()" data-output="{{ 'settings.INSERT_PHONE' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
+          <input ng-show="settings.isInsertPhone" type="text" ng-model="settings.tempAddPhone" ng-keypress="saveChangesPhone()" ng-blur="cancelAddPhone()" class="set-input-phone">
+          <div ng-show="settings.isErrorPhone" class="error-tooltip">{{ 'login.WRONG_NUMBER' | translate }}</div>
+        </li>
+      </ul>
+      <ul class="list">
+        <li class="item click">
+          <div data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-data"></div>
+          <div class="setting-item-change"></div>
+        </li>
+        <li class="item click">
+          <div data-output="{{ 'settings.CLIENT_SUPPORT' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-data"></div>
+          <div class="setting-item-change"></div>
+        </li>
+        <li ng-click="logOut()" class="item click">
+          <div data-output="{{ 'settings.LOGOUT' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-data"></div>
+          <div class="setting-item-change"></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
