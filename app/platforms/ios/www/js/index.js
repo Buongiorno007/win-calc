@@ -9,6 +9,7 @@ window.PhonegapApp = {
   },
   onDeviceReady: function() {
     //alert('onDeviceReady');
+      doInit();
     angular.bootstrap(document, ['BauVoiceApp']);
   }
 };

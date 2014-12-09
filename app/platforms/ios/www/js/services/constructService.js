@@ -194,8 +194,6 @@ BauVoiceApp.factory('constructService', function ($q) {
         windows: [
           {
             'name': 'Одностворчатый глухой',
-            //'short_name':'ОГ',
-            'iconUrl': '../img/config-menu/configMenu_itemIMG.png',
             'objects': [
               //------- main points
               {'type': 'fixed_point', id: 'fp1', x: '0', y: '0'},
@@ -441,7 +439,8 @@ BauVoiceApp.factory('constructService', function ($q) {
                */
               {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
               {'type': 'glass_paсkage', id: 'glass2', parts: ['glassline5', 'glassline6', 'glassline7', 'glassline8']},
-              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 1, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'dimH1', from: ['fp1', 'fp4'], to: ['fpimpost1', 'fpimpost2'], limits: ['overallDimH'], level: 1, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], limits: ['dimH1'], level: 3, height: 150, side: 'top'},
               {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'},
               {'type': 'square', id: 'sqr', widths: ['overallDimH'], heights: ['overallDimV']}
             ]
@@ -579,9 +578,10 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'glass_paсkage', id: 'glass2', parts: ['glassline9', 'glassline10', 'glassline11', 'glassline12']},
               //{'type': 'dimensionsH', id: 'dimH1', from: ['fp4', 'fp1'], to: ['fpimpost2', 'fpimpost1'], level: 1, height: 150, side: 'bottom'},
               //{'type': 'dimensionsH', id: 'dimH2', from: ['fpimpost2', 'fpimpost1'], to: ['fpimpost4', 'fpimpost3'], level: 1, height: 150, side: 'bottom'},
-              {'type': 'dimensionsH', id: 'dimH1', from: ['fp1', 'fp4'], to: ['fpimpost1', 'fpimpost2'], level: 1, height: 150, side: 'top'},
-              {'type': 'dimensionsH', id: 'dimH2', from: ['fpimpost1', 'fpimpost2'], to: ['fpimpost3', 'fpimpost4'], level: 1, height: 150, side: 'top'},
-              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 3, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'dimH1', from: ['fp1', 'fp4'], to: ['fpimpost1', 'fpimpost2'], limits: ['overallDimH', 'dimH3'], links: ['fpimpost1', 'fpimpost2'], level: 1, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'dimH2', from: ['fpimpost1', 'fpimpost2'], to: ['fpimpost3', 'fpimpost4'], limits: ['overallDimH', 'dimH1'], links: ['fpimpost3', 'fpimpost4'], level: 1, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'dimH3', from: ['fpimpost3', 'fpimpost4'], to: ['fp2', 'fp3'], level: 1, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], limits: ['dimH1', 'dimH2'], level: 3, height: 150, side: 'top'},
               {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'},
               {'type': 'square', id: 'sqr', widths: ['overallDimH'], heights: ['overallDimV']}
             ]
@@ -709,11 +709,11 @@ BauVoiceApp.factory('constructService', function ($q) {
                */
               {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
               {'type': 'glass_paсkage', id: 'glass2', parts: ['glassline5', 'glassline6', 'glassline7', 'glassline8']},
-              {'type': 'dimensionsH', id: 'dimH1', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], links: ['fp5', 'fp8'], level: 1, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'dimH1', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], limits: ['overallDimH'],  links: ['fp5', 'fp8'], level: 1, height: 150, side: 'top'},
               {'type': 'dimensionsV', id: 'dimV1', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'},
               {'type': 'dimensionsH', id: 'dimH2', from: ['fp5', 'fp8'], to: ['fp6', 'fp7'], level: 1, height: 150, side: 'top'},
               {'type': 'dimensionsV', id: 'overallDimV', from: ['fp6', 'fp5'], to: ['fp7', 'fp8'], level: 1, height: 150, side: 'right'},
-              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp6', 'fp7'], level: 3, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp6', 'fp7'], limits: ['dimH1'], level: 3, height: 150, side: 'top'},
               {'type': 'square', id: 'sqr', widths: ['dimH1', 'dimH2'], heights: ['dimV1', 'overallDimV']}
             ]
           }
@@ -853,9 +853,10 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'glass_paсkage', id: 'glass2', parts: ['glassline9', 'glassline10', 'glassline11', 'glassline12']},
               //{'type': 'dimensionsH', id: 'dimH1', from: ['fp4', 'fp1'], to: ['fpimpost2', 'fpimpost1'], level: 1, height: 150, side: 'bottom'},
               //{'type': 'dimensionsH', id: 'dimH2', from: ['fpimpost2', 'fpimpost1'], to: ['fpimpost4', 'fpimpost3'], level: 1, height: 150, side: 'bottom'},
-              {'type': 'dimensionsH', id: 'dimH1', from: ['fp1', 'fp4'], to: ['fpimpost1', 'fpimpost2'], level: 1, height: 150, side: 'top'},
-              {'type': 'dimensionsH', id: 'dimH2', from: ['fpimpost1', 'fpimpost2'], to: ['fpimpost3', 'fpimpost4'], level: 1, height: 150, side: 'top'},
-              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 3, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'dimH1', from: ['fp1', 'fp4'], to: ['fpimpost1', 'fpimpost2'], limits: ['overallDimH', 'dimH3'], links: ['fpimpost1', 'fpimpost2'], level: 1, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'dimH2', from: ['fpimpost1', 'fpimpost2'], to: ['fpimpost3', 'fpimpost4'], limits: ['overallDimH', 'dimH1'], links: ['fpimpost3', 'fpimpost4'], level: 1, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'dimH3', from: ['fpimpost3', 'fpimpost4'], to: ['fp2', 'fp3'], level: 1, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], limits: ['dimH1', 'dimH2'], level: 3, height: 150, side: 'top'},
               {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'},
               {'type': 'square', id: 'sqr', widths: ['overallDimH'], heights: ['overallDimV']}
             ]
@@ -1048,338 +1049,6 @@ BauVoiceApp.factory('constructService', function ($q) {
       }));
     },
 
-    getAllGrids: function (callback) {
-      callback(new OkResult({
-
-        elementType: [
-          'Стандартные',
-          'оцинкованный',
-          'Матовые'
-        ],
-        elementsList: [
-          [
-            {
-              elementId: 1,
-              elementName: 'КO-100, оцинкованный',
-              elementPrice: 100
-            },
-            {
-              elementId: 2,
-              elementName: 'КO-100, оцинкованный',
-              elementPrice: 100
-            },
-            {
-              elementId: 3,
-              elementName: 'КO-100, оцинкованный',
-              elementPrice: 100
-            }
-          ],
-          [
-            {
-              elementId: 1,
-              elementName: 'КO-100, оцинкованный',
-              elementPrice: 100
-            },
-            {
-              elementId: 2,
-              elementName: 'КO-100, оцинкованный',
-              elementPrice: 100
-            }
-          ],
-          [
-            {
-              elementId: 1,
-              elementName: 'КO-100, оцинкованный',
-              elementPrice: 100
-            }
-          ]
-        ]
-
-      }));
-    },
-
-    getAllVisors: function (callback) {
-      callback(new OkResult({
-
-        elementType: [
-          'Стандартные',
-          'оцинкованный',
-          'Матовые'
-        ],
-        elementsList: [
-          [
-            {
-              elementId: 1,
-              elementType: 'Стандартные',
-              elementName: 'КO-200, оцинкованный',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 2,
-              elementType: 'Стандартные',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 3,
-              elementType: 'Стандартные',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            }
-          ],
-          [
-            {
-              elementId: 1,
-              elementType: 'оцинкованный',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 2,
-              elementType: 'оцинкованный',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            }
-          ],
-          [
-            {
-              elementId: 1,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 2,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 3,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 4,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 100
-            }
-          ]
-        ]
-
-      }));
-    },
-
-    getAllWindowSills: function (callback) {
-      callback(new OkResult({
-
-        elementType: [
-          'Стандартные',
-          'оцинкованный',
-          'Матовые'
-        ],
-        elementsList: [
-          [
-            {
-              elementId: 1,
-              elementType: 'Матовые',
-              elementName: 'КO-200, оцинкованный',
-              elementWidth: 1500,
-              elementHeight: 1500,
-              elementColorId: 'matt',
-              elementColor: '../img/lamination/empty.png',
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 2,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementHeight: 1500,
-              elementColorId: 'matt',
-              elementColor: '../img/lamination/empty.png',
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 3,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementHeight: 1500,
-              elementColorId: 'matt',
-              elementColor: '../img/lamination/empty.png',
-              elementQty: 1,
-              elementPrice: 100
-            }
-          ],
-          [
-            {
-              elementId: 1,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementHeight: 1500,
-              elementColorId: 'matt',
-              elementColor: '../img/lamination/empty.png',
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 2,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementHeight: 1500,
-              elementColorId: 'matt',
-              elementColor: '../img/lamination/empty.png',
-              elementQty: 1,
-              elementPrice: 100
-            }
-          ],
-          [
-            {
-              elementId: 1,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementHeight: 1500,
-              elementColorId: 'matt',
-              elementColor: '../img/lamination/empty.png',
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 2,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementHeight: 1500,
-              elementColorId: 'matt',
-              elementColor: '../img/lamination/empty.png',
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 3,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementHeight: 1500,
-              elementColorId: 'matt',
-              elementColor: '../img/lamination/empty.png',
-              elementQty: 1,
-              elementPrice: 100
-            },
-            {
-              elementId: 4,
-              elementType: 'Матовые',
-              elementName: 'КO-300, оцинкованный',
-              elementWidth: 1500,
-              elementHeight: 1500,
-              elementColorId: 'matt',
-              elementColor: '../img/lamination/empty.png',
-              elementQty: 1,
-              elementPrice: 100
-            }
-          ]
-        ]
-
-      }));
-    },
-
-    getLaminationAddElements: function (callback) {
-      callback(new OkResult({
-        laminationWhiteMatt: {
-          laminationName: 'Белый',
-          laminationLabel: 'матовый',
-          laminationUrl: '../img/lamination/empty.png'
-        },
-        laminationWhiteGlossy: {
-          laminationName: 'Белый',
-          laminationLabel: 'глянцевый',
-          laminationUrl: '../img/lamination/empty.png'
-        },
-        laminations: [
-          {
-            laminationId: 1,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 100
-          },
-          {
-            laminationId: 2,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 100
-          },
-          {
-            laminationId: 3,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 100
-          },
-          {
-            laminationId: 4,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 100
-          },
-          {
-            laminationId: 5,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 100
-          },
-          {
-            laminationId: 6,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 100
-          },
-          {
-            laminationId: 7,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 100
-          },
-          {
-            laminationId: 8,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 100
-          }
-        ]
-      }));
-    },
-
-    // TODO: Сервис готов
-    getConstructNoteText: function (callback) {
-      callback(new OkResult({
-        note: 'Срочный заказ'
-      }));
-    },
 
 
     getAllProfiles: function (callback) {
@@ -1453,8 +1122,8 @@ BauVoiceApp.factory('constructService', function ($q) {
           [
             {
               glassId: 145,
-              glassName: '4/24/4/16/4i555555555',
-              glassUrl: '../img/glass.png',
+              glassName: '4/16/4',
+              glassUrl: 'img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
               heatCoeff: 2,
@@ -1463,8 +1132,8 @@ BauVoiceApp.factory('constructService', function ($q) {
             },
             {
               glassId: 146,
-              glassName: '4/24/4',
-              glassUrl: '../img/glass.png',
+              glassName: '6/14/4',
+              glassUrl: 'img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 5,
               heatCoeff: 4,
@@ -1473,8 +1142,8 @@ BauVoiceApp.factory('constructService', function ($q) {
             },
             {
               glassId: 147,
-              glassName: '4/24/4/16/4i',
-              glassUrl: '../img/glass.png',
+              glassName: '6/12/6',
+              glassUrl: 'img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 1,
               heatCoeff: 3,
@@ -1485,8 +1154,8 @@ BauVoiceApp.factory('constructService', function ($q) {
           [
             {
               glassId: 149,
-              glassName: '4/24/4/16/4i555555555',
-              glassUrl: '../img/glass.png',
+              glassName: '4/10/4/10/4',
+              glassUrl: 'img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
               heatCoeff: 2,
@@ -1495,8 +1164,8 @@ BauVoiceApp.factory('constructService', function ($q) {
             },
             {
               glassId: 150,
-              glassName: '4/24/4/16/4i555555555',
-              glassUrl: '../img/glass.png',
+              glassName: '4/8/4/12/4',
+              glassUrl: 'img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 1,
               heatCoeff: 1,
@@ -1507,8 +1176,8 @@ BauVoiceApp.factory('constructService', function ($q) {
           [
             {
               glassId: 152,
-              glassName: '4/24/4/16/4i555555555',
-              glassUrl: '../img/glass.png',
+              glassName: '4/16/4i',
+              glassUrl: 'img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
               heatCoeff: 5,
@@ -1534,7 +1203,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               hardwareName: 'ACCADO 7mm',
               hardwareProducer: 'ACCADO',
               hardwareCountry: 'Турция',
-              hardwareLogo: '../img/hardware-logos/accado.png',
+              hardwareLogo: 'img/hardware-logos/accado.png',
               hardwareLink: '#',
               hardwareHeat: 5,
               hardwareNoise: 4,
@@ -1545,7 +1214,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               hardwareName: 'ACCADO 7mm',
               hardwareProducer: 'ACCADO',
               hardwareCountry: 'Турция',
-              hardwareLogo: '../img/hardware-logos/accado.png',
+              hardwareLogo: 'img/hardware-logos/accado.png',
               hardwareLink: '#',
               hardwareHeat: 2,
               hardwareNoise: 5,
@@ -1558,7 +1227,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               hardwareName: 'ACCADO 7mm',
               hardwareProducer: 'Мако',
               hardwareCountry: 'Турция',
-              hardwareLogo: '../img/hardware-logos/maco.png',
+              hardwareLogo: 'img/hardware-logos/maco.png',
               hardwareLink: '#',
               hardwareHeat: 5,
               hardwareNoise: 4,
@@ -1569,7 +1238,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               hardwareName: 'ACCADO 7mm',
               hardwareProducer: 'Мако',
               hardwareCountry: 'Турция',
-              hardwareLogo: '../img/hardware-logos/maco.png',
+              hardwareLogo: 'img/hardware-logos/maco.png',
               hardwareLink: '#',
               hardwareHeat: 3,
               hardwareNoise: 1,
@@ -1582,7 +1251,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               hardwareName: 'ACCADO 7mm',
               hardwareProducer: 'ACCADO',
               hardwareCountry: 'Турция',
-              hardwareLogo: '../img/hardware-logos/siegenia.png',
+              hardwareLogo: 'img/hardware-logos/siegenia.png',
               hardwareLink: '#',
               hardwareHeat: 5,
               hardwareNoise: 4,
@@ -1593,7 +1262,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               hardwareName: 'ACCADO 7mm',
               hardwareProducer: 'ACCADO',
               hardwareCountry: 'Турция',
-              hardwareLogo: '../img/hardware-logos/romb.png',
+              hardwareLogo: 'img/hardware-logos/romb.png',
               hardwareLink: '#',
               hardwareHeat: 1,
               hardwareNoise: 1,
@@ -1611,74 +1280,797 @@ BauVoiceApp.factory('constructService', function ($q) {
           {
             laminationId: 1,
             laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
+            laminationUrl: 'img/lamination/Birch.png',
             laminationPrice: 100
           },
           {
             laminationId: 2,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
+            laminationName: 'золотой дуб',
+            laminationUrl: 'img/lamination/GoldenOak.png',
             laminationPrice: 100
           },
           {
             laminationId: 3,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
+            laminationName: 'береза',
+            laminationUrl: 'img/lamination/LightOak.png',
             laminationPrice: 100
           },
           {
             laminationId: 4,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
+            laminationName: 'махагон',
+            laminationUrl: 'img/lamination/Mahagon.png',
             laminationPrice: 100
           },
           {
             laminationId: 5,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 100
-          },
-          {
-            laminationId: 6,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 100
-          },
-          {
-            laminationId: 7,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 100
-          },
-          {
-            laminationId: 8,
-            laminationName: 'светлый дуб',
-            laminationUrl: '../img/lamination/Birch.png',
+            laminationName: 'сосна',
+            laminationUrl: 'img/lamination/Pine.png',
             laminationPrice: 100
           }
         ],
         laminationOutside: [
+
           {
             laminationId: 1,
-            laminationName: 'темный дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 400
+            laminationName: 'светлый дуб',
+            laminationUrl: 'img/lamination/Birch.png',
+            laminationPrice: 100
           },
           {
             laminationId: 2,
-            laminationName: 'темный дуб',
-            laminationUrl: '../img/lamination/Birch.png',
-            laminationPrice: 600
+            laminationName: 'золотой дуб',
+            laminationUrl: 'img/lamination/GoldenOak.png',
+            laminationPrice: 100
           },
           {
             laminationId: 3,
-            laminationName: 'темный дуб',
-            laminationUrl: '../img/lamination/Birch.png',
+            laminationName: 'береза',
+            laminationUrl: 'img/lamination/LightOak.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 4,
+            laminationName: 'махагон',
+            laminationUrl: 'img/lamination/Mahagon.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 5,
+            laminationName: 'сосна',
+            laminationUrl: 'img/lamination/Pine.png',
+            laminationPrice: 100
+          }
+
+        ]
+      }));
+    },
+
+
+    getAllGrids: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'внутренние',
+          'внешние'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementName: 'Сетка СO-100',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'Сетка СO-200',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 3,
+              elementName: 'Сетка СO-200',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'Сетка СO-300',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'Сетка СO-300',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+    getAllVisors: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'стандартные',
+          'оцинкованные',
+          'Матовые'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementType: 'Стандартные',
+              elementName: 'Козырек белый 100мм',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 200
+            },
+            {
+              elementId: 2,
+              elementType: 'Стандартные',
+              elementName: 'Козырек белый 200мм',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 300
+            },
+            {
+              elementId: 3,
+              elementType: 'Стандартные',
+              elementName: 'Козырек белый 300мм',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 140
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementType: 'оцинкованный',
+              elementName: 'Козырек 100мм оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 150
+            },
+            {
+              elementId: 2,
+              elementType: 'оцинкованный',
+              elementName: 'Козырек 200мм оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 180
+            },
+            {
+              elementId: 3,
+              elementType: 'оцинкованный',
+              elementName: 'Козырек 300мм оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 180
+            },
+            {
+              elementId: 4,
+              elementType: 'оцинкованный',
+              elementName: 'Козырек 400мм оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 180
+            },
+            {
+              elementId: 5,
+              elementType: 'оцинкованный',
+              elementName: 'Козырек 500мм оцинкованный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 180
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementType: 'Матовые',
+              elementName: 'Козырёк нестандартный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 110
+            }
+          ]
+        ]
+
+      }));
+    },
+
+    getAllSpillways: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'стандартные',
+          'оцинкованные',
+          'нестандартные'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementType: 'Отлив белый 200мм',
+              elementName: 'Отлив КO-200',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'Стандартные',
+              elementName: 'Отлив коричневый 260мм',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementType: 'оцинкованный',
+              elementName: 'Отлив оцинкованный 20мм',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'оцинкованный',
+              elementName: 'Отлив оцинкованный 50мм',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementType: 'нестандартные',
+              elementName: 'Отлив нестандартный',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+    getAllOutsideSlope: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'стандартные'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementType: 'Стандартные',
+              elementName: 'Откос пластиковый',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'Стандартные',
+              elementName: 'Откос гипсокартонный',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 3,
+              elementType: 'Стандартные',
+              elementName: 'Откос песчаноцементный',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+
+    getAllInsideSlope: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'стандартные'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementType: 'Стандартные',
+              elementName: 'Откос пластиковый',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'Стандартные',
+              elementName: 'Откос гипсокартонный',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 3,
+              elementType: 'Стандартные',
+              elementName: 'Откос песчаноцементный',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+
+    getAllLouvers: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'Стандартные',
+          'оцинкованный',
+          'Матовые'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementType: 'Стандартные',
+              elementName: 'Жалюзи КO-200',
+              elementWidth: 700,
+              elementHeight: 700,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'Стандартные',
+              elementName: 'Жалюзи КO-300, оцинкованный',
+              elementWidth: 700,
+              elementHeight: 700,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementType: 'оцинкованный',
+              elementName: 'Жалюзи КO-100, оцинкованный',
+              elementWidth: 700,
+              elementHeight: 700,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'оцинкованный',
+              elementName: 'Жалюзи КO-300',
+              elementWidth: 700,
+              elementHeight: 700,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementType: 'Матовые',
+              elementName: 'Жалюзи КO-300',
+              elementWidth: 700,
+              elementHeight: 700,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'Матовые',
+              elementName: 'Жалюзи КO-300',
+              elementWidth: 700,
+              elementHeight: 700,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+
+    getAllConnectors: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'стандартные',
+          'усиленные',
+          'балконные'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementName: 'Соединитель стандартный 5/10',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'Соединитель стандартный 3/10',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'Соединитель усиленный 5/13',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'Соединитель балконный 5/13',
+              elementWidth: 1500,
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+    getAllFans: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'Стандартные',
+          'GECCO',
+          'Aereco'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementName: 'С-ма прит. вентиляции 4-х ст.',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'С-ма вентиляции 4-х ст.',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'Система приточной вентиляции помещений GECCO',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'GECCO Система вентиляции помещений',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'Aereco С-ма оконной вентиляции',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+    getAllWindowSills: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'LIGNODUR',
+          'ДАНКЕ',
+          'OpenTeck'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementType: 'Матовые',
+              elementName: 'LIGNODUR 200 мм белый',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: 'img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'Матовые',
+              elementName: 'LIGNODUR 300 мм белый',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: 'img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 3,
+              elementType: 'Матовые',
+              elementName: 'LIGNODUR 400 мм белый',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: 'img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementType: 'Матовые',
+              elementName: 'ДАНКЕ 100 мм белый матовый',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: 'img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'Матовые',
+              elementName: 'ДАНКЕ 300 мм белый матовый',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: 'img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementType: 'Матовые',
+              elementName: 'OpenTeck 100 мм белый',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: 'img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementType: 'Матовые',
+              elementName: 'OpenTeck 200 мм белый',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: 'img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 3,
+              elementType: 'Матовые',
+              elementName: 'OpenTeck 300 мм белый',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: 'img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 4,
+              elementType: 'Матовые',
+              elementName: 'OpenTeck 400 мм белый',
+              elementWidth: 1500,
+              elementHeight: 1500,
+              elementColorId: 'matt',
+              elementColor: 'img/lamination/empty.png',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+    getAllHandles: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'Стандартные',
+          'HOPPE',
+          'нестандартные'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementName: 'Ручка оконная белая',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'Ручка оконная с ключом белая',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'Ручка HOPPE (Tokyo) белая',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'Ручка HOPPE (Tokyo) серебр.',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'Ручка нестандартная',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+
+    getAllOthers: function (callback) {
+      callback(new OkResult({
+
+        elementType: [
+          'стандартные',
+          'усиленные',
+          'балконные'
+        ],
+        elementsList: [
+          [
+            {
+              elementId: 1,
+              elementName: 'Армирование квадрат 40х40',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'Штифт верхней петли',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 3,
+              elementName: 'П-О запор NT константный 170 (481-600), KS',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'Армирующий профиль 15х30',
+              elementQty: 1,
+              elementPrice: 100
+            },
+            {
+              elementId: 2,
+              elementName: 'Нижняя петля на раме K3/100',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ],
+          [
+            {
+              elementId: 1,
+              elementName: 'Поворотная петля Komfort 12/20-13 левая',
+              elementQty: 1,
+              elementPrice: 100
+            }
+          ]
+        ]
+
+      }));
+    },
+
+    getLaminationAddElements: function (callback) {
+      callback(new OkResult({
+        laminationWhiteMatt: {
+          laminationName: 'Белый',
+          laminationLabel: 'матовый',
+          laminationUrl: 'img/lamination/empty.png'
+        },
+        laminationWhiteGlossy: {
+          laminationName: 'Белый',
+          laminationLabel: 'глянцевый',
+          laminationUrl: 'img/lamination/empty.png'
+        },
+        laminations: [
+          {
+            laminationId: 1,
+            laminationName: 'светлый дуб',
+            laminationUrl: 'img/lamination/Birch.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 2,
+            laminationName: 'золотой дуб',
+            laminationUrl: 'img/lamination/GoldenOak.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 3,
+            laminationName: 'береза',
+            laminationUrl: 'img/lamination/LightOak.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 4,
+            laminationName: 'махагон',
+            laminationUrl: 'img/lamination/Mahagon.png',
+            laminationPrice: 100
+          },
+          {
+            laminationId: 5,
+            laminationName: 'сосна',
+            laminationUrl: 'img/lamination/Pine.png',
             laminationPrice: 100
           }
         ]
       }));
     },
+
+    // TODO: Сервис готов
+    getConstructNoteText: function (callback) {
+      callback(new OkResult({
+        note: 'Срочный заказ'
+      }));
+    },
+
+
 
     getFloorPrice: function (callback) {
       callback(new OkResult({
@@ -1807,26 +2199,26 @@ BauVoiceApp.factory('constructService', function ($q) {
           {
             shapeId: 1,
             shapeLabel: 'без порога',
-            shapeIcon: '../img/door-config/no-doorstep.png',
-            shapeIconSelect: '../img/door-config-selected/no-doorstep.png'
+            shapeIcon: 'img/door-config/no-doorstep.png',
+            shapeIconSelect: 'img/door-config-selected/no-doorstep.png'
           },
           {
             shapeId: 2,
             shapeLabel: 'по периметру',
-            shapeIcon: '../img/door-config/doorstep.png',
-            shapeIconSelect: '../img/door-config-selected/doorstep.png'
+            shapeIcon: 'img/door-config/doorstep.png',
+            shapeIconSelect: 'img/door-config-selected/doorstep.png'
           },
           {
             shapeId: 3,
             shapeLabel: 'алюминевый порог, тип1',
-            shapeIcon: '../img/door-config/doorstep-al1.png',
-            shapeIconSelect: '../img/door-config-selected/doorstep-al1.png'
+            shapeIcon: 'img/door-config/doorstep-al1.png',
+            shapeIconSelect: 'img/door-config-selected/doorstep-al1.png'
           },
           {
             shapeId: 4,
             shapeLabel: 'алюминевый порог, тип2',
-            shapeIcon: '../img/door-config/doorstep-al2.png',
-            shapeIconSelect: '../img/door-config-selected/doorstep-al2.png'
+            shapeIcon: 'img/door-config/doorstep-al2.png',
+            shapeIconSelect: 'img/door-config-selected/doorstep-al2.png'
           }
         ],
 
@@ -1849,14 +2241,14 @@ BauVoiceApp.factory('constructService', function ($q) {
           {
             shapeId: 1,
             shapeLabel: 'нажимной гарнитур',
-            shapeIcon: '../img/door-config/lever-handle.png',
-            shapeIconSelect: '../img/door-config-selected/lever-handle.png'
+            shapeIcon: 'img/door-config/lever-handle.png',
+            shapeIconSelect: 'img/door-config-selected/lever-handle.png'
           },
           {
             shapeId: 2,
             shapeLabel: 'стандартная офисная ручка',
-            shapeIcon: '../img/door-config/standart-handle.png',
-            shapeIconSelect: '../img/door-config-selected/standart-handle.png'
+            shapeIcon: 'img/door-config/standart-handle.png',
+            shapeIconSelect: 'img/door-config-selected/standart-handle.png'
           }
         ],
 
@@ -1864,14 +2256,14 @@ BauVoiceApp.factory('constructService', function ($q) {
           {
             shapeId: 1,
             shapeLabel: 'однозапорный с защелкой',
-            shapeIcon: '../img/door-config/onelock.png',
-            shapeIconSelect: '../img/door-config-selected/onelock.png'
+            shapeIcon: 'img/door-config/onelock.png',
+            shapeIconSelect: 'img/door-config-selected/onelock.png'
           },
           {
             shapeId: 2,
             shapeLabel: 'многозапорный с защелкой',
-            shapeIcon: '../img/door-config/multilock.png',
-            shapeIconSelect: '../img/door-config-selected/multilock.png'
+            shapeIcon: 'img/door-config/multilock.png',
+            shapeIconSelect: 'img/door-config-selected/multilock.png'
           }
         ]
 

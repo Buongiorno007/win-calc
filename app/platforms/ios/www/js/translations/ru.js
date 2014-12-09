@@ -12,11 +12,13 @@ window.russianDictionary = {
     MONTH_LABEL: 'месяц',
     MONTHA_LABEL: 'месяца',
     MONTHS_LABEL: 'месяцeв',
-    ALL: 'Все'
+    ALL: 'Все',
+    MIN: 'мин.',
+    MAX: 'макс.'
   },
   login: {
     ENTER: 'Войти',
-    PASS_CODE: 'Сообщите этот код кому-нибудь.',
+    PASS_CODE: 'Сообщите этот код менеджеру.',
     YOUR_CODE: 'Ваш код: ',
     EMPTY_FIELD: 'Заполните это поле.',
     WRONG_NUMBER: 'Неверный номер, формат +XX(XXX)XXX-XXXX.',
@@ -26,7 +28,7 @@ window.russianDictionary = {
     PASSWORD: 'Пароль'
   },
   mainpage: {
-    MM: ' мм',
+    MM: ' мм ',
     CLIMATE_ZONE: 'климатическая зона',
     THERMAL_RESISTANCE: 'сопротивление теплопередаче',
     AIR_CIRCULATION: 'коэффициент воздухообмена',

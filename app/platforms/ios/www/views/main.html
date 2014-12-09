@@ -745,7 +745,7 @@
           <button show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" ng-click="showWindowScheme()" class="scheme-info unvisible"></button>
           <div ng-class="{'active': global.isWindowSchemeDialog}" class="scheme-view-dialog">
             <div class="template-scheme">
-              <svg-template template="global.templateDefault" template-width="global.svgTemplateWidth" template-height="global.svgTemplateHeight"></svg-template>
+              <svg-template template="global.templateDefault" template-width="global.svgTemplateIconWidth" template-height="global.svgTemplateIconHeight" type-construction="bigIcon"></svg-template>
             </div>
             <div ng-click="closeWindowScheme()" class="close-dialog"></div>
           </div>
@@ -1140,7 +1140,7 @@
               <svg-template template="global.product.constructThumb" template-width="global.svgTemplateThumbWidth" template-height="global.svgTemplateThumbHeight" type-construction="icon"></svg-template>
             </div>
             <div data-output="{{ 'mainpage.CONFIGMENU_SIZING' | translate }}" typing="{{ configMenu.typing }}" typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}" class="name"></div>
-            <div data-output="{{ global.product.constructionWidth }} {{ 'mainpage.MM' | translate }}*" typing="{{ configMenu.typing }}" typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div data-output="{{ global.product.constructionWidth }} {{ 'mainpage.MM' | translate }} *" typing="{{ configMenu.typing }}" typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
             <div data-output="{{ global.product.constructionHeight }} {{ 'mainpage.MM' | translate }}" typing="{{ configMenu.typing }}" typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
           </li>
           <li ng-class="{'active': global.showPanels.showProfilePanel}" ng-click="selectProfilePanel()" class="item">
@@ -1203,9 +1203,8 @@
             </ul>
           </div>
           <footer class="menu-footer">
-            <div ng-show="addElementsMenu.isAddElementPrice" class="price-element">
-              <div class="price-value">+ {{ currAddElementPrice }}</div>
-              <!--price-->
+            <div ng-show="global.isAddElement &amp;&amp; addElementsMenu.isAddElementPrice" class="price-element">
+              <div class="price-value">+ {{ currAddElementPrice }} {{ global.currency }}</div>
             </div>
             <div ng-class="{'active': global.isSizeCalculator}" class="elements-tools size-calculator">
               <table class="size-calc-container">
@@ -1216,12 +1215,14 @@
                   <td colspan="2">
                     <div class="calc-interval">
                       <div class="interval">
-                        <div class="calc-value-limit">0</div>
-                        <div class="calc-label-limit">min.</div>
+                        <div ng-hide="global.isConstructSizeCalculator" class="calc-value-limit">0</div>
+                        <div ng-show="global.isConstructSizeCalculator" ng-class="{'restriction': constructData.isMinSizeRestriction}" class="calc-value-limit">{{ constructData.minSizeLimit }}</div>
+                        <div class="calc-label-limit">{{ 'common_words.MIN' | translate }}</div>
                       </div>
                       <div class="interval">
-                        <div class="calc-value-limit">5000</div>
-                        <div class="calc-label-limit">max.</div>
+                        <div ng-hide="global.isConstructSizeCalculator" class="calc-value-limit">5000</div>
+                        <div ng-show="global.isConstructSizeCalculator" ng-class="{'restriction': constructData.isMaxSizeRestriction}" class="calc-value-limit">{{ constructData.maxSizeLimit }}</div>
+                        <div class="calc-label-limit">{{ 'common_words.MAX' | translate }}</div>
                       </div>
                     </div>
                   </td>

@@ -24,6 +24,20 @@ BauVoiceApp.controller('LoginCtrl', ['$scope', '$location', '$translate', 'globa
   $scope.user = {};
 
   $scope.submitForm = function (form) {
+ /*                                   // alert("asd");
+                                     $scope.user.phone = "";
+                                     $scope.$apply();
+                                    startRecognition(doneR);
+                                     return;
+                                     
+                                     function doneR(value) {
+                                        console.log("DONE" + value);
+                                        $scope.user.phone = value +" : " + parseStringToDimension(value);
+                                        $scope.$apply();
+                                     
+                                     }
+   */
+
     // Trigger validation flag.
     $scope.submitted = true;
 

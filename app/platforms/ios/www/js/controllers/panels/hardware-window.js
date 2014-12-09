@@ -34,7 +34,8 @@ BauVoiceApp.controller('HardwareWindowCtrl', ['$scope', 'constructService', 'loc
 
     var selectedHardware = $scope.hardwarePanel.hardwares[producerId][hardwareId];
     $scope.global.product.hardwareName = selectedHardware.hardwareName;
-    $scope.global.product.productPrice += selectedHardware.hardwarePrice;
+    $scope.global.hardwarePriceTOTAL = selectedHardware.hardwarePrice;
+    $scope.global.setProductPriceTOTAL();
   };
 
 }]);

@@ -53,6 +53,193 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   };
 
 
+  //=============== Download Add Elements from localDB for Edit Product
+  $scope.downloadAddElementsEDIT = function() {
+
+    localDB.selectDB($scope.global.gridsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
+      if (results.status) {
+        $scope.global.chosenAddElements.selectedGrids = angular.copy(results.data);
+      } else {
+        console.log(results);
+      }
+    });
+
+    localDB.selectDB($scope.global.visorsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
+      if (results.status) {
+        $scope.global.chosenAddElements.selectedVisors = angular.copy(results.data);
+      } else {
+        console.log(results);
+      }
+    });
+
+    localDB.selectDB($scope.global.spillwaysTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
+      if (results.status) {
+        $scope.global.chosenAddElements.selectedSpillways = angular.copy(results.data);
+      } else {
+        console.log(results);
+      }
+    });
+
+    localDB.selectDB($scope.global.outSlopesTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
+      if (results.status) {
+        $scope.global.chosenAddElements.selectedOutsideSlope = angular.copy(results.data);
+      } else {
+        console.log(results);
+      }
+    });
+
+    localDB.selectDB($scope.global.inSlopesTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
+      if (results.status) {
+        $scope.global.chosenAddElements.selectedInsideSlope = angular.copy(results.data);
+      } else {
+        console.log(results);
+      }
+    });
+
+    localDB.selectDB($scope.global.louversTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
+      if (results.status) {
+        $scope.global.chosenAddElements.selectedLouvers = angular.copy(results.data);
+      } else {
+        console.log(results);
+      }
+    });
+
+    localDB.selectDB($scope.global.connectorsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
+      if (results.status) {
+        $scope.global.chosenAddElements.selectedConnectors = angular.copy(results.data);
+      } else {
+        console.log(results);
+      }
+    });
+
+    localDB.selectDB($scope.global.fansTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
+      if (results.status) {
+        $scope.global.chosenAddElements.selectedFans = angular.copy(results.data);
+      } else {
+        console.log(results);
+      }
+    });
+
+    localDB.selectDB($scope.global.windowSillsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
+      if (results.status) {
+        $scope.global.chosenAddElements.selectedWindowSill = angular.copy(results.data);
+      } else {
+        console.log(results);
+      }
+    });
+
+    localDB.selectDB($scope.global.handlesTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
+      if (results.status) {
+        $scope.global.chosenAddElements.selectedHandles = angular.copy(results.data);
+      } else {
+        console.log(results);
+      }
+    });
+
+    localDB.selectDB($scope.global.othersTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
+      if (results.status) {
+        $scope.global.chosenAddElements.selectedOthers = angular.copy(results.data);
+      } else {
+        console.log(results);
+      }
+    });
+
+  };
+
+
+  //============== Download Product Data from localDB for Edit Product
+  $scope.downloadProductEDIT = function() {
+    localDB.selectDB($scope.global.productsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
+      if (results.status) {
+        var tempProduct = angular.copy(results.data);
+        $scope.global.product.constructName = tempProduct[0].templateName;
+        $scope.global.product.constructionWidth = tempProduct[0].productWidth;
+        $scope.global.product.constructionHeight = tempProduct[0].productHeight;
+        $scope.global.product.profileName = tempProduct[0].profileName;
+        $scope.global.product.glassName = tempProduct[0].glassName;
+        $scope.global.product.hardwareName = tempProduct[0].hardwareName;
+        $scope.global.product.laminationOuter = tempProduct[0].laminationOutName;
+        $scope.global.product.laminationInner = tempProduct[0].laminationInName;
+        $scope.global.product.productPrice = tempProduct[0].productPrice;
+        $scope.global.product.productQty = tempProduct[0].productQty;
+
+        $scope.global.templateSource.name = tempProduct[0].productName;
+        //$scope.global.templateSource.iconUrl = tempProduct[0].productIcon;
+        // change add element quantity as to product quantity
+        for (var prop in $scope.global.chosenAddElements) {
+          if (!$scope.global.chosenAddElements.hasOwnProperty(prop)) {
+            continue;
+          } else {
+            if ($scope.global.chosenAddElements[prop].length > 0) {
+              for (var elem = 0; elem < $scope.global.chosenAddElements[prop].length; elem++) {
+                $scope.global.chosenAddElements[prop][elem].elementQty *= $scope.global.product.productQty;
+              }
+            }
+          }
+        }
+
+      } else {
+        console.log(results);
+      }
+    });
+  };
+
+
+  //=============== Download Template from localDB for Edit Product
+  $scope.downloadTemplateSourceEDIT = function() {
+    localDB.selectDB($scope.global.componentsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
+      if (results.status) {
+        var tempTemplateSource = angular.copy(results.data);
+
+        var productTemplateSource = $scope.global.parseTemplateLocalDB(tempTemplateSource, $scope.global.productEditNumber);
+        productTemplateSource.name = $scope.global.product.constructName;
+
+        $scope.global.templateDefault = new Template(productTemplateSource, $scope.global.templateDepths);
+        $scope.global.product.constructThumb = new TemplateIcon(productTemplateSource, $scope.global.templateDepths);
+        console.log($scope.global.templateDefault);
+      } else {
+        console.log(results);
+      }
+    });
+  };
+
+  //================== parse Template from Local DB
+  $scope.global.parseTemplateLocalDB = function(tempTemplateSource, prod) {
+
+    var productIconSource = {},
+        componentsArr = [],
+        itemCounter = 0;
+
+    for (var item = 0; item < tempTemplateSource.length; item++) {
+      itemCounter++;
+      var componentObj = {};
+      for (var it = 0; it < tempTemplateSource.length; it++) {
+        if(tempTemplateSource[it].productId == prod && tempTemplateSource[it].componentsId == itemCounter) {
+          if(tempTemplateSource[it].property === 'parts' || tempTemplateSource[it].property === 'openType' || tempTemplateSource[it].property === 'widths' || tempTemplateSource[it].property === 'heights') {
+            var valuesArr = tempTemplateSource[it].value.split(',');
+            componentObj[tempTemplateSource[it].property] = valuesArr;
+          } else if(tempTemplateSource[it].property === 'from' || tempTemplateSource[it].property === 'to') {
+            var valuesArr = tempTemplateSource[it].value.split(',');
+            if(valuesArr.length > 1) {
+              componentObj[tempTemplateSource[it].property] = valuesArr;
+            } else {
+              componentObj[tempTemplateSource[it].property] = valuesArr[0];
+            }
+          } else {
+            componentObj[tempTemplateSource[it].property] = tempTemplateSource[it].value;
+          }
+        } else {
+          continue;
+        }
+      }
+      componentsArr.push(componentObj);
+    }
+    productIconSource.objects = componentsArr;
+    return productIconSource;
+  };
+
+
+
 
   //=============== Start download Product Data
   $scope.global.productInit = function () {
@@ -61,115 +248,13 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     if ($scope.global.productEditNumber) {
 
       //------ Download Add Elements from localDB
-      localDB.selectDB($scope.global.visorsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
-        if (results.status) {
-          $scope.global.chosenAddElements.selectedVisors = angular.copy(results.data);
-        } else {
-          console.log(results);
-        }
-      });
-      localDB.selectDB($scope.global.windowSillsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
-        if (results.status) {
-          $scope.global.chosenAddElements.selectedWindowSill = angular.copy(results.data);
-        } else {
-          console.log(results);
-        }
-      });
+      $scope.downloadAddElementsEDIT();
 
       //------ Download Product Data from localDB
-      localDB.selectDB($scope.global.productsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
-        if (results.status) {
-          var tempProduct = angular.copy(results.data);
-          $scope.global.product.constructThumb = tempProduct[0].productIcon;
-          $scope.global.product.constructionWidth = tempProduct[0].productWidth;
-          $scope.global.product.constructionHeight = tempProduct[0].productHeight;
-          $scope.global.product.profileName = tempProduct[0].profileName;
-          $scope.global.product.glassName = tempProduct[0].glassName;
-          $scope.global.product.hardwareName = tempProduct[0].hardwareName;
-          $scope.global.product.laminationOuter = tempProduct[0].laminationOutName;
-          $scope.global.product.laminationInner = tempProduct[0].laminationInName;
-          $scope.global.product.productPrice = tempProduct[0].productPrice;
-          $scope.global.product.productQty = tempProduct[0].productQty;
-
-          $scope.global.templateSource.name = tempProduct[0].productName;
-          //$scope.global.templateSource.iconUrl = tempProduct[0].productIcon;
-          // change add element quantity as to product quantity
-          for (var prop in $scope.global.chosenAddElements) {
-            if (!$scope.global.chosenAddElements.hasOwnProperty(prop)) {
-              continue;
-            } else {
-              if($scope.global.chosenAddElements[prop].length > 0) {
-                for(var elem = 0; elem < $scope.global.chosenAddElements[prop].length; elem++) {
-                  $scope.global.chosenAddElements[prop][elem].elementQty *= $scope.global.product.productQty;
-                }
-              }
-            }
-          }
-
-        } else {
-          console.log(results);
-        }
-      });
+      $scope.downloadProductEDIT();
 
       //------ Download Template from localDB
-      localDB.selectDB($scope.global.componentsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, 'productId': $scope.global.productEditNumber}, function (results) {
-        if (results.status) {
-          var tempTemplateSource = angular.copy(results.data),
-              componentsArr = [],
-              itemCounter = 0;
-
-          //------- parse template from Local DB
-          for(var item = 0; item < tempTemplateSource[tempTemplateSource.length - 1].componentsId; item++) {
-            itemCounter++;
-            var componentObj = {};
-            for(var obj = 0; obj < tempTemplateSource.length; obj++) {
-              switch(tempTemplateSource[obj].componentsId) {
-                case itemCounter:
-                  var propertyName,
-                      propertyValue,
-                      propertiesArr = tempTemplateSource[obj].property.split(':');
-
-                  for(var pr = 0; pr < propertiesArr.length; pr++) {
-
-                    var propElement = propertiesArr[pr].split('"');
-
-                    for(var el = 0; el < propElement.length; el++) {
-                      if (propElement[el] !== '') {
-                        if(pr === 0) {
-                          propertyName = propElement[el];
-                        } else if (pr === 1) {
-                          var propValue = propElement[el].split(',');
-                          if(propValue.length > 1) {
-                            propertyValue = propValue;
-                          } else {
-                            propertyValue = propValue[0];
-                          }
-                        }
-                      } else {
-                        continue;
-                      }
-                    }
-
-                  }
-                  componentObj[propertyName] = propertyValue;
-                  break;
-              }
-            }
-            componentsArr.push(componentObj);
-          }
-
-          $scope.global.templateSource.objects = componentsArr;
-          //console.log($scope.global.templateSource);
-          $scope.global.templateDefault = new Template($scope.global.templateSource, $scope.global.templateDepths);
-          //console.log($scope.global.templateDefault);
-        } else {
-          console.log(results);
-        }
-      });
-
-
-
-
+      $scope.downloadTemplateSourceEDIT();
 
 
     //================= Check new Product
@@ -216,7 +301,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
 
       //-------- get default json template
-      $scope.downloadDefaultTemplate = function() {
+      $scope.downloadAllTemplates = function() {
           constructService.getDefaultConstructTemplate(function (results) {
           if (results.status) {
 
@@ -298,7 +383,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
           $q.all(shtulpQueries).then(function (data) {
             $scope.downloadProfileElementSizes(data, 'shtulp');
           }).then(function () {
-            $scope.downloadDefaultTemplate();
+            $scope.downloadAllTemplates();
           });
       });
 
@@ -347,6 +432,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
 
 
+
+
   $scope.global.parseTemplate = function(profileIndex, profileId) {
     // парсинг шаблона, расчет размеров
     $scope.global.templateDepths = {
@@ -354,7 +441,6 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       sashDepth: $scope.global.allProfileSashSizes[profileIndex],
       impostDepth: $scope.global.allProfileImpostSizes[profileIndex],
       shtulpDepth: $scope.global.allProfileShtulpSizes[profileIndex]
-
     };
 
     for(var tem = 0; tem < $scope.global.templatesWindSource.length; tem++) {
@@ -393,7 +479,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     $scope.global.templateDefault = angular.copy($scope.global.templatesWindList[$scope.global.templateIndex]);
     $scope.global.product.constructThumb = angular.copy($scope.global.templatesWindThumbList[$scope.global.templateIndex]);
 
-    console.log($scope.global.templateDefault);
+    //console.log($scope.global.templateDefault);
 
     $scope.global.createObjXFormedPrice($scope.global.templateDefault, profileIndex, profileId, $scope.global.product.glassId);
   };
@@ -451,7 +537,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     $scope.global.objXFormedPrice.impostId = $scope.global.allProfileImpostSizes[profileIndex].id;
     $scope.global.objXFormedPrice.shtulpId = $scope.global.allProfileShtulpSizes[profileIndex].id;
 
-    console.log($scope.global.objXFormedPrice);
+    //console.log($scope.global.objXFormedPrice);
 
     //------ calculate coeffs
     $scope.global.calculateCoeffs();
@@ -459,9 +545,9 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     //--------- get product default price
     globalDB.calculationPrice($scope.global.objXFormedPrice, function (result) {
       if(result.status){
-        //console.log('find template price');
         //console.log(result.data);
-        $scope.global.product.productPrice = parseFloat(angular.copy(result.data.price));
+        $scope.global.constructionPriceTOTAL = parseFloat(angular.copy(result.data.price));
+        $scope.global.setProductPriceTOTAL();
         $scope.$apply();
         var currencySymbol = '';
         if (result.data.currentCurrency.name === 'uah') {
@@ -470,14 +556,16 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
         $scope.global.currency = currencySymbol;
         $scope.global.isFindPriceProcess = false;
         //console.log('price');
-        //console.log($scope.global.product.productPrice);
-        //console.log('orderNumber - ' + $scope.global.orderNumber);
 
       } else {
         console.log(result);
       }
     });
 
+  };
+
+  $scope.global.setProductPriceTOTAL = function() {
+    $scope.global.product.productPrice = $scope.global.constructionPriceTOTAL + $scope.global.hardwarePriceTOTAL + $scope.global.laminationPriceTOTAL + $scope.global.addElementsPriceTOTAL;
   };
 
 
@@ -622,19 +710,25 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
         $scope.global.productCounter = 1;
       }
     } else {
-      localDB.deleteDB($scope.global.productsTableBD, options);
-    }
 
+
+      //localDB.deleteDB($scope.global.productsTableBD, options);
+    }
 
     //-------- insert product into local DB
     productData = {
       "orderId": $scope.global.orderNumber,
       "productId": $scope.global.productCounter,
-      'productName': $scope.global.templateSource.name,
-      "productIcon": $scope.global.product.constructThumb,
+      "roomId": $scope.global.currentRoomId,
+      "heatCoeff": $scope.global.heatTransferTotal,
+      "airCoeff": $scope.global.airCirculationTotal,
+      "addElementsOnly": $scope.global.isAddElementsONLY,
+      'templateName': $scope.global.templateSource.name,
+      "templateIndex": $scope.global.templateIndex,
       "productWidth": $scope.global.product.constructionWidth,
       "productHeight": $scope.global.product.constructionHeight,
       "profileId": $scope.global.product.profileId,
+      "profileIndex": $scope.global.profileIndex,
       "profileName": $scope.global.product.profileName,
       "glassId": $scope.global.product.glassId,
       "glassName": $scope.global.product.glassName,
@@ -644,6 +738,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       "laminationOutName": $scope.global.product.laminationOuter,
       "laminationInId": $scope.global.product.laminationInnerId,
       "laminationInName": $scope.global.product.laminationInner,
+      "addElementsPrice": $scope.global.addElementsPriceTOTAL,
       "productPrice": parseFloat($scope.global.product.productPrice.toFixed(2)),
       "productQty": 1
     };
@@ -661,7 +756,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
             "orderId": $scope.global.orderNumber,
             "productId": $scope.global.productCounter,
             "componentsId": componentCount,
-            "property": JSON.stringify(prop + ':' + $scope.global.templateSource.objects[part][prop])
+            "property": prop,
+            "value": $scope.global.templateSource.objects[part][prop]
           };
           localDB.insertDB($scope.global.componentsTableBD, constructionData);
         }
@@ -678,6 +774,21 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       for (var elem = 0; elem < addElementsObj[prop].length; elem++) {
 
         switch (prop) {
+
+          case 'selectedGrids':
+            addElementsData = {
+              "orderId": $scope.global.orderNumber,
+              "productId": $scope.global.productCounter,
+              "elementId": addElementsObj[prop][elem].elementId,
+              "elementType": addElementsObj[prop][elem].elementType,
+              "elementName": addElementsObj[prop][elem].elementName,
+              "elementQty": addElementsObj[prop][elem].elementQty,
+              //"elementWidth": addElementsObj[prop][elem].elementWidth,
+              "elementPrice": addElementsObj[prop][elem].elementPrice
+            };
+            localDB.insertDB($scope.global.gridsTableBD, addElementsData);
+            break;
+
           case 'selectedVisors':
             addElementsData = {
               "orderId": $scope.global.orderNumber,
@@ -690,6 +801,90 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
               "elementPrice": addElementsObj[prop][elem].elementPrice
             };
             localDB.insertDB($scope.global.visorsTableBD, addElementsData);
+            break;
+
+          case 'selectedSpillways':
+            addElementsData = {
+              "orderId": $scope.global.orderNumber,
+              "productId": $scope.global.productCounter,
+              "elementId": addElementsObj[prop][elem].elementId,
+              "elementType": addElementsObj[prop][elem].elementType,
+              "elementName": addElementsObj[prop][elem].elementName,
+              "elementQty": addElementsObj[prop][elem].elementQty,
+              "elementWidth": addElementsObj[prop][elem].elementWidth,
+              "elementPrice": addElementsObj[prop][elem].elementPrice
+            };
+            localDB.insertDB($scope.global.spillwaysTableBD, addElementsData);
+            break;
+
+          case 'selectedOutsideSlope':
+            addElementsData = {
+              "orderId": $scope.global.orderNumber,
+              "productId": $scope.global.productCounter,
+              "elementId": addElementsObj[prop][elem].elementId,
+              "elementType": addElementsObj[prop][elem].elementType,
+              "elementName": addElementsObj[prop][elem].elementName,
+              "elementQty": addElementsObj[prop][elem].elementQty,
+              //"elementWidth": addElementsObj[prop][elem].elementWidth,
+              "elementPrice": addElementsObj[prop][elem].elementPrice
+            };
+            localDB.insertDB($scope.global.outSlopesTableBD, addElementsData);
+            break;
+
+          case 'selectedInsideSlope':
+            addElementsData = {
+              "orderId": $scope.global.orderNumber,
+              "productId": $scope.global.productCounter,
+              "elementId": addElementsObj[prop][elem].elementId,
+              "elementType": addElementsObj[prop][elem].elementType,
+              "elementName": addElementsObj[prop][elem].elementName,
+              "elementQty": addElementsObj[prop][elem].elementQty,
+              //"elementWidth": addElementsObj[prop][elem].elementWidth,
+              "elementPrice": addElementsObj[prop][elem].elementPrice
+            };
+            localDB.insertDB($scope.global.inSlopesTableBD, addElementsData);
+            break;
+
+          case 'selectedLouvers':
+            addElementsData = {
+              "orderId": $scope.global.orderNumber,
+              "productId": $scope.global.productCounter,
+              "elementId": addElementsObj[prop][elem].elementId,
+              "elementType": addElementsObj[prop][elem].elementType,
+              "elementName": addElementsObj[prop][elem].elementName,
+              "elementQty": addElementsObj[prop][elem].elementQty,
+              "elementWidth": addElementsObj[prop][elem].elementWidth,
+              "elementHeight": addElementsObj[prop][elem].elementHeight,
+              "elementPrice": addElementsObj[prop][elem].elementPrice
+            };
+            localDB.insertDB($scope.global.louversTableBD, addElementsData);
+            break;
+
+          case 'selectedConnectors':
+            addElementsData = {
+              "orderId": $scope.global.orderNumber,
+              "productId": $scope.global.productCounter,
+              "elementId": addElementsObj[prop][elem].elementId,
+              "elementType": addElementsObj[prop][elem].elementType,
+              "elementName": addElementsObj[prop][elem].elementName,
+              "elementQty": addElementsObj[prop][elem].elementQty,
+              "elementWidth": addElementsObj[prop][elem].elementWidth,
+              "elementPrice": addElementsObj[prop][elem].elementPrice
+            };
+            localDB.insertDB($scope.global.connectorsTableBD, addElementsData);
+            break;
+
+          case 'selectedFans':
+            addElementsData = {
+              "orderId": $scope.global.orderNumber,
+              "productId": $scope.global.productCounter,
+              "elementId": addElementsObj[prop][elem].elementId,
+              "elementType": addElementsObj[prop][elem].elementType,
+              "elementName": addElementsObj[prop][elem].elementName,
+              "elementQty": addElementsObj[prop][elem].elementQty,
+              "elementPrice": addElementsObj[prop][elem].elementPrice
+            };
+            localDB.insertDB($scope.global.fansTableBD, addElementsData);
             break;
 
           case 'selectedWindowSill':
@@ -707,6 +902,32 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
             localDB.insertDB($scope.global.windowSillsTableBD, addElementsData);
             break;
 
+          case 'selectedHandles':
+            addElementsData = {
+              "orderId": $scope.global.orderNumber,
+              "productId": $scope.global.productCounter,
+              "elementId": addElementsObj[prop][elem].elementId,
+              "elementType": addElementsObj[prop][elem].elementType,
+              "elementName": addElementsObj[prop][elem].elementName,
+              "elementQty": addElementsObj[prop][elem].elementQty,
+              "elementPrice": addElementsObj[prop][elem].elementPrice
+            };
+            localDB.insertDB($scope.global.handlesTableBD, addElementsData);
+            break;
+
+          case 'selectedOthers':
+            addElementsData = {
+              "orderId": $scope.global.orderNumber,
+              "productId": $scope.global.productCounter,
+              "elementId": addElementsObj[prop][elem].elementId,
+              "elementType": addElementsObj[prop][elem].elementType,
+              "elementName": addElementsObj[prop][elem].elementName,
+              "elementQty": addElementsObj[prop][elem].elementQty,
+              "elementPrice": addElementsObj[prop][elem].elementPrice
+            };
+            localDB.insertDB($scope.global.othersTableBD, addElementsData);
+            break;
+
         }
       }
     }
@@ -715,10 +936,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   //--------- moving to Cart when click on Cart button
   $scope.movetoCart = function() {
     $timeout(function(){
-      console.log($scope.global.productCounter);
-      console.log($scope.global.productEditNumber);
-      //$scope.global.gotoCartPage();
-    }, 2*STEP);
+      $scope.global.gotoCartPage();
+    }, 3*STEP);
   };
 
 

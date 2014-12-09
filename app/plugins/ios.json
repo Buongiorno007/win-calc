@@ -83,6 +83,18 @@
                         {
                             "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"StatusBar\"><param name=\"ios-package\" onload=\"true\" value=\"CDVStatusBar\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"StatusBarOverlaysWebView\" value=\"true\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"StatusBarStyle\" value=\"lightcontent\" />",
+                            "count": 1
                         }
                     ]
                 }
@@ -119,6 +131,9 @@
             "PACKAGE_NAME": "net.voice-creator.app"
         },
         "org.apache.cordova.console": {
+            "PACKAGE_NAME": "net.voice-creator.app"
+        },
+        "org.apache.cordova.statusbar": {
             "PACKAGE_NAME": "net.voice-creator.app"
         }
     },

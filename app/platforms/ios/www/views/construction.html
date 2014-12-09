@@ -57,12 +57,14 @@
               <td colspan="2">
                 <div class="calc-interval">
                   <div class="interval">
-                    <div class="calc-value-limit">0</div>
-                    <div class="calc-label-limit">min.</div>
+                    <div ng-hide="global.isConstructSizeCalculator" class="calc-value-limit">0</div>
+                    <div ng-show="global.isConstructSizeCalculator" ng-class="{'restriction': constructData.isMinSizeRestriction}" class="calc-value-limit">{{ constructData.minSizeLimit }}</div>
+                    <div class="calc-label-limit">{{ 'common_words.MIN' | translate }}</div>
                   </div>
                   <div class="interval">
-                    <div class="calc-value-limit">5000</div>
-                    <div class="calc-label-limit">max.</div>
+                    <div ng-hide="global.isConstructSizeCalculator" class="calc-value-limit">5000</div>
+                    <div ng-show="global.isConstructSizeCalculator" ng-class="{'restriction': constructData.isMaxSizeRestriction}" class="calc-value-limit">{{ constructData.maxSizeLimit }}</div>
+                    <div class="calc-label-limit">{{ 'common_words.MAX' | translate }}</div>
                   </div>
                 </div>
               </td>

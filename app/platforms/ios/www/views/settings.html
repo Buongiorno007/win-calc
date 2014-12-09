@@ -6,7 +6,8 @@
   </div>
   <div class="setting-container">
     <div class="setting-user-foto">
-      <div class="change-foto">{{ 'common_words.CHANGE' | translate }}</div>
+      <!--img(ng-crs="global.AvatarUrl")-->
+      <div ng-click="changeAvatar()" class="change-foto">{{ 'common_words.CHANGE' | translate }}</div>
     </div>
     <div class="lists">
       <ul class="list">
@@ -62,10 +63,10 @@
         </li>
       </ul>
       <ul class="list">
-        <li class="item click">
-          <div data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-data"></div>
-          <div class="setting-item-change"></div>
-        </li>
+        <!--li.item.click
+        .setting-item-data(data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
+        .setting-item-change
+        -->
         <li class="item click">
           <div data-output="{{ 'settings.CLIENT_SUPPORT' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-data"></div>
           <div class="setting-item-change"></div>
