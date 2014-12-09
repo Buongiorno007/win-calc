@@ -25,7 +25,7 @@ window.russianDictionary = {
     PASSWORD: 'Пароль'
   },
   mainpage: {
-    MM: ' мм',
+    MM: ' мм ',
     CLIMATE_ZONE: 'климатическая зона',
     THERMAL_RESISTANCE: 'сопротивление теплопередаче',
     AIR_CIRCULATION: 'коэффициент воздухообмена',
