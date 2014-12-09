@@ -542,9 +542,9 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     //--------- get product default price
     globalDB.calculationPrice($scope.global.objXFormedPrice, function (result) {
       if(result.status){
-        //console.log('find template price');
         //console.log(result.data);
-        $scope.global.product.productPrice = parseFloat(angular.copy(result.data.price));
+        $scope.global.constructionPriceTOTAL = parseFloat(angular.copy(result.data.price));
+        $scope.global.setProductPriceTOTAL();
         $scope.$apply();
         var currencySymbol = '';
         if (result.data.currentCurrency.name === 'uah') {
@@ -553,14 +553,16 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
         $scope.global.currency = currencySymbol;
         $scope.global.isFindPriceProcess = false;
         //console.log('price');
-        //console.log($scope.global.product.productPrice);
-        //console.log('orderNumber - ' + $scope.global.orderNumber);
 
       } else {
         console.log(result);
       }
     });
 
+  };
+
+  $scope.global.setProductPriceTOTAL = function() {
+    $scope.global.product.productPrice = $scope.global.constructionPriceTOTAL + $scope.global.hardwarePriceTOTAL + $scope.global.laminationPriceTOTAL + $scope.global.addElementsPriceTOTAL;
   };
 
 

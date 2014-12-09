@@ -1119,7 +1119,7 @@ BauVoiceApp.factory('constructService', function ($q) {
           [
             {
               glassId: 145,
-              glassName: '4/24/4/16/4i555555555',
+              glassName: '4/16/4',
               glassUrl: '../img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
@@ -1129,7 +1129,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             },
             {
               glassId: 146,
-              glassName: '4/24/4',
+              glassName: '6/14/4',
               glassUrl: '../img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 5,
@@ -1139,7 +1139,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             },
             {
               glassId: 147,
-              glassName: '4/24/4/16/4i',
+              glassName: '6/12/6',
               glassUrl: '../img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 1,
@@ -1151,7 +1151,7 @@ BauVoiceApp.factory('constructService', function ($q) {
           [
             {
               glassId: 149,
-              glassName: '4/24/4/16/4i555555555',
+              glassName: '4/10/4/10/4',
               glassUrl: '../img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
@@ -1161,7 +1161,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             },
             {
               glassId: 150,
-              glassName: '4/24/4/16/4i555555555',
+              glassName: '4/8/4/12/4',
               glassUrl: '../img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 1,
@@ -1173,7 +1173,7 @@ BauVoiceApp.factory('constructService', function ($q) {
           [
             {
               glassId: 152,
-              glassName: '4/24/4/16/4i555555555',
+              glassName: '4/16/4i',
               glassUrl: '../img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,

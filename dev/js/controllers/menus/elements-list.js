@@ -63,13 +63,10 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
 
       sourceAddElement = $scope.global.addElementsList[typeId][elementId];
       cloneAddElement = angular.copy(sourceAddElement);
-      //cloneAddElement = $.extend(true, {}, sourceAddElement);
 
-      // Show element price
+      // Show current add element price
       $scope.addElementsMenu.isAddElementPrice = true;
-      //$scope.price = $scope.global.addElementsList[typeId][elementId].elementPrice;
       $scope.currAddElementPrice = sourceAddElement.elementPrice;
-      $scope.global.totalAddElementsPrice += $scope.currAddElementPrice;
 
       switch($scope.global.isFocusedAddElement) {
         case 1:
@@ -121,8 +118,25 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
         $scope.global.isAddElement = 1;
       }
     }
+    //Set Total Product Price
+    $scope.setAddElementsTotalPrice();
   };
 
+  $scope.setAddElementsTotalPrice = function() {
+    $scope.global.addElementsPriceTOTAL = 0;
+    for (var prop in $scope.global.chosenAddElements) {
+      if (!$scope.global.chosenAddElements.hasOwnProperty(prop)) {
+        continue;
+      } else {
+        if ($scope.global.chosenAddElements[prop].length > 0) {
+          for (var elem = 0; elem < $scope.global.chosenAddElements[prop].length; elem++) {
+            $scope.global.addElementsPriceTOTAL += $scope.global.chosenAddElements[prop][elem].elementQty * $scope.global.chosenAddElements[prop][elem].elementPrice;
+          }
+        }
+      }
+    }
+    $scope.global.setProductPriceTOTAL();
+  };
 
   // Select Add Element when open List View
   $scope.selectElementListView = function(typeId, elementId, clickEvent) {
@@ -191,6 +205,8 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
         break;
     }
     $scope.global.desactiveAddElementParameters();
+    //Set Total Product Price
+    $scope.setAddElementsTotalPrice();
   };
 
   // Close AddElements Menu
@@ -238,7 +254,13 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
         }
         break;
       case 7:
-
+        if($scope.global.chosenAddElements.selectedConnectors[elementId].elementQty < 2 && newValue < 0) {
+          break;
+        } else if($scope.global.chosenAddElements.selectedConnectors[elementId].elementQty < 6 && newValue == -5) {
+          break;
+        } else {
+          $scope.global.chosenAddElements.selectedConnectors[elementId].elementQty += newValue;
+        }
         break;
       case 9:
         if($scope.global.chosenAddElements.selectedWindowSill[elementId].elementQty < 2 && newValue < 0) {
@@ -259,6 +281,8 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
         }
         break;
     }
+    //Set Total Product Price
+    $scope.setAddElementsTotalPrice();
   };
 
   // Close Qty Calculator
@@ -316,7 +340,7 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
           $scope.global.chosenAddElements.selectedLouvers[elementId].elementWidth = newElementSize;
           break;
         case 7:
-
+          //$scope.global.chosenAddElements.selectedConnectors[elementId].elementWidth = newElementSize;
           break;
         case 9:
           $scope.global.chosenAddElements.selectedWindowSill[elementId].elementWidth = newElementSize;

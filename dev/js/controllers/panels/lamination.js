@@ -6,6 +6,9 @@ BauVoiceApp.controller('LaminationCtrl', ['$scope', 'constructService', 'localSt
 
   $scope.global = localStorage;
 
+  $scope.laminationInPrice = 0;
+  $scope.laminationOutPrice = 0;
+
   $scope.laminationPanel = {
     DELAY_START: 5 * STEP,
     DELAY_BLOCK: 2 * STEP,
@@ -30,9 +33,12 @@ BauVoiceApp.controller('LaminationCtrl', ['$scope', 'constructService', 'localSt
     $scope.laminationPanel.isSelectedLaminatInner = laminatId;
     if(laminatId !== 'white') {
       $scope.global.product.laminationInner = $scope.laminationPanel.laminatIn[laminatId].laminationName;
-      $scope.global.product.productPrice += $scope.laminationPanel.laminatIn[laminatId].laminationPrice;
+      $scope.laminationInPrice = $scope.laminationPanel.laminatIn[laminatId].laminationPrice;
+      $scope.setLaminationTotalPrice();
     } else {
       $scope.global.product.laminationInner =  $scope.laminationPanel.laminatWhite;
+      $scope.laminationInPrice = 0;
+      $scope.setLaminationTotalPrice();
     }
   };
 
@@ -40,10 +46,18 @@ BauVoiceApp.controller('LaminationCtrl', ['$scope', 'constructService', 'localSt
     $scope.laminationPanel.isSelectedLaminatOuter = laminatId;
     if(laminatId !== 'white') {
       $scope.global.product.laminationOuter = $scope.laminationPanel.laminatOut[laminatId].laminationName;
-      $scope.global.product.productPrice += $scope.laminationPanel.laminatOut[laminatId].laminationPrice;
+      $scope.laminationOutPrice = $scope.laminationPanel.laminatOut[laminatId].laminationPrice;
+      $scope.setLaminationTotalPrice();
     } else {
       $scope.global.product.laminationOuter =  $scope.laminationPanel.laminatWhite;
+      $scope.laminationOutPrice = 0;
+      $scope.setLaminationTotalPrice();
     }
+  };
+
+  $scope.setLaminationTotalPrice = function() {
+    $scope.global.laminationPriceTOTAL = $scope.laminationInPrice + $scope.laminationOutPrice;
+    $scope.global.setProductPriceTOTAL();
   };
 
 }]);
