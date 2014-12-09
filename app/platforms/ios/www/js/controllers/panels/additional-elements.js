@@ -5,7 +5,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'constructService', 'localStorage', '$timeout', function ($scope, constructService, localStorage, $timeout) {
+BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'localDB', 'constructService', 'localStorage', '$timeout', function ($scope, localDB, constructService, localStorage, $timeout) {
 
   $scope.global = localStorage;
 
@@ -57,6 +57,15 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'constructService', 
     switch(id) {
       case 1:
         $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[0];
+/*
+        localDB.selectDBGlobal($scope.global.listsTableDBGlobal, {'list_group_id': $scope.global.gridDBId}, function (results) {
+          if (results.status) {
+            $scope.global.addElementsList = [angular.copy(results.data)];
+          } else {
+            console.log(results);
+          }
+        });
+*/
         constructService.getAllGrids(function (results) {
           if (results.status) {
             $scope.global.addElementsType = results.data.elementType;
@@ -68,6 +77,15 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'constructService', 
         break;
       case 2:
         $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[1];
+/*
+        localDB.selectDBGlobal($scope.global.listsTableDBGlobal, {'list_group_id': $scope.global.visorDBId}, function (results) {
+          if (results.status) {
+            $scope.global.addElementsList = [angular.copy(results.data)];
+          } else {
+            console.log(results);
+          }
+        });
+*/
         constructService.getAllVisors(function (results) {
           if (results.status) {
             $scope.global.addElementsType = results.data.elementType;
@@ -79,6 +97,15 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'constructService', 
         break;
       case 3:
         $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[2];
+/*
+        localDB.selectDBGlobal($scope.global.listsTableDBGlobal, {'list_group_id': $scope.global.spillwayDBId}, function (results) {
+          if (results.status) {
+            $scope.global.addElementsList = [angular.copy(results.data)];
+          } else {
+            console.log(results);
+          }
+        });
+*/
         constructService.getAllSpillways(function (results) {
           if (results.status) {
             $scope.global.addElementsType = results.data.elementType;
@@ -145,6 +172,15 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'constructService', 
         break;
       case 9:
         $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[8];
+/*
+        localDB.selectDBGlobal($scope.global.listsTableDBGlobal, {'list_group_id': $scope.global.windowsillDBId}, function (results) {
+          if (results.status) {
+            $scope.global.addElementsList = [angular.copy(results.data)];
+          } else {
+            console.log(results);
+          }
+        });
+*/
         constructService.getAllWindowSills(function (results) {
           if (results.status) {
             $scope.global.addElementsType = results.data.elementType;

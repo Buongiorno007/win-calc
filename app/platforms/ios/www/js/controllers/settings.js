@@ -26,6 +26,23 @@ BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalDB', 'localStorage', '$
     $scope.settings.addPhones = $scope.global.userInfo.contact_name.split(',');
   }
 
+  //----- change avatar
+  $scope.changeAvatar = function() {
+    navigator.camera.getPicture( function( data ) {
+      $scope.global.AvatarUrl = 'data:image/jpeg;base64,' + data;
+    }, function( error ) {
+      console.log( 'Error upload user avatar' + error );
+      console.log($scope.global.AvatarUrl);
+    }, {
+      destinationType: Camera.DestinationType.DATA_URL,
+      sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+      allowEdit: false,
+      targetWidth: 76,
+      targetHeight: 76,
+      mediaType: Camera.MediaType.PICTURE
+    } );
+  };
+
   $scope.changeSettingData = function(id, obj) {
     $scope.settings.selectedSetting = id;
     findInput(obj.currentTarget.id);
@@ -109,9 +126,19 @@ BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalDB', 'localStorage', '$
     //------- clearing local DB
     localDB.deleteTable($scope.global.productsTableBD);
     localDB.deleteTable($scope.global.componentsTableBD);
+    localDB.deleteTable($scope.global.gridsTableBD);
     localDB.deleteTable($scope.global.visorsTableBD);
+    localDB.deleteTable($scope.global.spillwaysTableBD);
+    localDB.deleteTable($scope.global.outSlopesTableBD);
+    localDB.deleteTable($scope.global.inSlopesTableBD);
+    localDB.deleteTable($scope.global.louversTableBD);
+    localDB.deleteTable($scope.global.connectorsTableBD);
+    localDB.deleteTable($scope.global.fansTableBD);
     localDB.deleteTable($scope.global.windowSillsTableBD);
+    localDB.deleteTable($scope.global.handlesTableBD);
+    localDB.deleteTable($scope.global.othersTableBD);
     localDB.deleteTable($scope.global.ordersTableBD);
+
     $location.path('/login');
   };
 

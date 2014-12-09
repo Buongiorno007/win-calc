@@ -25,6 +25,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
       });
 
       function buildTemplateSVG(template, canvasWidth, canvasHeight) {
+        //console.log(template);
         var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"),
             draw = SVG(svg).size(canvasWidth, canvasHeight),
             sizeClass = 'size-box',
@@ -105,9 +106,10 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               break;
 
             case 'dimensionsH':
-              var dim = {}, height = template.objects[i].height * template.objects[i].level,
-                heightSizeLine = height;
-              dim.lines = [];
+              var dim = {},
+                  height = template.objects[i].height * template.objects[i].level,
+                  heightSizeLine = height;
+                  dim.lines = [];
 
               if(template.objects[i].side === 'top') {
                 if(+template.objects[i].level > 1) {
@@ -150,6 +152,10 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               dim.lengthVal =  template.objects[i].lengthVal;
               dim.textX = + template.objects[i].fromPoint.x + (template.objects[i].lengthVal / 2);
               dim.id = template.objects[i].id;
+              dim.sizeType = template.objects[i].type;
+              if(template.objects[i].limits) {
+                dim.limits = template.objects[i].limits;
+              }
               elementsSVG.dimensionsH.push(dim);
 
               //-------- scale svg
@@ -162,8 +168,10 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               break;
 
             case 'dimensionsV':
-              var dim = {}, height = template.objects[i].height * template.objects[i].level;
-              dim.lines = [];
+              var dim = {},
+                  height = template.objects[i].height * template.objects[i].level;
+                  dim.lines = [];
+
               if(template.objects[i].side === 'right') {
                 dim.lines[0] = template.objects[i].fromPoint.x  + ' ' +
                   template.objects[i].fromPoint.y  + ' ' +
@@ -204,6 +212,10 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               dim.lengthVal =  template.objects[i].lengthVal;
               dim.textY = (template.objects[i].lengthVal / 2);
               dim.id = template.objects[i].id;
+              dim.sizeType = template.objects[i].type;
+              if(template.objects[i].limits) {
+                dim.limits = template.objects[i].limits;
+              }
               elementsSVG.dimensionsV.push(dim);
 
               //-------- scale svg
@@ -324,6 +336,9 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                    }
                    */
                   sizeText.attr({id: elementsSVG[prop][elem].id});
+                  sizeText.attr({limits: elementsSVG[prop][elem].limits});
+                  sizeText.attr({type: elementsSVG[prop][elem].sizeType});
+
                   if(scope.typeConstruction === 'edit') { //----- if construction is aditible
                     if(prop === 'dimensionsV') {
                       sizeText.attr('class', 'size-value-edit-vertical');

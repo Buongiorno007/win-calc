@@ -23,7 +23,7 @@ BauVoiceApp.directive('typing', function () {
         setTimeout(function () {
           var source = scope.output,
               text = '',
-              NEXT_CHAR_DELAY = 100,
+              NEXT_CHAR_DELAY = 50,
               timerId,
               hasChar;
 

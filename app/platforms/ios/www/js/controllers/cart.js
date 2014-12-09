@@ -11,6 +11,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
   $scope.cart = {
     allAddElements: [],
+    allTemplateIcons: [],
     isAddElementDetail: false
   };
 
@@ -23,7 +24,17 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   //------- finish edit product
   $scope.global.productEditNumber = 0;
 
-  //------ Download Add Elements from localDB
+
+
+  //------ Download All Add Elements for Order
+  localDB.selectDB($scope.global.gridsTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
+    if (results.status) {
+      $scope.cart.allGridsDB = angular.copy(results.data);
+    } else {
+      console.log(results);
+    }
+  });
+
   localDB.selectDB($scope.global.visorsTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
     if (results.status) {
       $scope.cart.allVisorsDB = angular.copy(results.data);
@@ -31,6 +42,55 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
       console.log(results);
     }
   });
+
+  localDB.selectDB($scope.global.spillwaysTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
+    if (results.status) {
+      $scope.cart.allSpillwaysDB = angular.copy(results.data);
+    } else {
+      console.log(results);
+    }
+  });
+
+  localDB.selectDB($scope.global.outSlopesTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
+    if (results.status) {
+      $scope.cart.allOutSlopesDB = angular.copy(results.data);
+    } else {
+      console.log(results);
+    }
+  });
+
+  localDB.selectDB($scope.global.inSlopesTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
+    if (results.status) {
+      $scope.cart.allInSlopesDB = angular.copy(results.data);
+    } else {
+      console.log(results);
+    }
+  });
+
+  localDB.selectDB($scope.global.louversTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
+    if (results.status) {
+      $scope.cart.allLouversDB = angular.copy(results.data);
+    } else {
+      console.log(results);
+    }
+  });
+
+  localDB.selectDB($scope.global.connectorsTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
+    if (results.status) {
+      $scope.cart.allConnectorsDB = angular.copy(results.data);
+    } else {
+      console.log(results);
+    }
+  });
+
+  localDB.selectDB($scope.global.fansTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
+    if (results.status) {
+      $scope.cart.allFansDB = angular.copy(results.data);
+    } else {
+      console.log(results);
+    }
+  });
+
   localDB.selectDB($scope.global.windowSillsTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
     if (results.status) {
       $scope.cart.allWindowSillsDB = angular.copy(results.data);
@@ -39,43 +99,175 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     }
   });
 
-  //------ Download Products Data from localDB
-  localDB.selectDB($scope.global.productsTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
-  //localDB.selectAllDB($scope.global.productsTableBD, function (results) {
+  localDB.selectDB($scope.global.handlesTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
     if (results.status) {
-      $scope.cart.productObjSource = angular.copy(results.data);
-      $scope.global.productObj = angular.copy(results.data);
-      $scope.global.productCounter = $scope.global.productObj.length;
-
-      $scope.global.calculateOrderPrice();
-      $scope.global.orderTotalPrice = $scope.global.orderPrice;
-
-      for(prod = 0; prod < $scope.global.productCounter; prod++) {
-
-        product = [];
-        if($scope.cart.allVisorsDB && $scope.cart.allVisorsDB.length > 0) {
-          for(var elem = 0; elem < $scope.cart.allVisorsDB.length; elem++) {
-            if($scope.cart.allVisorsDB[elem].productId === $scope.global.productObj[prod].productId) {
-              product.push($scope.cart.allVisorsDB[elem]);
-            }
-          }
-        }
-
-        if($scope.cart.allWindowSillsDB && $scope.cart.allWindowSillsDB.length > 0) {
-          for (var elem = 0; elem < $scope.cart.allWindowSillsDB.length; elem++) {
-            if ($scope.cart.allWindowSillsDB[elem].productId === $scope.global.productObj[prod].productId) {
-              product.push($scope.cart.allWindowSillsDB[elem]);
-            }
-          }
-        }
-
-        $scope.cart.allAddElements.push(product);
-      }
-      $scope.cart.allAddElementsSource = angular.copy($scope.cart.allAddElements);
+      $scope.cart.allHandlesDB = angular.copy(results.data);
     } else {
       console.log(results);
     }
   });
+
+  localDB.selectDB($scope.global.othersTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
+    if (results.status) {
+      $scope.cart.allOthersDB = angular.copy(results.data);
+    } else {
+      console.log(results);
+    }
+  });
+
+
+  //------ Download All Products Data for Order
+  localDB.selectDB($scope.global.productsTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
+  //localDB.selectAllDB($scope.global.productsTableBD, function (results) {
+    if (results.status) {
+      $scope.cart.productObjSource = angular.copy(results.data);
+      //$scope.global.productObj = angular.copy(results.data);
+      //$scope.global.productCounter = $scope.global.productObj.length;
+
+      var productObj = angular.copy(results.data);
+      var productCounter = productObj.length;
+
+
+      //------------- Download All Templates for Order
+      localDB.selectDB($scope.global.componentsTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
+        if (results.status) {
+          $scope.global.productObj = productObj;
+          $scope.global.productCounter = productCounter;
+          console.log($scope.global.productObj);
+          var tempTemplateSource = angular.copy(results.data);
+          for(var prod = 1; prod <=  $scope.global.productCounter; prod++) {
+            var productIconSource,
+                productIcon;
+            //------ if Add Elements only
+            if($scope.global.productObj.addElementsOnly) {
+              productIcon = {};
+            } else {
+              productIconSource = $scope.global.parseTemplateLocalDB(tempTemplateSource, prod);
+              productIcon = new TemplateIcon(productIconSource, $scope.global.templateDepths);
+            }
+
+            $scope.cart.allTemplateIcons.push(productIcon);
+            $scope.global.productObj[prod-1].icon = productIcon;
+
+          }
+          console.log($scope.cart.allTemplateIcons);
+
+          $scope.global.calculateOrderPrice();
+          $scope.global.orderTotalPrice = $scope.global.orderPrice;
+
+          $scope.parseAddElements();
+
+        } else {
+          console.log(results);
+        }
+      });
+
+    } else {
+      console.log(results);
+    }
+  });
+
+
+
+  $scope.parseAddElements = function() {
+    for(prod = 0; prod < $scope.global.productCounter; prod++) {
+
+      product = [];
+
+      if($scope.cart.allGridsDB && $scope.cart.allGridsDB.length > 0) {
+        for(var elem = 0; elem < $scope.cart.allGridsDB.length; elem++) {
+          if($scope.cart.allGridsDB[elem].productId === $scope.global.productObj[prod].productId) {
+            product.push($scope.cart.allGridsDB[elem]);
+          }
+        }
+      }
+
+      if($scope.cart.allVisorsDB && $scope.cart.allVisorsDB.length > 0) {
+        for(var elem = 0; elem < $scope.cart.allVisorsDB.length; elem++) {
+          if($scope.cart.allVisorsDB[elem].productId === $scope.global.productObj[prod].productId) {
+            product.push($scope.cart.allVisorsDB[elem]);
+          }
+        }
+      }
+
+      if($scope.cart.allSpillwaysDB && $scope.cart.allSpillwaysDB.length > 0) {
+        for(var elem = 0; elem < $scope.cart.allSpillwaysDB.length; elem++) {
+          if($scope.cart.allSpillwaysDB[elem].productId === $scope.global.productObj[prod].productId) {
+            product.push($scope.cart.allSpillwaysDB[elem]);
+          }
+        }
+      }
+
+      if($scope.cart.allOutSlopesDB && $scope.cart.allOutSlopesDB.length > 0) {
+        for(var elem = 0; elem < $scope.cart.allOutSlopesDB.length; elem++) {
+          if($scope.cart.allOutSlopesDB[elem].productId === $scope.global.productObj[prod].productId) {
+            product.push($scope.cart.allOutSlopesDB[elem]);
+          }
+        }
+      }
+
+      if($scope.cart.allInSlopesDB && $scope.cart.allInSlopesDB.length > 0) {
+        for(var elem = 0; elem < $scope.cart.allInSlopesDB.length; elem++) {
+          if($scope.cart.allInSlopesDB[elem].productId === $scope.global.productObj[prod].productId) {
+            product.push($scope.cart.allInSlopesDB[elem]);
+          }
+        }
+      }
+
+      if($scope.cart.allLouversDB && $scope.cart.allLouversDB.length > 0) {
+        for(var elem = 0; elem < $scope.cart.allLouversDB.length; elem++) {
+          if($scope.cart.allLouversDB[elem].productId === $scope.global.productObj[prod].productId) {
+            product.push($scope.cart.allLouversDB[elem]);
+          }
+        }
+      }
+
+      if($scope.cart.allConnectorsDB && $scope.cart.allConnectorsDB.length > 0) {
+        for(var elem = 0; elem < $scope.cart.allConnectorsDB.length; elem++) {
+          if($scope.cart.allConnectorsDB[elem].productId === $scope.global.productObj[prod].productId) {
+            product.push($scope.cart.allConnectorsDB[elem]);
+          }
+        }
+      }
+
+      if($scope.cart.allFansDB && $scope.cart.allFansDB.length > 0) {
+        for(var elem = 0; elem < $scope.cart.allFansDB.length; elem++) {
+          if($scope.cart.allFansDB[elem].productId === $scope.global.productObj[prod].productId) {
+            product.push($scope.cart.allFansDB[elem]);
+          }
+        }
+      }
+
+      if($scope.cart.allWindowSillsDB && $scope.cart.allWindowSillsDB.length > 0) {
+        for (var elem = 0; elem < $scope.cart.allWindowSillsDB.length; elem++) {
+          if ($scope.cart.allWindowSillsDB[elem].productId === $scope.global.productObj[prod].productId) {
+            product.push($scope.cart.allWindowSillsDB[elem]);
+          }
+        }
+      }
+
+      if($scope.cart.allHandlesDB && $scope.cart.allHandlesDB.length > 0) {
+        for (var elem = 0; elem < $scope.cart.allHandlesDB.length; elem++) {
+          if ($scope.cart.allHandlesDB[elem].productId === $scope.global.productObj[prod].productId) {
+            product.push($scope.cart.allHandlesDB[elem]);
+          }
+        }
+      }
+
+      if($scope.cart.allOthersDB && $scope.cart.allOthersDB.length > 0) {
+        for (var elem = 0; elem < $scope.cart.allOthersDB.length; elem++) {
+          if ($scope.cart.allOthersDB[elem].productId === $scope.global.productObj[prod].productId) {
+            product.push($scope.cart.allOthersDB[elem]);
+          }
+        }
+      }
+      console.log(product);
+      $scope.cart.allAddElements.push(product);
+    }
+    console.log( $scope.cart.allAddElements);
+    $scope.cart.allAddElementsSource = angular.copy($scope.cart.allAddElements);
+  };
+
 
 
   //----- Delete Product
