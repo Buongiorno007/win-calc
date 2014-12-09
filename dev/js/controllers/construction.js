@@ -216,10 +216,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
 
   //-------- Back to Template Panel
   $scope.backtoTemplatePanel = function() {
-    $scope.global.showNavMenu = false;
-    $scope.global.showPanels = {};
-    $scope.global.showPanels.showTemplatePanel = true;
-    $scope.global.isTemplatePanel = true;
+    $scope.global.prepareMainPage();
     $scope.global.isReturnFromConstructionPage = true;
     $location.path('/main');
   };

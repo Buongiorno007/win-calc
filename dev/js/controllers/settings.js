@@ -10,9 +10,11 @@ BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalDB', 'localStorage', '$
     DELAY_START: STEP,
     DELAY_SHOW_ICONS: STEP * 10,
     isInsertPhone: false,
+    isEmailError: false,
     addPhones: [],
     tempAddPhone: '',
     regex: /^[0-9]{1,10}$/,
+    mailReg: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
     typing: 'on'
   };
   //----- for location page
@@ -64,7 +66,7 @@ BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalDB', 'localStorage', '$
   };
 
   $scope.saveChangesBlur = function(marker, newTxt) {
-    $scope.saveTxtInBD(marker, newTxt);
+      $scope.saveTxtInBD(marker, newTxt);
   };
 
   $scope.saveTxtInBD = function(marker, newTxt) {
@@ -76,9 +78,19 @@ BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalDB', 'localStorage', '$
         localDB.updateDBGlobal($scope.global.usersTableDBGlobal, {"city_phone": newTxt}, {"id": $scope.global.userInfo.id}); //TODO создать поле в базе данных
         break;
       case 'user-email':
-        localDB.updateDBGlobal($scope.global.usersTableDBGlobal, {"email": newTxt}, {"id": $scope.global.userInfo.id});
+        var checkEmail = $scope.settings.mailReg.test(newTxt);
+        if(checkEmail) {
+          $scope.settings.isEmailError = false;
+          localDB.updateDBGlobal($scope.global.usersTableDBGlobal, {"email": newTxt}, {"id": $scope.global.userInfo.id});
+        } else {
+          $scope.settings.isEmailError = true;
+        }
         break;
     }
+  };
+
+  $scope.changeEmail = function() {
+    $scope.settings.isEmailError = false;
   };
 
   $scope.saveChangesPhone = function() {
@@ -123,9 +135,19 @@ BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalDB', 'localStorage', '$
     //------- clearing local DB
     localDB.deleteTable($scope.global.productsTableBD);
     localDB.deleteTable($scope.global.componentsTableBD);
+    localDB.deleteTable($scope.global.gridsTableBD);
     localDB.deleteTable($scope.global.visorsTableBD);
+    localDB.deleteTable($scope.global.spillwaysTableBD);
+    localDB.deleteTable($scope.global.outSlopesTableBD);
+    localDB.deleteTable($scope.global.inSlopesTableBD);
+    localDB.deleteTable($scope.global.louversTableBD);
+    localDB.deleteTable($scope.global.connectorsTableBD);
+    localDB.deleteTable($scope.global.fansTableBD);
     localDB.deleteTable($scope.global.windowSillsTableBD);
+    localDB.deleteTable($scope.global.handlesTableBD);
+    localDB.deleteTable($scope.global.othersTableBD);
     localDB.deleteTable($scope.global.ordersTableBD);
+
     $location.path('/login');
   };
 

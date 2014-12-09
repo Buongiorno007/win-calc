@@ -64,5 +64,23 @@
   "upload": {
     "css": "web/theme/css",
     "js": "web/theme/js"
+  },
+
+
+  "buildApp": {
+    "src": {
+      "css"   : "www/css",
+      "html"  : "www/views",
+      "js"    : "www/js",
+      "img"   : "www/img",
+      "fonts" : "www/fonts"
+    },
+    "dest": {
+      "css"   : "app/www/css",
+      "html"  : "app/www/views",
+      "js"    : "app/www/js",
+      "img"   : "app/www/img",
+      "fonts" : "app/www/fonts"
+    }
   }
 }

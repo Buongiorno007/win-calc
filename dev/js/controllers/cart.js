@@ -14,8 +14,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
   var p, prod, product, newProductsQty, oldProductPrice, newProductPrice;
 
-  //-------- checking cart page was opened for save draft order
-  $scope.global.wasOpenedCartPage = true;
+
   //------- если из корзины пойти в историю а потом вернуться через редактирование и нажать на nav-menu button
   $scope.global.isHistoryPage = false;
   //------- finish edit product
@@ -171,10 +170,10 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
       product = [];
 
-      if($scope.cart.gridsTableBD && $scope.cart.gridsTableBD.length > 0) {
-        for(var elem = 0; elem < $scope.cart.gridsTableBD.length; elem++) {
-          if($scope.cart.gridsTableBD[elem].productId === $scope.global.productObj[prod].productId) {
-            product.push($scope.cart.gridsTableBD[elem]);
+      if($scope.cart.allGridsDB && $scope.cart.allGridsDB.length > 0) {
+        for(var elem = 0; elem < $scope.cart.allGridsDB.length; elem++) {
+          if($scope.cart.allGridsDB[elem].productId === $scope.global.productObj[prod].productId) {
+            product.push($scope.cart.allGridsDB[elem]);
           }
         }
       }
@@ -258,9 +257,10 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
           }
         }
       }
-
+      console.log(product);
       $scope.cart.allAddElements.push(product);
     }
+    console.log( $scope.cart.allAddElements);
     $scope.cart.allAddElementsSource = angular.copy($scope.cart.allAddElements);
   };
 
@@ -362,6 +362,19 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     $scope.calculateProductsPrice();
     //----- join together product prices and order option
     $scope.global.calculateTotalOrderPrice();
+  };
+
+
+  //------- add new product in order
+  $scope.addNewProductInOrder = function() {
+    $scope.global.isCreatedNewProject = false;
+    $scope.global.isReturnFromCartPage = true;
+    $scope.global.productEditNumber = false;
+    $scope.global.templateIndex = 0;
+    $scope.global.profileIndex = 0;
+    $scope.global.isOpenedCartPage = true;
+    $scope.global.prepareMainPage();
+    $location.path('/main');
   };
 
 }]);

@@ -16,15 +16,14 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
     DELAY_SHOW_NEWCALC_BTN: 35 * STEP,
     typing: 'on'
   };
-  //---- чтобы не создавался черновик при запуске проги
-  $scope.global.startFirstStep = true;
+
 
   // Check Products in Order
   $scope.checkingForNewOrder = function() {
     if ($scope.global.isCreatedNewProject) {
       //----------- create order number for new project
       $scope.global.orderNumber = Math.floor((Math.random() * 100000));
-      $scope.global.isCreatedNewProject = false;
+      //$scope.global.isCreatedNewProject = false;
       $scope.global.productCounter = false;
       //console.log('navmenu NEW - ' + $scope.global.isCreatedNewProject);
       //console.log('navmenu NEW orderNumber - ' + $scope.global.orderNumber);
@@ -63,6 +62,13 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
   //-------- links of nav-menu items
   $scope.global.gotoMainPage = function () {
     $scope.global.isHistoryPage = false;
+    $location.path('/main');
+  };
+
+  $scope.gotoCurrentProduct = function () {
+    $scope.navMenu.activeMenuItem = false;
+    $scope.global.prepareMainPage();
+    $scope.global.initTemplates();
     $location.path('/main');
   };
 
@@ -135,53 +141,67 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
     $scope.global.isVoiceHelper = !$scope.global.isVoiceHelper;
   };
 
+
+
+
+
+  //----------- Create new Project FIRST
+  $scope.createNewProjectFirst = function() {
+    console.log('start');
+    $scope.global.startProgramm = false;
+    $scope.global.createNewProduct();
+  };
+
+  //----------- Create new Project
+  $scope.global.createNewProject = function() {
+    //------ сохраняем черновик продукта в LocalDB если создается новый заказ на главной странице
+    if (!$scope.global.isOpenedCartPage) {
+      console.log('draft in main page');
+      $scope.global.inputProductInOrder();
+      $scope.global.orderTotalPrice = $scope.global.product.productPrice;
+    }
+    //------ сохраняем черновик заказа в LocalDB
+    $scope.global.insertOrderInLocalDB({}, $scope.global.draftOrderType, '');
+
+    //------ create new order
+    $scope.global.isCreatedNewProject = true;
+    $scope.checkingForNewOrder();
+    $scope.global.isHistoryPage = false;
+    $scope.global.createNewProduct();
+  };
+
+
   //---------- clearing for create new Product
   $scope.global.createNewProduct = function() {
     //------- finish edit product
-    $scope.global.productEditNumber = 0;
+    $scope.global.productEditNumber = false;
+    $scope.global.templateIndex = 0;
     $scope.global.profileIndex = 0;
-    $scope.global.templateSource = false;
-    //$scope.global.templateSource = null;
-    //delete $scope.global.templateSource;
-    //$scope.global.templateDefault = null;
-    //delete $scope.global.templateDefault;
-    $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
+
+
+    //$scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
+
     //----- повторный запуск если создается новый заказ на главной странице
-    if(!$scope.global.wasOpenedCartPage) {
-      $scope.global.productInit();
+    if ($scope.global.isOpenedCartPage) {
+      $scope.global.isReturnFromCartPage = true;
     }
-    $scope.global.wasOpenedCartPage = false;
+    //$scope.global.isOpenedCartPage = false;
+
     $scope.navMenu.activeMenuItem = false;
-    $scope.global.showNavMenu = false;
-    $scope.global.isConfigMenu = true;
-    $scope.global.showPanels = {};
-    //$scope.global.showPanels.showTemplatePanel = true;
-    //$scope.global.isTemplatePanel = true;
+
+    $scope.global.prepareMainPage();
+    $scope.global.initTemplates();
     $location.path('/main');
   };
 
 
-  //----------- Create new Project
-  $scope.global.createNewProject = function() {
 
-    //------ save draft if we have not first step
-    if(!$scope.global.startFirstStep) {
-      //------ save draft
-      //------ сохраняем черновик продукта в LocalDB если создается новый заказ на главной странице
-      if (!$scope.global.wasOpenedCartPage) {
-        $scope.global.inputProductInOrder();
-        $scope.global.orderTotalPrice = $scope.global.product.productPrice;
-      }
-      //------ сохраняем черновик заказа в LocalDB
-      $scope.global.insertOrderInLocalDB({}, $scope.global.draftOrderType, '');
-    }
-    //------ create new order
-    $scope.global.isCreatedNewProject = true;
-    //console.log('press button');
-    $scope.checkingForNewOrder();
-    $scope.global.startFirstStep = false;
-    $scope.global.isHistoryPage = false;
-    $scope.global.createNewProduct();
+  $scope.global.prepareMainPage = function() {
+    $scope.global.showNavMenu = false;
+    $scope.global.isConfigMenu = true;
+    $scope.global.showPanels = {};
+    $scope.global.showPanels.showTemplatePanel = true;
+    $scope.global.isTemplatePanel = true;
   };
 
 

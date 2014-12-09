@@ -1059,7 +1059,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               profileId: 35,
               profileType: '3 камеры',
-              profileDescrip: 'Окошко S50 Special S50 Special',
+              profileDescrip: 'ОКОШКО S58',
               profileCountry: 'Украина',
               profileNoise: 4,
               heatCoeff: 5,
@@ -1068,7 +1068,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               profileId: 36,
               profileType: '3 камеры',
-              profileDescrip: 'Окошко S50 Special',
+              profileDescrip: 'Немецкая 5 кам.',
               profileCountry: 'Украина',
               profileNoise: 3,
               heatCoeff: 4,
@@ -1077,7 +1077,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               profileId: 37,
               profileType: '2 камеры',
-              profileDescrip: 'Окошко S50',
+              profileDescrip: 'Немецкая 3 кам.',
               profileCountry: 'Украина',
               profileNoise: 5,
               heatCoeff: 4,
@@ -1086,7 +1086,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               profileId: 38,
               profileType: '4 камеры',
-              profileDescrip: 'Окошко S556',
+              profileDescrip: 'ОКОШКО S60',
               profileCountry: 'Украина',
               profileNoise: 4,
               heatCoeff: 3,
@@ -1097,7 +1097,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               profileId: 39,
               profileType: '1 камерa',
-              profileDescrip: 'Окошко S50',
+              profileDescrip: 'ОКОШКО S80',
               profileCountry: 'Украина',
               profileNoise: 5,
               heatCoeff: 5,
@@ -1347,25 +1347,27 @@ BauVoiceApp.factory('constructService', function ($q) {
       callback(new OkResult({
 
         elementType: [
-          'Стандартные',
-          'оцинкованный',
-          'Матовые'
+          'внутренние',
+          'внешние'
         ],
         elementsList: [
           [
             {
               elementId: 1,
               elementName: 'Сетка СO-100',
+              elementQty: 1,
               elementPrice: 100
             },
             {
               elementId: 2,
               elementName: 'Сетка СO-200',
+              elementQty: 1,
               elementPrice: 100
             },
             {
               elementId: 3,
               elementName: 'Сетка СO-200',
+              elementQty: 1,
               elementPrice: 100
             }
           ],
@@ -1373,18 +1375,13 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 1,
               elementName: 'Сетка СO-300',
+              elementQty: 1,
               elementPrice: 100
             },
             {
               elementId: 2,
               elementName: 'Сетка СO-300',
-              elementPrice: 100
-            }
-          ],
-          [
-            {
-              elementId: 1,
-              elementName: 'Сетка СO-300',
+              elementQty: 1,
               elementPrice: 100
             }
           ]
@@ -1557,18 +1554,21 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementId: 1,
               elementType: 'Стандартные',
               elementName: 'Откос пластиковый',
+              elementQty: 1,
               elementPrice: 100
             },
             {
               elementId: 2,
               elementType: 'Стандартные',
               elementName: 'Откос гипсокартонный',
+              elementQty: 1,
               elementPrice: 100
             },
             {
               elementId: 3,
               elementType: 'Стандартные',
               elementName: 'Откос песчаноцементный',
+              elementQty: 1,
               elementPrice: 100
             }
           ]
@@ -1590,18 +1590,21 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementId: 1,
               elementType: 'Стандартные',
               elementName: 'Откос пластиковый',
+              elementQty: 1,
               elementPrice: 100
             },
             {
               elementId: 2,
               elementType: 'Стандартные',
               elementName: 'Откос гипсокартонный',
+              elementQty: 1,
               elementPrice: 100
             },
             {
               elementId: 3,
               elementType: 'Стандартные',
               elementName: 'Откос песчаноцементный',
+              elementQty: 1,
               elementPrice: 100
             }
           ]
@@ -1747,11 +1750,13 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 1,
               elementName: 'С-ма прит. вентиляции 4-х ст.',
+              elementQty: 1,
               elementPrice: 100
             },
             {
               elementId: 2,
               elementName: 'С-ма вентиляции 4-х ст.',
+              elementQty: 1,
               elementPrice: 100
             }
           ],
@@ -1759,11 +1764,13 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 1,
               elementName: 'Система приточной вентиляции помещений GECCO',
+              elementQty: 1,
               elementPrice: 100
             },
             {
               elementId: 2,
               elementName: 'GECCO Система вентиляции помещений',
+              elementQty: 1,
               elementPrice: 100
             }
           ],
@@ -1771,6 +1778,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 1,
               elementName: 'Aereco С-ма оконной вентиляции',
+              elementQty: 1,
               elementPrice: 100
             }
           ]
@@ -1962,16 +1970,19 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 1,
               elementName: 'Армирование квадрат 40х40',
+              elementQty: 1,
               elementPrice: 100
             },
             {
               elementId: 2,
               elementName: 'Штифт верхней петли',
+              elementQty: 1,
               elementPrice: 100
             },
             {
               elementId: 3,
               elementName: 'П-О запор NT константный 170 (481-600), KS',
+              elementQty: 1,
               elementPrice: 100
             }
           ],
@@ -1979,11 +1990,13 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 1,
               elementName: 'Армирующий профиль 15х30',
+              elementQty: 1,
               elementPrice: 100
             },
             {
               elementId: 2,
               elementName: 'Нижняя петля на раме K3/100',
+              elementQty: 1,
               elementPrice: 100
             }
           ],
@@ -1991,6 +2004,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               elementId: 1,
               elementName: 'Поворотная петля Komfort 12/20-13 левая',
+              elementQty: 1,
               elementPrice: 100
             }
           ]

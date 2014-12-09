@@ -255,7 +255,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
 
     //================= Check new Product
-    } else if(!$scope.global.templateSource) {
+    } else if($scope.global.isCreatedNewProject) {
 
       //------- create order date
       $scope.createOrderDate();
@@ -672,6 +672,10 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       $scope.global.showPanels.showAddElementsPanel = true;
       $scope.global.isAddElementsPanel = true;
     }
+    $scope.global.isFocusedAddElement = false;
+    $scope.global.isTabFrame = false;
+    $scope.global.showAddElementsMenu = false;
+    $scope.global.desactiveAddElementParameters();
   };
 
   // Close all panels
@@ -735,6 +739,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       "laminationOutName": $scope.global.product.laminationOuter,
       "laminationInId": $scope.global.product.laminationInnerId,
       "laminationInName": $scope.global.product.laminationInner,
+      "addElementsPrice": $scope.global.addElementsPriceTOTAL,
       "productPrice": parseFloat($scope.global.product.productPrice.toFixed(2)),
       "productQty": 1
     };
@@ -778,7 +783,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
               "elementId": addElementsObj[prop][elem].elementId,
               "elementType": addElementsObj[prop][elem].elementType,
               "elementName": addElementsObj[prop][elem].elementName,
-              //"elementQty": addElementsObj[prop][elem].elementQty,
+              "elementQty": addElementsObj[prop][elem].elementQty,
               //"elementWidth": addElementsObj[prop][elem].elementWidth,
               "elementPrice": addElementsObj[prop][elem].elementPrice
             };
@@ -820,7 +825,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
               "elementId": addElementsObj[prop][elem].elementId,
               "elementType": addElementsObj[prop][elem].elementType,
               "elementName": addElementsObj[prop][elem].elementName,
-              //"elementQty": addElementsObj[prop][elem].elementQty,
+              "elementQty": addElementsObj[prop][elem].elementQty,
               //"elementWidth": addElementsObj[prop][elem].elementWidth,
               "elementPrice": addElementsObj[prop][elem].elementPrice
             };
@@ -834,7 +839,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
               "elementId": addElementsObj[prop][elem].elementId,
               "elementType": addElementsObj[prop][elem].elementType,
               "elementName": addElementsObj[prop][elem].elementName,
-              //"elementQty": addElementsObj[prop][elem].elementQty,
+              "elementQty": addElementsObj[prop][elem].elementQty,
               //"elementWidth": addElementsObj[prop][elem].elementWidth,
               "elementPrice": addElementsObj[prop][elem].elementPrice
             };
@@ -877,7 +882,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
               "elementId": addElementsObj[prop][elem].elementId,
               "elementType": addElementsObj[prop][elem].elementType,
               "elementName": addElementsObj[prop][elem].elementName,
-              //"elementQty": addElementsObj[prop][elem].elementQty,
+              "elementQty": addElementsObj[prop][elem].elementQty,
               "elementPrice": addElementsObj[prop][elem].elementPrice
             };
             localDB.insertDB($scope.global.fansTableBD, addElementsData);
@@ -918,7 +923,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
               "elementId": addElementsObj[prop][elem].elementId,
               "elementType": addElementsObj[prop][elem].elementType,
               "elementName": addElementsObj[prop][elem].elementName,
-              //"elementQty": addElementsObj[prop][elem].elementQty,
+              "elementQty": addElementsObj[prop][elem].elementQty,
               "elementPrice": addElementsObj[prop][elem].elementPrice
             };
             localDB.insertDB($scope.global.othersTableBD, addElementsData);
@@ -931,6 +936,11 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
   //--------- moving to Cart when click on Cart button
   $scope.movetoCart = function() {
+
+    $scope.global.isCreatedNewProject = false;
+    //-------- checking cart page was opened for save draft order
+    $scope.global.isOpenedCartPage = true;
+
     $timeout(function(){
       $scope.global.gotoCartPage();
     }, 3*STEP);

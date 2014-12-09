@@ -117,6 +117,10 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "type": "TEXT",
       "null": "NOT NULL"
     },
+    "addElementsPrice":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
     "productPrice":{
       "type": "FLOAT",
       "null": "NOT NULL"
@@ -441,6 +445,10 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
     "elementPrice":{
       "type": "INTEGER",
       "null": "NOT NULL"
+    },
+    "elementQty":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
     }
 
   });
@@ -474,6 +482,10 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "null": "NOT NULL"
     },
     "elementPrice":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementQty":{
       "type": "INTEGER",
       "null": "NOT NULL"
     }
@@ -601,6 +613,10 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "null": "NOT NULL"
     },
     "elementPrice":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementQty":{
       "type": "INTEGER",
       "null": "NOT NULL"
     }

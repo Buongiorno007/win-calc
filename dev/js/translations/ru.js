@@ -15,7 +15,7 @@ window.russianDictionary = {
   },
   login: {
     ENTER: 'Войти',
-    PASS_CODE: 'Сообщите этот код кому-нибудь.',
+    PASS_CODE: 'Сообщите этот код менеджеру.',
     YOUR_CODE: 'Ваш код: ',
     EMPTY_FIELD: 'Заполните это поле.',
     WRONG_NUMBER: 'Неверный номер, формат +XX(XXX)XXX-XXXX.',

@@ -125,4 +125,8 @@
       background-color: $aux_big_color;
     }
   }
+  .set-email-error {
+    @extend .error-tooltip;
+    left: 70rem;
+  }
 }

@@ -307,7 +307,8 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
       var self = this;
       this.getDeviceCodeLocalDb(function (result) {
         if (result.status) {
-          var deviceCodeLocalDb = result.data;
+          //var deviceCodeLocalDb = result.data;
+          var deviceCodeLocalDb = {sync: true, deviceCode: "f9q9nkzu"};
           console.log(deviceCodeLocalDb);
           self.getDeviceCodeGlobalDb(deviceCodeLocalDb.deviceCode, function (result) {
             if (result.status) {

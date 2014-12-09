@@ -160,4 +160,8 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$
     $scope.global.initTemplates();
     $scope.global.isReturnFromConstructionPage = false;
   }
+  if($scope.global.isReturnFromCartPage) {
+    $scope.global.initTemplates();
+    $scope.global.isReturnFromCartPage = false;
+  }
 }]);

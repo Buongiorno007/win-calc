@@ -229,3 +229,47 @@ gulp.task('upload-css', ['build'], function () {
 gulp.task('upload', ['upload-js', 'upload-css']);
 
 gulp.task('default', ['watch']);
+
+
+// PhoneGap build
+// Копируем in app/www
+gulp.task('cssApp', function() {
+  return gulp.src(config.buildApp.src.css)
+    .pipe(newer(config.buildApp.dest.css))
+    .pipe(gulp.dest(config.buildApp.dest.css))
+    .pipe(reload({ stream: true }));
+});
+
+gulp.task('jsApp', function() {
+  return gulp.src(config.buildApp.src.js)
+    .pipe(newer(config.buildApp.dest.js))
+    .pipe(gulp.dest(config.buildApp.dest.js))
+    .pipe(reload({ stream: true }));
+});
+
+gulp.task('imagesApp', function() {
+  return gulp.src(config.buildApp.src.img)
+    .pipe(newer(config.buildApp.dest.img))
+    .pipe(gulp.dest(config.buildApp.dest.img))
+    .pipe(reload({ stream: true }));
+});
+
+// Копируем шрифты
+gulp.task('fontsApp', function() {
+  return gulp.src(config.buildApp.src.fonts)
+    .pipe(newer(config.buildApp.dest.fonts))
+    .pipe(gulp.dest(config.buildApp.dest.fonts))
+    .pipe(reload({ stream: true }));
+});
+
+gulp.task('htmlApp', function() {
+  return gulp.src(config.buildApp.src.fonts)
+    .pipe(newer(config.buildApp.dest.fonts))
+    .pipe(gulp.dest(config.buildApp.dest.fonts))
+    .pipe(reload({ stream: true }));
+});
+
+// Запуск buildApp
+gulp.task('buildApp', ['clean'], function () {
+  gulp.start(['cssApp', 'jsApp', 'imagesApp', 'fontsApp', 'htmlApp']);
+});

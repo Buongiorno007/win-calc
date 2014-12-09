@@ -20,7 +20,7 @@ BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localDB', 'localS
 
   //--------- get user data and location for first time
 
-  if($scope.global.doFirstTime) {
+  if($scope.global.startProgramm) {
     localDB.selectAllDBGlobal($scope.global.usersTableDBGlobal, function (results) {
       if (results.status) {
         $scope.global.userInfo = angular.copy(results.data[0]);
@@ -68,7 +68,7 @@ BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localDB', 'localS
         console.log(results);
       }
     });
-    $scope.global.doFirstTime = false;
+    //$scope.global.firstGetUserData = false;
   }
 
 
@@ -88,7 +88,7 @@ BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localDB', 'localS
     //$rootScope.$broadcast('swipeMainPage', true);
     $scope.global.showNavMenu = !$scope.global.showNavMenu;
     $scope.global.isConfigMenu = true;
-    $scope.global.startFirstStep = false;
+    $scope.global.startProgramm = false;
   };
 /*
   $rootScope.$on('swipeMainPage', function() {

@@ -6,6 +6,7 @@
     border-style: solid;
     border-color: $main_gray_btn;
     border-width: 1px 0 0 1px;
+    @include user-select(none);
 
     &:first-child {
       border-left-width: 0;
@@ -15,6 +16,7 @@
   .cell {
     @extend .button;
     @include roboto-lt(rem(36px));
+    @include user-select(none);
 
     display: block;
     width: rem(156px);

@@ -2,7 +2,6 @@
 
 BauVoiceApp.factory('localStorage', function () {
   return {
-    doFirstTime: true,
     svgTemplateThumbWidth: 70,
     svgTemplateThumbHeight: 70,
     svgTemplateIconWidth: 500,
@@ -13,12 +12,18 @@ BauVoiceApp.factory('localStorage', function () {
     //-------- defined default profile index
     templateIndex: 0,
     profileIndex: 0,
+
     isConstructWind: true,
     isConstructWindDoor: false,
     isConstructBalcony: false,
     isConstructDoor: false,
-    isFindPriceProcess: false,
+    //---- чтобы не создавался черновик при запуске проги
+    startProgramm: true,
+    isCreatedNewProject: true,
+    productEditNumber: false,
+    isOpenedCartPage: false,
     isAddElementsONLY: false,
+    isFindPriceProcess: false,
 
     templatesWindList: [],
     templatesWindThumbList: [],
@@ -60,9 +65,6 @@ BauVoiceApp.factory('localStorage', function () {
     },
     heatTransferTotal: 0,
     airCirculationTotal: 0,
-
-    isCreatedNewProject: true,
-    productEditNumber: false,
 
     showNavMenu: true,
     isConfigMenu: false,

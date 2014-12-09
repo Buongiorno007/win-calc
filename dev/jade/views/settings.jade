@@ -36,7 +36,8 @@ section.settings.setting-page(ng-controller="SettingsCtrl")
         li#user-email.item.click(ng-click="changeSettingData(4, $event)")
           .setting-item-label(data-output="{{ 'cart.CLIENT_EMAIL' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           .setting-item-data(ng-hide="settings.selectedSetting == 4", data-output="{{ global.userInfo.email }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
-          input.set-input-txt(ng-show="settings.selectedSetting == 4", type="text", ng-model="global.userInfo.email", ng-keypress="saveChanges('user-email', global.userInfo.email)", ng-blur="saveChangesBlur('user-email', global.userInfo.email)")
+          input.set-input-txt(ng-show="settings.selectedSetting == 4", type="email", name="mail", ng-model="global.userInfo.email", ng-keypress="saveChanges('user-email', global.userInfo.email)", ng-blur="saveChangesBlur('user-email', global.userInfo.email)", ng-change="changeEmail()")
+          .set-email-error(ng-show="settings.isEmailError") {{ 'cart.WRONG_EMAIL' | translate }}
 
       ul.list
         li.item
@@ -52,7 +53,7 @@ section.settings.setting-page(ng-controller="SettingsCtrl")
 
 
       ul.list
-        li.item.click
+        //li.item.click
           .setting-item-data(data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           .setting-item-change
         li.item.click
