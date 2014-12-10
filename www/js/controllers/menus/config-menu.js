@@ -572,24 +572,6 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       }
     });
 
-    //============= Get price from localDB
-    $scope.global.constructionPriceTOTAL = parseFloat(angular.copy(result.data.price));
-    $scope.global.setProductPriceTOTAL();
-    $scope.$apply();
-    var currencySymbol = '₴';
-    $scope.global.currency = currencySymbol;
-    $scope.global.isFindPriceProcess = false;
-
-    if($scope.global.isReturnFromDiffPage) {
-      if($scope.global.isHistoryPage) {
-        $scope.global.initTemplates();
-        $scope.global.isHistoryPage = false;
-      } else {
-        $scope.global.createNewProduct();
-      }
-      $scope.global.isReturnFromDiffPage = false;
-    }
-
 
 
 
