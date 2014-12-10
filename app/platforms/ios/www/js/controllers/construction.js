@@ -309,7 +309,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
         $scope.global.isConstructSizeCalculator = true;
       } else {
         $scope.openVoiceHelper = true;
-        startRecognition(doneR);
+        startRecognition(doneR, recognitionProgress);
 
       }
 
@@ -326,12 +326,20 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
     deleteLastNumber();
   });
 
+                                            function recognitionProgress(volume) {
+                                            $scope.voiceTxt = volume;
+                                            $scope.$apply();
+
+                                            }
+                                            
  function doneR(value) {
    console.log("DONE" + value);
    $scope.voiceTxt = value;
    $scope.$apply();
    setTimeout(function() {
-     setValueSize(parseStringToDimension(value));
+              var intValue = parseStringToDimension(value);
+               playTTS(intValue);
+     setValueSize(intValue);
     
      $scope.$apply();
    }, 2000)
