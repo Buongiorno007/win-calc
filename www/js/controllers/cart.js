@@ -358,7 +358,6 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     $scope.global.orderPrice = 0;
     for(p = 0; p < $scope.global.productCounter; p++) {
       $scope.global.orderPrice += parseFloat( (parseFloat($scope.global.productObj[p].productPrice.toFixed(2)) * $scope.global.productObj[p].productQty).toFixed(2) );
-      console.log($scope.global.orderPrice);
     }
 
     $scope.global.orderPrice = parseFloat($scope.global.orderPrice.toFixed(2));

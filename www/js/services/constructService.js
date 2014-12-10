@@ -992,7 +992,7 @@ BauVoiceApp.factory('constructService', function ($q) {
     getProfileSystem: function (callback) {
       callback(new OkResult({
         id: 7,
-        name: 'Окошко S58',
+        name: 'Окошко S5',
         heatCoeff: 0.9,
         airCoeff: 10
       }));

@@ -46,8 +46,9 @@
         </ul>
       </header>
       <footer class="nav-menu-footer">
-        <button ng-show="global.startProgramm" ng-click="createNewProjectFirst()" show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
-        <button ng-hide="global.startProgramm" ng-click="global.createNewProject()" show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
+        <button ng-if="global.startProgramm == true" ng-click="createNewProjectFirst()" show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
+        <button ng-if="global.startProgramm == false &amp;&amp; global.isOpenedCartPage == false" ng-click="global.createNewProject()" show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
+        <button ng-if="global.startProgramm == false &amp;&amp; global.isOpenedCartPage == true" ng-click="global.createNewProjectCart()" show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
       </footer>
     </div>
   </section>
@@ -55,7 +56,7 @@
     <section class="main-content">
       <div ng-controller="UserInfoCtrl" class="user-info-container">
         <button ng-if="!global.isHistoryPage" ng-class="{ 'show-navmenu': global.showNavMenu }" ng-click="swipeMainPage()" class="nav-menu-btn"></button>
-        <button ng-if="global.isHistoryPage" ng-click="global.createNewProject()" class="nav-menu-btn"></button>
+        <button ng-if="global.isHistoryPage" ng-click="global.createNewProjectHistory()" class="nav-menu-btn"></button>
         <div class="user-foto"></div>
         <div show-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
         <div class="user-info-block">
@@ -314,7 +315,7 @@
                       <div class="coef-index"></div>
                     </div>
                     <div data-output="{{ 'panels.HEAT_INSULATION' | translate }}" typing="{{ hardwarePanel.typing }}" typing-delay="{{ hardwarePanel.DELAY_START + (hardwarePanel.DELAY_TYPING * $index) }}" class="hardware-label"></div>
-                    <div ng-class="{'coef-level-1': hardware.hardwareHeat == 1, 'coef-level-2': hardware.hardwareHeat == 2, 'coef-level-3': hardware.hardwareHeat == 3, 'coef-level-4': hardware.hardwareHeat == 4}" class="coef-level noise-insulation">
+                    <div ng-class="{'coef-level-1': hardware.hardwareNoise == 1, 'coef-level-2': hardware.hardwareNoise == 2, 'coef-level-3': hardware.hardwareNoise == 3, 'coef-level-4': hardware.hardwareNoise == 4}" class="coef-level noise-insulation">
                       <div class="coef-index"></div>
                       <div class="coef-index"></div>
                       <div class="coef-index"></div>

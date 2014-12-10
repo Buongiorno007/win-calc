@@ -15,6 +15,7 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$
     typing: 'on'
   };
 
+
   //------ click on top Window button
   $scope.toggleTemplate = function() {
     $scope.templatePanel.switcherTemplate = !$scope.templatePanel.switcherTemplate;
@@ -163,8 +164,8 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$
     $scope.global.initTemplates();
     $scope.global.isReturnFromConstructionPage = false;
   }
-  if($scope.global.isReturnFromCartPage) {
+  if($scope.global.isAddNewProductInOrder) {
     $scope.global.initTemplates();
-    $scope.global.isReturnFromCartPage = false;
+    $scope.global.isAddNewProductInOrder = false;
   }
 }]);

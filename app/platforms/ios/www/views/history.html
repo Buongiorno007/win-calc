@@ -5,7 +5,7 @@
       <div ng-hide="history.isOrderSearch" class="history-user-info">
         <div ng-controller="UserInfoCtrl" class="user-info-container">
           <button ng-if="!global.isHistoryPage" ng-class="{ 'show-navmenu': global.showNavMenu }" ng-click="swipeMainPage()" class="nav-menu-btn"></button>
-          <button ng-if="global.isHistoryPage" ng-click="global.createNewProject()" class="nav-menu-btn"></button>
+          <button ng-if="global.isHistoryPage" ng-click="global.createNewProjectHistory()" class="nav-menu-btn"></button>
           <div class="user-foto"></div>
           <div show-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
           <div class="user-info-block">
@@ -141,7 +141,7 @@
     <div class="history-header">
       <div ng-controller="UserInfoCtrl" class="user-info-container">
         <button ng-if="!global.isHistoryPage" ng-class="{ 'show-navmenu': global.showNavMenu }" ng-click="swipeMainPage()" class="nav-menu-btn"></button>
-        <button ng-if="global.isHistoryPage" ng-click="global.createNewProject()" class="nav-menu-btn"></button>
+        <button ng-if="global.isHistoryPage" ng-click="global.createNewProjectHistory()" class="nav-menu-btn"></button>
         <div class="user-foto"></div>
         <div show-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
         <div class="user-info-block">

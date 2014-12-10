@@ -25,7 +25,6 @@ BauVoiceApp.controller('LoginCtrl', ['$scope', '$location', '$translate', 'globa
 
   $scope.submitForm = function (form) {
     // Trigger validation flag.
-    
     $scope.submitted = true;
 
     if (form.$valid) {

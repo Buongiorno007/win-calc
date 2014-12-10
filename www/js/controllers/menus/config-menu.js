@@ -579,7 +579,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
   $scope.global.setProductPriceTOTAL = function() {
     $scope.global.product.productPrice = $scope.global.constructionPriceTOTAL + $scope.global.hardwarePriceTOTAL + $scope.global.laminationPriceTOTAL + $scope.global.addElementsPriceTOTAL;
-    $scope.$apply();
+    //$scope.$apply();
   };
 
 
