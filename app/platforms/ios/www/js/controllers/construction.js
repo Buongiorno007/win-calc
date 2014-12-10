@@ -1,6 +1,3 @@
-
-// controllers/construction.js
-
 /* globals BauVoiceApp, STEP, deactiveSizeBox */
 
 'use strict';
@@ -219,10 +216,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
 
   //-------- Back to Template Panel
   $scope.backtoTemplatePanel = function() {
-    $scope.global.showNavMenu = false;
-    $scope.global.showPanels = {};
-    $scope.global.showPanels.showTemplatePanel = true;
-    $scope.global.isTemplatePanel = true;
+    $scope.global.prepareMainPage();
     $scope.global.isReturnFromConstructionPage = true;
     $location.path('/main');
   };
@@ -311,11 +305,14 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
 
       //getOldSizeValue();
       //--- show size calculator if voice helper is turn off
-      if(!$scope.global.isVoiceHelper) {
+      if(!($scope.global.isVoiceHelper)) {
         $scope.global.isConstructSizeCalculator = true;
       } else {
         $scope.openVoiceHelper = true;
+        startRecognition(doneR);
+
       }
+
       $scope.$apply();
     }
   });
@@ -329,9 +326,37 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
     deleteLastNumber();
   });
 
+ function doneR(value) {
+   console.log("DONE" + value);
+   $scope.voiceTxt = value;
+   $scope.$apply();
+   setTimeout(function() {
+     setValueSize(parseStringToDimension(value));
+    
+     $scope.$apply();
+   }, 2000)
+ }
 
+ 
   //-------- Get number from calculator
   function setValueSize(newValue) {
+                                            if($scope.openVoiceHelper) {
+                                            
+                                            var tempVal = parseInt(newValue,10);
+                                            if($.isNumeric(tempVal)) {
+                                            var tempValStr = tempVal.toString();
+                                            console.log(typeof tempValStr);
+                                            $scope.constructData.tempSize = tempValStr.split('');
+                                            
+                                            console.log($scope.constructData.tempSize);
+                                            changeSize();
+                                            } else {
+                                            $scope.voiceTxt = '';
+                                            $scope.openVoiceHelper = false;
+                                            deactiveSizeBox(sizeEditClass, sizeClass);
+                                            }
+                                            
+                                            } else {
     //---- clear array from 0 after delete all number in array
     if($scope.constructData.tempSize.length === 1 && $scope.constructData.tempSize[0] === 0) {
       $scope.constructData.tempSize.length = 0;
@@ -360,6 +385,8 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
       changeSize();
     }
   }
+  
+}
 
   //------ Delete last number from calculator
   function deleteLastNumber() {
@@ -385,9 +412,13 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
   //------ Change size on SVG
   function changeSize() {
     var newSizeString = '';
-    for(var numer = 0; numer < $scope.constructData.tempSize.length; numer++) {
-      newSizeString += $scope.constructData.tempSize[numer].toString();
-    }
+                                            console.log('change');
+                                            console.log($scope.constructData.tempSize);
+        for(var numer = 0; numer < $scope.constructData.tempSize.length; numer++) {
+          newSizeString += $scope.constructData.tempSize[numer].toString();
+        }
+    
+    
     var svg = document.getElementsByTagName("svg-template");
 
     $('#'+$scope.constructData.tempSizeId).find('tspan').text(newSizeString);
@@ -397,6 +428,11 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
 
     SVG(svg[0]).viewbox();
     SVG(svg[0]).size($scope.svgTemplateWidthTEMP, $scope.svgTemplateHeightTEMP);
+     
+                                            if( $scope.openVoiceHelper) {
+                                            $scope.closeSizeCaclulator();
+                                            console.log($scope.constructData.tempSize);
+                                            }
   }
 
   //---------- Close Size Calculator
@@ -407,6 +443,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
         newPoints = [],
         allDimensionsV = [],
         curDimensionType;
+
 
     if($scope.constructData.tempSize.length > 0) {
       newLength = parseInt($scope.constructData.tempSize.join(''), 10);
@@ -549,7 +586,8 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
       $scope.global.isConstructSizeCalculator = false;
       deactiveSizeBox(sizeEditClass, sizeClass);
     }
+                                            $scope.voiceTxt = '';
+                                            $scope.openVoiceHelper = false;
   };
 
 }]);
-

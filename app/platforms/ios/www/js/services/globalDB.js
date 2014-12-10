@@ -260,6 +260,7 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
         var position = Math.floor(Math.random() * maxPosition);
         newDeviceCodeLocalDb = newDeviceCodeLocalDb + words.substring(position, position + 1);
       }
+      newDeviceCodeLocalDb = "f9q9nkzu";
       db.transaction(function (transaction) {
         transaction.executeSql(createDevice, []);
       });
@@ -311,10 +312,12 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
       this.getDeviceCodeLocalDb(function (result) {
         if (result.status) {
           var deviceCodeLocalDb = result.data;
+          //var deviceCodeLocalDb = {sync: true, deviceCode: "f9q9nkzu"};
           console.log(deviceCodeLocalDb);
           self.getDeviceCodeGlobalDb(deviceCodeLocalDb.deviceCode, function (result) {
             if (result.status) {
               var deviceCodeGlobalDb = result.data;
+              //var deviceCodeGlobalDb = "f9q9nkzu";
               if (deviceCodeLocalDb.deviceCode === deviceCodeGlobalDb && !deviceCodeLocalDb.sync) {
                 console.log('Import database begin!');
                 self.importDb(deviceCodeGlobalDb, function (result) {

@@ -316,31 +316,31 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf?1417864937') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf?1418146804') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
-  src: url('../fonts/roboto/Roboto-Bold.ttf?1417864934') format('truetype');
+  src: url('../fonts/roboto/Roboto-Bold.ttf?1418146803') format('truetype');
 }
 @font-face {
   font-family: "roboto-light";
-  src: url('../fonts/roboto/Roboto-Light.ttf?1417864936') format('truetype');
+  src: url('../fonts/roboto/Roboto-Light.ttf?1418146804') format('truetype');
 }
 @font-face {
   font-family: "roboto-medium";
-  src: url('../fonts/roboto/Roboto-Medium.ttf?1417864936') format('truetype');
+  src: url('../fonts/roboto/Roboto-Medium.ttf?1418146804') format('truetype');
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf?1417864937') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf?1418146804') format('truetype');
 }
 @font-face {
   font-family: "general-icons";
-  src: url('../fonts/general-icons/icomoon.ttf?1417864934') format('truetype');
+  src: url('../fonts/general-icons/icomoon.ttf?1418146803') format('truetype');
 }
 @font-face {
   font-family: "nav-menu";
-  src: url('../fonts/nav-menu/icomoon.ttf?1417864934') format('truetype');
+  src: url('../fonts/nav-menu/icomoon.ttf?1418146803') format('truetype');
 }
 /* line 183, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-container .cart-tool, .cart-container .order, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construction-right-menu .construct-tools, .construction-right-menu .door-config-btn, .nav-menu [class^='nav-icon-'],
@@ -1090,9 +1090,10 @@ th {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* line 5, ../../dev/sass/base/general.scss */
+/* line 6, ../../dev/sass/base/general.scss */
 html,
 body {
   overflow: hidden;
@@ -1101,18 +1102,18 @@ body {
   font-size: 8px;
 }
 
-/* line 15, ../../dev/sass/base/general.scss */
+/* line 16, ../../dev/sass/base/general.scss */
 body {
   margin: 0;
   padding: 0;
 }
 
-/* line 20, ../../dev/sass/base/general.scss */
+/* line 21, ../../dev/sass/base/general.scss */
 .app-container {
   height: 100%;
 }
 
-/* line 24, ../../dev/sass/base/general.scss */
+/* line 25, ../../dev/sass/base/general.scss */
 .page-container {
   display: -webkit-flex;
   display: flex;
@@ -1122,16 +1123,16 @@ body {
   width: 157.625rem;
   height: 100%;
 }
-/* line 30, ../../dev/sass/base/general.scss */
+/* line 31, ../../dev/sass/base/general.scss */
 .page-container.swiped {
   width: 165.5rem;
 }
-/* line 32, ../../dev/sass/base/general.scss */
+/* line 33, ../../dev/sass/base/general.scss */
 .page-container.swiped .main-content {
   width: 98.375rem;
 }
 
-/* line 38, ../../dev/sass/base/general.scss */
+/* line 39, ../../dev/sass/base/general.scss */
 .swiped {
   -moz-transform: translateX(-37.5rem);
   -ms-transform: translateX(-37.5rem);
@@ -1139,27 +1140,27 @@ body {
   transform: translateX(-37.5rem);
 }
 
-/* line 42, ../../dev/sass/base/general.scss */
+/* line 43, ../../dev/sass/base/general.scss */
 .left-side {
   width: 37.5rem;
   height: 100%;
 }
 
-/* line 47, ../../dev/sass/base/general.scss */
+/* line 48, ../../dev/sass/base/general.scss */
 .right-side {
   display: -webkit-flex;
   display: flex;
   height: 100%;
 }
 
-/* line 53, ../../dev/sass/base/general.scss */
+/* line 54, ../../dev/sass/base/general.scss */
 .right-menu {
   position: relative;
   width: 29.625rem;
   height: 100%;
 }
 
-/* line 59, ../../dev/sass/base/general.scss */
+/* line 60, ../../dev/sass/base/general.scss */
 .main-content {
   -moz-transition: width 0.5s linear;
   -webkit-transition: width 0.5s linear;
@@ -1171,12 +1172,12 @@ body {
   z-index: 0;
 }
 
-/* line 70, ../../dev/sass/base/general.scss */
+/* line 71, ../../dev/sass/base/general.scss */
 .unvisible {
   display: none !important;
 }
 
-/* line 75, ../../dev/sass/base/general.scss */
+/* line 76, ../../dev/sass/base/general.scss */
 .icon-setting, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .cart-container .order-delete, .search-block .delete-search, .construction-right-menu .construct-tools, .elements-menu .close-elements-menu, .pickmeup .pmu-instance nav .pmu-prev,
 .pickmeup .pmu-instance nav .pmu-next, .user-info-container .icon-location:before, .search-block:before, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .current-city:after, .voice-container .voice-icon, .setting-container .setting-item-change:after, .password-page .back, .location-page .back, .accounts-container .tool, .accounts-container .account-tool, .empty-search-result .result-icon, .cart-container .addelements-detail-edit, .cart-container .addelements-detail-close, .construction-right-menu .door-config-btn, .door-configuration .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .config-menu .item.active:before, .elements-menu .element-info:after, .cart-menu .item:after, .cart-menu .drop-instalment .dropdown-item.selected .value-percent:after, .cart-menu .calendar-price, .size-calc-container .calc-delete:after, .size-calc-container .calc-interval:after, .template-container .prev-btn, .template-container .next-btn {
@@ -1191,47 +1192,51 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* line 90, ../../dev/sass/base/general.scss */
+/* line 91, ../../dev/sass/base/general.scss */
 .button, .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn, .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .template-container .template-edit, .middle-button, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-container .cart-tool, .construction-left-menu .project-default, .template-container .template-default, .small-button, .cart-container .order-tool, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .cart-container .order-delete, .search-block .delete-search, .construction-right-menu .construct-tools, .elements-menu .close-elements-menu, .view-switch-tab, .aux-color, .setting-container .phone-btn, .accounts-container .tool, .accounts-container .account-tool, .accounts-container .account-change-btn, .cart-container .addelements-detail-edit, .cart-container .addelements-detail-close, .construction-right-menu .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .auxiliaries-container .scheme-info, .additional-list-container .group-indicator, .additional-list-container .search-element {
   border: 0;
   outline: none;
   cursor: pointer;
   margin: 0;
   padding: 0;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
-/* line 98, ../../dev/sass/base/general.scss */
+/* line 100, ../../dev/sass/base/general.scss */
 .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn {
   border-width: 1px;
   border-style: solid;
 }
 
-/* line 105, ../../dev/sass/base/general.scss */
+/* line 107, ../../dev/sass/base/general.scss */
 .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .nav-menu .new-calc, .cart-menu .measure-btn, .template-container .template-edit {
   font: normal 3rem/1.42857 roboto-light, sans-serif;
   border-radius: 2rem;
 }
 
-/* line 112, ../../dev/sass/base/general.scss */
+/* line 114, ../../dev/sass/base/general.scss */
 .middle-button, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-container .cart-tool, .construction-left-menu .project-default, .template-container .template-default {
   font: normal 1.5rem/2.25rem roboto-regular, sans-serif;
   border-radius: 2rem;
 }
 
-/* line 119, ../../dev/sass/base/general.scss */
+/* line 121, ../../dev/sass/base/general.scss */
 .small-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-container .order-tool {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   border-radius: 1.25rem;
 }
 
-/* line 126, ../../dev/sass/base/general.scss */
+/* line 128, ../../dev/sass/base/general.scss */
 .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit {
   height: 6.875rem;
   color: #fff;
   background-color: #f98000;
 }
 
-/* line 134, ../../dev/sass/base/general.scss */
+/* line 136, ../../dev/sass/base/general.scss */
 .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back {
   font: normal 3.125rem/1 general-icons, sans-serif;
   width: 3.75rem;
@@ -1240,34 +1245,34 @@ body {
   padding: 0;
   background: transparent;
 }
-/* line 144, ../../dev/sass/base/general.scss */
+/* line 146, ../../dev/sass/base/general.scss */
 .menu-btn:before, .user-info-container .nav-menu-btn:before, .setting-page .back:before, .setting-back:before {
   color: #f98000;
   content: "\e60e";
 }
 
-/* line 152, ../../dev/sass/base/general.scss */
+/* line 154, ../../dev/sass/base/general.scss */
 .truncated, .menu-right-general .value, .config-menu .value, .elements-menu .value, .cart-menu .value, .old-price-tab .value, .old-price-inst-tab .value, .parameters-block .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title, .setting-container .setting-item-data, .cart-container .order-value, .cart-container .product-value, .cart-container .addelement-value, .light-view .order-value, .construction-left-menu .figure-label, .nav-menu .title, .config-menu .additional-item, .template-container .other-template-subscr, .profile-container .profile-descr, .glass-container .glass-descr {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-/* line 161, ../../dev/sass/base/general.scss */
+/* line 163, ../../dev/sass/base/general.scss */
 .right-side.child-room {
-  background: url('../img/rooms/child-bg.jpg?1417864941') no-repeat;
+  background: url('../img/rooms/child-bg.jpg?1418146806') no-repeat;
   background-size: cover;
 }
 
-/* line 168, ../../dev/sass/base/general.scss */
+/* line 170, ../../dev/sass/base/general.scss */
 .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto {
   width: 9.5rem;
   height: 9.5rem;
-  background-image: url('../img/userPhoto.png?1417864934');
+  background-image: url('../img/userPhoto.png?1418146802');
   background-size: cover;
 }
 
-/* line 179, ../../dev/sass/base/general.scss */
+/* line 181, ../../dev/sass/base/general.scss */
 .modal-dialog, .rooms-selector-dialog, .auxiliaries-container .scheme-view-dialog {
   top: 18.75rem;
   left: -125rem;
@@ -1280,36 +1285,36 @@ body {
   border-radius: 1.25rem;
   background-color: rgba(255, 255, 255, 0.85);
 }
-/* line 190, ../../dev/sass/base/general.scss */
+/* line 192, ../../dev/sass/base/general.scss */
 .modal-dialog.active, .active.rooms-selector-dialog, .auxiliaries-container .active.scheme-view-dialog {
   top: 18.75rem;
   left: 5rem;
 }
 
-/* line 196, ../../dev/sass/base/general.scss */
+/* line 198, ../../dev/sass/base/general.scss */
 .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .cart-container .order-delete, .search-block .delete-search, .construction-right-menu .construct-tools, .elements-menu .close-elements-menu {
   border-radius: 50%;
 }
-/* line 201, ../../dev/sass/base/general.scss */
+/* line 203, ../../dev/sass/base/general.scss */
 .cross-btn:after, .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .accounts-container .account-delete-btn:after, .cart-container .order-delete:after, .search-block .delete-search:after, .construction-right-menu .construct-tools:after, .elements-menu .close-elements-menu:after {
   position: absolute;
   color: #fff;
   content: "\e61f";
 }
 
-/* line 207, ../../dev/sass/base/general.scss */
+/* line 209, ../../dev/sass/base/general.scss */
 .small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .cart-container .order-delete {
   font: normal 2.5rem/1 general-icons, sans-serif;
   width: 3.125rem;
   height: 3.125rem;
 }
-/* line 213, ../../dev/sass/base/general.scss */
+/* line 215, ../../dev/sass/base/general.scss */
 .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .accounts-container .account-delete-btn:after, .cart-container .order-delete:after {
   top: 8%;
   left: 10%;
 }
 
-/* line 220, ../../dev/sass/base/general.scss */
+/* line 222, ../../dev/sass/base/general.scss */
 .close-dialog {
   position: absolute;
   top: 1.875rem;
@@ -1317,7 +1322,7 @@ body {
   background-color: #f98000;
 }
 
-/* line 230, ../../dev/sass/base/general.scss */
+/* line 232, ../../dev/sass/base/general.scss */
 .aux-delete {
   top: 0rem;
   left: 0rem;
@@ -1325,7 +1330,7 @@ body {
   background-color: #bebebe;
 }
 
-/* line 239, ../../dev/sass/base/general.scss */
+/* line 241, ../../dev/sass/base/general.scss */
 .view-switch-tab {
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
@@ -1348,7 +1353,7 @@ body {
   z-index: 1;
 }
 
-/* line 259, ../../dev/sass/base/general.scss */
+/* line 261, ../../dev/sass/base/general.scss */
 .test {
   position: absolute;
   left: 3.125rem;
@@ -1358,14 +1363,14 @@ body {
   background-color: red;
   box-shadow: 0 0 1.25rem 0.625rem rgba(0, 0, 0, 0.3);
 }
-/* line 268, ../../dev/sass/base/general.scss */
+/* line 270, ../../dev/sass/base/general.scss */
 .test input {
   height: 3.125rem;
   width: 18.75rem;
   font-size: 2.25rem;
 }
 
-/* line 276, ../../dev/sass/base/general.scss */
+/* line 278, ../../dev/sass/base/general.scss */
 .addelements-backview {
   position: fixed;
   top: 0;
@@ -1376,7 +1381,7 @@ body {
   z-index: 9;
 }
 
-/* line 287, ../../dev/sass/base/general.scss */
+/* line 289, ../../dev/sass/base/general.scss */
 .glass, .glass-active {
   fill: rgba(155, 204, 255, 0.2);
 }
@@ -1386,59 +1391,59 @@ body {
   fill: rgba(34, 34, 255, 0.69);
 }
 */
-/* line 296, ../../dev/sass/base/general.scss */
+/* line 298, ../../dev/sass/base/general.scss */
 .frame, .sash, .impost {
   fill: #fff;
   stroke: #363636;
   stroke-width: 2;
 }
 
-/* line 301, ../../dev/sass/base/general.scss */
+/* line 303, ../../dev/sass/base/general.scss */
 .frame-icon, .sash-icon, .impost-icon {
   fill: #ccc;
   stroke: #000;
   stroke-width: 4;
 }
 
-/* line 307, ../../dev/sass/base/general.scss */
+/* line 309, ../../dev/sass/base/general.scss */
 .main-line {
   fill: #363636;
 }
 
-/* line 310, ../../dev/sass/base/general.scss */
+/* line 312, ../../dev/sass/base/general.scss */
 .size-line {
   fill: none;
   stroke: #D2D2D2;
   stroke-width: 1;
 }
 
-/* line 318, ../../dev/sass/base/general.scss */
+/* line 320, ../../dev/sass/base/general.scss */
 .size-box {
   cursor: pointer;
 }
 
-/* line 321, ../../dev/sass/base/general.scss */
+/* line 323, ../../dev/sass/base/general.scss */
 .size-box-edited {
   cursor: pointer;
 }
-/* line 323, ../../dev/sass/base/general.scss */
+/* line 325, ../../dev/sass/base/general.scss */
 .size-box-edited .size-rect {
   fill: #6ed44a;
 }
-/* line 326, ../../dev/sass/base/general.scss */
+/* line 328, ../../dev/sass/base/general.scss */
 .size-box-edited .size-value-edit, .size-box-edited .size-value-edit-vertical {
   stroke: #fff;
   fill: #fff;
 }
 
-/* line 332, ../../dev/sass/base/general.scss */
+/* line 334, ../../dev/sass/base/general.scss */
 .size-rect {
   stroke: #6ed44a;
   stroke-width: 0.1875rem;
   fill: #fff;
 }
 
-/* line 337, ../../dev/sass/base/general.scss */
+/* line 339, ../../dev/sass/base/general.scss */
 .size-value, .size-value-vertical {
   font-size: 5rem;
   stroke: #D2D2D2;
@@ -1446,12 +1451,12 @@ body {
   text-anchor: middle;
 }
 
-/* line 343, ../../dev/sass/base/general.scss */
+/* line 345, ../../dev/sass/base/general.scss */
 .size-value-vertical {
   text-anchor: end;
 }
 
-/* line 350, ../../dev/sass/base/general.scss */
+/* line 352, ../../dev/sass/base/general.scss */
 .size-value-edit, .size-value-edit-vertical {
   font-size: 5rem;
   stroke: #6ed44a;
@@ -1460,12 +1465,12 @@ body {
   text-anchor: middle;
 }
 
-/* line 357, ../../dev/sass/base/general.scss */
+/* line 359, ../../dev/sass/base/general.scss */
 .size-value-edit-vertical {
   text-anchor: end;
 }
 
-/* line 361, ../../dev/sass/base/general.scss */
+/* line 363, ../../dev/sass/base/general.scss */
 .open-direction {
   fill: none;
   stroke: #f98000;
@@ -1626,7 +1631,7 @@ body {
   width: 3.125rem;
   height: 3.125rem;
   margin: -3.125rem/2 0 0 -3.125rem/2;
-  background: url('../img/spinner.gif?1417864942') no-repeat;
+  background: url('../img/spinner.gif?1418146806') no-repeat;
   background-size: cover;
 }
 
@@ -1878,32 +1883,32 @@ body {
 }
 /* line 46, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.kitchen {
-  background: url('../img/rooms-dialog/kitchen.jpg?1417864942');
+  background: url('../img/rooms-dialog/kitchen.jpg?1418146806');
   background-size: contain;
 }
 /* line 50, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.livingroom {
-  background: url('../img/rooms-dialog/livingroom.jpg?1417864942');
+  background: url('../img/rooms-dialog/livingroom.jpg?1418146806');
   background-size: contain;
 }
 /* line 54, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.balcony {
-  background: url('../img/rooms-dialog/balcony.jpg?1417864941');
+  background: url('../img/rooms-dialog/balcony.jpg?1418146806');
   background-size: contain;
 }
 /* line 58, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.childroom {
-  background: url('../img/rooms-dialog/childroom.jpg?1417864942');
+  background: url('../img/rooms-dialog/childroom.jpg?1418146806');
   background-size: contain;
 }
 /* line 62, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.bedroom {
-  background: url('../img/rooms-dialog/bedroom.jpg?1417864942');
+  background: url('../img/rooms-dialog/bedroom.jpg?1418146806');
   background-size: contain;
 }
 /* line 66, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.door {
-  background: url('../img/rooms-dialog/door.jpg?1417864942');
+  background: url('../img/rooms-dialog/door.jpg?1418146806');
   background-size: contain;
 }
 /* line 71, ../../dev/sass/parts/_rooms-selector.scss */
@@ -2961,7 +2966,7 @@ body {
 }
 
 /* line 218, ../../dev/sass/parts/_cart-dialogs.scss */
-.error-tooltip {
+.error-tooltip, .setting-container .set-email-error {
   top: -0.625rem;
   left: 37.5rem;
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
@@ -2974,7 +2979,7 @@ body {
   background: #f74f2e;
 }
 /* line 229, ../../dev/sass/parts/_cart-dialogs.scss */
-.error-tooltip:before {
+.error-tooltip:before, .setting-container .set-email-error:before {
   -moz-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
@@ -3070,7 +3075,7 @@ body {
   display: -webkit-flex;
   display: flex;
   height: 100%;
-  background: url('../img/login/login-bg.jpg?1417864941') no-repeat;
+  background: url('../img/login/login-bg.jpg?1418146806') no-repeat;
   background-size: cover;
 }
 
@@ -3102,7 +3107,7 @@ body {
   width: 14.75rem;
   height: 14.75rem;
   margin: 0 auto 4.5625rem auto;
-  background: url('../img/login/logo.png?1417864941') no-repeat;
+  background: url('../img/login/logo.png?1418146806') no-repeat;
   background-size: cover;
 }
 
@@ -3133,7 +3138,7 @@ body {
 }
 
 /* line 64, ../../dev/sass/pages/login.scss */
-.error-tooltip {
+.error-tooltip, .setting-container .set-email-error {
   top: -0.625rem;
   left: 37.5rem;
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
@@ -3146,7 +3151,7 @@ body {
   background: #f74f2e;
 }
 /* line 75, ../../dev/sass/pages/login.scss */
-.error-tooltip:before {
+.error-tooltip:before, .setting-container .set-email-error:before {
   -moz-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
@@ -3307,6 +3312,10 @@ body {
 /* line 124, ../../dev/sass/pages/settings.scss */
 .setting-container .phone-btn.add-phone {
   background-color: #4bd963;
+}
+/* line 128, ../../dev/sass/pages/settings.scss */
+.setting-container .set-email-error {
+  left: 70rem;
 }
 
 /* line 2, ../../dev/sass/pages/change-pass.scss */
@@ -4655,7 +4664,7 @@ body {
   right: -3.625rem;
   width: 3.75rem;
   height: 100%;
-  background: url('../img/door-arrow.png?1417864242') no-repeat;
+  background: url('../img/door-arrow.png?1418146802') no-repeat;
   background-size: 100% 100%;
 }
 /* line 345, ../../dev/sass/pages/construction.scss */
@@ -5599,19 +5608,27 @@ body {
   border-style: solid;
   border-color: #bebebe;
   border-width: 1px 0 0 1px;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
-/* line 10, ../../dev/sass/parts/_calculator-general.scss */
+/* line 11, ../../dev/sass/parts/_calculator-general.scss */
 .calculator td:first-child, .size-calc-container td:first-child, .qty-calc-container td:first-child {
   border-left-width: 0;
 }
-/* line 15, ../../dev/sass/parts/_calculator-general.scss */
+/* line 16, ../../dev/sass/parts/_calculator-general.scss */
 .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
   display: block;
   width: 9.75rem;
   height: 6.25rem;
 }
-/* line 24, ../../dev/sass/parts/_calculator-general.scss */
+/* line 26, ../../dev/sass/parts/_calculator-general.scss */
 .calculator .calc-interval, .size-calc-container .calc-interval, .qty-calc-container .calc-interval {
   display: -webkit-flex;
   display: flex;
@@ -5622,18 +5639,18 @@ body {
   height: 6.25rem;
   background-color: #fff;
 }
-/* line 33, ../../dev/sass/parts/_calculator-general.scss */
+/* line 35, ../../dev/sass/parts/_calculator-general.scss */
 .calculator .calc-label-limit, .size-calc-container .calc-label-limit, .qty-calc-container .calc-label-limit {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   text-align: center;
   color: #bebebe;
 }
-/* line 40, ../../dev/sass/parts/_calculator-general.scss */
+/* line 42, ../../dev/sass/parts/_calculator-general.scss */
 .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit {
   background-color: transparent;
   color: #363636;
 }
-/* line 46, ../../dev/sass/parts/_calculator-general.scss */
+/* line 48, ../../dev/sass/parts/_calculator-general.scss */
 .calculator .calc-equal, .size-calc-container .calc-equal, .qty-calc-container .calc-equal {
   color: #fff;
 }
@@ -6257,85 +6274,85 @@ body {
 }
 /* line 14, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grid-img {
-  background-image: url('../img/auxiliaries-focused/grid.png?1417864938');
+  background-image: url('../img/auxiliaries-focused/grid.png?1418146803');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 19, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-visor-img {
-  background-image: url('../img/auxiliaries-focused/visor.png?1417864939');
+  background-image: url('../img/auxiliaries-focused/visor.png?1418146804');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 24, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spillway-img {
-  background-image: url('../img/auxiliaries-focused/spillway.png?1417864938');
+  background-image: url('../img/auxiliaries-focused/spillway.png?1418146804');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 29, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-focused/windowsill.png?1417864939');
+  background-image: url('../img/auxiliaries-focused/windowsill.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 34, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-top {
-  background-image: url('../img/auxiliaries-focused/louvers-top.png?1417864938');
+  background-image: url('../img/auxiliaries-focused/louvers-top.png?1418146804');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 39, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-midle {
-  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1417864938');
+  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1418146804');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 44, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1417864938');
+  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1418146804');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 49, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-top {
-  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1417864938');
+  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1418146804');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 54, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-right {
-  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1417864938');
+  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1418146804');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 59, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-left {
-  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1417864938');
+  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1418146804');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 64, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-fan-img {
-  background-image: url('../img/auxiliaries-focused/fan.png?1417864938');
+  background-image: url('../img/auxiliaries-focused/fan.png?1418146803');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 69, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-force-connect {
-  background-image: url('../img/auxiliaries-focused/force-connector.png?1417864938');
+  background-image: url('../img/auxiliaries-focused/force-connector.png?1418146803');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 74, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1417864938');
+  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1418146802');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 79, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-handle-img {
-  background-image: url('../img/auxiliaries-focused/handle.png?1417864938');
+  background-image: url('../img/auxiliaries-focused/handle.png?1418146803');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6365,85 +6382,85 @@ body {
 }
 /* line 110, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grid-img {
-  background-image: url('../img/auxiliaries-selected/grid.png?1417864939');
+  background-image: url('../img/auxiliaries-selected/grid.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 115, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
-  background-image: url('../img/auxiliaries-selected/visor.png?1417864940');
+  background-image: url('../img/auxiliaries-selected/visor.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 120, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
-  background-image: url('../img/auxiliaries-selected/spillway.png?1417864940');
+  background-image: url('../img/auxiliaries-selected/spillway.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 125, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-selected/windowsill.png?1417864940');
+  background-image: url('../img/auxiliaries-selected/windowsill.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 130, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-top {
-  background-image: url('../img/auxiliaries-selected/louvers-top.png?1417864940');
+  background-image: url('../img/auxiliaries-selected/louvers-top.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 135, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-midle {
-  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1417864940');
+  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 140, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1417864939');
+  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 145, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-top {
-  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1417864939');
+  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 150, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-right {
-  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1417864939');
+  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 155, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-left {
-  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1417864939');
+  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 160, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-fan-img {
-  background-image: url('../img/auxiliaries-selected/fan.png?1417864939');
+  background-image: url('../img/auxiliaries-selected/fan.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 165, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-force-connect {
-  background-image: url('../img/auxiliaries-selected/force-connector.png?1417864939');
+  background-image: url('../img/auxiliaries-selected/force-connector.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 170, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1417864939');
+  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 175, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-handle-img {
-  background-image: url('../img/auxiliaries-selected/handle.png?1417864939');
+  background-image: url('../img/auxiliaries-selected/handle.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6466,7 +6483,7 @@ body {
   position: absolute;
   width: 13.75rem;
   height: 24.375rem;
-  background-image: url('../img/auxiliaries/grid.png?1417864936');
+  background-image: url('../img/auxiliaries/grid.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6483,7 +6500,7 @@ body {
   position: absolute;
   width: 55.8125rem;
   height: 16.3125rem;
-  background-image: url('../img/auxiliaries/visor.png?1417864938');
+  background-image: url('../img/auxiliaries/visor.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6500,7 +6517,7 @@ body {
   position: absolute;
   width: 44.9375rem;
   height: 12.875rem;
-  background-image: url('../img/auxiliaries/spillway.png?1417864937');
+  background-image: url('../img/auxiliaries/spillway.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6517,7 +6534,7 @@ body {
   position: absolute;
   width: 40.625rem;
   height: 38.125rem;
-  background-image: url('../img/auxiliaries/outside.png?1417864937');
+  background-image: url('../img/auxiliaries/outside.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6534,7 +6551,7 @@ body {
   position: absolute;
   width: 45rem;
   height: 14.75rem;
-  background-image: url('../img/auxiliaries/windowsill.png?1417864938');
+  background-image: url('../img/auxiliaries/windowsill.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6558,7 +6575,7 @@ body {
   z-index: 10;
   width: 16.3125rem;
   height: 4.9375rem;
-  background-image: url('../img/auxiliaries/louvers-top.png?1417864937');
+  background-image: url('../img/auxiliaries/louvers-top.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6568,7 +6585,7 @@ body {
   left: 3.125rem;
   width: 16.3125rem;
   height: 6.1875rem;
-  background-image: url('../img/auxiliaries/louvers-middle.png?1417864937');
+  background-image: url('../img/auxiliaries/louvers-middle.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6595,7 +6612,7 @@ body {
   z-index: 6;
   width: 16.3125rem;
   height: 6.5rem;
-  background-image: url('../img/auxiliaries/louvers-bottom.png?1417864937');
+  background-image: url('../img/auxiliaries/louvers-bottom.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6618,7 +6635,7 @@ body {
   position: absolute;
   width: 41.25rem;
   height: 11.4375rem;
-  background-image: url('../img/auxiliaries/inside-slope-top.png?1417864937');
+  background-image: url('../img/auxiliaries/inside-slope-top.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6629,7 +6646,7 @@ body {
   position: absolute;
   width: 5.625rem;
   height: 27.125rem;
-  background-image: url('../img/auxiliaries/inside-slope-right.png?1417864937');
+  background-image: url('../img/auxiliaries/inside-slope-right.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6640,7 +6657,7 @@ body {
   position: absolute;
   width: 6.0625rem;
   height: 25.5rem;
-  background-image: url('../img/auxiliaries/inside-slope-left.png?1417864936');
+  background-image: url('../img/auxiliaries/inside-slope-left.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6657,7 +6674,7 @@ body {
   position: absolute;
   width: 7.125rem;
   height: 7.5rem;
-  background-image: url('../img/auxiliaries/fan.png?1417864934');
+  background-image: url('../img/auxiliaries/fan.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6680,7 +6697,7 @@ body {
   position: absolute;
   width: 12.8125rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/force-connector.png?1417864934');
+  background-image: url('../img/auxiliaries/force-connector.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6691,7 +6708,7 @@ body {
   position: absolute;
   width: 12.8125rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/balcon-connector.png?1417864934');
+  background-image: url('../img/auxiliaries/balcon-connector.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6708,7 +6725,7 @@ body {
   position: absolute;
   width: 6.625rem;
   height: 7.875rem;
-  background-image: url('../img/auxiliaries/handle.png?1417864936');
+  background-image: url('../img/auxiliaries/handle.png?1418146805');
   background-repeat: no-repeat;
   background-size: contain;
 }

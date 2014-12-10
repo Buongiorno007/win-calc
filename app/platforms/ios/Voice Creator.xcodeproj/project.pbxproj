@@ -33,6 +33,7 @@
 		30C1856619D5FC0A00212699 /* icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30C1856519D5FC0A00212699 /* icon-60@3x.png */; };
 		30FC414916E50CA1004E6F35 /* icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30FC414816E50CA1004E6F35 /* icon-72@2x.png */; };
 		50F143EC4EC5429EB4EBC6E8 /* CDVNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD7488509DD4FF0B62F6540 /* CDVNotification.m */; };
+		55BB8F8D1A376CC0000D8001 /* SpeechKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BB8F8C1A376CC0000D8001 /* SpeechKit.framework */; };
 		5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */; };
 		678F1E457CF7470092B87888 /* CDVCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D239269DF94AE5B99DA5D8 /* CDVCamera.m */; };
 		7DE5C41F894A4018A9E424D0 /* CDVLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 73533F09D1704B0A94B785EB /* CDVLogger.m */; };
@@ -125,6 +126,7 @@
 		4E5A737E12CE4B4D8881F600 /* CDVSplashScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVSplashScreen.m; path = org.apache.cordova.splashscreen/CDVSplashScreen.m; sourceTree = "<group>"; };
 		50DF6283BA354CB9952A7CD2 /* CDVStatusBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVStatusBar.h; path = org.apache.cordova.statusbar/CDVStatusBar.h; sourceTree = "<group>"; };
 		55A95B06EDDB4C3CA7C9F768 /* CDVFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVFile.h; path = org.apache.cordova.file/CDVFile.h; sourceTree = "<group>"; };
+		55BB8F8C1A376CC0000D8001 /* SpeechKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpeechKit.framework; path = ../../../../../DragonMobileSDK_1.4.12/SpeechKit.framework; sourceTree = "<group>"; };
 		55C1B93140FC4DC6A0FAD4D7 /* CDVJpegHeaderWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVJpegHeaderWriter.h; path = org.apache.cordova.camera/CDVJpegHeaderWriter.h; sourceTree = "<group>"; };
 		55D239269DF94AE5B99DA5D8 /* CDVCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVCamera.m; path = org.apache.cordova.camera/CDVCamera.m; sourceTree = "<group>"; };
 		5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -199,6 +201,7 @@
 				85EAB3C61A3704BB00550B76 /* AddressBook.framework in Frameworks */,
 				85EAB3C71A3704BB00550B76 /* AddressBookUI.framework in Frameworks */,
 				85EAB3C31A3704AB00550B76 /* Foundation.framework in Frameworks */,
+				55BB8F8D1A376CC0000D8001 /* SpeechKit.framework in Frameworks */,
 				85EAB3C11A37049C00550B76 /* UIKit.framework in Frameworks */,
 				85EAB3BF1A37049400550B76 /* Security.framework in Frameworks */,
 				5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */,
@@ -278,6 +281,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				55BB8F8C1A376CC0000D8001 /* SpeechKit.framework */,
 				85EAB3D21A37052A00550B76 /* CoreMedia.framework */,
 				85EAB3D01A37051A00550B76 /* SystemConfiguration.framework */,
 				85EAB3CE1A37050F00550B76 /* QuartzCore.framework */,
@@ -564,6 +568,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/jacky/Documents/DragonMobileSDK_1.4.12,
+					/Users/andrey/Documents/DragonMobileSDK_1.4.12,
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -599,6 +604,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/jacky/Documents/DragonMobileSDK_1.4.12,
+					/Users/andrey/Documents/DragonMobileSDK_1.4.12,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Voice Creator/Voice Creator-Prefix.pch";

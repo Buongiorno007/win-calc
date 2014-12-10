@@ -309,6 +309,8 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
         $scope.global.isConstructSizeCalculator = true;
       } else {
         $scope.openVoiceHelper = true;
+        startRecognition(doneR);
+
       }
       $scope.$apply();
     }
@@ -324,34 +326,65 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
   });
 
 
+  function doneR(value) {
+    console.log("DONE" + value);
+    $scope.voiceTxt = value;
+    $scope.$apply();
+    setTimeout(function() {
+      setValueSize(parseStringToDimension(value));
+
+      $scope.$apply();
+    }, 2000)
+  }
+
+
   //-------- Get number from calculator
   function setValueSize(newValue) {
-    //---- clear array from 0 after delete all number in array
-    if($scope.constructData.tempSize.length === 1 && $scope.constructData.tempSize[0] === 0) {
-      $scope.constructData.tempSize.length = 0;
-    }
-    if($scope.constructData.tempSize.length === 4) {
-      $scope.constructData.tempSize.length = 0;
-    }
-    if (newValue === '0') {
-      if ($scope.constructData.tempSize.length !== 0 && $scope.constructData.tempSize[0] !== 0) {
+
+    if($scope.openVoiceHelper) {
+
+      var tempVal = parseInt(newValue,10);
+
+      if($.isNumeric(tempVal)) {
+        var tempValStr = tempVal.toString();
+        $scope.constructData.tempSize = tempValStr.split('');
+        if($scope.constructData.tempSize.length < 5) {
+          changeSize();
+        }
+      } else {
+        $scope.voiceTxt = '';
+        $scope.openVoiceHelper = false;
+        deactiveSizeBox(sizeEditClass, sizeClass);
+      }
+
+    } else {
+      //---- clear array from 0 after delete all number in array
+      if ($scope.constructData.tempSize.length === 1 && $scope.constructData.tempSize[0] === 0) {
+        $scope.constructData.tempSize.length = 0;
+      }
+      if ($scope.constructData.tempSize.length === 4) {
+        $scope.constructData.tempSize.length = 0;
+      }
+      if (newValue === '0') {
+        if ($scope.constructData.tempSize.length !== 0 && $scope.constructData.tempSize[0] !== 0) {
+          $scope.constructData.tempSize.push(newValue);
+          changeSize();
+        }
+      }
+      if (newValue === '00') {
+        if ($scope.constructData.tempSize.length !== 0 && $scope.constructData.tempSize[0] !== 0) {
+          if ($scope.constructData.tempSize.length < 3) {
+            $scope.constructData.tempSize.push(0, 0);
+          } else if ($scope.constructData.tempSize.length === 3) {
+            $scope.constructData.tempSize.push(0);
+          }
+          changeSize();
+        }
+      }
+      if (newValue !== '0' && newValue !== '00') {
         $scope.constructData.tempSize.push(newValue);
         changeSize();
       }
-    }
-    if (newValue === '00') {
-      if ($scope.constructData.tempSize.length !== 0 && $scope.constructData.tempSize[0] !== 0) {
-        if ($scope.constructData.tempSize.length < 3) {
-          $scope.constructData.tempSize.push(0, 0);
-        } else if ($scope.constructData.tempSize.length === 3) {
-          $scope.constructData.tempSize.push(0);
-        }
-        changeSize();
-      }
-    }
-    if (newValue !== '0' && newValue !== '00') {
-      $scope.constructData.tempSize.push(newValue);
-      changeSize();
     }
   }
 
@@ -391,6 +424,11 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
 
     SVG(svg[0]).viewbox();
     SVG(svg[0]).size($scope.svgTemplateWidthTEMP, $scope.svgTemplateHeightTEMP);
+
+    if($scope.openVoiceHelper) {
+      $scope.closeSizeCaclulator();
+      console.log($scope.constructData.tempSize);
+    }
   }
 
   //---------- Close Size Calculator
@@ -401,6 +439,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
         newPoints = [],
         allDimensionsV = [],
         curDimensionType;
+
 
     if($scope.constructData.tempSize.length > 0) {
       newLength = parseInt($scope.constructData.tempSize.join(''), 10);
@@ -543,6 +582,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
       $scope.global.isConstructSizeCalculator = false;
       deactiveSizeBox(sizeEditClass, sizeClass);
     }
+    $scope.openVoiceHelper = false;
   };
 
 }]);

@@ -1,0 +1,211 @@
+
+<section ng-controller="ConstructionCtrl" class="construction-page">
+  <section class="construction-container">
+    <div class="construction-left-menu">
+      <ul class="figure-lists">
+        <li ng-class="{'selected': constructData.activeMenuItem==1}" ng-click="selectMenuItem(1)" class="figure-item">
+          <div class="figure-icon sash-shape"></div>
+          <div data-output="{{ 'construction.SASH_SHAPE' | translate }}" typing="{{ constructData.typing }}" typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
+        </li>
+        <li ng-class="{'selected': constructData.activeMenuItem==2}" ng-click="selectMenuItem(2)" class="figure-item">
+          <div class="figure-icon angel-shape"></div>
+          <div data-output="{{ 'construction.ANGEL_SHAPE' | translate }}" typing="{{ constructData.typing }}" typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
+        </li>
+        <li ng-class="{'selected': constructData.activeMenuItem==3}" ng-click="selectMenuItem(3)" class="figure-item">
+          <div class="figure-icon impost-shape"></div>
+          <div data-output="{{ 'construction.IMPOST_SHAPE' | translate }}" typing="{{ constructData.typing }}" typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
+        </li>
+        <li ng-class="{'selected': constructData.activeMenuItem==4}" ng-click="selectMenuItem(4)" class="figure-item">
+          <div class="figure-icon arch-shape"></div>
+          <div data-output="{{ 'construction.ARCH_SHAPE' | translate }}" typing="{{ constructData.typing }}" typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
+        </li>
+        <li ng-class="{'selected': constructData.activeMenuItem==5}" ng-click="selectMenuItem(5)" class="figure-item">
+          <div class="figure-icon position-shape"></div>
+          <div data-output="{{ 'construction.POSITION_SHAPE' | translate }}" typing="{{ constructData.typing }}" typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
+        </li>
+      </ul>
+      <div class="left-menu-footer">
+        <div data-output="{{ 'construction.UNITS_DESCRIP' | translate }}" typing="{{ constructData.typing }}" typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}" class="footer-description"></div>
+        <div ng-click="setDefaultConstruction()" class="project-default">{{ 'construction.PROJECT_DEFAULT' | translate }}</div>
+      </div>
+    </div>
+    <div class="construction-block">
+      <div class="construction-scrollbox">
+        <svg-template template="templateDefaultTEMP" template-width="svgTemplateWidthTEMP" template-height="svgTemplateHeightTEMP" type-construction="edit"></svg-template>
+      </div>
+    </div>
+    <div class="construction-right-menu">
+      <div class="right-menu-header">
+        <button ng-click="gotoMainPageSaved()" class="construct-tools save-construction"></button>
+        <button ng-click="gotoMainPageCancel()" class="construct-tools close-construction"></button>
+      </div>
+      <div ng-show="global.isConstructDoor" class="door-config-menu">
+        <button ng-class="{'active': constructData.showDoorConfig}" ng-click="getDoorConfig()" class="door-config-btn"></button>
+        <div class="door-config-label">{{ 'construction.DOOR_CONFIG_LABEL' | translate }}</div>
+        <div class="door-config-description">{{ 'construction.DOOR_CONFIG_DESCTIPT' | translate }}: {{ constructData.doorShape }};</div>
+        <div class="door-config-description">{{ 'construction.SASH_CONFIG_DESCTIPT' | translate }}: {{ constructData.sashShape }};</div>
+        <div class="door-config-description">{{ 'construction.HANDLE_CONFIG_DESCTIPT' | translate }}: {{ constructData.handleShape }};</div>
+        <div class="door-config-description">{{ 'construction.LOCK_CONFIG_DESCTIPT' | translate }}: {{ constructData.lockShape }};</div>
+      </div>
+      <div class="right-menu-footer">
+        <div ng-class="{'active': global.isConstructSizeCalculator}" class="size-calculator">
+          <table class="size-calc-container">
+            <thead>
+              <td>
+                <button ng-click="deleteLastNumber()" class="cell calc-delete"></button>
+              </td>
+              <td colspan="2">
+                <div class="calc-interval">
+                  <div class="interval">
+                    <div ng-hide="global.isConstructSizeCalculator" class="calc-value-limit">0</div>
+                    <div ng-show="global.isConstructSizeCalculator" ng-class="{'restriction': constructData.isMinSizeRestriction}" class="calc-value-limit">{{ constructData.minSizeLimit }}</div>
+                    <div class="calc-label-limit">{{ 'common_words.MIN' | translate }}</div>
+                  </div>
+                  <div class="interval">
+                    <div ng-hide="global.isConstructSizeCalculator" class="calc-value-limit">5000</div>
+                    <div ng-show="global.isConstructSizeCalculator" ng-class="{'restriction': constructData.isMaxSizeRestriction}" class="calc-value-limit">{{ constructData.maxSizeLimit }}</div>
+                    <div class="calc-label-limit">{{ 'common_words.MAX' | translate }}</div>
+                  </div>
+                </div>
+              </td>
+            </thead>
+            <tr>
+              <td>
+                <button ng-click="setValueSize(1)" class="cell calc-digit">1</button>
+              </td>
+              <td>
+                <button ng-click="setValueSize(2)" class="cell calc-digit">2</button>
+              </td>
+              <td>
+                <button ng-click="setValueSize(3)" class="cell calc-digit">3</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button ng-click="setValueSize(4)" class="cell calc-digit">4</button>
+              </td>
+              <td>
+                <button ng-click="setValueSize(5)" class="cell calc-digit">5</button>
+              </td>
+              <td>
+                <button ng-click="setValueSize(6)" class="cell calc-digit">6</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button ng-click="setValueSize(7)" class="cell calc-digit">7</button>
+              </td>
+              <td>
+                <button ng-click="setValueSize(8)" class="cell calc-digit">8</button>
+              </td>
+              <td>
+                <button ng-click="setValueSize(9)" class="cell calc-digit">9</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button ng-click="setValueSize(0)" class="cell calc-digit">0</button>
+              </td>
+              <td>
+                <button ng-click="setValueSize('00')" class="cell calc-digit">00</button>
+              </td>
+              <td>
+                <button ng-click="closeSizeCaclulator()" class="cell calc-equal">=</button>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div ng-class="{'active': openVoiceHelper}" class="voice-container">
+          <div class="voice-icon"></div>
+          <div class="voice-title">Укажите размер:</div>
+          <input type="text" name="name" ng-model="voiceTxt" placeholder="{{ 'mainpage.VOICE_SPEACH' | translate }}" class="voice-input">
+        </div>
+      </div>
+    </div>
+    <section ng-class="{'active': constructData.showDoorConfig}" class="door-configuration">
+      <div class="door-config-column step1">
+        <div class="door-config-backfon"></div>
+        <div class="door-config-header">
+          <div class="door-inner">
+            <div class="door-title">1 {{ 'construction.STEP' | translate }}</div>
+            <div class="door-subtitle">{{ 'construction.LABEL_DOOR_TYPE' | translate }}</div>
+          </div>
+        </div>
+        <div ng-class="{'scroll-box': !constructData.selectedStep2}" class="door-config-content">
+          <ul class="door-config-list">
+            <li ng-repeat="door in doorShape" ng-class="{'selected': constructData.selectedDoorShape === door.shapeId}" ng-click="selectDoor(door.shapeId, door.shapeLabel)" class="door-config-option">
+              <div class="door-inner">
+                <div class="door-option-icon"><img ng-src="{{ door.shapeIcon }}" ng-hide="constructData.selectedDoorShape === door.shapeId"><img ng-src="{{ door.shapeIconSelect }}" ng-show="constructData.selectedDoorShape === door.shapeId"></div>
+                <div class="door-option-label">{{ door.shapeLabel }}</div>
+              </div>
+              <div ng-show="constructData.selectedDoorShape === door.shapeId" class="selected-item-arrow"></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div ng-class="{'active': constructData.selectedStep1}" class="door-config-column step2">
+        <div class="door-config-backfon"></div>
+        <div class="door-config-header">
+          <div class="door-inner">
+            <div class="door-title">2 {{ 'construction.STEP' | translate }}</div>
+            <div class="door-subtitle">{{ 'construction.LABEL_SASH_TYPE' | translate }}</div>
+          </div>
+        </div>
+        <div ng-class="{'scroll-box': !constructData.selectedStep3}" class="door-config-content">
+          <ul class="door-config-list">
+            <li ng-repeat="sash in sashShape" ng-class="{'selected': constructData.selectedSashShape === sash.shapeId}" ng-click="selectSash(sash.shapeId, sash.shapeLabel)" class="door-config-option">
+              <div class="door-inner">
+                <div class="door-option-label">{{ sash.shapeLabel }}</div>
+              </div>
+              <div ng-show="constructData.selectedSashShape === sash.shapeId" class="selected-item-arrow"></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div ng-class="{'active': constructData.selectedStep2}" class="door-config-column step3">
+        <div class="door-config-backfon"></div>
+        <div class="door-config-header">
+          <div class="door-inner">
+            <div class="door-title">3 {{ 'construction.STEP' | translate }}</div>
+            <div class="door-subtitle">{{ 'construction.LABEL_HANDLE_TYPE' | translate }}</div>
+          </div>
+        </div>
+        <div ng-class="{'scroll-box': !constructData.selectedStep4}" class="door-config-content">
+          <ul class="door-config-list">
+            <li ng-repeat="handle in handleShape" ng-class="{'selected': constructData.selectedHandleShape === handle.shapeId}" ng-click="selectHandle(handle.shapeId, handle.shapeLabel)" class="door-config-option">
+              <div class="door-inner">
+                <div class="door-option-icon"><img ng-src="{{ handle.shapeIcon }}" ng-hide="constructData.selectedHandleShape === handle.shapeId"><img ng-src="{{ handle.shapeIconSelect }}" ng-show="constructData.selectedHandleShape === handle.shapeId"></div>
+                <div class="door-option-label">{{ handle.shapeLabel }}</div>
+              </div>
+              <div ng-show="constructData.selectedHandleShape === handle.shapeId" class="selected-item-arrow"></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div ng-class="{'active': constructData.selectedStep3}" class="door-config-column step4">
+        <div class="door-config-backfon"></div>
+        <div class="door-config-header">
+          <div class="door-inner">
+            <div class="door-title">4 {{ 'construction.STEP' | translate }}</div>
+            <div class="door-subtitle">{{ 'construction.LABEL_LOCK_TYPE' | translate }}</div>
+          </div>
+        </div>
+        <div ng-class="{'scroll-box': constructData.selectedStep3}" class="door-config-content">
+          <ul class="door-config-list">
+            <li ng-repeat="lock in lockShape" ng-class="{'selected': constructData.selectedLockShape === lock.shapeId}" ng-click="selectLock(lock.shapeId, lock.shapeLabel)" class="door-config-option">
+              <div class="door-inner">
+                <div class="door-option-icon"><img ng-src="{{ lock.shapeIcon }}" ng-hide="constructData.selectedLockShape === lock.shapeId"><img ng-src="{{ lock.shapeIconSelect }}" ng-show="constructData.selectedLockShape === lock.shapeId"></div>
+                <div class="door-option-label">{{ lock.shapeLabel }}</div>
+              </div>
+              <div ng-show="constructData.selectedLockShape === lock.shapeId" class="selected-item-arrow"></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="door-config-tools">
+        <button ng-click="closeDoorConfig()" class="door-config-btn close-door-config"></button>
+        <button ng-show="constructData.selectedStep4" ng-click="saveDoorConfig()" class="door-config-btn save-door-config"></button>
+      </div>
+    </section>
+  </section>
+</section>
