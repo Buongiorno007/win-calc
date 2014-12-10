@@ -59,5 +59,15 @@ function printResult(resultObject){
 
 
 
+function playTTS(text) {
+    if (text.length > 0){
+        console.log("Playing TTS:" + text);
+        
+        var ttsLanguageSelect = document.getElementById("tts-language");
+        var ttsLanguage = "ru_ru";
+        speechKit.playTTS(text, ttsLanguage, null, function(r){printResult(r)}, function(e){printResult(e)} );
+    }
+}
+
 
 
