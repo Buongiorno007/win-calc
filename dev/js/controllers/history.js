@@ -8,6 +8,8 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
 
   // indicator for user info block and searching block
   $scope.global.isHistoryPage = true;
+  $scope.global.isOpenedCartPage = false;
+  $scope.global.isReturnFromDiffPage = false;
 
   $scope.history = {
     isOrderSearch: false,

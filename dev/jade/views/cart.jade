@@ -58,7 +58,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                   .order-value {{ product.productQty }}
                   button.order-tool(ng-click="moreProduct(product.productId, $index)") +
                   .order-label.qty-label {{ 'cart.PRODUCT_QTY' | translate }}
-              .order-footer {{ product.productPrice * product.productQty }} {{ global.currency }}
+              .order-footer {{ (product.productPrice * product.productQty) *100 / 100 }} {{ global.currency }}
 
 
               .addelements-detail(ng-show="cart.isAddElementDetail === product.productId")

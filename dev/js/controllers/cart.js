@@ -14,6 +14,9 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
   var p, prod, product, newProductsQty, oldProductPrice, newProductPrice;
 
+  $scope.global.isOpenedCartPage = true;
+  $scope.global.isCreatedNewProject = false;
+  $scope.global.isReturnFromDiffPage = false;
 
   //------- если из корзины пойти в историю а потом вернуться через редактирование и нажать на nav-menu button
   $scope.global.isHistoryPage = false;
@@ -123,15 +126,16 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
       var productObj = angular.copy(results.data);
       var productCounter = productObj.length;
 
-
       //------------- Download All Templates for Order
       localDB.selectDB($scope.global.componentsTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
         if (results.status) {
           $scope.global.productObj = productObj;
+
           $scope.global.productCounter = productCounter;
           console.log($scope.global.productObj);
           var tempTemplateSource = angular.copy(results.data);
           for(var prod = 1; prod <=  $scope.global.productCounter; prod++) {
+
             var productIconSource,
                 productIcon;
             //------ if Add Elements only
@@ -146,7 +150,6 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
             $scope.global.productObj[prod-1].icon = productIcon;
 
           }
-          console.log($scope.cart.allTemplateIcons);
 
           $scope.global.calculateOrderPrice();
           $scope.global.orderTotalPrice = $scope.global.orderPrice;
@@ -278,9 +281,10 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     localDB.deleteDB($scope.global.componentsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, "productId": productIdBD});
     localDB.deleteDB($scope.global.visorsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, "productId": productIdBD});
     localDB.deleteDB($scope.global.windowSillsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, "productId": productIdBD});
-    //----- if all products were deleted go to main page
+    //----- if all products were deleted go to main page????
     if(!$scope.global.productCounter) {
-      $scope.global.createNewProject();
+      $scope.global.orderTotalPrice = 0;
+      $scope.global.calculateOrderPrice();
     }
   };
 
@@ -304,11 +308,10 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
       $scope.deleteProduct(productIdBD, productIdArr);
     } else {
       $scope.global.productObj[productIdArr].productQty = --newProductsQty;
-      oldProductPrice = parseFloat($scope.cart.productObjSource[productIdArr].productPrice);
-      newProductPrice = parseFloat($scope.global.productObj[productIdArr].productPrice);
-      $scope.global.productObj[productIdArr].productPrice = parseFloat((newProductPrice - oldProductPrice).toFixed(2));
+      //oldProductPrice = parseFloat($scope.cart.productObjSource[productIdArr].productPrice);
+      //newProductPrice = parseFloat($scope.global.productObj[productIdArr].productPrice);
+      //$scope.global.productObj[productIdArr].productPrice = parseFloat((newProductPrice - oldProductPrice).toFixed(2));
       $scope.global.calculateOrderPrice();
-
       // Change product value in DB
       localDB.updateDB($scope.global.productsTableBD, {"productQty": newProductsQty}, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, "productId": productIdBD});
     }
@@ -319,10 +322,9 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   $scope.moreProduct = function(productIdBD, productIdArr) {
     newProductsQty = $scope.global.productObj[productIdArr].productQty;
     $scope.global.productObj[productIdArr].productQty = ++newProductsQty;
-    oldProductPrice = parseFloat($scope.cart.productObjSource[productIdArr].productPrice);
-    newProductPrice = parseFloat($scope.global.productObj[productIdArr].productPrice);
-    $scope.global.productObj[productIdArr].productPrice = parseFloat((oldProductPrice + newProductPrice).toFixed(2));
-
+    //oldProductPrice = parseFloat($scope.cart.productObjSource[productIdArr].productPrice);
+    //newProductPrice = parseFloat($scope.global.productObj[productIdArr].productPrice);
+    //$scope.global.productObj[productIdArr].productPrice = parseFloat((oldProductPrice + newProductPrice).toFixed(2));
     $scope.global.calculateOrderPrice();
     // Change product value in DB
     localDB.updateDB($scope.global.productsTableBD, {"productQty": newProductsQty}, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, "productId": productIdBD});
@@ -352,8 +354,10 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   $scope.calculateProductsPrice = function() {
     $scope.global.orderPrice = 0;
     for(p = 0; p < $scope.global.productCounter; p++) {
-      $scope.global.orderPrice += ($scope.global.productObj[p].productPrice * $scope.global.productObj[p].productQty);
+      $scope.global.orderPrice += parseFloat( (parseFloat($scope.global.productObj[p].productPrice.toFixed(2)) * $scope.global.productObj[p].productQty).toFixed(2) );
+      console.log($scope.global.orderPrice);
     }
+
     $scope.global.orderPrice = parseFloat($scope.global.orderPrice.toFixed(2));
   };
 
@@ -367,12 +371,11 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
   //------- add new product in order
   $scope.addNewProductInOrder = function() {
-    $scope.global.isCreatedNewProject = false;
-    $scope.global.isReturnFromCartPage = true;
+    $scope.global.isOpenedCartPage = false;
+    $scope.global.isAddNewProductInOrder = true;
     $scope.global.productEditNumber = false;
     $scope.global.templateIndex = 0;
     $scope.global.profileIndex = 0;
-    $scope.global.isOpenedCartPage = true;
     $scope.global.prepareMainPage();
     $location.path('/main');
   };

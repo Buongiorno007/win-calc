@@ -64,7 +64,7 @@ function changePrice(price, elem) {
   }
 
   changePrice.revertDigitState = function () {
-    $digitCell.animate({ top: 0 }, 'slow');
+    $digitCell.animate({ top: 0 }, 'fast');
   };
 
   changePrice.initDigit = function () {
@@ -80,7 +80,7 @@ function changePrice(price, elem) {
 
     $digitCell
       .delay(n * DELAY_PRICE_DIGIT)
-      .animate({ top: (-scrollDigitY/16) + "rem" }, 'slow');
+      .animate({ top: (-scrollDigitY/16) + "rem" }, 'fast');
   };
 
   for (i = MAX_DIGITS; i > 0; i--) {

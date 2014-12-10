@@ -2,6 +2,9 @@
 // voicerec.js
 
 
+// voicerec.js
+
+
 var speechKit = new NuanceSpeechKitPlugin();
 
 
@@ -14,31 +17,58 @@ function doCleanup(){
     speechKit.cleanup( function(r){printResult(r)}, function(e){printResult(e)} );
 }
 
-function startRecognition(callback){
-    callbackFunction = callback;
+function startRecognition(callback, progressCalback){
+    var recInProcess = true;
     console.log("Before startRecognition");
     speechKit.startRecognition("dictation", "ru_ru", function(r){printRecoResult(r)}, function(e){printRecoResult(e)} );
     console.log("After startRecognition");
     var tempObj = new Object();
    
+    setTimeout(forceStop, 7000);
+    
+    function forceStop() {
+        console.log("FORCE STOP" + recInProcess);
+        if (recInProcess === true) {
+            //inProcess = false;
+            console.log("FORCE STOP");
+            forceStopRecognition();
+        }
+    }
+    
+    function forceStopRecognition(){
+        speechKit.stopRecognition(function(r){printRecoResult(r)}, function(e){console.log(e)} );
+        
+    }
+
+    
+    
     function printRecoResult(resultObject){
         if (resultObject.event == 'RecoVolumeUpdate'){
             console.log("RecoVolumeUpdate");
+            if (progressCalback) {
+                 progressCalback(resultObject.volumeLevel);
+            }
         }
         else{
-            parseAndCallback(resultObject);
+           
+           parseAndCallback(resultObject);
         }
     }
     
     function parseAndCallback(resultObject){
+        console.log("parseAndCallback" + resultObject.event);
         if (resultObject.results != undefined){
             if (resultObject.results.length > 0) {
                 callback(resultObject.results[0].value);
-                return;
-            } else {
-                callback("0");
+                 recInProcess = false;
                 return;
             }
+        }
+        if (resultObject.event != 'RecoStarted') {
+            callback("0");
+            recInProcess = false;
+            return;
+            
         }
     }
 }
@@ -51,7 +81,7 @@ function stopRecognition(){
 
 
 function getResult(){
-    speechKit.getResults(function(r){printResult(r)}, function(e){console.log(e)} );
+    speechKit.getResults(function(r){printResult(r)}, function(e){console.log("getResult" + e)} );
 }
 
 
@@ -60,8 +90,18 @@ function printResult(resultObject){
     console.log("printResult " + resultObject.event);
 }
 
+function playTTS(text) {
+    if (text.length > 0){
+        console.log("Playing TTS");
+        
+        var ttsLanguageSelect = document.getElementById("tts-language");
+        var ttsLanguage = "ru_ru";
+        speechKit.playTTS(text, ttsLanguage, null, function(r){printTTSResult(r)}, function(e){printTTSResult(e)} );
+    }
+    
+    function printTTSResult(resultObject){
+        console.log("printTTSResult " + JSON.stringify(resultObject));
+    }
 
-
-
-
+}
 
