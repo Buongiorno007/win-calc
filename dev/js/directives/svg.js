@@ -298,13 +298,14 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                         add.ref(-5, -2);
                         add.viewbox(-5, -5, 4, 5);
                       });
-
                       line.marker('mid', 30, 30, function(add) {
                         add.path('M 0,0 L 4,2 0,4 z').attr('class', 'size-line');
                         add.ref(5, 2);
                         add.viewbox(1, -1, 4, 5);
                         if(prop === 'dimensionsV') {
                           add.attr('orient', 90);
+                        } else {
+                          add.attr('orient', 0);
                         }
                       });
 
@@ -378,6 +379,15 @@ BauVoiceApp.directive('svgTemplate', [ function() {
           }
         }
 
+          //var mid = (overallDimH - edgeLeft) / 2;
+        var divW = $('.construction-scrollbox').width();
+          var mid = ((canvasWidth - edgeLeft*2)/2 - divW/2);
+          console.log(divW);
+        console.log(canvasWidth);
+          console.log(mid);
+          $('.construction-scrollbox').scrollLeft( mid );
+
+          //console.log($('.construction-scrollbox').scrollLeft());
 
 
         draw.viewbox(-edgeLeft, -edgeTop, overallDimH, overallDimV);

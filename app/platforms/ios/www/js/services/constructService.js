@@ -1216,89 +1216,88 @@ BauVoiceApp.factory('constructService', function ($q) {
           ],
           [
             {
-            glassId: 149,
-            glassName: '4/16/4i',
-            glassUrl: 'img/glass.png',
-            glassDescrip: '3 камеры +энергосбережение',
-            glassNoise: 4,
-            heatCoeff: 2,
-            airCoeff: 9,
-            glassPrice: 100
+              glassId: 149,
+              glassName: '4/16/4i',
+              glassUrl: 'img/glass.png',
+              glassDescrip: '3 камеры +энергосбережение',
+              glassNoise: 4,
+              heatCoeff: 2,
+              airCoeff: 9,
+              glassPrice: 100
             },
             {
-            glassId: 149,
-            glassName: '4/16argon/4i',
-            glassUrl: 'img/glass.png',
-            glassDescrip: '3 камеры +энергосбережение',
-            glassNoise: 4,
-            heatCoeff: 2,
-            airCoeff: 9,
-            glassPrice: 100
+              glassId: 149,
+              glassName: '4/16argon/4i',
+              glassUrl: 'img/glass.png',
+              glassDescrip: '3 камеры +энергосбережение',
+              glassNoise: 4,
+              heatCoeff: 2,
+              airCoeff: 9,
+              glassPrice: 100
             },
             {
-            glassId: 149,
-            glassName: '4/10/4/10/4i',
-            glassUrl: 'img/glass.png',
-            glassDescrip: '3 камеры +энергосбережение',
-            glassNoise: 4,
-            heatCoeff: 2,
-            airCoeff: 9,
-            glassPrice: 100
+              glassId: 149,
+              glassName: '4/10/4/10/4i',
+              glassUrl: 'img/glass.png',
+              glassDescrip: '3 камеры +энергосбережение',
+              glassNoise: 4,
+              heatCoeff: 2,
+              airCoeff: 9,
+              glassPrice: 100
             },
             {
-            glassId: 150,
-            glassName: '4i/10/4/10/4i',
-            glassUrl: 'img/glass.png',
-            glassDescrip: '3 камеры +энергосбережение',
-            glassNoise: 1,
-            heatCoeff: 1,
-            airCoeff: 9,
-            glassPrice: 800
+              glassId: 150,
+              glassName: '4i/10/4/10/4i',
+              glassUrl: 'img/glass.png',
+              glassDescrip: '3 камеры +энергосбережение',
+              glassNoise: 1,
+              heatCoeff: 1,
+              airCoeff: 9,
+              glassPrice: 800
             }
-            ],
-            [
+          ],
+          [
             {
-            glassId: 149,
-            glassName: '4/16/4i',
-            glassUrl: 'img/glass.png',
-            glassDescrip: '3 камеры +энергосбережение',
-            glassNoise: 4,
-            heatCoeff: 2,
-            airCoeff: 9,
-            glassPrice: 100
+              glassId: 149,
+              glassName: '4/16/4i',
+              glassUrl: 'img/glass.png',
+              glassDescrip: '3 камеры +энергосбережение',
+              glassNoise: 4,
+              heatCoeff: 2,
+              airCoeff: 9,
+              glassPrice: 100
             },
             {
-            glassId: 149,
-            glassName: '4/16argon/4i',
-            glassUrl: 'img/glass.png',
-            glassDescrip: '3 камеры +энергосбережение',
-            glassNoise: 4,
-            heatCoeff: 2,
-            airCoeff: 9,
-            glassPrice: 100
+              glassId: 149,
+              glassName: '4/16argon/4i',
+              glassUrl: 'img/glass.png',
+              glassDescrip: '3 камеры +энергосбережение',
+              glassNoise: 4,
+              heatCoeff: 2,
+              airCoeff: 9,
+              glassPrice: 100
             },
             {
-            glassId: 149,
-            glassName: '4/10/4/10/4i',
-            glassUrl: 'img/glass.png',
-            glassDescrip: '3 камеры +энергосбережение',
-            glassNoise: 4,
-            heatCoeff: 2,
-            airCoeff: 9,
-            glassPrice: 100
+              glassId: 149,
+              glassName: '4/10/4/10/4i',
+              glassUrl: 'img/glass.png',
+              glassDescrip: '3 камеры +энергосбережение',
+              glassNoise: 4,
+              heatCoeff: 2,
+              airCoeff: 9,
+              glassPrice: 100
             },
             {
-            glassId: 150,
-            glassName: '4i/10/4/10/4i',
-            glassUrl: 'img/glass.png',
-            glassDescrip: '3 камеры +энергосбережение',
-            glassNoise: 1,
-            heatCoeff: 1,
-            airCoeff: 9,
-            glassPrice: 800
+              glassId: 150,
+              glassName: '4i/10/4/10/4i',
+              glassUrl: 'img/glass.png',
+              glassDescrip: '3 камеры +энергосбережение',
+              glassNoise: 1,
+              heatCoeff: 1,
+              airCoeff: 9,
+              glassPrice: 800
             }
-            ],
-                 
+          ],
           [
             {
               glassId: 149,

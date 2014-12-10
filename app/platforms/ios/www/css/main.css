@@ -532,9 +532,9 @@ th {
 }
 /* line 201, ../../dev/sass/base/_animations.scss */
 .move-menu-right, .config-menu .items-list {
-  -moz-animation: move-menu-right 0.5s 0 linear 1;
-  -webkit-animation: move-menu-right 0.5s 0 linear 1;
-  animation: move-menu-right 0.5s 0 linear 1;
+  -moz-animation: move-menu-right 1s 0 linear 1;
+  -webkit-animation: move-menu-right 1s 0 linear 1;
+  animation: move-menu-right 1s 0 linear 1;
 }
 
 @-webkit-keyframes move-menu-right {
@@ -2099,8 +2099,9 @@ body {
   display: flex;
   -webkit-justify-content: center;
   justify-content: center;
+  margin-left: -5rem;
 }
-/* line 77, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 78, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .price-value, .config-menu .price-value, .elements-menu .price-value, .cart-menu .price-value, .old-price-tab .price-value, .old-price-inst-tab .price-value {
   font: normal 4rem/1 roboto-medium, sans-serif;
   display: inline-flex;
@@ -2109,27 +2110,28 @@ body {
   text-align: center;
   color: #363636;
 }
-/* line 86, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 87, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .digit-cell, .config-menu .digit-cell, .elements-menu .digit-cell, .cart-menu .digit-cell, .old-price-tab .digit-cell, .old-price-inst-tab .digit-cell {
   position: relative;
   float: left;
 }
-/* line 89, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 90, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .digit-cell:nth-last-child(3n+3), .config-menu .digit-cell:nth-last-child(3n+3), .elements-menu .digit-cell:nth-last-child(3n+3), .cart-menu .digit-cell:nth-last-child(3n+3), .old-price-tab .digit-cell:nth-last-child(3n+3), .old-price-inst-tab .digit-cell:nth-last-child(3n+3) {
   margin-left: 0.25rem;
 }
-/* line 92, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 93, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .digit-cell:nth-last-child(3), .config-menu .digit-cell:nth-last-child(3), .elements-menu .digit-cell:nth-last-child(3), .cart-menu .digit-cell:nth-last-child(3), .old-price-tab .digit-cell:nth-last-child(3), .old-price-inst-tab .digit-cell:nth-last-child(3) {
   margin-left: 0;
 }
-/* line 96, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 97, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .price-currency, .config-menu .price-currency, .elements-menu .price-currency, .cart-menu .price-currency, .old-price-tab .price-currency, .old-price-inst-tab .price-currency {
   font: normal 3.125rem/3.5rem roboto-light, sans-serif;
   margin-left: 0.625rem;
+  margin-right: -2rem;
   padding-top: 0.5rem;
   color: #363636;
 }
-/* line 103, ../../dev/sass/parts/_menu-right-general.scss */
+/* line 105, ../../dev/sass/parts/_menu-right-general.scss */
 .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn {
   position: relative;
   width: 100%;
@@ -7230,9 +7232,9 @@ body {
 }
 /* line 201, ../../dev/sass/base/_animations.scss */
 .move-menu-right, .config-menu .items-list {
-  -moz-animation: move-menu-right 0.5s 0 linear 1;
-  -webkit-animation: move-menu-right 0.5s 0 linear 1;
-  animation: move-menu-right 0.5s 0 linear 1;
+  -moz-animation: move-menu-right 1s 0 linear 1;
+  -webkit-animation: move-menu-right 1s 0 linear 1;
+  animation: move-menu-right 1s 0 linear 1;
 }
 
 @-webkit-keyframes move-menu-right {

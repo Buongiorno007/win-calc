@@ -73,6 +73,7 @@
   .price {
     @include display-flex();
     @include justify-content(center);
+    margin-left: -5rem;
   }
   .price-value {
     @include roboto-md(rem($price_container-height), 1);
@@ -97,6 +98,7 @@
     @include roboto-lt(rem(50px), rem($price_container-height - 8px));
 
     margin-left: rem(10px);
+    margin-right: -2rem;
     padding-top: rem(8px);
     color: $main_gray_txt;
   }

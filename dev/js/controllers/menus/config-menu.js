@@ -954,15 +954,10 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
     $timeout(function(){
       $scope.global.gotoCartPage();
-    }, 3*STEP);
+    }, 18*STEP);
   };
 
 
   $scope.global.productInit();
-  //console.log('global.product');
-  //console.log($scope.global.product);
-
-
-
 
 }]);

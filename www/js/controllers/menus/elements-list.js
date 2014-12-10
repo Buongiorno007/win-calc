@@ -13,7 +13,7 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
 
   $scope.addElementsMenu = {
     DELAY_START: STEP,
-    DELAY_SHOW_ELEMENTS_MENU: STEP * 4,
+    DELAY_SHOW_ELEMENTS_MENU: STEP * 10,
 
     tempSize: [],
     typing: 'on'

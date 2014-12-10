@@ -199,7 +199,7 @@
 
 // Right Menu
 .move-menu-right {
-  @include animation(move-menu-right 1s 0 linear 1);
+  @include animation(move-menu-right .5s 0 linear 1);
 }
 @include behavior-move(move-menu-right, rem(500px), 0, 0, 0);
 

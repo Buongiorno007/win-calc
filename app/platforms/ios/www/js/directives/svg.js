@@ -301,13 +301,14 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                         add.ref(-5, -2);
                         add.viewbox(-5, -5, 4, 5);
                       });
-
                       line.marker('mid', 30, 30, function(add) {
                         add.path('M 0,0 L 4,2 0,4 z').attr('class', 'size-line');
                         add.ref(5, 2);
                         add.viewbox(1, -1, 4, 5);
                         if(prop === 'dimensionsV') {
                           add.attr('orient', 90);
+                        } else {
+                          add.attr('orient', 0);
                         }
                       });
 

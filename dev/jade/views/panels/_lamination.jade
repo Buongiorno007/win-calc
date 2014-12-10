@@ -6,7 +6,7 @@
 
       .lamination-white.unvisible(show-delay="{{ laminationPanel.DELAY_START }}")
         .lamination-img(ng-class="{'selected': laminationPanel.isSelectedLaminatInner === 'white'}", ng-click="selectLaminatIn('white')")
-          img(src="../img/lamination/empty.png")
+          img(src="img/lamination/empty.png")
         .lamination-label.for-white(data-output="{{ 'panels.LAMINAT_WHITE' | translate }}", typing="{{ laminationPanel.typing }}", typing-delay="{{ laminationPanel.DELAY_START }}")
 
       .lamination-options.clearfix
@@ -22,7 +22,7 @@
 
       .lamination-white.unvisible(show-delay="{{ laminationPanel.DELAY_START }}")
         .lamination-img(ng-class="{'selected': laminationPanel.isSelectedLaminatOuter === 'white'}", ng-click="selectLaminatOut('white')")
-          img(src="../img/lamination/empty.png")
+          img(src="img/lamination/empty.png")
         .lamination-label.for-white(data-output="{{ 'panels.LAMINAT_WHITE' | translate }}", typing="{{ laminationPanel.typing }}", typing-delay="{{ laminationPanel.DELAY_START }}")
 
       .lamination-options.clearfix
