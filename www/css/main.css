@@ -532,9 +532,9 @@ th {
 }
 /* line 201, ../../dev/sass/base/_animations.scss */
 .move-menu-right, .config-menu .items-list {
-  -moz-animation: move-menu-right 0.5s 0 linear 1;
-  -webkit-animation: move-menu-right 0.5s 0 linear 1;
-  animation: move-menu-right 0.5s 0 linear 1;
+  -moz-animation: move-menu-right 1s 0 linear 1;
+  -webkit-animation: move-menu-right 1s 0 linear 1;
+  animation: move-menu-right 1s 0 linear 1;
 }
 
 @-webkit-keyframes move-menu-right {
@@ -7230,9 +7230,9 @@ body {
 }
 /* line 201, ../../dev/sass/base/_animations.scss */
 .move-menu-right, .config-menu .items-list {
-  -moz-animation: move-menu-right 0.5s 0 linear 1;
-  -webkit-animation: move-menu-right 0.5s 0 linear 1;
-  animation: move-menu-right 0.5s 0 linear 1;
+  -moz-animation: move-menu-right 1s 0 linear 1;
+  -webkit-animation: move-menu-right 1s 0 linear 1;
+  animation: move-menu-right 1s 0 linear 1;
 }
 
 @-webkit-keyframes move-menu-right {
