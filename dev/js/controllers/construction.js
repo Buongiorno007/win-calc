@@ -33,7 +33,13 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
     DELAY_SHOW_FIGURE_ITEM: 2000,
     typing: 'on'
   };
+  $scope.global.isCreatedNewProject = false;
   $scope.openVoiceHelper = false;
+  $scope.global.showNavMenu = true;
+  $scope.global.isConfigMenu = false;
+  $scope.global.showPanels = {};
+  $scope.global.showPanels.showTemplatePanel = false;
+  $scope.global.isTemplatePanel = false;
 
   $scope.templateDefaultOLD = angular.copy($scope.global.templateDefault);
   $scope.templateSourceOLD = angular.copy($scope.global.templateSource);
@@ -309,7 +315,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
         $scope.global.isConstructSizeCalculator = true;
       } else {
         $scope.openVoiceHelper = true;
-        startRecognition(doneRecognition);
+        startRecognition(doneRecognition, recognitionProgress);
 
       }
       $scope.$apply();
@@ -325,6 +331,17 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
     deleteLastNumber();
   });
 
+  function recognitionProgress(value) {
+    if (value > 100) {
+      setClass(1);
+
+    } else {
+      setClass(2)
+    }
+    $scope.voiceTxt = value;
+    $scope.$apply();
+
+  }
 
   function doneRecognition(value) {
     console.log("doneRecognition" + value);

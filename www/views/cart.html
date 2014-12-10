@@ -117,7 +117,7 @@
                   <div class="order-label qty-label">{{ 'cart.PRODUCT_QTY' | translate }}</div>
                 </div>
               </div>
-              <div class="order-footer">{{ product.productPrice * product.productQty }} {{ global.currency }}</div>
+              <div class="order-footer">{{ (product.productPrice * product.productQty) *100 / 100 }} {{ global.currency }}</div>
               <div ng-show="cart.isAddElementDetail === product.productId" class="addelements-detail">
                 <div class="addelements-detail-header">
                   <div class="addelements-detail-tools">

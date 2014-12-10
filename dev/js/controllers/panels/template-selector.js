@@ -152,7 +152,6 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$
       $scope.global.product.constructThumb = $scope.global.templatesWindThumbList[$scope.global.templateIndex];
     }
     //------ define product price
-    console.log('templates panel!!!!!!');
     $scope.global.createObjXFormedPrice($scope.global.templateDefault, $scope.global.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
   };
 
@@ -162,10 +161,8 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$
     $scope.global.initTemplates();
     $scope.global.isReturnFromConstructionPage = false;
   }
-  /*if($scope.global.isReturnFromDiffPage) {
-    console.log('isReturnFromCartPage!!!!!!');
-    console.log($scope.global.product.productPrice);
+  if($scope.global.isAddNewProductInOrder) {
     $scope.global.initTemplates();
-    $scope.global.isReturnFromDiffPage = false;
-  }*/
+    $scope.global.isAddNewProductInOrder = false;
+  }
 }]);
