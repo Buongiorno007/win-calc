@@ -59,4 +59,11 @@
       color: #f84141;
     }
   }
+
+  .loud-voice {
+    box-shadow: 0 0 rem(17px) rem(7px) rgba(#f84141,0.6);
+  }
+  .quiet-voice {
+    box-shadow: 0 0 rem(8px) rem(7px) rgba(#f84141,0.1);
+  }
 }

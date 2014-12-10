@@ -316,31 +316,31 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf?1418208591') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf?1418225211') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
-  src: url('../fonts/roboto/Roboto-Bold.ttf?1418208590') format('truetype');
+  src: url('../fonts/roboto/Roboto-Bold.ttf?1418225210') format('truetype');
 }
 @font-face {
   font-family: "roboto-light";
-  src: url('../fonts/roboto/Roboto-Light.ttf?1418208590') format('truetype');
+  src: url('../fonts/roboto/Roboto-Light.ttf?1418225210') format('truetype');
 }
 @font-face {
   font-family: "roboto-medium";
-  src: url('../fonts/roboto/Roboto-Medium.ttf?1418208591') format('truetype');
+  src: url('../fonts/roboto/Roboto-Medium.ttf?1418225211') format('truetype');
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf?1418208591') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf?1418225211') format('truetype');
 }
 @font-face {
   font-family: "general-icons";
-  src: url('../fonts/general-icons/icomoon.ttf?1418208589') format('truetype');
+  src: url('../fonts/general-icons/icomoon.ttf?1418225210') format('truetype');
 }
 @font-face {
   font-family: "nav-menu";
-  src: url('../fonts/nav-menu/icomoon.ttf?1418208590') format('truetype');
+  src: url('../fonts/nav-menu/icomoon.ttf?1418225210') format('truetype');
 }
 /* line 183, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-container .cart-tool, .cart-container .order, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construction-right-menu .construct-tools, .construction-right-menu .door-config-btn, .nav-menu [class^='nav-icon-'],
@@ -1260,7 +1260,7 @@ body {
 
 /* line 163, ../../dev/sass/base/general.scss */
 .right-side.child-room {
-  background: url('../img/rooms/child-bg.jpg?1418208593') no-repeat;
+  background: url('../img/rooms/child-bg.jpg?1418225213') no-repeat;
   background-size: cover;
 }
 
@@ -1268,7 +1268,7 @@ body {
 .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto {
   width: 9.5rem;
   height: 9.5rem;
-  background-image: url('../img/userPhoto.png?1418208589');
+  background-image: url('../img/userPhoto.png?1418225210');
   background-size: cover;
 }
 
@@ -1631,7 +1631,7 @@ body {
   width: 3.125rem;
   height: 3.125rem;
   margin: -3.125rem/2 0 0 -3.125rem/2;
-  background: url('../img/spinner.gif?1418208593') no-repeat;
+  background: url('../img/spinner.gif?1418225213') no-repeat;
   background-size: cover;
 }
 
@@ -1883,32 +1883,32 @@ body {
 }
 /* line 46, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.kitchen {
-  background: url('../img/rooms-dialog/kitchen.jpg?1418208593');
+  background: url('../img/rooms-dialog/kitchen.jpg?1418225213');
   background-size: contain;
 }
 /* line 50, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.livingroom {
-  background: url('../img/rooms-dialog/livingroom.jpg?1418208593');
+  background: url('../img/rooms-dialog/livingroom.jpg?1418225213');
   background-size: contain;
 }
 /* line 54, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.balcony {
-  background: url('../img/rooms-dialog/balcony.jpg?1418208593');
+  background: url('../img/rooms-dialog/balcony.jpg?1418225213');
   background-size: contain;
 }
 /* line 58, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.childroom {
-  background: url('../img/rooms-dialog/childroom.jpg?1418208593');
+  background: url('../img/rooms-dialog/childroom.jpg?1418225213');
   background-size: contain;
 }
 /* line 62, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.bedroom {
-  background: url('../img/rooms-dialog/bedroom.jpg?1418208593');
+  background: url('../img/rooms-dialog/bedroom.jpg?1418225213');
   background-size: contain;
 }
 /* line 66, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.door {
-  background: url('../img/rooms-dialog/door.jpg?1418208593');
+  background: url('../img/rooms-dialog/door.jpg?1418225213');
   background-size: contain;
 }
 /* line 71, ../../dev/sass/parts/_rooms-selector.scss */
@@ -3069,13 +3069,21 @@ body {
   content: "\f130";
   color: #f84141;
 }
+/* line 63, ../../dev/sass/parts/_voice.scss */
+.voice-container .loud-voice {
+  box-shadow: 0 0 1.0625rem 0.4375rem rgba(248, 65, 65, 0.6);
+}
+/* line 66, ../../dev/sass/parts/_voice.scss */
+.voice-container .quiet-voice {
+  box-shadow: 0 0 0.5rem 0.4375rem rgba(248, 65, 65, 0.1);
+}
 
 /* line 3, ../../dev/sass/pages/login.scss */
 .login-page {
   display: -webkit-flex;
   display: flex;
   height: 100%;
-  background: url('../img/login/login-bg.jpg?1418208593') no-repeat;
+  background: url('../img/login/login-bg.jpg?1418225213') no-repeat;
   background-size: cover;
 }
 
@@ -3107,7 +3115,7 @@ body {
   width: 14.75rem;
   height: 14.75rem;
   margin: 0 auto 4.5625rem auto;
-  background: url('../img/login/logo.png?1418208593') no-repeat;
+  background: url('../img/login/logo.png?1418225213') no-repeat;
   background-size: cover;
 }
 
@@ -4664,7 +4672,7 @@ body {
   right: -3.625rem;
   width: 3.75rem;
   height: 100%;
-  background: url('../img/door-arrow.png?1418208588') no-repeat;
+  background: url('../img/door-arrow.png?1418225209') no-repeat;
   background-size: 100% 100%;
 }
 /* line 345, ../../dev/sass/pages/construction.scss */
@@ -6274,85 +6282,85 @@ body {
 }
 /* line 14, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grid-img {
-  background-image: url('../img/auxiliaries-focused/grid.png?1418208592');
+  background-image: url('../img/auxiliaries-focused/grid.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 19, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-visor-img {
-  background-image: url('../img/auxiliaries-focused/visor.png?1418208592');
+  background-image: url('../img/auxiliaries-focused/visor.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 24, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spillway-img {
-  background-image: url('../img/auxiliaries-focused/spillway.png?1418208592');
+  background-image: url('../img/auxiliaries-focused/spillway.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 29, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-focused/windowsill.png?1418208592');
+  background-image: url('../img/auxiliaries-focused/windowsill.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 34, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-top {
-  background-image: url('../img/auxiliaries-focused/louvers-top.png?1418208592');
+  background-image: url('../img/auxiliaries-focused/louvers-top.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 39, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-midle {
-  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1418208592');
+  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 44, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1418208592');
+  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 49, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-top {
-  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1418208592');
+  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 54, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-right {
-  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1418208592');
+  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 59, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-left {
-  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1418208592');
+  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 64, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-fan-img {
-  background-image: url('../img/auxiliaries-focused/fan.png?1418208592');
+  background-image: url('../img/auxiliaries-focused/fan.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 69, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-force-connect {
-  background-image: url('../img/auxiliaries-focused/force-connector.png?1418208592');
+  background-image: url('../img/auxiliaries-focused/force-connector.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 74, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1418208592');
+  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 79, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-handle-img {
-  background-image: url('../img/auxiliaries-focused/handle.png?1418208592');
+  background-image: url('../img/auxiliaries-focused/handle.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6382,85 +6390,85 @@ body {
 }
 /* line 110, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grid-img {
-  background-image: url('../img/auxiliaries-selected/grid.png?1418208591');
+  background-image: url('../img/auxiliaries-selected/grid.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 115, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
-  background-image: url('../img/auxiliaries-selected/visor.png?1418208592');
+  background-image: url('../img/auxiliaries-selected/visor.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 120, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
-  background-image: url('../img/auxiliaries-selected/spillway.png?1418208592');
+  background-image: url('../img/auxiliaries-selected/spillway.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 125, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-selected/windowsill.png?1418208592');
+  background-image: url('../img/auxiliaries-selected/windowsill.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 130, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-top {
-  background-image: url('../img/auxiliaries-selected/louvers-top.png?1418208592');
+  background-image: url('../img/auxiliaries-selected/louvers-top.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 135, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-midle {
-  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1418208591');
+  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 140, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1418208591');
+  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 145, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-top {
-  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1418208591');
+  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 150, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-right {
-  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1418208591');
+  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 155, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-left {
-  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1418208591');
+  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 160, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-fan-img {
-  background-image: url('../img/auxiliaries-selected/fan.png?1418208591');
+  background-image: url('../img/auxiliaries-selected/fan.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 165, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-force-connect {
-  background-image: url('../img/auxiliaries-selected/force-connector.png?1418208591');
+  background-image: url('../img/auxiliaries-selected/force-connector.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 170, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1418208591');
+  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 175, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-handle-img {
-  background-image: url('../img/auxiliaries-selected/handle.png?1418208591');
+  background-image: url('../img/auxiliaries-selected/handle.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6483,7 +6491,7 @@ body {
   position: absolute;
   width: 13.75rem;
   height: 24.375rem;
-  background-image: url('../img/auxiliaries/grid.png?1418208590');
+  background-image: url('../img/auxiliaries/grid.png?1418225210');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6500,7 +6508,7 @@ body {
   position: absolute;
   width: 55.8125rem;
   height: 16.3125rem;
-  background-image: url('../img/auxiliaries/visor.png?1418208591');
+  background-image: url('../img/auxiliaries/visor.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6517,7 +6525,7 @@ body {
   position: absolute;
   width: 44.9375rem;
   height: 12.875rem;
-  background-image: url('../img/auxiliaries/spillway.png?1418208591');
+  background-image: url('../img/auxiliaries/spillway.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6534,7 +6542,7 @@ body {
   position: absolute;
   width: 40.625rem;
   height: 38.125rem;
-  background-image: url('../img/auxiliaries/outside.png?1418208591');
+  background-image: url('../img/auxiliaries/outside.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6551,7 +6559,7 @@ body {
   position: absolute;
   width: 45rem;
   height: 14.75rem;
-  background-image: url('../img/auxiliaries/windowsill.png?1418208591');
+  background-image: url('../img/auxiliaries/windowsill.png?1418225212');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6575,7 +6583,7 @@ body {
   z-index: 10;
   width: 16.3125rem;
   height: 4.9375rem;
-  background-image: url('../img/auxiliaries/louvers-top.png?1418208591');
+  background-image: url('../img/auxiliaries/louvers-top.png?1418225211');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6585,7 +6593,7 @@ body {
   left: 3.125rem;
   width: 16.3125rem;
   height: 6.1875rem;
-  background-image: url('../img/auxiliaries/louvers-middle.png?1418208591');
+  background-image: url('../img/auxiliaries/louvers-middle.png?1418225211');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6612,7 +6620,7 @@ body {
   z-index: 6;
   width: 16.3125rem;
   height: 6.5rem;
-  background-image: url('../img/auxiliaries/louvers-bottom.png?1418208591');
+  background-image: url('../img/auxiliaries/louvers-bottom.png?1418225211');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6635,7 +6643,7 @@ body {
   position: absolute;
   width: 41.25rem;
   height: 11.4375rem;
-  background-image: url('../img/auxiliaries/inside-slope-top.png?1418208591');
+  background-image: url('../img/auxiliaries/inside-slope-top.png?1418225211');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6646,7 +6654,7 @@ body {
   position: absolute;
   width: 5.625rem;
   height: 27.125rem;
-  background-image: url('../img/auxiliaries/inside-slope-right.png?1418208591');
+  background-image: url('../img/auxiliaries/inside-slope-right.png?1418225211');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6657,7 +6665,7 @@ body {
   position: absolute;
   width: 6.0625rem;
   height: 25.5rem;
-  background-image: url('../img/auxiliaries/inside-slope-left.png?1418208591');
+  background-image: url('../img/auxiliaries/inside-slope-left.png?1418225211');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6674,7 +6682,7 @@ body {
   position: absolute;
   width: 7.125rem;
   height: 7.5rem;
-  background-image: url('../img/auxiliaries/fan.png?1418208590');
+  background-image: url('../img/auxiliaries/fan.png?1418225210');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6697,7 +6705,7 @@ body {
   position: absolute;
   width: 12.8125rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/force-connector.png?1418208590');
+  background-image: url('../img/auxiliaries/force-connector.png?1418225210');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6708,7 +6716,7 @@ body {
   position: absolute;
   width: 12.8125rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/balcon-connector.png?1418208589');
+  background-image: url('../img/auxiliaries/balcon-connector.png?1418225210');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6725,7 +6733,7 @@ body {
   position: absolute;
   width: 6.625rem;
   height: 7.875rem;
-  background-image: url('../img/auxiliaries/handle.png?1418208590');
+  background-image: url('../img/auxiliaries/handle.png?1418225210');
   background-repeat: no-repeat;
   background-size: contain;
 }

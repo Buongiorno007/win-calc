@@ -1,5 +1,5 @@
 .voice-container(ng-class="{'active': openVoiceHelper}")
-  .voice-icon(ng-class="")
+  .voice-icon(ng-class="{'loud-voice': loudVoice == false, 'quiet-voice': quietVoice == true}")
   .voice-title Укажите размер:
   input.voice-input(type="text", name="name", ng-model="voiceTxt", placeholder="{{ 'mainpage.VOICE_SPEACH' | translate }}")
 

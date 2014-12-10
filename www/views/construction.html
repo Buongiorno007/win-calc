@@ -116,7 +116,7 @@
           </table>
         </div>
         <div ng-class="{'active': openVoiceHelper}" class="voice-container">
-          <div ng-class="" class="voice-icon"></div>
+          <div ng-class="{'loud-voice': loudVoice == false, 'quiet-voice': quietVoice == true}" class="voice-icon"></div>
           <div class="voice-title">Укажите размер:</div>
           <input type="text" name="name" ng-model="voiceTxt" placeholder="{{ 'mainpage.VOICE_SPEACH' | translate }}" class="voice-input">
         </div>
