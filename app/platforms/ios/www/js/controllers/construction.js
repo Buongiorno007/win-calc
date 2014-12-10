@@ -331,7 +331,9 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
    $scope.voiceTxt = value;
    $scope.$apply();
    setTimeout(function() {
-     setValueSize(parseStringToDimension(value));
+              var intValue = parseStringToDimension(value);
+               playTTS(intValue);
+     setValueSize(intValue);
     
      $scope.$apply();
    }, 2000)
