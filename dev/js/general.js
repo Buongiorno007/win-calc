@@ -2,7 +2,7 @@
 
 'use strict';
 
-var STEP = 100,
+var STEP = 50,
     typingIndex = true,
 
     selectClass = 'selected',
