@@ -14,6 +14,9 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
   var p, prod, product, newProductsQty, oldProductPrice, newProductPrice;
 
+  $scope.global.isOpenedCartPage = true;
+  $scope.global.isCreatedNewProject = false;
+  $scope.global.isReturnFromDiffPage = false;
 
   //------- если из корзины пойти в историю а потом вернуться через редактирование и нажать на nav-menu button
   $scope.global.isHistoryPage = false;
@@ -367,12 +370,11 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
   //------- add new product in order
   $scope.addNewProductInOrder = function() {
-    $scope.global.isCreatedNewProject = false;
+    $scope.global.isOpenedCartPage = false;
     $scope.global.isReturnFromCartPage = true;
     $scope.global.productEditNumber = false;
     $scope.global.templateIndex = 0;
     $scope.global.profileIndex = 0;
-    $scope.global.isOpenedCartPage = true;
     $scope.global.prepareMainPage();
     $location.path('/main');
   };

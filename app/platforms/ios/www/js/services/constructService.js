@@ -993,7 +993,7 @@ BauVoiceApp.factory('constructService', function ($q) {
       callback(new OkResult({
         id: 7,
         name: 'Окошко S58',
-        heatCoeff: 5,
+        heatCoeff: 0.9,
         airCoeff: 10
       }));
     },
@@ -1065,7 +1065,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               profileDescrip: 'ОКОШКО S58',
               profileCountry: 'Украина',
               profileNoise: 4,
-              heatCoeff: 5,
+              heatCoeff: 0.9,
               airCoeff: 10
             },
             {
@@ -1074,7 +1074,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               profileDescrip: 'Немецкая 5 кам.',
               profileCountry: 'Украина',
               profileNoise: 3,
-              heatCoeff: 4,
+              heatCoeff: 0.8,
               airCoeff: 11
             },
             {
@@ -1083,7 +1083,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               profileDescrip: 'Немецкая 3 кам.',
               profileCountry: 'Украина',
               profileNoise: 5,
-              heatCoeff: 4,
+              heatCoeff: 0.5,
               airCoeff: 9
             },
             {
@@ -1092,7 +1092,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               profileDescrip: 'ОКОШКО S60',
               profileCountry: 'Украина',
               profileNoise: 4,
-              heatCoeff: 3,
+              heatCoeff: 0.7,
               airCoeff: 8
             }
           ],
@@ -1103,7 +1103,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               profileDescrip: 'ОКОШКО S80',
               profileCountry: 'Украина',
               profileNoise: 5,
-              heatCoeff: 5,
+              heatCoeff: 0.95,
               airCoeff: 10
             }
           ]
@@ -1126,7 +1126,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               glassUrl: 'img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
-              heatCoeff: 2,
+              heatCoeff: 0.2,
               airCoeff: 9,
               glassPrice: 100
             },
@@ -1136,7 +1136,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               glassUrl: 'img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 5,
-              heatCoeff: 4,
+              heatCoeff: 0.4,
               airCoeff: 9,
               glassPrice: 200
             },
@@ -1146,7 +1146,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               glassUrl: 'img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 1,
-              heatCoeff: 3,
+              heatCoeff: 0.3,
               airCoeff: 9,
               glassPrice: 600
             }
@@ -1158,7 +1158,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               glassUrl: 'img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
-              heatCoeff: 2,
+              heatCoeff: 0.2,
               airCoeff: 9,
               glassPrice: 100
             },
@@ -1168,7 +1168,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               glassUrl: 'img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 1,
-              heatCoeff: 1,
+              heatCoeff: 0.1,
               airCoeff: 9,
               glassPrice: 800
             }
@@ -1180,7 +1180,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               glassUrl: 'img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
-              heatCoeff: 5,
+              heatCoeff: 0.5,
               airCoeff: 9,
               glassPrice: 100
             }

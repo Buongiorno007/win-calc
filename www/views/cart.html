@@ -46,8 +46,9 @@
         </ul>
       </header>
       <footer class="nav-menu-footer">
-        <button ng-show="global.startProgramm" ng-click="createNewProjectFirst()" show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
-        <button ng-hide="global.startProgramm" ng-click="global.createNewProject()" show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
+        <button ng-if="global.startProgramm == true" ng-click="createNewProjectFirst()" show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
+        <button ng-if="global.startProgramm == false &amp;&amp; global.isOpenedCartPage == false" ng-click="global.createNewProject()" show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
+        <button ng-if="global.startProgramm == false &amp;&amp; global.isOpenedCartPage == true" ng-click="global.createNewProjectCart()" show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
       </footer>
     </div>
   </section>
@@ -58,7 +59,7 @@
           <div class="cart-header">
             <div ng-controller="UserInfoCtrl" class="user-info-container">
               <button ng-if="!global.isHistoryPage" ng-class="{ 'show-navmenu': global.showNavMenu }" ng-click="swipeMainPage()" class="nav-menu-btn"></button>
-              <button ng-if="global.isHistoryPage" ng-click="global.createNewProject()" class="nav-menu-btn"></button>
+              <button ng-if="global.isHistoryPage" ng-click="global.createNewProjectHistory()" class="nav-menu-btn"></button>
               <div class="user-foto"></div>
               <div show-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
               <div class="user-info-block">
@@ -196,7 +197,7 @@
           <div class="cart-header">
             <div ng-controller="UserInfoCtrl" class="user-info-container">
               <button ng-if="!global.isHistoryPage" ng-class="{ 'show-navmenu': global.showNavMenu }" ng-click="swipeMainPage()" class="nav-menu-btn"></button>
-              <button ng-if="global.isHistoryPage" ng-click="global.createNewProject()" class="nav-menu-btn"></button>
+              <button ng-if="global.isHistoryPage" ng-click="global.createNewProjectHistory()" class="nav-menu-btn"></button>
               <div class="user-foto"></div>
               <div show-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
               <div class="user-info-block">

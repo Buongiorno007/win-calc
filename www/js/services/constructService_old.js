@@ -1,5 +1,5 @@
 
-// services/constructService.js
+// services/constructService_old.js
 
 "use strict";
 
@@ -993,7 +993,7 @@ BauVoiceApp.factory('constructService', function ($q) {
       callback(new OkResult({
         id: 7,
         name: 'Окошко S58',
-        heatCoeff: 5,
+        heatCoeff: 0.5,
         airCoeff: 10
       }));
     },
@@ -1003,7 +1003,7 @@ BauVoiceApp.factory('constructService', function ($q) {
       callback(new OkResult({
         id: 145,
         name: '6/12/6',
-        heatCoeff: 2,
+        heatCoeff: 0.2,
         airCoeff: 9
       }));
     },
@@ -1065,7 +1065,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               profileDescrip: 'ОКОШКО S58',
               profileCountry: 'Украина',
               profileNoise: 4,
-              heatCoeff: 5,
+              heatCoeff: 0.9,
               airCoeff: 10
             },
             {
@@ -1074,7 +1074,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               profileDescrip: 'Немецкая 5 кам.',
               profileCountry: 'Украина',
               profileNoise: 3,
-              heatCoeff: 4,
+              heatCoeff: 0.8,
               airCoeff: 11
             },
             {
@@ -1083,7 +1083,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               profileDescrip: 'Немецкая 3 кам.',
               profileCountry: 'Украина',
               profileNoise: 5,
-              heatCoeff: 4,
+              heatCoeff: 0.5,
               airCoeff: 9
             },
             {
@@ -1092,7 +1092,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               profileDescrip: 'ОКОШКО S60',
               profileCountry: 'Украина',
               profileNoise: 4,
-              heatCoeff: 3,
+              heatCoeff: 0.7,
               airCoeff: 8
             }
           ],
@@ -1103,7 +1103,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               profileDescrip: 'ОКОШКО S80',
               profileCountry: 'Украина',
               profileNoise: 5,
-              heatCoeff: 5,
+              heatCoeff: 0.95,
               airCoeff: 10
             }
           ]
@@ -1126,7 +1126,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               glassUrl: 'img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
-              heatCoeff: 2,
+              heatCoeff: 0.2,
               airCoeff: 9,
               glassPrice: 100
             },
@@ -1136,7 +1136,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               glassUrl: 'img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 5,
-              heatCoeff: 4,
+              heatCoeff: 0.4,
               airCoeff: 9,
               glassPrice: 200
             },
@@ -1146,7 +1146,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               glassUrl: 'img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 1,
-              heatCoeff: 3,
+              heatCoeff: 0.3,
               airCoeff: 9,
               glassPrice: 600
             }
@@ -1158,7 +1158,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               glassUrl: 'img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
-              heatCoeff: 2,
+              heatCoeff: 0.2,
               airCoeff: 9,
               glassPrice: 100
             },
@@ -1168,7 +1168,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               glassUrl: 'img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 1,
-              heatCoeff: 1,
+              heatCoeff: 0.1,
               airCoeff: 9,
               glassPrice: 800
             }
@@ -1180,7 +1180,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               glassUrl: 'img/glass.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
-              heatCoeff: 5,
+              heatCoeff: 0.5,
               airCoeff: 9,
               glassPrice: 100
             }
@@ -1203,7 +1203,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               hardwareName: 'ACCADO 7mm',
               hardwareProducer: 'ACCADO',
               hardwareCountry: 'Турция',
-              hardwareLogo: 'img/hardware-logos/accado.png',
+              hardwareLogo: '../img/hardware-logos/accado.png',
               hardwareLink: '#',
               hardwareHeat: 5,
               hardwareNoise: 4,
@@ -1214,7 +1214,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               hardwareName: 'ACCADO 7mm',
               hardwareProducer: 'ACCADO',
               hardwareCountry: 'Турция',
-              hardwareLogo: 'img/hardware-logos/accado.png',
+              hardwareLogo: '../img/hardware-logos/accado.png',
               hardwareLink: '#',
               hardwareHeat: 2,
               hardwareNoise: 5,
@@ -1227,7 +1227,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               hardwareName: 'ACCADO 7mm',
               hardwareProducer: 'Мако',
               hardwareCountry: 'Турция',
-              hardwareLogo: 'img/hardware-logos/maco.png',
+              hardwareLogo: '../img/hardware-logos/maco.png',
               hardwareLink: '#',
               hardwareHeat: 5,
               hardwareNoise: 4,
@@ -1238,7 +1238,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               hardwareName: 'ACCADO 7mm',
               hardwareProducer: 'Мако',
               hardwareCountry: 'Турция',
-              hardwareLogo: 'img/hardware-logos/maco.png',
+              hardwareLogo: '../img/hardware-logos/maco.png',
               hardwareLink: '#',
               hardwareHeat: 3,
               hardwareNoise: 1,
@@ -1251,7 +1251,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               hardwareName: 'ACCADO 7mm',
               hardwareProducer: 'ACCADO',
               hardwareCountry: 'Турция',
-              hardwareLogo: 'img/hardware-logos/siegenia.png',
+              hardwareLogo: '../img/hardware-logos/siegenia.png',
               hardwareLink: '#',
               hardwareHeat: 5,
               hardwareNoise: 4,
@@ -1262,7 +1262,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               hardwareName: 'ACCADO 7mm',
               hardwareProducer: 'ACCADO',
               hardwareCountry: 'Турция',
-              hardwareLogo: 'img/hardware-logos/romb.png',
+              hardwareLogo: '../img/hardware-logos/romb.png',
               hardwareLink: '#',
               hardwareHeat: 1,
               hardwareNoise: 1,
@@ -1280,31 +1280,31 @@ BauVoiceApp.factory('constructService', function ($q) {
           {
             laminationId: 1,
             laminationName: 'светлый дуб',
-            laminationUrl: 'img/lamination/Birch.png',
+            laminationUrl: '../img/lamination/Birch.png',
             laminationPrice: 100
           },
           {
             laminationId: 2,
             laminationName: 'золотой дуб',
-            laminationUrl: 'img/lamination/GoldenOak.png',
+            laminationUrl: '../img/lamination/GoldenOak.png',
             laminationPrice: 100
           },
           {
             laminationId: 3,
             laminationName: 'береза',
-            laminationUrl: 'img/lamination/LightOak.png',
+            laminationUrl: '../img/lamination/LightOak.png',
             laminationPrice: 100
           },
           {
             laminationId: 4,
             laminationName: 'махагон',
-            laminationUrl: 'img/lamination/Mahagon.png',
+            laminationUrl: '../img/lamination/Mahagon.png',
             laminationPrice: 100
           },
           {
             laminationId: 5,
             laminationName: 'сосна',
-            laminationUrl: 'img/lamination/Pine.png',
+            laminationUrl: '../img/lamination/Pine.png',
             laminationPrice: 100
           }
         ],
@@ -1313,31 +1313,31 @@ BauVoiceApp.factory('constructService', function ($q) {
           {
             laminationId: 1,
             laminationName: 'светлый дуб',
-            laminationUrl: 'img/lamination/Birch.png',
+            laminationUrl: '../img/lamination/Birch.png',
             laminationPrice: 100
           },
           {
             laminationId: 2,
             laminationName: 'золотой дуб',
-            laminationUrl: 'img/lamination/GoldenOak.png',
+            laminationUrl: '../img/lamination/GoldenOak.png',
             laminationPrice: 100
           },
           {
             laminationId: 3,
             laminationName: 'береза',
-            laminationUrl: 'img/lamination/LightOak.png',
+            laminationUrl: '../img/lamination/LightOak.png',
             laminationPrice: 100
           },
           {
             laminationId: 4,
             laminationName: 'махагон',
-            laminationUrl: 'img/lamination/Mahagon.png',
+            laminationUrl: '../img/lamination/Mahagon.png',
             laminationPrice: 100
           },
           {
             laminationId: 5,
             laminationName: 'сосна',
-            laminationUrl: 'img/lamination/Pine.png',
+            laminationUrl: '../img/lamination/Pine.png',
             laminationPrice: 100
           }
 
@@ -1807,7 +1807,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementWidth: 1500,
               elementHeight: 1500,
               elementColorId: 'matt',
-              elementColor: 'img/lamination/empty.png',
+              elementColor: '../img/lamination/empty.png',
               elementQty: 1,
               elementPrice: 100
             },
@@ -1818,7 +1818,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementWidth: 1500,
               elementHeight: 1500,
               elementColorId: 'matt',
-              elementColor: 'img/lamination/empty.png',
+              elementColor: '../img/lamination/empty.png',
               elementQty: 1,
               elementPrice: 100
             },
@@ -1829,7 +1829,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementWidth: 1500,
               elementHeight: 1500,
               elementColorId: 'matt',
-              elementColor: 'img/lamination/empty.png',
+              elementColor: '../img/lamination/empty.png',
               elementQty: 1,
               elementPrice: 100
             }
@@ -1842,7 +1842,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementWidth: 1500,
               elementHeight: 1500,
               elementColorId: 'matt',
-              elementColor: 'img/lamination/empty.png',
+              elementColor: '../img/lamination/empty.png',
               elementQty: 1,
               elementPrice: 100
             },
@@ -1853,7 +1853,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementWidth: 1500,
               elementHeight: 1500,
               elementColorId: 'matt',
-              elementColor: 'img/lamination/empty.png',
+              elementColor: '../img/lamination/empty.png',
               elementQty: 1,
               elementPrice: 100
             }
@@ -1866,7 +1866,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementWidth: 1500,
               elementHeight: 1500,
               elementColorId: 'matt',
-              elementColor: 'img/lamination/empty.png',
+              elementColor: '../img/lamination/empty.png',
               elementQty: 1,
               elementPrice: 100
             },
@@ -1877,7 +1877,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementWidth: 1500,
               elementHeight: 1500,
               elementColorId: 'matt',
-              elementColor: 'img/lamination/empty.png',
+              elementColor: '../img/lamination/empty.png',
               elementQty: 1,
               elementPrice: 100
             },
@@ -1888,7 +1888,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementWidth: 1500,
               elementHeight: 1500,
               elementColorId: 'matt',
-              elementColor: 'img/lamination/empty.png',
+              elementColor: '../img/lamination/empty.png',
               elementQty: 1,
               elementPrice: 100
             },
@@ -1899,7 +1899,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementWidth: 1500,
               elementHeight: 1500,
               elementColorId: 'matt',
-              elementColor: 'img/lamination/empty.png',
+              elementColor: '../img/lamination/empty.png',
               elementQty: 1,
               elementPrice: 100
             }
@@ -2021,42 +2021,42 @@ BauVoiceApp.factory('constructService', function ($q) {
         laminationWhiteMatt: {
           laminationName: 'Белый',
           laminationLabel: 'матовый',
-          laminationUrl: 'img/lamination/empty.png'
+          laminationUrl: '../img/lamination/empty.png'
         },
         laminationWhiteGlossy: {
           laminationName: 'Белый',
           laminationLabel: 'глянцевый',
-          laminationUrl: 'img/lamination/empty.png'
+          laminationUrl: '../img/lamination/empty.png'
         },
         laminations: [
           {
             laminationId: 1,
             laminationName: 'светлый дуб',
-            laminationUrl: 'img/lamination/Birch.png',
+            laminationUrl: '../img/lamination/Birch.png',
             laminationPrice: 100
           },
           {
             laminationId: 2,
             laminationName: 'золотой дуб',
-            laminationUrl: 'img/lamination/GoldenOak.png',
+            laminationUrl: '../img/lamination/GoldenOak.png',
             laminationPrice: 100
           },
           {
             laminationId: 3,
             laminationName: 'береза',
-            laminationUrl: 'img/lamination/LightOak.png',
+            laminationUrl: '../img/lamination/LightOak.png',
             laminationPrice: 100
           },
           {
             laminationId: 4,
             laminationName: 'махагон',
-            laminationUrl: 'img/lamination/Mahagon.png',
+            laminationUrl: '../img/lamination/Mahagon.png',
             laminationPrice: 100
           },
           {
             laminationId: 5,
             laminationName: 'сосна',
-            laminationUrl: 'img/lamination/Pine.png',
+            laminationUrl: '../img/lamination/Pine.png',
             laminationPrice: 100
           }
         ]
@@ -2199,26 +2199,26 @@ BauVoiceApp.factory('constructService', function ($q) {
           {
             shapeId: 1,
             shapeLabel: 'без порога',
-            shapeIcon: 'img/door-config/no-doorstep.png',
-            shapeIconSelect: 'img/door-config-selected/no-doorstep.png'
+            shapeIcon: '../img/door-config/no-doorstep.png',
+            shapeIconSelect: '../img/door-config-selected/no-doorstep.png'
           },
           {
             shapeId: 2,
             shapeLabel: 'по периметру',
-            shapeIcon: 'img/door-config/doorstep.png',
-            shapeIconSelect: 'img/door-config-selected/doorstep.png'
+            shapeIcon: '../img/door-config/doorstep.png',
+            shapeIconSelect: '../img/door-config-selected/doorstep.png'
           },
           {
             shapeId: 3,
             shapeLabel: 'алюминевый порог, тип1',
-            shapeIcon: 'img/door-config/doorstep-al1.png',
-            shapeIconSelect: 'img/door-config-selected/doorstep-al1.png'
+            shapeIcon: '../img/door-config/doorstep-al1.png',
+            shapeIconSelect: '../img/door-config-selected/doorstep-al1.png'
           },
           {
             shapeId: 4,
             shapeLabel: 'алюминевый порог, тип2',
-            shapeIcon: 'img/door-config/doorstep-al2.png',
-            shapeIconSelect: 'img/door-config-selected/doorstep-al2.png'
+            shapeIcon: '../img/door-config/doorstep-al2.png',
+            shapeIconSelect: '../img/door-config-selected/doorstep-al2.png'
           }
         ],
 
@@ -2241,14 +2241,14 @@ BauVoiceApp.factory('constructService', function ($q) {
           {
             shapeId: 1,
             shapeLabel: 'нажимной гарнитур',
-            shapeIcon: 'img/door-config/lever-handle.png',
-            shapeIconSelect: 'img/door-config-selected/lever-handle.png'
+            shapeIcon: '../img/door-config/lever-handle.png',
+            shapeIconSelect: '../img/door-config-selected/lever-handle.png'
           },
           {
             shapeId: 2,
             shapeLabel: 'стандартная офисная ручка',
-            shapeIcon: 'img/door-config/standart-handle.png',
-            shapeIconSelect: 'img/door-config-selected/standart-handle.png'
+            shapeIcon: '../img/door-config/standart-handle.png',
+            shapeIconSelect: '../img/door-config-selected/standart-handle.png'
           }
         ],
 
@@ -2256,14 +2256,14 @@ BauVoiceApp.factory('constructService', function ($q) {
           {
             shapeId: 1,
             shapeLabel: 'однозапорный с защелкой',
-            shapeIcon: 'img/door-config/onelock.png',
-            shapeIconSelect: 'img/door-config-selected/onelock.png'
+            shapeIcon: '../img/door-config/onelock.png',
+            shapeIconSelect: '../img/door-config-selected/onelock.png'
           },
           {
             shapeId: 2,
             shapeLabel: 'многозапорный с защелкой',
-            shapeIcon: 'img/door-config/multilock.png',
-            shapeIconSelect: 'img/door-config-selected/multilock.png'
+            shapeIcon: '../img/door-config/multilock.png',
+            shapeIconSelect: '../img/door-config-selected/multilock.png'
           }
         ]
 

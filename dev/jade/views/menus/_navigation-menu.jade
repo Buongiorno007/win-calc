@@ -57,5 +57,6 @@
 
 
   footer.nav-menu-footer
-    button.new-calc.unvisible(ng-show="global.startProgramm", ng-click="createNewProjectFirst()", show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}") {{ 'mainpage.NAVMENU_NEW_CALC' | translate }}
-    button.new-calc.unvisible(ng-hide="global.startProgramm", ng-click="global.createNewProject()", show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}") {{ 'mainpage.NAVMENU_NEW_CALC' | translate }}
+    button.new-calc.unvisible(ng-if="global.startProgramm == true", ng-click="createNewProjectFirst()", show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}") {{ 'mainpage.NAVMENU_NEW_CALC' | translate }}
+    button.new-calc.unvisible(ng-if="global.startProgramm == false && global.isOpenedCartPage == false", ng-click="global.createNewProject()", show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}") {{ 'mainpage.NAVMENU_NEW_CALC' | translate }}
+    button.new-calc.unvisible(ng-if="global.startProgramm == false && global.isOpenedCartPage == true", ng-click="global.createNewProjectCart()", show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}") {{ 'mainpage.NAVMENU_NEW_CALC' | translate }}

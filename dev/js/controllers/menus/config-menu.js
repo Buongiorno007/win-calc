@@ -242,7 +242,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   $scope.global.productInit = function () {
 
     //------ Check Product Edit
-    if ($scope.global.productEditNumber) {
+    if ($scope.global.productEditNumber && !$scope.global.isCreatedNewProject) {
 
       //------ Download Add Elements from localDB
       $scope.downloadAddElementsEDIT();
@@ -476,8 +476,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     $scope.global.templateDefault = angular.copy($scope.global.templatesWindList[$scope.global.templateIndex]);
     $scope.global.product.constructThumb = angular.copy($scope.global.templatesWindThumbList[$scope.global.templateIndex]);
 
-    //console.log($scope.global.templateDefault);
-
+    console.log('config menu!!!!!!');
     $scope.global.createObjXFormedPrice($scope.global.templateDefault, profileIndex, profileId, $scope.global.product.glassId);
   };
 
@@ -542,7 +541,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     //--------- get product default price
     globalDB.calculationPrice($scope.global.objXFormedPrice, function (result) {
       if(result.status){
-        //console.log(result.data);
+        console.log('price');
+        console.log(result.data);
         $scope.global.constructionPriceTOTAL = parseFloat(angular.copy(result.data.price));
         $scope.global.setProductPriceTOTAL();
         $scope.$apply();
@@ -552,7 +552,11 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
         }
         $scope.global.currency = currencySymbol;
         $scope.global.isFindPriceProcess = false;
-        //console.log('price');
+
+        if($scope.global.isReturnFromDiffPage) {
+          $scope.global.createNewProduct();
+          $scope.global.isReturnFromDiffPage = false;
+        }
 
       } else {
         console.log(result);
@@ -563,6 +567,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
   $scope.global.setProductPriceTOTAL = function() {
     $scope.global.product.productPrice = $scope.global.constructionPriceTOTAL + $scope.global.hardwarePriceTOTAL + $scope.global.laminationPriceTOTAL + $scope.global.addElementsPriceTOTAL;
+    $scope.$apply();
   };
 
 
@@ -610,6 +615,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       }
     }
   };
+
 
 
 
@@ -937,10 +943,6 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   //--------- moving to Cart when click on Cart button
   $scope.movetoCart = function() {
 
-    $scope.global.isCreatedNewProject = false;
-    //-------- checking cart page was opened for save draft order
-    $scope.global.isOpenedCartPage = true;
-
     $timeout(function(){
       $scope.global.gotoCartPage();
     }, 3*STEP);
@@ -950,5 +952,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   $scope.global.productInit();
   //console.log('global.product');
   //console.log($scope.global.product);
+
+
+
 
 }]);

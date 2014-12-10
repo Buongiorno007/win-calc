@@ -1,6 +1,6 @@
 .user-info-container(ng-controller="UserInfoCtrl")
   button.nav-menu-btn(ng-if="!global.isHistoryPage", ng-class="{ 'show-navmenu': global.showNavMenu }", ng-click="swipeMainPage()")
-  button.nav-menu-btn(ng-if="global.isHistoryPage", ng-click="global.createNewProject()")
+  button.nav-menu-btn(ng-if="global.isHistoryPage", ng-click="global.createNewProjectHistory()")
   .user-foto
   .icon-location.unvisible(show-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}")
   .user-info-block

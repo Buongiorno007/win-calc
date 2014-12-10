@@ -158,42 +158,73 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
   //----------- Create new Project
   $scope.global.createNewProject = function() {
     //------ сохраняем черновик продукта в LocalDB если создается новый заказ на главной странице
-    if (!$scope.global.isOpenedCartPage) {
-      console.log('draft in main page');
-      $scope.global.inputProductInOrder();
-      $scope.global.orderTotalPrice = $scope.global.product.productPrice;
-    }
+    console.log('draft in main page');
+    $scope.global.inputProductInOrder();
+    $scope.global.orderTotalPrice = $scope.global.product.productPrice;
     //------ сохраняем черновик заказа в LocalDB
     $scope.global.insertOrderInLocalDB({}, $scope.global.draftOrderType, '');
 
     //------ create new order
     $scope.global.isCreatedNewProject = true;
     $scope.checkingForNewOrder();
-    $scope.global.isHistoryPage = false;
     $scope.global.createNewProduct();
   };
 
+  $scope.global.createNewProjectCart = function() {
+    console.log('draft in cart page');
+    $scope.global.isOpenedCartPage = false;
+    //------ сохраняем черновик заказа в LocalDB
+    $scope.global.insertOrderInLocalDB({}, $scope.global.draftOrderType, '');
+    $scope.global.isCreatedNewProject = true;
+    $scope.global.isReturnFromDiffPage = true;
+
+    $scope.global.showPanels = {};
+    $scope.global.isTemplatePanel = false;
+
+    //$scope.global.productEditNumber = false;
+    //$scope.global.templateIndex = 0;
+    //$scope.global.profileIndex = 0;
+    //$scope.checkingForNewOrder();
+    //$scope.global.prepareMainPage();
+    $location.path('/main');
+  };
+
+  $scope.global.createNewProjectHistory = function() {
+    //------ сохраняем черновик продукта в LocalDB если создается новый заказ на главной странице
+    console.log('draft in main page');
+    $scope.global.inputProductInOrder();
+    $scope.global.orderTotalPrice = $scope.global.product.productPrice;
+    //------ сохраняем черновик заказа в LocalDB
+    $scope.global.insertOrderInLocalDB({}, $scope.global.draftOrderType, '');
+
+    //------ create new order
+    $scope.global.isCreatedNewProject = true;
+    $scope.checkingForNewOrder();
+
+    $scope.global.isHistoryPage = false;
+    $scope.global.isReturnFromDiffPage = true;
+    $scope.global.showPanels = {};
+    $scope.global.isTemplatePanel = false;
+    //$scope.global.productEditNumber = false;
+    //$scope.navMenu.activeMenuItem = false;
+    //$scope.global.templateIndex = 0;
+    //$scope.global.profileIndex = 0;
+
+    $location.path('/main');
+  };
 
   //---------- clearing for create new Product
   $scope.global.createNewProduct = function() {
     //------- finish edit product
     $scope.global.productEditNumber = false;
+    $scope.navMenu.activeMenuItem = false;
     $scope.global.templateIndex = 0;
     $scope.global.profileIndex = 0;
 
-
-    //$scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
-
-    //----- повторный запуск если создается новый заказ на главной странице
-    if ($scope.global.isOpenedCartPage) {
-      $scope.global.isReturnFromCartPage = true;
-    }
-    //$scope.global.isOpenedCartPage = false;
-
-    $scope.navMenu.activeMenuItem = false;
-
     $scope.global.prepareMainPage();
     $scope.global.initTemplates();
+    console.log('$scope.global.isOpenedCartPage = ' + $scope.global.isOpenedCartPage);
+    console.log('$scope.global.isReturnFromCartPage = ' + $scope.global.isReturnFromCartPage);
     $location.path('/main');
   };
 
@@ -267,7 +298,6 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
     //console.log(newOptions);
     //console.log($scope.orderData);
     localDB.insertDB($scope.global.ordersTableBD, $scope.orderData);
-    $scope.global.startFirstStep = true;
   };
 
 }]);
