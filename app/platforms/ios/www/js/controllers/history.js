@@ -1,6 +1,3 @@
-
-// controllers/history.js
-
 /* globals BauVoiceApp, STEP, unvisibleClass, selectClass, activeClass, typingTextByChar, showElementWithDelay, typingTextWithDelay */
 
 'use strict';

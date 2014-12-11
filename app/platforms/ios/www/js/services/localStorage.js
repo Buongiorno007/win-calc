@@ -1,6 +1,3 @@
-
-// services/localStorage.js
-
 "use strict";
 
 BauVoiceApp.factory('localStorage', function () {
@@ -143,4 +140,3 @@ BauVoiceApp.factory('localStorage', function () {
     windowsillDBId: 8
   }
 });
-

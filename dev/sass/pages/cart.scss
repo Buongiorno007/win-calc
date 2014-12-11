@@ -117,9 +117,11 @@
 
   // AddElements Detail Block
   .addelements-detail {
-    position: fixed;
-    top: rem(240px);
-    left: rem(1260px);
+    position: absolute;
+    //top: rem(240px);
+    //left: rem(1260px);
+    top: 0rem;
+    left: 30rem;
     width: rem(512px);
     background-color: #fff;
     border-bottom-left-radius: rem($radius_order);
@@ -152,7 +154,7 @@
     }
   }
   .product-template {
-    padding: rem(50px);
+    padding: 2.125rem;
     border-bottom: 1px solid $main_gray_btn;
   }
   .product-template-icon {
@@ -201,6 +203,9 @@
     @include justify-content(flex-start);
     @include align-items(center);
     margin: rem(20px) 0;
+  }
+  .addelement-parameter {
+    margin-right: 1rem;
   }
   .addelement-value {
     @extend .order-value;

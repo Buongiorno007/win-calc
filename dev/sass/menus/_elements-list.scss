@@ -87,7 +87,7 @@
   .element-info {
     @extend .button;
 
-    position: relative;
+    //position: relative;
     width: rem(45px);
     height: rem(45px);
     border-radius: 50%;
@@ -96,7 +96,7 @@
       @extend .icon-setting;
       @include font-general-icon(rem(30px), 0);
 
-      position: absolute;
+      //position: absolute;
       display: block;
       color: #fff;
       content: $info-i-icon;

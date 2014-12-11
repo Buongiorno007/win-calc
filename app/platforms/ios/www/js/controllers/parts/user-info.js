@@ -1,6 +1,3 @@
-
-// controllers/parts/user-info.js
-
 'use strict';
 
 BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localDB', 'localStorage', function ($scope, globalDB, localDB, localStorage) {
@@ -100,4 +97,3 @@ BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localDB', 'localS
 */
 
 }]);
-

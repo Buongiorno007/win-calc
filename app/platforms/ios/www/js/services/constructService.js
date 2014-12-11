@@ -193,7 +193,7 @@ BauVoiceApp.factory('constructService', function ($q) {
       callback(new OkResult({
         windows: [
           {
-            'name': 'Одностворчатый глухой',
+            'name': 'Одностворчатое глухое',
             'objects': [
               //------- main points
               {'type': 'fixed_point', id: 'fp1', x: '0', y: '0'},
@@ -251,7 +251,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             ]
           },
           {
-            'name':'Одностворчатый',
+            'name':'Одностворчатое',
             'objects':[
               //------- main points
               {'type':'fixed_point', id:'fp1', x:'0', y: '0'},
@@ -330,7 +330,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             ]
           },
           {
-            'name':'Двухстворчатый',
+            'name':'Двухстворчатое',
             'objects':[
               //------- main points
               {'type':'fixed_point', id:'fp1', x:'0', y: '0'},
@@ -446,7 +446,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             ]
           },
           {
-            'name':'Трехстворчатый',
+            'name':'Трехстворчатое',
             'objects':[
               //------- main points
               {'type':'fixed_point', id:'fp1', x:'0', y: '0'},
@@ -866,7 +866,7 @@ BauVoiceApp.factory('constructService', function ($q) {
 
         doors: [
           {
-            'name': 'Одностворчатый глухой',
+            'name': 'Одностворчатая',
             'objects': [
               //------- main points
               {'type': 'fixed_point', id: 'fp1', x: '0', y: '0'},
@@ -1144,7 +1144,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               glassId: 146,
               glassName: '6/12/6',
-              glassUrl: 'img/glass.png',
+              glassUrl: 'img/glasses/glass1.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 5,
               heatCoeff: 4,
@@ -1154,7 +1154,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               glassId: 146,
               glassName: '4/10/4/10/4',
-              glassUrl: 'img/glass.png',
+              glassUrl: 'img/glasses/glass1.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 5,
               heatCoeff: 0.4,
@@ -1164,7 +1164,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               glassId: 147,
               glassName: '4/8/4/12/4',
-              glassUrl: 'img/glass.png',
+              glassUrl: 'img/glasses/glass20.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 1,
               heatCoeff: 0.3,
@@ -1176,7 +1176,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               glassId: 149,
               glassName: '4/16/4i',
-              glassUrl: 'img/glass.png',
+              glassUrl: 'img/glasses/glass2.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
               heatCoeff: 2,
@@ -1186,7 +1186,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               glassId: 149,
               glassName: '4/16argon/4i',
-              glassUrl: 'img/glass.png',
+              glassUrl: 'img/glasses/glass10.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
               heatCoeff: 2,
@@ -1196,7 +1196,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               glassId: 149,
               glassName: '4/10/4/10/4i',
-              glassUrl: 'img/glass.png',
+              glassUrl: 'img/glasses/glass10.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
               heatCoeff: 0.2,
@@ -1206,7 +1206,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               glassId: 150,
               glassName: '4i/10/4/10/4i',
-              glassUrl: 'img/glass.png',
+              glassUrl: 'img/glasses/glass20.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 1,
               heatCoeff: 0.1,
@@ -1218,7 +1218,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               glassId: 149,
               glassName: '4/16/4i',
-              glassUrl: 'img/glass.png',
+              glassUrl: 'img/glasses/glass2.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
               heatCoeff: 2,
@@ -1228,7 +1228,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               glassId: 149,
               glassName: '4/16argon/4i',
-              glassUrl: 'img/glass.png',
+              glassUrl: 'img/glasses/glass10.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
               heatCoeff: 2,
@@ -1238,7 +1238,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               glassId: 149,
               glassName: '4/10/4/10/4i',
-              glassUrl: 'img/glass.png',
+              glassUrl: 'img/glasses/glass10.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
               heatCoeff: 2,
@@ -1248,7 +1248,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               glassId: 150,
               glassName: '4i/10/4/10/4i',
-              glassUrl: 'img/glass.png',
+              glassUrl: 'img/glasses/glass10.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 1,
               heatCoeff: 1,
@@ -1260,7 +1260,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               glassId: 149,
               glassName: '4/16/4i',
-              glassUrl: 'img/glass.png',
+              glassUrl: 'img/glasses/glass10.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
               heatCoeff: 2,
@@ -1270,7 +1270,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               glassId: 149,
               glassName: '4/16argon/4i',
-              glassUrl: 'img/glass.png',
+              glassUrl: 'img/glasses/glass20.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
               heatCoeff: 2,
@@ -1280,7 +1280,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               glassId: 149,
               glassName: '4/10/4/10/4i',
-              glassUrl: 'img/glass.png',
+              glassUrl: 'img/glasses/glass2.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
               heatCoeff: 2,
@@ -1290,7 +1290,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               glassId: 150,
               glassName: '4i/10/4/10/4i',
-              glassUrl: 'img/glass.png',
+              glassUrl: 'img/glasses/glass1.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 1,
               heatCoeff: 1,
@@ -1302,7 +1302,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               glassId: 149,
               glassName: '4/10/4/10/4i',
-              glassUrl: 'img/glass.png',
+              glassUrl: 'img/glasses/glass10.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
               heatCoeff: 2,
@@ -1312,7 +1312,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               glassId: 149,
               glassName: '4/10/4/10/4i',
-              glassUrl: 'img/glass.png',
+              glassUrl: 'img/glasses/glass10.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
               heatCoeff: 2,
@@ -1322,7 +1322,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               glassId: 149,
               glassName: '4/10/4/10/4i',
-              glassUrl: 'img/glass.png',
+              glassUrl: 'img/glasses/glass10.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
               heatCoeff: 2,
@@ -1332,7 +1332,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             {
               glassId: 152,
               glassName: '4/16/4i',
-              glassUrl: 'img/glass.png',
+              glassUrl: 'img/glasses/glass10.png',
               glassDescrip: '3 камеры +энергосбережение',
               glassNoise: 4,
               heatCoeff: 0.5,
@@ -1712,6 +1712,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementId: 1,
               elementType: 'Стандартные',
               elementName: 'Откос пластиковый',
+              elementWidth: 200,
               elementQty: 1,
               elementPrice: 100
             },
@@ -1719,6 +1720,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementId: 2,
               elementType: 'Стандартные',
               elementName: 'Откос гипсокартонный',
+              elementWidth: 200,
               elementQty: 1,
               elementPrice: 100
             },
@@ -1726,6 +1728,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementId: 3,
               elementType: 'Стандартные',
               elementName: 'Откос песчаноцементный',
+              elementWidth: 200,
               elementQty: 1,
               elementPrice: 100
             }
@@ -1748,6 +1751,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementId: 1,
               elementType: 'Стандартные',
               elementName: 'Откос пластиковый',
+              elementWidth: 200,
               elementQty: 1,
               elementPrice: 100
             },
@@ -1755,6 +1759,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementId: 2,
               elementType: 'Стандартные',
               elementName: 'Откос гипсокартонный',
+              elementWidth: 200,
               elementQty: 1,
               elementPrice: 100
             },
@@ -1762,6 +1767,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementId: 3,
               elementType: 'Стандартные',
               elementName: 'Откос песчаноцементный',
+              elementWidth: 200,
               elementQty: 1,
               elementPrice: 100
             }

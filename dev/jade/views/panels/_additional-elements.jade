@@ -204,7 +204,7 @@
         .choose-block.unvisible(show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}", ng-hide="global.chosenAddElements.selectedHandles.length > 0")
           button.aux-choose-but.aux_middle_but(ng-class="{'focused': global.isFocusedAddElement == 10}", ng-click="global.selectAddElement(10)", ng-disabled="global.isFocusedAddElement == 10") {{ 'add_elements.CHOOSE' | translate }}
           .aux-label(data-output="{{ 'add_elements.HANDLEL' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
-        .selected-block.horisontal(ng-show="global.chosenAddElements.selectedHandles.length > 0")
+        .selected-block.vertival(ng-show="global.chosenAddElements.selectedHandles.length > 0")
           .aux-info-box
             .aux-title(data-output="{{ global.chosenAddElements.selectedHandles[0].elementName }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}", ng-click="global.selectAddElement(10)")
             .aux-label(data-output="{{ 'add_elements.HANDLEL' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
@@ -225,7 +225,7 @@
           .aux-label(data-output="{{ 'add_elements.OTHERS' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
         .selected-block.vertival(ng-show="global.chosenAddElements.selectedOthers.length > 0")
           .aux-info-box
-            .aux-title(data-output="{{ global.chosenAddElements.selectedOthers.length }} {{ 'add_elements.ELEMENTS' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}")
+            .aux-title(data-output="{{ global.chosenAddElements.selectedOthers.length }} {{ 'add_elements.ELEMENTS' | translate }}", , ng-click="global.selectAddElement(11)", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}")
             .aux-label(data-output="{{ 'add_elements.OTHERS' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}")
 
 

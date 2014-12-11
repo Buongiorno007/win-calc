@@ -1,6 +1,3 @@
-
-// services/locationService.js
-
 "use strict";
 
 BauVoiceApp.factory('locationService', function () {

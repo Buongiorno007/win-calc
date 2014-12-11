@@ -17,7 +17,6 @@ BauVoiceApp.controller('ProfileCtrl', ['$scope', 'constructService', 'localStora
     isSelectedProfile: 0,
     typing: 'on'
   };
-  //$scope.global.profileIndex
 /*
   constructService.getAllProfileSystems(function (results) {
     if (results.status) {
@@ -42,9 +41,10 @@ BauVoiceApp.controller('ProfileCtrl', ['$scope', 'constructService', 'localStora
 
   // Select profile
   $scope.selectProfile = function(producerId, profileIndex, profileId) {
-    var selectedProfile = $scope.profilePanel.profiles[producerId][profileIndex];
     $scope.profilePanel.isSelectedProducer = producerId;
+    $scope.profilePanel.isSelectedProfile = profileIndex;
 
+    var selectedProfile = $scope.profilePanel.profiles[producerId][profileIndex];
     $scope.global.product.profileId = profileId;
     $scope.global.product.profileName = selectedProfile.profileDescrip;
     $scope.global.product.profileHeatCoeff = selectedProfile.heatCoeff;

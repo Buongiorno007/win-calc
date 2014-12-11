@@ -488,8 +488,10 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
     //console.log('$scope.global.objXFormedPrice');
     //console.log($scope.global.objXFormedPrice);
+    console.log(template.objects);
     for (var item = 0; item < template.objects.length; item++) {
       var elementSize;
+      console.log(template.objects[item].type);
       if (template.objects[item].type) {
         switch (template.objects[item].type) {
           case 'frame_line':
@@ -499,8 +501,12 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
               $scope.global.objXFormedPrice.frameSillSize = template.objects[item].lengthVal;
             }
             break;
-          case 'sash_line':
-            elementSize = template.objects[item].lengthVal;
+          case 'impost':
+            elementSize = template.objects[item].parts[0].lengthVal;
+            $scope.global.objXFormedPrice.impostsSize.push(elementSize);
+            break;
+          case 'sash':
+            elementSize = template.objects[item].parts[0].lengthVal;
             $scope.global.objXFormedPrice.sashsSize.push(elementSize);
             break;
           case 'bead_box_line':
@@ -534,7 +540,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     $scope.global.objXFormedPrice.impostId = $scope.global.allProfileImpostSizes[profileIndex].id;
     $scope.global.objXFormedPrice.shtulpId = $scope.global.allProfileShtulpSizes[profileIndex].id;
 
-    //console.log($scope.global.objXFormedPrice);
+
+    console.log($scope.global.objXFormedPrice);
 
     //------ calculate coeffs
     $scope.global.calculateCoeffs();
@@ -542,8 +549,9 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     //--------- get product default price
     globalDB.calculationPrice($scope.global.objXFormedPrice, function (result) {
       if(result.status){
-        //console.log('price');
-        //console.log(result.data);
+
+        console.log('price');
+        console.log(result.data);
         $scope.global.constructionPriceTOTAL = parseFloat(angular.copy(result.data.price));
         $scope.global.setProductPriceTOTAL();
         $scope.$apply();
@@ -568,7 +576,6 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
         console.log(result);
       }
     });
-
 
 
 
@@ -841,7 +848,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
               "elementType": addElementsObj[prop][elem].elementType,
               "elementName": addElementsObj[prop][elem].elementName,
               "elementQty": addElementsObj[prop][elem].elementQty,
-              //"elementWidth": addElementsObj[prop][elem].elementWidth,
+              "elementWidth": addElementsObj[prop][elem].elementWidth,
               "elementPrice": addElementsObj[prop][elem].elementPrice
             };
             localDB.insertDB($scope.global.outSlopesTableBD, addElementsData);
@@ -855,7 +862,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
               "elementType": addElementsObj[prop][elem].elementType,
               "elementName": addElementsObj[prop][elem].elementName,
               "elementQty": addElementsObj[prop][elem].elementQty,
-              //"elementWidth": addElementsObj[prop][elem].elementWidth,
+              "elementWidth": addElementsObj[prop][elem].elementWidth,
               "elementPrice": addElementsObj[prop][elem].elementPrice
             };
             localDB.insertDB($scope.global.inSlopesTableBD, addElementsData);

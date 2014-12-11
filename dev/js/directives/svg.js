@@ -44,7 +44,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
             overallDimV = 2000,
             edgeTop = 300,
             edgeLeft = 250,
-
+            coefScrollW = 0.55,
             //sizeBoxWidth = 250,
             //sizeBoxHeight = 120,
             //sizeBoxRadius = 35,
@@ -379,12 +379,14 @@ BauVoiceApp.directive('svgTemplate', [ function() {
           }
         }
 
-          //var mid = (overallDimH - edgeLeft) / 2;
         var divW = $('.construction-scrollbox').width();
-          var mid = ((canvasWidth - edgeLeft*2)/2 - divW/2);
-          console.log(divW);
-        console.log(canvasWidth);
-          console.log(mid);
+          //var mid = ((canvasWidth - edgeLeft*2)/2 - divW/2);
+        var mid = ((canvasWidth)/2 - divW/2) * coefScrollW;
+        //console.log('edgeLeft = ' + edgeLeft);
+        //console.log('overallDimH = ' + overallDimH);
+        //console.log('divW = ' + divW);
+        //console.log('canvasWidth =' + canvasWidth);
+        //console.log('mid = ' + mid);
           $('.construction-scrollbox').scrollLeft( mid );
 
           //console.log($('.construction-scrollbox').scrollLeft());

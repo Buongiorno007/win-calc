@@ -1,6 +1,3 @@
-
-// controllers/panels/additional-elements.js
-
 /* globals BauVoiceApp, STEP, activeClass */
 
 'use strict';
@@ -29,7 +26,7 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'localDB', 'construc
     DELAY_SHOW_OTHERS: STEP * 31,
     DELAY_SHOW_BUTTON: STEP * 40,
 
-    DELAY_SHOW_ELEMENTS_MENU: STEP * 6,
+    DELAY_SHOW_ELEMENTS_MENU: STEP * 12,
     typing: 'on'
   };
 
@@ -288,4 +285,3 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'localDB', 'construc
   };
 
 }]);
-

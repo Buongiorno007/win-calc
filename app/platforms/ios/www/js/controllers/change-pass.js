@@ -1,6 +1,3 @@
-
-// controllers/change-pass.js
-
 /* globals BauVoiceApp, STEP */
 
 'use strict';
@@ -35,4 +32,3 @@ BauVoiceApp.controller('ChangePassCtrl', ['$scope', 'localDB', 'localStorage', f
   };
 
 }]);
-

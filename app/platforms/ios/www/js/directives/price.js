@@ -1,6 +1,3 @@
-
-// directives/price.js
-
 /* STEP */
 'use strict';
 

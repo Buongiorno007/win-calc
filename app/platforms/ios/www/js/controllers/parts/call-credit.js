@@ -1,6 +1,3 @@
-
-// controllers/parts/call-credit.js
-
 'use strict';
 
 BauVoiceApp.controller('CallCreditCtrl', ['$scope', 'constructService', 'localStorage', '$location', function ($scope, constructService, localStorage, $location) {

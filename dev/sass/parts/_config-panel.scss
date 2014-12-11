@@ -95,7 +95,7 @@
   }
   .box {
     @extend .splash;
-    @include transition(all .5s linear);
+    @include transition(all .3s linear);
 
     position: relative;
     float: left;

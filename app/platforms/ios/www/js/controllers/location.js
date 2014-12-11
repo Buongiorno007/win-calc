@@ -1,6 +1,3 @@
-
-// controllers/location.js
-
 /* globals BauVoiceApp */
 
 'use strict';

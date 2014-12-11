@@ -92,7 +92,11 @@
         .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
       .tab-content(ng-if="global.chosenAddElements.selectedGrids.length > 0")
         .tab-aux-row(ng-repeat="addElement in global.chosenAddElements.selectedGrids track by $index")
-          .aux-title {{ addElement.elementName }}
+          .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+          .aux-params(ng-class="{'selected': global.auxParameter === '1-1-'+$index && global.currentAddElementId === $index}")
+            button.aux-params-but.aux_connect_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+            .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
+          .aux-delete(ng-click="global.deleteAddElement(1, $index)")
 
 
   // Tabs Visors
@@ -128,10 +132,10 @@
         .tab-aux-row(ng-repeat="addElement in global.chosenAddElements.selectedSpillways track by $index")
           .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
           .aux-params(ng-class="{'selected': global.auxParameter === '3-1-'+$index && global.currentAddElementId === $index}")
-            button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+            button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
             .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
           .aux-params(ng-class="{'selected': global.auxParameter === '3-2-'+$index && global.currentAddElementId === $index}")
-            button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
+            button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
             .aux-label {{ 'add_elements.SIZE_LABEL' | translate }}
           .aux-delete(ng-click="global.deleteAddElement(3, $index)")
 
@@ -148,6 +152,13 @@
       .tab-content(ng-if="global.chosenAddElements.selectedOutsideSlope.length > 0")
         .tab-aux-row(ng-repeat="addElement in global.chosenAddElements.selectedOutsideSlope track by $index")
           .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+          .aux-params(ng-class="{'selected': global.auxParameter === '4-1-'+$index && global.currentAddElementId === $index}")
+            button.aux-params-but.aux_slope_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+            .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
+          .aux-params(ng-class="{'selected': global.auxParameter === '4-2-'+$index && global.currentAddElementId === $index}")
+            button.aux-params-but.aux_slope_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
+            .aux-label {{ 'add_elements.SIZE_LABEL' | translate }}
+          .aux-delete(ng-click="global.deleteAddElement(4, $index)")
 
 
   // Tabs Louvers
@@ -162,13 +173,13 @@
         .tab-aux-row(ng-repeat="addElement in global.chosenAddElements.selectedLouvers track by $index")
           .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
           .aux-params(ng-class="{'selected': global.auxParameter === '5-1-'+$index && global.currentAddElementId === $index}")
-            button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+            button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
             .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
           .aux-params(ng-class="{'selected': global.auxParameter === '5-2-'+$index && global.currentAddElementId === $index}")
-            button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
+            button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
             .aux-label {{ 'add_elements.WIDTH_LABEL' | translate }}
           .aux-params(ng-class="{'selected': global.auxParameter === '5-3-'+$index && global.currentAddElementId === $index}")
-            button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(3, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementHeight }}
+            button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(3, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementHeight }}
             .aux-label {{ 'add_elements.HEIGHT_LABEL' | translate }}
           .aux-delete(ng-click="global.deleteAddElement(5, $index)")
 
@@ -185,6 +196,13 @@
       .tab-content(ng-if="global.chosenAddElements.selectedInsideSlope.length > 0")
         .tab-aux-row(ng-repeat="addElement in global.chosenAddElements.selectedInsideSlope track by $index")
           .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+          .aux-params(ng-class="{'selected': global.auxParameter === '6-1-'+$index && global.currentAddElementId === $index}")
+            button.aux-params-but.aux_slope_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+            .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
+          .aux-params(ng-class="{'selected': global.auxParameter === '6-2-'+$index && global.currentAddElementId === $index}")
+            button.aux-params-but.aux_slope_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
+            .aux-label {{ 'add_elements.SIZE_LABEL' | translate }}
+          .aux-delete(ng-click="global.deleteAddElement(6, $index)")
 
 
   // Tabs Connectors
@@ -198,6 +216,13 @@
       .tab-content(ng-if="global.chosenAddElements.selectedConnectors.length > 0")
         .tab-aux-row(ng-repeat="addElement in global.chosenAddElements.selectedConnectors track by $index")
           .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+          .aux-params(ng-class="{'selected': global.auxParameter === '7-1-'+$index && global.currentAddElementId === $index}")
+            button.aux-params-but.aux_connect_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+            .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
+          .aux-params(ng-class="{'selected': global.auxParameter === '7-2-'+$index && global.currentAddElementId === $index}")
+            button.aux-params-but.aux_connect_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
+            .aux-label {{ 'add_elements.SIZE_LABEL' | translate }}
+          .aux-delete(ng-click="global.deleteAddElement(7, $index)")
 
 
 
@@ -213,6 +238,10 @@
       .tab-content(ng-if="global.chosenAddElements.selectedFans.length > 0")
         .tab-aux-row(ng-repeat="addElement in global.chosenAddElements.selectedFans track by $index")
           .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+          .aux-params(ng-class="{'selected': global.auxParameter === '8-1-'+$index && global.currentAddElementId === $index}")
+            button.aux-params-but.aux_small_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+            .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
+          .aux-delete(ng-click="global.deleteAddElement(8, $index)")
 
 
 
@@ -253,7 +282,7 @@
         .tab-aux-row(ng-repeat="addElement in global.chosenAddElements.selectedHandles track by $index")
           .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
           .aux-params(ng-class="{'selected': global.auxParameter === '10-1-'+$index && global.currentAddElementId === $index}")
-            button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+            button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
             .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
           .aux-delete(ng-click="global.deleteAddElement(10, $index)")
 
@@ -270,3 +299,7 @@
       .tab-content(ng-if="global.chosenAddElements.selectedOthers.length > 0")
         .tab-aux-row(ng-repeat="addElement in global.chosenAddElements.selectedOthers track by $index")
           .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsMenu.typing }}", typing-delay="{{ addElementsMenu.DELAY_START }}")
+          .aux-params(ng-class="{'selected': global.auxParameter === '11-1-'+$index && global.currentAddElementId === $index}")
+            button.aux-params-but.aux_small_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+            .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
+          .aux-delete(ng-click="global.deleteAddElement(11, $index)")

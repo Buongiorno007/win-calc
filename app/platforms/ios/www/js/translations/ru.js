@@ -1,6 +1,3 @@
-
-// translations/ru.js
-
 "use strict";
 
 window.russianDictionary = {
@@ -97,7 +94,6 @@ window.russianDictionary = {
     SPILLWAYS: 'водоотливы',
     WINDOWSILLS: 'подоконники',
     HANDLELS: 'ручки',
-
     NAME_LABEL: 'наименование',
     QTY_LABEL: 'шт.',
     SIZE_LABEL: 'размер',

@@ -83,7 +83,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
     $location.path('/settings');
   };
 
-  $scope.gotoHistoryPage = function () {
+    $scope.gotoHistoryPage = function () {
 
     if($scope.global.isOpenedCartPage) {
       $scope.global.insertOrderInLocalDB({}, $scope.global.draftOrderType, '');

@@ -1,6 +1,3 @@
-
-// app.js
-
 'use strict';
 
 window.BauVoiceApp = angular.module('BauVoiceApp', [

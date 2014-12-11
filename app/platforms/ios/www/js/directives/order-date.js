@@ -1,6 +1,3 @@
-
-// directives/order-date.js
-
 'use strict';
 
 BauVoiceApp.directive('orderDate', [ function() {

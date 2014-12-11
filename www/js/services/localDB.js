@@ -97,32 +97,32 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "null": "NOT NULL"
     },
     "hardwareId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "hardwareName":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "laminationOutId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "laminationOutName":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "laminationInId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "laminationInName":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "addElementsPrice":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "productPrice":{
       "type": "FLOAT",
@@ -181,112 +181,112 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "null": "NOT NULL"
     },
     "orderType": {
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "orderStyle": {
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "productsQty": {
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "floor":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "floorPrice":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "assembling":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "assemblingPrice":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "deliveryDatePrimary":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "deliveryDate":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "instalmentPeriod":{
-      "type": "TEXT",
-        "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "instalmentPercent": {
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "totalPrice":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "totalPricePrimary":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "totalPriceFirst":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "totalPriceMonthly":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "totalPriceFirstPrimary":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "totalPriceMonthlyPrimary":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "name":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "location":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "address":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "mail": {
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "phone":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "phone2": {
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "itn": {
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "starttime": {
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "endtime": {
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "target": {
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     }
   });
 
@@ -294,37 +294,37 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
 
     "id":{
       "type": "INTEGER",
-      "null": "NOT NULL",
+      //"null": "NOT NULL",
       "primary": true,
       "auto_increment": true
     },
     "orderId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "productId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementType":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "elementName":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "elementPrice":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementQty":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     }
 
   });
@@ -333,41 +333,41 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
 
     "id":{
       "type": "INTEGER",
-      "null": "NOT NULL",
+      //"null": "NOT NULL",
       "primary": true,
       "auto_increment": true
     },
     "orderId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "productId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementType":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "elementName":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "elementWidth":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementPrice":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementQty":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     }
 
   });
@@ -377,41 +377,41 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
 
     "id":{
       "type": "INTEGER",
-      "null": "NOT NULL",
+      //"null": "NOT NULL",
       "primary": true,
       "auto_increment": true
     },
     "orderId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "productId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementType":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "elementName":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "elementWidth":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementPrice":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementQty":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     }
 
   });
@@ -421,37 +421,41 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
 
     "id":{
       "type": "INTEGER",
-      "null": "NOT NULL",
+      //"null": "NOT NULL",
       "primary": true,
       "auto_increment": true
     },
     "orderId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "productId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementType":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "elementName":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
+    },
+    "elementWidth":{
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementPrice":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementQty":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     }
 
   });
@@ -460,37 +464,41 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
 
     "id":{
       "type": "INTEGER",
-      "null": "NOT NULL",
+      //"null": "NOT NULL",
       "primary": true,
       "auto_increment": true
     },
     "orderId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "productId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementType":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "elementName":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
+    },
+    "elementWidth":{
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementPrice":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementQty":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     }
 
   });
@@ -500,45 +508,45 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
 
     "id":{
       "type": "INTEGER",
-      "null": "NOT NULL",
+      //"null": "NOT NULL",
       "primary": true,
       "auto_increment": true
     },
     "orderId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "productId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementType":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "elementName":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "elementWidth":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementHeight":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementPrice":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementQty":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     }
 
   });
@@ -548,41 +556,41 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
 
     "id":{
       "type": "INTEGER",
-      "null": "NOT NULL",
+      //"null": "NOT NULL",
       "primary": true,
       "auto_increment": true
     },
     "orderId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "productId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementType":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "elementName":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "elementWidth":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementPrice":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementQty":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     }
 
   });
@@ -591,37 +599,37 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
 
     "id":{
       "type": "INTEGER",
-      "null": "NOT NULL",
+      //"null": "NOT NULL",
       "primary": true,
       "auto_increment": true
     },
     "orderId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "productId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementType":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "elementName":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "elementPrice":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementQty":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     }
 
   });
@@ -631,45 +639,45 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
 
     "id":{
       "type": "INTEGER",
-      "null": "NOT NULL",
+      //"null": "NOT NULL",
       "primary": true,
       "auto_increment": true
     },
     "orderId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "productId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementType":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "elementName":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "elementWidth":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementColor":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "elementPrice":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementQty":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     }
 
   });
@@ -678,37 +686,37 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
 
     "id":{
       "type": "INTEGER",
-      "null": "NOT NULL",
+      //"null": "NOT NULL",
       "primary": true,
       "auto_increment": true
     },
     "orderId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "productId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementType":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "elementName":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "elementPrice":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementQty":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     }
 
   });
@@ -717,37 +725,37 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
 
     "id":{
       "type": "INTEGER",
-      "null": "NOT NULL",
+      //"null": "NOT NULL",
       "primary": true,
       "auto_increment": true
     },
     "orderId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "productId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementType":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "elementName":{
-      "type": "TEXT",
-      "null": "NOT NULL"
+      "type": "TEXT"
+      //"null": "NOT NULL"
     },
     "elementPrice":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     },
     "elementQty":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
+      "type": "INTEGER"
+      //"null": "NOT NULL"
     }
 
   });

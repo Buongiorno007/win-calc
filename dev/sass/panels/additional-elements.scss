@@ -279,7 +279,8 @@ $aux-img-select-path: 'auxiliaries-selected';
   //-----Louvers
 
   .aux-louver {
-    @include top_left_coord(750px, 570px);
+    //@include top_left_coord(750px, 570px);
+    @include top_left_coord(750px, 530px);
 
     z-index: 4;
   }
@@ -547,6 +548,7 @@ $aux-img-select-path: 'auxiliaries-selected';
     }
     &.vertival {
       @include flex-flow(column wrap);
+      width: 25rem;
     }
   }
 

@@ -1,6 +1,3 @@
-
-// controllers/menus/cart-menu.js
-
 /* globals BauVoiceApp, STEP */
 
 'use strict';

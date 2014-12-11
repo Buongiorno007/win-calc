@@ -37,9 +37,7 @@
           <li ng-class="{'selected': navMenu.activeMenuItem==9}" ng-click="selectMenuItem(9); global.gotoSettingsPage()" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 9) }}" class="nav-icon-settings unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_SETTINGS' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 9) }}" class="title"></span></div>
           </li>
-          <li ng-class="{'selected': navMenu.activeMenuItem==10}" ng-click="selectMenuItem(10)" class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 10) }}" class="nav-icon-information unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_MORE_INFO' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 10) }}" class="title"></span></div>
-          </li>
+          <li ng-class="{'selected': navMenu.activeMenuItem==10}" ng-click="selectMenuItem(10)" class="item"><a href="http://axorindustry.com" target="_blank" class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 10) }}" class="nav-icon-information unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_MORE_INFO' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 10) }}" class="title"></span></a></li>
           <li ng-class="{'selected': global.isVoiceHelper}" ng-click="switchVoiceHelper()" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 11) }}" class="nav-icon-information unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 11) }}" class="title"></span></div>
           </li>
@@ -73,7 +71,7 @@
           <div class="order-block">
             <div ng-repeat="product in global.productObj" class="order">
               <button ng-click="deleteProduct(product.productId, $index)" class="order-delete"></button>
-              <div ng-switch="product.roomId" ng-click="editProduct(product.productId)" class="order-header"><img ng-switch-when="1" ng-src="../img/rooms-dialog/kitchen.jpg" class="order-header-fon"><img ng-switch-when="2" ng-src="../img/rooms-dialog/livingroom.jpg" class="order-header-fon"><img ng-switch-when="3" ng-src="../img/rooms-dialog/balcony.jpg" class="order-header-fon"><img ng-switch-when="4" ng-src="../img/rooms-dialog/childroom.jpg" class="order-header-fon"><img ng-switch-when="5" ng-src="../img/rooms-dialog/bedroom.jpg" class="order-header-fon"><img ng-switch-when="6" ng-src="../img/rooms-dialog/door.jpg" class="order-header-fon">
+              <div ng-switch="product.roomId" ng-click="editProduct(product.productId)" class="order-header"><img ng-switch-when="1" ng-src="img/rooms-dialog/kitchen.jpg" class="order-header-fon"><img ng-switch-when="2" ng-src="img/rooms-dialog/livingroom.jpg" class="order-header-fon"><img ng-switch-when="3" ng-src="img/rooms-dialog/balcony.jpg" class="order-header-fon"><img ng-switch-when="4" ng-src="img/rooms-dialog/childroom.jpg" class="order-header-fon"><img ng-switch-when="5" ng-src="img/rooms-dialog/bedroom.jpg" class="order-header-fon"><img ng-switch-when="6" ng-src="img/rooms-dialog/door.jpg" class="order-header-fon">
                 <div class="order-template">
                   <svg-template template="product.icon" template-width="global.svgTemplateThumbWidth" template-height="global.svgTemplateThumbHeight" type-construction="icon"></svg-template>
                 </div>

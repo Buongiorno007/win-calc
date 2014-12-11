@@ -1,6 +1,3 @@
-
-// controllers/login.js
-
 'use strict';
 
 BauVoiceApp.controller('LoginCtrl', ['$scope', '$location', '$translate', 'globalDB', function ($scope, $location, $translate, globalDB) {
