@@ -1302,48 +1302,6 @@ BauVoiceApp.factory('constructService', function ($q) {
               airCoeff: 9,
               glassPrice: 1321
             }
-          ],
-          [
-            {
-              glassId: 149,
-              glassName: '4/10/4/10/4i',
-              glassUrl: 'img/glasses/glass10.png',
-              glassDescrip: '3 камеры +энергосбережение',
-              glassNoise: 4,
-              heatCoeff: 2,
-              airCoeff: 9,
-              glassPrice: 100
-            },
-            {
-              glassId: 149,
-              glassName: '4/10/4/10/4i',
-              glassUrl: 'img/glasses/glass10.png',
-              glassDescrip: '3 камеры +энергосбережение',
-              glassNoise: 4,
-              heatCoeff: 2,
-              airCoeff: 9,
-              glassPrice: 100
-            },
-            {
-              glassId: 149,
-              glassName: '4/10/4/10/4i',
-              glassUrl: 'img/glasses/glass10.png',
-              glassDescrip: '3 камеры +энергосбережение',
-              glassNoise: 4,
-              heatCoeff: 2,
-              airCoeff: 9,
-              glassPrice: 100
-            },
-            {
-              glassId: 152,
-              glassName: '4/16/4i',
-              glassUrl: 'img/glasses/glass10.png',
-              glassDescrip: '3 камеры +энергосбережение',
-              glassNoise: 4,
-              heatCoeff: 0.5,
-              airCoeff: 9,
-              glassPrice: 100
-            }
           ]
         ]
       }));

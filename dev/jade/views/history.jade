@@ -97,7 +97,7 @@ section.history-page(ng-controller="HistoryCtrl")
       button.account-tool.account-select-btn(ng-hide="order.orderStyle == 'done'", ng-click="sendOrderToFactory(order.orderStyle, order.orderId)")
       button.account-tool.account-copy-btn(ng-hide="order.orderStyle == 'done'", ng-click="makeOrderCopy(order.orderStyle, order.orderId)")
       button.account-tool.account-print-btn(ng-click="")
-      button.account-delete-btn(ng-hide="order.orderStyle == 'done'", ng-click="deleteOrder(order.orderType, order.orderId)")
+      button.account-delete-btn(ng-hide="order.orderStyle == 'done'", ng-click="clickDeleteOrder(order.orderType, order.orderId)")
       button.account-change-btn(ng-hide="order.orderStyle == 'done'", ng-click="editOrder(order.orderId)") {{ 'common_words.CHANGE' | translate }}
 
 

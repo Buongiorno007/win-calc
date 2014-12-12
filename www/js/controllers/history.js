@@ -302,30 +302,40 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
   };
 
   //--------- Delete order
-  $scope.deleteOrder = function(orderType, orderNum) {
-    if(confirm('Would you like delete order?')) {
-      //-------- delete order in Local Objects
-      if (orderType === $scope.global.fullOrderType) {
-        for(var ord = 0; ord < $scope.orders.length; ord++) {
-          if ($scope.orders[ord].orderId === orderNum) {
-            $scope.orders.splice(ord, 1);
-            $scope.ordersSource.splice(ord, 1);
+  $scope.clickDeleteOrder = function(orderType, orderNum) {
+
+    navigator.notification.confirm(
+      'Хотите удалить заказ?',
+      deleteOrder,
+      'Удаление!',
+      ['Да','Нет']
+    );
+
+    function deleteOrder(button) {
+      if(button == 1) {
+        //-------- delete order in Local Objects
+        if (orderType === $scope.global.fullOrderType) {
+          for(var ord = 0; ord < $scope.orders.length; ord++) {
+            if ($scope.orders[ord].orderId === orderNum) {
+              $scope.orders.splice(ord, 1);
+              $scope.ordersSource.splice(ord, 1);
+            }
+          }
+        } else {
+          for(var drf = 0; drf < $scope.drafts.length; drf++) {
+            if ($scope.drafts[drf].orderId === orderNum) {
+              $scope.drafts.splice(drf, 1);
+              $scope.draftsSource.splice(drf, 1);
+            }
           }
         }
-      } else {
-        for(var drf = 0; drf < $scope.drafts.length; drf++) {
-          if ($scope.drafts[drf].orderId === orderNum) {
-            $scope.drafts.splice(drf, 1);
-            $scope.draftsSource.splice(drf, 1);
-          }
-        }
+        //------- delete order in Local DB
+        localDB.deleteDB($scope.global.productsTableBD, {'orderId': orderNum});
+        localDB.deleteDB($scope.global.componentsTableBD, {'orderId': orderNum});
+        localDB.deleteDB($scope.global.visorsTableBD, {'orderId': orderNum});
+        localDB.deleteDB($scope.global.windowSillsTableBD, {'orderId': orderNum});
+        localDB.deleteDB($scope.global.ordersTableBD, {'orderId': orderNum});
       }
-      //------- delete order in Local DB
-      localDB.deleteDB($scope.global.productsTableBD, {'orderId': orderNum});
-      localDB.deleteDB($scope.global.componentsTableBD, {'orderId': orderNum});
-      localDB.deleteDB($scope.global.visorsTableBD, {'orderId': orderNum});
-      localDB.deleteDB($scope.global.windowSillsTableBD, {'orderId': orderNum});
-      localDB.deleteDB($scope.global.ordersTableBD, {'orderId': orderNum});
     }
   };
 
@@ -338,10 +348,18 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
 
   //------------ send Order to Factory
   $scope.sendOrderToFactory = function(orderStyle, orderNum) {
-    if(orderStyle === orderMasterStyle) {
-      return false;
-    } else {
-      if(confirm('Send order to Factory. Are you sure?')) {
+
+    if(orderStyle !== orderMasterStyle) {
+      navigator.notification.confirm(
+        "Хотите отправить заказ на завод?",
+        sendOrder,
+        'В производство!',
+        ['Да','Нет']
+      );
+    }
+
+    function sendOrder(button) {
+      if(button == 1) {
         for(var ord = 0; ord < $scope.orders.length; ord++) {
           if($scope.orders[ord].orderId === orderNum) {
             $scope.orders[ord].orderStyle = orderDoneStyle;
@@ -351,15 +369,24 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
         localDB.updateDB($scope.global.ordersTableBD, {'orderStyle': orderDoneStyle}, {'orderId': orderNum});
       }
     }
+
   };
 
 
   //----------- make Order Copy
   $scope.makeOrderCopy = function(orderStyle, orderNum) {
-    if(orderStyle === orderMasterStyle) {
-      return false;
-    } else {
-      if (confirm('Would you like make order copy?')) {
+
+    if(orderStyle !== orderMasterStyle) {
+      navigator.notification.confirm(
+        "Хотите сделать копию заказа?",
+        copyOrder,
+        'Копирование!',
+        ['Да','Нет']
+      );
+    }
+
+    function copyOrder(button) {
+      if (button == 1) {
 
         //---- new order number
         var newOrderCopy = {},
@@ -447,7 +474,9 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
 
       }
     }
+
   };
+
 
   function rewriteObjectProperty(objSource, orderId) {
     if(objSource && objSource.length > 0) {

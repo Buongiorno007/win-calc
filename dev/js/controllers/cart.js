@@ -279,7 +279,6 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
       ['Да','Нет']
     );
 
-    //----- Delete Product
     function deleteProduct(button) {
       if(button == 1) {
 
