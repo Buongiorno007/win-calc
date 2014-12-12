@@ -143,6 +143,9 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
 
   $scope.switchVoiceHelper = function() {
     $scope.global.isVoiceHelper = !$scope.global.isVoiceHelper;
+    if($scope.global.isVoiceHelper) {
+      playTTS("голосовой режим включен");
+    }
   };
 
 

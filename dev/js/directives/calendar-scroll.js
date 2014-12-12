@@ -13,8 +13,10 @@ BauVoiceApp.directive('calendarScroll', [ function() {
     link: function (scope, element, attrs) {
       $(function(){
         var today = new Date();
+        console.log('scroll');
+        console.log(today);
         var opt = {
-          theme: 'ios7',
+          theme: 'ios',
           display: 'inline',
           showLabel: false,
           maxDate: today,
@@ -23,7 +25,9 @@ BauVoiceApp.directive('calendarScroll', [ function() {
           fixedWidth: 656,
           maxWidth: 656,
           onChange : function (valueText) {
+            console.log(valueText);
             scope.calendarTime = valueText;
+            //console.log('scope.calendarTime = ' + scope.calendarTime);
             scope.$apply();
           }
         };
@@ -32,9 +36,11 @@ BauVoiceApp.directive('calendarScroll', [ function() {
 
         attrs.$observe('maxTime', function () {
           if(scope.maxTime) {
-            today.setTime(scope.maxTime);
-            opt.maxDate = today;
-            element.mobiscroll().date(opt);
+            console.log('maxTime'+scope.maxTime);
+            console.log(new Date(scope.maxTime));
+            //today.setTime(scope.maxTime);
+            //opt.maxDate = today;
+            //element.mobiscroll().date(opt);
           }
         });
 

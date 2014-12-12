@@ -14,14 +14,19 @@ BauVoiceApp.directive('orderDate', [ function() {
     link: function (scope, element, attrs) {
 
       function getDateInNewFormat(oldD, months, type) {
-        var oldDateFormat, monthsArr, newDateFormat;
+        var oldDateFormat, oldDateFormatArr, monthsArr, newDateFormat, monthId;
+        monthsArr = months.split(', ');
+
         if(oldD !== '') {
-          oldDateFormat = new Date(oldD);
+          oldDateFormat = oldD.split(' ');
+          oldDateFormatArr = oldDateFormat[0].split('-');
+          monthId = parseInt(oldDateFormatArr[1], 10) - 1;
+          newDateFormat = oldDateFormatArr[2] + ' ' + monthsArr[monthId] + ', ' + oldDateFormatArr[0];
         } else {
           oldDateFormat = new Date();
+          newDateFormat = oldDateFormat.getDate() + ' ' + monthsArr[oldDateFormat.getMonth()] + ', ' + oldDateFormat.getFullYear();
         }
-        monthsArr = months.split(', ');
-        newDateFormat = oldDateFormat.getDate() + ' ' + monthsArr[oldDateFormat.getMonth()] + ', ' + oldDateFormat.getFullYear();
+
         if(!type && oldD === '') {
           element.text('');
         } else {

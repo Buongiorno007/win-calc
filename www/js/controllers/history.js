@@ -50,6 +50,7 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
       if (results.status) {
         $scope.ordersSource = angular.copy(results.data);
         $scope.orders = angular.copy(results.data);
+        //console.log($scope.orders);
         //----- max day for calendar-scroll
         $scope.history.maxDeliveryDateOrder = getOrderMaxDate($scope.orders);
       } else {
@@ -63,14 +64,13 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
       var ordersDateArr = [];
       for (var it = 0; it < orders.length; it++) {
         var oldDateArr = orders[it].deliveryDate.split('.');
-        var newDateStr = oldDateArr[1]+'-'+oldDateArr[0]+'-'+oldDateArr[2];
-        var orderDate = new Date(newDateStr);
-        ordersDateArr.push(orderDate);
+        var newDateStr = Date.parse(oldDateArr[2], oldDateArr[1], oldDateArr[0]);
+        ordersDateArr.push(newDateStr);
       }
       ordersDateArr.sort(function (a, b) {
         return b - a
       });
-      return ordersDateArr[0].getTime();
+      return ordersDateArr[0];
     }
 
 

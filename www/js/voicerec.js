@@ -24,7 +24,7 @@ function startRecognition(callback, progressCalback){
     console.log("After startRecognition");
     var tempObj = new Object();
    
-    setTimeout(forceStop, 7000);
+    setTimeout(forceStop, 5000);
     
     function forceStop() {
         console.log("FORCE STOP" + recInProcess);

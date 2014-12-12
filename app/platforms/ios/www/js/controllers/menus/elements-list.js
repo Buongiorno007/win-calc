@@ -147,7 +147,7 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
     } else if($scope.global.isAddElement === false || $scope.global.isAddElement === 1) {
       var coord = $(clickEvent.target).offset();
       //$scope.addElementsMenu.coordinats = {'top': coord.top-34};
-      $scope.addElementsMenu.coordinats = {'top': coord.top};
+      $scope.addElementsMenu.coordinats = {'top': coord.top-17};
       $timeout(function() {
         $scope.global.isAddElement = typeId + '-' + elementId;
       }, 500);
@@ -156,7 +156,7 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
       $timeout(function() {
         var coord = $(clickEvent.target).offset();
         //$scope.addElementsMenu.coordinats = {'top': coord.top-34};
-        $scope.addElementsMenu.coordinats = {'top': coord.top};
+        $scope.addElementsMenu.coordinats = {'top': coord.top-17};
       }, 500);
       $timeout(function() {
         $scope.global.isAddElement = typeId + '-' + elementId;

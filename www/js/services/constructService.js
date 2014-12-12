@@ -1095,13 +1095,13 @@ BauVoiceApp.factory('constructService', function ($q) {
               profileDescrip: 'ОКОШКО S60',
               profileCountry: 'Украина',
               profileNoise: 4,
-              heatCoeff: 0.7,
+              heatCoeff: 2,
               airCoeff: 8
             }
           ],
           [
             {
-              profileId: 38,
+              profileId: 39,
               profileType: '3 камеры',
               profileDescrip: 'REHAU 60',
               profileCountry: 'Germany',
@@ -1110,7 +1110,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               airCoeff: 8
             },
             {
-              profileId: 39,
+              profileId: 40,
               profileType: '5 камер',
               profileDescrip: 'REHAU 70',
               profileCountry: 'Germany',
@@ -1136,169 +1136,171 @@ BauVoiceApp.factory('constructService', function ($q) {
           [
             {
               glassId: 145,
-              glassName: '4/16/4',
-              glassUrl: 'img/glasses/glass10.png',
-              glassDescrip: '3 камеры +энергосбережение',
-              glassNoise: 4,
-              heatCoeff: 0.2,
-              airCoeff: 9,
-              glassPrice: 100
-            },
-            {
-              glassId: 146,
               glassName: '6/12/6',
               glassUrl: 'img/glasses/glass1.png',
-              glassDescrip: '3 камеры +энергосбережение',
-              glassNoise: 5,
-              heatCoeff: 4,
+              glassDescrip: '1 камера',
+              glassNoise: 4,
+              heatCoeff: 2,
               airCoeff: 9,
-              glassPrice: 200
+              glassPrice: 406
+            },
+            {
+              glassId: 142,
+              glassName: '4/16/4',
+              glassUrl: 'img/glasses/glass1.png',
+              glassDescrip: '1 камера',
+              glassNoise: 2,
+              heatCoeff: 1,
+              airCoeff: 9,
+              glassPrice: 210
             },
             {
               glassId: 146,
               glassName: '4/10/4/10/4',
-              glassUrl: 'img/glasses/glass1.png',
-              glassDescrip: '3 камеры +энергосбережение',
-              glassNoise: 5,
-              heatCoeff: 0.4,
+              glassUrl: 'img/glasses/glass2.png',
+              glassDescrip: '2 камеры',
+              glassNoise: 4,
+              heatCoeff: 3,
               airCoeff: 9,
-              glassPrice: 200
+              glassPrice: 325
             },
             {
               glassId: 147,
               glassName: '4/8/4/12/4',
-              glassUrl: 'img/glasses/glass20.png',
-              glassDescrip: '3 камеры +энергосбережение',
-              glassNoise: 1,
-              heatCoeff: 0.3,
+              glassUrl: 'img/glasses/glass2.png',
+              glassDescrip: '2 камеры',
+              glassNoise: 4,
+              heatCoeff: 3,
               airCoeff: 9,
-              glassPrice: 600
+              glassPrice: 325
             }
           ],
           [
             {
-              glassId: 149,
+              glassId: 153,
               glassName: '4/16/4i',
-              glassUrl: 'img/glasses/glass2.png',
-              glassDescrip: '3 камеры +энергосбережение',
-              glassNoise: 4,
-              heatCoeff: 2,
+              glassUrl: 'img/glasses/glass10.png',
+              glassDescrip: '1 камера +энергосбережение',
+              glassNoise: 2,
+              heatCoeff: 4,
               airCoeff: 9,
-              glassPrice: 100
+              glassPrice:  245
             },
             {
-              glassId: 149,
+              glassId: 208,
               glassName: '4/16argon/4i',
               glassUrl: 'img/glasses/glass10.png',
-              glassDescrip: '3 камеры +энергосбережение',
-              glassNoise: 4,
-              heatCoeff: 2,
+              glassDescrip: '1 камера +энергосбережение',
+              glassNoise: 2,
+              heatCoeff: 4,
               airCoeff: 9,
-              glassPrice: 100
+              glassPrice:  257
             },
             {
-              glassId: 149,
+              glassId: 156,
               glassName: '4/10/4/10/4i',
-              glassUrl: 'img/glasses/glass10.png',
-              glassDescrip: '3 камеры +энергосбережение',
+              glassUrl: 'img/glasses/glass20.png',
+              glassDescrip: '2 камеры +энергосбережение',
               glassNoise: 4,
-              heatCoeff: 0.2,
+              heatCoeff: 4,
               airCoeff: 9,
-              glassPrice: 100
+              glassPrice: 370
             },
             {
-              glassId: 150,
+              glassId: 207,
               glassName: '4i/10/4/10/4i',
               glassUrl: 'img/glasses/glass20.png',
-              glassDescrip: '3 камеры +энергосбережение',
-              glassNoise: 1,
-              heatCoeff: 0.1,
+              glassDescrip: '2 камеры +энергосбережение',
+              glassNoise: 4,
+              heatCoeff: 5,
               airCoeff: 9,
-              glassPrice: 800
+              glassPrice: 465
             }
           ],
           [
             {
-              glassId: 149,
-              glassName: '4/16/4i',
-              glassUrl: 'img/glasses/glass2.png',
-              glassDescrip: '3 камеры +энергосбережение',
-              glassNoise: 4,
-              heatCoeff: 2,
-              airCoeff: 9,
-              glassPrice: 100
-            },
-            {
-              glassId: 149,
-              glassName: '4/16argon/4i',
-              glassUrl: 'img/glasses/glass10.png',
-              glassDescrip: '3 камеры +энергосбережение',
-              glassNoise: 4,
-              heatCoeff: 2,
-              airCoeff: 9,
-              glassPrice: 100
-            },
-            {
-              glassId: 149,
-              glassName: '4/10/4/10/4i',
-              glassUrl: 'img/glasses/glass10.png',
-              glassDescrip: '3 камеры +энергосбережение',
-              glassNoise: 4,
-              heatCoeff: 2,
-              airCoeff: 9,
-              glassPrice: 100
-            },
-            {
-              glassId: 150,
-              glassName: '4i/10/4/10/4i',
-              glassUrl: 'img/glasses/glass10.png',
-              glassDescrip: '3 камеры +энергосбережение',
-              glassNoise: 1,
-              heatCoeff: 1,
-              airCoeff: 9,
-              glassPrice: 800
-            }
-          ],
-          [
-            {
-              glassId: 149,
-              glassName: '4/16/4i',
-              glassUrl: 'img/glasses/glass10.png',
-              glassDescrip: '3 камеры +энергосбережение',
-              glassNoise: 4,
-              heatCoeff: 2,
-              airCoeff: 9,
-              glassPrice: 100
-            },
-            {
-              glassId: 149,
-              glassName: '4/16argon/4i',
-              glassUrl: 'img/glasses/glass20.png',
-              glassDescrip: '3 камеры +энергосбережение',
-              glassNoise: 4,
-              heatCoeff: 2,
-              airCoeff: 9,
-              glassPrice: 100
-            },
-            {
-              glassId: 149,
-              glassName: '4/10/4/10/4i',
-              glassUrl: 'img/glasses/glass2.png',
-              glassDescrip: '3 камеры +энергосбережение',
-              glassNoise: 4,
-              heatCoeff: 2,
-              airCoeff: 9,
-              glassPrice: 100
-            },
-            {
-              glassId: 150,
-              glassName: '4i/10/4/10/4i',
+              glassId: 163,
+              glassName: 'Зеркальный 4/16/4',
               glassUrl: 'img/glasses/glass1.png',
-              glassDescrip: '3 камеры +энергосбережение',
-              glassNoise: 1,
-              heatCoeff: 1,
+              glassDescrip: '1 камера',
+              glassNoise: 2,
+              heatCoeff: 2,
               airCoeff: 9,
-              glassPrice: 800
+              glassPrice:  678
+            },
+            {
+              glassId: 167,
+              glassName: 'Зеркальный 4/10/4/10/4',
+              glassUrl: 'img/glasses/glass2.png',
+              glassDescrip: '2 камеры',
+              glassNoise: 4,
+              heatCoeff: 3,
+              airCoeff: 9,
+              glassPrice: 793
+            }
+          ],
+          [
+            {
+              glassId: 171,
+              glassName: 'Матовый 4/16/4',
+              glassUrl: 'img/glasses/glass1.png',
+              glassDescrip: '1 камера',
+              glassNoise: 2,
+              heatCoeff: 2,
+              airCoeff: 9,
+              glassPrice: 678
+            },
+            {
+              glassId: 174,
+              glassName: 'Матовый 4/10/4/10/4',
+              glassUrl: 'img/glasses/glass2.png',
+              glassDescrip: '2 камеры',
+              glassNoise: 4,
+              heatCoeff: 3,
+              airCoeff: 9,
+              glassPrice:  793
+            }
+          ],
+          [
+            {
+              glassId: 182,
+              glassName: 'Бр. 2сл.(225мк) 4/16/4',
+              glassUrl: 'img/glasses/glass1.png',
+              glassDescrip: '1 камера',
+              glassNoise: 2,
+              heatCoeff: 2,
+              airCoeff: 9,
+              glassPrice: 1038
+            },
+            {
+              glassId: 186,
+              glassName: 'Бр. 3сл.(336мк) 6/12/6',
+              glassUrl: 'img/glasses/glass1.png',
+              glassDescrip: '1 камера',
+              glassNoise: 4,
+              heatCoeff: 2,
+              airCoeff: 9,
+              glassPrice: 1234
+            },
+            {
+              glassId: 177,
+              glassName: 'Бр. 2сл.(225мк) 4/10/4/10/4',
+              glassUrl: 'img/glasses/glass2.png',
+              glassDescrip: '2 камеры',
+              glassNoise: 4,
+              heatCoeff: 3,
+              airCoeff: 9,
+              glassPrice: 1153
+            },
+            {
+              glassId: 221,
+              glassName: 'Бр. 3сл.(336мк) 4/10/4/10/4',
+              glassUrl: 'img/glasses/glass2.png',
+              glassDescrip: '2 камеры',
+              glassNoise: 4,
+              heatCoeff: 3,
+              airCoeff: 9,
+              glassPrice: 1321
             }
           ],
           [
@@ -1439,31 +1441,31 @@ BauVoiceApp.factory('constructService', function ($q) {
             laminationId: 1,
             laminationName: 'светлый дуб',
             laminationUrl: 'img/lamination/Birch.png',
-            laminationPrice: 100
+            laminationPrice: 547
           },
           {
             laminationId: 2,
             laminationName: 'золотой дуб',
             laminationUrl: 'img/lamination/GoldenOak.png',
-            laminationPrice: 100
+            laminationPrice: 547
           },
           {
             laminationId: 3,
             laminationName: 'береза',
             laminationUrl: 'img/lamination/LightOak.png',
-            laminationPrice: 100
+            laminationPrice: 547
           },
           {
             laminationId: 4,
             laminationName: 'махагон',
             laminationUrl: 'img/lamination/Mahagon.png',
-            laminationPrice: 100
+            laminationPrice: 547
           },
           {
             laminationId: 5,
             laminationName: 'сосна',
             laminationUrl: 'img/lamination/Pine.png',
-            laminationPrice: 100
+            laminationPrice: 547
           }
         ],
         laminationOutside: [
@@ -1472,31 +1474,31 @@ BauVoiceApp.factory('constructService', function ($q) {
             laminationId: 1,
             laminationName: 'светлый дуб',
             laminationUrl: 'img/lamination/Birch.png',
-            laminationPrice: 100
+            laminationPrice: 547
           },
           {
             laminationId: 2,
             laminationName: 'золотой дуб',
             laminationUrl: 'img/lamination/GoldenOak.png',
-            laminationPrice: 100
+            laminationPrice: 547
           },
           {
             laminationId: 3,
             laminationName: 'береза',
             laminationUrl: 'img/lamination/LightOak.png',
-            laminationPrice: 100
+            laminationPrice: 547
           },
           {
             laminationId: 4,
             laminationName: 'махагон',
             laminationUrl: 'img/lamination/Mahagon.png',
-            laminationPrice: 100
+            laminationPrice: 547
           },
           {
             laminationId: 5,
             laminationName: 'сосна',
             laminationUrl: 'img/lamination/Pine.png',
-            laminationPrice: 100
+            laminationPrice: 547
           }
 
         ]

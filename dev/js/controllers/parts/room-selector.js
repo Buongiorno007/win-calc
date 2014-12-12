@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', 'localStorage', function ($scope, localStorage) {
+BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', '$location', 'localStorage', function ($scope, $location, localStorage) {
 
   $scope.global = localStorage;
 
@@ -33,6 +33,7 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', 'localStorage', function (
       $scope.global.templateDefault = $scope.global.templatesDoorList[$scope.global.templateIndex];
       $scope.global.product.constructThumb = $scope.global.templatesDoorThumbList[$scope.global.templateIndex];
       $scope.global.createObjXFormedPrice($scope.global.templateDefault, $scope.global.profileIndex, $scope.global.product.profileId);
+      $location.path('/construction');
     } else if(id === 3) {
       //------- if select Balcony
       $scope.global.isConstructWind = false;

@@ -196,11 +196,13 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
   //--------- Close Construction Page
   $scope.gotoMainPageCancel = function () {
     //------ if calculator is closed
-    if(!$scope.global.isConstructSizeCalculator) {
+    //if(!$scope.global.isConstructSizeCalculator) {
       $scope.templateDefaultTEMP = {};
       $scope.templateSourceTEMP = {};
       $scope.backtoTemplatePanel();
-    }
+    //}
+    $scope.global.isConstructSizeCalculator = false;
+
   };
 
   //------- Close and Save Construction Page
@@ -358,10 +360,13 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
     $scope.$apply();
     setTimeout(function() {
       var intValue = parseStringToDimension(value);
+      if (intValue == "NaN") {
+        intValue = "0";
+      }
       playTTS(intValue);
       setValueSize(intValue);
       $scope.$apply();
-    }, 2000)
+    }, 1000)
   }
 
 
@@ -370,19 +375,22 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
 
     if($scope.openVoiceHelper) {
 
-      var tempVal = parseInt(newValue,10);
-
-      if($.isNumeric(tempVal)) {
-        var tempValStr = tempVal.toString();
-        $scope.constructData.tempSize = tempValStr.split('');
-        if($scope.constructData.tempSize.length < 5) {
-          changeSize();
-        }
-      } else {
+      var tempVal = parseInt(newValue, 10);
+       console.log('tempVal', tempVal);
+      //if($.isNumeric(tempVal)) {
+        //var tempValStr = tempVal.toString();
+        //$scope.constructData.tempSize = tempValStr.split('');
         $scope.voiceTxt = '';
         $scope.openVoiceHelper = false;
-        deactiveSizeBox(sizeEditClass, sizeClass);
-      }
+
+        if ((tempVal > 0) && (tempVal < 10000)) {
+          $scope.constructData.tempSize = ("" + tempVal).split('');
+          changeSize();
+        }
+      deactiveSizeBox(sizeEditClass, sizeClass);
+      //} else {
+
+      //}
 
     } else {
       //---- clear array from 0 after delete all number in array
@@ -444,7 +452,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
     }
     var svg = document.getElementsByTagName("svg-template");
 
-    $('#'+$scope.constructData.tempSizeId).find('tspan').text(newSizeString);
+    $('#'+$scope.constructData.tempSizeId).find('tspan').text(parseInt(newSizeString, 10));
     //--- finde overall dimensions
     $scope.svgTemplateWidthTEMP = parseInt($('#overallDimH').find('tspan').text(), 10);
     $scope.svgTemplateHeightTEMP = parseInt($('#overallDimV').find('tspan').text(), 10);
@@ -452,7 +460,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
     SVG(svg[0]).viewbox();
     SVG(svg[0]).size($scope.svgTemplateWidthTEMP, $scope.svgTemplateHeightTEMP);
 
-    if($scope.openVoiceHelper) {
+    if($scope.global.isVoiceHelper) {
       $scope.closeSizeCaclulator();
       console.log($scope.constructData.tempSize);
     }
@@ -470,6 +478,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
 
     if($scope.constructData.tempSize.length > 0) {
       newLength = parseInt($scope.constructData.tempSize.join(''), 10);
+      console.log("newLength!!!" + newLength);
       //------- Dimensions limits checking
       if (newLength > $scope.constructData.minSizeLimit && newLength < $scope.constructData.maxSizeLimit) {
         $scope.constructData.isMinSizeRestriction = false;

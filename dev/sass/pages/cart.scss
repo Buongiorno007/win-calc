@@ -238,6 +238,8 @@
 
 .full-view {
   .order-block {
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
     display: inline-flex;
   }
   .order {

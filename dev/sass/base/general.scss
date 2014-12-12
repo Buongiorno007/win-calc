@@ -144,7 +144,8 @@ body {
   padding: 0;
   background: transparent;
   &:before {
-    color: $main_orange;
+    //color: $main_orange;
+    color: #fff;
     content: $menu-icon;
   }
 }

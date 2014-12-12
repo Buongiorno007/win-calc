@@ -1,6 +1,3 @@
-
-// translations/en.js
-
 "use strict";
 
 window.englishDictionary = {

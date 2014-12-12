@@ -316,31 +316,31 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf?1418289344') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf?1418316152') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
-  src: url('../fonts/roboto/Roboto-Bold.ttf?1418289342') format('truetype');
+  src: url('../fonts/roboto/Roboto-Bold.ttf?1418316150') format('truetype');
 }
 @font-face {
   font-family: "roboto-light";
-  src: url('../fonts/roboto/Roboto-Light.ttf?1418289344') format('truetype');
+  src: url('../fonts/roboto/Roboto-Light.ttf?1418316151') format('truetype');
 }
 @font-face {
   font-family: "roboto-medium";
-  src: url('../fonts/roboto/Roboto-Medium.ttf?1418289344') format('truetype');
+  src: url('../fonts/roboto/Roboto-Medium.ttf?1418316152') format('truetype');
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf?1418289344') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf?1418316153') format('truetype');
 }
 @font-face {
   font-family: "general-icons";
-  src: url('../fonts/general-icons/icomoon.ttf?1418289342') format('truetype');
+  src: url('../fonts/general-icons/icomoon.ttf?1418316137') format('truetype');
 }
 @font-face {
   font-family: "nav-menu";
-  src: url('../fonts/nav-menu/icomoon.ttf?1418289342') format('truetype');
+  src: url('../fonts/nav-menu/icomoon.ttf?1418316150') format('truetype');
 }
 /* line 183, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-container .cart-tool, .cart-container .order, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construction-right-menu .construct-tools, .construction-right-menu .door-config-btn, .nav-menu [class^='nav-icon-'],
@@ -1247,32 +1247,32 @@ body {
 }
 /* line 146, ../../dev/sass/base/general.scss */
 .menu-btn:before, .user-info-container .nav-menu-btn:before, .setting-page .back:before, .setting-back:before {
-  color: #f98000;
+  color: #fff;
   content: "\e60e";
 }
 
-/* line 154, ../../dev/sass/base/general.scss */
+/* line 155, ../../dev/sass/base/general.scss */
 .truncated, .menu-right-general .value, .config-menu .value, .elements-menu .value, .cart-menu .value, .old-price-tab .value, .old-price-inst-tab .value, .parameters-block .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title, .setting-container .setting-item-data, .cart-container .order-value, .cart-container .product-value, .cart-container .addelement-value, .light-view .order-value, .construction-left-menu .figure-label, .nav-menu .title, .config-menu .additional-item, .template-container .other-template-subscr, .profile-container .profile-descr, .glass-container .glass-descr {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-/* line 163, ../../dev/sass/base/general.scss */
+/* line 164, ../../dev/sass/base/general.scss */
 .right-side.child-room {
-  background: url('../img/rooms/child-bg.jpg?1418289346') no-repeat;
+  background: url('../img/rooms/child-bg.jpg?1418316173') no-repeat;
   background-size: cover;
 }
 
-/* line 170, ../../dev/sass/base/general.scss */
+/* line 171, ../../dev/sass/base/general.scss */
 .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto {
   width: 9.5rem;
   height: 9.5rem;
-  background-image: url('../img/userPhoto.png?1418289342');
+  background-image: url('../img/userPhoto.png?1418316131');
   background-size: cover;
 }
 
-/* line 181, ../../dev/sass/base/general.scss */
+/* line 182, ../../dev/sass/base/general.scss */
 .modal-dialog, .rooms-selector-dialog, .auxiliaries-container .scheme-view-dialog {
   top: 18.75rem;
   left: -125rem;
@@ -1285,36 +1285,36 @@ body {
   border-radius: 1.25rem;
   background-color: rgba(255, 255, 255, 0.85);
 }
-/* line 192, ../../dev/sass/base/general.scss */
+/* line 193, ../../dev/sass/base/general.scss */
 .modal-dialog.active, .active.rooms-selector-dialog, .auxiliaries-container .active.scheme-view-dialog {
   top: 18.75rem;
   left: 5rem;
 }
 
-/* line 198, ../../dev/sass/base/general.scss */
+/* line 199, ../../dev/sass/base/general.scss */
 .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .cart-container .order-delete, .search-block .delete-search, .construction-right-menu .construct-tools, .elements-menu .close-elements-menu {
   border-radius: 50%;
 }
-/* line 203, ../../dev/sass/base/general.scss */
+/* line 204, ../../dev/sass/base/general.scss */
 .cross-btn:after, .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .accounts-container .account-delete-btn:after, .cart-container .order-delete:after, .search-block .delete-search:after, .construction-right-menu .construct-tools:after, .elements-menu .close-elements-menu:after {
   position: absolute;
   color: #fff;
   content: "\e61f";
 }
 
-/* line 209, ../../dev/sass/base/general.scss */
+/* line 210, ../../dev/sass/base/general.scss */
 .small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .cart-container .order-delete {
   font: normal 2.5rem/1 general-icons, sans-serif;
   width: 3.125rem;
   height: 3.125rem;
 }
-/* line 215, ../../dev/sass/base/general.scss */
+/* line 216, ../../dev/sass/base/general.scss */
 .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .accounts-container .account-delete-btn:after, .cart-container .order-delete:after {
   top: 8%;
   left: 10%;
 }
 
-/* line 222, ../../dev/sass/base/general.scss */
+/* line 223, ../../dev/sass/base/general.scss */
 .close-dialog {
   position: absolute;
   top: 1.875rem;
@@ -1322,7 +1322,7 @@ body {
   background-color: #f98000;
 }
 
-/* line 232, ../../dev/sass/base/general.scss */
+/* line 233, ../../dev/sass/base/general.scss */
 .aux-delete {
   top: 0rem;
   left: 0rem;
@@ -1330,7 +1330,7 @@ body {
   background-color: #bebebe;
 }
 
-/* line 241, ../../dev/sass/base/general.scss */
+/* line 242, ../../dev/sass/base/general.scss */
 .view-switch-tab {
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
@@ -1353,7 +1353,7 @@ body {
   z-index: 1;
 }
 
-/* line 261, ../../dev/sass/base/general.scss */
+/* line 262, ../../dev/sass/base/general.scss */
 .test {
   position: absolute;
   left: 3.125rem;
@@ -1363,14 +1363,14 @@ body {
   background-color: red;
   box-shadow: 0 0 1.25rem 0.625rem rgba(0, 0, 0, 0.3);
 }
-/* line 270, ../../dev/sass/base/general.scss */
+/* line 271, ../../dev/sass/base/general.scss */
 .test input {
   height: 3.125rem;
   width: 18.75rem;
   font-size: 2.25rem;
 }
 
-/* line 278, ../../dev/sass/base/general.scss */
+/* line 279, ../../dev/sass/base/general.scss */
 .addelements-backview {
   position: fixed;
   top: 0;
@@ -1381,7 +1381,7 @@ body {
   z-index: 9;
 }
 
-/* line 289, ../../dev/sass/base/general.scss */
+/* line 290, ../../dev/sass/base/general.scss */
 .glass, .glass-active {
   fill: rgba(155, 204, 255, 0.2);
 }
@@ -1391,59 +1391,59 @@ body {
   fill: rgba(34, 34, 255, 0.69);
 }
 */
-/* line 298, ../../dev/sass/base/general.scss */
+/* line 299, ../../dev/sass/base/general.scss */
 .frame, .sash, .impost {
   fill: #fff;
   stroke: #363636;
   stroke-width: 2;
 }
 
-/* line 303, ../../dev/sass/base/general.scss */
+/* line 304, ../../dev/sass/base/general.scss */
 .frame-icon, .sash-icon, .impost-icon {
   fill: #ccc;
   stroke: #000;
   stroke-width: 4;
 }
 
-/* line 309, ../../dev/sass/base/general.scss */
+/* line 310, ../../dev/sass/base/general.scss */
 .main-line {
   fill: #363636;
 }
 
-/* line 312, ../../dev/sass/base/general.scss */
+/* line 313, ../../dev/sass/base/general.scss */
 .size-line {
   fill: none;
   stroke: #D2D2D2;
   stroke-width: 1;
 }
 
-/* line 320, ../../dev/sass/base/general.scss */
+/* line 321, ../../dev/sass/base/general.scss */
 .size-box {
   cursor: pointer;
 }
 
-/* line 323, ../../dev/sass/base/general.scss */
+/* line 324, ../../dev/sass/base/general.scss */
 .size-box-edited {
   cursor: pointer;
 }
-/* line 325, ../../dev/sass/base/general.scss */
+/* line 326, ../../dev/sass/base/general.scss */
 .size-box-edited .size-rect {
   fill: #6ed44a;
 }
-/* line 328, ../../dev/sass/base/general.scss */
+/* line 329, ../../dev/sass/base/general.scss */
 .size-box-edited .size-value-edit, .size-box-edited .size-value-edit-vertical {
   stroke: #fff;
   fill: #fff;
 }
 
-/* line 334, ../../dev/sass/base/general.scss */
+/* line 335, ../../dev/sass/base/general.scss */
 .size-rect {
   stroke: #6ed44a;
   stroke-width: 0.1875rem;
   fill: #fff;
 }
 
-/* line 339, ../../dev/sass/base/general.scss */
+/* line 340, ../../dev/sass/base/general.scss */
 .size-value, .size-value-vertical {
   font-size: 5rem;
   stroke: #D2D2D2;
@@ -1451,12 +1451,12 @@ body {
   text-anchor: middle;
 }
 
-/* line 345, ../../dev/sass/base/general.scss */
+/* line 346, ../../dev/sass/base/general.scss */
 .size-value-vertical {
   text-anchor: end;
 }
 
-/* line 352, ../../dev/sass/base/general.scss */
+/* line 353, ../../dev/sass/base/general.scss */
 .size-value-edit, .size-value-edit-vertical {
   font-size: 5rem;
   stroke: #6ed44a;
@@ -1465,12 +1465,12 @@ body {
   text-anchor: middle;
 }
 
-/* line 359, ../../dev/sass/base/general.scss */
+/* line 360, ../../dev/sass/base/general.scss */
 .size-value-edit-vertical {
   text-anchor: end;
 }
 
-/* line 363, ../../dev/sass/base/general.scss */
+/* line 364, ../../dev/sass/base/general.scss */
 .open-direction {
   fill: none;
   stroke: #f98000;
@@ -1631,7 +1631,7 @@ body {
   width: 3.125rem;
   height: 3.125rem;
   margin: -3.125rem/2 0 0 -3.125rem/2;
-  background: url('../img/spinner.gif?1418289347') no-repeat;
+  background: url('../img/spinner.gif?1418316176') no-repeat;
   background-size: cover;
 }
 
@@ -1883,32 +1883,32 @@ body {
 }
 /* line 46, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.kitchen {
-  background: url('../img/rooms-dialog/kitchen.jpg?1418289347');
+  background: url('../img/rooms-dialog/kitchen.jpg?1418316175');
   background-size: contain;
 }
 /* line 50, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.livingroom {
-  background: url('../img/rooms-dialog/livingroom.jpg?1418289347');
+  background: url('../img/rooms-dialog/livingroom.jpg?1418316175');
   background-size: contain;
 }
 /* line 54, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.balcony {
-  background: url('../img/rooms-dialog/balcony.jpg?1418289347');
+  background: url('../img/rooms-dialog/balcony.jpg?1418316173');
   background-size: contain;
 }
 /* line 58, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.childroom {
-  background: url('../img/rooms-dialog/childroom.jpg?1418289347');
+  background: url('../img/rooms-dialog/childroom.jpg?1418316174');
   background-size: contain;
 }
 /* line 62, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.bedroom {
-  background: url('../img/rooms-dialog/bedroom.jpg?1418289347');
+  background: url('../img/rooms-dialog/bedroom.jpg?1418316174');
   background-size: contain;
 }
 /* line 66, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.door {
-  background: url('../img/rooms-dialog/door.jpg?1418289347');
+  background: url('../img/rooms-dialog/door.jpg?1418316175');
   background-size: contain;
 }
 /* line 71, ../../dev/sass/parts/_rooms-selector.scss */
@@ -2178,11 +2178,11 @@ body {
   padding: 3.125rem 0 3.125rem 5rem;
   border-bottom: 1px solid #bebebe;
 }
-/* line 33, ../../dev/sass/parts/_config-panel.scss */
+/* line 34, ../../dev/sass/parts/_config-panel.scss */
 .config-section.selected, .profile-container .selected.profile-block, .glass-container .selected.glass-block, .hardware-container .selected.hardware-block {
   position: relative;
 }
-/* line 35, ../../dev/sass/parts/_config-panel.scss */
+/* line 36, ../../dev/sass/parts/_config-panel.scss */
 .config-section.selected:before, .profile-container .selected.profile-block:before, .glass-container .selected.glass-block:before, .hardware-container .selected.hardware-block:before {
   top: 3.5rem;
   left: -1.6875rem;
@@ -2191,7 +2191,7 @@ body {
   color: #6ed44a;
   content: '\e612';
 }
-/* line 45, ../../dev/sass/parts/_config-panel.scss */
+/* line 46, ../../dev/sass/parts/_config-panel.scss */
 .config-section .group-block-header, .profile-container .profile-block .group-block-header, .glass-container .glass-block .group-block-header, .hardware-container .hardware-block .group-block-header {
   display: -webkit-flex;
   display: flex;
@@ -2200,21 +2200,21 @@ body {
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
 }
-/* line 50, ../../dev/sass/parts/_config-panel.scss */
+/* line 51, ../../dev/sass/parts/_config-panel.scss */
 .config-section .title, .profile-container .profile-block .title, .glass-container .glass-block .title, .hardware-container .hardware-block .title {
   font: normal 3rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
 }
-/* line 55, ../../dev/sass/parts/_config-panel.scss */
+/* line 56, ../../dev/sass/parts/_config-panel.scss */
 .config-section .group-info, .profile-container .profile-block .group-info, .glass-container .glass-block .group-info, .hardware-container .hardware-block .group-info {
   position: relative;
 }
-/* line 58, ../../dev/sass/parts/_config-panel.scss */
+/* line 59, ../../dev/sass/parts/_config-panel.scss */
 .config-section .group-info .info, .profile-container .profile-block .group-info .info, .glass-container .glass-block .group-info .info, .hardware-container .hardware-block .group-info .info {
   top: 0;
   right: 0;
 }
-/* line 63, ../../dev/sass/parts/_config-panel.scss */
+/* line 64, ../../dev/sass/parts/_config-panel.scss */
 .config-section .type, .profile-container .profile-block .type, .glass-container .glass-block .type, .hardware-container .hardware-block .type {
   font: normal 2.25rem/3.5rem roboto-medium, sans-serif;
   display: inline;
@@ -2223,37 +2223,37 @@ body {
   border-radius: 2rem;
   background-color: #6ed44a;
 }
-/* line 72, ../../dev/sass/parts/_config-panel.scss */
+/* line 73, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index, .profile-container .profile-block .coef-index, .glass-container .glass-block .coef-index, .hardware-container .hardware-block .coef-index {
   width: 19%;
   height: 1.5625rem;
   margin-right: 1%;
 }
-/* line 76, ../../dev/sass/parts/_config-panel.scss */
+/* line 77, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index:first-child, .profile-container .profile-block .coef-index:first-child, .glass-container .glass-block .coef-index:first-child, .hardware-container .hardware-block .coef-index:first-child {
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
   background-color: #55d995;
 }
-/* line 81, ../../dev/sass/parts/_config-panel.scss */
+/* line 82, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index:nth-child(2), .profile-container .profile-block .coef-index:nth-child(2), .glass-container .glass-block .coef-index:nth-child(2), .hardware-container .hardware-block .coef-index:nth-child(2) {
   background-color: #5bd883;
 }
-/* line 84, ../../dev/sass/parts/_config-panel.scss */
+/* line 85, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index:nth-child(3), .profile-container .profile-block .coef-index:nth-child(3), .glass-container .glass-block .coef-index:nth-child(3), .hardware-container .hardware-block .coef-index:nth-child(3) {
   background-color: #61d771;
 }
-/* line 87, ../../dev/sass/parts/_config-panel.scss */
+/* line 88, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index:nth-child(4), .profile-container .profile-block .coef-index:nth-child(4), .glass-container .glass-block .coef-index:nth-child(4), .hardware-container .hardware-block .coef-index:nth-child(4) {
   background-color: #68d55c;
 }
-/* line 90, ../../dev/sass/parts/_config-panel.scss */
+/* line 91, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index:last-child, .profile-container .profile-block .coef-index:last-child, .glass-container .glass-block .coef-index:last-child, .hardware-container .hardware-block .coef-index:last-child {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   background-color: #6ed44a;
 }
-/* line 96, ../../dev/sass/parts/_config-panel.scss */
+/* line 97, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box {
   -moz-transition: all 0.3s linear;
   -webkit-transition: all 0.3s linear;
@@ -2265,89 +2265,89 @@ body {
   background-color: #fff;
   cursor: pointer;
 }
-/* line 106, ../../dev/sass/parts/_config-panel.scss */
+/* line 107, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected, .profile-container .profile-block .box.selected, .glass-container .glass-block .box.selected, .hardware-container .hardware-block .box.selected {
   position: relative;
   background-color: #6ed44a;
 }
-/* line 109, ../../dev/sass/parts/_config-panel.scss */
+/* line 110, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected .type, .profile-container .profile-block .box.selected .type, .glass-container .glass-block .box.selected .type, .hardware-container .hardware-block .box.selected .type {
   background-color: #57b23c;
 }
-/* line 112, ../../dev/sass/parts/_config-panel.scss */
+/* line 113, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected:after, .profile-container .profile-block .box.selected:after, .glass-container .glass-block .box.selected:after, .hardware-container .hardware-block .box.selected:after {
   font: normal 3.125rem/1 general-icons, sans-serif;
   position: absolute;
   color: #fff;
   content: '\e61e';
 }
-/* line 119, ../../dev/sass/parts/_config-panel.scss */
+/* line 120, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected .label, .profile-container .profile-block .box.selected .label, .glass-container .glass-block .box.selected .label, .hardware-container .hardware-block .box.selected .label {
   color: #363636;
 }
-/* line 123, ../../dev/sass/parts/_config-panel.scss */
+/* line 124, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected .coef-index:first-child, .profile-container .profile-block .box.selected .coef-index:first-child, .glass-container .glass-block .box.selected .coef-index:first-child, .hardware-container .hardware-block .box.selected .coef-index:first-child {
   background-color: #3db26a;
 }
-/* line 126, ../../dev/sass/parts/_config-panel.scss */
+/* line 127, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected .coef-index:nth-child(2), .profile-container .profile-block .box.selected .coef-index:nth-child(2), .glass-container .glass-block .box.selected .coef-index:nth-child(2), .hardware-container .hardware-block .box.selected .coef-index:nth-child(2) {
   background-color: #42b260;
 }
-/* line 129, ../../dev/sass/parts/_config-panel.scss */
+/* line 130, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected .coef-index:nth-child(3), .profile-container .profile-block .box.selected .coef-index:nth-child(3), .glass-container .glass-block .box.selected .coef-index:nth-child(3), .hardware-container .hardware-block .box.selected .coef-index:nth-child(3) {
   background-color: #4ab253;
 }
-/* line 132, ../../dev/sass/parts/_config-panel.scss */
+/* line 133, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected .coef-index:nth-child(4), .profile-container .profile-block .box.selected .coef-index:nth-child(4), .glass-container .glass-block .box.selected .coef-index:nth-child(4), .hardware-container .hardware-block .box.selected .coef-index:nth-child(4) {
   background-color: #51b247;
 }
-/* line 135, ../../dev/sass/parts/_config-panel.scss */
+/* line 136, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box.selected .coef-index:last-child, .profile-container .profile-block .box.selected .coef-index:last-child, .glass-container .glass-block .box.selected .coef-index:last-child, .hardware-container .hardware-block .box.selected .coef-index:last-child {
   background-color: #57b23c;
 }
-/* line 141, ../../dev/sass/parts/_config-panel.scss */
+/* line 142, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level, .profile-container .profile-block .coef-level, .glass-container .glass-block .coef-level, .hardware-container .hardware-block .coef-level {
   display: -webkit-flex;
   display: flex;
   margin-top: 0.625rem;
 }
-/* line 145, ../../dev/sass/parts/_config-panel.scss */
+/* line 146, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level:first-child, .profile-container .profile-block .coef-level:first-child, .glass-container .glass-block .coef-level:first-child, .hardware-container .hardware-block .coef-level:first-child {
   margin-top: 0;
 }
-/* line 150, ../../dev/sass/parts/_config-panel.scss */
+/* line 151, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-1 .coef-index:nth-child(2), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(2), .glass-container .glass-block .coef-level.coef-level-1 .coef-index:nth-child(2), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(2), .config-section .coef-level.coef-level-1 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(3), .glass-container .glass-block .coef-level.coef-level-1 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(3), .config-section .coef-level.coef-level-1 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(4), .glass-container .glass-block .coef-level.coef-level-1 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(4), .config-section .coef-level.coef-level-1 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-1 .coef-index:last-child, .glass-container .glass-block .coef-level.coef-level-1 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:last-child {
   display: none;
 }
-/* line 156, ../../dev/sass/parts/_config-panel.scss */
+/* line 157, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-1 .coef-index:first-child, .profile-container .profile-block .coef-level.coef-level-1 .coef-index:first-child, .glass-container .glass-block .coef-level.coef-level-1 .coef-index:first-child, .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:first-child {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
 }
-/* line 164, ../../dev/sass/parts/_config-panel.scss */
+/* line 165, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-2 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(3), .glass-container .glass-block .coef-level.coef-level-2 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(3), .config-section .coef-level.coef-level-2 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(4), .glass-container .glass-block .coef-level.coef-level-2 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(4), .config-section .coef-level.coef-level-2 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-2 .coef-index:last-child, .glass-container .glass-block .coef-level.coef-level-2 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:last-child {
   display: none;
 }
-/* line 169, ../../dev/sass/parts/_config-panel.scss */
+/* line 170, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-2 .coef-index:nth-child(2), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(2), .glass-container .glass-block .coef-level.coef-level-2 .coef-index:nth-child(2), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(2) {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
 }
-/* line 177, ../../dev/sass/parts/_config-panel.scss */
+/* line 178, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-3 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-3 .coef-index:nth-child(4), .glass-container .glass-block .coef-level.coef-level-3 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:nth-child(4), .config-section .coef-level.coef-level-3 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-3 .coef-index:last-child, .glass-container .glass-block .coef-level.coef-level-3 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:last-child {
   display: none;
 }
-/* line 181, ../../dev/sass/parts/_config-panel.scss */
+/* line 182, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-3 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-3 .coef-index:nth-child(3), .glass-container .glass-block .coef-level.coef-level-3 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:nth-child(3) {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
 }
-/* line 189, ../../dev/sass/parts/_config-panel.scss */
+/* line 190, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-4 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-4 .coef-index:nth-child(4), .glass-container .glass-block .coef-level.coef-level-4 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-4 .coef-index:nth-child(4) {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
 }
-/* line 193, ../../dev/sass/parts/_config-panel.scss */
+/* line 194, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-4 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-4 .coef-index:last-child, .glass-container .glass-block .coef-level.coef-level-4 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-4 .coef-index:last-child {
   display: none;
 }
@@ -3085,7 +3085,7 @@ body {
   display: -webkit-flex;
   display: flex;
   height: 100%;
-  background: url('../img/login/login-bg.jpg?1418289346') no-repeat;
+  background: url('../img/login/login-bg.jpg?1418316172') no-repeat;
   background-size: cover;
 }
 
@@ -3117,7 +3117,7 @@ body {
   width: 14.75rem;
   height: 14.75rem;
   margin: 0 auto 4.5625rem auto;
-  background: url('../img/login/logo.png?1418289346') no-repeat;
+  background: url('../img/login/logo.png?1418316172') no-repeat;
   background-size: cover;
 }
 
@@ -3706,7 +3706,7 @@ body {
   height: 27.875rem;
   margin-bottom: 3.125rem;
 }
-/* line 286, ../../dev/sass/pages/history.scss */
+/* line 285, ../../dev/sass/pages/history.scss */
 .accounts-container .account {
   -moz-box-shadow: #bebebe 0 0 0.9375rem 1px;
   -webkit-box-shadow: #bebebe 0 0 0.9375rem 1px;
@@ -3718,24 +3718,24 @@ body {
   background-color: #fff;
   z-index: 2;
 }
-/* line 296, ../../dev/sass/pages/history.scss */
+/* line 295, ../../dev/sass/pages/history.scss */
 .accounts-container .account.current .footer {
   background-color: #6ed44a;
 }
-/* line 301, ../../dev/sass/pages/history.scss */
+/* line 300, ../../dev/sass/pages/history.scss */
 .accounts-container .account.wait .footer {
   background-color: #f9b000;
 }
-/* line 305, ../../dev/sass/pages/history.scss */
+/* line 304, ../../dev/sass/pages/history.scss */
 .accounts-container .account.done {
   background-color: #f0f0f0;
 }
-/* line 307, ../../dev/sass/pages/history.scss */
+/* line 306, ../../dev/sass/pages/history.scss */
 .accounts-container .account.done .account-select-btn,
 .accounts-container .account.done .account-delete-btn {
   display: none;
 }
-/* line 314, ../../dev/sass/pages/history.scss */
+/* line 313, ../../dev/sass/pages/history.scss */
 .accounts-container .account-row {
   display: -webkit-flex;
   display: flex;
@@ -3745,20 +3745,20 @@ body {
   align-items: center;
   padding: 1.25rem 1.875rem;
 }
-/* line 320, ../../dev/sass/pages/history.scss */
+/* line 319, ../../dev/sass/pages/history.scss */
 .accounts-container .account-row:first-child {
   border-bottom: 1px solid #bebebe;
 }
-/* line 323, ../../dev/sass/pages/history.scss */
+/* line 322, ../../dev/sass/pages/history.scss */
 .accounts-container .account-row:last-of-type {
   border-top: 1px solid #bebebe;
 }
-/* line 326, ../../dev/sass/pages/history.scss */
+/* line 325, ../../dev/sass/pages/history.scss */
 .accounts-container .account-row.header, .accounts-container .account-row.footer {
   -webkit-justify-content: space-between;
   justify-content: space-between;
 }
-/* line 330, ../../dev/sass/pages/history.scss */
+/* line 329, ../../dev/sass/pages/history.scss */
 .accounts-container .account-row.footer {
   font: normal 3rem/1.42857 roboto-bold, sans-serif;
   border-bottom-left-radius: 0.9375rem;
@@ -3766,46 +3766,46 @@ body {
   color: #363636;
   cursor: pointer;
 }
-/* line 340, ../../dev/sass/pages/history.scss */
+/* line 339, ../../dev/sass/pages/history.scss */
 .accounts-container .account-data.title {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: row nowrap;
   flex-flow: row nowrap;
 }
-/* line 344, ../../dev/sass/pages/history.scss */
+/* line 343, ../../dev/sass/pages/history.scss */
 .accounts-container .account-data.phone {
   margin-right: 1.875rem;
   padding-right: 1.875rem;
   border-right: 1px solid #bebebe;
 }
-/* line 350, ../../dev/sass/pages/history.scss */
+/* line 349, ../../dev/sass/pages/history.scss */
 .accounts-container .complete-icon {
   font: normal 1.875rem/1 general-icons, sans-serif;
 }
-/* line 354, ../../dev/sass/pages/history.scss */
+/* line 353, ../../dev/sass/pages/history.scss */
 .accounts-container .account-id {
   font: normal 2.25rem/1.42857 roboto-medium, sans-serif;
   color: #363636;
 }
-/* line 359, ../../dev/sass/pages/history.scss */
+/* line 358, ../../dev/sass/pages/history.scss */
 .accounts-container .account-addinfo {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   margin-left: 0.625rem;
   color: #8c8c8c;
 }
-/* line 365, ../../dev/sass/pages/history.scss */
+/* line 364, ../../dev/sass/pages/history.scss */
 .accounts-container .account-date-filter,
 .accounts-container .account-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #8c8c8c;
 }
-/* line 372, ../../dev/sass/pages/history.scss */
+/* line 371, ../../dev/sass/pages/history.scss */
 .accounts-container .user-data {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 378, ../../dev/sass/pages/history.scss */
+/* line 377, ../../dev/sass/pages/history.scss */
 .accounts-container .account-tool {
   font: normal 2.8125rem/1 general-icons, sans-serif;
   position: absolute;
@@ -3815,45 +3815,45 @@ body {
   border-bottom-right-radius: 1.875rem;
   z-index: 1;
 }
-/* line 390, ../../dev/sass/pages/history.scss */
+/* line 389, ../../dev/sass/pages/history.scss */
 .accounts-container .account-select-btn {
   font: normal 1.875rem/1 general-icons, sans-serif;
   top: 3.125rem;
   right: -7.5rem;
   background-color: #6ed44a;
 }
-/* line 395, ../../dev/sass/pages/history.scss */
+/* line 394, ../../dev/sass/pages/history.scss */
 .accounts-container .account-select-btn:after {
   color: #fff;
   content: "\e62c";
 }
-/* line 400, ../../dev/sass/pages/history.scss */
+/* line 399, ../../dev/sass/pages/history.scss */
 .accounts-container .account-copy-btn {
   top: 11.25rem;
   right: -7.5rem;
   background-color: #c6c6c6;
 }
-/* line 404, ../../dev/sass/pages/history.scss */
+/* line 403, ../../dev/sass/pages/history.scss */
 .accounts-container .account-copy-btn:after {
   color: #363636;
   content: "\e62e";
 }
-/* line 409, ../../dev/sass/pages/history.scss */
+/* line 408, ../../dev/sass/pages/history.scss */
 .accounts-container .account-print-btn {
   top: 19.375rem;
   right: -7.5rem;
   background-color: #c6c6c6;
 }
-/* line 413, ../../dev/sass/pages/history.scss */
+/* line 412, ../../dev/sass/pages/history.scss */
 .accounts-container .account-print-btn:after {
   color: #363636;
   content: "\e62b";
 }
-/* line 418, ../../dev/sass/pages/history.scss */
+/* line 417, ../../dev/sass/pages/history.scss */
 .accounts-container .account.done ~ .account-print-btn {
   top: 3.125rem;
 }
-/* line 421, ../../dev/sass/pages/history.scss */
+/* line 420, ../../dev/sass/pages/history.scss */
 .accounts-container .account-delete-btn {
   position: absolute;
   top: -1.25rem;
@@ -3861,7 +3861,7 @@ body {
   background-color: #6ed44a;
   z-index: 2;
 }
-/* line 430, ../../dev/sass/pages/history.scss */
+/* line 429, ../../dev/sass/pages/history.scss */
 .accounts-container .account-change-btn {
   font: normal 1.5rem/1.42857 roboto-regular, sans-serif;
   position: absolute;
@@ -3876,71 +3876,71 @@ body {
   z-index: 2;
 }
 
-/* line 449, ../../dev/sass/pages/history.scss */
+/* line 448, ../../dev/sass/pages/history.scss */
 .draft-view .account-block {
   height: 12.75rem;
 }
-/* line 453, ../../dev/sass/pages/history.scss */
+/* line 452, ../../dev/sass/pages/history.scss */
 .draft-view .account-row:first-child {
   background-color: #e5e5e5;
   border-bottom: none;
 }
-/* line 457, ../../dev/sass/pages/history.scss */
+/* line 456, ../../dev/sass/pages/history.scss */
 .draft-view .account-row:last-of-type {
   background-color: #d8d8d8;
 }
-/* line 461, ../../dev/sass/pages/history.scss */
+/* line 460, ../../dev/sass/pages/history.scss */
 .draft-view .account-print-btn {
   top: 3.125rem;
 }
 
-/* line 467, ../../dev/sass/pages/history.scss */
+/* line 466, ../../dev/sass/pages/history.scss */
 .dark-fon {
   background-color: #e1e1e1;
 }
-/* line 469, ../../dev/sass/pages/history.scss */
+/* line 468, ../../dev/sass/pages/history.scss */
 .dark-fon .account,
 .dark-fon .account.done {
   background-color: #e5e5e5;
 }
 
-/* line 475, ../../dev/sass/pages/history.scss */
+/* line 474, ../../dev/sass/pages/history.scss */
 .empty-search-result {
   text-align: center;
   z-index: 10;
 }
-/* line 485, ../../dev/sass/pages/history.scss */
+/* line 484, ../../dev/sass/pages/history.scss */
 .empty-search-result .result-icon {
   font: normal 23.125rem/1.5 general-icons, sans-serif;
 }
-/* line 490, ../../dev/sass/pages/history.scss */
+/* line 489, ../../dev/sass/pages/history.scss */
 .empty-search-result .result-icon:after {
   color: #c6c6c6;
   content: "\e628";
 }
-/* line 495, ../../dev/sass/pages/history.scss */
+/* line 494, ../../dev/sass/pages/history.scss */
 .empty-search-result .result-text {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 499, ../../dev/sass/pages/history.scss */
+/* line 498, ../../dev/sass/pages/history.scss */
 .empty-search-result .searchin-text {
   font: normal 2.25rem/1.42857 roboto-medium, sans-serif;
 }
 
-/* line 506, ../../dev/sass/pages/history.scss */
+/* line 505, ../../dev/sass/pages/history.scss */
 .mbsc-ios .dw-li {
   text-align: center !important;
 }
-/* line 508, ../../dev/sass/pages/history.scss */
+/* line 507, ../../dev/sass/pages/history.scss */
 .mbsc-ios .dw-li .dw-i {
   font-size: 2.1875rem !important;
 }
-/* line 510, ../../dev/sass/pages/history.scss */
+/* line 509, ../../dev/sass/pages/history.scss */
 .mbsc-ios .dw-li .dw-i div {
   display: none !important;
 }
-/* line 513, ../../dev/sass/pages/history.scss */
+/* line 512, ../../dev/sass/pages/history.scss */
 .mbsc-ios .dw-li .dw-i .dw-mon {
   font-size: 2.1875rem !important;
 }
@@ -4210,26 +4210,28 @@ body {
 
 /* line 240, ../../dev/sass/pages/cart.scss */
 .full-view .order-block {
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
   display: inline-flex;
 }
-/* line 243, ../../dev/sass/pages/cart.scss */
+/* line 245, ../../dev/sass/pages/cart.scss */
 .full-view .order {
   width: 32rem;
   float: left;
   border-bottom-right-radius: 1.25rem;
   border-bottom-left-radius: 1.25rem;
 }
-/* line 249, ../../dev/sass/pages/cart.scss */
+/* line 251, ../../dev/sass/pages/cart.scss */
 .full-view .order-header {
   height: 20rem;
 }
-/* line 252, ../../dev/sass/pages/cart.scss */
+/* line 254, ../../dev/sass/pages/cart.scss */
 .full-view .order-header-fon {
   width: 32rem;
   height: 20rem;
   cursor: pointer;
 }
-/* line 257, ../../dev/sass/pages/cart.scss */
+/* line 259, ../../dev/sass/pages/cart.scss */
 .full-view .order-template {
   position: absolute;
   bottom: -4.5625rem;
@@ -4238,41 +4240,41 @@ body {
   background-color: #fff;
   border-radius: 0.625rem;
 }
-/* line 265, ../../dev/sass/pages/cart.scss */
+/* line 267, ../../dev/sass/pages/cart.scss */
 .full-view .order-coeff {
   bottom: -3.75rem;
   right: 0.3125rem;
   position: absolute;
   background-color: #fff;
 }
-/* line 271, ../../dev/sass/pages/cart.scss */
+/* line 273, ../../dev/sass/pages/cart.scss */
 .full-view .coeff-label {
   font: normal 1.75rem/1.42857 roboto-light, sans-serif;
   color: #8c8c8c;
 }
-/* line 275, ../../dev/sass/pages/cart.scss */
+/* line 277, ../../dev/sass/pages/cart.scss */
 .full-view .coeff-value {
   font: normal 2.625rem/1.42857 roboto-light, sans-serif;
   color: #6ed44a;
   margin-left: 0.3125rem;
 }
-/* line 280, ../../dev/sass/pages/cart.scss */
+/* line 282, ../../dev/sass/pages/cart.scss */
 .full-view .order-content {
   padding: 4.375rem 2.5rem 0 3.125rem;
   background-color: #fff;
 }
-/* line 284, ../../dev/sass/pages/cart.scss */
+/* line 286, ../../dev/sass/pages/cart.scss */
 .full-view .order-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 289, ../../dev/sass/pages/cart.scss */
+/* line 291, ../../dev/sass/pages/cart.scss */
 .full-view .order-item {
   padding: 0.4375rem 0;
   border-bottom: 1px solid #bebebe;
 }
-/* line 293, ../../dev/sass/pages/cart.scss */
+/* line 295, ../../dev/sass/pages/cart.scss */
 .full-view .order-qty {
   -webkit-flex-flow: row nowrap;
   flex-flow: row nowrap;
@@ -4280,23 +4282,23 @@ body {
   justify-content: space-between;
   height: 6.25rem;
 }
-/* line 298, ../../dev/sass/pages/cart.scss */
+/* line 300, ../../dev/sass/pages/cart.scss */
 .full-view .qty-label {
   max-width: 10.625rem;
 }
-/* line 301, ../../dev/sass/pages/cart.scss */
+/* line 303, ../../dev/sass/pages/cart.scss */
 .full-view .order-footer, .full-view .cart-container .addelements-detail-footer, .cart-container .full-view .addelements-detail-footer {
   padding-left: 3.125rem;
 }
 
-/* line 308, ../../dev/sass/pages/cart.scss */
+/* line 310, ../../dev/sass/pages/cart.scss */
 .light-view .order-block {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
 }
-/* line 312, ../../dev/sass/pages/cart.scss */
+/* line 314, ../../dev/sass/pages/cart.scss */
 .light-view .order {
   width: 26.25rem;
   margin-bottom: 3.125rem;
@@ -4305,26 +4307,26 @@ body {
   background-color: #fff;
   text-align: center;
 }
-/* line 320, ../../dev/sass/pages/cart.scss */
+/* line 322, ../../dev/sass/pages/cart.scss */
 .light-view .order-template {
   cursor: pointer;
 }
-/* line 326, ../../dev/sass/pages/cart.scss */
+/* line 328, ../../dev/sass/pages/cart.scss */
 .light-view .order-header {
   padding-top: 2.5rem;
 }
-/* line 329, ../../dev/sass/pages/cart.scss */
+/* line 331, ../../dev/sass/pages/cart.scss */
 .light-view .order-content {
   padding: 2.5rem 1.25rem;
 }
-/* line 335, ../../dev/sass/pages/cart.scss */
+/* line 337, ../../dev/sass/pages/cart.scss */
 .light-view .addelements-btn {
   margin-top: 0.625rem;
   padding: 0.625rem 0;
   border-top: 1px solid #bebebe;
   border-bottom: 1px solid #bebebe;
 }
-/* line 341, ../../dev/sass/pages/cart.scss */
+/* line 343, ../../dev/sass/pages/cart.scss */
 .light-view .order-qty {
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
@@ -4332,7 +4334,7 @@ body {
   justify-content: space-around;
   padding-top: 2.5rem;
 }
-/* line 346, ../../dev/sass/pages/cart.scss */
+/* line 348, ../../dev/sass/pages/cart.scss */
 .light-view .order-label, .light-view .cart-container .product-icon-label, .cart-container .light-view .product-icon-label,
 .light-view .cart-container .product-label,
 .cart-container .light-view .product-label, .light-view .cart-container .addelement-label, .cart-container .light-view .addelement-label {
@@ -4678,7 +4680,7 @@ body {
   right: -3.625rem;
   width: 3.75rem;
   height: 100%;
-  background: url('../img/door-arrow.png?1418289342') no-repeat;
+  background: url('../img/door-arrow.png?1418316130') no-repeat;
   background-size: 100% 100%;
 }
 /* line 345, ../../dev/sass/pages/construction.scss */
@@ -5959,14 +5961,14 @@ body {
   height: 23.125rem;
   margin-top: 3.125rem;
 }
-/* line 21, ../../dev/sass/panels/glass.scss */
+/* line 22, ../../dev/sass/panels/glass.scss */
 .glass-container .footer-inner {
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 25, ../../dev/sass/panels/glass.scss */
+/* line 26, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box {
   -moz-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
@@ -5976,21 +5978,21 @@ body {
   height: 19.375rem;
   margin-right: 3.125rem;
 }
-/* line 31, ../../dev/sass/panels/glass.scss */
+/* line 32, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box.selected {
   position: relative;
   background-color: #6ed44a;
 }
-/* line 34, ../../dev/sass/panels/glass.scss */
+/* line 35, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box.selected .glass-type {
   background-color: #57b23c;
 }
-/* line 37, ../../dev/sass/panels/glass.scss */
+/* line 38, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box.selected:after {
   top: 2.5rem;
   left: 1.875rem;
 }
-/* line 42, ../../dev/sass/panels/glass.scss */
+/* line 43, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box-view {
   display: -webkit-flex;
   display: flex;
@@ -6003,27 +6005,27 @@ body {
   max-width: 9.375rem;
   text-align: center;
 }
-/* line 51, ../../dev/sass/panels/glass.scss */
+/* line 52, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box-view .label {
   max-width: 9.375rem;
   word-wrap: break-word;
 }
-/* line 57, ../../dev/sass/panels/glass.scss */
+/* line 58, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-img img {
   max-width: 9.375rem;
 }
-/* line 61, ../../dev/sass/panels/glass.scss */
+/* line 62, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box-data {
   float: right;
   width: 14.0625rem;
 }
-/* line 65, ../../dev/sass/panels/glass.scss */
+/* line 66, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-descr {
   font: normal 2.25rem/1.42857 roboto-medium, sans-serif;
   margin-bottom: 3.125rem;
   color: #363636;
 }
-/* line 72, ../../dev/sass/panels/glass.scss */
+/* line 73, ../../dev/sass/panels/glass.scss */
 .glass-container .label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #8c8c8c;
@@ -6287,85 +6289,85 @@ body {
 }
 /* line 14, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grid-img {
-  background-image: url('../img/auxiliaries-focused/grid.png?1418289344');
+  background-image: url('../img/auxiliaries-focused/grid.png?1418316164');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 19, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-visor-img {
-  background-image: url('../img/auxiliaries-focused/visor.png?1418289344');
+  background-image: url('../img/auxiliaries-focused/visor.png?1418316164');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 24, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spillway-img {
-  background-image: url('../img/auxiliaries-focused/spillway.png?1418289344');
+  background-image: url('../img/auxiliaries-focused/spillway.png?1418316164');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 29, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-focused/windowsill.png?1418289344');
+  background-image: url('../img/auxiliaries-focused/windowsill.png?1418316164');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 34, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-top {
-  background-image: url('../img/auxiliaries-focused/louvers-top.png?1418289344');
+  background-image: url('../img/auxiliaries-focused/louvers-top.png?1418316164');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 39, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-midle {
-  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1418289344');
+  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1418316164');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 44, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1418289344');
+  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1418316164');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 49, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-top {
-  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1418289344');
+  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1418316164');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 54, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-right {
-  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1418289344');
+  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1418316164');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 59, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-left {
-  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1418289344');
+  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1418316164');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 64, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-fan-img {
-  background-image: url('../img/auxiliaries-focused/fan.png?1418289344');
+  background-image: url('../img/auxiliaries-focused/fan.png?1418316164');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 69, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-force-connect {
-  background-image: url('../img/auxiliaries-focused/force-connector.png?1418289344');
+  background-image: url('../img/auxiliaries-focused/force-connector.png?1418316164');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 74, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1418289344');
+  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1418316164');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 79, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-handle-img {
-  background-image: url('../img/auxiliaries-focused/handle.png?1418289344');
+  background-image: url('../img/auxiliaries-focused/handle.png?1418316164');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6395,85 +6397,85 @@ body {
 }
 /* line 110, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grid-img {
-  background-image: url('../img/auxiliaries-selected/grid.png?1418289345');
+  background-image: url('../img/auxiliaries-selected/grid.png?1418316161');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 115, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
-  background-image: url('../img/auxiliaries-selected/visor.png?1418289345');
+  background-image: url('../img/auxiliaries-selected/visor.png?1418316163');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 120, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
-  background-image: url('../img/auxiliaries-selected/spillway.png?1418289345');
+  background-image: url('../img/auxiliaries-selected/spillway.png?1418316163');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 125, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-selected/windowsill.png?1418289345');
+  background-image: url('../img/auxiliaries-selected/windowsill.png?1418316164');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 130, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-top {
-  background-image: url('../img/auxiliaries-selected/louvers-top.png?1418289345');
+  background-image: url('../img/auxiliaries-selected/louvers-top.png?1418316163');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 135, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-midle {
-  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1418289345');
+  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1418316163');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 140, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1418289345');
+  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1418316162');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 145, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-top {
-  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1418289345');
+  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1418316162');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 150, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-right {
-  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1418289345');
+  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1418316161');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 155, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-left {
-  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1418289345');
+  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1418316161');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 160, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-fan-img {
-  background-image: url('../img/auxiliaries-selected/fan.png?1418289345');
+  background-image: url('../img/auxiliaries-selected/fan.png?1418316160');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 165, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-force-connect {
-  background-image: url('../img/auxiliaries-selected/force-connector.png?1418289345');
+  background-image: url('../img/auxiliaries-selected/force-connector.png?1418316160');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 170, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1418289344');
+  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1418316159');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 175, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-handle-img {
-  background-image: url('../img/auxiliaries-selected/handle.png?1418289345');
+  background-image: url('../img/auxiliaries-selected/handle.png?1418316161');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6496,7 +6498,7 @@ body {
   position: absolute;
   width: 13.75rem;
   height: 24.375rem;
-  background-image: url('../img/auxiliaries/grid.png?1418289342');
+  background-image: url('../img/auxiliaries/grid.png?1418316150');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6513,7 +6515,7 @@ body {
   position: absolute;
   width: 55.8125rem;
   height: 16.3125rem;
-  background-image: url('../img/auxiliaries/visor.png?1418289344');
+  background-image: url('../img/auxiliaries/visor.png?1418316157');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6530,7 +6532,7 @@ body {
   position: absolute;
   width: 44.9375rem;
   height: 12.875rem;
-  background-image: url('../img/auxiliaries/spillway.png?1418289344');
+  background-image: url('../img/auxiliaries/spillway.png?1418316156');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6547,7 +6549,7 @@ body {
   position: absolute;
   width: 40.625rem;
   height: 38.125rem;
-  background-image: url('../img/auxiliaries/outside.png?1418289344');
+  background-image: url('../img/auxiliaries/outside.png?1418316156');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6564,7 +6566,7 @@ body {
   position: absolute;
   width: 45rem;
   height: 14.75rem;
-  background-image: url('../img/auxiliaries/windowsill.png?1418289344');
+  background-image: url('../img/auxiliaries/windowsill.png?1418316158');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6588,7 +6590,7 @@ body {
   z-index: 10;
   width: 16.3125rem;
   height: 4.9375rem;
-  background-image: url('../img/auxiliaries/louvers-top.png?1418289344');
+  background-image: url('../img/auxiliaries/louvers-top.png?1418316155');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6598,7 +6600,7 @@ body {
   left: 3.125rem;
   width: 16.3125rem;
   height: 6.1875rem;
-  background-image: url('../img/auxiliaries/louvers-middle.png?1418289344');
+  background-image: url('../img/auxiliaries/louvers-middle.png?1418316155');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6625,7 +6627,7 @@ body {
   z-index: 6;
   width: 16.3125rem;
   height: 6.5rem;
-  background-image: url('../img/auxiliaries/louvers-bottom.png?1418289344');
+  background-image: url('../img/auxiliaries/louvers-bottom.png?1418316154');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6648,7 +6650,7 @@ body {
   position: absolute;
   width: 41.25rem;
   height: 11.4375rem;
-  background-image: url('../img/auxiliaries/inside-slope-top.png?1418289344');
+  background-image: url('../img/auxiliaries/inside-slope-top.png?1418316153');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6659,7 +6661,7 @@ body {
   position: absolute;
   width: 5.625rem;
   height: 27.125rem;
-  background-image: url('../img/auxiliaries/inside-slope-right.png?1418289344');
+  background-image: url('../img/auxiliaries/inside-slope-right.png?1418316152');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6670,7 +6672,7 @@ body {
   position: absolute;
   width: 6.0625rem;
   height: 25.5rem;
-  background-image: url('../img/auxiliaries/inside-slope-left.png?1418289344');
+  background-image: url('../img/auxiliaries/inside-slope-left.png?1418316152');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6687,7 +6689,7 @@ body {
   position: absolute;
   width: 7.125rem;
   height: 7.5rem;
-  background-image: url('../img/auxiliaries/fan.png?1418289342');
+  background-image: url('../img/auxiliaries/fan.png?1418316149');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6710,7 +6712,7 @@ body {
   position: absolute;
   width: 12.8125rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/force-connector.png?1418289342');
+  background-image: url('../img/auxiliaries/force-connector.png?1418316150');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6721,7 +6723,7 @@ body {
   position: absolute;
   width: 12.8125rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/balcon-connector.png?1418289342');
+  background-image: url('../img/auxiliaries/balcon-connector.png?1418316133');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6738,7 +6740,7 @@ body {
   position: absolute;
   width: 6.625rem;
   height: 7.875rem;
-  background-image: url('../img/auxiliaries/handle.png?1418289342');
+  background-image: url('../img/auxiliaries/handle.png?1418316150');
   background-repeat: no-repeat;
   background-size: contain;
 }
