@@ -76,6 +76,7 @@
     @include flex-flow(row nowrap);
     @include justify-content(space-between);
   }
+  /*
   .template-edit {
     @extend .big-button;
     @extend .splash;
@@ -87,6 +88,7 @@
     color: #fff;
     background-color: $main_green;
   }
+  */
   .template-default {
     @extend .middle-button;
     @extend .splash;

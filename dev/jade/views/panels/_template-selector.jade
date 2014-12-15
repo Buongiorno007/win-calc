@@ -13,11 +13,10 @@
           .window-config(ng-click="turnOnTemplate('window')") {{ 'panels.TEMPLATE_WINDOW' | translate }}
       .template-discr {{ templatePanel.templateDescription }}
 
-    .template-section
-      //svg-template(template = "templatePanel.templateSVG", template-width="global.svgTemplateWidth", template-height="global.svgTemplateHeight")
+    .template-section.unvisible(ng-click="gotoConstructionPage()", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}")
       svg-template(template = "templatePanel.templateSVG", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="bigIcon")
 
-    .template-footer
+    .template-footer.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}")
       .other-template.prev(ng-click="showTemplatePrev()")
         .prev-btn(ng-show="templatePanel.templateQty > 1")
         .template-prev(ng-show="templatePanel.templateQty > 1")
@@ -29,7 +28,7 @@
           .other-template-subscr {{ templatePanel.templateDescriptionPrev }}
 
       .template-setting
-        button.template-edit.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}", ng-click="gotoConstructionPage()") {{ 'panels.TEMPLATE_EDIT' | translate }}
+        //button.template-edit.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}", ng-click="gotoConstructionPage()") {{ 'panels.TEMPLATE_EDIT' | translate }}
         button.template-default.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}", ng-click="backDefaultTemplate()") {{ 'panels.TEMPLATE_DEFAULT' | translate }}
 
       .other-template.next(ng-click="showTemplateNext()")

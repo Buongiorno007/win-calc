@@ -32,8 +32,8 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$
   };
 
   $scope.gotoConstructionPage = function () {
-    console.log('template');
-    console.log($scope.global.templateSource);
+    //console.log('template');
+    //console.log($scope.global.templateSource);
     $location.path('/construction');
   };
 

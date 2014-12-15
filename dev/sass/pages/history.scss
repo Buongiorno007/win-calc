@@ -9,8 +9,7 @@
   height: 100%;
   padding: rem(50px);
   padding-left: rem(100px);
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
   background-color: #fafafa;
 
   &.history-view {

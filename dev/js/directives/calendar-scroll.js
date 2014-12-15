@@ -1,19 +1,18 @@
 'use strict';
 
-BauVoiceApp.directive('calendarScroll', [ function() {
+BauVoiceApp.directive('calendarScroll', ['$filter', function($filter) {
   return {
     restrict: 'E',
     transclude: true,
     replace: true,
     scope: {
-      dataMonths: '@calendarOption',
       maxTime: '@',
       calendarTime: '='
     },
     link: function (scope, element, attrs) {
       $(function(){
         var today = new Date();
-        console.log('scroll');
+        console.log('today', typeof today);
         console.log(today);
         var opt = {
           theme: 'ios',
@@ -25,22 +24,24 @@ BauVoiceApp.directive('calendarScroll', [ function() {
           fixedWidth: 656,
           maxWidth: 656,
           onChange : function (valueText) {
-            console.log(valueText);
             scope.calendarTime = valueText;
-            //console.log('scope.calendarTime = ' + scope.calendarTime);
             scope.$apply();
           }
         };
-        opt.monthNames = scope.dataMonths.split(', ');
+        opt.monthNames = $filter('translate')('common_words.MONTHA').split(', ');
         element.mobiscroll().date(opt);
 
         attrs.$observe('maxTime', function () {
           if(scope.maxTime) {
-            console.log('maxTime'+scope.maxTime);
-            console.log(new Date(scope.maxTime));
-            //today.setTime(scope.maxTime);
-            //opt.maxDate = today;
-            //element.mobiscroll().date(opt);
+            console.log('maxTime', typeof scope.maxTime);
+            console.log(scope.maxTime);
+
+            var newMaxDate = new Date(parseInt(scope.maxTime, 10));
+            console.log('newMaxDate', typeof newMaxDate);
+            console.log(newMaxDate);
+            //opt.maxDate = newMaxDate.toString();
+            opt.maxDate = newMaxDate;
+            element.mobiscroll().date(opt);
           }
         });
 

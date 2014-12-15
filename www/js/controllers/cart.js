@@ -5,7 +5,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$location', function ($scope, localDB, localStorage, $location) {
+BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$location', '$filter', function ($scope, localDB, localStorage, $location, $filter) {
 
   $scope.global = localStorage;
 
@@ -276,10 +276,10 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   $scope.clickDeleteProduct = function(productIdBD, productIdArr) {
 
     navigator.notification.confirm(
-      'Хотите удалить продукт?',
+      $filter('translate')('common_words.DELETE_PRODUCT_TXT'),
       deleteProduct,
-      'Удаление!',
-      ['Да','Нет']
+      $filter('translate')('common_words.DELETE_PRODUCT_TITLE'),
+      [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')]
     );
 
     function deleteProduct(button) {

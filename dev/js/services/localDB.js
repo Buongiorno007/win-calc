@@ -178,112 +178,112 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "null": "NOT NULL"
     },
     "orderType": {
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "orderStyle": {
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "productsQty": {
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "floor":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "floorPrice":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "assembling":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "assemblingPrice":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "deliveryDatePrimary":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "deliveryDate":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "instalmentPeriod":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "instalmentPercent": {
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "totalPrice":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "totalPricePrimary":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "totalPriceFirst":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "totalPriceMonthly":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "totalPriceFirstPrimary":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "totalPriceMonthlyPrimary":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "name":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "location":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "address":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "mail": {
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "phone":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "phone2": {
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "itn": {
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "starttime": {
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "endtime": {
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "target": {
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     }
   });
 

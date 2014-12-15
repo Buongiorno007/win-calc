@@ -167,6 +167,7 @@
 // Form
 
 .input-field {
+  @include user-select('text');
   position: relative;
   margin-bottom: rem(44px);
   &.has-error > .user-field {
@@ -176,6 +177,7 @@
 
 .user-field {
   @include roboto-lt(rem(36px));
+  @include user-select('all');
 
   display: block;
   width: 100%;

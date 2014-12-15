@@ -164,11 +164,10 @@
             </button>
             <div class="template-discr">{{ templatePanel.templateDescription }}</div>
           </div>
-          <div class="template-section">
-            <!--svg-template(template = "templatePanel.templateSVG", template-width="global.svgTemplateWidth", template-height="global.svgTemplateHeight")-->
+          <div ng-click="gotoConstructionPage()" show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}" class="template-section unvisible">
             <svg-template template="templatePanel.templateSVG" template-width="global.svgTemplateIconWidth" template-height="global.svgTemplateIconHeight" type-construction="bigIcon"></svg-template>
           </div>
-          <div class="template-footer">
+          <div show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}" class="template-footer unvisible">
             <div ng-click="showTemplatePrev()" class="other-template prev">
               <div ng-show="templatePanel.templateQty &gt; 1" class="prev-btn"></div>
               <div ng-show="templatePanel.templateQty &gt; 1" class="template-prev">
@@ -182,7 +181,7 @@
               </div>
             </div>
             <div class="template-setting">
-              <button show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}" ng-click="gotoConstructionPage()" class="template-edit unvisible">{{ 'panels.TEMPLATE_EDIT' | translate }}</button>
+              <!--button.template-edit.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}", ng-click="gotoConstructionPage()") {{ 'panels.TEMPLATE_EDIT' | translate }}-->
               <button show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}" ng-click="backDefaultTemplate()" class="template-default unvisible">{{ 'panels.TEMPLATE_DEFAULT' | translate }}</button>
             </div>
             <div ng-click="showTemplateNext()" class="other-template next">

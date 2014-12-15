@@ -14,7 +14,18 @@ window.russianDictionary = {
     MONTHS_LABEL: 'месяцeв',
     ALL: 'Все',
     MIN: 'мин.',
-    MAX: 'макс.'
+    MAX: 'макс.',
+    //----- confirm dialogs
+    BUTTON_Y: 'ДА',
+    BUTTON_N: 'НЕТ',
+    DELETE_PRODUCT_TITLE: 'Удаление!',
+    DELETE_PRODUCT_TXT: 'Хотите удалить продукт?',
+    DELETE_ORDER_TITLE: 'Удаление заказа!',
+    DELETE_ORDER_TXT: 'Хотите удалить заказ?',
+    COPY_ORDER_TITLE: 'Копирование!',
+    COPY_ORDER_TXT: 'Хотите сделать копию заказа?',
+    SEND_ORDER_TITLE: 'В производство!',
+    SEND_ORDER_TXT: 'Хотите отправить заказ на завод?'
   },
   login: {
     ENTER: 'Войти',

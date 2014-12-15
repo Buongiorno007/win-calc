@@ -61,12 +61,15 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
       var ordersDateArr = [];
       for (var it = 0; it < orders.length; it++) {
         var oldDateArr = orders[it].deliveryDate.split('.');
-        var newDateStr = Date.parse(oldDateArr[2], oldDateArr[1], oldDateArr[0]);
-        ordersDateArr.push(newDateStr);
+                                       console.log('max------', oldDateArr);
+        var newDateStr = Date.parse(oldDateArr[1]+'/'+oldDateArr[0]+'/'+oldDateArr[2]);
+console.log('max========', newDateStr);
+                                       ordersDateArr.push(newDateStr);
       }
       ordersDateArr.sort(function (a, b) {
         return b - a
       });
+                                       console.log(ordersDateArr);
       return ordersDateArr[0];
     }
 
@@ -302,10 +305,10 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
   $scope.clickDeleteOrder = function(orderType, orderNum) {
 
     navigator.notification.confirm(
-      'Хотите удалить заказ?',
+      $filter('translate')('common_words.DELETE_ORDER_TXT'),
       deleteOrder,
-      'Удаление!',
-      ['Да','Нет']
+      $filter('translate')('common_words.DELETE_ORDER_TITLE'),
+      [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')]
     );
 
     function deleteOrder(button) {
@@ -348,10 +351,10 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
 
     if(orderStyle !== orderMasterStyle) {
       navigator.notification.confirm(
-        "Хотите отправить заказ на завод?",
+        $filter('translate')('common_words.SEND_ORDER_TXT'),
         sendOrder,
-        'В производство!',
-        ['Да','Нет']
+        $filter('translate')('common_words.SEND_ORDER_TITLE'),
+        [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')]
       );
     }
 
@@ -375,10 +378,10 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
 
     if(orderStyle !== orderMasterStyle) {
       navigator.notification.confirm(
-        "Хотите сделать копию заказа?",
+        $filter('translate')('common_words.COPY_ORDER_TXT'),
         copyOrder,
-        'Копирование!',
-        ['Да','Нет']
+        $filter('translate')('common_words.COPY_ORDER_TITLE'),
+        [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')]
       );
     }
 
