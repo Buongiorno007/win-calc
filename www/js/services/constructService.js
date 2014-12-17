@@ -24,32 +24,27 @@ BauVoiceApp.factory('constructService', function ($q) {
         roomInfo: [
           {
             id: 1,
-            current: false,
             name: 'Кухня',
             airCirculation: 90
           },
           {
             id: 2,
-            current: false,
             name: 'Гостиная',
             airCirculation: 50
           },
           {
             id: 3,
             name: 'Балкон',
-            current: false,
             airCirculation: 0
           },
           {
             id: 4,
             name: 'Детская',
-            current: true,
             airCirculation: 30
           },
           {
             id: 5,
             name: 'Спальня',
-            current: false,
             airCirculation: 40
           },
           {
@@ -1001,38 +996,6 @@ BauVoiceApp.factory('constructService', function ($q) {
       }));
     },
 
-    // TODO: Сервис готов
-    getGlass: function (callback) {
-      callback(new OkResult({
-        id: 145,
-        name: '6/12/6',
-        heatCoeff: 2,
-        airCoeff: 9
-      }));
-    },
-
-    // TODO: Сервис готов
-    getWindowHardware: function (callback) {
-      callback(new OkResult({
-        id: 1,
-        name: 'Komfort Line K-3'
-      }));
-    },
-
-    // TODO: Сервис готов
-    getLamination: function (callback) {
-      callback(new OkResult({
-        outer: {
-          id: 15,
-          name: 'без лам.'
-        },
-        inner: {
-          id: 4,
-          name: 'без лам.'
-        }
-      }));
-    },
-
 
     getAddElementsGroups: function (callback) {
       callback(new OkResult({
@@ -1051,7 +1014,6 @@ BauVoiceApp.factory('constructService', function ($q) {
         ]
       }));
     },
-
 
 
     getAllProfiles: function (callback) {
@@ -1122,6 +1084,8 @@ BauVoiceApp.factory('constructService', function ($q) {
         ]
       }));
     },
+
+
 
     getAllGlass: function (callback) {
       callback(new OkResult({
@@ -1309,7 +1273,7 @@ BauVoiceApp.factory('constructService', function ($q) {
 
     getAllHardware: function (callback) {
       callback(new OkResult({
-        producers: [
+        hardwaresTypes: [
           'AXOR',
          // 'Мако',  //закомментировал А.С.
           'Другие...'
@@ -1323,10 +1287,11 @@ BauVoiceApp.factory('constructService', function ($q) {
               hardwareCountry: 'Украина',
               hardwareLogo: 'img/hardware-logos/axor.png',
               hardwareLink: '#',
-              hardwareHeat: 4,
               hardwareNoise: 4,
+              heatCoeff: 4,
+              airCoeff: 5,
               hardwarePrice: 150
-            },
+            }
            /* {
               hardwareId: 2,
               hardwareName: 'ACCADO 7mm',
@@ -1371,8 +1336,9 @@ BauVoiceApp.factory('constructService', function ($q) {
               hardwareCountry: 'Germany',
               hardwareLogo: 'img/hardware-logos/roto.png',
               hardwareLink: '#',
-              hardwareHeat: 5,
               hardwareNoise: 4,
+              heatCoeff: 5,
+              airCoeff: 9,
               hardwarePrice: 250
             },
             {
@@ -1382,8 +1348,9 @@ BauVoiceApp.factory('constructService', function ($q) {
               hardwareCountry: 'Austria',
               hardwareLogo: 'img/hardware-logos/maco.png',
               hardwareLink: '#',
-              hardwareHeat: 4,
               hardwareNoise: 5,
+              heatCoeff: 4,
+              airCoeff: 3,
               hardwarePrice: 290
             }
           ]
@@ -1393,7 +1360,7 @@ BauVoiceApp.factory('constructService', function ($q) {
 
     getAllLamination: function (callback) {
       callback(new OkResult({
-        laminationWhite: 'без ламинации',
+        laminationWhite: 'без ламин.',
         laminationInside: [
           {
             laminationId: 1,

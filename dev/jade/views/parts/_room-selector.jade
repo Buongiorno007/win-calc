@@ -2,28 +2,28 @@
   .rooms-inner(ng-if="global.isRoomsDialog")
     .rooms-row
       .room-block
-        .room-box.unvisible(show-delay="{{ roomData.DELAY_SHOW_ROOM1 }}", ng-class="{'selected': roomData.selectedRoom === 1}", ng-click="selectRoom(1)")
+        .room-box.unvisible(show-delay="{{ roomData.DELAY_SHOW_ROOM1 }}", ng-class="{'selected': global.product.selectedRoomId === 1}", ng-click="selectRoom(1)")
           .room-img.kitchen
             .room-title {{ 'mainpage.ROOM_KITCHEN' | translate }}
       .room-block
-        .room-box.unvisible(show-delay="{{ roomData.DELAY_SHOW_ROOM2 }}", ng-class="{'selected': roomData.selectedRoom === 2}", ng-click="selectRoom(2)")
+        .room-box.unvisible(show-delay="{{ roomData.DELAY_SHOW_ROOM2 }}", ng-class="{'selected': global.product.selectedRoomId === 2}", ng-click="selectRoom(2)")
           .room-img.livingroom
             .room-title {{ 'mainpage.ROOM_LIVINGROOM' | translate }}
       .room-block
-        .room-box.unvisible(show-delay="{{ roomData.DELAY_SHOW_ROOM3 }}", ng-class="{'selected': roomData.selectedRoom === 3}", ng-click="selectRoom(3)")
+        .room-box.unvisible(show-delay="{{ roomData.DELAY_SHOW_ROOM3 }}", ng-class="{'selected': global.product.selectedRoomId === 3}", ng-click="selectRoom(3)")
           .room-img.balcony
             .room-title {{ 'mainpage.ROOM_BALCONY' | translate }}
     .rooms-row
       .room-block
-        .room-box.unvisible(show-delay="{{ roomData.DELAY_SHOW_ROOM4 }}", ng-class="{'selected': roomData.selectedRoom === 4}", ng-click="selectRoom(4)")
+        .room-box.unvisible(show-delay="{{ roomData.DELAY_SHOW_ROOM4 }}", ng-class="{'selected': global.product.selectedRoomId === 4}", ng-click="selectRoom(4)")
           .room-img.childroom
             .room-title {{ 'mainpage.ROOM_CHILDROOM' | translate }}
       .room-block
-        .room-box.unvisible(show-delay="{{ roomData.DELAY_SHOW_ROOM5 }}", ng-class="{'selected': roomData.selectedRoom === 5}", ng-click="selectRoom(5)")
+        .room-box.unvisible(show-delay="{{ roomData.DELAY_SHOW_ROOM5 }}", ng-class="{'selected': global.product.selectedRoomId === 5}", ng-click="selectRoom(5)")
           .room-img.bedroom
             .room-title {{ 'mainpage.ROOM_BEDROOM' | translate }}
       .room-block
-        .room-box.unvisible(show-delay="{{ roomData.DELAY_SHOW_ROOM6 }}", ng-class="{'selected': roomData.selectedRoom === 6}", ng-click="selectRoom(6)")
+        .room-box.unvisible(show-delay="{{ roomData.DELAY_SHOW_ROOM6 }}", ng-class="{'selected': global.product.selectedRoomId === 6}", ng-click="selectRoom(6)")
           .room-img.door
             .room-title {{ 'mainpage.ROOM_DOOR' | translate }}
     .close-dialog(ng-click="closeRoomSelectorDialog()")

@@ -5,16 +5,14 @@
 
 BauVoiceApp.factory('localStorage', function () {
   return {
-    svgTemplateThumbWidth: 70,
-    svgTemplateThumbHeight: 70,
-    svgTemplateIconWidth: 500,
-    svgTemplateIconHeight: 450,
+    svgTemplateIconWidth: 70,
+    svgTemplateIconHeight: 70,
+    svgTemplateIconBigWidth: 500,
+    svgTemplateIconBigHeight: 450,
     svgTemplateWidth: 1500,
     svgTemplateHeight: 1000,
     currentDate: new Date(),
-    //-------- defined default profile index
-    templateIndex: 0,
-    profileIndex: 0,
+    productionDays: 15,
 
     isConstructWind: true,
     isConstructWindDoor: false,
@@ -28,30 +26,140 @@ BauVoiceApp.factory('localStorage', function () {
     isAddElementsONLY: false,
     isFindPriceProcess: false,
 
-    templatesWindList: [],
-    templatesWindThumbList: [],
-    templatesWindDoorList: [],
-    templatesWindDoorThumbList: [],
-    templatesBalconyList: [],
-    templatesBalconyThumbList: [],
-    templatesDoorList: [],
-    templatesDoorThumbList: [],
+    //-------- defined default profile index
 
-    userInfo: {},
-    product: {},
-    chosenAddElements: {
-      selectedGrids: [],
-      selectedVisors: [],
-      selectedSpillways: [],
-      selectedOutsideSlope: [],
-      selectedLouvers: [],
-      selectedInsideSlope: [],
-      selectedConnectors: [],
-      selectedFans: [],
-      selectedWindowSill: [],
-      selectedHandles: [],
-      selectedOthers: []
+
+
+    //------- Templates
+    templatesWindSTORE: [],
+    templatesWindDoorSTORE: [],
+    templatesBalconySTORE: [],
+    templatesDoorSTORE: [],
+    templatesWindListSTORE: [],
+    templatesWindIconListSTORE: [],
+    templatesWindDoorListSTORE: [],
+    templatesWindDoorIconListSTORE: [],
+    templatesBalconyListSTORE: [],
+    templatesBalconyIconListSTORE: [],
+    templatesDoorListSTORE: [],
+    templatesDoorIconListSTORE: [],
+
+    templatesWindSource: [],
+    templatesWindDoorSource: [],
+    templatesBalconySource: [],
+    templatesDoorSource: [],
+    templatesWindList: [],
+    templatesWindDoorList: [],
+    templatesBalconyList: [],
+    templatesDoorList: [],
+    templatesWindIconList: [],
+    templatesWindDoorIconList: [],
+    templatesBalconyIconList: [],
+    templatesDoorIconList: [],
+    templateDepths: {},
+
+    templatesSource: [],
+    templates: [],
+    templatesIcons: [],
+    templateLabel: '',
+
+    //------ Profiles
+    profiles: [],
+    profilesType: [],
+    allProfileFrameSizes: [],
+    allProfileFrameStillSizes: [],
+    allProfileSashSizes: [],
+    allProfileImpostSizes: [],
+    allProfileShtulpSizes: [],
+
+    //------- Glasses
+    glasses: [],
+    glassTypes: [],
+
+    //------ Hardwares
+    hardwares: [],
+    hardwareTypes: [],
+
+    //------ Lamination
+    laminationsWhite: '',
+    laminationsIn: [],
+    laminationsOut: [],
+
+    userInfo: {
+      city_id: 0
     },
+
+    productSource: {
+      selectedRoomId: 4,
+
+      templateIndex: 0,
+      templateSource: {},
+      templateDefault: {},
+      templateIcon: {},
+      templateWidth: 0,
+      templateHeight: 0,
+
+      profileTypeIndex: 0,
+      profileIndex: 0,
+      profileId: 0,
+      profileName: '',
+      profileHeatCoeff: 0,
+      profileAirCoeff: 0,
+
+      glassTypeIndex: 0,
+      glassIndex: 0,
+      glassId: 0,
+      glassName: '',
+      glassHeatCoeff: 0,
+      glassAirCoeff: 0,
+
+      hardwareTypeIndex: 0,
+      hardwareIndex: 0,
+      hardwareId: 0,
+      hardwareName: '',
+      hardwareHeatCoeff: 0,
+      hardwareAirCoeff: 0,
+
+      laminationOutIndex: 'white',
+      laminationOutName: '',
+      laminationOutPrice: 0,
+      laminationInIndex: 'white',
+      laminationInName: '',
+      laminationInPrice: 0,
+
+      chosenAddElements: {
+        selectedGrids: [],
+        selectedVisors: [],
+        selectedSpillways: [],
+        selectedOutsideSlope: [],
+        selectedLouvers: [],
+        selectedInsideSlope: [],
+        selectedConnectors: [],
+        selectedFans: [],
+        selectedWindowSill: [],
+        selectedHandles: [],
+        selectedOthers: []
+      },
+
+      heatTransferTOTAL: 0,
+      airCirculationTOTAL: 0,
+
+      templatePriceSELECT: 0,
+      hardwarePriceSELECT: 0,
+      laminationPriceSELECT: 0,
+      addElementsPriceSELECT: 0,
+      productPriceTOTAL: 0
+    },
+
+    product: {},
+
+    order: {
+      orderId: 0,
+      deliveryDate: '',
+      products: [],
+      orderPrice: 0
+    },
+    orders: [],
 
     objXFormedPriceSource: {
       cityId: '',
@@ -66,9 +174,8 @@ BauVoiceApp.factory('localStorage', function () {
       glassSquares: [],
       frameSillSize: 0
     },
-    heatTransferTotal: 0,
-    airCirculationTotal: 0,
 
+    //------ config-pannels tools
     showNavMenu: true,
     isConfigMenu: false,
     showPanels: {},
@@ -79,11 +186,11 @@ BauVoiceApp.factory('localStorage', function () {
     isLaminationPanel: false,
     isAddElementsPanel: false,
 
-    constructionPriceTOTAL: 0,
-    hardwarePriceTOTAL: 0,
-    laminationPriceTOTAL: 0,
-    addElementsPriceTOTAL: 0,
-    orderPrice: 0,
+    //constructionPriceTOTAL: 0,
+    //hardwarePriceTOTAL: 0,
+    //laminationPriceTOTAL: 0,
+    //addElementsPriceTOTAL: 0,
+    //orderPrice: 0,
 
     addElementsGroupClass: [
       'aux_color_connect',
@@ -103,18 +210,17 @@ BauVoiceApp.factory('localStorage', function () {
     isConstructSizeCalculator: false,
     //currency: '',
 
-
+    showRoomSelectorDialog: false,
+    isRoomsDialog: false,
+    isOpenSettingsPage: false,
+    isChangedTemplate: false,
+    isVoiceHelper: false,
     showMasterDialog: false,
     showOrderDialog: false,
     showCreditDialog: false,
     fullOrderType: 'complete',
     draftOrderType: 'draft',
 
-    showRoomSelectorDialog: false,
-    isRoomsDialog: false,
-    isOpenSettingsPage: false,
-    isReturnFromConstructionPage: false,
-    isVoiceHelper: false,
 //------ WebSQL DB table names
     //--- Local
     productsTableBD: 'products',
@@ -137,6 +243,7 @@ BauVoiceApp.factory('localStorage', function () {
     regionsTableDBGlobal: 'regions',
     countriesTableDBGlobal: 'countries',
     listsTableDBGlobal: 'lists',
+
     visorDBId: 21,
     gridDBId: 20,
     spillwayDBId: 9,

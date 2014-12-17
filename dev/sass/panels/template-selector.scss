@@ -1,16 +1,15 @@
 .template-container {
   padding: rem(50px);
+
   .template-header {
     text-align: center;
   }
+
   .template-title {
     @extend .splash;
     @include roboto-lt(rem(80px), rem(80px));
-
     position: relative;
-    //width: rem(236px);
     height: rem(92px);
-    //margin: 0 auto rem(30px) auto;
     text-align: center;
     color: $main_green;
     border: 1px solid $main_green;
@@ -20,23 +19,20 @@
     &.active {
       color: #fff;
       background-color: $main_green;
-
-      .window-type {
-        @include display-flex();
-      }
     }
   }
-  .window-type {
-    @include display-flex();
-    @include flex-flow(row nowrap);
-    @include roboto-lt(rem(36px), rem(72px));
-    @include top_left_coord(-30px, 170px);
 
+  .template-type {
+    @include roboto-lt(rem(36px), rem(65px));
     position: absolute;
-    white-space: nowrap;
-    color: #fff;
+    top: rem(-30px);
+    left: 75%;
+    padding: 0 rem(20px);
     border-radius: rem(16px);
     background-color: #242424;
+    color: #fff;
+    white-space: nowrap;
+    cursor: pointer;
     &:before {
       position: absolute;
       z-index: 1;
@@ -50,108 +46,59 @@
       content: '';
     }
   }
-  .balcon-config {
-    padding: 0 rem(30px);
-    border-right: 1px solid #b9b9b9;
-    cursor: pointer;
-  }
-  .window-config {
-    padding: 0 rem(30px);
-    cursor: pointer;
-  }
+
   .template-discr {
     @include roboto-lt(rem(80px));
-
     text-align: center;
     color: $main_gray_txt;
   }
+
   .template-section {
     width: rem(1500px);
     height: rem(1000px);
     text-align: center;
-    overflow: auto;
+    cursor: pointer;
   }
+
   .template-footer {
     @include display-flex();
     @include flex-flow(row nowrap);
-    @include justify-content(space-between);
+    @include justify-content(center);
   }
-  /*
-  .template-edit {
-    @extend .big-button;
-    @extend .splash;
 
-    display: block;
-    width: rem(462px);
-    height: rem(112px);
-    margin: 0 auto rem(30px) auto;
-    color: #fff;
-    background-color: $main_green;
-  }
-  */
-  .template-default {
-    @extend .middle-button;
-    @extend .splash;
-
-    display: block;
-    width: rem(318px);
-    height: rem(72px);
-    margin: 0 auto;
-    color: $main_gray_txt;
-    background-color: $main_gray_btn;
-  }
-  .other-template {
+  .other-templates {
     @include display-flex();
-    @include flex-flow(row nowrap);
-    @include align-items(center);
+    overflow-y: hidden;
+    overflow-x: auto;
+  }
 
-    min-width: rem(400px);
+  .other-template {
+    display: inline-block;
+    min-width: rem(300px);
+    margin: 0 rem(10px);
     cursor: pointer;
-    &.prev {
-      @include justify-content(flex-start);
-    }
-    &.next {
-      @include justify-content(flex-end);
-    }
   }
-  .prev-btn {
-    @extend .icon-setting;
-    @include font-general-icon(rem(35px), 0);
 
-    position: relative;
-    width: rem(80px);
-
-    &:after {
-      position: absolute;
-      color: $main_gray_btn;
-      content: $arrow-icon;
-    }
-  }
-  .next-btn {
-    @extend .prev-btn;
-    @include rotate(180deg);
-  }
   .other-template-img {
     @extend .splash;
-
     text-align: center;
     img {
       max-height: rem(123px);
     }
   }
+
   .other-template-label {
     @include roboto-lt(rem(24px));
-
     max-width: rem(150px);
     margin: rem(20px) auto 0 auto;
     text-align: center;
     word-wrap: break-word;
     color: #666;
   }
+
   .other-template-subscr {
     @extend .truncated;
     @include roboto-lt(rem(24px));
-
     max-width: rem(200px);
     margin: 0 auto;
     text-align: center;

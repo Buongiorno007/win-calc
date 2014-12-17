@@ -1,42 +1,23 @@
 .config-panel.template-container(ng-controller="TemplateSelectorCtrl", ng-class="{'active': global.showPanels.showTemplatePanel}")
   .template-inner(ng-if="global.isTemplatePanel")
     .template-header
-      button.template-title.unvisible(ng-if="global.isConstructDoor", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ 'panels.TEMPLATE_DOOR' | translate }}
-      button.template-title.unvisible(ng-if="global.isConstructBalcony", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ 'panels.TEMPLATE_BALCONY' | translate }}
-      button.template-title.unvisible(ng-if="global.isConstructWindDoor", ng-class="{'active': templatePanel.switcherTemplate}", ng-click="toggleTemplate()", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}
-        .window-type(ng-if="templatePanel.switcherTemplate")
-          .balcon-config(ng-click="turnOnTemplate('balcon')") {{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}
+      button.template-title.unvisible(ng-if="global.isConstructDoor", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ global.templateLabel }}
+      button.template-title.unvisible(ng-if="global.isConstructBalcony", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ global.templateLabel }}
+      button.template-title.unvisible(ng-if="global.isConstructWindDoor", ng-class="{'active': templatePanel.switcherTemplate}", ng-click="toggleTemplate()", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ global.templateLabel }}
+        .template-type(ng-if="templatePanel.switcherTemplate")
           .window-config(ng-click="turnOnTemplate('window')") {{ 'panels.TEMPLATE_WINDOW' | translate }}
-      button.template-title.unvisible(ng-if="global.isConstructWind", ng-class="{'active': templatePanel.switcherTemplate}", ng-click="toggleTemplate()", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ 'panels.TEMPLATE_WINDOW' | translate }}
-        .window-type(ng-if="templatePanel.switcherTemplate")
+      button.template-title.unvisible(ng-if="global.isConstructWind", ng-class="{'active': templatePanel.switcherTemplate}", ng-click="toggleTemplate()", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ global.templateLabel }}
+        .template-type(ng-if="templatePanel.switcherTemplate")
           .balcon-config(ng-click="turnOnTemplate('balcon')") {{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}
-          .window-config(ng-click="turnOnTemplate('window')") {{ 'panels.TEMPLATE_WINDOW' | translate }}
-      .template-discr {{ templatePanel.templateDescription }}
+      .template-discr.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ global.templates[global.product.templateIndex].name }}
 
     .template-section.unvisible(ng-click="gotoConstructionPage()", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}")
-      svg-template(template = "templatePanel.templateSVG", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="bigIcon")
+      svg-template(template="global.templates[global.product.templateIndex]", template-width="global.svgTemplateIconBigWidth", template-height="global.svgTemplateIconBigHeight", type-construction="bigIcon")
 
     .template-footer.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}")
-      .other-template.prev(ng-click="showTemplatePrev()")
-        .prev-btn(ng-show="templatePanel.templateQty > 1")
-        .template-prev(ng-show="templatePanel.templateQty > 1")
+      .other-templates
+        .other-template(ng-repeat="templateIcon in global.templatesIcons", ng-click="selectNewTemplate($index)")
           .other-template-img.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}")
-            svg-template(template = "templatePanel.templateIconPrev", template-width="global.svgTemplateThumbWidth", template-height="global.svgTemplateThumbHeight", type-construction="icon")
-          .other-template-label(ng-show="global.isConstructDoor") {{ 'panels.TEMPLATE_DOOR' | translate }}
-          .other-template-label(ng-show="global.isConstructWindDoor") {{ 'panels.TEMPLATE_BALCONY' | translate }}
-          .other-template-label(ng-hide="global.isConstructWindDoor") {{ 'panels.TEMPLATE_WINDOW' | translate }}
-          .other-template-subscr {{ templatePanel.templateDescriptionPrev }}
-
-      .template-setting
-        //button.template-edit.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}", ng-click="gotoConstructionPage()") {{ 'panels.TEMPLATE_EDIT' | translate }}
-        button.template-default.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}", ng-click="backDefaultTemplate()") {{ 'panels.TEMPLATE_DEFAULT' | translate }}
-
-      .other-template.next(ng-click="showTemplateNext()")
-        .template-next(ng-show="templatePanel.templateQty > 1")
-          .other-template-img.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}")
-            svg-template(template = "templatePanel.templateIconNext", template-width="global.svgTemplateThumbWidth", template-height="global.svgTemplateThumbHeight", type-construction="icon")
-          .other-template-label(ng-show="global.isConstructDoor") {{ 'panels.TEMPLATE_DOOR' | translate }}
-          .other-template-label(ng-show="global.isConstructWindDoor") {{ 'panels.TEMPLATE_BALCONY' | translate }}
-          .other-template-label(ng-hide="global.isConstructWindDoor") {{ 'panels.TEMPLATE_WINDOW' | translate }}
-          .other-template-subscr {{ templatePanel.templateDescriptionNext }}
-        .next-btn(ng-show="templatePanel.templateQty > 1")
+            svg-template(template = "templateIcon", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="icon")
+          .other-template-label.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ global.templateLabel }}
+          .other-template-subscr.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ templateIcon.name }}

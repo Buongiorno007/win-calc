@@ -29,10 +29,10 @@
   .aux-list-content
 
     // List Grids
-    .aux-list-block.aux_color_connect(ng-if="global.chosenAddElements.selectedGrids.length > 0")
+    .aux-list-block.aux_color_connect(ng-if="global.product.chosenAddElements.selectedGrids.length > 0")
       .aux-list-block-title(data-output="{{ 'add_elements.GRIDS' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
       table.aux-list-addellement
-        tr.aux-list-row(ng-repeat="addElement in global.chosenAddElements.selectedGrids track by $index")
+        tr.aux-list-row(ng-repeat="addElement in global.product.chosenAddElements.selectedGrids track by $index")
           td.aux-tablecell-name
             .aux-name
               .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(1)") )
@@ -51,11 +51,11 @@
 
 
     // List Visors
-    .aux-list-block.aux_color_big(ng-if="global.chosenAddElements.selectedVisors.length > 0")
+    .aux-list-block.aux_color_big(ng-if="global.product.chosenAddElements.selectedVisors.length > 0")
       .aux-list-block-title(data-output="{{ 'add_elements.VISORS' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
 
       table.aux-list-addellement
-        tr.aux-list-row(ng-repeat="addElement in global.chosenAddElements.selectedVisors track by $index")
+        tr.aux-list-row(ng-repeat="addElement in global.product.chosenAddElements.selectedVisors track by $index")
           td.aux-tablecell-name
             .aux-name
               .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(2)")
@@ -77,10 +77,10 @@
 
 
     // List Spillways
-    .aux-list-block.aux_color_middle(ng-if="global.chosenAddElements.selectedSpillways.length > 0")
+    .aux-list-block.aux_color_middle(ng-if="global.product.chosenAddElements.selectedSpillways.length > 0")
       .aux-list-block-title(data-output="{{ 'add_elements.SPILLWAYS' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
       table.aux-list-addellement
-        tr.aux-list-row(ng-repeat="addElement in global.chosenAddElements.selectedSpillways track by $index")
+        tr.aux-list-row(ng-repeat="addElement in global.product.chosenAddElements.selectedSpillways track by $index")
           td.aux-tablecell-name
             .aux-name
               .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(3)")
@@ -103,10 +103,10 @@
 
 
     // List OutsideSlope
-    .aux-list-block.aux_color_slope(ng-if="global.chosenAddElements.selectedOutsideSlope.length > 0")
+    .aux-list-block.aux_color_slope(ng-if="global.product.chosenAddElements.selectedOutsideSlope.length > 0")
       .aux-list-block-title(data-output="{{ 'add_elements.OUTSIDE' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
       table.aux-list-addellement
-        tr.aux-list-row(ng-repeat="addElement in global.chosenAddElements.selectedOutsideSlope track by $index")
+        tr.aux-list-row(ng-repeat="addElement in global.product.chosenAddElements.selectedOutsideSlope track by $index")
           td.aux-tablecell-name
             .aux-name
               .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(4)")
@@ -128,10 +128,10 @@
 
 
     // List Louvers
-    .aux-list-block.aux_color_middle(ng-if="global.chosenAddElements.selectedLouvers.length > 0")
+    .aux-list-block.aux_color_middle(ng-if="global.product.chosenAddElements.selectedLouvers.length > 0")
       .aux-list-block-title(data-output="{{ 'add_elements.LOUVERS' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
       table.aux-list-addellement
-        tr.aux-list-row(ng-repeat="addElement in global.chosenAddElements.selectedLouvers track by $index")
+        tr.aux-list-row(ng-repeat="addElement in global.product.chosenAddElements.selectedLouvers track by $index")
           td.aux-tablecell-name
             .aux-name
               .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(5)")
@@ -156,10 +156,10 @@
 
 
     // List InsideSlope
-    .aux-list-block.aux_color_slope(ng-if="global.chosenAddElements.selectedInsideSlope.length > 0")
+    .aux-list-block.aux_color_slope(ng-if="global.product.chosenAddElements.selectedInsideSlope.length > 0")
       .aux-list-block-title(data-output="{{ 'add_elements.INSIDE' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
       table.aux-list-addellement
-        tr.aux-list-row(ng-repeat="addElement in global.chosenAddElements.selectedInsideSlope track by $index")
+        tr.aux-list-row(ng-repeat="addElement in global.product.chosenAddElements.selectedInsideSlope track by $index")
           td.aux-tablecell-name
             .aux-name
               .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(6)")
@@ -181,10 +181,10 @@
 
 
     // List Connectors
-    .aux-list-block.aux_color_connect(ng-if="global.chosenAddElements.selectedConnectors.length > 0")
+    .aux-list-block.aux_color_connect(ng-if="global.product.chosenAddElements.selectedConnectors.length > 0")
       .aux-list-block-title(data-output="{{ 'add_elements.CONNECTORS' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
       table.aux-list-addellement
-        tr.aux-list-row(ng-repeat="addElement in global.chosenAddElements.selectedConnectors track by $index")
+        tr.aux-list-row(ng-repeat="addElement in global.product.chosenAddElements.selectedConnectors track by $index")
           td.aux-tablecell-name
             .aux-name
               .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(7)")
@@ -206,10 +206,10 @@
 
 
     // List Fans
-    .aux-list-block.aux_color_small(ng-if="global.chosenAddElements.selectedFans.length > 0")
+    .aux-list-block.aux_color_small(ng-if="global.product.chosenAddElements.selectedFans.length > 0")
       .aux-list-block-title(data-output="{{ 'add_elements.FAN' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
       table.aux-list-addellement
-        tr.aux-list-row(ng-repeat="addElement in global.chosenAddElements.selectedFans track by $index")
+        tr.aux-list-row(ng-repeat="addElement in global.product.chosenAddElements.selectedFans track by $index")
           td.aux-tablecell-name
             .aux-name
               .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(8)")
@@ -228,10 +228,10 @@
 
 
     // List WindowSill
-    .aux-list-block.aux_color_big(ng-if="global.chosenAddElements.selectedWindowSill.length > 0")
+    .aux-list-block.aux_color_big(ng-if="global.product.chosenAddElements.selectedWindowSill.length > 0")
       .aux-list-block-title(data-output="{{ 'add_elements.WINDOWSILLS' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
       table.aux-list-addellement
-        tr.aux-list-row(ng-repeat="addElement in global.chosenAddElements.selectedWindowSill track by $index")
+        tr.aux-list-row(ng-repeat="addElement in global.product.chosenAddElements.selectedWindowSill track by $index")
           td.aux-tablecell-name
             .aux-name
               .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(9)")
@@ -258,10 +258,10 @@
 
 
     // List Handles
-    .aux-list-block.aux_color_middle(ng-if="global.chosenAddElements.selectedHandles.length > 0")
+    .aux-list-block.aux_color_middle(ng-if="global.product.chosenAddElements.selectedHandles.length > 0")
       .aux-list-block-title(data-output="{{ 'add_elements.HANDLELS' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
       table.aux-list-addellement
-        tr.aux-list-row(ng-repeat="addElement in global.chosenAddElements.selectedHandles track by $index")
+        tr.aux-list-row(ng-repeat="addElement in global.product.chosenAddElements.selectedHandles track by $index")
           td.aux-tablecell-name
             .aux-name
               .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(10)")
@@ -281,10 +281,10 @@
 
 
     // List Others
-    .aux-list-block.aux_color_middle(ng-if="global.chosenAddElements.selectedOthers.length > 0")
+    .aux-list-block.aux_color_middle(ng-if="global.product.chosenAddElements.selectedOthers.length > 0")
       .aux-list-block-title(data-output="{{ 'add_elements.OTHERS' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
       table.aux-list-addellement
-        tr.aux-list-row(ng-repeat="addElement in global.chosenAddElements.selectedOthers track by $index")
+        tr.aux-list-row(ng-repeat="addElement in global.product.chosenAddElements.selectedOthers track by $index")
           td.aux-tablecell-name
             .aux-name
               .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(11)")

@@ -13,23 +13,10 @@ BauVoiceApp.controller('ProfileCtrl', ['$scope', 'constructService', 'localStora
     DELAY_START: 5 * STEP,
     DELAY_BLOCK: 2 * STEP,
     DELAY_TYPING: 2.5 * STEP,
-    isSelectedProducer: 0,
-    isSelectedProfile: 0,
     typing: 'on'
   };
-/*
-  constructService.getAllProfileSystems(function (results) {
-    if (results.status) {
-      $scope.profilePanel.producers = results.data[0].folder;
-      $scope.profilePanel.profiles = results.data[0].profiles;
-      console.log($scope.profilePanel.profiles);
-      console.log($scope.profilePanel.producers);
-      //$scope.$apply();
-    } else {
-      console.log(results);
-    }
-  });
-  */
+
+//TODO убрать, и взять данные из global.profiles
   constructService.getAllProfiles(function (results) {
     if (results.status) {
       $scope.profilePanel.producers = results.data.producers;
@@ -40,23 +27,32 @@ BauVoiceApp.controller('ProfileCtrl', ['$scope', 'constructService', 'localStora
   });
 
   // Select profile
-  $scope.selectProfile = function(producerId, profileIndex, profileId) {
-    $scope.profilePanel.isSelectedProducer = producerId;
-    $scope.profilePanel.isSelectedProfile = profileIndex;
-
-    var selectedProfile = $scope.profilePanel.profiles[producerId][profileIndex];
+  $scope.selectProfile = function(producerIndex, profileIndex, profileId) {
+    $scope.global.product.profileTypeIndex = producerIndex;
+    $scope.global.product.profileIndex = profileIndex;
+    var selectedProfile = $scope.profilePanel.profiles[producerIndex][profileIndex];
     $scope.global.product.profileId = profileId;
     $scope.global.product.profileName = selectedProfile.profileDescrip;
     $scope.global.product.profileHeatCoeff = selectedProfile.heatCoeff;
     $scope.global.product.profileAirCoeff = selectedProfile.airCoeff;
     //---- find profile index
-    for(var pr = 0; pr < $scope.global.product.profiles.length; pr++) {
-      if($scope.global.product.profiles[pr].id === profileId) {
-        $scope.global.profileIndex = pr;
+    for(var pr = 0; pr < $scope.global.profiles.length; pr++) {
+      if($scope.global.profiles[pr].id === profileId) {
+        $scope.global.product.profileIndex = pr;
       }
     }
 
-    $scope.global.parseTemplate($scope.global.profileIndex, profileId);
+    //-------- clearing for new templates
+    $scope.global.templatesWindList.length = 0;
+    $scope.global.templatesWindIconList.length = 0;
+    $scope.global.templatesWindDoorList.length = 0;
+    $scope.global.templatesWindDoorIconList.length = 0;
+    $scope.global.templatesBalconyList.length = 0;
+    $scope.global.templatesBalconyIconList.length = 0;
+    $scope.global.templatesDoorList.length = 0;
+    $scope.global.templatesDoorIconList.length = 0;
+
+    $scope.global.parseTemplate($scope.global.product.profileIndex, profileId);
   };
 
 }]);

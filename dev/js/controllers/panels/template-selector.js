@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$location', 'localStorage', function ($scope, constructService, $location, localStorage) {
+BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localStorage', '$filter', function ($scope, $location, localStorage, $filter) {
 
   $scope.global = localStorage;
 
@@ -12,157 +12,121 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', 'constructService', '$
     typing: 'on'
   };
 
+  //---------- select new template and recalculate it price
+  $scope.selectNewTemplate = function(templateIndex) {
 
-  //------ click on top Window button
+    if($scope.global.isChangedTemplate) {
+    //----- если выбран новый шаблон после изменения предыдущего
+      if(confirm($filter('translate')('common_words.TEMPLATE_CHANGES_LOST'))) {
+        //------ change last changed template to old one
+        $scope.backDefaultTemplate();
+        $scope.global.isChangedTemplate = false;
+        $scope.newPriceForNewTemplate(templateIndex);
+      }
+
+    } else {
+      $scope.newPriceForNewTemplate(templateIndex);
+    }
+  };
+
+  $scope.newPriceForNewTemplate = function(templateIndex) {
+    event.preventDefault();
+    if(!$scope.global.isFindPriceProcess) {
+      $scope.global.isFindPriceProcess = true;
+      $scope.global.product.templateIndex = templateIndex;
+      $scope.saveNewTemplateInProduct();
+      //------ define product price
+      $scope.global.createObjXFormedPrice($scope.global.templates[templateIndex], $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
+    }
+  };
+
+  $scope.saveNewTemplateInProduct = function() {
+    $scope.global.product.templateSource = angular.copy($scope.global.templatesSource[$scope.global.product.templateIndex]);
+    $scope.global.product.templateDefault = angular.copy($scope.global.templates[$scope.global.product.templateIndex]);
+    $scope.global.product.templateIcon = angular.copy($scope.global.templatesIcons[$scope.global.product.templateIndex]);
+  };
+
+  //------ click on top button to change template type
   $scope.toggleTemplate = function() {
     $scope.templatePanel.switcherTemplate = !$scope.templatePanel.switcherTemplate;
   };
+
   //------- Select Window/Balcony Entry Template
   $scope.turnOnTemplate = function(marker) {
-    if(marker === 'balcon') {
-      $scope.global.isConstructWindDoor = true;
-      $scope.global.isConstructWind = false;
-    } else if(marker === 'window') {
-      $scope.global.isConstructWindDoor = false;
-      $scope.global.isConstructWind = true;
+
+    if($scope.global.isChangedTemplate) {
+      //----- если выбран новый шаблон после изменения предыдущего
+      if(confirm($filter('translate')('common_words.TEMPLATE_CHANGES_LOST'))) {
+        //------ change last changed template to old one
+        $scope.backDefaultTemplate();
+        $scope.global.isChangedTemplate = false;
+
+        if(marker === 'balcon') {
+          $scope.global.isConstructWindDoor = true;
+          $scope.global.isConstructWind = false;
+        } else if(marker === 'window') {
+          $scope.global.isConstructWindDoor = false;
+          $scope.global.isConstructWind = true;
+        }
+        $scope.templatePanel.switcherTemplate = false;
+        $scope.global.product.templateIndex = 0;
+        $scope.global.getCurrentTemplates();
+        $scope.saveNewTemplateInProduct();
+        //------ define product price
+        $scope.global.createObjXFormedPrice($scope.global.templates[$scope.global.product.templateIndex], $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
+
+      }
+
+    } else {
+
+      if(marker === 'balcon') {
+        $scope.global.isConstructWindDoor = true;
+        $scope.global.isConstructWind = false;
+      } else if(marker === 'window') {
+        $scope.global.isConstructWindDoor = false;
+        $scope.global.isConstructWind = true;
+      }
+      $scope.templatePanel.switcherTemplate = false;
+      $scope.global.product.templateIndex = 0;
+      $scope.global.getCurrentTemplates();
+      $scope.saveNewTemplateInProduct();
+      //------ define product price
+      $scope.global.createObjXFormedPrice($scope.global.templates[$scope.global.product.templateIndex], $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
+
     }
-    $scope.templatePanel.switcherTemplate = false;
-    $scope.global.templateIndex = 0;
-    $scope.global.initTemplates();
+
   };
 
+
   $scope.gotoConstructionPage = function () {
-    //console.log('template');
-    //console.log($scope.global.templateSource);
     $location.path('/construction');
   };
 
   //------- return to the initial template
   $scope.backDefaultTemplate = function() {
-    $scope.templatePanel.switcherTemplate = false;
-
     if($scope.global.isConstructDoor) {
-      $scope.global.templatesDoorSource[$scope.global.templateIndex] = angular.copy($scope.global.templatesDoorSTORE[$scope.global.templateIndex]);
-      $scope.global.templatesDoorList[$scope.global.templateIndex] = angular.copy($scope.global.templatesDoorListSTORE[$scope.global.templateIndex]);
-      $scope.global.templatesDoorThumbList[$scope.global.templateIndex] = angular.copy($scope.global.templatesDoorThumbListSTORE[$scope.global.templateIndex]);
+      $scope.global.templatesDoorSource[$scope.global.product.templateIndex] = angular.copy($scope.global.templatesDoorSTORE[$scope.global.product.templateIndex]);
+      $scope.global.templatesDoorList[$scope.global.product.templateIndex] = angular.copy($scope.global.templatesDoorListSTORE[$scope.global.product.templateIndex]);
+      $scope.global.templatesDoorIconList[$scope.global.product.templateIndex] = angular.copy($scope.global.templatesDoorIconListSTORE[$scope.global.product.templateIndex]);
     } else if($scope.global.isConstructBalcony) {
-      $scope.global.templatesBalconySource[$scope.global.templateIndex] = angular.copy($scope.global.templatesBalconySTORE[$scope.global.templateIndex]);
-      $scope.global.templatesBalconyList[$scope.global.templateIndex] = angular.copy($scope.global.templatesBalconyListSTORE[$scope.global.templateIndex]);
-      $scope.global.templatesBalconyThumbList[$scope.global.templateIndex] = angular.copy($scope.global.templatesBalconyThumbListSTORE[$scope.global.templateIndex]);
+      $scope.global.templatesBalconySource[$scope.global.product.templateIndex] = angular.copy($scope.global.templatesBalconySTORE[$scope.global.product.templateIndex]);
+      $scope.global.templatesBalconyList[$scope.global.product.templateIndex] = angular.copy($scope.global.templatesBalconyListSTORE[$scope.global.product.templateIndex]);
+      $scope.global.templatesBalconyIconList[$scope.global.product.templateIndex] = angular.copy($scope.global.templatesBalconyIconListSTORE[$scope.global.product.templateIndex]);
     } else if($scope.global.isConstructWindDoor) {
-      $scope.global.templatesWindDoorSource[$scope.global.templateIndex] = angular.copy($scope.global.templatesWindDoorSTORE[$scope.global.templateIndex]);
-      $scope.global.templatesWindDoorList[$scope.global.templateIndex] = angular.copy($scope.global.templatesWindDoorListSTORE[$scope.global.templateIndex]);
-      $scope.global.templatesWindDoorThumbList[$scope.global.templateIndex] = angular.copy($scope.global.templatesWindDoorThumbListSTORE[$scope.global.templateIndex]);
+      $scope.global.templatesWindDoorSource[$scope.global.product.templateIndex] = angular.copy($scope.global.templatesWindDoorSTORE[$scope.global.product.templateIndex]);
+      $scope.global.templatesWindDoorList[$scope.global.product.templateIndex] = angular.copy($scope.global.templatesWindDoorListSTORE[$scope.global.product.templateIndex]);
+      $scope.global.templatesWindDoorIconList[$scope.global.product.templateIndex] = angular.copy($scope.global.templatesWindDoorIconListSTORE[$scope.global.product.templateIndex]);
     } else if($scope.global.isConstructWind){
-      $scope.global.templatesWindSource[$scope.global.templateIndex] = angular.copy($scope.global.templatesWindSTORE[$scope.global.templateIndex]);
-      $scope.global.templatesWindList[$scope.global.templateIndex] = angular.copy($scope.global.templatesWindListSTORE[$scope.global.templateIndex]);
-      $scope.global.templatesWindThumbList[$scope.global.templateIndex] = angular.copy($scope.global.templatesWindThumbListSTORE[$scope.global.templateIndex]);
-    }
-
-    $scope.global.initTemplates();
-  };
-
-  //=========== Templates Slider
-
-  $scope.global.initTemplates = function() {
-    var prevTemplateId = $scope.global.templateIndex - 1,
-        nextTemplateId = $scope.global.templateIndex + 1;
-
-    if($scope.global.isConstructDoor) {
-      $scope.templatePanel.templates = $scope.global.templatesDoorList;
-      $scope.templatePanel.templatesIcons = $scope.global.templatesDoorThumbList;
-      $scope.templatePanel.templateQty = $scope.global.templatesDoorList.length - 1;
-    } else if($scope.global.isConstructBalcony) {
-      $scope.templatePanel.templates = $scope.global.templatesBalconyList;
-      $scope.templatePanel.templatesIcons = $scope.global.templatesBalconyThumbList;
-      $scope.templatePanel.templateQty = $scope.global.templatesBalconyList.length - 1;
-    } else if($scope.global.isConstructWindDoor) {
-      $scope.templatePanel.templates = $scope.global.templatesWindDoorList;
-      $scope.templatePanel.templatesIcons = $scope.global.templatesWindDoorThumbList;
-      $scope.templatePanel.templateQty = $scope.global.templatesWindDoorList.length - 1;
-    } else if($scope.global.isConstructWind){
-      $scope.templatePanel.templates = $scope.global.templatesWindList;
-      $scope.templatePanel.templatesIcons = $scope.global.templatesWindThumbList;
-      $scope.templatePanel.templateQty = $scope.global.templatesWindList.length - 1;
-    }
-
-    if(prevTemplateId < 0) {
-      prevTemplateId = $scope.templatePanel.templateQty;
-    }
-    if(nextTemplateId > $scope.templatePanel.templateQty) {
-      nextTemplateId = 0;
-    }
-
-    $scope.templatePanel.templateDescription = $scope.templatePanel.templates[$scope.global.templateIndex].name;
-    $scope.templatePanel.templateSVG = $scope.templatePanel.templates[$scope.global.templateIndex];
-
-    $scope.templatePanel.templateIconPrev = $scope.templatePanel.templatesIcons[prevTemplateId];
-    $scope.templatePanel.templateDescriptionPrev = $scope.templatePanel.templates[prevTemplateId].name;
-    $scope.templatePanel.templateIconNext = $scope.templatePanel.templatesIcons[nextTemplateId];
-    $scope.templatePanel.templateDescriptionNext = $scope.templatePanel.templates[nextTemplateId].name;
-
-    $scope.selectNewTemplate();
-  };
-
-
-  //--------- click on prev template
-  $scope.showTemplatePrev = function() {
-    event.preventDefault();
-    if(!$scope.global.isFindPriceProcess) {
-      $scope.global.isFindPriceProcess = true;
-      $scope.global.templateIndex -= 1;
-      if($scope.global.templateIndex < 0) {
-        $scope.global.templateIndex = $scope.templatePanel.templateQty;
-      }
-
-      $scope.global.initTemplates();
-    }
-  };
-  //--------- click on next template
-  $scope.showTemplateNext = function() {
-    event.preventDefault();
-    if(!$scope.global.isFindPriceProcess) {
-      $scope.global.isFindPriceProcess = true;
-      $scope.global.templateIndex += 1;
-      if ($scope.global.templateIndex > $scope.templatePanel.templateQty) {
-        $scope.global.templateIndex = 0;
-      }
-      $scope.global.initTemplates();
+      $scope.global.templatesWindSource[$scope.global.product.templateIndex] = angular.copy($scope.global.templatesWindSTORE[$scope.global.product.templateIndex]);
+      $scope.global.templatesWindList[$scope.global.product.templateIndex] = angular.copy($scope.global.templatesWindListSTORE[$scope.global.product.templateIndex]);
+      $scope.global.templatesWindIconList[$scope.global.product.templateIndex] = angular.copy($scope.global.templatesWindIconListSTORE[$scope.global.product.templateIndex]);
     }
   };
 
-  //---------- select new template and recalculate it price
-  $scope.selectNewTemplate = function() {
-
-    if($scope.global.isConstructDoor) {
-      $scope.global.templateSource = $scope.global.templatesDoorSource[$scope.global.templateIndex];
-      $scope.global.templateDefault = $scope.global.templatesDoorList[$scope.global.templateIndex];
-      $scope.global.product.constructThumb = $scope.global.templatesDoorThumbList[$scope.global.templateIndex];
-    } else if($scope.global.isConstructBalcony) {
-      $scope.global.templateSource = $scope.global.templatesBalconySource[$scope.global.templateIndex];
-      $scope.global.templateDefault = $scope.global.templatesBalconyList[$scope.global.templateIndex];
-      $scope.global.product.constructThumb = $scope.global.templatesBalconyThumbList[$scope.global.templateIndex];
-    } else if($scope.global.isConstructWindDoor) {
-      $scope.global.templateSource = $scope.global.templatesWindDoorSource[$scope.global.templateIndex];
-      $scope.global.templateDefault = $scope.global.templatesWindDoorList[$scope.global.templateIndex];
-      $scope.global.product.constructThumb = $scope.global.templatesWindDoorThumbList[$scope.global.templateIndex];
-    } else if($scope.global.isConstructWind){
-      $scope.global.templateSource = $scope.global.templatesWindSource[$scope.global.templateIndex];
-      $scope.global.templateDefault = $scope.global.templatesWindList[$scope.global.templateIndex];
-      $scope.global.product.constructThumb = $scope.global.templatesWindThumbList[$scope.global.templateIndex];
-    }
-    //------ define product price
-    $scope.global.createObjXFormedPrice($scope.global.templateDefault, $scope.global.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
-  };
-
-
-  //------- запускаем карусель шаблонов после как изменили размеры
-  if($scope.global.isReturnFromConstructionPage) {
-    $scope.global.initTemplates();
-    $scope.global.isReturnFromConstructionPage = false;
+  //-------- change price if template was changed
+  if($scope.global.isChangedTemplate) {
+    $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
+    $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
   }
-  if($scope.global.isAddNewProductInOrder) {
-    $scope.global.initTemplates();
-    $scope.global.isAddNewProductInOrder = false;
-  }
+
 }]);

@@ -32,7 +32,6 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
     typing: 'on'
   };
 
-
   //------- Calendar
 
   var minDays = 2,
@@ -68,7 +67,8 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
       $scope.cartMenuData.datePriceMore = false;
       $scope.cartMenuData.isOldPrice = false;
     }
-    $scope.global.newDeliveryDate = newday;
+    //$scope.global.newDeliveryDate = newday;
+    $scope.global.order.deliveryDate = newday;
     $scope.global.calculateTotalOrderPrice();
   };
 

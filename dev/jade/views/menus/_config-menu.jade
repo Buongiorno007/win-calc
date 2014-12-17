@@ -3,10 +3,10 @@
     li.item.item-header(ng-class="{'active': global.showPanels.showTemplatePanel}", ng-click="selectTemplatePanel()")
       .title(data-output="{{ 'mainpage.CONFIGMENU_CONFIGURATION' | translate }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
       .icon.unvisible(ng-if="global.isConfigMenu", show-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
-        svg-template(template="global.product.constructThumb", template-width="global.svgTemplateThumbWidth", template-height="global.svgTemplateThumbHeight", type-construction="icon")
+        svg-template(template="global.product.templateIcon", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="icon")
       .name(data-output="{{ 'mainpage.CONFIGMENU_SIZING' | translate }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
-      .value(data-output="{{ global.product.constructionWidth }} {{ 'mainpage.MM' | translate }} *", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
-      .value(data-output="{{ global.product.constructionHeight }} {{ 'mainpage.MM' | translate }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
+      .value(data-output="{{ global.product.templateWidth }} {{ 'mainpage.MM' | translate }} *", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
+      .value(data-output="{{ global.product.templateHeight }} {{ 'mainpage.MM' | translate }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
     li.item(ng-class="{'active': global.showPanels.showProfilePanel}", ng-click="selectProfilePanel()")
       .title(data-output="{{ 'mainpage.CONFIGMENU_PROFILE' | translate }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
       .value(data-output="{{ global.product.profileName }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
@@ -19,16 +19,18 @@
     li.item(ng-class="{'active': global.showPanels.showLaminationPanel}", ng-click="selectLaminationPanel()")
       .title(data-output="{{ 'mainpage.CONFIGMENU_LAMINATION' | translate }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
       .name(data-output="{{ 'mainpage.CONFIGMENU_LAMINATION_TYPE' | translate }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
-      .value(data-output="{{ global.product.laminationOuter }} / {{ global.product.laminationInner }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
+      .value(data-output="{{ global.product.laminationOutName }} / {{ global.product.laminationInName }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
     li.item(ng-class="{'active': global.showPanels.showAddElementsPanel}", ng-click="selectAddElementsPanel()")
       .title(data-output="{{ 'mainpage.CONFIGMENU_ADDITIONAL' | translate }}", typing="{{ configMenu.typing }}", typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}")
       .additional-items-list
-        ul.additional-items-group(ng-repeat="addElementGroup in global.chosenAddElements")
+        ul.additional-items-group(ng-repeat="addElementGroup in global.product.chosenAddElements")
           li.additional-item(ng-repeat="addElement in addElementGroup", ng-init="dubleTyping()")
             span.value(data-output="") {{ addElement.elementName }}
             //span.name.aside(data-output="")
 
   footer.menu-footer.unvisible(ng-if="global.isConfigMenu", show-delay="{{ configMenu.DELAY_SHOW_FOOTER }}")
-    price(price-value="global.product.productPrice", price-currency="global.currency")
-    button.cart-btn(ng-click="global.inputProductInOrder(); movetoCart()") {{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
-      .qty.unvisible(ng-if="global.productCounter && global.productCounter > 0 && !global.isCreatedNewProject", show-delay="{{ configMenu.DELAY_START }}") {{ global.productCounter }}
+    price(price-value="global.product.productPriceTOTAL", price-currency="global.currency")
+    button.cart-btn(ng-if="!global.productEditNumber", ng-click="global.inputProductInOrder(); movetoCart()") {{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
+      .qty.unvisible(ng-if="global.order.products.length > 0 && !global.isCreatedNewProject", show-delay="{{ configMenu.DELAY_START }}") {{ global.order.products.length }}
+    button.cart-btn(ng-if="global.productEditNumber > 0", ng-click="global.inputProductInOrder(); movetoCart()") {{ 'settings.SAVE' | translate }}
+      .qty.unvisible(ng-if="global.order.products.length > 0 && !global.isCreatedNewProject", show-delay="{{ configMenu.DELAY_START }}") {{ global.order.products.length }}

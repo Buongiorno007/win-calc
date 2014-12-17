@@ -150,15 +150,7 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "type": "INTEGER",
       "null": "NOT NULL"
     },
-    "componentsId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
-    },
-    "property":{
-      "type": "TEXT",
-      "null": "NOT NULL"
-    },
-    "value":{
+    "template":{
       "type": "TEXT",
       "null": "NOT NULL"
     }

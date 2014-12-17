@@ -22,14 +22,14 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
   $scope.checkingForNewOrder = function() {
     if ($scope.global.isCreatedNewProject) {
       //----------- create order number for new project
-      $scope.global.orderNumber = Math.floor((Math.random() * 100000));
+      $scope.global.order.orderId = Math.floor((Math.random() * 100000));
       //$scope.global.isCreatedNewProject = false;
       $scope.global.productCounter = false;
       //console.log('navmenu NEW - ' + $scope.global.isCreatedNewProject);
-      //console.log('navmenu NEW orderNumber - ' + $scope.global.orderNumber);
+      //console.log('navmenu NEW orderNumber - ' + $scope.global.order.orderIdorder.orderId);
     } else {
-      //console.log('navmenu OLD - ' + $scope.global.orderNumber);
-      localDB.selectDB($scope.global.productsTableBD, {'orderId': $scope.global.orderNumber}, function (results) {
+      //console.log('navmenu OLD - ' + $scope.global.order.orderIdorder.orderId);
+      localDB.selectDB($scope.global.productsTableBD, {'orderId': $scope.global.order.orderId}, function (results) {
         if (results.status) {
           $scope.global.productCounter = results.data.length;
         } else {
@@ -231,7 +231,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
   $scope.global.insertOrderInLocalDB = function(newOptions, orderType, orderStyle) {
 
     $scope.orderData = {
-      "orderId": $scope.global.orderNumber,
+      "orderId": $scope.global.order.orderId,
       "orderType": orderType,
       "orderStyle": orderStyle,
       "productsQty": $scope.global.productCounter,
