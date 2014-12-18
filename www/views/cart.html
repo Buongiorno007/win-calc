@@ -10,7 +10,7 @@
           <li ng-class="{'selected': navMenu.activeMenuItem==2}" ng-click="selectMenuItemTimeOut(2); getCurrentGeolocation()" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 2) }}" class="nav-icon-geoLocation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CURRENT_GEOLOCATION' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 2) }}" class="title"></span></div>
           </li>
-          <li ng-class="{'selected': navMenu.activeMenuItem==3}" ng-click="selectMenuItemTimeOut(3)" class="item">
+          <li class="item">
             <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 3) }}" class="nav-icon-location unvisible"></span><span data-output="{{ global.currentGeoLocation.cityName }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 3) }}" class="title"></span></div>
           </li>
           <!--li.item(ng-if="global.prevGeoLocation", ng-class="{'selected': navMenu.activeMenuItem==4}", ng-click="selectMenuItemTimeOut(4); setCurrentGeoLocation()")
@@ -73,7 +73,6 @@
           </div>
           <div class="order-block">
             <div ng-repeat="product in global.productObj" class="order">
-              <!--button.order-delete(ng-click="deleteProduct(product.productId, $index)")-->
               <button ng-click="clickDeleteProduct(product.productId, $index)" class="order-delete"></button>
               <div ng-switch="product.roomId" ng-click="editProduct(product.productId)" class="order-header"><img ng-switch-when="1" ng-src="img/rooms-dialog/kitchen.jpg" class="order-header-fon"><img ng-switch-when="2" ng-src="img/rooms-dialog/livingroom.jpg" class="order-header-fon"><img ng-switch-when="3" ng-src="img/rooms-dialog/balcony.jpg" class="order-header-fon"><img ng-switch-when="4" ng-src="img/rooms-dialog/childroom.jpg" class="order-header-fon"><img ng-switch-when="5" ng-src="img/rooms-dialog/bedroom.jpg" class="order-header-fon"><img ng-switch-when="6" ng-src="img/rooms-dialog/door.jpg" class="order-header-fon">
                 <div class="order-template">

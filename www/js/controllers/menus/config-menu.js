@@ -262,7 +262,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     //================= Check new Product
     } else if($scope.global.isCreatedNewProject) {
 
-      //------- create new product
+      //------- create new empty product
       $scope.global.product = angular.copy($scope.global.productSource);
 
       //------- create order date
@@ -758,9 +758,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   $scope.global.inputProductInOrder = function() {
 
     var productData,
-        templateData,
-        addElementsData,
         productIndex,
+        addElementsData = {},
         addElementsObj = $scope.global.product.chosenAddElements;
 
     //=========== if no EDIT product
@@ -782,61 +781,55 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       productData = {
         "orderId": $scope.global.order.orderId,
         "productId": productIndex,
+        "addElementsOnly": $scope.global.product.isAddElementsONLY,
         "roomId": $scope.global.product.selectedRoomId,
         "heatCoeff": $scope.global.product.heatTransferTOTAL,
         "airCoeff": $scope.global.product.airCirculationTOTAL,
-        "addElementsOnly": $scope.global.isAddElementsONLY,
-        'templateName': $scope.global.product.templateSource.name,
+
         "templateIndex": $scope.global.product.templateIndex,
-        "productWidth": $scope.global.product.templateWidth,
-        "productHeight": $scope.global.product.templateHeight,
-        "profileId": $scope.global.product.profileId,
+        'templateName': $scope.global.product.templateSource.name,
+        "templateWidth": $scope.global.product.templateWidth,
+        "templateHeight": $scope.global.product.templateHeight,
+        "templateSource": JSON.stringify($scope.global.product.templateSource),
+
+        "profileTypeIndex": $scope.global.product.profileTypeIndex,
         "profileIndex": $scope.global.product.profileIndex,
+        "profileId": $scope.global.product.profileId,
         "profileName": $scope.global.product.profileName,
+        "profileHeatCoeff": $scope.global.product.profileHeatCoeff,
+        "profileAirCoeff": $scope.global.product.profileAirCoeff,
+
+        "glassTypeIndex": $scope.global.product.glassTypeIndex,
+        "glassIndex": $scope.global.product.glassIndex,
         "glassId": $scope.global.product.glassId,
         "glassName": $scope.global.product.glassName,
+        "glassHeatCoeff": $scope.global.product.glassHeatCoeff,
+        "glassAirCoeff": $scope.global.product.glassAirCoeff,
+
+        "hardwareTypeIndex": $scope.global.product.hardwareTypeIndex,
+        "hardwareIndex": $scope.global.product.hardwareIndex,
         "hardwareId": $scope.global.product.hardwareId,
         "hardwareName": $scope.global.product.hardwareName,
-        "laminationOutId": $scope.global.product.laminationOuterId,
+        "hardwareHeatCoeff": $scope.global.product.hardwareHeatCoeff,
+        "hardwareAirCoeff": $scope.global.product.hardwareAirCoeff,
+
+        "laminationOutIndex": $scope.global.product.laminationOutIndex,
         "laminationOutName": $scope.global.product.laminationOutName,
-        "laminationInId": $scope.global.product.laminationInnerId,
+        "laminationOutPrice": parseFloat($scope.global.product.laminationOutPrice.toFixed(2)),
+        "laminationInIndex": $scope.global.product.laminationInnerId,
         "laminationInName": $scope.global.product.laminationInName,
+        "laminationInPrice": parseFloat($scope.global.product.laminationInPrice.toFixed(2)),
+
+        "templatePrice": parseFloat($scope.global.product.templatePriceSELECT.toFixed(2)),
+        "hardwarePrice": parseFloat($scope.global.product.hardwarePriceSELECT.toFixed(2)),
+        "laminationPrice": parseFloat($scope.global.product.laminationPriceSELECT.toFixed(2)),
         "addElementsPrice": parseFloat($scope.global.product.addElementsPriceSELECT.toFixed(2)),
-        "productPrice": parseFloat($scope.global.product.productPriceTOTAL.toFixed(2)),
+        "productPriceTOTAL": parseFloat($scope.global.product.productPriceTOTAL.toFixed(2)),
         "productQty": 1
       };
 
       localDB.insertDB($scope.global.productsTableBD, productData);
 
-
-      //--------- insert construction into local DB
-      templateData = {
-        "orderId": $scope.global.order.orderId,
-        "productId": productIndex,
-        "template": JSON.stringify($scope.global.product.templateSource)
-      };
-      localDB.insertDB($scope.global.componentsTableBD, templateData);
-
-      /*
-      var componentCount = 1;
-      for(var part = 0; part < $scope.global.product.templateSource.objects.length; part++) {
-        for(var prop in $scope.global.product.templateSource.objects[part]) {
-          if (!$scope.global.product.templateSource.objects[part].hasOwnProperty(prop)) {
-            continue;
-          } else {
-            constructionData = {
-              "orderId": $scope.global.order.orderId,
-              "productId": productIndex,
-              "componentsId": componentCount,
-              "property": prop,
-              "value": $scope.global.product.templateSource.objects[part][prop]
-            };
-            localDB.insertDB($scope.global.componentsTableBD, constructionData);
-          }
-        }
-        componentCount++;
-      }
-*/
 
       //--------- insert additional elements into local DB
       for(var prop in addElementsObj) {
@@ -1004,28 +997,55 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
         }
       }
 
-
-
-
-
-
     } else {
+      //-------- replace product in order LocalStorage
+      for(var prod = 0; prod < $scope.global.order.products.length; prod++) {
+        if(prod === $scope.global.productEditNumber) {
+          $scope.global.order.products[prod] = angular.copy($scope.global.product);
+        }
+      }
 
-
-      //localDB.deleteDB($scope.global.productsTableBD, options);
     }
-
 
   };
 
+
   //--------- moving to Cart when click on Cart button
   $scope.movetoCart = function() {
-
     $timeout(function(){
       $scope.global.gotoCartPage();
     }, 18*STEP);
   };
 
+  /*
+   //--------- insert construction into local DB
+   templateData = {
+   "orderId": $scope.global.order.orderId,
+   "productId": productIndex,
+   "template": JSON.stringify($scope.global.product.templateSource)
+   };
+   localDB.insertDB($scope.global.componentsTableBD, templateData);
+
+
+   var componentCount = 1;
+   for(var part = 0; part < $scope.global.product.templateSource.objects.length; part++) {
+   for(var prop in $scope.global.product.templateSource.objects[part]) {
+   if (!$scope.global.product.templateSource.objects[part].hasOwnProperty(prop)) {
+   continue;
+   } else {
+   constructionData = {
+   "orderId": $scope.global.order.orderId,
+   "productId": productIndex,
+   "componentsId": componentCount,
+   "property": prop,
+   "value": $scope.global.product.templateSource.objects[part][prop]
+   };
+   localDB.insertDB($scope.global.componentsTableBD, constructionData);
+   }
+   }
+   componentCount++;
+   }
+   */
 
   $scope.global.productInit();
 

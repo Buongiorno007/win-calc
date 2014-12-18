@@ -15,7 +15,6 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
           .order-block
 
             .order(ng-repeat="product in global.productObj")
-              //button.order-delete(ng-click="deleteProduct(product.productId, $index)")
               button.order-delete(ng-click="clickDeleteProduct(product.productId, $index)")
               .order-header(ng-switch="product.roomId", ng-click="editProduct(product.productId)")
                 img.order-header-fon(ng-switch-when="1", ng-src="img/rooms-dialog/kitchen.jpg")

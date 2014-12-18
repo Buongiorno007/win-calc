@@ -21,13 +21,11 @@ BauVoiceApp.factory('localStorage', function () {
     //---- чтобы не создавался черновик при запуске проги
     startProgramm: true,
     isCreatedNewProject: true,
-    productEditNumber: false,
     isOpenedCartPage: false,
-    isAddElementsONLY: false,
     isFindPriceProcess: false,
 
-    //-------- defined default profile index
-
+    productEditNumber: false,
+    orderEditNumber: false,
 
 
     //------- Templates
@@ -90,6 +88,7 @@ BauVoiceApp.factory('localStorage', function () {
     },
 
     productSource: {
+      isAddElementsONLY: false,
       selectedRoomId: 4,
 
       templateIndex: 0,
@@ -224,7 +223,7 @@ BauVoiceApp.factory('localStorage', function () {
 //------ WebSQL DB table names
     //--- Local
     productsTableBD: 'products',
-    componentsTableBD: 'construction_parts',
+    //componentsTableBD: 'construction_parts',
     gridsTableBD: 'grids',
     visorsTableBD: 'visors',
     spillwaysTableBD: 'spillways',

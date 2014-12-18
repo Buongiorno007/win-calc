@@ -124,14 +124,14 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
       alert(error.message);
     }
   };
-
+/*
   $scope.setCurrentGeoLocation = function () {
     var prevLocation = angular.copy( $scope.global.prevGeoLocation),
         currLocation = angular.copy($scope.global.currentGeoLocation);
     $scope.global.currentGeoLocation = prevLocation;
     $scope.global.prevGeoLocation = currLocation;
   };
-
+*/
   $scope.gotoAddElementsPanel = function() {
     $scope.global.isAddElementsONLY = true;
     $scope.global.showNavMenu = false;
