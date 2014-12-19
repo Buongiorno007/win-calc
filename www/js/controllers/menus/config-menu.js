@@ -47,11 +47,9 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     for(idDate in valuesDate) {
       valuesDate[ idDate ] = valuesDate[ idDate ].toString().replace( /^([0-9])$/, '0$1' );
     }
-    //$scope.global.deliveryDate = valuesDate[ 0 ] + '.' + valuesDate[ 1 ] + '.' + deliveryDate.getFullYear();
-    //$scope.global.newDeliveryDate = $scope.global.deliveryDate;
 
     $scope.global.order.deliveryDate = valuesDate[ 0 ] + '.' + valuesDate[ 1 ] + '.' + deliveryDate.getFullYear();
-    //console.log($scope.global.deliveryDate);
+    $scope.global.order.newDeliveryDate = $scope.global.order.deliveryDate;
   };
 
 
@@ -428,7 +426,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
 
       //-------- Clear All AddElements in localStorage
-      $scope.global.clearAllAddElements();
+      //$scope.global.clearAllAddElements();
 
     }
   };
@@ -544,6 +542,18 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
             elementSize = template.objects[item].lengthVal;
             $scope.global.objXFormedPrice.beadsSize.push(elementSize);
             break;
+          case 'sash_block':
+            var tempSashBlock = {},
+                tempSashBlockSize = [];
+            for (var sash = 0; sash < template.objects[item].parts.length; sash++) {
+              tempSashBlockSize.push(template.objects[item].parts[sash].lengthVal);
+            }
+            tempSashBlock.sizes = tempSashBlockSize;
+            tempSashBlock.hardwareId = template.objects[item].hardwareId;
+            tempSashBlock.openDir = template.objects[item].openDir;
+            tempSashBlock.handlePos = template.objects[item].handlePos;
+            $scope.global.objXFormedPrice.sashesBlock.push(tempSashBlock);
+            break;
           case 'glass_paсkage':
             var tempGlassSizes = [];
             for (var glass = 0; glass < template.objects[item].parts.length; glass++) {
@@ -573,6 +583,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
 
     //console.log(JSON.stringify($scope.global.objXFormedPrice));
+    console.log($scope.global.objXFormedPrice);
 
     //------ calculate coeffs
     $scope.global.calculateCoeffs();
@@ -660,7 +671,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
 
 
-
+/*
   //-------- Clear All AddElements in localStorage
   $scope.global.clearAllAddElements = function() {
     for (var prop in $scope.global.product.chosenAddElements) {
@@ -671,7 +682,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       }
     }
   };
-
+*/
 
 
 
@@ -765,6 +776,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     //=========== if no EDIT product
     if (!$scope.global.productEditNumber) {
 
+      $scope.global.isCreatedNewProject = false;
       //-------- add product in order LocalStorage
       $scope.global.order.products.push($scope.global.product);
       productIndex = $scope.global.order.products.length;
@@ -825,7 +837,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
         "laminationPrice": parseFloat($scope.global.product.laminationPriceSELECT.toFixed(2)),
         "addElementsPrice": parseFloat($scope.global.product.addElementsPriceSELECT.toFixed(2)),
         "productPriceTOTAL": parseFloat($scope.global.product.productPriceTOTAL.toFixed(2)),
-        "productQty": 1
+        "productQty": $scope.global.product.productQty
       };
 
       localDB.insertDB($scope.global.productsTableBD, productData);
@@ -1014,7 +1026,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   $scope.movetoCart = function() {
     $timeout(function(){
       $scope.global.gotoCartPage();
-    }, 18*STEP);
+    }, 2*STEP);
   };
 
   /*

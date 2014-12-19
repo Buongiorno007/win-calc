@@ -10,6 +10,7 @@ BauVoiceApp.factory('localStorage', function () {
     svgTemplateHeight: 1000,
     currentDate: new Date(),
     productionDays: 15,
+    currency: '',
 
     isConstructWind: true,
     isConstructWindDoor: false,
@@ -144,17 +145,36 @@ BauVoiceApp.factory('localStorage', function () {
       hardwarePriceSELECT: 0,
       laminationPriceSELECT: 0,
       addElementsPriceSELECT: 0,
-      productPriceTOTAL: 0
-    },
+      productPriceTOTAL: 0,
 
-    product: {},
+      productQty: 1
+    },
 
     order: {
       orderId: 0,
       deliveryDate: '',
+      newDeliveryDate: '',
       products: [],
-      orderPrice: 0
+      productsPriceTOTAL: 0,
+
+      selectedFloor: 'free',
+      selectedFloorPrice: 0,
+      selectedAssembling: 'free',
+      selectedAssemblingPrice: 0,
+      selectedInstalmentPeriod: 0,
+      selectedInstalmentPercent: 0,
+      deliveryPrice: 0,
+
+      paymentFirst: 0,
+      paymentMonthly: 0,
+      paymentFirstPrimary: 0,
+      paymentMonthlyPrimary: 0,
+      orderPriceTOTAL: 0,
+      orderPriceTOTALPrimary: 0
     },
+
+
+    product: {},
     orders: [],
 
     objXFormedPriceSource: {
@@ -166,6 +186,7 @@ BauVoiceApp.factory('localStorage', function () {
       beadsSize: [],
       impostsSize: [],
       shtulpsSize: [],
+      sashesBlock: [],
       glassSizes: [],
       glassSquares: [],
       frameSillSize: 0
@@ -204,7 +225,7 @@ BauVoiceApp.factory('localStorage', function () {
     isAddElement: false,
     isAddElementListView: false,
     isConstructSizeCalculator: false,
-    //currency: '',
+
 
     showRoomSelectorDialog: false,
     isRoomsDialog: false,

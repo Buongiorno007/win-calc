@@ -1,7 +1,7 @@
 section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
   section.left-side
     include menus/_navigation-menu
-  section.right-side(ng-class="{'kitchen': global.product.selectedRoomId == 1, 'livingroom': global.product.selectedRoomId == 2, 'balcony': global.product.selectedRoomId == 3, 'childroom': global.product.selectedRoomId == 4, 'bedroom': global.product.selectedRoomId == 5, 'door': global.product.selectedRoomId == 6 }")
+  section.right-side.main-page-bg(ng-class="{'kitchen': global.product.selectedRoomId == 1, 'livingroom': global.product.selectedRoomId == 2, 'balcony': global.product.selectedRoomId == 3, 'childroom': global.product.selectedRoomId == 4, 'bedroom': global.product.selectedRoomId == 5, 'door': global.product.selectedRoomId == 6 }")
     section.main-content
       include parts/_user-info
       include parts/_room-info

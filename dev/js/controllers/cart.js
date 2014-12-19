@@ -9,13 +9,27 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   $scope.cart = {
     order: {},
     //------- for checking order in orders into LocalStorage
-    isOrderExisted: false,
+    isOrderExisted: true,
+    allGridsDB: [],
+    allVisorsDB: [],
+    allSpillwaysDB: [],
+    allOutSlopesDB: [],
+    allInSlopesDB: [],
+    allLouversDB: [],
+    allConnectorsDB: [],
+    allFansDB: [],
+    allWindowSillsDB: [],
+    allHandlesDB: [],
+    allOthersDB: [],
+
     allAddElements: [],
     allTemplateIcons: [],
-    isAddElementDetail: false
+    isAddElementDetail: 'false'
   };
 
   var p, prod, product, newProductsQty;
+
+  $scope.isCartLightView = false;
 
   $scope.global.isOpenedCartPage = true;
   $scope.global.isCreatedNewProject = false;
@@ -28,14 +42,55 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
 
 
+
+
+  //----- Calculate All Products Price
+  $scope.calculateProductsPrice = function() {
+    $scope.global.order.productsPriceTOTAL = 0;
+    for(p = 0; p <  $scope.cart.order.products.length; p++) {
+      $scope.global.order.productsPriceTOTAL += parseFloat( (parseFloat($scope.cart.order.products[p].productPriceTOTAL.toFixed(2)) * $scope.cart.order.products[p].productQty).toFixed(2) );
+    }
+  };
+
+  // Calculate Order Price
+  $scope.global.calculateOrderPrice = function() {
+    $scope.calculateProductsPrice();
+    //----- join together product prices and order option
+    $scope.global.calculateTotalOrderPrice();
+  };
+
+
+  //---------- parse Add Elements from LocalStorage
+  $scope.parseAddElementsLocaly = function() {
+    for(prod = 0; prod < $scope.cart.order.products.length; prod++) {
+      product = [];
+
+      for(var prop in $scope.cart.order.products[prod].chosenAddElements) {
+        if (!$scope.cart.order.products[prod].chosenAddElements.hasOwnProperty(prop)) {
+          continue;
+        }
+        for (var elem = 0; elem < $scope.cart.order.products[prod].chosenAddElements[prop].length; elem++) {
+          product.push($scope.cart.order.products[prod].chosenAddElements[prop][elem]);
+        }
+      }
+      $scope.cart.allAddElements.push(product);
+    }
+    //console.log('parseAddElementsLocaly', $scope.cart.allAddElements);
+  };
+
+
+
+
   //================ EDIT order from Histoy
   if($scope.global.orderEditNumber) {
 
+    $scope.cart.isOrderExisted = false;
     //-------- checking if order exist in orders array into LocalStorage
     for(var ord = 0; ord < $scope.global.orders; ord++) {
       if($scope.global.orders[ord].orderId === $scope.global.orderEditNumber) {
         $scope.cart.isOrderExisted = true;
         $scope.cart.order = angular.copy($scope.global.orders[ord]);
+        $scope.parseAddElementsLocaly();
       }
     }
     //------ if order not exist take it from LocalDB
@@ -134,14 +189,24 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
       //------ Download All Products Data for Order
       localDB.selectDB($scope.global.productsTableBD, {'orderId': $scope.global.orderEditNumber}, function (results) {
-        //localDB.selectAllDB($scope.global.productsTableBD, function (results) {
         if (results.status) {
           $scope.cart.productObjSource = angular.copy(results.data);
-          //$scope.global.productObj = angular.copy(results.data);
-          //$scope.global.productCounter = $scope.global.productObj.length;
 
           var productObj = angular.copy(results.data);
           var productCounter = productObj.length;
+
+          /*
+
+           var newobj = obj.split(',"objects":');
+           var part1 = newobj[0].replace(/^{/gm,'');
+           var part2 = newobj[1].replace(/}$/gm,'');
+           var part1Arr = part1.split(':');
+           console.log(part1);
+           console.log(part1Arr);
+           mainObj[part1Arr[0].replace(/^"+"$/gm)] = part1Arr[1].replace(/^\"/gm, '').replace(/\"$/gm, '');
+           console.log(mainObj);
+
+           */
 
           //------------- Download All Templates for Order
           localDB.selectDB($scope.global.componentsTableBD, {'orderId': $scope.global.orderEditNumber}, function (results) {
@@ -168,8 +233,8 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
               }
 
-              $scope.global.calculateOrderPrice();
-              $scope.global.orderTotalPrice = $scope.global.orderPrice;
+              //$scope.global.calculateOrderPrice();
+              //$scope.global.orderTotalPrice = $scope.global.orderPrice;
 
               $scope.parseAddElements();
 
@@ -290,14 +355,20 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   //=========== from Main page
   } else {
     $scope.cart.order = angular.copy($scope.global.order);
+    $scope.parseAddElementsLocaly();
   }
+
+  //----------- start order price total calculation
+  $scope.calculateProductsPrice();
+  $scope.global.order.orderPriceTOTAL = $scope.global.order.productsPriceTOTAL;
+
 
 
 
 
 
   //----- Delete Product
-  $scope.clickDeleteProduct = function(productIdBD, productIdArr) {
+  $scope.clickDeleteProduct = function(productIndex) {
 
     navigator.notification.confirm(
       $filter('translate')('common_words.DELETE_PRODUCT_TXT'),
@@ -309,16 +380,21 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     function deleteProduct(button) {
       if(button == 1) {
 
-        $scope.global.productObj.splice(productIdArr, 1);
-        $scope.cart.productObjSource.splice(productIdArr, 1);
-        $scope.cart.allAddElements.splice(productIdArr, 1);
-        --$scope.global.productCounter;
-        localDB.deleteDB($scope.global.productsTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
-        localDB.deleteDB($scope.global.componentsTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
-        localDB.deleteDB($scope.global.visorsTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
-        localDB.deleteDB($scope.global.windowSillsTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
+        if($scope.cart.isOrderExisted) {
+          $scope.global.order.products.splice(productIndex, 1);
+          $scope.cart.order.products.splice(productIndex, 1);
+          $scope.cart.allAddElements.splice(productIndex, 1);
+        } else {
+          $scope.cart.order.products.splice(productIndex, 1);
+          $scope.cart.allAddElements.splice(productIndex, 1);
+          var productIdBD = productIndex + 1;
+          localDB.deleteDB($scope.global.productsTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
+          localDB.deleteDB($scope.global.visorsTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
+          localDB.deleteDB($scope.global.windowSillsTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
+        }
+
         //----- if all products were deleted go to main page????
-        if($scope.global.productCounter > 0 ) {
+        if($scope.cart.order.products.length > 0 ) {
           // Change order price
           $scope.global.calculateOrderPrice();
         } else {
@@ -345,83 +421,69 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
 
   //----- Reduce Product Qty
-  $scope.lessProduct = function(productIdBD, productIdArr) {
-    newProductsQty = $scope.global.productObj[productIdArr].productQty;
-    if(newProductsQty === 1) {
-      //$scope.deleteProduct(productIdBD, productIdArr);
-      $scope.clickDeleteProduct(productIdBD, productIdArr);
+  $scope.lessProduct = function(productIndex) {
 
+    newProductsQty = $scope.cart.order.products[productIndex].productQty;
+    if(newProductsQty === 1) {
+      $scope.clickDeleteProduct(productIndex);
     } else {
-      $scope.global.productObj[productIdArr].productQty = --newProductsQty;
-      //oldProductPrice = parseFloat($scope.cart.productObjSource[productIdArr].productPrice);
-      //newProductPrice = parseFloat($scope.global.productObj[productIdArr].productPrice);
-      //$scope.global.productObj[productIdArr].productPrice = parseFloat((newProductPrice - oldProductPrice).toFixed(2));
-      $scope.global.calculateOrderPrice();
+      --newProductsQty;
+      $scope.cart.order.products[productIndex].productQty = newProductsQty;
+      $scope.global.order.products[productIndex].productQty = newProductsQty;
       // Change product value in DB
-      localDB.updateDB($scope.global.productsTableBD, {"productQty": newProductsQty}, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
+      var productIdBD = productIndex + 1;
+      localDB.updateDB($scope.global.productsTableBD, {"productQty": newProductsQty}, {'orderId': {"value": $scope.cart.order.orderId, "union": 'AND'}, "productId": productIdBD});
+
+      $scope.global.calculateOrderPrice();
+
     }
   };
 
 
   //----- Increase Product Qty
-  $scope.moreProduct = function(productIdBD, productIdArr) {
-    newProductsQty = $scope.global.productObj[productIdArr].productQty;
-    $scope.global.productObj[productIdArr].productQty = ++newProductsQty;
-    //oldProductPrice = parseFloat($scope.cart.productObjSource[productIdArr].productPrice);
-    //newProductPrice = parseFloat($scope.global.productObj[productIdArr].productPrice);
-    //$scope.global.productObj[productIdArr].productPrice = parseFloat((oldProductPrice + newProductPrice).toFixed(2));
-    $scope.global.calculateOrderPrice();
+  $scope.moreProduct = function(productIndex) {
+
+    newProductsQty = $scope.cart.order.products[productIndex].productQty;
+    ++newProductsQty;
+    $scope.cart.order.products[productIndex].productQty = newProductsQty;
+    $scope.global.order.products[productIndex].productQty = newProductsQty;
     // Change product value in DB
-    localDB.updateDB($scope.global.productsTableBD, {"productQty": newProductsQty}, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
+    var productIdBD = productIndex + 1;
+    localDB.updateDB($scope.global.productsTableBD, {"productQty": newProductsQty}, {'orderId': {"value": $scope.cart.order.orderId, "union": 'AND'}, "productId": productIdBD});
+
+    $scope.global.calculateOrderPrice();
+
   };
 
 
-  //----- AddElements detail block
-    // Show AddElements detail block for product
-  $scope.showAllAddElementDetail = function(productIdBD, productIdArr) {
-    if($scope.cart.allAddElements[productIdArr].length > 0) {
-      $scope.cart.isAddElementDetail = productIdBD;
+  //============= AddElements detail block
+  //------- Show AddElements detail block for product
+  $scope.showAllAddElementDetail = function(productIndex) {
+    if($scope.cart.allAddElements[productIndex].length > 0) {
+      $scope.cart.isAddElementDetail = productIndex;
     }
   };
-    // Close AddElements detail block
+  //--------- Close AddElements detail block
   $scope.closeAllAddElementDetail = function() {
-    $scope.cart.isAddElementDetail = false;
+    $scope.cart.isAddElementDetail = 'false';
   };
 
-
   // Full/Light View switcher
-  $scope.isCartLightView = false;
   $scope.viewSwitching = function() {
     $scope.isCartLightView = !$scope.isCartLightView;
   };
 
-  //----- Calculate All Products Price
-  $scope.calculateProductsPrice = function() {
-    $scope.global.orderPrice = 0;
-    for(p = 0; p < $scope.global.productCounter; p++) {
-      $scope.global.orderPrice += parseFloat( (parseFloat($scope.global.productObj[p].productPrice.toFixed(2)) * $scope.global.productObj[p].productQty).toFixed(2) );
-    }
-
-    $scope.global.orderPrice = parseFloat($scope.global.orderPrice.toFixed(2));
-  };
-
-  // Calculate Order Price
-  $scope.global.calculateOrderPrice = function() {
-    $scope.calculateProductsPrice();
-    //----- join together product prices and order option
-    $scope.global.calculateTotalOrderPrice();
-  };
 
 
   //------- add new product in order
   $scope.addNewProductInOrder = function() {
     $scope.global.isOpenedCartPage = false;
-    $scope.global.isAddNewProductInOrder = true;
+    //$scope.global.isAddNewProductInOrder = true;
     $scope.global.productEditNumber = false;
-    $scope.global.templateIndex = 0;
-    $scope.global.profileIndex = 0;
+    //$scope.global.templateIndex = 0;
+    //$scope.global.profileIndex = 0;
     $scope.global.product = angular.copy($scope.global.productSource);
-    $scope.global.clearAllAddElements();
+    //$scope.global.clearAllAddElements();
     $scope.global.prepareMainPage();
     $location.path('/main');
   };

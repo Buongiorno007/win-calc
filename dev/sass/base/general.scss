@@ -163,7 +163,9 @@ body {
 
 .right-side {
   @include transition(all 1.3s linear);
-  opacity: 0.2;
+  &.main-page-bg {
+    opacity: 0.2;
+  }
 
   &.kitchen {
     background: image-url('rooms-bg/kitchen.jpg') no-repeat;

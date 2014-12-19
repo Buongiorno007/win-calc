@@ -19,8 +19,6 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
     minDeliveryDate: new Date(),
 
     activeInstalmentSwitcher: false,
-    deliveryDate: '',
-    newDeliveryDate: '',
     datePriceLess: false,
     datePriceMore: false,
     ratePriceLess: 100,
@@ -41,7 +39,6 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
   //------ change date
   $scope.checkDifferentDate = function(lastday, newday) {
     var lastDateArr, newDateArr, lastDate, newDate, qtyDays;
-
     lastDateArr = lastday.split(".");
     newDateArr = newday.split(".");
     lastDate = new Date(lastDateArr[ 2 ], lastDateArr[ 1 ]-1, lastDateArr[0]);
@@ -49,23 +46,22 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
     qtyDays = Math.floor((newDate - lastDate)/(1000*60*60*24));
 
     if(qtyDays && qtyDays > 0) {
-      $scope.global.deliveryPrice = $scope.cartMenuData.ratePriceLess * qtyDays;
+      $scope.global.order.deliveryPrice = $scope.cartMenuData.ratePriceLess * qtyDays;
       $scope.cartMenuData.datePriceLess = true;
       $scope.cartMenuData.datePriceMore = false;
       $scope.cartMenuData.isOldPrice = true;
     } else if (qtyDays && qtyDays < 0) {
-      $scope.global.deliveryPrice = $scope.cartMenuData.ratePriceMore * Math.abs(qtyDays);
+      $scope.global.order.deliveryPrice = $scope.cartMenuData.ratePriceMore * Math.abs(qtyDays);
       $scope.cartMenuData.datePriceMore = true;
       $scope.cartMenuData.datePriceLess = false;
       $scope.cartMenuData.isOldPrice = true;
     } else {
-      $scope.global.deliveryPrice = false;
+      $scope.global.order.deliveryPrice = false;
       $scope.cartMenuData.datePriceLess = false;
       $scope.cartMenuData.datePriceMore = false;
       $scope.cartMenuData.isOldPrice = false;
     }
-    //$scope.global.newDeliveryDate = newday;
-    $scope.global.order.deliveryDate = newday;
+    $scope.global.order.newDeliveryDate = newday;
     $scope.global.calculateTotalOrderPrice();
   };
 
@@ -73,8 +69,6 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
   constructService.getFloorPrice(function (results) {
     if (results.status) {
       $scope.cartMenuData.floorData = angular.copy(results.data.floors);
-      $scope.global.selectedFloor = 'free';
-      $scope.global.selectedFloorPrice = 0;
     } else {
       console.log(results);
     }
@@ -83,8 +77,6 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
   constructService.getAssemblingPrice(function (results) {
     if (results.status) {
       $scope.cartMenuData.assemblingData = angular.copy(results.data.assembling);
-      $scope.global.selectedAssembling = 'free';
-      $scope.global.selectedAssemblingPrice = 0;
     } else {
       console.log(results);
     }
@@ -117,11 +109,11 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
     if($scope.cartMenuData.activeFloor !== floorId) {
       $scope.cartMenuData.activeFloor = floorId;
       if(floorId === 'free') {
-        $scope.global.selectedFloor = 'free';
-        $scope.global.selectedFloorPrice = 0;
+        $scope.global.order.selectedFloor = 'free';
+        $scope.global.order.selectedFloorPrice = 0;
       } else {
-        $scope.global.selectedFloor = $scope.cartMenuData.floorData[floorId].name;
-        $scope.global.selectedFloorPrice = $scope.cartMenuData.floorData[floorId].price;
+        $scope.global.order.selectedFloor = $scope.cartMenuData.floorData[floorId].name;
+        $scope.global.order.selectedFloorPrice = $scope.cartMenuData.floorData[floorId].price;
       }
       $scope.global.calculateTotalOrderPrice();
     }
@@ -131,11 +123,11 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
     if($scope.cartMenuData.activeAssembling !== assemblingId) {
       $scope.cartMenuData.activeAssembling = assemblingId;
       if(assemblingId === 'free') {
-        $scope.global.selectedAssembling = 'free';
-        $scope.global.selectedAssemblingPrice = 0;
+        $scope.global.order.selectedAssembling = 'free';
+        $scope.global.order.selectedAssemblingPrice = 0;
       } else {
-        $scope.global.selectedAssembling = $scope.cartMenuData.assemblingData[assemblingId].name;
-        $scope.global.selectedAssemblingPrice = $scope.cartMenuData.assemblingData[assemblingId].price;
+        $scope.global.order.selectedAssembling = $scope.cartMenuData.assemblingData[assemblingId].name;
+        $scope.global.order.selectedAssemblingPrice = $scope.cartMenuData.assemblingData[assemblingId].price;
       }
       $scope.global.calculateTotalOrderPrice();
     }
@@ -144,10 +136,10 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
   $scope.selectInstalment = function(instalmentId) {
     if($scope.cartMenuData.activeInstalment !== instalmentId) {
       $scope.cartMenuData.activeInstalment = instalmentId;
-      $scope.global.selectedInstalmentPeriod = $scope.cartMenuData.instalmentsData[instalmentId].period;
-      $scope.global.selectedInstalmentPercent = $scope.cartMenuData.instalmentsData[instalmentId].percent;
+      $scope.global.order.selectedInstalmentPeriod = $scope.cartMenuData.instalmentsData[instalmentId].period;
+      $scope.global.order.selectedInstalmentPercent = $scope.cartMenuData.instalmentsData[instalmentId].percent;
       $scope.cartMenuData.activeInstalmentSwitcher = true;
-      $scope.calculateInstalmentPrice($scope.global.orderTotalPrice, $scope.global.orderTotalPricePrimary);
+      $scope.calculateInstalmentPrice($scope.global.order.orderPriceTOTAL, $scope.global.order.orderPriceTOTALPrimary);
     }
   };
 
@@ -178,50 +170,49 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
   //-------- Calculate Total Order Price
   $scope.global.calculateTotalOrderPrice = function() {
 
-    var floorPrice = parseFloat($scope.global.selectedFloorPrice),
-        assemblingPrice = parseFloat($scope.global.selectedAssemblingPrice);
-    $scope.global.orderTotalPrice = 0;
+    var floorPrice = parseFloat($scope.global.order.selectedFloorPrice),
+        assemblingPrice = parseFloat($scope.global.order.selectedAssemblingPrice);
+
+    $scope.global.order.orderPriceTOTAL = 0;
     //----- add product prices
-    $scope.global.orderTotalPrice += $scope.global.orderPrice;
+    $scope.global.order.orderPriceTOTAL += $scope.global.order.productsPriceTOTAL;
+
     //----- add floor price
     if( $.isNumeric(floorPrice) ) {
-      $scope.global.orderTotalPrice += floorPrice;
+      $scope.global.order.orderPriceTOTAL += floorPrice;
     }
     //----- add assembling price
     if( $.isNumeric(assemblingPrice) ) {
-      $scope.global.orderTotalPrice += assemblingPrice;
+      $scope.global.order.orderPriceTOTAL += assemblingPrice;
     }
     //----- save primary total price
-    $scope.global.orderTotalPricePrimary = $scope.global.orderTotalPrice;
+    $scope.global.order.orderPriceTOTALPrimary = $scope.global.order.orderPriceTOTAL;
     //----- add delivery price
-    if($scope.global.deliveryPrice) {
+    if($scope.global.order.deliveryPrice) {
       if($scope.cartMenuData.datePriceMore) {
-        $scope.global.orderTotalPrice += $scope.global.deliveryPrice;
+        $scope.global.order.orderPriceTOTAL += $scope.global.order.deliveryPrice;
       } else if($scope.cartMenuData.datePriceLess) {
-        $scope.global.orderTotalPrice -= $scope.global.deliveryPrice;
+        $scope.global.order.orderPriceTOTAL -= $scope.global.order.deliveryPrice;
       }
     } else {
-      $scope.global.orderTotalPrice = $scope.global.orderTotalPricePrimary;
+      $scope.global.order.orderPriceTOTAL = $scope.global.order.orderPriceTOTALPrimary;
     }
 
-    $scope.global.orderTotalPrice = parseFloat($scope.global.orderTotalPrice.toFixed(2));
+    $scope.global.order.orderPriceTOTAL = parseFloat($scope.global.order.orderPriceTOTAL.toFixed(2));
     //------ get price with instalment
-    $scope.calculateInstalmentPrice($scope.global.orderTotalPrice, $scope.global.orderTotalPricePrimary);
+    $scope.calculateInstalmentPrice($scope.global.order.orderPriceTOTAL, $scope.global.order.orderPriceTOTALPrimary);
   };
 
   $scope.calculateInstalmentPrice = function(price, pricePrimary) {
     if($scope.cartMenuData.activeInstalmentSwitcher) {
-      $scope.global.paymentFirst = parseFloat((price * $scope.global.selectedInstalmentPercent / 100).toFixed(2));
-      $scope.global.paymentMonthly = parseFloat(((price - $scope.global.paymentFirst) / $scope.global.selectedInstalmentPeriod).toFixed(2));
+      $scope.global.order.paymentFirst = parseFloat((price * $scope.global.order.selectedInstalmentPercent / 100).toFixed(2));
+      $scope.global.order.paymentMonthly = parseFloat(((price - $scope.global.order.paymentFirst) / $scope.global.order.selectedInstalmentPeriod).toFixed(2));
       if(pricePrimary) {
-        $scope.global.paymentFirstPrimary = parseFloat((pricePrimary * $scope.global.selectedInstalmentPercent / 100).toFixed(2));
-        $scope.global.paymentMonthlyPrimary = parseFloat(((pricePrimary - $scope.global.paymentFirstPrimary) / $scope.global.selectedInstalmentPeriod).toFixed(2));
+        $scope.global.order.paymentFirstPrimary = parseFloat((pricePrimary * $scope.global.order.selectedInstalmentPercent / 100).toFixed(2));
+        $scope.global.order.paymentMonthlyPrimary = parseFloat(((pricePrimary - $scope.global.order.paymentFirstPrimary) / $scope.global.order.selectedInstalmentPeriod).toFixed(2));
       }
     }
   };
-
-
-
 
 
 }]);

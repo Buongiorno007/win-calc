@@ -126,19 +126,19 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
   };
 
   $scope.setAddElementsTotalPrice = function() {
-    $scope.global.addElementsPriceTOTAL = 0;
+    $scope.global.product.addElementsPriceSELECT = 0;
     for (var prop in $scope.global.product.chosenAddElements) {
       if (!$scope.global.product.chosenAddElements.hasOwnProperty(prop)) {
         continue;
       } else {
         if ($scope.global.product.chosenAddElements[prop].length > 0) {
           for (var elem = 0; elem < $scope.global.product.chosenAddElements[prop].length; elem++) {
-            $scope.global.addElementsPriceTOTAL += $scope.global.product.chosenAddElements[prop][elem].elementQty * $scope.global.product.chosenAddElements[prop][elem].elementPrice;
+            $scope.global.product.addElementsPriceSELECT += $scope.global.product.chosenAddElements[prop][elem].elementQty * $scope.global.product.chosenAddElements[prop][elem].elementPrice;
           }
         }
       }
     }
-    $scope.global.setProductPriceTOTAL();
+    $scope.global.setProductPriceTOTALapply();
   };
 
   // Select Add Element when open List View

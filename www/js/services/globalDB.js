@@ -541,6 +541,7 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
       })();
     },
 
+
     getValueByRule: function (parentValue, childValue, rule){
       var value = 0;
       switch (rule) {
@@ -548,7 +549,7 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
           value = parentValue - childValue;
           break;
         case 3:
-          value = Math.round(parentValue) * childValue;
+          value = (Math.round(parentValue) * childValue).toFixed(3);
           break;
         case 5:
           value = parentValue * childValue;
@@ -566,13 +567,13 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
           value = (parentValue * childValue).toFixed(3);
           break;
         case 12:
-          value = Math.round(parentValue * childValue);
+          value = (Math.round(parentValue) * childValue).toFixed(3);
           break;
         case 13:
-          value = parentValue * childValue;
+          value = (parentValue * childValue).toFixed(3);
           break;
         case 14:
-          value = Math.round(parentValue * childValue);
+          value = (Math.round(parentValue) * childValue).toFixed(3);
           break;
         case 21:
           break;
@@ -904,6 +905,8 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
           priceObj.price += priceTmp;
           console.log('Итого в гривне: '+priceTmp.toFixed(2)+' грн');
           console.log('');
+          console.log('Рама - начало ---------------------');
+          console.log('');
           if(construction.framesSize.length) {
             for (var i = 0; i < construction.framesSize.length; i++) {
               if(priceObj.framesIds.length) {
@@ -914,7 +917,7 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
                     priceObj.framesIds[j].elemLists.newValue = value;
                     //console.log('rule '+priceObj.framesIds[j].elemLists.rules_type_id+' '+priceObj.framesIds[j].elemName);
                     console.log('Название: '+priceObj.framesIds[j].elemName);
-                    console.log('Размер: '+construction.framesSize[i]/1000+' м');
+                    console.log('Размер: '+(construction.framesSize[i]/1000).toFixed(3)+' м');
                     console.log('Цена: '+priceObj.framesIds[j].priceEl.price);
                     for (var f = 0; f < priceObj.currencies.length; f++) {
                       if(priceObj.currencies[f].id === priceObj.framesIds[j].priceEl.currency_id){
@@ -925,16 +928,16 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
                     console.log('Поправка на обрезку : '+priceObj.framesIds[j].priceEl.amendment_pruning);
                     if(priceObj.framesIds[j].elemLists.rules_type_id === 3){
                       console.log('Правило : '+priceObj.framesIds[j].elemLists.value+' шт. на метр родителя');
-                      console.log('Формула : ('+Math.round((construction.framesSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning)/1000)+'*'+value+'*'+priceObj.framesIds[j].priceEl.price+')*(1+('+priceObj.framesIds[j].priceEl.waste+'/100) = '+((Math.round((construction.framesSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning)/1000)*value*priceObj.framesIds[j].priceEl.price)*(1+(priceObj.framesIds[j].priceEl.waste/100))).toFixed(2));
-                      priceTmp += (Math.round((construction.framesSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning)/1000)*value*priceObj.framesIds[j].priceEl.price)*(1+(priceObj.framesIds[j].priceEl.waste/100));
+                      console.log('Формула : (round('+(construction.framesSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning)/1000+'*'+value+')*'+priceObj.framesIds[j].priceEl.price+')*(1+('+priceObj.framesIds[j].priceEl.waste+'/100) = '+((Math.round(((construction.framesSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning)/1000)*value)*priceObj.framesIds[j].priceEl.price)*(1+(priceObj.framesIds[j].priceEl.waste/100))).toFixed(2));
+                      priceTmp += (Math.round(((construction.framesSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning)/1000)*value)*priceObj.framesIds[j].priceEl.price)*(1+(priceObj.framesIds[j].priceEl.waste/100));
                     } else if(priceObj.framesIds[j].elemLists.rules_type_id === 2 || priceObj.framesIds[j].elemLists.rules_type_id === 4 || priceObj.framesIds[j].elemLists.rules_type_id === 15){
                       console.log('Правило : '+priceObj.framesIds[j].elemLists.value+' шт. на родителя');
                       console.log('Формула : (1*'+value+'*'+priceObj.framesIds[j].priceEl.price+')*(1+('+priceObj.framesIds[j].priceEl.waste+'/100) = '+(priceObj.framesIds[j].elemLists.value * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100)));
                       priceTmp += (priceObj.framesIds[j].elemLists.value * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
                     } else if (priceObj.framesIds[j].elemLists.rules_type_id === 1){
                       console.log('Правило : меньше родителя на '+priceObj.framesIds[j].elemLists.value+' м');
-                      console.log('Формула : ('+(construction.framesSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value*100))/1000+'*'+priceObj.framesIds[j].priceEl.price+')*(1+('+priceObj.framesIds[j].priceEl.waste+'/100) = '+((((construction.framesSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value*100))/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100))).toFixed(2));
-                      priceTmp += (((construction.framesSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value*100))/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
+                      console.log('Формула : ('+(construction.framesSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value*1000))/1000+'*'+priceObj.framesIds[j].priceEl.price+')*(1+('+priceObj.framesIds[j].priceEl.waste+'/100) = '+((((construction.framesSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value*1000))/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100))).toFixed(2));
+                      priceTmp += (((construction.framesSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value*1000))/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
                     } else {
                       console.log('Формула : ('+(construction.framesSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning)/1000+'*'+priceObj.framesIds[j].priceEl.price+')*(1+('+priceObj.framesIds[j].priceEl.waste+'/100) = '+((((construction.framesSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning)/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100))).toFixed(2));
                       priceTmp += (((construction.framesSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning)/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
@@ -954,7 +957,7 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
                         priceObj.framesIds[j].elemLists.newValue = value;
                         //console.log('rule '+priceObj.framesIds[j].elemLists.rules_type_id+' '+priceObj.framesIds[j].elemName);
                         console.log('Название: '+priceObj.framesIds[j].elemName);
-                        console.log('Размер: '+(priceObj.framesIds[g].elemLists.newValue).toFixed(5)+' м');
+                        console.log('Размер: '+(priceObj.framesIds[g].elemLists.newValue).toFixed(3)+' м');
                         console.log('Цена: '+priceObj.framesIds[j].priceEl.price);
                         for (var f = 0; f < priceObj.currencies.length; f++) {
                           if(priceObj.currencies[f].id === priceObj.framesIds[j].priceEl.currency_id){
@@ -965,16 +968,16 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
                         console.log('Поправка на обрезку : '+priceObj.framesIds[j].priceEl.amendment_pruning);
                         if(priceObj.framesIds[j].elemLists.rules_type_id === 3){
                           console.log('Правило : '+priceObj.framesIds[j].elemLists.value+' шт. на метр родителя');
-                          console.log('Формула : ('+Math.round(priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning)+'*'+priceObj.framesIds[j].elemLists.value+'*'+priceObj.framesIds[j].priceEl.price+')*(1+('+priceObj.framesIds[j].priceEl.waste+'/100) = '+((Math.round(priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning)*priceObj.framesIds[j].elemLists.value*priceObj.framesIds[j].priceEl.price)*(1+(priceObj.framesIds[j].priceEl.waste/100))).toFixed(2));
-                          priceTmp += (Math.round(priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning)*priceObj.framesIds[j].elemLists.value*priceObj.framesIds[j].priceEl.price)*(1+(priceObj.framesIds[j].priceEl.waste/100));
+                          console.log('Формула : (round('+(priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning).toFixed(3)+'*'+priceObj.framesIds[j].elemLists.value+')*'+priceObj.framesIds[j].priceEl.price+')*(1+('+priceObj.framesIds[j].priceEl.waste+'/100) = '+((Math.round((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning)*priceObj.framesIds[j].elemLists.value)*priceObj.framesIds[j].priceEl.price)*(1+(priceObj.framesIds[j].priceEl.waste/100))).toFixed(2));
+                          priceTmp += (Math.round((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning)*priceObj.framesIds[j].elemLists.value)*priceObj.framesIds[j].priceEl.price)*(1+(priceObj.framesIds[j].priceEl.waste/100));
                         } else if(priceObj.framesIds[j].elemLists.rules_type_id === 2 || priceObj.framesIds[j].elemLists.rules_type_id === 4 || priceObj.framesIds[j].elemLists.rules_type_id === 15){
                           console.log('Правило : '+priceObj.framesIds[j].elemLists.value+' шт. на родителя');
                           console.log('Формула : (1*'+priceObj.framesIds[j].elemLists.value+'*'+priceObj.framesIds[j].priceEl.price+')*(1+('+priceObj.framesIds[j].priceEl.waste+'/100) = '+(priceObj.framesIds[j].elemLists.value * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100)));
                           priceTmp += (priceObj.framesIds[j].elemLists.value * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
                         } else if (priceObj.framesIds[j].elemLists.rules_type_id === 1){
                           console.log('Правило : меньше родителя на '+priceObj.framesIds[j].elemLists.value+' м');
-                          console.log('Формула : ('+(priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value*100))/1000+'*'+priceObj.framesIds[j].priceEl.price+')*(1+('+priceObj.framesIds[j].priceEl.waste+'/100) = '+((((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value*100))/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100))).toFixed(2));
-                          priceTmp += (((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value*100))/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
+                          console.log('Формула : ('+(priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value*1000))/1000+'*'+priceObj.framesIds[j].priceEl.price+')*(1+('+priceObj.framesIds[j].priceEl.waste+'/100) = '+((((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value*100))/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100))).toFixed(2));
+                          priceTmp += (((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value*1000))/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
                         } else {
                           console.log('Формула : ('+(priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning)/1000+'*'+priceObj.framesIds[j].priceEl.price+')*(1+('+priceObj.framesIds[j].priceEl.waste+'/100) = '+((((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning)/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100))).toFixed(2));
                           priceTmp += (((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning)/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
@@ -997,16 +1000,20 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
               }
             }
           }
+          console.log('Рама - конец ---------------------');
+          console.log('');
+          console.log('Подоконный профиль - начало ---------------------');
+          console.log('');
           if(construction.frameSillSize) {
             if(priceObj.frameSillsIds.length) {
               for (var j = 0; j < priceObj.frameSillsIds.length; j++) {
                 var priceTmp = 0;
                 if(priceObj.frameSillsIds[j].elemLists.parent_list_id == construction.frameSillId){
-                  var value = self.getValueByRule((construction.frameSillSize/1000), priceObj.frameSillsIds[j].elemLists.value, priceObj.frameSillsIds[j].elemLists.rules_type_id);
+                  var value = self.getValueByRule(((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000), priceObj.frameSillsIds[j].elemLists.value, priceObj.frameSillsIds[j].elemLists.rules_type_id);
                   priceObj.frameSillsIds[j].elemLists.newValue = value;
                   //console.log('rule '+priceObj.frameSillsIds[j].elemLists.rules_type_id+' '+priceObj.frameSillsIds[j].elemName);
                   console.log('Название: '+priceObj.frameSillsIds[j].elemName);
-                  console.log('Размер: '+construction.frameSillSize/1000+' м');
+                  console.log('Размер: '+(construction.frameSillSize/1000).toFixed(3)+' м');
                   console.log('Цена: '+priceObj.frameSillsIds[j].priceEl.price);
                   for (var f = 0; f < priceObj.currencies.length; f++) {
                     if(priceObj.currencies[f].id === priceObj.frameSillsIds[j].priceEl.currency_id){
@@ -1017,16 +1024,16 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
                   console.log('Поправка на обрезку : '+priceObj.frameSillsIds[j].priceEl.amendment_pruning);
                   if(priceObj.frameSillsIds[j].elemLists.rules_type_id === 3){
                     console.log('Правило : '+priceObj.frameSillsIds[j].elemLists.value+' шт. на метр родителя');
-                    console.log('Формула : ('+Math.round((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000)+'*'+value+'*'+priceObj.frameSillsIds[j].priceEl.price+')*(1+('+priceObj.frameSillsIds[j].priceEl.waste+'/100) = '+((Math.round((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000)*value*priceObj.frameSillsIds[j].priceEl.price)*(1+(priceObj.frameSillsIds[j].priceEl.waste/100))).toFixed(2));
-                    priceTmp += (Math.round((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000)*value*priceObj.frameSillsIds[j].priceEl.price)*(1+(priceObj.frameSillsIds[j].priceEl.waste/100));
+                    console.log('Формула : (round('+((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000)+'*'+value+')*'+priceObj.frameSillsIds[j].priceEl.price+')*(1+('+priceObj.frameSillsIds[j].priceEl.waste+'/100) = '+((Math.round(((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000)*value)*priceObj.frameSillsIds[j].priceEl.price)*(1+(priceObj.frameSillsIds[j].priceEl.waste/100))).toFixed(2));
+                    priceTmp += (Math.round(((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000)*value)*priceObj.frameSillsIds[j].priceEl.price)*(1+(priceObj.frameSillsIds[j].priceEl.waste/100));
                   } else if(priceObj.frameSillsIds[j].elemLists.rules_type_id === 2 || priceObj.frameSillsIds[j].elemLists.rules_type_id === 4 || priceObj.frameSillsIds[j].elemLists.rules_type_id === 15){
                     console.log('Правило : '+priceObj.frameSillsIds[j].elemLists.value+' шт. на родителя');
                     console.log('Формула : (1*'+value+'*'+priceObj.frameSillsIds[j].priceEl.price+')*(1+('+priceObj.frameSillsIds[j].priceEl.waste+'/100) = '+(priceObj.frameSillsIds[j].elemLists.value * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100)));
                     priceTmp += (priceObj.frameSillsIds[j].elemLists.value * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
                   } else if (priceObj.frameSillsIds[j].elemLists.rules_type_id === 1){
                     console.log('Правило : меньше родителя на '+priceObj.frameSillsIds[j].elemLists.value+' м');
-                    console.log('Формула : ('+(construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning - (priceObj.frameSillsIds[j].elemLists.value*100))/1000+'*'+priceObj.frameSillsIds[j].priceEl.price+')*(1+('+priceObj.frameSillsIds[j].priceEl.waste+'/100) = '+((((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning - (priceObj.frameSillsIds[j].elemLists.value*100))/1000) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100))).toFixed(2));
-                    priceTmp += (((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning - (priceObj.frameSillsIds[j].elemLists.value*100))/1000) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
+                    console.log('Формула : ('+(construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning - (priceObj.frameSillsIds[j].elemLists.value*1000))/1000+'*'+priceObj.frameSillsIds[j].priceEl.price+')*(1+('+priceObj.frameSillsIds[j].priceEl.waste+'/100) = '+((((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning - (priceObj.frameSillsIds[j].elemLists.value*1000))/1000) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100))).toFixed(2));
+                    priceTmp += (((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning - (priceObj.frameSillsIds[j].elemLists.value*1000))/1000) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
                   } else {
                     console.log('Формула : ('+(construction.frameSillSize+priceObj.framesIds[j].priceEl.amendment_pruning)/1000+'*'+priceObj.frameSillsIds[j].priceEl.price+')*(1+('+priceObj.frameSillsIds[j].priceEl.waste+'/100) = '+((((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100))).toFixed(2));
                     priceTmp += (((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
@@ -1046,7 +1053,7 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
                       priceObj.frameSillsIds[j].elemLists.newValue = value;
                       //console.log('rule '+priceObj.frameSillsIds[j].elemLists.rules_type_id+' '+priceObj.frameSillsIds[j].elemName);
                       console.log('Название: '+priceObj.frameSillsIds[j].elemName);
-                      console.log('Размер: '+(priceObj.frameSillsIds[g].elemLists.newValue).toFixed(5)+' м');
+                      console.log('Размер: '+(priceObj.frameSillsIds[g].elemLists.newValue).toFixed(3)+' м');
                       console.log('Цена: '+priceObj.frameSillsIds[j].priceEl.price);
                       for (var f = 0; f < priceObj.currencies.length; f++) {
                         if(priceObj.currencies[f].id === priceObj.frameSillsIds[j].priceEl.currency_id){
@@ -1057,16 +1064,16 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
                       console.log('Поправка на обрезку : '+priceObj.frameSillsIds[j].priceEl.amendment_pruning);
                       if(priceObj.frameSillsIds[j].elemLists.rules_type_id === 3){
                         console.log('Правило : '+priceObj.frameSillsIds[j].elemLists.value+' шт. на метр родителя');
-                        console.log('Формула : ('+Math.round(priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning)+'*'+priceObj.frameSillsIds[j].elemLists.value+'*'+priceObj.frameSillsIds[j].priceEl.price+')*(1+('+priceObj.frameSillsIds[j].priceEl.waste+'/100) = '+((Math.round(priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning)*priceObj.frameSillsIds[j].elemLists.value*priceObj.frameSillsIds[j].priceEl.price)*(1+(priceObj.frameSillsIds[j].priceEl.waste/100))).toFixed(2));
-                        priceTmp += (Math.round(priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning)*priceObj.frameSillsIds[j].elemLists.value*priceObj.frameSillsIds[j].priceEl.price)*(1+(priceObj.frameSillsIds[j].priceEl.waste/100));
+                        console.log('Формула : (round('+(priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning).toFixed(3)+'*'+priceObj.frameSillsIds[j].elemLists.value+')*'+priceObj.frameSillsIds[j].priceEl.price+')*(1+('+priceObj.frameSillsIds[j].priceEl.waste+'/100) = '+((Math.round((priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning)*priceObj.frameSillsIds[j].elemLists.value)*priceObj.frameSillsIds[j].priceEl.price)*(1+(priceObj.frameSillsIds[j].priceEl.waste/100))).toFixed(2));
+                        priceTmp += (Math.round((priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning)*priceObj.frameSillsIds[j].elemLists.value)*priceObj.frameSillsIds[j].priceEl.price)*(1+(priceObj.frameSillsIds[j].priceEl.waste/100));
                       } else if(priceObj.frameSillsIds[j].elemLists.rules_type_id === 2 || priceObj.frameSillsIds[j].elemLists.rules_type_id === 4 || priceObj.frameSillsIds[j].elemLists.rules_type_id === 15){
                         console.log('Правило : '+priceObj.frameSillsIds[j].elemLists.value+' шт. на родителя');
                         console.log('Формула : (1*'+priceObj.frameSillsIds[j].elemLists.value+'*'+priceObj.frameSillsIds[j].priceEl.price+')*(1+('+priceObj.frameSillsIds[j].priceEl.waste+'/100) = '+(priceObj.frameSillsIds[j].elemLists.value * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100)));
                         priceTmp += (priceObj.frameSillsIds[j].elemLists.value * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
                       } else if (priceObj.frameSillsIds[j].elemLists.rules_type_id === 1){
                         console.log('Правило : меньше родителя на '+priceObj.frameSillsIds[j].elemLists.value+' м');
-                        console.log('Формула : ('+(priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning - (priceObj.frameSillsIds[j].elemLists.value*100))+'*'+priceObj.frameSillsIds[j].priceEl.price+')*(1+('+priceObj.frameSillsIds[j].priceEl.waste+'/100) = '+((((priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning - (priceObj.frameSillsIds[j].elemLists.value*100))) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100))).toFixed(2));
-                        priceTmp += (((priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning - (priceObj.frameSillsIds[j].elemLists.value*100))) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
+                        console.log('Формула : ('+(priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning - (priceObj.frameSillsIds[j].elemLists.value*1000)).toFixed(3)+'*'+priceObj.frameSillsIds[j].priceEl.price+')*(1+('+priceObj.frameSillsIds[j].priceEl.waste+'/100) = '+((((priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning - (priceObj.frameSillsIds[j].elemLists.value*100))) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100))).toFixed(2));
+                        priceTmp += (((priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning - (priceObj.frameSillsIds[j].elemLists.value*1000))) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
                       } else {
                         console.log('Формула : ('+(priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000+'*'+priceObj.frameSillsIds[j].priceEl.price+')*(1+('+priceObj.frameSillsIds[j].priceEl.waste+'/100) = '+((((priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100))).toFixed(2));
                         priceTmp += (((priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
@@ -1088,17 +1095,21 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
               }
             }
           }
+          console.log('Подоконный профиль - конец ---------------------');
+          console.log('');
+          console.log('Створка - начало ---------------------');
+          console.log('');
           if(construction.sashsSize.length) {
             for (var i = 0; i < construction.sashsSize.length; i++) {
               if(priceObj.sashsIds.length) {
                 for (var j = 0; j < priceObj.sashsIds.length; j++) {
                   var priceTmp = 0;
                   if(priceObj.sashsIds[j].elemLists.parent_list_id == construction.sashId){
-                    var value = self.getValueByRule(construction.sashsSize[i], priceObj.sashsIds[j].elemLists.value, priceObj.sashsIds[j].elemLists.rules_type_id);
+                    var value = self.getValueByRule(((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000), priceObj.sashsIds[j].elemLists.value, priceObj.sashsIds[j].elemLists.rules_type_id);
                     priceObj.sashsIds[j].elemLists.newValue = value;
                     //console.log('rule '+priceObj.sashsIds[j].elemLists.rules_type_id+' '+priceObj.sashsIds[j].elemName);
                     console.log('Название: '+priceObj.sashsIds[j].elemName);
-                    console.log('Размер: '+construction.sashsSize[i]/1000+' м');
+                    console.log('Размер: '+(construction.sashsSize[i]/1000).toFixed(3)+' м');
                     console.log('Цена: '+priceObj.sashsIds[j].priceEl.price);
                     for (var f = 0; f < priceObj.currencies.length; f++) {
                       if(priceObj.currencies[f].id === priceObj.sashsIds[j].priceEl.currency_id){
@@ -1109,16 +1120,16 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
                     console.log('Поправка на обрезку : '+priceObj.sashsIds[j].priceEl.amendment_pruning);
                     if(priceObj.sashsIds[j].elemLists.rules_type_id === 3){
                       console.log('Правило : '+priceObj.sashsIds[j].elemLists.value+' шт. на метр родителя');
-                      console.log('Формула : ('+Math.round((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000)+'*'+value+'*'+priceObj.sashsIds[j].priceEl.price+')*(1+('+priceObj.sashsIds[j].priceEl.waste+'/100) = '+((Math.round((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000)*value*priceObj.sashsIds[j].priceEl.price)*(1+(priceObj.sashsIds[j].priceEl.waste/100))).toFixed(2));
-                      priceTmp += (Math.round((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000)*value*priceObj.sashsIds[j].priceEl.price)*(1+(priceObj.sashsIds[j].priceEl.waste/100));
+                      console.log('Формула : (round('+((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000)+'*'+value+')*'+priceObj.sashsIds[j].priceEl.price+')*(1+('+priceObj.sashsIds[j].priceEl.waste+'/100) = '+((Math.round(((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000)*value)*priceObj.sashsIds[j].priceEl.price)*(1+(priceObj.sashsIds[j].priceEl.waste/100))).toFixed(2));
+                      priceTmp += (Math.round(((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000)*value)*priceObj.sashsIds[j].priceEl.price)*(1+(priceObj.sashsIds[j].priceEl.waste/100));
                     } else if(priceObj.sashsIds[j].elemLists.rules_type_id === 2 || priceObj.sashsIds[j].elemLists.rules_type_id === 4 || priceObj.sashsIds[j].elemLists.rules_type_id === 15){
                       console.log('Правило : '+priceObj.sashsIds[j].elemLists.value+' шт. на родителя');
                       console.log('Формула : (1*'+value+'*'+priceObj.sashsIds[j].priceEl.price+')*(1+('+priceObj.sashsIds[j].priceEl.waste+'/100) = '+(priceObj.sashsIds[j].elemLists.value * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100)));
                       priceTmp += (priceObj.sashsIds[j].elemLists.value * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
                     } else if (priceObj.sashsIds[j].elemLists.rules_type_id === 1){
                       console.log('Правило : меньше родителя на '+priceObj.sashsIds[j].elemLists.value+' м');
-                      console.log('Формула : ('+(construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning - (priceObj.sashsIds[j].elemLists.value*100))/1000+'*'+priceObj.sashsIds[j].priceEl.price+')*(1+('+priceObj.sashsIds[j].priceEl.waste+'/100) = '+((((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning - (priceObj.sashsIds[j].elemLists.value*100))/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100))).toFixed(2));
-                      priceTmp += (((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning - (priceObj.sashsIds[j].elemLists.value*100))/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
+                      console.log('Формула : ('+(construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning - (priceObj.sashsIds[j].elemLists.value*1000))/1000+'*'+priceObj.sashsIds[j].priceEl.price+')*(1+('+priceObj.sashsIds[j].priceEl.waste+'/100) = '+((((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning - (priceObj.sashsIds[j].elemLists.value*1000))/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100))).toFixed(2));
+                      priceTmp += (((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning - (priceObj.sashsIds[j].elemLists.value*1000))/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
                     } else {
                       console.log('Формула : ('+(construction.sashsSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning)/1000+'*'+priceObj.sashsIds[j].priceEl.price+')*(1+('+priceObj.sashsIds[j].priceEl.waste+'/100) = '+((((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100))).toFixed(2));
                       priceTmp += (((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
@@ -1134,11 +1145,11 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
                   } else {
                     for (var g = 0; g < priceObj.sashsIds.length; g++) {
                       if(priceObj.sashsIds[j].elemLists.parent_list_id == priceObj.sashsIds[g].elemLists.child_id){
-                        var value = self.getValueByRule(((priceObj.sashsIds[g].elemLists.newValue+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000), priceObj.sashsIds[j].elemLists.value, priceObj.sashsIds[g].elemLists.rules_type_id);
+                        var value = self.getValueByRule((priceObj.sashsIds[g].elemLists.newValue/1000), priceObj.sashsIds[j].elemLists.value, priceObj.sashsIds[g].elemLists.rules_type_id);
                         priceObj.sashsIds[j].elemLists.newValue = value;
                         //console.log('rule '+priceObj.sashsIds[j].elemLists.rules_type_id+' '+priceObj.sashsIds[j].elemName);
                         console.log('Название: '+priceObj.sashsIds[j].elemName);
-                        console.log('Размер: '+priceObj.sashsIds[g].elemLists.newValue/1000+' м');
+                        console.log('Размер: '+(priceObj.sashsIds[g].elemLists.newValue).toFixed(3)+' м');
                         console.log('Цена: '+priceObj.sashsIds[j].priceEl.price);
                         for (var f = 0; f < priceObj.currencies.length; f++) {
                           if(priceObj.currencies[f].id === priceObj.sashsIds[j].priceEl.currency_id){
@@ -1149,16 +1160,16 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
                         console.log('Поправка на обрезку : '+priceObj.sashsIds[j].priceEl.amendment_pruning);
                         if(priceObj.sashsIds[j].elemLists.rules_type_id === 3){
                           console.log('Правило : '+priceObj.sashsIds[j].elemLists.value+' шт. на метр родителя');
-                          console.log('Формула : ('+Math.round((priceObj.sashsIds[g].elemLists.newValue+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000)+'*'+priceObj.sashsIds[j].elemLists.value+'*'+priceObj.sashsIds[j].priceEl.price+')*(1+('+priceObj.sashsIds[j].priceEl.waste+'/100) = '+((Math.round((priceObj.sashsIds[g].elemLists.newValue+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000)*priceObj.sashsIds[j].elemLists.value*priceObj.sashsIds[j].priceEl.price)*(1+(priceObj.sashsIds[j].priceEl.waste/100))).toFixed(2));
-                          priceTmp += (Math.round((priceObj.sashsIds[g].elemLists.newValue+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000)*priceObj.sashsIds[j].elemLists.value*priceObj.sashsIds[j].priceEl.price)*(1+(priceObj.sashsIds[j].priceEl.waste/100));
+                          console.log('Формула : (round('+(priceObj.sashsIds[g].elemLists.newValue+(priceObj.sashsIds[j].priceEl.amendment_pruning/1000)).toFixed(3)+'*'+priceObj.sashsIds[j].elemLists.value+')*'+priceObj.sashsIds[j].priceEl.price+')*(1+('+priceObj.sashsIds[j].priceEl.waste+'/100) = '+((Math.round((priceObj.sashsIds[g].elemLists.newValue+(priceObj.sashsIds[j].priceEl.amendment_pruning/1000))*priceObj.sashsIds[j].elemLists.value)*priceObj.sashsIds[j].priceEl.price)*(1+(priceObj.sashsIds[j].priceEl.waste/100))).toFixed(2));
+                          priceTmp += (Math.round((priceObj.sashsIds[g].elemLists.newValue+(priceObj.sashsIds[j].priceEl.amendment_pruning/1000))*priceObj.sashsIds[j].elemLists.value)*priceObj.sashsIds[j].priceEl.price)*(1+(priceObj.sashsIds[j].priceEl.waste/100));
                         } else if(priceObj.sashsIds[j].elemLists.rules_type_id === 2 || priceObj.sashsIds[j].elemLists.rules_type_id === 4 || priceObj.sashsIds[j].elemLists.rules_type_id === 15){
                           console.log('Правило : '+priceObj.sashsIds[j].elemLists.value+' шт. на родителя');
                           console.log('Формула : (1*'+priceObj.sashsIds[j].elemLists.value+'*'+priceObj.sashsIds[j].priceEl.price+')*(1+('+priceObj.sashsIds[j].priceEl.waste+'/100) = '+(priceObj.sashsIds[j].elemLists.value * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100)));
                           priceTmp += (priceObj.sashsIds[j].elemLists.value * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
                         } else if (priceObj.sashsIds[j].elemLists.rules_type_id === 1){
                           console.log('Правило : меньше родителя на '+priceObj.sashsIds[j].elemLists.value+' м');
-                          console.log('Формула : ('+(priceObj.sashsIds[g].elemLists.newValue+priceObj.sashsIds[j].priceEl.amendment_pruning - (priceObj.sashsIds[j].elemLists.value*100))/1000+'*'+priceObj.sashsIds[j].priceEl.price+')*(1+('+priceObj.sashsIds[j].priceEl.waste+'/100) = '+((((priceObj.sashsIds[g].elemLists.newValue+priceObj.sashsIds[j].priceEl.amendment_pruning - (priceObj.sashsIds[j].elemLists.value*100))/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100))).toFixed(2));
-                          priceTmp += (((priceObj.sashsIds[g].elemLists.newValue+priceObj.sashsIds[j].priceEl.amendment_pruning - (priceObj.sashsIds[j].elemLists.value*100))/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
+                          console.log('Формула : ('+(priceObj.sashsIds[g].elemLists.newValue+priceObj.sashsIds[j].priceEl.amendment_pruning - (priceObj.sashsIds[j].elemLists.value*1000))/1000+'*'+priceObj.sashsIds[j].priceEl.price+')*(1+('+priceObj.sashsIds[j].priceEl.waste+'/100) = '+((((priceObj.sashsIds[g].elemLists.newValue+priceObj.sashsIds[j].priceEl.amendment_pruning - (priceObj.sashsIds[j].elemLists.value*1000))/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100))).toFixed(2));
+                          priceTmp += (((priceObj.sashsIds[g].elemLists.newValue+priceObj.sashsIds[j].priceEl.amendment_pruning - (priceObj.sashsIds[j].elemLists.value*1000))/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
                         } else {
                           console.log('Формула : ('+(priceObj.sashsIds[g].elemLists.newValue+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000+'*'+priceObj.sashsIds[j].priceEl.price+')*(1+('+priceObj.sashsIds[j].priceEl.waste+'/100) = '+((((priceObj.sashsIds[g].elemLists.newValue+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100))).toFixed(2));
                           priceTmp += (((priceObj.sashsIds[g].elemLists.newValue+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
@@ -1175,23 +1186,27 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
                     }
                   }
                   priceObj.price += priceTmp;
-                  console.log('Итого в гривне:'+priceTmp.toFixed(2)+' грн');
+                  console.log('Итого в гривне: '+priceTmp.toFixed(2)+' грн');
                   console.log('');
                 }
               }
             }
           }
+          console.log('Створка - конец ---------------------');
+          console.log('');
+          console.log('Импост - начало ---------------------');
+          console.log('');
           if(construction.impostsSize.length) {
             for (var i = 0; i < construction.impostsSize.length; i++) {
               if(priceObj.impostIds.length) {
                 for (var j = 0; j < priceObj.impostIds.length; j++) {
                   var priceTmp = 0;
                   if(priceObj.impostIds[j].elemLists.parent_list_id == construction.impostId){
-                    var value = self.getValueByRule(construction.impostsSize[i], priceObj.impostIds[j].elemLists.value, priceObj.impostIds[j].elemLists.rules_type_id);
+                    var value = self.getValueByRule(((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning)/1000), priceObj.impostIds[j].elemLists.value, priceObj.impostIds[j].elemLists.rules_type_id);
                     priceObj.impostIds[j].elemLists.newValue = value;
                     //console.log('rule '+priceObj.impostIds[j].elemLists.rules_type_id+' '+priceObj.impostIds[j].elemName);
                     console.log('Название: '+priceObj.impostIds[j].elemName);
-                    console.log('Размер: '+construction.impostsSize[i]/1000+' м');
+                    console.log('Размер: '+(construction.impostsSize[i]/1000).toFixed(3)+' м');
                     console.log('Цена: '+priceObj.impostIds[j].priceEl.price);
                     for (var f = 0; f < priceObj.currencies.length; f++) {
                       if(priceObj.currencies[f].id === priceObj.impostIds[j].priceEl.currency_id){
@@ -1202,16 +1217,16 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
                     console.log('Поправка на обрезку : '+priceObj.impostIds[j].priceEl.amendment_pruning);
                     if(priceObj.impostIds[j].elemLists.rules_type_id === 3){
                       console.log('Правило : '+priceObj.impostIds[j].elemLists.value+' шт. на метр родителя');
-                      console.log('Формула : ('+Math.round((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning)/1000)+'*'+value+'*'+priceObj.impostIds[j].priceEl.price+')*(1+('+priceObj.impostIds[j].priceEl.waste+'/100) = '+((Math.round((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning)/1000)*value*priceObj.impostIds[j].priceEl.price)*(1+(priceObj.impostIds[j].priceEl.waste/100))).toFixed(2));
-                      priceTmp += (Math.round((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning)/1000)*value*priceObj.impostIds[j].priceEl.price)*(1+(priceObj.impostIds[j].priceEl.waste/100));
+                      console.log('Формула : (round('+((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning)/1000)+'*'+value+')*'+priceObj.impostIds[j].priceEl.price+')*(1+('+priceObj.impostIds[j].priceEl.waste+'/100) = '+((Math.round(((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning)/1000)*value)*priceObj.impostIds[j].priceEl.price)*(1+(priceObj.impostIds[j].priceEl.waste/100))).toFixed(2));
+                      priceTmp += (Math.round(((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning)/1000)*value)*priceObj.impostIds[j].priceEl.price)*(1+(priceObj.impostIds[j].priceEl.waste/100));
                     } else if(priceObj.impostIds[j].elemLists.rules_type_id === 2 || priceObj.impostIds[j].elemLists.rules_type_id === 4 || priceObj.impostIds[j].elemLists.rules_type_id === 15){
                       console.log('Правило : '+priceObj.impostIds[j].elemLists.value+' шт. на родителя');
                       console.log('Формула : (1*'+value+'*'+priceObj.impostIds[j].priceEl.price+')*(1+('+priceObj.impostIds[j].priceEl.waste+'/100) = '+(priceObj.impostIds[j].elemLists.value * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100)));
                       priceTmp += (priceObj.impostIds[j].elemLists.value * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
                     } else if (priceObj.impostIds[j].elemLists.rules_type_id === 1){
                       console.log('Правило : меньше родителя на '+priceObj.impostIds[j].elemLists.value+' м');
-                      console.log('Формула : ('+(construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning - (priceObj.impostIds[j].elemLists.value*100))/1000+'*'+priceObj.impostIds[j].priceEl.price+')*(1+('+priceObj.impostIds[j].priceEl.waste+'/100) = '+((((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning - (priceObj.impostIds[j].elemLists.value*100))/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100))).toFixed(2));
-                      priceTmp += (((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning - (priceObj.impostIds[j].elemLists.value*100))/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
+                      console.log('Формула : ('+(construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning - (priceObj.impostIds[j].elemLists.value*1000))/1000+'*'+priceObj.impostIds[j].priceEl.price+')*(1+('+priceObj.impostIds[j].priceEl.waste+'/100) = '+((((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning - (priceObj.impostIds[j].elemLists.value*1000))/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100))).toFixed(2));
+                      priceTmp += (((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning - (priceObj.impostIds[j].elemLists.value*1000))/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
                     } else {
                       console.log('Формула : ('+(construction.sashsSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning)/1000+'*'+priceObj.impostIds[j].priceEl.price+')*(1+('+priceObj.impostIds[j].priceEl.waste+'/100) = '+((((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning)/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100))).toFixed(2));
                       priceTmp += (((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning)/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
@@ -1231,7 +1246,7 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
                         priceObj.impostIds[j].elemLists.newValue = value;
                         //console.log('rule '+priceObj.impostIds[j].elemLists.rules_type_id+' '+priceObj.impostIds[j].elemName);
                         console.log('Название: '+priceObj.impostIds[j].elemName);
-                        console.log('Размер: '+priceObj.impostIds[g].elemLists.newValue/1000+' м');
+                        console.log('Размер: '+(priceObj.impostIds[g].elemLists.newValue).toFixed(3)+' м');
                         console.log('Цена: '+priceObj.impostIds[j].priceEl.price);
                         for (var f = 0; f < priceObj.currencies.length; f++) {
                           if(priceObj.currencies[f].id === priceObj.impostIds[j].priceEl.currency_id){
@@ -1242,16 +1257,16 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
                         console.log('Поправка на обрезку : '+priceObj.impostIds[j].priceEl.amendment_pruning);
                         if(priceObj.impostIds[j].elemLists.rules_type_id === 3){
                           console.log('Правило : '+priceObj.impostIds[j].elemLists.value+' шт. на метр родителя');
-                          console.log('Формула : ('+Math.round((priceObj.impostIds[g].elemLists.newValue+priceObj.impostIds[j].priceEl.amendment_pruning)/1000)+'*'+priceObj.impostIds[j].elemLists.value+'*'+priceObj.impostIds[j].priceEl.price+')*(1+('+priceObj.impostIds[j].priceEl.waste+'/100) = '+((Math.round((priceObj.impostIds[g].elemLists.newValue+priceObj.impostIds[j].priceEl.amendment_pruning)/1000)*priceObj.impostIds[j].elemLists.value*priceObj.impostIds[j].priceEl.price)*(1+(priceObj.impostIds[j].priceEl.waste/100))).toFixed(2));
-                          priceTmp += (Math.round((priceObj.impostIds[g].elemLists.newValue+priceObj.impostIds[j].priceEl.amendment_pruning)/1000)*priceObj.impostIds[j].elemLists.value*priceObj.impostIds[j].priceEl.price)*(1+(priceObj.impostIds[j].priceEl.waste/100));
+                          console.log('Формула : (round('+(priceObj.impostIds[g].elemLists.newValue+(priceObj.impostIds[j].priceEl.amendment_pruning/1000)).toFixed(3)+'*'+priceObj.impostIds[j].elemLists.value+')*'+priceObj.impostIds[j].priceEl.price+')*(1+('+priceObj.impostIds[j].priceEl.waste+'/100) = '+((Math.round((priceObj.impostIds[g].elemLists.newValue+(priceObj.impostIds[j].priceEl.amendment_pruning/1000))*priceObj.impostIds[j].elemLists.value)*priceObj.impostIds[j].priceEl.price)*(1+(priceObj.impostIds[j].priceEl.waste/100))).toFixed(2));
+                          priceTmp += (Math.round((priceObj.impostIds[g].elemLists.newValue+(priceObj.impostIds[j].priceEl.amendment_pruning/1000))*priceObj.impostIds[j].elemLists.value)*priceObj.impostIds[j].priceEl.price)*(1+(priceObj.impostIds[j].priceEl.waste/100));
                         } else if(priceObj.impostIds[j].elemLists.rules_type_id === 2 || priceObj.impostIds[j].elemLists.rules_type_id === 4 || priceObj.impostIds[j].elemLists.rules_type_id === 15){
                           console.log('Правило : '+priceObj.impostIds[j].elemLists.value+' шт. на родителя');
                           console.log('Формула : (1*'+priceObj.impostIds[j].elemLists.value+'*'+priceObj.impostIds[j].priceEl.price+')*(1+('+priceObj.impostIds[j].priceEl.waste+'/100) = '+(priceObj.impostIds[j].elemLists.value * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100)));
                           priceTmp += (priceObj.impostIds[j].elemLists.value * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
                         } else if (priceObj.impostIds[j].elemLists.rules_type_id === 1){
                           console.log('Правило : меньше родителя на '+priceObj.impostIds[j].elemLists.value+' м');
-                          console.log('Формула : ('+(priceObj.impostIds[g].elemLists.newValue+priceObj.impostIds[j].priceEl.amendment_pruning - (priceObj.impostIds[j].elemLists.value*100))/1000+'*'+priceObj.impostIds[j].priceEl.price+')*(1+('+priceObj.impostIds[j].priceEl.waste+'/100) = '+((((priceObj.impostIds[g].elemLists.newValue+priceObj.impostIds[j].priceEl.amendment_pruning - (priceObj.impostIds[j].elemLists.value*100))/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100))).toFixed(2));
-                          priceTmp += (((priceObj.impostIds[g].elemLists.newValue+priceObj.impostIds[j].priceEl.amendment_pruning - (priceObj.impostIds[j].elemLists.value*100))/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
+                          console.log('Формула : ('+(priceObj.impostIds[g].elemLists.newValue+priceObj.impostIds[j].priceEl.amendment_pruning - (priceObj.impostIds[j].elemLists.value*1000))/1000+'*'+priceObj.impostIds[j].priceEl.price+')*(1+('+priceObj.impostIds[j].priceEl.waste+'/100) = '+((((priceObj.impostIds[g].elemLists.newValue+priceObj.impostIds[j].priceEl.amendment_pruning - (priceObj.impostIds[j].elemLists.value*100))/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100))).toFixed(2));
+                          priceTmp += (((priceObj.impostIds[g].elemLists.newValue+priceObj.impostIds[j].priceEl.amendment_pruning - (priceObj.impostIds[j].elemLists.value*1000))/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
                         } else {
                           console.log('Формула : ('+(priceObj.impostIds[g].elemLists.newValue+priceObj.impostIds[j].priceEl.amendment_pruning)/1000+'*'+priceObj.impostIds[j].priceEl.price+')*(1+('+priceObj.impostIds[j].priceEl.waste+'/100) = '+((((priceObj.impostIds[g].elemLists.newValue+priceObj.impostIds[j].priceEl.amendment_pruning)/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100))).toFixed(2));
                           priceTmp += (((priceObj.impostIds[g].elemLists.newValue+priceObj.impostIds[j].priceEl.amendment_pruning)/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
@@ -1274,6 +1289,10 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
               }
             }
           }
+          console.log('Импост - конец ---------------------');
+          console.log('');
+          console.log('Стеклопакет - начало ---------------------');
+          console.log('');
           if(construction.glassSquares.length) {
             for (var i = 0; i < construction.glassSquares.length; i++) {
               if(priceObj.glassIds.length) {
@@ -1295,8 +1314,8 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
                     console.log('Поправка на обрезку : '+priceObj.glassIds[j].priceEl.amendment_pruning);
                     if(priceObj.glassIds[j].elemLists.rules_type_id === 3){
                       console.log('Правило : '+priceObj.glassIds[j].elemLists.value+' шт. на метр родителя');
-                      console.log('Формула : ('+Math.round(1+priceObj.glassIds[j].priceEl.amendment_pruning)+'*'+priceObj.glassIds[j].elemLists.value+'*'+priceObj.glassIds[j].priceEl.price+')*(1+('+priceObj.glassIds[j].priceEl.waste+'/100) = '+((Math.round(1+priceObj.glassIds[j].priceEl.amendment_pruning)*priceObj.glassIds[j].elemLists.value*priceObj.glassIds[j].priceEl.price)*(1+(priceObj.glassIds[j].priceEl.waste/100))).toFixed(2));
-                      priceTmp += (Math.round(1+priceObj.glassIds[j].priceEl.amendment_pruning)*priceObj.glassIds[j].elemLists.value*priceObj.glassIds[j].priceEl.price)*(1+(priceObj.glassIds[j].priceEl.waste/100));
+                      console.log('Формула : (round('+(1+priceObj.glassIds[j].priceEl.amendment_pruning)+'*'+priceObj.glassIds[j].elemLists.value+')*'+priceObj.glassIds[j].priceEl.price+')*(1+('+priceObj.glassIds[j].priceEl.waste+'/100) = '+((Math.round((1+priceObj.glassIds[j].priceEl.amendment_pruning)*priceObj.glassIds[j].elemLists.value)*priceObj.glassIds[j].priceEl.price)*(1+(priceObj.glassIds[j].priceEl.waste/100))).toFixed(2));
+                      priceTmp += (Math.round((1+priceObj.glassIds[j].priceEl.amendment_pruning)*priceObj.glassIds[j].elemLists.value)*priceObj.glassIds[j].priceEl.price)*(1+(priceObj.glassIds[j].priceEl.waste/100));
                     } else if(priceObj.glassIds[j].elemLists.rules_type_id === 2 || priceObj.glassIds[j].elemLists.rules_type_id === 4 || priceObj.glassIds[j].elemLists.rules_type_id === 15){
                       console.log('Правило : '+priceObj.glassIds[j].elemLists.value+' шт. на родителя');
                       console.log('Формула : (1*'+priceObj.glassIds[j].elemLists.value+'*'+priceObj.glassIds[j].priceEl.price+')*(1+('+priceObj.glassIds[j].priceEl.waste+'/100) = '+(priceObj.glassIds[j].elemLists.value * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100)));
@@ -1335,16 +1354,16 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
                         console.log('Поправка на обрезку : '+priceObj.glassIds[j].priceEl.amendment_pruning);
                         if(priceObj.glassIds[j].elemLists.rules_type_id === 3){
                           console.log('Правило : '+priceObj.glassIds[j].elemLists.value+' шт. на метр родителя');
-                          console.log('Формула : ('+Math.round(priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning)+'*'+priceObj.glassIds[j].elemLists.value+'*'+priceObj.glassIds[j].priceEl.price+')*(1+('+priceObj.glassIds[j].priceEl.waste+'/100) = '+((Math.round(priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning)*priceObj.glassIds[j].elemLists.value*priceObj.glassIds[j].priceEl.price)*(1+(priceObj.glassIds[j].priceEl.waste/100))).toFixed(2));
-                          priceTmp += (Math.round(priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning)*priceObj.glassIds[j].elemLists.value*priceObj.glassIds[j].priceEl.price)*(1+(priceObj.glassIds[j].priceEl.waste/100));
+                          console.log('Формула : (round('+(priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning).toFixed(3)+'*'+priceObj.glassIds[j].elemLists.value+')*'+priceObj.glassIds[j].priceEl.price+')*(1+('+priceObj.glassIds[j].priceEl.waste+'/100) = '+((Math.round((priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning)*priceObj.glassIds[j].elemLists.value)*priceObj.glassIds[j].priceEl.price)*(1+(priceObj.glassIds[j].priceEl.waste/100))).toFixed(2));
+                          priceTmp += (Math.round((priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning)*priceObj.glassIds[j].elemLists.value)*priceObj.glassIds[j].priceEl.price)*(1+(priceObj.glassIds[j].priceEl.waste/100));
                         } else if(priceObj.glassIds[j].elemLists.rules_type_id === 2 || priceObj.glassIds[j].elemLists.rules_type_id === 4 || priceObj.glassIds[j].elemLists.rules_type_id === 15){
                           console.log('Правило : '+priceObj.glassIds[j].elemLists.value+' шт. на родителя');
                           console.log('Формула : (1*'+priceObj.glassIds[j].elemLists.value+'*'+priceObj.glassIds[j].priceEl.price+')*(1+('+priceObj.glassIds[j].priceEl.waste+'/100) = '+(priceObj.glassIds[j].elemLists.value * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100)));
                           priceTmp += (priceObj.glassIds[j].elemLists.value * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
                         } else if (priceObj.glassIds[j].elemLists.rules_type_id === 1){
                           console.log('Правило : меньше родителя на '+priceObj.glassIds[j].elemLists.value+' м');
-                          console.log('Формула : ('+(priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning - (priceObj.glassIds[j].elemLists.value*100))+'*'+priceObj.glassIds[j].priceEl.price+')*(1+('+priceObj.glassIds[j].priceEl.waste+'/100) = '+((((priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning - (priceObj.glassIds[j].elemLists.value*100))) * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100))).toFixed(2));
-                          priceTmp += (((priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning - (priceObj.glassIds[j].elemLists.value*100))) * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
+                          console.log('Формула : ('+(priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning - (priceObj.glassIds[j].elemLists.value*1000))+'*'+priceObj.glassIds[j].priceEl.price+')*(1+('+priceObj.glassIds[j].priceEl.waste+'/100) = '+((((priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning - (priceObj.glassIds[j].elemLists.value*100))) * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100))).toFixed(2));
+                          priceTmp += (((priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning - (priceObj.glassIds[j].elemLists.value*1000))) * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
                         } else {
                           console.log('Формула : ('+(priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning)/1000+'*'+priceObj.glassIds[j].priceEl.price+')*(1+('+priceObj.glassIds[j].priceEl.waste+'/100) = '+((((priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning)/1000) * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100))).toFixed(2));
                           priceTmp += (((priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning)/1000) * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
@@ -1367,6 +1386,8 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
               }
             }
           }
+          console.log('Стеклопакет - конец ---------------------');
+          console.log('');
           priceObj.price = priceObj.price.toFixed(2);
           console.log('Сумма:'+priceObj.price);
           callback(new OkResult(priceObj));
@@ -1377,6 +1398,7 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
     }
   }
 }]);
+
 
 function getValuesString(data){
   var valuesString = '', i;

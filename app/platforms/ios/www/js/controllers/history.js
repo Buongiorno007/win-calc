@@ -61,15 +61,12 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
       var ordersDateArr = [];
       for (var it = 0; it < orders.length; it++) {
         var oldDateArr = orders[it].deliveryDate.split('.');
-                                       console.log('max------', oldDateArr);
-        var newDateStr = Date.parse(oldDateArr[1]+'/'+oldDateArr[0]+'/'+oldDateArr[2]);
-console.log('max========', newDateStr);
-                                       ordersDateArr.push(newDateStr);
+        var newDateStr = Date.parse(oldDateArr[2], oldDateArr[1], oldDateArr[0]);
+        ordersDateArr.push(newDateStr);
       }
       ordersDateArr.sort(function (a, b) {
         return b - a
       });
-                                       console.log(ordersDateArr);
       return ordersDateArr[0];
     }
 
@@ -302,40 +299,30 @@ console.log('max========', newDateStr);
   };
 
   //--------- Delete order
-  $scope.clickDeleteOrder = function(orderType, orderNum) {
-
-    navigator.notification.confirm(
-      $filter('translate')('common_words.DELETE_ORDER_TXT'),
-      deleteOrder,
-      $filter('translate')('common_words.DELETE_ORDER_TITLE'),
-      [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')]
-    );
-
-    function deleteOrder(button) {
-      if(button == 1) {
-        //-------- delete order in Local Objects
-        if (orderType === $scope.global.fullOrderType) {
-          for(var ord = 0; ord < $scope.orders.length; ord++) {
-            if ($scope.orders[ord].orderId === orderNum) {
-              $scope.orders.splice(ord, 1);
-              $scope.ordersSource.splice(ord, 1);
-            }
-          }
-        } else {
-          for(var drf = 0; drf < $scope.drafts.length; drf++) {
-            if ($scope.drafts[drf].orderId === orderNum) {
-              $scope.drafts.splice(drf, 1);
-              $scope.draftsSource.splice(drf, 1);
-            }
+  $scope.deleteOrder = function(orderType, orderNum) {
+    if(confirm('Would you like delete order?')) {
+      //-------- delete order in Local Objects
+      if (orderType === $scope.global.fullOrderType) {
+        for(var ord = 0; ord < $scope.orders.length; ord++) {
+          if ($scope.orders[ord].orderId === orderNum) {
+            $scope.orders.splice(ord, 1);
+            $scope.ordersSource.splice(ord, 1);
           }
         }
-        //------- delete order in Local DB
-        localDB.deleteDB($scope.global.productsTableBD, {'orderId': orderNum});
-        localDB.deleteDB($scope.global.componentsTableBD, {'orderId': orderNum});
-        localDB.deleteDB($scope.global.visorsTableBD, {'orderId': orderNum});
-        localDB.deleteDB($scope.global.windowSillsTableBD, {'orderId': orderNum});
-        localDB.deleteDB($scope.global.ordersTableBD, {'orderId': orderNum});
+      } else {
+        for(var drf = 0; drf < $scope.drafts.length; drf++) {
+          if ($scope.drafts[drf].orderId === orderNum) {
+            $scope.drafts.splice(drf, 1);
+            $scope.draftsSource.splice(drf, 1);
+          }
+        }
       }
+      //------- delete order in Local DB
+      localDB.deleteDB($scope.global.productsTableBD, {'orderId': orderNum});
+      localDB.deleteDB($scope.global.componentsTableBD, {'orderId': orderNum});
+      localDB.deleteDB($scope.global.visorsTableBD, {'orderId': orderNum});
+      localDB.deleteDB($scope.global.windowSillsTableBD, {'orderId': orderNum});
+      localDB.deleteDB($scope.global.ordersTableBD, {'orderId': orderNum});
     }
   };
 
@@ -348,18 +335,10 @@ console.log('max========', newDateStr);
 
   //------------ send Order to Factory
   $scope.sendOrderToFactory = function(orderStyle, orderNum) {
-
-    if(orderStyle !== orderMasterStyle) {
-      navigator.notification.confirm(
-        $filter('translate')('common_words.SEND_ORDER_TXT'),
-        sendOrder,
-        $filter('translate')('common_words.SEND_ORDER_TITLE'),
-        [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')]
-      );
-    }
-
-    function sendOrder(button) {
-      if(button == 1) {
+    if(orderStyle === orderMasterStyle) {
+      return false;
+    } else {
+      if(confirm('Send order to Factory. Are you sure?')) {
         for(var ord = 0; ord < $scope.orders.length; ord++) {
           if($scope.orders[ord].orderId === orderNum) {
             $scope.orders[ord].orderStyle = orderDoneStyle;
@@ -369,24 +348,15 @@ console.log('max========', newDateStr);
         localDB.updateDB($scope.global.ordersTableBD, {'orderStyle': orderDoneStyle}, {'orderId': orderNum});
       }
     }
-
   };
 
 
   //----------- make Order Copy
   $scope.makeOrderCopy = function(orderStyle, orderNum) {
-
-    if(orderStyle !== orderMasterStyle) {
-      navigator.notification.confirm(
-        $filter('translate')('common_words.COPY_ORDER_TXT'),
-        copyOrder,
-        $filter('translate')('common_words.COPY_ORDER_TITLE'),
-        [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')]
-      );
-    }
-
-    function copyOrder(button) {
-      if (button == 1) {
+    if(orderStyle === orderMasterStyle) {
+      return false;
+    } else {
+      if (confirm('Would you like make order copy?')) {
 
         //---- new order number
         var newOrderCopy = {},
@@ -474,9 +444,7 @@ console.log('max========', newDateStr);
 
       }
     }
-
   };
-
 
   function rewriteObjectProperty(objSource, orderId) {
     if(objSource && objSource.length > 0) {

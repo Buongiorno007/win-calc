@@ -213,23 +213,24 @@ var CrossPointImpost = function(sourceObj, depthSource) {
 CrossPointImpost.prototype = FrameObject;
 
 
+//-----------Cross Point for Sash -------------------
 //-----------Cross Point Glass Package-------------------
-var CrossPointGlass = function (sourceObj, depthSource, depthSource2) {
+var CrossPointDiff = function (sourceObj, depthSource, depthSource2) {
   FrameObject.call(this, sourceObj);
   this.lineId1 = sourceObj.line1;
   this.lineId2 = sourceObj.line2;
   this.depth = depthSource;
-  this.depthImpost = depthSource2;
+  this.depthDif = depthSource2;
 
   this.parseIds = function(fullTemplate) {
     this.line1 = fullTemplate.findById(this.lineId1);
     this.line2 = fullTemplate.findById(this.lineId2);
-    this.getCoordinates(this.line1, this.line2, this.depth, this.depthImpost);
+    this.getCoordinates(this.line1, this.line2, this.depth, this.depthDif);
   };
 
-  this.getCoordinates = function(line1, line2, depth, depthImpost) {
+  this.getCoordinates = function(line1, line2, depth, depthDif) {
     var newCoefC1 = this.getNewCoefC(depth ,line1),
-        newCoefC2 = this.getNewCoefC(depthImpost ,line2);
+        newCoefC2 = this.getNewCoefC(depthDif ,line2);
     this.getCoordCrossPoint (line1, line2, newCoefC1, newCoefC2);
   };
 
@@ -250,7 +251,7 @@ var CrossPointGlass = function (sourceObj, depthSource, depthSource2) {
     this.y = baseY / base;
   };
 };
-CrossPointGlass.prototype = FrameObject;
+CrossPointDiff.prototype = FrameObject;
 
 
 //-----------SashLine-------------------
@@ -315,6 +316,25 @@ var Sash = function (sourceObj) {
 
 };
 Sash.prototype = FrameObject;
+
+
+//-----------SashBlock Object-------------------
+var SashBlock = function (sourceObj) {
+  FrameObject.call(this, sourceObj);
+  this.parts = [];
+  this.hardwareId = sourceObj.hardwareId;
+  this.openDir = sourceObj.openDir;
+  this.handlePos = sourceObj.handlePos;
+
+  this.parseParts = function(fullTemplate) {
+    for(var p = 0; p < sourceObj.parts.length; p++) {
+      var part = fullTemplate.findById(sourceObj.parts[p]);
+      this.parts.push(part);
+    }
+  };
+};
+SashBlock.prototype = FrameObject;
+
 
 //-----------Glass Object-------------------
 var Glass = function (sourceObj) {
@@ -408,9 +428,14 @@ var Template = function (sourceObj, depths) {
         break;
       case 'sash_line':  tmpObject = new SashLine(sourceObj.objects[i]);
         break;
-      case 'cross_point_sash_out':  tmpObject = new CrossPoint(sourceObj.objects[i], -depths.sashDepth.b);
+      case 'cross_point_sash_out':
+        if(sourceObj.objects[i].isImpost) {
+          tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.b, depths.impostDepth.d);
+        } else {
+          tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.b, depths.frameDepth.b);
+        }
         break;
-      case 'cross_point_sash_in':  tmpObject = new CrossPoint(sourceObj.objects[i], (depths.sashDepth.c - depths.sashDepth.b));
+      case 'cross_point_sash_in':  tmpObject = new CrossPoint(sourceObj.objects[i], depths.sashDepth.c);
         break;
       case 'sash_out_line':  tmpObject = new SashLine(sourceObj.objects[i]);
         break;
@@ -420,14 +445,13 @@ var Template = function (sourceObj, depths) {
         if(sourceObj.objects[i].blockType === 'frame') {
           //---- is close type block
           if(sourceObj.objects[i].isImpost) {
-            tmpObject = new CrossPointGlass(sourceObj.objects[i], depths.frameDepth.d, depths.impostDepth.b);
+            tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.d, depths.impostDepth.b);
           } else {
-            tmpObject = new CrossPointGlass(sourceObj.objects[i], depths.frameDepth.d, depths.frameDepth.d);
+            tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.d, depths.frameDepth.d);
           }
         } else if(sourceObj.objects[i].blockType === 'sash') {
           //---- is open type block
-          var dep = (depths.sashDepth.d - depths.sashDepth.b);
-          tmpObject = new CrossPointGlass(sourceObj.objects[i], dep, dep);
+          tmpObject = new CrossPointDiff(sourceObj.objects[i],depths.sashDepth.d, depths.sashDepth.d);
         }
         break;
       case 'glass_line':  tmpObject = new GlassLine(sourceObj.objects[i]);
@@ -437,6 +461,8 @@ var Template = function (sourceObj, depths) {
         tmpObject = new Frame(sourceObj.objects[i]);
         break;
       case 'sash':  tmpObject = new Sash(sourceObj.objects[i]);
+        break;
+      case 'sash_block':  tmpObject = new SashBlock(sourceObj.objects[i]);
         break;
       case 'glass_paсkage':  tmpObject = new Glass(sourceObj.objects[i]);
         break;
@@ -505,9 +531,14 @@ var TemplateIcon = function (sourceObj, depths) {
         break;
       case 'sash_line':  tmpObject = new SashLine(sourceObj.objects[i]);
         break;
-      case 'cross_point_sash_out':  tmpObject = new CrossPoint(sourceObj.objects[i], -depths.sashDepth.b * coeffScale);
+      case 'cross_point_sash_out':
+        if(sourceObj.objects[i].isImpost) {
+          tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.b * coeffScale, depths.impostDepth.d * coeffScale);
+        } else {
+          tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.b * coeffScale, depths.frameDepth.b * coeffScale);
+        }
         break;
-      case 'cross_point_sash_in':  tmpObject = new CrossPoint(sourceObj.objects[i], (depths.sashDepth.c - depths.sashDepth.b) * coeffScale);
+      case 'cross_point_sash_in':  tmpObject = new CrossPoint(sourceObj.objects[i], depths.sashDepth.c * coeffScale);
         break;
       case 'sash_out_line':  tmpObject = new SashLine(sourceObj.objects[i]);
         break;
@@ -517,14 +548,14 @@ var TemplateIcon = function (sourceObj, depths) {
         if(sourceObj.objects[i].blockType === 'frame') {
           //---- is close type block
           if(sourceObj.objects[i].isImpost) {
-            tmpObject = new CrossPointGlass(sourceObj.objects[i], depths.frameDepth.d * coeffScale, depths.impostDepth.b * coeffScale);
+            tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.d * coeffScale, depths.impostDepth.b * coeffScale);
           } else {
-            tmpObject = new CrossPointGlass(sourceObj.objects[i], depths.frameDepth.d * coeffScale, depths.frameDepth.d * coeffScale);
+            tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.d * coeffScale, depths.frameDepth.d * coeffScale);
           }
         } else if(sourceObj.objects[i].blockType === 'sash') {
           //---- is open type block
           var dep = (depths.sashDepth.d - depths.sashDepth.b) * coeffScale;
-          tmpObject = new CrossPointGlass(sourceObj.objects[i], dep, dep);
+          tmpObject = new CrossPointDiff(sourceObj.objects[i], dep, dep);
         }
         break;
       case 'glass_line':  tmpObject = new GlassLine(sourceObj.objects[i]);

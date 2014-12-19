@@ -72,19 +72,19 @@
             <button ng-click="addNewProductInOrder()" class="cart-tool new-order">{{ 'cart.ADD_ORDER' | translate }}</button>
           </div>
           <div class="order-block">
-            <div ng-repeat="product in global.productObj" class="order">
-              <button ng-click="clickDeleteProduct(product.productId, $index)" class="order-delete"></button>
-              <div ng-switch="product.roomId" ng-click="editProduct(product.productId)" class="order-header"><img ng-switch-when="1" ng-src="img/rooms-dialog/kitchen.jpg" class="order-header-fon"><img ng-switch-when="2" ng-src="img/rooms-dialog/livingroom.jpg" class="order-header-fon"><img ng-switch-when="3" ng-src="img/rooms-dialog/balcony.jpg" class="order-header-fon"><img ng-switch-when="4" ng-src="img/rooms-dialog/childroom.jpg" class="order-header-fon"><img ng-switch-when="5" ng-src="img/rooms-dialog/bedroom.jpg" class="order-header-fon"><img ng-switch-when="6" ng-src="img/rooms-dialog/door.jpg" class="order-header-fon">
+            <div ng-repeat="product in cart.order.products" class="order">
+              <button ng-click="clickDeleteProduct($index)" class="order-delete"></button>
+              <div ng-switch="product.selectedRoomId" ng-click="editProduct($index)" class="order-header"><img ng-switch-when="1" ng-src="img/rooms-dialog/kitchen.jpg" class="order-header-fon"><img ng-switch-when="2" ng-src="img/rooms-dialog/livingroom.jpg" class="order-header-fon"><img ng-switch-when="3" ng-src="img/rooms-dialog/balcony.jpg" class="order-header-fon"><img ng-switch-when="4" ng-src="img/rooms-dialog/childroom.jpg" class="order-header-fon"><img ng-switch-when="5" ng-src="img/rooms-dialog/bedroom.jpg" class="order-header-fon"><img ng-switch-when="6" ng-src="img/rooms-dialog/door.jpg" class="order-header-fon">
                 <div class="order-template">
-                  <svg-template template="product.icon" template-width="global.svgTemplateThumbWidth" template-height="global.svgTemplateThumbHeight" type-construction="icon"></svg-template>
+                  <svg-template template="product.templateIcon" template-width="global.svgTemplateIconWidth" template-height="global.svgTemplateIconHeight" type-construction="icon"></svg-template>
                 </div>
-                <div class="order-coeff"><span class="coeff-label">{{ 'cart.HEAT_TRANSFER' | translate }}</span><span class="coeff-value">{{ product.heatCoeff }}</span></div>
+                <div class="order-coeff"><span class="coeff-label">{{ 'cart.HEAT_TRANSFER' | translate }}</span><span class="coeff-value">{{ product.heatTransferTOTAL }}</span></div>
               </div>
               <div class="order-content">
                 <ul class="order-list">
                   <li class="order-item">
-                    <div class="order-value">{{ product.productWidth }} {{ 'mainpage.MM' | translate }}</div>
-                    <div class="order-value">{{ product.productHeight }} {{ 'mainpage.MM' | translate }}</div>
+                    <div class="order-value">{{ product.templateWidth }} {{ 'mainpage.MM' | translate }}</div>
+                    <div class="order-value">{{ product.templateHeight }} {{ 'mainpage.MM' | translate }}</div>
                     <div class="order-label">{{ 'mainpage.CONFIGMENU_SIZING' | translate }}</div>
                   </li>
                   <li class="order-item">
@@ -104,22 +104,22 @@
                     <div class="order-value">{{ product.laminationOutName }} / {{ product.laminationInName }}</div>
                     <div class="order-label">{{ 'mainpage.CONFIGMENU_LAMINATION' | translate }}</div>
                   </li>
-                  <li ng-click="showAllAddElementDetail(product.productId, $index)" class="order-item addelements-btn">
-                    <div ng-if="cart.allAddElements[$index].length &gt; 4 || !cart.allAddElements[$index].length" class="order-value">{{cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENTS' | translate }}</div>
+                  <li ng-click="showAllAddElementDetail($index)" class="order-item addelements-btn">
+                    <div ng-if="cart.allAddElements[$index].length &gt; 4 || cart.allAddElements[$index].length === 0" class="order-value">{{cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENTS' | translate }}</div>
                     <div ng-if="cart.allAddElements[$index].length &lt; 5 &amp;&amp; cart.allAddElements[$index].length &gt; 1" class="order-value">{{cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENTA' | translate }}</div>
                     <div ng-if="cart.allAddElements[$index].length === 1" class="order-value">{{cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENT' | translate }}</div>
                     <div class="order-label">{{ 'mainpage.CONFIGMENU_ADDITIONAL' | translate }}</div>
                   </li>
                 </ul>
                 <div class="order-qty">
-                  <button ng-click="lessProduct(product.productId, $index)" class="order-tool">-</button>
+                  <button ng-click="lessProduct($index)" class="order-tool">-</button>
                   <div class="order-value">{{ product.productQty }}</div>
-                  <button ng-click="moreProduct(product.productId, $index)" class="order-tool">+</button>
+                  <button ng-click="moreProduct($index)" class="order-tool">+</button>
                   <div class="order-label qty-label">{{ 'cart.PRODUCT_QTY' | translate }}</div>
                 </div>
               </div>
-              <div class="order-footer">{{ (product.productPrice * product.productQty) *100 / 100 }} {{ global.currency }}</div>
-              <div ng-show="cart.isAddElementDetail === product.productId" class="addelements-detail">
+              <div price-fixed="product.productPriceTOTAL" qty-element="{{product.productQty}}" currency-element="{{global.currency}}" class="order-footer"></div>
+              <div ng-show="cart.isAddElementDetail === $index" class="addelements-detail">
                 <div class="addelements-detail-header">
                   <div class="addelements-detail-tools">
                     <button class="addelements-detail-edit">{{ 'cart.ADDELEMENTS_EDIT_LIST' | translate }}</button>
@@ -129,17 +129,17 @@
                     <div class="addelements-detail-row">
                       <div class="product-value">
                         <div class="product-icon-thumb">
-                          <svg-template template="product.icon" template-width="global.svgTemplateThumbWidth" template-height="global.svgTemplateThumbHeight" type-construction="icon"></svg-template>
+                          <svg-template template="product.templateIcon" template-width="global.svgTemplateIconWidth" template-height="global.svgTemplateIconHeight" type-construction="icon"></svg-template>
                         </div><span class="product-template-qty">X {{ product.productQty }}</span>
                       </div>
                       <div class="product-icon-label">{{ 'cart.PRODUCT_QTY' | translate }}</div>
                     </div>
                     <div class="addelements-detail-row">
-                      <div class="product-value">{{ product.productWidth }} {{ 'mainpage.MM' | translate }} *</div>
+                      <div class="product-value">{{ product.templateWidth }} {{ 'mainpage.MM' | translate }} *</div>
                       <div class="product-label">{{ 'add_elements.WIDTH_LABEL' | translate }}</div>
                     </div>
                     <div class="addelements-detail-row">
-                      <div class="product-value">{{ product.productHeight }} {{ 'mainpage.MM' | translate }}</div>
+                      <div class="product-value">{{ product.templateHeight }} {{ 'mainpage.MM' | translate }}</div>
                       <div class="product-label">{{ 'add_elements.HEIGHT_LABEL' | translate }}</div>
                     </div>
                   </div>
@@ -184,11 +184,11 @@
                     </li>
                   </ul>
                   <div class="addelements-detail-row price-one-product">
-                    <div class="addelement-price-value">+ {{ product.addElementsPrice }} {{ global.currency }}</div>
+                    <div class="addelement-price-value">+ {{ product.addElementsPriceSELECT }} {{ global.currency }}</div>
                     <div class="product-label">{{ 'cart.ADDELEMENTS_PRODUCT_COST' | translate }}</div>
                   </div>
                 </div>
-                <div class="addelements-detail-footer"><span>{{ product.productPrice }} {{ global.currency }}</span><span>&#8721;</span></div>
+                <div class="addelements-detail-footer"><span price-fixed="product.addElementsPriceSELECT" qty-element="{{product.productQty}}" currency-element="{{global.currency}}"></span><span>&#8721;</span></div>
               </div>
             </div>
           </div>
@@ -210,36 +210,35 @@
             <button ng-click="createNewProduct()" class="cart-tool new-order">{{ 'cart.ADD_ORDER' | translate }}</button>
           </div>
           <div class="order-block">
-            <div ng-repeat="product in global.productObj" class="order">
-              <button ng-click="deleteProduct(product.productId, $index)" class="order-delete"></button>
+            <div ng-repeat="product in cart.order.products" class="order">
+              <button ng-click="deleteProduct($index)" class="order-delete"></button>
               <div class="order-header">
                 <div ng-click="editProduct(product.productId)" class="order-template">
-                  <!--img.icon-thumb(ng-src="{{ product.productIcon }}", ng-click="editProduct(product.productId)")-->
-                  <svg-template template="product.icon" template-width="global.svgTemplateThumbWidth" template-height="global.svgTemplateThumbHeight" type-construction="icon"></svg-template>
+                  <svg-template template="product.templateIcon" template-width="global.svgTemplateIconWidth" template-height="global.svgTemplateIconHeight" type-construction="icon"></svg-template>
                 </div>
               </div>
               <div class="order-content">
-                <div class="order-value">{{ product.productWidth }} * {{ product.productHeight }} {{ 'mainpage.MM' | translate }}</div>
-                <div ng-click="showAllAddElementDetail(product.productId, $index)" class="order-item addelements-btn">
-                  <div ng-if="cart.allAddElements[$index].length &gt; 4 || !cart.allAddElements[$index].length" class="order-value">{{cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENTS' | translate }}</div>
+                <div class="order-value">{{ product.templateWidth }} * {{ product.templateHeight }} {{ 'mainpage.MM' | translate }}</div>
+                <div ng-click="showAllAddElementDetail($index)" class="order-item addelements-btn">
+                  <div ng-if="cart.allAddElements[$index].length &gt; 4 || cart.allAddElements[$index].length === 0" class="order-value">{{cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENTS' | translate }}</div>
                   <div ng-if="cart.allAddElements[$index].length &lt; 5 &amp;&amp; cart.allAddElements[$index].length &gt; 1" class="order-value">{{cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENTA' | translate }}</div>
                   <div ng-if="cart.allAddElements[$index].length === 1" class="order-value">{{cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENT' | translate }}</div>
                   <div class="order-label">{{ 'mainpage.CONFIGMENU_ADDITIONAL' | translate }}</div>
                 </div>
                 <div class="order-qty">
-                  <button ng-click="lessProduct(product.productId, $index)" class="order-tool">-</button>
+                  <button ng-click="lessProduct($index)" class="order-tool">-</button>
                   <div class="order-value">{{ product.productQty }}</div>
-                  <button ng-click="moreProduct(product.productId, $index)" class="order-tool">+</button>
+                  <button ng-click="moreProduct($index)" class="order-tool">+</button>
                 </div>
                 <div class="order-label">{{ 'cart.PRODUCT_QTY' | translate }}</div>
               </div>
-              <div class="order-footer">{{ product.productPrice }} {{ global.currency }}</div>
+              <div price-fixed="product.productPriceTOTAL" qty-element="{{product.productQty}}" currency-element="{{global.currency}}" class="order-footer"></div>
             </div>
           </div>
           <button ng-click="viewSwitching()" class="view-switch-tab">{{ 'cart.FULL_VIEW' | translate }}</button>
         </section>
       </section>
-      <div ng-hide="!cart.isAddElementDetail" ng-click="closeAllAddElementDetail()" class="addelements-backview"></div>
+      <div ng-hide="cart.isAddElementDetail === 'false'" ng-click="closeAllAddElementDetail()" class="addelements-backview"></div>
     </section>
     <section class="right-menu">
       <div ng-controller="CartMenuCtrl" ng-init="getOrderNumber()" class="right-menu-controller">
@@ -248,8 +247,8 @@
             <li ng-class="{'active': cartMenuData.activeMenuItem==1}" ng-click="selectMenuItem(1)" class="item">
               <div data-output="{{ 'cart.DELIVERY' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="title"></div>
               <div class="cart-item-data">
-                <div ng-show="global.selectedFloor == 'free'" data-output="{{ 'cart.SELF_EXPORT' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div>
-                <div ng-hide="global.selectedFloor == 'free'" data-output="{{ global.selectedFloor }} {{ 'cart.FLOOR' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div><span ng-hide="global.selectedFloor == 'free'" data-output=" + {{ global.selectedFloorPrice }} {{ global.currency }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="name aside"></span>
+                <div ng-show="global.order.selectedFloor == 'free'" data-output="{{ 'cart.SELF_EXPORT' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div>
+                <div ng-hide="global.order.selectedFloor == 'free'" data-output="{{ global.order.selectedFloor }} {{ 'cart.FLOOR' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div><span ng-hide="global.order.selectedFloor == 'free'" data-output=" + {{ global.order.selectedFloorPrice }} {{ global.currency }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="name aside"></span>
               </div>
             </li>
             <div ng-class="{'active': cartMenuData.activeMenuItem==1}" class="dropdown-cart-menu drop-delivery">
@@ -271,8 +270,8 @@
             <li ng-class="{'active': cartMenuData.activeMenuItem==2}" ng-click="selectMenuItem(2)" class="item">
               <div data-output="{{ 'cart.ASSEMBLING' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="title"></div>
               <div class="cart-item-data">
-                <div ng-show="global.selectedAssembling == 'free'" data-output="{{ 'cart.WITHOUT_ASSEMBLING' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div>
-                <div ng-hide="global.selectedAssembling == 'free'" data-output="{{ global.selectedAssembling }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div><span ng-hide="global.selectedAssembling == 'free'" data-output=" + {{ global.selectedAssemblingPrice }} {{ global.currency }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="name aside"></span>
+                <div ng-show="global.order.selectedAssembling == 'free'" data-output="{{ 'cart.WITHOUT_ASSEMBLING' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div>
+                <div ng-hide="global.order.selectedAssembling == 'free'" data-output="{{ global.order.selectedAssembling }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div><span ng-hide="global.order.selectedAssembling == 'free'" data-output=" + {{ global.order.selectedAssemblingPrice }} {{ global.currency }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="name aside"></span>
               </div>
             </li>
             <div ng-class="{'active': cartMenuData.activeMenuItem==2}" class="dropdown-cart-menu drop-assembling">
@@ -295,9 +294,9 @@
               <div data-output="{{ 'cart.PAYMENT_BY_INSTALMENTS' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="title"></div>
               <div class="cart-item-data">
                 <div ng-if="cartMenuData.activeInstalment == 'default'" data-output="{{ 'cart.WITHOUT_INSTALMENTS' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div>
-                <div ng-if="cartMenuData.activeInstalment !== 'default' &amp;&amp; global.selectedInstalmentPeriod == 1" data-output="{{ global.selectedInstalmentPeriod }} {{ 'common_words.MONTH_LABEL' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div>
-                <div ng-if="cartMenuData.activeInstalment !== 'default' &amp;&amp; global.selectedInstalmentPeriod &gt; 1 &amp;&amp; global.selectedInstalmentPeriod &lt; 5" data-output="{{ global.selectedInstalmentPeriod }} {{ 'common_words.MONTHA_LABEL' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div>
-                <div ng-if="cartMenuData.activeInstalment !== 'default' &amp;&amp; global.selectedInstalmentPeriod &gt; 4" data-output="{{ global.selectedInstalmentPeriod }} {{ 'common_words.MONTHS_LABEL' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div><span ng-if="cartMenuData.activeInstalment !== 'default'" data-output="{{ global.selectedInstalmentPercent }} %" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="name aside"></span>
+                <div ng-if="cartMenuData.activeInstalment !== 'default' &amp;&amp; global.order.selectedInstalmentPeriod == 1" data-output="{{ global.order.selectedInstalmentPeriod }} {{ 'common_words.MONTH_LABEL' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div>
+                <div ng-if="cartMenuData.activeInstalment !== 'default' &amp;&amp; global.order.selectedInstalmentPeriod &gt; 1 &amp;&amp; global.order.selectedInstalmentPeriod &lt; 5" data-output="{{ global.order.selectedInstalmentPeriod }} {{ 'common_words.MONTHA_LABEL' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div>
+                <div ng-if="cartMenuData.activeInstalment !== 'default' &amp;&amp; global.order.selectedInstalmentPeriod &gt; 4" data-output="{{ global.order.selectedInstalmentPeriod }} {{ 'common_words.MONTHS_LABEL' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div><span ng-if="cartMenuData.activeInstalment !== 'default'" data-output="{{ global.order.selectedInstalmentPercent }} %" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="name aside"></span>
               </div>
               <div ng-class="{'active': cartMenuData.activeInstalmentSwitcher}" ng-click="turnOffInstalment()" class="check-switcher">
                 <div class="check-bg-active"></div>
@@ -319,42 +318,42 @@
             </div>
             <li ng-class="{'active': cartMenuData.activeMenuItem==4}" ng-click="selectMenuItem(4)" class="item">
               <div data-output="{{ 'cart.DELIVERY_DATE' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="title"></div>
-              <div data-output="{{ global.newDeliveryDate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div>
+              <div data-output="{{ global.order.newDeliveryDate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div>
             </li>
             <div ng-class="{'active': cartMenuData.activeMenuItem==4}" class="dropdown-cart-menu drop-calendar">
               <calendar calendar-option=" {{ 'common_words.MONTHS' | translate }} " calendar-option-short="{{ 'common_words.MONTHS_SHOT' | translate }} " class="calendar-box"></calendar>
             </div>
             <div class="calendar-prices">
-              <div ng-show="cartMenuData.datePriceMore" class="calendar-price up">+ {{ global.deliveryPrice }} {{ global.currency }}</div>
-              <div ng-show="cartMenuData.datePriceLess" class="calendar-price down">- {{ global.deliveryPrice }} {{ global.currency }}</div>
+              <div ng-show="cartMenuData.datePriceMore" class="calendar-price up">+ {{ global.order.deliveryPrice }} {{ global.currency }}</div>
+              <div ng-show="cartMenuData.datePriceLess" class="calendar-price down">- {{ global.order.deliveryPrice }} {{ global.currency }}</div>
             </div>
           </ul>
           <footer class="menu-footer">
             <div ng-class="{'active': cartMenuData.activeInstalmentSwitcher}" class="price-block price-with-instalments">
-              <div class="name">{{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ global.selectedInstalmentPercent }}</div>
-              <div class="name">{{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{ global.newDeliveryDate }}</div>
-              <price price-value="global.paymentFirst" price-currency="global.currency"></price>
-              <div class="name">{{ global.selectedInstalmentPeriod }} {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }}</div>
-              <price price-value="global.paymentMonthly" price-currency="global.currency"></price>
+              <div class="name">{{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ global.order.selectedInstalmentPercent }} %</div>
+              <div class="name">{{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{ global.order.newDeliveryDate }}</div>
+              <price price-value="global.order.paymentFirst" price-currency="global.currency"></price>
+              <div class="name">{{ global.order.selectedInstalmentPeriod }} {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }}</div>
+              <price price-value="global.order.paymentMonthly" price-currency="global.currency"></price>
             </div>
             <div ng-class="{'active': !cartMenuData.activeInstalmentSwitcher}" class="price-block price-without-instalments">
-              <div class="name">{{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{ global.newDeliveryDate }}</div>
-              <price price-value="global.orderTotalPrice" price-currency="global.currency"></price>
+              <div class="name">{{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{ global.order.newDeliveryDate }}</div>
+              <price price-value="global.order.orderPriceTOTAL" price-currency="global.currency"></price>
             </div>
             <button ng-click="showCallOrderDialog()" class="order-btn">{{ 'cart.ORDER' | translate }}</button>
             <button ng-click="showCallMasterDialog()" class="measure-btn">{{ 'cart.MEASURE' | translate }}</button>
           </footer>
         </div>
         <div ng-class="{'active': cartMenuData.isOldPrice &amp;&amp; cartMenuData.activeInstalmentSwitcher}" class="old-price-inst-tab">
-          <div class="name">{{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ global.selectedInstalmentPercent }} %</div>
-          <div class="name">{{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{ global.deliveryDate }}</div>
-          <price price-value="global.paymentFirstPrimary" price-currency="global.currency"></price>
-          <div class="name">{{ global.selectedInstalmentPeriod }} {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }}</div>
-          <price price-value="global.paymentMonthlyPrimary" price-currency="global.currency"></price>
+          <div class="name">{{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ global.order.selectedInstalmentPercent }} %</div>
+          <div class="name">{{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{ global.order.deliveryDate }}</div>
+          <price price-value="global.order.paymentFirstPrimary" price-currency="global.currency"></price>
+          <div class="name">{{ global.order.selectedInstalmentPeriod }} {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }}</div>
+          <price price-value="global.order.paymentMonthlyPrimary" price-currency="global.currency"></price>
         </div>
         <div ng-class="{'active': cartMenuData.isOldPrice &amp;&amp; !cartMenuData.activeInstalmentSwitcher}" class="old-price-tab">
-          <div class="name">{{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{ global.deliveryDate }}</div>
-          <price price-value="global.orderTotalPricePrimary" price-currency="global.currency"></price>
+          <div class="name">{{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{ global.order.deliveryDate }}</div>
+          <price price-value="global.order.orderPriceTOTALPrimary" price-currency="global.currency"></price>
         </div>
       </div>
     </section>

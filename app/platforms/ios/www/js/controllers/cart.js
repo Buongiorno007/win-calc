@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$location', '$filter', function ($scope, localDB, localStorage, $location, $filter) {
+BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$location', function ($scope, localDB, localStorage, $location) {
 
   $scope.global = localStorage;
 
@@ -273,30 +273,32 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   $scope.clickDeleteProduct = function(productIdBD, productIdArr) {
 
     navigator.notification.confirm(
-      $filter('translate')('common_words.DELETE_PRODUCT_TXT'),
+      'Хотите удалить продукт?',
       deleteProduct,
-      $filter('translate')('common_words.DELETE_PRODUCT_TITLE'),
-      [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')]
+      'Удаление!',
+      ['Да','Нет']
     );
 
+    //----- Delete Product
     function deleteProduct(button) {
       if(button == 1) {
 
-        $scope.global.productObj.splice(productIdArr, 1);
-        $scope.cart.productObjSource.splice(productIdArr, 1);
-        $scope.cart.allAddElements.splice(productIdArr, 1);
-        --$scope.global.productCounter;
-        localDB.deleteDB($scope.global.productsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, "productId": productIdBD});
-        localDB.deleteDB($scope.global.componentsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, "productId": productIdBD});
-        localDB.deleteDB($scope.global.visorsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, "productId": productIdBD});
-        localDB.deleteDB($scope.global.windowSillsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, "productId": productIdBD});
-        //----- if all products were deleted go to main page????
-        if($scope.global.productCounter > 0 ) {
-          // Change order price
-          $scope.global.calculateOrderPrice();
-        } else {
-          $scope.global.createNewProjectCart();
-        }
+                                    $scope.global.productObj.splice(productIdArr, 1);
+                                    $scope.cart.productObjSource.splice(productIdArr, 1);
+                                    $scope.cart.allAddElements.splice(productIdArr, 1);
+                                    --$scope.global.productCounter;
+                                    localDB.deleteDB($scope.global.productsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, "productId": productIdBD});
+                                    localDB.deleteDB($scope.global.componentsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, "productId": productIdBD});
+                                    localDB.deleteDB($scope.global.visorsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, "productId": productIdBD});
+                                    localDB.deleteDB($scope.global.windowSillsTableBD, {'orderId': {"value": $scope.global.orderNumber, "union": 'AND'}, "productId": productIdBD});
+                                    //----- if all products were deleted go to main page????
+                                    if($scope.global.productCounter > 0 ) {
+                                    // Change order price
+    
+                                    $scope.global.calculateOrderPrice();
+                                    } else {
+                                    $scope.global.createNewProjectCart();
+                                    }
 
       }
 

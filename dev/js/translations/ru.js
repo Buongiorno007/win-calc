@@ -60,7 +60,7 @@ window.russianDictionary = {
     NAVMENU_APPENDIX: 'Приложение',
     NAVMENU_NEW_CALC: '+ Новый расчет',
     CONFIGMENU_CONFIGURATION: 'Конфигурация и размеры',
-    CONFIGMENU_SIZING: 'ширина * высота -',
+    CONFIGMENU_SIZING: 'ширина * высота',
     CONFIGMENU_PROFILE: 'Профиль',
     CONFIGMENU_GLASS: 'Стеклопакет',
     CONFIGMENU_HARDWARE: 'Фурнитура',
