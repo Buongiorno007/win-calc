@@ -1,7 +1,7 @@
 
 // controllers/menus/config-menu.js
 
-/* globals BauVoiceApp, STEP, typingTextByChar, Template, TemplateIcon, drawSVG */
+/* globals BauVoiceApp, STEP, typingTextByChar, Template, TemplateIcon, drawSVG, parsingTemplateSource */
 
 'use strict';
 
@@ -33,10 +33,13 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 */
 
   //============= Create Order Date
-  $scope.createOrderDate = function() {
+  $scope.global.createOrderData = function() {
     var deliveryDate = new Date(),
         valuesDate,
         idDate;
+
+    //----------- create order number for new project
+    $scope.global.order.orderId = Math.floor((Math.random() * 100000));
 
     //------ set delivery day
     deliveryDate.setDate( $scope.global.currentDate.getDate() + $scope.global.productionDays );
@@ -52,7 +55,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     $scope.global.order.newDeliveryDate = $scope.global.order.deliveryDate;
   };
 
-
+/*
   //=============== Download Add Elements from localDB for Edit Product
   $scope.downloadAddElementsEDIT = function() {
 
@@ -191,8 +194,10 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       if (results.status) {
         var tempTemplateSource = angular.copy(results.data);
 
-        var productTemplateSource = $scope.global.parseTemplateLocalDB(tempTemplateSource, $scope.global.productEditNumber);
-        productTemplateSource.name = $scope.global.product.constructName;
+        //var productTemplateSource = $scope.global.parseTemplateLocalDB(tempTemplateSource, $scope.global.productEditNumber);
+        //productTemplateSource.name = $scope.global.product.constructName;
+
+        var productTemplateSource = parsingTemplateSource(tempTemplateSource);
 
         $scope.global.templateDefault = new Template(productTemplateSource, $scope.global.templateDepths);
         $scope.global.product.constructThumb = new TemplateIcon(productTemplateSource, $scope.global.templateDepths);
@@ -202,7 +207,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       }
     });
   };
-
+ */
+/*
   //================== parse Template from Local DB
   $scope.global.parseTemplateLocalDB = function(tempTemplateSource, prod) {
 
@@ -237,201 +243,71 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     productIconSource.objects = componentsArr;
     return productIconSource;
   };
+*/
 
 
 
 
-  //=============== Start download Product Data
-  $scope.global.productInit = function () {
+  //----------- get all profiles
+  $scope.downloadAllProfiles = function(results) {
+    if (results) {
+      $scope.global.profilesType = angular.copy(results[$scope.global.product.profileIndex].folder);
+      $scope.global.profiles = angular.copy(results[$scope.global.product.profileIndex].profiles);
+      $scope.global.product.profileId = $scope.global.profiles[$scope.global.product.profileIndex].id;
+      //$scope.global.product.profileName = $scope.global.profiles[$scope.global.profileIndex].name;
+      //$scope.global.product.profileHeatCoeff = $scope.global.profiles[$scope.global.profileIndex].heatCoeff;
+      //$scope.global.product.profileAirCoeff = $scope.global.profiles[$scope.global.profileIndex].airCoeff;
 
-    //------ Check Product Edit
-    if ($scope.global.productEditNumber && !$scope.global.isCreatedNewProject) {
+    } else {
+      console.log(results);
+    }
+  };
 
-      //------ Download Add Elements from localDB
-      $scope.downloadAddElementsEDIT();
-
-      //------ Download Product Data from localDB
-      $scope.downloadProductEDIT();
-
-      //------ Download Template from localDB
-      $scope.downloadTemplateSourceEDIT();
-
-
-    //================= Check new Product
-    } else if($scope.global.isCreatedNewProject) {
-
-      //------- create new empty product
-      $scope.global.product = angular.copy($scope.global.productSource);
-
-      //------- create order date
-      $scope.createOrderDate();
-
-      //----------- get all profiles
-      $scope.downloadAllProfiles = function(results) {
-          if (results) {
-            $scope.global.profilesType = angular.copy(results[$scope.global.product.profileIndex].folder);
-            $scope.global.profiles = angular.copy(results[$scope.global.product.profileIndex].profiles);
-            $scope.global.product.profileId = $scope.global.profiles[$scope.global.product.profileIndex].id;
-            //$scope.global.product.profileName = $scope.global.profiles[$scope.global.profileIndex].name;
-            //$scope.global.product.profileHeatCoeff = $scope.global.profiles[$scope.global.profileIndex].heatCoeff;
-            //$scope.global.product.profileAirCoeff = $scope.global.profiles[$scope.global.profileIndex].airCoeff;
-
-          } else {
-            console.log(results);
-          }
-      };
-
-      //---------- get element section sizes as to profile
-      $scope.downloadProfileElementSizes = function(results, type) {
-        if(results) {
-          switch(type) {
-            case 'frame': $scope.global.allProfileFrameSizes = angular.copy(results);
-              break;
-            case 'frame-still': $scope.global.allProfileFrameStillSizes = angular.copy(results);
-              break;
-            case 'sash': $scope.global.allProfileSashSizes = angular.copy(results);
-              break;
-            case 'impost': $scope.global.allProfileImpostSizes = angular.copy(results);
-              break;
-            case 'shtulp': $scope.global.allProfileShtulpSizes = angular.copy(results);
-              break;
-          }
-        } else {
-          console.log(results);
-        }
-      };
-
-
-      //-------- get default json template
-      $scope.downloadAllTemplates = function() {
-          constructService.getDefaultConstructTemplate(function (results) {
-          if (results.status) {
-
-            //-------- Save Source Templates in Store
-            $scope.global.templatesWindSTORE = angular.copy(results.data.windows);
-            $scope.global.templatesWindDoorSTORE = angular.copy(results.data.windowDoor);
-            $scope.global.templatesBalconySTORE = angular.copy(results.data.balconies);
-            $scope.global.templatesDoorSTORE = angular.copy(results.data.doors);
-
-            //-------- Templates for use
-            $scope.global.templatesWindSource = angular.copy(results.data.windows);
-            $scope.global.templatesWindDoorSource = angular.copy(results.data.windowDoor);
-            $scope.global.templatesBalconySource = angular.copy(results.data.balconies);
-            $scope.global.templatesDoorSource = angular.copy(results.data.doors);
-
-            $scope.global.parseTemplate($scope.global.product.profileIndex, $scope.global.product.profileId);
-
-          } else {
-            console.log(results);
-          }
-        });
-      };
-
-      constructService.getProfileSystem(function (results) {
-        if (results.status) {
-          $scope.global.product.profileHeatCoeff = results.data.heatCoeff;
-          $scope.global.product.profileAirCoeff = results.data.airCoeff;
-          $scope.global.product.profileName = results.data.name;
-        } else {
-          console.log(results);
-        }
-      });
-
-      //----------- get all glasses
-      constructService.getAllGlass(function (results) {
-        if (results.status) {
-          $scope.global.glassTypes = angular.copy(results.data.glassTypes);
-          $scope.global.glasses = angular.copy(results.data.glasses);
-          //----- set first current glass
-          $scope.global.product.glassId = $scope.global.glasses[$scope.global.product.glassIndex][$scope.global.product.glassIndex].glassId;
-          $scope.global.product.glassName = $scope.global.glasses[$scope.global.product.glassIndex][$scope.global.product.glassIndex].glassName;
-          $scope.global.product.glassHeatCoeff = $scope.global.glasses[$scope.global.product.glassIndex][$scope.global.product.glassIndex].heatCoeff;
-          $scope.global.product.glassAirCoeff = $scope.global.glasses[$scope.global.product.glassIndex][$scope.global.product.glassIndex].airCoeff;
-        } else {
-          console.log(results);
-        }
-      });
-
-
-      //----------- get all profiles
-      constructService.getAllProfileSystems().then(function (data) {
-          $scope.downloadAllProfiles(data);
-        }).then(function () {
-
-          var ramaQueries = [],
-              sashQueries = [],
-              ramaStillQueries = [],
-              impostQueries = [],
-              shtulpQueries = [],
-              k;
-
-          for(k = 0; k < $scope.global.profiles.length; k++) {
-            ramaQueries.push(constructService.getAllProfileSizes($scope.global.profiles[k].rama_id));
-            ramaStillQueries.push(constructService.getAllProfileSizes($scope.global.profiles[k].rama_still_id));
-            sashQueries.push(constructService.getAllProfileSizes($scope.global.profiles[k].sash_id));
-            impostQueries.push(constructService.getAllProfileSizes($scope.global.profiles[k].impost_id));
-            shtulpQueries.push(constructService.getAllProfileSizes($scope.global.profiles[k].shtulp_id));
-          }
-
-          $q.all(ramaQueries).then(function (data) {
-            $scope.downloadProfileElementSizes(data, 'frame');
-          });
-          $q.all(ramaStillQueries).then(function (data) {
-            $scope.downloadProfileElementSizes(data, 'frame-still');
-          });
-          $q.all(sashQueries).then(function (data) {
-            $scope.downloadProfileElementSizes(data, 'sash');
-          });
-          $q.all(impostQueries).then(function (data) {
-            $scope.downloadProfileElementSizes(data, 'impost');
-          });
-          $q.all(shtulpQueries).then(function (data) {
-            $scope.downloadProfileElementSizes(data, 'shtulp');
-          }).then(function () {
-            $scope.downloadAllTemplates();
-          });
-      });
-
-      //----------- get all hardware
-      constructService.getAllHardware(function (results) {
-        if (results.status) {
-          $scope.global.hardwareTypes = angular.copy(results.data.hardwaresTypes);
-          $scope.global.hardwares = angular.copy(results.data.hardwares);
-
-          //----- set first current hardware
-          $scope.global.product.hardwareId = $scope.global.hardwares[$scope.global.product.hardwareIndex][$scope.global.product.hardwareIndex].hardwareId;
-          $scope.global.product.hardwareName = $scope.global.hardwares[$scope.global.product.hardwareIndex][$scope.global.product.hardwareIndex].hardwareName;
-          $scope.global.product.hardwareHeatCoeff = $scope.global.hardwares[$scope.global.product.hardwareIndex][$scope.global.product.hardwareIndex].heatCoeff;
-          $scope.global.product.hardwareAirCoeff = $scope.global.hardwares[$scope.global.product.hardwareIndex][$scope.global.product.hardwareIndex].airCoeff;
-
-        } else {
-          console.log(results);
-        }
-      });
-
-      //----------- get all lamination
-      constructService.getAllLamination(function (results) {
-        if (results.status) {
-          $scope.global.laminationsWhite = angular.copy(results.data.laminationWhite);
-          $scope.global.laminationsIn = angular.copy(results.data.laminationInside);
-          $scope.global.laminationsOut = angular.copy(results.data.laminationOutside);
-
-          //----- set first current lamination white
-          $scope.global.product.laminationOutName = $scope.global.laminationsWhite;
-          $scope.global.product.laminationInName = $scope.global.laminationsWhite;
-        } else {
-          console.log(results);
-        }
-      });
-
-
-      //-------- Clear All AddElements in localStorage
-      //$scope.global.clearAllAddElements();
-
+  //---------- get element section sizes as to profile
+  $scope.downloadProfileElementSizes = function(results, type) {
+    if(results) {
+      switch(type) {
+        case 'frame': $scope.global.allProfileFrameSizes = angular.copy(results);
+          break;
+        case 'frame-still': $scope.global.allProfileFrameStillSizes = angular.copy(results);
+          break;
+        case 'sash': $scope.global.allProfileSashSizes = angular.copy(results);
+          break;
+        case 'impost': $scope.global.allProfileImpostSizes = angular.copy(results);
+          break;
+        case 'shtulp': $scope.global.allProfileShtulpSizes = angular.copy(results);
+          break;
+      }
+    } else {
+      console.log(results);
     }
   };
 
 
+  //-------- get default json template
+  $scope.downloadAllTemplates = function() {
+    constructService.getDefaultConstructTemplate(function (results) {
+      if (results.status) {
+
+        //-------- Save Source Templates in Store
+        $scope.global.templatesWindSTORE = angular.copy(results.data.windows);
+        $scope.global.templatesWindDoorSTORE = angular.copy(results.data.windowDoor);
+        $scope.global.templatesBalconySTORE = angular.copy(results.data.balconies);
+        $scope.global.templatesDoorSTORE = angular.copy(results.data.doors);
+
+        //-------- Templates for use
+        $scope.global.templatesWindSource = angular.copy(results.data.windows);
+        $scope.global.templatesWindDoorSource = angular.copy(results.data.windowDoor);
+        $scope.global.templatesBalconySource = angular.copy(results.data.balconies);
+        $scope.global.templatesDoorSource = angular.copy(results.data.doors);
+
+        $scope.global.parseTemplate($scope.global.product.profileIndex, $scope.global.product.profileId);
+
+      } else {
+        console.log(results);
+      }
+    });
+  };
 
 
 
@@ -583,7 +459,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
 
     //console.log(JSON.stringify($scope.global.objXFormedPrice));
-    console.log($scope.global.objXFormedPrice);
+    //console.log($scope.global.objXFormedPrice);
 
     //------ calculate coeffs
     $scope.global.calculateCoeffs();
@@ -631,8 +507,17 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
   $scope.global.setProductPriceTOTAL = function() {
     $scope.global.product.productPriceTOTAL = $scope.global.product.templatePriceSELECT + $scope.global.product.hardwarePriceSELECT + $scope.global.product.laminationPriceSELECT + $scope.global.product.addElementsPriceSELECT;
+
+    //------- после первой загрузки создается дефолтный объект
+    if($scope.global.startProgramm) {
+      //-------- create default product in localStorage
+      $scope.global.productDefault = angular.copy($scope.global.product);
+      //console.log('productDefault', $scope.global.productDefault);
+    }
+
     $scope.$apply();
   };
+
   $scope.global.setProductPriceTOTALapply = function() {
     $scope.global.product.productPriceTOTAL = $scope.global.product.templatePriceSELECT + $scope.global.product.hardwarePriceSELECT + $scope.global.product.laminationPriceSELECT + $scope.global.product.addElementsPriceSELECT;
   };
@@ -671,6 +556,13 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
 
 
+
+
+
+
+
+
+
 /*
   //-------- Clear All AddElements in localStorage
   $scope.global.clearAllAddElements = function() {
@@ -683,6 +575,180 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     }
   };
 */
+
+
+
+
+
+
+
+
+  //================ EDIT PRODUCT =================
+
+  if ($scope.global.productEditNumber !== '' && !$scope.global.isCreatedNewProject && !$scope.global.isCreatedNewProduct) {
+
+    $scope.global.product = angular.copy($scope.global.order.products[$scope.global.productEditNumber]);
+
+    //------ Download Add Elements from localDB
+    //$scope.downloadAddElementsEDIT();
+
+    //------ Download Product Data from localDB
+    //$scope.downloadProductEDIT();
+
+    //------ Download Template from localDB
+    //$scope.downloadTemplateSourceEDIT();
+  }
+
+
+
+
+
+  //=============== FIRST START create Product =========
+
+  if($scope.global.startProgramm && $scope.global.isCreatedNewProject && $scope.global.isCreatedNewProduct) {
+
+    //------- create new empty product
+    $scope.global.product = angular.copy($scope.global.productSource);
+    //------- create new empty order
+    $scope.global.order = angular.copy($scope.global.orderSource);
+
+    //------- create order date
+    $scope.global.createOrderData();
+
+
+    constructService.getProfileSystem(function (results) {
+      if (results.status) {
+        $scope.global.product.profileHeatCoeff = results.data.heatCoeff;
+        $scope.global.product.profileAirCoeff = results.data.airCoeff;
+        $scope.global.product.profileName = results.data.name;
+      } else {
+        console.log(results);
+      }
+    });
+
+    //----------- get all glasses
+    constructService.getAllGlass(function (results) {
+      if (results.status) {
+        $scope.global.glassTypes = angular.copy(results.data.glassTypes);
+        $scope.global.glasses = angular.copy(results.data.glasses);
+        //----- set first current glass
+        $scope.global.product.glassId = $scope.global.glasses[$scope.global.product.glassIndex][$scope.global.product.glassIndex].glassId;
+        $scope.global.product.glassName = $scope.global.glasses[$scope.global.product.glassIndex][$scope.global.product.glassIndex].glassName;
+        $scope.global.product.glassHeatCoeff = $scope.global.glasses[$scope.global.product.glassIndex][$scope.global.product.glassIndex].heatCoeff;
+        $scope.global.product.glassAirCoeff = $scope.global.glasses[$scope.global.product.glassIndex][$scope.global.product.glassIndex].airCoeff;
+      } else {
+        console.log(results);
+      }
+    });
+
+
+    //----------- get all profiles
+    constructService.getAllProfileSystems().then(function (data) {
+      $scope.downloadAllProfiles(data);
+    }).then(function () {
+
+      var ramaQueries = [],
+          sashQueries = [],
+          ramaStillQueries = [],
+          impostQueries = [],
+          shtulpQueries = [],
+          k;
+
+      for(k = 0; k < $scope.global.profiles.length; k++) {
+        ramaQueries.push(constructService.getAllProfileSizes($scope.global.profiles[k].rama_id));
+        ramaStillQueries.push(constructService.getAllProfileSizes($scope.global.profiles[k].rama_still_id));
+        sashQueries.push(constructService.getAllProfileSizes($scope.global.profiles[k].sash_id));
+        impostQueries.push(constructService.getAllProfileSizes($scope.global.profiles[k].impost_id));
+        shtulpQueries.push(constructService.getAllProfileSizes($scope.global.profiles[k].shtulp_id));
+      }
+
+      $q.all(ramaQueries).then(function (data) {
+        $scope.downloadProfileElementSizes(data, 'frame');
+      });
+      $q.all(ramaStillQueries).then(function (data) {
+        $scope.downloadProfileElementSizes(data, 'frame-still');
+      });
+      $q.all(sashQueries).then(function (data) {
+        $scope.downloadProfileElementSizes(data, 'sash');
+      });
+      $q.all(impostQueries).then(function (data) {
+        $scope.downloadProfileElementSizes(data, 'impost');
+      });
+      $q.all(shtulpQueries).then(function (data) {
+        $scope.downloadProfileElementSizes(data, 'shtulp');
+      }).then(function () {
+        $scope.downloadAllTemplates();
+      });
+    });
+
+    //----------- get all hardware
+    constructService.getAllHardware(function (results) {
+      if (results.status) {
+        $scope.global.hardwareTypes = angular.copy(results.data.hardwaresTypes);
+        $scope.global.hardwares = angular.copy(results.data.hardwares);
+
+        //----- set first current hardware
+        $scope.global.product.hardwareId = $scope.global.hardwares[$scope.global.product.hardwareIndex][$scope.global.product.hardwareIndex].hardwareId;
+        $scope.global.product.hardwareName = $scope.global.hardwares[$scope.global.product.hardwareIndex][$scope.global.product.hardwareIndex].hardwareName;
+        $scope.global.product.hardwareHeatCoeff = $scope.global.hardwares[$scope.global.product.hardwareIndex][$scope.global.product.hardwareIndex].heatCoeff;
+        $scope.global.product.hardwareAirCoeff = $scope.global.hardwares[$scope.global.product.hardwareIndex][$scope.global.product.hardwareIndex].airCoeff;
+
+      } else {
+        console.log(results);
+      }
+    });
+
+    //----------- get all lamination
+    constructService.getAllLamination(function (results) {
+      if (results.status) {
+        $scope.global.laminationsWhite = angular.copy(results.data.laminationWhite);
+        $scope.global.laminationsIn = angular.copy(results.data.laminationInside);
+        $scope.global.laminationsOut = angular.copy(results.data.laminationOutside);
+
+        //----- set first current lamination white
+        $scope.global.product.laminationOutName = $scope.global.laminationsWhite;
+        $scope.global.product.laminationInName = $scope.global.laminationsWhite;
+      } else {
+        console.log(results);
+      }
+    });
+
+  }
+
+
+
+  //=============== CREATE NEW PROJECT =========
+  $scope.global.createNewProject = function() {
+    if(!$scope.global.startProgramm && $scope.global.isCreatedNewProject && $scope.global.isCreatedNewProduct) {
+      //------- create new empty product
+      $scope.global.product = angular.copy($scope.global.productDefault);
+      //------- create new empty order
+      $scope.global.order = angular.copy($scope.global.orderSource);
+      //------- create order date
+      console.log('product ====== ', $scope.global.product);
+      console.log('order ====== ', $scope.global.order);
+      $scope.global.createOrderData();
+    }
+  };
+
+
+
+
+  //=============== CREATE NEW PRODUCT =========
+  $scope.global.createNewProduct = function() {
+    if (!$scope.global.startProgramm && !$scope.global.isCreatedNewProject && $scope.global.isCreatedNewProduct) {
+      //------- create new empty product
+      $scope.global.product = angular.copy($scope.global.productDefault);
+    }
+  };
+
+
+  $scope.global.createNewProject();
+
+  $scope.global.createNewProduct();
+
+
+
 
 
 
@@ -768,79 +834,36 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   // Save Product in Order and enter in Cart
   $scope.global.inputProductInOrder = function() {
 
-    var productData,
+    var productData = {},
         productIndex,
         addElementsData = {},
         addElementsObj = $scope.global.product.chosenAddElements;
 
     //=========== if no EDIT product
-    if (!$scope.global.productEditNumber) {
+    if ($scope.global.productEditNumber === '') {
 
       $scope.global.isCreatedNewProject = false;
       //-------- add product in order LocalStorage
       $scope.global.order.products.push($scope.global.product);
       productIndex = $scope.global.order.products.length;
- /*
-      //-------- get product quantity
-      if ($scope.global.order.products.length > 0) {
-        ++$scope.global.productCounter;
-      } else {
-        $scope.global.productCounter = 1;
-      }
-*/
 
       //-------- insert product into local DB
-      productData = {
-        "orderId": $scope.global.order.orderId,
-        "productId": productIndex,
-        "addElementsOnly": $scope.global.product.isAddElementsONLY,
-        "roomId": $scope.global.product.selectedRoomId,
-        "heatCoeff": $scope.global.product.heatTransferTOTAL,
-        "airCoeff": $scope.global.product.airCirculationTOTAL,
+      productData = angular.copy($scope.global.product);
+      productData.orderId = $scope.global.order.orderId;
+      productData.productId = productIndex;
+      productData.templateSource = JSON.stringify($scope.global.product.templateSource);
+      productData.laminationOutPrice = parseFloat($scope.global.product.laminationOutPrice.toFixed(2));
+      productData.laminationInPrice = parseFloat($scope.global.product.laminationInPrice.toFixed(2));
+      productData.templatePriceSELECT = parseFloat($scope.global.product.templatePriceSELECT.toFixed(2));
+      productData.hardwarePriceSELECT = parseFloat($scope.global.product.hardwarePriceSELECT.toFixed(2));
+      productData.laminationPriceSELECT = parseFloat($scope.global.product.laminationPriceSELECT.toFixed(2));
+      productData.addElementsPriceSELECT = parseFloat($scope.global.product.addElementsPriceSELECT.toFixed(2));
+      productData.productPriceTOTAL = parseFloat($scope.global.product.productPriceTOTAL.toFixed(2));
+      delete productData.templateDefault;
+      delete productData.templateIcon;
+      delete productData.chosenAddElements;
 
-        "templateIndex": $scope.global.product.templateIndex,
-        'templateName': $scope.global.product.templateSource.name,
-        "templateWidth": $scope.global.product.templateWidth,
-        "templateHeight": $scope.global.product.templateHeight,
-        "templateSource": JSON.stringify($scope.global.product.templateSource),
-
-        "profileTypeIndex": $scope.global.product.profileTypeIndex,
-        "profileIndex": $scope.global.product.profileIndex,
-        "profileId": $scope.global.product.profileId,
-        "profileName": $scope.global.product.profileName,
-        "profileHeatCoeff": $scope.global.product.profileHeatCoeff,
-        "profileAirCoeff": $scope.global.product.profileAirCoeff,
-
-        "glassTypeIndex": $scope.global.product.glassTypeIndex,
-        "glassIndex": $scope.global.product.glassIndex,
-        "glassId": $scope.global.product.glassId,
-        "glassName": $scope.global.product.glassName,
-        "glassHeatCoeff": $scope.global.product.glassHeatCoeff,
-        "glassAirCoeff": $scope.global.product.glassAirCoeff,
-
-        "hardwareTypeIndex": $scope.global.product.hardwareTypeIndex,
-        "hardwareIndex": $scope.global.product.hardwareIndex,
-        "hardwareId": $scope.global.product.hardwareId,
-        "hardwareName": $scope.global.product.hardwareName,
-        "hardwareHeatCoeff": $scope.global.product.hardwareHeatCoeff,
-        "hardwareAirCoeff": $scope.global.product.hardwareAirCoeff,
-
-        "laminationOutIndex": $scope.global.product.laminationOutIndex,
-        "laminationOutName": $scope.global.product.laminationOutName,
-        "laminationOutPrice": parseFloat($scope.global.product.laminationOutPrice.toFixed(2)),
-        "laminationInIndex": $scope.global.product.laminationInnerId,
-        "laminationInName": $scope.global.product.laminationInName,
-        "laminationInPrice": parseFloat($scope.global.product.laminationInPrice.toFixed(2)),
-
-        "templatePrice": parseFloat($scope.global.product.templatePriceSELECT.toFixed(2)),
-        "hardwarePrice": parseFloat($scope.global.product.hardwarePriceSELECT.toFixed(2)),
-        "laminationPrice": parseFloat($scope.global.product.laminationPriceSELECT.toFixed(2)),
-        "addElementsPrice": parseFloat($scope.global.product.addElementsPriceSELECT.toFixed(2)),
-        "productPriceTOTAL": parseFloat($scope.global.product.productPriceTOTAL.toFixed(2)),
-        "productQty": $scope.global.product.productQty
-      };
-
-      localDB.insertDB($scope.global.productsTableBD, productData);
+    localDB.insertDB($scope.global.productsTableBD, productData);
 
 
       //--------- insert additional elements into local DB
@@ -1028,37 +1051,5 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       $scope.global.gotoCartPage();
     }, 2*STEP);
   };
-
-  /*
-   //--------- insert construction into local DB
-   templateData = {
-   "orderId": $scope.global.order.orderId,
-   "productId": productIndex,
-   "template": JSON.stringify($scope.global.product.templateSource)
-   };
-   localDB.insertDB($scope.global.componentsTableBD, templateData);
-
-
-   var componentCount = 1;
-   for(var part = 0; part < $scope.global.product.templateSource.objects.length; part++) {
-   for(var prop in $scope.global.product.templateSource.objects[part]) {
-   if (!$scope.global.product.templateSource.objects[part].hasOwnProperty(prop)) {
-   continue;
-   } else {
-   constructionData = {
-   "orderId": $scope.global.order.orderId,
-   "productId": productIndex,
-   "componentsId": componentCount,
-   "property": prop,
-   "value": $scope.global.product.templateSource.objects[part][prop]
-   };
-   localDB.insertDB($scope.global.componentsTableBD, constructionData);
-   }
-   }
-   componentCount++;
-   }
-   */
-
-  $scope.global.productInit();
 
 }]);

@@ -30,7 +30,7 @@
 
   footer.menu-footer.unvisible(ng-if="global.isConfigMenu", show-delay="{{ configMenu.DELAY_SHOW_FOOTER }}")
     price(price-value="global.product.productPriceTOTAL", price-currency="global.currency")
-    button.cart-btn(ng-if="!global.productEditNumber", ng-click="global.inputProductInOrder(); movetoCart()") {{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
+    button.cart-btn(ng-if="global.productEditNumber === ''", ng-click="global.inputProductInOrder(); movetoCart()") {{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
       .qty.unvisible(ng-if="global.order.products.length > 0 && !global.isCreatedNewProject", show-delay="{{ configMenu.DELAY_START }}") {{ global.order.products.length }}
-    button.cart-btn(ng-if="global.productEditNumber > 0", ng-click="global.inputProductInOrder(); movetoCart()") {{ 'settings.SAVE' | translate }}
+    button.cart-btn(ng-if="global.productEditNumber !== ''", ng-click="global.inputProductInOrder(); movetoCart()") {{ 'settings.SAVE' | translate }}
       .qty.unvisible(ng-if="global.order.products.length > 0 && !global.isCreatedNewProject", show-delay="{{ configMenu.DELAY_START }}") {{ global.order.products.length }}

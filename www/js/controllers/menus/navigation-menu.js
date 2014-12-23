@@ -20,7 +20,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
     typing: 'on'
   };
 
-
+/*
   // Check Products in Order
   $scope.checkingForNewOrder = function() {
     if ($scope.global.isCreatedNewProject) {
@@ -43,7 +43,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
   };
   //----- generate new order number or calculate products in order
   $scope.checkingForNewOrder();
-
+*/
 
   //------- Select menu item
   $scope.selectMenuItem = function(id) {
@@ -71,7 +71,6 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
   $scope.gotoCurrentProduct = function () {
     $scope.navMenu.activeMenuItem = false;
     $scope.global.prepareMainPage();
-    $scope.global.initTemplates();
     $location.path('/main');
   };
 
@@ -83,8 +82,8 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
     $location.path('/settings');
   };
 
-    $scope.gotoHistoryPage = function () {
-
+  $scope.gotoHistoryPage = function () {
+    $scope.global.showNavMenu = false;
     if($scope.global.isOpenedCartPage) {
       $scope.global.insertOrderInLocalDB({}, $scope.global.draftOrderType, '');
     }
@@ -136,6 +135,8 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
   };
 */
   $scope.gotoAddElementsPanel = function() {
+    //------- create new empty product
+    $scope.global.product = angular.copy($scope.global.productSource);
     $scope.global.isAddElementsONLY = true;
     $scope.global.showNavMenu = false;
     $scope.global.isConfigMenu = true;
@@ -156,68 +157,36 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
 
 
   //----------- Create new Project FIRST
-  $scope.createNewProjectFirst = function() {
+  $scope.clickNewProjectFirst = function() {
     console.log('start');
     $scope.global.startProgramm = false;
-    $scope.global.createNewProduct();
+    $scope.global.prepareMainPage();
   };
 
   //----------- Create new Project
-  $scope.global.createNewProject = function() {
+  $scope.clickNewProject = function() {
     //------ сохраняем черновик продукта в LocalDB если создается новый заказ на главной странице
     console.log('draft in main page');
     $scope.global.inputProductInOrder();
-    $scope.global.orderTotalPrice = $scope.global.product.productPrice;
+    $scope.global.order.orderPriceTOTAL = $scope.global.product.productPriceTOTAL;
     //------ сохраняем черновик заказа в LocalDB
     $scope.global.insertOrderInLocalDB({}, $scope.global.draftOrderType, '');
     //------ create new order
     $scope.global.isCreatedNewProject = true;
-    $scope.checkingForNewOrder();
-    $scope.global.createNewProduct();
+    $scope.global.prepareMainPage();
+    $scope.global.createNewProject();
   };
 
-  $scope.global.createNewProjectCart = function() {
+
+  $scope.clickNewProjectCart = function() {
     console.log('draft in cart page');
     $scope.global.isOpenedCartPage = false;
     //------ сохраняем черновик заказа в LocalDB
     $scope.global.insertOrderInLocalDB({}, $scope.global.draftOrderType, '');
     $scope.global.isCreatedNewProject = true;
-    $scope.global.isReturnFromDiffPage = true;
-    $scope.global.showPanels = {};
-    $scope.global.isTemplatePanel = false;
-    $location.path('/main');
-  };
-
-  $scope.global.createNewProjectHistory = function() {
-    $scope.global.isCreatedNewProject = true;
-    $scope.checkingForNewOrder();
-
-    $scope.global.isReturnFromDiffPage = true;
-    $scope.global.showNavMenu = true;
-    $scope.global.isConfigMenu = false;
-    $scope.navMenu.activeMenuItem = false;
-    $scope.global.showPanels = {};
-    $scope.global.isTemplatePanel = false;
-    $scope.global.productEditNumber = false;
-    $scope.global.templateIndex = 0;
-    $scope.global.profileIndex = 0;
-
-    $location.path('/main');
-  };
-
-  //---------- clearing for create new Product
-  $scope.global.createNewProduct = function() {
-    //------- finish edit product
-    $scope.global.productEditNumber = false;
-    $scope.navMenu.activeMenuItem = false;
-    $scope.global.templateIndex = 0;
-    $scope.global.profileIndex = 0;
-
     $scope.global.prepareMainPage();
-    $scope.global.initTemplates();
+    $location.path('/main');
   };
-
-
 
   $scope.global.prepareMainPage = function() {
     $scope.global.showNavMenu = false;
@@ -230,39 +199,27 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
 
 
 
+
+
+
   //-------- save Order into Local DB
   $scope.global.insertOrderInLocalDB = function(newOptions, orderType, orderStyle) {
+    var orderData = {};
 
-    $scope.orderData = {
-      "orderId": $scope.global.order.orderId,
-      "orderType": orderType,
-      "orderStyle": orderStyle,
-      "productsQty": $scope.global.productCounter,
-      "floor": $scope.global.selectedFloor,
-      "floorPrice": $scope.global.selectedFloorPrice,
-      "assembling": $scope.global.selectedAssembling,
-      "assemblingPrice": $scope.global.selectedAssemblingPrice,
-      "deliveryDatePrimary": $scope.global.deliveryDate,
-      "deliveryDate": $scope.global.newDeliveryDate ,
-      "instalmentPeriod": $scope.global.selectedInstalmentPeriod,
-      "instalmentPercent": $scope.global.selectedInstalmentPercent,
-      "totalPrice": $scope.global.orderTotalPrice,
-      "totalPricePrimary": $scope.global.orderTotalPricePrimary,
-      "totalPriceFirst":  $scope.global.paymentFirst,
-      "totalPriceMonthly": $scope.global.paymentMonthly,
-      "totalPriceFirstPrimary": $scope.global.paymentFirstPrimary,
-      "totalPriceMonthlyPrimary": $scope.global.paymentMonthlyPrimary,
-      "name": '',
-      "location": '',
-      "address": '',
-      "mail": '',
-      "phone": '',
-      "phone2": '',
-      "itn": 0,
-      "starttime": '',
-      "endtime": '',
-      "target": ''
-    };
+    $scope.global.order.orderType = orderType;
+    $scope.global.order.orderStyle = orderStyle;
+    $scope.global.order.productsQty = $scope.global.order.products.length;
+    angular.extend($scope.global.order, newOptions);
+    //------- save order in orders LocalStorage
+    $scope.global.orders.push($scope.global.order);
+
+    //------- save order in LocalDB
+    orderData = angular.copy($scope.global.order);
+    delete orderData.products;
+
+    //console.log('$scope.global.order.orderStyle === ', $scope.global.order);
+    localDB.insertDB($scope.global.ordersTableBD, orderData);
+    $scope.global.isCreatedNewProject = true;
 /*
     //------- merge objects for save in local db
     if(newOptions.length > 0) {
@@ -283,10 +240,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
       }
     }
 */
-    angular.extend($scope.orderData, newOptions);
-    //console.log(newOptions);
-    //console.log($scope.orderData);
-    localDB.insertDB($scope.global.ordersTableBD, $scope.orderData);
+
   };
 
 }]);

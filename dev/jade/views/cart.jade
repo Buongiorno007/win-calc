@@ -14,7 +14,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
 
           .order-block
 
-            .order(ng-repeat="product in cart.order.products")
+            .order(ng-repeat="product in global.order.products track by $index")
               button.order-delete(ng-click="clickDeleteProduct($index)")
               .order-header(ng-switch="product.selectedRoomId", ng-click="editProduct($index)")
                 img.order-header-fon(ng-switch-when="1", ng-src="img/rooms-dialog/kitchen.jpg")
@@ -81,7 +81,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                       .product-label {{ 'add_elements.HEIGHT_LABEL' | translate }}
                 .addelements-detail-content
                   ul.addelements-detail-list
-                    li.addelements-detail-item(ng-repeat="addelement in cart.allAddElements[$index]", ng-switch="addelement.elementId")
+                    li.addelements-detail-item(ng-repeat="addelement in cart.allAddElements[$index] track by $index", ng-switch="addelement.elementId")
                       .product-value {{ addelement.elementName }}
                       .product-value(ng-switch-when="1") {{ 'add_elements.GRID' | translate }}
                       .product-value(ng-switch-when="2") {{ 'add_elements.VISOR' | translate }}
@@ -130,7 +130,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
             button.cart-tool.new-order(ng-click="createNewProduct()") {{ 'cart.ADD_ORDER' | translate }}
 
           .order-block
-            .order(ng-repeat="product in cart.order.products")
+            .order(ng-repeat="product in global.order.products track by $index")
               button.order-delete(ng-click="deleteProduct($index)")
               .order-header
                 .order-template(ng-click="editProduct(product.productId)")

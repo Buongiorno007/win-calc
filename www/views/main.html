@@ -22,11 +22,11 @@
         </ul>
         <div data-output="{{ 'mainpage.NAVMENU_CALCULATIONS' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_DIVIDER }}" class="divider"></div>
         <ul show-delay="{{ navMenu.DELAY_SHOW_NAV_LIST * 2.5 }}" class="items-list unvisible">
-          <li ng-hide="global.isCreatedNewProject" ng-class="{'selected': navMenu.activeMenuItem==5}" ng-click="selectMenuItem(5); gotoCurrentProduct()" class="item">
+          <li ng-show="global.isCreatedNewProject &amp;&amp; global.isOpenedHistoryPage || !global.isCreatedNewProject &amp;&amp; isCreatedNewProduct &amp;&amp; global.isOpenedCartPage" ng-class="{'selected': navMenu.activeMenuItem==5}" ng-click="selectMenuItem(5); gotoCurrentProduct()" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 5)}}" class="nav-icon-calculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CURRENT_CALCULATION' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 5) }}" class="title"></span></div>
           </li>
-          <li ng-if="global.productCounter &amp;&amp; global.productCounter &gt; 0 &amp;&amp; !global.isCreatedNewProject" ng-class="{'selected': navMenu.activeMenuItem==6}" ng-click="selectMenuItem(6); global.gotoCartPage()" class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 6) }}" class="nav-icon-basketOfCalculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CART' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 6) }}" class="title"></span><span show-delay="{{ navMenu.DELAY_SHOW_ORDERS }}" class="badge unvisible">{{ global.productCounter }}</span></div>
+          <li ng-if="global.order.products.length &gt; 0 &amp;&amp; !global.isCreatedNewProject" ng-class="{'selected': navMenu.activeMenuItem==6}" ng-click="selectMenuItem(6); global.gotoCartPage()" class="item">
+            <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 6) }}" class="nav-icon-basketOfCalculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CART' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 6) }}" class="title"></span><span show-delay="{{ navMenu.DELAY_SHOW_ORDERS }}" class="badge unvisible">{{ global.order.products.length }}</span></div>
           </li>
           <li ng-class="{'selected': navMenu.activeMenuItem==7}" ng-click="selectMenuItem(7); gotoAddElementsPanel()" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 7) }}" class="nav-icon-additionalComponents unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_ADD_ELEMENTS' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 7) }}" class="title"></span></div>
@@ -47,17 +47,16 @@
         </ul>
       </header>
       <footer class="nav-menu-footer">
-        <button ng-if="global.startProgramm == true" ng-click="createNewProjectFirst()" show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
-        <button ng-if="global.startProgramm == false &amp;&amp; global.isOpenedCartPage == false" ng-click="global.createNewProject()" show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
-        <button ng-if="global.startProgramm == false &amp;&amp; global.isOpenedCartPage == true" ng-click="global.createNewProjectCart()" show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
+        <button ng-if="global.startProgramm" ng-click="clickNewProjectFirst()" show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
+        <button ng-if="!global.startProgramm &amp;&amp; !global.isOpenedCartPage" ng-click="clickNewProject()" show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
+        <button ng-if="!global.startProgramm &amp;&amp; global.isOpenedCartPage" ng-click="clickNewProjectCart()" show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
       </footer>
     </div>
   </section>
   <section ng-class="{'kitchen': global.product.selectedRoomId == 1, 'livingroom': global.product.selectedRoomId == 2, 'balcony': global.product.selectedRoomId == 3, 'childroom': global.product.selectedRoomId == 4, 'bedroom': global.product.selectedRoomId == 5, 'door': global.product.selectedRoomId == 6 }" class="right-side main-page-bg">
     <section class="main-content">
       <div ng-controller="UserInfoCtrl" class="user-info-container">
-        <button ng-if="!global.isHistoryPage" ng-class="{ 'show-navmenu': global.showNavMenu }" ng-click="swipeMainPage()" class="nav-menu-btn"></button>
-        <button ng-if="global.isHistoryPage" ng-click="global.createNewProjectHistory()" class="nav-menu-btn"></button>
+        <button ng-class="{ 'show-navmenu': global.showNavMenu }" ng-click="swipeMainPage()" class="nav-menu-btn"></button>
         <div class="user-foto"></div>
         <div show-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
         <div class="user-info-block">
@@ -1059,10 +1058,10 @@
         </ul>
         <footer ng-if="global.isConfigMenu" show-delay="{{ configMenu.DELAY_SHOW_FOOTER }}" class="menu-footer unvisible">
           <price price-value="global.product.productPriceTOTAL" price-currency="global.currency"></price>
-          <button ng-if="!global.productEditNumber" ng-click="global.inputProductInOrder(); movetoCart()" class="cart-btn">{{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
+          <button ng-if="global.productEditNumber === ''" ng-click="global.inputProductInOrder(); movetoCart()" class="cart-btn">{{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
             <div ng-if="global.order.products.length &gt; 0 &amp;&amp; !global.isCreatedNewProject" show-delay="{{ configMenu.DELAY_START }}" class="qty unvisible">{{ global.order.products.length }}</div>
           </button>
-          <button ng-if="global.productEditNumber &gt; 0" ng-click="global.inputProductInOrder(); movetoCart()" class="cart-btn">{{ 'settings.SAVE' | translate }}
+          <button ng-if="global.productEditNumber !== ''" ng-click="global.inputProductInOrder(); movetoCart()" class="cart-btn">{{ 'settings.SAVE' | translate }}
             <div ng-if="global.order.products.length &gt; 0 &amp;&amp; !global.isCreatedNewProject" show-delay="{{ configMenu.DELAY_START }}" class="qty unvisible">{{ global.order.products.length }}</div>
           </button>
         </footer>

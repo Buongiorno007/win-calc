@@ -5,7 +5,6 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
   var dbName = 'localDB',
       tableProducts = 'products',
       tableOrders = 'orders',
-      //tableConstructionParts = 'construction_parts',
       tableGrids = 'grids',
       tableVisors = 'visors',
       tableSpillways = 'spillways',
@@ -41,27 +40,20 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "type": "INTEGER",
       "null": "NOT NULL"
     },
-    "addElementsOnly":{
+    "isAddElementsONLY":{
       "type": "BOOLEAN",
       "null": "NOT NULL"
     },
-    "roomId":{
+    "selectedRoomId":{
       "type": "INTEGER",
       "null": "NOT NULL"
     },
-    "heatCoeff":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
-    },
-    "airCoeff":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
-    },
+
     "templateIndex":{
       "type": "INTEGER",
       "null": "NOT NULL"
     },
-    "templateName":{
+    "templateSource":{
       "type": "TEXT",
       "null": "NOT NULL"
     },
@@ -71,10 +63,6 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
     },
     "templateHeight":{
       "type": "INTEGER",
-      "null": "NOT NULL"
-    },
-    "templateSource":{
-      "type": "TEXT",
       "null": "NOT NULL"
     },
     "profileTypeIndex":{
@@ -173,19 +161,27 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "type": "FLOAT",
       "null": "NOT NULL"
     },
-    "templatePrice":{
+    "heatTransferTOTAL":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "airCirculationTOTAL":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "templatePriceSELECT":{
       "type": "FLOAT",
       "null": "NOT NULL"
     },
-    "hardwarePrice":{
+    "hardwarePriceSELECT":{
       "type": "FLOAT",
       "null": "NOT NULL"
     },
-    "laminationPrice":{
+    "laminationPriceSELECT":{
       "type": "FLOAT",
       "null": "NOT NULL"
     },
-    "addElementsPrice":{
+    "addElementsPriceSELECT":{
       "type": "FLOAT",
       "null": "NULL"
     },
@@ -199,28 +195,7 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
     }
 
   });
-/*
-  db.createTable(tableConstructionParts, {
-    "id":{
-      "type": "INTEGER",
-      "null": "NOT NULL",
-      "primary": true,
-      "auto_increment": true
-    },
-    "orderId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
-    },
-    "productId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
-    },
-    "template":{
-      "type": "TEXT",
-      "null": "NOT NULL"
-    }
-  });
-*/
+
   db.createTable(tableOrders, {
     "id":{
       "type": "INTEGER",
@@ -249,59 +224,83 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "type": "INTEGER",
       "null": "NULL"
     },
-    "floor":{
-      "type": "TEXT",
-      "null": "NULL"
-    },
-    "floorPrice":{
+    "productsPriceTOTAL": {
       "type": "INTEGER",
-      "null": "NULL"
-    },
-    "assembling":{
-      "type": "TEXT",
-      "null": "NULL"
-    },
-    "assemblingPrice":{
-      "type": "INTEGER",
-      "null": "NULL"
-    },
-    "deliveryDatePrimary":{
-      "type": "TEXT",
       "null": "NULL"
     },
     "deliveryDate":{
       "type": "TEXT",
       "null": "NULL"
     },
-    "instalmentPeriod":{
+    "newDeliveryDate":{
       "type": "TEXT",
       "null": "NULL"
     },
-    "instalmentPercent": {
+    "deliveryPrice": {
       "type": "INTEGER",
       "null": "NULL"
     },
-    "totalPrice":{
+    "isDatePriceLess":{
+      "type": "BOOLEAN",
+      "null": "NOT NULL"
+    },
+    "isDatePriceMore":{
+      "type": "BOOLEAN",
+      "null": "NOT NULL"
+    },
+    "selectedFloor":{
       "type": "INTEGER",
       "null": "NULL"
     },
-    "totalPricePrimary":{
+    "selectedFloorPrice":{
       "type": "INTEGER",
       "null": "NULL"
     },
-    "totalPriceFirst":{
+    "selectedAssembling":{
+      "type": "TEXT",
+      "null": "NULL"
+    },
+    "selectedAssemblingPrice":{
       "type": "INTEGER",
       "null": "NULL"
     },
-    "totalPriceMonthly":{
+    "isInstalment":{
       "type": "INTEGER",
       "null": "NULL"
     },
-    "totalPriceFirstPrimary":{
+    "selectedInstalmentPeriod":{
       "type": "INTEGER",
       "null": "NULL"
     },
-    "totalPriceMonthlyPrimary":{
+    "selectedInstalmentPercent": {
+      "type": "INTEGER",
+      "null": "NULL"
+    },
+    "isOldPrice":{
+      "type": "BOOLEAN",
+      "null": "NOT NULL"
+    },
+    "paymentFirst":{
+      "type": "INTEGER",
+      "null": "NULL"
+    },
+    "paymentMonthly":{
+      "type": "INTEGER",
+      "null": "NULL"
+    },
+    "paymentFirstPrimary":{
+      "type": "INTEGER",
+      "null": "NULL"
+    },
+    "paymentMonthlyPrimary":{
+      "type": "INTEGER",
+      "null": "NULL"
+    },
+    "orderPriceTOTAL":{
+      "type": "INTEGER",
+      "null": "NULL"
+    },
+    "orderPriceTOTALPrimary":{
       "type": "INTEGER",
       "null": "NULL"
     },

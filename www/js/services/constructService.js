@@ -621,7 +621,7 @@ BauVoiceApp.factory('constructService', function ($q) {
 
               {'type': 'frame_line', id: 'frameline5', from: 'fp5', to: 'fp6'},
               {'type': 'frame_line', id: 'frameline6', from: 'fp6', to: 'fp7'},
-              {'type': 'frame_line', id: 'frameline7', from: 'fp7', to: 'fp8'},
+              {'type': 'frame_line', id: 'frameline7', from: 'fp7', to: 'fp8', sill: true},
               {'type': 'frame_line', id: 'frameline8', from: 'fp8', to: 'fp5'},
               {'type': 'cross_point', id: 'cp5', line1: 'frameline5', line2: 'frameline6'},
               {'type': 'cross_point', id: 'cp6', line1: 'frameline6', line2: 'frameline7'},
@@ -882,7 +882,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               //------- frame
               {'type': 'frame_line', id: 'frameline1', from: 'fp1', to: 'fp2'},
               {'type': 'frame_line', id: 'frameline2', from: 'fp2', to: 'fp3'},
-              {'type': 'frame_line', id: 'frameline3', from: 'fp3', to: 'fp4'},
+              {'type': 'frame_line', id: 'frameline3', from: 'fp3', to: 'fp4', sill: true},
               {'type': 'frame_line', id: 'frameline4', from: 'fp4', to: 'fp1'},
               {'type': 'cross_point', id: 'cp1', line1: 'frameline1', line2: 'frameline2'},
               {'type': 'cross_point', id: 'cp2', line1: 'frameline2', line2: 'frameline3'},

@@ -1,5 +1,5 @@
 "use strict";
-
+/*
 BauVoiceApp.factory('locationService', function () {
   return {
     getCity: function (callback) {
@@ -16,7 +16,7 @@ BauVoiceApp.factory('locationService', function () {
   }
 });
 
-/*
+
 
  $scope.city = locationService.getCity();
  console.log($scope.city);

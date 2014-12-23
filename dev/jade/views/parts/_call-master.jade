@@ -3,7 +3,7 @@
     form(name='callMasterForm', novalidate, ng-submit="submitForm(callMasterForm)")
       .cart-dialog-header
         button.cart-dialog-tool.back(ng-click="hideCallMasterDialog()", type="button")
-        .cart-dialog-title {{ 'cart.CALL_MASTER' | translate }} {{ global.orderNumber }}
+        .cart-dialog-title {{ 'cart.CALL_MASTER' | translate }} {{ global.order.orderId }}
         button.save(type="submit") {{ 'cart.READY' | translate }}
       .cart-dialog-body
         .cart-dialog-descrip {{ 'cart.CALL_MASTER_DESCRIP' | translate }}

@@ -7,9 +7,8 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
   $scope.global = localStorage;
 
   // indicator for user info block and searching block
-  $scope.global.isHistoryPage = true;
+  $scope.global.isOpenedHistoryPage = true;
   $scope.global.isOpenedCartPage = false;
-  $scope.global.isReturnFromDiffPage = false;
 
   $scope.history = {
     isOrderSearch: false,
@@ -488,21 +487,13 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
     }
   }
 
-  //--------------- Edit Order
+  //--------------- Edit Order & Draft
   $scope.editOrder = function(orderNum) {
-    editOrderAndDraft(orderNum);
+    $scope.global.orderEditNumber = orderNum;
+    $scope.global.showNavMenu = false;
+    $scope.global.isConfigMenu = true;
     $location.path('/cart');
   };
 
-  $scope.editDraft = function(orderNum) {
-    editOrderAndDraft(orderNum);
-    $location.path('/main');
-  };
-
-  function editOrderAndDraft(orderNum) {
-    $scope.global.orderNumber = orderNum;
-    $scope.global.showNavMenu = false;
-    $scope.global.isConfigMenu = true;
-  }
 
 }]);

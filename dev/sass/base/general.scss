@@ -34,6 +34,9 @@ body {
     .main-content {
       width: rem($main_content-width-right_menu);
     }
+    .main-history {
+      width: rem($ipad-width);
+    }
   }
 }
 

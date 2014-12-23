@@ -4,7 +4,7 @@
       .cart-dialog-header
         button.cart-dialog-tool.back(ng-click="hideCallOrderDialog()", type="button")
         button.cart-dialog-tool.print(ng-click="", type="button")
-        .cart-dialog-title {{ 'cart.CALL_ORDER' | translate }} {{ global.orderNumber }}
+        .cart-dialog-title {{ 'cart.CALL_ORDER' | translate }} {{ global.order.orderId }}
         button.save(type="submit") {{ 'cart.READY' | translate }}
       .cart-dialog-body
         .cart-dialog-descrip {{ 'cart.CALL_ORDER_DESCRIP' | translate }}
@@ -22,7 +22,7 @@
 
 
 
-        .cart-dialog-label {{ 'cart.CALL_ORDER_DELIVERY' | translate }} {{ global.newDeliveryDate }}
+        .cart-dialog-label {{ 'cart.CALL_ORDER_DELIVERY' | translate }} {{ global.order.newDeliveryDate }}
 
         .input-field(ng-class="{ 'has-error' : submitted && callOrderForm.location.$error.required, 'current-city' : currentCity }")
           input.user-field(type="text", name="location", ng-model="user.location", ng-change="checkChanges()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", ng-focus="isFocused=true", ng-blur="isFocused=false", required)
@@ -35,7 +35,7 @@
           .error-tooltip(ng-show="submitted && callOrderForm.address.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
 
 
-        .cart-dialog-label {{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }}: {{ global.orderTotalPrice }} {{ global.currency }}
+        .cart-dialog-label {{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }}: {{ global.order.orderPriceTOTAL }} {{ global.currency }}
         .cart-dialog-label {{ 'cart.CALL_ORDER_ADD_INFO' | translate }}
 
         .input-field

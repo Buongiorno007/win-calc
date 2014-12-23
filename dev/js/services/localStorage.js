@@ -19,10 +19,12 @@ BauVoiceApp.factory('localStorage', function () {
     //---- чтобы не создавался черновик при запуске проги
     startProgramm: true,
     isCreatedNewProject: true,
+    isCreatedNewProduct: true,
     isOpenedCartPage: false,
+    isOpenedHistoryPage: false,
     isFindPriceProcess: false,
 
-    productEditNumber: false,
+    productEditNumber: '',
     orderEditNumber: false,
 
 
@@ -86,6 +88,8 @@ BauVoiceApp.factory('localStorage', function () {
     },
 
     productSource: {
+      orderId: 0,
+      productId: 0,
       isAddElementsONLY: false,
       selectedRoomId: 4,
 
@@ -150,31 +154,49 @@ BauVoiceApp.factory('localStorage', function () {
       productQty: 1
     },
 
-    order: {
+    orderSource: {
       orderId: 0,
-      deliveryDate: '',
-      newDeliveryDate: '',
+      orderType: '',
+      orderStyle: '',
+      productsQty: 0,
       products: [],
       productsPriceTOTAL: 0,
-
+      deliveryDate: '',
+      newDeliveryDate: '',
+      deliveryPrice: 0,
+      isDatePriceLess: false,
+      isDatePriceMore: false,
       selectedFloor: 'free',
       selectedFloorPrice: 0,
       selectedAssembling: 'free',
       selectedAssemblingPrice: 0,
+      isInstalment: 'false',
       selectedInstalmentPeriod: 0,
       selectedInstalmentPercent: 0,
-      deliveryPrice: 0,
-
+      isOldPrice: false,
       paymentFirst: 0,
       paymentMonthly: 0,
       paymentFirstPrimary: 0,
       paymentMonthlyPrimary: 0,
       orderPriceTOTAL: 0,
-      orderPriceTOTALPrimary: 0
+      orderPriceTOTALPrimary: 0,
+
+      name: '',
+      location: '',
+      address: '',
+      mail: '',
+      phone: '',
+      phone2: '',
+      itn: 0,
+      starttime: '',
+      endtime: '',
+      target: ''
+
     },
 
-
+    productDefault: {},
     product: {},
+    order: {},
     orders: [],
 
     objXFormedPriceSource: {
@@ -241,7 +263,6 @@ BauVoiceApp.factory('localStorage', function () {
 //------ WebSQL DB table names
     //--- Local
     productsTableBD: 'products',
-    //componentsTableBD: 'construction_parts',
     gridsTableBD: 'grids',
     visorsTableBD: 'visors',
     spillwaysTableBD: 'spillways',
