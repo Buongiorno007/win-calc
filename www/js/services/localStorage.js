@@ -23,8 +23,10 @@ BauVoiceApp.factory('localStorage', function () {
     startProgramm: true,
     isCreatedNewProject: true,
     isCreatedNewProduct: true,
+    isOrderFinished: false,
     isOpenedCartPage: false,
     isOpenedHistoryPage: false,
+    isReturnFromDiffPage: false,
     isFindPriceProcess: false,
 
     productEditNumber: '',

@@ -125,7 +125,6 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
 
   //-------- change price if template was changed
   if($scope.global.isChangedTemplate) {
-    $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
     $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
   }
 

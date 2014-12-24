@@ -67,6 +67,8 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
 
   $scope.gotoCurrentProduct = function () {
     $scope.navMenu.activeMenuItem = false;
+    $scope.global.startProgramm = false;
+    $scope.global.isReturnFromDiffPage = true;
     $scope.global.prepareMainPage();
     $location.path('/main');
   };
@@ -81,9 +83,12 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
 
   $scope.gotoHistoryPage = function () {
     $scope.global.showNavMenu = false;
-    if($scope.global.isOpenedCartPage) {
+    //---- если идем в историю через корзину, заказ сохраняем в черновик
+    /*if($scope.global.isOpenedCartPage) {
       $scope.global.insertOrderInLocalDB({}, $scope.global.draftOrderType, '');
-    }
+      $scope.global.isCreatedNewProject = false;
+      $scope.global.isCreatedNewProduct = false;
+    }*/
     $location.path('/history');
   };
 
@@ -153,36 +158,59 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
 
 
 
-  //----------- Create new Project FIRST
-  $scope.clickNewProjectFirst = function() {
-    console.log('start');
-    $scope.global.startProgramm = false;
-    $scope.global.prepareMainPage();
-  };
 
   //----------- Create new Project
   $scope.clickNewProject = function() {
-    //------ сохраняем черновик продукта в LocalDB если создается новый заказ на главной странице
-    console.log('draft in main page');
-    $scope.global.inputProductInOrder();
-    $scope.global.order.orderPriceTOTAL = $scope.global.product.productPriceTOTAL;
-    //------ сохраняем черновик заказа в LocalDB
-    $scope.global.insertOrderInLocalDB({}, $scope.global.draftOrderType, '');
-    //------ create new order
-    $scope.global.isCreatedNewProject = true;
-    $scope.global.prepareMainPage();
-    $scope.global.createNewProject();
-  };
 
+    //------ если старт и на главной странице, не сохраняет в черновики
+    if($scope.global.startProgramm && !$scope.global.isOpenedHistoryPage && !$scope.global.isOpenedCartPage) {
+      console.log('start Btn');
+      $scope.global.startProgramm = false;
+      $scope.global.prepareMainPage();
 
-  $scope.clickNewProjectCart = function() {
-    console.log('draft in cart page');
-    $scope.global.isOpenedCartPage = false;
-    //------ сохраняем черновик заказа в LocalDB
-    $scope.global.insertOrderInLocalDB({}, $scope.global.draftOrderType, '');
-    $scope.global.isCreatedNewProject = true;
-    $scope.global.prepareMainPage();
-    $location.path('/main');
+    //------- если после старта пошли в историю
+    } else if($scope.global.startProgramm && $scope.global.isOpenedHistoryPage && !$scope.global.isOpenedCartPage) {
+      console.log('start Btn from history');
+      $scope.global.startProgramm = false;
+      $scope.global.prepareMainPage();
+      $location.path('/main');
+
+    //------- создание нового проекта с сохранением в черновик предыдущего незаконченного
+    } else if(!$scope.global.startProgramm && !$scope.global.isOrderFinished) {
+      //------- если находимся на главной странице или в истории
+      console.log('draft from history');
+      if(!$scope.global.isOpenedCartPage) {
+        //------ сохраняем черновик продукта в LocalDB
+        console.log('draft from main page');
+        $scope.global.inputProductInOrder();
+        $scope.global.order.orderPriceTOTAL = $scope.global.product.productPriceTOTAL;
+      }
+      //------ сохраняем черновик заказа в LocalDB
+      $scope.global.insertOrderInLocalDB({}, $scope.global.draftOrderType, '');
+      //------ create new order
+      $scope.global.isReturnFromDiffPage = false;
+      $scope.global.isChangedTemplate = false;
+      $scope.global.isCreatedNewProject = true;
+      $scope.global.isCreatedNewProduct = true;
+      $scope.global.prepareMainPage();
+      if($scope.global.isOpenedCartPage || $scope.global.isOpenedHistoryPage) {
+        $location.path('/main');
+      } else {
+        $scope.global.createNewProject();
+      }
+
+    //------- создание нового проекта после сохранения заказа в истории
+    } else if(!$scope.global.startProgramm && $scope.global.isOrderFinished) {
+      console.log('order finish and new order!!!!');
+      //------ create new order
+      $scope.global.isReturnFromDiffPage = false;
+      $scope.global.isChangedTemplate = false;
+      $scope.global.isCreatedNewProject = true;
+      $scope.global.isCreatedNewProduct = true;
+      $scope.global.prepareMainPage();
+      $location.path('/main');
+    }
+
   };
 
   $scope.global.prepareMainPage = function() {
@@ -216,7 +244,6 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
 
     //console.log('$scope.global.order.orderStyle === ', $scope.global.order);
     localDB.insertDB($scope.global.ordersTableBD, orderData);
-    $scope.global.isCreatedNewProject = true;
 /*
     //------- merge objects for save in local db
     if(newOptions.length > 0) {

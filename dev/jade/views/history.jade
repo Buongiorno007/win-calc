@@ -94,7 +94,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                   .account-data
                     .user-data.account-user-adress {{ order.location }}, {{ order.address }}
                     .account-label {{ 'history.ADDRESS' | translate }}
-                .account-row.footer(ng-click="gotoCartPage()")
+                .account-row.footer
                   .account-value(ng-hide="order.orderStyle == 'credit'") {{ order.orderPriceTOTAL }}{{ global.currency }}
                   .account-value(ng-show="order.orderStyle == 'credit'") {{ order.orderPriceTOTAL }}{{ global.currency }}, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.paymentMonthly}}{{ global.currency }}
                   .account-value(ng-show="order.orderStyle == 'master'") {{ 'history.WAIT_MASTER' | translate }}
@@ -168,7 +168,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                   .account-id {{ 'history.DRAFT' | translate }}
                   .account-label.account-date-filter {{ 'history.FROM' | translate }}
                     span(order-date="{{ draft.created }}", type-date="'order'")
-                .account-row.footer(ng-click="gotoCartPage()")
+                .account-row.footer(ng-click="editOrder(draft.orderId)")
                   .account-value(ng-hide="draft.orderStyle == 'credit'") {{ draft.orderPriceTOTAL }}{{ global.currency }}
                   .account-value(ng-show="draft.orderStyle == 'credit'") {{ draft.orderPriceTOTAL }}{{ global.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.paymentMonthly}}{{ global.currency }}
                   .account-qty {{ draft.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{ draft.newDeliveryDate }}

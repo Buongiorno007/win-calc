@@ -24,12 +24,16 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', '$location', 'localStorage
     //$scope.roomData.selectedRoom = id;
     $scope.global.product.selectedRoomId = id;
     $scope.global.product.templateIndex = 0;
+    $scope.global.isReturnFromDiffPage = false;
+    $scope.global.isChangedTemplate = false;
     //----- if select Door
     if(id === 6) {
       $scope.global.isConstructWind = false;
       $scope.global.isConstructWindDoor = false;
       $scope.global.isConstructBalcony = false;
       $scope.global.isConstructDoor = true;
+      //------- get templates from STORE
+      $scope.global.setTemplatesFromSTORE();
       //------ set new templates arrays
       $scope.global.getCurrentTemplates();
       //------- change template and price relate to Door
@@ -44,6 +48,8 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', '$location', 'localStorage
       $scope.global.isConstructWindDoor = false;
       $scope.global.isConstructBalcony = true;
       $scope.global.isConstructDoor = false;
+      //------- get templates from STORE
+      $scope.global.setTemplatesFromSTORE();
       //------ set new templates arrays
       $scope.global.getCurrentTemplates();
       //------- change template and price relate to Balcony
@@ -56,6 +62,8 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', '$location', 'localStorage
       $scope.global.isConstructWindDoor = false;
       $scope.global.isConstructBalcony = false;
       $scope.global.isConstructDoor = false;
+      //------- get templates from STORE
+      $scope.global.setTemplatesFromSTORE();
       //------ set new templates arrays
       $scope.global.getCurrentTemplates();
       //------- change template and price relate to Window

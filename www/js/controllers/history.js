@@ -9,7 +9,6 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
 
   $scope.global = localStorage;
 
-  // indicator for user info block and searching block
   $scope.global.isOpenedHistoryPage = true;
   $scope.global.isOpenedCartPage = false;
 
@@ -341,12 +340,6 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
   };
 
 
-  $scope.gotoCartPage = function() {
-    $scope.global.isHistoryPage = false;
-    $scope.global.showNavMenu = false;
-    $scope.global.gotoCartPage();
-  };
-
   //------------ send Order to Factory
   $scope.sendOrderToFactory = function(orderStyle, orderNum) {
 
@@ -457,22 +450,6 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
           }
         });
 
-        //------ Download Template from localDB
-        localDB.selectDB($scope.global.componentsTableBD, {'orderId': orderNum}, function (results) {
-          if (results.status) {
-            var allTemplatesDB = angular.copy(results.data);
-            var newAllTemplatesXOrder = rewriteObjectProperty(allTemplatesDB, newOrderNumber);
-            console.log(newAllTemplatesXOrder);
-            if(newAllTemplatesXOrder && newAllTemplatesXOrder.length > 0) {
-              for(var t = 0; t < newAllTemplatesXOrder.length; t++) {
-                localDB.insertDB($scope.global.componentsTableBD, newAllTemplatesXOrder[t]);
-              }
-            }
-          } else {
-            console.log(results);
-          }
-        });
-
       }
     }
 
@@ -493,9 +470,9 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
   //--------------- Edit Order & Draft
   $scope.editOrder = function(orderNum) {
     $scope.global.orderEditNumber = orderNum;
-    $scope.global.showNavMenu = false;
     $scope.global.isConfigMenu = true;
-    $location.path('/cart');
+    $scope.global.isOpenedHistoryPage = false;
+    $scope.global.gotoCartPage();
   };
 
 

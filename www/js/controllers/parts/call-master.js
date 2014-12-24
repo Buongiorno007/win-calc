@@ -96,6 +96,9 @@ BauVoiceApp.controller('CallMasterCtrl', ['$scope', 'constructService', 'localSt
       $scope.global.insertOrderInLocalDB($scope.user, $scope.global.fullOrderType, $scope.orderStyle);
       //--------- Close cart dialog, go to history
       $scope.hideCallMasterDialog();
+      $scope.global.isCreatedNewProject = false;
+      $scope.global.isCreatedNewProduct = false;
+      $scope.global.isOrderFinished = true;
       $location.path('/history');
     }
   };

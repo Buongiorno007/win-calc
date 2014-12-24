@@ -37,13 +37,19 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
   $scope.isCartLightView = false;
 
+  $scope.global.startProgramm = false;
+  $scope.global.isReturnFromDiffPage = false;
+  $scope.global.isChangedTemplate = false;
   $scope.global.isOpenedCartPage = true;
-  $scope.global.isCreatedNewProject = false;
+  $scope.global.isOpenedHistoryPage = false;
+
   //------- finish edit product
   $scope.global.productEditNumber = '';
 
 
-
+  console.log('cart page!!!!!!!!!!!!!!!');
+  console.log('product ====== ', $scope.global.product);
+  console.log('order ====== ', $scope.global.order);
 
 
   //----- Calculate All Products Price
@@ -110,6 +116,11 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
           console.log('order == ', $scope.global.order );
 
           angular.extend($scope.global.order, $scope.cart.orderEddited[0]);
+          if($scope.global.order.isOldPrice === 'true') {
+            $scope.global.order.isOldPrice = true;
+          } else {
+            $scope.global.order.isOldPrice = false;
+          }
           console.log('extendedOrder ==== ', $scope.global.order);
 
         } else {

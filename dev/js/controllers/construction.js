@@ -33,7 +33,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     DELAY_SHOW_FIGURE_ITEM: 2000,
     typing: 'on'
   };
-  $scope.global.isCreatedNewProject = false;
+  //$scope.global.isCreatedNewProject = false;
 
   $scope.openVoiceHelper = false;
   $scope.loudVoice = false;
@@ -189,8 +189,8 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
   //--------- Cancel and Close Construction Page
   $scope.gotoMainPageCancel = function () {
-    $scope.backtoTemplatePanel();
     $scope.global.isConstructSizeCalculator = false;
+    $scope.backtoTemplatePanel();
   };
 
   //------- Save and Close Construction Page
@@ -202,7 +202,6 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
       $scope.global.product.templateSource = angular.copy($scope.templateSourceTEMP);
       $scope.global.product.templateDefault = angular.copy($scope.templateDefaultTEMP);
       $scope.global.product.templateIcon = new TemplateIcon($scope.templateSourceTEMP, $scope.global.templateDepths);
-
 
       //------ save new template in templates Array
       if($scope.global.isConstructDoor) {
@@ -226,6 +225,10 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   //-------- Back to Template Panel
   $scope.backtoTemplatePanel = function() {
     $scope.global.prepareMainPage();
+    $scope.global.isReturnFromDiffPage = true;
+    console.log('construction page!!!!!!!!!!!');
+    console.log('product ====== ', $scope.global.product);
+    console.log('order ====== ', $scope.global.order);
     $location.path('/main');
   };
 

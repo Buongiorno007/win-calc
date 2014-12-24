@@ -17,6 +17,7 @@ BauVoiceApp.directive('calendarScroll', ['$filter', function($filter) {
         var opt = {
           theme: 'ios',
           display: 'inline',
+          mode: 'mixed',
           showLabel: false,
           maxDate: today,
           //height: 80,
@@ -29,7 +30,7 @@ BauVoiceApp.directive('calendarScroll', ['$filter', function($filter) {
           }
         };
         opt.monthNames = $filter('translate')('common_words.MONTHA').split(', ');
-        element.mobiscroll().date(opt);
+        //element.mobiscroll().date(opt);
 
         attrs.$observe('maxTime', function () {
           if(scope.maxTime) {
@@ -41,7 +42,7 @@ BauVoiceApp.directive('calendarScroll', ['$filter', function($filter) {
             console.log(newMaxDate);
             //opt.maxDate = newMaxDate.toString();
             opt.maxDate = newMaxDate;
-            element.mobiscroll().date(opt);
+            //element.mobiscroll().date(opt);
           }
         });
 
