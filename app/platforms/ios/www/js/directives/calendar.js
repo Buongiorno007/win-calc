@@ -1,3 +1,6 @@
+
+// directives/calendar.js
+
 'use strict';
 
 BauVoiceApp.directive('calendar', [ function() {
@@ -20,11 +23,11 @@ BauVoiceApp.directive('calendar', [ function() {
             monthsShort: [],
             months: []
           },
-          date: scope.$parent.global.deliveryDate,
+          date: scope.$parent.global.order.deliveryDate,
           min: scope.$parent.cartMenuData.minDeliveryDate,
           max: scope.$parent.cartMenuData.maxDeliveryDate,
           change: function (date) {
-            scope.$parent.checkDifferentDate(scope.$parent.global.deliveryDate, date);
+            scope.$parent.checkDifferentDate(scope.$parent.global.order.deliveryDate, date);
             scope.$apply();
           }
         };
@@ -35,3 +38,4 @@ BauVoiceApp.directive('calendar', [ function() {
     }
   };
 }]);
+

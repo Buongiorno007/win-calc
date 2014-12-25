@@ -1,24 +1,34 @@
+
+// directives/order-date.js
+
 'use strict';
 
-BauVoiceApp.directive('orderDate', [ function() {
+BauVoiceApp.directive('orderDate', ['$filter', function($filter) {
   return {
     restrict: 'A',
     scope: {
       orderDate: '@',
-      dataMonths: '@monthsLabel',
       typeDate: '='
     },
+
     link: function (scope, element, attrs) {
 
-      function getDateInNewFormat(oldD, months, type) {
+      function getDateInNewFormat(oldD, type) {
         var oldDateFormat, oldDateFormatArr, monthsArr, newDateFormat, monthId;
-        monthsArr = months.split(', ');
+
+        monthsArr = $filter('translate')('common_words.MONTHA').split(', ');
 
         if(oldD !== '') {
-          oldDateFormat = oldD.split(' ');
-          oldDateFormatArr = oldDateFormat[0].split('-');
-          monthId = parseInt(oldDateFormatArr[1], 10) - 1;
-          newDateFormat = oldDateFormatArr[2] + ' ' + monthsArr[monthId] + ', ' + oldDateFormatArr[0];
+          if(type === 'order') {
+            oldDateFormat = oldD.split(' ');
+            oldDateFormatArr = oldDateFormat[0].split('-');
+            monthId = parseInt(oldDateFormatArr[1], 10) - 1;
+            newDateFormat = oldDateFormatArr[2] + ' ' + monthsArr[monthId] + ', ' + oldDateFormatArr[0];
+          } else {
+            oldDateFormatArr = oldD.split('/');
+            monthId = parseInt(oldDateFormatArr[0], 10) - 1;
+            newDateFormat = oldDateFormatArr[1] + ' ' + monthsArr[monthId] + ', ' + oldDateFormatArr[2];
+          }
         } else {
           oldDateFormat = new Date();
           newDateFormat = oldDateFormat.getDate() + ' ' + monthsArr[oldDateFormat.getMonth()] + ', ' + oldDateFormat.getFullYear();
@@ -31,10 +41,10 @@ BauVoiceApp.directive('orderDate', [ function() {
         }
       }
 
-      getDateInNewFormat(scope.orderDate, scope.dataMonths, scope.typeDate);
+      getDateInNewFormat(scope.orderDate, scope.typeDate);
 
       attrs.$observe('orderDate', function () {
-        getDateInNewFormat(scope.orderDate, scope.dataMonths, scope.typeDate);
+        getDateInNewFormat(scope.orderDate, scope.typeDate);
       });
 
     }

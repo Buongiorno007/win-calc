@@ -1,3 +1,6 @@
+
+// controllers/panels/additional-elements.js
+
 /* globals BauVoiceApp, STEP, activeClass */
 
 'use strict';
@@ -248,7 +251,7 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'localDB', 'construc
             }
           });
           $scope.global.isColorSelector = true;
-          $scope.global.isAddElementColor = $scope.global.chosenAddElements.selectedWindowSill[addElementId].elementColorId;
+          $scope.global.isAddElementColor = $scope.global.product.chosenAddElements.selectedWindowSill[addElementId].elementColorId;
           break;
       }
     }
@@ -285,3 +288,4 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'localDB', 'construc
   };
 
 }]);
+

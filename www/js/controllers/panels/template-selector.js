@@ -37,17 +37,12 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
     if(!$scope.global.isFindPriceProcess) {
       $scope.global.isFindPriceProcess = true;
       $scope.global.product.templateIndex = templateIndex;
-      $scope.saveNewTemplateInProduct();
+      $scope.global.saveNewTemplateInProduct(templateIndex);
       //------ define product price
       $scope.global.createObjXFormedPrice($scope.global.templates[templateIndex], $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
     }
   };
 
-  $scope.saveNewTemplateInProduct = function() {
-    $scope.global.product.templateSource = angular.copy($scope.global.templatesSource[$scope.global.product.templateIndex]);
-    $scope.global.product.templateDefault = angular.copy($scope.global.templates[$scope.global.product.templateIndex]);
-    $scope.global.product.templateIcon = angular.copy($scope.global.templatesIcons[$scope.global.product.templateIndex]);
-  };
 
   //------ click on top button to change template type
   $scope.toggleTemplate = function() {
@@ -74,7 +69,7 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
         $scope.templatePanel.switcherTemplate = false;
         $scope.global.product.templateIndex = 0;
         $scope.global.getCurrentTemplates();
-        $scope.saveNewTemplateInProduct();
+        $scope.global.saveNewTemplateInProduct($scope.global.product.templateIndex);
         //------ define product price
         $scope.global.createObjXFormedPrice($scope.global.templates[$scope.global.product.templateIndex], $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
 
@@ -92,7 +87,7 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
       $scope.templatePanel.switcherTemplate = false;
       $scope.global.product.templateIndex = 0;
       $scope.global.getCurrentTemplates();
-      $scope.saveNewTemplateInProduct();
+      $scope.global.saveNewTemplateInProduct($scope.global.product.templateIndex);
       //------ define product price
       $scope.global.createObjXFormedPrice($scope.global.templates[$scope.global.product.templateIndex], $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
 

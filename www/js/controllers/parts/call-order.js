@@ -75,6 +75,13 @@ BauVoiceApp.controller('CallOrderCtrl', ['$scope', 'constructService', 'localSto
     $scope.submitted = true;
 
     if (form.$valid) {
+      if($scope.global.orderEditNumber) {
+        //----- delete old order in localDB
+        $scope.global.deleteOrderFromLocalDB($scope.global.orderEditNumber);
+        for(var prod = 0; prod < $scope.global.order.products.length; prod++) {
+          $scope.global.insertProductInLocalDB($scope.global.orderEditNumber, $scope.global.order.products[prod].productId, $scope.global.order.products[prod]);
+        }
+      }
       $scope.global.insertOrderInLocalDB($scope.user, $scope.global.fullOrderType, $scope.orderStyle);
       //--------- Close cart dialog, go to history
       $scope.hideCallOrderDialog();

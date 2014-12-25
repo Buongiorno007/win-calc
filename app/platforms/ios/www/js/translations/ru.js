@@ -1,3 +1,6 @@
+
+// translations/ru.js
+
 "use strict";
 
 window.russianDictionary = {
@@ -11,7 +14,19 @@ window.russianDictionary = {
     MONTHS_LABEL: 'месяцeв',
     ALL: 'Все',
     MIN: 'мин.',
-    MAX: 'макс.'
+    MAX: 'макс.',
+    //----- confirm dialogs
+    BUTTON_Y: 'ДА',
+    BUTTON_N: 'НЕТ',
+    DELETE_PRODUCT_TITLE: 'Удаление!',
+    DELETE_PRODUCT_TXT: 'Хотите удалить продукт?',
+    DELETE_ORDER_TITLE: 'Удаление заказа!',
+    DELETE_ORDER_TXT: 'Хотите удалить заказ?',
+    COPY_ORDER_TITLE: 'Копирование!',
+    COPY_ORDER_TXT: 'Хотите сделать копию заказа?',
+    SEND_ORDER_TITLE: 'В производство!',
+    SEND_ORDER_TXT: 'Хотите отправить заказ на завод?',
+    TEMPLATE_CHANGES_LOST: 'Изменения в шаблоне будут потеряны! Продолжить?'
   },
   login: {
     ENTER: 'Войти',
@@ -48,7 +63,7 @@ window.russianDictionary = {
     NAVMENU_APPENDIX: 'Приложение',
     NAVMENU_NEW_CALC: '+ Новый расчет',
     CONFIGMENU_CONFIGURATION: 'Конфигурация и размеры',
-    CONFIGMENU_SIZING: 'ширина * высота -',
+    CONFIGMENU_SIZING: 'ширина * высота',
     CONFIGMENU_PROFILE: 'Профиль',
     CONFIGMENU_GLASS: 'Стеклопакет',
     CONFIGMENU_HARDWARE: 'Фурнитура',

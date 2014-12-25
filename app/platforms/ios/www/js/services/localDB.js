@@ -1,3 +1,6 @@
+
+// services/localDB.js
+
 "use strict";
 
 BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
@@ -5,7 +8,6 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
   var dbName = 'localDB',
       tableProducts = 'products',
       tableOrders = 'orders',
-      tableConstructionParts = 'construction_parts',
       tableGrids = 'grids',
       tableVisors = 'visors',
       tableSpillways = 'spillways',
@@ -41,39 +43,32 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "type": "INTEGER",
       "null": "NOT NULL"
     },
-    "roomId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
-    },
-    "heatCoeff":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
-    },
-    "airCoeff":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
-    },
-    "addElementsOnly":{
+    "isAddElementsONLY":{
       "type": "BOOLEAN",
       "null": "NOT NULL"
     },
-    "templateName":{
-      "type": "TEXT",
+    "selectedRoomId":{
+      "type": "INTEGER",
       "null": "NOT NULL"
     },
+
     "templateIndex":{
       "type": "INTEGER",
       "null": "NOT NULL"
     },
-    "productWidth":{
+    "templateSource":{
+      "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "templateWidth":{
       "type": "INTEGER",
       "null": "NOT NULL"
     },
-    "productHeight":{
+    "templateHeight":{
       "type": "INTEGER",
       "null": "NOT NULL"
     },
-    "profileId":{
+    "profileTypeIndex":{
       "type": "INTEGER",
       "null": "NOT NULL"
     },
@@ -81,8 +76,28 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "type": "INTEGER",
       "null": "NOT NULL"
     },
+    "profileId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
     "profileName":{
       "type": "TEXT",
+      "null": "NOT NULL"
+    },
+    "profileHeatCoeff":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "profileAirCoeff":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "glassTypeIndex":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "glassIndex":{
+      "type": "INTEGER",
       "null": "NOT NULL"
     },
     "glassId":{
@@ -93,35 +108,87 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "type": "TEXT",
       "null": "NOT NULL"
     },
+    "glassHeatCoeff":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "glassAirCoeff":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "hardwareTypeIndex":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "hardwareIndex":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
     "hardwareId":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NOT NULL"
     },
     "hardwareName":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NOT NULL"
     },
-    "laminationOutId":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+    "hardwareHeatCoeff":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "hardwareAirCoeff":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "laminationOutIndex":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
     },
     "laminationOutName":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NOT NULL"
     },
-    "laminationInId":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+    "laminationOutPrice":{
+      "type": "FLOAT",
+      "null": "NOT NULL"
+    },
+    "laminationInIndex":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
     },
     "laminationInName":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NOT NULL"
     },
-    "addElementsPrice":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+    "laminationInPrice":{
+      "type": "FLOAT",
+      "null": "NOT NULL"
     },
-    "productPrice":{
+    "heatTransferTOTAL":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "airCirculationTOTAL":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "templatePriceSELECT":{
+      "type": "FLOAT",
+      "null": "NOT NULL"
+    },
+    "hardwarePriceSELECT":{
+      "type": "FLOAT",
+      "null": "NOT NULL"
+    },
+    "laminationPriceSELECT":{
+      "type": "FLOAT",
+      "null": "NOT NULL"
+    },
+    "addElementsPriceSELECT":{
+      "type": "FLOAT",
+      "null": "NULL"
+    },
+    "productPriceTOTAL":{
       "type": "FLOAT",
       "null": "NOT NULL"
     },
@@ -130,35 +197,6 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "null": "NOT NULL"
     }
 
-  });
-
-  db.createTable(tableConstructionParts, {
-    "id":{
-      "type": "INTEGER",
-      "null": "NOT NULL",
-      "primary": true,
-      "auto_increment": true
-    },
-    "orderId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
-    },
-    "productId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
-    },
-    "componentsId":{
-      "type": "INTEGER",
-      "null": "NOT NULL"
-    },
-    "property":{
-      "type": "TEXT",
-      "null": "NOT NULL"
-    },
-    "value":{
-      "type": "TEXT",
-      "null": "NOT NULL"
-    }
   });
 
   db.createTable(tableOrders, {
@@ -178,112 +216,136 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "null": "NOT NULL"
     },
     "orderType": {
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "orderStyle": {
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "productsQty": {
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     },
-    "floor":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
-    },
-    "floorPrice":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
-    },
-    "assembling":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
-    },
-    "assemblingPrice":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
-    },
-    "deliveryDatePrimary":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+    "productsPriceTOTAL": {
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "deliveryDate":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
-    "instalmentPeriod":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+    "newDeliveryDate":{
+      "type": "TEXT",
+      "null": "NULL"
     },
-    "instalmentPercent": {
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+    "deliveryPrice": {
+      "type": "INTEGER",
+      "null": "NULL"
     },
-    "totalPrice":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+    "isDatePriceLess":{
+      "type": "BOOLEAN",
+      "null": "NOT NULL"
     },
-    "totalPricePrimary":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+    "isDatePriceMore":{
+      "type": "BOOLEAN",
+      "null": "NOT NULL"
     },
-    "totalPriceFirst":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+    "selectedFloor":{
+      "type": "INTEGER",
+      "null": "NULL"
     },
-    "totalPriceMonthly":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+    "selectedFloorPrice":{
+      "type": "INTEGER",
+      "null": "NULL"
     },
-    "totalPriceFirstPrimary":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+    "selectedAssembling":{
+      "type": "TEXT",
+      "null": "NULL"
     },
-    "totalPriceMonthlyPrimary":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+    "selectedAssemblingPrice":{
+      "type": "INTEGER",
+      "null": "NULL"
+    },
+    "isInstalment":{
+      "type": "INTEGER",
+      "null": "NULL"
+    },
+    "selectedInstalmentPeriod":{
+      "type": "INTEGER",
+      "null": "NULL"
+    },
+    "selectedInstalmentPercent": {
+      "type": "INTEGER",
+      "null": "NULL"
+    },
+    "isOldPrice":{
+      "type": "BOOLEAN",
+      "null": "NOT NULL"
+    },
+    "paymentFirst":{
+      "type": "INTEGER",
+      "null": "NULL"
+    },
+    "paymentMonthly":{
+      "type": "INTEGER",
+      "null": "NULL"
+    },
+    "paymentFirstPrimary":{
+      "type": "INTEGER",
+      "null": "NULL"
+    },
+    "paymentMonthlyPrimary":{
+      "type": "INTEGER",
+      "null": "NULL"
+    },
+    "orderPriceTOTAL":{
+      "type": "INTEGER",
+      "null": "NULL"
+    },
+    "orderPriceTOTALPrimary":{
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "name":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "location":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "address":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "mail": {
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "phone":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "phone2": {
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "itn": {
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "starttime": {
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "endtime": {
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "target": {
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     }
   });
 
@@ -291,37 +353,37 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
 
     "id":{
       "type": "INTEGER",
-      //"null": "NOT NULL",
+      "null": "NULL",
       "primary": true,
       "auto_increment": true
     },
     "orderId":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "productId":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "elementId":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "elementType":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "elementName":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "elementPrice":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "elementQty":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     }
 
   });
@@ -330,41 +392,41 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
 
     "id":{
       "type": "INTEGER",
-      //"null": "NOT NULL",
+      "null": "NULL",
       "primary": true,
       "auto_increment": true
     },
     "orderId":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "productId":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "elementId":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "elementType":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "elementName":{
-      "type": "TEXT"
-      //"null": "NOT NULL"
+      "type": "TEXT",
+      "null": "NULL"
     },
     "elementWidth":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "elementPrice":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     },
     "elementQty":{
-      "type": "INTEGER"
-      //"null": "NOT NULL"
+      "type": "INTEGER",
+      "null": "NULL"
     }
 
   });
@@ -855,4 +917,5 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
   }
 
 }]);
+
 

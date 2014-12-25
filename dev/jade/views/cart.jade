@@ -64,7 +64,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
               .addelements-detail(ng-show="cart.isAddElementDetail === $index")
                 .addelements-detail-header
                   .addelements-detail-tools
-                    button.addelements-detail-edit {{ 'cart.ADDELEMENTS_EDIT_LIST' | translate }}
+                    button.addelements-detail-edit(ng-click="editProduct($index)") {{ 'cart.ADDELEMENTS_EDIT_LIST' | translate }}
                     button.addelements-detail-close(ng-click="closeAllAddElementDetail()")
                   .product-template
                     .addelements-detail-row

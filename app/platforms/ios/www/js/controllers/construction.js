@@ -1,8 +1,11 @@
+
+// controllers/construction.js
+
 /* globals BauVoiceApp, STEP, deactiveSizeBox */
 
 'use strict';
 
-BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructService', 'localStorage', '$location', function ($scope, $rootScope, constructService, localStorage, $location) {
+BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'localStorage', '$location', function ($scope, constructService, localStorage, $location) {
 
   $scope.global = localStorage;
 
@@ -33,26 +36,24 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
     DELAY_SHOW_FIGURE_ITEM: 2000,
     typing: 'on'
   };
-  $scope.global.isCreatedNewProject = false;
-  $scope.openVoiceHelper = false;
-  $scope.global.showNavMenu = true;
-  $scope.global.isConfigMenu = false;
-  $scope.global.showPanels = {};
-  $scope.global.showPanels.showTemplatePanel = false;
-  $scope.global.isTemplatePanel = false;
+  //$scope.global.isCreatedNewProject = false;
 
+  $scope.openVoiceHelper = false;
   $scope.loudVoice = false;
   $scope.quietVoice = false;
-
-  $scope.templateDefaultOLD = angular.copy($scope.global.templateDefault);
-  $scope.templateSourceOLD = angular.copy($scope.global.templateSource);
-
-  $scope.templateDefaultTEMP = angular.copy($scope.global.templateDefault);
-  $scope.templateSourceTEMP = angular.copy($scope.global.templateSource);
 
   var sizeClass = 'size-box',
       sizeEditClass = 'size-box-edited',
       newLength, fromPointsId, toPointsId;
+
+
+  $scope.templateSourceOLD = angular.copy($scope.global.product.templateSource);
+  $scope.templateDefaultOLD = angular.copy($scope.global.product.templateDefault);
+
+  $scope.templateSourceTEMP = angular.copy($scope.global.product.templateSource);
+  $scope.templateDefaultTEMP = angular.copy($scope.global.product.templateDefault);
+
+  //console.log('product in construction', $scope.global.product);
 
 
 
@@ -189,59 +190,61 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
 
 
 
-
-  //--------- Close Construction Page
+  //--------- Cancel and Close Construction Page
   $scope.gotoMainPageCancel = function () {
-    //------ if calculator is closed
-    //if(!$scope.global.isConstructSizeCalculator) {
-      $scope.templateDefaultTEMP = {};
-      $scope.templateSourceTEMP = {};
-      $scope.backtoTemplatePanel();
-    //}
     $scope.global.isConstructSizeCalculator = false;
-
+    $scope.backtoTemplatePanel();
   };
 
-  //------- Close and Save Construction Page
+  //------- Save and Close Construction Page
   $scope.gotoMainPageSaved = function () {
     //------ if calculator is closed
     if(!$scope.global.isConstructSizeCalculator) {
-      //----- create new template icon
-      $scope.global.product.constructThumb = new TemplateIcon($scope.templateSourceTEMP, $scope.global.templateDepths);
+
+      //----- save new template in product
+      $scope.global.product.templateSource = angular.copy($scope.templateSourceTEMP);
+      $scope.global.product.templateDefault = angular.copy($scope.templateDefaultTEMP);
+      $scope.global.product.templateIcon = new TemplateIcon($scope.templateSourceTEMP, $scope.global.templateDepths);
 
       //------ save new template in templates Array
-
       if($scope.global.isConstructDoor) {
-        changeTemplateInArray($scope.global.templateIndex, $scope.global.templatesDoorSource, $scope.global.templatesDoorList, $scope.global.templatesDoorThumbList, $scope.templateSourceTEMP, $scope.templateDefaultTEMP, $scope.global.product.constructThumb);
+        changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesDoorSource, $scope.global.templatesDoorList, $scope.global.templatesDoorIconList, $scope.templateSourceTEMP, $scope.templateDefaultTEMP, $scope.global.product.templateIcon);
       } else if($scope.global.isConstructBalcony) {
-        changeTemplateInArray($scope.global.templateIndex, $scope.global.templatesBalconySource, $scope.global.templatesBalconyList, $scope.global.templatesBalconyThumbList, $scope.templateSourceTEMP, $scope.templateDefaultTEMP, $scope.global.product.constructThumb);
+        changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesBalconySource, $scope.global.templatesBalconyList, $scope.global.templatesBalconyIconList, $scope.templateSourceTEMP, $scope.templateDefaultTEMP, $scope.global.product.templateIcon);
       } else if($scope.global.isConstructWindDoor) {
-        changeTemplateInArray($scope.global.templateIndex, $scope.global.templatesWindDoorSource, $scope.global.templatesWindDoorList, $scope.global.templatesWindDoorThumbList, $scope.templateSourceTEMP, $scope.templateDefaultTEMP, $scope.global.product.constructThumb);
+        changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesWindDoorSource, $scope.global.templatesWindDoorList, $scope.global.templatesWindDoorIconList, $scope.templateSourceTEMP, $scope.templateDefaultTEMP, $scope.global.product.templateIcon);
       } else if($scope.global.isConstructWind) {
-        changeTemplateInArray($scope.global.templateIndex, $scope.global.templatesWindSource, $scope.global.templatesWindList, $scope.global.templatesWindThumbList, $scope.templateSourceTEMP, $scope.templateDefaultTEMP, $scope.global.product.constructThumb);
+        changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesWindSource, $scope.global.templatesWindList, $scope.global.templatesWindIconList, $scope.templateSourceTEMP, $scope.templateDefaultTEMP, $scope.global.product.templateIcon);
       }
-
+      //------- refresh current templates arrays
+      $scope.global.getCurrentTemplates();
+      //-------- template was changed
+      $scope.global.isChangedTemplate = true;
       $scope.backtoTemplatePanel();
     }
   };
 
+
   //-------- Back to Template Panel
   $scope.backtoTemplatePanel = function() {
     $scope.global.prepareMainPage();
-    $scope.global.isReturnFromConstructionPage = true;
+    $scope.global.isReturnFromDiffPage = true;
+    console.log('construction page!!!!!!!!!!!');
+    console.log('product ====== ', $scope.global.product);
+    console.log('order ====== ', $scope.global.order);
     $location.path('/main');
   };
 
   function changeTemplateInArray(templateIndex, templateSourceList, templateList, templateIconList, newTemplateSource, newTemplate, newTemplateIcon) {
-    //----- delete old template
-    delete templateSourceList[templateIndex];
-    delete templateList[templateIndex];
-    delete templateIconList[templateIndex];
     //----- write new template in array
     templateSourceList[templateIndex] = angular.copy(newTemplateSource);
     templateList[templateIndex] = angular.copy(newTemplate);
     templateIconList[templateIndex] = angular.copy(newTemplateIcon);
   }
+
+
+
+
 
 
 
@@ -252,11 +255,6 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
       $scope.templateSourceTEMP = {};
       $scope.templateDefaultTEMP = angular.copy($scope.templateDefaultOLD);
       $scope.templateSourceTEMP = angular.copy($scope.templateSourceOLD);
-
-      //-------- build new template
-      //------- cleaning object for get profile price
-      $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
-      $scope.global.createObjXFormedPrice($scope.templateDefaultTEMP, $scope.global.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
       $scope.constructData.tempSize.length = 0;
     }
   };
@@ -374,9 +372,6 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
 
       var tempVal = parseInt(newValue, 10);
        console.log('tempVal', tempVal);
-      //if($.isNumeric(tempVal)) {
-        //var tempValStr = tempVal.toString();
-        //$scope.constructData.tempSize = tempValStr.split('');
         $scope.voiceTxt = '';
         $scope.openVoiceHelper = false;
 
@@ -385,9 +380,6 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
           changeSize();
         }
       deactiveSizeBox(sizeEditClass, sizeClass);
-      //} else {
-
-      //}
 
     } else {
       //---- clear array from 0 after delete all number in array
@@ -428,19 +420,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
       }
     changeSize();
   }
-/*
-  //------- get Old Size Value from SVG size box
-  function getOldSizeValue() {
-    var oldNumbersArr = [], old, oldNumber;
-    oldNumbersArr = $scope.constructData.oldSizeValue.split('');
-    for(old = 0; old < oldNumbersArr.length; old++) {
-      oldNumber = parseInt(oldNumbersArr[old], 10);
-      if($.isNumeric(oldNumber)) {
-        $scope.constructData.tempSize.push(oldNumbersArr[old]);
-      }
-    }
-  }
-*/
+
   //------ Change size on SVG
   function changeSize() {
     var newSizeString = '';
@@ -475,7 +455,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
 
     if($scope.constructData.tempSize.length > 0) {
       newLength = parseInt($scope.constructData.tempSize.join(''), 10);
-      console.log("newLength!!!" + newLength);
+      //console.log("newLength!!!" + newLength);
       //------- Dimensions limits checking
       if (newLength > $scope.constructData.minSizeLimit && newLength < $scope.constructData.maxSizeLimit) {
         $scope.constructData.isMinSizeRestriction = false;
@@ -489,35 +469,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
             curDimensionType = $scope.templateDefaultTEMP.objects[i].type;
           }
         }
-        /*
-        // limit inside dimension relate to overall dimensions
-        if(curDimensionType === 'dimensionsH') {
-          if($scope.constructData.tempSizeId !== 'overallDimH') {
-            if(newLength > $scope.constructData.maxSizeLimit) {
-              $scope.constructData.isMaxSizeRestriction = true;
-              $scope.constructData.isMinSizeRestriction = false;
-              return;
-            }
-          }
-        } else if(curDimensionType === 'dimensionsV') {
-          if($scope.constructData.tempSizeId !== 'overallDimV') {
-            if(newLength > $scope.svgTemplateHeightTEMP) {return;}
-          }
-        }
 
-        //----- set svgTemplateHeight if overallDimV < other dimensionsV
-        if($scope.constructData.tempSizeId === 'overallDimV') {
-          for (var j = 0; j < $scope.templateDefaultTEMP.objects.length; j++) {
-            if ($scope.templateDefaultTEMP.objects[j].type === 'dimensionsV' && $scope.templateDefaultTEMP.objects[j].id !== 'overallDimV') {
-              allDimensionsV.push($scope.templateDefaultTEMP.objects[j].lengthVal);
-            }
-          }
-          var maxDim = allDimensionsV.slice(0).sort(function(a, b) {a < b})[0];
-          if(newLength < maxDim) {
-            return;
-          }
-        }
-         */
 
         //console.log($scope.global.templateDefault);
         //------ parse template, get points relate to points id
@@ -550,7 +502,6 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
           newPoint.newPointY = fromPoints[point].y + (newLength * (toPoints[point].y - fromPoints[point].y) / $scope.constructData.oldSizeValue);
           newPoints.push(newPoint);
         }
-        //console.log(newPoints);
 
         //-------- change point coordinates in templateSource
         for (var n = 0; n < toPointsId.length; n++) {
@@ -591,9 +542,6 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
         //-------- build new template
         $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
 
-        //------- cleaning object for get profile price
-        $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
-        $scope.global.createObjXFormedPrice($scope.templateDefaultTEMP, $scope.global.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
         $scope.constructData.tempSize.length = 0;
         $scope.constructData.isMinSizeRestriction = false;
         $scope.constructData.isMaxSizeRestriction = false;
@@ -621,3 +569,4 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope',  '$rootScope', 'constructS
   };
 
 }]);
+

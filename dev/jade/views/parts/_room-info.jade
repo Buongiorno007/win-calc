@@ -1,4 +1,4 @@
-.room-info-container(ng-controller="RoomInfoCtrl")
+.room-info-container(ng-controller="RoomInfoCtrl", ng-class="{'show-comment': global.isSowCommentBlock}")
   .room-header
     .room-name {{ roomInfo.roomsData[(global.product.selectedRoomId-1)].name }}
       button.select-rooms.unvisible(show-delay="{{ roomInfo.DELAY_SHOW_ALLROOMS_BTN }}", ng-click="showRoomSelectorDialog()") {{ 'common_words.ALL' | translate }}

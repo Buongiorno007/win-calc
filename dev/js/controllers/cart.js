@@ -221,6 +221,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
       //----------- sorting all Edd Elements by Products
       $scope.parseAddElements = function() {
+        console.log('productsEdit', $scope.global.order.products);
         for(prod = 0; prod < $scope.global.order.productsQty; prod++) {
 
           if($scope.cart.allGridsDB && $scope.cart.allGridsDB.length > 0) {
@@ -345,9 +346,8 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
               console.log('templateIcon', product.templateIcon);
             }
             $scope.global.order.products.push(product);
-            $scope.parseAddElements();
           }
-
+          $scope.parseAddElements();
           //----------- start order price total calculation
           //$scope.calculateProductsPrice();
 

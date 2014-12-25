@@ -1,3 +1,6 @@
+
+// controllers/parts/user-info.js
+
 'use strict';
 
 BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localDB', 'localStorage', function ($scope, globalDB, localDB, localStorage) {
@@ -88,7 +91,9 @@ BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localDB', 'localS
     //$rootScope.$broadcast('swipeMainPage', true);
     $scope.global.showNavMenu = !$scope.global.showNavMenu;
     $scope.global.isConfigMenu = true;
-    $scope.global.startProgramm = false;
+    if(!$scope.global.isOpenedHistoryPage) {
+      $scope.global.startProgramm = false;
+    }
   };
 /*
   $rootScope.$on('swipeMainPage', function() {
@@ -97,3 +102,4 @@ BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localDB', 'localS
 */
 
 }]);
+

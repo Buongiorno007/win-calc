@@ -1,8 +1,14 @@
 .room-info-container {
+  @include transition(height .5s linear);
   position: absolute;
-  bottom: rem(360px);
+  bottom: 0;
   left: 0;
   width: 100%;
+  height: rem(360px);
+
+  &.show-comment {
+    height: 97.5rem;
+  }
   .room-header {
     @include top_left_coord(0px, 0px);
     @include animation(moveRoomHeader 1s 0 ease 1);

@@ -40,35 +40,36 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
   var orderMasterStyle = 'master',
       orderDoneStyle = 'done';
 
+  //console.log('isOpenedHistoryPage', $scope.global.isOpenedHistoryPage);
+  //console.log('isOrderFinished', $scope.global.isOrderFinished);
 
-
-    //------ Download complete Orders from localDB
-    localDB.selectDB($scope.global.ordersTableBD, {'orderType': $scope.global.fullOrderType}, function (results) {
-      if (results.status) {
-        $scope.ordersSource = angular.copy(results.data);
-        $scope.orders = angular.copy(results.data);
-        //----- max day for calendar-scroll
-        $scope.history.maxDeliveryDateOrder = getOrderMaxDate($scope.orders);
-      } else {
-        console.log(results);
-        $scope.history.isEmptySortResult = true;
-      }
-    });
-
-    //------- defind Order MaxDate
-    function getOrderMaxDate(orders) {
-      var ordersDateArr = [];
-      for (var it = 0; it < orders.length; it++) {
-        var oldDateArr = orders[it].deliveryDate.split('.');
-        var newDateStr = Date.parse(oldDateArr[1]+'/'+oldDateArr[0]+'/'+oldDateArr[2]);
-        //var newDateStr = Date.parse(oldDateArr[2], oldDateArr[1], oldDateArr[0]);
-        ordersDateArr.push(newDateStr);
-      }
-      ordersDateArr.sort(function (a, b) {
-        return b - a
-      });
-      return ordersDateArr[0];
+  //------ Download complete Orders from localDB
+  localDB.selectDB($scope.global.ordersTableBD, {'orderType': $scope.global.fullOrderType}, function (results) {
+    if (results.status) {
+      $scope.ordersSource = angular.copy(results.data);
+      $scope.orders = angular.copy(results.data);
+      //----- max day for calendar-scroll
+      $scope.history.maxDeliveryDateOrder = getOrderMaxDate($scope.orders);
+    } else {
+      console.log(results);
+      $scope.history.isEmptySortResult = true;
     }
+  });
+
+  //------- defind Order MaxDate
+  function getOrderMaxDate(orders) {
+    var ordersDateArr = [];
+    for (var it = 0; it < orders.length; it++) {
+      var oldDateArr = orders[it].deliveryDate.split('.');
+      var newDateStr = Date.parse(oldDateArr[1]+'/'+oldDateArr[0]+'/'+oldDateArr[2]);
+      //var newDateStr = Date.parse(oldDateArr[2], oldDateArr[1], oldDateArr[0]);
+      ordersDateArr.push(newDateStr);
+    }
+    ordersDateArr.sort(function (a, b) {
+      return b - a
+    });
+    return ordersDateArr[0];
+  }
 
 
   //=========== Searching
@@ -206,25 +207,29 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
   $scope.sortingInit = function(sortType) {
     if($scope.history.isDraftView) {
 
-      if ($scope.history.isSortTypeDraft === sortType) {
+      if($scope.history.isSortTypeDraft === sortType) {
         $scope.history.isSortTypeDraft = false;
         $scope.reverseDraft = true;
       } else {
         $scope.history.isSortTypeDraft = sortType;
 
-        if ($scope.history.isSortTypeDraft === 'first') {
+        if($scope.history.isSortTypeDraft === 'first') {
           $scope.reverseDraft = true;
         }
-        if ($scope.history.isSortTypeDraft === 'last') {
+        if($scope.history.isSortTypeDraft === 'last') {
           $scope.reverseDraft = false;
         }
       }
 
     } else {
       if ($scope.history.isSortType === sortType) {
+        if($scope.history.isSortType === 'type') {
+          $scope.orders = angular.copy($scope.ordersSource);
+        }
         $scope.history.isSortType = false;
         $scope.reverse = true;
         deSelectSortingType();
+
       } else {
         $scope.history.isSortType = sortType;
 
@@ -235,6 +240,20 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
         if ($scope.history.isSortType === 'last') {
           deSelectSortingType();
           $scope.reverse = false;
+        }
+        if($scope.history.isSortType === 'type') {
+          var tempOrders = [];
+
+          //------ find all orders
+          buildOrdersByType(tempOrders, 'order');
+          //----- find all credits
+          buildOrdersByType(tempOrders, 'credit');
+          buildOrdersByType(tempOrders, 'master');
+          buildOrdersByType(tempOrders, 'done');
+          console.log('$scope.orders', $scope.orders);
+          console.log('tempOrders', tempOrders);
+          $scope.orders = angular.copy(tempOrders);
+          console.log('orders new', $scope.orders);
         }
         /*if($scope.history.isSortType === 'all-order') {
          deSelectSortingType()ж
@@ -327,11 +346,8 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
           }
         }
         //------- delete order in Local DB
-        localDB.deleteDB($scope.global.productsTableBD, {'orderId': orderNum});
-        localDB.deleteDB($scope.global.componentsTableBD, {'orderId': orderNum});
-        localDB.deleteDB($scope.global.visorsTableBD, {'orderId': orderNum});
-        localDB.deleteDB($scope.global.windowSillsTableBD, {'orderId': orderNum});
-        localDB.deleteDB($scope.global.ordersTableBD, {'orderId': orderNum});
+        $scope.global.deleteOrderFromLocalDB(orderNum);
+
       }
     }
   };
@@ -472,5 +488,13 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
     $scope.global.gotoCartPage();
   };
 
+
+  function buildOrdersByType(tempOrders, orderStyle) {
+    for(var ord = 0; ord < $scope.orders.length; ord++) {
+      if($scope.orders[ord].orderStyle === orderStyle) {
+        tempOrders.push($scope.orders[ord]);
+      }
+    }
+  }
 
 }]);

@@ -1,3 +1,6 @@
+
+// controllers/panels/additional-elements-list.js
+
 /* globals BauVoiceApp, STEP, selectClass, activeClass */
 
 'use strict';
@@ -67,8 +70,8 @@ BauVoiceApp.controller('AdditionalElementsListCtrl', ['$scope', 'constructServic
 
    //Delete All Add Elements
   $scope.clearAllAddElements = function() {
-    for(var group in $scope.global.chosenAddElements) {
-      $scope.global.chosenAddElements[group].length = 0;
+    for(var group in $scope.global.product.chosenAddElements) {
+      $scope.global.product.chosenAddElements[group].length = 0;
     }
     $scope.global.totalAddElementsPrice = false;
   };
@@ -81,3 +84,4 @@ BauVoiceApp.controller('AdditionalElementsListCtrl', ['$scope', 'constructServic
   };
 
 }]);
+

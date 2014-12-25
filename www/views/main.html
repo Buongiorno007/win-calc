@@ -16,7 +16,7 @@
         </ul>
         <div data-output="{{ 'mainpage.NAVMENU_CALCULATIONS' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_DIVIDER }}" class="divider"></div>
         <ul show-delay="{{ navMenu.DELAY_SHOW_NAV_LIST * 2.5 }}" class="items-list unvisible">
-          <li ng-if="(global.isOpenedHistoryPage &amp;&amp; (global.isCreatedNewProject || global.productEditNumber !== '')) || (global.isOpenedCartPage &amp;&amp; global.isCreatedNewProduct)" ng-class="{'selected': navMenu.activeMenuItem==5}" ng-click="selectMenuItem(5); gotoCurrentProduct()" class="item">
+          <li ng-if="(global.isOpenedHistoryPage &amp;&amp; (global.isCreatedNewProject || global.productEditNumber !== '')) || (global.isOpenedCartPage &amp;&amp; global.isCreatedNewProduct &amp;&amp; !global.orderEditNumber)" ng-class="{'selected': navMenu.activeMenuItem==5}" ng-click="selectMenuItem(5); gotoCurrentProduct()" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 5)}}" class="nav-icon-calculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CURRENT_CALCULATION' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 5) }}" class="title"></span></div>
           </li>
           <li ng-if="global.order.products.length &gt; 0 &amp;&amp; ((!global.isOpenedHistoryPage &amp;&amp; !global.isCreatedNewProject) || (global.isOpenedHistoryPage &amp;&amp; $scope.global.isOrderFinished))" ng-class="{'selected': navMenu.activeMenuItem==6 || global.isOpenedCartPage}" ng-click="selectMenuItem(6); global.gotoCartPage()" class="item">
@@ -56,7 +56,7 @@
           <div data-output="{{ global.userInfo.name }}" typing="{{ userInfo.typing }}" typing-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
         </div>
       </div>
-      <div ng-controller="RoomInfoCtrl" class="room-info-container">
+      <div ng-controller="RoomInfoCtrl" ng-class="{'show-comment': global.isSowCommentBlock}" class="room-info-container">
         <div class="room-header">
           <div class="room-name">{{ roomInfo.roomsData[(global.product.selectedRoomId-1)].name }}
             <button show-delay="{{ roomInfo.DELAY_SHOW_ALLROOMS_BTN }}" ng-click="showRoomSelectorDialog()" class="select-rooms unvisible">{{ 'common_words.ALL' | translate }}</button>

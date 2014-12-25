@@ -723,7 +723,7 @@ BauVoiceApp.factory('constructService', function ($q) {
 
         balconies: [
           {
-            'name':'Трехстворчатый балкон',
+            'name':'Трехстворчатое',
             'objects':[
               //------- main points
               {'type':'fixed_point', id:'fp1', x:'0', y: '0'},
@@ -765,18 +765,19 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'impost_in_line', id: 'impostinline3', from: 'cpimpost5', to: 'cpimpost8'},
               {'type': 'impost_in_line', id: 'impostinline4', from: 'cpimpost7', to: 'cpimpost6'},
               //-------- sash
-              {'type': 'cross_point_sash_out', id: 'cpsout1', line1: 'frameinline1', line2: 'impostinline4'},
-              {'type': 'cross_point_sash_out', id: 'cpsout2', line1: 'impostinline4', line2: 'frameinline3'},
-              {'type': 'cross_point_sash_out', id: 'cpsout3', line1: 'frameinline3', line2: 'impostinline1'},
-              {'type': 'cross_point_sash_out', id: 'cpsout4', line1: 'impostinline1', line2: 'frameinline1'},
-              {'type': 'cross_point_sash_in', id: 'cpsin1', line1: 'frameinline1', line2: 'impostinline3'},
-              {'type': 'cross_point_sash_in', id: 'cpsin2', line1: 'impostinline3', line2: 'frameinline3'},
-              {'type': 'cross_point_sash_in', id: 'cpsin3', line1: 'frameinline3', line2: 'impostinline2'},
-              {'type': 'cross_point_sash_in', id: 'cpsin4', line1: 'impostinline2', line2: 'frameinline1'},
+              {'type': 'cross_point_sash_out', id: 'cpsout1', line1: 'frameline1', line2: 'impostcenterline3', isImpost: true},
+              {'type': 'cross_point_sash_out', id: 'cpsout2', line1: 'frameline3', line2: 'impostcenterline3', isImpost: true},
+              {'type': 'cross_point_sash_out', id: 'cpsout3', line1: 'frameline3', line2: 'impostcenterline2', isImpost: true},
+              {'type': 'cross_point_sash_out', id: 'cpsout4', line1: 'frameline1', line2: 'impostcenterline2', isImpost: true},
               {'type': 'sash_out_line', id: 'sashoutline1', from: 'cpsout4', to: 'cpsout1'},
               {'type': 'sash_out_line', id: 'sashoutline2', from: 'cpsout1', to: 'cpsout2'},
               {'type': 'sash_out_line', id: 'sashoutline3', from: 'cpsout2', to: 'cpsout3'},
               {'type': 'sash_out_line', id: 'sashoutline4', from: 'cpsout3', to: 'cpsout4'},
+
+              {'type': 'cross_point_sash_in', id: 'cpsin1', line1: 'sashoutline1', line2: 'sashoutline2'},
+              {'type': 'cross_point_sash_in', id: 'cpsin2', line1: 'sashoutline2', line2: 'sashoutline3'},
+              {'type': 'cross_point_sash_in', id: 'cpsin3', line1: 'sashoutline3', line2: 'sashoutline4'},
+              {'type': 'cross_point_sash_in', id: 'cpsin4', line1: 'sashoutline4', line2: 'sashoutline1'},
               {'type': 'sash_line', id: 'sashline1', from: 'cpsin4', to: 'cpsin1'},
               {'type': 'sash_line', id: 'sashline2', from: 'cpsin1', to: 'cpsin2'},
               {'type': 'sash_line', id: 'sashline3', from: 'cpsin2', to: 'cpsin3'},
@@ -811,10 +812,10 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'glass_line', id: 'glassline3', from: 'cpg2', to: 'cpg3'},
               {'type': 'glass_line', id: 'glassline4', from: 'cpg3', to: 'cpg4'},
               //----- center glass
-              {'type': 'cross_point_glass', id: 'cpg5', line1: 'frameinline1', line2: 'impostinline3', blockType: 'sash'},
-              {'type': 'cross_point_glass', id: 'cpg6', line1: 'impostinline3', line2: 'frameinline3', blockType: 'sash'},
-              {'type': 'cross_point_glass', id: 'cpg7', line1: 'frameinline3', line2: 'impostinline2', blockType: 'sash'},
-              {'type': 'cross_point_glass', id: 'cpg8', line1: 'impostinline2', line2: 'frameinline1', blockType: 'sash'},
+              {'type': 'cross_point_glass', id: 'cpg5', line1: 'sashoutline1', line2: 'sashoutline2', blockType: 'sash'},
+              {'type': 'cross_point_glass', id: 'cpg6', line1: 'sashoutline2', line2: 'sashoutline3', blockType: 'sash'},
+              {'type': 'cross_point_glass', id: 'cpg7', line1: 'sashoutline3', line2: 'sashoutline4', blockType: 'sash'},
+              {'type': 'cross_point_glass', id: 'cpg8', line1: 'sashoutline4', line2: 'sashoutline1', blockType: 'sash'},
               {'type': 'glass_line', id: 'glassline5', from: 'cpg8', to: 'cpg5'},
               {'type': 'glass_line', id: 'glassline6', from: 'cpg5', to: 'cpg6'},
               {'type': 'glass_line', id: 'glassline7', from: 'cpg6', to: 'cpg7'},
@@ -869,7 +870,7 @@ BauVoiceApp.factory('constructService', function ($q) {
 
         doors: [
           {
-            'name': 'Одностворчатая',
+            'name': 'Одностворчатая дверь',
             'objects': [
               //------- main points
               {'type': 'fixed_point', id: 'fp1', x: '0', y: '0'},
@@ -889,6 +890,25 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'frame_in_line', id: 'frameinline2', from: 'cp1', to: 'cp2'},
               {'type': 'frame_in_line', id: 'frameinline3', from: 'cp2', to: 'cp3'},
               {'type': 'frame_in_line', id: 'frameinline4', from: 'cp3', to: 'cp4'},
+
+              //-------- sash
+              {'type': 'cross_point_sash_out', id: 'cpsout1', line1: 'frameline1', line2: 'frameline2'},
+              {'type': 'cross_point_sash_out', id: 'cpsout2', line1: 'frameline2', line2: 'frameline3'},
+              {'type': 'cross_point_sash_out', id: 'cpsout3', line1: 'frameline3', line2: 'frameline4'},
+              {'type': 'cross_point_sash_out', id: 'cpsout4', line1: 'frameline4', line2: 'frameline1'},
+              {'type': 'sash_out_line', id: 'sashoutline1', from: 'cpsout4', to: 'cpsout1'},
+              {'type': 'sash_out_line', id: 'sashoutline2', from: 'cpsout1', to: 'cpsout2'},
+              {'type': 'sash_out_line', id: 'sashoutline3', from: 'cpsout2', to: 'cpsout3'},
+              {'type': 'sash_out_line', id: 'sashoutline4', from: 'cpsout3', to: 'cpsout4'},
+              {'type': 'cross_point_sash_in', id: 'cpsin1', line1: 'sashoutline1', line2: 'sashoutline2'},
+              {'type': 'cross_point_sash_in', id: 'cpsin2', line1: 'sashoutline2', line2: 'sashoutline3'},
+              {'type': 'cross_point_sash_in', id: 'cpsin3', line1: 'sashoutline3', line2: 'sashoutline4'},
+              {'type': 'cross_point_sash_in', id: 'cpsin4', line1: 'sashoutline4', line2: 'sashoutline1'},
+              {'type': 'sash_line', id: 'sashline1', from: 'cpsin4', to: 'cpsin1'},
+              {'type': 'sash_line', id: 'sashline2', from: 'cpsin1', to: 'cpsin2'},
+              {'type': 'sash_line', id: 'sashline3', from: 'cpsin2', to: 'cpsin3'},
+              {'type': 'sash_line', id: 'sashline4', from: 'cpsin3', to: 'cpsin4'},
+
               //----------- bead box
               /*
                {'type': 'cross_point_bead', id: 'cpbead1', line1: 'frameinline1', line2: 'frameinline2'},
@@ -900,11 +920,12 @@ BauVoiceApp.factory('constructService', function ($q) {
                {'type':'bead_box_line', id:'beadline3', from:'cpbead2', to:'cpbead3'},
                {'type':'bead_box_line', id:'beadline4', from:'cpbead3', to:'cpbead4'}
                */
+
               //----- glass
-              {'type': 'cross_point_glass', id: 'cpg1', line1: 'frameline1', line2: 'frameline2', blockType: 'frame'},
-              {'type': 'cross_point_glass', id: 'cpg2', line1: 'frameline2', line2: 'frameline3', blockType: 'frame'},
-              {'type': 'cross_point_glass', id: 'cpg3', line1: 'frameline3', line2: 'frameline4', blockType: 'frame'},
-              {'type': 'cross_point_glass', id: 'cpg4', line1: 'frameline4', line2: 'frameline1', blockType: 'frame'},
+              {'type': 'cross_point_glass', id: 'cpg1', line1: 'sashoutline1', line2: 'sashoutline2', blockType: 'sash'},
+              {'type': 'cross_point_glass', id: 'cpg2', line1: 'sashoutline2', line2: 'sashoutline3', blockType: 'sash'},
+              {'type': 'cross_point_glass', id: 'cpg3', line1: 'sashoutline3', line2: 'sashoutline4', blockType: 'sash'},
+              {'type': 'cross_point_glass', id: 'cpg4', line1: 'sashoutline4', line2: 'sashoutline1', blockType: 'sash'},
               {'type': 'glass_line', id: 'glassline1', from: 'cpg4', to: 'cpg1'},
               {'type': 'glass_line', id: 'glassline2', from: 'cpg1', to: 'cpg2'},
               {'type': 'glass_line', id: 'glassline3', from: 'cpg2', to: 'cpg3'},
@@ -914,6 +935,10 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'frame', id: 'frame2', parts: ['frameline2', 'frameinline2']},
               {'type': 'frame', id: 'frame3', parts: ['frameline3', 'frameinline3']},
               {'type': 'frame', id: 'frame4', parts: ['frameline4', 'frameinline4']},
+              {'type': 'sash', id: 'sash1', parts: ['sashoutline1', 'sashline1']},
+              {'type': 'sash', id: 'sash2', parts: ['sashoutline2', 'sashline2'], openType: ['sashline2', 'sashline4']},
+              {'type': 'sash', id: 'sash3', parts: ['sashoutline3', 'sashline3'], openType: ['sashline3', 'sashline1']},
+              {'type': 'sash', id: 'sash4', parts: ['sashoutline4', 'sashline4']},
               /*
                {'type': 'bead_box', id:'bead1', parts: ['frameinline1', 'beadline1']},
                {'type': 'bead_box', id:'bead2', parts: ['frameinline2', 'beadline2']},

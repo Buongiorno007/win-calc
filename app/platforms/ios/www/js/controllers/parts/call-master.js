@@ -1,3 +1,6 @@
+
+// controllers/parts/call-master.js
+
 'use strict';
 
 BauVoiceApp.controller('CallMasterCtrl', ['$scope', 'constructService', 'localStorage', '$location', function ($scope, constructService, localStorage, $location) {
@@ -90,9 +93,19 @@ BauVoiceApp.controller('CallMasterCtrl', ['$scope', 'constructService', 'localSt
     $scope.submitted = true;
 
     if (form.$valid) {
+      if($scope.global.orderEditNumber) {
+        //----- delete old order in localDB
+        $scope.global.deleteOrderFromLocalDB($scope.global.orderEditNumber);
+        for(var prod = 0; prod < $scope.global.order.products.length; prod++) {
+          $scope.global.insertProductInLocalDB($scope.global.orderEditNumber, $scope.global.order.products[prod].productId, $scope.global.order.products[prod]);
+        }
+      }
       $scope.global.insertOrderInLocalDB($scope.user, $scope.global.fullOrderType, $scope.orderStyle);
       //--------- Close cart dialog, go to history
       $scope.hideCallMasterDialog();
+      $scope.global.isCreatedNewProject = false;
+      $scope.global.isCreatedNewProduct = false;
+      $scope.global.isOrderFinished = true;
       $location.path('/history');
     }
   };

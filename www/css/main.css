@@ -1769,12 +1769,20 @@ body {
 
 /* line 1, ../../dev/sass/parts/_room-info.scss */
 .room-info-container {
+  -moz-transition: height 0.5s linear;
+  -webkit-transition: height 0.5s linear;
+  transition: height 0.5s linear;
   position: absolute;
-  bottom: 22.5rem;
+  bottom: 0;
   left: 0;
   width: 100%;
+  height: 22.5rem;
 }
-/* line 6, ../../dev/sass/parts/_room-info.scss */
+/* line 9, ../../dev/sass/parts/_room-info.scss */
+.room-info-container.show-comment {
+  height: 97.5rem;
+}
+/* line 12, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .room-header {
   top: 0rem;
   left: 0rem;
@@ -1784,7 +1792,7 @@ body {
   position: absolute;
   padding-left: 3.125rem;
 }
-/* line 13, ../../dev/sass/parts/_room-info.scss */
+/* line 19, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .room-name {
   display: -webkit-flex;
   display: flex;
@@ -1794,13 +1802,13 @@ body {
   min-width: 60rem;
   color: #fff;
 }
-/* line 21, ../../dev/sass/parts/_room-info.scss */
+/* line 27, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .select-rooms {
   width: 8.5rem;
   height: 4.5rem;
   margin-left: 2.1875rem;
 }
-/* line 29, ../../dev/sass/parts/_room-info.scss */
+/* line 35, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-container {
   display: -webkit-flex;
   display: flex;
@@ -1814,7 +1822,7 @@ body {
   position: absolute;
   width: 100%;
 }
-/* line 38, ../../dev/sass/parts/_room-info.scss */
+/* line 44, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-block {
   text-shadow: 1px 2px 0px rgba(0, 0, 0, 0.4);
   margin: 0;
@@ -1822,15 +1830,15 @@ body {
   color: #fff;
   border-left: 2px dotted #fff;
 }
-/* line 45, ../../dev/sass/parts/_room-info.scss */
+/* line 51, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-block:first-child {
   border-left: none;
 }
-/* line 48, ../../dev/sass/parts/_room-info.scss */
+/* line 54, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-block:nth-child(2), .room-info-container .coeff-block:last-child {
   min-width: 32.5rem;
 }
-/* line 53, ../../dev/sass/parts/_room-info.scss */
+/* line 59, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-max {
   font: normal 2.25rem/1 roboto-medium, sans-serif;
   position: absolute;
@@ -1838,17 +1846,17 @@ body {
   right: 0;
   color: #fff;
 }
-/* line 61, ../../dev/sass/parts/_room-info.scss */
+/* line 67, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff {
   font: normal 5rem/1 roboto-light, sans-serif;
   position: relative;
   float: left;
 }
-/* line 66, ../../dev/sass/parts/_room-info.scss */
+/* line 72, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff.coeff-low {
   color: #ff9500;
 }
-/* line 72, ../../dev/sass/parts/_room-info.scss */
+/* line 78, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-title {
   font: normal 2rem/2.25rem roboto-light, sans-serif;
   float: left;

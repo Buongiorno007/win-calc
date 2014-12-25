@@ -18,13 +18,14 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', '$location', 'localStorage
 
   // Room Select
   $scope.selectRoom = function(id) {
-    //$scope.roomData.selectedRoom = id;
     $scope.global.product.selectedRoomId = id;
-    $scope.global.product.templateIndex = 0;
-    $scope.global.isReturnFromDiffPage = false;
-    $scope.global.isChangedTemplate = false;
+    $scope.closeRoomSelectorDialog();
     //----- if select Door
     if(id === 6) {
+      $scope.global.product.templateIndex = 0;
+      $scope.global.isReturnFromDiffPage = false;
+      $scope.global.isChangedTemplate = false;
+
       $scope.global.isConstructWind = false;
       $scope.global.isConstructWindDoor = false;
       $scope.global.isConstructBalcony = false;
@@ -41,6 +42,10 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', '$location', 'localStorage
       //$location.path('/construction');
     } else if(id === 3) {
       //------- if select Balcony
+      $scope.global.product.templateIndex = 0;
+      $scope.global.isReturnFromDiffPage = false;
+      $scope.global.isChangedTemplate = false;
+
       $scope.global.isConstructWind = false;
       $scope.global.isConstructWindDoor = false;
       $scope.global.isConstructBalcony = true;
@@ -55,22 +60,28 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', '$location', 'localStorage
       $scope.global.product.templateIcon = $scope.global.templatesBalconyIconList[$scope.global.product.templateIndex];
       $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
     } else {
-      $scope.global.isConstructWind = true;
-      $scope.global.isConstructWindDoor = false;
-      $scope.global.isConstructBalcony = false;
-      $scope.global.isConstructDoor = false;
-      //------- get templates from STORE
-      $scope.global.setTemplatesFromSTORE();
-      //------ set new templates arrays
-      $scope.global.getCurrentTemplates();
-      //------- change template and price relate to Window
-      $scope.global.product.templateSource = $scope.global.templatesWindSource[$scope.global.product.templateIndex];
-      $scope.global.product.templateDefault = $scope.global.templatesWindList[$scope.global.product.templateIndex];
-      $scope.global.product.templateIcon = $scope.global.templatesWindIconList[$scope.global.product.templateIndex];
-      console.log();
-      $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
+      if($scope.global.isConstructBalcony || $scope.global.isConstructDoor) {
+
+        $scope.global.product.templateIndex = 0;
+        $scope.global.isReturnFromDiffPage = false;
+        $scope.global.isChangedTemplate = false;
+
+        $scope.global.isConstructWind = true;
+        $scope.global.isConstructWindDoor = false;
+        $scope.global.isConstructBalcony = false;
+        $scope.global.isConstructDoor = false;
+        //------- get templates from STORE
+        $scope.global.setTemplatesFromSTORE();
+        //------ set new templates arrays
+        $scope.global.getCurrentTemplates();
+        //------- change template and price relate to Window
+        $scope.global.product.templateSource = $scope.global.templatesWindSource[$scope.global.product.templateIndex];
+        $scope.global.product.templateDefault = $scope.global.templatesWindList[$scope.global.product.templateIndex];
+        $scope.global.product.templateIcon = $scope.global.templatesWindIconList[$scope.global.product.templateIndex];
+        $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
+      }
     }
-    $scope.closeRoomSelectorDialog();
+
   };
 
   // Close Room Selector Dialog

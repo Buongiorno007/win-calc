@@ -49,7 +49,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                     li.filter-item(ng-class="{ 'selected': history.isSortType == 'last' }", ng-click="sortingInit('last')")
                       .filter-label {{ 'history.NEWEST_LAST' | translate }}
                       .filter-select-icon
-                    li.filter-item
+                    li.filter-item(ng-class="{ 'selected': history.isSortType == 'type' }", ng-click="sortingInit('type')")
                       .filter-label {{ 'history.SORT_BY_TYPE' | translate }}
                       .filter-select-icon
                   .filter-divider {{ 'history.SORT_SHOW' | translate }}

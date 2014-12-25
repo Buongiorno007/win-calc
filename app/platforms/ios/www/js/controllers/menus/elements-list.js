@@ -1,3 +1,6 @@
+
+// controllers/menus/elements-list.js
+
 /* globals BauVoiceApp, STEP */
 
 'use strict';
@@ -24,37 +27,37 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
 
       switch($scope.global.isFocusedAddElement) {
         case 1:
-          $scope.global.chosenAddElements.selectedGrids.length = 0;
+          $scope.global.product.chosenAddElements.selectedGrids.length = 0;
           break;
         case 2:
-          $scope.global.chosenAddElements.selectedVisors.length = 0;
+          $scope.global.product.chosenAddElements.selectedVisors.length = 0;
           break;
         case 3:
-          $scope.global.chosenAddElements.selectedSpillways.length = 0;
+          $scope.global.product.chosenAddElements.selectedSpillways.length = 0;
           break;
         case 4:
-          $scope.global.chosenAddElements.selectedOutsideSlope.length = 0;
+          $scope.global.product.chosenAddElements.selectedOutsideSlope.length = 0;
           break;
         case 5:
-          $scope.global.chosenAddElements.selectedLouvers.length = 0;
+          $scope.global.product.chosenAddElements.selectedLouvers.length = 0;
           break;
         case 6:
-          $scope.global.chosenAddElements.selectedInsideSlope.length = 0;
+          $scope.global.product.chosenAddElements.selectedInsideSlope.length = 0;
           break;
         case 7:
-          $scope.global.chosenAddElements.selectedConnectors.length = 0;
+          $scope.global.product.chosenAddElements.selectedConnectors.length = 0;
           break;
         case 8:
-          $scope.global.chosenAddElements.selectedFans.length = 0;
+          $scope.global.product.chosenAddElements.selectedFans.length = 0;
           break;
         case 9:
-          $scope.global.chosenAddElements.selectedWindowSill.length = 0;
+          $scope.global.product.chosenAddElements.selectedWindowSill.length = 0;
           break;
         case 10:
-          $scope.global.chosenAddElements.selectedHandles.length = 0;
+          $scope.global.product.chosenAddElements.selectedHandles.length = 0;
           break;
         case 11:
-          $scope.global.chosenAddElements.selectedOthers.length = 0;
+          $scope.global.product.chosenAddElements.selectedOthers.length = 0;
           break;
       }
 
@@ -71,47 +74,47 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
       switch($scope.global.isFocusedAddElement) {
         case 1:
           cloneAddElement.elementId = 1;
-          $scope.global.chosenAddElements.selectedGrids.push(cloneAddElement);
+          $scope.global.product.chosenAddElements.selectedGrids.push(cloneAddElement);
           break;
         case 2:
           cloneAddElement.elementId = 2;
-          $scope.global.chosenAddElements.selectedVisors.push(cloneAddElement);
+          $scope.global.product.chosenAddElements.selectedVisors.push(cloneAddElement);
           break;
         case 3:
           cloneAddElement.elementId = 3;
-          $scope.global.chosenAddElements.selectedSpillways.push(cloneAddElement);
+          $scope.global.product.chosenAddElements.selectedSpillways.push(cloneAddElement);
           break;
         case 4:
           cloneAddElement.elementId = 4;
-          $scope.global.chosenAddElements.selectedOutsideSlope.push(cloneAddElement);
+          $scope.global.product.chosenAddElements.selectedOutsideSlope.push(cloneAddElement);
           break;
         case 5:
           cloneAddElement.elementId = 5;
-          $scope.global.chosenAddElements.selectedLouvers.push(cloneAddElement);
+          $scope.global.product.chosenAddElements.selectedLouvers.push(cloneAddElement);
           break;
         case 6:
           cloneAddElement.elementId = 6;
-          $scope.global.chosenAddElements.selectedInsideSlope.push(cloneAddElement);
+          $scope.global.product.chosenAddElements.selectedInsideSlope.push(cloneAddElement);
           break;
         case 7:
           cloneAddElement.elementId = 7;
-          $scope.global.chosenAddElements.selectedConnectors.push(cloneAddElement);
+          $scope.global.product.chosenAddElements.selectedConnectors.push(cloneAddElement);
           break;
         case 8:
           cloneAddElement.elementId = 8;
-          $scope.global.chosenAddElements.selectedFans.push(cloneAddElement);
+          $scope.global.product.chosenAddElements.selectedFans.push(cloneAddElement);
           break;
         case 9:
           cloneAddElement.elementId = 9;
-          $scope.global.chosenAddElements.selectedWindowSill.push(cloneAddElement);
+          $scope.global.product.chosenAddElements.selectedWindowSill.push(cloneAddElement);
           break;
         case 10:
           cloneAddElement.elementId = 10;
-          $scope.global.chosenAddElements.selectedHandles.push(cloneAddElement);
+          $scope.global.product.chosenAddElements.selectedHandles.push(cloneAddElement);
           break;
         case 11:
           cloneAddElement.elementId = 11;
-          $scope.global.chosenAddElements.selectedOthers.push(cloneAddElement);
+          $scope.global.product.chosenAddElements.selectedOthers.push(cloneAddElement);
           break;
       }
       if($scope.global.isAddElementListView) {
@@ -123,19 +126,19 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
   };
 
   $scope.setAddElementsTotalPrice = function() {
-    $scope.global.addElementsPriceTOTAL = 0;
-    for (var prop in $scope.global.chosenAddElements) {
-      if (!$scope.global.chosenAddElements.hasOwnProperty(prop)) {
+    $scope.global.product.addElementsPriceSELECT = 0;
+    for (var prop in $scope.global.product.chosenAddElements) {
+      if (!$scope.global.product.chosenAddElements.hasOwnProperty(prop)) {
         continue;
       } else {
-        if ($scope.global.chosenAddElements[prop].length > 0) {
-          for (var elem = 0; elem < $scope.global.chosenAddElements[prop].length; elem++) {
-            $scope.global.addElementsPriceTOTAL += $scope.global.chosenAddElements[prop][elem].elementQty * $scope.global.chosenAddElements[prop][elem].elementPrice;
+        if ($scope.global.product.chosenAddElements[prop].length > 0) {
+          for (var elem = 0; elem < $scope.global.product.chosenAddElements[prop].length; elem++) {
+            $scope.global.product.addElementsPriceSELECT += $scope.global.product.chosenAddElements[prop][elem].elementQty * $scope.global.product.chosenAddElements[prop][elem].elementPrice;
           }
         }
       }
     }
-    $scope.global.setProductPriceTOTAL();
+    $scope.global.setProductPriceTOTALapply();
   };
 
   // Select Add Element when open List View
@@ -173,37 +176,37 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
   $scope.global.deleteAddElement = function(typeId, elementId) {
     switch(typeId) {
       case 1:
-        $scope.global.chosenAddElements.selectedGrids.splice(elementId, 1);
+        $scope.global.product.chosenAddElements.selectedGrids.splice(elementId, 1);
         break;
       case 2:
-        $scope.global.chosenAddElements.selectedVisors.splice(elementId, 1);
+        $scope.global.product.chosenAddElements.selectedVisors.splice(elementId, 1);
         break;
       case 3:
-        $scope.global.chosenAddElements.selectedSpillways.splice(elementId, 1);
+        $scope.global.product.chosenAddElements.selectedSpillways.splice(elementId, 1);
         break;
       case 4:
-        $scope.global.chosenAddElements.selectedOutsideSlope.splice(elementId, 1);
+        $scope.global.product.chosenAddElements.selectedOutsideSlope.splice(elementId, 1);
         break;
       case 5:
-        $scope.global.chosenAddElements.selectedLouvers.splice(elementId, 1);
+        $scope.global.product.chosenAddElements.selectedLouvers.splice(elementId, 1);
         break;
       case 6:
-        $scope.global.chosenAddElements.selectedInsideSlope.splice(elementId, 1);
+        $scope.global.product.chosenAddElements.selectedInsideSlope.splice(elementId, 1);
         break;
       case 7:
-        $scope.global.chosenAddElements.selectedConnectors.splice(elementId, 1);
+        $scope.global.product.chosenAddElements.selectedConnectors.splice(elementId, 1);
         break;
       case 8:
-        $scope.global.chosenAddElements.selectedFans.splice(elementId, 1);
+        $scope.global.product.chosenAddElements.selectedFans.splice(elementId, 1);
         break;
       case 9:
-        $scope.global.chosenAddElements.selectedWindowSill.splice(elementId, 1);
+        $scope.global.product.chosenAddElements.selectedWindowSill.splice(elementId, 1);
         break;
       case 10:
-        $scope.global.chosenAddElements.selectedHandles.splice(elementId, 1);
+        $scope.global.product.chosenAddElements.selectedHandles.splice(elementId, 1);
         break;
       case 11:
-        $scope.global.chosenAddElements.selectedOthers.splice(elementId, 1);
+        $scope.global.product.chosenAddElements.selectedOthers.splice(elementId, 1);
         break;
     }
     $scope.global.desactiveAddElementParameters();
@@ -229,102 +232,102 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
     var elementId = $scope.global.currentAddElementId;
     switch($scope.global.isFocusedAddElement) {
       case 1:
-        if($scope.global.chosenAddElements.selectedGrids[elementId].elementQty < 2 && newValue < 0) {
+        if($scope.global.product.chosenAddElements.selectedGrids[elementId].elementQty < 2 && newValue < 0) {
           break;
-        } else if($scope.global.chosenAddElements.selectedGrids[elementId].elementQty < 6 && newValue == -5) {
+        } else if($scope.global.product.chosenAddElements.selectedGrids[elementId].elementQty < 6 && newValue == -5) {
           break;
         } else {
-          $scope.global.chosenAddElements.selectedGrids[elementId].elementQty += newValue;
+          $scope.global.product.chosenAddElements.selectedGrids[elementId].elementQty += newValue;
         }
         break;
       case 2:
-        if($scope.global.chosenAddElements.selectedVisors[elementId].elementQty < 2 && newValue < 0) {
+        if($scope.global.product.chosenAddElements.selectedVisors[elementId].elementQty < 2 && newValue < 0) {
           break;
-        } else if($scope.global.chosenAddElements.selectedVisors[elementId].elementQty < 6 && newValue == -5) {
+        } else if($scope.global.product.chosenAddElements.selectedVisors[elementId].elementQty < 6 && newValue == -5) {
           break;
         } else {
-          $scope.global.chosenAddElements.selectedVisors[elementId].elementQty += newValue;
+          $scope.global.product.chosenAddElements.selectedVisors[elementId].elementQty += newValue;
         }
         break;
       case 3:
-        if($scope.global.chosenAddElements.selectedSpillways[elementId].elementQty < 2 && newValue < 0) {
+        if($scope.global.product.chosenAddElements.selectedSpillways[elementId].elementQty < 2 && newValue < 0) {
           break;
-        } else if($scope.global.chosenAddElements.selectedSpillways[elementId].elementQty < 6 && newValue == -5) {
+        } else if($scope.global.product.chosenAddElements.selectedSpillways[elementId].elementQty < 6 && newValue == -5) {
           break;
         } else {
-          $scope.global.chosenAddElements.selectedSpillways[elementId].elementQty += newValue;
+          $scope.global.product.chosenAddElements.selectedSpillways[elementId].elementQty += newValue;
         }
         break;
       case 4:
-        if($scope.global.chosenAddElements.selectedOutsideSlope[elementId].elementQty < 2 && newValue < 0) {
+        if($scope.global.product.chosenAddElements.selectedOutsideSlope[elementId].elementQty < 2 && newValue < 0) {
           break;
-        } else if($scope.global.chosenAddElements.selectedOutsideSlope[elementId].elementQty < 6 && newValue == -5) {
+        } else if($scope.global.product.chosenAddElements.selectedOutsideSlope[elementId].elementQty < 6 && newValue == -5) {
           break;
         } else {
-          $scope.global.chosenAddElements.selectedOutsideSlope[elementId].elementQty += newValue;
+          $scope.global.product.chosenAddElements.selectedOutsideSlope[elementId].elementQty += newValue;
         }
         break;
       case 5:
-        if($scope.global.chosenAddElements.selectedLouvers[elementId].elementQty < 2 && newValue < 0) {
+        if($scope.global.product.chosenAddElements.selectedLouvers[elementId].elementQty < 2 && newValue < 0) {
           break;
-        } else if($scope.global.chosenAddElements.selectedLouvers[elementId].elementQty < 6 && newValue == -5) {
+        } else if($scope.global.product.chosenAddElements.selectedLouvers[elementId].elementQty < 6 && newValue == -5) {
           break;
         } else {
-          $scope.global.chosenAddElements.selectedLouvers[elementId].elementQty += newValue;
+          $scope.global.product.chosenAddElements.selectedLouvers[elementId].elementQty += newValue;
         }
         break;
       case 6:
-        if($scope.global.chosenAddElements.selectedInsideSlope[elementId].elementQty < 2 && newValue < 0) {
+        if($scope.global.product.chosenAddElements.selectedInsideSlope[elementId].elementQty < 2 && newValue < 0) {
           break;
-        } else if($scope.global.chosenAddElements.selectedInsideSlope[elementId].elementQty < 6 && newValue == -5) {
+        } else if($scope.global.product.chosenAddElements.selectedInsideSlope[elementId].elementQty < 6 && newValue == -5) {
           break;
         } else {
-          $scope.global.chosenAddElements.selectedInsideSlope[elementId].elementQty += newValue;
+          $scope.global.product.chosenAddElements.selectedInsideSlope[elementId].elementQty += newValue;
         }
         break;
       case 7:
-        if($scope.global.chosenAddElements.selectedConnectors[elementId].elementQty < 2 && newValue < 0) {
+        if($scope.global.product.chosenAddElements.selectedConnectors[elementId].elementQty < 2 && newValue < 0) {
           break;
-        } else if($scope.global.chosenAddElements.selectedConnectors[elementId].elementQty < 6 && newValue == -5) {
+        } else if($scope.global.product.chosenAddElements.selectedConnectors[elementId].elementQty < 6 && newValue == -5) {
           break;
         } else {
-          $scope.global.chosenAddElements.selectedConnectors[elementId].elementQty += newValue;
+          $scope.global.product.chosenAddElements.selectedConnectors[elementId].elementQty += newValue;
         }
         break;
       case 8:
-        if($scope.global.chosenAddElements.selectedFans[elementId].elementQty < 2 && newValue < 0) {
+        if($scope.global.product.chosenAddElements.selectedFans[elementId].elementQty < 2 && newValue < 0) {
           break;
-        } else if($scope.global.chosenAddElements.selectedFans[elementId].elementQty < 6 && newValue == -5) {
+        } else if($scope.global.product.chosenAddElements.selectedFans[elementId].elementQty < 6 && newValue == -5) {
           break;
         } else {
-          $scope.global.chosenAddElements.selectedFans[elementId].elementQty += newValue;
+          $scope.global.product.chosenAddElements.selectedFans[elementId].elementQty += newValue;
         }
         break;
       case 9:
-        if($scope.global.chosenAddElements.selectedWindowSill[elementId].elementQty < 2 && newValue < 0) {
+        if($scope.global.product.chosenAddElements.selectedWindowSill[elementId].elementQty < 2 && newValue < 0) {
           break;
-        } else if($scope.global.chosenAddElements.selectedWindowSill[elementId].elementQty < 6 && newValue == -5) {
+        } else if($scope.global.product.chosenAddElements.selectedWindowSill[elementId].elementQty < 6 && newValue == -5) {
           break;
         } else {
-          $scope.global.chosenAddElements.selectedWindowSill[elementId].elementQty += newValue;
+          $scope.global.product.chosenAddElements.selectedWindowSill[elementId].elementQty += newValue;
         }
         break;
       case 10:
-        if($scope.global.chosenAddElements.selectedHandles[elementId].elementQty < 2 && newValue < 0) {
+        if($scope.global.product.chosenAddElements.selectedHandles[elementId].elementQty < 2 && newValue < 0) {
           break;
-        } else if($scope.global.chosenAddElements.selectedHandles[elementId].elementQty < 6 && newValue == -5) {
+        } else if($scope.global.product.chosenAddElements.selectedHandles[elementId].elementQty < 6 && newValue == -5) {
           break;
         } else {
-          $scope.global.chosenAddElements.selectedHandles[elementId].elementQty += newValue;
+          $scope.global.product.chosenAddElements.selectedHandles[elementId].elementQty += newValue;
         }
         break;
       case 11:
-        if($scope.global.chosenAddElements.selectedOthers[elementId].elementQty < 2 && newValue < 0) {
+        if($scope.global.product.chosenAddElements.selectedOthers[elementId].elementQty < 2 && newValue < 0) {
           break;
-        } else if($scope.global.chosenAddElements.selectedOthers[elementId].elementQty < 6 && newValue == -5) {
+        } else if($scope.global.product.chosenAddElements.selectedOthers[elementId].elementQty < 6 && newValue == -5) {
           break;
         } else {
-          $scope.global.chosenAddElements.selectedOthers[elementId].elementQty += newValue;
+          $scope.global.product.chosenAddElements.selectedOthers[elementId].elementQty += newValue;
         }
         break;
     }
@@ -378,30 +381,30 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
     if($scope.global.isWidthCalculator) {
       switch($scope.global.isFocusedAddElement) {
         case 2:
-          $scope.global.chosenAddElements.selectedVisors[elementId].elementWidth = newElementSize;
+          $scope.global.product.chosenAddElements.selectedVisors[elementId].elementWidth = newElementSize;
           break;
         case 3:
-          $scope.global.chosenAddElements.selectedSpillways[elementId].elementWidth = newElementSize;
+          $scope.global.product.chosenAddElements.selectedSpillways[elementId].elementWidth = newElementSize;
           break;
         case 4:
-          $scope.global.chosenAddElements.selectedOutsideSlope[elementId].elementWidth = newElementSize;
+          $scope.global.product.chosenAddElements.selectedOutsideSlope[elementId].elementWidth = newElementSize;
           break;
         case 5:
-          $scope.global.chosenAddElements.selectedLouvers[elementId].elementWidth = newElementSize;
+          $scope.global.product.chosenAddElements.selectedLouvers[elementId].elementWidth = newElementSize;
           break;
         case 6:
-          $scope.global.chosenAddElements.selectedInsideSlope[elementId].elementWidth = newElementSize;
+          $scope.global.product.chosenAddElements.selectedInsideSlope[elementId].elementWidth = newElementSize;
           break;
         case 7:
-          $scope.global.chosenAddElements.selectedConnectors[elementId].elementWidth = newElementSize;
+          $scope.global.product.chosenAddElements.selectedConnectors[elementId].elementWidth = newElementSize;
           break;
         case 9:
-          $scope.global.chosenAddElements.selectedWindowSill[elementId].elementWidth = newElementSize;
+          $scope.global.product.chosenAddElements.selectedWindowSill[elementId].elementWidth = newElementSize;
           break;
       }
     } else {
       if($scope.global.isFocusedAddElement === 5) {
-        $scope.global.chosenAddElements.selectedLouvers[elementId].elementHeight = newElementSize;
+        $scope.global.product.chosenAddElements.selectedLouvers[elementId].elementHeight = newElementSize;
       }
     }
   }
@@ -412,14 +415,14 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
     $scope.global.isAddElementColor = id;
     var elementId = $scope.global.currentAddElementId;
     if(id === 'matt') {
-      $scope.global.chosenAddElements.selectedWindowSill[elementId].elementColor = $scope.global.addElementLaminatWhiteMatt.laminationUrl;
-      $scope.global.chosenAddElements.selectedWindowSill[elementId].elementColorId = 'matt';
+      $scope.global.product.chosenAddElements.selectedWindowSill[elementId].elementColor = $scope.global.addElementLaminatWhiteMatt.laminationUrl;
+      $scope.global.product.chosenAddElements.selectedWindowSill[elementId].elementColorId = 'matt';
     } else if(id === 'glossy') {
-      $scope.global.chosenAddElements.selectedWindowSill[elementId].elementColor = $scope.global.addElementLaminatWhiteGlossy.laminationUrl;
-      $scope.global.chosenAddElements.selectedWindowSill[elementId].elementColorId = 'glossy';
+      $scope.global.product.chosenAddElements.selectedWindowSill[elementId].elementColor = $scope.global.addElementLaminatWhiteGlossy.laminationUrl;
+      $scope.global.product.chosenAddElements.selectedWindowSill[elementId].elementColorId = 'glossy';
     } else {
-      $scope.global.chosenAddElements.selectedWindowSill[elementId].elementColor = $scope.global.addElementLaminatColor[id].laminationUrl;
-      $scope.global.chosenAddElements.selectedWindowSill[elementId].elementColorId = id;
+      $scope.global.product.chosenAddElements.selectedWindowSill[elementId].elementColor = $scope.global.addElementLaminatColor[id].laminationUrl;
+      $scope.global.product.chosenAddElements.selectedWindowSill[elementId].elementColorId = id;
     }
   };
 
@@ -430,3 +433,4 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
   };
 
 }]);
+
