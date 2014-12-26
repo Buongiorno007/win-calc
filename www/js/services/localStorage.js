@@ -89,7 +89,13 @@ BauVoiceApp.factory('localStorage', function () {
     laminationsOut: [],
 
     userInfo: {
-      city_id: 0
+      city_id: 0,
+      cityName: '',
+      regionName: '',
+      countryName: '',
+      fullLocation: '',
+      climaticZone: 0,
+      heatTransfer: 0
     },
 
     productSource: {
@@ -252,7 +258,7 @@ BauVoiceApp.factory('localStorage', function () {
     isAddElement: false,
     isAddElementListView: false,
     isConstructSizeCalculator: false,
-
+    isTabFrame: false,
 
     showRoomSelectorDialog: false,
     isRoomsDialog: false,

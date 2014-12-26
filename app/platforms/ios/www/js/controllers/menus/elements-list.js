@@ -75,46 +75,90 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
         case 1:
           cloneAddElement.elementId = 1;
           $scope.global.product.chosenAddElements.selectedGrids.push(cloneAddElement);
+          //---- open TABFrame when second element selected
+          if($scope.global.product.chosenAddElements.selectedGrids.length === 2) {
+            $scope.global.isTabFrame = true;
+          }
           break;
         case 2:
           cloneAddElement.elementId = 2;
           $scope.global.product.chosenAddElements.selectedVisors.push(cloneAddElement);
+          //---- open TABFrame when second element selected
+          if($scope.global.product.chosenAddElements.selectedVisors.length === 2) {
+            $scope.global.isTabFrame = true;
+          }
           break;
         case 3:
           cloneAddElement.elementId = 3;
           $scope.global.product.chosenAddElements.selectedSpillways.push(cloneAddElement);
+          //---- open TABFrame when second element selected
+          if($scope.global.product.chosenAddElements.selectedSpillways.length === 2) {
+            $scope.global.isTabFrame = true;
+          }
           break;
         case 4:
           cloneAddElement.elementId = 4;
           $scope.global.product.chosenAddElements.selectedOutsideSlope.push(cloneAddElement);
+          //---- open TABFrame when second element selected
+          if($scope.global.product.chosenAddElements.selectedOutsideSlope.length === 2) {
+            $scope.global.isTabFrame = true;
+          }
           break;
         case 5:
           cloneAddElement.elementId = 5;
           $scope.global.product.chosenAddElements.selectedLouvers.push(cloneAddElement);
+          //---- open TABFrame when second element selected
+          if($scope.global.product.chosenAddElements.selectedLouvers.length === 2) {
+            $scope.global.isTabFrame = true;
+          }
           break;
         case 6:
           cloneAddElement.elementId = 6;
           $scope.global.product.chosenAddElements.selectedInsideSlope.push(cloneAddElement);
+          //---- open TABFrame when second element selected
+          if($scope.global.product.chosenAddElements.selectedInsideSlope.length === 2) {
+            $scope.global.isTabFrame = true;
+          }
           break;
         case 7:
           cloneAddElement.elementId = 7;
           $scope.global.product.chosenAddElements.selectedConnectors.push(cloneAddElement);
+          //---- open TABFrame when second element selected
+          if($scope.global.product.chosenAddElements.selectedConnectors.length === 2) {
+            $scope.global.isTabFrame = true;
+          }
           break;
         case 8:
           cloneAddElement.elementId = 8;
           $scope.global.product.chosenAddElements.selectedFans.push(cloneAddElement);
+          //---- open TABFrame when second element selected
+          if($scope.global.product.chosenAddElements.selectedFans.length === 2) {
+            $scope.global.isTabFrame = true;
+          }
           break;
         case 9:
           cloneAddElement.elementId = 9;
           $scope.global.product.chosenAddElements.selectedWindowSill.push(cloneAddElement);
+          //---- open TABFrame when second element selected
+          if($scope.global.product.chosenAddElements.selectedWindowSill.length === 2) {
+            $scope.global.isTabFrame = true;
+          }
           break;
         case 10:
           cloneAddElement.elementId = 10;
           $scope.global.product.chosenAddElements.selectedHandles.push(cloneAddElement);
+          //---- open TABFrame when second element selected
+          if($scope.global.product.chosenAddElements.selectedHandles.length === 2) {
+            $scope.global.isTabFrame = true;
+          }
           break;
         case 11:
           cloneAddElement.elementId = 11;
           $scope.global.product.chosenAddElements.selectedOthers.push(cloneAddElement);
+          //---- open TABFrame when second element selected
+          if($scope.global.product.chosenAddElements.selectedOthers.length === 2) {
+            $scope.global.isTabFrame = true;
+          }
           break;
       }
       if($scope.global.isAddElementListView) {

@@ -12,6 +12,9 @@
     &.show-navmenu {
       @include rotate(90deg);
     }
+    &.orange-navmenu-btn:before {
+      color: $main_orange;
+    }
   }
   .user-foto {
     @extend .avatar;

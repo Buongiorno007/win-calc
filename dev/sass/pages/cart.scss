@@ -12,8 +12,8 @@
   height: 100%;
   padding: rem(50px);
   padding-left: rem(100px);
-  overflow-x: auto;
-  overflow-y: auto;
+  //overflow-x: auto;
+  //overflow-y: auto;
   &.full-view {
     @include top_left_coord(0px, 0px);
   }
@@ -26,213 +26,214 @@
   &.active {
     @include top_left_coord(0px, 0px);
   }
+}
 
-  .cart-header {
-    @include display-flex();
-    @include flex-flow(row nowrap);
-    @include justify-content(flex-end);
-    @include align-items(center);
+.cart-header {
+  @include display-flex();
+  @include flex-flow(row nowrap);
+  @include justify-content(flex-end);
+  @include align-items(center);
 
-    position: relative;
-    width: 100%;
-    height: rem(150px);
-    margin-bottom: rem(40px);
-  }
-  .user-info-container {
-    top: 0;
-  }
-  .cart-tool {
-    @extend .middle-button;
-    @extend .splash;
+  position: relative;
+  width: 100%;
+  height: rem(150px);
+  margin-bottom: rem(40px);
+}
+.user-info-container {
+  top: 0;
+}
+.cart-tool {
+  @extend .middle-button;
+  @extend .splash;
 
-    position: relative;
-    padding: rem(18px) rem(30px);
-    z-index: 2;
-  }
-  .additional-elements {
-    margin-right: rem(20px);
-    background-color: #dcdcdc;
-    color: $main_gray_txt;
-  }
-  .new-order {
-    background-color: $main_green;
+  position: relative;
+  padding: rem(18px) rem(30px);
+  z-index: 2;
+}
+.additional-elements {
+  margin-right: rem(20px);
+  background-color: #dcdcdc;
+  color: $main_gray_txt;
+}
+.new-order {
+  background-color: $main_green;
+  color: #fff;
+}
+
+.order {
+  @extend .splash;
+  @include box-shadow(rgba(black, .3) rem(15px) rem(10px) rem(30px) 0);
+
+  position: relative;
+  margin-right: rem(50px);
+}
+.order-header {
+  position: relative;
+}
+.order-delete {
+  @extend .small-cross-btn;
+
+  position: absolute;
+  top: rem(-20px);
+  right: rem(-20px);
+  background-color: $main_green;
+  z-index: 1;
+}
+
+.order-value {
+  @extend .truncated;
+  @include roboto-lt(rem(36px));
+
+  color: $main_gray_txt;
+}
+.addelements-btn {
+  cursor: pointer;
+}
+.order-label {
+  @include roboto-lt(rem(22px));
+
+  color: #8c8c8c;
+}
+.order-qty {
+  @include display-flex();
+  @include align-items(center);
+}
+.order-tool {
+  @extend .small-button;
+  width: rem(65px);
+  height: rem(45px);
+  line-height: 1;
+  background-color: $main_green;
+  color: #fff;
+}
+.order-footer {
+  @include roboto-md(rem(48px), rem(100px));
+
+  padding-left: rem(50px);
+  border-bottom-left-radius: rem($radius_order);
+  border-bottom-right-radius: rem($radius_order);
+  background-color: #f0f0f0;
+  color: $main_gray_txt;
+}
+
+// AddElements Detail Block
+.addelements-detail {
+  position: absolute;
+  //top: rem(240px);
+  //left: rem(1260px);
+  top: 0rem;
+  left: 30rem;
+  width: rem(512px);
+  background-color: #fff;
+  border-bottom-left-radius: rem($radius_order);
+  border-bottom-right-radius: rem($radius_order);
+  z-index: 10;
+}
+.addelements-detail-tools {
+  @include display-flex();
+  @include flex-flow(row nowrap);
+
+  height: rem(100px);
+}
+.addelements-detail-edit {
+  @extend .button;
+  @extend .icon-setting;
+  @include flex-grow(3);
+  @include roboto-lt(rem(28px), rem(100px));
+  background-color: $main_green;
+  color: #fff;
+}
+.addelements-detail-close {
+  @extend .button;
+  @extend .icon-setting;
+  @include flex-grow(1);
+  background-color: $main_gray_btn;
+  &:after {
+    @include font-general-icon(rem(40px), 1);
     color: #fff;
-  }
-
-  .order {
-    @extend .splash;
-    @include box-shadow(rgba(black, .3) rem(15px) rem(10px) rem(30px) 0);
-
-    position: relative;
-    margin-right: rem(50px);
-  }
-  .order-header {
-    position: relative;
-  }
-  .order-delete {
-    @extend .small-cross-btn;
-
-    position: absolute;
-    top: rem(-20px);
-    right: rem(-20px);
-    background-color: $main_green;
-    z-index: 1;
-  }
-
-  .order-value {
-    @extend .truncated;
-    @include roboto-lt(rem(36px));
-
-    color: $main_gray_txt;
-  }
-  .addelements-btn {
-    cursor: pointer;
-  }
-  .order-label {
-    @include roboto-lt(rem(22px));
-
-    color: #8c8c8c;
-  }
-  .order-qty {
-    @include display-flex();
-    @include align-items(center);
-  }
-  .order-tool {
-    @extend .small-button;
-    width: rem(65px);
-    height: rem(45px);
-    line-height: 1;
-    background-color: $main_green;
-    color: #fff;
-  }
-  .order-footer {
-    @include roboto-md(rem(48px), rem(100px));
-
-    padding-left: rem(50px);
-    border-bottom-left-radius: rem($radius_order);
-    border-bottom-right-radius: rem($radius_order);
-    background-color: #f0f0f0;
-    color: $main_gray_txt;
-  }
-
-  // AddElements Detail Block
-  .addelements-detail {
-    position: absolute;
-    //top: rem(240px);
-    //left: rem(1260px);
-    top: 0rem;
-    left: 30rem;
-    width: rem(512px);
-    background-color: #fff;
-    border-bottom-left-radius: rem($radius_order);
-    border-bottom-right-radius: rem($radius_order);
-    z-index: 10;
-  }
-  .addelements-detail-tools {
-    @include display-flex();
-    @include flex-flow(row nowrap);
-
-    height: rem(100px);
-  }
-  .addelements-detail-edit {
-    @extend .button;
-    @extend .icon-setting;
-    @include flex-grow(3);
-    @include roboto-lt(rem(28px), rem(100px));
-    background-color: $main_green;
-    color: #fff;
-  }
-  .addelements-detail-close {
-    @extend .button;
-    @extend .icon-setting;
-    @include flex-grow(1);
-    background-color: $main_gray_btn;
-    &:after {
-      @include font-general-icon(rem(40px), 1);
-      color: #fff;
-      content: $cross-icon;
-    }
-  }
-  .product-template {
-    padding: 2.125rem;
-    border-bottom: 1px solid $main_gray_btn;
-  }
-  .product-template-icon {
-    margin-bottom: rem(20px);
-  }
-  .product-icon-thumb {
-    display: inline-block;
-    width: rem(200px);
-    margin-right: rem(10px);
-  }
-  .product-value {
-    @extend .order-value;
-  }
-  .product-icon-label,
-  .product-label {
-    @extend .order-label;
-  }
-  .product-icon-label {
-    max-width: rem(115px);
-    text-align: right;
-  }
-  .addelements-detail-row {
-    @include display-flex();
-    @include flex-flow(row wrap);
-    @include justify-content(space-between);
-    @include align-items(center);
-  }
-  .addelements-detail-content {
-    height: rem(740px);
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding: rem(30px) rem(50px);
-  }
-  .addelements-detail-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .addelements-detail-item {
-    padding-top: rem(20px);
-    border-bottom: 1px solid $main_gray_btn;
-  }
-  .addelement-parameters {
-    @include display-flex();
-    @include flex-flow(row wrap);
-    @include justify-content(flex-start);
-    @include align-items(center);
-    margin: rem(20px) 0;
-  }
-  .addelement-parameter {
-    margin-right: 1rem;
-  }
-  .addelement-value {
-    @extend .order-value;
-    margin-right: rem(20px);
-
-    img {
-      width: rem(45px);
-    }
-  }
-  .addelement-label {
-    @extend .order-label;
-  }
-  .addelement-price-value {
-    @include roboto-bd(rem(36px));
-
-    color: $main_gray_txt;
-    margin-right: rem(20px);
-  }
-  .price-one-product {
-    margin-top: rem(30px);
-  }
-  .addelements-detail-footer {
-    @extend .order-footer;
-    @extend .addelements-detail-row;
-    padding-right: rem(50px);
+    content: $cross-icon;
   }
 }
+.product-template {
+  padding: 2.125rem;
+  border-bottom: 1px solid $main_gray_btn;
+}
+.product-template-icon {
+  margin-bottom: rem(20px);
+}
+.product-icon-thumb {
+  display: inline-block;
+  width: rem(200px);
+  margin-right: rem(10px);
+}
+.product-value {
+  @extend .order-value;
+}
+.product-icon-label,
+.product-label {
+  @extend .order-label;
+}
+.product-icon-label {
+  max-width: rem(115px);
+  text-align: right;
+}
+.addelements-detail-row {
+  @include display-flex();
+  @include flex-flow(row wrap);
+  @include justify-content(space-between);
+  @include align-items(center);
+}
+.addelements-detail-content {
+  height: rem(740px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: rem(30px) rem(50px);
+}
+.addelements-detail-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.addelements-detail-item {
+  padding-top: rem(20px);
+  border-bottom: 1px solid $main_gray_btn;
+}
+.addelement-parameters {
+  @include display-flex();
+  @include flex-flow(row wrap);
+  @include justify-content(flex-start);
+  @include align-items(center);
+  margin: rem(20px) 0;
+}
+.addelement-parameter {
+  margin-right: 1rem;
+}
+.addelement-value {
+  @extend .order-value;
+  margin-right: rem(20px);
+
+  img {
+    width: rem(45px);
+  }
+}
+.addelement-label {
+  @extend .order-label;
+}
+.addelement-price-value {
+  @include roboto-bd(rem(36px));
+
+  color: $main_gray_txt;
+  margin-right: rem(20px);
+}
+.price-one-product {
+  margin-top: rem(30px);
+}
+.addelements-detail-footer {
+  @extend .order-footer;
+  @extend .addelements-detail-row;
+  padding-right: rem(50px);
+}
+
 
 
 

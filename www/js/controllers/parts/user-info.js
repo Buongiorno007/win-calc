@@ -12,7 +12,7 @@ BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localDB', 'localS
     typing: 'on',
     checked: false
   };
-
+/*
   $scope.changeTyping = function () {
     if ($scope.userInfo.checked) {
       $scope.userInfo.typing = 'off';
@@ -20,7 +20,7 @@ BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localDB', 'localS
       $scope.userInfo.typing = 'on';
     }
   };
-
+*/
   //--------- get user data and location for first time
 
   if($scope.global.startProgramm) {

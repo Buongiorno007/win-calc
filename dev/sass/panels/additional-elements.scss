@@ -422,7 +422,8 @@ $aux-img-select-path: 'auxiliaries-selected';
     @include top_left_coord(0px, 0px);
 
     position: absolute;
-    width: rem(205px);
+    //width: rem(205px);
+    width: rem(128px);
     height: rem(168px);
     background-image: image-url($aux-img-path+'/force-connector.png');
     background-repeat: no-repeat;
@@ -434,7 +435,7 @@ $aux-img-select-path: 'auxiliaries-selected';
     @include top_left_coord(30px, 90px);
 
     position: absolute;
-    width: rem(205px);
+    width: rem(128px);
     height: rem(168px);
     background-image: image-url($aux-img-path+'/balcon-connector.png');
     background-repeat: no-repeat;

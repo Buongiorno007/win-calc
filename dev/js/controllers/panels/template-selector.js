@@ -7,7 +7,7 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
   $scope.global = localStorage;
 
   $scope.templatePanel = {
-    DELAY_TEMPLATE_ELEMENT: 15 * STEP,
+    DELAY_TEMPLATE_ELEMENT: 18 * STEP,
     switcherTemplate: false,
     typing: 'on'
   };

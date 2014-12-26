@@ -461,9 +461,12 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   //============= AddElements detail block
   //------- Show AddElements detail block for product
   $scope.showAllAddElementDetail = function(productIndex) {
+    /*
     if($scope.cart.allAddElements[productIndex].length > 0) {
       $scope.cart.isAddElementDetail = productIndex;
+      console.log('ADDELEM', $scope.global.order.products[$scope.cart.isAddElementDetail].templateIcon);
     }
+    */
   };
   //--------- Close AddElements detail block
   $scope.closeAllAddElementDetail = function() {

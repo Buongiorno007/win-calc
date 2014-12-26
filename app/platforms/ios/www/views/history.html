@@ -22,7 +22,7 @@
           <li ng-if="global.order.products.length &gt; 0 &amp;&amp; ((!global.isOpenedHistoryPage &amp;&amp; !global.isCreatedNewProject) || (global.isOpenedHistoryPage &amp;&amp; $scope.global.isOrderFinished))" ng-class="{'selected': navMenu.activeMenuItem==6 || global.isOpenedCartPage}" ng-click="selectMenuItem(6); global.gotoCartPage()" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 6) }}" class="nav-icon-basketOfCalculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CART' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 6) }}" class="title"></span><span show-delay="{{ navMenu.DELAY_SHOW_ORDERS }}" class="badge unvisible">{{ global.order.products.length }}</span></div>
           </li>
-          <li ng-class="{'selected': navMenu.activeMenuItem==7}" ng-click="selectMenuItem(7); gotoAddElementsPanel()" class="item">
+          <li ng-if="!global.isOpenedHistoryPage &amp;&amp; !global.isOpenedCartPage" ng-class="{'selected': navMenu.activeMenuItem==7}" ng-click="selectMenuItem(7); gotoAddElementsPanel()" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 7) }}" class="nav-icon-additionalComponents unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_ADD_ELEMENTS' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 7) }}" class="title"></span></div>
           </li>
           <li ng-class="{'selected': navMenu.activeMenuItem==8 || global.isOpenedHistoryPage}" ng-click="selectMenuItem(8); gotoHistoryPage()" class="item">
@@ -35,9 +35,12 @@
             <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 9) }}" class="nav-icon-settings unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_SETTINGS' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 9) }}" class="title"></span></div>
           </li>
           <li ng-class="{'selected': navMenu.activeMenuItem==10}" ng-click="selectMenuItem(10)" class="item"><a href="http://axorindustry.com" target="_blank" class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 10) }}" class="nav-icon-information unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_MORE_INFO' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 10) }}" class="title"></span></a></li>
-          <li ng-class="{'selected': global.isVoiceHelper}" ng-click="switchVoiceHelper()" class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 11) }}" class="nav-icon-information unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 11) }}" class="title"></span></div>
-          </li>
+          <!--li.item(ng-class="{'selected': global.isVoiceHelper}", ng-click="switchVoiceHelper()")
+          .item-content
+            span.nav-icon-information.unvisible(show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 11) }}")
+            span.title(data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}", typing="{{ navMenu.typing }}", typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 11) }}")
+            
+          -->
         </ul>
       </header>
       <footer class="nav-menu-footer">
@@ -52,7 +55,7 @@
           <div class="history-header">
             <div ng-hide="history.isOrderSearch" class="history-user-info">
               <div ng-controller="UserInfoCtrl" class="user-info-container">
-                <button ng-class="{ 'show-navmenu': global.showNavMenu }" ng-click="swipeMainPage()" class="nav-menu-btn"></button>
+                <button ng-class="{ 'show-navmenu': global.showNavMenu , 'orange-navmenu-btn': global.isOpenedHistoryPage || global.isOpenedCartPage}" ng-click="swipeMainPage()" class="nav-menu-btn"></button>
                 <div class="user-foto"></div>
                 <div show-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
                 <div class="user-info-block">
@@ -134,7 +137,7 @@
             </div>
           </div>
           <div class="scroll-vert-container">
-            <div ng-repeat="order in orders | orderBy:createdDate:reverse | filter:searchingWord" ng-hide="order.orderStyle == 'order' &amp;&amp; history.isCurrentOrdersHide || order.orderStyle == 'credit' &amp;&amp; history.isCurrentOrdersHide || order.orderStyle == 'master' &amp;&amp; history.isWaitOrdersHide || order.orderStyle == 'done' &amp;&amp; history.isDoneOrdersHide" class="account-block">
+            <div ng-repeat="order in orders | orderSorting:history.isSortType | filter:searchingWord track by $index" ng-hide="order.orderStyle == 'order' &amp;&amp; history.isCurrentOrdersHide || order.orderStyle == 'credit' &amp;&amp; history.isCurrentOrdersHide || order.orderStyle == 'master' &amp;&amp; history.isWaitOrdersHide || order.orderStyle == 'done' &amp;&amp; history.isDoneOrdersHide" class="account-block">
               <div ng-class="{'current': order.orderStyle == 'order' || order.orderStyle == 'credit', 'wait': order.orderStyle == 'master', 'done': order.orderStyle == 'done' }" class="account">
                 <div class="account-row header">
                   <div class="account-data title">
@@ -189,7 +192,7 @@
         <section ng-class="{'active': history.isDraftView, 'dark-fon': history.isIntervalDateDraft || history.isOrderSortDraft }" class="accounts-container draft-view">
           <div class="history-header">
             <div ng-controller="UserInfoCtrl" class="user-info-container">
-              <button ng-class="{ 'show-navmenu': global.showNavMenu }" ng-click="swipeMainPage()" class="nav-menu-btn"></button>
+              <button ng-class="{ 'show-navmenu': global.showNavMenu , 'orange-navmenu-btn': global.isOpenedHistoryPage || global.isOpenedCartPage}" ng-click="swipeMainPage()" class="nav-menu-btn"></button>
               <div class="user-foto"></div>
               <div show-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
               <div class="user-info-block">
@@ -232,21 +235,23 @@
               </div>
             </div>
           </div>
-          <div class="scrolling-container">
-            <div ng-repeat="draft in drafts | orderBy:createdDate:reverseDraft" ng-click="editOrder(draft.orderId)" class="account-block">
-              <div class="account">
-                <div class="account-row header">
-                  <div class="account-id">{{ 'history.DRAFT' | translate }}</div>
-                  <div class="account-label account-date-filter">{{ 'history.FROM' | translate }}<span order-date="{{ draft.created }}" type-date="'order'"></span></div>
+          <div class="scroll-vert-container">
+            <div class="scrolling-container">
+              <div ng-repeat="draft in drafts | orderBy:createdDate:reverseDraft" ng-click="editOrder(draft.orderId)" class="account-block">
+                <div class="account">
+                  <div class="account-row header">
+                    <div class="account-id">{{ 'history.DRAFT' | translate }}</div>
+                    <div class="account-label account-date-filter">{{ 'history.FROM' | translate }}<span order-date="{{ draft.created }}" type-date="'order'"></span></div>
+                  </div>
+                  <div ng-click="editOrder(draft.orderId)" class="account-row footer">
+                    <div ng-hide="draft.orderStyle == 'credit'" class="account-value">{{ draft.orderPriceTOTAL }}{{ global.currency }}</div>
+                    <div ng-show="draft.orderStyle == 'credit'" class="account-value">{{ draft.orderPriceTOTAL }}{{ global.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.paymentMonthly}}{{ global.currency }}</div>
+                    <div class="account-qty">{{ draft.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{ draft.newDeliveryDate }}</div>
+                  </div>
                 </div>
-                <div ng-click="editOrder(draft.orderId)" class="account-row footer">
-                  <div ng-hide="draft.orderStyle == 'credit'" class="account-value">{{ draft.orderPriceTOTAL }}{{ global.currency }}</div>
-                  <div ng-show="draft.orderStyle == 'credit'" class="account-value">{{ draft.orderPriceTOTAL }}{{ global.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.paymentMonthly}}{{ global.currency }}</div>
-                  <div class="account-qty">{{ draft.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{ draft.newDeliveryDate }}</div>
-                </div>
+                <button ng-click="" class="account-tool account-print-btn"></button>
+                <button ng-click="deleteOrder(draft.orderType, draft.orderId)" class="account-delete-btn"></button>
               </div>
-              <button ng-click="" class="account-tool account-print-btn"></button>
-              <button ng-click="deleteOrder(draft.orderType, draft.orderId)" class="account-delete-btn"></button>
             </div>
           </div>
           <button ng-click="viewSwitching()" class="view-switch-tab">{{ 'history.HISTORY_VIEW' | translate }}</button>

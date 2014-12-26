@@ -1,5 +1,5 @@
 .config-panel {
-  @include transition(all .5s linear);
+  @include transition(all .2s linear);
   @include top_left_coord(0px, -2000px);
 
   position: absolute;

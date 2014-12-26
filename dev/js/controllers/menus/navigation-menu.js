@@ -173,6 +173,10 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
       console.log('start Btn from history');
       $scope.global.startProgramm = false;
       $scope.global.prepareMainPage();
+      //------- create new empty product
+      $scope.global.product = angular.copy($scope.global.productDefault);
+      //------- create new empty order
+      $scope.global.order = angular.copy($scope.global.orderSource);
       $location.path('/main');
 
     //------- создание нового проекта с сохранением в черновик предыдущего незаконченного
@@ -194,6 +198,10 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
       $scope.global.isCreatedNewProduct = true;
       $scope.global.prepareMainPage();
       if($scope.global.isOpenedCartPage || $scope.global.isOpenedHistoryPage) {
+        //------- create new empty product
+        $scope.global.product = angular.copy($scope.global.productDefault);
+        //------- create new empty order
+        $scope.global.order = angular.copy($scope.global.orderSource);
         $location.path('/main');
       } else {
         $scope.global.createNewProject();
@@ -209,6 +217,10 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
       $scope.global.isCreatedNewProduct = true;
       $scope.global.isOrderFinished = false;
       $scope.global.prepareMainPage();
+      //------- create new empty product
+      $scope.global.product = angular.copy($scope.global.productDefault);
+      //------- create new empty order
+      $scope.global.order = angular.copy($scope.global.orderSource);
       $location.path('/main');
     }
 
@@ -235,6 +247,13 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
     $scope.global.order.orderType = orderType;
     $scope.global.order.orderStyle = orderStyle;
     $scope.global.order.productsQty = $scope.global.order.products.length;
+    $scope.global.order.productsPriceTOTAL = parseFloat($scope.global.order.productsPriceTOTAL.toFixed(2));
+    $scope.global.order.paymentFirst = parseFloat($scope.global.order.paymentFirst.toFixed(2));
+    $scope.global.order.paymentMonthly = parseFloat($scope.global.order.paymentMonthly.toFixed(2));
+    $scope.global.order.paymentFirstPrimary = parseFloat($scope.global.order.paymentFirstPrimary.toFixed(2));
+    $scope.global.order.paymentMonthlyPrimary = parseFloat($scope.global.order.paymentMonthlyPrimary.toFixed(2));
+    $scope.global.order.orderPriceTOTAL = parseFloat($scope.global.order.orderPriceTOTAL.toFixed(2));
+    $scope.global.order.orderPriceTOTALPrimary = parseFloat($scope.global.order.orderPriceTOTALPrimary.toFixed(2));
     angular.extend($scope.global.order, newOptions);
     //------- save order in orders LocalStorage
     $scope.global.orders.push($scope.global.order);
@@ -284,5 +303,6 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
     localDB.deleteDB($scope.global.handlesTableBD, {'orderId': orderNum});
     localDB.deleteDB($scope.global.othersTableBD, {'orderId': orderNum});
   };
+  console.log('$scope.global.isOpenedHistoryPage!!!!!!!!!!!', $scope.global.isOpenedHistoryPage);
 
 }]);

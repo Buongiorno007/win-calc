@@ -91,14 +91,13 @@ BauVoiceApp.controller('LocationCtrl', ['$scope', 'localDB', 'localStorage', fun
         } else {
           for(var c = 0; c < generalLocations.length; c++) {
             if (generalLocations[c].cityId === locationId) {
-              //----- save previous current location
-              $scope.global.prevGeoLocation = angular.copy($scope.global.currentGeoLocation);
               //----- build new currentGeoLocation
               $scope.global.currentGeoLocation = angular.copy(generalLocations[c]);
               $scope.global.currentGeoLocation.fullLocation = $scope.userNewLocation;
             }
           }
         }
+        $scope.global.startProgramm = false;
         closeLocationPage();
       }
     }
@@ -113,6 +112,9 @@ BauVoiceApp.controller('LocationCtrl', ['$scope', 'localDB', 'localStorage', fun
     if($scope.global.isOpenSettingsPage) {
       $scope.global.gotoSettingsPage();
     } else {
+      $scope.global.showNavMenu = true;
+      $scope.global.isConfigMenu = false;
+      $scope.global.showPanels = {};
       $scope.global.gotoMainPage();
     }
   }

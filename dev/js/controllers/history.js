@@ -14,6 +14,7 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
     isIntervalDate: false,
     isOrderSort: false,
     isStartDate: false,
+    isSortType: 'last',
     isFinishDate: false,
     isAllPeriod: true,
     startDate: '',
@@ -223,40 +224,17 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
 
     } else {
       if ($scope.history.isSortType === sortType) {
-        if($scope.history.isSortType === 'type') {
-          $scope.orders = angular.copy($scope.ordersSource);
-        }
-        $scope.history.isSortType = false;
-        $scope.reverse = true;
         deSelectSortingType();
+        $scope.orders = angular.copy($scope.ordersSource);
+        $scope.history.isSortType = 'last';
+        //$scope.reverse = true;
 
       } else {
+        deSelectSortingType();
         $scope.history.isSortType = sortType;
 
-        if ($scope.history.isSortType === 'first') {
-          deSelectSortingType();
-          $scope.reverse = true;
-        }
-        if ($scope.history.isSortType === 'last') {
-          deSelectSortingType();
-          $scope.reverse = false;
-        }
-        if($scope.history.isSortType === 'type') {
-          var tempOrders = [];
-
-          //------ find all orders
-          buildOrdersByType(tempOrders, 'order');
-          //----- find all credits
-          buildOrdersByType(tempOrders, 'credit');
-          buildOrdersByType(tempOrders, 'master');
-          buildOrdersByType(tempOrders, 'done');
-          console.log('$scope.orders', $scope.orders);
-          console.log('tempOrders', tempOrders);
-          $scope.orders = angular.copy(tempOrders);
-          console.log('orders new', $scope.orders);
-        }
         /*if($scope.history.isSortType === 'all-order') {
-         deSelectSortingType()ж
+         deSelectSortingType()
          }*/
         if ($scope.history.isSortType === 'current-order') {
           $scope.history.isCurrentOrdersHide = false;
@@ -488,7 +466,7 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
     $scope.global.gotoCartPage();
   };
 
-
+/*
   function buildOrdersByType(tempOrders, orderStyle) {
     for(var ord = 0; ord < $scope.orders.length; ord++) {
       if($scope.orders[ord].orderStyle === orderStyle) {
@@ -496,5 +474,5 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
       }
     }
   }
-
+*/
 }]);

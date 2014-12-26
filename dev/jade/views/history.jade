@@ -69,7 +69,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
 
 
           .scroll-vert-container
-            .account-block(ng-repeat="order in orders | orderBy:createdDate:reverse | filter:searchingWord", ng-hide="order.orderStyle == 'order' && history.isCurrentOrdersHide || order.orderStyle == 'credit' && history.isCurrentOrdersHide || order.orderStyle == 'master' && history.isWaitOrdersHide || order.orderStyle == 'done' && history.isDoneOrdersHide")
+            .account-block(ng-repeat="order in orders | orderSorting:history.isSortType | filter:searchingWord track by $index", ng-hide="order.orderStyle == 'order' && history.isCurrentOrdersHide || order.orderStyle == 'credit' && history.isCurrentOrdersHide || order.orderStyle == 'master' && history.isWaitOrdersHide || order.orderStyle == 'done' && history.isDoneOrdersHide")
               .account(ng-class="{'current': order.orderStyle == 'order' || order.orderStyle == 'credit', 'wait': order.orderStyle == 'master', 'done': order.orderStyle == 'done' }")
                 .account-row.header
                   .account-data.title
@@ -161,19 +161,20 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                       .filter-label {{ 'history.NEWEST_LAST' | translate }}
                       .filter-select-icon
 
-          .scrolling-container
-            .account-block(ng-repeat="draft in drafts | orderBy:createdDate:reverseDraft", ng-click="editOrder(draft.orderId)")
-              .account
-                .account-row.header
-                  .account-id {{ 'history.DRAFT' | translate }}
-                  .account-label.account-date-filter {{ 'history.FROM' | translate }}
-                    span(order-date="{{ draft.created }}", type-date="'order'")
-                .account-row.footer(ng-click="editOrder(draft.orderId)")
-                  .account-value(ng-hide="draft.orderStyle == 'credit'") {{ draft.orderPriceTOTAL }}{{ global.currency }}
-                  .account-value(ng-show="draft.orderStyle == 'credit'") {{ draft.orderPriceTOTAL }}{{ global.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.paymentMonthly}}{{ global.currency }}
-                  .account-qty {{ draft.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{ draft.newDeliveryDate }}
-              button.account-tool.account-print-btn(ng-click="")
-              button.account-delete-btn(ng-click="deleteOrder(draft.orderType, draft.orderId)")
+          .scroll-vert-container
+            .scrolling-container
+              .account-block(ng-repeat="draft in drafts | orderBy:createdDate:reverseDraft", ng-click="editOrder(draft.orderId)")
+                .account
+                  .account-row.header
+                    .account-id {{ 'history.DRAFT' | translate }}
+                    .account-label.account-date-filter {{ 'history.FROM' | translate }}
+                      span(order-date="{{ draft.created }}", type-date="'order'")
+                  .account-row.footer(ng-click="editOrder(draft.orderId)")
+                    .account-value(ng-hide="draft.orderStyle == 'credit'") {{ draft.orderPriceTOTAL }}{{ global.currency }}
+                    .account-value(ng-show="draft.orderStyle == 'credit'") {{ draft.orderPriceTOTAL }}{{ global.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.paymentMonthly}}{{ global.currency }}
+                    .account-qty {{ draft.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{ draft.newDeliveryDate }}
+                button.account-tool.account-print-btn(ng-click="")
+                button.account-delete-btn(ng-click="deleteOrder(draft.orderType, draft.orderId)")
 
 
           button.view-switch-tab(ng-click="viewSwitching()") {{ 'history.HISTORY_VIEW' | translate }}
