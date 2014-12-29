@@ -44,11 +44,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
 
   //------- Select menu item
   $scope.selectMenuItem = function(id) {
-    if($scope.navMenu.activeMenuItem === id) {
-      $scope.navMenu.activeMenuItem = false;
-    } else {
-      $scope.navMenu.activeMenuItem = id;
-    }
+    $scope.navMenu.activeMenuItem = ($scope.navMenu.activeMenuItem === id) ? false : id;
   };
 
   //------- Select menu item with time out
@@ -56,7 +52,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
     $scope.navMenu.activeMenuItem = id;
     $timeout(function() {
       $scope.navMenu.activeMenuItem = false;
-    }, 100);
+    }, 200);
   };
 
   //-------- links of nav-menu items

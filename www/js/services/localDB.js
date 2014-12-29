@@ -51,7 +51,6 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "type": "INTEGER",
       "null": "NOT NULL"
     },
-
     "templateIndex":{
       "type": "INTEGER",
       "null": "NOT NULL"
@@ -162,6 +161,22 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
     },
     "laminationInPrice":{
       "type": "FLOAT",
+      "null": "NOT NULL"
+    },
+    "doorShapeId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "doorSashShapeId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "doorHandleShapeId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "doorLockShapeId":{
+      "type": "INTEGER",
       "null": "NOT NULL"
     },
     "heatTransferTOTAL":{

@@ -377,4 +377,10 @@ $door-config-content: $ipad-height - $door-config-header;
       content: $select-history-icon;
     }
   }
+  .door-shape {
+    width: rem(112px);
+  }
+  .door-hardware {
+    width: rem(160px);
+  }
 }

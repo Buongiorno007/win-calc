@@ -4806,6 +4806,14 @@ body {
 .door-configuration .save-door-config:after {
   content: "\e62c";
 }
+/* line 380, ../../dev/sass/pages/construction.scss */
+.door-configuration .door-shape {
+  width: 7rem;
+}
+/* line 383, ../../dev/sass/pages/construction.scss */
+.door-configuration .door-hardware {
+  width: 10rem;
+}
 
 /* line 1, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu {

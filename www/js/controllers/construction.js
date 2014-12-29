@@ -17,6 +17,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     isMaxSizeRestriction: false,
     activeMenuItem: false,
     showDoorConfig: false,
+
     selectedDoorShape: false,
     selectedSashShape: false,
     selectedHandleShape: false,
@@ -29,6 +30,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     sashShape: '',
     handleShape: '',
     lockShape: '',
+
     selectedStep1: false,
     selectedStep2: false,
     selectedStep3: false,
@@ -71,10 +73,11 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
       }
     });
 
-    $scope.constructData.doorShapeDefault = $scope.doorShape[0].shapeLabel;
-    $scope.constructData.sashShapeDefault = $scope.sashShape[0].shapeLabel;
-    $scope.constructData.handleShapeDefault = $scope.handleShape[0].shapeLabel;
-    $scope.constructData.lockShapeDefault = $scope.lockShape[0].shapeLabel;
+
+    $scope.constructData.doorShapeDefault = $scope.doorShape[$scope.global.product.doorShapeId].shapeLabel;
+    $scope.constructData.sashShapeDefault = $scope.sashShape[$scope.global.product.doorSashShapeId].shapeLabel;
+    $scope.constructData.handleShapeDefault = $scope.handleShape[$scope.global.product.doorHandleShapeId].shapeLabel;
+    $scope.constructData.lockShapeDefault = $scope.lockShape[$scope.global.product.doorLockShapeId].shapeLabel;
 
     $scope.constructData.doorShape = $scope.constructData.doorShapeDefault;
     $scope.constructData.sashShape = $scope.constructData.sashShapeDefault;
@@ -84,20 +87,12 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
   //--------Select menu item
   $scope.selectMenuItem = function(id) {
-    if($scope.constructData.activeMenuItem === id) {
-      $scope.constructData.activeMenuItem = false;
-    } else {
-      $scope.constructData.activeMenuItem = id;
-    }
+    $scope.constructData.activeMenuItem = ($scope.constructData.activeMenuItem === id) ? false : id;
   };
 
   //---------- Show Door Configuration
   $scope.getDoorConfig = function() {
-    if($scope.constructData.showDoorConfig) {
-      $scope.constructData.showDoorConfig = false;
-    } else {
-      $scope.constructData.showDoorConfig = true;
-    }
+    $scope.constructData.showDoorConfig = ($scope.constructData.showDoorConfig) ? false : true;
   };
 
   //---------- Select door shape
@@ -182,6 +177,11 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   //--------- Save Door Configuration
   $scope.saveDoorConfig = function() {
     $scope.constructData.showDoorConfig = false;
+    $scope.global.product.doorShapeId = $scope.constructData.selectedDoorShape;
+    $scope.global.product.doorSashShapeId = $scope.constructData.selectedSashShape;
+    $scope.global.product.doorHandleShapeId = $scope.constructData.selectedHandleShape;
+    $scope.global.product.doorLockShapeId = $scope.constructData.selectedLockShape;
+    console.log('product door', $scope.global.product);
   };
 
   //=============== End Door ==================
