@@ -668,7 +668,7 @@
 					"-weak-lSystem",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "2e84a0b7-3661-4ca6-936f-15c92007fbcd";
+				PROVISIONING_PROFILE = "9bdbca86-4885-4b44-bc95-ec388682ce55";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				USER_HEADER_SEARCH_PATHS = "";
@@ -713,7 +713,7 @@
 					"-weak-lSystem",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "2e84a0b7-3661-4ca6-936f-15c92007fbcd";
+				PROVISIONING_PROFILE = "9bdbca86-4885-4b44-bc95-ec388682ce55";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				USER_HEADER_SEARCH_PATHS = "";

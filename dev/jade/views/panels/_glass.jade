@@ -1,5 +1,5 @@
 .config-panel.glass-container(ng-controller="GlassCtrl", ng-class="{'active': global.showPanels.showGlassPanel}")
-  .glass-inner(ng-if="global.isGlassPanel")
+  .panel-inner(ng-if="global.isGlassPanel")
     .glass-block(ng-repeat="type in global.glasses", ng-class="{'selected': global.product.glassTypeIndex == $index}")
 
       .group-block-header

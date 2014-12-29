@@ -133,12 +133,12 @@
         </div>
         <div ng-class="{'scroll-box': !constructData.selectedStep2}" class="door-config-content">
           <ul class="door-config-list">
-            <li ng-repeat="door in doorShape" ng-class="{'selected': constructData.selectedDoorShape === door.shapeId}" ng-click="selectDoor(door.shapeId, door.shapeLabel)" class="door-config-option">
+            <li ng-repeat="door in doorShape" ng-class="{'selected': constructData.selectedDoorShape === $index}" ng-click="selectDoor($index, door.shapeLabel)" class="door-config-option">
               <div class="door-inner">
-                <div class="door-option-icon"><img ng-src="{{ door.shapeIcon }}" ng-hide="constructData.selectedDoorShape === door.shapeId"><img ng-src="{{ door.shapeIconSelect }}" ng-show="constructData.selectedDoorShape === door.shapeId"></div>
+                <div class="door-option-icon"><img ng-src="{{ door.shapeIcon }}" ng-hide="constructData.selectedDoorShape === $index" class="door-shape"><img ng-src="{{ door.shapeIconSelect }}" ng-show="constructData.selectedDoorShape === $index" class="door-shape"></div>
                 <div class="door-option-label">{{ door.shapeLabel }}</div>
               </div>
-              <div ng-show="constructData.selectedDoorShape === door.shapeId" class="selected-item-arrow"></div>
+              <div ng-show="constructData.selectedDoorShape === $index" class="selected-item-arrow"></div>
             </li>
           </ul>
         </div>
@@ -153,11 +153,11 @@
         </div>
         <div ng-class="{'scroll-box': !constructData.selectedStep3}" class="door-config-content">
           <ul class="door-config-list">
-            <li ng-repeat="sash in sashShape" ng-class="{'selected': constructData.selectedSashShape === sash.shapeId}" ng-click="selectSash(sash.shapeId, sash.shapeLabel)" class="door-config-option">
+            <li ng-repeat="sash in sashShape" ng-class="{'selected': constructData.selectedSashShape === $index}" ng-click="selectSash($index, sash.shapeLabel)" class="door-config-option">
               <div class="door-inner">
                 <div class="door-option-label">{{ sash.shapeLabel }}</div>
               </div>
-              <div ng-show="constructData.selectedSashShape === sash.shapeId" class="selected-item-arrow"></div>
+              <div ng-show="constructData.selectedSashShape === $index" class="selected-item-arrow"></div>
             </li>
           </ul>
         </div>
@@ -172,12 +172,12 @@
         </div>
         <div ng-class="{'scroll-box': !constructData.selectedStep4}" class="door-config-content">
           <ul class="door-config-list">
-            <li ng-repeat="handle in handleShape" ng-class="{'selected': constructData.selectedHandleShape === handle.shapeId}" ng-click="selectHandle(handle.shapeId, handle.shapeLabel)" class="door-config-option">
+            <li ng-repeat="handle in handleShape" ng-class="{'selected': constructData.selectedHandleShape === $index}" ng-click="selectHandle($index, handle.shapeLabel)" class="door-config-option">
               <div class="door-inner">
-                <div class="door-option-icon"><img ng-src="{{ handle.shapeIcon }}" ng-hide="constructData.selectedHandleShape === handle.shapeId"><img ng-src="{{ handle.shapeIconSelect }}" ng-show="constructData.selectedHandleShape === handle.shapeId"></div>
+                <div class="door-option-icon"><img ng-src="{{ handle.shapeIcon }}" ng-hide="constructData.selectedHandleShape === $index" class="door-hardware"><img ng-src="{{ handle.shapeIconSelect }}" ng-show="constructData.selectedHandleShape === $index" class="door-hardware"></div>
                 <div class="door-option-label">{{ handle.shapeLabel }}</div>
               </div>
-              <div ng-show="constructData.selectedHandleShape === handle.shapeId" class="selected-item-arrow"></div>
+              <div ng-show="constructData.selectedHandleShape === $index" class="selected-item-arrow"></div>
             </li>
           </ul>
         </div>
@@ -192,12 +192,12 @@
         </div>
         <div ng-class="{'scroll-box': constructData.selectedStep3}" class="door-config-content">
           <ul class="door-config-list">
-            <li ng-repeat="lock in lockShape" ng-class="{'selected': constructData.selectedLockShape === lock.shapeId}" ng-click="selectLock(lock.shapeId, lock.shapeLabel)" class="door-config-option">
+            <li ng-repeat="lock in lockShape" ng-class="{'selected': constructData.selectedLockShape === $index}" ng-click="selectLock($index, lock.shapeLabel)" class="door-config-option">
               <div class="door-inner">
-                <div class="door-option-icon"><img ng-src="{{ lock.shapeIcon }}" ng-hide="constructData.selectedLockShape === lock.shapeId"><img ng-src="{{ lock.shapeIconSelect }}" ng-show="constructData.selectedLockShape === lock.shapeId"></div>
+                <div class="door-option-icon"><img ng-src="{{ lock.shapeIcon }}" ng-hide="constructData.selectedLockShape === $index" class="door-hardware"><img ng-src="{{ lock.shapeIconSelect }}" ng-show="constructData.selectedLockShape === $index" class="door-hardware"></div>
                 <div class="door-option-label">{{ lock.shapeLabel }}</div>
               </div>
-              <div ng-show="constructData.selectedLockShape === lock.shapeId" class="selected-item-arrow"></div>
+              <div ng-show="constructData.selectedLockShape === $index" class="selected-item-arrow"></div>
             </li>
           </ul>
         </div>

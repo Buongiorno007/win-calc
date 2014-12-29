@@ -59,7 +59,7 @@
           <div data-output="{{ global.userInfo.name }}" typing="{{ userInfo.typing }}" typing-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
         </div>
       </div>
-      <div ng-controller="RoomInfoCtrl" ng-class="{'show-comment': global.isSowCommentBlock}" class="room-info-container">
+      <div ng-controller="RoomInfoCtrl" ng-class="{'show-comment': global.isShowCommentBlock}" class="room-info-container">
         <div class="room-header">
           <div class="room-name">{{ roomInfo.roomsData[(global.product.selectedRoomId-1)].name }}
             <button show-delay="{{ roomInfo.DELAY_SHOW_ALLROOMS_BTN }}" ng-click="showRoomSelectorDialog()" class="select-rooms unvisible">{{ 'common_words.ALL' | translate }}</button>
@@ -170,7 +170,7 @@
         </div>
       </div>
       <div ng-controller="ProfileCtrl" ng-class="{'active': global.showPanels.showProfilePanel}" class="config-panel profile-container">
-        <div ng-if="global.isProfilePanel" class="profile-inner">
+        <div ng-if="global.isProfilePanel" class="panel-inner">
           <div ng-repeat="producer in profilePanel.profiles" ng-class="{'selected': global.product.profileTypeIndex == $index}" class="profile-block clearfix">
             <div class="group-block-header">
               <div data-output="{{ profilePanel.producers[$index] }}" typing="{{ profilePanel.typing }}" typing-delay="{{ profilePanel.DELAY_START }}" class="title"></div>
@@ -209,7 +209,7 @@
         </div>
       </div>
       <div ng-controller="GlassCtrl" ng-class="{'active': global.showPanels.showGlassPanel}" class="config-panel glass-container">
-        <div ng-if="global.isGlassPanel" class="glass-inner">
+        <div ng-if="global.isGlassPanel" class="panel-inner">
           <div ng-repeat="type in global.glasses" ng-class="{'selected': global.product.glassTypeIndex == $index}" class="glass-block">
             <div class="group-block-header">
               <div data-output="{{ global.glassTypes[$index] }}" typing="{{ glassPanel.typing }}" typing-delay="{{ glassPanel.DELAY_START }}" class="title"></div>
@@ -251,7 +251,7 @@
         </div>
       </div>
       <div ng-controller="HardwareWindowCtrl" ng-class="{'active': global.showPanels.showHardwarePanel}" class="config-panel hardware-container">
-        <div ng-if="global.isHardwarePanel" class="hardware-inner">
+        <div ng-if="global.isHardwarePanel" class="panel-inner">
           <div ng-repeat="producer in global.hardwares" ng-class="{'selected': global.product.hardwareTypeIndex == $index}" class="hardware-block">
             <div class="group-block-header">
               <div data-output="{{ global.hardwareTypes[$index] }}" typing="{{ hardwarePanel.typing }}" typing-delay="{{ hardwarePanel.DELAY_START }}" class="hardware-title"></div>
@@ -301,7 +301,7 @@
         </div>
       </div>
       <div ng-controller="LaminationCtrl" ng-class="{'active': global.showPanels.showLaminationPanel}" class="config-panel lamination-container">
-        <div ng-if="global.isLaminationPanel" class="lamination-inner">
+        <div ng-if="global.isLaminationPanel" class="panel-inner">
           <div class="lamination-block">
             <div data-output="{{ 'panels.LAMINAT_INSIDE' | translate }}" typing="{{ laminationPanel.typing }}" typing-delay="{{ laminationPanel.DELAY_START }}" class="lamination-title"></div>
             <div show-delay="{{ laminationPanel.DELAY_START }}" class="lamination-white unvisible">

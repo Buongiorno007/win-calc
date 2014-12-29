@@ -408,7 +408,7 @@ body {
 //=========== Scrolling
 
 .scrolling-container {
-  -webkit-overflow-scrolling: touch;
+  @include overflow-scroll();
 }
 .scroll-vert {
   overflow-x: hidden;

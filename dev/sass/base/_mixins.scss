@@ -16,3 +16,11 @@ $base-font_size: 16px;
   top: rem($top);
   left: rem($left);
 }
+
+@mixin overflow-scroll {
+  -webkit-overflow-scrolling: touch;
+  -moz-overflow-scrolling: touch;
+  -o-overflow-scrolling: touch;
+  -ms-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+}

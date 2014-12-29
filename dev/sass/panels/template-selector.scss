@@ -68,6 +68,7 @@
 
   .other-templates {
     @include display-flex();
+    @include overflow-scroll();
     overflow-y: hidden;
     overflow-x: auto;
   }

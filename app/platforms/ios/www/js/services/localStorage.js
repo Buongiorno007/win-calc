@@ -153,6 +153,11 @@ BauVoiceApp.factory('localStorage', function () {
         selectedOthers: []
       },
 
+      doorShapeId: 0,
+      doorSashShapeId: 0,
+      doorHandleShapeId: 0,
+      doorLockShapeId: 0,
+
       heatTransferTOTAL: 0,
       airCirculationTOTAL: 0,
 
@@ -265,7 +270,7 @@ BauVoiceApp.factory('localStorage', function () {
     isOpenSettingsPage: false,
     isChangedTemplate: false,
     isVoiceHelper: false,
-    isSowCommentBlock: false,
+    isShowCommentBlock: false,
     showMasterDialog: false,
     showOrderDialog: false,
     showCreditDialog: false,

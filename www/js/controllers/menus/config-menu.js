@@ -550,9 +550,9 @@ console.log('FIRST START!!!!!!!!!!');
   $scope.global.createNewProduct();
 
 
-  console.log('main page!!!!!!!!!!!!!!!');
-  console.log('product ====== ', $scope.global.product);
-  console.log('order ====== ', $scope.global.order);
+  //console.log('main page!!!!!!!!!!!!!!!');
+  //console.log('product ====== ', $scope.global.product);
+  //console.log('order ====== ', $scope.global.order);
 
 
 

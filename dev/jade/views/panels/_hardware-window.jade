@@ -1,5 +1,5 @@
 .config-panel.hardware-container(ng-controller="HardwareWindowCtrl", ng-class="{'active': global.showPanels.showHardwarePanel}")
-  .hardware-inner(ng-if="global.isHardwarePanel")
+  .panel-inner(ng-if="global.isHardwarePanel")
 
     .hardware-block(ng-repeat="producer in global.hardwares", ng-class="{'selected': global.product.hardwareTypeIndex == $index}")
       .group-block-header

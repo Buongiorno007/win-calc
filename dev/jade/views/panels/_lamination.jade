@@ -1,5 +1,5 @@
 .config-panel.lamination-container(ng-controller="LaminationCtrl", ng-class="{'active': global.showPanels.showLaminationPanel}")
-  .lamination-inner(ng-if="global.isLaminationPanel")
+  .panel-inner(ng-if="global.isLaminationPanel")
 
     .lamination-block
       .lamination-title(data-output="{{ 'panels.LAMINAT_INSIDE' | translate }}", typing="{{ laminationPanel.typing }}", typing-delay="{{ laminationPanel.DELAY_START }}")

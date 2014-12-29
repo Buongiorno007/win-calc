@@ -267,7 +267,7 @@ BauVoiceApp.factory('localStorage', function () {
     isOpenSettingsPage: false,
     isChangedTemplate: false,
     isVoiceHelper: false,
-    isSowCommentBlock: false,
+    isShowCommentBlock: false,
     showMasterDialog: false,
     showOrderDialog: false,
     showCreditDialog: false,
