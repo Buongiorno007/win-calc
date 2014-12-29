@@ -34,3 +34,5 @@
       .qty.unvisible(ng-if="global.order.products.length > 0 && !global.isCreatedNewProject", show-delay="{{ configMenu.DELAY_START }}") {{ global.order.products.length }}
     button.cart-btn(ng-if="global.productEditNumber !== ''", ng-click="global.inputProductInOrder(); movetoCart()") {{ 'settings.SAVE' | translate }}
       .qty.unvisible(ng-if="global.order.products.length > 0 && !global.isCreatedNewProject", show-delay="{{ configMenu.DELAY_START }}") {{ global.order.products.length }}
+
+  .curtain(ng-show="global.product.isAddElementsONLY")

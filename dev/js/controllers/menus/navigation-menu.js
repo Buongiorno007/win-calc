@@ -137,14 +137,20 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
   };
 */
   $scope.gotoAddElementsPanel = function() {
-    //------- create new empty product
-    $scope.global.product = angular.copy($scope.global.productSource);
-    $scope.global.isAddElementsONLY = true;
-    $scope.global.showNavMenu = false;
-    $scope.global.isConfigMenu = true;
-    $scope.global.showPanels = {};
-    $scope.global.showPanels.showAddElementsPanel = true;
-    $scope.global.isAddElementsPanel = true;
+    if($scope.global.product.isAddElementsONLY) {
+      $scope.global.startProgramm = false;
+      $scope.global.isCreatedNewProject = false;
+      $scope.global.createNewProduct();
+    } else {
+      //------- create new empty product
+      $scope.global.product = angular.copy($scope.global.productSource);
+      $scope.global.product.isAddElementsONLY = true;
+      $scope.global.showNavMenu = false;
+      $scope.global.isConfigMenu = true;
+      $scope.global.showPanels = {};
+      $scope.global.showPanels.showAddElementsPanel = true;
+      $scope.global.isAddElementsPanel = true;
+    }
   };
 
   $scope.switchVoiceHelper = function() {

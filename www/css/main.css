@@ -343,7 +343,7 @@ th {
   src: url('../fonts/nav-menu/icomoon.ttf?1419412041') format('truetype');
 }
 /* line 183, ../../dev/sass/base/_animations.scss */
-.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-tool, .order, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construction-right-menu .construct-tools, .construction-right-menu .door-config-btn, .nav-menu [class^='nav-icon-'],
+.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construction-right-menu .construct-tools, .construction-right-menu .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .elements-menu .color-img, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .hardware-container .hardware-box, .lamination-container .lamination-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
   -moz-animation: splashing 0.5s 0 ease 1;
   -webkit-animation: splashing 0.5s 0 ease 1;
@@ -1182,8 +1182,8 @@ body {
 }
 
 /* line 80, ../../dev/sass/base/general.scss */
-.icon-setting, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .order-delete, .search-block .delete-search, .construction-right-menu .construct-tools, .elements-menu .close-elements-menu, .pickmeup .pmu-instance nav .pmu-prev,
-.pickmeup .pmu-instance nav .pmu-next, .user-info-container .icon-location:before, .search-block:before, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .current-city:after, .voice-container .voice-icon, .setting-container .setting-item-change:after, .password-page .back, .location-page .back, .accounts-container .tool, .accounts-container .account-tool, .empty-search-result .result-icon, .addelements-detail-edit, .addelements-detail-close, .construction-right-menu .door-config-btn, .door-configuration .door-config-btn, .nav-menu [class^='nav-icon-'],
+.icon-setting, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .search-block .delete-search, .construction-right-menu .construct-tools, .elements-menu .close-elements-menu, .pickmeup .pmu-instance nav .pmu-prev,
+.pickmeup .pmu-instance nav .pmu-next, .user-info-container .icon-location:before, .search-block:before, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .current-city:after, .voice-container .voice-icon, .setting-container .setting-item-change:after, .password-page .back, .location-page .back, .accounts-container .tool, .accounts-container .account-tool, .empty-search-result .result-icon, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .construction-right-menu .door-config-btn, .door-configuration .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .config-menu .item.active:before, .elements-menu .element-info:after, .cart-menu .item:after, .cart-menu .drop-instalment .dropdown-item.selected .value-percent:after, .cart-menu .calendar-price, .size-calc-container .calc-delete:after, .size-calc-container .calc-interval:after {
   font-weight: normal;
   font-style: normal;
@@ -1197,7 +1197,7 @@ body {
 }
 
 /* line 95, ../../dev/sass/base/general.scss */
-.button, .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn, .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .middle-button, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-tool, .construction-left-menu .project-default, .small-button, .order-tool, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .order-delete, .search-block .delete-search, .construction-right-menu .construct-tools, .elements-menu .close-elements-menu, .view-switch-tab, .aux-color, .setting-container .phone-btn, .accounts-container .tool, .accounts-container .account-tool, .accounts-container .account-change-btn, .addelements-detail-edit, .addelements-detail-close, .construction-right-menu .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .auxiliaries-container .scheme-info, .additional-list-container .group-indicator, .additional-list-container .search-element {
+.button, .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn, .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .middle-button, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default, .small-button, .cart-page .order-tool, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .search-block .delete-search, .construction-right-menu .construct-tools, .elements-menu .close-elements-menu, .view-switch-tab, .aux-color, .setting-container .phone-btn, .accounts-container .tool, .accounts-container .account-tool, .accounts-container .account-change-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .construction-right-menu .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .auxiliaries-container .scheme-info, .additional-list-container .group-indicator, .additional-list-container .search-element {
   border: 0;
   outline: none;
   cursor: pointer;
@@ -1218,13 +1218,13 @@ body {
 }
 
 /* line 118, ../../dev/sass/base/general.scss */
-.middle-button, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-tool, .construction-left-menu .project-default {
+.middle-button, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default {
   font: normal 1.5rem/2.25rem roboto-regular, sans-serif;
   border-radius: 2rem;
 }
 
 /* line 125, ../../dev/sass/base/general.scss */
-.small-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .order-tool {
+.small-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .order-tool {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   border-radius: 1.25rem;
 }
@@ -1252,7 +1252,7 @@ body {
 }
 
 /* line 159, ../../dev/sass/base/general.scss */
-.truncated, .menu-right-general .value, .config-menu .value, .elements-menu .value, .cart-menu .value, .old-price-tab .value, .old-price-inst-tab .value, .parameters-block .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title, .setting-container .setting-item-data, .order-value, .product-value, .addelement-value, .light-view .order-value, .light-view .product-value, .light-view .addelement-value, .construction-left-menu .figure-label, .nav-menu .title, .config-menu .additional-item, .template-container .other-template-subscr, .profile-container .profile-descr, .glass-container .glass-descr {
+.truncated, .menu-right-general .value, .config-menu .value, .elements-menu .value, .cart-menu .value, .old-price-tab .value, .old-price-inst-tab .value, .parameters-block .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title, .setting-container .setting-item-data, .cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value, .light-view .order-value, .construction-left-menu .figure-label, .nav-menu .title, .config-menu .additional-item, .template-container .other-template-subscr, .profile-container .profile-descr, .glass-container .glass-descr {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -1333,24 +1333,24 @@ body {
 }
 
 /* line 236, ../../dev/sass/base/general.scss */
-.cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .order-delete, .search-block .delete-search, .construction-right-menu .construct-tools, .elements-menu .close-elements-menu {
+.cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .search-block .delete-search, .construction-right-menu .construct-tools, .elements-menu .close-elements-menu {
   border-radius: 50%;
 }
 /* line 241, ../../dev/sass/base/general.scss */
-.cross-btn:after, .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .accounts-container .account-delete-btn:after, .order-delete:after, .search-block .delete-search:after, .construction-right-menu .construct-tools:after, .elements-menu .close-elements-menu:after {
+.cross-btn:after, .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after, .search-block .delete-search:after, .construction-right-menu .construct-tools:after, .elements-menu .close-elements-menu:after {
   position: absolute;
   color: #fff;
   content: "\e61f";
 }
 
 /* line 247, ../../dev/sass/base/general.scss */
-.small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .order-delete {
+.small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .cart-page .order-delete {
   font: normal 2.5rem/1 general-icons, sans-serif;
   width: 3.125rem;
   height: 3.125rem;
 }
 /* line 253, ../../dev/sass/base/general.scss */
-.small-cross-btn:after, .close-dialog:after, .aux-delete:after, .accounts-container .account-delete-btn:after, .order-delete:after {
+.small-cross-btn:after, .close-dialog:after, .aux-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after {
   top: 8%;
   left: 10%;
 }
@@ -4039,9 +4039,8 @@ body {
   width: 100%;
   height: 100%;
 }
-
-/* line 7, ../../dev/sass/pages/cart.scss */
-.cart-container {
+/* line 6, ../../dev/sass/pages/cart.scss */
+.cart-page .cart-container {
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y3ZjdmNyIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2Q3ZGJkOCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
   background-size: 100%;
   background-image: -moz-linear-gradient(#f7f7f7, #d7dbd8);
@@ -4053,13 +4052,13 @@ body {
   padding: 3.125rem;
   padding-left: 6.25rem;
 }
-/* line 17, ../../dev/sass/pages/cart.scss */
-.cart-container.full-view {
+/* line 16, ../../dev/sass/pages/cart.scss */
+.cart-page .cart-container.full-view {
   top: 0rem;
   left: 0rem;
 }
-/* line 20, ../../dev/sass/pages/cart.scss */
-.cart-container.light-view {
+/* line 19, ../../dev/sass/pages/cart.scss */
+.cart-page .cart-container.light-view {
   top: 0rem;
   left: -156.25rem;
   -moz-transition: all 0.5s linear;
@@ -4067,14 +4066,13 @@ body {
   transition: all 0.5s linear;
   z-index: 5;
 }
-/* line 26, ../../dev/sass/pages/cart.scss */
-.cart-container.active {
+/* line 25, ../../dev/sass/pages/cart.scss */
+.cart-page .cart-container.active {
   top: 0rem;
   left: 0rem;
 }
-
-/* line 31, ../../dev/sass/pages/cart.scss */
-.cart-header {
+/* line 30, ../../dev/sass/pages/cart.scss */
+.cart-page .cart-header {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: row nowrap;
@@ -4088,92 +4086,79 @@ body {
   height: 9.375rem;
   margin-bottom: 2.5rem;
 }
-
-/* line 42, ../../dev/sass/pages/cart.scss */
-.user-info-container {
+/* line 41, ../../dev/sass/pages/cart.scss */
+.cart-page .user-info-container {
   top: 0;
 }
-
-/* line 45, ../../dev/sass/pages/cart.scss */
-.cart-tool {
+/* line 44, ../../dev/sass/pages/cart.scss */
+.cart-page .cart-tool {
   position: relative;
   padding: 1.125rem 1.875rem;
   z-index: 2;
 }
-
-/* line 53, ../../dev/sass/pages/cart.scss */
-.additional-elements {
+/* line 52, ../../dev/sass/pages/cart.scss */
+.cart-page .additional-elements {
   margin-right: 1.25rem;
   background-color: #dcdcdc;
   color: #363636;
 }
-
-/* line 58, ../../dev/sass/pages/cart.scss */
-.new-order {
+/* line 57, ../../dev/sass/pages/cart.scss */
+.cart-page .new-order {
   background-color: #6ed44a;
   color: #fff;
 }
-
-/* line 63, ../../dev/sass/pages/cart.scss */
-.order {
+/* line 62, ../../dev/sass/pages/cart.scss */
+.cart-page .order {
   -moz-box-shadow: rgba(0, 0, 0, 0.3) 0.9375rem 0.625rem 1.875rem 0;
   -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0.9375rem 0.625rem 1.875rem 0;
   box-shadow: rgba(0, 0, 0, 0.3) 0.9375rem 0.625rem 1.875rem 0;
   position: relative;
   margin-right: 3.125rem;
 }
-
-/* line 70, ../../dev/sass/pages/cart.scss */
-.order-header {
+/* line 69, ../../dev/sass/pages/cart.scss */
+.cart-page .order-header {
   position: relative;
 }
-
-/* line 73, ../../dev/sass/pages/cart.scss */
-.order-delete {
+/* line 72, ../../dev/sass/pages/cart.scss */
+.cart-page .order-delete {
   position: absolute;
   top: -1.25rem;
   right: -1.25rem;
   background-color: #6ed44a;
   z-index: 1;
 }
-
-/* line 83, ../../dev/sass/pages/cart.scss */
-.order-value, .product-value, .addelement-value {
+/* line 82, ../../dev/sass/pages/cart.scss */
+.cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-
-/* line 89, ../../dev/sass/pages/cart.scss */
-.addelements-btn {
+/* line 88, ../../dev/sass/pages/cart.scss */
+.cart-page .addelements-btn {
   cursor: pointer;
 }
-
-/* line 92, ../../dev/sass/pages/cart.scss */
-.order-label, .product-icon-label,
-.product-label, .addelement-label {
+/* line 91, ../../dev/sass/pages/cart.scss */
+.cart-page .order-label, .cart-page .product-icon-label,
+.cart-page .product-label, .cart-page .addelement-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #8c8c8c;
 }
-
-/* line 97, ../../dev/sass/pages/cart.scss */
-.order-qty {
+/* line 96, ../../dev/sass/pages/cart.scss */
+.cart-page .order-qty {
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
 }
-
-/* line 101, ../../dev/sass/pages/cart.scss */
-.order-tool {
+/* line 100, ../../dev/sass/pages/cart.scss */
+.cart-page .order-tool {
   width: 4.0625rem;
   height: 2.8125rem;
   line-height: 1;
   background-color: #6ed44a;
   color: #fff;
 }
-
-/* line 109, ../../dev/sass/pages/cart.scss */
-.order-footer, .addelements-detail-footer {
+/* line 108, ../../dev/sass/pages/cart.scss */
+.cart-page .order-footer, .cart-page .addelements-detail-footer {
   font: normal 3rem/6.25rem roboto-medium, sans-serif;
   padding-left: 3.125rem;
   border-bottom-left-radius: 1.25rem;
@@ -4181,10 +4166,9 @@ body {
   background-color: #f0f0f0;
   color: #363636;
 }
-
-/* line 120, ../../dev/sass/pages/cart.scss */
-.addelements-detail {
-  position: absolute;
+/* line 119, ../../dev/sass/pages/cart.scss */
+.cart-page .addelements-detail {
+  position: fixed;
   top: 0rem;
   left: 30rem;
   width: 32rem;
@@ -4193,64 +4177,56 @@ body {
   border-bottom-right-radius: 1.25rem;
   z-index: 10;
 }
-
 /* line 132, ../../dev/sass/pages/cart.scss */
-.addelements-detail-tools {
+.cart-page .addelements-detail-tools {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: row nowrap;
   flex-flow: row nowrap;
   height: 6.25rem;
 }
-
 /* line 138, ../../dev/sass/pages/cart.scss */
-.addelements-detail-edit {
+.cart-page .addelements-detail-edit {
   -webkit-flex-grow: 3;
   flex-grow: 3;
   font: normal 1.75rem/6.25rem roboto-light, sans-serif;
   background-color: #6ed44a;
   color: #fff;
 }
-
 /* line 146, ../../dev/sass/pages/cart.scss */
-.addelements-detail-close {
+.cart-page .addelements-detail-close {
   -webkit-flex-grow: 1;
   flex-grow: 1;
   background-color: #bebebe;
 }
 /* line 151, ../../dev/sass/pages/cart.scss */
-.addelements-detail-close:after {
+.cart-page .addelements-detail-close:after {
   font: normal 2.5rem/1 general-icons, sans-serif;
   color: #fff;
   content: "\e61f";
 }
-
 /* line 157, ../../dev/sass/pages/cart.scss */
-.product-template {
+.cart-page .product-template {
   padding: 2.125rem;
   border-bottom: 1px solid #bebebe;
 }
-
 /* line 161, ../../dev/sass/pages/cart.scss */
-.product-template-icon {
+.cart-page .product-template-icon {
   margin-bottom: 1.25rem;
 }
-
 /* line 164, ../../dev/sass/pages/cart.scss */
-.product-icon-thumb {
+.cart-page .product-icon-thumb {
   display: inline-block;
   width: 12.5rem;
   margin-right: 0.625rem;
 }
-
 /* line 176, ../../dev/sass/pages/cart.scss */
-.product-icon-label {
+.cart-page .product-icon-label {
   max-width: 7.1875rem;
   text-align: right;
 }
-
 /* line 180, ../../dev/sass/pages/cart.scss */
-.addelements-detail-row, .addelements-detail-footer {
+.cart-page .addelements-detail-row, .cart-page .addelements-detail-footer {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: row wrap;
@@ -4260,30 +4236,26 @@ body {
   -webkit-align-items: center;
   align-items: center;
 }
-
 /* line 186, ../../dev/sass/pages/cart.scss */
-.addelements-detail-content {
+.cart-page .addelements-detail-content {
   height: 46.25rem;
   overflow-x: hidden;
   overflow-y: auto;
   padding: 1.875rem 3.125rem;
 }
-
 /* line 192, ../../dev/sass/pages/cart.scss */
-.addelements-detail-list {
+.cart-page .addelements-detail-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-
 /* line 197, ../../dev/sass/pages/cart.scss */
-.addelements-detail-item {
+.cart-page .addelements-detail-item {
   padding-top: 1.25rem;
   border-bottom: 1px solid #bebebe;
 }
-
 /* line 201, ../../dev/sass/pages/cart.scss */
-.addelement-parameters {
+.cart-page .addelement-parameters {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: row wrap;
@@ -4294,35 +4266,30 @@ body {
   align-items: center;
   margin: 1.25rem 0;
 }
-
 /* line 208, ../../dev/sass/pages/cart.scss */
-.addelement-parameter {
+.cart-page .addelement-parameter {
   margin-right: 1rem;
 }
-
 /* line 211, ../../dev/sass/pages/cart.scss */
-.addelement-value {
+.cart-page .addelement-value {
   margin-right: 1.25rem;
 }
 /* line 215, ../../dev/sass/pages/cart.scss */
-.addelement-value img {
+.cart-page .addelement-value img {
   width: 2.8125rem;
 }
-
 /* line 222, ../../dev/sass/pages/cart.scss */
-.addelement-price-value {
+.cart-page .addelement-price-value {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
   margin-right: 1.25rem;
 }
-
 /* line 228, ../../dev/sass/pages/cart.scss */
-.price-one-product {
+.cart-page .price-one-product {
   margin-top: 1.875rem;
 }
-
 /* line 231, ../../dev/sass/pages/cart.scss */
-.addelements-detail-footer {
+.cart-page .addelements-detail-footer {
   padding-right: 3.125rem;
 }
 
@@ -4405,7 +4372,7 @@ body {
   max-width: 10.625rem;
 }
 /* line 304, ../../dev/sass/pages/cart.scss */
-.full-view .order-footer, .full-view .addelements-detail-footer {
+.full-view .order-footer, .full-view .cart-page .addelements-detail-footer, .cart-page .full-view .addelements-detail-footer {
   padding-left: 3.125rem;
 }
 
@@ -4453,8 +4420,9 @@ body {
   padding-top: 2.5rem;
 }
 /* line 349, ../../dev/sass/pages/cart.scss */
-.light-view .order-label, .light-view .product-icon-label,
-.light-view .product-label, .light-view .addelement-label {
+.light-view .order-label, .light-view .cart-page .product-icon-label, .cart-page .light-view .product-icon-label,
+.light-view .cart-page .product-label,
+.cart-page .light-view .product-label, .light-view .cart-page .addelement-label, .cart-page .light-view .addelement-label {
   padding-top: 0.625rem;
 }
 
@@ -4972,11 +4940,11 @@ body {
   background: transparent;
 }
 
-/* line 9, ../../dev/sass/menus/_config-menu.scss */
+/* line 8, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .item.active {
   background-color: #f0f0f0;
 }
-/* line 11, ../../dev/sass/menus/_config-menu.scss */
+/* line 10, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .item.active:before {
   font: normal 5.25rem/1 general-icons, sans-serif;
   position: absolute;
@@ -4987,37 +4955,37 @@ body {
   color: #f98000;
   content: "\e613";
 }
-/* line 25, ../../dev/sass/menus/_config-menu.scss */
+/* line 24, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .item-header {
   min-height: 21.875rem;
 }
-/* line 28, ../../dev/sass/menus/_config-menu.scss */
+/* line 27, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .title {
   margin: 0.625rem 0;
   color: #f98000;
 }
-/* line 32, ../../dev/sass/menus/_config-menu.scss */
+/* line 31, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .icon {
   height: 7.5rem;
   margin: 1.25rem 0;
 }
-/* line 37, ../../dev/sass/menus/_config-menu.scss */
+/* line 36, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .icon img {
   max-height: 100%;
 }
-/* line 42, ../../dev/sass/menus/_config-menu.scss */
+/* line 41, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .additional-items-list {
   overflow-y: auto;
   max-height: 12.5rem;
   padding: 0;
   list-style: none;
 }
-/* line 48, ../../dev/sass/menus/_config-menu.scss */
+/* line 47, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .additional-items-group {
   margin: 0;
   padding: 0;
 }
-/* line 55, ../../dev/sass/menus/_config-menu.scss */
+/* line 54, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .qty {
   font: normal 2.25rem/3.75rem roboto-light, sans-serif;
   position: absolute;
@@ -5028,6 +4996,15 @@ body {
   color: #8c8c8c;
   border-radius: 50%;
   background-color: #fff;
+}
+/* line 68, ../../dev/sass/menus/_config-menu.scss */
+.config-menu .curtain {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 29.625rem;
+  height: 55.75rem;
+  background: rgba(248, 248, 248, 0.95);
 }
 
 /* line 1, ../../dev/sass/menus/_elements-list.scss */
@@ -7105,7 +7082,7 @@ body {
 }
 
 /* line 183, ../../dev/sass/base/_animations.scss */
-.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-tool, .order, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construction-right-menu .construct-tools, .construction-right-menu .door-config-btn, .nav-menu [class^='nav-icon-'],
+.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construction-right-menu .construct-tools, .construction-right-menu .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .elements-menu .color-img, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .hardware-container .hardware-box, .lamination-container .lamination-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
   -moz-animation: splashing 0.5s 0 ease 1;
   -webkit-animation: splashing 0.5s 0 ease 1;

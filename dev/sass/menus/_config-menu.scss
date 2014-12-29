@@ -1,4 +1,3 @@
-// TODO: Проверить анимацию на соответствие видео
 .config-menu {
   @extend .menu-right-general;
 
@@ -64,5 +63,14 @@
     color: #8c8c8c;
     border-radius: 50%;
     background-color: #fff;
+  }
+  //---- for Add Elements only
+  .curtain {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: rem($right_menu-width);
+    height: rem(892px);
+    background: rgba(#f8f8f8, .95);
   }
 }

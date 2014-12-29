@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('AdditionalElementsListCtrl', ['$scope', 'constructService', 'localStorage', function ($scope, constructService, localStorage) {
+BauVoiceApp.controller('AdditionalElementsListCtrl', ['$scope', 'constructService', 'localStorage', '$filter', function ($scope, constructService, localStorage, $filter) {
 
   $scope.global = localStorage;
 
@@ -18,13 +18,19 @@ BauVoiceApp.controller('AdditionalElementsListCtrl', ['$scope', 'constructServic
   // Search Add Elements Group
   var regex, checkedGroup, indexGroup, currGroup, groupTempObj;
 
-  constructService.getAddElementsGroups(function (results) {
-    if (results.status) {
-      $scope.addElementsList.addElementsGroup = results.data.groups;
-    } else {
-      console.log(results);
-    }
-  });
+  $scope.addElementsList.addElementsGroup = [
+    $filter('translate')('add_elements.GRIDS'),
+    $filter('translate')('add_elements.VISORS'),
+    $filter('translate')('add_elements.SPILLWAYS'),
+    $filter('translate')('add_elements.OUTSIDE'),
+    $filter('translate')('add_elements.INSIDE'),
+    $filter('translate')('add_elements.LOUVERS'),
+    $filter('translate')('add_elements.CONNECTORS'),
+    $filter('translate')('add_elements.FAN'),
+    $filter('translate')('add_elements.WINDOWSILLS'),
+    $filter('translate')('add_elements.HANDLELS'),
+    $filter('translate')('add_elements.OTHERS')
+  ];
 
   // Create regExpresion
   function escapeRegExp(string){

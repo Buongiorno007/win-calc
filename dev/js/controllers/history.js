@@ -32,7 +32,8 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
     isAllPeriodDraft: true,
     startDateDraft: '',
     finishDateDraft: '',
-    isEmptySortResultDraft: false
+    isEmptySortResultDraft: false,
+    isOrderExisted: false
   };
   //----- variables for orders sorting
   $scope.createdDate = 'created';
@@ -307,6 +308,7 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
 
     function deleteOrder(button) {
       if(button == 1) {
+
         //-------- delete order in Local Objects
         if (orderType === $scope.global.fullOrderType) {
           for(var ord = 0; ord < $scope.orders.length; ord++) {
@@ -321,6 +323,12 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
               $scope.drafts.splice(drf, 1);
               $scope.draftsSource.splice(drf, 1);
             }
+          }
+        }
+        //---- delete order in LocalStorage
+        for(var ord = 0; ord < $scope.global.orders.length; ord++) {
+          if ($scope.global.orders[ord].orderId === orderNum) {
+            $scope.global.orders.splice(ord, 1);
           }
         }
         //------- delete order in Local DB
@@ -377,7 +385,6 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
         var newOrderCopy = {},
             newOrderNumber = Math.floor((Math.random() * 100000));
 
-        //---- find order
         for(var ord = 0; ord < $scope.orders.length; ord++) {
           if ($scope.orders[ord].orderId === orderNum) {
             newOrderCopy = angular.copy($scope.orders[ord]);
@@ -386,21 +393,60 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
         delete newOrderCopy.id;
         delete newOrderCopy.created;
         newOrderCopy.orderId = newOrderNumber;
-
         //---- save in LocalDB
-        $scope.global.insertOrderInLocalDB(newOrderCopy);
+        localDB.insertDB($scope.global.ordersTableBD, newOrderCopy);
+        //---- save in LocalStorage
+        $scope.global.orders.push(newOrderCopy);
+        //---- get it again from LocalDB as to "created date"
+        //TODO переделать на создание даты здесь, а не в базе? переделака директивы на другой формат даты
+        localDB.selectDB($scope.global.ordersTableBD, {'orderId': newOrderNumber}, function (results) {
+          if (results.status) {
+            newOrderCopy = angular.copy(results.data);
+            //---- add copied new order in Local Objects
+            $scope.orders.push(newOrderCopy[0]);
+            $scope.ordersSource.push(newOrderCopy[0]);
+          } else {
+            console.log(results);
+          }
+        });
 
-        //---- add copied new order in Local Objects
-        $scope.orders.push(newOrderCopy);
-        $scope.ordersSource.push(newOrderCopy);
+
+        //------ Download Products Data from localDB
+        localDB.selectDB($scope.global.productsTableBD, {'orderId': orderNum}, function (results) {
+          if (results.status) {
+            var allProductsDB = angular.copy(results.data);
+            var newAllProductsXOrder = rewriteObjectProperty(allProductsDB, newOrderNumber);
+            //console.log(newAllProductsXOrder);
+            if(newAllProductsXOrder && newAllProductsXOrder.length > 0) {
+              for(var p = 0; p < newAllProductsXOrder.length; p++) {
+                localDB.insertDB($scope.global.productsTableBD, newAllProductsXOrder[p]);
+              }
+            }
+          } else {
+            console.log(results);
+          }
+        });
 
 
         //------ Download Add Elements from localDB
+        localDB.selectDB($scope.global.gridsTableBD, {'orderId': orderNum}, function (results) {
+          if (results.status) {
+            var allGridsDB = angular.copy(results.data);
+            var newAllGridsXOrder = rewriteObjectProperty(allGridsDB, newOrderNumber);
+            if(newAllGridsXOrder && newAllGridsXOrder.length > 0) {
+              for(var w = 0; w < newAllGridsXOrder.length; w++) {
+                localDB.insertDB($scope.global.gridsTableBD, newAllGridsXOrder[w]);
+              }
+            }
+          } else {
+            console.log(results);
+          }
+        });
+
         localDB.selectDB($scope.global.visorsTableBD, {'orderId': orderNum}, function (results) {
           if (results.status) {
             var allVisorsDB = angular.copy(results.data);
             var newAllVisorsXOrder = rewriteObjectProperty(allVisorsDB, newOrderNumber);
-            console.log(newAllVisorsXOrder);
             if(newAllVisorsXOrder && newAllVisorsXOrder.length > 0) {
               for(var w = 0; w < newAllVisorsXOrder.length; w++) {
                 localDB.insertDB($scope.global.visorsTableBD, newAllVisorsXOrder[w]);
@@ -410,11 +456,95 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
             console.log(results);
           }
         });
+
+        localDB.selectDB($scope.global.spillwaysTableBD, {'orderId': orderNum}, function (results) {
+          if (results.status) {
+            var allSpillwaysDB = angular.copy(results.data);
+            var newAllSpillwaysXOrder = rewriteObjectProperty(allSpillwaysDB, newOrderNumber);
+            if(newAllSpillwaysXOrder && newAllSpillwaysXOrder.length > 0) {
+              for(var w = 0; w < newAllSpillwaysXOrder.length; w++) {
+                localDB.insertDB($scope.global.spillwaysTableBD, newAllSpillwaysXOrder[w]);
+              }
+            }
+          } else {
+            console.log(results);
+          }
+        });
+
+        localDB.selectDB($scope.global.outSlopesTableBD, {'orderId': orderNum}, function (results) {
+          if (results.status) {
+            var allOutSlopesDB = angular.copy(results.data);
+            var newAllOutSlopesXOrder = rewriteObjectProperty(allOutSlopesDB, newOrderNumber);
+            if(newAllOutSlopesXOrder && newAllOutSlopesXOrder.length > 0) {
+              for(var w = 0; w < newAllOutSlopesXOrder.length; w++) {
+                localDB.insertDB($scope.global.outSlopesTableBD, newAllOutSlopesXOrder[w]);
+              }
+            }
+          } else {
+            console.log(results);
+          }
+        });
+
+        localDB.selectDB($scope.global.inSlopesTableBD, {'orderId': orderNum}, function (results) {
+          if (results.status) {
+            var allInSlopesDB = angular.copy(results.data);
+            var newAllInSlopesXOrder = rewriteObjectProperty(allInSlopesDB, newOrderNumber);
+            if(newAllInSlopesXOrder && newAllInSlopesXOrder.length > 0) {
+              for(var w = 0; w < newAllInSlopesXOrder.length; w++) {
+                localDB.insertDB($scope.global.inSlopesTableBD, newAllInSlopesXOrder[w]);
+              }
+            }
+          } else {
+            console.log(results);
+          }
+        });
+
+        localDB.selectDB($scope.global.louversTableBD, {'orderId': orderNum}, function (results) {
+          if (results.status) {
+            var allLouversDB = angular.copy(results.data);
+            var newAllLouversXOrder = rewriteObjectProperty(allLouversDB, newOrderNumber);
+            if(newAllLouversXOrder && newAllLouversXOrder.length > 0) {
+              for(var w = 0; w < newAllLouversXOrder.length; w++) {
+                localDB.insertDB($scope.global.louversTableBD, newAllLouversXOrder[w]);
+              }
+            }
+          } else {
+            console.log(results);
+          }
+        });
+
+        localDB.selectDB($scope.global.connectorsTableBD, {'orderId': orderNum}, function (results) {
+          if (results.status) {
+            var allConnectorsDB = angular.copy(results.data);
+            var newAllConnectorsXOrder = rewriteObjectProperty(allConnectorsDB, newOrderNumber);
+            if(newAllConnectorsXOrder && newAllConnectorsXOrder.length > 0) {
+              for(var w = 0; w < newAllConnectorsXOrder.length; w++) {
+                localDB.insertDB($scope.global.connectorsTableBD, newAllConnectorsXOrder[w]);
+              }
+            }
+          } else {
+            console.log(results);
+          }
+        });
+
+        localDB.selectDB($scope.global.fansTableBD, {'orderId': orderNum}, function (results) {
+          if (results.status) {
+            var allFansDB = angular.copy(results.data);
+            var newAllFansXOrder = rewriteObjectProperty(allFansDB, newOrderNumber);
+            if(newAllFansXOrder && newAllFansXOrder.length > 0) {
+              for(var w = 0; w < newAllFansXOrder.length; w++) {
+                localDB.insertDB($scope.global.fansTableBD, newAllFansXOrder[w]);
+              }
+            }
+          } else {
+            console.log(results);
+          }
+        });
+
         localDB.selectDB($scope.global.windowSillsTableBD, {'orderId': orderNum}, function (results) {
           if (results.status) {
             var allWindowSillsDB = angular.copy(results.data);
             var newAllWindowSillsXOrder = rewriteObjectProperty(allWindowSillsDB, newOrderNumber);
-            console.log(newAllWindowSillsXOrder);
             if(newAllWindowSillsXOrder && newAllWindowSillsXOrder.length > 0) {
               for(var ws = 0; ws < newAllWindowSillsXOrder.length; ws++) {
                 localDB.insertDB($scope.global.windowSillsTableBD, newAllWindowSillsXOrder[ws]);
@@ -425,15 +555,27 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
           }
         });
 
-        //------ Download Products Data from localDB
-        localDB.selectDB($scope.global.productsTableBD, {'orderId': orderNum}, function (results) {
+        localDB.selectDB($scope.global.handlesTableBD, {'orderId': orderNum}, function (results) {
           if (results.status) {
-            var allProductsDB = angular.copy(results.data);
-            var newAllProductsXOrder = rewriteObjectProperty(allProductsDB, newOrderNumber);
-            console.log(newAllProductsXOrder);
-            if(newAllProductsXOrder && newAllProductsXOrder.length > 0) {
-              for(var p = 0; p < newAllProductsXOrder.length; p++) {
-                localDB.insertDB($scope.global.productsTableBD, newAllProductsXOrder[p]);
+            var allHandlesDB = angular.copy(results.data);
+            var newAllHandlesXOrder = rewriteObjectProperty(allHandlesDB, newOrderNumber);
+            if(newAllHandlesXOrder && newAllHandlesXOrder.length > 0) {
+              for(var w = 0; w < newAllHandlesXOrder.length; w++) {
+                localDB.insertDB($scope.global.handlesTableBD, newAllHandlesXOrder[w]);
+              }
+            }
+          } else {
+            console.log(results);
+          }
+        });
+
+        localDB.selectDB($scope.global.othersTableBD, {'orderId': orderNum}, function (results) {
+          if (results.status) {
+            var allOthersDB = angular.copy(results.data);
+            var newAllOthersXOrder = rewriteObjectProperty(allOthersDB, newOrderNumber);
+            if(newAllOthersXOrder && newAllOthersXOrder.length > 0) {
+              for(var w = 0; w < newAllOthersXOrder.length; w++) {
+                localDB.insertDB($scope.global.othersTableBD, newAllOthersXOrder[w]);
               }
             }
           } else {

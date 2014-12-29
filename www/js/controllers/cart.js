@@ -396,8 +396,17 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
         if(!$scope.cart.isOrderExisted) {
           var productIdBD = productIndex + 1;
           localDB.deleteDB($scope.global.productsTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
+          localDB.deleteDB($scope.global.gridsTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
           localDB.deleteDB($scope.global.visorsTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
+          localDB.deleteDB($scope.global.spillwaysTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
+          localDB.deleteDB($scope.global.outSlopesTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
+          localDB.deleteDB($scope.global.louversTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
+          localDB.deleteDB($scope.global.inSlopesTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
+          localDB.deleteDB($scope.global.connectorsTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
+          localDB.deleteDB($scope.global.fansTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
           localDB.deleteDB($scope.global.windowSillsTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
+          localDB.deleteDB($scope.global.handlesTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
+          localDB.deleteDB($scope.global.othersTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
         }
 
         //----- if all products were deleted go to main page????
@@ -464,12 +473,12 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   //============= AddElements detail block
   //------- Show AddElements detail block for product
   $scope.showAllAddElementDetail = function(productIndex) {
-    /*
+    ///*
     if($scope.cart.allAddElements[productIndex].length > 0) {
       $scope.cart.isAddElementDetail = productIndex;
       console.log('ADDELEM', $scope.global.order.products[$scope.cart.isAddElementDetail].templateIcon);
     }
-    */
+    //*/
   };
   //--------- Close AddElements detail block
   $scope.closeAllAddElementDetail = function() {

@@ -100,7 +100,6 @@ window.russianDictionary = {
     WINDOWSILL: 'подоконник',
     HANDLEL: 'ручка',
     OTHERS: 'прочее',
-
     GRIDS: 'москитные сетки',
     VISORS: 'козырьки',
     SPILLWAYS: 'водоотливы',

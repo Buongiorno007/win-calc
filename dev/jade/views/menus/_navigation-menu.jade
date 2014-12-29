@@ -26,7 +26,7 @@
           span.nav-icon-basketOfCalculation.unvisible(show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 6) }}")
           span.title(data-output="{{ 'mainpage.NAVMENU_CART' | translate }}", typing="{{ navMenu.typing }}", typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 6) }}")
           span.badge.unvisible(show-delay="{{ navMenu.DELAY_SHOW_ORDERS }}") {{ global.order.products.length }}
-      li.item(ng-if="!global.isOpenedHistoryPage && !global.isOpenedCartPage", ng-class="{'selected': navMenu.activeMenuItem==7}", ng-click="selectMenuItem(7); gotoAddElementsPanel()")
+      li.item(ng-if="!global.isOpenedHistoryPage && !global.isOpenedCartPage", ng-class="{'selected': global.product.isAddElementsONLY}", ng-click="gotoAddElementsPanel()")
         .item-content
           span.nav-icon-additionalComponents.unvisible(show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 7) }}")
           span.title(data-output="{{ 'mainpage.NAVMENU_ADD_ELEMENTS' | translate }}", typing="{{ navMenu.typing }}", typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 7) }}")

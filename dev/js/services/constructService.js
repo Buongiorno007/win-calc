@@ -1028,25 +1028,6 @@ BauVoiceApp.factory('constructService', function ($q) {
     },
 
 
-    getAddElementsGroups: function (callback) {
-      callback(new OkResult({
-        groups: [
-          'Москитные сетки',
-          'Козырьки',
-          'Водоотливы',
-          'Наружные откосы',
-          'Жалюзи',
-          'Внутренние откосы',
-          'Соединитель',
-          'Микропроветривание',
-          'Подоконники',
-          'Ручки',
-          'Прочее'
-        ]
-      }));
-    },
-
-
     getAllProfiles: function (callback) {
       callback(new OkResult({
         producers: [
