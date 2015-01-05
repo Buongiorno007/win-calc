@@ -117,11 +117,8 @@
 
   // AddElements Detail Block
   .addelements-detail {
-    //position: absolute;
-    //top: rem(240px);
-    //left: rem(1260px);
-    position: fixed;
-    top: 0rem;
+    position: absolute;
+    top: 17rem;
     left: 30rem;
     width: rem(512px);
     background-color: #fff;
@@ -184,6 +181,7 @@
     @include align-items(center);
   }
   .addelements-detail-content {
+    @extend .scrolling-container;
     height: rem(740px);
     overflow-x: hidden;
     overflow-y: auto;

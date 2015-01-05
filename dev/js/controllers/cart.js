@@ -27,7 +27,9 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
     allAddElements: [],
     allTemplateIcons: [],
-    isAddElementDetail: 'false'
+    activeProductIndex: 0,
+    isAddElementDetail: false,
+    isAllAddElements: false
   };
 
   var p, prod, product, newProductsQty;
@@ -470,16 +472,14 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   //============= AddElements detail block
   //------- Show AddElements detail block for product
   $scope.showAllAddElementDetail = function(productIndex) {
-    ///*
     if($scope.cart.allAddElements[productIndex].length > 0) {
-      $scope.cart.isAddElementDetail = productIndex;
-      console.log('ADDELEM', $scope.global.order.products[$scope.cart.isAddElementDetail].templateIcon);
+      $scope.cart.activeProductIndex = productIndex;
+      $scope.cart.isAddElementDetail = true;
     }
-    //*/
   };
   //--------- Close AddElements detail block
   $scope.closeAllAddElementDetail = function() {
-    $scope.cart.isAddElementDetail = 'false';
+    $scope.cart.isAddElementDetail = false;
   };
 
   // Full/Light View switcher
@@ -498,4 +498,8 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     $location.path('/main');
   };
 
+  //-------- show All Add Elements
+  $scope.showAllAddElements = function() {
+    $scope.cart.isAllAddElements = !$scope.cart.isAllAddElements;
+  };
 }]);

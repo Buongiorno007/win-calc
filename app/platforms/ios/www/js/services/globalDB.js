@@ -1,3 +1,6 @@
+
+// services/globalDB.js
+
 "use strict";
 
 BauVoiceApp.factory('globalDB', ['$http', function ($http) {

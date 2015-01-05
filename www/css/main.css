@@ -1181,7 +1181,7 @@ body {
   display: none !important;
 }
 
-/* line 80, ../../dev/sass/base/general.scss */
+/* line 81, ../../dev/sass/base/general.scss */
 .icon-setting, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .search-block .delete-search, .construction-right-menu .construct-tools, .elements-menu .close-elements-menu, .pickmeup .pmu-instance nav .pmu-prev,
 .pickmeup .pmu-instance nav .pmu-next, .user-info-container .icon-location:before, .search-block:before, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .current-city:after, .voice-container .voice-icon, .setting-container .setting-item-change:after, .password-page .back, .location-page .back, .accounts-container .tool, .accounts-container .account-tool, .empty-search-result .result-icon, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .construction-right-menu .door-config-btn, .door-configuration .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .config-menu .item.active:before, .elements-menu .element-info:after, .cart-menu .item:after, .cart-menu .drop-instalment .dropdown-item.selected .value-percent:after, .cart-menu .calendar-price, .size-calc-container .calc-delete:after, .size-calc-container .calc-interval:after {
@@ -1196,7 +1196,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* line 95, ../../dev/sass/base/general.scss */
+/* line 96, ../../dev/sass/base/general.scss */
 .button, .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn, .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .middle-button, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default, .small-button, .cart-page .order-tool, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .search-block .delete-search, .construction-right-menu .construct-tools, .elements-menu .close-elements-menu, .view-switch-tab, .aux-color, .setting-container .phone-btn, .accounts-container .tool, .accounts-container .account-tool, .accounts-container .account-change-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .construction-right-menu .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .auxiliaries-container .scheme-info, .additional-list-container .group-indicator, .additional-list-container .search-element {
   border: 0;
   outline: none;
@@ -1205,38 +1205,38 @@ body {
   padding: 0;
 }
 
-/* line 104, ../../dev/sass/base/general.scss */
+/* line 105, ../../dev/sass/base/general.scss */
 .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn {
   border-width: 1px;
   border-style: solid;
 }
 
-/* line 111, ../../dev/sass/base/general.scss */
+/* line 112, ../../dev/sass/base/general.scss */
 .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .nav-menu .new-calc, .cart-menu .measure-btn {
   font: normal 3rem/1.42857 roboto-light, sans-serif;
   border-radius: 2rem;
 }
 
-/* line 118, ../../dev/sass/base/general.scss */
+/* line 119, ../../dev/sass/base/general.scss */
 .middle-button, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default {
   font: normal 1.5rem/2.25rem roboto-regular, sans-serif;
   border-radius: 2rem;
 }
 
-/* line 125, ../../dev/sass/base/general.scss */
+/* line 126, ../../dev/sass/base/general.scss */
 .small-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .order-tool {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   border-radius: 1.25rem;
 }
 
-/* line 132, ../../dev/sass/base/general.scss */
+/* line 133, ../../dev/sass/base/general.scss */
 .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit {
   height: 6.875rem;
   color: #fff;
   background-color: #f98000;
 }
 
-/* line 140, ../../dev/sass/base/general.scss */
+/* line 141, ../../dev/sass/base/general.scss */
 .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back {
   font: normal 3.125rem/1 general-icons, sans-serif;
   width: 3.75rem;
@@ -1245,67 +1245,67 @@ body {
   padding: 0;
   background: transparent;
 }
-/* line 150, ../../dev/sass/base/general.scss */
+/* line 151, ../../dev/sass/base/general.scss */
 .menu-btn:before, .user-info-container .nav-menu-btn:before, .setting-page .back:before, .setting-back:before {
   color: #fff;
   content: "\e60e";
 }
 
-/* line 159, ../../dev/sass/base/general.scss */
+/* line 160, ../../dev/sass/base/general.scss */
 .truncated, .menu-right-general .value, .config-menu .value, .elements-menu .value, .cart-menu .value, .old-price-tab .value, .old-price-inst-tab .value, .parameters-block .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title, .setting-container .setting-item-data, .cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value, .light-view .order-value, .construction-left-menu .figure-label, .nav-menu .title, .config-menu .additional-item, .template-container .other-template-subscr, .profile-container .profile-descr, .glass-container .glass-descr {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-/* line 167, ../../dev/sass/base/general.scss */
+/* line 168, ../../dev/sass/base/general.scss */
 .right-side {
   -moz-transition: all 1.3s linear;
   -webkit-transition: all 1.3s linear;
   transition: all 1.3s linear;
 }
-/* line 169, ../../dev/sass/base/general.scss */
+/* line 170, ../../dev/sass/base/general.scss */
 .right-side.main-page-bg {
   opacity: 0.2;
 }
-/* line 173, ../../dev/sass/base/general.scss */
+/* line 174, ../../dev/sass/base/general.scss */
 .right-side.kitchen {
   background: url('../img/rooms-bg/kitchen.jpg?1419858179') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 178, ../../dev/sass/base/general.scss */
+/* line 179, ../../dev/sass/base/general.scss */
 .right-side.livingroom {
   background: url('../img/rooms-bg/livingroom.jpg?1419858179') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 183, ../../dev/sass/base/general.scss */
+/* line 184, ../../dev/sass/base/general.scss */
 .right-side.balcony {
   background: url('../img/rooms-bg/balcony.jpg?1419858179') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 188, ../../dev/sass/base/general.scss */
+/* line 189, ../../dev/sass/base/general.scss */
 .right-side.childroom {
   background: url('../img/rooms-bg/childroom.jpg?1419858179') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 193, ../../dev/sass/base/general.scss */
+/* line 194, ../../dev/sass/base/general.scss */
 .right-side.bedroom {
   background: url('../img/rooms-bg/bedroom.jpg?1419858179') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 198, ../../dev/sass/base/general.scss */
+/* line 199, ../../dev/sass/base/general.scss */
 .right-side.door {
   background: url('../img/rooms-bg/door.jpg?1419858179') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 
-/* line 208, ../../dev/sass/base/general.scss */
+/* line 209, ../../dev/sass/base/general.scss */
 .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto {
   width: 9.5rem;
   height: 9.5rem;
@@ -1313,7 +1313,7 @@ body {
   background-size: cover;
 }
 
-/* line 219, ../../dev/sass/base/general.scss */
+/* line 220, ../../dev/sass/base/general.scss */
 .modal-dialog, .rooms-selector-dialog, .auxiliaries-container .scheme-view-dialog {
   top: 18.75rem;
   left: -125rem;
@@ -1326,36 +1326,36 @@ body {
   border-radius: 1.25rem;
   background-color: rgba(255, 255, 255, 0.85);
 }
-/* line 230, ../../dev/sass/base/general.scss */
+/* line 231, ../../dev/sass/base/general.scss */
 .modal-dialog.active, .active.rooms-selector-dialog, .auxiliaries-container .active.scheme-view-dialog {
   top: 18.75rem;
   left: 5rem;
 }
 
-/* line 236, ../../dev/sass/base/general.scss */
+/* line 237, ../../dev/sass/base/general.scss */
 .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .search-block .delete-search, .construction-right-menu .construct-tools, .elements-menu .close-elements-menu {
   border-radius: 50%;
 }
-/* line 241, ../../dev/sass/base/general.scss */
+/* line 242, ../../dev/sass/base/general.scss */
 .cross-btn:after, .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after, .search-block .delete-search:after, .construction-right-menu .construct-tools:after, .elements-menu .close-elements-menu:after {
   position: absolute;
   color: #fff;
   content: "\e61f";
 }
 
-/* line 247, ../../dev/sass/base/general.scss */
+/* line 248, ../../dev/sass/base/general.scss */
 .small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .cart-page .order-delete {
   font: normal 2.5rem/1 general-icons, sans-serif;
   width: 3.125rem;
   height: 3.125rem;
 }
-/* line 253, ../../dev/sass/base/general.scss */
+/* line 254, ../../dev/sass/base/general.scss */
 .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after {
   top: 8%;
   left: 10%;
 }
 
-/* line 260, ../../dev/sass/base/general.scss */
+/* line 261, ../../dev/sass/base/general.scss */
 .close-dialog {
   position: absolute;
   top: 1.875rem;
@@ -1363,7 +1363,7 @@ body {
   background-color: #f98000;
 }
 
-/* line 270, ../../dev/sass/base/general.scss */
+/* line 271, ../../dev/sass/base/general.scss */
 .aux-delete {
   top: 0rem;
   left: 0rem;
@@ -1371,7 +1371,7 @@ body {
   background-color: #bebebe;
 }
 
-/* line 279, ../../dev/sass/base/general.scss */
+/* line 280, ../../dev/sass/base/general.scss */
 .view-switch-tab {
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
@@ -1394,7 +1394,7 @@ body {
   z-index: 1;
 }
 
-/* line 299, ../../dev/sass/base/general.scss */
+/* line 300, ../../dev/sass/base/general.scss */
 .test {
   position: absolute;
   left: 3.125rem;
@@ -1404,25 +1404,25 @@ body {
   background-color: red;
   box-shadow: 0 0 1.25rem 0.625rem rgba(0, 0, 0, 0.3);
 }
-/* line 308, ../../dev/sass/base/general.scss */
+/* line 309, ../../dev/sass/base/general.scss */
 .test input {
   height: 3.125rem;
   width: 18.75rem;
   font-size: 2.25rem;
 }
 
-/* line 316, ../../dev/sass/base/general.scss */
-.addelements-backview {
-  position: fixed;
+/* line 317, ../../dev/sass/base/general.scss */
+.backDarkView {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 9;
 }
 
-/* line 327, ../../dev/sass/base/general.scss */
+/* line 328, ../../dev/sass/base/general.scss */
 .glass, .glass-active {
   fill: rgba(155, 204, 255, 0.2);
 }
@@ -1432,59 +1432,59 @@ body {
   fill: rgba(34, 34, 255, 0.69);
 }
 */
-/* line 336, ../../dev/sass/base/general.scss */
+/* line 337, ../../dev/sass/base/general.scss */
 .frame, .sash, .impost {
   fill: #fff;
   stroke: #363636;
   stroke-width: 2;
 }
 
-/* line 341, ../../dev/sass/base/general.scss */
+/* line 342, ../../dev/sass/base/general.scss */
 .frame-icon, .sash-icon, .impost-icon {
   fill: #ccc;
   stroke: #000;
   stroke-width: 4;
 }
 
-/* line 347, ../../dev/sass/base/general.scss */
+/* line 348, ../../dev/sass/base/general.scss */
 .main-line {
   fill: #363636;
 }
 
-/* line 350, ../../dev/sass/base/general.scss */
+/* line 351, ../../dev/sass/base/general.scss */
 .size-line {
   fill: none;
   stroke: #D2D2D2;
   stroke-width: 1;
 }
 
-/* line 358, ../../dev/sass/base/general.scss */
+/* line 359, ../../dev/sass/base/general.scss */
 .size-box {
   cursor: pointer;
 }
 
-/* line 361, ../../dev/sass/base/general.scss */
+/* line 362, ../../dev/sass/base/general.scss */
 .size-box-edited {
   cursor: pointer;
 }
-/* line 363, ../../dev/sass/base/general.scss */
+/* line 364, ../../dev/sass/base/general.scss */
 .size-box-edited .size-rect {
   fill: #6ed44a;
 }
-/* line 366, ../../dev/sass/base/general.scss */
+/* line 367, ../../dev/sass/base/general.scss */
 .size-box-edited .size-value-edit, .size-box-edited .size-value-edit-vertical {
   stroke: #fff;
   fill: #fff;
 }
 
-/* line 372, ../../dev/sass/base/general.scss */
+/* line 373, ../../dev/sass/base/general.scss */
 .size-rect {
   stroke: #6ed44a;
   stroke-width: 0.1875rem;
   fill: #fff;
 }
 
-/* line 377, ../../dev/sass/base/general.scss */
+/* line 378, ../../dev/sass/base/general.scss */
 .size-value, .size-value-vertical {
   font-size: 5rem;
   stroke: #D2D2D2;
@@ -1492,12 +1492,12 @@ body {
   text-anchor: middle;
 }
 
-/* line 383, ../../dev/sass/base/general.scss */
+/* line 384, ../../dev/sass/base/general.scss */
 .size-value-vertical {
   text-anchor: end;
 }
 
-/* line 390, ../../dev/sass/base/general.scss */
+/* line 391, ../../dev/sass/base/general.scss */
 .size-value-edit, .size-value-edit-vertical {
   font-size: 5rem;
   stroke: #6ed44a;
@@ -1506,20 +1506,20 @@ body {
   text-anchor: middle;
 }
 
-/* line 397, ../../dev/sass/base/general.scss */
+/* line 398, ../../dev/sass/base/general.scss */
 .size-value-edit-vertical {
   text-anchor: end;
 }
 
-/* line 401, ../../dev/sass/base/general.scss */
+/* line 402, ../../dev/sass/base/general.scss */
 .open-direction {
   fill: none;
   stroke: #f98000;
   stroke-width: 2;
 }
 
-/* line 410, ../../dev/sass/base/general.scss */
-.scrolling-container, .scroll-vert-container, .scroll-hor-container {
+/* line 411, ../../dev/sass/base/general.scss */
+.scrolling-container, .scroll-vert-container, .scroll-hor-container, .cart-page .addelements-detail-content {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
   -o-overflow-scrolling: touch;
@@ -1527,26 +1527,26 @@ body {
   overflow-scrolling: touch;
 }
 
-/* line 413, ../../dev/sass/base/general.scss */
+/* line 414, ../../dev/sass/base/general.scss */
 .scroll-vert, .scroll-vert-container {
   overflow-x: hidden;
   overflow-y: scroll;
 }
 
-/* line 417, ../../dev/sass/base/general.scss */
+/* line 418, ../../dev/sass/base/general.scss */
 .scroll-hor, .scroll-hor-container {
   overflow-x: scroll;
   overflow-y: hidden;
 }
 
-/* line 421, ../../dev/sass/base/general.scss */
+/* line 422, ../../dev/sass/base/general.scss */
 .scroll-vert-container {
   width: 100%;
   height: 90%;
   padding-top: 2rem;
 }
 
-/* line 428, ../../dev/sass/base/general.scss */
+/* line 429, ../../dev/sass/base/general.scss */
 .scroll-hor-container {
   width: 100%;
   height: 100%;
@@ -1788,8 +1788,9 @@ body {
 /* line 9, ../../dev/sass/parts/_room-info.scss */
 .room-info-container.show-comment {
   height: 97.5rem;
+  z-index: 11;
 }
-/* line 12, ../../dev/sass/parts/_room-info.scss */
+/* line 13, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .room-header {
   top: 0rem;
   left: 0rem;
@@ -1799,7 +1800,7 @@ body {
   position: absolute;
   padding-left: 3.125rem;
 }
-/* line 19, ../../dev/sass/parts/_room-info.scss */
+/* line 20, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .room-name {
   display: -webkit-flex;
   display: flex;
@@ -1809,13 +1810,13 @@ body {
   min-width: 60rem;
   color: #fff;
 }
-/* line 27, ../../dev/sass/parts/_room-info.scss */
+/* line 28, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .select-rooms {
   width: 8.5rem;
   height: 4.5rem;
   margin-left: 2.1875rem;
 }
-/* line 35, ../../dev/sass/parts/_room-info.scss */
+/* line 36, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-container {
   display: -webkit-flex;
   display: flex;
@@ -1829,7 +1830,7 @@ body {
   position: absolute;
   width: 100%;
 }
-/* line 44, ../../dev/sass/parts/_room-info.scss */
+/* line 45, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-block {
   text-shadow: 1px 2px 0px rgba(0, 0, 0, 0.4);
   margin: 0;
@@ -1837,15 +1838,15 @@ body {
   color: #fff;
   border-left: 2px dotted #fff;
 }
-/* line 51, ../../dev/sass/parts/_room-info.scss */
+/* line 52, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-block:first-child {
   border-left: none;
 }
-/* line 54, ../../dev/sass/parts/_room-info.scss */
+/* line 55, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-block:nth-child(2), .room-info-container .coeff-block:last-child {
   min-width: 32.5rem;
 }
-/* line 59, ../../dev/sass/parts/_room-info.scss */
+/* line 60, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-max {
   font: normal 2.25rem/1 roboto-medium, sans-serif;
   position: absolute;
@@ -1853,23 +1854,40 @@ body {
   right: 0;
   color: #fff;
 }
-/* line 67, ../../dev/sass/parts/_room-info.scss */
+/* line 68, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff {
   font: normal 5rem/1 roboto-light, sans-serif;
   position: relative;
   float: left;
 }
-/* line 72, ../../dev/sass/parts/_room-info.scss */
+/* line 73, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff.coeff-low {
   color: #ff9500;
 }
-/* line 78, ../../dev/sass/parts/_room-info.scss */
+/* line 79, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-title {
   font: normal 2rem/2.25rem roboto-light, sans-serif;
   float: left;
   width: 15.625rem;
   margin-left: 1.25rem;
   word-wrap: break-word;
+}
+/* line 89, ../../dev/sass/parts/_room-info.scss */
+.room-info-container .product-comment {
+  margin-top: 23rem;
+  height: 90%;
+}
+/* line 93, ../../dev/sass/parts/_room-info.scss */
+.room-info-container textarea.comment-field {
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  width: 90%;
+  height: 80%;
+  display: block;
+  margin: 0 auto;
+  padding: 2rem;
+  border: none;
+  border-radius: 1.25rem;
+  outline: none;
 }
 
 @-webkit-keyframes moveRoomHeader {
@@ -4182,8 +4200,8 @@ body {
 }
 /* line 119, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail {
-  position: fixed;
-  top: 0rem;
+  position: absolute;
+  top: 17rem;
   left: 30rem;
   width: 32rem;
   background-color: #fff;
@@ -4191,7 +4209,7 @@ body {
   border-bottom-right-radius: 1.25rem;
   z-index: 10;
 }
-/* line 132, ../../dev/sass/pages/cart.scss */
+/* line 129, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-tools {
   display: -webkit-flex;
   display: flex;
@@ -4199,7 +4217,7 @@ body {
   flex-flow: row nowrap;
   height: 6.25rem;
 }
-/* line 138, ../../dev/sass/pages/cart.scss */
+/* line 135, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-edit {
   -webkit-flex-grow: 3;
   flex-grow: 3;
@@ -4207,39 +4225,39 @@ body {
   background-color: #6ed44a;
   color: #fff;
 }
-/* line 146, ../../dev/sass/pages/cart.scss */
+/* line 143, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-close {
   -webkit-flex-grow: 1;
   flex-grow: 1;
   background-color: #bebebe;
 }
-/* line 151, ../../dev/sass/pages/cart.scss */
+/* line 148, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-close:after {
   font: normal 2.5rem/1 general-icons, sans-serif;
   color: #fff;
   content: "\e61f";
 }
-/* line 157, ../../dev/sass/pages/cart.scss */
+/* line 154, ../../dev/sass/pages/cart.scss */
 .cart-page .product-template {
   padding: 2.125rem;
   border-bottom: 1px solid #bebebe;
 }
-/* line 161, ../../dev/sass/pages/cart.scss */
+/* line 158, ../../dev/sass/pages/cart.scss */
 .cart-page .product-template-icon {
   margin-bottom: 1.25rem;
 }
-/* line 164, ../../dev/sass/pages/cart.scss */
+/* line 161, ../../dev/sass/pages/cart.scss */
 .cart-page .product-icon-thumb {
   display: inline-block;
   width: 12.5rem;
   margin-right: 0.625rem;
 }
-/* line 176, ../../dev/sass/pages/cart.scss */
+/* line 173, ../../dev/sass/pages/cart.scss */
 .cart-page .product-icon-label {
   max-width: 7.1875rem;
   text-align: right;
 }
-/* line 180, ../../dev/sass/pages/cart.scss */
+/* line 177, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-row, .cart-page .addelements-detail-footer {
   display: -webkit-flex;
   display: flex;
@@ -4250,25 +4268,25 @@ body {
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 186, ../../dev/sass/pages/cart.scss */
+/* line 183, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-content {
   height: 46.25rem;
   overflow-x: hidden;
   overflow-y: auto;
   padding: 1.875rem 3.125rem;
 }
-/* line 192, ../../dev/sass/pages/cart.scss */
+/* line 190, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 197, ../../dev/sass/pages/cart.scss */
+/* line 195, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-item {
   padding-top: 1.25rem;
   border-bottom: 1px solid #bebebe;
 }
-/* line 201, ../../dev/sass/pages/cart.scss */
+/* line 199, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-parameters {
   display: -webkit-flex;
   display: flex;
@@ -4280,57 +4298,57 @@ body {
   align-items: center;
   margin: 1.25rem 0;
 }
-/* line 208, ../../dev/sass/pages/cart.scss */
+/* line 206, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-parameter {
   margin-right: 1rem;
 }
-/* line 211, ../../dev/sass/pages/cart.scss */
+/* line 209, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-value {
   margin-right: 1.25rem;
 }
-/* line 215, ../../dev/sass/pages/cart.scss */
+/* line 213, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-value img {
   width: 2.8125rem;
 }
-/* line 222, ../../dev/sass/pages/cart.scss */
+/* line 220, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-price-value {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
   margin-right: 1.25rem;
 }
-/* line 228, ../../dev/sass/pages/cart.scss */
+/* line 226, ../../dev/sass/pages/cart.scss */
 .cart-page .price-one-product {
   margin-top: 1.875rem;
 }
-/* line 231, ../../dev/sass/pages/cart.scss */
+/* line 229, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-footer {
   padding-right: 3.125rem;
 }
 
-/* line 241, ../../dev/sass/pages/cart.scss */
+/* line 239, ../../dev/sass/pages/cart.scss */
 .full-view .order-block {
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
 }
-/* line 246, ../../dev/sass/pages/cart.scss */
+/* line 244, ../../dev/sass/pages/cart.scss */
 .full-view .order {
   width: 32rem;
   float: left;
   border-bottom-right-radius: 1.25rem;
   border-bottom-left-radius: 1.25rem;
 }
-/* line 252, ../../dev/sass/pages/cart.scss */
+/* line 250, ../../dev/sass/pages/cart.scss */
 .full-view .order-header {
   height: 20rem;
 }
-/* line 255, ../../dev/sass/pages/cart.scss */
+/* line 253, ../../dev/sass/pages/cart.scss */
 .full-view .order-header-fon {
   width: 32rem;
   height: 20rem;
   cursor: pointer;
 }
-/* line 260, ../../dev/sass/pages/cart.scss */
+/* line 258, ../../dev/sass/pages/cart.scss */
 .full-view .order-template {
   position: absolute;
   bottom: -4.5625rem;
@@ -4339,41 +4357,41 @@ body {
   background-color: #fff;
   border-radius: 0.625rem;
 }
-/* line 268, ../../dev/sass/pages/cart.scss */
+/* line 266, ../../dev/sass/pages/cart.scss */
 .full-view .order-coeff {
   bottom: -3.75rem;
   right: 0.3125rem;
   position: absolute;
   background-color: #fff;
 }
-/* line 274, ../../dev/sass/pages/cart.scss */
+/* line 272, ../../dev/sass/pages/cart.scss */
 .full-view .coeff-label {
   font: normal 1.75rem/1.42857 roboto-light, sans-serif;
   color: #8c8c8c;
 }
-/* line 278, ../../dev/sass/pages/cart.scss */
+/* line 276, ../../dev/sass/pages/cart.scss */
 .full-view .coeff-value {
   font: normal 2.625rem/1.42857 roboto-light, sans-serif;
   color: #6ed44a;
   margin-left: 0.3125rem;
 }
-/* line 283, ../../dev/sass/pages/cart.scss */
+/* line 281, ../../dev/sass/pages/cart.scss */
 .full-view .order-content {
   padding: 4.375rem 2.5rem 0 3.125rem;
   background-color: #fff;
 }
-/* line 287, ../../dev/sass/pages/cart.scss */
+/* line 285, ../../dev/sass/pages/cart.scss */
 .full-view .order-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 292, ../../dev/sass/pages/cart.scss */
+/* line 290, ../../dev/sass/pages/cart.scss */
 .full-view .order-item {
   padding: 0.4375rem 0;
   border-bottom: 1px solid #bebebe;
 }
-/* line 296, ../../dev/sass/pages/cart.scss */
+/* line 294, ../../dev/sass/pages/cart.scss */
 .full-view .order-qty {
   -webkit-flex-flow: row nowrap;
   flex-flow: row nowrap;
@@ -4381,23 +4399,23 @@ body {
   justify-content: space-between;
   height: 6.25rem;
 }
-/* line 301, ../../dev/sass/pages/cart.scss */
+/* line 299, ../../dev/sass/pages/cart.scss */
 .full-view .qty-label {
   max-width: 10.625rem;
 }
-/* line 304, ../../dev/sass/pages/cart.scss */
+/* line 302, ../../dev/sass/pages/cart.scss */
 .full-view .order-footer, .full-view .cart-page .addelements-detail-footer, .cart-page .full-view .addelements-detail-footer {
   padding-left: 3.125rem;
 }
 
-/* line 311, ../../dev/sass/pages/cart.scss */
+/* line 309, ../../dev/sass/pages/cart.scss */
 .light-view .order-block {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
 }
-/* line 315, ../../dev/sass/pages/cart.scss */
+/* line 313, ../../dev/sass/pages/cart.scss */
 .light-view .order {
   width: 26.25rem;
   margin-bottom: 3.125rem;
@@ -4406,26 +4424,26 @@ body {
   background-color: #fff;
   text-align: center;
 }
-/* line 323, ../../dev/sass/pages/cart.scss */
+/* line 321, ../../dev/sass/pages/cart.scss */
 .light-view .order-template {
   cursor: pointer;
 }
-/* line 329, ../../dev/sass/pages/cart.scss */
+/* line 327, ../../dev/sass/pages/cart.scss */
 .light-view .order-header {
   padding-top: 2.5rem;
 }
-/* line 332, ../../dev/sass/pages/cart.scss */
+/* line 330, ../../dev/sass/pages/cart.scss */
 .light-view .order-content {
   padding: 2.5rem 1.25rem;
 }
-/* line 338, ../../dev/sass/pages/cart.scss */
+/* line 336, ../../dev/sass/pages/cart.scss */
 .light-view .addelements-btn {
   margin-top: 0.625rem;
   padding: 0.625rem 0;
   border-top: 1px solid #bebebe;
   border-bottom: 1px solid #bebebe;
 }
-/* line 344, ../../dev/sass/pages/cart.scss */
+/* line 342, ../../dev/sass/pages/cart.scss */
 .light-view .order-qty {
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
@@ -4433,7 +4451,7 @@ body {
   justify-content: space-around;
   padding-top: 2.5rem;
 }
-/* line 349, ../../dev/sass/pages/cart.scss */
+/* line 347, ../../dev/sass/pages/cart.scss */
 .light-view .order-label, .light-view .cart-page .product-icon-label, .cart-page .light-view .product-icon-label,
 .light-view .cart-page .product-label,
 .cart-page .light-view .product-label, .light-view .cart-page .addelement-label, .cart-page .light-view .addelement-label {

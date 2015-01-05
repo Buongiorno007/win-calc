@@ -62,7 +62,7 @@
       <div ng-controller="RoomInfoCtrl" ng-class="{'show-comment': global.isShowCommentBlock}" class="room-info-container">
         <div class="room-header">
           <div class="room-name">{{ roomInfo.roomsData[(global.product.selectedRoomId-1)].name }}
-            <button show-delay="{{ roomInfo.DELAY_SHOW_ALLROOMS_BTN }}" ng-click="showRoomSelectorDialog()" class="select-rooms unvisible">{{ 'common_words.ALL' | translate }}</button>
+            <button show-delay="{{ roomInfo.DELAY_SHOW_ALLROOMS_BTN }}" ng-click="showRoomSelectorDialog()" ng-hide="global.isShowCommentBlock" class="select-rooms unvisible">{{ 'common_words.ALL' | translate }}</button>
           </div>
         </div>
         <div class="coeff-container">
@@ -82,6 +82,10 @@
             </div>
             <div data-output="{{ 'mainpage.AIR_CIRCULATION' | translate }}" typing="{{ roomInfo.typing }}" typing-delay="{{ roomInfo.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
           </div>
+        </div>
+        <!--.product-comment(ng-show="global.isShowCommentBlock")-->
+        <div class="product-comment">
+          <textarea ng-model="global.product.comment" placeholder="{{ 'mainpage.COMMENT' | translate }}" class="comment-field"></textarea>
         </div>
       </div>
       <div ng-controller="RoomSelectorCtrl" ng-class="{'active': global.showRoomSelectorDialog}" class="rooms-selector-dialog">
@@ -1010,6 +1014,7 @@
         </div>
         <button ng-click="viewSwitching()" class="view-switch-tab">{{ 'add_elements.SCHEME_VIEW' | translate }}</button>
       </div>
+      <div ng-show="global.isShowCommentBlock" class="backDarkView"></div>
     </section>
     <section class="right-menu">
       <div ng-controller="ConfigMenuCtrl" class="config-menu">

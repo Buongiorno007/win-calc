@@ -68,7 +68,8 @@ window.russianDictionary = {
     CONFIGMENU_LAMINATION_TYPE: 'фасад / в комнате',
     CONFIGMENU_ADDITIONAL: 'Дополнительно',
     CONFIGMENU_IN_CART: 'В корзину',
-    VOICE_SPEACH: 'Говорите...'
+    VOICE_SPEACH: 'Говорите...',
+    COMMENT: 'Оставьте свою заметку о заказе здесь.'
   },
   panels: {
     TEMPLATE_WINDOW: 'Oкно',

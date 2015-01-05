@@ -166,7 +166,7 @@ BauVoiceApp.factory('localStorage', function () {
       laminationPriceSELECT: 0,
       addElementsPriceSELECT: 0,
       productPriceTOTAL: 0,
-
+      comment: '',
       productQty: 1
     },
 

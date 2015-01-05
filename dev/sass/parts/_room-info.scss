@@ -8,6 +8,7 @@
 
   &.show-comment {
     height: 97.5rem;
+    z-index: 11;
   }
   .room-header {
     @include top_left_coord(0px, 0px);
@@ -82,6 +83,23 @@
     width: rem(250px);
     margin-left: rem(20px);
     word-wrap: break-word;
+  }
+
+  //----- Comment Block
+  .product-comment {
+    margin-top: 23rem;
+    height: 90%;
+  }
+  textarea.comment-field {
+    @include roboto-lt(rem(36px));
+    width: 90%;
+    height: 80%;
+    display: block;
+    margin: 0 auto;
+    padding: 2rem;
+    border: none;
+    border-radius: rem($radius_general-small_button);
+    outline: none;
   }
 }
 

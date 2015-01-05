@@ -204,6 +204,10 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "type": "FLOAT",
       "null": "NOT NULL"
     },
+    "comment":{
+      "type": "TEXT",
+      "null": "NULL"
+    },
     "productQty":{
       "type": "INTEGER",
       "null": "NOT NULL"

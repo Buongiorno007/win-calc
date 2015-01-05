@@ -15,6 +15,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
       include panels/_lamination
       include panels/_additional-elements
       include panels/_additional-elements-list
+      .backDarkView(ng-show="global.isShowCommentBlock")
     section.right-menu
       include menus/_config-menu
       include menus/_elements-list
