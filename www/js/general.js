@@ -91,7 +91,6 @@ function deactiveSizeBox(sizeEditClass, sizeClass) {
 var FrameObject = function (sourceObj) {
   this.id = sourceObj.id;
   this.type = sourceObj.type;
-  this.listId = 0; //это будет ID перечня из базы, у точек будет listId = 0
 };
 
 //-----------FixedPoint-------------------
@@ -134,7 +133,6 @@ LineObject.prototype = FrameObject;
 var FrameLine = function (sourceObj) {
   LineObject.call(this, sourceObj);
   this.sill = sourceObj.sill;
-  this.listId = 7;  // = Service.GetDefaultFrameLineListId();
 };
 FrameLine.prototype = LineObject;
 
@@ -280,7 +278,7 @@ ImpostLine.prototype = LineObject;
 var GlassLine = function (sourceObj) {
   LineObject.call(this, sourceObj);
 };
-BeadBoxLine.prototype = LineObject;
+GlassLine.prototype = LineObject;
 
 
 //-----------Frame Object-------------------
@@ -406,7 +404,7 @@ Square.prototype = FrameObject;
 
 
 var Template = function (sourceObj, depths) {
-  this.name      = sourceObj.name;
+  this.name = sourceObj.name;
   //this.shortName = sourceObj.short_name;
   //this.icon = sourceObj.iconUrl;
   this.objects = [];
@@ -442,7 +440,11 @@ var Template = function (sourceObj, depths) {
         break;
       case 'sash_out_line':  tmpObject = new SashLine(sourceObj.objects[i]);
         break;
-      case 'bead_box_line':  tmpObject = new BeadBoxLine(sourceObj.objects[i]);
+      case 'bead_line':  tmpObject = new BeadBoxLine(sourceObj.objects[i]);
+        break;
+      case 'cross_point_bead':  tmpObject = new CrossPoint(sourceObj.objects[i], 20);
+        break;
+      case 'bead_in_line':  tmpObject = new BeadBoxLine(sourceObj.objects[i]);
         break;
       case 'cross_point_glass':
         if(sourceObj.objects[i].blockType === 'frame') {
@@ -461,6 +463,7 @@ var Template = function (sourceObj, depths) {
         break;
       case 'frame':
       case 'impost':
+      case 'bead_box':
         tmpObject = new Frame(sourceObj.objects[i]);
         break;
       case 'sash':  tmpObject = new Sash(sourceObj.objects[i]);
@@ -545,7 +548,11 @@ var TemplateIcon = function (sourceObj, depths) {
         break;
       case 'sash_out_line':  tmpObject = new SashLine(sourceObj.objects[i]);
         break;
-      case 'bead_box_line':  tmpObject = new BeadBoxLine(sourceObj.objects[i]);
+      case 'bead_line':  tmpObject = new BeadBoxLine(sourceObj.objects[i]);
+        break;
+      case 'cross_point_bead':  tmpObject = new CrossPoint(sourceObj.objects[i], 20);
+        break;
+      case 'bead_in_line':  tmpObject = new BeadBoxLine(sourceObj.objects[i]);
         break;
       case 'cross_point_glass':
         if(sourceObj.objects[i].blockType === 'frame') {
@@ -565,6 +572,7 @@ var TemplateIcon = function (sourceObj, depths) {
         break;
       case 'frame':
       case 'impost':
+      case 'bead_box':
         tmpObject = new Frame(sourceObj.objects[i]);
         break;
       case 'sash':  tmpObject = new Sash(sourceObj.objects[i]);

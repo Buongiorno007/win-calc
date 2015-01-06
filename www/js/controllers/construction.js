@@ -15,7 +15,16 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     maxSizeLimit: 5000,
     isMinSizeRestriction: false,
     isMaxSizeRestriction: false,
+
     activeMenuItem: false,
+    isSashEdit: false,
+    isAngelEdit: false,
+    isImpostEdit: false,
+    isArchEdit: false,
+    isPositionEdit: false,
+
+    isSashEditMenu: false,
+
     showDoorConfig: false,
 
     selectedDoorShape: false,
@@ -38,7 +47,6 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     DELAY_SHOW_FIGURE_ITEM: 2000,
     typing: 'on'
   };
-  //$scope.global.isCreatedNewProject = false;
 
   $scope.openVoiceHelper = false;
   $scope.loudVoice = false;
@@ -54,8 +62,6 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
   $scope.templateSourceTEMP = angular.copy($scope.global.product.templateSource);
   $scope.templateDefaultTEMP = angular.copy($scope.global.product.templateDefault);
-
-  //console.log('product in construction', $scope.global.product);
 
 
 
@@ -88,7 +94,33 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   //--------Select menu item
   $scope.selectMenuItem = function(id) {
     $scope.constructData.activeMenuItem = ($scope.constructData.activeMenuItem === id) ? false : id;
+    deactivateShapeMenu();
+    switch(id) {
+      case 1:
+        $scope.constructData.isSashEdit = true;
+        break;
+      case 2:
+        $scope.constructData.isAngelEdit = true;
+        break;
+      case 3:
+        $scope.constructData.isImpostEdit = true;
+        break;
+      case 4:
+        $scope.constructData.isArchEdit = true;
+        break;
+      case 5:
+        $scope.constructData.isPositionEdit = true;
+        break;
+    }
   };
+
+  function deactivateShapeMenu() {
+    $scope.constructData.isSashEdit = false;
+    $scope.constructData.isAngelEdit = false;
+    $scope.constructData.isImpostEdit = false;
+    $scope.constructData.isArchEdit = false;
+    $scope.constructData.isPositionEdit = false;
+  }
 
   //---------- Show Door Configuration
   $scope.getDoorConfig = function() {
@@ -259,7 +291,10 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     }
   };
 
-  //-------- CHANGE CONSTRUCTION SIZE -----------
+
+
+
+  //=============== CHANGE CONSTRUCTION SIZE ==============
 
   //----- click on size SVG and get size value and Id
   $('svg-template').off().on("click", ".size-box-edited", function() {
@@ -567,6 +602,51 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     $scope.loudVoice = false;
     $scope.quietVoice = false;
   };
+
+
+
+  //=============== CLICK ON GLASS PACKAGE ==============
+
+  $('svg-template').off().on("click", ".glass", function(event) {
+    if($scope.constructData.isSashEdit) {
+
+      if(!$scope.constructData.isSashEditMenu) {
+        $scope.constructData.isSashEditMenu = true;
+        editSash(event);
+      } else {
+        $scope.constructData.isSashEditMenu = false;
+      }
+$scope.$apply();
+    } else if($scope.constructData.isAngelEdit) {
+      console.log('angel');
+    } else if($scope.constructData.isImpostEdit) {
+      console.log('impost');
+    } else if($scope.constructData.isArchEdit) {
+      console.log('arch');
+    } else if($scope.constructData.isPositionEdit) {
+      console.log('position');
+    }
+  });
+
+
+
+  //=============== EDIT SASH CONSTRUCTION ==============
+
+  function editSash(event) {
+    var menuX = event.pageX;
+    var menuY = event.pageY;
+    var menuX = event.clientX
+    $('#sash-shape-menu').css({'top': menuX+'px', 'left': menuY+'px'});
+    console.log('sash-menu === ', $('#sash-shape-menu'));
+    console.log('menuX === ', menuX);
+    $('svg-template').find('.glass').each(function() {
+      console.log('sash!!!!', $(this));
+
+      //$(this).addClass('glass-active');
+      $(this).css('fill', 'rgba(34, 34, 255, 0.69)');
+    });
+
+  }
 
 }]);
 

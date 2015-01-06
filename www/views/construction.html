@@ -34,6 +34,17 @@
         <svg-template template="templateDefaultTEMP" template-width="svgTemplateWidthTEMP" template-height="svgTemplateHeightTEMP" type-construction="edit"></svg-template>
       </div>
     </div>
+    <div id="sash-shape-menu" ng-show="constructData.isSashEdit &amp;&amp; constructData.isSashEditMenu">
+      <ul class="sash-shape-list">
+        <li class="sash-shape-icon sash-empty"></li>
+        <li class="sash-shape-icon sash-left"></li>
+        <li class="sash-shape-icon sash-right"></li>
+        <li class="sash-shape-icon sash-up"></li>
+        <li class="sash-shape-icon sash-down"></li>
+        <li class="sash-shape-icon sash-right-up"></li>
+        <li class="sash-shape-icon sash-left-up"></li>
+      </ul>
+    </div>
     <div class="construction-right-menu">
       <div class="right-menu-header">
         <button ng-click="gotoMainPageSaved()" class="construct-tools save-construction"></button>

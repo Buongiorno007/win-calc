@@ -212,16 +212,19 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'frame_in_line', id: 'frameinline3', from: 'cp2', to: 'cp3'},
               {'type': 'frame_in_line', id: 'frameinline4', from: 'cp3', to: 'cp4'},
               //----------- bead box
-              /*
-               {'type': 'cross_point_bead', id: 'cpbead1', line1: 'frameinline1', line2: 'frameinline2'},
-               {'type': 'cross_point_bead', id: 'cpbead2', line1: 'frameinline2', line2: 'frameinline3'},
-               {'type': 'cross_point_bead', id: 'cpbead3', line1: 'frameinline3', line2: 'frameinline4'},
-               {'type': 'cross_point_bead', id: 'cpbead4', line1: 'frameinline4', line2: 'frameinline1'},
-               {'type':'bead_box_line', id:'beadline1', from:'cpbead4', to:'cpbead1'},
-               {'type':'bead_box_line', id:'beadline2', from:'cpbead1', to:'cpbead2'},
-               {'type':'bead_box_line', id:'beadline3', from:'cpbead2', to:'cpbead3'},
-               {'type':'bead_box_line', id:'beadline4', from:'cpbead3', to:'cpbead4'}
-               */
+              {'type': 'bead_line', id:'beadline1', from:'cp4', to:'cp1'},
+              {'type': 'bead_line', id:'beadline2', from:'cp1', to:'cp2'},
+              {'type': 'bead_line', id:'beadline3', from:'cp2', to:'cp3'},
+              {'type': 'bead_line', id:'beadline4', from:'cp3', to:'cp4'},
+              {'type': 'cross_point_bead', id: 'cpbead1', line1: 'beadline1', line2: 'beadline2'},
+              {'type': 'cross_point_bead', id: 'cpbead2', line1: 'beadline2', line2: 'beadline3'},
+              {'type': 'cross_point_bead', id: 'cpbead3', line1: 'beadline3', line2: 'beadline4'},
+              {'type': 'cross_point_bead', id: 'cpbead4', line1: 'beadline4', line2: 'beadline1'},
+              {'type': 'bead_in_line', id:'beadinline1', from:'cpbead4', to:'cpbead1'},
+              {'type': 'bead_in_line', id:'beadinline2', from:'cpbead1', to:'cpbead2'},
+              {'type': 'bead_in_line', id:'beadinline3', from:'cpbead2', to:'cpbead3'},
+              {'type': 'bead_in_line', id:'beadinline4', from:'cpbead3', to:'cpbead4'},
+
               //----- glass
               {'type': 'cross_point_glass', id: 'cpg1', line1: 'frameline1', line2: 'frameline2', blockType: 'frame'},
               {'type': 'cross_point_glass', id: 'cpg2', line1: 'frameline2', line2: 'frameline3', blockType: 'frame'},
@@ -236,12 +239,12 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'frame', id: 'frame2', parts: ['frameline2', 'frameinline2']},
               {'type': 'frame', id: 'frame3', parts: ['frameline3', 'frameinline3']},
               {'type': 'frame', id: 'frame4', parts: ['frameline4', 'frameinline4']},
-              /*
-               {'type': 'bead_box', id:'bead1', parts: ['frameinline1', 'beadline1']},
-               {'type': 'bead_box', id:'bead2', parts: ['frameinline2', 'beadline2']},
-               {'type': 'bead_box', id:'bead3', parts: ['frameinline3', 'beadline3']},
-               {'type': 'bead_box', id:'bead4', parts: ['frameinline4', 'beadline4']},
-               */
+
+              {'type': 'bead_box', id:'bead1', parts: ['beadline1', 'beadinline1']},
+              {'type': 'bead_box', id:'bead2', parts: ['beadline2', 'beadinline2']},
+              {'type': 'bead_box', id:'bead3', parts: ['beadline3', 'beadinline3']},
+              {'type': 'bead_box', id:'bead4', parts: ['beadline4', 'beadinline4']},
+
               {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
               {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 1, height: 150, side: 'top'},
               {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'},
@@ -288,16 +291,18 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'sash_line', id: 'sashline3', from: 'cpsin2', to: 'cpsin3'},
               {'type': 'sash_line', id: 'sashline4', from: 'cpsin3', to: 'cpsin4'},
               //----------- bead box
-              /*
-              {'type': 'cross_point_bead', id: 'cpbead1', line1: 'sashline1', line2: 'sashline2'},
-              {'type': 'cross_point_bead', id: 'cpbead2', line1: 'sashline2', line2: 'sashline3'},
-              {'type': 'cross_point_bead', id: 'cpbead3', line1: 'sashline3', line2: 'sashline4'},
-              {'type': 'cross_point_bead', id: 'cpbead4', line1: 'sashline4', line2: 'sashline1'},
-              {'type':'bead_box_line', id:'beadline1', from:'cpbead4', to:'cpbead1'},
-              {'type':'bead_box_line', id:'beadline2', from:'cpbead1', to:'cpbead2'},
-              {'type':'bead_box_line', id:'beadline3', from:'cpbead2', to:'cpbead3'},
-              {'type':'bead_box_line', id:'beadline4', from:'cpbead3', to:'cpbead4'}
-               */
+              {'type': 'bead_line', id:'beadline1', from:'cpsin4', to:'cpsin1'},
+              {'type': 'bead_line', id:'beadline2', from:'cpsin1', to:'cpsin2'},
+              {'type': 'bead_line', id:'beadline3', from:'cpsin2', to:'cpsin3'},
+              {'type': 'bead_line', id:'beadline4', from:'cpsin3', to:'cpsin4'},
+              {'type': 'cross_point_bead', id: 'cpbead1', line1: 'beadline1', line2: 'beadline2'},
+              {'type': 'cross_point_bead', id: 'cpbead2', line1: 'beadline2', line2: 'beadline3'},
+              {'type': 'cross_point_bead', id: 'cpbead3', line1: 'beadline3', line2: 'beadline4'},
+              {'type': 'cross_point_bead', id: 'cpbead4', line1: 'beadline4', line2: 'beadline1'},
+              {'type': 'bead_in_line', id:'beadinline1', from:'cpbead4', to:'cpbead1'},
+              {'type': 'bead_in_line', id:'beadinline2', from:'cpbead1', to:'cpbead2'},
+              {'type': 'bead_in_line', id:'beadinline3', from:'cpbead2', to:'cpbead3'},
+              {'type': 'bead_in_line', id:'beadinline4', from:'cpbead3', to:'cpbead4'},
               //----- glass
               {'type': 'cross_point_glass', id: 'cpg1', line1: 'sashoutline1', line2: 'sashoutline2', blockType: 'sash'},
               {'type': 'cross_point_glass', id: 'cpg2', line1: 'sashoutline2', line2: 'sashoutline3', blockType: 'sash'},
@@ -316,12 +321,12 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'sash', id: 'sash2', parts: ['sashoutline2', 'sashline2'], openType: ['sashline2', 'sashline4']},
               {'type': 'sash', id: 'sash3', parts: ['sashoutline3', 'sashline3'], openType: ['sashline3', 'sashline1']},
               {'type': 'sash', id: 'sash4', parts: ['sashoutline4', 'sashline4']},
-              /*
-               {'type': 'bead_box', id:'bead1', parts: ['sashline1', 'beadline1']},
-               {'type': 'bead_box', id:'bead2', parts: ['sashline2', 'beadline2']},
-               {'type': 'bead_box', id:'bead3', parts: ['sashline3', 'beadline3']},
-               {'type': 'bead_box', id:'bead4', parts: ['sashline4', 'beadline4']},
-               */
+
+              {'type': 'bead_box', id:'bead1', parts: ['beadline1', 'beadinline1']},
+              {'type': 'bead_box', id:'bead2', parts: ['beadline2', 'beadinline2']},
+              {'type': 'bead_box', id:'bead3', parts: ['beadline3', 'beadinline3']},
+              {'type': 'bead_box', id:'bead4', parts: ['beadline4', 'beadinline4']},
+
               {'type': 'sash_block', id: 'sashBlock1', parts: ['sashoutline1', 'sashoutline2', 'sashoutline3', 'sashoutline4'], hardwareId: 8, openDir: 2, handlePos: 4},
               {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
               {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 1, height: 150, side: 'top'},
@@ -380,25 +385,32 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'sash_line', id: 'sashline3', from: 'cpsin2', to: 'cpsin3'},
               {'type': 'sash_line', id: 'sashline4', from: 'cpsin3', to: 'cpsin4'},
               //----------- bead box
-              /*
-               {'type': 'cross_point_bead', id: 'cpbead1', line1: 'frameinline1', line2: 'impostinline1'},
-               {'type': 'cross_point_bead', id: 'cpbead2', line1: 'impostinline1', line2: 'frameinline3'},
-               {'type': 'cross_point_bead', id: 'cpbead3', line1: 'frameinline3', line2: 'frameinline4'},
-               {'type': 'cross_point_bead', id: 'cpbead4', line1: 'frameinline4', line2: 'frameinline1'},
-               {'type':'bead_box_line', id:'beadline1', from:'cpbead4', to:'cpbead1'},
-               {'type':'bead_box_line', id:'beadline2', from:'cpbead1', to:'cpbead2'},
-               {'type':'bead_box_line', id:'beadline3', from:'cpbead2', to:'cpbead3'},
-               {'type':'bead_box_line', id:'beadline4', from:'cpbead3', to:'cpbead4'}
+              {'type': 'bead_line', id:'beadline1', from:'cp4', to:'cpimpost1'},
+              {'type': 'bead_line', id:'beadline2', from:'cpimpost1', to:'cpimpost4'},
+              {'type': 'bead_line', id:'beadline3', from:'cpimpost4', to:'cp3'},
+              {'type': 'bead_line', id:'beadline4', from:'cp3', to:'cp4'},
+              {'type': 'cross_point_bead', id: 'cpbead1', line1: 'beadline1', line2: 'beadline2'},
+              {'type': 'cross_point_bead', id: 'cpbead2', line1: 'beadline2', line2: 'beadline3'},
+              {'type': 'cross_point_bead', id: 'cpbead3', line1: 'beadline3', line2: 'beadline4'},
+              {'type': 'cross_point_bead', id: 'cpbead4', line1: 'beadline4', line2: 'beadline1'},
+              {'type': 'bead_in_line', id:'beadinline1', from:'cpbead4', to:'cpbead1'},
+              {'type': 'bead_in_line', id:'beadinline2', from:'cpbead1', to:'cpbead2'},
+              {'type': 'bead_in_line', id:'beadinline3', from:'cpbead2', to:'cpbead3'},
+              {'type': 'bead_in_line', id:'beadinline4', from:'cpbead3', to:'cpbead4'},
 
-               {'type': 'cross_point_bead', id: 'cpbead5', line1: 'sashline1', line2: 'sashline2'},
-               {'type': 'cross_point_bead', id: 'cpbead6', line1: 'sashline2', line2: 'sashline3'},
-               {'type': 'cross_point_bead', id: 'cpbead7', line1: 'sashline3', line2: 'sashline4'},
-               {'type': 'cross_point_bead', id: 'cpbead8', line1: 'sashline4', line2: 'sashline1'},
-               {'type':'bead_box_line', id:'beadline5', from:'cpbead8', to:'cpbead5'},
-               {'type':'bead_box_line', id:'beadline6', from:'cpbead5', to:'cpbead6'},
-               {'type':'bead_box_line', id:'beadline7', from:'cpbead6', to:'cpbead7'},
-               {'type':'bead_box_line', id:'beadline8', from:'cpbead7', to:'cpbead8'}
-               */
+              {'type': 'bead_line', id:'beadline5', from:'cpsin4', to:'cpsin1'},
+              {'type': 'bead_line', id:'beadline6', from:'cpsin1', to:'cpsin2'},
+              {'type': 'bead_line', id:'beadline7', from:'cpsin2', to:'cpsin3'},
+              {'type': 'bead_line', id:'beadline8', from:'cpsin3', to:'cpsin4'},
+              {'type': 'cross_point_bead', id: 'cpbead5', line1: 'beadline5', line2: 'beadline6'},
+              {'type': 'cross_point_bead', id: 'cpbead6', line1: 'beadline6', line2: 'beadline7'},
+              {'type': 'cross_point_bead', id: 'cpbead7', line1: 'beadline7', line2: 'beadline8'},
+              {'type': 'cross_point_bead', id: 'cpbead8', line1: 'beadline8', line2: 'beadline5'},
+              {'type': 'bead_in_line', id:'beadinline5', from:'cpbead8', to:'cpbead5'},
+              {'type': 'bead_in_line', id:'beadinline6', from:'cpbead5', to:'cpbead6'},
+              {'type': 'bead_in_line', id:'beadinline7', from:'cpbead6', to:'cpbead7'},
+              {'type': 'bead_in_line', id:'beadinline8', from:'cpbead7', to:'cpbead8'},
+
               //----- left glass
               {'type': 'cross_point_glass', id: 'cpg1', line1: 'frameline1', line2: 'impostcenterline1', blockType: 'frame', isImpost: true},
               {'type': 'cross_point_glass', id: 'cpg2', line1: 'frameline3', line2: 'impostcenterline1', blockType: 'frame', isImpost: true},
@@ -427,17 +439,17 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'sash', id: 'sash2', parts: ['sashoutline2', 'sashline2'], openType: ['sashline2', 'sashline4']},
               {'type': 'sash', id: 'sash3', parts: ['sashoutline3', 'sashline3'], openType: ['sashline3', 'sashline1']},
               {'type': 'sash', id: 'sash4', parts: ['sashoutline4', 'sashline4']},
-              /*
-               {'type': 'bead_box', id:'bead1', parts: ['frameinline1', 'beadline1']},
-               {'type': 'bead_box', id:'bead2', parts: ['impostinline1', 'beadline2']},
-               {'type': 'bead_box', id:'bead3', parts: ['frameinline3', 'beadline3']},
-               {'type': 'bead_box', id:'bead4', parts: ['frameinline4', 'beadline4']},
 
-               {'type': 'bead_box', id:'bead5', parts: ['sashline1', 'beadline5']},
-               {'type': 'bead_box', id:'bead6', parts: ['sashline2', 'beadline6']},
-               {'type': 'bead_box', id:'bead7', parts: ['sashline3', 'beadline7']},
-               {'type': 'bead_box', id:'bead8', parts: ['sashline4', 'beadline8']},
-               */
+              {'type': 'bead_box', id:'bead1', parts: ['beadline1', 'beadinline1']},
+              {'type': 'bead_box', id:'bead2', parts: ['beadline2', 'beadinline2']},
+              {'type': 'bead_box', id:'bead3', parts: ['beadline3', 'beadinline3']},
+              {'type': 'bead_box', id:'bead4', parts: ['beadline4', 'beadinline4']},
+
+              {'type': 'bead_box', id:'bead5', parts: ['beadline5', 'beadinline5']},
+              {'type': 'bead_box', id:'bead6', parts: ['beadline6', 'beadinline6']},
+              {'type': 'bead_box', id:'bead7', parts: ['beadline7', 'beadinline7']},
+              {'type': 'bead_box', id:'bead8', parts: ['beadline8', 'beadinline8']},
+
               {'type': 'sash_block', id: 'sashBlock1', parts: ['sashoutline1', 'sashoutline2', 'sashoutline3', 'sashoutline4'], hardwareId: 8, openDir: 2, handlePos: 4},
               {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
               {'type': 'glass_paсkage', id: 'glass2', parts: ['glassline5', 'glassline6', 'glassline7', 'glassline8']},
@@ -507,26 +519,47 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'sash_line', id: 'sashline2', from: 'cpsin1', to: 'cpsin2'},
               {'type': 'sash_line', id: 'sashline3', from: 'cpsin2', to: 'cpsin3'},
               {'type': 'sash_line', id: 'sashline4', from: 'cpsin3', to: 'cpsin4'},
-              //----------- bead box
-              /*
-               {'type': 'cross_point_bead', id: 'cpbead1', line1: 'frameinline1', line2: 'impostinline1'},
-               {'type': 'cross_point_bead', id: 'cpbead2', line1: 'impostinline1', line2: 'frameinline3'},
-               {'type': 'cross_point_bead', id: 'cpbead3', line1: 'frameinline3', line2: 'frameinline4'},
-               {'type': 'cross_point_bead', id: 'cpbead4', line1: 'frameinline4', line2: 'frameinline1'},
-               {'type':'bead_box_line', id:'beadline1', from:'cpbead4', to:'cpbead1'},
-               {'type':'bead_box_line', id:'beadline2', from:'cpbead1', to:'cpbead2'},
-               {'type':'bead_box_line', id:'beadline3', from:'cpbead2', to:'cpbead3'},
-               {'type':'bead_box_line', id:'beadline4', from:'cpbead3', to:'cpbead4'}
 
-               {'type': 'cross_point_bead', id: 'cpbead5', line1: 'sashline1', line2: 'sashline2'},
-               {'type': 'cross_point_bead', id: 'cpbead6', line1: 'sashline2', line2: 'sashline3'},
-               {'type': 'cross_point_bead', id: 'cpbead7', line1: 'sashline3', line2: 'sashline4'},
-               {'type': 'cross_point_bead', id: 'cpbead8', line1: 'sashline4', line2: 'sashline1'},
-               {'type':'bead_box_line', id:'beadline5', from:'cpbead8', to:'cpbead5'},
-               {'type':'bead_box_line', id:'beadline6', from:'cpbead5', to:'cpbead6'},
-               {'type':'bead_box_line', id:'beadline7', from:'cpbead6', to:'cpbead7'},
-               {'type':'bead_box_line', id:'beadline8', from:'cpbead7', to:'cpbead8'}
-               */
+              //----------- bead box
+              {'type': 'bead_line', id:'beadline1', from:'cp4', to:'cpimpost1'},
+              {'type': 'bead_line', id:'beadline2', from:'cpimpost1', to:'cpimpost4'},
+              {'type': 'bead_line', id:'beadline3', from:'cpimpost4', to:'cp3'},
+              {'type': 'bead_line', id:'beadline4', from:'cp3', to:'cp4'},
+              {'type': 'cross_point_bead', id: 'cpbead1', line1: 'beadline1', line2: 'beadline2'},
+              {'type': 'cross_point_bead', id: 'cpbead2', line1: 'beadline2', line2: 'beadline3'},
+              {'type': 'cross_point_bead', id: 'cpbead3', line1: 'beadline3', line2: 'beadline4'},
+              {'type': 'cross_point_bead', id: 'cpbead4', line1: 'beadline4', line2: 'beadline1'},
+              {'type': 'bead_in_line', id:'beadinline1', from:'cpbead4', to:'cpbead1'},
+              {'type': 'bead_in_line', id:'beadinline2', from:'cpbead1', to:'cpbead2'},
+              {'type': 'bead_in_line', id:'beadinline3', from:'cpbead2', to:'cpbead3'},
+              {'type': 'bead_in_line', id:'beadinline4', from:'cpbead3', to:'cpbead4'},
+
+              {'type': 'bead_line', id:'beadline5', from:'cpsin4', to:'cpsin1'},
+              {'type': 'bead_line', id:'beadline6', from:'cpsin1', to:'cpsin2'},
+              {'type': 'bead_line', id:'beadline7', from:'cpsin2', to:'cpsin3'},
+              {'type': 'bead_line', id:'beadline8', from:'cpsin3', to:'cpsin4'},
+              {'type': 'cross_point_bead', id: 'cpbead5', line1: 'beadline5', line2: 'beadline6'},
+              {'type': 'cross_point_bead', id: 'cpbead6', line1: 'beadline6', line2: 'beadline7'},
+              {'type': 'cross_point_bead', id: 'cpbead7', line1: 'beadline7', line2: 'beadline8'},
+              {'type': 'cross_point_bead', id: 'cpbead8', line1: 'beadline8', line2: 'beadline5'},
+              {'type': 'bead_in_line', id:'beadinline5', from:'cpbead8', to:'cpbead5'},
+              {'type': 'bead_in_line', id:'beadinline6', from:'cpbead5', to:'cpbead6'},
+              {'type': 'bead_in_line', id:'beadinline7', from:'cpbead6', to:'cpbead7'},
+              {'type': 'bead_in_line', id:'beadinline8', from:'cpbead7', to:'cpbead8'},
+
+              {'type': 'bead_line', id:'beadline9', from:'cpimpost6', to:'cp1'},
+              {'type': 'bead_line', id:'beadline10', from:'cp1', to:'cp2'},
+              {'type': 'bead_line', id:'beadline11', from:'cp2', to:'cpimpost7'},
+              {'type': 'bead_line', id:'beadline12', from:'cpimpost7', to:'cpimpost6'},
+              {'type': 'cross_point_bead', id: 'cpbead9', line1: 'beadline9', line2: 'beadline10'},
+              {'type': 'cross_point_bead', id: 'cpbead10', line1: 'beadline10', line2: 'beadline11'},
+              {'type': 'cross_point_bead', id: 'cpbead11', line1: 'beadline11', line2: 'beadline12'},
+              {'type': 'cross_point_bead', id: 'cpbead12', line1: 'beadline12', line2: 'beadline9'},
+              {'type': 'bead_in_line', id:'beadinline9', from:'cpbead12', to:'cpbead9'},
+              {'type': 'bead_in_line', id:'beadinline10', from:'cpbead9', to:'cpbead10'},
+              {'type': 'bead_in_line', id:'beadinline11', from:'cpbead10', to:'cpbead11'},
+              {'type': 'bead_in_line', id:'beadinline12', from:'cpbead11', to:'cpbead12'},
+
               //---- left glass
               {'type': 'cross_point_glass', id: 'cpg1', line1: 'frameline1', line2: 'impostcenterline1', blockType: 'frame', isImpost: true},
               {'type': 'cross_point_glass', id: 'cpg2', line1: 'frameline3', line2: 'impostcenterline1', blockType: 'frame', isImpost: true},
@@ -565,17 +598,22 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'sash', id: 'sash2', parts: ['sashoutline2', 'sashline2'], openType: ['sashline2', 'sashline4']},
               {'type': 'sash', id: 'sash3', parts: ['sashoutline3', 'sashline3'], openType: ['sashline3', 'sashline1']},
               {'type': 'sash', id: 'sash4', parts: ['sashoutline4', 'sashline4']},
-              /*
-               {'type': 'bead_box', id:'bead1', parts: ['frameinline1', 'beadline1']},
-               {'type': 'bead_box', id:'bead2', parts: ['impostinline1', 'beadline2']},
-               {'type': 'bead_box', id:'bead3', parts: ['frameinline3', 'beadline3']},
-               {'type': 'bead_box', id:'bead4', parts: ['frameinline4', 'beadline4']},
 
-               {'type': 'bead_box', id:'bead5', parts: ['sashline1', 'beadline5']},
-               {'type': 'bead_box', id:'bead6', parts: ['sashline2', 'beadline6']},
-               {'type': 'bead_box', id:'bead7', parts: ['sashline3', 'beadline7']},
-               {'type': 'bead_box', id:'bead8', parts: ['sashline4', 'beadline8']},
-               */
+              {'type': 'bead_box', id:'bead1', parts: ['beadline1', 'beadinline1']},
+              {'type': 'bead_box', id:'bead2', parts: ['beadline2', 'beadinline2']},
+              {'type': 'bead_box', id:'bead3', parts: ['beadline3', 'beadinline3']},
+              {'type': 'bead_box', id:'bead4', parts: ['beadline4', 'beadinline4']},
+
+              {'type': 'bead_box', id:'bead5', parts: ['beadline5', 'beadinline5']},
+              {'type': 'bead_box', id:'bead6', parts: ['beadline6', 'beadinline6']},
+              {'type': 'bead_box', id:'bead7', parts: ['beadline7', 'beadinline7']},
+              {'type': 'bead_box', id:'bead8', parts: ['beadline8', 'beadinline8']},
+
+              {'type': 'bead_box', id:'bead9', parts: ['beadline9', 'beadinline9']},
+              {'type': 'bead_box', id:'bead10', parts: ['beadline10', 'beadinline10']},
+              {'type': 'bead_box', id:'bead11', parts: ['beadline11', 'beadinline11']},
+              {'type': 'bead_box', id:'bead12', parts: ['beadline12', 'beadinline12']},
+
               {'type': 'sash_block', id: 'sashBlock1', parts: ['sashoutline1', 'sashoutline2', 'sashoutline3', 'sashoutline4'], hardwareId: 8, openDir: 2, handlePos: 4},
               {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
               {'type': 'glass_paсkage', id: 'glass2', parts: ['glassline5', 'glassline6', 'glassline7', 'glassline8']},
@@ -650,25 +688,31 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'sash_line', id: 'sashline3', from: 'cpsin2', to: 'cpsin3'},
               {'type': 'sash_line', id: 'sashline4', from: 'cpsin3', to: 'cpsin4'},
               //----------- bead box
-              /*
-               {'type': 'cross_point_bead', id: 'cpbead1', line1: 'frameinline1', line2: 'impostinline1'},
-               {'type': 'cross_point_bead', id: 'cpbead2', line1: 'impostinline1', line2: 'frameinline3'},
-               {'type': 'cross_point_bead', id: 'cpbead3', line1: 'frameinline3', line2: 'frameinline4'},
-               {'type': 'cross_point_bead', id: 'cpbead4', line1: 'frameinline4', line2: 'frameinline1'},
-               {'type':'bead_box_line', id:'beadline1', from:'cpbead4', to:'cpbead1'},
-               {'type':'bead_box_line', id:'beadline2', from:'cpbead1', to:'cpbead2'},
-               {'type':'bead_box_line', id:'beadline3', from:'cpbead2', to:'cpbead3'},
-               {'type':'bead_box_line', id:'beadline4', from:'cpbead3', to:'cpbead4'}
+              {'type': 'bead_line', id:'beadline1', from:'cp4', to:'cp1'},
+              {'type': 'bead_line', id:'beadline2', from:'cp1', to:'cp2'},
+              {'type': 'bead_line', id:'beadline3', from:'cp2', to:'cp3'},
+              {'type': 'bead_line', id:'beadline4', from:'cp3', to:'cp4'},
+              {'type': 'cross_point_bead', id: 'cpbead1', line1: 'beadline1', line2: 'beadline2'},
+              {'type': 'cross_point_bead', id: 'cpbead2', line1: 'beadline2', line2: 'beadline3'},
+              {'type': 'cross_point_bead', id: 'cpbead3', line1: 'beadline3', line2: 'beadline4'},
+              {'type': 'cross_point_bead', id: 'cpbead4', line1: 'beadline4', line2: 'beadline1'},
+              {'type': 'bead_in_line', id:'beadinline1', from:'cpbead4', to:'cpbead1'},
+              {'type': 'bead_in_line', id:'beadinline2', from:'cpbead1', to:'cpbead2'},
+              {'type': 'bead_in_line', id:'beadinline3', from:'cpbead2', to:'cpbead3'},
+              {'type': 'bead_in_line', id:'beadinline4', from:'cpbead3', to:'cpbead4'},
 
-               {'type': 'cross_point_bead', id: 'cpbead5', line1: 'sashline1', line2: 'sashline2'},
-               {'type': 'cross_point_bead', id: 'cpbead6', line1: 'sashline2', line2: 'sashline3'},
-               {'type': 'cross_point_bead', id: 'cpbead7', line1: 'sashline3', line2: 'sashline4'},
-               {'type': 'cross_point_bead', id: 'cpbead8', line1: 'sashline4', line2: 'sashline1'},
-               {'type':'bead_box_line', id:'beadline5', from:'cpbead8', to:'cpbead5'},
-               {'type':'bead_box_line', id:'beadline6', from:'cpbead5', to:'cpbead6'},
-               {'type':'bead_box_line', id:'beadline7', from:'cpbead6', to:'cpbead7'},
-               {'type':'bead_box_line', id:'beadline8', from:'cpbead7', to:'cpbead8'}
-               */
+              {'type': 'bead_line', id:'beadline5', from:'cpsin4', to:'cpsin1'},
+              {'type': 'bead_line', id:'beadline6', from:'cpsin1', to:'cpsin2'},
+              {'type': 'bead_line', id:'beadline7', from:'cpsin2', to:'cpsin3'},
+              {'type': 'bead_line', id:'beadline8', from:'cpsin3', to:'cpsin4'},
+              {'type': 'cross_point_bead', id: 'cpbead5', line1: 'beadline5', line2: 'beadline6'},
+              {'type': 'cross_point_bead', id: 'cpbead6', line1: 'beadline6', line2: 'beadline7'},
+              {'type': 'cross_point_bead', id: 'cpbead7', line1: 'beadline7', line2: 'beadline8'},
+              {'type': 'cross_point_bead', id: 'cpbead8', line1: 'beadline8', line2: 'beadline5'},
+              {'type': 'bead_in_line', id:'beadinline5', from:'cpbead8', to:'cpbead5'},
+              {'type': 'bead_in_line', id:'beadinline6', from:'cpbead5', to:'cpbead6'},
+              {'type': 'bead_in_line', id:'beadinline7', from:'cpbead6', to:'cpbead7'},
+              {'type': 'bead_in_line', id:'beadinline8', from:'cpbead7', to:'cpbead8'},
               //----- left glass
               {'type': 'cross_point_glass', id: 'cpg1', line1: 'frameline1', line2: 'frameline2', blockType: 'frame'},
               {'type': 'cross_point_glass', id: 'cpg2', line1: 'frameline2', line2: 'frameline3', blockType: 'frame'},
@@ -700,17 +744,17 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'sash', id: 'sash2', parts: ['sashoutline2', 'sashline2'], openType: ['sashline2', 'sashline4']},
               {'type': 'sash', id: 'sash3', parts: ['sashoutline3', 'sashline3'], openType: ['sashline3', 'sashline1']},
               {'type': 'sash', id: 'sash4', parts: ['sashoutline4', 'sashline4']},
-              /*
-               {'type': 'bead_box', id:'bead1', parts: ['frameinline1', 'beadline1']},
-               {'type': 'bead_box', id:'bead2', parts: ['impostinline1', 'beadline2']},
-               {'type': 'bead_box', id:'bead3', parts: ['frameinline3', 'beadline3']},
-               {'type': 'bead_box', id:'bead4', parts: ['frameinline4', 'beadline4']},
 
-               {'type': 'bead_box', id:'bead5', parts: ['sashline1', 'beadline5']},
-               {'type': 'bead_box', id:'bead6', parts: ['sashline2', 'beadline6']},
-               {'type': 'bead_box', id:'bead7', parts: ['sashline3', 'beadline7']},
-               {'type': 'bead_box', id:'bead8', parts: ['sashline4', 'beadline8']},
-               */
+              {'type': 'bead_box', id:'bead1', parts: ['beadline1', 'beadinline1']},
+              {'type': 'bead_box', id:'bead2', parts: ['beadline2', 'beadinline2']},
+              {'type': 'bead_box', id:'bead3', parts: ['beadline3', 'beadinline3']},
+              {'type': 'bead_box', id:'bead4', parts: ['beadline4', 'beadinline4']},
+
+              {'type': 'bead_box', id:'bead5', parts: ['beadline5', 'beadinline5']},
+              {'type': 'bead_box', id:'bead6', parts: ['beadline6', 'beadinline6']},
+              {'type': 'bead_box', id:'bead7', parts: ['beadline7', 'beadinline7']},
+              {'type': 'bead_box', id:'bead8', parts: ['beadline8', 'beadinline8']},
+
               {'type': 'sash_block', id: 'sashBlock1', parts: ['sashoutline1', 'sashoutline2', 'sashoutline3', 'sashoutline4'], hardwareId: 8, openDir: 2, handlePos: 4},
               {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
               {'type': 'glass_paсkage', id: 'glass2', parts: ['glassline5', 'glassline6', 'glassline7', 'glassline8']},
@@ -785,26 +829,47 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'sash_line', id: 'sashline2', from: 'cpsin1', to: 'cpsin2'},
               {'type': 'sash_line', id: 'sashline3', from: 'cpsin2', to: 'cpsin3'},
               {'type': 'sash_line', id: 'sashline4', from: 'cpsin3', to: 'cpsin4'},
-              //----------- bead box
-              /*
-               {'type': 'cross_point_bead', id: 'cpbead1', line1: 'frameinline1', line2: 'impostinline1'},
-               {'type': 'cross_point_bead', id: 'cpbead2', line1: 'impostinline1', line2: 'frameinline3'},
-               {'type': 'cross_point_bead', id: 'cpbead3', line1: 'frameinline3', line2: 'frameinline4'},
-               {'type': 'cross_point_bead', id: 'cpbead4', line1: 'frameinline4', line2: 'frameinline1'},
-               {'type':'bead_box_line', id:'beadline1', from:'cpbead4', to:'cpbead1'},
-               {'type':'bead_box_line', id:'beadline2', from:'cpbead1', to:'cpbead2'},
-               {'type':'bead_box_line', id:'beadline3', from:'cpbead2', to:'cpbead3'},
-               {'type':'bead_box_line', id:'beadline4', from:'cpbead3', to:'cpbead4'}
 
-               {'type': 'cross_point_bead', id: 'cpbead5', line1: 'sashline1', line2: 'sashline2'},
-               {'type': 'cross_point_bead', id: 'cpbead6', line1: 'sashline2', line2: 'sashline3'},
-               {'type': 'cross_point_bead', id: 'cpbead7', line1: 'sashline3', line2: 'sashline4'},
-               {'type': 'cross_point_bead', id: 'cpbead8', line1: 'sashline4', line2: 'sashline1'},
-               {'type':'bead_box_line', id:'beadline5', from:'cpbead8', to:'cpbead5'},
-               {'type':'bead_box_line', id:'beadline6', from:'cpbead5', to:'cpbead6'},
-               {'type':'bead_box_line', id:'beadline7', from:'cpbead6', to:'cpbead7'},
-               {'type':'bead_box_line', id:'beadline8', from:'cpbead7', to:'cpbead8'}
-               */
+              //----------- bead box
+              {'type': 'bead_line', id:'beadline1', from:'cp4', to:'cpimpost1'},
+              {'type': 'bead_line', id:'beadline2', from:'cpimpost1', to:'cpimpost4'},
+              {'type': 'bead_line', id:'beadline3', from:'cpimpost4', to:'cp3'},
+              {'type': 'bead_line', id:'beadline4', from:'cp3', to:'cp4'},
+              {'type': 'cross_point_bead', id: 'cpbead1', line1: 'beadline1', line2: 'beadline2'},
+              {'type': 'cross_point_bead', id: 'cpbead2', line1: 'beadline2', line2: 'beadline3'},
+              {'type': 'cross_point_bead', id: 'cpbead3', line1: 'beadline3', line2: 'beadline4'},
+              {'type': 'cross_point_bead', id: 'cpbead4', line1: 'beadline4', line2: 'beadline1'},
+              {'type': 'bead_in_line', id:'beadinline1', from:'cpbead4', to:'cpbead1'},
+              {'type': 'bead_in_line', id:'beadinline2', from:'cpbead1', to:'cpbead2'},
+              {'type': 'bead_in_line', id:'beadinline3', from:'cpbead2', to:'cpbead3'},
+              {'type': 'bead_in_line', id:'beadinline4', from:'cpbead3', to:'cpbead4'},
+
+              {'type': 'bead_line', id:'beadline5', from:'cpsin4', to:'cpsin1'},
+              {'type': 'bead_line', id:'beadline6', from:'cpsin1', to:'cpsin2'},
+              {'type': 'bead_line', id:'beadline7', from:'cpsin2', to:'cpsin3'},
+              {'type': 'bead_line', id:'beadline8', from:'cpsin3', to:'cpsin4'},
+              {'type': 'cross_point_bead', id: 'cpbead5', line1: 'beadline5', line2: 'beadline6'},
+              {'type': 'cross_point_bead', id: 'cpbead6', line1: 'beadline6', line2: 'beadline7'},
+              {'type': 'cross_point_bead', id: 'cpbead7', line1: 'beadline7', line2: 'beadline8'},
+              {'type': 'cross_point_bead', id: 'cpbead8', line1: 'beadline8', line2: 'beadline5'},
+              {'type': 'bead_in_line', id:'beadinline5', from:'cpbead8', to:'cpbead5'},
+              {'type': 'bead_in_line', id:'beadinline6', from:'cpbead5', to:'cpbead6'},
+              {'type': 'bead_in_line', id:'beadinline7', from:'cpbead6', to:'cpbead7'},
+              {'type': 'bead_in_line', id:'beadinline8', from:'cpbead7', to:'cpbead8'},
+
+              {'type': 'bead_line', id:'beadline9', from:'cpimpost6', to:'cp1'},
+              {'type': 'bead_line', id:'beadline10', from:'cp1', to:'cp2'},
+              {'type': 'bead_line', id:'beadline11', from:'cp2', to:'cpimpost7'},
+              {'type': 'bead_line', id:'beadline12', from:'cpimpost7', to:'cpimpost6'},
+              {'type': 'cross_point_bead', id: 'cpbead9', line1: 'beadline9', line2: 'beadline10'},
+              {'type': 'cross_point_bead', id: 'cpbead10', line1: 'beadline10', line2: 'beadline11'},
+              {'type': 'cross_point_bead', id: 'cpbead11', line1: 'beadline11', line2: 'beadline12'},
+              {'type': 'cross_point_bead', id: 'cpbead12', line1: 'beadline12', line2: 'beadline9'},
+              {'type': 'bead_in_line', id:'beadinline9', from:'cpbead12', to:'cpbead9'},
+              {'type': 'bead_in_line', id:'beadinline10', from:'cpbead9', to:'cpbead10'},
+              {'type': 'bead_in_line', id:'beadinline11', from:'cpbead10', to:'cpbead11'},
+              {'type': 'bead_in_line', id:'beadinline12', from:'cpbead11', to:'cpbead12'},
+
               //---- left glass
               {'type': 'cross_point_glass', id: 'cpg1', line1: 'frameline1', line2: 'impostcenterline1', blockType: 'frame', isImpost: true},
               {'type': 'cross_point_glass', id: 'cpg2', line1: 'frameline3', line2: 'impostcenterline1', blockType: 'frame', isImpost: true},
@@ -843,17 +908,22 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'sash', id: 'sash2', parts: ['sashoutline2', 'sashline2'], openType: ['sashline2', 'sashline4']},
               {'type': 'sash', id: 'sash3', parts: ['sashoutline3', 'sashline3'], openType: ['sashline3', 'sashline1']},
               {'type': 'sash', id: 'sash4', parts: ['sashoutline4', 'sashline4']},
-              /*
-               {'type': 'bead_box', id:'bead1', parts: ['frameinline1', 'beadline1']},
-               {'type': 'bead_box', id:'bead2', parts: ['impostinline1', 'beadline2']},
-               {'type': 'bead_box', id:'bead3', parts: ['frameinline3', 'beadline3']},
-               {'type': 'bead_box', id:'bead4', parts: ['frameinline4', 'beadline4']},
 
-               {'type': 'bead_box', id:'bead5', parts: ['sashline1', 'beadline5']},
-               {'type': 'bead_box', id:'bead6', parts: ['sashline2', 'beadline6']},
-               {'type': 'bead_box', id:'bead7', parts: ['sashline3', 'beadline7']},
-               {'type': 'bead_box', id:'bead8', parts: ['sashline4', 'beadline8']},
-               */
+              {'type': 'bead_box', id:'bead1', parts: ['beadline1', 'beadinline1']},
+              {'type': 'bead_box', id:'bead2', parts: ['beadline2', 'beadinline2']},
+              {'type': 'bead_box', id:'bead3', parts: ['beadline3', 'beadinline3']},
+              {'type': 'bead_box', id:'bead4', parts: ['beadline4', 'beadinline4']},
+
+              {'type': 'bead_box', id:'bead5', parts: ['beadline5', 'beadinline5']},
+              {'type': 'bead_box', id:'bead6', parts: ['beadline6', 'beadinline6']},
+              {'type': 'bead_box', id:'bead7', parts: ['beadline7', 'beadinline7']},
+              {'type': 'bead_box', id:'bead8', parts: ['beadline8', 'beadinline8']},
+
+              {'type': 'bead_box', id:'bead9', parts: ['beadline9', 'beadinline9']},
+              {'type': 'bead_box', id:'bead10', parts: ['beadline10', 'beadinline10']},
+              {'type': 'bead_box', id:'bead11', parts: ['beadline11', 'beadinline11']},
+              {'type': 'bead_box', id:'bead12', parts: ['beadline12', 'beadinline12']},
+
               {'type': 'sash_block', id: 'sashBlock1', parts: ['sashoutline1', 'sashoutline2', 'sashoutline3', 'sashoutline4'], hardwareId: 8, openDir: 2, handlePos: 4},
               {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
               {'type': 'glass_paсkage', id: 'glass2', parts: ['glassline5', 'glassline6', 'glassline7', 'glassline8']},
@@ -913,16 +983,18 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'sash_line', id: 'sashline4', from: 'cpsin3', to: 'cpsin4'},
 
               //----------- bead box
-              /*
-               {'type': 'cross_point_bead', id: 'cpbead1', line1: 'frameinline1', line2: 'frameinline2'},
-               {'type': 'cross_point_bead', id: 'cpbead2', line1: 'frameinline2', line2: 'frameinline3'},
-               {'type': 'cross_point_bead', id: 'cpbead3', line1: 'frameinline3', line2: 'frameinline4'},
-               {'type': 'cross_point_bead', id: 'cpbead4', line1: 'frameinline4', line2: 'frameinline1'},
-               {'type':'bead_box_line', id:'beadline1', from:'cpbead4', to:'cpbead1'},
-               {'type':'bead_box_line', id:'beadline2', from:'cpbead1', to:'cpbead2'},
-               {'type':'bead_box_line', id:'beadline3', from:'cpbead2', to:'cpbead3'},
-               {'type':'bead_box_line', id:'beadline4', from:'cpbead3', to:'cpbead4'}
-               */
+              {'type': 'bead_line', id:'beadline1', from:'cpsin4', to:'cpsin1'},
+              {'type': 'bead_line', id:'beadline2', from:'cpsin1', to:'cpsin2'},
+              {'type': 'bead_line', id:'beadline3', from:'cpsin2', to:'cpsin3'},
+              {'type': 'bead_line', id:'beadline4', from:'cpsin3', to:'cpsin4'},
+              {'type': 'cross_point_bead', id: 'cpbead1', line1: 'beadline1', line2: 'beadline2'},
+              {'type': 'cross_point_bead', id: 'cpbead2', line1: 'beadline2', line2: 'beadline3'},
+              {'type': 'cross_point_bead', id: 'cpbead3', line1: 'beadline3', line2: 'beadline4'},
+              {'type': 'cross_point_bead', id: 'cpbead4', line1: 'beadline4', line2: 'beadline1'},
+              {'type': 'bead_in_line', id:'beadinline1', from:'cpbead4', to:'cpbead1'},
+              {'type': 'bead_in_line', id:'beadinline2', from:'cpbead1', to:'cpbead2'},
+              {'type': 'bead_in_line', id:'beadinline3', from:'cpbead2', to:'cpbead3'},
+              {'type': 'bead_in_line', id:'beadinline4', from:'cpbead3', to:'cpbead4'},
 
               //----- glass
               {'type': 'cross_point_glass', id: 'cpg1', line1: 'sashoutline1', line2: 'sashoutline2', blockType: 'sash'},
@@ -942,12 +1014,12 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'sash', id: 'sash2', parts: ['sashoutline2', 'sashline2'], openType: ['sashline2', 'sashline4']},
               {'type': 'sash', id: 'sash3', parts: ['sashoutline3', 'sashline3'], openType: ['sashline3', 'sashline1']},
               {'type': 'sash', id: 'sash4', parts: ['sashoutline4', 'sashline4']},
-              /*
-               {'type': 'bead_box', id:'bead1', parts: ['frameinline1', 'beadline1']},
-               {'type': 'bead_box', id:'bead2', parts: ['frameinline2', 'beadline2']},
-               {'type': 'bead_box', id:'bead3', parts: ['frameinline3', 'beadline3']},
-               {'type': 'bead_box', id:'bead4', parts: ['frameinline4', 'beadline4']},
-               */
+
+              {'type': 'bead_box', id:'bead1', parts: ['beadline1', 'beadinline1']},
+              {'type': 'bead_box', id:'bead2', parts: ['beadline2', 'beadinline2']},
+              {'type': 'bead_box', id:'bead3', parts: ['beadline3', 'beadinline3']},
+              {'type': 'bead_box', id:'bead4', parts: ['beadline4', 'beadinline4']},
+
               {'type': 'sash_block', id: 'sashBlock1', parts: ['sashoutline1', 'sashoutline2', 'sashoutline3', 'sashoutline4'], hardwareId: 8, openDir: 2, handlePos: 4},
               {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
               {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 1, height: 150, side: 'top'},

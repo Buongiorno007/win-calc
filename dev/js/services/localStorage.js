@@ -107,6 +107,7 @@ BauVoiceApp.factory('localStorage', function () {
       templateIcon: {},
       templateWidth: 0,
       templateHeight: 0,
+      beadId: 0,
 
       profileTypeIndex: 0,
       profileIndex: 0,
@@ -295,6 +296,8 @@ BauVoiceApp.factory('localStorage', function () {
     regionsTableDBGlobal: 'regions',
     countriesTableDBGlobal: 'countries',
     listsTableDBGlobal: 'lists',
+    elementsTableDBGlobal: 'elements',
+    beadsTableDBGlobal: 'beed_profile_systems',
 
     visorDBId: 21,
     gridDBId: 20,

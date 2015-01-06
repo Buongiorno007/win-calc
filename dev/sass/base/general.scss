@@ -324,22 +324,25 @@ body {
   z-index: 9;
 }
 
-//------- SVG ----------
-.glass, .glass-active {
+
+
+//=============== SVG
+
+.glass {
   fill: rgba(155, 204, 255, 0.20);
   //cursor: pointer;
 }
-/*
-.glass-active:hover {
+
+.glass-active {
   fill: rgba(34, 34, 255, 0.69);
 }
-*/
-.frame, .sash, .impost {
+
+.frame, .sash, .impost, .bead {
   fill: #fff;
   stroke: $main_gray_txt;
   stroke-width: 2;
 }
-.frame-icon, .sash-icon, .impost-icon {
+.frame-icon, .sash-icon, .impost-icon, .bead-icon {
   fill: #ccc;
   stroke: #000;
   stroke-width: 4;

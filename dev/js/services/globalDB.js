@@ -30,7 +30,9 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
       "CREATE TABLE IF NOT EXISTS window_hardware_groups (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), short_name VARCHAR(100), factory_id INTEGER, is_editable INTEGER, parent_id INTEGER, is_group INTEGER, is_in_calculation INTEGER, base_type_id INTEGER, position INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(base_type_id) REFERENCES window_hardware_types_base(id))",
       "CREATE TABLE IF NOT EXISTS window_hardware (id INTEGER PRIMARY KEY AUTOINCREMENT, window_hardware_type_id INTEGER, min_width INTEGER, max_width INTEGER, min_height INTEGER, max_height INTEGER, direction_id INTEGER, window_hardware_color_id INTEGER, length INTEGER, count INTEGER, child_id INTEGER, child_type VARCHAR(100), position INTEGER, factory_id INTEGER, window_hardware_group_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(window_hardware_type_id) REFERENCES window_hardware_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(window_hardware_group_id) REFERENCES window_hardware_groups(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id))",
       "CREATE TABLE IF NOT EXISTS profile_system_folders (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), factory_id INTEGER, position INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id))",
-      "CREATE TABLE IF NOT EXISTS profile_systems (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), short_name VARCHAR(100), profile_system_folder_id INTEGER, rama_list_id INTEGER, rama_still_list_id INTEGER, stvorka_list_id INTEGER, impost_list_id INTEGER, shtulp_list_id INTEGER, is_editable INTEGER, is_default INTEGER, position INTEGER, country VARCHAR(100), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(profile_system_folder_id) REFERENCES profile_system_folders(id))"],
+      "CREATE TABLE IF NOT EXISTS profile_systems (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), short_name VARCHAR(100), profile_system_folder_id INTEGER, rama_list_id INTEGER, rama_still_list_id INTEGER, stvorka_list_id INTEGER, impost_list_id INTEGER, shtulp_list_id INTEGER, is_editable INTEGER, is_default INTEGER, position INTEGER, country VARCHAR(100), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(profile_system_folder_id) REFERENCES profile_system_folders(id))",
+      "CREATE TABLE IF NOT EXISTS glass_profile_systems (id INTEGER PRIMARY KEY AUTOINCREMENT, profile_system_id INTEGER, list_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(list_id) REFERENCES lists(id))",
+      "CREATE TABLE IF NOT EXISTS beed_profile_systems (id INTEGER PRIMARY KEY AUTOINCREMENT, profile_system_id INTEGER, list_id INTEGER, glass_width INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(list_id) REFERENCES lists(id))"],
     createDevice = "CREATE TABLE IF NOT EXISTS device (id INTEGER PRIMARY KEY AUTOINCREMENT, device_code VARCHAR(255), sync INTEGER, last_sync TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 
   // SQL requests for select data from tables
@@ -51,7 +53,7 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
     "DROP table regions", "DROP table cities", "DROP table lamination_colors", "DROP table elements", "DROP table users", "DROP table lists_groups", "DROP table lists",
     "DROP table directions", "DROP table rules_types", "DROP table window_hardware_colors", "DROP table list_contents", "DROP table window_hardware_types",
     "DROP table window_hardware_types_base", "DROP table window_hardware_groups", "DROP table window_hardware", "DROP table profile_system_folders",
-    "DROP table profile_systems"];
+    "DROP table profile_systems", "DROP table glass_profile_systems", "DROP table beed_profile_systems"];
 
   return {
 
@@ -630,15 +632,22 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
         if (result.status) {
           priceObj.impostIds = result.data;
           elemLists = [];
-          self.parseList(construction.glassId, function (result){next_glass(result);});
+          self.parseList(construction.glassId, function (result){next_bead(result);});
+        }
+      }
+      function next_bead(result){
+        if (result.status) {
+          priceObj.glassIds = result.data;
+          elemLists = [];
+          self.parseList(construction.beadId, function (result){next_glass(result);});
         }
       }
       function next_glass(result){
         if(result.status){
-          priceObj.glassIds = result.data;
+          priceObj.beadIds = result.data;
           elemLists = [];
           db.transaction(function (transaction) {
-            transaction.executeSql('select parent_element_id, name from lists where id in (?, ?, ?, ?, ?)', [construction.frameId, construction.frameSillId, construction.sashId, construction.impostId, construction.glassId], function (transaction, result){next_6(result);}, function () {
+            transaction.executeSql('select parent_element_id, name from lists where id in (?, ?, ?, ?, ?, ?)', [construction.frameId, construction.frameSillId, construction.sashId, construction.impostId, construction.glassId, construction.beadId], function (transaction, result){next_6(result);}, function () {
               callback(new ErrorResult(2, 'Something went wrong when get parent_element_id'));
             });
           });
@@ -652,14 +661,16 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
           priceObj.frameSillsIds.parent_element_id = result.rows.item(1).parent_element_id;
           priceObj.sashsIds.parent_element_id = result.rows.item(2).parent_element_id;
           priceObj.impostIds.parent_element_id = result.rows.item(3).parent_element_id;
-          priceObj.glassIds.parent_element_id = result.rows.item(4).parent_element_id;
+          priceObj.glassIds.parent_element_id = result.rows.item(5).parent_element_id;
+          priceObj.beadIds.parent_element_id = result.rows.item(4).parent_element_id;
           priceObj.framesIds.name = result.rows.item(0).name;
           priceObj.frameSillsIds.name = result.rows.item(1).name;
           priceObj.sashsIds.name = result.rows.item(2).name;
           priceObj.impostIds.name = result.rows.item(3).name;
-          priceObj.glassIds.name = result.rows.item(4).name;
+          priceObj.glassIds.name = result.rows.item(5).name;
+          priceObj.beadIds.name = result.rows.item(4).name;
           db.transaction(function (transaction) {
-            transaction.executeSql('select id, currency_id, price, waste, name, amendment_pruning from elements where id in (?, ?, ?, ?, ?)', [result.rows.item(0).parent_element_id, result.rows.item(1).parent_element_id, result.rows.item(2).parent_element_id, result.rows.item(3).parent_element_id, result.rows.item(4).parent_element_id], function (transaction, result){next_7(result);}, function () {
+            transaction.executeSql('select id, currency_id, price, waste, name, amendment_pruning from elements where id in (?, ?, ?, ?, ?, ?)', [result.rows.item(0).parent_element_id, result.rows.item(1).parent_element_id, result.rows.item(2).parent_element_id, result.rows.item(3).parent_element_id, result.rows.item(4).parent_element_id, result.rows.item(5).parent_element_id], function (transaction, result){next_7(result);}, function () {
               callback(new ErrorResult(2, 'Something went wrong when get element price'));
             });
           });
@@ -684,6 +695,9 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
             }
             if(result.rows.item(i).id == priceObj.glassIds.parent_element_id){
               priceObj.glassIds.price = result.rows.item(i);
+            }
+            if(result.rows.item(i).id == priceObj.beadIds.parent_element_id){
+              priceObj.beadIds.price = result.rows.item(i);
             }
           }
           if(priceObj.framesIds.length) {
@@ -771,6 +785,23 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
               }
             }
           }
+          if(priceObj.beadIds.length) {
+            for (var i = 0; i < priceObj.beadIds.length; i++) {
+              if (priceObj.beadIds[i].elemLists.child_type === 'element'){
+                self.getPriceById(priceObj.beadIds[i].elemLists.child_id, i, function (result){
+                  priceObj.beadIds[result.data.index].priceEl = result.data.currency;
+                  priceObj.beadIds[result.data.index].elemName = result.data.currency.name;
+                  priceObj.beadIds[result.data.index].pruning = result.data.currency.amendment_pruning;
+                });
+              } else {
+                self.getPriceByIdList(priceObj.beadIds[i].elemLists.child_id, i, function (result){
+                  priceObj.beadIds[result.data.index].priceEl = result.data.currency;
+                  priceObj.beadIds[result.data.index].elemName = result.data.currency.name;
+                  priceObj.beadIds[result.data.index].pruning = result.data.currency.amendment_pruning;
+                });
+              }
+            }
+          }
           db.transaction(function (transaction) {
             transaction.executeSql('select id, name, value from currencies', [], function (transaction, result){next_8(result);}, function () {
               callback(new ErrorResult(2, 'Something went wrong when get parent_element_id'));
@@ -847,6 +878,34 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
           console.log('Итого в гривне: '+priceTmp.toFixed(2)+' грн');
           console.log('');
           var priceTmp = 0;
+          //console.log(priceObj.beadIds);
+          if(construction.beadsSize.length) {
+            for (var i = 0; i < construction.beadsSize.length; i++) {
+              console.log('Название: '+priceObj.beadIds.name);
+              console.log('Размер: '+construction.beadsSize[i]/1000+' м');
+              console.log('Цена: '+priceObj.beadIds.price.price);
+              for (var j = 0; j < priceObj.currencies.length; j++) {
+                if(priceObj.currencies[j].id === priceObj.beadIds.price.currency_id){
+                  console.log('Валюта: '+priceObj.currencies[j].name);
+                }
+              }
+              console.log('% отхода : '+priceObj.beadIds.price.waste);
+              console.log('Поправка на обрезку : '+priceObj.beadIds.price.amendment_pruning);
+              console.log('Формула : ('+(construction.beadsSize[i]+priceObj.beadIds.price.amendment_pruning)/1000+'*'+priceObj.beadIds.price.price+')*(1+('+priceObj.beadIds.price.waste+'/100) = '+((((construction.beadsSize[i] + priceObj.beadIds.price.amendment_pruning)/ 1000) * priceObj.beadIds.price.price) * (1 + (priceObj.beadIds.price.waste / 100))).toFixed(2));
+              console.log('-----------------');
+              priceTmp += (((construction.beadsSize[i] + priceObj.beadIds.price.amendment_pruning)/ 1000) * priceObj.beadIds.price.price) * (1 + (priceObj.beadIds.price.waste / 100));
+            }
+            if (priceObj.currentCurrency.id != priceObj.beadIds.price.currency_id){
+              for (var i = 0; i < priceObj.currencies.length; i++) {
+                if(priceObj.currencies[i].id == priceObj.beadIds.price.currency_id){
+                  priceTmp = priceTmp * priceObj.currencies[i].value;
+                }
+              }
+            }
+          }
+          priceObj.price += priceTmp;
+          console.log('Итого в гривне: '+priceTmp.toFixed(2)+' грн');
+          console.log('');
           //console.log(priceObj.impostIds);
           if(construction.impostsSize.length) {
             for (var i = 0; i < construction.impostsSize.length; i++) {
@@ -1190,6 +1249,103 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
             }
           }
           console.log('Створка - конец ---------------------');
+          console.log('');
+          console.log('Штапик - начало ---------------------');
+          console.log('');
+          if(construction.beadsSize.length) {
+            for (var i = 0; i < construction.beadsSize.length; i++) {
+              if(priceObj.beadIds.length) {
+                for (var j = 0; j < priceObj.beadIds.length; j++) {
+                  var priceTmp = 0;
+                  if(priceObj.beadIds[j].elemLists.parent_list_id == construction.beadId){
+                    var value = self.getValueByRule(((construction.beadsSize[i]+priceObj.beadIds[j].priceEl.amendment_pruning)/1000), priceObj.beadIds[j].elemLists.value, priceObj.beadIds[j].elemLists.rules_type_id);
+                    priceObj.beadIds[j].elemLists.newValue = value;
+                    //console.log('rule '+priceObj.beadIds[j].elemLists.rules_type_id+' '+priceObj.beadIds[j].elemName);
+                    console.log('Название: '+priceObj.beadIds[j].elemName);
+                    console.log('Размер: '+(construction.beadsSize[i]/1000).toFixed(3)+' м');
+                    console.log('Цена: '+priceObj.beadIds[j].priceEl.price);
+                    for (var f = 0; f < priceObj.currencies.length; f++) {
+                      if(priceObj.currencies[f].id === priceObj.beadIds[j].priceEl.currency_id){
+                        console.log('Валюта: '+priceObj.currencies[f].name);
+                      }
+                    }
+                    console.log('% отхода : '+priceObj.beadIds[j].priceEl.waste);
+                    console.log('Поправка на обрезку : '+priceObj.beadIds[j].priceEl.amendment_pruning);
+                    if(priceObj.beadIds[j].elemLists.rules_type_id === 3){
+                      console.log('Правило : '+priceObj.beadIds[j].elemLists.value+' шт. на метр родителя');
+                      console.log('Формула : (round('+((construction.beadsSize[i]+priceObj.beadIds[j].priceEl.amendment_pruning)/1000)+'*'+priceObj.beadIds[j].elemLists.value+')*'+priceObj.beadIds[j].priceEl.price+')*(1+('+priceObj.beadIds[j].priceEl.waste+'/100) = '+((Math.round(((construction.beadsSize[i]+priceObj.beadIds[j].priceEl.amendment_pruning)/1000)*priceObj.beadIds[j].elemLists.value)*priceObj.beadIds[j].priceEl.price)*(1+(priceObj.beadIds[j].priceEl.waste/100))).toFixed(2));
+                      priceTmp += (Math.round(((construction.beadsSize[i]+priceObj.beadIds[j].priceEl.amendment_pruning)/1000)*priceObj.beadIds[j].elemLists.value)*priceObj.beadIds[j].priceEl.price)*(1+(priceObj.beadIds[j].priceEl.waste/100));
+                    } else if(priceObj.beadIds[j].elemLists.rules_type_id === 2 || priceObj.beadIds[j].elemLists.rules_type_id === 4 || priceObj.beadIds[j].elemLists.rules_type_id === 15){
+                      console.log('Правило : '+priceObj.beadIds[j].elemLists.value+' шт. на родителя');
+                      console.log('Формула : (1*'+value+'*'+priceObj.beadIds[j].priceEl.price+')*(1+('+priceObj.beadIds[j].priceEl.waste+'/100) = '+(priceObj.beadIds[j].elemLists.value * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100)));
+                      priceTmp += (priceObj.beadIds[j].elemLists.value * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
+                    } else if (priceObj.beadIds[j].elemLists.rules_type_id === 1){
+                      console.log('Правило : меньше родителя на '+priceObj.beadIds[j].elemLists.value+' м');
+                      console.log('Формула : ('+(construction.beadsSize[i]+priceObj.beadIds[j].priceEl.amendment_pruning - (priceObj.beadIds[j].elemLists.value*1000))/1000+'*'+priceObj.beadIds[j].priceEl.price+')*(1+('+priceObj.beadIds[j].priceEl.waste+'/100) = '+((((construction.beadsSize[i]+priceObj.beadIds[j].priceEl.amendment_pruning - (priceObj.beadIds[j].elemLists.value*1000))/1000) * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100))).toFixed(2));
+                      priceTmp += (((construction.beadsSize[i]+priceObj.beadIds[j].priceEl.amendment_pruning - (priceObj.beadIds[j].elemLists.value*1000))/1000) * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
+                    } else {
+                      console.log('Формула : ('+(construction.beadsSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning)/1000+'*'+priceObj.beadIds[j].priceEl.price+')*(1+('+priceObj.beadIds[j].priceEl.waste+'/100) = '+((((construction.beadsSize[i]+priceObj.beadIds[j].priceEl.amendment_pruning)/1000) * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100))).toFixed(2));
+                      priceTmp += (((construction.beadsSize[i]+priceObj.beadIds[j].priceEl.amendment_pruning)/1000) * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
+                    }
+                    console.log('-----------------');
+                    if (priceObj.currentCurrency.id != priceObj.beadIds[j].priceEl.currency_id){
+                      for (var k = 0; k < priceObj.currencies.length; k++) {
+                        if(priceObj.currencies[k].id == priceObj.beadIds[j].priceEl.currency_id){
+                          priceTmp = priceTmp * priceObj.currencies[k].value;
+                        }
+                      }
+                    }
+                  } else {
+                    for (var g = 0; g < priceObj.beadIds.length; g++) {
+                      if(priceObj.beadIds[j].elemLists.parent_list_id == priceObj.beadIds[g].elemLists.child_id){
+                        var value = self.getValueByRule((priceObj.beadIds[g].elemLists.newValue/1000), priceObj.beadIds[j].elemLists.value, priceObj.beadIds[g].elemLists.rules_type_id);
+                        priceObj.beadIds[j].elemLists.newValue = value;
+                        //console.log('rule '+priceObj.beadIds[j].elemLists.rules_type_id+' '+priceObj.beadIds[j].elemName);
+                        console.log('Название: '+priceObj.beadIds[j].elemName);
+                        console.log('Размер: '+(priceObj.beadIds[g].elemLists.newValue).toFixed(3)+' м');
+                        console.log('Цена: '+priceObj.beadIds[j].priceEl.price);
+                        for (var f = 0; f < priceObj.currencies.length; f++) {
+                          if(priceObj.currencies[f].id === priceObj.beadIds[j].priceEl.currency_id){
+                            console.log('Валюта: '+priceObj.currencies[f].name);
+                          }
+                        }
+                        console.log('% отхода : '+priceObj.beadIds[j].priceEl.waste);
+                        console.log('Поправка на обрезку : '+priceObj.beadIds[j].priceEl.amendment_pruning);
+                        if(priceObj.beadIds[j].elemLists.rules_type_id === 3){
+                          console.log('Правило : '+priceObj.beadIds[j].elemLists.value+' шт. на метр родителя');
+                          console.log('Формула : (round('+(priceObj.beadIds[g].elemLists.newValue+(priceObj.beadIds[j].priceEl.amendment_pruning/1000)).toFixed(3)+'*'+priceObj.beadIds[j].elemLists.value+')*'+priceObj.beadIds[j].priceEl.price+')*(1+('+priceObj.beadIds[j].priceEl.waste+'/100) = '+((Math.round((priceObj.beadIds[g].elemLists.newValue+(priceObj.beadIds[j].priceEl.amendment_pruning/1000))*priceObj.beadIds[j].elemLists.value)*priceObj.beadIds[j].priceEl.price)*(1+(priceObj.beadIds[j].priceEl.waste/100))).toFixed(2));
+                          priceTmp += (Math.round((priceObj.beadIds[g].elemLists.newValue+(priceObj.beadIds[j].priceEl.amendment_pruning/1000))*priceObj.beadIds[j].elemLists.value)*priceObj.beadIds[j].priceEl.price)*(1+(priceObj.beadIds[j].priceEl.waste/100));
+                        } else if(priceObj.beadIds[j].elemLists.rules_type_id === 2 || priceObj.beadIds[j].elemLists.rules_type_id === 4 || priceObj.beadIds[j].elemLists.rules_type_id === 15){
+                          console.log('Правило : '+priceObj.beadIds[j].elemLists.value+' шт. на родителя');
+                          console.log('Формула : ('+priceObj.beadIds[g].elemLists.newValue+'*'+priceObj.beadIds[j].elemLists.value+'*'+priceObj.beadIds[j].priceEl.price+')*(1+('+priceObj.beadIds[j].priceEl.waste+'/100) = '+(priceObj.beadIds[g].elemLists.newValue*priceObj.beadIds[j].elemLists.value * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100)));
+                          priceTmp += (priceObj.beadIds[g].elemLists.newValue*priceObj.beadIds[j].elemLists.value * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
+                        } else if (priceObj.beadIds[j].elemLists.rules_type_id === 1){
+                          console.log('Правило : меньше родителя на '+priceObj.beadIds[j].elemLists.value+' м');
+                          console.log('Формула : ('+(priceObj.beadIds[g].elemLists.newValue+priceObj.beadIds[j].priceEl.amendment_pruning - (priceObj.beadIds[j].elemLists.value*1000))/1000+'*'+priceObj.beadIds[j].priceEl.price+')*(1+('+priceObj.beadIds[j].priceEl.waste+'/100) = '+((((priceObj.beadIds[g].elemLists.newValue+priceObj.beadIds[j].priceEl.amendment_pruning - (priceObj.beadIds[j].elemLists.value*1000))/1000) * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100))).toFixed(2));
+                          priceTmp += (((priceObj.beadIds[g].elemLists.newValue+priceObj.beadIds[j].priceEl.amendment_pruning - (priceObj.beadIds[j].elemLists.value*1000))/1000) * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
+                        } else {
+                          console.log('Формула : ('+(priceObj.beadIds[g].elemLists.newValue+priceObj.beadIds[j].priceEl.amendment_pruning)/1000+'*'+priceObj.beadIds[j].priceEl.price+')*(1+('+priceObj.beadIds[j].priceEl.waste+'/100) = '+((((priceObj.beadIds[g].elemLists.newValue+priceObj.beadIds[j].priceEl.amendment_pruning)/1000) * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100))).toFixed(2));
+                          priceTmp += (((priceObj.beadIds[g].elemLists.newValue+priceObj.beadIds[j].priceEl.amendment_pruning)/1000) * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
+                        }
+                        console.log('-----------------');
+                        if (priceObj.currentCurrency.id != priceObj.beadIds[j].priceEl.currency_id){
+                          for (var k = 0; k < priceObj.currencies.length; k++) {
+                            if(priceObj.currencies[k].id == priceObj.beadIds[j].priceEl.currency_id){
+                              priceTmp = priceTmp * priceObj.currencies[k].value;
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                  priceObj.price += priceTmp;
+                  console.log('Итого в гривне: '+priceTmp.toFixed(2)+' грн');
+                  console.log('');
+                }
+              }
+            }
+          }
+          console.log('Штапик - конец ---------------------');
           console.log('');
           console.log('Импост - начало ---------------------');
           console.log('');

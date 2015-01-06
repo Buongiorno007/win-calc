@@ -135,6 +135,79 @@ $door-config-content: $ipad-height - $door-config-header;
   overflow: auto;
 }
 
+// Construction Edit menu
+
+#sash-shape-menu {
+  @include top_left_coord(0px, 0px);
+  @include roboto-lt(rem(36px), rem(65px));
+  position: absolute;
+  padding: 0 rem(20px);
+  border-radius: rem(16px);
+  background-color: #242424;
+  color: #fff;
+  cursor: pointer;
+  z-index: 999;
+
+  &:before {
+    position: absolute;
+    z-index: 99;
+    bottom: rem(-20px);
+    left: rem(30px);
+    display: block;
+    width: 0;
+    border-width: rem(20px) rem(20px) 0;
+    border-style: solid;
+    border-color: #242424 transparent;
+    content: '';
+  }
+}
+
+ul.sash-shape-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li.sash-shape-icon {
+  @include font-general-icon(rem(50px), rem(80px));
+  display: inline-block;
+  width: rem(80px);
+  height: rem(80px);
+  padding-right: 2px;
+  border-right: 1px solid $main_gray_btn;
+  text-align: center;
+  color: #ddd;
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.sash-empty:after {
+  content: $sash-empty-icon;
+}
+.sash-left:after {
+  content: $sash-left-icon;
+}
+.sash-right:after {
+  content: $sash-right-icon;
+}
+.sash-up:after {
+  content: $sash-up-icon;
+}
+.sash-down:after {
+  content: $sash-down-icon;
+}
+.sash-right-up:after {
+  content: $sash-right-up-icon;
+}
+.sash-left-up:after {
+  content: $sash-left-up-icon;
+}
+
+
+
+
 // Construction Right Menu
 
 .construction-right-menu {

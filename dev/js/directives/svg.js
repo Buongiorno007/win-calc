@@ -32,6 +32,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               glasses: [],
               imposts: [],
               sashes: [],
+              beads: [],
               dimensionsH: [],
               dimensionsV: [],
               openDirections: []
@@ -93,6 +94,13 @@ BauVoiceApp.directive('svgTemplate', [ function() {
 
                 elementsSVG.openDirections.push(openSashLine);
               }
+              break;
+
+            case 'bead_box':
+              path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ' + template.objects[i].parts[0].toPoint.x + ' ' + template.objects[i].parts[0].toPoint.y + ' ';
+              path += template.objects[i].parts[1].toPoint.x + ' ' + template.objects[i].parts[1].toPoint.y + ' ' + template.objects[i].parts[1].fromPoint.x + ' ' + template.objects[i].parts[1].fromPoint.y + ' ';
+              path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ';
+              elementsSVG.beads.push(path);
               break;
 
             case 'glass_paсkage':
@@ -261,12 +269,19 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                   group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'sash');
                 }
                 break;
-              case 'glasses':
-                if(scope.typeConstruction === 'edit') {
-                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'glass-active');
+              case 'beads':
+                if(scope.typeConstruction === 'icon') {
+                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'bead-icon');
                 } else {
-                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'glass');
+                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'bead');
                 }
+                break;
+              case 'glasses':
+                /*if(scope.typeConstruction === 'edit') {
+                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'glass-active');
+                } else {*/
+                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'glass');
+                //}
                 break;
               case 'openDirections':
                 group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'open-direction');
