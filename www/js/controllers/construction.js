@@ -633,12 +633,17 @@ $scope.$apply();
   //=============== EDIT SASH CONSTRUCTION ==============
 
   function editSash(event) {
-    var menuX = event.pageX;
-    var menuY = event.pageY;
-    var menuX = event.clientX
-    $('#sash-shape-menu').css({'top': menuX+'px', 'left': menuY+'px'});
-    console.log('sash-menu === ', $('#sash-shape-menu'));
+    var menuX = event.pageX/16;
+    var menuY = event.pageY/16;
+    //var menuX1 = event.clientX;
+    //var menuX2 = event.offsetX;
+
+    $('#sash-shape-menu').css({'top': menuX+'rem', 'left': menuY+'rem'});
+
     console.log('menuX === ', menuX);
+    console.log('menuY === ', menuY);
+    console.log('objs === ', $scope.templateSourceTEMP);
+    console.log('obj === ', $scope.templateDefaultTEMP);
     $('svg-template').find('.glass').each(function() {
       console.log('sash!!!!', $(this));
 
@@ -646,6 +651,102 @@ $scope.$apply();
       $(this).css('fill', 'rgba(34, 34, 255, 0.69)');
     });
 
+    //------- define id of current glass package
+    console.log('glass === ', event);
+    var currGlassId = event.target.attributes['element-id'].value;
+    console.log('glassId === ', currGlassId);
+    var blockId = Number(currGlassId.replace(/\D+/g,"")),
+        sashQTY = 0,
+        currGlassPackage = {};
+    //------- parse Default Template in order to define all links of current glass package
+    for (var i = 0; i < $scope.templateDefaultTEMP.objects.length; i++) {
+      if($scope.templateDefaultTEMP.objects[i].type === 'sash_block') {
+        sashQTY++;
+      }
+      if($scope.templateDefaultTEMP.objects[i].id === currGlassId) {
+        currGlassPackage = $scope.templateDefaultTEMP.objects[i];
+        console.log('currGlassPackage === ', currGlassPackage);
+      }
+    }
+
+    //-------- build new Sash
+    var sashNewId = sashQTY * 4;
+    var newSash = [
+      {'type': 'cross_point_sash_out', id: 'cpsout'+(sashNewId+1), line1: currGlassPackage.parts[0].toPoint.lineId1, line2: currGlassPackage.parts[0].toPoint.lineId2, isImpost: true},
+      {'type': 'cross_point_sash_out', id: 'cpsout'+(sashNewId+2), line1: currGlassPackage.parts[1].toPoint.lineId1, line2: currGlassPackage.parts[1].toPoint.lineId2, isImpost: true},
+      {'type': 'cross_point_sash_out', id: 'cpsout'+(sashNewId+3), line1: currGlassPackage.parts[2].toPoint.lineId1, line2: currGlassPackage.parts[2].toPoint.lineId2},
+      {'type': 'cross_point_sash_out', id: 'cpsout'+(sashNewId+4), line1: currGlassPackage.parts[3].toPoint.lineId1, line2: currGlassPackage.parts[3].toPoint.lineId2},
+      {'type': 'sash_out_line', id: 'sashoutline'+(sashNewId+1), from: 'cpsout'+(sashNewId+4), to: 'cpsout'+(sashNewId+1)},
+      {'type': 'sash_out_line', id: 'sashoutline'+(sashNewId+2), from: 'cpsout'+(sashNewId+1), to: 'cpsout'+(sashNewId+2)},
+      {'type': 'sash_out_line', id: 'sashoutline'+(sashNewId+3), from: 'cpsout'+(sashNewId+2), to: 'cpsout'+(sashNewId+3)},
+      {'type': 'sash_out_line', id: 'sashoutline'+(sashNewId+4), from: 'cpsout'+(sashNewId+3), to: 'cpsout'+(sashNewId+4)},
+
+      {'type': 'cross_point_sash_in', id: 'cpsin'+(sashNewId+1), line1: 'sashoutline'+(sashNewId+1), line2: 'sashoutline'+(sashNewId+2)},
+      {'type': 'cross_point_sash_in', id: 'cpsin'+(sashNewId+2), line1: 'sashoutline'+(sashNewId+2), line2: 'sashoutline'+(sashNewId+3)},
+      {'type': 'cross_point_sash_in', id: 'cpsin'+(sashNewId+3), line1: 'sashoutline'+(sashNewId+3), line2: 'sashoutline'+(sashNewId+4)},
+      {'type': 'cross_point_sash_in', id: 'cpsin'+(sashNewId+4), line1: 'sashoutline'+(sashNewId+4), line2: 'sashoutline'+(sashNewId+1)},
+      {'type': 'sash_line', id: 'sashline'+(sashNewId+1), from: 'cpsin'+(sashNewId+4), to: 'cpsin'+(sashNewId+1)},
+      {'type': 'sash_line', id: 'sashline'+(sashNewId+2), from: 'cpsin'+(sashNewId+1), to: 'cpsin'+(sashNewId+2)},
+      {'type': 'sash_line', id: 'sashline'+(sashNewId+3), from: 'cpsin'+(sashNewId+2), to: 'cpsin'+(sashNewId+3)},
+      {'type': 'sash_line', id: 'sashline'+(sashNewId+4), from: 'cpsin'+(sashNewId+3), to: 'cpsin'+(sashNewId+4)},
+
+      {'type': 'sash', id: 'sash'+(sashNewId+1), parts: ['sashoutline'+(sashNewId+1), 'sashline'+(sashNewId+1)]},
+      {'type': 'sash', id: 'sash'+(sashNewId+2), parts: ['sashoutline'+(sashNewId+2), 'sashline'+(sashNewId+2)], openType: ['sashline'+(sashNewId+2), 'sashline'+(sashNewId+4)]},
+      {'type': 'sash', id: 'sash'+(sashNewId+3), parts: ['sashoutline'+(sashNewId+3), 'sashline'+(sashNewId+3)], openType: ['sashline'+(sashNewId+3), 'sashline'+(sashNewId+1)]},
+      {'type': 'sash', id: 'sash'+(sashNewId+4), parts: ['sashoutline'+(sashNewId+4), 'sashline'+(sashNewId+4)]},
+
+      {'type': 'sash_block', id: 'sashBlock'+(sashQTY+1), parts: ['sashoutline'+(sashNewId+1), 'sashoutline'+(sashNewId+2), 'sashoutline'+(sashNewId+3), 'sashoutline'+(sashNewId+4)], hardwareId: 8, openDir: 2, handlePos: 4}
+
+    ];
+
+    for(var sashObj = 0; sashObj < newSash.length; sashObj++) {
+      $scope.templateSourceTEMP.objects.push(newSash[sashObj]);
+    }
+    blockId--;
+    var beadId = blockId * 4;
+    console.log('blockId === ', blockId);
+    for(var tempObj = 0; tempObj < $scope.templateSourceTEMP.objects.length; tempObj++) {
+      //------- change beads position
+      if($scope.templateSourceTEMP.objects[tempObj].type === 'bead_line') {
+        if($scope.templateSourceTEMP.objects[tempObj].id === 'beadline'+(beadId+1)) {
+          $scope.templateSourceTEMP.objects[tempObj].from = 'cpsin'+(sashNewId+4);
+          $scope.templateSourceTEMP.objects[tempObj].to = 'cpsin'+(sashNewId+1);
+        } else if($scope.templateSourceTEMP.objects[tempObj].id === 'beadline'+(beadId+2)) {
+          $scope.templateSourceTEMP.objects[tempObj].from = 'cpsin'+(sashNewId+1);
+          $scope.templateSourceTEMP.objects[tempObj].to = 'cpsin'+(sashNewId+2);
+        } else if($scope.templateSourceTEMP.objects[tempObj].id === 'beadline'+(beadId+3)) {
+          $scope.templateSourceTEMP.objects[tempObj].from = 'cpsin'+(sashNewId+2);
+          $scope.templateSourceTEMP.objects[tempObj].to = 'cpsin'+(sashNewId+3);
+        } else if($scope.templateSourceTEMP.objects[tempObj].id === 'beadline'+(beadId+4)) {
+          $scope.templateSourceTEMP.objects[tempObj].from = 'cpsin'+(sashNewId+3);
+          $scope.templateSourceTEMP.objects[tempObj].to = 'cpsin'+(sashNewId+4);
+        }
+        console.log($scope.templateSourceTEMP.objects[tempObj]);
+      }
+      //------- change glass position
+      /*
+      if($scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_glass') {
+        if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(beadId+1)) {
+          $scope.templateSourceTEMP.objects[tempObj].line1 = 'cpsin'+(sashNewId+4);
+          $scope.templateSourceTEMP.objects[tempObj].line2 = 'cpsin'+(sashNewId+1);
+        } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(beadId+2)) {
+          $scope.templateSourceTEMP.objects[tempObj].line1 = 'cpsin'+(sashNewId+1);
+          $scope.templateSourceTEMP.objects[tempObj].line2 = 'cpsin'+(sashNewId+2);
+        } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(beadId+3)) {
+          $scope.templateSourceTEMP.objects[tempObj].line1 = 'cpsin'+(sashNewId+2);
+          $scope.templateSourceTEMP.objects[tempObj].line2 = 'cpsin'+(sashNewId+3);
+        } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(beadId+4)) {
+          $scope.templateSourceTEMP.objects[tempObj].line1 = 'cpsin'+(sashNewId+3);
+          $scope.templateSourceTEMP.objects[tempObj].line2 = 'cpsin'+(sashNewId+4);
+        }
+        $scope.templateSourceTEMP.objects[tempObj].blockType = 'sash';
+      }
+      */
+
+    }
+    console.log('!!!!new.templateSourceTEMP === ', $scope.templateSourceTEMP);
+    //-------- build new template
+    $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
   }
 
 }]);

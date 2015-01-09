@@ -222,6 +222,7 @@ var CrossPointDiff = function (sourceObj, depthSource, depthSource2) {
   this.lineId2 = sourceObj.line2;
   this.depth = depthSource;
   this.depthDif = depthSource2;
+  this.blockType = sourceObj.blockType;
 
   this.parseIds = function(fullTemplate) {
     this.line1 = fullTemplate.findById(this.lineId1);

@@ -104,10 +104,12 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               break;
 
             case 'glass_paсkage':
+              var glass = {path: ''};
               for(var p = 0; p < template.objects[i].parts.length; p++) {
-                path += template.objects[i].parts[p].fromPoint.x + ' ' + template.objects[i].parts[p].fromPoint.y + ' ' + template.objects[i].parts[p].toPoint.x + ' ' + template.objects[i].parts[p].toPoint.y + ' ';
+                glass.path += template.objects[i].parts[p].fromPoint.x + ' ' + template.objects[i].parts[p].fromPoint.y + ' ' + template.objects[i].parts[p].toPoint.x + ' ' + template.objects[i].parts[p].toPoint.y + ' ';
               }
-              elementsSVG.glasses.push(path);
+              glass.id = template.objects[i].id;
+              elementsSVG.glasses.push(glass);
               break;
 
             case 'dimensionsH':
@@ -280,7 +282,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                 /*if(scope.typeConstruction === 'edit') {
                   group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'glass-active');
                 } else {*/
-                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'glass');
+                  group.path('M' + elementsSVG[prop][elem].path + 'z').attr('class', 'glass').attr('element-id', elementsSVG[prop][elem].id);
                 //}
                 break;
               case 'openDirections':

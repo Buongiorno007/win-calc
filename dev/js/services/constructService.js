@@ -614,7 +614,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'sash_block', id: 'sashBlock1', parts: ['sashoutline1', 'sashoutline2', 'sashoutline3', 'sashoutline4'], hardwareId: 8, openDir: 2, handlePos: 4},
               {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
               {'type': 'glass_paсkage', id: 'glass2', parts: ['glassline5', 'glassline6', 'glassline7', 'glassline8']},
-              {'type': 'glass_paсkage', id: 'glass2', parts: ['glassline9', 'glassline10', 'glassline11', 'glassline12']},
+              {'type': 'glass_paсkage', id: 'glass3', parts: ['glassline9', 'glassline10', 'glassline11', 'glassline12']},
               //{'type': 'dimensionsH', id: 'dimH1', from: ['fp4', 'fp1'], to: ['fpimpost2', 'fpimpost1'], level: 1, height: 150, side: 'bottom'},
               //{'type': 'dimensionsH', id: 'dimH2', from: ['fpimpost2', 'fpimpost1'], to: ['fpimpost4', 'fpimpost3'], level: 1, height: 150, side: 'bottom'},
               {'type': 'dimensionsH', id: 'dimH1', from: ['fp1', 'fp4'], to: ['fpimpost1', 'fpimpost2'], limits: ['overallDimH', 'dimH3'], links: ['fpimpost1', 'fpimpost2'], level: 1, height: 150, side: 'top'},
