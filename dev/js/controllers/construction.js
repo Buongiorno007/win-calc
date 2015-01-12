@@ -693,15 +693,19 @@ $scope.$apply();
       {'type': 'sash', id: 'sash'+(sashNewId+4), parts: ['sashoutline'+(sashNewId+4), 'sashline'+(sashNewId+4)]},
 
       {'type': 'sash_block', id: 'sashBlock'+(sashQTY+1), parts: ['sashoutline'+(sashNewId+1), 'sashoutline'+(sashNewId+2), 'sashoutline'+(sashNewId+3), 'sashoutline'+(sashNewId+4)], hardwareId: 8, openDir: 2, handlePos: 4}
-
     ];
 
+
     for(var sashObj = 0; sashObj < newSash.length; sashObj++) {
-      $scope.templateSourceTEMP.objects.push(newSash[sashObj]);
+      //$scope.templateSourceTEMP.objects.push(newSash[sashObj]);
+      $scope.templateSourceTEMP.objects.splice((52+sashObj), 0, newSash[sashObj]);
     }
+
     blockId--;
     var beadId = blockId * 4;
     console.log('blockId === ', blockId);
+    //console.log('beadId', beadId);
+    //console.log('sashNewId === ', sashNewId);
     for(var tempObj = 0; tempObj < $scope.templateSourceTEMP.objects.length; tempObj++) {
       //------- change beads position
       if($scope.templateSourceTEMP.objects[tempObj].type === 'bead_line') {
@@ -718,32 +722,40 @@ $scope.$apply();
           $scope.templateSourceTEMP.objects[tempObj].from = 'cpsin'+(sashNewId+3);
           $scope.templateSourceTEMP.objects[tempObj].to = 'cpsin'+(sashNewId+4);
         }
-        console.log($scope.templateSourceTEMP.objects[tempObj]);
       }
       //------- change glass position
-      /*
+
       if($scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_glass') {
         if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(beadId+1)) {
-          $scope.templateSourceTEMP.objects[tempObj].line1 = 'cpsin'+(sashNewId+4);
-          $scope.templateSourceTEMP.objects[tempObj].line2 = 'cpsin'+(sashNewId+1);
+          $scope.templateSourceTEMP.objects[tempObj].line1 = 'sashoutline'+(sashNewId+1);
+          $scope.templateSourceTEMP.objects[tempObj].line2 = 'sashoutline'+(sashNewId+2);
+          $scope.templateSourceTEMP.objects[tempObj].blockType = 'sash';
+          delete $scope.templateSourceTEMP.objects[tempObj].isImpost;
         } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(beadId+2)) {
-          $scope.templateSourceTEMP.objects[tempObj].line1 = 'cpsin'+(sashNewId+1);
-          $scope.templateSourceTEMP.objects[tempObj].line2 = 'cpsin'+(sashNewId+2);
+          $scope.templateSourceTEMP.objects[tempObj].line1 = 'sashoutline'+(sashNewId+2);
+          $scope.templateSourceTEMP.objects[tempObj].line2 = 'sashoutline'+(sashNewId+3);
+          $scope.templateSourceTEMP.objects[tempObj].blockType = 'sash';
+          delete $scope.templateSourceTEMP.objects[tempObj].isImpost;
         } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(beadId+3)) {
-          $scope.templateSourceTEMP.objects[tempObj].line1 = 'cpsin'+(sashNewId+2);
-          $scope.templateSourceTEMP.objects[tempObj].line2 = 'cpsin'+(sashNewId+3);
+          $scope.templateSourceTEMP.objects[tempObj].line1 = 'sashoutline'+(sashNewId+3);
+          $scope.templateSourceTEMP.objects[tempObj].line2 = 'sashoutline'+(sashNewId+4);
+          $scope.templateSourceTEMP.objects[tempObj].blockType = 'sash';
+          delete $scope.templateSourceTEMP.objects[tempObj].isImpost;
         } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(beadId+4)) {
-          $scope.templateSourceTEMP.objects[tempObj].line1 = 'cpsin'+(sashNewId+3);
-          $scope.templateSourceTEMP.objects[tempObj].line2 = 'cpsin'+(sashNewId+4);
+          $scope.templateSourceTEMP.objects[tempObj].line1 = 'sashoutline'+(sashNewId+4);
+          $scope.templateSourceTEMP.objects[tempObj].line2 = 'sashoutline'+(sashNewId+1);
+          $scope.templateSourceTEMP.objects[tempObj].blockType = 'sash';
+          delete $scope.templateSourceTEMP.objects[tempObj].isImpost;
         }
-        $scope.templateSourceTEMP.objects[tempObj].blockType = 'sash';
+
       }
-      */
+      console.log($scope.templateSourceTEMP.objects[tempObj]);
 
     }
     console.log('!!!!new.templateSourceTEMP === ', $scope.templateSourceTEMP);
     //-------- build new template
     $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
+    console.log('templateDefaultTEMP', $scope.templateDefaultTEMP.objects);
   }
 
 }]);

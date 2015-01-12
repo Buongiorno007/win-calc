@@ -110,7 +110,6 @@ var LineObject = function (sourceObj) {
   this.parseIds = function(fullTemplate) {
     this.fromPoint = fullTemplate.findById(this.fromPointId);
     this.toPoint = fullTemplate.findById(this.toPointId);
-
     this.getLength(this.fromPoint, this.toPoint);
   };
 
