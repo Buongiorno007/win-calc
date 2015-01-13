@@ -255,7 +255,6 @@ CrossPointDiff.prototype = FrameObject;
 //-----------SashLine-------------------
 var SashLine = function (sourceObj) {
   LineObject.call(this, sourceObj);
-  this.listId = 100;  // = Service.GetDefaulSashLineListId();
 };
 SashLine.prototype = LineObject;
 
@@ -320,7 +319,6 @@ Sash.prototype = FrameObject;
 var SashBlock = function (sourceObj) {
   FrameObject.call(this, sourceObj);
   this.parts = [];
-  this.hardwareId = sourceObj.hardwareId;
   this.openDir = sourceObj.openDir;
   this.handlePos = sourceObj.handlePos;
 
@@ -432,6 +430,10 @@ var Template = function (sourceObj, depths) {
         } else {
           tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.b, depths.frameDepth.b);
         }
+        break;
+      case 'cross_point_hardware': tmpObject = new CrossPoint(sourceObj.objects[i], depths.sashDepth.b);
+        break;
+      case 'hardware_line': tmpObject = new SashLine(sourceObj.objects[i]);
         break;
       case 'cross_point_sash_in':  tmpObject = new CrossPoint(sourceObj.objects[i], depths.sashDepth.c);
         break;

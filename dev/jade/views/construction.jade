@@ -30,13 +30,13 @@ section.construction-page(ng-controller="ConstructionCtrl")
 
     #sash-shape-menu(ng-show="constructData.isSashEdit && constructData.isSashEditMenu")
       ul.sash-shape-list
-        li.sash-shape-icon.sash-empty
-        li.sash-shape-icon.sash-left
-        li.sash-shape-icon.sash-right
-        li.sash-shape-icon.sash-up
-        li.sash-shape-icon.sash-down
-        li.sash-shape-icon.sash-right-up
-        li.sash-shape-icon.sash-left-up
+        li.sash-shape-icon.sash-empty(ng-click="insertNewSash('empty')")
+        li.sash-shape-icon.sash-left(ng-click="insertNewSash('left')")
+        li.sash-shape-icon.sash-right(ng-click="insertNewSash('right')")
+        li.sash-shape-icon.sash-up(ng-click="insertNewSash('up')")
+        li.sash-shape-icon.sash-down(ng-click="insertNewSash('down')")
+        li.sash-shape-icon.sash-right-up(ng-click="insertNewSash('up', 'right')")
+        li.sash-shape-icon.sash-left-up(ng-click="insertNewSash('up', 'left')")
 
     .construction-right-menu
       .right-menu-header

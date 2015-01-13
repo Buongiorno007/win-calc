@@ -255,9 +255,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
                           tempSashBlockSize.push(template.objects[item].parts[sash].lengthVal);
                         }
                         tempSashBlock.sizes = tempSashBlockSize;
-                        tempSashBlock.hardwareId = template.objects[item].hardwareId;
                         tempSashBlock.openDir = template.objects[item].openDir;
-                        tempSashBlock.handlePos = template.objects[item].handlePos;
                         $scope.global.objXFormedPrice.sashesBlock.push(tempSashBlock);
                         break;
                       case 'glass_paсkage':
@@ -280,6 +278,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
                 $scope.global.objXFormedPrice.cityId = $scope.global.userInfo.city_id;
                 $scope.global.objXFormedPrice.glassId = glassId;
                 $scope.global.objXFormedPrice.profileId = profileId;
+                $scope.global.objXFormedPrice.hardwareId = $scope.global.product.hardwareId;
+                $scope.global.objXFormedPrice.hardwareColor = $scope.global.product.laminationInName;
                 $scope.global.objXFormedPrice.frameId = $scope.global.allProfileFrameSizes[profileIndex].id;
                 $scope.global.objXFormedPrice.frameSillId = $scope.global.allProfileFrameStillSizes[profileIndex].id;
                 $scope.global.objXFormedPrice.sashId = $scope.global.allProfileSashSizes[profileIndex].id;
