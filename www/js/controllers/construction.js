@@ -661,7 +661,7 @@ $scope.$apply();
   //=============== EDIT SASH CONSTRUCTION ==============
 
   function editSash(sashType) {
-    var blockId = Number($scope.selectedGlassId.replace(/\D+/g,"")), // 1
+    var blockId = Number($scope.selectedGlassId.replace(/\D+/g,"")),
         currGlassPackage = {},
         insertIndex,
         isSashExist,
@@ -677,16 +677,151 @@ $scope.$apply();
 
     //-------- if need to delete existed sash
     if(sashType[0] === 'empty') {
-      console.log('sashType', sashType[0]);
       //----- if sash exists
       if(isSashExist === 'sash') {
-        console.log('isSashExist', isSashExist);
 
+        //------ delete sash from template Source
+        for(var tempObj = $scope.templateSourceTEMP.objects.length-1; tempObj >= 0; tempObj--) {
 
+          if($scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_sash_out') {
+            if($scope.templateSourceTEMP.objects[tempObj].id === 'cpsout'+(sashNewId+1)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpsout'+(sashNewId+2)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpsout'+(sashNewId+3)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpsout'+(sashNewId+4)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            }
+          } else if($scope.templateSourceTEMP.objects[tempObj].type === 'sash_out_line') {
+            if($scope.templateSourceTEMP.objects[tempObj].id === 'sashoutline'+(sashNewId+1)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'sashoutline'+(sashNewId+2)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'sashoutline'+(sashNewId+3)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'sashoutline'+(sashNewId+4)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            }
+          } else if($scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_hardware') {
+            if($scope.templateSourceTEMP.objects[tempObj].id === 'cphw'+(sashNewId+1)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cphw'+(sashNewId+2)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cphw'+(sashNewId+3)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cphw'+(sashNewId+4)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            }
+          } else if($scope.templateSourceTEMP.objects[tempObj].type === 'hardware_line') {
+            if($scope.templateSourceTEMP.objects[tempObj].id === 'hardwareline'+(sashNewId+1)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'hardwareline'+(sashNewId+2)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'hardwareline'+(sashNewId+3)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'hardwareline'+(sashNewId+4)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            }
+          } else if($scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_sash_in') {
+            if($scope.templateSourceTEMP.objects[tempObj].id === 'cpsin'+(sashNewId+1)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpsin'+(sashNewId+2)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpsin'+(sashNewId+3)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpsin'+(sashNewId+4)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            }
+          } else if($scope.templateSourceTEMP.objects[tempObj].type === 'sash_line') {
+            if($scope.templateSourceTEMP.objects[tempObj].id === 'sashline'+(sashNewId+1)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'sashline'+(sashNewId+2)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'sashline'+(sashNewId+3)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'sashline'+(sashNewId+4)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            }
+          } else if($scope.templateSourceTEMP.objects[tempObj].type === 'sash') {
+            if($scope.templateSourceTEMP.objects[tempObj].id === 'sash'+(sashNewId+1)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'sash'+(sashNewId+2)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'sash'+(sashNewId+3)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'sash'+(sashNewId+4)) {
+              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+            }
+          } else if($scope.templateSourceTEMP.objects[tempObj].type === 'sash_block' && $scope.templateSourceTEMP.objects[tempObj].id === 'sashBlock'+blockId) {
+            $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+          }
 
+          //------- change beads position
+          if($scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_bead_out') {
+            if($scope.templateSourceTEMP.objects[tempObj].id === 'cpbeadout'+(sashNewId+1)) {
+              $scope.templateSourceTEMP.objects[tempObj].blockType = 'frame';
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpbeadout'+(sashNewId+2)) {
+              $scope.templateSourceTEMP.objects[tempObj].blockType = 'frame';
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpbeadout'+(sashNewId+3)) {
+              $scope.templateSourceTEMP.objects[tempObj].blockType = 'frame';
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpbeadout'+(sashNewId+4)) {
+              $scope.templateSourceTEMP.objects[tempObj].blockType = 'frame';
+            }
+          }
 
+          //------- change glass position
+          if($scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_glass') {
+            if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(sashNewId+1)) {
+              $scope.templateSourceTEMP.objects[tempObj].line1 = currGlassPackage.parts[1].toPoint.line1.fromPoint.lineId1;
+              $scope.templateSourceTEMP.objects[tempObj].line2 = currGlassPackage.parts[1].toPoint.line1.fromPoint.lineId2;
+              $scope.templateSourceTEMP.objects[tempObj].blockType = 'frame';
+              if($scope.templateSourceTEMP.objects[tempObj].line1.indexOf('impost')+1 || $scope.templateSourceTEMP.objects[tempObj].line2.indexOf('impost')+1) {
+                $scope.templateSourceTEMP.objects[tempObj].isImpost = true;
+              } else {
+                $scope.templateSourceTEMP.objects[tempObj].isImpost = false;
+              }
 
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(sashNewId+2)) {
+              $scope.templateSourceTEMP.objects[tempObj].line1 = currGlassPackage.parts[2].toPoint.line1.fromPoint.lineId1;
+              $scope.templateSourceTEMP.objects[tempObj].line2 = currGlassPackage.parts[2].toPoint.line1.fromPoint.lineId2;
+              $scope.templateSourceTEMP.objects[tempObj].blockType = 'frame';
+              if($scope.templateSourceTEMP.objects[tempObj].line1.indexOf('impost')+1 || $scope.templateSourceTEMP.objects[tempObj].line2.indexOf('impost')+1) {
+                $scope.templateSourceTEMP.objects[tempObj].isImpost = true;
+              } else {
+                $scope.templateSourceTEMP.objects[tempObj].isImpost = false;
+              }
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(sashNewId+3)) {
+              $scope.templateSourceTEMP.objects[tempObj].line1 = currGlassPackage.parts[3].toPoint.line1.fromPoint.lineId1;
+              $scope.templateSourceTEMP.objects[tempObj].line2 = currGlassPackage.parts[3].toPoint.line1.fromPoint.lineId2;
+              $scope.templateSourceTEMP.objects[tempObj].blockType = 'frame';
+              if($scope.templateSourceTEMP.objects[tempObj].line1.indexOf('impost')+1 || $scope.templateSourceTEMP.objects[tempObj].line2.indexOf('impost')+1) {
+                $scope.templateSourceTEMP.objects[tempObj].isImpost = true;
+              } else {
+                $scope.templateSourceTEMP.objects[tempObj].isImpost = false;
+              }
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(sashNewId+4)) {
+              $scope.templateSourceTEMP.objects[tempObj].line1 = currGlassPackage.parts[0].toPoint.line1.fromPoint.lineId1;
+              $scope.templateSourceTEMP.objects[tempObj].line2 = currGlassPackage.parts[0].toPoint.line1.fromPoint.lineId2;
+              $scope.templateSourceTEMP.objects[tempObj].blockType = 'frame';
+              if($scope.templateSourceTEMP.objects[tempObj].line1.indexOf('impost')+1 || $scope.templateSourceTEMP.objects[tempObj].line2.indexOf('impost')+1) {
+                $scope.templateSourceTEMP.objects[tempObj].isImpost = true;
+              } else {
+                $scope.templateSourceTEMP.objects[tempObj].isImpost = false;
+              }
+            }
+          }
 
+        }
+
+        //console.log('!!!!new.templateSourceTEMP === ', $scope.templateSourceTEMP);
+        //-------- build new template
+        $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
+        //console.log('templateDefaultTEMP', $scope.templateDefaultTEMP.objects);
+
+        $scope.constructData.isSashEditMenu = false;
+        $scope.constructData.isSashEdit = false;
+        $scope.constructData.activeMenuItem = false;
 
       }
     //-------- if need to edit or insert new sash
@@ -810,19 +945,15 @@ $scope.$apply();
         for(var tempObj = 0; tempObj < $scope.templateSourceTEMP.objects.length; tempObj++) {
 
           //------- change beads position
-          if($scope.templateSourceTEMP.objects[tempObj].type === 'bead_line') {
-            if($scope.templateSourceTEMP.objects[tempObj].id === 'beadline'+(sashNewId+1)) {
-              $scope.templateSourceTEMP.objects[tempObj].from = 'cpsin'+(sashNewId+4);
-              $scope.templateSourceTEMP.objects[tempObj].to = 'cpsin'+(sashNewId+1);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'beadline'+(sashNewId+2)) {
-              $scope.templateSourceTEMP.objects[tempObj].from = 'cpsin'+(sashNewId+1);
-              $scope.templateSourceTEMP.objects[tempObj].to = 'cpsin'+(sashNewId+2);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'beadline'+(sashNewId+3)) {
-              $scope.templateSourceTEMP.objects[tempObj].from = 'cpsin'+(sashNewId+2);
-              $scope.templateSourceTEMP.objects[tempObj].to = 'cpsin'+(sashNewId+3);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'beadline'+(sashNewId+4)) {
-              $scope.templateSourceTEMP.objects[tempObj].from = 'cpsin'+(sashNewId+3);
-              $scope.templateSourceTEMP.objects[tempObj].to = 'cpsin'+(sashNewId+4);
+          if($scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_bead_out') {
+            if($scope.templateSourceTEMP.objects[tempObj].id === 'cpbeadout'+(sashNewId+1)) {
+              $scope.templateSourceTEMP.objects[tempObj].blockType = 'sash';
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpbeadout'+(sashNewId+2)) {
+              $scope.templateSourceTEMP.objects[tempObj].blockType = 'sash';
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpbeadout'+(sashNewId+3)) {
+              $scope.templateSourceTEMP.objects[tempObj].blockType = 'sash';
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpbeadout'+(sashNewId+4)) {
+              $scope.templateSourceTEMP.objects[tempObj].blockType = 'sash';
             }
           }
           //------- change glass position

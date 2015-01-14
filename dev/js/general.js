@@ -245,6 +245,7 @@ var CrossPointDiff = function (sourceObj, depthSource, depthSource2) {
         base = (coefA1 * coefB2) - (coefA2 * coefB1),
         baseX = ((-coefC1) * coefB2) - (coefB1 * (-coefC2)),
         baseY = (coefA1 * (-coefC2)) - (coefA2 * (-coefC1));
+
     this.x = baseX / base;
     this.y = baseY / base;
   };
@@ -439,6 +440,21 @@ var Template = function (sourceObj, depths) {
         break;
       case 'sash_out_line':  tmpObject = new SashLine(sourceObj.objects[i]);
         break;
+      case 'cross_point_bead_out':
+        if(sourceObj.objects[i].blockType === 'sash') {
+          if(sourceObj.objects[i].isImpost) {
+            tmpObject = new CrossPointDiff(sourceObj.objects[i], (depths.frameDepth.b + depths.sashDepth.c), (depths.impostDepth.d + depths.sashDepth.c));
+          } else {
+            tmpObject = new CrossPointDiff(sourceObj.objects[i], (depths.frameDepth.b + depths.sashDepth.c), (depths.frameDepth.b + depths.sashDepth.c));
+          }
+        } else if(sourceObj.objects[i].blockType === 'frame') {
+          if(sourceObj.objects[i].isImpost) {
+            tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.c, depths.impostDepth.c/2);
+          } else {
+            tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.c, depths.frameDepth.c);
+          }
+        }
+        break;
       case 'bead_line':  tmpObject = new BeadBoxLine(sourceObj.objects[i]);
         break;
       case 'cross_point_bead':  tmpObject = new CrossPoint(sourceObj.objects[i], 20);
@@ -546,6 +562,21 @@ var TemplateIcon = function (sourceObj, depths) {
       case 'cross_point_sash_in':  tmpObject = new CrossPoint(sourceObj.objects[i], depths.sashDepth.c * coeffScale);
         break;
       case 'sash_out_line':  tmpObject = new SashLine(sourceObj.objects[i]);
+        break;
+      case 'cross_point_bead_out':
+        if(sourceObj.objects[i].blockType === 'sash') {
+          if(sourceObj.objects[i].isImpost) {
+            tmpObject = new CrossPointDiff(sourceObj.objects[i], (depths.frameDepth.b + depths.sashDepth.c)* coeffScale, (depths.impostDepth.d + depths.sashDepth.c)* coeffScale);
+          } else {
+            tmpObject = new CrossPointDiff(sourceObj.objects[i], (depths.frameDepth.b + depths.sashDepth.c)* coeffScale, (depths.frameDepth.b + depths.sashDepth.c)* coeffScale);
+          }
+        } else if(sourceObj.objects[i].blockType === 'frame') {
+          if(sourceObj.objects[i].isImpost) {
+            tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.c * coeffScale, depths.impostDepth.c/2 * coeffScale);
+          } else {
+            tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.c * coeffScale, depths.frameDepth.c * coeffScale);
+          }
+        }
         break;
       case 'bead_line':  tmpObject = new BeadBoxLine(sourceObj.objects[i]);
         break;
