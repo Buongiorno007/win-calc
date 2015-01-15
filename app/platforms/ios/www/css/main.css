@@ -316,31 +316,31 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf?1419858176') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf?1421333336') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
-  src: url('../fonts/roboto/Roboto-Bold.ttf?1419858174') format('truetype');
+  src: url('../fonts/roboto/Roboto-Bold.ttf?1421333334') format('truetype');
 }
 @font-face {
   font-family: "roboto-light";
-  src: url('../fonts/roboto/Roboto-Light.ttf?1419858174') format('truetype');
+  src: url('../fonts/roboto/Roboto-Light.ttf?1421333334') format('truetype');
 }
 @font-face {
   font-family: "roboto-medium";
-  src: url('../fonts/roboto/Roboto-Medium.ttf?1419858174') format('truetype');
+  src: url('../fonts/roboto/Roboto-Medium.ttf?1421333335') format('truetype');
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf?1419858176') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf?1421333336') format('truetype');
 }
 @font-face {
   font-family: "general-icons";
-  src: url('../fonts/general-icons/icomoon.ttf?1420538426') format('truetype');
+  src: url('../fonts/general-icons/icomoon.ttf?1421333334') format('truetype');
 }
 @font-face {
   font-family: "nav-menu";
-  src: url('../fonts/nav-menu/icomoon.ttf?1419858174') format('truetype');
+  src: url('../fonts/nav-menu/icomoon.ttf?1421333334') format('truetype');
 }
 /* line 183, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construction-right-menu .construct-tools, .construction-right-menu .door-config-btn, .nav-menu [class^='nav-icon-'],
@@ -1183,7 +1183,7 @@ body {
 
 /* line 81, ../../dev/sass/base/general.scss */
 .icon-setting, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .search-block .delete-search, .construction-right-menu .construct-tools, .elements-menu .close-elements-menu, .pickmeup .pmu-instance nav .pmu-prev,
-.pickmeup .pmu-instance nav .pmu-next, .user-info-container .icon-location:before, .search-block:before, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .current-city:after, .voice-container .voice-icon, .setting-container .setting-item-change:after, .password-page .back, .location-page .back, .accounts-container .tool, .accounts-container .account-tool, .empty-search-result .result-icon, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .construction-right-menu .door-config-btn, .door-configuration .door-config-btn, .nav-menu [class^='nav-icon-'],
+.pickmeup .pmu-instance nav .pmu-next, .user-info-container .icon-location:before, .search-block:before, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .current-city:after, .voice-container .voice-icon, .setting-container .setting-item-change:after, .password-page .back, .language-page .back, .location-page .back, .accounts-container .tool, .accounts-container .account-tool, .empty-search-result .result-icon, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .construction-right-menu .door-config-btn, .door-configuration .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .config-menu .item.active:before, .elements-menu .element-info:after, .cart-menu .item:after, .cart-menu .drop-instalment .dropdown-item.selected .value-percent:after, .cart-menu .calendar-price, .size-calc-container .calc-delete:after, .size-calc-container .calc-interval:after {
   font-weight: normal;
   font-style: normal;
@@ -1270,37 +1270,37 @@ body {
 }
 /* line 174, ../../dev/sass/base/general.scss */
 .right-side.kitchen {
-  background: url('../img/rooms-bg/kitchen.jpg?1419858179') no-repeat;
+  background: url('../img/rooms-bg/kitchen.jpg?1421333339') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 /* line 179, ../../dev/sass/base/general.scss */
 .right-side.livingroom {
-  background: url('../img/rooms-bg/livingroom.jpg?1419858179') no-repeat;
+  background: url('../img/rooms-bg/livingroom.jpg?1421333339') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 /* line 184, ../../dev/sass/base/general.scss */
 .right-side.balcony {
-  background: url('../img/rooms-bg/balcony.jpg?1419858179') no-repeat;
+  background: url('../img/rooms-bg/balcony.jpg?1421333338') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 /* line 189, ../../dev/sass/base/general.scss */
 .right-side.childroom {
-  background: url('../img/rooms-bg/childroom.jpg?1419858179') no-repeat;
+  background: url('../img/rooms-bg/childroom.jpg?1421333339') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 /* line 194, ../../dev/sass/base/general.scss */
 .right-side.bedroom {
-  background: url('../img/rooms-bg/bedroom.jpg?1419858179') no-repeat;
+  background: url('../img/rooms-bg/bedroom.jpg?1421333338') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 /* line 199, ../../dev/sass/base/general.scss */
 .right-side.door {
-  background: url('../img/rooms-bg/door.jpg?1419858179') no-repeat;
+  background: url('../img/rooms-bg/door.jpg?1421333339') no-repeat;
   background-size: cover;
   opacity: 1;
 }
@@ -1309,7 +1309,7 @@ body {
 .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto {
   width: 9.5rem;
   height: 9.5rem;
-  background-image: url('../img/userPhoto.png?1419858174');
+  background-image: url('../img/userPhoto.png?1421333334');
   background-size: cover;
 }
 
@@ -1707,7 +1707,7 @@ body {
   width: 3.125rem;
   height: 3.125rem;
   margin: -3.125rem/2 0 0 -3.125rem/2;
-  background: url('../img/spinner.gif?1419858179') no-repeat;
+  background: url('../img/spinner.gif?1421333339') no-repeat;
   background-size: cover;
 }
 
@@ -1989,32 +1989,32 @@ body {
 }
 /* line 46, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.kitchen {
-  background: url('../img/rooms-dialog/kitchen.jpg?1419858179');
+  background: url('../img/rooms-dialog/kitchen.jpg?1421333339');
   background-size: contain;
 }
 /* line 50, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.livingroom {
-  background: url('../img/rooms-dialog/livingroom.jpg?1419858179');
+  background: url('../img/rooms-dialog/livingroom.jpg?1421333339');
   background-size: contain;
 }
 /* line 54, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.balcony {
-  background: url('../img/rooms-dialog/balcony.jpg?1419858179');
+  background: url('../img/rooms-dialog/balcony.jpg?1421333339');
   background-size: contain;
 }
 /* line 58, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.childroom {
-  background: url('../img/rooms-dialog/childroom.jpg?1419858179');
+  background: url('../img/rooms-dialog/childroom.jpg?1421333339');
   background-size: contain;
 }
 /* line 62, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.bedroom {
-  background: url('../img/rooms-dialog/bedroom.jpg?1419858179');
+  background: url('../img/rooms-dialog/bedroom.jpg?1421333339');
   background-size: contain;
 }
 /* line 66, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.door {
-  background: url('../img/rooms-dialog/door.jpg?1419858179');
+  background: url('../img/rooms-dialog/door.jpg?1421333339');
   background-size: contain;
 }
 /* line 71, ../../dev/sass/parts/_rooms-selector.scss */
@@ -3201,7 +3201,7 @@ body {
   display: -webkit-flex;
   display: flex;
   height: 100%;
-  background: url('../img/login/login-bg.jpg?1419858179') no-repeat;
+  background: url('../img/login/login-bg.jpg?1421333338') no-repeat;
   background-size: cover;
 }
 
@@ -3233,7 +3233,7 @@ body {
   width: 14.75rem;
   height: 14.75rem;
   margin: 0 auto 4.5625rem auto;
-  background: url('../img/login/logo.png?1419858178') no-repeat;
+  background: url('../img/login/logo.png?1421333338') no-repeat;
   background-size: cover;
 }
 
@@ -3477,6 +3477,38 @@ body {
 .password-page .psw-data {
   font: normal 2.25rem/5.5rem roboto-light, sans-serif;
   color: #f98000;
+}
+
+/* line 2, ../../dev/sass/pages/change-lang.scss */
+.language-page .back {
+  font: normal 3.125rem/1 general-icons, sans-serif;
+  width: 3.75rem;
+  height: 3.75rem;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+/* line 11, ../../dev/sass/pages/change-lang.scss */
+.language-page .back:before {
+  color: #f98000;
+  content: "\e613";
+}
+/* line 16, ../../dev/sass/pages/change-lang.scss */
+.language-page .lang-container {
+  padding-left: 3.125rem;
+  color: #fff;
+}
+/* line 20, ../../dev/sass/pages/change-lang.scss */
+.language-page .lists {
+  height: 90.625rem;
+}
+/* line 23, ../../dev/sass/pages/change-lang.scss */
+.language-page li.item.active {
+  color: #f98000;
+}
+/* line 26, ../../dev/sass/pages/change-lang.scss */
+.language-page .lang-label {
+  font: normal 2.25rem/6.1875rem roboto-light, sans-serif;
 }
 
 /* line 2, ../../dev/sass/pages/location.scss */
@@ -4882,7 +4914,7 @@ li.sash-shape-icon:last-child {
   right: -3.625rem;
   width: 3.75rem;
   height: 100%;
-  background: url('../img/door-arrow.png?1419858174') no-repeat;
+  background: url('../img/door-arrow.png?1421333333') no-repeat;
   background-size: 100% 100%;
 }
 /* line 418, ../../dev/sass/pages/construction.scss */
@@ -6461,85 +6493,85 @@ li.sash-shape-icon:last-child {
 }
 /* line 14, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grid-img {
-  background-image: url('../img/auxiliaries-focused/grid.png?1419858176');
+  background-image: url('../img/auxiliaries-focused/grid.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 19, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-visor-img {
-  background-image: url('../img/auxiliaries-focused/visor.png?1419858176');
+  background-image: url('../img/auxiliaries-focused/visor.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 24, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spillway-img {
-  background-image: url('../img/auxiliaries-focused/spillway.png?1419858176');
+  background-image: url('../img/auxiliaries-focused/spillway.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 29, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-focused/windowsill.png?1419858177');
+  background-image: url('../img/auxiliaries-focused/windowsill.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 34, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-top {
-  background-image: url('../img/auxiliaries-focused/louvers-top.png?1419858176');
+  background-image: url('../img/auxiliaries-focused/louvers-top.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 39, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-midle {
-  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1419858176');
+  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 44, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1419858176');
+  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 49, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-top {
-  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1419858176');
+  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 54, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-right {
-  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1419858176');
+  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 59, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-left {
-  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1419858176');
+  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 64, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-fan-img {
-  background-image: url('../img/auxiliaries-focused/fan.png?1419858176');
+  background-image: url('../img/auxiliaries-focused/fan.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 69, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-force-connect {
-  background-image: url('../img/auxiliaries-focused/force-connector.png?1419858176');
+  background-image: url('../img/auxiliaries-focused/force-connector.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 74, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1419858176');
+  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 79, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-handle-img {
-  background-image: url('../img/auxiliaries-focused/handle.png?1419858176');
+  background-image: url('../img/auxiliaries-focused/handle.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6569,85 +6601,85 @@ li.sash-shape-icon:last-child {
 }
 /* line 110, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grid-img {
-  background-image: url('../img/auxiliaries-selected/grid.png?1419858177');
+  background-image: url('../img/auxiliaries-selected/grid.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 115, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
-  background-image: url('../img/auxiliaries-selected/visor.png?1419858177');
+  background-image: url('../img/auxiliaries-selected/visor.png?1421333337');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 120, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
-  background-image: url('../img/auxiliaries-selected/spillway.png?1419858177');
+  background-image: url('../img/auxiliaries-selected/spillway.png?1421333337');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 125, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-selected/windowsill.png?1419858177');
+  background-image: url('../img/auxiliaries-selected/windowsill.png?1421333337');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 130, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-top {
-  background-image: url('../img/auxiliaries-selected/louvers-top.png?1419858177');
+  background-image: url('../img/auxiliaries-selected/louvers-top.png?1421333337');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 135, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-midle {
-  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1419858177');
+  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1421333337');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 140, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1419858177');
+  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1421333337');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 145, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-top {
-  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1419858177');
+  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1421333337');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 150, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-right {
-  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1419858177');
+  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1421333337');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 155, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-left {
-  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1419858177');
+  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1421333337');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 160, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-fan-img {
-  background-image: url('../img/auxiliaries-selected/fan.png?1419858177');
+  background-image: url('../img/auxiliaries-selected/fan.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 165, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-force-connect {
-  background-image: url('../img/auxiliaries-selected/force-connector.png?1419858177');
+  background-image: url('../img/auxiliaries-selected/force-connector.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 170, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1419858177');
+  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 175, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-handle-img {
-  background-image: url('../img/auxiliaries-selected/handle.png?1419858177');
+  background-image: url('../img/auxiliaries-selected/handle.png?1421333337');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6670,7 +6702,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 13.75rem;
   height: 24.375rem;
-  background-image: url('../img/auxiliaries/grid.png?1419858174');
+  background-image: url('../img/auxiliaries/grid.png?1421333334');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6687,7 +6719,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 55.8125rem;
   height: 16.3125rem;
-  background-image: url('../img/auxiliaries/visor.png?1419858176');
+  background-image: url('../img/auxiliaries/visor.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6704,7 +6736,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 44.9375rem;
   height: 12.875rem;
-  background-image: url('../img/auxiliaries/spillway.png?1419858176');
+  background-image: url('../img/auxiliaries/spillway.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6721,7 +6753,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 40.625rem;
   height: 38.125rem;
-  background-image: url('../img/auxiliaries/outside.png?1419858176');
+  background-image: url('../img/auxiliaries/outside.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6738,7 +6770,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 45rem;
   height: 14.75rem;
-  background-image: url('../img/auxiliaries/windowsill.png?1419858176');
+  background-image: url('../img/auxiliaries/windowsill.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6762,7 +6794,7 @@ li.sash-shape-icon:last-child {
   z-index: 10;
   width: 16.3125rem;
   height: 4.9375rem;
-  background-image: url('../img/auxiliaries/louvers-top.png?1419858176');
+  background-image: url('../img/auxiliaries/louvers-top.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6772,7 +6804,7 @@ li.sash-shape-icon:last-child {
   left: 3.125rem;
   width: 16.3125rem;
   height: 6.1875rem;
-  background-image: url('../img/auxiliaries/louvers-middle.png?1419858176');
+  background-image: url('../img/auxiliaries/louvers-middle.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6799,7 +6831,7 @@ li.sash-shape-icon:last-child {
   z-index: 6;
   width: 16.3125rem;
   height: 6.5rem;
-  background-image: url('../img/auxiliaries/louvers-bottom.png?1419858176');
+  background-image: url('../img/auxiliaries/louvers-bottom.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6822,7 +6854,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 41.25rem;
   height: 11.4375rem;
-  background-image: url('../img/auxiliaries/inside-slope-top.png?1419858176');
+  background-image: url('../img/auxiliaries/inside-slope-top.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6833,7 +6865,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 5.625rem;
   height: 27.125rem;
-  background-image: url('../img/auxiliaries/inside-slope-right.png?1419858176');
+  background-image: url('../img/auxiliaries/inside-slope-right.png?1421333336');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6844,7 +6876,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 6.0625rem;
   height: 25.5rem;
-  background-image: url('../img/auxiliaries/inside-slope-left.png?1419858174');
+  background-image: url('../img/auxiliaries/inside-slope-left.png?1421333335');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6861,7 +6893,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 7.125rem;
   height: 7.5rem;
-  background-image: url('../img/auxiliaries/fan.png?1419858174');
+  background-image: url('../img/auxiliaries/fan.png?1421333334');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6884,7 +6916,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/force-connector.png?1419858174');
+  background-image: url('../img/auxiliaries/force-connector.png?1421333334');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6895,7 +6927,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/balcon-connector.png?1419858174');
+  background-image: url('../img/auxiliaries/balcon-connector.png?1421333334');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6912,7 +6944,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 6.625rem;
   height: 7.875rem;
-  background-image: url('../img/auxiliaries/handle.png?1419858174');
+  background-image: url('../img/auxiliaries/handle.png?1421333334');
   background-repeat: no-repeat;
   background-size: contain;
 }

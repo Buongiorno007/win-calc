@@ -31,11 +31,11 @@ BauVoiceApp.controller('LoginCtrl', ['$scope', '$location', '$translate', 'globa
       $location.path('/main');
     }
   };
-
+/*
   $scope.switchLang = function () {
     $translate.use() === 'en' ? $translate.use('ru') : $translate.use('en');
   };
-
+*/
   //--- get device code
   globalDB.getDeviceCodeLocalDb(function(result){
     $scope.deviceCode = result.data.deviceCode;

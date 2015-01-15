@@ -1,6 +1,6 @@
 "use strict";
 
-window.russianDictionary = {
+window.germanDictionary = {
   common_words: {
     CHANGE: 'untreu sein',
     MONTHS: 'Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember',
@@ -240,7 +240,7 @@ window.russianDictionary = {
     NEW_PASSWORD: 'Neu',
     CONFIRM_PASSWORD: 'Bestätigen',
     NO_CONFIRM_PASS: 'Ungültiges Passwort'
-  },
+  }//,
 
-  'SWITCH_LANG': 'English'
+  //'SWITCH_LANG': 'German'
 };

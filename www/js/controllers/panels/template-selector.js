@@ -5,7 +5,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localStorage', '$filter', function ($scope, $location, localStorage, $filter) {
+BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localStorage', 'constructService', '$filter', function ($scope, $location, localStorage, constructService, $filter) {
 
   $scope.global = localStorage;
 
@@ -14,6 +14,16 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
     switcherTemplate: false,
     typing: 'on'
   };
+
+  //---------- download templates Img icons
+  constructService.getTemplateImgIcons(function (results) {
+    if (results.status) {
+      $scope.global.templatesImgs = results.data.templateImgs;
+    } else {
+      console.log(results);
+    }
+  });
+
 
   //---------- select new template and recalculate it price
   $scope.selectNewTemplate = function(templateIndex) {

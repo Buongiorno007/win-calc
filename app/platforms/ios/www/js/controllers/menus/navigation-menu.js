@@ -5,7 +5,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB', 'constructService', 'localDB', 'localStorage', '$timeout', function ($scope, $http, $location, globalDB, constructService, localDB, localStorage, $timeout) {
+BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB', 'constructService', 'localDB', 'localStorage', '$translate', '$timeout', function ($scope, $http, $location, globalDB, constructService, localDB, localStorage, $translate, $timeout) {
 
   $scope.global = localStorage;
 
@@ -44,6 +44,79 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
   //----- generate new order number or calculate products in order
   $scope.checkingForNewOrder();
 */
+
+
+  //--------- get user data and location for first time
+
+  if($scope.global.startProgramm) {
+    localDB.selectAllDBGlobal($scope.global.usersTableDBGlobal, function (results) {
+      if (results.status) {
+        $scope.global.userInfo = angular.copy(results.data[0]);
+        //------ find user city in global DB
+        localDB.selectDBGlobal($scope.global.citiesTableDBGlobal, {'id': $scope.global.userInfo.city_id }, function (results) {
+          if (results.status) {
+            $scope.global.userInfo.cityName = results.data[0].name;
+            //------ find user region in global DB
+            localDB.selectDBGlobal($scope.global.regionsTableDBGlobal, {'id': results.data[0].region_id }, function (results) {
+              if (results.status) {
+                $scope.global.userInfo.regionName = results.data[0].name;
+                $scope.global.userInfo.climaticZone = results.data[0].climatic_zone;
+                $scope.global.userInfo.heatTransfer = results.data[0].heat_transfer;
+                //------ find user country in global DB
+                localDB.selectDBGlobal($scope.global.countriesTableDBGlobal, {'id': results.data[0].country_id }, function (results) {
+                  if (results.status) {
+                    $scope.global.userInfo.countryName = results.data[0].name;
+                    setUserLanguage($scope.global.userInfo.countryName);
+                    $scope.global.userInfo.fullLocation = '' + $scope.global.userInfo.cityName + ', ' + $scope.global.userInfo.regionName + ', ' + $scope.global.userInfo.countryName;
+
+                    //------ set current GeoLocation
+                    $scope.global.currentGeoLocation = {
+                      cityId: angular.copy($scope.global.userInfo.city_id),
+                      cityName: angular.copy($scope.global.userInfo.cityName),
+                      regionName: angular.copy($scope.global.userInfo.regionName),
+                      countryName: angular.copy($scope.global.userInfo.countryName),
+                      climaticZone: angular.copy($scope.global.userInfo.climaticZone),
+                      heatTransfer: angular.copy($scope.global.userInfo.heatTransfer),
+                      fullLocation: angular.copy($scope.global.userInfo.fullLocation)
+                    };
+                    //console.log($scope.global.userInfo);
+                  } else {
+                    console.log(results);
+                  }
+                });
+
+              } else {
+                console.log(results);
+              }
+            });
+          } else {
+            console.log(results);
+          }
+        });
+      } else {
+        console.log(results);
+      }
+    });
+    //$scope.global.firstGetUserData = false;
+  }
+
+  //---------- define language relate to user data
+  function setUserLanguage(country) {
+    switch(country) {
+      case 'Украина':
+        $scope.global.userInfo.langName = $scope.global.languages[0].name;
+        $scope.global.userInfo.langLabel = $scope.global.languages[0].label;
+        $translate.use($scope.global.languages[0].label);
+        break;
+      case 'Россия':
+        $scope.global.userInfo.langName = $scope.global.languages[1].name;
+        $scope.global.userInfo.langLabel = $scope.global.languages[1].label;
+        $translate.use($scope.global.languages[1].label);
+        break;
+    }
+  }
+
+
 
   //------- Select menu item
   $scope.selectMenuItem = function(id) {

@@ -158,9 +158,10 @@
           </div>
           <div show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}" class="template-footer unvisible">
             <div class="other-templates">
-              <div ng-repeat="templateIcon in global.templatesIcons" ng-click="selectNewTemplate($index)" class="other-template">
+              <!--.other-template(ng-repeat="templateIcon in global.templatesIcons", ng-click="selectNewTemplate($index)")-->
+              <div ng-repeat="templateIcon in global.templatesImgs" ng-click="selectNewTemplate($index)" class="other-template">
                 <div show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible">
-                  <svg-template template="templateIcon" template-width="global.svgTemplateIconWidth" template-height="global.svgTemplateIconHeight" type-construction="icon"></svg-template>
+                  <!--svg-template(template = "templateIcon", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="icon")--><img ng-src="{{ templateIcon.src }}">
                 </div>
                 <div show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}" class="other-template-label unvisible">{{ global.templateLabel }}</div>
                 <div show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}" class="other-template-subscr unvisible">{{ templateIcon.name }}</div>

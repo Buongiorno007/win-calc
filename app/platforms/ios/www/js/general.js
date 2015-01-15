@@ -1,3 +1,6 @@
+
+// general.js
+
 /* exported STEP, typingIndex, unvisibleClass, selectClass, activeClass, focuseClass, typingTextByChar, showElementWithDelay, typingTextWithDelay, addClassWithDelay, removeClassWithDelay */
 
 'use strict';

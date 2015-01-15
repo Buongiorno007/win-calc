@@ -19,6 +19,5 @@ window.englishDictionary = {
     SOMETHING_WRONG: 'There was something terrible, so you see this error message.',
     MOBILE: 'Mobile phone',
     PASSWORD: 'Password'
-  },
-  'SWITCH_LANG': 'Русский'
+  }
 };

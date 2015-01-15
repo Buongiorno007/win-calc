@@ -17,6 +17,9 @@ section.settings.setting-page(ng-controller="SettingsCtrl")
         li.item.click(ng-click="gotoPasswordPage()")
           .setting-item-label(data-output="{{ global.userInfo.password }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           .setting-item-change(data-output="{{ 'settings.CHANGE_PASSWORD' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_SHOW_ICONS }}")
+        li.item.click(ng-click="gotoLanguagePage()")
+          .setting-item-label(data-output="{{ global.userInfo.langName }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
+          .setting-item-change(data-output="{{ 'settings.CHANGE_LANGUAGE' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_SHOW_ICONS }}")
 
       ul.list
         li.item

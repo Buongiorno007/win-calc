@@ -126,6 +126,10 @@ BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalDB', 'localStorage', '$
     $location.path('/change-pass');
   };
 
+  $scope.gotoLanguagePage = function() {
+    $location.path('/change-lang');
+  };
+
   $scope.closeSettingsPage = function() {
     $scope.global.isOpenSettingsPage = false;
     $scope.global.gotoMainPage();

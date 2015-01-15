@@ -35,6 +35,11 @@ window.BauVoiceApp = angular.module('BauVoiceApp', [
         controller: 'ChangePassCtrl',
         title: 'Change Pass'
       })
+      .when('/change-lang', {
+        templateUrl: '../views/change-lang.html',
+        controller: 'ChangeLangCtrl',
+        title: 'Change Language'
+      })
       .when('/location', {
         templateUrl: '../views/location.html',
         controller: 'LocationCtrl',
@@ -63,7 +68,10 @@ window.BauVoiceApp = angular.module('BauVoiceApp', [
 //      .html5Mode(true);
 
     $translateProvider.translations('ru', russianDictionary);
+    $translateProvider.translations('ua', ukrainianDictionary);
     $translateProvider.translations('en', englishDictionary);
+    $translateProvider.translations('de', germanDictionary);
+    $translateProvider.translations('ro', romanianDictionary);
 
     $translateProvider.preferredLanguage('ru');
 

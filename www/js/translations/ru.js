@@ -231,6 +231,7 @@ window.russianDictionary = {
   settings: {
     AUTHORIZATION: 'Авторизация:',
     CHANGE_PASSWORD: 'Изменить пароль',
+    CHANGE_LANGUAGE: 'Изменить язык',
     PRIVATE_INFO: 'Личная информация:',
     USER_NAME: 'Контактное лицо',
     CITY: 'Город',
@@ -243,7 +244,7 @@ window.russianDictionary = {
     NEW_PASSWORD: 'Новый',
     CONFIRM_PASSWORD: 'Подтвердить',
     NO_CONFIRM_PASS: 'Неверный пароль'
-  },
+  }//,
 
-  'SWITCH_LANG': 'English'
+  //'SWITCH_LANG': 'English'
 };

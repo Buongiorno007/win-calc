@@ -95,7 +95,9 @@ BauVoiceApp.factory('localStorage', function () {
       countryName: '',
       fullLocation: '',
       climaticZone: 0,
-      heatTransfer: 0
+      heatTransfer: 0,
+      langLabel: '',
+      langName: ''
     },
 
     productSource: {
@@ -305,7 +307,17 @@ BauVoiceApp.factory('localStorage', function () {
     visorDBId: 21,
     gridDBId: 20,
     spillwayDBId: 9,
-    windowsillDBId: 8
+    windowsillDBId: 8,
+
+    //------------ Languages
+    languages: [
+      {label: 'ua', name: 'Українська'},
+      {label: 'ru', name: 'Русский'},
+      {label: 'en', name: 'English'},
+      {label: 'de', name: 'Deutsch'},
+      {label: 'ro', name: 'Român'}
+    ]
+
   }
 });
 

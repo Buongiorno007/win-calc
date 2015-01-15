@@ -16,8 +16,10 @@
 
     .template-footer.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}")
       .other-templates
-        .other-template(ng-repeat="templateIcon in global.templatesIcons", ng-click="selectNewTemplate($index)")
+        //.other-template(ng-repeat="templateIcon in global.templatesIcons", ng-click="selectNewTemplate($index)")
+        .other-template(ng-repeat="templateIcon in global.templatesImgs", ng-click="selectNewTemplate($index)")
           .other-template-img.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}")
-            svg-template(template = "templateIcon", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="icon")
+            //svg-template(template = "templateIcon", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="icon")
+            img(ng-src="{{ templateIcon.src }}")
           .other-template-label.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ global.templateLabel }}
           .other-template-subscr.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ templateIcon.name }}

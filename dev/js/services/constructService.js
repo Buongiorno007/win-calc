@@ -15,7 +15,6 @@ BauVoiceApp.factory('constructService', function ($q) {
 
   return {
 
-    // TODO: Сервис готов
     getRoomInfo: function (callback) {
       callback(new OkResult({
         roomInfo: [
@@ -183,6 +182,74 @@ BauVoiceApp.factory('constructService', function ($q) {
       });
     },
 */
+
+    getTemplateImgIcons: function (callback) {
+      callback(new OkResult({
+        templateImgs: [
+          {
+            id: 1,
+            name: 'Одностворчатое глухое',
+            src: 'img/templates/1.png'
+          },
+          {
+            id: 2,
+            name: 'Одностворчатое',
+            src: 'img/templates/1.png'
+          },
+          {
+            id: 3,
+            name: 'Двухстворчатое',
+            src: 'img/templates/3.png'
+          },
+          {
+            id: 4,
+            name: 'Трехстворчатое',
+            src: 'img/templates/4.png'
+          },
+          {
+            id: 5,
+            name: 'Двухстворчатое с левой форточкой',
+            src: 'img/templates/5.png'
+          },
+          {
+            id: 6,
+            name: 'Двухстворчатое с правой форточкой',
+            src: 'img/templates/6.png'
+          },
+          {
+            id: 7,
+            name: 'Четырехстворчатое',
+            src: 'img/templates/7.png'
+          },
+          {
+            id: 8,
+            name: 'Двухстворчатое верхнее',
+            src: 'img/templates/8.png'
+          },
+          {
+            id: 9,
+            name: 'Т-образное двухстворчатое',
+            src: 'img/templates/9.png'
+          },
+          {
+            id: 10,
+            name: 'ТT-образное трехстворчатое',
+            src: 'img/templates/10.png'
+          },
+          {
+            id: 11,
+            name: 'ТT-образное двойное верхнее',
+            src: 'img/templates/11.png'
+          },
+          {
+            id: 12,
+            name: 'ТT-образное тройное верхнее',
+            src: 'img/templates/12.png'
+          }
+        ]
+      }));
+    },
+
 
     getDefaultConstructTemplate: function(callback) {
       callback(new OkResult({

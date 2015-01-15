@@ -21,6 +21,10 @@
           <div data-output="{{ global.userInfo.password }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
           <div data-output="{{ 'settings.CHANGE_PASSWORD' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_SHOW_ICONS }}" class="setting-item-change"></div>
         </li>
+        <li ng-click="gotoLanguagePage()" class="item click">
+          <div data-output="{{ global.userInfo.langName }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
+          <div data-output="{{ 'settings.CHANGE_LANGUAGE' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_SHOW_ICONS }}" class="setting-item-change"></div>
+        </li>
       </ul>
       <ul class="list">
         <li class="item">
