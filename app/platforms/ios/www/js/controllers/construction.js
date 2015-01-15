@@ -1,6 +1,3 @@
-
-// controllers/construction.js
-
 /* globals BauVoiceApp, STEP, deactiveSizeBox */
 
 'use strict';
@@ -298,7 +295,9 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   //=============== CHANGE CONSTRUCTION SIZE ==============
 
   //----- click on size SVG and get size value and Id
-  $('svg-template').off().on("click", ".size-box-edited", function() {
+  $('svg-template').off("click", ".size-box-edited").on("click", ".size-box-edited", function() {
+    console.log('Click on size');
+    console.log('calculator', $scope.global.isConstructSizeCalculator);
     if(!$scope.global.isConstructSizeCalculator) {
       var thisSize = $(this).find('text');
       $scope.constructData.oldSizeValue = thisSize.text();
@@ -611,7 +610,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
   //=============== CLICK ON GLASS PACKAGE ==============
 
-  $('svg-template').off().on("click", ".glass", function(event) {
+  $('svg-template').off("click", ".glass").on("click", ".glass", function(event) {
     if($scope.constructData.isSashEdit) {
       //------- show sash edit menu and select all glass packages
       if(!$scope.constructData.isSashEditMenu) {
@@ -620,7 +619,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
       } else {
         $scope.constructData.isSashEditMenu = false;
       }
-$scope.$apply();
+      $scope.$apply();
     } else if($scope.constructData.isAngelEdit) {
       console.log('angel');
     } else if($scope.constructData.isImpostEdit) {
@@ -1080,4 +1079,3 @@ $scope.$apply();
   }
 
 }]);
-

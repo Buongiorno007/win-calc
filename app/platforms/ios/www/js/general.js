@@ -1,6 +1,3 @@
-
-// general.js
-
 /* exported STEP, typingIndex, unvisibleClass, selectClass, activeClass, focuseClass, typingTextByChar, showElementWithDelay, typingTextWithDelay, addClassWithDelay, removeClassWithDelay */
 
 'use strict';
@@ -187,9 +184,16 @@ var CrossPointImpost = function(sourceObj, depthSource) {
     this.getCoordinates(this.line1, this.line2, this.depth);
   };
 
+
   this.getCoordinates = function(line1, line2, depth) {
-    var newCoefC1 = this.getNewCoefC(depth ,line1);
-    this.getCoordCrossPoint (line1, line2, newCoefC1);
+    var newCoefC1, newCoefC2;
+    if(line1.id.indexOf('impost')+1) {
+      newCoefC1 = this.getNewCoefC(depth ,line1);
+    }
+    if(line2.id.indexOf('impost')+1) {
+      newCoefC2 = this.getNewCoefC(depth ,line2);
+    }
+    this.getCoordCrossPoint (line1, line2, newCoefC1, newCoefC2);
   };
 
   this.getNewCoefC = function (depth, line) {
@@ -197,13 +201,16 @@ var CrossPointImpost = function(sourceObj, depthSource) {
     return newCoefC;
   };
 
-  this.getCoordCrossPoint = function(line1, line2, coefC1) {
+  this.getCoordCrossPoint = function(line1, line2, coefC1, coefC2) {
     var coefA1 = line1.coefA,
         coefB1 = line1.coefB,
         coefA2 = line2.coefA,
-        coefB2 = line2.coefB,
-        coefC2 = line2.coefC,
-        base = (coefA1 * coefB2) - (coefA2 * coefB1),
+        coefB2 = line2.coefB;
+
+    if(!coefC2) {
+      var coefC2 = line2.coefC;
+    }
+    var base = (coefA1 * coefB2) - (coefA2 * coefB1),
         baseX = ((-coefC1) * coefB2) - (coefB1 * (-coefC2)),
         baseY = (coefA1 * (-coefC2)) - (coefA2 * (-coefC1));
     this.x = baseX / base;
@@ -230,8 +237,18 @@ var CrossPointDiff = function (sourceObj, depthSource, depthSource2) {
   };
 
   this.getCoordinates = function(line1, line2, depth, depthDif) {
-    var newCoefC1 = this.getNewCoefC(depth ,line1),
-        newCoefC2 = this.getNewCoefC(depthDif ,line2);
+    var newCoefC1, newCoefC2;
+    if(line1.id.indexOf('impost')+1) {
+      newCoefC1 = this.getNewCoefC(depthDif ,line1);
+    } else {
+      newCoefC1 = this.getNewCoefC(depth ,line1);
+    }
+
+    if(line2.id.indexOf('impost')+1) {
+      newCoefC2 = this.getNewCoefC(depthDif ,line2);
+    } else {
+      newCoefC2 = this.getNewCoefC(depthDif ,line2);
+    }
     this.getCoordCrossPoint (line1, line2, newCoefC1, newCoefC2);
   };
 
