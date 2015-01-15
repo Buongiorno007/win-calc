@@ -5035,28 +5035,37 @@ li.sash-shape-icon:last-child {
   content: "\e608";
 }
 /* line 87, ../../dev/sass/menus/_navigation-menu.scss */
+.nav-menu .nav-icon-voicehelp {
+  font: normal 2.5rem/1.42857 general-icons, sans-serif;
+}
+/* line 89, ../../dev/sass/menus/_navigation-menu.scss */
+.nav-menu .nav-icon-voicehelp:before {
+  color: #f98000;
+  content: "\f130";
+}
+/* line 94, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .title {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   width: 25rem;
   color: #fff;
 }
-/* line 94, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 101, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .badge {
   font: normal 1.5rem/1.42857 roboto-medium, sans-serif;
   color: #999;
 }
-/* line 99, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 106, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .divider {
   font: normal 1.5rem/4.375rem roboto-medium, sans-serif;
   padding: 1.25rem 0 0 3.125rem;
   text-transform: uppercase;
   color: #999;
 }
-/* line 106, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 113, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-menu-footer {
   padding: 3.125rem;
 }
-/* line 109, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 116, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .new-calc {
   width: 100%;
   height: 6.875rem;

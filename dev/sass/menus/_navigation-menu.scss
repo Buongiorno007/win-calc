@@ -84,6 +84,13 @@
     color: #6ed44a;
     content: $settings-icon;
   }
+  .nav-icon-voicehelp {
+    @include font-general-icon(rem(40px));
+    &:before {
+      color: $main_orange;
+      content: $voice-icon;
+    }
+  }
   .title {
     @extend .truncated;
     @include roboto-lt(rem(36px));

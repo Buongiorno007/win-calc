@@ -39,10 +39,8 @@ BauVoiceApp.controller('RoomInfoCtrl', ['$scope', 'constructService', 'localStor
   $(".room-info-container").swipe( {
     swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
       if(direction === 'up') {
-        console.log('direction!!!!', direction);
         $scope.global.isShowCommentBlock = true;
       } else if(direction === 'down') {
-        console.log('direction!!!!', direction);
         $scope.global.isShowCommentBlock = false;
       }
       $scope.$apply();

@@ -209,96 +209,124 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
   // создание объекта для отправки в базу, чтобы рассчитать цену шаблона
   $scope.global.createObjXFormedPrice = function(template, profileIndex, profileId, glassId) {
-    $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
-    for (var item = 0; item < template.objects.length; item++) {
-      var elementSize;
-      if (template.objects[item].type) {
-        switch (template.objects[item].type) {
-          case 'frame_line':
-            elementSize = template.objects[item].lengthVal;
-            $scope.global.objXFormedPrice.framesSize.push(elementSize);
-            if (template.objects[item].sill) {
-              $scope.global.objXFormedPrice.frameSillSize = template.objects[item].lengthVal;
-            }
-            break;
-          case 'impost':
-            elementSize = template.objects[item].parts[0].lengthVal;
-            $scope.global.objXFormedPrice.impostsSize.push(elementSize);
-            break;
-          case 'sash':
-            elementSize = template.objects[item].parts[0].lengthVal;
-            $scope.global.objXFormedPrice.sashsSize.push(elementSize);
-            break;
-          case 'bead_box_line':
-            elementSize = template.objects[item].lengthVal;
-            $scope.global.objXFormedPrice.beadsSize.push(elementSize);
-            break;
-          case 'sash_block':
-            var tempSashBlock = {},
-                tempSashBlockSize = [];
-            for (var sash = 0; sash < template.objects[item].parts.length; sash++) {
-              tempSashBlockSize.push(template.objects[item].parts[sash].lengthVal);
-            }
-            tempSashBlock.sizes = tempSashBlockSize;
-            tempSashBlock.hardwareId = template.objects[item].hardwareId;
-            tempSashBlock.openDir = template.objects[item].openDir;
-            tempSashBlock.handlePos = template.objects[item].handlePos;
-            $scope.global.objXFormedPrice.sashesBlock.push(tempSashBlock);
-            break;
-          case 'glass_paсkage':
-            var tempGlassSizes = [];
-            for (var glass = 0; glass < template.objects[item].parts.length; glass++) {
-              tempGlassSizes.push(template.objects[item].parts[glass].lengthVal);
-            }
-            $scope.global.objXFormedPrice.glassSizes.push(tempGlassSizes);
-            $scope.global.objXFormedPrice.glassSquares.push(template.objects[item].square);
-            break;
-          case 'dimensionsH':
-            $scope.global.product.templateWidth = template.objects[item].lengthVal;
-            break;
-          case 'dimensionsV':
-            $scope.global.product.templateHeight = template.objects[item].lengthVal;
-            break;
-        }
-      }
-    }
-    $scope.global.objXFormedPrice.cityId = $scope.global.userInfo.city_id;
-    $scope.global.objXFormedPrice.glassId = glassId;
-    $scope.global.objXFormedPrice.profileId = profileId;
-    $scope.global.objXFormedPrice.frameId = $scope.global.allProfileFrameSizes[profileIndex].id;
-    $scope.global.objXFormedPrice.frameSillId = $scope.global.allProfileFrameStillSizes[profileIndex].id;
-    $scope.global.objXFormedPrice.sashId = $scope.global.allProfileSashSizes[profileIndex].id;
-    $scope.global.objXFormedPrice.impostId = $scope.global.allProfileImpostSizes[profileIndex].id;
-    $scope.global.objXFormedPrice.shtulpId = $scope.global.allProfileShtulpSizes[profileIndex].id;
+    //------ define Bead Id for define template price
+    localDB.selectDBGlobal($scope.global.listsTableDBGlobal, {'id': glassId }, function (results) {
+      if (results.status) {
+        var parentId = results.data[0].parent_element_id;
+        //------ find glass depth
+        localDB.selectDBGlobal($scope.global.elementsTableDBGlobal, {'id': parentId }, function (results) {
+          if (results.status) {
+            var glassDepth = results.data[0].glass_width;
+            //------ find bead Id as to glass Depth and profile Id
+            localDB.selectDBGlobal($scope.global.beadsTableDBGlobal, {'profile_system_id': {"value": profileId, "union": 'AND'}, "glass_width": glassDepth}, function (results) {
+              if (results.status) {
+                $scope.global.product.beadId = results.data[0].list_id;
+                //console.log($scope.global.product.beadId);
 
 
-    //console.log(JSON.stringify($scope.global.objXFormedPrice));
-    //console.log($scope.global.objXFormedPrice);
+                $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
+                for (var item = 0; item < template.objects.length; item++) {
+                  var elementSize;
+                  if (template.objects[item].type) {
+                    switch (template.objects[item].type) {
+                      case 'frame_line':
+                        elementSize = template.objects[item].lengthVal;
+                        $scope.global.objXFormedPrice.framesSize.push(elementSize);
+                        if (template.objects[item].sill) {
+                          $scope.global.objXFormedPrice.frameSillSize = template.objects[item].lengthVal;
+                        }
+                        break;
+                      case 'impost':
+                        elementSize = template.objects[item].parts[0].lengthVal;
+                        $scope.global.objXFormedPrice.impostsSize.push(elementSize);
+                        break;
+                      case 'sash':
+                        elementSize = template.objects[item].parts[0].lengthVal;
+                        $scope.global.objXFormedPrice.sashsSize.push(elementSize);
+                        break;
+                      case 'bead_line':
+                        elementSize = template.objects[item].lengthVal;
+                        $scope.global.objXFormedPrice.beadsSize.push(elementSize);
+                        break;
+                      case 'sash_block':
+                        var tempSashBlock = {},
+                            tempSashBlockSize = [];
+                        for (var sash = 0; sash < template.objects[item].parts.length; sash++) {
+                          tempSashBlockSize.push(template.objects[item].parts[sash].lengthVal);
+                        }
+                        tempSashBlock.sizes = tempSashBlockSize;
+                        tempSashBlock.openDir = template.objects[item].openDir;
+                        $scope.global.objXFormedPrice.sashesBlock.push(tempSashBlock);
+                        break;
+                      case 'glass_paсkage':
+                        var tempGlassSizes = [];
+                        for (var glass = 0; glass < template.objects[item].parts.length; glass++) {
+                          tempGlassSizes.push(template.objects[item].parts[glass].lengthVal);
+                        }
+                        $scope.global.objXFormedPrice.glassSizes.push(tempGlassSizes);
+                        $scope.global.objXFormedPrice.glassSquares.push(template.objects[item].square);
+                        break;
+                      case 'dimensionsH':
+                        $scope.global.product.templateWidth = template.objects[item].lengthVal;
+                        break;
+                      case 'dimensionsV':
+                        $scope.global.product.templateHeight = template.objects[item].lengthVal;
+                        break;
+                    }
+                  }
+                }
+                $scope.global.objXFormedPrice.cityId = $scope.global.userInfo.city_id;
+                $scope.global.objXFormedPrice.glassId = glassId;
+                $scope.global.objXFormedPrice.profileId = profileId;
+                $scope.global.objXFormedPrice.hardwareId = $scope.global.product.hardwareId;
+                $scope.global.objXFormedPrice.hardwareColor = $scope.global.product.laminationInName;
+                $scope.global.objXFormedPrice.frameId = $scope.global.allProfileFrameSizes[profileIndex].id;
+                $scope.global.objXFormedPrice.frameSillId = $scope.global.allProfileFrameStillSizes[profileIndex].id;
+                $scope.global.objXFormedPrice.sashId = $scope.global.allProfileSashSizes[profileIndex].id;
+                $scope.global.objXFormedPrice.impostId = $scope.global.allProfileImpostSizes[profileIndex].id;
+                $scope.global.objXFormedPrice.shtulpId = $scope.global.allProfileShtulpSizes[profileIndex].id;
+                $scope.global.objXFormedPrice.beadId = $scope.global.product.beadId;
 
-    //------ calculate coeffs
-    $scope.global.calculateCoeffs();
+                //console.log(JSON.stringify($scope.global.objXFormedPrice));
+                console.log($scope.global.objXFormedPrice);
 
-    //--------- get product default price
-    globalDB.calculationPrice($scope.global.objXFormedPrice, function (result) {
-      if(result.status){
+                //------ calculate coeffs
+                $scope.global.calculateCoeffs();
 
-        //console.log('price');
-        //console.log(result.data);
-        $scope.global.product.templatePriceSELECT = parseFloat(angular.copy(result.data.price));
-        $scope.global.setProductPriceTOTAL();
-        var currencySymbol = '';
-        if (result.data.currentCurrency.name === 'uah') {
-          currencySymbol = '₴';
-        }
-        $scope.global.currency = currencySymbol;
-        $scope.global.isFindPriceProcess = false;
+                //--------- get product default price
+                globalDB.calculationPrice($scope.global.objXFormedPrice, function (result) {
+                  if(result.status){
 
+                    //console.log('price');
+                    //console.log(result.data);
+                    $scope.global.product.templatePriceSELECT = parseFloat(angular.copy(result.data.price));
+                    $scope.global.setProductPriceTOTAL();
+                    var currencySymbol = '';
+                    if (result.data.currentCurrency.name === 'uah') {
+                      currencySymbol = '₴';
+                    }
+                    $scope.global.currency = currencySymbol;
+                    $scope.global.isFindPriceProcess = false;
+
+                  } else {
+                    console.log(result);
+                  }
+                });
+
+
+
+              } else {
+                console.log(results);
+              }
+            });
+          } else {
+            console.log(results);
+          }
+        });
       } else {
-        console.log(result);
+        console.log(results);
       }
     });
-
-
 
   };
 

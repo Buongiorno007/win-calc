@@ -298,7 +298,9 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   //=============== CHANGE CONSTRUCTION SIZE ==============
 
   //----- click on size SVG and get size value and Id
-  $('svg-template').off().on("click", ".size-box-edited", function() {
+  $('svg-template').off("click", ".size-box-edited").on("click", ".size-box-edited", function() {
+    console.log('Click on size');
+    console.log('calculator', $scope.global.isConstructSizeCalculator);
     if(!$scope.global.isConstructSizeCalculator) {
       var thisSize = $(this).find('text');
       $scope.constructData.oldSizeValue = thisSize.text();
@@ -360,6 +362,8 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
       $scope.$apply();
     }
   });
+
+
   //------ click on size calculator, get number
   $('.construction-right-menu .size-calculator .calc-digit').off().click(function() {
     var newValue = $(this).text();
@@ -372,12 +376,12 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
   function recognitionProgress(value) {
     if (value > 100) {
-      console.log(value);
+      console.log('value', value);
       $scope.loudVoice = true;
       $scope.quietVoice = false;
 
     } else {
-      console.log(value);
+      console.log('value', value);
       $scope.loudVoice = false;
       $scope.quietVoice = true;
     }
@@ -386,7 +390,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   }
 
   function doneRecognition(value) {
-    console.log("doneRecognition" + value);
+    console.log("doneRecognition", value);
     $scope.voiceTxt = value;
     $scope.$apply();
     setTimeout(function() {
@@ -407,14 +411,15 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     if($scope.openVoiceHelper) {
 
       var tempVal = parseInt(newValue, 10);
-       console.log('tempVal', tempVal);
-        $scope.voiceTxt = '';
-        $scope.openVoiceHelper = false;
+      console.log('tempVal', tempVal);
+      $scope.voiceTxt = '';
+      $scope.openVoiceHelper = false;
 
-        if ((tempVal > 0) && (tempVal < 10000)) {
-          $scope.constructData.tempSize = ("" + tempVal).split('');
-          changeSize();
-        }
+      if ((tempVal > 0) && (tempVal < 10000)) {
+        $scope.constructData.tempSize = ("" + tempVal).split('');
+        console.log('$scope.constructData.tempSize == ', $scope.constructData.tempSize);
+        changeSize();
+      }
       deactiveSizeBox(sizeEditClass, sizeClass);
 
     } else {
@@ -475,7 +480,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
     if($scope.global.isVoiceHelper) {
       $scope.closeSizeCaclulator();
-      console.log($scope.constructData.tempSize);
+      console.log('$scope.constructData.tempSize ===end', $scope.constructData.tempSize);
     }
   }
 
@@ -608,7 +613,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
   //=============== CLICK ON GLASS PACKAGE ==============
 
-  $('svg-template').off().on("click", ".glass", function(event) {
+  $('svg-template').off("click", ".glass").on("click", ".glass", function(event) {
     if($scope.constructData.isSashEdit) {
       //------- show sash edit menu and select all glass packages
       if(!$scope.constructData.isSashEditMenu) {
@@ -617,7 +622,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
       } else {
         $scope.constructData.isSashEditMenu = false;
       }
-$scope.$apply();
+      $scope.$apply();
     } else if($scope.constructData.isAngelEdit) {
       console.log('angel');
     } else if($scope.constructData.isImpostEdit) {

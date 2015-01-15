@@ -35,6 +35,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               glasses: [],
               imposts: [],
               sashes: [],
+              beads: [],
               dimensionsH: [],
               dimensionsV: [],
               openDirections: []
@@ -98,11 +99,20 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               }
               break;
 
+            case 'bead_box':
+              path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ' + template.objects[i].parts[0].toPoint.x + ' ' + template.objects[i].parts[0].toPoint.y + ' ';
+              path += template.objects[i].parts[1].toPoint.x + ' ' + template.objects[i].parts[1].toPoint.y + ' ' + template.objects[i].parts[1].fromPoint.x + ' ' + template.objects[i].parts[1].fromPoint.y + ' ';
+              path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ';
+              elementsSVG.beads.push(path);
+              break;
+
             case 'glass_paсkage':
+              var glass = {path: ''};
               for(var p = 0; p < template.objects[i].parts.length; p++) {
-                path += template.objects[i].parts[p].fromPoint.x + ' ' + template.objects[i].parts[p].fromPoint.y + ' ' + template.objects[i].parts[p].toPoint.x + ' ' + template.objects[i].parts[p].toPoint.y + ' ';
+                glass.path += template.objects[i].parts[p].fromPoint.x + ' ' + template.objects[i].parts[p].fromPoint.y + ' ' + template.objects[i].parts[p].toPoint.x + ' ' + template.objects[i].parts[p].toPoint.y + ' ';
               }
-              elementsSVG.glasses.push(path);
+              glass.id = template.objects[i].id;
+              elementsSVG.glasses.push(glass);
               break;
 
             case 'dimensionsH':
@@ -264,12 +274,19 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                   group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'sash');
                 }
                 break;
-              case 'glasses':
-                if(scope.typeConstruction === 'edit') {
-                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'glass-active');
+              case 'beads':
+                if(scope.typeConstruction === 'icon') {
+                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'bead-icon');
                 } else {
-                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'glass');
+                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'bead');
                 }
+                break;
+              case 'glasses':
+                /*if(scope.typeConstruction === 'edit') {
+                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'glass-active');
+                } else {*/
+                  group.path('M' + elementsSVG[prop][elem].path + 'z').attr('class', 'glass').attr('element-id', elementsSVG[prop][elem].id);
+                //}
                 break;
               case 'openDirections':
                 group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'open-direction');
