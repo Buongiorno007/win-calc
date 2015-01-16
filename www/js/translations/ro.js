@@ -151,7 +151,11 @@ window.romanianDictionary = {
     LABEL_DOOR_TYPE: 'Selectaţi un toc de proiectare a ușii',
     LABEL_SASH_TYPE: 'Selectați tipul de cercevea la ușă',
     LABEL_HANDLE_TYPE: 'Selectați tipul de mâner',
-    LABEL_LOCK_TYPE: 'Selectați tipul de blocare'
+    LABEL_LOCK_TYPE: 'Selectați tipul de blocare',
+    VOICE_SWITCH_ON: "Modul Voce este activat",
+    VOICE_NOT_UNDERSTAND: 'nu este clar',
+    VOICE_SMALLEST_SIZE: 'prea mic',
+    VOICE_BIGGEST_SIZE: "prea mare"
   },
   history: {
     SEARCH_PLACEHOLDER: 'Căutare după cuvinte cheie',

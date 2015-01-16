@@ -148,7 +148,11 @@ window.germanDictionary = {
     LABEL_DOOR_TYPE: 'Wählen Sie ein Design Türrahmen',
     LABEL_SASH_TYPE: 'Wählen Sie die Art des Türblattes',
     LABEL_HANDLE_TYPE: 'Wählen Sie die Art der Griff',
-    LABEL_LOCK_TYPE: 'Wählen Sie die Art der Sperre'
+    LABEL_LOCK_TYPE: 'Wählen Sie die Art der Sperre',
+    VOICE_SWITCH_ON: "Voice-Modus aktiviert ist",
+    VOICE_NOT_UNDERSTAND: 'es ist nicht klar',
+    VOICE_SMALLEST_SIZE: 'zu klein',
+    VOICE_BIGGEST_SIZE: "zu groß"
   },
   history: {
     SEARCH_PLACEHOLDER: 'Suche nach Stichwort',

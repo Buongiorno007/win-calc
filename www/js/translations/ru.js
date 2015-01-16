@@ -151,7 +151,11 @@ window.russianDictionary = {
     LABEL_DOOR_TYPE: 'Выберите конструкцию рамы двери',
     LABEL_SASH_TYPE: 'Выберите тип створки двери',
     LABEL_HANDLE_TYPE: 'Выберите тип ручки',
-    LABEL_LOCK_TYPE: 'Выберите тип замка'
+    LABEL_LOCK_TYPE: 'Выберите тип замка',
+    VOICE_SWITCH_ON: "голосовой режим включен",
+    VOICE_NOT_UNDERSTAND: 'Не понятно',
+    VOICE_SMALLEST_SIZE: 'слишком маленький размер',
+    VOICE_BIGGEST_SIZE: "слишком большой размер"
   },
   history: {
     SEARCH_PLACEHOLDER: 'Поиск по ключевым словам',

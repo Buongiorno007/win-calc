@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB', 'constructService', 'localDB', 'localStorage', '$translate', '$timeout', function ($scope, $http, $location, globalDB, constructService, localDB, localStorage, $translate, $timeout) {
+BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB', 'constructService', 'localDB', 'localStorage', '$translate', '$timeout', '$filter', function ($scope, $http, $location, globalDB, constructService, localDB, localStorage, $translate, $timeout, $filter) {
 
   $scope.global = localStorage;
 
@@ -63,7 +63,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
                 localDB.selectDBGlobal($scope.global.countriesTableDBGlobal, {'id': results.data[0].country_id }, function (results) {
                   if (results.status) {
                     $scope.global.userInfo.countryName = results.data[0].name;
-                    setUserLanguage($scope.global.userInfo.countryName);
+                    $scope.setUserLanguage($scope.global.userInfo.countryName);
                     $scope.global.userInfo.fullLocation = '' + $scope.global.userInfo.cityName + ', ' + $scope.global.userInfo.regionName + ', ' + $scope.global.userInfo.countryName;
 
                     //------ set current GeoLocation
@@ -98,7 +98,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
   }
 
   //---------- define language relate to user data
-  function setUserLanguage(country) {
+  $scope.setUserLanguage = function(country) {
     switch(country) {
       case 'Украина':
         $scope.global.userInfo.langName = $scope.global.languages[0].name;
@@ -111,9 +111,24 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
         $translate.use($scope.global.languages[1].label);
         break;
     }
-  }
+    $scope.global.setLanguageVoiceHelper($scope.global.userInfo.langLabel);
+  };
 
-
+  $scope.global.setLanguageVoiceHelper = function(langLabel) {
+    switch (langLabel) {
+      //case 'ua': $scope.global.voiceHelperLanguage = 'ukr-UKR';
+      case 'ua': $scope.global.voiceHelperLanguage = 'ru_RU';
+        break;
+      case 'ru': $scope.global.voiceHelperLanguage = 'ru_RU';
+        break;
+      case 'en': $scope.global.voiceHelperLanguage = 'en_US';
+        break;
+      case 'en': $scope.global.voiceHelperLanguage = 'de_DE';
+        break;
+      case 'ro': $scope.global.voiceHelperLanguage = 'ro_RO';
+        break;
+    }
+  };
 
   //------- Select menu item
   $scope.selectMenuItem = function(id) {
@@ -225,10 +240,9 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
   $scope.switchVoiceHelper = function() {
     $scope.global.isVoiceHelper = !$scope.global.isVoiceHelper;
     if($scope.global.isVoiceHelper) {
-      playTTS("голосовой режим включен");
+      playTTS($filter('translate')('construction.VOICE_SWITCH_ON'), $scope.global.voiceHelperLanguage);
     }
   };
-
 
 
 

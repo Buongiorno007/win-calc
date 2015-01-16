@@ -231,6 +231,7 @@ BauVoiceApp.factory('localStorage', function () {
     },
 
     objXAddElementPriceSource: {
+      cityId: 0,
       elementId: 0,
       elementLength: 0
     },
@@ -275,6 +276,7 @@ BauVoiceApp.factory('localStorage', function () {
     isOpenSettingsPage: false,
     isChangedTemplate: false,
     isVoiceHelper: false,
+    voiceHelperLanguage: 'ru_ru',
     isShowCommentBlock: false,
     showMasterDialog: false,
     showOrderDialog: false,

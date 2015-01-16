@@ -17,10 +17,11 @@ function doCleanup(){
     speechKit.cleanup( function(r){printResult(r)}, function(e){printResult(e)} );
 }
 
-function startRecognition(callback, progressCalback){
-    var recInProcess = true;
+function startRecognition(callback, progressCalback, languageLabel){
+    var recInProcess = true,
+        recognitionLanguage = languageLabel;
     console.log("Before startRecognition");
-    speechKit.startRecognition("dictation", "ru_ru", function(r){printRecoResult(r)}, function(e){printRecoResult(e)} );
+    speechKit.startRecognition("dictation", recognitionLanguage, function(r){printRecoResult(r)}, function(e){printRecoResult(e)} );
     console.log("After startRecognition");
     var tempObj = new Object();
    
@@ -90,12 +91,12 @@ function printResult(resultObject){
     console.log("printResult " + resultObject.event);
 }
 
-function playTTS(text) {
+function playTTS(text, languageLabel) {
     if (text.length > 0){
         console.log("Playing TTS");
         
         var ttsLanguageSelect = document.getElementById("tts-language");
-        var ttsLanguage = "ru_ru";
+        var ttsLanguage = languageLabel;
         speechKit.playTTS(text, ttsLanguage, null, function(r){printTTSResult(r)}, function(e){printTTSResult(e)} );
     }
     

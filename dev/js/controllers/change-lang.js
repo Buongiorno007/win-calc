@@ -15,6 +15,7 @@ BauVoiceApp.controller('ChangeLangCtrl', ['$scope', 'localStorage', '$translate'
     $translate.use($scope.global.languages[languageId].label);
     $scope.global.userInfo.langLabel = $scope.global.languages[languageId].label;
     $scope.global.userInfo.langName = $scope.global.languages[languageId].name;
+    $scope.global.setLanguageVoiceHelper($scope.global.userInfo.langLabel);
     $timeout(function() {
       $scope.global.isOpenSettingsPage = false;
       $scope.global.startProgramm = false;

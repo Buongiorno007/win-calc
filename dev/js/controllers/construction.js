@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'localStorage', '$location', function ($scope, constructService, localStorage, $location) {
+BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'localStorage', '$location', '$filter', function ($scope, constructService, localStorage, $location, $filter) {
 
   $scope.global = localStorage;
 
@@ -353,7 +353,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
         $scope.global.isConstructSizeCalculator = true;
       } else {
         $scope.openVoiceHelper = true;
-        startRecognition(doneRecognition, recognitionProgress);
+        startRecognition(doneRecognition, recognitionProgress, $scope.global.voiceHelperLanguage);
 
       }
       $scope.$apply();
@@ -397,7 +397,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
       console.log("данные после парса", intValue);
       console.log("тип полученных данных", typeof intValue);
       if (intValue == "NaN") {
-        intValue = "0";
+        intValue = $filter('translate')('construction.VOICE_NOT_UNDERSTAND');
       }
       playTTS(intValue);
       setValueSize(intValue);
@@ -409,7 +409,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   //-------- Get number from calculator
   function setValueSize(newValue) {
 
-    if($scope.openVoiceHelper) {
+    if($scope.global.isVoiceHelper) {
 
       var tempVal = parseInt(newValue, 10);
       console.log('tempVal=====', tempVal);
@@ -418,6 +418,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
       if ((tempVal > 0) && (tempVal < 10000)) {
         $scope.constructData.tempSize = ("" + tempVal).split('');
+        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
         console.log('$scope.constructData.tempSize == ', $scope.constructData.tempSize);
         changeSize();
       }
@@ -588,13 +589,30 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
         $scope.constructData.isMinSizeRestriction = false;
         $scope.constructData.isMaxSizeRestriction = false;
       } else {
+
         //------ show error size
         if(newLength < $scope.constructData.minSizeLimit) {
-          $scope.constructData.isMinSizeRestriction = true;
-          $scope.constructData.isMaxSizeRestriction = false;
+          if($scope.global.isVoiceHelper) {
+            playTTS($filter('translate')('construction.VOICE_SMALLEST_SIZE'), $scope.global.voiceHelperLanguage);
+            //------- deactive size box in svg
+            deactiveSizeBox(sizeEditClass, sizeClass);
+            //-------- build new template
+            $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
+          } else {
+            $scope.constructData.isMinSizeRestriction = true;
+            $scope.constructData.isMaxSizeRestriction = false;
+          }
         } else if(newLength > $scope.constructData.maxSizeLimit) {
-          $scope.constructData.isMinSizeRestriction = false;
-          $scope.constructData.isMaxSizeRestriction = true;
+          if($scope.global.isVoiceHelper) {
+            playTTS($filter('translate')('construction.VOICE_BIGGEST_SIZE'), $scope.global.voiceHelperLanguage);
+            //------- deactive size box in svg
+            deactiveSizeBox(sizeEditClass, sizeClass);
+            //-------- build new template
+            $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
+          } else {
+            $scope.constructData.isMinSizeRestriction = false;
+            $scope.constructData.isMaxSizeRestriction = true;
+          }
         }
 
       }

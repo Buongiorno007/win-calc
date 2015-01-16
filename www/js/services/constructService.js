@@ -258,7 +258,7 @@ BauVoiceApp.factory('constructService', function ($q) {
       callback(new OkResult({
         windows: [
           {
-            'name': 'Одностворчатое глухое',
+            'name': 'Одностворчатое',
             'objects': [
               //------- main points
               {'type': 'fixed_point', id: 'fp1', x: '0', y: '0'},
@@ -754,7 +754,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             ]
           },
           {
-            'name':'Двухстворчатое с левой форточкой',
+            'name':'Двухстворчатое',
             'objects':[
               //------- main points
               {'type':'fixed_point', id:'fp1', x:'0', y: '0'},
@@ -910,7 +910,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             ]
           },
           {
-            'name':'Двухстворчатое с правой форточкой',
+            'name':'Двухстворчатое',
             'objects':[
               //------- main points
               {'type':'fixed_point', id:'fp1', x:'0', y: '0'},
@@ -1066,7 +1066,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             ]
           },
           {
-            'name':'Четырехстворчатое',
+            'name':'Двухстворчатое',
             'objects':[
               //------- main points
               {'type':'fixed_point', id:'fp1', x:'0', y: '0'},
@@ -1269,7 +1269,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             ]
           },
           {
-            'name':'Двухстворчатое верхнее',
+            'name':'Одностворчатое',
             'objects':[
               //------- main points
               {'type':'fixed_point', id:'fp1', x:'0', y: '0'},
@@ -1382,7 +1382,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             ]
           },
           {
-            'name':'Т-образное двухстворчатое',
+            'name':'Трехстворчатое',
             'objects':[
               //------- main points
               {'type':'fixed_point', id:'fp1', x:'0', y: '0'},
@@ -1541,7 +1541,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             ]
           },
           {
-            'name':'ТT-образное трехстворчатое',
+            'name':'Трехстворчатое',
             'objects':[
               //------- main points
               {'type':'fixed_point', id:'fp1', x:'0', y: '0'},
@@ -1745,7 +1745,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             ]
           },
           {
-            'name':'ТT-образное двойное верхнее',
+            'name':'Трехстворчатое',
             'objects':[
               //------- main points
               {'type':'fixed_point', id:'fp1', x:'0', y: '0'},
@@ -1994,7 +1994,7 @@ BauVoiceApp.factory('constructService', function ($q) {
             ]
           },
           {
-            'name':'ТT-образное тройное верхнее',
+            'name':'Трехстворчатое',
             'objects':[
               //------- main points
               {'type':'fixed_point', id:'fp1', x:'0', y: '0'},
@@ -2644,7 +2644,7 @@ BauVoiceApp.factory('constructService', function ($q) {
 
         doors: [
           {
-            'name': 'Одностворчатая дверь',
+            'name': 'Одностворчатая',
             'objects': [
               //------- main points
               {'type': 'fixed_point', id: 'fp1', x: '0', y: '0'},

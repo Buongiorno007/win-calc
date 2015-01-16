@@ -1,4 +1,4 @@
-﻿"use strict";
+"use strict";
 
 window.ukrainianDictionary = {
   common_words: {
@@ -147,7 +147,11 @@ window.ukrainianDictionary = {
     LABEL_DOOR_TYPE: 'Виберіть конструкцію рами дверей',
     LABEL_SASH_TYPE: 'Виберіть тип стулки дверей',
     LABEL_HANDLE_TYPE: 'Виберіть тип ручки',
-    LABEL_LOCK_TYPE: 'Виберіть тип замка'
+    LABEL_LOCK_TYPE: 'Виберіть тип замка',
+    VOICE_SWITCH_ON: "голосовий режим включен",
+    VOICE_NOT_UNDERSTAND: 'Не зрозуміло',
+    VOICE_SMALLEST_SIZE: 'замалий розмір',
+    VOICE_BIGGEST_SIZE: "завеликий розмір"
   },
   history: {
     SEARCH_PLACEHOLDER: 'Пошук за ключовими словами',
