@@ -1486,7 +1486,7 @@ body {
 
 /* line 381, ../../dev/sass/base/general.scss */
 .size-value, .size-value-vertical {
-  font-size: 5rem;
+  font-size: 5.625rem;
   stroke: #D2D2D2;
   stroke-width: 1px;
   text-anchor: middle;
@@ -1499,7 +1499,7 @@ body {
 
 /* line 394, ../../dev/sass/base/general.scss */
 .size-value-edit, .size-value-edit-vertical {
-  font-size: 5rem;
+  font-size: 5.625rem;
   stroke: #6ed44a;
   fill: #6ed44a;
   stroke-width: 1px;
@@ -2078,17 +2078,23 @@ body {
 }
 /* line 39, ../../dev/sass/parts/_settings-panel.scss */
 .settings .lists {
+  -webkit-overflow-scrolling: touch;
+  -moz-overflow-scrolling: touch;
+  -o-overflow-scrolling: touch;
+  -ms-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  overflow-x: hidden;
   overflow-y: auto;
   width: 100%;
 }
-/* line 43, ../../dev/sass/parts/_settings-panel.scss */
+/* line 45, ../../dev/sass/parts/_settings-panel.scss */
 .settings .list {
   width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-/* line 49, ../../dev/sass/parts/_settings-panel.scss */
+/* line 51, ../../dev/sass/parts/_settings-panel.scss */
 .settings .item {
   display: -webkit-flex;
   display: flex;
@@ -2103,11 +2109,11 @@ body {
   height: 5.625rem;
   border-bottom: 1px solid #222;
 }
-/* line 59, ../../dev/sass/parts/_settings-panel.scss */
+/* line 61, ../../dev/sass/parts/_settings-panel.scss */
 .settings .item.click {
   cursor: pointer;
 }
-/* line 63, ../../dev/sass/parts/_settings-panel.scss */
+/* line 65, ../../dev/sass/parts/_settings-panel.scss */
 .settings .set-input-txt, .settings .set-input-phone {
   font: normal 2.25rem/5.5rem roboto-light, sans-serif;
   width: 65%;
@@ -2117,7 +2123,7 @@ body {
   outline: none;
   color: #f98000;
 }
-/* line 73, ../../dev/sass/parts/_settings-panel.scss */
+/* line 75, ../../dev/sass/parts/_settings-panel.scss */
 .settings .set-input-phone {
   color: #fff;
 }

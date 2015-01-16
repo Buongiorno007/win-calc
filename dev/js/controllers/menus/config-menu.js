@@ -169,7 +169,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     //------- set current template for product
     $scope.global.saveNewTemplateInProduct($scope.global.product.templateIndex);
 
-    $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, profileIndex, profileId, $scope.global.product.glassId);
+    $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, profileIndex, profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
   };
 
 
@@ -205,7 +205,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   };
 
   // создание объекта для отправки в базу, чтобы рассчитать цену шаблона
-  $scope.global.createObjXFormedPrice = function(template, profileIndex, profileId, glassId) {
+  $scope.global.createObjXFormedPrice = function(template, profileIndex, profileId, glassId, hardwareId) {
     //------ define Bead Id for define template price
     localDB.selectDBGlobal($scope.global.listsTableDBGlobal, {'id': glassId }, function (results) {
       if (results.status) {
@@ -275,7 +275,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
                 $scope.global.objXFormedPrice.cityId = $scope.global.userInfo.city_id;
                 $scope.global.objXFormedPrice.glassId = glassId;
                 $scope.global.objXFormedPrice.profileId = profileId;
-                $scope.global.objXFormedPrice.hardwareId = $scope.global.product.hardwareId;
+                $scope.global.objXFormedPrice.hardwareId = hardwareId;
                 $scope.global.objXFormedPrice.hardwareColor = $scope.global.product.laminationInName;
                 $scope.global.objXFormedPrice.frameId = $scope.global.allProfileFrameSizes[profileIndex].id;
                 $scope.global.objXFormedPrice.frameSillId = $scope.global.allProfileFrameStillSizes[profileIndex].id;
@@ -328,7 +328,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   };
 
   $scope.global.setProductPriceTOTAL = function() {
-    $scope.global.product.productPriceTOTAL = $scope.global.product.templatePriceSELECT + $scope.global.product.hardwarePriceSELECT + $scope.global.product.laminationPriceSELECT + $scope.global.product.addElementsPriceSELECT;
+    $scope.global.product.productPriceTOTAL = $scope.global.product.templatePriceSELECT + $scope.global.product.laminationPriceSELECT + $scope.global.product.addElementsPriceSELECT;
     //------- после первой загрузки создается дефолтный объект
     if($scope.global.startProgramm) {
       //-------- create default product in localStorage
@@ -339,7 +339,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   };
 
   $scope.global.setProductPriceTOTALapply = function() {
-    $scope.global.product.productPriceTOTAL = $scope.global.product.templatePriceSELECT + $scope.global.product.hardwarePriceSELECT + $scope.global.product.laminationPriceSELECT + $scope.global.product.addElementsPriceSELECT;
+    $scope.global.product.productPriceTOTAL = $scope.global.product.templatePriceSELECT + $scope.global.product.laminationPriceSELECT + $scope.global.product.addElementsPriceSELECT;
   };
 
 
@@ -672,7 +672,6 @@ console.log('FIRST START!!!!!!!!!!');
     productData.laminationOutPrice = parseFloat(product.laminationOutPrice.toFixed(2));
     productData.laminationInPrice = parseFloat(product.laminationInPrice.toFixed(2));
     productData.templatePriceSELECT = parseFloat(product.templatePriceSELECT.toFixed(2));
-    productData.hardwarePriceSELECT = parseFloat(product.hardwarePriceSELECT.toFixed(2));
     productData.laminationPriceSELECT = parseFloat(product.laminationPriceSELECT.toFixed(2));
     productData.addElementsPriceSELECT = parseFloat(product.addElementsPriceSELECT.toFixed(2));
     productData.productPriceTOTAL = parseFloat(product.productPriceTOTAL.toFixed(2));

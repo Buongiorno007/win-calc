@@ -21,12 +21,11 @@ BauVoiceApp.controller('HardwareWindowCtrl', ['$scope', 'constructService', 'loc
     $scope.global.product.hardwareTypeIndex = hardwareTypeIndex;
     $scope.global.product.hardwareIndex = hardwareIndex;
     var selectedHardware = $scope.global.hardwares[hardwareTypeIndex][hardwareIndex];
+    $scope.global.product.hardwareId = selectedHardware.hardwareId;
     $scope.global.product.hardwareName = selectedHardware.hardwareName;
     $scope.global.product.hardwareHeatCoeff = selectedHardware.heatCoeff;
     $scope.global.product.hardwareAirCoeff = selectedHardware.airCoeff;
-    $scope.global.product.hardwarePriceSELECT = selectedHardware.hardwarePrice;
-    $scope.global.calculateCoeffs();
-    $scope.global.setProductPriceTOTALapply();
+    $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
   };
 
 }]);

@@ -26,7 +26,7 @@ BauVoiceApp.controller('GlassCtrl', ['$scope', 'constructService', 'localStorage
     $scope.global.product.glassName = selectedGlass.glassName;
     $scope.global.product.glassHeatCoeff = selectedGlass.heatCoeff;
     $scope.global.product.glassAirCoeff = selectedGlass.airCoeff;
-    $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
+    $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
   };
 
 }]);

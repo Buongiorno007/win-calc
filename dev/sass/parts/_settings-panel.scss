@@ -37,6 +37,8 @@
     background-color: $main_orange;
   }
   .lists {
+    @include overflow-scroll();
+    overflow-x: hidden;
     overflow-y: auto;
     width: 100%;
   }

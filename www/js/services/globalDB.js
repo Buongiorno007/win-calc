@@ -5,7 +5,7 @@
 
 BauVoiceApp.factory('globalDB', ['$http', function ($http) {
 
-  var elemLists = [];
+  var elemLists = [], elemListsHw = [];
 
   // SQL requests for creating tables if they are not exists yet
   var createTablesSQL = ["CREATE TABLE IF NOT EXISTS factories (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
@@ -488,26 +488,30 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
       });
     },
 
-    getPriceByIdList: function(liId, i, callback){
+    getPriceByIdList: function(liId, i, k, callback){
       var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
       db.transaction(function (transaction) {
         transaction.executeSql('select parent_element_id from lists where id = ?', [liId], function (transaction, result){
-          transaction.executeSql('select id, currency_id, price, waste, name, amendment_pruning from elements where id = ?', [result.rows.item(0).parent_element_id], function (transaction, result){
-            callback(new OkResult({"currency":result.rows.item(0), "index":i}));
-          }, function () {
-            callback(new ErrorResult(2, 'Something went wrong when get element price'));
-          });
+          if(result.rows.length){
+            transaction.executeSql('select id, currency_id, price, waste, name, amendment_pruning from elements where id = ?', [result.rows.item(0).parent_element_id], function (transaction, result){
+              if(result.rows.length)
+                callback(new OkResult({"currency":result.rows.item(0), "index":i, "ix":k}));
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong when get element price'));
+            });
+          }
         }, function () {
           callback(new ErrorResult(2, 'Something went wrong when get parent_element_id'));
         });
       });
     },
 
-    getPriceById: function(elId, i, callback){
+    getPriceById: function(elId, i, k, callback){
       var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
       db.transaction(function (transaction) {
         transaction.executeSql('select id, currency_id, price, waste, name, amendment_pruning from elements where id = ?', [elId], function (transaction, result){
-          callback(new OkResult({"currency":result.rows.item(0), "index":i}));
+          if(result.rows.length)
+            callback(new OkResult({"currency":result.rows.item(0), "index":i, "ix":k}));
         }, function () {
           callback(new ErrorResult(2, 'Something went wrong when get element price'));
         });
@@ -543,6 +547,34 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
       })();
     },
 
+    parseListHw: function(listIdHw, callback){
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), currListIdHw;
+      var listsHw = [];
+      var self = this;
+      function addLHw(elHw){
+        return listsHw.push(elHw);
+      }
+      addLHw(listIdHw);
+      (function nextRecordHw() {
+        if (listsHw.length) {
+          currListIdHw = listsHw[0];
+          db.transaction(function (transaction) {
+            transaction.executeSql('select * from list_contents where parent_list_id = ?', [currListIdHw], function(transaction, result){
+              for (var i = 0; i < result.rows.length; i++) {
+                elemListsHw.push({"elemLists":result.rows.item(i)});
+                if(result.rows.item(i).child_type === 'list') {
+                  addLHw(result.rows.item(i).child_id);
+                }
+              }
+              nextRecordHw();
+            });
+          });
+          listsHw.shift(0);
+        } else {
+          callback(new OkResult(elemListsHw));
+        }
+      })();
+    },
 
     getValueByRule: function (parentValue, childValue, rule){
       var value = 0;
@@ -591,19 +623,181 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
       return value;
     },
 
+    getByHardwareId: function(whId, construction, callback){
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
+      var self = this;
+      db.transaction(function (transaction) {
+        transaction.executeSql('select * from window_hardware where window_hardware_group_id = ? and child_id > 0 and count > 0', [whId], function (transaction, result){
+          var hardwareresult = [];
+          for(var i = 0; i < result.rows.length; i++){
+            for(var j = 0; j < construction.sashesBlock.length; j++){
+              if(result.rows.item(i).min_width > 0 && result.rows.item(i).max_width > 0 && construction.sashesBlock[j].sizes[0] >= result.rows.item(i).min_width && construction.sashesBlock[j].sizes[0] <= result.rows.item(i).max_width && result.rows.item(i).direction_id == 1 && result.rows.item(i).min_height == 0 && result.rows.item(i).max_height == 0) {
+                if(construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 2 && result.rows.item(i).window_hardware_type_id == 2){
+                  hardwareresult.push({"elemLists":result.rows.item(i)});
+                } else if(construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 4 && result.rows.item(i).window_hardware_type_id == 2){
+                  hardwareresult.push({"elemLists":result.rows.item(i)});
+                } else if(construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 1 && result.rows.item(i).window_hardware_type_id == 7){
+                  hardwareresult.push({"elemLists":result.rows.item(i)});
+                } else if(construction.sashesBlock[j].openDir.length == 2 && result.rows.item(i).window_hardware_type_id == 6){
+                  hardwareresult.push({"elemLists":result.rows.item(i)});
+                } else if(construction.shtulpsSize.length > 0 && construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 2 && result.rows.item(i).window_hardware_type_id == 4){
+                  hardwareresult.push({"elemLists":result.rows.item(i)});
+                } else if(construction.shtulpsSize.length > 0 && construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 4 && result.rows.item(i).window_hardware_type_id == 4){
+                  hardwareresult.push({"elemLists":result.rows.item(i)});
+                } else if(construction.shtulpsSize.length > 0 && construction.sashesBlock[j].openDir.length == 2 && result.rows.item(i).window_hardware_type_id == 17){
+                  hardwareresult.push({"elemLists":result.rows.item(i)});
+                }
+              } else if(result.rows.item(i).min_height > 0 && result.rows.item(i).max_height > 0 && construction.sashesBlock[j].sizes[1] >= result.rows.item(i).min_height && construction.sashesBlock[j].sizes[1] <= result.rows.item(i).max_height && result.rows.item(i).direction_id == 1 && result.rows.item(i).min_width == 0 && result.rows.item(i).max_width == 0) {
+                if(construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 2 && result.rows.item(i).window_hardware_type_id == 2){
+                  hardwareresult.push({"elemLists":result.rows.item(i)});
+                } else if(construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 4 && result.rows.item(i).window_hardware_type_id == 2){
+                  hardwareresult.push({"elemLists":result.rows.item(i)});
+                } else if(construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 1 && result.rows.item(i).window_hardware_type_id == 7){
+                  hardwareresult.push({"elemLists":result.rows.item(i)});
+                } else if(construction.sashesBlock[j].openDir.length == 2 && result.rows.item(i).window_hardware_type_id == 6){
+                  hardwareresult.push({"elemLists":result.rows.item(i)});
+                } else if(construction.shtulpsSize.length > 0 && construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 2 && result.rows.item(i).window_hardware_type_id == 4){
+                  hardwareresult.push({"elemLists":result.rows.item(i)});
+                } else if(construction.shtulpsSize.length > 0 && construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 4 && result.rows.item(i).window_hardware_type_id == 4){
+                  hardwareresult.push({"elemLists":result.rows.item(i)});
+                } else if(construction.shtulpsSize.length > 0 && construction.sashesBlock[j].openDir.length == 2 && result.rows.item(i).window_hardware_type_id == 17){
+                  hardwareresult.push({"elemLists":result.rows.item(i)});
+                }
+              } else if(result.rows.item(i).min_height > 0 && result.rows.item(i).max_height > 0 && construction.sashesBlock[j].sizes[1] >= result.rows.item(i).min_height && construction.sashesBlock[j].sizes[1] <= result.rows.item(i).max_height && result.rows.item(i).direction_id == 1 && result.rows.item(i).min_width > 0 && result.rows.item(i).max_width > 0 && construction.sashesBlock[j].sizes[0] >= result.rows.item(i).min_width && construction.sashesBlock[j].sizes[0] <= result.rows.item(i).max_width){
+                if(construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 2 && result.rows.item(i).window_hardware_type_id == 2){
+                  hardwareresult.push({"elemLists":result.rows.item(i)});
+                } else if(construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 4 && result.rows.item(i).window_hardware_type_id == 2){
+                  hardwareresult.push({"elemLists":result.rows.item(i)});
+                } else if(construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 1 && result.rows.item(i).window_hardware_type_id == 7){
+                  hardwareresult.push({"elemLists":result.rows.item(i)});
+                } else if(construction.sashesBlock[j].openDir.length == 2 && result.rows.item(i).window_hardware_type_id == 6){
+                  hardwareresult.push({"elemLists":result.rows.item(i)});
+                } else if(construction.shtulpsSize.length > 0 && construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 2 && result.rows.item(i).window_hardware_type_id == 4){
+                  hardwareresult.push({"elemLists":result.rows.item(i)});
+                } else if(construction.shtulpsSize.length > 0 && construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 4 && result.rows.item(i).window_hardware_type_id == 4){
+                  hardwareresult.push({"elemLists":result.rows.item(i)});
+                } else if(construction.shtulpsSize.length > 0 && construction.sashesBlock[j].openDir.length == 2 && result.rows.item(i).window_hardware_type_id == 17){
+                  hardwareresult.push({"elemLists":result.rows.item(i)});
+                }
+              } else if(construction.sashesBlock[j].openDir.length == 2 && result.rows.item(i).min_height == 0 && result.rows.item(i).max_height == 0 && result.rows.item(i).direction_id > 1 && result.rows.item(i).min_width == 0 && result.rows.item(i).max_width == 0){
+                if(construction.sashesBlock[j].openDir[0] == 1 && construction.sashesBlock[j].openDir[1] == 2 && result.rows.item(i).direction_id == 3 || construction.sashesBlock[j].openDir[0] == 1 && construction.sashesBlock[j].openDir[1] == 4 && result.rows.item(i).direction_id == 2) {
+                  if(construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 2 && result.rows.item(i).window_hardware_type_id == 2){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 4 && result.rows.item(i).window_hardware_type_id == 2){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 1 && result.rows.item(i).window_hardware_type_id == 7){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.sashesBlock[j].openDir.length == 2 && result.rows.item(i).window_hardware_type_id == 6){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.shtulpsSize.length > 0 && construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 2 && result.rows.item(i).window_hardware_type_id == 4){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.shtulpsSize.length > 0 && construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 4 && result.rows.item(i).window_hardware_type_id == 4){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.shtulpsSize.length > 0 && construction.sashesBlock[j].openDir.length == 2 && result.rows.item(i).window_hardware_type_id == 17){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  }
+                }
+              } else if(construction.sashesBlock[j].openDir.length == 2 && result.rows.item(i).min_height == 0 && result.rows.item(i).max_height == 0 && result.rows.item(i).direction_id > 1 && result.rows.item(i).min_width > 0 && result.rows.item(i).max_width > 0 && construction.sashesBlock[j].sizes[0] >= result.rows.item(i).min_width && construction.sashesBlock[j].sizes[0] <= result.rows.item(i).max_width){
+                if(construction.sashesBlock[j].openDir[0] == 1 && construction.sashesBlock[j].openDir[1] == 2 && result.rows.item(i).direction_id == 3 || construction.sashesBlock[j].openDir[0] == 1 && construction.sashesBlock[j].openDir[1] == 4 && result.rows.item(i).direction_id == 2) {
+                  if(construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 2 && result.rows.item(i).window_hardware_type_id == 2){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 4 && result.rows.item(i).window_hardware_type_id == 2){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 1 && result.rows.item(i).window_hardware_type_id == 7){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.sashesBlock[j].openDir.length == 2 && result.rows.item(i).window_hardware_type_id == 6){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.shtulpsSize.length > 0 && construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 2 && result.rows.item(i).window_hardware_type_id == 4){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.shtulpsSize.length > 0 && construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 4 && result.rows.item(i).window_hardware_type_id == 4){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.shtulpsSize.length > 0 && construction.sashesBlock[j].openDir.length == 2 && result.rows.item(i).window_hardware_type_id == 17){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  }
+                }
+              } else if(construction.sashesBlock[j].openDir.length == 2 && result.rows.item(i).min_width == 0 && result.rows.item(i).max_width == 0 && result.rows.item(i).direction_id > 1 && result.rows.item(i).min_height > 0 && result.rows.item(i).max_height > 0 && construction.sashesBlock[j].sizes[1] >= result.rows.item(i).min_height && construction.sashesBlock[j].sizes[1] <= result.rows.item(i).max_height){
+                if(construction.sashesBlock[j].openDir[0] == 1 && construction.sashesBlock[j].openDir[1] == 2 && result.rows.item(i).direction_id == 3 || construction.sashesBlock[j].openDir[0] == 1 && construction.sashesBlock[j].openDir[1] == 4 && result.rows.item(i).direction_id == 2) {
+                  if(construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 2 && result.rows.item(i).window_hardware_type_id == 2){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 4 && result.rows.item(i).window_hardware_type_id == 2){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 1 && result.rows.item(i).window_hardware_type_id == 7){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.sashesBlock[j].openDir.length == 2 && result.rows.item(i).window_hardware_type_id == 6){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.shtulpsSize.length > 0 && construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 2 && result.rows.item(i).window_hardware_type_id == 4){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.shtulpsSize.length > 0 && construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 4 && result.rows.item(i).window_hardware_type_id == 4){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.shtulpsSize.length > 0 && construction.sashesBlock[j].openDir.length == 2 && result.rows.item(i).window_hardware_type_id == 17){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  }
+                }
+              } else if(construction.sashesBlock[j].openDir.length == 2 && result.rows.item(i).min_width > 0 && result.rows.item(i).max_width > 0 && construction.sashesBlock[j].sizes[0] >= result.rows.item(i).min_width && construction.sashesBlock[j].sizes[0] <= result.rows.item(i).max_width && result.rows.item(i).direction_id > 1 && result.rows.item(i).min_height > 0 && result.rows.item(i).max_height > 0 && construction.sashesBlock[j].sizes[1] >= result.rows.item(i).min_height && construction.sashesBlock[j].sizes[1] <= result.rows.item(i).max_height){
+                if(construction.sashesBlock[j].openDir[0] == 1 && construction.sashesBlock[j].openDir[1] == 2 && result.rows.item(i).direction_id == 3 || construction.sashesBlock[j].openDir[0] == 1 && construction.sashesBlock[j].openDir[1] == 4 && result.rows.item(i).direction_id == 2) {
+                  if(construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 2 && result.rows.item(i).window_hardware_type_id == 2){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 4 && result.rows.item(i).window_hardware_type_id == 2){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 1 && result.rows.item(i).window_hardware_type_id == 7){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.sashesBlock[j].openDir.length == 2 && result.rows.item(i).window_hardware_type_id == 6){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.shtulpsSize.length > 0 && construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 2 && result.rows.item(i).window_hardware_type_id == 4){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.shtulpsSize.length > 0 && construction.sashesBlock[j].openDir.length == 1 && construction.sashesBlock[j].openDir[0] == 4 && result.rows.item(i).window_hardware_type_id == 4){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  } else if(construction.shtulpsSize.length > 0 && construction.sashesBlock[j].openDir.length == 2 && result.rows.item(i).window_hardware_type_id == 17){
+                    hardwareresult.push({"elemLists":result.rows.item(i)});
+                  }
+                }
+              }
+            }
+          }
+          self.hardwareListSync(hardwareresult, function (result){
+            if(result.status){
+              callback(new OkResult(result.data));
+            } else {
+              console.log(result);
+            }
+          });
+        }, function () {
+          callback(new ErrorResult(2, 'Something went wrong when get data'));
+        });
+      });
+    },
+
+    hardwareListSync: function(hardwareresult, callback){
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), currListIdHw;
+      var listsHw = [];
+      var self = this;
+      function addLHw(elHw, keysHw){
+        return listsHw.push(elHw);
+      }
+      for(var i = 0; i < hardwareresult.length; i++){
+        if(hardwareresult[i].elemLists.child_type == 'list'){
+          addLHw(hardwareresult[i].elemLists.child_id);
+        }
+      }
+      hardwareresult.push({"lists":listsHw});
+      callback(new OkResult(hardwareresult));
+    },
+
     calculationPrice: function (construction, callback) {
       var self = this;
       var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), price = 0, profSys, priceObj = {};
-      this.getCurrentCurrency(construction.cityId, function (result){next_1(result);});
+      this.getCurrentCurrency(construction.cityId, function (result){
+        next_1(result);
+      });
       function next_1(result){
         if(result.status){
           priceObj.currentCurrency = result.data;
+          elemLists = [];
           self.parseList(construction.frameId, function (result){next_2(result);});
         } else {
           console.log(result);
         }
       }
-
       function next_2(result){
         if(result.status){
           priceObj.framesIds =  result.data;
@@ -642,7 +836,49 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
         if (result.status) {
           priceObj.glassIds = result.data;
           elemLists = [];
-          self.parseList(construction.beadId, function (result){next_glass(result);});
+          self.getByHardwareId(construction.hardwareId, construction, function (result){next_tmp(result);});
+        }
+      }
+      function next_tmp(result){
+        if (result.status) {
+          priceObj.hardwareIds = result.data;
+          elemLists = [];
+          var ifList = false;
+          for(var i = 0; i < priceObj.hardwareIds.length; i++){
+            if("lists" in priceObj.hardwareIds[i]){
+              if(priceObj.hardwareIds[i].lists.length > 0) {
+                ifList = true;
+              }
+            }
+          }
+          if(ifList){
+            next_hwlist(result.data);
+          } else {
+            self.parseList(construction.beadId, function (result){next_glass(result);});
+          }
+        }
+      }
+      function next_hwlist(result){
+        for(var i = 0; i < priceObj.hardwareIds.length; i++){
+          if("lists" in priceObj.hardwareIds[i]){
+            if(priceObj.hardwareIds[i].lists.length > 0){
+              self.parseList(priceObj.hardwareIds[i].lists[0], function (result){next_hwlist_res(result);});
+            }
+          }
+        }
+      }
+      function next_hwlist_res(result){
+        if (result.status) {
+          //priceObj.hardwareIds.push({"hardwareLists":result.data});
+          for(var i = 0; i < priceObj.hardwareIds.length; i++){
+            if("lists" in priceObj.hardwareIds[i]){
+              if(priceObj.hardwareIds[i].lists.length > 0){
+                priceObj.hardwareIds.push({"hardwareLists":result.data, "parent_list_id":priceObj.hardwareIds[i].lists[0]});
+                priceObj.hardwareIds[i].lists.shift(0);
+              }
+            }
+          }
+          next_tmp({"status":true, "data":priceObj.hardwareIds});
         }
       }
       function next_glass(result){
@@ -706,13 +942,13 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
           if(priceObj.framesIds.length) {
             for (var i = 0; i < priceObj.framesIds.length; i++) {
               if (priceObj.framesIds[i].elemLists.child_type === 'element'){
-                self.getPriceById(priceObj.framesIds[i].elemLists.child_id, i, function (result){
+                self.getPriceById(priceObj.framesIds[i].elemLists.child_id, i, i, function (result){
                   priceObj.framesIds[result.data.index].priceEl = result.data.currency;
                   priceObj.framesIds[result.data.index].elemName = result.data.currency.name;
                   priceObj.framesIds[result.data.index].pruning = result.data.currency.amendment_pruning;
                 });
               } else {
-                self.getPriceByIdList(priceObj.framesIds[i].elemLists.child_id, i, function (result){
+                self.getPriceByIdList(priceObj.framesIds[i].elemLists.child_id, i, i, function (result){
                   priceObj.framesIds[result.data.index].priceEl = result.data.currency;
                   priceObj.framesIds[result.data.index].elemName = result.data.currency.name;
                   priceObj.framesIds[result.data.index].pruning = result.data.currency.amendment_pruning;
@@ -723,13 +959,13 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
           if(priceObj.frameSillsIds.length) {
             for (var i = 0; i < priceObj.frameSillsIds.length; i++) {
               if (priceObj.frameSillsIds[i].elemLists.child_type === 'element'){
-                self.getPriceById(priceObj.frameSillsIds[i].elemLists.child_id, i, function (result){
+                self.getPriceById(priceObj.frameSillsIds[i].elemLists.child_id, i, i, function (result){
                   priceObj.frameSillsIds[result.data.index].priceEl = result.data.currency;
                   priceObj.frameSillsIds[result.data.index].elemName = result.data.currency.name;
                   priceObj.frameSillsIds[result.data.index].pruning = result.data.currency.amendment_pruning;
                 });
               } else {
-                self.getPriceByIdList(priceObj.frameSillsIds[i].elemLists.child_id, i, function (result){
+                self.getPriceByIdList(priceObj.frameSillsIds[i].elemLists.child_id, i, i, function (result){
                   priceObj.frameSillsIds[result.data.index].priceEl = result.data.currency;
                   priceObj.frameSillsIds[result.data.index].elemName = result.data.currency.name;
                   priceObj.frameSillsIds[result.data.index].pruning = result.data.currency.amendment_pruning;
@@ -740,13 +976,13 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
           if(priceObj.sashsIds.length) {
             for (var i = 0; i < priceObj.sashsIds.length; i++) {
               if (priceObj.sashsIds[i].elemLists.child_type === 'element'){
-                self.getPriceById(priceObj.sashsIds[i].elemLists.child_id, i, function (result){
+                self.getPriceById(priceObj.sashsIds[i].elemLists.child_id, i, i, function (result){
                   priceObj.sashsIds[result.data.index].priceEl = result.data.currency;
                   priceObj.sashsIds[result.data.index].elemName = result.data.currency.name;
                   priceObj.sashsIds[result.data.index].pruning = result.data.currency.amendment_pruning;
                 });
               } else {
-                self.getPriceByIdList(priceObj.sashsIds[i].elemLists.child_id, i, function (result){
+                self.getPriceByIdList(priceObj.sashsIds[i].elemLists.child_id, i, i, function (result){
                   priceObj.sashsIds[result.data.index].priceEl = result.data.currency;
                   priceObj.sashsIds[result.data.index].elemName = result.data.currency.name;
                   priceObj.sashsIds[result.data.index].pruning = result.data.currency.amendment_pruning;
@@ -757,13 +993,13 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
           if(priceObj.impostIds.length) {
             for (var i = 0; i < priceObj.impostIds.length; i++) {
               if (priceObj.impostIds[i].elemLists.child_type === 'element'){
-                self.getPriceById(priceObj.impostIds[i].elemLists.child_id, i, function (result){
+                self.getPriceById(priceObj.impostIds[i].elemLists.child_id, i, i, function (result){
                   priceObj.impostIds[result.data.index].priceEl = result.data.currency;
                   priceObj.impostIds[result.data.index].elemName = result.data.currency.name;
                   priceObj.impostIds[result.data.index].pruning = result.data.currency.amendment_pruning;
                 });
               } else {
-                self.getPriceByIdList(priceObj.impostIds[i].elemLists.child_id, i, function (result){
+                self.getPriceByIdList(priceObj.impostIds[i].elemLists.child_id, i, i, function (result){
                   priceObj.impostIds[result.data.index].priceEl = result.data.currency;
                   priceObj.impostIds[result.data.index].elemName = result.data.currency.name;
                   priceObj.impostIds[result.data.index].pruning = result.data.currency.amendment_pruning;
@@ -774,13 +1010,13 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
           if(priceObj.glassIds.length) {
             for (var i = 0; i < priceObj.glassIds.length; i++) {
               if (priceObj.glassIds[i].elemLists.child_type === 'element'){
-                self.getPriceById(priceObj.glassIds[i].elemLists.child_id, i, function (result){
+                self.getPriceById(priceObj.glassIds[i].elemLists.child_id, i, i, function (result){
                   priceObj.glassIds[result.data.index].priceEl = result.data.currency;
                   priceObj.glassIds[result.data.index].elemName = result.data.currency.name;
                   priceObj.glassIds[result.data.index].pruning = result.data.currency.amendment_pruning;
                 });
               } else {
-                self.getPriceByIdList(priceObj.glassIds[i].elemLists.child_id, i, function (result){
+                self.getPriceByIdList(priceObj.glassIds[i].elemLists.child_id, i, i, function (result){
                   priceObj.glassIds[result.data.index].priceEl = result.data.currency;
                   priceObj.glassIds[result.data.index].elemName = result.data.currency.name;
                   priceObj.glassIds[result.data.index].pruning = result.data.currency.amendment_pruning;
@@ -791,17 +1027,61 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
           if(priceObj.beadIds.length) {
             for (var i = 0; i < priceObj.beadIds.length; i++) {
               if (priceObj.beadIds[i].elemLists.child_type === 'element'){
-                self.getPriceById(priceObj.beadIds[i].elemLists.child_id, i, function (result){
+                self.getPriceById(priceObj.beadIds[i].elemLists.child_id, i, i, function (result){
                   priceObj.beadIds[result.data.index].priceEl = result.data.currency;
                   priceObj.beadIds[result.data.index].elemName = result.data.currency.name;
                   priceObj.beadIds[result.data.index].pruning = result.data.currency.amendment_pruning;
                 });
               } else {
-                self.getPriceByIdList(priceObj.beadIds[i].elemLists.child_id, i, function (result){
+                self.getPriceByIdList(priceObj.beadIds[i].elemLists.child_id, i, i, function (result){
                   priceObj.beadIds[result.data.index].priceEl = result.data.currency;
                   priceObj.beadIds[result.data.index].elemName = result.data.currency.name;
                   priceObj.beadIds[result.data.index].pruning = result.data.currency.amendment_pruning;
                 });
+              }
+            }
+          }
+          if(priceObj.hardwareIds.length) {
+            for (var i = 0; i < priceObj.hardwareIds.length; i++) {
+              if(priceObj.hardwareIds[i].elemLists){
+                if (priceObj.hardwareIds[i].elemLists.child_type === 'element'){
+                  if(priceObj.hardwareIds[i].elemLists.child_id > 0){
+                    self.getPriceById(priceObj.hardwareIds[i].elemLists.child_id, i, i, function (result){
+                      priceObj.hardwareIds[result.data.index].priceEl = result.data.currency;
+                      priceObj.hardwareIds[result.data.index].elemName = result.data.currency.name;
+                      priceObj.hardwareIds[result.data.index].pruning = result.data.currency.amendment_pruning;
+                    });
+                  }
+                } else {
+                  if(priceObj.hardwareIds[i].elemLists.child_id > 0) {
+                    self.getPriceByIdList(priceObj.hardwareIds[i].elemLists.child_id, i, i, function (result) {
+                      priceObj.hardwareIds[result.data.index].priceEl = result.data.currency;
+                      priceObj.hardwareIds[result.data.index].elemName = result.data.currency.name;
+                      priceObj.hardwareIds[result.data.index].pruning = result.data.currency.amendment_pruning;
+                    });
+                  }
+                }
+              }
+            }
+          }
+          if(priceObj.hardwareIds.length) {
+            for (var i = 0; i < priceObj.hardwareIds.length; i++) {
+              if(priceObj.hardwareIds[i].hardwareLists){
+                for (var k = 0; k < priceObj.hardwareIds[i].hardwareLists.length; k++) {
+                  if (priceObj.hardwareIds[i].hardwareLists[k].elemLists.child_type === 'element') {
+                    self.getPriceById(priceObj.hardwareIds[i].hardwareLists[k].elemLists.child_id, i, k, function (result) {
+                      priceObj.hardwareIds[result.data.index].hardwareLists[result.data.ix].priceEl = result.data.currency;
+                      priceObj.hardwareIds[result.data.index].hardwareLists[result.data.ix].elemName = result.data.currency.name;
+                      priceObj.hardwareIds[result.data.index].hardwareLists[result.data.ix].pruning = result.data.currency.amendment_pruning;
+                    });
+                  } else {
+                    self.getPriceByIdList(priceObj.hardwareIds[i].hardwareLists[k].elemLists.child_id, i, k, function (result) {
+                      priceObj.hardwareIds[result.data.index].hardwareLists[result.data.ix].priceEl = result.data.currency;
+                      priceObj.hardwareIds[result.data.index].hardwareLists[result.data.ix].elemName = result.data.currency.name;
+                      priceObj.hardwareIds[result.data.index].hardwareLists[result.data.ix].pruning = result.data.currency.amendment_pruning;
+                    });
+                  }
+                }
               }
             }
           }
@@ -909,6 +1189,7 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
           priceObj.price += priceTmp;
           console.log('Итого в гривне: '+priceTmp.toFixed(2)+' грн');
           console.log('');
+          var priceTmp = 0;
           //console.log(priceObj.impostIds);
           if(construction.impostsSize.length) {
             for (var i = 0; i < construction.impostsSize.length; i++) {
@@ -924,7 +1205,7 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
               console.log('Поправка на обрезку : '+priceObj.impostIds.price.amendment_pruning);
               console.log('Формула : ('+(construction.impostsSize[i]+priceObj.impostIds.price.amendment_pruning)/1000+'*'+priceObj.impostIds.price.price+')*(1+('+priceObj.impostIds.price.waste+'/100) = '+((((construction.impostsSize[i] + priceObj.impostIds.price.amendment_pruning)/ 1000) * priceObj.impostIds.price.price) * (1 + (priceObj.impostIds.price.waste / 100))).toFixed(2));
               console.log('-----------------');
-              priceTmp += (((construction.sashsSize[i] + priceObj.impostIds.price.amendment_pruning)/ 1000) * priceObj.impostIds.price.price) * (1 + (priceObj.impostIds.price.waste / 100));
+              priceTmp += (((construction.impostsSize[i] + priceObj.impostIds.price.amendment_pruning)/ 1000) * priceObj.impostIds.price.price) * (1 + (priceObj.impostIds.price.waste / 100));
             }
             if (priceObj.currentCurrency.id != priceObj.impostIds.price.currency_id){
               for (var i = 0; i < priceObj.currencies.length; i++) {
@@ -1543,6 +1824,90 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
             }
           }
           console.log('Стеклопакет - конец ---------------------');
+          console.log('');
+          console.log('Фурнитура - начало ---------------------');
+          console.log('');
+          if (priceObj.hardwareIds.length) {
+            for (var j = 0; j < priceObj.hardwareIds.length; j++) {
+              if(priceObj.hardwareIds[j].elemLists){
+                var priceTmp = 0;
+                priceObj.hardwareIds[j].elemLists.newValue = priceObj.hardwareIds[j].elemLists.count;
+                console.log('Название: '+priceObj.hardwareIds[j].elemName);
+                console.log('Размер: '+priceObj.hardwareIds[j].elemLists.count+' шт');
+                console.log('Цена: '+priceObj.hardwareIds[j].priceEl.price);
+                for (var f = 0; f < priceObj.currencies.length; f++) {
+                  if(priceObj.currencies[f].id === priceObj.hardwareIds[j].priceEl.currency_id){
+                    console.log('Валюта: '+priceObj.currencies[f].name);
+                  }
+                }
+                console.log('% отхода : '+priceObj.hardwareIds[j].priceEl.waste);
+                console.log('Поправка на обрезку : '+priceObj.hardwareIds[j].priceEl.amendment_pruning);
+                console.log('Формула : ('+priceObj.hardwareIds[j].elemLists.count+'*'+priceObj.hardwareIds[j].priceEl.price+')*(1+('+priceObj.hardwareIds[j].priceEl.waste+'/100) = '+((priceObj.hardwareIds[j].elemLists.count * priceObj.hardwareIds[j].priceEl.price) * (1 + (priceObj.hardwareIds[j].priceEl.waste / 100))).toFixed(2));
+                priceTmp += (priceObj.hardwareIds[j].elemLists.count * priceObj.hardwareIds[j].priceEl.price) * (1 + (priceObj.hardwareIds[j].priceEl.waste / 100));
+                console.log('-----------------');
+                if (priceObj.currentCurrency.id != priceObj.hardwareIds[j].priceEl.currency_id){
+                  for (var kc = 0; kc < priceObj.currencies.length; kc++) {
+                    if(priceObj.currencies[kc].id == priceObj.hardwareIds[j].priceEl.currency_id){
+                      priceTmp = priceTmp * priceObj.currencies[kc].value;
+                    }
+                  }
+                }
+                priceObj.price += priceTmp;
+                console.log('Итого в гривне: ' + priceTmp.toFixed(2) + ' грн');
+                console.log('');
+              } else if (priceObj.hardwareIds[j].hardwareLists) {
+                for (var g = 0; g < priceObj.hardwareIds.length; g++) {
+                  if (priceObj.hardwareIds[g].elemLists) {
+                    if (priceObj.hardwareIds[j].parent_list_id == priceObj.hardwareIds[g].elemLists.child_id && priceObj.hardwareIds[g].elemLists.child_type == 'list') {
+                      for (var hwArr = 0; hwArr < priceObj.hardwareIds[j].hardwareLists.length; hwArr++) {
+                        var priceTmp = 0;
+                        var value = self.getValueByRule(priceObj.hardwareIds[g].elemLists.newValue, priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value, priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id);
+                        priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.newValue = value;
+                        console.log('Название: ' + priceObj.hardwareIds[j].hardwareLists[hwArr].elemName);
+                        console.log('Размер: ' + priceObj.hardwareIds[g].elemLists.newValue + ' шт');
+                        console.log('Цена: ' + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price);
+                        for (var f = 0; f < priceObj.currencies.length; f++) {
+                          if (priceObj.currencies[f].id === priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.currency_id) {
+                            console.log('Валюта: ' + priceObj.currencies[f].name);
+                          }
+                        }
+                        console.log('% отхода : ' + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste);
+                        console.log('Поправка на обрезку : ' + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.amendment_pruning);
+                        if (priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id === 3) {
+                          console.log('Правило : ' + priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value + ' шт. на метр родителя');
+                          console.log('Формула : (round(' + (priceObj.hardwareIds[g].elemLists.newValue + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.amendment_pruning / 1000)).toFixed(3) + '*' + priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value + ')*' + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price + ')*(1+(' + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste + '/100) = ' + ((Math.round((priceObj.hardwareIds[g].elemLists.newValue + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.amendment_pruning / 1000)) * priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value) * priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price) * (1 + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste / 100))).toFixed(2));
+                          priceTmp += (Math.round((priceObj.hardwareIds[g].elemLists.newValue + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.amendment_pruning / 1000)) * priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value) * priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price) * (1 + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste / 100));
+                        } else if (priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id === 2 || priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id === 4 || priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id === 15) {
+                          console.log('Правило : ' + priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value + ' шт. на родителя');
+                          console.log('Формула : (' + priceObj.hardwareIds[g].elemLists.newValue + '*' + priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value + '*' + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price + ')*(1+(' + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste + '/100) = ' + (priceObj.hardwareIds[g].elemLists.newValue * priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value * priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price) * (1 + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste / 100)));
+                          priceTmp += (priceObj.hardwareIds[g].elemLists.newValue * priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value * priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price) * (1 + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste / 100));
+                        } else if (priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id === 1) {
+                          console.log('Правило : меньше родителя на ' + priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value + ' м');
+                          console.log('Формула : (' + (priceObj.hardwareIds[g].elemLists.newValue + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.amendment_pruning - (priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value * 1000)) / 1000 + '*' + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price + ')*(1+(' + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste + '/100) = ' + ((((priceObj.hardwareIds[g].elemLists.newValue + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.amendment_pruning - (priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value * 100)) / 1000) * priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price) * (1 + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste / 100))).toFixed(2));
+                          priceTmp += (((priceObj.hardwareIds[g].elemLists.newValue + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.amendment_pruning - (priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value * 1000)) / 1000) * priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price) * (1 + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste / 100));
+                        } else {
+                          console.log('Формула : (' + (priceObj.hardwareIds[g].elemLists.newValue + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.amendment_pruning) / 1000 + '*' + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price + ')*(1+(' + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste + '/100) = ' + ((((priceObj.hardwareIds[g].elemLists.newValue + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.amendment_pruning) / 1000) * priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price) * (1 + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste / 100))).toFixed(2));
+                          priceTmp += (((priceObj.hardwareIds[g].elemLists.newValue + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.amendment_pruning) / 1000) * priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price) * (1 + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste / 100));
+                        }
+                        console.log('-----------------');
+                        if (priceObj.currentCurrency.id != priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.currency_id) {
+                          for (var k = 0; k < priceObj.currencies.length; k++) {
+                            if (priceObj.currencies[k].id == priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.currency_id) {
+                              priceTmp = priceTmp * priceObj.currencies[k].value;
+                            }
+                          }
+                        }
+                        priceObj.price += priceTmp;
+                        console.log('Итого в гривне: ' + priceTmp.toFixed(2) + ' грн');
+                        console.log('');
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          console.log('Фурнитура - конец ---------------------');
           console.log('');
           priceObj.price = priceObj.price.toFixed(2);
           console.log('Сумма:'+priceObj.price);

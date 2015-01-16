@@ -162,7 +162,7 @@ BauVoiceApp.factory('localStorage', function () {
       airCirculationTOTAL: 0,
 
       templatePriceSELECT: 0,
-      hardwarePriceSELECT: 0,
+      //hardwarePriceSELECT: 0,
       laminationPriceSELECT: 0,
       addElementsPriceSELECT: 0,
       productPriceTOTAL: 0,
@@ -228,6 +228,11 @@ BauVoiceApp.factory('localStorage', function () {
       glassSizes: [],
       glassSquares: [],
       frameSillSize: 0
+    },
+
+    objXAddElementPriceSource: {
+      elementId: 0,
+      elementLength: 0
     },
 
     //------ config-pannels tools

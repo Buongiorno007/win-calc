@@ -191,7 +191,7 @@ BauVoiceApp.factory('constructService', function ($q) {
         templateImgs: [
           {
             id: 1,
-            name: 'Одностворчатое глухое',
+            name: 'Одностворчатое',
             src: 'img/templates/1.png'
           },
           {
@@ -211,42 +211,42 @@ BauVoiceApp.factory('constructService', function ($q) {
           },
           {
             id: 5,
-            name: 'Двухстворчатое с левой форточкой',
+            name: 'Двухстворчатое',
             src: 'img/templates/5.png'
           },
           {
             id: 6,
-            name: 'Двухстворчатое с правой форточкой',
+            name: 'Двухстворчатое',
             src: 'img/templates/6.png'
           },
           {
             id: 7,
-            name: 'Четырехстворчатое',
+            name: 'Двухстворчатое',
             src: 'img/templates/7.png'
           },
           {
             id: 8,
-            name: 'Двухстворчатое верхнее',
+            name: 'Одностворчатое',
             src: 'img/templates/8.png'
           },
           {
             id: 9,
-            name: 'Т-образное двухстворчатое',
+            name: 'Двухстворчатое',
             src: 'img/templates/9.png'
           },
           {
             id: 10,
-            name: 'ТT-образное трехстворчатое',
+            name: 'Трехстворчатое',
             src: 'img/templates/10.png'
           },
           {
             id: 11,
-            name: 'ТT-образное двойное верхнее',
+            name: 'Трехстворчатое',
             src: 'img/templates/11.png'
           },
           {
             id: 12,
-            name: 'ТT-образное тройное верхнее',
+            name: 'Трехстворчатое',
             src: 'img/templates/12.png'
           }
         ]

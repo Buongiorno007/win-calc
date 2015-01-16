@@ -374,6 +374,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     deleteLastNumber();
   });
 
+  //---------- define voice force
   function recognitionProgress(value) {
     if (value > 100) {
       console.log('value', value);
@@ -390,11 +391,14 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   }
 
   function doneRecognition(value) {
-    console.log("doneRecognition", value);
+    console.log("полученные данные", value);
+    console.log("тип полученных данных", typeof value);
     $scope.voiceTxt = value;
     $scope.$apply();
     setTimeout(function() {
       var intValue = parseStringToDimension(value);
+      console.log("данные после парса", intValue);
+      console.log("тип полученных данных", typeof intValue);
       if (intValue == "NaN") {
         intValue = "0";
       }
@@ -411,7 +415,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     if($scope.openVoiceHelper) {
 
       var tempVal = parseInt(newValue, 10);
-      console.log('tempVal', tempVal);
+      console.log('tempVal=====', tempVal);
       $scope.voiceTxt = '';
       $scope.openVoiceHelper = false;
 
@@ -608,6 +612,13 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     $scope.loudVoice = false;
     $scope.quietVoice = false;
   };
+
+
+
+
+
+
+
 
 
 

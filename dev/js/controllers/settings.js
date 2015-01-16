@@ -17,6 +17,7 @@ BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalDB', 'localStorage', '$
     mailReg: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
     typing: 'on'
   };
+  $scope.global.startProgramm = false;
   //----- for location page
   $scope.global.isOpenSettingsPage = true;
 
@@ -132,6 +133,7 @@ BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalDB', 'localStorage', '$
 
   $scope.closeSettingsPage = function() {
     $scope.global.isOpenSettingsPage = false;
+    $scope.global.isReturnFromDiffPage = true;
     $scope.global.gotoMainPage();
   };
 

@@ -41,7 +41,7 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', '$location', 'localStorage
       $scope.global.product.templateSource = $scope.global.templatesDoorSource[$scope.global.product.templateIndex];
       $scope.global.product.templateDefault = $scope.global.templatesDoorList[$scope.global.product.templateIndex];
       $scope.global.product.templateIcon = $scope.global.templatesDoorIconList[$scope.global.product.templateIndex];
-      $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
+      $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
       //$location.path('/construction');
     } else if(id === 3) {
       //------- if select Balcony
@@ -61,7 +61,7 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', '$location', 'localStorage
       $scope.global.product.templateSource = $scope.global.templatesBalconySource[$scope.global.product.templateIndex];
       $scope.global.product.templateDefault = $scope.global.templatesBalconyList[$scope.global.product.templateIndex];
       $scope.global.product.templateIcon = $scope.global.templatesBalconyIconList[$scope.global.product.templateIndex];
-      $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
+      $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
     } else {
       if($scope.global.isConstructBalcony || $scope.global.isConstructDoor) {
 
@@ -81,7 +81,7 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', '$location', 'localStorage
         $scope.global.product.templateSource = $scope.global.templatesWindSource[$scope.global.product.templateIndex];
         $scope.global.product.templateDefault = $scope.global.templatesWindList[$scope.global.product.templateIndex];
         $scope.global.product.templateIcon = $scope.global.templatesWindIconList[$scope.global.product.templateIndex];
-        $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
+        $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
       }
     }
 

@@ -188,10 +188,6 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "type": "FLOAT",
       "null": "NOT NULL"
     },
-    "hardwarePriceSELECT":{
-      "type": "FLOAT",
-      "null": "NOT NULL"
-    },
     "laminationPriceSELECT":{
       "type": "FLOAT",
       "null": "NOT NULL"

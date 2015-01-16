@@ -53,8 +53,8 @@ BauVoiceApp.directive('svgTemplate', [ function() {
             //sizeBoxHeight = 120,
             //sizeBoxRadius = 35,
 
-            sizeBoxWidth = 140,
-            sizeBoxHeight = 60,
+            sizeBoxWidth = 160,
+            sizeBoxHeight = 70,
             sizeBoxRadius = 20;
 
 
@@ -340,7 +340,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                     if(prop === 'dimensionsH') {
                       groupTxt.rect(sizeBoxWidth, sizeBoxHeight).attr('class', 'size-rect').cx(elementsSVG[prop][elem].textX).cy(elementsSVG[prop][elem].textY + 5).radius(sizeBoxRadius);
                     } else if(prop === 'dimensionsV') {
-                      groupTxt.rect(sizeBoxWidth, sizeBoxHeight).attr('class', 'size-rect').cx(elementsSVG[prop][elem].textX - 40).cy(elementsSVG[prop][elem].textY + 5).radius(sizeBoxRadius);
+                      groupTxt.rect(sizeBoxWidth, sizeBoxHeight).attr('class', 'size-rect').cx(elementsSVG[prop][elem].textX - 50).cy(elementsSVG[prop][elem].textY + 5).radius(sizeBoxRadius);
                     }
                   }
 

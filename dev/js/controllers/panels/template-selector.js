@@ -46,7 +46,7 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
       $scope.global.product.templateIndex = templateIndex;
       $scope.global.saveNewTemplateInProduct(templateIndex);
       //------ define product price
-      $scope.global.createObjXFormedPrice($scope.global.templates[templateIndex], $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
+      $scope.global.createObjXFormedPrice($scope.global.templates[templateIndex], $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
     }
   };
 
@@ -78,7 +78,7 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
         $scope.global.getCurrentTemplates();
         $scope.global.saveNewTemplateInProduct($scope.global.product.templateIndex);
         //------ define product price
-        $scope.global.createObjXFormedPrice($scope.global.templates[$scope.global.product.templateIndex], $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
+        $scope.global.createObjXFormedPrice($scope.global.templates[$scope.global.product.templateIndex], $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
 
       }
 
@@ -96,7 +96,7 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
       $scope.global.getCurrentTemplates();
       $scope.global.saveNewTemplateInProduct($scope.global.product.templateIndex);
       //------ define product price
-      $scope.global.createObjXFormedPrice($scope.global.templates[$scope.global.product.templateIndex], $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
+      $scope.global.createObjXFormedPrice($scope.global.templates[$scope.global.product.templateIndex], $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
 
     }
 
@@ -130,7 +130,7 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
 
   //-------- change price if template was changed
   if($scope.global.isChangedTemplate) {
-    $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId);
+    $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
   }
 
 }]);
