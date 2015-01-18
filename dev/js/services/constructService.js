@@ -1057,7 +1057,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'glass_paсkage', id: 'glass3', parts: ['glassline9', 'glassline10', 'glassline11', 'glassline12']},
               {'type': 'dimensionsH', id: 'dimH1', from: ['fp1', 'fp4'], to: ['fpimpost1', 'fpimpost2'], limits: ['overallDimH'], level: 1, height: 150, side: 'top'},
               {'type': 'dimensionsV', id: 'dimV1', from: ['fp2', 'fp1'], to: ['fpimpost3', 'fpimpost4'], limits: ['overallDimV'], level: 1, height: 150, side: 'right'},
-              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], limits: ['dimH1'], level: 3, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], limits: ['dimH1'], links: ['fpimpost3'], level: 3, height: 150, side: 'top'},
               {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], limits: ['dimV1'], level: 1, height: 150, side: 'left'},
               {'type': 'square', id: 'sqr', widths: ['overallDimH'], heights: ['overallDimV']}
             ]
@@ -1260,7 +1260,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'dimensionsH', id: 'dimH1', from: ['fp1', 'fp4'], to: ['fpimpost1', 'fpimpost2'], limits: ['overallDimH'], level: 1, height: 150, side: 'top'},
               {'type': 'dimensionsV', id: 'dimV1', from: ['fp1', 'fp2'], to: ['fpimpost4', 'fpimpost3'], limits: ['overallDimV'], level: 1, height: 150, side: 'left'},
               {'type': 'dimensionsV', id: 'dimV2', from: ['fp2', 'fp1'], to: ['fpimpost5', 'fpimpost6'], limits: ['overallDimV'], level: 1, height: 150, side: 'right'},
-              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], limits: ['dimH1'], level: 3, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], limits: ['dimH1'], links: ['fpimpost5'], level: 3, height: 150, side: 'top'},
               {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], limits: ['dimV1', 'dimV2'], level: 2, height: 150, side: 'left'},
               {'type': 'square', id: 'sqr', widths: ['overallDimH'], heights: ['overallDimV']}
             ]
@@ -1373,7 +1373,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
               {'type': 'glass_paсkage', id: 'glass2', parts: ['glassline5', 'glassline6', 'glassline7', 'glassline8']},
               {'type': 'dimensionsV', id: 'dimV1', from: ['fp2', 'fp1'], to: ['fpimpost1', 'fpimpost2'], limits: ['overallDimV'], level: 1, height: 150, side: 'right'},
-              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], level: 1, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], links: ['fpimpost1'], level: 1, height: 150, side: 'top'},
               {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], limits: ['dimV1'], level: 1, height: 150, side: 'left'},
               {'type': 'square', id: 'sqr', widths: ['overallDimH'], heights: ['overallDimV']}
             ]
@@ -1532,7 +1532,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'glass_paсkage', id: 'glass3', parts: ['glassline9', 'glassline10', 'glassline11', 'glassline12']},
               {'type': 'dimensionsH', id: 'dimH1', from: ['fp4', 'fp1'], to: ['fpimpost4', 'fpimpost3'], limits: ['overallDimH'], level: 1, height: 150, side: 'bottom'},
               {'type': 'dimensionsV', id: 'dimV1', from: ['fp2', 'fp1'], to: ['fpimpost1', 'fpimpost2'], limits: ['overallDimV'], level: 1, height: 150, side: 'right'},
-              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], limits: ['dimH1'], level: 1, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], limits: ['dimH1'], links: ['fpimpost1'], level: 1, height: 150, side: 'top'},
               {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], limits: ['dimV1'], level: 1, height: 150, side: 'left'},
               {'type': 'square', id: 'sqr', widths: ['overallDimH'], heights: ['overallDimV']}
             ]
@@ -1736,7 +1736,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'dimensionsH', id: 'dimH2', from: ['fpimpost4', 'fpimpost3'], to: ['fpimpost6', 'fpimpost5'], limits: ['overallDimH', 'dimH1'], links: ['fpimpost6', 'fpimpost5'], level: 1, height: 150, side: 'bottom'},
               {'type': 'dimensionsH', id: 'dimH3', from: ['fpimpost6', 'fpimpost5'], to: ['fp3', 'fp2'], level: 1, height: 150, side: 'bottom'},
               {'type': 'dimensionsV', id: 'dimV1', from: ['fp2', 'fp1'], to: ['fpimpost1', 'fpimpost2'], limits: ['overallDimV'], level: 1, height: 150, side: 'right'},
-              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], limits: ['dimH1', 'dimH2'], level: 1, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], limits: ['dimH1', 'dimH2'], links: ['fpimpost1'], level: 1, height: 150, side: 'top'},
               {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], limits: ['dimV1'], level: 1, height: 150, side: 'left'},
               {'type': 'square', id: 'sqr', widths: ['overallDimH'], heights: ['overallDimV']}
             ]
@@ -1985,7 +1985,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'dimensionsH', id: 'dimH3', from: ['fpimpost6', 'fpimpost5'], to: ['fp3', 'fp2'], level: 1, height: 150, side: 'bottom'},
               {'type': 'dimensionsH', id: 'dimH4', from: ['fp1', 'fp4'], to: ['fpimpost7', 'fpimpost8'], limits: ['overallDimH'], level: 1, height: 150, side: 'top'},
               {'type': 'dimensionsV', id: 'dimV1', from: ['fp2', 'fp1'], to: ['fpimpost1', 'fpimpost2'], limits: ['overallDimV'], level: 1, height: 150, side: 'right'},
-              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], limits: ['dimH1', 'dimH2', 'dimH4'], level: 3, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], limits: ['dimH1', 'dimH2', 'dimH4'], links: ['fpimpost1'], level: 3, height: 150, side: 'top'},
               {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], limits: ['dimV1'], level: 1, height: 150, side: 'left'},
               {'type': 'square', id: 'sqr', widths: ['overallDimH'], heights: ['overallDimV']}
             ]
@@ -2280,7 +2280,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'dimensionsH', id: 'dimH5', from: ['fpimpost7', 'fpimpost8'], to: ['fpimpost9', 'fpimpost10'], limits: ['overallDimH', 'dimH4'], links: ['fpimpost9', 'fpimpost10'], level: 1, height: 150, side: 'top'},
               {'type': 'dimensionsH', id: 'dimH6', from: ['fpimpost9', 'fpimpost10'], to: ['fp2', 'fp3'], level: 1, height: 150, side: 'top'},
               {'type': 'dimensionsV', id: 'dimV1', from: ['fp2', 'fp1'], to: ['fpimpost1', 'fpimpost2'], limits: ['overallDimV'], level: 1, height: 150, side: 'right'},
-              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], limits: ['dimH1', 'dimH2', 'dimH4'], level: 3, height: 150, side: 'top'},
+              {'type': 'dimensionsH', id: 'overallDimH', from: ['fp1', 'fp4'], to: ['fp2', 'fp3'], limits: ['dimH1', 'dimH2', 'dimH4'], links: ['fpimpost1'], level: 3, height: 150, side: 'top'},
               {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], limits: ['dimV1'], level: 1, height: 150, side: 'left'},
               {'type': 'square', id: 'sqr', widths: ['overallDimH'], heights: ['overallDimV']}
             ]
@@ -2824,7 +2824,7 @@ BauVoiceApp.factory('constructService', function ($q) {
         profiles: [
           [
             {
-              profileId: 35,
+              profileId: 51,
               profileType: '4 камеры',
               profileDescrip: 'WDS 400',
               profileCountry: 'Украина',
@@ -2833,7 +2833,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               airCoeff: 10
             },
             {
-              profileId: 36,
+              profileId: 52,
               profileType: '4 камеры',
               profileDescrip: 'WDS 404',
               profileCountry: 'Украина',
@@ -2842,7 +2842,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               airCoeff: 11
             },
             {
-              profileId: 37,
+              profileId: 53,
               profileType: '5 камер',
               profileDescrip: 'WDS 505',
               profileCountry: 'Украина',
@@ -2851,7 +2851,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               airCoeff: 9
             },
             {
-              profileId: 38,
+              profileId: 54,
               profileType: '4 камеры',
               profileDescrip: 'ОКОШКО S60',
               profileCountry: 'Украина',
@@ -2859,10 +2859,10 @@ BauVoiceApp.factory('constructService', function ($q) {
               heatCoeff: 2,
               airCoeff: 8
             }
-          ],
+          ]/*,
           [
             {
-              profileId: 39,
+              profileId: 55,
               profileType: '3 камеры',
               profileDescrip: 'REHAU 60',
               profileCountry: 'Germany',
@@ -2871,7 +2871,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               airCoeff: 8
             },
             {
-              profileId: 40,
+              profileId: 56,
               profileType: '5 камер',
               profileDescrip: 'REHAU 70',
               profileCountry: 'Germany',
@@ -2879,7 +2879,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               heatCoeff: 3,
               airCoeff: 10
             }
-          ]
+          ]*/
         ]
       }));
     },

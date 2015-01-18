@@ -1,7 +1,7 @@
 
 // controllers/panels/profile.js
 
-/* globals BauVoiceApp, STEP */
+/* globals BauVoiceApp, STEP, playSound */
 
 'use strict';
 
@@ -28,6 +28,7 @@ BauVoiceApp.controller('ProfileCtrl', ['$scope', 'constructService', 'localStora
 
   // Select profile
   $scope.selectProfile = function(producerIndex, profileIndex, profileId) {
+    playSound('price');
     $scope.global.product.profileTypeIndex = producerIndex;
     $scope.global.product.profileIndex = profileIndex;
     var selectedProfile = $scope.profilePanel.profiles[producerIndex][profileIndex];

@@ -62,7 +62,6 @@ function changePrice(price, elem) {
     }
 
   }
-
   changePrice.revertDigitState = function () {
     $digitCell.animate({ top: 0 }, 'fast');
   };

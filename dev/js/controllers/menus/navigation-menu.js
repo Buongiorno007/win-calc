@@ -115,6 +115,8 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
   };
 
   $scope.global.setLanguageVoiceHelper = function(langLabel) {
+    $scope.global.voiceHelperLanguage = 'ru_RU';
+    /*
     switch (langLabel) {
       //case 'ua': $scope.global.voiceHelperLanguage = 'ukr-UKR';
       case 'ua': $scope.global.voiceHelperLanguage = 'ru_RU';
@@ -128,6 +130,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
       case 'ro': $scope.global.voiceHelperLanguage = 'ro_RO';
         break;
     }
+    */
   };
 
   //------- Select menu item

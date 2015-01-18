@@ -9,8 +9,12 @@ var STEP = 50,
     focuseClass = 'focused',
     activeClass = 'active',
     unvisibleClass = 'unvisible',
-    movePanelClass = 'move-panel';
-
+    movePanelClass = 'move-panel',
+    sounds = {
+      'menuSound': {'start': 7.93, 'end': 11.7},
+      'swipSound': {'start': 8, 'end': 9},
+      'priceSound': {'start': 21, 'end': 23.47}
+    };
 
 function typingTextByChar($textElem1, $textElem2) {
   var source = $textElem1.data('output'),
@@ -80,6 +84,37 @@ function deactiveSizeBox(sizeEditClass, sizeClass) {
   });
 }
 
+//----------- Play audio sounds
+function playSound(element) {
+  var audioPlayer = document.getElementById('sounds'),
+      start, end;
+console.log(element);
+  switch(element) {
+    case 'menu':
+      start = sounds.menuSound.start;
+      end = sounds.menuSound.end;
+      break;
+    case 'swip':
+      start = sounds.swipSound.start;
+      end = sounds.swipSound.end;
+      break;
+    case 'price':
+      start = sounds.priceSound.start;
+      end = sounds.priceSound.end;
+      break;
+  }
+  console.log('start', start);
+  console.log('end', end);
+  audioPlayer.currentTime = start;
+  audioPlayer.play();
+  audioPlayer.addEventListener('timeupdate',function () {
+    console.log('currentTime', audioPlayer.currentTime);
+    if(audioPlayer.currentTime >= end) {
+      audioPlayer.pause();
+    }
+  });
+
+}
 
 
 

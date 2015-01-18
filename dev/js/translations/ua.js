@@ -67,7 +67,8 @@ window.ukrainianDictionary = {
     CONFIGMENU_LAMINATION_TYPE: 'фасад / в кімнаті',
     CONFIGMENU_ADDITIONAL: 'Додатково',
     CONFIGMENU_IN_CART: 'В кошик',
-    VOICE_SPEACH: 'Говоріть...'
+    VOICE_SPEACH: 'Говоріть...',
+    COMMENT: 'Залиште свою замітку про заказ тут.'
   },
   panels: {
     TEMPLATE_WINDOW: 'Вікно',

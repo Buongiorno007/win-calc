@@ -1,7 +1,7 @@
 
 // controllers/parts/room-info.js
 
-/* globals STEP, typingTextWithDelay, showElementWithDelay */
+/* globals STEP, typingTextWithDelay, showElementWithDelay, playSound */
 
 'use strict';
 
@@ -38,6 +38,7 @@ BauVoiceApp.controller('RoomInfoCtrl', ['$scope', 'constructService', 'localStor
   //----- Show Comments
   $(".room-info-container").swipe( {
     swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+      playSound('swip');
       if(direction === 'up') {
         $scope.global.isShowCommentBlock = true;
       } else if(direction === 'down') {

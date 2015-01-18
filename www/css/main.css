@@ -1553,6 +1553,11 @@ body {
   padding-top: 2rem;
 }
 
+/* line 441, ../../dev/sass/base/general.scss */
+#sounds {
+  visibility: hidden;
+}
+
 /* line 17, ../../dev/vendor/calendar/pickmeup.scss */
 .pickmeup {
   background: transparent;
@@ -1787,7 +1792,7 @@ body {
 }
 /* line 9, ../../dev/sass/parts/_room-info.scss */
 .room-info-container.show-comment {
-  height: 97.5rem;
+  height: 95.5rem;
   z-index: 11;
 }
 /* line 13, ../../dev/sass/parts/_room-info.scss */

@@ -296,9 +296,10 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
                 //--------- get product default price
                 globalDB.calculationPrice($scope.global.objXFormedPrice, function (result) {
                   if(result.status){
-
                     //console.log('price');
                     //console.log(result.data);
+
+
                     $scope.global.product.templatePriceSELECT = parseFloat(angular.copy(result.data.price));
                     $scope.global.setProductPriceTOTAL();
                     var currencySymbol = '';
@@ -338,11 +339,13 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       $scope.global.productDefault = angular.copy($scope.global.product);
       //console.log('productDefault', $scope.global.productDefault);
     }
+    //playSound('price');
     $scope.$apply();
   };
 
   $scope.global.setProductPriceTOTALapply = function() {
     $scope.global.product.productPriceTOTAL = $scope.global.product.templatePriceSELECT + $scope.global.product.laminationPriceSELECT + $scope.global.product.addElementsPriceSELECT;
+    //playSound('price');
   };
 
 
@@ -419,6 +422,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
   if($scope.global.startProgramm && $scope.global.isCreatedNewProject && $scope.global.isCreatedNewProduct) {
 console.log('FIRST START!!!!!!!!!!');
+    playSound('menu');
     //------- create new empty product
     $scope.global.product = angular.copy($scope.global.productSource);
     //------- create new empty order
