@@ -90,5 +90,6 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', '$location', 'localStorage
   // Close Room Selector Dialog
   $scope.closeRoomSelectorDialog = function() {
     $scope.global.showRoomSelectorDialog = false;
+    playSound('fly');
   };
 }]);

@@ -308,7 +308,6 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
                     }
                     $scope.global.currency = currencySymbol;
                     $scope.global.isFindPriceProcess = false;
-
                   } else {
                     console.log(result);
                   }
@@ -398,8 +397,6 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       $scope.global.templatesWindIconList = angular.copy($scope.global.templatesWindIconListSTORE);
     }
   };
-
-
 
 
 
@@ -657,6 +654,7 @@ console.log('FIRST START!!!!!!!!!!');
     }
     //---- close Scheme Dialog in AddElements
     $scope.global.isWindowSchemeDialog = false;
+    playSound('switching');
   }
 
 

@@ -51,6 +51,7 @@ BauVoiceApp.controller('LaminationCtrl', ['$scope', 'constructService', 'localSt
   $scope.setLaminationTotalPrice = function() {
     $scope.global.product.laminationPriceSELECT = $scope.global.product.laminationInPrice + $scope.global.product.laminationOutPrice;
     $scope.global.setProductPriceTOTALapply();
+    playSound('price');
   };
 
 }]);

@@ -14,9 +14,11 @@ var STEP = 50,
     unvisibleClass = 'unvisible',
     movePanelClass = 'move-panel',
     sounds = {
-      'menuSound': {'start': 7.93, 'end': 11.7},
-      'swipSound': {'start': 8, 'end': 9},
-      'priceSound': {'start': 21, 'end': 23.47}
+      menu: {start: 7.93, end: 11.7},
+      swip: {start: 8, end: 9},
+      price: {start: 21, end: 23.47},
+      fly: {start: 0.57, end: 1.59},
+      switching: {start: 1.81, end: 2.88}
     };
 
 function typingTextByChar($textElem1, $textElem2) {
@@ -87,37 +89,25 @@ function deactiveSizeBox(sizeEditClass, sizeClass) {
   });
 }
 
+
+
 //----------- Play audio sounds
 function playSound(element) {
-  var audioPlayer = document.getElementById('sounds'),
-      start, end;
-console.log(element);
-  switch(element) {
-    case 'menu':
-      start = sounds.menuSound.start;
-      end = sounds.menuSound.end;
-      break;
-    case 'swip':
-      start = sounds.swipSound.start;
-      end = sounds.swipSound.end;
-      break;
-    case 'price':
-      start = sounds.priceSound.start;
-      end = sounds.priceSound.end;
-      break;
-  }
-  console.log('start', start);
-  console.log('end', end);
-  audioPlayer.currentTime = start;
+  var audioPlayer = document.getElementById('sounds');
+  audioPlayer.currentTime = sounds[element].start;
   audioPlayer.play();
-  audioPlayer.addEventListener('timeupdate',function () {
-    console.log('currentTime', audioPlayer.currentTime);
-    if(audioPlayer.currentTime >= end) {
-      audioPlayer.pause();
-    }
-  });
 
+  var handle = function() {
+    var end = sounds[element].end;
+    if(this.currentTime >= end) {
+      this.pause();
+      this.removeEventListener('timeupdate', handle);
+    }
+  };
+  audioPlayer.addEventListener('timeupdate', handle, false);
 }
+
+
 
 
 

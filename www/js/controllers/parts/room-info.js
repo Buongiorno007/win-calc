@@ -33,6 +33,7 @@ BauVoiceApp.controller('RoomInfoCtrl', ['$scope', 'constructService', 'localStor
       $scope.global.showRoomSelectorDialog = true;
       $scope.global.isRoomsDialog = true;
     }
+    playSound('fly');
   };
 
   //----- Show Comments

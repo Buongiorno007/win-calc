@@ -26,6 +26,7 @@ BauVoiceApp.controller('HardwareWindowCtrl', ['$scope', 'constructService', 'loc
     $scope.global.product.hardwareHeatCoeff = selectedHardware.heatCoeff;
     $scope.global.product.hardwareAirCoeff = selectedHardware.airCoeff;
     $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
+    playSound('price');
   };
 
 }]);

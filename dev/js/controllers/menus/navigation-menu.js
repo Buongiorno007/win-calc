@@ -63,7 +63,6 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
                 localDB.selectDBGlobal($scope.global.countriesTableDBGlobal, {'id': results.data[0].country_id }, function (results) {
                   if (results.status) {
                     $scope.global.userInfo.countryName = results.data[0].name;
-                    $scope.setUserLanguage($scope.global.userInfo.countryName);
                     $scope.global.userInfo.fullLocation = '' + $scope.global.userInfo.cityName + ', ' + $scope.global.userInfo.regionName + ', ' + $scope.global.userInfo.countryName;
 
                     //------ set current GeoLocation
@@ -76,7 +75,8 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
                       heatTransfer: angular.copy($scope.global.userInfo.heatTransfer),
                       fullLocation: angular.copy($scope.global.userInfo.fullLocation)
                     };
-                    //console.log($scope.global.userInfo);
+                    $scope.setUserLanguage($scope.global.userInfo.countryName);
+                    //console.log('userInfo',$scope.global.userInfo);
                   } else {
                     console.log(results);
                   }
@@ -111,6 +111,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
         $translate.use($scope.global.languages[1].label);
         break;
     }
+    console.log('nav-menu === ',$scope.global.userInfo.langLabel);
     $scope.global.setLanguageVoiceHelper($scope.global.userInfo.langLabel);
   };
 
@@ -395,6 +396,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
     localDB.deleteDB($scope.global.handlesTableBD, {'orderId': orderNum});
     localDB.deleteDB($scope.global.othersTableBD, {'orderId': orderNum});
   };
+
   console.log('$scope.global.isOpenedHistoryPage!!!!!!!!!!!', $scope.global.isOpenedHistoryPage);
 
 }]);

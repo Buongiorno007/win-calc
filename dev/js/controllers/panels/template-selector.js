@@ -47,6 +47,7 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
       $scope.global.saveNewTemplateInProduct(templateIndex);
       //------ define product price
       $scope.global.createObjXFormedPrice($scope.global.templates[templateIndex], $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
+      playSound('price');
     }
   };
 
