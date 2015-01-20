@@ -667,14 +667,16 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
   function prepareForNewSash(event) {
     //------ set the coordinats for edit sash menu
-    var menuX = event.pageX/16;
-    var menuY = event.pageY/16;
-    //var menuX1 = event.clientX;
-    //var menuX2 = event.offsetX;
+    var menuX = event.pageX;
+    var menuY = event.pageY;
+    var menuX1 = event.clientX;
+    var menuX2 = event.offsetX;
     $('#sash-shape-menu').css({'top': menuX+'rem', 'left': menuY+'rem'});
 
-    //console.log('menuX === ', menuX);
-    //console.log('menuY === ', menuY);
+    console.log('menuX === ', menuX);
+    console.log('menuY === ', menuY);
+    console.log('menuX1 === ', menuX1);
+    console.log('menuX2 === ', menuX2);
     //------- select all glass packages
     $('svg-template').find('.glass').each(function() {
       //$(this).addClass('glass-active');

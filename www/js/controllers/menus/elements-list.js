@@ -5,7 +5,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout', function ($scope, localStorage, $timeout) {
+BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', 'globalDB', '$timeout', function ($scope, localStorage, globalDB, $timeout) {
 
   var sourceAddElement, cloneAddElement;
 
@@ -20,8 +20,8 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
   };
 
   // Select AddElement
-  $scope.chooseAddElement = function(typeId, elementId) {
-    if(typeId === undefined && elementId === undefined) {
+  $scope.chooseAddElement = function(typeIndex, elementIndex) {
+    if(typeIndex === undefined && elementIndex === undefined) {
       $scope.global.desactiveAddElementParameters();
       $scope.global.isAddElement = false;
 
@@ -60,114 +60,168 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
           $scope.global.product.chosenAddElements.selectedOthers.length = 0;
           break;
       }
+      //Set Total Product Price
+      $scope.setAddElementsTotalPrice();
 
     } else {
-      $scope.global.isAddElement = typeId+'-'+elementId;
+      $scope.global.isAddElement = typeIndex+'-'+elementIndex;
 
-      sourceAddElement = $scope.global.addElementsList[typeId][elementId];
+      sourceAddElement = $scope.global.addElementsList[typeIndex][elementIndex];
       cloneAddElement = angular.copy(sourceAddElement);
 
-      // Show current add element price
-      $scope.addElementsMenu.isAddElementPrice = true;
-      $scope.currAddElementPrice = sourceAddElement.elementPrice;
+      //-------- Show current add element price
+      $scope.global.objXAddElementPrice = angular.copy($scope.global.objXAddElementPriceSource);
+      $scope.global.objXAddElementPrice.cityId = $scope.global.userInfo.city_id;
+      $scope.global.objXAddElementPrice.elementId = cloneAddElement.elementId;
+      $scope.global.objXAddElementPrice.elementLength = cloneAddElement.elementWidth;
+      console.log($scope.global.objXAddElementPrice);
+      globalDB.getAdditionalPrice($scope.global.objXAddElementPrice, function (results) {
+        if (results.status) {
+          //console.log(results.data);
+          cloneAddElement.elementPrice = parseFloat(results.data.price);
+          $scope.addElementsMenu.isAddElementPrice = true;
+          $scope.currAddElementPrice = cloneAddElement.elementPrice;
 
-      switch($scope.global.isFocusedAddElement) {
-        case 1:
-          cloneAddElement.elementId = 1;
-          $scope.global.product.chosenAddElements.selectedGrids.push(cloneAddElement);
-          //---- open TABFrame when second element selected
-          if($scope.global.product.chosenAddElements.selectedGrids.length === 2) {
-            $scope.global.isTabFrame = true;
-          }
-          break;
-        case 2:
-          cloneAddElement.elementId = 2;
-          $scope.global.product.chosenAddElements.selectedVisors.push(cloneAddElement);
-          //---- open TABFrame when second element selected
-          if($scope.global.product.chosenAddElements.selectedVisors.length === 2) {
-            $scope.global.isTabFrame = true;
-          }
-          break;
-        case 3:
-          cloneAddElement.elementId = 3;
-          $scope.global.product.chosenAddElements.selectedSpillways.push(cloneAddElement);
-          //---- open TABFrame when second element selected
-          if($scope.global.product.chosenAddElements.selectedSpillways.length === 2) {
-            $scope.global.isTabFrame = true;
-          }
-          break;
-        case 4:
-          cloneAddElement.elementId = 4;
-          $scope.global.product.chosenAddElements.selectedOutsideSlope.push(cloneAddElement);
-          //---- open TABFrame when second element selected
-          if($scope.global.product.chosenAddElements.selectedOutsideSlope.length === 2) {
-            $scope.global.isTabFrame = true;
-          }
-          break;
-        case 5:
-          cloneAddElement.elementId = 5;
-          $scope.global.product.chosenAddElements.selectedLouvers.push(cloneAddElement);
-          //---- open TABFrame when second element selected
-          if($scope.global.product.chosenAddElements.selectedLouvers.length === 2) {
-            $scope.global.isTabFrame = true;
-          }
-          break;
-        case 6:
-          cloneAddElement.elementId = 6;
-          $scope.global.product.chosenAddElements.selectedInsideSlope.push(cloneAddElement);
-          //---- open TABFrame when second element selected
-          if($scope.global.product.chosenAddElements.selectedInsideSlope.length === 2) {
-            $scope.global.isTabFrame = true;
-          }
-          break;
-        case 7:
-          cloneAddElement.elementId = 7;
-          $scope.global.product.chosenAddElements.selectedConnectors.push(cloneAddElement);
-          //---- open TABFrame when second element selected
-          if($scope.global.product.chosenAddElements.selectedConnectors.length === 2) {
-            $scope.global.isTabFrame = true;
-          }
-          break;
-        case 8:
-          cloneAddElement.elementId = 8;
-          $scope.global.product.chosenAddElements.selectedFans.push(cloneAddElement);
-          //---- open TABFrame when second element selected
-          if($scope.global.product.chosenAddElements.selectedFans.length === 2) {
-            $scope.global.isTabFrame = true;
-          }
-          break;
-        case 9:
-          cloneAddElement.elementId = 9;
-          $scope.global.product.chosenAddElements.selectedWindowSill.push(cloneAddElement);
-          //---- open TABFrame when second element selected
-          if($scope.global.product.chosenAddElements.selectedWindowSill.length === 2) {
-            $scope.global.isTabFrame = true;
-          }
-          break;
-        case 10:
-          cloneAddElement.elementId = 10;
-          $scope.global.product.chosenAddElements.selectedHandles.push(cloneAddElement);
-          //---- open TABFrame when second element selected
-          if($scope.global.product.chosenAddElements.selectedHandles.length === 2) {
-            $scope.global.isTabFrame = true;
-          }
-          break;
-        case 11:
-          cloneAddElement.elementId = 11;
-          $scope.global.product.chosenAddElements.selectedOthers.push(cloneAddElement);
-          //---- open TABFrame when second element selected
-          if($scope.global.product.chosenAddElements.selectedOthers.length === 2) {
-            $scope.global.isTabFrame = true;
-          }
-          break;
-      }
+          $scope.pushSelectedAddElement();
+          //Set Total Product Price
+          $scope.setAddElementsTotalPrice();
+          $scope.$apply();
+
+        } else {
+          console.log(results);
+        }
+      });
+
       if($scope.global.isAddElementListView) {
         $scope.global.isAddElement = 1;
       }
     }
-    //Set Total Product Price
-    $scope.setAddElementsTotalPrice();
+
   };
+
+
+
+  $scope.pushSelectedAddElement = function() {
+
+    console.log('cloneAddElement === ', cloneAddElement);
+
+    switch($scope.global.isFocusedAddElement) {
+      case 1:
+        cloneAddElement.elementType = 1;
+        cloneAddElement.elementWidth = 0;
+        cloneAddElement.elementHeight = 0;
+        cloneAddElement.elementColor = '';
+        $scope.global.product.chosenAddElements.selectedGrids.push(cloneAddElement);
+        //---- open TABFrame when second element selected
+        if($scope.global.product.chosenAddElements.selectedGrids.length === 2) {
+          $scope.global.isTabFrame = true;
+        }
+        break;
+      case 2:
+        cloneAddElement.elementType = 2;
+        cloneAddElement.elementHeight = 0;
+        cloneAddElement.elementColor = '';
+        $scope.global.product.chosenAddElements.selectedVisors.push(cloneAddElement);
+        //---- open TABFrame when second element selected
+        if($scope.global.product.chosenAddElements.selectedVisors.length === 2) {
+          $scope.global.isTabFrame = true;
+        }
+        break;
+      case 3:
+        cloneAddElement.elementType = 3;
+        cloneAddElement.elementHeight = 0;
+        cloneAddElement.elementColor = '';
+        $scope.global.product.chosenAddElements.selectedSpillways.push(cloneAddElement);
+        //---- open TABFrame when second element selected
+        if($scope.global.product.chosenAddElements.selectedSpillways.length === 2) {
+          $scope.global.isTabFrame = true;
+        }
+        break;
+      case 4:
+        cloneAddElement.elementType = 4;
+        cloneAddElement.elementHeight = 0;
+        cloneAddElement.elementColor = '';
+        $scope.global.product.chosenAddElements.selectedOutsideSlope.push(cloneAddElement);
+        //---- open TABFrame when second element selected
+        if($scope.global.product.chosenAddElements.selectedOutsideSlope.length === 2) {
+          $scope.global.isTabFrame = true;
+        }
+        break;
+      case 5:
+        cloneAddElement.elementType = 5;
+        cloneAddElement.elementColor = '';
+        $scope.global.product.chosenAddElements.selectedLouvers.push(cloneAddElement);
+        //---- open TABFrame when second element selected
+        if($scope.global.product.chosenAddElements.selectedLouvers.length === 2) {
+          $scope.global.isTabFrame = true;
+        }
+        break;
+      case 6:
+        cloneAddElement.elementType = 6;
+        cloneAddElement.elementHeight = 0;
+        cloneAddElement.elementColor = '';
+        $scope.global.product.chosenAddElements.selectedInsideSlope.push(cloneAddElement);
+        //---- open TABFrame when second element selected
+        if($scope.global.product.chosenAddElements.selectedInsideSlope.length === 2) {
+          $scope.global.isTabFrame = true;
+        }
+        break;
+      case 7:
+        cloneAddElement.elementType = 7;
+        cloneAddElement.elementHeight = 0;
+        cloneAddElement.elementColor = '';
+        $scope.global.product.chosenAddElements.selectedConnectors.push(cloneAddElement);
+        //---- open TABFrame when second element selected
+        if($scope.global.product.chosenAddElements.selectedConnectors.length === 2) {
+          $scope.global.isTabFrame = true;
+        }
+        break;
+      case 8:
+        cloneAddElement.elementType = 8;
+        cloneAddElement.elementWidth = 0;
+        cloneAddElement.elementHeight = 0;
+        cloneAddElement.elementColor = '';
+        $scope.global.product.chosenAddElements.selectedFans.push(cloneAddElement);
+        //---- open TABFrame when second element selected
+        if($scope.global.product.chosenAddElements.selectedFans.length === 2) {
+          $scope.global.isTabFrame = true;
+        }
+        break;
+      case 9:
+        cloneAddElement.elementType = 9;
+        cloneAddElement.elementHeight = 0;
+        $scope.global.product.chosenAddElements.selectedWindowSill.push(cloneAddElement);
+        //---- open TABFrame when second element selected
+        if($scope.global.product.chosenAddElements.selectedWindowSill.length === 2) {
+          $scope.global.isTabFrame = true;
+        }
+        break;
+      case 10:
+        cloneAddElement.elementType = 10;
+        cloneAddElement.elementWidth = 0;
+        cloneAddElement.elementHeight = 0;
+        cloneAddElement.elementColor = '';
+        $scope.global.product.chosenAddElements.selectedHandles.push(cloneAddElement);
+        //---- open TABFrame when second element selected
+        if($scope.global.product.chosenAddElements.selectedHandles.length === 2) {
+          $scope.global.isTabFrame = true;
+        }
+        break;
+      case 11:
+        cloneAddElement.elementType = 11;
+        cloneAddElement.elementWidth = 0;
+        cloneAddElement.elementHeight = 0;
+        cloneAddElement.elementColor = '';
+        $scope.global.product.chosenAddElements.selectedOthers.push(cloneAddElement);
+        //---- open TABFrame when second element selected
+        if($scope.global.product.chosenAddElements.selectedOthers.length === 2) {
+          $scope.global.isTabFrame = true;
+        }
+        break;
+    }
+
+  };
+
 
   $scope.setAddElementsTotalPrice = function() {
     $scope.global.product.addElementsPriceSELECT = 0;
@@ -184,6 +238,9 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
     }
     $scope.global.setProductPriceTOTALapply();
   };
+
+
+
 
   // Select Add Element when open List View
   $scope.selectElementListView = function(typeId, elementId, clickEvent) {

@@ -38,7 +38,7 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
   // SQL requests for select data from tables
   var selectDeviceCodeLocalDb = "SELECT device_code as code, sync FROM device",
     selectUser = "SELECT count(id) as login FROM users WHERE phone = ? AND password = ?",
-    selectUserInfo = "SELECT users.name, users.city_id, cities.name as city_name, users.avatar FROM users LEFT JOIN cities ON users.city_id = cities.id",
+    //selectUserInfo = "SELECT users.name, users.city_id, cities.name as city_name, users.avatar FROM users LEFT JOIN cities ON users.city_id = cities.id",
     selectLastSync = "SELECT last_sync FROM device";
 
   // SQL requests for inserting data into tables
@@ -424,31 +424,7 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
       });
     },
 
-/*
-    getUserInfo : function (callback) {
-      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
-      db.transaction(function (transaction) {
-        transaction.executeSql(selectUserInfo, [], function (transaction, result) {
-          if (result.rows.length) {
-            callback(new OkResult({
-              user: {
-                name: result.rows.item(0).name,
-                avatar: result.rows.item(0).avatar
-              },
-              city: {
-                id: result.rows.item(0).city_id,
-                name: result.rows.item(0).city_name
-              }
-            }));
-          } else {
-            callback(new ErrorResult(1, 'Incorrect userId!'));
-          }
-        }, function () {
-          callback(new ErrorResult(2, 'Something went wrong with selection user record'));
-        });
-      });
-    },
-*/
+
 
     login: function (loginData, callback) {
       var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);

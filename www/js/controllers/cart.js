@@ -134,94 +134,41 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
 
       //------ Download All Add Elements from LocalDB
-      localDB.selectDB($scope.global.gridsTableBD, {'orderId': $scope.global.orderEditNumber}, function (results) {
+
+      localDB.selectDB($scope.global.addElementsTableBD, {'orderId': $scope.global.orderEditNumber}, function (results) {
         if (results.status) {
-          $scope.cart.allGridsDB = angular.copy(results.data);
+          console.log('results.data === ', results.data);
+          var allEddElements = angular.copy(results.data);
+          for(var el = 0; el < allEddElements.length; el++) {
+            switch (allEddElements[el].elementType) {
+              case 1: $scope.cart.allGridsDB.push(allEddElements[el]);
+                break;
+              case 2: $scope.cart.allVisorsDB.push(allEddElements[el]);
+                break;
+              case 3: $scope.cart.allSpillwaysDB.push(allEddElements[el]);
+                break;
+              case 4: $scope.cart.allOutSlopesDB.push(allEddElements[el]);
+                break;
+              case 5: $scope.cart.allLouversDB.push(allEddElements[el]);
+                break;
+              case 6: $scope.cart.allInSlopesDB.push(allEddElements[el]);
+                break;
+              case 7: $scope.cart.allConnectorsDB.push(allEddElements[el]);
+                break;
+              case 8: $scope.cart.allFansDB.push(allEddElements[el]);
+                break;
+              case 9: $scope.cart.allWindowSillsDB.push(allEddElements[el]);
+                break;
+              case 10: $scope.cart.allHandlesDB.push(allEddElements[el]);
+                break;
+              case 11: $scope.cart.allOthersDB.push(allEddElements[el]);
+                break;
+            }
+          }
         } else {
           console.log(results);
         }
       });
-
-      localDB.selectDB($scope.global.visorsTableBD, {'orderId': $scope.global.orderEditNumber}, function (results) {
-        if (results.status) {
-          $scope.cart.allVisorsDB = angular.copy(results.data);
-        } else {
-          console.log(results);
-        }
-      });
-
-      localDB.selectDB($scope.global.spillwaysTableBD, {'orderId': $scope.global.orderEditNumber}, function (results) {
-        if (results.status) {
-          $scope.cart.allSpillwaysDB = angular.copy(results.data);
-        } else {
-          console.log(results);
-        }
-      });
-
-      localDB.selectDB($scope.global.outSlopesTableBD, {'orderId': $scope.global.orderEditNumber}, function (results) {
-        if (results.status) {
-          $scope.cart.allOutSlopesDB = angular.copy(results.data);
-        } else {
-          console.log(results);
-        }
-      });
-
-      localDB.selectDB($scope.global.inSlopesTableBD, {'orderId': $scope.global.orderEditNumber}, function (results) {
-        if (results.status) {
-          $scope.cart.allInSlopesDB = angular.copy(results.data);
-        } else {
-          console.log(results);
-        }
-      });
-
-      localDB.selectDB($scope.global.louversTableBD, {'orderId': $scope.global.orderEditNumber}, function (results) {
-        if (results.status) {
-          $scope.cart.allLouversDB = angular.copy(results.data);
-        } else {
-          console.log(results);
-        }
-      });
-
-      localDB.selectDB($scope.global.connectorsTableBD, {'orderId': $scope.global.orderEditNumber}, function (results) {
-        if (results.status) {
-          $scope.cart.allConnectorsDB = angular.copy(results.data);
-        } else {
-          console.log(results);
-        }
-      });
-
-      localDB.selectDB($scope.global.fansTableBD, {'orderId': $scope.global.orderEditNumber}, function (results) {
-        if (results.status) {
-          $scope.cart.allFansDB = angular.copy(results.data);
-        } else {
-          console.log(results);
-        }
-      });
-
-      localDB.selectDB($scope.global.windowSillsTableBD, {'orderId': $scope.global.orderEditNumber}, function (results) {
-        if (results.status) {
-          $scope.cart.allWindowSillsDB = angular.copy(results.data);
-        } else {
-          console.log(results);
-        }
-      });
-
-      localDB.selectDB($scope.global.handlesTableBD, {'orderId': $scope.global.orderEditNumber}, function (results) {
-        if (results.status) {
-          $scope.cart.allHandlesDB = angular.copy(results.data);
-        } else {
-          console.log(results);
-        }
-      });
-
-      localDB.selectDB($scope.global.othersTableBD, {'orderId': $scope.global.orderEditNumber}, function (results) {
-        if (results.status) {
-          $scope.cart.allOthersDB = angular.copy(results.data);
-        } else {
-          console.log(results);
-        }
-      });
-
 
 
       //----------- sorting all Edd Elements by Products
@@ -229,7 +176,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
         console.log('productsEdit', $scope.global.order.products);
         for(prod = 0; prod < $scope.global.order.productsQty; prod++) {
 
-          if($scope.cart.allGridsDB && $scope.cart.allGridsDB.length > 0) {
+          if($scope.cart.allGridsDB.length > 0) {
             for(var elem = 0; elem < $scope.cart.allGridsDB.length; elem++) {
               if($scope.cart.allGridsDB[elem].productId === $scope.global.order.products[prod].productId) {
                 $scope.global.order.products[prod].chosenAddElements.selectedGrids.push($scope.cart.allGridsDB[elem]);
@@ -237,7 +184,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
             }
           }
 
-          if($scope.cart.allVisorsDB && $scope.cart.allVisorsDB.length > 0) {
+          if($scope.cart.allVisorsDB.length > 0) {
             for(var elem = 0; elem < $scope.cart.allVisorsDB.length; elem++) {
               if($scope.cart.allVisorsDB[elem].productId === $scope.global.order.products[prod].productId) {
                 $scope.global.order.products[prod].chosenAddElements.selectedVisors.push($scope.cart.allVisorsDB[elem]);
@@ -245,7 +192,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
             }
           }
 
-          if($scope.cart.allSpillwaysDB && $scope.cart.allSpillwaysDB.length > 0) {
+          if($scope.cart.allSpillwaysDB.length > 0) {
             for(var elem = 0; elem < $scope.cart.allSpillwaysDB.length; elem++) {
               if($scope.cart.allSpillwaysDB[elem].productId === $scope.global.order.products[prod].productId) {
                 $scope.global.order.products[prod].chosenAddElements.selectedSpillways.push($scope.cart.allSpillwaysDB[elem]);
@@ -253,7 +200,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
             }
           }
 
-          if($scope.cart.allOutSlopesDB && $scope.cart.allOutSlopesDB.length > 0) {
+          if($scope.cart.allOutSlopesDB.length > 0) {
             for(var elem = 0; elem < $scope.cart.allOutSlopesDB.length; elem++) {
               if($scope.cart.allOutSlopesDB[elem].productId === $scope.global.order.products[prod].productId) {
                 $scope.global.order.products[prod].chosenAddElements.selectedOutsideSlope.push($scope.cart.allOutSlopesDB[elem]);
@@ -261,7 +208,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
             }
           }
 
-          if($scope.cart.allInSlopesDB && $scope.cart.allInSlopesDB.length > 0) {
+          if($scope.cart.allInSlopesDB.length > 0) {
             for(var elem = 0; elem < $scope.cart.allInSlopesDB.length; elem++) {
               if($scope.cart.allInSlopesDB[elem].productId === $scope.global.order.products[prod].productId) {
                 $scope.global.order.products[prod].chosenAddElements.selectedInsideSlope.push($scope.cart.allInSlopesDB[elem]);
@@ -269,7 +216,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
             }
           }
 
-          if($scope.cart.allLouversDB && $scope.cart.allLouversDB.length > 0) {
+          if($scope.cart.allLouversDB.length > 0) {
             for(var elem = 0; elem < $scope.cart.allLouversDB.length; elem++) {
               if($scope.cart.allLouversDB[elem].productId === $scope.global.order.products[prod].productId) {
                 $scope.global.order.products[prod].chosenAddElements.selectedLouvers.push($scope.cart.allLouversDB[elem]);
@@ -277,7 +224,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
             }
           }
 
-          if($scope.cart.allConnectorsDB && $scope.cart.allConnectorsDB.length > 0) {
+          if($scope.cart.allConnectorsDB.length > 0) {
             for(var elem = 0; elem < $scope.cart.allConnectorsDB.length; elem++) {
               if($scope.cart.allConnectorsDB[elem].productId === $scope.global.order.products[prod].productId) {
                 $scope.global.order.products[prod].chosenAddElements.selectedConnectors.push($scope.cart.allConnectorsDB[elem]);
@@ -285,7 +232,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
             }
           }
 
-          if($scope.cart.allFansDB && $scope.cart.allFansDB.length > 0) {
+          if($scope.cart.allFansDB.length > 0) {
             for(var elem = 0; elem < $scope.cart.allFansDB.length; elem++) {
               if($scope.cart.allFansDB[elem].productId === $scope.global.order.products[prod].productId) {
                 $scope.global.order.products[prod].chosenAddElements.selectedFans.push($scope.cart.allFansDB[elem]);
@@ -293,7 +240,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
             }
           }
 
-          if($scope.cart.allWindowSillsDB && $scope.cart.allWindowSillsDB.length > 0) {
+          if($scope.cart.allWindowSillsDB.length > 0) {
             for (var elem = 0; elem < $scope.cart.allWindowSillsDB.length; elem++) {
               if ($scope.cart.allWindowSillsDB[elem].productId === $scope.global.order.products[prod].productId) {
                 $scope.global.order.products[prod].chosenAddElements.selectedWindowSill.push($scope.cart.allWindowSillsDB[elem]);
@@ -301,7 +248,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
             }
           }
 
-          if($scope.cart.allHandlesDB && $scope.cart.allHandlesDB.length > 0) {
+          if($scope.cart.allHandlesDB.length > 0) {
             for (var elem = 0; elem < $scope.cart.allHandlesDB.length; elem++) {
               if ($scope.cart.allHandlesDB[elem].productId === $scope.global.order.products[prod].productId) {
                 $scope.global.order.products[prod].chosenAddElements.selectedHandles.push($scope.cart.allHandlesDB[elem]);
@@ -309,7 +256,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
             }
           }
 
-          if($scope.cart.allOthersDB && $scope.cart.allOthersDB.length > 0) {
+          if($scope.cart.allOthersDB.length > 0) {
             for (var elem = 0; elem < $scope.cart.allOthersDB.length; elem++) {
               if ($scope.cart.allOthersDB[elem].productId === $scope.global.order.products[prod].productId) {
                 $scope.global.order.products[prod].chosenAddElements.selectedOthers.push($scope.cart.allOthersDB[elem]);
@@ -398,17 +345,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
         if(!$scope.cart.isOrderExisted) {
           var productIdBD = productIndex + 1;
           localDB.deleteDB($scope.global.productsTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
-          localDB.deleteDB($scope.global.gridsTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
-          localDB.deleteDB($scope.global.visorsTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
-          localDB.deleteDB($scope.global.spillwaysTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
-          localDB.deleteDB($scope.global.outSlopesTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
-          localDB.deleteDB($scope.global.louversTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
-          localDB.deleteDB($scope.global.inSlopesTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
-          localDB.deleteDB($scope.global.connectorsTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
-          localDB.deleteDB($scope.global.fansTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
-          localDB.deleteDB($scope.global.windowSillsTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
-          localDB.deleteDB($scope.global.handlesTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
-          localDB.deleteDB($scope.global.othersTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
+          localDB.deleteDB($scope.global.addElementsTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
         }
 
         //----- if all products were deleted go to main page????

@@ -53,7 +53,6 @@ BauVoiceApp.controller('ProfileCtrl', ['$scope', 'constructService', 'localStora
     $scope.global.templatesDoorIconList.length = 0;
 
     $scope.global.parseTemplate($scope.global.product.profileIndex, profileId);
-    playSound('price');
   };
 
 }]);

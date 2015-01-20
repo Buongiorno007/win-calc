@@ -3243,19 +3243,19 @@ BauVoiceApp.factory('constructService', function ($q) {
         elementsList: [
           [
             {
-              elementId: 1,
+              elementId: 585,
               elementName: 'Сетка СO-100',
               elementQty: 1,
               elementPrice: 100
             },
             {
-              elementId: 2,
+              elementId: 585,
               elementName: 'Сетка СO-200',
               elementQty: 1,
               elementPrice: 100
             },
             {
-              elementId: 3,
+              elementId: 585,
               elementName: 'Сетка СO-200',
               elementQty: 1,
               elementPrice: 100
@@ -3263,13 +3263,13 @@ BauVoiceApp.factory('constructService', function ($q) {
           ],
           [
             {
-              elementId: 1,
+              elementId: 585,
               elementName: 'Сетка СO-300',
               elementQty: 1,
               elementPrice: 100
             },
             {
-              elementId: 2,
+              elementId: 585,
               elementName: 'Сетка СO-300',
               elementQty: 1,
               elementPrice: 100
@@ -3291,80 +3291,62 @@ BauVoiceApp.factory('constructService', function ($q) {
         elementsList: [
           [
             {
-              elementId: 1,
-              elementType: 'Стандартные',
+              elementId: 210675,
               elementName: 'Козырек белый 100мм',
               elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 200
+              elementQty: 1
             },
             {
-              elementId: 2,
-              elementType: 'Стандартные',
+              elementId: 210676,
               elementName: 'Козырек белый 200мм',
               elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 300
+              elementQty: 1
             },
             {
-              elementId: 3,
-              elementType: 'Стандартные',
+              elementId: 210677,
               elementName: 'Козырек белый 300мм',
               elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 140
+              elementQty: 1
             }
           ],
           [
             {
-              elementId: 1,
-              elementType: 'оцинкованный',
+              elementId: 210687,
               elementName: 'Козырек 100мм оцинкованный',
               elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 150
+              elementQty: 1
             },
             {
-              elementId: 2,
-              elementType: 'оцинкованный',
+              elementId: 210693,
               elementName: 'Козырек 200мм оцинкованный',
               elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 180
+              elementQty: 1
             },
             {
-              elementId: 3,
-              elementType: 'оцинкованный',
+              elementId: 210694,
               elementName: 'Козырек 300мм оцинкованный',
               elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 180
+              elementQty: 1
             },
             {
-              elementId: 4,
-              elementType: 'оцинкованный',
+              elementId: 210695,
               elementName: 'Козырек 400мм оцинкованный',
               elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 180
+              elementQty: 1
             },
             {
-              elementId: 5,
-              elementType: 'оцинкованный',
+              elementId: 210696,
               elementName: 'Козырек 500мм оцинкованный',
               elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 180
+              elementQty: 1
             }
           ],
           [
             {
-              elementId: 1,
-              elementType: 'Матовые',
+              elementId: 210697,
               elementName: 'Козырёк нестандартный',
               elementWidth: 1500,
-              elementQty: 1,
-              elementPrice: 110
+              elementQty: 1
             }
           ]
         ]
@@ -3383,7 +3365,7 @@ BauVoiceApp.factory('constructService', function ($q) {
         elementsList: [
           [
             {
-              elementId: 1,
+              elementId: 497,
               elementType: 'Отлив белый 200мм',
               elementName: 'Отлив КO-200',
               elementWidth: 1500,
@@ -3391,7 +3373,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementPrice: 100
             },
             {
-              elementId: 2,
+              elementId: 498,
               elementType: 'Стандартные',
               elementName: 'Отлив коричневый 260мм',
               elementWidth: 1500,
@@ -3401,7 +3383,7 @@ BauVoiceApp.factory('constructService', function ($q) {
           ],
           [
             {
-              elementId: 1,
+              elementId: 547,
               elementType: 'оцинкованный',
               elementName: 'Отлив оцинкованный 20мм',
               elementWidth: 1500,
@@ -3409,7 +3391,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementPrice: 100
             },
             {
-              elementId: 2,
+              elementId: 571,
               elementType: 'оцинкованный',
               elementName: 'Отлив оцинкованный 50мм',
               elementWidth: 1500,
@@ -3419,7 +3401,7 @@ BauVoiceApp.factory('constructService', function ($q) {
           ],
           [
             {
-              elementId: 1,
+              elementId: 540,
               elementType: 'нестандартные',
               elementName: 'Отлив нестандартный',
               elementWidth: 1500,
@@ -3441,7 +3423,7 @@ BauVoiceApp.factory('constructService', function ($q) {
         elementsList: [
           [
             {
-              elementId: 1,
+              elementId: 89349,
               elementType: 'Стандартные',
               elementName: 'Откос пластиковый',
               elementWidth: 200,
@@ -3449,7 +3431,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementPrice: 100
             },
             {
-              elementId: 2,
+              elementId: 89350,
               elementType: 'Стандартные',
               elementName: 'Откос гипсокартонный',
               elementWidth: 200,
@@ -3457,7 +3439,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementPrice: 100
             },
             {
-              elementId: 3,
+              elementId: 89351,
               elementType: 'Стандартные',
               elementName: 'Откос песчаноцементный',
               elementWidth: 200,
@@ -3480,7 +3462,7 @@ BauVoiceApp.factory('constructService', function ($q) {
         elementsList: [
           [
             {
-              elementId: 1,
+              elementId: 89349,
               elementType: 'Стандартные',
               elementName: 'Откос пластиковый',
               elementWidth: 200,
@@ -3488,7 +3470,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementPrice: 100
             },
             {
-              elementId: 2,
+              elementId: 89350,
               elementType: 'Стандартные',
               elementName: 'Откос гипсокартонный',
               elementWidth: 200,
@@ -3496,7 +3478,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementPrice: 100
             },
             {
-              elementId: 3,
+              elementId: 89351,
               elementType: 'Стандартные',
               elementName: 'Откос песчаноцементный',
               elementWidth: 200,
@@ -3596,14 +3578,14 @@ BauVoiceApp.factory('constructService', function ($q) {
         elementsList: [
           [
             {
-              elementId: 1,
+              elementId: 577,
               elementName: 'Соединитель стандартный 5/10',
               elementWidth: 1500,
               elementQty: 1,
               elementPrice: 100
             },
             {
-              elementId: 2,
+              elementId: 577,
               elementName: 'Соединитель стандартный 3/10',
               elementWidth: 1500,
               elementQty: 1,
@@ -3612,7 +3594,7 @@ BauVoiceApp.factory('constructService', function ($q) {
           ],
           [
             {
-              elementId: 1,
+              elementId: 577,
               elementName: 'Соединитель усиленный 5/13',
               elementWidth: 1500,
               elementQty: 1,
@@ -3621,7 +3603,7 @@ BauVoiceApp.factory('constructService', function ($q) {
           ],
           [
             {
-              elementId: 1,
+              elementId: 577,
               elementName: 'Соединитель балконный 5/13',
               elementWidth: 1500,
               elementQty: 1,
@@ -3694,7 +3676,7 @@ BauVoiceApp.factory('constructService', function ($q) {
         elementsList: [
           [
             {
-              elementId: 1,
+              elementId: 333,
               elementType: 'Матовые',
               elementName: 'LIGNODUR 200 мм белый',
               elementWidth: 1500,
@@ -3705,7 +3687,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementPrice: 100
             },
             {
-              elementId: 2,
+              elementId: 334,
               elementType: 'Матовые',
               elementName: 'LIGNODUR 300 мм белый',
               elementWidth: 1500,
@@ -3716,7 +3698,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementPrice: 100
             },
             {
-              elementId: 3,
+              elementId: 335,
               elementType: 'Матовые',
               elementName: 'LIGNODUR 400 мм белый',
               elementWidth: 1500,
@@ -3729,7 +3711,7 @@ BauVoiceApp.factory('constructService', function ($q) {
           ],
           [
             {
-              elementId: 1,
+              elementId: 341,
               elementType: 'Матовые',
               elementName: 'ДАНКЕ 100 мм белый матовый',
               elementWidth: 1500,
@@ -3740,7 +3722,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementPrice: 100
             },
             {
-              elementId: 2,
+              elementId: 342,
               elementType: 'Матовые',
               elementName: 'ДАНКЕ 300 мм белый матовый',
               elementWidth: 1500,
@@ -3753,7 +3735,7 @@ BauVoiceApp.factory('constructService', function ($q) {
           ],
           [
             {
-              elementId: 1,
+              elementId: 301,
               elementType: 'Матовые',
               elementName: 'OpenTeck 100 мм белый',
               elementWidth: 1500,
@@ -3764,7 +3746,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementPrice: 100
             },
             {
-              elementId: 2,
+              elementId: 302,
               elementType: 'Матовые',
               elementName: 'OpenTeck 200 мм белый',
               elementWidth: 1500,
@@ -3775,7 +3757,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementPrice: 100
             },
             {
-              elementId: 3,
+              elementId: 303,
               elementType: 'Матовые',
               elementName: 'OpenTeck 300 мм белый',
               elementWidth: 1500,
@@ -3786,7 +3768,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               elementPrice: 100
             },
             {
-              elementId: 4,
+              elementId: 304,
               elementType: 'Матовые',
               elementName: 'OpenTeck 400 мм белый',
               elementWidth: 1500,
@@ -3813,13 +3795,13 @@ BauVoiceApp.factory('constructService', function ($q) {
         elementsList: [
           [
             {
-              elementId: 1,
+              elementId: 586,
               elementName: 'Ручка оконная белая',
               elementQty: 1,
               elementPrice: 100
             },
             {
-              elementId: 2,
+              elementId: 587,
               elementName: 'Ручка оконная с ключом белая',
               elementQty: 1,
               elementPrice: 100
@@ -3827,13 +3809,13 @@ BauVoiceApp.factory('constructService', function ($q) {
           ],
           [
             {
-              elementId: 1,
+              elementId: 588,
               elementName: 'Ручка HOPPE (Tokyo) белая',
               elementQty: 1,
               elementPrice: 100
             },
             {
-              elementId: 2,
+              elementId: 589,
               elementName: 'Ручка HOPPE (Tokyo) серебр.',
               elementQty: 1,
               elementPrice: 100
@@ -3841,7 +3823,7 @@ BauVoiceApp.factory('constructService', function ($q) {
           ],
           [
             {
-              elementId: 1,
+              elementId: 586,
               elementName: 'Ручка нестандартная',
               elementQty: 1,
               elementPrice: 100

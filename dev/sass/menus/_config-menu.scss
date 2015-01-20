@@ -39,10 +39,12 @@
   }
 
   .additional-items-list {
-    overflow-y: auto;
+    @include overflow-scroll();
     max-height: rem(200px);
     padding: 0;
     list-style: none;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
   .additional-items-group {
     margin: 0;

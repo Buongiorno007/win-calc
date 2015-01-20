@@ -165,7 +165,6 @@ BauVoiceApp.factory('localStorage', function () {
       airCirculationTOTAL: 0,
 
       templatePriceSELECT: 0,
-      //hardwarePriceSELECT: 0,
       laminationPriceSELECT: 0,
       addElementsPriceSELECT: 0,
       productPriceTOTAL: 0,
@@ -290,17 +289,7 @@ BauVoiceApp.factory('localStorage', function () {
 //------ WebSQL DB table names
     //--- Local
     productsTableBD: 'products',
-    gridsTableBD: 'grids',
-    visorsTableBD: 'visors',
-    spillwaysTableBD: 'spillways',
-    outSlopesTableBD: 'outside_slopes',
-    louversTableBD: 'louvers',
-    inSlopesTableBD: 'inside_slopes',
-    connectorsTableBD: 'connectors',
-    fansTableBD: 'fans',
-    windowSillsTableBD: 'windowsills',
-    handlesTableBD: 'handles',
-    othersTableBD: 'other_elements',
+    addElementsTableBD: 'add_elements',
     ordersTableBD: 'orders',
     //---- Global
     usersTableDBGlobal: 'users',

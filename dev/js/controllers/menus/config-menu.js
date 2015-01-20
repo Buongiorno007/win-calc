@@ -328,6 +328,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   };
 
   $scope.global.setProductPriceTOTAL = function() {
+    playSound('price');
     $scope.global.product.productPriceTOTAL = $scope.global.product.templatePriceSELECT + $scope.global.product.laminationPriceSELECT + $scope.global.product.addElementsPriceSELECT;
     //------- после первой загрузки создается дефолтный объект
     if($scope.global.startProgramm) {
@@ -335,13 +336,12 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       $scope.global.productDefault = angular.copy($scope.global.product);
       //console.log('productDefault', $scope.global.productDefault);
     }
-    //playSound('price');
     $scope.$apply();
   };
 
   $scope.global.setProductPriceTOTALapply = function() {
+    playSound('price');
     $scope.global.product.productPriceTOTAL = $scope.global.product.templatePriceSELECT + $scope.global.product.laminationPriceSELECT + $scope.global.product.addElementsPriceSELECT;
-    //playSound('price');
   };
 
 
@@ -680,7 +680,7 @@ console.log('FIRST START!!!!!!!!!!');
     delete productData.templateDefault;
     delete productData.templateIcon;
     delete productData.chosenAddElements;
-
+console.log('productData', productData);
     localDB.insertDB($scope.global.productsTableBD, productData);
 
 
@@ -690,163 +690,20 @@ console.log('FIRST START!!!!!!!!!!');
         continue;
       }
       for (var elem = 0; elem < addElementsObj[prop].length; elem++) {
+        addElementsData = {
+          "orderId": orderID,
+          "productId": productIndex,
+          "elementId": addElementsObj[prop][elem].elementId,
+          "elementType": addElementsObj[prop][elem].elementType,
+          "elementName": addElementsObj[prop][elem].elementName,
+          "elementWidth": addElementsObj[prop][elem].elementWidth,
+          "elementHeight": addElementsObj[prop][elem].elementHeight,
+          "elementColor": addElementsObj[prop][elem].elementColor,
+          "elementPrice": addElementsObj[prop][elem].elementPrice,
+          "elementQty": addElementsObj[prop][elem].elementQty
+        };
 
-        switch (prop) {
-
-          case 'selectedGrids':
-            addElementsData = {
-              "orderId": orderID,
-              "productId": productIndex,
-              "elementId": addElementsObj[prop][elem].elementId,
-              "elementType": addElementsObj[prop][elem].elementType,
-              "elementName": addElementsObj[prop][elem].elementName,
-              "elementQty": addElementsObj[prop][elem].elementQty,
-              //"elementWidth": addElementsObj[prop][elem].elementWidth,
-              "elementPrice": addElementsObj[prop][elem].elementPrice
-            };
-            localDB.insertDB($scope.global.gridsTableBD, addElementsData);
-            break;
-
-          case 'selectedVisors':
-            addElementsData = {
-              "orderId": orderID,
-              "productId": productIndex,
-              "elementId": addElementsObj[prop][elem].elementId,
-              "elementType": addElementsObj[prop][elem].elementType,
-              "elementName": addElementsObj[prop][elem].elementName,
-              "elementQty": addElementsObj[prop][elem].elementQty,
-              "elementWidth": addElementsObj[prop][elem].elementWidth,
-              "elementPrice": addElementsObj[prop][elem].elementPrice
-            };
-            localDB.insertDB($scope.global.visorsTableBD, addElementsData);
-            break;
-
-          case 'selectedSpillways':
-            addElementsData = {
-              "orderId": orderID,
-              "productId": productIndex,
-              "elementId": addElementsObj[prop][elem].elementId,
-              "elementType": addElementsObj[prop][elem].elementType,
-              "elementName": addElementsObj[prop][elem].elementName,
-              "elementQty": addElementsObj[prop][elem].elementQty,
-              "elementWidth": addElementsObj[prop][elem].elementWidth,
-              "elementPrice": addElementsObj[prop][elem].elementPrice
-            };
-            localDB.insertDB($scope.global.spillwaysTableBD, addElementsData);
-            break;
-
-          case 'selectedOutsideSlope':
-            addElementsData = {
-              "orderId": orderID,
-              "productId": productIndex,
-              "elementId": addElementsObj[prop][elem].elementId,
-              "elementType": addElementsObj[prop][elem].elementType,
-              "elementName": addElementsObj[prop][elem].elementName,
-              "elementQty": addElementsObj[prop][elem].elementQty,
-              "elementWidth": addElementsObj[prop][elem].elementWidth,
-              "elementPrice": addElementsObj[prop][elem].elementPrice
-            };
-            localDB.insertDB($scope.global.outSlopesTableBD, addElementsData);
-            break;
-
-          case 'selectedInsideSlope':
-            addElementsData = {
-              "orderId": orderID,
-              "productId": productIndex,
-              "elementId": addElementsObj[prop][elem].elementId,
-              "elementType": addElementsObj[prop][elem].elementType,
-              "elementName": addElementsObj[prop][elem].elementName,
-              "elementQty": addElementsObj[prop][elem].elementQty,
-              "elementWidth": addElementsObj[prop][elem].elementWidth,
-              "elementPrice": addElementsObj[prop][elem].elementPrice
-            };
-            localDB.insertDB($scope.global.inSlopesTableBD, addElementsData);
-            break;
-
-          case 'selectedLouvers':
-            addElementsData = {
-              "orderId": orderID,
-              "productId": productIndex,
-              "elementId": addElementsObj[prop][elem].elementId,
-              "elementType": addElementsObj[prop][elem].elementType,
-              "elementName": addElementsObj[prop][elem].elementName,
-              "elementQty": addElementsObj[prop][elem].elementQty,
-              "elementWidth": addElementsObj[prop][elem].elementWidth,
-              "elementHeight": addElementsObj[prop][elem].elementHeight,
-              "elementPrice": addElementsObj[prop][elem].elementPrice
-            };
-            localDB.insertDB($scope.global.louversTableBD, addElementsData);
-            break;
-
-          case 'selectedConnectors':
-            addElementsData = {
-              "orderId": orderID,
-              "productId": productIndex,
-              "elementId": addElementsObj[prop][elem].elementId,
-              "elementType": addElementsObj[prop][elem].elementType,
-              "elementName": addElementsObj[prop][elem].elementName,
-              "elementQty": addElementsObj[prop][elem].elementQty,
-              "elementWidth": addElementsObj[prop][elem].elementWidth,
-              "elementPrice": addElementsObj[prop][elem].elementPrice
-            };
-            localDB.insertDB($scope.global.connectorsTableBD, addElementsData);
-            break;
-
-          case 'selectedFans':
-            addElementsData = {
-              "orderId": orderID,
-              "productId": productIndex,
-              "elementId": addElementsObj[prop][elem].elementId,
-              "elementType": addElementsObj[prop][elem].elementType,
-              "elementName": addElementsObj[prop][elem].elementName,
-              "elementQty": addElementsObj[prop][elem].elementQty,
-              "elementPrice": addElementsObj[prop][elem].elementPrice
-            };
-            localDB.insertDB($scope.global.fansTableBD, addElementsData);
-            break;
-
-          case 'selectedWindowSill':
-            addElementsData = {
-              "orderId": orderID,
-              "productId": productIndex,
-              "elementId": addElementsObj[prop][elem].elementId,
-              "elementType": addElementsObj[prop][elem].elementType,
-              "elementName": addElementsObj[prop][elem].elementName,
-              "elementQty": addElementsObj[prop][elem].elementQty,
-              "elementWidth": addElementsObj[prop][elem].elementWidth,
-              "elementColor": addElementsObj[prop][elem].elementColor,
-              "elementPrice": addElementsObj[prop][elem].elementPrice
-            };
-            localDB.insertDB($scope.global.windowSillsTableBD, addElementsData);
-            break;
-
-          case 'selectedHandles':
-            addElementsData = {
-              "orderId": orderID,
-              "productId": productIndex,
-              "elementId": addElementsObj[prop][elem].elementId,
-              "elementType": addElementsObj[prop][elem].elementType,
-              "elementName": addElementsObj[prop][elem].elementName,
-              "elementQty": addElementsObj[prop][elem].elementQty,
-              "elementPrice": addElementsObj[prop][elem].elementPrice
-            };
-            localDB.insertDB($scope.global.handlesTableBD, addElementsData);
-            break;
-
-          case 'selectedOthers':
-            addElementsData = {
-              "orderId": orderID,
-              "productId": productIndex,
-              "elementId": addElementsObj[prop][elem].elementId,
-              "elementType": addElementsObj[prop][elem].elementType,
-              "elementName": addElementsObj[prop][elem].elementName,
-              "elementQty": addElementsObj[prop][elem].elementQty,
-              "elementPrice": addElementsObj[prop][elem].elementPrice
-            };
-            localDB.insertDB($scope.global.othersTableBD, addElementsData);
-            break;
-
-        }
+        localDB.insertDB($scope.global.addElementsTableBD, addElementsData);
       }
     }
   };

@@ -58,6 +58,7 @@
     }
   }
   .menu-lists {
+    @include overflow-scroll();
     margin-left: rem(-$config_menu-side_padding);
     padding-left: rem($config_menu-side_padding);
     overflow-x: hidden;

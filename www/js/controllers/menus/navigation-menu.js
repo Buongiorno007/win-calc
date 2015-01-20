@@ -387,17 +387,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
   $scope.global.deleteOrderFromLocalDB = function(orderNum) {
     localDB.deleteDB($scope.global.ordersTableBD, {'orderId': orderNum});
     localDB.deleteDB($scope.global.productsTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.gridsTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.visorsTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.spillwaysTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.outSlopesTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.louversTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.inSlopesTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.connectorsTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.fansTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.windowSillsTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.handlesTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.othersTableBD, {'orderId': orderNum});
+    localDB.deleteDB($scope.global.addElementsTableBD, {'orderId': orderNum});
   };
 
   console.log('$scope.global.isOpenedHistoryPage!!!!!!!!!!!', $scope.global.isOpenedHistoryPage);
