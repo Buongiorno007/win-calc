@@ -81,9 +81,6 @@
       button.order-btn(ng-click="showCallOrderDialog()") {{ 'cart.ORDER' | translate }}
       button.measure-btn(ng-click="showCallMasterDialog()") {{ 'cart.MEASURE' | translate }}
 
-      .alladdelements-tools.qty-calculator(ng-class="{'active': global.isCartQtyCalculator}")
-        include ../parts/_qty-calculator
-
   .old-price-inst-tab(ng-class="{'active': global.order.isOldPrice && global.order.isInstalment !== 'false'}")
     .name {{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ global.order.selectedInstalmentPercent }} %
     .name {{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{ global.order.deliveryDate }}

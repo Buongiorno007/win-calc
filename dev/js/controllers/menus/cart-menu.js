@@ -194,5 +194,4 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
     }
   };
 
-
 }]);

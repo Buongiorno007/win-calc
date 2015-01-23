@@ -163,20 +163,19 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
             button.close-alladdelements(ng-click="showAllAddElements()")
           .alladdelements-block
 
-
             // List Grids
             .aux-list-block.aux_color_connect(ng-if="cart.addElementsUniqueList.grids.length > 0")
-              .aux-list-block-title(data-output="{{ 'add_elements.GRIDS' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+              .aux-list-block-title {{ 'add_elements.GRIDS' | translate }}
               table.aux-list-addellement
                 tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.grids track by $index")
                   td.aux-tablecell-name
                     .aux-name
-                      button.aux-params-but.aux_connect_but.aux-title(data-output="{{ elementUnit.elementName }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}", ng-click="global.selectAddElement(1)") )
-                      .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                      button.aux-params-but.aux_connect_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", ng-click="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId)") {{ elementUnit.elementName }}
+                      .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
                   td.aux-tablecell-qty
-                    .aux-params(ng-class="{'selected': global.auxParameter === '1-1-'+$index && global.currentAddElementId === $index}")
-                      button.aux-params-but.aux_connect_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ elementUnit.elementQty }}
-                      .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                    .aux-params
+                      .aux-params-but {{ elementUnit.elementQty }}
+                      .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
                   td.aux-tablecell-width
                   td.aux-tablecell-height
                   td.aux-tablecell-color
@@ -188,22 +187,22 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
 
             // List Visors
             .aux-list-block.aux_color_big(ng-if="cart.addElementsUniqueList.visors.length > 0")
-              .aux-list-block-title(data-output="{{ 'add_elements.VISORS' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+              .aux-list-block-title {{ 'add_elements.VISORS' | translate }}
 
               table.aux-list-addellement
                 tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.visors track by $index")
                   td.aux-tablecell-name
                     .aux-name
-                      button.aux-params-but.aux_big_but.aux-title(data-output="{{ elementUnit.elementName }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}", ng-click="global.selectAddElement(2)")
-                      .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                      button.aux-params-but.aux_big_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", ng-click="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId)") {{ elementUnit.elementName }}
+                      .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
                   td.aux-tablecell-qty
-                    .aux-params(ng-class="{'selected': global.auxParameter === '2-1-'+$index && global.currentAddElementId === $index}")
-                      button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ elementUnit.elementQty }}
-                      .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                    .aux-params
+                      .aux-params-but {{ elementUnit.elementQty }}
+                      .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
                   td.aux-tablecell-width
-                    .aux-params(ng-class="{'selected': global.auxParameter === '2-2-'+$index && global.currentAddElementId === $index}")
-                      button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ elementUnit.elementWidth }}
-                      .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                    .aux-params
+                      .aux-params-but {{ elementUnit.elementWidth }}
+                      .aux-label {{ 'add_elements.SIZE_LABEL' | translate }}
                   td.aux-tablecell-height
                   td.aux-tablecell-color
                   td.aux-tablecell-price
@@ -214,21 +213,21 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
 
             // List Spillways
             .aux-list-block.aux_color_middle(ng-if="cart.addElementsUniqueList.spillways.length > 0")
-              .aux-list-block-title(data-output="{{ 'add_elements.SPILLWAYS' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+              .aux-list-block-title {{ 'add_elements.SPILLWAYS' | translate }}
               table.aux-list-addellement
                 tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.spillways track by $index")
                   td.aux-tablecell-name
                     .aux-name
-                      .aux-title(data-output="{{ elementUnit.elementName }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}", ng-click="global.selectAddElement(3)")
-                      .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                      button.aux-params-but.aux_middle_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", ng-click="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId)") {{ elementUnit.elementName }}
+                      .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
                   td.aux-tablecell-qty
-                    .aux-params(ng-class="{'selected': global.auxParameter === '3-1-'+$index && global.currentAddElementId === $index}")
-                      button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ elementUnit.elementQty }}
-                      .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                    .aux-params
+                      .aux-params-but {{ elementUnit.elementQty }}
+                      .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
                   td.aux-tablecell-width
-                    .aux-params(ng-class="{'selected': global.auxParameter === '3-2-'+$index && global.currentAddElementId === $index}")
-                      button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ elementUnit.elementWidth }}
-                      .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                    .aux-params
+                      .aux-params-but {{ elementUnit.elementWidth }}
+                      .aux-label {{ 'add_elements.SIZE_LABEL' | translate }}
                   td.aux-tablecell-height
                   td.aux-tablecell-color
                   td.aux-tablecell-price
@@ -240,21 +239,21 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
 
             // List OutsideSlope
             .aux-list-block.aux_color_slope(ng-if="cart.addElementsUniqueList.outsideSlope.length > 0")
-              .aux-list-block-title(data-output="{{ 'add_elements.OUTSIDE' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+              .aux-list-block-title {{ 'add_elements.OUTSIDE' | translate }}
               table.aux-list-addellement
                 tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.outsideSlope track by $index")
                   td.aux-tablecell-name
                     .aux-name
-                      .aux-title(data-output="{{ elementUnit.elementName }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}", ng-click="global.selectAddElement(4)")
-                      .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                      button.aux-params-but.aux_slope_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", ng-click="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId)") {{ elementUnit.elementName }}
+                      .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
                   td.aux-tablecell-qty
-                    .aux-params(ng-class="{'selected': global.auxParameter === '4-1-'+$index && global.currentAddElementId === $index}")
-                      button.aux-params-but.aux_slope_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ elementUnit.elementQty }}
-                      .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                    .aux-params
+                      .aux-params-but {{ elementUnit.elementQty }}
+                      .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
                   td.aux-tablecell-width
-                    .aux-params(ng-class="{'selected': global.auxParameter === '4-2-'+$index && global.currentAddElementId === $index}")
-                      button.aux-params-but.aux_slope_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ elementUnit.elementWidth }}
-                      .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                    .aux-params
+                      .aux-params-but {{ elementUnit.elementWidth }}
+                      .aux-label {{ 'add_elements.SIZE_LABEL' | translate }}
                   td.aux-tablecell-height
                   td.aux-tablecell-color
                   td.aux-tablecell-price
@@ -265,25 +264,25 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
 
             // List Louvers
             .aux-list-block.aux_color_middle(ng-if="cart.addElementsUniqueList.louvers.length > 0")
-              .aux-list-block-title(data-output="{{ 'add_elements.LOUVERS' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+              .aux-list-block-title {{ 'add_elements.LOUVERS' | translate }}
               table.aux-list-addellement
                 tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.louvers track by $index")
                   td.aux-tablecell-name
                     .aux-name
-                      .aux-title(data-output="{{ elementUnit.elementName }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}", ng-click="global.selectAddElement(5)")
-                      .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                      button.aux-params-but.aux_middle_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", ng-click="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId)") {{ elementUnit.elementName }}
+                      .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
                   td.aux-tablecell-qty
-                    .aux-params(ng-class="{'selected': global.auxParameter === '5-1-'+$index && global.currentAddElementId === $index}")
-                      button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ elementUnit.elementQty }}
-                      .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                    .aux-params
+                      .aux-params-but {{ elementUnit.elementQty }}
+                      .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
                   td.aux-tablecell-width
-                    .aux-params(ng-class="{'selected': global.auxParameter === '5-2-'+$index && global.currentAddElementId === $index}")
-                      button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ elementUnit.elementWidth }}
-                      .aux-label(data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                    .aux-params
+                      .aux-params-but {{ elementUnit.elementWidth }}
+                      .aux-label {{ 'add_elements.WIDTH_LABEL' | translate }}
                   td.aux-tablecell-height
-                    .aux-params(ng-class="{'selected': global.auxParameter === '5-3-'+$index && global.currentAddElementId === $index}")
-                      button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(3, $index)", ng-disabled="global.isSizeCalculator") {{ elementUnit.elementWidth }}
-                      .aux-label(data-output="{{ 'add_elements.HEIGHT_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                    .aux-params
+                      .aux-params-but {{ elementUnit.elementWidth }}
+                      .aux-label {{ 'add_elements.HEIGHT_LABEL' | translate }}
                   td.aux-tablecell-color
                   td.aux-tablecell-price
                     .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
@@ -293,21 +292,21 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
 
             // List InsideSlope
             .aux-list-block.aux_color_slope(ng-if="cart.addElementsUniqueList.insideSlope.length > 0")
-              .aux-list-block-title(data-output="{{ 'add_elements.INSIDE' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+              .aux-list-block-title {{ 'add_elements.INSIDE' | translate }}
               table.aux-list-addellement
                 tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.insideSlope track by $index")
                   td.aux-tablecell-name
                     .aux-name
-                      .aux-title(data-output="{{ elementUnit.elementName }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}", ng-click="global.selectAddElement(6)")
+                      button.aux-params-but.aux_slope_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", ng-click="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId)") {{ elementUnit.elementName }}
                       .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
                   td.aux-tablecell-qty
-                    .aux-params(ng-class="{'selected': global.auxParameter === '6-1-'+$index && global.currentAddElementId === $index}")
-                      button.aux-params-but.aux_slope_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ elementUnit.elementQty }}
-                      .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                    .aux-params
+                      .aux-params-but {{ elementUnit.elementQty }}
+                      .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
                   td.aux-tablecell-width
-                    .aux-params(ng-class="{'selected': global.auxParameter === '6-2-'+$index && global.currentAddElementId === $index}")
-                      button.aux-params-but.aux_slope_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ elementUnit.elementWidth }}
-                      .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                    .aux-params
+                      .aux-params-but {{ elementUnit.elementWidth }}
+                      .aux-label {{ 'add_elements.SIZE_LABEL' | translate }}
                   td.aux-tablecell-height
                   td.aux-tablecell-color
                   td.aux-tablecell-price
@@ -323,16 +322,16 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                 tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.connectors track by $index")
                   td.aux-tablecell-name
                     .aux-name
-                      .aux-title(data-output="{{ elementUnit.elementName }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}", ng-click="global.selectAddElement(7)")
-                      .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                      button.aux-params-but.aux_connect_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", ng-click="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId)") {{ elementUnit.elementName }}
+                      .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
                   td.aux-tablecell-qty
-                    .aux-params(ng-class="{'selected': global.auxParameter === '7-1-'+$index && global.currentAddElementId === $index}")
-                      button.aux-params-but.aux_connect_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ elementUnit.elementQty }}
-                      .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                    .aux-params
+                      .aux-params-but {{ elementUnit.elementQty }}
+                      .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
                   td.aux-tablecell-width
-                    .aux-params(ng-class="{'selected': global.auxParameter === '7-2-'+$index && global.currentAddElementId === $index}")
-                      button.aux-params-but.aux_connect_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ elementUnit.elementWidth }}
-                      .aux-label(data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                    .aux-params
+                      .aux-params-but {{ elementUnit.elementWidth }}
+                      .aux-label {{ 'add_elements.WIDTH_LABEL' | translate }}
                   td.aux-tablecell-height
                   td.aux-tablecell-color
                   td.aux-tablecell-price
@@ -343,17 +342,17 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
 
             // List Fans
             .aux-list-block.aux_color_small(ng-if="cart.addElementsUniqueList.fans.length > 0")
-              .aux-list-block-title(data-output="{{ 'add_elements.FAN' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+              .aux-list-block-title {{ 'add_elements.FAN' | translate }}
               table.aux-list-addellement
                 tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.fans track by $index")
                   td.aux-tablecell-name
                     .aux-name
-                      .aux-title(data-output="{{ elementUnit.elementName }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}", ng-click="global.selectAddElement(8)")
-                      .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                      button.aux-params-but.aux_small_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", ng-click="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId)") {{ elementUnit.elementName }}
+                      .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
                   td.aux-tablecell-qty
-                    .aux-params(ng-class="{'selected': global.auxParameter === '8-1-'+$index && global.currentAddElementId === $index}")
-                      button.aux-params-but.aux_small_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ elementUnit.elementQty }}
-                      .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                    .aux-params
+                      .aux-params-but {{ elementUnit.elementQty }}
+                      .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
                   td.aux-tablecell-width
                   td.aux-tablecell-height
                   td.aux-tablecell-color
@@ -365,25 +364,25 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
 
             // List WindowSill
             .aux-list-block.aux_color_big(ng-if="cart.addElementsUniqueList.windowSill.length > 0")
-              .aux-list-block-title(data-output="{{ 'add_elements.WINDOWSILLS' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+              .aux-list-block-title {{ 'add_elements.WINDOWSILLS' | translate }}
               table.aux-list-addellement
                 tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.windowSill track by $index")
                   td.aux-tablecell-name
                     .aux-name
-                      .aux-title(data-output="{{ elementUnit.elementName }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}", ng-click="global.selectAddElement(9)")
-                      .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                      button.aux-params-but.aux_big_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", ng-click="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId)") {{ elementUnit.elementName }}
+                      .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
                   td.aux-tablecell-qty
-                    .aux-params(ng-class="{'selected': global.auxParameter === '9-1-'+$index && global.currentAddElementId === $index}")
-                      button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ elementUnit.elementQty }}
-                      .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                    .aux-params
+                      .aux-params-but {{ elementUnit.elementQty }}
+                      .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
                   td.aux-tablecell-width
-                    .aux-params(ng-class="{'selected': global.auxParameter === '9-2-'+$index && global.currentAddElementId === $index}")
-                      button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ elementUnit.elementWidth }}
-                      .aux-label(data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                    .aux-params
+                      .aux-params-but {{ elementUnit.elementWidth }}
+                      .aux-label {{ 'add_elements.WIDTH_LABEL' | translate }}
                   td.aux-tablecell-height
                   td.aux-tablecell-color
                     .aux-params
-                      button.aux-color(ng-class="{'selected': global.auxParameter === '9-4-'+$index && global.currentAddElementId === $index}", ng-click="global.initAddElementMenuTools(4, $index)")
+                      button.aux-color
                         img(ng-src="{{ elementUnit.elementColor }}")
                       .aux-label {{ 'add_elements.COLOR_LABEL' | translate }}
                   td.aux-tablecell-price
@@ -395,17 +394,17 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
 
             // List Handles
             .aux-list-block.aux_color_middle(ng-if="cart.addElementsUniqueList.handles.length > 0")
-              .aux-list-block-title(data-output="{{ 'add_elements.HANDLELS' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+              .aux-list-block-title {{ 'add_elements.HANDLELS' | translate }}
               table.aux-list-addellement
                 tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.handles track by $index")
                   td.aux-tablecell-name
                     .aux-name
-                      .aux-title(data-output="{{ elementUnit.elementName }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}", ng-click="global.selectAddElement(10)")
-                      .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                      button.aux-params-but.aux_middle_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", ng-click="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId)") {{ elementUnit.elementName }}
+                      .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
                   td.aux-tablecell-qty
-                    .aux-params(ng-class="{'selected': global.auxParameter === '10-1-'+$index && global.currentAddElementId === $index}")
-                      button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ elementUnit.elementQty }}
-                      .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                    .aux-params
+                      .aux-params-but {{ elementUnit.elementQty }}
+                      .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
                   td.aux-tablecell-width
                   td.aux-tablecell-height
                   td.aux-tablecell-color
@@ -418,17 +417,17 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
 
             // List Others
             .aux-list-block.aux_color_middle(ng-if="cart.addElementsUniqueList.others.length > 0")
-              .aux-list-block-title(data-output="{{ 'add_elements.OTHERS' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+              .aux-list-block-title {{ 'add_elements.OTHERS' | translate }}
               table.aux-list-addellement
                 tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.others track by $index")
                   td.aux-tablecell-name
                     .aux-name
-                      .aux-title(data-output="{{ elementUnit.elementName }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}", ng-click="global.selectAddElement(11)")
-                      .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
+                      button.aux-params-but.aux_small_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", ng-click="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId)") {{ elementUnit.elementName }}
+                      .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
                   td.aux-tablecell-qty
-                    .aux-params(ng-class="{'selected': global.auxParameter === '10-1-'+$index && global.currentAddElementId === $index}")
-                      button.aux-params-but.aux_small_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ elementUnit.elementQty }}
-                      .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{cart.DELAY_START }}")
+                    .aux-params
+                      .aux-params-but {{ elementUnit.elementQty }}
+                      .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
                   td.aux-tablecell-width
                   td.aux-tablecell-height
                   td.aux-tablecell-color
@@ -442,7 +441,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
               table.aux-list-addellement
                 tr.aux-list-row
                   td.aux-tablecell-total
-                    .aux-total-label(data-output="{{ 'add_elements.TOTAL_PRICE_TXT' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
+                    .aux-total-label {{ 'add_elements.TOTAL_PRICE_TXT' | translate }}
                   td.aux-tablecell-price
                     .aux-total-price {{ cart.addElementsListPriceTOTAL }} {{ global.currency }}
                   td.aux-tablecell-delete

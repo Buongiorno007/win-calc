@@ -49,6 +49,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     isAllAddElements: false,
     isShowAllAddElements: false,
     isShowAddElementUnit: false,
+    selectedAddElementUnit: 0,
     DELAY_START: STEP,
     typing: 'on'
   };
@@ -475,40 +476,41 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
         }
         if($scope.global.order.products[pr].chosenAddElements[prop].length > 0) {
           for (var elem = 0; elem < $scope.global.order.products[pr].chosenAddElements[prop].length; elem++) {
-
-            switch ($scope.global.order.products[pr].chosenAddElements[prop][elem].elementType) {
+            var tempChosenAddElement = angular.copy($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+            tempChosenAddElement.elementQty *= $scope.global.order.products[pr].productQty;
+            switch (tempChosenAddElement.elementType) {
               case 1:
-                $scope.cart.allAddElementsList.grids.push($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+                $scope.cart.allAddElementsList.grids.push(tempChosenAddElement);
                 break;
               case 2:
-                $scope.cart.allAddElementsList.visors.push($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+                $scope.cart.allAddElementsList.visors.push(tempChosenAddElement);
                 break;
               case 3:
-                $scope.cart.allAddElementsList.spillways.push($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+                $scope.cart.allAddElementsList.spillways.push(tempChosenAddElement);
                 break;
               case 4:
-                $scope.cart.allAddElementsList.outsideSlope.push($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+                $scope.cart.allAddElementsList.outsideSlope.push(tempChosenAddElement);
                 break;
               case 5:
-                $scope.cart.allAddElementsList.louvers.push($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+                $scope.cart.allAddElementsList.louvers.push(tempChosenAddElement);
                 break;
               case 6:
-                $scope.cart.allAddElementsList.insideSlope.push($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+                $scope.cart.allAddElementsList.insideSlope.push(tempChosenAddElement);
                 break;
               case 7:
-                $scope.cart.allAddElementsList.connectors.push($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+                $scope.cart.allAddElementsList.connectors.push(tempChosenAddElement);
                 break;
               case 8:
-                $scope.cart.allAddElementsList.fans.push($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+                $scope.cart.allAddElementsList.fans.push(tempChosenAddElement);
                 break;
               case 9:
-                $scope.cart.allAddElementsList.windowSill.push($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+                $scope.cart.allAddElementsList.windowSill.push(tempChosenAddElement);
                 break;
               case 10:
-                $scope.cart.allAddElementsList.handles.push($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+                $scope.cart.allAddElementsList.handles.push(tempChosenAddElement);
                 break;
               case 11:
-                $scope.cart.allAddElementsList.others.push($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+                $scope.cart.allAddElementsList.others.push(tempChosenAddElement);
                 break;
             }
 
@@ -549,7 +551,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   $scope.getTOTALAddElementsPrice = function() {
     $scope.cart.addElementsListPriceTOTAL = 0;
     for(var i = 0; i < $scope.global.order.products.length; i++) {
-      $scope.cart.addElementsListPriceTOTAL += $scope.global.order.products[i].addElementsPriceSELECT;
+      $scope.cart.addElementsListPriceTOTAL += ($scope.global.order.products[i].addElementsPriceSELECT * $scope.global.order.products[i].productQty);
     }
   };
 
@@ -651,18 +653,19 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   };
 
 
-
-
-
-
   //-------- show Add Elements Unit
-  $scope.showAddElementUnitDetail = function() {
+  $scope.showAddElementUnitDetail = function(elementType, elementId) {
     playSound('swip');
     $scope.cart.isShowAddElementUnit = !$scope.cart.isShowAddElementUnit;
+    if($scope.cart.isShowAddElementUnit) {
+      $scope.cart.selectedAddElementUnit = elementId;
+    } else {
+      $scope.cart.selectedAddElementUnit = false;
+    }
+
   };
 
-
-
+  //----selectedAddElementUnit
 
 
 
