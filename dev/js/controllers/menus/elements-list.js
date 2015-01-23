@@ -265,9 +265,12 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', 'globalDB'
     }
   };
 
+
+
   // Show Tabs
   $scope.showFrameTabs = function() {
-      $scope.global.isTabFrame = !$scope.global.isTabFrame;
+    playSound('swip');
+    $scope.global.isTabFrame = !$scope.global.isTabFrame;
   };
 
   // Delete AddElement from global object
@@ -316,10 +319,12 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', 'globalDB'
   $scope.closeAddElementsMenu = function() {
     $scope.global.isFocusedAddElement = false;
     $scope.global.isTabFrame = false;
+    playSound('swip');
     $scope.global.showAddElementsMenu = false;
     $scope.global.desactiveAddElementParameters();
     $timeout(function() {
       $scope.global.isAddElement = false;
+      playSound('swip');
       $scope.global.addElementsMenuStyle = false;
     }, $scope.addElementsMenu.DELAY_SHOW_ELEMENTS_MENU);
   };
@@ -454,6 +459,7 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', 'globalDB'
     }
     changeElementSize();
   };
+
   // Delete last number
   $scope.deleteLastNumber = function() {
     $scope.addElementsMenu.tempSize.pop();
@@ -462,11 +468,88 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', 'globalDB'
     }
     changeElementSize();
   };
+
   // Close Size Calculator
   $scope.closeSizeCaclulator = function() {
     $scope.global.isWidthCalculator = false;
     $scope.addElementsMenu.tempSize.length = 0;
     $scope.global.desactiveAddElementParameters();
+
+    //-------- recalculate add element price
+    $scope.global.objXAddElementPrice.cityId = $scope.global.userInfo.city_id;
+    switch ($scope.global.isFocusedAddElement) {
+      case 2:
+        $scope.global.objXAddElementPrice.elementId = $scope.global.product.chosenAddElements.selectedVisors[$scope.global.currentAddElementId].elementId;
+        $scope.global.objXAddElementPrice.elementLength = $scope.global.product.chosenAddElements.selectedVisors[$scope.global.currentAddElementId].elementWidth;
+        break;
+      case 3:
+        $scope.global.objXAddElementPrice.elementId = $scope.global.product.chosenAddElements.selectedSpillways[$scope.global.currentAddElementId].elementId;
+        $scope.global.objXAddElementPrice.elementLength = $scope.global.product.chosenAddElements.selectedSpillways[$scope.global.currentAddElementId].elementWidth;
+        break;
+      case 4:
+        $scope.global.objXAddElementPrice.elementId = $scope.global.product.chosenAddElements.selectedOutsideSlope[$scope.global.currentAddElementId].elementId;
+        $scope.global.objXAddElementPrice.elementLength = $scope.global.product.chosenAddElements.selectedOutsideSlope[$scope.global.currentAddElementId].elementWidth;
+        break;
+      case 5:
+        $scope.global.objXAddElementPrice.elementId = $scope.global.product.chosenAddElements.selectedLouvers[$scope.global.currentAddElementId].elementId;
+        $scope.global.objXAddElementPrice.elementLength = $scope.global.product.chosenAddElements.selectedLouvers[$scope.global.currentAddElementId].elementWidth;
+        break;
+      case 6:
+        $scope.global.objXAddElementPrice.elementId = $scope.global.product.chosenAddElements.selectedInsideSlope[$scope.global.currentAddElementId].elementId;
+        $scope.global.objXAddElementPrice.elementLength = $scope.global.product.chosenAddElements.selectedInsideSlope[$scope.global.currentAddElementId].elementWidth;
+        break;
+      case 7:
+        $scope.global.objXAddElementPrice.elementId = $scope.global.product.chosenAddElements.selectedConnectors[$scope.global.currentAddElementId].elementId;
+        $scope.global.objXAddElementPrice.elementLength = $scope.global.product.chosenAddElements.selectedConnectors[$scope.global.currentAddElementId].elementWidth;
+        break;
+      case 9:
+        $scope.global.objXAddElementPrice.elementId = $scope.global.product.chosenAddElements.selectedWindowSill[$scope.global.currentAddElementId].elementId;
+        $scope.global.objXAddElementPrice.elementLength = $scope.global.product.chosenAddElements.selectedWindowSill[$scope.global.currentAddElementId].elementWidth;
+        break;
+    }
+
+    console.log('objXAddElementPrice change size ===== ', $scope.global.objXAddElementPrice);
+    globalDB.getAdditionalPrice($scope.global.objXAddElementPrice, function (results) {
+      if (results.status) {
+        console.log('change size!!!!!!!');
+        console.log(results.data.price);
+        var newElementPrice = parseFloat(results.data.price);
+        $scope.addElementsMenu.isAddElementPrice = true;
+        $scope.currAddElementPrice = newElementPrice;
+
+        switch ($scope.global.isFocusedAddElement) {
+          case 2:
+            $scope.global.product.chosenAddElements.selectedVisors[$scope.global.currentAddElementId].elementPrice = newElementPrice;
+            break;
+          case 3:
+            $scope.global.product.chosenAddElements.selectedSpillways[$scope.global.currentAddElementId].elementPrice = newElementPrice;
+            break;
+          case 4:
+            $scope.global.product.chosenAddElements.selectedOutsideSlope[$scope.global.currentAddElementId].elementPrice = newElementPrice;
+            break;
+          case 5:
+            $scope.global.product.chosenAddElements.selectedLouvers[$scope.global.currentAddElementId].elementPrice = newElementPrice;
+            break;
+          case 6:
+            $scope.global.product.chosenAddElements.selectedInsideSlope[$scope.global.currentAddElementId].elementPrice = newElementPrice;
+            break;
+          case 7:
+            $scope.global.product.chosenAddElements.selectedConnectors[$scope.global.currentAddElementId].elementPrice = newElementPrice;
+            break;
+          case 9:
+            $scope.global.product.chosenAddElements.selectedWindowSill[$scope.global.currentAddElementId].elementPrice = newElementPrice;
+            break;
+        }
+        console.log('chosenAddElements === ', $scope.global.product.chosenAddElements);
+        //Set Total Product Price
+        $scope.setAddElementsTotalPrice();
+        $scope.$apply();
+
+      } else {
+        console.log(results);
+      }
+    });
+
   };
 
   function changeElementSize(){
@@ -475,7 +558,7 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', 'globalDB'
       newElementSize += $scope.addElementsMenu.tempSize[numer].toString();
     }
     var elementId = $scope.global.currentAddElementId;
-
+    newElementSize = parseInt(newElementSize, 10);
     if($scope.global.isWidthCalculator) {
       switch($scope.global.isFocusedAddElement) {
         case 2:

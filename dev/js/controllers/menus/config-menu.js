@@ -284,8 +284,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
                 $scope.global.objXFormedPrice.shtulpId = $scope.global.allProfileShtulpSizes[profileIndex].id;
                 $scope.global.objXFormedPrice.beadId = $scope.global.product.beadId;
 
-                console.log(JSON.stringify($scope.global.objXFormedPrice));
-                console.log($scope.global.objXFormedPrice);
+                //console.log(JSON.stringify($scope.global.objXFormedPrice));
+                //console.log($scope.global.objXFormedPrice);
 
                 //------ calculate coeffs
                 $scope.global.calculateCoeffs();

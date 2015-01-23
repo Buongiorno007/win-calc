@@ -670,13 +670,40 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     var menuX = event.pageX;
     var menuY = event.pageY;
     var menuX1 = event.clientX;
+    var menuY1 = event.clientY;
     var menuX2 = event.offsetX;
-    $('#sash-shape-menu').css({'top': menuX+'rem', 'left': menuY+'rem'});
+    var menuY2 = event.offsetY;
+    var menuX3 = event.screenX;
+    var menuY3 = event.screenY;
+
+    $('#sash-shape-menu').css({'top': (menuY3)/16+'rem', 'left': (menuX3)/16+'rem'});
 
     console.log('menuX === ', menuX);
     console.log('menuY === ', menuY);
     console.log('menuX1 === ', menuX1);
+    console.log('menuY1 === ', menuY1);
     console.log('menuX2 === ', menuX2);
+    console.log('menuY2 === ', menuY2);
+    console.log('menuX3 === ', menuX3);
+    console.log('menuY3 === ', menuY3);
+
+    var html = document.documentElement;
+    var body = document.body;
+
+    console.log('body === ', body.scrollLeft);
+    console.log('document.body.scrollTop === ', body.scrollTop);
+    console.log('offsetParent === ', event.target.offsetParent);
+    console.log('offsetLeft === ', event.target.offsetParent.scrollLeft);
+    console.log('offsetTop === ', event.target.offsetParent.scrollTop);
+    console.log('html === ', html.scrollLeft);
+    console.log('html.scrollTop === ', html.scrollTop);
+
+    console.log('screen.availWidth === ', screen.availWidth);
+    console.log('screen.availHeight === ', screen.availHeight);
+    console.log('screen.width === ', screen.width);
+    console.log('screen.height === ', screen.height);
+
+
     //------- select all glass packages
     $('svg-template').find('.glass').each(function() {
       //$(this).addClass('glass-active');

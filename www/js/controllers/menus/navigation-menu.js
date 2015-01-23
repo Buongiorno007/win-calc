@@ -114,7 +114,6 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
         $translate.use($scope.global.languages[1].label);
         break;
     }
-    console.log('nav-menu === ',$scope.global.userInfo.langLabel);
     $scope.global.setLanguageVoiceHelper($scope.global.userInfo.langLabel);
   };
 

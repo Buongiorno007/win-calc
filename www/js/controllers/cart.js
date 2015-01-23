@@ -10,8 +10,6 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   $scope.global = localStorage;
 
   $scope.cart = {
-    //product: {},
-    //order: {},
     orderEddited: [],
     productsEddited: [],
     //------- for checking order in orders into LocalStorage
@@ -29,13 +27,33 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     allOthersDB: [],
 
     allAddElements: [],
+    allAddElementsListSource: {
+      grids: [],
+      visors: [],
+      spillways: [],
+      outsideSlope: [],
+      louvers: [],
+      insideSlope: [],
+      connectors: [],
+      fans: [],
+      windowSill: [],
+      handles: [],
+      others: []
+    },
+    allAddElementsList: {},
+    addElementsUniqueList: {},
     allTemplateIcons: [],
     activeProductIndex: 0,
+    addElementsListPriceTOTAL: 0,
     isAddElementDetail: false,
-    isAllAddElements: false
+    isAllAddElements: false,
+    isShowAllAddElements: false,
+    isShowAddElementUnit: false,
+    DELAY_START: STEP,
+    typing: 'on'
   };
 
-  var p, prod, product, newProductsQty;
+  var p, prod, product, newProductsQty, addElementUnique;
 
   $scope.isCartLightView = false;
 
@@ -72,6 +90,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
   //---------- parse Add Elements from LocalStorage
   $scope.parseAddElementsLocaly = function() {
+    $scope.cart.allAddElements = [];
     for(prod = 0; prod < $scope.global.order.products.length; prod++) {
       product = [];
 
@@ -339,8 +358,9 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
     function deleteProduct(button) {
       if(button == 1) {
-          $scope.global.order.products.splice(productIndex, 1);
-          $scope.cart.allAddElements.splice(productIndex, 1);
+        //playSound('delete');
+        $scope.global.order.products.splice(productIndex, 1);
+        $scope.cart.allAddElements.splice(productIndex, 1);
 
         if(!$scope.cart.isOrderExisted) {
           var productIdBD = productIndex + 1;
@@ -413,6 +433,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   //------- Show AddElements detail block for product
   $scope.showAllAddElementDetail = function(productIndex) {
     if($scope.cart.allAddElements[productIndex].length > 0) {
+      playSound('switching');
       $scope.cart.activeProductIndex = productIndex;
       $scope.cart.isAddElementDetail = true;
     }
@@ -424,6 +445,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
   // Full/Light View switcher
   $scope.viewSwitching = function() {
+    playSound('swip');
     $scope.isCartLightView = !$scope.isCartLightView;
   };
 
@@ -438,8 +460,210 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     $location.path('/main');
   };
 
-  //-------- show All Add Elements
-  $scope.showAllAddElements = function() {
-    $scope.cart.isAllAddElements = !$scope.cart.isAllAddElements;
+
+
+  //============= ALL AddElements panels
+
+  //-------- collect all AddElements in allAddElementsList from all products
+  $scope.prepareAllAddElementsList = function(){
+    $scope.cart.allAddElementsList = angular.copy($scope.cart.allAddElementsListSource);
+    for(var pr = 0; pr < $scope.global.order.products.length; pr++) {
+
+      for(var prop in $scope.global.order.products[pr].chosenAddElements) {
+        if (!$scope.global.order.products[pr].chosenAddElements.hasOwnProperty(prop)) {
+          continue;
+        }
+        if($scope.global.order.products[pr].chosenAddElements[prop].length > 0) {
+          for (var elem = 0; elem < $scope.global.order.products[pr].chosenAddElements[prop].length; elem++) {
+
+            switch ($scope.global.order.products[pr].chosenAddElements[prop][elem].elementType) {
+              case 1:
+                $scope.cart.allAddElementsList.grids.push($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+                break;
+              case 2:
+                $scope.cart.allAddElementsList.visors.push($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+                break;
+              case 3:
+                $scope.cart.allAddElementsList.spillways.push($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+                break;
+              case 4:
+                $scope.cart.allAddElementsList.outsideSlope.push($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+                break;
+              case 5:
+                $scope.cart.allAddElementsList.louvers.push($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+                break;
+              case 6:
+                $scope.cart.allAddElementsList.insideSlope.push($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+                break;
+              case 7:
+                $scope.cart.allAddElementsList.connectors.push($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+                break;
+              case 8:
+                $scope.cart.allAddElementsList.fans.push($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+                break;
+              case 9:
+                $scope.cart.allAddElementsList.windowSill.push($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+                break;
+              case 10:
+                $scope.cart.allAddElementsList.handles.push($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+                break;
+              case 11:
+                $scope.cart.allAddElementsList.others.push($scope.global.order.products[pr].chosenAddElements[prop][elem]);
+                break;
+            }
+
+          }
+        }
+      }
+    }
   };
+
+  //--------------- dublicats cleaning in allAddElementsList in order to make unique element
+  $scope.cleaningAllAddElementsList = function(){
+    $scope.cart.addElementsUniqueList = angular.copy($scope.cart.allAddElementsList);
+    //---- check dublicats
+    for(var type in $scope.cart.addElementsUniqueList) {
+      if (!$scope.cart.addElementsUniqueList.hasOwnProperty(type)) {
+        continue;
+      }
+      if($scope.cart.addElementsUniqueList[type].length > 0) {
+        for(var elem = $scope.cart.addElementsUniqueList[type].length - 1; elem >= 0 ; elem--) {
+          for(var el = $scope.cart.addElementsUniqueList[type].length - 1; el >= 0 ; el--) {
+            if(elem === el) {
+              continue;
+            } else {
+              if($scope.cart.addElementsUniqueList[type][elem].elementId === $scope.cart.addElementsUniqueList[type][el].elementId && $scope.cart.addElementsUniqueList[type][elem].elementWidth === $scope.cart.addElementsUniqueList[type][el].elementWidth && $scope.cart.addElementsUniqueList[type][elem].elementHeight === $scope.cart.addElementsUniqueList[type][el].elementHeight) {
+                $scope.cart.addElementsUniqueList[type][elem].elementQty += $scope.cart.addElementsUniqueList[type][el].elementQty;
+                $scope.cart.addElementsUniqueList[type].splice(el, 1);
+                elem--;
+              }
+            }
+          }
+        }
+      }
+    }
+    //console.log('$scope.cart.addElementsUniqueList ==== ', $scope.cart.addElementsUniqueList);
+  };
+
+  //------ calculate TOTAL AddElements price
+  $scope.getTOTALAddElementsPrice = function() {
+    $scope.cart.addElementsListPriceTOTAL = 0;
+    for(var i = 0; i < $scope.global.order.products.length; i++) {
+      $scope.cart.addElementsListPriceTOTAL += $scope.global.order.products[i].addElementsPriceSELECT;
+    }
+  };
+
+
+  //-------- show All Add Elements panel
+  $scope.showAllAddElements = function() {
+    playSound('swip');
+    $scope.cart.isShowAllAddElements = !$scope.cart.isShowAllAddElements;
+    if($scope.cart.isShowAllAddElements) {
+      $scope.prepareAllAddElementsList();
+      $scope.cleaningAllAddElementsList();
+      $scope.getTOTALAddElementsPrice();
+    } else {
+      $scope.cart.allAddElementsList = angular.copy($scope.cart.allAddElementsListSource);
+      $scope.cart.addElementsUniqueList = {};
+    }
+  };
+
+
+  //------ delete All AddElements List
+  $scope.deleteAllAddElementsList = function() {
+    $scope.cart.addElementsListPriceTOTAL = 0;
+    for(var pr = 0; pr < $scope.global.order.products.length; pr++) {
+      $scope.global.order.products[pr].productPriceTOTAL -= $scope.global.order.products[pr].addElementsPriceSELECT;
+      $scope.global.order.products[pr].addElementsPriceSELECT = 0;
+      for(var prop in $scope.global.order.products[pr].chosenAddElements) {
+        if (!$scope.global.order.products[pr].chosenAddElements.hasOwnProperty(prop)) {
+          continue;
+        }
+        if($scope.global.order.products[pr].chosenAddElements[prop].length > 0) {
+          $scope.global.order.products[pr].chosenAddElements[prop].length = 0;
+        }
+      }
+    }
+    //---- close all AddElements panel
+    $scope.parseAddElementsLocaly();
+    $scope.showAllAddElements();
+    $scope.global.calculateOrderPrice();
+  };
+
+
+  //------ delete AddElement in All AddElementsList
+  $scope.deleteAddElementList = function(elementType, elementId) {
+    var curentType = '';
+    switch (elementType) {
+      case 1: curentType = 'grids';
+        break;
+      case 2: curentType = 'visors';
+        break;
+      case 3: curentType = 'spillways';
+        break;
+      case 4: curentType = 'outsideSlope';
+        break;
+      case 5: curentType = 'louvers';
+        break;
+      case 6: curentType = 'insideSlope';
+        break;
+      case 7: curentType = 'connectors';
+        break;
+      case 8: curentType = 'fans';
+        break;
+      case 9: curentType = 'windowSill';
+        break;
+      case 10: curentType = 'handles';
+        break;
+      case 11: curentType = 'others';
+        break;
+    }
+    for (var el = ($scope.cart.allAddElementsList[curentType].length - 1); el >= 0; el--) {
+      if($scope.cart.allAddElementsList[curentType][el].elementId === elementId) {
+        $scope.cart.allAddElementsList[curentType].splice(el, 1);
+      }
+    }
+    $scope.cleaningAllAddElementsList();
+    for(var p = 0; p < $scope.global.order.products.length; p++) {
+      for(var prop in $scope.global.order.products[p].chosenAddElements) {
+        if (!$scope.global.order.products[p].chosenAddElements.hasOwnProperty(prop)) {
+          continue;
+        }
+        if((prop.toUpperCase()).indexOf(curentType.toUpperCase())+1 && $scope.global.order.products[p].chosenAddElements[prop].length > 0) {
+          for (var elem = ($scope.global.order.products[p].chosenAddElements[prop].length - 1); elem >= 0; elem--) {
+            if($scope.global.order.products[p].chosenAddElements[prop][elem].elementId === elementId) {
+              $scope.global.order.products[p].addElementsPriceSELECT -= $scope.global.order.products[p].chosenAddElements[prop][elem].elementPrice;
+              $scope.global.order.products[p].productPriceTOTAL -= $scope.global.order.products[p].chosenAddElements[prop][elem].elementPrice;
+              $scope.global.order.products[p].chosenAddElements[prop].splice(elem, 1);
+            }
+          }
+        }
+      }
+    }
+    $scope.getTOTALAddElementsPrice();
+    $scope.parseAddElementsLocaly();
+    $scope.global.calculateOrderPrice();
+    //--------- if all AddElements were deleted
+    //---- close all AddElements panel
+    if(!$scope.cart.addElementsListPriceTOTAL) {
+      $scope.showAllAddElements();
+    }
+  };
+
+
+
+
+
+
+  //-------- show Add Elements Unit
+  $scope.showAddElementUnitDetail = function() {
+    playSound('swip');
+    $scope.cart.isShowAddElementUnit = !$scope.cart.isShowAddElementUnit;
+  };
+
+
+
+
+
+
 }]);

@@ -19,8 +19,17 @@
     &.light-view {
       @include top_left_coord(0px, -2500px);
       @include transition(all 0.5s linear);
-
       z-index: 5;
+    }
+    &.alladdelements-view {
+      @include top_left_coord(0px, -2500px);
+      @include transition(all 0.5s linear);
+      z-index: 6;
+    }
+    &.addelement-view {
+      @include top_left_coord(0px, -2500px);
+      @include transition(all 0.5s linear);
+      z-index: 7;
     }
     &.active {
       @include top_left_coord(0px, 0px);
@@ -347,6 +356,108 @@
   .order-label {
     padding-top: rem(10px);
   }
+}
+
+
+//----- All AddElements panel
+
+.alladdelements-view {
+
+}
+.addelement-view {
+
+}
+
+.alladdelements-header {
+  position: relative;
+  width: 100%;
+  height: rem(100px);
+}
+.close-alladdelements {
+  @extend .button;
+  @extend .icon-setting;
+  @include font-general-icon(rem(50px), 1);
+  @include top_left_coord(0px, -112px);
+  position: absolute;
+  height: rem(110px);
+  width: rem(100px);
+  background-color: $main_orange;
+  border-top-right-radius: rem($radius_general-big_button);
+  border-bottom-right-radius: rem($radius_general-big_button);
+  &:before {
+    color: #fff;
+    content: $config_menu-arrow-icon;
+  }
+}
+.alladdelements-block{
+  @include overflow-scroll();
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 95%;
+  @extend .parameters-block;
+
+  .aux-list-block {
+    padding: rem(50px) 0;
+    border-bottom: 1px solid $main_gray_btn;
+
+    &:last-child {
+      padding: rem(50px) 0 0 0;
+      border: none;
+    }
+  }
+
+  .aux-list-block-title,
+  .aux-total-label {
+    @include roboto-bd(rem(36px));
+
+    color: $main_gray_txt;
+  }
+  .aux-list-block-title:first-letter {
+    text-transform: uppercase;
+  }
+  .aux-list-row {
+    margin-bottom: rem(20px);
+  }
+  .aux-total-price {
+    @extend .aux-price;
+  }
+  .aux-total-label {
+    min-width: 69%;
+  }
+
+  .aux-list-addellement {
+    width: 100%;
+
+    .aux-tablecell-name {
+      width: rem(500px);
+      .aux-name {
+        max-width: 100%;
+      }
+    }
+    .aux-tablecell-total {
+      width: 75%;
+    }
+    .aux-tablecell-qty {
+      width: rem(100px);
+    }
+    .aux-tablecell-width,
+    .aux-tablecell-height {
+      width: rem(150px);
+    }
+    .aux-tablecell-color {
+      width: rem(100px);
+    }
+    .aux-tablecell-price {
+      width: rem(200px);
+      .aux-price {
+        text-align: center;
+      }
+    }
+    .aux-tablecell-delete {
+      width: rem(100px);
+    }
+  }
+
 }
 
 

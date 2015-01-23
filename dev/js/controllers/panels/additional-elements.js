@@ -35,16 +35,19 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'localDB', 'construc
     if($scope.global.isFocusedAddElement !== id && $scope.global.showAddElementsMenu) {
       $scope.global.isFocusedAddElement = id;
       $scope.global.isTabFrame = false;
+      playSound('swip');
       $scope.global.showAddElementsMenu = false;
       $scope.global.desactiveAddElementParameters();
       $timeout(function() {
         $scope.global.isAddElement = false;
         $scope.global.addElementsMenuStyle = false;
+        playSound('swip');
         $scope.global.showAddElementsMenu = activeClass;
         $scope.global.downloadAddElementsData(id);
       }, $scope.addElementsPanel.DELAY_SHOW_ELEMENTS_MENU);
     } else {
       $scope.global.isFocusedAddElement = id;
+      playSound('swip');
       $scope.global.showAddElementsMenu = activeClass;
       $scope.global.downloadAddElementsData(id);
     }
@@ -263,6 +266,7 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'localDB', 'construc
 
   // Open Add Elements in List View
   $scope.viewSwitching = function() {
+    playSound('swip');
     $scope.global.isAddElementListView = true;
     $scope.global.isFocusedAddElement = false;
     $scope.global.isTabFrame = false;
@@ -270,17 +274,18 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'localDB', 'construc
     $scope.global.isAddElement = false;
     $scope.global.desactiveAddElementParameters();
     $timeout(function() {
-
       $scope.global.addElementsMenuStyle = false;
     }, $scope.addElementsPanel.DELAY_SHOW_ELEMENTS_MENU);
   };
 
   // Show Window Scheme Dialog
   $scope.showWindowScheme = function() {
+    playSound('fly');
     $scope.global.isWindowSchemeDialog = true;
   };
 
   $scope.closeWindowScheme = function() {
+    playSound('fly');
     $scope.global.isWindowSchemeDialog = false;
   };
 
