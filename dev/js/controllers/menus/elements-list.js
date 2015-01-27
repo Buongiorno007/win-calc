@@ -97,122 +97,184 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', 'globalDB'
   };
 
 
+  //--------- when we select new addElement, function checks is there this addElements in order to increase only elementQty
+  function checkExistedSelectAddElement(elementsArr, elementId) {
+    for(var j = 0; j < elementsArr.length; j++){
+      if(elementsArr[j].elementId === elementId) {
+        return j;
+      }
+    }
+  }
+
 
   $scope.pushSelectedAddElement = function() {
-
-    console.log('cloneAddElement === ', cloneAddElement);
-
+    var existedElement;
     switch($scope.global.isFocusedAddElement) {
       case 1:
-        cloneAddElement.elementType = 1;
-        cloneAddElement.elementWidth = 0;
-        cloneAddElement.elementHeight = 0;
-        cloneAddElement.elementColor = '';
-        $scope.global.product.chosenAddElements.selectedGrids.push(cloneAddElement);
-        //---- open TABFrame when second element selected
-        if($scope.global.product.chosenAddElements.selectedGrids.length === 2) {
-          $scope.global.isTabFrame = true;
+        existedElement = checkExistedSelectAddElement($scope.global.product.chosenAddElements.selectedGrids, cloneAddElement.elementId);
+        if(existedElement === undefined) {
+          cloneAddElement.elementType = 1;
+          cloneAddElement.elementWidth = 0;
+          cloneAddElement.elementHeight = 0;
+          cloneAddElement.elementColor = '';
+          $scope.global.product.chosenAddElements.selectedGrids.push(cloneAddElement);
+          //---- open TABFrame when second element selected
+          if($scope.global.product.chosenAddElements.selectedGrids.length === 2) {
+            $scope.global.isTabFrame = true;
+          }
+        } else {
+          $scope.global.product.chosenAddElements.selectedGrids[existedElement].elementQty += 1;
         }
         break;
       case 2:
-        cloneAddElement.elementType = 2;
-        cloneAddElement.elementHeight = 0;
-        cloneAddElement.elementColor = '';
-        $scope.global.product.chosenAddElements.selectedVisors.push(cloneAddElement);
-        //---- open TABFrame when second element selected
-        if($scope.global.product.chosenAddElements.selectedVisors.length === 2) {
-          $scope.global.isTabFrame = true;
+        existedElement = checkExistedSelectAddElement($scope.global.product.chosenAddElements.selectedVisors, cloneAddElement.elementId);
+        if(existedElement === undefined) {
+          cloneAddElement.elementType = 2;
+          cloneAddElement.elementHeight = 0;
+          cloneAddElement.elementColor = '';
+          $scope.global.product.chosenAddElements.selectedVisors.push(cloneAddElement);
+          //---- open TABFrame when second element selected
+          if($scope.global.product.chosenAddElements.selectedVisors.length === 2) {
+            $scope.global.isTabFrame = true;
+          }
+        } else {
+          $scope.global.product.chosenAddElements.selectedVisors[existedElement].elementQty += 1;
         }
         break;
       case 3:
-        cloneAddElement.elementType = 3;
-        cloneAddElement.elementHeight = 0;
-        cloneAddElement.elementColor = '';
-        $scope.global.product.chosenAddElements.selectedSpillways.push(cloneAddElement);
-        //---- open TABFrame when second element selected
-        if($scope.global.product.chosenAddElements.selectedSpillways.length === 2) {
-          $scope.global.isTabFrame = true;
+        existedElement = checkExistedSelectAddElement($scope.global.product.chosenAddElements.selectedSpillways, cloneAddElement.elementId);
+        if(existedElement === undefined) {
+          cloneAddElement.elementType = 3;
+          cloneAddElement.elementHeight = 0;
+          cloneAddElement.elementColor = '';
+          $scope.global.product.chosenAddElements.selectedSpillways.push(cloneAddElement);
+          //---- open TABFrame when second element selected
+          if($scope.global.product.chosenAddElements.selectedSpillways.length === 2) {
+            $scope.global.isTabFrame = true;
+          }
+        } else {
+          $scope.global.product.chosenAddElements.selectedSpillways[existedElement].elementQty += 1;
         }
         break;
       case 4:
-        cloneAddElement.elementType = 4;
-        cloneAddElement.elementHeight = 0;
-        cloneAddElement.elementColor = '';
-        $scope.global.product.chosenAddElements.selectedOutsideSlope.push(cloneAddElement);
-        //---- open TABFrame when second element selected
-        if($scope.global.product.chosenAddElements.selectedOutsideSlope.length === 2) {
-          $scope.global.isTabFrame = true;
+        existedElement = checkExistedSelectAddElement($scope.global.product.chosenAddElements.selectedOutsideSlope, cloneAddElement.elementId);
+        if(existedElement === undefined) {
+          cloneAddElement.elementType = 4;
+          cloneAddElement.elementHeight = 0;
+          cloneAddElement.elementColor = '';
+          $scope.global.product.chosenAddElements.selectedOutsideSlope.push(cloneAddElement);
+          //---- open TABFrame when second element selected
+          if($scope.global.product.chosenAddElements.selectedOutsideSlope.length === 2) {
+            $scope.global.isTabFrame = true;
+          }
+        } else {
+          $scope.global.product.chosenAddElements.selectedOutsideSlope[existedElement].elementQty += 1;
         }
         break;
       case 5:
-        cloneAddElement.elementType = 5;
-        cloneAddElement.elementColor = '';
-        $scope.global.product.chosenAddElements.selectedLouvers.push(cloneAddElement);
-        //---- open TABFrame when second element selected
-        if($scope.global.product.chosenAddElements.selectedLouvers.length === 2) {
-          $scope.global.isTabFrame = true;
+        existedElement = checkExistedSelectAddElement($scope.global.product.chosenAddElements.selectedLouvers, cloneAddElement.elementId);
+        if(existedElement === undefined) {
+          cloneAddElement.elementType = 5;
+          cloneAddElement.elementColor = '';
+          $scope.global.product.chosenAddElements.selectedLouvers.push(cloneAddElement);
+          //---- open TABFrame when second element selected
+          if($scope.global.product.chosenAddElements.selectedLouvers.length === 2) {
+            $scope.global.isTabFrame = true;
+          }
+        } else {
+          $scope.global.product.chosenAddElements.selectedLouvers[existedElement].elementQty += 1;
         }
         break;
       case 6:
-        cloneAddElement.elementType = 6;
-        cloneAddElement.elementHeight = 0;
-        cloneAddElement.elementColor = '';
-        $scope.global.product.chosenAddElements.selectedInsideSlope.push(cloneAddElement);
-        //---- open TABFrame when second element selected
-        if($scope.global.product.chosenAddElements.selectedInsideSlope.length === 2) {
-          $scope.global.isTabFrame = true;
+        existedElement = checkExistedSelectAddElement($scope.global.product.chosenAddElements.selectedInsideSlope, cloneAddElement.elementId);
+        if(existedElement === undefined) {
+          cloneAddElement.elementType = 6;
+          cloneAddElement.elementHeight = 0;
+          cloneAddElement.elementColor = '';
+          $scope.global.product.chosenAddElements.selectedInsideSlope.push(cloneAddElement);
+          //---- open TABFrame when second element selected
+          if($scope.global.product.chosenAddElements.selectedInsideSlope.length === 2) {
+            $scope.global.isTabFrame = true;
+          }
+        } else {
+          $scope.global.product.chosenAddElements.selectedInsideSlope[existedElement].elementQty += 1;
         }
         break;
       case 7:
-        cloneAddElement.elementType = 7;
-        cloneAddElement.elementHeight = 0;
-        cloneAddElement.elementColor = '';
-        $scope.global.product.chosenAddElements.selectedConnectors.push(cloneAddElement);
-        //---- open TABFrame when second element selected
-        if($scope.global.product.chosenAddElements.selectedConnectors.length === 2) {
-          $scope.global.isTabFrame = true;
+        existedElement = checkExistedSelectAddElement($scope.global.product.chosenAddElements.selectedConnectors, cloneAddElement.elementId);
+        if(existedElement === undefined) {
+          cloneAddElement.elementType = 7;
+          cloneAddElement.elementHeight = 0;
+          cloneAddElement.elementColor = '';
+          $scope.global.product.chosenAddElements.selectedConnectors.push(cloneAddElement);
+          //---- open TABFrame when second element selected
+          if($scope.global.product.chosenAddElements.selectedConnectors.length === 2) {
+            $scope.global.isTabFrame = true;
+          }
+        } else {
+          $scope.global.product.chosenAddElements.selectedConnectors[existedElement].elementQty += 1;
         }
         break;
       case 8:
-        cloneAddElement.elementType = 8;
-        cloneAddElement.elementWidth = 0;
-        cloneAddElement.elementHeight = 0;
-        cloneAddElement.elementColor = '';
-        $scope.global.product.chosenAddElements.selectedFans.push(cloneAddElement);
-        //---- open TABFrame when second element selected
-        if($scope.global.product.chosenAddElements.selectedFans.length === 2) {
-          $scope.global.isTabFrame = true;
+        existedElement = checkExistedSelectAddElement($scope.global.product.chosenAddElements.selectedFans, cloneAddElement.elementId);
+        if(existedElement === undefined) {
+          cloneAddElement.elementType = 8;
+          cloneAddElement.elementWidth = 0;
+          cloneAddElement.elementHeight = 0;
+          cloneAddElement.elementColor = '';
+          $scope.global.product.chosenAddElements.selectedFans.push(cloneAddElement);
+          //---- open TABFrame when second element selected
+          if($scope.global.product.chosenAddElements.selectedFans.length === 2) {
+            $scope.global.isTabFrame = true;
+          }
+        } else {
+          $scope.global.product.chosenAddElements.selectedFans[existedElement].elementQty += 1;
         }
         break;
       case 9:
-        cloneAddElement.elementType = 9;
-        cloneAddElement.elementHeight = 0;
-        $scope.global.product.chosenAddElements.selectedWindowSill.push(cloneAddElement);
-        //---- open TABFrame when second element selected
-        if($scope.global.product.chosenAddElements.selectedWindowSill.length === 2) {
-          $scope.global.isTabFrame = true;
+        existedElement = checkExistedSelectAddElement($scope.global.product.chosenAddElements.selectedWindowSill, cloneAddElement.elementId);
+        if(existedElement === undefined) {
+          cloneAddElement.elementType = 9;
+          cloneAddElement.elementHeight = 0;
+          $scope.global.product.chosenAddElements.selectedWindowSill.push(cloneAddElement);
+          //---- open TABFrame when second element selected
+          if($scope.global.product.chosenAddElements.selectedWindowSill.length === 2) {
+            $scope.global.isTabFrame = true;
+          }
+        } else {
+          $scope.global.product.chosenAddElements.selectedWindowSill[existedElement].elementQty += 1;
         }
         break;
       case 10:
-        cloneAddElement.elementType = 10;
-        cloneAddElement.elementWidth = 0;
-        cloneAddElement.elementHeight = 0;
-        cloneAddElement.elementColor = '';
-        $scope.global.product.chosenAddElements.selectedHandles.push(cloneAddElement);
-        //---- open TABFrame when second element selected
-        if($scope.global.product.chosenAddElements.selectedHandles.length === 2) {
-          $scope.global.isTabFrame = true;
+        existedElement = checkExistedSelectAddElement($scope.global.product.chosenAddElements.selectedHandles, cloneAddElement.elementId);
+        if(existedElement === undefined) {
+          cloneAddElement.elementType = 10;
+          cloneAddElement.elementWidth = 0;
+          cloneAddElement.elementHeight = 0;
+          cloneAddElement.elementColor = '';
+          $scope.global.product.chosenAddElements.selectedHandles.push(cloneAddElement);
+          //---- open TABFrame when second element selected
+          if($scope.global.product.chosenAddElements.selectedHandles.length === 2) {
+            $scope.global.isTabFrame = true;
+          }
+        } else {
+          $scope.global.product.chosenAddElements.selectedHandles[existedElement].elementQty += 1;
         }
         break;
       case 11:
-        cloneAddElement.elementType = 11;
-        cloneAddElement.elementWidth = 0;
-        cloneAddElement.elementHeight = 0;
-        cloneAddElement.elementColor = '';
-        $scope.global.product.chosenAddElements.selectedOthers.push(cloneAddElement);
-        //---- open TABFrame when second element selected
-        if($scope.global.product.chosenAddElements.selectedOthers.length === 2) {
-          $scope.global.isTabFrame = true;
+        existedElement = checkExistedSelectAddElement($scope.global.product.chosenAddElements.selectedOthers, cloneAddElement.elementId);
+        if(existedElement === undefined) {
+          cloneAddElement.elementType = 11;
+          cloneAddElement.elementWidth = 0;
+          cloneAddElement.elementHeight = 0;
+          cloneAddElement.elementColor = '';
+          $scope.global.product.chosenAddElements.selectedOthers.push(cloneAddElement);
+          //---- open TABFrame when second element selected
+          if($scope.global.product.chosenAddElements.selectedOthers.length === 2) {
+            $scope.global.isTabFrame = true;
+          }
+        } else {
+          $scope.global.product.chosenAddElements.selectedOthers[existedElement].elementQty += 1;
         }
         break;
     }

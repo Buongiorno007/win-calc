@@ -51,7 +51,7 @@
         <section ng-class="{'dark-fon': history.isIntervalDate || history.isOrderSort }" class="accounts-container history-view">
           <div class="history-header">
             <div ng-hide="history.isOrderSearch" class="history-user-info">
-              <div ng-controller="UserInfoCtrl" class="user-info-container">
+              <div ng-controller="UserInfoCtrl" ng-swipe-left="swipeLeft($event)" ng-swipe-right="swipeRight($event)" class="user-info-container">
                 <!--button.nav-menu-btn(ng-class="{ 'show-navmenu': global.showNavMenu , 'orange-navmenu-btn': global.isOpenedHistoryPage || global.isOpenedCartPage}", ng-click="swipeMainPage()")-->
                 <button ng-class="{ 'show-navmenu': global.showNavMenu , 'orange-navmenu-btn': global.isOpenedHistoryPage || global.isOpenedCartPage}" class="nav-menu-btn"></button>
                 <div class="user-foto"></div>
@@ -189,7 +189,7 @@
         </section>
         <section ng-class="{'active': history.isDraftView, 'dark-fon': history.isIntervalDateDraft || history.isOrderSortDraft }" class="accounts-container draft-view">
           <div class="history-header">
-            <div ng-controller="UserInfoCtrl" class="user-info-container">
+            <div ng-controller="UserInfoCtrl" ng-swipe-left="swipeLeft($event)" ng-swipe-right="swipeRight($event)" class="user-info-container">
               <!--button.nav-menu-btn(ng-class="{ 'show-navmenu': global.showNavMenu , 'orange-navmenu-btn': global.isOpenedHistoryPage || global.isOpenedCartPage}", ng-click="swipeMainPage()")-->
               <button ng-class="{ 'show-navmenu': global.showNavMenu , 'orange-navmenu-btn': global.isOpenedHistoryPage || global.isOpenedCartPage}" class="nav-menu-btn"></button>
               <div class="user-foto"></div>

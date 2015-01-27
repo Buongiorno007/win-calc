@@ -47,7 +47,7 @@
   </section>
   <section ng-class="{'kitchen': global.product.selectedRoomId == 1, 'livingroom': global.product.selectedRoomId == 2, 'balcony': global.product.selectedRoomId == 3, 'childroom': global.product.selectedRoomId == 4, 'bedroom': global.product.selectedRoomId == 5, 'door': global.product.selectedRoomId == 6 }" class="right-side main-page-bg">
     <section class="main-content">
-      <div ng-controller="UserInfoCtrl" class="user-info-container">
+      <div ng-controller="UserInfoCtrl" ng-swipe-left="swipeLeft($event)" ng-swipe-right="swipeRight($event)" class="user-info-container">
         <!--button.nav-menu-btn(ng-class="{ 'show-navmenu': global.showNavMenu , 'orange-navmenu-btn': global.isOpenedHistoryPage || global.isOpenedCartPage}", ng-click="swipeMainPage()")-->
         <button ng-class="{ 'show-navmenu': global.showNavMenu , 'orange-navmenu-btn': global.isOpenedHistoryPage || global.isOpenedCartPage}" class="nav-menu-btn"></button>
         <div class="user-foto"></div>
@@ -57,7 +57,7 @@
           <div data-output="{{ global.userInfo.name }}" typing="{{ userInfo.typing }}" typing-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
         </div>
       </div>
-      <div ng-controller="RoomInfoCtrl" ng-class="{'show-comment': global.isShowCommentBlock}" class="room-info-container">
+      <div ng-controller="RoomInfoCtrl" ng-class="{'show-comment': global.isShowCommentBlock}" ng-swipe-up="swipeShowComment($event)" ng-swipe-down="swipeHideComment($event)" class="room-info-container">
         <div class="room-header">
           <div class="room-name">{{ roomInfo.roomsData[(global.product.selectedRoomId-1)].name }}
             <button show-delay="{{ roomInfo.DELAY_SHOW_ALLROOMS_BTN }}" ng-click="showRoomSelectorDialog()" ng-hide="global.isShowCommentBlock" class="select-rooms unvisible">{{ 'common_words.ALL' | translate }}</button>

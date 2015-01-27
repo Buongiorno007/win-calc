@@ -663,16 +663,15 @@ console.log('FIRST START!!!!!!!!!!');
 
 
 
-  $scope.global.insertProductInLocalDB = function(orderID, productID, product) {
+  $scope.insertProductInLocalDB = function(product) {
 
     var productData = angular.copy(product),
-        productIndex = productID,
         addElementsData = {},
         addElementsObj = product.chosenAddElements;
 
     //-------- insert product into local DB
-    productData.orderId = orderID;
-    productData.productId = productIndex;
+    //productData.orderId = product.orderID;
+    //productData.productId = productIndex;
     productData.templateSource = JSON.stringify(product.templateSource);
     productData.laminationOutPrice = parseFloat(product.laminationOutPrice.toFixed(2));
     productData.laminationInPrice = parseFloat(product.laminationInPrice.toFixed(2));
@@ -683,7 +682,6 @@ console.log('FIRST START!!!!!!!!!!');
     delete productData.templateDefault;
     delete productData.templateIcon;
     delete productData.chosenAddElements;
-console.log('productData', productData);
     localDB.insertDB($scope.global.productsTableBD, productData);
 
 
@@ -694,8 +692,8 @@ console.log('productData', productData);
       }
       for (var elem = 0; elem < addElementsObj[prop].length; elem++) {
         addElementsData = {
-          "orderId": orderID,
-          "productId": productIndex,
+          "orderId": product.orderId,
+          "productId": product.productId,
           "elementId": addElementsObj[prop][elem].elementId,
           "elementType": addElementsObj[prop][elem].elementType,
           "elementName": addElementsObj[prop][elem].elementName,
@@ -719,9 +717,11 @@ console.log('productData', productData);
     if ($scope.global.productEditNumber === '') {
 
       //-------- add product in order LocalStorage
+      $scope.global.product.orderId = $scope.global.order.orderId;
+      $scope.global.product.productId = ($scope.global.order.products.length > 0) ? ($scope.global.order.products.length + 1) : 1;
       $scope.global.order.products.push($scope.global.product);
-
-      $scope.global.insertProductInLocalDB($scope.global.order.orderId, $scope.global.order.products.length, $scope.global.product);
+      $scope.global.order.productsQty = $scope.global.order.products.length;
+      $scope.insertProductInLocalDB($scope.global.product);
 
     } else {
       //-------- replace product in order LocalStorage

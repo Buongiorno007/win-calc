@@ -666,24 +666,15 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     //------ set the coordinats for edit sash menu
     var menuX = event.pageX;
     var menuY = event.pageY;
-    var menuX1 = event.clientX;
-    var menuY1 = event.clientY;
-    var menuX2 = event.offsetX;
-    var menuY2 = event.offsetY;
-    var menuX3 = event.screenX;
-    var menuY3 = event.screenY;
+    //var menuX1 = event.clientX;
+    //var menuY1 = event.clientY;
+    //var menuX2 = event.offsetX;
+    //var menuY2 = event.offsetY;
+    //var menuX3 = event.screenX;
+    //var menuY3 = event.screenY;
 
-    $('#sash-shape-menu').css({'top': (menuY3)/16+'rem', 'left': (menuX3)/16+'rem'});
-
-    console.log('menuX === ', menuX);
-    console.log('menuY === ', menuY);
-    console.log('menuX1 === ', menuX1);
-    console.log('menuY1 === ', menuY1);
-    console.log('menuX2 === ', menuX2);
-    console.log('menuY2 === ', menuY2);
-    console.log('menuX3 === ', menuX3);
-    console.log('menuY3 === ', menuY3);
-
+    $('#sash-shape-menu').css({'top': (menuY)/8+'rem', 'left': (menuX)/8+'rem'});
+ /*
     var html = document.documentElement;
     var body = document.body;
 
@@ -699,7 +690,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     console.log('screen.availHeight === ', screen.availHeight);
     console.log('screen.width === ', screen.width);
     console.log('screen.height === ', screen.height);
-
+*/
 
     //------- select all glass packages
     $('svg-template').find('.glass').each(function() {

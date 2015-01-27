@@ -4,7 +4,7 @@
 /* globals BauVoiceApp, STEP, playSound */
 'use strict';
 
-BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localDB', 'localStorage', '$translate', function ($scope, globalDB, localDB, localStorage, $translate) {
+BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localDB', 'localStorage', function ($scope, globalDB, localDB, localStorage) {
 
   $scope.global = localStorage;
 
@@ -22,17 +22,6 @@ BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localDB', 'localS
     }
   };
 
-  globalDB.getUserInfo(function (results) {
-    if (results.status) {
-      $scope.global.userName = results.data.user.name;
-      $scope.global.userGeoLocationId = results.data.city.id;
-      $scope.global.userGeoLocation = results.data.city.name;
-      $scope.$apply();
-    } else {
-      console.log(results);
-    }
-  });
-
   $scope.swipeMainPage = function() {
     //$rootScope.$broadcast('swipeMainPage', true);
     $scope.global.showNavMenu = !$scope.global.showNavMenu;
@@ -42,26 +31,20 @@ BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localDB', 'localS
     }
   };
  */
-  $(".user-info-container").swipe( {
-    swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
-      if(direction === 'left') {
-        $scope.global.showNavMenu = false;
-        $scope.global.isConfigMenu = true;
-        if(!$scope.global.isOpenedHistoryPage) {
-          $scope.global.startProgramm = false;
-        }
-        playSound('swip');
-      } else if(direction === 'right') {
-        $scope.global.showNavMenu = true;
-        $scope.global.isConfigMenu = false;
-        playSound('swip');
-      }
-      $scope.$apply();
-    },
-    //Default is 75px, set to 0 for demo so any distance triggers swipe
-    threshold:0
-  });
+  $scope.swipeLeft = function($event) {
+    $scope.global.showNavMenu = false;
+    $scope.global.isConfigMenu = true;
+    if(!$scope.global.isOpenedHistoryPage) {
+      $scope.global.startProgramm = false;
+    }
+    playSound('swip');
+  };
 
+  $scope.swipeRight = function($event) {
+    $scope.global.showNavMenu = true;
+    $scope.global.isConfigMenu = false;
+    playSound('swip');
+  };
 
 /*
   $rootScope.$on('swipeMainPage', function() {

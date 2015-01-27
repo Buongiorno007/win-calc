@@ -34,19 +34,13 @@ BauVoiceApp.controller('RoomInfoCtrl', ['$scope', 'constructService', 'localStor
   };
 
   //----- Show Comments
-  $(".room-info-container").swipe( {
-    swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
-      playSound('swip');
-      if(direction === 'up') {
-        $scope.global.isShowCommentBlock = true;
-      } else if(direction === 'down') {
-        $scope.global.isShowCommentBlock = false;
-      }
-      $scope.$apply();
-    },
-    //Default is 75px, set to 0 for demo so any distance triggers swipe
-    threshold:0
-  });
-
+  $scope.swipeShowComment = function($event) {
+    playSound('swip');
+    $scope.global.isShowCommentBlock = true;
+  };
+  $scope.swipeHideComment = function($event) {
+    playSound('swip');
+    $scope.global.isShowCommentBlock = false;
+  };
 
 }]);

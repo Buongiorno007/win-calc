@@ -3,7 +3,8 @@
 window.BauVoiceApp = angular.module('BauVoiceApp', [
   'ngRoute',
   'angular-websql',
-  'pascalprecht.translate'
+  'pascalprecht.translate',
+  'swipe'
 ])
 .config([
   '$routeProvider',

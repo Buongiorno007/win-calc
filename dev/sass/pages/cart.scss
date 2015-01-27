@@ -361,13 +361,6 @@
 
 //----- All AddElements panel
 
-.alladdelements-view {
-
-}
-.addelement-view {
-
-}
-
 .alladdelements-header {
   position: relative;
   width: 100%;
@@ -458,6 +451,230 @@
     }
   }
 
+}
+
+
+//----- AddElement Unit panel
+
+.addelementunique-header {
+  position: relative;
+  width: 100%;
+  height: rem(100px);
+  background-color: #fff;
+
+  .aux-title {
+    @extend .truncated;
+    @include roboto-lt(rem(36px));
+    color: $main_gray_txt;
+  }
+  .aux-label {
+    @include roboto-lt(rem(22px));
+    color: $main_gray_txt;
+  }
+  .aux-params-but {
+    @include roboto-lt(rem(36px));
+    color: $main_gray_txt;
+  }
+  .aux-list-row {
+    margin-bottom: rem(20px);
+  }
+  .aux-total-price {
+    @extend .aux-price;
+  }
+  .aux-total-label {
+    min-width: 69%;
+  }
+
+  .aux-list-addellement {
+    width: 100%;
+
+    .aux-tablecell-name {
+      width: rem(500px);
+      .aux-name {
+        max-width: 100%;
+      }
+    }
+    .aux-tablecell-total {
+      width: 75%;
+    }
+    .aux-tablecell-qty {
+      width: rem(100px);
+    }
+    .aux-tablecell-width,
+    .aux-tablecell-height {
+      width: rem(150px);
+    }
+    .aux-tablecell-color {
+      width: rem(100px);
+    }
+    .aux-tablecell-price {
+      width: rem(200px);
+      .aux-price {
+        text-align: center;
+      }
+    }
+    .aux-tablecell-delete {
+      width: rem(100px);
+    }
+  }
+
+}
+
+.addelementunit-header-fon {
+  @include top_left_coord(-50px, -100px);
+  position: absolute;
+  width: 112%;
+  height: rem(180px);
+  background-color: #fff;
+  z-index: -1;
+}
+
+.addelementunits-container {
+  @include overflow-scroll();
+  height: 95%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-top: 2%;
+  padding-top: 3%;
+}
+
+.addelementunit-block {
+  @include display-flex();
+  @include flex-flow(row wrap);
+}
+
+.addelementunit {
+  @extend .order;
+  width: rem(420px);
+  //height: rem(412px);
+  margin-bottom: rem(50px);
+  margin-right: rem(44px);
+  border-radius: rem($radius_order);
+  background-color: #fff;
+  text-align: center;
+}
+.addelementunit-header {
+  position: relative;
+  height: rem(210px);
+  padding-top: rem(40px);
+}
+.addelementunit-delete {
+  @extend .aux-delete;
+  position: absolute;
+  top: rem(-20px);
+  right: rem(-20px);
+  left: initial;
+  z-index: 9;
+}
+.addelementunit-content {
+  padding: rem(40px) rem(20px);
+}
+.addelementunit-value {
+  @extend .order-value;
+  @extend .truncated;
+}
+.addelementunit-footer {
+  @include roboto-md(rem(48px), rem(100px));
+  border-bottom-left-radius: rem($radius_order);
+  border-bottom-right-radius: rem($radius_order);
+  color: $main_gray_txt;
+  background-color: $aux_big_color;
+}
+
+.addelementunit-train {
+  @include overflow-scroll();
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  padding-top: 2%;
+  overflow-x: auto;
+  overflow-y: auto;
+
+  .addelementunit {
+    &.unit-last {
+      .link-right {
+        display: none;
+      }
+    }
+  }
+
+  .addelementunit-link {
+    position: absolute;
+    bottom: rem(50px);
+    width: rem(60px);
+    border-bottom: 1px solid $aux_big_color;
+    &.link-right {
+      right: rem(-50px);
+    }
+  }
+
+}
+
+
+.addelementunit-only {
+  @extend .parameters-block;
+
+  .aux-list-block {
+    padding: rem(50px) 0;
+    border-bottom: 1px solid $main_gray_btn;
+
+    &:last-child {
+      padding: rem(50px) 0 0 0;
+      border: none;
+    }
+  }
+
+  .aux-list-block-title,
+  .aux-total-label {
+    @include roboto-bd(rem(36px));
+
+    color: $main_gray_txt;
+  }
+  .aux-list-block-title:first-letter {
+    text-transform: uppercase;
+  }
+  .aux-list-row {
+    margin-bottom: rem(20px);
+  }
+  .aux-total-price {
+    @extend .aux-price;
+  }
+  .aux-total-label {
+    min-width: 69%;
+  }
+
+  .aux-list-addellement {
+    width: 100%;
+
+    .aux-tablecell-name {
+      width: rem(500px);
+      .aux-name {
+        max-width: 100%;
+      }
+    }
+    .aux-tablecell-total {
+      width: 75%;
+    }
+    .aux-tablecell-qty {
+      width: rem(100px);
+    }
+    .aux-tablecell-width,
+    .aux-tablecell-height {
+      width: rem(150px);
+    }
+    .aux-tablecell-color {
+      width: rem(100px);
+    }
+    .aux-tablecell-price {
+      width: rem(200px);
+      .aux-price {
+        text-align: center;
+      }
+    }
+    .aux-tablecell-delete {
+      width: rem(100px);
+    }
+  }
 }
 
 

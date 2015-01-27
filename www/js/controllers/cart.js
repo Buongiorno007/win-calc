@@ -49,7 +49,10 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     isAllAddElements: false,
     isShowAllAddElements: false,
     isShowAddElementUnit: false,
-    selectedAddElementUnit: 0,
+    selectedAddElementUnitId: 0,
+    selectedAddElementUnitIndex: 0,
+    selectedAddElementUnitType: 0,
+    selectedAddElementUnits: [],
     DELAY_START: STEP,
     typing: 'on'
   };
@@ -478,6 +481,9 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
           for (var elem = 0; elem < $scope.global.order.products[pr].chosenAddElements[prop].length; elem++) {
             var tempChosenAddElement = angular.copy($scope.global.order.products[pr].chosenAddElements[prop][elem]);
             tempChosenAddElement.elementQty *= $scope.global.order.products[pr].productQty;
+            tempChosenAddElement.productQty = $scope.global.order.products[pr].productQty;
+            tempChosenAddElement.productId = $scope.global.order.products[pr].productId;
+            tempChosenAddElement.isAddElementsONLY = $scope.global.order.products[pr].isAddElementsONLY;
             switch (tempChosenAddElement.elementType) {
               case 1:
                 $scope.cart.allAddElementsList.grids.push(tempChosenAddElement);
@@ -592,9 +598,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     $scope.global.calculateOrderPrice();
   };
 
-
-  //------ delete AddElement in All AddElementsList
-  $scope.deleteAddElementList = function(elementType, elementId) {
+  function getCurrentAddElementsType(elementType) {
     var curentType = '';
     switch (elementType) {
       case 1: curentType = 'grids';
@@ -620,6 +624,13 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
       case 11: curentType = 'others';
         break;
     }
+    return curentType;
+  }
+
+
+  //------ delete AddElement in All AddElementsList
+  $scope.deleteAddElementList = function(elementType, elementId) {
+    var curentType = getCurrentAddElementsType(elementType);
     for (var el = ($scope.cart.allAddElementsList[curentType].length - 1); el >= 0; el--) {
       if($scope.cart.allAddElementsList[curentType][el].elementId === elementId) {
         $scope.cart.allAddElementsList[curentType].splice(el, 1);
@@ -653,19 +664,55 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   };
 
 
-  //-------- show Add Elements Unit
-  $scope.showAddElementUnitDetail = function(elementType, elementId) {
+
+
+
+  //-------- show Add Element Unit Detail panel
+  $scope.showAddElementUnitDetail = function(elementType, elementId, elementIndex) {
     playSound('swip');
     $scope.cart.isShowAddElementUnit = !$scope.cart.isShowAddElementUnit;
     if($scope.cart.isShowAddElementUnit) {
-      $scope.cart.selectedAddElementUnit = elementId;
+      $scope.cart.selectedAddElementUnitId = elementId;
+      $scope.cart.selectedAddElementUnitIndex = elementIndex;
+      $scope.cart.selectedAddElementUnitType = getCurrentAddElementsType(elementType);
+      $scope.cart.selectedAddElementUnits.length = 0;
+      console.log('allAddElementsList == ', $scope.cart.allAddElementsList);
+
+      for(var i = 0; i < $scope.cart.allAddElementsList[$scope.cart.selectedAddElementUnitType].length; i++) {
+        if($scope.cart.allAddElementsList[$scope.cart.selectedAddElementUnitType][i].elementId === $scope.cart.selectedAddElementUnitId) {
+          if($scope.cart.allAddElementsList[$scope.cart.selectedAddElementUnitType][i].productQty === 1){
+            $scope.cart.selectedAddElementUnits.push($scope.cart.allAddElementsList[$scope.cart.selectedAddElementUnitType][i]);
+          } else {
+            var addElementsUniqueProduct = [];
+            var addElementsUnique = angular.copy($scope.cart.allAddElementsList[$scope.cart.selectedAddElementUnitType][i]);
+            addElementsUnique.elementQty /= addElementsUnique.productQty;
+            for(var p = 0; p < addElementsUnique.productQty; p++) {
+              addElementsUniqueProduct.push(addElementsUnique);
+            }
+            if(addElementsUniqueProduct.length > 0) {
+              $scope.cart.selectedAddElementUnits.push(addElementsUniqueProduct);
+            }
+
+          }
+
+        }
+      }
+
+      console.log('selectedAddElementUnits = ', $scope.cart.selectedAddElementUnits);
     } else {
-      $scope.cart.selectedAddElementUnit = false;
+      $scope.cart.selectedAddElementUnitId = 0;
+      $scope.cart.selectedAddElementUnitIndex = 0;
+      $scope.cart.selectedAddElementUnitType = 0;
+      $scope.cart.selectedAddElementUnits.length = 0;
     }
 
   };
 
-  //----selectedAddElementUnit
+  //------ delete All AddElement Units in selectedAddElementUnits
+
+  //------ delete AddElement Unit in selectedAddElementUnits
+
+
 
 
 

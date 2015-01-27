@@ -1,4 +1,4 @@
-.user-info-container(ng-controller="UserInfoCtrl")
+.user-info-container(ng-controller="UserInfoCtrl", ng-swipe-left="swipeLeft($event)", ng-swipe-right="swipeRight($event)")
   //button.nav-menu-btn(ng-class="{ 'show-navmenu': global.showNavMenu , 'orange-navmenu-btn': global.isOpenedHistoryPage || global.isOpenedCartPage}", ng-click="swipeMainPage()")
   button.nav-menu-btn(ng-class="{ 'show-navmenu': global.showNavMenu , 'orange-navmenu-btn': global.isOpenedHistoryPage || global.isOpenedCartPage}")
   .user-foto
