@@ -1,11 +1,11 @@
 .nav-menu(ng-controller="NavMenuCtrl")
   header.nav-menu-header
     ul.items-list.unvisible(show-delay="{{ navMenu.DELAY_SHOW_NAV_LIST }}")
-      li.item(ng-class="{'selected': navMenu.activeMenuItem==1}", ng-click="selectMenuItem(1); global.gotoLocationPage()")
+      li.item(ng-class="{'selected': navMenu.activeMenuItem==1}", hm-tap="selectMenuItem(1); global.gotoLocationPage()")
         .item-content
           span.nav-icon-addLocation.unvisible(show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP) }}")
           span.title(data-output="{{ 'mainpage.NAVMENU_GEOLOCATION' | translate }}", typing="{{ navMenu.typing }}", typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP) }}")
-      li.item(ng-class="{'selected': navMenu.activeMenuItem==2}", ng-click="selectMenuItemTimeOut(2); getCurrentGeolocation()")
+      li.item(ng-class="{'selected': navMenu.activeMenuItem==2}", hm-tap="selectMenuItemTimeOut(2); getCurrentGeolocation()")
         .item-content
           span.nav-icon-geoLocation.unvisible(show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 2) }}")
           span.title(data-output="{{ 'mainpage.NAVMENU_CURRENT_GEOLOCATION' | translate }}", typing="{{ navMenu.typing }}", typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 2) }}")
@@ -17,20 +17,20 @@
     .divider(data-output="{{ 'mainpage.NAVMENU_CALCULATIONS' | translate }}", typing="{{ navMenu.typing }}", typing-delay="{{ navMenu.DELAY_TYPE_DIVIDER }}")
 
     ul.items-list.unvisible(show-delay="{{ navMenu.DELAY_SHOW_NAV_LIST * 2.5 }}")
-      li.item(ng-if="(global.isOpenedHistoryPage && (global.isCreatedNewProject || global.productEditNumber !== '')) || (global.isOpenedCartPage && global.isCreatedNewProduct && !global.orderEditNumber)", ng-class="{'selected': navMenu.activeMenuItem==5}", ng-click="selectMenuItem(5); gotoCurrentProduct()")
+      li.item(ng-if="(global.isOpenedHistoryPage && (global.isCreatedNewProject || global.productEditNumber !== '')) || (global.isOpenedCartPage && global.isCreatedNewProduct && !global.orderEditNumber)", ng-class="{'selected': navMenu.activeMenuItem==5}", hm-tap="selectMenuItem(5); gotoCurrentProduct()")
         .item-content
           span.nav-icon-calculation.unvisible(show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 5)}}")
           span.title(data-output="{{ 'mainpage.NAVMENU_CURRENT_CALCULATION' | translate }}", typing="{{ navMenu.typing }}", typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 5) }}")
-      li.item(ng-if="global.order.products.length > 0 && ((!global.isOpenedHistoryPage && !global.isCreatedNewProject) || (global.isOpenedHistoryPage && $scope.global.isOrderFinished))", ng-class="{'selected': navMenu.activeMenuItem==6 || global.isOpenedCartPage}", ng-click="selectMenuItem(6); global.gotoCartPage()")
+      li.item(ng-if="global.order.products.length > 0 && ((!global.isOpenedHistoryPage && !global.isCreatedNewProject) || (global.isOpenedHistoryPage && $scope.global.isOrderFinished))", ng-class="{'selected': navMenu.activeMenuItem==6 || global.isOpenedCartPage}", hm-tap="selectMenuItem(6); global.gotoCartPage()")
         .item-content
           span.nav-icon-basketOfCalculation.unvisible(show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 6) }}")
           span.title(data-output="{{ 'mainpage.NAVMENU_CART' | translate }}", typing="{{ navMenu.typing }}", typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 6) }}")
           span.badge.unvisible(show-delay="{{ navMenu.DELAY_SHOW_ORDERS }}") {{ global.order.products.length }}
-      li.item(ng-if="!global.isOpenedHistoryPage && !global.isOpenedCartPage", ng-class="{'selected': global.product.isAddElementsONLY}", ng-click="gotoAddElementsPanel()")
+      li.item(ng-if="!global.isOpenedHistoryPage && !global.isOpenedCartPage", ng-class="{'selected': global.product.isAddElementsONLY}", hm-tap="gotoAddElementsPanel()")
         .item-content
           span.nav-icon-additionalComponents.unvisible(show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 7) }}")
           span.title(data-output="{{ 'mainpage.NAVMENU_ADD_ELEMENTS' | translate }}", typing="{{ navMenu.typing }}", typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 7) }}")
-      li.item(ng-class="{'selected': navMenu.activeMenuItem==8 || global.isOpenedHistoryPage}", ng-click="selectMenuItem(8); gotoHistoryPage()")
+      li.item(ng-class="{'selected': navMenu.activeMenuItem==8 || global.isOpenedHistoryPage}", hm-tap="selectMenuItem(8); gotoHistoryPage()")
         .item-content
           span.nav-icon-calculationsHistory.unvisible(show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 8) }}")
           span.title(data-output="{{ 'mainpage.NAVMENU_ALL_CALCULATIONS' | translate }}", typing="{{ navMenu.typing }}", typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 8) }}")
@@ -38,18 +38,18 @@
     .divider(data-output="{{ 'mainpage.NAVMENU_APPENDIX' | translate }}", typing="{{ navMenu.typing }}", typing-delay="{{ navMenu.DELAY_TYPE_DIVIDER * 2 }}")
 
     ul.items-list.unvisible(show-delay="{{ navMenu.DELAY_SHOW_NAV_LIST * 4 }}")
-      li.item(ng-class="{'selected': navMenu.activeMenuItem==9}", ng-click="selectMenuItem(9); global.gotoSettingsPage()")
+      li.item(ng-class="{'selected': navMenu.activeMenuItem==9}", hm-tap="selectMenuItem(9); global.gotoSettingsPage()")
         .item-content
           span.nav-icon-settings.unvisible(show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 9) }}")
           span.title(data-output="{{ 'mainpage.NAVMENU_SETTINGS' | translate }}", typing="{{ navMenu.typing }}", typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 9) }}")
-      li.item(ng-class="{'selected': navMenu.activeMenuItem==10}", ng-click="selectMenuItem(10)")
+      li.item(ng-class="{'selected': navMenu.activeMenuItem==10}", hm-tap="selectMenuItem(10)")
         a.item-content(href="http://axorindustry.com", target="_blank")
           span.nav-icon-information.unvisible(show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 10) }}")
           span.title(data-output="{{ 'mainpage.NAVMENU_MORE_INFO' | translate }}", typing="{{ navMenu.typing }}", typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 10) }}")
-      li.item(ng-class="{'selected': global.isVoiceHelper}", ng-click="switchVoiceHelper()")
+      li.item(ng-class="{'selected': global.isVoiceHelper}", hm-tap="switchVoiceHelper()")
         .item-content
           span.nav-icon-voicehelp.unvisible(show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 11) }}")
           span.title(data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}", typing="{{ navMenu.typing }}", typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 11) }}")
 
   footer.nav-menu-footer
-    button.new-calc.unvisible(ng-click="clickNewProject()", show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}") {{ 'mainpage.NAVMENU_NEW_CALC' | translate }}
+    button.new-calc.unvisible(hm-tap="clickNewProject()", show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}") {{ 'mainpage.NAVMENU_NEW_CALC' | translate }}

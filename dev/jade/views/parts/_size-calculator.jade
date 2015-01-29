@@ -1,7 +1,7 @@
 table.size-calc-container
   thead
     td
-      button.cell.calc-delete(ng-click="deleteLastNumber()")
+      button.cell.calc-delete(hm-tap="deleteLastNumber()")
     td(colspan= "2")
       .calc-interval
         .interval
@@ -15,25 +15,25 @@ table.size-calc-container
   tr
     - for (var cell = 1; cell < 4; ++cell) {
       td
-        button.cell.calc-digit(ng-click="setValueSize("+cell+")")= cell
+        button.cell.calc-digit(hm-tap="setValueSize("+cell+")")= cell
     - }
   tr
     - for (var cell = 4; cell < 7; ++cell) {
       td
-        button.cell.calc-digit(ng-click="setValueSize("+cell+")")= cell
+        button.cell.calc-digit(hm-tap="setValueSize("+cell+")")= cell
     - }
   tr
     - for (var cell = 7; cell < 10; ++cell) {
       td
-        button.cell.calc-digit(ng-click="setValueSize("+cell+")")= cell
+        button.cell.calc-digit(hm-tap="setValueSize("+cell+")")= cell
     - }
   tr
     td
-      button.cell.calc-digit(ng-click="setValueSize(0)") 0
+      button.cell.calc-digit(hm-tap="setValueSize(0)") 0
     td
-      button.cell.calc-digit(ng-click="setValueSize('00')") 00
+      button.cell.calc-digit(hm-tap="setValueSize('00')") 00
     td
-      button.cell.calc-equal(ng-click="closeSizeCaclulator()") =
+      button.cell.calc-equal(hm-tap="closeSizeCaclulator()") =
 
 
 

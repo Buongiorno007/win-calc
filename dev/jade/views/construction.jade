@@ -3,25 +3,25 @@ section.construction-page(ng-controller="ConstructionCtrl")
 
     .construction-left-menu
       ul.figure-lists
-        li.figure-item(ng-class="{'selected': constructData.activeMenuItem==1}", ng-click="selectMenuItem(1)")
+        li.figure-item(ng-class="{'selected': constructData.activeMenuItem==1}", hm-tap="selectMenuItem(1)")
           .figure-icon.sash-shape
           .figure-label(data-output="{{ 'construction.SASH_SHAPE' | translate }}", typing="{{ constructData.typing }}", typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}")
-        li.figure-item(ng-class="{'selected': constructData.activeMenuItem==2}", ng-click="selectMenuItem(2)")
+        li.figure-item(ng-class="{'selected': constructData.activeMenuItem==2}", hm-tap="selectMenuItem(2)")
           .figure-icon.angel-shape
           .figure-label(data-output="{{ 'construction.ANGEL_SHAPE' | translate }}", typing="{{ constructData.typing }}", typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}")
-        li.figure-item(ng-class="{'selected': constructData.activeMenuItem==3}", ng-click="selectMenuItem(3)")
+        li.figure-item(ng-class="{'selected': constructData.activeMenuItem==3}", hm-tap="selectMenuItem(3)")
           .figure-icon.impost-shape
           .figure-label(data-output="{{ 'construction.IMPOST_SHAPE' | translate }}", typing="{{ constructData.typing }}", typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}")
-        li.figure-item(ng-class="{'selected': constructData.activeMenuItem==4}", ng-click="selectMenuItem(4)")
+        li.figure-item(ng-class="{'selected': constructData.activeMenuItem==4}", hm-tap="selectMenuItem(4)")
           .figure-icon.arch-shape
           .figure-label(data-output="{{ 'construction.ARCH_SHAPE' | translate }}", typing="{{ constructData.typing }}", typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}")
-        li.figure-item(ng-class="{'selected': constructData.activeMenuItem==5}", ng-click="selectMenuItem(5)")
+        li.figure-item(ng-class="{'selected': constructData.activeMenuItem==5}", hm-tap="selectMenuItem(5)")
           .figure-icon.position-shape
           .figure-label(data-output="{{ 'construction.POSITION_SHAPE' | translate }}", typing="{{ constructData.typing }}", typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}")
 
       .left-menu-footer
         .footer-description(data-output="{{ 'construction.UNITS_DESCRIP' | translate }}", typing="{{ constructData.typing }}", typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}")
-        .project-default(ng-click="setDefaultConstruction()") {{ 'construction.PROJECT_DEFAULT' | translate }}
+        .project-default(hm-tap="setDefaultConstruction()") {{ 'construction.PROJECT_DEFAULT' | translate }}
 
 
     .construction-block
@@ -30,21 +30,21 @@ section.construction-page(ng-controller="ConstructionCtrl")
 
     #sash-shape-menu(ng-show="constructData.isSashEdit && constructData.isSashEditMenu")
       ul.sash-shape-list
-        li.sash-shape-icon.sash-empty(ng-click="insertNewSash('empty')")
-        li.sash-shape-icon.sash-left(ng-click="insertNewSash('left')")
-        li.sash-shape-icon.sash-right(ng-click="insertNewSash('right')")
-        li.sash-shape-icon.sash-up(ng-click="insertNewSash('up')")
-        li.sash-shape-icon.sash-down(ng-click="insertNewSash('down')")
-        li.sash-shape-icon.sash-right-up(ng-click="insertNewSash('up', 'right')")
-        li.sash-shape-icon.sash-left-up(ng-click="insertNewSash('up', 'left')")
+        li.sash-shape-icon.sash-empty(hm-tap="insertNewSash('empty')")
+        li.sash-shape-icon.sash-left(hm-tap="insertNewSash('left')")
+        li.sash-shape-icon.sash-right(hm-tap="insertNewSash('right')")
+        li.sash-shape-icon.sash-up(hm-tap="insertNewSash('up')")
+        li.sash-shape-icon.sash-down(hm-tap="insertNewSash('down')")
+        li.sash-shape-icon.sash-right-up(hm-tap="insertNewSash('up', 'right')")
+        li.sash-shape-icon.sash-left-up(hm-tap="insertNewSash('up', 'left')")
 
     .construction-right-menu
       .right-menu-header
-        button.construct-tools.save-construction(ng-click="gotoMainPageSaved()")
-        button.construct-tools.close-construction(ng-click="gotoMainPageCancel()")
+        button.construct-tools.save-construction(hm-tap="gotoMainPageSaved()")
+        button.construct-tools.close-construction(hm-tap="gotoMainPageCancel()")
 
       .door-config-menu(ng-show="global.isConstructDoor")
-        button.door-config-btn(ng-class="{'active': constructData.showDoorConfig}", ng-click="getDoorConfig()")
+        button.door-config-btn(ng-class="{'active': constructData.showDoorConfig}", hm-tap="getDoorConfig()")
         .door-config-label {{ 'construction.DOOR_CONFIG_LABEL' | translate }}
         .door-config-description {{ 'construction.DOOR_CONFIG_DESCTIPT' | translate }}: {{ constructData.doorShape }};
         .door-config-description {{ 'construction.SASH_CONFIG_DESCTIPT' | translate }}: {{ constructData.sashShape }};
@@ -67,7 +67,7 @@ section.construction-page(ng-controller="ConstructionCtrl")
             .door-subtitle {{ 'construction.LABEL_DOOR_TYPE' | translate }}
         .door-config-content(ng-class="{'scroll-box': !constructData.selectedStep2}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="door in doorShape", ng-class="{'selected': constructData.selectedDoorShape === $index}", ng-click="selectDoor($index, door.shapeLabel)")
+            li.door-config-option(ng-repeat="door in doorShape", ng-class="{'selected': constructData.selectedDoorShape === $index}", hm-tap="selectDoor($index, door.shapeLabel)")
               .door-inner
                 .door-option-icon
                   img.door-shape(ng-src="{{ door.shapeIcon }}" ng-hide="constructData.selectedDoorShape === $index")
@@ -83,7 +83,7 @@ section.construction-page(ng-controller="ConstructionCtrl")
             .door-subtitle {{ 'construction.LABEL_SASH_TYPE' | translate }}
         .door-config-content(ng-class="{'scroll-box': !constructData.selectedStep3}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="sash in sashShape", ng-class="{'selected': constructData.selectedSashShape === $index}", ng-click="selectSash($index, sash.shapeLabel)")
+            li.door-config-option(ng-repeat="sash in sashShape", ng-class="{'selected': constructData.selectedSashShape === $index}", hm-tap="selectSash($index, sash.shapeLabel)")
               .door-inner
                 .door-option-label {{ sash.shapeLabel }}
               .selected-item-arrow(ng-show="constructData.selectedSashShape === $index")
@@ -96,7 +96,7 @@ section.construction-page(ng-controller="ConstructionCtrl")
             .door-subtitle {{ 'construction.LABEL_HANDLE_TYPE' | translate }}
         .door-config-content(ng-class="{'scroll-box': !constructData.selectedStep4}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="handle in handleShape", ng-class="{'selected': constructData.selectedHandleShape === $index}", ng-click="selectHandle($index, handle.shapeLabel)")
+            li.door-config-option(ng-repeat="handle in handleShape", ng-class="{'selected': constructData.selectedHandleShape === $index}", hm-tap="selectHandle($index, handle.shapeLabel)")
               .door-inner
                 .door-option-icon
                   img.door-hardware(ng-src="{{ handle.shapeIcon }}" ng-hide="constructData.selectedHandleShape === $index")
@@ -112,7 +112,7 @@ section.construction-page(ng-controller="ConstructionCtrl")
             .door-subtitle {{ 'construction.LABEL_LOCK_TYPE' | translate }}
         .door-config-content(ng-class="{'scroll-box': constructData.selectedStep3}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="lock in lockShape", ng-class="{'selected': constructData.selectedLockShape === $index}", ng-click="selectLock($index, lock.shapeLabel)")
+            li.door-config-option(ng-repeat="lock in lockShape", ng-class="{'selected': constructData.selectedLockShape === $index}", hm-tap="selectLock($index, lock.shapeLabel)")
               .door-inner
                 .door-option-icon
                   img.door-hardware(ng-src="{{ lock.shapeIcon }}" ng-hide="constructData.selectedLockShape === $index")
@@ -121,5 +121,5 @@ section.construction-page(ng-controller="ConstructionCtrl")
               .selected-item-arrow(ng-show="constructData.selectedLockShape === $index")
 
       .door-config-tools
-        button.door-config-btn.close-door-config(ng-click="closeDoorConfig()")
-        button.door-config-btn.save-door-config(ng-show="constructData.selectedStep4", ng-click="saveDoorConfig()")
+        button.door-config-btn.close-door-config(hm-tap="closeDoorConfig()")
+        button.door-config-btn.save-door-config(ng-show="constructData.selectedStep4", hm-tap="saveDoorConfig()")

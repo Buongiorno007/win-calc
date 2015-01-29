@@ -23,5 +23,5 @@ section.login-page
     .text-container.error(ng-show="!isCodeCheckingSuccess")
       p {{ 'login.SOMETHING_WRONG' | translate }}
 
-    //button.login-submit(type="button", ng-click="switchLang()") {{ 'SWITCH_LANG' | translate }}
-    button.login-submit(type="button", ng-click="checkCode()") ОК
+    //button.login-submit(type="button", hm-tap="switchLang()") {{ 'SWITCH_LANG' | translate }}
+    button.login-submit(type="button", hm-tap="checkCode()") ОК

@@ -11,6 +11,7 @@
 
       "js_vendor" : "./dev/vendor/**/*.js",
       "js_order"  : [ "jquery/**/*.js",
+                      "hammer/**/*.js",
                       "angular/**/*.js",
                       "**/*.js" ],
 

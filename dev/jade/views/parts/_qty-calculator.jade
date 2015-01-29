@@ -1,18 +1,18 @@
 table.qty-calc-container
   tr
     td
-      button.cell.calc-digit(ng-click="setValueQty(-1)") -1
+      button.cell.calc-digit(hm-tap="setValueQty(-1)") -1
     td
       .calc-interval
         .interval
           .calc-qty-limit 1000
           .calc-label-limit шт.
     td
-      button.cell.calc-digit(ng-click="setValueQty(+1)") +1
+      button.cell.calc-digit(hm-tap="setValueQty(+1)") +1
   tr
     td
-      button.cell.calc-digit(ng-click="setValueQty(-5)") -5
+      button.cell.calc-digit(hm-tap="setValueQty(-5)") -5
     td
-      button.cell.calc-equal(ng-click="closeQtyCaclulator()") =
+      button.cell.calc-equal(hm-tap="closeQtyCaclulator()") =
     td
-      button.cell.calc-digit(ng-click="setValueQty(+5)") +5
+      button.cell.calc-digit(hm-tap="setValueQty(+5)") +5

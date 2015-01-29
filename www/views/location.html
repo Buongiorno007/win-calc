@@ -3,12 +3,12 @@
   <div class="header">
     <button class="back"></button>
     <input type="text" ng-model="userNewLocation" class="location-current">
-    <button ng-click="cancelLocationPage()" class="save">{{ 'add_elements.CANCEL' | translate }}</button>
+    <button hm-tap="cancelLocationPage()" class="save">{{ 'add_elements.CANCEL' | translate }}</button>
   </div>
   <div class="location-container">
     <div class="lists">
       <ul class="list">
-        <li ng-repeat="location in locations | filter:userNewLocation" ng-click="selectCity(location.cityId)" class="item click">
+        <li ng-repeat="location in locations | filter:userNewLocation" hm-tap="selectCity(location.cityId)" class="item click">
           <div class="location-label">{{location.fullLocation}}</div>
         </li>
       </ul>

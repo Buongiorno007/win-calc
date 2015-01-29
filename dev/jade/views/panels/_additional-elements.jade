@@ -6,11 +6,11 @@
       .aux-grid-img.move-grid
       .aux-txt-box.aux-grid-txt
         .choose-block.unvisible(show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}", ng-hide="global.product.chosenAddElements.selectedGrids.length > 0")
-          button.aux-choose-but.aux_connect_but(ng-class="{'focused': global.isFocusedAddElement == 1}", ng-click="global.selectAddElement(1)", ng-disabled="global.isFocusedAddElement == 1") {{ 'add_elements.CHOOSE' | translate }}
+          button.aux-choose-but.aux_connect_but(ng-class="{'focused': global.isFocusedAddElement == 1}", hm-tap="global.selectAddElement(1)", ng-disabled="global.isFocusedAddElement == 1") {{ 'add_elements.CHOOSE' | translate }}
           .aux-label(data-output="{{ 'add_elements.GRID' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
         .selected-block.vertival(ng-show="global.product.chosenAddElements.selectedGrids.length > 0")
           .aux-info-box
-            .aux-title(data-output="{{ global.product.chosenAddElements.selectedGrids[0].elementName }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}", ng-click="global.selectAddElement(1)")
+            .aux-title(data-output="{{ global.product.chosenAddElements.selectedGrids[0].elementName }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}", hm-tap="global.selectAddElement(1)")
             .aux-label(data-output="{{ 'add_elements.GRID' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}")
 
 
@@ -21,20 +21,20 @@
       .aux-visor-img.move-visor
       .aux-txt-box.aux-visor-txt
         .choose-block.unvisible(show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}", ng-hide="global.product.chosenAddElements.selectedVisors.length > 0")
-          button.aux-choose-but.aux_big_but(ng-class="{'focused': global.isFocusedAddElement == 2}", ng-click="global.selectAddElement(2)", ng-disabled="global.isFocusedAddElement == 2") {{ 'add_elements.CHOOSE' | translate }}
+          button.aux-choose-but.aux_big_but(ng-class="{'focused': global.isFocusedAddElement == 2}", hm-tap="global.selectAddElement(2)", ng-disabled="global.isFocusedAddElement == 2") {{ 'add_elements.CHOOSE' | translate }}
           .aux-label(data-output="{{ 'add_elements.VISOR' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
         .selected-block.horisontal(ng-show="global.product.chosenAddElements.selectedVisors.length > 0")
           .aux-info-box
-            .aux-title(data-output="{{ global.product.chosenAddElements.selectedVisors[0].elementName }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}", ng-click="global.selectAddElement(2)")
+            .aux-title(data-output="{{ global.product.chosenAddElements.selectedVisors[0].elementName }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}", hm-tap="global.selectAddElement(2)")
             .aux-label(data-output="{{ 'add_elements.VISOR' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
           .aux-sizing-box
             .aux-params(ng-class="{'selected': global.auxParameter === '2-1-0'}")
-              button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(1, 0)", ng-disabled="global.isFocusedAddElement !== 2") {{ global.product.chosenAddElements.selectedVisors[0].elementQty }}
+              button.aux-params-but.aux_big_but(hm-tap="global.initAddElementMenuTools(1, 0)", ng-disabled="global.isFocusedAddElement !== 2") {{ global.product.chosenAddElements.selectedVisors[0].elementQty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
             .aux-params(ng-class="{'selected': global.auxParameter === '2-2-0'}")
-              button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(2, 0)", ng-disabled="global.isFocusedAddElement !== 2")  {{ global.product.chosenAddElements.selectedVisors[0].elementWidth }}
+              button.aux-params-but.aux_big_but(hm-tap="global.initAddElementMenuTools(2, 0)", ng-disabled="global.isFocusedAddElement !== 2")  {{ global.product.chosenAddElements.selectedVisors[0].elementWidth }}
               .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
-          .aux-more(ng-show="global.product.chosenAddElements.selectedVisors.length > 1", ng-click="") {{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ global.product.chosenAddElements.selectedVisors.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}
+          .aux-more(ng-show="global.product.chosenAddElements.selectedVisors.length > 1", hm-tap="") {{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ global.product.chosenAddElements.selectedVisors.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}
 
 
 
@@ -45,20 +45,20 @@
       .aux-spillway-img.move-spillway
       .aux-txt-box.aux-spillway-txt
         .choose-block.unvisible(show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}", ng-hide="global.product.chosenAddElements.selectedSpillways.length > 0")
-          button.aux-choose-but.aux_middle_but(ng-class="{'focused': global.isFocusedAddElement == 3}", ng-click="global.selectAddElement(3)", ng-disabled="global.isFocusedAddElement == 3") {{ 'add_elements.CHOOSE' | translate }}
+          button.aux-choose-but.aux_middle_but(ng-class="{'focused': global.isFocusedAddElement == 3}", hm-tap="global.selectAddElement(3)", ng-disabled="global.isFocusedAddElement == 3") {{ 'add_elements.CHOOSE' | translate }}
           .aux-label(data-output="{{ 'add_elements.SPILLWAY' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
         .selected-block.vertival(ng-show="global.product.chosenAddElements.selectedSpillways.length > 0")
           .aux-info-box
-            .aux-title(data-output="{{ global.product.chosenAddElements.selectedSpillways[0].elementName }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}", ng-click="global.selectAddElement(3)")
+            .aux-title(data-output="{{ global.product.chosenAddElements.selectedSpillways[0].elementName }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}", hm-tap="global.selectAddElement(3)")
             .aux-label(data-output="{{ 'add_elements.SPILLWAY' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
           .aux-sizing-box
             .aux-params(ng-class="{'selected': global.auxParameter === '3-1-0'}")
-              button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(1, 0)", ng-disabled="global.isFocusedAddElement !== 3") {{ global.product.chosenAddElements.selectedSpillways[0].elementQty }}
+              button.aux-params-but.aux_middle_but(hm-tap="global.initAddElementMenuTools(1, 0)", ng-disabled="global.isFocusedAddElement !== 3") {{ global.product.chosenAddElements.selectedSpillways[0].elementQty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
             .aux-params(ng-class="{'selected': global.auxParameter === '3-2-0'}")
-              button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(2, 0)", ng-disabled="global.isFocusedAddElement !== 3")  {{ global.product.chosenAddElements.selectedSpillways[0].elementWidth }}
+              button.aux-params-but.aux_middle_but(hm-tap="global.initAddElementMenuTools(2, 0)", ng-disabled="global.isFocusedAddElement !== 3")  {{ global.product.chosenAddElements.selectedSpillways[0].elementWidth }}
               .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
-          .aux-more(ng-show="global.product.chosenAddElements.selectedSpillways.length > 1", ng-click="") {{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ global.product.chosenAddElements.selectedSpillways.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}
+          .aux-more(ng-show="global.product.chosenAddElements.selectedSpillways.length > 1", hm-tap="") {{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ global.product.chosenAddElements.selectedSpillways.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}
 
 
 
@@ -68,11 +68,11 @@
       .aux-outside-img.move-outside
       .aux-txt-box.aux-outside-txt
         .choose-block.unvisible(show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}", ng-hide="global.product.chosenAddElements.selectedOutsideSlope.length > 0")
-          button.aux-choose-but.aux_slope_but(ng-class="{'focused': global.isFocusedAddElement == 4}", ng-click="global.selectAddElement(4)", ng-disabled="global.isFocusedAddElement == 4") {{ 'add_elements.CHOOSE' | translate }}
+          button.aux-choose-but.aux_slope_but(ng-class="{'focused': global.isFocusedAddElement == 4}", hm-tap="global.selectAddElement(4)", ng-disabled="global.isFocusedAddElement == 4") {{ 'add_elements.CHOOSE' | translate }}
           .aux-label(data-output="{{ 'add_elements.OUTSIDE' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
         .selected-block.vertival(ng-show="global.product.chosenAddElements.selectedOutsideSlope.length > 0")
           .aux-info-box
-            .aux-title(data-output="{{ global.product.chosenAddElements.selectedOutsideSlope[0].elementName }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}", ng-click="global.selectAddElement(4)")
+            .aux-title(data-output="{{ global.product.chosenAddElements.selectedOutsideSlope[0].elementName }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}", hm-tap="global.selectAddElement(4)")
             .aux-label(data-output="{{ 'add_elements.OUTSIDE' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
 
 
@@ -88,23 +88,23 @@
         .aux-louver-bottom.move-louver-bottom
       .aux-txt-box.aux-louver-txt
         .choose-block.unvisible(show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}", ng-hide="global.product.chosenAddElements.selectedLouvers.length > 0")
-          button.aux-choose-but.aux_middle_but(ng-class="{'focused': global.isFocusedAddElement == 5}", ng-click="global.selectAddElement(5)", ng-disabled="global.isFocusedAddElement == 5") {{ 'add_elements.CHOOSE' | translate }}
+          button.aux-choose-but.aux_middle_but(ng-class="{'focused': global.isFocusedAddElement == 5}", hm-tap="global.selectAddElement(5)", ng-disabled="global.isFocusedAddElement == 5") {{ 'add_elements.CHOOSE' | translate }}
           .aux-label(data-output="{{ 'add_elements.LOUVERS' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
         .selected-block.vertival(ng-show="global.product.chosenAddElements.selectedLouvers.length > 0")
           .aux-info-box
-            .aux-title(data-output="{{ global.product.chosenAddElements.selectedLouvers[0].elementName }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}", ng-click="global.selectAddElement(5)")
+            .aux-title(data-output="{{ global.product.chosenAddElements.selectedLouvers[0].elementName }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}", hm-tap="global.selectAddElement(5)")
             .aux-label(data-output="{{ 'add_elements.LOUVERS' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
           .aux-sizing-box
             .aux-params(ng-class="{'selected': global.auxParameter === '5-1-0'}")
-              button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(1, 0)", ng-disabled="global.isFocusedAddElement !== 5") {{ global.product.chosenAddElements.selectedLouvers[0].elementQty }}
+              button.aux-params-but.aux_middle_but(hm-tap="global.initAddElementMenuTools(1, 0)", ng-disabled="global.isFocusedAddElement !== 5") {{ global.product.chosenAddElements.selectedLouvers[0].elementQty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
             .aux-params(ng-class="{'selected': global.auxParameter === '5-2-0'}")
-              button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(2, 0)", ng-disabled="global.isFocusedAddElement !== 5")  {{ global.product.chosenAddElements.selectedLouvers[0].elementWidth }}
+              button.aux-params-but.aux_middle_but(hm-tap="global.initAddElementMenuTools(2, 0)", ng-disabled="global.isFocusedAddElement !== 5")  {{ global.product.chosenAddElements.selectedLouvers[0].elementWidth }}
               .aux-label(data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
             .aux-params(ng-class="{'selected': global.auxParameter === '5-3-0'}")
-              button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(3, 0)", ng-disabled="global.isFocusedAddElement !== 5")  {{ global.product.chosenAddElements.selectedLouvers[0].elementHeight }}
+              button.aux-params-but.aux_middle_but(hm-tap="global.initAddElementMenuTools(3, 0)", ng-disabled="global.isFocusedAddElement !== 5")  {{ global.product.chosenAddElements.selectedLouvers[0].elementHeight }}
               .aux-label(data-output="{{ 'add_elements.HEIGHT_LABEL' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
-          .aux-more(ng-show="global.product.chosenAddElements.selectedLouvers.length > 1", ng-click="") {{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ global.product.chosenAddElements.selectedLouvers.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}
+          .aux-more(ng-show="global.product.chosenAddElements.selectedLouvers.length > 1", hm-tap="") {{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ global.product.chosenAddElements.selectedLouvers.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}
 
 
 
@@ -118,11 +118,11 @@
         .aux-inside-left.move-inside-left.unvisible(show-delay="{{ addElementsPanel.DELAY_SHOW_INSIDESLOPELEFT }}")
       .aux-txt-box.aux-inside-txt
         .choose-block.unvisible(show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}", ng-hide="global.product.chosenAddElements.selectedInsideSlope.length > 0")
-          button.aux-choose-but.aux_slope_but(ng-class="{'focused': global.isFocusedAddElement == 6}", ng-click="global.selectAddElement(6)", ng-disabled="global.isFocusedAddElement == 6") {{ 'add_elements.CHOOSE' | translate }}
+          button.aux-choose-but.aux_slope_but(ng-class="{'focused': global.isFocusedAddElement == 6}", hm-tap="global.selectAddElement(6)", ng-disabled="global.isFocusedAddElement == 6") {{ 'add_elements.CHOOSE' | translate }}
           .aux-label(data-output="{{ 'add_elements.INSIDE' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
         .selected-block.vertival(ng-show="global.product.chosenAddElements.selectedInsideSlope.length > 0")
           .aux-info-box
-            .aux-title(data-output="{{ global.product.chosenAddElements.selectedInsideSlope[0].elementName }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}", ng-click="global.selectAddElement(6)")
+            .aux-title(data-output="{{ global.product.chosenAddElements.selectedInsideSlope[0].elementName }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}", hm-tap="global.selectAddElement(6)")
             .aux-label(data-output="{{ 'add_elements.INSIDE' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
 
 
@@ -136,20 +136,20 @@
         .aux-balcon-connect.unvisible(show-delay="{{ addElementsPanel.DELAY_SHOW_BALCONCONNECT }}")
       .aux-txt-box.aux-connectors-txt
         .choose-block.unvisible(show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}", ng-hide="global.product.chosenAddElements.selectedConnectors.length > 0")
-          button.aux-choose-but.aux_connect_but(ng-class="{'focused': global.isFocusedAddElement == 7}", ng-click="global.selectAddElement(7)", ng-disabled="global.isFocusedAddElement == 7") {{ 'add_elements.CHOOSE' | translate }}
+          button.aux-choose-but.aux_connect_but(ng-class="{'focused': global.isFocusedAddElement == 7}", hm-tap="global.selectAddElement(7)", ng-disabled="global.isFocusedAddElement == 7") {{ 'add_elements.CHOOSE' | translate }}
           .aux-label(data-output="{{ 'add_elements.CONNECTORS' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
         .selected-block.vertival(ng-show="global.product.chosenAddElements.selectedConnectors.length > 0")
           .aux-info-box
-            .aux-title(data-output="{{ global.product.chosenAddElements.selectedConnectors[0].elementName }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}", ng-click="global.selectAddElement(7)")
+            .aux-title(data-output="{{ global.product.chosenAddElements.selectedConnectors[0].elementName }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}", hm-tap="global.selectAddElement(7)")
             .aux-label(data-output="{{ 'add_elements.CONNECTORS' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
           .aux-sizing-box
             .aux-params(ng-class="{'selected': global.auxParameter === '7-1-0'}")
-              button.aux-params-but.aux_connect_but(ng-click="global.initAddElementMenuTools(1, 0)", ng-disabled="global.isFocusedAddElement !== 7")  {{ global.product.chosenAddElements.selectedConnectors[0].elementQty }}
+              button.aux-params-but.aux_connect_but(hm-tap="global.initAddElementMenuTools(1, 0)", ng-disabled="global.isFocusedAddElement !== 7")  {{ global.product.chosenAddElements.selectedConnectors[0].elementQty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
             .aux-params(ng-class="{'selected': global.auxParameter === '7-2-0'}")
-              button.aux-params-but.aux_connect_but(ng-click="global.initAddElementMenuTools(2, 0)", ng-disabled="global.isFocusedAddElement !== 7")  {{ global.product.chosenAddElements.selectedConnectors[0].elementWidth }}
+              button.aux-params-but.aux_connect_but(hm-tap="global.initAddElementMenuTools(2, 0)", ng-disabled="global.isFocusedAddElement !== 7")  {{ global.product.chosenAddElements.selectedConnectors[0].elementWidth }}
               .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
-          .aux-more(ng-show="global.product.chosenAddElements.selectedConnectors.length > 1", ng-click="") {{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ global.product.chosenAddElements.selectedConnectors.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}
+          .aux-more(ng-show="global.product.chosenAddElements.selectedConnectors.length > 1", hm-tap="") {{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ global.product.chosenAddElements.selectedConnectors.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}
 
 
 
@@ -159,11 +159,11 @@
       .aux-fan-img.move-fan
       .aux-txt-box.aux-fan-txt
         .choose-block.unvisible(show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}", ng-hide="global.product.chosenAddElements.selectedFans.length > 0")
-          button.aux-choose-but.aux_small_but(ng-class="{'focused': global.isFocusedAddElement == 8}", ng-click="global.selectAddElement(8)", ng-disabled="global.isFocusedAddElement == 8") {{ 'add_elements.CHOOSE' | translate }}
+          button.aux-choose-but.aux_small_but(ng-class="{'focused': global.isFocusedAddElement == 8}", hm-tap="global.selectAddElement(8)", ng-disabled="global.isFocusedAddElement == 8") {{ 'add_elements.CHOOSE' | translate }}
           .aux-label(data-output="{{ 'add_elements.FAN' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
         .selected-block.vertival(ng-show="global.product.chosenAddElements.selectedFans.length > 0")
           .aux-info-box
-            .aux-title(data-output="{{ global.product.chosenAddElements.selectedFans[0].elementName }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}", ng-click="global.selectAddElement(8)")
+            .aux-title(data-output="{{ global.product.chosenAddElements.selectedFans[0].elementName }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}", hm-tap="global.selectAddElement(8)")
             .aux-label(data-output="{{ 'add_elements.FAN' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
 
 
@@ -175,24 +175,24 @@
       .aux-windowsill-img.move-windowsill
       .aux-txt-box.aux-windowsill-txt
         .choose-block.unvisible(show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}", ng-hide="global.product.chosenAddElements.selectedWindowSill.length > 0")
-          button.aux-choose-but.aux_big_but(ng-class="{'focused': global.isFocusedAddElement == 9}", ng-click="global.selectAddElement(9)", ng-disabled="global.isFocusedAddElement == 9") {{ 'add_elements.CHOOSE' | translate }}
+          button.aux-choose-but.aux_big_but(ng-class="{'focused': global.isFocusedAddElement == 9}", hm-tap="global.selectAddElement(9)", ng-disabled="global.isFocusedAddElement == 9") {{ 'add_elements.CHOOSE' | translate }}
           .aux-label(data-output="{{ 'add_elements.WINDOWSILL' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
         .selected-block.vertival(ng-show="global.product.chosenAddElements.selectedWindowSill.length > 0")
           .aux-info-box
-            .aux-title(data-output="{{ global.product.chosenAddElements.selectedWindowSill[0].elementName }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}", ng-click="global.selectAddElement(9)")
+            .aux-title(data-output="{{ global.product.chosenAddElements.selectedWindowSill[0].elementName }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}", hm-tap="global.selectAddElement(9)")
             .aux-label(data-output="{{ 'add_elements.WINDOWSILL' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
           .aux-sizing-box
             .aux-params(ng-class="{'selected': global.auxParameter === '9-1-0'}")
-              button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(1, 0)", ng-disabled="global.isFocusedAddElement !== 9")  {{ global.product.chosenAddElements.selectedWindowSill[0].elementQty }}
+              button.aux-params-but.aux_big_but(hm-tap="global.initAddElementMenuTools(1, 0)", ng-disabled="global.isFocusedAddElement !== 9")  {{ global.product.chosenAddElements.selectedWindowSill[0].elementQty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
             .aux-params(ng-class="{'selected': global.auxParameter === '9-2-0'}")
-              button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(2, 0)", ng-disabled="global.isFocusedAddElement !== 9")  {{ global.product.chosenAddElements.selectedWindowSill[0].elementWidth }}
+              button.aux-params-but.aux_big_but(hm-tap="global.initAddElementMenuTools(2, 0)", ng-disabled="global.isFocusedAddElement !== 9")  {{ global.product.chosenAddElements.selectedWindowSill[0].elementWidth }}
               .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
             .aux-params
-              button.aux-color(ng-class="{'selected': global.auxParameter === '9-4-0'}", ng-click="global.initAddElementMenuTools(4, 0)", ng-disabled="global.isFocusedAddElement !== 9")
+              button.aux-color(ng-class="{'selected': global.auxParameter === '9-4-0'}", hm-tap="global.initAddElementMenuTools(4, 0)", ng-disabled="global.isFocusedAddElement !== 9")
                 img(ng-src="{{ global.product.chosenAddElements.selectedWindowSill[0].elementColor }}")
               .aux-label(data-output="{{ 'add_elements.COLOR_LABEL' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
-          .aux-more(ng-show="global.product.chosenAddElements.selectedWindowSill.length > 1", ng-click="") {{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ global.product.chosenAddElements.selectedWindowSill.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}
+          .aux-more(ng-show="global.product.chosenAddElements.selectedWindowSill.length > 1", hm-tap="") {{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ global.product.chosenAddElements.selectedWindowSill.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}
 
 
 
@@ -202,17 +202,17 @@
       .aux-handle-img.move-handle
       .aux-txt-box.aux-handle-txt
         .choose-block.unvisible(show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}", ng-hide="global.product.chosenAddElements.selectedHandles.length > 0")
-          button.aux-choose-but.aux_middle_but(ng-class="{'focused': global.isFocusedAddElement == 10}", ng-click="global.selectAddElement(10)", ng-disabled="global.isFocusedAddElement == 10") {{ 'add_elements.CHOOSE' | translate }}
+          button.aux-choose-but.aux_middle_but(ng-class="{'focused': global.isFocusedAddElement == 10}", hm-tap="global.selectAddElement(10)", ng-disabled="global.isFocusedAddElement == 10") {{ 'add_elements.CHOOSE' | translate }}
           .aux-label(data-output="{{ 'add_elements.HANDLEL' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
         .selected-block.vertival(ng-show="global.product.chosenAddElements.selectedHandles.length > 0")
           .aux-info-box
-            .aux-title(data-output="{{ global.product.chosenAddElements.selectedHandles[0].elementName }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}", ng-click="global.selectAddElement(10)")
+            .aux-title(data-output="{{ global.product.chosenAddElements.selectedHandles[0].elementName }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}", hm-tap="global.selectAddElement(10)")
             .aux-label(data-output="{{ 'add_elements.HANDLEL' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
           .aux-sizing-box
             .aux-params(ng-class="{'selected': global.auxParameter === '10-1-0'}")
-              button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(1, 0)", ng-disabled="global.isFocusedAddElement !== 10")  {{ global.product.chosenAddElements.selectedHandles[0].elementQty }}
+              button.aux-params-but.aux_middle_but(hm-tap="global.initAddElementMenuTools(1, 0)", ng-disabled="global.isFocusedAddElement !== 10")  {{ global.product.chosenAddElements.selectedHandles[0].elementQty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
-          .aux-more(ng-show="global.product.chosenAddElements.selectedHandles.length > 1", ng-click="") {{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ global.product.chosenAddElements.selectedHandles.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}
+          .aux-more(ng-show="global.product.chosenAddElements.selectedHandles.length > 1", hm-tap="") {{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ global.product.chosenAddElements.selectedHandles.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}
 
 
 
@@ -221,19 +221,19 @@
     .auxiliary-item.aux-others.unvisible(show-delay="{{ addElementsPanel.DELAY_SHOW_OTHERS }}", ng-class="{'focused': global.isFocusedAddElement == 11 && global.product.chosenAddElements.selectedOthers.length === 0, 'selected': global.product.chosenAddElements.selectedOthers.length > 0}")
       .aux-txt-box.aux-others-txt
         .choose-block.unvisible(show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}", ng-hide="global.product.chosenAddElements.selectedOthers.length > 0")
-          button.aux-choose-but.aux_small_but(ng-class="{'focused': global.isFocusedAddElement == 11}", ng-click="global.selectAddElement(11)", ng-disabled="global.isFocusedAddElement == 11") {{ 'add_elements.CHOOSE' | translate }}
+          button.aux-choose-but.aux_small_but(ng-class="{'focused': global.isFocusedAddElement == 11}", hm-tap="global.selectAddElement(11)", ng-disabled="global.isFocusedAddElement == 11") {{ 'add_elements.CHOOSE' | translate }}
           .aux-label(data-output="{{ 'add_elements.OTHERS' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}")
         .selected-block.vertival(ng-show="global.product.chosenAddElements.selectedOthers.length > 0")
           .aux-info-box
-            .aux-title(data-output="{{ global.product.chosenAddElements.selectedOthers.length }} {{ 'add_elements.ELEMENTS' | translate }}", , ng-click="global.selectAddElement(11)", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}")
+            .aux-title(data-output="{{ global.product.chosenAddElements.selectedOthers.length }} {{ 'add_elements.ELEMENTS' | translate }}", , hm-tap="global.selectAddElement(11)", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}")
             .aux-label(data-output="{{ 'add_elements.OTHERS' | translate }}", typing="{{ addElementsPanel.typing }}", typing-delay="{{ addElementsPanel.DELAY_START }}")
 
 
-    button.scheme-info.unvisible(show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}", ng-click="showWindowScheme()")
+    button.scheme-info.unvisible(show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}", hm-tap="showWindowScheme()")
 
     .scheme-view-dialog(ng-class="{'active': global.isWindowSchemeDialog}")
       .template-scheme
         svg-template(template="global.product.templateDefault", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="bigIcon")
-      .close-dialog(ng-click="closeWindowScheme()")
+      .close-dialog(hm-tap="closeWindowScheme()")
 
-    button.view-switch-tab.unvisible(show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}", ng-click="viewSwitching()") {{ 'add_elements.LIST_VIEW' | translate }}
+    button.view-switch-tab.unvisible(show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}", hm-tap="viewSwitching()") {{ 'add_elements.LIST_VIEW' | translate }}

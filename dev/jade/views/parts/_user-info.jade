@@ -1,6 +1,5 @@
-.user-info-container(ng-controller="UserInfoCtrl", ng-swipe-left="swipeLeft($event)", ng-swipe-right="swipeRight($event)")
-  //button.nav-menu-btn(ng-class="{ 'show-navmenu': global.showNavMenu , 'orange-navmenu-btn': global.isOpenedHistoryPage || global.isOpenedCartPage}", ng-click="swipeMainPage()")
-  button.nav-menu-btn(ng-class="{ 'show-navmenu': global.showNavMenu , 'orange-navmenu-btn': global.isOpenedHistoryPage || global.isOpenedCartPage}")
+.user-info-container(ng-controller="UserInfoCtrl",  hm-swipeleft="swipeLeft($event)", hm-swiperight="swipeRight($event)")
+  button.nav-menu-btn(ng-class="{ 'show-navmenu': global.showNavMenu , 'orange-navmenu-btn': global.isOpenedHistoryPage || global.isOpenedCartPage}", hm-tap="swipeMainPage($event)")
   .user-foto
   .icon-location.unvisible(show-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}")
   .user-info-block

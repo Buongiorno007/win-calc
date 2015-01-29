@@ -3,21 +3,21 @@
     .template-header
       button.template-title.unvisible(ng-if="global.isConstructDoor", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ global.templateLabel }}
       button.template-title.unvisible(ng-if="global.isConstructBalcony", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ global.templateLabel }}
-      button.template-title.unvisible(ng-if="global.isConstructWindDoor", ng-class="{'active': templatePanel.switcherTemplate}", ng-click="toggleTemplate()", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ global.templateLabel }}
+      button.template-title.unvisible(ng-if="global.isConstructWindDoor", ng-class="{'active': templatePanel.switcherTemplate}", hm-tap="toggleTemplate()", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ global.templateLabel }}
         .template-type(ng-if="templatePanel.switcherTemplate")
-          .window-config(ng-click="turnOnTemplate('window')") {{ 'panels.TEMPLATE_WINDOW' | translate }}
-      button.template-title.unvisible(ng-if="global.isConstructWind", ng-class="{'active': templatePanel.switcherTemplate}", ng-click="toggleTemplate()", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ global.templateLabel }}
+          .window-config(hm-tap="turnOnTemplate('window')") {{ 'panels.TEMPLATE_WINDOW' | translate }}
+      button.template-title.unvisible(ng-if="global.isConstructWind", ng-class="{'active': templatePanel.switcherTemplate}", hm-tap="toggleTemplate()", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ global.templateLabel }}
         .template-type(ng-if="templatePanel.switcherTemplate")
-          .balcon-config(ng-click="turnOnTemplate('balcon')") {{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}
+          .balcon-config(hm-tap="turnOnTemplate('balcon')") {{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}
       .template-discr.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ global.templates[global.product.templateIndex].name }}
 
-    .template-section.unvisible(ng-click="gotoConstructionPage()", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}")
+    .template-section.unvisible(hm-tap="gotoConstructionPage()", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}")
       svg-template(template="global.templates[global.product.templateIndex]", template-width="global.svgTemplateIconBigWidth", template-height="global.svgTemplateIconBigHeight", type-construction="bigIcon")
 
     .template-footer.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}")
       .other-templates
-        //.other-template(ng-repeat="templateIcon in global.templatesIcons", ng-click="selectNewTemplate($index)")
-        .other-template(ng-repeat="templateIcon in global.templatesImgs", ng-click="selectNewTemplate($index)")
+        //.other-template(ng-repeat="templateIcon in global.templatesIcons", hm-tap="selectNewTemplate($index)")
+        .other-template(ng-repeat="templateIcon in global.templatesImgs", hm-tap="selectNewTemplate($index)")
           .other-template-img.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}")
             //svg-template(template = "templateIcon", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="icon")
             img(ng-src="{{ templateIcon.src }}")

@@ -1,7 +1,7 @@
-.room-info-container(ng-controller="RoomInfoCtrl", ng-class="{'show-comment': global.isShowCommentBlock}", ng-swipe-up="swipeShowComment($event)", ng-swipe-down="swipeHideComment($event)")
+.room-info-container(ng-controller="RoomInfoCtrl", ng-class="{'show-comment': global.isShowCommentBlock}", hm-swipeup="swipeShowComment($event)", hm-swipedown="swipeHideComment($event)")
   .room-header
     .room-name {{ roomInfo.roomsData[(global.product.selectedRoomId-1)].name }}
-      button.select-rooms.unvisible(show-delay="{{ roomInfo.DELAY_SHOW_ALLROOMS_BTN }}", ng-click="showRoomSelectorDialog()", ng-hide="global.isShowCommentBlock") {{ 'common_words.ALL' | translate }}
+      button.select-rooms.unvisible(show-delay="{{ roomInfo.DELAY_SHOW_ALLROOMS_BTN }}", hm-tap="showRoomSelectorDialog($event)", ng-hide="global.isShowCommentBlock") {{ 'common_words.ALL' | translate }}
 
   .coeff-container
     .coeff-block

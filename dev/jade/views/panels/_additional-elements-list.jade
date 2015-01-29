@@ -4,7 +4,7 @@
 
   .aux-search-content(ng-class="{'active': addElementsList.showAddElementGroups}")
     ul.aux-list-groups
-      li.aux-list-group(ng-repeat="typeAddElement in addElementsList.filteredGroups", ng-click="global.selectAddElement(typeAddElement.groupId)", class="{{ typeAddElement.groupClass }}", ng-class="{'selected': global.isFocusedAddElement == typeAddElement.groupId}") {{ typeAddElement.groupName }}
+      li.aux-list-group(ng-repeat="typeAddElement in addElementsList.filteredGroups", hm-tap="global.selectAddElement(typeAddElement.groupId)", class="{{ typeAddElement.groupClass }}", ng-class="{'selected': global.isFocusedAddElement == typeAddElement.groupId}") {{ typeAddElement.groupName }}
         button.group-indicator(ng-class="{'active': global.isFocusedAddElement == typeAddElement.groupId}")
         .search-elements-block
 
@@ -35,11 +35,11 @@
         tr.aux-list-row(ng-repeat="addElement in global.product.chosenAddElements.selectedGrids track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(1)") )
+              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", hm-tap="global.selectAddElement(1)") )
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': global.auxParameter === '1-1-'+$index && global.currentAddElementId === $index}")
-              button.aux-params-but.aux_connect_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+              button.aux-params-but.aux_connect_but(hm-tap="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-width
           td.aux-tablecell-height
@@ -47,7 +47,7 @@
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPrice }} {{ global.currency }}
           td.aux-tablecell-delete
-            .aux-delete(ng-click="global.deleteAddElement(1, $index)")
+            .aux-delete(hm-tap="global.deleteAddElement(1, $index)")
 
 
     // List Visors
@@ -58,22 +58,22 @@
         tr.aux-list-row(ng-repeat="addElement in global.product.chosenAddElements.selectedVisors track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(2)")
+              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", hm-tap="global.selectAddElement(2)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': global.auxParameter === '2-1-'+$index && global.currentAddElementId === $index}")
-              button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+              button.aux-params-but.aux_big_but(hm-tap="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-width
             .aux-params(ng-class="{'selected': global.auxParameter === '2-2-'+$index && global.currentAddElementId === $index}")
-              button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
+              button.aux-params-but.aux_big_but(hm-tap="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
               .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-height
           td.aux-tablecell-color
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPrice }} {{ global.currency }}
           td.aux-tablecell-delete
-            .aux-delete(ng-click="global.deleteAddElement(2, $index)")
+            .aux-delete(hm-tap="global.deleteAddElement(2, $index)")
 
 
     // List Spillways
@@ -83,22 +83,22 @@
         tr.aux-list-row(ng-repeat="addElement in global.product.chosenAddElements.selectedSpillways track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(3)")
+              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", hm-tap="global.selectAddElement(3)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': global.auxParameter === '3-1-'+$index && global.currentAddElementId === $index}")
-              button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+              button.aux-params-but.aux_middle_but(hm-tap="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-width
             .aux-params(ng-class="{'selected': global.auxParameter === '3-2-'+$index && global.currentAddElementId === $index}")
-              button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
+              button.aux-params-but.aux_middle_but(hm-tap="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
               .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-height
           td.aux-tablecell-color
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPrice }} {{ global.currency }}
           td.aux-tablecell-delete
-            .aux-delete(ng-click="global.deleteAddElement(3, $index)")
+            .aux-delete(hm-tap="global.deleteAddElement(3, $index)")
 
 
 
@@ -109,22 +109,22 @@
         tr.aux-list-row(ng-repeat="addElement in global.product.chosenAddElements.selectedOutsideSlope track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(4)")
+              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", hm-tap="global.selectAddElement(4)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': global.auxParameter === '4-1-'+$index && global.currentAddElementId === $index}")
-              button.aux-params-but.aux_slope_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+              button.aux-params-but.aux_slope_but(hm-tap="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-width
             .aux-params(ng-class="{'selected': global.auxParameter === '4-2-'+$index && global.currentAddElementId === $index}")
-              button.aux-params-but.aux_slope_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
+              button.aux-params-but.aux_slope_but(hm-tap="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
               .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-height
           td.aux-tablecell-color
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPrice }} {{ global.currency }}
           td.aux-tablecell-delete
-            .aux-delete(ng-click="global.deleteAddElement(4, $index)")
+            .aux-delete(hm-tap="global.deleteAddElement(4, $index)")
 
 
     // List Louvers
@@ -134,25 +134,25 @@
         tr.aux-list-row(ng-repeat="addElement in global.product.chosenAddElements.selectedLouvers track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(5)")
+              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", hm-tap="global.selectAddElement(5)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': global.auxParameter === '5-1-'+$index && global.currentAddElementId === $index}")
-              button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+              button.aux-params-but.aux_middle_but(hm-tap="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-width
             .aux-params(ng-class="{'selected': global.auxParameter === '5-2-'+$index && global.currentAddElementId === $index}")
-              button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
+              button.aux-params-but.aux_middle_but(hm-tap="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
               .aux-label(data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-height
             .aux-params(ng-class="{'selected': global.auxParameter === '5-3-'+$index && global.currentAddElementId === $index}")
-              button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(3, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
+              button.aux-params-but.aux_middle_but(hm-tap="global.initAddElementMenuTools(3, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
               .aux-label(data-output="{{ 'add_elements.HEIGHT_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-color
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPrice }} {{ global.currency }}
           td.aux-tablecell-delete
-            .aux-delete(ng-click="global.deleteAddElement(5, $index)")
+            .aux-delete(hm-tap="global.deleteAddElement(5, $index)")
 
 
     // List InsideSlope
@@ -162,22 +162,22 @@
         tr.aux-list-row(ng-repeat="addElement in global.product.chosenAddElements.selectedInsideSlope track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(6)")
+              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", hm-tap="global.selectAddElement(6)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': global.auxParameter === '6-1-'+$index && global.currentAddElementId === $index}")
-              button.aux-params-but.aux_slope_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+              button.aux-params-but.aux_slope_but(hm-tap="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-width
             .aux-params(ng-class="{'selected': global.auxParameter === '6-2-'+$index && global.currentAddElementId === $index}")
-              button.aux-params-but.aux_slope_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
+              button.aux-params-but.aux_slope_but(hm-tap="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
               .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-height
           td.aux-tablecell-color
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPrice }} {{ global.currency }}
           td.aux-tablecell-delete
-            .aux-delete(ng-click="global.deleteAddElement(6, $index)")
+            .aux-delete(hm-tap="global.deleteAddElement(6, $index)")
 
 
     // List Connectors
@@ -187,22 +187,22 @@
         tr.aux-list-row(ng-repeat="addElement in global.product.chosenAddElements.selectedConnectors track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(7)")
+              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", hm-tap="global.selectAddElement(7)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': global.auxParameter === '7-1-'+$index && global.currentAddElementId === $index}")
-              button.aux-params-but.aux_connect_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+              button.aux-params-but.aux_connect_but(hm-tap="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-width
             .aux-params(ng-class="{'selected': global.auxParameter === '7-2-'+$index && global.currentAddElementId === $index}")
-              button.aux-params-but.aux_connect_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
+              button.aux-params-but.aux_connect_but(hm-tap="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
               .aux-label(data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-height
           td.aux-tablecell-color
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPrice }} {{ global.currency }}
           td.aux-tablecell-delete
-            .aux-delete(ng-click="global.deleteAddElement(7, $index)")
+            .aux-delete(hm-tap="global.deleteAddElement(7, $index)")
 
 
     // List Fans
@@ -212,11 +212,11 @@
         tr.aux-list-row(ng-repeat="addElement in global.product.chosenAddElements.selectedFans track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(8)")
+              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", hm-tap="global.selectAddElement(8)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': global.auxParameter === '8-1-'+$index && global.currentAddElementId === $index}")
-              button.aux-params-but.aux_small_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+              button.aux-params-but.aux_small_but(hm-tap="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-width
           td.aux-tablecell-height
@@ -224,7 +224,7 @@
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPrice }} {{ global.currency }}
           td.aux-tablecell-delete
-            .aux-delete(ng-click="global.deleteAddElement(8, $index)")
+            .aux-delete(hm-tap="global.deleteAddElement(8, $index)")
 
 
     // List WindowSill
@@ -234,26 +234,26 @@
         tr.aux-list-row(ng-repeat="addElement in global.product.chosenAddElements.selectedWindowSill track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(9)")
+              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", hm-tap="global.selectAddElement(9)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': global.auxParameter === '9-1-'+$index && global.currentAddElementId === $index}")
-              button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+              button.aux-params-but.aux_big_but(hm-tap="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-width
             .aux-params(ng-class="{'selected': global.auxParameter === '9-2-'+$index && global.currentAddElementId === $index}")
-              button.aux-params-but.aux_big_but(ng-click="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
+              button.aux-params-but.aux_big_but(hm-tap="global.initAddElementMenuTools(2, $index)", ng-disabled="global.isSizeCalculator") {{ addElement.elementWidth }}
               .aux-label(data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-height
           td.aux-tablecell-color
             .aux-params
-              button.aux-color(ng-class="{'selected': global.auxParameter === '9-4-'+$index && global.currentAddElementId === $index}", ng-click="global.initAddElementMenuTools(4, $index)")
+              button.aux-color(ng-class="{'selected': global.auxParameter === '9-4-'+$index && global.currentAddElementId === $index}", hm-tap="global.initAddElementMenuTools(4, $index)")
                 img(ng-src="{{ addElement.elementColor }}")
               .aux-label {{ 'add_elements.COLOR_LABEL' | translate }}
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPrice }} {{ global.currency }}
           td.aux-tablecell-delete
-            .aux-delete(ng-click="global.deleteAddElement(9, $index)")
+            .aux-delete(hm-tap="global.deleteAddElement(9, $index)")
 
 
 
@@ -264,11 +264,11 @@
         tr.aux-list-row(ng-repeat="addElement in global.product.chosenAddElements.selectedHandles track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(10)")
+              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", hm-tap="global.selectAddElement(10)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': global.auxParameter === '10-1-'+$index && global.currentAddElementId === $index}")
-              button.aux-params-but.aux_middle_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+              button.aux-params-but.aux_middle_but(hm-tap="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-width
           td.aux-tablecell-height
@@ -276,7 +276,7 @@
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPrice }} {{ global.currency }}
           td.aux-tablecell-delete
-            .aux-delete(ng-click="global.deleteAddElement(10, $index)")
+            .aux-delete(hm-tap="global.deleteAddElement(10, $index)")
 
 
 
@@ -287,11 +287,11 @@
         tr.aux-list-row(ng-repeat="addElement in global.product.chosenAddElements.selectedOthers track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", ng-click="global.selectAddElement(11)")
+              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}", hm-tap="global.selectAddElement(11)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': global.auxParameter === '10-1-'+$index && global.currentAddElementId === $index}")
-              button.aux-params-but.aux_small_but(ng-click="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
+              button.aux-params-but.aux_small_but(hm-tap="global.initAddElementMenuTools(1, $index)", ng-disabled="global.isQtyCalculator") {{ addElement.elementQty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ addElementsList.typing }}", typing-delay="{{ addElementsList.DELAY_START }}")
           td.aux-tablecell-width
           td.aux-tablecell-height
@@ -299,7 +299,7 @@
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPrice }} {{ global.currency }}
           td.aux-tablecell-delete
-            .aux-delete(ng-click="global.deleteAddElement(11, $index)")
+            .aux-delete(hm-tap="global.deleteAddElement(11, $index)")
 
 
 
@@ -311,6 +311,6 @@
           td.aux-tablecell-price
             .aux-total-price {{ global.totalAddElementsPrice }} {{ global.currency }}
           td.aux-tablecell-delete
-            .aux-delete(ng-click="clearAllAddElements()")
+            .aux-delete(hm-tap="clearAllAddElements()")
 
-  button.view-switch-tab(ng-click="viewSwitching()") {{ 'add_elements.SCHEME_VIEW' | translate }}
+  button.view-switch-tab(hm-tap="viewSwitching()") {{ 'add_elements.SCHEME_VIEW' | translate }}

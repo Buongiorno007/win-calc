@@ -2,8 +2,8 @@
   .cart-dialogs-container
     form(name='callCreditForm', novalidate, ng-submit="submitForm(callCreditForm)")
       .cart-dialog-header
-        button.cart-dialog-tool.back(ng-click="hideCallCreditDialog()", type="button")
-        button.cart-dialog-tool.print(ng-click="", type="button")
+        button.cart-dialog-tool.back(hm-tap="hideCallCreditDialog()", type="button")
+        button.cart-dialog-tool.print(hm-tap="", type="button")
         .cart-dialog-title {{ 'cart.CALL_CREDIT' | translate }} {{ global.order.orderId }}
         button.save(type="submit") {{ 'cart.READY' | translate }}
       .cart-dialog-body
@@ -53,7 +53,7 @@
           input.user-field(type="text", name="location", ng-model="user.location", ng-change="checkChanges()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", ng-focus="isFocused=true", ng-blur="isFocused=false", required)
           .error-tooltip(ng-show='submitted && callCreditForm.location.$error.required') {{ 'login.EMPTY_FIELD' | translate }}
           ul.location-list-tooltip(ng-show="showTipCity && isFocused", ng-focus="isFocused=true", ng-blur="isFocused=false", tabindex="1")
-            li.location-option(ng-repeat="location in filteredCity", ng-click="selectCity(location.city, location.current)", ng-class="{ 'current-city' : location.current }") {{location.city}}
+            li.location-option(ng-repeat="location in filteredCity", hm-tap="selectCity(location.city, location.current)", ng-class="{ 'current-city' : location.current }") {{location.city}}
 
         .input-field(ng-class="{ 'has-error' : submitted && callCreditForm.address.$error.required }")
           input.user-field(type="text", name="address", ng-model="user.address", placeholder="{{ 'cart.CLIENT_ADDRESS' | translate }}", required)

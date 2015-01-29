@@ -9,14 +9,14 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
         section.cart-container.full-view
           .cart-header
             include parts/_user-info
-            button.cart-tool.additional-elements(ng-click="showAllAddElements()") {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
-            button.cart-tool.new-order(ng-click="addNewProductInOrder()") {{ 'cart.ADD_ORDER' | translate }}
+            button.cart-tool.additional-elements(hm-tap="showAllAddElements()") {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
+            button.cart-tool.new-order(hm-tap="addNewProductInOrder()") {{ 'cart.ADD_ORDER' | translate }}
 
           .scroll-hor-container
             .order-block
               .order(ng-repeat="product in global.order.products track by $index")
-                button.order-delete(ng-click="clickDeleteProduct($index)")
-                .order-header(ng-switch="product.selectedRoomId", ng-click="editProduct($index)")
+                button.order-delete(hm-tap="clickDeleteProduct($index)")
+                .order-header(ng-switch="product.selectedRoomId", hm-tap="editProduct($index)")
                   img.order-header-fon(ng-switch-when="1", ng-src="img/rooms-dialog/kitchen.jpg")
                   img.order-header-fon(ng-switch-when="2", ng-src="img/rooms-dialog/livingroom.jpg")
                   img.order-header-fon(ng-switch-when="3", ng-src="img/rooms-dialog/balcony.jpg")
@@ -48,60 +48,60 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                       .order-label {{ 'mainpage.CONFIGMENU_LAMINATION_TYPE' | translate }}
                       .order-value {{ product.laminationOutName }} / {{ product.laminationInName }}
                       .order-label {{ 'mainpage.CONFIGMENU_LAMINATION' | translate }}
-                    li.order-item.addelements-btn(ng-click="showAllAddElementDetail($index)")
+                    li.order-item.addelements-btn(hm-tap="showAllAddElementDetail($index)")
                       .order-value(ng-if="cart.allAddElements[$index].length > 4 || cart.allAddElements[$index].length === 0") {{cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENTS' | translate }}
                       .order-value(ng-if="cart.allAddElements[$index].length < 5 && cart.allAddElements[$index].length > 1") {{cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENTA' | translate }}
                       .order-value(ng-if="cart.allAddElements[$index].length === 1") {{cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENT' | translate }}
                       .order-label {{ 'mainpage.CONFIGMENU_ADDITIONAL' | translate }}
                   .order-qty
-                    button.order-tool(ng-click="lessProduct($index)") -
+                    button.order-tool(hm-tap="lessProduct($index)") -
                     .order-value {{ product.productQty }}
-                    button.order-tool(ng-click="moreProduct($index)") +
+                    button.order-tool(hm-tap="moreProduct($index)") +
                     .order-label.qty-label {{ 'cart.PRODUCT_QTY' | translate }}
                 .order-footer(price-fixed="{{product.productPriceTOTAL}}", qty-element="{{product.productQty}}", currency-element="{{global.currency}}")
 
-          button.view-switch-tab(ng-click="viewSwitching()") {{ 'cart.LIGHT_VIEW' | translate }}
+          button.view-switch-tab(hm-tap="viewSwitching()") {{ 'cart.LIGHT_VIEW' | translate }}
 
 
 
         section.cart-container.light-view(ng-class="{'active': isCartLightView}")
           .cart-header
             include parts/_user-info
-            button.cart-tool.additional-elements(ng-click="showAllAddElements()") {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
-            button.cart-tool.new-order(ng-click="createNewProduct()") {{ 'cart.ADD_ORDER' | translate }}
+            button.cart-tool.additional-elements(hm-tap="showAllAddElements()") {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
+            button.cart-tool.new-order(hm-tap="createNewProduct()") {{ 'cart.ADD_ORDER' | translate }}
 
           .order-block
             .order(ng-repeat="product in global.order.products track by $index")
-              button.order-delete(ng-click="deleteProduct($index)")
+              button.order-delete(hm-tap="deleteProduct($index)")
               .order-header
-                .order-template(ng-click="editProduct(product.productId)")
+                .order-template(hm-tap="editProduct(product.productId)")
                   svg-template(template="product.templateIcon", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="icon")
               .order-content
                 .order-value {{ product.templateWidth }} * {{ product.templateHeight }} {{ 'mainpage.MM' | translate }}
 
-                .order-item.addelements-btn(ng-click="showAllAddElementDetail($index)")
+                .order-item.addelements-btn(hm-tap="showAllAddElementDetail($index)")
                   .order-value(ng-if="cart.allAddElements[$index].length > 4 || cart.allAddElements[$index].length === 0") {{cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENTS' | translate }}
                   .order-value(ng-if="cart.allAddElements[$index].length < 5 && cart.allAddElements[$index].length > 1") {{cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENTA' | translate }}
                   .order-value(ng-if="cart.allAddElements[$index].length === 1") {{cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENT' | translate }}
                   .order-label {{ 'mainpage.CONFIGMENU_ADDITIONAL' | translate }}
 
                 .order-qty
-                  button.order-tool(ng-click="lessProduct($index)") -
+                  button.order-tool(hm-tap="lessProduct($index)") -
                   .order-value {{ product.productQty }}
-                  button.order-tool(ng-click="moreProduct($index)") +
+                  button.order-tool(hm-tap="moreProduct($index)") +
                 .order-label {{ 'cart.PRODUCT_QTY' | translate }}
               .order-footer(price-fixed="{{product.productPriceTOTAL}}", qty-element="{{product.productQty}}", currency-element="{{global.currency}}")
 
 
 
-          button.view-switch-tab(ng-click="viewSwitching()") {{ 'cart.FULL_VIEW' | translate }}
+          button.view-switch-tab(hm-tap="viewSwitching()") {{ 'cart.FULL_VIEW' | translate }}
 
 
         .addelements-detail(ng-if="cart.isAddElementDetail")
           .addelements-detail-header
             .addelements-detail-tools
-              button.addelements-detail-edit(ng-click="editProduct(cart.activeProductIndex)") {{ 'cart.ADDELEMENTS_EDIT_LIST' | translate }}
-              button.addelements-detail-close(ng-click="closeAllAddElementDetail()")
+              button.addelements-detail-edit(hm-tap="editProduct(cart.activeProductIndex)") {{ 'cart.ADDELEMENTS_EDIT_LIST' | translate }}
+              button.addelements-detail-close(hm-tap="closeAllAddElementDetail()")
             .product-template
               .addelements-detail-row
                 .product-value
@@ -154,13 +154,13 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
             span(price-fixed="{{global.order.products[cart.activeProductIndex].addElementsPriceSELECT}}", qty-element="{{global.order.products[cart.activeProductIndex].productQty}}", currency-element="{{global.currency}}")
             span &#8721;
 
-        .backDarkView(ng-if="cart.isAddElementDetail", ng-click="closeAllAddElementDetail()")
+        .backDarkView(ng-if="cart.isAddElementDetail", hm-tap="closeAllAddElementDetail()")
 
 
 
         section.cart-container.alladdelements-view(ng-class="{'active': cart.isShowAllAddElements}")
           .alladdelements-header
-            button.close-alladdelements(ng-click="showAllAddElements()")
+            button.close-alladdelements(hm-tap="showAllAddElements()")
           .alladdelements-block
 
             // List Grids
@@ -170,7 +170,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                 tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.grids track by $index")
                   td.aux-tablecell-name
                     .aux-name
-                      button.aux-params-but.aux_connect_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", ng-click="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId, $index)") {{ elementUnit.elementName }}
+                      button.aux-params-but.aux_connect_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", hm-tap="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId, $index)") {{ elementUnit.elementName }}
                       .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
                   td.aux-tablecell-qty
                     .aux-params
@@ -182,7 +182,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                   td.aux-tablecell-price
                     .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
                   td.aux-tablecell-delete
-                    .aux-delete(ng-click="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
+                    .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
 
 
             // List Visors
@@ -193,7 +193,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                 tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.visors track by $index")
                   td.aux-tablecell-name
                     .aux-name
-                      button.aux-params-but.aux_big_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", ng-click="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId, $index)") {{ elementUnit.elementName }}
+                      button.aux-params-but.aux_big_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", hm-tap="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId, $index)") {{ elementUnit.elementName }}
                       .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
                   td.aux-tablecell-qty
                     .aux-params
@@ -208,7 +208,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                   td.aux-tablecell-price
                     .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
                   td.aux-tablecell-delete
-                    .aux-delete(ng-click="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
+                    .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
 
 
             // List Spillways
@@ -218,7 +218,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                 tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.spillways track by $index")
                   td.aux-tablecell-name
                     .aux-name
-                      button.aux-params-but.aux_middle_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", ng-click="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId, $index)") {{ elementUnit.elementName }}
+                      button.aux-params-but.aux_middle_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", hm-tap="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId, $index)") {{ elementUnit.elementName }}
                       .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
                   td.aux-tablecell-qty
                     .aux-params
@@ -233,7 +233,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                   td.aux-tablecell-price
                     .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
                   td.aux-tablecell-delete
-                    .aux-delete(ng-click="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
+                    .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
 
 
 
@@ -244,7 +244,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                 tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.outsideSlope track by $index")
                   td.aux-tablecell-name
                     .aux-name
-                      button.aux-params-but.aux_slope_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", ng-click="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId, $index)") {{ elementUnit.elementName }}
+                      button.aux-params-but.aux_slope_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", hm-tap="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId, $index)") {{ elementUnit.elementName }}
                       .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
                   td.aux-tablecell-qty
                     .aux-params
@@ -259,7 +259,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                   td.aux-tablecell-price
                     .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
                   td.aux-tablecell-delete
-                    .aux-delete(ng-click="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
+                    .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
 
 
             // List Louvers
@@ -269,7 +269,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                 tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.louvers track by $index")
                   td.aux-tablecell-name
                     .aux-name
-                      button.aux-params-but.aux_middle_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", ng-click="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId, $index)") {{ elementUnit.elementName }}
+                      button.aux-params-but.aux_middle_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", hm-tap="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId, $index)") {{ elementUnit.elementName }}
                       .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
                   td.aux-tablecell-qty
                     .aux-params
@@ -287,7 +287,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                   td.aux-tablecell-price
                     .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
                   td.aux-tablecell-delete
-                    .aux-delete(ng-click="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
+                    .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
 
 
             // List InsideSlope
@@ -297,7 +297,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                 tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.insideSlope track by $index")
                   td.aux-tablecell-name
                     .aux-name
-                      button.aux-params-but.aux_slope_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", ng-click="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId, $index)") {{ elementUnit.elementName }}
+                      button.aux-params-but.aux_slope_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", hm-tap="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId, $index)") {{ elementUnit.elementName }}
                       .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
                   td.aux-tablecell-qty
                     .aux-params
@@ -312,7 +312,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                   td.aux-tablecell-price
                     .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
                   td.aux-tablecell-delete
-                    .aux-delete(ng-click="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
+                    .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
 
 
             // List Connectors
@@ -322,7 +322,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                 tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.connectors track by $index")
                   td.aux-tablecell-name
                     .aux-name
-                      button.aux-params-but.aux_connect_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", ng-click="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId, $index)") {{ elementUnit.elementName }}
+                      button.aux-params-but.aux_connect_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", hm-tap="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId, $index)") {{ elementUnit.elementName }}
                       .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
                   td.aux-tablecell-qty
                     .aux-params
@@ -337,7 +337,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                   td.aux-tablecell-price
                     .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
                   td.aux-tablecell-delete
-                    .aux-delete(ng-click="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
+                    .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
 
 
             // List Fans
@@ -347,7 +347,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                 tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.fans track by $index")
                   td.aux-tablecell-name
                     .aux-name
-                      button.aux-params-but.aux_small_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", ng-click="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId, $index)") {{ elementUnit.elementName }}
+                      button.aux-params-but.aux_small_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", hm-tap="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId, $index)") {{ elementUnit.elementName }}
                       .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
                   td.aux-tablecell-qty
                     .aux-params
@@ -359,7 +359,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                   td.aux-tablecell-price
                     .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
                   td.aux-tablecell-delete
-                    .aux-delete(ng-click="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
+                    .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
 
 
             // List WindowSill
@@ -369,7 +369,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                 tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.windowSill track by $index")
                   td.aux-tablecell-name
                     .aux-name
-                      button.aux-params-but.aux_big_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", ng-click="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId, $index)") {{ elementUnit.elementName }}
+                      button.aux-params-but.aux_big_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", hm-tap="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId, $index)") {{ elementUnit.elementName }}
                       .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
                   td.aux-tablecell-qty
                     .aux-params
@@ -388,7 +388,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                   td.aux-tablecell-price
                     .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
                   td.aux-tablecell-delete
-                    .aux-delete(ng-click="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
+                    .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
 
 
 
@@ -399,7 +399,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                 tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.handles track by $index")
                   td.aux-tablecell-name
                     .aux-name
-                      button.aux-params-but.aux_middle_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", ng-click="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId, $index)") {{ elementUnit.elementName }}
+                      button.aux-params-but.aux_middle_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", hm-tap="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId, $index)") {{ elementUnit.elementName }}
                       .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
                   td.aux-tablecell-qty
                     .aux-params
@@ -411,7 +411,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                   td.aux-tablecell-price
                     .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
                   td.aux-tablecell-delete
-                    .aux-delete(ng-click="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
+                    .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
 
 
 
@@ -422,7 +422,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                 tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.others track by $index")
                   td.aux-tablecell-name
                     .aux-name
-                      button.aux-params-but.aux_small_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", ng-click="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId, $index)") {{ elementUnit.elementName }}
+                      button.aux-params-but.aux_small_but.aux-title(ng-class="{'selected': elementUnit.elementId === cart.selectedAddElementUnit}", hm-tap="showAddElementUnitDetail(elementUnit.elementType, elementUnit.elementId, $index)") {{ elementUnit.elementName }}
                       .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
                   td.aux-tablecell-qty
                     .aux-params
@@ -434,7 +434,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                   td.aux-tablecell-price
                     .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
                   td.aux-tablecell-delete
-                    .aux-delete(ng-click="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
+                    .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
 
             //----- TOTAL
             .aux-list-block(ng-if="cart.addElementsListPriceTOTAL")
@@ -445,20 +445,13 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                   td.aux-tablecell-price
                     .aux-total-price {{ cart.addElementsListPriceTOTAL }} {{ global.currency }}
                   td.aux-tablecell-delete
-                    .aux-delete(ng-click="deleteAllAddElementsList()")
-
-
-
-
-
-
-
+                    .aux-delete(hm-tap="deleteAllAddElementsList()")
 
 
 
         section.cart-container.addelement-view(ng-class="{'active': cart.isShowAddElementUnit}")
           .addelementunique-header
-            button.close-alladdelements(ng-click="showAddElementUnitDetail()")
+            button.close-alladdelements(hm-tap="showAddElementUnitDetail()")
             .addelementunit-header-fon
 
             table.aux-list-addellement
@@ -487,14 +480,14 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                 td.aux-tablecell-price
                   .aux-price + {{ cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementQty * cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementPrice }} {{ global.currency }}
                 td.aux-tablecell-delete
-                  .aux-delete(ng-click="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
+                  .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
 
           .addelementunits-container
 
             .addelementunit-block
 
               .addelementunit(ng-repeat="addElem in cart.selectedAddElementUnits track by $index", ng-if="!addElem.isAddElementsONLY && addElem.productQty === 1")
-                button.addelementunit-delete(ng-click="deleteProduct($index)")
+                button.addelementunit-delete(hm-tap="deleteProduct($index)")
                 .addelementunit-header
                   .addelementunit-template
                     svg-template(template="global.order.products[(addElem.productId - 1)].templateIcon", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="icon")
@@ -505,7 +498,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
             .addelementunit-train(ng-repeat="addElem in cart.selectedAddElementUnits track by $index", ng-if="addElem.length > 0")
               .addelementunit(ng-repeat="addElemWagon in addElem track by $index", ng-class="{'unit-last': $last}")
                 .addelementunit-link.link-right
-                button.addelementunit-delete(ng-click="deleteProduct($index)")
+                button.addelementunit-delete(hm-tap="deleteProduct($index)")
                 .addelementunit-header
                   .addelementunit-template
                     svg-template(template="global.order.products[(addElemWagon.productId - 1)].templateIcon", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="icon")
@@ -541,7 +534,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                   td.aux-tablecell-price
                     .aux-price + {{ cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementQty * cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementPrice }} {{ global.currency }}
                   td.aux-tablecell-delete
-                    .aux-delete(ng-click="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
+                    .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
 
     section.right-menu
       include menus/_cart-menu

@@ -1,12 +1,12 @@
 section.settings.setting-page(ng-controller="SettingsCtrl")
   .header
-    button.back(ng-click="closeSettingsPage()")
+    button.back(hm-tap="closeSettingsPage()")
     .title(data-output="{{ 'mainpage.NAVMENU_SETTINGS' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
 
   .setting-container
     .setting-user-foto
       //img(ng-crs="global.AvatarUrl")
-      .change-foto(ng-click="changeAvatar()") {{ 'common_words.CHANGE' | translate }}
+      .change-foto(hm-tap="changeAvatar()") {{ 'common_words.CHANGE' | translate }}
 
     .lists
       ul.list
@@ -14,29 +14,29 @@ section.settings.setting-page(ng-controller="SettingsCtrl")
           .divider(data-output="{{ 'settings.AUTHORIZATION' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
         li.item
           .setting-item-label(data-output="{{ global.userInfo.phone }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
-        li.item.click(ng-click="gotoPasswordPage()")
+        li.item.click(hm-tap="gotoPasswordPage()")
           .setting-item-label(data-output="{{ global.userInfo.password }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           .setting-item-change(data-output="{{ 'settings.CHANGE_PASSWORD' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_SHOW_ICONS }}")
-        li.item.click(ng-click="gotoLanguagePage()")
+        li.item.click(hm-tap="gotoLanguagePage()")
           .setting-item-label(data-output="{{ global.userInfo.langName }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           .setting-item-change(data-output="{{ 'settings.CHANGE_LANGUAGE' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_SHOW_ICONS }}")
 
       ul.list
         li.item
           .divider(data-output="{{ 'settings.PRIVATE_INFO' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
-        li#user-name.item.click(ng-click="changeSettingData(1, $event)")
+        li#user-name.item.click(hm-tap="changeSettingData(1, $event)")
           .setting-item-label(data-output="{{ 'settings.USER_NAME' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           .setting-item-data(ng-hide="settings.selectedSetting == 1", data-output="{{ global.userInfo.name }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           input.set-input-txt(ng-show="settings.selectedSetting == 1", type="text", ng-model="global.userInfo.name", ng-keypress="saveChanges('user-name', global.userInfo.name)", ng-blur="saveChangesBlur('user-name', global.userInfo.name)")
-        li.item.click(ng-click="global.gotoLocationPage()")
+        li.item.click(hm-tap="global.gotoLocationPage()")
           .setting-item-label(data-output="{{ 'settings.CITY' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           .setting-item-data(data-output="{{ global.userInfo.fullLocation }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           .setting-item-change
-        li#user-address.item.click(ng-click="changeSettingData(3, $event)")
+        li#user-address.item.click(hm-tap="changeSettingData(3, $event)")
           .setting-item-label(data-output="{{ 'cart.CLIENT_ADDRESS' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           .setting-item-data(ng-hide="settings.selectedSetting == 3", data-output="{{ global.userInfo.city_phone }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           input.set-input-txt(ng-show="settings.selectedSetting == 3", type="text", ng-model="global.userInfo.city_phone", ng-keypress="saveChanges('user-address', global.userInfo.city_phone)", ng-blur="saveChangesBlur('user-address', global.userInfo.city_phone)")
-        li#user-email.item.click(ng-click="changeSettingData(4, $event)")
+        li#user-email.item.click(hm-tap="changeSettingData(4, $event)")
           .setting-item-label(data-output="{{ 'cart.CLIENT_EMAIL' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           .setting-item-data(ng-hide="settings.selectedSetting == 4", data-output="{{ global.userInfo.email }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           input.set-input-txt(ng-show="settings.selectedSetting == 4", type="email", name="mail", ng-model="global.userInfo.email", ng-keypress="saveChanges('user-email', global.userInfo.email)", ng-blur="saveChangesBlur('user-email', global.userInfo.email)", ng-change="changeEmail()")
@@ -46,11 +46,11 @@ section.settings.setting-page(ng-controller="SettingsCtrl")
         li.item
           .divider(data-output="{{ 'settings.ADD_PHONES' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
         li.item(ng-repeat="phone in settings.addPhones")
-          button.phone-btn.delete-phone(ng-click="deletePhone($index)") &#8211;
+          button.phone-btn.delete-phone(hm-tap="deletePhone($index)") &#8211;
           .setting-item-label(data-output="{{ phone }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
         li.item
-          button.phone-btn.add-phone(ng-click="appendInputPhone()") +
-          .setting-item-label(ng-hide="settings.isInsertPhone", ng-click="appendInputPhone()", data-output="{{ 'settings.INSERT_PHONE' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
+          button.phone-btn.add-phone(hm-tap="appendInputPhone()") +
+          .setting-item-label(ng-hide="settings.isInsertPhone", hm-tap="appendInputPhone()", data-output="{{ 'settings.INSERT_PHONE' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           input.set-input-phone(ng-show="settings.isInsertPhone", type="text", ng-model="settings.tempAddPhone", ng-keypress="saveChangesPhone()", ng-blur="cancelAddPhone()")
           .error-tooltip(ng-show="settings.isErrorPhone") {{ 'login.WRONG_NUMBER' | translate }}
 
@@ -62,6 +62,6 @@ section.settings.setting-page(ng-controller="SettingsCtrl")
         li.item.click
           .setting-item-data(data-output="{{ 'settings.CLIENT_SUPPORT' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           .setting-item-change
-        li.item.click(ng-click="logOut()")
+        li.item.click(hm-tap="logOut()")
           .setting-item-data(data-output="{{ 'settings.LOGOUT' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           .setting-item-change

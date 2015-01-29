@@ -5,7 +5,7 @@
         .title(data-output="{{ profilePanel.producers[$index] }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START }}")
         .group-info
           .info
-      .box.profile-box.unvisible(ng-repeat="profile in producer", ng-class="{'selected': global.product.profileIndex == $index && global.product.profileTypeIndex == $parent.$index}", ng-click="selectProfile($parent.$index, $index, profile.profileId)", show-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_BLOCK * $index) }}")
+      .box.profile-box.unvisible(ng-repeat="profile in producer", ng-class="{'selected': global.product.profileIndex == $index && global.product.profileTypeIndex == $parent.$index}", hm-tap="selectProfile($parent.$index, $index, profile.profileId)", show-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_BLOCK * $index) }}")
         .profile-box-top
           .type {{ profile.profileType }}
           .profile-descr(data-output="{{ profile.name }} {{ profile.profileDescrip }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}")
