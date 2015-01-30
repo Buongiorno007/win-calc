@@ -227,7 +227,10 @@ window.romanianDictionary = {
     ADDELEMENTS_EDIT_LIST: 'redactarea listei',
     ADDELEMENTS_PRODUCT_COST: 'într-o construcţie',
     HEAT_TRANSFER: 'transferul de căldură',
-    WRONG_EMAIL: 'poșta electronica este incorectă'
+    WRONG_EMAIL: 'poșta electronica este incorectă',
+    LINK_BETWEEN_COUPLE: 'между парой',
+    LINK_BETWEEN_ALL: 'между всеми',
+    LINK_DELETE_ALL_GROUPE: 'удалить все'
   },
   settings: {
     AUTHORIZATION: 'Autentificare:',

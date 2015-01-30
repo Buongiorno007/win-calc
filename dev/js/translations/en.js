@@ -227,7 +227,10 @@ window.englishDictionary = {
     ADDELEMENTS_EDIT_LIST: 'Edit List',
     ADDELEMENTS_PRODUCT_COST: 'one product',
     HEAT_TRANSFER: 'heat transfer',
-    WRONG_EMAIL: 'Incorrect e-mail'
+    WRONG_EMAIL: 'Incorrect e-mail',
+    LINK_BETWEEN_COUPLE: 'between couple',
+    LINK_BETWEEN_ALL: 'between all',
+    LINK_DELETE_ALL_GROUPE: 'delete all'
   },
   settings: {
     AUTHORIZATION: 'Authorization:',

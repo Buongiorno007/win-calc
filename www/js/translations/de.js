@@ -230,7 +230,10 @@ window.germanDictionary = {
     ADDELEMENTS_EDIT_LIST: 'Liste bearbeiten',
     ADDELEMENTS_PRODUCT_COST: 'einem Produkt',
     HEAT_TRANSFER: 'Wärmeübertragung',
-    WRONG_EMAIL: 'Falsche E-Mail'
+    WRONG_EMAIL: 'Falsche E-Mail',
+    LINK_BETWEEN_COUPLE: 'между парой',
+    LINK_BETWEEN_ALL: 'между всеми',
+    LINK_DELETE_ALL_GROUPE: 'удалить все'
   },
   settings: {
     AUTHORIZATION: 'Autorisierung:',

@@ -50,6 +50,8 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     selectedAddElementUnitIndex: 0,
     selectedAddElementUnitType: 0,
     selectedAddElementUnits: [],
+    isOrderHaveAddElements: false,
+    isShowLinkExplodeMenu: false,
     DELAY_START: STEP,
     typing: 'on'
   };
@@ -99,8 +101,11 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
         if (!$scope.global.order.products[prod].chosenAddElements.hasOwnProperty(prop)) {
           continue;
         }
-        for (var elem = 0; elem < $scope.global.order.products[prod].chosenAddElements[prop].length; elem++) {
-          product.push($scope.global.order.products[prod].chosenAddElements[prop][elem]);
+        if($scope.global.order.products[prod].chosenAddElements[prop].length > 0) {
+          $scope.cart.isOrderHaveAddElements = true;
+          for (var elem = 0; elem < $scope.global.order.products[prod].chosenAddElements[prop].length; elem++) {
+            product.push($scope.global.order.products[prod].chosenAddElements[prop][elem]);
+          }
         }
       }
       $scope.cart.allAddElements.push(product);
@@ -561,15 +566,18 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
   //-------- show All Add Elements panel
   $scope.showAllAddElements = function() {
-    playSound('swip');
-    $scope.cart.isShowAllAddElements = !$scope.cart.isShowAllAddElements;
-    if($scope.cart.isShowAllAddElements) {
-      $scope.prepareAllAddElementsList();
-      $scope.cleaningAllAddElementsList();
-      $scope.getTOTALAddElementsPrice();
-    } else {
-      $scope.cart.allAddElementsList = angular.copy($scope.cart.allAddElementsListSource);
-      $scope.cart.addElementsUniqueList = {};
+    //--- open if AddElements are existed
+    if($scope.cart.isOrderHaveAddElements) {
+      playSound('swip');
+      $scope.cart.isShowAllAddElements = !$scope.cart.isShowAllAddElements;
+      if($scope.cart.isShowAllAddElements) {
+        $scope.prepareAllAddElementsList();
+        $scope.cleaningAllAddElementsList();
+        $scope.getTOTALAddElementsPrice();
+      } else {
+        $scope.cart.allAddElementsList = angular.copy($scope.cart.allAddElementsListSource);
+        $scope.cart.addElementsUniqueList = {};
+      }
     }
   };
 
@@ -593,6 +601,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     $scope.parseAddElementsLocaly();
     $scope.showAllAddElements();
     $scope.global.calculateOrderPrice();
+    $scope.cart.isOrderHaveAddElements = false;
   };
 
   function getCurrentAddElementsType(elementType) {
@@ -627,7 +636,19 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
   //------ delete AddElement in All AddElementsList
   $scope.deleteAddElementList = function(elementType, elementId) {
-    var curentType = getCurrentAddElementsType(elementType);
+    var curentType;
+    //----- if we delete all AddElement Unit in header of Unit Detail panel
+    if($scope.cart.isShowAddElementUnit) {
+      playSound('swip');
+      $scope.cart.isShowAddElementUnit = !$scope.cart.isShowAddElementUnit;
+      $scope.cart.selectedAddElementUnitId = 0;
+      $scope.cart.selectedAddElementUnitIndex = 0;
+      $scope.cart.selectedAddElementUnitType = 0;
+      $scope.cart.selectedAddElementUnits.length = 0;
+      curentType = elementType;
+    } else {
+      curentType = getCurrentAddElementsType(elementType);
+    }
     for (var el = ($scope.cart.allAddElementsList[curentType].length - 1); el >= 0; el--) {
       if($scope.cart.allAddElementsList[curentType][el].elementId === elementId) {
         $scope.cart.allAddElementsList[curentType].splice(el, 1);
@@ -657,6 +678,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     //---- close all AddElements panel
     if(!$scope.cart.addElementsListPriceTOTAL) {
       $scope.showAllAddElements();
+      $scope.cart.isOrderHaveAddElements = false;
     }
   };
 
@@ -673,7 +695,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
       $scope.cart.selectedAddElementUnitIndex = elementIndex;
       $scope.cart.selectedAddElementUnitType = getCurrentAddElementsType(elementType);
       $scope.cart.selectedAddElementUnits.length = 0;
-      console.log('allAddElementsList == ', $scope.cart.allAddElementsList);
+      //console.log('allAddElementsList == ', $scope.cart.allAddElementsList);
 
       for(var i = 0; i < $scope.cart.allAddElementsList[$scope.cart.selectedAddElementUnitType].length; i++) {
         if($scope.cart.allAddElementsList[$scope.cart.selectedAddElementUnitType][i].elementId === $scope.cart.selectedAddElementUnitId) {
@@ -691,11 +713,9 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
             }
 
           }
-
         }
       }
-
-      console.log('selectedAddElementUnits = ', $scope.cart.selectedAddElementUnits);
+      console.log('start selectedAddElementUnits = ', $scope.cart.selectedAddElementUnits);
     } else {
       $scope.cart.selectedAddElementUnitId = 0;
       $scope.cart.selectedAddElementUnitIndex = 0;
@@ -705,12 +725,67 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
   };
 
-  //------ delete All AddElement Units in selectedAddElementUnits
 
-  //------ delete AddElement Unit in selectedAddElementUnits
+  //------ delete AddElement Unit in selectedAddElementUnits panel
+  $scope.deleteAddElementUnit = function(parentIndex, elementIndex, addElementUnit) {
+    //---- close selectedAddElementUnits panel when we delete last unit
+    if($scope.cart.selectedAddElementUnits.length === 1) {
+      $scope.deleteAddElementList($scope.cart.selectedAddElementUnitType, addElementUnit.elementId);
+      $scope.cart.selectedAddElementUnits.length = 0;
+      $scope.cart.isShowLinkExplodeMenu = false;
+    } else if($scope.cart.selectedAddElementUnits.length > 1) {
+      if(parentIndex === '') {
+        $scope.cart.selectedAddElementUnits.splice(elementIndex, 1);
+      } else {
+        //-------- Delete all group
+        $scope.cart.isShowLinkExplodeMenu = false;
+        $scope.cart.selectedAddElementUnits.splice(parentIndex, 1);
+      }
+      var curentType = $scope.cart.selectedAddElementUnitType;
+      for (var el = ($scope.cart.allAddElementsList[curentType].length - 1); el >= 0; el--) {
+        if($scope.cart.allAddElementsList[curentType][el].productId === addElementUnit.productId && $scope.cart.allAddElementsList[curentType][el].elementId === addElementUnit.elementId) {
+          $scope.cart.allAddElementsList[curentType].splice(el, 1);
+        }
+      }
+      $scope.cleaningAllAddElementsList();
+      for (var p = 0; p < $scope.global.order.products.length; p++) {
+        for (var prop in $scope.global.order.products[p].chosenAddElements) {
+          if (!$scope.global.order.products[p].chosenAddElements.hasOwnProperty(prop)) {
+            continue;
+          }
+          if ((prop.toUpperCase()).indexOf(curentType.toUpperCase()) + 1 && $scope.global.order.products[p].chosenAddElements[prop].length > 0) {
+            for (var elem = ($scope.global.order.products[p].chosenAddElements[prop].length - 1); elem >= 0; elem--) {
+              if ($scope.global.order.products[p].productId === addElementUnit.productId && $scope.global.order.products[p].chosenAddElements[prop][elem].elementId === addElementUnit.elementId) {
+                $scope.global.order.products[p].addElementsPriceSELECT -= $scope.global.order.products[p].chosenAddElements[prop][elem].elementPrice;
+                $scope.global.order.products[p].productPriceTOTAL -= $scope.global.order.products[p].chosenAddElements[prop][elem].elementPrice;
+                $scope.global.order.products[p].chosenAddElements[prop].splice(elem, 1);
+              }
+            }
+          }
+        }
+      }
+      console.log($scope.global.order.products);
+      $scope.getTOTALAddElementsPrice();
+      $scope.parseAddElementsLocaly();
+      $scope.global.calculateOrderPrice();
 
+    }
+  };
 
+  //-------- Show/Hide Explode Link Menu
+  $scope.toggleExplodeLinkMenu = function() {
+    $scope.cart.isShowLinkExplodeMenu = !$scope.cart.isShowLinkExplodeMenu;
+  };
 
+  //-------- Explode group to one unit
+  $scope.explodeUnitToOneProduct = function() {
+    $scope.cart.isShowLinkExplodeMenu = !$scope.cart.isShowLinkExplodeMenu;
+  };
+
+  //-------- Explode all group
+  $scope.explodeUnitGroupToProducts = function() {
+    $scope.cart.isShowLinkExplodeMenu = !$scope.cart.isShowLinkExplodeMenu;
+  };
 
 
 }]);

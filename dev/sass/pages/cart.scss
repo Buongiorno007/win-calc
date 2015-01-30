@@ -476,7 +476,8 @@
     color: $main_gray_txt;
   }
   .aux-list-row {
-    margin-bottom: rem(20px);
+    padding-top: 1%;
+    //margin-bottom: rem(20px);
   }
   .aux-total-price {
     @extend .aux-price;
@@ -531,7 +532,7 @@
 
 .addelementunits-container {
   @include overflow-scroll();
-  height: 95%;
+  height: 94%;
   overflow-x: hidden;
   overflow-y: auto;
   margin-top: 2%;
@@ -546,6 +547,7 @@
 .addelementunit {
   @extend .order;
   width: rem(420px);
+  min-width: rem(420px);
   //height: rem(412px);
   margin-bottom: rem(50px);
   margin-right: rem(44px);
@@ -581,14 +583,17 @@
   background-color: $aux_big_color;
 }
 
+
+
 .addelementunit-train {
   @include overflow-scroll();
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  padding-top: 2%;
   overflow-x: auto;
   overflow-y: auto;
+
+  .addelementunit-train-inner {
+    @include display-flex();
+    @include align-items(center);
+  }
 
   .addelementunit {
     &.unit-last {
@@ -602,9 +607,60 @@
     position: absolute;
     bottom: rem(50px);
     width: rem(60px);
+    height: rem(80px);
     border-bottom: 1px solid $aux_big_color;
     &.link-right {
-      right: rem(-50px);
+      right: rem(-55px);
+    }
+  }
+
+
+  // Link Exploding Menu
+
+  .link-explode-menu {
+    @include roboto-lt(rem(36px), rem(65px));
+    position: absolute;
+    bottom: rem(95px);
+    right: -40rem;
+    padding: 0 rem(20px);
+    border-radius: rem(16px);
+    background-color: #242424;
+    color: #fff;
+    cursor: pointer;
+    z-index: 999;
+
+    &:before {
+      position: absolute;
+      z-index: 99;
+      bottom: rem(-20px);
+      left: rem(30px);
+      display: block;
+      width: 0;
+      border-width: rem(20px) rem(20px) 0;
+      border-style: solid;
+      border-color: #242424 transparent;
+      content: '';
+    }
+  }
+
+  ul.link-explode-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li.link-explode-item {
+    display: inline-block;
+    line-height: rem(80px);
+    padding-right: rem(15px);
+    border-right: 1px solid $main_gray_btn;
+    text-align: center;
+    color: #ddd;
+
+    &:last-child {
+      border-right: none;
+      padding-left: rem(8px);
+      padding-right: 0;
     }
   }
 

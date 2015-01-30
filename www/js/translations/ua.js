@@ -230,7 +230,10 @@ window.ukrainianDictionary = {
     ADDELEMENTS_EDIT_LIST: 'Редагувати список',
     ADDELEMENTS_PRODUCT_COST: 'в одному виробі',
     HEAT_TRANSFER: 'теплопередача',
-    WRONG_EMAIL: 'Невірна електронна пошта'
+    WRONG_EMAIL: 'Невірна електронна пошта',
+    LINK_BETWEEN_COUPLE: 'між парою',
+    LINK_BETWEEN_ALL: 'між усіма',
+    LINK_DELETE_ALL_GROUPE: 'видалити усі'
   },
   settings: {
     AUTHORIZATION: 'Авторизація:',

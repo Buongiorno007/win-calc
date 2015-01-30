@@ -230,7 +230,10 @@ window.russianDictionary = {
     ADDELEMENTS_EDIT_LIST: 'Редактировать список',
     ADDELEMENTS_PRODUCT_COST: 'в одном изделии',
     HEAT_TRANSFER: 'теплопередача',
-    WRONG_EMAIL: 'Неверная электронная почта'
+    WRONG_EMAIL: 'Неверная электронная почта',
+    LINK_BETWEEN_COUPLE: 'между парой',
+    LINK_BETWEEN_ALL: 'между всеми',
+    LINK_DELETE_ALL_GROUPE: 'удалить все'
   },
   settings: {
     AUTHORIZATION: 'Авторизация:',

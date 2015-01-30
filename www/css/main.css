@@ -1205,38 +1205,38 @@ body {
   padding: 0;
 }
 
-/* line 105, ../../dev/sass/base/general.scss */
+/* line 104, ../../dev/sass/base/general.scss */
 .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn {
   border-width: 1px;
   border-style: solid;
 }
 
-/* line 112, ../../dev/sass/base/general.scss */
+/* line 111, ../../dev/sass/base/general.scss */
 .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .nav-menu .new-calc, .cart-menu .measure-btn {
   font: normal 3rem/1.42857 roboto-light, sans-serif;
   border-radius: 2rem;
 }
 
-/* line 119, ../../dev/sass/base/general.scss */
+/* line 118, ../../dev/sass/base/general.scss */
 .middle-button, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default {
   font: normal 1.5rem/2.25rem roboto-regular, sans-serif;
   border-radius: 2rem;
 }
 
-/* line 126, ../../dev/sass/base/general.scss */
+/* line 125, ../../dev/sass/base/general.scss */
 .small-button, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .order-tool {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   border-radius: 1.25rem;
 }
 
-/* line 133, ../../dev/sass/base/general.scss */
+/* line 132, ../../dev/sass/base/general.scss */
 .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit {
   height: 6.875rem;
   color: #fff;
   background-color: #f98000;
 }
 
-/* line 141, ../../dev/sass/base/general.scss */
+/* line 140, ../../dev/sass/base/general.scss */
 .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back {
   font: normal 3.125rem/1 general-icons, sans-serif;
   width: 3.75rem;
@@ -1245,67 +1245,67 @@ body {
   padding: 0;
   background: transparent;
 }
-/* line 151, ../../dev/sass/base/general.scss */
+/* line 150, ../../dev/sass/base/general.scss */
 .menu-btn:before, .user-info-container .nav-menu-btn:before, .setting-page .back:before, .setting-back:before {
   color: #fff;
   content: "\e60e";
 }
 
-/* line 160, ../../dev/sass/base/general.scss */
+/* line 159, ../../dev/sass/base/general.scss */
 .truncated, .menu-right-general .value, .config-menu .value, .elements-menu .value, .cart-menu .value, .old-price-tab .value, .old-price-inst-tab .value, .parameters-block .aux-title, .alladdelements-block .aux-title, .addelementunit-only .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title, .setting-container .setting-item-data, .cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value, .cart-page .addelementunit-value, .light-view .order-value, .light-view .addelementunit-value, .addelementunique-header .aux-title, .addelementunit-value, .construction-left-menu .figure-label, .nav-menu .title, .config-menu .additional-item, .template-container .other-template-subscr, .profile-container .profile-descr, .glass-container .glass-descr {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-/* line 168, ../../dev/sass/base/general.scss */
+/* line 167, ../../dev/sass/base/general.scss */
 .right-side {
   -moz-transition: all 1.3s linear;
   -webkit-transition: all 1.3s linear;
   transition: all 1.3s linear;
 }
-/* line 170, ../../dev/sass/base/general.scss */
+/* line 169, ../../dev/sass/base/general.scss */
 .right-side.main-page-bg {
   opacity: 0.2;
 }
-/* line 174, ../../dev/sass/base/general.scss */
+/* line 173, ../../dev/sass/base/general.scss */
 .right-side.kitchen {
-  background: url('../img/rooms-bg/kitchen.jpg') no-repeat;
+  background: url('../img/rooms-bg/kitchen.jpg?1422437877') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 179, ../../dev/sass/base/general.scss */
+/* line 178, ../../dev/sass/base/general.scss */
 .right-side.livingroom {
-  background: url('../img/rooms-bg/livingroom.jpg') no-repeat;
+  background: url('../img/rooms-bg/livingroom.jpg?1422437877') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 184, ../../dev/sass/base/general.scss */
+/* line 183, ../../dev/sass/base/general.scss */
 .right-side.balcony {
-  background: url('../img/rooms-bg/balcony.jpg') no-repeat;
+  background: url('../img/rooms-bg/balcony.jpg?1422437877') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 189, ../../dev/sass/base/general.scss */
+/* line 188, ../../dev/sass/base/general.scss */
 .right-side.childroom {
-  background: url('../img/rooms-bg/childroom.jpg') no-repeat;
+  background: url('../img/rooms-bg/childroom.jpg?1422437877') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 194, ../../dev/sass/base/general.scss */
+/* line 193, ../../dev/sass/base/general.scss */
 .right-side.bedroom {
-  background: url('../img/rooms-bg/bedroom.jpg') no-repeat;
+  background: url('../img/rooms-bg/bedroom.jpg?1422437877') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 199, ../../dev/sass/base/general.scss */
+/* line 198, ../../dev/sass/base/general.scss */
 .right-side.door {
-  background: url('../img/rooms-bg/door.jpg') no-repeat;
+  background: url('../img/rooms-bg/door.jpg?1422437877') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 
-/* line 209, ../../dev/sass/base/general.scss */
+/* line 208, ../../dev/sass/base/general.scss */
 .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto {
   width: 9.5rem;
   height: 9.5rem;
@@ -1313,7 +1313,7 @@ body {
   background-size: cover;
 }
 
-/* line 220, ../../dev/sass/base/general.scss */
+/* line 219, ../../dev/sass/base/general.scss */
 .modal-dialog, .rooms-selector-dialog, .auxiliaries-container .scheme-view-dialog {
   top: 18.75rem;
   left: -125rem;
@@ -1326,36 +1326,36 @@ body {
   border-radius: 1.25rem;
   background-color: rgba(255, 255, 255, 0.85);
 }
-/* line 231, ../../dev/sass/base/general.scss */
+/* line 230, ../../dev/sass/base/general.scss */
 .modal-dialog.active, .active.rooms-selector-dialog, .auxiliaries-container .active.scheme-view-dialog {
   top: 18.75rem;
   left: 5rem;
 }
 
-/* line 237, ../../dev/sass/base/general.scss */
+/* line 236, ../../dev/sass/base/general.scss */
 .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .search-block .delete-search, .construction-right-menu .construct-tools, .elements-menu .close-elements-menu {
   border-radius: 50%;
 }
-/* line 242, ../../dev/sass/base/general.scss */
+/* line 241, ../../dev/sass/base/general.scss */
 .cross-btn:after, .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .addelementunit-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after, .search-block .delete-search:after, .construction-right-menu .construct-tools:after, .elements-menu .close-elements-menu:after {
   position: absolute;
   color: #fff;
   content: "\e61f";
 }
 
-/* line 248, ../../dev/sass/base/general.scss */
+/* line 247, ../../dev/sass/base/general.scss */
 .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete {
   font: normal 2.5rem/1 general-icons, sans-serif;
   width: 3.125rem;
   height: 3.125rem;
 }
-/* line 254, ../../dev/sass/base/general.scss */
+/* line 253, ../../dev/sass/base/general.scss */
 .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .addelementunit-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after {
   top: 8%;
   left: 10%;
 }
 
-/* line 261, ../../dev/sass/base/general.scss */
+/* line 260, ../../dev/sass/base/general.scss */
 .close-dialog {
   position: absolute;
   top: 1.875rem;
@@ -1363,7 +1363,7 @@ body {
   background-color: #f98000;
 }
 
-/* line 271, ../../dev/sass/base/general.scss */
+/* line 270, ../../dev/sass/base/general.scss */
 .aux-delete, .addelementunit-delete {
   top: 0rem;
   left: 0rem;
@@ -1371,7 +1371,7 @@ body {
   background-color: #bebebe;
 }
 
-/* line 280, ../../dev/sass/base/general.scss */
+/* line 279, ../../dev/sass/base/general.scss */
 .view-switch-tab {
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
@@ -1394,7 +1394,7 @@ body {
   z-index: 1;
 }
 
-/* line 300, ../../dev/sass/base/general.scss */
+/* line 299, ../../dev/sass/base/general.scss */
 .test {
   position: absolute;
   left: 3.125rem;
@@ -1404,14 +1404,14 @@ body {
   background-color: red;
   box-shadow: 0 0 1.25rem 0.625rem rgba(0, 0, 0, 0.3);
 }
-/* line 309, ../../dev/sass/base/general.scss */
+/* line 308, ../../dev/sass/base/general.scss */
 .test input {
   height: 3.125rem;
   width: 18.75rem;
   font-size: 2.25rem;
 }
 
-/* line 317, ../../dev/sass/base/general.scss */
+/* line 316, ../../dev/sass/base/general.scss */
 .backDarkView {
   position: absolute;
   top: 0;
@@ -1422,69 +1422,69 @@ body {
   z-index: 9;
 }
 
-/* line 331, ../../dev/sass/base/general.scss */
+/* line 330, ../../dev/sass/base/general.scss */
 .glass {
   fill: rgba(155, 204, 255, 0.2);
 }
 
-/* line 336, ../../dev/sass/base/general.scss */
+/* line 335, ../../dev/sass/base/general.scss */
 .glass-active {
   fill: rgba(34, 34, 255, 0.69);
 }
 
-/* line 340, ../../dev/sass/base/general.scss */
+/* line 339, ../../dev/sass/base/general.scss */
 .frame, .sash, .impost, .bead {
   fill: #fff;
   stroke: #363636;
   stroke-width: 2;
 }
 
-/* line 345, ../../dev/sass/base/general.scss */
+/* line 344, ../../dev/sass/base/general.scss */
 .frame-icon, .sash-icon, .impost-icon, .bead-icon {
   fill: #ccc;
   stroke: #000;
   stroke-width: 4;
 }
 
-/* line 351, ../../dev/sass/base/general.scss */
+/* line 350, ../../dev/sass/base/general.scss */
 .main-line {
   fill: #363636;
 }
 
-/* line 354, ../../dev/sass/base/general.scss */
+/* line 353, ../../dev/sass/base/general.scss */
 .size-line {
   fill: none;
   stroke: #D2D2D2;
   stroke-width: 1;
 }
 
-/* line 362, ../../dev/sass/base/general.scss */
+/* line 361, ../../dev/sass/base/general.scss */
 .size-box {
   cursor: pointer;
 }
 
-/* line 365, ../../dev/sass/base/general.scss */
+/* line 364, ../../dev/sass/base/general.scss */
 .size-box-edited {
   cursor: pointer;
 }
-/* line 367, ../../dev/sass/base/general.scss */
+/* line 366, ../../dev/sass/base/general.scss */
 .size-box-edited .size-rect {
   fill: #6ed44a;
 }
-/* line 370, ../../dev/sass/base/general.scss */
+/* line 369, ../../dev/sass/base/general.scss */
 .size-box-edited .size-value-edit, .size-box-edited .size-value-edit-vertical {
   stroke: #fff;
   fill: #fff;
 }
 
-/* line 376, ../../dev/sass/base/general.scss */
+/* line 375, ../../dev/sass/base/general.scss */
 .size-rect {
   stroke: #6ed44a;
   stroke-width: 0.1875rem;
   fill: #fff;
 }
 
-/* line 381, ../../dev/sass/base/general.scss */
+/* line 380, ../../dev/sass/base/general.scss */
 .size-value, .size-value-vertical {
   font-size: 5.625rem;
   stroke: #D2D2D2;
@@ -1492,12 +1492,12 @@ body {
   text-anchor: middle;
 }
 
-/* line 387, ../../dev/sass/base/general.scss */
+/* line 386, ../../dev/sass/base/general.scss */
 .size-value-vertical {
   text-anchor: end;
 }
 
-/* line 394, ../../dev/sass/base/general.scss */
+/* line 393, ../../dev/sass/base/general.scss */
 .size-value-edit, .size-value-edit-vertical {
   font-size: 5.625rem;
   stroke: #6ed44a;
@@ -1506,19 +1506,19 @@ body {
   text-anchor: middle;
 }
 
-/* line 401, ../../dev/sass/base/general.scss */
+/* line 400, ../../dev/sass/base/general.scss */
 .size-value-edit-vertical {
   text-anchor: end;
 }
 
-/* line 405, ../../dev/sass/base/general.scss */
+/* line 404, ../../dev/sass/base/general.scss */
 .open-direction {
   fill: none;
   stroke: #f98000;
   stroke-width: 2;
 }
 
-/* line 414, ../../dev/sass/base/general.scss */
+/* line 413, ../../dev/sass/base/general.scss */
 .scrolling-container, .scroll-vert-container, .scroll-hor-container, .cart-page .addelements-detail-content {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -1527,33 +1527,33 @@ body {
   overflow-scrolling: touch;
 }
 
-/* line 417, ../../dev/sass/base/general.scss */
+/* line 416, ../../dev/sass/base/general.scss */
 .scroll-vert, .scroll-vert-container {
   overflow-x: hidden;
   overflow-y: scroll;
 }
 
-/* line 421, ../../dev/sass/base/general.scss */
+/* line 420, ../../dev/sass/base/general.scss */
 .scroll-hor, .scroll-hor-container {
   overflow-x: scroll;
   overflow-y: hidden;
 }
 
-/* line 425, ../../dev/sass/base/general.scss */
+/* line 424, ../../dev/sass/base/general.scss */
 .scroll-vert-container {
   width: 100%;
   height: 90%;
   padding-top: 2rem;
 }
 
-/* line 432, ../../dev/sass/base/general.scss */
+/* line 431, ../../dev/sass/base/general.scss */
 .scroll-hor-container {
   width: 100%;
   height: 100%;
   padding-top: 2rem;
 }
 
-/* line 441, ../../dev/sass/base/general.scss */
+/* line 440, ../../dev/sass/base/general.scss */
 #sounds {
   visibility: hidden;
 }
@@ -1712,7 +1712,7 @@ body {
   width: 3.125rem;
   height: 3.125rem;
   margin: -3.125rem/2 0 0 -3.125rem/2;
-  background: url('../img/spinner.gif') no-repeat;
+  background: url('../img/spinner.gif?1422437877') no-repeat;
   background-size: cover;
 }
 
@@ -4649,55 +4649,55 @@ body {
 }
 /* line 478, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-row {
-  margin-bottom: 1.25rem;
+  padding-top: 1%;
 }
-/* line 484, ../../dev/sass/pages/cart.scss */
+/* line 485, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-total-label {
   min-width: 69%;
 }
-/* line 488, ../../dev/sass/pages/cart.scss */
+/* line 489, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement {
   width: 100%;
 }
-/* line 491, ../../dev/sass/pages/cart.scss */
+/* line 492, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-name {
   width: 31.25rem;
 }
-/* line 493, ../../dev/sass/pages/cart.scss */
+/* line 494, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-name .aux-name {
   max-width: 100%;
 }
-/* line 497, ../../dev/sass/pages/cart.scss */
+/* line 498, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-total {
   width: 75%;
 }
-/* line 500, ../../dev/sass/pages/cart.scss */
+/* line 501, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-qty {
   width: 6.25rem;
 }
-/* line 503, ../../dev/sass/pages/cart.scss */
+/* line 504, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-width,
 .addelementunique-header .aux-list-addellement .aux-tablecell-height {
   width: 9.375rem;
 }
-/* line 507, ../../dev/sass/pages/cart.scss */
+/* line 508, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-color {
   width: 6.25rem;
 }
-/* line 510, ../../dev/sass/pages/cart.scss */
+/* line 511, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-price {
   width: 12.5rem;
 }
-/* line 512, ../../dev/sass/pages/cart.scss */
+/* line 513, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-price .aux-price, .addelementunique-header .aux-list-addellement .aux-tablecell-price .aux-total-price {
   text-align: center;
 }
-/* line 516, ../../dev/sass/pages/cart.scss */
+/* line 517, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-delete {
   width: 6.25rem;
 }
 
-/* line 523, ../../dev/sass/pages/cart.scss */
+/* line 524, ../../dev/sass/pages/cart.scss */
 .addelementunit-header-fon {
   top: -3.125rem;
   left: -6.25rem;
@@ -4708,21 +4708,21 @@ body {
   z-index: -1;
 }
 
-/* line 532, ../../dev/sass/pages/cart.scss */
+/* line 533, ../../dev/sass/pages/cart.scss */
 .addelementunits-container {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
   -o-overflow-scrolling: touch;
   -ms-overflow-scrolling: touch;
   overflow-scrolling: touch;
-  height: 95%;
+  height: 94%;
   overflow-x: hidden;
   overflow-y: auto;
   margin-top: 2%;
   padding-top: 3%;
 }
 
-/* line 541, ../../dev/sass/pages/cart.scss */
+/* line 542, ../../dev/sass/pages/cart.scss */
 .addelementunit-block {
   display: -webkit-flex;
   display: flex;
@@ -4730,9 +4730,10 @@ body {
   flex-flow: row wrap;
 }
 
-/* line 546, ../../dev/sass/pages/cart.scss */
+/* line 547, ../../dev/sass/pages/cart.scss */
 .addelementunit {
   width: 26.25rem;
+  min-width: 26.25rem;
   margin-bottom: 3.125rem;
   margin-right: 2.75rem;
   border-radius: 1.25rem;
@@ -4740,14 +4741,14 @@ body {
   text-align: center;
 }
 
-/* line 556, ../../dev/sass/pages/cart.scss */
+/* line 558, ../../dev/sass/pages/cart.scss */
 .addelementunit-header {
   position: relative;
   height: 13.125rem;
   padding-top: 2.5rem;
 }
 
-/* line 561, ../../dev/sass/pages/cart.scss */
+/* line 563, ../../dev/sass/pages/cart.scss */
 .addelementunit-delete {
   position: absolute;
   top: -1.25rem;
@@ -4756,12 +4757,12 @@ body {
   z-index: 9;
 }
 
-/* line 569, ../../dev/sass/pages/cart.scss */
+/* line 571, ../../dev/sass/pages/cart.scss */
 .addelementunit-content {
   padding: 2.5rem 1.25rem;
 }
 
-/* line 576, ../../dev/sass/pages/cart.scss */
+/* line 578, ../../dev/sass/pages/cart.scss */
 .addelementunit-footer {
   font: normal 3rem/6.25rem roboto-medium, sans-serif;
   border-bottom-left-radius: 1.25rem;
@@ -4770,102 +4771,153 @@ body {
   background-color: #4bd963;
 }
 
-/* line 584, ../../dev/sass/pages/cart.scss */
+/* line 588, ../../dev/sass/pages/cart.scss */
 .addelementunit-train {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
   -o-overflow-scrolling: touch;
   -ms-overflow-scrolling: touch;
   overflow-scrolling: touch;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  padding-top: 2%;
   overflow-x: auto;
   overflow-y: auto;
 }
-/* line 595, ../../dev/sass/pages/cart.scss */
+/* line 593, ../../dev/sass/pages/cart.scss */
+.addelementunit-train .addelementunit-train-inner {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+}
+/* line 600, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit.unit-last .link-right {
   display: none;
 }
-/* line 601, ../../dev/sass/pages/cart.scss */
+/* line 606, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit-link {
   position: absolute;
   bottom: 3.125rem;
   width: 3.75rem;
+  height: 5rem;
   border-bottom: 1px solid #4bd963;
 }
-/* line 606, ../../dev/sass/pages/cart.scss */
+/* line 612, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit-link.link-right {
-  right: -3.125rem;
+  right: -3.4375rem;
+}
+/* line 620, ../../dev/sass/pages/cart.scss */
+.addelementunit-train .link-explode-menu {
+  font: normal 2.25rem/4.0625rem roboto-light, sans-serif;
+  position: absolute;
+  bottom: 5.9375rem;
+  right: -40rem;
+  padding: 0 1.25rem;
+  border-radius: 1rem;
+  background-color: #242424;
+  color: #fff;
+  cursor: pointer;
+  z-index: 999;
+}
+/* line 632, ../../dev/sass/pages/cart.scss */
+.addelementunit-train .link-explode-menu:before {
+  position: absolute;
+  z-index: 99;
+  bottom: -1.25rem;
+  left: 1.875rem;
+  display: block;
+  width: 0;
+  border-width: 1.25rem 1.25rem 0;
+  border-style: solid;
+  border-color: #242424 transparent;
+  content: '';
+}
+/* line 646, ../../dev/sass/pages/cart.scss */
+.addelementunit-train ul.link-explode-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* line 652, ../../dev/sass/pages/cart.scss */
+.addelementunit-train li.link-explode-item {
+  display: inline-block;
+  line-height: 5rem;
+  padding-right: 0.9375rem;
+  border-right: 1px solid #bebebe;
+  text-align: center;
+  color: #ddd;
+}
+/* line 660, ../../dev/sass/pages/cart.scss */
+.addelementunit-train li.link-explode-item:last-child {
+  border-right: none;
+  padding-left: 0.5rem;
+  padding-right: 0;
 }
 
-/* line 617, ../../dev/sass/pages/cart.scss */
+/* line 673, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block {
   padding: 3.125rem 0;
   border-bottom: 1px solid #bebebe;
 }
-/* line 621, ../../dev/sass/pages/cart.scss */
+/* line 677, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block:last-child {
   padding: 3.125rem 0 0 0;
   border: none;
 }
-/* line 627, ../../dev/sass/pages/cart.scss */
+/* line 683, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block-title,
 .addelementunit-only .aux-total-label {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
 }
-/* line 633, ../../dev/sass/pages/cart.scss */
+/* line 689, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block-title:first-letter {
   text-transform: uppercase;
 }
-/* line 636, ../../dev/sass/pages/cart.scss */
+/* line 692, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-row {
   margin-bottom: 1.25rem;
 }
-/* line 642, ../../dev/sass/pages/cart.scss */
+/* line 698, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-total-label {
   min-width: 69%;
 }
-/* line 646, ../../dev/sass/pages/cart.scss */
+/* line 702, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement {
   width: 100%;
 }
-/* line 649, ../../dev/sass/pages/cart.scss */
+/* line 705, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-name {
   width: 31.25rem;
 }
-/* line 651, ../../dev/sass/pages/cart.scss */
+/* line 707, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-name .aux-name {
   max-width: 100%;
 }
-/* line 655, ../../dev/sass/pages/cart.scss */
+/* line 711, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-total {
   width: 75%;
 }
-/* line 658, ../../dev/sass/pages/cart.scss */
+/* line 714, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-qty {
   width: 6.25rem;
 }
-/* line 661, ../../dev/sass/pages/cart.scss */
+/* line 717, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-width,
 .addelementunit-only .aux-list-addellement .aux-tablecell-height {
   width: 9.375rem;
 }
-/* line 665, ../../dev/sass/pages/cart.scss */
+/* line 721, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-color {
   width: 6.25rem;
 }
-/* line 668, ../../dev/sass/pages/cart.scss */
+/* line 724, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-price {
   width: 12.5rem;
 }
-/* line 670, ../../dev/sass/pages/cart.scss */
+/* line 726, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-price .aux-price, .addelementunit-only .aux-list-addellement .aux-tablecell-price .aux-total-price {
   text-align: center;
 }
-/* line 674, ../../dev/sass/pages/cart.scss */
+/* line 730, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-delete {
   width: 6.25rem;
 }
@@ -6552,18 +6604,17 @@ li.sash-shape-icon:last-child {
 /* line 15, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-block-footer {
   overflow-x: auto;
-  min-width: 98%;
   height: 23.125rem;
   margin-top: 3.125rem;
 }
-/* line 22, ../../dev/sass/panels/glass.scss */
+/* line 21, ../../dev/sass/panels/glass.scss */
 .glass-container .footer-inner {
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 26, ../../dev/sass/panels/glass.scss */
+/* line 25, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box {
   -moz-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
@@ -6573,21 +6624,21 @@ li.sash-shape-icon:last-child {
   height: 19.375rem;
   margin-right: 3.125rem;
 }
-/* line 32, ../../dev/sass/panels/glass.scss */
+/* line 31, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box.selected {
   position: relative;
   background-color: #6ed44a;
 }
-/* line 35, ../../dev/sass/panels/glass.scss */
+/* line 34, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box.selected .glass-type {
   background-color: #57b23c;
 }
-/* line 38, ../../dev/sass/panels/glass.scss */
+/* line 37, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box.selected:after {
   top: 2.5rem;
   left: 1.875rem;
 }
-/* line 43, ../../dev/sass/panels/glass.scss */
+/* line 42, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box-view {
   display: -webkit-flex;
   display: flex;
@@ -6600,27 +6651,27 @@ li.sash-shape-icon:last-child {
   max-width: 9.375rem;
   text-align: center;
 }
-/* line 52, ../../dev/sass/panels/glass.scss */
+/* line 51, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box-view .label {
   max-width: 9.375rem;
   word-wrap: break-word;
 }
-/* line 58, ../../dev/sass/panels/glass.scss */
+/* line 57, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-img img {
   max-width: 9.375rem;
 }
-/* line 62, ../../dev/sass/panels/glass.scss */
+/* line 61, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box-data {
   float: right;
   width: 14.0625rem;
 }
-/* line 66, ../../dev/sass/panels/glass.scss */
+/* line 65, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-descr {
   font: normal 2.25rem/1.42857 roboto-medium, sans-serif;
   margin-bottom: 3.125rem;
   color: #363636;
 }
-/* line 73, ../../dev/sass/panels/glass.scss */
+/* line 72, ../../dev/sass/panels/glass.scss */
 .glass-container .label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #8c8c8c;
