@@ -515,6 +515,10 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                       svg-template(template="global.order.products[(addElemWagon.productId - 1)].templateIcon", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="icon")
                   .addelementunit-content
                     .addelementunit-value {{ global.order.products[(addElemWagon.productId - 1)].templateWidth }} * {{ global.order.products[(addElemWagon.productId - 1)].templateHeight }} {{ 'mainpage.MM' | translate }}
+                    .addelementunit-value {{ global.order.products[(addElemWagon.productId - 1)].profileName }}
+                    .addelementunit-value {{ global.order.products[(addElemWagon.productId - 1)].glassName }}
+                    .addelementunit-value {{ global.order.products[(addElemWagon.productId - 1)].hardwareName }}
+                    .addelementunit-value {{ global.order.products[(addElemWagon.productId - 1)].laminationOutName }} / {{ global.order.products[(addElemWagon.productId - 1)].laminationInName }}
                   .addelementunit-footer {{ addElemWagon.elementQty }} {{ 'add_elements.QTY_LABEL' | translate }}
                   //link explode menu
                   .link-explode-menu(ng-show="$first && cart.isShowLinkExplodeMenu")

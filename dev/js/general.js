@@ -18,6 +18,18 @@ var STEP = 50,
       switching: {start: 1.81, end: 2.88}
     };
 
+Array.prototype.min = function () {
+  return this.reduce(function (p, v) {
+    return ( p < v ? p : v );
+  });
+}
+
+Array.prototype.max = function () {
+  return this.reduce(function (p, v) {
+    return ( p > v ? p : v );
+  });
+}
+
 function typingTextByChar($textElem1, $textElem2) {
   var source = $textElem1.data('output'),
       newText = '',
@@ -196,57 +208,8 @@ var CrossPoint = function (sourceObj, depthSource) {
 CrossPoint.prototype = FrameObject;
 
 
-//--------- Cross Point for Impost ---------
-var CrossPointImpost = function(sourceObj, depthSource) {
-  FrameObject.call(this, sourceObj);
-  this.lineId1 = sourceObj.line1;
-  this.lineId2 = sourceObj.line2;
-  this.depth = depthSource;
 
-  this.parseIds = function(fullTemplate) {
-    this.line1 = fullTemplate.findById(this.lineId1);
-    this.line2 = fullTemplate.findById(this.lineId2);
-    this.getCoordinates(this.line1, this.line2, this.depth);
-  };
-
-
-  this.getCoordinates = function(line1, line2, depth) {
-    var newCoefC1, newCoefC2;
-    if(line1.id.indexOf('impost')+1) {
-      newCoefC1 = this.getNewCoefC(depth ,line1);
-    }
-    if(line2.id.indexOf('impost')+1) {
-      newCoefC2 = this.getNewCoefC(depth ,line2);
-    }
-    this.getCoordCrossPoint (line1, line2, newCoefC1, newCoefC2);
-  };
-
-  this.getNewCoefC = function (depth, line) {
-    var newCoefC = line.coefC - (depth * Math.sqrt(Math.pow(line.coefA, 2) + Math.pow(line.coefB, 2)));
-    return newCoefC;
-  };
-
-  this.getCoordCrossPoint = function(line1, line2, coefC1, coefC2) {
-    var coefA1 = line1.coefA,
-        coefB1 = line1.coefB,
-        coefA2 = line2.coefA,
-        coefB2 = line2.coefB;
-
-    if(!coefC2) {
-      var coefC2 = line2.coefC;
-    }
-    var base = (coefA1 * coefB2) - (coefA2 * coefB1),
-        baseX = ((-coefC1) * coefB2) - (coefB1 * (-coefC2)),
-        baseY = (coefA1 * (-coefC2)) - (coefA2 * (-coefC1));
-    this.x = baseX / base;
-    this.y = baseY / base;
-  };
-};
-CrossPointImpost.prototype = FrameObject;
-
-
-//-----------Cross Point for Sash -------------------
-//-----------Cross Point Glass Package-------------------
+//-----------Cross Point for Impost, Sash, Glass Package -------------------
 var CrossPointDiff = function (sourceObj, depthSource, depthSource2) {
   FrameObject.call(this, sourceObj);
   this.lineId1 = sourceObj.line1;
@@ -272,7 +235,7 @@ var CrossPointDiff = function (sourceObj, depthSource, depthSource2) {
     if(line2.id.indexOf('impost')+1) {
       newCoefC2 = this.getNewCoefC(depthDif ,line2);
     } else {
-      newCoefC2 = this.getNewCoefC(depthDif ,line2);
+      newCoefC2 = this.getNewCoefC(depth ,line2);
     }
     this.getCoordCrossPoint (line1, line2, newCoefC1, newCoefC2);
   };
@@ -466,7 +429,9 @@ var Template = function (sourceObj, depths) {
       case 'impost_in_line': tmpObject = new ImpostLine(sourceObj.objects[i]);
         break;
       case 'cross_point_impost':
-          tmpObject = new CrossPointImpost(sourceObj.objects[i], depths.impostDepth.c/2);
+          //tmpObject = new CrossPointImpost(sourceObj.objects[i], depths.impostDepth.c/2, depths.frameDepth.c);
+          tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.c,  depths.impostDepth.c/2);
+
         break;
       case 'sash_line':  tmpObject = new SashLine(sourceObj.objects[i]);
         break;
@@ -593,7 +558,8 @@ var TemplateIcon = function (sourceObj, depths) {
       case 'impost_in_line': tmpObject = new ImpostLine(sourceObj.objects[i]);
         break;
       case 'cross_point_impost':
-        tmpObject = new CrossPointImpost(sourceObj.objects[i], (depths.impostDepth.c/2) * coeffScale);
+        //tmpObject = new CrossPointImpost(sourceObj.objects[i], (depths.impostDepth.c/2) * coeffScale);
+        tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.c * coeffScale,  (depths.impostDepth.c/2) * coeffScale );
         break;
       case 'sash_line':  tmpObject = new SashLine(sourceObj.objects[i]);
         break;

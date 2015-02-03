@@ -56,7 +56,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     typing: 'on'
   };
 
-  var p, prod, product, newProductsQty, addElementUnique;
+  var p, prod, product, addElementUnique;
 
   $scope.isCartLightView = false;
 
@@ -403,8 +403,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
   //----- Reduce Product Qty
   $scope.lessProduct = function(productIndex) {
-
-    newProductsQty = $scope.global.order.products[productIndex].productQty;
+    var newProductsQty = $scope.global.order.products[productIndex].productQty;
     if(newProductsQty === 1) {
       $scope.clickDeleteProduct(productIndex);
     } else {
@@ -415,15 +414,13 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
       localDB.updateDB($scope.global.productsTableBD, {"productQty": newProductsQty}, {'orderId': {"value": $scope.global.order.orderId, "union": 'AND'}, "productId": productIdBD});
 
       $scope.global.calculateOrderPrice();
-
     }
   };
 
 
   //----- Increase Product Qty
   $scope.moreProduct = function(productIndex) {
-
-    newProductsQty = $scope.global.order.products[productIndex].productQty;
+    var newProductsQty = $scope.global.order.products[productIndex].productQty;
     ++newProductsQty;
     $scope.global.order.products[productIndex].productQty = newProductsQty;
     // Change product value in DB
@@ -431,7 +428,6 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     localDB.updateDB($scope.global.productsTableBD, {"productQty": newProductsQty}, {'orderId': {"value": $scope.global.order.orderId, "union": 'AND'}, "productId": productIdBD});
 
     $scope.global.calculateOrderPrice();
-
   };
 
 
@@ -728,6 +724,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
   //------ delete AddElement Unit in selectedAddElementUnits panel
   $scope.deleteAddElementUnit = function(parentIndex, elementIndex, addElementUnit) {
+    console.log('start delete addElementsUniqueList = ', $scope.cart.addElementsUniqueList);
     //---- close selectedAddElementUnits panel when we delete last unit
     if($scope.cart.selectedAddElementUnits.length === 1) {
       $scope.deleteAddElementList($scope.cart.selectedAddElementUnitType, addElementUnit.elementId);
@@ -770,6 +767,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
       $scope.global.calculateOrderPrice();
 
     }
+    console.log('end delete addElementsUniqueList = ', $scope.cart.addElementsUniqueList);
   };
 
   //-------- Show/Hide Explode Link Menu
@@ -778,12 +776,31 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   };
 
   //-------- Explode group to one unit
-  $scope.explodeUnitToOneProduct = function() {
+  $scope.explodeUnitToOneProduct = function(parentIndex) {
     $scope.cart.isShowLinkExplodeMenu = !$scope.cart.isShowLinkExplodeMenu;
+
+    //----- change selected product
+    var currentProductId = $scope.cart.selectedAddElementUnits[parentIndex][0].productId;
+    var currentProductIndex = currentProductId - 1;
+    var newProductsQty = $scope.global.order.products[currentProductIndex].productQty - 1;
+
+    // making clone
+    var cloneProduct = angular.copy($scope.global.order.products[currentProductIndex]);
+    cloneProduct.productId = '';
+    cloneProduct.productQty = 1;
+    $scope.global.order.products.push(cloneProduct);
+
+    $scope.global.order.products[currentProductIndex].productQty = newProductsQty;
+    // Change product value in DB
+    localDB.updateDB($scope.global.productsTableBD, {"productQty": newProductsQty}, {'orderId': {"value": $scope.global.order.orderId, "union": 'AND'}, "productId": currentProductId});
+
+    console.log('selectedAddElementUnits == ', $scope.cart.selectedAddElementUnits);
+    console.log('selected obj == ', $scope.cart.selectedAddElementUnits[parentIndex][0]);
+    console.log('selected product id== ' );
   };
 
   //-------- Explode all group
-  $scope.explodeUnitGroupToProducts = function() {
+  $scope.explodeUnitGroupToProducts = function(parentIndex) {
     $scope.cart.isShowLinkExplodeMenu = !$scope.cart.isShowLinkExplodeMenu;
   };
 

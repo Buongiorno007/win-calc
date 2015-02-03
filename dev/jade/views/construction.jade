@@ -28,15 +28,19 @@ section.construction-page(ng-controller="ConstructionCtrl")
       .construction-scrollbox
         svg-template(template="templateDefaultTEMP", template-width="svgTemplateWidthTEMP", template-height="svgTemplateHeightTEMP", type-construction="edit")
 
-    #sash-shape-menu(ng-show="constructData.isSashEdit && constructData.isSashEditMenu")
-      ul.sash-shape-list
-        li.sash-shape-icon.sash-empty(hm-tap="insertNewSash('empty')")
-        li.sash-shape-icon.sash-left(hm-tap="insertNewSash('left')")
-        li.sash-shape-icon.sash-right(hm-tap="insertNewSash('right')")
-        li.sash-shape-icon.sash-up(hm-tap="insertNewSash('up')")
-        li.sash-shape-icon.sash-down(hm-tap="insertNewSash('down')")
-        li.sash-shape-icon.sash-right-up(hm-tap="insertNewSash('up', 'right')")
-        li.sash-shape-icon.sash-left-up(hm-tap="insertNewSash('up', 'left')")
+    #sash-shape-menu.constr-shape-menu(ng-show="constructData.isSashEdit && constructData.isSashEditMenu")
+      ul.constr-shape-list
+        li.constr-shape-icon.sash-empty(hm-tap="insertNewSash('empty')")
+        li.constr-shape-icon.sash-left(hm-tap="insertNewSash('left')")
+        li.constr-shape-icon.sash-right(hm-tap="insertNewSash('right')")
+        li.constr-shape-icon.sash-up(hm-tap="insertNewSash('up')")
+        li.constr-shape-icon.sash-down(hm-tap="insertNewSash('down')")
+        li.constr-shape-icon.sash-right-up(hm-tap="insertNewSash('up', 'right')")
+        li.constr-shape-icon.sash-left-up(hm-tap="insertNewSash('up', 'left')")
+
+    #impost-shape-menu.constr-shape-menu(ng-show="constructData.isImpostEdit && constructData.isImpostEditMenu")
+      ul.constr-shape-list
+        li.constr-shape-icon.sash-empty(hm-tap="insertNewImpost('vert')")
 
     .construction-right-menu
       .right-menu-header

@@ -5038,7 +5038,7 @@ body {
 }
 
 /* line 140, ../../dev/sass/pages/construction.scss */
-#sash-shape-menu {
+.constr-shape-menu {
   top: 0rem;
   left: 0rem;
   font: normal 2.25rem/4.0625rem roboto-light, sans-serif;
@@ -5051,7 +5051,7 @@ body {
   z-index: 999;
 }
 /* line 151, ../../dev/sass/pages/construction.scss */
-#sash-shape-menu:before {
+.constr-shape-menu:before {
   position: absolute;
   z-index: 99;
   bottom: -1.25rem;
@@ -5065,14 +5065,14 @@ body {
 }
 
 /* line 165, ../../dev/sass/pages/construction.scss */
-ul.sash-shape-list {
+ul.constr-shape-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 /* line 171, ../../dev/sass/pages/construction.scss */
-li.sash-shape-icon {
+li.constr-shape-icon {
   font: normal 3.125rem/5rem general-icons, sans-serif;
   display: inline-block;
   width: 5rem;
@@ -5083,7 +5083,7 @@ li.sash-shape-icon {
   color: #ddd;
 }
 /* line 181, ../../dev/sass/pages/construction.scss */
-li.sash-shape-icon:last-child {
+li.constr-shape-icon:last-child {
   border-right: none;
 }
 

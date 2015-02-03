@@ -34,15 +34,20 @@
         <svg-template template="templateDefaultTEMP" template-width="svgTemplateWidthTEMP" template-height="svgTemplateHeightTEMP" type-construction="edit"></svg-template>
       </div>
     </div>
-    <div id="sash-shape-menu" ng-show="constructData.isSashEdit &amp;&amp; constructData.isSashEditMenu">
-      <ul class="sash-shape-list">
-        <li hm-tap="insertNewSash('empty')" class="sash-shape-icon sash-empty"></li>
-        <li hm-tap="insertNewSash('left')" class="sash-shape-icon sash-left"></li>
-        <li hm-tap="insertNewSash('right')" class="sash-shape-icon sash-right"></li>
-        <li hm-tap="insertNewSash('up')" class="sash-shape-icon sash-up"></li>
-        <li hm-tap="insertNewSash('down')" class="sash-shape-icon sash-down"></li>
-        <li hm-tap="insertNewSash('up', 'right')" class="sash-shape-icon sash-right-up"></li>
-        <li hm-tap="insertNewSash('up', 'left')" class="sash-shape-icon sash-left-up"></li>
+    <div id="sash-shape-menu" ng-show="constructData.isSashEdit &amp;&amp; constructData.isSashEditMenu" class="constr-shape-menu">
+      <ul class="constr-shape-list">
+        <li hm-tap="insertNewSash('empty')" class="constr-shape-icon sash-empty"></li>
+        <li hm-tap="insertNewSash('left')" class="constr-shape-icon sash-left"></li>
+        <li hm-tap="insertNewSash('right')" class="constr-shape-icon sash-right"></li>
+        <li hm-tap="insertNewSash('up')" class="constr-shape-icon sash-up"></li>
+        <li hm-tap="insertNewSash('down')" class="constr-shape-icon sash-down"></li>
+        <li hm-tap="insertNewSash('up', 'right')" class="constr-shape-icon sash-right-up"></li>
+        <li hm-tap="insertNewSash('up', 'left')" class="constr-shape-icon sash-left-up"></li>
+      </ul>
+    </div>
+    <div id="impost-shape-menu" ng-show="constructData.isImpostEdit &amp;&amp; constructData.isImpostEditMenu" class="constr-shape-menu">
+      <ul class="constr-shape-list">
+        <li hm-tap="insertNewImpost('vert')" class="constr-shape-icon sash-empty"></li>
       </ul>
     </div>
     <div class="construction-right-menu">

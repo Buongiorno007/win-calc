@@ -137,7 +137,7 @@ $door-config-content: $ipad-height - $door-config-header;
 
 // Construction Edit menu
 
-#sash-shape-menu {
+.constr-shape-menu {
   @include top_left_coord(0px, 0px);
   @include roboto-lt(rem(36px), rem(65px));
   position: absolute;
@@ -162,13 +162,13 @@ $door-config-content: $ipad-height - $door-config-header;
   }
 }
 
-ul.sash-shape-list {
+ul.constr-shape-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-li.sash-shape-icon {
+li.constr-shape-icon {
   @include font-general-icon(rem(50px), rem(80px));
   display: inline-block;
   width: rem(80px);
