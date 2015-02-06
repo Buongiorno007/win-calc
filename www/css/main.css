@@ -1434,7 +1434,7 @@ body {
 
 /* line 339, ../../dev/sass/base/general.scss */
 .frame, .sash, .impost, .bead {
-  fill: #fff;
+  fill: #f9f9f9;
   stroke: #363636;
   stroke-width: 2;
 }

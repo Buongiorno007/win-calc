@@ -155,7 +155,8 @@ window.englishDictionary = {
     VOICE_SWITCH_ON: "The voice helper is switched on",
     VOICE_NOT_UNDERSTAND: 'It is not clear',
     VOICE_SMALLEST_SIZE: 'The smallest size',
-    VOICE_BIGGEST_SIZE: "The biggest size"
+    VOICE_BIGGEST_SIZE: "The biggest size",
+    VOICE_SMALL_GLASS_BLOCK: "слишком маленький световой проем"
   },
   history: {
     SEARCH_PLACEHOLDER: 'Search by keyword',

@@ -155,7 +155,8 @@ window.germanDictionary = {
     VOICE_SWITCH_ON: "Voice-Modus aktiviert ist",
     VOICE_NOT_UNDERSTAND: 'es ist nicht klar',
     VOICE_SMALLEST_SIZE: 'zu klein',
-    VOICE_BIGGEST_SIZE: "zu groß"
+    VOICE_BIGGEST_SIZE: "zu groß",
+    VOICE_SMALL_GLASS_BLOCK: "слишком маленький световой проем"
   },
   history: {
     SEARCH_PLACEHOLDER: 'Suche nach Stichwort',

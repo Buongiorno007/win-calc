@@ -155,7 +155,8 @@ window.ukrainianDictionary = {
     VOICE_SWITCH_ON: "голосовий режим включен",
     VOICE_NOT_UNDERSTAND: 'Не зрозуміло',
     VOICE_SMALLEST_SIZE: 'замалий розмір',
-    VOICE_BIGGEST_SIZE: "завеликий розмір"
+    VOICE_BIGGEST_SIZE: "завеликий розмір",
+    VOICE_SMALL_GLASS_BLOCK: "слишком маленький световой проем"
   },
   history: {
     SEARCH_PLACEHOLDER: 'Пошук за ключовими словами',

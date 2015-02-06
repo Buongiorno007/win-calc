@@ -40,7 +40,9 @@ section.construction-page(ng-controller="ConstructionCtrl")
 
     #impost-shape-menu.constr-shape-menu(ng-show="constructData.isImpostEdit && constructData.isImpostEditMenu")
       ul.constr-shape-list
-        li.constr-shape-icon.sash-empty(hm-tap="insertNewImpost('vert')")
+        li.constr-shape-icon.sash-up(hm-tap="insertNewImpost('vert')")
+        li.constr-shape-icon.sash-left(hm-tap="insertNewImpost('horis')")
+        li.constr-shape-icon.sash-right-up(hm-tap="insertNewImpost('angel-top')")
 
     .construction-right-menu
       .right-menu-header

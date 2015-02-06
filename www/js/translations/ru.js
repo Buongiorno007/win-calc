@@ -155,7 +155,8 @@ window.russianDictionary = {
     VOICE_SWITCH_ON: "голосовой режим включен",
     VOICE_NOT_UNDERSTAND: 'Не понятно',
     VOICE_SMALLEST_SIZE: 'слишком маленький размер',
-    VOICE_BIGGEST_SIZE: "слишком большой размер"
+    VOICE_BIGGEST_SIZE: "слишком большой размер",
+    VOICE_SMALL_GLASS_BLOCK: "слишком маленький световой проем"
   },
   history: {
     SEARCH_PLACEHOLDER: 'Поиск по ключевым словам',

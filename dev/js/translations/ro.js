@@ -152,7 +152,8 @@ window.romanianDictionary = {
     VOICE_SWITCH_ON: "Modul Voce este activat",
     VOICE_NOT_UNDERSTAND: 'nu este clar',
     VOICE_SMALLEST_SIZE: 'prea mic',
-    VOICE_BIGGEST_SIZE: "prea mare"
+    VOICE_BIGGEST_SIZE: "prea mare",
+    VOICE_SMALL_GLASS_BLOCK: "слишком маленький световой проем"
   },
   history: {
     SEARCH_PLACEHOLDER: 'Căutare după cuvinte cheie',
