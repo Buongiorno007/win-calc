@@ -254,7 +254,7 @@ BauVoiceApp.factory('constructService', function ($q) {
     getDefaultConstructTemplate: function(callback) {
       callback(new OkResult({
         windows: [
-          /*
+
           {
             'name': 'Одностворчатое',
             'objects': [
@@ -420,12 +420,12 @@ BauVoiceApp.factory('constructService', function ($q) {
             'name':'Двухстворчатое',
             'objects':[
               //------- main points
-              {'type':'fixed_point', id:'fp1', x:'0', y: '0'},
-              {'type':'fixed_point', id:'fp2', x:'1060', y:'0'},
-              {'type':'fixed_point', id:'fp3', x:'1060', y:'1320'},
-              {'type':'fixed_point', id:'fp4', x:'0', y:'1320'},
-              {'type':'fixed_point_impost', id:'fpimpost1', x:'530', y:'0'},
-              {'type':'fixed_point_impost', id:'fpimpost2', x:'530', y:'1320'},
+              {'type':'fixed_point', id:'fp1', x:0, y:0},
+              {'type':'fixed_point', id:'fp2', x:1060, y:0},
+              {'type':'fixed_point', id:'fp3', x:1060, y:1320},
+              {'type':'fixed_point', id:'fp4', x:0, y:1320},
+              {'type':'fixed_point_impost', id:'fpimpost1', x:530, y:0, dir:'vert'},
+              {'type':'fixed_point_impost', id:'fpimpost2', x:530, y:1320, dir:'vert'},
               //------- frame
               {'type': 'frame_line', id: 'frameline1', from: 'fp1', to: 'fp2'},
               {'type': 'frame_line', id: 'frameline2', from: 'fp2', to: 'fp3'},
@@ -557,19 +557,19 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'dimensionsV', id: 'overallDimV', from: ['fp1', 'fp2'], to: ['fp4', 'fp3'], level: 1, height: 150, side: 'left'},
               {'type': 'square', id: 'sqr', widths: ['overallDimH'], heights: ['overallDimV']}
             ]
-          },*/
+          },
           {
             'name':'Трехстворчатое',
             'objects':[
               //------- main points
-              {'type':'fixed_point', id:'fp1', x:'0', y: '0'},
-              {'type':'fixed_point', id:'fp2', x:'2100', y:'0'},
-              {'type':'fixed_point', id:'fp3', x:'2100', y:'1400'},
-              {'type':'fixed_point', id:'fp4', x:'0', y:'1400'},
-              {'type':'fixed_point_impost', id:'fpimpost1', x:'700', y:'0'},
-              {'type':'fixed_point_impost', id:'fpimpost2', x:'700', y:'1400'},
-              {'type':'fixed_point_impost', id:'fpimpost3', x:'1400', y:'0'},
-              {'type':'fixed_point_impost', id:'fpimpost4', x:'1400', y:'1400'},
+              {'type':'fixed_point', id:'fp1', x:0, y:0},
+              {'type':'fixed_point', id:'fp2', x:2100, y:0},
+              {'type':'fixed_point', id:'fp3', x:2100, y:1400},
+              {'type':'fixed_point', id:'fp4', x:0, y:1400},
+              {'type':'fixed_point_impost', id:'fpimpost1', x:700, y:0, dir:'vert'},
+              {'type':'fixed_point_impost', id:'fpimpost2', x:700, y:1400, dir:'vert'},
+              {'type':'fixed_point_impost', id:'fpimpost3', x:1400, y:0, dir:'vert'},
+              {'type':'fixed_point_impost', id:'fpimpost4', x:1400, y:1400, dir:'vert'},
               //------- frame
               {'type': 'frame_line', id: 'frameline1', from: 'fp1', to: 'fp2'},
               {'type': 'frame_line', id: 'frameline2', from: 'fp2', to: 'fp3'},
@@ -739,6 +739,7 @@ BauVoiceApp.factory('constructService', function ($q) {
               {'type': 'glass_paсkage', id: 'glass1', parts: ['glassline1', 'glassline2', 'glassline3', 'glassline4']},
               {'type': 'glass_paсkage', id: 'glass2', parts: ['glassline5', 'glassline6', 'glassline7', 'glassline8']},
               {'type': 'glass_paсkage', id: 'glass3', parts: ['glassline9', 'glassline10', 'glassline11', 'glassline12']},
+
               {'type': 'dimensionsH', id: 'dimH1', from: ['fp1', 'fp4'], to: ['fpimpost1', 'fpimpost2'], limits: ['overallDimH', 'dimH3'], links: ['fpimpost1', 'fpimpost2'], level: 1, side: 'top'},
               {'type': 'dimensionsH', id: 'dimH2', from: ['fpimpost1', 'fpimpost2'], to: ['fpimpost3', 'fpimpost4'], limits: ['overallDimH', 'dimH1'], links: ['fpimpost3', 'fpimpost4'], level: 1, side: 'top'},
               {'type': 'dimensionsH', id: 'dimH3', from: ['fpimpost3', 'fpimpost4'], to: ['fp2', 'fp3'], level: 1, side: 'top'},

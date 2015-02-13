@@ -26,7 +26,8 @@ section.construction-page(ng-controller="ConstructionCtrl")
 
     .construction-block
       .construction-scrollbox
-        svg-template(template="templateDefaultTEMP", template-width="svgTemplateWidthTEMP", template-height="svgTemplateHeightTEMP", type-construction="edit")
+        //svg-template(template="templateDefaultTEMP", template-width="svgTemplateWidthTEMP", template-height="svgTemplateHeightTEMP", type-construction="edit")
+        svg-template(template="templateDefaultTEMP", template-width="global.svgTemplateWidth", template-height="global.svgTemplateHeight", type-construction="edit")
 
     #sash-shape-menu.constr-shape-menu(ng-show="constructData.isSashEdit && constructData.isSashEditMenu")
       ul.constr-shape-list
@@ -42,7 +43,6 @@ section.construction-page(ng-controller="ConstructionCtrl")
       ul.constr-shape-list
         li.constr-shape-icon.sash-up(hm-tap="insertNewImpost('vert')")
         li.constr-shape-icon.sash-left(hm-tap="insertNewImpost('horis')")
-        li.constr-shape-icon.sash-right-up(hm-tap="insertNewImpost('angel-top')")
 
     .construction-right-menu
       .right-menu-header

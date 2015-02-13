@@ -156,6 +156,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       $scope.global.templatesWindListSTORE = angular.copy($scope.global.templatesWindList);
       $scope.global.templatesWindIconListSTORE = angular.copy($scope.global.templatesWindIconList);
       //---- window-door
+
       $scope.global.templatesWindDoorListSTORE = angular.copy($scope.global.templatesWindDoorList);
       $scope.global.templatesWindDoorIconListSTORE = angular.copy($scope.global.templatesWindDoorIconList);
       //---- balcony
@@ -171,7 +172,6 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     $scope.global.getCurrentTemplates();
     //------- set current template for product
     $scope.global.saveNewTemplateInProduct($scope.global.product.templateIndex);
-
     $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, profileIndex, profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
   };
 
