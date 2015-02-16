@@ -170,6 +170,10 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "type": "INTEGER",
       "null": "NOT NULL"
     },
+    "heatTransferMin":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
     "heatTransferTOTAL":{
       "type": "INTEGER",
       "null": "NOT NULL"

@@ -57,11 +57,11 @@
         </div>
       </div>
       <div ng-controller="RoomInfoCtrl" ng-class="{'show-comment': global.isShowCommentBlock}" hm-swipeup="swipeShowComment($event)" hm-swipedown="swipeHideComment($event)" class="room-info-container">
-        <div class="room-header">
-          <div class="room-name">{{ roomInfo.roomsData[(global.product.selectedRoomId-1)].name }}
-            <button show-delay="{{ roomInfo.DELAY_SHOW_ALLROOMS_BTN }}" hm-tap="showRoomSelectorDialog($event)" ng-hide="global.isShowCommentBlock" class="select-rooms unvisible">{{ 'common_words.ALL' | translate }}</button>
-          </div>
-        </div>
+        <!--.room-header
+        .room-name {{ roomInfo.roomsData[(global.product.selectedRoomId-1)].name }}
+          button.select-rooms.unvisible(show-delay="{{ roomInfo.DELAY_SHOW_ALLROOMS_BTN }}", hm-tap="showRoomSelectorDialog($event)", ng-hide="global.isShowCommentBlock") {{ 'common_words.ALL' | translate }}
+          
+        -->
         <div class="coeff-container">
           <div class="coeff-block">
             <div class="coeff climate">{{ global.currentGeoLocation.climaticZone }}</div>
@@ -74,10 +74,10 @@
             <div data-output="{{ 'mainpage.THERMAL_RESISTANCE' | translate }}" typing="{{ roomInfo.typing }}" typing-delay="{{ roomInfo.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
           </div>
           <div class="coeff-block">
-            <div ng-class="{'coeff-low': global.product.airCirculationTOTAL &lt; roomInfo.roomsData[(global.product.selectedRoomId-1)].airCirculation}" class="coeff heat-exchange">{{ global.product.airCirculationTOTAL }}
-              <div class="coeff-max">{{ roomInfo.roomsData[(global.product.selectedRoomId-1)].airCirculation }}</div>
-            </div>
-            <div data-output="{{ 'mainpage.AIR_CIRCULATION' | translate }}" typing="{{ roomInfo.typing }}" typing-delay="{{ roomInfo.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
+            <button show-delay="{{ roomInfo.DELAY_SHOW_ALLROOMS_BTN }}" hm-tap="showRoomSelectorDialog($event)" class="select-rooms unvisible">{{ 'mainpage.ROOM_SELECTION' | translate }}</button>
+            <!--.coeff.heat-exchange(ng-class="{'coeff-low': global.product.airCirculationTOTAL < roomInfo.roomsData[(global.product.selectedRoomId-1)].airCirculation}") {{ global.product.airCirculationTOTAL }}.coeff-max {{ roomInfo.roomsData[(global.product.selectedRoomId-1)].airCirculation }}
+            -->
+            <!--.coeff-title(data-output="{{ 'mainpage.AIR_CIRCULATION' | translate }}", typing="{{ roomInfo.typing }}", typing-delay="{{ roomInfo.DELAY_SHOW_COEFF }}")-->
           </div>
         </div>
         <div class="product-comment">
@@ -90,21 +90,21 @@
             <div class="room-block">
               <div show-delay="{{ roomData.DELAY_SHOW_ROOM1 }}" ng-class="{'selected': global.product.selectedRoomId === 1}" hm-tap="selectRoom(1)" class="room-box unvisible">
                 <div class="room-img kitchen">
-                  <div class="room-title">{{ 'mainpage.ROOM_KITCHEN' | translate }}</div>
+                  <!--.room-title {{ 'mainpage.ROOM_KITCHEN' | translate }}-->
                 </div>
               </div>
             </div>
             <div class="room-block">
               <div show-delay="{{ roomData.DELAY_SHOW_ROOM2 }}" ng-class="{'selected': global.product.selectedRoomId === 2}" hm-tap="selectRoom(2)" class="room-box unvisible">
                 <div class="room-img livingroom">
-                  <div class="room-title">{{ 'mainpage.ROOM_LIVINGROOM' | translate }}</div>
+                  <!--.room-title {{ 'mainpage.ROOM_LIVINGROOM' | translate }}-->
                 </div>
               </div>
             </div>
             <div class="room-block">
               <div show-delay="{{ roomData.DELAY_SHOW_ROOM3 }}" ng-class="{'selected': global.product.selectedRoomId === 3}" hm-tap="selectRoom(3)" class="room-box unvisible">
                 <div class="room-img balcony">
-                  <div class="room-title">{{ 'mainpage.ROOM_BALCONY' | translate }}</div>
+                  <!--.room-title {{ 'mainpage.ROOM_BALCONY' | translate }}-->
                 </div>
               </div>
             </div>
@@ -113,21 +113,21 @@
             <div class="room-block">
               <div show-delay="{{ roomData.DELAY_SHOW_ROOM4 }}" ng-class="{'selected': global.product.selectedRoomId === 4}" hm-tap="selectRoom(4)" class="room-box unvisible">
                 <div class="room-img childroom">
-                  <div class="room-title">{{ 'mainpage.ROOM_CHILDROOM' | translate }}</div>
+                  <!--.room-title {{ 'mainpage.ROOM_CHILDROOM' | translate }}-->
                 </div>
               </div>
             </div>
             <div class="room-block">
               <div show-delay="{{ roomData.DELAY_SHOW_ROOM5 }}" ng-class="{'selected': global.product.selectedRoomId === 5}" hm-tap="selectRoom(5)" class="room-box unvisible">
                 <div class="room-img bedroom">
-                  <div class="room-title">{{ 'mainpage.ROOM_BEDROOM' | translate }}</div>
+                  <!--.room-title {{ 'mainpage.ROOM_BEDROOM' | translate }}-->
                 </div>
               </div>
             </div>
             <div class="room-block">
               <div show-delay="{{ roomData.DELAY_SHOW_ROOM6 }}" ng-class="{'selected': global.product.selectedRoomId === 6}" hm-tap="selectRoom(6)" class="room-box unvisible">
                 <div class="room-img door">
-                  <div class="room-title">{{ 'mainpage.ROOM_DOOR' | translate }}</div>
+                  <!--.room-title {{ 'mainpage.ROOM_DOOR' | translate }}-->
                 </div>
               </div>
             </div>
@@ -1062,6 +1062,7 @@
             <div ng-if="global.order.products.length &gt; 0 &amp;&amp; !global.isCreatedNewProject" show-delay="{{ configMenu.DELAY_START }}" class="qty unvisible">{{ global.order.products.length }}</div>
           </button>
         </footer>
+        <div ng-if="global.isConfigMenu" ng-class="{'u-coeff-low': global.product.heatTransferTOTAL &lt; global.currentGeoLocation.heatTransfer}" show-delay="{{ configMenu.DELAY_SHOW_U_COEFF }}" class="product-u-coeff unvisible">U = {{ global.product.heatTransferTOTAL }}</div>
         <div ng-show="global.product.isAddElementsONLY" class="curtain"></div>
       </div>
       <div ng-controller="ElementsListCtrl" ng-class="[global.showAddElementsMenu, global.addElementsMenuStyle]" class="elements-list-container">

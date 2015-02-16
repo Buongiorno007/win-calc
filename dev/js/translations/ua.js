@@ -68,7 +68,8 @@ window.ukrainianDictionary = {
     CONFIGMENU_ADDITIONAL: 'Додатково',
     CONFIGMENU_IN_CART: 'В кошик',
     VOICE_SPEACH: 'Говоріть...',
-    COMMENT: 'Залиште свою замітку про заказ тут.'
+    COMMENT: 'Залиште свою замітку про заказ тут.',
+    ROOM_SELECTION: 'Вибір інтер`єру'
   },
   panels: {
     TEMPLATE_WINDOW: 'Вікно',

@@ -438,7 +438,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   //------- Show AddElements detail block for product
   $scope.showAllAddElementDetail = function(productIndex) {
     if($scope.cart.allAddElements[productIndex].length > 0) {
-      playSound('switching');
+      //playSound('switching');
       $scope.cart.activeProductIndex = productIndex;
       $scope.cart.isAddElementDetail = true;
     }
@@ -450,7 +450,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
   // Full/Light View switcher
   $scope.viewSwitching = function() {
-    playSound('swip');
+    //playSound('swip');
     $scope.isCartLightView = !$scope.isCartLightView;
   };
 
@@ -567,7 +567,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   $scope.showAllAddElements = function() {
     //--- open if AddElements are existed
     if($scope.cart.isOrderHaveAddElements) {
-      playSound('swip');
+      //playSound('swip');
       $scope.cart.isShowAllAddElements = !$scope.cart.isShowAllAddElements;
       if($scope.cart.isShowAllAddElements) {
         $scope.prepareAllAddElementsList();

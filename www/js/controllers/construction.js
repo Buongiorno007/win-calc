@@ -63,7 +63,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
   var sizeClass = 'size-box',
       sizeEditClass = 'size-box-edited',
-      newLength, fromPointsId, toPointsId;
+      newLength;
 
 
   $scope.templateSourceOLD = angular.copy($scope.global.product.templateSource);
@@ -100,22 +100,37 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     $scope.constructData.lockShape = $scope.constructData.lockShapeDefault;
   }
 
+  //------- Select and deselect Glasses
+  function manipulationWithGlasses(indicator) {
+    $('svg-template').find('.glass').each(function() {
+      if(indicator) {
+        $(this).css('fill', 'rgba(34, 34, 255, 0.69)');
+      } else {
+        $(this).css('fill', 'rgba(155, 204, 255, 0.20)');
+      }
+    });
+  }
+
+
   //--------Select menu item
   $scope.selectMenuItem = function(id) {
     $scope.constructData.activeMenuItem = ($scope.constructData.activeMenuItem === id) ? false : id;
+    //console.log('activeMenuItem = ', $scope.constructData.activeMenuItem);
     deactivateShapeMenu();
     $scope.constructData.isSashEditMenu = false;
     $scope.constructData.isImpostEditMenu = false;
-    deactivateSelectedGlasses();
-    switch(id) {
+    manipulationWithGlasses($scope.constructData.activeMenuItem);
+    switch($scope.constructData.activeMenuItem) {
       case 1:
         $scope.constructData.isSashEdit = true;
+        manipulationWithGlasses($scope.constructData.isSashEdit);
         break;
       case 2:
         $scope.constructData.isAngelEdit = true;
         break;
       case 3:
         $scope.constructData.isImpostEdit = true;
+        manipulationWithGlasses($scope.constructData.isImpostEdit);
         break;
       case 4:
         $scope.constructData.isArchEdit = true;
@@ -225,7 +240,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     $scope.global.product.doorSashShapeId = $scope.constructData.selectedSashShape;
     $scope.global.product.doorHandleShapeId = $scope.constructData.selectedHandleShape;
     $scope.global.product.doorLockShapeId = $scope.constructData.selectedLockShape;
-    console.log('product door', $scope.global.product);
+    //console.log('product door', $scope.global.product);
   };
 
   //=============== End Door ==================
@@ -273,9 +288,9 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   $scope.backtoTemplatePanel = function() {
     $scope.global.prepareMainPage();
     $scope.global.isReturnFromDiffPage = true;
-    console.log('construction page!!!!!!!!!!!');
-    console.log('product ====== ', $scope.global.product);
-    console.log('order ====== ', $scope.global.order);
+    //console.log('construction page!!!!!!!!!!!');
+    //console.log('product ====== ', $scope.global.product);
+    //console.log('order ====== ', $scope.global.order);
     $location.path('/main');
   };
 
@@ -310,11 +325,11 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
   //----- click on size SVG and get size value and Id
   $('svg-template').off("click", ".size-box-edited").on("click", ".size-box-edited", function() {
-    console.log('Click on size');
-    console.log('calculator', $scope.global.isConstructSizeCalculator);
+    //console.log('Click on size');
+    //console.log('calculator', $scope.global.isConstructSizeCalculator);
     if(!$scope.global.isConstructSizeCalculator) {
       var thisSize = $(this).find('text');
-      console.log('thisSize = ', thisSize);
+      //console.log('thisSize = ', thisSize);
       $scope.constructData.startSize = +thisSize.attr('from-point');
       $scope.constructData.finishSize = +thisSize.attr('to-point');
       $scope.constructData.minSizePoint = +thisSize.attr('min-val');
@@ -322,10 +337,13 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
       $scope.constructData.maxSizeLimit = ($scope.constructData.maxSizePoint - $scope.constructData.startSize);
       if(thisSize.attr('id') === 'overallDimH' || thisSize.attr('id') === 'overallDimV') {
         $scope.constructData.minSizeLimit = $scope.constructData.minSizePoint;
+      } else {
+        $scope.constructData.minSizeLimit = 200;
       }
       $scope.constructData.tempSizeId = thisSize.attr('id');
       $scope.constructData.tempSizeType = thisSize.attr('size-type');
       $scope.constructData.oldSizeValue = +thisSize.text();
+/*
       console.log('startSize = ', $scope.constructData.startSize);
       console.log('finishSize = ', $scope.constructData.finishSize);
       console.log('minSizePoint = ', $scope.constructData.minSizePoint);
@@ -333,54 +351,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
       console.log('tempSizeId', $scope.constructData.tempSizeId);
       console.log('tempSizeType = ', $scope.constructData.tempSizeType);
       console.log('oldSizeValue = ', $scope.constructData.oldSizeValue);
-/*
-
-
-      //------- определение зависимых размеров и установка лимита
-      var limitSizesAtrr = thisSize.attr('limits');
-
-      if(limitSizesAtrr) {
-        var sizeType = thisSize.attr('type');
-        var limitSizesIds = limitSizesAtrr.split(' ');
-        if(sizeType === 'dimensionsH') {
-          if($scope.constructData.tempSizeId === 'overallDimH') {
-            for(var siz = 0; siz < limitSizesIds.length; siz++) {
-              var limitSizeValue = $('svg-template').find('#'+limitSizesIds[siz]).text();
-              $scope.constructData.minSizeLimit += parseInt(limitSizeValue, 10);
-            }
-          } else {
-            $scope.constructData.maxSizeLimit = -200;
-            for(var siz = 0; siz < limitSizesIds.length; siz++) {
-              var limitSizeValue = $('svg-template').find('#'+limitSizesIds[siz]).text();
-              if(limitSizesIds[siz] === 'overallDimH') {
-                $scope.constructData.maxSizeLimit += parseInt(limitSizeValue, 10);
-              } else {
-                $scope.constructData.maxSizeLimit -= parseInt(limitSizeValue, 10);
-              }
-            }
-          }
-        } else if(sizeType === 'dimensionsV') {
-          if($scope.constructData.tempSizeId === 'overallDimV') {
-            for(var siz = 0; siz < limitSizesIds.length; siz++) {
-              var limitSizeValue = $('svg-template').find('#'+limitSizesIds[siz]).text();
-              $scope.constructData.minSizeLimit += parseInt(limitSizeValue, 10);
-            }
-          } else {
-            $scope.constructData.maxSizeLimit = -200;
-            for(var siz = 0; siz < limitSizesIds.length; siz++) {
-              var limitSizeValue = $('svg-template').find('#'+limitSizesIds[siz]).text();
-              if(limitSizesIds[siz] === 'overallDimV') {
-                $scope.constructData.maxSizeLimit += parseInt(limitSizeValue, 10);
-              } else {
-                $scope.constructData.maxSizeLimit -= parseInt(limitSizeValue, 10);
-              }
-            }
-          }
-        }
-
-      }
 */
-      //getOldSizeValue();
       //--- show size calculator if voice helper is turn off
       if(!$scope.global.isVoiceHelper) {
         $scope.global.isConstructSizeCalculator = true;
@@ -407,12 +378,12 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   //---------- define voice force
   function recognitionProgress(value) {
     if (value > 100) {
-      console.log('value', value);
+      //console.log('value', value);
       $scope.loudVoice = true;
       $scope.quietVoice = false;
 
     } else {
-      console.log('value', value);
+      //console.log('value', value);
       $scope.loudVoice = false;
       $scope.quietVoice = true;
     }
@@ -421,14 +392,14 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   }
 
   function doneRecognition(value) {
-    console.log("полученные данные", value);
-    console.log("тип полученных данных", typeof value);
+    //console.log("полученные данные", value);
+    //console.log("тип полученных данных", typeof value);
     $scope.voiceTxt = value;
     $scope.$apply();
     setTimeout(function() {
       var intValue = parseStringToDimension(value);
-      console.log("данные после парса", intValue);
-      console.log("тип полученных данных", typeof intValue);
+      //console.log("данные после парса", intValue);
+      //console.log("тип полученных данных", typeof intValue);
       if (intValue == "NaN") {
         intValue = $filter('translate')('construction.VOICE_NOT_UNDERSTAND');
       }
@@ -445,14 +416,14 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     if($scope.global.isVoiceHelper) {
 
       var tempVal = parseInt(newValue, 10);
-      console.log('tempVal=====', tempVal);
+      //console.log('tempVal=====', tempVal);
       $scope.voiceTxt = '';
       $scope.openVoiceHelper = false;
 
       if ((tempVal > 0) && (tempVal < 10000)) {
         $scope.constructData.tempSize = ("" + tempVal).split('');
-        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-        console.log('$scope.constructData.tempSize == ', $scope.constructData.tempSize);
+        //console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+        //console.log('$scope.constructData.tempSize == ', $scope.constructData.tempSize);
         changeSize();
       }
       deactiveSizeBox(sizeEditClass, sizeClass);
@@ -506,35 +477,23 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     var svg = document.getElementsByTagName("svg-template");
 
     $('#'+$scope.constructData.tempSizeId).find('tspan').text(parseInt(newSizeString, 10));
- /*
-    //--- finde overall dimensions
-    $scope.svgTemplateWidthTEMP = parseInt($('#overallDimH').find('tspan').text(), 10);
-    $scope.svgTemplateHeightTEMP = parseInt($('#overallDimV').find('tspan').text(), 10);
 
-    SVG(svg[0]).viewbox();
-    SVG(svg[0]).size($scope.svgTemplateWidthTEMP, $scope.svgTemplateHeightTEMP);
-*/
     //SVG(svg[0]).viewbox();
     //SVG(svg[0]).size($scope.global.svgTemplateWidth, $scope.global.svgTemplateHeight);
     if($scope.global.isVoiceHelper) {
       $scope.closeSizeCaclulator();
-      console.log('$scope.constructData.tempSize ===end', $scope.constructData.tempSize);
+      //console.log('$scope.constructData.tempSize ===end', $scope.constructData.tempSize);
     }
   }
 
   //---------- Close Size Calculator
   $scope.closeSizeCaclulator = function() {
-    var fromPoints = [],
-        toPoints = [],
-        linkPointsId = [],
-        newPoints = [],
-        allDimensionsV = [],
-        curDimensionType;
-    console.log('click on = button', $scope.constructData.tempSize);
+    //console.log('click on = button', $scope.constructData.tempSize);
 
     if($scope.constructData.tempSize.length > 0) {
       newLength = parseInt($scope.constructData.tempSize.join(''), 10);
-
+      //console.log('newLength = ', typeof newLength);
+      //console.log('newLength = ', newLength);
       //------- Dimensions limits checking
       if (newLength > $scope.constructData.minSizeLimit && newLength < $scope.constructData.maxSizeLimit) {
         $scope.constructData.isMinSizeRestriction = false;
@@ -546,97 +505,18 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
           switch ($scope.templateSourceTEMP.objects[k].type) {
             case 'fixed_point':
             case 'fixed_point_impost':
-              if ($scope.constructData.tempSizeType === 'hor' && $scope.templateSourceTEMP.objects[k].x === $scope.constructData.finishSize) {
-                console.log("x !!!", $scope.templateSourceTEMP.objects[k].x);
-                console.log("finishSize !!!", $scope.constructData.finishSize);
-                $scope.templateSourceTEMP.objects[k].x = +$scope.constructData.startSize + newLength;
-              } else if($scope.constructData.tempSizeType === 'vert' && $scope.templateSourceTEMP.objects[k].y === $scope.constructData.finishSize) {
-                console.log("y !!!", $scope.templateSourceTEMP.objects[k].y);
-                console.log("finishSize !!!", $scope.constructData.finishSize);
-                $scope.templateSourceTEMP.objects[k].y = +$scope.constructData.startSize + newLength;
+              if ($scope.constructData.tempSizeType === 'hor' && +$scope.templateSourceTEMP.objects[k].x === $scope.constructData.finishSize) {
+                $scope.templateSourceTEMP.objects[k].x = $scope.constructData.startSize + newLength;
+              } else if($scope.constructData.tempSizeType === 'vert' && +$scope.templateSourceTEMP.objects[k].y === $scope.constructData.finishSize) {
+                $scope.templateSourceTEMP.objects[k].y = $scope.constructData.startSize + newLength;
               }
 
               break;
           }
         }
-          console.log('$scope.templateSourceTEMP !!!!!!=== ', $scope.templateSourceTEMP);
-
-/*
-        //------ parse template, get pointsId relate to changed dimension id
-        for (var i = 0; i < $scope.templateDefaultTEMP.objects.length; i++) {
-          if ($scope.templateDefaultTEMP.objects[i].id === $scope.constructData.tempSizeId) {
-            fromPointsId = $scope.templateDefaultTEMP.objects[i].fromPointsArrId;
-            toPointsId = $scope.templateDefaultTEMP.objects[i].toPointsArrId;
-            linkPointsId = $scope.templateDefaultTEMP.objects[i].links;
-            curDimensionType = $scope.templateDefaultTEMP.objects[i].type;
-          }
-        }
+          //console.log('$scope.templateSourceTEMP !!!!!!=== ', $scope.templateSourceTEMP);
 
 
-        //console.log($scope.global.templateDefault);
-        //------ parse template, get points relate to points id
-        for (var p = 0; p < fromPointsId.length; p++) {
-          for (var j = 0; j < $scope.templateDefaultTEMP.objects.length; j++) {
-            var point = {};
-            switch ($scope.templateDefaultTEMP.objects[j].id) {
-              case fromPointsId[p]:
-                //var point = {};
-                point.x = parseInt($scope.templateDefaultTEMP.objects[j].x, 10);
-                point.y = parseInt($scope.templateDefaultTEMP.objects[j].y, 10);
-                fromPoints.push(point);
-                break;
-              case toPointsId[p]:
-                //var point = {};
-                point.x = parseInt($scope.templateDefaultTEMP.objects[j].x, 10);
-                point.y = parseInt($scope.templateDefaultTEMP.objects[j].y, 10);
-                toPoints.push(point);
-                break;
-            }
-          }
-        }
-        //console.log(fromPoints);
-        //console.log(toPoints);
-
-        //------ get new points
-        for (var point = 0; point < fromPoints.length; point++) {
-          var newPoint = {};
-          newPoint.newPointX = fromPoints[point].x + (newLength * (toPoints[point].x - fromPoints[point].x) / $scope.constructData.oldSizeValue);
-          newPoint.newPointY = fromPoints[point].y + (newLength * (toPoints[point].y - fromPoints[point].y) / $scope.constructData.oldSizeValue);
-          newPoints.push(newPoint);
-        }
-
-        //-------- change point coordinates in templateSource
-        for (var n = 0; n < toPointsId.length; n++) {
-          for (var k = 0; k < $scope.templateSourceTEMP.objects.length; k++) {
-            if ($scope.templateSourceTEMP.objects[k].id === toPointsId[n]) {
-              if(curDimensionType === 'dimensionsH') {
-                $scope.templateSourceTEMP.objects[k].x = newPoints[n].newPointX;
-              } else if(curDimensionType === 'dimensionsV') {
-                $scope.templateSourceTEMP.objects[k].y = newPoints[n].newPointY;
-              }
-            }
-          }
-        }
-
-        //console.log(linkPointsId);
-        //------- change linked points in templateSource
-        if(linkPointsId) {
-          for (var l = 0; l < linkPointsId.length; l++) {
-            for (var k = 0; k < $scope.templateSourceTEMP.objects.length; k++) {
-              if ($scope.templateSourceTEMP.objects[k].id === linkPointsId[l]) {
-                if(curDimensionType === 'dimensionsH') {
-                  $scope.templateSourceTEMP.objects[k].x = newPoints[l].newPointX;
-                } else if(curDimensionType === 'dimensionsV') {
-                  $scope.templateSourceTEMP.objects[k].y = newPoints[l].newPointY;
-                }
-              }
-            }
-          }
-        }
-
-        $scope.constructData.minSizeLimit = 200;
-        $scope.constructData.maxSizeLimit = 5000;
- */
         //------ close size calculator
         $scope.global.isConstructSizeCalculator = false;
         //------- deactive size box in svg
@@ -709,7 +589,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
         prepareForNewShape(event, '#sash-shape-menu');
       } else {
         $scope.constructData.isSashEditMenu = false;
-        deactivateSelectedGlasses();
+        manipulationWithGlasses($scope.constructData.isSashEditMenu);
       }
       $scope.$apply();
     } else if($scope.constructData.isAngelEdit) {
@@ -721,7 +601,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
         prepareForNewShape(event, '#impost-shape-menu');
       } else {
         $scope.constructData.isImpostEditMenu = false;
-        deactivateSelectedGlasses();
+        manipulationWithGlasses($scope.constructData.isImpostEditMenu);
       }
       $scope.$apply();
     } else if($scope.constructData.isArchEdit) {
@@ -762,22 +642,15 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     console.log('screen.width === ', screen.width);
     console.log('screen.height === ', screen.height);
 */
-
-    //------- select all glass packages
-    $('svg-template').find('.glass').each(function() {
-      //$(this).addClass('glass-active');
-      $(this).css('fill', 'rgba(34, 34, 255, 0.69)');
-    });
+    manipulationWithGlasses(false);
+    //------- select current glass packages
+    $(event.target).css('fill', 'rgba(34, 34, 255, 0.69)');
     //------- define id of current glass package
     $scope.selectedGlassId = event.target.attributes['element-id'].value;
   }
 
 
-  function deactivateSelectedGlasses() {
-    $('svg-template').find('.glass').each(function() {
-      $(this).css('fill', 'rgba(155, 204, 255, 0.20)');
-    });
-  }
+
 
 
   //=============== CLICK ON SASH EDIT MENU
@@ -803,7 +676,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
         isSashExist = currGlassPackage.parts[0].fromPoint.blockType;
       }
     }
-console.log('currGlassPackage', currGlassPackage);
+//console.log('currGlassPackage', currGlassPackage);
     //-------- if need to delete existed sash
     if(sashType[0] === 'empty') {
       //----- if sash exists
@@ -1206,12 +1079,36 @@ console.log('currGlassPackage', currGlassPackage);
       }
     }
     //----- define max number of existed impost, bead and glass
-    lastImpostLineIndex = impostLineIndexes.max();
-    lastCPImpostIndex = cpImpostIndexes.max();
-    lastImpostIndex = impostIndexes.max();
-    lastBeadIndex = beadIndexes.max();
-    lastCPGlassIndex = cpGlassIndexes.max();
-    lastGlassIndex = glassIndexes.max();
+    if(impostLineIndexes.length > 0) {
+      lastImpostLineIndex = impostLineIndexes.max();
+    } else {
+      lastImpostLineIndex = 0;
+    }
+    if(cpImpostIndexes.length > 0) {
+      lastCPImpostIndex = cpImpostIndexes.max();
+    } else {
+      lastCPImpostIndex = 0;
+    }
+    if(impostIndexes.length > 0) {
+      lastImpostIndex = impostIndexes.max();
+    } else {
+      lastImpostIndex = 0;
+    }
+    if(beadIndexes.length > 0) {
+      lastBeadIndex = beadIndexes.max();
+    } else {
+      lastBeadIndex = 0;
+    }
+    if(cpGlassIndexes.length > 0) {
+      lastCPGlassIndex = cpGlassIndexes.max();
+    } else {
+      lastCPGlassIndex = 0;
+    }
+    if(glassIndexes.length > 0) {
+      lastGlassIndex = glassIndexes.max();
+    } else {
+      lastGlassIndex = 0;
+    }
 
 /*
     console.log('blockId == ', blockId);
@@ -1223,7 +1120,7 @@ console.log('currGlassPackage', currGlassPackage);
     console.log('lastCPGlassIndex == ', lastCPGlassIndex);
     console.log('lastGlassIndex == ', lastGlassIndex);
  */
-    console.log('currGlassPackage == ', currGlassPackage);
+    //console.log('currGlassPackage == ', currGlassPackage);
 
     //------ VERTICAL IMPOST
     if(impostType[0] === 'vert') {
@@ -1503,7 +1400,7 @@ console.log('currGlassPackage', currGlassPackage);
         //console.log('!!!!new.templateSourceTEMP === ', $scope.templateSourceTEMP);
         //-------- build new template
         $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
-        console.log('templateDefaultTEMP == ', $scope.templateDefaultTEMP.objects);
+        //console.log('templateDefaultTEMP == ', $scope.templateDefaultTEMP.objects);
 
         $scope.constructData.isImpostEditMenu = false;
         $scope.constructData.isImpostEdit = false;

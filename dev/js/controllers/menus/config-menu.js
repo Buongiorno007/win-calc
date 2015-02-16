@@ -11,6 +11,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     DELAY_SHOW_CONFIG_LIST: 5 * STEP,
     DELAY_SHOW_FOOTER: 5 * STEP,
     DELAY_TYPE_ITEM_TITLE: 10 * STEP,
+    DELAY_SHOW_U_COEFF: 20 * STEP,
     typing: 'on'
   };
 
@@ -416,7 +417,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
 
   if($scope.global.startProgramm && $scope.global.isCreatedNewProject && $scope.global.isCreatedNewProduct) {
 console.log('FIRST START!!!!!!!!!!');
-    playSound('menu');
+    //playSound('menu');
     //------- create new empty product
     $scope.global.product = angular.copy($scope.global.productSource);
     //------- create new empty order
@@ -651,7 +652,7 @@ console.log('FIRST START!!!!!!!!!!');
     }
     //---- close Scheme Dialog in AddElements
     $scope.global.isWindowSchemeDialog = false;
-    playSound('switching');
+    //playSound('switching');
   }
 
 
@@ -668,7 +669,7 @@ console.log('FIRST START!!!!!!!!!!');
 
     //-------- insert product into local DB
     //productData.orderId = product.orderID;
-    //productData.productId = productIndex;
+    productData.heatTransferMin = $scope.global.currentGeoLocation.heatTransfer;
     productData.templateSource = JSON.stringify(product.templateSource);
     productData.laminationOutPrice = parseFloat(product.laminationOutPrice.toFixed(2));
     productData.laminationInPrice = parseFloat(product.laminationInPrice.toFixed(2));

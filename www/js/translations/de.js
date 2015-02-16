@@ -72,7 +72,8 @@ window.germanDictionary = {
     CONFIGMENU_ADDITIONAL: 'Zusätzlich',
     CONFIGMENU_IN_CART: 'Zum Warenkorb',
     VOICE_SPEACH: 'Sprechen...',
-    COMMENT: 'Оставьте свою заметку о заказе здесь.'
+    COMMENT: 'Оставьте свою заметку о заказе здесь.',
+    ROOM_SELECTION: 'Interior selection'
   },
   panels: {
     TEMPLATE_WINDOW: 'Fenster',

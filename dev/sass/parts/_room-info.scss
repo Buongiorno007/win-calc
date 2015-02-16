@@ -29,9 +29,10 @@
     @extend .orange-big-btn;
     @extend .splash;
 
-    width: rem(136px);
+    //width: rem(136px);
     height: rem(72px);
-    margin-left: rem(35px);
+    //margin-left: rem(25px);
+    padding: 0 1.5rem;
   }
   .coeff-container {
     @include display-flex();

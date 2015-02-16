@@ -27,22 +27,25 @@ BauVoiceApp.controller('RoomInfoCtrl', ['$scope', 'constructService', 'localStor
 
   // Show/Close Room Selector Dialog
   $scope.showRoomSelectorDialog = function(event) {
-    if($scope.global.showRoomSelectorDialog === true) {
-      $scope.global.showRoomSelectorDialog = false;
-    } else {
-      $scope.global.showRoomSelectorDialog = true;
-      $scope.global.isRoomsDialog = true;
+    if(!$scope.global.isShowCommentBlock) {
+      if ($scope.global.showRoomSelectorDialog === true) {
+        $scope.global.showRoomSelectorDialog = false;
+      } else {
+        $scope.global.showRoomSelectorDialog = true;
+        $scope.global.isRoomsDialog = true;
+      }
+      //playSound('fly');
     }
-    playSound('fly');
   };
 
   //----- Show Comments
   $scope.swipeShowComment = function(event) {
-    playSound('swip');
+    //playSound('swip');
     $scope.global.isShowCommentBlock = true;
+    $scope.global.showRoomSelectorDialog = false;
   };
   $scope.swipeHideComment = function(event) {
-    playSound('swip');
+    //playSound('swip');
     $scope.global.isShowCommentBlock = false;
   };
 

@@ -72,7 +72,8 @@ window.englishDictionary = {
     CONFIGMENU_ADDITIONAL: 'Additionally',
     CONFIGMENU_IN_CART: 'In a basket',
     VOICE_SPEACH: 'You talk...',
-    COMMENT: 'Оставьте свою заметку о заказе здесь.'
+    COMMENT: 'Оставьте свою заметку о заказе здесь.',
+    ROOM_SELECTION: 'Interior selection'
   },
   panels: {
     TEMPLATE_WINDOW: 'Window',

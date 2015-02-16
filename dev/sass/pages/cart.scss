@@ -272,12 +272,20 @@
     background-color: #fff;
     border-radius: rem($radius_order-template);
   }
-  .order-coeff {
+  .order-u-coeff {
+    @include roboto-lt(rem(42px));
     bottom: rem(-60px);
-    right: rem(5px);
+    right: 3.3rem;
     position: absolute;
+    margin-left: rem(5px);
     background-color: #fff;
+    color: $main_green;
+
+    &.u-coeff-low {
+      color: $error_color;
+    }
   }
+  /*
   .coeff-label {
     @include roboto-lt(rem(28px));
     color: #8c8c8c;
@@ -287,6 +295,7 @@
     color: $main_green;
     margin-left: rem(5px);
   }
+  */
   .order-content {
     padding: rem(70px) rem(40px) 0 rem(50px);
     background-color: #fff;

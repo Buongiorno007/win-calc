@@ -1490,35 +1490,27 @@ body {
   stroke: #D2D2D2;
   stroke-width: 1px;
   text-anchor: middle;
+  alignment-baseline: middle;
 }
 
-/* line 386, ../../dev/sass/base/general.scss */
-.size-value-vertical {
-  text-anchor: end;
-}
-
-/* line 393, ../../dev/sass/base/general.scss */
+/* line 395, ../../dev/sass/base/general.scss */
 .size-value-edit, .size-value-edit-vertical {
   font-size: 5.625rem;
   stroke: #6ed44a;
   fill: #6ed44a;
   stroke-width: 1px;
   text-anchor: middle;
+  alignment-baseline: middle;
 }
 
-/* line 400, ../../dev/sass/base/general.scss */
-.size-value-edit-vertical {
-  text-anchor: end;
-}
-
-/* line 404, ../../dev/sass/base/general.scss */
+/* line 407, ../../dev/sass/base/general.scss */
 .open-direction {
   fill: none;
   stroke: #f98000;
   stroke-width: 2;
 }
 
-/* line 413, ../../dev/sass/base/general.scss */
+/* line 416, ../../dev/sass/base/general.scss */
 .scrolling-container, .scroll-vert-container, .scroll-hor-container, .cart-page .addelements-detail-content {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -1527,33 +1519,33 @@ body {
   overflow-scrolling: touch;
 }
 
-/* line 416, ../../dev/sass/base/general.scss */
+/* line 419, ../../dev/sass/base/general.scss */
 .scroll-vert, .scroll-vert-container {
   overflow-x: hidden;
   overflow-y: scroll;
 }
 
-/* line 420, ../../dev/sass/base/general.scss */
+/* line 423, ../../dev/sass/base/general.scss */
 .scroll-hor, .scroll-hor-container {
   overflow-x: scroll;
   overflow-y: hidden;
 }
 
-/* line 424, ../../dev/sass/base/general.scss */
+/* line 427, ../../dev/sass/base/general.scss */
 .scroll-vert-container {
   width: 100%;
   height: 90%;
   padding-top: 2rem;
 }
 
-/* line 431, ../../dev/sass/base/general.scss */
+/* line 434, ../../dev/sass/base/general.scss */
 .scroll-hor-container {
   width: 100%;
   height: 100%;
   padding-top: 2rem;
 }
 
-/* line 440, ../../dev/sass/base/general.scss */
+/* line 443, ../../dev/sass/base/general.scss */
 #sounds {
   visibility: hidden;
 }
@@ -1817,11 +1809,10 @@ body {
 }
 /* line 28, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .select-rooms {
-  width: 8.5rem;
   height: 4.5rem;
-  margin-left: 2.1875rem;
+  padding: 0 1.5rem;
 }
-/* line 36, ../../dev/sass/parts/_room-info.scss */
+/* line 37, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-container {
   display: -webkit-flex;
   display: flex;
@@ -1835,7 +1826,7 @@ body {
   position: absolute;
   width: 100%;
 }
-/* line 45, ../../dev/sass/parts/_room-info.scss */
+/* line 46, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-block {
   text-shadow: 1px 2px 0px rgba(0, 0, 0, 0.4);
   margin: 0;
@@ -1843,15 +1834,15 @@ body {
   color: #fff;
   border-left: 2px dotted #fff;
 }
-/* line 52, ../../dev/sass/parts/_room-info.scss */
+/* line 53, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-block:first-child {
   border-left: none;
 }
-/* line 55, ../../dev/sass/parts/_room-info.scss */
+/* line 56, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-block:nth-child(2), .room-info-container .coeff-block:last-child {
   min-width: 32.5rem;
 }
-/* line 60, ../../dev/sass/parts/_room-info.scss */
+/* line 61, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-max {
   font: normal 2.25rem/1 roboto-medium, sans-serif;
   position: absolute;
@@ -1859,17 +1850,17 @@ body {
   right: 0;
   color: #fff;
 }
-/* line 68, ../../dev/sass/parts/_room-info.scss */
+/* line 69, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff {
   font: normal 5rem/1 roboto-light, sans-serif;
   position: relative;
   float: left;
 }
-/* line 73, ../../dev/sass/parts/_room-info.scss */
+/* line 74, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff.coeff-low {
   color: #ff9500;
 }
-/* line 79, ../../dev/sass/parts/_room-info.scss */
+/* line 80, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-title {
   font: normal 2rem/2.25rem roboto-light, sans-serif;
   float: left;
@@ -1877,12 +1868,12 @@ body {
   margin-left: 1.25rem;
   word-wrap: break-word;
 }
-/* line 89, ../../dev/sass/parts/_room-info.scss */
+/* line 90, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .product-comment {
   margin-top: 23rem;
   height: 90%;
 }
-/* line 93, ../../dev/sass/parts/_room-info.scss */
+/* line 94, ../../dev/sass/parts/_room-info.scss */
 .room-info-container textarea.comment-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   width: 90%;
@@ -4386,6 +4377,20 @@ body {
   padding-right: 3.125rem;
 }
 
+/* line 247, ../../dev/sass/pages/cart.scss */
+.full-view {
+  /*
+  .coeff-label {
+    @include roboto-lt(rem(28px));
+    color: #8c8c8c;
+  }
+  .coeff-value {
+    @include roboto-lt(rem(42px));
+    color: $main_green;
+    margin-left: rem(5px);
+  }
+  */
+}
 /* line 248, ../../dev/sass/pages/cart.scss */
 .full-view .order-block {
   display: -webkit-inline-flex;
@@ -4419,40 +4424,36 @@ body {
   border-radius: 0.625rem;
 }
 /* line 275, ../../dev/sass/pages/cart.scss */
-.full-view .order-coeff {
-  bottom: -3.75rem;
-  right: 0.3125rem;
-  position: absolute;
-  background-color: #fff;
-}
-/* line 281, ../../dev/sass/pages/cart.scss */
-.full-view .coeff-label {
-  font: normal 1.75rem/1.42857 roboto-light, sans-serif;
-  color: #8c8c8c;
-}
-/* line 285, ../../dev/sass/pages/cart.scss */
-.full-view .coeff-value {
+.full-view .order-u-coeff {
   font: normal 2.625rem/1.42857 roboto-light, sans-serif;
-  color: #6ed44a;
+  bottom: -3.75rem;
+  right: 3.3rem;
+  position: absolute;
   margin-left: 0.3125rem;
+  background-color: #fff;
+  color: #6ed44a;
 }
-/* line 290, ../../dev/sass/pages/cart.scss */
+/* line 284, ../../dev/sass/pages/cart.scss */
+.full-view .order-u-coeff.u-coeff-low {
+  color: #f74f2e;
+}
+/* line 299, ../../dev/sass/pages/cart.scss */
 .full-view .order-content {
   padding: 4.375rem 2.5rem 0 3.125rem;
   background-color: #fff;
 }
-/* line 294, ../../dev/sass/pages/cart.scss */
+/* line 303, ../../dev/sass/pages/cart.scss */
 .full-view .order-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 299, ../../dev/sass/pages/cart.scss */
+/* line 308, ../../dev/sass/pages/cart.scss */
 .full-view .order-item {
   padding: 0.4375rem 0;
   border-bottom: 1px solid #bebebe;
 }
-/* line 303, ../../dev/sass/pages/cart.scss */
+/* line 312, ../../dev/sass/pages/cart.scss */
 .full-view .order-qty {
   -webkit-flex-flow: row nowrap;
   flex-flow: row nowrap;
@@ -4460,23 +4461,23 @@ body {
   justify-content: space-between;
   height: 6.25rem;
 }
-/* line 308, ../../dev/sass/pages/cart.scss */
+/* line 317, ../../dev/sass/pages/cart.scss */
 .full-view .qty-label {
   max-width: 10.625rem;
 }
-/* line 311, ../../dev/sass/pages/cart.scss */
+/* line 320, ../../dev/sass/pages/cart.scss */
 .full-view .order-footer, .full-view .cart-page .addelements-detail-footer, .cart-page .full-view .addelements-detail-footer {
   padding-left: 3.125rem;
 }
 
-/* line 318, ../../dev/sass/pages/cart.scss */
+/* line 327, ../../dev/sass/pages/cart.scss */
 .light-view .order-block {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
 }
-/* line 322, ../../dev/sass/pages/cart.scss */
+/* line 331, ../../dev/sass/pages/cart.scss */
 .light-view .order, .light-view .addelementunit {
   width: 26.25rem;
   margin-bottom: 3.125rem;
@@ -4485,26 +4486,26 @@ body {
   background-color: #fff;
   text-align: center;
 }
-/* line 330, ../../dev/sass/pages/cart.scss */
+/* line 339, ../../dev/sass/pages/cart.scss */
 .light-view .order-template {
   cursor: pointer;
 }
-/* line 336, ../../dev/sass/pages/cart.scss */
+/* line 345, ../../dev/sass/pages/cart.scss */
 .light-view .order-header {
   padding-top: 2.5rem;
 }
-/* line 339, ../../dev/sass/pages/cart.scss */
+/* line 348, ../../dev/sass/pages/cart.scss */
 .light-view .order-content {
   padding: 2.5rem 1.25rem;
 }
-/* line 345, ../../dev/sass/pages/cart.scss */
+/* line 354, ../../dev/sass/pages/cart.scss */
 .light-view .addelements-btn {
   margin-top: 0.625rem;
   padding: 0.625rem 0;
   border-top: 1px solid #bebebe;
   border-bottom: 1px solid #bebebe;
 }
-/* line 351, ../../dev/sass/pages/cart.scss */
+/* line 360, ../../dev/sass/pages/cart.scss */
 .light-view .order-qty {
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
@@ -4512,21 +4513,21 @@ body {
   justify-content: space-around;
   padding-top: 2.5rem;
 }
-/* line 356, ../../dev/sass/pages/cart.scss */
+/* line 365, ../../dev/sass/pages/cart.scss */
 .light-view .order-label, .light-view .cart-page .product-icon-label, .cart-page .light-view .product-icon-label,
 .light-view .cart-page .product-label,
 .cart-page .light-view .product-label, .light-view .cart-page .addelement-label, .cart-page .light-view .addelement-label {
   padding-top: 0.625rem;
 }
 
-/* line 364, ../../dev/sass/pages/cart.scss */
+/* line 373, ../../dev/sass/pages/cart.scss */
 .alladdelements-header {
   position: relative;
   width: 100%;
   height: 6.25rem;
 }
 
-/* line 369, ../../dev/sass/pages/cart.scss */
+/* line 378, ../../dev/sass/pages/cart.scss */
 .close-alladdelements {
   font: normal 3.125rem/1 general-icons, sans-serif;
   top: 0rem;
@@ -4538,13 +4539,13 @@ body {
   border-top-right-radius: 2rem;
   border-bottom-right-radius: 2rem;
 }
-/* line 380, ../../dev/sass/pages/cart.scss */
+/* line 389, ../../dev/sass/pages/cart.scss */
 .close-alladdelements:before {
   color: #fff;
   content: "\e613";
 }
 
-/* line 385, ../../dev/sass/pages/cart.scss */
+/* line 394, ../../dev/sass/pages/cart.scss */
 .alladdelements-block {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -4555,149 +4556,149 @@ body {
   overflow-y: auto;
   height: 95%;
 }
-/* line 392, ../../dev/sass/pages/cart.scss */
+/* line 401, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-block {
   padding: 3.125rem 0;
   border-bottom: 1px solid #bebebe;
 }
-/* line 396, ../../dev/sass/pages/cart.scss */
+/* line 405, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-block:last-child {
   padding: 3.125rem 0 0 0;
   border: none;
 }
-/* line 402, ../../dev/sass/pages/cart.scss */
+/* line 411, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-block-title,
 .alladdelements-block .aux-total-label {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
 }
-/* line 408, ../../dev/sass/pages/cart.scss */
+/* line 417, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-block-title:first-letter {
   text-transform: uppercase;
 }
-/* line 411, ../../dev/sass/pages/cart.scss */
+/* line 420, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-row {
   margin-bottom: 1.25rem;
 }
-/* line 417, ../../dev/sass/pages/cart.scss */
+/* line 426, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-total-label {
   min-width: 69%;
 }
-/* line 421, ../../dev/sass/pages/cart.scss */
+/* line 430, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement {
   width: 100%;
 }
-/* line 424, ../../dev/sass/pages/cart.scss */
+/* line 433, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-name {
   width: 31.25rem;
 }
-/* line 426, ../../dev/sass/pages/cart.scss */
+/* line 435, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-name .aux-name {
   max-width: 100%;
 }
-/* line 430, ../../dev/sass/pages/cart.scss */
+/* line 439, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-total {
   width: 75%;
 }
-/* line 433, ../../dev/sass/pages/cart.scss */
+/* line 442, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-qty {
   width: 6.25rem;
 }
-/* line 436, ../../dev/sass/pages/cart.scss */
+/* line 445, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-width,
 .alladdelements-block .aux-list-addellement .aux-tablecell-height {
   width: 9.375rem;
 }
-/* line 440, ../../dev/sass/pages/cart.scss */
+/* line 449, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-color {
   width: 6.25rem;
 }
-/* line 443, ../../dev/sass/pages/cart.scss */
+/* line 452, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-price {
   width: 12.5rem;
 }
-/* line 445, ../../dev/sass/pages/cart.scss */
+/* line 454, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-price .aux-price, .alladdelements-block .aux-list-addellement .aux-tablecell-price .aux-total-price {
   text-align: center;
 }
-/* line 449, ../../dev/sass/pages/cart.scss */
+/* line 458, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-delete {
   width: 6.25rem;
 }
 
-/* line 459, ../../dev/sass/pages/cart.scss */
+/* line 468, ../../dev/sass/pages/cart.scss */
 .addelementunique-header {
   position: relative;
   width: 100%;
   height: 6.25rem;
   background-color: #fff;
 }
-/* line 465, ../../dev/sass/pages/cart.scss */
+/* line 474, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-title {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 470, ../../dev/sass/pages/cart.scss */
+/* line 479, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-label, .addelementunique-header .elements-menu .color-label, .elements-menu .addelementunique-header .color-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 474, ../../dev/sass/pages/cart.scss */
+/* line 483, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-params-but {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 478, ../../dev/sass/pages/cart.scss */
+/* line 487, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-row {
   padding-top: 1%;
 }
-/* line 485, ../../dev/sass/pages/cart.scss */
+/* line 494, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-total-label {
   min-width: 69%;
 }
-/* line 489, ../../dev/sass/pages/cart.scss */
+/* line 498, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement {
   width: 100%;
 }
-/* line 492, ../../dev/sass/pages/cart.scss */
+/* line 501, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-name {
   width: 31.25rem;
 }
-/* line 494, ../../dev/sass/pages/cart.scss */
+/* line 503, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-name .aux-name {
   max-width: 100%;
 }
-/* line 498, ../../dev/sass/pages/cart.scss */
+/* line 507, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-total {
   width: 75%;
 }
-/* line 501, ../../dev/sass/pages/cart.scss */
+/* line 510, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-qty {
   width: 6.25rem;
 }
-/* line 504, ../../dev/sass/pages/cart.scss */
+/* line 513, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-width,
 .addelementunique-header .aux-list-addellement .aux-tablecell-height {
   width: 9.375rem;
 }
-/* line 508, ../../dev/sass/pages/cart.scss */
+/* line 517, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-color {
   width: 6.25rem;
 }
-/* line 511, ../../dev/sass/pages/cart.scss */
+/* line 520, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-price {
   width: 12.5rem;
 }
-/* line 513, ../../dev/sass/pages/cart.scss */
+/* line 522, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-price .aux-price, .addelementunique-header .aux-list-addellement .aux-tablecell-price .aux-total-price {
   text-align: center;
 }
-/* line 517, ../../dev/sass/pages/cart.scss */
+/* line 526, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-delete {
   width: 6.25rem;
 }
 
-/* line 524, ../../dev/sass/pages/cart.scss */
+/* line 533, ../../dev/sass/pages/cart.scss */
 .addelementunit-header-fon {
   top: -3.125rem;
   left: -6.25rem;
@@ -4708,7 +4709,7 @@ body {
   z-index: -1;
 }
 
-/* line 533, ../../dev/sass/pages/cart.scss */
+/* line 542, ../../dev/sass/pages/cart.scss */
 .addelementunits-container {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -4722,7 +4723,7 @@ body {
   padding-top: 3%;
 }
 
-/* line 542, ../../dev/sass/pages/cart.scss */
+/* line 551, ../../dev/sass/pages/cart.scss */
 .addelementunit-block {
   display: -webkit-flex;
   display: flex;
@@ -4730,7 +4731,7 @@ body {
   flex-flow: row wrap;
 }
 
-/* line 547, ../../dev/sass/pages/cart.scss */
+/* line 556, ../../dev/sass/pages/cart.scss */
 .addelementunit {
   width: 26.25rem;
   min-width: 26.25rem;
@@ -4741,14 +4742,14 @@ body {
   text-align: center;
 }
 
-/* line 558, ../../dev/sass/pages/cart.scss */
+/* line 567, ../../dev/sass/pages/cart.scss */
 .addelementunit-header {
   position: relative;
   height: 13.125rem;
   padding-top: 2.5rem;
 }
 
-/* line 563, ../../dev/sass/pages/cart.scss */
+/* line 572, ../../dev/sass/pages/cart.scss */
 .addelementunit-delete {
   position: absolute;
   top: -1.25rem;
@@ -4757,12 +4758,12 @@ body {
   z-index: 9;
 }
 
-/* line 571, ../../dev/sass/pages/cart.scss */
+/* line 580, ../../dev/sass/pages/cart.scss */
 .addelementunit-content {
   padding: 2.5rem 1.25rem;
 }
 
-/* line 578, ../../dev/sass/pages/cart.scss */
+/* line 587, ../../dev/sass/pages/cart.scss */
 .addelementunit-footer {
   font: normal 3rem/6.25rem roboto-medium, sans-serif;
   border-bottom-left-radius: 1.25rem;
@@ -4771,7 +4772,7 @@ body {
   background-color: #4bd963;
 }
 
-/* line 588, ../../dev/sass/pages/cart.scss */
+/* line 597, ../../dev/sass/pages/cart.scss */
 .addelementunit-train {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -4781,18 +4782,18 @@ body {
   overflow-x: auto;
   overflow-y: auto;
 }
-/* line 593, ../../dev/sass/pages/cart.scss */
+/* line 602, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit-train-inner {
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 600, ../../dev/sass/pages/cart.scss */
+/* line 609, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit.unit-last .link-right {
   display: none;
 }
-/* line 606, ../../dev/sass/pages/cart.scss */
+/* line 615, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit-link {
   position: absolute;
   bottom: 3.125rem;
@@ -4800,11 +4801,11 @@ body {
   height: 5rem;
   border-bottom: 1px solid #4bd963;
 }
-/* line 612, ../../dev/sass/pages/cart.scss */
+/* line 621, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit-link.link-right {
   right: -3.4375rem;
 }
-/* line 620, ../../dev/sass/pages/cart.scss */
+/* line 629, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .link-explode-menu {
   font: normal 2.25rem/4.0625rem roboto-light, sans-serif;
   position: absolute;
@@ -4817,7 +4818,7 @@ body {
   cursor: pointer;
   z-index: 999;
 }
-/* line 632, ../../dev/sass/pages/cart.scss */
+/* line 641, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .link-explode-menu:before {
   position: absolute;
   z-index: 99;
@@ -4830,13 +4831,13 @@ body {
   border-color: #242424 transparent;
   content: '';
 }
-/* line 646, ../../dev/sass/pages/cart.scss */
+/* line 655, ../../dev/sass/pages/cart.scss */
 .addelementunit-train ul.link-explode-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 652, ../../dev/sass/pages/cart.scss */
+/* line 661, ../../dev/sass/pages/cart.scss */
 .addelementunit-train li.link-explode-item {
   display: inline-block;
   line-height: 5rem;
@@ -4845,79 +4846,79 @@ body {
   text-align: center;
   color: #ddd;
 }
-/* line 660, ../../dev/sass/pages/cart.scss */
+/* line 669, ../../dev/sass/pages/cart.scss */
 .addelementunit-train li.link-explode-item:last-child {
   border-right: none;
   padding-left: 0.5rem;
   padding-right: 0;
 }
 
-/* line 673, ../../dev/sass/pages/cart.scss */
+/* line 682, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block {
   padding: 3.125rem 0;
   border-bottom: 1px solid #bebebe;
 }
-/* line 677, ../../dev/sass/pages/cart.scss */
+/* line 686, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block:last-child {
   padding: 3.125rem 0 0 0;
   border: none;
 }
-/* line 683, ../../dev/sass/pages/cart.scss */
+/* line 692, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block-title,
 .addelementunit-only .aux-total-label {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
 }
-/* line 689, ../../dev/sass/pages/cart.scss */
+/* line 698, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block-title:first-letter {
   text-transform: uppercase;
 }
-/* line 692, ../../dev/sass/pages/cart.scss */
+/* line 701, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-row {
   margin-bottom: 1.25rem;
 }
-/* line 698, ../../dev/sass/pages/cart.scss */
+/* line 707, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-total-label {
   min-width: 69%;
 }
-/* line 702, ../../dev/sass/pages/cart.scss */
+/* line 711, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement {
   width: 100%;
 }
-/* line 705, ../../dev/sass/pages/cart.scss */
+/* line 714, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-name {
   width: 31.25rem;
 }
-/* line 707, ../../dev/sass/pages/cart.scss */
+/* line 716, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-name .aux-name {
   max-width: 100%;
 }
-/* line 711, ../../dev/sass/pages/cart.scss */
+/* line 720, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-total {
   width: 75%;
 }
-/* line 714, ../../dev/sass/pages/cart.scss */
+/* line 723, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-qty {
   width: 6.25rem;
 }
-/* line 717, ../../dev/sass/pages/cart.scss */
+/* line 726, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-width,
 .addelementunit-only .aux-list-addellement .aux-tablecell-height {
   width: 9.375rem;
 }
-/* line 721, ../../dev/sass/pages/cart.scss */
+/* line 730, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-color {
   width: 6.25rem;
 }
-/* line 724, ../../dev/sass/pages/cart.scss */
+/* line 733, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-price {
   width: 12.5rem;
 }
-/* line 726, ../../dev/sass/pages/cart.scss */
+/* line 735, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-price .aux-price, .addelementunit-only .aux-list-addellement .aux-tablecell-price .aux-total-price {
   text-align: center;
 }
-/* line 730, ../../dev/sass/pages/cart.scss */
+/* line 739, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-delete {
   width: 6.25rem;
 }
@@ -5074,90 +5075,90 @@ ul.constr-shape-list {
 /* line 171, ../../dev/sass/pages/construction.scss */
 li.constr-shape-icon {
   font: normal 3.125rem/5rem general-icons, sans-serif;
-  display: inline-block;
   width: 5rem;
   height: 5rem;
+  float: left;
   padding-right: 2px;
   border-right: 1px solid #bebebe;
   text-align: center;
   color: #ddd;
 }
-/* line 181, ../../dev/sass/pages/construction.scss */
+/* line 182, ../../dev/sass/pages/construction.scss */
 li.constr-shape-icon:last-child {
   border-right: none;
 }
 
-/* line 186, ../../dev/sass/pages/construction.scss */
+/* line 187, ../../dev/sass/pages/construction.scss */
 .sash-empty:after {
   content: "\e634";
 }
 
-/* line 189, ../../dev/sass/pages/construction.scss */
+/* line 190, ../../dev/sass/pages/construction.scss */
 .sash-left:after {
   content: "\e641";
 }
 
-/* line 192, ../../dev/sass/pages/construction.scss */
+/* line 193, ../../dev/sass/pages/construction.scss */
 .sash-right:after {
   content: "\e640";
 }
 
-/* line 195, ../../dev/sass/pages/construction.scss */
+/* line 196, ../../dev/sass/pages/construction.scss */
 .sash-up:after {
   content: "\e642";
 }
 
-/* line 198, ../../dev/sass/pages/construction.scss */
+/* line 199, ../../dev/sass/pages/construction.scss */
 .sash-down:after {
   content: "\e643";
 }
 
-/* line 201, ../../dev/sass/pages/construction.scss */
+/* line 202, ../../dev/sass/pages/construction.scss */
 .sash-right-up:after {
   content: "\e63e";
 }
 
-/* line 204, ../../dev/sass/pages/construction.scss */
+/* line 205, ../../dev/sass/pages/construction.scss */
 .sash-left-up:after {
   content: "\e63f";
 }
 
-/* line 213, ../../dev/sass/pages/construction.scss */
+/* line 214, ../../dev/sass/pages/construction.scss */
 .construction-right-menu {
   top: 0;
   right: 0;
 }
-/* line 219, ../../dev/sass/pages/construction.scss */
+/* line 220, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .right-menu-header {
   margin-top: 3.125rem;
 }
-/* line 222, ../../dev/sass/pages/construction.scss */
+/* line 223, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .construct-tools {
   position: relative;
   width: 5.3125rem;
   height: 5.3125rem;
   margin-right: 3.125rem;
 }
-/* line 230, ../../dev/sass/pages/construction.scss */
+/* line 231, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .construct-tools:after {
   top: 25%;
   left: 25%;
 }
-/* line 235, ../../dev/sass/pages/construction.scss */
+/* line 236, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .save-construction {
   font: normal 1.75rem/1.5 general-icons, sans-serif;
   background-color: #6ed44a;
 }
-/* line 239, ../../dev/sass/pages/construction.scss */
+/* line 240, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .save-construction:after {
   content: "\e62c";
 }
-/* line 243, ../../dev/sass/pages/construction.scss */
+/* line 244, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .close-construction {
   font: normal 2.5rem/1 general-icons, sans-serif;
   background-color: #bebebe;
 }
-/* line 248, ../../dev/sass/pages/construction.scss */
+/* line 249, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .right-menu-footer {
   position: absolute;
   right: 0;
@@ -5165,7 +5166,7 @@ li.constr-shape-icon:last-child {
   width: 29.875rem;
   height: 31.875rem;
 }
-/* line 255, ../../dev/sass/pages/construction.scss */
+/* line 256, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .door-config-menu {
   position: absolute;
   top: 25%;
@@ -5173,27 +5174,27 @@ li.constr-shape-icon:last-child {
   width: 18.75rem;
   text-align: right;
 }
-/* line 262, ../../dev/sass/pages/construction.scss */
+/* line 263, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .door-config-btn {
   font: normal 8.125rem/1 general-icons, sans-serif;
   margin: 0;
   padding: 0;
   background: transparent;
 }
-/* line 271, ../../dev/sass/pages/construction.scss */
+/* line 272, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .door-config-btn:after {
   color: #6ed44a;
   content: "\e630";
 }
-/* line 276, ../../dev/sass/pages/construction.scss */
+/* line 277, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .door-config-btn.active:after {
   content: "\e62a";
 }
-/* line 281, ../../dev/sass/pages/construction.scss */
+/* line 282, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .door-config-label {
   margin-bottom: 1.875rem;
 }
-/* line 289, ../../dev/sass/pages/construction.scss */
+/* line 290, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .size-calculator {
   -moz-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
@@ -5204,16 +5205,16 @@ li.constr-shape-icon:last-child {
   background-color: #f8f8f8;
   border-left: 1px solid #bebebe;
 }
-/* line 297, ../../dev/sass/pages/construction.scss */
+/* line 298, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .size-calculator.active {
   bottom: 0;
 }
-/* line 302, ../../dev/sass/pages/construction.scss */
+/* line 303, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .calc-equal {
   background-color: #6ed44a;
 }
 
-/* line 311, ../../dev/sass/pages/construction.scss */
+/* line 312, ../../dev/sass/pages/construction.scss */
 .door-configuration {
   top: 0rem;
   left: -156.25rem;
@@ -5226,12 +5227,12 @@ li.constr-shape-icon:last-child {
   background-color: #fafafa;
   z-index: 2;
 }
-/* line 321, ../../dev/sass/pages/construction.scss */
+/* line 322, ../../dev/sass/pages/construction.scss */
 .door-configuration.active {
   top: 0rem;
   left: 0rem;
 }
-/* line 325, ../../dev/sass/pages/construction.scss */
+/* line 326, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-config-column {
   -moz-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
@@ -5241,40 +5242,40 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 32rem;
 }
-/* line 332, ../../dev/sass/pages/construction.scss */
+/* line 333, ../../dev/sass/pages/construction.scss */
 .door-configuration .step1 {
   top: 0rem;
   left: 0rem;
   z-index: 6;
 }
-/* line 337, ../../dev/sass/pages/construction.scss */
+/* line 338, ../../dev/sass/pages/construction.scss */
 .door-configuration .step2 {
   z-index: 5;
 }
-/* line 339, ../../dev/sass/pages/construction.scss */
+/* line 340, ../../dev/sass/pages/construction.scss */
 .door-configuration .step2.active {
   top: 0rem;
   left: 28.25rem;
 }
-/* line 343, ../../dev/sass/pages/construction.scss */
+/* line 344, ../../dev/sass/pages/construction.scss */
 .door-configuration .step3 {
   z-index: 4;
 }
-/* line 345, ../../dev/sass/pages/construction.scss */
+/* line 346, ../../dev/sass/pages/construction.scss */
 .door-configuration .step3.active {
   top: 0rem;
   left: 56.25rem;
 }
-/* line 349, ../../dev/sass/pages/construction.scss */
+/* line 350, ../../dev/sass/pages/construction.scss */
 .door-configuration .step4 {
   z-index: 3;
 }
-/* line 351, ../../dev/sass/pages/construction.scss */
+/* line 352, ../../dev/sass/pages/construction.scss */
 .door-configuration .step4.active {
   top: 0rem;
   left: 84.5rem;
 }
-/* line 355, ../../dev/sass/pages/construction.scss */
+/* line 356, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-config-backfon {
   -moz-box-shadow: #bebebe 0 0.3125rem 0.625rem;
   -webkit-box-shadow: #bebebe 0 0.3125rem 0.625rem;
@@ -5288,58 +5289,58 @@ li.constr-shape-icon:last-child {
   background-color: #fafafa;
   z-index: -1;
 }
-/* line 366, ../../dev/sass/pages/construction.scss */
+/* line 367, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-config-header {
   height: 22.1875rem;
   padding-left: 3.125rem;
   width: 28.25rem;
 }
-/* line 371, ../../dev/sass/pages/construction.scss */
+/* line 372, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-inner {
   height: 100%;
   padding: 2.5rem 1.25rem;
   border-bottom: 1px solid #d2d2d2;
 }
-/* line 376, ../../dev/sass/pages/construction.scss */
+/* line 377, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-title {
   font: normal 3rem/1.42857 roboto-bold, sans-serif;
   padding: 1.25rem 0 1.875rem 0;
   color: #363636;
 }
-/* line 381, ../../dev/sass/pages/construction.scss */
+/* line 382, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-subtitle {
   font: normal 2.25rem/2.75rem roboto-bold, sans-serif;
   color: #363636;
 }
-/* line 386, ../../dev/sass/pages/construction.scss */
+/* line 387, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-config-content {
   height: 73.8125rem;
   overflow: hidden;
 }
-/* line 389, ../../dev/sass/pages/construction.scss */
+/* line 390, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-config-content.scroll-box {
   overflow-x: hidden;
   overflow-y: auto;
 }
-/* line 394, ../../dev/sass/pages/construction.scss */
+/* line 395, ../../dev/sass/pages/construction.scss */
 .door-configuration ul.door-config-list {
   width: 32rem;
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 400, ../../dev/sass/pages/construction.scss */
+/* line 401, ../../dev/sass/pages/construction.scss */
 .door-configuration li.door-config-option {
   width: 28.25rem;
   padding-left: 3.125rem;
   cursor: pointer;
   position: relative;
 }
-/* line 405, ../../dev/sass/pages/construction.scss */
+/* line 406, ../../dev/sass/pages/construction.scss */
 .door-configuration li.door-config-option.selected {
   background-color: #6ed44a;
 }
-/* line 409, ../../dev/sass/pages/construction.scss */
+/* line 410, ../../dev/sass/pages/construction.scss */
 .door-configuration .selected-item-arrow {
   position: absolute;
   top: 0;
@@ -5349,19 +5350,19 @@ li.constr-shape-icon:last-child {
   background: url('../img/door-arrow.png?1422437873') no-repeat;
   background-size: 100% 100%;
 }
-/* line 418, ../../dev/sass/pages/construction.scss */
+/* line 419, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-option-label {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 423, ../../dev/sass/pages/construction.scss */
+/* line 424, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-config-tools {
   position: absolute;
   top: 0;
   right: 0;
   width: 15.25rem;
 }
-/* line 429, ../../dev/sass/pages/construction.scss */
+/* line 430, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-config-btn {
   font: normal 3.75rem/1 general-icons, sans-serif;
   width: 100%;
@@ -5369,29 +5370,29 @@ li.constr-shape-icon:last-child {
   outline: none;
   border: none;
 }
-/* line 439, ../../dev/sass/pages/construction.scss */
+/* line 440, ../../dev/sass/pages/construction.scss */
 .door-configuration .close-door-config {
   height: 22.1875rem;
   background-color: #bebebe;
 }
-/* line 442, ../../dev/sass/pages/construction.scss */
+/* line 443, ../../dev/sass/pages/construction.scss */
 .door-configuration .close-door-config:after {
   content: "\e631";
 }
-/* line 446, ../../dev/sass/pages/construction.scss */
+/* line 447, ../../dev/sass/pages/construction.scss */
 .door-configuration .save-door-config {
   height: 73.8125rem;
   background-color: #6ed44a;
 }
-/* line 449, ../../dev/sass/pages/construction.scss */
+/* line 450, ../../dev/sass/pages/construction.scss */
 .door-configuration .save-door-config:after {
   content: "\e62c";
 }
-/* line 453, ../../dev/sass/pages/construction.scss */
+/* line 454, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-shape {
   width: 7rem;
 }
-/* line 456, ../../dev/sass/pages/construction.scss */
+/* line 457, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-hardware {
   width: 10rem;
 }
@@ -5609,6 +5610,22 @@ li.constr-shape-icon:last-child {
   width: 29.625rem;
   height: 55.75rem;
   background: rgba(248, 248, 248, 0.95);
+  z-index: 999;
+}
+/* line 80, ../../dev/sass/menus/_config-menu.scss */
+.config-menu .product-u-coeff {
+  font: normal 2.625rem/1.42857 roboto-light, sans-serif;
+  top: 16.75rem;
+  right: 2rem;
+  position: absolute;
+  margin-left: 0.3125rem;
+  background-color: transparent;
+  color: #6ed44a;
+  z-index: 9;
+}
+/* line 89, ../../dev/sass/menus/_config-menu.scss */
+.config-menu .product-u-coeff.u-coeff-low {
+  color: #f74f2e;
 }
 
 /* line 1, ../../dev/sass/menus/_elements-list.scss */

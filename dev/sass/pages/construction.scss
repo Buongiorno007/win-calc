@@ -170,9 +170,10 @@ ul.constr-shape-list {
 
 li.constr-shape-icon {
   @include font-general-icon(rem(50px), rem(80px));
-  display: inline-block;
+  //display: inline-block;
   width: rem(80px);
   height: rem(80px);
+  float: left;
   padding-right: 2px;
   border-right: 1px solid $main_gray_btn;
   text-align: center;

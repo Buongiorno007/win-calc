@@ -72,7 +72,8 @@ window.romanianDictionary = {
     CONFIGMENU_ADDITIONAL: 'Suplimentar',
     CONFIGMENU_IN_CART: 'Adaugă in coș',
     VOICE_SPEACH: 'Vorbiți...',
-    COMMENT: 'Оставьте свою заметку о заказе здесь.'
+    COMMENT: 'Оставьте свою заметку о заказе здесь.',
+    ROOM_SELECTION: 'Interior selection'
   },
   panels: {
     TEMPLATE_WINDOW: 'fereastră',

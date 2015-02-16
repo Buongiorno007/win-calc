@@ -281,8 +281,8 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               if (newEdgeTop > edgeTop) {
                 edgeTop = newEdgeTop;
               }
-              if(overallDimH < dim.lengthVal) {
-                overallDimH = dim.lengthVal;
+              if(overallDimH < dim.end) {
+                overallDimH = dim.end;
               }
               break;
             case 'vert':
@@ -309,8 +309,8 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               if (newEdgeLeft > edgeLeft) {
                 edgeLeft = newEdgeLeft;
               }
-              if(overallDimV < dim.lengthVal) {
-                overallDimV = dim.lengthVal;
+              if(overallDimV < dim.end) {
+                overallDimV = dim.end;
               }
               break;
           }
@@ -411,28 +411,62 @@ BauVoiceApp.directive('svgTemplate', [ function() {
 
                   //----- draw dimension size box if construction is editible
                   var groupTxt = group.group().attr('class', sizeClass);
+
                   if(scope.typeConstruction === 'edit') {
+                    var sizeRect = groupTxt.rect(sizeBoxWidth, sizeBoxHeight);
+                    sizeRect.attr('class', 'size-rect');
+
+                    var sizeText = groupTxt.text(' ' + elementsSVG[prop][elem].lengthVal + ' ').dx(elementsSVG[prop][elem].textX).dy(elementsSVG[prop][elem].textY);
+                    sizeText.attr({
+                      'from-point': elementsSVG[prop][elem].start,
+                      'to-point': elementsSVG[prop][elem].end,
+                      'size-type': elementsSVG[prop][elem].type,
+                      'min-val': elementsSVG[prop][elem].min,
+                      'max-val': elementsSVG[prop][elem].max
+                    });
+                    if(elementsSVG[prop][elem].id) {
+                      sizeText.attr('id', elementsSVG[prop][elem].id);
+                    }
+
                     if(prop === 'dimensionsH') {
-                      groupTxt.rect(sizeBoxWidth, sizeBoxHeight).attr('class', 'size-rect').cx(elementsSVG[prop][elem].textX).cy(elementsSVG[prop][elem].textY + 5).radius(sizeBoxRadius);
+                      sizeRect.cx(elementsSVG[prop][elem].textX).cy(elementsSVG[prop][elem].textY + 5);
+                      sizeText.attr('class', 'size-value-edit');
                     } else if(prop === 'dimensionsV') {
-                      groupTxt.rect(sizeBoxWidth, sizeBoxHeight).attr('class', 'size-rect').cx(elementsSVG[prop][elem].textX - 50).cy(elementsSVG[prop][elem].textY + 5).radius(sizeBoxRadius);
+                      sizeRect.cx(elementsSVG[prop][elem].textX).cy(elementsSVG[prop][elem].textY + 5);
+                      //sizeRect.cx(elementsSVG[prop][elem].textX - 50).cy(elementsSVG[prop][elem].textY + 5);
+                      sizeText.attr('class', 'size-value-edit-vertical');
+                    }
+                    sizeRect.radius(sizeBoxRadius);
+
+
+                  } else {
+                    //----- draw dimension size text
+                    var sizeText = groupTxt.text(' ' + elementsSVG[prop][elem].lengthVal + ' ').dx(elementsSVG[prop][elem].textX).dy(elementsSVG[prop][elem].textY);
+                    sizeText.attr({
+                      'from-point': elementsSVG[prop][elem].start,
+                      'to-point': elementsSVG[prop][elem].end,
+                      'size-type': elementsSVG[prop][elem].type,
+                      'min-val': elementsSVG[prop][elem].min,
+                      'max-val': elementsSVG[prop][elem].max
+                    });
+                    if(elementsSVG[prop][elem].id) {
+                      sizeText.attr('id', elementsSVG[prop][elem].id);
+                    }
+                    if(prop === 'dimensionsV') {
+                      sizeText.attr('class', 'size-value-vertical');
+                    } else {
+                      sizeText.attr('class', 'size-value');
                     }
                   }
 
-                  //----- draw dimension size text
-                  var sizeText = groupTxt.text(' ' + elementsSVG[prop][elem].lengthVal + ' ').dx(elementsSVG[prop][elem].textX).dy(elementsSVG[prop][elem].textY);
-                  sizeText.attr('from-point', elementsSVG[prop][elem].start).attr('to-point', elementsSVG[prop][elem].end);
-                  sizeText.attr('size-type', elementsSVG[prop][elem].type).attr('min-val', elementsSVG[prop][elem].min).attr('max-val', elementsSVG[prop][elem].max);
-                  if(elementsSVG[prop][elem].id) {
-                    sizeText.attr('id', elementsSVG[prop][elem].id);
-                  }
+
                   /*
                    if(prop === 'dimensionsV') {
                    sizeText.attr({id: elementsSVG[prop][elem].id});
                    } else {
                    sizeText.attr({id: elementsSVG[prop][elem].id});
                    }
-                   */
+
                   //sizeText.attr({id: elementsSVG[prop][elem].id});
                   //sizeText.attr({limits: elementsSVG[prop][elem].limits});
                   //sizeText.attr({type: elementsSVG[prop][elem].sizeType});
@@ -450,7 +484,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                       sizeText.attr('class', 'size-value');
                     }
                   }
-
+                   */
                   // Click on size
                   groupTxt.click(function() {
                     if(scope.typeConstruction === 'edit' && !scope.$parent.global.isConstructSizeCalculator) {

@@ -382,10 +382,12 @@ body {
   stroke: #D2D2D2;
   stroke-width: 1px;
   text-anchor: middle;
+  alignment-baseline: middle;
 }
 .size-value-vertical {
   @extend .size-value;
-  text-anchor: end;
+  //text-anchor: end;
+
   //writing-mode: tb;
   //glyph-orientation-vertical: 190;
   //@include rotate(180deg);
@@ -396,10 +398,11 @@ body {
   fill: $main_green;
   stroke-width: 1px;
   text-anchor: middle;
+  alignment-baseline: middle;
 }
 .size-value-edit-vertical {
   @extend .size-value-edit;
-  text-anchor: end;
+  //text-anchor: end;
 }
 .open-direction {
   fill: none;

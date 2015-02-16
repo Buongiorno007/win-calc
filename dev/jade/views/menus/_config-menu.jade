@@ -35,4 +35,5 @@
     button.cart-btn(ng-if="global.productEditNumber !== ''", hm-tap="global.inputProductInOrder(); movetoCart()") {{ 'settings.SAVE' | translate }}
       .qty.unvisible(ng-if="global.order.products.length > 0 && !global.isCreatedNewProject", show-delay="{{ configMenu.DELAY_START }}") {{ global.order.products.length }}
 
+  .product-u-coeff.unvisible(ng-if="global.isConfigMenu", ng-class="{'u-coeff-low': global.product.heatTransferTOTAL < global.currentGeoLocation.heatTransfer}", show-delay="{{ configMenu.DELAY_SHOW_U_COEFF }}") U = {{ global.product.heatTransferTOTAL }}
   .curtain(ng-show="global.product.isAddElementsONLY")

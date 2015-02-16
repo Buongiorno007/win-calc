@@ -157,7 +157,7 @@ BauVoiceApp.factory('localStorage', function () {
       doorSashShapeId: 0,
       doorHandleShapeId: 0,
       doorLockShapeId: 0,
-
+      heatTransferMin: 0,
       heatTransferTOTAL: 0,
       airCirculationTOTAL: 0,
 

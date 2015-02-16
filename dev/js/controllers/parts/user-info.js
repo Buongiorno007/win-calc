@@ -26,7 +26,7 @@ BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localDB', 'localS
     if(!$scope.global.isOpenedHistoryPage) {
       $scope.global.startProgramm = false;
     }
-    playSound('swip');
+    //playSound('swip');
   };
 
   $scope.swipeLeft = function(event) {
@@ -36,7 +36,7 @@ BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localDB', 'localS
       if (!$scope.global.isOpenedHistoryPage) {
         $scope.global.startProgramm = false;
       }
-      playSound('swip');
+      //playSound('swip');
     }
   };
 
@@ -44,7 +44,7 @@ BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localDB', 'localS
     if(!$scope.global.showNavMenu) {
       $scope.global.showNavMenu = true;
       $scope.global.isConfigMenu = false;
-      playSound('swip');
+      //playSound('swip');
     }
   };
 

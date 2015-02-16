@@ -69,7 +69,8 @@ window.russianDictionary = {
     CONFIGMENU_ADDITIONAL: 'Дополнительно',
     CONFIGMENU_IN_CART: 'В корзину',
     VOICE_SPEACH: 'Говорите...',
-    COMMENT: 'Оставьте свою заметку о заказе здесь.'
+    COMMENT: 'Оставьте свою заметку о заказе здесь.',
+    ROOM_SELECTION: 'Выбор интерьера'
   },
   panels: {
     TEMPLATE_WINDOW: 'Oкно',

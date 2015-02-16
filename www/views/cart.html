@@ -70,7 +70,10 @@
                   <div class="order-template">
                     <svg-template template="product.templateIcon" template-width="global.svgTemplateIconWidth" template-height="global.svgTemplateIconHeight" type-construction="icon"></svg-template>
                   </div>
-                  <div class="order-coeff"><span class="coeff-label">{{ 'cart.HEAT_TRANSFER' | translate }}</span><span class="coeff-value">{{ product.heatTransferTOTAL }}</span></div>
+                  <div ng-class="{'u-coeff-low': product.heatTransferTOTAL &lt; product.heatTransferMin}" class="order-u-coeff">U = {{ product.heatTransferTOTAL }}
+                    <!--span.coeff-label {{ 'cart.HEAT_TRANSFER' | translate }}-->
+                    <!--span.coeff-value-->
+                  </div>
                 </div>
                 <div class="order-content">
                   <ul class="order-list">

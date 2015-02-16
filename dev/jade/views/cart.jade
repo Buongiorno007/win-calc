@@ -26,9 +26,9 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
 
                   .order-template
                     svg-template(template="product.templateIcon", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="icon")
-                  .order-coeff
-                    span.coeff-label {{ 'cart.HEAT_TRANSFER' | translate }}
-                    span.coeff-value {{ product.heatTransferTOTAL }}
+                  .order-u-coeff(ng-class="{'u-coeff-low': product.heatTransferTOTAL < product.heatTransferMin}") U = {{ product.heatTransferTOTAL }}
+                    //span.coeff-label {{ 'cart.HEAT_TRANSFER' | translate }}
+                    //span.coeff-value
                 .order-content
                   ul.order-list
                     li.order-item

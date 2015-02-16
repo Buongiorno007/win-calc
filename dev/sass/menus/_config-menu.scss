@@ -74,5 +74,20 @@
     width: rem($right_menu-width);
     height: rem(892px);
     background: rgba(#f8f8f8, .95);
+    z-index: 999;
+  }
+
+  .product-u-coeff {
+    @include roboto-lt(rem(42px));
+    top: 16.75rem;
+    right: 2rem;
+    position: absolute;
+    margin-left: rem(5px);
+    background-color: transparent;
+    color: $main_green;
+    z-index: 9;
+    &.u-coeff-low {
+      color: $error_color;
+    }
   }
 }
