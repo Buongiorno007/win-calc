@@ -72,7 +72,8 @@ window.englishDictionary = {
     CONFIGMENU_ADDITIONAL: 'Additionally',
     CONFIGMENU_IN_CART: 'In a basket',
     VOICE_SPEACH: 'You talk...',
-    COMMENT: 'Оставьте свою заметку о заказе здесь.'
+    COMMENT: 'Оставьте свою заметку о заказе здесь.',
+    ROOM_SELECTION: 'Interior selection'
   },
   panels: {
     TEMPLATE_WINDOW: 'Window',
@@ -155,7 +156,8 @@ window.englishDictionary = {
     VOICE_SWITCH_ON: "The voice helper is switched on",
     VOICE_NOT_UNDERSTAND: 'It is not clear',
     VOICE_SMALLEST_SIZE: 'The smallest size',
-    VOICE_BIGGEST_SIZE: "The biggest size"
+    VOICE_BIGGEST_SIZE: "The biggest size",
+    VOICE_SMALL_GLASS_BLOCK: "слишком маленький световой проем"
   },
   history: {
     SEARCH_PLACEHOLDER: 'Search by keyword',
@@ -230,7 +232,10 @@ window.englishDictionary = {
     ADDELEMENTS_EDIT_LIST: 'Edit List',
     ADDELEMENTS_PRODUCT_COST: 'one product',
     HEAT_TRANSFER: 'heat transfer',
-    WRONG_EMAIL: 'Incorrect e-mail'
+    WRONG_EMAIL: 'Incorrect e-mail',
+    LINK_BETWEEN_COUPLE: 'between couple',
+    LINK_BETWEEN_ALL: 'between all',
+    LINK_DELETE_ALL_GROUPE: 'delete all'
   },
   settings: {
     AUTHORIZATION: 'Authorization:',

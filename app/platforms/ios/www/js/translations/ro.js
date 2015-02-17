@@ -72,7 +72,8 @@ window.romanianDictionary = {
     CONFIGMENU_ADDITIONAL: 'Suplimentar',
     CONFIGMENU_IN_CART: 'Adaugă in coș',
     VOICE_SPEACH: 'Vorbiți...',
-    COMMENT: 'Оставьте свою заметку о заказе здесь.'
+    COMMENT: 'Оставьте свою заметку о заказе здесь.',
+    ROOM_SELECTION: 'Interior selection'
   },
   panels: {
     TEMPLATE_WINDOW: 'fereastră',
@@ -155,7 +156,8 @@ window.romanianDictionary = {
     VOICE_SWITCH_ON: "Modul Voce este activat",
     VOICE_NOT_UNDERSTAND: 'nu este clar',
     VOICE_SMALLEST_SIZE: 'prea mic',
-    VOICE_BIGGEST_SIZE: "prea mare"
+    VOICE_BIGGEST_SIZE: "prea mare",
+    VOICE_SMALL_GLASS_BLOCK: "слишком маленький световой проем"
   },
   history: {
     SEARCH_PLACEHOLDER: 'Căutare după cuvinte cheie',
@@ -230,7 +232,10 @@ window.romanianDictionary = {
     ADDELEMENTS_EDIT_LIST: 'redactarea listei',
     ADDELEMENTS_PRODUCT_COST: 'într-o construcţie',
     HEAT_TRANSFER: 'transferul de căldură',
-    WRONG_EMAIL: 'poșta electronica este incorectă'
+    WRONG_EMAIL: 'poșta electronica este incorectă',
+    LINK_BETWEEN_COUPLE: 'между парой',
+    LINK_BETWEEN_ALL: 'между всеми',
+    LINK_DELETE_ALL_GROUPE: 'удалить все'
   },
   settings: {
     AUTHORIZATION: 'Autentificare:',

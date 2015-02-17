@@ -44,7 +44,6 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
 
   $scope.newPriceForNewTemplate = function(templateIndex) {
     event.preventDefault();
-    playSound('price');
     if(!$scope.global.isFindPriceProcess) {
       $scope.global.isFindPriceProcess = true;
       $scope.global.product.templateIndex = templateIndex;

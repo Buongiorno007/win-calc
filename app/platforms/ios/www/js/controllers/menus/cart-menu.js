@@ -152,7 +152,7 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
 
   //-------- Calculate Total Order Price
   $scope.global.calculateTotalOrderPrice = function() {
-
+    playSound('price');
     var floorPrice = parseFloat($scope.global.order.selectedFloorPrice),
         assemblingPrice = parseFloat($scope.global.order.selectedAssemblingPrice);
 
@@ -196,6 +196,5 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
       }
     }
   };
-
 
 }]);

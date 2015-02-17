@@ -9,8 +9,8 @@ BauVoiceApp.factory('localStorage', function () {
     svgTemplateIconHeight: 70,
     svgTemplateIconBigWidth: 500,
     svgTemplateIconBigHeight: 450,
-    svgTemplateWidth: 1500,
-    svgTemplateHeight: 1000,
+    svgTemplateWidth: 800,
+    svgTemplateHeight: 700,
     currentDate: new Date(),
     productionDays: 15,
     currency: '',
@@ -160,12 +160,11 @@ BauVoiceApp.factory('localStorage', function () {
       doorSashShapeId: 0,
       doorHandleShapeId: 0,
       doorLockShapeId: 0,
-
+      heatTransferMin: 0,
       heatTransferTOTAL: 0,
       airCirculationTOTAL: 0,
 
       templatePriceSELECT: 0,
-      //hardwarePriceSELECT: 0,
       laminationPriceSELECT: 0,
       addElementsPriceSELECT: 0,
       productPriceTOTAL: 0,
@@ -290,17 +289,7 @@ BauVoiceApp.factory('localStorage', function () {
 //------ WebSQL DB table names
     //--- Local
     productsTableBD: 'products',
-    gridsTableBD: 'grids',
-    visorsTableBD: 'visors',
-    spillwaysTableBD: 'spillways',
-    outSlopesTableBD: 'outside_slopes',
-    louversTableBD: 'louvers',
-    inSlopesTableBD: 'inside_slopes',
-    connectorsTableBD: 'connectors',
-    fansTableBD: 'fans',
-    windowSillsTableBD: 'windowsills',
-    handlesTableBD: 'handles',
-    othersTableBD: 'other_elements',
+    addElementsTableBD: 'add_elements',
     ordersTableBD: 'orders',
     //---- Global
     usersTableDBGlobal: 'users',

@@ -26,29 +26,47 @@ BauVoiceApp.controller('RoomInfoCtrl', ['$scope', 'constructService', 'localStor
 
 
   // Show/Close Room Selector Dialog
-  $scope.showRoomSelectorDialog = function() {
-    if($scope.global.showRoomSelectorDialog === true) {
-      $scope.global.showRoomSelectorDialog = false;
-    } else {
-      $scope.global.showRoomSelectorDialog = true;
-      $scope.global.isRoomsDialog = true;
+  $scope.showRoomSelectorDialog = function(event) {
+    if(!$scope.global.isShowCommentBlock) {
+      if ($scope.global.showRoomSelectorDialog === true) {
+        $scope.global.showRoomSelectorDialog = false;
+      } else {
+        $scope.global.showRoomSelectorDialog = true;
+        $scope.global.isRoomsDialog = true;
+      }
+      //playSound('fly');
     }
   };
 
   //----- Show Comments
-  $(".room-info-container").swipe( {
-    swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
-      playSound('swip');
-      if(direction === 'up') {
-        $scope.global.isShowCommentBlock = true;
-      } else if(direction === 'down') {
-        $scope.global.isShowCommentBlock = false;
-      }
-      $scope.$apply();
-    },
-    //Default is 75px, set to 0 for demo so any distance triggers swipe
-    threshold:0
-  });
-
+  $scope.swipeShowComment = function(event) {
+    //playSound('swip');
+    $scope.global.isShowCommentBlock = true;
+    $scope.global.showRoomSelectorDialog = false;
+  };
+  $scope.swipeHideComment = function(event) {
+    //playSound('swip');
+    $scope.global.isShowCommentBlock = false;
+  };
 
 }]);
+
+
+//event.srcEvent.stopPropagation();
+//event.preventDefault();
+//$event.stopImmediatePropagation();
+
+/*
+
+ hm-pinch="pinch($event)" hm-rotate="rotate($event)"
+
+ $scope.rotate = function(event) {
+ $scope.rotation = event.gesture.rotation % 360;
+ event.gesture.preventDefault();
+ }
+ $scope.pinch = function(event) {
+ $scope.scaleFactor = event.gesture.scale;
+ event.gesture.preventDefault();
+ }
+
+ */

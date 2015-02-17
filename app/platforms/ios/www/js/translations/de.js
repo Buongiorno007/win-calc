@@ -72,7 +72,8 @@ window.germanDictionary = {
     CONFIGMENU_ADDITIONAL: 'Zusätzlich',
     CONFIGMENU_IN_CART: 'Zum Warenkorb',
     VOICE_SPEACH: 'Sprechen...',
-    COMMENT: 'Оставьте свою заметку о заказе здесь.'
+    COMMENT: 'Оставьте свою заметку о заказе здесь.',
+    ROOM_SELECTION: 'Interior selection'
   },
   panels: {
     TEMPLATE_WINDOW: 'Fenster',
@@ -155,7 +156,8 @@ window.germanDictionary = {
     VOICE_SWITCH_ON: "Voice-Modus aktiviert ist",
     VOICE_NOT_UNDERSTAND: 'es ist nicht klar',
     VOICE_SMALLEST_SIZE: 'zu klein',
-    VOICE_BIGGEST_SIZE: "zu groß"
+    VOICE_BIGGEST_SIZE: "zu groß",
+    VOICE_SMALL_GLASS_BLOCK: "слишком маленький световой проем"
   },
   history: {
     SEARCH_PLACEHOLDER: 'Suche nach Stichwort',
@@ -230,7 +232,10 @@ window.germanDictionary = {
     ADDELEMENTS_EDIT_LIST: 'Liste bearbeiten',
     ADDELEMENTS_PRODUCT_COST: 'einem Produkt',
     HEAT_TRANSFER: 'Wärmeübertragung',
-    WRONG_EMAIL: 'Falsche E-Mail'
+    WRONG_EMAIL: 'Falsche E-Mail',
+    LINK_BETWEEN_COUPLE: 'между парой',
+    LINK_BETWEEN_ALL: 'между всеми',
+    LINK_DELETE_ALL_GROUPE: 'удалить все'
   },
   settings: {
     AUTHORIZATION: 'Autorisierung:',

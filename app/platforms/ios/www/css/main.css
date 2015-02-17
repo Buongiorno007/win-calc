@@ -316,34 +316,34 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf?1421333336') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf?1422437875') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
-  src: url('../fonts/roboto/Roboto-Bold.ttf?1421333334') format('truetype');
+  src: url('../fonts/roboto/Roboto-Bold.ttf?1422437873') format('truetype');
 }
 @font-face {
   font-family: "roboto-light";
-  src: url('../fonts/roboto/Roboto-Light.ttf?1421333334') format('truetype');
+  src: url('../fonts/roboto/Roboto-Light.ttf?1422437874') format('truetype');
 }
 @font-face {
   font-family: "roboto-medium";
-  src: url('../fonts/roboto/Roboto-Medium.ttf?1421333335') format('truetype');
+  src: url('../fonts/roboto/Roboto-Medium.ttf?1422437875') format('truetype');
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf?1421333336') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf?1422437875') format('truetype');
 }
 @font-face {
   font-family: "general-icons";
-  src: url('../fonts/general-icons/icomoon.ttf?1421333334') format('truetype');
+  src: url('../fonts/general-icons/icomoon.ttf?1422437873') format('truetype');
 }
 @font-face {
   font-family: "nav-menu";
-  src: url('../fonts/nav-menu/icomoon.ttf?1421333334') format('truetype');
+  src: url('../fonts/nav-menu/icomoon.ttf?1422437873') format('truetype');
 }
 /* line 183, ../../dev/sass/base/_animations.scss */
-.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construction-right-menu .construct-tools, .construction-right-menu .door-config-btn, .nav-menu [class^='nav-icon-'],
+.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construction-right-menu .construct-tools, .construction-right-menu .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .elements-menu .color-img, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .hardware-container .hardware-box, .lamination-container .lamination-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
   -moz-animation: splashing 0.5s 0 ease 1;
   -webkit-animation: splashing 0.5s 0 ease 1;
@@ -1182,8 +1182,8 @@ body {
 }
 
 /* line 81, ../../dev/sass/base/general.scss */
-.icon-setting, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .search-block .delete-search, .construction-right-menu .construct-tools, .elements-menu .close-elements-menu, .pickmeup .pmu-instance nav .pmu-prev,
-.pickmeup .pmu-instance nav .pmu-next, .user-info-container .icon-location:before, .search-block:before, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .current-city:after, .voice-container .voice-icon, .setting-container .setting-item-change:after, .password-page .back, .language-page .back, .location-page .back, .accounts-container .tool, .accounts-container .account-tool, .empty-search-result .result-icon, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .construction-right-menu .door-config-btn, .door-configuration .door-config-btn, .nav-menu [class^='nav-icon-'],
+.icon-setting, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .search-block .delete-search, .construction-right-menu .construct-tools, .elements-menu .close-elements-menu, .pickmeup .pmu-instance nav .pmu-prev,
+.pickmeup .pmu-instance nav .pmu-next, .user-info-container .icon-location:before, .search-block:before, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .current-city:after, .voice-container .voice-icon, .setting-container .setting-item-change:after, .password-page .back, .language-page .back, .location-page .back, .accounts-container .tool, .accounts-container .account-tool, .empty-search-result .result-icon, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .close-alladdelements, .construction-right-menu .door-config-btn, .door-configuration .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .config-menu .item.active:before, .elements-menu .element-info:after, .cart-menu .item:after, .cart-menu .drop-instalment .dropdown-item.selected .value-percent:after, .cart-menu .calendar-price, .size-calc-container .calc-delete:after, .size-calc-container .calc-interval:after {
   font-weight: normal;
   font-style: normal;
@@ -1197,7 +1197,7 @@ body {
 }
 
 /* line 96, ../../dev/sass/base/general.scss */
-.button, .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn, .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .middle-button, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default, .small-button, .cart-page .order-tool, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .search-block .delete-search, .construction-right-menu .construct-tools, .elements-menu .close-elements-menu, .view-switch-tab, .aux-color, .setting-container .phone-btn, .accounts-container .tool, .accounts-container .account-tool, .accounts-container .account-change-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .construction-right-menu .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .auxiliaries-container .scheme-info, .additional-list-container .group-indicator, .additional-list-container .search-element {
+.button, .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn, .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .middle-button, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default, .small-button, .cart-page .order-tool, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .search-block .delete-search, .construction-right-menu .construct-tools, .elements-menu .close-elements-menu, .view-switch-tab, .aux-color, .setting-container .phone-btn, .accounts-container .tool, .accounts-container .account-tool, .accounts-container .account-change-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .close-alladdelements, .construction-right-menu .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .auxiliaries-container .scheme-info, .additional-list-container .group-indicator, .additional-list-container .search-element {
   border: 0;
   outline: none;
   cursor: pointer;
@@ -1205,38 +1205,38 @@ body {
   padding: 0;
 }
 
-/* line 105, ../../dev/sass/base/general.scss */
-.ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn {
+/* line 104, ../../dev/sass/base/general.scss */
+.ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn {
   border-width: 1px;
   border-style: solid;
 }
 
-/* line 112, ../../dev/sass/base/general.scss */
+/* line 111, ../../dev/sass/base/general.scss */
 .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .nav-menu .new-calc, .cart-menu .measure-btn {
   font: normal 3rem/1.42857 roboto-light, sans-serif;
   border-radius: 2rem;
 }
 
-/* line 119, ../../dev/sass/base/general.scss */
+/* line 118, ../../dev/sass/base/general.scss */
 .middle-button, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default {
   font: normal 1.5rem/2.25rem roboto-regular, sans-serif;
   border-radius: 2rem;
 }
 
-/* line 126, ../../dev/sass/base/general.scss */
-.small-button, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .order-tool {
+/* line 125, ../../dev/sass/base/general.scss */
+.small-button, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .order-tool {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   border-radius: 1.25rem;
 }
 
-/* line 133, ../../dev/sass/base/general.scss */
+/* line 132, ../../dev/sass/base/general.scss */
 .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit {
   height: 6.875rem;
   color: #fff;
   background-color: #f98000;
 }
 
-/* line 141, ../../dev/sass/base/general.scss */
+/* line 140, ../../dev/sass/base/general.scss */
 .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back {
   font: normal 3.125rem/1 general-icons, sans-serif;
   width: 3.75rem;
@@ -1245,75 +1245,75 @@ body {
   padding: 0;
   background: transparent;
 }
-/* line 151, ../../dev/sass/base/general.scss */
+/* line 150, ../../dev/sass/base/general.scss */
 .menu-btn:before, .user-info-container .nav-menu-btn:before, .setting-page .back:before, .setting-back:before {
   color: #fff;
   content: "\e60e";
 }
 
-/* line 160, ../../dev/sass/base/general.scss */
-.truncated, .menu-right-general .value, .config-menu .value, .elements-menu .value, .cart-menu .value, .old-price-tab .value, .old-price-inst-tab .value, .parameters-block .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title, .setting-container .setting-item-data, .cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value, .light-view .order-value, .construction-left-menu .figure-label, .nav-menu .title, .config-menu .additional-item, .template-container .other-template-subscr, .profile-container .profile-descr, .glass-container .glass-descr {
+/* line 159, ../../dev/sass/base/general.scss */
+.truncated, .menu-right-general .value, .config-menu .value, .elements-menu .value, .cart-menu .value, .old-price-tab .value, .old-price-inst-tab .value, .parameters-block .aux-title, .alladdelements-block .aux-title, .addelementunit-only .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title, .setting-container .setting-item-data, .cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value, .cart-page .addelementunit-value, .light-view .order-value, .light-view .addelementunit-value, .addelementunique-header .aux-title, .addelementunit-value, .construction-left-menu .figure-label, .nav-menu .title, .config-menu .additional-item, .template-container .other-template-subscr, .profile-container .profile-descr, .glass-container .glass-descr {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-/* line 168, ../../dev/sass/base/general.scss */
+/* line 167, ../../dev/sass/base/general.scss */
 .right-side {
   -moz-transition: all 1.3s linear;
   -webkit-transition: all 1.3s linear;
   transition: all 1.3s linear;
 }
-/* line 170, ../../dev/sass/base/general.scss */
+/* line 169, ../../dev/sass/base/general.scss */
 .right-side.main-page-bg {
   opacity: 0.2;
 }
-/* line 174, ../../dev/sass/base/general.scss */
+/* line 173, ../../dev/sass/base/general.scss */
 .right-side.kitchen {
-  background: url('../img/rooms-bg/kitchen.jpg?1421333339') no-repeat;
+  background: url('../img/rooms-bg/kitchen.jpg?1422437877') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 179, ../../dev/sass/base/general.scss */
+/* line 178, ../../dev/sass/base/general.scss */
 .right-side.livingroom {
-  background: url('../img/rooms-bg/livingroom.jpg?1421333339') no-repeat;
+  background: url('../img/rooms-bg/livingroom.jpg?1422437877') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 184, ../../dev/sass/base/general.scss */
+/* line 183, ../../dev/sass/base/general.scss */
 .right-side.balcony {
-  background: url('../img/rooms-bg/balcony.jpg?1421333338') no-repeat;
+  background: url('../img/rooms-bg/balcony.jpg?1422437877') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 189, ../../dev/sass/base/general.scss */
+/* line 188, ../../dev/sass/base/general.scss */
 .right-side.childroom {
-  background: url('../img/rooms-bg/childroom.jpg?1421333339') no-repeat;
+  background: url('../img/rooms-bg/childroom.jpg?1422437877') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 194, ../../dev/sass/base/general.scss */
+/* line 193, ../../dev/sass/base/general.scss */
 .right-side.bedroom {
-  background: url('../img/rooms-bg/bedroom.jpg?1421333338') no-repeat;
+  background: url('../img/rooms-bg/bedroom.jpg?1422437877') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 199, ../../dev/sass/base/general.scss */
+/* line 198, ../../dev/sass/base/general.scss */
 .right-side.door {
-  background: url('../img/rooms-bg/door.jpg?1421333339') no-repeat;
+  background: url('../img/rooms-bg/door.jpg?1422437877') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 
-/* line 209, ../../dev/sass/base/general.scss */
+/* line 208, ../../dev/sass/base/general.scss */
 .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto {
   width: 9.5rem;
   height: 9.5rem;
-  background-image: url('../img/userPhoto.png?1421333334');
+  background-image: url('../img/userPhoto.png?1422437873');
   background-size: cover;
 }
 
-/* line 220, ../../dev/sass/base/general.scss */
+/* line 219, ../../dev/sass/base/general.scss */
 .modal-dialog, .rooms-selector-dialog, .auxiliaries-container .scheme-view-dialog {
   top: 18.75rem;
   left: -125rem;
@@ -1326,36 +1326,36 @@ body {
   border-radius: 1.25rem;
   background-color: rgba(255, 255, 255, 0.85);
 }
-/* line 231, ../../dev/sass/base/general.scss */
+/* line 230, ../../dev/sass/base/general.scss */
 .modal-dialog.active, .active.rooms-selector-dialog, .auxiliaries-container .active.scheme-view-dialog {
   top: 18.75rem;
   left: 5rem;
 }
 
-/* line 237, ../../dev/sass/base/general.scss */
-.cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .search-block .delete-search, .construction-right-menu .construct-tools, .elements-menu .close-elements-menu {
+/* line 236, ../../dev/sass/base/general.scss */
+.cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .search-block .delete-search, .construction-right-menu .construct-tools, .elements-menu .close-elements-menu {
   border-radius: 50%;
 }
-/* line 242, ../../dev/sass/base/general.scss */
-.cross-btn:after, .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after, .search-block .delete-search:after, .construction-right-menu .construct-tools:after, .elements-menu .close-elements-menu:after {
+/* line 241, ../../dev/sass/base/general.scss */
+.cross-btn:after, .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .addelementunit-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after, .search-block .delete-search:after, .construction-right-menu .construct-tools:after, .elements-menu .close-elements-menu:after {
   position: absolute;
   color: #fff;
   content: "\e61f";
 }
 
-/* line 248, ../../dev/sass/base/general.scss */
-.small-cross-btn, .close-dialog, .aux-delete, .accounts-container .account-delete-btn, .cart-page .order-delete {
+/* line 247, ../../dev/sass/base/general.scss */
+.small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete {
   font: normal 2.5rem/1 general-icons, sans-serif;
   width: 3.125rem;
   height: 3.125rem;
 }
-/* line 254, ../../dev/sass/base/general.scss */
-.small-cross-btn:after, .close-dialog:after, .aux-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after {
+/* line 253, ../../dev/sass/base/general.scss */
+.small-cross-btn:after, .close-dialog:after, .aux-delete:after, .addelementunit-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after {
   top: 8%;
   left: 10%;
 }
 
-/* line 261, ../../dev/sass/base/general.scss */
+/* line 260, ../../dev/sass/base/general.scss */
 .close-dialog {
   position: absolute;
   top: 1.875rem;
@@ -1363,15 +1363,15 @@ body {
   background-color: #f98000;
 }
 
-/* line 271, ../../dev/sass/base/general.scss */
-.aux-delete {
+/* line 270, ../../dev/sass/base/general.scss */
+.aux-delete, .addelementunit-delete {
   top: 0rem;
   left: 0rem;
   position: relative;
   background-color: #bebebe;
 }
 
-/* line 280, ../../dev/sass/base/general.scss */
+/* line 279, ../../dev/sass/base/general.scss */
 .view-switch-tab {
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
@@ -1394,7 +1394,7 @@ body {
   z-index: 1;
 }
 
-/* line 300, ../../dev/sass/base/general.scss */
+/* line 299, ../../dev/sass/base/general.scss */
 .test {
   position: absolute;
   left: 3.125rem;
@@ -1404,14 +1404,14 @@ body {
   background-color: red;
   box-shadow: 0 0 1.25rem 0.625rem rgba(0, 0, 0, 0.3);
 }
-/* line 309, ../../dev/sass/base/general.scss */
+/* line 308, ../../dev/sass/base/general.scss */
 .test input {
   height: 3.125rem;
   width: 18.75rem;
   font-size: 2.25rem;
 }
 
-/* line 317, ../../dev/sass/base/general.scss */
+/* line 316, ../../dev/sass/base/general.scss */
 .backDarkView {
   position: absolute;
   top: 0;
@@ -1422,103 +1422,95 @@ body {
   z-index: 9;
 }
 
-/* line 331, ../../dev/sass/base/general.scss */
+/* line 330, ../../dev/sass/base/general.scss */
 .glass {
   fill: rgba(155, 204, 255, 0.2);
 }
 
-/* line 336, ../../dev/sass/base/general.scss */
+/* line 335, ../../dev/sass/base/general.scss */
 .glass-active {
   fill: rgba(34, 34, 255, 0.69);
 }
 
-/* line 340, ../../dev/sass/base/general.scss */
+/* line 339, ../../dev/sass/base/general.scss */
 .frame, .sash, .impost, .bead {
-  fill: #fff;
+  fill: #f9f9f9;
   stroke: #363636;
   stroke-width: 2;
 }
 
-/* line 345, ../../dev/sass/base/general.scss */
+/* line 344, ../../dev/sass/base/general.scss */
 .frame-icon, .sash-icon, .impost-icon, .bead-icon {
   fill: #ccc;
   stroke: #000;
   stroke-width: 4;
 }
 
-/* line 351, ../../dev/sass/base/general.scss */
+/* line 350, ../../dev/sass/base/general.scss */
 .main-line {
   fill: #363636;
 }
 
-/* line 354, ../../dev/sass/base/general.scss */
+/* line 353, ../../dev/sass/base/general.scss */
 .size-line {
   fill: none;
   stroke: #D2D2D2;
   stroke-width: 1;
 }
 
-/* line 362, ../../dev/sass/base/general.scss */
+/* line 361, ../../dev/sass/base/general.scss */
 .size-box {
   cursor: pointer;
 }
 
-/* line 365, ../../dev/sass/base/general.scss */
+/* line 364, ../../dev/sass/base/general.scss */
 .size-box-edited {
   cursor: pointer;
 }
-/* line 367, ../../dev/sass/base/general.scss */
+/* line 366, ../../dev/sass/base/general.scss */
 .size-box-edited .size-rect {
   fill: #6ed44a;
 }
-/* line 370, ../../dev/sass/base/general.scss */
+/* line 369, ../../dev/sass/base/general.scss */
 .size-box-edited .size-value-edit, .size-box-edited .size-value-edit-vertical {
   stroke: #fff;
   fill: #fff;
 }
 
-/* line 376, ../../dev/sass/base/general.scss */
+/* line 375, ../../dev/sass/base/general.scss */
 .size-rect {
   stroke: #6ed44a;
   stroke-width: 0.1875rem;
   fill: #fff;
 }
 
-/* line 381, ../../dev/sass/base/general.scss */
+/* line 380, ../../dev/sass/base/general.scss */
 .size-value, .size-value-vertical {
   font-size: 5.625rem;
   stroke: #D2D2D2;
   stroke-width: 1px;
   text-anchor: middle;
+  alignment-baseline: middle;
 }
 
-/* line 387, ../../dev/sass/base/general.scss */
-.size-value-vertical {
-  text-anchor: end;
-}
-
-/* line 394, ../../dev/sass/base/general.scss */
+/* line 395, ../../dev/sass/base/general.scss */
 .size-value-edit, .size-value-edit-vertical {
   font-size: 5.625rem;
   stroke: #6ed44a;
   fill: #6ed44a;
   stroke-width: 1px;
   text-anchor: middle;
+  alignment-baseline: middle;
 }
 
-/* line 401, ../../dev/sass/base/general.scss */
-.size-value-edit-vertical {
-  text-anchor: end;
-}
-
-/* line 405, ../../dev/sass/base/general.scss */
+/* line 407, ../../dev/sass/base/general.scss */
 .open-direction {
   fill: none;
   stroke: #f98000;
   stroke-width: 2;
 }
 
-/* line 414, ../../dev/sass/base/general.scss */
+/* line 416, ../../dev/sass/base/general.scss */
 .scrolling-container, .scroll-vert-container, .scroll-hor-container, .cart-page .addelements-detail-content {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -1527,33 +1519,33 @@ body {
   overflow-scrolling: touch;
 }
 
-/* line 417, ../../dev/sass/base/general.scss */
+/* line 419, ../../dev/sass/base/general.scss */
 .scroll-vert, .scroll-vert-container {
   overflow-x: hidden;
   overflow-y: scroll;
 }
 
-/* line 421, ../../dev/sass/base/general.scss */
+/* line 423, ../../dev/sass/base/general.scss */
 .scroll-hor, .scroll-hor-container {
   overflow-x: scroll;
   overflow-y: hidden;
 }
 
-/* line 425, ../../dev/sass/base/general.scss */
+/* line 427, ../../dev/sass/base/general.scss */
 .scroll-vert-container {
   width: 100%;
   height: 90%;
   padding-top: 2rem;
 }
 
-/* line 432, ../../dev/sass/base/general.scss */
+/* line 434, ../../dev/sass/base/general.scss */
 .scroll-hor-container {
   width: 100%;
   height: 100%;
   padding-top: 2rem;
 }
 
-/* line 441, ../../dev/sass/base/general.scss */
+/* line 443, ../../dev/sass/base/general.scss */
 #sounds {
   visibility: hidden;
 }
@@ -1712,7 +1704,7 @@ body {
   width: 3.125rem;
   height: 3.125rem;
   margin: -3.125rem/2 0 0 -3.125rem/2;
-  background: url('../img/spinner.gif?1421333339') no-repeat;
+  background: url('../img/spinner.gif?1422437877') no-repeat;
   background-size: cover;
 }
 
@@ -1817,11 +1809,10 @@ body {
 }
 /* line 28, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .select-rooms {
-  width: 8.5rem;
   height: 4.5rem;
-  margin-left: 2.1875rem;
+  padding: 0 1.5rem;
 }
-/* line 36, ../../dev/sass/parts/_room-info.scss */
+/* line 37, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-container {
   display: -webkit-flex;
   display: flex;
@@ -1835,7 +1826,7 @@ body {
   position: absolute;
   width: 100%;
 }
-/* line 45, ../../dev/sass/parts/_room-info.scss */
+/* line 46, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-block {
   text-shadow: 1px 2px 0px rgba(0, 0, 0, 0.4);
   margin: 0;
@@ -1843,15 +1834,15 @@ body {
   color: #fff;
   border-left: 2px dotted #fff;
 }
-/* line 52, ../../dev/sass/parts/_room-info.scss */
+/* line 53, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-block:first-child {
   border-left: none;
 }
-/* line 55, ../../dev/sass/parts/_room-info.scss */
+/* line 56, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-block:nth-child(2), .room-info-container .coeff-block:last-child {
   min-width: 32.5rem;
 }
-/* line 60, ../../dev/sass/parts/_room-info.scss */
+/* line 61, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-max {
   font: normal 2.25rem/1 roboto-medium, sans-serif;
   position: absolute;
@@ -1859,17 +1850,17 @@ body {
   right: 0;
   color: #fff;
 }
-/* line 68, ../../dev/sass/parts/_room-info.scss */
+/* line 69, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff {
   font: normal 5rem/1 roboto-light, sans-serif;
   position: relative;
   float: left;
 }
-/* line 73, ../../dev/sass/parts/_room-info.scss */
+/* line 74, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff.coeff-low {
   color: #ff9500;
 }
-/* line 79, ../../dev/sass/parts/_room-info.scss */
+/* line 80, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .coeff-title {
   font: normal 2rem/2.25rem roboto-light, sans-serif;
   float: left;
@@ -1877,12 +1868,12 @@ body {
   margin-left: 1.25rem;
   word-wrap: break-word;
 }
-/* line 89, ../../dev/sass/parts/_room-info.scss */
+/* line 90, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .product-comment {
   margin-top: 23rem;
   height: 90%;
 }
-/* line 93, ../../dev/sass/parts/_room-info.scss */
+/* line 94, ../../dev/sass/parts/_room-info.scss */
 .room-info-container textarea.comment-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   width: 90%;
@@ -1994,32 +1985,32 @@ body {
 }
 /* line 46, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.kitchen {
-  background: url('../img/rooms-dialog/kitchen.jpg?1421333339');
+  background: url('../img/rooms-dialog/kitchen.jpg?1422437877');
   background-size: contain;
 }
 /* line 50, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.livingroom {
-  background: url('../img/rooms-dialog/livingroom.jpg?1421333339');
+  background: url('../img/rooms-dialog/livingroom.jpg?1422437877');
   background-size: contain;
 }
 /* line 54, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.balcony {
-  background: url('../img/rooms-dialog/balcony.jpg?1421333339');
+  background: url('../img/rooms-dialog/balcony.jpg?1422437877');
   background-size: contain;
 }
 /* line 58, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.childroom {
-  background: url('../img/rooms-dialog/childroom.jpg?1421333339');
+  background: url('../img/rooms-dialog/childroom.jpg?1422437877');
   background-size: contain;
 }
 /* line 62, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.bedroom {
-  background: url('../img/rooms-dialog/bedroom.jpg?1421333339');
+  background: url('../img/rooms-dialog/bedroom.jpg?1422437877');
   background-size: contain;
 }
 /* line 66, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.door {
-  background: url('../img/rooms-dialog/door.jpg?1421333339');
+  background: url('../img/rooms-dialog/door.jpg?1422437877');
   background-size: contain;
 }
 /* line 71, ../../dev/sass/parts/_rooms-selector.scss */
@@ -2486,16 +2477,16 @@ body {
 }
 
 /* line 11, ../../dev/sass/parts/_additional-elements-general.scss */
-.parameters-block .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title {
+.parameters-block .aux-title, .alladdelements-block .aux-title, .addelementunit-only .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
 }
 /* line 15, ../../dev/sass/parts/_additional-elements-general.scss */
-.parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but {
+.parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but {
   padding: 0 1.25rem;
   background-color: transparent;
 }
 /* line 23, ../../dev/sass/parts/_additional-elements-general.scss */
-.parameters-block .aux-label, .elements-list-container .aux-label, .auxiliaries-container .aux-label, .additional-list-container .aux-list-content .aux-label, .parameters-block .elements-menu .color-label, .elements-menu .parameters-block .color-label, .elements-list-container .elements-menu .color-label, .elements-menu .elements-list-container .color-label, .auxiliaries-container .elements-menu .color-label, .elements-menu .auxiliaries-container .color-label, .additional-list-container .aux-list-content .elements-menu .color-label, .elements-menu .additional-list-container .aux-list-content .color-label {
+.parameters-block .aux-label, .alladdelements-block .aux-label, .addelementunit-only .aux-label, .elements-list-container .aux-label, .auxiliaries-container .aux-label, .additional-list-container .aux-list-content .aux-label, .parameters-block .elements-menu .color-label, .elements-menu .parameters-block .color-label, .alladdelements-block .elements-menu .color-label, .elements-menu .alladdelements-block .color-label, .addelementunit-only .elements-menu .color-label, .elements-menu .addelementunit-only .color-label, .elements-list-container .elements-menu .color-label, .elements-menu .elements-list-container .color-label, .auxiliaries-container .elements-menu .color-label, .elements-menu .auxiliaries-container .color-label, .additional-list-container .aux-list-content .elements-menu .color-label, .elements-menu .additional-list-container .aux-list-content .color-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
@@ -2581,7 +2572,7 @@ body {
 }
 
 /* line 98, ../../dev/sass/parts/_additional-elements-general.scss */
-.aux-price, .additional-list-container .aux-total-price {
+.aux-price, .alladdelements-block .aux-total-price, .addelementunique-header .aux-total-price, .addelementunit-only .aux-total-price, .additional-list-container .aux-total-price {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
   min-width: 20%;
   text-align: right;
@@ -3212,7 +3203,7 @@ body {
   display: -webkit-flex;
   display: flex;
   height: 100%;
-  background: url('../img/login/login-bg.jpg?1421333338') no-repeat;
+  background: url('../img/login/login-bg.jpg?1422437877') no-repeat;
   background-size: cover;
 }
 
@@ -3244,7 +3235,7 @@ body {
   width: 14.75rem;
   height: 14.75rem;
   margin: 0 auto 4.5625rem auto;
-  background: url('../img/login/logo.png?1421333338') no-repeat;
+  background: url('../img/login/logo.png?1422437876') no-repeat;
   background-size: cover;
 }
 
@@ -4141,12 +4132,30 @@ body {
   transition: all 0.5s linear;
   z-index: 5;
 }
-/* line 25, ../../dev/sass/pages/cart.scss */
+/* line 24, ../../dev/sass/pages/cart.scss */
+.cart-page .cart-container.alladdelements-view {
+  top: 0rem;
+  left: -156.25rem;
+  -moz-transition: all 0.5s linear;
+  -webkit-transition: all 0.5s linear;
+  transition: all 0.5s linear;
+  z-index: 6;
+}
+/* line 29, ../../dev/sass/pages/cart.scss */
+.cart-page .cart-container.addelement-view {
+  top: 0rem;
+  left: -156.25rem;
+  -moz-transition: all 0.5s linear;
+  -webkit-transition: all 0.5s linear;
+  transition: all 0.5s linear;
+  z-index: 7;
+}
+/* line 34, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-container.active {
   top: 0rem;
   left: 0rem;
 }
-/* line 30, ../../dev/sass/pages/cart.scss */
+/* line 39, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-header {
   display: -webkit-flex;
   display: flex;
@@ -4161,40 +4170,40 @@ body {
   height: 9.375rem;
   margin-bottom: 2.5rem;
 }
-/* line 41, ../../dev/sass/pages/cart.scss */
+/* line 50, ../../dev/sass/pages/cart.scss */
 .cart-page .user-info-container {
   top: 0;
 }
-/* line 44, ../../dev/sass/pages/cart.scss */
+/* line 53, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-tool {
   position: relative;
   padding: 1.125rem 1.875rem;
   z-index: 2;
 }
-/* line 52, ../../dev/sass/pages/cart.scss */
+/* line 61, ../../dev/sass/pages/cart.scss */
 .cart-page .additional-elements {
   margin-right: 1.25rem;
   background-color: #dcdcdc;
   color: #363636;
 }
-/* line 57, ../../dev/sass/pages/cart.scss */
+/* line 66, ../../dev/sass/pages/cart.scss */
 .cart-page .new-order {
   background-color: #6ed44a;
   color: #fff;
 }
-/* line 62, ../../dev/sass/pages/cart.scss */
-.cart-page .order {
+/* line 71, ../../dev/sass/pages/cart.scss */
+.cart-page .order, .cart-page .addelementunit {
   -moz-box-shadow: rgba(0, 0, 0, 0.3) 0.9375rem 0.625rem 1.875rem 0;
   -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0.9375rem 0.625rem 1.875rem 0;
   box-shadow: rgba(0, 0, 0, 0.3) 0.9375rem 0.625rem 1.875rem 0;
   position: relative;
   margin-right: 3.125rem;
 }
-/* line 69, ../../dev/sass/pages/cart.scss */
+/* line 78, ../../dev/sass/pages/cart.scss */
 .cart-page .order-header {
   position: relative;
 }
-/* line 72, ../../dev/sass/pages/cart.scss */
+/* line 81, ../../dev/sass/pages/cart.scss */
 .cart-page .order-delete {
   position: absolute;
   top: -1.25rem;
@@ -4202,29 +4211,29 @@ body {
   background-color: #6ed44a;
   z-index: 1;
 }
-/* line 82, ../../dev/sass/pages/cart.scss */
-.cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value {
+/* line 91, ../../dev/sass/pages/cart.scss */
+.cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value, .cart-page .addelementunit-value {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 88, ../../dev/sass/pages/cart.scss */
+/* line 97, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-btn {
   cursor: pointer;
 }
-/* line 91, ../../dev/sass/pages/cart.scss */
+/* line 100, ../../dev/sass/pages/cart.scss */
 .cart-page .order-label, .cart-page .product-icon-label,
 .cart-page .product-label, .cart-page .addelement-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #8c8c8c;
 }
-/* line 96, ../../dev/sass/pages/cart.scss */
+/* line 105, ../../dev/sass/pages/cart.scss */
 .cart-page .order-qty {
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 100, ../../dev/sass/pages/cart.scss */
+/* line 109, ../../dev/sass/pages/cart.scss */
 .cart-page .order-tool {
   width: 4.0625rem;
   height: 2.8125rem;
@@ -4232,7 +4241,7 @@ body {
   background-color: #6ed44a;
   color: #fff;
 }
-/* line 108, ../../dev/sass/pages/cart.scss */
+/* line 117, ../../dev/sass/pages/cart.scss */
 .cart-page .order-footer, .cart-page .addelements-detail-footer {
   font: normal 3rem/6.25rem roboto-medium, sans-serif;
   padding-left: 3.125rem;
@@ -4241,7 +4250,7 @@ body {
   background-color: #f0f0f0;
   color: #363636;
 }
-/* line 119, ../../dev/sass/pages/cart.scss */
+/* line 128, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail {
   position: absolute;
   top: 17rem;
@@ -4252,7 +4261,7 @@ body {
   border-bottom-right-radius: 1.25rem;
   z-index: 10;
 }
-/* line 129, ../../dev/sass/pages/cart.scss */
+/* line 138, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-tools {
   display: -webkit-flex;
   display: flex;
@@ -4260,7 +4269,7 @@ body {
   flex-flow: row nowrap;
   height: 6.25rem;
 }
-/* line 135, ../../dev/sass/pages/cart.scss */
+/* line 144, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-edit {
   -webkit-flex-grow: 3;
   flex-grow: 3;
@@ -4268,39 +4277,39 @@ body {
   background-color: #6ed44a;
   color: #fff;
 }
-/* line 143, ../../dev/sass/pages/cart.scss */
+/* line 152, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-close {
   -webkit-flex-grow: 1;
   flex-grow: 1;
   background-color: #bebebe;
 }
-/* line 148, ../../dev/sass/pages/cart.scss */
+/* line 157, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-close:after {
   font: normal 2.5rem/1 general-icons, sans-serif;
   color: #fff;
   content: "\e61f";
 }
-/* line 154, ../../dev/sass/pages/cart.scss */
+/* line 163, ../../dev/sass/pages/cart.scss */
 .cart-page .product-template {
   padding: 2.125rem;
   border-bottom: 1px solid #bebebe;
 }
-/* line 158, ../../dev/sass/pages/cart.scss */
+/* line 167, ../../dev/sass/pages/cart.scss */
 .cart-page .product-template-icon {
   margin-bottom: 1.25rem;
 }
-/* line 161, ../../dev/sass/pages/cart.scss */
+/* line 170, ../../dev/sass/pages/cart.scss */
 .cart-page .product-icon-thumb {
   display: inline-block;
   width: 12.5rem;
   margin-right: 0.625rem;
 }
-/* line 173, ../../dev/sass/pages/cart.scss */
+/* line 182, ../../dev/sass/pages/cart.scss */
 .cart-page .product-icon-label {
   max-width: 7.1875rem;
   text-align: right;
 }
-/* line 177, ../../dev/sass/pages/cart.scss */
+/* line 186, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-row, .cart-page .addelements-detail-footer {
   display: -webkit-flex;
   display: flex;
@@ -4311,25 +4320,25 @@ body {
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 183, ../../dev/sass/pages/cart.scss */
+/* line 192, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-content {
   height: 46.25rem;
   overflow-x: hidden;
   overflow-y: auto;
   padding: 1.875rem 3.125rem;
 }
-/* line 190, ../../dev/sass/pages/cart.scss */
+/* line 199, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 195, ../../dev/sass/pages/cart.scss */
+/* line 204, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-item {
   padding-top: 1.25rem;
   border-bottom: 1px solid #bebebe;
 }
-/* line 199, ../../dev/sass/pages/cart.scss */
+/* line 208, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-parameters {
   display: -webkit-flex;
   display: flex;
@@ -4341,57 +4350,71 @@ body {
   align-items: center;
   margin: 1.25rem 0;
 }
-/* line 206, ../../dev/sass/pages/cart.scss */
+/* line 215, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-parameter {
   margin-right: 1rem;
 }
-/* line 209, ../../dev/sass/pages/cart.scss */
+/* line 218, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-value {
   margin-right: 1.25rem;
 }
-/* line 213, ../../dev/sass/pages/cart.scss */
+/* line 222, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-value img {
   width: 2.8125rem;
 }
-/* line 220, ../../dev/sass/pages/cart.scss */
+/* line 229, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-price-value {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
   margin-right: 1.25rem;
 }
-/* line 226, ../../dev/sass/pages/cart.scss */
+/* line 235, ../../dev/sass/pages/cart.scss */
 .cart-page .price-one-product {
   margin-top: 1.875rem;
 }
-/* line 229, ../../dev/sass/pages/cart.scss */
+/* line 238, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-footer {
   padding-right: 3.125rem;
 }
 
-/* line 239, ../../dev/sass/pages/cart.scss */
+/* line 247, ../../dev/sass/pages/cart.scss */
+.full-view {
+  /*
+  .coeff-label {
+    @include roboto-lt(rem(28px));
+    color: #8c8c8c;
+  }
+  .coeff-value {
+    @include roboto-lt(rem(42px));
+    color: $main_green;
+    margin-left: rem(5px);
+  }
+  */
+}
+/* line 248, ../../dev/sass/pages/cart.scss */
 .full-view .order-block {
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
 }
-/* line 244, ../../dev/sass/pages/cart.scss */
-.full-view .order {
+/* line 253, ../../dev/sass/pages/cart.scss */
+.full-view .order, .full-view .addelementunit {
   width: 32rem;
   float: left;
   border-bottom-right-radius: 1.25rem;
   border-bottom-left-radius: 1.25rem;
 }
-/* line 250, ../../dev/sass/pages/cart.scss */
+/* line 259, ../../dev/sass/pages/cart.scss */
 .full-view .order-header {
   height: 20rem;
 }
-/* line 253, ../../dev/sass/pages/cart.scss */
+/* line 262, ../../dev/sass/pages/cart.scss */
 .full-view .order-header-fon {
   width: 32rem;
   height: 20rem;
   cursor: pointer;
 }
-/* line 258, ../../dev/sass/pages/cart.scss */
+/* line 267, ../../dev/sass/pages/cart.scss */
 .full-view .order-template {
   position: absolute;
   bottom: -4.5625rem;
@@ -4400,41 +4423,37 @@ body {
   background-color: #fff;
   border-radius: 0.625rem;
 }
-/* line 266, ../../dev/sass/pages/cart.scss */
-.full-view .order-coeff {
-  bottom: -3.75rem;
-  right: 0.3125rem;
-  position: absolute;
-  background-color: #fff;
-}
-/* line 272, ../../dev/sass/pages/cart.scss */
-.full-view .coeff-label {
-  font: normal 1.75rem/1.42857 roboto-light, sans-serif;
-  color: #8c8c8c;
-}
-/* line 276, ../../dev/sass/pages/cart.scss */
-.full-view .coeff-value {
+/* line 275, ../../dev/sass/pages/cart.scss */
+.full-view .order-u-coeff {
   font: normal 2.625rem/1.42857 roboto-light, sans-serif;
-  color: #6ed44a;
+  bottom: -3.75rem;
+  right: 3.3rem;
+  position: absolute;
   margin-left: 0.3125rem;
+  background-color: #fff;
+  color: #6ed44a;
 }
-/* line 281, ../../dev/sass/pages/cart.scss */
+/* line 284, ../../dev/sass/pages/cart.scss */
+.full-view .order-u-coeff.u-coeff-low {
+  color: #f74f2e;
+}
+/* line 299, ../../dev/sass/pages/cart.scss */
 .full-view .order-content {
   padding: 4.375rem 2.5rem 0 3.125rem;
   background-color: #fff;
 }
-/* line 285, ../../dev/sass/pages/cart.scss */
+/* line 303, ../../dev/sass/pages/cart.scss */
 .full-view .order-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 290, ../../dev/sass/pages/cart.scss */
+/* line 308, ../../dev/sass/pages/cart.scss */
 .full-view .order-item {
   padding: 0.4375rem 0;
   border-bottom: 1px solid #bebebe;
 }
-/* line 294, ../../dev/sass/pages/cart.scss */
+/* line 312, ../../dev/sass/pages/cart.scss */
 .full-view .order-qty {
   -webkit-flex-flow: row nowrap;
   flex-flow: row nowrap;
@@ -4442,24 +4461,24 @@ body {
   justify-content: space-between;
   height: 6.25rem;
 }
-/* line 299, ../../dev/sass/pages/cart.scss */
+/* line 317, ../../dev/sass/pages/cart.scss */
 .full-view .qty-label {
   max-width: 10.625rem;
 }
-/* line 302, ../../dev/sass/pages/cart.scss */
+/* line 320, ../../dev/sass/pages/cart.scss */
 .full-view .order-footer, .full-view .cart-page .addelements-detail-footer, .cart-page .full-view .addelements-detail-footer {
   padding-left: 3.125rem;
 }
 
-/* line 309, ../../dev/sass/pages/cart.scss */
+/* line 327, ../../dev/sass/pages/cart.scss */
 .light-view .order-block {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
 }
-/* line 313, ../../dev/sass/pages/cart.scss */
-.light-view .order {
+/* line 331, ../../dev/sass/pages/cart.scss */
+.light-view .order, .light-view .addelementunit {
   width: 26.25rem;
   margin-bottom: 3.125rem;
   margin-right: 2.75rem;
@@ -4467,26 +4486,26 @@ body {
   background-color: #fff;
   text-align: center;
 }
-/* line 321, ../../dev/sass/pages/cart.scss */
+/* line 339, ../../dev/sass/pages/cart.scss */
 .light-view .order-template {
   cursor: pointer;
 }
-/* line 327, ../../dev/sass/pages/cart.scss */
+/* line 345, ../../dev/sass/pages/cart.scss */
 .light-view .order-header {
   padding-top: 2.5rem;
 }
-/* line 330, ../../dev/sass/pages/cart.scss */
+/* line 348, ../../dev/sass/pages/cart.scss */
 .light-view .order-content {
   padding: 2.5rem 1.25rem;
 }
-/* line 336, ../../dev/sass/pages/cart.scss */
+/* line 354, ../../dev/sass/pages/cart.scss */
 .light-view .addelements-btn {
   margin-top: 0.625rem;
   padding: 0.625rem 0;
   border-top: 1px solid #bebebe;
   border-bottom: 1px solid #bebebe;
 }
-/* line 342, ../../dev/sass/pages/cart.scss */
+/* line 360, ../../dev/sass/pages/cart.scss */
 .light-view .order-qty {
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
@@ -4494,11 +4513,414 @@ body {
   justify-content: space-around;
   padding-top: 2.5rem;
 }
-/* line 347, ../../dev/sass/pages/cart.scss */
+/* line 365, ../../dev/sass/pages/cart.scss */
 .light-view .order-label, .light-view .cart-page .product-icon-label, .cart-page .light-view .product-icon-label,
 .light-view .cart-page .product-label,
 .cart-page .light-view .product-label, .light-view .cart-page .addelement-label, .cart-page .light-view .addelement-label {
   padding-top: 0.625rem;
+}
+
+/* line 373, ../../dev/sass/pages/cart.scss */
+.alladdelements-header {
+  position: relative;
+  width: 100%;
+  height: 6.25rem;
+}
+
+/* line 378, ../../dev/sass/pages/cart.scss */
+.close-alladdelements {
+  font: normal 3.125rem/1 general-icons, sans-serif;
+  top: 0rem;
+  left: -7rem;
+  position: absolute;
+  height: 6.875rem;
+  width: 6.25rem;
+  background-color: #f98000;
+  border-top-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+}
+/* line 389, ../../dev/sass/pages/cart.scss */
+.close-alladdelements:before {
+  color: #fff;
+  content: "\e613";
+}
+
+/* line 394, ../../dev/sass/pages/cart.scss */
+.alladdelements-block {
+  -webkit-overflow-scrolling: touch;
+  -moz-overflow-scrolling: touch;
+  -o-overflow-scrolling: touch;
+  -ms-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 95%;
+}
+/* line 401, ../../dev/sass/pages/cart.scss */
+.alladdelements-block .aux-list-block {
+  padding: 3.125rem 0;
+  border-bottom: 1px solid #bebebe;
+}
+/* line 405, ../../dev/sass/pages/cart.scss */
+.alladdelements-block .aux-list-block:last-child {
+  padding: 3.125rem 0 0 0;
+  border: none;
+}
+/* line 411, ../../dev/sass/pages/cart.scss */
+.alladdelements-block .aux-list-block-title,
+.alladdelements-block .aux-total-label {
+  font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
+  color: #363636;
+}
+/* line 417, ../../dev/sass/pages/cart.scss */
+.alladdelements-block .aux-list-block-title:first-letter {
+  text-transform: uppercase;
+}
+/* line 420, ../../dev/sass/pages/cart.scss */
+.alladdelements-block .aux-list-row {
+  margin-bottom: 1.25rem;
+}
+/* line 426, ../../dev/sass/pages/cart.scss */
+.alladdelements-block .aux-total-label {
+  min-width: 69%;
+}
+/* line 430, ../../dev/sass/pages/cart.scss */
+.alladdelements-block .aux-list-addellement {
+  width: 100%;
+}
+/* line 433, ../../dev/sass/pages/cart.scss */
+.alladdelements-block .aux-list-addellement .aux-tablecell-name {
+  width: 31.25rem;
+}
+/* line 435, ../../dev/sass/pages/cart.scss */
+.alladdelements-block .aux-list-addellement .aux-tablecell-name .aux-name {
+  max-width: 100%;
+}
+/* line 439, ../../dev/sass/pages/cart.scss */
+.alladdelements-block .aux-list-addellement .aux-tablecell-total {
+  width: 75%;
+}
+/* line 442, ../../dev/sass/pages/cart.scss */
+.alladdelements-block .aux-list-addellement .aux-tablecell-qty {
+  width: 6.25rem;
+}
+/* line 445, ../../dev/sass/pages/cart.scss */
+.alladdelements-block .aux-list-addellement .aux-tablecell-width,
+.alladdelements-block .aux-list-addellement .aux-tablecell-height {
+  width: 9.375rem;
+}
+/* line 449, ../../dev/sass/pages/cart.scss */
+.alladdelements-block .aux-list-addellement .aux-tablecell-color {
+  width: 6.25rem;
+}
+/* line 452, ../../dev/sass/pages/cart.scss */
+.alladdelements-block .aux-list-addellement .aux-tablecell-price {
+  width: 12.5rem;
+}
+/* line 454, ../../dev/sass/pages/cart.scss */
+.alladdelements-block .aux-list-addellement .aux-tablecell-price .aux-price, .alladdelements-block .aux-list-addellement .aux-tablecell-price .aux-total-price {
+  text-align: center;
+}
+/* line 458, ../../dev/sass/pages/cart.scss */
+.alladdelements-block .aux-list-addellement .aux-tablecell-delete {
+  width: 6.25rem;
+}
+
+/* line 468, ../../dev/sass/pages/cart.scss */
+.addelementunique-header {
+  position: relative;
+  width: 100%;
+  height: 6.25rem;
+  background-color: #fff;
+}
+/* line 474, ../../dev/sass/pages/cart.scss */
+.addelementunique-header .aux-title {
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  color: #363636;
+}
+/* line 479, ../../dev/sass/pages/cart.scss */
+.addelementunique-header .aux-label, .addelementunique-header .elements-menu .color-label, .elements-menu .addelementunique-header .color-label {
+  font: normal 1.375rem/1.42857 roboto-light, sans-serif;
+  color: #363636;
+}
+/* line 483, ../../dev/sass/pages/cart.scss */
+.addelementunique-header .aux-params-but {
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  color: #363636;
+}
+/* line 487, ../../dev/sass/pages/cart.scss */
+.addelementunique-header .aux-list-row {
+  padding-top: 1%;
+}
+/* line 494, ../../dev/sass/pages/cart.scss */
+.addelementunique-header .aux-total-label {
+  min-width: 69%;
+}
+/* line 498, ../../dev/sass/pages/cart.scss */
+.addelementunique-header .aux-list-addellement {
+  width: 100%;
+}
+/* line 501, ../../dev/sass/pages/cart.scss */
+.addelementunique-header .aux-list-addellement .aux-tablecell-name {
+  width: 31.25rem;
+}
+/* line 503, ../../dev/sass/pages/cart.scss */
+.addelementunique-header .aux-list-addellement .aux-tablecell-name .aux-name {
+  max-width: 100%;
+}
+/* line 507, ../../dev/sass/pages/cart.scss */
+.addelementunique-header .aux-list-addellement .aux-tablecell-total {
+  width: 75%;
+}
+/* line 510, ../../dev/sass/pages/cart.scss */
+.addelementunique-header .aux-list-addellement .aux-tablecell-qty {
+  width: 6.25rem;
+}
+/* line 513, ../../dev/sass/pages/cart.scss */
+.addelementunique-header .aux-list-addellement .aux-tablecell-width,
+.addelementunique-header .aux-list-addellement .aux-tablecell-height {
+  width: 9.375rem;
+}
+/* line 517, ../../dev/sass/pages/cart.scss */
+.addelementunique-header .aux-list-addellement .aux-tablecell-color {
+  width: 6.25rem;
+}
+/* line 520, ../../dev/sass/pages/cart.scss */
+.addelementunique-header .aux-list-addellement .aux-tablecell-price {
+  width: 12.5rem;
+}
+/* line 522, ../../dev/sass/pages/cart.scss */
+.addelementunique-header .aux-list-addellement .aux-tablecell-price .aux-price, .addelementunique-header .aux-list-addellement .aux-tablecell-price .aux-total-price {
+  text-align: center;
+}
+/* line 526, ../../dev/sass/pages/cart.scss */
+.addelementunique-header .aux-list-addellement .aux-tablecell-delete {
+  width: 6.25rem;
+}
+
+/* line 533, ../../dev/sass/pages/cart.scss */
+.addelementunit-header-fon {
+  top: -3.125rem;
+  left: -6.25rem;
+  position: absolute;
+  width: 112%;
+  height: 11.25rem;
+  background-color: #fff;
+  z-index: -1;
+}
+
+/* line 542, ../../dev/sass/pages/cart.scss */
+.addelementunits-container {
+  -webkit-overflow-scrolling: touch;
+  -moz-overflow-scrolling: touch;
+  -o-overflow-scrolling: touch;
+  -ms-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  height: 94%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-top: 2%;
+  padding-top: 3%;
+}
+
+/* line 551, ../../dev/sass/pages/cart.scss */
+.addelementunit-block {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+/* line 556, ../../dev/sass/pages/cart.scss */
+.addelementunit {
+  width: 26.25rem;
+  min-width: 26.25rem;
+  margin-bottom: 3.125rem;
+  margin-right: 2.75rem;
+  border-radius: 1.25rem;
+  background-color: #fff;
+  text-align: center;
+}
+
+/* line 567, ../../dev/sass/pages/cart.scss */
+.addelementunit-header {
+  position: relative;
+  height: 13.125rem;
+  padding-top: 2.5rem;
+}
+
+/* line 572, ../../dev/sass/pages/cart.scss */
+.addelementunit-delete {
+  position: absolute;
+  top: -1.25rem;
+  right: -1.25rem;
+  left: initial;
+  z-index: 9;
+}
+
+/* line 580, ../../dev/sass/pages/cart.scss */
+.addelementunit-content {
+  padding: 2.5rem 1.25rem;
+}
+
+/* line 587, ../../dev/sass/pages/cart.scss */
+.addelementunit-footer {
+  font: normal 3rem/6.25rem roboto-medium, sans-serif;
+  border-bottom-left-radius: 1.25rem;
+  border-bottom-right-radius: 1.25rem;
+  color: #363636;
+  background-color: #4bd963;
+}
+
+/* line 597, ../../dev/sass/pages/cart.scss */
+.addelementunit-train {
+  -webkit-overflow-scrolling: touch;
+  -moz-overflow-scrolling: touch;
+  -o-overflow-scrolling: touch;
+  -ms-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+/* line 602, ../../dev/sass/pages/cart.scss */
+.addelementunit-train .addelementunit-train-inner {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+}
+/* line 609, ../../dev/sass/pages/cart.scss */
+.addelementunit-train .addelementunit.unit-last .link-right {
+  display: none;
+}
+/* line 615, ../../dev/sass/pages/cart.scss */
+.addelementunit-train .addelementunit-link {
+  position: absolute;
+  bottom: 3.125rem;
+  width: 3.75rem;
+  height: 5rem;
+  border-bottom: 1px solid #4bd963;
+}
+/* line 621, ../../dev/sass/pages/cart.scss */
+.addelementunit-train .addelementunit-link.link-right {
+  right: -3.4375rem;
+}
+/* line 629, ../../dev/sass/pages/cart.scss */
+.addelementunit-train .link-explode-menu {
+  font: normal 2.25rem/4.0625rem roboto-light, sans-serif;
+  position: absolute;
+  bottom: 5.9375rem;
+  right: -40rem;
+  padding: 0 1.25rem;
+  border-radius: 1rem;
+  background-color: #242424;
+  color: #fff;
+  cursor: pointer;
+  z-index: 999;
+}
+/* line 641, ../../dev/sass/pages/cart.scss */
+.addelementunit-train .link-explode-menu:before {
+  position: absolute;
+  z-index: 99;
+  bottom: -1.25rem;
+  left: 1.875rem;
+  display: block;
+  width: 0;
+  border-width: 1.25rem 1.25rem 0;
+  border-style: solid;
+  border-color: #242424 transparent;
+  content: '';
+}
+/* line 655, ../../dev/sass/pages/cart.scss */
+.addelementunit-train ul.link-explode-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* line 661, ../../dev/sass/pages/cart.scss */
+.addelementunit-train li.link-explode-item {
+  display: inline-block;
+  line-height: 5rem;
+  padding-right: 0.9375rem;
+  border-right: 1px solid #bebebe;
+  text-align: center;
+  color: #ddd;
+}
+/* line 669, ../../dev/sass/pages/cart.scss */
+.addelementunit-train li.link-explode-item:last-child {
+  border-right: none;
+  padding-left: 0.5rem;
+  padding-right: 0;
+}
+
+/* line 682, ../../dev/sass/pages/cart.scss */
+.addelementunit-only .aux-list-block {
+  padding: 3.125rem 0;
+  border-bottom: 1px solid #bebebe;
+}
+/* line 686, ../../dev/sass/pages/cart.scss */
+.addelementunit-only .aux-list-block:last-child {
+  padding: 3.125rem 0 0 0;
+  border: none;
+}
+/* line 692, ../../dev/sass/pages/cart.scss */
+.addelementunit-only .aux-list-block-title,
+.addelementunit-only .aux-total-label {
+  font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
+  color: #363636;
+}
+/* line 698, ../../dev/sass/pages/cart.scss */
+.addelementunit-only .aux-list-block-title:first-letter {
+  text-transform: uppercase;
+}
+/* line 701, ../../dev/sass/pages/cart.scss */
+.addelementunit-only .aux-list-row {
+  margin-bottom: 1.25rem;
+}
+/* line 707, ../../dev/sass/pages/cart.scss */
+.addelementunit-only .aux-total-label {
+  min-width: 69%;
+}
+/* line 711, ../../dev/sass/pages/cart.scss */
+.addelementunit-only .aux-list-addellement {
+  width: 100%;
+}
+/* line 714, ../../dev/sass/pages/cart.scss */
+.addelementunit-only .aux-list-addellement .aux-tablecell-name {
+  width: 31.25rem;
+}
+/* line 716, ../../dev/sass/pages/cart.scss */
+.addelementunit-only .aux-list-addellement .aux-tablecell-name .aux-name {
+  max-width: 100%;
+}
+/* line 720, ../../dev/sass/pages/cart.scss */
+.addelementunit-only .aux-list-addellement .aux-tablecell-total {
+  width: 75%;
+}
+/* line 723, ../../dev/sass/pages/cart.scss */
+.addelementunit-only .aux-list-addellement .aux-tablecell-qty {
+  width: 6.25rem;
+}
+/* line 726, ../../dev/sass/pages/cart.scss */
+.addelementunit-only .aux-list-addellement .aux-tablecell-width,
+.addelementunit-only .aux-list-addellement .aux-tablecell-height {
+  width: 9.375rem;
+}
+/* line 730, ../../dev/sass/pages/cart.scss */
+.addelementunit-only .aux-list-addellement .aux-tablecell-color {
+  width: 6.25rem;
+}
+/* line 733, ../../dev/sass/pages/cart.scss */
+.addelementunit-only .aux-list-addellement .aux-tablecell-price {
+  width: 12.5rem;
+}
+/* line 735, ../../dev/sass/pages/cart.scss */
+.addelementunit-only .aux-list-addellement .aux-tablecell-price .aux-price, .addelementunit-only .aux-list-addellement .aux-tablecell-price .aux-total-price {
+  text-align: center;
+}
+/* line 739, ../../dev/sass/pages/cart.scss */
+.addelementunit-only .aux-list-addellement .aux-tablecell-delete {
+  width: 6.25rem;
 }
 
 /* line 4, ../../dev/sass/pages/construction.scss */
@@ -4617,7 +5039,7 @@ body {
 }
 
 /* line 140, ../../dev/sass/pages/construction.scss */
-#sash-shape-menu {
+.constr-shape-menu {
   top: 0rem;
   left: 0rem;
   font: normal 2.25rem/4.0625rem roboto-light, sans-serif;
@@ -4630,7 +5052,7 @@ body {
   z-index: 999;
 }
 /* line 151, ../../dev/sass/pages/construction.scss */
-#sash-shape-menu:before {
+.constr-shape-menu:before {
   position: absolute;
   z-index: 99;
   bottom: -1.25rem;
@@ -4644,99 +5066,99 @@ body {
 }
 
 /* line 165, ../../dev/sass/pages/construction.scss */
-ul.sash-shape-list {
+ul.constr-shape-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 /* line 171, ../../dev/sass/pages/construction.scss */
-li.sash-shape-icon {
+li.constr-shape-icon {
   font: normal 3.125rem/5rem general-icons, sans-serif;
-  display: inline-block;
   width: 5rem;
   height: 5rem;
+  float: left;
   padding-right: 2px;
   border-right: 1px solid #bebebe;
   text-align: center;
   color: #ddd;
 }
-/* line 181, ../../dev/sass/pages/construction.scss */
-li.sash-shape-icon:last-child {
+/* line 182, ../../dev/sass/pages/construction.scss */
+li.constr-shape-icon:last-child {
   border-right: none;
 }
 
-/* line 186, ../../dev/sass/pages/construction.scss */
+/* line 187, ../../dev/sass/pages/construction.scss */
 .sash-empty:after {
   content: "\e634";
 }
 
-/* line 189, ../../dev/sass/pages/construction.scss */
+/* line 190, ../../dev/sass/pages/construction.scss */
 .sash-left:after {
   content: "\e641";
 }
 
-/* line 192, ../../dev/sass/pages/construction.scss */
+/* line 193, ../../dev/sass/pages/construction.scss */
 .sash-right:after {
   content: "\e640";
 }
 
-/* line 195, ../../dev/sass/pages/construction.scss */
+/* line 196, ../../dev/sass/pages/construction.scss */
 .sash-up:after {
   content: "\e642";
 }
 
-/* line 198, ../../dev/sass/pages/construction.scss */
+/* line 199, ../../dev/sass/pages/construction.scss */
 .sash-down:after {
   content: "\e643";
 }
 
-/* line 201, ../../dev/sass/pages/construction.scss */
+/* line 202, ../../dev/sass/pages/construction.scss */
 .sash-right-up:after {
   content: "\e63e";
 }
 
-/* line 204, ../../dev/sass/pages/construction.scss */
+/* line 205, ../../dev/sass/pages/construction.scss */
 .sash-left-up:after {
   content: "\e63f";
 }
 
-/* line 213, ../../dev/sass/pages/construction.scss */
+/* line 214, ../../dev/sass/pages/construction.scss */
 .construction-right-menu {
   top: 0;
   right: 0;
 }
-/* line 219, ../../dev/sass/pages/construction.scss */
+/* line 220, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .right-menu-header {
   margin-top: 3.125rem;
 }
-/* line 222, ../../dev/sass/pages/construction.scss */
+/* line 223, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .construct-tools {
   position: relative;
   width: 5.3125rem;
   height: 5.3125rem;
   margin-right: 3.125rem;
 }
-/* line 230, ../../dev/sass/pages/construction.scss */
+/* line 231, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .construct-tools:after {
   top: 25%;
   left: 25%;
 }
-/* line 235, ../../dev/sass/pages/construction.scss */
+/* line 236, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .save-construction {
   font: normal 1.75rem/1.5 general-icons, sans-serif;
   background-color: #6ed44a;
 }
-/* line 239, ../../dev/sass/pages/construction.scss */
+/* line 240, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .save-construction:after {
   content: "\e62c";
 }
-/* line 243, ../../dev/sass/pages/construction.scss */
+/* line 244, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .close-construction {
   font: normal 2.5rem/1 general-icons, sans-serif;
   background-color: #bebebe;
 }
-/* line 248, ../../dev/sass/pages/construction.scss */
+/* line 249, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .right-menu-footer {
   position: absolute;
   right: 0;
@@ -4744,7 +5166,7 @@ li.sash-shape-icon:last-child {
   width: 29.875rem;
   height: 31.875rem;
 }
-/* line 255, ../../dev/sass/pages/construction.scss */
+/* line 256, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .door-config-menu {
   position: absolute;
   top: 25%;
@@ -4752,27 +5174,27 @@ li.sash-shape-icon:last-child {
   width: 18.75rem;
   text-align: right;
 }
-/* line 262, ../../dev/sass/pages/construction.scss */
+/* line 263, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .door-config-btn {
   font: normal 8.125rem/1 general-icons, sans-serif;
   margin: 0;
   padding: 0;
   background: transparent;
 }
-/* line 271, ../../dev/sass/pages/construction.scss */
+/* line 272, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .door-config-btn:after {
   color: #6ed44a;
   content: "\e630";
 }
-/* line 276, ../../dev/sass/pages/construction.scss */
+/* line 277, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .door-config-btn.active:after {
   content: "\e62a";
 }
-/* line 281, ../../dev/sass/pages/construction.scss */
+/* line 282, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .door-config-label {
   margin-bottom: 1.875rem;
 }
-/* line 289, ../../dev/sass/pages/construction.scss */
+/* line 290, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .size-calculator {
   -moz-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
@@ -4783,16 +5205,16 @@ li.sash-shape-icon:last-child {
   background-color: #f8f8f8;
   border-left: 1px solid #bebebe;
 }
-/* line 297, ../../dev/sass/pages/construction.scss */
+/* line 298, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .size-calculator.active {
   bottom: 0;
 }
-/* line 302, ../../dev/sass/pages/construction.scss */
+/* line 303, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .calc-equal {
   background-color: #6ed44a;
 }
 
-/* line 311, ../../dev/sass/pages/construction.scss */
+/* line 312, ../../dev/sass/pages/construction.scss */
 .door-configuration {
   top: 0rem;
   left: -156.25rem;
@@ -4805,12 +5227,12 @@ li.sash-shape-icon:last-child {
   background-color: #fafafa;
   z-index: 2;
 }
-/* line 321, ../../dev/sass/pages/construction.scss */
+/* line 322, ../../dev/sass/pages/construction.scss */
 .door-configuration.active {
   top: 0rem;
   left: 0rem;
 }
-/* line 325, ../../dev/sass/pages/construction.scss */
+/* line 326, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-config-column {
   -moz-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
@@ -4820,40 +5242,40 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 32rem;
 }
-/* line 332, ../../dev/sass/pages/construction.scss */
+/* line 333, ../../dev/sass/pages/construction.scss */
 .door-configuration .step1 {
   top: 0rem;
   left: 0rem;
   z-index: 6;
 }
-/* line 337, ../../dev/sass/pages/construction.scss */
+/* line 338, ../../dev/sass/pages/construction.scss */
 .door-configuration .step2 {
   z-index: 5;
 }
-/* line 339, ../../dev/sass/pages/construction.scss */
+/* line 340, ../../dev/sass/pages/construction.scss */
 .door-configuration .step2.active {
   top: 0rem;
   left: 28.25rem;
 }
-/* line 343, ../../dev/sass/pages/construction.scss */
+/* line 344, ../../dev/sass/pages/construction.scss */
 .door-configuration .step3 {
   z-index: 4;
 }
-/* line 345, ../../dev/sass/pages/construction.scss */
+/* line 346, ../../dev/sass/pages/construction.scss */
 .door-configuration .step3.active {
   top: 0rem;
   left: 56.25rem;
 }
-/* line 349, ../../dev/sass/pages/construction.scss */
+/* line 350, ../../dev/sass/pages/construction.scss */
 .door-configuration .step4 {
   z-index: 3;
 }
-/* line 351, ../../dev/sass/pages/construction.scss */
+/* line 352, ../../dev/sass/pages/construction.scss */
 .door-configuration .step4.active {
   top: 0rem;
   left: 84.5rem;
 }
-/* line 355, ../../dev/sass/pages/construction.scss */
+/* line 356, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-config-backfon {
   -moz-box-shadow: #bebebe 0 0.3125rem 0.625rem;
   -webkit-box-shadow: #bebebe 0 0.3125rem 0.625rem;
@@ -4867,80 +5289,80 @@ li.sash-shape-icon:last-child {
   background-color: #fafafa;
   z-index: -1;
 }
-/* line 366, ../../dev/sass/pages/construction.scss */
+/* line 367, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-config-header {
   height: 22.1875rem;
   padding-left: 3.125rem;
   width: 28.25rem;
 }
-/* line 371, ../../dev/sass/pages/construction.scss */
+/* line 372, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-inner {
   height: 100%;
   padding: 2.5rem 1.25rem;
   border-bottom: 1px solid #d2d2d2;
 }
-/* line 376, ../../dev/sass/pages/construction.scss */
+/* line 377, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-title {
   font: normal 3rem/1.42857 roboto-bold, sans-serif;
   padding: 1.25rem 0 1.875rem 0;
   color: #363636;
 }
-/* line 381, ../../dev/sass/pages/construction.scss */
+/* line 382, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-subtitle {
   font: normal 2.25rem/2.75rem roboto-bold, sans-serif;
   color: #363636;
 }
-/* line 386, ../../dev/sass/pages/construction.scss */
+/* line 387, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-config-content {
   height: 73.8125rem;
   overflow: hidden;
 }
-/* line 389, ../../dev/sass/pages/construction.scss */
+/* line 390, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-config-content.scroll-box {
   overflow-x: hidden;
   overflow-y: auto;
 }
-/* line 394, ../../dev/sass/pages/construction.scss */
+/* line 395, ../../dev/sass/pages/construction.scss */
 .door-configuration ul.door-config-list {
   width: 32rem;
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 400, ../../dev/sass/pages/construction.scss */
+/* line 401, ../../dev/sass/pages/construction.scss */
 .door-configuration li.door-config-option {
   width: 28.25rem;
   padding-left: 3.125rem;
   cursor: pointer;
   position: relative;
 }
-/* line 405, ../../dev/sass/pages/construction.scss */
+/* line 406, ../../dev/sass/pages/construction.scss */
 .door-configuration li.door-config-option.selected {
   background-color: #6ed44a;
 }
-/* line 409, ../../dev/sass/pages/construction.scss */
+/* line 410, ../../dev/sass/pages/construction.scss */
 .door-configuration .selected-item-arrow {
   position: absolute;
   top: 0;
   right: -3.625rem;
   width: 3.75rem;
   height: 100%;
-  background: url('../img/door-arrow.png?1421333333') no-repeat;
+  background: url('../img/door-arrow.png?1422437873') no-repeat;
   background-size: 100% 100%;
 }
-/* line 418, ../../dev/sass/pages/construction.scss */
+/* line 419, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-option-label {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 423, ../../dev/sass/pages/construction.scss */
+/* line 424, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-config-tools {
   position: absolute;
   top: 0;
   right: 0;
   width: 15.25rem;
 }
-/* line 429, ../../dev/sass/pages/construction.scss */
+/* line 430, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-config-btn {
   font: normal 3.75rem/1 general-icons, sans-serif;
   width: 100%;
@@ -4948,29 +5370,29 @@ li.sash-shape-icon:last-child {
   outline: none;
   border: none;
 }
-/* line 439, ../../dev/sass/pages/construction.scss */
+/* line 440, ../../dev/sass/pages/construction.scss */
 .door-configuration .close-door-config {
   height: 22.1875rem;
   background-color: #bebebe;
 }
-/* line 442, ../../dev/sass/pages/construction.scss */
+/* line 443, ../../dev/sass/pages/construction.scss */
 .door-configuration .close-door-config:after {
   content: "\e631";
 }
-/* line 446, ../../dev/sass/pages/construction.scss */
+/* line 447, ../../dev/sass/pages/construction.scss */
 .door-configuration .save-door-config {
   height: 73.8125rem;
   background-color: #6ed44a;
 }
-/* line 449, ../../dev/sass/pages/construction.scss */
+/* line 450, ../../dev/sass/pages/construction.scss */
 .door-configuration .save-door-config:after {
   content: "\e62c";
 }
-/* line 453, ../../dev/sass/pages/construction.scss */
+/* line 454, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-shape {
   width: 7rem;
 }
-/* line 456, ../../dev/sass/pages/construction.scss */
+/* line 457, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-hardware {
   width: 10rem;
 }
@@ -5152,17 +5574,23 @@ li.sash-shape-icon:last-child {
 }
 /* line 41, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .additional-items-list {
-  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  -moz-overflow-scrolling: touch;
+  -o-overflow-scrolling: touch;
+  -ms-overflow-scrolling: touch;
+  overflow-scrolling: touch;
   max-height: 12.5rem;
   padding: 0;
   list-style: none;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
-/* line 47, ../../dev/sass/menus/_config-menu.scss */
+/* line 49, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .additional-items-group {
   margin: 0;
   padding: 0;
 }
-/* line 54, ../../dev/sass/menus/_config-menu.scss */
+/* line 56, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .qty {
   font: normal 2.25rem/3.75rem roboto-light, sans-serif;
   position: absolute;
@@ -5174,7 +5602,7 @@ li.sash-shape-icon:last-child {
   border-radius: 50%;
   background-color: #fff;
 }
-/* line 68, ../../dev/sass/menus/_config-menu.scss */
+/* line 70, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .curtain {
   position: absolute;
   top: 0;
@@ -5182,6 +5610,22 @@ li.sash-shape-icon:last-child {
   width: 29.625rem;
   height: 55.75rem;
   background: rgba(248, 248, 248, 0.95);
+  z-index: 999;
+}
+/* line 80, ../../dev/sass/menus/_config-menu.scss */
+.config-menu .product-u-coeff {
+  font: normal 2.625rem/1.42857 roboto-light, sans-serif;
+  top: 16.75rem;
+  right: 2rem;
+  position: absolute;
+  margin-left: 0.3125rem;
+  background-color: transparent;
+  color: #6ed44a;
+  z-index: 9;
+}
+/* line 89, ../../dev/sass/menus/_config-menu.scss */
+.config-menu .product-u-coeff.u-coeff-low {
+  color: #f74f2e;
 }
 
 /* line 1, ../../dev/sass/menus/_elements-list.scss */
@@ -5246,6 +5690,11 @@ li.sash-shape-icon:last-child {
 }
 /* line 60, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .menu-lists {
+  -webkit-overflow-scrolling: touch;
+  -moz-overflow-scrolling: touch;
+  -o-overflow-scrolling: touch;
+  -ms-overflow-scrolling: touch;
+  overflow-scrolling: touch;
   margin-left: -2.75rem;
   padding-left: 2.75rem;
   overflow-x: hidden;
@@ -5253,14 +5702,14 @@ li.sash-shape-icon:last-child {
   background-color: #fff;
   height: 100%;
 }
-/* line 68, ../../dev/sass/menus/_elements-list.scss */
+/* line 69, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .title {
   margin: 2.8125rem 0 0 0;
   padding-bottom: 0.9375rem;
   color: #363636;
   border-bottom: 1px solid #bebebe;
 }
-/* line 75, ../../dev/sass/menus/_elements-list.scss */
+/* line 76, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .item {
   display: -webkit-flex;
   display: flex;
@@ -5272,26 +5721,26 @@ li.sash-shape-icon:last-child {
   align-items: center;
   position: relative;
 }
-/* line 83, ../../dev/sass/menus/_elements-list.scss */
+/* line 84, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .value {
   max-width: 88%;
   width: 23.125rem;
 }
-/* line 87, ../../dev/sass/menus/_elements-list.scss */
+/* line 88, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .element-info {
   width: 2.8125rem;
   height: 2.8125rem;
   border-radius: 50%;
   background-color: #bebebe;
 }
-/* line 95, ../../dev/sass/menus/_elements-list.scss */
+/* line 96, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .element-info:after {
   font: normal 1.875rem/0 general-icons, sans-serif;
   display: block;
   color: #fff;
   content: "\e60c";
 }
-/* line 107, ../../dev/sass/menus/_elements-list.scss */
+/* line 108, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .menu-footer {
   display: -webkit-flex;
   display: flex;
@@ -5302,7 +5751,7 @@ li.sash-shape-icon:last-child {
   margin-right: 2.75rem;
   padding-right: 0;
 }
-/* line 116, ../../dev/sass/menus/_elements-list.scss */
+/* line 117, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .elements-tools {
   -moz-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
@@ -5312,26 +5761,26 @@ li.sash-shape-icon:last-child {
   width: 29.6875rem;
   background-color: #f8f8f8;
 }
-/* line 123, ../../dev/sass/menus/_elements-list.scss */
+/* line 124, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .elements-tools.active {
   bottom: 0;
 }
-/* line 127, ../../dev/sass/menus/_elements-list.scss */
+/* line 128, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .price-element {
   min-height: 8.125rem;
   padding-top: 1.25rem;
   background-color: #f8f8f8;
 }
-/* line 132, ../../dev/sass/menus/_elements-list.scss */
+/* line 133, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .color-selector {
   padding: 1.25rem 2.75rem;
   text-align: left;
 }
-/* line 136, ../../dev/sass/menus/_elements-list.scss */
+/* line 137, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .color-label {
   margin-bottom: 0.625rem;
 }
-/* line 140, ../../dev/sass/menus/_elements-list.scss */
+/* line 141, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .color-block {
   display: -webkit-flex;
   display: flex;
@@ -5343,11 +5792,11 @@ li.sash-shape-icon:last-child {
   align-items: flex-start;
   margin-bottom: 0.9375rem;
 }
-/* line 146, ../../dev/sass/menus/_elements-list.scss */
+/* line 147, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .color-block:first-child {
   margin-top: 0.625rem;
 }
-/* line 150, ../../dev/sass/menus/_elements-list.scss */
+/* line 151, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .color-img {
   display: -webkit-flex;
   display: flex;
@@ -5359,17 +5808,17 @@ li.sash-shape-icon:last-child {
   height: 6rem;
   cursor: pointer;
 }
-/* line 159, ../../dev/sass/menus/_elements-list.scss */
+/* line 160, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .color-img img {
   max-width: 5.5rem;
 }
-/* line 162, ../../dev/sass/menus/_elements-list.scss */
+/* line 163, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .color-img.selected {
   position: relative;
   border-radius: 0.3125rem;
   background-color: #6ed44a;
 }
-/* line 167, ../../dev/sass/menus/_elements-list.scss */
+/* line 168, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .color-img.selected:after {
   font: normal 3.125rem/5.5rem general-icons, sans-serif;
   position: absolute;
@@ -5377,40 +5826,40 @@ li.sash-shape-icon:last-child {
   color: #6ed44a;
   content: "\e61e";
 }
-/* line 177, ../../dev/sass/menus/_elements-list.scss */
+/* line 178, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .color-labels {
   margin-left: 0.625rem;
 }
-/* line 180, ../../dev/sass/menus/_elements-list.scss */
+/* line 181, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .aux-label-bold {
   font: normal 1.375rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
 }
-/* line 185, ../../dev/sass/menus/_elements-list.scss */
+/* line 186, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .color-options {
   height: 19.375rem;
   overflow-x: hidden;
   overflow-y: auto;
 }
-/* line 190, ../../dev/sass/menus/_elements-list.scss */
+/* line 191, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .color-option {
   width: 6rem;
   margin-right: 0.9375rem;
 }
 
-/* line 198, ../../dev/sass/menus/_elements-list.scss */
+/* line 199, ../../dev/sass/menus/_elements-list.scss */
 .list-items {
   position: relative;
 }
 
-/* line 201, ../../dev/sass/menus/_elements-list.scss */
+/* line 202, ../../dev/sass/menus/_elements-list.scss */
 .list-item {
   top: 0rem;
   left: 0rem;
   position: absolute;
 }
 
-/* line 205, ../../dev/sass/menus/_elements-list.scss */
+/* line 206, ../../dev/sass/menus/_elements-list.scss */
 .aux-list-item {
   -moz-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
@@ -5427,18 +5876,18 @@ li.sash-shape-icon:last-child {
   background-color: #fff;
   z-index: 2;
 }
-/* line 219, ../../dev/sass/menus/_elements-list.scss */
+/* line 220, ../../dev/sass/menus/_elements-list.scss */
 .aux-list-item.selected {
   left: -93.75rem;
 }
 
-/* line 225, ../../dev/sass/menus/_elements-list.scss */
+/* line 226, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs {
   top: 3.75rem;
   left: 0rem;
   position: absolute;
 }
-/* line 229, ../../dev/sass/menus/_elements-list.scss */
+/* line 230, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-block {
   -moz-transition: left 0.5s ease;
   -webkit-transition: left 0.5s ease;
@@ -5454,21 +5903,21 @@ li.sash-shape-icon:last-child {
   border-style: solid;
   z-index: 1;
 }
-/* line 243, ../../dev/sass/menus/_elements-list.scss */
+/* line 244, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-block.active {
   left: -53.75rem;
 }
-/* line 248, ../../dev/sass/menus/_elements-list.scss */
+/* line 249, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .simple-frame {
   top: 0rem;
   left: 0rem;
 }
-/* line 251, ../../dev/sass/menus/_elements-list.scss */
+/* line 252, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .hard-frame {
   top: 21.875rem;
   left: 0rem;
 }
-/* line 255, ../../dev/sass/menus/_elements-list.scss */
+/* line 256, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .frame-tab {
   -moz-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
@@ -5492,18 +5941,18 @@ li.sash-shape-icon:last-child {
   color: #363636;
   z-index: 1;
 }
-/* line 273, ../../dev/sass/menus/_elements-list.scss */
+/* line 274, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .frame-tab.active {
   border-top-width: 0.3125rem;
   background-color: #fff;
 }
-/* line 278, ../../dev/sass/menus/_elements-list.scss */
+/* line 279, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-content {
   overflow-x: hidden;
   overflow-y: auto;
   max-height: 31.25rem;
 }
-/* line 283, ../../dev/sass/menus/_elements-list.scss */
+/* line 284, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-content-empty {
   display: -webkit-flex;
   display: flex;
@@ -5513,13 +5962,13 @@ li.sash-shape-icon:last-child {
   justify-content: center;
   height: 13rem;
 }
-/* line 289, ../../dev/sass/menus/_elements-list.scss */
+/* line 290, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-empty {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   text-align: center;
   color: #bebebe;
 }
-/* line 294, ../../dev/sass/menus/_elements-list.scss */
+/* line 295, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-aux-row {
   display: -webkit-flex;
   display: flex;
@@ -5531,11 +5980,11 @@ li.sash-shape-icon:last-child {
   align-items: flex-start;
   margin-bottom: 1.25rem;
 }
-/* line 301, ../../dev/sass/menus/_elements-list.scss */
+/* line 302, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-aux-row:last-child {
   margin: 0;
 }
-/* line 305, ../../dev/sass/menus/_elements-list.scss */
+/* line 306, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .aux-title {
   width: 23.125rem;
 }
@@ -6172,18 +6621,17 @@ li.sash-shape-icon:last-child {
 /* line 15, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-block-footer {
   overflow-x: auto;
-  min-width: 98%;
   height: 23.125rem;
   margin-top: 3.125rem;
 }
-/* line 22, ../../dev/sass/panels/glass.scss */
+/* line 21, ../../dev/sass/panels/glass.scss */
 .glass-container .footer-inner {
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 26, ../../dev/sass/panels/glass.scss */
+/* line 25, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box {
   -moz-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
@@ -6193,21 +6641,21 @@ li.sash-shape-icon:last-child {
   height: 19.375rem;
   margin-right: 3.125rem;
 }
-/* line 32, ../../dev/sass/panels/glass.scss */
+/* line 31, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box.selected {
   position: relative;
   background-color: #6ed44a;
 }
-/* line 35, ../../dev/sass/panels/glass.scss */
+/* line 34, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box.selected .glass-type {
   background-color: #57b23c;
 }
-/* line 38, ../../dev/sass/panels/glass.scss */
+/* line 37, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box.selected:after {
   top: 2.5rem;
   left: 1.875rem;
 }
-/* line 43, ../../dev/sass/panels/glass.scss */
+/* line 42, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box-view {
   display: -webkit-flex;
   display: flex;
@@ -6220,27 +6668,27 @@ li.sash-shape-icon:last-child {
   max-width: 9.375rem;
   text-align: center;
 }
-/* line 52, ../../dev/sass/panels/glass.scss */
+/* line 51, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box-view .label {
   max-width: 9.375rem;
   word-wrap: break-word;
 }
-/* line 58, ../../dev/sass/panels/glass.scss */
+/* line 57, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-img img {
   max-width: 9.375rem;
 }
-/* line 62, ../../dev/sass/panels/glass.scss */
+/* line 61, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box-data {
   float: right;
   width: 14.0625rem;
 }
-/* line 66, ../../dev/sass/panels/glass.scss */
+/* line 65, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-descr {
   font: normal 2.25rem/1.42857 roboto-medium, sans-serif;
   margin-bottom: 3.125rem;
   color: #363636;
 }
-/* line 73, ../../dev/sass/panels/glass.scss */
+/* line 72, ../../dev/sass/panels/glass.scss */
 .glass-container .label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #8c8c8c;
@@ -6504,85 +6952,85 @@ li.sash-shape-icon:last-child {
 }
 /* line 14, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grid-img {
-  background-image: url('../img/auxiliaries-focused/grid.png?1421333336');
+  background-image: url('../img/auxiliaries-focused/grid.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 19, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-visor-img {
-  background-image: url('../img/auxiliaries-focused/visor.png?1421333336');
+  background-image: url('../img/auxiliaries-focused/visor.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 24, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spillway-img {
-  background-image: url('../img/auxiliaries-focused/spillway.png?1421333336');
+  background-image: url('../img/auxiliaries-focused/spillway.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 29, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-focused/windowsill.png?1421333336');
+  background-image: url('../img/auxiliaries-focused/windowsill.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 34, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-top {
-  background-image: url('../img/auxiliaries-focused/louvers-top.png?1421333336');
+  background-image: url('../img/auxiliaries-focused/louvers-top.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 39, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-midle {
-  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1421333336');
+  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 44, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1421333336');
+  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 49, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-top {
-  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1421333336');
+  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 54, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-right {
-  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1421333336');
+  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 59, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-left {
-  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1421333336');
+  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 64, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-fan-img {
-  background-image: url('../img/auxiliaries-focused/fan.png?1421333336');
+  background-image: url('../img/auxiliaries-focused/fan.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 69, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-force-connect {
-  background-image: url('../img/auxiliaries-focused/force-connector.png?1421333336');
+  background-image: url('../img/auxiliaries-focused/force-connector.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 74, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1421333336');
+  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 79, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-handle-img {
-  background-image: url('../img/auxiliaries-focused/handle.png?1421333336');
+  background-image: url('../img/auxiliaries-focused/handle.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6612,85 +7060,85 @@ li.sash-shape-icon:last-child {
 }
 /* line 110, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grid-img {
-  background-image: url('../img/auxiliaries-selected/grid.png?1421333336');
+  background-image: url('../img/auxiliaries-selected/grid.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 115, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
-  background-image: url('../img/auxiliaries-selected/visor.png?1421333337');
+  background-image: url('../img/auxiliaries-selected/visor.png?1422437876');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 120, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
-  background-image: url('../img/auxiliaries-selected/spillway.png?1421333337');
+  background-image: url('../img/auxiliaries-selected/spillway.png?1422437876');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 125, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-selected/windowsill.png?1421333337');
+  background-image: url('../img/auxiliaries-selected/windowsill.png?1422437876');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 130, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-top {
-  background-image: url('../img/auxiliaries-selected/louvers-top.png?1421333337');
+  background-image: url('../img/auxiliaries-selected/louvers-top.png?1422437876');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 135, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-midle {
-  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1421333337');
+  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1422437876');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 140, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1421333337');
+  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1422437876');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 145, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-top {
-  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1421333337');
+  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 150, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-right {
-  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1421333337');
+  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 155, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-left {
-  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1421333337');
+  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 160, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-fan-img {
-  background-image: url('../img/auxiliaries-selected/fan.png?1421333336');
+  background-image: url('../img/auxiliaries-selected/fan.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 165, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-force-connect {
-  background-image: url('../img/auxiliaries-selected/force-connector.png?1421333336');
+  background-image: url('../img/auxiliaries-selected/force-connector.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 170, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1421333336');
+  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 175, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-handle-img {
-  background-image: url('../img/auxiliaries-selected/handle.png?1421333337');
+  background-image: url('../img/auxiliaries-selected/handle.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6713,7 +7161,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 13.75rem;
   height: 24.375rem;
-  background-image: url('../img/auxiliaries/grid.png?1421333334');
+  background-image: url('../img/auxiliaries/grid.png?1422437874');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6730,7 +7178,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 55.8125rem;
   height: 16.3125rem;
-  background-image: url('../img/auxiliaries/visor.png?1421333336');
+  background-image: url('../img/auxiliaries/visor.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6747,7 +7195,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 44.9375rem;
   height: 12.875rem;
-  background-image: url('../img/auxiliaries/spillway.png?1421333336');
+  background-image: url('../img/auxiliaries/spillway.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6764,7 +7212,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 40.625rem;
   height: 38.125rem;
-  background-image: url('../img/auxiliaries/outside.png?1421333336');
+  background-image: url('../img/auxiliaries/outside.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6781,7 +7229,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 45rem;
   height: 14.75rem;
-  background-image: url('../img/auxiliaries/windowsill.png?1421333336');
+  background-image: url('../img/auxiliaries/windowsill.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6805,7 +7253,7 @@ li.sash-shape-icon:last-child {
   z-index: 10;
   width: 16.3125rem;
   height: 4.9375rem;
-  background-image: url('../img/auxiliaries/louvers-top.png?1421333336');
+  background-image: url('../img/auxiliaries/louvers-top.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6815,7 +7263,7 @@ li.sash-shape-icon:last-child {
   left: 3.125rem;
   width: 16.3125rem;
   height: 6.1875rem;
-  background-image: url('../img/auxiliaries/louvers-middle.png?1421333336');
+  background-image: url('../img/auxiliaries/louvers-middle.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6842,7 +7290,7 @@ li.sash-shape-icon:last-child {
   z-index: 6;
   width: 16.3125rem;
   height: 6.5rem;
-  background-image: url('../img/auxiliaries/louvers-bottom.png?1421333336');
+  background-image: url('../img/auxiliaries/louvers-bottom.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6865,7 +7313,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 41.25rem;
   height: 11.4375rem;
-  background-image: url('../img/auxiliaries/inside-slope-top.png?1421333336');
+  background-image: url('../img/auxiliaries/inside-slope-top.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6876,7 +7324,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 5.625rem;
   height: 27.125rem;
-  background-image: url('../img/auxiliaries/inside-slope-right.png?1421333336');
+  background-image: url('../img/auxiliaries/inside-slope-right.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6887,7 +7335,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 6.0625rem;
   height: 25.5rem;
-  background-image: url('../img/auxiliaries/inside-slope-left.png?1421333335');
+  background-image: url('../img/auxiliaries/inside-slope-left.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6904,7 +7352,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 7.125rem;
   height: 7.5rem;
-  background-image: url('../img/auxiliaries/fan.png?1421333334');
+  background-image: url('../img/auxiliaries/fan.png?1422437873');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6927,7 +7375,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/force-connector.png?1421333334');
+  background-image: url('../img/auxiliaries/force-connector.png?1422437874');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6938,7 +7386,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/balcon-connector.png?1421333334');
+  background-image: url('../img/auxiliaries/balcon-connector.png?1422437873');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -6955,7 +7403,7 @@ li.sash-shape-icon:last-child {
   position: absolute;
   width: 6.625rem;
   height: 7.875rem;
-  background-image: url('../img/auxiliaries/handle.png?1421333334');
+  background-image: url('../img/auxiliaries/handle.png?1422437875');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7264,7 +7712,7 @@ li.sash-shape-icon:last-child {
 }
 
 /* line 183, ../../dev/sass/base/_animations.scss */
-.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construction-right-menu .construct-tools, .construction-right-menu .door-config-btn, .nav-menu [class^='nav-icon-'],
+.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construction-right-menu .construct-tools, .construction-right-menu .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .elements-menu .color-img, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .hardware-container .hardware-box, .lamination-container .lamination-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
   -moz-animation: splashing 0.5s 0 ease 1;
   -webkit-animation: splashing 0.5s 0 ease 1;

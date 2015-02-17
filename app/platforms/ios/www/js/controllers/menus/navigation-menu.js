@@ -66,7 +66,6 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
                 localDB.selectDBGlobal($scope.global.countriesTableDBGlobal, {'id': results.data[0].country_id }, function (results) {
                   if (results.status) {
                     $scope.global.userInfo.countryName = results.data[0].name;
-                    $scope.setUserLanguage($scope.global.userInfo.countryName);
                     $scope.global.userInfo.fullLocation = '' + $scope.global.userInfo.cityName + ', ' + $scope.global.userInfo.regionName + ', ' + $scope.global.userInfo.countryName;
 
                     //------ set current GeoLocation
@@ -79,7 +78,8 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
                       heatTransfer: angular.copy($scope.global.userInfo.heatTransfer),
                       fullLocation: angular.copy($scope.global.userInfo.fullLocation)
                     };
-                    //console.log($scope.global.userInfo);
+                    $scope.setUserLanguage($scope.global.userInfo.countryName);
+                    //console.log('userInfo',$scope.global.userInfo);
                   } else {
                     console.log(results);
                   }
@@ -352,7 +352,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
     angular.extend($scope.global.order, newOptions);
     //------- save order in orders LocalStorage
     $scope.global.orders.push($scope.global.order);
-
+//console.log(JSON.stringify($scope.global.order));
     //------- save order in LocalDB
     orderData = angular.copy($scope.global.order);
     delete orderData.products;
@@ -386,18 +386,9 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
   $scope.global.deleteOrderFromLocalDB = function(orderNum) {
     localDB.deleteDB($scope.global.ordersTableBD, {'orderId': orderNum});
     localDB.deleteDB($scope.global.productsTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.gridsTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.visorsTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.spillwaysTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.outSlopesTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.louversTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.inSlopesTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.connectorsTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.fansTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.windowSillsTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.handlesTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.othersTableBD, {'orderId': orderNum});
+    localDB.deleteDB($scope.global.addElementsTableBD, {'orderId': orderNum});
   };
+
   console.log('$scope.global.isOpenedHistoryPage!!!!!!!!!!!', $scope.global.isOpenedHistoryPage);
 
 }]);

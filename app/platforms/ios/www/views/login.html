@@ -25,7 +25,7 @@
     <div ng-show="!isCodeCheckingSuccess" class="text-container error">
       <p>{{ 'login.SOMETHING_WRONG' | translate }}</p>
     </div>
-    <!--button.login-submit(type="button", ng-click="switchLang()") {{ 'SWITCH_LANG' | translate }}-->
-    <button type="button" ng-click="checkCode()" class="login-submit">ОК</button>
+    <!--button.login-submit(type="button", hm-tap="switchLang()") {{ 'SWITCH_LANG' | translate }}-->
+    <button type="button" hm-tap="checkCode()" class="login-submit">ОК</button>
   </div>
 </section>

@@ -5,7 +5,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'localStorage', '$location', '$filter', function ($scope, constructService, localStorage, $location, $filter) {
+BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'localStorage', '$location', '$filter', '$interval', function ($scope, constructService, localStorage, $location, $filter, $interval) {
 
   $scope.global = localStorage;
 
@@ -13,6 +13,13 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     tempSize: [],
     minSizeLimit: 200,
     maxSizeLimit: 5000,
+    minSizePoint: 0,
+    maxSizePoint: 0,
+    startSize: 0,
+    finishSize: 0,
+    tempSizeId: '',
+    tempSizeType: '',
+    oldSizeValue: 0,
     isMinSizeRestriction: false,
     isMaxSizeRestriction: false,
 
@@ -24,6 +31,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     isPositionEdit: false,
 
     isSashEditMenu: false,
+    isImpostEditMenu: false,
 
     showDoorConfig: false,
 
@@ -44,7 +52,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     selectedStep2: false,
     selectedStep3: false,
     selectedStep4: false,
-    DELAY_SHOW_FIGURE_ITEM: 2000,
+    DELAY_SHOW_FIGURE_ITEM: 1000,
     typing: 'on'
   };
 
@@ -53,9 +61,10 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   $scope.quietVoice = false;
   $scope.selectedGlassId = 0;
 
-  var sizeClass = 'size-box',
+  var $svgContainer = $('svg-template'),
+      sizeClass = 'size-box',
       sizeEditClass = 'size-box-edited',
-      newLength, fromPointsId, toPointsId;
+      newLength;
 
 
   $scope.templateSourceOLD = angular.copy($scope.global.product.templateSource);
@@ -92,19 +101,37 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     $scope.constructData.lockShape = $scope.constructData.lockShapeDefault;
   }
 
+  //------- Select and deselect Glasses
+  function manipulationWithGlasses(indicator) {
+    $('svg-template').find('.glass').each(function() {
+      if(indicator) {
+        $(this).css('fill', 'rgba(34, 34, 255, 0.69)');
+      } else {
+        $(this).css('fill', 'rgba(155, 204, 255, 0.20)');
+      }
+    });
+  }
+
+
   //--------Select menu item
   $scope.selectMenuItem = function(id) {
     $scope.constructData.activeMenuItem = ($scope.constructData.activeMenuItem === id) ? false : id;
+    //console.log('activeMenuItem = ', $scope.constructData.activeMenuItem);
     deactivateShapeMenu();
-    switch(id) {
+    $scope.constructData.isSashEditMenu = false;
+    $scope.constructData.isImpostEditMenu = false;
+    manipulationWithGlasses($scope.constructData.activeMenuItem);
+    switch($scope.constructData.activeMenuItem) {
       case 1:
         $scope.constructData.isSashEdit = true;
+        manipulationWithGlasses($scope.constructData.isSashEdit);
         break;
       case 2:
         $scope.constructData.isAngelEdit = true;
         break;
       case 3:
         $scope.constructData.isImpostEdit = true;
+        manipulationWithGlasses($scope.constructData.isImpostEdit);
         break;
       case 4:
         $scope.constructData.isArchEdit = true;
@@ -214,7 +241,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     $scope.global.product.doorSashShapeId = $scope.constructData.selectedSashShape;
     $scope.global.product.doorHandleShapeId = $scope.constructData.selectedHandleShape;
     $scope.global.product.doorLockShapeId = $scope.constructData.selectedLockShape;
-    console.log('product door', $scope.global.product);
+    //console.log('product door', $scope.global.product);
   };
 
   //=============== End Door ==================
@@ -262,9 +289,9 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   $scope.backtoTemplatePanel = function() {
     $scope.global.prepareMainPage();
     $scope.global.isReturnFromDiffPage = true;
-    console.log('construction page!!!!!!!!!!!');
-    console.log('product ====== ', $scope.global.product);
-    console.log('order ====== ', $scope.global.order);
+    //console.log('construction page!!!!!!!!!!!');
+    //console.log('product ====== ', $scope.global.product);
+    //console.log('order ====== ', $scope.global.order);
     $location.path('/main');
   };
 
@@ -297,62 +324,42 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
   //=============== CHANGE CONSTRUCTION SIZE ==============
 
+  $svgContainer.hammer({domEvents:true}).on("tap", "tspan", selectSizeBlock);
+
   //----- click on size SVG and get size value and Id
-  $('svg-template').off("click", ".size-box-edited").on("click", ".size-box-edited", function() {
+  //$('svg-template').off("click", ".size-box-edited").on("click", ".size-box-edited", function() {
+  function selectSizeBlock() {
     console.log('Click on size');
-    console.log('calculator', $scope.global.isConstructSizeCalculator);
-    if(!$scope.global.isConstructSizeCalculator) {
-      var thisSize = $(this).find('text');
-      $scope.constructData.oldSizeValue = thisSize.text();
-      $scope.constructData.tempSizeId = thisSize.attr('id');
-
-      //------- определение зависимых размеров и установка лимита
-      var limitSizesAtrr = thisSize.attr('limits');
-
-      if(limitSizesAtrr) {
-        var sizeType = thisSize.attr('type');
-        var limitSizesIds = limitSizesAtrr.split(' ');
-        if(sizeType === 'dimensionsH') {
-          if($scope.constructData.tempSizeId === 'overallDimH') {
-            for(var siz = 0; siz < limitSizesIds.length; siz++) {
-              var limitSizeValue = $('svg-template').find('#'+limitSizesIds[siz]).text();
-              $scope.constructData.minSizeLimit += parseInt(limitSizeValue, 10);
-            }
-          } else {
-            $scope.constructData.maxSizeLimit = -200;
-            for(var siz = 0; siz < limitSizesIds.length; siz++) {
-              var limitSizeValue = $('svg-template').find('#'+limitSizesIds[siz]).text();
-              if(limitSizesIds[siz] === 'overallDimH') {
-                $scope.constructData.maxSizeLimit += parseInt(limitSizeValue, 10);
-              } else {
-                $scope.constructData.maxSizeLimit -= parseInt(limitSizeValue, 10);
-              }
-            }
-          }
-        } else if(sizeType === 'dimensionsV') {
-          if($scope.constructData.tempSizeId === 'overallDimV') {
-            for(var siz = 0; siz < limitSizesIds.length; siz++) {
-              var limitSizeValue = $('svg-template').find('#'+limitSizesIds[siz]).text();
-              $scope.constructData.minSizeLimit += parseInt(limitSizeValue, 10);
-            }
-          } else {
-            $scope.constructData.maxSizeLimit = -200;
-            for(var siz = 0; siz < limitSizesIds.length; siz++) {
-              var limitSizeValue = $('svg-template').find('#'+limitSizesIds[siz]).text();
-              if(limitSizesIds[siz] === 'overallDimV') {
-                $scope.constructData.maxSizeLimit += parseInt(limitSizeValue, 10);
-              } else {
-                $scope.constructData.maxSizeLimit -= parseInt(limitSizeValue, 10);
-              }
-            }
-          }
-        }
-
+    console.log('event size', event);
+    //console.log('calculator', $scope.global.isConstructSizeCalculator);
+    if (!$scope.global.isConstructSizeCalculator) {
+      console.log('thisSize = ', $(this));
+      var thisSize = $(this).closest('.size-box-edited');
+      console.log('thisSize = ', thisSize);
+      $scope.constructData.startSize = +thisSize.attr('from-point');
+      $scope.constructData.finishSize = +thisSize.attr('to-point');
+      $scope.constructData.minSizePoint = +thisSize.attr('min-val');
+      $scope.constructData.maxSizePoint = +thisSize.attr('max-val');
+      $scope.constructData.maxSizeLimit = ($scope.constructData.maxSizePoint - $scope.constructData.startSize);
+      if (thisSize.attr('id') === 'overallDimH' || thisSize.attr('id') === 'overallDimV') {
+        $scope.constructData.minSizeLimit = $scope.constructData.minSizePoint;
+      } else {
+        $scope.constructData.minSizeLimit = 200;
       }
-
-      //getOldSizeValue();
+      $scope.constructData.tempSizeId = thisSize.attr('id');
+      $scope.constructData.tempSizeType = thisSize.attr('size-type');
+      $scope.constructData.oldSizeValue = +thisSize.text();
+      /*
+       console.log('startSize = ', $scope.constructData.startSize);
+       console.log('finishSize = ', $scope.constructData.finishSize);
+       console.log('minSizePoint = ', $scope.constructData.minSizePoint);
+       console.log('maxSizePoint = ', $scope.constructData.maxSizePoint);
+       console.log('tempSizeId', $scope.constructData.tempSizeId);
+       console.log('tempSizeType = ', $scope.constructData.tempSizeType);
+       console.log('oldSizeValue = ', $scope.constructData.oldSizeValue);
+       */
       //--- show size calculator if voice helper is turn off
-      if(!$scope.global.isVoiceHelper) {
+      if (!$scope.global.isVoiceHelper) {
         $scope.global.isConstructSizeCalculator = true;
       } else {
         $scope.openVoiceHelper = true;
@@ -361,7 +368,9 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
       }
       $scope.$apply();
     }
-  });
+  }
+  //});
+
 
 
   //------ click on size calculator, get number
@@ -377,12 +386,12 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   //---------- define voice force
   function recognitionProgress(value) {
     if (value > 100) {
-      console.log('value', value);
+      //console.log('value', value);
       $scope.loudVoice = true;
       $scope.quietVoice = false;
 
     } else {
-      console.log('value', value);
+      //console.log('value', value);
       $scope.loudVoice = false;
       $scope.quietVoice = true;
     }
@@ -391,14 +400,14 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   }
 
   function doneRecognition(value) {
-    console.log("полученные данные", value);
-    console.log("тип полученных данных", typeof value);
+    //console.log("полученные данные", value);
+    //console.log("тип полученных данных", typeof value);
     $scope.voiceTxt = value;
     $scope.$apply();
     setTimeout(function() {
       var intValue = parseStringToDimension(value);
-      console.log("данные после парса", intValue);
-      console.log("тип полученных данных", typeof intValue);
+      //console.log("данные после парса", intValue);
+      //console.log("тип полученных данных", typeof intValue);
       if (intValue == "NaN") {
         intValue = $filter('translate')('construction.VOICE_NOT_UNDERSTAND');
       }
@@ -415,14 +424,14 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     if($scope.global.isVoiceHelper) {
 
       var tempVal = parseInt(newValue, 10);
-      console.log('tempVal=====', tempVal);
+      //console.log('tempVal=====', tempVal);
       $scope.voiceTxt = '';
       $scope.openVoiceHelper = false;
 
       if ((tempVal > 0) && (tempVal < 10000)) {
         $scope.constructData.tempSize = ("" + tempVal).split('');
-        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-        console.log('$scope.constructData.tempSize == ', $scope.constructData.tempSize);
+        //console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+        //console.log('$scope.constructData.tempSize == ', $scope.constructData.tempSize);
         changeSize();
       }
       deactiveSizeBox(sizeEditClass, sizeClass);
@@ -476,110 +485,46 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     var svg = document.getElementsByTagName("svg-template");
 
     $('#'+$scope.constructData.tempSizeId).find('tspan').text(parseInt(newSizeString, 10));
-    //--- finde overall dimensions
-    $scope.svgTemplateWidthTEMP = parseInt($('#overallDimH').find('tspan').text(), 10);
-    $scope.svgTemplateHeightTEMP = parseInt($('#overallDimV').find('tspan').text(), 10);
 
-    SVG(svg[0]).viewbox();
-    SVG(svg[0]).size($scope.svgTemplateWidthTEMP, $scope.svgTemplateHeightTEMP);
-
+    //SVG(svg[0]).viewbox();
+    //SVG(svg[0]).size($scope.global.svgTemplateWidth, $scope.global.svgTemplateHeight);
     if($scope.global.isVoiceHelper) {
       $scope.closeSizeCaclulator();
-      console.log('$scope.constructData.tempSize ===end', $scope.constructData.tempSize);
+      //console.log('$scope.constructData.tempSize ===end', $scope.constructData.tempSize);
     }
   }
 
   //---------- Close Size Calculator
   $scope.closeSizeCaclulator = function() {
-    var fromPoints = [],
-        toPoints = [],
-        linkPointsId = [],
-        newPoints = [],
-        allDimensionsV = [],
-        curDimensionType;
-
+    //console.log('click on = button', $scope.constructData.tempSize);
 
     if($scope.constructData.tempSize.length > 0) {
       newLength = parseInt($scope.constructData.tempSize.join(''), 10);
-      //console.log("newLength!!!" + newLength);
+      //console.log('newLength = ', typeof newLength);
+      //console.log('newLength = ', newLength);
       //------- Dimensions limits checking
       if (newLength > $scope.constructData.minSizeLimit && newLength < $scope.constructData.maxSizeLimit) {
         $scope.constructData.isMinSizeRestriction = false;
         $scope.constructData.isMaxSizeRestriction = false;
-        //------ parse template, get pointsId relate to changed dimension id
-        for (var i = 0; i < $scope.templateDefaultTEMP.objects.length; i++) {
-          if ($scope.templateDefaultTEMP.objects[i].id === $scope.constructData.tempSizeId) {
-            fromPointsId = $scope.templateDefaultTEMP.objects[i].fromPointsArrId;
-            toPointsId = $scope.templateDefaultTEMP.objects[i].toPointsArrId;
-            linkPointsId = $scope.templateDefaultTEMP.objects[i].links;
-            curDimensionType = $scope.templateDefaultTEMP.objects[i].type;
-          }
-        }
 
-
-        //console.log($scope.global.templateDefault);
-        //------ parse template, get points relate to points id
-        for (var p = 0; p < fromPointsId.length; p++) {
-          for (var j = 0; j < $scope.templateDefaultTEMP.objects.length; j++) {
-            var point = {};
-            switch ($scope.templateDefaultTEMP.objects[j].id) {
-              case fromPointsId[p]:
-                //var point = {};
-                point.x = parseInt($scope.templateDefaultTEMP.objects[j].x, 10);
-                point.y = parseInt($scope.templateDefaultTEMP.objects[j].y, 10);
-                fromPoints.push(point);
-                break;
-              case toPointsId[p]:
-                //var point = {};
-                point.x = parseInt($scope.templateDefaultTEMP.objects[j].x, 10);
-                point.y = parseInt($scope.templateDefaultTEMP.objects[j].y, 10);
-                toPoints.push(point);
-                break;
-            }
-          }
-        }
-        //console.log(fromPoints);
-        //console.log(toPoints);
-
-        //------ get new points
-        for (var point = 0; point < fromPoints.length; point++) {
-          var newPoint = {};
-          newPoint.newPointX = fromPoints[point].x + (newLength * (toPoints[point].x - fromPoints[point].x) / $scope.constructData.oldSizeValue);
-          newPoint.newPointY = fromPoints[point].y + (newLength * (toPoints[point].y - fromPoints[point].y) / $scope.constructData.oldSizeValue);
-          newPoints.push(newPoint);
-        }
 
         //-------- change point coordinates in templateSource
-        for (var n = 0; n < toPointsId.length; n++) {
-          for (var k = 0; k < $scope.templateSourceTEMP.objects.length; k++) {
-            if ($scope.templateSourceTEMP.objects[k].id === toPointsId[n]) {
-              if(curDimensionType === 'dimensionsH') {
-                $scope.templateSourceTEMP.objects[k].x = newPoints[n].newPointX;
-              } else if(curDimensionType === 'dimensionsV') {
-                $scope.templateSourceTEMP.objects[k].y = newPoints[n].newPointY;
+        for (var k = 0; k < $scope.templateSourceTEMP.objects.length; k++) {
+          switch ($scope.templateSourceTEMP.objects[k].type) {
+            case 'fixed_point':
+            case 'fixed_point_impost':
+              if ($scope.constructData.tempSizeType === 'hor' && +$scope.templateSourceTEMP.objects[k].x === $scope.constructData.finishSize) {
+                $scope.templateSourceTEMP.objects[k].x = $scope.constructData.startSize + newLength;
+              } else if($scope.constructData.tempSizeType === 'vert' && +$scope.templateSourceTEMP.objects[k].y === $scope.constructData.finishSize) {
+                $scope.templateSourceTEMP.objects[k].y = $scope.constructData.startSize + newLength;
               }
-            }
+
+              break;
           }
         }
+          //console.log('$scope.templateSourceTEMP !!!!!!=== ', $scope.templateSourceTEMP);
 
-        //console.log(linkPointsId);
-        //------- change linked points in templateSource
-        if(linkPointsId) {
-          for (var l = 0; l < linkPointsId.length; l++) {
-            for (var k = 0; k < $scope.templateSourceTEMP.objects.length; k++) {
-              if ($scope.templateSourceTEMP.objects[k].id === linkPointsId[l]) {
-                if(curDimensionType === 'dimensionsH') {
-                  $scope.templateSourceTEMP.objects[k].x = newPoints[l].newPointX;
-                } else if(curDimensionType === 'dimensionsV') {
-                  $scope.templateSourceTEMP.objects[k].y = newPoints[l].newPointY;
-                }
-              }
-            }
-          }
-        }
 
-        $scope.constructData.minSizeLimit = 200;
-        $scope.constructData.maxSizeLimit = 5000;
         //------ close size calculator
         $scope.global.isConstructSizeCalculator = false;
         //------- deactive size box in svg
@@ -620,8 +565,10 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
       }
     } else {
+/*
       $scope.constructData.minSizeLimit = 200;
       $scope.constructData.maxSizeLimit = 5000;
+*/
       //------ close size calculator
       $scope.global.isConstructSizeCalculator = false;
       deactiveSizeBox(sizeEditClass, sizeClass);
@@ -642,47 +589,131 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
   //=============== CLICK ON GLASS PACKAGE ==============
 
-  $('svg-template').off("click", ".glass").on("click", ".glass", function(event) {
+  /*
+   Hammer(svgContainer).on('tap', function( event ) {
+   console.log('tap', event);
+   console.log('event.target = ', event.target);
+   if( event.target && event.target.className.indexOf('glass') >= 0 ) {
+   console.log('select glass');
+   } else if(event.target && event.target.className.indexOf('size-box-edited') >= 0) {
+   console.log('select dimentions');
+   }
+   });
+   */
+  $svgContainer.hammer({domEvents:true}).on("tap", ".glass", selectGlassBlock);
+
+
+  function selectGlassBlock() {
+    console.log('start tap!!!!!');
+    event.preventDefault();
+
+    console.log('click on glass', event);
+    console.log('click on glass', event.target);
     if($scope.constructData.isSashEdit) {
       //------- show sash edit menu and select all glass packages
       if(!$scope.constructData.isSashEditMenu) {
         $scope.constructData.isSashEditMenu = true;
-        prepareForNewSash(event);
+        prepareForNewShape(event, '#sash-shape-menu');
       } else {
         $scope.constructData.isSashEditMenu = false;
+        manipulationWithGlasses($scope.constructData.isSashEditMenu);
       }
       $scope.$apply();
     } else if($scope.constructData.isAngelEdit) {
       console.log('angel');
     } else if($scope.constructData.isImpostEdit) {
-      console.log('impost');
+      //------- show impost edit menu and select all glass packages
+      if(!$scope.constructData.isImpostEditMenu) {
+        $scope.constructData.isImpostEditMenu = true;
+        prepareForNewShape(event, '#impost-shape-menu');
+      } else {
+        $scope.constructData.isImpostEditMenu = false;
+        manipulationWithGlasses($scope.constructData.isImpostEditMenu);
+      }
+      $scope.$apply();
+    } else if($scope.constructData.isArchEdit) {
+      console.log('arch');
+    } else if($scope.constructData.isPositionEdit) {
+      console.log('position');
+    }
+  }
+
+
+/*
+  $('svg-template').off("click", ".glass").on("click", ".glass", function(event) {
+    console.log('click on glass', event);
+    if($scope.constructData.isSashEdit) {
+      //------- show sash edit menu and select all glass packages
+      if(!$scope.constructData.isSashEditMenu) {
+        $scope.constructData.isSashEditMenu = true;
+        prepareForNewShape(event, '#sash-shape-menu');
+      } else {
+        $scope.constructData.isSashEditMenu = false;
+        manipulationWithGlasses($scope.constructData.isSashEditMenu);
+      }
+      $scope.$apply();
+    } else if($scope.constructData.isAngelEdit) {
+      console.log('angel');
+    } else if($scope.constructData.isImpostEdit) {
+      //------- show impost edit menu and select all glass packages
+      if(!$scope.constructData.isImpostEditMenu) {
+        $scope.constructData.isImpostEditMenu = true;
+        prepareForNewShape(event, '#impost-shape-menu');
+      } else {
+        $scope.constructData.isImpostEditMenu = false;
+        manipulationWithGlasses($scope.constructData.isImpostEditMenu);
+      }
+      $scope.$apply();
     } else if($scope.constructData.isArchEdit) {
       console.log('arch');
     } else if($scope.constructData.isPositionEdit) {
       console.log('position');
     }
   });
+*/
 
 
-
-  function prepareForNewSash(event) {
+  function prepareForNewShape(event, idShapeMenu) {
     //------ set the coordinats for edit sash menu
-    var menuX = event.pageX/16;
-    var menuY = event.pageY/16;
+    console.log('glass event ==', event);
+    var menuX = event.pageX;
+    var menuY = event.pageY;
+    console.log('glass menuX ==', menuX);
+    console.log('glass menuY ==', menuY);
     //var menuX1 = event.clientX;
+    //var menuY1 = event.clientY;
     //var menuX2 = event.offsetX;
-    $('#sash-shape-menu').css({'top': menuX+'rem', 'left': menuY+'rem'});
+    //var menuY2 = event.offsetY;
+    //var menuX3 = event.screenX;
+    //var menuY3 = event.screenY;
 
-    //console.log('menuX === ', menuX);
-    //console.log('menuY === ', menuY);
-    //------- select all glass packages
-    $('svg-template').find('.glass').each(function() {
-      //$(this).addClass('glass-active');
-      $(this).css('fill', 'rgba(34, 34, 255, 0.69)');
-    });
+    $(idShapeMenu).css({'top': (menuY)/8+'rem', 'left': (menuX)/8+'rem'});
+ /*
+    var html = document.documentElement;
+    var body = document.body;
+
+    console.log('body === ', body.scrollLeft);
+    console.log('document.body.scrollTop === ', body.scrollTop);
+    console.log('offsetParent === ', event.target.offsetParent);
+    console.log('offsetLeft === ', event.target.offsetParent.scrollLeft);
+    console.log('offsetTop === ', event.target.offsetParent.scrollTop);
+    console.log('html === ', html.scrollLeft);
+    console.log('html.scrollTop === ', html.scrollTop);
+
+    console.log('screen.availWidth === ', screen.availWidth);
+    console.log('screen.availHeight === ', screen.availHeight);
+    console.log('screen.width === ', screen.width);
+    console.log('screen.height === ', screen.height);
+*/
+    manipulationWithGlasses(false);
+    //------- select current glass packages
+    $(event.target).css('fill', 'rgba(34, 34, 255, 0.69)');
     //------- define id of current glass package
     $scope.selectedGlassId = event.target.attributes['element-id'].value;
   }
+
+
+
 
 
   //=============== CLICK ON SASH EDIT MENU
@@ -708,7 +739,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
         isSashExist = currGlassPackage.parts[0].fromPoint.blockType;
       }
     }
-
+//console.log('currGlassPackage', currGlassPackage);
     //-------- if need to delete existed sash
     if(sashType[0] === 'empty') {
       //----- if sash exists
@@ -717,132 +748,69 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
         //------ delete sash from template Source
         for(var tempObj = $scope.templateSourceTEMP.objects.length-1; tempObj >= 0; tempObj--) {
 
-          if($scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_sash_out') {
-            if($scope.templateSourceTEMP.objects[tempObj].id === 'cpsout'+(sashNewId+1)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpsout'+(sashNewId+2)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpsout'+(sashNewId+3)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpsout'+(sashNewId+4)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            }
-          } else if($scope.templateSourceTEMP.objects[tempObj].type === 'sash_out_line') {
-            if($scope.templateSourceTEMP.objects[tempObj].id === 'sashoutline'+(sashNewId+1)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'sashoutline'+(sashNewId+2)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'sashoutline'+(sashNewId+3)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'sashoutline'+(sashNewId+4)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            }
-          } else if($scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_hardware') {
-            if($scope.templateSourceTEMP.objects[tempObj].id === 'cphw'+(sashNewId+1)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cphw'+(sashNewId+2)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cphw'+(sashNewId+3)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cphw'+(sashNewId+4)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            }
-          } else if($scope.templateSourceTEMP.objects[tempObj].type === 'hardware_line') {
-            if($scope.templateSourceTEMP.objects[tempObj].id === 'hardwareline'+(sashNewId+1)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'hardwareline'+(sashNewId+2)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'hardwareline'+(sashNewId+3)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'hardwareline'+(sashNewId+4)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            }
-          } else if($scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_sash_in') {
-            if($scope.templateSourceTEMP.objects[tempObj].id === 'cpsin'+(sashNewId+1)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpsin'+(sashNewId+2)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpsin'+(sashNewId+3)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpsin'+(sashNewId+4)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            }
-          } else if($scope.templateSourceTEMP.objects[tempObj].type === 'sash_line') {
-            if($scope.templateSourceTEMP.objects[tempObj].id === 'sashline'+(sashNewId+1)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'sashline'+(sashNewId+2)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'sashline'+(sashNewId+3)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'sashline'+(sashNewId+4)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            }
-          } else if($scope.templateSourceTEMP.objects[tempObj].type === 'sash') {
-            if($scope.templateSourceTEMP.objects[tempObj].id === 'sash'+(sashNewId+1)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'sash'+(sashNewId+2)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'sash'+(sashNewId+3)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'sash'+(sashNewId+4)) {
-              $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+          if($scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_sash_out' || $scope.templateSourceTEMP.objects[tempObj].type === 'sash_out_line' || $scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_hardware' || $scope.templateSourceTEMP.objects[tempObj].type === 'hardware_line' || $scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_sash_in' || $scope.templateSourceTEMP.objects[tempObj].type === 'sash_line' || $scope.templateSourceTEMP.objects[tempObj].type === 'sash') {
+            switch($scope.templateSourceTEMP.objects[tempObj].id) {
+              case 'cpsout'+(sashNewId+1):
+              case 'cpsout'+(sashNewId+2):
+              case 'cpsout'+(sashNewId+3):
+              case 'cpsout'+(sashNewId+4):
+              case 'sashoutline'+(sashNewId+1):
+              case 'sashoutline'+(sashNewId+2):
+              case 'sashoutline'+(sashNewId+3):
+              case 'sashoutline'+(sashNewId+4):
+              case 'cphw'+(sashNewId+1):
+              case 'cphw'+(sashNewId+2):
+              case 'cphw'+(sashNewId+3):
+              case 'cphw'+(sashNewId+4):
+              case 'hardwareline'+(sashNewId+1):
+              case 'hardwareline'+(sashNewId+2):
+              case 'hardwareline'+(sashNewId+3):
+              case 'hardwareline'+(sashNewId+4):
+              case 'cpsin'+(sashNewId+1):
+              case 'cpsin'+(sashNewId+2):
+              case 'cpsin'+(sashNewId+3):
+              case 'cpsin'+(sashNewId+4):
+              case 'sashline'+(sashNewId+1):
+              case 'sashline'+(sashNewId+2):
+              case 'sashline'+(sashNewId+3):
+              case 'sashline'+(sashNewId+4):
+              case 'sash'+(sashNewId+1):
+              case 'sash'+(sashNewId+2):
+              case 'sash'+(sashNewId+3):
+              case 'sash'+(sashNewId+4):
+                $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+                break;
             }
           } else if($scope.templateSourceTEMP.objects[tempObj].type === 'sash_block' && $scope.templateSourceTEMP.objects[tempObj].id === 'sashBlock'+blockId) {
             $scope.templateSourceTEMP.objects.splice(tempObj, 1);
           }
 
-          //------- change beads position
-          if($scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_bead_out') {
-            if($scope.templateSourceTEMP.objects[tempObj].id === 'cpbeadout'+(sashNewId+1)) {
-              $scope.templateSourceTEMP.objects[tempObj].blockType = 'frame';
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpbeadout'+(sashNewId+2)) {
-              $scope.templateSourceTEMP.objects[tempObj].blockType = 'frame';
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpbeadout'+(sashNewId+3)) {
-              $scope.templateSourceTEMP.objects[tempObj].blockType = 'frame';
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpbeadout'+(sashNewId+4)) {
-              $scope.templateSourceTEMP.objects[tempObj].blockType = 'frame';
-            }
-          }
-
-          //------- change glass position
-          if($scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_glass') {
-            if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(sashNewId+1)) {
-              $scope.templateSourceTEMP.objects[tempObj].line1 = currGlassPackage.parts[1].toPoint.line1.fromPoint.lineId1;
-              $scope.templateSourceTEMP.objects[tempObj].line2 = currGlassPackage.parts[1].toPoint.line1.fromPoint.lineId2;
-              $scope.templateSourceTEMP.objects[tempObj].blockType = 'frame';
-              if($scope.templateSourceTEMP.objects[tempObj].line1.indexOf('impost')+1 || $scope.templateSourceTEMP.objects[tempObj].line2.indexOf('impost')+1) {
-                $scope.templateSourceTEMP.objects[tempObj].isImpost = true;
-              } else {
-                $scope.templateSourceTEMP.objects[tempObj].isImpost = false;
-              }
-
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(sashNewId+2)) {
-              $scope.templateSourceTEMP.objects[tempObj].line1 = currGlassPackage.parts[2].toPoint.line1.fromPoint.lineId1;
-              $scope.templateSourceTEMP.objects[tempObj].line2 = currGlassPackage.parts[2].toPoint.line1.fromPoint.lineId2;
-              $scope.templateSourceTEMP.objects[tempObj].blockType = 'frame';
-              if($scope.templateSourceTEMP.objects[tempObj].line1.indexOf('impost')+1 || $scope.templateSourceTEMP.objects[tempObj].line2.indexOf('impost')+1) {
-                $scope.templateSourceTEMP.objects[tempObj].isImpost = true;
-              } else {
-                $scope.templateSourceTEMP.objects[tempObj].isImpost = false;
-              }
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(sashNewId+3)) {
-              $scope.templateSourceTEMP.objects[tempObj].line1 = currGlassPackage.parts[3].toPoint.line1.fromPoint.lineId1;
-              $scope.templateSourceTEMP.objects[tempObj].line2 = currGlassPackage.parts[3].toPoint.line1.fromPoint.lineId2;
-              $scope.templateSourceTEMP.objects[tempObj].blockType = 'frame';
-              if($scope.templateSourceTEMP.objects[tempObj].line1.indexOf('impost')+1 || $scope.templateSourceTEMP.objects[tempObj].line2.indexOf('impost')+1) {
-                $scope.templateSourceTEMP.objects[tempObj].isImpost = true;
-              } else {
-                $scope.templateSourceTEMP.objects[tempObj].isImpost = false;
-              }
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(sashNewId+4)) {
-              $scope.templateSourceTEMP.objects[tempObj].line1 = currGlassPackage.parts[0].toPoint.line1.fromPoint.lineId1;
-              $scope.templateSourceTEMP.objects[tempObj].line2 = currGlassPackage.parts[0].toPoint.line1.fromPoint.lineId2;
-              $scope.templateSourceTEMP.objects[tempObj].blockType = 'frame';
-              if($scope.templateSourceTEMP.objects[tempObj].line1.indexOf('impost')+1 || $scope.templateSourceTEMP.objects[tempObj].line2.indexOf('impost')+1) {
-                $scope.templateSourceTEMP.objects[tempObj].isImpost = true;
-              } else {
-                $scope.templateSourceTEMP.objects[tempObj].isImpost = false;
-              }
+          //------- change beads & glass position
+          if($scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_bead_out' || $scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_glass') {
+            switch($scope.templateSourceTEMP.objects[tempObj].id) {
+              case 'cpbeadout'+(sashNewId+1):
+              case 'cpbeadout'+(sashNewId+2):
+              case 'cpbeadout'+(sashNewId+3):
+              case 'cpbeadout'+(sashNewId+4):
+              case 'cpg'+(sashNewId+1):
+              case 'cpg'+(sashNewId+2):
+              case 'cpg'+(sashNewId+3):
+              case 'cpg'+(sashNewId+4):
+                $scope.templateSourceTEMP.objects[tempObj].blockType = 'frame';
+                if (($scope.templateSourceTEMP.objects[tempObj].line1.indexOf('impostcenterline') + 1)) {
+                  for(var k = 0; k < $scope.templateSourceTEMP.objects.length; k++) {
+                    if($scope.templateSourceTEMP.objects[k].id === $scope.templateSourceTEMP.objects[tempObj].line1) {
+                      $scope.templateSourceTEMP.objects[k].lineType = 'frame';
+                    }
+                  }
+                } else if(($scope.templateSourceTEMP.objects[tempObj].line2.indexOf('impostcenterline') + 1)) {
+                  for(var k = 0; k < $scope.templateSourceTEMP.objects.length; k++) {
+                    if($scope.templateSourceTEMP.objects[k].id === $scope.templateSourceTEMP.objects[tempObj].line2) {
+                      $scope.templateSourceTEMP.objects[k].lineType = 'frame';
+                    }
+                  }
+                }
+                break;
             }
           }
 
@@ -851,6 +819,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
         //console.log('!!!!new.templateSourceTEMP === ', $scope.templateSourceTEMP);
         //-------- build new template
         $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
+        //findSVGElement();
         //console.log('templateDefaultTEMP', $scope.templateDefaultTEMP.objects);
 
         $scope.constructData.isSashEditMenu = false;
@@ -862,7 +831,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     } else {
 
       //-------- insert new sash
-      if(isSashExist === 'frame') {
+      if(isSashExist === 'frame' && currGlassPackage.square > 0.05) {
 
         //---- find insert index before beads to push new sash
         for (var i = 0; i < $scope.templateDefaultTEMP.objects.length; i++) {
@@ -873,7 +842,6 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
         }
 
         //-------- build new Sash
-
         var newSash = [
           {'type': 'cross_point_sash_out', id: 'cpsout'+(sashNewId+1), line1: currGlassPackage.parts[0].toPoint.lineId1, line2: currGlassPackage.parts[0].toPoint.lineId2},
           {'type': 'cross_point_sash_out', id: 'cpsout'+(sashNewId+2), line1: currGlassPackage.parts[1].toPoint.lineId1, line2: currGlassPackage.parts[1].toPoint.lineId2},
@@ -883,7 +851,6 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
           {'type': 'sash_out_line', id: 'sashoutline'+(sashNewId+2), from: 'cpsout'+(sashNewId+1), to: 'cpsout'+(sashNewId+2)},
           {'type': 'sash_out_line', id: 'sashoutline'+(sashNewId+3), from: 'cpsout'+(sashNewId+2), to: 'cpsout'+(sashNewId+3)},
           {'type': 'sash_out_line', id: 'sashoutline'+(sashNewId+4), from: 'cpsout'+(sashNewId+3), to: 'cpsout'+(sashNewId+4)},
-
           {'type': 'cross_point_hardware', id: 'cphw'+(sashNewId+1), line1: 'sashoutline'+(sashNewId+1), line2: 'sashoutline'+(sashNewId+2)},
           {'type': 'cross_point_hardware', id: 'cphw'+(sashNewId+2), line1: 'sashoutline'+(sashNewId+2), line2: 'sashoutline'+(sashNewId+3)},
           {'type': 'cross_point_hardware', id: 'cphw'+(sashNewId+3), line1: 'sashoutline'+(sashNewId+3), line2: 'sashoutline'+(sashNewId+4)},
@@ -892,7 +859,6 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
           {'type': 'hardware_line', id: 'hardwareline'+(sashNewId+2), from: 'cphw'+(sashNewId+1), to: 'cphw'+(sashNewId+2)},
           {'type': 'hardware_line', id: 'hardwareline'+(sashNewId+3), from: 'cphw'+(sashNewId+2), to: 'cphw'+(sashNewId+3)},
           {'type': 'hardware_line', id: 'hardwareline'+(sashNewId+4), from: 'cphw'+(sashNewId+3), to: 'cphw'+(sashNewId+4)},
-
           {'type': 'cross_point_sash_in', id: 'cpsin'+(sashNewId+1), line1: 'sashoutline'+(sashNewId+1), line2: 'sashoutline'+(sashNewId+2)},
           {'type': 'cross_point_sash_in', id: 'cpsin'+(sashNewId+2), line1: 'sashoutline'+(sashNewId+2), line2: 'sashoutline'+(sashNewId+3)},
           {'type': 'cross_point_sash_in', id: 'cpsin'+(sashNewId+3), line1: 'sashoutline'+(sashNewId+3), line2: 'sashoutline'+(sashNewId+4)},
@@ -901,20 +867,28 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
           {'type': 'sash_line', id: 'sashline'+(sashNewId+2), from: 'cpsin'+(sashNewId+1), to: 'cpsin'+(sashNewId+2)},
           {'type': 'sash_line', id: 'sashline'+(sashNewId+3), from: 'cpsin'+(sashNewId+2), to: 'cpsin'+(sashNewId+3)},
           {'type': 'sash_line', id: 'sashline'+(sashNewId+4), from: 'cpsin'+(sashNewId+3), to: 'cpsin'+(sashNewId+4)},
-
           {'type': 'sash', id: 'sash'+(sashNewId+1), parts: ['sashoutline'+(sashNewId+1), 'sashline'+(sashNewId+1)]},
           {'type': 'sash', id: 'sash'+(sashNewId+2), parts: ['sashoutline'+(sashNewId+2), 'sashline'+(sashNewId+2)]},
           {'type': 'sash', id: 'sash'+(sashNewId+3), parts: ['sashoutline'+(sashNewId+3), 'sashline'+(sashNewId+3)]},
           {'type': 'sash', id: 'sash'+(sashNewId+4), parts: ['sashoutline'+(sashNewId+4), 'sashline'+(sashNewId+4)]},
-
           {'type': 'sash_block', id: 'sashBlock'+blockId, parts: ['hardwareline'+(sashNewId+1), 'hardwareline'+(sashNewId+2), 'hardwareline'+(sashNewId+3), 'hardwareline'+(sashNewId+4)], openDir: []}
         ];
 
         //--------- added impost properties
         for(var sashObj = 0; sashObj < newSash.length; sashObj++) {
           if (newSash[sashObj].type === 'cross_point_sash_out') {
-            if (newSash[sashObj].line2.indexOf('impost')+1) {
-              newSash[sashObj].isImpost = true;
+            if ((newSash[sashObj].line1.indexOf('impostcenterline') + 1)) {
+              for(var k = 0; k < $scope.templateSourceTEMP.objects.length; k++) {
+                if($scope.templateSourceTEMP.objects[k].id === newSash[sashObj].line1) {
+                  $scope.templateSourceTEMP.objects[k].lineType = 'sash';
+                }
+              }
+            } else if((newSash[sashObj].line2.indexOf('impostcenterline') + 1)) {
+              for(var k = 0; k < $scope.templateSourceTEMP.objects.length; k++) {
+                if($scope.templateSourceTEMP.objects[k].id === newSash[sashObj].line2) {
+                  $scope.templateSourceTEMP.objects[k].lineType = 'sash';
+                }
+              }
             }
           }
         }
@@ -971,48 +945,24 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
         //----------- INSERT new sash in template Source
         for(var sashObj = 0; sashObj < newSash.length; sashObj++) {
-          //$scope.templateSourceTEMP.objects.push(newSash[sashObj]);
           $scope.templateSourceTEMP.objects.splice((insertIndex+sashObj), 0, newSash[sashObj]);
         }
 
         //----------- change existed beads and glass package
         for(var tempObj = 0; tempObj < $scope.templateSourceTEMP.objects.length; tempObj++) {
-
-          //------- change beads position
-          if($scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_bead_out') {
-            if($scope.templateSourceTEMP.objects[tempObj].id === 'cpbeadout'+(sashNewId+1)) {
-              $scope.templateSourceTEMP.objects[tempObj].blockType = 'sash';
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpbeadout'+(sashNewId+2)) {
-              $scope.templateSourceTEMP.objects[tempObj].blockType = 'sash';
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpbeadout'+(sashNewId+3)) {
-              $scope.templateSourceTEMP.objects[tempObj].blockType = 'sash';
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpbeadout'+(sashNewId+4)) {
-              $scope.templateSourceTEMP.objects[tempObj].blockType = 'sash';
-            }
-          }
-          //------- change glass position
-
-          if($scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_glass') {
-            if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(sashNewId+1)) {
-              $scope.templateSourceTEMP.objects[tempObj].line1 = 'sashoutline'+(sashNewId+1);
-              $scope.templateSourceTEMP.objects[tempObj].line2 = 'sashoutline'+(sashNewId+2);
-              $scope.templateSourceTEMP.objects[tempObj].blockType = 'sash';
-              delete $scope.templateSourceTEMP.objects[tempObj].isImpost;
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(sashNewId+2)) {
-              $scope.templateSourceTEMP.objects[tempObj].line1 = 'sashoutline'+(sashNewId+2);
-              $scope.templateSourceTEMP.objects[tempObj].line2 = 'sashoutline'+(sashNewId+3);
-              $scope.templateSourceTEMP.objects[tempObj].blockType = 'sash';
-              delete $scope.templateSourceTEMP.objects[tempObj].isImpost;
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(sashNewId+3)) {
-              $scope.templateSourceTEMP.objects[tempObj].line1 = 'sashoutline'+(sashNewId+3);
-              $scope.templateSourceTEMP.objects[tempObj].line2 = 'sashoutline'+(sashNewId+4);
-              $scope.templateSourceTEMP.objects[tempObj].blockType = 'sash';
-              delete $scope.templateSourceTEMP.objects[tempObj].isImpost;
-            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(sashNewId+4)) {
-              $scope.templateSourceTEMP.objects[tempObj].line1 = 'sashoutline'+(sashNewId+4);
-              $scope.templateSourceTEMP.objects[tempObj].line2 = 'sashoutline'+(sashNewId+1);
-              $scope.templateSourceTEMP.objects[tempObj].blockType = 'sash';
-              delete $scope.templateSourceTEMP.objects[tempObj].isImpost;
+          //------- change beads & glass position
+          if($scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_bead_out' || $scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_glass') {
+            switch($scope.templateSourceTEMP.objects[tempObj].id) {
+              case 'cpbeadout'+(sashNewId+1):
+              case 'cpbeadout'+(sashNewId+2):
+              case 'cpbeadout'+(sashNewId+3):
+              case 'cpbeadout'+(sashNewId+4):
+              case 'cpg'+(sashNewId+1):
+              case 'cpg'+(sashNewId+2):
+              case 'cpg'+(sashNewId+3):
+              case 'cpg'+(sashNewId+4):
+                $scope.templateSourceTEMP.objects[tempObj].blockType = 'sash';
+                break;
             }
           }
         }
@@ -1027,14 +977,8 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
         for(var tempObj = 0; tempObj < $scope.templateSourceTEMP.objects.length; tempObj++) {
           switch ($scope.templateSourceTEMP.objects[tempObj].id) {
             case 'sash'+(sashNewId+1):
-              delete $scope.templateSourceTEMP.objects[tempObj].openType;
-              break;
             case 'sash'+(sashNewId+2):
-              delete $scope.templateSourceTEMP.objects[tempObj].openType;
-              break;
             case 'sash'+(sashNewId+3):
-              delete $scope.templateSourceTEMP.objects[tempObj].openType;
-              break;
             case 'sash'+(sashNewId+4):
               delete $scope.templateSourceTEMP.objects[tempObj].openType;
               break;
@@ -1098,6 +1042,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
       //console.log('!!!!new.templateSourceTEMP === ', $scope.templateSourceTEMP);
       //-------- build new template
       $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
+      //findSVGElement();
       //console.log('templateDefaultTEMP', $scope.templateDefaultTEMP.objects);
 
       $scope.constructData.isSashEditMenu = false;
@@ -1106,9 +1051,436 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
     }
 
+  }
 
+
+
+
+  //===================== IMPOST
+
+  //=============== CLICK ON IMPOST EDIT MENU
+
+  $scope.insertNewImpost = function() {
+    editImpost(arguments);
+  };
+
+
+  //=============== EDIT IMPOST CONSTRUCTION ==============
+
+  function editImpost(impostType) {
+    var blockId = Number($scope.selectedGlassId.replace(/\D+/g,"")),
+        minLimitSize = 200,
+        currLastIndex = blockId * 4,
+        currGlassPackage = {},
+        insertIndex,
+        isSashExist,
+
+        impostIndexes = [],
+        impostLineIndexes = [],
+        cpImpostIndexes = [],
+        beadIndexes = [],
+        cpGlassIndexes = [],
+        glassIndexes = [],
+
+        lastImpostIndex,
+        lastImpostLineIndex,
+        lastCPImpostIndex,
+        lastBeadIndex,
+        lastCPGlassIndex,
+        lastGlassIndex,
+
+        blockFromX,
+        blockToX,
+        blockFromY,
+        blockToY,
+        widthBlock,
+        heightBlock,
+        newImpostX,
+        newImpostY,
+        edgeTopId,
+        edgeLeftId,
+        edgeBottomId,
+        edgeRightId,
+        newImpost,
+        newBead,
+        newGlass,
+        newDim;
+
+
+    //------- get data of current glass package
+    for (var t = 0; t < $scope.templateDefaultTEMP.objects.length; t++) {
+      if($scope.templateDefaultTEMP.objects[t].id === $scope.selectedGlassId) {
+        currGlassPackage = $scope.templateDefaultTEMP.objects[t];
+        isSashExist = currGlassPackage.parts[0].fromPoint.blockType;
+      }
+    }
+
+    //---- find insert index before beads to push new sash
+    for (var i = 0; i < $scope.templateDefaultTEMP.objects.length; i++) {
+      if ($scope.templateDefaultTEMP.objects[i].type === 'cross_point_bead_out') {
+        insertIndex = i;
+        break;
+      }
+    }
+    //---- find last numbers of existed impost, bead and glass
+    for (var i = 0; i < $scope.templateDefaultTEMP.objects.length; i++) {
+      if ($scope.templateDefaultTEMP.objects[i].type === 'fixed_point_impost') {
+        impostLineIndexes.push(Number($scope.templateDefaultTEMP.objects[i].id.replace(/\D+/g, "")));
+      }
+      if ($scope.templateDefaultTEMP.objects[i].type === 'cross_point_impost') {
+        cpImpostIndexes.push(Number($scope.templateDefaultTEMP.objects[i].id.replace(/\D+/g, "")));
+      }
+      if ($scope.templateDefaultTEMP.objects[i].type === 'cross_point_bead_out') {
+        beadIndexes.push(Number($scope.templateDefaultTEMP.objects[i].id.replace(/\D+/g, "")));
+      }
+      if ($scope.templateDefaultTEMP.objects[i].type === 'cross_point_glass') {
+        cpGlassIndexes.push(Number($scope.templateDefaultTEMP.objects[i].id.replace(/\D+/g, "")));
+      }
+      if ($scope.templateDefaultTEMP.objects[i].type === 'glass_paсkage') {
+        glassIndexes.push(Number($scope.templateDefaultTEMP.objects[i].id.replace(/\D+/g, "")));
+      }
+      if ($scope.templateDefaultTEMP.objects[i].type === 'impost') {
+        impostIndexes.push(Number($scope.templateDefaultTEMP.objects[i].id.replace(/\D+/g, "")));
+      }
+    }
+    //----- define max number of existed impost, bead and glass
+    if(impostLineIndexes.length > 0) {
+      lastImpostLineIndex = impostLineIndexes.max();
+    } else {
+      lastImpostLineIndex = 0;
+    }
+    if(cpImpostIndexes.length > 0) {
+      lastCPImpostIndex = cpImpostIndexes.max();
+    } else {
+      lastCPImpostIndex = 0;
+    }
+    if(impostIndexes.length > 0) {
+      lastImpostIndex = impostIndexes.max();
+    } else {
+      lastImpostIndex = 0;
+    }
+    if(beadIndexes.length > 0) {
+      lastBeadIndex = beadIndexes.max();
+    } else {
+      lastBeadIndex = 0;
+    }
+    if(cpGlassIndexes.length > 0) {
+      lastCPGlassIndex = cpGlassIndexes.max();
+    } else {
+      lastCPGlassIndex = 0;
+    }
+    if(glassIndexes.length > 0) {
+      lastGlassIndex = glassIndexes.max();
+    } else {
+      lastGlassIndex = 0;
+    }
+
+/*
+    console.log('blockId == ', blockId);
+    console.log('currLastIndex == ', currLastIndex);
+    console.log('lastImpostIndex == ', lastImpostIndex);
+    console.log('lastImpostLineIndex == ', lastImpostLineIndex);
+    console.log('lastCPImpostIndex == ', lastCPImpostIndex);
+    console.log('lastBeadIndex == ', lastBeadIndex);
+    console.log('lastCPGlassIndex == ', lastCPGlassIndex);
+    console.log('lastGlassIndex == ', lastGlassIndex);
+ */
+    //console.log('currGlassPackage == ', currGlassPackage);
+
+    //------ VERTICAL IMPOST
+    if(impostType[0] === 'vert') {
+      blockFromX = currGlassPackage.parts[0].fromPoint.x;
+      blockToX = currGlassPackage.parts[0].toPoint.x;
+      widthBlock = blockToX - blockFromX;
+
+      //------- allow insert impost if widthBlock > 250
+      if(widthBlock > minLimitSize) {
+
+        //------- define new impost X & Y coordinates
+        newImpostX = +blockFromX + (widthBlock / 2);
+        newImpostY = currGlassPackage.parts[0].toPoint.line2.toPoint.y;
+        edgeTopId = currGlassPackage.parts[0].toPoint.lineId1;
+        edgeLeftId = currGlassPackage.parts[0].toPoint.lineId2;
+        edgeBottomId = currGlassPackage.parts[2].toPoint.lineId1;
+
+        //-------- build new Impost
+        newImpost = [
+          {'type': 'fixed_point_impost', id: 'fpimpost' + (lastImpostLineIndex + 1), x: newImpostX, y: 0, dir:'vert'},
+          {'type': 'fixed_point_impost', id: 'fpimpost' + (lastImpostLineIndex + 2), x: newImpostX, y: newImpostY, dir:'vert'},
+          {'type': 'impost_line', id: 'impostcenterline' + (lastImpostLineIndex + 1), from: 'fpimpost' + (lastImpostLineIndex + 1), to: 'fpimpost' + (lastImpostLineIndex + 2), lineType: 'frame'},
+          {'type': 'impost_line', id: 'impostcenterline' + (lastImpostLineIndex + 2), from: 'fpimpost' + (lastImpostLineIndex + 2), to: 'fpimpost' + (lastImpostLineIndex + 1), lineType: 'frame'},
+          {'type': 'cross_point_impost', id: 'cpimpost' + (lastCPImpostIndex + 1), line1: edgeTopId, line2: 'impostcenterline' + (lastImpostLineIndex + 1)},
+          {'type': 'cross_point_impost', id: 'cpimpost' + (lastCPImpostIndex + 2), line1: 'impostcenterline' + (lastImpostLineIndex + 2), line2: edgeTopId},
+          {'type': 'cross_point_impost', id: 'cpimpost' + (lastCPImpostIndex + 3), line1: edgeBottomId, line2: 'impostcenterline' + (lastImpostLineIndex + 2)},
+          {'type': 'cross_point_impost', id: 'cpimpost' + (lastCPImpostIndex + 4), line1: 'impostcenterline' + (lastImpostLineIndex + 1), line2: edgeBottomId},
+          {'type': 'impost_in_line', id: 'impostinline' + (lastImpostLineIndex + 1), from: 'cpimpost' + (lastCPImpostIndex + 1), to: 'cpimpost' + (lastCPImpostIndex + 4)},
+          {'type': 'impost_in_line', id: 'impostinline' + (lastImpostLineIndex + 2), from: 'cpimpost' + (lastCPImpostIndex + 3), to: 'cpimpost' + (lastCPImpostIndex + 2)},
+          {'type': 'impost', id: 'impost' + (lastImpostIndex + 1), parts: ['impostinline' + (lastImpostLineIndex + 1), 'impostinline' + (lastImpostLineIndex + 2)]}
+        ];
+
+        //-------- build new Bead
+        newBead = [
+          {'type': 'cross_point_bead_out', id: 'cpbeadout'+(lastBeadIndex+1), line1: edgeTopId, line2: edgeLeftId},
+          {'type': 'cross_point_bead_out', id: 'cpbeadout'+(lastBeadIndex+2), line1: edgeLeftId, line2: edgeBottomId},
+          {'type': 'cross_point_bead_out', id: 'cpbeadout'+(lastBeadIndex+3), line1: edgeBottomId, line2: 'impostcenterline' + (lastImpostLineIndex + 2)},
+          {'type': 'cross_point_bead_out', id: 'cpbeadout'+(lastBeadIndex+4), line1: 'impostcenterline' + (lastImpostLineIndex + 2), line2: edgeTopId},
+          {'type': 'bead_line', id:'beadline'+(lastBeadIndex+1), from:'cpbeadout'+(lastBeadIndex+4), to:'cpbeadout'+(lastBeadIndex+1)},
+          {'type': 'bead_line', id:'beadline'+(lastBeadIndex+2), from:'cpbeadout'+(lastBeadIndex+1), to:'cpbeadout'+(lastBeadIndex+2)},
+          {'type': 'bead_line', id:'beadline'+(lastBeadIndex+3), from:'cpbeadout'+(lastBeadIndex+2), to:'cpbeadout'+(lastBeadIndex+3)},
+          {'type': 'bead_line', id:'beadline'+(lastBeadIndex+4), from:'cpbeadout'+(lastBeadIndex+3), to:'cpbeadout'+(lastBeadIndex+4)},
+          {'type': 'cross_point_bead', id: 'cpbead'+(lastBeadIndex+1), line1: 'beadline'+(lastBeadIndex+1), line2: 'beadline'+(lastBeadIndex+2)},
+          {'type': 'cross_point_bead', id: 'cpbead'+(lastBeadIndex+2), line1: 'beadline'+(lastBeadIndex+2), line2: 'beadline'+(lastBeadIndex+3)},
+          {'type': 'cross_point_bead', id: 'cpbead'+(lastBeadIndex+3), line1: 'beadline'+(lastBeadIndex+3), line2: 'beadline'+(lastBeadIndex+4)},
+          {'type': 'cross_point_bead', id: 'cpbead'+(lastBeadIndex+4), line1: 'beadline'+(lastBeadIndex+4), line2: 'beadline'+(lastBeadIndex+1)},
+          {'type': 'bead_in_line', id:'beadinline'+(lastBeadIndex+1), from:'cpbead'+(lastBeadIndex+4), to:'cpbead'+(lastBeadIndex+1)},
+          {'type': 'bead_in_line', id:'beadinline'+(lastBeadIndex+2), from:'cpbead'+(lastBeadIndex+1), to:'cpbead'+(lastBeadIndex+2)},
+          {'type': 'bead_in_line', id:'beadinline'+(lastBeadIndex+3), from:'cpbead'+(lastBeadIndex+2), to:'cpbead'+(lastBeadIndex+3)},
+          {'type': 'bead_in_line', id:'beadinline'+(lastBeadIndex+4), from:'cpbead'+(lastBeadIndex+3), to:'cpbead'+(lastBeadIndex+4)},
+          {'type': 'bead_box', id:'bead'+(lastBeadIndex+1), parts: ['beadline'+(lastBeadIndex+1), 'beadinline'+(lastBeadIndex+1)]},
+          {'type': 'bead_box', id:'bead'+(lastBeadIndex+2), parts: ['beadline'+(lastBeadIndex+2), 'beadinline'+(lastBeadIndex+2)]},
+          {'type': 'bead_box', id:'bead'+(lastBeadIndex+3), parts: ['beadline'+(lastBeadIndex+3), 'beadinline'+(lastBeadIndex+3)]},
+          {'type': 'bead_box', id:'bead'+(lastBeadIndex+4), parts: ['beadline'+(lastBeadIndex+4), 'beadinline'+(lastBeadIndex+4)]}
+        ];
+        //-------- build new Glass
+        newGlass = [
+          {'type': 'cross_point_glass', id: 'cpg'+(lastCPGlassIndex+1), line1: edgeTopId, line2: edgeLeftId},
+          {'type': 'cross_point_glass', id: 'cpg'+(lastCPGlassIndex+2), line1: edgeLeftId, line2: edgeBottomId},
+          {'type': 'cross_point_glass', id: 'cpg'+(lastCPGlassIndex+3), line1: edgeBottomId, line2: 'impostcenterline' + (lastImpostLineIndex + 2)},
+          {'type': 'cross_point_glass', id: 'cpg'+(lastCPGlassIndex+4), line1: 'impostcenterline' + (lastImpostLineIndex + 2), line2: edgeTopId},
+          {'type': 'glass_line', id: 'glassline'+(lastCPGlassIndex+1), from: 'cpg'+(lastCPGlassIndex+4), to: 'cpg'+(lastCPGlassIndex+1)},
+          {'type': 'glass_line', id: 'glassline'+(lastCPGlassIndex+2), from: 'cpg'+(lastCPGlassIndex+1), to: 'cpg'+(lastCPGlassIndex+2)},
+          {'type': 'glass_line', id: 'glassline'+(lastCPGlassIndex+3), from: 'cpg'+(lastCPGlassIndex+2), to: 'cpg'+(lastCPGlassIndex+3)},
+          {'type': 'glass_line', id: 'glassline'+(lastCPGlassIndex+4), from: 'cpg'+(lastCPGlassIndex+3), to: 'cpg'+(lastCPGlassIndex+4)},
+          {'type': 'glass_paсkage', id: 'glass'+(lastGlassIndex+1), parts: ['glassline'+(lastCPGlassIndex+1), 'glassline'+(lastCPGlassIndex+2), 'glassline'+(lastCPGlassIndex+3), 'glassline'+(lastCPGlassIndex+4)]}
+        ];
+
+        //--------- added blockType properties
+        for(var j = 0; j < newImpost.length; j++) {
+          if (newImpost[j].type === 'cross_point_impost') {
+            newImpost[j].blockType = (isSashExist === 'frame') ? 'frame' : 'sash';
+          }
+        }
+        for(var j = 0; j < newBead.length; j++) {
+          if (newBead[j].type === 'cross_point_bead_out') {
+            newBead[j].blockType = (isSashExist === 'frame') ? 'frame' : 'sash';
+          }
+        }
+        for(var j = 0; j < newGlass.length; j++) {
+          if (newGlass[j].type === 'cross_point_glass') {
+            newGlass[j].blockType = (isSashExist === 'frame') ? 'frame' : 'sash';
+          }
+        }
+
+
+        //console.log('newImpost = ', newImpost);
+        //console.log('newBead = ', newBead);
+        //console.log('newGlass = ', newGlass);
+        //----------- INSERT new glass in template Source
+        for (var tempObj = 0; tempObj < newGlass.length; tempObj++) {
+          $scope.templateSourceTEMP.objects.splice((insertIndex + tempObj), 0, newGlass[tempObj]);
+        }
+        //----------- INSERT new bead in template Source
+        for (var tempObj = 0; tempObj < newBead.length; tempObj++) {
+          $scope.templateSourceTEMP.objects.splice((insertIndex + tempObj), 0, newBead[tempObj]);
+        }
+        //----------- INSERT new impost in template Source
+        for (var tempObj = 0; tempObj < newImpost.length; tempObj++) {
+          $scope.templateSourceTEMP.objects.splice((insertIndex + tempObj), 0, newImpost[tempObj]);
+        }
+
+        //----------- change existed beads and glass package
+        for(var tempObj = 0; tempObj < $scope.templateSourceTEMP.objects.length; tempObj++) {
+
+          //------- change beads position
+          if($scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_bead_out') {
+            if($scope.templateSourceTEMP.objects[tempObj].id === 'cpbeadout'+(currLastIndex-3)) {
+              $scope.templateSourceTEMP.objects[tempObj].line2 = 'impostcenterline' + (lastImpostLineIndex + 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpbeadout'+(currLastIndex-2)) {
+              $scope.templateSourceTEMP.objects[tempObj].line1 = 'impostcenterline' + (lastImpostLineIndex + 1);
+            }
+          }
+
+          //------- change glass position
+          if($scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_glass') {
+            if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(currLastIndex-3)) {
+              $scope.templateSourceTEMP.objects[tempObj].line2 = 'impostcenterline' + (lastImpostLineIndex + 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(currLastIndex-2)) {
+              $scope.templateSourceTEMP.objects[tempObj].line1 = 'impostcenterline' + (lastImpostLineIndex + 1);
+            }
+          }
+        }
+
+        //console.log('!!!!new.templateSourceTEMP === ', JSON.stringify($scope.templateSourceTEMP));
+        //console.log('!!!!new.templateSourceTEMP === ', $scope.templateSourceTEMP);
+        //-------- build new template
+        $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
+        //console.log('templateDefaultTEMP == ', $scope.templateDefaultTEMP.objects);
+
+        $scope.constructData.isImpostEditMenu = false;
+        $scope.constructData.isImpostEdit = false;
+        $scope.constructData.activeMenuItem = false;
+
+
+      } else {
+        playTTS($filter('translate')('construction.VOICE_SMALL_GLASS_BLOCK'), $scope.global.voiceHelperLanguage);
+      }
+
+
+
+    //------ HORISONTAL IMPOST
+
+    } else if(impostType[0] === 'horis') {
+      blockFromX = currGlassPackage.parts[1].fromPoint.y;
+      blockToX = currGlassPackage.parts[1].toPoint.y;
+      widthBlock = blockToX - blockFromX;
+
+      //------- allow insert impost if widthBlock > 250
+      if(widthBlock > minLimitSize) {
+        //console.log('blockFromX == ', blockFromX);
+        //console.log('blockToX == ', blockToX);
+        //console.log('widthBlock == ', widthBlock);
+
+        //------- define new impost X & Y coordinates
+        newImpostX = +blockFromX + (widthBlock / 2);
+        newImpostY = currGlassPackage.parts[1].toPoint.line2.fromPoint.x;
+        edgeTopId = currGlassPackage.parts[1].toPoint.lineId1;
+        edgeLeftId = currGlassPackage.parts[1].toPoint.lineId2;
+        edgeBottomId = currGlassPackage.parts[3].toPoint.lineId1;
+
+        //console.log('newImpostX', newImpostX);
+        //console.log('newImpostY', newImpostY);
+        //console.log('edgeTopId', edgeTopId);
+        //console.log('edgeLeftId', edgeLeftId);
+        //console.log('edgeBottomId',edgeBottomId);
+
+
+        //-------- build new Impost
+        newImpost = [
+          {'type': 'fixed_point_impost', id: 'fpimpost' + (lastImpostLineIndex + 1), x: newImpostY, y: newImpostX, dir:'hor'},
+          {'type': 'fixed_point_impost', id: 'fpimpost' + (lastImpostLineIndex + 2), x: 0, y: newImpostX, dir:'hor'},
+          {'type': 'impost_line', id: 'impostcenterline' + (lastImpostLineIndex + 1), from: 'fpimpost' + (lastImpostLineIndex + 1), to: 'fpimpost' + (lastImpostLineIndex + 2), lineType: 'frame'},
+          {'type': 'impost_line', id: 'impostcenterline' + (lastImpostLineIndex + 2), from: 'fpimpost' + (lastImpostLineIndex + 2), to: 'fpimpost' + (lastImpostLineIndex + 1), lineType: 'frame'},
+          {'type': 'cross_point_impost', id: 'cpimpost' + (lastCPImpostIndex + 1), line1: edgeTopId, line2: 'impostcenterline' + (lastImpostLineIndex + 1)},
+          {'type': 'cross_point_impost', id: 'cpimpost' + (lastCPImpostIndex + 2), line1: 'impostcenterline' + (lastImpostLineIndex + 2), line2: edgeTopId},
+          {'type': 'cross_point_impost', id: 'cpimpost' + (lastCPImpostIndex + 3), line1: edgeBottomId, line2: 'impostcenterline' + (lastImpostLineIndex + 2)},
+          {'type': 'cross_point_impost', id: 'cpimpost' + (lastCPImpostIndex + 4), line1: 'impostcenterline' + (lastImpostLineIndex + 1), line2: edgeBottomId},
+          {'type': 'impost_in_line', id: 'impostinline' + (lastImpostLineIndex + 1), from: 'cpimpost' + (lastCPImpostIndex + 1), to: 'cpimpost' + (lastCPImpostIndex + 4)},
+          {'type': 'impost_in_line', id: 'impostinline' + (lastImpostLineIndex + 2), from: 'cpimpost' + (lastCPImpostIndex + 3), to: 'cpimpost' + (lastCPImpostIndex + 2)},
+          {'type': 'impost', id: 'impost' + (lastImpostIndex + 1), parts: ['impostinline' + (lastImpostLineIndex + 1), 'impostinline' + (lastImpostLineIndex + 2)]}
+        ];
+
+        //-------- build new Bead
+        newBead = [
+          {'type': 'cross_point_bead_out', id: 'cpbeadout'+(lastBeadIndex+1), line1: 'impostcenterline' + (lastImpostLineIndex + 2), line2: edgeTopId},
+          {'type': 'cross_point_bead_out', id: 'cpbeadout'+(lastBeadIndex+2), line1: edgeTopId, line2: edgeLeftId},
+          {'type': 'cross_point_bead_out', id: 'cpbeadout'+(lastBeadIndex+3), line1: edgeLeftId, line2: edgeBottomId},
+          {'type': 'cross_point_bead_out', id: 'cpbeadout'+(lastBeadIndex+4), line1: edgeBottomId, line2: 'impostcenterline' + (lastImpostLineIndex + 2)},
+          {'type': 'bead_line', id:'beadline'+(lastBeadIndex+1), from:'cpbeadout'+(lastBeadIndex+4), to:'cpbeadout'+(lastBeadIndex+1)},
+          {'type': 'bead_line', id:'beadline'+(lastBeadIndex+2), from:'cpbeadout'+(lastBeadIndex+1), to:'cpbeadout'+(lastBeadIndex+2)},
+          {'type': 'bead_line', id:'beadline'+(lastBeadIndex+3), from:'cpbeadout'+(lastBeadIndex+2), to:'cpbeadout'+(lastBeadIndex+3)},
+          {'type': 'bead_line', id:'beadline'+(lastBeadIndex+4), from:'cpbeadout'+(lastBeadIndex+3), to:'cpbeadout'+(lastBeadIndex+4)},
+          {'type': 'cross_point_bead', id: 'cpbead'+(lastBeadIndex+1), line1: 'beadline'+(lastBeadIndex+1), line2: 'beadline'+(lastBeadIndex+2)},
+          {'type': 'cross_point_bead', id: 'cpbead'+(lastBeadIndex+2), line1: 'beadline'+(lastBeadIndex+2), line2: 'beadline'+(lastBeadIndex+3)},
+          {'type': 'cross_point_bead', id: 'cpbead'+(lastBeadIndex+3), line1: 'beadline'+(lastBeadIndex+3), line2: 'beadline'+(lastBeadIndex+4)},
+          {'type': 'cross_point_bead', id: 'cpbead'+(lastBeadIndex+4), line1: 'beadline'+(lastBeadIndex+4), line2: 'beadline'+(lastBeadIndex+1)},
+          {'type': 'bead_in_line', id:'beadinline'+(lastBeadIndex+1), from:'cpbead'+(lastBeadIndex+4), to:'cpbead'+(lastBeadIndex+1)},
+          {'type': 'bead_in_line', id:'beadinline'+(lastBeadIndex+2), from:'cpbead'+(lastBeadIndex+1), to:'cpbead'+(lastBeadIndex+2)},
+          {'type': 'bead_in_line', id:'beadinline'+(lastBeadIndex+3), from:'cpbead'+(lastBeadIndex+2), to:'cpbead'+(lastBeadIndex+3)},
+          {'type': 'bead_in_line', id:'beadinline'+(lastBeadIndex+4), from:'cpbead'+(lastBeadIndex+3), to:'cpbead'+(lastBeadIndex+4)},
+          {'type': 'bead_box', id:'bead'+(lastBeadIndex+1), parts: ['beadline'+(lastBeadIndex+1), 'beadinline'+(lastBeadIndex+1)]},
+          {'type': 'bead_box', id:'bead'+(lastBeadIndex+2), parts: ['beadline'+(lastBeadIndex+2), 'beadinline'+(lastBeadIndex+2)]},
+          {'type': 'bead_box', id:'bead'+(lastBeadIndex+3), parts: ['beadline'+(lastBeadIndex+3), 'beadinline'+(lastBeadIndex+3)]},
+          {'type': 'bead_box', id:'bead'+(lastBeadIndex+4), parts: ['beadline'+(lastBeadIndex+4), 'beadinline'+(lastBeadIndex+4)]}
+        ];
+        //-------- build new Glass
+        newGlass = [
+          {'type': 'cross_point_glass', id: 'cpg'+(lastCPGlassIndex+1), line1: 'impostcenterline' + (lastImpostLineIndex + 2), line2: edgeTopId},
+          {'type': 'cross_point_glass', id: 'cpg'+(lastCPGlassIndex+2), line1: edgeTopId, line2: edgeLeftId},
+          {'type': 'cross_point_glass', id: 'cpg'+(lastCPGlassIndex+3), line1: edgeLeftId, line2: edgeBottomId},
+          {'type': 'cross_point_glass', id: 'cpg'+(lastCPGlassIndex+4), line1: edgeBottomId, line2: 'impostcenterline' + (lastImpostLineIndex + 2)},
+          {'type': 'glass_line', id: 'glassline'+(lastCPGlassIndex+1), from: 'cpg'+(lastCPGlassIndex+4), to: 'cpg'+(lastCPGlassIndex+1)},
+          {'type': 'glass_line', id: 'glassline'+(lastCPGlassIndex+2), from: 'cpg'+(lastCPGlassIndex+1), to: 'cpg'+(lastCPGlassIndex+2)},
+          {'type': 'glass_line', id: 'glassline'+(lastCPGlassIndex+3), from: 'cpg'+(lastCPGlassIndex+2), to: 'cpg'+(lastCPGlassIndex+3)},
+          {'type': 'glass_line', id: 'glassline'+(lastCPGlassIndex+4), from: 'cpg'+(lastCPGlassIndex+3), to: 'cpg'+(lastCPGlassIndex+4)},
+          {'type': 'glass_paсkage', id: 'glass'+(lastGlassIndex+1), parts: ['glassline'+(lastCPGlassIndex+1), 'glassline'+(lastCPGlassIndex+2), 'glassline'+(lastCPGlassIndex+3), 'glassline'+(lastCPGlassIndex+4)]}
+        ];
+
+        //--------- added blockType properties
+        for(var j = 0; j < newImpost.length; j++) {
+          if (newImpost[j].type === 'cross_point_impost') {
+            newImpost[j].blockType = (isSashExist === 'frame') ? 'frame' : 'sash';
+          }
+        }
+        for(var j = 0; j < newBead.length; j++) {
+          if (newBead[j].type === 'cross_point_bead_out') {
+            newBead[j].blockType = (isSashExist === 'frame') ? 'frame' : 'sash';
+          }
+        }
+        for(var j = 0; j < newGlass.length; j++) {
+          if (newGlass[j].type === 'cross_point_glass') {
+            newGlass[j].blockType = (isSashExist === 'frame') ? 'frame' : 'sash';
+          }
+        }
+
+
+        //console.log('newImpost = ', newImpost);
+        //console.log('newBead = ', newBead);
+        //console.log('newGlass = ', newGlass);
+        //----------- INSERT new glass in template Source
+        for (var tempObj = 0; tempObj < newGlass.length; tempObj++) {
+          $scope.templateSourceTEMP.objects.splice((insertIndex + tempObj), 0, newGlass[tempObj]);
+        }
+        //----------- INSERT new bead in template Source
+        for (var tempObj = 0; tempObj < newBead.length; tempObj++) {
+          $scope.templateSourceTEMP.objects.splice((insertIndex + tempObj), 0, newBead[tempObj]);
+        }
+        //----------- INSERT new impost in template Source
+        for (var tempObj = 0; tempObj < newImpost.length; tempObj++) {
+          $scope.templateSourceTEMP.objects.splice((insertIndex + tempObj), 0, newImpost[tempObj]);
+        }
+
+        //----------- change existed beads and glass package
+        for(var tempObj = 0; tempObj < $scope.templateSourceTEMP.objects.length; tempObj++) {
+
+          //------- change beads position
+          if($scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_bead_out') {
+            if($scope.templateSourceTEMP.objects[tempObj].id === 'cpbeadout'+(currLastIndex-2)) {
+              $scope.templateSourceTEMP.objects[tempObj].line2 = 'impostcenterline' + (lastImpostLineIndex + 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpbeadout'+(currLastIndex-1)) {
+              $scope.templateSourceTEMP.objects[tempObj].line1 = 'impostcenterline' + (lastImpostLineIndex + 1);
+            }
+          }
+
+          //------- change glass position
+          if($scope.templateSourceTEMP.objects[tempObj].type === 'cross_point_glass') {
+            if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(currLastIndex-2)) {
+              $scope.templateSourceTEMP.objects[tempObj].line2 = 'impostcenterline' + (lastImpostLineIndex + 1);
+            } else if($scope.templateSourceTEMP.objects[tempObj].id === 'cpg'+(currLastIndex-1)) {
+              $scope.templateSourceTEMP.objects[tempObj].line1 = 'impostcenterline' + (lastImpostLineIndex + 1);
+            }
+          }
+        }
+
+        //console.log('!!!!new.templateSourceTEMP === ', JSON.stringify($scope.templateSourceTEMP));
+        //console.log('!!!!new.templateSourceTEMP === ', $scope.templateSourceTEMP);
+        //-------- build new template
+        $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
+        //console.log('templateDefaultTEMP == ', $scope.templateDefaultTEMP.objects);
+
+        $scope.constructData.isImpostEditMenu = false;
+        $scope.constructData.isImpostEdit = false;
+        $scope.constructData.activeMenuItem = false;
+
+
+      } else {
+        playTTS($filter('translate')('construction.VOICE_SMALL_GLASS_BLOCK'), $scope.global.voiceHelperLanguage);
+      }
+
+    }
 
   }
+
+
 
 }]);
 

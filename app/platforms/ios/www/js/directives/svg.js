@@ -18,10 +18,16 @@ BauVoiceApp.directive('svgTemplate', [ function() {
     link: function (scope, elem, attrs) {
       var svg = buildTemplateSVG(scope.template, scope.templateWidth, scope.templateHeight);
       elem.html(svg);
+      if(scope.typeConstruction === 'edit') {
+        startPinch();
+      }
 
       scope.$watch('template', function () {
         var svg = buildTemplateSVG(scope.template, scope.templateWidth, scope.templateHeight);
         elem.html(svg);
+        if(scope.typeConstruction === 'edit') {
+          startPinch();
+        }
       });
 
       function buildTemplateSVG(template, canvasWidth, canvasHeight) {
@@ -44,18 +50,27 @@ BauVoiceApp.directive('svgTemplate', [ function() {
             //coefScaleH = 0.5,
             coefScaleW = 0.6,
             coefScaleH = 0.35,
-            overallDimH = 2000,
-            overallDimV = 2000,
-            edgeTop = 300,
-            edgeLeft = 250,
-            coefScrollW = 0.55,
+            overallDimH = 0,
+            overallDimV = 0,
+            edgeTop = 0,
+            edgeLeft = 0,
+            //overallDimH = 2000,
+            //overallDimV = 2000,
+            //edgeTop = 300,
+            //edgeLeft = 250,
+            //coefScrollW = 0.55,
             //sizeBoxWidth = 250,
             //sizeBoxHeight = 120,
             //sizeBoxRadius = 35,
 
+            dimLineHeight = 150,
+            dimMarginBottom = -20,
+            dimEdger = 50,
+
             sizeBoxWidth = 160,
             sizeBoxHeight = 70,
-            sizeBoxRadius = 20;
+            sizeBoxRadius = 20,
+            sizeBoxMarginBottom = 50;
 
 
 
@@ -114,7 +129,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               glass.id = template.objects[i].id;
               elementsSVG.glasses.push(glass);
               break;
-
+/*
             case 'dimensionsH':
               var dim = {},
                   height = template.objects[i].height * template.objects[i].level,
@@ -238,19 +253,88 @@ BauVoiceApp.directive('svgTemplate', [ function() {
               }
 
               break;
+              */
           }
         }
-        //console.log(elementsSVG);
+
+
+
+
+        //------- Create dimentions
+
+        for (var d = 0; d < template.dimentions.length; d++) {
+          var dim = {};
+          switch (template.dimentions[d].type) {
+            case 'hor':
+              var dimLineY = template.dimentions[d].level * dimLineHeight,
+                  newEdgeTop = dimLineY * 2;
+              dim.lines = [];
+
+              dim.lines[0] = template.dimentions[d].from + ' ' + dimMarginBottom + ' ' + template.dimentions[d].from + ' ' + -(dimLineY + dimEdger);
+              dim.lines[1] = template.dimentions[d].from + ' ' + (-dimLineY) + ' ' + template.dimentions[d].to + ' ' + (-dimLineY);
+              dim.lines[2] = template.dimentions[d].to + ' ' + dimMarginBottom + ' ' + template.dimentions[d].to + ' ' + -(dimLineY + dimEdger);
+
+              dim.lengthVal = template.dimentions[d].to - template.dimentions[d].from;
+              dim.textX = +template.dimentions[d].from + (dim.lengthVal / 2);
+              dim.textY = -(dimLineY + sizeBoxMarginBottom);
+              dim.type = template.dimentions[d].type;
+              dim.start = template.dimentions[d].from;
+              dim.end = template.dimentions[d].to;
+              dim.min = template.dimentions[d].minDim;
+              dim.max = template.dimentions[d].maxDim;
+              if(template.dimentions[d].id) {
+                dim.id = template.dimentions[d].id;
+              }
+              elementsSVG.dimensionsH.push(dim);
+
+              if (newEdgeTop > edgeTop) {
+                edgeTop = newEdgeTop;
+              }
+              if(overallDimH < dim.end) {
+                overallDimH = dim.end;
+              }
+              break;
+            case 'vert':
+              var dimLineX = template.dimentions[d].level * dimLineHeight, newEdgeLeft = dimLineX * 2;
+              dim.lines = [];
+
+              dim.lines[0] = dimMarginBottom + ' ' + template.dimentions[d].from + ' ' + -(dimLineX + dimEdger) + ' ' + template.dimentions[d].from;
+              dim.lines[1] = (-dimLineX) + ' ' + template.dimentions[d].from + ' ' + (-dimLineX) + ' ' + template.dimentions[d].to;
+              dim.lines[2] = dimMarginBottom + ' ' + template.dimentions[d].to + ' ' + -(dimLineX + dimEdger) + ' ' + template.dimentions[d].to;
+
+              dim.lengthVal = template.dimentions[d].to - template.dimentions[d].from;
+              dim.textX = -(dimLineX + sizeBoxMarginBottom);
+              dim.textY = +template.dimentions[d].from + (dim.lengthVal / 2);
+              dim.type = template.dimentions[d].type;
+              dim.start = template.dimentions[d].from;
+              dim.end = template.dimentions[d].to;
+              dim.min = template.dimentions[d].minDim;
+              dim.max = template.dimentions[d].maxDim;
+              if(template.dimentions[d].id) {
+                dim.id = template.dimentions[d].id;
+              }
+              elementsSVG.dimensionsV.push(dim);
+
+              if (newEdgeLeft > edgeLeft) {
+                edgeLeft = newEdgeLeft;
+              }
+              if(overallDimV < dim.end) {
+                overallDimV = dim.end;
+              }
+              break;
+          }
+
+        }
 
         //------- Drawing elements SVG of construction
 
         draw = SVG(svg).size(canvasWidth, canvasHeight);
-        //draw.viewbox(-300, -300, 2000, 2000);
+        var mainGroup = draw.group().attr('class', 'svg-pan-zoom_viewport');
         for(var prop in elementsSVG) {
           if (!elementsSVG.hasOwnProperty(prop)) {
             continue;
           }
-          var group = draw.group();
+          var group = mainGroup.group();
           for (var elem = 0; elem < elementsSVG[prop].length; elem++) {
             switch (prop) {
               case 'frames':
@@ -295,7 +379,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
 
               case 'dimensionsH':
               case 'dimensionsV':
-
+/*
                 if(scope.typeConstruction === 'icon') {
                   if (prop === 'dimensionsV') {
                     if (elementsSVG[prop][elem].id === 'overallDimV') {
@@ -308,7 +392,8 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                   }
                   edgeTop = edgeLeft = 0;
                 } else {
-
+                  */
+                if(scope.typeConstruction !== 'icon') {
                   //---- draw dimension lines
                   for(var l = 0; l < elementsSVG[prop][elem].lines.length; l++) {
                     if(l === 1) {
@@ -334,30 +419,69 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                     }
                   }
 
-                  //----- draw dimension size box if construction is aditible
+                  //----- draw dimension size box if construction is editible
                   var groupTxt = group.group().attr('class', sizeClass);
+
                   if(scope.typeConstruction === 'edit') {
+                    var sizeRect = groupTxt.rect(sizeBoxWidth, sizeBoxHeight);
+                    sizeRect.attr('class', 'size-rect');
+
+                    var sizeText = groupTxt.text(' ' + elementsSVG[prop][elem].lengthVal + ' ').dx(elementsSVG[prop][elem].textX).dy(elementsSVG[prop][elem].textY);
+                    sizeText.attr({
+                      'from-point': elementsSVG[prop][elem].start,
+                      'to-point': elementsSVG[prop][elem].end,
+                      'size-type': elementsSVG[prop][elem].type,
+                      'min-val': elementsSVG[prop][elem].min,
+                      'max-val': elementsSVG[prop][elem].max
+                    });
+                    if(elementsSVG[prop][elem].id) {
+                      sizeText.attr('id', elementsSVG[prop][elem].id);
+                    }
+
                     if(prop === 'dimensionsH') {
-                      groupTxt.rect(sizeBoxWidth, sizeBoxHeight).attr('class', 'size-rect').cx(elementsSVG[prop][elem].textX).cy(elementsSVG[prop][elem].textY + 5).radius(sizeBoxRadius);
+                      sizeRect.cx(elementsSVG[prop][elem].textX).cy(elementsSVG[prop][elem].textY + 5);
+                      sizeText.attr('class', 'size-value-edit');
                     } else if(prop === 'dimensionsV') {
-                      groupTxt.rect(sizeBoxWidth, sizeBoxHeight).attr('class', 'size-rect').cx(elementsSVG[prop][elem].textX - 50).cy(elementsSVG[prop][elem].textY + 5).radius(sizeBoxRadius);
+                      sizeRect.cx(elementsSVG[prop][elem].textX).cy(elementsSVG[prop][elem].textY + 5);
+                      //sizeRect.cx(elementsSVG[prop][elem].textX - 50).cy(elementsSVG[prop][elem].textY + 5);
+                      sizeText.attr('class', 'size-value-edit-vertical');
+                    }
+                    sizeRect.radius(sizeBoxRadius);
+
+
+                  } else {
+                    //----- draw dimension size text
+                    var sizeText = groupTxt.text(' ' + elementsSVG[prop][elem].lengthVal + ' ').dx(elementsSVG[prop][elem].textX).dy(elementsSVG[prop][elem].textY);
+                    sizeText.attr({
+                      'from-point': elementsSVG[prop][elem].start,
+                      'to-point': elementsSVG[prop][elem].end,
+                      'size-type': elementsSVG[prop][elem].type,
+                      'min-val': elementsSVG[prop][elem].min,
+                      'max-val': elementsSVG[prop][elem].max
+                    });
+                    if(elementsSVG[prop][elem].id) {
+                      sizeText.attr('id', elementsSVG[prop][elem].id);
+                    }
+                    if(prop === 'dimensionsV') {
+                      sizeText.attr('class', 'size-value-vertical');
+                    } else {
+                      sizeText.attr('class', 'size-value');
                     }
                   }
 
-                  //----- draw dimension size text
-                  var sizeText = groupTxt.text(' ' + elementsSVG[prop][elem].lengthVal + ' ').dx(elementsSVG[prop][elem].textX).dy(elementsSVG[prop][elem].textY);
+
                   /*
                    if(prop === 'dimensionsV') {
                    sizeText.attr({id: elementsSVG[prop][elem].id});
                    } else {
                    sizeText.attr({id: elementsSVG[prop][elem].id});
                    }
-                   */
-                  sizeText.attr({id: elementsSVG[prop][elem].id});
-                  sizeText.attr({limits: elementsSVG[prop][elem].limits});
-                  sizeText.attr({type: elementsSVG[prop][elem].sizeType});
 
-                  if(scope.typeConstruction === 'edit') { //----- if construction is aditible
+                  //sizeText.attr({id: elementsSVG[prop][elem].id});
+                  //sizeText.attr({limits: elementsSVG[prop][elem].limits});
+                  //sizeText.attr({type: elementsSVG[prop][elem].sizeType});
+
+                  if(scope.typeConstruction === 'edit') { //----- if construction is editible
                     if(prop === 'dimensionsV') {
                       sizeText.attr('class', 'size-value-edit-vertical');
                     } else {
@@ -370,17 +494,17 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                       sizeText.attr('class', 'size-value');
                     }
                   }
-
+                   */
                   // Click on size
-                  groupTxt.click(function() {
+                  sizeText.click(function() {
                     if(scope.typeConstruction === 'edit' && !scope.$parent.global.isConstructSizeCalculator) {
                       deactiveSizeBox(sizeEditClass, sizeClass);
-                      this.toggleClass(sizeClass);
-                      this.toggleClass(sizeEditClass);
+                      this.closest().toggleClass(sizeClass);
+                      this.closest().toggleClass(sizeEditClass);
                     }
                   });
                 }
-
+/*
                 if(scope.typeConstruction === 'bigIcon') {
                   if (prop === 'dimensionsV') {
                     if (elementsSVG[prop][elem].id === 'overallDimV') {
@@ -392,13 +516,13 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                     }
                   }
                 }
-
+*/
 
                 break;
             }
           }
         }
-
+/*
         var divW = $('.construction-scrollbox').width();
           //var mid = ((canvasWidth - edgeLeft*2)/2 - divW/2);
         var mid = ((canvasWidth)/2 - divW/2) * coefScrollW;
@@ -410,11 +534,122 @@ BauVoiceApp.directive('svgTemplate', [ function() {
           $('.construction-scrollbox').scrollLeft( mid );
 
           //console.log($('.construction-scrollbox').scrollLeft());
-
-
-        draw.viewbox(-edgeLeft, -edgeTop, overallDimH, overallDimV);
+*/
+        if(scope.typeConstruction === 'icon') {
+          draw.viewbox(0, 0, overallDimH, overallDimV);
+        } else  if(scope.typeConstruction === 'bigIcon'){
+          draw.viewbox(-edgeLeft, -edgeTop, (overallDimH + edgeLeft), (overallDimV + edgeTop));
+        } else if(scope.typeConstruction === 'edit') {
+          draw.viewbox(-edgeLeft, -edgeTop, (overallDimH + edgeLeft), (overallDimV + edgeTop));
+          draw.attr('id', 'svg-construction');
+          draw.attr({width: '100%', height: '100%'});
+        }
         return svg;
       }
+
+
+
+      //--------- PAN AND PINCH SVG
+
+      var eventsHandler = {
+        haltEventListeners: ['touchstart', 'touchend', 'touchmove', 'touchleave', 'touchcancel'],
+        init: function(options) {
+          var instance = options.instance,
+              initialScale = 1,
+              pannedX = 0,
+              pannedY = 0;
+
+          // Init Hammer
+          // Listen only for pointer and touch events
+          this.hammer = Hammer(options.svgElement, {
+            inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput
+          });
+
+          // Enable pinch
+          this.hammer.get('pinch').set({enable: true});
+
+          // Handle double tap
+          this.hammer.on('doubletap', function(ev){
+            console.log('ev.type = ', ev.type);
+            instance.zoomIn();
+          });
+
+          // Handle pan
+          this.hammer.on('pan panstart panend', function(ev){
+            // On pan start reset panned variables
+            console.log('ev.type = ', ev.type);
+            if (ev.type === 'panstart') {
+              pannedX = 0;
+              pannedY = 0;
+            }
+
+            // Pan only the difference
+            if (ev.type === 'pan' || ev.type === 'panend') {
+              //console.log('p');
+              instance.panBy({x: ev.deltaX - pannedX, y: ev.deltaY - pannedY});
+              pannedX = ev.deltaX;
+              pannedY = ev.deltaY;
+            }
+          });
+
+          // Handle pinch
+          this.hammer.on('pinch pinchstart pinchend', function(ev){
+            console.log('ev.type = ', ev.type);
+            // On pinch start remember initial zoom
+            if (ev.type === 'pinchstart') {
+              initialScale = instance.getZoom();
+              instance.zoom(initialScale * ev.scale);
+            }
+
+            // On pinch zoom
+            if (ev.type === 'pinch' || ev.type === 'pinchend') {
+              instance.zoom(initialScale * ev.scale);
+            }
+          });
+
+          // Prevent moving the page on some devices when panning over SVG
+          options.svgElement.addEventListener('touchmove', function(e){ e.preventDefault(); });
+        },//--- init
+
+        destroy: function(){
+          this.hammer.destroy();
+        }
+      };
+
+      var beforePan = function(oldPan, newPan){
+        var stopHorizontal = false,
+            stopVertical = false,
+            gutterWidth = 100,
+            gutterHeight = 100,
+            // Computed variables
+            sizes = this.getSizes(),
+            leftLimit = -((sizes.viewBox.x + sizes.viewBox.width) * sizes.realZoom) + gutterWidth,
+            rightLimit = sizes.width - gutterWidth - (sizes.viewBox.x * sizes.realZoom),
+            topLimit = -((sizes.viewBox.y + sizes.viewBox.height) * sizes.realZoom) + gutterHeight,
+            bottomLimit = sizes.height - gutterHeight - (sizes.viewBox.y * sizes.realZoom),
+            customPan = {};
+
+        customPan.x = Math.max(leftLimit, Math.min(rightLimit, newPan.x));
+        customPan.y = Math.max(topLimit, Math.min(bottomLimit, newPan.y));
+        return customPan;
+      };
+
+
+      function startPinch() {
+        var svgElement = document.getElementById('svg-construction');
+        console.log('svgElement', svgElement);
+        // Expose to window namespace for testing purposes
+        window.panZoom = svgPanZoom(svgElement, {
+          zoomEnabled: true,
+          controlIconsEnabled: false,
+          fit: 1,
+          center: 1,
+          beforePan: beforePan,
+          customEventsHandler: eventsHandler
+        });
+      }
+
+
     }
   };
 }]);

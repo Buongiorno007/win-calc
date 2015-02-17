@@ -14,10 +14,34 @@ var STEP = 50,
     unvisibleClass = 'unvisible',
     movePanelClass = 'move-panel',
     sounds = {
-      'menuSound': {'start': 7.93, 'end': 11.7},
-      'swipSound': {'start': 8, 'end': 9},
-      'priceSound': {'start': 21.0, 'end': 23.47}
+      menu: {start: 7.93, end: 11.7},
+      swip: {start: 8, end: 9},
+      price: {start: 21, end: 23.47},
+      fly: {start: 0.57, end: 1.59},
+      switching: {start: 1.81, end: 2.88}
     };
+
+Array.prototype.min = function () {
+  return this.reduce(function (p, v) {
+    return ( p < v ? p : v );
+  });
+}
+
+Array.prototype.max = function () {
+  return this.reduce(function (p, v) {
+    return ( p > v ? p : v );
+  });
+}
+
+Array.prototype.removeDuplicates = function() {
+  return this.filter(function(elem, index, self) {
+    return index == self.indexOf(elem);
+  });
+}
+
+function sortNumbers(a, b) {
+  return a - b;
+}
 
 function typingTextByChar($textElem1, $textElem2) {
   var source = $textElem1.data('output'),
@@ -87,37 +111,25 @@ function deactiveSizeBox(sizeEditClass, sizeClass) {
   });
 }
 
+
+
 //----------- Play audio sounds
 function playSound(element) {
-  var audioPlayer = document.getElementById('sounds'),
-      start, end;
-console.log(element);
-  switch(element) {
-    case 'menu':
-      start = sounds.menuSound.start;
-      end = sounds.menuSound.end;
-      break;
-    case 'swip':
-      start = sounds.swipSound.start;
-      end = sounds.swipSound.end;
-      break;
-    case 'price':
-      start = sounds.priceSound.start;
-      end = sounds.priceSound.end;
-      break;
-  }
-  console.log('start', start);
-  console.log('end', end);
-  audioPlayer.currentTime = start;
+  var audioPlayer = document.getElementById('sounds');
+  audioPlayer.currentTime = sounds[element].start;
   audioPlayer.play();
-  audioPlayer.addEventListener('timeupdate',function () {
-    console.log('currentTime', audioPlayer.currentTime);
-    if(audioPlayer.currentTime >= end) {
-      audioPlayer.pause();
-    }
-  });
 
+  var handle = function() {
+    var end = sounds[element].end;
+    if(this.currentTime >= end) {
+      this.pause();
+      this.removeEventListener('timeupdate', handle);
+    }
+  };
+  audioPlayer.addEventListener('timeupdate', handle, false);
 }
+
+
 
 
 
@@ -141,6 +153,7 @@ var LineObject = function (sourceObj) {
   FrameObject.call(this, sourceObj);
   this.fromPointId = sourceObj.from;
   this.toPointId = sourceObj.to;
+  this.lineType = sourceObj.lineType;
 
   this.parseIds = function(fullTemplate) {
     this.fromPoint = fullTemplate.findById(this.fromPointId);
@@ -209,89 +222,141 @@ var CrossPoint = function (sourceObj, depthSource) {
 CrossPoint.prototype = FrameObject;
 
 
-//--------- Cross Point for Impost ---------
-var CrossPointImpost = function(sourceObj, depthSource) {
+
+var CPoint= function (sourceObj, depthSource, coeffScale) {
   FrameObject.call(this, sourceObj);
   this.lineId1 = sourceObj.line1;
   this.lineId2 = sourceObj.line2;
-  this.depth = depthSource;
-
-  this.parseIds = function(fullTemplate) {
-    this.line1 = fullTemplate.findById(this.lineId1);
-    this.line2 = fullTemplate.findById(this.lineId2);
-    this.getCoordinates(this.line1, this.line2, this.depth);
-  };
-
-
-  this.getCoordinates = function(line1, line2, depth) {
-    var newCoefC1, newCoefC2;
-    if(line1.id.indexOf('impost')+1) {
-      newCoefC1 = this.getNewCoefC(depth ,line1);
-    }
-    if(line2.id.indexOf('impost')+1) {
-      newCoefC2 = this.getNewCoefC(depth ,line2);
-    }
-    this.getCoordCrossPoint (line1, line2, newCoefC1, newCoefC2);
-  };
-
-  this.getNewCoefC = function (depth, line) {
-    var newCoefC = line.coefC - (depth * Math.sqrt(Math.pow(line.coefA, 2) + Math.pow(line.coefB, 2)));
-    return newCoefC;
-  };
-
-  this.getCoordCrossPoint = function(line1, line2, coefC1, coefC2) {
-    var coefA1 = line1.coefA,
-        coefB1 = line1.coefB,
-        coefA2 = line2.coefA,
-        coefB2 = line2.coefB;
-
-    if(!coefC2) {
-      var coefC2 = line2.coefC;
-    }
-    var base = (coefA1 * coefB2) - (coefA2 * coefB1),
-        baseX = ((-coefC1) * coefB2) - (coefB1 * (-coefC2)),
-        baseY = (coefA1 * (-coefC2)) - (coefA2 * (-coefC1));
-    this.x = baseX / base;
-    this.y = baseY / base;
-  };
-};
-CrossPointImpost.prototype = FrameObject;
-
-
-//-----------Cross Point for Sash -------------------
-//-----------Cross Point Glass Package-------------------
-var CrossPointDiff = function (sourceObj, depthSource, depthSource2) {
-  FrameObject.call(this, sourceObj);
-  this.lineId1 = sourceObj.line1;
-  this.lineId2 = sourceObj.line2;
-  this.depth = depthSource;
-  this.depthDif = depthSource2;
+  this.depths = depthSource;
   this.blockType = sourceObj.blockType;
 
   this.parseIds = function(fullTemplate) {
     this.line1 = fullTemplate.findById(this.lineId1);
     this.line2 = fullTemplate.findById(this.lineId2);
-    this.getCoordinates(this.line1, this.line2, this.depth, this.depthDif);
+
+    if(sourceObj.type === 'cross_point_impost') {
+      if (this.blockType === 'frame') {
+        if (this.line1.id.indexOf('impostcenterline') + 1) {
+          this.depth1 = this.depths.impostDepth.c / 2;
+        } else {
+          this.depth1 = this.depths.frameDepth.c;
+        }
+        if (this.line2.id.indexOf('impostcenterline') + 1) {
+          this.depth2 = this.depths.impostDepth.c / 2;
+        } else {
+          this.depth2 = this.depths.frameDepth.c;
+        }
+
+      } else if (this.blockType === 'sash') {
+        if (this.line1.id.indexOf('impostcenterline') + 1) {
+          if (this.line1.lineType === 'sash') {
+            this.depth1 = (this.depths.impostDepth.d) + this.depths.sashDepth.c;
+          } else if (this.line1.lineType === 'frame') {
+            this.depth1 = this.depths.impostDepth.c / 2;
+          }
+        } else {
+          this.depth1 = (this.depths.frameDepth.b + this.depths.sashDepth.c);
+        }
+        if (this.line2.id.indexOf('impostcenterline') + 1) {
+          if (this.line2.lineType === 'sash') {
+            this.depth2 = (this.depths.impostDepth.d) + this.depths.sashDepth.c;
+          } else if (this.line2.lineType === 'frame') {
+            this.depth2 = this.depths.impostDepth.c / 2;
+          }
+        } else {
+          this.depth2 = (this.depths.frameDepth.b + this.depths.sashDepth.c);
+        }
+      }
+    } else if(sourceObj.type === 'cross_point_sash_out') {
+        if (this.line1.id.indexOf('impostcenterline') + 1) {
+          this.depth1 = this.depths.impostDepth.d;
+        } else {
+          this.depth1 = this.depths.frameDepth.b;
+        }
+        if (this.line2.id.indexOf('impostcenterline') + 1) {
+          this.depth2 = this.depths.impostDepth.d;
+        } else {
+          this.depth2 = this.depths.frameDepth.b;
+        }
+    } else if(sourceObj.type === 'cross_point_bead_out') {
+      if (this.blockType === 'frame') {
+        if (this.line1.id.indexOf('impostcenterline') + 1) {
+          this.depth1 = this.depths.impostDepth.c / 2;
+        } else {
+          this.depth1 = this.depths.frameDepth.c;
+        }
+        if (this.line2.id.indexOf('impostcenterline') + 1) {
+          this.depth2 = this.depths.impostDepth.c / 2;
+        } else {
+          this.depth2 = this.depths.frameDepth.c;
+        }
+
+      } else if (this.blockType === 'sash') {
+        if (this.line1.id.indexOf('impostcenterline') + 1) {
+          if (this.line1.lineType === 'sash') {
+            this.depth1 = (this.depths.impostDepth.d + this.depths.sashDepth.c);
+          } else if (this.line1.lineType === 'frame') {
+            this.depth1 = this.depths.impostDepth.c / 2;
+          }
+        } else {
+          this.depth1 = (this.depths.frameDepth.b + this.depths.sashDepth.c);
+        }
+        if (this.line2.id.indexOf('impostcenterline') + 1) {
+          if (this.line2.lineType === 'sash') {
+            this.depth2 = (this.depths.impostDepth.d + this.depths.sashDepth.c);
+          } else if (this.line2.lineType === 'frame') {
+            this.depth2 = this.depths.impostDepth.c / 2;
+          }
+        } else {
+          this.depth2 = (this.depths.frameDepth.b + this.depths.sashDepth.c);
+        }
+      }
+    } else if(sourceObj.type === 'cross_point_glass') {
+      if (this.blockType === 'frame') {
+        if (this.line1.id.indexOf('impostcenterline') + 1) {
+          this.depth1 = this.depths.impostDepth.b;
+        } else {
+          this.depth1 = this.depths.frameDepth.d;
+        }
+        if (this.line2.id.indexOf('impostcenterline') + 1) {
+          this.depth2 = this.depths.impostDepth.b;
+        } else {
+          this.depth2 = this.depths.frameDepth.d;
+        }
+
+      } else if (this.blockType === 'sash') {
+        if (this.line1.id.indexOf('impostcenterline') + 1) {
+          if (this.line1.lineType === 'sash') {
+            this.depth1 = (this.depths.impostDepth.d + this.depths.sashDepth.d);
+          } else if (this.line1.lineType === 'frame') {
+            this.depth1 = this.depths.impostDepth.b;
+          }
+        } else {
+          this.depth1 = (this.depths.frameDepth.b + this.depths.sashDepth.d);
+        }
+        if (this.line2.id.indexOf('impostcenterline') + 1) {
+          if (this.line2.lineType === 'sash') {
+            this.depth2 = (this.depths.impostDepth.d + this.depths.sashDepth.d);
+          } else if (this.line2.lineType === 'frame') {
+            this.depth2 = this.depths.impostDepth.b;
+          }
+        } else {
+          this.depth2 = (this.depths.frameDepth.b + this.depths.sashDepth.d);
+        }
+      }
+    }
+
+    this.getCoordinates(this.line1, this.line2, (this.depth1 * coeffScale), (this.depth2 * coeffScale));
   };
 
-  this.getCoordinates = function(line1, line2, depth, depthDif) {
-    var newCoefC1, newCoefC2;
-    if(line1.id.indexOf('impost')+1) {
-      newCoefC1 = this.getNewCoefC(depthDif ,line1);
-    } else {
-      newCoefC1 = this.getNewCoefC(depth ,line1);
-    }
-
-    if(line2.id.indexOf('impost')+1) {
-      newCoefC2 = this.getNewCoefC(depthDif ,line2);
-    } else {
-      newCoefC2 = this.getNewCoefC(depthDif ,line2);
-    }
+  this.getCoordinates = function(line1, line2, depth1, depth2) {
+    var newCoefC1 = this.getNewCoefC(depth1 ,line1),
+        newCoefC2 = this.getNewCoefC(depth2 ,line2);
     this.getCoordCrossPoint (line1, line2, newCoefC1, newCoefC2);
   };
 
-  this.getNewCoefC = function (depth, line) {
-    var newCoefC = line.coefC - (depth * Math.sqrt(Math.pow(line.coefA, 2) + Math.pow(line.coefB, 2)));
+  this.getNewCoefC = function (depth1, line) {
+    var newCoefC = line.coefC - (depth1 * Math.sqrt(Math.pow(line.coefA, 2) + Math.pow(line.coefB, 2)));
     return newCoefC;
   };
 
@@ -308,32 +373,10 @@ var CrossPointDiff = function (sourceObj, depthSource, depthSource2) {
     this.y = baseY / base;
   };
 };
-CrossPointDiff.prototype = FrameObject;
+CPoint.prototype = FrameObject;
 
 
-//-----------SashLine-------------------
-var SashLine = function (sourceObj) {
-  LineObject.call(this, sourceObj);
-};
-SashLine.prototype = LineObject;
 
-//-----------BeadBoxLine-------------------
-var BeadBoxLine = function (sourceObj) {
-  LineObject.call(this, sourceObj);
-};
-BeadBoxLine.prototype = LineObject;
-
-//-----------ImpostLine-------------------
-var ImpostLine = function (sourceObj) {
-  LineObject.call(this, sourceObj);
-};
-ImpostLine.prototype = LineObject;
-
-//-----------GlassLine-------------------
-var GlassLine = function (sourceObj) {
-  LineObject.call(this, sourceObj);
-};
-GlassLine.prototype = LineObject;
 
 
 //-----------Frame Object-------------------
@@ -414,7 +457,7 @@ Glass.prototype = FrameObject;
 var Dimension = function (sourceObj) {
   LineObject.call(this, sourceObj);
   this.level = sourceObj.level;
-  this.height = sourceObj.height;
+  this.height = 150;
   this.side = sourceObj.side;
   this.limits = sourceObj.limits;
   this.links = sourceObj.links;
@@ -455,15 +498,110 @@ var Square = function (sourceObj) {
 Square.prototype = FrameObject;
 
 
+function sortingCoordin(dimentions, coordinates, typeDim, levelDim, limit, classSize) {
+  var dimPadding = (limit + 200) || 200,
+      maxDimFrame = 5000,
+      dimension;
+  for(var d = 0; d < coordinates.length; d++) {
+    if((d+1) < coordinates.length) {
+      if(coordinates[d+2]) {
+        dimension = {type: typeDim, from: coordinates[d], to: coordinates[d+1], level: levelDim, minDim: (coordinates[d] + dimPadding), maxDim: (coordinates[d+2] - dimPadding)};
+      } else {
+        if(limit) {
+          dimension = {id: classSize, type: typeDim, from: coordinates[d], to: coordinates[d+1], level: levelDim, minDim: (coordinates[d] + dimPadding), maxDim: maxDimFrame};
+        } else {
+          dimension = {type: typeDim, from: coordinates[d], to: coordinates[d+1], level: levelDim, minDim: (coordinates[d] + dimPadding), maxDim: maxDimFrame};
+        }
+      }
+      dimentions.push(dimension);
+    }
+  }
+}
+
+function createDimentions(sourceObj) {
+  var frameXArr = [],
+      frameYArr = [],
+      impostVertXMax = 0,
+      impostHorYMax = 0,
+      impostVertXArr = [],
+      impostHorYArr = [],
+      levelUp = 1,
+      levelLeft = 1,
+      dimentions = [];
+
+  for (var i = 0; i < sourceObj.objects.length; i++) {
+    switch (sourceObj.objects[i].type) {
+      case 'fixed_point':
+        frameXArr.push(+sourceObj.objects[i].x);
+        frameYArr.push(+sourceObj.objects[i].y);
+        break;
+      case 'fixed_point_impost':
+        if(sourceObj.objects[i].dir === 'vert') {
+          impostVertXArr.push(+sourceObj.objects[i].x);
+        } else if(sourceObj.objects[i].dir === 'hor') {
+          impostHorYArr.push(+sourceObj.objects[i].y);
+        }
+        break;
+    }
+  }
+  if(impostVertXArr.length > 0) {
+    impostVertXMax = impostVertXArr.max();
+    impostVertXArr = impostVertXArr.concat(frameXArr);
+  }
+  if(impostHorYArr.length > 0) {
+    impostHorYMax = impostHorYArr.max();
+    impostHorYArr = impostHorYArr.concat(frameYArr);
+  }
+
+  //---- sorting and delete dublicats
+  frameXArr = frameXArr.removeDuplicates();
+  frameYArr = frameYArr.removeDuplicates();
+  impostVertXArr = impostVertXArr.removeDuplicates();
+  impostHorYArr = impostHorYArr.removeDuplicates();
+
+  frameXArr.sort(sortNumbers);
+  frameYArr.sort(sortNumbers);
+  impostVertXArr.sort(sortNumbers);
+  impostHorYArr.sort(sortNumbers);
+
+/*
+  console.log('frameXArr sort== ', frameXArr);
+  console.log('impostVertXArr sort== ', impostVertXArr);
+  console.log('impostHorYArr sort== ', impostHorYArr);
+
+*/
+
+  //----- set level
+  if(impostVertXArr.length > 0) {
+    levelUp = 2;
+    sortingCoordin(dimentions, frameXArr, 'hor', levelUp, impostVertXMax, 'overallDimH');
+    sortingCoordin(dimentions, impostVertXArr, 'hor', (levelUp - 1));
+  } else {
+    sortingCoordin(dimentions, frameXArr, 'hor', levelUp);
+  }
+  if(impostHorYArr.length > 0) {
+    levelLeft = 2;
+    sortingCoordin(dimentions, frameYArr, 'vert', levelLeft, impostHorYMax, 'overallDimV');
+    sortingCoordin(dimentions, impostHorYArr, 'vert', (levelLeft - 1));
+
+  } else {
+    sortingCoordin(dimentions, frameYArr, 'vert', levelLeft);
+  }
+
+  //console.log('dimentions == ', dimentions);
+  return dimentions;
+
+}
 
 
 var Template = function (sourceObj, depths) {
   this.name = sourceObj.name;
-  //this.shortName = sourceObj.short_name;
-  //this.icon = sourceObj.iconUrl;
   this.objects = [];
+  this.dimentions = createDimentions(sourceObj);
 
-  var tmpObject;
+  var tmpObject,
+      coeffScale = 1;
+
   for (var i = 0; i < sourceObj.objects.length; i++) {
     tmpObject = null;
     switch(sourceObj.objects[i].type) {
@@ -476,63 +614,37 @@ var Template = function (sourceObj, depths) {
       case 'cross_point':  tmpObject = new CrossPoint(sourceObj.objects[i], depths.frameDepth.c);
         break;
       case 'impost_line':
-      case 'impost_in_line': tmpObject = new ImpostLine(sourceObj.objects[i]);
+      case 'impost_in_line': tmpObject = new LineObject(sourceObj.objects[i]);
         break;
       case 'cross_point_impost':
-          tmpObject = new CrossPointImpost(sourceObj.objects[i], depths.impostDepth.c/2);
+        tmpObject = new CPoint(sourceObj.objects[i], depths, coeffScale);
         break;
-      case 'sash_line':  tmpObject = new SashLine(sourceObj.objects[i]);
+      case 'sash_line':  tmpObject = new LineObject(sourceObj.objects[i]);
         break;
       case 'cross_point_sash_out':
-        if(sourceObj.objects[i].isImpost) {
-          tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.b, depths.impostDepth.d);
-        } else {
-          tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.b, depths.frameDepth.b);
-        }
+        tmpObject = new CPoint(sourceObj.objects[i], depths, coeffScale);
         break;
       case 'cross_point_hardware': tmpObject = new CrossPoint(sourceObj.objects[i], depths.sashDepth.b);
         break;
-      case 'hardware_line': tmpObject = new SashLine(sourceObj.objects[i]);
+      case 'hardware_line': tmpObject = new LineObject(sourceObj.objects[i]);
         break;
       case 'cross_point_sash_in':  tmpObject = new CrossPoint(sourceObj.objects[i], depths.sashDepth.c);
         break;
-      case 'sash_out_line':  tmpObject = new SashLine(sourceObj.objects[i]);
+      case 'sash_out_line':  tmpObject = new LineObject(sourceObj.objects[i]);
         break;
       case 'cross_point_bead_out':
-        if(sourceObj.objects[i].blockType === 'sash') {
-          if(sourceObj.objects[i].isImpost) {
-            tmpObject = new CrossPointDiff(sourceObj.objects[i], (depths.frameDepth.b + depths.sashDepth.c), (depths.impostDepth.d + depths.sashDepth.c));
-          } else {
-            tmpObject = new CrossPointDiff(sourceObj.objects[i], (depths.frameDepth.b + depths.sashDepth.c), (depths.frameDepth.b + depths.sashDepth.c));
-          }
-        } else if(sourceObj.objects[i].blockType === 'frame') {
-          if(sourceObj.objects[i].isImpost) {
-            tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.c, depths.impostDepth.c/2);
-          } else {
-            tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.c, depths.frameDepth.c);
-          }
-        }
+        tmpObject = new CPoint(sourceObj.objects[i], depths, coeffScale);
         break;
-      case 'bead_line':  tmpObject = new BeadBoxLine(sourceObj.objects[i]);
+      case 'bead_line':  tmpObject = new LineObject(sourceObj.objects[i]);
         break;
       case 'cross_point_bead':  tmpObject = new CrossPoint(sourceObj.objects[i], 20);
         break;
-      case 'bead_in_line':  tmpObject = new BeadBoxLine(sourceObj.objects[i]);
+      case 'bead_in_line':  tmpObject = new LineObject(sourceObj.objects[i]);
         break;
       case 'cross_point_glass':
-        if(sourceObj.objects[i].blockType === 'frame') {
-          //---- is close type block
-          if(sourceObj.objects[i].isImpost) {
-            tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.d, depths.impostDepth.b);
-          } else {
-            tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.d, depths.frameDepth.d);
-          }
-        } else if(sourceObj.objects[i].blockType === 'sash') {
-          //---- is open type block
-          tmpObject = new CrossPointDiff(sourceObj.objects[i],depths.sashDepth.d, depths.sashDepth.d);
-        }
+        tmpObject = new CPoint(sourceObj.objects[i], depths, coeffScale);
         break;
-      case 'glass_line':  tmpObject = new GlassLine(sourceObj.objects[i]);
+      case 'glass_line':  tmpObject = new LineObject(sourceObj.objects[i]);
         break;
       case 'frame':
       case 'impost':
@@ -585,11 +697,12 @@ var Template = function (sourceObj, depths) {
 //--------- TEMPLATE JSON PARSE FOR ICON----------------
 
 var TemplateIcon = function (sourceObj, depths) {
-  this.name      = sourceObj.name;
+  this.name = sourceObj.name;
   this.objects = [];
+  this.dimentions = createDimentions(sourceObj);
 
   var tmpObject,
-      coeffScale = 3;
+      coeffScale = 2;
 
   for (var i = 0; i < sourceObj.objects.length; i++) {
     tmpObject = null;
@@ -603,60 +716,33 @@ var TemplateIcon = function (sourceObj, depths) {
       case 'cross_point':  tmpObject = new CrossPoint(sourceObj.objects[i], depths.frameDepth.c * coeffScale);
         break;
       case 'impost_line':
-      case 'impost_in_line': tmpObject = new ImpostLine(sourceObj.objects[i]);
+      case 'impost_in_line': tmpObject = new LineObject(sourceObj.objects[i]);
         break;
       case 'cross_point_impost':
-        tmpObject = new CrossPointImpost(sourceObj.objects[i], (depths.impostDepth.c/2) * coeffScale);
+        tmpObject = new CPoint(sourceObj.objects[i], depths, coeffScale);
         break;
-      case 'sash_line':  tmpObject = new SashLine(sourceObj.objects[i]);
+      case 'sash_line':  tmpObject = new LineObject(sourceObj.objects[i]);
         break;
       case 'cross_point_sash_out':
-        if(sourceObj.objects[i].isImpost) {
-          tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.b * coeffScale, depths.impostDepth.d * coeffScale);
-        } else {
-          tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.b * coeffScale, depths.frameDepth.b * coeffScale);
-        }
+        tmpObject = new CPoint(sourceObj.objects[i], depths, coeffScale);
         break;
       case 'cross_point_sash_in':  tmpObject = new CrossPoint(sourceObj.objects[i], depths.sashDepth.c * coeffScale);
         break;
-      case 'sash_out_line':  tmpObject = new SashLine(sourceObj.objects[i]);
+      case 'sash_out_line':  tmpObject = new LineObject(sourceObj.objects[i]);
         break;
       case 'cross_point_bead_out':
-        if(sourceObj.objects[i].blockType === 'sash') {
-          if(sourceObj.objects[i].isImpost) {
-            tmpObject = new CrossPointDiff(sourceObj.objects[i], (depths.frameDepth.b + depths.sashDepth.c)* coeffScale, (depths.impostDepth.d + depths.sashDepth.c)* coeffScale);
-          } else {
-            tmpObject = new CrossPointDiff(sourceObj.objects[i], (depths.frameDepth.b + depths.sashDepth.c)* coeffScale, (depths.frameDepth.b + depths.sashDepth.c)* coeffScale);
-          }
-        } else if(sourceObj.objects[i].blockType === 'frame') {
-          if(sourceObj.objects[i].isImpost) {
-            tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.c * coeffScale, depths.impostDepth.c/2 * coeffScale);
-          } else {
-            tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.c * coeffScale, depths.frameDepth.c * coeffScale);
-          }
-        }
+        tmpObject = new CPoint(sourceObj.objects[i], depths, coeffScale);
         break;
-      case 'bead_line':  tmpObject = new BeadBoxLine(sourceObj.objects[i]);
+      case 'bead_line':  tmpObject = new LineObject(sourceObj.objects[i]);
         break;
       case 'cross_point_bead':  tmpObject = new CrossPoint(sourceObj.objects[i], 20);
         break;
-      case 'bead_in_line':  tmpObject = new BeadBoxLine(sourceObj.objects[i]);
+      case 'bead_in_line':  tmpObject = new LineObject(sourceObj.objects[i]);
         break;
       case 'cross_point_glass':
-        if(sourceObj.objects[i].blockType === 'frame') {
-          //---- is close type block
-          if(sourceObj.objects[i].isImpost) {
-            tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.d * coeffScale, depths.impostDepth.b * coeffScale);
-          } else {
-            tmpObject = new CrossPointDiff(sourceObj.objects[i], depths.frameDepth.d * coeffScale, depths.frameDepth.d * coeffScale);
-          }
-        } else if(sourceObj.objects[i].blockType === 'sash') {
-          //---- is open type block
-          var dep = (depths.sashDepth.d - depths.sashDepth.b) * coeffScale;
-          tmpObject = new CrossPointDiff(sourceObj.objects[i], dep, dep);
-        }
+        tmpObject = new CPoint(sourceObj.objects[i], depths, coeffScale);
         break;
-      case 'glass_line':  tmpObject = new GlassLine(sourceObj.objects[i]);
+      case 'glass_line':  tmpObject = new LineObject(sourceObj.objects[i]);
         break;
       case 'frame':
       case 'impost':

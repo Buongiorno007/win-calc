@@ -72,7 +72,8 @@ window.russianDictionary = {
     CONFIGMENU_ADDITIONAL: 'Дополнительно',
     CONFIGMENU_IN_CART: 'В корзину',
     VOICE_SPEACH: 'Говорите...',
-    COMMENT: 'Оставьте свою заметку о заказе здесь.'
+    COMMENT: 'Оставьте свою заметку о заказе здесь.',
+    ROOM_SELECTION: 'Выбор интерьера'
   },
   panels: {
     TEMPLATE_WINDOW: 'Oкно',
@@ -155,7 +156,8 @@ window.russianDictionary = {
     VOICE_SWITCH_ON: "голосовой режим включен",
     VOICE_NOT_UNDERSTAND: 'Не понятно',
     VOICE_SMALLEST_SIZE: 'слишком маленький размер',
-    VOICE_BIGGEST_SIZE: "слишком большой размер"
+    VOICE_BIGGEST_SIZE: "слишком большой размер",
+    VOICE_SMALL_GLASS_BLOCK: "слишком маленький световой проем"
   },
   history: {
     SEARCH_PLACEHOLDER: 'Поиск по ключевым словам',
@@ -230,7 +232,10 @@ window.russianDictionary = {
     ADDELEMENTS_EDIT_LIST: 'Редактировать список',
     ADDELEMENTS_PRODUCT_COST: 'в одном изделии',
     HEAT_TRANSFER: 'теплопередача',
-    WRONG_EMAIL: 'Неверная электронная почта'
+    WRONG_EMAIL: 'Неверная электронная почта',
+    LINK_BETWEEN_COUPLE: 'между парой',
+    LINK_BETWEEN_ALL: 'между всеми',
+    LINK_DELETE_ALL_GROUPE: 'удалить все'
   },
   settings: {
     AUTHORIZATION: 'Авторизация:',

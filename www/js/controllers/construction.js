@@ -5,7 +5,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'localStorage', '$location', '$filter', function ($scope, constructService, localStorage, $location, $filter) {
+BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'localStorage', '$location', '$filter', '$interval', function ($scope, constructService, localStorage, $location, $filter, $interval) {
 
   $scope.global = localStorage;
 
@@ -61,7 +61,8 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   $scope.quietVoice = false;
   $scope.selectedGlassId = 0;
 
-  var sizeClass = 'size-box',
+  var $svgContainer = $('svg-template'),
+      sizeClass = 'size-box',
       sizeEditClass = 'size-box-edited',
       newLength;
 
@@ -323,19 +324,24 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
   //=============== CHANGE CONSTRUCTION SIZE ==============
 
+  $svgContainer.hammer({domEvents:true}).on("tap", "tspan", selectSizeBlock);
+
   //----- click on size SVG and get size value and Id
-  $('svg-template').off("click", ".size-box-edited").on("click", ".size-box-edited", function() {
-    //console.log('Click on size');
+  //$('svg-template').off("click", ".size-box-edited").on("click", ".size-box-edited", function() {
+  function selectSizeBlock() {
+    console.log('Click on size');
+    console.log('event size', event);
     //console.log('calculator', $scope.global.isConstructSizeCalculator);
-    if(!$scope.global.isConstructSizeCalculator) {
-      var thisSize = $(this).find('text');
-      //console.log('thisSize = ', thisSize);
+    if (!$scope.global.isConstructSizeCalculator) {
+      console.log('thisSize = ', $(this));
+      var thisSize = $(this).closest('.size-box-edited');
+      console.log('thisSize = ', thisSize);
       $scope.constructData.startSize = +thisSize.attr('from-point');
       $scope.constructData.finishSize = +thisSize.attr('to-point');
       $scope.constructData.minSizePoint = +thisSize.attr('min-val');
       $scope.constructData.maxSizePoint = +thisSize.attr('max-val');
       $scope.constructData.maxSizeLimit = ($scope.constructData.maxSizePoint - $scope.constructData.startSize);
-      if(thisSize.attr('id') === 'overallDimH' || thisSize.attr('id') === 'overallDimV') {
+      if (thisSize.attr('id') === 'overallDimH' || thisSize.attr('id') === 'overallDimV') {
         $scope.constructData.minSizeLimit = $scope.constructData.minSizePoint;
       } else {
         $scope.constructData.minSizeLimit = 200;
@@ -343,17 +349,17 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
       $scope.constructData.tempSizeId = thisSize.attr('id');
       $scope.constructData.tempSizeType = thisSize.attr('size-type');
       $scope.constructData.oldSizeValue = +thisSize.text();
-/*
-      console.log('startSize = ', $scope.constructData.startSize);
-      console.log('finishSize = ', $scope.constructData.finishSize);
-      console.log('minSizePoint = ', $scope.constructData.minSizePoint);
-      console.log('maxSizePoint = ', $scope.constructData.maxSizePoint);
-      console.log('tempSizeId', $scope.constructData.tempSizeId);
-      console.log('tempSizeType = ', $scope.constructData.tempSizeType);
-      console.log('oldSizeValue = ', $scope.constructData.oldSizeValue);
-*/
+      /*
+       console.log('startSize = ', $scope.constructData.startSize);
+       console.log('finishSize = ', $scope.constructData.finishSize);
+       console.log('minSizePoint = ', $scope.constructData.minSizePoint);
+       console.log('maxSizePoint = ', $scope.constructData.maxSizePoint);
+       console.log('tempSizeId', $scope.constructData.tempSizeId);
+       console.log('tempSizeType = ', $scope.constructData.tempSizeType);
+       console.log('oldSizeValue = ', $scope.constructData.oldSizeValue);
+       */
       //--- show size calculator if voice helper is turn off
-      if(!$scope.global.isVoiceHelper) {
+      if (!$scope.global.isVoiceHelper) {
         $scope.global.isConstructSizeCalculator = true;
       } else {
         $scope.openVoiceHelper = true;
@@ -362,7 +368,9 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
       }
       $scope.$apply();
     }
-  });
+  }
+  //});
+
 
 
   //------ click on size calculator, get number
@@ -581,7 +589,59 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
   //=============== CLICK ON GLASS PACKAGE ==============
 
+  /*
+   Hammer(svgContainer).on('tap', function( event ) {
+   console.log('tap', event);
+   console.log('event.target = ', event.target);
+   if( event.target && event.target.className.indexOf('glass') >= 0 ) {
+   console.log('select glass');
+   } else if(event.target && event.target.className.indexOf('size-box-edited') >= 0) {
+   console.log('select dimentions');
+   }
+   });
+   */
+  $svgContainer.hammer({domEvents:true}).on("tap", ".glass", selectGlassBlock);
+
+
+  function selectGlassBlock() {
+    console.log('start tap!!!!!');
+    event.preventDefault();
+
+    console.log('click on glass', event);
+    console.log('click on glass', event.target);
+    if($scope.constructData.isSashEdit) {
+      //------- show sash edit menu and select all glass packages
+      if(!$scope.constructData.isSashEditMenu) {
+        $scope.constructData.isSashEditMenu = true;
+        prepareForNewShape(event, '#sash-shape-menu');
+      } else {
+        $scope.constructData.isSashEditMenu = false;
+        manipulationWithGlasses($scope.constructData.isSashEditMenu);
+      }
+      $scope.$apply();
+    } else if($scope.constructData.isAngelEdit) {
+      console.log('angel');
+    } else if($scope.constructData.isImpostEdit) {
+      //------- show impost edit menu and select all glass packages
+      if(!$scope.constructData.isImpostEditMenu) {
+        $scope.constructData.isImpostEditMenu = true;
+        prepareForNewShape(event, '#impost-shape-menu');
+      } else {
+        $scope.constructData.isImpostEditMenu = false;
+        manipulationWithGlasses($scope.constructData.isImpostEditMenu);
+      }
+      $scope.$apply();
+    } else if($scope.constructData.isArchEdit) {
+      console.log('arch');
+    } else if($scope.constructData.isPositionEdit) {
+      console.log('position');
+    }
+  }
+
+
+/*
   $('svg-template').off("click", ".glass").on("click", ".glass", function(event) {
+    console.log('click on glass', event);
     if($scope.constructData.isSashEdit) {
       //------- show sash edit menu and select all glass packages
       if(!$scope.constructData.isSashEditMenu) {
@@ -610,13 +670,16 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
       console.log('position');
     }
   });
-
+*/
 
 
   function prepareForNewShape(event, idShapeMenu) {
     //------ set the coordinats for edit sash menu
+    console.log('glass event ==', event);
     var menuX = event.pageX;
     var menuY = event.pageY;
+    console.log('glass menuX ==', menuX);
+    console.log('glass menuY ==', menuY);
     //var menuX1 = event.clientX;
     //var menuY1 = event.clientY;
     //var menuX2 = event.offsetX;
@@ -756,6 +819,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
         //console.log('!!!!new.templateSourceTEMP === ', $scope.templateSourceTEMP);
         //-------- build new template
         $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
+        //findSVGElement();
         //console.log('templateDefaultTEMP', $scope.templateDefaultTEMP.objects);
 
         $scope.constructData.isSashEditMenu = false;
@@ -978,6 +1042,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
       //console.log('!!!!new.templateSourceTEMP === ', $scope.templateSourceTEMP);
       //-------- build new template
       $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
+      //findSVGElement();
       //console.log('templateDefaultTEMP', $scope.templateDefaultTEMP.objects);
 
       $scope.constructData.isSashEditMenu = false;
@@ -1413,10 +1478,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
     }
 
-
   }
-
-
 
 
 

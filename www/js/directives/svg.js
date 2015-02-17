@@ -18,10 +18,16 @@ BauVoiceApp.directive('svgTemplate', [ function() {
     link: function (scope, elem, attrs) {
       var svg = buildTemplateSVG(scope.template, scope.templateWidth, scope.templateHeight);
       elem.html(svg);
+      if(scope.typeConstruction === 'edit') {
+        startPinch();
+      }
 
       scope.$watch('template', function () {
         var svg = buildTemplateSVG(scope.template, scope.templateWidth, scope.templateHeight);
         elem.html(svg);
+        if(scope.typeConstruction === 'edit') {
+          startPinch();
+        }
       });
 
       function buildTemplateSVG(template, canvasWidth, canvasHeight) {
@@ -323,11 +329,12 @@ BauVoiceApp.directive('svgTemplate', [ function() {
         //------- Drawing elements SVG of construction
 
         draw = SVG(svg).size(canvasWidth, canvasHeight);
+        var mainGroup = draw.group().attr('class', 'svg-pan-zoom_viewport');
         for(var prop in elementsSVG) {
           if (!elementsSVG.hasOwnProperty(prop)) {
             continue;
           }
-          var group = draw.group();
+          var group = mainGroup.group();
           for (var elem = 0; elem < elementsSVG[prop].length; elem++) {
             switch (prop) {
               case 'frames':
@@ -489,11 +496,11 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                   }
                    */
                   // Click on size
-                  groupTxt.click(function() {
+                  sizeText.click(function() {
                     if(scope.typeConstruction === 'edit' && !scope.$parent.global.isConstructSizeCalculator) {
                       deactiveSizeBox(sizeEditClass, sizeClass);
-                      this.toggleClass(sizeClass);
-                      this.toggleClass(sizeEditClass);
+                      this.closest().toggleClass(sizeClass);
+                      this.closest().toggleClass(sizeEditClass);
                     }
                   });
                 }
@@ -530,11 +537,119 @@ BauVoiceApp.directive('svgTemplate', [ function() {
 */
         if(scope.typeConstruction === 'icon') {
           draw.viewbox(0, 0, overallDimH, overallDimV);
-        } else {
+        } else  if(scope.typeConstruction === 'bigIcon'){
           draw.viewbox(-edgeLeft, -edgeTop, (overallDimH + edgeLeft), (overallDimV + edgeTop));
+        } else if(scope.typeConstruction === 'edit') {
+          draw.viewbox(-edgeLeft, -edgeTop, (overallDimH + edgeLeft), (overallDimV + edgeTop));
+          draw.attr('id', 'svg-construction');
+          draw.attr({width: '100%', height: '100%'});
         }
         return svg;
       }
+
+
+
+      //--------- PAN AND PINCH SVG
+
+      var eventsHandler = {
+        haltEventListeners: ['touchstart', 'touchend', 'touchmove', 'touchleave', 'touchcancel'],
+        init: function(options) {
+          var instance = options.instance,
+              initialScale = 1,
+              pannedX = 0,
+              pannedY = 0;
+
+          // Init Hammer
+          // Listen only for pointer and touch events
+          this.hammer = Hammer(options.svgElement, {
+            inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput
+          });
+
+          // Enable pinch
+          this.hammer.get('pinch').set({enable: true});
+
+          // Handle double tap
+          this.hammer.on('doubletap', function(ev){
+            console.log('ev.type = ', ev.type);
+            instance.zoomIn();
+          });
+
+          // Handle pan
+          this.hammer.on('pan panstart panend', function(ev){
+            // On pan start reset panned variables
+            console.log('ev.type = ', ev.type);
+            if (ev.type === 'panstart') {
+              pannedX = 0;
+              pannedY = 0;
+            }
+
+            // Pan only the difference
+            if (ev.type === 'pan' || ev.type === 'panend') {
+              //console.log('p');
+              instance.panBy({x: ev.deltaX - pannedX, y: ev.deltaY - pannedY});
+              pannedX = ev.deltaX;
+              pannedY = ev.deltaY;
+            }
+          });
+
+          // Handle pinch
+          this.hammer.on('pinch pinchstart pinchend', function(ev){
+            console.log('ev.type = ', ev.type);
+            // On pinch start remember initial zoom
+            if (ev.type === 'pinchstart') {
+              initialScale = instance.getZoom();
+              instance.zoom(initialScale * ev.scale);
+            }
+
+            // On pinch zoom
+            if (ev.type === 'pinch' || ev.type === 'pinchend') {
+              instance.zoom(initialScale * ev.scale);
+            }
+          });
+
+          // Prevent moving the page on some devices when panning over SVG
+          options.svgElement.addEventListener('touchmove', function(e){ e.preventDefault(); });
+        },//--- init
+
+        destroy: function(){
+          this.hammer.destroy();
+        }
+      };
+
+      var beforePan = function(oldPan, newPan){
+        var stopHorizontal = false,
+            stopVertical = false,
+            gutterWidth = 100,
+            gutterHeight = 100,
+            // Computed variables
+            sizes = this.getSizes(),
+            leftLimit = -((sizes.viewBox.x + sizes.viewBox.width) * sizes.realZoom) + gutterWidth,
+            rightLimit = sizes.width - gutterWidth - (sizes.viewBox.x * sizes.realZoom),
+            topLimit = -((sizes.viewBox.y + sizes.viewBox.height) * sizes.realZoom) + gutterHeight,
+            bottomLimit = sizes.height - gutterHeight - (sizes.viewBox.y * sizes.realZoom),
+            customPan = {};
+
+        customPan.x = Math.max(leftLimit, Math.min(rightLimit, newPan.x));
+        customPan.y = Math.max(topLimit, Math.min(bottomLimit, newPan.y));
+        return customPan;
+      };
+
+
+      function startPinch() {
+        var svgElement = document.getElementById('svg-construction');
+        console.log('svgElement', svgElement);
+        // Expose to window namespace for testing purposes
+        window.panZoom = svgPanZoom(svgElement, {
+          zoomEnabled: true,
+          controlIconsEnabled: false,
+          fit: 1,
+          center: 1,
+          beforePan: beforePan,
+          customEventsHandler: eventsHandler
+        });
+      }
+
+
     }
   };
 }]);

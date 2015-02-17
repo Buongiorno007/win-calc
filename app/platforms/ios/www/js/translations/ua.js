@@ -71,7 +71,8 @@ window.ukrainianDictionary = {
     CONFIGMENU_ADDITIONAL: 'Додатково',
     CONFIGMENU_IN_CART: 'В кошик',
     VOICE_SPEACH: 'Говоріть...',
-    COMMENT: 'Залиште свою замітку про заказ тут.'
+    COMMENT: 'Залиште свою замітку про заказ тут.',
+    ROOM_SELECTION: 'Вибір інтер`єру'
   },
   panels: {
     TEMPLATE_WINDOW: 'Вікно',
@@ -155,7 +156,8 @@ window.ukrainianDictionary = {
     VOICE_SWITCH_ON: "голосовий режим включен",
     VOICE_NOT_UNDERSTAND: 'Не зрозуміло',
     VOICE_SMALLEST_SIZE: 'замалий розмір',
-    VOICE_BIGGEST_SIZE: "завеликий розмір"
+    VOICE_BIGGEST_SIZE: "завеликий розмір",
+    VOICE_SMALL_GLASS_BLOCK: "слишком маленький световой проем"
   },
   history: {
     SEARCH_PLACEHOLDER: 'Пошук за ключовими словами',
@@ -230,7 +232,10 @@ window.ukrainianDictionary = {
     ADDELEMENTS_EDIT_LIST: 'Редагувати список',
     ADDELEMENTS_PRODUCT_COST: 'в одному виробі',
     HEAT_TRANSFER: 'теплопередача',
-    WRONG_EMAIL: 'Невірна електронна пошта'
+    WRONG_EMAIL: 'Невірна електронна пошта',
+    LINK_BETWEEN_COUPLE: 'між парою',
+    LINK_BETWEEN_ALL: 'між усіма',
+    LINK_DELETE_ALL_GROUPE: 'видалити усі'
   },
   settings: {
     AUTHORIZATION: 'Авторизація:',

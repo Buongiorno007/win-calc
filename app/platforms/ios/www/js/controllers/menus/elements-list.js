@@ -5,7 +5,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout', function ($scope, localStorage, $timeout) {
+BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', 'globalDB', '$timeout', function ($scope, localStorage, globalDB, $timeout) {
 
   var sourceAddElement, cloneAddElement;
 
@@ -20,8 +20,8 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
   };
 
   // Select AddElement
-  $scope.chooseAddElement = function(typeId, elementId) {
-    if(typeId === undefined && elementId === undefined) {
+  $scope.chooseAddElement = function(typeIndex, elementIndex) {
+    if(typeIndex === undefined && elementIndex === undefined) {
       $scope.global.desactiveAddElementParameters();
       $scope.global.isAddElement = false;
 
@@ -60,114 +60,230 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
           $scope.global.product.chosenAddElements.selectedOthers.length = 0;
           break;
       }
+      //Set Total Product Price
+      $scope.setAddElementsTotalPrice();
 
     } else {
-      $scope.global.isAddElement = typeId+'-'+elementId;
+      $scope.global.isAddElement = typeIndex+'-'+elementIndex;
 
-      sourceAddElement = $scope.global.addElementsList[typeId][elementId];
+      sourceAddElement = $scope.global.addElementsList[typeIndex][elementIndex];
       cloneAddElement = angular.copy(sourceAddElement);
 
-      // Show current add element price
-      $scope.addElementsMenu.isAddElementPrice = true;
-      $scope.currAddElementPrice = sourceAddElement.elementPrice;
+      //-------- Show current add element price
+      $scope.global.objXAddElementPrice = angular.copy($scope.global.objXAddElementPriceSource);
+      $scope.global.objXAddElementPrice.cityId = $scope.global.userInfo.city_id;
+      $scope.global.objXAddElementPrice.elementId = cloneAddElement.elementId;
+      $scope.global.objXAddElementPrice.elementLength = cloneAddElement.elementWidth;
+      console.log($scope.global.objXAddElementPrice);
+      globalDB.getAdditionalPrice($scope.global.objXAddElementPrice, function (results) {
+        if (results.status) {
+          //console.log(results.data);
+          cloneAddElement.elementPrice = parseFloat(results.data.price);
+          $scope.addElementsMenu.isAddElementPrice = true;
+          $scope.currAddElementPrice = cloneAddElement.elementPrice;
 
-      switch($scope.global.isFocusedAddElement) {
-        case 1:
-          cloneAddElement.elementId = 1;
+          $scope.pushSelectedAddElement();
+          //Set Total Product Price
+          $scope.setAddElementsTotalPrice();
+          $scope.$apply();
+
+        } else {
+          console.log(results);
+        }
+      });
+
+      if($scope.global.isAddElementListView) {
+        $scope.global.isAddElement = 1;
+      }
+    }
+
+  };
+
+
+  //--------- when we select new addElement, function checks is there this addElements in order to increase only elementQty
+  function checkExistedSelectAddElement(elementsArr, elementId) {
+    for(var j = 0; j < elementsArr.length; j++){
+      if(elementsArr[j].elementId === elementId) {
+        return j;
+      }
+    }
+  }
+
+
+  $scope.pushSelectedAddElement = function() {
+    var existedElement;
+    switch($scope.global.isFocusedAddElement) {
+      case 1:
+        existedElement = checkExistedSelectAddElement($scope.global.product.chosenAddElements.selectedGrids, cloneAddElement.elementId);
+        if(existedElement === undefined) {
+          cloneAddElement.elementType = 1;
+          cloneAddElement.elementWidth = 0;
+          cloneAddElement.elementHeight = 0;
+          cloneAddElement.elementColor = '';
           $scope.global.product.chosenAddElements.selectedGrids.push(cloneAddElement);
           //---- open TABFrame when second element selected
           if($scope.global.product.chosenAddElements.selectedGrids.length === 2) {
             $scope.global.isTabFrame = true;
           }
-          break;
-        case 2:
-          cloneAddElement.elementId = 2;
+        } else {
+          $scope.global.product.chosenAddElements.selectedGrids[existedElement].elementQty += 1;
+        }
+        break;
+      case 2:
+        existedElement = checkExistedSelectAddElement($scope.global.product.chosenAddElements.selectedVisors, cloneAddElement.elementId);
+        if(existedElement === undefined) {
+          cloneAddElement.elementType = 2;
+          cloneAddElement.elementHeight = 0;
+          cloneAddElement.elementColor = '';
           $scope.global.product.chosenAddElements.selectedVisors.push(cloneAddElement);
           //---- open TABFrame when second element selected
           if($scope.global.product.chosenAddElements.selectedVisors.length === 2) {
             $scope.global.isTabFrame = true;
           }
-          break;
-        case 3:
-          cloneAddElement.elementId = 3;
+        } else {
+          $scope.global.product.chosenAddElements.selectedVisors[existedElement].elementQty += 1;
+        }
+        break;
+      case 3:
+        existedElement = checkExistedSelectAddElement($scope.global.product.chosenAddElements.selectedSpillways, cloneAddElement.elementId);
+        if(existedElement === undefined) {
+          cloneAddElement.elementType = 3;
+          cloneAddElement.elementHeight = 0;
+          cloneAddElement.elementColor = '';
           $scope.global.product.chosenAddElements.selectedSpillways.push(cloneAddElement);
           //---- open TABFrame when second element selected
           if($scope.global.product.chosenAddElements.selectedSpillways.length === 2) {
             $scope.global.isTabFrame = true;
           }
-          break;
-        case 4:
-          cloneAddElement.elementId = 4;
+        } else {
+          $scope.global.product.chosenAddElements.selectedSpillways[existedElement].elementQty += 1;
+        }
+        break;
+      case 4:
+        existedElement = checkExistedSelectAddElement($scope.global.product.chosenAddElements.selectedOutsideSlope, cloneAddElement.elementId);
+        if(existedElement === undefined) {
+          cloneAddElement.elementType = 4;
+          cloneAddElement.elementHeight = 0;
+          cloneAddElement.elementColor = '';
           $scope.global.product.chosenAddElements.selectedOutsideSlope.push(cloneAddElement);
           //---- open TABFrame when second element selected
           if($scope.global.product.chosenAddElements.selectedOutsideSlope.length === 2) {
             $scope.global.isTabFrame = true;
           }
-          break;
-        case 5:
-          cloneAddElement.elementId = 5;
+        } else {
+          $scope.global.product.chosenAddElements.selectedOutsideSlope[existedElement].elementQty += 1;
+        }
+        break;
+      case 5:
+        existedElement = checkExistedSelectAddElement($scope.global.product.chosenAddElements.selectedLouvers, cloneAddElement.elementId);
+        if(existedElement === undefined) {
+          cloneAddElement.elementType = 5;
+          cloneAddElement.elementColor = '';
           $scope.global.product.chosenAddElements.selectedLouvers.push(cloneAddElement);
           //---- open TABFrame when second element selected
           if($scope.global.product.chosenAddElements.selectedLouvers.length === 2) {
             $scope.global.isTabFrame = true;
           }
-          break;
-        case 6:
-          cloneAddElement.elementId = 6;
+        } else {
+          $scope.global.product.chosenAddElements.selectedLouvers[existedElement].elementQty += 1;
+        }
+        break;
+      case 6:
+        existedElement = checkExistedSelectAddElement($scope.global.product.chosenAddElements.selectedInsideSlope, cloneAddElement.elementId);
+        if(existedElement === undefined) {
+          cloneAddElement.elementType = 6;
+          cloneAddElement.elementHeight = 0;
+          cloneAddElement.elementColor = '';
           $scope.global.product.chosenAddElements.selectedInsideSlope.push(cloneAddElement);
           //---- open TABFrame when second element selected
           if($scope.global.product.chosenAddElements.selectedInsideSlope.length === 2) {
             $scope.global.isTabFrame = true;
           }
-          break;
-        case 7:
-          cloneAddElement.elementId = 7;
+        } else {
+          $scope.global.product.chosenAddElements.selectedInsideSlope[existedElement].elementQty += 1;
+        }
+        break;
+      case 7:
+        existedElement = checkExistedSelectAddElement($scope.global.product.chosenAddElements.selectedConnectors, cloneAddElement.elementId);
+        if(existedElement === undefined) {
+          cloneAddElement.elementType = 7;
+          cloneAddElement.elementHeight = 0;
+          cloneAddElement.elementColor = '';
           $scope.global.product.chosenAddElements.selectedConnectors.push(cloneAddElement);
           //---- open TABFrame when second element selected
           if($scope.global.product.chosenAddElements.selectedConnectors.length === 2) {
             $scope.global.isTabFrame = true;
           }
-          break;
-        case 8:
-          cloneAddElement.elementId = 8;
+        } else {
+          $scope.global.product.chosenAddElements.selectedConnectors[existedElement].elementQty += 1;
+        }
+        break;
+      case 8:
+        existedElement = checkExistedSelectAddElement($scope.global.product.chosenAddElements.selectedFans, cloneAddElement.elementId);
+        if(existedElement === undefined) {
+          cloneAddElement.elementType = 8;
+          cloneAddElement.elementWidth = 0;
+          cloneAddElement.elementHeight = 0;
+          cloneAddElement.elementColor = '';
           $scope.global.product.chosenAddElements.selectedFans.push(cloneAddElement);
           //---- open TABFrame when second element selected
           if($scope.global.product.chosenAddElements.selectedFans.length === 2) {
             $scope.global.isTabFrame = true;
           }
-          break;
-        case 9:
-          cloneAddElement.elementId = 9;
+        } else {
+          $scope.global.product.chosenAddElements.selectedFans[existedElement].elementQty += 1;
+        }
+        break;
+      case 9:
+        existedElement = checkExistedSelectAddElement($scope.global.product.chosenAddElements.selectedWindowSill, cloneAddElement.elementId);
+        if(existedElement === undefined) {
+          cloneAddElement.elementType = 9;
+          cloneAddElement.elementHeight = 0;
           $scope.global.product.chosenAddElements.selectedWindowSill.push(cloneAddElement);
           //---- open TABFrame when second element selected
           if($scope.global.product.chosenAddElements.selectedWindowSill.length === 2) {
             $scope.global.isTabFrame = true;
           }
-          break;
-        case 10:
-          cloneAddElement.elementId = 10;
+        } else {
+          $scope.global.product.chosenAddElements.selectedWindowSill[existedElement].elementQty += 1;
+        }
+        break;
+      case 10:
+        existedElement = checkExistedSelectAddElement($scope.global.product.chosenAddElements.selectedHandles, cloneAddElement.elementId);
+        if(existedElement === undefined) {
+          cloneAddElement.elementType = 10;
+          cloneAddElement.elementWidth = 0;
+          cloneAddElement.elementHeight = 0;
+          cloneAddElement.elementColor = '';
           $scope.global.product.chosenAddElements.selectedHandles.push(cloneAddElement);
           //---- open TABFrame when second element selected
           if($scope.global.product.chosenAddElements.selectedHandles.length === 2) {
             $scope.global.isTabFrame = true;
           }
-          break;
-        case 11:
-          cloneAddElement.elementId = 11;
+        } else {
+          $scope.global.product.chosenAddElements.selectedHandles[existedElement].elementQty += 1;
+        }
+        break;
+      case 11:
+        existedElement = checkExistedSelectAddElement($scope.global.product.chosenAddElements.selectedOthers, cloneAddElement.elementId);
+        if(existedElement === undefined) {
+          cloneAddElement.elementType = 11;
+          cloneAddElement.elementWidth = 0;
+          cloneAddElement.elementHeight = 0;
+          cloneAddElement.elementColor = '';
           $scope.global.product.chosenAddElements.selectedOthers.push(cloneAddElement);
           //---- open TABFrame when second element selected
           if($scope.global.product.chosenAddElements.selectedOthers.length === 2) {
             $scope.global.isTabFrame = true;
           }
-          break;
-      }
-      if($scope.global.isAddElementListView) {
-        $scope.global.isAddElement = 1;
-      }
+        } else {
+          $scope.global.product.chosenAddElements.selectedOthers[existedElement].elementQty += 1;
+        }
+        break;
     }
-    //Set Total Product Price
-    $scope.setAddElementsTotalPrice();
+
   };
+
 
   $scope.setAddElementsTotalPrice = function() {
     $scope.global.product.addElementsPriceSELECT = 0;
@@ -184,6 +300,9 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
     }
     $scope.global.setProductPriceTOTALapply();
   };
+
+
+
 
   // Select Add Element when open List View
   $scope.selectElementListView = function(typeId, elementId, clickEvent) {
@@ -211,9 +330,12 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
     }
   };
 
+
+
   // Show Tabs
   $scope.showFrameTabs = function() {
-      $scope.global.isTabFrame = !$scope.global.isTabFrame;
+    playSound('swip');
+    $scope.global.isTabFrame = !$scope.global.isTabFrame;
   };
 
   // Delete AddElement from global object
@@ -262,10 +384,12 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
   $scope.closeAddElementsMenu = function() {
     $scope.global.isFocusedAddElement = false;
     $scope.global.isTabFrame = false;
+    playSound('swip');
     $scope.global.showAddElementsMenu = false;
     $scope.global.desactiveAddElementParameters();
     $timeout(function() {
       $scope.global.isAddElement = false;
+      playSound('swip');
       $scope.global.addElementsMenuStyle = false;
     }, $scope.addElementsMenu.DELAY_SHOW_ELEMENTS_MENU);
   };
@@ -400,6 +524,7 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
     }
     changeElementSize();
   };
+
   // Delete last number
   $scope.deleteLastNumber = function() {
     $scope.addElementsMenu.tempSize.pop();
@@ -408,11 +533,88 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
     }
     changeElementSize();
   };
+
   // Close Size Calculator
   $scope.closeSizeCaclulator = function() {
     $scope.global.isWidthCalculator = false;
     $scope.addElementsMenu.tempSize.length = 0;
     $scope.global.desactiveAddElementParameters();
+
+    //-------- recalculate add element price
+    $scope.global.objXAddElementPrice.cityId = $scope.global.userInfo.city_id;
+    switch ($scope.global.isFocusedAddElement) {
+      case 2:
+        $scope.global.objXAddElementPrice.elementId = $scope.global.product.chosenAddElements.selectedVisors[$scope.global.currentAddElementId].elementId;
+        $scope.global.objXAddElementPrice.elementLength = $scope.global.product.chosenAddElements.selectedVisors[$scope.global.currentAddElementId].elementWidth;
+        break;
+      case 3:
+        $scope.global.objXAddElementPrice.elementId = $scope.global.product.chosenAddElements.selectedSpillways[$scope.global.currentAddElementId].elementId;
+        $scope.global.objXAddElementPrice.elementLength = $scope.global.product.chosenAddElements.selectedSpillways[$scope.global.currentAddElementId].elementWidth;
+        break;
+      case 4:
+        $scope.global.objXAddElementPrice.elementId = $scope.global.product.chosenAddElements.selectedOutsideSlope[$scope.global.currentAddElementId].elementId;
+        $scope.global.objXAddElementPrice.elementLength = $scope.global.product.chosenAddElements.selectedOutsideSlope[$scope.global.currentAddElementId].elementWidth;
+        break;
+      case 5:
+        $scope.global.objXAddElementPrice.elementId = $scope.global.product.chosenAddElements.selectedLouvers[$scope.global.currentAddElementId].elementId;
+        $scope.global.objXAddElementPrice.elementLength = $scope.global.product.chosenAddElements.selectedLouvers[$scope.global.currentAddElementId].elementWidth;
+        break;
+      case 6:
+        $scope.global.objXAddElementPrice.elementId = $scope.global.product.chosenAddElements.selectedInsideSlope[$scope.global.currentAddElementId].elementId;
+        $scope.global.objXAddElementPrice.elementLength = $scope.global.product.chosenAddElements.selectedInsideSlope[$scope.global.currentAddElementId].elementWidth;
+        break;
+      case 7:
+        $scope.global.objXAddElementPrice.elementId = $scope.global.product.chosenAddElements.selectedConnectors[$scope.global.currentAddElementId].elementId;
+        $scope.global.objXAddElementPrice.elementLength = $scope.global.product.chosenAddElements.selectedConnectors[$scope.global.currentAddElementId].elementWidth;
+        break;
+      case 9:
+        $scope.global.objXAddElementPrice.elementId = $scope.global.product.chosenAddElements.selectedWindowSill[$scope.global.currentAddElementId].elementId;
+        $scope.global.objXAddElementPrice.elementLength = $scope.global.product.chosenAddElements.selectedWindowSill[$scope.global.currentAddElementId].elementWidth;
+        break;
+    }
+
+    console.log('objXAddElementPrice change size ===== ', $scope.global.objXAddElementPrice);
+    globalDB.getAdditionalPrice($scope.global.objXAddElementPrice, function (results) {
+      if (results.status) {
+        console.log('change size!!!!!!!');
+        console.log(results.data.price);
+        var newElementPrice = parseFloat(results.data.price);
+        $scope.addElementsMenu.isAddElementPrice = true;
+        $scope.currAddElementPrice = newElementPrice;
+
+        switch ($scope.global.isFocusedAddElement) {
+          case 2:
+            $scope.global.product.chosenAddElements.selectedVisors[$scope.global.currentAddElementId].elementPrice = newElementPrice;
+            break;
+          case 3:
+            $scope.global.product.chosenAddElements.selectedSpillways[$scope.global.currentAddElementId].elementPrice = newElementPrice;
+            break;
+          case 4:
+            $scope.global.product.chosenAddElements.selectedOutsideSlope[$scope.global.currentAddElementId].elementPrice = newElementPrice;
+            break;
+          case 5:
+            $scope.global.product.chosenAddElements.selectedLouvers[$scope.global.currentAddElementId].elementPrice = newElementPrice;
+            break;
+          case 6:
+            $scope.global.product.chosenAddElements.selectedInsideSlope[$scope.global.currentAddElementId].elementPrice = newElementPrice;
+            break;
+          case 7:
+            $scope.global.product.chosenAddElements.selectedConnectors[$scope.global.currentAddElementId].elementPrice = newElementPrice;
+            break;
+          case 9:
+            $scope.global.product.chosenAddElements.selectedWindowSill[$scope.global.currentAddElementId].elementPrice = newElementPrice;
+            break;
+        }
+        console.log('chosenAddElements === ', $scope.global.product.chosenAddElements);
+        //Set Total Product Price
+        $scope.setAddElementsTotalPrice();
+        $scope.$apply();
+
+      } else {
+        console.log(results);
+      }
+    });
+
   };
 
   function changeElementSize(){
@@ -421,7 +623,7 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', '$timeout'
       newElementSize += $scope.addElementsMenu.tempSize[numer].toString();
     }
     var elementId = $scope.global.currentAddElementId;
-
+    newElementSize = parseInt(newElementSize, 10);
     if($scope.global.isWidthCalculator) {
       switch($scope.global.isFocusedAddElement) {
         case 2:
