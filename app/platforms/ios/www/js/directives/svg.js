@@ -19,14 +19,19 @@ BauVoiceApp.directive('svgTemplate', [ function() {
       var svg = buildTemplateSVG(scope.template, scope.templateWidth, scope.templateHeight);
       elem.html(svg);
       if(scope.typeConstruction === 'edit') {
-        startPinch();
+        //setTimeout(function() {
+          startPinch();
+        //}, 500);
+
       }
 
       scope.$watch('template', function () {
         var svg = buildTemplateSVG(scope.template, scope.templateWidth, scope.templateHeight);
         elem.html(svg);
         if(scope.typeConstruction === 'edit') {
-          startPinch();
+          //setTimeout(function() {
+            startPinch();
+          //}, 500);
         }
       });
 
@@ -329,7 +334,13 @@ BauVoiceApp.directive('svgTemplate', [ function() {
         //------- Drawing elements SVG of construction
 
         draw = SVG(svg).size(canvasWidth, canvasHeight);
-        var mainGroup = draw.group().attr('class', 'svg-pan-zoom_viewport');
+
+        if(scope.typeConstruction === 'edit') {
+          var mainGroup = draw.group().attr('class', 'svg-pan-zoom_viewport').attr('transform', 'scale(0)');
+        } else {
+          var mainGroup = draw.group();
+        }
+
         for(var prop in elementsSVG) {
           if (!elementsSVG.hasOwnProperty(prop)) {
             continue;
@@ -498,6 +509,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                   // Click on size
                   sizeText.click(function() {
                     if(scope.typeConstruction === 'edit' && !scope.$parent.global.isConstructSizeCalculator) {
+                      console.log('svg click on size =', this);
                       deactiveSizeBox(sizeEditClass, sizeClass);
                       this.closest().toggleClass(sizeClass);
                       this.closest().toggleClass(sizeEditClass);
@@ -540,9 +552,9 @@ BauVoiceApp.directive('svgTemplate', [ function() {
         } else  if(scope.typeConstruction === 'bigIcon'){
           draw.viewbox(-edgeLeft, -edgeTop, (overallDimH + edgeLeft), (overallDimV + edgeTop));
         } else if(scope.typeConstruction === 'edit') {
+          draw.attr({width: '100%', height: '100%'});
           draw.viewbox(-edgeLeft, -edgeTop, (overallDimH + edgeLeft), (overallDimV + edgeTop));
           draw.attr('id', 'svg-construction');
-          draw.attr({width: '100%', height: '100%'});
         }
         return svg;
       }
@@ -619,8 +631,8 @@ BauVoiceApp.directive('svgTemplate', [ function() {
       var beforePan = function(oldPan, newPan){
         var stopHorizontal = false,
             stopVertical = false,
-            gutterWidth = 100,
-            gutterHeight = 100,
+            gutterWidth = 200,
+            gutterHeight = 200,
             // Computed variables
             sizes = this.getSizes(),
             leftLimit = -((sizes.viewBox.x + sizes.viewBox.width) * sizes.realZoom) + gutterWidth,
@@ -642,8 +654,10 @@ BauVoiceApp.directive('svgTemplate', [ function() {
         window.panZoom = svgPanZoom(svgElement, {
           zoomEnabled: true,
           controlIconsEnabled: false,
+          zoomScaleSensitivity: 0.1,
           fit: 1,
           center: 1,
+          refreshRate: 'auto',
           beforePan: beforePan,
           customEventsHandler: eventsHandler
         });

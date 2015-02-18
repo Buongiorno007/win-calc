@@ -14,7 +14,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     maxSizePoint: 0,
     startSize: 0,
     finishSize: 0,
-    tempSizeId: '',
+    tempSizeId: '2',
     tempSizeType: '',
     oldSizeValue: 0,
     isMinSizeRestriction: false,
@@ -113,7 +113,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   //--------Select menu item
   $scope.selectMenuItem = function(id) {
     $scope.constructData.activeMenuItem = ($scope.constructData.activeMenuItem === id) ? false : id;
-    //console.log('activeMenuItem = ', $scope.constructData.activeMenuItem);
+    console.log('activeMenuItem = ', $scope.constructData.activeMenuItem);
     deactivateShapeMenu();
     $scope.constructData.isSashEditMenu = false;
     $scope.constructData.isImpostEditMenu = false;
@@ -321,18 +321,12 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
   //=============== CHANGE CONSTRUCTION SIZE ==============
 
-  $svgContainer.hammer({domEvents:true}).on("tap", "tspan", selectSizeBlock);
+  $svgContainer.hammer({domEvents:true}).off("tap", "tspan").on("tap", "tspan", selectSizeBlock);
 
   //----- click on size SVG and get size value and Id
-  //$('svg-template').off("click", ".size-box-edited").on("click", ".size-box-edited", function() {
   function selectSizeBlock() {
-    console.log('Click on size');
-    console.log('event size', event);
-    //console.log('calculator', $scope.global.isConstructSizeCalculator);
     if (!$scope.global.isConstructSizeCalculator) {
-      console.log('thisSize = ', $(this));
-      var thisSize = $(this).closest('.size-box-edited');
-      console.log('thisSize = ', thisSize);
+      var thisSize = $(this).parent();
       $scope.constructData.startSize = +thisSize.attr('from-point');
       $scope.constructData.finishSize = +thisSize.attr('to-point');
       $scope.constructData.minSizePoint = +thisSize.attr('min-val');
@@ -346,6 +340,10 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
       $scope.constructData.tempSizeId = thisSize.attr('id');
       $scope.constructData.tempSizeType = thisSize.attr('size-type');
       $scope.constructData.oldSizeValue = +thisSize.text();
+      //--- change color of size block
+      var sizeGroup = $(thisSize.parent());
+      sizeGroup.attr('class', '').attr('class', sizeEditClass);
+
       /*
        console.log('startSize = ', $scope.constructData.startSize);
        console.log('finishSize = ', $scope.constructData.finishSize);
@@ -366,19 +364,28 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
       $scope.$apply();
     }
   }
-  //});
 
 
 
   //------ click on size calculator, get number
+  $('.construction-right-menu .size-calculator').hammer().off("tap", ".calc-digit").on("tap", ".calc-digit", getNewDigit);
+
+  function getNewDigit() {
+    var newValue = $(this).text();
+    setValueSize(newValue);
+  }
+  /*
   $('.construction-right-menu .size-calculator .calc-digit').off().click(function() {
     var newValue = $(this).text();
     setValueSize(newValue);
   });
+
   //------ click on size calculator, delete one last number
   $('.construction-right-menu .size-calculator .calc-delete').off().click(function() {
     deleteLastNumber();
   });
+   */
+  $('.construction-right-menu .size-calculator').hammer().off("tap", ".calc-delete").on("tap", ".calc-delete", deleteLastNumber);
 
   //---------- define voice force
   function recognitionProgress(value) {
@@ -417,7 +424,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
   //-------- Get number from calculator
   function setValueSize(newValue) {
-
+    //console.log('take new value = ', newValue);
     if($scope.global.isVoiceHelper) {
 
       var tempVal = parseInt(newValue, 10);
@@ -427,7 +434,6 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
       if ((tempVal > 0) && (tempVal < 10000)) {
         $scope.constructData.tempSize = ("" + tempVal).split('');
-        //console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
         //console.log('$scope.constructData.tempSize == ', $scope.constructData.tempSize);
         changeSize();
       }
@@ -479,8 +485,6 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     for(var numer = 0; numer < $scope.constructData.tempSize.length; numer++) {
       newSizeString += $scope.constructData.tempSize[numer].toString();
     }
-    var svg = document.getElementsByTagName("svg-template");
-
     $('#'+$scope.constructData.tempSizeId).find('tspan').text(parseInt(newSizeString, 10));
 
     //SVG(svg[0]).viewbox();
@@ -599,7 +603,6 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
    */
   $svgContainer.hammer({domEvents:true}).on("tap", ".glass", selectGlassBlock);
 
-
   function selectGlassBlock() {
     console.log('start tap!!!!!');
     event.preventDefault();
@@ -636,72 +639,15 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   }
 
 
-/*
-  $('svg-template').off("click", ".glass").on("click", ".glass", function(event) {
-    console.log('click on glass', event);
-    if($scope.constructData.isSashEdit) {
-      //------- show sash edit menu and select all glass packages
-      if(!$scope.constructData.isSashEditMenu) {
-        $scope.constructData.isSashEditMenu = true;
-        prepareForNewShape(event, '#sash-shape-menu');
-      } else {
-        $scope.constructData.isSashEditMenu = false;
-        manipulationWithGlasses($scope.constructData.isSashEditMenu);
-      }
-      $scope.$apply();
-    } else if($scope.constructData.isAngelEdit) {
-      console.log('angel');
-    } else if($scope.constructData.isImpostEdit) {
-      //------- show impost edit menu and select all glass packages
-      if(!$scope.constructData.isImpostEditMenu) {
-        $scope.constructData.isImpostEditMenu = true;
-        prepareForNewShape(event, '#impost-shape-menu');
-      } else {
-        $scope.constructData.isImpostEditMenu = false;
-        manipulationWithGlasses($scope.constructData.isImpostEditMenu);
-      }
-      $scope.$apply();
-    } else if($scope.constructData.isArchEdit) {
-      console.log('arch');
-    } else if($scope.constructData.isPositionEdit) {
-      console.log('position');
-    }
-  });
-*/
-
-
   function prepareForNewShape(event, idShapeMenu) {
     //------ set the coordinats for edit sash menu
-    console.log('glass event ==', event);
-    var menuX = event.pageX;
-    var menuY = event.pageY;
-    console.log('glass menuX ==', menuX);
-    console.log('glass menuY ==', menuY);
-    //var menuX1 = event.clientX;
-    //var menuY1 = event.clientY;
-    //var menuX2 = event.offsetX;
-    //var menuY2 = event.offsetY;
-    //var menuX3 = event.screenX;
-    //var menuY3 = event.screenY;
-
+    //console.log('glass event ==', event.gesture.center);
+    var menuX = event.gesture.center.x;
+    var menuY = event.gesture.center.y;
+    //console.log('glass menuX ==', menuX);
+    //console.log('glass menuY ==', menuY);
     $(idShapeMenu).css({'top': (menuY)/8+'rem', 'left': (menuX)/8+'rem'});
- /*
-    var html = document.documentElement;
-    var body = document.body;
 
-    console.log('body === ', body.scrollLeft);
-    console.log('document.body.scrollTop === ', body.scrollTop);
-    console.log('offsetParent === ', event.target.offsetParent);
-    console.log('offsetLeft === ', event.target.offsetParent.scrollLeft);
-    console.log('offsetTop === ', event.target.offsetParent.scrollTop);
-    console.log('html === ', html.scrollLeft);
-    console.log('html.scrollTop === ', html.scrollTop);
-
-    console.log('screen.availWidth === ', screen.availWidth);
-    console.log('screen.availHeight === ', screen.availHeight);
-    console.log('screen.width === ', screen.width);
-    console.log('screen.height === ', screen.height);
-*/
     manipulationWithGlasses(false);
     //------- select current glass packages
     $(event.target).css('fill', 'rgba(34, 34, 255, 0.69)');
