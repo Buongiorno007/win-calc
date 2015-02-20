@@ -27,9 +27,27 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
 
   //---------- select new template and recalculate it price
   $scope.selectNewTemplate = function(templateIndex) {
-
+/*
+    function goToNewTemplate(button) {
+      if(button == 1) {
+        //------ change last changed template to old one
+        $scope.backDefaultTemplate();
+        $scope.global.isChangedTemplate = false;
+        $scope.newPriceForNewTemplate(templateIndex);
+      }
+    }
+*/
     if($scope.global.isChangedTemplate) {
     //----- если выбран новый шаблон после изменения предыдущего
+      /*
+      navigator.notification.confirm(
+        $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
+        goToNewTemplate,
+        $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
+        [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')]
+      );
+       */
+
       if(confirm($filter('translate')('common_words.TEMPLATE_CHANGES_LOST'))) {
         //------ change last changed template to old one
         $scope.backDefaultTemplate();
@@ -41,6 +59,10 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
       $scope.newPriceForNewTemplate(templateIndex);
     }
   };
+
+
+
+
 
   $scope.newPriceForNewTemplate = function(templateIndex) {
     event.preventDefault();
@@ -56,7 +78,40 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
 
   //------ click on top button to change template type
   $scope.toggleTemplate = function() {
-    $scope.templatePanel.switcherTemplate = !$scope.templatePanel.switcherTemplate;
+    if(!$scope.global.isFindPriceProcess) {
+      $scope.templatePanel.switcherTemplate = !$scope.templatePanel.switcherTemplate;
+    }
+  };
+
+  $scope.toggleTemplateType = function(type) {
+    switch(type) {
+      case 'window':
+        $scope.global.isConstructWind = true;
+        $scope.global.isConstructWindDoor = false;
+        $scope.global.isConstructDoor = false;
+        $scope.global.isConstructBalcony = false;
+        break;
+      case 'balcon':
+        $scope.global.isConstructWind = false;
+        $scope.global.isConstructWindDoor = false;
+        $scope.global.isConstructDoor = false;
+        $scope.global.isConstructBalcony = true;
+        break;
+      case 'door':
+        $scope.global.isConstructWind = false;
+        $scope.global.isConstructWindDoor = false;
+        $scope.global.isConstructDoor = true;
+        $scope.global.isConstructBalcony = false;
+        break;
+      case 'balconEnter':
+        $scope.global.isConstructWind = false;
+        $scope.global.isConstructWindDoor = true;
+        $scope.global.isConstructDoor = false;
+        $scope.global.isConstructBalcony = false;
+        break;
+    }
+    $scope.templatePanel.switcherTemplate = false;
+    $scope.global.product.templateIndex = 0;
   };
 
   //------- Select Window/Balcony Entry Template
@@ -65,49 +120,33 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
     if($scope.global.isChangedTemplate) {
       //----- если выбран новый шаблон после изменения предыдущего
       if(confirm($filter('translate')('common_words.TEMPLATE_CHANGES_LOST'))) {
+        if($scope.global.isConstructDoor) {
+          $scope.global.setDefaultDoorConfig();
+        }
         //------ change last changed template to old one
         $scope.backDefaultTemplate();
         $scope.global.isChangedTemplate = false;
-
-        if(marker === 'balcon') {
-          $scope.global.isConstructWindDoor = true;
-          $scope.global.isConstructWind = false;
-        } else if(marker === 'window') {
-          $scope.global.isConstructWindDoor = false;
-          $scope.global.isConstructWind = true;
-        }
-        $scope.templatePanel.switcherTemplate = false;
-        $scope.global.product.templateIndex = 0;
+        $scope.toggleTemplateType(marker);
         $scope.global.getCurrentTemplates();
         $scope.global.saveNewTemplateInProduct($scope.global.product.templateIndex);
         //------ define product price
         $scope.global.createObjXFormedPrice($scope.global.templates[$scope.global.product.templateIndex], $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
-
       }
-
     } else {
-
-      if(marker === 'balcon') {
-        $scope.global.isConstructWindDoor = true;
-        $scope.global.isConstructWind = false;
-      } else if(marker === 'window') {
-        $scope.global.isConstructWindDoor = false;
-        $scope.global.isConstructWind = true;
-      }
-      $scope.templatePanel.switcherTemplate = false;
-      $scope.global.product.templateIndex = 0;
+      $scope.toggleTemplateType(marker);
       $scope.global.getCurrentTemplates();
       $scope.global.saveNewTemplateInProduct($scope.global.product.templateIndex);
       //------ define product price
       $scope.global.createObjXFormedPrice($scope.global.templates[$scope.global.product.templateIndex], $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
-
     }
-
+    console.log('$scope.templatePanel.switcherTemplate == ', $scope.templatePanel.switcherTemplate);
   };
 
 
   $scope.gotoConstructionPage = function () {
-    $location.path('/construction');
+    if(!$scope.global.isFindPriceProcess) {
+      $location.path('/construction');
+    }
   };
 
   //------- return to the initial template

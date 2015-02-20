@@ -25,9 +25,9 @@
   .template-type {
     @include roboto-lt(rem(36px), rem(65px));
     position: absolute;
-    top: rem(-30px);
-    left: 75%;
-    padding: 0 rem(20px);
+    top: 0rem;
+    left: 115%;
+    padding: rem(10px) rem(20px);
     border-radius: rem(16px);
     background-color: #242424;
     color: #fff;
@@ -36,14 +36,20 @@
     &:before {
       position: absolute;
       z-index: 1;
-      bottom: rem(-20px);
-      left: rem(30px);
+      top: 1.75rem;
+      left: -1.28rem;
       display: block;
       width: 0;
-      border-width: rem(20px) rem(20px) 0;
+      border-width: 1.25rem 1.25rem 1.25rem 0;
       border-style: solid;
-      border-color: #242424 transparent;
+      border-color: transparent #242424;
       content: '';
+    }
+  }
+  .template-type-btn {
+    border-bottom: 1px solid $main_gray_btn;
+    &:last-child {
+      border-bottom: none;
     }
   }
 

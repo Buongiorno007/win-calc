@@ -62,8 +62,8 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   $scope.selectedGlassId = 0;
 
   var $svgContainer = $('svg-template'),
-      sizeClass = 'size-box',
-      sizeEditClass = 'size-box-edited',
+      sizeRectActClass = 'size-rect-active',
+      sizeBoxActClass = 'size-value-active',
       newLength;
 
 
@@ -88,7 +88,6 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
         console.log(results);
       }
     });
-
 
     $scope.constructData.doorShapeDefault = $scope.doorShape[$scope.global.product.doorShapeId].shapeLabel;
     $scope.constructData.sashShapeDefault = $scope.sashShape[$scope.global.product.doorSashShapeId].shapeLabel;
@@ -236,6 +235,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
   //--------- Save Door Configuration
   $scope.saveDoorConfig = function() {
+    $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
     $scope.constructData.showDoorConfig = false;
     $scope.global.product.doorShapeId = $scope.constructData.selectedDoorShape;
     $scope.global.product.doorSashShapeId = $scope.constructData.selectedSashShape;
@@ -254,6 +254,10 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   $scope.gotoMainPageCancel = function () {
     $scope.global.isConstructSizeCalculator = false;
     $scope.backtoTemplatePanel();
+    //---- if is open the door
+    if($scope.global.isConstructDoor) {
+      $scope.global.setDefaultDoorConfig();
+    }
   };
 
   //------- Save and Close Construction Page
@@ -344,10 +348,13 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
       $scope.constructData.tempSizeType = thisSize.attr('size-type');
       $scope.constructData.oldSizeValue = +thisSize.text();
       //--- change color of size block
+/*
       var sizeGroup = $(thisSize.parent());
-      sizeGroup.attr('class', '').attr('class', sizeEditClass);
-
-      /*
+      //console.log('sizeGroup', sizeGroup);
+      thisSize.attr('class', '').attr('class', sizeBoxActClass);
+      sizeGroup.find('.size-rect').attr('class', '').attr('class', sizeRectActClass);
+*/
+     /*
        console.log('startSize = ', $scope.constructData.startSize);
        console.log('finishSize = ', $scope.constructData.finishSize);
        console.log('minSizePoint = ', $scope.constructData.minSizePoint);
@@ -440,7 +447,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
         //console.log('$scope.constructData.tempSize == ', $scope.constructData.tempSize);
         changeSize();
       }
-      deactiveSizeBox(sizeEditClass, sizeClass);
+      deactiveSizeBox(sizeRectActClass, sizeBoxActClass);
 
     } else {
       //---- clear array from 0 after delete all number in array
@@ -488,29 +495,21 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     for(var numer = 0; numer < $scope.constructData.tempSize.length; numer++) {
       newSizeString += $scope.constructData.tempSize[numer].toString();
     }
+    //console.log($scope.constructData.tempSizeId);
     $('#'+$scope.constructData.tempSizeId).find('tspan').text(parseInt(newSizeString, 10));
-
-    //SVG(svg[0]).viewbox();
-    //SVG(svg[0]).size($scope.global.svgTemplateWidth, $scope.global.svgTemplateHeight);
     if($scope.global.isVoiceHelper) {
       $scope.closeSizeCaclulator();
-      //console.log('$scope.constructData.tempSize ===end', $scope.constructData.tempSize);
     }
   }
 
   //---------- Close Size Calculator
   $scope.closeSizeCaclulator = function() {
-    //console.log('click on = button', $scope.constructData.tempSize);
-
     if($scope.constructData.tempSize.length > 0) {
       newLength = parseInt($scope.constructData.tempSize.join(''), 10);
-      //console.log('newLength = ', typeof newLength);
-      //console.log('newLength = ', newLength);
       //------- Dimensions limits checking
       if (newLength > $scope.constructData.minSizeLimit && newLength < $scope.constructData.maxSizeLimit) {
         $scope.constructData.isMinSizeRestriction = false;
         $scope.constructData.isMaxSizeRestriction = false;
-
 
         //-------- change point coordinates in templateSource
         for (var k = 0; k < $scope.templateSourceTEMP.objects.length; k++) {
@@ -532,8 +531,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
         //------ close size calculator
         $scope.global.isConstructSizeCalculator = false;
         //------- deactive size box in svg
-        deactiveSizeBox(sizeEditClass, sizeClass);
-
+        deactiveSizeBox(sizeRectActClass, sizeBoxActClass);
         //-------- build new template
         $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
 
@@ -547,7 +545,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
           if($scope.global.isVoiceHelper) {
             playTTS($filter('translate')('construction.VOICE_SMALLEST_SIZE'), $scope.global.voiceHelperLanguage);
             //------- deactive size box in svg
-            deactiveSizeBox(sizeEditClass, sizeClass);
+            deactiveSizeBox(sizeRectActClass, sizeBoxActClass);
             //-------- build new template
             $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
           } else {
@@ -558,7 +556,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
           if($scope.global.isVoiceHelper) {
             playTTS($filter('translate')('construction.VOICE_BIGGEST_SIZE'), $scope.global.voiceHelperLanguage);
             //------- deactive size box in svg
-            deactiveSizeBox(sizeEditClass, sizeClass);
+            deactiveSizeBox(sizeRectActClass, sizeBoxActClass);
             //-------- build new template
             $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
           } else {
@@ -575,7 +573,7 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 */
       //------ close size calculator
       $scope.global.isConstructSizeCalculator = false;
-      deactiveSizeBox(sizeEditClass, sizeClass);
+      deactiveSizeBox(sizeRectActClass, sizeBoxActClass);
     }
     $scope.openVoiceHelper = false;
     $scope.loudVoice = false;

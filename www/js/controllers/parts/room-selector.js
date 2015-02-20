@@ -23,6 +23,9 @@ BauVoiceApp.controller('RoomSelectorCtrl', ['$scope', '$location', 'localStorage
   $scope.selectRoom = function(id) {
     $scope.global.product.selectedRoomId = id;
     $scope.closeRoomSelectorDialog();
+    if($scope.global.isConstructDoor) {
+      $scope.global.setDefaultDoorConfig();
+    }
     //----- if select Door
     if(id === 6) {
       $scope.global.product.templateIndex = 0;

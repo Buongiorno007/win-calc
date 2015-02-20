@@ -37,7 +37,7 @@
     </div>
     <div id="sash-shape-menu" ng-show="constructData.isSashEdit &amp;&amp; constructData.isSashEditMenu" class="constr-shape-menu">
       <ul class="constr-shape-list">
-        <li hm-tap="insertNewSash('empty')" class="constr-shape-icon sash-empty"></li>
+        <li ng-hide="global.isConstructDoor" hm-tap="insertNewSash('empty')" class="constr-shape-icon sash-empty"></li>
         <li hm-tap="insertNewSash('left')" class="constr-shape-icon sash-left"></li>
         <li hm-tap="insertNewSash('right')" class="constr-shape-icon sash-right"></li>
         <li hm-tap="insertNewSash('up')" class="constr-shape-icon sash-up"></li>
@@ -48,8 +48,8 @@
     </div>
     <div id="impost-shape-menu" ng-show="constructData.isImpostEdit &amp;&amp; constructData.isImpostEditMenu" class="constr-shape-menu">
       <ul class="constr-shape-list">
-        <li hm-tap="insertNewImpost('vert')" class="constr-shape-icon sash-up"></li>
-        <li hm-tap="insertNewImpost('horis')" class="constr-shape-icon sash-left"></li>
+        <li hm-tap="insertNewImpost('vert')" class="constr-shape-icon impost-vert"></li>
+        <li hm-tap="insertNewImpost('horis')" class="constr-shape-icon impost-hor"></li>
       </ul>
     </div>
     <div class="construction-right-menu">

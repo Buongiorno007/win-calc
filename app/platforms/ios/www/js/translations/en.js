@@ -26,7 +26,8 @@ window.englishDictionary = {
     COPY_ORDER_TXT: 'Do you want to do the copy of order?',
     SEND_ORDER_TITLE: 'In a production!',
     SEND_ORDER_TXT: 'Do you want to send an order on a factory?',
-    TEMPLATE_CHANGES_LOST: 'Изменения в шаблоне будут потеряны! Продолжить?'
+    NEW_TEMPLATE_TITLE: 'Template changing',
+    TEMPLATE_CHANGES_LOST: 'The template changes will lost! Continue?'
   },
   login: {
     ENTER: 'To enter',

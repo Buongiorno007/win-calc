@@ -316,31 +316,31 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf?1422437875') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf?1424357623') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
-  src: url('../fonts/roboto/Roboto-Bold.ttf?1422437873') format('truetype');
+  src: url('../fonts/roboto/Roboto-Bold.ttf?1424357622') format('truetype');
 }
 @font-face {
   font-family: "roboto-light";
-  src: url('../fonts/roboto/Roboto-Light.ttf?1422437874') format('truetype');
+  src: url('../fonts/roboto/Roboto-Light.ttf?1424357622') format('truetype');
 }
 @font-face {
   font-family: "roboto-medium";
-  src: url('../fonts/roboto/Roboto-Medium.ttf?1422437875') format('truetype');
+  src: url('../fonts/roboto/Roboto-Medium.ttf?1424357623') format('truetype');
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf?1422437875') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf?1424357623') format('truetype');
 }
 @font-face {
   font-family: "general-icons";
-  src: url('../fonts/general-icons/icomoon.ttf?1422437873') format('truetype');
+  src: url('../fonts/general-icons/icomoon.ttf?1424357622') format('truetype');
 }
 @font-face {
   font-family: "nav-menu";
-  src: url('../fonts/nav-menu/icomoon.ttf?1422437873') format('truetype');
+  src: url('../fonts/nav-menu/icomoon.ttf?1424357622') format('truetype');
 }
 /* line 183, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construction-right-menu .construct-tools, .construction-right-menu .door-config-btn, .nav-menu [class^='nav-icon-'],
@@ -1270,37 +1270,37 @@ body {
 }
 /* line 173, ../../dev/sass/base/general.scss */
 .right-side.kitchen {
-  background: url('../img/rooms-bg/kitchen.jpg?1422437877') no-repeat;
+  background: url('../img/rooms-bg/kitchen.jpg?1424357625') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 /* line 178, ../../dev/sass/base/general.scss */
 .right-side.livingroom {
-  background: url('../img/rooms-bg/livingroom.jpg?1422437877') no-repeat;
+  background: url('../img/rooms-bg/livingroom.jpg?1424357625') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 /* line 183, ../../dev/sass/base/general.scss */
 .right-side.balcony {
-  background: url('../img/rooms-bg/balcony.jpg?1422437877') no-repeat;
+  background: url('../img/rooms-bg/balcony.jpg?1424357625') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 /* line 188, ../../dev/sass/base/general.scss */
 .right-side.childroom {
-  background: url('../img/rooms-bg/childroom.jpg?1422437877') no-repeat;
+  background: url('../img/rooms-bg/childroom.jpg?1424357625') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 /* line 193, ../../dev/sass/base/general.scss */
 .right-side.bedroom {
-  background: url('../img/rooms-bg/bedroom.jpg?1422437877') no-repeat;
+  background: url('../img/rooms-bg/bedroom.jpg?1424357625') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 /* line 198, ../../dev/sass/base/general.scss */
 .right-side.door {
-  background: url('../img/rooms-bg/door.jpg?1422437877') no-repeat;
+  background: url('../img/rooms-bg/door.jpg?1424357625') no-repeat;
   background-size: cover;
   opacity: 1;
 }
@@ -1309,7 +1309,7 @@ body {
 .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto {
   width: 9.5rem;
   height: 9.5rem;
-  background-image: url('../img/userPhoto.png?1422437873');
+  background-image: url('../img/userPhoto.png?1424357622');
   background-size: cover;
 }
 
@@ -1446,46 +1446,55 @@ body {
   stroke-width: 4;
 }
 
-/* line 350, ../../dev/sass/base/general.scss */
+/* line 349, ../../dev/sass/base/general.scss */
+.doorstep {
+  fill: #4f4f4f;
+  stroke: #4f4f4f;
+}
+
+/* line 353, ../../dev/sass/base/general.scss */
 .main-line {
   fill: #363636;
 }
 
-/* line 353, ../../dev/sass/base/general.scss */
+/* line 356, ../../dev/sass/base/general.scss */
 .size-line {
   fill: none;
   stroke: #D2D2D2;
   stroke-width: 1;
 }
 
-/* line 361, ../../dev/sass/base/general.scss */
+/* line 364, ../../dev/sass/base/general.scss */
 .size-box {
   cursor: pointer;
 }
 
-/* line 364, ../../dev/sass/base/general.scss */
+/*
 .size-box-edited {
   cursor: pointer;
+  .size-rect {
+    fill: $main_green;
+  }
+  .size-value-edit {
+    stroke: #fff;
+    fill: #fff;
+  }
 }
-/* line 366, ../../dev/sass/base/general.scss */
-.size-box-edited .size-rect {
-  fill: #6ed44a;
-}
-/* line 369, ../../dev/sass/base/general.scss */
-.size-box-edited .size-value-edit, .size-box-edited .size-value-edit-vertical {
-  stroke: #fff;
-  fill: #fff;
-}
-
-/* line 375, ../../dev/sass/base/general.scss */
-.size-rect {
+*/
+/* line 379, ../../dev/sass/base/general.scss */
+.size-rect, .size-rect-active {
   stroke: #6ed44a;
   stroke-width: 0.1875rem;
   fill: #fff;
 }
 
-/* line 380, ../../dev/sass/base/general.scss */
-.size-value, .size-value-vertical {
+/* line 384, ../../dev/sass/base/general.scss */
+.size-rect-active {
+  fill: #6ed44a;
+}
+
+/* line 388, ../../dev/sass/base/general.scss */
+.size-value, .size-value-edit, .size-value-active {
   font-size: 5.625rem;
   stroke: #D2D2D2;
   stroke-width: 1px;
@@ -1493,24 +1502,42 @@ body {
   alignment-baseline: middle;
 }
 
-/* line 395, ../../dev/sass/base/general.scss */
-.size-value-edit, .size-value-edit-vertical {
-  font-size: 5.625rem;
+/*
+.size-value-vertical {
+  @extend .size-value;
+  //text-anchor: end;
+
+  //writing-mode: tb;
+  //glyph-orientation-vertical: 190;
+  //@include rotate(180deg);
+}
+*/
+/* line 405, ../../dev/sass/base/general.scss */
+.size-value-edit {
   stroke: #6ed44a;
   fill: #6ed44a;
-  stroke-width: 1px;
-  text-anchor: middle;
-  alignment-baseline: middle;
 }
 
-/* line 407, ../../dev/sass/base/general.scss */
+/*
+.size-value-edit-vertical {
+  @extend .size-value-edit;
+  //text-anchor: end;
+}
+*/
+/* line 416, ../../dev/sass/base/general.scss */
+.size-value-active {
+  stroke: #fff;
+  fill: #fff;
+}
+
+/* line 421, ../../dev/sass/base/general.scss */
 .open-direction {
   fill: none;
   stroke: #f98000;
   stroke-width: 2;
 }
 
-/* line 416, ../../dev/sass/base/general.scss */
+/* line 430, ../../dev/sass/base/general.scss */
 .scrolling-container, .scroll-vert-container, .scroll-hor-container, .cart-page .addelements-detail-content {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -1519,33 +1546,33 @@ body {
   overflow-scrolling: touch;
 }
 
-/* line 419, ../../dev/sass/base/general.scss */
+/* line 433, ../../dev/sass/base/general.scss */
 .scroll-vert, .scroll-vert-container {
   overflow-x: hidden;
   overflow-y: scroll;
 }
 
-/* line 423, ../../dev/sass/base/general.scss */
+/* line 437, ../../dev/sass/base/general.scss */
 .scroll-hor, .scroll-hor-container {
   overflow-x: scroll;
   overflow-y: hidden;
 }
 
-/* line 427, ../../dev/sass/base/general.scss */
+/* line 441, ../../dev/sass/base/general.scss */
 .scroll-vert-container {
   width: 100%;
   height: 90%;
   padding-top: 2rem;
 }
 
-/* line 434, ../../dev/sass/base/general.scss */
+/* line 448, ../../dev/sass/base/general.scss */
 .scroll-hor-container {
   width: 100%;
   height: 100%;
   padding-top: 2rem;
 }
 
-/* line 443, ../../dev/sass/base/general.scss */
+/* line 457, ../../dev/sass/base/general.scss */
 #sounds {
   visibility: hidden;
 }
@@ -1704,7 +1731,7 @@ body {
   width: 3.125rem;
   height: 3.125rem;
   margin: -3.125rem/2 0 0 -3.125rem/2;
-  background: url('../img/spinner.gif?1422437877') no-repeat;
+  background: url('../img/spinner.gif?1424357625') no-repeat;
   background-size: cover;
 }
 
@@ -1985,32 +2012,32 @@ body {
 }
 /* line 46, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.kitchen {
-  background: url('../img/rooms-dialog/kitchen.jpg?1422437877');
+  background: url('../img/rooms-dialog/kitchen.jpg?1424357625');
   background-size: contain;
 }
 /* line 50, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.livingroom {
-  background: url('../img/rooms-dialog/livingroom.jpg?1422437877');
+  background: url('../img/rooms-dialog/livingroom.jpg?1424357625');
   background-size: contain;
 }
 /* line 54, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.balcony {
-  background: url('../img/rooms-dialog/balcony.jpg?1422437877');
+  background: url('../img/rooms-dialog/balcony.jpg?1424357625');
   background-size: contain;
 }
 /* line 58, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.childroom {
-  background: url('../img/rooms-dialog/childroom.jpg?1422437877');
+  background: url('../img/rooms-dialog/childroom.jpg?1424357625');
   background-size: contain;
 }
 /* line 62, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.bedroom {
-  background: url('../img/rooms-dialog/bedroom.jpg?1422437877');
+  background: url('../img/rooms-dialog/bedroom.jpg?1424357625');
   background-size: contain;
 }
 /* line 66, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.door {
-  background: url('../img/rooms-dialog/door.jpg?1422437877');
+  background: url('../img/rooms-dialog/door.jpg?1424357625');
   background-size: contain;
 }
 /* line 71, ../../dev/sass/parts/_rooms-selector.scss */
@@ -2259,6 +2286,7 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   background: rgba(255, 255, 255, 0.9);
+  z-index: 1;
 }
 /* line 13, ../../dev/sass/parts/_config-panel.scss */
 .config-panel.active {
@@ -3203,7 +3231,7 @@ body {
   display: -webkit-flex;
   display: flex;
   height: 100%;
-  background: url('../img/login/login-bg.jpg?1422437877') no-repeat;
+  background: url('../img/login/login-bg.jpg?1424357625') no-repeat;
   background-size: cover;
 }
 
@@ -3235,7 +3263,7 @@ body {
   width: 14.75rem;
   height: 14.75rem;
   margin: 0 auto 4.5625rem auto;
-  background: url('../img/login/logo.png?1422437876') no-repeat;
+  background: url('../img/login/logo.png?1424357625') no-repeat;
   background-size: cover;
 }
 
@@ -5123,42 +5151,52 @@ li.constr-shape-icon:last-child {
   content: "\e63f";
 }
 
-/* line 214, ../../dev/sass/pages/construction.scss */
+/* line 208, ../../dev/sass/pages/construction.scss */
+.impost-vert:after {
+  content: "\e644";
+}
+
+/* line 211, ../../dev/sass/pages/construction.scss */
+.impost-hor:after {
+  content: "\e645";
+}
+
+/* line 220, ../../dev/sass/pages/construction.scss */
 .construction-right-menu {
   top: 0;
   right: 0;
 }
-/* line 220, ../../dev/sass/pages/construction.scss */
+/* line 226, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .right-menu-header {
   margin-top: 3.125rem;
 }
-/* line 223, ../../dev/sass/pages/construction.scss */
+/* line 229, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .construct-tools {
   position: relative;
   width: 5.3125rem;
   height: 5.3125rem;
   margin-right: 3.125rem;
 }
-/* line 231, ../../dev/sass/pages/construction.scss */
+/* line 237, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .construct-tools:after {
   top: 25%;
   left: 25%;
 }
-/* line 236, ../../dev/sass/pages/construction.scss */
+/* line 242, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .save-construction {
   font: normal 1.75rem/1.5 general-icons, sans-serif;
   background-color: #6ed44a;
 }
-/* line 240, ../../dev/sass/pages/construction.scss */
+/* line 246, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .save-construction:after {
   content: "\e62c";
 }
-/* line 244, ../../dev/sass/pages/construction.scss */
+/* line 250, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .close-construction {
   font: normal 2.5rem/1 general-icons, sans-serif;
   background-color: #bebebe;
 }
-/* line 249, ../../dev/sass/pages/construction.scss */
+/* line 255, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .right-menu-footer {
   position: absolute;
   right: 0;
@@ -5166,7 +5204,7 @@ li.constr-shape-icon:last-child {
   width: 29.875rem;
   height: 31.875rem;
 }
-/* line 256, ../../dev/sass/pages/construction.scss */
+/* line 262, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .door-config-menu {
   position: absolute;
   top: 25%;
@@ -5174,27 +5212,27 @@ li.constr-shape-icon:last-child {
   width: 18.75rem;
   text-align: right;
 }
-/* line 263, ../../dev/sass/pages/construction.scss */
+/* line 269, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .door-config-btn {
   font: normal 8.125rem/1 general-icons, sans-serif;
   margin: 0;
   padding: 0;
   background: transparent;
 }
-/* line 272, ../../dev/sass/pages/construction.scss */
+/* line 278, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .door-config-btn:after {
   color: #6ed44a;
   content: "\e630";
 }
-/* line 277, ../../dev/sass/pages/construction.scss */
+/* line 283, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .door-config-btn.active:after {
   content: "\e62a";
 }
-/* line 282, ../../dev/sass/pages/construction.scss */
+/* line 288, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .door-config-label {
   margin-bottom: 1.875rem;
 }
-/* line 290, ../../dev/sass/pages/construction.scss */
+/* line 296, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .size-calculator {
   -moz-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
@@ -5205,16 +5243,16 @@ li.constr-shape-icon:last-child {
   background-color: #f8f8f8;
   border-left: 1px solid #bebebe;
 }
-/* line 298, ../../dev/sass/pages/construction.scss */
+/* line 304, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .size-calculator.active {
   bottom: 0;
 }
-/* line 303, ../../dev/sass/pages/construction.scss */
+/* line 309, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .calc-equal {
   background-color: #6ed44a;
 }
 
-/* line 312, ../../dev/sass/pages/construction.scss */
+/* line 318, ../../dev/sass/pages/construction.scss */
 .door-configuration {
   top: 0rem;
   left: -156.25rem;
@@ -5227,12 +5265,12 @@ li.constr-shape-icon:last-child {
   background-color: #fafafa;
   z-index: 2;
 }
-/* line 322, ../../dev/sass/pages/construction.scss */
+/* line 328, ../../dev/sass/pages/construction.scss */
 .door-configuration.active {
   top: 0rem;
   left: 0rem;
 }
-/* line 326, ../../dev/sass/pages/construction.scss */
+/* line 332, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-config-column {
   -moz-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
@@ -5242,40 +5280,40 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 32rem;
 }
-/* line 333, ../../dev/sass/pages/construction.scss */
+/* line 339, ../../dev/sass/pages/construction.scss */
 .door-configuration .step1 {
   top: 0rem;
   left: 0rem;
   z-index: 6;
 }
-/* line 338, ../../dev/sass/pages/construction.scss */
+/* line 344, ../../dev/sass/pages/construction.scss */
 .door-configuration .step2 {
   z-index: 5;
 }
-/* line 340, ../../dev/sass/pages/construction.scss */
+/* line 346, ../../dev/sass/pages/construction.scss */
 .door-configuration .step2.active {
   top: 0rem;
   left: 28.25rem;
 }
-/* line 344, ../../dev/sass/pages/construction.scss */
+/* line 350, ../../dev/sass/pages/construction.scss */
 .door-configuration .step3 {
   z-index: 4;
 }
-/* line 346, ../../dev/sass/pages/construction.scss */
+/* line 352, ../../dev/sass/pages/construction.scss */
 .door-configuration .step3.active {
   top: 0rem;
   left: 56.25rem;
 }
-/* line 350, ../../dev/sass/pages/construction.scss */
+/* line 356, ../../dev/sass/pages/construction.scss */
 .door-configuration .step4 {
   z-index: 3;
 }
-/* line 352, ../../dev/sass/pages/construction.scss */
+/* line 358, ../../dev/sass/pages/construction.scss */
 .door-configuration .step4.active {
   top: 0rem;
   left: 84.5rem;
 }
-/* line 356, ../../dev/sass/pages/construction.scss */
+/* line 362, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-config-backfon {
   -moz-box-shadow: #bebebe 0 0.3125rem 0.625rem;
   -webkit-box-shadow: #bebebe 0 0.3125rem 0.625rem;
@@ -5289,80 +5327,80 @@ li.constr-shape-icon:last-child {
   background-color: #fafafa;
   z-index: -1;
 }
-/* line 367, ../../dev/sass/pages/construction.scss */
+/* line 373, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-config-header {
   height: 22.1875rem;
   padding-left: 3.125rem;
   width: 28.25rem;
 }
-/* line 372, ../../dev/sass/pages/construction.scss */
+/* line 378, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-inner {
   height: 100%;
   padding: 2.5rem 1.25rem;
   border-bottom: 1px solid #d2d2d2;
 }
-/* line 377, ../../dev/sass/pages/construction.scss */
+/* line 383, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-title {
   font: normal 3rem/1.42857 roboto-bold, sans-serif;
   padding: 1.25rem 0 1.875rem 0;
   color: #363636;
 }
-/* line 382, ../../dev/sass/pages/construction.scss */
+/* line 388, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-subtitle {
   font: normal 2.25rem/2.75rem roboto-bold, sans-serif;
   color: #363636;
 }
-/* line 387, ../../dev/sass/pages/construction.scss */
+/* line 393, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-config-content {
   height: 73.8125rem;
   overflow: hidden;
 }
-/* line 390, ../../dev/sass/pages/construction.scss */
+/* line 396, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-config-content.scroll-box {
   overflow-x: hidden;
   overflow-y: auto;
 }
-/* line 395, ../../dev/sass/pages/construction.scss */
+/* line 401, ../../dev/sass/pages/construction.scss */
 .door-configuration ul.door-config-list {
   width: 32rem;
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 401, ../../dev/sass/pages/construction.scss */
+/* line 407, ../../dev/sass/pages/construction.scss */
 .door-configuration li.door-config-option {
   width: 28.25rem;
   padding-left: 3.125rem;
   cursor: pointer;
   position: relative;
 }
-/* line 406, ../../dev/sass/pages/construction.scss */
+/* line 412, ../../dev/sass/pages/construction.scss */
 .door-configuration li.door-config-option.selected {
   background-color: #6ed44a;
 }
-/* line 410, ../../dev/sass/pages/construction.scss */
+/* line 416, ../../dev/sass/pages/construction.scss */
 .door-configuration .selected-item-arrow {
   position: absolute;
   top: 0;
   right: -3.625rem;
   width: 3.75rem;
   height: 100%;
-  background: url('../img/door-arrow.png?1422437873') no-repeat;
+  background: url('../img/door-arrow.png?1424357576') no-repeat;
   background-size: 100% 100%;
 }
-/* line 419, ../../dev/sass/pages/construction.scss */
+/* line 425, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-option-label {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 424, ../../dev/sass/pages/construction.scss */
+/* line 430, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-config-tools {
   position: absolute;
   top: 0;
   right: 0;
   width: 15.25rem;
 }
-/* line 430, ../../dev/sass/pages/construction.scss */
+/* line 436, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-config-btn {
   font: normal 3.75rem/1 general-icons, sans-serif;
   width: 100%;
@@ -5370,29 +5408,29 @@ li.constr-shape-icon:last-child {
   outline: none;
   border: none;
 }
-/* line 440, ../../dev/sass/pages/construction.scss */
+/* line 446, ../../dev/sass/pages/construction.scss */
 .door-configuration .close-door-config {
   height: 22.1875rem;
   background-color: #bebebe;
 }
-/* line 443, ../../dev/sass/pages/construction.scss */
+/* line 449, ../../dev/sass/pages/construction.scss */
 .door-configuration .close-door-config:after {
   content: "\e631";
 }
-/* line 447, ../../dev/sass/pages/construction.scss */
+/* line 453, ../../dev/sass/pages/construction.scss */
 .door-configuration .save-door-config {
   height: 73.8125rem;
   background-color: #6ed44a;
 }
-/* line 450, ../../dev/sass/pages/construction.scss */
+/* line 456, ../../dev/sass/pages/construction.scss */
 .door-configuration .save-door-config:after {
   content: "\e62c";
 }
-/* line 454, ../../dev/sass/pages/construction.scss */
+/* line 460, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-shape {
   width: 7rem;
 }
-/* line 457, ../../dev/sass/pages/construction.scss */
+/* line 463, ../../dev/sass/pages/construction.scss */
 .door-configuration .door-hardware {
   width: 10rem;
 }
@@ -5621,7 +5659,7 @@ li.constr-shape-icon:last-child {
   margin-left: 0.3125rem;
   background-color: transparent;
   color: #6ed44a;
-  z-index: 9;
+  z-index: 2;
 }
 /* line 89, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .product-u-coeff.u-coeff-low {
@@ -6468,9 +6506,9 @@ li.constr-shape-icon:last-child {
 .template-container .template-type {
   font: normal 2.25rem/4.0625rem roboto-light, sans-serif;
   position: absolute;
-  top: -1.875rem;
-  left: 75%;
-  padding: 0 1.25rem;
+  top: 0rem;
+  left: 115%;
+  padding: 0.625rem 1.25rem;
   border-radius: 1rem;
   background-color: #242424;
   color: #fff;
@@ -6481,29 +6519,37 @@ li.constr-shape-icon:last-child {
 .template-container .template-type:before {
   position: absolute;
   z-index: 1;
-  bottom: -1.25rem;
-  left: 1.875rem;
+  top: 1.75rem;
+  left: -1.28rem;
   display: block;
   width: 0;
-  border-width: 1.25rem 1.25rem 0;
+  border-width: 1.25rem 1.25rem 1.25rem 0;
   border-style: solid;
-  border-color: #242424 transparent;
+  border-color: transparent #242424;
   content: '';
 }
-/* line 50, ../../dev/sass/panels/template-selector.scss */
+/* line 49, ../../dev/sass/panels/template-selector.scss */
+.template-container .template-type-btn {
+  border-bottom: 1px solid #bebebe;
+}
+/* line 51, ../../dev/sass/panels/template-selector.scss */
+.template-container .template-type-btn:last-child {
+  border-bottom: none;
+}
+/* line 56, ../../dev/sass/panels/template-selector.scss */
 .template-container .template-discr {
   font: normal 5rem/1.42857 roboto-light, sans-serif;
   text-align: center;
   color: #363636;
 }
-/* line 56, ../../dev/sass/panels/template-selector.scss */
+/* line 62, ../../dev/sass/panels/template-selector.scss */
 .template-container .template-section {
   width: 93.75rem;
   height: 62.5rem;
   text-align: center;
   cursor: pointer;
 }
-/* line 63, ../../dev/sass/panels/template-selector.scss */
+/* line 69, ../../dev/sass/panels/template-selector.scss */
 .template-container .template-footer {
   display: -webkit-flex;
   display: flex;
@@ -6512,7 +6558,7 @@ li.constr-shape-icon:last-child {
   -webkit-justify-content: center;
   justify-content: center;
 }
-/* line 69, ../../dev/sass/panels/template-selector.scss */
+/* line 75, ../../dev/sass/panels/template-selector.scss */
 .template-container .other-templates {
   display: -webkit-flex;
   display: flex;
@@ -6524,22 +6570,22 @@ li.constr-shape-icon:last-child {
   overflow-y: hidden;
   overflow-x: auto;
 }
-/* line 76, ../../dev/sass/panels/template-selector.scss */
+/* line 82, ../../dev/sass/panels/template-selector.scss */
 .template-container .other-template {
   display: inline-block;
   min-width: 18.75rem;
   margin: 0 0.625rem;
   cursor: pointer;
 }
-/* line 83, ../../dev/sass/panels/template-selector.scss */
+/* line 89, ../../dev/sass/panels/template-selector.scss */
 .template-container .other-template-img {
   text-align: center;
 }
-/* line 86, ../../dev/sass/panels/template-selector.scss */
+/* line 92, ../../dev/sass/panels/template-selector.scss */
 .template-container .other-template-img img {
   max-height: 7.6875rem;
 }
-/* line 91, ../../dev/sass/panels/template-selector.scss */
+/* line 97, ../../dev/sass/panels/template-selector.scss */
 .template-container .other-template-label {
   font: normal 1.5rem/1.42857 roboto-light, sans-serif;
   max-width: 9.375rem;
@@ -6548,7 +6594,7 @@ li.constr-shape-icon:last-child {
   word-wrap: break-word;
   color: #666;
 }
-/* line 100, ../../dev/sass/panels/template-selector.scss */
+/* line 106, ../../dev/sass/panels/template-selector.scss */
 .template-container .other-template-subscr {
   font: normal 1.5rem/1.42857 roboto-light, sans-serif;
   max-width: 12.5rem;
@@ -6952,85 +6998,85 @@ li.constr-shape-icon:last-child {
 }
 /* line 14, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grid-img {
-  background-image: url('../img/auxiliaries-focused/grid.png?1422437875');
+  background-image: url('../img/auxiliaries-focused/grid.png?1424357623');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 19, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-visor-img {
-  background-image: url('../img/auxiliaries-focused/visor.png?1422437875');
+  background-image: url('../img/auxiliaries-focused/visor.png?1424357624');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 24, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spillway-img {
-  background-image: url('../img/auxiliaries-focused/spillway.png?1422437875');
+  background-image: url('../img/auxiliaries-focused/spillway.png?1424357624');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 29, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-focused/windowsill.png?1422437875');
+  background-image: url('../img/auxiliaries-focused/windowsill.png?1424357624');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 34, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-top {
-  background-image: url('../img/auxiliaries-focused/louvers-top.png?1422437875');
+  background-image: url('../img/auxiliaries-focused/louvers-top.png?1424357624');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 39, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-midle {
-  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1422437875');
+  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1424357624');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 44, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1422437875');
+  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1424357624');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 49, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-top {
-  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1422437875');
+  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1424357624');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 54, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-right {
-  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1422437875');
+  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1424357624');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 59, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-left {
-  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1422437875');
+  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1424357623');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 64, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-fan-img {
-  background-image: url('../img/auxiliaries-focused/fan.png?1422437875');
+  background-image: url('../img/auxiliaries-focused/fan.png?1424357623');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 69, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-force-connect {
-  background-image: url('../img/auxiliaries-focused/force-connector.png?1422437875');
+  background-image: url('../img/auxiliaries-focused/force-connector.png?1424357623');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 74, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1422437875');
+  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1424357623');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 79, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-handle-img {
-  background-image: url('../img/auxiliaries-focused/handle.png?1422437875');
+  background-image: url('../img/auxiliaries-focused/handle.png?1424357623');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7060,85 +7106,85 @@ li.constr-shape-icon:last-child {
 }
 /* line 110, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grid-img {
-  background-image: url('../img/auxiliaries-selected/grid.png?1422437875');
+  background-image: url('../img/auxiliaries-selected/grid.png?1424357624');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 115, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
-  background-image: url('../img/auxiliaries-selected/visor.png?1422437876');
+  background-image: url('../img/auxiliaries-selected/visor.png?1424357624');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 120, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
-  background-image: url('../img/auxiliaries-selected/spillway.png?1422437876');
+  background-image: url('../img/auxiliaries-selected/spillway.png?1424357624');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 125, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-selected/windowsill.png?1422437876');
+  background-image: url('../img/auxiliaries-selected/windowsill.png?1424357624');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 130, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-top {
-  background-image: url('../img/auxiliaries-selected/louvers-top.png?1422437876');
+  background-image: url('../img/auxiliaries-selected/louvers-top.png?1424357624');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 135, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-midle {
-  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1422437876');
+  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1424357624');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 140, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1422437876');
+  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1424357624');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 145, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-top {
-  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1422437875');
+  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1424357624');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 150, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-right {
-  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1422437875');
+  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1424357624');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 155, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-left {
-  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1422437875');
+  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1424357624');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 160, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-fan-img {
-  background-image: url('../img/auxiliaries-selected/fan.png?1422437875');
+  background-image: url('../img/auxiliaries-selected/fan.png?1424357624');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 165, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-force-connect {
-  background-image: url('../img/auxiliaries-selected/force-connector.png?1422437875');
+  background-image: url('../img/auxiliaries-selected/force-connector.png?1424357624');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 170, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1422437875');
+  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1424357624');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 175, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-handle-img {
-  background-image: url('../img/auxiliaries-selected/handle.png?1422437875');
+  background-image: url('../img/auxiliaries-selected/handle.png?1424357624');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7161,7 +7207,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 13.75rem;
   height: 24.375rem;
-  background-image: url('../img/auxiliaries/grid.png?1422437874');
+  background-image: url('../img/auxiliaries/grid.png?1424357623');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7178,7 +7224,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 55.8125rem;
   height: 16.3125rem;
-  background-image: url('../img/auxiliaries/visor.png?1422437875');
+  background-image: url('../img/auxiliaries/visor.png?1424357623');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7195,7 +7241,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 44.9375rem;
   height: 12.875rem;
-  background-image: url('../img/auxiliaries/spillway.png?1422437875');
+  background-image: url('../img/auxiliaries/spillway.png?1424357623');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7212,7 +7258,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 40.625rem;
   height: 38.125rem;
-  background-image: url('../img/auxiliaries/outside.png?1422437875');
+  background-image: url('../img/auxiliaries/outside.png?1424357623');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7229,7 +7275,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 45rem;
   height: 14.75rem;
-  background-image: url('../img/auxiliaries/windowsill.png?1422437875');
+  background-image: url('../img/auxiliaries/windowsill.png?1424357623');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7253,7 +7299,7 @@ li.constr-shape-icon:last-child {
   z-index: 10;
   width: 16.3125rem;
   height: 4.9375rem;
-  background-image: url('../img/auxiliaries/louvers-top.png?1422437875');
+  background-image: url('../img/auxiliaries/louvers-top.png?1424357623');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7263,7 +7309,7 @@ li.constr-shape-icon:last-child {
   left: 3.125rem;
   width: 16.3125rem;
   height: 6.1875rem;
-  background-image: url('../img/auxiliaries/louvers-middle.png?1422437875');
+  background-image: url('../img/auxiliaries/louvers-middle.png?1424357623');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7290,7 +7336,7 @@ li.constr-shape-icon:last-child {
   z-index: 6;
   width: 16.3125rem;
   height: 6.5rem;
-  background-image: url('../img/auxiliaries/louvers-bottom.png?1422437875');
+  background-image: url('../img/auxiliaries/louvers-bottom.png?1424357623');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7313,7 +7359,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 41.25rem;
   height: 11.4375rem;
-  background-image: url('../img/auxiliaries/inside-slope-top.png?1422437875');
+  background-image: url('../img/auxiliaries/inside-slope-top.png?1424357623');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7324,7 +7370,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 5.625rem;
   height: 27.125rem;
-  background-image: url('../img/auxiliaries/inside-slope-right.png?1422437875');
+  background-image: url('../img/auxiliaries/inside-slope-right.png?1424357623');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7335,7 +7381,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 6.0625rem;
   height: 25.5rem;
-  background-image: url('../img/auxiliaries/inside-slope-left.png?1422437875');
+  background-image: url('../img/auxiliaries/inside-slope-left.png?1424357623');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7352,7 +7398,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 7.125rem;
   height: 7.5rem;
-  background-image: url('../img/auxiliaries/fan.png?1422437873');
+  background-image: url('../img/auxiliaries/fan.png?1424357622');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7375,7 +7421,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/force-connector.png?1422437874');
+  background-image: url('../img/auxiliaries/force-connector.png?1424357622');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7386,7 +7432,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/balcon-connector.png?1422437873');
+  background-image: url('../img/auxiliaries/balcon-connector.png?1424357622');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7403,7 +7449,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 6.625rem;
   height: 7.875rem;
-  background-image: url('../img/auxiliaries/handle.png?1422437875');
+  background-image: url('../img/auxiliaries/handle.png?1424357623');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7543,10 +7589,11 @@ li.constr-shape-icon:last-child {
 /* line 581, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .scheme-view-dialog {
   height: 65.5rem;
+  padding-top: 2rem;
   overflow: hidden;
   z-index: 20;
 }
-/* line 588, ../../dev/sass/panels/additional-elements.scss */
+/* line 589, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .scheme-view-dialog .template-scheme {
   width: 100%;
   height: 100%;

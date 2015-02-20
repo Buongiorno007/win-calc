@@ -346,7 +346,10 @@ body {
   stroke: #000;
   stroke-width: 4;
 }
-
+.doorstep {
+  fill: #4f4f4f;
+  stroke: #4f4f4f;
+}
 .main-line {
   fill: $main_gray_txt;
 }
@@ -361,6 +364,7 @@ body {
 .size-box {
   cursor: pointer;
 }
+/*
 .size-box-edited {
   cursor: pointer;
   .size-rect {
@@ -371,11 +375,15 @@ body {
     fill: #fff;
   }
 }
-
+*/
 .size-rect {
   stroke: $main_green;
   stroke-width: rem(3px);
   fill: #fff;
+}
+.size-rect-active {
+  @extend .size-rect;
+  fill: $main_green;
 }
 .size-value {
   font-size: rem(90px);
@@ -384,6 +392,7 @@ body {
   text-anchor: middle;
   alignment-baseline: middle;
 }
+/*
 .size-value-vertical {
   @extend .size-value;
   //text-anchor: end;
@@ -392,17 +401,22 @@ body {
   //glyph-orientation-vertical: 190;
   //@include rotate(180deg);
 }
+*/
 .size-value-edit {
-  font-size: rem(90px);
+  @extend .size-value;
   stroke: $main_green;
   fill: $main_green;
-  stroke-width: 1px;
-  text-anchor: middle;
-  alignment-baseline: middle;
 }
+/*
 .size-value-edit-vertical {
   @extend .size-value-edit;
   //text-anchor: end;
+}
+*/
+.size-value-active {
+  @extend .size-value;
+  stroke: #fff;
+  fill: #fff;
 }
 .open-direction {
   fill: none;

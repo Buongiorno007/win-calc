@@ -23,7 +23,8 @@ window.romanianDictionary = {
     COPY_ORDER_TXT: 'Doriți să facă o copie la comandă?',
     SEND_ORDER_TITLE: 'în producție!',
     SEND_ORDER_TXT: 'Doriți să trimiteți comanda la uzină?',
-    TEMPLATE_CHANGES_LOST: 'Изменения в шаблоне будут потеряны! Продолжить?'
+    NEW_TEMPLATE_TITLE: 'Template changing',
+    TEMPLATE_CHANGES_LOST: 'The template changes will lost! Continue?'
   },
   login: {
     ENTER: 'autentificare',

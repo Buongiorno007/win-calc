@@ -582,6 +582,7 @@ $aux-img-select-path: 'auxiliaries-selected';
     @extend .modal-dialog;
 
     height: rem(1048px);
+    padding-top: 2rem;
     overflow: hidden;
     z-index: 20;
 

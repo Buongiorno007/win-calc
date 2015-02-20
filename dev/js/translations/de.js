@@ -23,7 +23,8 @@ window.germanDictionary = {
     COPY_ORDER_TXT: 'Sie wollen der Bestellung kopieren?',
     SEND_ORDER_TITLE: 'In die Produktion!',
     SEND_ORDER_TXT: 'Sie wollen die Bestellung auf den Betrieb absenden?',
-    TEMPLATE_CHANGES_LOST: 'Изменения в шаблоне будут потеряны! Продолжить?'
+    NEW_TEMPLATE_TITLE: 'Template changing',
+    TEMPLATE_CHANGES_LOST: 'The template changes will lost! Continue?'
   },
   login: {
     ENTER: 'Einloggen',

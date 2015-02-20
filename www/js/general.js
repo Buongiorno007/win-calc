@@ -13,12 +13,12 @@ var STEP = 50,
     activeClass = 'active',
     unvisibleClass = 'unvisible',
     movePanelClass = 'move-panel',
-    sounds = {
-      menu: {start: 7.93, end: 11.7},
-      swip: {start: 8, end: 9},
-      price: {start: 21, end: 23.47},
-      fly: {start: 0.57, end: 1.59},
-      switching: {start: 1.81, end: 2.88}
+    soundsIntervals = {
+      //menu: {start: 7.93, end: 11.7},
+      //swip: {start: 8, end: 9},
+      price: {from: 21, to: 23.47}//,
+      //fly: {start: 0.57, end: 1.59},
+      //switching: {start: 1.81, end: 2.88}
     };
 
 Array.prototype.min = function () {
@@ -104,23 +104,30 @@ function removeClassWithDelay(element, className, delay) {
 */
 
 //---------- Deactivate Size Box for SVG Construction
+function deactiveSizeBox(sizeRectActClass, sizeBoxActClass) {
+  $('g.size-box').each(function () {
+    $(this).find('.'+sizeRectActClass).addClass('size-rect').removeClass(sizeRectActClass);
+    $(this).find('.'+sizeBoxActClass).addClass('size-value-edit').removeClass(sizeBoxActClass);
+  });
+}
+/*
 function deactiveSizeBox(sizeEditClass, sizeClass) {
   $('g.size-box-edited').each(function () {
     this.instance.removeClass(sizeEditClass);
     this.instance.addClass(sizeClass);
   });
 }
-
-
+*/
 
 //----------- Play audio sounds
 function playSound(element) {
   var audioPlayer = document.getElementById('sounds');
-  audioPlayer.currentTime = sounds[element].start;
+  audioPlayer.currentTime = soundsIntervals[element].from;
   audioPlayer.play();
-
+  console.log('currentTime', audioPlayer.currentTime);
   var handle = function() {
-    var end = sounds[element].end;
+    var end = soundsIntervals[element].to;
+    console.log(this.currentTime + ' = ' + end);
     if(this.currentTime >= end) {
       this.pause();
       this.removeEventListener('timeupdate', handle);

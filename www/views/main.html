@@ -139,16 +139,12 @@
       <div ng-controller="TemplateSelectorCtrl" ng-class="{'active': global.showPanels.showTemplatePanel}" class="config-panel template-container">
         <div ng-if="global.isTemplatePanel" class="template-inner">
           <div class="template-header">
-            <button ng-if="global.isConstructDoor" show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}" class="template-title unvisible">{{ global.templateLabel }}</button>
-            <button ng-if="global.isConstructBalcony" show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}" class="template-title unvisible">{{ global.templateLabel }}</button>
-            <button ng-if="global.isConstructWindDoor" ng-class="{'active': templatePanel.switcherTemplate}" hm-tap="toggleTemplate()" show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}" class="template-title unvisible">{{ global.templateLabel }}
+            <button ng-class="{'active': templatePanel.switcherTemplate}" hm-tap="toggleTemplate()" show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}" class="template-title unvisible">{{ global.templateLabel }}
               <div ng-if="templatePanel.switcherTemplate" class="template-type">
-                <div hm-tap="turnOnTemplate('window')" class="window-config">{{ 'panels.TEMPLATE_WINDOW' | translate }}</div>
-              </div>
-            </button>
-            <button ng-if="global.isConstructWind" ng-class="{'active': templatePanel.switcherTemplate}" hm-tap="toggleTemplate()" show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}" class="template-title unvisible">{{ global.templateLabel }}
-              <div ng-if="templatePanel.switcherTemplate" class="template-type">
-                <div hm-tap="turnOnTemplate('balcon')" class="balcon-config">{{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}</div>
+                <div ng-if="!global.isConstructWind" hm-tap="turnOnTemplate('window')" class="template-type-btn">{{ 'panels.TEMPLATE_WINDOW' | translate }}</div>
+                <div ng-if="!global.isConstructBalcony" hm-tap="turnOnTemplate('balcon')" class="template-type-btn">{{ 'panels.TEMPLATE_BALCONY' | translate }}</div>
+                <div ng-if="!global.isConstructDoor" hm-tap="turnOnTemplate('door')" class="template-type-btn">{{ 'panels.TEMPLATE_DOOR' | translate }}</div>
+                <div ng-if="!global.isConstructWindDoor" hm-tap="turnOnTemplate('balconEnter')" class="template-type-btn">{{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}</div>
               </div>
             </button>
             <div show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}" class="template-discr unvisible">{{ global.templates[global.product.templateIndex].name }}</div>
@@ -585,7 +581,7 @@
           <button show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" hm-tap="showWindowScheme()" class="scheme-info unvisible"></button>
           <div ng-class="{'active': global.isWindowSchemeDialog}" class="scheme-view-dialog">
             <div class="template-scheme">
-              <svg-template template="global.product.templateDefault" template-width="global.svgTemplateIconWidth" template-height="global.svgTemplateIconHeight" type-construction="bigIcon"></svg-template>
+              <svg-template template="global.product.templateDefault" template-width="global.svgTemplateIconBigWidth" template-height="global.svgTemplateIconBigHeight" type-construction="bigIcon"></svg-template>
             </div>
             <div hm-tap="closeWindowScheme()" class="close-dialog"></div>
           </div>

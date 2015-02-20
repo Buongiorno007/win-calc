@@ -31,7 +31,7 @@ section.construction-page(ng-controller="ConstructionCtrl")
 
     #sash-shape-menu.constr-shape-menu(ng-show="constructData.isSashEdit && constructData.isSashEditMenu")
       ul.constr-shape-list
-        li.constr-shape-icon.sash-empty(hm-tap="insertNewSash('empty')")
+        li.constr-shape-icon.sash-empty(ng-hide="global.isConstructDoor", hm-tap="insertNewSash('empty')")
         li.constr-shape-icon.sash-left(hm-tap="insertNewSash('left')")
         li.constr-shape-icon.sash-right(hm-tap="insertNewSash('right')")
         li.constr-shape-icon.sash-up(hm-tap="insertNewSash('up')")
@@ -41,8 +41,8 @@ section.construction-page(ng-controller="ConstructionCtrl")
 
     #impost-shape-menu.constr-shape-menu(ng-show="constructData.isImpostEdit && constructData.isImpostEditMenu")
       ul.constr-shape-list
-        li.constr-shape-icon.sash-up(hm-tap="insertNewImpost('vert')")
-        li.constr-shape-icon.sash-left(hm-tap="insertNewImpost('horis')")
+        li.constr-shape-icon.impost-vert(hm-tap="insertNewImpost('vert')")
+        li.constr-shape-icon.impost-hor(hm-tap="insertNewImpost('horis')")
 
     .construction-right-menu
       .right-menu-header

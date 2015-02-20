@@ -396,7 +396,12 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     }
   };
 
-
+  $scope.global.setDefaultDoorConfig = function() {
+    $scope.global.product.doorShapeId = 0;
+    $scope.global.product.doorSashShapeId = 0;
+    $scope.global.product.doorHandleShapeId = 0;
+    $scope.global.product.doorLockShapeId = 0;
+  };
 
 
 
@@ -592,6 +597,7 @@ console.log('FIRST START!!!!!!!!!!');
       clearShowPanelsObj();
       $scope.global.showPanels.showTemplatePanel = true;
       $scope.global.isTemplatePanel = true;
+      $scope.global.isAddElementListView = false;
     }
   };
   $scope.selectProfilePanel = function() {
@@ -601,6 +607,7 @@ console.log('FIRST START!!!!!!!!!!');
       clearShowPanelsObj();
       $scope.global.showPanels.showProfilePanel = true;
       $scope.global.isProfilePanel = true;
+      $scope.global.isAddElementListView = false;
     }
   };
   $scope.selectGlassPanel = function() {
@@ -610,6 +617,7 @@ console.log('FIRST START!!!!!!!!!!');
       clearShowPanelsObj();
       $scope.global.showPanels.showGlassPanel = true;
       $scope.global.isGlassPanel = true;
+      $scope.global.isAddElementListView = false;
     }
   };
   $scope.selectHardwarePanel = function() {
@@ -619,6 +627,7 @@ console.log('FIRST START!!!!!!!!!!');
       clearShowPanelsObj();
       $scope.global.showPanels.showHardwarePanel = true;
       $scope.global.isHardwarePanel = true;
+      $scope.global.isAddElementListView = false;
     }
   };
   $scope.selectLaminationPanel = function() {
@@ -628,6 +637,7 @@ console.log('FIRST START!!!!!!!!!!');
       clearShowPanelsObj();
       $scope.global.showPanels.showLaminationPanel = true;
       $scope.global.isLaminationPanel = true;
+      $scope.global.isAddElementListView = false;
     }
   };
   $scope.selectAddElementsPanel = function() {

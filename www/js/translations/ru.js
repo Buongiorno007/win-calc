@@ -26,6 +26,7 @@ window.russianDictionary = {
     COPY_ORDER_TXT: 'Хотите сделать копию заказа?',
     SEND_ORDER_TITLE: 'В производство!',
     SEND_ORDER_TXT: 'Хотите отправить заказ на завод?',
+    NEW_TEMPLATE_TITLE: 'Изменение шаблона',
     TEMPLATE_CHANGES_LOST: 'Изменения в шаблоне будут потеряны! Продолжить?'
   },
   login: {

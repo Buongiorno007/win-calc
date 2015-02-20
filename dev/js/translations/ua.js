@@ -22,7 +22,9 @@ window.ukrainianDictionary = {
     COPY_ORDER_TITLE: 'Копіювання!',
     COPY_ORDER_TXT: 'Хочете зробити копію замовлення?',
     SEND_ORDER_TITLE: 'На виробництво!',
-    SEND_ORDER_TXT: 'Хочете відправити замовлення на завод?'
+    SEND_ORDER_TXT: 'Хочете відправити замовлення на завод?',
+    NEW_TEMPLATE_TITLE: 'Зміна шаблона',
+    TEMPLATE_CHANGES_LOST: 'Зміни у шаблоні будуть загублені. Продовжити?'
   },
   login: {
     ENTER: 'Увійти',

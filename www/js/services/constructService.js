@@ -4081,15 +4081,15 @@ BauVoiceApp.factory('constructService', function ($q) {
         doorType: [
           {
             shapeId: 1,
-            shapeLabel: 'без порога',
-            shapeIcon: 'img/door-config/no-doorstep.png',
-            shapeIconSelect: 'img/door-config-selected/no-doorstep.png'
-          },
-          {
-            shapeId: 2,
             shapeLabel: 'по периметру',
             shapeIcon: 'img/door-config/doorstep.png',
             shapeIconSelect: 'img/door-config-selected/doorstep.png'
+          },
+          {
+            shapeId: 2,
+            shapeLabel: 'без порога',
+            shapeIcon: 'img/door-config/no-doorstep.png',
+            shapeIconSelect: 'img/door-config-selected/no-doorstep.png'
           },
           {
             shapeId: 3,

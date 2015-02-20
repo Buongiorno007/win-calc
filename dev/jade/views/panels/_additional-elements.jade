@@ -233,7 +233,7 @@
 
     .scheme-view-dialog(ng-class="{'active': global.isWindowSchemeDialog}")
       .template-scheme
-        svg-template(template="global.product.templateDefault", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="bigIcon")
+        svg-template(template="global.product.templateDefault", template-width="global.svgTemplateIconBigWidth", template-height="global.svgTemplateIconBigHeight", type-construction="bigIcon")
       .close-dialog(hm-tap="closeWindowScheme()")
 
     button.view-switch-tab.unvisible(show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}", hm-tap="viewSwitching()") {{ 'add_elements.LIST_VIEW' | translate }}

@@ -17,24 +17,57 @@ BauVoiceApp.directive('svgTemplate', [ function() {
     },
     link: function (scope, elem, attrs) {
       var svg = buildTemplateSVG(scope.template, scope.templateWidth, scope.templateHeight);
+      if(scope.typeConstruction === 'edit') {
+        elem.css({opacity: 0, visibility: 'hidden'});
+      }
       elem.html(svg);
       if(scope.typeConstruction === 'edit') {
-        //setTimeout(function() {
-          startPinch();
-        //}, 500);
-
+        //if(window.panZoom) {
+        //  window.panZoom.destroy();
+        //  delete window.panZoom;
+        //}
+        startPinch();
+        elem.css({opacity: 1, visibility: 'visible'});
       }
 
       scope.$watch('template', function () {
         var svg = buildTemplateSVG(scope.template, scope.templateWidth, scope.templateHeight);
+        if(scope.typeConstruction === 'edit') {
+          elem.css({opacity: 0, visibility: 'hidden'});
+        }
         elem.html(svg);
         if(scope.typeConstruction === 'edit') {
-          //setTimeout(function() {
-            startPinch();
-          //}, 500);
+          //if(window.panZoom) {
+          //  window.panZoom.destroy();
+          //  delete window.panZoom;
+          //}
+          startPinch();
+          setTimeout(function(){
+            elem.css({opacity: 1, visibility: 'visible'});
+          }, 100);
+
         }
       });
+/*
+      scope.$watch('doorConfig', function () {
+        var svg = buildTemplateSVG(scope.template, scope.templateWidth, scope.templateHeight);
+        if(scope.typeConstruction === 'edit') {
+          elem.css({opacity: 0, visibility: 'hidden'});
+        }
+        elem.html(svg);
+        if(scope.typeConstruction === 'edit') {
+          //if(window.panZoom) {
+          //  window.panZoom.destroy();
+          //  delete window.panZoom;
+          //}
+          startPinch();
+          setTimeout(function(){
+            elem.css({opacity: 1, visibility: 'visible'});
+          }, 100);
 
+        }
+      });
+*/
       function buildTemplateSVG(template, canvasWidth, canvasHeight) {
         //console.log(template);
         var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"),
@@ -86,12 +119,49 @@ BauVoiceApp.directive('svgTemplate', [ function() {
 
           switch(template.objects[i].type) {
             case 'frame':
-              //for(var p = 0; p < template.objects[i].parts.length; p++) {
-              path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ' + template.objects[i].parts[0].toPoint.x + ' ' + template.objects[i].parts[0].toPoint.y + ' ';
-              path += template.objects[i].parts[1].toPoint.x + ' ' + template.objects[i].parts[1].toPoint.y + ' ' + template.objects[i].parts[1].fromPoint.x + ' ' + template.objects[i].parts[1].fromPoint.y + ' ';
-              path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ';
-              //}
-              elementsSVG.frames.push(path);
+              //console.log('scope.parent.global.isConstructDoor =', scope.$parent.global.isConstructDoor);
+              if(scope.$parent.global.isConstructDoor && scope.$parent.global.product.doorShapeId > 0){
+                //console.log('doorConfig =', scope.$parent.global.product.doorShapeId);
+                switch(template.objects[i].id) {
+                  //----- without doorstep
+                  case 'frame1':
+                    path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ' + template.objects[i].parts[0].toPoint.x + ' ' + template.objects[i].parts[0].toPoint.y + ' ';
+                    path += template.objects[i].parts[1].toPoint.x + ' ' + template.objects[i].parts[1].toPoint.y + ' ' + template.objects[i].parts[1].fromPoint.x + ' ' + template.objects[i].parts[1].fromPoint.y + ' ';
+                    path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ';
+                    break;
+                  case 'frame2':
+                    path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ' + template.objects[i].parts[0].toPoint.x + ' ' + template.objects[i].parts[0].toPoint.y + ' ';
+                    path += template.objects[i].parts[1].toPoint.x + ' ' + template.objects[i].parts[0].toPoint.y + ' ' + template.objects[i].parts[1].fromPoint.x + ' ' + template.objects[i].parts[1].fromPoint.y + ' ';
+                    path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ';
+                    break;
+                  case 'frame3':
+                    if(scope.$parent.global.product.doorShapeId === 2) {
+                      //----- inside Al doorstep
+                      path += template.objects[i].parts[1].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ' + template.objects[i].parts[1].toPoint.x + ' ' + template.objects[i].parts[0].toPoint.y + ' ';
+                      path += template.objects[i].parts[1].toPoint.x + ' ' + (+template.objects[i].parts[0].toPoint.y - 35) + ' ' + template.objects[i].parts[1].fromPoint.x + ' ' + (+template.objects[i].parts[0].fromPoint.y - 35) + ' ';
+                      path += template.objects[i].parts[1].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ';
+                    } else if(scope.$parent.global.product.doorShapeId === 3) {
+                      //----- outside Al doorstep
+                      path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ' + template.objects[i].parts[0].toPoint.x + ' ' + template.objects[i].parts[0].toPoint.y + ' ';
+                      path += template.objects[i].parts[0].toPoint.x + ' ' + (+template.objects[i].parts[0].toPoint.y + 20) + ' ' + template.objects[i].parts[0].fromPoint.x + ' ' + (+template.objects[i].parts[0].fromPoint.y + 20) + ' ';
+                      path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ';
+                    }
+                    break;
+                  case 'frame4':
+                    path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ' + template.objects[i].parts[0].toPoint.x + ' ' + template.objects[i].parts[0].toPoint.y + ' ';
+                    path += template.objects[i].parts[1].toPoint.x + ' ' + template.objects[i].parts[1].toPoint.y + ' ' + template.objects[i].parts[1].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ';
+                    path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ';
+                    break;
+                }
+
+              } else {
+                path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ' + template.objects[i].parts[0].toPoint.x + ' ' + template.objects[i].parts[0].toPoint.y + ' ';
+                path += template.objects[i].parts[1].toPoint.x + ' ' + template.objects[i].parts[1].toPoint.y + ' ' + template.objects[i].parts[1].fromPoint.x + ' ' + template.objects[i].parts[1].fromPoint.y + ' ';
+                path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ';
+              }
+              if(path !== '') {
+                elementsSVG.frames.push(path);
+              }
               break;
 
             case 'impost':
@@ -334,13 +404,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
         //------- Drawing elements SVG of construction
 
         draw = SVG(svg).size(canvasWidth, canvasHeight);
-
-        if(scope.typeConstruction === 'edit') {
-          var mainGroup = draw.group().attr('class', 'svg-pan-zoom_viewport').attr('transform', 'scale(0)');
-        } else {
-          var mainGroup = draw.group();
-        }
-
+        var mainGroup = draw.group().attr('class', 'svg-pan-zoom_viewport');
         for(var prop in elementsSVG) {
           if (!elementsSVG.hasOwnProperty(prop)) {
             continue;
@@ -350,9 +414,17 @@ BauVoiceApp.directive('svgTemplate', [ function() {
             switch (prop) {
               case 'frames':
                 if(scope.typeConstruction === 'icon') {
-                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'frame-icon');
+                  if(elem === 2 && scope.$parent.global.product.doorShapeId === 2 || elem === 2 && scope.$parent.global.product.doorShapeId === 3) {
+                    group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'frame-icon doorstep');
+                  } else {
+                    group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'frame-icon');
+                  }
                 } else {
-                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'frame');
+                  if(elem === 2 && scope.$parent.global.product.doorShapeId === 2 || elem === 2 && scope.$parent.global.product.doorShapeId === 3) {
+                    group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'frame doorstep');
+                  } else {
+                    group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'frame');
+                  }
                 }
                 break;
               case 'imposts':
@@ -377,11 +449,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                 }
                 break;
               case 'glasses':
-                /*if(scope.typeConstruction === 'edit') {
-                  group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'glass-active');
-                } else {*/
-                  group.path('M' + elementsSVG[prop][elem].path + 'z').attr('class', 'glass').attr('element-id', elementsSVG[prop][elem].id);
-                //}
+                group.path('M' + elementsSVG[prop][elem].path + 'z').attr('class', 'glass').attr('element-id', elementsSVG[prop][elem].id);
                 break;
               case 'openDirections':
                 group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'open-direction');
@@ -451,12 +519,13 @@ BauVoiceApp.directive('svgTemplate', [ function() {
 
                     if(prop === 'dimensionsH') {
                       sizeRect.cx(elementsSVG[prop][elem].textX).cy(elementsSVG[prop][elem].textY + 5);
-                      sizeText.attr('class', 'size-value-edit');
+                      //sizeText.attr('class', 'size-value-edit');
                     } else if(prop === 'dimensionsV') {
                       sizeRect.cx(elementsSVG[prop][elem].textX).cy(elementsSVG[prop][elem].textY + 5);
                       //sizeRect.cx(elementsSVG[prop][elem].textX - 50).cy(elementsSVG[prop][elem].textY + 5);
-                      sizeText.attr('class', 'size-value-edit-vertical');
+                      //sizeText.attr('class', 'size-value-edit-vertical');
                     }
+                    sizeText.attr('class', 'size-value-edit');
                     sizeRect.radius(sizeBoxRadius);
 
 
@@ -473,11 +542,14 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                     if(elementsSVG[prop][elem].id) {
                       sizeText.attr('id', elementsSVG[prop][elem].id);
                     }
+                    /*
                     if(prop === 'dimensionsV') {
                       sizeText.attr('class', 'size-value-vertical');
                     } else {
                       sizeText.attr('class', 'size-value');
                     }
+                    */
+                    sizeText.attr('class', 'size-value');
                   }
 
 
@@ -505,17 +577,20 @@ BauVoiceApp.directive('svgTemplate', [ function() {
                       sizeText.attr('class', 'size-value');
                     }
                   }
-                   */
+
                   // Click on size
-                  sizeText.click(function() {
+
+                  groupTxt.click(function() {
                     if(scope.typeConstruction === 'edit' && !scope.$parent.global.isConstructSizeCalculator) {
                       console.log('svg click on size =', this);
                       deactiveSizeBox(sizeEditClass, sizeClass);
-                      this.closest().toggleClass(sizeClass);
-                      this.closest().toggleClass(sizeEditClass);
+                      this.toggleClass(sizeClass);
+                      this.toggleClass(sizeEditClass);
                     }
                   });
+                   */
                 }
+
 /*
                 if(scope.typeConstruction === 'bigIcon') {
                   if (prop === 'dimensionsV') {
@@ -548,9 +623,9 @@ BauVoiceApp.directive('svgTemplate', [ function() {
           //console.log($('.construction-scrollbox').scrollLeft());
 */
         if(scope.typeConstruction === 'icon') {
-          draw.viewbox(0, 0, overallDimH, overallDimV);
+          draw.viewbox(0, 0, overallDimH, (overallDimV + 20));
         } else  if(scope.typeConstruction === 'bigIcon'){
-          draw.viewbox(-edgeLeft, -edgeTop, (overallDimH + edgeLeft), (overallDimV + edgeTop));
+          draw.viewbox(-edgeLeft, -edgeTop, (overallDimH + edgeLeft), (overallDimV + edgeTop + 20));
         } else if(scope.typeConstruction === 'edit') {
           draw.attr({width: '100%', height: '100%'});
           draw.viewbox(-edgeLeft, -edgeTop, (overallDimH + edgeLeft), (overallDimV + edgeTop));
@@ -649,7 +724,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
 
       function startPinch() {
         var svgElement = document.getElementById('svg-construction');
-        console.log('svgElement', svgElement);
+        //console.log('svgElement', svgElement);
         // Expose to window namespace for testing purposes
         window.panZoom = svgPanZoom(svgElement, {
           zoomEnabled: true,
@@ -662,7 +737,6 @@ BauVoiceApp.directive('svgTemplate', [ function() {
           customEventsHandler: eventsHandler
         });
       }
-
 
     }
   };
