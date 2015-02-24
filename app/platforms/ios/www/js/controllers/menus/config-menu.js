@@ -332,7 +332,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   };
 
   $scope.global.setProductPriceTOTAL = function() {
-    playSound('price');
+    //playSound('price');
     $scope.global.product.productPriceTOTAL = $scope.global.product.templatePriceSELECT + $scope.global.product.laminationPriceSELECT + $scope.global.product.addElementsPriceSELECT;
     //------- после первой загрузки создается дефолтный объект
     if($scope.global.startProgramm) {
@@ -344,7 +344,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   };
 
   $scope.global.setProductPriceTOTALapply = function() {
-    playSound('price');
+    //playSound('price');
     $scope.global.product.productPriceTOTAL = $scope.global.product.templatePriceSELECT + $scope.global.product.laminationPriceSELECT + $scope.global.product.addElementsPriceSELECT;
   };
 

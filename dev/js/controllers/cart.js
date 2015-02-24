@@ -635,7 +635,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
     var curentType;
     //----- if we delete all AddElement Unit in header of Unit Detail panel
     if($scope.cart.isShowAddElementUnit) {
-      playSound('swip');
+      //playSound('swip');
       $scope.cart.isShowAddElementUnit = !$scope.cart.isShowAddElementUnit;
       $scope.cart.selectedAddElementUnitId = 0;
       $scope.cart.selectedAddElementUnitIndex = 0;
@@ -684,7 +684,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
   //-------- show Add Element Unit Detail panel
   $scope.showAddElementUnitDetail = function(elementType, elementId, elementIndex) {
-    playSound('swip');
+    //playSound('swip');
     $scope.cart.isShowAddElementUnit = !$scope.cart.isShowAddElementUnit;
     if($scope.cart.isShowAddElementUnit) {
       $scope.cart.selectedAddElementUnitId = elementId;

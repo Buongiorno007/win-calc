@@ -11,11 +11,11 @@ var STEP = 50,
     unvisibleClass = 'unvisible',
     movePanelClass = 'move-panel',
     soundsIntervals = {
-      //menu: {start: 7.93, end: 11.7},
-      //swip: {start: 8, end: 9},
-      price: {from: 21, to: 23.47}//,
-      //fly: {start: 0.57, end: 1.59},
-      //switching: {start: 1.81, end: 2.88}
+      menu: {start: 7.93, end: 11.7},
+      swip: {start: 8, end: 9},
+      price: {from: 21.5, to: 23.2},
+      fly: {start: 0.57, end: 1.59},
+      switching: {start: 1.81, end: 2.88}
     };
 
 Array.prototype.min = function () {
@@ -117,23 +117,26 @@ function deactiveSizeBox(sizeEditClass, sizeClass) {
 */
 
 //----------- Play audio sounds
+
 function playSound(element) {
   var audioPlayer = document.getElementById('sounds');
+  //console.log('currentTime1', audioPlayer.currentTime);
+  audioPlayer.pause();
   audioPlayer.currentTime = soundsIntervals[element].from;
-  audioPlayer.play();
-  console.log('currentTime', audioPlayer.currentTime);
-  var handle = function() {
+  if(audioPlayer.currentTime === soundsIntervals[element].from) {
+    audioPlayer.play();
+    audioPlayer.addEventListener('timeupdate', handle, false);
+  }
+  //console.log('currentTime2', audioPlayer.currentTime);
+  function handle() {
     var end = soundsIntervals[element].to;
-    console.log(this.currentTime + ' = ' + end);
+    //console.log(this.currentTime + ' = ' + end);
     if(this.currentTime >= end) {
       this.pause();
       this.removeEventListener('timeupdate', handle);
     }
-  };
-  audioPlayer.addEventListener('timeupdate', handle, false);
+  }
 }
-
-
 
 
 

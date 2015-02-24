@@ -13,6 +13,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
       templateHeight: '='
     },
     link: function (scope, elem, attrs) {
+      /*
       var svg = buildTemplateSVG(scope.template, scope.templateWidth, scope.templateHeight);
       if(scope.typeConstruction === 'edit') {
         elem.css({opacity: 0, visibility: 'hidden'});
@@ -26,7 +27,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
         startPinch();
         elem.css({opacity: 1, visibility: 'visible'});
       }
-
+*/
       scope.$watch('template', function () {
         var svg = buildTemplateSVG(scope.template, scope.templateWidth, scope.templateHeight);
         if(scope.typeConstruction === 'edit') {

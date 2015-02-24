@@ -241,6 +241,7 @@ window.englishDictionary = {
   settings: {
     AUTHORIZATION: 'Authorization:',
     CHANGE_PASSWORD: 'Change password',
+    CHANGE_LANGUAGE: 'Change language',
     PRIVATE_INFO: 'Personal information:',
     USER_NAME: 'Contact person',
     CITY: 'City',

@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStorage', 'localDB', '$location', '$filter', function ($scope, constructService, localStorage, localDB, $location, $filter) {
+BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStorage', 'localDB', 'globalDB', '$location', '$filter', function ($scope, constructService, localStorage, localDB, globalDB, $location, $filter) {
 
   $scope.global = localStorage;
 
@@ -357,6 +357,10 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
           if($scope.orders[ord].orderId === orderNum) {
             $scope.orders[ord].orderStyle = orderDoneStyle;
             $scope.ordersSource[ord].orderStyle = orderDoneStyle;
+
+            //------ synchronize with Global BD
+            console.log('sendOrder!!!!', $scope.orders[ord]);
+            globalDB.sendOrder($scope.orders[ord], function(result){console.log(result)});
           }
         }
         localDB.updateDB($scope.global.ordersTableBD, {'orderStyle': orderDoneStyle}, {'orderId': orderNum});

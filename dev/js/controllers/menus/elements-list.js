@@ -331,7 +331,7 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', 'globalDB'
 
   // Show Tabs
   $scope.showFrameTabs = function() {
-    playSound('swip');
+    //playSound('swip');
     $scope.global.isTabFrame = !$scope.global.isTabFrame;
   };
 
@@ -381,12 +381,12 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', 'globalDB'
   $scope.closeAddElementsMenu = function() {
     $scope.global.isFocusedAddElement = false;
     $scope.global.isTabFrame = false;
-    playSound('swip');
+    //playSound('swip');
     $scope.global.showAddElementsMenu = false;
     $scope.global.desactiveAddElementParameters();
     $timeout(function() {
       $scope.global.isAddElement = false;
-      playSound('swip');
+      //playSound('swip');
       $scope.global.addElementsMenuStyle = false;
     }, $scope.addElementsMenu.DELAY_SHOW_ELEMENTS_MENU);
   };

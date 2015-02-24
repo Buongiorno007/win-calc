@@ -51,6 +51,9 @@ function changePrice(price, elem) {
   if(price === undefined) {
     return false;
   } else {
+
+    playSound('price');
+
     //priceByDigit = price.toString().split('');
     if(typeof price === 'string') {
       priceByDigit = price.split('');

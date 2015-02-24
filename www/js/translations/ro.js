@@ -241,6 +241,7 @@ window.romanianDictionary = {
   settings: {
     AUTHORIZATION: 'Autentificare:',
     CHANGE_PASSWORD: 'schimbați parola',
+    CHANGE_LANGUAGE: 'Change language',
     PRIVATE_INFO: 'Informații personale:',
     USER_NAME: 'persoana de contact',
     CITY: 'oraș',

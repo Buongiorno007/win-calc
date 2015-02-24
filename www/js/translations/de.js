@@ -241,6 +241,7 @@ window.germanDictionary = {
   settings: {
     AUTHORIZATION: 'Autorisierung:',
     CHANGE_PASSWORD: 'Kennwort ändern',
+    CHANGE_LANGUAGE: 'Change language',
     PRIVATE_INFO: 'Persönliche Informationen:',
     USER_NAME: 'Gesprächspartner',
     CITY: 'Stadt',
