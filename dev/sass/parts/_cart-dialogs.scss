@@ -165,7 +165,7 @@
 
 
 // Form
-
+/*
 .input-field {
   //TODO возникли проблемы при вводе логина и пароля
   //@include user-select('all');
@@ -192,6 +192,7 @@
     border-color: $error_color;
   }
 }
+*/
 
 .time-block {
   display: inline-block;
@@ -218,6 +219,29 @@
   outline: none;
 }
 
+.subtitle-field {
+  @include roboto-lt(rem(36px));
+  //margin-bottom: rem(20px);
+  text-align: left;
+  color: $main_gray_txt;
+}
+
+.label-field {
+  margin: 10.25rem;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  color: $main_gray_txt;
+}
+.radio-field {
+
+}
+.user-select-field {
+  @extend .user-field;
+  @include appearance(none);
+  background-color: #fff;
+}
+
+
+/*
 .error-tooltip {
   @include top_left_coord(-10px, 600px);
   @include roboto-lt(rem(36px));
@@ -243,4 +267,4 @@
     content: '';
   }
 }
-
+*/

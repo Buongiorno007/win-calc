@@ -25,19 +25,19 @@ Array.prototype.min = function () {
   return this.reduce(function (p, v) {
     return ( p < v ? p : v );
   });
-}
+};
 
 Array.prototype.max = function () {
   return this.reduce(function (p, v) {
     return ( p > v ? p : v );
   });
-}
+};
 
 Array.prototype.removeDuplicates = function() {
   return this.filter(function(elem, index, self) {
     return index == self.indexOf(elem);
   });
-}
+};
 
 function sortNumbers(a, b) {
   return a - b;

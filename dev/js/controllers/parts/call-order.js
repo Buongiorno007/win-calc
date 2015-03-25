@@ -4,7 +4,7 @@ BauVoiceApp.controller('CallOrderCtrl', ['$scope', 'constructService', 'localSto
 
   $scope.global = localStorage;
   $scope.orderStyle = 'order';
-  $scope.user = {};
+  $scope.user = $scope.global.createUserXOrder();
 
   // Search Location
   $scope.showTipCity = false;
@@ -60,7 +60,7 @@ BauVoiceApp.controller('CallOrderCtrl', ['$scope', 'constructService', 'localSto
   // Close Call Master Dialog
   $scope.hideCallOrderDialog = function() {
     $scope.submitted = false;
-    $scope.user = {};
+    $scope.user = $scope.global.createUserXOrder();
     $scope.showTipCity = false;
     $scope.currentCity = false;
     $scope.global.showOrderDialog = false;

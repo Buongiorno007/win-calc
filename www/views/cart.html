@@ -960,6 +960,31 @@
             <div class="input-field">
               <input type="tel" name="phone2" ng-model="user.phone2" ng-pattern="" placeholder="{{ 'cart.ADD_PHONE' | translate }}" class="user-field">
             </div>
+            <div class="input-field">
+              <div class="subtitle-field">{{ 'cart.CLIENT_SEX' | translate }}</div>
+              <label class="label-field">{{ 'cart.CLIENT_SEX_M' | translate }}
+                <input type="radio" name="sex" ng-model="user.sex" value="m" class="radio-field">
+              </label>
+              <label class="label-field">{{ 'cart.CLIENT_SEX_F' | translate }}
+                <input type="radio" name="sex" ng-model="user.sex" value="f" class="radio-field">
+              </label>
+            </div>
+            <div class="input-field">
+              <div class="subtitle-field">{{ 'cart.CLIENT_AGE' | translate }}</div>
+              <select name="age" ng-model="user.age" ng-options="age for age in global.optionAge" class="user-select-field"></select>
+            </div>
+            <div class="input-field">
+              <div class="subtitle-field">{{ 'cart.CLIENT_EDUCATION' | translate }}</div>
+              <select name="education" ng-model="user.education" ng-options="educ for educ in global.optionEductaion" class="user-select-field"></select>
+            </div>
+            <div class="input-field">
+              <div class="subtitle-field">{{ 'cart.CLIENT_OCCUPATION' | translate }}</div>
+              <select name="occupation" ng-model="user.occupation" ng-options="occup for occup in global.optionOccupation" class="user-select-field"></select>
+            </div>
+            <div class="input-field">
+              <div class="subtitle-field">{{ 'cart.CLIENT_INFO_SOURCE' | translate }}</div>
+              <select name="infoSource" ng-model="user.infoSource" ng-options="info for info in global.optionInfo" class="user-select-field"></select>
+            </div>
           </div>
         </form>
       </div>
@@ -1029,6 +1054,31 @@
             </div>
             <div class="input-field">
               <input type="tel" name="phone2" ng-model="user.phone2" ng-pattern="" placeholder="{{ 'cart.ADD_PHONE' | translate }}" class="user-field">
+            </div>
+            <div class="input-field">
+              <div class="subtitle-field">{{ 'cart.CLIENT_SEX' | translate }}</div>
+              <label class="label-field">{{ 'cart.CLIENT_SEX_M' | translate }}
+                <input type="radio" name="sex" ng-model="user.sex" value="m" class="radio-field">
+              </label>
+              <label class="label-field">{{ 'cart.CLIENT_SEX_F' | translate }}
+                <input type="radio" name="sex" ng-model="user.sex" value="f" class="radio-field">
+              </label>
+            </div>
+            <div class="input-field">
+              <div class="subtitle-field">{{ 'cart.CLIENT_AGE' | translate }}</div>
+              <select name="age" ng-model="user.age" ng-options="age for age in global.optionAge" class="user-select-field"></select>
+            </div>
+            <div class="input-field">
+              <div class="subtitle-field">{{ 'cart.CLIENT_EDUCATION' | translate }}</div>
+              <select name="education" ng-model="user.education" ng-options="educ for educ in global.optionEductaion" class="user-select-field"></select>
+            </div>
+            <div class="input-field">
+              <div class="subtitle-field">{{ 'cart.CLIENT_OCCUPATION' | translate }}</div>
+              <select name="occupation" ng-model="user.occupation" ng-options="occup for occup in global.optionOccupation" class="user-select-field"></select>
+            </div>
+            <div class="input-field">
+              <div class="subtitle-field">{{ 'cart.CLIENT_INFO_SOURCE' | translate }}</div>
+              <select name="infoSource" ng-model="user.infoSource" ng-options="info for info in global.optionInfo" class="user-select-field"></select>
             </div>
           </div>
         </form>

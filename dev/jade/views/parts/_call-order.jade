@@ -44,3 +44,26 @@
 
         .input-field
           input.user-field(type="tel", name="phone2", ng-model="user.phone2", ng-pattern="", placeholder="{{ 'cart.ADD_PHONE' | translate }}")
+
+        .input-field
+          .subtitle-field {{ 'cart.CLIENT_SEX' | translate }}
+          label.label-field {{ 'cart.CLIENT_SEX_M' | translate }}
+            input.radio-field(type="radio", name="sex", ng-model="user.sex", value="m")
+          label.label-field {{ 'cart.CLIENT_SEX_F' | translate }}
+            input.radio-field(type="radio", name="sex", ng-model="user.sex", value="f")
+
+        .input-field
+          .subtitle-field {{ 'cart.CLIENT_AGE' | translate }}
+          select.user-select-field(name="age", ng-model="user.age", ng-options="age for age in global.optionAge")
+
+        .input-field
+          .subtitle-field {{ 'cart.CLIENT_EDUCATION' | translate }}
+          select.user-select-field(name="education", ng-model="user.education", ng-options="educ for educ in global.optionEductaion")
+
+        .input-field
+          .subtitle-field {{ 'cart.CLIENT_OCCUPATION' | translate }}
+          select.user-select-field(name="occupation", ng-model="user.occupation", ng-options="occup for occup in global.optionOccupation")
+
+        .input-field
+          .subtitle-field {{ 'cart.CLIENT_INFO_SOURCE' | translate }}
+          select.user-select-field(name="infoSource", ng-model="user.infoSource", ng-options="info for info in global.optionInfo")

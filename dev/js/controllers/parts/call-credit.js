@@ -4,7 +4,7 @@ BauVoiceApp.controller('CallCreditCtrl', ['$scope', 'constructService', 'localSt
 
   $scope.global = localStorage;
   $scope.orderStyle = 'credit';
-  $scope.user = {};
+  $scope.user = $scope.global.createUserXOrder();
   //$scope.user.instalment = 54513123;
 
   // Search Location
@@ -61,7 +61,7 @@ BauVoiceApp.controller('CallCreditCtrl', ['$scope', 'constructService', 'localSt
   // Close Credit Dialog
   $scope.hideCallCreditDialog = function() {
     $scope.submitted = false;
-    $scope.user = {};
+    $scope.user = $scope.global.createUserXOrder();
     $scope.showTipCity = false;
     $scope.currentCity = false;
     $scope.global.showCreditDialog = false;

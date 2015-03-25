@@ -148,6 +148,16 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
     }
   };
 
+  //--------- this function uses into Order/Credit Dialog for create user object and set default values for select fields
+  $scope.global.createUserXOrder = function() {
+    return {
+      sex: 'm',
+      age: $scope.global.optionAge[0],
+      education: $scope.global.optionEductaion[0],
+      occupation: $scope.global.optionOccupation[0],
+      infoSource: $scope.global.optionInfo[0]
+    };
+  };
 
 
   //-------- Calculate Total Order Price
