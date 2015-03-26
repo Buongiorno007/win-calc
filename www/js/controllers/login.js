@@ -4,14 +4,15 @@
 'use strict';
 
 BauVoiceApp.controller('LoginCtrl', ['$scope', '$location', '$translate', 'globalDB', function ($scope, $location, $translate, globalDB) {
-  $scope.isCodeValid = false;
+  $scope.isCodeValid = true;
+  $scope.submitted = false;
   $scope.isCodeCheckingSuccess = true;
 
   $scope.checkCode = function () {
     // запрос на сервер с проверкой кода. Если проверка прошла успешно, то синхронизировать базу данных.
     // Если неуспешно, то выдать сообщение об ошибке.
     //$scope.isCodeCheckingSuccess = !$scope.isCodeCheckingSuccess;
-
+    console.log('click = ', $scope.submitted);
     if ($scope.isCodeCheckingSuccess) {
       $scope.isCodeValid = true;
     }

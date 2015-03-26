@@ -240,6 +240,14 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
     }
   };
 
+  $scope.gotoLinkMoreInfo = function() {
+    //----- for android
+    //navigator.app.loadUrl('http://axorindustry.com', { openExternal:true });
+    //----- for ios
+    var ref = window.open('http://axorindustry.com', '_system');
+    ref.close();
+  };
+
   $scope.switchVoiceHelper = function() {
     $scope.global.isVoiceHelper = !$scope.global.isVoiceHelper;
     if($scope.global.isVoiceHelper) {
@@ -349,7 +357,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
     angular.extend($scope.global.order, newOptions);
     //------- save order in orders LocalStorage
     $scope.global.orders.push($scope.global.order);
-//console.log(JSON.stringify($scope.global.order));
+    //console.log(JSON.stringify($scope.global.order));
     //------- save order in LocalDB
     orderData = angular.copy($scope.global.order);
     delete orderData.products;

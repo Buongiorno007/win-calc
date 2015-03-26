@@ -27,7 +27,7 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
 
   //---------- select new template and recalculate it price
   $scope.selectNewTemplate = function(templateIndex) {
-/*
+    $scope.templatePanel.switcherTemplate = false;
     function goToNewTemplate(button) {
       if(button == 1) {
         //------ change last changed template to old one
@@ -36,17 +36,17 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
         $scope.newPriceForNewTemplate(templateIndex);
       }
     }
-*/
+
     if($scope.global.isChangedTemplate) {
     //----- если выбран новый шаблон после изменения предыдущего
-      /*
+/*
       navigator.notification.confirm(
         $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
         goToNewTemplate,
         $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
         [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')]
       );
-       */
+*/
 
       if(confirm($filter('translate')('common_words.TEMPLATE_CHANGES_LOST'))) {
         //------ change last changed template to old one
@@ -116,7 +116,7 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
 
   //------- Select Window/Balcony Entry Template
   $scope.turnOnTemplate = function(marker) {
-
+    $scope.templatePanel.switcherTemplate = false;
     if($scope.global.isChangedTemplate) {
       //----- если выбран новый шаблон после изменения предыдущего
       if(confirm($filter('translate')('common_words.TEMPLATE_CHANGES_LOST'))) {
@@ -139,7 +139,7 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
       //------ define product price
       $scope.global.createObjXFormedPrice($scope.global.templates[$scope.global.product.templateIndex], $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
     }
-    console.log('$scope.templatePanel.switcherTemplate == ', $scope.templatePanel.switcherTemplate);
+    //console.log('$scope.templatePanel.switcherTemplate == ', $scope.templatePanel.switcherTemplate);
   };
 
 

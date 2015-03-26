@@ -419,6 +419,19 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
       });
     },
 
+    sendOrder: function (orderJson, callback) {
+      var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), deviceCode;
+      var self = this;
+      this.getDeviceCodeLocalDb(function (result) {
+        deviceCode = result.data.deviceCode;
+        $http.post('http://api.voice-creator.net/sync/orders?access_token=' + deviceCode, orderJson).success(function (result) {
+          callback(result);
+        }).error(function () {
+          callback(new ErrorResult(2, 'Something went wrong with sync Database!'));
+        });
+      });
+    },
+
     clearDb: function (callback) {
       var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i;
       db.transaction(function (transaction) {

@@ -1,6 +1,7 @@
 .additional-list-container {
   position: relative;
   padding: rem(50px) rem(80px);
+  z-index: 15;
 
   .aux-search-content {
     @include transition(left .5s linear);

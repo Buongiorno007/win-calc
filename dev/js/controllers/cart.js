@@ -355,13 +355,34 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   //----- Delete Product
   $scope.clickDeleteProduct = function(productIndex) {
 
+    if(confirm($filter('translate')('common_words.DELETE_PRODUCT_TITLE'))) {
+      $scope.global.order.products.splice(productIndex, 1);
+      $scope.cart.allAddElements.splice(productIndex, 1);
+
+      if(!$scope.cart.isOrderExisted) {
+        var productIdBD = productIndex + 1;
+        localDB.deleteDB($scope.global.productsTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
+        localDB.deleteDB($scope.global.addElementsTableBD, {'orderId': {"value": $scope.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
+      }
+
+      //----- if all products were deleted go to main page????
+      if($scope.global.order.products.length > 0 ) {
+        // Change order price
+        $scope.global.calculateOrderPrice();
+      } else {
+        $scope.global.calculateOrderPrice();
+        //$scope.global.createNewProjectCart();
+        //TODO create new project
+      }
+    }
+    /*
     navigator.notification.confirm(
       $filter('translate')('common_words.DELETE_PRODUCT_TXT'),
       deleteProduct,
       $filter('translate')('common_words.DELETE_PRODUCT_TITLE'),
       [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')]
     );
-
+*/
     function deleteProduct(button) {
       if(button == 1) {
         //playSound('delete');

@@ -1,9 +1,24 @@
 
 <section class="login-page">
-  <div id="login-container" ng-hide="!isCodeValid" class="login-container">
+  <!--#code-container.login-container(ng-hide="isCodeValid")
+  .logo
+  .text-container
+    p {{ 'login.PASS_CODE' | translate }}
+  .text-container
+    span {{ 'login.YOUR_CODE' | translate }}
+    span {{ deviceCode }}
+  .text-container.error(ng-show="!isCodeCheckingSuccess")
+    p {{ 'login.SOMETHING_WRONG' | translate }}
+    
+  //button.login-submit(type="button", hm-tap="switchLang()") {{ 'SWITCH_LANG' | translate }}
+  //button.login-submit(type="button", hm-tap="checkCode()") ОК
+  .login-submit(hm-tap="checkCode()") ОК
+  
+  -->
+  <div id="login-container" ng-show="isCodeValid" class="login-container">
     <div class="logo"></div>
     <form name="loginForm" novalidate ng-submit="submitForm(loginForm)">
-      <div ng-class="{ 'has-error' : submitted &amp;&amp; loginForm.phone.$error.required }" class="input-field">
+      <div ng-class="{ 'has-error': submitted &amp;&amp; loginForm.phone.$error.required }" class="input-field">
         <input type="tel" name="phone" ng-model="user.phone" ng-pattern="" placeholder="{{ 'login.MOBILE' | translate }}" required class="user-field">
         <div ng-show="submitted &amp;&amp; loginForm.phone.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
         <div ng-show="submitted &amp;&amp; loginForm.phone.$error.pattern || loginForm.phone.$dirty &amp;&amp; loginForm.phone.$error.pattern" class="error-tooltip">{{ 'login.WRONG_NUMBER' | translate }}</div>
@@ -15,17 +30,5 @@
       </div>
       <button type="submit" class="login-submit">{{ 'login.ENTER' | translate }}</button>
     </form>
-  </div>
-  <div id="code-container" ng-hide="isCodeValid" class="login-container">
-    <div class="logo"></div>
-    <div class="text-container">
-      <p>{{ 'login.PASS_CODE' | translate }}</p>
-    </div>
-    <div class="text-container"><span>{{ 'login.YOUR_CODE' | translate }}</span><span>{{ deviceCode }}</span></div>
-    <div ng-show="!isCodeCheckingSuccess" class="text-container error">
-      <p>{{ 'login.SOMETHING_WRONG' | translate }}</p>
-    </div>
-    <!--button.login-submit(type="button", hm-tap="switchLang()") {{ 'SWITCH_LANG' | translate }}-->
-    <button type="button" hm-tap="checkCode()" class="login-submit">ОК</button>
   </div>
 </section>

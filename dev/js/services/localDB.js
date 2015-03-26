@@ -356,6 +356,26 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
     "target": {
       "type": "TEXT",
       "null": "NULL"
+    },
+    "sex": {
+      "type": "TEXT",
+      "null": "NULL"
+    },
+    "age": {
+      "type": "TEXT",
+      "null": "NULL"
+    },
+    "education": {
+      "type": "TEXT",
+      "null": "NULL"
+    },
+    "occupation": {
+      "type": "TEXT",
+      "null": "NULL"
+    },
+    "infoSource": {
+      "type": "TEXT",
+      "null": "NULL"
     }
   });
 
