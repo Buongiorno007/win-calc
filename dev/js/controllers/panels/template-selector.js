@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localStorage', 'constructService', '$filter', function ($scope, $location, localStorage, constructService, $filter) {
+BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localStorage', 'constructService', '$filter', '$cordovaDialogs', function ($scope, $location, localStorage, constructService, $filter, $cordovaDialogs) {
 
   $scope.global = localStorage;
 
@@ -36,6 +36,13 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
 
     if($scope.global.isChangedTemplate) {
     //----- если выбран новый шаблон после изменения предыдущего
+      $cordovaDialogs.confirm(
+        $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
+        $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
+        [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')])
+        .then(function(buttonIndex) {
+          goToNewTemplate(buttonIndex);
+        });
 /*
       navigator.notification.confirm(
         $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
@@ -43,7 +50,7 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
         $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
         [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')]
       );
-*/
+
 
       if(confirm($filter('translate')('common_words.TEMPLATE_CHANGES_LOST'))) {
         //------ change last changed template to old one
@@ -51,7 +58,7 @@ BauVoiceApp.controller('TemplateSelectorCtrl', ['$scope', '$location', 'localSto
         $scope.global.isChangedTemplate = false;
         $scope.newPriceForNewTemplate(templateIndex);
       }
-
+*/
     } else {
       $scope.newPriceForNewTemplate(templateIndex);
     }

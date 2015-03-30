@@ -5,7 +5,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$location', '$filter', function ($scope, localDB, localStorage, $location, $filter) {
+BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$location', '$filter', '$cordovaDialogs', function ($scope, localDB, localStorage, $location, $filter, $cordovaDialogs) {
 
   $scope.global = localStorage;
 
@@ -357,7 +357,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
   //----- Delete Product
   $scope.clickDeleteProduct = function(productIndex) {
-
+    /*
     if(confirm($filter('translate')('common_words.DELETE_PRODUCT_TITLE'))) {
       $scope.global.order.products.splice(productIndex, 1);
       $scope.cart.allAddElements.splice(productIndex, 1);
@@ -378,7 +378,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
         //TODO create new project
       }
     }
-    /*
+
     navigator.notification.confirm(
       $filter('translate')('common_words.DELETE_PRODUCT_TXT'),
       deleteProduct,
@@ -386,6 +386,14 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
       [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')]
     );
 */
+    $cordovaDialogs.confirm(
+      $filter('translate')('common_words.DELETE_PRODUCT_TXT'),
+      $filter('translate')('common_words.DELETE_PRODUCT_TITLE'),
+      [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')])
+      .then(function(buttonIndex) {
+        deleteProduct(buttonIndex);
+      });
+
     function deleteProduct(button) {
       if(button == 1) {
         //playSound('delete');
@@ -403,7 +411,8 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
           // Change order price
           $scope.global.calculateOrderPrice();
         } else {
-          $scope.global.createNewProjectCart();
+          //$scope.global.createNewProjectCart();
+          $scope.global.calculateOrderPrice();
           //TODO create new project
         }
 

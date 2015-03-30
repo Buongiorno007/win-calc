@@ -5,12 +5,22 @@ window.PhonegapApp = {
     this.bindEvents();
   },
   bindEvents: function() {
-    document.addEventListener('deviceready', this.onDeviceReady, true);
+    document.addEventListener('deviceready', this.onDeviceReady, false);
   },
   onDeviceReady: function() {
     //alert('onDeviceReady');
       doInit();
-    angular.bootstrap(document, ['BauVoiceApp']);
+    angular.element(document).ready(function() {
+      angular.bootstrap(document, ['BauVoiceApp']);
+      //$cordovaDialogs
+//      $cordovaInAppBrowser.open('http://ngcordova.com', '_blank', options).then(function () {
+//        console.log("InAppBrowser opened http://ngcordova.com successfully");
+//      }, function (error) {
+//        console.log("Error: " + error);
+//      });
+
+    });
+
   }
 };
 
@@ -21,7 +31,8 @@ window.BauVoiceApp = angular.module('BauVoiceApp', [
   'ngRoute',
   'angular-websql',
   'pascalprecht.translate',
-  'hmTouchEvents'
+  'hmTouchEvents',
+  'ngCordova'
 ])
 .config([
   '$routeProvider',
