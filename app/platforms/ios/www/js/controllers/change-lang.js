@@ -1,6 +1,3 @@
-
-// controllers/change-lang.js
-
 /* globals BauVoiceApp, STEP */
 
 'use strict';

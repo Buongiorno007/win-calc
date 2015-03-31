@@ -1,6 +1,3 @@
-
-// controllers/menus/elements-list.js
-
 /* globals BauVoiceApp, STEP */
 
 'use strict';
@@ -679,4 +676,3 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', 'globalDB'
   };
 
 }]);
-

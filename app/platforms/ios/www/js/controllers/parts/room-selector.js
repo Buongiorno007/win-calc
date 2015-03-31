@@ -1,6 +1,3 @@
-
-// controllers/parts/room-selector.js
-
 /* globals BauVoiceApp, STEP */
 
 'use strict';

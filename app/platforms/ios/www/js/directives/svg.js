@@ -1,6 +1,3 @@
-
-// directives/svg.js
-
 'use strict';
 
 BauVoiceApp.directive('svgTemplate', [ function() {

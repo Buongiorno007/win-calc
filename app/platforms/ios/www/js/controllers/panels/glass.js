@@ -1,6 +1,3 @@
-
-// controllers/panels/glass.js
-
 /* globals BauVoiceApp, STEP */
 
 'use strict';
@@ -30,4 +27,3 @@ BauVoiceApp.controller('GlassCtrl', ['$scope', 'constructService', 'localStorage
   };
 
 }]);
-

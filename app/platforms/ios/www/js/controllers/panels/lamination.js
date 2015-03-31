@@ -1,6 +1,3 @@
-
-// controllers/panels/lamination.js
-
 /* globals BauVoiceApp, STEP, selectClass, showElementWithDelay, typingTextWithDelay */
 
 'use strict';
@@ -54,4 +51,3 @@ BauVoiceApp.controller('LaminationCtrl', ['$scope', 'constructService', 'localSt
   };
 
 }]);
-

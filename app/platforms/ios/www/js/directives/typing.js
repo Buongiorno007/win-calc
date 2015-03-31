@@ -1,6 +1,3 @@
-
-// directives/typing.js
-
 'use strict';
 
 BauVoiceApp.directive('typing', function () {

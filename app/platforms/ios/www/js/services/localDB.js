@@ -1,6 +1,3 @@
-
-// services/localDB.js
-
 "use strict";
 
 BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
@@ -530,5 +527,4 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
   }
 
 }]);
-
 

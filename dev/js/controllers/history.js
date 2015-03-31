@@ -2,7 +2,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStorage', 'localDB', 'globalDB', '$location', '$filter', function ($scope, constructService, localStorage, localDB, globalDB, $location, $filter) {
+BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStorage', 'localDB', 'globalDB', '$location', '$filter', '$cordovaDialogs', function ($scope, constructService, localStorage, localDB, globalDB, $location, $filter, $cordovaDialogs) {
 
   $scope.global = localStorage;
 
@@ -298,13 +298,21 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
 
   //--------- Delete order
   $scope.clickDeleteOrder = function(orderType, orderNum) {
-
+/*
     navigator.notification.confirm(
       $filter('translate')('common_words.DELETE_ORDER_TXT'),
       deleteOrder,
       $filter('translate')('common_words.DELETE_ORDER_TITLE'),
       [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')]
     );
+*/
+    $cordovaDialogs.confirm(
+      $filter('translate')('common_words.DELETE_ORDER_TXT'),
+      $filter('translate')('common_words.DELETE_ORDER_TITLE'),
+      [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')])
+      .then(function(buttonIndex) {
+        deleteOrder(buttonIndex);
+      });
 
     function deleteOrder(button) {
       if(button == 1) {

@@ -133,11 +133,11 @@
               </div>
             </div>
             <button hm-tap="showAllAddElements()" class="cart-tool additional-elements">{{ 'cart.ALL_ADD_ELEMENTS' | translate }}</button>
-            <button hm-tap="createNewProduct()" class="cart-tool new-order">{{ 'cart.ADD_ORDER' | translate }}</button>
+            <button hm-tap="addNewProductInOrder()" class="cart-tool new-order">{{ 'cart.ADD_ORDER' | translate }}</button>
           </div>
           <div class="order-block scroll-vert-container">
             <div ng-repeat="product in global.order.products track by $index" class="order">
-              <button hm-tap="deleteProduct($index)" class="order-delete"></button>
+              <button hm-tap="clickDeleteProduct($index)" class="order-delete"></button>
               <div class="order-header">
                 <div hm-tap="editProduct(product.productId)" class="order-template">
                   <svg-template template="product.templateIcon" template-width="global.svgTemplateIconWidth" template-height="global.svgTemplateIconHeight" type-construction="icon"></svg-template>

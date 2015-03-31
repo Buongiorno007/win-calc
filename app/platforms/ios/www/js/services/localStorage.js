@@ -1,6 +1,3 @@
-
-// services/localStorage.js
-
 "use strict";
 
 BauVoiceApp.factory('localStorage', ['$filter', function ($filter) {
@@ -345,4 +342,3 @@ BauVoiceApp.factory('localStorage', ['$filter', function ($filter) {
 
   }
 }]);
-

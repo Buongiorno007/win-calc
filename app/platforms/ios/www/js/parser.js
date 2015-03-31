@@ -1,7 +1,4 @@
 
-// parser.js
-
-
 /*APP.factory('FactoryName', function () {
             return {
             functionName: function () {}
@@ -177,4 +174,3 @@ String.prototype.endsWith = function(suffix) {
 function isNumber(str) {
    return  ("" + parseInt(str) === str); 
 };
-

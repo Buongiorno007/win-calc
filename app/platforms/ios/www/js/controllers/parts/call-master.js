@@ -1,6 +1,3 @@
-
-// controllers/parts/call-master.js
-
 'use strict';
 
 BauVoiceApp.controller('CallMasterCtrl', ['$scope', 'constructService', 'localStorage', '$location', function ($scope, constructService, localStorage, $location) {

@@ -1,6 +1,3 @@
-
-// controllers/parts/call-order.js
-
 'use strict';
 
 BauVoiceApp.controller('CallOrderCtrl', ['$scope', 'constructService', 'localStorage', '$location', function ($scope, constructService, localStorage, $location) {

@@ -68,11 +68,11 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
           .cart-header
             include parts/_user-info
             button.cart-tool.additional-elements(hm-tap="showAllAddElements()") {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
-            button.cart-tool.new-order(hm-tap="createNewProduct()") {{ 'cart.ADD_ORDER' | translate }}
+            button.cart-tool.new-order(hm-tap="addNewProductInOrder()") {{ 'cart.ADD_ORDER' | translate }}
 
           .order-block.scroll-vert-container
             .order(ng-repeat="product in global.order.products track by $index")
-              button.order-delete(hm-tap="deleteProduct($index)")
+              button.order-delete(hm-tap="clickDeleteProduct($index)")
               .order-header
                 .order-template(hm-tap="editProduct(product.productId)")
                   svg-template(template="product.templateIcon", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="icon")

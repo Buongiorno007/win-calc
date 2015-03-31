@@ -1,6 +1,3 @@
-
-// controllers/menus/navigation-menu.js
-
 /* globals STEP, activeClass, typingTextByChar, showElementWithDelay, addClassWithDelay, typingTextWithDelay */
 
 'use strict';

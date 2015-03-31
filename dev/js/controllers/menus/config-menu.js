@@ -372,7 +372,7 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
     $scope.global.product.heatTransferTOTAL = parseFloat(((prifileHeatCoeffTotal + glassHeatCoeffTotal)/constructionSquareTotal).toFixed(2));
 
     //-------- calculate Air Coeff Total
-    $scope.global.product.airCirculationTOTAL = + $scope.global.product.profileAirCoeff + $scope.global.product.glassAirCoeff + $scope.global.product.hardwareAirCoeff;
+//    $scope.global.product.airCirculationTOTAL = + $scope.global.product.profileAirCoeff + $scope.global.product.glassAirCoeff + $scope.global.product.hardwareAirCoeff;
 
   };
 
