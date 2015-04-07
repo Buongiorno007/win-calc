@@ -12,6 +12,7 @@ window.PhonegapApp = {
       doInit();
     angular.element(document).ready(function() {
       angular.bootstrap(document, ['BauVoiceApp']);
+      //$(document).bind('touchmove', false);
       //$cordovaDialogs
 //      $cordovaInAppBrowser.open('http://ngcordova.com', '_blank', options).then(function () {
 //        console.log("InAppBrowser opened http://ngcordova.com successfully");

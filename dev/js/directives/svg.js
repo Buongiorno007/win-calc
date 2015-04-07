@@ -655,14 +655,14 @@ BauVoiceApp.directive('svgTemplate', [ function() {
 
           // Handle double tap
           this.hammer.on('doubletap', function(ev){
-            console.log('ev.type = ', ev.type);
+            //console.log('ev.type = ', ev.type);
             instance.zoomIn();
           });
 
           // Handle pan
           this.hammer.on('pan panstart panend', function(ev){
             // On pan start reset panned variables
-            console.log('ev.type = ', ev.type);
+            //console.log('ev.type = ', ev.type);
             if (ev.type === 'panstart') {
               pannedX = 0;
               pannedY = 0;
@@ -679,7 +679,7 @@ BauVoiceApp.directive('svgTemplate', [ function() {
 
           // Handle pinch
           this.hammer.on('pinch pinchstart pinchend', function(ev){
-            console.log('ev.type = ', ev.type);
+            //console.log('ev.type = ', ev.type);
             // On pinch start remember initial zoom
             if (ev.type === 'pinchstart') {
               initialScale = instance.getZoom();

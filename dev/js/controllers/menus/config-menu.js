@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, typingTextByChar, Template, TemplateIcon, drawSVG, parsingTemplateSource */
+/* globals BauVoiceApp, STEP, typingTextByChar, Template, TemplateIcon, drawSVG, parsingTemplateSource, changeTemplateInArray */
 
 'use strict';
 
@@ -18,20 +18,6 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   $scope.global.isOpenedCartPage = false;
   $scope.global.isOpenedHistoryPage = false;
 
-
-/*
-  $scope.dubleTyping = function() {
-    $timeout(function() {
-      var $configItemValue = $('.config-menu .value');
-      $configItemValue.each(function () {
-        var $configItemNameAside = $(this).next('.name.aside');
-        if ($configItemNameAside.length) {
-          typingTextByChar($(this), $configItemNameAside);
-        }
-      });
-    },  $scope.configMenu.DELAY_TYPE_ITEM_TITLE);
-  };
-*/
 
   //============= Create Order Date
   $scope.global.createOrderData = function() {
@@ -154,7 +140,6 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
       $scope.global.templatesWindListSTORE = angular.copy($scope.global.templatesWindList);
       $scope.global.templatesWindIconListSTORE = angular.copy($scope.global.templatesWindIconList);
       //---- window-door
-
       $scope.global.templatesWindDoorListSTORE = angular.copy($scope.global.templatesWindDoorList);
       $scope.global.templatesWindDoorIconListSTORE = angular.copy($scope.global.templatesWindDoorIconList);
       //---- balcony
@@ -410,7 +395,8 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   //================ EDIT PRODUCT =================
 
   if ($scope.global.productEditNumber !== '' && !$scope.global.isCreatedNewProject && !$scope.global.isCreatedNewProduct) {
-    $scope.global.product = angular.copy($scope.global.order.products[$scope.global.productEditNumber]);
+    console.log('EDIT!!!!');
+    console.log('product = ', $scope.global.product);
     //TODO templates!!!!!
   }
 
@@ -671,11 +657,72 @@ console.log('FIRST START!!!!!!!!!!');
 
 
 
+
+
+
+
+  // Save Product in Order and enter in Cart
+  $scope.global.inputProductInOrder = function() {
+
+    //=========== if no EDIT product
+    if ($scope.global.productEditNumber === '') {
+
+      //-------- add product in order LocalStorage
+      $scope.global.product.orderId = $scope.global.order.orderId;
+      $scope.global.product.productId = ($scope.global.order.products.length > 0) ? ($scope.global.order.products.length + 1) : 1;
+      $scope.global.order.products.push($scope.global.product);
+      $scope.global.order.productsQty = $scope.global.order.products.length;
+      $scope.insertProductInLocalDB($scope.global.product);
+
+      if($scope.global.orderEditNumber > 0) {
+        for(var ord = 0; ord < $scope.global.orders.length; ord++) {
+          if ($scope.global.orders[ord].orderId === $scope.global.orderEditNumber) {
+            $scope.global.orders[ord] = angular.copy($scope.global.order);
+          }
+        }
+      }
+
+    } else {
+      //-------- replace product in order LocalStorage
+      for(var prod = 0; prod < $scope.global.order.products.length; prod++) {
+        if(prod === $scope.global.productEditNumber) {
+          $scope.global.order.products[prod] = angular.copy($scope.global.product);
+          if($scope.global.orderEditNumber > 0) {
+            for(var ord = 0; ord < $scope.global.orders.length; ord++) {
+              if ($scope.global.orders[ord].orderId === $scope.global.orderEditNumber) {
+                $scope.global.orders[ord] = angular.copy($scope.global.order);
+              }
+            }
+
+          }
+        }
+      }
+
+      $scope.editProductInLocalDB($scope.global.product);
+
+    }
+
+    $scope.global.isCreatedNewProject = false;
+    $scope.global.isCreatedNewProduct = false;
+
+  };
+
   $scope.insertProductInLocalDB = function(product) {
 
     var productData = angular.copy(product),
         addElementsData = {},
         addElementsObj = product.chosenAddElements;
+
+    if($scope.global.isConstructWind) {
+      productData.constructionType = 1;
+    } else if($scope.global.isConstructWindDoor) {
+      productData.constructionType = 2;
+    } else if($scope.global.isConstructBalcony) {
+      productData.constructionType = 3;
+    } else if($scope.global.isConstructDoor) {
+      productData.constructionType = 4;
+    }
+
 
     //-------- insert product into local DB
     //productData.orderId = product.orderID;
@@ -718,33 +765,14 @@ console.log('FIRST START!!!!!!!!!!');
   };
 
 
-  // Save Product in Order and enter in Cart
-  $scope.global.inputProductInOrder = function() {
 
-    //=========== if no EDIT product
-    if ($scope.global.productEditNumber === '') {
-
-      //-------- add product in order LocalStorage
-      $scope.global.product.orderId = $scope.global.order.orderId;
-      $scope.global.product.productId = ($scope.global.order.products.length > 0) ? ($scope.global.order.products.length + 1) : 1;
-      $scope.global.order.products.push($scope.global.product);
-      $scope.global.order.productsQty = $scope.global.order.products.length;
-      $scope.insertProductInLocalDB($scope.global.product);
-
-    } else {
-      //-------- replace product in order LocalStorage
-      for(var prod = 0; prod < $scope.global.order.products.length; prod++) {
-        if(prod === $scope.global.productEditNumber) {
-          $scope.global.order.products[prod] = angular.copy($scope.global.product);
-        }
-      }
-
-    }
-
-    $scope.global.isCreatedNewProject = false;
-    $scope.global.isCreatedNewProduct = false;
-
+  $scope.editProductInLocalDB = function(product) {
+    console.log('!!!!!!!!',product);
+    localDB.deleteDB($scope.global.productsTableBD, {'orderId': {"value": product.orderId, "union": 'AND'}, "productId": product.productId});
+    localDB.deleteDB($scope.global.addElementsTableBD, {'orderId': {"value": product.orderId, "union": 'AND'}, "productId": product.productId});
+    $scope.insertProductInLocalDB(product);
   };
+
 
 
   //--------- moving to Cart when click on Cart button

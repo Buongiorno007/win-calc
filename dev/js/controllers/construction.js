@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP, deactiveSizeBox */
+/* globals BauVoiceApp, STEP, deactiveSizeBox, changeTemplateInArray */
 
 'use strict';
 
@@ -295,14 +295,14 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
     //console.log('order ====== ', $scope.global.order);
     $location.path('/main');
   };
-
+/*
   function changeTemplateInArray(templateIndex, templateSourceList, templateList, templateIconList, newTemplateSource, newTemplate, newTemplateIcon) {
     //----- write new template in array
     templateSourceList[templateIndex] = angular.copy(newTemplateSource);
     templateList[templateIndex] = angular.copy(newTemplate);
     templateIconList[templateIndex] = angular.copy(newTemplateIcon);
   }
-
+*/
 
 
 
@@ -602,11 +602,11 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   $svgContainer.hammer({domEvents:true}).on("tap", ".glass", selectGlassBlock);
 
   function selectGlassBlock() {
-    console.log('start tap!!!!!');
+    //console.log('start tap!!!!!');
     event.preventDefault();
 
-    console.log('click on glass', event);
-    console.log('click on glass', event.target);
+    //console.log('click on glass', event);
+    //console.log('click on glass', event.target);
     if($scope.constructData.isSashEdit) {
       //------- show sash edit menu and select all glass packages
       if(!$scope.constructData.isSashEditMenu) {

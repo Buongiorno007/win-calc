@@ -356,7 +356,9 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
     $scope.global.order.orderPriceTOTALPrimary = parseFloat($scope.global.order.orderPriceTOTALPrimary.toFixed(2));
     angular.extend($scope.global.order, newOptions);
     //------- save order in orders LocalStorage
-    $scope.global.orders.push($scope.global.order);
+    if(!$scope.global.orderEditNumber || $scope.global.orderEditNumber < 0) {
+      $scope.global.orders.push($scope.global.order);
+    }
     //console.log(JSON.stringify($scope.global.order));
     //------- save order in LocalDB
     orderData = angular.copy($scope.global.order);

@@ -290,9 +290,9 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   $scope.backtoTemplatePanel = function() {
     $scope.global.prepareMainPage();
     $scope.global.isReturnFromDiffPage = true;
-    //console.log('construction page!!!!!!!!!!!');
-    //console.log('product ====== ', $scope.global.product);
-    //console.log('order ====== ', $scope.global.order);
+    console.log('construction page!!!!!!!!!!!');
+    console.log('product ====== ', $scope.global.product);
+    console.log('order ====== ', $scope.global.order);
     $location.path('/main');
   };
 
@@ -602,11 +602,11 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   $svgContainer.hammer({domEvents:true}).on("tap", ".glass", selectGlassBlock);
 
   function selectGlassBlock() {
-    console.log('start tap!!!!!');
+    //console.log('start tap!!!!!');
     event.preventDefault();
 
-    console.log('click on glass', event);
-    console.log('click on glass', event.target);
+    //console.log('click on glass', event);
+    //console.log('click on glass', event.target);
     if($scope.constructData.isSashEdit) {
       //------- show sash edit menu and select all glass packages
       if(!$scope.constructData.isSashEditMenu) {

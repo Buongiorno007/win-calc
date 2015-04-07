@@ -38,6 +38,10 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "type": "INTEGER",
       "null": "NOT NULL"
     },
+    "constructionType": {
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
     "templateIndex":{
       "type": "INTEGER",
       "null": "NOT NULL"

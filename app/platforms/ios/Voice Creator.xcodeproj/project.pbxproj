@@ -620,7 +620,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "Voice Creator";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -653,7 +653,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "Voice Creator";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

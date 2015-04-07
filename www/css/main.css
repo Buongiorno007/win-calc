@@ -317,31 +317,31 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf?1427815434') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
-  src: url('../fonts/roboto/Roboto-Bold.ttf?1427815432') format('truetype');
+  src: url('../fonts/roboto/Roboto-Bold.ttf?1428417924') format('truetype');
 }
 @font-face {
   font-family: "roboto-light";
-  src: url('../fonts/roboto/Roboto-Light.ttf?1427815433') format('truetype');
+  src: url('../fonts/roboto/Roboto-Light.ttf?1428417924') format('truetype');
 }
 @font-face {
   font-family: "roboto-medium";
-  src: url('../fonts/roboto/Roboto-Medium.ttf?1427815433') format('truetype');
+  src: url('../fonts/roboto/Roboto-Medium.ttf') format('truetype');
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf?1427815434') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf') format('truetype');
 }
 @font-face {
   font-family: "general-icons";
-  src: url('../fonts/general-icons/icomoon.ttf?1427815432') format('truetype');
+  src: url('../fonts/general-icons/icomoon.ttf?1428417924') format('truetype');
 }
 @font-face {
   font-family: "nav-menu";
-  src: url('../fonts/nav-menu/icomoon.ttf?1427815432') format('truetype');
+  src: url('../fonts/nav-menu/icomoon.ttf?1428417924') format('truetype');
 }
 /* line 183, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construction-right-menu .construct-tools, .construction-right-menu .door-config-btn, .nav-menu [class^='nav-icon-'],
@@ -1271,37 +1271,37 @@ body {
 }
 /* line 173, ../../dev/sass/base/general.scss */
 .right-side.kitchen {
-  background: url('../img/rooms-bg/kitchen.jpg?1427815437') no-repeat;
+  background: url('../img/rooms-bg/kitchen.jpg') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 /* line 178, ../../dev/sass/base/general.scss */
 .right-side.livingroom {
-  background: url('../img/rooms-bg/livingroom.jpg?1427815437') no-repeat;
+  background: url('../img/rooms-bg/livingroom.jpg') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 /* line 183, ../../dev/sass/base/general.scss */
 .right-side.balcony {
-  background: url('../img/rooms-bg/balcony.jpg?1427815437') no-repeat;
+  background: url('../img/rooms-bg/balcony.jpg') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 /* line 188, ../../dev/sass/base/general.scss */
 .right-side.childroom {
-  background: url('../img/rooms-bg/childroom.jpg?1427815437') no-repeat;
+  background: url('../img/rooms-bg/childroom.jpg') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 /* line 193, ../../dev/sass/base/general.scss */
 .right-side.bedroom {
-  background: url('../img/rooms-bg/bedroom.jpg?1427815437') no-repeat;
+  background: url('../img/rooms-bg/bedroom.jpg') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 /* line 198, ../../dev/sass/base/general.scss */
 .right-side.door {
-  background: url('../img/rooms-bg/door.jpg?1427815437') no-repeat;
+  background: url('../img/rooms-bg/door.jpg') no-repeat;
   background-size: cover;
   opacity: 1;
 }
@@ -1310,7 +1310,7 @@ body {
 .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto {
   width: 9.5rem;
   height: 9.5rem;
-  background-image: url('../img/userPhoto.png?1427815432');
+  background-image: url('../img/userPhoto.png?1428417924');
   background-size: cover;
 }
 
@@ -1732,7 +1732,7 @@ body {
   width: 3.125rem;
   height: 3.125rem;
   margin: -3.125rem/2 0 0 -3.125rem/2;
-  background: url('../img/spinner.gif?1427815438') no-repeat;
+  background: url('../img/spinner.gif') no-repeat;
   background-size: cover;
 }
 
@@ -2015,32 +2015,32 @@ body {
 }
 /* line 46, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.kitchen {
-  background: url('../img/rooms-dialog/kitchen.jpg?1427815438');
+  background: url('../img/rooms-dialog/kitchen.jpg?1428417926');
   background-size: contain;
 }
 /* line 50, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.livingroom {
-  background: url('../img/rooms-dialog/livingroom.jpg?1427815438');
+  background: url('../img/rooms-dialog/livingroom.jpg?1428417926');
   background-size: contain;
 }
 /* line 54, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.balcony {
-  background: url('../img/rooms-dialog/balcony.jpg?1427815437');
+  background: url('../img/rooms-dialog/balcony.jpg?1428417926');
   background-size: contain;
 }
 /* line 58, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.childroom {
-  background: url('../img/rooms-dialog/childroom.jpg?1427815438');
+  background: url('../img/rooms-dialog/childroom.jpg?1428417926');
   background-size: contain;
 }
 /* line 62, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.bedroom {
-  background: url('../img/rooms-dialog/bedroom.jpg?1427815437');
+  background: url('../img/rooms-dialog/bedroom.jpg?1428417926');
   background-size: contain;
 }
 /* line 66, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.door {
-  background: url('../img/rooms-dialog/door.jpg?1427815438');
+  background: url('../img/rooms-dialog/door.jpg?1428417926');
   background-size: contain;
 }
 /* line 71, ../../dev/sass/parts/_rooms-selector.scss */
@@ -3253,7 +3253,7 @@ body {
   display: -webkit-flex;
   display: flex;
   height: 100%;
-  background: url('../img/login/login-bg.jpg?1427815437') no-repeat;
+  background: url('../img/login/login-bg.jpg?1428417926') no-repeat;
   background-size: cover;
 }
 
@@ -3285,7 +3285,7 @@ body {
   width: 14.75rem;
   height: 14.75rem;
   margin: 0 auto 4.5625rem auto;
-  background: url('../img/login/logo.png?1427815436') no-repeat;
+  background: url('../img/login/logo.png?1428417926') no-repeat;
   background-size: cover;
 }
 
@@ -5408,7 +5408,7 @@ li.constr-shape-icon:last-child {
   right: -3.625rem;
   width: 3.75rem;
   height: 100%;
-  background: url('../img/door-arrow.png?1427815432') no-repeat;
+  background: url('../img/door-arrow.png?1428417924') no-repeat;
   background-size: 100% 100%;
 }
 /* line 425, ../../dev/sass/pages/construction.scss */

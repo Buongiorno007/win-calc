@@ -2,7 +2,7 @@
   .template-inner(ng-if="global.isTemplatePanel")
     .template-header
       button.template-title.unvisible(ng-class="{'active': templatePanel.switcherTemplate}", hm-tap="toggleTemplate()", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ global.templateLabel }}
-        .template-type(ng-if="templatePanel.switcherTemplate")
+        .template-type(ng-show="templatePanel.switcherTemplate")
           .template-type-btn(ng-if="!global.isConstructWind", hm-tap="turnOnTemplate('window')") {{ 'panels.TEMPLATE_WINDOW' | translate }}
           .template-type-btn(ng-if="!global.isConstructBalcony", hm-tap="turnOnTemplate('balcon')") {{ 'panels.TEMPLATE_BALCONY' | translate }}
           .template-type-btn(ng-if="!global.isConstructDoor", hm-tap="turnOnTemplate('door')") {{ 'panels.TEMPLATE_DOOR' | translate }}
@@ -18,7 +18,6 @@
         //.other-template(ng-repeat="templateIcon in global.templatesIcons", hm-tap="selectNewTemplate($index)")
         .other-template(ng-repeat="templateIcon in global.templatesImgs", hm-tap="selectNewTemplate($index)")
           .other-template-img.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}")
-            //svg-template(template = "templateIcon", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="icon")
             img(ng-src="{{ templateIcon.src }}")
           .other-template-label.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ global.templateLabel }}
           .other-template-subscr.unvisible(show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ templateIcon.name }}

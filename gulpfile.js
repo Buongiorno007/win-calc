@@ -78,7 +78,7 @@ gulp.task('js', function() {
        header: '\n// ${filename}\n\n',
        footer: '\n'
     }))
-    .pipe(concat('main.js'))
+    //.pipe(concat('main.js'))
     .pipe(gulp.dest(config.build.dest.js))
     .pipe(reload({ stream: true }));
 });
