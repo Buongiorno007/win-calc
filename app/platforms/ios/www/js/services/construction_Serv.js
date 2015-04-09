@@ -1,9 +1,6 @@
 
 // services/constructService.js
 
-
-// services/constructService.js
-
 "use strict";
 
 BauVoiceApp.factory('constructService', function ($q) {
@@ -4156,4 +4153,3 @@ BauVoiceApp.factory('constructService', function ($q) {
 
   }
 });
-

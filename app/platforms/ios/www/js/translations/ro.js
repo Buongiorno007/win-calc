@@ -1,6 +1,3 @@
-
-// translations/ro.js
-
 "use strict";
 
 window.romanianDictionary = {

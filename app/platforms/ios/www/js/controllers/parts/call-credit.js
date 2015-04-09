@@ -1,6 +1,3 @@
-
-// controllers/parts/call-credit.js
-
 'use strict';
 
 BauVoiceApp.controller('CallCreditCtrl', ['$scope', 'constructService', 'localStorage', '$location', 'localDB', function ($scope, constructService, localStorage, $location, localDB) {
@@ -76,10 +73,10 @@ BauVoiceApp.controller('CallCreditCtrl', ['$scope', 'constructService', 'localSt
     $scope.submitted = true;
 
     if (form.$valid) {
-      if($scope.global.orderEditNumber > 0) {
+      if($scope.global.orderEditNumber) {
 
         //----- delete old order in localDB
-        localDB.deleteDB($scope.global.ordersTableBD, {'orderId': $scope.global.orderEditNumber});
+        localDB.deleteDB(localDB.ordersTableBD, {'orderId': $scope.global.orderEditNumber});
         //$scope.global.deleteOrderFromLocalDB($scope.global.orderEditNumber);
         /*
         for(var prod = 0; prod < $scope.global.order.products.length; prod++) {

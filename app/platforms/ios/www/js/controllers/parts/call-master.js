@@ -1,9 +1,6 @@
-
-// controllers/parts/call-master.js
-
 'use strict';
 
-BauVoiceApp.controller('CallMasterCtrl', ['$scope', 'constructService', 'localStorage', '$location', 'localDB', function ($scope, constructService, localStorage, $location, localDB) {
+BauVoiceApp.controller('CallMasterCtrl', ['$scope', 'constructService', 'localStorage', '$location', 'localDB', 'analyticsServ', function ($scope, constructService, localStorage, $location, localDB, analyticsServ) {
 
   $scope.global = localStorage;
   $scope.orderStyle = 'master';
@@ -95,7 +92,7 @@ BauVoiceApp.controller('CallMasterCtrl', ['$scope', 'constructService', 'localSt
     if (form.$valid) {
       if($scope.global.orderEditNumber) {
         //----- delete old order in localDB
-        localDB.deleteDB($scope.global.ordersTableBD, {'orderId': $scope.global.orderEditNumber});
+        localDB.deleteDB(localDB.ordersTableBD, {'orderId': $scope.global.orderEditNumber});
         //$scope.global.deleteOrderFromLocalDB($scope.global.orderEditNumber);
         /*
         for(var prod = 0; prod < $scope.global.order.products.length; prod++) {
@@ -106,10 +103,13 @@ BauVoiceApp.controller('CallMasterCtrl', ['$scope', 'constructService', 'localSt
       $scope.global.insertOrderInLocalDB($scope.user, $scope.global.fullOrderType, $scope.orderStyle);
       //--------- Close cart dialog, go to history
       $scope.hideCallMasterDialog();
+      $scope.global.orderEditNumber = false;
       $scope.global.isCreatedNewProject = false;
       $scope.global.isCreatedNewProduct = false;
       $scope.global.isOrderFinished = true;
+      analyticsServ.sendAnalyticsGlobalDB($scope.global.order);
       $location.path('/history');
+
     }
   };
 

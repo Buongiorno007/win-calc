@@ -1,6 +1,3 @@
-
-// controllers/construction.js
-
 /* globals BauVoiceApp, STEP, deactiveSizeBox, changeTemplateInArray */
 
 'use strict';
@@ -1427,4 +1424,3 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
 
 }]);
-

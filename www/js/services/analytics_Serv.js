@@ -8,9 +8,9 @@
     .module('BauVoiceApp')
     .factory('analyticsServ', analyticsFactory);
 
-  analyticsFactory.$inject = ['localDB'];
+  analyticsFactory.$inject = ['globalDB', 'localDB'];
 
-  function analyticsFactory(localDB) {
+  function analyticsFactory(globalDB, localDB) {
 
     var thisFactory = this;
 
@@ -23,7 +23,7 @@
 
     thisFactory.publicObj = {
       saveAnalyticDB: insertAnalyticsDB,
-      collectAnalytic: collectAnalyticData
+      sendAnalyticsGlobalDB: sendAnalyticsDB
     };
 
     return thisFactory.publicObj;
@@ -41,10 +41,19 @@
       localDB.insertDB(localDB.analyticsTableBD, analyticsObj);
     }
 
-    function collectAnalyticData() {
+    function sendAnalyticsDB(order) {
+      //----- get Analytics Data from localDB
       localDB.selectAllDB(localDB.analyticsTableBD, function (results) {
         if (results.status) {
-          return angular.copy(results.data[0]);
+          var analData = {
+            'order': JSON.stringify(order),
+            'analytics': JSON.stringify(results.data)
+          };
+          //console.log('analData !!!!!', analData);
+          //----- send Analytics Data to globalDB
+          //globalDB.sendOrder(analData, function(result){});
+          //---- clear Analytics Table in localDB
+          localDB.deleteDB(localDB.analyticsTableBD);
         }
       });
     }

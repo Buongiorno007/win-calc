@@ -43,7 +43,7 @@
         </ul>
       </header>
       <footer class="nav-menu-footer">
-        <button hm-tap="clickNewProject()" show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
+        <button ng-if="!global.orderEditNumber" hm-tap="clickNewProject()" show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
       </footer>
     </div>
   </section>
@@ -205,24 +205,24 @@
           </div>
         </div>
       </div>
-      <div ng-controller="GlassCtrl" ng-class="{'active': global.showPanels.showGlassPanel}" class="config-panel glass-container">
-        <div ng-if="global.isGlassPanel" class="panel-inner">
-          <div ng-repeat="type in global.glasses" ng-class="{'selected': global.product.glassTypeIndex == $index}" class="glass-block">
+      <div ng-controller="GlassCtrl as glassPanel" ng-class="{'active': glassPanel.global.showPanels.showGlassPanel}" class="config-panel glass-container">
+        <div ng-if="glassPanel.global.isGlassPanel" class="panel-inner">
+          <div ng-repeat="typeGlass in glassPanel.global.glasses" ng-class="{'selected': glassPanel.global.product.glassTypeIndex == $index}" class="glass-block">
             <div class="group-block-header">
-              <div data-output="{{ global.glassTypes[$index] }}" typing="{{ glassPanel.typing }}" typing-delay="{{ glassPanel.DELAY_START }}" class="title"></div>
+              <div data-output="{{ glassPanel.global.glassTypes[$index] }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START }}" class="title"></div>
               <div class="group-info">
                 <div class="info"></div>
               </div>
             </div>
             <div class="glass-block-footer clearfix">
               <div class="footer-inner">
-                <div ng-repeat="glass in type" ng-class="{'selected': global.product.glassIndex == $index &amp;&amp; global.product.glassTypeIndex == $parent.$index}" hm-tap="selectGlass($parent.$index, $index, glass.glassId)" show-delay="{{ glassPanel.DELAY_START + (glassPanel.DELAY_BLOCK * $index) }}" class="box glass-box unvisible">
+                <div ng-repeat="glass in typeGlass" ng-class="{'selected': glassPanel.global.product.glassIndex == $index &amp;&amp; glassPanel.global.product.glassTypeIndex == $parent.$index}" hm-tap="glassPanel.selectGlass($parent.$index, $index, glass.glassId)" show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}" class="box glass-box unvisible">
                   <div class="glass-box-view">
                     <div class="glass-img"><img ng-src="{{ glass.glassUrl }}"></div>
-                    <div data-output="{{ glass.glassDescrip }}" typing="{{ glassPanel.typing }}" typing-delay="{{ glassPanel.DELAY_START + (glassPanel.DELAY_TYPING * $index) }}" class="label"></div>
+                    <div data-output="{{ glass.glassDescrip }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
                   </div>
                   <div class="glass-box-data">
-                    <div data-output="{{ glass.glassName }}" typing="{{ glassPanel.typing }}" typing-delay="{{ glassPanel.DELAY_START + (glassPanel.DELAY_TYPING * $index) }}" class="glass-descr"></div>
+                    <div data-output="{{ glass.glassName }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}" class="glass-descr"></div>
                     <div ng-class="{'coef-level-1': glass.heatCoeff == 1, 'coef-level-2': glass.heatCoeff == 2, 'coef-level-3': glass.heatCoeff == 3, 'coef-level-4': glass.heatCoeff == 4}" class="coef-level heat-insulation">
                       <div class="coef-index"></div>
                       <div class="coef-index"></div>
@@ -230,7 +230,7 @@
                       <div class="coef-index"></div>
                       <div class="coef-index"></div>
                     </div>
-                    <div data-output="{{ 'panels.HEAT_INSULATION' | translate }}" typing="{{ glassPanel.typing }}" typing-delay="{{ glassPanel.DELAY_START + (glassPanel.DELAY_TYPING * $index) }}" class="label"></div>
+                    <div data-output="{{ 'panels.HEAT_INSULATION' | translate }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
                     <div ng-class="{'coef-level-1': glass.glassNoise == 1, 'coef-level-2': glass.glassNoise == 2, 'coef-level-3': glass.glassNoise == 3, 'coef-level-4': glass.glassNoise == 4}" class="coef-level noise-insulation">
                       <div class="coef-index"></div>
                       <div class="coef-index"></div>
@@ -238,7 +238,7 @@
                       <div class="coef-index"></div>
                       <div class="coef-index"></div>
                     </div>
-                    <div data-output="{{ 'panels.NOICE_INSULATION' | translate }}" typing="{{ glassPanel.typing }}" typing-delay="{{ glassPanel.DELAY_START + (glassPanel.DELAY_TYPING * $index) }}" class="label"></div>
+                    <div data-output="{{ 'panels.NOICE_INSULATION' | translate }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
                   </div>
                   <div class="info"></div>
                 </div>

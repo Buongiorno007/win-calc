@@ -1,6 +1,3 @@
-
-// directives/calendar-scroll.js
-
 'use strict';
 
 BauVoiceApp.directive('calendarScroll', ['$filter', function($filter) {

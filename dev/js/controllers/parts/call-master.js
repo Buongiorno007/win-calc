@@ -1,6 +1,6 @@
 'use strict';
 
-BauVoiceApp.controller('CallMasterCtrl', ['$scope', 'constructService', 'localStorage', '$location', 'localDB', function ($scope, constructService, localStorage, $location, localDB) {
+BauVoiceApp.controller('CallMasterCtrl', ['$scope', 'constructService', 'localStorage', '$location', 'localDB', 'analyticsServ', function ($scope, constructService, localStorage, $location, localDB, analyticsServ) {
 
   $scope.global = localStorage;
   $scope.orderStyle = 'master';
@@ -103,10 +103,13 @@ BauVoiceApp.controller('CallMasterCtrl', ['$scope', 'constructService', 'localSt
       $scope.global.insertOrderInLocalDB($scope.user, $scope.global.fullOrderType, $scope.orderStyle);
       //--------- Close cart dialog, go to history
       $scope.hideCallMasterDialog();
+      $scope.global.orderEditNumber = false;
       $scope.global.isCreatedNewProject = false;
       $scope.global.isCreatedNewProduct = false;
       $scope.global.isOrderFinished = true;
+      analyticsServ.sendAnalyticsGlobalDB($scope.global.order);
       $location.path('/history');
+
     }
   };
 

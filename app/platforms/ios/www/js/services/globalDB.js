@@ -1,9 +1,6 @@
 
 // services/globalDB.js
 
-
-// services/globalDB.js
-
 "use strict";
 
 BauVoiceApp.factory('globalDB', ['$http', function ($http) {
@@ -297,7 +294,6 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
 
     getDeviceCodeGlobalDb: function (deviceCode, callback) {
       if (deviceCode) {
-        console.log('deviceCode ===== ', deviceCode);
         $http.get('http://api.voice-creator.net/sync/elements?device_code=' + deviceCode).success(function (result) {
           if(result.status) {
             if (result.data.length < 2) {
@@ -428,6 +424,7 @@ BauVoiceApp.factory('globalDB', ['$http', function ($http) {
       var self = this;
       this.getDeviceCodeLocalDb(function (result) {
         deviceCode = result.data.deviceCode;
+        console.log('globalSevice!!!!!! = ', deviceCode);
         $http.post('http://api.voice-creator.net/sync/orders?access_token=' + deviceCode, orderJson).success(function (result) {
           callback(result);
         }).error(function () {
@@ -1763,4 +1760,3 @@ localStorage.initApp(function (result) {
   }
 });
 */
-
