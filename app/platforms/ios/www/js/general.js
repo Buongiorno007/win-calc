@@ -126,7 +126,11 @@ function deactiveSizeBox(sizeEditClass, sizeClass) {
 */
 
 //----------- Play audio sounds
-
+function playSound() {
+  var audioPlayer = document.getElementById('sounds');
+  audioPlayer.play();
+}
+/*
 function playSound(element) {
   var audioPlayer = document.getElementById('sounds');
   //console.log('currentTime1', audioPlayer.currentTime);
@@ -146,7 +150,7 @@ function playSound(element) {
     }
   }
 }
-
+*/
 
 
 //--------- TEMPLATE JSON PARSE ----------------

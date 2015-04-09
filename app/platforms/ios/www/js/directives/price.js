@@ -1,4 +1,4 @@
-/* STEP */
+/* STEP, playSound */
 'use strict';
 
 BauVoiceApp.directive('price', function () {
@@ -52,8 +52,9 @@ function changePrice(price, elem) {
     return false;
   } else {
 
-    playSound('price');
-
+    //playSound('price');
+    playSound();
+    
     //priceByDigit = price.toString().split('');
     if(typeof price === 'string') {
       priceByDigit = price.split('');
