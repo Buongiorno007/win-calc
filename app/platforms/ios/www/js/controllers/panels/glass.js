@@ -30,7 +30,7 @@
       //------ calculate price
       thisCtrl.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
       //------ save analytics data
-      analyticsServ.saveAnalyticDB($scope.global.userInfo.id, $scope.global.order.orderId, glassId, typeIndex);
+      analyticsServ.saveGlassAnalyticDB($scope.global.userInfo.id, $scope.global.order.orderId, glassId, typeIndex);
     };
 
   }

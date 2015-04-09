@@ -1,34 +1,40 @@
-/* globals BauVoiceApp, STEP */
+(function(){
+  'use strict';
 
-'use strict';
+  angular
+    .module('SettingsModule')
+    .controller('ChangePassCtrl', changePassCtrl);
 
-BauVoiceApp.controller('ChangePassCtrl', ['$scope', 'localDB', 'localStorage', function ($scope, localDB, localStorage) {
+  changePassCtrl.$inject = ['$scope', 'globalConstants', 'localStorage', 'localDB'];
 
-  $scope.global = localStorage;
+  function changePassCtrl($scope, globalConstants, localStorage, localDB) {
 
-  $scope.password = {
-    DELAY_START: STEP,
-    isErrorPassword: false,
-    typing: 'on'
-  };
+    $scope.global = localStorage;
 
-  $scope.saveNewPassword = function() {
-    if($scope.password.newPassword === '' && $scope.password.confirmPassword === '') {
-      $scope.password.isErrorPassword = true;
-    }
-    if($scope.password.newPassword !== $scope.password.confirmPassword) {
-      $scope.password.isErrorPassword = true;
-    } else {
+    $scope.password = {
+      DELAY_START: globalConstants.STEP,
+      isErrorPassword: false,
+      typing: 'on'
+    };
+
+    $scope.saveNewPassword = function() {
+      if($scope.password.newPassword === '' && $scope.password.confirmPassword === '') {
+        $scope.password.isErrorPassword = true;
+      }
+      if($scope.password.newPassword !== $scope.password.confirmPassword) {
+        $scope.password.isErrorPassword = true;
+      } else {
+        $scope.password.isErrorPassword = false;
+        $scope.global.userInfo.password = $scope.password.newPassword;
+        localDB.updateDBGlobal($scope.global.usersTableDBGlobal, {"password": $scope.password.newPassword}, {"id": $scope.global.userInfo.id});
+        //---- clean fields
+        $scope.password.newPassword = $scope.password.confirmPassword = '';
+      }
+
+    };
+    $scope.checkError = function() {
       $scope.password.isErrorPassword = false;
-      $scope.global.userInfo.password = $scope.password.newPassword;
-      localDB.updateDBGlobal($scope.global.usersTableDBGlobal, {"password": $scope.password.newPassword}, {"id": $scope.global.userInfo.id});
-      //---- clean fields
-      $scope.password.newPassword = $scope.password.confirmPassword = '';
-    }
+    };
 
-  };
-  $scope.checkError = function() {
-    $scope.password.isErrorPassword = false;
-  };
-
-}]);
+  }
+})();

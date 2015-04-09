@@ -15,18 +15,18 @@
   .login-submit(hm-tap="checkCode()") ОК
   
   -->
-  <div id="login-container" ng-show="isCodeValid" class="login-container">
+  <div id="login-container" ng-show="loginPage.isCodeValid" class="login-container">
     <div class="logo"></div>
-    <form name="loginForm" novalidate ng-submit="submitForm(loginForm)">
-      <div ng-class="{ 'has-error': submitted &amp;&amp; loginForm.phone.$error.required }" class="input-field">
-        <input type="tel" name="phone" ng-model="user.phone" ng-pattern="" placeholder="{{ 'login.MOBILE' | translate }}" required class="user-field">
-        <div ng-show="submitted &amp;&amp; loginForm.phone.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
-        <div ng-show="submitted &amp;&amp; loginForm.phone.$error.pattern || loginForm.phone.$dirty &amp;&amp; loginForm.phone.$error.pattern" class="error-tooltip">{{ 'login.WRONG_NUMBER' | translate }}</div>
+    <form name="loginForm" novalidate ng-submit="loginPage.submitForm(loginForm)">
+      <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; loginForm.phone.$error.required }" class="input-field">
+        <input type="tel" name="phone" ng-model="loginPage.user.phone" ng-pattern="" placeholder="{{ 'login.MOBILE' | translate }}" required class="user-field">
+        <div ng-show="loginPage.submitted &amp;&amp; loginForm.phone.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
+        <div ng-show="loginPage.submitted &amp;&amp; loginForm.phone.$error.pattern || loginForm.phone.$dirty &amp;&amp; loginForm.phone.$error.pattern" class="error-tooltip">{{ 'login.WRONG_NUMBER' | translate }}</div>
       </div>
-      <div ng-class="{ 'has-error' : submitted &amp;&amp; loginForm.password.$error.required }" class="input-field">
-        <input type="password" name="password" ng-model="user.password" ng-minlength="3" placeholder="{{ 'login.PASSWORD' | translate }}" required class="user-field">
-        <div ng-show="submitted &amp;&amp; loginForm.password.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
-        <div ng-show="submitted &amp;&amp; loginForm.password.$error.minlength || loginForm.password.$dirty &amp;&amp; loginForm.password.$error.minlength" class="error-tooltip">{{ 'login.SHORT_PASSWORD' | translate }}</div>
+      <div ng-class="{ 'has-error' : loginPage.submitted &amp;&amp; loginForm.password.$error.required }" class="input-field">
+        <input type="password" name="password" ng-model="loginPage.user.password" ng-minlength="3" placeholder="{{ 'login.PASSWORD' | translate }}" required class="user-field">
+        <div ng-show="loginPage.submitted &amp;&amp; loginForm.password.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
+        <div ng-show="loginPage.submitted &amp;&amp; loginForm.password.$error.minlength || loginForm.password.$dirty &amp;&amp; loginForm.password.$error.minlength" class="error-tooltip">{{ 'login.SHORT_PASSWORD' | translate }}</div>
       </div>
       <button type="submit" class="login-submit">{{ 'login.ENTER' | translate }}</button>
     </form>

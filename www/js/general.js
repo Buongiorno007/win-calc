@@ -5,8 +5,7 @@
 
 'use strict';
 
-var STEP = 50,
-    typingIndex = true,
+var typingIndex = true,
 
     selectClass = 'selected',
     focuseClass = 'focused',

@@ -1,52 +1,58 @@
-/* globals STEP, typingTextWithDelay, showElementWithDelay, playSound */
+(function(){
+  'use strict';
 
-'use strict';
+  angular
+    .module('MainModule')
+    .controller('RoomInfoCtrl', roomInfoCtrl);
 
-BauVoiceApp.controller('RoomInfoCtrl', ['$scope', 'constructService', 'localStorage', function ($scope, constructService, localStorage) {
+  roomInfoCtrl.$inject = ['$scope', 'globalConstants', 'constructService', 'localStorage'];
 
-  $scope.global = localStorage;
+  function roomInfoCtrl($scope, globalConstants, constructService, localStorage) {
 
-  $scope.roomInfo = {
-    DELAY_SHOW_COEFF: 20 * STEP,
-    DELAY_SHOW_ALLROOMS_BTN: 15 * STEP,
-    typing: 'on'
-  };
+    $scope.global = localStorage;
 
-//--------- download rooms info
-  constructService.getRoomInfo(function (results) {
-    if (results.status) {
-      $scope.roomInfo.roomsData = angular.copy(results.data.roomInfo);
-    } else {
-      console.log(results);
-    }
-  });
+    $scope.roomInfo = {
+      DELAY_SHOW_COEFF: 20 * globalConstants.STEP,
+      DELAY_SHOW_ALLROOMS_BTN: 15 * globalConstants.STEP,
+      typing: 'on'
+    };
 
-
-  // Show/Close Room Selector Dialog
-  $scope.showRoomSelectorDialog = function(event) {
-    if(!$scope.global.isShowCommentBlock) {
-      if ($scope.global.showRoomSelectorDialog === true) {
-        $scope.global.showRoomSelectorDialog = false;
+  //--------- download rooms info
+    constructService.getRoomInfo(function (results) {
+      if (results.status) {
+        $scope.roomInfo.roomsData = angular.copy(results.data.roomInfo);
       } else {
-        $scope.global.showRoomSelectorDialog = true;
-        $scope.global.isRoomsDialog = true;
+        console.log(results);
       }
-      //playSound('fly');
-    }
-  };
+    });
 
-  //----- Show Comments
-  $scope.swipeShowComment = function(event) {
-    //playSound('swip');
-    $scope.global.isShowCommentBlock = true;
-    $scope.global.showRoomSelectorDialog = false;
-  };
-  $scope.swipeHideComment = function(event) {
-    //playSound('swip');
-    $scope.global.isShowCommentBlock = false;
-  };
 
-}]);
+    // Show/Close Room Selector Dialog
+    $scope.showRoomSelectorDialog = function(event) {
+      if(!$scope.global.isShowCommentBlock) {
+        if ($scope.global.showRoomSelectorDialog === true) {
+          $scope.global.showRoomSelectorDialog = false;
+        } else {
+          $scope.global.showRoomSelectorDialog = true;
+          $scope.global.isRoomsDialog = true;
+        }
+        //playSound('fly');
+      }
+    };
+
+    //----- Show Comments
+    $scope.swipeShowComment = function(event) {
+      //playSound('swip');
+      $scope.global.isShowCommentBlock = true;
+      $scope.global.showRoomSelectorDialog = false;
+    };
+    $scope.swipeHideComment = function(event) {
+      //playSound('swip');
+      $scope.global.isShowCommentBlock = false;
+    };
+
+  }
+})();
 
 
 //event.srcEvent.stopPropagation();

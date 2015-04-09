@@ -5,7 +5,7 @@
   'use strict';
 
   angular
-    .module('BauVoiceApp')
+    .module('MainModule')
     .controller('LaminationCtrl', laminationSelectorCtrl);
 
   laminationSelectorCtrl.$inject = ['$scope', 'globalConstants', 'localStorage', 'analyticsServ'];

@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('BauVoiceApp')
+    .module('MainModule')
     .controller('RoomSelectorCtrl', roomSelectorCtrl);
 
     roomSelectorCtrl.$inject = ['$scope', 'localStorage', 'globalConstants'];

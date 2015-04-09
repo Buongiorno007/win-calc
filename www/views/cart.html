@@ -52,13 +52,13 @@
       <section class="cart-page">
         <section class="cart-container full-view">
           <div class="cart-header">
-            <div ng-controller="UserInfoCtrl" hm-swipeleft="swipeLeft($event)" hm-swiperight="swipeRight($event)" class="user-info-container">
-              <button ng-class="{ 'show-navmenu': global.showNavMenu , 'orange-navmenu-btn': global.isOpenedHistoryPage || global.isOpenedCartPage}" hm-tap="swipeMainPage($event)" class="nav-menu-btn"></button>
+            <div ng-controller="UserInfoCtrl as userInfo" hm-swipeleft="userInfo.swipeLeft($event)" hm-swiperight="userInfo.swipeRight($event)" class="user-info-container">
+              <button ng-class="{ 'show-navmenu': userInfo.global.showNavMenu , 'orange-navmenu-btn': userInfo.global.isOpenedHistoryPage || userInfo.global.isOpenedCartPage}" hm-tap="userInfo.swipeMainPage($event)" class="nav-menu-btn"></button>
               <div class="user-foto"></div>
-              <div show-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
+              <div show-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
               <div class="user-info-block">
-                <div data-output="{{ global.userInfo.cityName }}" typing="{{ userInfo.typing }}" typing-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
-                <div data-output="{{ global.userInfo.name }}" typing="{{ userInfo.typing }}" typing-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
+                <div data-output="{{ userInfo.global.userInfo.cityName }}" typing="{{ userInfo.config.typing }}" typing-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
+                <div data-output="{{ userInfo.global.userInfo.name }}" typing="{{ userInfo.config.typing }}" typing-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
               </div>
             </div>
             <button hm-tap="showAllAddElements()" class="cart-tool additional-elements">{{ 'cart.ALL_ADD_ELEMENTS' | translate }}</button>
@@ -123,13 +123,13 @@
         </section>
         <section ng-class="{'active': isCartLightView}" class="cart-container light-view">
           <div class="cart-header">
-            <div ng-controller="UserInfoCtrl" hm-swipeleft="swipeLeft($event)" hm-swiperight="swipeRight($event)" class="user-info-container">
-              <button ng-class="{ 'show-navmenu': global.showNavMenu , 'orange-navmenu-btn': global.isOpenedHistoryPage || global.isOpenedCartPage}" hm-tap="swipeMainPage($event)" class="nav-menu-btn"></button>
+            <div ng-controller="UserInfoCtrl as userInfo" hm-swipeleft="userInfo.swipeLeft($event)" hm-swiperight="userInfo.swipeRight($event)" class="user-info-container">
+              <button ng-class="{ 'show-navmenu': userInfo.global.showNavMenu , 'orange-navmenu-btn': userInfo.global.isOpenedHistoryPage || userInfo.global.isOpenedCartPage}" hm-tap="userInfo.swipeMainPage($event)" class="nav-menu-btn"></button>
               <div class="user-foto"></div>
-              <div show-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
+              <div show-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
               <div class="user-info-block">
-                <div data-output="{{ global.userInfo.cityName }}" typing="{{ userInfo.typing }}" typing-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
-                <div data-output="{{ global.userInfo.name }}" typing="{{ userInfo.typing }}" typing-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
+                <div data-output="{{ userInfo.global.userInfo.cityName }}" typing="{{ userInfo.config.typing }}" typing-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
+                <div data-output="{{ userInfo.global.userInfo.name }}" typing="{{ userInfo.config.typing }}" typing-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
               </div>
             </div>
             <button hm-tap="showAllAddElements()" class="cart-tool additional-elements">{{ 'cart.ALL_ADD_ELEMENTS' | translate }}</button>

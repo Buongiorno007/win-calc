@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('BauVoiceApp')
+    .module('MainModule')
     .controller('HardwareWindowCtrl', hardwareSelectorCtrl);
 
   hardwareSelectorCtrl.$inject = ['$scope', 'globalConstants', 'localStorage', 'analyticsServ'];
