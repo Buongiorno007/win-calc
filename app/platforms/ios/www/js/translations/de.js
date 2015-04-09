@@ -1,3 +1,6 @@
+
+// translations/de.js
+
 "use strict";
 
 window.germanDictionary = {

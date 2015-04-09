@@ -41,6 +41,6 @@ BauVoiceApp.controller('LoginCtrl', ['$scope', '$location', '$translate', 'globa
   //---- impost global DB
   globalDB.initApp(function(result){});
   //globalDB.clearDb(function(result){});
-  //globalDB.syncDb(function(result){});
+  globalDB.syncDb(function(result){});
 
 }]);

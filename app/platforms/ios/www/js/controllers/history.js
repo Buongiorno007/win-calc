@@ -1,3 +1,6 @@
+
+// controllers/history.js
+
 /* globals BauVoiceApp, STEP, unvisibleClass, selectClass, activeClass, typingTextByChar, showElementWithDelay, typingTextWithDelay */
 
 'use strict';
@@ -351,12 +354,21 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
   $scope.sendOrderToFactory = function(orderStyle, orderNum) {
 
     if(orderStyle !== orderMasterStyle) {
+      /*
       navigator.notification.confirm(
         $filter('translate')('common_words.SEND_ORDER_TXT'),
         sendOrder,
         $filter('translate')('common_words.SEND_ORDER_TITLE'),
         [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')]
       );
+*/
+      $cordovaDialogs.confirm(
+        $filter('translate')('common_words.SEND_ORDER_TXT'),
+        $filter('translate')('common_words.SEND_ORDER_TITLE'),
+        [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')])
+        .then(function(buttonIndex) {
+          sendOrder(buttonIndex);
+        });
     }
 
     function sendOrder(button) {
@@ -382,12 +394,21 @@ BauVoiceApp.controller('HistoryCtrl', ['$scope', 'constructService', 'localStora
   $scope.makeOrderCopy = function(orderStyle, orderNum) {
 
     if(orderStyle !== orderMasterStyle) {
+    /*
       navigator.notification.confirm(
         $filter('translate')('common_words.COPY_ORDER_TXT'),
         copyOrder,
         $filter('translate')('common_words.COPY_ORDER_TITLE'),
         [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')]
       );
+*/
+      $cordovaDialogs.confirm(
+        $filter('translate')('common_words.COPY_ORDER_TXT'),
+        $filter('translate')('common_words.COPY_ORDER_TITLE'),
+        [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')])
+        .then(function(buttonIndex) {
+          copyOrder(buttonIndex);
+        });
     }
 
     function copyOrder(button) {

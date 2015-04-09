@@ -1,6 +1,9 @@
+
+// controllers/parts/call-order.js
+
 'use strict';
 
-BauVoiceApp.controller('CallOrderCtrl', ['$scope', 'constructService', 'localStorage', '$location', function ($scope, constructService, localStorage, $location) {
+BauVoiceApp.controller('CallOrderCtrl', ['$scope', 'constructService', 'localStorage', '$location', 'localDB', function ($scope, constructService, localStorage, $location, localDB) {
 
   $scope.global = localStorage;
   $scope.orderStyle = 'order';
@@ -74,10 +77,13 @@ BauVoiceApp.controller('CallOrderCtrl', ['$scope', 'constructService', 'localSto
     if (form.$valid) {
       if($scope.global.orderEditNumber) {
         //----- delete old order in localDB
-        $scope.global.deleteOrderFromLocalDB($scope.global.orderEditNumber);
+        localDB.deleteDB($scope.global.ordersTableBD, {'orderId': $scope.global.orderEditNumber});
+        //$scope.global.deleteOrderFromLocalDB($scope.global.orderEditNumber);
+        /*
         for(var prod = 0; prod < $scope.global.order.products.length; prod++) {
           $scope.global.insertProductInLocalDB($scope.global.orderEditNumber, $scope.global.order.products[prod].productId, $scope.global.order.products[prod]);
         }
+        */
       }
       $scope.global.insertOrderInLocalDB($scope.user, $scope.global.fullOrderType, $scope.orderStyle);
       //--------- Close cart dialog, go to history

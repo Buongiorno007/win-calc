@@ -1,3 +1,6 @@
+
+// translations/ua.js
+
 "use strict";
 
 window.ukrainianDictionary = {
@@ -273,3 +276,4 @@ window.ukrainianDictionary = {
     NO_CONFIRM_PASS: 'Невірний пароль'
   }
 };
+

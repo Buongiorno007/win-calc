@@ -21,7 +21,6 @@ BauVoiceApp.controller('ConfigMenuCtrl', ['$scope', 'globalDB', 'localDB', 'loca
   $scope.global.isOpenedCartPage = false;
   $scope.global.isOpenedHistoryPage = false;
 
-
   //============= Create Order Date
   $scope.global.createOrderData = function() {
     var deliveryDate = new Date(),
@@ -740,7 +739,7 @@ console.log('FIRST START!!!!!!!!!!');
     delete productData.templateDefault;
     delete productData.templateIcon;
     delete productData.chosenAddElements;
-    localDB.insertDB($scope.global.productsTableBD, productData);
+    localDB.insertDB(localDB.productsTableBD, productData);
 
 
     //--------- insert additional elements into local DB
@@ -762,7 +761,7 @@ console.log('FIRST START!!!!!!!!!!');
           "elementQty": addElementsObj[prop][elem].elementQty
         };
 
-        localDB.insertDB($scope.global.addElementsTableBD, addElementsData);
+        localDB.insertDB(localDB.addElementsTableBD, addElementsData);
       }
     }
   };
@@ -771,8 +770,8 @@ console.log('FIRST START!!!!!!!!!!');
 
   $scope.editProductInLocalDB = function(product) {
     console.log('!!!!!!!!',product);
-    localDB.deleteDB($scope.global.productsTableBD, {'orderId': {"value": product.orderId, "union": 'AND'}, "productId": product.productId});
-    localDB.deleteDB($scope.global.addElementsTableBD, {'orderId': {"value": product.orderId, "union": 'AND'}, "productId": product.productId});
+    localDB.deleteDB(localDB.productsTableBD, {'orderId': {"value": product.orderId, "union": 'AND'}, "productId": product.productId});
+    localDB.deleteDB(localDB.addElementsTableBD, {'orderId': {"value": product.orderId, "union": 'AND'}, "productId": product.productId});
     $scope.insertProductInLocalDB(product);
   };
 

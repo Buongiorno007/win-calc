@@ -142,10 +142,10 @@ BauVoiceApp.controller('SettingsCtrl', ['$scope', 'globalDB', 'localStorage', '$
 
   $scope.logOut = function() {
     //------- clearing local DB
-    localDB.deleteTable($scope.global.productsTableBD);
-    localDB.deleteTable($scope.global.addElementsTableBD);
-    localDB.deleteTable($scope.global.ordersTableBD);
-
+    localDB.deleteTable(localDB.productsTableBD);
+    localDB.deleteTable(localDB.addElementsTableBD);
+    localDB.deleteTable(localDB.ordersTableBD);
+    localDB.deleteTable(localDB.analyticsTableBD);
     $location.path('/login');
   };
 

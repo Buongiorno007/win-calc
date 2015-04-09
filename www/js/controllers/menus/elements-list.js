@@ -5,7 +5,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', 'globalDB', '$timeout', function ($scope, localStorage, globalDB, $timeout) {
+BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', 'globalDB', '$timeout', 'analyticsServ', function ($scope, localStorage, globalDB, $timeout, analyticsServ) {
 
   var sourceAddElement, cloneAddElement;
 
@@ -91,6 +91,9 @@ BauVoiceApp.controller('ElementsListCtrl', ['$scope', 'localStorage', 'globalDB'
           console.log(results);
         }
       });
+
+      //------ save analytics data
+      analyticsServ.saveAnalyticDB($scope.global.userInfo.id, $scope.global.order.orderId, cloneAddElement.elementId, typeIndex);
 
       if($scope.global.isAddElementListView) {
         $scope.global.isAddElement = 1;

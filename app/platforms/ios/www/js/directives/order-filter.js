@@ -1,3 +1,6 @@
+
+// directives/order-filter.js
+
 'use strict';
 //BauVoiceApp.filter('orderSorting', [ '$scope', function($scope) {
 BauVoiceApp.filter('orderSorting', function() {
@@ -36,3 +39,4 @@ BauVoiceApp.filter('orderSorting', function() {
   };
 
 });
+

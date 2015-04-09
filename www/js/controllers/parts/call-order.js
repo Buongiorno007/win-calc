@@ -77,7 +77,7 @@ BauVoiceApp.controller('CallOrderCtrl', ['$scope', 'constructService', 'localSto
     if (form.$valid) {
       if($scope.global.orderEditNumber) {
         //----- delete old order in localDB
-        localDB.deleteDB($scope.global.ordersTableBD, {'orderId': $scope.global.orderEditNumber});
+        localDB.deleteDB(localDB.ordersTableBD, {'orderId': $scope.global.orderEditNumber});
         //$scope.global.deleteOrderFromLocalDB($scope.global.orderEditNumber);
         /*
         for(var prod = 0; prod < $scope.global.order.products.length; prod++) {

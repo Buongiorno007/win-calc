@@ -1,3 +1,6 @@
+
+// controllers/parts/user-info.js
+
 /* globals BauVoiceApp, STEP, playSound */
 'use strict';
 
@@ -55,3 +58,4 @@ BauVoiceApp.controller('UserInfoCtrl', ['$scope', 'globalDB', 'localDB', 'localS
 */
 
 }]);
+

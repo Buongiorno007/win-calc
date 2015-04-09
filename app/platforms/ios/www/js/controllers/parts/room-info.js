@@ -1,3 +1,6 @@
+
+// controllers/parts/room-info.js
+
 /* globals STEP, typingTextWithDelay, showElementWithDelay, playSound */
 
 'use strict';

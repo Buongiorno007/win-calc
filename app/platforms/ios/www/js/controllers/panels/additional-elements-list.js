@@ -1,3 +1,6 @@
+
+// controllers/panels/additional-elements-list.js
+
 /* globals BauVoiceApp, STEP, selectClass, activeClass */
 
 'use strict';
@@ -87,3 +90,4 @@ BauVoiceApp.controller('AdditionalElementsListCtrl', ['$scope', 'constructServic
   };
 
 }]);
+

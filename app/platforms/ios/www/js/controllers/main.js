@@ -1,3 +1,6 @@
+
+// controllers/main.js
+
 /* globals BauVoiceApp */
 
 'use strict';
@@ -16,3 +19,4 @@ BauVoiceApp.controller('MainCtrl', ['$rootScope', '$scope', 'localStorage', 'con
 */
 
 }]);
+

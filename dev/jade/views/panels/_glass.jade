@@ -1,33 +1,33 @@
-.config-panel.glass-container(ng-controller="GlassCtrl", ng-class="{'active': global.showPanels.showGlassPanel}")
-  .panel-inner(ng-if="global.isGlassPanel")
-    .glass-block(ng-repeat="type in global.glasses", ng-class="{'selected': global.product.glassTypeIndex == $index}")
+.config-panel.glass-container(ng-controller="GlassCtrl as glassPanel", ng-class="{'active': glassPanel.global.showPanels.showGlassPanel}")
+  .panel-inner(ng-if="glassPanel.global.isGlassPanel")
+    .glass-block(ng-repeat="typeGlass in glassPanel.global.glasses", ng-class="{'selected': glassPanel.global.product.glassTypeIndex == $index}")
 
       .group-block-header
-        .title(data-output="{{ global.glassTypes[$index] }}", typing="{{ glassPanel.typing }}", typing-delay="{{ glassPanel.DELAY_START }}")
+        .title(data-output="{{ glassPanel.global.glassTypes[$index] }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START }}")
         .group-info
           .info
 
       .glass-block-footer.clearfix
         .footer-inner
-          .box.glass-box.unvisible(ng-repeat="glass in type", ng-class="{'selected': global.product.glassIndex == $index && global.product.glassTypeIndex == $parent.$index}", hm-tap="selectGlass($parent.$index, $index, glass.glassId)", show-delay="{{ glassPanel.DELAY_START + (glassPanel.DELAY_BLOCK * $index) }}")
+          .box.glass-box.unvisible(ng-repeat="glass in typeGlass", ng-class="{'selected': glassPanel.global.product.glassIndex == $index && glassPanel.global.product.glassTypeIndex == $parent.$index}", hm-tap="glassPanel.selectGlass($parent.$index, $index, glass.glassId)", show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}")
             .glass-box-view
               .glass-img
                 img(ng-src="{{ glass.glassUrl }}")
-              .label(data-output="{{ glass.glassDescrip }}", typing="{{ glassPanel.typing }}", typing-delay="{{ glassPanel.DELAY_START + (glassPanel.DELAY_TYPING * $index) }}")
+              .label(data-output="{{ glass.glassDescrip }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
             .glass-box-data
-              .glass-descr(data-output="{{ glass.glassName }}", typing="{{ glassPanel.typing }}", typing-delay="{{ glassPanel.DELAY_START + (glassPanel.DELAY_TYPING * $index) }}")
+              .glass-descr(data-output="{{ glass.glassName }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
               .coef-level.heat-insulation(ng-class="{'coef-level-1': glass.heatCoeff == 1, 'coef-level-2': glass.heatCoeff == 2, 'coef-level-3': glass.heatCoeff == 3, 'coef-level-4': glass.heatCoeff == 4}")
                 .coef-index
                 .coef-index
                 .coef-index
                 .coef-index
                 .coef-index
-              .label(data-output="{{ 'panels.HEAT_INSULATION' | translate }}", typing="{{ glassPanel.typing }}", typing-delay="{{ glassPanel.DELAY_START + (glassPanel.DELAY_TYPING * $index) }}")
+              .label(data-output="{{ 'panels.HEAT_INSULATION' | translate }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
               .coef-level.noise-insulation(ng-class="{'coef-level-1': glass.glassNoise == 1, 'coef-level-2': glass.glassNoise == 2, 'coef-level-3': glass.glassNoise == 3, 'coef-level-4': glass.glassNoise == 4}")
                 .coef-index
                 .coef-index
                 .coef-index
                 .coef-index
                 .coef-index
-              .label(data-output="{{ 'panels.NOICE_INSULATION' | translate }}", typing="{{ glassPanel.typing }}", typing-delay="{{ glassPanel.DELAY_START + (glassPanel.DELAY_TYPING * $index) }}")
+              .label(data-output="{{ 'panels.NOICE_INSULATION' | translate }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
             .info

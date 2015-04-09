@@ -368,7 +368,7 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
     delete orderData.products;
 
     //console.log('$scope.global.order.orderStyle === ', $scope.global.order);
-    localDB.insertDB($scope.global.ordersTableBD, orderData);
+    localDB.insertDB(localDB.ordersTableBD, orderData);
 /*
     //------- merge objects for save in local db
     if(newOptions.length > 0) {
@@ -394,9 +394,9 @@ BauVoiceApp.controller('NavMenuCtrl', ['$scope', '$http', '$location', 'globalDB
 
   //-------- delete order from LocalDB
   $scope.global.deleteOrderFromLocalDB = function(orderNum) {
-    localDB.deleteDB($scope.global.ordersTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.productsTableBD, {'orderId': orderNum});
-    localDB.deleteDB($scope.global.addElementsTableBD, {'orderId': orderNum});
+    localDB.deleteDB(localDB.ordersTableBD, {'orderId': orderNum});
+    localDB.deleteDB(localDB.productsTableBD, {'orderId': orderNum});
+    localDB.deleteDB(localDB.addElementsTableBD, {'orderId': orderNum});
   };
 
   console.log('$scope.global.isOpenedHistoryPage!!!!!!!!!!!', $scope.global.isOpenedHistoryPage);

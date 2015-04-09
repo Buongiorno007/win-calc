@@ -1,3 +1,6 @@
+
+// general.js
+
 /* exported STEP, typingIndex, unvisibleClass, selectClass, activeClass, focuseClass, typingTextByChar, showElementWithDelay, typingTextWithDelay, addClassWithDelay, removeClassWithDelay */
 
 'use strict';
@@ -85,6 +88,15 @@ function typingTextWithDelay(element, delay) {
     });
   }, delay);
 }
+
+
+function changeTemplateInArray(templateIndex, templateSourceList, templateList, templateIconList, newTemplateSource, newTemplate, newTemplateIcon) {
+  //----- write new template in array
+  templateSourceList[templateIndex] = angular.copy(newTemplateSource);
+  templateList[templateIndex] = angular.copy(newTemplate);
+  templateIconList[templateIndex] = angular.copy(newTemplateIcon);
+}
+
 /*
 function addClassWithDelay(element, className, delay) {
   setTimeout(function () {

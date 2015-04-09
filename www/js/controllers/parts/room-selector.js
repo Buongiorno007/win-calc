@@ -8,18 +8,18 @@
     .module('BauVoiceApp')
     .controller('RoomSelectorCtrl', roomSelectorCtrl);
 
-    roomSelectorCtrl.$inject = ['$scope', 'localStorage', 'globalConst'];
+    roomSelectorCtrl.$inject = ['$scope', 'localStorage', 'globalConstants'];
 
-  function roomSelectorCtrl($scope, localStorage, globalConst) {
+  function roomSelectorCtrl($scope, localStorage, globalConstants) {
     $scope.global = localStorage;
 
     $scope.roomData = {
-      DELAY_SHOW_ROOM1: 5 * globalConst.STEP,
-      DELAY_SHOW_ROOM2: 6 * globalConst.STEP,
-      DELAY_SHOW_ROOM3: 7 * globalConst.STEP,
-      DELAY_SHOW_ROOM4: 8 * globalConst.STEP,
-      DELAY_SHOW_ROOM5: 9 * globalConst.STEP,
-      DELAY_SHOW_ROOM6: 10 * globalConst.STEP
+      DELAY_SHOW_ROOM1: 5 * globalConstants.STEP,
+      DELAY_SHOW_ROOM2: 6 * globalConstants.STEP,
+      DELAY_SHOW_ROOM3: 7 * globalConstants.STEP,
+      DELAY_SHOW_ROOM4: 8 * globalConstants.STEP,
+      DELAY_SHOW_ROOM5: 9 * globalConstants.STEP,
+      DELAY_SHOW_ROOM6: 10 * globalConstants.STEP
     };
 
 
@@ -94,7 +94,7 @@
         }
         $scope.global.prepareMainPage();
       }
-
+      $scope.global.startProgramm = false;
     };
 
     // Close Room Selector Dialog

@@ -1,4 +1,4 @@
-/* globals BauVoiceApp, STEP */
+/* globals BauVoiceApp, STEP, changeTemplateInArray */
 
 'use strict';
 
@@ -68,7 +68,7 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
   //------- finish edit product
   $scope.global.productEditNumber = '';
-
+  console.log('=======!!!! orders !!!!=======', $scope.global.orders);
 
   console.log('cart page!!!!!!!!!!!!!!!');
   console.log('product ====== ', $scope.global.product);
@@ -114,9 +114,9 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
 
 
 
-
   //================ EDIT order from Histoy ===============
   if($scope.global.orderEditNumber > 0) {
+    console.log('EDIT order from Histoy');
     //-------- checking if order exist in orders array into LocalStorage
     $scope.cart.isOrderExisted = false;
     for(var ord = 0; ord < $scope.global.orders.length; ord++) {
@@ -196,9 +196,47 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
       });
 
 
+      //------ Download All Products Data for Order
+      localDB.selectDB($scope.global.productsTableBD, {'orderId': $scope.global.orderEditNumber}, function (results) {
+        if (results.status) {
+          $scope.cart.productsEddited = angular.copy(results.data);
+          //------------- parsing All Templates Source and Icons for Order
+
+          for(var prod = 0; prod < $scope.cart.productsEddited.length; prod++) {
+            var product = angular.copy($scope.global.productSource);
+            angular.extend(product, $scope.cart.productsEddited[prod]);
+            console.log('product ==== ', product);
+
+            if(!product.isAddElementsONLY || product.isAddElementsONLY === 'false') {
+              product.templateSource = parsingTemplateSource(product.templateSource);
+              console.log('templateSource', product.templateSource);
+
+              // парсинг шаблона, расчет размеров
+              $scope.global.templateDepths = {
+                frameDepth: $scope.global.allProfileFrameSizes[product.profileIndex],
+                sashDepth: $scope.global.allProfileSashSizes[product.profileIndex],
+                impostDepth: $scope.global.allProfileImpostSizes[product.profileIndex],
+                shtulpDepth: $scope.global.allProfileShtulpSizes[product.profileIndex]
+              };
+              product.templateIcon = new TemplateIcon(product.templateSource, $scope.global.templateDepths);
+              product.templateDefault = new Template(product.templateSource, $scope.global.templateDepths);
+              console.log('templateIcon', product.templateIcon);
+            }
+            $scope.global.order.products.push(product);
+          }
+          $scope.parseAddElements();
+          //----------- start order price total calculation
+          //$scope.calculateProductsPrice();
+
+        } else {
+          console.log(results);
+        }
+      });
+
+
       //----------- sorting all Edd Elements by Products
       $scope.parseAddElements = function() {
-        console.log('productsEdit', $scope.global.order.products);
+        //console.log('productsEdit', $scope.global.order.products);
         for(prod = 0; prod < $scope.global.order.productsQty; prod++) {
 
           if($scope.cart.allGridsDB.length > 0) {
@@ -291,49 +329,15 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
         }
 
         $scope.parseAddElementsLocaly();
+
+        $scope.calculateProductsPrice();
+        $scope.global.order.orderPriceTOTAL = $scope.global.order.productsPriceTOTAL;
       };
 
-
-
-      //------ Download All Products Data for Order
-      localDB.selectDB($scope.global.productsTableBD, {'orderId': $scope.global.orderEditNumber}, function (results) {
-        if (results.status) {
-          $scope.cart.productsEddited = angular.copy(results.data);
-          //------------- parsing All Templates Source and Icons for Order
-
-          for(var prod = 0; prod < $scope.cart.productsEddited.length; prod++) {
-            var product = {};
-            product = angular.copy($scope.global.productSource);
-            angular.extend(product, $scope.cart.productsEddited[prod]);
-            console.log('product ==== ', product);
-
-            if(!product.isAddElementsONLY || product.isAddElementsONLY === 'false') {
-              product.templateSource = parsingTemplateSource(product.templateSource);
-              console.log('templateSource', product.templateSource);
-
-              // парсинг шаблона, расчет размеров
-              $scope.global.templateDepths = {
-                frameDepth: $scope.global.allProfileFrameSizes[product.profileIndex],
-                sashDepth: $scope.global.allProfileSashSizes[product.profileIndex],
-                impostDepth: $scope.global.allProfileImpostSizes[product.profileIndex],
-                shtulpDepth: $scope.global.allProfileShtulpSizes[product.profileIndex]
-              };
-              product.templateIcon = new TemplateIcon(product.templateSource, $scope.global.templateDepths);
-              product.templateDefault = new Template(product.templateSource, $scope.global.templateDepths);
-              console.log('templateIcon', product.templateIcon);
-            }
-            $scope.global.order.products.push(product);
-          }
-          $scope.parseAddElements();
-          //----------- start order price total calculation
-          //$scope.calculateProductsPrice();
-
-        } else {
-          console.log(results);
-        }
-      });
-
     }
+
+    $scope.calculateProductsPrice();
+    $scope.global.order.orderPriceTOTAL = $scope.global.order.productsPriceTOTAL;
 
 
   //=========== from Main page
@@ -424,8 +428,37 @@ BauVoiceApp.controller('CartCtrl', ['$scope', 'localDB', 'localStorage', '$locat
   //----- Edit Produtct in main page
   $scope.editProduct = function(productIndex) {
     $scope.global.productEditNumber = productIndex;
+    $scope.global.product = angular.copy($scope.global.order.products[productIndex]);
+    if($scope.global.product.constructionType === 1) {
+      $scope.global.isConstructWind = true;
+      $scope.global.isConstructWindDoor = false;
+      $scope.global.isConstructBalcony = false;
+      $scope.global.isConstructDoor = false;
+      changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesWindSource, $scope.global.templatesWindList, $scope.global.templatesWindIconList, $scope.global.product.templateSource,$scope.global.product.templateDefault, $scope.global.product.templateIcon);
+    } else if($scope.global.product.constructionType === 2) {
+      $scope.global.isConstructWind = false;
+      $scope.global.isConstructWindDoor = true;
+      $scope.global.isConstructBalcony = false;
+      $scope.global.isConstructDoor = false;
+      changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesWindDoorSource, $scope.global.templatesWindDoorList, $scope.global.templatesWindDoorIconList, $scope.global.product.templateSource,$scope.global.product.templateDefault, $scope.global.product.templateIcon);
+    } else if($scope.global.product.constructionType === 3) {
+      $scope.global.isConstructWind = false;
+      $scope.global.isConstructWindDoor = false;
+      $scope.global.isConstructBalcony = true;
+      $scope.global.isConstructDoor = false;
+      changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesBalconySource, $scope.global.templatesBalconyList, $scope.global.templatesBalconyIconList, $scope.global.product.templateSource,$scope.global.product.templateDefault, $scope.global.product.templateIcon);
+    } else if($scope.global.product.constructionType === 4) {
+      $scope.global.isConstructWind = false;
+      $scope.global.isConstructWindDoor = false;
+      $scope.global.isConstructBalcony = false;
+      $scope.global.isConstructDoor = true;
+      changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesDoorSource, $scope.global.templatesDoorList, $scope.global.templatesDoorIconList, $scope.global.product.templateSource,$scope.global.product.templateDefault, $scope.global.product.templateIcon);
+    }
+    //------- refresh current templates arrays
+    $scope.global.getCurrentTemplates();
     $scope.global.isCreatedNewProject = false;
     $scope.global.isCreatedNewProduct = false;
+    $scope.global.isOpenedHistoryPage = false;
     $scope.global.prepareMainPage();
     $location.path('/main');
   };

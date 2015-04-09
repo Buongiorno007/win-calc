@@ -1,3 +1,6 @@
+
+// services/localDB_Service.js
+
 "use strict";
 
 BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
@@ -6,6 +9,7 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       tableProducts = 'products',
       tableOrders = 'orders',
       tableAddElements = 'add_elements',
+      tableAnalytics = 'analytics',
       dbGlobal, db;
 
   dbGlobal = $webSql.openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
@@ -383,6 +387,37 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
     }
   });
 
+  db.createTable(tableAnalytics, {
+    "id":{
+      "type": "INTEGER",
+      "null": "NOT NULL",
+      "primary": true,
+      "auto_increment": true
+    },
+    "created":{
+      "type": "TIMESTAMP",
+      "null": "NOT NULL",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    "userId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "orderId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "elementId":{
+      "type": "INTEGER",
+      "null": "NULL"
+    },
+    "elementType":{
+      "type": "INTEGER",
+      "null": "NULL"
+    }
+  });
+
+
   db.createTable(tableAddElements, {
 
     "id":{
@@ -531,4 +566,5 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
   }
 
 }]);
+
 

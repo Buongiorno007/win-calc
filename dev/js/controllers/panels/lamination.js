@@ -1,53 +1,63 @@
-/* globals BauVoiceApp, STEP, selectClass, showElementWithDelay, typingTextWithDelay */
+(function(){
+  'use strict';
 
-'use strict';
+  angular
+    .module('BauVoiceApp')
+    .controller('LaminationCtrl', laminationSelectorCtrl);
 
-BauVoiceApp.controller('LaminationCtrl', ['$scope', 'constructService', 'localStorage', function ($scope, constructService, localStorage) {
+  laminationSelectorCtrl.$inject = ['$scope', 'globalConstants', 'localStorage', 'analyticsServ'];
 
-  $scope.global = localStorage;
+  function laminationSelectorCtrl($scope, globalConstants, localStorage, analyticsServ) {
 
-  $scope.laminationInPrice = 0;
-  $scope.laminationOutPrice = 0;
+    $scope.global = localStorage;
 
-  $scope.laminationPanel = {
-    DELAY_START: 5 * STEP,
-    DELAY_BLOCK: 2 * STEP,
-    DELAY_TYPING: 2.5 * STEP,
-    typing: 'on'
-  };
+    $scope.laminationInPrice = 0;
+    $scope.laminationOutPrice = 0;
 
-  // Select lamination
-  $scope.selectLaminatIn = function(laminatIndex) {
-    if(laminatIndex !== 'white') {
-      $scope.global.product.laminationInIndex = laminatIndex;
-      $scope.global.product.laminationInName = $scope.global.laminationsIn[laminatIndex].laminationName;
-      $scope.global.product.laminationInPrice = $scope.global.laminationsIn[laminatIndex].laminationPrice;
-      $scope.setLaminationTotalPrice();
-    } else {
-      $scope.global.product.laminationInIndex = 'white';
-      $scope.global.product.laminationInName =  $scope.global.laminationsWhite;
-      $scope.global.product.laminationInPrice = 0;
-      $scope.setLaminationTotalPrice();
-    }
-  };
+    $scope.laminationPanel = {
+      DELAY_START: 5 * globalConstants.STEP,
+      DELAY_BLOCK: 2 * globalConstants.STEP,
+      DELAY_TYPING: 2.5 * globalConstants.STEP,
+      typing: 'on'
+    };
 
-  $scope.selectLaminatOut = function(laminatIndex) {
-    if(laminatIndex !== 'white') {
-      $scope.global.product.laminationOutIndex = laminatIndex;
-      $scope.global.product.laminationOutName = $scope.global.laminationsOut[laminatIndex].laminationName;
-      $scope.global.product.laminationOutPrice = $scope.global.laminationsOut[laminatIndex].laminationPrice;
-      $scope.setLaminationTotalPrice();
-    } else {
-      $scope.global.product.laminationOutIndex = 'white';
-      $scope.global.product.laminationOutName =  $scope.global.laminationsWhite;
-      $scope.global.product.laminationOutPrice = 0;
-      $scope.setLaminationTotalPrice();
-    }
-  };
+    // Select lamination
+    $scope.selectLaminatIn = function(laminatIndex) {
+      if(laminatIndex !== 'white') {
+        $scope.global.product.laminationInIndex = laminatIndex;
+        $scope.global.product.laminationInName = $scope.global.laminationsIn[laminatIndex].laminationName;
+        $scope.global.product.laminationInPrice = $scope.global.laminationsIn[laminatIndex].laminationPrice;
+        $scope.setLaminationTotalPrice();
+      } else {
+        $scope.global.product.laminationInIndex = 'white';
+        $scope.global.product.laminationInName =  $scope.global.laminationsWhite;
+        $scope.global.product.laminationInPrice = 0;
+        $scope.setLaminationTotalPrice();
+      }
+      //------ save analytics data
+      analyticsServ.saveAnalyticDB($scope.global.userInfo.id, $scope.global.order.orderId, laminatIndex, 1);
+    };
 
-  $scope.setLaminationTotalPrice = function() {
-    $scope.global.product.laminationPriceSELECT = $scope.global.product.laminationInPrice + $scope.global.product.laminationOutPrice;
-    $scope.global.setProductPriceTOTALapply();
-  };
+    $scope.selectLaminatOut = function(laminatIndex) {
+      if(laminatIndex !== 'white') {
+        $scope.global.product.laminationOutIndex = laminatIndex;
+        $scope.global.product.laminationOutName = $scope.global.laminationsOut[laminatIndex].laminationName;
+        $scope.global.product.laminationOutPrice = $scope.global.laminationsOut[laminatIndex].laminationPrice;
+        $scope.setLaminationTotalPrice();
+      } else {
+        $scope.global.product.laminationOutIndex = 'white';
+        $scope.global.product.laminationOutName =  $scope.global.laminationsWhite;
+        $scope.global.product.laminationOutPrice = 0;
+        $scope.setLaminationTotalPrice();
+      }
+      //------ save analytics data
+      analyticsServ.saveAnalyticDB($scope.global.userInfo.id, $scope.global.order.orderId, laminatIndex, 2);
+    };
 
-}]);
+    $scope.setLaminationTotalPrice = function() {
+      $scope.global.product.laminationPriceSELECT = $scope.global.product.laminationInPrice + $scope.global.product.laminationOutPrice;
+      $scope.global.setProductPriceTOTALapply();
+    };
+
+  }
+})();

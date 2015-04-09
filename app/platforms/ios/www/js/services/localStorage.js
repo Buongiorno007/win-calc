@@ -1,3 +1,6 @@
+
+// services/localStorage.js
+
 "use strict";
 
 BauVoiceApp.factory('localStorage', ['$filter', function ($filter) {
@@ -102,7 +105,7 @@ BauVoiceApp.factory('localStorage', ['$filter', function ($filter) {
       productId: 0,
       isAddElementsONLY: false,
       selectedRoomId: 4,
-
+      constructionType: 1,
       templateIndex: 0,
       templateSource: {},
       templateDefault: {},
@@ -342,3 +345,4 @@ BauVoiceApp.factory('localStorage', ['$filter', function ($filter) {
 
   }
 }]);
+

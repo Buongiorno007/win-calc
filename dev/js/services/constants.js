@@ -3,7 +3,7 @@
 
   angular
     .module('BauVoiceApp')
-    .constant('globalConst', {
+    .constant('globalConstants', {
       STEP: 50
     });
 

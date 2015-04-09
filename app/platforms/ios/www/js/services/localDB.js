@@ -1,3 +1,6 @@
+
+// services/localDB.js
+
 "use strict";
 
 BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
@@ -35,6 +38,10 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
       "null": "NOT NULL"
     },
     "selectedRoomId":{
+      "type": "INTEGER",
+      "null": "NOT NULL"
+    },
+    "constructionType": {
       "type": "INTEGER",
       "null": "NOT NULL"
     },
@@ -527,4 +534,5 @@ BauVoiceApp.factory('localDB', ['$webSql', function ($webSql) {
   }
 
 }]);
+
 

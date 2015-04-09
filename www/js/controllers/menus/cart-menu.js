@@ -5,7 +5,7 @@
 
 'use strict';
 
-BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localStorage', 'localDB', function ($scope, constructService, localStorage, localDB) {
+BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localStorage', function ($scope, constructService, localStorage) {
 
   $scope.global = localStorage;
 
@@ -151,7 +151,7 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
   //--------- this function uses into Order/Credit Dialog for create user object and set default values for select fields
   $scope.global.createUserXOrder = function() {
     return {
-      sex: 'm',
+      sex: '',
       age: $scope.global.optionAge[0],
       education: $scope.global.optionEductaion[0],
       occupation: $scope.global.optionOccupation[0],
@@ -162,7 +162,7 @@ BauVoiceApp.controller('CartMenuCtrl', ['$scope',  'constructService', 'localSto
 
   //-------- Calculate Total Order Price
   $scope.global.calculateTotalOrderPrice = function() {
-    playSound('price');
+    //playSound('price');
     var floorPrice = parseFloat($scope.global.order.selectedFloorPrice),
         assemblingPrice = parseFloat($scope.global.order.selectedAssemblingPrice);
 

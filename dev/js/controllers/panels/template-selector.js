@@ -1,4 +1,3 @@
-/* globals STEP */
 (function(){
 'use strict';
 
@@ -6,14 +5,14 @@
     .module('BauVoiceApp')
     .controller('TemplateSelectorCtrl', templateSelectorCtrl);
 
-  templateSelectorCtrl.$inject = ['$scope', '$location', 'localStorage', 'constructService', '$filter', '$cordovaDialogs'];
+  templateSelectorCtrl.$inject = ['$scope', '$location', 'localStorage', 'constructService', '$filter', '$cordovaDialogs', 'globalConstants'];
 
-  function templateSelectorCtrl($scope, $location, localStorage, constructService, $filter, $cordovaDialogs) {
+  function templateSelectorCtrl($scope, $location, localStorage, constructService, $filter, $cordovaDialogs, globalConstants) {
 
     $scope.global = localStorage;
 
     $scope.templatePanel = {
-      DELAY_TEMPLATE_ELEMENT: 18 * STEP,
+      DELAY_TEMPLATE_ELEMENT: 18 * globalConstants.STEP,
       switcherTemplate: false,
       typing: 'on'
     };
@@ -73,7 +72,6 @@
 
 
     $scope.newPriceForNewTemplate = function(templateIndex) {
-      event.preventDefault();
       if(!$scope.global.isFindPriceProcess) {
         $scope.global.isFindPriceProcess = true;
         $scope.global.product.templateIndex = templateIndex;

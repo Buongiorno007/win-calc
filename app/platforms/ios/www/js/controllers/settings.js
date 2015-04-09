@@ -1,3 +1,6 @@
+
+// controllers/settings.js
+
 /* globals BauVoiceApp, STEP */
 
 'use strict';

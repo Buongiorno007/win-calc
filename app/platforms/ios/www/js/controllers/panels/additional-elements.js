@@ -1,3 +1,6 @@
+
+// controllers/panels/additional-elements.js
+
 /* globals BauVoiceApp, STEP, activeClass */
 
 'use strict';
@@ -290,3 +293,4 @@ BauVoiceApp.controller('AdditionalElementsCtrl', ['$scope', 'localDB', 'construc
   };
 
 }]);
+

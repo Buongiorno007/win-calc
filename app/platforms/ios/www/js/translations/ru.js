@@ -1,3 +1,6 @@
+
+// translations/ru.js
+
 "use strict";
 
 window.russianDictionary = {

@@ -1,28 +1,36 @@
-/* globals BauVoiceApp, STEP, selectClass, showElementWithDelay, typingTextWithDelay */
+(function(){
+  'use strict';
 
-'use strict';
+  angular
+    .module('BauVoiceApp')
+    .controller('HardwareWindowCtrl', hardwareSelectorCtrl);
 
-BauVoiceApp.controller('HardwareWindowCtrl', ['$scope', 'constructService', 'localStorage', function ($scope, constructService, localStorage) {
+  hardwareSelectorCtrl.$inject = ['$scope', 'globalConstants', 'localStorage', 'analyticsServ'];
 
-  $scope.global = localStorage;
+  function hardwareSelectorCtrl($scope, globalConstants, localStorage, analyticsServ) {
 
-  $scope.hardwarePanel = {
-    DELAY_START: 5 * STEP,
-    DELAY_BLOCK: 2 * STEP,
-    DELAY_TYPING: 2.5 * STEP,
-    typing: 'on'
-  };
+    $scope.global = localStorage;
 
-  // Select hardware
-  $scope.selectHardware = function(hardwareTypeIndex, hardwareIndex) {
-    $scope.global.product.hardwareTypeIndex = hardwareTypeIndex;
-    $scope.global.product.hardwareIndex = hardwareIndex;
-    var selectedHardware = $scope.global.hardwares[hardwareTypeIndex][hardwareIndex];
-    $scope.global.product.hardwareId = selectedHardware.hardwareId;
-    $scope.global.product.hardwareName = selectedHardware.hardwareName;
-    $scope.global.product.hardwareHeatCoeff = selectedHardware.heatCoeff;
-    $scope.global.product.hardwareAirCoeff = selectedHardware.airCoeff;
-    $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
-  };
+    $scope.hardwarePanel = {
+      DELAY_START: 5 * globalConstants.STEP,
+      DELAY_BLOCK: 2 * globalConstants.STEP,
+      DELAY_TYPING: 2.5 * globalConstants.STEP,
+      typing: 'on'
+    };
 
-}]);
+    // Select hardware
+    $scope.selectHardware = function(hardwareTypeIndex, hardwareIndex) {
+      $scope.global.product.hardwareTypeIndex = hardwareTypeIndex;
+      $scope.global.product.hardwareIndex = hardwareIndex;
+      var selectedHardware = $scope.global.hardwares[hardwareTypeIndex][hardwareIndex];
+      $scope.global.product.hardwareId = selectedHardware.hardwareId;
+      $scope.global.product.hardwareName = selectedHardware.hardwareName;
+      $scope.global.product.hardwareHeatCoeff = selectedHardware.heatCoeff;
+      $scope.global.product.hardwareAirCoeff = selectedHardware.airCoeff;
+      $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
+      //------ save analytics data
+      analyticsServ.saveAnalyticDB($scope.global.userInfo.id, $scope.global.order.orderId, hardwareIndex, hardwareTypeIndex);
+    };
+
+  }
+})();

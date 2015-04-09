@@ -1,4 +1,7 @@
-/* globals BauVoiceApp, STEP, deactiveSizeBox */
+
+// controllers/construction.js
+
+/* globals BauVoiceApp, STEP, deactiveSizeBox, changeTemplateInArray */
 
 'use strict';
 
@@ -290,19 +293,19 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
   $scope.backtoTemplatePanel = function() {
     $scope.global.prepareMainPage();
     $scope.global.isReturnFromDiffPage = true;
-    console.log('construction page!!!!!!!!!!!');
-    console.log('product ====== ', $scope.global.product);
-    console.log('order ====== ', $scope.global.order);
+    //console.log('construction page!!!!!!!!!!!');
+    //console.log('product ====== ', $scope.global.product);
+    //console.log('order ====== ', $scope.global.order);
     $location.path('/main');
   };
-
+/*
   function changeTemplateInArray(templateIndex, templateSourceList, templateList, templateIconList, newTemplateSource, newTemplate, newTemplateIcon) {
     //----- write new template in array
     templateSourceList[templateIndex] = angular.copy(newTemplateSource);
     templateList[templateIndex] = angular.copy(newTemplate);
     templateIconList[templateIndex] = angular.copy(newTemplateIcon);
   }
-
+*/
 
 
 
@@ -1424,3 +1427,4 @@ BauVoiceApp.controller('ConstructionCtrl', ['$scope', 'constructService', 'local
 
 
 }]);
+

@@ -76,7 +76,7 @@ BauVoiceApp.controller('CallCreditCtrl', ['$scope', 'constructService', 'localSt
       if($scope.global.orderEditNumber > 0) {
 
         //----- delete old order in localDB
-        localDB.deleteDB($scope.global.ordersTableBD, {'orderId': $scope.global.orderEditNumber});
+        localDB.deleteDB(localDB.ordersTableBD, {'orderId': $scope.global.orderEditNumber});
         //$scope.global.deleteOrderFromLocalDB($scope.global.orderEditNumber);
         /*
         for(var prod = 0; prod < $scope.global.order.products.length; prod++) {

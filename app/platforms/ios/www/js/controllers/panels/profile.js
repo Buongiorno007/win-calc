@@ -1,3 +1,6 @@
+
+// controllers/panels/profile.js
+
 /* globals BauVoiceApp, STEP, playSound */
 
 'use strict';
@@ -53,3 +56,4 @@ BauVoiceApp.controller('ProfileCtrl', ['$scope', 'constructService', 'localStora
   };
 
 }]);
+

@@ -1,3 +1,6 @@
+
+// directives/price-x-qty.js
+
 'use strict';
 
 BauVoiceApp.directive('priceFixed', function() {
@@ -31,3 +34,4 @@ BauVoiceApp.directive('priceFixed', function() {
     }
   };
 });
+

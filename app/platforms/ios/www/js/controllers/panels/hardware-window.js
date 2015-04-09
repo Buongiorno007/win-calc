@@ -1,3 +1,6 @@
+
+// controllers/panels/hardware-window.js
+
 /* globals BauVoiceApp, STEP, selectClass, showElementWithDelay, typingTextWithDelay */
 
 'use strict';
@@ -26,3 +29,4 @@ BauVoiceApp.controller('HardwareWindowCtrl', ['$scope', 'constructService', 'loc
   };
 
 }]);
+

@@ -52,4 +52,4 @@
           span.title(data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}", typing="{{ navMenu.typing }}", typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 11) }}")
 
   footer.nav-menu-footer
-    button.new-calc.unvisible(hm-tap="clickNewProject()", show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}") {{ 'mainpage.NAVMENU_NEW_CALC' | translate }}
+    button.new-calc.unvisible(ng-if="!global.orderEditNumber", hm-tap="clickNewProject()", show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}") {{ 'mainpage.NAVMENU_NEW_CALC' | translate }}
