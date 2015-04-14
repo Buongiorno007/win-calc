@@ -8,13 +8,18 @@
     .module('CartModule')
     .controller('CallCreditCtrl', callCreditCtrl);
 
-  callCreditCtrl.$inject = ['$scope', 'globalConstants', 'constructService', 'localStorage', '$location', 'localDB', 'analyticsServ'];
+  callCreditCtrl.$inject = ['$scope', 'globalConstants', 'constructService', 'localStorage', '$location', 'localDB', 'CartStor', 'CartServ', 'analyticsServ'];
 
-  function callCreditCtrl($scope, globalConstants, constructService, localStorage, $location, localDB, analyticsServ) {
+  function callCreditCtrl($scope, globalConstants, constructService, localStorage, $location, localDB, CartStor, CartServ, analyticsServ) {
 
-    $scope.global = localStorage;
     $scope.orderStyle = 'credit';
-    $scope.user = $scope.global.createUserXOrder();
+    $scope.global = localStorage;
+    $scope.cartStor = CartStor;
+
+    $scope.user = CartServ.setDefaultUserInfoXOrder();
+
+
+
     //$scope.user.instalment = 54513123;
 
     // Search Location
@@ -71,10 +76,10 @@
     // Close Credit Dialog
     $scope.hideCallCreditDialog = function() {
       $scope.submitted = false;
-      $scope.user = $scope.global.createUserXOrder();
       $scope.showTipCity = false;
       $scope.currentCity = false;
-      $scope.global.showCreditDialog = false;
+      $scope.user = CartServ.setDefaultUserInfoXOrder();
+      CartServ.closeOrderDialog();
     };
 
     // Send Form Data

@@ -8,9 +8,9 @@
     .module('MainModule')
     .directive('price', orderDateDir);
 
-  orderDateDir.$inject = ['globalConstants'];
+  orderDateDir.$inject = ['globalConstants', 'SoundPlayServ'];
 
-  function orderDateDir(globalConstants) {
+  function orderDateDir(globalConstants, SoundPlayServ) {
 
     return {
       restrict: 'E',
@@ -64,7 +64,7 @@
       } else {
 
         //playSound('price');
-        playSound();
+        SoundPlayServ.playSound();
 
         //priceByDigit = price.toString().split('');
         if(typeof price === 'string') {

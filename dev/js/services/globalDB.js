@@ -5,9 +5,9 @@
     .module('BauVoiceApp')
     .factory('globalDB', globalDBFactory);
 
-  globalDBFactory.$inject = ['$http'];
+  globalDBFactory.$inject = ['$http', '$q'];
 
-  function globalDBFactory($http) {
+  function globalDBFactory($http, $q) {
 
 
     var elemLists = [], elemListsHw = [], elemListsAdd = [];
@@ -262,6 +262,7 @@
       },
 
       getDeviceCodeLocalDb: function (callback) {
+        var deferred = $q.defer();
         var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
         var newDeviceCodeLocalDb = '';
         var words = '0123456789qwertyuiopasdfghjklzxcvbnm';
@@ -282,19 +283,24 @@
               } else {
                 callback(new OkResult({sync: false, deviceCode: result.rows.item(0).code}));
               }
+              deferred.resolve(result.rows);
             } else {
               db.transaction(function (transaction) {
                 transaction.executeSql(insertDeviceCodeLocalDb, [1, newDeviceCodeLocalDb, 0], function () {
                 }, function () {
                   callback(new ErrorResult(2, 'Something went wrong with inserting device record'));
+                  deferred.resolve(result.rows);
                 });
               });
               callback(new OkResult({sync: false, deviceCode: newDeviceCodeLocalDb}));
             }
+
+
           }, function () {
             callback(new ErrorResult(2, 'Something went wrong with selection device_code record'));
           });
         });
+        return deferred.promise;
       },
 
       getDeviceCodeGlobalDb: function (deviceCode, callback) {
@@ -319,21 +325,25 @@
 
       initApp: function (callback) {
         var self = this;
+        var deferred = $q.defer();
         this.getDeviceCodeLocalDb(function (result) {
           if (result.status) {
             var deviceCodeLocalDb = result.data;
-            console.log(deviceCodeLocalDb);
+            console.log('deviceCodeLocalDb = ', deviceCodeLocalDb);
             self.getDeviceCodeGlobalDb(deviceCodeLocalDb.deviceCode, function (result) {
               if (result.status) {
                 var deviceCodeGlobalDb = result.data;
+                console.log('deviceCodeGlobalDb = ', deviceCodeGlobalDb);
                 if (deviceCodeLocalDb.deviceCode === deviceCodeGlobalDb && !deviceCodeLocalDb.sync) {
                   console.log('Import database begin!');
                   self.importDb(deviceCodeGlobalDb, function (result) {
                     if (result.status) {
                       console.log('Database import is finished!');
+                      deferred.resolve('Database import is finished!');
                       callback(new OkResult('Database import is finished!'));
                     } else {
                       callback(new ErrorResult(2, 'Something went wrong when importing Database!'));
+                      deferred.reject('Something went wrong when importing Database!');
                     }
                   });
                 }
@@ -341,7 +351,69 @@
             });
           }
         });
+        return deferred.promise;
       },
+
+
+      clearLocation: function (callback) {
+        var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i;
+        db.transaction(function (transaction) {
+          for (i = 9; i < 12; i++) {
+            transaction.executeSql(deleteTablesSQL[i], [], function () {
+              callback({status: true});
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with deleting table'));
+            });
+          }
+        });
+      },
+
+      importLocation: function (callback) {
+        var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, table;
+        db.transaction(function (transaction) {
+          for (i = 0; i < createTablesSQL.length; i++) {
+            transaction.executeSql(createTablesSQL[i], []);
+          }
+        });
+        $http.get('http://api.voice-creator.net/sync/location').success(function (result) {
+          db.transaction(function (transaction) {
+            for (table in result.tables) {
+              for (i = 0; i < result.tables[table].rows.length; i++) {
+                transaction.executeSql('INSERT INTO ' + table + ' (' + result.tables[table].fields.join(', ') + ') VALUES (' + getValuesString(result.tables[table].rows[i]) + ')', [], function () {
+                }, function () {
+                  callback(new ErrorResult(2, 'Something went wrong with inserting ' + table + ' record'));
+                });
+              }
+            }
+            callback({status: true});
+          });
+        }).error(function () {
+          callback(new ErrorResult(2, 'Something went wrong with importing Database!'));
+        });
+      },
+
+
+      ifUserExist: function (login, callback) {
+        var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, table;
+        $http.get('http://api.voice-creator.net/sync/user?login='+login).success(function (result) {
+          callback(result);
+        }).error(function () {
+          callback(new ErrorResult(2, 'Something went wrong when chack user login!'));
+        });
+      },
+
+
+      createUser: function (login, dataJson, callback) {
+        $http.post('http://api.voice-creator.net/sync/createuser?login=' + login, dataJson).success(function (result) {
+          callback(result);
+        }).error(function () {
+          callback(new ErrorResult(2, 'Something went wrong when user creating!'));
+        });
+      },
+
+
+
+
 
       importDb: function (deviceCode, callback) {
         var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, table;
@@ -393,7 +465,6 @@
           deviceCode = result.data.deviceCode;
           self.getLastSync(function (result) {
             lastSyncDate = result.data.last_sync;
-            console.log(deviceCode);
             $http.get('http://api.voice-creator.net/sync/elements?access_token=' + deviceCode + '&last_sync=' + lastSyncDate).success(function (result) {
               db.transaction(function (transaction) {
                 console.log(result);

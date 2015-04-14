@@ -43,4 +43,7 @@
     <feature name="ProgressIndicator">
         <param name="android-package" value="org.apache.cordova.plugin.ProgressIndicator" />
     </feature>
+    <feature name="Globalization">
+        <param name="android-package" value="org.apache.cordova.globalization.Globalization" />
+    </feature>
 </widget>

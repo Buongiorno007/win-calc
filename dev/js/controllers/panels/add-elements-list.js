@@ -88,6 +88,7 @@
       $scope.global.isAddElementListView = false;
       $scope.global.showAddElementsMenu = false;
       $scope.global.isAddElement = false;
+      $scope.global.isTabFrame = false;
     };
 
   }

@@ -1,22 +1,8 @@
-/* exported STEP, typingIndex, unvisibleClass, selectClass, activeClass, focuseClass, typingTextByChar, showElementWithDelay, typingTextWithDelay, addClassWithDelay, removeClassWithDelay */
+
+// general.js
 
 'use strict';
 
-var STEP = 50,
-    typingIndex = true,
-
-    selectClass = 'selected',
-    focuseClass = 'focused',
-    activeClass = 'active',
-    unvisibleClass = 'unvisible',
-    movePanelClass = 'move-panel',
-    soundsIntervals = {
-      menu: {start: 7.93, end: 11.7},
-      swip: {start: 8, end: 9},
-      price: {from: 21.5, to: 23.2},
-      fly: {start: 0.57, end: 1.59},
-      switching: {start: 1.81, end: 2.88}
-    };
 
 Array.prototype.min = function () {
   return this.reduce(function (p, v) {
@@ -40,51 +26,6 @@ function sortNumbers(a, b) {
   return a - b;
 }
 
-function typingTextByChar($textElem1, $textElem2) {
-  var source = $textElem1.data('output'),
-      newText = '',
-      delay = 100,
-      timerId;
-  if (source !== undefined && source.length) {
-    timerId = setInterval(function () {
-      var hasChar = newText.length < source.length;
-
-      //newText = this.buildTypingText(newText, source);
-      newText = buildTypingText(newText, source);
-      $textElem1.text(newText);
-
-      if (!hasChar) {
-        clearInterval(timerId);
-
-        if ($textElem2) {
-          typingTextByChar($textElem2);
-        }
-      }
-    }, delay);
-  }
-
-  //this.buildTypingText = function (currentTxt, sourceTxt) {
-  function buildTypingText (currentTxt, sourceTxt) {
-    if (typingIndex && currentTxt.length < sourceTxt.length) {
-      currentTxt += sourceTxt[currentTxt.length];
-      return currentTxt;
-    }
-  }
-}
-
-function showElementWithDelay($element, delay) {
-  setTimeout(function () {
-    $element.removeClass(unvisibleClass);
-  }, delay);
-}
-
-function typingTextWithDelay(element, delay) {
-  setTimeout(function () {
-    element.each(function () {
-      typingTextByChar($(this));
-    });
-  }, delay);
-}
 
 
 function changeTemplateInArray(templateIndex, templateSourceList, templateList, templateIconList, newTemplateSource, newTemplate, newTemplateIcon) {
@@ -94,20 +35,7 @@ function changeTemplateInArray(templateIndex, templateSourceList, templateList, 
   templateIconList[templateIndex] = angular.copy(newTemplateIcon);
 }
 
-/*
-function addClassWithDelay(element, className, delay) {
-  setTimeout(function () {
-    $(element).addClass(className);
-  }, delay);
-}
 
-function removeClassWithDelay(element, className, delay) {
-  setTimeout(function () {
-    $(element).removeClass(className);
-  }, delay);
-}
-
-*/
 
 //---------- Deactivate Size Box for SVG Construction
 function deactiveSizeBox(sizeRectActClass, sizeBoxActClass) {
@@ -116,41 +44,9 @@ function deactiveSizeBox(sizeRectActClass, sizeBoxActClass) {
     $(this).find('.'+sizeBoxActClass).addClass('size-value-edit').removeClass(sizeBoxActClass);
   });
 }
-/*
-function deactiveSizeBox(sizeEditClass, sizeClass) {
-  $('g.size-box-edited').each(function () {
-    this.instance.removeClass(sizeEditClass);
-    this.instance.addClass(sizeClass);
-  });
-}
-*/
 
-//----------- Play audio sounds
-function playSound() {
-  var audioPlayer = document.getElementById('sounds');
-  audioPlayer.play();
-}
-/*
-function playSound(element) {
-  var audioPlayer = document.getElementById('sounds');
-  //console.log('currentTime1', audioPlayer.currentTime);
-  audioPlayer.pause();
-  audioPlayer.currentTime = soundsIntervals[element].from;
-  if(audioPlayer.currentTime === soundsIntervals[element].from) {
-    audioPlayer.play();
-    audioPlayer.addEventListener('timeupdate', handle, false);
-  }
-  //console.log('currentTime2', audioPlayer.currentTime);
-  function handle() {
-    var end = soundsIntervals[element].to;
-    //console.log(this.currentTime + ' = ' + end);
-    if(this.currentTime >= end) {
-      this.pause();
-      this.removeEventListener('timeupdate', handle);
-    }
-  }
-}
-*/
+
+
 
 
 //--------- TEMPLATE JSON PARSE ----------------

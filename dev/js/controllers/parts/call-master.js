@@ -5,12 +5,14 @@
     .module('CartModule')
     .controller('CallMasterCtrl', callMasterCtrl);
 
-  callMasterCtrl.$inject = ['$scope', 'globalConstants', 'constructService', 'localStorage', '$location', 'localDB', 'analyticsServ'];
+  callMasterCtrl.$inject = ['$scope', 'globalConstants', 'constructService', 'localStorage', '$location', 'localDB', 'CartStor', 'CartServ', 'analyticsServ'];
 
-  function callMasterCtrl($scope, globalConstants, constructService, localStorage, $location, localDB, analyticsServ) {
+  function callMasterCtrl($scope, globalConstants, constructService, localStorage, $location, localDB, CartStor, CartServ, analyticsServ) {
 
-    $scope.global = localStorage;
     $scope.orderStyle = 'master';
+    $scope.global = localStorage;
+    $scope.cartStor = CartStor;
+    $scope.service = CartServ;
     $scope.user = {};
 
     // Search Location
@@ -88,7 +90,7 @@
       $scope.user = {};
       $scope.showTipCity = false;
       $scope.currentCity = false;
-      $scope.global.showMasterDialog = false;
+      CartServ.closeOrderDialog();
     };
 
     // Send Form Data

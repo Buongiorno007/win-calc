@@ -317,7 +317,7 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf?1428589557') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
@@ -329,11 +329,11 @@ th {
 }
 @font-face {
   font-family: "roboto-medium";
-  src: url('../fonts/roboto/Roboto-Medium.ttf') format('truetype');
+  src: url('../fonts/roboto/Roboto-Medium.ttf?1428589557') format('truetype');
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf?1428589557') format('truetype');
 }
 @font-face {
   font-family: "general-icons";
@@ -1094,9 +1094,13 @@ th {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* line 7, ../../dev/sass/base/general.scss */
+/* line 6, ../../dev/sass/base/general.scss */
 html,
 body {
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
   overflow: hidden;
   width: 100%;
   height: 100%;
@@ -1271,37 +1275,37 @@ body {
 }
 /* line 173, ../../dev/sass/base/general.scss */
 .right-side.kitchen {
-  background: url('../img/rooms-bg/kitchen.jpg') no-repeat;
+  background: url('../img/rooms-bg/kitchen.jpg?1428589558') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 /* line 178, ../../dev/sass/base/general.scss */
 .right-side.livingroom {
-  background: url('../img/rooms-bg/livingroom.jpg') no-repeat;
+  background: url('../img/rooms-bg/livingroom.jpg?1428589558') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 /* line 183, ../../dev/sass/base/general.scss */
 .right-side.balcony {
-  background: url('../img/rooms-bg/balcony.jpg') no-repeat;
+  background: url('../img/rooms-bg/balcony.jpg?1428589558') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 /* line 188, ../../dev/sass/base/general.scss */
 .right-side.childroom {
-  background: url('../img/rooms-bg/childroom.jpg') no-repeat;
+  background: url('../img/rooms-bg/childroom.jpg?1428589558') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 /* line 193, ../../dev/sass/base/general.scss */
 .right-side.bedroom {
-  background: url('../img/rooms-bg/bedroom.jpg') no-repeat;
+  background: url('../img/rooms-bg/bedroom.jpg?1428589558') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 /* line 198, ../../dev/sass/base/general.scss */
 .right-side.door {
-  background: url('../img/rooms-bg/door.jpg') no-repeat;
+  background: url('../img/rooms-bg/door.jpg?1428589558') no-repeat;
   background-size: cover;
   opacity: 1;
 }
@@ -1732,7 +1736,7 @@ body {
   width: 3.125rem;
   height: 3.125rem;
   margin: -3.125rem/2 0 0 -3.125rem/2;
-  background: url('../img/spinner.gif') no-repeat;
+  background: url('../img/spinner.gif?1428589558') no-repeat;
   background-size: cover;
 }
 
@@ -2015,32 +2019,32 @@ body {
 }
 /* line 46, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.kitchen {
-  background: url('../img/rooms-dialog/kitchen.jpg');
+  background: url('../img/rooms-dialog/kitchen.jpg?1428589558');
   background-size: contain;
 }
 /* line 50, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.livingroom {
-  background: url('../img/rooms-dialog/livingroom.jpg');
+  background: url('../img/rooms-dialog/livingroom.jpg?1428589558');
   background-size: contain;
 }
 /* line 54, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.balcony {
-  background: url('../img/rooms-dialog/balcony.jpg');
+  background: url('../img/rooms-dialog/balcony.jpg?1428589558');
   background-size: contain;
 }
 /* line 58, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.childroom {
-  background: url('../img/rooms-dialog/childroom.jpg');
+  background: url('../img/rooms-dialog/childroom.jpg?1428589558');
   background-size: contain;
 }
 /* line 62, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.bedroom {
-  background: url('../img/rooms-dialog/bedroom.jpg');
+  background: url('../img/rooms-dialog/bedroom.jpg?1428589558');
   background-size: contain;
 }
 /* line 66, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.door {
-  background: url('../img/rooms-dialog/door.jpg');
+  background: url('../img/rooms-dialog/door.jpg?1428589558');
   background-size: contain;
 }
 /* line 71, ../../dev/sass/parts/_rooms-selector.scss */
@@ -5671,7 +5675,7 @@ li.constr-shape-icon:last-child {
   width: 29.625rem;
   height: 55.75rem;
   background: rgba(248, 248, 248, 0.95);
-  z-index: 999;
+  z-index: 3;
 }
 /* line 80, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .product-u-coeff {

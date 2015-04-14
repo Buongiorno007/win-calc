@@ -12,6 +12,8 @@
 
   function glassSelectorCtrl($scope, globalConstants, globalDB, localDB, localStorage, constructService,  $timeout, $q, $filter) {
 
+    console.log('START CONFIG MENU!!!!!!');
+
     $scope.global = localStorage;
 
     $scope.configMenu = {
@@ -560,6 +562,10 @@
       if (!$scope.global.startProgramm && !$scope.global.isCreatedNewProject && $scope.global.isCreatedNewProduct && !$scope.global.isReturnFromDiffPage) {
         //------- create new empty product
         $scope.global.product = angular.copy($scope.global.productDefault);
+        $scope.global.isConstructWind = true;
+        $scope.global.isConstructWindDoor = false;
+        $scope.global.isConstructBalcony = false;
+        $scope.global.isConstructDoor = false;
         //------- get templates from STORE
         $scope.global.setTemplatesFromSTORE();
         //-------- set current templates arrays

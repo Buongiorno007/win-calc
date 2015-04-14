@@ -1,11 +1,11 @@
 * {
   @include box-sizing(border-box);
-  //@include user-select('none');
   -webkit-tap-highlight-color: rgba(#000, 0);
 }
 
 html,
 body {
+  @include user-select('none');
   overflow: hidden;
   //width: rem($ipad-width);
   //height: rem($ipad-height);

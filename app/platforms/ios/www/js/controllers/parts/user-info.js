@@ -1,64 +1,77 @@
+
+// controllers/parts/user-info.js
+
 (function(){
   'use strict';
 
   angular
-    .module('BauVoiceApp')
+    .module('MainModule')
     .controller('UserInfoCtrl', userInfoCtrl);
 
-  userInfoCtrl.$inject = ['$scope', 'localStorage', 'globalConstants'];
+  userInfoCtrl.$inject = ['localStorage', 'globalConstants'];
 
-  function userInfoCtrl($scope, localStorage, globalConstants) {
+  function userInfoCtrl(localStorage, globalConstants) {
 
-    $scope.global = localStorage;
+    var thisCtrl = this;
+    thisCtrl.global = localStorage;
 
-    $scope.userInfo = {
+    thisCtrl.config = {
       DELAY_SHOW_USER_INFO: 40 * globalConstants.STEP,
       typing: 'on',
       checked: false
     };
-  /*
-    $scope.changeTyping = function () {
-      if ($scope.userInfo.checked) {
-        $scope.userInfo.typing = 'off';
-      } else {
-        $scope.userInfo.typing = 'on';
-      }
-    };
-   */
-    $scope.swipeMainPage = function(event) {
+
+    thisCtrl.swipeMainPage = swipeMainPage;
+    thisCtrl.swipeLeft = swipeLeft;
+    thisCtrl.swipeRight = swipeRight;
+
+
+
+    //============ methods ================//
+
+    function swipeMainPage(event) {
       //$rootScope.$broadcast('swipeMainPage', true);
-      $scope.global.showNavMenu = !$scope.global.showNavMenu;
-      $scope.global.isConfigMenu = true;
-      if(!$scope.global.isOpenedHistoryPage) {
-        $scope.global.startProgramm = false;
+      thisCtrl.global.showNavMenu = !thisCtrl.global.showNavMenu;
+      thisCtrl.global.isConfigMenu = true;
+      if(!thisCtrl.global.isOpenedHistoryPage) {
+        thisCtrl.global.startProgramm = false;
       }
       //playSound('swip');
-    };
+    }
 
-    $scope.swipeLeft = function(event) {
-      if($scope.global.showNavMenu) {
-        $scope.global.showNavMenu = false;
-        $scope.global.isConfigMenu = true;
-        if (!$scope.global.isOpenedHistoryPage) {
-          $scope.global.startProgramm = false;
+    function swipeLeft(event) {
+      if(thisCtrl.global.showNavMenu) {
+        thisCtrl.global.showNavMenu = false;
+        thisCtrl.global.isConfigMenu = true;
+        if (!thisCtrl.global.isOpenedHistoryPage) {
+          thisCtrl.global.startProgramm = false;
         }
         //playSound('swip');
       }
-    };
+    }
 
-    $scope.swipeRight = function(event) {
-      if(!$scope.global.showNavMenu) {
-        $scope.global.showNavMenu = true;
-        $scope.global.isConfigMenu = false;
+    function swipeRight(event) {
+      if(!thisCtrl.global.showNavMenu) {
+        thisCtrl.global.showNavMenu = true;
+        thisCtrl.global.isConfigMenu = false;
         //playSound('swip');
       }
-    };
+    }
 
-  /*
-    $rootScope.$on('swipeMainPage', function() {
-      $scope.userInfo.isConfigMenuShow = !$scope.userInfo.isConfigMenuShow;
-    });
-  */
 
   }
 })();
+
+/*
+ $rootScope.$on('swipeMainPage', function() {
+ $scope.userInfo.isConfigMenuShow = !$scope.userInfo.isConfigMenuShow;
+ });
+
+ $scope.changeTyping = function () {
+ if ($scope.userInfo.checked) {
+ $scope.userInfo.typing = 'off';
+ } else {
+ $scope.userInfo.typing = 'on';
+ }
+ };
+ */

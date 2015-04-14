@@ -8,11 +8,12 @@
     .module('CartModule')
     .controller('CartMenuCtrl', cartMenuCtrl);
 
-  cartMenuCtrl.$inject = ['$scope', 'globalConstants', 'constructService', 'localStorage'];
+  cartMenuCtrl.$inject = ['$scope', 'globalConstants', 'constructService', 'localStorage', 'CartStor'];
 
-  function cartMenuCtrl($scope, globalConstants, constructService, localStorage) {
+  function cartMenuCtrl($scope, globalConstants, constructService, localStorage, CartStor) {
 
     $scope.global = localStorage;
+    $scope.cartStor = CartStor;
 
     $scope.cartMenuData = {
       floorData: [],
@@ -138,30 +139,19 @@
       }
     };
 
-
+    //TODO вынести в сервис
     //------ show Call Master Dialog
     $scope.showCallMasterDialog = function() {
-      $scope.global.showMasterDialog = true;
+      CartStor.showMasterDialog = true;
     };
 
     //------ show Order/Credit Dialog
     $scope.showCallOrderDialog = function() {
       if($scope.global.order.isInstalment !== 'false') {
-        $scope.global.showCreditDialog = true;
+        CartStor.showCreditDialog = true;
       } else {
-        $scope.global.showOrderDialog = true;
+        CartStor.showOrderDialog = true;
       }
-    };
-
-    //--------- this function uses into Order/Credit Dialog for create user object and set default values for select fields
-    $scope.global.createUserXOrder = function() {
-      return {
-        sex: '',
-        age: $scope.global.optionAge[0],
-        education: $scope.global.optionEductaion[0],
-        occupation: $scope.global.optionOccupation[0],
-        infoSource: $scope.global.optionInfo[0]
-      };
     };
 
 

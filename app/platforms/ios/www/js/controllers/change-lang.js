@@ -1,27 +1,36 @@
-/* globals BauVoiceApp, STEP */
 
-'use strict';
+// controllers/change-lang.js
 
-BauVoiceApp.controller('ChangeLangCtrl', ['$scope', 'localStorage', '$translate', '$timeout', function ($scope, localStorage, $translate, $timeout) {
+(function(){
+  'use strict';
 
-  $scope.global = localStorage;
+  angular
+    .module('SettingsModule')
+    .controller('ChangeLangCtrl', changeLangCtrl);
 
-  $scope.language = {
-    DELAY_START: STEP,
-    typing: 'on'
-  };
+  changeLangCtrl.$inject = ['$scope', 'globalConstants', 'localStorage', '$translate', '$timeout'];
 
-  $scope.switchLang = function (languageId) {
-    $translate.use($scope.global.languages[languageId].label);
-    $scope.global.userInfo.langLabel = $scope.global.languages[languageId].label;
-    $scope.global.userInfo.langName = $scope.global.languages[languageId].name;
-    $scope.global.setLanguageVoiceHelper($scope.global.userInfo.langLabel);
-    $timeout(function() {
-      $scope.global.isOpenSettingsPage = false;
-      $scope.global.startProgramm = false;
-      $scope.global.isReturnFromDiffPage = true;
-      $scope.global.gotoMainPage();
-    }, 200);
-  };
+  function changeLangCtrl($scope, globalConstants, localStorage, $translate, $timeout) {
 
-}]);
+    $scope.global = localStorage;
+
+    $scope.language = {
+      DELAY_START: globalConstants.STEP,
+      typing: 'on'
+    };
+
+    $scope.switchLang = function (languageId) {
+      $translate.use($scope.global.languages[languageId].label);
+      $scope.global.userInfo.langLabel = $scope.global.languages[languageId].label;
+      $scope.global.userInfo.langName = $scope.global.languages[languageId].name;
+      $scope.global.setLanguageVoiceHelper($scope.global.userInfo.langLabel);
+      $timeout(function() {
+        $scope.global.isOpenSettingsPage = false;
+        $scope.global.startProgramm = false;
+        $scope.global.isReturnFromDiffPage = true;
+        $scope.global.gotoMainPage();
+      }, 200);
+    };
+
+  }
+})();

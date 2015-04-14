@@ -1,18 +1,31 @@
-/* globals BauVoiceApp */
 
-'use strict';
+// controllers/main.js
 
-BauVoiceApp.controller('MainCtrl', ['$rootScope', '$scope', 'localStorage', 'constructService', function ($rootScope, $scope, localStorage, constructService) {
+(function(){
+  'use strict';
 
-  $scope.global = localStorage;
-/*
-  $scope.main = {
-    isConfigMenuShow: false
-  };
+  angular
+    .module('MainModule')
+    .controller('MainCtrl', mainPageCtrl);
 
-  $rootScope.$on('swipeMainPage', function() {
-    $scope.main.isConfigMenuShow = !$scope.main.isConfigMenuShow;
-  });
-*/
+  mainPageCtrl.$inject = ['$scope', 'localStorage'];
 
-}]);
+  function mainPageCtrl($scope, localStorage) {
+
+    $scope.global = localStorage;
+    console.log('START main CTRL!!!!!!');
+    console.log($scope.global.startProgramm);
+
+  /*
+    $scope.main = {
+      isConfigMenuShow: false
+    };
+
+    $rootScope.$on('swipeMainPage', function() {
+      $scope.main.isConfigMenuShow = !$scope.main.isConfigMenuShow;
+    });
+  */
+
+  }
+})();
+

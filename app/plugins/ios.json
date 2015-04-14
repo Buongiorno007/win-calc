@@ -107,6 +107,10 @@
                         {
                             "xml": "<feature name=\"ProgressIndicator\"><param name=\"ios-package\" value=\"ProgressIndicator\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Globalization\"><param name=\"ios-package\" value=\"CDVGlobalization\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -155,6 +159,9 @@
             "PACKAGE_NAME": "net.voice-creator.mobile"
         },
         "org.pbernasconi.progressindicator": {
+            "PACKAGE_NAME": "net.voice-creator.mobile"
+        },
+        "org.apache.cordova.globalization": {
             "PACKAGE_NAME": "net.voice-creator.mobile"
         }
     },

@@ -1,29 +1,56 @@
 section.login-page
-  //#code-container.login-container(ng-hide="isCodeValid")
-    .logo
-    .text-container
-      p {{ 'login.PASS_CODE' | translate }}
-    .text-container
-      span {{ 'login.YOUR_CODE' | translate }}
-      span {{ deviceCode }}
-    .text-container.error(ng-show="!isCodeCheckingSuccess")
-      p {{ 'login.SOMETHING_WRONG' | translate }}
 
-    //button.login-submit(type="button", hm-tap="switchLang()") {{ 'SWITCH_LANG' | translate }}
-    //button.login-submit(type="button", hm-tap="checkCode()") ОК
-    .login-submit(hm-tap="checkCode()") ОК
-
-  #login-container.login-container(ng-show="loginPage.isCodeValid")
+  #login-container.login-container(ng-hide="loginPage.isRegistration")
     .logo
-    form(name='loginForm', novalidate, ng-submit="loginPage.submitForm(loginForm)")
+    form(name='loginForm', novalidate, ng-submit="loginPage.enterForm(loginForm)")
       .input-field(ng-class="{ 'has-error': loginPage.submitted && loginForm.phone.$error.required }")
-        input.user-field(type="tel", name="phone", ng-model="loginPage.user.phone", ng-pattern="", placeholder="{{ 'login.MOBILE' | translate }}", required)
+        input.user-field(type="tel", name="phone", ng-model="loginPage.user.phone", ng-pattern="loginPage.regPhone", ng-minlength="6", placeholder="{{ 'login.MOBILE' | translate }}", required)
         .error-tooltip(ng-show="loginPage.submitted && loginForm.phone.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
         .error-tooltip(ng-show="loginPage.submitted && loginForm.phone.$error.pattern || loginForm.phone.$dirty && loginForm.phone.$error.pattern") {{ 'login.WRONG_NUMBER' | translate }}
+        .error-tooltip(ng-show="loginPage.submitted && loginForm.phone.$error.minlength || loginForm.phone.$dirty && loginForm.phone.$error.minlength") {{ 'login.SHORT_PHONE' | translate }}
 
       .input-field(ng-class="{ 'has-error' : loginPage.submitted && loginForm.password.$error.required }")
-        input.user-field(type="password", name="password", ng-model="loginPage.user.password", ng-minlength="3", placeholder="{{ 'login.PASSWORD' | translate }}", required)
+        input.user-field(type="password", name="password", ng-model="loginPage.user.password", ng-minlength="4", placeholder="{{ 'login.PASSWORD' | translate }}", required)
         .error-tooltip(ng-show='loginPage.submitted && loginForm.password.$error.required') {{ 'login.EMPTY_FIELD' | translate }}
         .error-tooltip(ng-show='loginPage.submitted && loginForm.password.$error.minlength || loginForm.password.$dirty && loginForm.password.$error.minlength') {{ 'login.SHORT_PASSWORD' | translate }}
 
       button.login-submit(type="submit") {{ 'login.ENTER' | translate }}
+    button.login-submit(hm-tap="loginPage.registration()") {{ 'login.REGISTRATION' | translate }}
+
+
+  .login-container(ng-show="loginPage.isRegistration")
+    .logo
+    form(name='registrForm', novalidate, ng-submit="loginPage.registrForm(registrForm)")
+
+      .input-field(ng-class="{ 'has-error' : loginPage.submitted && registrForm.name.$error.required }")
+        input.user-field(type="text", name="name", ng-model="loginPage.user.name", ng-pattern="loginPage.regName", ng-minlength="3", placeholder="{{ 'cart.CLIENT_NAME' | translate }}", required)
+        .error-tooltip(ng-show="loginPage.submitted && registrForm.name.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+        .error-tooltip(ng-show="loginPage.submitted && registrForm.name.$error.pattern || registrForm.name.$dirty && registrForm.name.$error.pattern") {{ 'login.WRONG_NAME' | translate }}
+        .error-tooltip(ng-show="loginPage.submitted && registrForm.name.$error.minlength || registrForm.name.$dirty && registrForm.name.$error.minlength") {{ 'login.SHORT_NAME' | translate }}
+
+      .input-field(ng-class="{ 'has-error': loginPage.submitted && registrForm.phone.$error.required }")
+        input.user-field(type="tel", name="phone", ng-model="loginPage.user.phone", ng-pattern="loginPage.regPhone", ng-minlength="6", placeholder="{{ 'login.MOBILE' | translate }}", required)
+        .error-tooltip(ng-show="loginPage.submitted && registrForm.phone.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+        .error-tooltip(ng-show="loginPage.submitted && registrForm.phone.$error.pattern || registrForm.phone.$dirty && registrForm.phone.$error.pattern") {{ 'login.WRONG_NUMBER' | translate }}
+        .error-tooltip(ng-show="loginPage.submitted && registrForm.phone.$error.minlength || registrForm.phone.$dirty && registrForm.phone.$error.minlength") {{ 'login.SHORT_PHONE' | translate }}
+
+      .input-field(ng-class="{ 'has-error': loginPage.submitted && registrForm.country.$error.required }")
+        select.user-select-field(name="country", ng-model="user.country", ng-options="country for country in loginPage.countries", required)
+        .error-tooltip(ng-show="loginPage.submitted && registrForm.country.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+
+      .input-field(ng-class="{ 'has-error': loginPage.submitted && registrForm.region.$error.required }")
+        select.user-select-field(name="region", ng-model="user.region", ng-options="region for region in loginPage.regions", required)
+        .error-tooltip(ng-show="loginPage.submitted && registrForm.region.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+
+      .input-field(ng-class="{ 'has-error': loginPage.submitted && registrForm.city.$error.required }")
+        select.user-select-field(name="city", ng-model="user.city", ng-options="city for city in loginPage.cities", required)
+        .error-tooltip(ng-show="loginPage.submitted && registrForm.city.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+
+      .input-field(ng-class="{ 'has-error' : loginPage.submitted && registrForm.mail.$error.required }")
+        input.user-field(type="email", name="mail", ng-model="loginPage.user.mail", placeholder="{{ 'cart.CLIENT_EMAIL' | translate }}", required)
+        .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+        .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.email") {{ 'cart.WRONG_EMAIL' | translate }}
+
+
+
+      button.login-submit(type="submit") {{ 'login.REGISTRATION' | translate }}

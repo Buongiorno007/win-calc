@@ -8,6 +8,7 @@
   addElementsCtrl.$inject = ['$scope', 'globalConstants', 'localDB', 'constructService', 'localStorage', '$timeout'];
 
   function addElementsCtrl($scope, globalConstants, localDB, constructService, localStorage, $timeout) {
+    var activeClass = 'active';
 
     $scope.global = localStorage;
 

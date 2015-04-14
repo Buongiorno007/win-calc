@@ -1,50 +1,87 @@
-'use strict';
+(function(){
+  'use strict';
 
-window.PhonegapApp = {
-  initialize: function() {
-    this.bindEvents();
-  },
-  bindEvents: function() {
-    document.addEventListener('deviceready', this.onDeviceReady, false);
-  },
-  onDeviceReady: function() {
-    //alert('onDeviceReady');
+  window.PhonegapApp = {
+    initialize: function() {
+      this.bindEvents();
+    },
+    bindEvents: function() {
+      document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+    onDeviceReady: function() {
+      //alert('onDeviceReady');
       doInit();
-    angular.element(document).ready(function() {
-      angular.bootstrap(document, ['BauVoiceApp']);
-      //$(document).bind('touchmove', false);
-      //$cordovaDialogs
-//      $cordovaInAppBrowser.open('http://ngcordova.com', '_blank', options).then(function () {
-//        console.log("InAppBrowser opened http://ngcordova.com successfully");
-//      }, function (error) {
-//        console.log("Error: " + error);
-//      });
+      angular.element(document).ready(function() {
+        angular.bootstrap(document, ['BauVoiceApp', 'LoginModule']);
 
-    });
+        //$(document).bind('touchmove', false);
+        //$cordovaDialogs
+        //      $cordovaInAppBrowser.open('http://ngcordova.com', '_blank', options).then(function () {
+        //        console.log("InAppBrowser opened http://ngcordova.com successfully");
+        //      }, function (error) {
+        //        console.log("Error: " + error);
+        //      });
 
-  }
-};
+      });
 
-PhonegapApp.initialize();
+    }
+  };
+
+  PhonegapApp.initialize();
 
 
-window.BauVoiceApp = angular.module('BauVoiceApp', [
-  'ngRoute',
-  'angular-websql',
-  'pascalprecht.translate',
-  'hmTouchEvents',
-  'ngCordova'
-])
-.config([
-  '$routeProvider',
-  '$locationProvider',
-  '$httpProvider',
-  '$translateProvider',
-  function ($routeProvider, $locationProvider, $httpProvider, $translateProvider) {
+
+
+  angular.module('BauVoiceApp', [
+      'ngRoute',
+      'angular-websql',
+      'pascalprecht.translate',
+      'hmTouchEvents',
+      'ngCordova',
+
+      'LoginModule',
+      'MainModule',
+      'ConstructionModule',
+      'CartModule',
+      'HistoryModule',
+      'SettingsModule'
+    ]).config(configurationApp);
+
+  //============== Modules ============//
+  angular
+    .module('LoginModule', []);
+  angular
+    .module('MainModule', []);
+  angular
+    .module('ConstructionModule', []);
+  angular
+    .module('CartModule', []);
+  angular
+    .module('HistoryModule', []);
+  angular
+    .module('SettingsModule', []);
+
+
+  configurationApp.$inject = [
+    '$routeProvider',
+    '$locationProvider',
+    '$httpProvider',
+    '$translateProvider',
+
+    'ukrainianDictionary',
+    'russianDictionary',
+    'englishDictionary',
+    'germanDictionary',
+    'romanianDictionary'
+  ];
+
+  function configurationApp($routeProvider, $locationProvider, $httpProvider, $translateProvider, ukrainianDictionary, russianDictionary, englishDictionary, germanDictionary, romanianDictionary) {
+
     $routeProvider
       .when('/', {
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl',
+        controllerAs: 'loginPage',
         title: 'Login'
       })
       .when('/main', {
@@ -91,16 +128,13 @@ window.BauVoiceApp = angular.module('BauVoiceApp', [
         redirectTo: '/'
       });
 
-//    $locationProvider
-//      .html5Mode(true);
-
     $translateProvider.translations('ru', russianDictionary);
     $translateProvider.translations('ua', ukrainianDictionary);
     $translateProvider.translations('en', englishDictionary);
     $translateProvider.translations('de', germanDictionary);
     $translateProvider.translations('ro', romanianDictionary);
 
-    $translateProvider.preferredLanguage('ru');
+    $translateProvider.preferredLanguage('en');
 
 
     $httpProvider.defaults.useXDomain = true;
@@ -150,5 +184,7 @@ window.BauVoiceApp = angular.module('BauVoiceApp', [
       return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
     }];
 
+
   }
-]);
+
+})();

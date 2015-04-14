@@ -1,8 +1,11 @@
+
+// controllers/panels/glass.js
+
 (function(){
   'use strict';
 
   angular
-    .module('BauVoiceApp')
+    .module('MainModule')
     .controller('GlassCtrl', glassSelectorCtrl);
 
   glassSelectorCtrl.$inject = ['$scope', 'globalConstants', 'localStorage', 'analyticsServ'];
@@ -35,3 +38,4 @@
 
   }
 })();
+

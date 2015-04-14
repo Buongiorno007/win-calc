@@ -1,4 +1,7 @@
 
+// nuancespeechkit.js
+
+
 var NuanceSpeechKitPlugin = function() {
 };
 

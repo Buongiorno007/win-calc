@@ -52,23 +52,24 @@
       <section class="cart-page">
         <section class="cart-container full-view">
           <div class="cart-header">
-            <div ng-controller="UserInfoCtrl" hm-swipeleft="swipeLeft($event)" hm-swiperight="swipeRight($event)" class="user-info-container">
-              <button ng-class="{ 'show-navmenu': global.showNavMenu , 'orange-navmenu-btn': global.isOpenedHistoryPage || global.isOpenedCartPage}" hm-tap="swipeMainPage($event)" class="nav-menu-btn"></button>
+            <div ng-controller="UserInfoCtrl as userInfo" hm-swipeleft="userInfo.swipeLeft($event)" hm-swiperight="userInfo.swipeRight($event)" class="user-info-container">
+              <button ng-class="{ 'show-navmenu': userInfo.global.showNavMenu , 'orange-navmenu-btn': userInfo.global.isOpenedHistoryPage || userInfo.global.isOpenedCartPage}" hm-tap="userInfo.swipeMainPage($event)" class="nav-menu-btn"></button>
               <div class="user-foto"></div>
-              <div show-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
+              <div show-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
               <div class="user-info-block">
-                <div data-output="{{ global.userInfo.cityName }}" typing="{{ userInfo.typing }}" typing-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
-                <div data-output="{{ global.userInfo.name }}" typing="{{ userInfo.typing }}" typing-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
+                <div data-output="{{ userInfo.global.userInfo.cityName }}" typing="{{ userInfo.config.typing }}" typing-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
+                <div data-output="{{ userInfo.global.userInfo.name }}" typing="{{ userInfo.config.typing }}" typing-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
               </div>
             </div>
-            <button hm-tap="showAllAddElements()" class="cart-tool additional-elements">{{ 'cart.ALL_ADD_ELEMENTS' | translate }}</button>
+            <!--button.cart-tool.additional-elements(hm-tap="showAllAddElements()") {{ 'cart.ALL_ADD_ELEMENTS' | translate }}-->
+            <button class="cart-tool additional-elements">{{ 'cart.ALL_ADD_ELEMENTS' | translate }}</button>
             <button hm-tap="addNewProductInOrder()" class="cart-tool new-order">{{ 'cart.ADD_ORDER' | translate }}</button>
           </div>
           <div class="scroll-hor-container">
             <div class="order-block">
               <div ng-repeat="product in global.order.products track by $index" class="order">
                 <button hm-tap="clickDeleteProduct($index)" class="order-delete"></button>
-                <div ng-switch="product.selectedRoomId" hm-tap="editProduct($index)" class="order-header"><img ng-switch-when="1" ng-src="img/rooms-dialog/kitchen.jpg" class="order-header-fon"><img ng-switch-when="2" ng-src="img/rooms-dialog/livingroom.jpg" class="order-header-fon"><img ng-switch-when="3" ng-src="img/rooms-dialog/balcony.jpg" class="order-header-fon"><img ng-switch-when="4" ng-src="img/rooms-dialog/childroom.jpg" class="order-header-fon"><img ng-switch-when="5" ng-src="img/rooms-dialog/bedroom.jpg" class="order-header-fon"><img ng-switch-when="6" ng-src="img/rooms-dialog/door.jpg" class="order-header-fon">
+                <div ng-switch="product.selectedRoomId" hm-tap="editProduct($index, 'product')" class="order-header"><img ng-switch-when="1" ng-src="img/rooms-dialog/kitchen.jpg" class="order-header-fon"><img ng-switch-when="2" ng-src="img/rooms-dialog/livingroom.jpg" class="order-header-fon"><img ng-switch-when="3" ng-src="img/rooms-dialog/balcony.jpg" class="order-header-fon"><img ng-switch-when="4" ng-src="img/rooms-dialog/childroom.jpg" class="order-header-fon"><img ng-switch-when="5" ng-src="img/rooms-dialog/bedroom.jpg" class="order-header-fon"><img ng-switch-when="6" ng-src="img/rooms-dialog/door.jpg" class="order-header-fon">
                   <div class="order-template">
                     <svg-template template="product.templateIcon" template-width="global.svgTemplateIconWidth" template-height="global.svgTemplateIconHeight" type-construction="icon"></svg-template>
                   </div>
@@ -123,16 +124,17 @@
         </section>
         <section ng-class="{'active': isCartLightView}" class="cart-container light-view">
           <div class="cart-header">
-            <div ng-controller="UserInfoCtrl" hm-swipeleft="swipeLeft($event)" hm-swiperight="swipeRight($event)" class="user-info-container">
-              <button ng-class="{ 'show-navmenu': global.showNavMenu , 'orange-navmenu-btn': global.isOpenedHistoryPage || global.isOpenedCartPage}" hm-tap="swipeMainPage($event)" class="nav-menu-btn"></button>
+            <div ng-controller="UserInfoCtrl as userInfo" hm-swipeleft="userInfo.swipeLeft($event)" hm-swiperight="userInfo.swipeRight($event)" class="user-info-container">
+              <button ng-class="{ 'show-navmenu': userInfo.global.showNavMenu , 'orange-navmenu-btn': userInfo.global.isOpenedHistoryPage || userInfo.global.isOpenedCartPage}" hm-tap="userInfo.swipeMainPage($event)" class="nav-menu-btn"></button>
               <div class="user-foto"></div>
-              <div show-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
+              <div show-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
               <div class="user-info-block">
-                <div data-output="{{ global.userInfo.cityName }}" typing="{{ userInfo.typing }}" typing-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
-                <div data-output="{{ global.userInfo.name }}" typing="{{ userInfo.typing }}" typing-delay="{{ userInfo.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
+                <div data-output="{{ userInfo.global.userInfo.cityName }}" typing="{{ userInfo.config.typing }}" typing-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
+                <div data-output="{{ userInfo.global.userInfo.name }}" typing="{{ userInfo.config.typing }}" typing-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
               </div>
             </div>
-            <button hm-tap="showAllAddElements()" class="cart-tool additional-elements">{{ 'cart.ALL_ADD_ELEMENTS' | translate }}</button>
+            <!--button.cart-tool.additional-elements(hm-tap="showAllAddElements()") {{ 'cart.ALL_ADD_ELEMENTS' | translate }}-->
+            <button class="cart-tool additional-elements">{{ 'cart.ALL_ADD_ELEMENTS' | translate }}</button>
             <button hm-tap="addNewProductInOrder()" class="cart-tool new-order">{{ 'cart.ADD_ORDER' | translate }}</button>
           </div>
           <div class="order-block scroll-vert-container">
@@ -166,7 +168,7 @@
         <div ng-if="cart.isAddElementDetail" class="addelements-detail">
           <div class="addelements-detail-header">
             <div class="addelements-detail-tools">
-              <button hm-tap="editProduct(cart.activeProductIndex)" class="addelements-detail-edit">{{ 'cart.ADDELEMENTS_EDIT_LIST' | translate }}</button>
+              <button hm-tap="editProduct(cart.activeProductIndex, 'auxiliary')" class="addelements-detail-edit">{{ 'cart.ADDELEMENTS_EDIT_LIST' | translate }}</button>
               <button hm-tap="closeAllAddElementDetail()" class="addelements-detail-close"></button>
             </div>
             <div class="product-template">
@@ -877,7 +879,7 @@
         </div>
       </div>
     </section>
-    <div id="call-master-dialog" ng-controller="CallMasterCtrl" ng-class="{ 'unvisible' : !global.showMasterDialog }" class="cart-dialogs">
+    <div id="call-master-dialog" ng-controller="CallMasterCtrl" ng-class="{ 'unvisible' : !cartStor.showMasterDialog }" class="cart-dialogs">
       <div class="cart-dialogs-container">
         <form name="callMasterForm" novalidate ng-submit="submitForm(callMasterForm)">
           <div class="cart-dialog-header">
@@ -920,7 +922,7 @@
         </form>
       </div>
     </div>
-    <div id="call-order-dialog" ng-controller="CallOrderCtrl" ng-class="{ 'unvisible' : !global.showOrderDialog }" class="cart-dialogs order-dialog">
+    <div id="call-order-dialog" ng-controller="CallOrderCtrl" ng-class="{ 'unvisible' : !cartStor.showOrderDialog }" class="cart-dialogs order-dialog">
       <div class="cart-dialogs-container">
         <form name="callOrderForm" novalidate ng-submit="submitForm(callOrderForm)">
           <div class="cart-dialog-header">
@@ -973,25 +975,25 @@
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_AGE' | translate }}</div>
-              <select name="age" ng-model="user.age" ng-options="age for age in global.optionAge" class="user-select-field"></select>
+              <select name="age" ng-model="user.age" ng-options="age for age in cartStor.optionAge" class="user-select-field"></select>
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_EDUCATION' | translate }}</div>
-              <select name="education" ng-model="user.education" ng-options="educ for educ in global.optionEductaion" class="user-select-field"></select>
+              <select name="education" ng-model="user.education" ng-options="educ for educ in cartStor.optionEductaion" class="user-select-field"></select>
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_OCCUPATION' | translate }}</div>
-              <select name="occupation" ng-model="user.occupation" ng-options="occup for occup in global.optionOccupation" class="user-select-field"></select>
+              <select name="occupation" ng-model="user.occupation" ng-options="occup for occup in cartStor.optionOccupation" class="user-select-field"></select>
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_INFO_SOURCE' | translate }}</div>
-              <select name="infoSource" ng-model="user.infoSource" ng-options="info for info in global.optionInfo" class="user-select-field"></select>
+              <select name="infoSource" ng-model="user.infoSource" ng-options="info for info in cartStor.optionInfo" class="user-select-field"></select>
             </div>
           </div>
         </form>
       </div>
     </div>
-    <div id="call-credit-dialog" ng-controller="CallCreditCtrl" ng-class="{ 'unvisible' : !global.showCreditDialog }" class="cart-dialogs order-dialog">
+    <div id="call-credit-dialog" ng-controller="CallCreditCtrl" ng-class="{ 'unvisible' : !cartStor.showCreditDialog }" class="cart-dialogs order-dialog">
       <div class="cart-dialogs-container">
         <form name="callCreditForm" novalidate ng-submit="submitForm(callCreditForm)">
           <div class="cart-dialog-header">
@@ -1068,19 +1070,19 @@
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_AGE' | translate }}</div>
-              <select name="age" ng-model="user.age" ng-options="age for age in global.optionAge" class="user-select-field"></select>
+              <select name="age" ng-model="user.age" ng-options="age for age in cartStor.optionAge" class="user-select-field"></select>
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_EDUCATION' | translate }}</div>
-              <select name="education" ng-model="user.education" ng-options="educ for educ in global.optionEductaion" class="user-select-field"></select>
+              <select name="education" ng-model="user.education" ng-options="educ for educ in cartStor.optionEductaion" class="user-select-field"></select>
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_OCCUPATION' | translate }}</div>
-              <select name="occupation" ng-model="user.occupation" ng-options="occup for occup in global.optionOccupation" class="user-select-field"></select>
+              <select name="occupation" ng-model="user.occupation" ng-options="occup for occup in cartStor.optionOccupation" class="user-select-field"></select>
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_INFO_SOURCE' | translate }}</div>
-              <select name="infoSource" ng-model="user.infoSource" ng-options="info for info in global.optionInfo" class="user-select-field"></select>
+              <select name="infoSource" ng-model="user.infoSource" ng-options="info for info in cartStor.optionInfo" class="user-select-field"></select>
             </div>
           </div>
         </form>

@@ -81,6 +81,82 @@
 
 
 
+    //--------- Cancel and Close Construction Page
+    $scope.gotoMainPageCancel = function () {
+      $scope.global.isConstructSizeCalculator = false;
+      $scope.backtoTemplatePanel();
+      //---- if is open the door
+      if($scope.global.isConstructDoor) {
+        $scope.global.setDefaultDoorConfig();
+      }
+    };
+
+    //------- Save and Close Construction Page
+    $scope.gotoMainPageSaved = function () {
+      //------ if calculator is closed
+      if(!$scope.global.isConstructSizeCalculator) {
+
+        //----- save new template in product
+        $scope.global.product.templateSource = angular.copy($scope.templateSourceTEMP);
+        $scope.global.product.templateDefault = angular.copy($scope.templateDefaultTEMP);
+        $scope.global.product.templateIcon = new TemplateIcon($scope.templateSourceTEMP, $scope.global.templateDepths);
+
+        //------ save new template in templates Array
+        if($scope.global.isConstructDoor) {
+          changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesDoorSource, $scope.global.templatesDoorList, $scope.global.templatesDoorIconList, $scope.templateSourceTEMP, $scope.templateDefaultTEMP, $scope.global.product.templateIcon);
+        } else if($scope.global.isConstructBalcony) {
+          changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesBalconySource, $scope.global.templatesBalconyList, $scope.global.templatesBalconyIconList, $scope.templateSourceTEMP, $scope.templateDefaultTEMP, $scope.global.product.templateIcon);
+        } else if($scope.global.isConstructWindDoor) {
+          changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesWindDoorSource, $scope.global.templatesWindDoorList, $scope.global.templatesWindDoorIconList, $scope.templateSourceTEMP, $scope.templateDefaultTEMP, $scope.global.product.templateIcon);
+        } else if($scope.global.isConstructWind) {
+          changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesWindSource, $scope.global.templatesWindList, $scope.global.templatesWindIconList, $scope.templateSourceTEMP, $scope.templateDefaultTEMP, $scope.global.product.templateIcon);
+        }
+        //------- refresh current templates arrays
+        $scope.global.getCurrentTemplates();
+        //-------- template was changed
+        $scope.global.isChangedTemplate = true;
+        $scope.backtoTemplatePanel();
+      }
+    };
+
+
+    //-------- Back to Template Panel
+    $scope.backtoTemplatePanel = function() {
+      $scope.global.prepareMainPage();
+      $scope.global.isReturnFromDiffPage = true;
+      //console.log('construction page!!!!!!!!!!!');
+      //console.log('product ====== ', $scope.global.product);
+      //console.log('order ====== ', $scope.global.order);
+      $location.path('/main');
+    };
+  /*
+    function changeTemplateInArray(templateIndex, templateSourceList, templateList, templateIconList, newTemplateSource, newTemplate, newTemplateIcon) {
+      //----- write new template in array
+      templateSourceList[templateIndex] = angular.copy(newTemplateSource);
+      templateList[templateIndex] = angular.copy(newTemplate);
+      templateIconList[templateIndex] = angular.copy(newTemplateIcon);
+    }
+  */
+
+
+
+
+
+
+    //------- set Default Construction
+    $scope.setDefaultConstruction = function() {
+      if(!$scope.global.isConstructSizeCalculator) {
+        $scope.templateDefaultTEMP = {};
+        $scope.templateSourceTEMP = {};
+        $scope.templateDefaultTEMP = angular.copy($scope.templateDefaultOLD);
+        $scope.templateSourceTEMP = angular.copy($scope.templateSourceOLD);
+        $scope.constructData.tempSize.length = 0;
+      }
+    };
+
+
+
+
     //============ if Door Construction
 
     if($scope.global.isConstructDoor) {
@@ -256,78 +332,18 @@
 
 
 
-    //--------- Cancel and Close Construction Page
-    $scope.gotoMainPageCancel = function () {
-      $scope.global.isConstructSizeCalculator = false;
-      $scope.backtoTemplatePanel();
-      //---- if is open the door
-      if($scope.global.isConstructDoor) {
-        $scope.global.setDefaultDoorConfig();
-      }
-    };
-
-    //------- Save and Close Construction Page
-    $scope.gotoMainPageSaved = function () {
-      //------ if calculator is closed
-      if(!$scope.global.isConstructSizeCalculator) {
-
-        //----- save new template in product
-        $scope.global.product.templateSource = angular.copy($scope.templateSourceTEMP);
-        $scope.global.product.templateDefault = angular.copy($scope.templateDefaultTEMP);
-        $scope.global.product.templateIcon = new TemplateIcon($scope.templateSourceTEMP, $scope.global.templateDepths);
-
-        //------ save new template in templates Array
-        if($scope.global.isConstructDoor) {
-          changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesDoorSource, $scope.global.templatesDoorList, $scope.global.templatesDoorIconList, $scope.templateSourceTEMP, $scope.templateDefaultTEMP, $scope.global.product.templateIcon);
-        } else if($scope.global.isConstructBalcony) {
-          changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesBalconySource, $scope.global.templatesBalconyList, $scope.global.templatesBalconyIconList, $scope.templateSourceTEMP, $scope.templateDefaultTEMP, $scope.global.product.templateIcon);
-        } else if($scope.global.isConstructWindDoor) {
-          changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesWindDoorSource, $scope.global.templatesWindDoorList, $scope.global.templatesWindDoorIconList, $scope.templateSourceTEMP, $scope.templateDefaultTEMP, $scope.global.product.templateIcon);
-        } else if($scope.global.isConstructWind) {
-          changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesWindSource, $scope.global.templatesWindList, $scope.global.templatesWindIconList, $scope.templateSourceTEMP, $scope.templateDefaultTEMP, $scope.global.product.templateIcon);
-        }
-        //------- refresh current templates arrays
-        $scope.global.getCurrentTemplates();
-        //-------- template was changed
-        $scope.global.isChangedTemplate = true;
-        $scope.backtoTemplatePanel();
-      }
-    };
-
-
-    //-------- Back to Template Panel
-    $scope.backtoTemplatePanel = function() {
-      $scope.global.prepareMainPage();
-      $scope.global.isReturnFromDiffPage = true;
-      //console.log('construction page!!!!!!!!!!!');
-      //console.log('product ====== ', $scope.global.product);
-      //console.log('order ====== ', $scope.global.order);
-      $location.path('/main');
-    };
-  /*
-    function changeTemplateInArray(templateIndex, templateSourceList, templateList, templateIconList, newTemplateSource, newTemplate, newTemplateIcon) {
-      //----- write new template in array
-      templateSourceList[templateIndex] = angular.copy(newTemplateSource);
-      templateList[templateIndex] = angular.copy(newTemplate);
-      templateIconList[templateIndex] = angular.copy(newTemplateIcon);
-    }
-  */
 
 
 
 
 
 
-    //------- set Default Construction
-    $scope.setDefaultConstruction = function() {
-      if(!$scope.global.isConstructSizeCalculator) {
-        $scope.templateDefaultTEMP = {};
-        $scope.templateSourceTEMP = {};
-        $scope.templateDefaultTEMP = angular.copy($scope.templateDefaultOLD);
-        $scope.templateSourceTEMP = angular.copy($scope.templateSourceOLD);
-        $scope.constructData.tempSize.length = 0;
-      }
-    };
+
+
+
+
+
+
 
 
 

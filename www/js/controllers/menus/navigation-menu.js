@@ -12,7 +12,7 @@
 
   function navigationMenuCtrl($scope, globalConstants, $http, $location, globalDB, constructService, localDB, localStorage, $translate, $timeout, $filter) {
 
-
+console.log('START NAV MENU!!!!!!');
     $scope.global = localStorage;
 
     $scope.navMenu = {
@@ -25,31 +25,6 @@
       DELAY_SHOW_NEWCALC_BTN: 35 * globalConstants.STEP,
       typing: 'on'
     };
-
-  /*
-    // Check Products in Order
-    $scope.checkingForNewOrder = function() {
-      if ($scope.global.isCreatedNewProject) {
-        //----------- create order number for new project
-        $scope.global.order.orderId = Math.floor((Math.random() * 100000));
-        //$scope.global.isCreatedNewProject = false;
-        $scope.global.productCounter = false;
-        //console.log('navmenu NEW - ' + $scope.global.isCreatedNewProject);
-        //console.log('navmenu NEW orderNumber - ' + $scope.global.order.orderIdorder.orderId);
-      } else {
-        //console.log('navmenu OLD - ' + $scope.global.order.orderIdorder.orderId);
-        localDB.selectDB($scope.global.productsTableBD, {'orderId': $scope.global.order.orderId}, function (results) {
-          if (results.status) {
-            $scope.global.productCounter = results.data.length;
-          } else {
-            console.log(results);
-          }
-        });
-      }
-    };
-    //----- generate new order number or calculate products in order
-    $scope.checkingForNewOrder();
-  */
 
 
     //--------- get user data and location for first time
@@ -72,6 +47,8 @@
                   localDB.selectDBGlobal($scope.global.countriesTableDBGlobal, {'id': results.data[0].country_id }, function (results) {
                     if (results.status) {
                       $scope.global.userInfo.countryName = results.data[0].name;
+                      console.log('find language!!!!');
+                      //$scope.setUserLanguage($scope.global.userInfo.countryName);
                       $scope.global.userInfo.fullLocation = '' + $scope.global.userInfo.cityName + ', ' + $scope.global.userInfo.regionName + ', ' + $scope.global.userInfo.countryName;
 
                       //------ set current GeoLocation
@@ -84,7 +61,7 @@
                         heatTransfer: angular.copy($scope.global.userInfo.heatTransfer),
                         fullLocation: angular.copy($scope.global.userInfo.fullLocation)
                       };
-                      $scope.setUserLanguage($scope.global.userInfo.countryName);
+
                       //console.log('userInfo',$scope.global.userInfo);
                     } else {
                       console.log(results);
@@ -214,7 +191,8 @@
               heatTransfer: 0.99,
               fullLocation: deviceLocation[deviceLocation.length-3] + ', ' + deviceLocation[deviceLocation.length-2] + ', ' + deviceLocation[deviceLocation.length-1]
             };
-            console.log($scope.global.currentGeoLocation.cityName);
+            console.log(data.results[0]);
+            console.log($scope.global.currentGeoLocation);
           }).
           error(function(data, status, headers, config) {
             alert(status);
@@ -224,14 +202,7 @@
         alert(error.message);
       }
     };
-  /*
-    $scope.setCurrentGeoLocation = function () {
-      var prevLocation = angular.copy( $scope.global.prevGeoLocation),
-          currLocation = angular.copy($scope.global.currentGeoLocation);
-      $scope.global.currentGeoLocation = prevLocation;
-      $scope.global.prevGeoLocation = currLocation;
-    };
-  */
+
     $scope.gotoAddElementsPanel = function() {
       if($scope.global.product.isAddElementsONLY) {
         $scope.global.startProgramm = false;

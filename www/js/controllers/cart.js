@@ -434,7 +434,7 @@
 
 
     //----- Edit Produtct in main page
-    $scope.editProduct = function(productIndex) {
+    $scope.editProduct = function(productIndex, type) {
       $scope.global.productEditNumber = productIndex;
       $scope.global.product = angular.copy($scope.global.order.products[productIndex]);
       if($scope.global.product.constructionType === 1) {
@@ -468,6 +468,12 @@
       $scope.global.isCreatedNewProduct = false;
       $scope.global.isOpenedHistoryPage = false;
       $scope.global.prepareMainPage();
+      if(type === 'auxiliary') {
+        $scope.global.showPanels = {};
+        $scope.global.showPanels.showAddElementsPanel = true;
+        $scope.global.isTemplatePanel = false;
+        $scope.global.isAddElementsPanel = true;
+      }
       $location.path('/main');
     };
 

@@ -13,6 +13,9 @@
   function mainPageCtrl($scope, localStorage) {
 
     $scope.global = localStorage;
+    console.log('START main CTRL!!!!!!');
+    console.log($scope.global.startProgramm);
+
   /*
     $scope.main = {
       isConfigMenuShow: false

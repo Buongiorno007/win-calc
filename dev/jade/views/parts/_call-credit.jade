@@ -1,4 +1,4 @@
-#call-credit-dialog.cart-dialogs.order-dialog(ng-controller="CallCreditCtrl", ng-class="{ 'unvisible' : !global.showCreditDialog }")
+#call-credit-dialog.cart-dialogs.order-dialog(ng-controller="CallCreditCtrl", ng-class="{ 'unvisible' : !cartStor.showCreditDialog }")
   .cart-dialogs-container
     form(name='callCreditForm', novalidate, ng-submit="submitForm(callCreditForm)")
       .cart-dialog-header
@@ -78,16 +78,16 @@
 
         .input-field
           .subtitle-field {{ 'cart.CLIENT_AGE' | translate }}
-          select.user-select-field(name="age", ng-model="user.age", ng-options="age for age in global.optionAge")
+          select.user-select-field(name="age", ng-model="user.age", ng-options="age for age in cartStor.optionAge")
 
         .input-field
           .subtitle-field {{ 'cart.CLIENT_EDUCATION' | translate }}
-          select.user-select-field(name="education", ng-model="user.education", ng-options="educ for educ in global.optionEductaion")
+          select.user-select-field(name="education", ng-model="user.education", ng-options="educ for educ in cartStor.optionEductaion")
 
         .input-field
           .subtitle-field {{ 'cart.CLIENT_OCCUPATION' | translate }}
-          select.user-select-field(name="occupation", ng-model="user.occupation", ng-options="occup for occup in global.optionOccupation")
+          select.user-select-field(name="occupation", ng-model="user.occupation", ng-options="occup for occup in cartStor.optionOccupation")
 
         .input-field
           .subtitle-field {{ 'cart.CLIENT_INFO_SOURCE' | translate }}
-          select.user-select-field(name="infoSource", ng-model="user.infoSource", ng-options="info for info in global.optionInfo")
+          select.user-select-field(name="infoSource", ng-model="user.infoSource", ng-options="info for info in cartStor.optionInfo")

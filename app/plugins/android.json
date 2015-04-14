@@ -81,6 +81,10 @@
                         {
                             "xml": "<feature name=\"ProgressIndicator\"><param name=\"android-package\" value=\"org.apache.cordova.plugin.ProgressIndicator\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Globalization\"><param name=\"android-package\" value=\"org.apache.cordova.globalization.Globalization\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -119,6 +123,9 @@
             "PACKAGE_NAME": "net.voice_creator.mobile"
         },
         "org.pbernasconi.progressindicator": {
+            "PACKAGE_NAME": "net.voice_creator.mobile"
+        },
+        "org.apache.cordova.globalization": {
             "PACKAGE_NAME": "net.voice_creator.mobile"
         }
     },

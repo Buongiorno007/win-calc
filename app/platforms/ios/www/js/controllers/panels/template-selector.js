@@ -1,8 +1,11 @@
+
+// controllers/panels/template-selector.js
+
 (function(){
 'use strict';
 
   angular
-    .module('BauVoiceApp')
+    .module('MainModule')
     .controller('TemplateSelectorCtrl', templateSelectorCtrl);
 
   templateSelectorCtrl.$inject = ['$scope', '$location', 'localStorage', 'constructService', '$filter', '$cordovaDialogs', 'globalConstants'];

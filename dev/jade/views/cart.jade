@@ -9,14 +9,15 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
         section.cart-container.full-view
           .cart-header
             include parts/_user-info
-            button.cart-tool.additional-elements(hm-tap="showAllAddElements()") {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
+            //button.cart-tool.additional-elements(hm-tap="showAllAddElements()") {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
+            button.cart-tool.additional-elements {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
             button.cart-tool.new-order(hm-tap="addNewProductInOrder()") {{ 'cart.ADD_ORDER' | translate }}
 
           .scroll-hor-container
             .order-block
               .order(ng-repeat="product in global.order.products track by $index")
                 button.order-delete(hm-tap="clickDeleteProduct($index)")
-                .order-header(ng-switch="product.selectedRoomId", hm-tap="editProduct($index)")
+                .order-header(ng-switch="product.selectedRoomId", hm-tap="editProduct($index, 'product')")
                   img.order-header-fon(ng-switch-when="1", ng-src="img/rooms-dialog/kitchen.jpg")
                   img.order-header-fon(ng-switch-when="2", ng-src="img/rooms-dialog/livingroom.jpg")
                   img.order-header-fon(ng-switch-when="3", ng-src="img/rooms-dialog/balcony.jpg")
@@ -67,7 +68,8 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
         section.cart-container.light-view(ng-class="{'active': isCartLightView}")
           .cart-header
             include parts/_user-info
-            button.cart-tool.additional-elements(hm-tap="showAllAddElements()") {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
+            //button.cart-tool.additional-elements(hm-tap="showAllAddElements()") {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
+            button.cart-tool.additional-elements {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
             button.cart-tool.new-order(hm-tap="addNewProductInOrder()") {{ 'cart.ADD_ORDER' | translate }}
 
           .order-block.scroll-vert-container
@@ -100,7 +102,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
         .addelements-detail(ng-if="cart.isAddElementDetail")
           .addelements-detail-header
             .addelements-detail-tools
-              button.addelements-detail-edit(hm-tap="editProduct(cart.activeProductIndex)") {{ 'cart.ADDELEMENTS_EDIT_LIST' | translate }}
+              button.addelements-detail-edit(hm-tap="editProduct(cart.activeProductIndex, 'auxiliary')") {{ 'cart.ADDELEMENTS_EDIT_LIST' | translate }}
               button.addelements-detail-close(hm-tap="closeAllAddElementDetail()")
             .product-template
               .addelements-detail-row

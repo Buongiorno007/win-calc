@@ -1,8 +1,11 @@
+
+// controllers/panels/profile.js
+
 (function(){
   'use strict';
 
   angular
-    .module('BauVoiceApp')
+    .module('MainModule')
     .controller('ProfileCtrl', profileSelectorCtrl);
 
   profileSelectorCtrl.$inject = ['$scope', 'globalConstants', 'constructService', 'localStorage', 'analyticsServ'];
@@ -62,3 +65,4 @@
 
   }
 })();
+

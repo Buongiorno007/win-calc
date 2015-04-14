@@ -2,6 +2,9 @@
 // voicerec.js
 
 
+// voicerec.js
+
+
 var speechKit = new NuanceSpeechKitPlugin();
 
 
@@ -102,3 +105,4 @@ function playTTS(text, languageLabel) {
     }
 
 }
+

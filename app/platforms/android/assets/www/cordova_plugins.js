@@ -148,6 +148,20 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/org.apache.cordova.globalization/www/GlobalizationError.js",
+        "id": "org.apache.cordova.globalization.GlobalizationError",
+        "clobbers": [
+            "window.GlobalizationError"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.globalization/www/globalization.js",
+        "id": "org.apache.cordova.globalization.globalization",
+        "clobbers": [
+            "navigator.globalization"
+        ]
+    },
+    {
         "file": "plugins/org.apache.cordova.file/www/DirectoryEntry.js",
         "id": "org.apache.cordova.file.DirectoryEntry",
         "clobbers": [
@@ -308,6 +322,7 @@ module.exports.metadata =
     "org.apache.cordova.console": "0.2.13",
     "org.apache.cordova.statusbar": "0.1.10",
     "org.pbernasconi.progressindicator": "1.1.0",
+    "org.apache.cordova.globalization": "0.3.4",
     "org.apache.cordova.file": "1.3.3"
 }
 // BOTTOM OF METADATA

@@ -1,22 +1,35 @@
-'use strict';
 
-BauVoiceApp.directive('showDelay', function () {
-  return {
-    scope: {
-      showDelay: '@'
-    },
-    link: function (scope, elem, attrs) {
-      attrs.$observe('showDelay', function () {
-        showElementWithDelay();
-      });
+// directives/show-delay.js
 
-      function showElementWithDelay() {
-        var unvisibleClass = 'unvisible';
+(function(){
+  'use strict';
 
-        setTimeout(function () {
-          elem.removeClass(unvisibleClass);
-        }, parseInt(scope.showDelay, 10));
+  angular
+    .module('BauVoiceApp')
+    .directive('showDelay', showDelayDir);
+
+  showDelayDir.$inject = [];
+
+  function showDelayDir() {
+
+    return {
+      scope: {
+        showDelay: '@'
+      },
+      link: function (scope, elem, attrs) {
+        attrs.$observe('showDelay', function () {
+          showElementWithDelay();
+        });
+
+        function showElementWithDelay() {
+          var unvisibleClass = 'unvisible';
+
+          setTimeout(function () {
+            elem.removeClass(unvisibleClass);
+          }, parseInt(scope.showDelay, 10));
+        }
       }
-    }
-  };
-});
+    };
+
+  }
+})();

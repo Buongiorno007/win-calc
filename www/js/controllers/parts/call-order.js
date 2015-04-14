@@ -8,13 +8,14 @@
     .module('CartModule')
     .controller('CallOrderCtrl', callOrderCtrl);
 
-  callOrderCtrl.$inject = ['$scope', 'globalConstants', 'constructService', 'localStorage', '$location', 'localDB', 'analyticsServ'];
+  callOrderCtrl.$inject = ['$scope', 'globalConstants', 'constructService', 'localStorage', '$location', 'localDB', 'CartStor', 'CartServ', 'analyticsServ'];
 
-  function callOrderCtrl($scope, globalConstants, constructService, localStorage, $location, localDB, analyticsServ) {
+  function callOrderCtrl($scope, globalConstants, constructService, localStorage, $location, localDB, CartStor, CartServ, analyticsServ) {
 
-    $scope.global = localStorage;
     $scope.orderStyle = 'order';
-    $scope.user = $scope.global.createUserXOrder();
+    $scope.global = localStorage;
+    $scope.cartStor = CartStor;
+    $scope.user = CartServ.setDefaultUserInfoXOrder();
 
     // Search Location
     $scope.showTipCity = false;
@@ -70,10 +71,10 @@
     // Close Call Master Dialog
     $scope.hideCallOrderDialog = function() {
       $scope.submitted = false;
-      $scope.user = $scope.global.createUserXOrder();
       $scope.showTipCity = false;
       $scope.currentCity = false;
-      $scope.global.showOrderDialog = false;
+      $scope.user = CartServ.setDefaultUserInfoXOrder();
+      CartServ.closeOrderDialog();
     };
 
     // Send Form Data
