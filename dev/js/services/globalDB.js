@@ -60,7 +60,7 @@
     // SQL requests for delete tables
     var deleteTablesSQL = ["DROP table device", "DROP table factories", "DROP table elements_groups", "DROP table glass_folders",
       "DROP table lists_types", "DROP table addition_colors", "DROP table margin_types", "DROP table suppliers", "DROP table currencies", "DROP table countries",
-      "DROP table regions", "DROP table cities", "DROP table lamination_colors", "DROP table elements", "DROP table users", "DROP table lists_groups", "DROP table lists",
+      "DROP table regions", "DROP table cities", "DROP table users", "DROP table lamination_colors", "DROP table elements", "DROP table lists_groups", "DROP table lists",
       "DROP table directions", "DROP table rules_types", "DROP table window_hardware_colors", "DROP table list_contents", "DROP table window_hardware_types",
       "DROP table window_hardware_types_base", "DROP table window_hardware_groups", "DROP table window_hardware", "DROP table profile_system_folders",
       "DROP table profile_systems", "DROP table glass_profile_systems", "DROP table beed_profile_systems","DROP table addition_folders", "DROP table addition_types"
@@ -354,21 +354,27 @@
         return deferred.promise;
       },
 
-
+      //========= delete countries, regions and cities tables in Global DB
       clearLocation: function (callback) {
+        var deferred = $q.defer();
         var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i;
         db.transaction(function (transaction) {
-          for (i = 9; i < 12; i++) {
+          for (i = 9; i < 13; i++) {
             transaction.executeSql(deleteTablesSQL[i], [], function () {
               callback({status: true});
+              deferred.resolve('Location tables clearing is done!');
             }, function () {
               callback(new ErrorResult(2, 'Something went wrong with deleting table'));
+              deferred.resolve('not find deleting table');
             });
           }
         });
+        return deferred.promise;
       },
 
+      //========= import countries, regions and cities tables in Global DB
       importLocation: function (callback) {
+        var deferred = $q.defer();
         var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, table;
         db.transaction(function (transaction) {
           for (i = 0; i < createTablesSQL.length; i++) {
@@ -386,10 +392,13 @@
               }
             }
             callback({status: true});
+            deferred.resolve('import of Location tables is done!');
           });
         }).error(function () {
           callback(new ErrorResult(2, 'Something went wrong with importing Database!'));
+          deferred.reject('Something went wrong with importing Database!');
         });
+        return deferred.promise;
       },
 
 
@@ -412,6 +421,29 @@
       },
 
 
+      importUser: function (userId, access_token, callback) {
+        var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, table;
+        db.transaction(function (transaction) {
+          for (i = 0; i < createTablesSQL.length; i++) {
+            transaction.executeSql(createTablesSQL[i], []);
+          }
+        });
+        $http.get('http://api.voice-creator.net/sync/importuser?userid='+userId+'&access_token='+access_token).success(function (result) {
+          db.transaction(function (transaction) {
+            for (table in result.tables) {
+              for (i = 0; i < result.tables[table].rows.length; i++) {
+                transaction.executeSql('INSERT INTO ' + table + ' (' + result.tables[table].fields.join(', ') + ') VALUES (' + getValuesString(result.tables[table].rows[i]) + ')', [], function () {
+                }, function () {
+                  callback(new ErrorResult(2, 'Something went wrong with inserting ' + table + ' record'));
+                });
+              }
+            }
+            callback({status: true});
+          });
+        }).error(function () {
+          callback(new ErrorResult(2, 'Something went wrong with importing Database!'));
+        });
+      },
 
 
 

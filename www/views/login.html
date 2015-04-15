@@ -16,9 +16,12 @@
       </div>
       <button type="submit" class="login-submit">{{ 'login.ENTER' | translate }}</button>
     </form>
-    <button hm-tap="loginPage.registration()" class="login-submit">{{ 'login.REGISTRATION' | translate }}</button>
+    <button hm-tap="loginPage.switchRegistration()" class="login-submit">{{ 'login.REGISTRATION' | translate }}</button>
   </div>
-  <div ng-show="loginPage.isRegistration" class="login-container">
+  <div ng-show="loginPage.isRegistration" ng-mousemove="loginPage.isUserExist = false; loginPage.isSendEmail = false;" class="login-container">
+    <button type="button" hm-tap="loginPage.switchRegistration()" class="close-registration"></button>
+    <div ng-show="loginPage.isUserExist" class="attantion">{{ 'login.USER_EXIST' | translate }}</div>
+    <div ng-show="loginPage.isSendEmail" class="attantion">{{ 'login.USER_CHECK_EMAIL' | translate }}</div>
     <div class="logo"></div>
     <form name="registrForm" novalidate ng-submit="loginPage.registrForm(registrForm)">
       <div ng-class="{ 'has-error' : loginPage.submitted &amp;&amp; registrForm.name.$error.required }" class="input-field">
@@ -33,16 +36,22 @@
         <div ng-show="loginPage.submitted &amp;&amp; registrForm.phone.$error.pattern || registrForm.phone.$dirty &amp;&amp; registrForm.phone.$error.pattern" class="error-tooltip">{{ 'login.WRONG_NUMBER' | translate }}</div>
         <div ng-show="loginPage.submitted &amp;&amp; registrForm.phone.$error.minlength || registrForm.phone.$dirty &amp;&amp; registrForm.phone.$error.minlength" class="error-tooltip">{{ 'login.SHORT_PHONE' | translate }}</div>
       </div>
-      <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; registrForm.country.$error.required }" class="input-field">
-        <select name="country" ng-model="user.country" ng-options="country for country in loginPage.countries" required class="user-select-field"></select>
+      <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; registrForm.country.$error.required, 'placeholder-select': !loginPage.user.country }" class="input-field">
+        <select name="country" ng-model="loginPage.user.country" ng-options="country.name for country in loginPage.generalLocations.countries | orderBy:'name'" ng-change="loginPage.selectLocation()" required class="user-select-field">
+          <option value="">{{ 'login.SELECT_COUNTRY' | translate }}</option>
+        </select>
         <div ng-show="loginPage.submitted &amp;&amp; registrForm.country.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
       </div>
-      <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; registrForm.region.$error.required }" class="input-field">
-        <select name="region" ng-model="user.region" ng-options="region for region in loginPage.regions" required class="user-select-field"></select>
+      <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; registrForm.region.$error.required, 'placeholder-select': !loginPage.user.region }" class="input-field">
+        <select name="region" ng-model="loginPage.user.region" ng-options="region.name for region in loginPage.generalLocations.regions | filter: {countryId: loginPage.user.country.id}:true | orderBy:'name'" ng-change="loginPage.selectLocation()" ng-disabled="!loginPage.user.country" required class="user-select-field">
+          <option value="">{{ 'login.SELECT_REGION' | translate }}</option>
+        </select>
         <div ng-show="loginPage.submitted &amp;&amp; registrForm.region.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
       </div>
-      <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; registrForm.city.$error.required }" class="input-field">
-        <select name="city" ng-model="user.city" ng-options="city for city in loginPage.cities" required class="user-select-field"></select>
+      <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; registrForm.city.$error.required, 'placeholder-select': !loginPage.user.city }" class="input-field">
+        <select name="city" ng-model="loginPage.user.city" ng-options="city.name for city in loginPage.generalLocations.cities | filter: {regionId: loginPage.user.region.id}:true | orderBy:'name'" ng-change="loginPage.selectLocation()" ng-disabled="!loginPage.user.region" required class="user-select-field">
+          <option value="">{{ 'login.SELECT_CITY' | translate }}</option>
+        </select>
         <div ng-show="loginPage.submitted &amp;&amp; registrForm.city.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
       </div>
       <div ng-class="{ 'has-error' : loginPage.submitted &amp;&amp; registrForm.mail.$error.required }" class="input-field">

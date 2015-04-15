@@ -44,7 +44,12 @@
         IMPORT_DB_FINISH: 'Спасибо, загрузка завершена',
         MOBILE: 'Mobile telephone',
         PASSWORD: 'Password',
-        REGISTRATION: 'Registration'
+        REGISTRATION: 'Registration',
+        SELECT_COUNTRY: 'Select country',
+        SELECT_REGION: 'Select region',
+        SELECT_CITY: 'Select city',
+        USER_EXIST: 'Sorry, but this user already exists! Please, try again.',
+        USER_CHECK_EMAIL: 'The confirmed email was send to you. Please, check your email.'
       },
       mainpage: {
         MM: ' mm ',

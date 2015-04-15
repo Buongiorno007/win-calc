@@ -5,10 +5,11 @@
     .module('LoginModule')
     .controller('LoginCtrl', loginPageCtrl);
 
-  loginPageCtrl.$inject = ['$location', 'globalDB', '$cordovaGlobalization', 'localStorage', '$translate'];
+  loginPageCtrl.$inject = ['$location', 'globalDB', '$cordovaGlobalization', '$cordovaProgress', 'localStorage', '$translate'];
 
-  function loginPageCtrl($location, globalDB, $cordovaGlobalization, localStorage, $translate) {
+  function loginPageCtrl($location, globalDB, $cordovaGlobalization, $cordovaProgress, localStorage, $translate) {
 
+    $cordovaProgress.showSimple(true);
     var thisCtrl = this;
 
     thisCtrl.isCodeValid = false;

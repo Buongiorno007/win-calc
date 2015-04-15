@@ -10,7 +10,7 @@ $img_logo: 'login/logo.png';
 
 .login-container {
   @include box-shadow(rgba(98, 67, 48, .5) 0 0 rem(15px) 1px);
-
+  position: relative;
   width: rem(1000px);
   margin: auto;
   padding: rem(60px) rem(110px);
@@ -29,7 +29,30 @@ $img_logo: 'login/logo.png';
   }
 }
 
+.close-registration {
+  @extend .splash;
+  @extend .icon-setting;
+  @include font-general-icon(rem(50px), 1);
+
+  position: absolute;
+  top: 4%;
+  left: 5%;
+  width: rem(60px);
+  height: rem(60px);
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  outline: none;
+  &:before {
+    content: $arrow-icon;
+    color: $main_orange;
+  }
+}
+
+
 .logo {
+  @extend .splash;
   width: rem(image-width($img_logo));
   height: rem(image-height($img_logo));
   margin: 0 auto rem(73px) auto;
@@ -89,8 +112,25 @@ $img_logo: 'login/logo.png';
 
 .login-submit {
   @extend .orange-big-btn;
-
+  @extend .splash;
   display: block;
   width: rem(382px);
   margin: rem(62px) auto 0 auto;
+}
+
+.attantion {
+  @include roboto-lt(rem(36px));
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  width: rem(600px);
+  padding: rem(20px) rem(40px);
+  color: #fff;
+  border-radius: rem($radius_general-small_button);
+  background: $error_color;
+  text-align: center;
+  z-index: 2;
+}
+.placeholder-select {
+  color: #A9A9AB;
 }
