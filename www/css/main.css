@@ -3135,7 +3135,7 @@ body {
   color: #363636;
 }
 
-/* line 237, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 235, ../../dev/sass/parts/_cart-dialogs.scss */
 .user-select-field {
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -3395,6 +3395,64 @@ body {
 /* line 134, ../../dev/sass/pages/login.scss */
 .placeholder-select {
   color: #A9A9AB;
+}
+
+/* line 138, ../../dev/sass/pages/login.scss */
+.factory_box {
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  position: absolute;
+  top: 0;
+  left: -9%;
+  width: 75rem;
+  height: 100%;
+  overflow: hidden;
+  padding: 2.5rem 0;
+  border: 1px solid #8c8c8c;
+  border-radius: 1.25rem;
+  background: #fff;
+  color: #363636;
+  z-index: 10;
+}
+
+/* line 153, ../../dev/sass/pages/login.scss */
+.factory_title {
+  font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
+  margin-bottom: 0.625rem;
+  text-align: center;
+}
+
+/* line 158, ../../dev/sass/pages/login.scss */
+.factory_list {
+  max-height: 76%;
+  overflow: auto;
+  padding: 0 2.5rem;
+}
+
+/* line 163, ../../dev/sass/pages/login.scss */
+.factory_table {
+  border: none;
+}
+
+/* line 169, ../../dev/sass/pages/login.scss */
+.factory_item {
+  padding: 0.9375rem 0;
+  word-break: break-all;
+}
+
+/* line 174, ../../dev/sass/pages/login.scss */
+.factory_select {
+  width: 5%;
+  padding-right: 0.3125rem;
+}
+
+/* line 178, ../../dev/sass/pages/login.scss */
+.factory_name {
+  width: 45%;
+}
+
+/* line 181, ../../dev/sass/pages/login.scss */
+.factory_name, .factory_place {
+  text-align: left;
 }
 
 /* line 1, ../../dev/sass/pages/settings.scss */

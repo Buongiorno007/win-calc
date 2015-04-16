@@ -292,21 +292,6 @@
       draftOrderType: 'draft',
 
 
-    //------ WebSQL DB table names
-
-      //---- Global
-      usersTableDBGlobal: 'users',
-      citiesTableDBGlobal: 'cities',
-      regionsTableDBGlobal: 'regions',
-      countriesTableDBGlobal: 'countries',
-      listsTableDBGlobal: 'lists',
-      elementsTableDBGlobal: 'elements',
-      beadsTableDBGlobal: 'beed_profile_systems',
-
-      visorDBId: 21,
-      gridDBId: 20,
-      spillwayDBId: 9,
-      windowsillDBId: 8,
 
       //------------ Languages
       languages: [

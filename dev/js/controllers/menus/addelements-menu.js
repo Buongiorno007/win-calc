@@ -74,6 +74,7 @@
         //-------- Show current add element price
         $scope.global.objXAddElementPrice = angular.copy($scope.global.objXAddElementPriceSource);
         $scope.global.objXAddElementPrice.cityId = $scope.global.userInfo.city_id;
+        $scope.global.objXAddElementPrice.currencyId = $scope.global.userInfo.currencyId;
         $scope.global.objXAddElementPrice.elementId = cloneAddElement.elementId;
         $scope.global.objXAddElementPrice.elementLength = cloneAddElement.elementWidth;
         console.log($scope.global.objXAddElementPrice);

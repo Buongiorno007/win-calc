@@ -203,15 +203,15 @@
     // создание объекта для отправки в базу, чтобы рассчитать цену шаблона
     $scope.global.createObjXFormedPrice = function(template, profileIndex, profileId, glassId, hardwareId) {
       //------ define Bead Id for define template price
-      localDB.selectDBGlobal($scope.global.listsTableDBGlobal, {'id': glassId }, function (results) {
+      globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'id': glassId }, function (results) {
         if (results.status) {
           var parentId = results.data[0].parent_element_id;
           //------ find glass depth
-          localDB.selectDBGlobal($scope.global.elementsTableDBGlobal, {'id': parentId }, function (results) {
+          globalDB.selectDBGlobal(globalDB.elementsTableDBGlobal, {'id': parentId }, function (results) {
             if (results.status) {
               var glassDepth = results.data[0].glass_width;
               //------ find bead Id as to glass Depth and profile Id
-              localDB.selectDBGlobal($scope.global.beadsTableDBGlobal, {'profile_system_id': {"value": profileId, "union": 'AND'}, "glass_width": glassDepth}, function (results) {
+              globalDB.selectDBGlobal(globalDB.beadsTableDBGlobal, {'profile_system_id': {"value": profileId, "union": 'AND'}, "glass_width": glassDepth}, function (results) {
                 if (results.status) {
                   $scope.global.product.beadId = results.data[0].list_id;
                   //console.log($scope.global.product.beadId);
@@ -269,6 +269,7 @@
                     }
                   }
                   $scope.global.objXFormedPrice.cityId = $scope.global.userInfo.city_id;
+                  $scope.global.objXFormedPrice.currencyId = $scope.global.userInfo.currencyId;
                   $scope.global.objXFormedPrice.glassId = glassId;
                   $scope.global.objXFormedPrice.profileId = profileId;
                   $scope.global.objXFormedPrice.hardwareId = hardwareId;

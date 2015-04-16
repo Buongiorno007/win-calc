@@ -1,33 +1,65 @@
 
 <section class="login-page">
-  <div id="code-container" ng-hide="loginPage.isCodeValid" class="login-container">
+  <div id="login-container" ng-hide="loginPage.isRegistration" class="login-container">
     <div class="logo"></div>
-    <div class="text-container">
-      <p>{{ 'login.PASS_CODE' | translate }}</p>
-    </div>
-    <div class="text-container"><span>{{ 'login.YOUR_CODE' | translate }}</span><span>{{ loginPage.deviceCode }}</span></div>
-    <div class="text-container error">
-      <p ng-hide="loginPage.isCodeCheckingSuccess">{{ 'login.IMPORT_DB_START' | translate }}</p>
-      <p ng-show="loginPage.isCodeCheckingSuccess">{{ 'login.IMPORT_DB_FINISH' | translate }}</p>
-    </div>
-    <!--button.login-submit(type="button", hm-tap="switchLang()") {{ 'SWITCH_LANG' | translate }}-->
-    <button type="button" ng-show="loginPage.isCodeCheckingSuccess" hm-tap="loginPage.checkCode()" class="login-submit">ОК</button>
-    <!--.login-submit(hm-tap="loginPage.checkCode()") ОК-->
-  </div>
-  <div id="login-container" ng-show="loginPage.isCodeValid" class="login-container">
-    <div class="logo"></div>
-    <form name="loginForm" novalidate ng-submit="loginPage.submitForm(loginForm)">
+    <form name="loginForm" novalidate ng-submit="loginPage.enterForm(loginForm)">
       <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; loginForm.phone.$error.required }" class="input-field">
-        <input type="tel" name="phone" ng-model="loginPage.user.phone" ng-pattern="" placeholder="{{ 'login.MOBILE' | translate }}" required class="user-field">
+        <input type="tel" name="phone" ng-model="loginPage.user.phone" ng-pattern="loginPage.regPhone" ng-minlength="6" placeholder="{{ 'login.MOBILE' | translate }}" required class="user-field">
         <div ng-show="loginPage.submitted &amp;&amp; loginForm.phone.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
         <div ng-show="loginPage.submitted &amp;&amp; loginForm.phone.$error.pattern || loginForm.phone.$dirty &amp;&amp; loginForm.phone.$error.pattern" class="error-tooltip">{{ 'login.WRONG_NUMBER' | translate }}</div>
+        <div ng-show="loginPage.submitted &amp;&amp; loginForm.phone.$error.minlength || loginForm.phone.$dirty &amp;&amp; loginForm.phone.$error.minlength" class="error-tooltip">{{ 'login.SHORT_PHONE' | translate }}</div>
       </div>
       <div ng-class="{ 'has-error' : loginPage.submitted &amp;&amp; loginForm.password.$error.required }" class="input-field">
-        <input type="password" name="password" ng-model="loginPage.user.password" ng-minlength="3" placeholder="{{ 'login.PASSWORD' | translate }}" required class="user-field">
+        <input type="password" name="password" ng-model="loginPage.user.password" ng-minlength="4" placeholder="{{ 'login.PASSWORD' | translate }}" required class="user-field">
         <div ng-show="loginPage.submitted &amp;&amp; loginForm.password.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
         <div ng-show="loginPage.submitted &amp;&amp; loginForm.password.$error.minlength || loginForm.password.$dirty &amp;&amp; loginForm.password.$error.minlength" class="error-tooltip">{{ 'login.SHORT_PASSWORD' | translate }}</div>
       </div>
       <button type="submit" class="login-submit">{{ 'login.ENTER' | translate }}</button>
+    </form>
+    <button hm-tap="loginPage.switchRegistration()" class="login-submit">{{ 'login.REGISTRATION' | translate }}</button>
+  </div>
+  <div ng-show="loginPage.isRegistration" ng-mousemove="loginPage.isUserExist = false; loginPage.isSendEmail = false;" class="login-container">
+    <button type="button" hm-tap="loginPage.switchRegistration()" class="close-registration"></button>
+    <div ng-show="loginPage.isUserExist" class="attantion">{{ 'login.USER_EXIST' | translate }}</div>
+    <div ng-show="loginPage.isSendEmail" class="attantion">{{ 'login.USER_CHECK_EMAIL' | translate }}</div>
+    <div class="logo"></div>
+    <form name="registrForm" novalidate ng-submit="loginPage.registrForm(registrForm)">
+      <div ng-class="{ 'has-error' : loginPage.submitted &amp;&amp; registrForm.name.$error.required }" class="input-field">
+        <input type="text" name="name" ng-model="loginPage.user.name" ng-pattern="loginPage.regName" ng-minlength="3" placeholder="{{ 'cart.CLIENT_NAME' | translate }}" required class="user-field">
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.name.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.name.$error.pattern || registrForm.name.$dirty &amp;&amp; registrForm.name.$error.pattern" class="error-tooltip">{{ 'login.WRONG_NAME' | translate }}</div>
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.name.$error.minlength || registrForm.name.$dirty &amp;&amp; registrForm.name.$error.minlength" class="error-tooltip">{{ 'login.SHORT_NAME' | translate }}</div>
+      </div>
+      <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; registrForm.phone.$error.required }" class="input-field">
+        <input type="tel" name="phone" ng-model="loginPage.user.phone" ng-pattern="loginPage.regPhone" ng-minlength="6" placeholder="{{ 'login.MOBILE' | translate }}" required class="user-field">
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.phone.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.phone.$error.pattern || registrForm.phone.$dirty &amp;&amp; registrForm.phone.$error.pattern" class="error-tooltip">{{ 'login.WRONG_NUMBER' | translate }}</div>
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.phone.$error.minlength || registrForm.phone.$dirty &amp;&amp; registrForm.phone.$error.minlength" class="error-tooltip">{{ 'login.SHORT_PHONE' | translate }}</div>
+      </div>
+      <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; registrForm.country.$error.required, 'placeholder-select': !loginPage.user.country }" class="input-field">
+        <select name="country" ng-model="loginPage.user.country" ng-options="country.name for country in loginPage.generalLocations.countries | orderBy:'name'" ng-change="loginPage.selectLocation()" required class="user-select-field">
+          <option value="">{{ 'login.SELECT_COUNTRY' | translate }}</option>
+        </select>
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.country.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
+      </div>
+      <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; registrForm.region.$error.required, 'placeholder-select': !loginPage.user.region }" class="input-field">
+        <select name="region" ng-model="loginPage.user.region" ng-options="region.name for region in loginPage.generalLocations.regions | filter: {countryId: loginPage.user.country.id}:true | orderBy:'name'" ng-change="loginPage.selectLocation()" ng-disabled="!loginPage.user.country" required class="user-select-field">
+          <option value="">{{ 'login.SELECT_REGION' | translate }}</option>
+        </select>
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.region.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
+      </div>
+      <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; registrForm.city.$error.required, 'placeholder-select': !loginPage.user.city }" class="input-field">
+        <select name="city" ng-model="loginPage.user.city" ng-options="city.name for city in loginPage.generalLocations.cities | filter: {regionId: loginPage.user.region.id}:true | orderBy:'name'" ng-change="loginPage.selectLocation()" ng-disabled="!loginPage.user.region" required class="user-select-field">
+          <option value="">{{ 'login.SELECT_CITY' | translate }}</option>
+        </select>
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.city.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
+      </div>
+      <div ng-class="{ 'has-error' : loginPage.submitted &amp;&amp; registrForm.mail.$error.required }" class="input-field">
+        <input type="email" name="mail" ng-model="loginPage.user.mail" placeholder="{{ 'cart.CLIENT_EMAIL' | translate }}" required class="user-field">
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.mail.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
+        <div ng-show="loginPage.submitted &amp;&amp; registrForm.mail.$error.email" class="error-tooltip">{{ 'cart.WRONG_EMAIL' | translate }}</div>
+      </div>
+      <button type="submit" class="login-submit">{{ 'login.REGISTRATION' | translate }}</button>
     </form>
   </div>
 </section>

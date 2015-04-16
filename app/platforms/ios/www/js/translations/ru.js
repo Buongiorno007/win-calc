@@ -1,6 +1,3 @@
-
-// translations/ru.js
-
 (function(){
   'use strict';
 
@@ -38,11 +35,20 @@
         PASS_CODE: 'Сообщите этот код менеджеру.',
         YOUR_CODE: 'Ваш код: ',
         EMPTY_FIELD: 'Заполните это поле.',
-        WRONG_NUMBER: 'Неверный номер, формат +XX(XXX)XXX-XXXX.',
+        WRONG_NUMBER: 'Неверный номер.',
+        SHORT_NAME: 'Слишком маленькое имя.',
         SHORT_PASSWORD: 'Слишком маленький пароль.',
-        SOMETHING_WRONG: 'Произошло что-то страшное, поэтому вы видите это сообщение об ошибке.',
+        SHORT_PHONE: 'Слишком маленький номер телефона.',
+        IMPORT_DB_START: 'Подождите, началась загрузка базы данных',
+        IMPORT_DB_FINISH: 'Спасибо, загрузка завершена',
         MOBILE: 'Мобильный телефон',
-        PASSWORD: 'Пароль'
+        PASSWORD: 'Пароль',
+        REGISTRATION: 'Регистрация',
+        SELECT_COUNTRY: 'Веберите страну',
+        SELECT_REGION: 'Выберите регион',
+        SELECT_CITY: 'Выберите город',
+        USER_EXIST: 'Такой пользователь уже существует! Попробуйте еще раз.',
+        USER_CHECK_EMAIL: 'Подтвердительное письмо было отправлено Вам на почту.'
       },
       mainpage: {
         MM: ' мм ',

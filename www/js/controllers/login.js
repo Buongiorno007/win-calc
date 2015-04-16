@@ -8,9 +8,9 @@
     .module('LoginModule')
     .controller('LoginCtrl', loginPageCtrl);
 
-  loginPageCtrl.$inject = ['$location', 'globalDB', 'localDB', '$cordovaGlobalization', '$cordovaProgress', 'localStorage', '$translate', '$q'];
+  loginPageCtrl.$inject = ['$location', 'globalDB', '$cordovaGlobalization', '$cordovaProgress', 'localStorage', '$translate', '$q'];
 
-  function loginPageCtrl($location, globalDB, localDB, $cordovaGlobalization, $cordovaProgress, localStorage, $translate, $q) {
+  function loginPageCtrl($location, globalDB, $cordovaGlobalization, $cordovaProgress, localStorage, $translate, $q) {
 
     var startTime = new Date();
     console.log('startTime', startTime);
@@ -20,16 +20,22 @@
     thisCtrl.isRegistration = false;
     thisCtrl.submitted = false;
     thisCtrl.isUserExist = false;
+    thisCtrl.isUserNotExist = false;
     thisCtrl.isSendEmail = false;
+    thisCtrl.isUserNotActive = false;
+    thisCtrl.isFactoryId = false;
     thisCtrl.user = {};
+    thisCtrl.factories;
     thisCtrl.regPhone = /^\d+$/;
     thisCtrl.regName = /^[a-zA-Z]+$/;
+    thisCtrl.regMail = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 
     //------ clicking
     thisCtrl.switchRegistration = switchRegistration;
     thisCtrl.enterForm = enterForm;
     thisCtrl.registrForm = registrForm;
     thisCtrl.selectLocation = selectLocation;
+    thisCtrl.selectFactory = selectFactory;
 
 
     //------- defined system language
@@ -65,7 +71,7 @@
           console.log('data = ', thisCtrl.generalLocations);
           var endTime = new Date();
           console.log('endTime', endTime);
-
+          //$cordovaProgress.hide();
         });
       });
     });
@@ -90,6 +96,7 @@
     function switchRegistration() {
       thisCtrl.user = {};
       thisCtrl.isRegistration = !thisCtrl.isRegistration;
+      //angular.element('#first_input').focus();
     }
 
     //-------- user sign in
@@ -97,12 +104,54 @@
       // Trigger validation flag.
       thisCtrl.submitted = true;
       if (form.$valid) {
-        //---- checking fist user enter
-        globalDB.ifUserExist('0974391208', function(result){
-          console.log(result);
+        //---- checking user in GlobalDB
+        //globalDB.selectDBGlobal(globalDB.usersTableDBGlobal, {'phone': {"value": thisCtrl.user.phone, "union": 'AND'}, "password": thisCtrl.user.password}, function (results) {
+        globalDB.selectDBGlobal(globalDB.usersTableDBGlobal, {'phone': thisCtrl.user.phone}, function (results) {
+          console.log('chek = ', results);
+          //---- user exists
+          if (results.status) {
+            angular.extend(localStorage.userInfo, results.data[0]);
+
+            //----- checking user activation
+            globalDB.ifUserExist(thisCtrl.user.phone, function(result){
+              console.log(result);
+              //---- user activated
+              if(result.activation) {
+                //----- update locked in user of GlobalDB
+                globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {'locked': 1}, {'phone': thisCtrl.user.phone});
+                //----- checking FactoryId
+                if(result.factory) {
+                  //$cordovaProgress.showSimple(true);
+                  globalDB.syncDb(function(result){
+                    //$cordovaProgress.hide();
+                    $location.path('/main');
+                  });
+
+                } else {
+                  //---- show attantion
+                  thisCtrl.isFactoryId = true;
+                  globalDB.getFactories(localStorage.userInfo.city_id, function(result){
+                    console.log(result);
+                    if(result.status) {
+                      thisCtrl.factories = result.data;
+                    } else {
+                      console.log('can not get factories!');
+                    }
+                  });
+                }
+              } else {
+                //---- show attantion
+                thisCtrl.isUserNotActive = true;
+              }
+            });
+
+          } else {
+            //---- user not exists
+            thisCtrl.isUserNotExist = true;
+          }
+          console.log('user = ', localStorage.userInfo);
         });
 
-        //$location.path('/main');
       }
     }
 
@@ -122,20 +171,14 @@
               if(result.status) {
                 //-------- sent confirmed email
                 thisCtrl.isSendEmail = true;
-                //-------- save user in localDB
+                switchRegistration();
+                //-------- save new user in localDB
                 globalDB.importUser(result.userId, result.access_token, function(result){
                   console.log(result);
-                  if(result.status) {
-                    //-------- save user in localDB
-                  } else {
-
-                  }
-
                 });
               } else {
                 console.log('some problem dureing user creating');
               }
-
             });
           } else {
             //---- show attantion
@@ -170,7 +213,7 @@
           };
 
       //---- get all counties
-      localDB.selectAllDBGlobal(localStorage.countriesTableDBGlobal, function (results) {
+      globalDB.selectAllDBGlobal(globalDB.countriesTableDBGlobal, function (results) {
         if (results.status) {
           var countryQty = results.data.length;
           while(--countryQty > -1) {
@@ -182,7 +225,7 @@
           }
 
           //--------- get all regions
-          localDB.selectAllDBGlobal(localStorage.regionsTableDBGlobal, function (results) {
+          globalDB.selectAllDBGlobal(globalDB.regionsTableDBGlobal, function (results) {
             if (results.status) {
               var regionQty = results.data.length;
               while(--regionQty > -1) {
@@ -195,7 +238,7 @@
               }
 
               //--------- get all cities
-              localDB.selectAllDBGlobal(localStorage.citiesTableDBGlobal, function (results) {
+              globalDB.selectAllDBGlobal(globalDB.citiesTableDBGlobal, function (results) {
                 if (results.status) {
                   var cityQty = results.data.length;
                   while(--cityQty > -1) {
@@ -255,6 +298,27 @@
         delete thisCtrl.user.city;
       }
     }
+
+
+    function selectFactory(factoryId) {
+
+      globalDB.setFactory(localStorage.userInfo.phone, factoryId, localStorage.userInfo.device_code, function(result){
+
+      });
+
+//      console.log('importStartTime', new Date());
+//      thisCtrl.isFactoryId = false;
+//      //$cordovaProgress.showSimple(true);
+//      globalDB.initApp(function(result){}).then(function(data) {
+//        console.log('import DB==', data);
+//        //$cordovaProgress.hide();
+//        console.log('importFinishTime', new Date());
+//        $location.path('/main');
+//      });
+//      globalDB.syncDb(function(result){});
+
+    }
+
 
 
   }

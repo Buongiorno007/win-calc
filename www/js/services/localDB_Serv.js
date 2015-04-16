@@ -14,7 +14,7 @@
 
     var thisFactory = this,
         dbName = 'localDB',
-        dbGlobal = $webSql.openDatabase('bauvoice', '1.0', 'bauvoice', 65536),
+        //dbGlobal = $webSql.openDatabase('bauvoice', '1.0', 'bauvoice', 65536),
         db = $webSql.openDatabase(dbName, '1.0', 'Test DB', 65536),
 
         productTableFields = {
@@ -485,11 +485,8 @@
       selectAllDB: selectAllDB,
       updateDB: updateDB,
       deleteTable: deleteTable,
-      deleteDB: deleteDB,
+      deleteDB: deleteDB
 
-      selectDBGlobal: selectDBGlobal,
-      selectAllDBGlobal: selectAllDBGlobal,
-      updateDBGlobal: updateDBGlobal
     };
 
     //======= creating tables in localDB =========//
@@ -548,41 +545,6 @@
 
     function deleteDB(tableName, options) {
       db.del(tableName, options);
-    }
-
-
-    //--------- Global DataBase
-
-    function selectDBGlobal(tableName, options, callback) {
-      var handler = [];
-      dbGlobal.select(tableName, options).then(function (results) {
-        if (results.rows.length) {
-          for (var i = 0; i < results.rows.length; i++) {
-            handler.push(results.rows.item(i));
-          }
-          callback(new OkResult(handler));
-        } else {
-          callback(new ErrorResult(1, 'No in database!'));
-        }
-      });
-    }
-
-    function selectAllDBGlobal(tableName, callback) {
-      var handler = [];
-      dbGlobal.selectAll(tableName).then(function (results) {
-        if (results.rows.length) {
-          for (var i = 0; i < results.rows.length; i++) {
-            handler.push(results.rows.item(i));
-          }
-          callback(new OkResult(handler));
-        } else {
-          callback(new ErrorResult(1, 'No in database!'));
-        }
-      });
-    }
-
-    function updateDBGlobal(tableName, elem, options) {
-      dbGlobal.update(tableName, elem, options);
     }
 
   }

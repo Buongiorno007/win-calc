@@ -134,3 +134,51 @@ $img_logo: 'login/logo.png';
 .placeholder-select {
   color: #A9A9AB;
 }
+
+.factory_box {
+  @include roboto-lt(rem(36px));
+  position: absolute;
+  top: 0;
+  left: -9%;
+  width: rem(1200px);
+  height: 100%;
+  overflow: hidden;
+  padding: rem(40px) 0;
+  border: 1px solid #8c8c8c;
+  border-radius: rem($radius_general-small_button);
+  background: #fff;
+  color: $main_gray_txt;
+  z-index: 10;
+}
+.factory_title {
+  @include roboto-bd(rem(36px));
+  margin-bottom: rem(10px);
+  text-align: center;
+}
+.factory_list {
+  max-height: 76%;
+  overflow: auto;
+  padding: 0 rem(40px);
+}
+.factory_table {
+  //table-layout: fixed;
+  //width: 100%;
+  border: none;
+  //vertical-align: middle;
+}
+.factory_item {
+  padding: rem(25px) 0;
+  //word-break: break-all;
+}
+
+.factory_select {
+  width: 5%;
+  padding-right: rem(5px);
+}
+.factory_name {
+  width: 45%;
+}
+.factory_name, .factory_place {
+  //@extend .truncated;
+  text-align: left;
+}

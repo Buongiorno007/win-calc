@@ -1,6 +1,3 @@
-
-// translations/de.js
-
 (function(){
   'use strict';
 
@@ -38,11 +35,20 @@
         PASS_CODE: 'Teilen Sie diesen Kode dem Manager mit.',
         YOUR_CODE: 'Ihr Kode: ',
         EMPTY_FIELD: 'Füllen Sie dieses Feld aus.',
-        WRONG_NUMBER: 'Die falsche Nummer, das Format +XX (XXX) XXX-XXXX.',
+        WRONG_NUMBER: 'Die falsche Nummer.',
+        SHORT_NAME: 'Too short name',
         SHORT_PASSWORD: 'Die viel zu kleine Parole',
-        SOMETHING_WRONG: 'Entstand ein furchtbarer, daraufhin ihr sehen dieser berichtet über Fehler.',
+        SHORT_PHONE: 'Too little phone number.',
+        IMPORT_DB_START: 'Подождите, началась загрузка базы данных',
+        IMPORT_DB_FINISH: 'Спасибо, загрузка завершена',
         MOBILE: 'Handy',
-        PASSWORD: 'Passwort'
+        PASSWORD: 'Passwort',
+        REGISTRATION: 'Anmeldung',
+        SELECT_COUNTRY: 'Select country',
+        SELECT_REGION: 'Select region',
+        SELECT_CITY: 'Select city',
+        USER_EXIST: 'Sorry, but this user already exists! Please, try again.',
+        USER_CHECK_EMAIL: 'The confirmed email was send to you. Please, check your email.'
       },
       mainpage: {
         MM: ' mm ',

@@ -82,16 +82,16 @@
     $scope.saveTxtInBD = function(marker, newTxt) {
       switch(marker) {
         case 'user-name':
-          localDB.updateDBGlobal($scope.global.usersTableDBGlobal, {"name": newTxt}, {"id": $scope.global.userInfo.id});
+          globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"name": newTxt}, {"id": $scope.global.userInfo.id});
           break;
         case 'user-address':
-          localDB.updateDBGlobal($scope.global.usersTableDBGlobal, {"city_phone": newTxt}, {"id": $scope.global.userInfo.id}); //TODO создать поле в базе данных
+          globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"city_phone": newTxt}, {"id": $scope.global.userInfo.id}); //TODO создать поле в базе данных
           break;
         case 'user-email':
           var checkEmail = $scope.settings.mailReg.test(newTxt);
           if(checkEmail) {
             $scope.settings.isEmailError = false;
-            localDB.updateDBGlobal($scope.global.usersTableDBGlobal, {"email": newTxt}, {"id": $scope.global.userInfo.id});
+            globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"email": newTxt}, {"id": $scope.global.userInfo.id});
           } else {
             $scope.settings.isEmailError = true;
           }
@@ -128,7 +128,7 @@
     $scope.savePhoneInDB = function(phones) {
       var phonesString = phones.join();
       $scope.global.userInfo.contact_name = phonesString;
-      localDB.updateDBGlobal($scope.global.usersTableDBGlobal, {"contact_name": phonesString}, {"id": $scope.global.userInfo.id}); //TODO создать поле в базе данных
+      globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"contact_name": phonesString}, {"id": $scope.global.userInfo.id}); //TODO создать поле в базе данных
       $scope.settings.tempAddPhone = '';
     };
 

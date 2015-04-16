@@ -5,9 +5,9 @@
     .module('MainModule')
     .controller('AddElementsCtrl', addElementsCtrl);
 
-  addElementsCtrl.$inject = ['$scope', 'globalConstants', 'localDB', 'constructService', 'localStorage', '$timeout'];
+  addElementsCtrl.$inject = ['$scope', 'globalConstants', 'globalDB', 'constructService', 'localStorage', '$timeout'];
 
-  function addElementsCtrl($scope, globalConstants, localDB, constructService, localStorage, $timeout) {
+  function addElementsCtrl($scope, globalConstants, globalDB, constructService, localStorage, $timeout) {
     var activeClass = 'active';
 
     $scope.global = localStorage;
@@ -64,7 +64,7 @@
         case 1:
           $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[0];
   /*
-          localDB.selectDBGlobal($scope.global.listsTableDBGlobal, {'list_group_id': $scope.global.gridDBId}, function (results) {
+          globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'list_group_id': $scope.global.gridDBId}, function (results) {
             if (results.status) {
               $scope.global.addElementsList = [angular.copy(results.data)];
             } else {
@@ -84,7 +84,7 @@
         case 2:
           $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[1];
   /*
-          localDB.selectDBGlobal($scope.global.listsTableDBGlobal, {'list_group_id': $scope.global.visorDBId}, function (results) {
+          globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'list_group_id': $scope.global.visorDBId}, function (results) {
             if (results.status) {
               $scope.global.addElementsList = [angular.copy(results.data)];
             } else {
@@ -104,7 +104,7 @@
         case 3:
           $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[2];
   /*
-          localDB.selectDBGlobal($scope.global.listsTableDBGlobal, {'list_group_id': $scope.global.spillwayDBId}, function (results) {
+          globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'list_group_id': $scope.global.spillwayDBId}, function (results) {
             if (results.status) {
               $scope.global.addElementsList = [angular.copy(results.data)];
             } else {
@@ -179,7 +179,7 @@
         case 9:
           $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[8];
   /*
-          localDB.selectDBGlobal($scope.global.listsTableDBGlobal, {'list_group_id': $scope.global.windowsillDBId}, function (results) {
+          globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'list_group_id': $scope.global.windowsillDBId}, function (results) {
             if (results.status) {
               $scope.global.addElementsList = [angular.copy(results.data)];
             } else {

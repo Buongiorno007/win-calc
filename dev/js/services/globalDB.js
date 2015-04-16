@@ -5,12 +5,13 @@
     .module('BauVoiceApp')
     .factory('globalDB', globalDBFactory);
 
-  globalDBFactory.$inject = ['$http', '$q'];
+  globalDBFactory.$inject = ['$http', '$webSql', '$q'];
 
-  function globalDBFactory($http, $q) {
+  function globalDBFactory($http, $webSql, $q) {
 
 
-    var elemLists = [], elemListsHw = [], elemListsAdd = [];
+    var elemLists = [], elemListsHw = [], elemListsAdd = [],
+        dbGlobal = $webSql.openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
 
     // SQL requests for creating tables if they are not exists yet
     var createTablesSQL = ["CREATE TABLE IF NOT EXISTS factories (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
@@ -26,7 +27,7 @@
         "CREATE TABLE IF NOT EXISTS cities (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), region_id INTEGER, transport VARCHAR(2), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(region_id) REFERENCES regions(id))",
         "CREATE TABLE IF NOT EXISTS lamination_colors (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), factory_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id))",
         "CREATE TABLE IF NOT EXISTS elements (id INTEGER PRIMARY KEY AUTOINCREMENT, sku VARCHAR(100), name VARCHAR(255), element_group_id INTEGER, price NUMERIC(10, 2), currency_id INTEGER, supplier_id INTEGER, margin_id INTEGER, waste NUMERIC(10, 2), is_optimized INTEGER, is_virtual INTEGER, is_additional INTEGER, weight_accounting_unit NUMERIC(10, 3), glass_folder_id INTEGER, min_width NUMERIC, min_height NUMERIC, max_width NUMERIC, max_height NUMERIC, max_sq NUMERIC, transcalency NUMERIC(10, 2), amendment_pruning NUMERIC(10, 2), glass_width INTEGER, factory_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, noise INTEGER, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(glass_folder_id) REFERENCES glass_folders(id), FOREIGN KEY(margin_id) REFERENCES margin_types(id), FOREIGN KEY(supplier_id) REFERENCES suppliers(id), FOREIGN KEY(currency_id) REFERENCES currencies(id), FOREIGN KEY(element_group_id) REFERENCES elements_groups(id))",
-        "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, email VARCHAR(255), password VARCHAR(255), short_id VARCHAR(2), parent_id INTEGER, factory_id INTEGER, discount_construct_max NUMERIC(10, 1), discount_construct_default NUMERIC(10, 1), discount_additional_elements_max NUMERIC(10, 1), discount_additional_elements_default NUMERIC(10, 1), name VARCHAR(255), phone VARCHAR(100), inn VARCHAR(100), okpo VARCHAR(100), mfo VARCHAR(100), bank_name VARCHAR(100), bank_acc_no VARCHAR(100), director VARCHAR(255), stamp_file_name VARCHAR(255), locked INTEGER, user_type INTEGER, contact_name VARCHAR(100), city_phone VARCHAR(100), city_id INTEGER, legal_name VARCHAR(255), fax VARCHAR(100), avatar VARCHAR(255), birthday DATE, sex VARCHAR(100), margin_mounting_mon NUMERIC(10, 2), margin_mounting_tue NUMERIC(10, 2), margin_mounting_wed NUMERIC(10, 2), margin_mounting_thu NUMERIC(10, 2), margin_mounting_fri NUMERIC(10, 2), margin_mounting_sat NUMERIC(10, 2), margin_mounting_sun NUMERIC(10, 2), min_term INTEGER, base_term INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id))",
+        "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, email VARCHAR(255), password VARCHAR(255), short_id VARCHAR(2), parent_id INTEGER, factory_id INTEGER, discount_construct_max NUMERIC(10, 1), discount_construct_default NUMERIC(10, 1), discount_additional_elements_max NUMERIC(10, 1), discount_additional_elements_default NUMERIC(10, 1), name VARCHAR(255), phone VARCHAR(100), inn VARCHAR(100), okpo VARCHAR(100), mfo VARCHAR(100), bank_name VARCHAR(100), bank_acc_no VARCHAR(100), director VARCHAR(255), stamp_file_name VARCHAR(255), locked INTEGER, user_type INTEGER, contact_name VARCHAR(100), city_phone VARCHAR(100), city_id INTEGER, legal_name VARCHAR(255), fax VARCHAR(100), avatar VARCHAR(255), birthday DATE, sex VARCHAR(100), margin_mounting_mon NUMERIC(10, 2), margin_mounting_tue NUMERIC(10, 2), margin_mounting_wed NUMERIC(10, 2), margin_mounting_thu NUMERIC(10, 2), margin_mounting_fri NUMERIC(10, 2), margin_mounting_sat NUMERIC(10, 2), margin_mounting_sun NUMERIC(10, 2), min_term INTEGER, base_term INTEGER, device_code VARCHAR(250), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id))",
         "CREATE TABLE IF NOT EXISTS lists_groups (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
         "CREATE TABLE IF NOT EXISTS lists (id INTEGER PRIMARY KEY AUTOINCREMENT, parent_element_id INTEGER, name VARCHAR(255), list_group_id INTEGER, list_type_id INTEGER, add_color_id INTEGER, a NUMERIC(10, 2), b NUMERIC(10, 2), c NUMERIC(10, 2), d NUMERIC(10, 2), position NUMERIC, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, addition_folder_id INTEGER, FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id))",
         "CREATE TABLE IF NOT EXISTS directions (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
@@ -67,6 +68,24 @@
     ];
 
     return {
+
+      //------ WebSQL DB table names
+      usersTableDBGlobal: 'users',
+      citiesTableDBGlobal: 'cities',
+      regionsTableDBGlobal: 'regions',
+      countriesTableDBGlobal: 'countries',
+      listsTableDBGlobal: 'lists',
+      elementsTableDBGlobal: 'elements',
+      beadsTableDBGlobal: 'beed_profile_systems',
+
+      visorDBId: 21,
+      gridDBId: 20,
+      spillwayDBId: 9,
+      windowsillDBId: 8,
+
+      selectDBGlobal: selectDBGlobal,
+      selectAllDBGlobal: selectAllDBGlobal,
+      updateDBGlobal: updateDBGlobal,
 
       md5: function (string) {
         function RotateLeft(lValue, iShiftBits) {
@@ -445,6 +464,25 @@
         });
       },
 
+      getFactories: function (cityId, callback) {
+        var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
+        $http.get('http://api.voice-creator.net/sync/factories?city='+cityId).success(function (result) {
+          callback(result);
+        }).error(function () {
+          callback(new ErrorResult(2, 'Something went wrong when get factories!'));
+        });
+      },
+
+
+      setFactory: function (login, factoryId, token, callback) {
+        var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
+        $http.get('http://api.voice-creator.net/sync/setfactory?login='+login+'&factory_id='+factoryId+'&token='+token).success(function (result) {
+          callback(result);
+        }).error(function () {
+          callback(new ErrorResult(2, 'Something went wrong when get factories!'));
+        });
+      },
+
 
 
       importDb: function (deviceCode, callback) {
@@ -455,6 +493,7 @@
           }
         });
         $http.get('http://api.voice-creator.net/sync/elements?access_token=' + deviceCode).success(function (result) {
+          console.log('problemm = ', result);
           db.transaction(function (transaction) {
             for (table in result.tables) {
               for (i = 0; i < result.tables[table].rows.length; i++) {
@@ -576,10 +615,29 @@
 
 
 
-      getCurrentCurrency: function(cityId, callback){
+//      getCurrentCurrency: function(cityId, callback){
+//        var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
+//        console.log(cityId);
+//        db.transaction(function (transaction) {
+//          transaction.executeSql('select id, name, value from currencies where id = (select country_id from regions where id = (select region_id from cities where id = ?))', [cityId], function (transaction, result) {
+//            console.log(result);
+//            if (result.rows.length) {
+//              callback(new OkResult(result.rows.item(0)));
+//            } else {
+//              callback(new ErrorResult(1, 'Incorrect cityId!'));
+//            }
+//          }, function () {
+//            callback(new ErrorResult(2, 'Something went wrong when get current currency'));
+//          });
+//        });
+//      },
+
+      getCurrentCurrency: function(currencyId, callback){
         var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
+        console.log(currencyId);
         db.transaction(function (transaction) {
-          transaction.executeSql('select id, name, value from currencies where id = (select country_id from regions where id = (select region_id from cities where id = ?))', [cityId], function (transaction, result) {
+          transaction.executeSql('select id, name, value from currencies where id = ?)', [currencyId], function (transaction, result) {
+            console.log(result);
             if (result.rows.length) {
               callback(new OkResult(result.rows.item(0)));
             } else {
@@ -918,7 +976,7 @@
       calculationPrice: function (construction, callback) {
         var self = this;
         var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), price = 0, profSys, priceObj = {};
-        this.getCurrentCurrency(construction.cityId, function (result){
+        this.getCurrentCurrency(construction.currencyId, function (result){
           next_1(result);
         });
         function next_1(result){
@@ -1695,7 +1753,7 @@
       getAdditionalPrice: function (addList, callback){
         var self = this;
         var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), price = 0, addPriceObj = {};
-        this.getCurrentCurrency(addList.cityId, function (result){
+        this.getCurrentCurrency(addList.currencyId, function (result){
           next_1(result);
         });
         function next_1(result){
@@ -1843,9 +1901,11 @@
         }
       }
 
-    }
+    };
 
 
+
+    //============ methods ================//
 
     function getValuesString(data){
       var valuesString = '', i;
@@ -1859,15 +1919,40 @@
       return valuesString;
     }
 
-    /* Пример первой инициализации App
-     localStorage.initApp(function (result) {
-     if(result.status){
-     console.log(result);
-     } else {
-     console.log(result);
-     }
-     });
-     */
+
+
+
+    function selectDBGlobal(tableName, options, callback) {
+      var handler = [];
+      dbGlobal.select(tableName, options).then(function (results) {
+        if (results.rows.length) {
+          for (var i = 0; i < results.rows.length; i++) {
+            handler.push(results.rows.item(i));
+          }
+          callback(new OkResult(handler));
+        } else {
+          callback(new ErrorResult(1, 'No in database!'));
+        }
+      });
+    }
+
+    function selectAllDBGlobal(tableName, callback) {
+      var handler = [];
+      dbGlobal.selectAll(tableName).then(function (results) {
+        if (results.rows.length) {
+          for (var i = 0; i < results.rows.length; i++) {
+            handler.push(results.rows.item(i));
+          }
+          callback(new OkResult(handler));
+        } else {
+          callback(new ErrorResult(1, 'No in database!'));
+        }
+      });
+    }
+
+    function updateDBGlobal(tableName, elem, options) {
+      dbGlobal.update(tableName, elem, options);
+    }
 
 
   }

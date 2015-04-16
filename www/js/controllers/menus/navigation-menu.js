@@ -30,25 +30,27 @@ console.log('START NAV MENU!!!!!!');
     //--------- get user data and location for first time
 
     if($scope.global.startProgramm) {
-      localDB.selectAllDBGlobal($scope.global.usersTableDBGlobal, function (results) {
-        if (results.status) {
-          $scope.global.userInfo = angular.copy(results.data[0]);
+      //localDB.selectAllDBGlobal($scope.global.usersTableDBGlobal, function (results) {
+        //if (results.status) {
+          //$scope.global.userInfo = angular.copy(results.data[0]);
           //------ find user city in global DB
-          localDB.selectDBGlobal($scope.global.citiesTableDBGlobal, {'id': $scope.global.userInfo.city_id }, function (results) {
+      console.log('userInfo ======= ', $scope.global.userInfo);
+          globalDB.selectDBGlobal(globalDB.citiesTableDBGlobal, {'id': $scope.global.userInfo.city_id }, function (results) {
             if (results.status) {
               $scope.global.userInfo.cityName = results.data[0].name;
               //------ find user region in global DB
-              localDB.selectDBGlobal($scope.global.regionsTableDBGlobal, {'id': results.data[0].region_id }, function (results) {
+              globalDB.selectDBGlobal(globalDB.regionsTableDBGlobal, {'id': results.data[0].region_id }, function (results) {
                 if (results.status) {
                   $scope.global.userInfo.regionName = results.data[0].name;
                   $scope.global.userInfo.climaticZone = results.data[0].climatic_zone;
                   $scope.global.userInfo.heatTransfer = results.data[0].heat_transfer;
                   //------ find user country in global DB
-                  localDB.selectDBGlobal($scope.global.countriesTableDBGlobal, {'id': results.data[0].country_id }, function (results) {
+                  globalDB.selectDBGlobal(globalDB.countriesTableDBGlobal, {'id': results.data[0].country_id }, function (results) {
                     if (results.status) {
                       $scope.global.userInfo.countryName = results.data[0].name;
+                      $scope.global.userInfo.currencyId = results.data[0].currency_id;
                       console.log('find language!!!!');
-                      //$scope.setUserLanguage($scope.global.userInfo.countryName);
+                      $scope.global.setLanguageVoiceHelper($scope.global.userInfo.langLabel);
                       $scope.global.userInfo.fullLocation = '' + $scope.global.userInfo.cityName + ', ' + $scope.global.userInfo.regionName + ', ' + $scope.global.userInfo.countryName;
 
                       //------ set current GeoLocation
@@ -76,29 +78,12 @@ console.log('START NAV MENU!!!!!!');
               console.log(results);
             }
           });
-        } else {
-          console.log(results);
-        }
-      });
+        //} else {
+        //  console.log(results);
+        //}
+      //});
       //$scope.global.firstGetUserData = false;
     }
-
-    //---------- define language relate to user data
-    $scope.setUserLanguage = function(country) {
-      switch(country) {
-        case 'Украина':
-          $scope.global.userInfo.langName = $scope.global.languages[0].name;
-          $scope.global.userInfo.langLabel = $scope.global.languages[0].label;
-          $translate.use($scope.global.languages[0].label);
-          break;
-        case 'Россия':
-          $scope.global.userInfo.langName = $scope.global.languages[1].name;
-          $scope.global.userInfo.langLabel = $scope.global.languages[1].label;
-          $translate.use($scope.global.languages[1].label);
-          break;
-      }
-      $scope.global.setLanguageVoiceHelper($scope.global.userInfo.langLabel);
-    };
 
     $scope.global.setLanguageVoiceHelper = function(langLabel) {
       $scope.global.voiceHelperLanguage = 'ru_RU';

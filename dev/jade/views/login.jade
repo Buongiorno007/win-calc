@@ -1,6 +1,9 @@
 section.login-page
 
-  #login-container.login-container(ng-hide="loginPage.isRegistration")
+  #login-container.login-container(ng-hide="loginPage.isRegistration", ng-mousemove="loginPage.isSendEmail = false; loginPage.isUserNotExist = false; loginPage.isUserNotActive = false;")
+    .attantion(ng-show="loginPage.isSendEmail") {{ 'login.USER_CHECK_EMAIL' | translate }}
+    .attantion(ng-show="loginPage.isUserNotExist") {{ 'login.USER_NOT_EXIST' | translate }}
+    .attantion(ng-show="loginPage.isUserNotActive") {{ 'login.USER_NOT_ACTIVE' | translate }}
     .logo
     form(name='loginForm', novalidate, ng-submit="loginPage.enterForm(loginForm)")
       .input-field(ng-class="{ 'has-error': loginPage.submitted && loginForm.phone.$error.required }")
@@ -17,11 +20,22 @@ section.login-page
       button.login-submit(type="submit") {{ 'login.ENTER' | translate }}
     button.login-submit(hm-tap="loginPage.switchRegistration()") {{ 'login.REGISTRATION' | translate }}
 
+    .factory_box(ng-show="loginPage.isFactoryId")
+      .factory_title {{ 'login.SELECT_PRODUCER' | translate }}
+      .factory_list
+        table.factory_table
+          tr.factory_item(ng-repeat="factory in loginPage.factories track by $index")
+            td.factory_select
+              input.radio-field(type="radio", name="factory", ng-model="user.factoryId", value="factory.id")
+            td.factory_name {{ factory.name }}
+            td.factory_place {{ factory.country }} , {{ factory.region }} , {{ factory.city }}
+      button.login-submit(hm-tap="loginPage.selectFactory()") {{ 'common_words.SELECT' | translate }}
 
-  .login-container(ng-show="loginPage.isRegistration", ng-mousemove="loginPage.isUserExist = false; loginPage.isSendEmail = false;")
+
+
+  .login-container(ng-show="loginPage.isRegistration", ng-mousemove="loginPage.isUserExist = false;")
     button.close-registration(type="button", hm-tap="loginPage.switchRegistration()")
     .attantion(ng-show="loginPage.isUserExist") {{ 'login.USER_EXIST' | translate }}
-    .attantion(ng-show="loginPage.isSendEmail") {{ 'login.USER_CHECK_EMAIL' | translate }}
     .logo
     form(name='registrForm', novalidate, ng-submit="loginPage.registrForm(registrForm)")
 
@@ -53,8 +67,11 @@ section.login-page
         .error-tooltip(ng-show="loginPage.submitted && registrForm.city.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
 
       .input-field(ng-class="{ 'has-error' : loginPage.submitted && registrForm.mail.$error.required }")
-        input.user-field(type="email", name="mail", ng-model="loginPage.user.mail", placeholder="{{ 'cart.CLIENT_EMAIL' | translate }}", required)
+        input.user-field(type="email", name="mail", ng-model="loginPage.user.mail", ng-pattern="loginPage.regMail", placeholder="{{ 'cart.CLIENT_EMAIL' | translate }}", required)
         .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
         .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.email") {{ 'cart.WRONG_EMAIL' | translate }}
+        .error-tooltip(ng-show="loginPage.submitted && registrForm.mail.$error.pattern || registrForm.mail.$dirty && registrForm.mail.$error.pattern") {{ 'cart.WRONG_EMAIL' | translate }}
 
       button.login-submit(type="submit") {{ 'login.REGISTRATION' | translate }}
+
+  .backDarkView(ng-show="loginPage.isFactoryId")

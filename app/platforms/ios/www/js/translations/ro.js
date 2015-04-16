@@ -1,6 +1,3 @@
-
-// translations/ro.js
-
 (function(){
   'use strict';
 
@@ -38,11 +35,20 @@
         PASS_CODE: 'Spune-i managerului acest cod.',
         YOUR_CODE: 'codul dvs: ',
         EMPTY_FIELD: 'Completați acest câmp.',
-        WRONG_NUMBER: 'numar incorrect,format +XX(XXX)XXX-XXXX.',
+        WRONG_NUMBER: 'numar incorrect.',
+        SHORT_NAME: 'Too short name',
         SHORT_PASSWORD: 'parola e prea mica.',
-        SOMETHING_WRONG: 'E CEVA ÎN NEREGULĂ',
+        SHORT_PHONE: 'Too little phone number.',
+        IMPORT_DB_START: 'Подождите, началась загрузка базы данных',
+        IMPORT_DB_FINISH: 'Спасибо, загрузка завершена',
         MOBILE: 'telefon mobil',
-        PASSWORD: 'Parola'
+        PASSWORD: 'Parola',
+        REGISTRATION: 'înregistrare',
+        SELECT_COUNTRY: 'Select country',
+        SELECT_REGION: 'Select region',
+        SELECT_CITY: 'Select city',
+        USER_EXIST: 'Sorry, but this user already exists! Please, try again.',
+        USER_CHECK_EMAIL: 'The confirmed email was send to you. Please, check your email.'
       },
       mainpage: {
         MM: ' mm ',

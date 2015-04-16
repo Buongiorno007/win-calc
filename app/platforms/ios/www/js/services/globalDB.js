@@ -1,6 +1,3 @@
-
-// services/globalDB.js
-
 (function(){
   'use strict';
 
@@ -8,9 +5,9 @@
     .module('BauVoiceApp')
     .factory('globalDB', globalDBFactory);
 
-  globalDBFactory.$inject = ['$http'];
+  globalDBFactory.$inject = ['$http', '$q'];
 
-  function globalDBFactory($http) {
+  function globalDBFactory($http, $q) {
 
 
     var elemLists = [], elemListsHw = [], elemListsAdd = [];
@@ -63,7 +60,7 @@
     // SQL requests for delete tables
     var deleteTablesSQL = ["DROP table device", "DROP table factories", "DROP table elements_groups", "DROP table glass_folders",
       "DROP table lists_types", "DROP table addition_colors", "DROP table margin_types", "DROP table suppliers", "DROP table currencies", "DROP table countries",
-      "DROP table regions", "DROP table cities", "DROP table lamination_colors", "DROP table elements", "DROP table users", "DROP table lists_groups", "DROP table lists",
+      "DROP table regions", "DROP table cities", "DROP table users", "DROP table lamination_colors", "DROP table elements", "DROP table lists_groups", "DROP table lists",
       "DROP table directions", "DROP table rules_types", "DROP table window_hardware_colors", "DROP table list_contents", "DROP table window_hardware_types",
       "DROP table window_hardware_types_base", "DROP table window_hardware_groups", "DROP table window_hardware", "DROP table profile_system_folders",
       "DROP table profile_systems", "DROP table glass_profile_systems", "DROP table beed_profile_systems","DROP table addition_folders", "DROP table addition_types"
@@ -265,6 +262,7 @@
       },
 
       getDeviceCodeLocalDb: function (callback) {
+        var deferred = $q.defer();
         var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
         var newDeviceCodeLocalDb = '';
         var words = '0123456789qwertyuiopasdfghjklzxcvbnm';
@@ -285,19 +283,24 @@
               } else {
                 callback(new OkResult({sync: false, deviceCode: result.rows.item(0).code}));
               }
+              deferred.resolve(result.rows);
             } else {
               db.transaction(function (transaction) {
                 transaction.executeSql(insertDeviceCodeLocalDb, [1, newDeviceCodeLocalDb, 0], function () {
                 }, function () {
                   callback(new ErrorResult(2, 'Something went wrong with inserting device record'));
+                  deferred.resolve(result.rows);
                 });
               });
               callback(new OkResult({sync: false, deviceCode: newDeviceCodeLocalDb}));
             }
+
+
           }, function () {
             callback(new ErrorResult(2, 'Something went wrong with selection device_code record'));
           });
         });
+        return deferred.promise;
       },
 
       getDeviceCodeGlobalDb: function (deviceCode, callback) {
@@ -322,21 +325,25 @@
 
       initApp: function (callback) {
         var self = this;
+        var deferred = $q.defer();
         this.getDeviceCodeLocalDb(function (result) {
           if (result.status) {
             var deviceCodeLocalDb = result.data;
-            console.log(deviceCodeLocalDb);
+            console.log('deviceCodeLocalDb = ', deviceCodeLocalDb);
             self.getDeviceCodeGlobalDb(deviceCodeLocalDb.deviceCode, function (result) {
               if (result.status) {
                 var deviceCodeGlobalDb = result.data;
+                console.log('deviceCodeGlobalDb = ', deviceCodeGlobalDb);
                 if (deviceCodeLocalDb.deviceCode === deviceCodeGlobalDb && !deviceCodeLocalDb.sync) {
                   console.log('Import database begin!');
                   self.importDb(deviceCodeGlobalDb, function (result) {
                     if (result.status) {
                       console.log('Database import is finished!');
+                      deferred.resolve('Database import is finished!');
                       callback(new OkResult('Database import is finished!'));
                     } else {
                       callback(new ErrorResult(2, 'Something went wrong when importing Database!'));
+                      deferred.reject('Something went wrong when importing Database!');
                     }
                   });
                 }
@@ -344,7 +351,101 @@
             });
           }
         });
+        return deferred.promise;
       },
+
+      //========= delete countries, regions and cities tables in Global DB
+      clearLocation: function (callback) {
+        var deferred = $q.defer();
+        var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i;
+        db.transaction(function (transaction) {
+          for (i = 9; i < 13; i++) {
+            transaction.executeSql(deleteTablesSQL[i], [], function () {
+              callback({status: true});
+              deferred.resolve('Location tables clearing is done!');
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with deleting table'));
+              deferred.resolve('not find deleting table');
+            });
+          }
+        });
+        return deferred.promise;
+      },
+
+      //========= import countries, regions and cities tables in Global DB
+      importLocation: function (callback) {
+        var deferred = $q.defer();
+        var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, table;
+        db.transaction(function (transaction) {
+          for (i = 0; i < createTablesSQL.length; i++) {
+            transaction.executeSql(createTablesSQL[i], []);
+          }
+        });
+        $http.get('http://api.voice-creator.net/sync/location').success(function (result) {
+          db.transaction(function (transaction) {
+            for (table in result.tables) {
+              for (i = 0; i < result.tables[table].rows.length; i++) {
+                transaction.executeSql('INSERT INTO ' + table + ' (' + result.tables[table].fields.join(', ') + ') VALUES (' + getValuesString(result.tables[table].rows[i]) + ')', [], function () {
+                }, function () {
+                  callback(new ErrorResult(2, 'Something went wrong with inserting ' + table + ' record'));
+                });
+              }
+            }
+            callback({status: true});
+            deferred.resolve('import of Location tables is done!');
+          });
+        }).error(function () {
+          callback(new ErrorResult(2, 'Something went wrong with importing Database!'));
+          deferred.reject('Something went wrong with importing Database!');
+        });
+        return deferred.promise;
+      },
+
+
+      ifUserExist: function (login, callback) {
+        var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, table;
+        $http.get('http://api.voice-creator.net/sync/user?login='+login).success(function (result) {
+          callback(result);
+        }).error(function () {
+          callback(new ErrorResult(2, 'Something went wrong when chack user login!'));
+        });
+      },
+
+
+      createUser: function (login, dataJson, callback) {
+        $http.post('http://api.voice-creator.net/sync/createuser?login=' + login, dataJson).success(function (result) {
+          callback(result);
+        }).error(function () {
+          callback(new ErrorResult(2, 'Something went wrong when user creating!'));
+        });
+      },
+
+
+      importUser: function (userId, access_token, callback) {
+        var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, table;
+        db.transaction(function (transaction) {
+          for (i = 0; i < createTablesSQL.length; i++) {
+            transaction.executeSql(createTablesSQL[i], []);
+          }
+        });
+        $http.get('http://api.voice-creator.net/sync/importuser?userid='+userId+'&access_token='+access_token).success(function (result) {
+          db.transaction(function (transaction) {
+            for (table in result.tables) {
+              for (i = 0; i < result.tables[table].rows.length; i++) {
+                transaction.executeSql('INSERT INTO ' + table + ' (' + result.tables[table].fields.join(', ') + ') VALUES (' + getValuesString(result.tables[table].rows[i]) + ')', [], function () {
+                }, function () {
+                  callback(new ErrorResult(2, 'Something went wrong with inserting ' + table + ' record'));
+                });
+              }
+            }
+            callback({status: true});
+          });
+        }).error(function () {
+          callback(new ErrorResult(2, 'Something went wrong with importing Database!'));
+        });
+      },
+
+
 
       importDb: function (deviceCode, callback) {
         var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, table;
@@ -396,7 +497,6 @@
           deviceCode = result.data.deviceCode;
           self.getLastSync(function (result) {
             lastSyncDate = result.data.last_sync;
-            console.log(deviceCode);
             $http.get('http://api.voice-creator.net/sync/elements?access_token=' + deviceCode + '&last_sync=' + lastSyncDate).success(function (result) {
               db.transaction(function (transaction) {
                 console.log(result);
@@ -1772,7 +1872,6 @@
 
   }
 })();
-
 
 
 
