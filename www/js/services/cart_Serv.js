@@ -3,12 +3,12 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('CartModule')
     .factory('CartServ', cartFactory);
-
-  cartFactory.$inject = ['CartStor'];
 
   function cartFactory(CartStor) {
 

@@ -3,15 +3,14 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('BauVoiceApp')
     .directive('priceFixed', priceFixedDir);
 
-  priceFixedDir.$inject = [];
-
   function priceFixedDir() {
-
 
     return {
       restrict: 'A',

@@ -3,14 +3,14 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('SettingsModule')
     .controller('ChangePassCtrl', changePassCtrl);
 
-  changePassCtrl.$inject = ['$scope', 'globalConstants', 'localStorage', 'localDB'];
-
-  function changePassCtrl($scope, globalConstants, localStorage, localDB) {
+  function changePassCtrl($scope, globalConstants, localStorage, globalDB) {
 
     $scope.global = localStorage;
 
@@ -29,7 +29,7 @@
       } else {
         $scope.password.isErrorPassword = false;
         $scope.global.userInfo.password = $scope.password.newPassword;
-        localDB.updateDBGlobal($scope.global.usersTableDBGlobal, {"password": $scope.password.newPassword}, {"id": $scope.global.userInfo.id});
+        globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"password": $scope.password.newPassword}, {"id": $scope.global.userInfo.id});
         //---- clean fields
         $scope.password.newPassword = $scope.password.confirmPassword = '';
       }

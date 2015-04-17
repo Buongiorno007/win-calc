@@ -3,12 +3,12 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('BauVoiceApp')
     .factory('analyticsServ', analyticsFactory);
-
-  analyticsFactory.$inject = ['globalDB', 'localDB', 'localStorage'];
 
   function analyticsFactory(globalDB, localDB, localStorage) {
 
@@ -88,7 +88,7 @@
             'analytics': JSON.stringify(results.data)
           };
           //----- send Analytics Data to globalDB
-          //globalDB.sendOrder(analData, function(result){});
+          //globalDB.sendOrder(localStorage.userInfo.phone, localStorage.userInfo.device_code, analData, function(result){});
           //---- clear Analytics Table in localDB
           localDB.deleteDB(localDB.analyticsTableBD);
         }

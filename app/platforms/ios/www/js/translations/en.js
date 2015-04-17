@@ -1,3 +1,6 @@
+
+// translations/en.js
+
 (function(){
   'use strict';
 
@@ -28,7 +31,8 @@
         SEND_ORDER_TITLE: 'In a production!',
         SEND_ORDER_TXT: 'Do you want to send an order on a factory?',
         NEW_TEMPLATE_TITLE: 'Template changing',
-        TEMPLATE_CHANGES_LOST: 'The template changes will lost! Continue?'
+        TEMPLATE_CHANGES_LOST: 'The template changes will lost! Continue?',
+        SELECT: 'Select'
       },
       login: {
         ENTER: 'To enter',
@@ -49,7 +53,11 @@
         SELECT_REGION: 'Select region',
         SELECT_CITY: 'Select city',
         USER_EXIST: 'Sorry, but this user already exists! Please, try again.',
-        USER_CHECK_EMAIL: 'The confirmed email was send to you. Please, check your email.'
+        USER_NOT_EXIST: 'Sorry, but this user not exists! Registrate please.',
+        USER_NOT_ACTIVE: 'Sorry, but your profile is not active. Please check your email.',
+        USER_CHECK_EMAIL: 'The confirmed email was send to you. Please check your email.',
+        SELECT_PRODUCER: 'Choose the producer',
+        SELECT_FACTORY: 'Please select the producer'
       },
       mainpage: {
         MM: ' mm ',

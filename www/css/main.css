@@ -344,7 +344,7 @@ th {
   src: url('../fonts/nav-menu/icomoon.ttf?1428589556') format('truetype');
 }
 /* line 183, ../../dev/sass/base/_animations.scss */
-.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close-registration, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construction-right-menu .construct-tools, .construction-right-menu .door-config-btn, .nav-menu [class^='nav-icon-'],
+.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construction-right-menu .construct-tools, .construction-right-menu .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .elements-menu .color-img, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .hardware-container .hardware-box, .lamination-container .lamination-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
   -moz-animation: splashing 0.5s 0 ease 1;
   -webkit-animation: splashing 0.5s 0 ease 1;
@@ -1188,7 +1188,7 @@ body {
 
 /* line 81, ../../dev/sass/base/general.scss */
 .icon-setting, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .search-block .delete-search, .construction-right-menu .construct-tools, .elements-menu .close-elements-menu, .pickmeup .pmu-instance nav .pmu-prev,
-.pickmeup .pmu-instance nav .pmu-next, .user-info-container .icon-location:before, .search-block:before, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .current-city:after, .voice-container .voice-icon, .close-registration, .setting-container .setting-item-change:after, .password-page .back, .language-page .back, .location-page .back, .accounts-container .tool, .accounts-container .account-tool, .empty-search-result .result-icon, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .close-alladdelements, .construction-right-menu .door-config-btn, .door-configuration .door-config-btn, .nav-menu [class^='nav-icon-'],
+.pickmeup .pmu-instance nav .pmu-next, .user-info-container .icon-location:before, .search-block:before, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .current-city:after, .voice-container .voice-icon, .close_dialog, .setting-container .setting-item-change:after, .password-page .back, .language-page .back, .location-page .back, .accounts-container .tool, .accounts-container .account-tool, .empty-search-result .result-icon, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .close-alladdelements, .construction-right-menu .door-config-btn, .door-configuration .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .config-menu .item.active:before, .elements-menu .element-info:after, .cart-menu .item:after, .cart-menu .drop-instalment .dropdown-item.selected .value-percent:after, .cart-menu .calendar-price, .size-calc-container .calc-delete:after, .size-calc-container .calc-interval:after {
   font-weight: normal;
   font-style: normal;
@@ -3286,7 +3286,7 @@ body {
 }
 
 /* line 32, ../../dev/sass/pages/login.scss */
-.close-registration {
+.close_dialog {
   font: normal 3.125rem/1 general-icons, sans-serif;
   position: absolute;
   top: 4%;
@@ -3300,7 +3300,7 @@ body {
   outline: none;
 }
 /* line 47, ../../dev/sass/pages/login.scss */
-.close-registration:before {
+.close_dialog:before {
   content: "\e609";
   color: #f98000;
 }
@@ -3389,7 +3389,7 @@ body {
   border-radius: 1.25rem;
   background: #f74f2e;
   text-align: center;
-  z-index: 2;
+  z-index: 12;
 }
 
 /* line 134, ../../dev/sass/pages/login.scss */
@@ -3423,34 +3423,37 @@ body {
 
 /* line 158, ../../dev/sass/pages/login.scss */
 .factory_list {
-  max-height: 76%;
+  height: 76%;
   overflow: auto;
   padding: 0 2.5rem;
 }
 
 /* line 163, ../../dev/sass/pages/login.scss */
-.factory_table {
+table.factory_table {
   border: none;
+}
+/* line 165, ../../dev/sass/pages/login.scss */
+table.factory_table td {
+  padding: 1.5625rem 0;
 }
 
 /* line 169, ../../dev/sass/pages/login.scss */
-.factory_item {
-  padding: 0.9375rem 0;
-  word-break: break-all;
+tr.factory_item {
+  vertical-align: top;
 }
 
-/* line 174, ../../dev/sass/pages/login.scss */
+/* line 172, ../../dev/sass/pages/login.scss */
 .factory_select {
   width: 5%;
   padding-right: 0.3125rem;
 }
 
-/* line 178, ../../dev/sass/pages/login.scss */
+/* line 176, ../../dev/sass/pages/login.scss */
 .factory_name {
   width: 45%;
 }
 
-/* line 181, ../../dev/sass/pages/login.scss */
+/* line 179, ../../dev/sass/pages/login.scss */
 .factory_name, .factory_place {
   text-align: left;
 }
@@ -7886,7 +7889,7 @@ li.constr-shape-icon:last-child {
 }
 
 /* line 183, ../../dev/sass/base/_animations.scss */
-.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close-registration, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construction-right-menu .construct-tools, .construction-right-menu .door-config-btn, .nav-menu [class^='nav-icon-'],
+.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construction-right-menu .construct-tools, .construction-right-menu .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .elements-menu .color-img, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .hardware-container .hardware-box, .lamination-container .lamination-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
   -moz-animation: splashing 0.5s 0 ease 1;
   -webkit-animation: splashing 0.5s 0 ease 1;

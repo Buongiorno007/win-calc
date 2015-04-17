@@ -1,11 +1,11 @@
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('MainModule')
     .controller('ProfileCtrl', profileSelectorCtrl);
-
-  profileSelectorCtrl.$inject = ['$scope', 'globalConstants', 'constructService', 'localStorage', 'analyticsServ'];
 
   function profileSelectorCtrl($scope, globalConstants, constructService, localStorage, analyticsServ) {
 

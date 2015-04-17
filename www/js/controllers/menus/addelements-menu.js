@@ -3,14 +3,14 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('MainModule')
     .controller('addElementMenuCtrl', addElementMenuCtrl);
 
-  addElementMenuCtrl.$inject = ['$scope', 'globalConstants', 'localStorage', 'globalDB', '$timeout', 'analyticsServ'];
-
-  function addElementMenuCtrl($scope, globalConstants, localStorage, globalDB, $timeout, analyticsServ) {
+  function addElementMenuCtrl($scope, $timeout, globalConstants, globalDB, localStorage, analyticsServ) {
 
 
     var sourceAddElement, cloneAddElement;

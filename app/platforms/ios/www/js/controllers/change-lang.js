@@ -3,14 +3,14 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('SettingsModule')
     .controller('ChangeLangCtrl', changeLangCtrl);
 
-  changeLangCtrl.$inject = ['$scope', 'globalConstants', 'localStorage', '$translate', '$timeout'];
-
-  function changeLangCtrl($scope, globalConstants, localStorage, $translate, $timeout) {
+  function changeLangCtrl($scope, $translate, $timeout, globalConstants, localStorage) {
 
     $scope.global = localStorage;
 

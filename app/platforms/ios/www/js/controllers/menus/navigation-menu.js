@@ -4,13 +4,15 @@
 (function(){
   'use strict';
 
+  /**
+   * @ngInject
+   */
+
   angular
     .module('MainModule')
     .controller('NavMenuCtrl', navigationMenuCtrl);
 
-  navigationMenuCtrl.$inject = ['$scope', 'globalConstants', '$http', '$location', 'globalDB', 'constructService', 'localDB', 'localStorage', '$translate', '$timeout', '$filter'];
-
-  function navigationMenuCtrl($scope, globalConstants, $http, $location, globalDB, constructService, localDB, localStorage, $translate, $timeout, $filter) {
+  function navigationMenuCtrl($scope, $http, $location, $translate, $timeout, $filter, globalConstants, globalDB, localDB, localStorage, constructService) {
 
 console.log('START NAV MENU!!!!!!');
     $scope.global = localStorage;
@@ -26,54 +28,31 @@ console.log('START NAV MENU!!!!!!');
       typing: 'on'
     };
 
-  /*
-    // Check Products in Order
-    $scope.checkingForNewOrder = function() {
-      if ($scope.global.isCreatedNewProject) {
-        //----------- create order number for new project
-        $scope.global.order.orderId = Math.floor((Math.random() * 100000));
-        //$scope.global.isCreatedNewProject = false;
-        $scope.global.productCounter = false;
-        //console.log('navmenu NEW - ' + $scope.global.isCreatedNewProject);
-        //console.log('navmenu NEW orderNumber - ' + $scope.global.order.orderIdorder.orderId);
-      } else {
-        //console.log('navmenu OLD - ' + $scope.global.order.orderIdorder.orderId);
-        localDB.selectDB($scope.global.productsTableBD, {'orderId': $scope.global.order.orderId}, function (results) {
-          if (results.status) {
-            $scope.global.productCounter = results.data.length;
-          } else {
-            console.log(results);
-          }
-        });
-      }
-    };
-    //----- generate new order number or calculate products in order
-    $scope.checkingForNewOrder();
-  */
-
 
     //--------- get user data and location for first time
 
     if($scope.global.startProgramm) {
-      localDB.selectAllDBGlobal($scope.global.usersTableDBGlobal, function (results) {
-        if (results.status) {
-          $scope.global.userInfo = angular.copy(results.data[0]);
+      //localDB.selectAllDBGlobal($scope.global.usersTableDBGlobal, function (results) {
+        //if (results.status) {
+          //$scope.global.userInfo = angular.copy(results.data[0]);
           //------ find user city in global DB
-          localDB.selectDBGlobal($scope.global.citiesTableDBGlobal, {'id': $scope.global.userInfo.city_id }, function (results) {
+      console.log('userInfo ======= ', $scope.global.userInfo);
+          globalDB.selectDBGlobal(globalDB.citiesTableDBGlobal, {'id': $scope.global.userInfo.city_id }, function (results) {
             if (results.status) {
               $scope.global.userInfo.cityName = results.data[0].name;
               //------ find user region in global DB
-              localDB.selectDBGlobal($scope.global.regionsTableDBGlobal, {'id': results.data[0].region_id }, function (results) {
+              globalDB.selectDBGlobal(globalDB.regionsTableDBGlobal, {'id': results.data[0].region_id }, function (results) {
                 if (results.status) {
                   $scope.global.userInfo.regionName = results.data[0].name;
                   $scope.global.userInfo.climaticZone = results.data[0].climatic_zone;
                   $scope.global.userInfo.heatTransfer = results.data[0].heat_transfer;
                   //------ find user country in global DB
-                  localDB.selectDBGlobal($scope.global.countriesTableDBGlobal, {'id': results.data[0].country_id }, function (results) {
+                  globalDB.selectDBGlobal(globalDB.countriesTableDBGlobal, {'id': results.data[0].country_id }, function (results) {
                     if (results.status) {
                       $scope.global.userInfo.countryName = results.data[0].name;
+                      $scope.global.userInfo.currencyId = results.data[0].currency_id;
                       console.log('find language!!!!');
-                      $scope.setUserLanguage($scope.global.userInfo.countryName);
+                      $scope.global.setLanguageVoiceHelper($scope.global.userInfo.langLabel);
                       $scope.global.userInfo.fullLocation = '' + $scope.global.userInfo.cityName + ', ' + $scope.global.userInfo.regionName + ', ' + $scope.global.userInfo.countryName;
 
                       //------ set current GeoLocation
@@ -101,29 +80,12 @@ console.log('START NAV MENU!!!!!!');
               console.log(results);
             }
           });
-        } else {
-          console.log(results);
-        }
-      });
+        //} else {
+        //  console.log(results);
+        //}
+      //});
       //$scope.global.firstGetUserData = false;
     }
-
-    //---------- define language relate to user data
-    $scope.setUserLanguage = function(country) {
-      switch(country) {
-        case 'Украина':
-          $scope.global.userInfo.langName = $scope.global.languages[0].name;
-          $scope.global.userInfo.langLabel = $scope.global.languages[0].label;
-          $translate.use($scope.global.languages[0].label);
-          break;
-        case 'Россия':
-          $scope.global.userInfo.langName = $scope.global.languages[1].name;
-          $scope.global.userInfo.langLabel = $scope.global.languages[1].label;
-          $translate.use($scope.global.languages[1].label);
-          break;
-      }
-      $scope.global.setLanguageVoiceHelper($scope.global.userInfo.langLabel);
-    };
 
     $scope.global.setLanguageVoiceHelper = function(langLabel) {
       $scope.global.voiceHelperLanguage = 'ru_RU';
@@ -216,7 +178,8 @@ console.log('START NAV MENU!!!!!!');
               heatTransfer: 0.99,
               fullLocation: deviceLocation[deviceLocation.length-3] + ', ' + deviceLocation[deviceLocation.length-2] + ', ' + deviceLocation[deviceLocation.length-1]
             };
-            console.log($scope.global.currentGeoLocation.cityName);
+            console.log(data.results[0]);
+            console.log($scope.global.currentGeoLocation);
           }).
           error(function(data, status, headers, config) {
             alert(status);
@@ -226,14 +189,7 @@ console.log('START NAV MENU!!!!!!');
         alert(error.message);
       }
     };
-  /*
-    $scope.setCurrentGeoLocation = function () {
-      var prevLocation = angular.copy( $scope.global.prevGeoLocation),
-          currLocation = angular.copy($scope.global.currentGeoLocation);
-      $scope.global.currentGeoLocation = prevLocation;
-      $scope.global.prevGeoLocation = currLocation;
-    };
-  */
+
     $scope.gotoAddElementsPanel = function() {
       if($scope.global.product.isAddElementsONLY) {
         $scope.global.startProgramm = false;

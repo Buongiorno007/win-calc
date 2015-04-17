@@ -3,15 +3,14 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('SettingsModule')
     .controller('SettingsCtrl', settingsCtrl);
 
-  settingsCtrl.$inject = ['$scope', 'globalConstants', 'globalDB', 'localStorage', '$location', 'localDB'];
-
-  function settingsCtrl($scope, globalConstants, globalDB, localStorage, $location, localDB) {
-
+  function settingsCtrl($scope, $location, globalConstants, globalDB, localStorage, localDB) {
 
     $scope.global = localStorage;
 
@@ -147,11 +146,13 @@
     };
 
     $scope.logOut = function() {
+      localStorage.userInfo = angular.copy(localStorage.userInfoSource);
+      $scope.global.startProgramm = true;
       //------- clearing local DB
-      localDB.deleteTable(localDB.productsTableBD);
-      localDB.deleteTable(localDB.addElementsTableBD);
-      localDB.deleteTable(localDB.ordersTableBD);
-      localDB.deleteTable(localDB.analyticsTableBD);
+      localDB.deleteDB(localDB.productsTableBD);
+      localDB.deleteDB(localDB.addElementsTableBD);
+      localDB.deleteDB(localDB.ordersTableBD);
+      localDB.deleteDB(localDB.analyticsTableBD);
       $location.path('/login');
     };
 

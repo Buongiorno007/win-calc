@@ -3,12 +3,12 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('HistoryModule')
     .directive('orderDate', orderDateDir);
-
-  orderDateDir.$inject = ['$filter'];
 
   function orderDateDir($filter) {
 

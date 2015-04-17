@@ -1,13 +1,13 @@
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('CartModule')
     .controller('CallOrderCtrl', callOrderCtrl);
 
-  callOrderCtrl.$inject = ['$scope', 'globalConstants', 'constructService', 'localStorage', '$location', 'localDB', 'CartStor', 'CartServ', 'analyticsServ'];
-
-  function callOrderCtrl($scope, globalConstants, constructService, localStorage, $location, localDB, CartStor, CartServ, analyticsServ) {
+  function callOrderCtrl($scope, $location, globalConstants, constructService, localStorage, localDB, CartStor, CartServ, analyticsServ) {
 
     $scope.orderStyle = 'order';
     $scope.global = localStorage;

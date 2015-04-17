@@ -3,12 +3,12 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('MainModule')
     .controller('RoomInfoCtrl', roomInfoCtrl);
-
-  roomInfoCtrl.$inject = ['$scope', 'globalConstants', 'constructService', 'localStorage'];
 
   function roomInfoCtrl($scope, globalConstants, constructService, localStorage) {
 

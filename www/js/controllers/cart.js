@@ -3,14 +3,14 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('CartModule')
     .controller('CartCtrl', cartPageCtrl);
 
-  cartPageCtrl.$inject = ['$scope', 'globalConstants', 'localDB', 'localStorage', '$location', '$filter', '$cordovaDialogs'];
-
-  function cartPageCtrl($scope, globalConstants, localDB, localStorage, $location, $filter, $cordovaDialogs) {
+  function cartPageCtrl($scope, $location, $filter, $cordovaDialogs, globalConstants, localDB, localStorage) {
 
     $scope.global = localStorage;
 

@@ -1,11 +1,11 @@
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('CartModule')
     .controller('CartMenuCtrl', cartMenuCtrl);
-
-  cartMenuCtrl.$inject = ['$scope', 'globalConstants', 'constructService', 'localStorage', 'CartStor'];
 
   function cartMenuCtrl($scope, globalConstants, constructService, localStorage, CartStor) {
 

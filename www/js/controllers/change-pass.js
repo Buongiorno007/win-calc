@@ -3,12 +3,12 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('SettingsModule')
     .controller('ChangePassCtrl', changePassCtrl);
-
-  changePassCtrl.$inject = ['$scope', 'globalConstants', 'localStorage', 'localDB'];
 
   function changePassCtrl($scope, globalConstants, localStorage, globalDB) {
 

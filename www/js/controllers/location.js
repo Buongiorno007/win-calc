@@ -3,12 +3,12 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('SettingsModule')
     .controller('LocationCtrl', locationCtrl);
-
-  locationCtrl.$inject = ['$scope', 'globalConstants', 'globalDB', 'localStorage'];
 
   function locationCtrl($scope, globalConstants, globalDB, localStorage) {
 

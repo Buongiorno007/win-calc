@@ -1,11 +1,11 @@
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('BauVoiceApp')
     .factory('SoundPlayServ', soundPlayFactory);
-
-  soundPlayFactory.$inject = [];
 
   function soundPlayFactory() {
 

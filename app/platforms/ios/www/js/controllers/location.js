@@ -3,14 +3,14 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('SettingsModule')
     .controller('LocationCtrl', locationCtrl);
 
-  locationCtrl.$inject = ['$scope', 'globalConstants', 'localDB', 'localStorage'];
-
-  function locationCtrl($scope, globalConstants, localDB, localStorage) {
+  function locationCtrl($scope, globalConstants, globalDB, localStorage) {
 
 
     $scope.global = localStorage;
@@ -21,21 +21,21 @@
     $scope.userNewLocation = angular.copy($scope.global.currentGeoLocation.fullLocation);
 
     //--------- get all cities
-    localDB.selectAllDBGlobal($scope.global.regionsTableDBGlobal, function (results) {
+    globalDB.selectAllDBGlobal(globalDB.regionsTableDBGlobal, function (results) {
       if (results.status) {
         $scope.regions = angular.copy(results.data);
       } else {
         console.log(results);
       }
     });
-    localDB.selectAllDBGlobal($scope.global.countriesTableDBGlobal, function (results) {
+    globalDB.selectAllDBGlobal(globalDB.countriesTableDBGlobal, function (results) {
       if (results.status) {
         $scope.countries = angular.copy(results.data);
       } else {
         console.log(results);
       }
     });
-    localDB.selectAllDBGlobal($scope.global.citiesTableDBGlobal, function (results) {
+    globalDB.selectAllDBGlobal(globalDB.citiesTableDBGlobal, function (results) {
       if (results.status) {
         $scope.cities = angular.copy(results.data);
 
@@ -92,7 +92,7 @@
               }
             }
             //----- save changes in Global DB
-            localDB.updateDBGlobal($scope.global.usersTableDBGlobal, {"city_id": locationId}, {"id": $scope.global.userInfo.id});
+            globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"city_id": locationId}, {"id": $scope.global.userInfo.id});
           //-------- if current geolocation changing
           } else {
             for(var c = 0; c < generalLocations.length; c++) {

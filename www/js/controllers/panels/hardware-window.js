@@ -3,12 +3,12 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('MainModule')
     .controller('HardwareWindowCtrl', hardwareSelectorCtrl);
-
-  hardwareSelectorCtrl.$inject = ['$scope', 'globalConstants', 'localStorage', 'analyticsServ'];
 
   function hardwareSelectorCtrl($scope, globalConstants, localStorage, analyticsServ) {
 

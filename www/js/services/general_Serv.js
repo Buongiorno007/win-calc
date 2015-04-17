@@ -3,12 +3,12 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('BauVoiceApp')
     .factory('GeneralServ', generalFactory);
-
-  generalFactory.$inject = [];
 
   function generalFactory() {
 

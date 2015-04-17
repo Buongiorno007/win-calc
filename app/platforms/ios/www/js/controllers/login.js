@@ -1,44 +1,62 @@
+
+// controllers/login.js
+
 (function(){
   'use strict';
+
+  /**
+   * @ngInject
+   */
 
   angular
     .module('LoginModule')
     .controller('LoginCtrl', loginPageCtrl);
 
-  loginPageCtrl.$inject = ['$location', 'globalDB', 'localDB', '$cordovaGlobalization', '$cordovaProgress', 'localStorage', '$translate', '$q'];
-
-  function loginPageCtrl($location, globalDB, localDB, $cordovaGlobalization, $cordovaProgress, localStorage, $translate, $q) {
+  function loginPageCtrl($scope, $location, $q, $translate, $cordovaGlobalization, $cordovaProgress, globalDB, localStorage) {
 
     var startTime = new Date();
     console.log('startTime', startTime);
     $cordovaProgress.showSimple(true);
     var thisCtrl = this;
-
+    localStorage.userInfo = angular.copy(localStorage.userInfoSource);
     thisCtrl.isRegistration = false;
     thisCtrl.submitted = false;
     thisCtrl.isUserExist = false;
+    thisCtrl.isUserNotExist = false;
     thisCtrl.isSendEmail = false;
+    thisCtrl.isUserNotActive = false;
+    thisCtrl.isFactoryId = false;
+    thisCtrl.isFactoryNotSelect = false;
     thisCtrl.user = {};
+    thisCtrl.factories;
     thisCtrl.regPhone = /^\d+$/;
     thisCtrl.regName = /^[a-zA-Z]+$/;
+    thisCtrl.regMail = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 
     //------ clicking
     thisCtrl.switchRegistration = switchRegistration;
     thisCtrl.enterForm = enterForm;
     thisCtrl.registrForm = registrForm;
     thisCtrl.selectLocation = selectLocation;
-
+    thisCtrl.selectFactory = selectFactory;
+    thisCtrl.closeFactoryDialog = closeFactoryDialog;
 
 
     //------- defined system language
-    $cordovaGlobalization.getPreferredLanguage().then(
-      function(result) {
-        checkLangDictionary(result.value.split('-')[0]);
-        $translate.use(localStorage.userInfo.langLabel);
-      },
-      function(error) {
+
+     $cordovaGlobalization.getPreferredLanguage().then(
+       function(result) {
+         checkLangDictionary(result.value.split('-')[0]);
+         $translate.use(localStorage.userInfo.langLabel);
+       },
+       function(error) {
         console.log('No language defined');
-      });
+       });
+
+
+//    localStorage.userInfo.langLabel = 'en';
+//    $translate.use(localStorage.userInfo.langLabel);
+
 
 
     //------ import Location Data & All Users
@@ -62,6 +80,7 @@
     function switchRegistration() {
       thisCtrl.user = {};
       thisCtrl.isRegistration = !thisCtrl.isRegistration;
+      //angular.element('#first_input').focus();
     }
 
     //-------- user sign in
@@ -69,12 +88,87 @@
       // Trigger validation flag.
       thisCtrl.submitted = true;
       if (form.$valid) {
-        //---- checking fist user enter
-        globalDB.ifUserExist('0974391208', function(result){
-          console.log(result);
+        //---- checking user in GlobalDB
+        //globalDB.selectDBGlobal(globalDB.usersTableDBGlobal, {'phone': {"value": thisCtrl.user.phone, "union": 'AND'}, "password": thisCtrl.user.password}, function (results) {
+        globalDB.selectDBGlobal(globalDB.usersTableDBGlobal, {'phone': thisCtrl.user.phone}, function (results) {
+          console.log('chek = ', results);
+          //---- user exists
+          if (results.status) {
+            angular.extend(localStorage.userInfo, results.data[0]);
+            //----- checking user activation
+            globalDB.ifUserExist(thisCtrl.user.phone, function(result){
+              console.log(result);
+              //---- user activated
+              if(result.activation) {
+                //----- update locked in user of GlobalDB
+                globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {'locked': 1}, {'phone': thisCtrl.user.phone});
+                //----- checking FactoryId
+                if(result.factory) {
+
+
+                  //------- checking if GlobalDB matches to user FactoryId
+                  globalDB.selectAllDBGlobal(globalDB.deviceTableDBGlobal, function (result) {
+                    if (result.status) {
+                      var currFactoryId = result.data[0].device_code;
+
+                      if(currFactoryId == localStorage.userInfo.factory_id) {
+                        //------- current FactoryId matches to user FactoryId, go to main page without importDB
+                        $cordovaProgress.showSimple(true);
+                        console.log('!!!!!!!!!!!!!!sync');
+                        globalDB.syncDb(localStorage.userInfo.phone, localStorage.userInfo.device_code, function(result){}).then(function(result) {
+                          $cordovaProgress.hide();
+                          console.log('!!!!!!!!!!!!!!sync', result);
+                          $location.path('/main');
+                        });
+                      } else {
+                        //-------- current FactoryId NOT matches to user FactoryId, update FactoryId & importDB
+                        $cordovaProgress.showSimple(true);
+                        globalDB.clearDb(function(result){}).then(function() {
+                          globalDB.importDb(localStorage.userInfo.phone, localStorage.userInfo.factory_id, localStorage.userInfo.device_code, function(result){}).then(function() {
+                            $cordovaProgress.hide();
+                            $location.path('/main');
+                          });
+                        });
+                      }
+                    } else {
+                      //------ GlobalDB is ampty
+                      console.log('GlobalDB is ampty');
+                      $cordovaProgress.showSimple(true);
+                      globalDB.clearDb(function(result){}).then(function() {
+                        globalDB.importDb(localStorage.userInfo.phone, localStorage.userInfo.factory_id, localStorage.userInfo.device_code, function(result){}).then(function() {
+                          $cordovaProgress.hide();
+                          $location.path('/main');
+                        });
+                      });
+                    }
+                  });
+
+
+                } else {
+                  //---- show Factory List
+                  globalDB.getFactories(localStorage.userInfo.city_id, function(result){
+                    console.log(result);
+                    if(result.status) {
+                      thisCtrl.factories = result.data;
+                      thisCtrl.isFactoryId = true;
+                    } else {
+                      console.log('can not get factories!');
+                    }
+                  });
+                }
+              } else {
+                //---- show attantion
+                thisCtrl.isUserNotActive = true;
+              }
+            });
+
+          } else {
+            //---- user not exists
+            thisCtrl.isUserNotExist = true;
+          }
+          console.log('user = ', localStorage.userInfo);
         });
 
-        //$location.path('/main');
       }
     }
 
@@ -94,20 +188,14 @@
               if(result.status) {
                 //-------- sent confirmed email
                 thisCtrl.isSendEmail = true;
-                //-------- save user in localDB
+                switchRegistration();
+                //-------- save new user in localDB
                 globalDB.importUser(result.userId, result.access_token, function(result){
                   console.log(result);
-                  if(result.status) {
-                    //-------- save user in localDB
-                  } else {
-
-                  }
-
                 });
               } else {
                 console.log('some problem dureing user creating');
               }
-
             });
           } else {
             //---- show attantion
@@ -142,7 +230,7 @@
           };
 
       //---- get all counties
-      localDB.selectAllDBGlobal(localStorage.countriesTableDBGlobal, function (results) {
+      globalDB.selectAllDBGlobal(globalDB.countriesTableDBGlobal, function (results) {
         if (results.status) {
           var countryQty = results.data.length;
           while(--countryQty > -1) {
@@ -154,7 +242,7 @@
           }
 
           //--------- get all regions
-          localDB.selectAllDBGlobal(localStorage.regionsTableDBGlobal, function (results) {
+          globalDB.selectAllDBGlobal(globalDB.regionsTableDBGlobal, function (results) {
             if (results.status) {
               var regionQty = results.data.length;
               while(--regionQty > -1) {
@@ -167,7 +255,7 @@
               }
 
               //--------- get all cities
-              localDB.selectAllDBGlobal(localStorage.citiesTableDBGlobal, function (results) {
+              globalDB.selectAllDBGlobal(globalDB.citiesTableDBGlobal, function (results) {
                 if (results.status) {
                   var cityQty = results.data.length;
                   while(--cityQty > -1) {
@@ -227,6 +315,46 @@
         delete thisCtrl.user.city;
       }
     }
+
+
+    function selectFactory() {
+      console.log('factoryId = ', thisCtrl.user.factoryId);
+      console.log('userInfo = ', localStorage.userInfo);
+      if(thisCtrl.user.factoryId > 0) {
+        //-------- send selected Factory Id in Server
+        globalDB.setFactory(localStorage.userInfo.phone, thisCtrl.user.factoryId, localStorage.userInfo.device_code, function(result){
+          console.log(result);
+          if(result.status) {
+
+            console.log('importStartTime', new Date());
+            //-------- close Factory Dialog
+            thisCtrl.isFactoryId = false;
+            $cordovaProgress.showSimple(true);
+            globalDB.clearDb(function(result){}).then(function() {
+              globalDB.importDb(localStorage.userInfo.phone, thisCtrl.user.factoryId, localStorage.userInfo.device_code, function(result){}).then(function() {
+                $cordovaProgress.hide();
+                console.log('importFinishTime', new Date());
+                $location.path('/main');
+              });
+            });
+
+          } else {
+            console.log('FactoryId not was sent!');
+          }
+        });
+      } else {
+        //---- show attantion if any factory was chosen
+        thisCtrl.isFactoryNotSelect = true;
+      }
+
+    }
+
+    function closeFactoryDialog() {
+      thisCtrl.isFactoryNotSelect = false;
+      thisCtrl.isFactoryId = false;
+      delete thisCtrl.user.factoryId;
+    }
+
 
   }
 })();

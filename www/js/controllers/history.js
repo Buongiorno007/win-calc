@@ -3,14 +3,14 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('HistoryModule')
     .controller('HistoryCtrl', historyCtrl);
 
-  historyCtrl.$inject = ['$scope', 'globalConstants', 'constructService', 'localStorage', 'localDB', 'globalDB', '$location', '$filter', '$cordovaDialogs'];
-
-  function historyCtrl($scope, globalConstants, constructService, localStorage, localDB, globalDB, $location, $filter, $cordovaDialogs) {
+  function historyCtrl($scope, $location, $filter, $cordovaDialogs, globalConstants, globalDB, localDB, constructService, localStorage) {
 
 
     $scope.global = localStorage;
@@ -386,7 +386,7 @@
 
               //------ synchronize with Global BD
               console.log('sendOrder!!!!', $scope.orders[ord]);
-              globalDB.sendOrder($scope.orders[ord], function(result){console.log(result)});
+              globalDB.sendOrder(localStorage.userInfo.phone, localStorage.userInfo.device_code, $scope.orders[ord], function(result){console.log(result)});
             }
           }
           localDB.updateDB(localDB.ordersTableBD, {'orderStyle': orderDoneStyle}, {'orderId': orderNum});

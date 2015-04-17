@@ -1,11 +1,11 @@
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('BauVoiceApp')
     .factory('localDB', localDBFactory);
-
-  localDBFactory.$inject = ['$webSql'];
 
   function localDBFactory($webSql) {
 

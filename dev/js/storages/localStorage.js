@@ -93,6 +93,17 @@
       laminationsIn: [],
       laminationsOut: [],
 
+      userInfoSource: {
+        city_id: 0,
+        cityName: '',
+        regionName: '',
+        countryName: '',
+        fullLocation: '',
+        climaticZone: 0,
+        heatTransfer: 0,
+        langLabel: '',
+        langName: ''
+      },
       userInfo: {
         city_id: 0,
         cityName: '',
@@ -216,6 +227,7 @@
         target: ''
 
       },
+
 
       productDefault: {},
       product: {},

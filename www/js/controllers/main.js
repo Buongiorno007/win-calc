@@ -3,12 +3,12 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('MainModule')
     .controller('MainCtrl', mainPageCtrl);
-
-  mainPageCtrl.$inject = ['$scope', 'localStorage'];
 
   function mainPageCtrl($scope, localStorage) {
 

@@ -1,13 +1,15 @@
 (function(){
   'use strict';
 
+  /**
+   * @ngInject
+   */
+
   angular
     .module('MainModule')
     .controller('NavMenuCtrl', navigationMenuCtrl);
 
-  navigationMenuCtrl.$inject = ['$scope', 'globalConstants', '$http', '$location', 'globalDB', 'constructService', 'localDB', 'localStorage', '$translate', '$timeout', '$filter'];
-
-  function navigationMenuCtrl($scope, globalConstants, $http, $location, globalDB, constructService, localDB, localStorage, $translate, $timeout, $filter) {
+  function navigationMenuCtrl($scope, $http, $location, $translate, $timeout, $filter, globalConstants, globalDB, localDB, localStorage, constructService) {
 
 console.log('START NAV MENU!!!!!!');
     $scope.global = localStorage;
@@ -25,13 +27,13 @@ console.log('START NAV MENU!!!!!!');
 
 
     //--------- get user data and location for first time
-
+    console.log('userInfo 1 ======= ', $scope.global.userInfo);
     if($scope.global.startProgramm) {
       //localDB.selectAllDBGlobal($scope.global.usersTableDBGlobal, function (results) {
         //if (results.status) {
           //$scope.global.userInfo = angular.copy(results.data[0]);
           //------ find user city in global DB
-      console.log('userInfo ======= ', $scope.global.userInfo);
+      console.log('userInfo 2 ======= ', $scope.global.userInfo);
           globalDB.selectDBGlobal(globalDB.citiesTableDBGlobal, {'id': $scope.global.userInfo.city_id }, function (results) {
             if (results.status) {
               $scope.global.userInfo.cityName = results.data[0].name;

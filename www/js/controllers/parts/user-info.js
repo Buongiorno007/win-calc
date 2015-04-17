@@ -3,12 +3,12 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('MainModule')
     .controller('UserInfoCtrl', userInfoCtrl);
-
-  userInfoCtrl.$inject = ['localStorage', 'globalConstants'];
 
   function userInfoCtrl(localStorage, globalConstants) {
 

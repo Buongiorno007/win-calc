@@ -1,5 +1,6 @@
 section.login-page
 
+  //---------------- LogIn Form
   #login-container.login-container(ng-hide="loginPage.isRegistration", ng-mousemove="loginPage.isSendEmail = false; loginPage.isUserNotExist = false; loginPage.isUserNotActive = false;")
     .attantion(ng-show="loginPage.isSendEmail") {{ 'login.USER_CHECK_EMAIL' | translate }}
     .attantion(ng-show="loginPage.isUserNotExist") {{ 'login.USER_NOT_EXIST' | translate }}
@@ -20,21 +21,24 @@ section.login-page
       button.login-submit(type="submit") {{ 'login.ENTER' | translate }}
     button.login-submit(hm-tap="loginPage.switchRegistration()") {{ 'login.REGISTRATION' | translate }}
 
-    .factory_box(ng-show="loginPage.isFactoryId")
+    //-------------- Factory List
+    .factory_box(ng-show="loginPage.isFactoryId", ng-mousemove="loginPage.isFactoryNotSelect = false;")
+      .attantion(ng-show="loginPage.isFactoryNotSelect") {{ 'login.SELECT_FACTORY' | translate }}
+      button.close_dialog(type="button", hm-tap="loginPage.closeFactoryDialog()")
       .factory_title {{ 'login.SELECT_PRODUCER' | translate }}
       .factory_list
         table.factory_table
           tr.factory_item(ng-repeat="factory in loginPage.factories track by $index")
             td.factory_select
-              input.radio-field(type="radio", name="factory", ng-model="user.factoryId", value="factory.id")
+              input.radio-field(type="radio", name="factory", ng-model="loginPage.user.factoryId", ng-value="factory.id")
             td.factory_name {{ factory.name }}
-            td.factory_place {{ factory.country }} , {{ factory.region }} , {{ factory.city }}
+            td.factory_place {{ factory.country }}, {{ factory.region }}, {{ factory.city }}
       button.login-submit(hm-tap="loginPage.selectFactory()") {{ 'common_words.SELECT' | translate }}
 
 
-
+  //------------- Registration Form
   .login-container(ng-show="loginPage.isRegistration", ng-mousemove="loginPage.isUserExist = false;")
-    button.close-registration(type="button", hm-tap="loginPage.switchRegistration()")
+    button.close_dialog(type="button", hm-tap="loginPage.switchRegistration()")
     .attantion(ng-show="loginPage.isUserExist") {{ 'login.USER_EXIST' | translate }}
     .logo
     form(name='registrForm', novalidate, ng-submit="loginPage.registrForm(registrForm)")

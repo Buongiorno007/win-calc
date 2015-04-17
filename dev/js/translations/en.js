@@ -53,7 +53,8 @@
         USER_NOT_EXIST: 'Sorry, but this user not exists! Registrate please.',
         USER_NOT_ACTIVE: 'Sorry, but your profile is not active. Please check your email.',
         USER_CHECK_EMAIL: 'The confirmed email was send to you. Please check your email.',
-        SELECT_PRODUCER: 'Choose the producer'
+        SELECT_PRODUCER: 'Choose the producer',
+        SELECT_FACTORY: 'Please select the producer'
       },
       mainpage: {
         MM: ' mm ',

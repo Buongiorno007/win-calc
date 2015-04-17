@@ -3,14 +3,14 @@
 
 (function(){
 'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('MainModule')
     .controller('TemplateSelectorCtrl', templateSelectorCtrl);
 
-  templateSelectorCtrl.$inject = ['$scope', '$location', 'localStorage', 'constructService', '$filter', '$cordovaDialogs', 'globalConstants'];
-
-  function templateSelectorCtrl($scope, $location, localStorage, constructService, $filter, $cordovaDialogs, globalConstants) {
+  function templateSelectorCtrl($scope, $location, $filter, $cordovaDialogs, globalConstants, localStorage, constructService) {
 
     $scope.global = localStorage;
 

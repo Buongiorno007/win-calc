@@ -3,15 +3,14 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('ConstructionModule')
     .controller('ConstructionCtrl', constructionCtrl);
 
-  constructionCtrl.$inject = ['$scope', 'globalConstants', 'constructService', 'localStorage', '$location', '$filter', '$interval'];
-
-  function constructionCtrl($scope, globalConstants, constructService, localStorage, $location, $filter, $interval) {
-
+  function constructionCtrl($scope, $location, $filter, $interval, globalConstants, constructService, localStorage) {
 
     $scope.global = localStorage;
 

@@ -1,13 +1,15 @@
 (function(){
   'use strict';
 
+  /**
+   * @ngInject
+   */
+
   angular
     .module('MainModule')
     .controller('ConfigMenuCtrl', glassSelectorCtrl);
 
-  glassSelectorCtrl.$inject = ['$scope', 'globalConstants', 'globalDB', 'localDB', 'localStorage', 'constructService', '$timeout', '$q', '$filter'];
-
-  function glassSelectorCtrl($scope, globalConstants, globalDB, localDB, localStorage, constructService,  $timeout, $q, $filter) {
+  function glassSelectorCtrl($scope, $q, $timeout, $filter, globalConstants, globalDB, localDB, localStorage, constructService) {
 
     console.log('START CONFIG MENU!!!!!!');
 

@@ -3,12 +3,12 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('MainModule')
     .controller('RoomSelectorCtrl', roomSelectorCtrl);
-
-    roomSelectorCtrl.$inject = ['$scope', 'localStorage', 'globalConstants'];
 
   function roomSelectorCtrl($scope, localStorage, globalConstants) {
     $scope.global = localStorage;

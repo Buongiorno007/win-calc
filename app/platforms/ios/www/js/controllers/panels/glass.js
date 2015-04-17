@@ -3,12 +3,12 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('MainModule')
     .controller('GlassCtrl', glassSelectorCtrl);
-
-  glassSelectorCtrl.$inject = ['$scope', 'globalConstants', 'localStorage', 'analyticsServ'];
 
   function glassSelectorCtrl($scope, globalConstants, localStorage, analyticsServ) {
     var thisCtrl = this;

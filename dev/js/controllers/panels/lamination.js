@@ -1,11 +1,11 @@
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('MainModule')
     .controller('LaminationCtrl', laminationSelectorCtrl);
-
-  laminationSelectorCtrl.$inject = ['$scope', 'globalConstants', 'localStorage', 'analyticsServ'];
 
   function laminationSelectorCtrl($scope, globalConstants, localStorage, analyticsServ) {
 

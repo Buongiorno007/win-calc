@@ -1,13 +1,13 @@
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('CartModule')
     .controller('CallCreditCtrl', callCreditCtrl);
 
-  callCreditCtrl.$inject = ['$scope', 'globalConstants', 'constructService', 'localStorage', '$location', 'localDB', 'CartStor', 'CartServ', 'analyticsServ'];
-
-  function callCreditCtrl($scope, globalConstants, constructService, localStorage, $location, localDB, CartStor, CartServ, analyticsServ) {
+  function callCreditCtrl($scope, $location, globalConstants, constructService, localStorage, localDB, CartStor, CartServ, analyticsServ) {
 
     $scope.orderStyle = 'credit';
     $scope.global = localStorage;

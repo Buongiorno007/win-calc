@@ -1,13 +1,13 @@
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('MainModule')
     .controller('AddElementsListCtrl', addElementsListCtrl);
 
-  addElementsListCtrl.$inject = ['$scope', 'globalConstants', 'constructService', 'localStorage', '$filter'];
-
-  function addElementsListCtrl($scope, globalConstants, constructService, localStorage, $filter) {
+  function addElementsListCtrl($scope, $filter, globalConstants, constructService, localStorage) {
 
     $scope.global = localStorage;
 

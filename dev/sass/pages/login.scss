@@ -29,7 +29,7 @@ $img_logo: 'login/logo.png';
   }
 }
 
-.close-registration {
+.close_dialog {
   @extend .splash;
   @extend .icon-setting;
   @include font-general-icon(rem(50px), 1);
@@ -129,7 +129,7 @@ $img_logo: 'login/logo.png';
   border-radius: rem($radius_general-small_button);
   background: $error_color;
   text-align: center;
-  z-index: 2;
+  z-index: 12;
 }
 .placeholder-select {
   color: #A9A9AB;
@@ -156,21 +156,19 @@ $img_logo: 'login/logo.png';
   text-align: center;
 }
 .factory_list {
-  max-height: 76%;
+  height: 76%;
   overflow: auto;
   padding: 0 rem(40px);
 }
-.factory_table {
-  //table-layout: fixed;
-  //width: 100%;
+table.factory_table {
   border: none;
-  //vertical-align: middle;
+  td {
+    padding: rem(25px) 0;
+  }
 }
-.factory_item {
-  padding: rem(25px) 0;
-  //word-break: break-all;
+tr.factory_item {
+  vertical-align: top;
 }
-
 .factory_select {
   width: 5%;
   padding-right: rem(5px);
@@ -179,6 +177,5 @@ $img_logo: 'login/logo.png';
   width: 45%;
 }
 .factory_name, .factory_place {
-  //@extend .truncated;
   text-align: left;
 }

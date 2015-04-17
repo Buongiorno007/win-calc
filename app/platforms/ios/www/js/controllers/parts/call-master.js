@@ -3,14 +3,14 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('CartModule')
     .controller('CallMasterCtrl', callMasterCtrl);
 
-  callMasterCtrl.$inject = ['$scope', 'globalConstants', 'constructService', 'localStorage', '$location', 'localDB', 'CartStor', 'CartServ', 'analyticsServ'];
-
-  function callMasterCtrl($scope, globalConstants, constructService, localStorage, $location, localDB, CartStor, CartServ, analyticsServ) {
+  function callMasterCtrl($scope, $location, globalConstants, constructService, localStorage, localDB, CartStor, CartServ, analyticsServ) {
 
     $scope.orderStyle = 'master';
     $scope.global = localStorage;

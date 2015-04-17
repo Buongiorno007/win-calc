@@ -3,15 +3,14 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('BauVoiceApp')
     .factory('constructService', constructionFactory);
 
-  constructionFactory.$inject = ['$q'];
-
   function constructionFactory($q) {
-
 
     // SQL requests for select data from tables
     var selectLaminations = "SELECT id, name FROM lamination_colors ORDER BY id",

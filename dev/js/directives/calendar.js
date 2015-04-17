@@ -1,11 +1,11 @@
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('CartModule')
     .directive('calendar', calendarDir);
-
-  calendarDir.$inject = [];
 
   function calendarDir() {
 

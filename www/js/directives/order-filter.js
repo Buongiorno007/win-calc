@@ -3,15 +3,14 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('HistoryModule')
     .filter('orderSorting', orderSortingFilter);
 
-  orderSortingFilter.$inject = [];
-
   function orderSortingFilter() {
-
 
     return function(items, sortType) {
       var filtered = [];

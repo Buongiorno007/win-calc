@@ -1,13 +1,13 @@
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('MainModule')
     .controller('AddElementsCtrl', addElementsCtrl);
 
-  addElementsCtrl.$inject = ['$scope', 'globalConstants', 'globalDB', 'constructService', 'localStorage', '$timeout'];
-
-  function addElementsCtrl($scope, globalConstants, globalDB, constructService, localStorage, $timeout) {
+  function addElementsCtrl($scope, $timeout, globalConstants, globalDB, constructService, localStorage) {
     var activeClass = 'active';
 
     $scope.global = localStorage;

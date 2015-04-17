@@ -3,14 +3,14 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('MainModule')
     .controller('addElementMenuCtrl', addElementMenuCtrl);
 
-  addElementMenuCtrl.$inject = ['$scope', 'globalConstants', 'localStorage', 'globalDB', '$timeout', 'analyticsServ'];
-
-  function addElementMenuCtrl($scope, globalConstants, localStorage, globalDB, $timeout, analyticsServ) {
+  function addElementMenuCtrl($scope, $timeout, globalConstants, globalDB, localStorage, analyticsServ) {
 
 
     var sourceAddElement, cloneAddElement;
@@ -77,6 +77,7 @@
         //-------- Show current add element price
         $scope.global.objXAddElementPrice = angular.copy($scope.global.objXAddElementPriceSource);
         $scope.global.objXAddElementPrice.cityId = $scope.global.userInfo.city_id;
+        $scope.global.objXAddElementPrice.currencyId = $scope.global.userInfo.currencyId;
         $scope.global.objXAddElementPrice.elementId = cloneAddElement.elementId;
         $scope.global.objXAddElementPrice.elementLength = cloneAddElement.elementWidth;
         console.log($scope.global.objXAddElementPrice);

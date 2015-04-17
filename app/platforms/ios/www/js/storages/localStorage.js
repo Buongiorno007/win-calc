@@ -96,6 +96,18 @@
       laminationsIn: [],
       laminationsOut: [],
 
+      userInfoSource: {
+        city_id: 0,
+        cityName: '',
+        regionName: '',
+        countryName: '',
+        fullLocation: '',
+        climaticZone: 0,
+        heatTransfer: 0,
+        langLabel: '',
+        langName: ''
+      },
+
       userInfo: {
         city_id: 0,
         cityName: '',
@@ -295,21 +307,6 @@
       draftOrderType: 'draft',
 
 
-    //------ WebSQL DB table names
-
-      //---- Global
-      usersTableDBGlobal: 'users',
-      citiesTableDBGlobal: 'cities',
-      regionsTableDBGlobal: 'regions',
-      countriesTableDBGlobal: 'countries',
-      listsTableDBGlobal: 'lists',
-      elementsTableDBGlobal: 'elements',
-      beadsTableDBGlobal: 'beed_profile_systems',
-
-      visorDBId: 21,
-      gridDBId: 20,
-      spillwayDBId: 9,
-      windowsillDBId: 8,
 
       //------------ Languages
       languages: [
