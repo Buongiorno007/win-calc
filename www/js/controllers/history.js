@@ -10,10 +10,10 @@
     .module('HistoryModule')
     .controller('HistoryCtrl', historyCtrl);
 
-  function historyCtrl($scope, $location, $filter, $cordovaDialogs, globalConstants, globalDB, localDB, constructService, localStorage) {
+  function historyCtrl($scope, $location, $filter, $cordovaDialogs, globalConstants, globalDB, localDB, constructService, localStorage, UserStor) {
 
 
-    $scope.global = localStorage;
+    $scope.global = localStorage.storage;
 
     $scope.global.isOpenedHistoryPage = true;
     $scope.global.isOpenedCartPage = false;
@@ -386,7 +386,7 @@
 
               //------ synchronize with Global BD
               console.log('sendOrder!!!!', $scope.orders[ord]);
-              globalDB.sendOrder(localStorage.userInfo.phone, localStorage.userInfo.device_code, $scope.orders[ord], function(result){console.log(result)});
+              globalDB.sendOrder(UserStor.userInfo.phone, UserStor.userInfo.device_code, $scope.orders[ord], function(result){console.log(result)});
             }
           }
           localDB.updateDB(localDB.ordersTableBD, {'orderStyle': orderDoneStyle}, {'orderId': orderNum});

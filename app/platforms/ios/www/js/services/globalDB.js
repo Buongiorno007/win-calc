@@ -3,17 +3,14 @@
 
 (function(){
   'use strict';
-
   /**
    * @ngInject
    */
-
   angular
     .module('BauVoiceApp')
     .factory('globalDB', globalDBFactory);
 
   function globalDBFactory($http, $webSql, $q) {
-
 
     var elemLists = [], elemListsHw = [], elemListsAdd = [],
         dbGlobal = $webSql.openDatabase('bauvoice', '1.0', 'bauvoice', 65536),
@@ -72,7 +69,6 @@
       "DROP table window_hardware_types_base", "DROP table window_hardware_groups", "DROP table window_hardware", "DROP table profile_system_folders",
       "DROP table profile_systems", "DROP table glass_profile_systems", "DROP table beed_profile_systems","DROP table addition_folders", "DROP table addition_types"
     ];
-    var showTablesSQL = "PRAGMA table_info(device)";
 
     return {
 
@@ -289,38 +285,6 @@
       },
 
 
-//      checkTable: function(tableName, callback) {
-//        var deferred = $q.defer();
-//        db.transaction(function (transaction) {
-//          transaction.executeSql(showTablesSQL, [tableName], function (result) {
-//            callback(result);
-//            deferred.resolve('Location tables clearing is done!');
-//          }, function () {
-//            callback(new ErrorResult(2, 'Something went wrong when chack user login!'));
-//            deferred.reject('not find deleting table');
-//          });
-//        });
-//        return deferred.promise;
-//      },
-
-//      checkTable: function (tableName, callback) {
-//        var deferred = $q.defer();
-//        db.transaction(function (transaction) {
-//          transaction.executeSql("PRAGMA table_info(user)", [], function (transaction, result) {
-//            if (result.rows.length) {
-//              callback(new OkResult(result));
-//              deferred.resolve('Location tables clearing is done!');
-//            } else {
-//              callback(new ErrorResult(2, 'No last_sync data in database!'));
-//            }
-//          }, function () {
-//            callback(new ErrorResult(2, 'Something went wrong with selection last_sync record'));
-//            deferred.reject('not find deleting table');
-//          });
-//        });
-//        return deferred.promise;
-//      },
-
       //========= delete countries, regions and cities tables in Global DB
       clearLocation: function (callback) {
         var deferred = $q.defer();
@@ -500,19 +464,21 @@
           lastSyncDate = result.data.last_sync;
           $http.get('http://api.voice-creator.net/sync/elements?login='+login+'&access_token=' + access_token + '&last_sync=' + lastSyncDate).success(function (result) {
             db.transaction(function (transaction) {
-              for (table in result.tables) {
-                for (i = 0; i < result.tables[table].rows.length; i++) {
-                  updateSql = '';
-                  for(k = 0; k < result.tables[table].fields.length; k++){
-                    if(!k)
-                      updateSql += result.tables[table].fields[k] + " = '" + result.tables[table].rows[i][k] + "'";
-                    else
-                      updateSql += ", " + result.tables[table].fields[k] + " = '" + result.tables[table].rows[i][k] + "'";
+              if(result.tables.length) {
+                for (table in result.tables) {
+                  for (i = 0; i < result.tables[table].rows.length; i++) {
+                    updateSql = '';
+                    for(k = 0; k < result.tables[table].fields.length; k++){
+                      if(!k)
+                        updateSql += result.tables[table].fields[k] + " = '" + result.tables[table].rows[i][k] + "'";
+                      else
+                        updateSql += ", " + result.tables[table].fields[k] + " = '" + result.tables[table].rows[i][k] + "'";
+                    }
+                    transaction.executeSql("UPDATE " + table + " SET " + updateSql + " WHERE id = " + result.tables[table].rows[i][0], [], function () {
+                    }, function () {
+                      callback(new ErrorResult(2, 'Something went wrong with updating ' + table + ' record'));
+                    });
                   }
-                  transaction.executeSql("UPDATE " + table + " SET " + updateSql + " WHERE id = " + result.tables[table].rows[i][0], [], function () {
-                  }, function () {
-                    callback(new ErrorResult(2, 'Something went wrong with updating ' + table + ' record'));
-                  });
                 }
               }
               transaction.executeSql(updateDeviceSync, [""+result.last_sync+""], function(){
@@ -531,11 +497,11 @@
       },
 
       sendOrder: function (login, access_token, orderJson, callback) {
-          $http.post('http://api.voice-creator.net/sync/orders?login='+login+'&access_token=' + access_token, orderJson).success(function (result) {
-            callback(result);
-          }).error(function () {
-            callback(new ErrorResult(2, 'Something went wrong with sync Database!'));
-          });
+        $http.post('http://api.voice-creator.net/sync/orders?login='+login+'&access_token=' + access_token, orderJson).success(function (result) {
+          callback(result);
+        }).error(function () {
+          callback(new ErrorResult(2, 'Something went wrong with sync Database!'));
+        });
       },
 
       clearDb: function (callback) {

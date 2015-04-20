@@ -10,12 +10,12 @@
     .module('MainModule')
     .controller('addElementMenuCtrl', addElementMenuCtrl);
 
-  function addElementMenuCtrl($scope, $timeout, globalConstants, globalDB, localStorage, analyticsServ) {
+  function addElementMenuCtrl($scope, $timeout, globalConstants, globalDB, localStorage, UserStor, analyticsServ) {
 
 
     var sourceAddElement, cloneAddElement;
 
-    $scope.global = localStorage;
+    $scope.global = localStorage.storage;
 
     $scope.addElementsMenu = {
       DELAY_START: globalConstants.STEP,
@@ -76,8 +76,8 @@
 
         //-------- Show current add element price
         $scope.global.objXAddElementPrice = angular.copy($scope.global.objXAddElementPriceSource);
-        $scope.global.objXAddElementPrice.cityId = $scope.global.userInfo.city_id;
-        $scope.global.objXAddElementPrice.currencyId = $scope.global.userInfo.currencyId;
+        $scope.global.objXAddElementPrice.cityId = UserStor.userInfo.city_id;
+        $scope.global.objXAddElementPrice.currencyId = UserStor.userInfo.currencyId;
         $scope.global.objXAddElementPrice.elementId = cloneAddElement.elementId;
         $scope.global.objXAddElementPrice.elementLength = cloneAddElement.elementWidth;
         console.log($scope.global.objXAddElementPrice);
@@ -99,7 +99,7 @@
         });
 
         //------ save analytics data
-        analyticsServ.saveAnalyticDB($scope.global.userInfo.id, $scope.global.order.orderId, cloneAddElement.elementId, typeIndex);
+        analyticsServ.saveAnalyticDB(UserStor.userInfo.id, $scope.global.order.orderId, cloneAddElement.elementId, typeIndex);
 
         if($scope.global.isAddElementListView) {
           $scope.global.isAddElement = 1;
@@ -550,7 +550,7 @@
       $scope.global.desactiveAddElementParameters();
 
       //-------- recalculate add element price
-      $scope.global.objXAddElementPrice.cityId = $scope.global.userInfo.city_id;
+      $scope.global.objXAddElementPrice.cityId = UserStor.userInfo.city_id;
       switch ($scope.global.isFocusedAddElement) {
         case 2:
           $scope.global.objXAddElementPrice.elementId = $scope.global.product.chosenAddElements.selectedVisors[$scope.global.currentAddElementId].elementId;

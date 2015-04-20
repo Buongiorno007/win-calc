@@ -10,9 +10,9 @@
     .module('MainModule')
     .controller('LaminationCtrl', laminationSelectorCtrl);
 
-  function laminationSelectorCtrl($scope, globalConstants, localStorage, analyticsServ) {
+  function laminationSelectorCtrl($scope, globalConstants, localStorage, UserStor, analyticsServ) {
 
-    $scope.global = localStorage;
+    $scope.global = localStorage.storage;
 
     $scope.laminationInPrice = 0;
     $scope.laminationOutPrice = 0;
@@ -38,7 +38,7 @@
         $scope.setLaminationTotalPrice();
       }
       //------ save analytics data
-      analyticsServ.saveAnalyticDB($scope.global.userInfo.id, $scope.global.order.orderId, laminatIndex, 1);
+      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, $scope.global.order.orderId, laminatIndex, 1);
     };
 
     $scope.selectLaminatOut = function(laminatIndex) {
@@ -54,7 +54,7 @@
         $scope.setLaminationTotalPrice();
       }
       //------ save analytics data
-      analyticsServ.saveAnalyticDB($scope.global.userInfo.id, $scope.global.order.orderId, laminatIndex, 2);
+      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, $scope.global.order.orderId, laminatIndex, 2);
     };
 
     $scope.setLaminationTotalPrice = function() {

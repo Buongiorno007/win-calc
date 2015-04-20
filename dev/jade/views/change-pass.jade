@@ -10,7 +10,7 @@ section.settings.password-page
         ul.list
           li.item
             .psw-label(data-output="{{ 'settings.CURRENT_PASSWORD' | translate }}", typing="{{ password.typing }}", typing-delay="{{ password.DELAY_START }}")
-            .psw-data(data-output="{{ global.userInfo.password }}", typing="{{ password.typing }}", typing-delay="{{ password.DELAY_START }}")
+            .psw-data(data-output="{{ userInfo.password }}", typing="{{ password.typing }}", typing-delay="{{ password.DELAY_START }}")
           li.item.click
             .psw-label(data-output="{{ 'settings.NEW_PASSWORD' | translate }}", typing="{{ password.typing }}", typing-delay="{{ password.DELAY_START }}")
             input.set-input-txt(type="text", name="newPassword", ng-model="password.newPassword", ng-minlength="3")

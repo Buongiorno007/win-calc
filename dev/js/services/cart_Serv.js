@@ -40,11 +40,7 @@
     //--------- this function uses into Order/Credit Dialog for create user object and set default values for select fields
     function setDefaultUserInfoXOrder() {
       return {
-        sex: '',
-        age: CartStor.optionAge[0],
-        education: CartStor.optionEductaion[0],
-        occupation: CartStor.optionOccupation[0],
-        infoSource: CartStor.optionInfo[0]
+        sex: ''
       };
     }
 

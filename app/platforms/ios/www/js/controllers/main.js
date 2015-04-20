@@ -1,18 +1,15 @@
-
-// controllers/main.js
-
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('MainModule')
     .controller('MainCtrl', mainPageCtrl);
 
-  mainPageCtrl.$inject = ['$scope', 'localStorage'];
-
   function mainPageCtrl($scope, localStorage) {
 
-    $scope.global = localStorage;
+    $scope.global = localStorage.storage;
     console.log('START main CTRL!!!!!!');
     console.log($scope.global.startProgramm);
 
@@ -28,4 +25,3 @@
 
   }
 })();
-

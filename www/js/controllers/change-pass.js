@@ -10,9 +10,10 @@
     .module('SettingsModule')
     .controller('ChangePassCtrl', changePassCtrl);
 
-  function changePassCtrl($scope, globalConstants, localStorage, globalDB) {
+  function changePassCtrl($scope, globalConstants, localStorage, globalDB, UserStor) {
 
-    $scope.global = localStorage;
+    $scope.global = localStorage.storage;
+    $scope.userInfo = UserStor.userInfo;
 
     $scope.password = {
       DELAY_START: globalConstants.STEP,
@@ -28,8 +29,9 @@
         $scope.password.isErrorPassword = true;
       } else {
         $scope.password.isErrorPassword = false;
-        $scope.global.userInfo.password = $scope.password.newPassword;
-        globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"password": $scope.password.newPassword}, {"id": $scope.global.userInfo.id});
+        UserStor.userInfo.password = $scope.password.newPassword;
+        //TODO save chand in Server not in GlobalDB
+        globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"password": $scope.password.newPassword}, {"id": UserStor.userInfo.id});
         //---- clean fields
         $scope.password.newPassword = $scope.password.confirmPassword = '';
       }

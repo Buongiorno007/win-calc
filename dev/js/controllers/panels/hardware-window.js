@@ -7,9 +7,9 @@
     .module('MainModule')
     .controller('HardwareWindowCtrl', hardwareSelectorCtrl);
 
-  function hardwareSelectorCtrl($scope, globalConstants, localStorage, analyticsServ) {
+  function hardwareSelectorCtrl($scope, globalConstants, localStorage, UserStor, analyticsServ) {
 
-    $scope.global = localStorage;
+    $scope.global = localStorage.storage;
 
     $scope.hardwarePanel = {
       DELAY_START: 5 * globalConstants.STEP,
@@ -29,7 +29,7 @@
       $scope.global.product.hardwareAirCoeff = selectedHardware.airCoeff;
       $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
       //------ save analytics data
-      analyticsServ.saveAnalyticDB($scope.global.userInfo.id, $scope.global.order.orderId, hardwareIndex, hardwareTypeIndex);
+      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, $scope.global.order.orderId, hardwareIndex, hardwareTypeIndex);
     };
 
   }

@@ -56,7 +56,8 @@
         USER_NOT_ACTIVE: 'Вы не активировали Ваш профиль. Проверьте Вашу почту.',
         USER_CHECK_EMAIL: 'Подтвердительное письмо было отправлено Вам на почту.',
         SELECT_PRODUCER: 'Выберите производителя',
-        SELECT_FACTORY: 'Вы не выбрали производителя'
+        SELECT_FACTORY: 'Вы не выбрали производителя',
+        USER_PASSWORD_ERROR: 'Неверный пароль!'
       },
       mainpage: {
         MM: ' мм ',
@@ -274,7 +275,11 @@
         CLIENT_INFO_SOURCE: 'Джерело информаціі',
         CLIENT_INFO_PRESS: 'Преса',
         CLIENT_INFO_FRIEND: 'Від знайомих',
-        CLIENT_INFO_ADV: 'Візуальна реклама'
+        CLIENT_INFO_ADV: 'Візуальна реклама',
+        SELECT_AGE: 'Выберите Ваш возраст',
+        SELECT_ADUCATION: 'Выберите Ваше образование',
+        SELECT_OCCUPATION: 'Выберите Вашу занятость',
+        SELECT_INFO_SOURCE: 'Выберите источник информации'
       },
       settings: {
         AUTHORIZATION: 'Авторизація:',

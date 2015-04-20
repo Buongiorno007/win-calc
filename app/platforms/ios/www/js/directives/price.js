@@ -3,12 +3,12 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('MainModule')
     .directive('price', orderDateDir);
-
-  orderDateDir.$inject = ['globalConstants', 'SoundPlayServ'];
 
   function orderDateDir(globalConstants, SoundPlayServ) {
 

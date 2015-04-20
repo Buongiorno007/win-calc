@@ -1,7 +1,7 @@
-.user-info-container(ng-controller="UserInfoCtrl as userInfo",  hm-swipeleft="userInfo.swipeLeft($event)", hm-swiperight="userInfo.swipeRight($event)")
-  button.nav-menu-btn(ng-class="{ 'show-navmenu': userInfo.global.showNavMenu , 'orange-navmenu-btn': userInfo.global.isOpenedHistoryPage || userInfo.global.isOpenedCartPage}", hm-tap="userInfo.swipeMainPage($event)")
+.user-info-container(ng-controller="UserInfoCtrl as userBox",  hm-swipeleft="userBox.swipeLeft($event)", hm-swiperight="userBox.swipeRight($event)")
+  button.nav-menu-btn(ng-class="{ 'show-navmenu': userBox.global.showNavMenu , 'orange-navmenu-btn': userBox.global.isOpenedHistoryPage || userBox.global.isOpenedCartPage}", hm-tap="userBox.swipeMainPage($event)")
   .user-foto
-  .icon-location.unvisible(show-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}")
+  .icon-location.unvisible(show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}")
   .user-info-block
-    .user-location(data-output="{{ userInfo.global.userInfo.cityName }}", typing="{{ userInfo.config.typing }}", typing-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}")
-    .user-name(data-output="{{ userInfo.global.userInfo.name }}", typing="{{ userInfo.config.typing }}", typing-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}")
+    .user-location(data-output="{{ userBox.userInfo.cityName }}", typing="{{ userBox.config.typing }}", typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}")
+    .user-name(data-output="{{ userBox.userInfo.name }}", typing="{{ userBox.config.typing }}", typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}")

@@ -1,6 +1,3 @@
-
-// translations/ru.js
-
 (function(){
   'use strict';
 
@@ -56,7 +53,8 @@
         USER_NOT_ACTIVE: 'Вы не активировали Ваш профиль. Проверьте Вашу почту.',
         USER_CHECK_EMAIL: 'Подтвердительное письмо было отправлено Вам на почту.',
         SELECT_PRODUCER: 'Выберите производителя',
-        SELECT_FACTORY: 'Вы не выбрали производителя'
+        SELECT_FACTORY: 'Вы не выбрали производителя',
+        USER_PASSWORD_ERROR: 'Неверный пароль!'
       },
       mainpage: {
         MM: ' мм ',
@@ -273,7 +271,11 @@
         CLIENT_INFO_SOURCE: 'Источник информации',
         CLIENT_INFO_PRESS: 'Пресса',
         CLIENT_INFO_FRIEND: 'От знакомых',
-        CLIENT_INFO_ADV: 'Визуальная реклама'
+        CLIENT_INFO_ADV: 'Визуальная реклама',
+        SELECT_AGE: 'Выберите Ваш возраст',
+        SELECT_ADUCATION: 'Выберите Ваше образование',
+        SELECT_OCCUPATION: 'Выберите Вашу занятость',
+        SELECT_INFO_SOURCE: 'Выберите источник информации'
       },
       settings: {
         AUTHORIZATION: 'Авторизация:',

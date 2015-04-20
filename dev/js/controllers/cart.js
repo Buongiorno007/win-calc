@@ -9,7 +9,7 @@
 
   function cartPageCtrl($scope, $location, $filter, $cordovaDialogs, globalConstants, localDB, localStorage) {
 
-    $scope.global = localStorage;
+    $scope.global = localStorage.storage;
 
     $scope.cart = {
       orderEddited: [],

@@ -3,12 +3,12 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('HistoryModule')
     .directive('calendarScroll', calendarScrollDir);
-
-  calendarScrollDir.$inject = ['$filter'];
 
   function calendarScrollDir($filter) {
 

@@ -9,7 +9,7 @@
 
   function templateSelectorCtrl($scope, $location, $filter, $cordovaDialogs, globalConstants, localStorage, constructService) {
 
-    $scope.global = localStorage;
+    $scope.global = localStorage.storage;
 
     $scope.templatePanel = {
       DELAY_TEMPLATE_ELEMENT: 18 * globalConstants.STEP,

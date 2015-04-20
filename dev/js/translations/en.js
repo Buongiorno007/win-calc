@@ -54,7 +54,8 @@
         USER_NOT_ACTIVE: 'Sorry, but your profile is not active. Please check your email.',
         USER_CHECK_EMAIL: 'The confirmed email was send to you. Please check your email.',
         SELECT_PRODUCER: 'Choose the producer',
-        SELECT_FACTORY: 'Please select the producer'
+        SELECT_FACTORY: 'Please select the producer',
+        USER_PASSWORD_ERROR: 'Sorry, but your password is wrong!'
       },
       mainpage: {
         MM: ' mm ',
@@ -73,7 +74,7 @@
         NAVMENU_CART: 'Basket of calculation',
         NAVMENU_ADD_ELEMENTS: 'Add. elements',
         NAVMENU_ALL_CALCULATIONS: 'All calculations',
-        NAVMENU_SETTINGS: 'Tuning',
+        NAVMENU_SETTINGS: 'Settings',
         NAVMENU_MORE_INFO: 'More information',
         NAVMENU_VOICE_HELPER: 'Vocal helper',
         NAVMENU_CALCULATIONS: 'Calculations',
@@ -271,7 +272,11 @@
         CLIENT_INFO_SOURCE: 'Information source',
         CLIENT_INFO_PRESS: 'Press',
         CLIENT_INFO_FRIEND: 'From friends',
-        CLIENT_INFO_ADV: 'Visual advertising'
+        CLIENT_INFO_ADV: 'Visual advertising',
+        SELECT_AGE: 'Select your age',
+        SELECT_ADUCATION: 'Select your aducation',
+        SELECT_OCCUPATION: 'Select your occupation',
+        SELECT_INFO_SOURCE: 'Select source'
       },
       settings: {
         AUTHORIZATION: 'Authorization:',

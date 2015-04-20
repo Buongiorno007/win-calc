@@ -7,7 +7,7 @@
     .module('MainModule')
     .controller('GlassCtrl', glassSelectorCtrl);
 
-  function glassSelectorCtrl($scope, globalConstants, localStorage, analyticsServ) {
+  function glassSelectorCtrl($scope, globalConstants, localStorage, UserStor, analyticsServ) {
     var thisCtrl = this;
 
     thisCtrl.config = {
@@ -16,7 +16,7 @@
       DELAY_TYPING: 2.5 * globalConstants.STEP,
       typing: 'on'
     };
-    thisCtrl.global = localStorage;
+    thisCtrl.global = localStorage.storage;
 
     // Select glass
     thisCtrl.selectGlass = function(typeIndex, glassIndex, glassId) {
@@ -30,7 +30,7 @@
       //------ calculate price
       thisCtrl.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
       //------ save analytics data
-      analyticsServ.saveGlassAnalyticDB($scope.global.userInfo.id, $scope.global.order.orderId, glassId, typeIndex);
+      analyticsServ.saveGlassAnalyticDB(UserStor.userInfo.id, $scope.global.order.orderId, glassId, typeIndex);
     };
 
   }

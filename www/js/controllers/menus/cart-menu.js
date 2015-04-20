@@ -12,7 +12,7 @@
 
   function cartMenuCtrl($scope, globalConstants, constructService, localStorage, CartStor) {
 
-    $scope.global = localStorage;
+    $scope.global = localStorage.storage;
     $scope.cartStor = CartStor;
 
     $scope.cartMenuData = {

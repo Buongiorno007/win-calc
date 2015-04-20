@@ -11,7 +11,7 @@
             <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 2) }}" class="nav-icon-geoLocation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CURRENT_GEOLOCATION' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 2) }}" class="title"></span></div>
           </li>
           <li class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 3) }}" class="nav-icon-location unvisible"></span><span data-output="{{ global.currentGeoLocation.cityName }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 3) }}" class="title"></span></div>
+            <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 3) }}" class="nav-icon-location unvisible"></span><span data-output="{{ userInfo.currCityName }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 3) }}" class="title"></span></div>
           </li>
         </ul>
         <div data-output="{{ 'mainpage.NAVMENU_CALCULATIONS' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_DIVIDER }}" class="divider"></div>
@@ -31,7 +31,7 @@
         </ul>
         <div data-output="{{ 'mainpage.NAVMENU_APPENDIX' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_DIVIDER * 2 }}" class="divider"></div>
         <ul show-delay="{{ navMenu.DELAY_SHOW_NAV_LIST * 4 }}" class="items-list unvisible">
-          <li ng-class="{'selected': navMenu.activeMenuItem==9}" hm-tap="selectMenuItem(9); global.gotoSettingsPage()" class="item">
+          <li ng-if="!global.isOpenedHistoryPage &amp;&amp; !global.isOpenedCartPage" ng-class="{'selected': navMenu.activeMenuItem==9}" hm-tap="selectMenuItem(9); global.gotoSettingsPage()" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 9) }}" class="nav-icon-settings unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_SETTINGS' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 9) }}" class="title"></span></div>
           </li>
           <li ng-class="{'selected': navMenu.activeMenuItem==10}" hm-tap="selectMenuItemTimeOut(10); gotoLinkMoreInfo()" class="item">
@@ -49,13 +49,13 @@
   </section>
   <section ng-class="{'kitchen': global.product.selectedRoomId == 1, 'livingroom': global.product.selectedRoomId == 2, 'balcony': global.product.selectedRoomId == 3, 'childroom': global.product.selectedRoomId == 4, 'bedroom': global.product.selectedRoomId == 5, 'door': global.product.selectedRoomId == 6 }" class="right-side main-page-bg">
     <section class="main-content">
-      <div ng-controller="UserInfoCtrl as userInfo" hm-swipeleft="userInfo.swipeLeft($event)" hm-swiperight="userInfo.swipeRight($event)" class="user-info-container">
-        <button ng-class="{ 'show-navmenu': userInfo.global.showNavMenu , 'orange-navmenu-btn': userInfo.global.isOpenedHistoryPage || userInfo.global.isOpenedCartPage}" hm-tap="userInfo.swipeMainPage($event)" class="nav-menu-btn"></button>
+      <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
+        <button ng-class="{ 'show-navmenu': userBox.global.showNavMenu , 'orange-navmenu-btn': userBox.global.isOpenedHistoryPage || userBox.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button>
         <div class="user-foto"></div>
-        <div show-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
+        <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
         <div class="user-info-block">
-          <div data-output="{{ userInfo.global.userInfo.cityName }}" typing="{{ userInfo.config.typing }}" typing-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
-          <div data-output="{{ userInfo.global.userInfo.name }}" typing="{{ userInfo.config.typing }}" typing-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
+          <div data-output="{{ userBox.userInfo.cityName }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
+          <div data-output="{{ userBox.userInfo.name }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
         </div>
       </div>
       <div ng-controller="RoomInfoCtrl" ng-class="{'show-comment': global.isShowCommentBlock}" hm-swipeup="swipeShowComment($event)" hm-swipedown="swipeHideComment($event)" class="room-info-container">
@@ -66,12 +66,12 @@
         -->
         <div class="coeff-container">
           <div class="coeff-block">
-            <div class="coeff climate">{{ global.currentGeoLocation.climaticZone }}</div>
+            <div class="coeff climate">{{ userInfo.currClimaticZone }}</div>
             <div data-output="{{ 'mainpage.CLIMATE_ZONE' | translate }}" typing="{{ roomInfo.typing }}" typing-delay="{{ roomInfo.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
           </div>
           <div class="coeff-block">
-            <div ng-class="{'coeff-low': global.product.heatTransferTOTAL &lt; global.currentGeoLocation.heatTransfer}" class="coeff heat-transfer">{{ global.product.heatTransferTOTAL }}
-              <div class="coeff-max">{{ global.currentGeoLocation.heatTransfer }}</div>
+            <div ng-class="{'coeff-low': global.product.heatTransferTOTAL &lt; userInfo.currHeatTransfer}" class="coeff heat-transfer">{{ global.product.heatTransferTOTAL }}
+              <div class="coeff-max">{{ userInfo.currHeatTransfer }}</div>
             </div>
             <div data-output="{{ 'mainpage.THERMAL_RESISTANCE' | translate }}" typing="{{ roomInfo.typing }}" typing-delay="{{ roomInfo.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
           </div>

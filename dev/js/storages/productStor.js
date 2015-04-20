@@ -1,11 +1,11 @@
 (function(){
   'use strict';
-
+    /**
+     * @ngInject
+     */
   angular
     .module('BauVoiceApp')
     .factory('ProductStor', productStorageFactory);
-
-  productStorageFactory.$inject = [];
 
   function productStorageFactory() {
 

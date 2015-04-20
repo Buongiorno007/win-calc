@@ -1,14 +1,13 @@
 (function(){
   'use strict';
-
+    /**
+     * @ngInject
+     */
   angular
     .module('BauVoiceApp')
     .directive('svgTemplate', svgTemplateDir);
 
-  svgTemplateDir.$inject = [];
-
   function svgTemplateDir() {
-
 
     return {
       restrict: 'E',

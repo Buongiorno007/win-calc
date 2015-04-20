@@ -12,7 +12,7 @@
 
   function mainPageCtrl($scope, localStorage) {
 
-    $scope.global = localStorage;
+    $scope.global = localStorage.storage;
     console.log('START main CTRL!!!!!!');
     console.log($scope.global.startProgramm);
 

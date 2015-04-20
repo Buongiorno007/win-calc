@@ -5,11 +5,11 @@
 
   .coeff-container
     .coeff-block
-      .coeff.climate {{ global.currentGeoLocation.climaticZone }}
+      .coeff.climate {{ userInfo.currClimaticZone }}
       .coeff-title(data-output="{{ 'mainpage.CLIMATE_ZONE' | translate }}", typing="{{ roomInfo.typing }}", typing-delay="{{ roomInfo.DELAY_SHOW_COEFF }}")
     .coeff-block
-      .coeff.heat-transfer(ng-class="{'coeff-low': global.product.heatTransferTOTAL < global.currentGeoLocation.heatTransfer}") {{ global.product.heatTransferTOTAL }}
-        .coeff-max {{ global.currentGeoLocation.heatTransfer }}
+      .coeff.heat-transfer(ng-class="{'coeff-low': global.product.heatTransferTOTAL < userInfo.currHeatTransfer}") {{ global.product.heatTransferTOTAL }}
+        .coeff-max {{ userInfo.currHeatTransfer }}
       .coeff-title(data-output="{{ 'mainpage.THERMAL_RESISTANCE' | translate }}", typing="{{ roomInfo.typing }}", typing-delay="{{ roomInfo.DELAY_SHOW_COEFF }}")
     .coeff-block
       button.select-rooms.unvisible(show-delay="{{ roomInfo.DELAY_SHOW_ALLROOMS_BTN }}", hm-tap="showRoomSelectorDialog($event)") {{ 'mainpage.ROOM_SELECTION' | translate }}

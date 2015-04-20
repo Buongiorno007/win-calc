@@ -1,11 +1,11 @@
 (function(){
   'use strict';
-
+    /**
+     * @ngInject
+     */
   angular
     .module('BauVoiceApp')
     .directive('showDelay', showDelayDir);
-
-  showDelayDir.$inject = [];
 
   function showDelayDir() {
 

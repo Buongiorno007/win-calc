@@ -7,9 +7,9 @@
     .module('MainModule')
     .controller('ProfileCtrl', profileSelectorCtrl);
 
-  function profileSelectorCtrl($scope, globalConstants, constructService, localStorage, analyticsServ) {
+  function profileSelectorCtrl($scope, globalConstants, constructService, localStorage, UserStor, analyticsServ) {
 
-    $scope.global = localStorage;
+    $scope.global = localStorage.storage;
 
     $scope.profilePanel = {
       DELAY_START: 5 * globalConstants.STEP,
@@ -57,7 +57,7 @@
       $scope.global.parseTemplate($scope.global.product.profileIndex, profileId);
 
       //------ save analytics data
-      analyticsServ.saveAnalyticDB($scope.global.userInfo.id, $scope.global.order.orderId, profileId, producerIndex);
+      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, $scope.global.order.orderId, profileId, producerIndex);
     };
 
   }

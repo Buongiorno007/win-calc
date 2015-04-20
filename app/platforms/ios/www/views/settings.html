@@ -15,14 +15,14 @@
           <div data-output="{{ 'settings.AUTHORIZATION' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="divider"></div>
         </li>
         <li class="item">
-          <div data-output="{{ global.userInfo.phone }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
+          <div data-output="{{ userInfo.phone }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
         </li>
         <li hm-tap="gotoPasswordPage()" class="item click">
-          <div data-output="{{ global.userInfo.password }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
+          <div data-output="{{ userInfo.password }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
           <div data-output="{{ 'settings.CHANGE_PASSWORD' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_SHOW_ICONS }}" class="setting-item-change"></div>
         </li>
         <li hm-tap="gotoLanguagePage()" class="item click">
-          <div data-output="{{ global.userInfo.langName }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
+          <div data-output="{{ userInfo.langName }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
           <div data-output="{{ 'settings.CHANGE_LANGUAGE' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_SHOW_ICONS }}" class="setting-item-change"></div>
         </li>
       </ul>
@@ -32,23 +32,23 @@
         </li>
         <li id="user-name" hm-tap="changeSettingData(1, $event)" class="item click">
           <div data-output="{{ 'settings.USER_NAME' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
-          <div ng-hide="settings.selectedSetting == 1" data-output="{{ global.userInfo.name }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-data"></div>
-          <input ng-show="settings.selectedSetting == 1" type="text" ng-model="global.userInfo.name" ng-keypress="saveChanges('user-name', global.userInfo.name)" ng-blur="saveChangesBlur('user-name', global.userInfo.name)" class="set-input-txt">
+          <div ng-hide="settings.selectedSetting == 1" data-output="{{ userInfo.name }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-data"></div>
+          <input ng-show="settings.selectedSetting == 1" type="text" ng-model="userInfo.name" ng-keypress="saveChanges('user-name', userInfo.name)" ng-blur="saveChangesBlur('user-name', userInfo.name)" class="set-input-txt">
         </li>
         <li hm-tap="global.gotoLocationPage()" class="item click">
           <div data-output="{{ 'settings.CITY' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
-          <div data-output="{{ global.userInfo.fullLocation }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-data"></div>
+          <div data-output="{{ userInfo.fullLocation }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-data"></div>
           <div class="setting-item-change"></div>
         </li>
         <li id="user-address" hm-tap="changeSettingData(3, $event)" class="item click">
           <div data-output="{{ 'cart.CLIENT_ADDRESS' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
-          <div ng-hide="settings.selectedSetting == 3" data-output="{{ global.userInfo.city_phone }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-data"></div>
-          <input ng-show="settings.selectedSetting == 3" type="text" ng-model="global.userInfo.city_phone" ng-keypress="saveChanges('user-address', global.userInfo.city_phone)" ng-blur="saveChangesBlur('user-address', global.userInfo.city_phone)" class="set-input-txt">
+          <div ng-hide="settings.selectedSetting == 3" data-output="{{ userInfo.city_phone }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-data"></div>
+          <input ng-show="settings.selectedSetting == 3" type="text" ng-model="userInfo.city_phone" ng-keypress="saveChanges('user-address', userInfo.city_phone)" ng-blur="saveChangesBlur('user-address', userInfo.city_phone)" class="set-input-txt">
         </li>
         <li id="user-email" hm-tap="changeSettingData(4, $event)" class="item click">
           <div data-output="{{ 'cart.CLIENT_EMAIL' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
-          <div ng-hide="settings.selectedSetting == 4" data-output="{{ global.userInfo.email }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-data"></div>
-          <input ng-show="settings.selectedSetting == 4" type="email" name="mail" ng-model="global.userInfo.email" ng-keypress="saveChanges('user-email', global.userInfo.email)" ng-blur="saveChangesBlur('user-email', global.userInfo.email)" ng-change="changeEmail()" class="set-input-txt">
+          <div ng-hide="settings.selectedSetting == 4" data-output="{{ userInfo.email }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-data"></div>
+          <input ng-show="settings.selectedSetting == 4" type="email" name="mail" ng-model="userInfo.email" ng-keypress="saveChanges('user-email', userInfo.email)" ng-blur="saveChangesBlur('user-email', userInfo.email)" ng-change="changeEmail()" class="set-input-txt">
           <div ng-show="settings.isEmailError" class="set-email-error">{{ 'cart.WRONG_EMAIL' | translate }}</div>
         </li>
       </ul>

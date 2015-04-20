@@ -13,7 +13,7 @@
   function callMasterCtrl($scope, $location, globalConstants, constructService, localStorage, localDB, CartStor, CartServ, analyticsServ) {
 
     $scope.orderStyle = 'master';
-    $scope.global = localStorage;
+    $scope.global = localStorage.storage;
     $scope.cartStor = CartStor;
     $scope.service = CartServ;
     $scope.user = {};

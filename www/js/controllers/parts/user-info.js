@@ -10,10 +10,11 @@
     .module('MainModule')
     .controller('UserInfoCtrl', userInfoCtrl);
 
-  function userInfoCtrl(localStorage, globalConstants) {
+  function userInfoCtrl(globalConstants, localStorage, UserStor) {
 
     var thisCtrl = this;
-    thisCtrl.global = localStorage;
+    thisCtrl.global = localStorage.storage;
+    thisCtrl.userInfo = UserStor.userInfo;
 
     thisCtrl.config = {
       DELAY_SHOW_USER_INFO: 40 * globalConstants.STEP,
@@ -61,17 +62,3 @@
 
   }
 })();
-
-/*
- $rootScope.$on('swipeMainPage', function() {
- $scope.userInfo.isConfigMenuShow = !$scope.userInfo.isConfigMenuShow;
- });
-
- $scope.changeTyping = function () {
- if ($scope.userInfo.checked) {
- $scope.userInfo.typing = 'off';
- } else {
- $scope.userInfo.typing = 'on';
- }
- };
- */

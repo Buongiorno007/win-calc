@@ -3,14 +3,14 @@
 
 (function(){
   'use strict';
-
+  /**
+   * @ngInject
+   */
   angular
     .module('BauVoiceApp')
     .factory('analyticsServ', analyticsFactory);
 
-  analyticsFactory.$inject = ['globalDB', 'localDB', 'localStorage'];
-
-  function analyticsFactory(globalDB, localDB, localStorage) {
+  function analyticsFactory(globalDB, localDB, localStorage, UserStor) {
 
     var thisFactory = this;
 
@@ -46,14 +46,14 @@
     //--------- save Analytics Data by Glass according to Construction (lightbox)
     function insertGlassAnalyticDB(userId, orderId, elementId, elementType) {
       var lightBlockArr = [],
-          templateLength = localStorage.product.templateSource.objects.length,
+          templateLength = localStorage.storage.product.templateSource.objects.length,
           glassIndex = templateLength,
           sashIndex = templateLength;
 
       while(--glassIndex > -1) {
-        if(localStorage.product.templateSource.objects[glassIndex].type === 'glass_paсkage') {
+        if(localStorage.storage.product.templateSource.objects[glassIndex].type === 'glass_paсkage') {
           var lightBlock = {
-            'blockId': localStorage.product.templateSource.objects[glassIndex].id.replace(/\D+/g,""),
+            'blockId': localStorage.storage.product.templateSource.objects[glassIndex].id.replace(/\D+/g,""),
             'openDir': ''
           };
           lightBlockArr.push(lightBlock);
@@ -62,11 +62,11 @@
 
       var lightsLength = lightBlockArr.length;
       while(--sashIndex > -1) {
-        if(localStorage.product.templateSource.objects[sashIndex].type === 'sash_block') {
-          var sashId = localStorage.product.templateSource.objects[sashIndex].id.replace(/\D+/g,"");
+        if(localStorage.storage.product.templateSource.objects[sashIndex].type === 'sash_block') {
+          var sashId = localStorage.storage.product.templateSource.objects[sashIndex].id.replace(/\D+/g,"");
           for(var i = 0; i < lightsLength; i++) {
             if(sashId === lightBlockArr[i].blockId) {
-              lightBlockArr[i].openDir = localStorage.product.templateSource.objects[sashIndex].openDir.join(',');
+              lightBlockArr[i].openDir = localStorage.storage.product.templateSource.objects[sashIndex].openDir.join(',');
             }
           }
         }
@@ -88,7 +88,7 @@
             'analytics': JSON.stringify(results.data)
           };
           //----- send Analytics Data to globalDB
-          //globalDB.sendOrder(analData, function(result){});
+          globalDB.sendOrder(UserStor.userInfo.phone, UserStor.userInfo.device_code, analData, function(result){});
           //---- clear Analytics Table in localDB
           localDB.deleteDB(localDB.analyticsTableBD);
         }

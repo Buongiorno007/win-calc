@@ -12,7 +12,7 @@
 
   function constructionCtrl($scope, $location, $filter, $interval, globalConstants, constructService, localStorage) {
 
-    $scope.global = localStorage;
+    $scope.global = localStorage.storage;
 
     $scope.constructData = {
       tempSize: [],

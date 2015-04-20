@@ -10,68 +10,19 @@
     .module('SettingsModule')
     .controller('LocationCtrl', locationCtrl);
 
-  function locationCtrl($scope, globalConstants, globalDB, localStorage) {
+  function locationCtrl($scope, globalDB, localStorage, loginServ, UserStor) {
 
 
-    $scope.global = localStorage;
-    var generalLocations = [];
-    $scope.locations = [];
+    $scope.global = localStorage.storage;
+    //var generalLocations = [];
+
+    //------ get all countries, regions and cities
+    loginServ.prepareLocationToUse().then(function(data) {
+      $scope.locations = data.mergerLocation;
+    });
 
     //----- current user location
-    $scope.userNewLocation = angular.copy($scope.global.currentGeoLocation.fullLocation);
-
-    //--------- get all cities
-    globalDB.selectAllDBGlobal(globalDB.regionsTableDBGlobal, function (results) {
-      if (results.status) {
-        $scope.regions = angular.copy(results.data);
-      } else {
-        console.log(results);
-      }
-    });
-    globalDB.selectAllDBGlobal(globalDB.countriesTableDBGlobal, function (results) {
-      if (results.status) {
-        $scope.countries = angular.copy(results.data);
-      } else {
-        console.log(results);
-      }
-    });
-    globalDB.selectAllDBGlobal(globalDB.citiesTableDBGlobal, function (results) {
-      if (results.status) {
-        $scope.cities = angular.copy(results.data);
-
-        for(var c = 0; c < $scope.cities.length; c++) {
-          var location = {};
-          location.cityId = $scope.cities[c].id;
-          location.cityName = $scope.cities[c].name;
-          for(var r = 0; r <  $scope.regions.length; r++) {
-            if($scope.cities[c].region_id === $scope.regions[r].id) {
-              location.regionName = $scope.regions[r].name;
-              location.climaticZone = $scope.regions[r].climatic_zone;
-              location.heatTransfer = $scope.regions[r].heat_transfer;
-              for(var s = 0; s < $scope.countries.length; s++) {
-                if($scope.regions[r].country_id === $scope.countries[s].id) {
-                  location.countryName = $scope.countries[s].name;
-                  generalLocations.push(location);
-                }
-              }
-            }
-          }
-        }
-
-        //-------- build locations object for searching
-        for(var i = 0; i < generalLocations.length; i++) {
-          var tempObj = {
-            cityId: generalLocations[i].cityId,
-            climaticZone: generalLocations[i].climaticZone,
-            heatTransfer: generalLocations[i].heatTransfer,
-            fullLocation: '' + generalLocations[i].cityName + ', ' + generalLocations[i].regionName + ', ' + generalLocations[i].countryName,
-          };
-          $scope.locations.push(tempObj);
-        }
-      } else {
-        console.log(results);
-      }
-    });
+    $scope.userNewLocation = angular.copy(UserStor.userInfo.currFullLocation);
 
     //-------- Select City
     $scope.selectCity = function(locationId) {
@@ -80,28 +31,25 @@
           $scope.userNewLocation = $scope.locations[j].fullLocation;
           //----- if user settings changing
           if($scope.global.isOpenSettingsPage) {
-            $scope.global.userInfo.fullLocation = $scope.userNewLocation;
-            $scope.global.userInfo.city_id = locationId;
-            for(var i = 0; i < generalLocations.length; i++) {
-              if (generalLocations[i].cityId === locationId) {
-                $scope.global.userInfo.cityName = generalLocations[i].cityName;
-                $scope.global.userInfo.regionName = generalLocations[i].regionName;
-                $scope.global.userInfo.countryName = generalLocations[i].countryName;
-                $scope.global.userInfo.climaticZone = generalLocations[i].climaticZone;
-                $scope.global.userInfo.heatTransfer = generalLocations[i].heatTransfer;
-              }
-            }
-            //----- save changes in Global DB
-            globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"city_id": locationId}, {"id": $scope.global.userInfo.id});
+            UserStor.userInfo.fullLocation = $scope.userNewLocation;
+            UserStor.userInfo.city_id = locationId;
+            UserStor.userInfo.cityName = $scope.locations[j].cityName;
+            UserStor.userInfo.regionName = $scope.locations[j].regionName;
+            UserStor.userInfo.countryName = $scope.locations[j].countryName;
+            UserStor.userInfo.climaticZone = $scope.locations[j].climaticZone;
+            UserStor.userInfo.heatTransfer = $scope.locations[j].heatTransfer;
+            //----- save new City Id in Global DB
+            globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"city_id": locationId}, {"id": UserStor.userInfo.id});
           //-------- if current geolocation changing
           } else {
-            for(var c = 0; c < generalLocations.length; c++) {
-              if (generalLocations[c].cityId === locationId) {
-                //----- build new currentGeoLocation
-                $scope.global.currentGeoLocation = angular.copy(generalLocations[c]);
-                $scope.global.currentGeoLocation.fullLocation = $scope.userNewLocation;
-              }
-            }
+            //----- build new currentGeoLocation
+            UserStor.userInfo.currCityId = locationId;
+            UserStor.userInfo.currCityName = $scope.locations[j].cityName;
+            UserStor.userInfo.currRegionName = $scope.locations[j].regionName;
+            UserStor.userInfo.currCountryName = $scope.locations[j].countryName;
+            UserStor.userInfo.currClimaticZone = $scope.locations[j].climaticZone;
+            UserStor.userInfo.currHeatTransfer = $scope.locations[j].heatTransfer;
+            UserStor.userInfo.currFullLocation = $scope.userNewLocation;
           }
           $scope.global.startProgramm = false;
           closeLocationPage();

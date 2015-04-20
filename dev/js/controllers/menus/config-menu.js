@@ -9,11 +9,11 @@
     .module('MainModule')
     .controller('ConfigMenuCtrl', glassSelectorCtrl);
 
-  function glassSelectorCtrl($scope, $q, $timeout, $filter, globalConstants, globalDB, localDB, localStorage, constructService) {
+  function glassSelectorCtrl($scope, $q, $timeout, $filter, globalConstants, globalDB, localDB, localStorage, UserStor, constructService) {
 
     console.log('START CONFIG MENU!!!!!!');
 
-    $scope.global = localStorage;
+    $scope.global = localStorage.storage;
 
     $scope.configMenu = {
       DELAY_START: globalConstants.STEP,
@@ -267,8 +267,8 @@
                       }
                     }
                   }
-                  $scope.global.objXFormedPrice.cityId = $scope.global.userInfo.city_id;
-                  $scope.global.objXFormedPrice.currencyId = $scope.global.userInfo.currencyId;
+                  $scope.global.objXFormedPrice.cityId = UserStor.userInfo.city_id;
+                  $scope.global.objXFormedPrice.currencyId = UserStor.userInfo.currencyId;
                   $scope.global.objXFormedPrice.glassId = glassId;
                   $scope.global.objXFormedPrice.profileId = profileId;
                   $scope.global.objXFormedPrice.hardwareId = hardwareId;
@@ -296,10 +296,18 @@
                       $scope.global.product.templatePriceSELECT = parseFloat(angular.copy(result.data.price));
                       $scope.global.setProductPriceTOTAL();
                       var currencySymbol = '';
-                      if (result.data.currentCurrency.name === 'uah') {
-                        currencySymbol = '₴';
+                      switch(result.data.currentCurrency.name) {
+                        case 'uah': currencySymbol = '₴';
+                          break;
+                        case 'rub': currencySymbol = '₽';
+                          break;
+                        case 'usd': currencySymbol = '$';
+                          break;
+                        case 'eur': currencySymbol = '€';
+                          break;
                       }
-                      $scope.global.currency = currencySymbol;
+
+                      $scope.global.currency = '₴';
                       $scope.global.isFindPriceProcess = false;
                     } else {
                       console.log(result);

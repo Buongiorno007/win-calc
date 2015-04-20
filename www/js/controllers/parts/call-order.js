@@ -13,7 +13,7 @@
   function callOrderCtrl($scope, $location, globalConstants, constructService, localStorage, localDB, CartStor, CartServ, analyticsServ) {
 
     $scope.orderStyle = 'order';
-    $scope.global = localStorage;
+    $scope.global = localStorage.storage;
     $scope.cartStor = CartStor;
     $scope.user = CartServ.setDefaultUserInfoXOrder();
 

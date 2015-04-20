@@ -13,7 +13,7 @@
   function addElementsCtrl($scope, $timeout, globalConstants, globalDB, constructService, localStorage) {
     var activeClass = 'active';
 
-    $scope.global = localStorage;
+    $scope.global = localStorage.storage;
 
     $scope.addElementsPanel = {
       DELAY_START: globalConstants.STEP,

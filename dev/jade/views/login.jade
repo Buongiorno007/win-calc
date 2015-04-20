@@ -1,10 +1,11 @@
 section.login-page
 
   //---------------- LogIn Form
-  #login-container.login-container(ng-hide="loginPage.isRegistration", ng-mousemove="loginPage.isSendEmail = false; loginPage.isUserNotExist = false; loginPage.isUserNotActive = false;")
+  #login-container.login-container(ng-hide="loginPage.isRegistration", ng-mousemove="loginPage.isSendEmail = false; loginPage.isUserNotExist = false; loginPage.isUserNotActive = false; loginPage.isUserPasswordError = false;")
     .attantion(ng-show="loginPage.isSendEmail") {{ 'login.USER_CHECK_EMAIL' | translate }}
     .attantion(ng-show="loginPage.isUserNotExist") {{ 'login.USER_NOT_EXIST' | translate }}
     .attantion(ng-show="loginPage.isUserNotActive") {{ 'login.USER_NOT_ACTIVE' | translate }}
+    .attantion(ng-show="loginPage.isUserPasswordError") {{ 'login.USER_PASSWORD_ERROR' | translate }}
     .logo
     form(name='loginForm', novalidate, ng-submit="loginPage.enterForm(loginForm)")
       .input-field(ng-class="{ 'has-error': loginPage.submitted && loginForm.phone.$error.required }")

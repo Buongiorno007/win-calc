@@ -11,7 +11,7 @@
             <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 2) }}" class="nav-icon-geoLocation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CURRENT_GEOLOCATION' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 2) }}" class="title"></span></div>
           </li>
           <li class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 3) }}" class="nav-icon-location unvisible"></span><span data-output="{{ global.currentGeoLocation.cityName }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 3) }}" class="title"></span></div>
+            <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 3) }}" class="nav-icon-location unvisible"></span><span data-output="{{ userInfo.currCityName }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 3) }}" class="title"></span></div>
           </li>
         </ul>
         <div data-output="{{ 'mainpage.NAVMENU_CALCULATIONS' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_DIVIDER }}" class="divider"></div>
@@ -31,7 +31,7 @@
         </ul>
         <div data-output="{{ 'mainpage.NAVMENU_APPENDIX' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_DIVIDER * 2 }}" class="divider"></div>
         <ul show-delay="{{ navMenu.DELAY_SHOW_NAV_LIST * 4 }}" class="items-list unvisible">
-          <li ng-class="{'selected': navMenu.activeMenuItem==9}" hm-tap="selectMenuItem(9); global.gotoSettingsPage()" class="item">
+          <li ng-if="!global.isOpenedHistoryPage &amp;&amp; !global.isOpenedCartPage" ng-class="{'selected': navMenu.activeMenuItem==9}" hm-tap="selectMenuItem(9); global.gotoSettingsPage()" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 9) }}" class="nav-icon-settings unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_SETTINGS' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 9) }}" class="title"></span></div>
           </li>
           <li ng-class="{'selected': navMenu.activeMenuItem==10}" hm-tap="selectMenuItemTimeOut(10); gotoLinkMoreInfo()" class="item">
@@ -52,13 +52,13 @@
       <section class="cart-page">
         <section class="cart-container full-view">
           <div class="cart-header">
-            <div ng-controller="UserInfoCtrl as userInfo" hm-swipeleft="userInfo.swipeLeft($event)" hm-swiperight="userInfo.swipeRight($event)" class="user-info-container">
-              <button ng-class="{ 'show-navmenu': userInfo.global.showNavMenu , 'orange-navmenu-btn': userInfo.global.isOpenedHistoryPage || userInfo.global.isOpenedCartPage}" hm-tap="userInfo.swipeMainPage($event)" class="nav-menu-btn"></button>
+            <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
+              <button ng-class="{ 'show-navmenu': userBox.global.showNavMenu , 'orange-navmenu-btn': userBox.global.isOpenedHistoryPage || userBox.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button>
               <div class="user-foto"></div>
-              <div show-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
+              <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
               <div class="user-info-block">
-                <div data-output="{{ userInfo.global.userInfo.cityName }}" typing="{{ userInfo.config.typing }}" typing-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
-                <div data-output="{{ userInfo.global.userInfo.name }}" typing="{{ userInfo.config.typing }}" typing-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
+                <div data-output="{{ userBox.userInfo.cityName }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
+                <div data-output="{{ userBox.userInfo.name }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
               </div>
             </div>
             <!--button.cart-tool.additional-elements(hm-tap="showAllAddElements()") {{ 'cart.ALL_ADD_ELEMENTS' | translate }}-->
@@ -124,13 +124,13 @@
         </section>
         <section ng-class="{'active': isCartLightView}" class="cart-container light-view">
           <div class="cart-header">
-            <div ng-controller="UserInfoCtrl as userInfo" hm-swipeleft="userInfo.swipeLeft($event)" hm-swiperight="userInfo.swipeRight($event)" class="user-info-container">
-              <button ng-class="{ 'show-navmenu': userInfo.global.showNavMenu , 'orange-navmenu-btn': userInfo.global.isOpenedHistoryPage || userInfo.global.isOpenedCartPage}" hm-tap="userInfo.swipeMainPage($event)" class="nav-menu-btn"></button>
+            <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
+              <button ng-class="{ 'show-navmenu': userBox.global.showNavMenu , 'orange-navmenu-btn': userBox.global.isOpenedHistoryPage || userBox.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button>
               <div class="user-foto"></div>
-              <div show-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
+              <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
               <div class="user-info-block">
-                <div data-output="{{ userInfo.global.userInfo.cityName }}" typing="{{ userInfo.config.typing }}" typing-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
-                <div data-output="{{ userInfo.global.userInfo.name }}" typing="{{ userInfo.config.typing }}" typing-delay="{{ userInfo.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
+                <div data-output="{{ userBox.userInfo.cityName }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
+                <div data-output="{{ userBox.userInfo.name }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
               </div>
             </div>
             <!--button.cart-tool.additional-elements(hm-tap="showAllAddElements()") {{ 'cart.ALL_ADD_ELEMENTS' | translate }}-->
@@ -975,19 +975,27 @@
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_AGE' | translate }}</div>
-              <select name="age" ng-model="user.age" ng-options="age for age in cartStor.optionAge" class="user-select-field"></select>
+              <select name="age" ng-model="user.age" ng-options="age for age in cartStor.optionAge" class="user-select-field">
+                <option value="">{{ 'cart.SELECT_AGE' | translate }}</option>
+              </select>
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_EDUCATION' | translate }}</div>
-              <select name="education" ng-model="user.education" ng-options="educ for educ in cartStor.optionEductaion" class="user-select-field"></select>
+              <select name="education" ng-model="user.education" ng-options="educ for educ in cartStor.optionEductaion" class="user-select-field">
+                <option value="">{{ 'cart.SELECT_ADUCATION' | translate }}</option>
+              </select>
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_OCCUPATION' | translate }}</div>
-              <select name="occupation" ng-model="user.occupation" ng-options="occup for occup in cartStor.optionOccupation" class="user-select-field"></select>
+              <select name="occupation" ng-model="user.occupation" ng-options="occup for occup in cartStor.optionOccupation" class="user-select-field">
+                <option value="">{{ 'cart.SELECT_OCCUPATION' | translate }}</option>
+              </select>
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_INFO_SOURCE' | translate }}</div>
-              <select name="infoSource" ng-model="user.infoSource" ng-options="info for info in cartStor.optionInfo" class="user-select-field"></select>
+              <select name="infoSource" ng-model="user.infoSource" ng-options="info for info in cartStor.optionInfo" class="user-select-field">
+                <option value="">{{ 'cart.SELECT_INFO_SOURCE' | translate }}</option>
+              </select>
             </div>
           </div>
         </form>
@@ -1070,19 +1078,27 @@
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_AGE' | translate }}</div>
-              <select name="age" ng-model="user.age" ng-options="age for age in cartStor.optionAge" class="user-select-field"></select>
+              <select name="age" ng-model="user.age" ng-options="age for age in cartStor.optionAge" class="user-select-field">
+                <option value="">{{ 'cart.SELECT_AGE' | translate }}</option>
+              </select>
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_EDUCATION' | translate }}</div>
-              <select name="education" ng-model="user.education" ng-options="educ for educ in cartStor.optionEductaion" class="user-select-field"></select>
+              <select name="education" ng-model="user.education" ng-options="educ for educ in cartStor.optionEductaion" class="user-select-field">
+                <option value="">{{ 'cart.SELECT_ADUCATION' | translate }}</option>
+              </select>
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_OCCUPATION' | translate }}</div>
-              <select name="occupation" ng-model="user.occupation" ng-options="occup for occup in cartStor.optionOccupation" class="user-select-field"></select>
+              <select name="occupation" ng-model="user.occupation" ng-options="occup for occup in cartStor.optionOccupation" class="user-select-field">
+                <option value="">{{ 'cart.SELECT_OCCUPATION' | translate }}</option>
+              </select>
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_INFO_SOURCE' | translate }}</div>
-              <select name="infoSource" ng-model="user.infoSource" ng-options="info for info in cartStor.optionInfo" class="user-select-field"></select>
+              <select name="infoSource" ng-model="user.infoSource" ng-options="info for info in cartStor.optionInfo" class="user-select-field">
+                <option value="">{{ 'cart.SELECT_INFO_SOURCE' | translate }}</option>
+              </select>
             </div>
           </div>
         </form>

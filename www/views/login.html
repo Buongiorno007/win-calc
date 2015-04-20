@@ -1,9 +1,10 @@
 
 <section class="login-page">
-  <div id="login-container" ng-hide="loginPage.isRegistration" ng-mousemove="loginPage.isSendEmail = false; loginPage.isUserNotExist = false; loginPage.isUserNotActive = false;" class="login-container">
+  <div id="login-container" ng-hide="loginPage.isRegistration" ng-mousemove="loginPage.isSendEmail = false; loginPage.isUserNotExist = false; loginPage.isUserNotActive = false; loginPage.isUserPasswordError = false;" class="login-container">
     <div ng-show="loginPage.isSendEmail" class="attantion">{{ 'login.USER_CHECK_EMAIL' | translate }}</div>
     <div ng-show="loginPage.isUserNotExist" class="attantion">{{ 'login.USER_NOT_EXIST' | translate }}</div>
     <div ng-show="loginPage.isUserNotActive" class="attantion">{{ 'login.USER_NOT_ACTIVE' | translate }}</div>
+    <div ng-show="loginPage.isUserPasswordError" class="attantion">{{ 'login.USER_PASSWORD_ERROR' | translate }}</div>
     <div class="logo"></div>
     <form name="loginForm" novalidate ng-submit="loginPage.enterForm(loginForm)">
       <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; loginForm.phone.$error.required }" class="input-field">

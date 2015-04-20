@@ -12,7 +12,7 @@
 
   function addElementsListCtrl($scope, $filter, globalConstants, constructService, localStorage) {
 
-    $scope.global = localStorage;
+    $scope.global = localStorage.storage;
 
     $scope.addElementsList = {
       DELAY_START: globalConstants.STEP,

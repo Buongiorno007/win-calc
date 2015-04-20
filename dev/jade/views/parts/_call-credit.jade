@@ -79,15 +79,19 @@
         .input-field
           .subtitle-field {{ 'cart.CLIENT_AGE' | translate }}
           select.user-select-field(name="age", ng-model="user.age", ng-options="age for age in cartStor.optionAge")
+            option(value='') {{ 'cart.SELECT_AGE' | translate }}
 
         .input-field
           .subtitle-field {{ 'cart.CLIENT_EDUCATION' | translate }}
           select.user-select-field(name="education", ng-model="user.education", ng-options="educ for educ in cartStor.optionEductaion")
+            option(value='') {{ 'cart.SELECT_ADUCATION' | translate }}
 
         .input-field
           .subtitle-field {{ 'cart.CLIENT_OCCUPATION' | translate }}
           select.user-select-field(name="occupation", ng-model="user.occupation", ng-options="occup for occup in cartStor.optionOccupation")
+            option(value='') {{ 'cart.SELECT_OCCUPATION' | translate }}
 
         .input-field
           .subtitle-field {{ 'cart.CLIENT_INFO_SOURCE' | translate }}
           select.user-select-field(name="infoSource", ng-model="user.infoSource", ng-options="info for info in cartStor.optionInfo")
+            option(value='') {{ 'cart.SELECT_INFO_SOURCE' | translate }}

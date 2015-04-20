@@ -10,9 +10,10 @@
     .module('MainModule')
     .controller('RoomInfoCtrl', roomInfoCtrl);
 
-  function roomInfoCtrl($scope, globalConstants, constructService, localStorage) {
+  function roomInfoCtrl($scope, globalConstants, constructService, localStorage, UserStor) {
 
-    $scope.global = localStorage;
+    $scope.global = localStorage.storage;
+    $scope.userInfo = UserStor.userInfo;
 
     $scope.roomInfo = {
       DELAY_SHOW_COEFF: 20 * globalConstants.STEP,

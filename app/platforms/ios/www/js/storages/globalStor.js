@@ -3,12 +3,12 @@
 
 (function(){
   'use strict';
-
+    /**
+     * @ngInject
+     */
   angular
     .module('BauVoiceApp')
     .factory('GlobalStorage', globalStorageFactory);
-
-  globalStorageFactory.$inject = [];
 
   function globalStorageFactory() {
 

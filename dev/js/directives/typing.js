@@ -1,11 +1,11 @@
 (function(){
   'use strict';
-
+    /**
+     * @ngInject
+     */
   angular
     .module('BauVoiceApp')
     .directive('typing', typingDir);
-
-  typingDir.$inject = [];
 
   function typingDir() {
 

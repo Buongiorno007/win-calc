@@ -10,7 +10,7 @@
   function callCreditCtrl($scope, $location, globalConstants, constructService, localStorage, localDB, CartStor, CartServ, analyticsServ) {
 
     $scope.orderStyle = 'credit';
-    $scope.global = localStorage;
+    $scope.global = localStorage.storage;
     $scope.cartStor = CartStor;
 
     $scope.user = CartServ.setDefaultUserInfoXOrder();

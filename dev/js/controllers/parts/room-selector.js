@@ -8,7 +8,7 @@
     .controller('RoomSelectorCtrl', roomSelectorCtrl);
 
   function roomSelectorCtrl($scope, localStorage, globalConstants) {
-    $scope.global = localStorage;
+    $scope.global = localStorage.storage;
 
     $scope.roomData = {
       DELAY_SHOW_ROOM1: 5 * globalConstants.STEP,

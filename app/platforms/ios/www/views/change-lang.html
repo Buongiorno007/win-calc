@@ -7,7 +7,7 @@
   <div class="lang-container">
     <div class="lists">
       <ul class="list">
-        <li ng-repeat="lang in global.languages" ng-class="{'active': global.userInfo.langLabel === lang.label}" hm-tap="switchLang($index)" class="item click">
+        <li ng-repeat="lang in global.languages" ng-class="{'active': userInfo.langLabel === lang.label}" hm-tap="switchLang($index)" class="item click">
           <div class="lang-label">{{ lang.name }}</div>
         </li>
       </ul>

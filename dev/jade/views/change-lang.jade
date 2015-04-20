@@ -6,5 +6,5 @@ section.settings.language-page
   .lang-container
     .lists
       ul.list
-        li.item.click(ng-repeat="lang in global.languages", ng-class="{'active': global.userInfo.langLabel === lang.label}", hm-tap="switchLang($index)")
+        li.item.click(ng-repeat="lang in global.languages", ng-class="{'active': userInfo.langLabel === lang.label}", hm-tap="switchLang($index)")
           .lang-label {{ lang.name }}

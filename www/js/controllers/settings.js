@@ -10,9 +10,10 @@
     .module('SettingsModule')
     .controller('SettingsCtrl', settingsCtrl);
 
-  function settingsCtrl($scope, $location, globalConstants, globalDB, localStorage, localDB) {
+  function settingsCtrl($scope, $location, globalConstants, globalDB, localStorage, localDB, UserStor) {
 
-    $scope.global = localStorage;
+    $scope.global = localStorage.storage;
+    $scope.userInfo = UserStor.userInfo;
 
     $scope.settings = {
       DELAY_START: globalConstants.STEP,
@@ -22,7 +23,7 @@
       addPhones: [],
       tempAddPhone: '',
       regex: /^[0-9]{1,10}$/,
-      mailReg: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+      mailReg: globalConstants.REG_MAIL,
       typing: 'on'
     };
     $scope.global.startProgramm = false;
@@ -30,8 +31,8 @@
     $scope.global.isOpenSettingsPage = true;
 
     //----- parse additional phones
-    if($scope.global.userInfo.contact_name !== '') {
-      $scope.settings.addPhones = $scope.global.userInfo.contact_name.split(',');
+    if(UserStor.userInfo.contact_name !== '') {
+      $scope.settings.addPhones = UserStor.userInfo.contact_name.split(',');
     }
 
     //----- change avatar
@@ -81,16 +82,16 @@
     $scope.saveTxtInBD = function(marker, newTxt) {
       switch(marker) {
         case 'user-name':
-          globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"name": newTxt}, {"id": $scope.global.userInfo.id});
+          globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"name": newTxt}, {"id": UserStor.userInfo.id});
           break;
         case 'user-address':
-          globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"city_phone": newTxt}, {"id": $scope.global.userInfo.id}); //TODO создать поле в базе данных
+          globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"city_phone": newTxt}, {"id": UserStor.userInfo.id}); //TODO создать поле в базе данных
           break;
         case 'user-email':
           var checkEmail = $scope.settings.mailReg.test(newTxt);
           if(checkEmail) {
             $scope.settings.isEmailError = false;
-            globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"email": newTxt}, {"id": $scope.global.userInfo.id});
+            globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"email": newTxt}, {"id": UserStor.userInfo.id});
           } else {
             $scope.settings.isEmailError = true;
           }
@@ -126,8 +127,8 @@
     //------- save phones in DB
     $scope.savePhoneInDB = function(phones) {
       var phonesString = phones.join();
-      $scope.global.userInfo.contact_name = phonesString;
-      globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"contact_name": phonesString}, {"id": $scope.global.userInfo.id}); //TODO создать поле в базе данных
+      UserStor.userInfo.contact_name = phonesString;
+      globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"contact_name": phonesString}, {"id": UserStor.userInfo.id}); //TODO создать поле в базе данных
       $scope.settings.tempAddPhone = '';
     };
 
@@ -146,13 +147,16 @@
     };
 
     $scope.logOut = function() {
-      localStorage.userInfo = angular.copy(localStorage.userInfoSource);
-      $scope.global.startProgramm = true;
+      UserStor.userInfo = UserStor.setDefaultUser();
+      localStorage.storage = localStorage.setDefaultStorage();
+
       //------- clearing local DB
       localDB.deleteDB(localDB.productsTableBD);
       localDB.deleteDB(localDB.addElementsTableBD);
       localDB.deleteDB(localDB.ordersTableBD);
       localDB.deleteDB(localDB.analyticsTableBD);
+      console.log('UserStor 333= ', UserStor);
+      console.log('localStorage 333= ', localStorage);
       $location.path('/login');
     };
 
