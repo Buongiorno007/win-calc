@@ -10,7 +10,7 @@
     .module('BauVoiceApp')
     .factory('localStorage', generalStorageFactory);
 
-  function generalStorageFactory() {
+  function generalStorageFactory($filter) {
     var thisFactory = this;
 
     thisFactory.publicObj = {
@@ -94,9 +94,9 @@
         hardwareTypes: [],
 
         //------ Lamination
-        laminationsWhite: '',
-        laminationsIn: [],
-        laminationsOut: [],
+        laminationsWhite: $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION'),
+//        laminationsIn: [],
+//        laminationsOut: [],
 
         productSource: {
           orderId: 0,
@@ -133,11 +133,11 @@
           hardwareHeatCoeff: 0,
           hardwareAirCoeff: 0,
 
-          laminationOutIndex: 'white',
-          laminationOutName: '',
+          laminationOutId: 'white',
+          laminationOutName: $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION'),
           laminationOutPrice: 0,
-          laminationInIndex: 'white',
-          laminationInName: '',
+          laminationInId: 'white',
+          laminationInName: $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION'),
           laminationInPrice: 0,
 
           chosenAddElements: {

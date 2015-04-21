@@ -22,7 +22,7 @@
           <li ng-if="global.order.products.length &gt; 0 &amp;&amp; ((!global.isOpenedHistoryPage &amp;&amp; !global.isCreatedNewProject) || (global.isOpenedHistoryPage &amp;&amp; $scope.global.isOrderFinished))" ng-class="{'selected': navMenu.activeMenuItem==6 || global.isOpenedCartPage}" hm-tap="selectMenuItem(6); global.gotoCartPage()" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 6) }}" class="nav-icon-basketOfCalculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CART' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 6) }}" class="title"></span><span show-delay="{{ navMenu.DELAY_SHOW_ORDERS }}" class="badge unvisible">{{ global.order.products.length }}</span></div>
           </li>
-          <li ng-if="!global.isOpenedHistoryPage &amp;&amp; !global.isOpenedCartPage" ng-class="{'selected': global.product.isAddElementsONLY}" hm-tap="gotoAddElementsPanel()" class="item">
+          <li ng-if="!global.isOpenedHistoryPage &amp;&amp; !global.isOpenedCartPage" ng-class="{'selected': product.isAddElementsONLY}" hm-tap="gotoAddElementsPanel()" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 7) }}" class="nav-icon-additionalComponents unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_ADD_ELEMENTS' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 7) }}" class="title"></span></div>
           </li>
           <li ng-class="{'selected': navMenu.activeMenuItem==8 || global.isOpenedHistoryPage}" hm-tap="selectMenuItem(8); gotoHistoryPage()" class="item">
@@ -297,33 +297,33 @@
           </div>
         </div>
       </div>
-      <div ng-controller="LaminationCtrl" ng-class="{'active': global.showPanels.showLaminationPanel}" class="config-panel lamination-container">
+      <div ng-controller="LaminationCtrl as laminBox" ng-class="{'active': global.showPanels.showLaminationPanel}" class="config-panel lamination-container">
         <div ng-if="global.isLaminationPanel" class="panel-inner">
           <div class="lamination-block">
-            <div data-output="{{ 'panels.LAMINAT_INSIDE' | translate }}" typing="{{ laminationPanel.typing }}" typing-delay="{{ laminationPanel.DELAY_START }}" class="lamination-title"></div>
-            <div show-delay="{{ laminationPanel.DELAY_START }}" class="lamination-white unvisible">
-              <div ng-class="{'selected': global.product.laminationInIndex === 'white'}" hm-tap="selectLaminatIn('white')" class="lamination-img"><img src="img/lamination/empty.png"></div>
-              <div data-output="{{ 'panels.LAMINAT_WHITE' | translate }}" typing="{{ laminationPanel.typing }}" typing-delay="{{ laminationPanel.DELAY_START }}" class="lamination-label for-white"></div>
+            <div data-output="{{ 'panels.LAMINAT_INSIDE' | translate }}" typing="{{ laminBox.config.typing }}" typing-delay="{{ laminBox.config.DELAY_START }}" class="lamination-title"></div>
+            <div show-delay="{{ laminBox.config.DELAY_START }}" class="lamination-white unvisible">
+              <div ng-class="{'selected': global.product.laminationInId === 'white'}" hm-tap="laminBox.selectLaminatIn('white')" class="lamination-img"><img src="img/lamination/empty.png"></div>
+              <div data-output="{{ 'panels.LAMINAT_WHITE' | translate }}" typing="{{ laminBox.config.typing }}" typing-delay="{{ laminBox.config.DELAY_START }}" class="lamination-label for-white"></div>
             </div>
             <div class="lamination-options clearfix">
-              <div ng-repeat="laminatInner in global.laminationsIn" show-delay="{{ laminationPanel.DELAY_START + (laminationPanel.DELAY_BLOCK * $index) }}" class="lam-option-box unvisible">
-                <div ng-class="{'selected': global.product.laminationInIndex == $index}" hm-tap="selectLaminatIn($index)" class="lamination-img"><img ng-src="{{ laminatInner.laminationUrl }}"></div>
-                <div data-output="{{ laminatInner.laminationName }}" typing="{{ laminationPanel.typing }}" typing-delay="{{ laminationPanel.DELAY_START + (laminationPanel.DELAY_TYPING * $index) }}" class="lamination-label"></div>
-                <div class="info"></div>
+              <div ng-repeat="laminatInner in laminBox.laminationsIn" show-delay="{{ laminBox.config.DELAY_START + (laminBox.config.DELAY_BLOCK * $index) }}" class="lam-option-box unvisible">
+                <div ng-class="{'selected': global.product.laminationInId == laminatInner.id}" hm-tap="laminBox.selectLaminatIn($index)" class="lamination-img"><img ng-src="img/lamination/{{ laminatInner.id }}.png"></div>
+                <div data-output="{{ laminatInner.name }}" typing="{{ laminBox.config.typing }}" typing-delay="{{ laminBox.config.DELAY_START + (laminBox.config.DELAY_TYPING * $index) }}" class="lamination-label"></div>
+                <div show-delay="{{ laminBox.config.DELAY_START + (laminBox.config.DELAY_BLOCK * 2 * $index) }}" class="info unvisible"></div>
               </div>
             </div>
           </div>
           <div class="lamination-block">
-            <div data-output="{{ 'panels.LAMINAT_OUTSIDE' | translate }}" typing="{{ laminationPanel.typing }}" typing-delay="{{ laminationPanel.DELAY_START }}" class="lamination-title"></div>
-            <div show-delay="{{ laminationPanel.DELAY_START }}" class="lamination-white unvisible">
-              <div ng-class="{'selected': global.product.laminationOutIndex === 'white'}" hm-tap="selectLaminatOut('white')" class="lamination-img"><img src="img/lamination/empty.png"></div>
-              <div data-output="{{ 'panels.LAMINAT_WHITE' | translate }}" typing="{{ laminationPanel.typing }}" typing-delay="{{ laminationPanel.DELAY_START }}" class="lamination-label for-white"></div>
+            <div data-output="{{ 'panels.LAMINAT_OUTSIDE' | translate }}" typing="{{ laminBox.config.typing }}" typing-delay="{{ laminBox.config.DELAY_START }}" class="lamination-title"></div>
+            <div show-delay="{{ laminBox.config.DELAY_START }}" class="lamination-white unvisible">
+              <div ng-class="{'selected': global.product.laminationOutId === 'white'}" hm-tap="laminBox.selectLaminatOut('white')" class="lamination-img"><img src="img/lamination/empty.png"></div>
+              <div data-output="{{ 'panels.LAMINAT_WHITE' | translate }}" typing="{{ laminBox.config.typing }}" typing-delay="{{ laminBox.config.DELAY_START }}" class="lamination-label for-white"></div>
             </div>
             <div class="lamination-options clearfix">
-              <div ng-repeat="laminatOuter in global.laminationsOut" show-delay="{{ laminationPanel.DELAY_START + (laminationPanel.DELAY_BLOCK * $index) }}" class="lam-option-box unvisible">
-                <div ng-class="{'selected': global.product.laminationOutIndex == $index}" hm-tap="selectLaminatOut($index)" class="lamination-img"><img ng-src="{{ laminatOuter.laminationUrl }}"></div>
-                <div data-output="{{ laminatOuter.laminationName }}" typing="{{ laminationPanel.typing }}" typing-delay="{{ laminationPanel.DELAY_START + (laminationPanel.DELAY_TYPING * $index) }}" class="lamination-label"></div>
-                <div class="info"></div>
+              <div ng-repeat="laminatOuter in laminBox.laminationsOut" show-delay="{{ laminBox.config.DELAY_START + (laminBox.config.DELAY_BLOCK * $index) }}" class="lam-option-box unvisible">
+                <div ng-class="{'selected': global.product.laminationOutId == laminatOuter.id}" hm-tap="laminBox.selectLaminatOut($index)" class="lamination-img"><img ng-src="img/lamination/{{ laminatOuter.id }}.png"></div>
+                <div data-output="{{ laminatOuter.name }}" typing="{{ laminBox.config.typing }}" typing-delay="{{ laminBox.config.DELAY_START + (laminBox.config.DELAY_TYPING * $index) }}" class="lamination-label"></div>
+                <div show-delay="{{ laminBox.config.DELAY_START + (laminBox.config.DELAY_BLOCK * 2 * $index) }}" class="info unvisible"></div>
               </div>
             </div>
           </div>

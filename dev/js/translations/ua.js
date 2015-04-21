@@ -86,6 +86,7 @@
         CONFIGMENU_HARDWARE: 'Фурнітура',
         CONFIGMENU_LAMINATION: 'Ламінація',
         CONFIGMENU_LAMINATION_TYPE: 'фасад / в кімнаті',
+        CONFIGMENU_NOT_LAMINATION: 'без ламинации',
         CONFIGMENU_ADDITIONAL: 'Додатково',
         CONFIGMENU_IN_CART: 'В кошик',
         VOICE_SPEACH: 'Говоріть...',

@@ -89,6 +89,7 @@
         CONFIGMENU_HARDWARE: 'Zubehör',
         CONFIGMENU_LAMINATION: 'Ламинация',
         CONFIGMENU_LAMINATION_TYPE: 'Die Fassade / in den Zimmer',
+        CONFIGMENU_NOT_LAMINATION: 'withuot lamination',
         CONFIGMENU_ADDITIONAL: 'Zusätzlich',
         CONFIGMENU_IN_CART: 'Zum Warenkorb',
         VOICE_SPEACH: 'Sprechen...',

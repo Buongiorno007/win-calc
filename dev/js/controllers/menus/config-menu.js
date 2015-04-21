@@ -9,11 +9,12 @@
     .module('MainModule')
     .controller('ConfigMenuCtrl', glassSelectorCtrl);
 
-  function glassSelectorCtrl($scope, $q, $timeout, $filter, globalConstants, globalDB, localDB, localStorage, UserStor, constructService) {
+  function glassSelectorCtrl($scope, $q, $timeout, $filter, globalConstants, globalDB, localDB, localStorage, UserStor, ProductStor, constructService) {
 
     console.log('START CONFIG MENU!!!!!!');
 
     $scope.global = localStorage.storage;
+    $scope.product = ProductStor.product;
 
     $scope.configMenu = {
       DELAY_START: globalConstants.STEP,
@@ -28,44 +29,45 @@
     $scope.global.isOpenedCartPage = false;
     $scope.global.isOpenedHistoryPage = false;
 
-    //============= Create Order Date
-    $scope.createOrderData = function() {
-      var deliveryDate = new Date(),
-          valuesDate,
-          idDate;
+//    //============= Create Order Date
+//    $scope.createOrderData = function() {
+//      var deliveryDate = new Date(),
+//          valuesDate,
+//          idDate;
+//
+//      //----------- create order number for new project
+//      $scope.global.order.orderId = Math.floor((Math.random() * 100000));
+//      console.log('++++++++', $scope.global.currentDate.getDate());
+//      //------ set delivery day
+//      deliveryDate.setDate( $scope.global.currentDate.getDate() + $scope.global.productionDays );
+//      valuesDate = [
+//        deliveryDate.getDate(),
+//        deliveryDate.getMonth() + 1
+//      ];
+//      for(idDate in valuesDate) {
+//        valuesDate[ idDate ] = valuesDate[ idDate ].toString().replace( /^([0-9])$/, '0$1' );
+//      }
+//
+//      $scope.global.order.deliveryDate = valuesDate[ 0 ] + '.' + valuesDate[ 1 ] + '.' + deliveryDate.getFullYear();
+//      $scope.global.order.newDeliveryDate = $scope.global.order.deliveryDate;
+//      console.log('++++++++',$scope.global.order.deliveryDate);
+//    };
 
-      //----------- create order number for new project
-      $scope.global.order.orderId = Math.floor((Math.random() * 100000));
 
-      //------ set delivery day
-      deliveryDate.setDate( $scope.global.currentDate.getDate() + $scope.global.productionDays );
-      valuesDate = [
-        deliveryDate.getDate(),
-        deliveryDate.getMonth() + 1
-      ];
-      for(idDate in valuesDate) {
-        valuesDate[ idDate ] = valuesDate[ idDate ].toString().replace( /^([0-9])$/, '0$1' );
-      }
-
-      $scope.global.order.deliveryDate = valuesDate[ 0 ] + '.' + valuesDate[ 1 ] + '.' + deliveryDate.getFullYear();
-      $scope.global.order.newDeliveryDate = $scope.global.order.deliveryDate;
-    };
-
-
-    //----------- get all profiles
-    $scope.downloadAllProfiles = function(results) {
-      if (results) {
-        $scope.global.profilesType = angular.copy(results[$scope.global.product.profileIndex].folder);
-        $scope.global.profiles = angular.copy(results[$scope.global.product.profileIndex].profiles);
-        $scope.global.product.profileId = $scope.global.profiles[$scope.global.product.profileIndex].id;
-        //$scope.global.product.profileName = $scope.global.profiles[$scope.global.profileIndex].name;
-        //$scope.global.product.profileHeatCoeff = $scope.global.profiles[$scope.global.profileIndex].heatCoeff;
-        //$scope.global.product.profileAirCoeff = $scope.global.profiles[$scope.global.profileIndex].airCoeff;
-
-      } else {
-        console.log(results);
-      }
-    };
+//    //----------- get all profiles
+//    $scope.downloadAllProfiles = function(results) {
+//      if (results) {
+//        $scope.global.profilesType = angular.copy(results[$scope.global.product.profileIndex].folder);
+//        $scope.global.profiles = angular.copy(results[$scope.global.product.profileIndex].profiles);
+//        $scope.global.product.profileId = $scope.global.profiles[$scope.global.product.profileIndex].id;
+//        //$scope.global.product.profileName = $scope.global.profiles[$scope.global.profileIndex].name;
+//        //$scope.global.product.profileHeatCoeff = $scope.global.profiles[$scope.global.profileIndex].heatCoeff;
+//        //$scope.global.product.profileAirCoeff = $scope.global.profiles[$scope.global.profileIndex].airCoeff;
+//console.log(results);
+//      } else {
+//        console.log(results);
+//      }
+//    };
 
     //---------- get element section sizes as to profile
     $scope.downloadProfileElementSizes = function(results, type) {
@@ -514,21 +516,6 @@
           $scope.global.product.hardwareHeatCoeff = $scope.global.hardwares[$scope.global.product.hardwareIndex][$scope.global.product.hardwareIndex].heatCoeff;
           $scope.global.product.hardwareAirCoeff = $scope.global.hardwares[$scope.global.product.hardwareIndex][$scope.global.product.hardwareIndex].airCoeff;
 
-        } else {
-          console.log(results);
-        }
-      });
-
-      //----------- get all lamination
-      constructService.getAllLamination(function (results) {
-        if (results.status) {
-          $scope.global.laminationsWhite = angular.copy(results.data.laminationWhite);
-          $scope.global.laminationsIn = angular.copy(results.data.laminationInside);
-          $scope.global.laminationsOut = angular.copy(results.data.laminationOutside);
-
-          //----- set first current lamination white
-          $scope.global.product.laminationOutName = $scope.global.laminationsWhite;
-          $scope.global.product.laminationInName = $scope.global.laminationsWhite;
         } else {
           console.log(results);
         }

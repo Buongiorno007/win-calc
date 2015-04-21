@@ -89,11 +89,13 @@
         CONFIGMENU_HARDWARE: 'Фурнитура',
         CONFIGMENU_LAMINATION: 'Ламинация',
         CONFIGMENU_LAMINATION_TYPE: 'фасад / в комнате',
+        CONFIGMENU_NOT_LAMINATION: 'без ламинации',
         CONFIGMENU_ADDITIONAL: 'Дополнительно',
         CONFIGMENU_IN_CART: 'В корзину',
         VOICE_SPEACH: 'Говорите...',
         COMMENT: 'Оставьте свою заметку о заказе здесь.',
-        ROOM_SELECTION: 'Выбор интерьера'
+        ROOM_SELECTION: 'Выбор интерьера',
+
       },
       panels: {
         TEMPLATE_WINDOW: 'Oкно',

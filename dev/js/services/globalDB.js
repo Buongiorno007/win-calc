@@ -78,6 +78,7 @@
       listsTableDBGlobal: 'lists',
       elementsTableDBGlobal: 'elements',
       beadsTableDBGlobal: 'beed_profile_systems',
+      laminationTableDBGlobal: 'lamination_colors',
 
       visorDBId: 21,
       gridDBId: 20,

@@ -7,7 +7,7 @@
     .module('SettingsModule')
     .controller('SettingsCtrl', settingsCtrl);
 
-  function settingsCtrl($scope, $location, globalConstants, globalDB, localStorage, localDB, UserStor) {
+  function settingsCtrl($scope, $location, globalConstants, globalDB, localStorage, localDB, UserStor, ProductStor, OrderStor) {
 
     $scope.global = localStorage.storage;
     $scope.userInfo = UserStor.userInfo;
@@ -146,6 +146,8 @@
     $scope.logOut = function() {
       UserStor.userInfo = UserStor.setDefaultUser();
       localStorage.storage = localStorage.setDefaultStorage();
+      ProductStor.product = ProductStor.setDefaultProduct();
+      OrderStor.order = OrderStor.setDefaultOrder();
 
       //------- clearing local DB
       localDB.deleteDB(localDB.productsTableBD);

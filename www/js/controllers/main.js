@@ -10,10 +10,12 @@
     .module('MainModule')
     .controller('MainCtrl', mainPageCtrl);
 
-  function mainPageCtrl($scope, localStorage) {
+  function mainPageCtrl($scope, localStorage, MainServ) {
 
     $scope.global = localStorage.storage;
     console.log('START main CTRL!!!!!!');
+    MainServ.createOrderData();
+
 
   /*
     $scope.main = {

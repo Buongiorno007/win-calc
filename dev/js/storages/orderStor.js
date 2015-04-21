@@ -8,9 +8,9 @@
     .factory('OrderStor', orderStorageFactory);
 
   function orderStorageFactory() {
+    var thisFactory = this;
 
-    return {
-
+    thisFactory.publicObj = {
       orderSource: {
         orderId: 0,
         orderType: '',
@@ -48,17 +48,25 @@
         starttime: '',
         endtime: '',
         target: ''
-
       },
 
-      order: {},
-      orders: [],
-
       fullOrderType: 'complete',
-      draftOrderType: 'draft'
+      draftOrderType: 'draft',
 
+      setDefaultOrder: setDefaultOrder
+    };
+
+    thisFactory.publicObj.order = setDefaultOrder();
+
+    return thisFactory.publicObj;
+
+
+    //============ methods ================//
+
+    function setDefaultOrder() {
+      var publicObj = angular.copy(thisFactory.publicObj.orderSource);
+      return publicObj;
     }
-
 
   }
 })();

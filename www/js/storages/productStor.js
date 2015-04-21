@@ -10,16 +10,17 @@
     .module('BauVoiceApp')
     .factory('ProductStor', productStorageFactory);
 
-  function productStorageFactory() {
+  function productStorageFactory($filter) {
+    var thisFactory = this;
 
-    return {
-      //------ default product
+    thisFactory.publicObj = {
       productSource: {
         orderId: 0,
         productId: 0,
         isAddElementsONLY: false,
         selectedRoomId: 4,
         constructionType: 1,
+
         templateIndex: 0,
         templateSource: {},
         templateDefault: {},
@@ -49,11 +50,11 @@
         hardwareHeatCoeff: 0,
         hardwareAirCoeff: 0,
 
-        laminationOutIndex: 'white',
-        laminationOutName: '',
+        laminationOutId: 'white',
+        laminationOutName: $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION'),
         laminationOutPrice: 0,
-        laminationInIndex: 'white',
-        laminationInName: '',
+        laminationInId: 'white',
+        laminationInName: $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION'),
         laminationInPrice: 0,
 
         chosenAddElements: {
@@ -74,6 +75,7 @@
         doorSashShapeId: 0,
         doorHandleShapeId: 0,
         doorLockShapeId: 0,
+
         heatTransferMin: 0,
         heatTransferTOTAL: 0,
         airCirculationTOTAL: 0,
@@ -86,11 +88,20 @@
         productQty: 1
       },
 
-      productDefault: {},
-      product: {}
+      setDefaultProduct: setDefaultProduct
+    };
 
+    thisFactory.publicObj.product = setDefaultProduct();
+
+    return thisFactory.publicObj;
+
+
+    //============ methods ================//
+
+    function setDefaultProduct() {
+      var publicObj = angular.copy(thisFactory.publicObj.productSource);
+      return publicObj;
     }
-
 
   }
 })();

@@ -13,8 +13,7 @@
   function constructionFactory($q) {
 
     // SQL requests for select data from tables
-    var selectLaminations = "SELECT id, name FROM lamination_colors ORDER BY id",
-      selectProfileSystemFolders = "SELECT id, name FROM profile_system_folders order by position",
+    var selectProfileSystemFolders = "SELECT id, name FROM profile_system_folders order by position",
       //selectProfileSystems = "SELECT profile_systems.id, profile_system_folders.name as folder_name, profile_systems.name, profile_systems.short_name, profile_systems.country FROM profile_systems LEFT JOIN profile_system_folders ON  profile_systems.profile_system_folder_id = profile_system_folders.id WHERE profile_system_folder_id = ? order by profile_systems.id", // position
       selectProfileSystems = "SELECT profile_systems.id, profile_system_folders.name as folder_name, profile_systems.name, profile_systems.short_name, profile_systems.country, rama_list_id, rama_still_list_id, stvorka_list_id, impost_list_id, shtulp_list_id FROM profile_systems LEFT JOIN profile_system_folders ON  profile_systems.profile_system_folder_id = profile_system_folders.id WHERE profile_system_folder_id = ? order by profile_systems.id",
       selectWindowHardware = "SELECT id, name, short_name as shortName FROM window_hardware_groups WHERE is_in_calculation = 1",
@@ -2799,27 +2798,6 @@
       },
 
 
-      getAllLaminations: function (callback) {
-        var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, allLaminations = [];
-        db.transaction(function (transaction) {
-          transaction.executeSql(selectLaminations, [], function (transaction, result) {
-            if (result.rows.length) {
-              for (i = 0; i < result.rows.length; i++) {
-                allLaminations.push({
-                  id: result.rows.item(i).id,
-                  name: result.rows.item(i).name + ""
-                });
-              }
-              callback(new OkResult(allLaminations));
-            } else {
-              callback(new ErrorResult(1, 'No laminations in database!'));
-            }
-          }, function () {
-            callback(new ErrorResult(2, 'Something went wrong with selection lamination_colors record'));
-          });
-        });
-      },
-
       getProfileSystem: function (callback) {
         callback(new OkResult({
           id: 7,
@@ -3172,77 +3150,7 @@
         }));
       },
 
-      getAllLamination: function (callback) {
-        callback(new OkResult({
-          laminationWhite: 'без ламин.',
-          laminationInside: [
-            {
-              laminationId: 1,
-              laminationName: 'светлый дуб',
-              laminationUrl: 'img/lamination/Birch.png',
-              laminationPrice: 547
-            },
-            {
-              laminationId: 2,
-              laminationName: 'золотой дуб',
-              laminationUrl: 'img/lamination/GoldenOak.png',
-              laminationPrice: 547
-            },
-            {
-              laminationId: 3,
-              laminationName: 'береза',
-              laminationUrl: 'img/lamination/LightOak.png',
-              laminationPrice: 547
-            },
-            {
-              laminationId: 4,
-              laminationName: 'махагон',
-              laminationUrl: 'img/lamination/Mahagon.png',
-              laminationPrice: 547
-            },
-            {
-              laminationId: 5,
-              laminationName: 'сосна',
-              laminationUrl: 'img/lamination/Pine.png',
-              laminationPrice: 547
-            }
-          ],
-          laminationOutside: [
 
-            {
-              laminationId: 1,
-              laminationName: 'светлый дуб',
-              laminationUrl: 'img/lamination/Birch.png',
-              laminationPrice: 547
-            },
-            {
-              laminationId: 2,
-              laminationName: 'золотой дуб',
-              laminationUrl: 'img/lamination/GoldenOak.png',
-              laminationPrice: 547
-            },
-            {
-              laminationId: 3,
-              laminationName: 'береза',
-              laminationUrl: 'img/lamination/LightOak.png',
-              laminationPrice: 547
-            },
-            {
-              laminationId: 4,
-              laminationName: 'махагон',
-              laminationUrl: 'img/lamination/Mahagon.png',
-              laminationPrice: 547
-            },
-            {
-              laminationId: 5,
-              laminationName: 'сосна',
-              laminationUrl: 'img/lamination/Pine.png',
-              laminationPrice: 547
-            }
-
-          ]
-        }));
-      },
 
 
       getAllGrids: function (callback) {

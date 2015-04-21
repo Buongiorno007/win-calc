@@ -12,13 +12,14 @@
     .module('MainModule')
     .controller('NavMenuCtrl', navigationMenuCtrl);
 
-  function navigationMenuCtrl($scope, $http, $location, $translate, $timeout, $filter, $cordovaGeolocation, globalConstants, globalDB, localDB, NavMenuServ, localStorage, UserStor) {
+  function navigationMenuCtrl($scope, $http, $location, $translate, $timeout, $filter, $cordovaGeolocation, globalConstants, globalDB, localDB, NavMenuServ, localStorage, UserStor, ProductStor) {
 
 console.log('START NAV MENU!!!!!!');
     console.log('START Time!!!!!!', new Date());
     var thisCtrl = this;
     $scope.global = localStorage.storage;
     $scope.userInfo = UserStor.userInfo;
+    $scope.product = ProductStor.product;
 
     //thisCtrl.config
     $scope.navMenu = {
@@ -127,14 +128,14 @@ console.log('START NAV MENU!!!!!!');
 
 
     $scope.gotoAddElementsPanel = function() {
-      if($scope.global.product.isAddElementsONLY) {
+      if(ProductStor.product.isAddElementsONLY) {
         $scope.global.startProgramm = false;
         $scope.global.isCreatedNewProject = false;
         $scope.global.createNewProduct();
       } else {
         //------- create new empty product
-        $scope.global.product = angular.copy($scope.global.productSource);
-        $scope.global.product.isAddElementsONLY = true;
+        ProductStor.product = ProductStor.setDefaultProduct();
+        ProductStor.product.isAddElementsONLY = true;
         $scope.global.showNavMenu = false;
         $scope.global.isConfigMenu = true;
         $scope.global.showPanels = {};
@@ -179,7 +180,7 @@ console.log('START NAV MENU!!!!!!');
         $scope.global.startProgramm = false;
         $scope.global.prepareMainPage();
         //------- create new empty product
-        $scope.global.product = angular.copy($scope.global.productDefault);
+        ProductStor.product = angular.copy(ProductStor.productDefault); //TODO
         //------- create new empty order
         $scope.global.order = angular.copy($scope.global.orderSource);
         $location.path('/main');
@@ -192,7 +193,7 @@ console.log('START NAV MENU!!!!!!');
           //------ сохраняем черновик продукта в LocalDB
           console.log('draft from main page');
           $scope.global.inputProductInOrder();
-          $scope.global.order.orderPriceTOTAL = $scope.global.product.productPriceTOTAL;
+          $scope.global.order.orderPriceTOTAL = ProductStor.product.productPriceTOTAL;
         }
         //------ сохраняем черновик заказа в LocalDB
         $scope.global.insertOrderInLocalDB({}, $scope.global.draftOrderType, '');
@@ -204,7 +205,7 @@ console.log('START NAV MENU!!!!!!');
         $scope.global.prepareMainPage();
         if($scope.global.isOpenedCartPage || $scope.global.isOpenedHistoryPage) {
           //------- create new empty product
-          $scope.global.product = angular.copy($scope.global.productDefault);
+          ProductStor.product = angular.copy(ProductStor.productDefault); //TODO
           //------- create new empty order
           $scope.global.order = angular.copy($scope.global.orderSource);
           $location.path('/main');
@@ -223,7 +224,7 @@ console.log('START NAV MENU!!!!!!');
         $scope.global.isOrderFinished = false;
         $scope.global.prepareMainPage();
         //------- create new empty product
-        $scope.global.product = angular.copy($scope.global.productDefault);
+        ProductStor.product = angular.copy(ProductStor.productDefault); //TODO
         //------- create new empty order
         $scope.global.order = angular.copy($scope.global.orderSource);
         $location.path('/main');

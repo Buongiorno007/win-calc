@@ -89,6 +89,7 @@
         CONFIGMENU_HARDWARE: 'furnitura ',
         CONFIGMENU_LAMINATION: 'laminare',
         CONFIGMENU_LAMINATION_TYPE: 'fațadă / camera',
+        CONFIGMENU_NOT_LAMINATION: 'withuot lamination',
         CONFIGMENU_ADDITIONAL: 'Suplimentar',
         CONFIGMENU_IN_CART: 'Adaugă in coș',
         VOICE_SPEACH: 'Vorbiți...',
