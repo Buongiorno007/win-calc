@@ -1,3 +1,6 @@
+
+// controllers/menus/config-menu.js
+
 (function(){
   'use strict';
 
@@ -285,7 +288,7 @@
 
                   //------ calculate coeffs
                   $scope.global.calculateCoeffs();
-
+                  console.log('START PRICE Time!!!!!!', new Date());
                   //--------- get product default price
                   globalDB.calculationPrice($scope.global.objXFormedPrice, function (result) {
                     if(result.status){
@@ -306,7 +309,7 @@
                         case 'eur': currencySymbol = '€';
                           break;
                       }
-
+                      console.log('FINISH PRICE Time!!!!!!', new Date());
                       $scope.global.currency = '₴';
                       $scope.global.isFindPriceProcess = false;
                     } else {
@@ -426,6 +429,7 @@
 
     if($scope.global.startProgramm && $scope.global.isCreatedNewProject && $scope.global.isCreatedNewProduct) {
   console.log('FIRST START!!!!!!!!!!');
+      console.log('START Time!!!!!!', new Date());
       //playSound('menu');
       //------- create new empty product
       $scope.global.product = angular.copy($scope.global.productSource);

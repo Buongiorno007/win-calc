@@ -10,7 +10,7 @@
     .module('SettingsModule')
     .controller('ChangeLangCtrl', changeLangCtrl);
 
-  function changeLangCtrl($scope, $translate, $timeout, globalConstants, localStorage, UserStor) {
+  function changeLangCtrl($scope, $translate, $timeout, globalConstants, localStorage, UserStor, NavMenuServ) {
 
     $scope.global = localStorage.storage;
     $scope.userInfo = UserStor.userInfo;
@@ -22,8 +22,11 @@
     $scope.switchLang = function (languageId) {
       $translate.use($scope.global.languages[languageId].label);
       UserStor.userInfo.langLabel = $scope.global.languages[languageId].label;
-      //$scope.global.userInfo.langName = $scope.global.languages[languageId].name;
-      $scope.global.setLanguageVoiceHelper(UserStor.userInfo.langLabel);
+      UserStor.userInfo.langName = $scope.global.languages[languageId].name;
+      //----- if Voice Helper switch on
+      if($scope.global.isVoiceHelper) {
+        $scope.global.voiceHelperLanguage = NavMenuServ.setLanguageVoiceHelper();
+      }
       $timeout(function() {
         $scope.global.isOpenSettingsPage = false;
         $scope.global.startProgramm = false;

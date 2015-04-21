@@ -19,6 +19,8 @@
       checked: false
     };
 
+    //------ clicking
+
     thisCtrl.swipeMainPage = swipeMainPage;
     thisCtrl.swipeLeft = swipeLeft;
     thisCtrl.swipeRight = swipeRight;

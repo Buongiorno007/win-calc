@@ -12,12 +12,15 @@
     .module('MainModule')
     .controller('NavMenuCtrl', navigationMenuCtrl);
 
-  function navigationMenuCtrl($scope, $http, $location, $translate, $timeout, $filter, globalConstants, globalDB, localDB, localStorage, UserStor, constructService) {
+  function navigationMenuCtrl($scope, $http, $location, $translate, $timeout, $filter, $cordovaGeolocation, globalConstants, globalDB, localDB, NavMenuServ, localStorage, UserStor, constructService) {
 
 console.log('START NAV MENU!!!!!!');
+    console.log('START Time!!!!!!', new Date());
+    var thisCtrl = this;
     $scope.global = localStorage.storage;
     $scope.userInfo = UserStor.userInfo;
 
+    //thisCtrl.config
     $scope.navMenu = {
       DELAY_SHOW_STEP: 0.2,
       DELAY_SHOW_NAV_LIST: 5 * globalConstants.STEP,
@@ -30,30 +33,10 @@ console.log('START NAV MENU!!!!!!');
     };
 
 
-    $scope.global.setLanguageVoiceHelper = function(langLabel) {
-      $scope.global.voiceHelperLanguage = 'ru_RU';
-      /*
-      switch (langLabel) {
-        //case 'ua': $scope.global.voiceHelperLanguage = 'ukr-UKR';
-        case 'ua': $scope.global.voiceHelperLanguage = 'ru_RU';
-          break;
-        case 'ru': $scope.global.voiceHelperLanguage = 'ru_RU';
-          break;
-        case 'en': $scope.global.voiceHelperLanguage = 'en_US';
-          break;
-        case 'en': $scope.global.voiceHelperLanguage = 'de_DE';
-          break;
-        case 'ro': $scope.global.voiceHelperLanguage = 'ro_RO';
-          break;
-      }
-      */
-    };
+    //------ clicking
 
 
-    if($scope.global.startProgramm) {
-      $scope.global.setLanguageVoiceHelper(UserStor.userInfo.langLabel);
-    }
-
+    //============ methods ================//
 
 
     //------- Select menu item
@@ -68,6 +51,8 @@ console.log('START NAV MENU!!!!!!');
         $scope.navMenu.activeMenuItem = false;
       }, 200);
     };
+
+
 
     //-------- links of nav-menu items
     $scope.global.gotoMainPage = function () {
@@ -109,27 +94,26 @@ console.log('START NAV MENU!!!!!!');
 
     $scope.getCurrentGeolocation = function () {
       //------ Data from GPS device
-      navigator.geolocation.getCurrentPosition(successLocation, errorLocation);
+      //navigator.geolocation.getCurrentPosition(successLocation, errorLocation);
+      $cordovaGeolocation.getCurrentPosition().then(successLocation, errorLocation);
       function successLocation(position) {
         var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
         $http.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&sensor=true&language=ru').
           success(function(data, status, headers, config) {
             //----- save previous current location
-            $scope.global.prevGeoLocation = angular.copy($scope.global.currentGeoLocation);
+            //$scope.global.prevGeoLocation = angular.copy($scope.global.currentGeoLocation);
 
             var deviceLocation = data.results[0].formatted_address.split(', ');
-            $scope.global.currentGeoLocation = {
-              cityId: 156,
-              cityName: deviceLocation[deviceLocation.length-3],
-              regionName: deviceLocation[deviceLocation.length-2],
-              countryName: deviceLocation[deviceLocation.length-1],
-              climaticZone: 7,
-              heatTransfer: 0.99,
-              fullLocation: deviceLocation[deviceLocation.length-3] + ', ' + deviceLocation[deviceLocation.length-2] + ', ' + deviceLocation[deviceLocation.length-1]
-            };
-            console.log(data.results[0]);
-            console.log($scope.global.currentGeoLocation);
+            UserStor.userInfo.currCityId = 156; //TODO должны тянуть с базы согласно новому городу, но город гугл дает на украинском языке, в базе на русском
+            UserStor.userInfo.currCityName = deviceLocation[deviceLocation.length-3];
+            UserStor.userInfo.currRegionName = deviceLocation[deviceLocation.length-2];
+            UserStor.userInfo.currCountryName = deviceLocation[deviceLocation.length-1];
+            UserStor.userInfo.currClimaticZone = 7; //TODO
+            UserStor.userInfo.currHeatTransfer = 0.99; //TODO
+            UserStor.userInfo.currFullLocation = deviceLocation[deviceLocation.length-3] + ', ' + deviceLocation[deviceLocation.length-2] + ', ' + deviceLocation[deviceLocation.length-1];
+
+            //console.log(data.results[0]);
           }).
           error(function(data, status, headers, config) {
             alert(status);
@@ -139,6 +123,8 @@ console.log('START NAV MENU!!!!!!');
         alert(error.message);
       }
     };
+
+
 
     $scope.gotoAddElementsPanel = function() {
       if($scope.global.product.isAddElementsONLY) {
@@ -168,6 +154,8 @@ console.log('START NAV MENU!!!!!!');
     $scope.switchVoiceHelper = function() {
       $scope.global.isVoiceHelper = !$scope.global.isVoiceHelper;
       if($scope.global.isVoiceHelper) {
+        //------- set Language for Voice Helper
+        $scope.global.voiceHelperLanguage = NavMenuServ.setLanguageVoiceHelper();
         playTTS($filter('translate')('construction.VOICE_SWITCH_ON'), $scope.global.voiceHelperLanguage);
       }
     };
