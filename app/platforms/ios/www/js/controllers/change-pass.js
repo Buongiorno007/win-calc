@@ -1,3 +1,6 @@
+
+// controllers/change-pass.js
+
 (function(){
   'use strict';
   /**
@@ -27,6 +30,7 @@
       } else {
         $scope.password.isErrorPassword = false;
         UserStor.userInfo.password = $scope.password.newPassword;
+        //TODO save chand in Server not in GlobalDB
         globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"password": $scope.password.newPassword}, {"id": UserStor.userInfo.id});
         //---- clean fields
         $scope.password.newPassword = $scope.password.confirmPassword = '';
@@ -39,3 +43,4 @@
 
   }
 })();
+

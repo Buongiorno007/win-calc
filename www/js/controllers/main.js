@@ -14,7 +14,6 @@
 
     $scope.global = localStorage.storage;
     console.log('START main CTRL!!!!!!');
-    console.log($scope.global.startProgramm);
 
   /*
     $scope.main = {

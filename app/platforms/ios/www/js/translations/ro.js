@@ -1,3 +1,6 @@
+
+// translations/ro.js
+
 (function(){
   'use strict';
 

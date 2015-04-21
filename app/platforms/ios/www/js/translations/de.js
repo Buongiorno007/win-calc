@@ -1,3 +1,6 @@
+
+// translations/de.js
+
 (function(){
   'use strict';
 

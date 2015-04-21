@@ -1,3 +1,6 @@
+
+// controllers/settings.js
+
 (function(){
   'use strict';
   /**

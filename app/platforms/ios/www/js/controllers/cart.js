@@ -1,3 +1,6 @@
+
+// controllers/cart.js
+
 (function(){
   'use strict';
   /**

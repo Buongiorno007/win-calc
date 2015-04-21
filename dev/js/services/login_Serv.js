@@ -110,7 +110,7 @@
                   }
 
                   deferred.resolve(generalLocations);
-                  console.log('generalLocations ==== ', generalLocations);
+                  //console.log('generalLocations ==== ', generalLocations);
                 } else {
                   deferred.reject(results);
                 }

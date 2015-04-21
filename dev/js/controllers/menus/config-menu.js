@@ -748,7 +748,7 @@
 
       //-------- insert product into local DB
       //productData.orderId = product.orderID;
-      productData.heatTransferMin = $scope.global.currentGeoLocation.heatTransfer;
+      productData.heatTransferMin = UserStor.userInfo.currHeatTransfer;
       productData.templateSource = JSON.stringify(product.templateSource);
       productData.laminationOutPrice = parseFloat(product.laminationOutPrice.toFixed(2));
       productData.laminationInPrice = parseFloat(product.laminationInPrice.toFixed(2));

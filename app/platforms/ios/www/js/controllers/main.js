@@ -1,3 +1,6 @@
+
+// controllers/main.js
+
 (function(){
   'use strict';
   /**
@@ -25,3 +28,4 @@
 
   }
 })();
+

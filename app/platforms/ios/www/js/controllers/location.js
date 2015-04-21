@@ -1,3 +1,6 @@
+
+// controllers/location.js
+
 (function(){
   'use strict';
   /**
