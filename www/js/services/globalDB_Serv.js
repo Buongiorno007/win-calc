@@ -1,3 +1,6 @@
+
+// services/globalDB_Serv.js
+
 (function(){
   'use strict';
   /**
@@ -79,6 +82,10 @@
       elementsTableDBGlobal: 'elements',
       beadsTableDBGlobal: 'beed_profile_systems',
       laminationTableDBGlobal: 'lamination_colors',
+      profileTypeTableDBGlobal: 'profile_system_folders',
+      profileTableDBGlobal: 'profile_systems',
+      hardwareTypeTableDBGlobal: 'window_hardware_groups',
+      hardwareTableDBGlobal: 'window_hardware',
 
       visorDBId: 21,
       gridDBId: 20,
@@ -1823,33 +1830,43 @@
 
 
 
-    function selectDBGlobal(tableName, options, callback) {
-      var handler = [];
-      dbGlobal.select(tableName, options).then(function (results) {
-        if (results.rows.length) {
-          for (var i = 0; i < results.rows.length; i++) {
-            handler.push(results.rows.item(i));
+    function selectDBGlobal(tableName, options) {
+      var deferred = $q.defer(),
+          handler = [];
+      dbGlobal.select(tableName, options).then(function (result) {
+        var resultQty = result.rows.length,
+            i = 0;
+        if (resultQty) {
+          for (; i < resultQty; i++) {
+            handler.push(result.rows.item(i));
           }
-          callback(new OkResult(handler));
+          deferred.resolve(handler);
         } else {
-          callback(new ErrorResult(1, 'No in database!'));
+          deferred.resolve();
         }
       });
+      return deferred.promise;
     }
 
-    function selectAllDBGlobal(tableName, callback) {
-      var handler = [];
-      dbGlobal.selectAll(tableName).then(function (results) {
-        if (results.rows.length) {
-          for (var i = 0; i < results.rows.length; i++) {
-            handler.push(results.rows.item(i));
+
+    function selectAllDBGlobal(tableName) {
+      var deferred = $q.defer(),
+          handler = [];
+      dbGlobal.selectAll(tableName).then(function (result) {
+        var resultQty = result.rows.length,
+            i = 0;
+        if(resultQty) {
+          for(;i < resultQty; i++) {
+            handler.push(result.rows.item(i));
           }
-          callback(new OkResult(handler));
+          deferred.resolve(handler);
         } else {
-          callback(new ErrorResult(1, 'No in database!'));
+          deferred.resolve();
         }
       });
+      return deferred.promise;
     }
+
 
     function updateDBGlobal(tableName, elem, options) {
       dbGlobal.update(tableName, elem, options);
@@ -1858,6 +1875,7 @@
 
   }
 })();
+
 
 
 

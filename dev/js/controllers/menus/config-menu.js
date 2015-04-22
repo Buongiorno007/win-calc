@@ -9,10 +9,9 @@
     .module('MainModule')
     .controller('ConfigMenuCtrl', glassSelectorCtrl);
 
-  function glassSelectorCtrl($scope, $q, $timeout, $filter, globalConstants, globalDB, localDB, localStorage, UserStor, ProductStor, constructService) {
+  function glassSelectorCtrl($scope, $q, $timeout, $filter, globalConstants, globalDB, localDB, localStorage, UserStor, ProductStor, optionsServ) {
 
     console.log('START CONFIG MENU!!!!!!');
-
     $scope.global = localStorage.storage;
     $scope.product = ProductStor.product;
 
@@ -68,52 +67,52 @@
 //        console.log(results);
 //      }
 //    };
+//
+//    //---------- get element section sizes as to profile
+//    $scope.downloadProfileElementSizes = function(results, type) {
+//      if(results) {
+//        switch(type) {
+//          case 'frame': $scope.global.allProfileFrameSizes = angular.copy(results);
+//            break;
+//          case 'frame-still': $scope.global.allProfileFrameStillSizes = angular.copy(results);
+//            break;
+//          case 'sash': $scope.global.allProfileSashSizes = angular.copy(results);
+//            break;
+//          case 'impost': $scope.global.allProfileImpostSizes = angular.copy(results);
+//            break;
+//          case 'shtulp': $scope.global.allProfileShtulpSizes = angular.copy(results);
+//            break;
+//        }
+//      } else {
+//        console.log(results);
+//      }
+//    };
 
-    //---------- get element section sizes as to profile
-    $scope.downloadProfileElementSizes = function(results, type) {
-      if(results) {
-        switch(type) {
-          case 'frame': $scope.global.allProfileFrameSizes = angular.copy(results);
-            break;
-          case 'frame-still': $scope.global.allProfileFrameStillSizes = angular.copy(results);
-            break;
-          case 'sash': $scope.global.allProfileSashSizes = angular.copy(results);
-            break;
-          case 'impost': $scope.global.allProfileImpostSizes = angular.copy(results);
-            break;
-          case 'shtulp': $scope.global.allProfileShtulpSizes = angular.copy(results);
-            break;
-        }
-      } else {
-        console.log(results);
-      }
-    };
 
-
-    //-------- get default json template
-    $scope.downloadAllTemplates = function() {
-      constructService.getDefaultConstructTemplate(function (results) {
-        if (results.status) {
-
-          //-------- Save Source Templates in Store
-          $scope.global.templatesWindSTORE = angular.copy(results.data.windows);
-          $scope.global.templatesWindDoorSTORE = angular.copy(results.data.windowDoor);
-          $scope.global.templatesBalconySTORE = angular.copy(results.data.balconies);
-          $scope.global.templatesDoorSTORE = angular.copy(results.data.doors);
-
-          //-------- Templates for use
-          $scope.global.templatesWindSource = angular.copy(results.data.windows);
-          $scope.global.templatesWindDoorSource = angular.copy(results.data.windowDoor);
-          $scope.global.templatesBalconySource = angular.copy(results.data.balconies);
-          $scope.global.templatesDoorSource = angular.copy(results.data.doors);
-
-          $scope.global.parseTemplate($scope.global.product.profileIndex, $scope.global.product.profileId);
-
-        } else {
-          console.log(results);
-        }
-      });
-    };
+//    //-------- get default json template
+//    $scope.downloadAllTemplates = function() {
+//      constructService.getDefaultConstructTemplate(function (results) {
+//        if (results.status) {
+//
+//          //-------- Save Source Templates in Store
+//          $scope.global.templatesWindSTORE = angular.copy(results.data.windows);
+//          $scope.global.templatesWindDoorSTORE = angular.copy(results.data.windowDoor);
+//          $scope.global.templatesBalconySTORE = angular.copy(results.data.balconies);
+//          $scope.global.templatesDoorSTORE = angular.copy(results.data.doors);
+//
+//          //-------- Templates for use
+//          $scope.global.templatesWindSource = angular.copy(results.data.windows);
+//          $scope.global.templatesWindDoorSource = angular.copy(results.data.windowDoor);
+//          $scope.global.templatesBalconySource = angular.copy(results.data.balconies);
+//          $scope.global.templatesDoorSource = angular.copy(results.data.doors);
+//
+//          $scope.global.parseTemplate($scope.global.product.profileIndex, $scope.global.product.profileId);
+//
+//        } else {
+//          console.log(results);
+//        }
+//      });
+//    };
 
 
 
@@ -170,36 +169,36 @@
     };
 
 
-    $scope.global.saveNewTemplateInProduct = function(templateIndex) {
-      $scope.global.product.templateSource = angular.copy($scope.global.templatesSource[templateIndex]);
-      $scope.global.product.templateDefault = angular.copy($scope.global.templates[templateIndex]);
-      $scope.global.product.templateIcon = angular.copy($scope.global.templatesIcons[templateIndex]);
-    };
+//    $scope.global.saveNewTemplateInProduct = function(templateIndex) {
+//      $scope.global.product.templateSource = angular.copy($scope.global.templatesSource[templateIndex]);
+//      $scope.global.product.templateDefault = angular.copy($scope.global.templates[templateIndex]);
+//      $scope.global.product.templateIcon = angular.copy($scope.global.templatesIcons[templateIndex]);
+//    };
 
 
-    $scope.global.getCurrentTemplates = function() {
-      if($scope.global.isConstructDoor) {
-        $scope.global.templatesSource = $scope.global.templatesDoorSource;
-        $scope.global.templates = $scope.global.templatesDoorList;
-        $scope.global.templatesIcons = $scope.global.templatesDoorIconList;
-        $scope.global.templateLabel = $filter('translate')('panels.TEMPLATE_DOOR');
-      } else if($scope.global.isConstructBalcony) {
-        $scope.global.templatesSource = $scope.global.templatesBalconySource;
-        $scope.global.templates = $scope.global.templatesBalconyList;
-        $scope.global.templatesIcons = $scope.global.templatesBalconyIconList;
-        $scope.global.templateLabel = $filter('translate')('panels.TEMPLATE_BALCONY');
-      } else if($scope.global.isConstructWindDoor) {
-        $scope.global.templatesSource = $scope.global.templatesWindDoorSource;
-        $scope.global.templates = $scope.global.templatesWindDoorList;
-        $scope.global.templatesIcons = $scope.global.templatesWindDoorIconList;
-        $scope.global.templateLabel = $filter('translate')('panels.TEMPLATE_BALCONY_ENTER');
-      } else if($scope.global.isConstructWind){
-        $scope.global.templatesSource = $scope.global.templatesWindSource;
-        $scope.global.templates = $scope.global.templatesWindList;
-        $scope.global.templatesIcons = $scope.global.templatesWindIconList;
-        $scope.global.templateLabel = $filter('translate')('panels.TEMPLATE_WINDOW');
-      }
-    };
+//    $scope.global.getCurrentTemplates = function() {
+//      if($scope.global.isConstructDoor) {
+//        $scope.global.templatesSource = $scope.global.templatesDoorSource;
+//        $scope.global.templates = $scope.global.templatesDoorList;
+//        $scope.global.templatesIcons = $scope.global.templatesDoorIconList;
+//        $scope.global.templateLabel = $filter('translate')('panels.TEMPLATE_DOOR');
+//      } else if($scope.global.isConstructBalcony) {
+//        $scope.global.templatesSource = $scope.global.templatesBalconySource;
+//        $scope.global.templates = $scope.global.templatesBalconyList;
+//        $scope.global.templatesIcons = $scope.global.templatesBalconyIconList;
+//        $scope.global.templateLabel = $filter('translate')('panels.TEMPLATE_BALCONY');
+//      } else if($scope.global.isConstructWindDoor) {
+//        $scope.global.templatesSource = $scope.global.templatesWindDoorSource;
+//        $scope.global.templates = $scope.global.templatesWindDoorList;
+//        $scope.global.templatesIcons = $scope.global.templatesWindDoorIconList;
+//        $scope.global.templateLabel = $filter('translate')('panels.TEMPLATE_BALCONY_ENTER');
+//      } else if($scope.global.isConstructWind){
+//        $scope.global.templatesSource = $scope.global.templatesWindSource;
+//        $scope.global.templates = $scope.global.templatesWindList;
+//        $scope.global.templatesIcons = $scope.global.templatesWindIconList;
+//        $scope.global.templateLabel = $filter('translate')('panels.TEMPLATE_WINDOW');
+//      }
+//    };
 
     // создание объекта для отправки в базу, чтобы рассчитать цену шаблона
     $scope.global.createObjXFormedPrice = function(template, profileIndex, profileId, glassId, hardwareId) {
@@ -435,91 +434,91 @@
       //------- create new empty order
       $scope.global.order = angular.copy($scope.global.orderSource);
 
-      //------- create order date
-      $scope.createOrderData();
+//      //------- create order date
+//      $scope.createOrderData();
 
 
-      constructService.getProfileSystem(function (results) {
-        if (results.status) {
-          $scope.global.product.profileHeatCoeff = results.data.heatCoeff;
-          $scope.global.product.profileAirCoeff = results.data.airCoeff;
-          $scope.global.product.profileName = results.data.name;
-        } else {
-          console.log(results);
-        }
-      });
+//      constructService.getProfileSystem(function (results) {
+//        if (results.status) {
+//          $scope.global.product.profileHeatCoeff = results.data.heatCoeff;
+//          $scope.global.product.profileAirCoeff = results.data.airCoeff;
+//          $scope.global.product.profileName = results.data.name;
+//        } else {
+//          console.log(results);
+//        }
+//      });
 
-      //----------- get all glasses
-      constructService.getAllGlass(function (results) {
-        if (results.status) {
-          $scope.global.glassTypes = angular.copy(results.data.glassTypes);
-          $scope.global.glasses = angular.copy(results.data.glasses);
-          //----- set first current glass
-          $scope.global.product.glassId = $scope.global.glasses[$scope.global.product.glassIndex][$scope.global.product.glassIndex].glassId;
-          $scope.global.product.glassName = $scope.global.glasses[$scope.global.product.glassIndex][$scope.global.product.glassIndex].glassName;
-          $scope.global.product.glassHeatCoeff = $scope.global.glasses[$scope.global.product.glassIndex][$scope.global.product.glassIndex].heatCoeff;
-          $scope.global.product.glassAirCoeff = $scope.global.glasses[$scope.global.product.glassIndex][$scope.global.product.glassIndex].airCoeff;
-        } else {
-          console.log(results);
-        }
-      });
+//      //----------- get all glasses
+//      constructService.getAllGlass(function (results) {
+//        if (results.status) {
+//          $scope.global.glassTypes = angular.copy(results.data.glassTypes);
+//          $scope.global.glasses = angular.copy(results.data.glasses);
+//          //----- set first current glass
+//          $scope.global.product.glassId = $scope.global.glasses[$scope.global.product.glassIndex][$scope.global.product.glassIndex].glassId;
+//          $scope.global.product.glassName = $scope.global.glasses[$scope.global.product.glassIndex][$scope.global.product.glassIndex].glassName;
+//          $scope.global.product.glassHeatCoeff = $scope.global.glasses[$scope.global.product.glassIndex][$scope.global.product.glassIndex].heatCoeff;
+//          $scope.global.product.glassAirCoeff = $scope.global.glasses[$scope.global.product.glassIndex][$scope.global.product.glassIndex].airCoeff;
+//        } else {
+//          console.log(results);
+//        }
+//      });
 
 
-      //----------- get all profiles
-      constructService.getAllProfileSystems().then(function (data) {
-        $scope.downloadAllProfiles(data);
-      }).then(function () {
+//      //----------- get all profiles
+//      constructService.getAllProfileSystems().then(function (data) {
+//        $scope.downloadAllProfiles(data);
+//      }).then(function () {
+//
+//        var ramaQueries = [],
+//            sashQueries = [],
+//            ramaStillQueries = [],
+//            impostQueries = [],
+//            shtulpQueries = [],
+//            k;
+//
+//        for(k = 0; k < $scope.global.profiles.length; k++) {
+//          ramaQueries.push(constructService.getAllProfileSizes($scope.global.profiles[k].rama_id));
+//          ramaStillQueries.push(constructService.getAllProfileSizes($scope.global.profiles[k].rama_still_id));
+//          sashQueries.push(constructService.getAllProfileSizes($scope.global.profiles[k].sash_id));
+//          impostQueries.push(constructService.getAllProfileSizes($scope.global.profiles[k].impost_id));
+//          shtulpQueries.push(constructService.getAllProfileSizes($scope.global.profiles[k].shtulp_id));
+//        }
+//
+//        $q.all(ramaQueries).then(function (data) {
+//          $scope.downloadProfileElementSizes(data, 'frame');
+//        });
+//        $q.all(ramaStillQueries).then(function (data) {
+//          $scope.downloadProfileElementSizes(data, 'frame-still');
+//        });
+//        $q.all(sashQueries).then(function (data) {
+//          $scope.downloadProfileElementSizes(data, 'sash');
+//        });
+//        $q.all(impostQueries).then(function (data) {
+//          $scope.downloadProfileElementSizes(data, 'impost');
+//        });
+//        $q.all(shtulpQueries).then(function (data) {
+//          $scope.downloadProfileElementSizes(data, 'shtulp');
+//        }).then(function () {
+//          $scope.downloadAllTemplates();
+//        });
+//      });
 
-        var ramaQueries = [],
-            sashQueries = [],
-            ramaStillQueries = [],
-            impostQueries = [],
-            shtulpQueries = [],
-            k;
-
-        for(k = 0; k < $scope.global.profiles.length; k++) {
-          ramaQueries.push(constructService.getAllProfileSizes($scope.global.profiles[k].rama_id));
-          ramaStillQueries.push(constructService.getAllProfileSizes($scope.global.profiles[k].rama_still_id));
-          sashQueries.push(constructService.getAllProfileSizes($scope.global.profiles[k].sash_id));
-          impostQueries.push(constructService.getAllProfileSizes($scope.global.profiles[k].impost_id));
-          shtulpQueries.push(constructService.getAllProfileSizes($scope.global.profiles[k].shtulp_id));
-        }
-
-        $q.all(ramaQueries).then(function (data) {
-          $scope.downloadProfileElementSizes(data, 'frame');
-        });
-        $q.all(ramaStillQueries).then(function (data) {
-          $scope.downloadProfileElementSizes(data, 'frame-still');
-        });
-        $q.all(sashQueries).then(function (data) {
-          $scope.downloadProfileElementSizes(data, 'sash');
-        });
-        $q.all(impostQueries).then(function (data) {
-          $scope.downloadProfileElementSizes(data, 'impost');
-        });
-        $q.all(shtulpQueries).then(function (data) {
-          $scope.downloadProfileElementSizes(data, 'shtulp');
-        }).then(function () {
-          $scope.downloadAllTemplates();
-        });
-      });
-
-      //----------- get all hardware
-      constructService.getAllHardware(function (results) {
-        if (results.status) {
-          $scope.global.hardwareTypes = angular.copy(results.data.hardwaresTypes);
-          $scope.global.hardwares = angular.copy(results.data.hardwares);
-
-          //----- set first current hardware
-          $scope.global.product.hardwareId = $scope.global.hardwares[$scope.global.product.hardwareIndex][$scope.global.product.hardwareIndex].hardwareId;
-          $scope.global.product.hardwareName = $scope.global.hardwares[$scope.global.product.hardwareIndex][$scope.global.product.hardwareIndex].hardwareName;
-          $scope.global.product.hardwareHeatCoeff = $scope.global.hardwares[$scope.global.product.hardwareIndex][$scope.global.product.hardwareIndex].heatCoeff;
-          $scope.global.product.hardwareAirCoeff = $scope.global.hardwares[$scope.global.product.hardwareIndex][$scope.global.product.hardwareIndex].airCoeff;
-
-        } else {
-          console.log(results);
-        }
-      });
+//      //----------- get all hardware
+//      constructService.getAllHardware(function (results) {
+//        if (results.status) {
+//          $scope.global.hardwareTypes = angular.copy(results.data.hardwaresTypes);
+//          $scope.global.hardwares = angular.copy(results.data.hardwares);
+//
+//          //----- set first current hardware
+//          $scope.global.product.hardwareId = $scope.global.hardwares[$scope.global.product.hardwareIndex][$scope.global.product.hardwareIndex].hardwareId;
+//          $scope.global.product.hardwareName = $scope.global.hardwares[$scope.global.product.hardwareIndex][$scope.global.product.hardwareIndex].hardwareName;
+//          $scope.global.product.hardwareHeatCoeff = $scope.global.hardwares[$scope.global.product.hardwareIndex][$scope.global.product.hardwareIndex].heatCoeff;
+//          $scope.global.product.hardwareAirCoeff = $scope.global.hardwares[$scope.global.product.hardwareIndex][$scope.global.product.hardwareIndex].airCoeff;
+//
+//        } else {
+//          console.log(results);
+//        }
+//      });
 
     }
 

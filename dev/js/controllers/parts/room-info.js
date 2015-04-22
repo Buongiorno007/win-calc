@@ -7,7 +7,7 @@
     .module('MainModule')
     .controller('RoomInfoCtrl', roomInfoCtrl);
 
-  function roomInfoCtrl($scope, globalConstants, constructService, localStorage, UserStor) {
+  function roomInfoCtrl($scope, globalConstants, optionsServ, localStorage, UserStor) {
 
     $scope.global = localStorage.storage;
     $scope.userInfo = UserStor.userInfo;
@@ -19,7 +19,7 @@
     };
 
   //--------- download rooms info
-    constructService.getRoomInfo(function (results) {
+    optionsServ.getRoomInfo(function (results) {
       if (results.status) {
         $scope.roomInfo.roomsData = angular.copy(results.data.roomInfo);
       } else {

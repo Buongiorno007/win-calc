@@ -7,7 +7,7 @@
     .module('HistoryModule')
     .controller('HistoryCtrl', historyCtrl);
 
-  function historyCtrl($scope, $location, $filter, $cordovaDialogs, globalConstants, globalDB, localDB, constructService, localStorage, UserStor) {
+  function historyCtrl($scope, $location, $filter, $cordovaDialogs, globalConstants, globalDB, localDB, localStorage, UserStor) {
 
 
     $scope.global = localStorage.storage;

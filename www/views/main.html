@@ -168,17 +168,17 @@
       </div>
       <div ng-controller="ProfileCtrl" ng-class="{'active': global.showPanels.showProfilePanel}" class="config-panel profile-container">
         <div ng-if="global.isProfilePanel" class="panel-inner">
-          <div ng-repeat="producer in profilePanel.profiles" ng-class="{'selected': global.product.profileTypeIndex == $index}" class="profile-block clearfix">
+          <div ng-repeat="producer in global.profiles" ng-class="{'selected': global.product.profileTypeIndex == $index}" class="profile-block clearfix">
             <div class="group-block-header">
-              <div data-output="{{ profilePanel.producers[$index] }}" typing="{{ profilePanel.typing }}" typing-delay="{{ profilePanel.DELAY_START }}" class="title"></div>
+              <div data-output="{{ global.profilesType[$index] }}" typing="{{ profilePanel.typing }}" typing-delay="{{ profilePanel.DELAY_START }}" class="title"></div>
               <div class="group-info">
                 <div class="info"></div>
               </div>
             </div>
             <div ng-repeat="profile in producer" ng-class="{'selected': global.product.profileIndex == $index &amp;&amp; global.product.profileTypeIndex == $parent.$index}" hm-tap="selectProfile($parent.$index, $index, profile.profileId)" show-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_BLOCK * $index) }}" class="box profile-box unvisible">
               <div class="profile-box-top">
-                <div class="type">{{ profile.profileType }}</div>
-                <div data-output="{{ profile.name }} {{ profile.profileDescrip }}" typing="{{ profilePanel.typing }}" typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}" class="profile-descr"></div>
+                <div class="type">{{ profile.profileDescrip }}</div>
+                <div data-output="{{ profile.name }}" typing="{{ profilePanel.typing }}" typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}" class="profile-descr"></div>
                 <div data-output="{{ profile.country }} {{ profile.profileCountry }}" typing="{{ profilePanel.typing }}" typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}" class="profile-country"></div>
                 <div data-output="{{ 'panels.COUNTRY' | translate }}" typing="{{ profilePanel.typing }}" typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}" class="label"></div>
               </div>

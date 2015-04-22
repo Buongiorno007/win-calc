@@ -10,7 +10,7 @@
     .module('MainModule')
     .controller('TemplateSelectorCtrl', templateSelectorCtrl);
 
-  function templateSelectorCtrl($scope, $location, $filter, $cordovaDialogs, globalConstants, localStorage, constructService) {
+  function templateSelectorCtrl($scope, $location, $filter, $cordovaDialogs, globalConstants, localStorage, optionsServ) {
 
     $scope.global = localStorage.storage;
 
@@ -21,7 +21,7 @@
     };
 
     //---------- download templates Img icons
-    constructService.getTemplateImgIcons(function (results) {
+    optionsServ.getTemplateImgIcons(function (results) {
       if (results.status) {
         $scope.global.templatesImgs = results.data.templateImgs;
       } else {

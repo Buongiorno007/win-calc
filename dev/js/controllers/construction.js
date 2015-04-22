@@ -7,7 +7,7 @@
     .module('ConstructionModule')
     .controller('ConstructionCtrl', constructionCtrl);
 
-  function constructionCtrl($scope, $location, $filter, $interval, globalConstants, constructService, localStorage) {
+  function constructionCtrl($scope, $location, $filter, $interval, globalConstants, optionsServ, localStorage) {
 
     $scope.global = localStorage.storage;
 
@@ -156,7 +156,7 @@
     //============ if Door Construction
 
     if($scope.global.isConstructDoor) {
-      constructService.getDoorConfig(function (results) {
+      optionsServ.getDoorConfig(function (results) {
         if (results.status) {
           $scope.doorShape = results.data.doorType;
           $scope.sashShape = results.data.sashType;

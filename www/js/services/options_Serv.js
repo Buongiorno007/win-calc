@@ -1,5 +1,5 @@
 
-// services/construction_Serv.js
+// services/options_Serv.js
 
 (function(){
   'use strict';
@@ -13,11 +13,7 @@
   function optionFactory($q) {
 
     // SQL requests for select data from tables
-    var selectProfileSystemFolders = "SELECT id, name FROM profile_system_folders order by position",
-      //selectProfileSystems = "SELECT profile_systems.id, profile_system_folders.name as folder_name, profile_systems.name, profile_systems.short_name, profile_systems.country FROM profile_systems LEFT JOIN profile_system_folders ON  profile_systems.profile_system_folder_id = profile_system_folders.id WHERE profile_system_folder_id = ? order by profile_systems.id", // position
-      selectProfileSystems = "SELECT profile_systems.id, profile_system_folders.name as folder_name, profile_systems.name, profile_systems.short_name, profile_systems.country, rama_list_id, rama_still_list_id, stvorka_list_id, impost_list_id, shtulp_list_id FROM profile_systems LEFT JOIN profile_system_folders ON  profile_systems.profile_system_folder_id = profile_system_folders.id WHERE profile_system_folder_id = ? order by profile_systems.id",
-      selectWindowHardware = "SELECT id, name, short_name as shortName FROM window_hardware_groups WHERE is_in_calculation = 1",
-      selectSectionSize = "SELECT id, a, b, c, d FROM lists WHERE id = ?";
+    var selectWindowHardware = "SELECT id, name, short_name as shortName FROM window_hardware_groups WHERE is_in_calculation = 1";
 
     return {
 
@@ -59,82 +55,29 @@
         }));
       },
 
-      getAllProfileSystems: function () {
-        var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), AllProfileSystems = [], allFolders, count, folder_id, resultObj = {}, j, i;
-        var deferred = $q.defer();
+
+
+
+      getAllWindowHardwares: function (callback) {
+        var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, AllWindowHardwares = [];
         db.transaction(function (transaction) {
-          transaction.executeSql(selectProfileSystemFolders, [], function (transaction, result) {
+          transaction.executeSql(selectWindowHardware, [], function (transaction, result) {
             if (result.rows.length) {
-              allFolders = result.rows.length - 1;
-              db.transaction(function (transaction) {
-                for (j = 0; j < result.rows.length; j++) {
-                  count = 0;
-                  folder_id = result.rows.item(j).id;
-                  transaction.executeSql(selectProfileSystems, [folder_id], function (transaction, result) {
-                    if (result.rows.length) {
-                      resultObj = {folder: result.rows.item(0).folder_name, profiles: [], rama: []};
-                      for (i = 0; i < result.rows.length; i++) {
-                        resultObj.profiles.push({
-                          id: result.rows.item(i).id,
-                          name: result.rows.item(i).name,
-                          short_name: result.rows.item(i).short_name,
-                          country: result.rows.item(i).country,
-                          rama_id: result.rows.item(i).rama_list_id,
-                          rama_still_id: result.rows.item(i).rama_still_list_id,
-                          sash_id: result.rows.item(i).stvorka_list_id,
-                          impost_id: result.rows.item(i).impost_list_id,
-                          shtulp_id: result.rows.item(i).shtulp_list_id
-                        });
-                      }
-                      AllProfileSystems.push(resultObj);
-                      if (allFolders === count) {
-                        deferred.resolve(AllProfileSystems);
-                      }
-                      count++;
-                    } else {
-                      deferred.reject('No ProfileSystems in database!');
-                    }
-                  }, function () {
-                    deferred.reject('Something went wrong with selection profile_systems record');
-                  });
-                }
-              });
+              for (i = 0; i < result.rows.length; i++) {
+                AllWindowHardwares.push({
+                  id: result.rows.item(i).id,
+                  name: result.rows.item(i).name + "",
+                  shortName: result.rows.item(i).shortName + ""
+                });
+              }
+              callback(new OkResult(AllWindowHardwares));
             } else {
-              deferred.reject('Something went wrong with selection profile_systems record');
+              callback(new ErrorResult(1, 'No window_hardware in database!'));
             }
           }, function () {
-            deferred.reject('Something went wrong with selection profile_systems record');
+            callback(new ErrorResult(2, 'Something went wrong with selection window_hardware_groups record'));
           });
         });
-        return deferred.promise;
-      },
-
-
-
-      getAllProfileSizes: function (elementId) {
-        var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), resultObj = {};
-        var deferred = $q.defer();
-        db.transaction(function (transaction) {
-          transaction.executeSql(selectSectionSize, [elementId], function (transaction, result) {
-            if (result.rows.length) {
-              resultObj = {
-                id: result.rows.item(0).id,
-                a: result.rows.item(0).a,
-                b: result.rows.item(0).b,
-                c: result.rows.item(0).c,
-                d: result.rows.item(0).d
-              };
-              deferred.resolve(resultObj);
-            } else {
-              resultObj = {};
-              deferred.resolve(resultObj);
-            }
-
-          }, function () {
-            deferred.reject('Something went wrong with selection profile_systems record');
-          });
-        });
-        return deferred.promise;
       },
 
 
@@ -207,7 +150,7 @@
       },
 
 
-      getDefaultConstructTemplate: function(callback) {
+      getTemplatesWindow: function(callback) {
         callback(new OkResult({
           windows: [
 
@@ -2251,7 +2194,15 @@
               ]
             }
 
-          ],
+          ]
+
+        }));
+      },
+
+
+      getTemplatesWindowDoor: function(callback) {
+        callback(new OkResult({
+
           windowDoor: [
             {
               'name':'Выход на балкон',
@@ -2407,7 +2358,15 @@
                 {'type': 'square', id: 'sqr', widths: ['dimH1', 'dimH2'], heights: ['dimV1', 'overallDimV']}
               ]
             }
-          ],
+          ]
+
+        }));
+      },
+
+
+
+      getTemplatesBalcony: function(callback) {
+        callback(new OkResult({
 
           balconies: [
             {
@@ -2601,7 +2560,14 @@
               ]
             }
 
-          ],
+          ]
+
+        }));
+      },
+
+
+      getTemplatesDoor: function(callback) {
+        callback(new OkResult({
 
           doors: [
             {
@@ -2704,111 +2670,13 @@
               ]
             }
           ]
+
         }));
       },
 
 
-      getAllWindowHardwares: function (callback) {
-        var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, AllWindowHardwares = [];
-        db.transaction(function (transaction) {
-          transaction.executeSql(selectWindowHardware, [], function (transaction, result) {
-            if (result.rows.length) {
-              for (i = 0; i < result.rows.length; i++) {
-                AllWindowHardwares.push({
-                  id: result.rows.item(i).id,
-                  name: result.rows.item(i).name + "",
-                  shortName: result.rows.item(i).shortName + ""
-                });
-              }
-              callback(new OkResult(AllWindowHardwares));
-            } else {
-              callback(new ErrorResult(1, 'No window_hardware in database!'));
-            }
-          }, function () {
-            callback(new ErrorResult(2, 'Something went wrong with selection window_hardware_groups record'));
-          });
-        });
-      },
 
 
-      getProfileSystem: function (callback) {
-        callback(new OkResult({
-          id: 7,
-          name: 'WDS 400',
-          heatCoeff: 5,
-          airCoeff: 10
-        }));
-      },
-
-
-      getAllProfiles: function (callback) {
-        callback(new OkResult({
-          producers: [
-            'WDS',
-            'Другие...'
-          ],
-          profiles: [
-            [
-              {
-                profileId: 51,
-                profileType: '4 камеры',
-                profileDescrip: 'WDS 400',
-                profileCountry: 'Украина',
-                profileNoise: 4,
-                heatCoeff: 3,
-                airCoeff: 10
-              },
-              {
-                profileId: 52,
-                profileType: '4 камеры',
-                profileDescrip: 'WDS 404',
-                profileCountry: 'Украина',
-                profileNoise: 4,
-                heatCoeff: 4,
-                airCoeff: 11
-              },
-              {
-                profileId: 53,
-                profileType: '5 камер',
-                profileDescrip: 'WDS 505',
-                profileCountry: 'Украина',
-                profileNoise: 5,
-                heatCoeff: 5,
-                airCoeff: 9
-              },
-              {
-                profileId: 54,
-                profileType: '4 камеры',
-                profileDescrip: 'ОКОШКО S60',
-                profileCountry: 'Украина',
-                profileNoise: 4,
-                heatCoeff: 2,
-                airCoeff: 8
-              }
-            ]/*,
-            [
-              {
-                profileId: 55,
-                profileType: '3 камеры',
-                profileDescrip: 'REHAU 60',
-                profileCountry: 'Germany',
-                profileNoise: 3,
-                heatCoeff: 2,
-                airCoeff: 8
-              },
-              {
-                profileId: 56,
-                profileType: '5 камер',
-                profileDescrip: 'REHAU 70',
-                profileCountry: 'Germany',
-                profileNoise: 5,
-                heatCoeff: 3,
-                airCoeff: 10
-              }
-            ]*/
-          ]
-        }));
-      },
 
 
 

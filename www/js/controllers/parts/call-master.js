@@ -10,7 +10,7 @@
     .module('CartModule')
     .controller('CallMasterCtrl', callMasterCtrl);
 
-  function callMasterCtrl($scope, $location, globalConstants, constructService, localStorage, localDB, CartStor, CartServ, analyticsServ) {
+  function callMasterCtrl($scope, $location, globalConstants, optionsServ, localStorage, localDB, CartStor, CartServ, analyticsServ) {
 
     $scope.orderStyle = 'master';
     $scope.global = localStorage.storage;
@@ -24,7 +24,7 @@
     $scope.filteredCity = [];
     var regex, checkCity, indexCity, cityObj;
 
-    constructService.getLocations(function (results) {
+    optionsServ.getLocations(function (results) {
       if (results.status) {
         $scope.cities = results.data.locations;
       } else {

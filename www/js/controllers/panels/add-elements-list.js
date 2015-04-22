@@ -10,7 +10,7 @@
     .module('MainModule')
     .controller('AddElementsListCtrl', addElementsListCtrl);
 
-  function addElementsListCtrl($scope, $filter, globalConstants, constructService, localStorage) {
+  function addElementsListCtrl($scope, $filter, globalConstants, localStorage) {
 
     $scope.global = localStorage.storage;
 

@@ -1,14 +1,14 @@
 .config-panel.profile-container(ng-controller="ProfileCtrl", ng-class="{'active': global.showPanels.showProfilePanel}")
   .panel-inner(ng-if="global.isProfilePanel")
-    .profile-block.clearfix(ng-repeat="producer in profilePanel.profiles", ng-class="{'selected': global.product.profileTypeIndex == $index}")
+    .profile-block.clearfix(ng-repeat="producer in global.profiles", ng-class="{'selected': global.product.profileTypeIndex == $index}")
       .group-block-header
-        .title(data-output="{{ profilePanel.producers[$index] }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START }}")
+        .title(data-output="{{ global.profilesType[$index] }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START }}")
         .group-info
           .info
       .box.profile-box.unvisible(ng-repeat="profile in producer", ng-class="{'selected': global.product.profileIndex == $index && global.product.profileTypeIndex == $parent.$index}", hm-tap="selectProfile($parent.$index, $index, profile.profileId)", show-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_BLOCK * $index) }}")
         .profile-box-top
-          .type {{ profile.profileType }}
-          .profile-descr(data-output="{{ profile.name }} {{ profile.profileDescrip }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}")
+          .type {{ profile.profileDescrip }}
+          .profile-descr(data-output="{{ profile.name }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}")
           .profile-country(data-output="{{ profile.country }} {{ profile.profileCountry }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}")
           .label(data-output="{{ 'panels.COUNTRY' | translate }}", typing="{{ profilePanel.typing }}", typing-delay="{{ profilePanel.DELAY_START + (profilePanel.DELAY_TYPING * $index) }}")
         .profile-box-bottom

@@ -7,7 +7,7 @@
     .module('MainModule')
     .controller('AddElementsCtrl', addElementsCtrl);
 
-  function addElementsCtrl($scope, $timeout, globalConstants, globalDB, constructService, localStorage) {
+  function addElementsCtrl($scope, $timeout, globalConstants, globalDB, optionsServ, localStorage) {
     var activeClass = 'active';
 
     $scope.global = localStorage.storage;
@@ -72,7 +72,7 @@
             }
           });
   */
-          constructService.getAllGrids(function (results) {
+          optionsServ.getAllGrids(function (results) {
             if (results.status) {
               $scope.global.addElementsType = results.data.elementType;
               $scope.global.addElementsList = results.data.elementsList;
@@ -92,7 +92,7 @@
             }
           });
   */
-          constructService.getAllVisors(function (results) {
+          optionsServ.getAllVisors(function (results) {
             if (results.status) {
               $scope.global.addElementsType = results.data.elementType;
               $scope.global.addElementsList = results.data.elementsList;
@@ -112,7 +112,7 @@
             }
           });
   */
-          constructService.getAllSpillways(function (results) {
+          optionsServ.getAllSpillways(function (results) {
             if (results.status) {
               $scope.global.addElementsType = results.data.elementType;
               $scope.global.addElementsList = results.data.elementsList;
@@ -123,7 +123,7 @@
           break;
         case 4:
           $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[3];
-          constructService.getAllOutsideSlope(function (results) {
+          optionsServ.getAllOutsideSlope(function (results) {
             if (results.status) {
               $scope.global.addElementsType = results.data.elementType;
               $scope.global.addElementsList = results.data.elementsList;
@@ -134,7 +134,7 @@
           break;
         case 5:
           $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[4];
-          constructService.getAllLouvers(function (results) {
+          optionsServ.getAllLouvers(function (results) {
             if (results.status) {
               $scope.global.addElementsType = results.data.elementType;
               $scope.global.addElementsList = results.data.elementsList;
@@ -145,7 +145,7 @@
           break;
         case 6:
           $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[5];
-          constructService.getAllInsideSlope(function (results) {
+          optionsServ.getAllInsideSlope(function (results) {
             if (results.status) {
               $scope.global.addElementsType = results.data.elementType;
               $scope.global.addElementsList = results.data.elementsList;
@@ -156,7 +156,7 @@
           break;
         case 7:
           $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[6];
-          constructService.getAllConnectors(function (results) {
+          optionsServ.getAllConnectors(function (results) {
             if (results.status) {
               $scope.global.addElementsType = results.data.elementType;
               $scope.global.addElementsList = results.data.elementsList;
@@ -167,7 +167,7 @@
           break;
         case 8:
           $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[7];
-          constructService.getAllFans(function (results) {
+          optionsServ.getAllFans(function (results) {
             if (results.status) {
               $scope.global.addElementsType = results.data.elementType;
               $scope.global.addElementsList = results.data.elementsList;
@@ -187,7 +187,7 @@
             }
           });
   */
-          constructService.getAllWindowSills(function (results) {
+          optionsServ.getAllWindowSills(function (results) {
             if (results.status) {
               $scope.global.addElementsType = results.data.elementType;
               $scope.global.addElementsList = results.data.elementsList;
@@ -198,7 +198,7 @@
           break;
         case 10:
           $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[9];
-          constructService.getAllHandles(function (results) {
+          optionsServ.getAllHandles(function (results) {
             if (results.status) {
               $scope.global.addElementsType = results.data.elementType;
               $scope.global.addElementsList = results.data.elementsList;
@@ -209,7 +209,7 @@
           break;
         case 11:
           $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[10];
-          constructService.getAllOthers(function (results) {
+          optionsServ.getAllOthers(function (results) {
             if (results.status) {
               $scope.global.addElementsType = results.data.elementType;
               $scope.global.addElementsList = results.data.elementsList;
@@ -247,7 +247,7 @@
             break;
           case 4:
             $scope.global.isColorSelector = false;
-            constructService.getLaminationAddElements(function (results) {
+            optionsServ.getLaminationAddElements(function (results) {
               if (results.status) {
                 $scope.global.addElementLaminatWhiteMatt = results.data.laminationWhiteMatt;
                 $scope.global.addElementLaminatWhiteGlossy = results.data.laminationWhiteGlossy;

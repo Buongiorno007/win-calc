@@ -36,92 +36,97 @@
 
     //------- collecting cities, regions and countries in one object for registration form
     function prepareLocationToUse() {
+      //console.log('start:', new Date().getMilliseconds());
       var deferred = $q.defer(),
-        generalLocations = {
-          countries: [],
-          regions: [],
-          cities: [],
-          mergerLocation: []
-        };
+          generalLocations = {
+            countries: [],
+            regions: [],
+            cities: [],
+            mergerLocation: []
+          },
+          countryQty, regionQty, cityQty;
+
 
       //---- get all counties
-      globalDB.selectAllDBGlobal(globalDB.countriesTableDBGlobal, function (results) {
-        if (results.status) {
-          var countryQty = results.data.length;
-
-          for(var stat = 0; stat < countryQty; stat++) {
+      globalDB.selectAllDBGlobal(globalDB.countriesTableDBGlobal).then(function(results) {
+        if(results) {
+          countryQty = results.length;
+          for (var stat = 0; stat < countryQty; stat++) {
             var tempCountry = {
-              id: results.data[stat].id,
-              name: results.data[stat].name,
-              currency: results.data[stat].currency_id
+              id: results[stat].id,
+              name: results[stat].name,
+              currency: results[stat].currency_id
             };
             generalLocations.countries.push(tempCountry);
           }
+        } else {
+          console.log('Error!!!', results);
+        }
+      }).then(function(){
 
-          //--------- get all regions
-          globalDB.selectAllDBGlobal(globalDB.regionsTableDBGlobal, function (results) {
-            if (results.status) {
-              var regionQty = results.data.length;
+        //--------- get all regions
+        globalDB.selectAllDBGlobal(globalDB.regionsTableDBGlobal).then(function(results) {
+          if(results) {
+            regionQty = results.length;
+            for (var reg = 0; reg < regionQty; reg++) {
+              var tempRegion = {
+                id: results[reg].id,
+                countryId: results[reg].country_id,
+                name: results[reg].name,
+                climaticZone: results[reg].climatic_zone,
+                heatTransfer: results[reg].heat_transfer
+              };
+              generalLocations.regions.push(tempRegion);
+            }
+          } else {
+            console.log('Error!!!', results);
+          }
 
-              for(var reg = 0; reg < regionQty; reg++) {
-                var tempRegion = {
-                  id: results.data[reg].id,
-                  countryId: results.data[reg].country_id,
-                  name: results.data[reg].name,
-                  climaticZone: results.data[reg].climatic_zone,
-                  heatTransfer: results.data[reg].heat_transfer
+        }).then(function() {
+
+          //--------- get all cities
+          globalDB.selectAllDBGlobal(globalDB.citiesTableDBGlobal).then(function(results) {
+            if(results) {
+              cityQty = results.length;
+              for(var cit = 0; cit < cityQty; cit++) {
+                var tempCity = {
+                  id: results[cit].id,
+                  regionId: results[cit].region_id,
+                  name: results[cit].name
                 };
-                generalLocations.regions.push(tempRegion);
-              }
+                generalLocations.cities.push(tempCity);
 
-              //--------- get all cities
-              globalDB.selectAllDBGlobal(globalDB.citiesTableDBGlobal, function (results) {
-                if (results.status) {
-                  var cityQty = results.data.length;
-
-                  for(var cit = 0; cit < cityQty; cit++) {
-                    var tempCity = {
-                      id: results.data[cit].id,
-                      regionId: results.data[cit].region_id,
-                      name: results.data[cit].name
-                    };
-                    generalLocations.cities.push(tempCity);
-
-                    var location = {
-                      cityId: results.data[cit].id,
-                      cityName: results.data[cit].name
-                    };
-                    for(var r = 0; r < regionQty; r++) {
-                      if(results.data[cit].region_id === generalLocations.regions[r].id) {
-                        location.regionName = generalLocations.regions[r].name;
-                        location.climaticZone = generalLocations.regions[r].climaticZone;
-                        location.heatTransfer = generalLocations.regions[r].heatTransfer;
-                        for(var s = 0; s < countryQty; s++) {
-                          if(generalLocations.regions[r].countryId === generalLocations.countries[s].id) {
-                            location.countryName = generalLocations.countries[s].name;
-                            location.currencyId = generalLocations.countries[s].currency;
-                            location.fullLocation = '' + location.cityName + ', ' + location.regionName + ', ' + location.countryName;
-                            generalLocations.mergerLocation.push(location);
-                          }
-                        }
+                var location = {
+                  cityId: results[cit].id,
+                  cityName: results[cit].name
+                };
+                for(var r = 0; r < regionQty; r++) {
+                  if(results[cit].region_id === generalLocations.regions[r].id) {
+                    location.regionName = generalLocations.regions[r].name;
+                    location.climaticZone = generalLocations.regions[r].climaticZone;
+                    location.heatTransfer = generalLocations.regions[r].heatTransfer;
+                    for(var s = 0; s < countryQty; s++) {
+                      if(generalLocations.regions[r].countryId === generalLocations.countries[s].id) {
+                        location.countryName = generalLocations.countries[s].name;
+                        location.currencyId = generalLocations.countries[s].currency;
+                        location.fullLocation = '' + location.cityName + ', ' + location.regionName + ', ' + location.countryName;
+                        generalLocations.mergerLocation.push(location);
                       }
                     }
-
                   }
-
-                  deferred.resolve(generalLocations);
-                  //console.log('generalLocations ==== ', generalLocations);
-                } else {
-                  deferred.reject(results);
                 }
-              });
+
+              }
+
+              deferred.resolve(generalLocations);
+              //console.log('finish:', new Date().getMilliseconds());
+              //console.log('generalLocations ==== ', generalLocations);
             } else {
-              console.log(results);
+              deferred.reject(results);
             }
           });
-        } else {
-          console.log(results);
-        }
+
+        });
       });
       return deferred.promise;
     }

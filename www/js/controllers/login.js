@@ -74,14 +74,14 @@
       thisCtrl.submitted = true;
       if (form.$valid) {
         //---- checking user in GlobalDB
-        globalDB.selectDBGlobal(globalDB.usersTableDBGlobal, {'phone': thisCtrl.user.phone}, function (results) {
+        globalDB.selectDBGlobal(globalDB.usersTableDBGlobal, {'phone': thisCtrl.user.phone}).then(function(results) {
           //---- user exists
-          if (results.status) {
+          if(results) {
             //---------- check user password
             var newUserPassword = globalDB.md5(thisCtrl.user.password);
 
-            if(newUserPassword === results.data[0].password) {
-              angular.extend(UserStor.userInfo, results.data[0]);
+            if(newUserPassword === results[0].password) {
+              angular.extend(UserStor.userInfo, results[0]);
               //----- checking user activation
               globalDB.ifUserExist(thisCtrl.user.phone, function(result){
                 console.log(result);
@@ -96,14 +96,14 @@
                     loginServ.setUserLocation(thisCtrl.generalLocations.mergerLocation, UserStor.userInfo.city_id);
 
                     //------- checking if GlobalDB matches to user FactoryId
-                    globalDB.selectAllDBGlobal(globalDB.deviceTableDBGlobal, function (result) {
-                      if (result.status) {
-                        var currFactoryId = result.data[0].device_code;
+                    globalDB.selectAllDBGlobal(globalDB.deviceTableDBGlobal).then(function(result) {
+                      if(result) {
+                        var currFactoryId = result[0].device_code;
 
                         if(currFactoryId == UserStor.userInfo.factory_id) {
                           //------- current FactoryId matches to user FactoryId, go to main page without importDB
                           //$cordovaProgress.showSimple(true);
-                          globalDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code, function(result){}).then(function(result) {
+                          globalDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code, function(result){}).then(function() {
                             //$cordovaProgress.hide();
                             $location.path('/main');
                           });

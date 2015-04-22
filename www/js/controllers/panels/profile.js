@@ -10,9 +10,9 @@
     .module('MainModule')
     .controller('ProfileCtrl', profileSelectorCtrl);
 
-  function profileSelectorCtrl($scope, globalConstants, constructService, localStorage, UserStor, analyticsServ) {
+  function profileSelectorCtrl($scope, globalConstants, GlobalStor, UserStor, analyticsServ) {
 
-    $scope.global = localStorage.storage;
+    $scope.global = GlobalStor.global;
 
     $scope.profilePanel = {
       DELAY_START: 5 * globalConstants.STEP,
@@ -21,15 +21,6 @@
       typing: 'on'
     };
 
-  //TODO убрать, и взять данные из global.profiles
-    constructService.getAllProfiles(function (results) {
-      if (results.status) {
-        $scope.profilePanel.producers = results.data.producers;
-        $scope.profilePanel.profiles = results.data.profiles;
-      } else {
-        console.log(results);
-      }
-    });
 
     // Select profile
     $scope.selectProfile = function(producerIndex, profileIndex, profileId) {

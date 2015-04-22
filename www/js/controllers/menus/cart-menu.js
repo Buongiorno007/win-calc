@@ -10,7 +10,7 @@
     .module('CartModule')
     .controller('CartMenuCtrl', cartMenuCtrl);
 
-  function cartMenuCtrl($scope, globalConstants, constructService, localStorage, CartStor) {
+  function cartMenuCtrl($scope, globalConstants, optionsServ, localStorage, CartStor) {
 
     $scope.global = localStorage.storage;
     $scope.cartStor = CartStor;

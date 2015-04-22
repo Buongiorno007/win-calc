@@ -35,12 +35,13 @@
       ],
 
       globalSource: {
-        currency: '',
 
-        isConstructWind: true,
-        isConstructWindDoor: false,
-        isConstructBalcony: false,
-        isConstructDoor: false,
+        constructionType: 'windows',
+
+//        isConstructWind: true,
+//        isConstructWindDoor: false,
+//        isConstructBalcony: false,
+//        isConstructDoor: false,
         //---- чтобы не создавался черновик при запуске проги
         startProgramm: true,
         isCreatedNewProject: true,
@@ -56,46 +57,53 @@
 
 
         //------- Templates
-        templatesWindSTORE: [],
-        templatesWindDoorSTORE: [],
-        templatesBalconySTORE: [],
-        templatesDoorSTORE: [],
-        templatesWindListSTORE: [],
-        templatesWindIconListSTORE: [],
-        templatesWindDoorListSTORE: [],
-        templatesWindDoorIconListSTORE: [],
-        templatesBalconyListSTORE: [],
-        templatesBalconyIconListSTORE: [],
-        templatesDoorListSTORE: [],
-        templatesDoorIconListSTORE: [],
 
-        templatesWindSource: [],
-        templatesWindDoorSource: [],
-        templatesBalconySource: [],
-        templatesDoorSource: [],
-        templatesWindList: [],
-        templatesWindDoorList: [],
-        templatesBalconyList: [],
-        templatesDoorList: [],
-        templatesWindIconList: [],
-        templatesWindDoorIconList: [],
-        templatesBalconyIconList: [],
-        templatesDoorIconList: [],
+
+//        templatesWindSTORE: [],
+//        templatesWindDoorSTORE: [],
+//        templatesBalconySTORE: [],
+//        templatesDoorSTORE: [],
+//        templatesWindListSTORE: [],
+//        templatesWindIconListSTORE: [],
+//        templatesWindDoorListSTORE: [],
+//        templatesWindDoorIconListSTORE: [],
+//        templatesBalconyListSTORE: [],
+//        templatesBalconyIconListSTORE: [],
+//        templatesDoorListSTORE: [],
+//        templatesDoorIconListSTORE: [],
+//
+//        templatesWindSource: [],
+//        templatesWindDoorSource: [],
+//        templatesBalconySource: [],
+//        templatesDoorSource: [],
+//        templatesWindList: [],
+//        templatesWindDoorList: [],
+//        templatesBalconyList: [],
+//        templatesDoorList: [],
+//        templatesWindIconList: [],
+//        templatesWindDoorIconList: [],
+//        templatesBalconyIconList: [],
+//        templatesDoorIconList: [],
+
         templateDepths: {},
-
+        templateLabel: '',
         templatesSource: [],
         templates: [],
-        templatesIcons: [],
-        templateLabel: '',
+        templatesIcon: [],
+        templatesSourceSTORE: [],
+        templatesSTORE: [],
+        templatesIconSTORE: [],
+
+
 
         //------ Profiles
         profiles: [],
         profilesType: [],
-        allProfileFrameSizes: [],
-        allProfileFrameStillSizes: [],
-        allProfileSashSizes: [],
-        allProfileImpostSizes: [],
-        allProfileShtulpSizes: [],
+//        allProfileFrameSizes: [],
+//        allProfileFrameStillSizes: [],
+//        allProfileSashSizes: [],
+//        allProfileImpostSizes: [],
+//        allProfileShtulpSizes: [],
 
         //------- Glasses
         glasses: [],
