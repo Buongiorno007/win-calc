@@ -62,10 +62,10 @@
             "type": "INTEGER",
             "null": "NOT NULL"
           },
-          "beadId": {
-            "type": "INTEGER",
-            "null": "NOT NULL"
-          },
+//          "beadId": {
+//            "type": "INTEGER",
+//            "null": "NOT NULL"
+//          },
           "profileTypeIndex": {
             "type": "INTEGER",
             "null": "NOT NULL"

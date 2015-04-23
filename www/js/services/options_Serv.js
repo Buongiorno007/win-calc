@@ -13,7 +13,13 @@
   function optionFactory($q) {
 
     // SQL requests for select data from tables
-    var selectWindowHardware = "SELECT id, name, short_name as shortName FROM window_hardware_groups WHERE is_in_calculation = 1";
+    var selectWindowHardware = "SELECT id, name, short_name as shortName FROM window_hardware_groups WHERE is_in_calculation = 1",
+        selectProfileSystemFolders = "SELECT id, name FROM profile_system_folders order by position",
+        selectProfileSystems = "SELECT profile_systems.id, profile_systems.profile_system_folder_id, profile_systems.name, profile_systems.short_name, "+
+          "countries.name as country, rama_list_id, lists.a as rama_a, lists.b as rama_b, lists.c as rama_c, lists.d as rama_d, rama_still_list_id, stvorka_list_id, impost_list_id, shtulp_list_id FROM profile_systems "+
+          "LEFT JOIN profile_system_folders ON profile_systems.profile_system_folder_id = profile_system_folders.id "+
+          "LEFT JOIN countries ON profile_systems.country = countries.id "+
+          "LEFT JOIN lists ON lists.id = profile_systems.rama_list_id WHERE profile_system_folder_id = ? order by profile_systems.id";
 
     return {
 
@@ -55,6 +61,92 @@
         }));
       },
 
+
+
+      getAllProfileSystems: function () {
+        var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536),
+            AllProfileSystems = [], allFolders, count, folder_id, resultObj = [], j, i;
+
+        var deferred = $q.defer();
+        db.transaction(function (transaction) {
+          transaction.executeSql(selectProfileSystemFolders, [], function (transaction, result) {
+            if (result.rows.length) {
+
+              allFolders = result.rows.length - 1;
+              db.transaction(function (transaction) {
+                for (j = 0; j < result.rows.length; j++) {
+                  count = 0;
+                  folder_id = result.rows.item(j).id;
+                  transaction.executeSql(selectProfileSystems, [folder_id], function (transaction, result) {
+                    if (result.rows.length) {
+                      //resultObj = [];
+                      for (i = 0; i < result.rows.length; i++) {
+                        resultObj.push({
+                          id: result.rows.item(i).id,
+                          name: result.rows.item(i).name,
+                          shortName: result.rows.item(i).short_name,
+                          folder: result.rows.item(i).profile_system_folder_id,
+                          country: result.rows.item(i).country,
+                          frameId: result.rows.item(i).rama_list_id,
+                          frameStillId: result.rows.item(i).rama_still_list_id,
+                          sashId: result.rows.item(i).stvorka_list_id,
+                          impostId: result.rows.item(i).impost_list_id,
+                          shtulpId: result.rows.item(i).shtulp_list_id,
+                          frameSizes: {
+                            a: result.rows.item(i).rama_a,
+                            b: result.rows.item(i).rama_b,
+                            c: result.rows.item(i).rama_c,
+                            d: result.rows.item(i).rama_d
+                          }
+                        });
+
+                      }
+
+                      AllProfileSystems.push(resultObj);
+                      console.log('%%%% resultObj %%%%%', resultObj);
+
+                      db.transaction(function (transaction) {
+                        var profileQty = resultObj.length;
+                        for (var s = 0; s < profileQty; s++) {
+                          transaction.executeSql('SELECT a, b, c, d FROM lists WHERE id = ?', [resultObj[s].frameStillId], function (transaction, result) {
+                            if (result.rows.length) {
+                              console.log('########', profileQty[s]);
+                              profileQty[s].frameStillSizes = {
+                                a: result.rows.item(0).a,
+                                b: result.rows.item(0).b,
+                                c: result.rows.item(0).c,
+                                d: result.rows.item(0).d
+                              };
+                            }
+                          });
+
+
+                        }
+                      });
+
+
+
+                      if (allFolders === count) {
+                        deferred.resolve(AllProfileSystems);
+                      }
+                      count++;
+                    } else {
+                      deferred.reject('No ProfileSystems in database!');
+                    }
+                  }, function () {
+                    deferred.reject('Something went wrong with selection profile_systems record');
+                  });
+                }
+              });
+            } else {
+              deferred.reject('Something went wrong with selection profile_systems record');
+            }
+          }, function () {
+            deferred.reject('Something went wrong with selection profile_systems record');
+          });
+        });
+        return deferred.promise;
+      },
 
 
 

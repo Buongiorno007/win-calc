@@ -20,11 +20,10 @@
 
         templateIndex: 0,
         templateSource: {},
-        templateDefault: {},
+        template: {},
         templateIcon: {},
         templateWidth: 0,
         templateHeight: 0,
-        beadId: 0,
 
         profileTypeIndex: 0,
         profileIndex: 0,

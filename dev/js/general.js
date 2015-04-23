@@ -511,7 +511,8 @@ var Template = function (sourceObj, depths) {
   this.name = sourceObj.name;
   this.objects = [];
   this.dimentions = createDimentions(sourceObj);
-
+  console.log('depth+++++', depths.frameDepth);
+console.log('depth+++++', depths.frameDepth.c);
   var tmpObject,
       coeffScale = 1;
 

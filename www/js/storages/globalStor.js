@@ -123,20 +123,20 @@
 
         orders: [],
 
-        objXFormedPriceSource: {
-          cityId: '',
-          profileId: '',
-          glassId: '',
-          framesSize: [],
-          sashsSize: [],
-          beadsSize: [],
-          impostsSize: [],
-          shtulpsSize: [],
-          sashesBlock: [],
-          glassSizes: [],
-          glassSquares: [],
-          frameSillSize: 0
-        },
+//        objXFormedPriceSource: {
+//          cityId: '',
+//          profileId: '',
+//          glassId: '',
+//          framesSize: [],
+//          sashsSize: [],
+//          beadsSize: [],
+//          impostsSize: [],
+//          shtulpsSize: [],
+//          sashesBlock: [],
+//          glassSizes: [],
+//          glassSquares: [],
+//          frameSillSize: 0
+//        },
 
         objXAddElementPriceSource: {
           cityId: 0,

@@ -75,6 +75,7 @@
       citiesTableDBGlobal: 'cities',
       regionsTableDBGlobal: 'regions',
       countriesTableDBGlobal: 'countries',
+      currenciesTableDBGlobal: 'currencies',
       listsTableDBGlobal: 'lists',
       elementsTableDBGlobal: 'elements',
       beadsTableDBGlobal: 'beed_profile_systems',

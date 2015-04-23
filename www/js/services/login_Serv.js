@@ -17,7 +17,8 @@
     thisFactory.publicObj = {
       checkLangDictionary: checkLangDictionary,
       prepareLocationToUse: prepareLocationToUse,
-      setUserLocation: setUserLocation
+      setUserLocation: setUserLocation,
+      setUserGeoLocation: setUserGeoLocation
     };
 
     return thisFactory.publicObj;
@@ -135,7 +136,7 @@
     }
 
 
-    //--------- set current location for user
+    //--------- set user location
     function setUserLocation(locations, cityId) {
       var locationQty = locations.length;
       for(var loc = 0; loc < locationQty; loc++) {
@@ -145,19 +146,46 @@
           UserStor.userInfo.climaticZone = locations[loc].climaticZone;
           UserStor.userInfo.heatTransfer = locations[loc].heatTransfer;
           UserStor.userInfo.countryName = locations[loc].countryName;
-          UserStor.userInfo.currencyId = locations[loc].currencyId;
           UserStor.userInfo.fullLocation = locations[loc].fullLocation;
 
           //------ set current GeoLocation
-          UserStor.userInfo.currCityId = cityId;
-          UserStor.userInfo.currCityName = locations[loc].cityName;
-          UserStor.userInfo.currRegionName = locations[loc].regionName;
-          UserStor.userInfo.currCountryName = locations[loc].countryName;
-          UserStor.userInfo.currClimaticZone = locations[loc].climaticZone;
-          UserStor.userInfo.currHeatTransfer = locations[loc].heatTransfer;
-          UserStor.userInfo.currFullLocation = locations[loc].fullLocation;
+          setUserGeoLocation(cityId, locations[loc].cityName, locations[loc].regionName, locations[loc].countryName, locations[loc].climaticZone, locations[loc].heatTransfer, locations[loc].fullLocation, locations[loc].currencyId);
         }
       }
+    }
+
+    //--------- set current user geolocation
+    function setUserGeoLocation(cityId, cityName, regionName, countryName, climatic, heat, fullLocation, currencyId) {
+      UserStor.userInfo.currCityId = cityId;
+      UserStor.userInfo.currCityName = cityName;
+      UserStor.userInfo.currRegionName = regionName;
+      UserStor.userInfo.currCountryName = countryName;
+      UserStor.userInfo.currClimaticZone = climatic;
+      UserStor.userInfo.currHeatTransfer = heat;
+      UserStor.userInfo.currFullLocation = fullLocation;
+      UserStor.userInfo.currencyId = currencyId;
+
+      //--------- set currency symbol
+      setCurrency();
+    }
+
+    function setCurrency() {
+      globalDB.selectDBGlobal(globalDB.currenciesTableDBGlobal, {'id': UserStor.userInfo.currencyId}).then(function(result) {
+        if(result) {
+          switch(result[0].name) {
+            case 'uah': UserStor.userInfo.currency = '₴';
+              break;
+            case 'rub': UserStor.userInfo.currency = '₽';
+              break;
+            case 'usd': UserStor.userInfo.currency = '$';
+              break;
+            case 'eur': UserStor.userInfo.currency = '€';
+              break;
+            default: UserStor.userInfo.currency = '₴';
+              break;
+          }
+        }
+      });
     }
 
   }

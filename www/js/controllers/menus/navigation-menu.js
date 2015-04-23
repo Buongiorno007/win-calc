@@ -106,6 +106,10 @@ console.log('START NAV MENU!!!!!!');
             //$scope.global.prevGeoLocation = angular.copy($scope.global.currentGeoLocation);
 
             var deviceLocation = data.results[0].formatted_address.split(', ');
+            //TODO set new currencyID!!!!
+            //TODO before need to fine currencyId!!!!
+            //TODO loginServ.setUserGeoLocation(cityId, cityName, regionName, countryName, climatic, heat, fullLocation, currencyId)
+
             UserStor.userInfo.currCityId = 156; //TODO должны тянуть с базы согласно новому городу, но город гугл дает на украинском языке, в базе на русском
             UserStor.userInfo.currCityName = deviceLocation[deviceLocation.length-3];
             UserStor.userInfo.currRegionName = deviceLocation[deviceLocation.length-2];
@@ -113,6 +117,8 @@ console.log('START NAV MENU!!!!!!');
             UserStor.userInfo.currClimaticZone = 7; //TODO
             UserStor.userInfo.currHeatTransfer = 0.99; //TODO
             UserStor.userInfo.currFullLocation = deviceLocation[deviceLocation.length-3] + ', ' + deviceLocation[deviceLocation.length-2] + ', ' + deviceLocation[deviceLocation.length-1];
+
+
 
             //console.log(data.results[0]);
           }).
@@ -302,7 +308,6 @@ console.log('START NAV MENU!!!!!!');
       localDB.deleteDB(localDB.addElementsTableBD, {'orderId': orderNum});
     };
 
-    console.log('$scope.global.isOpenedHistoryPage!!!!!!!!!!!', $scope.global.isOpenedHistoryPage);
 
   }
 })();

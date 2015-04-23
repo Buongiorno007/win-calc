@@ -116,57 +116,57 @@
 
 
 
-    $scope.global.parseTemplate = function(profileIndex, profileId) {
-      // парсинг шаблона, расчет размеров
-      $scope.global.templateDepths = {
-        frameDepth: $scope.global.allProfileFrameSizes[profileIndex],
-        sashDepth: $scope.global.allProfileSashSizes[profileIndex],
-        impostDepth: $scope.global.allProfileImpostSizes[profileIndex],
-        shtulpDepth: $scope.global.allProfileShtulpSizes[profileIndex]
-      };
-
-      for(var tem = 0; tem < $scope.global.templatesWindSource.length; tem++) {
-        $scope.global.templatesWindList.push( new Template($scope.global.templatesWindSource[tem], $scope.global.templateDepths) );
-        $scope.global.templatesWindIconList.push( new TemplateIcon($scope.global.templatesWindSource[tem], $scope.global.templateDepths) );
-      }
-      for(var tem = 0; tem < $scope.global.templatesWindDoorSource.length; tem++) {
-        $scope.global.templatesWindDoorList.push( new Template($scope.global.templatesWindDoorSource[tem], $scope.global.templateDepths) );
-        $scope.global.templatesWindDoorIconList.push( new TemplateIcon($scope.global.templatesWindDoorSource[tem], $scope.global.templateDepths) );
-      }
-      for(var tem = 0; tem < $scope.global.templatesBalconySource.length; tem++) {
-        $scope.global.templatesBalconyList.push( new Template($scope.global.templatesBalconySource[tem], $scope.global.templateDepths) );
-        $scope.global.templatesBalconyIconList.push( new TemplateIcon($scope.global.templatesBalconySource[tem], $scope.global.templateDepths) );
-      }
-      for(var tem = 0; tem < $scope.global.templatesDoorSource.length; tem++) {
-        $scope.global.templatesDoorList.push( new Template($scope.global.templatesDoorSource[tem], $scope.global.templateDepths) );
-        $scope.global.templatesDoorIconList.push( new TemplateIcon($scope.global.templatesDoorSource[tem], $scope.global.templateDepths) );
-      }
-
-      //-------- Save Template Arrays in Store
-      //----- save first product
-      if($scope.global.startProgramm) {
-
-        //---- window
-        $scope.global.templatesWindListSTORE = angular.copy($scope.global.templatesWindList);
-        $scope.global.templatesWindIconListSTORE = angular.copy($scope.global.templatesWindIconList);
-        //---- window-door
-        $scope.global.templatesWindDoorListSTORE = angular.copy($scope.global.templatesWindDoorList);
-        $scope.global.templatesWindDoorIconListSTORE = angular.copy($scope.global.templatesWindDoorIconList);
-        //---- balcony
-        $scope.global.templatesBalconyListSTORE = angular.copy($scope.global.templatesBalconyList);
-        $scope.global.templatesBalconyIconListSTORE = angular.copy($scope.global.templatesBalconyIconList);
-        //---- door
-        $scope.global.templatesDoorListSTORE = angular.copy($scope.global.templatesDoorList);
-        $scope.global.templatesDoorIconListSTORE = angular.copy($scope.global.templatesDoorIconList);
-
-      }
-
-      //-------- set current templates arrays
-      $scope.global.getCurrentTemplates();
-      //------- set current template for product
-      $scope.global.saveNewTemplateInProduct($scope.global.product.templateIndex);
-      $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, profileIndex, profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
-    };
+//    $scope.global.parseTemplate = function(profileIndex, profileId) {
+//      // парсинг шаблона, расчет размеров
+//      $scope.global.templateDepths = {
+//        frameDepth: $scope.global.allProfileFrameSizes[profileIndex],
+//        sashDepth: $scope.global.allProfileSashSizes[profileIndex],
+//        impostDepth: $scope.global.allProfileImpostSizes[profileIndex],
+//        shtulpDepth: $scope.global.allProfileShtulpSizes[profileIndex]
+//      };
+//
+//      for(var tem = 0; tem < $scope.global.templatesWindSource.length; tem++) {
+//        $scope.global.templatesWindList.push( new Template($scope.global.templatesWindSource[tem], $scope.global.templateDepths) );
+//        $scope.global.templatesWindIconList.push( new TemplateIcon($scope.global.templatesWindSource[tem], $scope.global.templateDepths) );
+//      }
+//      for(var tem = 0; tem < $scope.global.templatesWindDoorSource.length; tem++) {
+//        $scope.global.templatesWindDoorList.push( new Template($scope.global.templatesWindDoorSource[tem], $scope.global.templateDepths) );
+//        $scope.global.templatesWindDoorIconList.push( new TemplateIcon($scope.global.templatesWindDoorSource[tem], $scope.global.templateDepths) );
+//      }
+//      for(var tem = 0; tem < $scope.global.templatesBalconySource.length; tem++) {
+//        $scope.global.templatesBalconyList.push( new Template($scope.global.templatesBalconySource[tem], $scope.global.templateDepths) );
+//        $scope.global.templatesBalconyIconList.push( new TemplateIcon($scope.global.templatesBalconySource[tem], $scope.global.templateDepths) );
+//      }
+//      for(var tem = 0; tem < $scope.global.templatesDoorSource.length; tem++) {
+//        $scope.global.templatesDoorList.push( new Template($scope.global.templatesDoorSource[tem], $scope.global.templateDepths) );
+//        $scope.global.templatesDoorIconList.push( new TemplateIcon($scope.global.templatesDoorSource[tem], $scope.global.templateDepths) );
+//      }
+//
+//      //-------- Save Template Arrays in Store
+//      //----- save first product
+//      if($scope.global.startProgramm) {
+//
+//        //---- window
+//        $scope.global.templatesWindListSTORE = angular.copy($scope.global.templatesWindList);
+//        $scope.global.templatesWindIconListSTORE = angular.copy($scope.global.templatesWindIconList);
+//        //---- window-door
+//        $scope.global.templatesWindDoorListSTORE = angular.copy($scope.global.templatesWindDoorList);
+//        $scope.global.templatesWindDoorIconListSTORE = angular.copy($scope.global.templatesWindDoorIconList);
+//        //---- balcony
+//        $scope.global.templatesBalconyListSTORE = angular.copy($scope.global.templatesBalconyList);
+//        $scope.global.templatesBalconyIconListSTORE = angular.copy($scope.global.templatesBalconyIconList);
+//        //---- door
+//        $scope.global.templatesDoorListSTORE = angular.copy($scope.global.templatesDoorList);
+//        $scope.global.templatesDoorIconListSTORE = angular.copy($scope.global.templatesDoorIconList);
+//
+//      }
+//
+//      //-------- set current templates arrays
+//      $scope.global.getCurrentTemplates();
+//      //------- set current template for product
+//      $scope.global.saveNewTemplateInProduct($scope.global.product.templateIndex);
+//      $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, profileIndex, profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
+//    };
 
 
 //    $scope.global.saveNewTemplateInProduct = function(templateIndex) {
@@ -201,136 +201,136 @@
 //    };
 
     // создание объекта для отправки в базу, чтобы рассчитать цену шаблона
-    $scope.global.createObjXFormedPrice = function(template, profileIndex, profileId, glassId, hardwareId) {
-      //------ define Bead Id for define template price
-      globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'id': glassId }, function (results) {
-        if (results.status) {
-          var parentId = results.data[0].parent_element_id;
-          //------ find glass depth
-          globalDB.selectDBGlobal(globalDB.elementsTableDBGlobal, {'id': parentId }, function (results) {
-            if (results.status) {
-              var glassDepth = results.data[0].glass_width;
-              //------ find bead Id as to glass Depth and profile Id
-              globalDB.selectDBGlobal(globalDB.beadsTableDBGlobal, {'profile_system_id': {"value": profileId, "union": 'AND'}, "glass_width": glassDepth}, function (results) {
-                if (results.status) {
-                  $scope.global.product.beadId = results.data[0].list_id;
-                  //console.log($scope.global.product.beadId);
-
-
-                  $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
-                  for (var item = 0; item < template.objects.length; item++) {
-                    var elementSize;
-                    if (template.objects[item].type) {
-                      switch (template.objects[item].type) {
-                        case 'frame_line':
-                          elementSize = template.objects[item].lengthVal;
-                          $scope.global.objXFormedPrice.framesSize.push(elementSize);
-                          if (template.objects[item].sill) {
-                            $scope.global.objXFormedPrice.frameSillSize = template.objects[item].lengthVal;
-                          }
-                          break;
-                        case 'impost':
-                          elementSize = template.objects[item].parts[0].lengthVal;
-                          $scope.global.objXFormedPrice.impostsSize.push(elementSize);
-                          break;
-                        case 'sash':
-                          elementSize = template.objects[item].parts[0].lengthVal;
-                          $scope.global.objXFormedPrice.sashsSize.push(elementSize);
-                          break;
-                        case 'bead_line':
-                          elementSize = template.objects[item].lengthVal;
-                          $scope.global.objXFormedPrice.beadsSize.push(elementSize);
-                          break;
-                        case 'sash_block':
-                          var tempSashBlock = {},
-                              tempSashBlockSize = [];
-                          for (var sash = 0; sash < template.objects[item].parts.length; sash++) {
-                            tempSashBlockSize.push(template.objects[item].parts[sash].lengthVal);
-                          }
-                          tempSashBlock.sizes = tempSashBlockSize;
-                          tempSashBlock.openDir = template.objects[item].openDir;
-                          $scope.global.objXFormedPrice.sashesBlock.push(tempSashBlock);
-                          break;
-                        case 'glass_paсkage':
-                          var tempGlassSizes = [];
-                          for (var glass = 0; glass < template.objects[item].parts.length; glass++) {
-                            tempGlassSizes.push(template.objects[item].parts[glass].lengthVal);
-                          }
-                          $scope.global.objXFormedPrice.glassSizes.push(tempGlassSizes);
-                          $scope.global.objXFormedPrice.glassSquares.push(template.objects[item].square);
-                          break;
-                        case 'dimensionsH':
-                          $scope.global.product.templateWidth = template.objects[item].lengthVal;
-                          break;
-                        case 'dimensionsV':
-                          $scope.global.product.templateHeight = template.objects[item].lengthVal;
-                          break;
-                      }
-                    }
-                  }
-                  $scope.global.objXFormedPrice.cityId = UserStor.userInfo.city_id;
-                  $scope.global.objXFormedPrice.currencyId = UserStor.userInfo.currencyId;
-                  $scope.global.objXFormedPrice.glassId = glassId;
-                  $scope.global.objXFormedPrice.profileId = profileId;
-                  $scope.global.objXFormedPrice.hardwareId = hardwareId;
-                  $scope.global.objXFormedPrice.hardwareColor = $scope.global.product.laminationInName;
-                  $scope.global.objXFormedPrice.frameId = $scope.global.allProfileFrameSizes[profileIndex].id;
-                  $scope.global.objXFormedPrice.frameSillId = $scope.global.allProfileFrameStillSizes[profileIndex].id;
-                  $scope.global.objXFormedPrice.sashId = $scope.global.allProfileSashSizes[profileIndex].id;
-                  $scope.global.objXFormedPrice.impostId = $scope.global.allProfileImpostSizes[profileIndex].id;
-                  $scope.global.objXFormedPrice.shtulpId = $scope.global.allProfileShtulpSizes[profileIndex].id;
-                  $scope.global.objXFormedPrice.beadId = $scope.global.product.beadId;
-
-                  //console.log(JSON.stringify($scope.global.objXFormedPrice));
-                  //console.log($scope.global.objXFormedPrice);
-
-                  //------ calculate coeffs
-                  $scope.global.calculateCoeffs();
-                  console.log('START PRICE Time!!!!!!', new Date());
-                  //--------- get product default price
-                  globalDB.calculationPrice($scope.global.objXFormedPrice, function (result) {
-                    if(result.status){
-                      //console.log('price');
-                      //console.log(result.data);
-
-
-                      $scope.global.product.templatePriceSELECT = parseFloat(angular.copy(result.data.price));
-                      $scope.global.setProductPriceTOTAL();
-                      var currencySymbol = '';
-                      switch(result.data.currentCurrency.name) {
-                        case 'uah': currencySymbol = '₴';
-                          break;
-                        case 'rub': currencySymbol = '₽';
-                          break;
-                        case 'usd': currencySymbol = '$';
-                          break;
-                        case 'eur': currencySymbol = '€';
-                          break;
-                      }
-                      console.log('FINISH PRICE Time!!!!!!', new Date());
-                      $scope.global.currency = '₴';
-                      $scope.global.isFindPriceProcess = false;
-                    } else {
-                      console.log(result);
-                    }
-                  });
-
-
-
-                } else {
-                  console.log(results);
-                }
-              });
-            } else {
-              console.log(results);
-            }
-          });
-        } else {
-          console.log(results);
-        }
-      });
-
-    };
+//    $scope.global.createObjXFormedPrice = function(template, profileIndex, profileId, glassId, hardwareId) {
+//      //------ define Bead Id for define template price
+//      globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'id': glassId }, function (results) {
+//        if (results.status) {
+//          var parentId = results.data[0].parent_element_id;
+//          //------ find glass depth
+//          globalDB.selectDBGlobal(globalDB.elementsTableDBGlobal, {'id': parentId }, function (results) {
+//            if (results.status) {
+//              var glassDepth = results.data[0].glass_width;
+//              //------ find bead Id as to glass Depth and profile Id
+//              globalDB.selectDBGlobal(globalDB.beadsTableDBGlobal, {'profile_system_id': {"value": profileId, "union": 'AND'}, "glass_width": glassDepth}, function (results) {
+//                if (results.status) {
+//                  $scope.global.product.beadId = results.data[0].list_id;
+//                  //console.log($scope.global.product.beadId);
+//
+//
+//                  $scope.global.objXFormedPrice = angular.copy($scope.global.objXFormedPriceSource);
+//                  for (var item = 0; item < template.objects.length; item++) {
+//                    var elementSize;
+//                    if (template.objects[item].type) {
+//                      switch (template.objects[item].type) {
+//                        case 'frame_line':
+//                          elementSize = template.objects[item].lengthVal;
+//                          $scope.global.objXFormedPrice.framesSize.push(elementSize);
+//                          if (template.objects[item].sill) {
+//                            $scope.global.objXFormedPrice.frameSillSize = template.objects[item].lengthVal;
+//                          }
+//                          break;
+//                        case 'impost':
+//                          elementSize = template.objects[item].parts[0].lengthVal;
+//                          $scope.global.objXFormedPrice.impostsSize.push(elementSize);
+//                          break;
+//                        case 'sash':
+//                          elementSize = template.objects[item].parts[0].lengthVal;
+//                          $scope.global.objXFormedPrice.sashsSize.push(elementSize);
+//                          break;
+//                        case 'bead_line':
+//                          elementSize = template.objects[item].lengthVal;
+//                          $scope.global.objXFormedPrice.beadsSize.push(elementSize);
+//                          break;
+//                        case 'sash_block':
+//                          var tempSashBlock = {},
+//                              tempSashBlockSize = [];
+//                          for (var sash = 0; sash < template.objects[item].parts.length; sash++) {
+//                            tempSashBlockSize.push(template.objects[item].parts[sash].lengthVal);
+//                          }
+//                          tempSashBlock.sizes = tempSashBlockSize;
+//                          tempSashBlock.openDir = template.objects[item].openDir;
+//                          $scope.global.objXFormedPrice.sashesBlock.push(tempSashBlock);
+//                          break;
+//                        case 'glass_paсkage':
+//                          var tempGlassSizes = [];
+//                          for (var glass = 0; glass < template.objects[item].parts.length; glass++) {
+//                            tempGlassSizes.push(template.objects[item].parts[glass].lengthVal);
+//                          }
+//                          $scope.global.objXFormedPrice.glassSizes.push(tempGlassSizes);
+//                          $scope.global.objXFormedPrice.glassSquares.push(template.objects[item].square);
+//                          break;
+//                        case 'dimensionsH':
+//                          $scope.global.product.templateWidth = template.objects[item].lengthVal;
+//                          break;
+//                        case 'dimensionsV':
+//                          $scope.global.product.templateHeight = template.objects[item].lengthVal;
+//                          break;
+//                      }
+//                    }
+//                  }
+//                  $scope.global.objXFormedPrice.cityId = UserStor.userInfo.city_id;
+//                  $scope.global.objXFormedPrice.currencyId = UserStor.userInfo.currencyId;
+//                  $scope.global.objXFormedPrice.glassId = glassId;
+//                  $scope.global.objXFormedPrice.profileId = profileId;
+//                  $scope.global.objXFormedPrice.hardwareId = hardwareId;
+//                  $scope.global.objXFormedPrice.hardwareColor = $scope.global.product.laminationInName;
+//                  $scope.global.objXFormedPrice.frameId = $scope.global.allProfileFrameSizes[profileIndex].id;
+//                  $scope.global.objXFormedPrice.frameSillId = $scope.global.allProfileFrameStillSizes[profileIndex].id;
+//                  $scope.global.objXFormedPrice.sashId = $scope.global.allProfileSashSizes[profileIndex].id;
+//                  $scope.global.objXFormedPrice.impostId = $scope.global.allProfileImpostSizes[profileIndex].id;
+//                  $scope.global.objXFormedPrice.shtulpId = $scope.global.allProfileShtulpSizes[profileIndex].id;
+//                  $scope.global.objXFormedPrice.beadId = $scope.global.product.beadId;
+//
+//                  //console.log(JSON.stringify($scope.global.objXFormedPrice));
+//                  //console.log($scope.global.objXFormedPrice);
+//
+//                  //------ calculate coeffs
+//                  $scope.global.calculateCoeffs();
+//                  console.log('START PRICE Time!!!!!!', new Date());
+//                  //--------- get product default price
+//                  globalDB.calculationPrice($scope.global.objXFormedPrice, function (result) {
+//                    if(result.status){
+//                      //console.log('price');
+//                      //console.log(result.data);
+//
+//
+//                      $scope.global.product.templatePriceSELECT = parseFloat(angular.copy(result.data.price));
+//                      $scope.global.setProductPriceTOTAL();
+//                      var currencySymbol = '';
+//                      switch(result.data.currentCurrency.name) {
+//                        case 'uah': currencySymbol = '₴';
+//                          break;
+//                        case 'rub': currencySymbol = '₽';
+//                          break;
+//                        case 'usd': currencySymbol = '$';
+//                          break;
+//                        case 'eur': currencySymbol = '€';
+//                          break;
+//                      }
+//                      console.log('FINISH PRICE Time!!!!!!', new Date());
+//                      $scope.global.currency = '₴';
+//                      $scope.global.isFindPriceProcess = false;
+//                    } else {
+//                      console.log(result);
+//                    }
+//                  });
+//
+//
+//
+//                } else {
+//                  console.log(results);
+//                }
+//              });
+//            } else {
+//              console.log(results);
+//            }
+//          });
+//        } else {
+//          console.log(results);
+//        }
+//      });
+//
+//    };
 
     $scope.global.setProductPriceTOTAL = function() {
       //playSound('price');
@@ -350,35 +350,35 @@
     };
 
 
-    //---------- Coeffs define
-    $scope.global.calculateCoeffs = function() {
-      var constructionSquareTotal,
-          glassSquareTotal,
-          prifileHeatCoeffTotal,
-          glassHeatCoeffTotal,
-          item;
-      //------- total construction square define
-      for (item = 0; item < $scope.global.product.templateDefault.objects.length; item++) {
-        if($scope.global.product.templateDefault.objects[item].type === "square") {
-          constructionSquareTotal = $scope.global.product.templateDefault.objects[item].squares.reduce(function(a, b) {
-            return a + b;
-          });
-        }
-      }
-      //-------- total glasses square define
-      glassSquareTotal = $scope.global.objXFormedPrice.glassSquares.reduce(function(a, b) {
-        return a + b;
-      });
-      //-------- coeffs define
-      prifileHeatCoeffTotal = $scope.global.product.profileHeatCoeff * (constructionSquareTotal - glassSquareTotal);
-      glassHeatCoeffTotal = $scope.global.product.glassHeatCoeff * glassSquareTotal;
-      //-------- calculate Heat Coeff Total
-      $scope.global.product.heatTransferTOTAL = parseFloat(((prifileHeatCoeffTotal + glassHeatCoeffTotal)/constructionSquareTotal).toFixed(2));
-
-      //-------- calculate Air Coeff Total
-  //    $scope.global.product.airCirculationTOTAL = + $scope.global.product.profileAirCoeff + $scope.global.product.glassAirCoeff + $scope.global.product.hardwareAirCoeff;
-
-    };
+//    //---------- Coeffs define
+//    $scope.global.calculateCoeffs = function() {
+//      var constructionSquareTotal,
+//          glassSquareTotal,
+//          prifileHeatCoeffTotal,
+//          glassHeatCoeffTotal,
+//          item;
+//      //------- total construction square define
+//      for (item = 0; item < $scope.global.product.templateDefault.objects.length; item++) {
+//        if($scope.global.product.templateDefault.objects[item].type === "square") {
+//          constructionSquareTotal = $scope.global.product.templateDefault.objects[item].squares.reduce(function(a, b) {
+//            return a + b;
+//          });
+//        }
+//      }
+//      //-------- total glasses square define
+//      glassSquareTotal = $scope.global.objXFormedPrice.glassSquares.reduce(function(a, b) {
+//        return a + b;
+//      });
+//      //-------- coeffs define
+//      prifileHeatCoeffTotal = $scope.global.product.profileHeatCoeff * (constructionSquareTotal - glassSquareTotal);
+//      glassHeatCoeffTotal = $scope.global.product.glassHeatCoeff * glassSquareTotal;
+//      //-------- calculate Heat Coeff Total
+//      $scope.global.product.heatTransferTOTAL = parseFloat(((prifileHeatCoeffTotal + glassHeatCoeffTotal)/constructionSquareTotal).toFixed(2));
+//
+//      //-------- calculate Air Coeff Total
+//  //    $scope.global.product.airCirculationTOTAL = + $scope.global.product.profileAirCoeff + $scope.global.product.glassAirCoeff + $scope.global.product.hardwareAirCoeff;
+//
+//    };
 
     $scope.global.setTemplatesFromSTORE = function() {
       if($scope.global.isConstructDoor) {
@@ -424,15 +424,15 @@
 
 
     //=============== FIRST START create Product =========
-
-    if($scope.global.startProgramm && $scope.global.isCreatedNewProject && $scope.global.isCreatedNewProduct) {
-  console.log('FIRST START!!!!!!!!!!');
-      console.log('START Time!!!!!!', new Date());
-      //playSound('menu');
-      //------- create new empty product
-      $scope.global.product = angular.copy($scope.global.productSource);
-      //------- create new empty order
-      $scope.global.order = angular.copy($scope.global.orderSource);
+//
+//    if($scope.global.startProgramm && $scope.global.isCreatedNewProject && $scope.global.isCreatedNewProduct) {
+//  console.log('FIRST START!!!!!!!!!!');
+//      console.log('START Time!!!!!!', new Date());
+//      //playSound('menu');
+//      //------- create new empty product
+//      $scope.global.product = angular.copy($scope.global.productSource);
+//      //------- create new empty order
+//      $scope.global.order = angular.copy($scope.global.orderSource);
 
 //      //------- create order date
 //      $scope.createOrderData();
@@ -520,7 +520,7 @@
 //        }
 //      });
 
-    }
+    //}
 
 
 
