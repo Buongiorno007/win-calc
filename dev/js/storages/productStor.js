@@ -31,6 +31,11 @@
         profileName: '',
         profileHeatCoeff: 0,
         profileAirCoeff: 0,
+        profileFrameId: 0,
+        profileFrameStillId: 0,
+        profileSashId: 0,
+        profileImpostId: 0,
+        profileShtulpId: 0,
 
         glassTypeIndex: 0,
         glassIndex: 0,

@@ -10,15 +10,23 @@
     .module('MainModule')
     .controller('TemplateSelectorCtrl', templateSelectorCtrl);
 
-  function templateSelectorCtrl($scope, $location, $filter, $cordovaDialogs, globalConstants, localStorage, optionsServ) {
+  function templateSelectorCtrl($scope, $location, $filter, $cordovaDialogs, globalConstants, GlobalStor, OrderStor, ProductStor, optionsServ) {
 
-    $scope.global = localStorage.storage;
+    var thisCtrl = this;
+    thisCtrl.global = GlobalStor.global;
+    thisCtrl.order = OrderStor.order;
+    thisCtrl.product = ProductStor.product;
 
-    $scope.templatePanel = {
+
+    thisCtrl.config = {
       DELAY_TEMPLATE_ELEMENT: 18 * globalConstants.STEP,
       switcherTemplate: false,
       typing: 'on'
     };
+
+
+
+
 
     //---------- download templates Img icons
     optionsServ.getTemplateImgIcons(function (results) {

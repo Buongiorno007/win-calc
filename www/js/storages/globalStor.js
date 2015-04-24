@@ -38,56 +38,25 @@
       ],
 
       globalSource: {
+        startProgramm: true, // for START
+        constructionType: 1, // 1 - window; 2 - windowDoor; 3 - balcony; 4 - door
 
-        constructionType: 'windows',
-
-//        isConstructWind: true,
-//        isConstructWindDoor: false,
-//        isConstructBalcony: false,
-//        isConstructDoor: false,
-        //---- чтобы не создавался черновик при запуске проги
-        startProgramm: true,
         isCreatedNewProject: true,
         isCreatedNewProduct: true,
         isOrderFinished: false,
         isOpenedCartPage: false,
         isOpenedHistoryPage: false,
         isReturnFromDiffPage: false,
-        isFindPriceProcess: false,
 
-        productEditNumber: '',
-        orderEditNumber: false,
+        productEditNumber: 0,
+        orderEditNumber: 0,
 
+        //------ navigation
+        isNavMenu: true,
+        isConfigMenu: false,
+        activePanel: 0,
 
         //------- Templates
-
-
-//        templatesWindSTORE: [],
-//        templatesWindDoorSTORE: [],
-//        templatesBalconySTORE: [],
-//        templatesDoorSTORE: [],
-//        templatesWindListSTORE: [],
-//        templatesWindIconListSTORE: [],
-//        templatesWindDoorListSTORE: [],
-//        templatesWindDoorIconListSTORE: [],
-//        templatesBalconyListSTORE: [],
-//        templatesBalconyIconListSTORE: [],
-//        templatesDoorListSTORE: [],
-//        templatesDoorIconListSTORE: [],
-//
-//        templatesWindSource: [],
-//        templatesWindDoorSource: [],
-//        templatesBalconySource: [],
-//        templatesDoorSource: [],
-//        templatesWindList: [],
-//        templatesWindDoorList: [],
-//        templatesBalconyList: [],
-//        templatesDoorList: [],
-//        templatesWindIconList: [],
-//        templatesWindDoorIconList: [],
-//        templatesBalconyIconList: [],
-//        templatesDoorIconList: [],
-
         templateDepths: {},
         templateLabel: '',
         templatesSource: [],
@@ -98,15 +67,17 @@
         templatesIconSTORE: [],
 
 
-
         //------ Profiles
         profiles: [],
         profilesType: [],
-//        allProfileFrameSizes: [],
-//        allProfileFrameStillSizes: [],
-//        allProfileSashSizes: [],
-//        allProfileImpostSizes: [],
-//        allProfileShtulpSizes: [],
+        profileDepths: {
+          frameDepth: {},
+          frameStillDepth: {},
+          sashDepth: {},
+          impostDepth: {},
+          shtulpDepth: {}
+        },
+
 
         //------- Glasses
         glasses: [],
@@ -144,16 +115,15 @@
           elementLength: 0
         },
 
-        //------ config-pannels tools
-        showNavMenu: true,
-        isConfigMenu: false,
-        showPanels: {},
-        isTemplatePanel: false,
-        isProfilePanel: false,
-        isGlassPanel: false,
-        isHardwarePanel: false,
-        isLaminationPanel: false,
-        isAddElementsPanel: false,
+
+
+//        showPanels: {},
+//        isTemplatePanel: false,
+//        isProfilePanel: false,
+//        isGlassPanel: false,
+//        isHardwarePanel: false,
+//        isLaminationPanel: false,
+//        isAddElementsPanel: false,
 
 
 
@@ -167,6 +137,7 @@
         isOpenSettingsPage: false,
         isChangedTemplate: false,
         isVoiceHelper: false,
+        voiceHelperLanguage: '',
         isShowCommentBlock: false,
         showMasterDialog: false,
         showOrderDialog: false,

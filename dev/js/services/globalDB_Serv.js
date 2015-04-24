@@ -546,7 +546,6 @@
       getCurrentCurrency: function(currencyId, callback){
         db.transaction(function (transaction) {
           transaction.executeSql('select id, name, value from currencies where id = ?', [currencyId], function (transaction, result) {
-            console.log(result);
             if (result.rows.length) {
               callback(new OkResult(result.rows.item(0)));
             } else {

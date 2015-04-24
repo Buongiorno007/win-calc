@@ -10,7 +10,7 @@
     .module('LoginModule')
     .factory('loginServ', startFactory);
 
-  function startFactory($q, globalDB, UserStor, localStorage) {
+  function startFactory($q, globalDB, GlobalStor, OrderStor, UserStor) {
 
     var thisFactory = this;
 
@@ -28,11 +28,11 @@
 
     //------ compare device language with existing dictionary, if not exist set default language = English
     function checkLangDictionary(label) {
-      var langQty = localStorage.storage.languages.length;
+      var langQty = GlobalStor.languages.length;
       while(--langQty > -1) {
         if(localStorage.storage.languages[langQty].label === label) {
           UserStor.userInfo.langLabel = label;
-          UserStor.userInfo.langName = localStorage.storage.languages[langQty].name;
+          UserStor.userInfo.langName = GlobalStor.languages[langQty].name;
         }
       }
     }
@@ -156,32 +156,32 @@
 
     //--------- set current user geolocation
     function setUserGeoLocation(cityId, cityName, regionName, countryName, climatic, heat, fullLocation, currencyId) {
-      UserStor.userInfo.currCityId = cityId;
-      UserStor.userInfo.currCityName = cityName;
-      UserStor.userInfo.currRegionName = regionName;
-      UserStor.userInfo.currCountryName = countryName;
-      UserStor.userInfo.currClimaticZone = climatic;
-      UserStor.userInfo.currHeatTransfer = heat;
-      UserStor.userInfo.currFullLocation = fullLocation;
-      UserStor.userInfo.currencyId = currencyId;
+      OrderStor.order.currCityId = cityId;
+      OrderStor.order.currCityName = cityName;
+      OrderStor.order.currRegionName = regionName;
+      OrderStor.order.currCountryName = countryName;
+      OrderStor.order.currClimaticZone = climatic;
+      OrderStor.order.currHeatTransfer = heat;
+      OrderStor.order.currFullLocation = fullLocation;
+      OrderStor.order.currencyId = currencyId;
 
       //--------- set currency symbol
       setCurrency();
     }
 
     function setCurrency() {
-      globalDB.selectDBGlobal(globalDB.currenciesTableDBGlobal, {'id': UserStor.userInfo.currencyId}).then(function(result) {
+      globalDB.selectDBGlobal(globalDB.currenciesTableDBGlobal, {'id':  OrderStor.order.currencyId}).then(function(result) {
         if(result) {
           switch(result[0].name) {
-            case 'uah': UserStor.userInfo.currency = '₴';
+            case 'uah':  OrderStor.order.currency = '₴';
               break;
-            case 'rub': UserStor.userInfo.currency = '₽';
+            case 'rub':  OrderStor.order.currency = '₽';
               break;
-            case 'usd': UserStor.userInfo.currency = '$';
+            case 'usd':  OrderStor.order.currency = '$';
               break;
-            case 'eur': UserStor.userInfo.currency = '€';
+            case 'eur':  OrderStor.order.currency = '€';
               break;
-            default: UserStor.userInfo.currency = '₴';
+            default:  OrderStor.order.currency = '₴';
               break;
           }
         }

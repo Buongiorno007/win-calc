@@ -1,21 +1,14 @@
-.room-info-container(ng-controller="RoomInfoCtrl", ng-class="{'show-comment': global.isShowCommentBlock}", hm-swipeup="swipeShowComment($event)", hm-swipedown="swipeHideComment($event)")
-  //.room-header
-    .room-name {{ roomInfo.roomsData[(global.product.selectedRoomId-1)].name }}
-      button.select-rooms.unvisible(show-delay="{{ roomInfo.DELAY_SHOW_ALLROOMS_BTN }}", hm-tap="showRoomSelectorDialog($event)", ng-hide="global.isShowCommentBlock") {{ 'common_words.ALL' | translate }}
-
+.room-info-container(ng-controller="RoomInfoCtrl as roomInfo", ng-class="{'show-comment': roomInfo.global.isShowCommentBlock}", hm-swipeup="roomInfo.swipeShowComment($event)", hm-swipedown="roomInfo.swipeHideComment($event)")
   .coeff-container
     .coeff-block
-      .coeff.climate {{ userInfo.currClimaticZone }}
-      .coeff-title(data-output="{{ 'mainpage.CLIMATE_ZONE' | translate }}", typing="{{ roomInfo.typing }}", typing-delay="{{ roomInfo.DELAY_SHOW_COEFF }}")
+      .coeff.climate {{ roomInfo.order.currClimaticZone }}
+      .coeff-title(data-output="{{ 'mainpage.CLIMATE_ZONE' | translate }}", typing="{{ roomInfo.config.typing }}", typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}")
     .coeff-block
-      .coeff.heat-transfer(ng-class="{'coeff-low': global.product.heatTransferTOTAL < userInfo.currHeatTransfer}") {{ global.product.heatTransferTOTAL }}
-        .coeff-max {{ userInfo.currHeatTransfer }}
-      .coeff-title(data-output="{{ 'mainpage.THERMAL_RESISTANCE' | translate }}", typing="{{ roomInfo.typing }}", typing-delay="{{ roomInfo.DELAY_SHOW_COEFF }}")
+      .coeff.heat-transfer(ng-class="{'coeff-low': roomInfo.product.heatTransferTOTAL < userInfo.order.currHeatTransfer}") {{ userInfo.product.heatTransferTOTAL }}
+        .coeff-max {{ userInfo.order.currHeatTransfer }}
+      .coeff-title(data-output="{{ 'mainpage.THERMAL_RESISTANCE' | translate }}", typing="{{ roomInfo.config.typing }}", typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}")
     .coeff-block
-      button.select-rooms.unvisible(show-delay="{{ roomInfo.DELAY_SHOW_ALLROOMS_BTN }}", hm-tap="showRoomSelectorDialog($event)") {{ 'mainpage.ROOM_SELECTION' | translate }}
-      //.coeff.heat-exchange(ng-class="{'coeff-low': global.product.airCirculationTOTAL < roomInfo.roomsData[(global.product.selectedRoomId-1)].airCirculation}") {{ global.product.airCirculationTOTAL }}
-        .coeff-max {{ roomInfo.roomsData[(global.product.selectedRoomId-1)].airCirculation }}
-      //.coeff-title(data-output="{{ 'mainpage.AIR_CIRCULATION' | translate }}", typing="{{ roomInfo.typing }}", typing-delay="{{ roomInfo.DELAY_SHOW_COEFF }}")
+      button.select-rooms.unvisible(show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}", hm-tap="roomInfo.showRoomSelectorDialog($event)") {{ 'mainpage.ROOM_SELECTION' | translate }}
 
   .product-comment
-    textarea.comment-field(ng-model="global.product.comment", placeholder="{{ 'mainpage.COMMENT' | translate }}")
+    textarea.comment-field(ng-model="userInfo.product.comment", placeholder="{{ 'mainpage.COMMENT' | translate }}")

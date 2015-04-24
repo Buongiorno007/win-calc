@@ -23,16 +23,7 @@
         climaticZone: 0,
         heatTransfer: 0,
         langLabel: 'en',
-        langName: 'English',
-
-        //------- current Geolocation
-        currCityId: 0,
-        currCityName: '',
-        currRegionName: '',
-        currCountryName: '',
-        currClimaticZone: '',
-        currHeatTransfer: '',
-        currFullLocation: ''
+        langName: 'English'
       },
       setDefaultUser: setDefaultUser
     };

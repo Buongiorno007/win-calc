@@ -10,7 +10,7 @@
     .module('MainModule')
     .factory('MainServ', navFactory);
 
-  function navFactory($q, $filter, globalDB, GeneralServ, GlobalStor, UserStor, ProductStor, OrderStor, optionsServ) {
+  function navFactory($q, $filter, $cordovaProgress, globalDB, GeneralServ, GlobalStor, OrderStor, ProductStor, optionsServ) {
 
     var thisFactory = this;
 
@@ -51,14 +51,18 @@
     thisFactory.publicObj = {
       createOrderData: createOrderData,
       downloadAllProfiles: downloadAllProfiles,
-      setDefaultProfile: setDefaultProfile,
-      downloadProfileSize: downloadProfileSize,
-      //downloadAllHardwares: downloadAllHardwares,
       prepareTemplates: prepareTemplates,
-      downloadAllTemplates: downloadAllTemplates,
-      parseTemplate: parseTemplate,
-      saveTemplateInProduct: saveTemplateInProduct,
-      preparePrice: preparePrice
+      //downloadAllHardwares: downloadAllHardwares,
+
+      setCurrentProfile: setCurrentProfile,
+      //downloadAllTemplates: downloadAllTemplates,
+      //parseTemplate: parseTemplate,
+      //saveTemplateInProduct: saveTemplateInProduct,
+      preparePrice: preparePrice,
+      setProductPriceTOTAL: setProductPriceTOTAL,
+      createNewProject: createNewProject,
+      createNewProduct: createNewProduct,
+      setDefaultDoorConfig: setDefaultDoorConfig
     };
 
     return thisFactory.publicObj;
@@ -125,56 +129,7 @@
                         tempProf[j].country = countries[st].name;
                       }
                     }
-//
-                    //------- set Depthes
-//                    tempProf[j].frameSizes = $q.all([
-//                      downloadProfileSize(tempProf[j].rama_list_id)
-//                    ]).then(function (results) {
-//                      return results[0];
-//
-//                    });
-//                    console.log('---------',  tempProf[j]);
-//                    tempProf[j].frameSizes = downloadProfileSize(tempProf[j].rama_list_id).then(function(data){
-//
-//                      deferred.resolve('done!');
-//                      return data;
-//                    });
-
-//                    downloadProfileSize(tempProf[j].rama_list_id).then(function(data){
-//
-//                    });
-//                    tempProf[j].frameSizes = downloadProfileSize(tempProf[j].rama_list_id);
-//                    tempProf[j].frameStillSizes = downloadProfileSize(tempProf[j].rama_still_list_id);
-//                    tempProf[j].sashSizes = downloadProfileSize(tempProf[j].stvorka_list_id);
-//                    tempProf[j].impostSizes = downloadProfileSize(tempProf[j].impost_list_id);
-//                    tempProf[j].shtulpSizes = downloadProfileSize(tempProf[j].shtulp_list_id);
-
-
-                    //console.log('********', JSON.stringify(tempProf[j]));
-//                    globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'id': tempProf[j].rama_list_id}).then(function(result) {
-//
-//                      var resultObj = {};
-//                      if(result) {
-//                        resultObj.id = result[0].id;
-//                        resultObj.a = result[0].a;
-//                        resultObj.b = result[0].b;
-//                        resultObj.c = result[0].c;
-//                        resultObj.d = result[0].d;
-//                      }
-//                      tempProf[j].frameSizes = resultObj;
-//                    }).then(function() {
-//
-//                    }).then(function() {
-//
-//                    }).then(function(){
-//                      tempProf[j].impostSizes = downloadProfileSize(tempProf[j].impost_list_id);
-//                    }).then(function(){
-//                      tempProf[j].shtulpSizes = downloadProfileSize(tempProf[j].shtulp_list_id);
-//                      deferred.resolve('done!');
-//                    });
-
                   }
-
                   GlobalStor.global.profiles.push(tempProf);
                   deferred.resolve('done!');
                 }
@@ -187,59 +142,37 @@
       return deferred.promise;
     }
 
-
-    //-------- set default profile
-    function setDefaultProfile() {
-      var deferred = $q.defer();
-      ProductStor.product.profileId = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].id;
-      ProductStor.product.profileName = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].name;
-      ProductStor.product.profileHeatCoeff = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].heatCoeff;
-      ProductStor.product.profileAirCoeff = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].airCoeff;
-      deferred.resolve('done');
-      return deferred.promise;
-      //console.log('product', ProductStor.product);
-    }
-
-
-    function downloadProfileSize(elementId) {
-      var resultObj = {};
-      return globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'id': elementId}).then(function(result) {
-        if (result) {
-          resultObj.id = result[0].id;
-          resultObj.a = result[0].a;
-          resultObj.b = result[0].b;
-          resultObj.c = result[0].c;
-          resultObj.d = result[0].d;
-        }
-        return resultObj;
-      });
-    }
-
-
-//    function downloadAllHardwares() {
-//      globalDB.selectDBGlobal(globalDB.hardwareTypeTableDBGlobal, {'is_in_calculation': 1}).then(function (result) {
-//        if(result) {
-//          GlobalStor.global.hardwareTypes = angular.copy(results.data.hardwaresTypes);
-//          GlobalStor.global.hardwares = angular.copy(results.data.hardwares);
-//
-//          //----- set default hardware in ProductStor
-//          ProductStor.product.hardwareId = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].hardwareId;
-//          ProductStor.product.hardwareName = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].hardwareName;
-//          ProductStor.product.hardwareHeatCoeff = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].heatCoeff;
-//          ProductStor.product.hardwareAirCoeff = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].airCoeff;
-//        }
-//      });
-//    }
-
+    //    function downloadAllHardwares() {
+    //      globalDB.selectDBGlobal(globalDB.hardwareTypeTableDBGlobal, {'is_in_calculation': 1}).then(function (result) {
+    //        if(result) {
+    //          GlobalStor.global.hardwareTypes = angular.copy(results.data.hardwaresTypes);
+    //          GlobalStor.global.hardwares = angular.copy(results.data.hardwares);
+    //
+    //          //----- set default hardware in ProductStor
+    //          ProductStor.product.hardwareId = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].hardwareId;
+    //          ProductStor.product.hardwareName = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].hardwareName;
+    //          ProductStor.product.hardwareHeatCoeff = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].heatCoeff;
+    //          ProductStor.product.hardwareAirCoeff = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].airCoeff;
+    //        }
+    //      });
+    //    }
 
     function prepareTemplates(type) {
-
+      //$cordovaProgress.showSimple(true);
       downloadAllTemplates(type).then(function(data) {
         if(data) {
           GlobalStor.global.templatesSourceSTORE = angular.copy(data);
           GlobalStor.global.templatesSource = angular.copy(data);
 
-          parseTemplate(ProductStor.product.profileTypeIndex, ProductStor.product.profileIndex);
+          //--------- set current profile in ProductStor
+          setCurrentProfile().then(function(){
+            console.log('++++profileDepths+++++', JSON.stringify(GlobalStor.global.profileDepths));
+            parseTemplate();
+
+          });
+
+        } else {
+          console.log('error!');
         }
       });
 
@@ -252,7 +185,7 @@
       var deferred = $q.defer();
 
       switch(type) {
-        case 'windows':
+        case 1:
           optionsServ.getTemplatesWindow(function (results) {
             if (results.status) {
               GlobalStor.global.templateLabel = $filter('translate')('panels.TEMPLATE_WINDOW');
@@ -262,7 +195,7 @@
             }
           });
           break;
-        case 'windowDoor':
+        case 2:
           optionsServ.getTemplatesWindowDoor(function (results) {
             if (results.status) {
               GlobalStor.global.templateLabel = $filter('translate')('panels.TEMPLATE_BALCONY_ENTER');
@@ -272,7 +205,7 @@
             }
           });
           break;
-        case 'balconies':
+        case 3:
           optionsServ.getTemplatesBalcony(function (results) {
             if (results.status) {
               GlobalStor.global.templateLabel = $filter('translate')('panels.TEMPLATE_BALCONY');
@@ -282,7 +215,7 @@
             }
           });
           break;
-        case 'doors':
+        case 4:
           optionsServ.getTemplatesDoor(function (results) {
             if (results.status) {
               GlobalStor.global.templateLabel = $filter('translate')('panels.TEMPLATE_DOOR');
@@ -298,14 +231,62 @@
     }
 
 
-    function parseTemplate(profileTypeIndex, profileIndex) {
 
-      // парсинг шаблона, расчет размеров
-      setTemplateDepths(profileTypeIndex, profileIndex).then(function() {
+
+    //-------- set default profile
+    function setCurrentProfile() {
+      var deferred = $q.defer();
+      ProductStor.product.profileId = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].id;
+      ProductStor.product.profileName = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].name;
+      ProductStor.product.profileHeatCoeff = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].heatCoeff;
+      ProductStor.product.profileAirCoeff = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].airCoeff;
+      ProductStor.product.profileFrameId = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].rama_list_id;
+      ProductStor.product.profileFrameStillId = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].rama_still_list_id;
+      ProductStor.product.profileSashId = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].stvorka_list_id;
+      ProductStor.product.profileImpostId = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].impost_list_id;
+      ProductStor.product.profileShtulpId = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].shtulp_list_id;
+      //------- set Depths
+        $q.all([
+        downloadProfileDepth(ProductStor.product.profileFrameId),
+        downloadProfileDepth(ProductStor.product.profileFrameStillId),
+        downloadProfileDepth(ProductStor.product.profileSashId),
+        downloadProfileDepth(ProductStor.product.profileImpostId),
+        downloadProfileDepth(ProductStor.product.profileShtulpId)
+      ]).then(function (result) {
+        GlobalStor.global.profileDepths.frameDepth = result[0];
+        GlobalStor.global.profileDepths.frameStillDepth = result[1];
+        GlobalStor.global.profileDepths.sashDepth = result[2];
+        GlobalStor.global.profileDepths.impostDepth = result[3];
+        GlobalStor.global.profileDepths.shtulpDepth = result[4];
+        deferred.resolve('done');
+      });
+      return deferred.promise;
+      //console.log('product', ProductStor.product);
+    }
+
+
+    function downloadProfileDepth(elementId) {
+      return globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'id': elementId}).then(function(result) {
+        var resultObj = {};
+        if (result) {
+          resultObj.a = result[0].a;
+          resultObj.b = result[0].b;
+          resultObj.c = result[0].c;
+          resultObj.d = result[0].d;
+        }
+        return resultObj;
+      });
+    }
+
+
+
+
+    function parseTemplate() {
+
         var templatesQty = GlobalStor.global.templatesSource.length;
         for(var tem = 0; tem < templatesQty; tem++) {
-          GlobalStor.global.templates.push( new Template(GlobalStor.global.templatesSource[tem], GlobalStor.global.templateDepths) );
-          GlobalStor.global.templatesIcon.push( new TemplateIcon(GlobalStor.global.templatesSource[tem], GlobalStor.global.templateDepths) );
+          GlobalStor.global.templates.push( new Template(GlobalStor.global.templatesSource[tem], GlobalStor.global.profileDepths) );
+          GlobalStor.global.templatesIcon.push( new TemplateIcon(GlobalStor.global.templatesSource[tem], GlobalStor.global.profileDepths) );
         }
 
         //-------- Save Template Arrays in Store
@@ -317,28 +298,10 @@
         //------- set current template for product
         saveTemplateInProduct(ProductStor.product.templateIndex);
 
-        preparePrice(ProductStor.product.template, profileTypeIndex, profileIndex, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId);
-      });
+        preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId);
 
     }
 
-
-    function setTemplateDepths(profileTypeIndex, profileIndex) {
-      var deferred = $q.defer();
-      GlobalStor.global.templateDepths = {
-        frameDepth: GlobalStor.global.profiles[profileTypeIndex][profileIndex].frameSizes,
-        frameStillDepth: GlobalStor.global.profiles[profileTypeIndex][profileIndex].frameStillSizes,
-        sashDepth: GlobalStor.global.profiles[profileTypeIndex][profileIndex].sashSizes,
-        impostDepth: GlobalStor.global.profiles[profileTypeIndex][profileIndex].impostSizes,
-        shtulpDepth: GlobalStor.global.profiles[profileTypeIndex][profileIndex].shtulpSizes
-      };
-      console.log('=====', JSON.stringify(GlobalStor.global.profiles));
-      console.log('!!!!!!!!!!', JSON.stringify(GlobalStor.global.profiles[profileTypeIndex][profileIndex].frameSizes));
-      if(GlobalStor.global.templateDepths.frameDepth) {
-        deferred.resolve('done');
-      }
-      return deferred.promise;
-    }
 
 
     function saveTemplateInProduct(templateIndex) {
@@ -350,20 +313,20 @@
 
 
     //--------- create object to send in server for price calculation
-    function preparePrice(template, profileTypeIndex, profileIndex, profileId, glassId, hardwareId) {
+    function preparePrice(template, profileId, glassId, hardwareId) {
       setBeadId(profileId, glassId).then(function(beadId) {
         var objXFormedPrice = {
-              cityId: UserStor.userInfo.city_id,
-              currencyId: UserStor.userInfo.currencyId,
+              //cityId: UserStor.userInfo.city_id,
+              currencyId: OrderStor.order.currencyId,
               profileId: profileId,
               glassId: glassId,
               hardwareId: hardwareId,
               hardwareColor: ProductStor.product.laminationInName,
-              frameId: GlobalStor.global.templateDepths.frameDepth.id,
-              frameSillId: GlobalStor.global.templateDepths.frameStillDepth.id,
-              sashId: GlobalStor.global.templateDepths.sashDepth.id,
-              impostId: GlobalStor.global.templateDepths.impostDepth.id,
-              shtulpId: GlobalStor.global.templateDepths.shtulpDepth.id,
+              frameId: ProductStor.product.profileFrameId,
+              frameSillId: ProductStor.product.profileFrameStillId,
+              sashId: ProductStor.product.profileSashId,
+              impostId: ProductStor.product.profileImpostId,
+              shtulpId:  ProductStor.product.profileShtulpId,
               beadId: beadId,
 
               framesSize: [],
@@ -378,7 +341,6 @@
             },
             templateElemQty = template.objects.length,
             item = 0;
-console.log('!!!! template =====', template)
         for(; item < templateElemQty; item++) {
           if (template.objects[item].type) {
             switch (template.objects[item].type) {
@@ -424,12 +386,10 @@ console.log('!!!! template =====', template)
             }
           }
         }
-        console.log('objXFormedPrice+++++++', objXFormedPrice);
-        console.log(JSON.stringify(objXFormedPrice));
+        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
 
-
-        console.log('START PRICE Time!!!!!!', new Date());
-        //--------- get product default price
+        console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
+        //--------- get product price
         calculationPrice(objXFormedPrice);
 
         //------ calculate coeffs
@@ -457,7 +417,6 @@ console.log('!!!! template =====', template)
                 if(result) {
                   //ProductStor.product.beadId = result[0].list_id;
                   deferred.resolve(result[0].list_id);
-                  //console.log($scope.global.product.beadId);
                 } else {
                   console.log(result);
                 }
@@ -478,16 +437,13 @@ console.log('!!!! template =====', template)
     function calculationPrice(obj) {
       globalDB.calculationPrice(obj, function (result) {
         if(result.status){
-          console.log('price');
-          console.log(result.data);
-
+//          console.log('price');
+//          console.log(result.data);
 
           ProductStor.product.templatePriceSELECT = GeneralServ.roundingNumbers(result.data.price);
-          console.log('ProductStor.product.templatePriceSELECT', ProductStor.product.templatePriceSELECT);
-          //setProductPriceTOTAL();
-
-          console.log('FINISH PRICE Time!!!!!!', new Date());
-          GlobalStor.global.isFindPriceProcess = false;
+          setProductPriceTOTAL();
+          //$cordovaProgress.hide();
+          console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
         } else {
           console.log(result);
         }
@@ -524,6 +480,61 @@ console.log('!!!! template =====', template)
       //-------- calculate Air Coeff Total
       //ProductStor.product.airCirculationTOTAL = + ProductStor.product.profileAirCoeff + ProductStor.product.glassAirCoeff + ProductStor.product.hardwareAirCoeff;
 
+    }
+
+
+
+    function setProductPriceTOTAL() {
+      //playSound('price');
+      ProductStor.product.productPriceTOTAL = ProductStor.product.templatePriceSELECT + ProductStor.product.laminationPriceSELECT + ProductStor.product.addElementsPriceSELECT;
+//      //------- после первой загрузки создается дефолтный объект
+//      if(GlobalStor.global.startProgramm) {
+//        //-------- create default product in localStorage
+//        $scope.global.productDefault = angular.copy($scope.global.product);
+//        //console.log('productDefault', $scope.global.productDefault);
+//      }
+//      $scope.$apply();
+    }
+
+//    setProductPriceTOTALapply = function() {
+//      //playSound('price');
+//      $scope.global.product.productPriceTOTAL = $scope.global.product.templatePriceSELECT + $scope.global.product.laminationPriceSELECT + $scope.global.product.addElementsPriceSELECT;
+//    };
+
+
+
+
+    function createNewProject() {
+      console.log('new project!!!!!!!!!!!!!!');
+      //------- create new empty product and order
+      ProductStor.product = ProductStor.setDefaultProduct();
+      OrderStor.order = OrderStor.setDefaultOrder();
+      //------- set new orderId
+      createOrderData();
+      //------- set new constructionType = 'window'
+      GlobalStor.global.constructionType = 1;
+      //------- set new templates
+      prepareTemplates(GlobalStor.global.constructionType);
+    }
+
+
+
+    function createNewProduct() {
+      console.log('new product!!!!!!!!!!!!!!!');
+      //------- create new empty product
+      ProductStor.product = ProductStor.setDefaultProduct();
+      //------- set new constructionType = 'window'
+      GlobalStor.global.constructionType = 1;
+      //------- set new templates
+      prepareTemplates(GlobalStor.global.constructionType);
+    }
+
+
+    function setDefaultDoorConfig() {
+      ProductStor.product.doorShapeId = 0;
+      ProductStor.product.doorSashShapeId = 0;
+      ProductStor.product.doorHandleShapeId = 0;
+      ProductStor.product.doorLockShapeId = 0;
     }
 
 

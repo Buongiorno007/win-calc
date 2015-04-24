@@ -1,9 +1,9 @@
-.config-panel.template-container(ng-controller="TemplateSelectorCtrl", ng-class="{'active': global.showPanels.showTemplatePanel}")
-  .template-inner(ng-if="global.isTemplatePanel")
+.config-panel.template-container(ng-controller="TemplateSelectorCtrl as templatesPanel", ng-class="{'active': templatesPanel.global.activePanel == 1}")
+  .template-inner(ng-if="templatesPanel.global.activePanel == 1")
     .template-header
-      button.template-title.unvisible(ng-class="{'active': templatePanel.switcherTemplate}", hm-tap="toggleTemplate()", show-delay="{{ templatePanel.DELAY_TEMPLATE_ELEMENT }}") {{ global.templateLabel }}
-        .template-type(ng-show="templatePanel.switcherTemplate")
-          .template-type-btn(ng-if="!global.isConstructWind", hm-tap="turnOnTemplate('window')") {{ 'panels.TEMPLATE_WINDOW' | translate }}
+      button.template-title.unvisible(ng-class="{'active': templatePanel.config.switcherTemplate}", hm-tap="templatePanel.toggleTemplate()", show-delay="{{ templatePanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templatePanel.global.templateLabel }}
+        .template-type(ng-show="templatePanel.config.switcherTemplate")
+          .template-type-btn(ng-if="!templatePanel.global.constructionType", hm-tap="templatePanel.turnOnTemplate('window')") {{ 'panels.TEMPLATE_WINDOW' | translate }}
           .template-type-btn(ng-if="!global.isConstructBalcony", hm-tap="turnOnTemplate('balcon')") {{ 'panels.TEMPLATE_BALCONY' | translate }}
           .template-type-btn(ng-if="!global.isConstructDoor", hm-tap="turnOnTemplate('door')") {{ 'panels.TEMPLATE_DOOR' | translate }}
           .template-type-btn(ng-if="!global.isConstructWindDoor", hm-tap="turnOnTemplate('balconEnter')") {{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}

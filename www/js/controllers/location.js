@@ -69,7 +69,7 @@
         $scope.global.showNavMenu = true;
         $scope.global.isConfigMenu = false;
         $scope.global.showPanels = {};
-        $scope.global.gotoMainPage();
+        $location.path('/main');;
       }
     }
 

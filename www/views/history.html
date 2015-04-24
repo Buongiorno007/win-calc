@@ -1,49 +1,49 @@
 
 <section ng-class="{ 'swiped': !global.showNavMenu }" class="page-container">
   <section class="left-side">
-    <div ng-controller="NavMenuCtrl" class="nav-menu">
+    <div ng-controller="NavMenuCtrl as navMenu" class="nav-menu">
       <header class="nav-menu-header">
-        <ul show-delay="{{ navMenu.DELAY_SHOW_NAV_LIST }}" class="items-list unvisible">
-          <li ng-class="{'selected': navMenu.activeMenuItem==1}" hm-tap="selectMenuItem(1); global.gotoLocationPage()" class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP) }}" class="nav-icon-addLocation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_GEOLOCATION' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP) }}" class="title"></span></div>
+        <ul show-delay="{{ navMenu.config.DELAY_SHOW_NAV_LIST }}" class="items-list unvisible">
+          <li ng-class="{'selected': navMenu.activeMenuItem == 1}" hm-tap="navMenu.selectMenuItem(1)" class="item">
+            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP) }}" class="nav-icon-addLocation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_GEOLOCATION' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP) }}" class="title"></span></div>
           </li>
-          <li ng-class="{'selected': navMenu.activeMenuItem==2}" hm-tap="selectMenuItemTimeOut(2); getCurrentGeolocation()" class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 2) }}" class="nav-icon-geoLocation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CURRENT_GEOLOCATION' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 2) }}" class="title"></span></div>
+          <li ng-class="{'selected': navMenu.activeMenuItem == 2}" hm-tap="navMenu.selectMenuItem(2)" class="item">
+            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 2) }}" class="nav-icon-geoLocation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CURRENT_GEOLOCATION' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 2) }}" class="title"></span></div>
           </li>
           <li class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 3) }}" class="nav-icon-location unvisible"></span><span data-output="{{ userInfo.currCityName }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 3) }}" class="title"></span></div>
+            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 3) }}" class="nav-icon-location unvisible"></span><span data-output="{{ navMenu.order.currCityName }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 3) }}" class="title"></span></div>
           </li>
         </ul>
-        <div data-output="{{ 'mainpage.NAVMENU_CALCULATIONS' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_DIVIDER }}" class="divider"></div>
-        <ul show-delay="{{ navMenu.DELAY_SHOW_NAV_LIST * 2.5 }}" class="items-list unvisible">
-          <li ng-if="(global.isOpenedHistoryPage &amp;&amp; (global.isCreatedNewProject || global.productEditNumber !== '')) || (global.isOpenedCartPage &amp;&amp; global.isCreatedNewProduct &amp;&amp; !global.orderEditNumber)" ng-class="{'selected': navMenu.activeMenuItem==5}" hm-tap="selectMenuItem(5); gotoCurrentProduct()" class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 5)}}" class="nav-icon-calculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CURRENT_CALCULATION' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 5) }}" class="title"></span></div>
+        <div data-output="{{ 'mainpage.NAVMENU_CALCULATIONS' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_DIVIDER }}" class="divider"></div>
+        <ul show-delay="{{ navMenu.config.DELAY_SHOW_NAV_LIST * 2.5 }}" class="items-list unvisible">
+          <li ng-if="(navMenu.global.isOpenedHistoryPage &amp;&amp; (navMenu.global.isCreatedNewProject || navMenu.global.productEditNumber !== '')) || (navMenu.global.isOpenedCartPage &amp;&amp; navMenu.global.isCreatedNewProduct &amp;&amp; !navMenu.global.orderEditNumber)" ng-class="{'selected': navMenu.activeMenuItem == 3}" hm-tap="navMenu.selectMenuItem(3)" class="item">
+            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 4)}}" class="nav-icon-calculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CURRENT_CALCULATION' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 4) }}" class="title"></span></div>
           </li>
-          <li ng-if="global.order.products.length &gt; 0 &amp;&amp; ((!global.isOpenedHistoryPage &amp;&amp; !global.isCreatedNewProject) || (global.isOpenedHistoryPage &amp;&amp; $scope.global.isOrderFinished))" ng-class="{'selected': navMenu.activeMenuItem==6 || global.isOpenedCartPage}" hm-tap="selectMenuItem(6); global.gotoCartPage()" class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 6) }}" class="nav-icon-basketOfCalculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CART' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 6) }}" class="title"></span><span show-delay="{{ navMenu.DELAY_SHOW_ORDERS }}" class="badge unvisible">{{ global.order.products.length }}</span></div>
+          <li ng-if="navMenu.order.productsQty &gt; 0 &amp;&amp; ((!navMenu.global.isOpenedHistoryPage &amp;&amp; !navMenu.global.isCreatedNewProject) || (navMenu.global.isOpenedHistoryPage &amp;&amp; navMenu.global.isOrderFinished))" ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.global.isOpenedCartPage}" hm-tap="navMenu.selectMenuItem(4)" class="item">
+            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}" class="nav-icon-basketOfCalculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CART' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}" class="title"></span><span show-delay="{{ navMenu.config.DELAY_SHOW_ORDERS }}" class="badge unvisible">{{ navMenu.order.productsQty }}</span></div>
           </li>
-          <li ng-if="!global.isOpenedHistoryPage &amp;&amp; !global.isOpenedCartPage" ng-class="{'selected': product.isAddElementsONLY}" hm-tap="gotoAddElementsPanel()" class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 7) }}" class="nav-icon-additionalComponents unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_ADD_ELEMENTS' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 7) }}" class="title"></span></div>
+          <li ng-if="!navMenu.global.isOpenedHistoryPage &amp;&amp; !navMenu.global.isOpenedCartPage" ng-class="{'selected': navMenu.activeMenuItem == 5}" hm-tap="navMenu.selectMenuItem(5)" class="item">
+            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 6) }}" class="nav-icon-additionalComponents unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_ADD_ELEMENTS' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 6) }}" class="title"></span></div>
           </li>
-          <li ng-class="{'selected': navMenu.activeMenuItem==8 || global.isOpenedHistoryPage}" hm-tap="selectMenuItem(8); gotoHistoryPage()" class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 8) }}" class="nav-icon-calculationsHistory unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_ALL_CALCULATIONS' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 8) }}" class="title"></span></div>
+          <li ng-class="{'selected': navMenu.activeMenuItem == 6 || navMenu.global.isOpenedHistoryPage}" hm-tap="navMenu.selectMenuItem(6)" class="item">
+            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 7) }}" class="nav-icon-calculationsHistory unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_ALL_CALCULATIONS' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 7) }}" class="title"></span></div>
           </li>
         </ul>
-        <div data-output="{{ 'mainpage.NAVMENU_APPENDIX' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_DIVIDER * 2 }}" class="divider"></div>
-        <ul show-delay="{{ navMenu.DELAY_SHOW_NAV_LIST * 4 }}" class="items-list unvisible">
-          <li ng-if="!global.isOpenedHistoryPage &amp;&amp; !global.isOpenedCartPage" ng-class="{'selected': navMenu.activeMenuItem==9}" hm-tap="selectMenuItem(9); global.gotoSettingsPage()" class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 9) }}" class="nav-icon-settings unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_SETTINGS' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 9) }}" class="title"></span></div>
+        <div data-output="{{ 'mainpage.NAVMENU_APPENDIX' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_DIVIDER * 2 }}" class="divider"></div>
+        <ul show-delay="{{ navMenu.config.DELAY_SHOW_NAV_LIST * 4 }}" class="items-list unvisible">
+          <li ng-if="!navMenu.global.isOpenedHistoryPage &amp;&amp; !navMenu.global.isOpenedCartPage" ng-class="{'selected': navMenu.activeMenuItem == 7}" hm-tap="navMenu.selectMenuItem(7)" class="item">
+            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 8) }}" class="nav-icon-settings unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_SETTINGS' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 8) }}" class="title"></span></div>
           </li>
-          <li ng-class="{'selected': navMenu.activeMenuItem==10}" hm-tap="selectMenuItemTimeOut(10); gotoLinkMoreInfo()" class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 10) }}" class="nav-icon-information unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_MORE_INFO' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 10) }}" class="title"></span></div>
+          <li ng-class="{'selected': navMenu.activeMenuItem == 8}" hm-tap="navMenu.selectMenuItem(8)" class="item">
+            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 9) }}" class="nav-icon-information unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_MORE_INFO' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 9) }}" class="title"></span></div>
           </li>
-          <li ng-class="{'selected': global.isVoiceHelper}" hm-tap="switchVoiceHelper()" class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.DELAY_SHOW_NAVICON * (1 + navMenu.DELAY_SHOW_STEP * 11) }}" class="nav-icon-voicehelp unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}" typing="{{ navMenu.typing }}" typing-delay="{{ navMenu.DELAY_TYPE_NAVTITLE * (1 + navMenu.DELAY_SHOW_STEP * 11) }}" class="title"></span></div>
+          <li ng-class="{'selected': navMenu.activeMenuItem == 9}" hm-tap="navMenu.selectMenuItem(9)" class="item">
+            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}" class="nav-icon-voicehelp unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}" class="title"></span></div>
           </li>
         </ul>
       </header>
       <footer class="nav-menu-footer">
-        <button ng-if="!global.orderEditNumber" hm-tap="clickNewProject()" show-delay="{{ navMenu.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
+        <button ng-if="!navMenu.global.orderEditNumber" hm-tap="navMenu.clickNewProject()" show-delay="{{ navMenu.config.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
       </footer>
     </div>
   </section>

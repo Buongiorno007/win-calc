@@ -28,7 +28,7 @@
         $scope.global.isOpenSettingsPage = false;
         $scope.global.startProgramm = false;
         $scope.global.isReturnFromDiffPage = true;
-        $scope.global.gotoMainPage();
+        $location.path('/main');
       }, 200);
     };
 

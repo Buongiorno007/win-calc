@@ -88,6 +88,7 @@
       .when('/main', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
+        controllerAs: 'mainPage',
         title: 'Main'
       })
       .when('/settings', {

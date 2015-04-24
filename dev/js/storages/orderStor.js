@@ -13,6 +13,17 @@
     thisFactory.publicObj = {
       orderSource: {
         orderId: 0,
+        currencyId: 0,
+        currency: '',
+        //------- current Geolocation
+        currCityId: 0,
+        currCityName: '',
+        currRegionName: '',
+        currCountryName: '',
+        currClimaticZone: '',
+        currHeatTransfer: '',
+        currFullLocation: '',
+
         orderType: '',
         orderStyle: '',
         productsQty: 0,

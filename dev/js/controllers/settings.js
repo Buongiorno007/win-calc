@@ -140,7 +140,7 @@
     $scope.closeSettingsPage = function() {
       $scope.global.isOpenSettingsPage = false;
       $scope.global.isReturnFromDiffPage = true;
-      $scope.global.gotoMainPage();
+      $location.path('/main');
     };
 
     $scope.logOut = function() {

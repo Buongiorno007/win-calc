@@ -10,14 +10,18 @@
     .module('MainModule')
     .controller('MainCtrl', mainPageCtrl);
 
-  function mainPageCtrl($q, GlobalStor, ProductStor, MainServ, optionsServ) {
+  function mainPageCtrl(GlobalStor, ProductStor, MainServ, optionsServ) {
+
+    var thisCtrl = this;
+    thisCtrl.global = GlobalStor.global;
+    thisCtrl.product = ProductStor.product;
 
 
     //=============== FIRST START =========//
 
-    if(GlobalStor.global.startProgramm && GlobalStor.global.isCreatedNewProject && GlobalStor.global.isCreatedNewProduct) {
+    if(GlobalStor.global.startProgramm) {
       console.log('START main CTRL!!!!!!');
-      console.log('START Time!!!!!!', new Date());
+      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
       //playSound('menu');
 
       //------- create order date
@@ -25,40 +29,6 @@
 
       //----------- set all profiles for GlobalStor
       MainServ.downloadAllProfiles().then(function() {
-        //--------- set default profile in ProductStor
-        MainServ.setDefaultProfile().then(function(){
-
-
-        });
-
-      }).then(function() {
-
-        optionsServ.getAllProfileSystems().then(function(t) {
-          console.log('+++++++++++++', t);
-        });
-
-        //----------- set all sizes (a, b, c, d) for each profiles in GlobalStor
-//        var profileTypeQty = GlobalStor.global.profiles.length,
-//            t, p;
-//
-//        for(t = 0; t < profileTypeQty; t++) {
-//          var profileQty = GlobalStor.global.profiles[t].length;
-//          for (p = 0; p < profileQty; p++) {
-//            GlobalStor.global.profiles[t][p].frameSizes = MainServ.downloadProfileSize(GlobalStor.global.profiles[t][p].rama_list_id);
-//            GlobalStor.global.profiles[t][p].frameStillSizes = MainServ.downloadProfileSize(GlobalStor.global.profiles[t][p].rama_still_list_id);
-//            GlobalStor.global.profiles[t][p].sashSizes = MainServ.downloadProfileSize(GlobalStor.global.profiles[t][p].stvorka_list_id);
-//            GlobalStor.global.profiles[t][p].impostSizes = MainServ.downloadProfileSize(GlobalStor.global.profiles[t][p].impost_list_id);
-//            GlobalStor.global.profiles[t][p].shtulpSizes = MainServ.downloadProfileSize(GlobalStor.global.profiles[t][p].shtulp_list_id);
-//          }
-//        }
-
-
-
-
-
-
-      }).then(function(){
-
 
         //----------- set all hardware for GlobalStor
         optionsServ.getAllHardware(function (results) {
@@ -76,10 +46,10 @@
             console.log(results);
           }
         });
-
         //        MainServ.downloadAllHardwares();
 
-        console.log('+++++++++', JSON.stringify(GlobalStor.global.profiles));
+
+
 
         //----------- set all glasses for GlobalStor
         optionsServ.getAllGlass(function (results) {
@@ -101,18 +71,60 @@
           }
         });
 
-
-
-
-
-
-
       });
 
-
-
     }
+
+
+
+
+    //================ EDIT PRODUCT =================
+
+    if (GlobalStor.global.productEditNumber !== '' && !GlobalStor.global.isCreatedNewProject && !GlobalStor.global.isCreatedNewProduct) {
+      console.log('EDIT!!!!');
+      console.log('product = ', ProductStor.product);
+      //TODO templates!!!!!
+    }
+
+
+
+
+
+    //=============== CREATE NEW PROJECT =========//
+    if(!GlobalStor.global.startProgramm && GlobalStor.global.isCreatedNewProject && GlobalStor.global.isCreatedNewProduct && !GlobalStor.global.isReturnFromDiffPage) {
+      MainServ.createNewProject();
+    }
+
+
+
+    //=============== CREATE NEW PRODUCT =========//
+    if (!GlobalStor.global.startProgramm && !GlobalStor.global.isCreatedNewProject && GlobalStor.global.isCreatedNewProduct && !GlobalStor.global.isReturnFromDiffPage) {
+      MainServ.createNewProduct();
+    }
+
+
+
+
 
   }
 })();
 
+
+//event.srcEvent.stopPropagation();
+//event.preventDefault();
+//$event.stopImmediatePropagation();
+
+/*
+
+ hm-pinch="pinch($event)" hm-rotate="rotate($event)"
+
+ $scope.rotate = function(event) {
+ $scope.rotation = event.gesture.rotation % 360;
+ event.gesture.preventDefault();
+ }
+ $scope.pinch = function(event) {
+ $scope.scaleFactor = event.gesture.scale;
+ event.gesture.preventDefault();
+ }
+
+ */
