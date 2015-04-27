@@ -96,8 +96,8 @@
       },
       panels: {
         TEMPLATE_WINDOW: 'Window',
-        TEMPLATE_BALCONY: 'balcony',
-        TEMPLATE_DOOR: 'door',
+        TEMPLATE_BALCONY: 'Balcony',
+        TEMPLATE_DOOR: 'Door',
         TEMPLATE_BALCONY_ENTER: 'Exit to a balcony',
         TEMPLATE_EDIT: 'edit',
         TEMPLATE_DEFAULT: 'Project by default',

@@ -33,7 +33,6 @@
     //============ methods ================//
 
     function swipeMainPage(event) {
-      //$rootScope.$broadcast('swipeMainPage', true);
       thisCtrl.global.isNavMenu = !thisCtrl.global.isNavMenu;
       thisCtrl.global.isConfigMenu = true;
       if(!thisCtrl.global.isOpenedHistoryPage) {

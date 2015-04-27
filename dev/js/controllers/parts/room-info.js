@@ -21,7 +21,6 @@
     };
 
 
-
     //------ clicking
 
     thisCtrl.showRoomSelectorDialog = showRoomSelectorDialog;

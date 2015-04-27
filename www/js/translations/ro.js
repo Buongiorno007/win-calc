@@ -97,9 +97,9 @@
         ROOM_SELECTION: 'Interior selection'
       },
       panels: {
-        TEMPLATE_WINDOW: 'fereastră',
-        TEMPLATE_BALCONY: 'balcon',
-        TEMPLATE_DOOR: 'ușă',
+        TEMPLATE_WINDOW: 'Fereastră',
+        TEMPLATE_BALCONY: 'Balcon',
+        TEMPLATE_DOOR: 'Ușă',
         TEMPLATE_BALCONY_ENTER: 'Ieșire la balcon',
         TEMPLATE_EDIT: 'Editare',
         TEMPLATE_DEFAULT: 'Proiect Standard',

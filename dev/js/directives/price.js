@@ -4,14 +4,15 @@
    * @ngInject
    */
   angular
-    .module('MainModule')
-    .directive('price', orderDateDir);
+    .module('BauVoiceApp')
+    .directive('price', priceDir);
 
-  function orderDateDir(globalConstants, SoundPlayServ) {
+  function priceDir(globalConstants, SoundPlayServ) {
 
     return {
       restrict: 'E',
       replace: true,
+      transclude: true,
       scope: {
         priceValue: '=',
         priceCurrency: '='

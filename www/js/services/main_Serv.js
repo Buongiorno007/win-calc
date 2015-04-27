@@ -10,7 +10,7 @@
     .module('MainModule')
     .factory('MainServ', navFactory);
 
-  function navFactory($q, $filter, $cordovaProgress, globalDB, GeneralServ, GlobalStor, OrderStor, ProductStor, optionsServ) {
+  function navFactory($rootScope, $q, $filter, $cordovaProgress, globalConstants, globalDB, GeneralServ, GlobalStor, OrderStor, ProductStor, optionsServ) {
 
     var thisFactory = this;
 
@@ -56,13 +56,14 @@
 
       setCurrentProfile: setCurrentProfile,
       //downloadAllTemplates: downloadAllTemplates,
-      //parseTemplate: parseTemplate,
-      //saveTemplateInProduct: saveTemplateInProduct,
+      parseTemplate: parseTemplate,
+      saveTemplateInProduct: saveTemplateInProduct,
       preparePrice: preparePrice,
       setProductPriceTOTAL: setProductPriceTOTAL,
       createNewProject: createNewProject,
       createNewProduct: createNewProduct,
-      setDefaultDoorConfig: setDefaultDoorConfig
+      setDefaultDoorConfig: setDefaultDoorConfig,
+      prepareMainPage: prepareMainPage
     };
 
     return thisFactory.publicObj;
@@ -83,7 +84,7 @@
       OrderStor.order.orderId = Math.floor((Math.random() * 100000));
 
       //------ set delivery day
-      deliveryDate.setDate( deliveryDate.getDate() + GlobalStor.productionDays );
+      deliveryDate.setDate( deliveryDate.getDate() + globalConstants.productionDays );
       valuesDate = [
         deliveryDate.getDate(),
         deliveryDate.getMonth() + 1
@@ -106,7 +107,6 @@
           var resultQty = result.length,
               countries;
           GlobalStor.global.profilesType = angular.copy(result);
-
           //-------- get all Countries
           globalDB.selectAllDBGlobal(globalDB.countriesTableDBGlobal).then(function (result) {
             if (result) {
@@ -166,7 +166,7 @@
 
           //--------- set current profile in ProductStor
           setCurrentProfile().then(function(){
-            console.log('++++profileDepths+++++', JSON.stringify(GlobalStor.global.profileDepths));
+            //console.log('++++profileDepths+++++', JSON.stringify(GlobalStor.global.profileDepths));
             parseTemplate();
 
           });
@@ -246,7 +246,7 @@
       ProductStor.product.profileImpostId = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].impost_list_id;
       ProductStor.product.profileShtulpId = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].shtulp_list_id;
       //------- set Depths
-        $q.all([
+      $q.all([
         downloadProfileDepth(ProductStor.product.profileFrameId),
         downloadProfileDepth(ProductStor.product.profileFrameStillId),
         downloadProfileDepth(ProductStor.product.profileSashId),
@@ -283,22 +283,26 @@
 
     function parseTemplate() {
 
-        var templatesQty = GlobalStor.global.templatesSource.length;
-        for(var tem = 0; tem < templatesQty; tem++) {
-          GlobalStor.global.templates.push( new Template(GlobalStor.global.templatesSource[tem], GlobalStor.global.profileDepths) );
-          GlobalStor.global.templatesIcon.push( new TemplateIcon(GlobalStor.global.templatesSource[tem], GlobalStor.global.profileDepths) );
-        }
+      //--------- cleaning old templates
+      GlobalStor.global.templates.length = 0;
+      GlobalStor.global.templatesIcon.length = 0;
 
-        //-------- Save Template Arrays in Store
-        if(GlobalStor.global.startProgramm) {
-          GlobalStor.global.templatesSTORE = angular.copy(GlobalStor.global.templates);
-          GlobalStor.global.templatesIconSTORE = angular.copy(GlobalStor.global.templatesIcon);
-        }
+      var templatesQty = GlobalStor.global.templatesSource.length;
+      for(var tem = 0; tem < templatesQty; tem++) {
+        GlobalStor.global.templates.push( new Template(GlobalStor.global.templatesSource[tem], GlobalStor.global.profileDepths) );
+        GlobalStor.global.templatesIcon.push( new TemplateIcon(GlobalStor.global.templatesSource[tem], GlobalStor.global.profileDepths) );
+      }
 
-        //------- set current template for product
-        saveTemplateInProduct(ProductStor.product.templateIndex);
+      //-------- Save Template Arrays in Store
+      //if(GlobalStor.global.startProgramm) {
+        GlobalStor.global.templatesSTORE = angular.copy(GlobalStor.global.templates);
+        GlobalStor.global.templatesIconSTORE = angular.copy(GlobalStor.global.templatesIcon);
+      //}
 
-        preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId);
+      //------- set current template for product
+      saveTemplateInProduct(ProductStor.product.templateIndex);
+
+      preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId);
 
     }
 
@@ -386,7 +390,7 @@
             }
           }
         }
-        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
+        //console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
 
         console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
         //--------- get product price
@@ -487,19 +491,8 @@
     function setProductPriceTOTAL() {
       //playSound('price');
       ProductStor.product.productPriceTOTAL = ProductStor.product.templatePriceSELECT + ProductStor.product.laminationPriceSELECT + ProductStor.product.addElementsPriceSELECT;
-//      //------- после первой загрузки создается дефолтный объект
-//      if(GlobalStor.global.startProgramm) {
-//        //-------- create default product in localStorage
-//        $scope.global.productDefault = angular.copy($scope.global.product);
-//        //console.log('productDefault', $scope.global.productDefault);
-//      }
-//      $scope.$apply();
+      $rootScope.$apply();
     }
-
-//    setProductPriceTOTALapply = function() {
-//      //playSound('price');
-//      $scope.global.product.productPriceTOTAL = $scope.global.product.templatePriceSELECT + $scope.global.product.laminationPriceSELECT + $scope.global.product.addElementsPriceSELECT;
-//    };
 
 
 
@@ -535,6 +528,14 @@
       ProductStor.product.doorSashShapeId = 0;
       ProductStor.product.doorHandleShapeId = 0;
       ProductStor.product.doorLockShapeId = 0;
+    }
+
+
+    function prepareMainPage() {
+      GlobalStor.global.isNavMenu = false;
+      GlobalStor.global.isConfigMenu = true;
+      //------ open Template Panel
+      GlobalStor.global.activePanel = 1;
     }
 
 

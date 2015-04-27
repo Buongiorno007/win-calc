@@ -4,7 +4,7 @@
     li.item.item-header(ng-class="{'active': configMenu.global.activePanel == 1}", hm-tap="configMenu.selectConfigPanel(1)")
       .title(data-output="{{ 'mainpage.CONFIGMENU_CONFIGURATION' | translate }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .icon.unvisible(ng-if="configMenu.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
-        svg-template(template="configMenu.product.templateIcon", template-width="configMenu.global.svgTemplateIconWidth", template-height="configMenu.global.svgTemplateIconHeight", type-construction="icon")
+        svg-template(template="configMenu.product.templateIcon", template-width="configMenu.constants.svgTemplateIconWidth", template-height="configMenu.constants.svgTemplateIconHeight", type-construction="icon")
       .name(data-output="{{ 'mainpage.CONFIGMENU_SIZING' | translate }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(data-output="{{ configMenu.product.templateWidth }} {{ 'mainpage.MM' | translate }} *", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .value(data-output="{{ configMenu.product.templateHeight }} {{ 'mainpage.MM' | translate }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")

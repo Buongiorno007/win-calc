@@ -4,11 +4,11 @@
       .coeff.climate {{ roomInfo.order.currClimaticZone }}
       .coeff-title(data-output="{{ 'mainpage.CLIMATE_ZONE' | translate }}", typing="{{ roomInfo.config.typing }}", typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}")
     .coeff-block
-      .coeff.heat-transfer(ng-class="{'coeff-low': roomInfo.product.heatTransferTOTAL < userInfo.order.currHeatTransfer}") {{ userInfo.product.heatTransferTOTAL }}
-        .coeff-max {{ userInfo.order.currHeatTransfer }}
+      .coeff.heat-transfer(ng-class="{'coeff-low': roomInfo.product.heatTransferTOTAL < roomInfo.order.currHeatTransfer}") {{ roomInfo.product.heatTransferTOTAL }}
+        .coeff-max {{ roomInfo.order.currHeatTransfer }}
       .coeff-title(data-output="{{ 'mainpage.THERMAL_RESISTANCE' | translate }}", typing="{{ roomInfo.config.typing }}", typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}")
     .coeff-block
       button.select-rooms.unvisible(show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}", hm-tap="roomInfo.showRoomSelectorDialog($event)") {{ 'mainpage.ROOM_SELECTION' | translate }}
 
   .product-comment
-    textarea.comment-field(ng-model="userInfo.product.comment", placeholder="{{ 'mainpage.COMMENT' | translate }}")
+    textarea.comment-field(ng-model="roomInfo.product.comment", placeholder="{{ 'mainpage.COMMENT' | translate }}")

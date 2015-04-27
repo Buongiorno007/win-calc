@@ -1,0 +1,29 @@
+.config-panel.profile-container(ng-controller="ProfilesCtrl as profilesPanel", ng-class="{'active': profilesPanel.global.activePanel == 2}")
+  .panel-inner(ng-if="profilesPanel.global.activePanel == 2")
+    .profile-block.clearfix(ng-repeat="producer in profilesPanel.global.profiles", ng-class="{'selected': profilesPanel.product.profileTypeIndex == $index}")
+      .group-block-header
+        .title(data-output="{{ profilesPanel.global.profilesType[$index].name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START }}")
+        .group-info
+          .info
+      .box.profile-box.unvisible(ng-repeat="profile in producer", ng-class="{'selected': profilesPanel.product.profileIndex == $index && profilesPanel.product.profileTypeIndex == $parent.$index}", hm-tap="profilesPanel.selectProfile($parent.$index, $index)", show-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_BLOCK * $index) }}")
+        .profile-box-top
+          .type {{ profile.profileDescrip }}
+          .profile-descr(data-output="{{ profile.name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
+          .profile-country(data-output="{{ profile.country }} {{ profile.profileCountry }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
+          .label(data-output="{{ 'panels.COUNTRY' | translate }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
+        .profile-box-bottom
+          .coef-level.heat-insulation(ng-class="{'coef-level-1': profile.heatCoeff == 1, 'coef-level-2': profile.heatCoeff == 2, 'coef-level-3': profile.heatCoeff == 3, 'coef-level-4': profile.heatCoeff == 4}")
+            .coef-index
+            .coef-index
+            .coef-index
+            .coef-index
+            .coef-index
+          .label(data-output="{{ 'panels.HEAT_INSULATION' | translate }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
+          .coef-level.noise-insulation(ng-class="{'coef-level-1': profile.profileNoise == 1, 'coef-level-2': profile.profileNoise == 2, 'coef-level-3': profile.profileNoise == 3, 'coef-level-4': profile.profileNoise == 4}")
+            .coef-index
+            .coef-index
+            .coef-index
+            .coef-index
+            .coef-index
+          .label(data-output="{{ 'panels.NOICE_INSULATION' | translate }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
+        .info

@@ -16,14 +16,6 @@
 
     thisFactory.publicObj = {
 
-      svgTemplateIconWidth: 70,
-      svgTemplateIconHeight: 70,
-      svgTemplateIconBigWidth: 500,
-      svgTemplateIconBigHeight: 450,
-      svgTemplateWidth: 800,
-      svgTemplateHeight: 700,
-      productionDays: 15,
-
       addElementsGroupClass: [
         'aux_color_connect', 'aux_color_big', 'aux_color_middle', 'aux_color_slope', 'aux_color_middle', 'aux_color_slope', 'aux_color_connect', 'aux_color_small', 'aux_color_big', 'aux_color_middle', 'aux_color_small'
       ],
@@ -41,6 +33,11 @@
         startProgramm: true, // for START
         constructionType: 1, // 1 - window; 2 - windowDoor; 3 - balcony; 4 - door
 
+        //------ navigation
+        isNavMenu: true,
+        isConfigMenu: false,
+        activePanel: 0,
+
         isCreatedNewProject: true,
         isCreatedNewProduct: true,
         isOrderFinished: false,
@@ -51,10 +48,7 @@
         productEditNumber: 0,
         orderEditNumber: 0,
 
-        //------ navigation
-        isNavMenu: true,
-        isConfigMenu: false,
-        activePanel: 0,
+
 
         //------- Templates
         templateDepths: {},
@@ -114,16 +108,6 @@
           elementId: 0,
           elementLength: 0
         },
-
-
-
-//        showPanels: {},
-//        isTemplatePanel: false,
-//        isProfilePanel: false,
-//        isGlassPanel: false,
-//        isHardwarePanel: false,
-//        isLaminationPanel: false,
-//        isAddElementsPanel: false,
 
 
 

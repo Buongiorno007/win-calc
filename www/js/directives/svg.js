@@ -10,7 +10,7 @@
     .module('BauVoiceApp')
     .directive('svgTemplate', svgTemplateDir);
 
-  function svgTemplateDir() {
+  function svgTemplateDir(GlobalStor, ProductStor) {
 
     return {
       restrict: 'E',
@@ -77,7 +77,7 @@
         });
   */
         function buildTemplateSVG(template, canvasWidth, canvasHeight) {
-          //console.log(template);
+          //console.log('template ======', template);
           var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"),
               draw = SVG(svg).size(canvasWidth, canvasHeight),
               sizeClass = 'size-box',
@@ -128,7 +128,7 @@
             switch(template.objects[i].type) {
               case 'frame':
                 //console.log('scope.parent.global.isConstructDoor =', scope.$parent.global.isConstructDoor);
-                if(scope.$parent.global.isConstructDoor && scope.$parent.global.product.doorShapeId > 0){
+                if(GlobalStor.global.constructionType === 4 && ProductStor.product.doorShapeId > 0){
                   //console.log('doorConfig =', scope.$parent.global.product.doorShapeId);
                   switch(template.objects[i].id) {
                     //----- without doorstep
@@ -143,12 +143,12 @@
                       path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ';
                       break;
                     case 'frame3':
-                      if(scope.$parent.global.product.doorShapeId === 2) {
+                      if(ProductStor.product.doorShapeId === 2) {
                         //----- inside Al doorstep
                         path += template.objects[i].parts[1].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ' + template.objects[i].parts[1].toPoint.x + ' ' + template.objects[i].parts[0].toPoint.y + ' ';
                         path += template.objects[i].parts[1].toPoint.x + ' ' + (+template.objects[i].parts[0].toPoint.y - 35) + ' ' + template.objects[i].parts[1].fromPoint.x + ' ' + (+template.objects[i].parts[0].fromPoint.y - 35) + ' ';
                         path += template.objects[i].parts[1].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ';
-                      } else if(scope.$parent.global.product.doorShapeId === 3) {
+                      } else if(ProductStor.product.doorShapeId === 3) {
                         //----- outside Al doorstep
                         path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ' + template.objects[i].parts[0].toPoint.x + ' ' + template.objects[i].parts[0].toPoint.y + ' ';
                         path += template.objects[i].parts[0].toPoint.x + ' ' + (+template.objects[i].parts[0].toPoint.y + 20) + ' ' + template.objects[i].parts[0].fromPoint.x + ' ' + (+template.objects[i].parts[0].fromPoint.y + 20) + ' ';
@@ -422,13 +422,13 @@
               switch (prop) {
                 case 'frames':
                   if(scope.typeConstruction === 'icon') {
-                    if(elem === 2 && scope.$parent.global.product.doorShapeId === 2 || elem === 2 && scope.$parent.global.product.doorShapeId === 3) {
+                    if(elem === 2 && ProductStor.product.doorShapeId === 2 || elem === 2 && ProductStor.product.doorShapeId === 3) {
                       group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'frame-icon doorstep');
                     } else {
                       group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'frame-icon');
                     }
                   } else {
-                    if(elem === 2 && scope.$parent.global.product.doorShapeId === 2 || elem === 2 && scope.$parent.global.product.doorShapeId === 3) {
+                    if(elem === 2 && ProductStor.product.doorShapeId === 2 || elem === 2 && ProductStor.product.doorShapeId === 3) {
                       group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'frame doorstep');
                     } else {
                       group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'frame');
@@ -639,6 +639,7 @@
             draw.viewbox(-edgeLeft, -edgeTop, (overallDimH + edgeLeft), (overallDimV + edgeTop));
             draw.attr('id', 'svg-construction');
           }
+          //console.log('++++++svg', svg);
           return svg;
         }
 

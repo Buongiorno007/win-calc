@@ -1,6 +1,6 @@
-.config-panel.glass-container(ng-controller="GlassCtrl as glassPanel", ng-class="{'active': glassPanel.global.showPanels.showGlassPanel}")
-  .panel-inner(ng-if="glassPanel.global.isGlassPanel")
-    .glass-block(ng-repeat="typeGlass in glassPanel.global.glasses", ng-class="{'selected': glassPanel.global.product.glassTypeIndex == $index}")
+.config-panel.glass-container(ng-controller="GlassesCtrl as glassPanel", ng-class="{'active': glassPanel.global.activePanel == 3}")
+  .panel-inner(ng-if="glassPanel.global.activePanel == 3")
+    .glass-block(ng-repeat="typeGlass in glassPanel.global.glasses", ng-class="{'selected': glassPanel.product.glassTypeIndex == $index}")
 
       .group-block-header
         .title(data-output="{{ glassPanel.global.glassTypes[$index] }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START }}")
@@ -9,7 +9,7 @@
 
       .glass-block-footer.clearfix
         .footer-inner
-          .box.glass-box.unvisible(ng-repeat="glass in typeGlass", ng-class="{'selected': glassPanel.global.product.glassIndex == $index && glassPanel.global.product.glassTypeIndex == $parent.$index}", hm-tap="glassPanel.selectGlass($parent.$index, $index, glass.glassId)", show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}")
+          .box.glass-box.unvisible(ng-repeat="glass in typeGlass", ng-class="{'selected': glassPanel.product.glassIndex == $index && glassPanel.product.glassTypeIndex == $parent.$index}", hm-tap="glassPanel.selectGlass($parent.$index, $index, glass.glassId)", show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}")
             .glass-box-view
               .glass-img
                 img(ng-src="{{ glass.glassUrl }}")

@@ -12,10 +12,11 @@
     .module('MainModule')
     .controller('ConfigMenuCtrl', glassSelectorCtrl);
 
-  function glassSelectorCtrl($scope, $timeout, globalConstants, localDB, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function glassSelectorCtrl(globalConstants, localDB, GlobalStor, OrderStor, ProductStor) {
 
     console.log('START CONFIG MENU!!!!!!');
     var thisCtrl = this;
+    thisCtrl.constants = globalConstants;
     thisCtrl.global = GlobalStor.global;
     thisCtrl.order = OrderStor.order;
     thisCtrl.product = ProductStor.product;
@@ -42,83 +43,6 @@
     //============ methods ================//
 
 
-//    $scope.selectTemplatePanel = function() {
-//      if($scope.global.showPanels.showTemplatePanel) {
-//        $scope.global.showPanels.showTemplatePanel = false;
-//      } else {
-//        clearShowPanelsObj();
-//        $scope.global.showPanels.showTemplatePanel = true;
-//        $scope.global.isTemplatePanel = true;
-//        $scope.global.isAddElementListView = false;
-//      }
-//    };
-//    $scope.selectProfilePanel = function() {
-//      if($scope.global.showPanels.showProfilePanel) {
-//        $scope.global.showPanels.showProfilePanel = false;
-//      } else {
-//        clearShowPanelsObj();
-//        $scope.global.showPanels.showProfilePanel = true;
-//        $scope.global.isProfilePanel = true;
-//        $scope.global.isAddElementListView = false;
-//      }
-//    };
-//    $scope.selectGlassPanel = function() {
-//      if($scope.global.showPanels.showGlassPanel) {
-//        $scope.global.showPanels.showGlassPanel = false;
-//      } else {
-//        clearShowPanelsObj();
-//        $scope.global.showPanels.showGlassPanel = true;
-//        $scope.global.isGlassPanel = true;
-//        $scope.global.isAddElementListView = false;
-//      }
-//    };
-//    $scope.selectHardwarePanel = function() {
-//      if($scope.global.showPanels.showHardwarePanel) {
-//        $scope.global.showPanels.showHardwarePanel = false;
-//      } else {
-//        clearShowPanelsObj();
-//        $scope.global.showPanels.showHardwarePanel = true;
-//        $scope.global.isHardwarePanel = true;
-//        $scope.global.isAddElementListView = false;
-//      }
-//    };
-//    $scope.selectLaminationPanel = function() {
-//      if($scope.global.showPanels.showLaminationPanel) {
-//        $scope.global.showPanels.showLaminationPanel = false;
-//      } else {
-//        clearShowPanelsObj();
-//        $scope.global.showPanels.showLaminationPanel = true;
-//        $scope.global.isLaminationPanel = true;
-//        $scope.global.isAddElementListView = false;
-//      }
-//    };
-//    $scope.selectAddElementsPanel = function() {
-//      if($scope.global.showPanels.showAddElementsPanel) {
-//        $scope.global.showPanels.showAddElementsPanel = false;
-//        $scope.global.isAddElementListView = false;
-//      } else {
-//        clearShowPanelsObj();
-//        $scope.global.showPanels.showAddElementsPanel = true;
-//        $scope.global.isAddElementsPanel = true;
-//      }
-//      $scope.global.isFocusedAddElement = false;
-//      $scope.global.isTabFrame = false;
-//      $scope.global.showAddElementsMenu = false;
-//      $scope.global.desactiveAddElementParameters();
-//    };
-//
-//    // Close all panels
-//    function clearShowPanelsObj() {
-//      for (var item in $scope.global.showPanels) {
-//        delete $scope.global.showPanels[item];
-//      }
-//      //---- close Scheme Dialog in AddElements
-//      $scope.global.isWindowSchemeDialog = false;
-//      //playSound('switching');
-//    }
-
-
-
     //------- Select menu item
 
     function selectConfigPanel(id) {
@@ -130,11 +54,11 @@
       }
 
       GlobalStor.global.isWindowSchemeDialog = false;
-      $scope.global.isAddElementListView = false;
-      $scope.global.isFocusedAddElement = false;
-      $scope.global.isTabFrame = false;
-      $scope.global.showAddElementsMenu = false;
-      $scope.global.desactiveAddElementParameters();
+      GlobalStor.global.isAddElementListView = false;
+      GlobalStor.global.isFocusedAddElement = false;
+      GlobalStor.global.isTabFrame = false;
+      GlobalStor.global.showAddElementsMenu = false;
+//      GlobalStor.global.desactiveAddElementParameters();
     }
 
 
