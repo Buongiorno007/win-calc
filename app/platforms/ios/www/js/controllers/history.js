@@ -133,49 +133,49 @@
 
     //------ Select calendar-scroll
     $scope.openCalendarScroll = function(dataType) {
-      if($scope.history.isDraftView) {
-        if (dataType === 'start-date' && !$scope.history.isStartDateDraft ) {
-          $scope.history.isStartDateDraft  = true;
-          $scope.history.isFinishDateDraft  = false;
-          $scope.history.isAllPeriodDraft  = false;
-        } else if (dataType === 'finish-date' && !$scope.history.isFinishDateDraft ) {
-          $scope.history.isStartDateDraft  = false;
-          $scope.history.isFinishDateDraft  = true;
-          $scope.history.isAllPeriodDraft  = false;
-        } else if (dataType === 'full-date' && !$scope.history.isAllPeriodDraft ) {
-          $scope.history.isStartDateDraft  = false;
-          $scope.history.isFinishDateDraft  = false;
-          $scope.history.isAllPeriodDraft  = true;
-          $scope.history.startDateDraft  = '';
-          $scope.history.finishDateDraft  = '';
-          $scope.drafts = angular.copy($scope.draftsSource);
-        } else {
-          $scope.history.isStartDateDraft  = false;
-          $scope.history.isFinishDateDraft  = false;
-          $scope.history.isAllPeriodDraft = false;
-        }
-      } else {
-        if (dataType === 'start-date' && !$scope.history.isStartDate) {
-          $scope.history.isStartDate = true;
-          $scope.history.isFinishDate = false;
-          $scope.history.isAllPeriod = false;
-        } else if (dataType === 'finish-date' && !$scope.history.isFinishDate) {
-          $scope.history.isStartDate = false;
-          $scope.history.isFinishDate = true;
-          $scope.history.isAllPeriod = false;
-        } else if (dataType === 'full-date' && !$scope.history.isAllPeriod) {
-          $scope.history.isStartDate = false;
-          $scope.history.isFinishDate = false;
-          $scope.history.isAllPeriod = true;
-          $scope.history.startDate = '';
-          $scope.history.finishDate = '';
-          $scope.orders = angular.copy($scope.ordersSource);
-        } else {
-          $scope.history.isStartDate = false;
-          $scope.history.isFinishDate = false;
-          $scope.history.isAllPeriod = false;
-        }
-      }
+//      if($scope.history.isDraftView) {
+//        if (dataType === 'start-date' && !$scope.history.isStartDateDraft ) {
+//          $scope.history.isStartDateDraft  = true;
+//          $scope.history.isFinishDateDraft  = false;
+//          $scope.history.isAllPeriodDraft  = false;
+//        } else if (dataType === 'finish-date' && !$scope.history.isFinishDateDraft ) {
+//          $scope.history.isStartDateDraft  = false;
+//          $scope.history.isFinishDateDraft  = true;
+//          $scope.history.isAllPeriodDraft  = false;
+//        } else if (dataType === 'full-date' && !$scope.history.isAllPeriodDraft ) {
+//          $scope.history.isStartDateDraft  = false;
+//          $scope.history.isFinishDateDraft  = false;
+//          $scope.history.isAllPeriodDraft  = true;
+//          $scope.history.startDateDraft  = '';
+//          $scope.history.finishDateDraft  = '';
+//          $scope.drafts = angular.copy($scope.draftsSource);
+//        } else {
+//          $scope.history.isStartDateDraft  = false;
+//          $scope.history.isFinishDateDraft  = false;
+//          $scope.history.isAllPeriodDraft = false;
+//        }
+//      } else {
+//        if (dataType === 'start-date' && !$scope.history.isStartDate) {
+//          $scope.history.isStartDate = true;
+//          $scope.history.isFinishDate = false;
+//          $scope.history.isAllPeriod = false;
+//        } else if (dataType === 'finish-date' && !$scope.history.isFinishDate) {
+//          $scope.history.isStartDate = false;
+//          $scope.history.isFinishDate = true;
+//          $scope.history.isAllPeriod = false;
+//        } else if (dataType === 'full-date' && !$scope.history.isAllPeriod) {
+//          $scope.history.isStartDate = false;
+//          $scope.history.isFinishDate = false;
+//          $scope.history.isAllPeriod = true;
+//          $scope.history.startDate = '';
+//          $scope.history.finishDate = '';
+//          $scope.orders = angular.copy($scope.ordersSource);
+//        } else {
+//          $scope.history.isStartDate = false;
+//          $scope.history.isFinishDate = false;
+//          $scope.history.isAllPeriod = false;
+//        }
+//      }
     };
 
     //------- filtering orders by Dates

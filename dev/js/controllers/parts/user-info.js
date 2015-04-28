@@ -31,10 +31,10 @@
 
     function swipeMainPage(event) {
       thisCtrl.global.isNavMenu = !thisCtrl.global.isNavMenu;
-      thisCtrl.global.isConfigMenu = true;
-      if(!thisCtrl.global.isOpenedHistoryPage) {
-        thisCtrl.global.startProgramm = false;
-      }
+      thisCtrl.global.isConfigMenu = !thisCtrl.global.isConfigMenu;
+//      if(!thisCtrl.global.isOpenedHistoryPage) {
+//        thisCtrl.global.startProgramm = false;
+//      }
       //playSound('swip');
     }
 
@@ -42,9 +42,9 @@
       if(thisCtrl.global.isNavMenu) {
         thisCtrl.global.isNavMenu = false;
         thisCtrl.global.isConfigMenu = true;
-        if (!thisCtrl.global.isOpenedHistoryPage) {
-          thisCtrl.global.startProgramm = false;
-        }
+//        if (!thisCtrl.global.isOpenedHistoryPage) {
+//          thisCtrl.global.startProgramm = false;
+//        }
         //playSound('swip');
       }
     }

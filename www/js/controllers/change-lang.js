@@ -10,30 +10,38 @@
     .module('SettingsModule')
     .controller('ChangeLangCtrl', changeLangCtrl);
 
-  function changeLangCtrl($scope, $translate, $timeout, globalConstants, localStorage, UserStor, NavMenuServ) {
+  function changeLangCtrl($location, $translate, $timeout, globalConstants, GlobalStor, UserStor, NavMenuServ) {
 
-    $scope.global = localStorage.storage;
-    $scope.userInfo = UserStor.userInfo;
-    $scope.language = {
+    var thisCtrl = this;
+    thisCtrl.global = GlobalStor.global;
+    thisCtrl.userInfo = UserStor.userInfo;
+
+    thisCtrl.config = {
       DELAY_START: globalConstants.STEP,
       typing: 'on'
     };
 
-    $scope.switchLang = function (languageId) {
-      $translate.use($scope.global.languages[languageId].label);
-      UserStor.userInfo.langLabel = $scope.global.languages[languageId].label;
-      UserStor.userInfo.langName = $scope.global.languages[languageId].name;
+    //------ clicking
+    thisCtrl.switchLang = switchLang;
+
+
+    //============ methods ================//
+
+    function switchLang(languageId) {
+      $translate.use(globalConstants.languages[languageId].label);
+      UserStor.userInfo.langLabel = globalConstants.languages[languageId].label;
+      UserStor.userInfo.langName = globalConstants.languages[languageId].name;
       //----- if Voice Helper switch on
-      if($scope.global.isVoiceHelper) {
-        $scope.global.voiceHelperLanguage = NavMenuServ.setLanguageVoiceHelper();
+      if(GlobalStor.global.isVoiceHelper) {
+        GlobalStor.global.voiceHelperLanguage = NavMenuServ.setLanguageVoiceHelper();
       }
       $timeout(function() {
-        $scope.global.isOpenSettingsPage = false;
-        $scope.global.startProgramm = false;
-        $scope.global.isReturnFromDiffPage = true;
+        //$scope.global.isOpenSettingsPage = false;
+        //$scope.global.startProgramm = false;
+        //$scope.global.isReturnFromDiffPage = true;
         $location.path('/main');
       }, 200);
-    };
+    }
 
   }
 })();

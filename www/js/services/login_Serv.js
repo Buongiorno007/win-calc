@@ -10,7 +10,7 @@
     .module('LoginModule')
     .factory('loginServ', startFactory);
 
-  function startFactory($q, globalDB, GlobalStor, OrderStor, UserStor) {
+  function startFactory($q, globalDB, globalConstants, OrderStor, UserStor) {
 
     var thisFactory = this;
 
@@ -28,11 +28,11 @@
 
     //------ compare device language with existing dictionary, if not exist set default language = English
     function checkLangDictionary(label) {
-      var langQty = GlobalStor.languages.length;
+      var langQty = globalConstants.languages.length;
       while(--langQty > -1) {
-        if(localStorage.storage.languages[langQty].label === label) {
+        if(globalConstants.languages[langQty].label === label) {
           UserStor.userInfo.langLabel = label;
-          UserStor.userInfo.langName = GlobalStor.languages[langQty].name;
+          UserStor.userInfo.langName = globalConstants.languages[langQty].name;
         }
       }
     }

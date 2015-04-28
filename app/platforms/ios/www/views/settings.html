@@ -21,10 +21,10 @@
           <div data-output="{{ userInfo.password }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
           <div data-output="{{ 'settings.CHANGE_PASSWORD' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_SHOW_ICONS }}" class="setting-item-change"></div>
         </li>
-        <li hm-tap="gotoLanguagePage()" class="item click">
+        <!--li hm-tap="gotoLanguagePage()" class="item click">
           <div data-output="{{ userInfo.langName }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
           <div data-output="{{ 'settings.CHANGE_LANGUAGE' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_SHOW_ICONS }}" class="setting-item-change"></div>
-        </li>
+        </li-->
       </ul>
       <ul class="list">
         <li class="item">
@@ -61,7 +61,7 @@
           <div data-output="{{ phone }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
         </li>
         <li class="item">
-          <button hm-tap="appendInputPhone()" class="phone-btn add-phone">+</button>
+          <button class="phone-btn add-phone">+</button>
           <div ng-hide="settings.isInsertPhone" hm-tap="appendInputPhone()" data-output="{{ 'settings.INSERT_PHONE' | translate }}" typing="{{ settings.typing }}" typing-delay="{{ settings.DELAY_START }}" class="setting-item-label"></div>
           <input ng-show="settings.isInsertPhone" type="text" ng-model="settings.tempAddPhone" ng-keypress="saveChangesPhone()" ng-blur="cancelAddPhone()" class="set-input-phone">
           <div ng-show="settings.isErrorPhone" class="error-tooltip">{{ 'login.WRONG_NUMBER' | translate }}</div>

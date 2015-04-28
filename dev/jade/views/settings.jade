@@ -49,7 +49,7 @@ section.settings.setting-page(ng-controller="SettingsCtrl")
           button.phone-btn.delete-phone(hm-tap="deletePhone($index)") &#8211;
           .setting-item-label(data-output="{{ phone }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
         li.item
-          button.phone-btn.add-phone(hm-tap="appendInputPhone()") +
+          button.phone-btn.add-phone +
           .setting-item-label(ng-hide="settings.isInsertPhone", hm-tap="appendInputPhone()", data-output="{{ 'settings.INSERT_PHONE' | translate }}", typing="{{ settings.typing }}", typing-delay="{{ settings.DELAY_START }}")
           input.set-input-phone(ng-show="settings.isInsertPhone", type="text", ng-model="settings.tempAddPhone", ng-keypress="saveChangesPhone()", ng-blur="cancelAddPhone()")
           .error-tooltip(ng-show="settings.isErrorPhone") {{ 'login.WRONG_NUMBER' | translate }}

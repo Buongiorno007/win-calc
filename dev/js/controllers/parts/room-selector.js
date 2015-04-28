@@ -31,56 +31,39 @@
 
     //---------- Room Select
     function selectRoom(id) {
-      GlobalStor.global.constructionType = id;
       ProductStor.product.selectedRoomId = id;
       closeRoomSelectorDialog();
-      //------- if the door was modified and now we are selecting a new room, the default door parameters is setting
-      if(GlobalStor.global.constructionType === 4) {
-        MainServ.setDefaultDoorConfig();
-      }
+
       //----- if select Door
       if(id === 6) {
+        MainServ.setDefaultDoorConfig();
+        GlobalStor.global.constructionType = 4;
         ProductStor.product.templateIndex = 0;
         GlobalStor.global.isReturnFromDiffPage = false;
         GlobalStor.global.isChangedTemplate = false;
-        MainServ.prepareTemplates(id);
 
-        MainServ.prepareMainPage();
+        MainServ.prepareTemplates(4);
+
+      //------- if select Balcony
       } else if(id === 3) {
-        //------- if select Balcony
-//        $scope.global.product.templateIndex = 0;
-//        $scope.global.isReturnFromDiffPage = false;
-//        $scope.global.isChangedTemplate = false;
-//        $scope.global.setTemplatesFromSTORE();
-//        //------- get templates from STORE
-//        $scope.global.setTemplatesFromSTORE();
-//        //------ set new templates arrays
-//        $scope.global.getCurrentTemplates();
-//        //------- change template and price relate to Balcony
-//        $scope.global.product.templateSource = $scope.global.templatesBalconySource[$scope.global.product.templateIndex];
-//        $scope.global.product.templateDefault = $scope.global.templatesBalconyList[$scope.global.product.templateIndex];
-//        $scope.global.product.templateIcon = $scope.global.templatesBalconyIconList[$scope.global.product.templateIndex];
-//        $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
-//        $scope.global.prepareMainPage();
-      } else {
-        if(GlobalStor.global.constructionType == 3 || GlobalStor.global.constructionType == 4) {
+        GlobalStor.global.constructionType = 3;
+        ProductStor.product.templateIndex = 0;
+        GlobalStor.global.isReturnFromDiffPage = false;
+        GlobalStor.global.isChangedTemplate = false;
 
-//          $scope.global.product.templateIndex = 0;
-//          $scope.global.isReturnFromDiffPage = false;
-//          $scope.global.isChangedTemplate = false;
-//          $scope.global.setTemplatesFromSTORE();
-//          //------- get templates from STORE
-//          $scope.global.setTemplatesFromSTORE();
-//          //------ set new templates arrays
-//          $scope.global.getCurrentTemplates();
-//          //------- change template and price relate to Window
-//          $scope.global.product.templateSource = $scope.global.templatesWindSource[$scope.global.product.templateIndex];
-//          $scope.global.product.templateDefault = $scope.global.templatesWindList[$scope.global.product.templateIndex];
-//          $scope.global.product.templateIcon = $scope.global.templatesWindIconList[$scope.global.product.templateIndex];
-//          $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
+        MainServ.prepareTemplates(3);
+      } else {
+        if(GlobalStor.global.constructionType === 3 || GlobalStor.global.constructionType === 4) {
+
+          GlobalStor.global.constructionType = 1;
+          ProductStor.product.templateIndex = 0;
+          GlobalStor.global.isReturnFromDiffPage = false;
+          GlobalStor.global.isChangedTemplate = false;
+
+          MainServ.prepareTemplates(1);
         }
-        MainServ.prepareMainPage();
       }
+      MainServ.prepareMainPage();
       //$scope.global.startProgramm = false;
     }
 

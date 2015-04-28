@@ -13,19 +13,6 @@
 
     thisFactory.publicObj = {
 
-      addElementsGroupClass: [
-        'aux_color_connect', 'aux_color_big', 'aux_color_middle', 'aux_color_slope', 'aux_color_middle', 'aux_color_slope', 'aux_color_connect', 'aux_color_small', 'aux_color_big', 'aux_color_middle', 'aux_color_small'
-      ],
-
-      //------------ Languages
-      languages: [
-        {label: 'ua', name: 'Українська'},
-        {label: 'ru', name: 'Русский'},
-        {label: 'en', name: 'English'},
-        {label: 'de', name: 'Deutsch'},
-        {label: 'ro', name: 'Român'}
-      ],
-
       globalSource: {
         startProgramm: true, // for START
         constructionType: 1, // 1 - window; 2 - windowDoor; 3 - balcony; 4 - door
@@ -37,18 +24,62 @@
 
         isCreatedNewProject: true,
         isCreatedNewProduct: true,
-        isOrderFinished: false,
-        isOpenedCartPage: false,
-        isOpenedHistoryPage: false,
-        isReturnFromDiffPage: false,
-
         productEditNumber: 0,
         orderEditNumber: 0,
 
+        prevOpenPage: '',
+        currOpenPage: 'main',
+
+//        isOrderFinished: false,
+//        isOpenedCartPage: false,
+//        isOpenedHistoryPage: false,
+//        isReturnFromDiffPage: false,
+//        isOpenSettingsPage: false,
+
+        isChangedTemplate: false,
+        isVoiceHelper: false,
+        voiceHelperLanguage: '',
+        showRoomSelectorDialog: false,
+        isShowCommentBlock: false,
+
+        //---- addElements Panel
+        showAddElementsMenu: false,
+        addElementsMenuStyle: false,
+        isFocusedAddElement: 0,
+        addElementsType: [],
+        addElementsList: [],
+        isAddElement: false,
+        currentAddElementId: false,
+        auxParameter: false,
+        isQtyCalculator: false,
+        isSizeCalculator: false,
+        isWidthCalculator: false,
+        isColorSelector: false,
+        addElementLaminatWhiteMatt: {},
+        addElementLaminatWhiteGlossy: {},
+        addElementLaminatColor: [],
+        isAddElementColor: false,
+        isTabFrame: false,
+        isWindowSchemeDialog: false,
+        isAddElementListView: false,
+
+
+//        isConstructSizeCalculator: false,
+
+
+
+        showMasterDialog: false,
+        showOrderDialog: false,
+        showCreditDialog: false,
+
+
+
+
+        //isRoomsDialog: false,
 
 
         //------- Templates
-        templateDepths: {},
+        //templateDepths: {},
         templateLabel: '',
         templatesSource: [],
         templates: [],
@@ -85,44 +116,12 @@
 
         orders: [],
 
-//        objXFormedPriceSource: {
-//          cityId: '',
-//          profileId: '',
-//          glassId: '',
-//          framesSize: [],
-//          sashsSize: [],
-//          beadsSize: [],
-//          impostsSize: [],
-//          shtulpsSize: [],
-//          sashesBlock: [],
-//          glassSizes: [],
-//          glassSquares: [],
-//          frameSillSize: 0
-//        },
-
         objXAddElementPriceSource: {
           cityId: 0,
           elementId: 0,
           elementLength: 0
-        },
+        }
 
-
-
-        isAddElement: false,
-        isAddElementListView: false,
-        isConstructSizeCalculator: false,
-        isTabFrame: false,
-
-        showRoomSelectorDialog: false,
-        isRoomsDialog: false,
-        isOpenSettingsPage: false,
-        isChangedTemplate: false,
-        isVoiceHelper: false,
-        voiceHelperLanguage: '',
-        isShowCommentBlock: false,
-        showMasterDialog: false,
-        showOrderDialog: false,
-        showCreditDialog: false
 
       },
 

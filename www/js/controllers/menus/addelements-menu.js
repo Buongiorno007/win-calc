@@ -10,22 +10,50 @@
     .module('MainModule')
     .controller('addElementMenuCtrl', addElementMenuCtrl);
 
-  function addElementMenuCtrl($scope, $timeout, globalConstants, globalDB, localStorage, UserStor, analyticsServ) {
+  function addElementMenuCtrl($scope, $timeout, globalConstants, globalDB, GlobalStor, ProductStor, UserStor, AddElementsServ, analyticsServ) {
 
+    var thisCtrl = this;
+    thisCtrl.constants = globalConstants;
+    thisCtrl.global = GlobalStor.global;
+    thisCtrl.product = ProductStor.product;
 
-    var sourceAddElement, cloneAddElement;
-
-    $scope.global = localStorage.storage;
-
-    $scope.addElementsMenu = {
+    thisCtrl.config = {
       DELAY_START: globalConstants.STEP,
       DELAY_SHOW_ELEMENTS_MENU: 10 * globalConstants.STEP,
       tempSize: [],
       typing: 'on'
     };
 
+    var sourceAddElement, cloneAddElement;
+
+
+    //------ clicking
+    thisCtrl.closeAddElementsMenu = closeAddElementsMenu;
+    thisCtrl.chooseAddElement = chooseAddElement;
+    thisCtrl.viewSwitching = AddElementsServ.viewSwitching;
+    thisCtrl.showWindowScheme = showWindowScheme;
+    thisCtrl.closeWindowScheme = closeWindowScheme;
+
+
+
+    //============ methods ================//
+
+    // Close AddElements Menu
+    function closeAddElementsMenu() {
+      $scope.global.isFocusedAddElement = false;
+      $scope.global.isTabFrame = false;
+      //playSound('swip');
+      $scope.global.showAddElementsMenu = false;
+      AddElementsServ.desactiveAddElementParameters();
+      $timeout(function() {
+        $scope.global.isAddElement = false;
+        //playSound('swip');
+        $scope.global.addElementsMenuStyle = false;
+      }, $scope.addElementsMenu.DELAY_SHOW_ELEMENTS_MENU);
+    }
+
     // Select AddElement
-    $scope.chooseAddElement = function(typeIndex, elementIndex) {
+    function chooseAddElement(typeIndex, elementIndex) {
       if(typeIndex === undefined && elementIndex === undefined) {
         $scope.global.desactiveAddElementParameters();
         $scope.global.isAddElement = false;
@@ -106,7 +134,7 @@
         }
       }
 
-    };
+    }
 
 
     //--------- when we select new addElement, function checks is there this addElements in order to increase only elementQty
@@ -389,19 +417,6 @@
       $scope.setAddElementsTotalPrice();
     };
 
-    // Close AddElements Menu
-    $scope.closeAddElementsMenu = function() {
-      $scope.global.isFocusedAddElement = false;
-      $scope.global.isTabFrame = false;
-      //playSound('swip');
-      $scope.global.showAddElementsMenu = false;
-      $scope.global.desactiveAddElementParameters();
-      $timeout(function() {
-        $scope.global.isAddElement = false;
-        //playSound('swip');
-        $scope.global.addElementsMenuStyle = false;
-      }, $scope.addElementsMenu.DELAY_SHOW_ELEMENTS_MENU);
-    };
 
 
     // Change Qty parameter

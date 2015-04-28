@@ -7,12 +7,14 @@
     .module('MainModule')
     .controller('AddElementsCtrl', addElementsCtrl);
 
-  function addElementsCtrl($scope, $timeout, globalConstants, globalDB, optionsServ, localStorage) {
-    var activeClass = 'active';
+  function addElementsCtrl(globalConstants, GlobalStor, ProductStor, AddElementsServ) {
 
-    $scope.global = localStorage.storage;
+    var thisCtrl = this;
+    thisCtrl.constants = globalConstants;
+    thisCtrl.global = GlobalStor.global;
+    thisCtrl.product = ProductStor.product;
 
-    $scope.addElementsPanel = {
+    thisCtrl.config = {
       DELAY_START: globalConstants.STEP,
       DELAY_SHOW_GRID: globalConstants.STEP * 5,
       DELAY_SHOW_VISOR: globalConstants.STEP * 6,
@@ -36,264 +38,29 @@
       typing: 'on'
     };
 
-    //Select additional element
-    $scope.global.selectAddElement = function(id) {
-      if($scope.global.isFocusedAddElement !== id && $scope.global.showAddElementsMenu) {
-        $scope.global.isFocusedAddElement = id;
-        $scope.global.isTabFrame = false;
-        //playSound('swip');
-        $scope.global.showAddElementsMenu = false;
-        $scope.global.desactiveAddElementParameters();
-        $timeout(function() {
-          $scope.global.isAddElement = false;
-          $scope.global.addElementsMenuStyle = false;
-          //playSound('swip');
-          $scope.global.showAddElementsMenu = activeClass;
-          $scope.global.downloadAddElementsData(id);
-        }, $scope.addElementsPanel.DELAY_SHOW_ELEMENTS_MENU);
-      } else {
-        $scope.global.isFocusedAddElement = id;
-        //playSound('swip');
-        $scope.global.showAddElementsMenu = activeClass;
-        $scope.global.downloadAddElementsData(id);
-      }
-    };
 
-    $scope.global.downloadAddElementsData = function(id) {
-      switch(id) {
-        case 1:
-          $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[0];
-  /*
-          globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'list_group_id': $scope.global.gridDBId}, function (results) {
-            if (results.status) {
-              $scope.global.addElementsList = [angular.copy(results.data)];
-            } else {
-              console.log(results);
-            }
-          });
-  */
-          optionsServ.getAllGrids(function (results) {
-            if (results.status) {
-              $scope.global.addElementsType = results.data.elementType;
-              $scope.global.addElementsList = results.data.elementsList;
-            } else {
-              console.log(results);
-            }
-          });
-          break;
-        case 2:
-          $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[1];
-  /*
-          globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'list_group_id': $scope.global.visorDBId}, function (results) {
-            if (results.status) {
-              $scope.global.addElementsList = [angular.copy(results.data)];
-            } else {
-              console.log(results);
-            }
-          });
-  */
-          optionsServ.getAllVisors(function (results) {
-            if (results.status) {
-              $scope.global.addElementsType = results.data.elementType;
-              $scope.global.addElementsList = results.data.elementsList;
-            } else {
-              console.log(results);
-            }
-          });
-          break;
-        case 3:
-          $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[2];
-  /*
-          globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'list_group_id': $scope.global.spillwayDBId}, function (results) {
-            if (results.status) {
-              $scope.global.addElementsList = [angular.copy(results.data)];
-            } else {
-              console.log(results);
-            }
-          });
-  */
-          optionsServ.getAllSpillways(function (results) {
-            if (results.status) {
-              $scope.global.addElementsType = results.data.elementType;
-              $scope.global.addElementsList = results.data.elementsList;
-            } else {
-              console.log(results);
-            }
-          });
-          break;
-        case 4:
-          $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[3];
-          optionsServ.getAllOutsideSlope(function (results) {
-            if (results.status) {
-              $scope.global.addElementsType = results.data.elementType;
-              $scope.global.addElementsList = results.data.elementsList;
-            } else {
-              console.log(results);
-            }
-          });
-          break;
-        case 5:
-          $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[4];
-          optionsServ.getAllLouvers(function (results) {
-            if (results.status) {
-              $scope.global.addElementsType = results.data.elementType;
-              $scope.global.addElementsList = results.data.elementsList;
-            } else {
-              console.log(results);
-            }
-          });
-          break;
-        case 6:
-          $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[5];
-          optionsServ.getAllInsideSlope(function (results) {
-            if (results.status) {
-              $scope.global.addElementsType = results.data.elementType;
-              $scope.global.addElementsList = results.data.elementsList;
-            } else {
-              console.log(results);
-            }
-          });
-          break;
-        case 7:
-          $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[6];
-          optionsServ.getAllConnectors(function (results) {
-            if (results.status) {
-              $scope.global.addElementsType = results.data.elementType;
-              $scope.global.addElementsList = results.data.elementsList;
-            } else {
-              console.log(results);
-            }
-          });
-          break;
-        case 8:
-          $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[7];
-          optionsServ.getAllFans(function (results) {
-            if (results.status) {
-              $scope.global.addElementsType = results.data.elementType;
-              $scope.global.addElementsList = results.data.elementsList;
-            } else {
-              console.log(results);
-            }
-          });
-          break;
-        case 9:
-          $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[8];
-  /*
-          globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'list_group_id': $scope.global.windowsillDBId}, function (results) {
-            if (results.status) {
-              $scope.global.addElementsList = [angular.copy(results.data)];
-            } else {
-              console.log(results);
-            }
-          });
-  */
-          optionsServ.getAllWindowSills(function (results) {
-            if (results.status) {
-              $scope.global.addElementsType = results.data.elementType;
-              $scope.global.addElementsList = results.data.elementsList;
-            } else {
-              console.log(results);
-            }
-          });
-          break;
-        case 10:
-          $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[9];
-          optionsServ.getAllHandles(function (results) {
-            if (results.status) {
-              $scope.global.addElementsType = results.data.elementType;
-              $scope.global.addElementsList = results.data.elementsList;
-            } else {
-              console.log(results);
-            }
-          });
-          break;
-        case 11:
-          $scope.global.addElementsMenuStyle = $scope.global.addElementsGroupClass[10];
-          optionsServ.getAllOthers(function (results) {
-            if (results.status) {
-              $scope.global.addElementsType = results.data.elementType;
-              $scope.global.addElementsList = results.data.elementsList;
-            } else {
-              console.log(results);
-            }
-          });
-          break;
-      }
-    };
 
-    // Select Add Element Parameter
-    //$scope.changeAddElementParameter = function(focusedElementId, parameterId) {
-    $scope.global.initAddElementMenuTools = function(toolsId, addElementId) {
-      if($scope.global.auxParameter === $scope.global.isFocusedAddElement+'-'+toolsId+'-'+addElementId) {
-        $scope.global.desactiveAddElementParameters();
-        $scope.global.currentAddElementId = false;
-        //console.log('close-'+$scope.global.auxParameter);
-      } else {
-        $scope.global.desactiveAddElementParameters();
-        $scope.global.auxParameter = $scope.global.isFocusedAddElement+'-'+toolsId+'-'+addElementId;
-        //console.log($scope.global.auxParameter);
-        $scope.global.currentAddElementId = addElementId;
-        switch(toolsId) {
-          case 1:
-            $scope.global.isQtyCalculator = true;
-            break;
-          case 2:
-            $scope.global.isSizeCalculator = true;
-            $scope.global.isWidthCalculator = true;
-            break;
-          case 3:
-            $scope.global.isSizeCalculator = true;
-            $scope.global.isWidthCalculator = false;
-            break;
-          case 4:
-            $scope.global.isColorSelector = false;
-            optionsServ.getLaminationAddElements(function (results) {
-              if (results.status) {
-                $scope.global.addElementLaminatWhiteMatt = results.data.laminationWhiteMatt;
-                $scope.global.addElementLaminatWhiteGlossy = results.data.laminationWhiteGlossy;
-                $scope.global.addElementLaminatColor = results.data.laminations;
-              } else {
-                console.log(results);
-              }
-            });
-            $scope.global.isColorSelector = true;
-            $scope.global.isAddElementColor = $scope.global.product.chosenAddElements.selectedWindowSill[addElementId].elementColorId;
-            break;
-        }
-      }
-    };
+    //------ clicking
+    thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
+    thisCtrl.initAddElementMenuTools = AddElementsServ.initAddElementMenuTools;
+    thisCtrl.viewSwitching = AddElementsServ.viewSwitching;
+    thisCtrl.showWindowScheme = showWindowScheme;
+    thisCtrl.closeWindowScheme = closeWindowScheme;
 
-    $scope.global.desactiveAddElementParameters = function () {
-      $scope.global.auxParameter = false;
-      $scope.global.isQtyCalculator = false;
-      $scope.global.isSizeCalculator = false;
-      $scope.global.isColorSelector = false;
-    };
 
-    // Open Add Elements in List View
-    $scope.viewSwitching = function() {
-      //playSound('swip');
-      $scope.global.isAddElementListView = true;
-      $scope.global.isFocusedAddElement = false;
-      $scope.global.isTabFrame = false;
-      $scope.global.showAddElementsMenu = false;
-      $scope.global.isAddElement = false;
-      $scope.global.desactiveAddElementParameters();
-      $timeout(function() {
-        $scope.global.addElementsMenuStyle = false;
-      }, $scope.addElementsPanel.DELAY_SHOW_ELEMENTS_MENU);
-    };
+
+    //============ methods ================//
 
     // Show Window Scheme Dialog
-    $scope.showWindowScheme = function() {
+    function showWindowScheme() {
       //playSound('fly');
-      $scope.global.isWindowSchemeDialog = true;
-    };
+      GlobalStor.global.isWindowSchemeDialog = true;
+    }
 
-    $scope.closeWindowScheme = function() {
+    function closeWindowScheme() {
       //playSound('fly');
-      $scope.global.isWindowSchemeDialog = false;
-    };
+      GlobalStor.global.isWindowSchemeDialog = false;
+    }
 
   }
 })();

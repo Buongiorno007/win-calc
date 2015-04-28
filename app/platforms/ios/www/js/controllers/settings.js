@@ -137,7 +137,7 @@
     };
 
     $scope.gotoLanguagePage = function() {
-      $location.path('/change-lang');
+      //$location.path('/change-lang');
     };
 
     $scope.closeSettingsPage = function() {

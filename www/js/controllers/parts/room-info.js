@@ -37,13 +37,9 @@
 
     //------ Show/Close Room Selector Dialog
     function showRoomSelectorDialog(event) {
+      //----- open if comment block is closed
       if(!GlobalStor.global.isShowCommentBlock) {
-        if (GlobalStor.global.showRoomSelectorDialog === true) {
-          GlobalStor.global.showRoomSelectorDialog = false;
-        } else {
-          GlobalStor.global.showRoomSelectorDialog = true;
-          GlobalStor.global.isRoomsDialog = true;
-        }
+        GlobalStor.global.showRoomSelectorDialog = !GlobalStor.global.showRoomSelectorDialog;
         //playSound('fly');
       }
     }

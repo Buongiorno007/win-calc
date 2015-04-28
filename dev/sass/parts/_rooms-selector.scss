@@ -2,6 +2,7 @@
   @extend .modal-dialog;
   @include display-flex();
   @include flex-flow(column nowrap);
+  height: rem(800px);
 
   &:after {
     position: absolute;

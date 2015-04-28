@@ -1,4 +1,4 @@
-.config-panel.additional-list-container(ng-controller="AddElementsListCtrl", ng-class="{'active': global.isAddElementListView}")
+.config-panel.additional-list-container(ng-controller="AddElementsListCtrl as elementsListPanel", ng-class="{'active': elementsListPanel.global.isAddElementListView}")
 
   include ../parts/_search-block
 

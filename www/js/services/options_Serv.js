@@ -10,7 +10,7 @@
     .module('BauVoiceApp')
     .factory('optionsServ', optionFactory);
 
-  function optionFactory($q) {
+  function optionFactory($q, $filter) {
 
     // SQL requests for select data from tables
     var selectWindowHardware = "SELECT id, name, short_name as shortName FROM window_hardware_groups WHERE is_in_calculation = 1";
@@ -47,62 +47,62 @@
           templateImgs: [
             {
               id: 1,
-              name: 'Одностворчатое',
+              name: $filter('translate')('panels.ONE_WINDOW_TYPE'),
               src: 'img/templates/1.png'
             },
             {
               id: 2,
-              name: 'Одностворчатое',
+              name: $filter('translate')('panels.ONE_WINDOW_TYPE'),
               src: 'img/templates/1.png'
             },
             {
               id: 3,
-              name: 'Двухстворчатое',
+              name: $filter('translate')('panels.TWO_WINDOW_TYPE'),
               src: 'img/templates/3.png'
             },
             {
               id: 4,
-              name: 'Трехстворчатое',
+              name: $filter('translate')('panels.THREE_WINDOW_TYPE'),
               src: 'img/templates/4.png'
             },
             {
               id: 5,
-              name: 'Двухстворчатое',
+              name: $filter('translate')('panels.TWO_WINDOW_TYPE'),
               src: 'img/templates/5.png'
             },
             {
               id: 6,
-              name: 'Двухстворчатое',
+              name: $filter('translate')('panels.TWO_WINDOW_TYPE'),
               src: 'img/templates/6.png'
             },
             {
               id: 7,
-              name: 'Двухстворчатое',
+              name: $filter('translate')('panels.TWO_WINDOW_TYPE'),
               src: 'img/templates/7.png'
             },
             {
               id: 8,
-              name: 'Одностворчатое',
+              name: $filter('translate')('panels.ONE_WINDOW_TYPE'),
               src: 'img/templates/8.png'
             },
             {
               id: 9,
-              name: 'Двухстворчатое',
+              name: $filter('translate')('panels.TWO_WINDOW_TYPE'),
               src: 'img/templates/9.png'
             },
             {
               id: 10,
-              name: 'Трехстворчатое',
+              name: $filter('translate')('panels.THREE_WINDOW_TYPE'),
               src: 'img/templates/10.png'
             },
             {
               id: 11,
-              name: 'Трехстворчатое',
+              name: $filter('translate')('panels.THREE_WINDOW_TYPE'),
               src: 'img/templates/11.png'
             },
             {
               id: 12,
-              name: 'Трехстворчатое',
+              name: $filter('translate')('panels.THREE_WINDOW_TYPE'),
               src: 'img/templates/12.png'
             }
           ]

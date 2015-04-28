@@ -78,7 +78,7 @@
               <div ng-class="{ 'active': history.isOrderSearch }" class="tools-block search-tool">
                 <button hm-tap="orderSearching()" class="tool search-btn"></button>
               </div>
-              <div ng-class="{ 'active': history.isIntervalDate }" class="tools-block tool-drop">
+              <!--div ng-class="{ 'active': history.isIntervalDate }" class="tools-block tool-drop">
                 <button hm-tap="intervalDateSelecting()" class="tool calendar-btn"></button>
                 <div ng-class="{ 'empty': history.startDate === '' &amp;&amp;  history.finishDate === ''}" class="time-interval"><span ng-if="history.startDate !== ''">{{ 'history.FROM' | translate }}</span><span order-date="{{ history.startDate }}" type-date=""></span><span ng-hide="history.startDate == '' || history.finishDate == ''">&nbsp; - &nbsp;</span><span ng-if="history.finishDate !== ''">{{ 'history.UNTIL' | translate }}</span><span order-date="{{ history.finishDate }}" type-date=""></span></div>
                 <div class="dropdown-tool-dialog date-filter">
@@ -93,7 +93,7 @@
                   </div>
                   <div ng-class="{ 'selected': history.isAllPeriod }" hm-tap="openCalendarScroll('full-date')" class="period total-date">{{ 'history.ALL_TIME' | translate }}</div>
                 </div>
-              </div>
+              </div -->
               <div ng-class="{ 'active': history.isOrderSort }" class="tools-block tool-drop">
                 <button hm-tap="orderSorting()" class="tool settings-btn"></button>
                 <div class="dropdown-tool-dialog sort-filter">

@@ -19,7 +19,31 @@
       svgTemplateIconBigWidth: 500,
       svgTemplateIconBigHeight: 450,
       svgTemplateWidth: 800,
-      svgTemplateHeight: 700
+      svgTemplateHeight: 700,
+
+      activeClass: 'active',
+      addElementsGroupClass: [
+        'aux_color_connect',
+        'aux_color_big',
+        'aux_color_middle',
+        'aux_color_slope',
+        'aux_color_middle',
+        'aux_color_slope',
+        'aux_color_connect',
+        'aux_color_small',
+        'aux_color_big',
+        'aux_color_middle',
+        'aux_color_small'
+      ],
+
+      //------------ Languages
+      languages: [
+        {label: 'ua', name: 'Українська'},
+        {label: 'ru', name: 'Русский'},
+        {label: 'en', name: 'English'},
+        {label: 'de', name: 'Deutsch'},
+        {label: 'ro', name: 'Român'}
+      ]
 
     });
 

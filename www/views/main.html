@@ -80,7 +80,7 @@
         </div>
       </div>
       <div ng-controller="RoomSelectorCtrl as rooms" ng-class="{'active': rooms.global.showRoomSelectorDialog}" class="rooms-selector-dialog">
-        <div ng-if="rooms.global.isRoomsDialog" class="rooms-inner">
+        <div ng-if="rooms.global.showRoomSelectorDialog" class="rooms-inner">
           <div class="rooms-row">
             <div class="room-block">
               <div show-delay="{{ rooms.config.DELAY_SHOW_ROOM1 }}" ng-class="{'selected': rooms.product.selectedRoomId === 1}" hm-tap="rooms.selectRoom(1)" class="room-box unvisible">
@@ -309,91 +309,91 @@
           </div>
         </div>
       </div>
-      <div ng-controller="AddElementsCtrl" ng-class="{'active': global.showPanels.showAddElementsPanel}" class="config-panel auxiliaries-container">
-        <div ng-if="global.isAddElementsPanel" class="auxiliaries-inner">
-          <div show-delay="{{ addElementsPanel.DELAY_SHOW_GRID }}" ng-class="{'focused': global.isFocusedAddElement == 1 &amp;&amp; global.product.chosenAddElements.selectedGrids.length === 0, 'selected': global.product.chosenAddElements.selectedGrids.length &gt; 0}" class="auxiliary-item aux-grid unvisible">
+      <div ng-controller="AddElementsCtrl as elementsPanel" ng-class="{'active': elementsPanel.global.activePanel == 6}" class="config-panel auxiliaries-container">
+        <div ng-if="elementsPanel.global.activePanel == 6" class="auxiliaries-inner">
+          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_GRID }}" ng-class="{'focused': elementsPanel.global.isFocusedAddElement == 1 &amp;&amp; elementsPanel.product.chosenAddElements.selectedGrids.length === 0, 'selected': elementsPanel.product.chosenAddElements.selectedGrids.length &gt; 0}" class="auxiliary-item aux-grid unvisible">
             <div class="aux-grid-img move-grid"></div>
             <div class="aux-txt-box aux-grid-txt">
-              <div show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" ng-hide="global.product.chosenAddElements.selectedGrids.length &gt; 0" class="choose-block unvisible">
-                <button ng-class="{'focused': global.isFocusedAddElement == 1}" hm-tap="global.selectAddElement(1)" ng-disabled="global.isFocusedAddElement == 1" class="aux-choose-but aux_connect_but">{{ 'add_elements.CHOOSE' | translate }}</button>
-                <div data-output="{{ 'add_elements.GRID' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+              <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.product.chosenAddElements.selectedGrids.length &gt; 0" class="choose-block unvisible">
+                <button ng-class="{'focused': elementsPanel.global.isFocusedAddElement == 1}" hm-tap="elementsPanel.selectAddElement(1)" ng-disabled="elementsPanel.global.isFocusedAddElement == 1" class="aux-choose-but aux_connect_but">{{ 'add_elements.CHOOSE' | translate }}</button>
+                <div data-output="{{ 'add_elements.GRID' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
               </div>
-              <div ng-show="global.product.chosenAddElements.selectedGrids.length &gt; 0" class="selected-block vertival">
+              <div ng-show="elementsPanel.product.chosenAddElements.selectedGrids.length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ global.product.chosenAddElements.selectedGrids[0].elementName }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_START }}" hm-tap="global.selectAddElement(1)" class="aux-title"></div>
-                  <div data-output="{{ 'add_elements.GRID' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_START }}" class="aux-label"></div>
+                  <div data-output="{{ elementsPanel.product.chosenAddElements.selectedGrids[0].elementName }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.global.selectAddElement(1)" class="aux-title"></div>
+                  <div data-output="{{ 'add_elements.GRID' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-label"></div>
                 </div>
               </div>
             </div>
           </div>
-          <div show-delay="{{ addElementsPanel.DELAY_SHOW_VISOR }}" ng-class="{'focused': global.isFocusedAddElement == 2 &amp;&amp; global.product.chosenAddElements.selectedVisors.length === 0, 'selected': global.product.chosenAddElements.selectedVisors.length &gt; 0}" class="auxiliary-item aux-visor unvisible">
+          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_VISOR }}" ng-class="{'focused': elementsPanel.global.isFocusedAddElement == 2 &amp;&amp; elementsPanel.product.chosenAddElements.selectedVisors.length === 0, 'selected': elementsPanel.product.chosenAddElements.selectedVisors.length &gt; 0}" class="auxiliary-item aux-visor unvisible">
             <div class="aux-visor-img move-visor"></div>
             <div class="aux-txt-box aux-visor-txt">
-              <div show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" ng-hide="global.product.chosenAddElements.selectedVisors.length &gt; 0" class="choose-block unvisible">
-                <button ng-class="{'focused': global.isFocusedAddElement == 2}" hm-tap="global.selectAddElement(2)" ng-disabled="global.isFocusedAddElement == 2" class="aux-choose-but aux_big_but">{{ 'add_elements.CHOOSE' | translate }}</button>
-                <div data-output="{{ 'add_elements.VISOR' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+              <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.product.chosenAddElements.selectedVisors.length &gt; 0" class="choose-block unvisible">
+                <button ng-class="{'focused': elementsPanel.global.isFocusedAddElement == 2}" hm-tap="elementsPanel.selectAddElement(2)" ng-disabled="elementsPanel.global.isFocusedAddElement == 2" class="aux-choose-but aux_big_but">{{ 'add_elements.CHOOSE' | translate }}</button>
+                <div data-output="{{ 'add_elements.VISOR' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
               </div>
-              <div ng-show="global.product.chosenAddElements.selectedVisors.length &gt; 0" class="selected-block horisontal">
+              <div ng-show="elementsPanel.product.chosenAddElements.selectedVisors.length &gt; 0" class="selected-block horisontal">
                 <div class="aux-info-box">
-                  <div data-output="{{ global.product.chosenAddElements.selectedVisors[0].elementName }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_START }}" hm-tap="global.selectAddElement(2)" class="aux-title"></div>
-                  <div data-output="{{ 'add_elements.VISOR' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                  <div data-output="{{ elementsPanel.product.chosenAddElements.selectedVisors[0].elementName }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(2)" class="aux-title"></div>
+                  <div data-output="{{ 'add_elements.VISOR' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
                 <div class="aux-sizing-box">
-                  <div ng-class="{'selected': global.auxParameter === '2-1-0'}" class="aux-params">
-                    <button hm-tap="global.initAddElementMenuTools(1, 0)" ng-disabled="global.isFocusedAddElement !== 2" class="aux-params-but aux_big_but">{{ global.product.chosenAddElements.selectedVisors[0].elementQty }}</button>
-                    <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                  <div ng-class="{'selected': elementsPanel.global.auxParameter === '2-1-0'}" class="aux-params">
+                    <button hm-tap="elementsPanel.initAddElementMenuTools(1, 0)" ng-disabled="elementsPanel.global.isFocusedAddElement !== 2" class="aux-params-but aux_big_but">{{ global.product.chosenAddElements.selectedVisors[0].elementQty }}</button>
+                    <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
-                  <div ng-class="{'selected': global.auxParameter === '2-2-0'}" class="aux-params">
-                    <button hm-tap="global.initAddElementMenuTools(2, 0)" ng-disabled="global.isFocusedAddElement !== 2" class="aux-params-but aux_big_but"> {{ global.product.chosenAddElements.selectedVisors[0].elementWidth }}</button>
-                    <div data-output="{{ 'add_elements.SIZE_LABEL' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                  <div ng-class="{'selected': elementsPanel.global.auxParameter === '2-2-0'}" class="aux-params">
+                    <button hm-tap="elementsPanel.initAddElementMenuTools(2, 0)" ng-disabled="elementsPanel.global.isFocusedAddElement !== 2" class="aux-params-but aux_big_but"> {{ global.product.chosenAddElements.selectedVisors[0].elementWidth }}</button>
+                    <div data-output="{{ 'add_elements.SIZE_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                 </div>
-                <div ng-show="global.product.chosenAddElements.selectedVisors.length &gt; 1" hm-tap="" class="aux-more">{{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ global.product.chosenAddElements.selectedVisors.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}</div>
+                <div ng-show="elementsPanel.product.chosenAddElements.selectedVisors.length &gt; 1" class="aux-more">{{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ elementsPanel.product.chosenAddElements.selectedVisors.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}</div>
               </div>
             </div>
           </div>
-          <div show-delay="{{ addElementsPanel.DELAY_SHOW_SPILLWAY }}" ng-class="{'focused': global.isFocusedAddElement == 3 &amp;&amp; global.product.chosenAddElements.selectedSpillways.length === 0, 'selected': global.product.chosenAddElements.selectedSpillways.length &gt; 0}" class="auxiliary-item aux-spillway unvisible">
+          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_SPILLWAY }}" ng-class="{'focused': elementsPanel.global.isFocusedAddElement == 3 &amp;&amp; elementsPanel.product.chosenAddElements.selectedSpillways.length === 0, 'selected': elementsPanel.product.chosenAddElements.selectedSpillways.length &gt; 0}" class="auxiliary-item aux-spillway unvisible">
             <div class="aux-spillway-img move-spillway"></div>
             <div class="aux-txt-box aux-spillway-txt">
-              <div show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" ng-hide="global.product.chosenAddElements.selectedSpillways.length &gt; 0" class="choose-block unvisible">
-                <button ng-class="{'focused': global.isFocusedAddElement == 3}" hm-tap="global.selectAddElement(3)" ng-disabled="global.isFocusedAddElement == 3" class="aux-choose-but aux_middle_but">{{ 'add_elements.CHOOSE' | translate }}</button>
-                <div data-output="{{ 'add_elements.SPILLWAY' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+              <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.product.chosenAddElements.selectedSpillways.length &gt; 0" class="choose-block unvisible">
+                <button ng-class="{'focused': elementsPanel.global.isFocusedAddElement == 3}" hm-tap="elementsPanel.selectAddElement(3)" ng-disabled="elementsPanel.global.isFocusedAddElement == 3" class="aux-choose-but aux_middle_but">{{ 'add_elements.CHOOSE' | translate }}</button>
+                <div data-output="{{ 'add_elements.SPILLWAY' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
               </div>
-              <div ng-show="global.product.chosenAddElements.selectedSpillways.length &gt; 0" class="selected-block vertival">
+              <div ng-show="elementsPanel.product.chosenAddElements.selectedSpillways.length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ global.product.chosenAddElements.selectedSpillways[0].elementName }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_START }}" hm-tap="global.selectAddElement(3)" class="aux-title"></div>
-                  <div data-output="{{ 'add_elements.SPILLWAY' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                  <div data-output="{{ elementsPanel.product.chosenAddElements.selectedSpillways[0].elementName }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(3)" class="aux-title"></div>
+                  <div data-output="{{ 'add_elements.SPILLWAY' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
                 <div class="aux-sizing-box">
-                  <div ng-class="{'selected': global.auxParameter === '3-1-0'}" class="aux-params">
-                    <button hm-tap="global.initAddElementMenuTools(1, 0)" ng-disabled="global.isFocusedAddElement !== 3" class="aux-params-but aux_middle_but">{{ global.product.chosenAddElements.selectedSpillways[0].elementQty }}</button>
-                    <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                  <div ng-class="{'selected': elementsPanel.global.auxParameter === '3-1-0'}" class="aux-params">
+                    <button hm-tap="elementsPanel.initAddElementMenuTools(1, 0)" ng-disabled="elementsPanel.global.isFocusedAddElement !== 3" class="aux-params-but aux_middle_but">{{ elementsPanel.product.chosenAddElements.selectedSpillways[0].elementQty }}</button>
+                    <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
-                  <div ng-class="{'selected': global.auxParameter === '3-2-0'}" class="aux-params">
-                    <button hm-tap="global.initAddElementMenuTools(2, 0)" ng-disabled="global.isFocusedAddElement !== 3" class="aux-params-but aux_middle_but"> {{ global.product.chosenAddElements.selectedSpillways[0].elementWidth }}</button>
-                    <div data-output="{{ 'add_elements.SIZE_LABEL' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                  <div ng-class="{'selected': elementsPanel.global.auxParameter === '3-2-0'}" class="aux-params">
+                    <button hm-tap="elementsPanel.initAddElementMenuTools(2, 0)" ng-disabled="elementsPanel.global.isFocusedAddElement !== 3" class="aux-params-but aux_middle_but"> {{ elementsPanel.product.chosenAddElements.selectedSpillways[0].elementWidth }}</button>
+                    <div data-output="{{ 'add_elements.SIZE_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                 </div>
-                <div ng-show="global.product.chosenAddElements.selectedSpillways.length &gt; 1" hm-tap="" class="aux-more">{{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ global.product.chosenAddElements.selectedSpillways.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}</div>
+                <div ng-show="elementsPanel.product.chosenAddElements.selectedSpillways.length &gt; 1" class="aux-more">{{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ elementsPanel.product.chosenAddElements.selectedSpillways.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}</div>
               </div>
             </div>
           </div>
-          <div show-delay="{{ addElementsPanel.DELAY_SHOW_OUTSIDE }}" ng-class="{'focused': global.isFocusedAddElement == 4 &amp;&amp; global.product.chosenAddElements.selectedOutsideSlope.length === 0, 'selected': global.product.chosenAddElements.selectedOutsideSlope.length &gt; 0}" class="auxiliary-item aux-outside unvisible">
+          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}" ng-class="{'focused': elementsPanel.global.isFocusedAddElement == 4 &amp;&amp; elementsPanel.product.chosenAddElements.selectedOutsideSlope.length === 0, 'selected': elementsPanel.product.chosenAddElements.selectedOutsideSlope.length &gt; 0}" class="auxiliary-item aux-outside unvisible">
             <div class="aux-outside-img move-outside"></div>
             <div class="aux-txt-box aux-outside-txt">
-              <div show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" ng-hide="global.product.chosenAddElements.selectedOutsideSlope.length &gt; 0" class="choose-block unvisible">
-                <button ng-class="{'focused': global.isFocusedAddElement == 4}" hm-tap="global.selectAddElement(4)" ng-disabled="global.isFocusedAddElement == 4" class="aux-choose-but aux_slope_but">{{ 'add_elements.CHOOSE' | translate }}</button>
-                <div data-output="{{ 'add_elements.OUTSIDE' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+              <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.product.chosenAddElements.selectedOutsideSlope.length &gt; 0" class="choose-block unvisible">
+                <button ng-class="{'focused': elementsPanel.global.isFocusedAddElement == 4}" hm-tap="elementsPanel.selectAddElement(4)" ng-disabled="elementsPanel.global.isFocusedAddElement == 4" class="aux-choose-but aux_slope_but">{{ 'add_elements.CHOOSE' | translate }}</button>
+                <div data-output="{{ 'add_elements.OUTSIDE' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
               </div>
-              <div ng-show="global.product.chosenAddElements.selectedOutsideSlope.length &gt; 0" class="selected-block vertival">
+              <div ng-show="elementsPanel.product.chosenAddElements.selectedOutsideSlope.length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ global.product.chosenAddElements.selectedOutsideSlope[0].elementName }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_START }}" hm-tap="global.selectAddElement(4)" class="aux-title"></div>
-                  <div data-output="{{ 'add_elements.OUTSIDE' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                  <div data-output="{{ elementsPanel.product.chosenAddElements.selectedOutsideSlope[0].elementName }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(4)" class="aux-title"></div>
+                  <div data-output="{{ 'add_elements.OUTSIDE' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
               </div>
             </div>
           </div>
-          <div show-delay="{{ addElementsPanel.DELAY_SHOW_LOUVER }}" ng-class="{'focused': global.isFocusedAddElement == 5 &amp;&amp; global.product.chosenAddElements.selectedLouvers.length === 0, 'selected': global.product.chosenAddElements.selectedLouvers.length &gt; 0}" class="auxiliary-item aux-louver unvisible">
+          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_LOUVER }}" ng-class="{'focused': elementsPanel.global.isFocusedAddElement == 5 &amp;&amp; elementsPanel.product.chosenAddElements.selectedLouvers.length === 0, 'selected': elementsPanel.product.chosenAddElements.selectedLouvers.length &gt; 0}" class="auxiliary-item aux-louver unvisible">
             <div class="aux-louver-img move-louvers">
               <div class="aux-louver-top"></div>
               <div class="aux-louver-midle louver-midle-1 move-louver-midle-1"></div>
@@ -402,173 +402,173 @@
               <div class="aux-louver-bottom move-louver-bottom"></div>
             </div>
             <div class="aux-txt-box aux-louver-txt">
-              <div show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" ng-hide="global.product.chosenAddElements.selectedLouvers.length &gt; 0" class="choose-block unvisible">
-                <button ng-class="{'focused': global.isFocusedAddElement == 5}" hm-tap="global.selectAddElement(5)" ng-disabled="global.isFocusedAddElement == 5" class="aux-choose-but aux_middle_but">{{ 'add_elements.CHOOSE' | translate }}</button>
-                <div data-output="{{ 'add_elements.LOUVERS' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+              <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.product.chosenAddElements.selectedLouvers.length &gt; 0" class="choose-block unvisible">
+                <button ng-class="{'focused': elementsPanel.global.isFocusedAddElement == 5}" hm-tap="elementsPanel.selectAddElement(5)" ng-disabled="elementsPanel.global.isFocusedAddElement == 5" class="aux-choose-but aux_middle_but">{{ 'add_elements.CHOOSE' | translate }}</button>
+                <div data-output="{{ 'add_elements.LOUVERS' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
               </div>
-              <div ng-show="global.product.chosenAddElements.selectedLouvers.length &gt; 0" class="selected-block vertival">
+              <div ng-show="elementsPanel.product.chosenAddElements.selectedLouvers.length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ global.product.chosenAddElements.selectedLouvers[0].elementName }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_START }}" hm-tap="global.selectAddElement(5)" class="aux-title"></div>
-                  <div data-output="{{ 'add_elements.LOUVERS' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                  <div data-output="{{ elementsPanel.product.chosenAddElements.selectedLouvers[0].elementName }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(5)" class="aux-title"></div>
+                  <div data-output="{{ 'add_elements.LOUVERS' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
                 <div class="aux-sizing-box">
-                  <div ng-class="{'selected': global.auxParameter === '5-1-0'}" class="aux-params">
-                    <button hm-tap="global.initAddElementMenuTools(1, 0)" ng-disabled="global.isFocusedAddElement !== 5" class="aux-params-but aux_middle_but">{{ global.product.chosenAddElements.selectedLouvers[0].elementQty }}</button>
-                    <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                  <div ng-class="{'selected': elementsPanel.global.auxParameter === '5-1-0'}" class="aux-params">
+                    <button hm-tap="elementsPanel.initAddElementMenuTools(1, 0)" ng-disabled="elementsPanel.global.isFocusedAddElement !== 5" class="aux-params-but aux_middle_but">{{ elementsPanel.product.chosenAddElements.selectedLouvers[0].elementQty }}</button>
+                    <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
-                  <div ng-class="{'selected': global.auxParameter === '5-2-0'}" class="aux-params">
-                    <button hm-tap="global.initAddElementMenuTools(2, 0)" ng-disabled="global.isFocusedAddElement !== 5" class="aux-params-but aux_middle_but"> {{ global.product.chosenAddElements.selectedLouvers[0].elementWidth }}</button>
-                    <div data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                  <div ng-class="{'selected': elementsPanel.global.auxParameter === '5-2-0'}" class="aux-params">
+                    <button hm-tap="elementsPanel.initAddElementMenuTools(2, 0)" ng-disabled="elementsPanel.global.isFocusedAddElement !== 5" class="aux-params-but aux_middle_but"> {{ elementsPanel.product.chosenAddElements.selectedLouvers[0].elementWidth }}</button>
+                    <div data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
-                  <div ng-class="{'selected': global.auxParameter === '5-3-0'}" class="aux-params">
-                    <button hm-tap="global.initAddElementMenuTools(3, 0)" ng-disabled="global.isFocusedAddElement !== 5" class="aux-params-but aux_middle_but"> {{ global.product.chosenAddElements.selectedLouvers[0].elementHeight }}</button>
-                    <div data-output="{{ 'add_elements.HEIGHT_LABEL' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                  <div ng-class="{'selected': elementsPanel.global.auxParameter === '5-3-0'}" class="aux-params">
+                    <button hm-tap="elementsPanel.initAddElementMenuTools(3, 0)" ng-disabled="elementsPanel.global.isFocusedAddElement !== 5" class="aux-params-but aux_middle_but"> {{ elementsPanel.product.chosenAddElements.selectedLouvers[0].elementHeight }}</button>
+                    <div data-output="{{ 'add_elements.HEIGHT_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                 </div>
-                <div ng-show="global.product.chosenAddElements.selectedLouvers.length &gt; 1" hm-tap="" class="aux-more">{{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ global.product.chosenAddElements.selectedLouvers.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}</div>
+                <div ng-show="elementsPanel.product.chosenAddElements.selectedLouvers.length &gt; 1" class="aux-more">{{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ elementsPanel.product.chosenAddElements.selectedLouvers.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}</div>
               </div>
             </div>
           </div>
-          <div show-delay="{{ addElementsPanel.DELAY_SHOW_INSIDESLOPE }}" ng-class="{'focused': global.isFocusedAddElement == 6 &amp;&amp; global.product.chosenAddElements.selectedInsideSlope.length === 0, 'selected': global.product.chosenAddElements.selectedInsideSlope.length &gt; 0}" class="auxiliary-item aux-inside unvisible">
+          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPE }}" ng-class="{'focused': elementsPanel.global.isFocusedAddElement == 6 &amp;&amp; elementsPanel.product.chosenAddElements.selectedInsideSlope.length === 0, 'selected': elementsPanel.product.chosenAddElements.selectedInsideSlope.length &gt; 0}" class="auxiliary-item aux-inside unvisible">
             <div class="aux-inside-img">
-              <div show-delay="{{ addElementsPanel.DELAY_SHOW_INSIDESLOPETOP }}" class="aux-inside-top move-inside-top unvisible"></div>
-              <div show-delay="{{ addElementsPanel.DELAY_SHOW_INSIDESLOPERIGHT }}" class="aux-inside-right move-inside-right unvisible"></div>
-              <div show-delay="{{ addElementsPanel.DELAY_SHOW_INSIDESLOPELEFT }}" class="aux-inside-left move-inside-left unvisible"></div>
+              <div show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPETOP }}" class="aux-inside-top move-inside-top unvisible"></div>
+              <div show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPERIGHT }}" class="aux-inside-right move-inside-right unvisible"></div>
+              <div show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPELEFT }}" class="aux-inside-left move-inside-left unvisible"></div>
             </div>
             <div class="aux-txt-box aux-inside-txt">
-              <div show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" ng-hide="global.product.chosenAddElements.selectedInsideSlope.length &gt; 0" class="choose-block unvisible">
-                <button ng-class="{'focused': global.isFocusedAddElement == 6}" hm-tap="global.selectAddElement(6)" ng-disabled="global.isFocusedAddElement == 6" class="aux-choose-but aux_slope_but">{{ 'add_elements.CHOOSE' | translate }}</button>
-                <div data-output="{{ 'add_elements.INSIDE' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+              <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.product.chosenAddElements.selectedInsideSlope.length &gt; 0" class="choose-block unvisible">
+                <button ng-class="{'focused': elementsPanel.global.isFocusedAddElement == 6}" hm-tap="elementsPanel.selectAddElement(6)" ng-disabled="elementsPanel.global.isFocusedAddElement == 6" class="aux-choose-but aux_slope_but">{{ 'add_elements.CHOOSE' | translate }}</button>
+                <div data-output="{{ 'add_elements.INSIDE' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
               </div>
-              <div ng-show="global.product.chosenAddElements.selectedInsideSlope.length &gt; 0" class="selected-block vertival">
+              <div ng-show="elementsPanel.product.chosenAddElements.selectedInsideSlope.length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ global.product.chosenAddElements.selectedInsideSlope[0].elementName }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_START }}" hm-tap="global.selectAddElement(6)" class="aux-title"></div>
-                  <div data-output="{{ 'add_elements.INSIDE' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                  <div data-output="{{ elementsPanel.product.chosenAddElements.selectedInsideSlope[0].elementName }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(6)" class="aux-title"></div>
+                  <div data-output="{{ 'add_elements.INSIDE' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
               </div>
             </div>
           </div>
-          <div show-delay="{{ addElementsPanel.DELAY_SHOW_CONNECTORS }}" ng-class="{'focused': global.isFocusedAddElement == 7 &amp;&amp; global.product.chosenAddElements.selectedConnectors.length === 0, 'selected': global.product.chosenAddElements.selectedConnectors.length &gt; 0}" class="auxiliary-item aux-connectors unvisible">
+          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_CONNECTORS }}" ng-class="{'focused': elementsPanel.global.isFocusedAddElement == 7 &amp;&amp; elementsPanel.product.chosenAddElements.selectedConnectors.length === 0, 'selected': elementsPanel.product.chosenAddElements.selectedConnectors.length &gt; 0}" class="auxiliary-item aux-connectors unvisible">
             <div class="aux-connectors-img">
-              <div show-delay="{{ addElementsPanel.DELAY_SHOW_FORCECONNECT }}" class="aux-force-connect unvisible"></div>
-              <div show-delay="{{ addElementsPanel.DELAY_SHOW_BALCONCONNECT }}" class="aux-balcon-connect unvisible"></div>
+              <div show-delay="{{ elementsPanel.config.DELAY_SHOW_FORCECONNECT }}" class="aux-force-connect unvisible"></div>
+              <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BALCONCONNECT }}" class="aux-balcon-connect unvisible"></div>
             </div>
             <div class="aux-txt-box aux-connectors-txt">
-              <div show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" ng-hide="global.product.chosenAddElements.selectedConnectors.length &gt; 0" class="choose-block unvisible">
-                <button ng-class="{'focused': global.isFocusedAddElement == 7}" hm-tap="global.selectAddElement(7)" ng-disabled="global.isFocusedAddElement == 7" class="aux-choose-but aux_connect_but">{{ 'add_elements.CHOOSE' | translate }}</button>
-                <div data-output="{{ 'add_elements.CONNECTORS' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+              <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.product.chosenAddElements.selectedConnectors.length &gt; 0" class="choose-block unvisible">
+                <button ng-class="{'focused': elementsPanel.global.isFocusedAddElement == 7}" hm-tap="elementsPanel.selectAddElement(7)" ng-disabled="elementsPanel.global.isFocusedAddElement == 7" class="aux-choose-but aux_connect_but">{{ 'add_elements.CHOOSE' | translate }}</button>
+                <div data-output="{{ 'add_elements.CONNECTORS' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
               </div>
-              <div ng-show="global.product.chosenAddElements.selectedConnectors.length &gt; 0" class="selected-block vertival">
+              <div ng-show="elementsPanel.product.chosenAddElements.selectedConnectors.length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ global.product.chosenAddElements.selectedConnectors[0].elementName }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_START }}" hm-tap="global.selectAddElement(7)" class="aux-title"></div>
-                  <div data-output="{{ 'add_elements.CONNECTORS' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                  <div data-output="{{ elementsPanel.product.chosenAddElements.selectedConnectors[0].elementName }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(7)" class="aux-title"></div>
+                  <div data-output="{{ 'add_elements.CONNECTORS' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
                 <div class="aux-sizing-box">
-                  <div ng-class="{'selected': global.auxParameter === '7-1-0'}" class="aux-params">
-                    <button hm-tap="global.initAddElementMenuTools(1, 0)" ng-disabled="global.isFocusedAddElement !== 7" class="aux-params-but aux_connect_but"> {{ global.product.chosenAddElements.selectedConnectors[0].elementQty }}</button>
-                    <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                  <div ng-class="{'selected': elementsPanel.global.auxParameter === '7-1-0'}" class="aux-params">
+                    <button hm-tap="elementsPanel.initAddElementMenuTools(1, 0)" ng-disabled="elementsPanel.global.isFocusedAddElement !== 7" class="aux-params-but aux_connect_but"> {{ elementsPanel.product.chosenAddElements.selectedConnectors[0].elementQty }}</button>
+                    <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
-                  <div ng-class="{'selected': global.auxParameter === '7-2-0'}" class="aux-params">
-                    <button hm-tap="global.initAddElementMenuTools(2, 0)" ng-disabled="global.isFocusedAddElement !== 7" class="aux-params-but aux_connect_but"> {{ global.product.chosenAddElements.selectedConnectors[0].elementWidth }}</button>
-                    <div data-output="{{ 'add_elements.SIZE_LABEL' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                  <div ng-class="{'selected': elementsPanel.global.auxParameter === '7-2-0'}" class="aux-params">
+                    <button hm-tap="elementsPanel.initAddElementMenuTools(2, 0)" ng-disabled="elementsPanel.global.isFocusedAddElement !== 7" class="aux-params-but aux_connect_but"> {{ elementsPanel.product.chosenAddElements.selectedConnectors[0].elementWidth }}</button>
+                    <div data-output="{{ 'add_elements.SIZE_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                 </div>
-                <div ng-show="global.product.chosenAddElements.selectedConnectors.length &gt; 1" hm-tap="" class="aux-more">{{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ global.product.chosenAddElements.selectedConnectors.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}</div>
+                <div ng-show="elementsPanel.product.chosenAddElements.selectedConnectors.length &gt; 1" class="aux-more">{{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ elementsPanel.product.chosenAddElements.selectedConnectors.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}</div>
               </div>
             </div>
           </div>
-          <div show-delay="{{ addElementsPanel.DELAY_SHOW_FAN }}" ng-class="{'focused': global.isFocusedAddElement == 8 &amp;&amp; global.product.chosenAddElements.selectedFans.length === 0, 'selected': global.product.chosenAddElements.selectedFans.length &gt; 0}" class="auxiliary-item aux-fan unvisible">
+          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_FAN }}" ng-class="{'focused': elementsPanel.global.isFocusedAddElement == 8 &amp;&amp; elementsPanel.product.chosenAddElements.selectedFans.length === 0, 'selected': elementsPanel.product.chosenAddElements.selectedFans.length &gt; 0}" class="auxiliary-item aux-fan unvisible">
             <div class="aux-fan-img move-fan"></div>
             <div class="aux-txt-box aux-fan-txt">
-              <div show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" ng-hide="global.product.chosenAddElements.selectedFans.length &gt; 0" class="choose-block unvisible">
-                <button ng-class="{'focused': global.isFocusedAddElement == 8}" hm-tap="global.selectAddElement(8)" ng-disabled="global.isFocusedAddElement == 8" class="aux-choose-but aux_small_but">{{ 'add_elements.CHOOSE' | translate }}</button>
-                <div data-output="{{ 'add_elements.FAN' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+              <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.product.chosenAddElements.selectedFans.length &gt; 0" class="choose-block unvisible">
+                <button ng-class="{'focused': elementsPanel.global.isFocusedAddElement == 8}" hm-tap="elementsPanel.selectAddElement(8)" ng-disabled="elementsPanel.global.isFocusedAddElement == 8" class="aux-choose-but aux_small_but">{{ 'add_elements.CHOOSE' | translate }}</button>
+                <div data-output="{{ 'add_elements.FAN' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
               </div>
-              <div ng-show="global.product.chosenAddElements.selectedFans.length &gt; 0" class="selected-block vertival">
+              <div ng-show="elementsPanel.product.chosenAddElements.selectedFans.length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ global.product.chosenAddElements.selectedFans[0].elementName }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_START }}" hm-tap="global.selectAddElement(8)" class="aux-title"></div>
-                  <div data-output="{{ 'add_elements.FAN' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                  <div data-output="{{ elementsPanel.product.chosenAddElements.selectedFans[0].elementName }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(8)" class="aux-title"></div>
+                  <div data-output="{{ 'add_elements.FAN' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
               </div>
             </div>
           </div>
-          <div show-delay="{{ addElementsPanel.DELAY_SHOW_WINDOWSILL }}" ng-class="{'focused': global.isFocusedAddElement == 9 &amp;&amp; global.product.chosenAddElements.selectedWindowSill.length === 0, 'selected': global.product.chosenAddElements.selectedWindowSill.length &gt; 0}" class="auxiliary-item aux-windowsill unvisible">
+          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_WINDOWSILL }}" ng-class="{'focused': elementsPanel.global.isFocusedAddElement == 9 &amp;&amp; elementsPanel.product.chosenAddElements.selectedWindowSill.length === 0, 'selected': elementsPanel.product.chosenAddElements.selectedWindowSill.length &gt; 0}" class="auxiliary-item aux-windowsill unvisible">
             <div class="aux-windowsill-img move-windowsill"></div>
             <div class="aux-txt-box aux-windowsill-txt">
-              <div show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" ng-hide="global.product.chosenAddElements.selectedWindowSill.length &gt; 0" class="choose-block unvisible">
-                <button ng-class="{'focused': global.isFocusedAddElement == 9}" hm-tap="global.selectAddElement(9)" ng-disabled="global.isFocusedAddElement == 9" class="aux-choose-but aux_big_but">{{ 'add_elements.CHOOSE' | translate }}</button>
-                <div data-output="{{ 'add_elements.WINDOWSILL' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+              <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.product.chosenAddElements.selectedWindowSill.length &gt; 0" class="choose-block unvisible">
+                <button ng-class="{'focused': elementsPanel.global.isFocusedAddElement == 9}" hm-tap="elementsPanel.selectAddElement(9)" ng-disabled="elementsPanel.global.isFocusedAddElement == 9" class="aux-choose-but aux_big_but">{{ 'add_elements.CHOOSE' | translate }}</button>
+                <div data-output="{{ 'add_elements.WINDOWSILL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
               </div>
-              <div ng-show="global.product.chosenAddElements.selectedWindowSill.length &gt; 0" class="selected-block vertival">
+              <div ng-show="elementsPanel.product.chosenAddElements.selectedWindowSill.length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ global.product.chosenAddElements.selectedWindowSill[0].elementName }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_START }}" hm-tap="global.selectAddElement(9)" class="aux-title"></div>
-                  <div data-output="{{ 'add_elements.WINDOWSILL' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                  <div data-output="{{ elementsPanel.product.chosenAddElements.selectedWindowSill[0].elementName }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(9)" class="aux-title"></div>
+                  <div data-output="{{ 'add_elements.WINDOWSILL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
                 <div class="aux-sizing-box">
-                  <div ng-class="{'selected': global.auxParameter === '9-1-0'}" class="aux-params">
-                    <button hm-tap="global.initAddElementMenuTools(1, 0)" ng-disabled="global.isFocusedAddElement !== 9" class="aux-params-but aux_big_but"> {{ global.product.chosenAddElements.selectedWindowSill[0].elementQty }}</button>
-                    <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                  <div ng-class="{'selected': elementsPanel.global.auxParameter === '9-1-0'}" class="aux-params">
+                    <button hm-tap="elementsPanel.initAddElementMenuTools(1, 0)" ng-disabled="elementsPanel.global.isFocusedAddElement !== 9" class="aux-params-but aux_big_but"> {{ elementsPanel.product.chosenAddElements.selectedWindowSill[0].elementQty }}</button>
+                    <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
-                  <div ng-class="{'selected': global.auxParameter === '9-2-0'}" class="aux-params">
-                    <button hm-tap="global.initAddElementMenuTools(2, 0)" ng-disabled="global.isFocusedAddElement !== 9" class="aux-params-but aux_big_but"> {{ global.product.chosenAddElements.selectedWindowSill[0].elementWidth }}</button>
-                    <div data-output="{{ 'add_elements.SIZE_LABEL' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                  <div ng-class="{'selected': elementsPanel.global.auxParameter === '9-2-0'}" class="aux-params">
+                    <button hm-tap="elementsPanel.initAddElementMenuTools(2, 0)" ng-disabled="elementsPanel.global.isFocusedAddElement !== 9" class="aux-params-but aux_big_but"> {{ elementsPanel.product.chosenAddElements.selectedWindowSill[0].elementWidth }}</button>
+                    <div data-output="{{ 'add_elements.SIZE_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                   <div class="aux-params">
-                    <button ng-class="{'selected': global.auxParameter === '9-4-0'}" hm-tap="global.initAddElementMenuTools(4, 0)" ng-disabled="global.isFocusedAddElement !== 9" class="aux-color"><img ng-src="{{ global.product.chosenAddElements.selectedWindowSill[0].elementColor }}"></button>
-                    <div data-output="{{ 'add_elements.COLOR_LABEL' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                    <button ng-class="{'selected': elementsPanel.global.auxParameter === '9-4-0'}" hm-tap="elementsPanel.initAddElementMenuTools(4, 0)" ng-disabled="elementsPanel.global.isFocusedAddElement !== 9" class="aux-color"><img ng-src="{{ elementsPanel.product.chosenAddElements.selectedWindowSill[0].elementColor }}"></button>
+                    <div data-output="{{ 'add_elements.COLOR_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                 </div>
-                <div ng-show="global.product.chosenAddElements.selectedWindowSill.length &gt; 1" hm-tap="" class="aux-more">{{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ global.product.chosenAddElements.selectedWindowSill.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}</div>
+                <div ng-show="elementsPanel.product.chosenAddElements.selectedWindowSill.length &gt; 1" class="aux-more">{{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ elementsPanel.product.chosenAddElements.selectedWindowSill.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}</div>
               </div>
             </div>
           </div>
-          <div show-delay="{{ addElementsPanel.DELAY_SHOW_HANDLE }}" ng-class="{'focused': global.isFocusedAddElement == 10 &amp;&amp; global.product.chosenAddElements.selectedHandles.length === 0, 'selected': global.product.chosenAddElements.selectedHandles.length &gt; 0}" class="auxiliary-item aux-handle unvisible">
+          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_HANDLE }}" ng-class="{'focused': elementsPanel.global.isFocusedAddElement == 10 &amp;&amp; elementsPanel.product.chosenAddElements.selectedHandles.length === 0, 'selected': elementsPanel.product.chosenAddElements.selectedHandles.length &gt; 0}" class="auxiliary-item aux-handle unvisible">
             <div class="aux-handle-img move-handle"></div>
             <div class="aux-txt-box aux-handle-txt">
-              <div show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" ng-hide="global.product.chosenAddElements.selectedHandles.length &gt; 0" class="choose-block unvisible">
-                <button ng-class="{'focused': global.isFocusedAddElement == 10}" hm-tap="global.selectAddElement(10)" ng-disabled="global.isFocusedAddElement == 10" class="aux-choose-but aux_middle_but">{{ 'add_elements.CHOOSE' | translate }}</button>
-                <div data-output="{{ 'add_elements.HANDLEL' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+              <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.product.chosenAddElements.selectedHandles.length &gt; 0" class="choose-block unvisible">
+                <button ng-class="{'focused': elementsPanel.global.isFocusedAddElement == 10}" hm-tap="elementsPanel.selectAddElement(10)" ng-disabled="elementsPanel.global.isFocusedAddElement == 10" class="aux-choose-but aux_middle_but">{{ 'add_elements.CHOOSE' | translate }}</button>
+                <div data-output="{{ 'add_elements.HANDLEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
               </div>
-              <div ng-show="global.product.chosenAddElements.selectedHandles.length &gt; 0" class="selected-block vertival">
+              <div ng-show="elementsPanel.product.chosenAddElements.selectedHandles.length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ global.product.chosenAddElements.selectedHandles[0].elementName }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_START }}" hm-tap="global.selectAddElement(10)" class="aux-title"></div>
-                  <div data-output="{{ 'add_elements.HANDLEL' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                  <div data-output="{{ elementsPanel.product.chosenAddElements.selectedHandles[0].elementName }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(10)" class="aux-title"></div>
+                  <div data-output="{{ 'add_elements.HANDLEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
                 <div class="aux-sizing-box">
-                  <div ng-class="{'selected': global.auxParameter === '10-1-0'}" class="aux-params">
-                    <button hm-tap="global.initAddElementMenuTools(1, 0)" ng-disabled="global.isFocusedAddElement !== 10" class="aux-params-but aux_middle_but"> {{ global.product.chosenAddElements.selectedHandles[0].elementQty }}</button>
-                    <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+                  <div ng-class="{'selected': elementsPanel.global.auxParameter === '10-1-0'}" class="aux-params">
+                    <button hm-tap="elementsPanel.initAddElementMenuTools(1, 0)" ng-disabled="elementsPanel.global.isFocusedAddElement !== 10" class="aux-params-but aux_middle_but"> {{ elementsPanel.product.chosenAddElements.selectedHandles[0].elementQty }}</button>
+                    <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                 </div>
-                <div ng-show="global.product.chosenAddElements.selectedHandles.length &gt; 1" hm-tap="" class="aux-more">{{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ global.product.chosenAddElements.selectedHandles.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}</div>
+                <div ng-show="elementsPanel.product.chosenAddElements.selectedHandles.length &gt; 1" class="aux-more">{{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ elementsPanel.product.chosenAddElements.selectedHandles.length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}</div>
               </div>
             </div>
           </div>
-          <div show-delay="{{ addElementsPanel.DELAY_SHOW_OTHERS }}" ng-class="{'focused': global.isFocusedAddElement == 11 &amp;&amp; global.product.chosenAddElements.selectedOthers.length === 0, 'selected': global.product.chosenAddElements.selectedOthers.length &gt; 0}" class="auxiliary-item aux-others unvisible">
+          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_OTHERS }}" ng-class="{'focused': elementsPanel.global.isFocusedAddElement == 11 &amp;&amp; elementsPanel.product.chosenAddElements.selectedOthers.length === 0, 'selected': elementsPanel.product.chosenAddElements.selectedOthers.length &gt; 0}" class="auxiliary-item aux-others unvisible">
             <div class="aux-txt-box aux-others-txt">
-              <div show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" ng-hide="global.product.chosenAddElements.selectedOthers.length &gt; 0" class="choose-block unvisible">
-                <button ng-class="{'focused': global.isFocusedAddElement == 11}" hm-tap="global.selectAddElement(11)" ng-disabled="global.isFocusedAddElement == 11" class="aux-choose-but aux_small_but">{{ 'add_elements.CHOOSE' | translate }}</button>
-                <div data-output="{{ 'add_elements.OTHERS' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
+              <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.product.chosenAddElements.selectedOthers.length &gt; 0" class="choose-block unvisible">
+                <button ng-class="{'focused': elementsPanel.global.isFocusedAddElement == 11}" hm-tap="elementsPanel.selectAddElement(11)" ng-disabled="elementsPanel.global.isFocusedAddElement == 11" class="aux-choose-but aux_small_but">{{ 'add_elements.CHOOSE' | translate }}</button>
+                <div data-output="{{ 'add_elements.OTHERS' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
               </div>
-              <div ng-show="global.product.chosenAddElements.selectedOthers.length &gt; 0" class="selected-block vertival">
+              <div ng-show="elementsPanel.product.chosenAddElements.selectedOthers.length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ global.product.chosenAddElements.selectedOthers.length }} {{ 'add_elements.ELEMENTS' | translate }}" , hm-tap="global.selectAddElement(11)" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_START }}" class="aux-title"></div>
-                  <div data-output="{{ 'add_elements.OTHERS' | translate }}" typing="{{ addElementsPanel.typing }}" typing-delay="{{ addElementsPanel.DELAY_START }}" class="aux-label"></div>
+                  <div data-output="{{ elementsPanel.product.chosenAddElements.selectedOthers.length }} {{ 'add_elements.ELEMENTS' | translate }}" , hm-tap="elementsPanel.selectAddElement(11)" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-title"></div>
+                  <div data-output="{{ 'add_elements.OTHERS' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-label"></div>
                 </div>
               </div>
             </div>
           </div>
-          <button show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" hm-tap="showWindowScheme()" class="scheme-info unvisible"></button>
-          <div ng-class="{'active': global.isWindowSchemeDialog}" class="scheme-view-dialog">
+          <button show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" hm-tap="elementsPanel.showWindowScheme()" class="scheme-info unvisible"></button>
+          <div ng-class="{'active': elementsPanel.global.isWindowSchemeDialog}" class="scheme-view-dialog">
             <div class="template-scheme">
-              <svg-template template="global.product.templateDefault" template-width="global.svgTemplateIconBigWidth" template-height="global.svgTemplateIconBigHeight" type-construction="bigIcon"></svg-template>
+              <svg-template template="elementsPanel.product.template" template-width="elementsPanel.constants.svgTemplateIconBigWidth" template-height="elementsPanel.constants.svgTemplateIconBigHeight" type-construction="bigIcon"></svg-template>
             </div>
-            <div hm-tap="closeWindowScheme()" class="close-dialog"></div>
+            <div hm-tap="elementsPanel.closeWindowScheme()" class="close-dialog"></div>
           </div>
-          <button show-delay="{{ addElementsPanel.DELAY_SHOW_BUTTON }}" hm-tap="viewSwitching()" class="view-switch-tab unvisible">{{ 'add_elements.LIST_VIEW' | translate }}</button>
+          <button show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" hm-tap="elementsPanel.viewSwitching()" class="view-switch-tab unvisible">{{ 'add_elements.LIST_VIEW' | translate }}</button>
         </div>
       </div>
-      <div ng-controller="AddElementsListCtrl" ng-class="{'active': global.isAddElementListView}" class="config-panel additional-list-container">
+      <div ng-controller="AddElementsListCtrl as elementsListPanel" ng-class="{'active': elementsListPanel.global.isAddElementListView}" class="config-panel additional-list-container">
         <form name="searchForm">
           <div class="search-block">
             <input ng-show="!global.isHistoryPage" type="text" name="searching" ng-model="searchingWord" ng-change="checkChanges()" placeholder="{{ 'add_elements.INPUT_ADD_ELEMENT' | translate }}" class="search-input">
@@ -1037,32 +1037,32 @@
         <div ng-if="configMenu.global.isConfigMenu" ng-class="{'u-coeff-low': configMenu.product.heatTransferTOTAL &lt; configMenu.order.currHeatTransfer}" show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}" class="product-u-coeff unvisible">U = {{ configMenu.product.heatTransferTOTAL }}</div>
         <div ng-show="configMenu.product.isAddElementsONLY" class="curtain"></div>
       </div>
-      <div ng-controller="addElementMenuCtrl" ng-class="[global.showAddElementsMenu, global.addElementsMenuStyle]" class="elements-list-container">
+      <div ng-controller="addElementMenuCtrl as elementsMenu" ng-class="[elementsMenu.global.showAddElementsMenu, elementsMenu.global.addElementsMenuStyle]" class="elements-list-container">
         <div class="elements-menu">
           <header class="menu-header">
-            <div data-output="{{ 'add_elements_menu.TIP' | translate }}" typing="{{ addElementsMenu.typing }}" typing-delay="{{ addElementsMenu.DELAY_START }}" class="tip"></div>
-            <button hm-tap="closeAddElementsMenu()" class="close-elements-menu"></button>
+            <div data-output="{{ 'add_elements_menu.TIP' | translate }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="tip"></div>
+            <button hm-tap="elementsMenu.closeAddElementsMenu()" class="close-elements-menu"></button>
           </header>
           <div class="menu-lists">
             <ul class="items-list">
               <li ng-class="{'active': global.isAddElement == false}" hm-tap="chooseAddElement()" class="item empty-element">
-                <div data-output="{{ 'add_elements_menu.EMPTY_ELEMENT' | translate }}" typing="{{ addElementsMenu.typing }}" typing-delay="{{ addElementsMenu.DELAY_START }}" class="value"></div>
+                <div data-output="{{ 'add_elements_menu.EMPTY_ELEMENT' | translate }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="value"></div>
               </li>
             </ul>
             <ul ng-repeat="type in global.addElementsList track by $index" class="items-list">
-              <div data-output="{{ global.addElementsType[$index] }}" typing="{{ addElementsMenu.typing }}" typing-delay="{{ addElementsMenu.DELAY_START }}" class="title"></div>
+              <div data-output="{{ global.addElementsType[$index] }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="title"></div>
               <li ng-hide="global.isAddElementListView" ng-repeat="addElement in type track by $index" ng-class="{'active': global.isAddElement === $parent.$index+'-'+$index}" hm-tap="chooseAddElement($parent.$index, $index)" class="item">
-                <div data-output="{{ addElement.elementName }}" typing="{{ addElementsMenu.typing }}" typing-delay="{{ addElementsMenu.DELAY_START }}" class="value"></div>
+                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="value"></div>
                 <button class="element-info"></button>
               </li>
               <li ng-show="global.isAddElementListView" ng-repeat="addElement in type track by $index" ng-class="{'active': global.isAddElement === $parent.$index+'-'+$index}" hm-tap="selectElementListView($parent.$index, $index, $event)" class="item">
-                <div data-output="{{ addElement.elementName }}" typing="{{ addElementsMenu.typing }}" typing-delay="{{ addElementsMenu.DELAY_START }}" class="value"></div>
+                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="value"></div>
                 <button class="element-info"></button>
               </li>
             </ul>
           </div>
           <footer class="menu-footer">
-            <div ng-show="global.isAddElement &amp;&amp; addElementsMenu.isAddElementPrice" class="price-element">
+            <div ng-show="global.isAddElement &amp;&amp; elementsMenu.config.isAddElementPrice" class="price-element">
               <div class="price-value">+ {{ currAddElementPrice }} {{ global.currency }}</div>
             </div>
             <div ng-class="{'active': global.isSizeCalculator}" class="elements-tools size-calculator">
@@ -1142,7 +1142,7 @@
                     <div class="calc-interval">
                       <div class="interval">
                         <div class="calc-qty-limit">1000</div>
-                        <div class="calc-label-limit">шт.</div>
+                        <div class="calc-label-limit">{{ 'add_elements.QTY_LABEL' | translate }}</div>
                       </div>
                     </div>
                   </td>
@@ -1168,21 +1168,21 @@
               <div class="color-block">
                 <div ng-class="{'selected': global.isAddElementColor === 'matt'}" hm-tap="selectAddElementColor('matt')" class="color-img"><img ng-src="{{ global.addElementLaminatWhiteMatt.laminationUrl }}"></div>
                 <div class="color-labels">
-                  <div data-output="{{ global.addElementLaminatWhiteMatt.laminationName }}" typing="{{ addElementsMenu.typing }}" typing-delay="{{ addElementsMenu.DELAY_START }}" class="aux-label"></div>
-                  <div data-output="{{ global.addElementLaminatWhiteMatt.laminationLabel }}" typing="{{ addElementsMenu.typing }}" typing-delay="{{ addElementsMenu.DELAY_START }}" class="aux-label-bold"></div>
+                  <div data-output="{{ global.addElementLaminatWhiteMatt.laminationName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-label"></div>
+                  <div data-output="{{ global.addElementLaminatWhiteMatt.laminationLabel }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-label-bold"></div>
                 </div>
               </div>
               <div class="color-block">
                 <div ng-class="{'selected': global.isAddElementColor === 'glossy'}" hm-tap="selectAddElementColor('glossy')" class="color-img"><img ng-src="{{ global.addElementLaminatWhiteGlossy.laminationUrl }}"></div>
                 <div class="color-labels">
-                  <div data-output="{{ global.addElementLaminatWhiteGlossy.laminationName }}" typing="{{ addElementsMenu.typing }}" typing-delay="{{ addElementsMenu.DELAY_START }}" class="aux-label"></div>
-                  <div data-output="{{ global.addElementLaminatWhiteGlossy.laminationLabel }}" typing="{{ addElementsMenu.typing }}" typing-delay="{{ addElementsMenu.DELAY_START }}" class="aux-label-bold"></div>
+                  <div data-output="{{ global.addElementLaminatWhiteGlossy.laminationName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-label"></div>
+                  <div data-output="{{ global.addElementLaminatWhiteGlossy.laminationLabel }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-label-bold"></div>
                 </div>
               </div>
               <div class="color-block color-options">
                 <div ng-repeat="color in global.addElementLaminatColor" class="color-option">
                   <div ng-class="{'selected': global.isAddElementColor === $index}" hm-tap="selectAddElementColor($index)" class="color-img"><img ng-src="{{ color.laminationUrl }}"></div>
-                  <div data-output="{{ color.laminationName }}" typing="{{ addElementsMenu.typing }}" typing-delay="{{ addElementsMenu.DELAY_START }}" class="aux-label"></div>
+                  <div data-output="{{ color.laminationName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-label"></div>
                 </div>
               </div>
             </div>
@@ -1190,7 +1190,7 @@
         </div>
         <div ng-show="global.isAddElementListView" ng-repeat="type in global.addElementsList track by $index" class="list-items">
           <div ng-repeat="addElement in type track by $index" class="list-item">
-            <div ng-class="{'selected': global.isAddElement == $parent.$index +'-'+ $index}" ng-style="addElementsMenu.coordinats" class="aux-list-item">
+            <div ng-class="{'selected': global.isAddElement == $parent.$index +'-'+ $index}" ng-style="elementsMenu.config.coordinats" class="aux-list-item">
               <div class="aux-list-row">
                 <div class="aux-name">
                   <div class="aux-title">{{ addElement.elementName }}</div>
@@ -1232,7 +1232,7 @@
             </div>
             <div ng-if="global.product.chosenAddElements.selectedGrids.length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in global.product.chosenAddElements.selectedGrids track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.elementName }}" typing="{{ addElementsMenu.typing }}" typing-delay="{{ addElementsMenu.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': global.auxParameter === '1-1-'+$index &amp;&amp; global.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="global.initAddElementMenuTools(1, $index)" ng-disabled="global.isQtyCalculator" class="aux-params-but aux_connect_but">{{ addElement.elementQty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
@@ -1254,7 +1254,7 @@
             </div>
             <div ng-if="global.product.chosenAddElements.selectedVisors.length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in global.product.chosenAddElements.selectedVisors track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.elementName }}" typing="{{ addElementsMenu.typing }}" typing-delay="{{ addElementsMenu.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': global.auxParameter === '2-1-'+$index &amp;&amp; global.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="global.initAddElementMenuTools(1, $index)" ng-disabled="global.isQtyCalculator" class="aux-params-but aux_big_but">{{ addElement.elementQty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
@@ -1280,7 +1280,7 @@
             </div>
             <div ng-if="global.product.chosenAddElements.selectedSpillways.length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in global.product.chosenAddElements.selectedSpillways track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.elementName }}" typing="{{ addElementsMenu.typing }}" typing-delay="{{ addElementsMenu.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': global.auxParameter === '3-1-'+$index &amp;&amp; global.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="global.initAddElementMenuTools(1, $index)" ng-disabled="global.isQtyCalculator" class="aux-params-but aux_middle_but">{{ addElement.elementQty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
@@ -1306,7 +1306,7 @@
             </div>
             <div ng-if="global.product.chosenAddElements.selectedOutsideSlope.length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in global.product.chosenAddElements.selectedOutsideSlope track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.elementName }}" typing="{{ addElementsMenu.typing }}" typing-delay="{{ addElementsMenu.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': global.auxParameter === '4-1-'+$index &amp;&amp; global.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="global.initAddElementMenuTools(1, $index)" ng-disabled="global.isQtyCalculator" class="aux-params-but aux_slope_but">{{ addElement.elementQty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
@@ -1332,7 +1332,7 @@
             </div>
             <div ng-if="global.product.chosenAddElements.selectedLouvers.length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in global.product.chosenAddElements.selectedLouvers track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.elementName }}" typing="{{ addElementsMenu.typing }}" typing-delay="{{ addElementsMenu.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': global.auxParameter === '5-1-'+$index &amp;&amp; global.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="global.initAddElementMenuTools(1, $index)" ng-disabled="global.isQtyCalculator" class="aux-params-but aux_middle_but">{{ addElement.elementQty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
@@ -1362,7 +1362,7 @@
             </div>
             <div ng-if="global.product.chosenAddElements.selectedInsideSlope.length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in global.product.chosenAddElements.selectedInsideSlope track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.elementName }}" typing="{{ addElementsMenu.typing }}" typing-delay="{{ addElementsMenu.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': global.auxParameter === '6-1-'+$index &amp;&amp; global.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="global.initAddElementMenuTools(1, $index)" ng-disabled="global.isQtyCalculator" class="aux-params-but aux_slope_but">{{ addElement.elementQty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
@@ -1388,7 +1388,7 @@
             </div>
             <div ng-if="global.product.chosenAddElements.selectedConnectors.length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in global.product.chosenAddElements.selectedConnectors track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.elementName }}" typing="{{ addElementsMenu.typing }}" typing-delay="{{ addElementsMenu.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': global.auxParameter === '7-1-'+$index &amp;&amp; global.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="global.initAddElementMenuTools(1, $index)" ng-disabled="global.isQtyCalculator" class="aux-params-but aux_connect_but">{{ addElement.elementQty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
@@ -1414,7 +1414,7 @@
             </div>
             <div ng-if="global.product.chosenAddElements.selectedFans.length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in global.product.chosenAddElements.selectedFans track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.elementName }}" typing="{{ addElementsMenu.typing }}" typing-delay="{{ addElementsMenu.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': global.auxParameter === '8-1-'+$index &amp;&amp; global.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="global.initAddElementMenuTools(1, $index)" ng-disabled="global.isQtyCalculator" class="aux-params-but aux_small_but">{{ addElement.elementQty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
@@ -1436,7 +1436,7 @@
             </div>
             <div ng-if="global.product.chosenAddElements.selectedWindowSill.length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in global.product.chosenAddElements.selectedWindowSill track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.elementName }}" typing="{{ addElementsMenu.typing }}" typing-delay="{{ addElementsMenu.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': global.auxParameter === '9-1-'+$index &amp;&amp; global.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="global.initAddElementMenuTools(1, $index)" ng-disabled="global.isQtyCalculator" class="aux-params-but aux_big_but">{{ addElement.elementQty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
@@ -1466,7 +1466,7 @@
             </div>
             <div ng-if="global.product.chosenAddElements.selectedHandles.length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in global.product.chosenAddElements.selectedHandles track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.elementName }}" typing="{{ addElementsMenu.typing }}" typing-delay="{{ addElementsMenu.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': global.auxParameter === '10-1-'+$index &amp;&amp; global.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="global.initAddElementMenuTools(1, $index)" ng-disabled="global.isQtyCalculator" class="aux-params-but aux_middle_but">{{ addElement.elementQty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
@@ -1488,7 +1488,7 @@
             </div>
             <div ng-if="global.product.chosenAddElements.selectedOthers.length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in global.product.chosenAddElements.selectedOthers track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.elementName }}" typing="{{ addElementsMenu.typing }}" typing-delay="{{ addElementsMenu.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': global.auxParameter === '11-1-'+$index &amp;&amp; global.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="global.initAddElementMenuTools(1, $index)" ng-disabled="global.isQtyCalculator" class="aux-params-but aux_small_but">{{ addElement.elementQty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>

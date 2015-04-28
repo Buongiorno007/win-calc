@@ -1970,8 +1970,9 @@ body {
   display: flex;
   -webkit-flex-flow: column nowrap;
   flex-flow: column nowrap;
+  height: 50rem;
 }
-/* line 6, ../../dev/sass/parts/_rooms-selector.scss */
+/* line 7, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog:after {
   position: absolute;
   right: 35%;
@@ -1983,23 +1984,23 @@ body {
   border-color: rgba(255, 255, 255, 0.85) transparent;
   content: '';
 }
-/* line 18, ../../dev/sass/parts/_rooms-selector.scss */
+/* line 19, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .rooms-row {
   display: -webkit-flex;
   display: flex;
   -webkit-justify-content: space-between;
   justify-content: space-between;
 }
-/* line 21, ../../dev/sass/parts/_rooms-selector.scss */
+/* line 22, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .rooms-row:first-of-type {
   margin-bottom: 1.5625rem;
 }
-/* line 25, ../../dev/sass/parts/_rooms-selector.scss */
+/* line 26, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-block {
   width: 25.25rem;
   height: 19.625rem;
 }
-/* line 29, ../../dev/sass/parts/_rooms-selector.scss */
+/* line 30, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-box {
   width: 100%;
   height: 100%;
@@ -2007,47 +2008,47 @@ body {
   border-radius: 0.9375rem;
   cursor: pointer;
 }
-/* line 35, ../../dev/sass/parts/_rooms-selector.scss */
+/* line 36, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-box:hover, .rooms-selector-dialog .room-box.selected {
   background-color: #6ed44a;
 }
-/* line 40, ../../dev/sass/parts/_rooms-selector.scss */
+/* line 41, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img {
   position: relative;
   width: 100%;
   height: 100%;
 }
-/* line 46, ../../dev/sass/parts/_rooms-selector.scss */
+/* line 47, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.kitchen {
   background: url('../img/rooms-dialog/kitchen.jpg?1428589558');
   background-size: contain;
 }
-/* line 50, ../../dev/sass/parts/_rooms-selector.scss */
+/* line 51, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.livingroom {
   background: url('../img/rooms-dialog/livingroom.jpg?1428589558');
   background-size: contain;
 }
-/* line 54, ../../dev/sass/parts/_rooms-selector.scss */
+/* line 55, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.balcony {
   background: url('../img/rooms-dialog/balcony.jpg?1428589558');
   background-size: contain;
 }
-/* line 58, ../../dev/sass/parts/_rooms-selector.scss */
+/* line 59, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.childroom {
   background: url('../img/rooms-dialog/childroom.jpg?1428589558');
   background-size: contain;
 }
-/* line 62, ../../dev/sass/parts/_rooms-selector.scss */
+/* line 63, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.bedroom {
   background: url('../img/rooms-dialog/bedroom.jpg?1428589558');
   background-size: contain;
 }
-/* line 66, ../../dev/sass/parts/_rooms-selector.scss */
+/* line 67, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.door {
   background: url('../img/rooms-dialog/door.jpg?1428589558');
   background-size: contain;
 }
-/* line 71, ../../dev/sass/parts/_rooms-selector.scss */
+/* line 72, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-title {
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VmZWZlZiIgc3RvcC1vcGFjaXR5PSIwLjEiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM0NzQ3NDciLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
   background-size: 100%;

@@ -1,5 +1,5 @@
 .rooms-selector-dialog(ng-controller="RoomSelectorCtrl as rooms", ng-class="{'active': rooms.global.showRoomSelectorDialog}")
-  .rooms-inner(ng-if="rooms.global.isRoomsDialog")
+  .rooms-inner(ng-if="rooms.global.showRoomSelectorDialog")
     .rooms-row
       .room-block
         .room-box.unvisible(show-delay="{{ rooms.config.DELAY_SHOW_ROOM1 }}", ng-class="{'selected': rooms.product.selectedRoomId === 1}", hm-tap="rooms.selectRoom(1)")

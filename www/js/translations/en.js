@@ -21,7 +21,7 @@
         MAX: 'max.',
         //----- confirm dialogs
         BUTTON_Y: 'YES',
-        BUTTON_N: 'IT IS NOT',
+        BUTTON_N: 'NO',
         DELETE_PRODUCT_TITLE: 'Delete!',
         DELETE_PRODUCT_TXT: 'Do you want to delete a product?',
         DELETE_ORDER_TITLE: 'Delete of order!',
@@ -186,7 +186,7 @@
         DRAFT_VIEW: 'Drafts calculations',
         HISTORY_VIEW: 'History of settlements',
         PHONE: 'phone',
-        CLIENT: 'клиент',
+        CLIENT: 'client',
         ADDRESS: 'address',
         FROM: 'from ',
         UNTIL: 'to ',

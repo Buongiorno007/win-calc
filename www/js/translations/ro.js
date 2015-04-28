@@ -185,7 +185,7 @@
         DRAFT_VIEW: 'Черновики расчетов',
         HISTORY_VIEW: 'istoria calculelor',
         PHONE: 'telefon',
-        CLIENT: 'клиент',
+        CLIENT: 'client',
         ADDRESS: 'adresa',
         FROM: 'de la ',
         UNTIL: 'pînă la ',

@@ -6,7 +6,7 @@ table.qty-calc-container
       .calc-interval
         .interval
           .calc-qty-limit 1000
-          .calc-label-limit шт.
+          .calc-label-limit {{ 'add_elements.QTY_LABEL' | translate }}
     td
       button.cell.calc-digit(hm-tap="setValueQty(+1)") +1
   tr

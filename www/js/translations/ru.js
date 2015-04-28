@@ -110,7 +110,10 @@
         NOICE_INSULATION: 'шумоизоляция',
         LAMINAT_INSIDE: 'Ламинация рамы в комнате',
         LAMINAT_OUTSIDE: 'Ламинация со стороны фасада',
-        LAMINAT_WHITE: 'без ламинации, радикальный белый цвет'
+        LAMINAT_WHITE: 'без ламинации, радикальный белый цвет',
+        ONE_WINDOW_TYPE: 'Одностворчатое',
+        TWO_WINDOW_TYPE: 'Двухстворчатое',
+        THREE_WINDOW_TYPE: 'Трехстворчатое'
       },
       add_elements: {
         CHOOSE: 'Выбрать',

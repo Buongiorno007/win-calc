@@ -185,7 +185,7 @@
         DRAFT_VIEW: 'Entwürfe Berechnungen',
         HISTORY_VIEW: 'Siedlungsgeschichte',
         PHONE: 'Telefon',
-        CLIENT: 'клиент',
+        CLIENT: 'Der Kunde',
         ADDRESS: 'Anschrift',
         FROM: 'von ',
         UNTIL: 'vor ',
