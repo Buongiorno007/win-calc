@@ -43,27 +43,10 @@
         isShowCommentBlock: false,
 
         //---- addElements Panel
-        showAddElementsMenu: false,
-        addElementsMenuStyle: false,
-        isFocusedAddElement: 0,
-        addElementsType: [],
-        addElementsList: [],
-        isAddElement: false,
-        currentAddElementId: false,
-        auxParameter: false,
         isQtyCalculator: false,
         isSizeCalculator: false,
         isWidthCalculator: false,
         isColorSelector: false,
-        addElementLaminatWhiteMatt: {},
-        addElementLaminatWhiteGlossy: {},
-        addElementLaminatColor: [],
-        isAddElementColor: false,
-        isTabFrame: false,
-        isWindowSchemeDialog: false,
-        isAddElementListView: false,
-
-
 //        isConstructSizeCalculator: false,
 
 
@@ -112,16 +95,7 @@
         //------ Lamination
         laminationsWhite: $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION'),
 
-
-
-        orders: [],
-
-        objXAddElementPriceSource: {
-          cityId: 0,
-          elementId: 0,
-          elementLength: 0
-        }
-
+        orders: []
 
       },
 

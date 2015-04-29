@@ -88,14 +88,26 @@
       hardwareTypeTableDBGlobal: 'window_hardware_groups',
       hardwareTableDBGlobal: 'window_hardware',
 
-      visorDBId: 21,
-      gridDBId: 20,
-      spillwayDBId: 9,
-      windowsillDBId: 8,
+      addElementDBId: [
+        20, // 0 - grids
+        21, // 1 - visors
+        9, // 2 - spillways
+        0, // 3 - outSlope
+        0, // 4 - louvers
+        0, // 5 - inSlope
+        0, // 6 - connectors
+        0, // 7 - fans
+        8, // 8 - windowSill
+        0, // 9 - handles
+        0 // 10 - others
+      ],
 
       selectDBGlobal: selectDBGlobal,
       selectAllDBGlobal: selectAllDBGlobal,
       updateDBGlobal: updateDBGlobal,
+
+
+
 
       md5: function (string) {
         function RotateLeft(lValue, iShiftBits) {

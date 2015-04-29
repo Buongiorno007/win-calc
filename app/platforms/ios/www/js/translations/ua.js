@@ -75,7 +75,7 @@
         NAVMENU_VOICE_HELPER: 'Голосовий помічник',
         NAVMENU_CALCULATIONS: 'Розрахунки',
         NAVMENU_APPENDIX: 'Додаток',
-        NAVMENU_NEW_CALC: '+ Новий розрахунок',
+        NAVMENU_NEW_CALC: '+Новий розрахунок',
         CONFIGMENU_CONFIGURATION: 'Конфігурація і розміри',
         CONFIGMENU_SIZING: 'ширина * висота -',
         CONFIGMENU_PROFILE: 'Профіль',

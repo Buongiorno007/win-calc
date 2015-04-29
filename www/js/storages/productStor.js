@@ -61,19 +61,19 @@
         laminationInName: $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION'),
         laminationInPrice: 0,
 
-        chosenAddElements: {
-          selectedGrids: [],
-          selectedVisors: [],
-          selectedSpillways: [],
-          selectedOutsideSlope: [],
-          selectedLouvers: [],
-          selectedInsideSlope: [],
-          selectedConnectors: [],
-          selectedFans: [],
-          selectedWindowSill: [],
-          selectedHandles: [],
-          selectedOthers: []
-        },
+        chosenAddElements: [
+          [], // 0 - grids
+          [], // 1 - visors
+          [], // 2 - spillways
+          [], // 3 - outSlope
+          [], // 4 - louvers
+          [], // 5 - inSlope
+          [], // 6 - connectors
+          [], // 7 - fans
+          [], // 8 - windowSill
+          [], // 9 - handles
+          [] // 10 - others
+        ],
 
         doorShapeId: 0,
         doorSashShapeId: 0,

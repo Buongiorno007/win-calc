@@ -8,16 +8,17 @@
    */
   angular
     .module('MainModule')
-    .factory('AddElementsServ', navFactory);
+    .factory('AddElementsServ', addElemFactory);
 
-  function navFactory($timeout, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, optionsServ) {
+  function addElemFactory($timeout, globalConstants, GlobalStor, AuxStor, OrderStor, ProductStor, UserStor, globalDB, optionsServ) {
 
     var thisFactory = this,
       delayShowElementsMenu = globalConstants.STEP * 12;
 
     thisFactory.publicObj = {
       selectAddElement: selectAddElement,
-      initAddElementMenuTools: initAddElementMenuTools,
+      initAddElementTools: initAddElementTools,
+      desactiveAddElementParameters: desactiveAddElementParameters,
       viewSwitching: viewSwitching
     };
 
@@ -28,113 +29,74 @@
 
     //============ methods ================//
 
-    //Select additional element
-    function selectAddElement(id) {
-      if(GlobalStor.global.isFocusedAddElement !== id && GlobalStor.global.showAddElementsMenu) {
-        GlobalStor.global.isFocusedAddElement = id;
-        GlobalStor.global.isTabFrame = false;
-        //playSound('swip');
-        GlobalStor.global.showAddElementsMenu = false;
 
-        //desactiveAddElementParameters();
+    //--------- Select additional element
+    function selectAddElement(id) {
+      if(AuxStor.aux.isFocusedAddElement !== id && AuxStor.aux.showAddElementsMenu) {
+        AuxStor.aux.isFocusedAddElement = id;
+        AuxStor.aux.isTabFrame = false;
+        //playSound('swip');
+        AuxStor.aux.showAddElementsMenu = false;
+
+        desactiveAddElementParameters();
 
         $timeout(function() {
-//          $scope.global.isAddElement = false;
-//          $scope.global.addElementsMenuStyle = false;
+          AuxStor.aux.isAddElement = false;
+          AuxStor.aux.addElementsMenuStyle = false;
           //playSound('swip');
-          GlobalStor.global.showAddElementsMenu = globalConstants.activeClass;
+          AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
           downloadAddElementsData(id);
         }, delayShowElementsMenu);
       } else {
-        GlobalStor.global.isFocusedAddElement = id;
+        AuxStor.aux.isFocusedAddElement = id;
         //playSound('swip');
-        GlobalStor.global.showAddElementsMenu = globalConstants.activeClass;
+        AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
         downloadAddElementsData(id);
       }
     }
-
-    //
-    //    //Select additional element
-    //    function selectAddElement(id) {
-    //      if($scope.global.isFocusedAddElement !== id && $scope.global.showAddElementsMenu) {
-    //        $scope.global.isFocusedAddElement = id;
-    //        $scope.global.isTabFrame = false;
-    //        //playSound('swip');
-    //        $scope.global.showAddElementsMenu = false;
-    //        $scope.global.desactiveAddElementParameters();
-    //        $timeout(function() {
-    //          $scope.global.isAddElement = false;
-    //          $scope.global.addElementsMenuStyle = false;
-    //          //playSound('swip');
-    //          $scope.global.showAddElementsMenu = globalConstants.activeClass;
-    //          $scope.global.downloadAddElementsData(id);
-    //        }, $scope.addElementsPanel.DELAY_SHOW_ELEMENTS_MENU);
-    //      } else {
-    //        $scope.global.isFocusedAddElement = id;
-    //        //playSound('swip');
-    //        $scope.global.showAddElementsMenu = globalConstants.activeClass;
-    //        $scope.global.downloadAddElementsData(id);
-    //      }
-    //    }
 
 
 
 
     function downloadAddElementsData(id) {
-      GlobalStor.global.addElementsMenuStyle = globalConstants.addElementsGroupClass[ (id - 1) ];
+      var index = (id - 1);
+      AuxStor.aux.addElementsMenuStyle = globalConstants.addElementsGroupClass[ index ];
+
+      //TODO download form GlobalDB
+//      globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'list_group_id': globalDB.addElementDBId[index]}).then(function (result) {
+//        if (result) {
+//          AuxStor.aux.addElementsList = angular.copy(result);
+//        } else {
+//          console.log(result);
+//        }
+//      });
+
       switch(id) {
         case 1:
-          /*
-           globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'list_group_id': $scope.global.gridDBId}, function (results) {
-           if (results.status) {
-           $scope.global.addElementsList = [angular.copy(results.data)];
-           } else {
-           console.log(results);
-           }
-           });
-           */
           optionsServ.getAllGrids(function (results) {
             if (results.status) {
-              GlobalStor.global.addElementsType = results.data.elementType;
-              GlobalStor.global.addElementsList = results.data.elementsList;
+              AuxStor.aux.addElementsType = results.data.elementType;
+              AuxStor.aux.addElementsList = results.data.elementsList;
             } else {
               console.log(results);
             }
           });
           break;
         case 2:
-          /*
-           globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'list_group_id': $scope.global.visorDBId}, function (results) {
-           if (results.status) {
-           $scope.global.addElementsList = [angular.copy(results.data)];
-           } else {
-           console.log(results);
-           }
-           });
-           */
           optionsServ.getAllVisors(function (results) {
             if (results.status) {
-              GlobalStor.global.addElementsType = results.data.elementType;
-              GlobalStor.global.addElementsList = results.data.elementsList;
+              AuxStor.aux.addElementsType = results.data.elementType;
+              AuxStor.aux.addElementsList = results.data.elementsList;
             } else {
               console.log(results);
             }
           });
           break;
         case 3:
-          /*
-           globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'list_group_id': $scope.global.spillwayDBId}, function (results) {
-           if (results.status) {
-           $scope.global.addElementsList = [angular.copy(results.data)];
-           } else {
-           console.log(results);
-           }
-           });
-           */
           optionsServ.getAllSpillways(function (results) {
             if (results.status) {
-              GlobalStor.global.addElementsType = results.data.elementType;
-              GlobalStor.global.addElementsList = results.data.elementsList;
+              AuxStor.aux.addElementsType = results.data.elementType;
+              AuxStor.aux.addElementsList = results.data.elementsList;
             } else {
               console.log(results);
             }
@@ -143,8 +105,8 @@
         case 4:
           optionsServ.getAllOutsideSlope(function (results) {
             if (results.status) {
-              GlobalStor.global.addElementsType = results.data.elementType;
-              GlobalStor.global.addElementsList = results.data.elementsList;
+              AuxStor.aux.addElementsType = results.data.elementType;
+              AuxStor.aux.addElementsList = results.data.elementsList;
             } else {
               console.log(results);
             }
@@ -153,8 +115,8 @@
         case 5:
           optionsServ.getAllLouvers(function (results) {
             if (results.status) {
-              GlobalStor.global.addElementsType = results.data.elementType;
-              GlobalStor.global.addElementsList = results.data.elementsList;
+              AuxStor.aux.addElementsType = results.data.elementType;
+              AuxStor.aux.addElementsList = results.data.elementsList;
             } else {
               console.log(results);
             }
@@ -163,8 +125,8 @@
         case 6:
           optionsServ.getAllInsideSlope(function (results) {
             if (results.status) {
-              GlobalStor.global.addElementsType = results.data.elementType;
-              GlobalStor.global.addElementsList = results.data.elementsList;
+              AuxStor.aux.addElementsType = results.data.elementType;
+              AuxStor.aux.addElementsList = results.data.elementsList;
             } else {
               console.log(results);
             }
@@ -173,8 +135,8 @@
         case 7:
           optionsServ.getAllConnectors(function (results) {
             if (results.status) {
-              GlobalStor.global.addElementsType = results.data.elementType;
-              GlobalStor.global.addElementsList = results.data.elementsList;
+              AuxStor.aux.addElementsType = results.data.elementType;
+              AuxStor.aux.addElementsList = results.data.elementsList;
             } else {
               console.log(results);
             }
@@ -183,27 +145,18 @@
         case 8:
           optionsServ.getAllFans(function (results) {
             if (results.status) {
-              GlobalStor.global.addElementsType = results.data.elementType;
-              GlobalStor.global.addElementsList = results.data.elementsList;
+              AuxStor.aux.addElementsType = results.data.elementType;
+              AuxStor.aux.addElementsList = results.data.elementsList;
             } else {
               console.log(results);
             }
           });
           break;
         case 9:
-          /*
-           globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'list_group_id': $scope.global.windowsillDBId}, function (results) {
-           if (results.status) {
-           $scope.global.addElementsList = [angular.copy(results.data)];
-           } else {
-           console.log(results);
-           }
-           });
-           */
           optionsServ.getAllWindowSills(function (results) {
             if (results.status) {
-              GlobalStor.global.addElementsType = results.data.elementType;
-              GlobalStor.global.addElementsList = results.data.elementsList;
+              AuxStor.aux.addElementsType = results.data.elementType;
+              AuxStor.aux.addElementsList = results.data.elementsList;
             } else {
               console.log(results);
             }
@@ -212,8 +165,8 @@
         case 10:
           optionsServ.getAllHandles(function (results) {
             if (results.status) {
-              GlobalStor.global.addElementsType = results.data.elementType;
-              GlobalStor.global.addElementsList = results.data.elementsList;
+              AuxStor.aux.addElementsType = results.data.elementType;
+              AuxStor.aux.addElementsList = results.data.elementsList;
             } else {
               console.log(results);
             }
@@ -222,8 +175,8 @@
         case 11:
           optionsServ.getAllOthers(function (results) {
             if (results.status) {
-              GlobalStor.global.addElementsType = results.data.elementType;
-              GlobalStor.global.addElementsList = results.data.elementsList;
+              AuxStor.aux.addElementsType = results.data.elementType;
+              AuxStor.aux.addElementsList = results.data.elementsList;
             } else {
               console.log(results);
             }
@@ -234,16 +187,16 @@
 
 
     //------- Select Add Element Parameter
-    function initAddElementMenuTools(toolsId, addElementId) {
-      if(GlobalStor.global.auxParameter === GlobalStor.global.isFocusedAddElement+'-'+toolsId+'-'+addElementId) {
+    function initAddElementTools(toolsId, elementIndex) {
+      if(AuxStor.aux.auxParameter === AuxStor.aux.isFocusedAddElement+'-'+toolsId+'-'+elementIndex) {
         desactiveAddElementParameters();
-        GlobalStor.global.currentAddElementId = false;
+        AuxStor.aux.currentAddElementId = false;
         //console.log('close-'+$scope.global.auxParameter);
       } else {
         desactiveAddElementParameters();
-        GlobalStor.global.auxParameter = GlobalStor.global.isFocusedAddElement+'-'+toolsId+'-'+addElementId;
+        AuxStor.aux.auxParameter = AuxStor.aux.isFocusedAddElement+'-'+toolsId+'-'+elementIndex;
         //console.log($scope.global.auxParameter);
-        GlobalStor.global.currentAddElementId = addElementId;
+        AuxStor.aux.currentAddElementId = elementIndex;
         switch(toolsId) {
           case 1:
             GlobalStor.global.isQtyCalculator = true;
@@ -257,18 +210,18 @@
             GlobalStor.global.isWidthCalculator = false;
             break;
           case 4:
-            GlobalStor.global.isColorSelector = false;
+            //GlobalStor.global.isColorSelector = false;
             optionsServ.getLaminationAddElements(function (results) {
               if (results.status) {
-                GlobalStor.global.addElementLaminatWhiteMatt = results.data.laminationWhiteMatt;
-                GlobalStor.global.addElementLaminatWhiteGlossy = results.data.laminationWhiteGlossy;
-                GlobalStor.global.addElementLaminatColor = results.data.laminations;
+                AuxStor.aux.addElementLaminatWhiteMatt = results.data.laminationWhiteMatt;
+                AuxStor.aux.addElementLaminatWhiteGlossy = results.data.laminationWhiteGlossy;
+                AuxStor.aux.addElementLaminatColor = results.data.laminations;
               } else {
                 console.log(results);
               }
             });
             GlobalStor.global.isColorSelector = true;
-            GlobalStor.global.isAddElementColor = GlobalStor.product.chosenAddElements.selectedWindowSill[addElementId].elementColorId;
+            AuxStor.aux.isAddElementColor = GlobalStor.product.chosenAddElements[8][elementIndex].elementColorId;
             break;
         }
       }
@@ -278,22 +231,23 @@
     // Open Add Elements in List View
     function viewSwitching() {
       //playSound('swip');
-      GlobalStor.global.isAddElementListView = true;
-      GlobalStor.global.isFocusedAddElement = false;
-      GlobalStor.global.isTabFrame = false;
-      GlobalStor.global.showAddElementsMenu = false;
-      GlobalStor.global.isAddElement = false;
+      AuxStor.aux.isAddElementListView = true;
+      AuxStor.aux.isFocusedAddElement = false;
+      AuxStor.aux.isTabFrame = false;
+      AuxStor.aux.showAddElementsMenu = false;
+      AuxStor.aux.isAddElement = false;
       desactiveAddElementParameters();
       $timeout(function() {
-        GlobalStor.global.addElementsMenuStyle = false;
+        AuxStor.aux.addElementsMenuStyle = false;
       }, delayShowElementsMenu);
     }
 
 
     function desactiveAddElementParameters() {
-      GlobalStor.global.auxParameter = false;
+      AuxStor.aux.auxParameter = false;
       GlobalStor.global.isQtyCalculator = false;
       GlobalStor.global.isSizeCalculator = false;
+      GlobalStor.global.isWidthCalculator = false;
       GlobalStor.global.isColorSelector = false;
     }
 

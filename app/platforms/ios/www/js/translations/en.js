@@ -76,7 +76,7 @@
         NAVMENU_VOICE_HELPER: 'Vocal helper',
         NAVMENU_CALCULATIONS: 'Calculations',
         NAVMENU_APPENDIX: 'Appendix',
-        NAVMENU_NEW_CALC: '+ New calculation',
+        NAVMENU_NEW_CALC: '+New calculation',
         CONFIGMENU_CONFIGURATION: 'Configuration and sizes',
         CONFIGMENU_SIZING: 'width * height',
         CONFIGMENU_PROFILE: 'Profile',

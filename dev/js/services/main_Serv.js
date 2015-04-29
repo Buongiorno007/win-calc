@@ -7,7 +7,7 @@
     .module('MainModule')
     .factory('MainServ', navFactory);
 
-  function navFactory($rootScope, $q, $filter, $cordovaProgress, globalConstants, globalDB, GeneralServ, GlobalStor, OrderStor, ProductStor, optionsServ) {
+  function navFactory($rootScope, $q, $filter, $cordovaProgress, globalConstants, globalDB, GeneralServ, GlobalStor, OrderStor, ProductStor, UserStor, optionsServ) {
 
     var thisFactory = this;
 
@@ -318,7 +318,7 @@
       setBeadId(profileId, glassId).then(function(beadId) {
         var objXFormedPrice = {
               //cityId: UserStor.userInfo.city_id,
-              currencyId: OrderStor.order.currencyId,
+              currencyId: UserStor.userInfo.currencyId,
               profileId: profileId,
               glassId: glassId,
               hardwareId: hardwareId,

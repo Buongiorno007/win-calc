@@ -144,9 +144,11 @@
           UserStor.userInfo.heatTransfer = locations[loc].heatTransfer;
           UserStor.userInfo.countryName = locations[loc].countryName;
           UserStor.userInfo.fullLocation = locations[loc].fullLocation;
-
+          UserStor.userInfo.currencyId = locations[loc].currencyId;
           //------ set current GeoLocation
-          setUserGeoLocation(cityId, locations[loc].cityName, locations[loc].regionName, locations[loc].countryName, locations[loc].climaticZone, locations[loc].heatTransfer, locations[loc].fullLocation, locations[loc].currencyId);
+          setUserGeoLocation(cityId, locations[loc].cityName, locations[loc].regionName, locations[loc].countryName, locations[loc].climaticZone, locations[loc].heatTransfer, locations[loc].fullLocation);
+          //--------- set currency symbol
+          setCurrency();
         }
       }
     }
@@ -160,25 +162,21 @@
       OrderStor.order.currClimaticZone = climatic;
       OrderStor.order.currHeatTransfer = heat;
       OrderStor.order.currFullLocation = fullLocation;
-      OrderStor.order.currencyId = currencyId;
-
-      //--------- set currency symbol
-      setCurrency();
     }
 
     function setCurrency() {
-      globalDB.selectDBGlobal(globalDB.currenciesTableDBGlobal, {'id':  OrderStor.order.currencyId}).then(function(result) {
+      globalDB.selectDBGlobal(globalDB.currenciesTableDBGlobal, {'id':  UserStor.userInfo.currencyId}).then(function(result) {
         if(result) {
           switch(result[0].name) {
-            case 'uah':  OrderStor.order.currency = '₴';
+            case 'uah':  UserStor.userInfo.currency = '₴';
               break;
-            case 'rub':  OrderStor.order.currency = '₽';
+            case 'rub':  UserStor.userInfo.currency = '₽';
               break;
-            case 'usd':  OrderStor.order.currency = '$';
+            case 'usd':  UserStor.userInfo.currency = '$';
               break;
-            case 'eur':  OrderStor.order.currency = '€';
+            case 'eur':  UserStor.userInfo.currency = '€';
               break;
-            default:  OrderStor.order.currency = '₴';
+            default:  UserStor.userInfo.currency = '₴';
               break;
           }
         }

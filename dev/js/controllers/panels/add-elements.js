@@ -7,12 +7,13 @@
     .module('MainModule')
     .controller('AddElementsCtrl', addElementsCtrl);
 
-  function addElementsCtrl(globalConstants, GlobalStor, ProductStor, AddElementsServ) {
+  function addElementsCtrl(globalConstants, GlobalStor, AuxStor, ProductStor, AddElementsServ) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.global = GlobalStor.global;
     thisCtrl.product = ProductStor.product;
+    thisCtrl.aux = AuxStor.aux;
 
     thisCtrl.config = {
       DELAY_START: globalConstants.STEP,
@@ -54,12 +55,12 @@
     // Show Window Scheme Dialog
     function showWindowScheme() {
       //playSound('fly');
-      GlobalStor.global.isWindowSchemeDialog = true;
+      AuxStor.aux.isWindowSchemeDialog = true;
     }
 
     function closeWindowScheme() {
       //playSound('fly');
-      GlobalStor.global.isWindowSchemeDialog = false;
+      AuxStor.aux.isWindowSchemeDialog = false;
     }
 
   }

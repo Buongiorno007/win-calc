@@ -23,7 +23,9 @@
         climaticZone: 0,
         heatTransfer: 0,
         langLabel: 'en',
-        langName: 'English'
+        langName: 'English',
+        currencyId: 0,
+        currency: ''
       },
       setDefaultUser: setDefaultUser
     };
