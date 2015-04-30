@@ -7,7 +7,7 @@
     .module('MainModule')
     .factory('AddElementsServ', addElemFactory);
 
-  function addElemFactory($timeout, globalConstants, GlobalStor, AuxStor, OrderStor, ProductStor, UserStor, globalDB, optionsServ) {
+  function addElemFactory($timeout, globalConstants, GlobalStor, AuxStor, globalDB, optionsServ) {
 
     var thisFactory = this,
       delayShowElementsMenu = globalConstants.STEP * 12;
@@ -16,7 +16,8 @@
       selectAddElement: selectAddElement,
       initAddElementTools: initAddElementTools,
       desactiveAddElementParameters: desactiveAddElementParameters,
-      viewSwitching: viewSwitching
+      openAddElementListView: openAddElementListView,
+      closeAddElementListView: closeAddElementListView
     };
 
     return thisFactory.publicObj;
@@ -224,11 +225,20 @@
       }
     }
 
+    function openAddElementListView() {
+      AuxStor.aux.isAddElementListView = true;
+      viewSwitching();
+    }
+
+    function closeAddElementListView() {
+      AuxStor.aux.isAddElementListView = false;
+      viewSwitching();
+    }
+
 
     // Open Add Elements in List View
     function viewSwitching() {
       //playSound('swip');
-      AuxStor.aux.isAddElementListView = true;
       AuxStor.aux.isFocusedAddElement = false;
       AuxStor.aux.isTabFrame = false;
       AuxStor.aux.showAddElementsMenu = false;

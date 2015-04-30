@@ -10,13 +10,19 @@
   function addElemMenuFactory($timeout, globalConstants, GlobalStor, AuxStor, OrderStor, ProductStor, UserStor, globalDB, GeneralServ, MainServ, AddElementsServ, analyticsServ) {
 
     var thisFactory = this,
-      delayShowElementsMenu = globalConstants.STEP * 12;
+        delayShowElementsMenu = globalConstants.STEP * 12,
+        tempSize = [];
 
     thisFactory.publicObj = {
       closeAddElementsMenu: closeAddElementsMenu,
       chooseAddElement: chooseAddElement,
-//      desactiveAddElementParameters: desactiveAddElementParameters,
-//      viewSwitching: viewSwitching
+      deleteAddElement: deleteAddElement,
+      //---- calculators:
+      setValueQty: setValueQty,
+      setValueSize: setValueSize,
+      deleteLastNumber: deleteLastNumber,
+      closeSizeCaclulator: closeSizeCaclulator,
+      selectAddElementColor: selectAddElementColor
     };
 
     return thisFactory.publicObj;
@@ -41,7 +47,7 @@
     }
 
 
-    // Select AddElement
+    //--------- Select AddElement
     function chooseAddElement(typeIndex, elementIndex) {
       if(typeIndex === undefined && elementIndex === undefined) {
         var index = (AuxStor.aux.isFocusedAddElement - 1);
@@ -115,7 +121,7 @@
           AuxStor.aux.isTabFrame = true;
         }
       } else {
-        ProductStor.product.chosenAddElements.selectedGrids[index][existedElement].elementQty += 1;
+        ProductStor.product.chosenAddElements[index][existedElement].elementQty += 1;
       }
 
     }
@@ -145,8 +151,160 @@
           }
         }
       }
-      MainServ.setProductPriceTOTAL();
+      $timeout(function() {
+        MainServ.setProductPriceTOTAL();
+      }, 50);
     }
+
+
+
+    //-------- Delete AddElement from global object
+    function deleteAddElement(typeId, elementId) {
+      var index = (typeId - 1);
+      ProductStor.product.chosenAddElements[index].splice(elementId, 1);
+      AddElementsServ.desactiveAddElementParameters();
+      //Set Total Product Price
+      setAddElementsTotalPrice();
+    }
+
+
+
+
+
+
+
+
+
+
+
+    //--------- Change Qty parameter
+    function setValueQty(newValue) {
+      var elementIndex = AuxStor.aux.currentAddElementId,
+        index = (AuxStor.aux.isFocusedAddElement - 1);
+
+      if(ProductStor.product.chosenAddElements[index][elementIndex].elementQty < 2 && newValue < 0) {
+        return false;
+      } else if(ProductStor.product.chosenAddElements[index][elementIndex].elementQty < 6 && newValue == -5) {
+        return false;
+      } else {
+        ProductStor.product.chosenAddElements[index][elementIndex].elementQty += newValue;
+      }
+
+      //--------- Set Total Product Price
+      setAddElementsTotalPrice();
+    }
+
+
+
+    //------- Change Size parameter
+    function setValueSize(newValue) {
+      //console.log($scope.addElementsMenu.tempSize);
+      if(tempSize.length == 1 && tempSize[0] === 0) {
+        tempSize.length = 0;
+      }
+      if(tempSize.length < 4) {
+        if(newValue === '00'){
+          tempSize.push(0, 0);
+        } else {
+          tempSize.push(newValue);
+        }
+      }
+      changeElementSize();
+    }
+
+
+
+    //------- Delete last number
+    function deleteLastNumber() {
+      tempSize.pop();
+      if(tempSize.length < 1) {
+        tempSize.push(0);
+      }
+      changeElementSize();
+    }
+
+
+    function changeElementSize(){
+      var newElementSize = '',
+          elementIndex = AuxStor.aux.currentAddElementId,
+          index = (AuxStor.aux.isFocusedAddElement - 1);
+
+      for(var numer = 0; numer < tempSize.length; numer++) {
+        newElementSize += tempSize[numer].toString();
+      }
+      newElementSize = parseInt(newElementSize, 10);
+
+      if(GlobalStor.global.isWidthCalculator) {
+        ProductStor.product.chosenAddElements[index][elementIndex].elementWidth = newElementSize;
+      } else {
+        if(index === 4) {
+          ProductStor.product.chosenAddElements[index][elementIndex].elementHeight = newElementSize;
+        }
+      }
+    }
+
+
+    //------- Close Size Calculator
+    function closeSizeCaclulator() {
+      var elementIndex = AuxStor.aux.currentAddElementId,
+          index = (AuxStor.aux.isFocusedAddElement - 1);
+
+      GlobalStor.global.isWidthCalculator = false;
+      tempSize.length = 0;
+      AddElementsServ.desactiveAddElementParameters();
+
+      //-------- recalculate add element price
+      var objXAddElementPrice = {
+        cityId: UserStor.userInfo.city_id,
+        currencyId: UserStor.userInfo.currencyId,
+        elementId: ProductStor.product.chosenAddElements[index][elementIndex].elementId,
+        elementLength: ProductStor.product.chosenAddElements[index][elementIndex].elementWidth
+      };
+
+      //console.log('objXAddElementPrice change size ===== ', $scope.global.objXAddElementPrice);
+      globalDB.getAdditionalPrice(objXAddElementPrice, function (results) {
+        if (results.status) {
+//          console.log('change size!!!!!!!');
+//          console.log(results.data.price);
+          //var newElementPrice = parseFloat(results.data.price);
+          var newElementPrice = GeneralServ.roundingNumbers(results.data.price);
+          //$scope.addElementsMenu.isAddElementPrice = true;
+          AuxStor.aux.currAddElementPrice = newElementPrice;
+          ProductStor.product.chosenAddElements[index][elementIndex].elementPrice = newElementPrice;
+
+          //------- Set Total Product Price
+          setAddElementsTotalPrice();
+          //$scope.$apply();
+
+        } else {
+          console.log(results);
+        }
+      });
+
+    }
+
+
+
+
+    // Select Add Element Lamination
+    function selectAddElementColor(id) {
+      var elementIndex = AuxStor.aux.currentAddElementId,
+          index = (AuxStor.aux.isFocusedAddElement - 1);
+
+      AuxStor.aux.isAddElementColor = id;
+      if(id === 'matt') {
+        ProductStor.product.chosenAddElements[index][elementIndex].elementColor = AuxStor.aux.addElementLaminatWhiteMatt.laminationUrl;
+        ProductStor.product.chosenAddElements[index][elementIndex].elementColorId = 'matt';
+      } else if(id === 'glossy') {
+        ProductStor.product.chosenAddElements[index][elementIndex].elementColor = AuxStor.aux.addElementLaminatWhiteGlossy.laminationUrl;
+        ProductStor.product.chosenAddElements[index][elementIndex].elementColorId = 'glossy';
+      } else {
+        ProductStor.product.chosenAddElements[index][elementIndex].elementColor = AuxStor.aux.addElementLaminatColor[id].laminationUrl;
+        ProductStor.product.chosenAddElements[index][elementIndex].elementColorId = id;
+      }
+    }
+
+
 
 
 

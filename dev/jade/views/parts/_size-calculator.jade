@@ -1,39 +1,39 @@
-table.size-calc-container
+table.size-calc-container(ng-controller="sizeCalculatorCtrl as sizeCalc")
   thead
     td
-      button.cell.calc-delete(hm-tap="deleteLastNumber()")
+      button.cell.calc-delete(hm-tap="sizeCalc.deleteLastNumber()")
     td(colspan= "2")
       .calc-interval
         .interval
-          .calc-value-limit(ng-hide="global.isConstructSizeCalculator") 0
-          .calc-value-limit(ng-show="global.isConstructSizeCalculator", ng-class="{'restriction': constructData.isMinSizeRestriction}") {{ constructData.minSizeLimit }}
+          .calc-value-limit(ng-hide="sizeCalc.isConstructionPage") 0
+          .calc-value-limit(ng-show="sizeCalc.isConstructionPage", ng-class="{'restriction': sizeCalc.global.isMinSizeRestriction}") {{ sizeCalc.global.minSizeLimit }}
           .calc-label-limit {{ 'common_words.MIN' | translate }}
         .interval
-          .calc-value-limit(ng-hide="global.isConstructSizeCalculator") 5000
-          .calc-value-limit(ng-show="global.isConstructSizeCalculator", ng-class="{'restriction': constructData.isMaxSizeRestriction}") {{ constructData.maxSizeLimit }}
+          .calc-value-limit(ng-hide="sizeCalc.isConstructionPage") 5000
+          .calc-value-limit(ng-show="sizeCalc.isConstructionPage", ng-class="{'restriction': sizeCalc.global.isMaxSizeRestriction}") {{ sizeCalc.global.maxSizeLimit }}
           .calc-label-limit {{ 'common_words.MAX' | translate }}
   tr
     - for (var cell = 1; cell < 4; ++cell) {
       td
-        button.cell.calc-digit(hm-tap="setValueSize("+cell+")")= cell
+        button.cell.calc-digit(hm-tap="sizeCalc.setValueSize("+cell+")")= cell
     - }
   tr
     - for (var cell = 4; cell < 7; ++cell) {
       td
-        button.cell.calc-digit(hm-tap="setValueSize("+cell+")")= cell
+        button.cell.calc-digit(hm-tap="sizeCalc.setValueSize("+cell+")")= cell
     - }
   tr
     - for (var cell = 7; cell < 10; ++cell) {
       td
-        button.cell.calc-digit(hm-tap="setValueSize("+cell+")")= cell
+        button.cell.calc-digit(hm-tap="sizeCalc.setValueSize("+cell+")")= cell
     - }
   tr
     td
-      button.cell.calc-digit(hm-tap="setValueSize(0)") 0
+      button.cell.calc-digit(hm-tap="sizeCalc.setValueSize(0)") 0
     td
-      button.cell.calc-digit(hm-tap="setValueSize('00')") 00
+      button.cell.calc-digit(hm-tap="sizeCalc.setValueSize('00')") 00
     td
-      button.cell.calc-equal(hm-tap="closeSizeCaclulator()") =
+      button.cell.calc-equal(hm-tap="sizeCalc.closeSizeCaclulator()") =
 
 
 

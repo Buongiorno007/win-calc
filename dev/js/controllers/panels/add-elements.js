@@ -43,8 +43,8 @@
 
     //------ clicking
     thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
-    thisCtrl.initAddElementMenuTools = AddElementsServ.initAddElementMenuTools;
-    thisCtrl.viewSwitching = AddElementsServ.viewSwitching;
+    thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
+    thisCtrl.openAddElementListView = AddElementsServ.openAddElementListView;
     thisCtrl.showWindowScheme = showWindowScheme;
     thisCtrl.closeWindowScheme = closeWindowScheme;
 

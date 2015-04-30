@@ -10,7 +10,7 @@
     .module('SettingsModule')
     .controller('LocationCtrl', locationCtrl);
 
-  function locationCtrl($scope, globalDB, localStorage, loginServ, UserStor) {
+  function locationCtrl($scope, $location, globalDB, localStorage, loginServ, UserStor) {
 
 
     $scope.global = localStorage.storage;
@@ -69,7 +69,7 @@
         $scope.global.showNavMenu = true;
         $scope.global.isConfigMenu = false;
         $scope.global.showPanels = {};
-        $location.path('/main');;
+        $location.path('/main');
       }
     }
 

@@ -10,22 +10,17 @@
     .module('MainModule')
     .controller('AddElementsListCtrl', addElementsListCtrl);
 
-  function addElementsListCtrl($scope, $filter, globalConstants, localStorage) {
+  function addElementsListCtrl($filter, globalConstants, GlobalStor, ProductStor, UserStor, AuxStor, AddElementsServ, AddElementMenuServ) {
 
-    $scope.global = localStorage.storage;
+    var thisCtrl = this;
+    thisCtrl.constants = globalConstants;
+    thisCtrl.global = GlobalStor.global;
+    thisCtrl.product = ProductStor.product;
+    thisCtrl.userInfo = UserStor.userInfo;
+    thisCtrl.aux = AuxStor.aux;
 
-    $scope.addElementsList = {
-      DELAY_START: globalConstants.STEP,
-      DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 6,
-      showAddElementGroups: false,
-      filteredGroups: [],
-      typing: 'on'
-    };
-
-    // Search Add Elements Group
-    var regex, checkedGroup, indexGroup, currGroup, groupTempObj;
-
-    $scope.addElementsList.addElementsGroup = [
+    thisCtrl.addElementsGroup = [];
+    thisCtrl.addElementsGroupNames = [
       $filter('translate')('add_elements.GRIDS'),
       $filter('translate')('add_elements.VISORS'),
       $filter('translate')('add_elements.SPILLWAYS'),
@@ -38,61 +33,47 @@
       $filter('translate')('add_elements.HANDLELS'),
       $filter('translate')('add_elements.OTHERS')
     ];
-
-    // Create regExpresion
-    function escapeRegExp(string){
-      return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+    for(var g = 0; g < thisCtrl.addElementsGroupNames.length; g++){
+      var groupTempObj = {};
+      groupTempObj.groupId = (g+1);
+      groupTempObj.groupName = thisCtrl.addElementsGroupNames[g];
+      groupTempObj.groupClass = globalConstants.addElementsGroupClass[g];
+      thisCtrl.addElementsGroup.push(groupTempObj);
     }
 
-    $scope.checkChanges = function() {
 
-      $scope.addElementsList.filteredGroups.length = 0;
-      if($scope.searchingWord && $scope.searchingWord.length > 0) {
-        regex = new RegExp('^' + escapeRegExp($scope.searchingWord), 'i');
-        for(indexGroup = 0; indexGroup < $scope.addElementsList.addElementsGroup.length; indexGroup++){
-          currGroup = $scope.addElementsList.addElementsGroup[indexGroup];
-          checkedGroup = regex.test(currGroup);
-          if(checkedGroup) {
-            groupTempObj = {};
-            groupTempObj.groupId = indexGroup+1;
-            groupTempObj.groupName = currGroup;
-            groupTempObj.groupClass = $scope.global.addElementsGroupClass[indexGroup];
-            $scope.addElementsList.filteredGroups.push(groupTempObj);
-          }
-        }
+    thisCtrl.config = {
+      DELAY_START: globalConstants.STEP,
+      DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 6,
+
+      filteredGroups: [],
+      typing: 'on'
+    };
+
+    //------ clicking
+    thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
+    thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
+    thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;
+    thisCtrl.deleteAllAddElements = deleteAllAddElements;
+    thisCtrl.closeAddElementListView = AddElementsServ.closeAddElementListView;
+
+
+
+
+
+
+    //============ methods ================//
+
+    //--------- Delete All List of selected AddElements
+    function deleteAllAddElements() {
+      var elementsQty = ProductStor.product.chosenAddElements.length,
+          index = 0;
+      for(; index < elementsQty; index++) {
+        ProductStor.product.chosenAddElements[index].length = 0;
       }
-      if( $scope.addElementsList.filteredGroups.length > 0) {
-        $scope.addElementsList.showAddElementGroups = true;
-      } else {
-        $scope.addElementsList.showAddElementGroups = false;
-      }
-    };
+      ProductStor.product.addElementsPriceSELECT = 0;
+    }
 
-    // Delete searching word
-    $scope.cancelSearching = function() {
-      $scope.searchingWord = '';
-      $scope.addElementsList.showAddElementGroups = false;
-    };
-    // Delete last chart searching word
-    $scope.deleteSearchChart = function() {
-      $scope.searchingWord = $scope.searchingWord.slice(0,-1);
-    };
-
-     //Delete All Add Elements
-    $scope.clearAllAddElements = function() {
-      for(var group in $scope.global.product.chosenAddElements) {
-        $scope.global.product.chosenAddElements[group].length = 0;
-      }
-      $scope.global.totalAddElementsPrice = false;
-    };
-
-    // Close Add Elements in List View
-    $scope.viewSwitching = function() {
-      $scope.global.isAddElementListView = false;
-      $scope.global.showAddElementsMenu = false;
-      $scope.global.isAddElement = false;
-      $scope.global.isTabFrame = false;
-    };
 
   }
 })();

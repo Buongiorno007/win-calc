@@ -45,23 +45,23 @@
         showRoomSelectorDialog: false,
         isShowCommentBlock: false,
 
-        //---- addElements Panel
+        //---- Calculators
         isQtyCalculator: false,
         isSizeCalculator: false,
         isWidthCalculator: false,
         isColorSelector: false,
-//        isConstructSizeCalculator: false,
 
+        isMinSizeRestriction: 0,
+        isMaxSizeRestriction: 0,
+        minSizeLimit: 0,
+        maxSizeLimit: 0,
+        //isConstructSizeCalculator: false, // for size caclulator in construction page
+        //isRoomsDialog: false,
 
 
         showMasterDialog: false,
         showOrderDialog: false,
         showCreditDialog: false,
-
-
-
-
-        //isRoomsDialog: false,
 
 
         //------- Templates

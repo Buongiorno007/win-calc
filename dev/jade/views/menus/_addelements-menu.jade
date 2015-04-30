@@ -58,7 +58,7 @@
 
   .list-items(ng-show="elementsMenu.aux.isAddElementListView", ng-repeat="type in elementsMenu.aux.addElementsList track by $index")
     .list-item(ng-repeat="addElement in type track by $index")
-      .aux-list-item(ng-class="{'selected': elementsMenu.aux.isAddElement == $parent.$index +'-'+ $index}", ng-style="elementsMenu.aux.coordinats")
+      .aux-list-item(ng-class="{'selected': elementsMenu.aux.isAddElement == $parent.$index +'-'+ $index}", ng-style="elementsMenu.coordinats")
         .aux-list-row
           .aux-name
             .aux-title {{ addElement.elementName }}
@@ -79,7 +79,7 @@
               img(ng-src="{{ addElement.elementColor }}")
             .aux-label {{ 'add_elements.COLOR_LABEL' | translate }}
 
-          .aux-price +{{ addElement.elementPrice }}
+          .aux-price +{{ addElement.elementPrice }} {{ elementsMenu.userInfo.currency }}
           button.aux-choose-but(hm-tap="elementsMenu.chooseAddElement($parent.$index, $index)") {{ 'add_elements.ADD' | translate }}
 
 
@@ -87,15 +87,15 @@
   // Tabs Grids
   .menu-right-tabs(ng-if="elementsMenu.aux.isFocusedAddElement === 1")
     .tab-block.simple-frame
-      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements.selectedGrids.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements[0].length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
     .tab-block.hard-frame(ng-class="{'active': elementsMenu.aux.isTabFrame}")
-      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements.selectedGrids.length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
-      .tab-content-empty(ng-if="elementsMenu.product.chosenAddElements.selectedGrids.length === 0")
+      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements[0].length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="elementsMenu.product.chosenAddElements[0].length === 0")
         .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
-      .tab-content(ng-if="elementsMenu.product.chosenAddElements.selectedGrids.length > 0")
-        .tab-aux-row(ng-repeat="addElement in elementsMenu.product.chosenAddElements.selectedGrids track by $index")
+      .tab-content(ng-if="elementsMenu.product.chosenAddElements[0].length > 0")
+        .tab-aux-row(ng-repeat="addElement in elementsMenu.product.chosenAddElements[0] track by $index")
           .aux-title(data-output="{{ addElement.elementName }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
-          .aux-params(ng-class="{'selected': elementsMenu.global.auxParameter === '1-1-'+$index && elementsMenu.aux.currentAddElementId === $index}")
+          .aux-params(ng-class="{'selected': elementsMenu.aux.auxParameter === '1-1-'+$index && elementsMenu.aux.currentAddElementId === $index}")
             button.aux-params-but.aux_connect_but(hm-tap="elementsMenu.initAddElementTools(1, $index)", ng-disabled="elementsMenu.global.isQtyCalculator") {{ addElement.elementQty }}
             .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
           .aux-delete(hm-tap="elementsMenu.deleteAddElement(1, $index)")
@@ -104,13 +104,13 @@
   // Tabs Visors
   .menu-right-tabs(ng-if="elementsMenu.aux.isFocusedAddElement === 2")
     .tab-block.simple-frame
-      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements.selectedVisors.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements[1].length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
     .tab-block.hard-frame(ng-class="{'active': elementsMenu.aux.isTabFrame}")
-      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements.selectedVisors.length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
-      .tab-content-empty(ng-if="elementsMenu.product.chosenAddElements.selectedVisors.length === 0")
+      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements[1].length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="elementsMenu.product.chosenAddElements[1].length === 0")
         .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
-      .tab-content(ng-if="elementsMenu.product.chosenAddElements.selectedVisors.length > 0")
-        .tab-aux-row(ng-repeat="addElement in elementsMenu.product.chosenAddElements.selectedVisors track by $index")
+      .tab-content(ng-if="elementsMenu.product.chosenAddElements[1].length > 0")
+        .tab-aux-row(ng-repeat="addElement in elementsMenu.product.chosenAddElements[1] track by $index")
           .aux-title(data-output="{{ addElement.elementName }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
           .aux-params(ng-class="{'selected': elementsMenu.aux.auxParameter === '2-1-'+$index && elementsMenu.aux.currentAddElementId === $index}")
             button.aux-params-but.aux_big_but(hm-tap="elementsMenu.initAddElementTools(1, $index)", ng-disabled="elementsMenu.global.isQtyCalculator") {{ addElement.elementQty }}
@@ -125,13 +125,13 @@
   // Tabs Spillways
   .menu-right-tabs(ng-if="elementsMenu.aux.isFocusedAddElement === 3")
     .tab-block.simple-frame
-      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements.selectedSpillways.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements[2].length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
     .tab-block.hard-frame(ng-class="{'active': elementsMenu.aux.isTabFrame}")
-      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements.selectedSpillways.length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
-      .tab-content-empty(ng-if="elementsMenu.product.chosenAddElements.selectedSpillways.length === 0")
+      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements[2].length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="elementsMenu.product.chosenAddElements[2].length === 0")
         .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
-      .tab-content(ng-if="elementsMenu.product.chosenAddElements.selectedSpillways.length > 0")
-        .tab-aux-row(ng-repeat="addElement in elementsMenu.product.chosenAddElements.selectedSpillways track by $index")
+      .tab-content(ng-if="elementsMenu.product.chosenAddElements[2].length > 0")
+        .tab-aux-row(ng-repeat="addElement in elementsMenu.product.chosenAddElements[2] track by $index")
           .aux-title(data-output="{{ addElement.elementName }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
           .aux-params(ng-class="{'selected': elementsMenu.aux.auxParameter === '3-1-'+$index && elementsMenu.aux.currentAddElementId === $index}")
             button.aux-params-but.aux_middle_but(hm-tap="elementsMenu.initAddElementTools(1, $index)", ng-disabled="elementsMenu.global.isQtyCalculator") {{ addElement.elementQty }}
@@ -146,13 +146,13 @@
   // Tabs OutsideSlope
   .menu-right-tabs(ng-if="elementsMenu.aux.isFocusedAddElement === 4")
     .tab-block.simple-frame
-      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements.selectedOutsideSlope.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements[3].length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
     .tab-block.hard-frame(ng-class="{'active': elementsMenu.aux.isTabFrame}")
-      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements.selectedOutsideSlope.length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
-      .tab-content-empty(ng-if="elementsMenu.product.chosenAddElements.selectedOutsideSlope.length === 0")
+      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements[3].length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="elementsMenu.product.chosenAddElements[3].length === 0")
         .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
-      .tab-content(ng-if="elementsMenu.product.chosenAddElements.selectedOutsideSlope.length > 0")
-        .tab-aux-row(ng-repeat="addElement in elementsMenu.product.chosenAddElements.selectedOutsideSlope track by $index")
+      .tab-content(ng-if="elementsMenu.product.chosenAddElements[3].length > 0")
+        .tab-aux-row(ng-repeat="addElement in elementsMenu.product.chosenAddElements[3] track by $index")
           .aux-title(data-output="{{ addElement.elementName }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
           .aux-params(ng-class="{'selected': elementsMenu.aux.auxParameter === '4-1-'+$index && elementsMenu.aux.currentAddElementId === $index}")
             button.aux-params-but.aux_slope_but(hm-tap="elementsMenu.initAddElementTools(1, $index)", ng-disabled="elementsMenu.global.isQtyCalculator") {{ addElement.elementQty }}
@@ -166,13 +166,13 @@
   // Tabs Louvers
   .menu-right-tabs(ng-if="elementsMenu.aux.isFocusedAddElement === 5")
     .tab-block.simple-frame
-      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements.selectedLouvers.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements[4].length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
     .tab-block.hard-frame(ng-class="{'active': elementsMenu.aux.isTabFrame}")
-      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements.selectedLouvers.length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
-      .tab-content-empty(ng-if="elementsMenu.product.chosenAddElements.selectedLouvers.length === 0")
+      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements[4].length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="elementsMenu.product.chosenAddElements[4].length === 0")
         .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
-      .tab-content(ng-if="elementsMenu.product.chosenAddElements.selectedLouvers.length > 0")
-        .tab-aux-row(ng-repeat="addElement in elementsMenu.product.chosenAddElements.selectedLouvers track by $index")
+      .tab-content(ng-if="elementsMenu.product.chosenAddElements[4].length > 0")
+        .tab-aux-row(ng-repeat="addElement in elementsMenu.product.chosenAddElements[4] track by $index")
           .aux-title(data-output="{{ addElement.elementName }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
           .aux-params(ng-class="{'selected': elementsMenu.aux.auxParameter === '5-1-'+$index && elementsMenu.aux.currentAddElementId === $index}")
             button.aux-params-but.aux_middle_but(hm-tap="elementsMenu.initAddElementTools(1, $index)", ng-disabled="elementsMenu.global.isQtyCalculator") {{ addElement.elementQty }}
@@ -190,13 +190,13 @@
   // Tabs InsideSlope
   .menu-right-tabs(ng-if="elementsMenu.aux.isFocusedAddElement === 6")
     .tab-block.simple-frame
-      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements.selectedInsideSlope.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements[5].length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
     .tab-block.hard-frame(ng-class="{'active': elementsMenu.aux.isTabFrame}")
-      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements.selectedInsideSlope.length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
-      .tab-content-empty(ng-if="elementsMenu.product.chosenAddElements.selectedInsideSlope.length === 0")
+      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements[5].length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="elementsMenu.product.chosenAddElements[5].length === 0")
         .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
-      .tab-content(ng-if="elementsMenu.product.chosenAddElements.selectedInsideSlope.length > 0")
-        .tab-aux-row(ng-repeat="addElement in elementsMenu.product.chosenAddElements.selectedInsideSlope track by $index")
+      .tab-content(ng-if="elementsMenu.product.chosenAddElements[5].length > 0")
+        .tab-aux-row(ng-repeat="addElement in elementsMenu.product.chosenAddElements[5] track by $index")
           .aux-title(data-output="{{ addElement.elementName }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
           .aux-params(ng-class="{'selected': elementsMenu.aux.auxParameter === '6-1-'+$index && elementsMenu.aux.currentAddElementId === $index}")
             button.aux-params-but.aux_slope_but(hm-tap="elementsMenu.initAddElementTools(1, $index)", ng-disabled="elementsMenu.global.isQtyCalculator") {{ addElement.elementQty }}
@@ -210,13 +210,13 @@
   // Tabs Connectors
   .menu-right-tabs(ng-if="elementsMenu.aux.isFocusedAddElement === 7")
     .tab-block.simple-frame
-      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements.selectedConnectors.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements[6].length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
     .tab-block.hard-frame(ng-class="{'active': elementsMenu.aux.isTabFrame}")
-      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements.selectedConnectors.length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
-      .tab-content-empty(ng-if="elementsMenu.product.chosenAddElements.selectedConnectors.length === 0")
+      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements[6].length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="elementsMenu.product.chosenAddElements[6].length === 0")
         .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
-      .tab-content(ng-if="elementsMenu.product.chosenAddElements.selectedConnectors.length > 0")
-        .tab-aux-row(ng-repeat="addElement in elementsMenu.product.chosenAddElements.selectedConnectors track by $index")
+      .tab-content(ng-if="elementsMenu.product.chosenAddElements[6].length > 0")
+        .tab-aux-row(ng-repeat="addElement in elementsMenu.product.chosenAddElements[6] track by $index")
           .aux-title(data-output="{{ addElement.elementName }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
           .aux-params(ng-class="{'selected': elementsMenu.aux.auxParameter === '7-1-'+$index && elementsMenu.aux.currentAddElementId === $index}")
             button.aux-params-but.aux_connect_but(hm-tap="elementsMenu.initAddElementTools(1, $index)", ng-disabled="elementsMenu.global.isQtyCalculator") {{ addElement.elementQty }}
@@ -232,13 +232,13 @@
   // Tabs Fans
   .menu-right-tabs(ng-if="elementsMenu.aux.isFocusedAddElement === 8")
     .tab-block.simple-frame
-      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements.selectedFans.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements[7].length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
     .tab-block.hard-frame(ng-class="{'active': elementsMenu.aux.isTabFrame}")
-      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements.selectedFans.length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
-      .tab-content-empty(ng-if="elementsMenu.product.chosenAddElements.selectedFans.length === 0")
+      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements[7].length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="elementsMenu.product.chosenAddElements[7].length === 0")
         .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
-      .tab-content(ng-if="elementsMenu.product.chosenAddElements.selectedFans.length > 0")
-        .tab-aux-row(ng-repeat="addElement in elementsMenu.product.chosenAddElements.selectedFans track by $index")
+      .tab-content(ng-if="elementsMenu.product.chosenAddElements[7].length > 0")
+        .tab-aux-row(ng-repeat="addElement in elementsMenu.product.chosenAddElements[7] track by $index")
           .aux-title(data-output="{{ addElement.elementName }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
           .aux-params(ng-class="{'selected': elementsMenu.aux.auxParameter === '8-1-'+$index && elementsMenu.aux.currentAddElementId === $index}")
             button.aux-params-but.aux_small_but(hm-tap="elementsMenu.initAddElementTools(1, $index)", ng-disabled="elementsMenu.global.isQtyCalculator") {{ addElement.elementQty }}
@@ -250,13 +250,13 @@
   // Tabs WindowSill
   .menu-right-tabs(ng-if="elementsMenu.aux.isFocusedAddElement === 9")
     .tab-block.simple-frame
-      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements.selectedWindowSill.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements[8].length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
     .tab-block.hard-frame(ng-class="{'active': elementsMenu.aux.isTabFrame}")
-      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements.selectedWindowSill.length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
-      .tab-content-empty(ng-if="elementsMenu.product.chosenAddElements.selectedWindowSill.length === 0")
+      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements[8].length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="elementsMenu.product.chosenAddElements[8].length === 0")
         .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
-      .tab-content(ng-if="elementsMenu.product.chosenAddElements.selectedWindowSill.length > 0")
-        .tab-aux-row(ng-repeat="addElement in elementsMenu.product.chosenAddElements.selectedWindowSill track by $index")
+      .tab-content(ng-if="elementsMenu.product.chosenAddElements[8].length > 0")
+        .tab-aux-row(ng-repeat="addElement in elementsMenu.product.chosenAddElements[8] track by $index")
           .aux-title(data-output="{{ addElement.elementName }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
           .aux-params(ng-class="{'selected': elementsMenu.aux.auxParameter === '9-1-'+$index && elementsMenu.aux.currentAddElementId === $index}")
             button.aux-params-but.aux_big_but(hm-tap="elementsMenu.initAddElementTools(1, $index)", ng-disabled="elementsMenu.global.isQtyCalculator") {{ addElement.elementQty }}
@@ -275,13 +275,13 @@
   // Tabs Handles
   .menu-right-tabs(ng-if="elementsMenu.aux.isFocusedAddElement === 10")
     .tab-block.simple-frame
-      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements.selectedHandles.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements[9].length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
     .tab-block.hard-frame(ng-class="{'active': elementsMenu.aux.isTabFrame}")
-      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements.selectedHandles.length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
-      .tab-content-empty(ng-if="elementsMenu.product.chosenAddElements.selectedHandles.length === 0")
+      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements[9].length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="elementsMenu.product.chosenAddElements[9].length === 0")
         .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
-      .tab-content(ng-if="elementsMenu.product.chosenAddElements.selectedHandles.length > 0")
-        .tab-aux-row(ng-repeat="addElement in elementsMenu.product.chosenAddElements.selectedHandles track by $index")
+      .tab-content(ng-if="elementsMenu.product.chosenAddElements[9].length > 0")
+        .tab-aux-row(ng-repeat="addElement in elementsMenu.product.chosenAddElements[9] track by $index")
           .aux-title(data-output="{{ addElement.elementName }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
           .aux-params(ng-class="{'selected': elementsMenu.aux.auxParameter === '10-1-'+$index && elementsMenu.aux.currentAddElementId === $index}")
             button.aux-params-but.aux_middle_but(hm-tap="elementsMenu.initAddElementTools(1, $index)", ng-disabled="elementsMenu.global.isQtyCalculator") {{ addElement.elementQty }}
@@ -293,13 +293,13 @@
   // Tabs Others
   .menu-right-tabs(ng-if="elementsMenu.aux.isFocusedAddElement === 11")
     .tab-block.simple-frame
-      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements.selectedOthers.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements[10].length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
     .tab-block.hard-frame(ng-class="{'active': elementsMenu.aux.isTabFrame}")
-      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements.selectedOthers.length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
-      .tab-content-empty(ng-if="elementsMenu.product.chosenAddElements.selectedOthers.length === 0")
+      button.frame-tab(ng-class="{'active': elementsMenu.product.chosenAddElements[10].length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="elementsMenu.product.chosenAddElements[10].length === 0")
         .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
-      .tab-content(ng-if="elementsMenu.product.chosenAddElements.selectedOthers.length > 0")
-        .tab-aux-row(ng-repeat="addElement in elementsMenu.product.chosenAddElements.selectedOthers track by $index")
+      .tab-content(ng-if="elementsMenu.product.chosenAddElements[10].length > 0")
+        .tab-aux-row(ng-repeat="addElement in elementsMenu.product.chosenAddElements[10] track by $index")
           .aux-title(data-output="{{ addElement.elementName }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
           .aux-params(ng-class="{'selected': elementsMenu.aux.auxParameter === '11-1-'+$index && elementsMenu.aux.currentAddElementId === $index}")
             button.aux-params-but.aux_small_but(hm-tap="elementsMenu.initAddElementTools(1, $index)", ng-disabled="elementsMenu.global.isQtyCalculator") {{ addElement.elementQty }}

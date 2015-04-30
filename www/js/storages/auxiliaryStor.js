@@ -33,7 +33,10 @@
         currAddElementPrice: 0,
         isTabFrame: false,
         isAddElementListView: false,
-        isWindowSchemeDialog: false
+        isWindowSchemeDialog: false,
+
+        showAddElementGroups: false,
+        searchingWord: ''
       },
       setDefaultAuxiliary: setDefaultAuxiliary
     };

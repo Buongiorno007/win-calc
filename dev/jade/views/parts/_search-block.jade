@@ -1,7 +1,7 @@
-form(name='searchForm')
+form(ng-controller="searchCtrl as searchBox", name='searchForm')
   .search-block
-    input.search-input(ng-show="!global.isHistoryPage", type="text", name="searching", ng-model="searchingWord", ng-change="checkChanges()", placeholder="{{ 'add_elements.INPUT_ADD_ELEMENT' | translate }}")
-    input.search-input(ng-show="global.isHistoryPage", type="text", name="searching", ng-model="searchingWord", ng-change="checkChanges()", placeholder="{{ 'history.SEARCH_PLACEHOLDER' | translate }}")
-    button.delete-search(hm-tap="deleteSearchChart()")
-    button.cancel-search(ng-show="!global.isHistoryPage && searchingWord", hm-tap="cancelSearching()") {{ 'add_elements.CANCEL' | translate }}
-    button.cancel-search(ng-show="global.isHistoryPage && history.isOrderSearch", hm-tap="cancelSearching()") {{ 'add_elements.CANCEL' | translate }}
+    input.search-input(ng-show="!searchBox.global.isHistoryPage", type="text", name="searching", ng-model="searchBox.searchingWord", ng-change="searchBox.checkChanges()", placeholder="{{ 'add_elements.INPUT_ADD_ELEMENT' | translate }}")
+    input.search-input(ng-show="searchBox.global.isHistoryPage", type="text", name="searching", ng-model="searchBox.searchingWord", ng-change="searchBox.checkChanges()", placeholder="{{ 'history.SEARCH_PLACEHOLDER' | translate }}")
+    button.delete-search(hm-tap="searchBox.deleteSearchChart()")
+    button.cancel-search(ng-show="!searchBox.global.isHistoryPage && searchBox.searchingWord", hm-tap="searchBox.cancelSearching()") {{ 'add_elements.CANCEL' | translate }}
+    button.cancel-search(ng-show="searchBox.global.isHistoryPage && searchBox.history.isOrderSearch", hm-tap="searchBox.cancelSearching()") {{ 'add_elements.CANCEL' | translate }}

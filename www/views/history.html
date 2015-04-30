@@ -64,13 +64,13 @@
               </div>
             </div>
             <div ng-show="history.isOrderSearch" class="history-search">
-              <form name="searchForm">
+              <form ng-controller="searchCtrl as searchBox" name="searchForm">
                 <div class="search-block">
-                  <input ng-show="!global.isHistoryPage" type="text" name="searching" ng-model="searchingWord" ng-change="checkChanges()" placeholder="{{ 'add_elements.INPUT_ADD_ELEMENT' | translate }}" class="search-input">
-                  <input ng-show="global.isHistoryPage" type="text" name="searching" ng-model="searchingWord" ng-change="checkChanges()" placeholder="{{ 'history.SEARCH_PLACEHOLDER' | translate }}" class="search-input">
-                  <button hm-tap="deleteSearchChart()" class="delete-search"></button>
-                  <button ng-show="!global.isHistoryPage &amp;&amp; searchingWord" hm-tap="cancelSearching()" class="cancel-search">{{ 'add_elements.CANCEL' | translate }}</button>
-                  <button ng-show="global.isHistoryPage &amp;&amp; history.isOrderSearch" hm-tap="cancelSearching()" class="cancel-search">{{ 'add_elements.CANCEL' | translate }}</button>
+                  <input ng-show="!searchBox.global.isHistoryPage" type="text" name="searching" ng-model="searchBox.searchingWord" ng-change="searchBox.checkChanges()" placeholder="{{ 'add_elements.INPUT_ADD_ELEMENT' | translate }}" class="search-input">
+                  <input ng-show="searchBox.global.isHistoryPage" type="text" name="searching" ng-model="searchBox.searchingWord" ng-change="searchBox.checkChanges()" placeholder="{{ 'history.SEARCH_PLACEHOLDER' | translate }}" class="search-input">
+                  <button hm-tap="searchBox.deleteSearchChart()" class="delete-search"></button>
+                  <button ng-show="!searchBox.global.isHistoryPage &amp;&amp; searchBox.searchingWord" hm-tap="searchBox.cancelSearching()" class="cancel-search">{{ 'add_elements.CANCEL' | translate }}</button>
+                  <button ng-show="searchBox.global.isHistoryPage &amp;&amp; searchBox.history.isOrderSearch" hm-tap="searchBox.cancelSearching()" class="cancel-search">{{ 'add_elements.CANCEL' | translate }}</button>
                 </div>
               </form>
             </div>

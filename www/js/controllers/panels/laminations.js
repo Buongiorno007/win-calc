@@ -89,7 +89,7 @@
       ProductStor.product.laminationPriceSELECT = ProductStor.product.laminationInPrice + ProductStor.product.laminationOutPrice;
       $timeout(function() {
         MainServ.setProductPriceTOTAL();
-      }, 100);
+      }, 50);
 
     }
 

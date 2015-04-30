@@ -67,21 +67,21 @@
       </div>
       <div class="right-menu-footer">
         <div ng-class="{'active': global.isConstructSizeCalculator}" class="size-calculator">
-          <table class="size-calc-container">
+          <table ng-controller="sizeCalculatorCtrl as sizeCalc" class="size-calc-container">
             <thead>
               <td>
-                <button hm-tap="deleteLastNumber()" class="cell calc-delete"></button>
+                <button hm-tap="sizeCalc.deleteLastNumber()" class="cell calc-delete"></button>
               </td>
               <td colspan="2">
                 <div class="calc-interval">
                   <div class="interval">
-                    <div ng-hide="global.isConstructSizeCalculator" class="calc-value-limit">0</div>
-                    <div ng-show="global.isConstructSizeCalculator" ng-class="{'restriction': constructData.isMinSizeRestriction}" class="calc-value-limit">{{ constructData.minSizeLimit }}</div>
+                    <div ng-hide="sizeCalc.isConstructionPage" class="calc-value-limit">0</div>
+                    <div ng-show="sizeCalc.isConstructionPage" ng-class="{'restriction': sizeCalc.global.isMinSizeRestriction}" class="calc-value-limit">{{ sizeCalc.global.minSizeLimit }}</div>
                     <div class="calc-label-limit">{{ 'common_words.MIN' | translate }}</div>
                   </div>
                   <div class="interval">
-                    <div ng-hide="global.isConstructSizeCalculator" class="calc-value-limit">5000</div>
-                    <div ng-show="global.isConstructSizeCalculator" ng-class="{'restriction': constructData.isMaxSizeRestriction}" class="calc-value-limit">{{ constructData.maxSizeLimit }}</div>
+                    <div ng-hide="sizeCalc.isConstructionPage" class="calc-value-limit">5000</div>
+                    <div ng-show="sizeCalc.isConstructionPage" ng-class="{'restriction': sizeCalc.global.isMaxSizeRestriction}" class="calc-value-limit">{{ sizeCalc.global.maxSizeLimit }}</div>
                     <div class="calc-label-limit">{{ 'common_words.MAX' | translate }}</div>
                   </div>
                 </div>
@@ -89,46 +89,46 @@
             </thead>
             <tr>
               <td>
-                <button hm-tap="setValueSize(1)" class="cell calc-digit">1</button>
+                <button hm-tap="sizeCalc.setValueSize(1)" class="cell calc-digit">1</button>
               </td>
               <td>
-                <button hm-tap="setValueSize(2)" class="cell calc-digit">2</button>
+                <button hm-tap="sizeCalc.setValueSize(2)" class="cell calc-digit">2</button>
               </td>
               <td>
-                <button hm-tap="setValueSize(3)" class="cell calc-digit">3</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <button hm-tap="setValueSize(4)" class="cell calc-digit">4</button>
-              </td>
-              <td>
-                <button hm-tap="setValueSize(5)" class="cell calc-digit">5</button>
-              </td>
-              <td>
-                <button hm-tap="setValueSize(6)" class="cell calc-digit">6</button>
+                <button hm-tap="sizeCalc.setValueSize(3)" class="cell calc-digit">3</button>
               </td>
             </tr>
             <tr>
               <td>
-                <button hm-tap="setValueSize(7)" class="cell calc-digit">7</button>
+                <button hm-tap="sizeCalc.setValueSize(4)" class="cell calc-digit">4</button>
               </td>
               <td>
-                <button hm-tap="setValueSize(8)" class="cell calc-digit">8</button>
+                <button hm-tap="sizeCalc.setValueSize(5)" class="cell calc-digit">5</button>
               </td>
               <td>
-                <button hm-tap="setValueSize(9)" class="cell calc-digit">9</button>
+                <button hm-tap="sizeCalc.setValueSize(6)" class="cell calc-digit">6</button>
               </td>
             </tr>
             <tr>
               <td>
-                <button hm-tap="setValueSize(0)" class="cell calc-digit">0</button>
+                <button hm-tap="sizeCalc.setValueSize(7)" class="cell calc-digit">7</button>
               </td>
               <td>
-                <button hm-tap="setValueSize('00')" class="cell calc-digit">00</button>
+                <button hm-tap="sizeCalc.setValueSize(8)" class="cell calc-digit">8</button>
               </td>
               <td>
-                <button hm-tap="closeSizeCaclulator()" class="cell calc-equal">=</button>
+                <button hm-tap="sizeCalc.setValueSize(9)" class="cell calc-digit">9</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button hm-tap="sizeCalc.setValueSize(0)" class="cell calc-digit">0</button>
+              </td>
+              <td>
+                <button hm-tap="sizeCalc.setValueSize('00')" class="cell calc-digit">00</button>
+              </td>
+              <td>
+                <button hm-tap="sizeCalc.closeSizeCaclulator()" class="cell calc-equal">=</button>
               </td>
             </tr>
           </table>
