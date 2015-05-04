@@ -36,6 +36,7 @@
         isWindowSchemeDialog: false,
 
         showAddElementGroups: false,
+        addElementGroups: [],
         searchingWord: ''
       },
       setDefaultAuxiliary: setDefaultAuxiliary

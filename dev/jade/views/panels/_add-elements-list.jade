@@ -4,7 +4,7 @@
 
   .aux-search-content(ng-class="{'active': elementsListPanel.aux.showAddElementGroups}")
     ul.aux-list-groups
-      li.aux-list-group(ng-repeat="typeAddElement in elementsListPanel.addElementsGroup | filter: {groupName: elementsListPanel.aux.searchingWord } | orderBy:'groupName'",
+      li.aux-list-group(ng-repeat="typeAddElement in elementsListPanel.aux.addElementGroups | filter: {groupName: elementsListPanel.aux.searchingWord } | orderBy:'groupName'",
         hm-tap="elementsListPanel.selectAddElement(typeAddElement.groupId)",
         class="{{ typeAddElement.groupClass }}",
         ng-class="{'selected': elementsListPanel.aux.isFocusedAddElement == typeAddElement.groupId}") {{ typeAddElement.groupName }}

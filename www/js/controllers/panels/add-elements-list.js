@@ -19,28 +19,6 @@
     thisCtrl.userInfo = UserStor.userInfo;
     thisCtrl.aux = AuxStor.aux;
 
-    thisCtrl.addElementsGroup = [];
-    thisCtrl.addElementsGroupNames = [
-      $filter('translate')('add_elements.GRIDS'),
-      $filter('translate')('add_elements.VISORS'),
-      $filter('translate')('add_elements.SPILLWAYS'),
-      $filter('translate')('add_elements.OUTSIDE'),
-      $filter('translate')('add_elements.INSIDE'),
-      $filter('translate')('add_elements.LOUVERS'),
-      $filter('translate')('add_elements.CONNECTORS'),
-      $filter('translate')('add_elements.FAN'),
-      $filter('translate')('add_elements.WINDOWSILLS'),
-      $filter('translate')('add_elements.HANDLELS'),
-      $filter('translate')('add_elements.OTHERS')
-    ];
-    for(var g = 0; g < thisCtrl.addElementsGroupNames.length; g++){
-      var groupTempObj = {};
-      groupTempObj.groupId = (g+1);
-      groupTempObj.groupName = thisCtrl.addElementsGroupNames[g];
-      groupTempObj.groupClass = globalConstants.addElementsGroupClass[g];
-      thisCtrl.addElementsGroup.push(groupTempObj);
-    }
-
 
     thisCtrl.config = {
       DELAY_START: globalConstants.STEP,
@@ -54,25 +32,8 @@
     thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
     thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
     thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;
-    thisCtrl.deleteAllAddElements = deleteAllAddElements;
+    thisCtrl.deleteAllAddElements = AddElementMenuServ.deleteAllAddElements;
     thisCtrl.closeAddElementListView = AddElementsServ.closeAddElementListView;
-
-
-
-
-
-
-    //============ methods ================//
-
-    //--------- Delete All List of selected AddElements
-    function deleteAllAddElements() {
-      var elementsQty = ProductStor.product.chosenAddElements.length,
-          index = 0;
-      for(; index < elementsQty; index++) {
-        ProductStor.product.chosenAddElements[index].length = 0;
-      }
-      ProductStor.product.addElementsPriceSELECT = 0;
-    }
 
 
   }

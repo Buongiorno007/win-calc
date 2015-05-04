@@ -17,13 +17,13 @@
           button.element-info
 
         //------ for List View
-        li.item(ng-show="elementsMenu.aux.isAddElementListView", ng-repeat="addElement in type track by $index", ng-class="{'active': elementsMenu.aux.isAddElement === $parent.$index+'-'+$index}", hm-tap="elementsMenu.selectElementListView($parent.$index, $index, $event)")
+        li.item(ng-show="elementsMenu.aux.isAddElementListView", ng-repeat="addElement in type track by $index", ng-class="{'active': elementsMenu.aux.isAddElement === $parent.$index+'-'+$index}", hm-tap="elementsMenu.selectAddElementList($parent.$index, $index, $event)")
           .value(data-output="{{ addElement.elementName }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
           button.element-info
 
     footer.menu-footer
       //.price-element(ng-show="global.isAddElement && elementsMenu.config.isAddElementPrice")
-      .price-element(ng-show="elementsMenu.aux.isAddElement")
+      .price-element(ng-show="elementsMenu.aux.isAddElement && elementsMenu.aux.currAddElementPrice")
         .price-value + {{ elementsMenu.aux.currAddElementPrice }} {{ elementsMenu.userInfo.currency }}
 
       .elements-tools.size-calculator(ng-class="{'active': elementsMenu.global.isSizeCalculator}")
@@ -79,8 +79,8 @@
               img(ng-src="{{ addElement.elementColor }}")
             .aux-label {{ 'add_elements.COLOR_LABEL' | translate }}
 
-          .aux-price +{{ addElement.elementPrice }} {{ elementsMenu.userInfo.currency }}
-          button.aux-choose-but(hm-tap="elementsMenu.chooseAddElement($parent.$index, $index)") {{ 'add_elements.ADD' | translate }}
+          .aux-price +{{ elementsMenu.aux.currAddElementPrice }} {{ elementsMenu.userInfo.currency }}
+          button.aux-choose-but(hm-tap="elementsMenu.chooseAddElementList($parent.$index, $index)") {{ 'add_elements.ADD' | translate }}
 
 
 

@@ -31,6 +31,8 @@
     //------ clicking
     thisCtrl.closeAddElementsMenu = AddElementMenuServ.closeAddElementsMenu;
     thisCtrl.chooseAddElement = AddElementMenuServ.chooseAddElement;
+    thisCtrl.selectAddElementList = selectAddElementList;
+    thisCtrl.chooseAddElementList = AddElementMenuServ.chooseAddElementList;
     thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;
     thisCtrl.showFrameTabs = showFrameTabs;
     thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
@@ -39,7 +41,7 @@
     thisCtrl.setValueQty = AddElementMenuServ.setValueQty;
     thisCtrl.selectAddElementColor = AddElementMenuServ.selectAddElementColor;
 
-    thisCtrl.selectElementListView = selectElementListView;
+
 
 
 
@@ -60,35 +62,29 @@
     }
 
     // Select Add Element when open List View
-    function selectElementListView(typeId, elementId, clickEvent) {
-      if(typeId === undefined && elementId === undefined) {
+    function selectAddElementList(typeId, elementId, clickEvent) {
+      if(AuxStor.aux.isAddElement === typeId+'-'+elementId) {
         AuxStor.aux.isAddElement = false;
-      } else if(AuxStor.aux.isAddElement === typeId+'-'+elementId) {
-        AuxStor.aux.isAddElement = 1;
-      } else if(AuxStor.aux.isAddElement === false || AuxStor.aux.isAddElement === 1) {
+      } else if(AuxStor.aux.isAddElement === false) {
         var coord = $(clickEvent.target).offset();
         //$scope.addElementsMenu.coordinats = {'top': coord.top-34};
         thisCtrl.coordinats = {'top': coord.top-17};
         $timeout(function() {
-          AuxStor.aux.isAddElement = typeId + '-' + elementId;
+          AddElementMenuServ.getAddElementPrice(typeId, elementId);
+          //AuxStor.aux.isAddElement = typeId + '-' + elementId;
         }, 500);
       } else {
-        AuxStor.aux.isAddElement = 1;
+        AuxStor.aux.isAddElement = false;
         $timeout(function() {
           var coord = $(clickEvent.target).offset();
           //$scope.addElementsMenu.coordinats = {'top': coord.top-34};
           thisCtrl.coordinats = {'top': coord.top-17};
         }, 500);
         $timeout(function() {
-          AuxStor.aux.isAddElement = typeId + '-' + elementId;
+          AddElementMenuServ.getAddElementPrice(typeId, elementId);
         }, 1000);
       }
     }
-
-
-    //    function clearSelectedAddElement() {
-    //      AuxStor.aux.isAddElement = false;
-    //    }
 
   }
 })();

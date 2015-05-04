@@ -35,9 +35,9 @@
 
   footer.menu-footer.unvisible(ng-if="configMenu.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}")
     price(price-value="configMenu.product.productPriceTOTAL", price-currency="configMenu.userInfo.currency")
-    button.cart-btn(ng-if="configMenu.global.productEditNumber === ''", hm-tap="configMenu.global.inputProductInOrder(); configMenu.movetoCart()") {{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
+    button.cart-btn(ng-if="configMenu.global.productEditNumber === ''", hm-tap="configMenu.inputProductInOrder(); configMenu.movetoCart()") {{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
       .qty.unvisible(ng-if="configMenu.order.products.length > 0 && !configMenu.global.isCreatedNewProject", show-delay="{{ configMenu.config.DELAY_START }}") {{ configMenu.order.products.length }}
-    button.cart-btn(ng-if="configMenu.global.productEditNumber !== ''", hm-tap="configMenu.global.inputProductInOrder(); configMenu.movetoCart()") {{ 'settings.SAVE' | translate }}
+    button.cart-btn(ng-if="configMenu.global.productEditNumber !== ''", hm-tap="configMenu.inputProductInOrder(); configMenu.movetoCart()") {{ 'settings.SAVE' | translate }}
 
   .product-u-coeff.unvisible(ng-if="configMenu.global.isConfigMenu", ng-class="{'u-coeff-low': configMenu.product.heatTransferTOTAL < configMenu.order.currHeatTransfer}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}") U = {{ configMenu.product.heatTransferTOTAL }}
   .curtain(ng-show="configMenu.product.isAddElementsONLY")

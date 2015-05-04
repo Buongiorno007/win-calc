@@ -7,7 +7,7 @@
     .module('MainModule')
     .factory('MainServ', navFactory);
 
-  function navFactory($rootScope, $q, $filter, $cordovaProgress, globalConstants, globalDB, GeneralServ, GlobalStor, OrderStor, ProductStor, UserStor, optionsServ) {
+  function navFactory($rootScope, $q, $filter, $cordovaProgress, globalConstants, globalDB, localDB, GeneralServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisFactory = this;
 
@@ -60,7 +60,9 @@
       createNewProject: createNewProject,
       createNewProduct: createNewProduct,
       setDefaultDoorConfig: setDefaultDoorConfig,
-      prepareMainPage: prepareMainPage
+      prepareMainPage: prepareMainPage,
+
+      inputProductInOrder: inputProductInOrder
     };
 
     return thisFactory.publicObj;
@@ -534,6 +536,133 @@
       //------ open Template Panel
       GlobalStor.global.activePanel = 1;
     }
+
+
+
+
+
+
+
+
+    //------------ Save Product in Order and go to Cart
+    function inputProductInOrder() {
+
+      //---------- if New Product
+      if (GlobalStor.global.productEditNumber === '') {
+
+        //-------- add product in order LocalStorage
+        ProductStor.product.orderId = OrderStor.order.orderId;
+        ProductStor.product.productId = (OrderStor.order.productsQty > 0) ? (OrderStor.order.productsQty + 1) : 1;
+        //------ clean template in product
+        ProductStor.product.template = {};
+        OrderStor.order.products.push(ProductStor.product);
+        OrderStor.order.productsQty = ProductStor.product.productId;
+        insertProductInLocalDB(ProductStor.product);
+
+        //------- if Edit Order
+        changeOrders();
+
+      //---------- if EDIT Product
+      } else {
+        //-------- replace product in order LocalStorage
+        for(var prod = 0; prod < OrderStor.order.products.length; prod++) {
+          if(prod === GlobalStor.global.productEditNumber) {
+            OrderStor.order.products[prod] = angular.copy(ProductStor.product);
+            changeOrders();
+          }
+        }
+
+        editProductInLocalDB(ProductStor.global.product);
+
+      }
+
+      GlobalStor.global.isCreatedNewProject = false;
+      GlobalStor.global.isCreatedNewProduct = false;
+
+    }
+
+
+
+    function changeOrders() {
+      if(GlobalStor.global.orderEditNumber > 0) {
+        var ord = 0,
+            ordersQty = GlobalStor.global.orders.length;
+        for(; ord < ordersQty; ord++) {
+          if (GlobalStor.global.orders[ord].orderId === GlobalStor.global.orderEditNumber) {
+            GlobalStor.global.orders[ord] = angular.copy(OrderStor.order);
+          }
+        }
+      }
+    }
+
+
+
+    function insertProductInLocalDB(product) {
+
+      var productData = angular.copy(product),
+          addElementsData = {},
+          addElementsObj = product.chosenAddElements;
+
+      if($scope.global.isConstructWind) {
+        productData.constructionType = 1;
+      } else if($scope.global.isConstructWindDoor) {
+        productData.constructionType = 2;
+      } else if($scope.global.isConstructBalcony) {
+        productData.constructionType = 3;
+      } else if($scope.global.isConstructDoor) {
+        productData.constructionType = 4;
+      }
+
+
+      //-------- insert product into local DB
+      //productData.orderId = product.orderID;
+      productData.heatTransferMin = UserStor.userInfo.currHeatTransfer;
+      productData.templateSource = JSON.stringify(product.templateSource);
+      productData.laminationOutPrice = parseFloat(product.laminationOutPrice.toFixed(2));
+      productData.laminationInPrice = parseFloat(product.laminationInPrice.toFixed(2));
+      productData.templatePriceSELECT = parseFloat(product.templatePriceSELECT.toFixed(2));
+      productData.laminationPriceSELECT = parseFloat(product.laminationPriceSELECT.toFixed(2));
+      productData.addElementsPriceSELECT = parseFloat(product.addElementsPriceSELECT.toFixed(2));
+      productData.productPriceTOTAL = parseFloat(product.productPriceTOTAL.toFixed(2));
+      delete productData.templateDefault;
+      delete productData.templateIcon;
+      delete productData.chosenAddElements;
+      localDB.insertDB(localDB.productsTableBD, productData);
+
+
+      //--------- insert additional elements into local DB
+      for(var prop in addElementsObj) {
+        if (!addElementsObj.hasOwnProperty(prop)) {
+          continue;
+        }
+        for (var elem = 0; elem < addElementsObj[prop].length; elem++) {
+          addElementsData = {
+            "orderId": product.orderId,
+            "productId": product.productId,
+            "elementId": addElementsObj[prop][elem].elementId,
+            "elementType": addElementsObj[prop][elem].elementType,
+            "elementName": addElementsObj[prop][elem].elementName,
+            "elementWidth": addElementsObj[prop][elem].elementWidth,
+            "elementHeight": addElementsObj[prop][elem].elementHeight,
+            "elementColor": addElementsObj[prop][elem].elementColor,
+            "elementPrice": addElementsObj[prop][elem].elementPrice,
+            "elementQty": addElementsObj[prop][elem].elementQty
+          };
+
+          localDB.insertDB(localDB.addElementsTableBD, addElementsData);
+        }
+      }
+    }
+
+
+
+    function editProductInLocalDB(product) {
+      console.log('!!!!Edit!!!!',product);
+      localDB.deleteDB(localDB.productsTableBD, {'orderId': {"value": product.orderId, "union": 'AND'}, "productId": product.productId});
+      localDB.deleteDB(localDB.addElementsTableBD, {'orderId': {"value": product.orderId, "union": 'AND'}, "productId": product.productId});
+      insertProductInLocalDB(product);
+    }
+
 
 
   }

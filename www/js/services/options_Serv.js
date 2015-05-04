@@ -3588,31 +3588,31 @@
             {
               laminationId: 1,
               laminationName: 'светлый дуб',
-              laminationUrl: 'img/lamination/Birch.png',
+              laminationUrl: 'img/lamination/343551.png',
               laminationPrice: 100
             },
             {
               laminationId: 2,
               laminationName: 'золотой дуб',
-              laminationUrl: 'img/lamination/GoldenOak.png',
+              laminationUrl: 'img/lamination/343552.png',
               laminationPrice: 100
             },
             {
               laminationId: 3,
               laminationName: 'береза',
-              laminationUrl: 'img/lamination/LightOak.png',
+              laminationUrl: 'img/lamination/343553.png',
               laminationPrice: 100
             },
             {
               laminationId: 4,
               laminationName: 'махагон',
-              laminationUrl: 'img/lamination/Mahagon.png',
+              laminationUrl: 'img/lamination/343554.png',
               laminationPrice: 100
             },
             {
               laminationId: 5,
               laminationName: 'сосна',
-              laminationUrl: 'img/lamination/Pine.png',
+              laminationUrl: 'img/lamination/343555.png',
               laminationPrice: 100
             }
           ]

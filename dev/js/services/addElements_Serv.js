@@ -7,7 +7,7 @@
     .module('MainModule')
     .factory('AddElementsServ', addElemFactory);
 
-  function addElemFactory($timeout, globalConstants, GlobalStor, AuxStor, globalDB, optionsServ) {
+  function addElemFactory($filter, $timeout, globalConstants, GlobalStor, ProductStor, AuxStor, globalDB, optionsServ) {
 
     var thisFactory = this,
       delayShowElementsMenu = globalConstants.STEP * 12;
@@ -17,7 +17,8 @@
       initAddElementTools: initAddElementTools,
       desactiveAddElementParameters: desactiveAddElementParameters,
       openAddElementListView: openAddElementListView,
-      closeAddElementListView: closeAddElementListView
+      closeAddElementListView: closeAddElementListView,
+      createAddElementGroups: createAddElementGroups
     };
 
     return thisFactory.publicObj;
@@ -37,9 +38,8 @@
         AuxStor.aux.showAddElementsMenu = false;
 
         desactiveAddElementParameters();
-
+        AuxStor.aux.isAddElement = false;
         $timeout(function() {
-          AuxStor.aux.isAddElement = false;
           AuxStor.aux.addElementsMenuStyle = false;
           //playSound('swip');
           AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
@@ -186,6 +186,7 @@
 
     //------- Select Add Element Parameter
     function initAddElementTools(toolsId, elementIndex) {
+      console.log('Tools!+', toolsId, elementIndex);
       if(AuxStor.aux.auxParameter === AuxStor.aux.isFocusedAddElement+'-'+toolsId+'-'+elementIndex) {
         desactiveAddElementParameters();
         AuxStor.aux.currentAddElementId = false;
@@ -219,7 +220,7 @@
               }
             });
             GlobalStor.global.isColorSelector = true;
-            AuxStor.aux.isAddElementColor = GlobalStor.product.chosenAddElements[8][elementIndex].elementColorId;
+            AuxStor.aux.isAddElementColor = ProductStor.product.chosenAddElements[8][elementIndex].elementColorId;
             break;
         }
       }
@@ -258,6 +259,36 @@
       GlobalStor.global.isColorSelector = false;
     }
 
+
+    //----------- create AddElement Groups for Searching
+
+    function createAddElementGroups() {
+      var groups = [],
+          groupNames = [
+            $filter('translate')('add_elements.GRIDS'),
+            $filter('translate')('add_elements.VISORS'),
+            $filter('translate')('add_elements.SPILLWAYS'),
+            $filter('translate')('add_elements.OUTSIDE'),
+            $filter('translate')('add_elements.INSIDE'),
+            $filter('translate')('add_elements.LOUVERS'),
+            $filter('translate')('add_elements.CONNECTORS'),
+            $filter('translate')('add_elements.FAN'),
+            $filter('translate')('add_elements.WINDOWSILLS'),
+            $filter('translate')('add_elements.HANDLELS'),
+            $filter('translate')('add_elements.OTHERS')
+          ],
+          groupNamesQty = groupNames.length,
+          g = 0;
+
+      for(; g < groupNamesQty; g++){
+        var groupTempObj = {};
+        groupTempObj.groupId = (g+1);
+        groupTempObj.groupName = groupNames[g];
+        groupTempObj.groupClass = globalConstants.addElementsGroupClass[g];
+        groups.push(groupTempObj);
+      }
+      return groups;
+    }
 
   }
 })();

@@ -571,16 +571,15 @@
       <div ng-controller="AddElementsListCtrl as elementsListPanel" ng-class="{'active': elementsListPanel.aux.isAddElementListView}" class="config-panel additional-list-container">
         <form ng-controller="searchCtrl as searchBox" name="searchForm">
           <div class="search-block">
-            <input ng-show="!searchBox.global.isHistoryPage" type="text" name="searching" ng-model="searchBox.searchingWord" ng-change="searchBox.checkChanges()" placeholder="{{ 'add_elements.INPUT_ADD_ELEMENT' | translate }}" class="search-input">
-            <input ng-show="searchBox.global.isHistoryPage" type="text" name="searching" ng-model="searchBox.searchingWord" ng-change="searchBox.checkChanges()" placeholder="{{ 'history.SEARCH_PLACEHOLDER' | translate }}" class="search-input">
+            <input type="text" name="searching" ng-model="searchBox.searchingWord" ng-change="searchBox.checkChanges()" placeholder="{{searchBox.placeholder}}" class="search-input">
             <button hm-tap="searchBox.deleteSearchChart()" class="delete-search"></button>
-            <button ng-show="!searchBox.global.isHistoryPage &amp;&amp; searchBox.searchingWord" hm-tap="searchBox.cancelSearching()" class="cancel-search">{{ 'add_elements.CANCEL' | translate }}</button>
-            <button ng-show="searchBox.global.isHistoryPage &amp;&amp; searchBox.history.isOrderSearch" hm-tap="searchBox.cancelSearching()" class="cancel-search">{{ 'add_elements.CANCEL' | translate }}</button>
+            <button hm-tap="searchBox.cancelSearching()" class="cancel-search">{{ 'add_elements.CANCEL' | translate }}</button>
+            <!--button.cancel-search(ng-show="searchBox.global.isHistoryPage && searchBox.history.isOrderSearch", hm-tap="searchBox.cancelSearching()") {{ 'add_elements.CANCEL' | translate }}-->
           </div>
         </form>
         <div ng-class="{'active': elementsListPanel.aux.showAddElementGroups}" class="aux-search-content">
           <ul class="aux-list-groups">
-            <li ng-repeat="typeAddElement in elementsListPanel.addElementsGroup | filter: {groupName: elementsListPanel.aux.searchingWord } | orderBy:'groupName'" hm-tap="elementsListPanel.selectAddElement(typeAddElement.groupId)" ng-class="{'selected': elementsListPanel.aux.isFocusedAddElement == typeAddElement.groupId}" class="aux-list-group {{ typeAddElement.groupClass }}">{{ typeAddElement.groupName }}
+            <li ng-repeat="typeAddElement in elementsListPanel.aux.addElementGroups | filter: {groupName: elementsListPanel.aux.searchingWord } | orderBy:'groupName'" hm-tap="elementsListPanel.selectAddElement(typeAddElement.groupId)" ng-class="{'selected': elementsListPanel.aux.isFocusedAddElement == typeAddElement.groupId}" class="aux-list-group {{ typeAddElement.groupClass }}">{{ typeAddElement.groupName }}
               <button ng-class="{'active': elementsListPanel.aux.isFocusedAddElement == typeAddElement.groupId}" class="group-indicator"></button>
               <div class="search-elements-block"></div>
             </li>
@@ -1029,10 +1028,10 @@
         </ul>
         <footer ng-if="configMenu.global.isConfigMenu" show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}" class="menu-footer unvisible">
           <price price-value="configMenu.product.productPriceTOTAL" price-currency="configMenu.userInfo.currency"></price>
-          <button ng-if="configMenu.global.productEditNumber === ''" hm-tap="configMenu.global.inputProductInOrder(); configMenu.movetoCart()" class="cart-btn">{{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
+          <button ng-if="configMenu.global.productEditNumber === ''" hm-tap="configMenu.inputProductInOrder(); configMenu.movetoCart()" class="cart-btn">{{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
             <div ng-if="configMenu.order.products.length &gt; 0 &amp;&amp; !configMenu.global.isCreatedNewProject" show-delay="{{ configMenu.config.DELAY_START }}" class="qty unvisible">{{ configMenu.order.products.length }}</div>
           </button>
-          <button ng-if="configMenu.global.productEditNumber !== ''" hm-tap="configMenu.global.inputProductInOrder(); configMenu.movetoCart()" class="cart-btn">{{ 'settings.SAVE' | translate }}</button>
+          <button ng-if="configMenu.global.productEditNumber !== ''" hm-tap="configMenu.inputProductInOrder(); configMenu.movetoCart()" class="cart-btn">{{ 'settings.SAVE' | translate }}</button>
         </footer>
         <div ng-if="configMenu.global.isConfigMenu" ng-class="{'u-coeff-low': configMenu.product.heatTransferTOTAL &lt; configMenu.order.currHeatTransfer}" show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}" class="product-u-coeff unvisible">U = {{ configMenu.product.heatTransferTOTAL }}</div>
         <div ng-show="configMenu.product.isAddElementsONLY" class="curtain"></div>
@@ -1055,7 +1054,7 @@
                 <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="value"></div>
                 <button class="element-info"></button>
               </li>
-              <li ng-show="elementsMenu.aux.isAddElementListView" ng-repeat="addElement in type track by $index" ng-class="{'active': elementsMenu.aux.isAddElement === $parent.$index+'-'+$index}" hm-tap="elementsMenu.selectElementListView($parent.$index, $index, $event)" class="item">
+              <li ng-show="elementsMenu.aux.isAddElementListView" ng-repeat="addElement in type track by $index" ng-class="{'active': elementsMenu.aux.isAddElement === $parent.$index+'-'+$index}" hm-tap="elementsMenu.selectAddElementList($parent.$index, $index, $event)" class="item">
                 <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="value"></div>
                 <button class="element-info"></button>
               </li>
@@ -1063,7 +1062,7 @@
           </div>
           <footer class="menu-footer">
             <!--.price-element(ng-show="global.isAddElement && elementsMenu.config.isAddElementPrice")-->
-            <div ng-show="elementsMenu.aux.isAddElement" class="price-element">
+            <div ng-show="elementsMenu.aux.isAddElement &amp;&amp; elementsMenu.aux.currAddElementPrice" class="price-element">
               <div class="price-value">+ {{ elementsMenu.aux.currAddElementPrice }} {{ elementsMenu.userInfo.currency }}</div>
             </div>
             <div ng-class="{'active': elementsMenu.global.isSizeCalculator}" class="elements-tools size-calculator">
@@ -1215,8 +1214,8 @@
                   <button class="aux-color"><img ng-src="{{ addElement.elementColor }}"></button>
                   <div class="aux-label">{{ 'add_elements.COLOR_LABEL' | translate }}</div>
                 </div>
-                <div class="aux-price">+{{ addElement.elementPrice }} {{ elementsMenu.userInfo.currency }}</div>
-                <button hm-tap="elementsMenu.chooseAddElement($parent.$index, $index)" class="aux-choose-but">{{ 'add_elements.ADD' | translate }}</button>
+                <div class="aux-price">+{{ elementsMenu.aux.currAddElementPrice }} {{ elementsMenu.userInfo.currency }}</div>
+                <button hm-tap="elementsMenu.chooseAddElementList($parent.$index, $index)" class="aux-choose-but">{{ 'add_elements.ADD' | translate }}</button>
               </div>
             </div>
           </div>

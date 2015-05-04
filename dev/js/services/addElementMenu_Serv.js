@@ -7,7 +7,7 @@
     .module('MainModule')
     .factory('AddElementMenuServ', addElemMenuFactory);
 
-  function addElemMenuFactory($timeout, globalConstants, GlobalStor, AuxStor, OrderStor, ProductStor, UserStor, globalDB, GeneralServ, MainServ, AddElementsServ, analyticsServ) {
+  function addElemMenuFactory($rootScope, $q, $timeout, globalConstants, GlobalStor, AuxStor, OrderStor, ProductStor, UserStor, globalDB, GeneralServ, MainServ, AddElementsServ, analyticsServ) {
 
     var thisFactory = this,
         delayShowElementsMenu = globalConstants.STEP * 12,
@@ -16,7 +16,10 @@
     thisFactory.publicObj = {
       closeAddElementsMenu: closeAddElementsMenu,
       chooseAddElement: chooseAddElement,
+      chooseAddElementList: chooseAddElementList,
+      getAddElementPrice: getAddElementPrice,
       deleteAddElement: deleteAddElement,
+      deleteAllAddElements: deleteAllAddElements,
       //---- calculators:
       setValueQty: setValueQty,
       setValueSize: setValueSize,
@@ -60,45 +63,62 @@
         setAddElementsTotalPrice();
 
       } else {
-        AuxStor.aux.isAddElement = typeIndex+'-'+elementIndex;
+        getAddElementPrice(typeIndex, elementIndex).then(function(addElem) {
+          pushSelectedAddElement(addElem);
+          //Set Total Product Price
+          setAddElementsTotalPrice();
 
-        var sourceAddElement = angular.copy( AuxStor.aux.addElementsList[typeIndex][elementIndex] );
+          //------ save analytics data
+          analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, addElem.elementId, typeIndex);
+        });
+      }
+    }
 
+
+    //--------- Select AddElement List
+    function chooseAddElementList(typeIndex, elementIndex) {
+      pushSelectedAddElement(AuxStor.aux.addElementsList[typeIndex][elementIndex]);
+      //Set Total Product Price
+      setAddElementsTotalPrice();
+      //----- hide element price in menu
+      AuxStor.aux.currAddElementPrice = 0;
+      //------ save analytics data
+      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, AuxStor.aux.addElementsList[typeIndex][elementIndex].elementId, typeIndex);
+      AuxStor.aux.isAddElement = false;
+    }
+
+
+    function getAddElementPrice(typeIndex, elementIndex) {
+      var deferred = $q.defer();
+      AuxStor.aux.isAddElement = typeIndex+'-'+elementIndex;
+      //------- checking if add element price is
+      if(AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPrice > 0) {
+        AuxStor.aux.currAddElementPrice = AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPrice;
+        deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
+      } else {
         var objXAddElementPrice = {
           cityId: UserStor.userInfo.city_id,
           currencyId: UserStor.userInfo.currencyId,
-          elementId: sourceAddElement.elementId,
-          elementLength: sourceAddElement.elementWidth
+          elementId: AuxStor.aux.addElementsList[typeIndex][elementIndex].elementId,
+          elementLength: AuxStor.aux.addElementsList[typeIndex][elementIndex].elementWidth
         };
 
         console.log(objXAddElementPrice);
         //-------- get current add element price
         globalDB.getAdditionalPrice(objXAddElementPrice, function (results) {
           if (results.status) {
-            //console.log(results.data);
-            sourceAddElement.elementPrice = GeneralServ.roundingNumbers(results.data.price);
-            //$scope.addElementsMenu.isAddElementPrice = true;
-            AuxStor.aux.currAddElementPrice = sourceAddElement.elementPrice;
-
-            pushSelectedAddElement(sourceAddElement);
-            //Set Total Product Price
-            setAddElementsTotalPrice();
-            //$scope.$apply();
-
+            AuxStor.aux.currAddElementPrice = GeneralServ.roundingNumbers(results.data.price);
+            AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPrice = AuxStor.aux.currAddElementPrice;
+            $rootScope.$apply();
+            deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
           } else {
-            console.log(results);
+            deferred.reject(results);
           }
         });
-
-        //------ save analytics data
-        analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, sourceAddElement.elementId, typeIndex);
-
-        if(AuxStor.aux.isAddElementListView) {
-          AuxStor.aux.isAddElement = 1;
-        }
       }
-
+      return deferred.promise;
     }
+
 
 
     function pushSelectedAddElement(currElement) {
@@ -168,7 +188,15 @@
     }
 
 
-
+    //--------- Delete All List of selected AddElements
+    function deleteAllAddElements() {
+      var elementsQty = ProductStor.product.chosenAddElements.length,
+          index = 0;
+      for(; index < elementsQty; index++) {
+        ProductStor.product.chosenAddElements[index].length = 0;
+      }
+      ProductStor.product.addElementsPriceSELECT = 0;
+    }
 
 
 
@@ -282,8 +310,6 @@
       });
 
     }
-
-
 
 
     // Select Add Element Lamination
