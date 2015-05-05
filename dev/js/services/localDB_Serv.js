@@ -62,10 +62,6 @@
             "type": "INTEGER",
             "null": "NOT NULL"
           },
-//          "beadId": {
-//            "type": "INTEGER",
-//            "null": "NOT NULL"
-//          },
           "profileTypeIndex": {
             "type": "INTEGER",
             "null": "NOT NULL"
@@ -138,7 +134,7 @@
             "type": "INTEGER",
             "null": "NOT NULL"
           },
-          "laminationOutIndex": {
+          "laminationOutId": {
             "type": "INTEGER",
             "null": "NOT NULL"
           },
@@ -150,7 +146,7 @@
             "type": "FLOAT",
             "null": "NOT NULL"
           },
-          "laminationInIndex": {
+          "laminationInId": {
             "type": "INTEGER",
             "null": "NOT NULL"
           },
@@ -476,6 +472,7 @@
       ordersTableBD: 'orders',
       addElementsTableBD: 'add_elements',
       analyticsTableBD: 'analytics',
+      sqliteTableBD: 'sqlite_sequence',
 
       insertDB: insertDB,
       selectDB: selectDB,

@@ -61,7 +61,7 @@
             ProductStor.product.glassAirCoeff = GlobalStor.global.glasses[ProductStor.product.glassIndex][ProductStor.product.glassIndex].airCoeff;
 
             //--------- set Templates
-            MainServ.prepareTemplates(GlobalStor.global.constructionType);
+            MainServ.prepareTemplates(ProductStor.product.constructionType);
 
           } else {
             console.log(results);

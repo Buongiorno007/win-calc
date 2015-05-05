@@ -10,7 +10,7 @@
     .module('MainModule')
     .factory('MainServ', navFactory);
 
-  function navFactory($rootScope, $q, $filter, $cordovaProgress, globalConstants, globalDB, localDB, GeneralServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function navFactory($rootScope, $location, $q, $timeout, $filter, $cordovaProgress, globalConstants, globalDB, localDB, GeneralServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisFactory = this;
 
@@ -492,7 +492,7 @@
 
     function setProductPriceTOTAL() {
       //playSound('price');
-      ProductStor.product.productPriceTOTAL = ProductStor.product.templatePriceSELECT + ProductStor.product.laminationPriceSELECT + ProductStor.product.addElementsPriceSELECT;
+      ProductStor.product.productPriceTOTAL = GeneralServ.roundingNumbers(ProductStor.product.templatePriceSELECT + ProductStor.product.laminationPriceSELECT + ProductStor.product.addElementsPriceSELECT);
       $rootScope.$apply();
     }
 
@@ -506,10 +506,8 @@
       OrderStor.order = OrderStor.setDefaultOrder();
       //------- set new orderId
       createOrderData();
-      //------- set new constructionType = 'window'
-      GlobalStor.global.constructionType = 1;
       //------- set new templates
-      prepareTemplates(GlobalStor.global.constructionType);
+      prepareTemplates(ProductStor.product.constructionType);
     }
 
 
@@ -518,10 +516,8 @@
       console.log('new product!!!!!!!!!!!!!!!');
       //------- create new empty product
       ProductStor.product = ProductStor.setDefaultProduct();
-      //------- set new constructionType = 'window'
-      GlobalStor.global.constructionType = 1;
       //------- set new templates
-      prepareTemplates(GlobalStor.global.constructionType);
+      prepareTemplates(ProductStor.product.constructionType);
     }
 
 
@@ -551,7 +547,7 @@
     function inputProductInOrder() {
 
       //---------- if New Product
-      if (GlobalStor.global.productEditNumber === '') {
+      if(!GlobalStor.global.productEditNumber) {
 
         //-------- add product in order LocalStorage
         ProductStor.product.orderId = OrderStor.order.orderId;
@@ -575,7 +571,7 @@
           }
         }
 
-        editProductInLocalDB(ProductStor.global.product);
+        editProductInLocalDB(ProductStor.product);
 
       }
 
@@ -603,58 +599,55 @@
     function insertProductInLocalDB(product) {
 
       var productData = angular.copy(product),
-          addElementsData = {},
-          addElementsObj = product.chosenAddElements;
+          addElementsQty = product.chosenAddElements.length,
+          prop = 0, addElementsData;
 
-      if($scope.global.isConstructWind) {
-        productData.constructionType = 1;
-      } else if($scope.global.isConstructWindDoor) {
-        productData.constructionType = 2;
-      } else if($scope.global.isConstructBalcony) {
-        productData.constructionType = 3;
-      } else if($scope.global.isConstructDoor) {
-        productData.constructionType = 4;
-      }
-
-
+console.log('!!!!!!!!!! product !!!!!!!!!!!', product);
       //-------- insert product into local DB
-      //productData.orderId = product.orderID;
-      productData.heatTransferMin = UserStor.userInfo.currHeatTransfer;
+      productData.heatTransferMin = OrderStor.order.currHeatTransfer;
       productData.templateSource = JSON.stringify(product.templateSource);
-      productData.laminationOutPrice = parseFloat(product.laminationOutPrice.toFixed(2));
-      productData.laminationInPrice = parseFloat(product.laminationInPrice.toFixed(2));
-      productData.templatePriceSELECT = parseFloat(product.templatePriceSELECT.toFixed(2));
-      productData.laminationPriceSELECT = parseFloat(product.laminationPriceSELECT.toFixed(2));
-      productData.addElementsPriceSELECT = parseFloat(product.addElementsPriceSELECT.toFixed(2));
-      productData.productPriceTOTAL = parseFloat(product.productPriceTOTAL.toFixed(2));
-      delete productData.templateDefault;
+      productData.laminationPriceSELECT =  GeneralServ.roundingNumbers(product.laminationPriceSELECT);
+      productData.addElementsPriceSELECT =  GeneralServ.roundingNumbers(product.addElementsPriceSELECT);
+      productData.productPriceTOTAL =  GeneralServ.roundingNumbers(product.productPriceTOTAL);
+      delete productData.template;
       delete productData.templateIcon;
       delete productData.chosenAddElements;
+      delete productData.profileFrameId;
+      delete productData.profileFrameStillId;
+      delete productData.profileSashId;
+      delete productData.profileImpostId;
+      delete productData.profileShtulpId;
+
+
       localDB.insertDB(localDB.productsTableBD, productData);
 
-
       //--------- insert additional elements into local DB
-      for(var prop in addElementsObj) {
-        if (!addElementsObj.hasOwnProperty(prop)) {
-          continue;
-        }
-        for (var elem = 0; elem < addElementsObj[prop].length; elem++) {
+      for(; prop < addElementsQty; prop++) {
+        var elementsQty = product.chosenAddElements[prop].length,
+            elem = 0;
+        for (; elem < elementsQty; elem++) {
           addElementsData = {
             "orderId": product.orderId,
             "productId": product.productId,
-            "elementId": addElementsObj[prop][elem].elementId,
-            "elementType": addElementsObj[prop][elem].elementType,
-            "elementName": addElementsObj[prop][elem].elementName,
-            "elementWidth": addElementsObj[prop][elem].elementWidth,
-            "elementHeight": addElementsObj[prop][elem].elementHeight,
-            "elementColor": addElementsObj[prop][elem].elementColor,
-            "elementPrice": addElementsObj[prop][elem].elementPrice,
-            "elementQty": addElementsObj[prop][elem].elementQty
+            "elementId": product.chosenAddElements[prop][elem].elementId,
+            "elementType": product.chosenAddElements[prop][elem].elementType,
+            "elementName": product.chosenAddElements[prop][elem].elementName,
+            "elementWidth": product.chosenAddElements[prop][elem].elementWidth,
+            "elementHeight": product.chosenAddElements[prop][elem].elementHeight,
+            "elementColor": product.chosenAddElements[prop][elem].elementColor,
+            "elementPrice": product.chosenAddElements[prop][elem].elementPrice,
+            "elementQty": product.chosenAddElements[prop][elem].elementQty
           };
 
           localDB.insertDB(localDB.addElementsTableBD, addElementsData);
         }
       }
+
+      //--------- moving to Cart when click on Cart button
+      $timeout(function() {
+        ProductStor.product = ProductStor.setDefaultProduct();
+        $location.path('/cart');
+      }, 500);
     }
 
 

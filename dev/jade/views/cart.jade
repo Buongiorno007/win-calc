@@ -1,4 +1,4 @@
-section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
+section.page-container(ng-class="{ 'swiped': !cartPage.global.isNavMenu }")
   section.left-side
     include menus/_navigation-menu
   section.right-side
@@ -9,27 +9,18 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
         section.cart-container.full-view
           .cart-header
             include parts/_user-info
-            //button.cart-tool.additional-elements(hm-tap="showAllAddElements()") {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
-            button.cart-tool.additional-elements {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
-            button.cart-tool.new-order(hm-tap="addNewProductInOrder()") {{ 'cart.ADD_ORDER' | translate }}
+            button.cart-tool.additional-elements(hm-tap="cartPage.showAllAddElements()") {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
+            button.cart-tool.new-order(hm-tap="cartPage.addNewProductInOrder()") {{ 'cart.ADD_ORDER' | translate }}
 
           .scroll-hor-container
             .order-block
-              .order(ng-repeat="product in global.order.products track by $index")
-                button.order-delete(hm-tap="clickDeleteProduct($index)")
-                .order-header(ng-switch="product.selectedRoomId", hm-tap="editProduct($index, 'product')")
-                  img.order-header-fon(ng-switch-when="1", ng-src="img/rooms-dialog/kitchen.jpg")
-                  img.order-header-fon(ng-switch-when="2", ng-src="img/rooms-dialog/livingroom.jpg")
-                  img.order-header-fon(ng-switch-when="3", ng-src="img/rooms-dialog/balcony.jpg")
-                  img.order-header-fon(ng-switch-when="4", ng-src="img/rooms-dialog/childroom.jpg")
-                  img.order-header-fon(ng-switch-when="5", ng-src="img/rooms-dialog/bedroom.jpg")
-                  img.order-header-fon(ng-switch-when="6", ng-src="img/rooms-dialog/door.jpg")
-
+              .order(ng-repeat="product in cartPage.order.products track by $index")
+                button.order-delete(hm-tap="cartPage.clickDeleteProduct($index)")
+                .order-header(hm-tap="cartPage.editProduct($index, 'product')")
+                  img.order-header-fon(ng-src="img/rooms-dialog/'+product.selectedRoomId+'.jpg")
                   .order-template
-                    svg-template(template="product.templateIcon", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="icon")
+                    svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="icon")
                   .order-u-coeff(ng-class="{'u-coeff-low': product.heatTransferTOTAL < product.heatTransferMin}") U = {{ product.heatTransferTOTAL }}
-                    //span.coeff-label {{ 'cart.HEAT_TRANSFER' | translate }}
-                    //span.coeff-value
                 .order-content
                   ul.order-list
                     li.order-item
@@ -49,77 +40,76 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                       .order-label {{ 'mainpage.CONFIGMENU_LAMINATION_TYPE' | translate }}
                       .order-value {{ product.laminationOutName }} / {{ product.laminationInName }}
                       .order-label {{ 'mainpage.CONFIGMENU_LAMINATION' | translate }}
-                    li.order-item.addelements-btn(hm-tap="showAllAddElementDetail($index)")
-                      .order-value(ng-if="cart.allAddElements[$index].length > 4 || cart.allAddElements[$index].length === 0") {{cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENTS' | translate }}
-                      .order-value(ng-if="cart.allAddElements[$index].length < 5 && cart.allAddElements[$index].length > 1") {{cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENTA' | translate }}
-                      .order-value(ng-if="cart.allAddElements[$index].length === 1") {{cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENT' | translate }}
+                    li.order-item.addelements-btn(hm-tap="cartPage.showAllAddElementDetail($index)")
+                      .order-value(ng-if="cartPage.cart.allAddElements[$index].length > 4 || cartPage.cart.allAddElements[$index].length === 0") {{cartPage.cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENTS' | translate }}
+                      .order-value(ng-if="cartPage.cart.allAddElements[$index].length < 5 && cartPage.cart.allAddElements[$index].length > 1") {{cartPage.cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENTA' | translate }}
+                      .order-value(ng-if="cartPage.cart.allAddElements[$index].length === 1") {{cartPage.cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENT' | translate }}
                       .order-label {{ 'mainpage.CONFIGMENU_ADDITIONAL' | translate }}
                   .order-qty
-                    button.order-tool(hm-tap="lessProduct($index)") -
+                    button.order-tool(hm-tap="cartPage.decreaseProductQty($index)") -
                     .order-value {{ product.productQty }}
-                    button.order-tool(hm-tap="moreProduct($index)") +
+                    button.order-tool(hm-tap="cartPage.increaseProductQty($index)") +
                     .order-label.qty-label {{ 'cart.PRODUCT_QTY' | translate }}
-                .order-footer(price-fixed="{{product.productPriceTOTAL}}", qty-element="{{product.productQty}}", currency-element="{{global.currency}}")
+                .order-footer(price-fixed="{{product.productPriceTOTAL}}", qty-element="{{product.productQty}}", currency-element="{{cartPage.userInfo.currency}}")
 
-          button.view-switch-tab(hm-tap="viewSwitching()") {{ 'cart.LIGHT_VIEW' | translate }}
+          button.view-switch-tab(hm-tap="cartPage.viewSwitching()") {{ 'cart.LIGHT_VIEW' | translate }}
 
 
 
-        section.cart-container.light-view(ng-class="{'active': isCartLightView}")
+        section.cart-container.light-view(ng-class="{'active': cartPage.config.isCartLightView}")
           .cart-header
             include parts/_user-info
-            //button.cart-tool.additional-elements(hm-tap="showAllAddElements()") {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
-            button.cart-tool.additional-elements {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
-            button.cart-tool.new-order(hm-tap="addNewProductInOrder()") {{ 'cart.ADD_ORDER' | translate }}
+            button.cart-tool.additional-elements(hm-tap="cartPage.showAllAddElements()") {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
+            button.cart-tool.new-order(hm-tap="cartPage.addNewProductInOrder()") {{ 'cart.ADD_ORDER' | translate }}
 
           .order-block.scroll-vert-container
-            .order(ng-repeat="product in global.order.products track by $index")
-              button.order-delete(hm-tap="clickDeleteProduct($index)")
+            .order(ng-repeat="product in cartPage.order.products track by $index")
+              button.order-delete(hm-tap="cartPage.clickDeleteProduct($index)")
               .order-header
-                .order-template(hm-tap="editProduct(product.productId)")
-                  svg-template(template="product.templateIcon", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="icon")
+                .order-template(hm-tap="cartPage.editProduct(product.productId)")
+                  svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="icon")
               .order-content
                 .order-value {{ product.templateWidth }} * {{ product.templateHeight }} {{ 'mainpage.MM' | translate }}
 
-                .order-item.addelements-btn(hm-tap="showAllAddElementDetail($index)")
-                  .order-value(ng-if="cart.allAddElements[$index].length > 4 || cart.allAddElements[$index].length === 0") {{cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENTS' | translate }}
-                  .order-value(ng-if="cart.allAddElements[$index].length < 5 && cart.allAddElements[$index].length > 1") {{cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENTA' | translate }}
-                  .order-value(ng-if="cart.allAddElements[$index].length === 1") {{cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENT' | translate }}
+                .order-item.addelements-btn(hm-tap="cartPage.showAddElementDetail($index)")
+                  .order-value(ng-if="cartPage.cart.allAddElements[$index].length > 4 || cartPage.cart.allAddElements[$index].length === 0") {{cartPage.cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENTS' | translate }}
+                  .order-value(ng-if="cartPage.cart.allAddElements[$index].length < 5 && cartPage.cart.allAddElements[$index].length > 1") {{cartPage.cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENTA' | translate }}
+                  .order-value(ng-if="cartPage.cart.allAddElements[$index].length === 1") {{cartPage.cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENT' | translate }}
                   .order-label {{ 'mainpage.CONFIGMENU_ADDITIONAL' | translate }}
 
                 .order-qty
-                  button.order-tool(hm-tap="lessProduct($index)") -
+                  button.order-tool(hm-tap="cartPage.decreaseProductQty($index)") -
                   .order-value {{ product.productQty }}
-                  button.order-tool(hm-tap="moreProduct($index)") +
+                  button.order-tool(hm-tap="cartPage.increaseProductQty($index)") +
                 .order-label {{ 'cart.PRODUCT_QTY' | translate }}
-              .order-footer(price-fixed="{{product.productPriceTOTAL}}", qty-element="{{product.productQty}}", currency-element="{{global.currency}}")
+              .order-footer(price-fixed="{{product.productPriceTOTAL}}", qty-element="{{product.productQty}}", currency-element="{{cartPage.userInfo.currency}}")
 
 
 
-          button.view-switch-tab(hm-tap="viewSwitching()") {{ 'cart.FULL_VIEW' | translate }}
+          button.view-switch-tab(hm-tap="cartPage.viewSwitching()") {{ 'cart.FULL_VIEW' | translate }}
 
 
-        .addelements-detail(ng-if="cart.isAddElementDetail")
+        .addelements-detail(ng-if="cartPage.config.isAddElementDetail")
           .addelements-detail-header
             .addelements-detail-tools
-              button.addelements-detail-edit(hm-tap="editProduct(cart.activeProductIndex, 'auxiliary')") {{ 'cart.ADDELEMENTS_EDIT_LIST' | translate }}
-              button.addelements-detail-close(hm-tap="closeAllAddElementDetail()")
+              button.addelements-detail-edit(hm-tap="cartPage.editProduct(cart.activeProductIndex, 'auxiliary')") {{ 'cart.ADDELEMENTS_EDIT_LIST' | translate }}
+              button.addelements-detail-close(hm-tap="cartPage.closeAddElementDetail()")
             .product-template
               .addelements-detail-row
                 .product-value
                   .product-icon-thumb
-                    svg-template(template="global.order.products[cart.activeProductIndex].templateIcon", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="icon")
-                  span.product-template-qty X {{ global.order.products[cart.activeProductIndex].productQty }}
+                    svg-template(template="cartPage.order.products[cartPage.config.activeProductIndex].templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="icon")
+                  span.product-template-qty X {{ cartPage.order.products[cartPage.config.activeProductIndex].productQty }}
                 .product-icon-label {{ 'cart.PRODUCT_QTY' | translate }}
               .addelements-detail-row
-                .product-value {{ global.order.products[cart.activeProductIndex].templateWidth }} {{ 'mainpage.MM' | translate }} *
+                .product-value {{ cartPage.order.products[cartPage.config.activeProductIndex].templateWidth }} {{ 'mainpage.MM' | translate }} *
                 .product-label {{ 'add_elements.WIDTH_LABEL' | translate }}
               .addelements-detail-row
-                .product-value {{ global.order.products[cart.activeProductIndex].templateHeight }} {{ 'mainpage.MM' | translate }}
+                .product-value {{ cartPage.order.products[cartPage.activeProductIndex].templateHeight }} {{ 'mainpage.MM' | translate }}
                 .product-label {{ 'add_elements.HEIGHT_LABEL' | translate }}
           .addelements-detail-content
             ul.addelements-detail-list
-              li.addelements-detail-item(ng-repeat="addelement in cart.allAddElements[cart.activeProductIndex] track by $index", ng-switch="addelement.elementType")
+              li.addelements-detail-item(ng-repeat="addelement in cartPage.cart.allAddElements[cartPage.activeProductIndex] track by $index", ng-switch="addelement.elementType")
                 .product-value {{ addelement.elementName }}
                 .product-value(ng-switch-when="1") {{ 'add_elements.GRID' | translate }}
                 .product-value(ng-switch-when="2") {{ 'add_elements.VISOR' | translate }}
@@ -144,26 +134,30 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
                       img(ng-src="{{ addelement.elementColor }}")
                     .addelement-label {{ 'add_elements.COLOR_LABEL' | translate }}
                   .addelement-parameter(ng-show="addelement.elementQty")
-                    .addelement-value {{ addelement.elementQty * global.order.products[cart.activeProductIndex].productQty}}
+                    .addelement-value {{ addelement.elementQty * cartPage.order.products[cart.activeProductIndex].productQty}}
                     .addelement-label {{ 'add_elements.QTY_LABEL' | translate }}
                 .addelement-parameters
-                  .addelement-price-value + {{ addelement.elementQty * global.order.products[cart.activeProductIndex].productQty * addelement.elementPrice }} {{ global.currency }}
-                  .addelement-label ({{ addelement.elementQty * global.order.products[cart.activeProductIndex].productQty}} x {{ addelement.elementPrice }}{{ global.currency }})
+                  .addelement-price-value + {{ addelement.elementQty * cartPage.order.products[cartPage.activeProductIndex].productQty * addelement.elementPrice }} {{ cartPage.userInfo.currency }}
+                  .addelement-label ({{ addelement.elementQty * cartPage.order.products[cartPage.activeProductIndex].productQty}} x {{ addelement.elementPrice }}{{ cartPage.userInfo.currency }})
             .addelements-detail-row.price-one-product
-              .addelement-price-value(price-fixed="{{global.order.products[cart.activeProductIndex].addElementsPriceSELECT}}", qty-element="1", currency-element="{{global.currency}}")
+              .addelement-price-value(price-fixed="{{cartPage.order.products[cartPage.activeProductIndex].addElementsPriceSELECT}}", qty-element="1", currency-element="{{cartPage.userInfo.currency}}")
               .product-label {{ 'cart.ADDELEMENTS_PRODUCT_COST' | translate }}
           .addelements-detail-footer
-            span(price-fixed="{{global.order.products[cart.activeProductIndex].addElementsPriceSELECT}}", qty-element="{{global.order.products[cart.activeProductIndex].productQty}}", currency-element="{{global.currency}}")
+            span(price-fixed="{{cartPage.order.products[cartPage.activeProductIndex].addElementsPriceSELECT}}", qty-element="{{cartPage.order.products[cartPage.activeProductIndex].productQty}}", currency-element="{{cartPage.userInfo.currency}}")
             span &#8721;
 
-        .backDarkView(ng-if="cart.isAddElementDetail", hm-tap="closeAllAddElementDetail()")
+        .backDarkView(ng-if="cartPage.config.isAddElementDetail", hm-tap="cartPage.closeAddElementDetail()")
+
+
+
+
 
 
 
 
 
         //------- All AddElements Panel
-        section.cart-container.alladdelements-view(ng-class="{'active': cart.isShowAllAddElements}")
+        //section.cart-container.alladdelements-view(ng-class="{'active': cart.isShowAllAddElements}")
           .alladdelements-header
             button.close-alladdelements(hm-tap="showAllAddElements()")
           .alladdelements-block
@@ -456,7 +450,7 @@ section.page-container(ng-class="{ 'swiped': !global.showNavMenu }")
 
 
         //------- Selected AddElement Unit Panel
-        section.cart-container.addelement-view(ng-class="{'active': cart.isShowAddElementUnit}")
+        //section.cart-container.addelement-view(ng-class="{'active': cart.isShowAddElementUnit}")
           .addelementunique-header
             button.close-alladdelements(hm-tap="showAddElementUnitDetail()")
             .addelementunit-header-fon

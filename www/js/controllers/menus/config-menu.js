@@ -12,7 +12,7 @@
     .module('MainModule')
     .controller('ConfigMenuCtrl', glassSelectorCtrl);
 
-  function glassSelectorCtrl(globalConstants, localDB, GlobalStor, OrderStor, ProductStor, AuxStor, UserStor, MainServ, AddElementsServ) {
+  function glassSelectorCtrl(globalConstants, GlobalStor, OrderStor, ProductStor, AuxStor, UserStor, MainServ, AddElementsServ) {
 
     console.log('START CONFIG MENU!!!!!!');
     var thisCtrl = this;
@@ -61,29 +61,6 @@
       AuxStor.aux.showAddElementsMenu = false;
       AddElementsServ.desactiveAddElementParameters();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //--------- moving to Cart when click on Cart button
-    $scope.movetoCart = function() {
-      $location.path('/cart');
-
-      $timeout(function(){
-        $scope.global.gotoCartPage();
-      }, $scope.configMenu.DELAY_GO_TO_CART);
-    };
-
 
 
   }

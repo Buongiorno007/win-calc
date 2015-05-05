@@ -2845,43 +2845,8 @@
                 airCoeff: 5,
                 hardwarePrice: 150
               }
-             /* {
-                hardwareId: 2,
-                hardwareName: 'ACCADO 7mm',
-                hardwareProducer: 'ACCADO',
-                hardwareCountry: 'Турция',
-                hardwareLogo: 'img/hardware-logos/accado.png',
-                hardwareLink: '#',
-                hardwareHeat: 2,
-                hardwareNoise: 5,
-                hardwarePrice: 200
-             }
-         */    ],
-           /* [
-              {
-                hardwareId: 1,
-                hardwareName: 'ACCADO 7mm',
-                hardwareProducer: 'Мако',
-                hardwareCountry: 'Турция',
-                hardwareLogo: 'img/hardware-logos/maco.png',
-                hardwareLink: '#',
-                hardwareHeat: 5,
-                hardwareNoise: 4,
-                hardwarePrice: 100
-              },
-              {
-                hardwareId: 2,
-                hardwareName: 'ACCADO 7mm',
-                hardwareProducer: 'Мако',
-                hardwareCountry: 'Турция',
-                hardwareLogo: 'img/hardware-logos/maco.png',
-                hardwareLink: '#',
-                hardwareHeat: 3,
-                hardwareNoise: 1,
-                hardwarePrice: 800
-              }
-           ],
-           */ [
+            ],
+            [
                {
                 hardwareId: 21,
                 hardwareName: 'Roto NT',
@@ -3047,7 +3012,6 @@
             [
               {
                 elementId: 497,
-                elementType: 'Отлив белый 200мм',
                 elementName: 'Отлив КO-200',
                 elementWidth: 1500,
                 elementQty: 1,
@@ -3055,7 +3019,6 @@
               },
               {
                 elementId: 498,
-                elementType: 'Стандартные',
                 elementName: 'Отлив коричневый 260мм',
                 elementWidth: 1500,
                 elementQty: 1,
@@ -3065,7 +3028,6 @@
             [
               {
                 elementId: 547,
-                elementType: 'оцинкованный',
                 elementName: 'Отлив оцинкованный 20мм',
                 elementWidth: 1500,
                 elementQty: 1,
@@ -3073,7 +3035,6 @@
               },
               {
                 elementId: 571,
-                elementType: 'оцинкованный',
                 elementName: 'Отлив оцинкованный 50мм',
                 elementWidth: 1500,
                 elementQty: 1,
@@ -3083,7 +3044,6 @@
             [
               {
                 elementId: 540,
-                elementType: 'нестандартные',
                 elementName: 'Отлив нестандартный',
                 elementWidth: 1500,
                 elementQty: 1,
@@ -3105,7 +3065,6 @@
             [
               {
                 elementId: 89349,
-                elementType: 'Стандартные',
                 elementName: 'Откос пластиковый',
                 elementWidth: 200,
                 elementQty: 1,
@@ -3113,7 +3072,6 @@
               },
               {
                 elementId: 89350,
-                elementType: 'Стандартные',
                 elementName: 'Откос гипсокартонный',
                 elementWidth: 200,
                 elementQty: 1,
@@ -3121,7 +3079,6 @@
               },
               {
                 elementId: 89351,
-                elementType: 'Стандартные',
                 elementName: 'Откос песчаноцементный',
                 elementWidth: 200,
                 elementQty: 1,
@@ -3144,7 +3101,6 @@
             [
               {
                 elementId: 89349,
-                elementType: 'Стандартные',
                 elementName: 'Откос пластиковый',
                 elementWidth: 200,
                 elementQty: 1,
@@ -3152,7 +3108,6 @@
               },
               {
                 elementId: 89350,
-                elementType: 'Стандартные',
                 elementName: 'Откос гипсокартонный',
                 elementWidth: 200,
                 elementQty: 1,
@@ -3160,7 +3115,6 @@
               },
               {
                 elementId: 89351,
-                elementType: 'Стандартные',
                 elementName: 'Откос песчаноцементный',
                 elementWidth: 200,
                 elementQty: 1,
@@ -3185,7 +3139,6 @@
             [
               {
                 elementId: 1,
-                elementType: 'Стандартные',
                 elementName: 'Жалюзи КO-200',
                 elementWidth: 700,
                 elementHeight: 700,
@@ -3194,7 +3147,6 @@
               },
               {
                 elementId: 2,
-                elementType: 'Стандартные',
                 elementName: 'Жалюзи КO-300, оцинкованный',
                 elementWidth: 700,
                 elementHeight: 700,
@@ -3205,7 +3157,6 @@
             [
               {
                 elementId: 1,
-                elementType: 'оцинкованный',
                 elementName: 'Жалюзи КO-100, оцинкованный',
                 elementWidth: 700,
                 elementHeight: 700,
@@ -3214,7 +3165,6 @@
               },
               {
                 elementId: 2,
-                elementType: 'оцинкованный',
                 elementName: 'Жалюзи КO-300',
                 elementWidth: 700,
                 elementHeight: 700,
@@ -3225,7 +3175,6 @@
             [
               {
                 elementId: 1,
-                elementType: 'Матовые',
                 elementName: 'Жалюзи КO-300',
                 elementWidth: 700,
                 elementHeight: 700,
@@ -3234,7 +3183,6 @@
               },
               {
                 elementId: 2,
-                elementType: 'Матовые',
                 elementName: 'Жалюзи КO-300',
                 elementWidth: 700,
                 elementHeight: 700,
@@ -3351,14 +3299,13 @@
 
           elementType: [
             'LIGNODUR',
-            'ДАНКЕ',
+            'DANKE',
             'OpenTeck'
           ],
           elementsList: [
             [
               {
                 elementId: 333,
-                elementType: 'Матовые',
                 elementName: 'LIGNODUR 200 мм белый',
                 elementWidth: 1500,
                 elementHeight: 1500,
@@ -3369,7 +3316,6 @@
               },
               {
                 elementId: 334,
-                elementType: 'Матовые',
                 elementName: 'LIGNODUR 300 мм белый',
                 elementWidth: 1500,
                 elementHeight: 1500,
@@ -3380,7 +3326,6 @@
               },
               {
                 elementId: 335,
-                elementType: 'Матовые',
                 elementName: 'LIGNODUR 400 мм белый',
                 elementWidth: 1500,
                 elementHeight: 1500,
@@ -3393,7 +3338,6 @@
             [
               {
                 elementId: 341,
-                elementType: 'Матовые',
                 elementName: 'ДАНКЕ 100 мм белый матовый',
                 elementWidth: 1500,
                 elementHeight: 1500,
@@ -3404,7 +3348,6 @@
               },
               {
                 elementId: 342,
-                elementType: 'Матовые',
                 elementName: 'ДАНКЕ 300 мм белый матовый',
                 elementWidth: 1500,
                 elementHeight: 1500,
@@ -3417,7 +3360,6 @@
             [
               {
                 elementId: 301,
-                elementType: 'Матовые',
                 elementName: 'OpenTeck 100 мм белый',
                 elementWidth: 1500,
                 elementHeight: 1500,
@@ -3428,7 +3370,6 @@
               },
               {
                 elementId: 302,
-                elementType: 'Матовые',
                 elementName: 'OpenTeck 200 мм белый',
                 elementWidth: 1500,
                 elementHeight: 1500,
@@ -3439,7 +3380,6 @@
               },
               {
                 elementId: 303,
-                elementType: 'Матовые',
                 elementName: 'OpenTeck 300 мм белый',
                 elementWidth: 1500,
                 elementHeight: 1500,
@@ -3450,7 +3390,6 @@
               },
               {
                 elementId: 304,
-                elementType: 'Матовые',
                 elementName: 'OpenTeck 400 мм белый',
                 elementWidth: 1500,
                 elementHeight: 1500,

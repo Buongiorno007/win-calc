@@ -1028,10 +1028,10 @@
         </ul>
         <footer ng-if="configMenu.global.isConfigMenu" show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}" class="menu-footer unvisible">
           <price price-value="configMenu.product.productPriceTOTAL" price-currency="configMenu.userInfo.currency"></price>
-          <button ng-if="configMenu.global.productEditNumber === ''" hm-tap="configMenu.inputProductInOrder(); configMenu.movetoCart()" class="cart-btn">{{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
+          <button ng-if="!configMenu.global.productEditNumber" hm-tap="configMenu.inputProductInOrder()" class="cart-btn">{{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
             <div ng-if="configMenu.order.products.length &gt; 0 &amp;&amp; !configMenu.global.isCreatedNewProject" show-delay="{{ configMenu.config.DELAY_START }}" class="qty unvisible">{{ configMenu.order.products.length }}</div>
           </button>
-          <button ng-if="configMenu.global.productEditNumber !== ''" hm-tap="configMenu.inputProductInOrder(); configMenu.movetoCart()" class="cart-btn">{{ 'settings.SAVE' | translate }}</button>
+          <button ng-if="configMenu.global.productEditNumber" hm-tap="configMenu.inputProductInOrder()" class="cart-btn">{{ 'settings.SAVE' | translate }}</button>
         </footer>
         <div ng-if="configMenu.global.isConfigMenu" ng-class="{'u-coeff-low': configMenu.product.heatTransferTOTAL &lt; configMenu.order.currHeatTransfer}" show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}" class="product-u-coeff unvisible">U = {{ configMenu.product.heatTransferTOTAL }}</div>
         <div ng-show="configMenu.product.isAddElementsONLY" class="curtain"></div>

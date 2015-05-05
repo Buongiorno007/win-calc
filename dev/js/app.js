@@ -42,7 +42,7 @@
 
     'LoginModule',
     'MainModule',
-    'ConstructionModule',
+    'DesignModule',
     'CartModule',
     'HistoryModule',
     'SettingsModule'
@@ -54,7 +54,7 @@
   angular
     .module('MainModule', []);
   angular
-    .module('ConstructionModule', []);
+    .module('DesignModule', []);
   angular
     .module('CartModule', []);
   angular
@@ -94,37 +94,44 @@
       .when('/settings', {
         templateUrl: 'views/settings.html',
         controller: 'SettingsCtrl',
+        controllerAs: 'settingsPage',
         title: 'Settings'
       })
       .when('/change-pass', {
         templateUrl: 'views/change-pass.html',
         controller: 'ChangePassCtrl',
+        controllerAs: 'passwordPage',
         title: 'Change Pass'
       })
       .when('/change-lang', {
         templateUrl: 'views/change-lang.html',
         controller: 'ChangeLangCtrl',
+        controllerAs: 'languagePage',
         title: 'Change Language'
       })
       .when('/location', {
         templateUrl: 'views/location.html',
         controller: 'LocationCtrl',
+        controllerAs: 'locationPage',
         title: 'Location'
       })
       .when('/history', {
         templateUrl: 'views/history.html',
         controller: 'HistoryCtrl',
+        controllerAs: 'historyPage',
         title: 'History'
       })
       .when('/cart', {
         templateUrl: 'views/cart.html',
         controller: 'CartCtrl',
+        controllerAs: 'cartPage',
         title: 'Cart'
       })
-      .when('/construction', {
-        templateUrl: 'views/construction.html',
-        controller: 'ConstructionCtrl',
-        title: 'Construction'
+      .when('/design', {
+        templateUrl: 'views/design.html',
+        controller: 'DesignCtrl',
+        controllerAs: 'designPage',
+        title: 'Design'
       })
       .otherwise({
         redirectTo: '/'

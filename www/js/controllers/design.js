@@ -1,17 +1,23 @@
+
+// controllers/design.js
+
 (function(){
   'use strict';
   /**
    * @ngInject
    */
   angular
-    .module('ConstructionModule')
-    .controller('ConstructionCtrl', constructionCtrl);
+    .module('DesignModule')
+    .controller('DesignCtrl', designPageCtrl);
 
-  function constructionCtrl($scope, $location, $filter, $interval, globalConstants, optionsServ, localStorage) {
+  function designPageCtrl($scope, $location, $filter, $interval, globalConstants, optionsServ, GlobalStor, OrderStor, ProductStor) {
 
-    $scope.global = localStorage.storage;
+    var thisCtrl = this;
 
-    $scope.constructData = {
+    thisCtrl.global = GlobalStor.global;
+    thisCtrl.product = ProductStor.product;
+
+    thisCtrl.config = {
       tempSize: [],
       minSizeLimit: 200,
       maxSizeLimit: 5000,
@@ -57,6 +63,12 @@
       DELAY_SHOW_FIGURE_ITEM: 1000,
       typing: 'on'
     };
+
+
+    //------ clicking
+
+    //============ methods ================//
+
 
     $scope.openVoiceHelper = false;
     $scope.loudVoice = false;
@@ -1446,3 +1458,4 @@
 
   }
 })();
+

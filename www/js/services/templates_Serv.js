@@ -43,7 +43,7 @@
 
 
     function initNewTemplateType(marker) {
-      GlobalStor.global.constructionType = marker;
+      ProductStor.product.constructionType = marker;
       ProductStor.product.templateIndex = 0;
       MainServ.prepareTemplates(marker);
       changeRoomImg(marker);

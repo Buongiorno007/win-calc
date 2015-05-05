@@ -17,9 +17,9 @@
       productSource: {
         orderId: 0,
         productId: 0,
-        isAddElementsONLY: false,
+        isAddElementsONLY: 0,
         selectedRoomId: 4,
-        constructionType: 1,
+        constructionType: 1, // 1 - window; 2 - windowDoor; 3 - balcony; 4 - door
 
         templateIndex: 0,
         templateSource: {},

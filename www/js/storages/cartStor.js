@@ -12,11 +12,16 @@
 
   function cartStorageFactory($filter) {
 
-    return {
+    var thisFactory = this;
 
-      showMasterDialog: false,
-      showOrderDialog: false,
-      showCreditDialog: false,
+    thisFactory.publicObj = {
+      cartSource: {
+        allAddElements: [],
+
+        showMasterDialog: false,
+        showOrderDialog: false,
+        showCreditDialog: false
+      },
 
       //------- data x order dialogs
       optionAge: [
@@ -24,7 +29,7 @@
         '31-40',
         '41-50',
         '51-60',
-        $filter('translate')('cart.CLIENT_AGE_OLDER') +' 61'
+          $filter('translate')('cart.CLIENT_AGE_OLDER') +' 61'
       ],
       optionEductaion: [
         $filter('translate')('cart.CLIENT_EDUC_MIDLE'),
@@ -44,8 +49,22 @@
         $filter('translate')('cart.CLIENT_INFO_PRESS'),
         $filter('translate')('cart.CLIENT_INFO_FRIEND'),
         $filter('translate')('cart.CLIENT_INFO_ADV')
-      ]
+      ],
 
+      setDefaultCart: setDefaultCart
+    };
+
+
+    thisFactory.publicObj.cart = setDefaultCart();
+
+    return thisFactory.publicObj;
+
+
+    //============ methods ================//
+
+    function setDefaultCart() {
+      var publicObj = angular.copy(thisFactory.publicObj.cartSource);
+      return publicObj;
     }
 
   }

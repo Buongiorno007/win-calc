@@ -15,8 +15,6 @@
 
       globalSource: {
         startProgramm: true, // for START
-        constructionType: 1, // 1 - window; 2 - windowDoor; 3 - balcony; 4 - door
-
         //------ navigation
         isNavMenu: true,
         isConfigMenu: false,

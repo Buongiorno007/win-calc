@@ -43,7 +43,7 @@
 
     //------- Select menu item
     function selectMenuItem(id) {
-      thisCtrl.activeMenuItem = ($scope.navMenu.activeMenuItem === id) ? 0 : id;
+      thisCtrl.activeMenuItem = (thisCtrl.activeMenuItem === id) ? 0 : id;
 
       //-------- go to...
       switch(thisCtrl.activeMenuItem) {
