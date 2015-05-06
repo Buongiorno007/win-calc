@@ -29,7 +29,7 @@
         '31-40',
         '41-50',
         '51-60',
-          $filter('translate')('cart.CLIENT_AGE_OLDER') +' 61'
+        $filter('translate')('cart.CLIENT_AGE_OLDER') +' 61'
       ],
       optionEductaion: [
         $filter('translate')('cart.CLIENT_EDUC_MIDLE'),

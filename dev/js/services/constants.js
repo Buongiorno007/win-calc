@@ -10,6 +10,10 @@
       REG_MAIL: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
           // /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
       productionDays: 15,
+      minDeliveryDays: 2,
+      maxDeliveryDays: 30,
+      ratePriceDeliveryLess: 100,
+      ratePriceDeliveryMore: 100,
 
       svgTemplateIconWidth: 70,
       svgTemplateIconHeight: 70,

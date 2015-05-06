@@ -549,8 +549,7 @@
         //-------- add product in order LocalStorage
         ProductStor.product.orderId = OrderStor.order.orderId;
         ProductStor.product.productId = (OrderStor.order.productsQty > 0) ? (OrderStor.order.productsQty + 1) : 1;
-        //------ clean template in product
-        ProductStor.product.template = {};
+        //-------- insert product in order
         OrderStor.order.products.push(ProductStor.product);
         OrderStor.order.productsQty = ProductStor.product.productId;
         insertProductInLocalDB(ProductStor.product);
@@ -642,6 +641,8 @@ console.log('!!!!!!!!!! product !!!!!!!!!!!', product);
 
       //--------- moving to Cart when click on Cart button
       $timeout(function() {
+        //------- set previos Page
+        GlobalStor.global.prevOpenPage = GlobalStor.global.currOpenPage;
         ProductStor.product = ProductStor.setDefaultProduct();
         $location.path('/cart');
       }, 500);

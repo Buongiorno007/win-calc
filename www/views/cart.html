@@ -68,7 +68,7 @@
             <div class="order-block">
               <div ng-repeat="product in cartPage.order.products track by $index" class="order">
                 <button hm-tap="cartPage.clickDeleteProduct($index)" class="order-delete"></button>
-                <div hm-tap="cartPage.editProduct($index, 'product')" class="order-header"><img ng-src="img/rooms-dialog/'+product.selectedRoomId+'.jpg" class="order-header-fon">
+                <div hm-tap="cartPage.editProduct($index, 'product')" class="order-header"><img ng-src="img/rooms-dialog/{{product.selectedRoomId}}.jpg" class="order-header-fon">
                   <div class="order-template">
                     <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
                   </div>
@@ -98,7 +98,7 @@
                       <div class="order-value">{{ product.laminationOutName }} / {{ product.laminationInName }}</div>
                       <div class="order-label">{{ 'mainpage.CONFIGMENU_LAMINATION' | translate }}</div>
                     </li>
-                    <li hm-tap="cartPage.showAllAddElementDetail($index)" class="order-item addelements-btn">
+                    <li hm-tap="cartPage.showAddElementDetail($index)" class="order-item addelements-btn">
                       <div ng-if="cartPage.cart.allAddElements[$index].length &gt; 4 || cartPage.cart.allAddElements[$index].length === 0" class="order-value">{{cartPage.cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENTS' | translate }}</div>
                       <div ng-if="cartPage.cart.allAddElements[$index].length &lt; 5 &amp;&amp; cartPage.cart.allAddElements[$index].length &gt; 1" class="order-value">{{cartPage.cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENTA' | translate }}</div>
                       <div ng-if="cartPage.cart.allAddElements[$index].length === 1" class="order-value">{{cartPage.cart.allAddElements[$index].length}} {{ 'add_elements.ELEMENT' | translate }}</div>
@@ -632,119 +632,119 @@
       </section>
     </section>
     <section class="right-menu">
-      <div ng-controller="CartMenuCtrl" ng-init="getOrderNumber()" class="right-menu-controller">
+      <div ng-controller="CartMenuCtrl as cartMenu" class="right-menu-controller">
         <div class="cart-menu">
           <ul class="items-list">
-            <li ng-class="{'active': cartMenuData.activeMenuItem==1}" hm-tap="selectMenuItem(1)" class="item">
-              <div data-output="{{ 'cart.DELIVERY' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="title"></div>
+            <li ng-class="{'active': cartMenu.config.activeMenuItem == 1}" hm-tap="cartMenu.selectMenuItem(1)" class="item">
+              <div data-output="{{ 'cart.DELIVERY' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
               <div class="cart-item-data">
-                <div ng-show="global.order.selectedFloor == 'free'" data-output="{{ 'cart.SELF_EXPORT' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div>
-                <div ng-hide="global.order.selectedFloor == 'free'" data-output="{{ global.order.selectedFloor }} {{ 'cart.FLOOR' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div><span ng-hide="global.order.selectedFloor == 'free'" data-output=" + {{ global.order.selectedFloorPrice }} {{ global.currency }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="name aside"></span>
+                <div ng-show="cartMenu.order.selectedFloor == 'free'" data-output="{{ 'cart.SELF_EXPORT' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
+                <div ng-hide="cartMenu.order.selectedFloor == 'free'" data-output="{{ cartMenu.order.selectedFloor }} {{ 'cart.FLOOR' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div><span ng-hide="cartMenu.order.selectedFloor == 'free'" data-output=" + {{ cartMenu.order.selectedFloorPrice }} {{ cartMenu.userInfo.currency }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span>
               </div>
             </li>
-            <div ng-class="{'active': cartMenuData.activeMenuItem==1}" class="dropdown-cart-menu drop-delivery">
+            <div ng-class="{'active': cartMenu.config.activeMenuItem == 1}" class="dropdown-cart-menu drop-delivery">
               <ul class="dropdown-items-list">
-                <li ng-class="{'selected': global.order.selectedFloor == 'free'}" hm-tap="selectFloorPrice('free', 0)" class="dropdown-item">
+                <li ng-class="{'selected': cartMenu.order.selectedFloor == 'free'}" hm-tap="cartMenu.selectFloorPrice('free', 0)" class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value drop-txt">{{ 'cart.SELF_EXPORT' | translate }}</div>
                     <div class="name drop-txt"></div>
                   </div>
                 </li>
-                <li ng-repeat="floorList in cartMenuData.floorData" ng-class="{'selected': global.order.selectedFloor == floorList.name}" hm-tap="selectFloorPrice(floorList.name, floorList.price)" class="dropdown-item">
+                <li ng-repeat="floorList in cartMenu.config.floorData" ng-class="{'selected': cartMenu.order.selectedFloor == floorList.name}" hm-tap="cartMenu.selectFloorPrice(floorList.name, floorList.price)" class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value drop-txt">{{floorList.name}} {{ 'cart.FLOOR' | translate }}</div>
-                    <div class="name drop-txt">+ {{floorList.price}} {{ global.currency }}</div>
+                    <div class="name drop-txt">+ {{floorList.price}} {{ cartMenu.userInfo.currency }}</div>
                   </div>
                 </li>
               </ul>
             </div>
-            <li ng-class="{'active': cartMenuData.activeMenuItem==2}" hm-tap="selectMenuItem(2)" class="item">
-              <div data-output="{{ 'cart.ASSEMBLING' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="title"></div>
+            <li ng-class="{'active': cartMenu.config.activeMenuItem == 2}" hm-tap="cartMenu.selectMenuItem(2)" class="item">
+              <div data-output="{{ 'cart.ASSEMBLING' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
               <div class="cart-item-data">
-                <div ng-show="global.order.selectedAssembling == 'free'" data-output="{{ 'cart.WITHOUT_ASSEMBLING' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div>
-                <div ng-hide="global.order.selectedAssembling == 'free'" data-output="{{ global.order.selectedAssembling }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div><span ng-hide="global.order.selectedAssembling == 'free'" data-output=" + {{ global.order.selectedAssemblingPrice }} {{ global.currency }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="name aside"></span>
+                <div ng-show="cartMenu.order.selectedAssembling == 'free'" data-output="{{ 'cart.WITHOUT_ASSEMBLING' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
+                <div ng-hide="cartMenu.order.selectedAssembling == 'free'" data-output="{{ cartMenu.order.selectedAssembling }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div><span ng-hide="cartMenu.order.selectedAssembling == 'free'" data-output=" + {{ cartMenu.order.selectedAssemblingPrice }} {{ cartMenu.userInfo.currency }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span>
               </div>
             </li>
-            <div ng-class="{'active': cartMenuData.activeMenuItem==2}" class="dropdown-cart-menu drop-assembling">
+            <div ng-class="{'active': cartMenu.config.activeMenuItem == 2}" class="dropdown-cart-menu drop-assembling">
               <ul class="dropdown-items-list">
-                <li ng-class="{'selected': global.order.selectedAssembling == 'free'}" hm-tap="selectAssembling('free', 0)" class="dropdown-item">
+                <li ng-class="{'selected': cartMenu.order.selectedAssembling == 'free'}" hm-tap="cartMenu.selectAssembling('free', 0)" class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value drop-txt">{{ 'cart.WITHOUT_ASSEMBLING' | translate }}</div>
                     <div class="name drop-txt">{{ 'cart.FREE' | translate }}</div>
                   </div>
                 </li>
-                <li ng-repeat="assemb in cartMenuData.assemblingData" ng-class="{'selected': global.order.selectedAssembling == assemb.name}" hm-tap="selectAssembling(assemb.name, assemb.price)" class="dropdown-item">
+                <li ng-repeat="assemb in cartMenu.config.assemblingData" ng-class="{'selected': cartMenu.order.selectedAssembling == assemb.name}" hm-tap="cartMenu.selectAssembling(assemb.name, assemb.price)" class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value drop-txt">{{ assemb.name }}</div>
-                    <div class="name drop-txt">+ {{ assemb.price }} {{ global.currency }}</div>
+                    <div class="name drop-txt">+ {{ assemb.price }} {{ cartMenu.userInfo.currency }}</div>
                   </div>
                 </li>
               </ul>
             </div>
-            <li ng-class="{'active': cartMenuData.activeMenuItem==3}" hm-tap="selectMenuItem(3)" class="item switcher">
-              <div data-output="{{ 'cart.PAYMENT_BY_INSTALMENTS' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="title"></div>
+            <li ng-class="{'active': cartMenu.config.activeMenuItem == 3}" hm-tap="cartMenu.selectMenuItem(3)" class="item switcher">
+              <div data-output="{{ 'cart.PAYMENT_BY_INSTALMENTS' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
               <div class="cart-item-data">
-                <div ng-if="global.order.isInstalment === 'false'" data-output="{{ 'cart.WITHOUT_INSTALMENTS' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div>
-                <div ng-if="global.order.isInstalment !== 'false' &amp;&amp; global.order.selectedInstalmentPeriod == 1" data-output="{{ global.order.selectedInstalmentPeriod }} {{ 'common_words.MONTH_LABEL' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div>
-                <div ng-if="global.order.isInstalment !== 'false' &amp;&amp; global.order.selectedInstalmentPeriod &gt; 1 &amp;&amp; global.order.selectedInstalmentPeriod &lt; 5" data-output="{{ global.order.selectedInstalmentPeriod }} {{ 'common_words.MONTHA_LABEL' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div>
-                <div ng-if="global.order.isInstalment !== 'false' &amp;&amp; global.order.selectedInstalmentPeriod &gt; 4" data-output="{{ global.order.selectedInstalmentPeriod }} {{ 'common_words.MONTHS_LABEL' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div><span ng-if="global.order.isInstalment !== 'false'" data-output="{{ global.order.selectedInstalmentPercent }} %" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="name aside"></span>
+                <div ng-if="!cartMenu.order.isInstalment" data-output="{{ 'cart.WITHOUT_INSTALMENTS' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
+                <div ng-if="cartMenu.order.isInstalment" class="value">{{ cartMenu.order.selectedInstalmentPeriod }}
+                  <ng-pluralize count="cartMenu.order.selectedInstalmentPeriod" when="{'1': '{{ cartMenu.config.month }}', '2': '{{ cartMenu.config.montha }}', '3': '{{ cartMenu.config.montha }}', '4': '{{ cartMenu.config.montha }}', 'other': '{{ cartMenu.config.months }}'}"></ng-pluralize>
+                </div><span ng-if="cartMenu.order.isInstalment" data-output="{{ cartMenu.order.selectedInstalmentPercent }} %" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span>
               </div>
-              <div ng-class="{'active': global.order.isInstalment !== 'false' }" hm-tap="selectInstalment()" class="check-switcher">
+              <div ng-class="{'active': cartMenu.order.isInstalment }" hm-tap="cartMenu.closeInstalment()" class="check-switcher">
                 <div class="check-bg-active"></div>
                 <div class="check-bg-passive"></div>
               </div>
-              <div ng-class="{'active': global.order.isInstalment !== 'false' }" hm-tap="selectInstalment()" class="check-handle"></div>
+              <div ng-class="{'active': cartMenu.order.isInstalment }" hm-tap="cartMenu.closeInstalment()" class="check-handle"></div>
             </li>
-            <div ng-class="{'active': cartMenuData.activeMenuItem==3}" class="dropdown-cart-menu drop-instalment">
+            <div ng-class="{'active': cartMenu.config.activeMenuItem == 3}" class="dropdown-cart-menu drop-instalment">
               <ul class="dropdown-items-list">
-                <li ng-repeat="payment in cartMenuData.instalmentsData" ng-class="{'selected': global.order.isInstalment == $index}" hm-tap="selectInstalment($index)" class="dropdown-item">
+                <li ng-repeat="payment in cartMenu.config.instalmentsData" ng-class="{'selected': cartMenu.order.selectedInstalmentPeriod == payment.period}" hm-tap="cartMenu.selectInstalment(payment.period, payment.percent)" class="dropdown-item">
                   <div class="dropdown-item-inner">
-                    <div ng-if="payment.period == 1" class="value">{{ payment.period }} {{ 'common_words.MONTH_LABEL' | translate }}</div>
-                    <div ng-if="payment.period &gt; 1 &amp;&amp; payment.period &lt; 5" class="value">{{ payment.period }} {{ 'common_words.MONTHA_LABEL' | translate }}</div>
-                    <div ng-if="payment.period &gt; 4" class="value">{{ payment.period }} {{ 'common_words.MONTHS_LABEL' | translate }}</div>
+                    <div class="value">{{ payment.period }}
+                      <ng-pluralize count="payment.period" when="{'1': '{{ cartMenu.config.month }}', '2': '{{ cartMenu.config.montha }}', '3': '{{ cartMenu.config.montha }}', '4': '{{ cartMenu.config.montha }}', 'other': '{{ cartMenu.config.months }}'}"></ng-pluralize>
+                    </div>
                     <div class="value value-percent">{{ payment.percent }} %</div>
                   </div>
                 </li>
               </ul>
             </div>
-            <li ng-class="{'active': cartMenuData.activeMenuItem==4}" hm-tap="selectMenuItem(4)" class="item">
-              <div data-output="{{ 'cart.DELIVERY_DATE' | translate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="title"></div>
-              <div data-output="{{ global.order.newDeliveryDate }}" typing="{{ cartMenuData.typing }}" typing-delay="{{ cartMenuData.DELAY_START }}" class="value"></div>
+            <li ng-class="{'active': cartMenu.config.activeMenuItem == 4}" hm-tap="cartMenu.selectMenuItem(4)" class="item">
+              <div data-output="{{ 'cart.DELIVERY_DATE' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
+              <div data-output="{{ cartMenu.order.newDeliveryDate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
             </li>
-            <div ng-class="{'active': cartMenuData.activeMenuItem==4}" class="dropdown-cart-menu drop-calendar">
+            <div ng-class="{'active': cartMenu.config.activeMenuItem == 4}" class="dropdown-cart-menu drop-calendar">
               <calendar calendar-option=" {{ 'common_words.MONTHS' | translate }} " calendar-option-short="{{ 'common_words.MONTHS_SHOT' | translate }} " class="calendar-box"></calendar>
             </div>
             <div class="calendar-prices">
-              <div ng-show="global.order.isDatePriceMore" class="calendar-price up">+ {{ global.order.deliveryPrice }} {{ global.currency }}</div>
-              <div ng-show="global.order.isDatePriceLess" class="calendar-price down">- {{ global.order.deliveryPrice }} {{ global.currency }}</div>
+              <div ng-show="cartMenu.order.isDatePriceMore" class="calendar-price up">+ {{ cartMenu.order.deliveryPrice }} {{ cartMenu.userInfo.currency }}</div>
+              <div ng-show="cartMenu.order.isDatePriceLess" class="calendar-price down">- {{ cartMenu.order.deliveryPrice }} {{ cartMenu.userInfo.currency }}</div>
             </div>
           </ul>
           <footer class="menu-footer">
-            <div ng-class="{'active': global.order.isInstalment !== 'false'}" class="price-block price-with-instalments">
-              <div class="name">{{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ global.order.selectedInstalmentPercent }} %</div>
-              <div class="name">{{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{ global.order.newDeliveryDate }}</div>
-              <price price-value="global.order.paymentFirst" price-currency="global.currency"></price>
-              <div class="name">{{ global.order.selectedInstalmentPeriod }} {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }}</div>
-              <price price-value="global.order.paymentMonthly" price-currency="global.currency"></price>
+            <div ng-class="{'active': cartMenu.order.isInstalment}" class="price-block price-with-instalments">
+              <div class="name">{{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ cartMenu.order.selectedInstalmentPercent }} %</div>
+              <div class="name">{{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{ cartMenu.order.newDeliveryDate }}</div>
+              <price price-value="cartMenu.order.paymentFirst" price-currency="cartMenu.userInfo.currency"></price>
+              <div class="name">{{ cartMenu.order.selectedInstalmentPeriod }} {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }}</div>
+              <price price-value="cartMenu.order.paymentMonthly" price-currency="cartMenu.userInfo.currency"></price>
             </div>
-            <div ng-class="{'active': global.order.isInstalment === 'false'}" class="price-block price-without-instalments">
-              <div class="name">{{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{ global.order.newDeliveryDate }}</div>
-              <price price-value="global.order.orderPriceTOTAL" price-currency="global.currency"></price>
+            <div ng-class="{'active': !cartMenu.order.isInstalment}" class="price-block price-without-instalments">
+              <div class="name">{{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{ cartMenu.order.newDeliveryDate }}</div>
+              <price price-value="cartMenu.order.orderPriceTOTAL" price-currency="cartMenu.userInfo.currency"></price>
             </div>
-            <button hm-tap="showCallOrderDialog()" class="order-btn">{{ 'cart.ORDER' | translate }}</button>
-            <button hm-tap="showCallMasterDialog()" class="measure-btn">{{ 'cart.MEASURE' | translate }}</button>
+            <button hm-tap="cartMenu.showCallOrderDialog()" class="order-btn">{{ 'cart.ORDER' | translate }}</button>
+            <button hm-tap="cartMenu.showCallMasterDialog()" class="measure-btn">{{ 'cart.MEASURE' | translate }}</button>
           </footer>
         </div>
-        <div ng-class="{'active': global.order.isOldPrice &amp;&amp; global.order.isInstalment !== 'false'}" class="old-price-inst-tab">
-          <div class="name">{{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ global.order.selectedInstalmentPercent }} %</div>
-          <div class="name">{{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{ global.order.deliveryDate }}</div>
-          <price price-value="global.order.paymentFirstPrimary" price-currency="global.currency"></price>
-          <div class="name">{{ global.order.selectedInstalmentPeriod }} {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }}</div>
-          <price price-value="global.order.paymentMonthlyPrimary" price-currency="global.currency"></price>
+        <div ng-class="{'active': cartMenu.order.isOldPrice &amp;&amp; cartMenu.order.isInstalment}" class="old-price-inst-tab">
+          <div class="name">{{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ cartMenu.order.selectedInstalmentPercent }} %</div>
+          <div class="name">{{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{ cartMenu.order.deliveryDate }}</div>
+          <price price-value="cartMenu.order.paymentFirstPrimary" price-currency="cartMenu.userInfo.currency"></price>
+          <div class="name">{{ cartMenu.order.selectedInstalmentPeriod }} {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }}</div>
+          <price price-value="cartMenu.order.paymentMonthlyPrimary" price-currency="cartMenu.userInfo.currency"></price>
         </div>
-        <div ng-class="{'active': global.order.isOldPrice &amp;&amp; global.order.isInstalment === 'false'}" class="old-price-tab">
-          <div class="name">{{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{ global.order.deliveryDate }}</div>
-          <price price-value="global.order.orderPriceTOTALPrimary" price-currency="global.currency"></price>
+        <div ng-class="{'active': cartMenu.order.isOldPrice &amp;&amp; !cartMenu.order.isInstalment}" class="old-price-tab">
+          <div class="name">{{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{ cartMenu.order.deliveryDate }}</div>
+          <price price-value="cartMenu.order.orderPriceTOTALPrimary" price-currency="cartMenu.userInfo.currency"></price>
         </div>
       </div>
     </section>

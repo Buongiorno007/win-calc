@@ -44,12 +44,7 @@
     //------- Select menu item
 
     function selectConfigPanel(id) {
-      //------- if panel is opened yet
-      if(GlobalStor.global.activePanel === id) {
-        GlobalStor.global.activePanel = 0;
-      } else {
-        GlobalStor.global.activePanel = id;
-      }
+      GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
 
       AuxStor.aux.isWindowSchemeDialog = false;
       AuxStor.aux.isAddElementListView = false;

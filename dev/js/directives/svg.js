@@ -116,7 +116,6 @@
               sizeBoxMarginBottom = 50;
 
 
-
           //------- Create elements of construction
           for (var i = 0; i < template.objects.length; i++) {
             var path = '',

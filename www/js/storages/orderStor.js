@@ -16,6 +16,7 @@
     thisFactory.publicObj = {
       orderSource: {
         orderId: 0,
+        orderDate: new Date(),
         //------- current Geolocation
         currCityId: 0,
         currCityName: '',
@@ -39,7 +40,7 @@
         selectedFloorPrice: 0,
         selectedAssembling: 'free',
         selectedAssemblingPrice: 0,
-        isInstalment: 'false',
+        isInstalment: false,
         selectedInstalmentPeriod: 0,
         selectedInstalmentPercent: 0,
         isOldPrice: false,

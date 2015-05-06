@@ -11,7 +11,7 @@
         MONTHS_SHOT: 'Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez',
         MONTHA: 'Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember',
         MONTH_LABEL: 'Monat',
-        MONTHA_LABEL: 'des Monats',
+        MONTHA_LABEL: 'Monats',
         MONTHS_LABEL: 'Monate',
         ALL: 'alles',
         MIN: 'min.',

@@ -10,11 +10,15 @@
     .module('CartModule')
     .factory('CartServ', cartFactory);
 
-  function cartFactory($location, $filter, $cordovaDialogs, localDB, GeneralServ, MainServ, GlobalStor, OrderStor, CartStor) {
+  function cartFactory($location, $q, $filter, $cordovaDialogs, localDB, GeneralServ, MainServ, CartMenuServ, GlobalStor, OrderStor, ProductStor, CartStor) {
 
     var thisFactory = this;
 
     thisFactory.publicObj = {
+      cleanAllTemplatesInOrder: cleanAllTemplatesInOrder,
+      downloadOrder: downloadOrder,
+      downloadProducts: downloadProducts,
+      downloadAddElements: downloadAddElements,
       joinAllAddElements: joinAllAddElements,
       increaseProductQty: increaseProductQty,
       decreaseProductQty: decreaseProductQty,
@@ -35,6 +39,97 @@
 
 
     //============ methods ================//
+
+    //------ clean template in products
+    function cleanAllTemplatesInOrder() {
+      var productsQty = OrderStor.order.products.length,
+          prod = 0;
+      for(; prod < productsQty; prod++) {
+        delete OrderStor.order.products[prod].template;
+      }
+    }
+
+    function downloadOrder() {
+      localDB.selectDB(localDB.ordersTableBD, {'orderId': GlobalStor.global.orderEditNumber}).then(function(result) {
+        if(result) {
+          angular.extend(OrderStor.order, result[0]);
+          OrderStor.order.isOldPrice = (OrderStor.order.isOldPrice === 'true') ? true : false;
+        } else {
+          console.log(result);
+        }
+      });
+    }
+
+
+    //------ Download All Products Data for Order
+    function downloadProducts() {
+      var deferred = $q.defer();
+      localDB.selectDB(localDB.productsTableBD, {'orderId': GlobalStor.global.orderEditNumber}).then(function(result) {
+        if(result) {
+          var editedProducts = angular.copy(result[0]),
+            editedProductsQty = editedProducts.length,
+            prod = 0;
+
+          //------------- parsing All Templates Source and Icons for Order
+          for(; prod < editedProductsQty; prod++) {
+            ProductStor.product = ProductStor.setDefaultProduct();
+            angular.extend(ProductStor.product, editedProducts[prod]);
+            console.log('product ==== ', ProductStor.product);
+
+            //----- checking product with design or only addElements
+            if(!ProductStor.product.isAddElementsONLY || ProductStor.product.isAddElementsONLY === 'false') {
+              //----- parsing design from string to object
+              ProductStor.product.templateSource = parsingTemplateSource(ProductStor.product.templateSource);
+              console.log('templateSource', ProductStor.product.templateSource);
+              //----- find depths and build design icon
+              MainServ.setCurrentProfile().then(function(){
+                ProductStor.product.templateIcon = new TemplateIcon(ProductStor.product.templateSource, GlobalStor.global.profileDepths);
+                console.log('templateIcon', ProductStor.product.templateIcon);
+              });
+            }
+            OrderStor.order.products.push(ProductStor.product);
+          }
+          deferred.resolve('done');
+          //------ Download All Add Elements of edited Order
+
+        } else {
+          deferred.reject(result);
+        }
+      });
+      return deferred.promise;
+    }
+
+
+    //------ Download All Add Elements from LocalDB
+    function downloadAddElements() {
+      var deferred = $q.defer();
+      localDB.selectDB(localDB.addElementsTableBD, {'orderId': GlobalStor.global.orderEditNumber}).then(function(result) {
+        if(result) {
+          console.log('results.data === ', result);
+          var allAddElements = angular.copy(result[0]),
+              allAddElementsQty = allAddElements.length,
+              elem = 0;
+
+          for(; elem < allAddElementsQty; elem++) {
+            var prod = 0;
+            for(; prod < OrderStor.order.productsQty; prod++) {
+              if(allAddElements[elem].productId === OrderStor.order.products[prod].productId) {
+                OrderStor.order.products[prod].chosenAddElements[allAddElements[elem].elementType].push(allAddElements[elem]);
+                deferred.resolve('done');
+              }
+            }
+          }
+
+        } else {
+          deferred.reject(result);
+        }
+      });
+      return deferred.promise;
+    }
+
+
+
+
 
 
     //---------- parse Add Elements from LocalStorage
@@ -149,7 +244,7 @@
     function calculateOrderPrice() {
       calculateAllProductsPrice();
       //----- join together product prices and order option
-      //TODO $scope.global.calculateTotalOrderPrice();
+      CartMenuServ.calculateTotalOrderPrice();
     }
 
 

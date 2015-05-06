@@ -6223,7 +6223,7 @@ li.constr-shape-icon:last-child {
   -webkit-flex-flow: row nowrap;
   flex-flow: row nowrap;
   position: absolute;
-  top: 25%;
+  top: 40%;
   right: 1.25rem;
   width: 6.625rem;
   height: 4.125rem;
@@ -6265,7 +6265,7 @@ li.constr-shape-icon:last-child {
   -moz-box-shadow: #bebebe 0 0.3125rem 0.625rem;
   -webkit-box-shadow: #bebebe 0 0.3125rem 0.625rem;
   box-shadow: #bebebe 0 0.3125rem 0.625rem;
-  top: 26%;
+  top: 41%;
   right: 3.875rem;
   position: absolute;
   width: 3.75rem;

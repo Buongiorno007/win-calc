@@ -7,7 +7,7 @@
     .module('CartModule')
     .directive('calendar', calendarDir);
 
-  function calendarDir() {
+  function calendarDir(globalConstants, CartMenuServ, OrderStor) {
 
     return {
       restrict: 'E',
@@ -17,6 +17,14 @@
         dataMonthsShort: '@calendarOptionShort'
       },
       link: function (scope, element, attrs) {
+        var minDeliveryDate = new Date(),
+            maxDeliveryDate = new Date();
+
+        //------ set min delivery day
+        minDeliveryDate.setDate(OrderStor.order.orderDate.getDate() + globalConstants.minDeliveryDays);
+        //------ set max delivery day
+        maxDeliveryDate.setDate(OrderStor.order.orderDate.getDate() + globalConstants.maxDeliveryDays);
+
         $(function(){
           var opt = {
             flat: true,
@@ -28,11 +36,11 @@
               monthsShort: [],
               months: []
             },
-            date: scope.$parent.global.order.deliveryDate,
-            min: scope.$parent.cartMenuData.minDeliveryDate,
-            max: scope.$parent.cartMenuData.maxDeliveryDate,
+            date: OrderStor.order.deliveryDate,
+            min: minDeliveryDate,
+            max: maxDeliveryDate,
             change: function (date) {
-              scope.$parent.checkDifferentDate(scope.$parent.global.order.deliveryDate, date);
+              CartMenuServ.checkDifferentDate(OrderStor.order.deliveryDate, date);
               scope.$apply();
             }
           };

@@ -46,7 +46,7 @@
     @include flex-flow(row nowrap);
 
     position: absolute;
-    top: 25%;
+    top: 40%; //25%
     right: rem(20px);
     width: rem(106px);
     height: rem(66px);
@@ -82,7 +82,7 @@
     @include transition(all 0.5s linear);
     @include box-shadow($main_gray_btn 0 rem(5px) rem(10px) );
 
-    top: 26%;
+    top: 41%; //26%
     right: rem(62px);
     position: absolute;
     width: rem(60px);
