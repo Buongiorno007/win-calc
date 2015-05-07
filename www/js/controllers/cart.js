@@ -24,33 +24,33 @@
       isCartLightView: false,
       detailProductIndex: 0,
 
-      allAddElementsListSource: {
-        grids: [],
-        visors: [],
-        spillways: [],
-        outsideSlope: [],
-        louvers: [],
-        insideSlope: [],
-        connectors: [],
-        fans: [],
-        windowSill: [],
-        handles: [],
-        others: []
-      },
-      allAddElementsList: {},
-      addElementsUniqueList: {},
-      allTemplateIcons: [],
-
-      addElementsListPriceTOTAL: 0,
-      isAllAddElements: false,
-      isShowAllAddElements: false,
-      isShowAddElementUnit: false,
-      selectedAddElementUnitId: 0,
-      selectedAddElementUnitIndex: 0,
-      selectedAddElementUnitType: 0,
-      selectedAddElementUnits: [],
-      isOrderHaveAddElements: false,
-      isShowLinkExplodeMenu: false,
+//      allAddElementsListSource: {
+//        grids: [],
+//        visors: [],
+//        spillways: [],
+//        outsideSlope: [],
+//        louvers: [],
+//        insideSlope: [],
+//        connectors: [],
+//        fans: [],
+//        windowSill: [],
+//        handles: [],
+//        others: []
+//      },
+//      allAddElementsList: {},
+//      addElementsUniqueList: {},
+//      allTemplateIcons: [],
+//
+//      addElementsListPriceTOTAL: 0,
+//      isAllAddElements: false,
+//      isShowAllAddElements: false,
+//      isShowAddElementUnit: false,
+//      selectedAddElementUnitId: 0,
+//      selectedAddElementUnitIndex: 0,
+//      selectedAddElementUnitType: 0,
+//      selectedAddElementUnits: [],
+//      isOrderHaveAddElements: false,
+//      isShowLinkExplodeMenu: false,
 
       element: $filter('translate')('add_elements.ELEMENT'),
       elementa: $filter('translate')('add_elements.ELEMENTA'),
@@ -68,8 +68,6 @@
 
     //================ EDIT order from Histoy Page
     if(GlobalStor.global.orderEditNumber > 0) {
-      OrderStor.order = OrderStor.setDefaultOrder();
-
       //------- download edited Order
       CartServ.downloadOrder();
 

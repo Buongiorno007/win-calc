@@ -209,52 +209,5 @@
 
 
 
-
-
-
-//
-
-
-
-//
-//
-//
-//    //-------- save Order into Local DB
-//    $scope.global.insertOrderInLocalDB = function(newOptions, orderType, orderStyle) {
-//      var orderData = {};
-//
-//      $scope.global.order.orderType = orderType;
-//      $scope.global.order.orderStyle = orderStyle;
-//      $scope.global.order.productsQty = $scope.global.order.products.length;
-//      $scope.global.order.productsPriceTOTAL = parseFloat($scope.global.order.productsPriceTOTAL.toFixed(2));
-//      $scope.global.order.paymentFirst = parseFloat($scope.global.order.paymentFirst.toFixed(2));
-//      $scope.global.order.paymentMonthly = parseFloat($scope.global.order.paymentMonthly.toFixed(2));
-//      $scope.global.order.paymentFirstPrimary = parseFloat($scope.global.order.paymentFirstPrimary.toFixed(2));
-//      $scope.global.order.paymentMonthlyPrimary = parseFloat($scope.global.order.paymentMonthlyPrimary.toFixed(2));
-//      $scope.global.order.orderPriceTOTAL = parseFloat($scope.global.order.orderPriceTOTAL.toFixed(2));
-//      $scope.global.order.orderPriceTOTALPrimary = parseFloat($scope.global.order.orderPriceTOTALPrimary.toFixed(2));
-//      angular.extend($scope.global.order, newOptions);
-//      //------- save order in orders LocalStorage
-//      if(!$scope.global.orderEditNumber || $scope.global.orderEditNumber < 0) {
-//        $scope.global.orders.push($scope.global.order);
-//      }
-//      //console.log(JSON.stringify($scope.global.order));
-//      //------- save order in LocalDB
-//      orderData = angular.copy($scope.global.order);
-//      delete orderData.products;
-//
-//      //console.log('$scope.global.order.orderStyle === ', $scope.global.order);
-//      localDB.insertDB(localDB.ordersTableBD, orderData);
-//
-//    };
-//
-//    //-------- delete order from LocalDB
-//    $scope.global.deleteOrderFromLocalDB = function(orderNum) {
-//      localDB.deleteDB(localDB.ordersTableBD, {'orderId': orderNum});
-//      localDB.deleteDB(localDB.productsTableBD, {'orderId': orderNum});
-//      localDB.deleteDB(localDB.addElementsTableBD, {'orderId': orderNum});
-//    };
-
-
   }
 })();

@@ -10,7 +10,7 @@
     .module('MainModule')
     .controller('searchCtrl', searchCtrl);
 
-  function searchCtrl($filter, GlobalStor, AuxStor, AddElementsServ, AddElementMenuServ) {
+  function searchCtrl($filter, GlobalStor, AuxStor, HistoryStor, AddElementsServ, AddElementMenuServ) {
 
     var thisCtrl = this;
     thisCtrl.global = GlobalStor.global;
@@ -23,9 +23,12 @@
       thisCtrl.checkChanges = checkChanges;
       thisCtrl.cancelSearching = cancelSearching;
       thisCtrl.deleteSearchChart = deleteSearchChart;
-    } else {
+    } else if(GlobalStor.global.currOpenPage === 'history'){
       //----------- for History Page
       thisCtrl.placeholder = $filter('translate')('history.SEARCH_PLACEHOLDER');
+      thisCtrl.checkChanges = checkChangesHistory;
+      thisCtrl.cancelSearching = cancelSearchingHistory;
+      thisCtrl.deleteSearchChart = deleteSearchChartHistory;
     }
 
 
@@ -60,6 +63,25 @@
       } else {
         AuxStor.aux.searchingWord = thisCtrl.searchingWord;
       }
+    }
+
+
+    //========== History Page ===========//
+
+    function checkChangesHistory() {
+      if(thisCtrl.searchingWord !== '') {
+        HistoryStor.history.searchingWord = thisCtrl.searchingWord;
+      }
+    }
+    //-------- Delete searching word
+    function cancelSearchingHistory() {
+      thisCtrl.searchingWord = '';
+      HistoryStor.history.isOrderSearch = false;
+    }
+
+    //-------- Delete last chart searching word
+    function deleteSearchChartHistory() {
+      thisCtrl.searchingWord = thisCtrl.searchingWord.slice(0,-1);
     }
 
 

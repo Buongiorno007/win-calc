@@ -29,7 +29,8 @@
         SEND_ORDER_TXT: 'Sie wollen die Bestellung auf den Betrieb absenden?',
         NEW_TEMPLATE_TITLE: 'Template changing',
         TEMPLATE_CHANGES_LOST: 'The template changes will lost! Continue?',
-        SELECT: 'Select'
+        SELECT: 'Select',
+        AND: 'und'
       },
       login: {
         ENTER: 'Einloggen',
@@ -202,7 +203,8 @@
         SORT_SHOW_DONE: 'Только завершенные',
         BY_YOUR_REQUEST: 'Je nach Wunsch',
         NOT_FIND: 'nichts gefunden',
-        WAIT_MASTER: 'erwartet Gager'
+        WAIT_MASTER: 'erwartet Gager',
+        INCLUDED: 'inbegriffen'
       },
       cart: {
         ALL_ADD_ELEMENTS: 'Alle Anbauteile bestellen',

@@ -1,36 +1,28 @@
-#call-master-dialog.cart-dialogs(ng-controller="CallMasterCtrl", ng-class="{ 'unvisible' : !cartStor.showMasterDialog }")
+#call-master-dialog.cart-dialogs(ng-controller="CallMasterCtrl as masterDialog", ng-class="{ 'unvisible' : !masterDialog.cart.isMasterDialog }")
   .cart-dialogs-container
-    form(name='callMasterForm', novalidate, ng-submit="submitForm(callMasterForm)")
+    form(name='callMasterForm', novalidate, ng-submit="masterDialog.submitForm(callMasterForm)")
       .cart-dialog-header
-        button.cart-dialog-tool.back(hm-tap="hideCallMasterDialog()", type="button")
-        .cart-dialog-title {{ 'cart.CALL_MASTER' | translate }} {{ global.order.orderId }}
+        button.cart-dialog-tool.back(hm-tap="masterDialog.closeOrderDialog()", type="button")
+        .cart-dialog-title {{ 'cart.CALL_MASTER' | translate }} {{ masterDialog.order.orderId }}
         button.save(type="submit") {{ 'cart.READY' | translate }}
       .cart-dialog-body
         .cart-dialog-descrip {{ 'cart.CALL_MASTER_DESCRIP' | translate }}
 
-        //.input-field(ng-class="{ 'has-error' : submitted && callMasterForm.location.$error.required }")
-          input.user-field(type="text", name="location", ng-model="user.location", ng-change="checkChanges()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", ng-focus="isFocused=true", ng-blur="isFocused=false", required)
-          .error-tooltip(ng-show='submitted && callMasterForm.location.$error.required') {{ 'login.EMPTY_FIELD' | translate }}
+        .input-field(ng-class="{ 'has-error' : masterDialog.cart.submitted && callMasterForm.name.$error.required }")
+          input.user-field(type="text", name="name", ng-model="masterDialog.cart.user.name", placeholder="{{ 'cart.CLIENT_NAME' | translate }}", required)
+          .error-tooltip(ng-show="masterDialog.cart.submitted && callMasterForm.name.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
 
-          ul.location-list-tooltip(ng-show="locationDirty && isFocused", ng-focus="isFocused=true", ng-blur="isFocused=false", tabindex="1")
-            li.location-option(ng-hide="filteredCity.length") {{ 'cart.EMPTY_SEARCH' | translate }}
-            li.location-option(ng-repeat="city in filteredCity = (cities | filter: filterBySearch)", hm-tap="selectCity(city)") {{city}}
+        .input-field(ng-class="{ 'has-error' : masterDialog.cart.submitted && callMasterForm.location.$error.required, 'current-city' : currentCity }")
+          input.user-field(type="text", name="location", ng-model="masterDialog.cart.user.location", ng-change="masterDialog.checkChanges()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", ng-focus="masterDialog.isFocused=true", ng-blur="masterDialog.isFocused=false", required)
+          .error-tooltip(ng-show='masterDialog.cart.submitted && callMasterForm.location.$error.required') {{ 'login.EMPTY_FIELD' | translate }}
+          ul.location-list-tooltip(ng-show="masterDialog.showTipCity && masterDialog.isFocused", ng-focus="masterDialog.isFocused=true", ng-blur="masterDialog.isFocused=false", tabindex="1")
+            li.location-option(ng-repeat="location in masterDialog.filteredCity", hm-tap="masterDialog.selectCity(location.city, location.current)", ng-class="{ 'current-city' : location.current }") {{location.city}}
 
-        .input-field(ng-class="{ 'has-error' : submitted && callMasterForm.name.$error.required }")
-          input.user-field(type="text", name="name", ng-model="user.name", placeholder="{{ 'cart.CLIENT_NAME' | translate }}", required)
-          .error-tooltip(ng-show="submitted && callMasterForm.name.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+        .input-field(ng-class="{ 'has-error' : masterDialog.cart.submitted && callMasterForm.address.$error.required }")
+          input.user-field(type="text", name="address", ng-model="masterDialog.cart.user.address", placeholder="{{ 'cart.CLIENT_ADDRESS' | translate }}", required)
+          .error-tooltip(ng-show="masterDialog.cart.submitted && callMasterForm.address.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
 
-        .input-field(ng-class="{ 'has-error' : submitted && callMasterForm.location.$error.required, 'current-city' : currentCity }")
-          input.user-field(type="text", name="location", ng-model="user.location", ng-change="checkChanges()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", ng-focus="isFocused=true", ng-blur="isFocused=false", required)
-          .error-tooltip(ng-show='submitted && callMasterForm.location.$error.required') {{ 'login.EMPTY_FIELD' | translate }}
-          ul.location-list-tooltip(ng-show="showTipCity && isFocused", ng-focus="isFocused=true", ng-blur="isFocused=false", tabindex="1")
-            li.location-option(ng-repeat="location in filteredCity", hm-tap="selectCity(location.city, location.current)", ng-class="{ 'current-city' : location.current }") {{location.city}}
-
-        .input-field(ng-class="{ 'has-error' : submitted && callMasterForm.address.$error.required }")
-          input.user-field(type="text", name="address", ng-model="user.address", placeholder="{{ 'cart.CLIENT_ADDRESS' | translate }}", required)
-          .error-tooltip(ng-show="submitted && callMasterForm.address.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
-
-        .input-field(ng-class="{ 'has-error' : submitted && callMasterForm.phone.$error.required }")
-          input.user-field(type="tel", name="phone", ng-model="user.phone", ng-pattern="", placeholder="{{ 'login.MOBILE' | translate }}", required)
-          .error-tooltip(ng-show="submitted && callMasterForm.phone.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
-          .error-tooltip(ng-show="submitted && callMasterForm.phone.$error.pattern || callMasterForm.phone.$dirty && callMasterForm.phone.$error.pattern") {{ 'login.WRONG_NUMBER' | translate }}
+        .input-field(ng-class="{ 'has-error' : masterDialog.cart.submitted && callMasterForm.phone.$error.required }")
+          input.user-field(type="tel", name="phone", ng-model="masterDialog.cart.user.phone", ng-pattern="", placeholder="{{ 'login.MOBILE' | translate }}", required)
+          .error-tooltip(ng-show="masterDialog.cart.submitted && callMasterForm.phone.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+          .error-tooltip(ng-show="masterDialog.cart.submitted && callMasterForm.phone.$error.pattern || callMasterForm.phone.$dirty && callMasterForm.phone.$error.pattern") {{ 'login.WRONG_NUMBER' | translate }}

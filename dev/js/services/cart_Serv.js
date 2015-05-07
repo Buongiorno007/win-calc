@@ -23,11 +23,7 @@
       clickDeleteProduct: clickDeleteProduct,
       calculateAllProductsPrice: calculateAllProductsPrice,
       calculateOrderPrice: calculateOrderPrice,
-      editProduct: editProduct,
-
-      showOrderDialog: showOrderDialog,
-      setDefaultUserInfoXOrder: setDefaultUserInfoXOrder,
-      closeOrderDialog: closeOrderDialog
+      editProduct: editProduct
     };
 
     return thisFactory.publicObj;
@@ -42,7 +38,9 @@
       var productsQty = OrderStor.order.products.length,
           prod = 0;
       for(; prod < productsQty; prod++) {
-        delete OrderStor.order.products[prod].template;
+        if(OrderStor.order.products[prod].template) {
+          delete OrderStor.order.products[prod].template;
+        }
       }
     }
 
@@ -293,40 +291,6 @@
 //      $location.path('/main');
     }
 
-
-
-
-
-
-
-
-
-    function showOrderDialog() {
-      //TODO globalStor
-      /*
-      if(OrderStor.order.isInstalment !== 'false') {
-        CartStor.showCreditDialog = true;
-      } else if() {
-        CartStor.showOrderDialog = true;
-      } else if() {
-        CartStor.showMasterDialog = true;
-      }
-      */
-    }
-
-    //--------- this function uses into Order/Credit Dialog for create user object and set default values for select fields
-    function setDefaultUserInfoXOrder() {
-      return {
-        sex: ''
-      };
-    }
-
-    //---------- Close any Order Dialog
-    function closeOrderDialog() {
-      CartStor.showMasterDialog = false;
-      CartStor.showOrderDialog = false;
-      CartStor.showCreditDialog = false;
-    }
 
   }
 })();

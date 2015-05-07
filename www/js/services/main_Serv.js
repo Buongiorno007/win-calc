@@ -65,7 +65,8 @@
       setDefaultDoorConfig: setDefaultDoorConfig,
       prepareMainPage: prepareMainPage,
 
-      inputProductInOrder: inputProductInOrder
+      inputProductInOrder: inputProductInOrder,
+      insertOrderInLocalDB: insertOrderInLocalDB
     };
 
     return thisFactory.publicObj;
@@ -543,12 +544,22 @@
 
 
 
-    //------------ Save Product in Order and go to Cart
+    //========== SAVE PRODUCT ==========//
+
+    //-------- Save Product in Order and go to Cart
     function inputProductInOrder() {
 
+      //---------- if EDIT Product
+      if(GlobalStor.global.productEditNumber) {
+        //-------- replace product in order LocalStorage
+        for(var prod = 0; prod < OrderStor.order.products.length; prod++) {
+          if(prod === GlobalStor.global.productEditNumber) {
+            OrderStor.order.products[prod] = angular.copy(ProductStor.product);
+          }
+        }
+        editProductInLocalDB(ProductStor.product);
       //---------- if New Product
-      if(!GlobalStor.global.productEditNumber) {
-
+      } else {
         //-------- add product in order LocalStorage
         ProductStor.product.orderId = OrderStor.order.orderId;
         ProductStor.product.productId = (OrderStor.order.productsQty > 0) ? (OrderStor.order.productsQty + 1) : 1;
@@ -556,24 +567,7 @@
         OrderStor.order.products.push(ProductStor.product);
         OrderStor.order.productsQty = ProductStor.product.productId;
         insertProductInLocalDB(ProductStor.product);
-
-        //------- if Edit Order
-        changeOrders();
-
-      //---------- if EDIT Product
-      } else {
-        //-------- replace product in order LocalStorage
-        for(var prod = 0; prod < OrderStor.order.products.length; prod++) {
-          if(prod === GlobalStor.global.productEditNumber) {
-            OrderStor.order.products[prod] = angular.copy(ProductStor.product);
-            changeOrders();
-          }
-        }
-
-        editProductInLocalDB(ProductStor.product);
-
       }
-
       GlobalStor.global.isCreatedNewProject = false;
       GlobalStor.global.isCreatedNewProduct = false;
 
@@ -581,27 +575,14 @@
 
 
 
-    function changeOrders() {
-      if(GlobalStor.global.orderEditNumber > 0) {
-        var ord = 0,
-            ordersQty = GlobalStor.global.orders.length;
-        for(; ord < ordersQty; ord++) {
-          if (GlobalStor.global.orders[ord].orderId === GlobalStor.global.orderEditNumber) {
-            GlobalStor.global.orders[ord] = angular.copy(OrderStor.order);
-          }
-        }
-      }
-    }
-
-
-
+    //-------- save Order into Local DB
     function insertProductInLocalDB(product) {
 
       var productData = angular.copy(product),
           addElementsQty = product.chosenAddElements.length,
           prop = 0, addElementsData;
 
-console.log('!!!!!!!!!! product !!!!!!!!!!!', product);
+      console.log('!!!!!!!!!! product !!!!!!!!!!!', product);
       //-------- insert product into local DB
       productData.heatTransferMin = OrderStor.order.currHeatTransfer;
       productData.templateSource = JSON.stringify(product.templateSource);
@@ -658,6 +639,44 @@ console.log('!!!!!!!!!! product !!!!!!!!!!!', product);
       localDB.deleteDB(localDB.productsTableBD, {'orderId': {"value": product.orderId, "union": 'AND'}, "productId": product.productId});
       localDB.deleteDB(localDB.addElementsTableBD, {'orderId': {"value": product.orderId, "union": 'AND'}, "productId": product.productId});
       insertProductInLocalDB(product);
+    }
+
+
+
+
+    //========== SAVE ORDER ==========//
+
+    //-------- save Order into Local DB
+    function insertOrderInLocalDB(newOptions, orderType, orderStyle) {
+
+      //---------- if EDIT Order, before inserting delete old order
+      if(GlobalStor.global.orderEditNumber) {
+        deleteOrderFromLocalDB(GlobalStor.global.orderEditNumber);
+      }
+
+      OrderStor.order.orderType = orderType;
+      OrderStor.order.orderStyle = orderStyle;
+//      $scope.global.order.productsPriceTOTAL = parseFloat($scope.global.order.productsPriceTOTAL.toFixed(2));
+//      $scope.global.order.paymentFirst = parseFloat($scope.global.order.paymentFirst.toFixed(2));
+//      $scope.global.order.paymentMonthly = parseFloat($scope.global.order.paymentMonthly.toFixed(2));
+//      $scope.global.order.paymentFirstPrimary = parseFloat($scope.global.order.paymentFirstPrimary.toFixed(2));
+//      $scope.global.order.paymentMonthlyPrimary = parseFloat($scope.global.order.paymentMonthlyPrimary.toFixed(2));
+//      $scope.global.order.orderPriceTOTAL = parseFloat($scope.global.order.orderPriceTOTAL.toFixed(2));
+//      $scope.global.order.orderPriceTOTALPrimary = parseFloat($scope.global.order.orderPriceTOTALPrimary.toFixed(2));
+      angular.extend(OrderStor.order, newOptions);
+
+      //------- save order in LocalDB
+      delete OrderStor.order.products;
+
+      localDB.insertDB(localDB.ordersTableBD, OrderStor.order);
+      OrderStor.order = OrderStor.setDefaultOrder();
+    }
+
+    //-------- delete order from LocalDB
+    function deleteOrderFromLocalDB(orderNum) {
+      localDB.deleteDB(localDB.ordersTableBD, {'orderId': orderNum});
+      localDB.deleteDB(localDB.productsTableBD, {'orderId': orderNum});
+      localDB.deleteDB(localDB.addElementsTableBD, {'orderId': orderNum});
     }
 
 

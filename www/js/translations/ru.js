@@ -32,7 +32,8 @@
         SEND_ORDER_TXT: 'Хотите отправить заказ на завод?',
         NEW_TEMPLATE_TITLE: 'Изменение шаблона',
         TEMPLATE_CHANGES_LOST: 'Изменения в шаблоне будут потеряны! Продолжить?',
-        SELECT: 'Выбрать'
+        SELECT: 'Выбрать',
+        AND: 'и'
       },
       login: {
         ENTER: 'Войти',
@@ -94,8 +95,7 @@
         CONFIGMENU_IN_CART: 'В корзину',
         VOICE_SPEACH: 'Говорите...',
         COMMENT: 'Оставьте свою заметку о заказе здесь.',
-        ROOM_SELECTION: 'Выбор интерьера',
-
+        ROOM_SELECTION: 'Выбор интерьера'
       },
       panels: {
         TEMPLATE_WINDOW: 'Oкно',
@@ -209,7 +209,8 @@
         SORT_SHOW_DONE: 'Только завершенные',
         BY_YOUR_REQUEST: 'По вашему запросу',
         NOT_FIND: 'ничего не найдено',
-        WAIT_MASTER: 'ожидает замерщика'
+        WAIT_MASTER: 'ожидает замерщика',
+        INCLUDED: 'включены'
       },
       cart: {
         ALL_ADD_ELEMENTS: 'Все доп.элементы заказа',

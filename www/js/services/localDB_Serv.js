@@ -233,6 +233,38 @@
             "type": "INTEGER",
             "null": "NOT NULL"
           },
+          "orderDate": {
+            "type": "TEXT",
+            "null": "NOT NULL"
+          },
+          "currCityId": {
+            "type": "INTEGER",
+            "null": "NOT NULL"
+          },
+          "currCityName": {
+            "type": "TEXT",
+            "null": "NOT NULL"
+          },
+          "currRegionName": {
+            "type": "TEXT",
+            "null": "NOT NULL"
+          },
+          "currCountryName": {
+            "type": "TEXT",
+            "null": "NOT NULL"
+          },
+          "currClimaticZone": {
+            "type": "INTEGER",
+            "null": "NOT NULL"
+          },
+          "currHeatTransfer": {
+            "type": "INTEGER",
+            "null": "NOT NULL"
+          },
+          "currFullLocation": {
+            "type": "TEXT",
+              "null": "NOT NULL"
+          },
           "orderType": {
             "type": "TEXT",
             "null": "NULL"

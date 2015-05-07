@@ -18,9 +18,12 @@
       cartSource: {
         allAddElements: [],
 
-        showMasterDialog: false,
-        showOrderDialog: false,
-        showCreditDialog: false
+        isMasterDialog: false,
+        isOrderDialog: false,
+        isCreditDialog: false,
+        submitted: false,
+        isCityBox: false,
+        user: {sex: ''}
       },
 
       //------- data x order dialogs

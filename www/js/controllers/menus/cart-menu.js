@@ -64,8 +64,8 @@
     thisCtrl.selectFloorPrice = CartMenuServ.selectFloorPrice;
     thisCtrl.selectAssembling = CartMenuServ.selectAssembling;
     thisCtrl.selectInstalment = CartMenuServ.selectInstalment;
-    thisCtrl.showCallMasterDialog = showCallMasterDialog;
-    thisCtrl.showCallOrderDialog = showCallOrderDialog;
+    thisCtrl.openMasterDialog = openMasterDialog;
+    thisCtrl.openOrderDialog = openOrderDialog;
 
 
 
@@ -87,16 +87,16 @@
     }
 
     //------ show Call Master Dialog
-    function showCallMasterDialog() {
-      CartStor.showMasterDialog = true;
+    function openMasterDialog() {
+      CartStor.cart.isMasterDialog = true;
     }
 
     //------ show Order/Credit Dialog
-    function showCallOrderDialog() {
-      if(OrderStor.order.isInstalment !== 'false') {
-        CartStor.showCreditDialog = true;
+    function openOrderDialog() {
+      if(OrderStor.order.isInstalment) {
+        CartStor.cart.isCreditDialog = true;
       } else {
-        CartStor.showOrderDialog = true;
+        CartStor.cart.isOrderDialog = true;
       }
     }
 

@@ -94,9 +94,7 @@
         hardwareTypes: [],
 
         //------ Lamination
-        laminationsWhite: $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION'),
-
-        orders: []
+        laminationsWhite: $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION')
 
       },
 

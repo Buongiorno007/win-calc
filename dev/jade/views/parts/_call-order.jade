@@ -1,73 +1,73 @@
-#call-order-dialog.cart-dialogs.order-dialog(ng-controller="CallOrderCtrl", ng-class="{ 'unvisible' : !cartStor.showOrderDialog }")
+#call-order-dialog.cart-dialogs.order-dialog(ng-controller="CallOrderCtrl as orderDialog", ng-class="{ 'unvisible' : !orderDialog.cart.isOrderDialog }")
   .cart-dialogs-container
-    form(name='callOrderForm', novalidate, ng-submit="submitForm(callOrderForm)")
+    form(name='callOrderForm', novalidate, ng-submit="orderDialog.submitForm(callOrderForm)")
       .cart-dialog-header
-        button.cart-dialog-tool.back(hm-tap="hideCallOrderDialog()", type="button")
+        button.cart-dialog-tool.back(hm-tap="orderDialog.closeOrderDialog()", type="button")
         button.cart-dialog-tool.print(hm-tap="", type="button")
-        .cart-dialog-title {{ 'cart.CALL_ORDER' | translate }} {{ global.order.orderId }}
+        .cart-dialog-title {{ 'cart.CALL_ORDER' | translate }} {{ orderDialog.order.orderId }}
         button.save(type="submit") {{ 'cart.READY' | translate }}
       .cart-dialog-body
         .cart-dialog-descrip {{ 'cart.CALL_ORDER_DESCRIP' | translate }}
 
         .cart-dialog-label {{ 'cart.CALL_ORDER_CLIENT_INFO' | translate }}
 
-        .input-field(ng-class="{ 'has-error' : submitted && callOrderForm.name.$error.required }")
-          input.user-field(type="text", name="name", ng-model="user.name", placeholder="{{ 'cart.CLIENT_NAME' | translate }}", required)
-          .error-tooltip(ng-show="submitted && callOrderForm.name.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+        .input-field(ng-class="{ 'has-error' : orderDialog.cart.submitted && callOrderForm.name.$error.required }")
+          input.user-field(type="text", name="name", ng-model="orderDialog.cart.user.name", placeholder="{{ 'cart.CLIENT_NAME' | translate }}", required)
+          .error-tooltip(ng-show="orderDialog.cart.submitted && callOrderForm.name.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
 
-        .input-field(ng-class="{ 'has-error' : submitted && callOrderForm.phone.$error.required }")
-          input.user-field(type="tel", name="phone", ng-model="user.phone", ng-pattern="", placeholder="{{ 'login.MOBILE' | translate }}", required)
-          .error-tooltip(ng-show="submitted && callOrderForm.phone.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
-          .error-tooltip(ng-show="submitted && callOrderForm.phone.$error.pattern || callOrderForm.phone.$dirty && callOrderForm.phone.$error.pattern") {{ 'login.WRONG_NUMBER' | translate }}
-
-
-
-        .cart-dialog-label {{ 'cart.CALL_ORDER_DELIVERY' | translate }} {{ global.order.newDeliveryDate }}
-
-        .input-field(ng-class="{ 'has-error' : submitted && callOrderForm.location.$error.required, 'current-city' : currentCity }")
-          input.user-field(type="text", name="location", ng-model="user.location", ng-change="checkChanges()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", ng-focus="isFocused=true", ng-blur="isFocused=false", required)
-          .error-tooltip(ng-show='submitted && callOrderForm.location.$error.required') {{ 'login.EMPTY_FIELD' | translate }}
-          ul.location-list-tooltip(ng-show="showTipCity && isFocused", ng-focus="isFocused=true", ng-blur="isFocused=false", tabindex="1")
-            li.location-option(ng-repeat="location in filteredCity", hm-tap="selectCity(location.city, location.current)", ng-class="{ 'current-city' : location.current }") {{location.city}}
-
-        .input-field(ng-class="{ 'has-error' : submitted && callOrderForm.address.$error.required }")
-          input.user-field(type="text", name="address", ng-model="user.address", placeholder="{{ 'cart.CLIENT_ADDRESS' | translate }}", required)
-          .error-tooltip(ng-show="submitted && callOrderForm.address.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+        .input-field(ng-class="{ 'has-error' : orderDialog.cart.submitted && callOrderForm.phone.$error.required }")
+          input.user-field(type="tel", name="phone", ng-model="orderDialog.cart.user.phone", ng-pattern="", placeholder="{{ 'login.MOBILE' | translate }}", required)
+          .error-tooltip(ng-show="orderDialog.cart.submitted && callOrderForm.phone.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+          .error-tooltip(ng-show="orderDialog.cart.submitted && callOrderForm.phone.$error.pattern || callOrderForm.phone.$dirty && callOrderForm.phone.$error.pattern") {{ 'login.WRONG_NUMBER' | translate }}
 
 
-        .cart-dialog-label {{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }}: {{ global.order.orderPriceTOTAL }} {{ global.currency }}
+
+        .cart-dialog-label {{ 'cart.CALL_ORDER_DELIVERY' | translate }} {{ orderDialog.order.newDeliveryDate }}
+
+        .input-field(ng-class="{ 'has-error' : orderDialog.cart.submitted && callOrderForm.location.$error.required, 'current-city' : currentCity }")
+          input.user-field(type="text", name="location", ng-model="orderDialog.cart.user.location", ng-change="orderDialog.checkChanges()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", ng-focus="orderDialog.isFocused=true", ng-blur="orderDialog.isFocused=false", required)
+          .error-tooltip(ng-show='orderDialog.cart.submitted && callOrderForm.location.$error.required') {{ 'login.EMPTY_FIELD' | translate }}
+          ul.location-list-tooltip(ng-show="orderDialog.showTipCity && orderDialog.isFocused", ng-focus="orderDialog.isFocused=true", ng-blur="orderDialog.isFocused=false", tabindex="1")
+            li.location-option(ng-repeat="location in orderDialog.cart.filteredCity", hm-tap="orderDialog.selectCity(location.city, location.current)", ng-class="{ 'current-city' : location.current }") {{location.city}}
+
+        .input-field(ng-class="{ 'has-error' : orderDialog.cart.submitted && callOrderForm.address.$error.required }")
+          input.user-field(type="text", name="address", ng-model="orderDialog.cart.user.address", placeholder="{{ 'cart.CLIENT_ADDRESS' | translate }}", required)
+          .error-tooltip(ng-show="orderDialog.cart.submitted && callOrderForm.address.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+
+
+        .cart-dialog-label {{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }}: {{ orderDialog.order.orderPriceTOTAL }} {{ orderDialog.userInfo.currency }}
         .cart-dialog-label {{ 'cart.CALL_ORDER_ADD_INFO' | translate }}
 
         .input-field
-          input.user-field(type="email", name="mail", ng-model="user.mail", placeholder="{{ 'cart.CLIENT_EMAIL' | translate }}")
-          .error-tooltip(ng-show="submitted && callOrderForm.mail.$error.email") {{ 'cart.WRONG_EMAIL' | translate }}
+          input.user-field(type="email", name="mail", ng-model="orderDialog.user.mail", placeholder="{{ 'cart.CLIENT_EMAIL' | translate }}")
+          .error-tooltip(ng-show="orderDialog.cart.submitted && callOrderForm.mail.$error.email") {{ 'cart.WRONG_EMAIL' | translate }}
 
         .input-field
-          input.user-field(type="tel", name="phone2", ng-model="user.phone2", ng-pattern="", placeholder="{{ 'cart.ADD_PHONE' | translate }}")
+          input.user-field(type="tel", name="phone2", ng-model="orderDialog.cart.user.phone2", ng-pattern="", placeholder="{{ 'cart.ADD_PHONE' | translate }}")
 
         .input-field
           .subtitle-field {{ 'cart.CLIENT_SEX' | translate }}
           label.label-field {{ 'cart.CLIENT_SEX_M' | translate }}
-            input.radio-field(type="radio", name="sex", ng-model="user.sex", value="m")
+            input.radio-field(type="radio", name="sex", ng-model="orderDialog.cart.user.sex", value="m")
           label.label-field {{ 'cart.CLIENT_SEX_F' | translate }}
-            input.radio-field(type="radio", name="sex", ng-model="user.sex", value="f")
+            input.radio-field(type="radio", name="sex", ng-model="orderDialog.cart.user.sex", value="f")
 
         .input-field
           .subtitle-field {{ 'cart.CLIENT_AGE' | translate }}
-          select.user-select-field(name="age", ng-model="user.age", ng-options="age for age in cartStor.optionAge")
+          select.user-select-field(name="age", ng-model="orderDialog.cart.user.age", ng-options="age for age in orderDialog.cartStor.optionAge")
             option(value='') {{ 'cart.SELECT_AGE' | translate }}
 
         .input-field
           .subtitle-field {{ 'cart.CLIENT_EDUCATION' | translate }}
-          select.user-select-field(name="education", ng-model="user.education", ng-options="educ for educ in cartStor.optionEductaion")
+          select.user-select-field(name="education", ng-model="orderDialog.cart.user.education", ng-options="educ for educ in orderDialog.cartStor.optionEductaion")
             option(value='') {{ 'cart.SELECT_ADUCATION' | translate }}
 
         .input-field
           .subtitle-field {{ 'cart.CLIENT_OCCUPATION' | translate }}
-          select.user-select-field(name="occupation", ng-model="user.occupation", ng-options="occup for occup in cartStor.optionOccupation")
+          select.user-select-field(name="occupation", ng-model="orderDialog.cart.user.occupation", ng-options="occup for occup in orderDialog.cartStor.optionOccupation")
             option(value='') {{ 'cart.SELECT_OCCUPATION' | translate }}
 
         .input-field
           .subtitle-field {{ 'cart.CLIENT_INFO_SOURCE' | translate }}
-          select.user-select-field(name="infoSource", ng-model="user.infoSource", ng-options="info for info in cartStor.optionInfo")
+          select.user-select-field(name="infoSource", ng-model="orderDialog.cart.user.infoSource", ng-options="info for info in orderDialog.cartStor.optionInfo")
             option(value='') {{ 'cart.SELECT_INFO_SOURCE' | translate }}

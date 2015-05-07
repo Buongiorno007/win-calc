@@ -29,7 +29,8 @@
         SEND_ORDER_TXT: 'Do you want to send an order on a factory?',
         NEW_TEMPLATE_TITLE: 'Template changing',
         TEMPLATE_CHANGES_LOST: 'The template changes will lost! Continue?',
-        SELECT: 'Select'
+        SELECT: 'Select',
+        AND: 'and'
       },
       login: {
         ENTER: 'To enter',
@@ -203,7 +204,8 @@
         SORT_SHOW_DONE: 'Только завершенные',
         BY_YOUR_REQUEST: 'According to your request',
         NOT_FIND: 'nothing found',
-        WAIT_MASTER: 'expects gager'
+        WAIT_MASTER: 'expects gager',
+        INCLUDED: 'included'
       },
       cart: {
         ALL_ADD_ELEMENTS: 'All additional elements order',

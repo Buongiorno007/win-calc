@@ -78,8 +78,8 @@
       .price-block.price-without-instalments(ng-class="{'active': !cartMenu.order.isInstalment}")
         .name {{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{ cartMenu.order.newDeliveryDate }}
         price(price-value="cartMenu.order.orderPriceTOTAL", price-currency="cartMenu.userInfo.currency")
-      button.order-btn(hm-tap="cartMenu.showCallOrderDialog()") {{ 'cart.ORDER' | translate }}
-      button.measure-btn(hm-tap="cartMenu.showCallMasterDialog()") {{ 'cart.MEASURE' | translate }}
+      button.order-btn(hm-tap="cartMenu.openOrderDialog()") {{ 'cart.ORDER' | translate }}
+      button.measure-btn(hm-tap="cartMenu.openMasterDialog()") {{ 'cart.MEASURE' | translate }}
 
   .old-price-inst-tab(ng-class="{'active': cartMenu.order.isOldPrice && cartMenu.order.isInstalment}")
     .name {{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ cartMenu.order.selectedInstalmentPercent }} %

@@ -29,7 +29,8 @@
         SEND_ORDER_TXT: 'Хочете відправити замовлення на завод?',
         NEW_TEMPLATE_TITLE: 'Зміна шаблона',
         TEMPLATE_CHANGES_LOST: 'Зміни у шаблоні будуть загублені. Продовжити?',
-        SELECT: 'Выбрать'
+        SELECT: 'Выбрать',
+        AND: 'та'
       },
       login: {
         ENTER: 'Увійти',
@@ -206,7 +207,8 @@
         SORT_SHOW_DONE: 'Тільки завершені',
         BY_YOUR_REQUEST: 'По вашому запиту',
         NOT_FIND: 'нічого не знайдено',
-        WAIT_MASTER: 'очікує замірювача'
+        WAIT_MASTER: 'очікує замірювача',
+        INCLUDED: 'включені'
       },
       cart: {
         ALL_ADD_ELEMENTS: 'Всі дод.елементи замовлення',

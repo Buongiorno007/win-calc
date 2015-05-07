@@ -19,8 +19,8 @@
         currCityName: '',
         currRegionName: '',
         currCountryName: '',
-        currClimaticZone: '',
-        currHeatTransfer: '',
+        currClimaticZone: 0,
+        currHeatTransfer: 0,
         currFullLocation: '',
 
         orderType: '',

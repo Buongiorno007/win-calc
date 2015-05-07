@@ -32,7 +32,8 @@
         SEND_ORDER_TXT: 'Doriți să trimiteți comanda la uzină?',
         NEW_TEMPLATE_TITLE: 'Template changing',
         TEMPLATE_CHANGES_LOST: 'The template changes will lost! Continue?',
-        SELECT: 'Select'
+        SELECT: 'Select',
+        AND: 'și'
       },
       login: {
         ENTER: 'autentificare',
@@ -205,7 +206,8 @@
         SORT_SHOW_DONE: 'Только завершенные',
         BY_YOUR_REQUEST: 'Potrivit cererea dvs.',
         NOT_FIND: 'nimic nu a fost găsit',
-        WAIT_MASTER: 'aşteaptă inginerul'
+        WAIT_MASTER: 'aşteaptă inginerul',
+        INCLUDED: 'inclus'
       },
       cart: {
         ALL_ADD_ELEMENTS: 'toate elemente suplimentare a comenzii',

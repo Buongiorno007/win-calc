@@ -10,7 +10,7 @@
     .module('CartModule')
     .factory('CartMenuServ', cartMenuFactory);
 
-  function cartMenuFactory(globalConstants, GeneralServ, OrderStor, CartStor) {
+  function cartMenuFactory($location, globalConstants, localDB, GeneralServ, MainServ, analyticsServ, GlobalStor, OrderStor, CartStor) {
 
     var thisFactory = this;
 
@@ -19,7 +19,11 @@
       selectAssembling: selectAssembling,
       selectInstalment: selectInstalment,
       checkDifferentDate: checkDifferentDate,
-      calculateTotalOrderPrice: calculateTotalOrderPrice
+      calculateTotalOrderPrice: calculateTotalOrderPrice,
+
+      setDefaultUserInfoXOrder: setDefaultUserInfoXOrder,
+      closeOrderDialog: closeOrderDialog,
+      sendOrder: sendOrder
     };
 
     return thisFactory.publicObj;
@@ -129,6 +133,70 @@
         }
       }
     }
+
+
+
+
+    //========== Orders Dialogs ======//
+
+    //--------- send Order in Local DB
+    function sendOrder() {
+      var orderStyle;
+      //------- set order style
+      if(CartStor.cart.isOrderDialog) {
+        orderStyle = 'order';
+      } else if(CartStor.cart.isCreditDialog) {
+        orderStyle = 'credit';
+      } else if(CartStor.cart.isMasterDialog) {
+        orderStyle = 'master';
+      }
+
+      if(GlobalStor.global.orderEditNumber) {
+
+        //----- delete old order in localDB
+        localDB.deleteDB(localDB.ordersTableBD, {'orderId': GlobalStor.global.orderEditNumber});
+        //$scope.global.deleteOrderFromLocalDB($scope.global.orderEditNumber);
+        /*
+         for(var prod = 0; prod < $scope.global.order.products.length; prod++) {
+         $scope.global.insertProductInLocalDB($scope.global.orderEditNumber, $scope.global.order.products[prod].productId, $scope.global.order.products[prod]);
+         }
+         */
+      }
+      MainServ.insertOrderInLocalDB(CartStor.cart.user, globalConstants.fullOrderType, orderStyle);
+      //--------- Close cart dialog, go to history
+      closeOrderDialog();
+      GlobalStor.global.orderEditNumber = false;
+      GlobalStor.global.isCreatedNewProject = false;
+      GlobalStor.global.isCreatedNewProduct = false;
+      GlobalStor.global.isOrderFinished = true;
+      //------- set previos Page
+      GlobalStor.global.prevOpenPage = GlobalStor.global.currOpenPage;
+      analyticsServ.sendAnalyticsGlobalDB(OrderStor.order);
+      $location.path('/history');
+    }
+
+
+
+    //---------- Close any Order Dialog
+    function closeOrderDialog() {
+      CartStor.cart.submitted = false;
+      CartStor.cart.isCityBox = false;
+      //$scope.currentCity = false;
+      CartStor.cart.user = setDefaultUserInfoXOrder();
+      CartStor.cart.isMasterDialog = false;
+      CartStor.cart.isOrderDialog = false;
+      CartStor.cart.isCreditDialog = false;
+    }
+
+    //--------- for create user object and set default values for select fields
+    function setDefaultUserInfoXOrder() {
+      return {
+        sex: ''
+      };
+    }
+
+
+
 
 
   }
