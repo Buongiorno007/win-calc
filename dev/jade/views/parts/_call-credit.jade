@@ -41,19 +41,23 @@
             ng-pluralize(count="creditDialog.order.selectedInstalmentPeriod",
             when="{'1': '{{ creditDialog.config.month }}', '2': '{{ creditDialog.config.montha }}', '3': '{{ creditDialog.config.montha }}', '4': '{{ creditDialog.config.montha }}', 'other': '{{ creditDialog.config.months }}'}") , {{creditDialog.order.selectedInstalmentPercent}}%
 
-          //.user-field(ng-if="global.order.selectedInstalmentPeriod == 1") {{global.order.selectedInstalmentPeriod}}  {{'common_words.MONTH_LABEL' | translate}}, {{global.order.selectedInstalmentPercent}}%
-          //.user-field(ng-if="global.order.selectedInstalmentPeriod > 1 && global.order.selectedInstalmentPeriod < 5") {{global.order.selectedInstalmentPeriod}}  {{'common_words.MONTHA_LABEL' | translate}}, {{global.order.selectedInstalmentPercent}} %
-          //.user-field(ng-if="global.order.selectedInstalmentPeriod > 4") {{global.order.selectedInstalmentPeriod}}  {{'common_words.MONTHS_LABEL' | translate}},  {{global.order.selectedInstalmentPercent}} %
-
         .cart-dialog-label {{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }} {{ creditDialog.order.orderPriceTOTAL }}{{ creditDialog.userInfo.currency }} {{ 'cart.CALL_CREDIT_PARTIAL_PRICE' | translate }} {{ creditDialog.order.paymentMonthly }}{{ creditDialog.userInfo.currency }}
 
         .cart-dialog-label {{ 'cart.CALL_ORDER_DELIVERY' | translate }} {{ creditDialog.order.newDeliveryDate }}
 
-        .input-field(ng-class="{ 'has-error' : creditDialog.cart.submitted && callCreditForm.location.$error.required, 'current-city' : creditDialog.currentCity }")
-          input.user-field(type="text", name="location", ng-model="creditDialog.cart.user.location", ng-change="creditDialog.checkChanges()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", ng-focus="creditDialog.isFocused=true", ng-blur="creditDialog.isFocused=false", required)
+        //.input-field(ng-class="{ 'has-error' : creditDialog.cart.submitted && callCreditForm.location.$error.required, 'current-city' : creditDialog.currentCity }")
+          input.user-field(type="text", name="location", ng-model="creditDialog.cart.user.location", ng-change="creditDialog.changeLocation()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", ng-focus="creditDialog.isFocused=true", ng-blur="creditDialog.isFocused=false", required)
           .error-tooltip(ng-show='creditDialog.cart.submitted && callCreditForm.location.$error.required') {{ 'login.EMPTY_FIELD' | translate }}
-          ul.location-list-tooltip(ng-show="creditDialog.showTipCity && creditDialog.isFocused", ng-focus="creditDialog.isFocused=true", ng-blur="creditDialog.isFocused=false", tabindex="1")
-            li.location-option(ng-repeat="location in creditDialog.filteredCity", hm-tap="creditDialog.selectCity(location.city, location.current)", ng-class="{ 'current-city' : location.current }") {{location.city}}
+          ul.location-list-tooltip(ng-show="creditDialog.cart.isCityBox && creditDialog.isFocused", ng-focus="creditDialog.isFocused=true", ng-blur="creditDialog.isFocused=false", tabindex="1")
+            li.location-option(ng-repeat="location in creditDialog.locations | filter: {name: creditDialog.cart.user.location } | orderBy:'name'", hm-tap="creditDialog.selectCity(location.city, location.current)", ng-class="{ 'current-city' : location.current }") {{location.city}}
+
+        .input-field(ng-class="{ 'has-error' : creditDialog.cart.submitted && callCreditForm.location.$error.required, 'current-city' : creditDialog.currentCity }")
+          input.user-field(type="text", name="location", ng-model="creditDialog.cart.user.location", ng-change="creditDialog.changeLocation()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", ng-blur="creditDialog.cart.isCityBox = false", required)
+          .error-tooltip(ng-show='creditDialog.cart.submitted && callCreditForm.location.$error.required') {{ 'login.EMPTY_FIELD' | translate }}
+          ul.location-list-tooltip(ng-show="creditDialog.cart.isCityBox", tabindex="1")
+            li.location-option(ng-repeat="location in creditDialog.locations | filter: {cityName: creditDialog.cart.user.location } | orderBy:'cityName'", hm-tap="creditDialog.selectCity(location.fullLocation)", ng-class="{ 'current-city' : location.current }") {{location.fullLocation}}
+
+
 
         .input-field(ng-class="{ 'has-error' : creditDialog.cart.submitted && callCreditForm.address.$error.required }")
           input.user-field(type="text", name="address", ng-model="creditDialog.cart.user.address", placeholder="{{ 'cart.CLIENT_ADDRESS' | translate }}", required)

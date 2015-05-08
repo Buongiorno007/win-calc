@@ -24,7 +24,11 @@
       editOrder: editOrder,
       viewSwitching: viewSwitching,
 
-      orderSearching: orderSearching
+      orderSearching: orderSearching,
+      orderDateSelecting: orderDateSelecting,
+      openCalendarScroll: openCalendarScroll,
+      orderSorting: orderSorting,
+      sortingInit: sortingInit
     };
 
     return thisFactory.publicObj;
@@ -38,9 +42,10 @@
     //------ Download complete Orders from localDB
     function downloadOrders() {
       localDB.selectDB(localDB.ordersTableBD, {'orderType': globalConstants.fullOrderType}).then(function(result) {
+        console.log('orders+++++', result);
         if(result) {
-          //$scope.ordersSource = angular.copy(results.data);
-          HistoryStor.history.orders = angular.copy(result[0]);
+          HistoryStor.history.ordersSource = angular.copy(result);
+          HistoryStor.history.orders = angular.copy(result);
           //----- max day for calendar-scroll
 //          HistoryStor.history.maxDeliveryDateOrder = getOrderMaxDate(HistoryStor.history.orders);
         } else {
@@ -92,7 +97,7 @@
             if(HistoryStor.history.orders[ord].orderId === orderNum) {
               //-------- change style for order
               HistoryStor.history.orders[ord].orderStyle = orderDoneStyle;
-              //$scope.ordersSource[ord].orderStyle = orderDoneStyle;
+              HistoryStor.history.ordersSource[ord].orderStyle = orderDoneStyle;
 
               //------ synchronize with Global BD
               console.log('sendOrder!!!!', HistoryStor.history.orders[ord]);
@@ -162,7 +167,7 @@
           //TODO create date!
           //---- save new order
           HistoryStor.history.orders.push(newOrderCopy);
-
+          HistoryStor.history.ordersSource.push(newOrderCopy);
           //------ copy all Products of this order
           copyOrderElements(newOrderId, localDB.productsTableBD);
 
@@ -219,20 +224,22 @@
 
       function deleteOrder(button) {
         if(button == 1) {
-          var orderList;
+          var orderList, orderListSource;
           //-------- delete order
           if(orderType === globalConstants.fullOrderType) {
             orderList = HistoryStor.history.orders;
+            orderListSource = HistoryStor.history.ordersSource;
           //-------- delete draft
           } else {
             orderList = HistoryStor.history.drafts;
+            orderListSource = HistoryStor.history.draftsSource;
           }
           var orderListQty = orderList.length,
               i = 0;
           for(; i < orderListQty; i++) {
             if(orderList[i].orderId === orderNum) {
               orderList.splice(i, 1);
-              //$scope.draftsSource.splice(i, 1);
+              orderListSource.splice(i, 1);
             }
           }
 
@@ -273,8 +280,8 @@
     function downloadDrafts() {
       localDB.selectDB(localDB.ordersTableBD, {'orderType': globalConstants.draftOrderType}).then(function(result) {
         if(result) {
-          //$scope.draftsSource = angular.copy(results.data);
-          HistoryStor.history.drafts = angular.copy(result[0]);
+          HistoryStor.history.draftsSource = angular.copy(result);
+          HistoryStor.history.drafts = angular.copy(result);
         } else {
           HistoryStor.history.isEmptyResultDraft = true;
         }
@@ -293,6 +300,211 @@
       HistoryStor.history.isOrderDate = false;
       HistoryStor.history.isOrderSort = false;
     }
+
+
+
+
+
+
+
+    //=========== Filtering by Date
+
+    //------- show Date filter tool dialog
+    function orderDateSelecting() {
+      var filterResult;
+      //------ in Drafts
+      if(HistoryStor.history.isDraftView) {
+        if(HistoryStor.history.isOrderDateDraft) {
+          //-------- filtering orders by selected date
+          filterResult = filteringByDate(HistoryStor.history.ordersSource, HistoryStor.history.startDateDraft, HistoryStor.history.finishDateDraft);
+          if(filterResult) {
+            HistoryStor.history.drafts = filterResult;
+          }
+        }
+        HistoryStor.history.isOrderDateDraft = !HistoryStor.history.isOrderDateDraft;
+        HistoryStor.history.isOrderSortDraft = false;
+
+        //------ in Orders
+      } else {
+        if(HistoryStor.history.isOrderDate) {
+          //-------- filtering orders by selected date
+          filterResult = filteringByDate(HistoryStor.history.ordersSource, HistoryStor.history.startDate, HistoryStor.history.finishDate);
+          if(filterResult) {
+            HistoryStor.history.orders = filterResult;
+          }
+        }
+        HistoryStor.history.isOrderDate = !HistoryStor.history.isOrderDate;
+        HistoryStor.history.isOrderSearch = false;
+        HistoryStor.history.isOrderSort = false;
+      }
+    }
+
+    //------- filtering orders by Dates
+    function filteringByDate(obj, start, end) {
+      if(start !== '' || end !== '') {
+        var newObj, startDate, finishDate;
+        newObj = angular.copy(obj);
+        startDate = new Date(start).valueOf();
+        finishDate = new Date(end).valueOf();
+        if(start !== '' && end !== '' && startDate > finishDate) {
+          return false;
+        }
+        for(var t = newObj.length-1;  t >= 0; t--) {
+          var objDate = new Date(newObj[t].created).valueOf();
+          if(objDate < startDate || objDate > finishDate) {
+            newObj.splice(t, 1);
+          }
+        }
+        return newObj;
+      } else {
+        return false;
+      }
+    }
+
+
+    //------ Select calendar-scroll
+    function openCalendarScroll(dataType) {
+      if(HistoryStor.history.isDraftView) {
+        if (dataType === 'start-date' && !HistoryStor.history.isStartDateDraft ) {
+          HistoryStor.history.isStartDateDraft  = true;
+          HistoryStor.history.isFinishDateDraft  = false;
+          HistoryStor.history.isAllPeriodDraft  = false;
+        } else if (dataType === 'finish-date' && !HistoryStor.history.isFinishDateDraft ) {
+          HistoryStor.history.isStartDateDraft  = false;
+          HistoryStor.history.isFinishDateDraft  = true;
+          HistoryStor.history.isAllPeriodDraft  = false;
+        } else if (dataType === 'full-date' && !HistoryStor.history.isAllPeriodDraft ) {
+          HistoryStor.history.isStartDateDraft  = false;
+          HistoryStor.history.isFinishDateDraft  = false;
+          HistoryStor.history.isAllPeriodDraft  = true;
+          HistoryStor.history.startDateDraft  = '';
+          HistoryStor.history.finishDateDraft  = '';
+          HistoryStor.history.drafts = angular.copy(HistoryStor.history.draftsSource);
+        } else {
+          HistoryStor.history.isStartDateDraft  = false;
+          HistoryStor.history.isFinishDateDraft  = false;
+          HistoryStor.history.isAllPeriodDraft = false;
+        }
+      } else {
+        if (dataType === 'start-date' && !HistoryStor.history.isStartDate) {
+          HistoryStor.history.isStartDate = true;
+          HistoryStor.history.isFinishDate = false;
+          HistoryStor.history.isAllPeriod = false;
+        } else if (dataType === 'finish-date' && !HistoryStor.history.isFinishDate) {
+          HistoryStor.history.isStartDate = false;
+          HistoryStor.history.isFinishDate = true;
+          HistoryStor.history.isAllPeriod = false;
+        } else if (dataType === 'full-date' && !HistoryStor.history.isAllPeriod) {
+          HistoryStor.history.isStartDate = false;
+          HistoryStor.history.isFinishDate = false;
+          HistoryStor.history.isAllPeriod = true;
+          HistoryStor.history.startDate = '';
+          HistoryStor.history.finishDate = '';
+          HistoryStor.history.orders = angular.copy(HistoryStor.history.ordersSource);
+        } else {
+          HistoryStor.history.isStartDate = false;
+          HistoryStor.history.isFinishDate = false;
+          HistoryStor.history.isAllPeriod = false;
+        }
+      }
+    }
+
+
+
+
+    //=========== Sorting
+
+    //------- show Sorting tool dialog
+    function orderSorting() {
+      if(HistoryStor.history.isDraftView) {
+        HistoryStor.history.isOrderSortDraft = !HistoryStor.history.isOrderSortDraft;
+        HistoryStor.history.isOrderDateDraft = false;
+      } else {
+        HistoryStor.history.isOrderSort = !HistoryStor.history.isOrderSort;
+        HistoryStor.history.isOrderSearch = false;
+        HistoryStor.history.isOrderDate = false;
+      }
+    }
+
+
+    //------ Select sorting type item in list
+    function sortingInit(sortType) {
+      if(HistoryStor.history.isDraftView) {
+
+        if(HistoryStor.history.isSortTypeDraft === sortType) {
+          HistoryStor.history.isSortTypeDraft = false;
+          HistoryStor.history.reverseDraft = true;
+        } else {
+          HistoryStor.history.isSortTypeDraft = sortType;
+
+          if(HistoryStor.history.isSortTypeDraft === 'first') {
+            HistoryStor.history.reverseDraft = true;
+          }
+          if(HistoryStor.history.isSortTypeDraft === 'last') {
+            HistoryStor.history.reverseDraft = false;
+          }
+        }
+
+      } else {
+        if (HistoryStor.history.isSortType === sortType) {
+          deSelectSortingType();
+          HistoryStor.history.orders = angular.copy(HistoryStor.history.ordersSource);
+          HistoryStor.history.isSortType = 'last';
+        } else {
+          deSelectSortingType();
+          HistoryStor.history.isSortType = sortType;
+
+          /*if($scope.history.isSortType === 'all-order') {
+           deSelectSortingType()
+           }*/
+          if (HistoryStor.history.isSortType === 'current-order') {
+            HistoryStor.history.isCurrentOrdersHide = false;
+            HistoryStor.history.isWaitOrdersHide = true;
+            HistoryStor.history.isDoneOrdersHide = true;
+            checkExestingOrderType('order', 'credit');
+          }
+          if (HistoryStor.history.isSortType === 'wait-order') {
+            HistoryStor.history.isCurrentOrdersHide = true;
+            HistoryStor.history.isWaitOrdersHide = false;
+            HistoryStor.history.isDoneOrdersHide = true;
+            checkExestingOrderType(orderMasterStyle)
+          }
+          if (HistoryStor.history.isSortType === 'done-order') {
+            HistoryStor.history.isWaitOrdersHide = true;
+            HistoryStor.history.isCurrentOrdersHide = true;
+            HistoryStor.history.isDoneOrdersHide = false;
+            checkExestingOrderType(orderDoneStyle)
+          }
+        }
+      }
+    }
+
+
+
+    function deSelectSortingType() {
+      HistoryStor.history.isCurrentOrdersHide = false;
+      HistoryStor.history.isWaitOrdersHide = false;
+      HistoryStor.history.isDoneOrdersHide = false;
+    }
+
+    //-------- checking orders quantity during order sorting
+    function checkExestingOrderType(marker1, marker2) {
+      var ordersSortCounter = 0,
+          ordersQty = HistoryStor.history.orders.length,
+          ord = 0;
+
+      for(; ord < ordersQty; ord++) {
+        if(HistoryStor.history.orders[ord].orderStyle === marker1 || HistoryStor.history.orders[ord].orderStyle === marker2) {
+          ordersSortCounter++;
+        }
+      }
+      if(ordersSortCounter > 0) {
+        HistoryStor.history.isEmptyResult = false;
+      } else {
+        HistoryStor.history.isEmptyResult = true;
+      }
+    }
+
 
 
   }

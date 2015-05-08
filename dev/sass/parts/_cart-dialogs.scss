@@ -90,27 +90,28 @@
 
   .location-list-tooltip {
     @include top_left_coord(0px, 600px);
-
     position: absolute;
     width: rem(640px);
+    max-height: 33rem;
+    overflow-y: auto;
     list-style: none;
     border-radius: rem($radius_login-container);
     background-color: #f8f8f8;
     outline: none;
     z-index: 5;
-    &:before {
-      @include transform(rotate(45deg));
-
-      position: absolute;
-      top: rem(25px);
-      left: rem(-15px);
-      display: block;
-      width: rem(40px);
-      height: rem(40px);
-      border-radius: rem(5px);
-      background-color: #f8f8f8;
-      content: '';
-    }
+//    &:before {
+//      @include transform(rotate(45deg));
+//
+//      position: absolute;
+//      top: rem(25px);
+//      left: rem(-15px);
+//      display: block;
+//      width: rem(40px);
+//      height: rem(40px);
+//      border-radius: rem(5px);
+//      background-color: #f8f8f8;
+//      content: '';
+//    }
   }
   .location-option {
     @include roboto-lt(rem(36px), rem(88px));

@@ -123,10 +123,10 @@
           <div class="template-header">
             <button ng-class="{'active': templatesPanel.switcherTemplate}" hm-tap="templatesPanel.toggleTemplateType()" show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-title unvisible">{{ templatesPanel.global.templateLabel }}
               <div ng-show="templatesPanel.switcherTemplate" class="template-type">
-                <div ng-if="templatesPanel.global.constructionType !== 1" hm-tap="templatesPanel.selectNewTemplateType(1)" class="template-type-btn">{{ 'panels.TEMPLATE_WINDOW' | translate }}</div>
-                <div ng-if="templatesPanel.global.constructionType !== 2" hm-tap="templatesPanel.selectNewTemplateType(2)" class="template-type-btn">{{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}</div>
-                <div ng-if="templatesPanel.global.constructionType !== 3" hm-tap="templatesPanel.selectNewTemplateType(3)" class="template-type-btn">{{ 'panels.TEMPLATE_BALCONY' | translate }}</div>
-                <div ng-if="templatesPanel.global.constructionType !== 4" hm-tap="templatesPanel.selectNewTemplateType(4)" class="template-type-btn">{{ 'panels.TEMPLATE_DOOR' | translate }}</div>
+                <div ng-if="templatesPanel.product.constructionType !== 1" hm-tap="templatesPanel.selectNewTemplateType(1)" class="template-type-btn">{{ 'panels.TEMPLATE_WINDOW' | translate }}</div>
+                <div ng-if="templatesPanel.product.constructionType !== 2" hm-tap="templatesPanel.selectNewTemplateType(2)" class="template-type-btn">{{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}</div>
+                <div ng-if="templatesPanel.product.constructionType !== 3" hm-tap="templatesPanel.selectNewTemplateType(3)" class="template-type-btn">{{ 'panels.TEMPLATE_BALCONY' | translate }}</div>
+                <div ng-if="templatesPanel.product.constructionType !== 4" hm-tap="templatesPanel.selectNewTemplateType(4)" class="template-type-btn">{{ 'panels.TEMPLATE_DOOR' | translate }}</div>
               </div>
             </button>
             <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-discr unvisible">{{ templatesPanel.global.templates[templatesPanel.product.templateIndex].name }}</div>
@@ -135,7 +135,7 @@
             <svg-template template="templatesPanel.global.templates[templatesPanel.product.templateIndex]" template-width="templatesPanel.constants.svgTemplateIconBigWidth" template-height="templatesPanel.constants.svgTemplateIconBigHeight" type-construction="bigIcon"></svg-template>
           </div>
           <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-footer unvisible">
-            <div ng-show="templatesPanel.global.constructionType === 1" class="other-templates">
+            <div ng-show="templatesPanel.product.constructionType === 1" class="other-templates">
               <!--.other-template(ng-repeat="templateIcon in global.templatesIcons", hm-tap="selectNewTemplate($index)")-->
               <div ng-repeat="templateIcon in templatesPanel.templatesImgs" hm-tap="templatesPanel.selectNewTemplate($index)" class="other-template">
                 <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}"></div>

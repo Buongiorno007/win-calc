@@ -108,6 +108,7 @@
                     location.heatTransfer = generalLocations.regions[r].heatTransfer;
                     for(var s = 0; s < countryQty; s++) {
                       if(generalLocations.regions[r].countryId === generalLocations.countries[s].id) {
+                        location.countryId = generalLocations.countries[s].id;
                         location.countryName = generalLocations.countries[s].name;
                         location.currencyId = generalLocations.countries[s].currency;
                         location.fullLocation = '' + location.cityName + ', ' + location.regionName + ', ' + location.countryName;
@@ -143,6 +144,7 @@
           UserStor.userInfo.climaticZone = locations[loc].climaticZone;
           UserStor.userInfo.heatTransfer = locations[loc].heatTransfer;
           UserStor.userInfo.countryName = locations[loc].countryName;
+          UserStor.userInfo.countryId = locations[loc].countryId;
           UserStor.userInfo.fullLocation = locations[loc].fullLocation;
           UserStor.userInfo.currencyId = locations[loc].currencyId;
           //------ set current GeoLocation

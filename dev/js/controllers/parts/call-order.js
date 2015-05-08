@@ -7,7 +7,7 @@
     .module('CartModule')
     .controller('CallOrderCtrl', callOrderCtrl);
 
-  function callOrderCtrl(globalConstants, optionsServ, localStorage, localDB, OrderStor, UserStor, CartStor, CartMenuServ) {
+  function callOrderCtrl(globalConstants, optionsServ, localDB, OrderStor, UserStor, CartStor, CartMenuServ) {
 
     var thisCtrl = this;
     //thisCtrl.global = GlobalStor.global;

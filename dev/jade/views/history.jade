@@ -6,7 +6,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.global.isNavMenu }")
 
       section.history-page
 
-        section.accounts-container.history-view(ng-class="{'dark-fon': historyPage.history.isIntervalDate || historyPage.historyPage.history.isOrderSort }")
+        section.accounts-container.history-view(ng-class="{'dark-fon': historyPage.history.isOrderDate || historyPage.history.isOrderSort }")
           .history-header
             .history-user-info(ng-hide="historyPage.history.isOrderSearch")
               include parts/_user-info
@@ -17,8 +17,8 @@ section.page-container(ng-class="{ 'swiped': !historyPage.global.isNavMenu }")
               .tools-block.search-tool(ng-class="{ 'active': historyPage.history.isOrderSearch }")
                 button.tool.search-btn(hm-tap="historyPage.orderSearching()")
 
-              .tools-block.tool-drop(ng-class="{ 'active': historyPage.history.isIntervalDate }")
-                button.tool.calendar-btn(hm-tap="intervalDateSelecting()")
+              .tools-block.tool-drop(ng-class="{ 'active': historyPage.history.isOrderDate }")
+                button.tool.calendar-btn(hm-tap="historyPage.orderDateSelecting()")
                 .time-interval(ng-class="{ 'empty': historyPage.history.startDate === '' &&  historyPage.history.finishDate === ''}")
                   span(ng-if="historyPage.history.startDate !== ''") {{ 'history.FROM' | translate }}
                   span(order-date="{{ historyPage.history.startDate }}", type-date="")
@@ -97,8 +97,8 @@ section.page-container(ng-class="{ 'swiped': !historyPage.global.isNavMenu }")
                     .user-data.account-user-adress {{ order.location }}, {{ order.address }}
                     .account-label {{ 'history.ADDRESS' | translate }}
                 .account-row.footer
-                  .account-value(ng-hide="order.orderStyle == 'credit'") {{ order.orderPriceTOTAL }}{{ global.currency }}
-                  .account-value(ng-show="order.orderStyle == 'credit'") {{ order.orderPriceTOTAL }}{{ global.currency }}, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.paymentMonthly}}{{ global.currency }}
+                  .account-value(ng-hide="order.orderStyle == 'credit'") {{ order.orderPriceTOTAL }}{{ historyPage.userInfo.currency }}
+                  .account-value(ng-show="order.orderStyle == 'credit'") {{ order.orderPriceTOTAL }}{{ historyPage.userInfo.currency }}, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.paymentMonthly}}{{ historyPage.userInfo.currency }}
                   .account-value(ng-show="order.orderStyle == 'master'") {{ 'history.WAIT_MASTER' | translate }}
                   .account-date {{ order.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{ order.newDeliveryDate }}
 
@@ -108,28 +108,29 @@ section.page-container(ng-class="{ 'swiped': !historyPage.global.isNavMenu }")
               button.account-delete-btn(ng-hide="order.orderStyle == 'done'", hm-tap="historyPage.clickDeleteOrder(order.orderType, order.orderId)")
               button.account-change-btn(ng-hide="order.orderStyle == 'done'", hm-tap="historyPage.editOrder(order.orderId)") {{ 'common_words.CHANGE' | translate }}
 
+            .empty-search-result(ng-show="(orders | filter:historyPage.history.searchingWord).length == 0")
+              .result-icon
+              .result-text {{ 'history.BY_YOUR_REQUEST' | translate }} "<span class="searchin-text"> {{ historyPage.history.searchingWord }} </span>" {{ 'history.NOT_FIND' | translate }}.
+
+            .empty-search-result(ng-show="historyPage.history.isEmptyResult")
+              .result-icon
+              .result-text {{ 'history.BY_YOUR_REQUEST' | translate }} {{ 'history.NOT_FIND' | translate }}.
 
           button.view-switch-tab(hm-tap="historyPage.viewSwitching()") {{ 'history.DRAFT_VIEW' | translate }}
 
-          .empty-search-result(ng-show="(orders | filter:searchingWord).length == 0")
-            .result-icon
-            .result-text {{ 'history.BY_YOUR_REQUEST' | translate }} "<span class="searchin-text"> {{ searchingWord }} </span>" {{ 'history.NOT_FIND' | translate }}.
-
-          .empty-search-result(ng-show="historyPage.history.isEmptyResult")
-            .result-icon
-            .result-text {{ 'history.BY_YOUR_REQUEST' | translate }} {{ 'history.NOT_FIND' | translate }}.
 
 
 
 
 
 
-        section.accounts-container.draft-view(ng-class="{'active': historyPage.history.isDraftView, 'dark-fon': historyPage.history.isIntervalDateDraft || historyPage.history.isOrderSortDraft }")
+
+        section.accounts-container.draft-view(ng-class="{'active': historyPage.history.isDraftView, 'dark-fon': historyPage.history.isOrderDateDraft || historyPage.history.isOrderSortDraft }")
           .history-header
             include parts/_user-info
             .history-tools-panel
-              .tools-block.tool-drop(ng-class="{ 'active': historyPage.history.isIntervalDateDraft }")
-                button.tool.calendar-btn(hm-tap="historyPage.intervalDateSelecting()")
+              .tools-block.tool-drop(ng-class="{ 'active': historyPage.history.isOrderDateDraft }")
+                button.tool.calendar-btn(hm-tap="historyPage.orderDateSelecting()")
                 .time-interval(ng-class="{ 'empty': historyPage.history.startDateDraft === '' && historyPage.history.finishDateDraft === ''}")
                   span(ng-if="historyPage.history.startDateDraft !== ''") {{ 'history.FROM' | translate }}
                   span(order-date="{{ historyPage.history.startDateDraft }}", type-date="")
@@ -165,22 +166,22 @@ section.page-container(ng-class="{ 'swiped': !historyPage.global.isNavMenu }")
 
           .scroll-vert-container
             .scrolling-container
-              .account-block(ng-repeat="draft in historyPage.history.drafts | orderBy:createdDate:reverseDraft", hm-tap="historyPage.editOrder(draft.orderId)")
+              .account-block(ng-repeat="draft in historyPage.history.drafts | orderBy:createdDate:historyPage.history.reverseDraft", hm-tap="historyPage.editOrder(draft.orderId)")
                 .account
                   .account-row.header
                     .account-id {{ 'history.DRAFT' | translate }}
                     .account-label.account-date-filter {{ 'history.FROM' | translate }}
                       span(order-date="{{ draft.created }}", type-date="'order'")
                   .account-row.footer(hm-tap="historyPage.editOrder(draft.orderId)")
-                    .account-value(ng-hide="draft.orderStyle == 'credit'") {{ draft.orderPriceTOTAL }}{{ global.currency }}
-                    .account-value(ng-show="draft.orderStyle == 'credit'") {{ draft.orderPriceTOTAL }}{{ global.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.paymentMonthly}}{{ global.currency }}
+                    .account-value(ng-hide="draft.orderStyle == 'credit'") {{ draft.orderPriceTOTAL }}{{ historyPage.userInfo.currency }}
+                    .account-value(ng-show="draft.orderStyle == 'credit'") {{ draft.orderPriceTOTAL }}{{ historyPage.userInfo.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.paymentMonthly}}{{ historyPage.userInfo.currency }}
                     .account-qty {{ draft.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{ draft.newDeliveryDate }}
                 button.account-tool.account-print-btn(hm-tap="")
                 button.account-delete-btn(hm-tap="historyPage.deleteOrder(draft.orderType, draft.orderId)")
 
 
-          button.view-switch-tab(hm-tap="historyPage.viewSwitching()") {{ 'history.HISTORY_VIEW' | translate }}
+            .empty-search-result(ng-show="historyPage.history.isEmptyResultDraft")
+              .result-icon
+              .result-text {{ 'history.BY_YOUR_REQUEST' | translate }} {{ 'history.NOT_FIND' | translate }}.
 
-          .empty-search-result(ng-show="historyPage.history.isEmptyResultDraft")
-            .result-icon
-            .result-text {{ 'history.BY_YOUR_REQUEST' | translate }} {{ 'history.NOT_FIND' | translate }}.
+          button.view-switch-tab(hm-tap="historyPage.viewSwitching()") {{ 'history.HISTORY_VIEW' | translate }}

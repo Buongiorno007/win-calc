@@ -10,7 +10,7 @@
     .module('BauVoiceApp')
     .factory('CartStor', cartStorageFactory);
 
-  function cartStorageFactory($filter) {
+  function cartStorageFactory($filter, OrderStor) {
 
     var thisFactory = this;
 
@@ -23,7 +23,10 @@
         isCreditDialog: false,
         submitted: false,
         isCityBox: false,
-        user: {sex: ''}
+        user: {
+          location: OrderStor.order.currCityName +', '+ OrderStor.order.currRegionName,
+          sex: ''
+        }
       },
 
       //------- data x order dialogs
@@ -54,7 +57,8 @@
         $filter('translate')('cart.CLIENT_INFO_ADV')
       ],
 
-      setDefaultCart: setDefaultCart
+      setDefaultCart: setDefaultCart,
+      setDefaultUser: setDefaultUser
     };
 
 
@@ -67,6 +71,11 @@
 
     function setDefaultCart() {
       var publicObj = angular.copy(thisFactory.publicObj.cartSource);
+      return publicObj;
+    }
+
+    function setDefaultUser() {
+      var publicObj = angular.copy(thisFactory.publicObj.cartSource.user);
       return publicObj;
     }
 

@@ -29,6 +29,8 @@
     };
 
 
+    GlobalStor.global.currOpenPage = 'settings';
+
     //    $scope.global.startProgramm = false;
     //    //----- for location page
     //    $scope.global.isOpenSettingsPage = true;

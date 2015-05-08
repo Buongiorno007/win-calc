@@ -7,7 +7,7 @@
     .module('BauVoiceApp')
     .factory('localDB', localDBFactory);
 
-  function localDBFactory($webSql) {
+  function localDBFactory($webSql, $q) {
 
     var thisFactory = this,
         dbName = 'localDB',
@@ -533,33 +533,43 @@
       });*/
     }
 
-    function selectDB(tableName, options, callback) {
-      var handler = [];
-      db.select(tableName, options).then(function (results) {
-        if (results.rows.length) {
-          for (var i = 0; i < results.rows.length; i++) {
-            handler.push(results.rows.item(i));
+    function selectDB(tableName, options) {
+      var deferred = $q.defer(),
+          handler = [];
+      db.select(tableName, options).then(function (result) {
+        var resultQty = result.rows.length,
+            i = 0;
+        if (resultQty) {
+          for (; i < resultQty; i++) {
+            handler.push(result.rows.item(i));
           }
-          callback(new OkResult(handler));
+          deferred.resolve(handler);
         } else {
-          callback(new ErrorResult(1, 'No in database!'));
+          deferred.resolve();
         }
       });
+      return deferred.promise;
     }
 
-    function selectAllDB(tableName, callback) {
-      var handler = [];
-      db.selectAll(tableName).then(function (results) {
-        if (results.rows.length) {
-          for (var i = 0; i < results.rows.length; i++) {
-            handler.push(results.rows.item(i));
+
+    function selectAllDB(tableName) {
+      var deferred = $q.defer(),
+          handler = [];
+      db.selectAll(tableName).then(function (result) {
+        var resultQty = result.rows.length,
+            i = 0;
+        if(resultQty) {
+          for(;i < resultQty; i++) {
+            handler.push(result.rows.item(i));
           }
-          callback(new OkResult(handler));
+          deferred.resolve(handler);
         } else {
-          callback(new ErrorResult(1, 'No in database!'));
+          deferred.resolve();
         }
       });
+      return deferred.promise;
     }
+
 
     function updateDB(tableName, elem, options) {
       db.update(tableName, elem, options);

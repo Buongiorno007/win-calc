@@ -2996,48 +2996,34 @@ body {
   left: 37.5rem;
   position: absolute;
   width: 40rem;
+  max-height: 33rem;
+  overflow-y: auto;
   list-style: none;
   border-radius: 2rem;
   background-color: #f8f8f8;
   outline: none;
   z-index: 5;
 }
-/* line 101, ../../dev/sass/parts/_cart-dialogs.scss */
-.cart-dialogs-container .location-list-tooltip:before {
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  position: absolute;
-  top: 1.5625rem;
-  left: -0.9375rem;
-  display: block;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 0.3125rem;
-  background-color: #f8f8f8;
-  content: '';
-}
-/* line 115, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 116, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .location-option {
   font: normal 2.25rem/5.5rem roboto-light, sans-serif;
   border-bottom: 1px solid #c4c3c3;
   color: #363636;
   cursor: pointer;
 }
-/* line 121, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 122, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .location-option:last-child {
   border-bottom: none;
 }
-/* line 124, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 125, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .location-option:first-letter {
   color: #f98000;
 }
-/* line 128, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 129, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .current-city {
   position: relative;
 }
-/* line 131, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 132, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .current-city:after {
   font: normal 1.875rem/1 general-icons, sans-serif;
   position: absolute;
@@ -3046,7 +3032,7 @@ body {
   color: #f98000;
   content: "\e600";
 }
-/* line 143, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 144, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-label {
   font: normal 3rem/1.42857 roboto-bold, sans-serif;
   margin-bottom: 1.25rem;
@@ -3054,12 +3040,12 @@ body {
   color: #363636;
 }
 
-/* line 153, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 154, ../../dev/sass/parts/_cart-dialogs.scss */
 #call-master-dialog .cart-dialogs-container {
   margin-top: 10%;
 }
 
-/* line 158, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 159, ../../dev/sass/parts/_cart-dialogs.scss */
 .order-dialog .cart-dialogs-container {
   margin-top: 1%;
   margin-bottom: 1%;
@@ -3093,23 +3079,23 @@ body {
   }
 }
 */
-/* line 197, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 198, ../../dev/sass/parts/_cart-dialogs.scss */
 .time-block {
   display: inline-block;
 }
-/* line 199, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 200, ../../dev/sass/parts/_cart-dialogs.scss */
 .time-block:first-child {
   margin: 0 15% 0 3%;
 }
 
-/* line 203, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 204, ../../dev/sass/parts/_cart-dialogs.scss */
 .time-label {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   margin-right: 0.625rem;
   color: #8c8c8c;
 }
 
-/* line 209, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 210, ../../dev/sass/parts/_cart-dialogs.scss */
 .time-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   display: inline-block;
@@ -3122,21 +3108,21 @@ body {
   outline: none;
 }
 
-/* line 222, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 223, ../../dev/sass/parts/_cart-dialogs.scss */
 .subtitle-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   text-align: left;
   color: #363636;
 }
 
-/* line 229, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 230, ../../dev/sass/parts/_cart-dialogs.scss */
 .label-field {
   margin: 10.25rem;
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
 
-/* line 235, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 236, ../../dev/sass/parts/_cart-dialogs.scss */
 .user-select-field {
   -moz-appearance: none;
   -webkit-appearance: none;

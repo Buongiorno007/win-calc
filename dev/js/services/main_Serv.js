@@ -63,7 +63,8 @@
       prepareMainPage: prepareMainPage,
 
       inputProductInOrder: inputProductInOrder,
-      insertOrderInLocalDB: insertOrderInLocalDB
+      insertOrderInLocalDB: insertOrderInLocalDB,
+      deleteOrderFromLocalDB: deleteOrderFromLocalDB
     };
 
     return thisFactory.publicObj;

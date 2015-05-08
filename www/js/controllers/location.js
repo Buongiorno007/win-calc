@@ -10,68 +10,65 @@
     .module('SettingsModule')
     .controller('LocationCtrl', locationCtrl);
 
-  function locationCtrl($scope, $location, globalDB, localStorage, loginServ, UserStor) {
+  function locationCtrl($scope, globalDB, loginServ, SettingServ, GlobalStor, OrderStor, UserStor) {
 
-
-    $scope.global = localStorage.storage;
-    //var generalLocations = [];
-
-    //------ get all countries, regions and cities
-    loginServ.prepareLocationToUse().then(function(data) {
-      $scope.locations = data.mergerLocation;
-    });
+    var thisCtrl = this;
+    thisCtrl.userInfo = UserStor.userInfo;
 
     //----- current user location
-    $scope.userNewLocation = angular.copy(UserStor.userInfo.currFullLocation);
+    thisCtrl.userNewLocation = angular.copy(OrderStor.order.currFullLocation);
+
+
+    //------ get all regions and cities
+    //TODO база городов и регионов долны быть только одной страны завода
+    SettingServ.downloadLocations().then(function(data) {
+      thisCtrl.locations = data;
+    });
+
+
+    //------ clicking
+    thisCtrl.closeLocationPage = SettingServ.closeLocationPage;
+    thisCtrl.selectCity = selectCity;
+
+
+    //============ methods ================//
 
     //-------- Select City
-    $scope.selectCity = function(locationId) {
-      for(var j = 0; j < $scope.locations.length; j++) {
-        if($scope.locations[j].cityId === locationId) {
-          $scope.userNewLocation = $scope.locations[j].fullLocation;
+    function selectCity(locationId) {
+      var locationQty = thisCtrl.locations.length,
+          j = 0;
+      for(; j < locationQty; j++) {
+        if(thisCtrl.locations[j].cityId === locationId) {
+          thisCtrl.userNewLocation = thisCtrl.locations[j].fullLocation;
           //----- if user settings changing
-          if($scope.global.isOpenSettingsPage) {
-            UserStor.userInfo.fullLocation = $scope.userNewLocation;
+          if(GlobalStor.global.currOpenPage === 'settings') {
+            UserStor.userInfo.fullLocation = thisCtrl.userNewLocation;
             UserStor.userInfo.city_id = locationId;
-            UserStor.userInfo.cityName = $scope.locations[j].cityName;
-            UserStor.userInfo.regionName = $scope.locations[j].regionName;
-            UserStor.userInfo.countryName = $scope.locations[j].countryName;
-            UserStor.userInfo.climaticZone = $scope.locations[j].climaticZone;
-            UserStor.userInfo.heatTransfer = $scope.locations[j].heatTransfer;
+            UserStor.userInfo.cityName = thisCtrl.locations[j].cityName;
+            UserStor.userInfo.regionName = thisCtrl.locations[j].regionName;
+            UserStor.userInfo.countryName = thisCtrl.locations[j].countryName;
+            UserStor.userInfo.climaticZone = thisCtrl.locations[j].climaticZone;
+            UserStor.userInfo.heatTransfer = thisCtrl.locations[j].heatTransfer;
             //----- save new City Id in Global DB
             globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"city_id": locationId}, {"id": UserStor.userInfo.id});
           //-------- if current geolocation changing
-          } else {
+          } else if(GlobalStor.global.currOpenPage === 'main'){
             //----- build new currentGeoLocation
-            UserStor.userInfo.currCityId = locationId;
-            UserStor.userInfo.currCityName = $scope.locations[j].cityName;
-            UserStor.userInfo.currRegionName = $scope.locations[j].regionName;
-            UserStor.userInfo.currCountryName = $scope.locations[j].countryName;
-            UserStor.userInfo.currClimaticZone = $scope.locations[j].climaticZone;
-            UserStor.userInfo.currHeatTransfer = $scope.locations[j].heatTransfer;
-            UserStor.userInfo.currFullLocation = $scope.userNewLocation;
+            OrderStor.order.currCityId = locationId;
+            OrderStor.order.currCityName = thisCtrl.locations[j].cityName;
+            OrderStor.order.currRegionName = thisCtrl.locations[j].regionName;
+            OrderStor.order.currCountryName = thisCtrl.locations[j].countryName;
+            OrderStor.order.currClimaticZone = thisCtrl.locations[j].climaticZone;
+            OrderStor.order.currHeatTransfer = thisCtrl.locations[j].heatTransfer;
+            OrderStor.order.currFullLocation = thisCtrl.userNewLocation;
           }
-          $scope.global.startProgramm = false;
-          closeLocationPage();
+          GlobalStor.global.startProgramm = false;
+          SettingServ.closeLocationPage();
         }
       }
-
-    };
-    //-------- close Location Page
-    $scope.cancelLocationPage = function() {
-      closeLocationPage()
-    };
-
-    function closeLocationPage() {
-      if($scope.global.isOpenSettingsPage) {
-        $scope.global.gotoSettingsPage();
-      } else {
-        $scope.global.showNavMenu = true;
-        $scope.global.isConfigMenu = false;
-        $scope.global.showPanels = {};
-        $location.path('/main');
-      }
     }
+
+
 
 
   }

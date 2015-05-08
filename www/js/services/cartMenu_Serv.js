@@ -21,8 +21,9 @@
       checkDifferentDate: checkDifferentDate,
       calculateTotalOrderPrice: calculateTotalOrderPrice,
 
-      setDefaultUserInfoXOrder: setDefaultUserInfoXOrder,
       closeOrderDialog: closeOrderDialog,
+      changeLocation: changeLocation,
+      selectCity: selectCity,
       sendOrder: sendOrder
     };
 
@@ -182,22 +183,26 @@
       CartStor.cart.submitted = false;
       CartStor.cart.isCityBox = false;
       //$scope.currentCity = false;
-      CartStor.cart.user = setDefaultUserInfoXOrder();
+      CartStor.cart.user = CartStor.setDefaultUser();
       CartStor.cart.isMasterDialog = false;
       CartStor.cart.isOrderDialog = false;
       CartStor.cart.isCreditDialog = false;
     }
 
-    //--------- for create user object and set default values for select fields
-    function setDefaultUserInfoXOrder() {
-      return {
-        sex: ''
-      };
+
+    function changeLocation() {
+      if(CartStor.cart.user.location) {
+        CartStor.cart.isCityBox = true;
+      } else {
+        CartStor.cart.isCityBox = false;
+      }
     }
 
-
-
-
+    //-------- Select City
+    function selectCity(place) {
+      CartStor.cart.user.location = place;
+      CartStor.cart.isCityBox = false;
+    }
 
   }
 })();
