@@ -30,6 +30,7 @@
         isStartDate: false,
         isFinishDate: false,
         isAllPeriod: true,
+        maxDeliveryDateOrder: 0,
 
         isOrderSort: false,
         isSortType: 'last',

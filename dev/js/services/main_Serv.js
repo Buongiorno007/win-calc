@@ -77,25 +77,13 @@
 
     //------------- Create Order Id and Date
     function createOrderData() {
-      var deliveryDate = new Date(),
-          valuesDate,
-          idDate;
-
+      var productDay;
       //----------- create order number for new project
       OrderStor.order.orderId = Math.floor((Math.random() * 100000));
-
       //------ set delivery day
-      deliveryDate.setDate( deliveryDate.getDate() + globalConstants.productionDays );
-      valuesDate = [
-        deliveryDate.getDate(),
-        deliveryDate.getMonth() + 1
-      ];
-      for(idDate in valuesDate) {
-        valuesDate[ idDate ] = valuesDate[ idDate ].toString().replace( /^([0-9])$/, '0$1' );
-      }
-
-      OrderStor.order.deliveryDate = valuesDate[ 0 ] + '.' + valuesDate[ 1 ] + '.' + deliveryDate.getFullYear();
-      OrderStor.order.newDeliveryDate = OrderStor.order.deliveryDate;
+      productDay = new Date(OrderStor.order.orderDate).getDate() + globalConstants.productionDays;
+      OrderStor.order.deliveryDate = new Date().setDate(productDay);
+      OrderStor.order.newDeliveryDate = angular.copy(OrderStor.order.deliveryDate);
     }
 
 
@@ -654,19 +642,12 @@
 
       OrderStor.order.orderType = orderType;
       OrderStor.order.orderStyle = orderStyle;
-//      $scope.global.order.productsPriceTOTAL = parseFloat($scope.global.order.productsPriceTOTAL.toFixed(2));
-//      $scope.global.order.paymentFirst = parseFloat($scope.global.order.paymentFirst.toFixed(2));
-//      $scope.global.order.paymentMonthly = parseFloat($scope.global.order.paymentMonthly.toFixed(2));
-//      $scope.global.order.paymentFirstPrimary = parseFloat($scope.global.order.paymentFirstPrimary.toFixed(2));
-//      $scope.global.order.paymentMonthlyPrimary = parseFloat($scope.global.order.paymentMonthlyPrimary.toFixed(2));
-//      $scope.global.order.orderPriceTOTAL = parseFloat($scope.global.order.orderPriceTOTAL.toFixed(2));
-//      $scope.global.order.orderPriceTOTALPrimary = parseFloat($scope.global.order.orderPriceTOTALPrimary.toFixed(2));
       angular.extend(OrderStor.order, newOptions);
-
       //------- save order in LocalDB
       delete OrderStor.order.products;
-
+console.log('+++++',OrderStor.order);
       localDB.insertDB(localDB.ordersTableBD, OrderStor.order);
+      //----- cleaning order
       OrderStor.order = OrderStor.setDefaultOrder();
     }
 

@@ -709,10 +709,10 @@
             </div>
             <li ng-class="{'active': cartMenu.config.activeMenuItem == 4}" hm-tap="cartMenu.selectMenuItem(4)" class="item">
               <div data-output="{{ 'cart.DELIVERY_DATE' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
-              <div data-output="{{ cartMenu.order.newDeliveryDate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
+              <div data-output="{{cartMenu.order.newDeliveryDate | date:'dd.MM.yyyy'}}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
             </li>
             <div ng-class="{'active': cartMenu.config.activeMenuItem == 4}" class="dropdown-cart-menu drop-calendar">
-              <calendar calendar-option=" {{ 'common_words.MONTHS' | translate }} " calendar-option-short="{{ 'common_words.MONTHS_SHOT' | translate }} " class="calendar-box"></calendar>
+              <calendar class="calendar-box"></calendar>
             </div>
             <div class="calendar-prices">
               <div ng-show="cartMenu.order.isDatePriceMore" class="calendar-price up">+ {{ cartMenu.order.deliveryPrice }} {{ cartMenu.userInfo.currency }}</div>
@@ -722,13 +722,13 @@
           <footer class="menu-footer">
             <div ng-class="{'active': cartMenu.order.isInstalment}" class="price-block price-with-instalments">
               <div class="name">{{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ cartMenu.order.selectedInstalmentPercent }} %</div>
-              <div class="name">{{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{ cartMenu.order.newDeliveryDate }}</div>
+              <div class="name">{{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{cartMenu.order.newDeliveryDate | date:"dd.MM.yyyy"}}</div>
               <price price-value="cartMenu.order.paymentFirst" price-currency="cartMenu.userInfo.currency"></price>
               <div class="name">{{ cartMenu.order.selectedInstalmentPeriod }} {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }}</div>
               <price price-value="cartMenu.order.paymentMonthly" price-currency="cartMenu.userInfo.currency"></price>
             </div>
             <div ng-class="{'active': !cartMenu.order.isInstalment}" class="price-block price-without-instalments">
-              <div class="name">{{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{ cartMenu.order.newDeliveryDate }}</div>
+              <div class="name">{{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{cartMenu.order.newDeliveryDate | date:"dd.MM.yyyy"}}</div>
               <price price-value="cartMenu.order.orderPriceTOTAL" price-currency="cartMenu.userInfo.currency"></price>
             </div>
             <button hm-tap="cartMenu.openOrderDialog()" class="order-btn">{{ 'cart.ORDER' | translate }}</button>
@@ -737,13 +737,13 @@
         </div>
         <div ng-class="{'active': cartMenu.order.isOldPrice &amp;&amp; cartMenu.order.isInstalment}" class="old-price-inst-tab">
           <div class="name">{{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ cartMenu.order.selectedInstalmentPercent }} %</div>
-          <div class="name">{{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{ cartMenu.order.deliveryDate }}</div>
+          <div class="name">{{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{cartMenu.order.deliveryDate | date:"dd.MM.yyyy"}}</div>
           <price price-value="cartMenu.order.paymentFirstPrimary" price-currency="cartMenu.userInfo.currency"></price>
           <div class="name">{{ cartMenu.order.selectedInstalmentPeriod }} {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }}</div>
           <price price-value="cartMenu.order.paymentMonthlyPrimary" price-currency="cartMenu.userInfo.currency"></price>
         </div>
         <div ng-class="{'active': cartMenu.order.isOldPrice &amp;&amp; !cartMenu.order.isInstalment}" class="old-price-tab">
-          <div class="name">{{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{ cartMenu.order.deliveryDate }}</div>
+          <div class="name">{{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{cartMenu.order.deliveryDate | date:"dd.MM.yyyy"}}</div>
           <price price-value="cartMenu.order.orderPriceTOTALPrimary" price-currency="cartMenu.userInfo.currency"></price>
         </div>
       </div>
@@ -762,14 +762,13 @@
               <input type="text" name="name" ng-model="masterDialog.cart.user.name" placeholder="{{ 'cart.CLIENT_NAME' | translate }}" required class="user-field">
               <div ng-show="masterDialog.cart.submitted &amp;&amp; callMasterForm.name.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
             </div>
-            <div ng-class="{ 'has-error' : masterDialog.cart.submitted &amp;&amp; callMasterForm.location.$error.required, 'current-city' : currentCity }" class="input-field">
-              <input type="text" name="location" ng-model="masterDialog.cart.user.location" ng-change="masterDialog.checkChanges()" placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}" ng-focus="masterDialog.isFocused=true" ng-blur="masterDialog.isFocused=false" required class="user-field">
-              <div ng-show="masterDialog.cart.submitted &amp;&amp; callMasterForm.location.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
-              <ul ng-show="masterDialog.showTipCity &amp;&amp; masterDialog.isFocused" ng-focus="masterDialog.isFocused=true" ng-blur="masterDialog.isFocused=false" tabindex="1" class="location-list-tooltip">
-                <li ng-repeat="location in masterDialog.filteredCity" hm-tap="masterDialog.selectCity(location.city, location.current)" ng-class="{ 'current-city' : location.current }" class="location-option">{{location.city}}</li>
+            <div ng-class="{ 'has-error' : masterDialog.cart.submitted &amp;&amp; callMasterForm.location.$error.required }" class="input-field">
+              <input type="text" name="location" ng-model="masterDialog.cart.user.location" ng-change="masterDialog.changeLocation()" placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}" ng-blur="masterDialog.cart.isCityBox = false" required class="user-field">
+              <div ng-show="masterDialog.cart.submitted &amp;&amp; callCreditForm.location.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
+              <ul ng-show="masterDialog.cart.isCityBox" tabindex="1" class="location-list-tooltip">
+                <li ng-repeat="location in masterDialog.locations | filter: {cityName: masterDialog.cart.user.location } | orderBy:'cityName'" hm-tap="masterDialog.selectCity(location.fullLocation)" class="location-option">{{location.fullLocation}}</li>
               </ul>
-            </div>
-            <div ng-class="{ 'has-error' : masterDialog.cart.submitted &amp;&amp; callMasterForm.address.$error.required }" class="input-field">
+              <div ng-class="{ 'has-error' : masterDialog.cart.submitted &amp;&amp; callMasterForm.address.$error.required }" class="input-field"></div>
               <input type="text" name="address" ng-model="masterDialog.cart.user.address" placeholder="{{ 'cart.CLIENT_ADDRESS' | translate }}" required class="user-field">
               <div ng-show="masterDialog.cart.submitted &amp;&amp; callMasterForm.address.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
             </div>
@@ -804,14 +803,13 @@
               <div ng-show="orderDialog.cart.submitted &amp;&amp; callOrderForm.phone.$error.pattern || callOrderForm.phone.$dirty &amp;&amp; callOrderForm.phone.$error.pattern" class="error-tooltip">{{ 'login.WRONG_NUMBER' | translate }}</div>
             </div>
             <div class="cart-dialog-label">{{ 'cart.CALL_ORDER_DELIVERY' | translate }} {{ orderDialog.order.newDeliveryDate }}</div>
-            <div ng-class="{ 'has-error' : orderDialog.cart.submitted &amp;&amp; callOrderForm.location.$error.required, 'current-city' : currentCity }" class="input-field">
-              <input type="text" name="location" ng-model="orderDialog.cart.user.location" ng-change="orderDialog.checkChanges()" placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}" ng-focus="orderDialog.isFocused=true" ng-blur="orderDialog.isFocused=false" required class="user-field">
-              <div ng-show="orderDialog.cart.submitted &amp;&amp; callOrderForm.location.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
-              <ul ng-show="orderDialog.showTipCity &amp;&amp; orderDialog.isFocused" ng-focus="orderDialog.isFocused=true" ng-blur="orderDialog.isFocused=false" tabindex="1" class="location-list-tooltip">
-                <li ng-repeat="location in orderDialog.cart.filteredCity" hm-tap="orderDialog.selectCity(location.city, location.current)" ng-class="{ 'current-city' : location.current }" class="location-option">{{location.city}}</li>
+            <div ng-class="{ 'has-error' : orderDialog.cart.submitted &amp;&amp; callOrderForm.location.$error.required }" class="input-field">
+              <input type="text" name="location" ng-model="orderDialog.cart.user.location" ng-change="orderDialog.changeLocation()" placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}" ng-blur="orderDialog.cart.isCityBox = false" required class="user-field">
+              <div ng-show="orderDialog.cart.submitted &amp;&amp; callCreditForm.location.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
+              <ul ng-show="orderDialog.cart.isCityBox" tabindex="1" class="location-list-tooltip">
+                <li ng-repeat="location in orderDialog.locations | filter: {cityName: orderDialog.cart.user.location } | orderBy:'cityName'" hm-tap="orderDialog.selectCity(location.fullLocation)" class="location-option">{{location.fullLocation}}</li>
               </ul>
-            </div>
-            <div ng-class="{ 'has-error' : orderDialog.cart.submitted &amp;&amp; callOrderForm.address.$error.required }" class="input-field">
+              <div ng-class="{ 'has-error' : orderDialog.cart.submitted &amp;&amp; callOrderForm.address.$error.required }" class="input-field"></div>
               <input type="text" name="address" ng-model="orderDialog.cart.user.address" placeholder="{{ 'cart.CLIENT_ADDRESS' | translate }}" required class="user-field">
               <div ng-show="orderDialog.cart.submitted &amp;&amp; callOrderForm.address.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
             </div>
@@ -905,13 +903,6 @@
             </div>
             <div class="cart-dialog-label">{{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }} {{ creditDialog.order.orderPriceTOTAL }}{{ creditDialog.userInfo.currency }} {{ 'cart.CALL_CREDIT_PARTIAL_PRICE' | translate }} {{ creditDialog.order.paymentMonthly }}{{ creditDialog.userInfo.currency }}</div>
             <div class="cart-dialog-label">{{ 'cart.CALL_ORDER_DELIVERY' | translate }} {{ creditDialog.order.newDeliveryDate }}</div>
-            <!--.input-field(ng-class="{ 'has-error' : creditDialog.cart.submitted && callCreditForm.location.$error.required, 'current-city' : creditDialog.currentCity }")
-            input.user-field(type="text", name="location", ng-model="creditDialog.cart.user.location", ng-change="creditDialog.changeLocation()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", ng-focus="creditDialog.isFocused=true", ng-blur="creditDialog.isFocused=false", required)
-            .error-tooltip(ng-show='creditDialog.cart.submitted && callCreditForm.location.$error.required') {{ 'login.EMPTY_FIELD' | translate }}
-            ul.location-list-tooltip(ng-show="creditDialog.cart.isCityBox && creditDialog.isFocused", ng-focus="creditDialog.isFocused=true", ng-blur="creditDialog.isFocused=false", tabindex="1")
-              li.location-option(ng-repeat="location in creditDialog.locations | filter: {name: creditDialog.cart.user.location } | orderBy:'name'", hm-tap="creditDialog.selectCity(location.city, location.current)", ng-class="{ 'current-city' : location.current }") {{location.city}}
-              
-            -->
             <div ng-class="{ 'has-error' : creditDialog.cart.submitted &amp;&amp; callCreditForm.location.$error.required, 'current-city' : creditDialog.currentCity }" class="input-field">
               <input type="text" name="location" ng-model="creditDialog.cart.user.location" ng-change="creditDialog.changeLocation()" placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}" ng-blur="creditDialog.cart.isCityBox = false" required class="user-field">
               <div ng-show="creditDialog.cart.submitted &amp;&amp; callCreditForm.location.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>

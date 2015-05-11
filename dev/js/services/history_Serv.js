@@ -7,7 +7,7 @@
     .module('MainModule')
     .factory('HistoryServ', historyFactory);
 
-  function historyFactory($location, $filter, $cordovaDialogs, globalConstants, globalDB, localDB, MainServ, GlobalStor, UserStor, HistoryStor) {
+  function historyFactory($location, $filter, $cordovaDialogs, $cordovaProgress, globalConstants, globalDB, localDB, MainServ, CartServ, GlobalStor, OrderStor, UserStor, HistoryStor) {
 
     var thisFactory = this,
         orderMasterStyle = 'master',
@@ -39,12 +39,13 @@
     //------ Download complete Orders from localDB
     function downloadOrders() {
       localDB.selectDB(localDB.ordersTableBD, {'orderType': globalConstants.fullOrderType}).then(function(result) {
-        console.log('orders+++++', result);
+//        console.log('orders+++++', result);
         if(result) {
           HistoryStor.history.ordersSource = angular.copy(result);
           HistoryStor.history.orders = angular.copy(result);
           //----- max day for calendar-scroll
-//          HistoryStor.history.maxDeliveryDateOrder = getOrderMaxDate(HistoryStor.history.orders);
+          HistoryStor.history.maxDeliveryDateOrder = getOrderMaxDate(HistoryStor.history.orders);
+          console.log('maxDeliveryDateOrder =', HistoryStor.history.maxDeliveryDateOrder);
         } else {
           HistoryStor.history.isEmptyResult = true;
         }
@@ -54,12 +55,14 @@
 
     //------- defind Order MaxDate
     function getOrderMaxDate(orders) {
-      var ordersDateArr = [];
-      for (var it = 0; it < orders.length; it++) {
-        var oldDateArr = orders[it].deliveryDate.split('.');
-        var newDateStr = Date.parse(oldDateArr[1]+'/'+oldDateArr[0]+'/'+oldDateArr[2]);
+      var ordersDateArr = [],
+          ordersQty = orders.length,
+          it = 0;
+      for (; it < ordersQty; it++) {
+        //var oldDateArr = orders[it].deliveryDate.split('.');
+        //var newDateStr = Date.parse(oldDateArr[1]+'/'+oldDateArr[0]+'/'+oldDateArr[2]);
         //var newDateStr = Date.parse(oldDateArr[2], oldDateArr[1], oldDateArr[0]);
-        ordersDateArr.push(newDateStr);
+        ordersDateArr.push(orders[it].newDeliveryDate);
       }
       ordersDateArr.sort(function (a, b) {
         return b - a
@@ -252,12 +255,25 @@
 
     //--------------- Edit Order & Draft
     function editOrder(orderNum) {
+      //$cordovaProgress.showSimple(true);
       GlobalStor.global.orderEditNumber = orderNum;
       GlobalStor.global.isConfigMenu = true;
       GlobalStor.global.isNavMenu = false;
       //------- set previos Page
       GlobalStor.global.prevOpenPage = GlobalStor.global.currOpenPage;
-      $location.path('/cart');
+      //----- cleaning order
+      OrderStor.order = OrderStor.setDefaultOrder();
+      //------- download edited Order
+      CartServ.downloadOrder();
+
+      //------ Download All Products of edited Order
+      CartServ.downloadProducts().then(
+        //------ Download All Add Elements from LocalDB
+        CartServ.downloadAddElements().then(function() {
+          //$cordovaProgress.hide();
+          $location.path('/cart');
+        })
+      );
     }
 
 

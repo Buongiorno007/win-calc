@@ -65,30 +65,29 @@
     //------- Calendar
     //------ change date
     function checkDifferentDate(lastday, newday) {
-      var lastDateArr, newDateArr, lastDate, newDate, qtyDays;
-      lastDateArr = lastday.split(".");
-      newDateArr = newday.split(".");
-      lastDate = new Date(lastDateArr[ 2 ], lastDateArr[ 1 ]-1, lastDateArr[0]);
-      newDate = new Date(newDateArr[ 2 ], newDateArr[ 1 ]-1, newDateArr[0]);
+      var lastDateArr = lastday.split("."),
+      newDateArr = newday.split("."),
+      lastDate = new Date(lastDateArr[ 2 ], lastDateArr[ 1 ]-1, lastDateArr[0]),
+      newDate = new Date(newDateArr[ 2 ], newDateArr[ 1 ]-1, newDateArr[0]),
       qtyDays = Math.floor((newDate - lastDate)/(1000*60*60*24));
 
       if(qtyDays && qtyDays > 0) {
         OrderStor.order.deliveryPrice = globalConstants.ratePriceDeliveryLess * qtyDays;
-        OrderStor.order.isDatePriceLess = true;
-        OrderStor.order.isDatePriceMore = false;
-        OrderStor.order.isOldPrice = true;
+        OrderStor.order.isDatePriceLess = 1;
+        OrderStor.order.isDatePriceMore = 0;
+        OrderStor.order.isOldPrice = 1;
       } else if (qtyDays && qtyDays < 0) {
         OrderStor.order.deliveryPrice = globalConstants.ratePriceDeliveryMore * Math.abs(qtyDays);
-        OrderStor.order.isDatePriceMore = true;
-        OrderStor.order.isDatePriceLess = false;
-        OrderStor.order.isOldPrice = true;
+        OrderStor.order.isDatePriceMore = 1;
+        OrderStor.order.isDatePriceLess = 0;
+        OrderStor.order.isOldPrice = 1;
       } else {
-        OrderStor.order.deliveryPrice = false;
-        OrderStor.order.isDatePriceLess = false;
-        OrderStor.order.isDatePriceMore = false;
-        OrderStor.order.isOldPrice = false;
+        OrderStor.order.deliveryPrice = 0;
+        OrderStor.order.isDatePriceLess = 0;
+        OrderStor.order.isDatePriceMore = 0;
+        OrderStor.order.isOldPrice = 0;
       }
-      OrderStor.order.newDeliveryDate = newday;
+      OrderStor.order.newDeliveryDate = newDate.getTime();
       calculateTotalOrderPrice();
     }
 
@@ -151,18 +150,6 @@
       } else if(CartStor.cart.isMasterDialog) {
         orderStyle = 'master';
       }
-
-      if(GlobalStor.global.orderEditNumber) {
-
-        //----- delete old order in localDB
-        localDB.deleteDB(localDB.ordersTableBD, {'orderId': GlobalStor.global.orderEditNumber});
-        //$scope.global.deleteOrderFromLocalDB($scope.global.orderEditNumber);
-        /*
-         for(var prod = 0; prod < $scope.global.order.products.length; prod++) {
-         $scope.global.insertProductInLocalDB($scope.global.orderEditNumber, $scope.global.order.products[prod].productId, $scope.global.order.products[prod]);
-         }
-         */
-      }
       MainServ.insertOrderInLocalDB(CartStor.cart.user, globalConstants.fullOrderType, orderStyle);
       //--------- Close cart dialog, go to history
       closeOrderDialog();
@@ -182,8 +169,11 @@
     function closeOrderDialog() {
       CartStor.cart.submitted = false;
       CartStor.cart.isCityBox = false;
-      //$scope.currentCity = false;
-      CartStor.cart.user = CartStor.setDefaultUser();
+      if(GlobalStor.global.orderEditNumber > 0) {
+        CartStor.fillOrderForm();
+      } else{
+        CartStor.cart.user = CartStor.setDefaultUser();
+      }
       CartStor.cart.isMasterDialog = false;
       CartStor.cart.isOrderDialog = false;
       CartStor.cart.isCreditDialog = false;

@@ -10,45 +10,40 @@
     .module('CartModule')
     .directive('calendar', calendarDir);
 
-  function calendarDir(globalConstants, CartMenuServ, OrderStor) {
+  function calendarDir($filter, globalConstants, CartMenuServ, OrderStor) {
 
     return {
       restrict: 'E',
       transclude: true,
-      scope: {
-        dataMonths: '@calendarOption',
-        dataMonthsShort: '@calendarOptionShort'
-      },
       link: function (scope, element, attrs) {
-        var minDeliveryDate = new Date(),
-            maxDeliveryDate = new Date();
 
-        //------ set min delivery day
-        minDeliveryDate.setDate(OrderStor.order.orderDate.getDate() + globalConstants.minDeliveryDays);
-        //------ set max delivery day
-        maxDeliveryDate.setDate(OrderStor.order.orderDate.getDate() + globalConstants.maxDeliveryDays);
+        var orderDay = new Date(OrderStor.order.orderDate).getDate(),
+        minDeliveryDate = new Date().setDate( (orderDay + globalConstants.minDeliveryDays) ),
+        maxDeliveryDate = new Date().setDate( (orderDay + globalConstants.maxDeliveryDays)),
+        deliveryDate = $filter('date')(OrderStor.order.newDeliveryDate, 'dd.MM.yyyy'),
+        oldDeliveryDate = $filter('date')(OrderStor.order.deliveryDate, 'dd.MM.yyyy');
 
         $(function(){
           var opt = {
             flat: true,
             format: 'd.m.Y',
-            locale			: {
+            locale: {
               days: [],
               daysShort: [],
               daysMin: [],
               monthsShort: [],
               months: []
             },
-            date: OrderStor.order.deliveryDate,
+            date: deliveryDate,
             min: minDeliveryDate,
             max: maxDeliveryDate,
             change: function (date) {
-              CartMenuServ.checkDifferentDate(OrderStor.order.deliveryDate, date);
+              CartMenuServ.checkDifferentDate(oldDeliveryDate, date);
               scope.$apply();
             }
           };
-          opt.locale.monthsShort = scope.dataMonthsShort.split(', ');
-          opt.locale.months = scope.dataMonths.split(', ');
+          opt.locale.monthsShort = $filter('translate')('common_words.MONTHS_SHOT').split(', ');
+          opt.locale.months = $filter('translate')('common_words.MONTHS').split(', ');
           element.pickmeup(opt);
         });
       }

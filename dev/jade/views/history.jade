@@ -20,21 +20,21 @@ section.page-container(ng-class="{ 'swiped': !historyPage.global.isNavMenu }")
               .tools-block.tool-drop(ng-class="{ 'active': historyPage.history.isOrderDate }")
                 button.tool.calendar-btn(hm-tap="historyPage.orderDateSelecting()")
                 .time-interval(ng-class="{ 'empty': historyPage.history.startDate === '' &&  historyPage.history.finishDate === ''}")
-                  span(ng-if="historyPage.history.startDate !== ''") {{ 'history.FROM' | translate }}
-                  span(order-date="{{ historyPage.history.startDate }}", type-date="")
+                  span(ng-if="historyPage.history.startDate !== ''") {{ 'history.FROM' | translate }} {{historyPage.history.startDate | date:"dd.MM.yyyy"}}
+                  //span(order-date="{{ historyPage.history.startDate }}", type-date="")
                   span(ng-hide="historyPage.history.startDate == '' || historyPage.history.finishDate == ''") &nbsp; - &nbsp;
-                  span(ng-if="historyPage.history.finishDate !== ''") {{ 'history.UNTIL' | translate }}
-                  span(order-date="{{ historyPage.history.finishDate }}", type-date="")
+                  span(ng-if="historyPage.history.finishDate !== ''") {{ 'history.UNTIL' | translate }} {{historyPage.history.finishDate | date:"dd.MM.yyyy"}}
+                  //span(order-date="{{ historyPage.history.finishDate }}", type-date="")
 
                 .dropdown-tool-dialog.date-filter
                   .filter-title {{ 'history.DATE_RANGE' | translate }}
-                  .period.start-date(ng-class="{ 'selected': historyPage.history.isStartDate }", hm-tap="historyPage.openCalendarScroll('start-date')") {{ 'history.FROM' | translate }}
-                    span(order-date="{{ historyPage.history.startDate }}", type-date="")
+                  .period.start-date(ng-class="{ 'selected': historyPage.history.isStartDate }", hm-tap="historyPage.openCalendarScroll('start-date')") {{ 'history.FROM' | translate }} {{historyPage.history.startDate | date:"dd.MM.yyyy"}}
+                    //span(order-date="{{ historyPage.history.startDate }}", type-date="")
                   .dropdown-calendar-scroll(ng-class="{ 'active': historyPage.history.isStartDate }")
                     calendar-scroll(calendar-time="historyPage.history.startDate", max-time="{{ historyPage.history.maxDeliveryDateOrder }}")
 
-                  .period.finish-date(ng-class="{ 'selected': historyPage.history.isFinishDate }", hm-tap="historyPage.openCalendarScroll('finish-date')") {{ 'history.UNTIL' | translate }}
-                    span(order-date="{{ historyPage.history.finishDate }}", type-date="")
+                  .period.finish-date(ng-class="{ 'selected': historyPage.history.isFinishDate }", hm-tap="historyPage.openCalendarScroll('finish-date')") {{ 'history.UNTIL' | translate }} {{historyPage.history.finishDate | date:"dd.MM.yyyy"}}
+                    //span(order-date="{{ historyPage.history.finishDate }}", type-date="")
                   .dropdown-calendar-scroll(ng-class="{ 'active': historyPage.history.isFinishDate }")
                     calendar-scroll(calendar-time="historyPage.history.finishDate", max-time="{{ historyPage.history.maxDeliveryDateOrder }}")
 
@@ -83,8 +83,8 @@ section.page-container(ng-class="{ 'swiped': !historyPage.global.isNavMenu }")
                       span(ng-hide="order.selectedFloorPrice == 0 || order.selectedAssemblingPrice == 0") &nbsp; {{ 'common_words.AND' | translate }}
                       span(ng-hide="order.selectedAssemblingPrice == 0") &nbsp; {{ 'cart.ASSEMBLING' | translate }}
                   .account-data
-                    .account-label.account-date-filter {{ 'history.FROM' | translate }}
-                      span(order-date="{{ order.created }}", type-date="'order'")
+                    .account-label.account-date-filter {{ 'history.FROM' | translate }} {{order.orderDate | date:"dd MMMM, yyyy"}}
+                      //span(order-date="{{ order.created }}", type-date="'order'")
                 .account-row
                   .account-data
                     .user-data.account-user {{ order.name }}
@@ -100,7 +100,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.global.isNavMenu }")
                   .account-value(ng-hide="order.orderStyle == 'credit'") {{ order.orderPriceTOTAL }}{{ historyPage.userInfo.currency }}
                   .account-value(ng-show="order.orderStyle == 'credit'") {{ order.orderPriceTOTAL }}{{ historyPage.userInfo.currency }}, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.paymentMonthly}}{{ historyPage.userInfo.currency }}
                   .account-value(ng-show="order.orderStyle == 'master'") {{ 'history.WAIT_MASTER' | translate }}
-                  .account-date {{ order.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{ order.newDeliveryDate }}
+                  .account-date {{ order.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{order.newDeliveryDate | date:"dd.MM.yyyy"}}
 
               button.account-tool.account-select-btn(ng-hide="order.orderStyle == 'done'", hm-tap="historyPage.sendOrderToFactory(order.orderStyle, order.orderId)")
               button.account-tool.account-copy-btn(ng-hide="order.orderStyle == 'done'", hm-tap="historyPage.makeOrderCopy(order.orderStyle, order.orderId)")

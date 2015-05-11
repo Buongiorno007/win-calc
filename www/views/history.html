@@ -79,14 +79,21 @@
               </div>
               <div ng-class="{ 'active': historyPage.history.isOrderDate }" class="tools-block tool-drop">
                 <button hm-tap="historyPage.orderDateSelecting()" class="tool calendar-btn"></button>
-                <div ng-class="{ 'empty': historyPage.history.startDate === '' &amp;&amp;  historyPage.history.finishDate === ''}" class="time-interval"><span ng-if="historyPage.history.startDate !== ''">{{ 'history.FROM' | translate }}</span><span order-date="{{ historyPage.history.startDate }}" type-date=""></span><span ng-hide="historyPage.history.startDate == '' || historyPage.history.finishDate == ''">&nbsp; - &nbsp;</span><span ng-if="historyPage.history.finishDate !== ''">{{ 'history.UNTIL' | translate }}</span><span order-date="{{ historyPage.history.finishDate }}" type-date=""></span></div>
+                <div ng-class="{ 'empty': historyPage.history.startDate === '' &amp;&amp;  historyPage.history.finishDate === ''}" class="time-interval"><span ng-if="historyPage.history.startDate !== ''">{{ 'history.FROM' | translate }} {{historyPage.history.startDate | date:"dd.MM.yyyy"}}</span>
+                  <!--span(order-date="{{ historyPage.history.startDate }}", type-date="")--><span ng-hide="historyPage.history.startDate == '' || historyPage.history.finishDate == ''">&nbsp; - &nbsp;</span><span ng-if="historyPage.history.finishDate !== ''">{{ 'history.UNTIL' | translate }} {{historyPage.history.finishDate | date:"dd.MM.yyyy"}}</span>
+                  <!--span(order-date="{{ historyPage.history.finishDate }}", type-date="")-->
+                </div>
                 <div class="dropdown-tool-dialog date-filter">
                   <div class="filter-title">{{ 'history.DATE_RANGE' | translate }}</div>
-                  <div ng-class="{ 'selected': historyPage.history.isStartDate }" hm-tap="historyPage.openCalendarScroll('start-date')" class="period start-date">{{ 'history.FROM' | translate }}<span order-date="{{ historyPage.history.startDate }}" type-date=""></span></div>
+                  <div ng-class="{ 'selected': historyPage.history.isStartDate }" hm-tap="historyPage.openCalendarScroll('start-date')" class="period start-date">{{ 'history.FROM' | translate }} {{historyPage.history.startDate | date:"dd.MM.yyyy"}}
+                    <!--span(order-date="{{ historyPage.history.startDate }}", type-date="")-->
+                  </div>
                   <div ng-class="{ 'active': historyPage.history.isStartDate }" class="dropdown-calendar-scroll">
                     <calendar-scroll calendar-time="historyPage.history.startDate" max-time="{{ historyPage.history.maxDeliveryDateOrder }}"></calendar-scroll>
                   </div>
-                  <div ng-class="{ 'selected': historyPage.history.isFinishDate }" hm-tap="historyPage.openCalendarScroll('finish-date')" class="period finish-date">{{ 'history.UNTIL' | translate }}<span order-date="{{ historyPage.history.finishDate }}" type-date=""></span></div>
+                  <div ng-class="{ 'selected': historyPage.history.isFinishDate }" hm-tap="historyPage.openCalendarScroll('finish-date')" class="period finish-date">{{ 'history.UNTIL' | translate }} {{historyPage.history.finishDate | date:"dd.MM.yyyy"}}
+                    <!--span(order-date="{{ historyPage.history.finishDate }}", type-date="")-->
+                  </div>
                   <div ng-class="{ 'active': historyPage.history.isFinishDate }" class="dropdown-calendar-scroll">
                     <calendar-scroll calendar-time="historyPage.history.finishDate" max-time="{{ historyPage.history.maxDeliveryDateOrder }}"></calendar-scroll>
                   </div>
@@ -144,7 +151,9 @@
                     <div class="account-addinfo"><span ng-hide="order.selectedFloorPrice == 0 &amp;&amp; order.selectedAssemblingPrice == 0">- {{ 'history.INCLUDED' | translate }}:</span><span ng-hide="order.selectedFloorPrice == 0">&nbsp; {{ 'cart.DELIVERY' | translate }}</span><span ng-hide="order.selectedFloorPrice == 0 || order.selectedAssemblingPrice == 0">&nbsp; {{ 'common_words.AND' | translate }}</span><span ng-hide="order.selectedAssemblingPrice == 0">&nbsp; {{ 'cart.ASSEMBLING' | translate }}</span></div>
                   </div>
                   <div class="account-data">
-                    <div class="account-label account-date-filter">{{ 'history.FROM' | translate }}<span order-date="{{ order.created }}" type-date="'order'"></span></div>
+                    <div class="account-label account-date-filter">{{ 'history.FROM' | translate }} {{order.orderDate | date:"dd MMMM, yyyy"}}
+                      <!--span(order-date="{{ order.created }}", type-date="'order'")-->
+                    </div>
                   </div>
                 </div>
                 <div class="account-row">
@@ -167,7 +176,7 @@
                   <div ng-hide="order.orderStyle == 'credit'" class="account-value">{{ order.orderPriceTOTAL }}{{ historyPage.userInfo.currency }}</div>
                   <div ng-show="order.orderStyle == 'credit'" class="account-value">{{ order.orderPriceTOTAL }}{{ historyPage.userInfo.currency }}, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.paymentMonthly}}{{ historyPage.userInfo.currency }}</div>
                   <div ng-show="order.orderStyle == 'master'" class="account-value">{{ 'history.WAIT_MASTER' | translate }}</div>
-                  <div class="account-date">{{ order.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{ order.newDeliveryDate }}</div>
+                  <div class="account-date">{{ order.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{order.newDeliveryDate | date:"dd.MM.yyyy"}}</div>
                 </div>
               </div>
               <button ng-hide="order.orderStyle == 'done'" hm-tap="historyPage.sendOrderToFactory(order.orderStyle, order.orderId)" class="account-tool account-select-btn"></button>

@@ -12,13 +12,15 @@
           input.user-field(type="text", name="name", ng-model="masterDialog.cart.user.name", placeholder="{{ 'cart.CLIENT_NAME' | translate }}", required)
           .error-tooltip(ng-show="masterDialog.cart.submitted && callMasterForm.name.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
 
-        .input-field(ng-class="{ 'has-error' : masterDialog.cart.submitted && callMasterForm.location.$error.required, 'current-city' : currentCity }")
-          input.user-field(type="text", name="location", ng-model="masterDialog.cart.user.location", ng-change="masterDialog.checkChanges()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", ng-focus="masterDialog.isFocused=true", ng-blur="masterDialog.isFocused=false", required)
-          .error-tooltip(ng-show='masterDialog.cart.submitted && callMasterForm.location.$error.required') {{ 'login.EMPTY_FIELD' | translate }}
-          ul.location-list-tooltip(ng-show="masterDialog.showTipCity && masterDialog.isFocused", ng-focus="masterDialog.isFocused=true", ng-blur="masterDialog.isFocused=false", tabindex="1")
-            li.location-option(ng-repeat="location in masterDialog.filteredCity", hm-tap="masterDialog.selectCity(location.city, location.current)", ng-class="{ 'current-city' : location.current }") {{location.city}}
+        .input-field(ng-class="{ 'has-error' : masterDialog.cart.submitted && callMasterForm.location.$error.required }")
+          input.user-field(type="text", name="location", ng-model="masterDialog.cart.user.location", ng-change="masterDialog.changeLocation()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", ng-blur="masterDialog.cart.isCityBox = false", required)
+          .error-tooltip(ng-show='masterDialog.cart.submitted && callCreditForm.location.$error.required') {{ 'login.EMPTY_FIELD' | translate }}
+          ul.location-list-tooltip(ng-show="masterDialog.cart.isCityBox", tabindex="1")
+            li.location-option(ng-repeat="location in masterDialog.locations | filter: {cityName: masterDialog.cart.user.location } | orderBy:'cityName'", hm-tap="masterDialog.selectCity(location.fullLocation)") {{location.fullLocation}}
 
-        .input-field(ng-class="{ 'has-error' : masterDialog.cart.submitted && callMasterForm.address.$error.required }")
+
+
+          .input-field(ng-class="{ 'has-error' : masterDialog.cart.submitted && callMasterForm.address.$error.required }")
           input.user-field(type="text", name="address", ng-model="masterDialog.cart.user.address", placeholder="{{ 'cart.CLIENT_ADDRESS' | translate }}", required)
           .error-tooltip(ng-show="masterDialog.cart.submitted && callMasterForm.address.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
 

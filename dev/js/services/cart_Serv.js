@@ -48,7 +48,8 @@
       localDB.selectDB(localDB.ordersTableBD, {'orderId': GlobalStor.global.orderEditNumber}).then(function(result) {
         if(result) {
           angular.extend(OrderStor.order, result[0]);
-          OrderStor.order.isOldPrice = (OrderStor.order.isOldPrice === 'true') ? true : false;
+          //---- fill form
+          CartStor.fillOrderForm();
         } else {
           console.log(result);
         }
@@ -61,7 +62,7 @@
       var deferred = $q.defer();
       localDB.selectDB(localDB.productsTableBD, {'orderId': GlobalStor.global.orderEditNumber}).then(function(result) {
         if(result) {
-          var editedProducts = angular.copy(result[0]),
+          var editedProducts = angular.copy(result),
             editedProductsQty = editedProducts.length,
             prod = 0;
 
@@ -69,17 +70,16 @@
           for(; prod < editedProductsQty; prod++) {
             ProductStor.product = ProductStor.setDefaultProduct();
             angular.extend(ProductStor.product, editedProducts[prod]);
-            console.log('product ==== ', ProductStor.product);
 
             //----- checking product with design or only addElements
             if(!ProductStor.product.isAddElementsONLY || ProductStor.product.isAddElementsONLY === 'false') {
               //----- parsing design from string to object
               ProductStor.product.templateSource = parsingTemplateSource(ProductStor.product.templateSource);
-              console.log('templateSource', ProductStor.product.templateSource);
+//              console.log('templateSource', ProductStor.product.templateSource);
               //----- find depths and build design icon
               MainServ.setCurrentProfile().then(function(){
                 ProductStor.product.templateIcon = new TemplateIcon(ProductStor.product.templateSource, GlobalStor.global.profileDepths);
-                console.log('templateIcon', ProductStor.product.templateIcon);
+//                console.log('templateIcon', ProductStor.product.templateIcon);
               });
             }
             OrderStor.order.products.push(ProductStor.product);
@@ -100,8 +100,8 @@
       var deferred = $q.defer();
       localDB.selectDB(localDB.addElementsTableBD, {'orderId': GlobalStor.global.orderEditNumber}).then(function(result) {
         if(result) {
-          console.log('results.data === ', result);
-          var allAddElements = angular.copy(result[0]),
+//          console.log('results.data === ', result);
+          var allAddElements = angular.copy(result),
               allAddElementsQty = allAddElements.length,
               elem = 0;
 
@@ -116,7 +116,7 @@
           }
 
         } else {
-          deferred.reject(result);
+          deferred.resolve('done');
         }
       });
       return deferred.promise;
@@ -157,7 +157,8 @@
 
     //------- add new product in order
     function addNewProductInOrder() {
-      //$scope.global.isOpenedCartPage = false;
+      //------- set previos Page
+      GlobalStor.global.prevOpenPage = GlobalStor.global.currOpenPage;
       GlobalStor.global.isCreatedNewProject = false;
       GlobalStor.global.isCreatedNewProduct = true;
       MainServ.prepareMainPage();
@@ -261,34 +262,18 @@
 
     //----- Edit Produtct in main page
     function editProduct(productIndex, type) {
-//      GlobalStor.global.productEditNumber = productIndex;
-//      ProductStor.product = angular.copy($scope.global.order.products[productIndex]);
-//      if($scope.global.product.constructionType === 1) {
-//        changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesWindSource, $scope.global.templatesWindList, $scope.global.templatesWindIconList, $scope.global.product.templateSource,$scope.global.product.templateDefault, $scope.global.product.templateIcon);
-//      } else if($scope.global.product.constructionType === 2) {
-//        changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesWindDoorSource, $scope.global.templatesWindDoorList, $scope.global.templatesWindDoorIconList, $scope.global.product.templateSource,$scope.global.product.templateDefault, $scope.global.product.templateIcon);
-//      } else if($scope.global.product.constructionType === 3) {
-//        changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesBalconySource, $scope.global.templatesBalconyList, $scope.global.templatesBalconyIconList, $scope.global.product.templateSource,$scope.global.product.templateDefault, $scope.global.product.templateIcon);
-//      } else if($scope.global.product.constructionType === 4) {
-//        $scope.global.isConstructWind = false;
-//        $scope.global.isConstructWindDoor = false;
-//        $scope.global.isConstructBalcony = false;
-//        $scope.global.isConstructDoor = true;
-//        changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesDoorSource, $scope.global.templatesDoorList, $scope.global.templatesDoorIconList, $scope.global.product.templateSource,$scope.global.product.templateDefault, $scope.global.product.templateIcon);
-//      }
-//      //------- refresh current templates arrays
-//      $scope.global.getCurrentTemplates();
-//      $scope.global.isCreatedNewProject = false;
-//      $scope.global.isCreatedNewProduct = false;
-//      $scope.global.isOpenedHistoryPage = false;
-//      $scope.global.prepareMainPage();
-//      if(type === 'auxiliary') {
-//        $scope.global.showPanels = {};
-//        $scope.global.showPanels.showAddElementsPanel = true;
-//        $scope.global.isTemplatePanel = false;
-//        $scope.global.isAddElementsPanel = true;
-//      }
-//      $location.path('/main');
+      GlobalStor.global.productEditNumber = productIndex;
+      ProductStor.product = angular.copy(OrderStor.order.products[productIndex]);
+      GlobalStor.global.isCreatedNewProject = false;
+      GlobalStor.global.isCreatedNewProduct = false;
+      MainServ.prepareMainPage();
+      if(type === 'auxiliary') {
+        //------ open AddElements Panel
+        GlobalStor.global.activePanel = 5;
+      }
+      //------- set previos Page
+      GlobalStor.global.prevOpenPage = GlobalStor.global.currOpenPage;
+      $location.path('/main');
     }
 
 

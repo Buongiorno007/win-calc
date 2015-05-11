@@ -10,19 +10,26 @@
     .module('CartModule')
     .controller('CallOrderCtrl', callOrderCtrl);
 
-  function callOrderCtrl(globalConstants, optionsServ, localDB, OrderStor, UserStor, CartStor, CartMenuServ) {
+  function callOrderCtrl(OrderStor, UserStor, CartStor, CartMenuServ, SettingServ) {
 
     var thisCtrl = this;
-    //thisCtrl.global = GlobalStor.global;
     thisCtrl.order = OrderStor.order;
     thisCtrl.cartStor = CartStor;
     thisCtrl.cart = CartStor.cart;
     thisCtrl.userInfo = UserStor.userInfo;
 
+      //------ get all regions and cities
+      //TODO база городов и регионов долны быть только одной страны завода
+      SettingServ.downloadLocations().then(function(data) {
+          thisCtrl.locations = data;
+      });
 
-    //------ clicking
-    thisCtrl.submitForm = submitForm;
-    thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
+
+      //------ clicking
+      thisCtrl.submitForm = submitForm;
+      thisCtrl.changeLocation = CartMenuServ.changeLocation;
+      thisCtrl.selectCity = CartMenuServ.selectCity;
+      thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
 
 
     //============ methods ================//

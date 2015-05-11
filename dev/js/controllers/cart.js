@@ -61,23 +61,23 @@
 
     //-------- cleaning all templates in order.products
     CartServ.cleanAllTemplatesInOrder();
-    console.log('+++++ OrderStor.order +++++++', OrderStor.order);
 
     //================ EDIT order from Histoy Page
     if(GlobalStor.global.orderEditNumber > 0) {
       //------- download edited Order
-      CartServ.downloadOrder();
-
-      //------ Download All Products of edited Order
-      CartServ.downloadProducts().then(
-        //------ Download All Add Elements from LocalDB
-        CartServ.downloadAddElements().then(function(){
-          //---- collect all AddElements of Order
+//      CartServ.downloadOrder();
+//
+//      //------ Download All Products of edited Order
+//      CartServ.downloadProducts().then(
+//        //------ Download All Add Elements from LocalDB
+//        CartServ.downloadAddElements().then(function(){
+//          console.log('+++++ order3 +++++++', JSON.stringify(OrderStor.order));
+          //------- collect all AddElements of Order
           CartServ.joinAllAddElements();
           //----------- start order price total calculation
-          CartServ.calculateAllProductsPrice();
-          OrderStor.order.orderPriceTOTAL = OrderStor.order.productsPriceTOTAL;
-      }));
+//          CartServ.calculateAllProductsPrice();
+//          OrderStor.order.orderPriceTOTAL = OrderStor.order.productsPriceTOTAL;
+//      }));
 
 
     //=========== from Main Page
@@ -144,16 +144,9 @@
     //$scope.global.startProgramm = false;
     //$scope.global.isReturnFromDiffPage = false;
     //$scope.global.isChangedTemplate = false;
-    //$scope.global.isOpenedCartPage = true;
-    //$scope.global.isOpenedHistoryPage = false;
 
     //------- finish edit product
 //    $scope.global.productEditNumber = '';
-//    console.log('=======!!!! orders !!!!=======', $scope.global.orders);
-//
-//    console.log('cart page!!!!!!!!!!!!!!!');
-//    console.log('product ====== ', $scope.global.product);
-//    console.log('order ====== ', $scope.global.order);
 
 
 

@@ -7,17 +7,25 @@
     .module('CartModule')
     .controller('CallMasterCtrl', callMasterCtrl);
 
-  function callMasterCtrl($scope, $location, globalConstants, optionsServ, OrderStor, UserStor, CartStor, CartMenuServ) {
+  function callMasterCtrl(OrderStor, UserStor, CartStor, CartMenuServ, SettingServ) {
 
     var thisCtrl = this;
     thisCtrl.order = OrderStor.order;
     thisCtrl.cart = CartStor.cart;
     thisCtrl.userInfo = UserStor.userInfo;
 
+    //------ get all regions and cities
+      //TODO база городов и регионов долны быть только одной страны завода
+      SettingServ.downloadLocations().then(function(data) {
+          thisCtrl.locations = data;
+      });
 
-    //------ clicking
-    thisCtrl.submitForm = submitForm;
-    thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
+
+      //------ clicking
+      thisCtrl.submitForm = submitForm;
+      thisCtrl.changeLocation = CartMenuServ.changeLocation;
+      thisCtrl.selectCity = CartMenuServ.selectCity;
+      thisCtrl.closeOrderDialog = CartMenuServ.closeOrderDialog;
 
 
     //============ methods ================//

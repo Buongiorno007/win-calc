@@ -7,10 +7,9 @@
     .module('CartModule')
     .controller('CallCreditCtrl', callCreditCtrl);
 
-  function callCreditCtrl($filter, $location, globalConstants, localDB, GlobalStor, OrderStor, UserStor, CartStor, SettingServ, CartMenuServ) {
+  function callCreditCtrl($filter, OrderStor, UserStor, CartStor, SettingServ, CartMenuServ) {
 
     var thisCtrl = this;
-    //thisCtrl.global = GlobalStor.global;
     thisCtrl.order = OrderStor.order;
     thisCtrl.cartStor = CartStor;
     thisCtrl.cart = CartStor.cart;

@@ -234,7 +234,7 @@
             "null": "NOT NULL"
           },
           "orderDate": {
-            "type": "TEXT",
+            "type": "INTEGER",
             "null": "NOT NULL"
           },
           "currCityId": {
@@ -282,11 +282,11 @@
             "null": "NULL"
           },
           "deliveryDate": {
-            "type": "TEXT",
+            "type": "INTEGER",
             "null": "NULL"
           },
           "newDeliveryDate": {
-            "type": "TEXT",
+            "type": "INTEGER",
             "null": "NULL"
           },
           "deliveryPrice": {
@@ -294,11 +294,11 @@
             "null": "NULL"
           },
           "isDatePriceLess": {
-            "type": "BOOLEAN",
+            "type": "INTEGER",
             "null": "NOT NULL"
           },
           "isDatePriceMore": {
-            "type": "BOOLEAN",
+            "type": "INTEGER",
             "null": "NOT NULL"
           },
           "selectedFloor": {
@@ -330,7 +330,7 @@
             "null": "NULL"
           },
           "isOldPrice": {
-            "type": "BOOLEAN",
+            "type": "INTEGER",
             "null": "NOT NULL"
           },
           "paymentFirst": {

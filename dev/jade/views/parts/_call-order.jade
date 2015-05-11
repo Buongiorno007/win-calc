@@ -24,13 +24,15 @@
 
         .cart-dialog-label {{ 'cart.CALL_ORDER_DELIVERY' | translate }} {{ orderDialog.order.newDeliveryDate }}
 
-        .input-field(ng-class="{ 'has-error' : orderDialog.cart.submitted && callOrderForm.location.$error.required, 'current-city' : currentCity }")
-          input.user-field(type="text", name="location", ng-model="orderDialog.cart.user.location", ng-change="orderDialog.checkChanges()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", ng-focus="orderDialog.isFocused=true", ng-blur="orderDialog.isFocused=false", required)
-          .error-tooltip(ng-show='orderDialog.cart.submitted && callOrderForm.location.$error.required') {{ 'login.EMPTY_FIELD' | translate }}
-          ul.location-list-tooltip(ng-show="orderDialog.showTipCity && orderDialog.isFocused", ng-focus="orderDialog.isFocused=true", ng-blur="orderDialog.isFocused=false", tabindex="1")
-            li.location-option(ng-repeat="location in orderDialog.cart.filteredCity", hm-tap="orderDialog.selectCity(location.city, location.current)", ng-class="{ 'current-city' : location.current }") {{location.city}}
+        .input-field(ng-class="{ 'has-error' : orderDialog.cart.submitted && callOrderForm.location.$error.required }")
+          input.user-field(type="text", name="location", ng-model="orderDialog.cart.user.location", ng-change="orderDialog.changeLocation()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", ng-blur="orderDialog.cart.isCityBox = false", required)
+          .error-tooltip(ng-show='orderDialog.cart.submitted && callCreditForm.location.$error.required') {{ 'login.EMPTY_FIELD' | translate }}
+          ul.location-list-tooltip(ng-show="orderDialog.cart.isCityBox", tabindex="1")
+            li.location-option(ng-repeat="location in orderDialog.locations | filter: {cityName: orderDialog.cart.user.location } | orderBy:'cityName'", hm-tap="orderDialog.selectCity(location.fullLocation)") {{location.fullLocation}}
 
-        .input-field(ng-class="{ 'has-error' : orderDialog.cart.submitted && callOrderForm.address.$error.required }")
+
+
+          .input-field(ng-class="{ 'has-error' : orderDialog.cart.submitted && callOrderForm.address.$error.required }")
           input.user-field(type="text", name="address", ng-model="orderDialog.cart.user.address", placeholder="{{ 'cart.CLIENT_ADDRESS' | translate }}", required)
           .error-tooltip(ng-show="orderDialog.cart.submitted && callOrderForm.address.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
 

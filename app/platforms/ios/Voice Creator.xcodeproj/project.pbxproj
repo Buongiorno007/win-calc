@@ -105,7 +105,7 @@
 		14CE62854FDB4DD3A7E41DE9 /* CDVNotification.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CDVNotification.bundle; sourceTree = "<group>"; };
 		1D3623240D0F684500981E51 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		1D6058910D05DD3D006BFB54 /* Voice Creator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Voice Creator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* Windows Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Windows Calculator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F7861EC6C464351A831D4E2 /* CDVSplashScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVSplashScreen.m; path = org.apache.cordova.splashscreen/CDVSplashScreen.m; sourceTree = "<group>"; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -254,7 +254,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* Voice Creator.app */,
+				1D6058910D05DD3D006BFB54 /* Windows Calculator.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -446,7 +446,7 @@
 			);
 			name = "Voice Creator";
 			productName = "Voice Creator";
-			productReference = 1D6058910D05DD3D006BFB54 /* Voice Creator.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* Windows Calculator.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -625,7 +625,7 @@
 					"-weak-lSystem",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "Voice Creator";
+				PRODUCT_NAME = "Windows Calculator";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -658,7 +658,7 @@
 					"-weak-lSystem",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "Voice Creator";
+				PRODUCT_NAME = "Windows Calculator";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
