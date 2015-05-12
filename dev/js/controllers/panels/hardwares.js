@@ -32,12 +32,8 @@
     function selectHardware(hardwareTypeIndex, hardwareIndex) {
       ProductStor.product.hardwareTypeIndex = hardwareTypeIndex;
       ProductStor.product.hardwareIndex = hardwareIndex;
-      var selectedHardware = GlobalStor.global.hardwares[hardwareTypeIndex][hardwareIndex];
-      ProductStor.product.hardwareId = selectedHardware.hardwareId;
-      ProductStor.product.hardwareName = selectedHardware.hardwareName;
-      ProductStor.product.hardwareHeatCoeff = selectedHardware.heatCoeff;
-      ProductStor.product.hardwareAirCoeff = selectedHardware.airCoeff;
-
+      //-------- set current Hardware
+      MainServ.setCurrentHardware();
       //------ calculate price
       MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId);
       //------ save analytics data

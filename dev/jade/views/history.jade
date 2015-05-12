@@ -166,7 +166,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.global.isNavMenu }")
 
           .scroll-vert-container
             .scrolling-container
-              .account-block(ng-repeat="draft in historyPage.history.drafts | orderBy:createdDate:historyPage.history.reverseDraft", hm-tap="historyPage.editOrder(draft.orderId)")
+              .account-block(ng-repeat="draft in historyPage.history.drafts | orderBy:historyPage.createdDate:historyPage.history.reverseDraft", hm-tap="historyPage.editOrder(draft.orderId)")
                 .account
                   .account-row.header
                     .account-id {{ 'history.DRAFT' | translate }}
@@ -175,7 +175,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.global.isNavMenu }")
                   .account-row.footer(hm-tap="historyPage.editOrder(draft.orderId)")
                     .account-value(ng-hide="draft.orderStyle == 'credit'") {{ draft.orderPriceTOTAL }}{{ historyPage.userInfo.currency }}
                     .account-value(ng-show="draft.orderStyle == 'credit'") {{ draft.orderPriceTOTAL }}{{ historyPage.userInfo.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.paymentMonthly}}{{ historyPage.userInfo.currency }}
-                    .account-qty {{ draft.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{ draft.newDeliveryDate }}
+                    .account-qty {{ draft.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{draft.newDeliveryDate | date:"dd.MM.yyyy"}}
                 button.account-tool.account-print-btn(hm-tap="")
                 button.account-delete-btn(hm-tap="historyPage.deleteOrder(draft.orderType, draft.orderId)")
 

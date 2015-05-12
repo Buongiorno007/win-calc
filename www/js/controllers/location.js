@@ -54,13 +54,7 @@
           //-------- if current geolocation changing
           } else if(GlobalStor.global.currOpenPage === 'main'){
             //----- build new currentGeoLocation
-            OrderStor.order.currCityId = locationId;
-            OrderStor.order.currCityName = thisCtrl.locations[j].cityName;
-            OrderStor.order.currRegionName = thisCtrl.locations[j].regionName;
-            OrderStor.order.currCountryName = thisCtrl.locations[j].countryName;
-            OrderStor.order.currClimaticZone = thisCtrl.locations[j].climaticZone;
-            OrderStor.order.currHeatTransfer = thisCtrl.locations[j].heatTransfer;
-            OrderStor.order.currFullLocation = thisCtrl.userNewLocation;
+            loginServ.setUserGeoLocation(locationId, thisCtrl.locations[j].cityName, thisCtrl.locations[j].regionName, thisCtrl.locations[j].countryName, thisCtrl.locations[j].climaticZone, thisCtrl.locations[j].heatTransfer, thisCtrl.userNewLocation);
           }
           GlobalStor.global.startProgramm = false;
           SettingServ.closeLocationPage();

@@ -38,7 +38,7 @@
 
     //------ clicking
     thisCtrl.selectConfigPanel = selectConfigPanel;
-    thisCtrl.inputProductInOrder = MainServ.inputProductInOrder;
+    thisCtrl.inputProductInOrder = saveProduct;
 
 
     //============ methods ================//
@@ -57,6 +57,10 @@
       AddElementsServ.desactiveAddElementParameters();
     }
 
+    function saveProduct() {
+      MainServ.inputProductInOrder();
+      MainServ.goToCart();
+    }
 
   }
 })();

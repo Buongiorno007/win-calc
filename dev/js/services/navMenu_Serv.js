@@ -7,13 +7,14 @@
     .module('MainModule')
     .factory('NavMenuServ', navFactory);
 
-  function navFactory($http, $cordovaGeolocation, OrderStor, UserStor) {
+  function navFactory($http, $filter, $cordovaGeolocation, GlobalStor, OrderStor, UserStor) {
 
     var thisFactory = this;
 
     thisFactory.publicObj = {
       getCurrentGeolocation: getCurrentGeolocation,
-      setLanguageVoiceHelper: setLanguageVoiceHelper
+      setLanguageVoiceHelper: setLanguageVoiceHelper,
+      switchVoiceHelper: switchVoiceHelper
     };
 
     return thisFactory.publicObj;
@@ -60,6 +61,15 @@
       }
 
 
+    function switchVoiceHelper() {
+      GlobalStor.global.isVoiceHelper = !GlobalStor.global.isVoiceHelper;
+      if(GlobalStor.global.isVoiceHelper) {
+        //------- set Language for Voice Helper
+        GlobalStor.global.voiceHelperLanguage = setLanguageVoiceHelper();
+        playTTS($filter('translate')('construction.VOICE_SWITCH_ON'), GlobalStor.global.voiceHelperLanguage);
+      }
+    }
+
 
     function setLanguageVoiceHelper() {
       var langLabel = 'ru_RU';
@@ -79,6 +89,9 @@
 //      }
       return langLabel;
     }
+
+
+
 
 
 

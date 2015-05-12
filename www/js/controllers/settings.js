@@ -28,7 +28,7 @@
       typing: 'on'
     };
 
-
+    //------- set current Page
     GlobalStor.global.currOpenPage = 'settings';
 
     //    $scope.global.startProgramm = false;

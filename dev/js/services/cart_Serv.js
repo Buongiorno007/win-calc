@@ -79,13 +79,14 @@
               //----- find depths and build design icon
               MainServ.setCurrentProfile().then(function(){
                 ProductStor.product.templateIcon = new TemplateIcon(ProductStor.product.templateSource, GlobalStor.global.profileDepths);
-//                console.log('templateIcon', ProductStor.product.templateIcon);
+                //console.log('++++++templateIcon+++', ProductStor.product.templateIcon);
+                deferred.resolve('done');
               });
+            } else {
+              deferred.resolve('done');
             }
             OrderStor.order.products.push(ProductStor.product);
           }
-          deferred.resolve('done');
-          //------ Download All Add Elements of edited Order
 
         } else {
           deferred.reject(result);
@@ -158,9 +159,12 @@
     //------- add new product in order
     function addNewProductInOrder() {
       //------- set previos Page
-      GlobalStor.global.prevOpenPage = GlobalStor.global.currOpenPage;
-      GlobalStor.global.isCreatedNewProject = false;
+      GeneralServ.setPreviosPage();
       GlobalStor.global.isCreatedNewProduct = true;
+
+      //=============== CREATE NEW PRODUCT =========//
+      MainServ.createNewProduct();
+
       MainServ.prepareMainPage();
       $location.path('/main');
     }
@@ -264,15 +268,15 @@
     function editProduct(productIndex, type) {
       GlobalStor.global.productEditNumber = productIndex;
       ProductStor.product = angular.copy(OrderStor.order.products[productIndex]);
-      GlobalStor.global.isCreatedNewProject = false;
-      GlobalStor.global.isCreatedNewProduct = false;
+      //GlobalStor.global.isCreatedNewProject = false;
+      GlobalStor.global.isCreatedNewProduct = true;
       MainServ.prepareMainPage();
       if(type === 'auxiliary') {
         //------ open AddElements Panel
         GlobalStor.global.activePanel = 5;
       }
       //------- set previos Page
-      GlobalStor.global.prevOpenPage = GlobalStor.global.currOpenPage;
+      GeneralServ.setPreviosPage();
       $location.path('/main');
     }
 

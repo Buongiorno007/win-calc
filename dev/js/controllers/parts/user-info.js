@@ -7,10 +7,9 @@
     .module('MainModule')
     .controller('UserInfoCtrl', userInfoCtrl);
 
-  function userInfoCtrl(globalConstants, GlobalStor, UserStor) {
+  function userInfoCtrl(globalConstants, GeneralServ, GlobalStor, UserStor) {
 
     var thisCtrl = this;
-    thisCtrl.global = GlobalStor.global;
     thisCtrl.userInfo = UserStor.userInfo;
 
     thisCtrl.config = {
@@ -30,29 +29,25 @@
     //============ methods ================//
 
     function swipeMainPage(event) {
-      thisCtrl.global.isNavMenu = !thisCtrl.global.isNavMenu;
-      thisCtrl.global.isConfigMenu = !thisCtrl.global.isConfigMenu;
-//      if(!thisCtrl.global.isOpenedHistoryPage) {
-//        thisCtrl.global.startProgramm = false;
-//      }
+      GlobalStor.global.isNavMenu = !GlobalStor.global.isNavMenu;
+      GlobalStor.global.isConfigMenu = !GlobalStor.global.isConfigMenu;
+      GeneralServ.stopStartProg();
       //playSound('swip');
     }
 
     function swipeLeft(event) {
-      if(thisCtrl.global.isNavMenu) {
-        thisCtrl.global.isNavMenu = false;
-        thisCtrl.global.isConfigMenu = true;
-//        if (!thisCtrl.global.isOpenedHistoryPage) {
-//          thisCtrl.global.startProgramm = false;
-//        }
+      if(GlobalStor.global.isNavMenu) {
+        GlobalStor.global.isNavMenu = false;
+        GlobalStor.global.isConfigMenu = true;
+        GeneralServ.stopStartProg();
         //playSound('swip');
       }
     }
 
     function swipeRight(event) {
-      if(!thisCtrl.global.isNavMenu) {
-        thisCtrl.global.isNavMenu = true;
-        thisCtrl.global.isConfigMenu = false;
+      if(!GlobalStor.global.isNavMenu) {
+        GlobalStor.global.isNavMenu = true;
+        GlobalStor.global.isConfigMenu = false;
         //playSound('swip');
       }
     }

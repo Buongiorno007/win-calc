@@ -62,29 +62,16 @@
     //------- set current Page
     GlobalStor.global.currOpenPage = 'cart';
 
-    //-------- cleaning all templates in order.products
-    CartServ.cleanAllTemplatesInOrder();
-
+    //console.log('cart +++++', JSON.stringify(OrderStor.order));
     //================ EDIT order from Histoy Page
     if(GlobalStor.global.orderEditNumber > 0) {
-      //------- download edited Order
-//      CartServ.downloadOrder();
-//
-//      //------ Download All Products of edited Order
-//      CartServ.downloadProducts().then(
-//        //------ Download All Add Elements from LocalDB
-//        CartServ.downloadAddElements().then(function(){
-//          console.log('+++++ order3 +++++++', JSON.stringify(OrderStor.order));
-          //------- collect all AddElements of Order
-          CartServ.joinAllAddElements();
-          //----------- start order price total calculation
-//          CartServ.calculateAllProductsPrice();
-//          OrderStor.order.orderPriceTOTAL = OrderStor.order.productsPriceTOTAL;
-//      }));
-
+      //------- collect all AddElements of Order
+      CartServ.joinAllAddElements();
 
     //=========== from Main Page
     } else {
+      //-------- cleaning all templates in order.products
+      CartServ.cleanAllTemplatesInOrder();
       //---- collect all AddElements of Order
       CartServ.joinAllAddElements();
       //----------- start order price total calculation

@@ -155,7 +155,7 @@
       GlobalStor.global.isCreatedNewProduct = false;
       GlobalStor.global.isOrderFinished = true;
       //------- set previos Page
-      GlobalStor.global.prevOpenPage = GlobalStor.global.currOpenPage;
+      GeneralServ.setPreviosPage();
       analyticsServ.sendAnalyticsGlobalDB(OrderStor.order);
       $location.path('/history');
     }

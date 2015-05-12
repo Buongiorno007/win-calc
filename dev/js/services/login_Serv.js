@@ -156,7 +156,7 @@
     }
 
     //--------- set current user geolocation
-    function setUserGeoLocation(cityId, cityName, regionName, countryName, climatic, heat, fullLocation, currencyId) {
+    function setUserGeoLocation(cityId, cityName, regionName, countryName, climatic, heat, fullLocation) {
       OrderStor.order.currCityId = cityId;
       OrderStor.order.currCityName = cityName;
       OrderStor.order.currRegionName = regionName;

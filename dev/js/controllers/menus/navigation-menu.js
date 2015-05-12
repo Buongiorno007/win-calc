@@ -9,7 +9,7 @@
     .module('MainModule')
     .controller('NavMenuCtrl', navigationMenuCtrl);
 
-  function navigationMenuCtrl($location, $filter, globalConstants, localDB, NavMenuServ, GlobalStor, OrderStor, ProductStor) {
+  function navigationMenuCtrl($location, $filter, $timeout, $cordovaProgress, globalConstants, localDB, GeneralServ, MainServ, NavMenuServ, CartServ, GlobalStor, OrderStor, ProductStor) {
 
     console.log('START NAV MENU!!!!!!');
     console.log('START Time!!!!!!', new Date());
@@ -48,36 +48,43 @@
       //-------- go to...
       switch(thisCtrl.activeMenuItem) {
         case 1:
+          GeneralServ.stopStartProg();
           $location.path('/location');
           break;
         case 2:
-          NavMenuServ.getCurrentGeolocation().then(function() {
-              //------- switch off navMenuItem
-              thisCtrl.activeMenuItem = 0;
-          });
+          NavMenuServ.getCurrentGeolocation();
+          //------- switch off navMenuItem
+          thisCtrl.activeMenuItem = 0;
           break;
         case 3:
+          //------- set previos Page
+          GeneralServ.setPreviosPage();
           $location.path('/main');
           break;
         case 4:
           $location.path('/cart');
           break;
         case 5:
+          GeneralServ.stopStartProg();
           gotoAddElementsPanel();
           break;
         case 6:
+          GeneralServ.stopStartProg();
           gotoHistoryPage();
           break;
         case 7:
+          //------- set previos Page
+          GeneralServ.setPreviosPage();
           $location.path('/settings');
           break;
         case 8:
           var ref = window.open('http://axorindustry.com', '_system');
+          //------- switch off navMenuItem
           thisCtrl.activeMenuItem = 0;
           ref.close();
           break;
         case 9:
-          switchVoiceHelper();
+          NavMenuServ.switchVoiceHelper();
           break;
       }
     }
@@ -87,6 +94,7 @@
 
 
     function gotoAddElementsPanel() {
+
 //      if(ProductStor.product.isAddElementsONLY) {
 //        $scope.global.startProgramm = false;
 //        $scope.global.isCreatedNewProject = false;
@@ -115,24 +123,20 @@
 
     function gotoHistoryPage() {
       GlobalStor.global.isNavMenu = false;
+      GlobalStor.global.isConfigMenu = true;
       //---- если идем в историю через корзину, заказ сохраняем в черновик
       /*if($scope.global.isOpenedCartPage) {
        $scope.global.insertOrderInLocalDB({}, $scope.global.draftOrderType, '');
        $scope.global.isCreatedNewProject = false;
        $scope.global.isCreatedNewProduct = false;
        }*/
+      //------- set previos Page
+      GeneralServ.setPreviosPage();
       $location.path('/history');
     }
 
 
-    function switchVoiceHelper() {
-      GlobalStor.global.isVoiceHelper = !GlobalStor.global.isVoiceHelper;
-      if(GlobalStor.global.isVoiceHelper) {
-        //------- set Language for Voice Helper
-        GlobalStor.global.voiceHelperLanguage = NavMenuServ.setLanguageVoiceHelper();
-        playTTS($filter('translate')('construction.VOICE_SWITCH_ON'), GlobalStor.global.voiceHelperLanguage);
-      }
-    }
+
 
 
 
@@ -140,22 +144,46 @@
     //----------- Create new Project
     function clickNewProject() {
 
-//      //------ если старт и на главной странице, не сохраняет в черновики
-//      if($scope.global.startProgramm && !$scope.global.isOpenedHistoryPage && !$scope.global.isOpenedCartPage) {
-//        console.log('start Btn');
-//        $scope.global.startProgramm = false;
-//        $scope.global.prepareMainPage();
-//
-//      //------- если после старта пошли в историю
-//      } else if($scope.global.startProgramm && $scope.global.isOpenedHistoryPage && !$scope.global.isOpenedCartPage) {
-//        console.log('start Btn from history');
-//        $scope.global.startProgramm = false;
-//        $scope.global.prepareMainPage();
-//        //------- create new empty product
-//        ProductStor.product = angular.copy(ProductStor.productDefault); //TODO
-//        //------- create new empty order
-//        $scope.global.order = angular.copy($scope.global.orderSource);
-//        $location.path('/main');
+      //------- Start programm, without draft, for Main Page
+      if(GlobalStor.global.startProgramm) {
+        console.log('start Btn');
+        GeneralServ.stopStartProg();
+        MainServ.prepareMainPage();
+
+      } else {
+        //console.log('@@@@@@@@', JSON.stringify(GlobalStor.global));
+        //$cordovaProgress.showSimple(true);
+
+        //------- Create New Project with Draft saving in Main Page
+        if(GlobalStor.global.isCreatedNewProject && GlobalStor.global.isCreatedNewProduct) {
+
+          //------ save product in LocalDB
+          MainServ.inputProductInOrder();
+          console.log('@@@@@@@@ save product');
+          //------- define order Price
+          CartServ.calculateAllProductsPrice();
+          OrderStor.order.orderPriceTOTAL = OrderStor.order.productsPriceTOTAL;
+          //-------- save order as Draft
+          MainServ.insertOrderInLocalDB({}, globalConstants.draftOrderType, '');
+
+        //------- Create New Project with Draft saving in Cart Page
+        } else if(GlobalStor.global.isCreatedNewProject && !GlobalStor.global.isCreatedNewProduct) {
+          //-------- save order as Draft
+          MainServ.insertOrderInLocalDB({}, globalConstants.draftOrderType, '');
+        }
+
+        //------- set previos Page
+        GeneralServ.setPreviosPage();
+        //=============== CREATE NEW PROJECT =========//
+        MainServ.createNewProject();
+        $timeout(function(){
+          //$cordovaProgress.hide();
+          $location.path('/main');
+        }, 100);
+
+      }
+
+
 //
 //      //------- создание нового проекта с сохранением в черновик предыдущего незаконченного
 //      } else if(!$scope.global.startProgramm && !$scope.global.isOrderFinished) {

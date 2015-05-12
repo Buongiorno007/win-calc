@@ -10,7 +10,7 @@
     .module('MainModule')
     .controller('RoomSelectorCtrl', roomSelectorCtrl);
 
-  function roomSelectorCtrl(globalConstants, MainServ, GlobalStor, ProductStor) {
+  function roomSelectorCtrl(globalConstants, GeneralServ, MainServ, GlobalStor, ProductStor) {
 
     var thisCtrl = this;
     thisCtrl.global = GlobalStor.global;
@@ -66,7 +66,7 @@
         }
       }
       MainServ.prepareMainPage();
-      //$scope.global.startProgramm = false;
+      GeneralServ.stopStartProg();
     }
 
 

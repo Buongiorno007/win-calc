@@ -14,6 +14,9 @@
     thisCtrl.global = GlobalStor.global;
     thisCtrl.product = ProductStor.product;
 
+    //------- set current Page
+    GlobalStor.global.currOpenPage = 'design';
+
     thisCtrl.config = {
       tempSize: [],
       minSizeLimit: 200,

@@ -32,10 +32,7 @@
         currOpenPage: 'main',
 
 //        isOrderFinished: false,
-//        isOpenedCartPage: false,
-//        isOpenedHistoryPage: false,
 //        isReturnFromDiffPage: false,
-//        isOpenSettingsPage: false,
 
         isChangedTemplate: false,
         isVoiceHelper: false,

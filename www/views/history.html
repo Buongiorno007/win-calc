@@ -16,7 +16,7 @@
         </ul>
         <div data-output="{{ 'mainpage.NAVMENU_CALCULATIONS' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_DIVIDER }}" class="divider"></div>
         <ul show-delay="{{ navMenu.config.DELAY_SHOW_NAV_LIST * 2.5 }}" class="items-list unvisible">
-          <li ng-if="(navMenu.global.isOpenedHistoryPage &amp;&amp; (navMenu.global.isCreatedNewProject || navMenu.global.productEditNumber !== '')) || (navMenu.global.isOpenedCartPage &amp;&amp; navMenu.global.isCreatedNewProduct &amp;&amp; !navMenu.global.orderEditNumber)" ng-class="{'selected': navMenu.activeMenuItem == 3}" hm-tap="navMenu.selectMenuItem(3)" class="item">
+          <li ng-if="(navMenu.global.currOpenPage === 'history' &amp;&amp; navMenu.global.isCreatedNewProject &amp;&amp; navMenu.global.isCreatedNewProduct)" ng-class="{'selected': navMenu.activeMenuItem == 3}" hm-tap="navMenu.selectMenuItem(3)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 4)}}" class="nav-icon-calculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CURRENT_CALCULATION' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 4) }}" class="title"></span></div>
           </li>
           <li ng-if="navMenu.order.productsQty &gt; 0 &amp;&amp; ((!navMenu.global.isOpenedHistoryPage &amp;&amp; !navMenu.global.isCreatedNewProject) || (navMenu.global.isOpenedHistoryPage &amp;&amp; navMenu.global.isOrderFinished))" ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.global.isOpenedCartPage}" hm-tap="navMenu.selectMenuItem(4)" class="item">
@@ -244,7 +244,7 @@
           </div>
           <div class="scroll-vert-container">
             <div class="scrolling-container">
-              <div ng-repeat="draft in historyPage.history.drafts | orderBy:createdDate:historyPage.history.reverseDraft" hm-tap="historyPage.editOrder(draft.orderId)" class="account-block">
+              <div ng-repeat="draft in historyPage.history.drafts | orderBy:historyPage.createdDate:historyPage.history.reverseDraft" hm-tap="historyPage.editOrder(draft.orderId)" class="account-block">
                 <div class="account">
                   <div class="account-row header">
                     <div class="account-id">{{ 'history.DRAFT' | translate }}</div>
@@ -253,7 +253,7 @@
                   <div hm-tap="historyPage.editOrder(draft.orderId)" class="account-row footer">
                     <div ng-hide="draft.orderStyle == 'credit'" class="account-value">{{ draft.orderPriceTOTAL }}{{ historyPage.userInfo.currency }}</div>
                     <div ng-show="draft.orderStyle == 'credit'" class="account-value">{{ draft.orderPriceTOTAL }}{{ historyPage.userInfo.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.paymentMonthly}}{{ historyPage.userInfo.currency }}</div>
-                    <div class="account-qty">{{ draft.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{ draft.newDeliveryDate }}</div>
+                    <div class="account-qty">{{ draft.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{draft.newDeliveryDate | date:"dd.MM.yyyy"}}</div>
                   </div>
                 </div>
                 <button hm-tap="" class="account-tool account-print-btn"></button>

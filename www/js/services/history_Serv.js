@@ -270,13 +270,13 @@
       CartServ.downloadOrder();
 
       //------ Download All Products of edited Order
-      CartServ.downloadProducts().then(
+      CartServ.downloadProducts().then(function() {
         //------ Download All Add Elements from LocalDB
-        CartServ.downloadAddElements().then(function() {
+        CartServ.downloadAddElements().then(function () {
           //$cordovaProgress.hide();
           $location.path('/cart');
-        })
-      );
+        });
+      });
     }
 
 

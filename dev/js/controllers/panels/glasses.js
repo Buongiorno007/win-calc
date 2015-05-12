@@ -31,12 +31,8 @@
     function selectGlass(typeIndex, glassIndex, glassId) {
       ProductStor.product.glassTypeIndex = typeIndex;
       ProductStor.product.glassIndex = glassIndex;
-      var selectedGlass = GlobalStor.global.glasses[typeIndex][glassIndex];
-      ProductStor.product.glassId = glassId;
-      ProductStor.product.glassName = selectedGlass.glassName;
-      ProductStor.product.glassHeatCoeff = selectedGlass.heatCoeff;
-      ProductStor.product.glassAirCoeff = selectedGlass.airCoeff;
-
+      //------- set currenct Glass
+      MainServ.setCurrentGlass();
       //------ calculate price
       MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profileId, glassId, ProductStor.product.hardwareId);
       //------ save analytics data

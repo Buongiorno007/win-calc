@@ -10,7 +10,7 @@
     .module('MainModule')
     .factory('MainServ', navFactory);
 
-  function navFactory($rootScope, $location, $q, $timeout, $filter, $cordovaProgress, globalConstants, globalDB, localDB, GeneralServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function navFactory($rootScope, $location, $q, $timeout, $filter, $cordovaProgress, globalConstants, globalDB, localDB, GeneralServ, loginServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisFactory = this;
 
@@ -58,6 +58,8 @@
       //downloadAllTemplates: downloadAllTemplates,
       parseTemplate: parseTemplate,
       saveTemplateInProduct: saveTemplateInProduct,
+      setCurrentGlass: setCurrentGlass,
+      setCurrentHardware: setCurrentHardware,
       preparePrice: preparePrice,
       setProductPriceTOTAL: setProductPriceTOTAL,
       createNewProject: createNewProject,
@@ -66,6 +68,7 @@
       prepareMainPage: prepareMainPage,
 
       inputProductInOrder: inputProductInOrder,
+      goToCart: goToCart,
       insertOrderInLocalDB: insertOrderInLocalDB,
       deleteOrderFromLocalDB: deleteOrderFromLocalDB
     };
@@ -286,13 +289,14 @@
       }
 
       //-------- Save Template Arrays in Store
-      //if(GlobalStor.global.startProgramm) {
-        GlobalStor.global.templatesSTORE = angular.copy(GlobalStor.global.templates);
-        GlobalStor.global.templatesIconSTORE = angular.copy(GlobalStor.global.templatesIcon);
-      //}
+      GlobalStor.global.templatesSTORE = angular.copy(GlobalStor.global.templates);
+      GlobalStor.global.templatesIconSTORE = angular.copy(GlobalStor.global.templatesIcon);
 
       //------- set current template for product
       saveTemplateInProduct(ProductStor.product.templateIndex);
+
+      setCurrentGlass();
+      setCurrentHardware();
 
       preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId);
 
@@ -306,6 +310,23 @@
       ProductStor.product.templateIcon = angular.copy(GlobalStor.global.templatesIcon[templateIndex]);
     }
 
+
+
+    function setCurrentGlass() {
+      //----- set default glass in ProductStor
+      ProductStor.product.glassId = GlobalStor.global.glasses[ProductStor.product.glassTypeIndex][ProductStor.product.glassIndex].glassId;
+      ProductStor.product.glassName = GlobalStor.global.glasses[ProductStor.product.glassTypeIndex][ProductStor.product.glassIndex].glassName;
+      ProductStor.product.glassHeatCoeff = GlobalStor.global.glasses[ProductStor.product.glassTypeIndex][ProductStor.product.glassIndex].heatCoeff;
+      ProductStor.product.glassAirCoeff = GlobalStor.global.glasses[ProductStor.product.glassTypeIndex][ProductStor.product.glassIndex].airCoeff;
+    }
+
+    function setCurrentHardware() {
+      //----- set default hardware in ProductStor
+      ProductStor.product.hardwareId = GlobalStor.global.hardwares[ProductStor.product.hardwareTypeIndex][ProductStor.product.hardwareIndex].hardwareId;
+      ProductStor.product.hardwareName = GlobalStor.global.hardwares[ProductStor.product.hardwareTypeIndex][ProductStor.product.hardwareIndex].hardwareName;
+      ProductStor.product.hardwareHeatCoeff = GlobalStor.global.hardwares[ProductStor.product.hardwareTypeIndex][ProductStor.product.hardwareIndex].heatCoeff;
+      ProductStor.product.hardwareAirCoeff = GlobalStor.global.hardwares[ProductStor.product.hardwareTypeIndex][ProductStor.product.hardwareIndex].airCoeff;
+    }
 
 
     //--------- create object to send in server for price calculation
@@ -492,12 +513,24 @@
     function createNewProject() {
       console.log('new project!!!!!!!!!!!!!!');
       //------- create new empty product and order
-      ProductStor.product = ProductStor.setDefaultProduct();
       OrderStor.order = OrderStor.setDefaultOrder();
+      ProductStor.product = ProductStor.setDefaultProduct();
+      console.log('*********1**********', JSON.stringify(ProductStor.product.constructionType));
+      console.log('*********1**********', JSON.stringify(ProductStor.product.laminationInName));
+      GlobalStor.global.isCreatedNewProject = true;
+      GlobalStor.global.isCreatedNewProduct = true;
       //------- set new orderId
       createOrderData();
+      //------ set current GeoLocation
+      loginServ.setUserGeoLocation(UserStor.userInfo.city_id, UserStor.userInfo.cityName, UserStor.userInfo.regionName, UserStor.userInfo.countryName, UserStor.userInfo.climaticZone, UserStor.userInfo.heatTransfer, UserStor.userInfo.fullLocation);
       //------- set new templates
       prepareTemplates(ProductStor.product.constructionType);
+      $timeout(function() {
+        console.log('**********2*********', JSON.stringify(ProductStor.product.laminationInName));
+        prepareMainPage();
+        $rootScope.$apply();
+      }, 500);
+
     }
 
 
@@ -506,8 +539,10 @@
       console.log('new product!!!!!!!!!!!!!!!');
       //------- create new empty product
       ProductStor.product = ProductStor.setDefaultProduct();
+      GlobalStor.global.isCreatedNewProduct = true;
       //------- set new templates
       prepareTemplates(ProductStor.product.constructionType);
+      prepareMainPage();
     }
 
 
@@ -537,7 +572,6 @@
 
     //-------- Save Product in Order and go to Cart
     function inputProductInOrder() {
-
       //---------- if EDIT Product
       if(GlobalStor.global.productEditNumber) {
         //-------- replace product in order LocalStorage
@@ -557,9 +591,10 @@
         OrderStor.order.productsQty = ProductStor.product.productId;
         insertProductInLocalDB(ProductStor.product);
       }
-      GlobalStor.global.isCreatedNewProject = false;
+      //GlobalStor.global.isCreatedNewProject = false;
+      //----- finish working with product
       GlobalStor.global.isCreatedNewProduct = false;
-
+      ProductStor.product = ProductStor.setDefaultProduct();
     }
 
 
@@ -571,7 +606,7 @@
           addElementsQty = product.chosenAddElements.length,
           prop = 0, addElementsData;
 
-      console.log('!!!!!!!!!! product !!!!!!!!!!!', product);
+      console.log('!!!!!!!!!! product save !!!!!!!!!!!', JSON.stringify(product.laminationInName));
       //-------- insert product into local DB
       productData.heatTransferMin = OrderStor.order.currHeatTransfer;
       productData.templateSource = JSON.stringify(product.templateSource);
@@ -611,16 +646,16 @@
           localDB.insertDB(localDB.addElementsTableBD, addElementsData);
         }
       }
+    }
 
+    function goToCart() {
       //--------- moving to Cart when click on Cart button
       $timeout(function() {
         //------- set previos Page
-        GlobalStor.global.prevOpenPage = GlobalStor.global.currOpenPage;
-        ProductStor.product = ProductStor.setDefaultProduct();
+        GeneralServ.setPreviosPage();
         $location.path('/cart');
       }, 500);
     }
-
 
 
     function editProductInLocalDB(product) {
@@ -637,7 +672,6 @@
 
     //-------- save Order into Local DB
     function insertOrderInLocalDB(newOptions, orderType, orderStyle) {
-
       //---------- if EDIT Order, before inserting delete old order
       if(GlobalStor.global.orderEditNumber) {
         deleteOrderFromLocalDB(GlobalStor.global.orderEditNumber);
@@ -646,13 +680,19 @@
       OrderStor.order.orderType = orderType;
       OrderStor.order.orderStyle = orderStyle;
       angular.extend(OrderStor.order, newOptions);
+      //console.log('cart save order +++++', JSON.stringify(OrderStor.order));
       //------- save order in LocalDB
       delete OrderStor.order.products;
-console.log('+++++',OrderStor.order);
+
       localDB.insertDB(localDB.ordersTableBD, OrderStor.order);
       //----- cleaning order
       OrderStor.order = OrderStor.setDefaultOrder();
+      console.log('$$$$$$$$ clear order');
+      //----- finish working with order
+      GlobalStor.global.isCreatedNewProject = false;
     }
+
+
 
     //-------- delete order from LocalDB
     function deleteOrderFromLocalDB(orderNum) {
