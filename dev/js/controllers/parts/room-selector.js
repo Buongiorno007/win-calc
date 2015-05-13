@@ -10,8 +10,8 @@
   function roomSelectorCtrl(globalConstants, GeneralServ, MainServ, GlobalStor, ProductStor) {
 
     var thisCtrl = this;
-    thisCtrl.global = GlobalStor.global;
-    thisCtrl.product = ProductStor.product;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.P = ProductStor;
 
     thisCtrl.config = {
       DELAY_SHOW_ROOM1: 5 * globalConstants.STEP,

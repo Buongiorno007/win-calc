@@ -1,23 +1,23 @@
-.config-panel.template-container(ng-controller="TemplatesCtrl as templatesPanel", ng-class="{'active': templatesPanel.global.activePanel == 1}")
-  .template-inner(ng-if="templatesPanel.global.activePanel == 1")
+.config-panel.template-container(ng-controller="TemplatesCtrl as templatesPanel", ng-class="{'active': templatesPanel.G.global.activePanel == 1}")
+  .template-inner(ng-if="templatesPanel.G.global.activePanel == 1")
     .template-header
-      button.template-title.unvisible(ng-class="{'active': templatesPanel.switcherTemplate}", hm-tap="templatesPanel.toggleTemplateType()", show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templatesPanel.global.templateLabel }}
+      button.template-title.unvisible(ng-class="{'active': templatesPanel.switcherTemplate}", hm-tap="templatesPanel.toggleTemplateType()", show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templatesPanel.G.global.templateLabel }}
         .template-type(ng-show="templatesPanel.switcherTemplate")
-          .template-type-btn(ng-if="templatesPanel.product.constructionType !== 1", hm-tap="templatesPanel.selectNewTemplateType(1)") {{ 'panels.TEMPLATE_WINDOW' | translate }}
-          .template-type-btn(ng-if="templatesPanel.product.constructionType !== 2", hm-tap="templatesPanel.selectNewTemplateType(2)") {{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}
-          .template-type-btn(ng-if="templatesPanel.product.constructionType !== 3", hm-tap="templatesPanel.selectNewTemplateType(3)") {{ 'panels.TEMPLATE_BALCONY' | translate }}
-          .template-type-btn(ng-if="templatesPanel.product.constructionType !== 4", hm-tap="templatesPanel.selectNewTemplateType(4)") {{ 'panels.TEMPLATE_DOOR' | translate }}
+          .template-type-btn(ng-if="templatesPanel.P.product.constructionType !== 1", hm-tap="templatesPanel.selectNewTemplateType(1)") {{ 'panels.TEMPLATE_WINDOW' | translate }}
+          .template-type-btn(ng-if="templatesPanel.P.product.constructionType !== 2", hm-tap="templatesPanel.selectNewTemplateType(2)") {{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}
+          .template-type-btn(ng-if="templatesPanel.P.product.constructionType !== 3", hm-tap="templatesPanel.selectNewTemplateType(3)") {{ 'panels.TEMPLATE_BALCONY' | translate }}
+          .template-type-btn(ng-if="templatesPanel.P.product.constructionType !== 4", hm-tap="templatesPanel.selectNewTemplateType(4)") {{ 'panels.TEMPLATE_DOOR' | translate }}
 
-      .template-discr.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templatesPanel.global.templates[templatesPanel.product.templateIndex].name }}
+      .template-discr.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templatesPanel.G.global.templates[templatesPanel.P.product.templateIndex].name }}
 
     .template-section.unvisible(hm-tap="templatesPanel.gotoConstructionPage()", show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
-      svg-template(template="templatesPanel.global.templates[templatesPanel.product.templateIndex]", template-width="templatesPanel.constants.svgTemplateIconBigWidth", template-height="templatesPanel.constants.svgTemplateIconBigHeight", type-construction="bigIcon")
+      svg-template(template="templatesPanel.G.global.templates[templatesPanel.P.product.templateIndex]", template-width="templatesPanel.constants.svgTemplateIconBigWidth", template-height="templatesPanel.constants.svgTemplateIconBigHeight", type-construction="bigIcon")
 
     .template-footer.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
-      .other-templates(ng-show="templatesPanel.product.constructionType === 1")
+      .other-templates(ng-show="templatesPanel.P.product.constructionType === 1")
         //.other-template(ng-repeat="templateIcon in global.templatesIcons", hm-tap="selectNewTemplate($index)")
         .other-template(ng-repeat="templateIcon in templatesPanel.templatesImgs", hm-tap="templatesPanel.selectNewTemplate($index)")
           .other-template-img.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
             img(ng-src="{{ templateIcon.src }}")
-          .other-template-label.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templatesPanel.global.templateLabel }}
+          .other-template-label.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templatesPanel.G.global.templateLabel }}
           .other-template-subscr.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templateIcon.name }}

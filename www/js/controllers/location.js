@@ -13,7 +13,6 @@
   function locationCtrl($scope, globalDB, loginServ, SettingServ, GlobalStor, OrderStor, UserStor) {
 
     var thisCtrl = this;
-    thisCtrl.userInfo = UserStor.userInfo;
 
     //----- current user location
     thisCtrl.userNewLocation = angular.copy(OrderStor.order.currFullLocation);

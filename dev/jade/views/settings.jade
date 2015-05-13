@@ -13,12 +13,12 @@ section.settings.setting-page
         li.item
           .divider(data-output="{{ 'settings.AUTHORIZATION' | translate }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
         li.item
-          .setting-item-label(data-output="{{ settingsPage.userInfo.phone }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
+          .setting-item-label(data-output="{{ settingsPage.U.userInfo.phone }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
         li.item.click(hm-tap="settingsPage.gotoPasswordPage()")
-          .setting-item-label(data-output="{{ settingsPage.userInfo.password }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
+          .setting-item-label(data-output="{{ settingsPage.U.userInfo.password }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
           .setting-item-change(data-output="{{ 'settings.CHANGE_PASSWORD' | translate }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_SHOW_ICONS }}")
         li.item.click(hm-tap="settingsPage.gotoLanguagePage()")
-          .setting-item-label(data-output="{{ settingsPage.userInfo.langName }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
+          .setting-item-label(data-output="{{ settingsPage.U.userInfo.langName }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
           .setting-item-change(data-output="{{ 'settings.CHANGE_LANGUAGE' | translate }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_SHOW_ICONS }}")
 
       ul.list
@@ -26,20 +26,20 @@ section.settings.setting-page
           .divider(data-output="{{ 'settings.PRIVATE_INFO' | translate }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
         li#user-name.item.click(hm-tap="settingsPage.changeSettingData(1, $event)")
           .setting-item-label(data-output="{{ 'settings.USER_NAME' | translate }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
-          .setting-item-data(ng-hide="settingsPage.config.selectedSetting == 1", data-output="{{ settingsPage.userInfo.name }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
-          input.set-input-txt(ng-show="settingsPage.config.selectedSetting == 1", type="text", ng-model="settingsPage.userInfo.name", ng-keypress="settingsPage.saveChanges('user-name', settingsPage.userInfo.name)", ng-blur="settingsPage.saveChangesBlur('user-name', settingsPage.userInfo.name)")
+          .setting-item-data(ng-hide="settingsPage.config.selectedSetting == 1", data-output="{{ settingsPage.U.userInfo.name }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
+          input.set-input-txt(ng-show="settingsPage.config.selectedSetting == 1", type="text", ng-model="settingsPage.U.userInfo.name", ng-keypress="settingsPage.saveChanges('user-name', settingsPage.U.userInfo.name)", ng-blur="settingsPage.saveChangesBlur('user-name', settingsPage.U.userInfo.name)")
         li.item.click(hm-tap="settingsPage.gotoLocationPage()")
           .setting-item-label(data-output="{{ 'settings.CITY' | translate }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
-          .setting-item-data(data-output="{{ settingsPage.userInfo.fullLocation }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
+          .setting-item-data(data-output="{{ settingsPage.U.userInfo.fullLocation }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
           .setting-item-change
         li#user-address.item.click(hm-tap="settingsPage.changeSettingData(3, $event)")
           .setting-item-label(data-output="{{ 'cart.CLIENT_ADDRESS' | translate }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
-          .setting-item-data(ng-hide="settingsPage.config.selectedSetting == 3", data-output="{{ settingsPage.userInfo.city_phone }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
-          input.set-input-txt(ng-show="settingsPage.config.selectedSetting == 3", type="text", ng-model="settingsPage.userInfo.city_phone", ng-keypress="saveChanges('user-address', settingsPage.userInfo.city_phone)", ng-blur="saveChangesBlur('user-address', settingsPage.userInfo.city_phone)")
+          .setting-item-data(ng-hide="settingsPage.config.selectedSetting == 3", data-output="{{ settingsPage.U.userInfo.city_phone }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
+          input.set-input-txt(ng-show="settingsPage.config.selectedSetting == 3", type="text", ng-model="settingsPage.U.userInfo.city_phone", ng-keypress="saveChanges('user-address', settingsPage.U.userInfo.city_phone)", ng-blur="saveChangesBlur('user-address', settingsPage.U.userInfo.city_phone)")
         li#user-email.item.click(hm-tap="settingsPage.changeSettingData(4, $event)")
           .setting-item-label(data-output="{{ 'cart.CLIENT_EMAIL' | translate }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
-          .setting-item-data(ng-hide="settingsPage.config.selectedSetting == 4", data-output="{{ settingsPage.userInfo.email }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
-          input.set-input-txt(ng-show="settingsPage.config.selectedSetting == 4", type="email", name="mail", ng-model="settingsPage.userInfo.email", ng-keypress="settingsPage.saveChanges('user-email', settingsPage.userInfo.email)", ng-blur="settingsPage.saveChangesBlur('user-email', settingsPage.userInfo.email)", ng-change="settingsPage.changeEmail()")
+          .setting-item-data(ng-hide="settingsPage.config.selectedSetting == 4", data-output="{{ settingsPage.U.userInfo.email }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
+          input.set-input-txt(ng-show="settingsPage.config.selectedSetting == 4", type="email", name="mail", ng-model="settingsPage.U.userInfo.email", ng-keypress="settingsPage.saveChanges('user-email', settingsPage.U.userInfo.email)", ng-blur="settingsPage.saveChangesBlur('user-email', settingsPage.U.userInfo.email)", ng-change="settingsPage.changeEmail()")
           .set-email-error(ng-show="settingsPage.config.isEmailError") {{ 'cart.WRONG_EMAIL' | translate }}
 
       ul.list

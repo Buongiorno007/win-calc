@@ -11,10 +11,10 @@
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
-    thisCtrl.global = GlobalStor.global;
-    thisCtrl.product = ProductStor.product;
-    thisCtrl.userInfo = UserStor.userInfo;
-    thisCtrl.aux = AuxStor.aux;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.P = ProductStor;
+    thisCtrl.U = UserStor;
+    thisCtrl.A = AuxStor;
 
 
     thisCtrl.config = {

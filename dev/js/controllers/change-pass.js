@@ -7,36 +7,62 @@
     .module('SettingsModule')
     .controller('ChangePassCtrl', changePassCtrl);
 
-  function changePassCtrl($scope, globalConstants, localStorage, globalDB, UserStor) {
+  function changePassCtrl($location, globalConstants, UserStor, globalDB) {
 
-    $scope.global = localStorage.storage;
-    $scope.userInfo = UserStor.userInfo;
+    var thisCtrl = this;
+    thisCtrl.U = UserStor;
 
-    $scope.password = {
+    thisCtrl.config = {
       DELAY_START: globalConstants.STEP,
+      newPassword: false,
+      confirmPassword: false,
       isErrorPassword: false,
       typing: 'on'
     };
 
-    $scope.saveNewPassword = function() {
-      if($scope.password.newPassword === '' && $scope.password.confirmPassword === '') {
-        $scope.password.isErrorPassword = true;
-      }
-      if($scope.password.newPassword !== $scope.password.confirmPassword) {
-        $scope.password.isErrorPassword = true;
-      } else {
-        $scope.password.isErrorPassword = false;
-        UserStor.userInfo.password = $scope.password.newPassword;
+    //------ clicking
+    thisCtrl.saveNewPassword = saveNewPassword;
+    thisCtrl.gotoSettingsPage = gotoSettingsPage;
+    thisCtrl.checkError = checkError;
+
+
+    //============ methods ================//
+
+    function gotoSettingsPage() {
+      $location.path('/settings');
+    }
+
+    function saveNewPassword() {
+      if(thisCtrl.config.newPassword && thisCtrl.config.confirmPassword && thisCtrl.config.newPassword === thisCtrl.config.confirmPassword) {
+        thisCtrl.config.isErrorPassword = false;
+        UserStor.userInfo.password = thisCtrl.config.newPassword;
         //TODO save chand in Server not in GlobalDB
-        globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"password": $scope.password.newPassword}, {"id": UserStor.userInfo.id});
+        globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"password": thisCtrl.config.newPassword}, {"id": UserStor.userInfo.id});
         //---- clean fields
-        $scope.password.newPassword = $scope.password.confirmPassword = '';
+        thisCtrl.config.newPassword = thisCtrl.config.confirmPassword = false;
+      } else {
+        thisCtrl.config.isErrorPassword = true;
       }
 
-    };
-    $scope.checkError = function() {
-      $scope.password.isErrorPassword = false;
-    };
+//      if(thisCtrl.config.newPassword === '' && thisCtrl.config.confirmPassword === '') {
+//        thisCtrl.config.isErrorPassword = true;
+//      }
+//      if(thisCtrl.config.newPassword !== thisCtrl.config.confirmPassword) {
+//        thisCtrl.config.isErrorPassword = true;
+//      } else {
+//        $scope.password.isErrorPassword = false;
+//        UserStor.userInfo.password = $scope.password.newPassword;
+//        //TODO save chand in Server not in GlobalDB
+//        globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"password": $scope.password.newPassword}, {"id": UserStor.userInfo.id});
+//        //---- clean fields
+//        $scope.password.newPassword = $scope.password.confirmPassword = '';
+//      }
+
+    }
+
+    function checkError() {
+      thisCtrl.config.isErrorPassword = false;
+    }
 
   }
 })();

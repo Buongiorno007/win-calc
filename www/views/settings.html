@@ -15,14 +15,14 @@
           <div data-output="{{ 'settings.AUTHORIZATION' | translate }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="divider"></div>
         </li>
         <li class="item">
-          <div data-output="{{ settingsPage.userInfo.phone }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-label"></div>
+          <div data-output="{{ settingsPage.U.userInfo.phone }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-label"></div>
         </li>
         <li hm-tap="settingsPage.gotoPasswordPage()" class="item click">
-          <div data-output="{{ settingsPage.userInfo.password }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-label"></div>
+          <div data-output="{{ settingsPage.U.userInfo.password }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-label"></div>
           <div data-output="{{ 'settings.CHANGE_PASSWORD' | translate }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_SHOW_ICONS }}" class="setting-item-change"></div>
         </li>
         <li hm-tap="settingsPage.gotoLanguagePage()" class="item click">
-          <div data-output="{{ settingsPage.userInfo.langName }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-label"></div>
+          <div data-output="{{ settingsPage.U.userInfo.langName }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-label"></div>
           <div data-output="{{ 'settings.CHANGE_LANGUAGE' | translate }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_SHOW_ICONS }}" class="setting-item-change"></div>
         </li>
       </ul>
@@ -32,23 +32,23 @@
         </li>
         <li id="user-name" hm-tap="settingsPage.changeSettingData(1, $event)" class="item click">
           <div data-output="{{ 'settings.USER_NAME' | translate }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-label"></div>
-          <div ng-hide="settingsPage.config.selectedSetting == 1" data-output="{{ settingsPage.userInfo.name }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-data"></div>
-          <input ng-show="settingsPage.config.selectedSetting == 1" type="text" ng-model="settingsPage.userInfo.name" ng-keypress="settingsPage.saveChanges('user-name', settingsPage.userInfo.name)" ng-blur="settingsPage.saveChangesBlur('user-name', settingsPage.userInfo.name)" class="set-input-txt">
+          <div ng-hide="settingsPage.config.selectedSetting == 1" data-output="{{ settingsPage.U.userInfo.name }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-data"></div>
+          <input ng-show="settingsPage.config.selectedSetting == 1" type="text" ng-model="settingsPage.U.userInfo.name" ng-keypress="settingsPage.saveChanges('user-name', settingsPage.U.userInfo.name)" ng-blur="settingsPage.saveChangesBlur('user-name', settingsPage.U.userInfo.name)" class="set-input-txt">
         </li>
         <li hm-tap="settingsPage.gotoLocationPage()" class="item click">
           <div data-output="{{ 'settings.CITY' | translate }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-label"></div>
-          <div data-output="{{ settingsPage.userInfo.fullLocation }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-data"></div>
+          <div data-output="{{ settingsPage.U.userInfo.fullLocation }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-data"></div>
           <div class="setting-item-change"></div>
         </li>
         <li id="user-address" hm-tap="settingsPage.changeSettingData(3, $event)" class="item click">
           <div data-output="{{ 'cart.CLIENT_ADDRESS' | translate }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-label"></div>
-          <div ng-hide="settingsPage.config.selectedSetting == 3" data-output="{{ settingsPage.userInfo.city_phone }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-data"></div>
-          <input ng-show="settingsPage.config.selectedSetting == 3" type="text" ng-model="settingsPage.userInfo.city_phone" ng-keypress="saveChanges('user-address', settingsPage.userInfo.city_phone)" ng-blur="saveChangesBlur('user-address', settingsPage.userInfo.city_phone)" class="set-input-txt">
+          <div ng-hide="settingsPage.config.selectedSetting == 3" data-output="{{ settingsPage.U.userInfo.city_phone }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-data"></div>
+          <input ng-show="settingsPage.config.selectedSetting == 3" type="text" ng-model="settingsPage.U.userInfo.city_phone" ng-keypress="saveChanges('user-address', settingsPage.U.userInfo.city_phone)" ng-blur="saveChangesBlur('user-address', settingsPage.U.userInfo.city_phone)" class="set-input-txt">
         </li>
         <li id="user-email" hm-tap="settingsPage.changeSettingData(4, $event)" class="item click">
           <div data-output="{{ 'cart.CLIENT_EMAIL' | translate }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-label"></div>
-          <div ng-hide="settingsPage.config.selectedSetting == 4" data-output="{{ settingsPage.userInfo.email }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-data"></div>
-          <input ng-show="settingsPage.config.selectedSetting == 4" type="email" name="mail" ng-model="settingsPage.userInfo.email" ng-keypress="settingsPage.saveChanges('user-email', settingsPage.userInfo.email)" ng-blur="settingsPage.saveChangesBlur('user-email', settingsPage.userInfo.email)" ng-change="settingsPage.changeEmail()" class="set-input-txt">
+          <div ng-hide="settingsPage.config.selectedSetting == 4" data-output="{{ settingsPage.U.userInfo.email }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-data"></div>
+          <input ng-show="settingsPage.config.selectedSetting == 4" type="email" name="mail" ng-model="settingsPage.U.userInfo.email" ng-keypress="settingsPage.saveChanges('user-email', settingsPage.U.userInfo.email)" ng-blur="settingsPage.saveChangesBlur('user-email', settingsPage.U.userInfo.email)" ng-change="settingsPage.changeEmail()" class="set-input-txt">
           <div ng-show="settingsPage.config.isEmailError" class="set-email-error">{{ 'cart.WRONG_EMAIL' | translate }}</div>
         </li>
       </ul>

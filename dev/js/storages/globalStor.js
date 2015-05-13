@@ -28,9 +28,6 @@
         prevOpenPage: '',
         currOpenPage: 'main',
 
-//        isOrderFinished: false,
-//        isReturnFromDiffPage: false,
-
         isChangedTemplate: false,
         isVoiceHelper: false,
         voiceHelperLanguage: '',
@@ -43,21 +40,7 @@
         isWidthCalculator: false,
         isColorSelector: false,
 
-        isMinSizeRestriction: 0,
-        isMaxSizeRestriction: 0,
-        minSizeLimit: 0,
-        maxSizeLimit: 0,
-        //isConstructSizeCalculator: false, // for size caclulator in construction page
-        //isRoomsDialog: false,
-
-
-        showMasterDialog: false,
-        showOrderDialog: false,
-        showCreditDialog: false,
-
-
         //------- Templates
-        //templateDepths: {},
         templateLabel: '',
         templatesSource: [],
         templates: [],
@@ -65,7 +48,6 @@
         templatesSourceSTORE: [],
         templatesSTORE: [],
         templatesIconSTORE: [],
-
 
         //------ Profiles
         profiles: [],
@@ -77,7 +59,6 @@
           impostDepth: {},
           shtulpDepth: {}
         },
-
 
         //------- Glasses
         glasses: [],

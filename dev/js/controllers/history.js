@@ -11,9 +11,9 @@
 
 
     var thisCtrl = this;
-    thisCtrl.global = GlobalStor.global;
-    thisCtrl.history = HistoryStor.history;
-    thisCtrl.userInfo = UserStor.userInfo;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.H = HistoryStor;
+    thisCtrl.U = UserStor;
 
 
     //------- set current Page

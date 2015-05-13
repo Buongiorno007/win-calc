@@ -1,8 +1,8 @@
-section.page-container(ng-class="{ 'swiped': !mainPage.global.isNavMenu }")
+section.page-container(ng-class="{ 'swiped': !mainPage.G.global.isNavMenu }")
   section.left-side
     include menus/_navigation-menu
   //TODO change to directive!!!! rooms will be more
-  section.right-side.main-page-bg(ng-class="{'kitchen': mainPage.product.selectedRoomId == 1, 'livingroom': mainPage.product.selectedRoomId == 2, 'balcony': mainPage.product.selectedRoomId == 3, 'childroom': mainPage.product.selectedRoomId == 4, 'bedroom': mainPage.product.selectedRoomId == 5, 'door': mainPage.product.selectedRoomId == 6 }")
+  section.right-side.main-page-bg(ng-class="{'kitchen': mainPage.P.product.selectedRoomId == 1, 'livingroom': mainPage.P.product.selectedRoomId == 2, 'balcony': mainPage.P.product.selectedRoomId == 3, 'childroom': mainPage.P.product.selectedRoomId == 4, 'bedroom': mainPage.P.product.selectedRoomId == 5, 'door': mainPage.P.product.selectedRoomId == 6 }")
     section.main-content
       include parts/_user-info
       include parts/_room-info
@@ -15,7 +15,7 @@ section.page-container(ng-class="{ 'swiped': !mainPage.global.isNavMenu }")
       include panels/_laminations
       include panels/_add-elements
       include panels/_add-elements-list
-      .backDarkView(ng-show="mainPage.global.isShowCommentBlock")
+      .backDarkView(ng-show="mainPage.G.global.isShowCommentBlock")
     section.right-menu
       include menus/_config-menu
       include menus/_addelements-menu

@@ -1,10 +1,10 @@
 section.settings.language-page
   .header
-    button.back(hm-tap="global.gotoSettingsPage()")
-    .title(data-output="{{ 'settings.CHANGE_LANGUAGE' | translate }}", typing="{{ language.typing }}", typing-delay="{{ language.DELAY_START }}")
+    button.back(hm-tap="languagePage.gotoSettingsPage()")
+    .title(data-output="{{ 'settings.CHANGE_LANGUAGE' | translate }}", typing="{{ languagePage.config.typing }}", typing-delay="{{ languagePage.config.DELAY_START }}")
 
   .lang-container
     .lists
       ul.list
-        li.item.click(ng-repeat="lang in global.languages", ng-class="{'active': userInfo.langLabel === lang.label}", hm-tap="switchLang($index)")
+        li.item.click(ng-repeat="lang in languagePage.constants.languages", ng-class="{'active': languagePage.U.userInfo.langLabel === lang.label}", hm-tap="languagePage.switchLang($index)")
           .lang-label {{ lang.name }}

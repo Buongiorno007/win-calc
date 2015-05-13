@@ -1,18 +1,18 @@
-.config-panel.lamination-container(ng-controller="LaminationsCtrl as laminPanel", ng-class="{'active': laminPanel.global.activePanel == 5}")
-  .panel-inner(ng-if="laminPanel.global.activePanel == 5")
+.config-panel.lamination-container(ng-controller="LaminationsCtrl as laminPanel", ng-class="{'active': laminPanel.G.global.activePanel == 5}")
+  .panel-inner(ng-if="laminPanel.G.global.activePanel == 5")
 
     .lamination-block
       .lamination-title(data-output="{{ 'panels.LAMINAT_INSIDE' | translate }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
 
       .lamination-white.unvisible(show-delay="{{ laminPanel.config.DELAY_START }}")
-        .lamination-img(ng-class="{'selected': laminPanel.product.laminationInId === 'white'}", hm-tap="laminPanel.selectLaminatIn('white')")
+        .lamination-img(ng-class="{'selected': laminPanel.P.product.laminationInId === 'white'}", hm-tap="laminPanel.selectLaminatIn('white')")
           img(src="img/lamination/empty.png")
         .lamination-label.for-white(data-output="{{ 'panels.LAMINAT_WHITE' | translate }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
 
       .lamination-options.clearfix
 
         .lam-option-box.unvisible(ng-repeat="laminatInner in laminPanel.laminationsIn", show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * $index) }}")
-          .lamination-img(ng-class="{'selected': laminPanel.product.laminationInId == laminatInner.id}", hm-tap="laminPanel.selectLaminatIn($index)")
+          .lamination-img(ng-class="{'selected': laminPanel.P.product.laminationInId == laminatInner.id}", hm-tap="laminPanel.selectLaminatIn($index)")
             img(ng-src="img/lamination/{{ laminatInner.id }}.png")
           .lamination-label(data-output="{{ laminatInner.name }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_TYPING * $index) }}")
           .info.unvisible(show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * 2 * $index) }}")
@@ -21,14 +21,14 @@
       .lamination-title(data-output="{{ 'panels.LAMINAT_OUTSIDE' | translate }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
 
       .lamination-white.unvisible(show-delay="{{ laminPanel.config.DELAY_START }}")
-        .lamination-img(ng-class="{'selected': laminPanel.product.laminationOutId === 'white'}", hm-tap="laminPanel.selectLaminatOut('white')")
+        .lamination-img(ng-class="{'selected': laminPanel.P.product.laminationOutId === 'white'}", hm-tap="laminPanel.selectLaminatOut('white')")
           img(src="img/lamination/empty.png")
         .lamination-label.for-white(data-output="{{ 'panels.LAMINAT_WHITE' | translate }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START }}")
 
       .lamination-options.clearfix
 
         .lam-option-box.unvisible(ng-repeat="laminatOuter in laminPanel.laminationsOut", show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * $index) }}")
-          .lamination-img(ng-class="{'selected': laminPanel.product.laminationOutId == laminatOuter.id}", hm-tap="laminPanel.selectLaminatOut($index)")
+          .lamination-img(ng-class="{'selected': laminPanel.P.product.laminationOutId == laminatOuter.id}", hm-tap="laminPanel.selectLaminatOut($index)")
             img(ng-src="img/lamination/{{ laminatOuter.id }}.png")
           .lamination-label(data-output="{{ laminatOuter.name }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_TYPING * $index) }}")
           .info.unvisible(show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * 2 * $index) }}")

@@ -153,10 +153,6 @@
       MainServ.insertOrderInLocalDB(CartStor.cart.user, globalConstants.fullOrderType, orderStyle);
       //--------- Close cart dialog, go to history
       closeOrderDialog();
-      GlobalStor.global.orderEditNumber = false;
-      GlobalStor.global.isCreatedNewProject = false;
-      GlobalStor.global.isCreatedNewProduct = false;
-      GlobalStor.global.isOrderFinished = true;
       //------- set previos Page
       GeneralServ.setPreviosPage();
       analyticsServ.sendAnalyticsGlobalDB(OrderStor.order);

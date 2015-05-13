@@ -7,31 +7,19 @@
     .module('DesignModule')
     .controller('DesignCtrl', designPageCtrl);
 
-  function designPageCtrl($scope, $location, $filter, $interval, globalConstants, optionsServ, GlobalStor, OrderStor, ProductStor) {
+  function designPageCtrl($scope, $location, $filter, $interval, globalConstants, optionsServ, DesignServ, GlobalStor, DesignStor, ProductStor) {
 
     var thisCtrl = this;
-
-    thisCtrl.global = GlobalStor.global;
-    thisCtrl.product = ProductStor.product;
+    thisCtrl.constants = globalConstants;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.P = ProductStor;
+    thisCtrl.D = DesignStor;
 
     //------- set current Page
     GlobalStor.global.currOpenPage = 'design';
 
     thisCtrl.config = {
-      tempSize: [],
-      minSizeLimit: 200,
-      maxSizeLimit: 5000,
-      minSizePoint: 0,
-      maxSizePoint: 0,
-      startSize: 0,
-      finishSize: 0,
-      tempSizeId: '2',
-      tempSizeType: '',
-      oldSizeValue: 0,
-      isMinSizeRestriction: false,
-      isMaxSizeRestriction: false,
 
-      activeMenuItem: false,
       isSashEdit: false,
       isAngelEdit: false,
       isImpostEdit: false,
@@ -41,7 +29,7 @@
       isSashEditMenu: false,
       isImpostEditMenu: false,
 
-      showDoorConfig: false,
+
 
       selectedDoorShape: false,
       selectedSashShape: false,
@@ -60,14 +48,69 @@
       selectedStep2: false,
       selectedStep3: false,
       selectedStep4: false,
+
+      activeMenuItem: 0,
+      isDoorConfig: 0,
       DELAY_SHOW_FIGURE_ITEM: 1000,
       typing: 'on'
     };
 
+    //------- set templates for work
+    DesignServ.initTemplate();
+
+
+
+
 
     //------ clicking
+    thisCtrl.selectMenuItem = selectMenuItem;
+    thisCtrl.setDefaultConstruction = setDefaultConstruction;
 
     //============ methods ================//
+
+
+
+    //--------Select menu item
+    function selectMenuItem(id) {
+      thisCtrl.config.activeMenuItem = (thisCtrl.config.activeMenuItem === id) ? 0 : id;
+
+      console.log('activeMenuItem = ', thisCtrl.config.activeMenuItem);
+
+      deactivateShapeMenu();
+      $scope.constructData.isSashEditMenu = false;
+      $scope.constructData.isImpostEditMenu = false;
+      manipulationWithGlasses($scope.constructData.activeMenuItem);
+      switch($scope.constructData.activeMenuItem) {
+        case 1:
+          $scope.constructData.isSashEdit = true;
+          manipulationWithGlasses($scope.constructData.isSashEdit);
+          break;
+        case 2:
+          $scope.constructData.isAngelEdit = true;
+          break;
+        case 3:
+          $scope.constructData.isImpostEdit = true;
+          manipulationWithGlasses($scope.constructData.isImpostEdit);
+          break;
+        case 4:
+          $scope.constructData.isArchEdit = true;
+          break;
+        case 5:
+          $scope.constructData.isPositionEdit = true;
+          break;
+      }
+    }
+
+
+
+    //------- set Default Construction
+    function setDefaultConstruction() {
+      if(!$scope.global.isConstructSizeCalculator) {
+        DesignStor.design = DesignStor.setDefaultDesign();
+        DesignStor.design.tempSize.length = 0;
+      }
+    }
+
 
 
     $scope.openVoiceHelper = false;
@@ -81,11 +124,7 @@
         newLength;
 
 
-    $scope.templateSourceOLD = angular.copy($scope.global.product.templateSource);
-    $scope.templateDefaultOLD = angular.copy($scope.global.product.templateDefault);
 
-    $scope.templateSourceTEMP = angular.copy($scope.global.product.templateSource);
-    $scope.templateDefaultTEMP = angular.copy($scope.global.product.templateDefault);
 
 
 
@@ -106,19 +145,12 @@
 
         //----- save new template in product
         $scope.global.product.templateSource = angular.copy($scope.templateSourceTEMP);
-        $scope.global.product.templateDefault = angular.copy($scope.templateDefaultTEMP);
+        $scope.global.product.templateDefault = angular.copy($scope.templateTEMP);
         $scope.global.product.templateIcon = new TemplateIcon($scope.templateSourceTEMP, $scope.global.templateDepths);
 
         //------ save new template in templates Array
-        if($scope.global.isConstructDoor) {
-          changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesDoorSource, $scope.global.templatesDoorList, $scope.global.templatesDoorIconList, $scope.templateSourceTEMP, $scope.templateDefaultTEMP, $scope.global.product.templateIcon);
-        } else if($scope.global.isConstructBalcony) {
-          changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesBalconySource, $scope.global.templatesBalconyList, $scope.global.templatesBalconyIconList, $scope.templateSourceTEMP, $scope.templateDefaultTEMP, $scope.global.product.templateIcon);
-        } else if($scope.global.isConstructWindDoor) {
-          changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesWindDoorSource, $scope.global.templatesWindDoorList, $scope.global.templatesWindDoorIconList, $scope.templateSourceTEMP, $scope.templateDefaultTEMP, $scope.global.product.templateIcon);
-        } else if($scope.global.isConstructWind) {
-          changeTemplateInArray($scope.global.product.templateIndex, $scope.global.templatesWindSource, $scope.global.templatesWindList, $scope.global.templatesWindIconList, $scope.templateSourceTEMP, $scope.templateDefaultTEMP, $scope.global.product.templateIcon);
-        }
+        changeTemplateInArray($scope.global.product.templateIndex, $scope.templateSourceTEMP, $scope.templateTEMP, $scope.global.product.templateIcon);
+
         //------- refresh current templates arrays
         $scope.global.getCurrentTemplates();
         //-------- template was changed
@@ -130,37 +162,26 @@
 
     //-------- Back to Template Panel
     $scope.backtoTemplatePanel = function() {
-      $scope.global.prepareMainPage();
+      MainServ.prepareMainPage();
       $scope.global.isReturnFromDiffPage = true;
-      //console.log('construction page!!!!!!!!!!!');
-      //console.log('product ====== ', $scope.global.product);
-      //console.log('order ====== ', $scope.global.order);
       $location.path('/main');
     };
-  /*
-    function changeTemplateInArray(templateIndex, templateSourceList, templateList, templateIconList, newTemplateSource, newTemplate, newTemplateIcon) {
+
+
+    function changeTemplateInArray(templateIndex, newTemplateSource, newTemplate, newTemplateIcon) {
       //----- write new template in array
-      templateSourceList[templateIndex] = angular.copy(newTemplateSource);
-      templateList[templateIndex] = angular.copy(newTemplate);
-      templateIconList[templateIndex] = angular.copy(newTemplateIcon);
+      GlobalStor.global.templatesSource[templateIndex] = angular.copy(newTemplateSource);
+      GlobalStor.global.templates[templateIndex] = angular.copy(newTemplate);
+      GlobalStor.global.templatesIcon[templateIndex] = angular.copy(newTemplateIcon);
     }
-  */
 
 
 
 
 
 
-    //------- set Default Construction
-    $scope.setDefaultConstruction = function() {
-      if(!$scope.global.isConstructSizeCalculator) {
-        $scope.templateDefaultTEMP = {};
-        $scope.templateSourceTEMP = {};
-        $scope.templateDefaultTEMP = angular.copy($scope.templateDefaultOLD);
-        $scope.templateSourceTEMP = angular.copy($scope.templateSourceOLD);
-        $scope.constructData.tempSize.length = 0;
-      }
-    };
+
+
 
 
 
@@ -202,34 +223,7 @@
     }
 
 
-    //--------Select menu item
-    $scope.selectMenuItem = function(id) {
-      $scope.constructData.activeMenuItem = ($scope.constructData.activeMenuItem === id) ? false : id;
-      console.log('activeMenuItem = ', $scope.constructData.activeMenuItem);
-      deactivateShapeMenu();
-      $scope.constructData.isSashEditMenu = false;
-      $scope.constructData.isImpostEditMenu = false;
-      manipulationWithGlasses($scope.constructData.activeMenuItem);
-      switch($scope.constructData.activeMenuItem) {
-        case 1:
-          $scope.constructData.isSashEdit = true;
-          manipulationWithGlasses($scope.constructData.isSashEdit);
-          break;
-        case 2:
-          $scope.constructData.isAngelEdit = true;
-          break;
-        case 3:
-          $scope.constructData.isImpostEdit = true;
-          manipulationWithGlasses($scope.constructData.isImpostEdit);
-          break;
-        case 4:
-          $scope.constructData.isArchEdit = true;
-          break;
-        case 5:
-          $scope.constructData.isPositionEdit = true;
-          break;
-      }
-    };
+
 
     function deactivateShapeMenu() {
       $scope.constructData.isSashEdit = false;
@@ -241,7 +235,7 @@
 
     //---------- Show Door Configuration
     $scope.getDoorConfig = function() {
-      $scope.constructData.showDoorConfig = ($scope.constructData.showDoorConfig) ? false : true;
+      thisCtrl.config.isDoorConfig = (thisCtrl.config.isDoorConfig) ? 0 : 1;
     };
 
     //---------- Select door shape
@@ -315,7 +309,7 @@
         $scope.constructData.selectedStep1 = false;
         $scope.constructData.selectedDoorShape = false;
       } else {
-        $scope.constructData.showDoorConfig = false;
+        thisCtrl.config.isDoorConfig = 0;
         $scope.constructData.doorShape = $scope.constructData.doorShapeDefault;
         $scope.constructData.sashShape = $scope.constructData.sashShapeDefault;
         $scope.constructData.handleShape = $scope.constructData.handleShapeDefault;
@@ -325,8 +319,8 @@
 
     //--------- Save Door Configuration
     $scope.saveDoorConfig = function() {
-      $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
-      $scope.constructData.showDoorConfig = false;
+      $scope.templateTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
+      thisCtrl.config.isDoorConfig = 0;
       $scope.global.product.doorShapeId = $scope.constructData.selectedDoorShape;
       $scope.global.product.doorSashShapeId = $scope.constructData.selectedSashShape;
       $scope.global.product.doorHandleShapeId = $scope.constructData.selectedHandleShape;
@@ -364,19 +358,19 @@
     function selectSizeBlock() {
       if (!$scope.global.isConstructSizeCalculator) {
         var thisSize = $(this).parent();
-        $scope.constructData.startSize = +thisSize.attr('from-point');
-        $scope.constructData.finishSize = +thisSize.attr('to-point');
-        $scope.constructData.minSizePoint = +thisSize.attr('min-val');
-        $scope.constructData.maxSizePoint = +thisSize.attr('max-val');
-        $scope.constructData.maxSizeLimit = ($scope.constructData.maxSizePoint - $scope.constructData.startSize);
+        DesignStor.design.startSize = +thisSize.attr('from-point');
+        DesignStor.design.finishSize = +thisSize.attr('to-point');
+        DesignStor.design.minSizePoint = +thisSize.attr('min-val');
+        DesignStor.design.maxSizePoint = +thisSize.attr('max-val');
+        DesignStor.design.maxSizeLimit = (DesignStor.design.maxSizePoint - DesignStor.design.startSize);
         if (thisSize.attr('id') === 'overallDimH' || thisSize.attr('id') === 'overallDimV') {
-          $scope.constructData.minSizeLimit = $scope.constructData.minSizePoint;
+          DesignStor.design.minSizeLimit = DesignStor.design.minSizePoint;
         } else {
-          $scope.constructData.minSizeLimit = 200;
+          DesignStor.design.minSizeLimit = 200;
         }
-        $scope.constructData.tempSizeId = thisSize.attr('id');
-        $scope.constructData.tempSizeType = thisSize.attr('size-type');
-        $scope.constructData.oldSizeValue = +thisSize.text();
+        DesignStor.design.tempSizeId = thisSize.attr('id');
+        DesignStor.design.tempSizeType = thisSize.attr('size-type');
+        DesignStor.design.oldSizeValue = +thisSize.text();
         //--- change color of size block
   /*
         var sizeGroup = $(thisSize.parent());
@@ -384,15 +378,7 @@
         thisSize.attr('class', '').attr('class', sizeBoxActClass);
         sizeGroup.find('.size-rect').attr('class', '').attr('class', sizeRectActClass);
   */
-       /*
-         console.log('startSize = ', $scope.constructData.startSize);
-         console.log('finishSize = ', $scope.constructData.finishSize);
-         console.log('minSizePoint = ', $scope.constructData.minSizePoint);
-         console.log('maxSizePoint = ', $scope.constructData.maxSizePoint);
-         console.log('tempSizeId', $scope.constructData.tempSizeId);
-         console.log('tempSizeType = ', $scope.constructData.tempSizeType);
-         console.log('oldSizeValue = ', $scope.constructData.oldSizeValue);
-         */
+
         //--- show size calculator if voice helper is turn off
         if (!$scope.global.isVoiceHelper) {
           $scope.global.isConstructSizeCalculator = true;
@@ -473,7 +459,7 @@
         $scope.openVoiceHelper = false;
 
         if ((tempVal > 0) && (tempVal < 10000)) {
-          $scope.constructData.tempSize = ("" + tempVal).split('');
+          DesignStor.design.tempSize = ("" + tempVal).split('');
           //console.log('$scope.constructData.tempSize == ', $scope.constructData.tempSize);
           changeSize();
         }
@@ -481,30 +467,30 @@
 
       } else {
         //---- clear array from 0 after delete all number in array
-        if ($scope.constructData.tempSize.length === 1 && $scope.constructData.tempSize[0] === 0) {
-          $scope.constructData.tempSize.length = 0;
+        if (DesignStor.design.tempSize.length === 1 && $scope.constructData.tempSize[0] === 0) {
+          DesignStor.design.tempSize.length = 0;
         }
-        if ($scope.constructData.tempSize.length === 4) {
-          $scope.constructData.tempSize.length = 0;
+        if (DesignStor.design.tempSize.length === 4) {
+          DesignStor.design.tempSize.length = 0;
         }
         if (newValue === '0') {
-          if ($scope.constructData.tempSize.length !== 0 && $scope.constructData.tempSize[0] !== 0) {
-            $scope.constructData.tempSize.push(newValue);
+          if (DesignStor.design.tempSize.length !== 0 && $scope.constructData.tempSize[0] !== 0) {
+            DesignStor.design.tempSize.push(newValue);
             changeSize();
           }
         }
         if (newValue === '00') {
-          if ($scope.constructData.tempSize.length !== 0 && $scope.constructData.tempSize[0] !== 0) {
-            if ($scope.constructData.tempSize.length < 3) {
-              $scope.constructData.tempSize.push(0, 0);
-            } else if ($scope.constructData.tempSize.length === 3) {
-              $scope.constructData.tempSize.push(0);
+          if (DesignStor.design.tempSize.length !== 0 && DesignStor.design.tempSize[0] !== 0) {
+            if (DesignStor.design.tempSize.length < 3) {
+              DesignStor.design.tempSize.push(0, 0);
+            } else if (DesignStor.design.tempSize.length === 3) {
+              DesignStor.design.tempSize.push(0);
             }
             changeSize();
           }
         }
         if (newValue !== '0' && newValue !== '00') {
-          $scope.constructData.tempSize.push(newValue);
+          DesignStor.design.tempSize.push(newValue);
           changeSize();
         }
       }
@@ -512,9 +498,9 @@
 
     //------ Delete last number from calculator
     function deleteLastNumber() {
-        $scope.constructData.tempSize.pop();
-        if($scope.constructData.tempSize.length < 1) {
-          $scope.constructData.tempSize.push(0);
+        DesignStor.design.tempSize.pop();
+        if(DesignStor.design.tempSize.length < 1) {
+          DesignStor.design.tempSize.push(0);
         }
       changeSize();
     }
@@ -522,11 +508,11 @@
     //------ Change size on SVG
     function changeSize() {
       var newSizeString = '';
-      for(var numer = 0; numer < $scope.constructData.tempSize.length; numer++) {
-        newSizeString += $scope.constructData.tempSize[numer].toString();
+      for(var numer = 0; numer < DesignStor.design.tempSize.length; numer++) {
+        newSizeString += DesignStor.design.tempSize[numer].toString();
       }
-      //console.log($scope.constructData.tempSizeId);
-      $('#'+$scope.constructData.tempSizeId).find('tspan').text(parseInt(newSizeString, 10));
+      //console.log(DesignStor.design.tempSizeId);
+      $('#' + DesignStor.design.tempSizeId).find('tspan').text(parseInt(newSizeString, 10));
       if($scope.global.isVoiceHelper) {
         $scope.closeSizeCaclulator();
       }
@@ -534,10 +520,10 @@
 
     //---------- Close Size Calculator
     $scope.closeSizeCaclulator = function() {
-      if($scope.constructData.tempSize.length > 0) {
-        newLength = parseInt($scope.constructData.tempSize.join(''), 10);
+      if(DesignStor.design.tempSize.length > 0) {
+        newLength = parseInt(DesignStor.design.tempSize.join(''), 10);
         //------- Dimensions limits checking
-        if (newLength > $scope.constructData.minSizeLimit && newLength < $scope.constructData.maxSizeLimit) {
+        if (newLength > DesignStor.design.minSizeLimit && newLength < DesignStor.design.maxSizeLimit) {
           $scope.constructData.isMinSizeRestriction = false;
           $scope.constructData.isMaxSizeRestriction = false;
 
@@ -546,10 +532,10 @@
             switch ($scope.templateSourceTEMP.objects[k].type) {
               case 'fixed_point':
               case 'fixed_point_impost':
-                if ($scope.constructData.tempSizeType === 'hor' && +$scope.templateSourceTEMP.objects[k].x === $scope.constructData.finishSize) {
-                  $scope.templateSourceTEMP.objects[k].x = $scope.constructData.startSize + newLength;
-                } else if($scope.constructData.tempSizeType === 'vert' && +$scope.templateSourceTEMP.objects[k].y === $scope.constructData.finishSize) {
-                  $scope.templateSourceTEMP.objects[k].y = $scope.constructData.startSize + newLength;
+                if (DesignStor.design.tempSizeType === 'hor' && +$scope.templateSourceTEMP.objects[k].x === DesignStor.design.finishSize) {
+                  $scope.templateSourceTEMP.objects[k].x = DesignStor.design.startSize + newLength;
+                } else if(DesignStor.design.tempSizeType === 'vert' && +$scope.templateSourceTEMP.objects[k].y === DesignStor.design.finishSize) {
+                  $scope.templateSourceTEMP.objects[k].y = DesignStor.design.startSize + newLength;
                 }
 
                 break;
@@ -563,32 +549,32 @@
           //------- deactive size box in svg
           deactiveSizeBox(sizeRectActClass, sizeBoxActClass);
           //-------- build new template
-          $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
+          $scope.templateTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
 
-          $scope.constructData.tempSize.length = 0;
+          DesignStor.design.tempSize.length = 0;
           $scope.constructData.isMinSizeRestriction = false;
           $scope.constructData.isMaxSizeRestriction = false;
         } else {
 
           //------ show error size
-          if(newLength < $scope.constructData.minSizeLimit) {
+          if(newLength < DesignStor.design.minSizeLimit) {
             if($scope.global.isVoiceHelper) {
               playTTS($filter('translate')('construction.VOICE_SMALLEST_SIZE'), $scope.global.voiceHelperLanguage);
               //------- deactive size box in svg
               deactiveSizeBox(sizeRectActClass, sizeBoxActClass);
               //-------- build new template
-              $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
+              $scope.templateTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
             } else {
               $scope.constructData.isMinSizeRestriction = true;
               $scope.constructData.isMaxSizeRestriction = false;
             }
-          } else if(newLength > $scope.constructData.maxSizeLimit) {
+          } else if(newLength > DesignStor.design.maxSizeLimit) {
             if($scope.global.isVoiceHelper) {
               playTTS($filter('translate')('construction.VOICE_BIGGEST_SIZE'), $scope.global.voiceHelperLanguage);
               //------- deactive size box in svg
               deactiveSizeBox(sizeRectActClass, sizeBoxActClass);
               //-------- build new template
-              $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
+              $scope.templateTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
             } else {
               $scope.constructData.isMinSizeRestriction = false;
               $scope.constructData.isMaxSizeRestriction = true;
@@ -598,8 +584,8 @@
         }
       } else {
   /*
-        $scope.constructData.minSizeLimit = 200;
-        $scope.constructData.maxSizeLimit = 5000;
+        DesignStor.design.minSizeLimit = 200;
+        DesignStor.design.maxSizeLimit = 5000;
   */
         //------ close size calculator
         $scope.global.isConstructSizeCalculator = false;
@@ -707,9 +693,9 @@
           sashNewId = (blockId - 1) * 4;
 
       //------- get data of current glass package
-      for (var t = 0; t < $scope.templateDefaultTEMP.objects.length; t++) {
-        if($scope.templateDefaultTEMP.objects[t].id === $scope.selectedGlassId) {
-          currGlassPackage = $scope.templateDefaultTEMP.objects[t];
+      for (var t = 0; t < $scope.templateTEMP.objects.length; t++) {
+        if($scope.templateTEMP.objects[t].id === $scope.selectedGlassId) {
+          currGlassPackage = $scope.templateTEMP.objects[t];
           isSashExist = currGlassPackage.parts[0].fromPoint.blockType;
         }
       }
@@ -792,9 +778,9 @@
 
           //console.log('!!!!new.templateSourceTEMP === ', $scope.templateSourceTEMP);
           //-------- build new template
-          $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
+          $scope.templateTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
           //findSVGElement();
-          //console.log('templateDefaultTEMP', $scope.templateDefaultTEMP.objects);
+          //console.log('templateTEMP', $scope.templateTEMP.objects);
 
           $scope.constructData.isSashEditMenu = false;
           $scope.constructData.isSashEdit = false;
@@ -808,8 +794,8 @@
         if(isSashExist === 'frame' && currGlassPackage.square > 0.05) {
 
           //---- find insert index before beads to push new sash
-          for (var i = 0; i < $scope.templateDefaultTEMP.objects.length; i++) {
-            if($scope.templateDefaultTEMP.objects[i].type === 'bead_line') {
+          for (var i = 0; i < $scope.templateTEMP.objects.length; i++) {
+            if($scope.templateTEMP.objects[i].type === 'bead_line') {
               insertIndex = i;
               break;
             }
@@ -1015,9 +1001,9 @@
 
         //console.log('!!!!new.templateSourceTEMP === ', $scope.templateSourceTEMP);
         //-------- build new template
-        $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
+        $scope.templateTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
         //findSVGElement();
-        //console.log('templateDefaultTEMP', $scope.templateDefaultTEMP.objects);
+        //console.log('templateTEMP', $scope.templateTEMP.objects);
 
         $scope.constructData.isSashEditMenu = false;
         $scope.constructData.isSashEdit = false;
@@ -1082,39 +1068,39 @@
 
 
       //------- get data of current glass package
-      for (var t = 0; t < $scope.templateDefaultTEMP.objects.length; t++) {
-        if($scope.templateDefaultTEMP.objects[t].id === $scope.selectedGlassId) {
-          currGlassPackage = $scope.templateDefaultTEMP.objects[t];
+      for (var t = 0; t < $scope.templateTEMP.objects.length; t++) {
+        if($scope.templateTEMP.objects[t].id === $scope.selectedGlassId) {
+          currGlassPackage = $scope.templateTEMP.objects[t];
           isSashExist = currGlassPackage.parts[0].fromPoint.blockType;
         }
       }
 
       //---- find insert index before beads to push new sash
-      for (var i = 0; i < $scope.templateDefaultTEMP.objects.length; i++) {
-        if ($scope.templateDefaultTEMP.objects[i].type === 'cross_point_bead_out') {
+      for (var i = 0; i < $scope.templateTEMP.objects.length; i++) {
+        if ($scope.templateTEMP.objects[i].type === 'cross_point_bead_out') {
           insertIndex = i;
           break;
         }
       }
       //---- find last numbers of existed impost, bead and glass
-      for (var i = 0; i < $scope.templateDefaultTEMP.objects.length; i++) {
-        if ($scope.templateDefaultTEMP.objects[i].type === 'fixed_point_impost') {
-          impostLineIndexes.push(Number($scope.templateDefaultTEMP.objects[i].id.replace(/\D+/g, "")));
+      for (var i = 0; i < $scope.templateTEMP.objects.length; i++) {
+        if ($scope.templateTEMP.objects[i].type === 'fixed_point_impost') {
+          impostLineIndexes.push(Number($scope.templateTEMP.objects[i].id.replace(/\D+/g, "")));
         }
-        if ($scope.templateDefaultTEMP.objects[i].type === 'cross_point_impost') {
-          cpImpostIndexes.push(Number($scope.templateDefaultTEMP.objects[i].id.replace(/\D+/g, "")));
+        if ($scope.templateTEMP.objects[i].type === 'cross_point_impost') {
+          cpImpostIndexes.push(Number($scope.templateTEMP.objects[i].id.replace(/\D+/g, "")));
         }
-        if ($scope.templateDefaultTEMP.objects[i].type === 'cross_point_bead_out') {
-          beadIndexes.push(Number($scope.templateDefaultTEMP.objects[i].id.replace(/\D+/g, "")));
+        if ($scope.templateTEMP.objects[i].type === 'cross_point_bead_out') {
+          beadIndexes.push(Number($scope.templateTEMP.objects[i].id.replace(/\D+/g, "")));
         }
-        if ($scope.templateDefaultTEMP.objects[i].type === 'cross_point_glass') {
-          cpGlassIndexes.push(Number($scope.templateDefaultTEMP.objects[i].id.replace(/\D+/g, "")));
+        if ($scope.templateTEMP.objects[i].type === 'cross_point_glass') {
+          cpGlassIndexes.push(Number($scope.templateTEMP.objects[i].id.replace(/\D+/g, "")));
         }
-        if ($scope.templateDefaultTEMP.objects[i].type === 'glass_paсkage') {
-          glassIndexes.push(Number($scope.templateDefaultTEMP.objects[i].id.replace(/\D+/g, "")));
+        if ($scope.templateTEMP.objects[i].type === 'glass_paсkage') {
+          glassIndexes.push(Number($scope.templateTEMP.objects[i].id.replace(/\D+/g, "")));
         }
-        if ($scope.templateDefaultTEMP.objects[i].type === 'impost') {
-          impostIndexes.push(Number($scope.templateDefaultTEMP.objects[i].id.replace(/\D+/g, "")));
+        if ($scope.templateTEMP.objects[i].type === 'impost') {
+          impostIndexes.push(Number($scope.templateTEMP.objects[i].id.replace(/\D+/g, "")));
         }
       }
       //----- define max number of existed impost, bead and glass
@@ -1287,8 +1273,8 @@
           //console.log('!!!!new.templateSourceTEMP === ', JSON.stringify($scope.templateSourceTEMP));
           //console.log('!!!!new.templateSourceTEMP === ', $scope.templateSourceTEMP);
           //-------- build new template
-          $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
-          //console.log('templateDefaultTEMP == ', $scope.templateDefaultTEMP.objects);
+          $scope.templateTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
+          //console.log('templateTEMP == ', $scope.templateTEMP.objects);
 
           $scope.constructData.isImpostEditMenu = false;
           $scope.constructData.isImpostEdit = false;
@@ -1438,8 +1424,8 @@
           //console.log('!!!!new.templateSourceTEMP === ', JSON.stringify($scope.templateSourceTEMP));
           //console.log('!!!!new.templateSourceTEMP === ', $scope.templateSourceTEMP);
           //-------- build new template
-          $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
-          //console.log('templateDefaultTEMP == ', $scope.templateDefaultTEMP.objects);
+          $scope.templateTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
+          //console.log('templateTEMP == ', $scope.templateTEMP.objects);
 
           $scope.constructData.isImpostEditMenu = false;
           $scope.constructData.isImpostEdit = false;

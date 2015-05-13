@@ -13,9 +13,9 @@
   function roomInfoCtrl(globalConstants, GlobalStor, OrderStor, ProductStor) {
 
     var thisCtrl = this;
-    thisCtrl.global = GlobalStor.global;
-    thisCtrl.order = OrderStor.order;
-    thisCtrl.product = ProductStor.product;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.O = OrderStor;
+    thisCtrl.P = ProductStor;
 
     thisCtrl.config = {
       DELAY_SHOW_COEFF: 20 * globalConstants.STEP,

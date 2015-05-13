@@ -1,23 +1,23 @@
-.rooms-selector-dialog(ng-controller="RoomSelectorCtrl as rooms", ng-class="{'active': rooms.global.showRoomSelectorDialog}")
-  .rooms-inner(ng-if="rooms.global.showRoomSelectorDialog")
+.rooms-selector-dialog(ng-controller="RoomSelectorCtrl as rooms", ng-class="{'active': rooms.G.global.showRoomSelectorDialog}")
+  .rooms-inner(ng-if="rooms.G.global.showRoomSelectorDialog")
     .rooms-row
       .room-block
-        .room-box.unvisible(show-delay="{{ rooms.config.DELAY_SHOW_ROOM1 }}", ng-class="{'selected': rooms.product.selectedRoomId === 1}", hm-tap="rooms.selectRoom(1)")
+        .room-box.unvisible(show-delay="{{ rooms.config.DELAY_SHOW_ROOM1 }}", ng-class="{'selected': rooms.P.product.selectedRoomId === 1}", hm-tap="rooms.selectRoom(1)")
           .room-img.kitchen
       .room-block
-        .room-box.unvisible(show-delay="{{ rooms.config.DELAY_SHOW_ROOM2 }}", ng-class="{'selected': rooms.product.selectedRoomId === 2}", hm-tap="rooms.selectRoom(2)")
+        .room-box.unvisible(show-delay="{{ rooms.config.DELAY_SHOW_ROOM2 }}", ng-class="{'selected': rooms.P.product.selectedRoomId === 2}", hm-tap="rooms.selectRoom(2)")
           .room-img.livingroom
       .room-block
-        .room-box.unvisible(show-delay="{{ rooms.config.DELAY_SHOW_ROOM3 }}", ng-class="{'selected': rooms.product.selectedRoomId === 3}", hm-tap="rooms.selectRoom(3)")
+        .room-box.unvisible(show-delay="{{ rooms.config.DELAY_SHOW_ROOM3 }}", ng-class="{'selected': rooms.P.product.selectedRoomId === 3}", hm-tap="rooms.selectRoom(3)")
           .room-img.balcony
     .rooms-row
       .room-block
-        .room-box.unvisible(show-delay="{{ rooms.config.DELAY_SHOW_ROOM4 }}", ng-class="{'selected': rooms.product.selectedRoomId === 4}", hm-tap="rooms.selectRoom(4)")
+        .room-box.unvisible(show-delay="{{ rooms.config.DELAY_SHOW_ROOM4 }}", ng-class="{'selected': rooms.P.product.selectedRoomId === 4}", hm-tap="rooms.selectRoom(4)")
           .room-img.childroom
       .room-block
-        .room-box.unvisible(show-delay="{{ rooms.config.DELAY_SHOW_ROOM5 }}", ng-class="{'selected': rooms.product.selectedRoomId === 5}", hm-tap="rooms.selectRoom(5)")
+        .room-box.unvisible(show-delay="{{ rooms.config.DELAY_SHOW_ROOM5 }}", ng-class="{'selected': rooms.P.product.selectedRoomId === 5}", hm-tap="rooms.selectRoom(5)")
           .room-img.bedroom
       .room-block
-        .room-box.unvisible(show-delay="{{ rooms.config.DELAY_SHOW_ROOM6 }}", ng-class="{'selected': rooms.product.selectedRoomId === 6}", hm-tap="rooms.selectRoom(6)")
+        .room-box.unvisible(show-delay="{{ rooms.config.DELAY_SHOW_ROOM6 }}", ng-class="{'selected': rooms.P.product.selectedRoomId === 6}", hm-tap="rooms.selectRoom(6)")
           .room-img.door
     .close-dialog(hm-tap="rooms.closeRoomSelectorDialog()")

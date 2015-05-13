@@ -10,8 +10,8 @@
   function cartMenuCtrl($filter, globalConstants, OrderStor, UserStor, CartStor, CartMenuServ, optionsServ) {
 
     var thisCtrl = this;
-    thisCtrl.order = OrderStor.order;
-    thisCtrl.userInfo = UserStor.userInfo;
+    thisCtrl.U = UserStor;
+    thisCtrl.O = OrderStor;
 
     thisCtrl.config = {
       activeMenuItem: false,

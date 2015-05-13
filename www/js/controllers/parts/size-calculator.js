@@ -10,22 +10,25 @@
     .module('MainModule')
     .controller('sizeCalculatorCtrl', sizeCalcCtrl);
 
-  function sizeCalcCtrl(GlobalStor, AddElementMenuServ) {
+  function sizeCalcCtrl(GlobalStor, DesignStor, AddElementMenuServ) {
 
     var thisCtrl = this;
-    thisCtrl.isConstructionPage = false;
-    thisCtrl.global = GlobalStor.global;
+    thisCtrl.isDesignPage = false;
+    thisCtrl.D = DesignStor;
 
 
 
     //------ clicking
-
+    //------ for Add Elements Panel
     if(GlobalStor.global.currOpenPage === 'main') {
+      thisCtrl.isDesignPage = false;
       thisCtrl.setValueSize = AddElementMenuServ.setValueSize;
       thisCtrl.deleteLastNumber = AddElementMenuServ.deleteLastNumber;
       thisCtrl.closeSizeCaclulator = AddElementMenuServ.closeSizeCaclulator;
+
+    //------ for Design Page
     } else {
-      thisCtrl.isConstructionPage = true;
+      thisCtrl.isDesignPage = true;
     }
 
 

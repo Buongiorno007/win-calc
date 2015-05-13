@@ -1,5 +1,5 @@
 
-<section ng-class="{ 'swiped': !historyPage.global.isNavMenu }" class="page-container">
+<section ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }" class="page-container">
   <section class="left-side">
     <div ng-controller="NavMenuCtrl as navMenu" class="nav-menu">
       <header class="nav-menu-header">
@@ -11,27 +11,27 @@
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 2) }}" class="nav-icon-geoLocation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CURRENT_GEOLOCATION' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 2) }}" class="title"></span></div>
           </li>
           <li class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 3) }}" class="nav-icon-location unvisible"></span><span data-output="{{ navMenu.order.currCityName }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 3) }}" class="title"></span></div>
+            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 3) }}" class="nav-icon-location unvisible"></span><span data-output="{{ navMenu.O.order.currCityName }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 3) }}" class="title"></span></div>
           </li>
         </ul>
         <div data-output="{{ 'mainpage.NAVMENU_CALCULATIONS' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_DIVIDER }}" class="divider"></div>
         <ul show-delay="{{ navMenu.config.DELAY_SHOW_NAV_LIST * 2.5 }}" class="items-list unvisible">
-          <li ng-if="(navMenu.global.currOpenPage === 'history' &amp;&amp; navMenu.global.isCreatedNewProject &amp;&amp; navMenu.global.isCreatedNewProduct)" ng-class="{'selected': navMenu.activeMenuItem == 3}" hm-tap="navMenu.selectMenuItem(3)" class="item">
+          <li ng-if="(navMenu.G.global.currOpenPage === 'history' &amp;&amp; navMenu.G.global.isCreatedNewProject &amp;&amp; navMenu.G.global.isCreatedNewProduct)" ng-class="{'selected': navMenu.activeMenuItem == 3}" hm-tap="navMenu.selectMenuItem(3)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 4)}}" class="nav-icon-calculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CURRENT_CALCULATION' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 4) }}" class="title"></span></div>
           </li>
-          <li ng-if="navMenu.order.productsQty &gt; 0 &amp;&amp; ((!navMenu.global.isOpenedHistoryPage &amp;&amp; !navMenu.global.isCreatedNewProject) || (navMenu.global.isOpenedHistoryPage &amp;&amp; navMenu.global.isOrderFinished))" ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.global.isOpenedCartPage}" hm-tap="navMenu.selectMenuItem(4)" class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}" class="nav-icon-basketOfCalculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CART' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}" class="title"></span><span show-delay="{{ navMenu.config.DELAY_SHOW_ORDERS }}" class="badge unvisible">{{ navMenu.order.productsQty }}</span></div>
+          <li ng-if="navMenu.O.order.productsQty &gt; 0 &amp;&amp; ((!navMenu.G.global.isOpenedHistoryPage &amp;&amp; !navMenu.G.global.isCreatedNewProject) || (navMenu.G.global.isOpenedHistoryPage &amp;&amp; navMenu.G.global.isOrderFinished))" ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.G.global.isOpenedCartPage}" hm-tap="navMenu.selectMenuItem(4)" class="item">
+            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}" class="nav-icon-basketOfCalculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CART' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}" class="title"></span><span show-delay="{{ navMenu.config.DELAY_SHOW_ORDERS }}" class="badge unvisible">{{ navMenu.O.order.productsQty }}</span></div>
           </li>
-          <li ng-if="!navMenu.global.isOpenedHistoryPage &amp;&amp; !navMenu.global.isOpenedCartPage" ng-class="{'selected': navMenu.activeMenuItem == 5}" hm-tap="navMenu.selectMenuItem(5)" class="item">
+          <li ng-if="!navMenu.G.global.isOpenedHistoryPage &amp;&amp; !navMenu.G.global.isOpenedCartPage" ng-class="{'selected': navMenu.activeMenuItem == 5}" hm-tap="navMenu.selectMenuItem(5)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 6) }}" class="nav-icon-additionalComponents unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_ADD_ELEMENTS' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 6) }}" class="title"></span></div>
           </li>
-          <li ng-class="{'selected': navMenu.activeMenuItem == 6 || navMenu.global.isOpenedHistoryPage}" hm-tap="navMenu.selectMenuItem(6)" class="item">
+          <li ng-class="{'selected': navMenu.activeMenuItem == 6 || navMenu.G.global.isOpenedHistoryPage}" hm-tap="navMenu.selectMenuItem(6)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 7) }}" class="nav-icon-calculationsHistory unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_ALL_CALCULATIONS' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 7) }}" class="title"></span></div>
           </li>
         </ul>
         <div data-output="{{ 'mainpage.NAVMENU_APPENDIX' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_DIVIDER * 2 }}" class="divider"></div>
         <ul show-delay="{{ navMenu.config.DELAY_SHOW_NAV_LIST * 4 }}" class="items-list unvisible">
-          <li ng-if="!navMenu.global.isOpenedHistoryPage &amp;&amp; !navMenu.global.isOpenedCartPage" ng-class="{'selected': navMenu.activeMenuItem == 7}" hm-tap="navMenu.selectMenuItem(7)" class="item">
+          <li ng-if="!navMenu.G.global.isOpenedHistoryPage &amp;&amp; !navMenu.G.global.isOpenedCartPage" ng-class="{'selected': navMenu.activeMenuItem == 7}" hm-tap="navMenu.selectMenuItem(7)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 8) }}" class="nav-icon-settings unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_SETTINGS' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 8) }}" class="title"></span></div>
           </li>
           <li ng-class="{'selected': navMenu.activeMenuItem == 8}" hm-tap="navMenu.selectMenuItem(8)" class="item">
@@ -43,27 +43,27 @@
         </ul>
       </header>
       <footer class="nav-menu-footer">
-        <button ng-if="!navMenu.global.orderEditNumber" hm-tap="navMenu.clickNewProject()" show-delay="{{ navMenu.config.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
+        <button ng-if="!navMenu.G.global.orderEditNumber" hm-tap="navMenu.clickNewProject()" show-delay="{{ navMenu.config.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
       </footer>
     </div>
   </section>
   <section class="right-side">
     <section class="main-history">
       <section class="history-page">
-        <section ng-class="{'dark-fon': historyPage.history.isOrderDate || historyPage.history.isOrderSort }" class="accounts-container history-view">
+        <section ng-class="{'dark-fon': historyPage.H.history.isOrderDate || historyPage.H.history.isOrderSort }" class="accounts-container history-view">
           <div class="history-header">
-            <div ng-hide="historyPage.history.isOrderSearch" class="history-user-info">
+            <div ng-hide="historyPage.H.history.isOrderSearch" class="history-user-info">
               <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
-                <button ng-class="{ 'show-navmenu': userBox.global.isNavMenu , 'orange-navmenu-btn': userBox.global.isOpenedHistoryPage || userBox.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button>
+                <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button>
                 <div class="user-foto"></div>
                 <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
                 <div class="user-info-block">
-                  <div data-output="{{ userBox.userInfo.cityName }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
-                  <div data-output="{{ userBox.userInfo.name }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
+                  <div data-output="{{ userBox.U.userInfo.cityName }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
+                  <div data-output="{{ userBox.U.userInfo.name }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
                 </div>
               </div>
             </div>
-            <div ng-show="historyPage.history.isOrderSearch" class="history-search">
+            <div ng-show="historyPage.H.history.isOrderSearch" class="history-search">
               <form ng-controller="searchCtrl as searchBox" name="searchForm">
                 <div class="search-block">
                   <input type="text" name="searching" ng-model="searchBox.searchingWord" ng-change="searchBox.checkChanges()" placeholder="{{searchBox.placeholder}}" class="search-input">
@@ -74,46 +74,46 @@
               </form>
             </div>
             <div class="history-tools-panel">
-              <div ng-class="{ 'active': historyPage.history.isOrderSearch }" class="tools-block search-tool">
+              <div ng-class="{ 'active': historyPage.H.history.isOrderSearch }" class="tools-block search-tool">
                 <button hm-tap="historyPage.orderSearching()" class="tool search-btn"></button>
               </div>
-              <div ng-class="{ 'active': historyPage.history.isOrderDate }" class="tools-block tool-drop">
+              <div ng-class="{ 'active': historyPage.H.history.isOrderDate }" class="tools-block tool-drop">
                 <button hm-tap="historyPage.orderDateSelecting()" class="tool calendar-btn"></button>
-                <div ng-class="{ 'empty': historyPage.history.startDate === '' &amp;&amp;  historyPage.history.finishDate === ''}" class="time-interval"><span ng-if="historyPage.history.startDate !== ''">{{ 'history.FROM' | translate }} {{historyPage.history.startDate | date:"dd.MM.yyyy"}}</span>
-                  <!--span(order-date="{{ historyPage.history.startDate }}", type-date="")--><span ng-hide="historyPage.history.startDate == '' || historyPage.history.finishDate == ''">&nbsp; - &nbsp;</span><span ng-if="historyPage.history.finishDate !== ''">{{ 'history.UNTIL' | translate }} {{historyPage.history.finishDate | date:"dd.MM.yyyy"}}</span>
-                  <!--span(order-date="{{ historyPage.history.finishDate }}", type-date="")-->
+                <div ng-class="{ 'empty': historyPage.H.history.startDate === '' &amp;&amp;  historyPage.H.history.finishDate === ''}" class="time-interval"><span ng-if="historyPage.H.history.startDate !== ''">{{ 'history.FROM' | translate }} {{historyPage.H.history.startDate | date:"dd.MM.yyyy"}}</span>
+                  <!--span(order-date="{{ historyPage.H.history.startDate }}", type-date="")--><span ng-hide="historyPage.H.history.startDate == '' || historyPage.H.history.finishDate == ''">&nbsp; - &nbsp;</span><span ng-if="historyPage.H.history.finishDate !== ''">{{ 'history.UNTIL' | translate }} {{historyPage.H.history.finishDate | date:"dd.MM.yyyy"}}</span>
+                  <!--span(order-date="{{ historyPage.H.history.finishDate }}", type-date="")-->
                 </div>
                 <div class="dropdown-tool-dialog date-filter">
                   <div class="filter-title">{{ 'history.DATE_RANGE' | translate }}</div>
-                  <div ng-class="{ 'selected': historyPage.history.isStartDate }" hm-tap="historyPage.openCalendarScroll('start-date')" class="period start-date">{{ 'history.FROM' | translate }} {{historyPage.history.startDate | date:"dd.MM.yyyy"}}
-                    <!--span(order-date="{{ historyPage.history.startDate }}", type-date="")-->
+                  <div ng-class="{ 'selected': historyPage.H.history.isStartDate }" hm-tap="historyPage.openCalendarScroll('start-date')" class="period start-date">{{ 'history.FROM' | translate }} {{historyPage.H.history.startDate | date:"dd.MM.yyyy"}}
+                    <!--span(order-date="{{ historyPage.H.history.startDate }}", type-date="")-->
                   </div>
-                  <div ng-class="{ 'active': historyPage.history.isStartDate }" class="dropdown-calendar-scroll">
-                    <calendar-scroll calendar-time="historyPage.history.startDate" max-time="{{ historyPage.history.maxDeliveryDateOrder }}"></calendar-scroll>
+                  <div ng-class="{ 'active': historyPage.H.history.isStartDate }" class="dropdown-calendar-scroll">
+                    <calendar-scroll calendar-time="historyPage.H.history.startDate" max-time="{{ historyPage.H.history.maxDeliveryDateOrder }}"></calendar-scroll>
                   </div>
-                  <div ng-class="{ 'selected': historyPage.history.isFinishDate }" hm-tap="historyPage.openCalendarScroll('finish-date')" class="period finish-date">{{ 'history.UNTIL' | translate }} {{historyPage.history.finishDate | date:"dd.MM.yyyy"}}
-                    <!--span(order-date="{{ historyPage.history.finishDate }}", type-date="")-->
+                  <div ng-class="{ 'selected': historyPage.H.history.isFinishDate }" hm-tap="historyPage.openCalendarScroll('finish-date')" class="period finish-date">{{ 'history.UNTIL' | translate }} {{historyPage.H.history.finishDate | date:"dd.MM.yyyy"}}
+                    <!--span(order-date="{{ historyPage.H.history.finishDate }}", type-date="")-->
                   </div>
-                  <div ng-class="{ 'active': historyPage.history.isFinishDate }" class="dropdown-calendar-scroll">
-                    <calendar-scroll calendar-time="historyPage.history.finishDate" max-time="{{ historyPage.history.maxDeliveryDateOrder }}"></calendar-scroll>
+                  <div ng-class="{ 'active': historyPage.H.history.isFinishDate }" class="dropdown-calendar-scroll">
+                    <calendar-scroll calendar-time="historyPage.H.history.finishDate" max-time="{{ historyPage.H.history.maxDeliveryDateOrder }}"></calendar-scroll>
                   </div>
-                  <div ng-class="{ 'selected': historyPage.history.isAllPeriod }" hm-tap="historyPage.openCalendarScroll('full-date')" class="period total-date">{{ 'history.ALL_TIME' | translate }}</div>
+                  <div ng-class="{ 'selected': historyPage.H.history.isAllPeriod }" hm-tap="historyPage.openCalendarScroll('full-date')" class="period total-date">{{ 'history.ALL_TIME' | translate }}</div>
                 </div>
               </div>
-              <div ng-class="{ 'active': historyPage.history.isOrderSort }" class="tools-block tool-drop">
+              <div ng-class="{ 'active': historyPage.H.history.isOrderSort }" class="tools-block tool-drop">
                 <button hm-tap="historyPage.orderSorting()" class="tool settings-btn"></button>
                 <div class="dropdown-tool-dialog sort-filter">
                   <div class="filter-divider">{{ 'history.SORTING' | translate }}</div>
                   <ul class="filter-list">
-                    <li ng-class="{ 'selected': historyPage.history.isSortType == 'first' }" hm-tap="historyPage.sortingInit('first')" class="filter-item">
+                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'first' }" hm-tap="historyPage.sortingInit('first')" class="filter-item">
                       <div class="filter-label">{{ 'history.NEWEST_FIRST' | translate }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
-                    <li ng-class="{ 'selected': historyPage.history.isSortType == 'last' }" hm-tap="historyPage.sortingInit('last')" class="filter-item">
+                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'last' }" hm-tap="historyPage.sortingInit('last')" class="filter-item">
                       <div class="filter-label">{{ 'history.NEWEST_LAST' | translate }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
-                    <li ng-class="{ 'selected': historyPage.history.isSortType == 'type' }" hm-tap="historyPage.sortingInit('type')" class="filter-item">
+                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'type' }" hm-tap="historyPage.sortingInit('type')" class="filter-item">
                       <div class="filter-label">{{ 'history.SORT_BY_TYPE' | translate }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
@@ -124,15 +124,15 @@
                     .filter-label {{ 'common_words.ALL' | translate }}
                     .filter-select-icon
                     -->
-                    <li ng-class="{ 'selected': historyPage.history.isSortType == 'current-order' }" hm-tap="historyPage.sortingInit('current-order')" class="filter-item">
+                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'current-order' }" hm-tap="historyPage.sortingInit('current-order')" class="filter-item">
                       <div class="filter-label">{{ 'history.SORT_SHOW_ACTIVE' | translate }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
-                    <li ng-class="{ 'selected': historyPage.history.isSortType == 'wait-order' }" hm-tap="historyPage.sortingInit('wait-order')" class="filter-item">
+                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'wait-order' }" hm-tap="historyPage.sortingInit('wait-order')" class="filter-item">
                       <div class="filter-label">{{ 'history.SORT_SHOW_WAIT' | translate }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
-                    <li ng-class="{ 'selected': historyPage.history.isSortType == 'done-order' }" hm-tap="historyPage.sortingInit('done-order')" class="filter-item">
+                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'done-order' }" hm-tap="historyPage.sortingInit('done-order')" class="filter-item">
                       <div class="filter-label">{{ 'history.SORT_SHOW_DONE' | translate }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
@@ -142,7 +142,7 @@
             </div>
           </div>
           <div class="scroll-vert-container">
-            <div ng-repeat="order in historyPage.history.orders | orderSorting:historyPage.history.isSortType | filter:historyPage.history.searchingWord track by $index" ng-hide="order.orderStyle == 'order' &amp;&amp; historyPage.history.isCurrentOrdersHide || order.orderStyle == 'credit' &amp;&amp; historyPage.history.isCurrentOrdersHide || order.orderStyle == 'master' &amp;&amp; historyPage.history.isWaitOrdersHide || order.orderStyle == 'done' &amp;&amp; historyPage.history.isDoneOrdersHide" class="account-block">
+            <div ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter:historyPage.H.history.searchingWord track by $index" ng-hide="order.orderStyle == 'order' &amp;&amp; historyPage.H.history.isCurrentOrdersHide || order.orderStyle == 'credit' &amp;&amp; historyPage.H.history.isCurrentOrdersHide || order.orderStyle == 'master' &amp;&amp; historyPage.H.history.isWaitOrdersHide || order.orderStyle == 'done' &amp;&amp; historyPage.H.history.isDoneOrdersHide" class="account-block">
               <div ng-class="{'current': order.orderStyle == 'order' || order.orderStyle == 'credit', 'wait': order.orderStyle == 'master', 'done': order.orderStyle == 'done' }" class="account">
                 <div class="account-row header">
                   <div class="account-data title">
@@ -173,8 +173,8 @@
                   </div>
                 </div>
                 <div class="account-row footer">
-                  <div ng-hide="order.orderStyle == 'credit'" class="account-value">{{ order.orderPriceTOTAL }}{{ historyPage.userInfo.currency }}</div>
-                  <div ng-show="order.orderStyle == 'credit'" class="account-value">{{ order.orderPriceTOTAL }}{{ historyPage.userInfo.currency }}, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.paymentMonthly}}{{ historyPage.userInfo.currency }}</div>
+                  <div ng-hide="order.orderStyle == 'credit'" class="account-value">{{ order.orderPriceTOTAL }}{{ historyPage.U.userInfo.currency }}</div>
+                  <div ng-show="order.orderStyle == 'credit'" class="account-value">{{ order.orderPriceTOTAL }}{{ historyPage.U.userInfo.currency }}, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.paymentMonthly}}{{ historyPage.U.userInfo.currency }}</div>
                   <div ng-show="order.orderStyle == 'master'" class="account-value">{{ 'history.WAIT_MASTER' | translate }}</div>
                   <div class="account-date">{{ order.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{order.newDeliveryDate | date:"dd.MM.yyyy"}}</div>
                 </div>
@@ -185,55 +185,55 @@
               <button ng-hide="order.orderStyle == 'done'" hm-tap="historyPage.clickDeleteOrder(order.orderType, order.orderId)" class="account-delete-btn"></button>
               <button ng-hide="order.orderStyle == 'done'" hm-tap="historyPage.editOrder(order.orderId)" class="account-change-btn">{{ 'common_words.CHANGE' | translate }}</button>
             </div>
-            <div ng-show="(orders | filter:historyPage.history.searchingWord).length == 0" class="empty-search-result">
+            <div ng-show="(orders | filter:historyPage.H.history.searchingWord).length == 0" class="empty-search-result">
               <div class="result-icon"></div>
-              <div class="result-text">{{ 'history.BY_YOUR_REQUEST' | translate }} "<span class="searchin-text"> {{ historyPage.history.searchingWord }} </span>" {{ 'history.NOT_FIND' | translate }}.</div>
+              <div class="result-text">{{ 'history.BY_YOUR_REQUEST' | translate }} "<span class="searchin-text"> {{ historyPage.H.history.searchingWord }} </span>" {{ 'history.NOT_FIND' | translate }}.</div>
             </div>
-            <div ng-show="historyPage.history.isEmptyResult" class="empty-search-result">
+            <div ng-show="historyPage.H.history.isEmptyResult" class="empty-search-result">
               <div class="result-icon"></div>
               <div class="result-text">{{ 'history.BY_YOUR_REQUEST' | translate }} {{ 'history.NOT_FIND' | translate }}.</div>
             </div>
           </div>
           <button hm-tap="historyPage.viewSwitching()" class="view-switch-tab">{{ 'history.DRAFT_VIEW' | translate }}</button>
         </section>
-        <section ng-class="{'active': historyPage.history.isDraftView, 'dark-fon': historyPage.history.isOrderDateDraft || historyPage.history.isOrderSortDraft }" class="accounts-container draft-view">
+        <section ng-class="{'active': historyPage.H.history.isDraftView, 'dark-fon': historyPage.H.history.isOrderDateDraft || historyPage.H.history.isOrderSortDraft }" class="accounts-container draft-view">
           <div class="history-header">
             <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
-              <button ng-class="{ 'show-navmenu': userBox.global.isNavMenu , 'orange-navmenu-btn': userBox.global.isOpenedHistoryPage || userBox.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button>
+              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button>
               <div class="user-foto"></div>
               <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
               <div class="user-info-block">
-                <div data-output="{{ userBox.userInfo.cityName }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
-                <div data-output="{{ userBox.userInfo.name }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
+                <div data-output="{{ userBox.U.userInfo.cityName }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
+                <div data-output="{{ userBox.U.userInfo.name }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
               </div>
             </div>
             <div class="history-tools-panel">
-              <div ng-class="{ 'active': historyPage.history.isOrderDateDraft }" class="tools-block tool-drop">
+              <div ng-class="{ 'active': historyPage.H.history.isOrderDateDraft }" class="tools-block tool-drop">
                 <button hm-tap="historyPage.orderDateSelecting()" class="tool calendar-btn"></button>
-                <div ng-class="{ 'empty': historyPage.history.startDateDraft === '' &amp;&amp; historyPage.history.finishDateDraft === ''}" class="time-interval"><span ng-if="historyPage.history.startDateDraft !== ''">{{ 'history.FROM' | translate }}</span><span order-date="{{ historyPage.history.startDateDraft }}" type-date=""></span><span ng-show="historyPage.history.startDateDraft !== ''">&nbsp; - &nbsp;</span><span ng-if="historyPage.history.finishDateDraft !== ''">{{ 'history.UNTIL' | translate }}</span><span order-date="{{ historyPage.history.finishDateDraft }}" type-date=""></span></div>
+                <div ng-class="{ 'empty': historyPage.H.history.startDateDraft === '' &amp;&amp; historyPage.H.history.finishDateDraft === ''}" class="time-interval"><span ng-if="historyPage.H.history.startDateDraft !== ''">{{ 'history.FROM' | translate }}</span><span order-date="{{ historyPage.H.history.startDateDraft }}" type-date=""></span><span ng-show="historyPage.H.history.startDateDraft !== ''">&nbsp; - &nbsp;</span><span ng-if="historyPage.H.history.finishDateDraft !== ''">{{ 'history.UNTIL' | translate }}</span><span order-date="{{ historyPage.H.history.finishDateDraft }}" type-date=""></span></div>
                 <div class="dropdown-tool-dialog date-filter">
                   <div class="filter-title">{{ 'history.DATE_RANGE' | translate }}</div>
-                  <div ng-class="{ 'selected': historyPage.history.isStartDateDraft }" hm-tap="historyPage.openCalendarScroll('start-date')" class="period start-date">{{ 'history.FROM' | translate }}<span order-date="{{ historyPage.history.startDateDraft }}" type-date=""></span></div>
-                  <div ng-class="{ 'active': historyPage.history.isStartDateDraft }" class="dropdown-calendar-scroll">
-                    <calendar-scroll calendar-time="historyPage.history.startDateDraft" max-time="" calendar-option=" {{ 'common_words.MONTHS' | translate }} "></calendar-scroll>
+                  <div ng-class="{ 'selected': historyPage.H.history.isStartDateDraft }" hm-tap="historyPage.openCalendarScroll('start-date')" class="period start-date">{{ 'history.FROM' | translate }}<span order-date="{{ historyPage.H.history.startDateDraft }}" type-date=""></span></div>
+                  <div ng-class="{ 'active': historyPage.H.history.isStartDateDraft }" class="dropdown-calendar-scroll">
+                    <calendar-scroll calendar-time="historyPage.H.history.startDateDraft" max-time="" calendar-option=" {{ 'common_words.MONTHS' | translate }} "></calendar-scroll>
                   </div>
-                  <div ng-class="{ 'selected': historyPage.history.isFinishDateDraft }" hm-tap="historyPage.openCalendarScroll('finish-date')" class="period finish-date">{{ 'history.UNTIL' | translate }}<span order-date="{{ historyPage.history.finishDateDraft }}" type-date=""></span></div>
-                  <div ng-class="{ 'active': historyPage.history.isFinishDateDraft }" class="dropdown-calendar-scroll">
-                    <calendar-scroll calendar-time="historyPage.history.finishDateDraft" max-time="" calendar-option=" {{ 'common_words.MONTHS' | translate }} "></calendar-scroll>
+                  <div ng-class="{ 'selected': historyPage.H.history.isFinishDateDraft }" hm-tap="historyPage.openCalendarScroll('finish-date')" class="period finish-date">{{ 'history.UNTIL' | translate }}<span order-date="{{ historyPage.H.history.finishDateDraft }}" type-date=""></span></div>
+                  <div ng-class="{ 'active': historyPage.H.history.isFinishDateDraft }" class="dropdown-calendar-scroll">
+                    <calendar-scroll calendar-time="historyPage.H.history.finishDateDraft" max-time="" calendar-option=" {{ 'common_words.MONTHS' | translate }} "></calendar-scroll>
                   </div>
-                  <div ng-class="{ 'selected': historyPage.history.isAllPeriodDraft }" hm-tap="historyPage.openCalendarScroll('full-date')" class="period total-date">{{ 'history.ALL_TIME' | translate }}</div>
+                  <div ng-class="{ 'selected': historyPage.H.history.isAllPeriodDraft }" hm-tap="historyPage.openCalendarScroll('full-date')" class="period total-date">{{ 'history.ALL_TIME' | translate }}</div>
                 </div>
               </div>
-              <div ng-class="{ 'active': historyPage.history.isOrderSortDraft }" class="tools-block tool-drop">
+              <div ng-class="{ 'active': historyPage.H.history.isOrderSortDraft }" class="tools-block tool-drop">
                 <button hm-tap="historyPage.orderSorting()" class="tool settings-btn"></button>
                 <div class="dropdown-tool-dialog sort-filter">
                   <div class="filter-divider">{{ 'history.SORTING' | translate }}</div>
                   <ul class="filter-list">
-                    <li ng-class="{ 'selected': historyPage.history.isSortTypeDraft == 'first' }" hm-tap="historyPage.sortingInit('first')" class="filter-item">
+                    <li ng-class="{ 'selected': historyPage.H.history.isSortTypeDraft == 'first' }" hm-tap="historyPage.sortingInit('first')" class="filter-item">
                       <div class="filter-label">{{ 'history.NEWEST_FIRST' | translate }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
-                    <li ng-class="{ 'selected': historyPage.history.isSortTypeDraft == 'last' }" hm-tap="historyPage.sortingInit('last')" class="filter-item">
+                    <li ng-class="{ 'selected': historyPage.H.history.isSortTypeDraft == 'last' }" hm-tap="historyPage.sortingInit('last')" class="filter-item">
                       <div class="filter-label">{{ 'history.NEWEST_LAST' | translate }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
@@ -244,15 +244,15 @@
           </div>
           <div class="scroll-vert-container">
             <div class="scrolling-container">
-              <div ng-repeat="draft in historyPage.history.drafts | orderBy:historyPage.createdDate:historyPage.history.reverseDraft" hm-tap="historyPage.editOrder(draft.orderId)" class="account-block">
+              <div ng-repeat="draft in historyPage.H.history.drafts | orderBy:historyPage.createdDate:historyPage.H.history.reverseDraft" hm-tap="historyPage.editOrder(draft.orderId)" class="account-block">
                 <div class="account">
                   <div class="account-row header">
                     <div class="account-id">{{ 'history.DRAFT' | translate }}</div>
                     <div class="account-label account-date-filter">{{ 'history.FROM' | translate }}<span order-date="{{ draft.created }}" type-date="'order'"></span></div>
                   </div>
                   <div hm-tap="historyPage.editOrder(draft.orderId)" class="account-row footer">
-                    <div ng-hide="draft.orderStyle == 'credit'" class="account-value">{{ draft.orderPriceTOTAL }}{{ historyPage.userInfo.currency }}</div>
-                    <div ng-show="draft.orderStyle == 'credit'" class="account-value">{{ draft.orderPriceTOTAL }}{{ historyPage.userInfo.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.paymentMonthly}}{{ historyPage.userInfo.currency }}</div>
+                    <div ng-hide="draft.orderStyle == 'credit'" class="account-value">{{ draft.orderPriceTOTAL }}{{ historyPage.U.userInfo.currency }}</div>
+                    <div ng-show="draft.orderStyle == 'credit'" class="account-value">{{ draft.orderPriceTOTAL }}{{ historyPage.U.userInfo.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.paymentMonthly}}{{ historyPage.U.userInfo.currency }}</div>
                     <div class="account-qty">{{ draft.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{draft.newDeliveryDate | date:"dd.MM.yyyy"}}</div>
                   </div>
                 </div>
@@ -260,7 +260,7 @@
                 <button hm-tap="historyPage.deleteOrder(draft.orderType, draft.orderId)" class="account-delete-btn"></button>
               </div>
             </div>
-            <div ng-show="historyPage.history.isEmptyResultDraft" class="empty-search-result">
+            <div ng-show="historyPage.H.history.isEmptyResultDraft" class="empty-search-result">
               <div class="result-icon"></div>
               <div class="result-text">{{ 'history.BY_YOUR_REQUEST' | translate }} {{ 'history.NOT_FIND' | translate }}.</div>
             </div>

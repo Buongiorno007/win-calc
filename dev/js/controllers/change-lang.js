@@ -10,8 +10,8 @@
   function changeLangCtrl($location, $translate, $timeout, globalConstants, GlobalStor, UserStor, NavMenuServ) {
 
     var thisCtrl = this;
-    thisCtrl.global = GlobalStor.global;
-    thisCtrl.userInfo = UserStor.userInfo;
+    thisCtrl.constants = globalConstants;
+    thisCtrl.U = UserStor;
 
     thisCtrl.config = {
       DELAY_START: globalConstants.STEP,
@@ -20,6 +20,7 @@
 
     //------ clicking
     thisCtrl.switchLang = switchLang;
+    thisCtrl.gotoSettingsPage = gotoSettingsPage;
 
 
     //============ methods ================//
@@ -33,12 +34,12 @@
         GlobalStor.global.voiceHelperLanguage = NavMenuServ.setLanguageVoiceHelper();
       }
       $timeout(function() {
-        //$scope.global.isOpenSettingsPage = false;
-        //$scope.global.startProgramm = false;
-        //$scope.global.isReturnFromDiffPage = true;
         $location.path('/main');
       }, 200);
     }
 
+    function gotoSettingsPage() {
+      $location.path('/settings');
+    }
   }
 })();

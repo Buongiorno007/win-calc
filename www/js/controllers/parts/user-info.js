@@ -13,7 +13,7 @@
   function userInfoCtrl(globalConstants, GeneralServ, GlobalStor, UserStor) {
 
     var thisCtrl = this;
-    thisCtrl.userInfo = UserStor.userInfo;
+    thisCtrl.U = UserStor;
 
     thisCtrl.config = {
       DELAY_SHOW_USER_INFO: 40 * globalConstants.STEP,

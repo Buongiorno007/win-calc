@@ -1,33 +1,32 @@
-section.construction-page(ng-controller="ConstructionCtrl")
+section.construction-page
   section.construction-container
 
     .construction-left-menu
       ul.figure-lists
-        li.figure-item(ng-class="{'selected': constructData.activeMenuItem==1}", hm-tap="selectMenuItem(1)")
+        li.figure-item(ng-class="{'selected': designPage.config.activeMenuItem == 1}", hm-tap="designPage.selectMenuItem(1)")
           .figure-icon.sash-shape
-          .figure-label(data-output="{{ 'construction.SASH_SHAPE' | translate }}", typing="{{ constructData.typing }}", typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}")
-        li.figure-item(ng-class="{'selected': constructData.activeMenuItem==2}", hm-tap="selectMenuItem(2)")
+          .figure-label(data-output="{{ 'construction.SASH_SHAPE' | translate }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+        li.figure-item(ng-class="{'selected': designPage.config.activeMenuItem == 2}", hm-tap="designPage.selectMenuItem(2)")
           .figure-icon.angel-shape
-          .figure-label(data-output="{{ 'construction.ANGEL_SHAPE' | translate }}", typing="{{ constructData.typing }}", typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}")
-        li.figure-item(ng-class="{'selected': constructData.activeMenuItem==3}", hm-tap="selectMenuItem(3)")
+          .figure-label(data-output="{{ 'construction.ANGEL_SHAPE' | translate }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+        li.figure-item(ng-class="{'selected': designPage.config.activeMenuItem == 3}", hm-tap="designPage.selectMenuItem(3)")
           .figure-icon.impost-shape
-          .figure-label(data-output="{{ 'construction.IMPOST_SHAPE' | translate }}", typing="{{ constructData.typing }}", typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}")
-        li.figure-item(ng-class="{'selected': constructData.activeMenuItem==4}", hm-tap="selectMenuItem(4)")
+          .figure-label(data-output="{{ 'construction.IMPOST_SHAPE' | translate }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+        li.figure-item(ng-class="{'selected': designPage.config.activeMenuItem == 4}", hm-tap="designPage.selectMenuItem(4)")
           .figure-icon.arch-shape
-          .figure-label(data-output="{{ 'construction.ARCH_SHAPE' | translate }}", typing="{{ constructData.typing }}", typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}")
-        li.figure-item(ng-class="{'selected': constructData.activeMenuItem==5}", hm-tap="selectMenuItem(5)")
+          .figure-label(data-output="{{ 'construction.ARCH_SHAPE' | translate }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+        li.figure-item(ng-class="{'selected': designPage.config.activeMenuItem == 5}", hm-tap="designPage.selectMenuItem(5)")
           .figure-icon.position-shape
-          .figure-label(data-output="{{ 'construction.POSITION_SHAPE' | translate }}", typing="{{ constructData.typing }}", typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}")
+          .figure-label(data-output="{{ 'construction.POSITION_SHAPE' | translate }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
       .left-menu-footer
-        .footer-description(data-output="{{ 'construction.UNITS_DESCRIP' | translate }}", typing="{{ constructData.typing }}", typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}")
-        .project-default(hm-tap="setDefaultConstruction()") {{ 'construction.PROJECT_DEFAULT' | translate }}
+        .footer-description(data-output="{{ 'construction.UNITS_DESCRIP' | translate }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
+        .project-default(hm-tap="designPage.setDefaultConstruction()") {{ 'construction.PROJECT_DEFAULT' | translate }}
 
 
     .construction-block
       .construction-scrollbox
-        //svg-template(template="templateDefaultTEMP", template-width="svgTemplateWidthTEMP", template-height="svgTemplateHeightTEMP", type-construction="edit")
-        svg-template(template="templateDefaultTEMP", template-width="global.svgTemplateWidth", template-height="global.svgTemplateHeight", type-construction="edit")
+        svg-template(template="designPage.D.design.templateTEMP", template-width="designPage.constants.svgTemplateWidth", template-height="designPage.constants.svgTemplateHeight", type-construction="edit")
 
     #sash-shape-menu.constr-shape-menu(ng-show="constructData.isSashEdit && constructData.isSashEditMenu")
       ul.constr-shape-list
@@ -50,7 +49,7 @@ section.construction-page(ng-controller="ConstructionCtrl")
         button.construct-tools.close-construction(hm-tap="gotoMainPageCancel()")
 
       .door-config-menu(ng-show="global.isConstructDoor")
-        button.door-config-btn(ng-class="{'active': constructData.showDoorConfig}", hm-tap="getDoorConfig()")
+        button.door-config-btn(ng-class="{'active': designPage.config.isDoorConfig}", hm-tap="getDoorConfig()")
         .door-config-label {{ 'construction.DOOR_CONFIG_LABEL' | translate }}
         .door-config-description {{ 'construction.DOOR_CONFIG_DESCTIPT' | translate }}: {{ constructData.doorShape }};
         .door-config-description {{ 'construction.SASH_CONFIG_DESCTIPT' | translate }}: {{ constructData.sashShape }};
@@ -63,7 +62,7 @@ section.construction-page(ng-controller="ConstructionCtrl")
         include parts/_voice
 
 
-    section.door-configuration(ng-class="{'active': constructData.showDoorConfig}")
+    section.door-configuration(ng-class="{'active': designPage.config.isDoorConfig}")
 
       .door-config-column.step1
         .door-config-backfon

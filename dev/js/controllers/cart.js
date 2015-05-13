@@ -7,14 +7,14 @@
     .module('CartModule')
     .controller('CartCtrl', cartPageCtrl);
 
-  function cartPageCtrl($filter, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, CartStor, CartServ) {
+  function cartPageCtrl($filter, globalConstants, GlobalStor, OrderStor, UserStor, CartStor, CartServ) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
-    thisCtrl.global = GlobalStor.global;
-    thisCtrl.order = OrderStor.order;
-    thisCtrl.userInfo = UserStor.userInfo;
-    thisCtrl.cart = CartStor.cart;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.O = OrderStor;
+    thisCtrl.U = UserStor;
+    thisCtrl.C = CartStor;
 
     thisCtrl.config = {
       isAddElementDetail: false,
@@ -68,7 +68,8 @@
     //=========== from Main Page
     } else {
       //-------- cleaning all templates in order.products
-      CartServ.cleanAllTemplatesInOrder();
+//      CartServ.cleanAllTemplatesInOrder();
+//      console.log('++++++',OrderStor.order);
       //---- collect all AddElements of Order
       CartServ.joinAllAddElements();
       //----------- start order price total calculation

@@ -1,11 +1,11 @@
-.config-panel.profile-container(ng-controller="ProfilesCtrl as profilesPanel", ng-class="{'active': profilesPanel.global.activePanel == 2}")
-  .panel-inner(ng-if="profilesPanel.global.activePanel == 2")
-    .profile-block.clearfix(ng-repeat="producer in profilesPanel.global.profiles", ng-class="{'selected': profilesPanel.product.profileTypeIndex == $index}")
+.config-panel.profile-container(ng-controller="ProfilesCtrl as profilesPanel", ng-class="{'active': profilesPanel.G.global.activePanel == 2}")
+  .panel-inner(ng-if="profilesPanel.G.global.activePanel == 2")
+    .profile-block.clearfix(ng-repeat="producer in profilesPanel.G.global.profiles", ng-class="{'selected': profilesPanel.P.product.profileTypeIndex == $index}")
       .group-block-header
-        .title(data-output="{{ profilesPanel.global.profilesType[$index].name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START }}")
+        .title(data-output="{{ profilesPanel.G.global.profilesType[$index].name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START }}")
         .group-info
           .info
-      .box.profile-box.unvisible(ng-repeat="profile in producer", ng-class="{'selected': profilesPanel.product.profileIndex == $index && profilesPanel.product.profileTypeIndex == $parent.$index}", hm-tap="profilesPanel.selectProfile($parent.$index, $index)", show-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_BLOCK * $index) }}")
+      .box.profile-box.unvisible(ng-repeat="profile in producer", ng-class="{'selected': profilesPanel.P.product.profileIndex == $index && profilesPanel.P.product.profileTypeIndex == $parent.$index}", hm-tap="profilesPanel.selectProfile($parent.$index, $index)", show-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_BLOCK * $index) }}")
         .profile-box-top
           .type {{ profile.profileDescrip }}
           .profile-descr(data-output="{{ profile.name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")

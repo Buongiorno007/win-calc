@@ -13,10 +13,9 @@
   function callCreditCtrl($filter, OrderStor, UserStor, CartStor, SettingServ, CartMenuServ) {
 
     var thisCtrl = this;
-    thisCtrl.order = OrderStor.order;
-    thisCtrl.cartStor = CartStor;
-    thisCtrl.cart = CartStor.cart;
-    thisCtrl.userInfo = UserStor.userInfo;
+    thisCtrl.O = OrderStor;
+    thisCtrl.C = CartStor;
+    thisCtrl.U = UserStor;
 
     thisCtrl.config = {
       month: $filter('translate')('common_words.MONTH_LABEL'),

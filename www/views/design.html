@@ -1,38 +1,37 @@
 
-<section ng-controller="ConstructionCtrl" class="construction-page">
+<section class="construction-page">
   <section class="construction-container">
     <div class="construction-left-menu">
       <ul class="figure-lists">
-        <li ng-class="{'selected': constructData.activeMenuItem==1}" hm-tap="selectMenuItem(1)" class="figure-item">
+        <li ng-class="{'selected': designPage.config.activeMenuItem == 1}" hm-tap="designPage.selectMenuItem(1)" class="figure-item">
           <div class="figure-icon sash-shape"></div>
-          <div data-output="{{ 'construction.SASH_SHAPE' | translate }}" typing="{{ constructData.typing }}" typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
+          <div data-output="{{ 'construction.SASH_SHAPE' | translate }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
         </li>
-        <li ng-class="{'selected': constructData.activeMenuItem==2}" hm-tap="selectMenuItem(2)" class="figure-item">
+        <li ng-class="{'selected': designPage.config.activeMenuItem == 2}" hm-tap="designPage.selectMenuItem(2)" class="figure-item">
           <div class="figure-icon angel-shape"></div>
-          <div data-output="{{ 'construction.ANGEL_SHAPE' | translate }}" typing="{{ constructData.typing }}" typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
+          <div data-output="{{ 'construction.ANGEL_SHAPE' | translate }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
         </li>
-        <li ng-class="{'selected': constructData.activeMenuItem==3}" hm-tap="selectMenuItem(3)" class="figure-item">
+        <li ng-class="{'selected': designPage.config.activeMenuItem == 3}" hm-tap="designPage.selectMenuItem(3)" class="figure-item">
           <div class="figure-icon impost-shape"></div>
-          <div data-output="{{ 'construction.IMPOST_SHAPE' | translate }}" typing="{{ constructData.typing }}" typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
+          <div data-output="{{ 'construction.IMPOST_SHAPE' | translate }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
         </li>
-        <li ng-class="{'selected': constructData.activeMenuItem==4}" hm-tap="selectMenuItem(4)" class="figure-item">
+        <li ng-class="{'selected': designPage.config.activeMenuItem == 4}" hm-tap="designPage.selectMenuItem(4)" class="figure-item">
           <div class="figure-icon arch-shape"></div>
-          <div data-output="{{ 'construction.ARCH_SHAPE' | translate }}" typing="{{ constructData.typing }}" typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
+          <div data-output="{{ 'construction.ARCH_SHAPE' | translate }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
         </li>
-        <li ng-class="{'selected': constructData.activeMenuItem==5}" hm-tap="selectMenuItem(5)" class="figure-item">
+        <li ng-class="{'selected': designPage.config.activeMenuItem == 5}" hm-tap="designPage.selectMenuItem(5)" class="figure-item">
           <div class="figure-icon position-shape"></div>
-          <div data-output="{{ 'construction.POSITION_SHAPE' | translate }}" typing="{{ constructData.typing }}" typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
+          <div data-output="{{ 'construction.POSITION_SHAPE' | translate }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
         </li>
       </ul>
       <div class="left-menu-footer">
-        <div data-output="{{ 'construction.UNITS_DESCRIP' | translate }}" typing="{{ constructData.typing }}" typing-delay="{{ constructData.DELAY_SHOW_FIGURE_ITEM }}" class="footer-description"></div>
-        <div hm-tap="setDefaultConstruction()" class="project-default">{{ 'construction.PROJECT_DEFAULT' | translate }}</div>
+        <div data-output="{{ 'construction.UNITS_DESCRIP' | translate }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="footer-description"></div>
+        <div hm-tap="designPage.setDefaultConstruction()" class="project-default">{{ 'construction.PROJECT_DEFAULT' | translate }}</div>
       </div>
     </div>
     <div class="construction-block">
       <div class="construction-scrollbox">
-        <!--svg-template(template="templateDefaultTEMP", template-width="svgTemplateWidthTEMP", template-height="svgTemplateHeightTEMP", type-construction="edit")-->
-        <svg-template template="templateDefaultTEMP" template-width="global.svgTemplateWidth" template-height="global.svgTemplateHeight" type-construction="edit"></svg-template>
+        <svg-template template="designPage.D.design.templateTEMP" template-width="designPage.constants.svgTemplateWidth" template-height="designPage.constants.svgTemplateHeight" type-construction="edit"></svg-template>
       </div>
     </div>
     <div id="sash-shape-menu" ng-show="constructData.isSashEdit &amp;&amp; constructData.isSashEditMenu" class="constr-shape-menu">
@@ -58,7 +57,7 @@
         <button hm-tap="gotoMainPageCancel()" class="construct-tools close-construction"></button>
       </div>
       <div ng-show="global.isConstructDoor" class="door-config-menu">
-        <button ng-class="{'active': constructData.showDoorConfig}" hm-tap="getDoorConfig()" class="door-config-btn"></button>
+        <button ng-class="{'active': designPage.config.isDoorConfig}" hm-tap="getDoorConfig()" class="door-config-btn"></button>
         <div class="door-config-label">{{ 'construction.DOOR_CONFIG_LABEL' | translate }}</div>
         <div class="door-config-description">{{ 'construction.DOOR_CONFIG_DESCTIPT' | translate }}: {{ constructData.doorShape }};</div>
         <div class="door-config-description">{{ 'construction.SASH_CONFIG_DESCTIPT' | translate }}: {{ constructData.sashShape }};</div>
@@ -75,13 +74,13 @@
               <td colspan="2">
                 <div class="calc-interval">
                   <div class="interval">
-                    <div ng-hide="sizeCalc.isConstructionPage" class="calc-value-limit">0</div>
-                    <div ng-show="sizeCalc.isConstructionPage" ng-class="{'restriction': sizeCalc.global.isMinSizeRestriction}" class="calc-value-limit">{{ sizeCalc.global.minSizeLimit }}</div>
+                    <div ng-hide="sizeCalc.isDesignPage" class="calc-value-limit">0</div>
+                    <div ng-show="sizeCalc.isDesignPage" ng-class="{'restriction': sizeCalc.D.design.isMinSizeRestriction}" class="calc-value-limit">{{ sizeCalc.D.design.minSizeLimit }}</div>
                     <div class="calc-label-limit">{{ 'common_words.MIN' | translate }}</div>
                   </div>
                   <div class="interval">
-                    <div ng-hide="sizeCalc.isConstructionPage" class="calc-value-limit">5000</div>
-                    <div ng-show="sizeCalc.isConstructionPage" ng-class="{'restriction': sizeCalc.global.isMaxSizeRestriction}" class="calc-value-limit">{{ sizeCalc.global.maxSizeLimit }}</div>
+                    <div ng-hide="sizeCalc.isDesignPage" class="calc-value-limit">5000</div>
+                    <div ng-show="sizeCalc.isDesignPage" ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}" class="calc-value-limit">{{ sizeCalc.D.design.maxSizeLimit }}</div>
                     <div class="calc-label-limit">{{ 'common_words.MAX' | translate }}</div>
                   </div>
                 </div>
@@ -140,7 +139,7 @@
         </div>
       </div>
     </div>
-    <section ng-class="{'active': constructData.showDoorConfig}" class="door-configuration">
+    <section ng-class="{'active': designPage.config.isDoorConfig}" class="door-configuration">
       <div class="door-config-column step1">
         <div class="door-config-backfon"></div>
         <div class="door-config-header">

@@ -4,7 +4,7 @@
      * @ngInject
      */
   angular
-    .module('BauVoiceApp')
+    .module('MainModule')
     .factory('AuxStor', auxStorageFactory);
 
   function auxStorageFactory() {

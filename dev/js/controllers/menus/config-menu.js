@@ -14,10 +14,10 @@
     console.log('START CONFIG MENU!!!!!!');
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
-    thisCtrl.global = GlobalStor.global;
-    thisCtrl.order = OrderStor.order;
-    thisCtrl.product = ProductStor.product;
-    thisCtrl.userInfo = UserStor.userInfo;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.O = OrderStor;
+    thisCtrl.P = ProductStor;
+    thisCtrl.U = UserStor;
 
 
     thisCtrl.config = {
@@ -55,8 +55,10 @@
     }
 
     function saveProduct() {
-      MainServ.inputProductInOrder();
-      MainServ.goToCart();
+      MainServ.inputProductInOrder().then(function() {
+        //--------- moving to Cart when click on Cart button
+        MainServ.goToCart();
+      });
     }
 
   }

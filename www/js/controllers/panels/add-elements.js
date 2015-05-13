@@ -14,9 +14,9 @@
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
-    thisCtrl.global = GlobalStor.global;
-    thisCtrl.product = ProductStor.product;
-    thisCtrl.aux = AuxStor.aux;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.P = ProductStor;
+    thisCtrl.A = AuxStor;
 
     thisCtrl.config = {
       DELAY_START: globalConstants.STEP,

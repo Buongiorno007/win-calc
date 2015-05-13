@@ -7,7 +7,7 @@
      * @ngInject
      */
   angular
-    .module('BauVoiceApp')
+    .module('HistoryModule')
     .factory('HistoryStor', historyStorageFactory);
 
   function historyStorageFactory() {

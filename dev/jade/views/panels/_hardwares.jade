@@ -1,13 +1,13 @@
-.config-panel.hardware-container(ng-controller="HardwaresCtrl as hardwarePanel", ng-class="{'active': hardwarePanel.global.activePanel == 4}")
-  .panel-inner(ng-if="hardwarePanel.global.activePanel == 4")
+.config-panel.hardware-container(ng-controller="HardwaresCtrl as hardwarePanel", ng-class="{'active': hardwarePanel.G.global.activePanel == 4}")
+  .panel-inner(ng-if="hardwarePanel.G.global.activePanel == 4")
 
-    .hardware-block(ng-repeat="producer in hardwarePanel.global.hardwares", ng-class="{'selected': glassPanel.product.hardwareTypeIndex == $index}")
+    .hardware-block(ng-repeat="producer in hardwarePanel.G.global.hardwares", ng-class="{'selected': glassPanel.P.product.hardwareTypeIndex == $index}")
       .group-block-header
-        .hardware-title(data-output="{{ hardwarePanel.global.hardwareTypes[$index] }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START }}")
+        .hardware-title(data-output="{{ hardwarePanel.G.global.hardwareTypes[$index] }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START }}")
         .group-info
           .info
 
-      .hardware-box.unvisible(ng-repeat="hardware in producer", show-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_BLOCK * $index) }}", ng-class="{'selected': hardwarePanel.product.hardwareIndex == $index && hardwarePanel.product.hardwareTypeIndex == $parent.$index}", hm-tap="hardwarePanel.selectHardware($parent.$index, $index)")
+      .hardware-box.unvisible(ng-repeat="hardware in producer", show-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_BLOCK * $index) }}", ng-class="{'selected': glassPanel.P.product.hardwareIndex == $index && glassPanel.P.product.hardwareTypeIndex == $parent.$index}", hm-tap="hardwarePanel.selectHardware($parent.$index, $index)")
         a.info(ng-href="{{ hardware.hardwareLink }}")
         .hardware-box-inner
           .hardware-box-view

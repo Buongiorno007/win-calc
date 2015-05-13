@@ -10,8 +10,8 @@
   function mainPageCtrl(GlobalStor, ProductStor, MainServ, optionsServ) {
 
     var thisCtrl = this;
-    thisCtrl.global = GlobalStor.global;
-    thisCtrl.product = ProductStor.product;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.P = ProductStor;
 
     //------- set current Page
     GlobalStor.global.currOpenPage = 'main';

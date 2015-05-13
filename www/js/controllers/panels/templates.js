@@ -14,9 +14,9 @@
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
-    thisCtrl.global = GlobalStor.global;
-    thisCtrl.order = OrderStor.order;
-    thisCtrl.product = ProductStor.product;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.O = OrderStor;
+    thisCtrl.P = ProductStor;
 
 
     thisCtrl.config = {

@@ -14,28 +14,28 @@
       li.item
         .item-content
           span.nav-icon-location.unvisible(show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 3) }}")
-          span.title(data-output="{{ navMenu.order.currCityName }}", typing="{{ navMenu.config.typing }}", typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 3) }}")
+          span.title(data-output="{{ navMenu.O.order.currCityName }}", typing="{{ navMenu.config.typing }}", typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 3) }}")
 
     .divider(data-output="{{ 'mainpage.NAVMENU_CALCULATIONS' | translate }}", typing="{{ navMenu.config.typing }}", typing-delay="{{ navMenu.config.DELAY_TYPE_DIVIDER }}")
 
     ul.items-list.unvisible(show-delay="{{ navMenu.config.DELAY_SHOW_NAV_LIST * 2.5 }}")
-      li.item(ng-if="(navMenu.global.currOpenPage === 'history' && navMenu.global.isCreatedNewProject && navMenu.global.isCreatedNewProduct)", ng-class="{'selected': navMenu.activeMenuItem == 3}", hm-tap="navMenu.selectMenuItem(3)")
+      li.item(ng-if="(navMenu.G.global.currOpenPage === 'history' && navMenu.G.global.isCreatedNewProject && navMenu.G.global.isCreatedNewProduct)", ng-class="{'selected': navMenu.activeMenuItem == 3}", hm-tap="navMenu.selectMenuItem(3)")
         .item-content
           span.nav-icon-calculation.unvisible(show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 4)}}")
           span.title(data-output="{{ 'mainpage.NAVMENU_CURRENT_CALCULATION' | translate }}", typing="{{ navMenu.config.typing }}", typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 4) }}")
 
-      li.item(ng-if="navMenu.order.productsQty > 0 && ((!navMenu.global.isOpenedHistoryPage && !navMenu.global.isCreatedNewProject) || (navMenu.global.isOpenedHistoryPage && navMenu.global.isOrderFinished))", ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.global.isOpenedCartPage}", hm-tap="navMenu.selectMenuItem(4)")
+      li.item(ng-if="navMenu.O.order.productsQty > 0 && ((!navMenu.G.global.isOpenedHistoryPage && !navMenu.G.global.isCreatedNewProject) || (navMenu.G.global.isOpenedHistoryPage && navMenu.G.global.isOrderFinished))", ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.G.global.isOpenedCartPage}", hm-tap="navMenu.selectMenuItem(4)")
         .item-content
           span.nav-icon-basketOfCalculation.unvisible(show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}")
           span.title(data-output="{{ 'mainpage.NAVMENU_CART' | translate }}", typing="{{ navMenu.config.typing }}", typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}")
-          span.badge.unvisible(show-delay="{{ navMenu.config.DELAY_SHOW_ORDERS }}") {{ navMenu.order.productsQty }}
+          span.badge.unvisible(show-delay="{{ navMenu.config.DELAY_SHOW_ORDERS }}") {{ navMenu.O.order.productsQty }}
 
-      li.item(ng-if="!navMenu.global.isOpenedHistoryPage && !navMenu.global.isOpenedCartPage", ng-class="{'selected': navMenu.activeMenuItem == 5}", hm-tap="navMenu.selectMenuItem(5)")
+      li.item(ng-if="!navMenu.G.global.isOpenedHistoryPage && !navMenu.G.global.isOpenedCartPage", ng-class="{'selected': navMenu.activeMenuItem == 5}", hm-tap="navMenu.selectMenuItem(5)")
         .item-content
           span.nav-icon-additionalComponents.unvisible(show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 6) }}")
           span.title(data-output="{{ 'mainpage.NAVMENU_ADD_ELEMENTS' | translate }}", typing="{{ navMenu.config.typing }}", typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 6) }}")
 
-      li.item(ng-class="{'selected': navMenu.activeMenuItem == 6 || navMenu.global.isOpenedHistoryPage}", hm-tap="navMenu.selectMenuItem(6)")
+      li.item(ng-class="{'selected': navMenu.activeMenuItem == 6 || navMenu.G.global.isOpenedHistoryPage}", hm-tap="navMenu.selectMenuItem(6)")
         .item-content
           span.nav-icon-calculationsHistory.unvisible(show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 7) }}")
           span.title(data-output="{{ 'mainpage.NAVMENU_ALL_CALCULATIONS' | translate }}", typing="{{ navMenu.config.typing }}", typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 7) }}")
@@ -43,7 +43,7 @@
     .divider(data-output="{{ 'mainpage.NAVMENU_APPENDIX' | translate }}", typing="{{ navMenu.config.typing }}", typing-delay="{{ navMenu.config.DELAY_TYPE_DIVIDER * 2 }}")
 
     ul.items-list.unvisible(show-delay="{{ navMenu.config.DELAY_SHOW_NAV_LIST * 4 }}")
-      li.item(ng-if="!navMenu.global.isOpenedHistoryPage && !navMenu.global.isOpenedCartPage", ng-class="{'selected': navMenu.activeMenuItem == 7}", hm-tap="navMenu.selectMenuItem(7)")
+      li.item(ng-if="!navMenu.G.global.isOpenedHistoryPage && !navMenu.G.global.isOpenedCartPage", ng-class="{'selected': navMenu.activeMenuItem == 7}", hm-tap="navMenu.selectMenuItem(7)")
         .item-content
           span.nav-icon-settings.unvisible(show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 8) }}")
           span.title(data-output="{{ 'mainpage.NAVMENU_SETTINGS' | translate }}", typing="{{ navMenu.config.typing }}", typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 8) }}")
@@ -59,4 +59,4 @@
           span.title(data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}", typing="{{ navMenu.config.typing }}", typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}")
 
   footer.nav-menu-footer
-    button.new-calc.unvisible(ng-if="!navMenu.global.orderEditNumber", hm-tap="navMenu.clickNewProject()", show-delay="{{ navMenu.config.DELAY_SHOW_NEWCALC_BTN }}") {{ 'mainpage.NAVMENU_NEW_CALC' | translate }}
+    button.new-calc.unvisible(ng-if="!navMenu.G.global.orderEditNumber", hm-tap="navMenu.clickNewProject()", show-delay="{{ navMenu.config.DELAY_SHOW_NEWCALC_BTN }}") {{ 'mainpage.NAVMENU_NEW_CALC' | translate }}

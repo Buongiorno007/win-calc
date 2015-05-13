@@ -13,7 +13,7 @@
   function searchCtrl($filter, GlobalStor, AuxStor, HistoryStor, AddElementsServ, AddElementMenuServ) {
 
     var thisCtrl = this;
-    thisCtrl.global = GlobalStor.global;
+    thisCtrl.G = GlobalStor;
 
 
     //------ clicking

@@ -13,10 +13,9 @@
   function callOrderCtrl(OrderStor, UserStor, CartStor, CartMenuServ, SettingServ) {
 
     var thisCtrl = this;
-    thisCtrl.order = OrderStor.order;
-    thisCtrl.cartStor = CartStor;
-    thisCtrl.cart = CartStor.cart;
-    thisCtrl.userInfo = UserStor.userInfo;
+    thisCtrl.O = OrderStor;
+    thisCtrl.C = CartStor;
+    thisCtrl.U = UserStor;
 
       //------ get all regions and cities
       //TODO база городов и регионов долны быть только одной страны завода

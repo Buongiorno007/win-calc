@@ -4,7 +4,7 @@
      * @ngInject
      */
   angular
-    .module('BauVoiceApp')
+    .module('CartModule')
     .factory('CartStor', cartStorageFactory);
 
   function cartStorageFactory($filter, OrderStor) {

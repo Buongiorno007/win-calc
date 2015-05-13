@@ -10,7 +10,7 @@
   function settingsPageCtrl($location, globalConstants, globalDB, localDB, GlobalStor, OrderStor, ProductStor, AuxStor, UserStor ) {
 
     var thisCtrl = this;
-    thisCtrl.userInfo = UserStor.userInfo;
+    thisCtrl.U = UserStor;
 
 
     thisCtrl.config = {

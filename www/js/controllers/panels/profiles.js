@@ -13,8 +13,8 @@
   function profileSelectorCtrl(globalConstants, MainServ, analyticsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
-    thisCtrl.global = GlobalStor.global;
-    thisCtrl.product = ProductStor.product;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.P = ProductStor;
 
     thisCtrl.config = {
       DELAY_START: 5 * globalConstants.STEP,

@@ -10,8 +10,8 @@
   function hardwareSelectorCtrl(globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, MainServ, analyticsServ) {
 
     var thisCtrl = this;
-    thisCtrl.global = GlobalStor.global;
-    thisCtrl.product = ProductStor.product;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.P = ProductStor;
 
     thisCtrl.config = {
       DELAY_START: 5 * globalConstants.STEP,

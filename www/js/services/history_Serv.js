@@ -7,10 +7,10 @@
    * @ngInject
    */
   angular
-    .module('MainModule')
+    .module('HistoryModule')
     .factory('HistoryServ', historyFactory);
 
-  function historyFactory($location, $filter, $cordovaDialogs, $cordovaProgress, globalConstants, globalDB, localDB, MainServ, CartServ, GlobalStor, OrderStor, UserStor, HistoryStor) {
+  function historyFactory($location, $filter, $cordovaDialogs, $cordovaProgress, globalConstants, globalDB, localDB, GeneralServ, MainServ, CartServ, GlobalStor, OrderStor, UserStor, HistoryStor) {
 
     var thisFactory = this,
         orderMasterStyle = 'master',
@@ -263,7 +263,7 @@
       GlobalStor.global.isConfigMenu = true;
       GlobalStor.global.isNavMenu = false;
       //------- set previos Page
-      GlobalStor.global.prevOpenPage = GlobalStor.global.currOpenPage;
+      GeneralServ.setPreviosPage();
       //----- cleaning order
       OrderStor.order = OrderStor.setDefaultOrder();
       //------- download edited Order
