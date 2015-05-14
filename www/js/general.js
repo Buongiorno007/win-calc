@@ -30,13 +30,7 @@ function sortNumbers(a, b) {
 
 
 
-//---------- Deactivate Size Box for SVG Construction
-function deactiveSizeBox(sizeRectActClass, sizeBoxActClass) {
-  $('g.size-box').each(function () {
-    $(this).find('.'+sizeRectActClass).addClass('size-rect').removeClass(sizeRectActClass);
-    $(this).find('.'+sizeBoxActClass).addClass('size-value-edit').removeClass(sizeBoxActClass);
-  });
-}
+
 
 
 
@@ -503,10 +497,99 @@ function createDimentions(sourceObj) {
 }
 
 
+
+
+
+//////////////////////////////////////////////////
+
+function buildFrames(sourceObj, depths) {
+  var allFramePoints = [];
+  var centerX = 0, centerY = 0;
+
+  for (var i = 0; i < sourceObj.objects.length; i++) {
+    if(sourceObj.objects[i].type === 'fixed_point') {
+      allFramePoints.push(sourceObj.objects[i]);
+      console.log('sourceObj.objects[i].x == ', sourceObj.objects[i].x);
+      centerX = +centerX + sourceObj.objects[i].x;
+      centerY = +centerY + sourceObj.objects[i].y;
+    }
+  }
+  console.log('centerX == ', centerX);
+  console.log('centerY == ', centerY);
+  centerX = centerX/allFramePoints.length;
+  centerY = centerY/allFramePoints.length;
+  console.log('centerX == ', centerX);
+  console.log('centerY == ', centerY);
+  for(var i = 0; i < allFramePoints.length; i++) {
+    console.log('id == ', allFramePoints[i].id);
+    var fi = Math.atan2(centerY - allFramePoints[i].y, allFramePoints[i].x - centerX) * (180 / Math.PI);
+
+    console.log(Math.atan2(centerY - allFramePoints[i].y, allFramePoints[i].x - centerX));
+    if(fi < 0) {
+      fi = 360 + fi;
+    }
+    console.log('fi == ', fi);
+  }
+
+  for(var i = 1; i < allFramePoints.length; i++) {
+    console.log('id == ', allFramePoints[i].id);
+    var f = Math.atan2(allFramePoints[0].y - allFramePoints[i].y, allFramePoints[i].x - allFramePoints[0].x) * (180 / Math.PI);
+
+    console.log(Math.atan2(allFramePoints[0].y - allFramePoints[i].y, allFramePoints[i].x - allFramePoints[0].x));
+    console.log('f == ', f);
+    if(f < 0) {
+      f = 360 + f;
+    }
+    console.log('f 2== ', f);
+  }
+
+};
+
+//----- create fixed points of corners
+function setFixedPointCorners(sourceObj) {
+  var dictance = 20,
+      corners = [],
+      corner = {};
+
+  for (var i = 0; i < sourceObj.objects.length; i++) {
+    if(sourceObj.objects[i].type === 'skylight' && !sourceObj.objects[i].level) {
+      for(var j = 0; j < sourceObj.objects[i].points.length; j++) {
+        var fpN = Number(sourceObj.objects[i].points[j].replace(/\D+/g, ""));
+        if(fpN === 1) {
+          corner = {
+            type: 'fixed_point_corner',
+            id: 'fp_corner'+fpN+'_1',
+            x: 20,
+            y: 0
+          };
+          console.log('sourceObj.objects[i].x == ', sourceObj.objects[i].x);
+          sourceObj.objects.push(corner);
+        }
+      }
+
+    }
+  }
+
+}
+
+
+////////////////////////////////////////////
+
+
+
+
+
+
+
+
 var Template = function (sourceObj, depths) {
   this.name = sourceObj.name;
   this.objects = [];
   this.dimentions = createDimentions(sourceObj);
+//////////////////////
+  sourceObj.objects.push({'type':'fixed_point', id:'fp_corner1_1', x:20, y:0});
+  buildFrames(sourceObj, depths);
+///////////////////////
   var tmpObject,
       coeffScale = 1;
 

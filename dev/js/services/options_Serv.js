@@ -110,7 +110,7 @@
       getTemplatesWindow: function(callback) {
         callback(new OkResult({
           windows: [
-
+/*
             {
               'name': 'Одностворчатое',
               'objects': [
@@ -414,6 +414,7 @@
                 {'type': 'square', id: 'sqr', widths: ['overallDimH'], heights: ['overallDimV']}
               ]
             },
+ */
             {
               'name':'Трехстворчатое',
               'objects':[
@@ -428,15 +429,26 @@
                 {'type':'fixed_point_impost', id:'fpimpost4', x:1400, y:1400, dir:'vert'},
 
   /*
-                {'type': 'skylight', id: 'main_block_1', level: 0, points: ['fp1', 'fp2', 'fp3', 'fp4'], blockType: 'frame', insideBlocks: ['light_block_1', 'light_block_2', 'light_block_3']},
+   {'type':'fixed_point_impost', id:'fpimpost1', x:700, y:0},
+   {'type':'fixed_point_impost', id:'fpimpost2', x:700, y:1400},
+   {'type':'fixed_point_impost', id:'fpimpost3', x:1400, y:0},
+   {'type':'fixed_point_impost', id:'fpimpost4', x:1400, y:1400},
 
-                {'type': 'skylight', id: 'light_block_1', level: 1, points: ['fp1', 'fpimpost1', 'fpimpost2', 'fp4'], blockType: 'sash', openDir: [1, 4], handlePos: 4, insideBlocks: ['light_block_4', 'light_block_5']},
-                {'type': 'skylight', id: 'light_block_2', level: 1, points: ['fpimpost1', 'fpimpost3', 'fpimpost4', 'fpimpost1'], blockType: 'frame', insideBlocks: []},
-                {'type': 'skylight', id: 'light_block_3', level: 1, points: ['fpimpost3', 'fp2', 'fp3', 'fpimpost4'], blockType: 'frame', insideBlocks: []},
+   {'type':'fixed_point_impost', id:'fpimpost5', x:700, y:700},
+   {'type':'fixed_point_impost', id:'fpimpost6', x:0, y:700},
 
-                {'type': 'skylight', id: 'light_block_4', level: 2, parentBlock: 'light_block_1', points: ['fp1', 'fpimpost1', 'fpimpost5', 'fpimpost6'], blockType: 'frame', insideBlocks: []},
-                {'type': 'skylight', id: 'light_block_5', level: 2, parentBlock: 'light_block_1', points: ['fpimpost5', 'fpimpost6', 'fpimpost2', 'fp4'], blockType: 'frame', insideBlocks: []},
-  */
+   {'type': 'skylight', id: 'light_block_0', level: 0, points: ['fp1', 'fp2', 'fp3', 'fp4'], blockType: 'frame', insideBlocks: ['light_block_1', 'light_block_2', 'light_block_3']},
+
+   {'type': 'skylight', id: 'light_block_1', level: 1, points: ['fp1', 'fpimpost1', 'fpimpost2', 'fp4'], blockType: 'sash', openDir: [1, 4], handlePos: 4, insideBlocks: ['light_block_4', 'light_block_5']},
+   {'type': 'skylight', id: 'light_block_2', level: 1, points: ['fpimpost1', 'fpimpost3', 'fpimpost4', 'fpimpost1'], blockType: 'frame', insideBlocks: []},
+   {'type': 'skylight', id: 'light_block_3', level: 1, points: ['fpimpost3', 'fp2', 'fp3', 'fpimpost4'], blockType: 'frame', insideBlocks: []},
+
+   {'type': 'skylight', id: 'light_block_4', level: 2, parentBlock: 'light_block_1', points: ['fp1', 'fpimpost1', 'fpimpost5', 'fpimpost6'], blockType: 'frame', insideBlocks: []},
+   {'type': 'skylight', id: 'light_block_5', level: 2, parentBlock: 'light_block_1', points: ['fpimpost5', 'fpimpost6', 'fpimpost2', 'fp4'], blockType: 'frame', insideBlocks: []},
+
+
+
+   */
                 //------- frame
                 {'type': 'frame_line', id: 'frameline1', from: 'fp1', to: 'fp2'},
                 {'type': 'frame_line', id: 'frameline2', from: 'fp2', to: 'fp3'},
@@ -615,6 +627,7 @@
                 {'type': 'square', id: 'sqr', widths: ['overallDimH'], heights: ['overallDimV']}
               ]
             },
+/*
             {
               'name':'Двухстворчатое',
               'objects':[
@@ -2150,7 +2163,7 @@
                 {'type': 'square', id: 'sqr', widths: ['overallDimH'], heights: ['overallDimV']}
               ]
             }
-
+*/
           ]
 
         }));
@@ -2640,11 +2653,11 @@
       getAllGlass: function (callback) {
         callback(new OkResult({
           glassTypes: [
-            'Стандартные',
-            'Энергосберегающие',
-            'Зеркальные',
-            'Матовые',
-            'Бронированные'
+            $filter('translate')('panels.STANDART_TYPE'),
+            $filter('translate')('panels.ENERGY_TYPE'),
+            $filter('translate')('panels.MIRROR_TYPE'),
+            $filter('translate')('panels.MAT_TYPE'),
+            $filter('translate')('panels.ARMOR_TYPE')
           ],
           glasses: [
             [
@@ -2652,7 +2665,7 @@
                 glassId: 145,
                 glassName: '6/12/6',
                 glassUrl: 'img/glasses/glass1.png',
-                glassDescrip: '1 камера',
+                glassDescrip: '1 ' + $filter('translate')('panels.CAMERa'),
                 glassNoise: 4,
                 heatCoeff: 2,
                 airCoeff: 9,
@@ -2662,7 +2675,7 @@
                 glassId: 142,
                 glassName: '4/16/4',
                 glassUrl: 'img/glasses/glass1.png',
-                glassDescrip: '1 камера',
+                glassDescrip: '1 ' + $filter('translate')('panels.CAMERa'),
                 glassNoise: 2,
                 heatCoeff: 1,
                 airCoeff: 9,
@@ -2672,7 +2685,7 @@
                 glassId: 146,
                 glassName: '4/10/4/10/4',
                 glassUrl: 'img/glasses/glass2.png',
-                glassDescrip: '2 камеры',
+                glassDescrip: '2 ' + $filter('translate')('panels.CAMER'),
                 glassNoise: 4,
                 heatCoeff: 3,
                 airCoeff: 9,
@@ -2682,7 +2695,7 @@
                 glassId: 147,
                 glassName: '4/8/4/12/4',
                 glassUrl: 'img/glasses/glass2.png',
-                glassDescrip: '2 камеры',
+                glassDescrip: '2 ' + $filter('translate')('panels.CAMER'),
                 glassNoise: 4,
                 heatCoeff: 3,
                 airCoeff: 9,
@@ -2694,7 +2707,7 @@
                 glassId: 153,
                 glassName: '4/16/4i',
                 glassUrl: 'img/glasses/glass10.png',
-                glassDescrip: '1 камера +энергосбережение',
+                glassDescrip: '1 '+ $filter('translate')('panels.CAMERa') + $filter('translate')('panels.ENERGY_SAVE'),
                 glassNoise: 2,
                 heatCoeff: 4,
                 airCoeff: 9,
@@ -2704,7 +2717,7 @@
                 glassId: 208,
                 glassName: '4/16argon/4i',
                 glassUrl: 'img/glasses/glass10.png',
-                glassDescrip: '1 камера +энергосбережение',
+                glassDescrip: '1 '+ $filter('translate')('panels.CAMERa') + $filter('translate')('panels.ENERGY_SAVE'),
                 glassNoise: 2,
                 heatCoeff: 4,
                 airCoeff: 9,
@@ -2714,7 +2727,7 @@
                 glassId: 156,
                 glassName: '4/10/4/10/4i',
                 glassUrl: 'img/glasses/glass20.png',
-                glassDescrip: '2 камеры +энергосбережение',
+                glassDescrip: '2 '+ $filter('translate')('panels.CAMER') + $filter('translate')('panels.ENERGY_SAVE'),
                 glassNoise: 4,
                 heatCoeff: 4,
                 airCoeff: 9,
@@ -2724,7 +2737,7 @@
                 glassId: 207,
                 glassName: '4i/10/4/10/4i',
                 glassUrl: 'img/glasses/glass20.png',
-                glassDescrip: '2 камеры +энергосбережение',
+                glassDescrip: '2 '+ $filter('translate')('panels.CAMER') + $filter('translate')('panels.ENERGY_SAVE'),
                 glassNoise: 4,
                 heatCoeff: 5,
                 airCoeff: 9,
@@ -2734,9 +2747,9 @@
             [
               {
                 glassId: 163,
-                glassName: 'Зеркальный 4/16/4',
+                glassName: '4/16/4',
                 glassUrl: 'img/glasses/glass1.png',
-                glassDescrip: '1 камера',
+                glassDescrip: '1 '+ $filter('translate')('panels.CAMERa'),
                 glassNoise: 2,
                 heatCoeff: 2,
                 airCoeff: 9,
@@ -2744,9 +2757,9 @@
               },
               {
                 glassId: 167,
-                glassName: 'Зеркальный 4/10/4/10/4',
+                glassName: '4/10/4/10/4',
                 glassUrl: 'img/glasses/glass2.png',
-                glassDescrip: '2 камеры',
+                glassDescrip: '2 '+ $filter('translate')('panels.CAMER'),
                 glassNoise: 4,
                 heatCoeff: 3,
                 airCoeff: 9,
@@ -2756,9 +2769,9 @@
             [
               {
                 glassId: 171,
-                glassName: 'Матовый 4/16/4',
+                glassName: '4/16/4',
                 glassUrl: 'img/glasses/glass1.png',
-                glassDescrip: '1 камера',
+                glassDescrip: '1 '+ $filter('translate')('panels.CAMERa'),
                 glassNoise: 2,
                 heatCoeff: 2,
                 airCoeff: 9,
@@ -2766,9 +2779,9 @@
               },
               {
                 glassId: 174,
-                glassName: 'Матовый 4/10/4/10/4',
+                glassName: '4/10/4/10/4',
                 glassUrl: 'img/glasses/glass2.png',
-                glassDescrip: '2 камеры',
+                glassDescrip: '2 '+ $filter('translate')('panels.CAMER'),
                 glassNoise: 4,
                 heatCoeff: 3,
                 airCoeff: 9,
@@ -2780,7 +2793,7 @@
                 glassId: 182,
                 glassName: 'Бр. 2сл.(225мк) 4/16/4',
                 glassUrl: 'img/glasses/glass1.png',
-                glassDescrip: '1 камера',
+                glassDescrip: '1 '+ $filter('translate')('panels.CAMERa'),
                 glassNoise: 2,
                 heatCoeff: 2,
                 airCoeff: 9,
@@ -2790,7 +2803,7 @@
                 glassId: 186,
                 glassName: 'Бр. 3сл.(336мк) 6/12/6',
                 glassUrl: 'img/glasses/glass1.png',
-                glassDescrip: '1 камера',
+                glassDescrip: '1 '+ $filter('translate')('panels.CAMERa'),
                 glassNoise: 4,
                 heatCoeff: 2,
                 airCoeff: 9,
@@ -2800,7 +2813,7 @@
                 glassId: 177,
                 glassName: 'Бр. 2сл.(225мк) 4/10/4/10/4',
                 glassUrl: 'img/glasses/glass2.png',
-                glassDescrip: '2 камеры',
+                glassDescrip: '2 '+ $filter('translate')('panels.CAMER'),
                 glassNoise: 4,
                 heatCoeff: 3,
                 airCoeff: 9,
@@ -2810,7 +2823,7 @@
                 glassId: 221,
                 glassName: 'Бр. 3сл.(336мк) 4/10/4/10/4',
                 glassUrl: 'img/glasses/glass2.png',
-                glassDescrip: '2 камеры',
+                glassDescrip: '2 '+ $filter('translate')('panels.CAMER'),
                 glassNoise: 4,
                 heatCoeff: 3,
                 airCoeff: 9,
@@ -2825,8 +2838,7 @@
         callback(new OkResult({
           hardwaresTypes: [
             'AXOR',
-           // 'Мако',  //закомментировал А.С.
-            'Другие...'
+            $filter('translate')('panels.OTHER_TYPE')
           ],
           hardwares: [
             [
@@ -2834,7 +2846,7 @@
                 hardwareId: 20,
                 hardwareName: 'Komfort Line K-3',
                 hardwareProducer: 'AXOR',
-                hardwareCountry: 'Украина',
+                hardwareCountry: $filter('translate')('panels.UKRAINE'),
                 hardwareLogo: 'img/hardware-logos/axor.png',
                 hardwareLink: '#',
                 hardwareNoise: 4,
@@ -2848,7 +2860,7 @@
                 hardwareId: 21,
                 hardwareName: 'Roto NT',
                 hardwareProducer: 'Roto',
-                hardwareCountry: 'Germany',
+                hardwareCountry: $filter('translate')('panels.GERMANY'),
                 hardwareLogo: 'img/hardware-logos/roto.png',
                 hardwareLink: '#',
                 hardwareNoise: 4,
@@ -2860,7 +2872,7 @@
                 hardwareId: 22,
                 hardwareName: 'MACO MULTI TREND',
                 hardwareProducer: 'MACO',
-                hardwareCountry: 'Austria',
+                hardwareCountry: $filter('translate')('panels.AUSTRIA'),
                 hardwareLogo: 'img/hardware-logos/maco.png',
                 hardwareLink: '#',
                 hardwareNoise: 5,
@@ -2880,26 +2892,26 @@
         callback(new OkResult({
 
           elementType: [
-            'внутренние',
-            'внешние'
+            $filter('translate')('panels.INNER_TYPE'),
+            $filter('translate')('panels.OUTER_TYPE')
           ],
           elementsList: [
             [
               {
                 elementId: 585,
-                elementName: 'Сетка СO-100',
+                elementName: $filter('translate')('add_elements.GRID') + ' СO-100',
                 elementQty: 1,
                 elementPrice: 100
               },
               {
                 elementId: 585,
-                elementName: 'Сетка СO-200',
+                elementName: $filter('translate')('add_elements.GRID') + ' СO-200',
                 elementQty: 1,
                 elementPrice: 100
               },
               {
                 elementId: 585,
-                elementName: 'Сетка СO-200',
+                elementName: $filter('translate')('add_elements.GRID') + ' СO-200',
                 elementQty: 1,
                 elementPrice: 100
               }
@@ -2907,13 +2919,13 @@
             [
               {
                 elementId: 585,
-                elementName: 'Сетка СO-300',
+                elementName: $filter('translate')('add_elements.GRID') + ' СO-300',
                 elementQty: 1,
                 elementPrice: 100
               },
               {
                 elementId: 585,
-                elementName: 'Сетка СO-300',
+                elementName: $filter('translate')('add_elements.GRID') + ' СO-300',
                 elementQty: 1,
                 elementPrice: 100
               }
@@ -2927,27 +2939,27 @@
         callback(new OkResult({
 
           elementType: [
-            'стандартные',
-            'оцинкованные',
-            'Матовые'
+            $filter('translate')('panels.STANDART_TYPE'),
+            $filter('translate')('panels.GALVAN_TYPE'),
+            $filter('translate')('panels.MAT_TYPE')
           ],
           elementsList: [
             [
               {
                 elementId: 210675,
-                elementName: 'Козырек белый 100мм',
+                elementName: $filter('translate')('panels.VISOR_ITEM') + ' 100' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementQty: 1
               },
               {
                 elementId: 210676,
-                elementName: 'Козырек белый 200мм',
+                elementName: $filter('translate')('panels.VISOR_ITEM') + ' 200' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementQty: 1
               },
               {
                 elementId: 210677,
-                elementName: 'Козырек белый 300мм',
+                elementName: $filter('translate')('panels.VISOR_ITEM') + ' 300' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementQty: 1
               }
@@ -2955,31 +2967,31 @@
             [
               {
                 elementId: 210687,
-                elementName: 'Козырек 100мм оцинкованный',
+                elementName: $filter('translate')('panels.VISOR_ITEM2') + ' 100' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementQty: 1
               },
               {
                 elementId: 210693,
-                elementName: 'Козырек 200мм оцинкованный',
+                elementName: $filter('translate')('panels.VISOR_ITEM2') + ' 200' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementQty: 1
               },
               {
                 elementId: 210694,
-                elementName: 'Козырек 300мм оцинкованный',
+                elementName: $filter('translate')('panels.VISOR_ITEM2') + ' 300' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementQty: 1
               },
               {
                 elementId: 210695,
-                elementName: 'Козырек 400мм оцинкованный',
+                elementName: $filter('translate')('panels.VISOR_ITEM2') + ' 400' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementQty: 1
               },
               {
                 elementId: 210696,
-                elementName: 'Козырек 500мм оцинкованный',
+                elementName: $filter('translate')('panels.VISOR_ITEM2') + ' 500' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementQty: 1
               }
@@ -2987,7 +2999,7 @@
             [
               {
                 elementId: 210697,
-                elementName: 'Козырёк нестандартный',
+                elementName: $filter('translate')('panels.VISOR_ITEM3'),
                 elementWidth: 1500,
                 elementQty: 1
               }
@@ -3001,22 +3013,22 @@
         callback(new OkResult({
 
           elementType: [
-            'стандартные',
-            'оцинкованные',
-            'нестандартные'
+            $filter('translate')('panels.STANDART_TYPE'),
+            $filter('translate')('panels.GALVAN_TYPE'),
+            $filter('translate')('panels.NO_STANDART_TYPE')
           ],
           elementsList: [
             [
               {
                 elementId: 497,
-                elementName: 'Отлив КO-200',
+                elementName: $filter('translate')('panels.OUTFLOW_W') + ' КO-200',
                 elementWidth: 1500,
                 elementQty: 1,
                 elementPrice: 100
               },
               {
                 elementId: 498,
-                elementName: 'Отлив коричневый 260мм',
+                elementName: $filter('translate')('panels.OUTFLOW_B') + ' 260' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementQty: 1,
                 elementPrice: 100
@@ -3025,14 +3037,14 @@
             [
               {
                 elementId: 547,
-                elementName: 'Отлив оцинкованный 20мм',
+                elementName: $filter('translate')('panels.OUTFLOW_G') +' 20' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementQty: 1,
                 elementPrice: 100
               },
               {
                 elementId: 571,
-                elementName: 'Отлив оцинкованный 50мм',
+                elementName: $filter('translate')('panels.OUTFLOW_G') +' 50' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementQty: 1,
                 elementPrice: 100
@@ -3041,7 +3053,7 @@
             [
               {
                 elementId: 540,
-                elementName: 'Отлив нестандартный',
+                elementName: $filter('translate')('panels.OUTFLOW_NO_STANDART'),
                 elementWidth: 1500,
                 elementQty: 1,
                 elementPrice: 100
@@ -3056,27 +3068,27 @@
         callback(new OkResult({
 
           elementType: [
-            'стандартные'
+            $filter('translate')('panels.STANDART_TYPE')
           ],
           elementsList: [
             [
               {
                 elementId: 89349,
-                elementName: 'Откос пластиковый',
+                elementName: $filter('translate')('panels.SLOPE_P'),
                 elementWidth: 200,
                 elementQty: 1,
                 elementPrice: 100
               },
               {
                 elementId: 89350,
-                elementName: 'Откос гипсокартонный',
+                elementName: $filter('translate')('panels.SLOPE_G'),
                 elementWidth: 200,
                 elementQty: 1,
                 elementPrice: 100
               },
               {
                 elementId: 89351,
-                elementName: 'Откос песчаноцементный',
+                elementName: $filter('translate')('panels.SLOPE_C'),
                 elementWidth: 200,
                 elementQty: 1,
                 elementPrice: 100
@@ -3092,27 +3104,27 @@
         callback(new OkResult({
 
           elementType: [
-            'стандартные'
+            $filter('translate')('panels.STANDART_TYPE')
           ],
           elementsList: [
             [
               {
                 elementId: 89349,
-                elementName: 'Откос пластиковый',
+                elementName: $filter('translate')('panels.SLOPE_P'),
                 elementWidth: 200,
                 elementQty: 1,
                 elementPrice: 100
               },
               {
                 elementId: 89350,
-                elementName: 'Откос гипсокартонный',
+                elementName: $filter('translate')('panels.SLOPE_G'),
                 elementWidth: 200,
                 elementQty: 1,
                 elementPrice: 100
               },
               {
                 elementId: 89351,
-                elementName: 'Откос песчаноцементный',
+                elementName: $filter('translate')('panels.SLOPE_C'),
                 elementWidth: 200,
                 elementQty: 1,
                 elementPrice: 100
@@ -3128,15 +3140,15 @@
         callback(new OkResult({
 
           elementType: [
-            'Стандартные',
-            'оцинкованный',
-            'Матовые'
+            $filter('translate')('panels.STANDART_TYPE'),
+            $filter('translate')('panels.GALVAN_TYPE'),
+            $filter('translate')('panels.MAT_TYPE')
           ],
           elementsList: [
             [
               {
                 elementId: 1,
-                elementName: 'Жалюзи КO-200',
+                elementName: $filter('translate')('add_elements.LOUVERS') + ' КO-200',
                 elementWidth: 700,
                 elementHeight: 700,
                 elementQty: 1,
@@ -3144,7 +3156,7 @@
               },
               {
                 elementId: 2,
-                elementName: 'Жалюзи КO-300, оцинкованный',
+                elementName: $filter('translate')('add_elements.LOUVERS') + ' КO-300',
                 elementWidth: 700,
                 elementHeight: 700,
                 elementQty: 1,
@@ -3154,7 +3166,7 @@
             [
               {
                 elementId: 1,
-                elementName: 'Жалюзи КO-100, оцинкованный',
+                elementName: $filter('translate')('add_elements.LOUVERS') + ' КO-100',
                 elementWidth: 700,
                 elementHeight: 700,
                 elementQty: 1,
@@ -3162,7 +3174,7 @@
               },
               {
                 elementId: 2,
-                elementName: 'Жалюзи КO-300',
+                elementName: $filter('translate')('add_elements.LOUVERS') + ' КO-300',
                 elementWidth: 700,
                 elementHeight: 700,
                 elementQty: 1,
@@ -3172,7 +3184,7 @@
             [
               {
                 elementId: 1,
-                elementName: 'Жалюзи КO-300',
+                elementName: $filter('translate')('add_elements.LOUVERS') + ' КO-300',
                 elementWidth: 700,
                 elementHeight: 700,
                 elementQty: 1,
@@ -3180,7 +3192,7 @@
               },
               {
                 elementId: 2,
-                elementName: 'Жалюзи КO-300',
+                elementName: $filter('translate')('add_elements.LOUVERS') + ' КO-300',
                 elementWidth: 700,
                 elementHeight: 700,
                 elementQty: 1,
@@ -3197,22 +3209,22 @@
         callback(new OkResult({
 
           elementType: [
-            'стандартные',
-            'усиленные',
-            'балконные'
+            $filter('translate')('panels.STANDART_TYPE'),
+            $filter('translate')('panels.FORCED_TYPE'),
+            $filter('translate')('panels.BALCON_TYPE')
           ],
           elementsList: [
             [
               {
                 elementId: 577,
-                elementName: 'Соединитель стандартный 5/10',
+                elementName:  $filter('translate')('panels.CONNECTOR_S') + ' 5/10',
                 elementWidth: 1500,
                 elementQty: 1,
                 elementPrice: 100
               },
               {
                 elementId: 577,
-                elementName: 'Соединитель стандартный 3/10',
+                elementName: $filter('translate')('panels.CONNECTOR_S') + ' 3/10',
                 elementWidth: 1500,
                 elementQty: 1,
                 elementPrice: 100
@@ -3221,7 +3233,7 @@
             [
               {
                 elementId: 577,
-                elementName: 'Соединитель усиленный 5/13',
+                elementName: $filter('translate')('panels.CONNECTOR_F') + ' 5/13',
                 elementWidth: 1500,
                 elementQty: 1,
                 elementPrice: 100
@@ -3230,7 +3242,7 @@
             [
               {
                 elementId: 577,
-                elementName: 'Соединитель балконный 5/13',
+                elementName: $filter('translate')('panels.CONNECTOR_B') + ' 5/13',
                 elementWidth: 1500,
                 elementQty: 1,
                 elementPrice: 100
@@ -3245,7 +3257,7 @@
         callback(new OkResult({
 
           elementType: [
-            'Стандартные',
+            $filter('translate')('panels.STANDART_TYPE'),
             'GECCO',
             'Aereco'
           ],
@@ -3253,13 +3265,13 @@
             [
               {
                 elementId: 1,
-                elementName: 'С-ма прит. вентиляции 4-х ст.',
+                elementName: $filter('translate')('panels.FAN1'),
                 elementQty: 1,
                 elementPrice: 100
               },
               {
                 elementId: 2,
-                elementName: 'С-ма вентиляции 4-х ст.',
+                elementName: $filter('translate')('panels.FAN2'),
                 elementQty: 1,
                 elementPrice: 100
               }
@@ -3267,13 +3279,13 @@
             [
               {
                 elementId: 1,
-                elementName: 'Система приточной вентиляции помещений GECCO',
+                elementName: $filter('translate')('panels.FAN3'),
                 elementQty: 1,
                 elementPrice: 100
               },
               {
                 elementId: 2,
-                elementName: 'GECCO Система вентиляции помещений',
+                elementName: $filter('translate')('panels.FAN4'),
                 elementQty: 1,
                 elementPrice: 100
               }
@@ -3281,7 +3293,7 @@
             [
               {
                 elementId: 1,
-                elementName: 'Aereco С-ма оконной вентиляции',
+                elementName: $filter('translate')('panels.FAN5'),
                 elementQty: 1,
                 elementPrice: 100
               }
@@ -3303,7 +3315,7 @@
             [
               {
                 elementId: 333,
-                elementName: 'LIGNODUR 200 мм белый',
+                elementName: 'LIGNODUR 200' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementHeight: 1500,
                 elementColorId: 'matt',
@@ -3313,7 +3325,7 @@
               },
               {
                 elementId: 334,
-                elementName: 'LIGNODUR 300 мм белый',
+                elementName: 'LIGNODUR 300' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementHeight: 1500,
                 elementColorId: 'matt',
@@ -3323,7 +3335,7 @@
               },
               {
                 elementId: 335,
-                elementName: 'LIGNODUR 400 мм белый',
+                elementName: 'LIGNODUR 400' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementHeight: 1500,
                 elementColorId: 'matt',
@@ -3335,7 +3347,7 @@
             [
               {
                 elementId: 341,
-                elementName: 'ДАНКЕ 100 мм белый матовый',
+                elementName: 'DANKE 100' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementHeight: 1500,
                 elementColorId: 'matt',
@@ -3345,7 +3357,7 @@
               },
               {
                 elementId: 342,
-                elementName: 'ДАНКЕ 300 мм белый матовый',
+                elementName: 'DANKE 300' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementHeight: 1500,
                 elementColorId: 'matt',
@@ -3357,7 +3369,7 @@
             [
               {
                 elementId: 301,
-                elementName: 'OpenTeck 100 мм белый',
+                elementName: 'OpenTeck 100' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementHeight: 1500,
                 elementColorId: 'matt',
@@ -3367,7 +3379,7 @@
               },
               {
                 elementId: 302,
-                elementName: 'OpenTeck 200 мм белый',
+                elementName: 'OpenTeck 200' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementHeight: 1500,
                 elementColorId: 'matt',
@@ -3377,7 +3389,7 @@
               },
               {
                 elementId: 303,
-                elementName: 'OpenTeck 300 мм белый',
+                elementName: 'OpenTeck 300' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementHeight: 1500,
                 elementColorId: 'matt',
@@ -3387,7 +3399,7 @@
               },
               {
                 elementId: 304,
-                elementName: 'OpenTeck 400 мм белый',
+                elementName: 'OpenTeck 400' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementHeight: 1500,
                 elementColorId: 'matt',
@@ -3405,21 +3417,21 @@
         callback(new OkResult({
 
           elementType: [
-            'Стандартные',
+            $filter('translate')('panels.STANDART_TYPE'),
             'HOPPE',
-            'нестандартные'
+            $filter('translate')('panels.NO_STANDART_TYPE')
           ],
           elementsList: [
             [
               {
                 elementId: 586,
-                elementName: 'Ручка оконная белая',
+                elementName:  $filter('translate')('panels.HANDLE1'),
                 elementQty: 1,
                 elementPrice: 100
               },
               {
                 elementId: 587,
-                elementName: 'Ручка оконная с ключом белая',
+                elementName: $filter('translate')('panels.HANDLE2'),
                 elementQty: 1,
                 elementPrice: 100
               }
@@ -3427,13 +3439,13 @@
             [
               {
                 elementId: 588,
-                elementName: 'Ручка HOPPE (Tokyo) белая',
+                elementName: $filter('translate')('panels.HANDLE3'),
                 elementQty: 1,
                 elementPrice: 100
               },
               {
                 elementId: 589,
-                elementName: 'Ручка HOPPE (Tokyo) серебр.',
+                elementName: $filter('translate')('panels.HANDLE4'),
                 elementQty: 1,
                 elementPrice: 100
               }
@@ -3441,7 +3453,7 @@
             [
               {
                 elementId: 586,
-                elementName: 'Ручка нестандартная',
+                elementName: $filter('translate')('panels.HANDLE5'),
                 elementQty: 1,
                 elementPrice: 100
               }
@@ -3456,27 +3468,27 @@
         callback(new OkResult({
 
           elementType: [
-            'стандартные',
-            'усиленные',
-            'балконные'
+            $filter('translate')('panels.STANDART_TYPE'),
+            $filter('translate')('panels.FORCED_TYPE'),
+            $filter('translate')('panels.BALCON_TYPE')
           ],
           elementsList: [
             [
               {
                 elementId: 1,
-                elementName: 'Армирование квадрат 40х40',
+                elementName: $filter('translate')('panels.OTHER1') + ' 40х40',
                 elementQty: 1,
                 elementPrice: 100
               },
               {
                 elementId: 2,
-                elementName: 'Штифт верхней петли',
+                elementName: $filter('translate')('panels.OTHER2'),
                 elementQty: 1,
                 elementPrice: 100
               },
               {
                 elementId: 3,
-                elementName: 'П-О запор NT константный 170 (481-600), KS',
+                elementName: $filter('translate')('panels.OTHER3') + ' 170 (481-600), KS',
                 elementQty: 1,
                 elementPrice: 100
               }
@@ -3484,13 +3496,13 @@
             [
               {
                 elementId: 1,
-                elementName: 'Армирующий профиль 15х30',
+                elementName: $filter('translate')('panels.OTHER4') + ' 15х30',
                 elementQty: 1,
                 elementPrice: 100
               },
               {
                 elementId: 2,
-                elementName: 'Нижняя петля на раме K3/100',
+                elementName: $filter('translate')('panels.OTHER5') + ' K3/100',
                 elementQty: 1,
                 elementPrice: 100
               }
@@ -3498,7 +3510,7 @@
             [
               {
                 elementId: 1,
-                elementName: 'Поворотная петля Komfort 12/20-13 левая',
+                elementName: $filter('translate')('panels.OTHER6'),
                 elementQty: 1,
                 elementPrice: 100
               }
@@ -3511,57 +3523,49 @@
       getLaminationAddElements: function (callback) {
         callback(new OkResult({
           laminationWhiteMatt: {
-            laminationName: 'Белый',
-            laminationLabel: 'матовый',
+            laminationName: $filter('translate')('panels.LAM_WHITE'),
+            laminationLabel: $filter('translate')('panels.LAM_MAT'),
             laminationUrl: 'img/lamination/empty.png'
           },
           laminationWhiteGlossy: {
-            laminationName: 'Белый',
-            laminationLabel: 'глянцевый',
+            laminationName: $filter('translate')('panels.LAM_WHITE'),
+            laminationLabel: $filter('translate')('panels.LAM_GLOSSY'),
             laminationUrl: 'img/lamination/empty.png'
           },
           laminations: [
             {
               laminationId: 1,
-              laminationName: 'светлый дуб',
+              laminationName: $filter('translate')('panels.LAM_LIGHT_OAK'),
               laminationUrl: 'img/lamination/343551.png',
               laminationPrice: 100
             },
             {
               laminationId: 2,
-              laminationName: 'золотой дуб',
+              laminationName: $filter('translate')('panels.LAM_GOLD_OAK'),
               laminationUrl: 'img/lamination/343552.png',
               laminationPrice: 100
             },
             {
               laminationId: 3,
-              laminationName: 'береза',
+              laminationName: $filter('translate')('panels.LAM_BIRCH'),
               laminationUrl: 'img/lamination/343553.png',
               laminationPrice: 100
             },
             {
               laminationId: 4,
-              laminationName: 'махагон',
+              laminationName: $filter('translate')('panels.LAM_MAHAGON'),
               laminationUrl: 'img/lamination/343554.png',
               laminationPrice: 100
             },
             {
               laminationId: 5,
-              laminationName: 'сосна',
+              laminationName: $filter('translate')('panels.LAM_PINE'),
               laminationUrl: 'img/lamination/343555.png',
               laminationPrice: 100
             }
           ]
         }));
       },
-
-      // TODO: Сервис готов
-      getConstructNoteText: function (callback) {
-        callback(new OkResult({
-          note: 'Срочный заказ'
-        }));
-      },
-
 
 
       getFloorPrice: function (callback) {
@@ -3598,15 +3602,15 @@
 
           assembling: [
             {
-              name: 'без демонтажа',
+              name: $filter('translate')('cart.NO_DISASSEMBL'),
               price: 200
             },
             {
-              name: 'стандартный',
+              name: $filter('translate')('cart.STANDART_ASSEMBL'),
               price: 300
             },
             {
-              name: 'VIP-монтаж',
+              name: $filter('translate')('cart.VIP_ASSEMBL'),
               price: 400
             }
           ]
@@ -3643,73 +3647,31 @@
         }));
       },
 
-      //TODO delete!!!!!!!
-      getLocations: function (callback) {
-        callback(new OkResult({
-
-          locations: [
-            {
-              current: true,
-              city: 'Днепропетровск'
-            },
-            {
-              current: false,
-              city: 'Ивано-Франковск'
-            },
-            {
-              current: false,
-              city: 'Кировоград'
-            },
-            {
-              current: false,
-              city: 'Львов'
-            },
-            {
-              current: false,
-              city: 'Владимир-Волынский'
-            },
-            {
-              current: false,
-              city: 'Корсунь-Шевченковский'
-            },
-            {
-              current: false,
-              city: 'Днепродзержинск'
-            },
-            {
-              current: false,
-              city: 'Каменец-Подольский'
-            }
-          ]
-
-        }));
-      },
-
       getDoorConfig: function (callback) {
         callback(new OkResult({
 
           doorType: [
             {
               shapeId: 1,
-              shapeLabel: 'по периметру',
+              shapeLabel: $filter('translate')('panels.DOOR_TYPE1'),
               shapeIcon: 'img/door-config/doorstep.png',
               shapeIconSelect: 'img/door-config-selected/doorstep.png'
             },
             {
               shapeId: 2,
-              shapeLabel: 'без порога',
+              shapeLabel: $filter('translate')('panels.DOOR_TYPE2'),
               shapeIcon: 'img/door-config/no-doorstep.png',
               shapeIconSelect: 'img/door-config-selected/no-doorstep.png'
             },
             {
               shapeId: 3,
-              shapeLabel: 'алюминевый порог, тип1',
+              shapeLabel: $filter('translate')('panels.DOOR_TYPE3') + '1',
               shapeIcon: 'img/door-config/doorstep-al1.png',
               shapeIconSelect: 'img/door-config-selected/doorstep-al1.png'
             },
             {
               shapeId: 4,
-              shapeLabel: 'алюминевый порог, тип2',
+              shapeLabel: $filter('translate')('panels.DOOR_TYPE3')+ '2',
               shapeIcon: 'img/door-config/doorstep-al2.png',
               shapeIconSelect: 'img/door-config-selected/doorstep-al2.png'
             }
@@ -3718,28 +3680,28 @@
           sashType: [
             {
               shapeId: 1,
-              shapeLabel: 'межкомнатная, 98мм'
+              shapeLabel: $filter('translate')('panels.SASH_TYPE1') + ', 98' + $filter('translate')('mainpage.MM')
             },
             {
               shapeId: 2,
-              shapeLabel: 'дверная т-образная, 116мм'
+              shapeLabel: $filter('translate')('panels.SASH_TYPE2') + ', 116' + $filter('translate')('mainpage.MM')
             },
             {
               shapeId: 3,
-              shapeLabel: 'оконная, 76мм'
+              shapeLabel: $filter('translate')('panels.SASH_TYPE3') +', 76' + $filter('translate')('mainpage.MM')
             }
           ],
 
           handleType: [
             {
               shapeId: 1,
-              shapeLabel: 'нажимной гарнитур',
+              shapeLabel: $filter('translate')('panels.HANDLE_TYPE1'),
               shapeIcon: 'img/door-config/lever-handle.png',
               shapeIconSelect: 'img/door-config-selected/lever-handle.png'
             },
             {
               shapeId: 2,
-              shapeLabel: 'стандартная офисная ручка',
+              shapeLabel: $filter('translate')('panels.HANDLE_TYPE2'),
               shapeIcon: 'img/door-config/standart-handle.png',
               shapeIconSelect: 'img/door-config-selected/standart-handle.png'
             }
@@ -3748,13 +3710,13 @@
           lockType: [
             {
               shapeId: 1,
-              shapeLabel: 'однозапорный с защелкой',
+              shapeLabel: $filter('translate')('panels.LOCK_TYPE1'),
               shapeIcon: 'img/door-config/onelock.png',
               shapeIconSelect: 'img/door-config-selected/onelock.png'
             },
             {
               shapeId: 2,
-              shapeLabel: 'многозапорный с защелкой',
+              shapeLabel: $filter('translate')('panels.LOCK_TYPE2'),
               shapeIcon: 'img/door-config/multilock.png',
               shapeIconSelect: 'img/door-config-selected/multilock.png'
             }
@@ -3763,6 +3725,8 @@
 
         }));
       }
+
+
 
     }
 

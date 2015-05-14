@@ -10,7 +10,7 @@
     .module('MainModule')
     .controller('sizeCalculatorCtrl', sizeCalcCtrl);
 
-  function sizeCalcCtrl(GlobalStor, DesignStor, AddElementMenuServ) {
+  function sizeCalcCtrl(GlobalStor, DesignStor, AddElementMenuServ, DesignServ) {
 
     var thisCtrl = this;
     thisCtrl.isDesignPage = false;
@@ -29,6 +29,9 @@
     //------ for Design Page
     } else {
       thisCtrl.isDesignPage = true;
+      thisCtrl.setValueSize = DesignServ.setValueSize;
+      thisCtrl.deleteLastNumber = DesignServ.deleteLastNumber;
+      thisCtrl.closeSizeCaclulator = DesignServ.closeSizeCaclulator;
     }
 
 

@@ -28,36 +28,36 @@ section.construction-page
       .construction-scrollbox
         svg-template(template="designPage.D.design.templateTEMP", template-width="designPage.constants.svgTemplateWidth", template-height="designPage.constants.svgTemplateHeight", type-construction="edit")
 
-    #sash-shape-menu.constr-shape-menu(ng-show="constructData.isSashEdit && constructData.isSashEditMenu")
+    #sash-shape-menu.constr-shape-menu(ng-show="designPage.config.isSashEdit && designPage.config.isSashEditMenu")
       ul.constr-shape-list
-        li.constr-shape-icon.sash-empty(ng-hide="global.isConstructDoor", hm-tap="insertNewSash('empty')")
-        li.constr-shape-icon.sash-left(hm-tap="insertNewSash('left')")
-        li.constr-shape-icon.sash-right(hm-tap="insertNewSash('right')")
-        li.constr-shape-icon.sash-up(hm-tap="insertNewSash('up')")
-        li.constr-shape-icon.sash-down(hm-tap="insertNewSash('down')")
-        li.constr-shape-icon.sash-right-up(hm-tap="insertNewSash('up', 'right')")
-        li.constr-shape-icon.sash-left-up(hm-tap="insertNewSash('up', 'left')")
+        li.constr-shape-icon.sash-empty(ng-hide="designPage.P.product.constructionType === 4", hm-tap="designPage.insertNewSash('empty')")
+        li.constr-shape-icon.sash-left(hm-tap="designPage.insertNewSash('left')")
+        li.constr-shape-icon.sash-right(hm-tap="designPage.insertNewSash('right')")
+        li.constr-shape-icon.sash-up(hm-tap="designPage.insertNewSash('up')")
+        li.constr-shape-icon.sash-down(hm-tap="designPage.insertNewSash('down')")
+        li.constr-shape-icon.sash-right-up(hm-tap="designPage.insertNewSash('up', 'right')")
+        li.constr-shape-icon.sash-left-up(hm-tap="designPage.insertNewSash('up', 'left')")
 
-    #impost-shape-menu.constr-shape-menu(ng-show="constructData.isImpostEdit && constructData.isImpostEditMenu")
+    #impost-shape-menu.constr-shape-menu(ng-show="designPage.config.isImpostEdit && designPage.config.isImpostEditMenu")
       ul.constr-shape-list
-        li.constr-shape-icon.impost-vert(hm-tap="insertNewImpost('vert')")
-        li.constr-shape-icon.impost-hor(hm-tap="insertNewImpost('horis')")
+        li.constr-shape-icon.impost-vert(hm-tap="designPage.insertNewImpost('vert')")
+        li.constr-shape-icon.impost-hor(hm-tap="designPage.insertNewImpost('horis')")
 
     .construction-right-menu
       .right-menu-header
-        button.construct-tools.save-construction(hm-tap="gotoMainPageSaved()")
-        button.construct-tools.close-construction(hm-tap="gotoMainPageCancel()")
+        button.construct-tools.save-construction(hm-tap="designPage.designSaved()")
+        button.construct-tools.close-construction(hm-tap="designPage.designCancel()")
 
-      .door-config-menu(ng-show="global.isConstructDoor")
-        button.door-config-btn(ng-class="{'active': designPage.config.isDoorConfig}", hm-tap="getDoorConfig()")
+      .door-config-menu(ng-show="designPage.P.product.constructionType === 4")
+        button.door-config-btn(ng-class="{'active': designPage.config.isDoorConfig}", hm-tap="designPage.toggleDoorConfig()")
         .door-config-label {{ 'construction.DOOR_CONFIG_LABEL' | translate }}
-        .door-config-description {{ 'construction.DOOR_CONFIG_DESCTIPT' | translate }}: {{ constructData.doorShape }};
-        .door-config-description {{ 'construction.SASH_CONFIG_DESCTIPT' | translate }}: {{ constructData.sashShape }};
-        .door-config-description {{ 'construction.HANDLE_CONFIG_DESCTIPT' | translate }}: {{ constructData.handleShape }};
-        .door-config-description {{ 'construction.LOCK_CONFIG_DESCTIPT' | translate }}: {{ constructData.lockShape }};
+        .door-config-description {{ 'construction.DOOR_CONFIG_DESCTIPT' | translate }}: {{ designPage.D.design.doorShapeList[designPage.D.design.doorConfig.doorShapeIndex].shapeLabel }};
+        .door-config-description {{ 'construction.SASH_CONFIG_DESCTIPT' | translate }}: {{ designPage.D.design.sashShapeList[designPage.D.design.doorConfig.sashShapeIndex].shapeLabel }};
+        .door-config-description {{ 'construction.HANDLE_CONFIG_DESCTIPT' | translate }}: {{ designPage.D.design.handleShapeList[designPage.D.design.doorConfig.handleShapeIndex].shapeLabel }};
+        .door-config-description {{ 'construction.LOCK_CONFIG_DESCTIPT' | translate }}: {{ designPage.D.design.lockShapeList[designPage.D.design.doorConfig.lockShapeIndex].shapeLabel }};
 
       .right-menu-footer
-        .size-calculator(ng-class="{'active': global.isConstructSizeCalculator}")
+        .size-calculator(ng-class="{'active': designPage.G.global.isSizeCalculator}")
           include parts/_size-calculator
         include parts/_voice
 
@@ -70,61 +70,61 @@ section.construction-page
           .door-inner
             .door-title 1 {{ 'construction.STEP' | translate }}
             .door-subtitle {{ 'construction.LABEL_DOOR_TYPE' | translate }}
-        .door-config-content(ng-class="{'scroll-box': !constructData.selectedStep2}")
+        .door-config-content(ng-class="{'scroll-box': !designPage.config.selectedStep2}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="door in doorShape", ng-class="{'selected': constructData.selectedDoorShape === $index}", hm-tap="selectDoor($index, door.shapeLabel)")
+            li.door-config-option(ng-repeat="door in designPage.D.design.doorShapeList", ng-class="{'selected': designPage.D.design.doorConfig.doorShapeIndex === $index}", hm-tap="designPage.selectDoor($index)")
               .door-inner
                 .door-option-icon
-                  img.door-shape(ng-src="{{ door.shapeIcon }}" ng-hide="constructData.selectedDoorShape === $index")
-                  img.door-shape(ng-src="{{ door.shapeIconSelect }}", ng-show="constructData.selectedDoorShape === $index")
+                  img.door-shape(ng-src="{{ door.shapeIcon }}" ng-hide="designPage.D.design.doorConfig.doorShapeIndex === $index")
+                  img.door-shape(ng-src="{{ door.shapeIconSelect }}", ng-show="designPage.D.design.doorConfig.doorShapeIndex === $index")
                 .door-option-label {{ door.shapeLabel }}
-              .selected-item-arrow(ng-show="constructData.selectedDoorShape === $index")
+              .selected-item-arrow(ng-show="designPage.D.design.doorConfig.doorShapeIndex === $index")
 
-      .door-config-column.step2(ng-class="{'active': constructData.selectedStep1}")
+      .door-config-column.step2(ng-class="{'active': designPage.config.selectedStep1}")
         .door-config-backfon
         .door-config-header
           .door-inner
             .door-title 2 {{ 'construction.STEP' | translate }}
             .door-subtitle {{ 'construction.LABEL_SASH_TYPE' | translate }}
-        .door-config-content(ng-class="{'scroll-box': !constructData.selectedStep3}")
+        .door-config-content(ng-class="{'scroll-box': !designPage.config.selectedStep3}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="sash in sashShape", ng-class="{'selected': constructData.selectedSashShape === $index}", hm-tap="selectSash($index, sash.shapeLabel)")
+            li.door-config-option(ng-repeat="sash in designPage.D.design.sashShapeList", ng-class="{'selected': designPage.D.design.doorConfig.sashShapeIndex === $index}", hm-tap="designPage.selectSash($index)")
               .door-inner
                 .door-option-label {{ sash.shapeLabel }}
-              .selected-item-arrow(ng-show="constructData.selectedSashShape === $index")
+              .selected-item-arrow(ng-show="designPage.D.design.doorConfig.sashShapeIndex === $index")
 
-      .door-config-column.step3(ng-class="{'active': constructData.selectedStep2}")
+      .door-config-column.step3(ng-class="{'active': designPage.config.selectedStep2}")
         .door-config-backfon
         .door-config-header
           .door-inner
             .door-title 3 {{ 'construction.STEP' | translate }}
             .door-subtitle {{ 'construction.LABEL_HANDLE_TYPE' | translate }}
-        .door-config-content(ng-class="{'scroll-box': !constructData.selectedStep4}")
+        .door-config-content(ng-class="{'scroll-box': !designPage.config.selectedStep4}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="handle in handleShape", ng-class="{'selected': constructData.selectedHandleShape === $index}", hm-tap="selectHandle($index, handle.shapeLabel)")
+            li.door-config-option(ng-repeat="handle in designPage.D.design.handleShapeList", ng-class="{'selected': designPage.D.design.doorConfig.handleShapeIndex === $index}", hm-tap="designPage.selectHandle($index)")
               .door-inner
                 .door-option-icon
-                  img.door-hardware(ng-src="{{ handle.shapeIcon }}" ng-hide="constructData.selectedHandleShape === $index")
-                  img.door-hardware(ng-src="{{ handle.shapeIconSelect }}", ng-show="constructData.selectedHandleShape === $index")
+                  img.door-hardware(ng-src="{{ handle.shapeIcon }}" ng-hide="designPage.D.design.doorConfig.handleShapeIndex === $index")
+                  img.door-hardware(ng-src="{{ handle.shapeIconSelect }}", ng-show="designPage.D.design.doorConfig.handleShapeIndex === $index")
                 .door-option-label {{ handle.shapeLabel }}
-              .selected-item-arrow(ng-show="constructData.selectedHandleShape === $index")
+              .selected-item-arrow(ng-show="designPage.D.design.doorConfig.handleShapeIndex === $index")
 
-      .door-config-column.step4(ng-class="{'active': constructData.selectedStep3}")
+      .door-config-column.step4(ng-class="{'active': designPage.config.selectedStep3}")
         .door-config-backfon
         .door-config-header
           .door-inner
             .door-title 4 {{ 'construction.STEP' | translate }}
             .door-subtitle {{ 'construction.LABEL_LOCK_TYPE' | translate }}
-        .door-config-content(ng-class="{'scroll-box': constructData.selectedStep3}")
+        .door-config-content(ng-class="{'scroll-box': designPage.config.selectedStep3}")
           ul.door-config-list
-            li.door-config-option(ng-repeat="lock in lockShape", ng-class="{'selected': constructData.selectedLockShape === $index}", hm-tap="selectLock($index, lock.shapeLabel)")
+            li.door-config-option(ng-repeat="lock in designPage.D.design.lockShapeList", ng-class="{'selected': designPage.D.design.doorConfig.lockShapeIndex === $index}", hm-tap="designPage.selectLock($index)")
               .door-inner
                 .door-option-icon
-                  img.door-hardware(ng-src="{{ lock.shapeIcon }}" ng-hide="constructData.selectedLockShape === $index")
-                  img.door-hardware(ng-src="{{ lock.shapeIconSelect }}", ng-show="constructData.selectedLockShape === $index")
+                  img.door-hardware(ng-src="{{ lock.shapeIcon }}" ng-hide="designPage.D.design.doorConfig.lockShapeIndex === $index")
+                  img.door-hardware(ng-src="{{ lock.shapeIconSelect }}", ng-show="designPage.D.design.doorConfig.lockShapeIndex === $index")
                 .door-option-label {{ lock.shapeLabel }}
-              .selected-item-arrow(ng-show="constructData.selectedLockShape === $index")
+              .selected-item-arrow(ng-show="designPage.D.design.doorConfig.lockShapeIndex === $index")
 
       .door-config-tools
-        button.door-config-btn.close-door-config(hm-tap="closeDoorConfig()")
-        button.door-config-btn.save-door-config(ng-show="constructData.selectedStep4", hm-tap="saveDoorConfig()")
+        button.door-config-btn.close-door-config(hm-tap="designPage.closeDoorConfig()")
+        button.door-config-btn.save-door-config(ng-show="designPage.config.selectedStep4", hm-tap="designPage.saveDoorConfig()")

@@ -113,21 +113,10 @@
     }
 
 
-
-
-
-
-
     function gotoConstructionPage() {
-      $location.path('/construction');
+      $location.path('/design');
     }
 
-
-
-//    //-------- change price if template was changed
-//    if(GlobalStor.global.isChangedTemplate) {
-//      $scope.global.createObjXFormedPrice($scope.global.product.templateDefault, $scope.global.product.profileIndex, $scope.global.product.profileId, $scope.global.product.glassId, $scope.global.product.hardwareId);
-//    }
 
   }
 })();

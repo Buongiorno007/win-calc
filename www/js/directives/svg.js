@@ -78,7 +78,11 @@
   */
         function buildTemplateSVG(template, canvasWidth, canvasHeight) {
           //console.log('template ======', template);
-          var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"), draw = SVG(svg).size(canvasWidth, canvasHeight), sizeClass = 'size-box', sizeEditClass = 'size-box-edited', elementsSVG = {
+          var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"),
+              draw = SVG(svg).size(canvasWidth, canvasHeight),
+              sizeClass = 'size-box',
+              sizeEditClass = 'size-box-edited',
+              elementsSVG = {
                 frames: [],
                 glasses: [],
                 imposts: [],
@@ -101,6 +105,8 @@
               dimLineHeight = 150, dimMarginBottom = -20, dimEdger = 50,
 
               sizeBoxWidth = 160, sizeBoxHeight = 70, sizeBoxRadius = 20, sizeBoxMarginBottom = 50;
+
+          console.log('++++++template++++++', template);
 
           if(template && !$.isEmptyObject(template)) {
 
