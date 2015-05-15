@@ -49,7 +49,7 @@ var FixedPoint = function (sourceObj) {
   this.x = sourceObj.x;
   this.y = sourceObj.y;
 };
-FixedPoint.prototype = FrameObject;
+//FixedPoint.prototype = FrameObject;
 
 //-----------LineObject-------------------
 var LineObject = function (sourceObj) {
@@ -77,14 +77,14 @@ var LineObject = function (sourceObj) {
     this.coefC = (x1*y2 - x2*y1);
   }
 };
-LineObject.prototype = FrameObject;
+//LineObject.prototype = FrameObject;
 
 //-----------FrameLine-------------------
 var FrameLine = function (sourceObj) {
   LineObject.call(this, sourceObj);
   this.sill = sourceObj.sill;
 };
-FrameLine.prototype = LineObject;
+//FrameLine.prototype = LineObject;
 
 //-----------CrossPoint-------------------
 var CrossPoint = function (sourceObj, depthSource) {
@@ -122,7 +122,7 @@ var CrossPoint = function (sourceObj, depthSource) {
     this.y = baseY / base;
   };
 };
-CrossPoint.prototype = FrameObject;
+//CrossPoint.prototype = FrameObject;
 
 
 
@@ -276,7 +276,7 @@ var CPoint= function (sourceObj, depthSource, coeffScale) {
     this.y = baseY / base;
   };
 };
-CPoint.prototype = FrameObject;
+//CPoint.prototype = FrameObject;
 
 
 
@@ -295,7 +295,7 @@ var Frame = function (sourceObj) {
   };
 
 };
-Frame.prototype = FrameObject;
+//Frame.prototype = FrameObject;
 
 //-----------Sash Object-------------------
 var Sash = function (sourceObj) {
@@ -317,7 +317,7 @@ var Sash = function (sourceObj) {
   };
 
 };
-Sash.prototype = FrameObject;
+//Sash.prototype = FrameObject;
 
 
 //-----------SashBlock Object-------------------
@@ -334,7 +334,7 @@ var SashBlock = function (sourceObj) {
     }
   };
 };
-SashBlock.prototype = FrameObject;
+//SashBlock.prototype = FrameObject;
 
 
 //-----------Glass Object-------------------
@@ -354,7 +354,7 @@ var Glass = function (sourceObj) {
 
   };
 };
-Glass.prototype = FrameObject;
+//Glass.prototype = FrameObject;
 
 //-----------Dimension-------------------
 var Dimension = function (sourceObj) {
@@ -373,7 +373,7 @@ var Dimension = function (sourceObj) {
 
 };
 //Dimension.prototype = FrameObject;
-FrameLine.prototype = LineObject;
+//FrameLine.prototype = LineObject;
 
 //-----------Square-------------------
 var Square = function (sourceObj) {
@@ -398,28 +398,10 @@ var Square = function (sourceObj) {
     }
   }
 };
-Square.prototype = FrameObject;
+//Square.prototype = FrameObject;
 
 
-function sortingCoordin(dimentions, coordinates, typeDim, levelDim, limit, classSize) {
-  var dimPadding = (limit + 200) || 200,
-      maxDimFrame = 5000,
-      dimension;
-  for(var d = 0; d < coordinates.length; d++) {
-    if((d+1) < coordinates.length) {
-      if(coordinates[d+2]) {
-        dimension = {type: typeDim, from: coordinates[d], to: coordinates[d+1], level: levelDim, minDim: (coordinates[d] + dimPadding), maxDim: (coordinates[d+2] - dimPadding)};
-      } else {
-        if(limit) {
-          dimension = {id: classSize, type: typeDim, from: coordinates[d], to: coordinates[d+1], level: levelDim, minDim: (coordinates[d] + dimPadding), maxDim: maxDimFrame};
-        } else {
-          dimension = {type: typeDim, from: coordinates[d], to: coordinates[d+1], level: levelDim, minDim: (coordinates[d] + dimPadding), maxDim: maxDimFrame};
-        }
-      }
-      dimentions.push(dimension);
-    }
-  }
-}
+
 
 function createDimentions(sourceObj) {
   var frameXArr = [],
@@ -497,7 +479,25 @@ function createDimentions(sourceObj) {
 }
 
 
-
+function sortingCoordin(dimentions, coordinates, typeDim, levelDim, limit, classSize) {
+  var dimPadding = (limit + 200) || 200,
+      maxDimFrame = 5000,
+      dimension;
+  for(var d = 0; d < coordinates.length; d++) {
+    if((d+1) < coordinates.length) {
+      if(coordinates[d+2]) {
+        dimension = {type: typeDim, from: coordinates[d], to: coordinates[d+1], level: levelDim, minDim: (coordinates[d] + dimPadding), maxDim: (coordinates[d+2] - dimPadding)};
+      } else {
+        if(limit) {
+          dimension = {id: classSize, type: typeDim, from: coordinates[d], to: coordinates[d+1], level: levelDim, minDim: (coordinates[d] + dimPadding), maxDim: maxDimFrame};
+        } else {
+          dimension = {type: typeDim, from: coordinates[d], to: coordinates[d+1], level: levelDim, minDim: (coordinates[d] + dimPadding), maxDim: maxDimFrame};
+        }
+      }
+      dimentions.push(dimension);
+    }
+  }
+}
 
 
 //////////////////////////////////////////////////
@@ -543,7 +543,7 @@ function buildFrames(sourceObj, depths) {
     console.log('f 2== ', f);
   }
 
-};
+}
 
 //----- create fixed points of corners
 function setFixedPointCorners(sourceObj) {
@@ -587,8 +587,9 @@ var Template = function (sourceObj, depths) {
   this.objects = [];
   this.dimentions = createDimentions(sourceObj);
 //////////////////////
-  sourceObj.objects.push({'type':'fixed_point', id:'fp_corner1_1', x:20, y:0});
+  //sourceObj.objects.push({'type':'fixed_point', id:'fp_corner1_1', x:20, y:0});
   buildFrames(sourceObj, depths);
+  setFixedPointCorners(sourceObj);
 ///////////////////////
   var tmpObject,
       coeffScale = 1;
