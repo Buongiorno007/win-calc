@@ -202,131 +202,7 @@
                   glass.id = template.objects[i].id;
                   elementsSVG.glasses.push(glass);
                   break;
-                /*
-                 case 'dimensionsH':
-                 var dim = {},
-                 height = template.objects[i].height * template.objects[i].level,
-                 heightSizeLine = height;
-                 dim.lines = [];
 
-                 if(template.objects[i].side === 'top') {
-                 if(+template.objects[i].level > 1) {
-                 heightSizeLine = template.objects[i].height * template.objects[i].level/1.5;
-                 edgeTop = heightSizeLine * 2;
-                 }
-
-                 dim.lines[0] = template.objects[i].fromPoint.x  + ' ' +
-                 template.objects[i].fromPoint.y  + ' ' +
-                 template.objects[i].fromPoint.x  + ' ' +
-                 (template.objects[i].fromPoint.y -  heightSizeLine);
-                 dim.lines[1] = template.objects[i].fromPoint.x  + ' ' +
-                 (template.objects[i].fromPoint.y -  height / 2) + ' ' +
-                 template.objects[i].toPoint.x   + ' ' +
-                 (template.objects[i].fromPoint.y -  height / 2);
-                 dim.lines[2] = template.objects[i].toPoint.x   + ' ' +
-                 (template.objects[i].toPoint.y -  heightSizeLine) + ' ' +
-                 template.objects[i].toPoint.x   + ' ' +
-                 template.objects[i].toPoint.y;
-
-                 dim.textY = (-heightSizeLine);
-
-                 } else if(template.objects[i].side === 'bottom') {
-                 dim.lines[0] = template.objects[i].fromPoint.x  + ' ' +
-                 template.objects[i].fromPoint.y  + ' ' +
-                 template.objects[i].fromPoint.x  + ' ' +
-                 (+template.objects[i].fromPoint.y +  height);
-                 dim.lines[1] = template.objects[i].fromPoint.x  + ' ' +
-                 (+template.objects[i].fromPoint.y +  height / 2) + ' ' +
-                 template.objects[i].toPoint.x   + ' ' +
-                 (+template.objects[i].fromPoint.y +  height / 2);
-                 dim.lines[2] = template.objects[i].toPoint.x   + ' ' +
-                 (+template.objects[i].toPoint.y +  height) + ' ' +
-                 template.objects[i].toPoint.x   + ' ' +
-                 template.objects[i].toPoint.y;
-
-                 dim.textY = (+template.objects[i].toPoint.y + height * 1.5);
-                 }
-
-                 dim.lengthVal =  template.objects[i].lengthVal;
-                 dim.textX = + template.objects[i].fromPoint.x + (template.objects[i].lengthVal / 2);
-                 dim.id = template.objects[i].id;
-                 dim.sizeType = template.objects[i].type;
-                 if(template.objects[i].limits) {
-                 dim.limits = template.objects[i].limits;
-                 }
-                 elementsSVG.dimensionsH.push(dim);
-
-                 //-------- scale svg
-                 if (template.objects[i].id === 'overallDimH') {
-                 if(scope.typeConstruction !== 'icon' && scope.typeConstruction !== 'bigIcon') {
-                 canvasWidth = template.objects[i].lengthVal + edgeLeft;
-                 overallDimH = canvasWidth / coefScaleW;
-                 }
-                 }
-                 break;
-
-                 case 'dimensionsV':
-                 var dim = {},
-                 height = template.objects[i].height * template.objects[i].level;
-                 dim.lines = [];
-
-                 if(template.objects[i].side === 'right') {
-                 dim.lines[0] = template.objects[i].fromPoint.x  + ' ' +
-                 template.objects[i].fromPoint.y  + ' ' +
-                 (+template.objects[i].fromPoint.x +  height) + ' ' +
-                 template.objects[i].fromPoint.y;
-                 dim.lines[1] = (+template.objects[i].fromPoint.x +  height / 2) + ' ' +
-                 template.objects[i].fromPoint.y + ' ' +
-                 (+template.objects[i].toPoint.x  +  height / 2) + ' ' +
-                 template.objects[i].toPoint.y;
-                 dim.lines[2] = template.objects[i].toPoint.x  + ' ' +
-                 template.objects[i].toPoint.y + ' ' +
-                 (+template.objects[i].toPoint.x +  height) + ' ' +
-                 template.objects[i].toPoint.y;
-
-                 dim.textX = (+template.objects[i].toPoint.x + height * 2);
-                 } else if(template.objects[i].side === 'left') {
-                 dim.lines[0] = template.objects[i].fromPoint.x  + ' ' +
-                 template.objects[i].fromPoint.y  + ' ' +
-                 (template.objects[i].fromPoint.x -  height) + ' ' +
-                 template.objects[i].fromPoint.y;
-                 dim.lines[1] = (template.objects[i].fromPoint.x -  height / 2) + ' ' +
-                 template.objects[i].fromPoint.y + ' ' +
-                 (template.objects[i].toPoint.x  -  height / 2) + ' ' +
-                 template.objects[i].toPoint.y;
-                 dim.lines[2] = template.objects[i].toPoint.x  + ' ' +
-                 template.objects[i].toPoint.y + ' ' +
-                 (template.objects[i].toPoint.x -  height) + ' ' +
-                 template.objects[i].toPoint.y;
-
-                 dim.textX = (-height);
-                 if(+template.objects[i].level > 1) {
-                 edgeLeft = height * 2;
-                 //console.log('edgeLeft = '+edgeLeft);
-                 }
-
-                 }
-
-                 dim.lengthVal =  template.objects[i].lengthVal;
-                 dim.textY = (template.objects[i].lengthVal / 2);
-                 dim.id = template.objects[i].id;
-                 dim.sizeType = template.objects[i].type;
-                 if(template.objects[i].limits) {
-                 dim.limits = template.objects[i].limits;
-                 }
-                 elementsSVG.dimensionsV.push(dim);
-
-                 //-------- scale svg
-                 if (template.objects[i].id === 'overallDimV') {
-                 if(scope.typeConstruction !== 'icon' && scope.typeConstruction !== 'bigIcon') {
-                 canvasHeight = template.objects[i].lengthVal + edgeTop;
-                 overallDimV = canvasHeight / coefScaleH;
-                 //canvasHeight += edgeTop;
-                 }
-                 }
-
-                 break;
-                 */
               }
             }
 
@@ -454,20 +330,7 @@
 
                 case 'dimensionsH':
                 case 'dimensionsV':
-  /*
-                  if(scope.typeConstruction === 'icon') {
-                    if (prop === 'dimensionsV') {
-                      if (elementsSVG[prop][elem].id === 'overallDimV') {
-                        overallDimV = elementsSVG[prop][elem].lengthVal;
-                      }
-                    } else {
-                      if (elementsSVG[prop][elem].id === 'overallDimH') {
-                        overallDimH = elementsSVG[prop][elem].lengthVal;
-                      }
-                    }
-                    edgeTop = edgeLeft = 0;
-                  } else {
-                    */
+
                   if(scope.typeConstruction !== 'icon') {
                     //---- draw dimension lines
                     for(var l = 0; l < elementsSVG[prop][elem].lines.length; l++) {
@@ -538,86 +401,18 @@
                       if(elementsSVG[prop][elem].id) {
                         sizeText.attr('id', elementsSVG[prop][elem].id);
                       }
-                      /*
-                      if(prop === 'dimensionsV') {
-                        sizeText.attr('class', 'size-value-vertical');
-                      } else {
-                        sizeText.attr('class', 'size-value');
-                      }
-                      */
+
                       sizeText.attr('class', 'size-value');
                     }
 
 
-                    /*
-                     if(prop === 'dimensionsV') {
-                     sizeText.attr({id: elementsSVG[prop][elem].id});
-                     } else {
-                     sizeText.attr({id: elementsSVG[prop][elem].id});
-                     }
 
-                    //sizeText.attr({id: elementsSVG[prop][elem].id});
-                    //sizeText.attr({limits: elementsSVG[prop][elem].limits});
-                    //sizeText.attr({type: elementsSVG[prop][elem].sizeType});
-
-                    if(scope.typeConstruction === 'edit') { //----- if construction is editible
-                      if(prop === 'dimensionsV') {
-                        sizeText.attr('class', 'size-value-edit-vertical');
-                      } else {
-                        sizeText.attr('class', 'size-value-edit');
-                      }
-                    } else {
-                      if(prop === 'dimensionsV') {
-                        sizeText.attr('class', 'size-value-vertical');
-                      } else {
-                        sizeText.attr('class', 'size-value');
-                      }
-                    }
-
-                    // Click on size
-
-                    groupTxt.click(function() {
-                      if(scope.typeConstruction === 'edit' && !scope.$parent.global.isConstructSizeCalculator) {
-                        console.log('svg click on size =', this);
-                        deactiveSizeBox(sizeEditClass, sizeClass);
-                        this.toggleClass(sizeClass);
-                        this.toggleClass(sizeEditClass);
-                      }
-                    });
-                     */
                   }
-
-  /*
-                  if(scope.typeConstruction === 'bigIcon') {
-                    if (prop === 'dimensionsV') {
-                      if (elementsSVG[prop][elem].id === 'overallDimV') {
-                        overallDimV = elementsSVG[prop][elem].lengthVal + edgeTop;
-                      }
-                    } else {
-                      if (elementsSVG[prop][elem].id === 'overallDimH') {
-                        overallDimH = elementsSVG[prop][elem].lengthVal + edgeLeft;
-                      }
-                    }
-                  }
-  */
-
                   break;
               }
             }
           }
-  /*
-          var divW = $('.construction-scrollbox').width();
-            //var mid = ((canvasWidth - edgeLeft*2)/2 - divW/2);
-          var mid = ((canvasWidth)/2 - divW/2) * coefScrollW;
-          //console.log('edgeLeft = ' + edgeLeft);
-          //console.log('overallDimH = ' + overallDimH);
-          //console.log('divW = ' + divW);
-          //console.log('canvasWidth =' + canvasWidth);
-          //console.log('mid = ' + mid);
-            $('.construction-scrollbox').scrollLeft( mid );
 
-            //console.log($('.construction-scrollbox').scrollLeft());
-  */
           if(scope.typeConstruction === 'icon') {
             draw.viewbox(0, 0, overallDimH, (overallDimV + 20));
           } else  if(scope.typeConstruction === 'bigIcon'){
@@ -627,7 +422,6 @@
             draw.viewbox(-edgeLeft, -edgeTop, (overallDimH + edgeLeft), (overallDimV + edgeTop));
             draw.attr('id', 'svg-construction');
           }
-          //console.log('++++++svg', svg);
           return svg;
         }
 

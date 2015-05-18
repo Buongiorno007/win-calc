@@ -502,85 +502,111 @@ function sortingCoordin(dimentions, coordinates, typeDim, levelDim, limit, class
 
 //////////////////////////////////////////////////
 
-function buildFrames(sourceObj, depths) {
-  var allFramePoints = [];
-  var centerX = 0, centerY = 0;
+function centerBlock(template, block){
+  var center = {
+        centerX: 0,
+        centerY: 0,
+        points:[]
+      },
+      templateQty = template.length,
+      pointsQty = block.points.length,
+      i = 0;
 
-  for (var i = 0; i < sourceObj.objects.length; i++) {
-    if(sourceObj.objects[i].type === 'fixed_point') {
-      allFramePoints.push(sourceObj.objects[i]);
-      console.log('sourceObj.objects[i].x == ', sourceObj.objects[i].x);
-      centerX = +centerX + sourceObj.objects[i].x;
-      centerY = +centerY + sourceObj.objects[i].y;
+
+  for(; i < pointsQty; i++) {
+    for(var j = 0; j < templateQty; j++) {
+      if(block.points[i] === template[j].id) {
+        center.points.push(template[j]);
+        center.centerX += template[j].x;
+        center.centerY += template[j].y;
+      }
     }
   }
-  console.log('centerX == ', centerX);
-  console.log('centerY == ', centerY);
-  centerX = centerX/allFramePoints.length;
-  centerY = centerY/allFramePoints.length;
-  console.log('centerX == ', centerX);
-  console.log('centerY == ', centerY);
-  for(var i = 0; i < allFramePoints.length; i++) {
-    console.log('id == ', allFramePoints[i].id);
-    var fi = Math.atan2(centerY - allFramePoints[i].y, allFramePoints[i].x - centerX) * (180 / Math.PI);
 
-    console.log(Math.atan2(centerY - allFramePoints[i].y, allFramePoints[i].x - centerX));
+  center.centerX /= pointsQty;
+  center.centerY /= pointsQty;
+  return center;
+}
+
+
+
+function sortingPoints(block) {
+  var blockPointsQty = block.center.points.length,
+      i = 0;
+
+  for(; i < blockPointsQty; i++) {
+    var fi = Math.atan2(block.center.centerY - block.center.points[i].y, block.center.points[i].x - block.center.centerX) * (180 / Math.PI);
     if(fi < 0) {
-      fi = 360 + fi;
+      fi += 360;
     }
-    console.log('fi == ', fi);
+    block.center.points[i].fi = fi;
+    console.log('fi == ', block.center.points[i].fi);
   }
 
-  for(var i = 1; i < allFramePoints.length; i++) {
-    console.log('id == ', allFramePoints[i].id);
-    var f = Math.atan2(allFramePoints[0].y - allFramePoints[i].y, allFramePoints[i].x - allFramePoints[0].x) * (180 / Math.PI);
+  block.center.points.sort(function(a, b){
+    return b.fi - a.fi;
+  });
 
-    console.log(Math.atan2(allFramePoints[0].y - allFramePoints[i].y, allFramePoints[i].x - allFramePoints[0].x));
-    console.log('f == ', f);
-    if(f < 0) {
-      f = 360 + f;
-    }
-    console.log('f 2== ', f);
-  }
+console.log(JSON.stringify(block.center.points));
+  return block.center.points;
 
 }
+
+
+
 
 //----- create fixed points of corners
-function setFixedPointCorners(sourceObj) {
-  var dictance = 20,
-      corners = [],
-      corner = {};
-
-  for (var i = 0; i < sourceObj.objects.length; i++) {
-    if(sourceObj.objects[i].type === 'skylight' && !sourceObj.objects[i].level) {
-      for(var j = 0; j < sourceObj.objects[i].points.length; j++) {
-        var fpN = Number(sourceObj.objects[i].points[j].replace(/\D+/g, ""));
-        if(fpN === 1) {
-          corner = {
-            type: 'fixed_point_corner',
-            id: 'fp_corner'+fpN+'_1',
-            x: 20,
-            y: 0
-          };
-          console.log('sourceObj.objects[i].x == ', sourceObj.objects[i].x);
-          sourceObj.objects.push(corner);
-        }
-      }
-
-    }
-  }
-
-}
+//function setFixedPointCorners(sourceObj) {
+//  var dictance = 20,
+//      corners = [],
+//      corner = {};
+//
+//  for(var i = 0; i < sourceObj.objects.length; i++) {
+//    if(sourceObj.objects[i].type === 'skylight' && sourceObj.objects[i].level) {
+//      for(var j = 0; j < sourceObj.objects[i].points.length; j++) {
+//        var fpN = Number(sourceObj.objects[i].points[j].replace(/\D+/g, ""));
+//        if(fpN === 1) {
+//          corner = {
+//            type: 'fixed_point_corner',
+//            id: 'fp_corner'+fpN+'_1',
+//            x: 20,
+//            y: 0
+//          };
+//          console.log('sourceObj.objects[i].x == ', sourceObj.objects[i].x);
+//          sourceObj.objects.push(corner);
+//        }
+//      }
+//
+//    }
+//  }
+//
+//}
 
 
 ////////////////////////////////////////////
 
 
 
+var Template = function (sourceObj, depths) {
+  this.name = sourceObj.name;
+  this.objects = sourceObj.objects;
+  this.dimentions = createDimentions(sourceObj);
+
+  for(var i = 0; i < this.objects.length; i++) {
+    if(this.objects[i].type === 'skylight' && this.objects[i].level > 0) {
+
+      this.objects[i].center = centerBlock(this.objects, this.objects[i]);
+      this.objects[i].points = sortingPoints(this.objects[i]);
+      delete this.objects[i].center;
+    }
+  }
+
+console.log('+++++++++++++', this.objects);
+  console.log(JSON.stringify(this.objects));
+};
 
 
-
-
+/*
 
 var Template = function (sourceObj, depths) {
   this.name = sourceObj.name;
@@ -597,8 +623,8 @@ var Template = function (sourceObj, depths) {
   for (var i = 0; i < sourceObj.objects.length; i++) {
     tmpObject = null;
     switch(sourceObj.objects[i].type) {
-      case 'fixed_point':
-      case 'fixed_point_impost': tmpObject = new FixedPoint(sourceObj.objects[i]);
+      case 'point_frame':
+      case 'point_impost': tmpObject = new FixedPoint(sourceObj.objects[i]);
         break;
       case 'frame_line':
       case 'frame_in_line': tmpObject = new FrameLine(sourceObj.objects[i]);
@@ -779,7 +805,7 @@ var TemplateIcon = function (sourceObj, depths) {
 
   this.parseIds();
 };
-
+*/
 
 //======================= parse Template Source
 
