@@ -173,10 +173,12 @@
                 break;
 
               case 'impost':
-                path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ' + template.objects[i].parts[0].toPoint.x + ' ' + template.objects[i].parts[0].toPoint.y + ' ';
-                path += template.objects[i].parts[1].fromPoint.x + ' ' + template.objects[i].parts[1].fromPoint.y + ' ' + template.objects[i].parts[1].toPoint.x + ' ' + template.objects[i].parts[1].toPoint.y + ' ';
-                path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ';
-                elementsSVG.imposts.push(path);
+                var impost = {path: ''};
+                impost.path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ' + template.objects[i].parts[0].toPoint.x + ' ' + template.objects[i].parts[0].toPoint.y + ' ';
+                impost.path += template.objects[i].parts[1].fromPoint.x + ' ' + template.objects[i].parts[1].fromPoint.y + ' ' + template.objects[i].parts[1].toPoint.x + ' ' + template.objects[i].parts[1].toPoint.y + ' ';
+                impost.path += template.objects[i].parts[0].fromPoint.x + ' ' + template.objects[i].parts[0].fromPoint.y + ' ';
+                impost.id = template.objects[i].id;
+                elementsSVG.imposts.push(impost);
                 break;
 
               case 'sash':
@@ -437,9 +439,9 @@
                   break;
                 case 'imposts':
                   if(scope.typeConstruction === 'icon') {
-                    group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'impost-icon');
+                    group.path('M' + elementsSVG[prop][elem].path + 'z').attr('class', 'impost-icon');
                   } else {
-                    group.path('M' + elementsSVG[prop][elem] + 'z').attr('class', 'impost');
+                    group.path('M' + elementsSVG[prop][elem].path + 'z').attr('class', 'impost').attr('element-id', elementsSVG[prop][elem].id);
                   }
                   break;
                 case 'sashes':

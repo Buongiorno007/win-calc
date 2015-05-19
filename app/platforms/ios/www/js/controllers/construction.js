@@ -35,6 +35,8 @@
       isArchEdit: false,
       isPositionEdit: false,
 
+      isImpostDelete: false,
+
       isSashEditMenu: false,
       isImpostEditMenu: false,
 
@@ -65,6 +67,7 @@
     $scope.loudVoice = false;
     $scope.quietVoice = false;
     $scope.selectedGlassId = 0;
+    $scope.selectedImpostId = 0;
 
     var $svgContainer = $('svg-template'),
         sizeRectActClass = 'size-rect-active',
@@ -201,6 +204,7 @@
       $scope.constructData.isSashEditMenu = false;
       $scope.constructData.isImpostEditMenu = false;
       manipulationWithGlasses($scope.constructData.activeMenuItem);
+      deactiveImposts();
       switch($scope.constructData.activeMenuItem) {
         case 1:
           $scope.constructData.isSashEdit = true;
@@ -369,12 +373,12 @@
         $scope.constructData.tempSizeType = thisSize.attr('size-type');
         $scope.constructData.oldSizeValue = +thisSize.text();
         //--- change color of size block
-  /*
+
         var sizeGroup = $(thisSize.parent());
-        //console.log('sizeGroup', sizeGroup);
+//        console.log('sizeGroup', sizeGroup);
         thisSize.attr('class', '').attr('class', sizeBoxActClass);
         sizeGroup.find('.size-rect').attr('class', '').attr('class', sizeRectActClass);
-  */
+
        /*
          console.log('startSize = ', $scope.constructData.startSize);
          console.log('finishSize = ', $scope.constructData.finishSize);
@@ -1445,7 +1449,52 @@
 
     }
 
+    $svgContainer.hammer({domEvents:true}).on("tap", ".impost", selectImpost);
 
+    function selectImpost() {
+      event.preventDefault();
+      if($scope.selectedImpostId === event.target.attributes['element-id'].value) {
+        deactiveImposts();
+      } else {
+        deactiveImposts();
+        $scope.constructData.isImpostDelete = true;
+        console.log('event ==', event.target);
+        var menuX = event.gesture.center.x;
+        var menuY = event.gesture.center.y;
+        $('#impost-delete').css({'top': (menuY)/8+'rem', 'left': (menuX)/8+'rem'});
+
+        $(event.target).css('fill', 'rgba(34, 34, 255, 0.69)');
+        //------- define id of current impost
+        $scope.selectedImpostId = event.target.attributes['element-id'].value;
+      }
+      $scope.$apply();
+    }
+
+    //=============== CLICK ON Impost delete MENU
+    $scope.deleteImpost = function() {
+      console.log('delte impost = ', $scope.selectedImpostId );
+
+      //-------
+      var tempPartsId;
+
+      for(var tempObj = 0; tempObj < $scope.templateSourceTEMP.objects.length; tempObj++) {
+        if($scope.templateSourceTEMP.objects[tempObj].id === $scope.selectedImpostId) {
+          tempPartsId = $scope.templateSourceTEMP.objects[tempObj].parts;
+          $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+        }
+      }
+      console.log('tempPartsId = ', tempPartsId );
+
+      $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
+      deactiveImposts();
+    };
+
+
+    function deactiveImposts() {
+      $('.impost').css('fill', '#f9f9f9');
+      $scope.constructData.isImpostDelete = false;
+      $scope.selectedImpostId = 0;
+    }
 
   }
 })();

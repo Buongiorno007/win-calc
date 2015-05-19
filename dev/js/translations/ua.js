@@ -55,7 +55,8 @@
         USER_CHECK_EMAIL: 'Подтвердительное письмо было отправлено Вам на почту.',
         SELECT_PRODUCER: 'Выберите производителя',
         SELECT_FACTORY: 'Вы не выбрали производителя',
-        USER_PASSWORD_ERROR: 'Неверный пароль!'
+        USER_PASSWORD_ERROR: 'Неверный пароль!',
+        OFFLINE: 'Нема зв`язку з iнтернетом!'
       },
       mainpage: {
         MM: ' мм ',
@@ -86,7 +87,8 @@
         CONFIGMENU_IN_CART: 'В кошик',
         VOICE_SPEACH: 'Говоріть...',
         COMMENT: 'Залиште свою замітку про заказ тут.',
-        ROOM_SELECTION: 'Вибір інтер`єру'
+        ROOM_SELECTION: 'Вибір інтер`єру',
+        CONFIGMENU_NO_ADDELEMENTS: 'Дод.елементи не вибранi'
       },
       panels: {
         TEMPLATE_WINDOW: 'Вікно',

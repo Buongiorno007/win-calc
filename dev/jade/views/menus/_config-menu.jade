@@ -28,6 +28,7 @@
 
     li.item(ng-class="{'active': configMenu.G.global.activePanel == 6}", hm-tap="configMenu.selectConfigPanel(6)")
       .title(data-output="{{ 'mainpage.CONFIGMENU_ADDITIONAL' | translate }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+      .name(ng-hide="configMenu.P.product.addElementsPriceSELECT > 0", data-output="{{ 'mainpage.CONFIGMENU_NO_ADDELEMENTS' | translate }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .additional-items-list
         ul.additional-items-group(ng-repeat="addElementGroup in configMenu.P.product.chosenAddElements")
           li.additional-item(ng-repeat="addElement in addElementGroup", ng-init="dubleTyping()")

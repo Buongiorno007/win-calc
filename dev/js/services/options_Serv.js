@@ -2897,7 +2897,7 @@
           elementsList: [
             [
               {
-                elementId: 585,
+                elementId: 4030,
                 elementName: $filter('translate')('add_elements.GRID') + ' СO-100',
                 elementQty: 1,
                 elementPrice: 100

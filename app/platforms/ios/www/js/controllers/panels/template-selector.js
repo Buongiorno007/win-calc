@@ -52,22 +52,6 @@
           .then(function(buttonIndex) {
             goToNewTemplate(buttonIndex);
           });
-  /*
-        navigator.notification.confirm(
-          $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
-          goToNewTemplate,
-          $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
-          [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')]
-        );
-
-
-        if(confirm($filter('translate')('common_words.TEMPLATE_CHANGES_LOST'))) {
-          //------ change last changed template to old one
-          $scope.backDefaultTemplate();
-          $scope.global.isChangedTemplate = false;
-          $scope.newPriceForNewTemplate(templateIndex);
-        }
-  */
       } else {
         $scope.newPriceForNewTemplate(templateIndex);
       }
@@ -137,28 +121,24 @@
     $scope.toggleTemplateType = function(type) {
       switch(type) {
         case 'window':
-          $scope.global.product.selectedRoomId = 4;
           $scope.global.isConstructWind = true;
           $scope.global.isConstructWindDoor = false;
           $scope.global.isConstructDoor = false;
           $scope.global.isConstructBalcony = false;
           break;
         case 'balcon':
-          $scope.global.product.selectedRoomId = 3;
           $scope.global.isConstructWind = false;
           $scope.global.isConstructWindDoor = false;
           $scope.global.isConstructDoor = false;
           $scope.global.isConstructBalcony = true;
           break;
         case 'door':
-          $scope.global.product.selectedRoomId = 6;
           $scope.global.isConstructWind = false;
           $scope.global.isConstructWindDoor = false;
           $scope.global.isConstructDoor = true;
           $scope.global.isConstructBalcony = false;
           break;
         case 'balconEnter':
-          $scope.global.product.selectedRoomId = 4;
           $scope.global.isConstructWind = false;
           $scope.global.isConstructWindDoor = true;
           $scope.global.isConstructDoor = false;

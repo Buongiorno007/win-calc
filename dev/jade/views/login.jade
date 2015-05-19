@@ -2,6 +2,7 @@ section.login-page
 
   //---------------- LogIn Form
   #login-container.login-container(ng-hide="loginPage.isRegistration", ng-mousemove="loginPage.isSendEmail = false; loginPage.isUserNotExist = false; loginPage.isUserNotActive = false; loginPage.isUserPasswordError = false;")
+    .attantion(ng-hide="loginPage.isOnline") {{ 'login.OFFLINE' | translate }}
     .attantion(ng-show="loginPage.isSendEmail") {{ 'login.USER_CHECK_EMAIL' | translate }}
     .attantion(ng-show="loginPage.isUserNotExist") {{ 'login.USER_NOT_EXIST' | translate }}
     .attantion(ng-show="loginPage.isUserNotActive") {{ 'login.USER_NOT_ACTIVE' | translate }}
@@ -79,4 +80,4 @@ section.login-page
 
       button.login-submit(type="submit") {{ 'login.REGISTRATION' | translate }}
 
-  .backDarkView(ng-show="loginPage.isFactoryId")
+  .backDarkView(ng-show="loginPage.isFactoryId || !loginPage.isOnline")

@@ -1,6 +1,7 @@
 
 <section class="login-page">
   <div id="login-container" ng-hide="loginPage.isRegistration" ng-mousemove="loginPage.isSendEmail = false; loginPage.isUserNotExist = false; loginPage.isUserNotActive = false; loginPage.isUserPasswordError = false;" class="login-container">
+    <div ng-hide="loginPage.isOnline" class="attantion">{{ 'login.OFFLINE' | translate }}</div>
     <div ng-show="loginPage.isSendEmail" class="attantion">{{ 'login.USER_CHECK_EMAIL' | translate }}</div>
     <div ng-show="loginPage.isUserNotExist" class="attantion">{{ 'login.USER_NOT_EXIST' | translate }}</div>
     <div ng-show="loginPage.isUserNotActive" class="attantion">{{ 'login.USER_NOT_ACTIVE' | translate }}</div>
@@ -83,5 +84,5 @@
       <button type="submit" class="login-submit">{{ 'login.REGISTRATION' | translate }}</button>
     </form>
   </div>
-  <div ng-show="loginPage.isFactoryId" class="backDarkView"></div>
+  <div ng-show="loginPage.isFactoryId || !loginPage.isOnline" class="backDarkView"></div>
 </section>

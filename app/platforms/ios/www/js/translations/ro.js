@@ -57,7 +57,8 @@
         USER_CHECK_EMAIL: 'The confirmed email was send to you. Please check your email.',
         SELECT_PRODUCER: 'Choose the producer',
         SELECT_FACTORY: 'Please select the producer',
-        USER_PASSWORD_ERROR: 'Sorry, but your password is wrong!'
+        USER_PASSWORD_ERROR: 'Sorry, but your password is wrong!',
+        OFFLINE: 'Nu există conexiune la Internet!'
       },
       mainpage: {
         MM: ' mm ',
@@ -87,7 +88,8 @@
         CONFIGMENU_IN_CART: 'Adaugă in coș',
         VOICE_SPEACH: 'Vorbiți...',
         COMMENT: 'Leave a note on the order here.',
-        ROOM_SELECTION: 'Interior selection'
+        ROOM_SELECTION: 'Interior selection',
+        CONFIGMENU_NO_ADDELEMENTS: 'Suplimentare sunt selectate'
       },
       panels: {
         TEMPLATE_WINDOW: 'fereastră',

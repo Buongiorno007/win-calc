@@ -35,6 +35,10 @@
                         {
                             "xml": "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+                            "count": 1
                         }
                     ]
                 }
@@ -85,6 +89,10 @@
                         {
                             "xml": "<feature name=\"Globalization\"><param name=\"android-package\" value=\"org.apache.cordova.globalization.Globalization\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"NetworkStatus\"><param name=\"android-package\" value=\"org.apache.cordova.networkinformation.NetworkManager\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -126,6 +134,9 @@
             "PACKAGE_NAME": "net.voice_creator.mobile"
         },
         "org.apache.cordova.globalization": {
+            "PACKAGE_NAME": "net.voice_creator.mobile"
+        },
+        "org.apache.cordova.network-information": {
             "PACKAGE_NAME": "net.voice_creator.mobile"
         }
     },

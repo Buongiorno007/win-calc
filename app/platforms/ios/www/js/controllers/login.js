@@ -10,11 +10,10 @@
     .module('LoginModule')
     .controller('LoginCtrl', loginPageCtrl);
 
-  function loginPageCtrl($location, $translate, $cordovaGlobalization, $cordovaProgress, globalConstants, globalDB, loginServ, UserStor) {
+  function loginPageCtrl($location, $translate, $cordovaNetwork, $cordovaGlobalization, $cordovaProgress, globalConstants, globalDB, loginServ, UserStor) {
 
-    $cordovaProgress.showSimple(true);
     var thisCtrl = this;
-
+    thisCtrl.isOnline = true;
     thisCtrl.isRegistration = false;
     thisCtrl.submitted = false;
     thisCtrl.isUserExist = false;
@@ -39,34 +38,44 @@
     thisCtrl.closeFactoryDialog = closeFactoryDialog;
 
 
-    //------- defined system language
-
-     $cordovaGlobalization.getPreferredLanguage().then(
-       function(result) {
-         loginServ.checkLangDictionary(result.value.split('-')[0]);
-         $translate.use(UserStor.userInfo.langLabel);
-       },
-       function(error) {
-        console.log('No language defined');
-       });
-
-
-
-    //------ import Location Data & All Users
-    globalDB.clearLocation(function(result){}).then(function() {
-      globalDB.importLocation(function(result){}).then(function() {
-        //------ save Location Data in local obj
-        loginServ.prepareLocationToUse().then(function(data) {
-          thisCtrl.generalLocations = data;
-          $cordovaProgress.hide();
-        });
-      });
-    });
-
+    startApp();
 
 
 
     //============ methods ================//
+
+    function startApp() {
+      //------ check Internet
+      thisCtrl.isOnline = $cordovaNetwork.isOnline();
+      if(thisCtrl.isOnline) {
+        $cordovaProgress.showSimple(true);
+
+        //------- defined system language
+        $cordovaGlobalization.getPreferredLanguage().then(
+          function(result) {
+            loginServ.checkLangDictionary(result.value.split('-')[0]);
+            $translate.use(UserStor.userInfo.langLabel);
+          },
+          function(error) {
+            console.log('No language defined');
+          });
+
+        //------ import Location Data & All Users
+        globalDB.clearLocation(function(result){}).then(function() {
+          globalDB.importLocation(function(result){}).then(function() {
+            //------ save Location Data in local obj
+            loginServ.prepareLocationToUse().then(function(data) {
+              thisCtrl.generalLocations = data;
+              $cordovaProgress.hide();
+            });
+          });
+        });
+      } else {
+        thisCtrl.isOnline = false;
+      }
+    }
+
+
 
     //-------- user sign in
     function enterForm(form) {

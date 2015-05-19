@@ -1019,6 +1019,7 @@
           </li>
           <li ng-class="{'active': configMenu.G.global.activePanel == 6}" hm-tap="configMenu.selectConfigPanel(6)" class="item">
             <div data-output="{{ 'mainpage.CONFIGMENU_ADDITIONAL' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
+            <div ng-hide="configMenu.P.product.addElementsPriceSELECT &gt; 0" data-output="{{ 'mainpage.CONFIGMENU_NO_ADDELEMENTS' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="name"></div>
             <div class="additional-items-list">
               <ul ng-repeat="addElementGroup in configMenu.P.product.chosenAddElements" class="additional-items-group">
                 <li ng-repeat="addElement in addElementGroup" ng-init="dubleTyping()" class="additional-item"><span data-output="" class="value">{{ addElement.elementName }}</span></li>

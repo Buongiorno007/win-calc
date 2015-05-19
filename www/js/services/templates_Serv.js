@@ -46,24 +46,8 @@
       ProductStor.product.constructionType = marker;
       ProductStor.product.templateIndex = 0;
       MainServ.prepareTemplates(marker);
-      changeRoomImg(marker);
     }
 
-
-    function changeRoomImg(type) {
-      switch(type) {
-        case 1:
-        case 2:
-          ProductStor.product.selectedRoomId = 4;
-          break;
-        case 3:
-          ProductStor.product.selectedRoomId = 3;
-          break;
-        case 4:
-          ProductStor.product.selectedRoomId = 6;
-          break;
-      }
-    }
 
 
   }

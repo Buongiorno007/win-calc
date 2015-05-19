@@ -33,35 +33,6 @@
     function selectRoom(id) {
       ProductStor.product.selectedRoomId = id;
       closeRoomSelectorDialog();
-
-      //----- if select Door
-      if(id === 6) {
-        MainServ.setDefaultDoorConfig();
-        ProductStor.product.constructionType = 4;
-        ProductStor.product.templateIndex = 0;
-//        GlobalStor.global.isReturnFromDiffPage = false;
-        GlobalStor.global.isChangedTemplate = false;
-
-        MainServ.prepareTemplates(4);
-
-      //------- if select Balcony
-      } else if(id === 3) {
-        ProductStor.product.constructionType = 3;
-        ProductStor.product.templateIndex = 0;
-//        GlobalStor.global.isReturnFromDiffPage = false;
-        GlobalStor.global.isChangedTemplate = false;
-
-        MainServ.prepareTemplates(3);
-      } else {
-        if(ProductStor.product.constructionType === 3 || ProductStor.product.constructionType === 4) {
-          ProductStor.product.constructionType = 1;
-          ProductStor.product.templateIndex = 0;
-//          GlobalStor.global.isReturnFromDiffPage = false;
-          GlobalStor.global.isChangedTemplate = false;
-
-          MainServ.prepareTemplates(1);
-        }
-      }
       MainServ.prepareMainPage();
       GeneralServ.stopStartProg();
     }

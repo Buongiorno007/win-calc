@@ -1040,6 +1040,7 @@
           </li>
           <li ng-class="{'active': global.showPanels.showAddElementsPanel}" hm-tap="selectAddElementsPanel()" class="item">
             <div data-output="{{ 'mainpage.CONFIGMENU_ADDITIONAL' | translate }}" typing="{{ configMenu.typing }}" typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
+            <div ng-hide="global.product.addElementsPriceSELECT > 0" data-output="{{ 'mainpage.CONFIGMENU_NO_ADDELEMENTS' | translate }}" typing="{{ configMenu.typing }}" typing-delay="{{ configMenu.DELAY_TYPE_ITEM_TITLE }}" class="name"></div>
             <div class="additional-items-list">
               <ul ng-repeat="addElementGroup in global.product.chosenAddElements" class="additional-items-group">
                 <li ng-repeat="addElement in addElementGroup" ng-init="dubleTyping()" class="additional-item"><span data-output="" class="value">{{ addElement.elementName }}</span>

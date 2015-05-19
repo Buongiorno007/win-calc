@@ -3258,18 +3258,21 @@
                 elementId: 585,
                 elementName: $filter('translate')('add_elements.GRID') + ' СO-100',
                 elementQty: 1,
+                elementWidth: 1000,
                 elementPrice: 100
               },
               {
                 elementId: 585,
                 elementName: $filter('translate')('add_elements.GRID') + ' СO-200',
                 elementQty: 1,
+                elementWidth: 1000,
                 elementPrice: 100
               },
               {
                 elementId: 585,
                 elementName: $filter('translate')('add_elements.GRID') + ' СO-200',
                 elementQty: 1,
+                elementWidth: 1000,
                 elementPrice: 100
               }
             ],
@@ -3278,12 +3281,14 @@
                 elementId: 585,
                 elementName: $filter('translate')('add_elements.GRID') + ' СO-300',
                 elementQty: 1,
+                elementWidth: 1000,
                 elementPrice: 100
               },
               {
                 elementId: 585,
                 elementName: $filter('translate')('add_elements.GRID') + ' СO-300',
                 elementQty: 1,
+                elementWidth: 1000,
                 elementPrice: 100
               }
             ]
@@ -3597,7 +3602,7 @@
                 elementPrice: 100
               },
               {
-                elementId: 577,
+                elementId: 192003,
                 elementName: $filter('translate')('panels.CONNECTOR_S') + ' 3/10',
                 elementWidth: 1500,
                 elementQty: 1,
@@ -3606,7 +3611,7 @@
             ],
             [
               {
-                elementId: 577,
+                elementId: 192004,
                 elementName: $filter('translate')('panels.CONNECTOR_F') + ' 5/13',
                 elementWidth: 1500,
                 elementQty: 1,
@@ -3615,7 +3620,7 @@
             ],
             [
               {
-                elementId: 577,
+                elementId: 192005,
                 elementName: $filter('translate')('panels.CONNECTOR_B') + ' 5/13',
                 elementWidth: 1500,
                 elementQty: 1,
@@ -3810,34 +3815,39 @@
                 elementId: 586,
                 elementName:  $filter('translate')('panels.HANDLE1'),
                 elementQty: 1,
+                elementWidth: 100,
                 elementPrice: 100
               },
               {
                 elementId: 587,
                 elementName: $filter('translate')('panels.HANDLE2'),
                 elementQty: 1,
-                elementPrice: 100
-              }
-            ],
-            [
-              {
-                elementId: 588,
-                elementName: $filter('translate')('panels.HANDLE3'),
-                elementQty: 1,
-                elementPrice: 100
-              },
-              {
-                elementId: 589,
-                elementName: $filter('translate')('panels.HANDLE4'),
-                elementQty: 1,
+                elementWidth: 100,
                 elementPrice: 100
               }
             ],
             [
               {
                 elementId: 586,
+                elementName: $filter('translate')('panels.HANDLE3'),
+                elementQty: 1,
+                elementWidth: 1,
+                elementPrice: 100
+              },
+              {
+                elementId: 589,
+                elementName: $filter('translate')('panels.HANDLE4'),
+                elementQty: 1,
+                elementWidth: 100,
+                elementPrice: 100
+              }
+            ],
+            [
+              {
+                elementId: 587,
                 elementName: $filter('translate')('panels.HANDLE5'),
                 elementQty: 1,
+                elementWidth: 100,
                 elementPrice: 100
               }
             ]
@@ -3858,43 +3868,49 @@
           elementsList: [
             [
               {
-                elementId: 1,
+                elementId: 369,
                 elementName: $filter('translate')('panels.OTHER1') + ' 40х40',
                 elementQty: 1,
+                elementWidth: 100,
                 elementPrice: 100
               },
               {
-                elementId: 2,
+                elementId: 434,
                 elementName: $filter('translate')('panels.OTHER2'),
                 elementQty: 1,
+                elementWidth: 100,
                 elementPrice: 100
               },
               {
-                elementId: 3,
+                elementId: 201761,
                 elementName: $filter('translate')('panels.OTHER3') + ' 170 (481-600), KS',
                 elementQty: 1,
+                elementWidth: 100,
                 elementPrice: 100
               }
             ],
             [
               {
-                elementId: 1,
+                elementId: 31,
                 elementName: $filter('translate')('panels.OTHER4') + ' 15х30',
                 elementQty: 1,
+                elementWidth: 100,
                 elementPrice: 100
               },
               {
-                elementId: 2,
+                elementId: 40,
                 elementName: $filter('translate')('panels.OTHER5') + ' K3/100',
                 elementQty: 1,
+                elementWidth: 100,
                 elementPrice: 100
               }
             ],
             [
               {
-                elementId: 1,
+                elementId: 41,
                 elementName: $filter('translate')('panels.OTHER6'),
                 elementQty: 1,
+                elementWidth: 100,
                 elementPrice: 100
               }
             ]

@@ -52,6 +52,13 @@
         <li hm-tap="insertNewImpost('horis')" class="constr-shape-icon impost-hor"></li>
       </ul>
     </div>
+
+    <div id="impost-delete" ng-show="constructData.isImpostDelete" class="constr-shape-menu">
+      <ul class="constr-shape-list">
+        <li hm-tap="deleteImpost()" class="constr-shape-icon sash-empty"></li>
+      </ul>
+    </div>
+
     <div class="construction-right-menu">
       <div class="right-menu-header">
         <button hm-tap="gotoMainPageSaved()" class="construct-tools save-construction"></button>

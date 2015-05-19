@@ -92,14 +92,14 @@
         20, // 0 - grids
         21, // 1 - visors
         9, // 2 - spillways
-        0, // 3 - outSlope
+        19, // 3 - outSlope
         0, // 4 - louvers
-        0, // 5 - inSlope
-        0, // 6 - connectors
+        19, // 5 - inSlope
+        12, // 6 - connectors
         0, // 7 - fans
         8, // 8 - windowSill
-        0, // 9 - handles
-        0 // 10 - others
+        24, // 9 - handles
+        16 // 10 - others
       ],
 
       selectDBGlobal: selectDBGlobal,

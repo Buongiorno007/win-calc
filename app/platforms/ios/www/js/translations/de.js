@@ -57,7 +57,8 @@
         USER_CHECK_EMAIL: 'Bestätigungsemail wurde Ihnen in der E-Mail gesendet.',
         SELECT_PRODUCER: 'Hersteller auswählen',
         SELECT_FACTORY: 'Sie haben noch keine gewählten Hersteller',
-        USER_PASSWORD_ERROR: 'ungültiges Kennwort!'
+        USER_PASSWORD_ERROR: 'ungültiges Kennwort!',
+        OFFLINE: 'Keine Verbindung zum Internet!'
       },
       mainpage: {
         MM: ' mm ',
@@ -87,7 +88,8 @@
         CONFIGMENU_IN_CART: 'Zum Warenkorb',
         VOICE_SPEACH: 'Sprechen...',
         COMMENT: 'Lassen Sie eine Notiz in der Größenordnung hier.',
-        ROOM_SELECTION: 'Die Wahl Interior'
+        ROOM_SELECTION: 'Die Wahl Interior',
+        CONFIGMENU_NO_ADDELEMENTS: 'Zusätzliche Elemente ausgewählt'
       },
       panels: {
         TEMPLATE_WINDOW: 'Fenster',

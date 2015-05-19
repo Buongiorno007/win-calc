@@ -56,7 +56,8 @@
         USER_CHECK_EMAIL: 'The confirmed email was send to you. Please check your email.',
         SELECT_PRODUCER: 'Choose the producer',
         SELECT_FACTORY: 'Please select the producer',
-        USER_PASSWORD_ERROR: 'Sorry, but your password is wrong!'
+        USER_PASSWORD_ERROR: 'Sorry, but your password is wrong!',
+        OFFLINE: 'No connection to the Internet!'
       },
       mainpage: {
         MM: ' mm ',
@@ -87,7 +88,8 @@
         CONFIGMENU_IN_CART: 'In a basket',
         VOICE_SPEACH: 'You talk...',
         COMMENT: 'Leave a note on the order here.',
-        ROOM_SELECTION: 'Interior selection'
+        ROOM_SELECTION: 'Interior selection',
+        CONFIGMENU_NO_ADDELEMENTS: 'Add Elements are not choosen'
       },
       panels: {
         TEMPLATE_WINDOW: 'Window',
