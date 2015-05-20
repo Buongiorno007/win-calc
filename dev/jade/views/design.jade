@@ -45,6 +45,7 @@ section.construction-page
 
     .construction-right-menu
       .right-menu-header
+        button.construct-tools.step-back(ng-show="designPage.designSteps.length > 0", hm-tap="designPage.stepBack()")
         button.construct-tools.save-construction(hm-tap="designPage.designSaved()")
         button.construct-tools.close-construction(hm-tap="designPage.designCancel()")
 

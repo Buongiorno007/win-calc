@@ -68,6 +68,7 @@
     $scope.quietVoice = false;
     $scope.selectedGlassId = 0;
     $scope.selectedImpostId = 0;
+    $scope.designSteps = [];
 
     var $svgContainer = $('svg-template'),
         sizeRectActClass = 'size-rect-active',
@@ -124,6 +125,7 @@
 
     //-------- Back to Template Panel
     $scope.backtoTemplatePanel = function() {
+      $scope.designSteps.length = 0;
       $scope.global.prepareMainPage();
       $scope.global.isReturnFromDiffPage = true;
       //console.log('construction page!!!!!!!!!!!');
@@ -204,7 +206,7 @@
       $scope.constructData.isSashEditMenu = false;
       $scope.constructData.isImpostEditMenu = false;
       manipulationWithGlasses($scope.constructData.activeMenuItem);
-      deactiveImposts();
+//      deactiveImposts();
       switch($scope.constructData.activeMenuItem) {
         case 1:
           $scope.constructData.isSashEdit = true;
@@ -536,6 +538,9 @@
           $scope.constructData.isMinSizeRestriction = false;
           $scope.constructData.isMaxSizeRestriction = false;
 
+          //---- save last step
+          $scope.designSteps.push(angular.copy($scope.templateSourceTEMP));
+
           //-------- change point coordinates in templateSource
           for (var k = 0; k < $scope.templateSourceTEMP.objects.length; k++) {
             switch ($scope.templateSourceTEMP.objects[k].type) {
@@ -708,7 +713,10 @@
           isSashExist = currGlassPackage.parts[0].fromPoint.blockType;
         }
       }
-  //console.log('currGlassPackage', currGlassPackage);
+
+      //---- save last step
+      $scope.designSteps.push(angular.copy($scope.templateSourceTEMP));
+
       //-------- if need to delete existed sash
       if(sashType[0] === 'empty') {
         //----- if sash exists
@@ -1154,7 +1162,8 @@
       console.log('lastCPGlassIndex == ', lastCPGlassIndex);
       console.log('lastGlassIndex == ', lastGlassIndex);
    */
-      //console.log('currGlassPackage == ', currGlassPackage);
+      //---- save last step
+      $scope.designSteps.push(angular.copy($scope.templateSourceTEMP));
 
       //------ VERTICAL IMPOST
       if(impostType[0] === 'vert') {
@@ -1449,52 +1458,62 @@
 
     }
 
-    $svgContainer.hammer({domEvents:true}).on("tap", ".impost", selectImpost);
 
-    function selectImpost() {
-      event.preventDefault();
-      if($scope.selectedImpostId === event.target.attributes['element-id'].value) {
-        deactiveImposts();
-      } else {
-        deactiveImposts();
-        $scope.constructData.isImpostDelete = true;
-        console.log('event ==', event.target);
-        var menuX = event.gesture.center.x;
-        var menuY = event.gesture.center.y;
-        $('#impost-delete').css({'top': (menuY)/8+'rem', 'left': (menuX)/8+'rem'});
-
-        $(event.target).css('fill', 'rgba(34, 34, 255, 0.69)');
-        //------- define id of current impost
-        $scope.selectedImpostId = event.target.attributes['element-id'].value;
-      }
-      $scope.$apply();
-    }
-
-    //=============== CLICK ON Impost delete MENU
-    $scope.deleteImpost = function() {
-      console.log('delte impost = ', $scope.selectedImpostId );
-
-      //-------
-      var tempPartsId;
-
-      for(var tempObj = 0; tempObj < $scope.templateSourceTEMP.objects.length; tempObj++) {
-        if($scope.templateSourceTEMP.objects[tempObj].id === $scope.selectedImpostId) {
-          tempPartsId = $scope.templateSourceTEMP.objects[tempObj].parts;
-          $scope.templateSourceTEMP.objects.splice(tempObj, 1);
-        }
-      }
-      console.log('tempPartsId = ', tempPartsId );
-
+    $scope.stepBack = function() {
+      var last = $scope.designSteps.length - 1;
+      $scope.templateSourceTEMP = angular.copy($scope.designSteps[last]);
+      $scope.designSteps.pop();
       $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
-      deactiveImposts();
     };
 
 
-    function deactiveImposts() {
-      $('.impost').css('fill', '#f9f9f9');
-      $scope.constructData.isImpostDelete = false;
-      $scope.selectedImpostId = 0;
-    }
+
+//    $svgContainer.hammer({domEvents:true}).on("tap", ".impost", selectImpost);
+//
+//    function selectImpost() {
+//      event.preventDefault();
+//      if($scope.selectedImpostId === event.target.attributes['element-id'].value) {
+//        deactiveImposts();
+//      } else {
+//        deactiveImposts();
+//        $scope.constructData.isImpostDelete = true;
+//        console.log('event ==', event.target);
+//        var menuX = event.gesture.center.x;
+//        var menuY = event.gesture.center.y;
+//        $('#impost-delete').css({'top': (menuY)/8+'rem', 'left': (menuX)/8+'rem'});
+//
+//        $(event.target).css('fill', 'rgba(34, 34, 255, 0.69)');
+//        //------- define id of current impost
+//        $scope.selectedImpostId = event.target.attributes['element-id'].value;
+//      }
+//      $scope.$apply();
+//    }
+//
+//    //=============== CLICK ON Impost delete MENU
+//    $scope.deleteImpost = function() {
+//      console.log('delte impost = ', $scope.selectedImpostId );
+//
+//      //-------
+//      var tempPartsId;
+//
+//      for(var tempObj = 0; tempObj < $scope.templateSourceTEMP.objects.length; tempObj++) {
+//        if($scope.templateSourceTEMP.objects[tempObj].id === $scope.selectedImpostId) {
+//          tempPartsId = $scope.templateSourceTEMP.objects[tempObj].parts;
+//          $scope.templateSourceTEMP.objects.splice(tempObj, 1);
+//        }
+//      }
+//      console.log('tempPartsId = ', tempPartsId );
+//
+//      $scope.templateDefaultTEMP = new Template($scope.templateSourceTEMP, $scope.global.templateDepths);
+//      deactiveImposts();
+//    };
+//
+//
+//    function deactiveImposts() {
+//      $('.impost').css('fill', '#f9f9f9');
+//      $scope.constructData.isImpostDelete = false;
+//      $scope.selectedImpostId = 0;
+//    }
 
   }
 })();

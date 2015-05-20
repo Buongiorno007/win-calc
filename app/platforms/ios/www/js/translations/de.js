@@ -63,7 +63,7 @@
       mainpage: {
         MM: ' mm ',
         CLIMATE_ZONE: 'Die Klimazone',
-        THERMAL_RESISTANCE: 'Der Widerstand der Wärmeübertragung',
+        THERMAL_RESISTANCE: 'Wärmeübertragung',
         AIR_CIRCULATION: 'Der Koeffizient des Luftwechsels',
         NAVMENU_GEOLOCATION: 'Die Anordnung zu wählen',
         NAVMENU_CURRENT_GEOLOCATION: 'Die laufende Anordnung',
@@ -89,7 +89,8 @@
         VOICE_SPEACH: 'Sprechen...',
         COMMENT: 'Lassen Sie eine Notiz in der Größenordnung hier.',
         ROOM_SELECTION: 'Die Wahl Interior',
-        CONFIGMENU_NO_ADDELEMENTS: 'Zusätzliche Elemente ausgewählt'
+        CONFIGMENU_NO_ADDELEMENTS: 'Zusätzliche Elemente ausgewählt',
+        HEATCOEF_VAL: 'W/m'
       },
       panels: {
         TEMPLATE_WINDOW: 'Fenster',

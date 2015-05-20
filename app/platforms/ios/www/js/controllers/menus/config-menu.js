@@ -362,20 +362,20 @@
       //------- total construction square define
       for (item = 0; item < $scope.global.product.templateDefault.objects.length; item++) {
         if($scope.global.product.templateDefault.objects[item].type === "square") {
-          constructionSquareTotal = $scope.global.product.templateDefault.objects[item].squares.reduce(function(a, b) {
-            return a + b;
+          constructionSquareTotal = $scope.global.product.templateDefault.objects[item].squares.reduce(function(sum, elem) {
+            return sum + elem;
           });
         }
       }
       //-------- total glasses square define
-      glassSquareTotal = $scope.global.objXFormedPrice.glassSquares.reduce(function(a, b) {
-        return a + b;
+      glassSquareTotal = $scope.global.objXFormedPrice.glassSquares.reduce(function(sum, elem) {
+        return sum + elem;
       });
       //-------- coeffs define
       prifileHeatCoeffTotal = $scope.global.product.profileHeatCoeff * (constructionSquareTotal - glassSquareTotal);
       glassHeatCoeffTotal = $scope.global.product.glassHeatCoeff * glassSquareTotal;
       //-------- calculate Heat Coeff Total
-      $scope.global.product.heatTransferTOTAL = parseFloat(((prifileHeatCoeffTotal + glassHeatCoeffTotal)/constructionSquareTotal).toFixed(2));
+      $scope.global.product.heatTransferTOTAL = parseFloat((constructionSquareTotal/(prifileHeatCoeffTotal + glassHeatCoeffTotal)).toFixed(2));
 
       //-------- calculate Air Coeff Total
   //    $scope.global.product.airCirculationTOTAL = + $scope.global.product.profileAirCoeff + $scope.global.product.glassAirCoeff + $scope.global.product.hardwareAirCoeff;

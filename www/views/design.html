@@ -53,6 +53,7 @@
     </div>
     <div class="construction-right-menu">
       <div class="right-menu-header">
+        <button ng-show="designPage.designSteps.length &gt; 0" hm-tap="designPage.stepBack()" class="construct-tools step-back"></button>
         <button hm-tap="designPage.designSaved()" class="construct-tools save-construction"></button>
         <button hm-tap="designPage.designCancel()" class="construct-tools close-construction"></button>
       </div>

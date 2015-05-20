@@ -53,14 +53,15 @@
       </ul>
     </div>
 
-    <div id="impost-delete" ng-show="constructData.isImpostDelete" class="constr-shape-menu">
+    <!--div id="impost-delete" ng-show="constructData.isImpostDelete" class="constr-shape-menu">
       <ul class="constr-shape-list">
         <li hm-tap="deleteImpost()" class="constr-shape-icon sash-empty"></li>
       </ul>
-    </div>
+    </div-->
 
     <div class="construction-right-menu">
       <div class="right-menu-header">
+        <button ng-show="designSteps.length > 0" hm-tap="stepBack()" class="construct-tools step-back"></button>
         <button hm-tap="gotoMainPageSaved()" class="construct-tools save-construction"></button>
         <button hm-tap="gotoMainPageCancel()" class="construct-tools close-construction"></button>
       </div>

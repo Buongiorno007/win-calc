@@ -40,5 +40,7 @@
       .qty.unvisible(ng-if="configMenu.O.order.productsQty", show-delay="{{ configMenu.config.DELAY_START }}") {{ configMenu.O.order.productsQty }}
     button.cart-btn(ng-if="configMenu.G.global.productEditNumber", hm-tap="configMenu.inputProductInOrder()") {{ 'settings.SAVE' | translate }}
 
-  .product-u-coeff.unvisible(ng-if="configMenu.G.global.isConfigMenu", ng-class="{'u-coeff-low': configMenu.P.product.heatTransferTOTAL < configMenu.O.order.currHeatTransfer}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}") U = {{ configMenu.P.product.heatTransferTOTAL }}
+  .product-u-coeff.unvisible(ng-if="configMenu.G.global.isConfigMenu", ng-class="{'u-coeff-low': configMenu.P.product.heatTransferTOTAL < configMenu.O.order.currHeatTransfer}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
+    div U = {{ configMenu.P.product.heatTransferTOTAL }}
+    div {{ 'mainpage.HEATCOEF_VAL' | translate }}&sup2;&middot;K
   .curtain(ng-show="configMenu.P.product.isAddElementsONLY")

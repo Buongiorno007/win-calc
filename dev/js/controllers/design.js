@@ -70,6 +70,8 @@
     thisCtrl.insertNewSash = editSash;
     thisCtrl.insertNewImpost = editImpost;
 
+    thisCtrl.stepBack = DesignServ.stepBack;
+
 
 
 

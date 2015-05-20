@@ -252,6 +252,14 @@ li.constr-shape-icon {
     background-color: $main_gray_btn;
   }
 
+  .step-back {
+    @include font-general-icon(rem(40px), 1);
+    background-color: $main_gray_btn;
+    &:after {
+      content: $step-back;
+    }
+  }
+
   .right-menu-footer {
     position: absolute;
     right: 0;

@@ -64,7 +64,7 @@
       mainpage: {
         MM: ' mm ',
         CLIMATE_ZONE: 'climatic area',
-        THERMAL_RESISTANCE: 'resistance a heat transfer',
+        THERMAL_RESISTANCE: 'heat transfer',
         AIR_CIRCULATION: 'coefficient of ventilation',
         NAVMENU_GEOLOCATION: 'To choose a location',
         NAVMENU_CURRENT_GEOLOCATION: 'Current location',
@@ -90,7 +90,8 @@
         VOICE_SPEACH: 'You talk...',
         COMMENT: 'Leave a note on the order here.',
         ROOM_SELECTION: 'Interior selection',
-        CONFIGMENU_NO_ADDELEMENTS: 'Add Elements are not choosen'
+        CONFIGMENU_NO_ADDELEMENTS: 'Add Elements are not choosen',
+        HEATCOEF_VAL: 'W/m'
       },
       panels: {
         TEMPLATE_WINDOW: 'Window',

@@ -18,6 +18,7 @@
       designSource: {
         templateSourceTEMP: {},
         templateTEMP: {},
+        designSteps: [],
 
         //----- Sizes
         openVoiceHelper: false,

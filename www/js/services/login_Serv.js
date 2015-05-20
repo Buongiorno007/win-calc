@@ -10,7 +10,7 @@
     .module('LoginModule')
     .factory('loginServ', startFactory);
 
-  function startFactory($q, globalDB, globalConstants, OrderStor, UserStor) {
+  function startFactory($q, globalDB, globalConstants, GeneralServ, OrderStor, UserStor) {
 
     var thisFactory = this;
 
@@ -108,7 +108,7 @@
                   if(results[cit].region_id === generalLocations.regions[r].id) {
                     location.regionName = generalLocations.regions[r].name;
                     location.climaticZone = generalLocations.regions[r].climaticZone;
-                    location.heatTransfer = generalLocations.regions[r].heatTransfer;
+                    location.heatTransfer = GeneralServ.roundingNumbers(1/generalLocations.regions[r].heatTransfer);
                     for(var s = 0; s < countryQty; s++) {
                       if(generalLocations.regions[r].countryId === generalLocations.countries[s].id) {
                         location.countryId = generalLocations.countries[s].id;

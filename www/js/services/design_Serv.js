@@ -29,6 +29,8 @@
       deleteLastNumber: deleteLastNumber,
       closeSizeCaclulator: closeSizeCaclulator,
 
+      stepBack: stepBack,
+
       //---- door
       downloadDoorConfig: downloadDoorConfig,
       setIndexDoorConfig: setIndexDoorConfig
@@ -358,6 +360,9 @@
           DesignStor.design.isMinSizeRestriction = false;
           DesignStor.design.isMaxSizeRestriction = false;
 
+          //---- save last step
+          DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
+
           //-------- change point coordinates in templateSource
           for (var k = 0; k < DesignStor.design.templateSourceTEMP.objects.length; k++) {
             switch (DesignStor.design.templateSourceTEMP.objects[k].type) {
@@ -436,6 +441,19 @@
         $(this).find('.'+sizeBoxActClass).addClass('size-value-edit').removeClass(sizeBoxActClass);
       });
     }
+
+
+
+
+
+
+    function stepBack() {
+      var lastIndex = DesignStor.design.designSteps.length - 1;
+      DesignStor.design.templateSourceTEMP = angular.copy(DesignStor.design.designSteps[lastIndex]);
+      DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths);
+      DesignStor.design.designSteps.pop();
+    }
+
 
 
   }

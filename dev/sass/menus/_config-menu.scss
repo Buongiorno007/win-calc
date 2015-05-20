@@ -79,10 +79,12 @@
 
   .product-u-coeff {
     @include roboto-lt(rem(42px));
-    top: 16.75rem;
-    right: 2rem;
+    width: 40%;
+    top: 15rem;
+    right: 1rem;
     position: absolute;
     margin-left: rem(5px);
+    text-align: center;
     background-color: transparent;
     color: $main_green;
     z-index: 2;

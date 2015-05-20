@@ -63,7 +63,7 @@
       mainpage: {
         MM: ' мм ',
         CLIMATE_ZONE: 'кліматична зона',
-        THERMAL_RESISTANCE: 'опір теплопередачі',
+        THERMAL_RESISTANCE: 'теплопередача',
         AIR_CIRCULATION: 'коефіцієнт повітрообміну',
         NAVMENU_GEOLOCATION: 'Вибрати розташування',
         NAVMENU_CURRENT_GEOLOCATION: 'Поточне розташування',
@@ -89,7 +89,8 @@
         VOICE_SPEACH: 'Говоріть...',
         COMMENT: 'Залиште свою замітку про заказ тут.',
         ROOM_SELECTION: 'Вибір інтер`єру',
-        CONFIGMENU_NO_ADDELEMENTS: 'Дод.елементи не вибранi'
+        CONFIGMENU_NO_ADDELEMENTS: 'Дод.елементи не вибранi',
+        HEATCOEF_VAL: 'Вт/м'
       },
       panels: {
         TEMPLATE_WINDOW: 'Вікно',

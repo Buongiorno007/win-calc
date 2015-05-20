@@ -63,7 +63,7 @@
       mainpage: {
         MM: ' мм ',
         CLIMATE_ZONE: 'климатическая зона',
-        THERMAL_RESISTANCE: 'сопротивление теплопередаче',
+        THERMAL_RESISTANCE: 'теплопередачa',
         AIR_CIRCULATION: 'коэффициент воздухообмена',
         NAVMENU_GEOLOCATION: 'Выбрать расположение',
         NAVMENU_CURRENT_GEOLOCATION: 'Текущее расположение',
@@ -89,7 +89,8 @@
         VOICE_SPEACH: 'Говорите...',
         COMMENT: 'Оставьте свою заметку о заказе здесь.',
         ROOM_SELECTION: 'Выбор интерьера',
-        CONFIGMENU_NO_ADDELEMENTS: 'Доп.элементы не выбраны'
+        CONFIGMENU_NO_ADDELEMENTS: 'Доп.элементы не выбраны',
+        HEATCOEF_VAL: 'Вт/м'
       },
       panels: {
         TEMPLATE_WINDOW: 'Oкно',

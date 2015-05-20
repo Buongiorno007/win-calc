@@ -98,7 +98,7 @@
                       if(results.data[cit].region_id === generalLocations.regions[r].id) {
                         location.regionName = generalLocations.regions[r].name;
                         location.climaticZone = generalLocations.regions[r].climaticZone;
-                        location.heatTransfer = generalLocations.regions[r].heatTransfer;
+                        location.heatTransfer = parseFloat((1/generalLocations.regions[r].heatTransfer).toFixed(2));
                         for(var s = 0; s < countryQty; s++) {
                           if(generalLocations.regions[r].countryId === generalLocations.countries[s].id) {
                             location.countryName = generalLocations.countries[s].name;

@@ -1059,7 +1059,9 @@
             <div ng-if="global.order.products.length &gt; 0 &amp;&amp; !global.isCreatedNewProject" show-delay="{{ configMenu.DELAY_START }}" class="qty unvisible">{{ global.order.products.length }}</div>
           </button>
         </footer>
-        <div ng-if="global.isConfigMenu" ng-class="{'u-coeff-low': global.product.heatTransferTOTAL &lt; global.currentGeoLocation.heatTransfer}" show-delay="{{ configMenu.DELAY_SHOW_U_COEFF }}" class="product-u-coeff unvisible">U = {{ global.product.heatTransferTOTAL }}</div>
+        <div ng-if="global.isConfigMenu" ng-class="{'u-coeff-low': global.product.heatTransferTOTAL &lt; global.currentGeoLocation.heatTransfer}" show-delay="{{ configMenu.DELAY_SHOW_U_COEFF }}" class="product-u-coeff unvisible">
+          <div>U = {{ global.product.heatTransferTOTAL }}</div>
+          <div>{{ 'mainpage.HEATCOEF_VAL' | translate }}&sup2;&middot;K</div> </div>
         <div ng-show="global.product.isAddElementsONLY" class="curtain"></div>
       </div>
       <div ng-controller="addElementMenuCtrl" ng-class="[global.showAddElementsMenu, global.addElementsMenuStyle]" class="elements-list-container">

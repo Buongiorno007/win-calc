@@ -16,31 +16,31 @@
       {
         profileDescrip: '4 камеры',
         profileNoise: 4,
-        heatCoeff: 3,
+        heatCoeff: 0.8,
         airCoeff: 10
       },
       {
         profileDescrip: '4 камеры',
         profileNoise: 4,
-        heatCoeff: 4,
+        heatCoeff: 0.82,
         airCoeff: 11
       },
       {
         profileDescrip: '5 камер',
         profileNoise: 5,
-        heatCoeff: 5,
+        heatCoeff: 0.84,
         airCoeff: 9
       },
       {
         profileDescrip: '4 камеры',
         profileNoise: 4,
-        heatCoeff: 2,
+        heatCoeff: 0.71,
         airCoeff: 8
       },
       {
         profileDescrip: '3 камеры',
         profileNoise: 3,
-        heatCoeff: 2,
+        heatCoeff: 0.8,
         airCoeff: 8
       }
     ];
@@ -486,20 +486,20 @@
       //------- total construction square define
       for (item = 0; item < templateQty; item++) {
         if(ProductStor.product.template.objects[item].type === "square") {
-          constructionSquareTotal = ProductStor.product.template.objects[item].squares.reduce(function(a, b) {
-            return a + b;
+          constructionSquareTotal = ProductStor.product.template.objects[item].squares.reduce(function(sum, elem) {
+            return sum + elem;
           });
         }
       }
       //-------- total glasses square define
-      glassSquareTotal = objXFormedPrice.glassSquares.reduce(function(a, b) {
-        return a + b;
+      glassSquareTotal = objXFormedPrice.glassSquares.reduce(function(sum, elem) {
+        return sum + elem;
       });
       //-------- coeffs define
       prifileHeatCoeffTotal = ProductStor.product.profileHeatCoeff * (constructionSquareTotal - glassSquareTotal);
       glassHeatCoeffTotal = ProductStor.product.glassHeatCoeff * glassSquareTotal;
       //-------- calculate Heat Coeff Total
-      ProductStor.product.heatTransferTOTAL = GeneralServ.roundingNumbers( ((prifileHeatCoeffTotal + glassHeatCoeffTotal)/constructionSquareTotal) );
+      ProductStor.product.heatTransferTOTAL = GeneralServ.roundingNumbers( constructionSquareTotal/(prifileHeatCoeffTotal + glassHeatCoeffTotal) );
 
       //-------- calculate Air Coeff Total
       //ProductStor.product.airCirculationTOTAL = + ProductStor.product.profileAirCoeff + ProductStor.product.glassAirCoeff + ProductStor.product.hardwareAirCoeff;

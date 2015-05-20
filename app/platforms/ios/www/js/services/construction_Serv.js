@@ -1214,7 +1214,7 @@
                 {'type': 'glass_line', id: 'glassline4', from: 'cpg3', to: 'cpg4'},
 
                 {'type': 'cross_point_glass', id: 'cpg5', line1: 'impostcenterline4', line2: 'impostcenterline1', blockType: 'frame'},
-                {'type': 'cross_point_glass', id: 'cpg6', line1: 'frameline3', line2: 'impostcenterline1', blockType: 'frame'},
+                {'type': 'cross_point_glass', id: 'cpg6', line1: 'impostcenterline1', line2: 'frameline3', blockType: 'frame'},
                 {'type': 'cross_point_glass', id: 'cpg7', line1: 'frameline3', line2: 'frameline4', blockType: 'frame'},
                 {'type': 'cross_point_glass', id: 'cpg8', line1: 'frameline4', line2: 'impostcenterline4', blockType: 'frame'},
                 {'type': 'glass_line', id: 'glassline5', from: 'cpg8', to: 'cpg5'},
@@ -1231,7 +1231,7 @@
                 {'type': 'glass_line', id: 'glassline11', from: 'cpg10', to: 'cpg11'},
                 {'type': 'glass_line', id: 'glassline12', from: 'cpg11', to: 'cpg12'},
 
-                {'type': 'cross_point_glass', id: 'cpg13', line1: 'frameline2', line2: 'impostcenterline6', blockType: 'frame'},
+                {'type': 'cross_point_glass', id: 'cpg13', line1: 'impostcenterline6', line2: 'frameline2', blockType: 'frame'},
                 {'type': 'cross_point_glass', id: 'cpg14', line1: 'frameline2', line2: 'frameline3', blockType: 'frame'},
                 {'type': 'cross_point_glass', id: 'cpg15', line1: 'frameline3', line2: 'impostcenterline2', blockType: 'frame'},
                 {'type': 'cross_point_glass', id: 'cpg16', line1: 'impostcenterline2', line2: 'impostcenterline6', blockType: 'frame'},
@@ -2824,7 +2824,7 @@
         callback(new OkResult({
           id: 7,
           name: 'WDS 400',
-          heatCoeff: 5,
+          heatCoeff: 0.8,
           airCoeff: 10
         }));
       },
@@ -2844,7 +2844,7 @@
                 profileDescrip: 'WDS 400',
                 profileCountry: $filter('translate')('panels.UKRAINE'),
                 profileNoise: 4,
-                heatCoeff: 3,
+                heatCoeff: 0.8,
                 airCoeff: 10
               },
               {
@@ -2853,7 +2853,7 @@
                 profileDescrip: 'WDS 404',
                 profileCountry: $filter('translate')('panels.UKRAINE'),
                 profileNoise: 4,
-                heatCoeff: 4,
+                heatCoeff: 0.82,
                 airCoeff: 11
               },
               {
@@ -2862,7 +2862,7 @@
                 profileDescrip: 'WDS 505',
                 profileCountry: $filter('translate')('panels.UKRAINE'),
                 profileNoise: 5,
-                heatCoeff: 5,
+                heatCoeff: 0.84,
                 airCoeff: 9
               },
               {
@@ -2871,7 +2871,7 @@
                 profileDescrip: 'ОКОШКО S60',
                 profileCountry: $filter('translate')('panels.UKRAINE'),
                 profileNoise: 4,
-                heatCoeff: 2,
+                heatCoeff: 0.71,
                 airCoeff: 8
               }
             ]/*,
@@ -2918,7 +2918,7 @@
                 glassUrl: 'img/glasses/glass1.png',
                 glassDescrip: '1 ' + $filter('translate')('panels.CAMERa'),
                 glassNoise: 4,
-                heatCoeff: 2,
+                heatCoeff: 0.35,
                 airCoeff: 9,
                 glassPrice: 406
               },
@@ -2928,7 +2928,7 @@
                 glassUrl: 'img/glasses/glass1.png',
                 glassDescrip: '1 ' + $filter('translate')('panels.CAMERa'),
                 glassNoise: 2,
-                heatCoeff: 1,
+                heatCoeff: 0.32,
                 airCoeff: 9,
                 glassPrice: 210
               },
@@ -2938,7 +2938,7 @@
                 glassUrl: 'img/glasses/glass2.png',
                 glassDescrip: '2 ' + $filter('translate')('panels.CAMER'),
                 glassNoise: 4,
-                heatCoeff: 3,
+                heatCoeff: 0.5,
                 airCoeff: 9,
                 glassPrice: 325
               },
@@ -2948,7 +2948,7 @@
                 glassUrl: 'img/glasses/glass2.png',
                 glassDescrip: '2 ' + $filter('translate')('panels.CAMER'),
                 glassNoise: 4,
-                heatCoeff: 3,
+                heatCoeff: 0.5,
                 airCoeff: 9,
                 glassPrice: 325
               }
@@ -2960,7 +2960,7 @@
                 glassUrl: 'img/glasses/glass10.png',
                 glassDescrip: '1 '+ $filter('translate')('panels.CAMERa') + $filter('translate')('panels.ENERGY_SAVE'),
                 glassNoise: 2,
-                heatCoeff: 4,
+                heatCoeff: 0.59,
                 airCoeff: 9,
                 glassPrice:  245
               },
@@ -2970,7 +2970,7 @@
                 glassUrl: 'img/glasses/glass10.png',
                 glassDescrip: '1 '+ $filter('translate')('panels.CAMERa') + $filter('translate')('panels.ENERGY_SAVE'),
                 glassNoise: 2,
-                heatCoeff: 4,
+                heatCoeff: 0.68,
                 airCoeff: 9,
                 glassPrice:  257
               },
@@ -2980,7 +2980,7 @@
                 glassUrl: 'img/glasses/glass20.png',
                 glassDescrip: '2 '+ $filter('translate')('panels.CAMER') + $filter('translate')('panels.ENERGY_SAVE'),
                 glassNoise: 4,
-                heatCoeff: 4,
+                heatCoeff: 0.66,
                 airCoeff: 9,
                 glassPrice: 370
               },
@@ -2990,7 +2990,7 @@
                 glassUrl: 'img/glasses/glass20.png',
                 glassDescrip: '2 '+ $filter('translate')('panels.CAMER') + $filter('translate')('panels.ENERGY_SAVE'),
                 glassNoise: 4,
-                heatCoeff: 5,
+                heatCoeff: 0.82,
                 airCoeff: 9,
                 glassPrice: 465
               }
@@ -3002,7 +3002,7 @@
                 glassUrl: 'img/glasses/glass1.png',
                 glassDescrip: '1 '+ $filter('translate')('panels.CAMERa'),
                 glassNoise: 2,
-                heatCoeff: 2,
+                heatCoeff: 0.32,
                 airCoeff: 9,
                 glassPrice:  678
               },
@@ -3012,7 +3012,7 @@
                 glassUrl: 'img/glasses/glass2.png',
                 glassDescrip: '2 '+ $filter('translate')('panels.CAMER'),
                 glassNoise: 4,
-                heatCoeff: 3,
+                heatCoeff: 0.5,
                 airCoeff: 9,
                 glassPrice: 793
               }
@@ -3024,7 +3024,7 @@
                 glassUrl: 'img/glasses/glass1.png',
                 glassDescrip: '1 '+ $filter('translate')('panels.CAMERa'),
                 glassNoise: 2,
-                heatCoeff: 2,
+                heatCoeff: 0.32,
                 airCoeff: 9,
                 glassPrice: 678
               },
@@ -3034,7 +3034,7 @@
                 glassUrl: 'img/glasses/glass2.png',
                 glassDescrip: '2 '+ $filter('translate')('panels.CAMER'),
                 glassNoise: 4,
-                heatCoeff: 3,
+                heatCoeff: 0.5,
                 airCoeff: 9,
                 glassPrice:  793
               }
@@ -3046,7 +3046,7 @@
                 glassUrl: 'img/glasses/glass1.png',
                 glassDescrip: '1 '+ $filter('translate')('panels.CAMERa'),
                 glassNoise: 2,
-                heatCoeff: 2,
+                heatCoeff: 0.37,
                 airCoeff: 9,
                 glassPrice: 1038
               },
@@ -3056,7 +3056,7 @@
                 glassUrl: 'img/glasses/glass1.png',
                 glassDescrip: '1 '+ $filter('translate')('panels.CAMERa'),
                 glassNoise: 4,
-                heatCoeff: 2,
+                heatCoeff: 0.39,
                 airCoeff: 9,
                 glassPrice: 1234
               },
@@ -3066,7 +3066,7 @@
                 glassUrl: 'img/glasses/glass2.png',
                 glassDescrip: '2 '+ $filter('translate')('panels.CAMER'),
                 glassNoise: 4,
-                heatCoeff: 3,
+                heatCoeff: 0.54,
                 airCoeff: 9,
                 glassPrice: 1153
               },
@@ -3076,7 +3076,7 @@
                 glassUrl: 'img/glasses/glass2.png',
                 glassDescrip: '2 '+ $filter('translate')('panels.CAMER'),
                 glassNoise: 4,
-                heatCoeff: 3,
+                heatCoeff: 0.54,
                 airCoeff: 9,
                 glassPrice: 1321
               }

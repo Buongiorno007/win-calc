@@ -5325,6 +5325,15 @@ li.constr-shape-icon:last-child {
   font: normal 2.5rem/1 general-icons, sans-serif;
   background-color: #bebebe;
 }
+
+.construction-right-menu .step-back {
+  font: normal 2.5rem/1 general-icons, sans-serif;
+  background-color: #bebebe;
+}
+.construction-right-menu .step-back:after {
+  content: "\e965";
+}
+
 /* line 255, ../../dev/sass/pages/construction.scss */
 .construction-right-menu .right-menu-footer {
   position: absolute;
@@ -5782,10 +5791,12 @@ li.constr-shape-icon:last-child {
 /* line 80, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .product-u-coeff {
   font: normal 2.625rem/1.42857 roboto-light, sans-serif;
-  top: 16.75rem;
-  right: 2rem;
+  width: 40%;
+  top: 15rem;
+  right: 1rem;
   position: absolute;
   margin-left: 0.3125rem;
+  text-align: center;
   background-color: transparent;
   color: #6ed44a;
   z-index: 2;

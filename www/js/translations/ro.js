@@ -64,7 +64,7 @@
       mainpage: {
         MM: ' mm ',
         CLIMATE_ZONE: 'zona climatica ',
-        THERMAL_RESISTANCE: 'rezistență termică',
+        THERMAL_RESISTANCE: 'transfer de căldură',
         AIR_CIRCULATION: 'coeficientul circulatiei aerului',
         NAVMENU_GEOLOCATION: 'Selectați locația',
         NAVMENU_CURRENT_GEOLOCATION: 'Locul de amplasare actual',
@@ -91,7 +91,8 @@
         VOICE_SPEACH: 'Vorbiți...',
         COMMENT: 'Lasă un bilet pe ordinea de aici.',
         ROOM_SELECTION: 'Interior selection',
-        CONFIGMENU_NO_ADDELEMENTS: 'Suplimentare sunt selectate'
+        CONFIGMENU_NO_ADDELEMENTS: 'Suplimentare sunt selectate',
+        HEATCOEF_VAL: 'W/m'
       },
       panels: {
         TEMPLATE_WINDOW: 'Fereastră',
