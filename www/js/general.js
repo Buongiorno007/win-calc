@@ -503,55 +503,212 @@ function sortingCoordin(dimentions, coordinates, typeDim, levelDim, limit, class
 //////////////////////////////////////////////////
 
 function centerBlock(template, block){
-  var center = {
-        centerX: 0,
-        centerY: 0,
-        points:[]
-      },
-      templateQty = template.length,
-      pointsQty = block.points.length,
+  var blockQty = template.length,
+      pointsQty = block.pointsID.length,
       i = 0;
 
+    block.center = {
+      centerX: 0,
+      centerY: 0
+    };
+    block.pointsOut = [];
 
   for(; i < pointsQty; i++) {
-    for(var j = 0; j < templateQty; j++) {
-      if(block.points[i] === template[j].id) {
-        center.points.push(template[j]);
-        center.centerX += template[j].x;
-        center.centerY += template[j].y;
+    for(var j = 0; j < blockQty; j++) {
+      if(block.pointsID[i] === template[j].id) {
+        block.pointsOut.push( JSON.parse(JSON.stringify(template[j])) );
+        block.center.centerX += template[j].x;
+        block.center.centerY += template[j].y;
       }
     }
   }
 
-  center.centerX /= pointsQty;
-  center.centerY /= pointsQty;
-  return center;
+  block.center.centerX /= pointsQty;
+  block.center.centerY /= pointsQty;
+  return block;
 }
 
 
 
 function sortingPoints(block) {
-  var blockPointsQty = block.center.points.length,
+  var blockPointsQty = block.pointsOut.length,
       i = 0;
 
   for(; i < blockPointsQty; i++) {
-    var fi = Math.atan2(block.center.centerY - block.center.points[i].y, block.center.points[i].x - block.center.centerX) * (180 / Math.PI);
+    var fi = Math.atan2(block.center.centerY - block.pointsOut[i].y, block.pointsOut[i].x - block.center.centerX) * (180 / Math.PI);
     if(fi < 0) {
       fi += 360;
     }
-    block.center.points[i].fi = fi;
-    console.log('fi == ', block.center.points[i].fi);
+    block.pointsOut[i].fi = fi;
   }
-
-  block.center.points.sort(function(a, b){
+  block.pointsOut.sort(function(a, b){
     return b.fi - a.fi;
   });
-
-console.log(JSON.stringify(block.center.points));
-  return block.center.points;
-
+  return block;
 }
 
+
+
+
+function setLines(points) {
+  var lines = [],
+      pointsQty = points.length,
+      i = 0;
+
+  for(; i < pointsQty; i++) {
+    var line = {};
+    if(points[i].dir === 'line') {
+      line.dir = 'line';
+      if(points[i].id) {
+        line.from = points[i].id;
+      }
+      line.startX = points[i].x;
+      line.startY = points[i].y;
+      if(i === (pointsQty - 1)) {
+        line.endX = points[0].x;
+        line.endY = points[0].y;
+        line.type = setLineType(points[i].type, points[0].type);
+        if(points[0].id) {
+          line.to = points[0].id;
+        }
+      } else {
+        line.endX = points[i+1].x;
+        line.endY = points[i+1].y;
+        line.type = setLineType(points[i].type, points[i+1].type);
+        if(points[i+1].id) {
+          line.to = points[i+1].id;
+        }
+      }
+
+      line.size = Math.round(Math.sqrt( Math.pow((line.endX - line.startX), 2) + Math.pow((line.endY - line.startY), 2) ) * 100) / 100;
+      line.coefA = (line.startY - line.endY);
+      line.coefB = (line.endX - line.startX);
+      line.coefC = (line.startX*line.endY - line.endX*line.startY);
+    }
+    lines.push(line);
+  }
+  //------ change place last element in array to first
+  var last = lines.pop();
+  lines.unshift(last);
+
+  return lines;
+}
+
+
+function setLineType(from, to) {
+  var type = '';
+  if(from === to) {
+    if(from === 'impost') {
+      type = 'impost';
+    } else {
+      type = 'frame';
+    }
+  } else {
+    type = 'frame';
+  }
+  return type;
+}
+
+
+function setPointsIn(block, depths) {
+  var pointsIn = [],
+      linesQty = block.linesOut.length,
+      i = 0;
+
+  for(; i < linesQty; i++) {
+    var newCoefC1 = getNewCoefC(depths, block.linesOut[i]),
+        newCoefC2 = 0,
+        crossPoint = {};
+
+    if(i === (linesQty - 1)) {
+      newCoefC2 = getNewCoefC(depths, block.linesOut[0]);
+      crossPoint = getCoordCrossPoint (block.linesOut[i], block.linesOut[0], newCoefC1, newCoefC2);
+    } else {
+      newCoefC2 = getNewCoefC(depths, block.linesOut[i+1]);
+      crossPoint = getCoordCrossPoint (block.linesOut[i], block.linesOut[i+1], newCoefC1, newCoefC2);
+    }
+    pointsIn.push(crossPoint);
+  }
+
+  return pointsIn;
+}
+
+function getNewCoefC(depths, line) {
+  var depth = 0;
+  if(line.type === 'frame') {
+    depth = depths.frameDepth.c
+  } else if(line.type === 'impost') {
+    depth = depths.impostDepth.c / 2;
+  }
+  var newCoefC = line.coefC - (depth * Math.sqrt(Math.pow(line.coefA, 2) + Math.pow(line.coefB, 2)));
+  return newCoefC;
+}
+
+
+
+function getCoordCrossPoint(line1, line2, coefC1, coefC2) {
+  var crossPoint = {},
+      coefA1 = line1.coefA,
+      coefB1 = line1.coefB,
+      coefA2 = line2.coefA,
+      coefB2 = line2.coefB,
+      base = (coefA1 * coefB2) - (coefA2 * coefB1),
+      baseX = ((-coefC1) * coefB2) - (coefB1 * (-coefC2)),
+      baseY = (coefA1 * (-coefC2)) - (coefA2 * (-coefC1));
+  crossPoint.x = baseX / base;
+  crossPoint.y = baseY / base;
+  crossPoint.type = setPointType(line1.type, line2.type);
+  crossPoint.dir = setPointDir(line1.dir, line2.dir);
+  return crossPoint;
+}
+
+
+function setPointType(from, to) {
+  var type = '';
+  if(from === to) {
+    if(from === 'impost') {
+      type = 'impost';
+    } else {
+      type = 'frame';
+    }
+  } else {
+    type = 'frame';
+  }
+  return type;
+}
+
+function setPointDir(from, to) {
+  var dir = '';
+  if(from === 'curv' || to === 'curv') {
+    dir = 'curv';
+  } else {
+    dir = 'line';
+  }
+  return dir;
+}
+
+
+
+
+
+
+function setParts(block) {
+  var parts = [],
+      pointsQty = block.pointsOut.length,
+      i = 0;
+  for(; i < pointsQty; i++) {
+    var part = {
+      type: block.pointsOut[i].type,
+      points: []
+    };
+    part.points.push(block.pointsOut[i]);
+    part.points.push(block.pointsOut[i+1]);
+    part.points.push(block.pointsIn[i+1]);
+    part.points.push(block.pointsIn[i]);
+    parts.push(part);
+  }
+  return parts;
+}
 
 
 
@@ -590,21 +747,77 @@ console.log(JSON.stringify(block.center.points));
 var Template = function (sourceObj, depths) {
   this.name = sourceObj.name;
   this.objects = sourceObj.objects;
-  this.dimentions = createDimentions(sourceObj);
+  //this.dimentions = createDimentions(sourceObj);
 
-  for(var i = 0; i < this.objects.length; i++) {
+    var objQty = this.objects.length,
+        i = 0;
+  for(; i < objQty; i++) {
     if(this.objects[i].type === 'skylight' && this.objects[i].level > 0) {
 
-      this.objects[i].center = centerBlock(this.objects, this.objects[i]);
-      this.objects[i].points = sortingPoints(this.objects[i]);
-      delete this.objects[i].center;
+      this.objects[i] = centerBlock(this.objects, this.objects[i]);
+      this.objects[i] = sortingPoints(this.objects[i]);
+      this.objects[i].linesOut = setLines(this.objects[i].pointsOut);
+
+      //------- if block is empty
+      if(!this.objects[i].inject.length) {
+        this.objects[i].pointsIn = setPointsIn(this.objects[i], depths);
+        this.objects[i].linesIn = setLines(this.objects[i].pointsIn);
+        console.log('+++ each +++', this.objects[i]);
+        console.log(JSON.stringify(this.objects[i]));
+
+        //------ if block is frame
+        if(this.objects[i].blockType === 'frame') {
+          // bead glass
+        } else if(this.objects[i].blockType === 'sash') {
+          // sash bead glass
+        }
+        //------- set points for each part of construction
+        this.objects[i].parts = setParts(this.objects[i]);
+      }
+
     }
   }
 
-console.log('+++++++++++++', this.objects);
+  console.log('++++++ all +++++++', this.objects);
   console.log(JSON.stringify(this.objects));
 };
 
+
+var TemplateIcon = function (sourceObj, depths) {
+  var tmpObject, coeffScale = 2;
+
+  this.name = sourceObj.name;
+  this.objects = sourceObj.objects;
+  //this.dimentions = createDimentions(sourceObj);
+
+  var objQty = this.objects.length,
+      i = 0;
+  for(; i < objQty; i++) {
+    if(this.objects[i].type === 'skylight' && this.objects[i].level > 0) {
+
+      this.objects[i] = centerBlock(this.objects, this.objects[i]);
+      this.objects[i] = sortingPoints(this.objects[i]);
+      this.objects[i].linesOut = setLines(this.objects[i].pointsOut);
+
+      //------- if block is empty
+      if(!this.objects[i].inject.length) {
+        this.objects[i].pointsIn = setPointsIn(this.objects[i], depths);
+        this.objects[i].linesIn = setLines(this.objects[i].pointsIn);
+
+        //------ if block is frame
+        if(this.objects[i].blockType === 'frame') {
+          // bead glass
+        } else if(this.objects[i].blockType === 'sash') {
+          // sash bead glass
+        }
+        //------- set points for each part of construction
+        this.objects[i].parts = setParts(this.objects[i]);
+      }
+
+    }
+  }
+
+};
 
 /*
 

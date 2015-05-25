@@ -32,7 +32,8 @@
         SEND_ORDER_TXT: 'Хочете відправити замовлення на завод?',
         NEW_TEMPLATE_TITLE: 'Зміна шаблона',
         TEMPLATE_CHANGES_LOST: 'Зміни у шаблоні будуть загублені. Продовжити?',
-        SELECT: 'Выбрать'
+        SELECT: 'Выбрать',
+        OK: 'OK'
       },
       login: {
         ENTER: 'Увійти',

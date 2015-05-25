@@ -32,7 +32,8 @@
         SEND_ORDER_TXT: 'Doriți să trimiteți comanda la uzină?',
         NEW_TEMPLATE_TITLE: 'Template changing',
         TEMPLATE_CHANGES_LOST: 'The template changes will lost! Continue?',
-        SELECT: 'Select'
+        SELECT: 'Select',
+        OK: 'OK'
       },
       login: {
         ENTER: 'autentificare',

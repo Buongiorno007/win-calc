@@ -60,7 +60,7 @@
         SELECT_PRODUCER: 'Choose the producer',
         SELECT_FACTORY: 'Please select the producer',
         USER_PASSWORD_ERROR: 'Sorry, but your password is wrong!',
-        OFFLINE: 'No connection to the Internet!'
+        OFFLINE: 'No internet connection!'
       },
       mainpage: {
         MM: ' mm ',

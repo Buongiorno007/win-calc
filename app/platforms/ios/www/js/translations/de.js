@@ -32,7 +32,8 @@
         SEND_ORDER_TXT: 'Sie wollen die Bestellung auf den Betrieb absenden?',
         NEW_TEMPLATE_TITLE: 'Template-Wechsel',
         TEMPLATE_CHANGES_LOST: 'Die Template-Änderungen gehen verloren! Fortfahren?',
-        SELECT: 'wählen'
+        SELECT: 'wählen',
+        OK: 'OK'
       },
       login: {
         ENTER: 'Einloggen',

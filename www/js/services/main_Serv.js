@@ -298,10 +298,10 @@
 
       setCurrentGlass();
       setCurrentHardware();
-
-      preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId).then(function() {
-        deferred.resolve('done');
-      });
+//TODO
+//      preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId).then(function() {
+//        deferred.resolve('done');
+//      });
 
       return deferred.promise;
     }

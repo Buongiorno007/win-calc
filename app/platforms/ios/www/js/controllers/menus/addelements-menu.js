@@ -87,7 +87,7 @@
             cloneAddElement.elementPrice = parseFloat(results.data.price);
             $scope.addElementsMenu.isAddElementPrice = true;
             $scope.currAddElementPrice = cloneAddElement.elementPrice;
-
+            $scope.global.isTabFrame = true;
             $scope.pushSelectedAddElement();
             //Set Total Product Price
             $scope.setAddElementsTotalPrice();
@@ -131,9 +131,9 @@
             cloneAddElement.elementColor = '';
             $scope.global.product.chosenAddElements.selectedGrids.push(cloneAddElement);
             //---- open TABFrame when second element selected
-            if($scope.global.product.chosenAddElements.selectedGrids.length === 2) {
-              $scope.global.isTabFrame = true;
-            }
+//            if($scope.global.product.chosenAddElements.selectedGrids.length === 2) {
+//              $scope.global.isTabFrame = true;
+//            }
           } else {
             $scope.global.product.chosenAddElements.selectedGrids[existedElement].elementQty += 1;
           }
@@ -146,9 +146,9 @@
             cloneAddElement.elementColor = '';
             $scope.global.product.chosenAddElements.selectedVisors.push(cloneAddElement);
             //---- open TABFrame when second element selected
-            if($scope.global.product.chosenAddElements.selectedVisors.length === 2) {
-              $scope.global.isTabFrame = true;
-            }
+//            if($scope.global.product.chosenAddElements.selectedVisors.length === 2) {
+//              $scope.global.isTabFrame = true;
+//            }
           } else {
             $scope.global.product.chosenAddElements.selectedVisors[existedElement].elementQty += 1;
           }
@@ -161,9 +161,9 @@
             cloneAddElement.elementColor = '';
             $scope.global.product.chosenAddElements.selectedSpillways.push(cloneAddElement);
             //---- open TABFrame when second element selected
-            if($scope.global.product.chosenAddElements.selectedSpillways.length === 2) {
-              $scope.global.isTabFrame = true;
-            }
+//            if($scope.global.product.chosenAddElements.selectedSpillways.length === 2) {
+//              $scope.global.isTabFrame = true;
+//            }
           } else {
             $scope.global.product.chosenAddElements.selectedSpillways[existedElement].elementQty += 1;
           }
@@ -176,9 +176,9 @@
             cloneAddElement.elementColor = '';
             $scope.global.product.chosenAddElements.selectedOutsideSlope.push(cloneAddElement);
             //---- open TABFrame when second element selected
-            if($scope.global.product.chosenAddElements.selectedOutsideSlope.length === 2) {
-              $scope.global.isTabFrame = true;
-            }
+//            if($scope.global.product.chosenAddElements.selectedOutsideSlope.length === 2) {
+//              $scope.global.isTabFrame = true;
+//            }
           } else {
             $scope.global.product.chosenAddElements.selectedOutsideSlope[existedElement].elementQty += 1;
           }
@@ -190,9 +190,9 @@
             cloneAddElement.elementColor = '';
             $scope.global.product.chosenAddElements.selectedLouvers.push(cloneAddElement);
             //---- open TABFrame when second element selected
-            if($scope.global.product.chosenAddElements.selectedLouvers.length === 2) {
-              $scope.global.isTabFrame = true;
-            }
+//            if($scope.global.product.chosenAddElements.selectedLouvers.length === 2) {
+//              $scope.global.isTabFrame = true;
+//            }
           } else {
             $scope.global.product.chosenAddElements.selectedLouvers[existedElement].elementQty += 1;
           }
@@ -205,9 +205,9 @@
             cloneAddElement.elementColor = '';
             $scope.global.product.chosenAddElements.selectedInsideSlope.push(cloneAddElement);
             //---- open TABFrame when second element selected
-            if($scope.global.product.chosenAddElements.selectedInsideSlope.length === 2) {
-              $scope.global.isTabFrame = true;
-            }
+//            if($scope.global.product.chosenAddElements.selectedInsideSlope.length === 2) {
+//              $scope.global.isTabFrame = true;
+//            }
           } else {
             $scope.global.product.chosenAddElements.selectedInsideSlope[existedElement].elementQty += 1;
           }
@@ -220,9 +220,9 @@
             cloneAddElement.elementColor = '';
             $scope.global.product.chosenAddElements.selectedConnectors.push(cloneAddElement);
             //---- open TABFrame when second element selected
-            if($scope.global.product.chosenAddElements.selectedConnectors.length === 2) {
-              $scope.global.isTabFrame = true;
-            }
+//            if($scope.global.product.chosenAddElements.selectedConnectors.length === 2) {
+//              $scope.global.isTabFrame = true;
+//            }
           } else {
             $scope.global.product.chosenAddElements.selectedConnectors[existedElement].elementQty += 1;
           }
@@ -236,9 +236,9 @@
             cloneAddElement.elementColor = '';
             $scope.global.product.chosenAddElements.selectedFans.push(cloneAddElement);
             //---- open TABFrame when second element selected
-            if($scope.global.product.chosenAddElements.selectedFans.length === 2) {
-              $scope.global.isTabFrame = true;
-            }
+//            if($scope.global.product.chosenAddElements.selectedFans.length === 2) {
+//              $scope.global.isTabFrame = true;
+//            }
           } else {
             $scope.global.product.chosenAddElements.selectedFans[existedElement].elementQty += 1;
           }
@@ -250,9 +250,9 @@
             cloneAddElement.elementHeight = 0;
             $scope.global.product.chosenAddElements.selectedWindowSill.push(cloneAddElement);
             //---- open TABFrame when second element selected
-            if($scope.global.product.chosenAddElements.selectedWindowSill.length === 2) {
-              $scope.global.isTabFrame = true;
-            }
+//            if($scope.global.product.chosenAddElements.selectedWindowSill.length === 2) {
+//              $scope.global.isTabFrame = true;
+//            }
           } else {
             $scope.global.product.chosenAddElements.selectedWindowSill[existedElement].elementQty += 1;
           }
@@ -266,9 +266,9 @@
             cloneAddElement.elementColor = '';
             $scope.global.product.chosenAddElements.selectedHandles.push(cloneAddElement);
             //---- open TABFrame when second element selected
-            if($scope.global.product.chosenAddElements.selectedHandles.length === 2) {
-              $scope.global.isTabFrame = true;
-            }
+//            if($scope.global.product.chosenAddElements.selectedHandles.length === 2) {
+//              $scope.global.isTabFrame = true;
+//            }
           } else {
             $scope.global.product.chosenAddElements.selectedHandles[existedElement].elementQty += 1;
           }
@@ -282,9 +282,9 @@
             cloneAddElement.elementColor = '';
             $scope.global.product.chosenAddElements.selectedOthers.push(cloneAddElement);
             //---- open TABFrame when second element selected
-            if($scope.global.product.chosenAddElements.selectedOthers.length === 2) {
-              $scope.global.isTabFrame = true;
-            }
+//            if($scope.global.product.chosenAddElements.selectedOthers.length === 2) {
+//              $scope.global.isTabFrame = true;
+//            }
           } else {
             $scope.global.product.chosenAddElements.selectedOthers[existedElement].elementQty += 1;
           }

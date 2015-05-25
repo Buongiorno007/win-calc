@@ -66,8 +66,10 @@
             <div ng-show="history.isOrderSearch" class="history-search">
               <form name="searchForm">
                 <div class="search-block">
-                  <input ng-show="!global.isHistoryPage" type="text" name="searching" ng-model="searchingWord" ng-change="checkChanges()" placeholder="{{ 'add_elements.INPUT_ADD_ELEMENT' | translate }}" class="search-input">
-                  <input ng-show="global.isHistoryPage" type="text" name="searching" ng-model="searchingWord" ng-change="checkChanges()" placeholder="{{ 'history.SEARCH_PLACEHOLDER' | translate }}" class="search-input">
+                  <!--input ng-hide="global.isHistoryPage" type="text" name="searching" ng-model="searchingWord" ng-change="checkChanges()" placeholder="{{ 'add_elements.INPUT_ADD_ELEMENT' | translate }}" class="search-input">
+                  <input ng-show="global.isHistoryPage" type="text" name="searching" ng-model="searchingWord" ng-change="checkChanges()" placeholder="{{ 'history.SEARCH_PLACEHOLDER' | translate }}" class="search-input"-->
+                  <input ng-hide="global.isHistoryPage" type="text" name="searching" ng-model="searchingWord" ng-change="checkChanges()" class="search-input">
+                  <input ng-show="global.isHistoryPage" type="text" name="searching" ng-model="searchingWord" ng-change="checkChanges()" class="search-input">
                   <button hm-tap="deleteSearchChart()" class="delete-search"></button>
                   <button ng-show="!global.isHistoryPage &amp;&amp; searchingWord" hm-tap="cancelSearching()" class="cancel-search">{{ 'add_elements.CANCEL' | translate }}</button>
                   <button ng-show="global.isHistoryPage &amp;&amp; history.isOrderSearch" hm-tap="cancelSearching()" class="cancel-search">{{ 'add_elements.CANCEL' | translate }}</button>
@@ -200,7 +202,7 @@
               </div>
             </div>
             <div class="history-tools-panel">
-              <div ng-class="{ 'active': history.isIntervalDateDraft }" class="tools-block tool-drop">
+              <!--div ng-class="{ 'active': history.isIntervalDateDraft }" class="tools-block tool-drop">
                 <button hm-tap="intervalDateSelecting()" class="tool calendar-btn"></button>
                 <div ng-class="{ 'empty': history.startDateDraft === '' &amp;&amp;  history.finishDateDraft === ''}" class="time-interval"><span ng-if="history.startDateDraft !== ''">{{ 'history.FROM' | translate }}</span><span order-date="{{ history.startDateDraft }}" type-date=""></span><span ng-show="history.startDateDraft !== ''">&nbsp; - &nbsp;</span><span ng-if="history.finishDateDraft !== ''">{{ 'history.UNTIL' | translate }}</span><span order-date="{{ history.finishDateDraft }}" type-date=""></span></div>
                 <div class="dropdown-tool-dialog date-filter">
@@ -215,7 +217,7 @@
                   </div>
                   <div ng-class="{ 'selected': history.isAllPeriodDraft }" hm-tap="openCalendarScroll('full-date')" class="period total-date">{{ 'history.ALL_TIME' | translate }}</div>
                 </div>
-              </div>
+              </div-->
               <div ng-class="{ 'active': history.isOrderSortDraft }" class="tools-block tool-drop">
                 <button hm-tap="orderSorting()" class="tool settings-btn"></button>
                 <div class="dropdown-tool-dialog sort-filter">
