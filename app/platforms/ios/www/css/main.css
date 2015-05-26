@@ -3392,6 +3392,12 @@ body {
   z-index: 12;
 }
 
+.inet_ok {
+  display: block;
+  margin: auto auto;
+  margin-top: 1rem;
+}
+
 /* line 134, ../../dev/sass/pages/login.scss */
 .placeholder-select {
   color: #A9A9AB;

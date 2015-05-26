@@ -30,7 +30,8 @@
         NEW_TEMPLATE_TITLE: 'Зміна шаблона',
         TEMPLATE_CHANGES_LOST: 'Зміни у шаблоні будуть загублені. Продовжити?',
         SELECT: 'Выбрать',
-        AND: 'та'
+        AND: 'та',
+        OK: 'OK'
       },
       login: {
         ENTER: 'Увійти',
@@ -56,7 +57,8 @@
         SELECT_PRODUCER: 'Выберите производителя',
         SELECT_FACTORY: 'Вы не выбрали производителя',
         USER_PASSWORD_ERROR: 'Неверный пароль!',
-        OFFLINE: 'Нема зв`язку з iнтернетом!'
+        OFFLINE: 'Нема зв`язку з iнтернетом!',
+        IMPORT_DB: 'Почалась загрузка Баз данних! Почекайте будь ласка!'
       },
       mainpage: {
         MM: ' мм ',

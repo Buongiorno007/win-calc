@@ -10,12 +10,13 @@
     .module('LoginModule')
     .factory('loginServ', startFactory);
 
-  function startFactory($q, globalDB, globalConstants, GeneralServ, OrderStor, UserStor) {
+  function startFactory($q, $cordovaGlobalization, $translate, globalDB, globalConstants, GeneralServ, OrderStor, UserStor) {
 
     var thisFactory = this;
 
     thisFactory.publicObj = {
-      checkLangDictionary: checkLangDictionary,
+      getDeviceLanguage: getDeviceLanguage,
+      downloadUsers: downloadUsers,
       prepareLocationToUse: prepareLocationToUse,
       setUserLocation: setUserLocation,
       setUserGeoLocation: setUserGeoLocation
@@ -25,6 +26,20 @@
 
 
     //============ methods ================//
+
+
+    //------- defined system language
+    function getDeviceLanguage() {
+      $cordovaGlobalization.getPreferredLanguage().then(
+        function(result) {
+          checkLangDictionary(result.value.split('-')[0]);
+          $translate.use(UserStor.userInfo.langLabel);
+        },
+        function(error) {
+          console.log('No language defined');
+        });
+    }
+
 
     //------ compare device language with existing dictionary, if not exist set default language = English
     function checkLangDictionary(label) {
@@ -36,6 +51,24 @@
         }
       }
     }
+
+
+    //------- download Users & Location
+    function downloadUsers() {
+      var deferred = $q.defer();
+
+      globalDB.clearLocation().then(function() {
+        globalDB.importLocation().then(function() {
+          //------ save Location Data in local obj
+          prepareLocationToUse().then(function(data) {
+            deferred.resolve(data);
+          });
+        });
+      });
+
+      return deferred.promise;
+    }
+
 
 
     //------- collecting cities, regions and countries in one object for registration form

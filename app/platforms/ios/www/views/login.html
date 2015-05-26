@@ -2,12 +2,13 @@
 <section class="login-page">
   <div id="login-container" ng-hide="loginPage.isRegistration" ng-mousemove="loginPage.isSendEmail = false; loginPage.isUserNotExist = false; loginPage.isUserNotActive = false; loginPage.isUserPasswordError = false;" class="login-container">
     <div ng-hide="loginPage.isOnline || !loginPage.isOffline" class="attantion">{{ 'login.OFFLINE' | translate }}
-         <button class="" hm-tap="loginPage.closeOffline()" >{{ 'common_words.OK' | translate }}</button>
+         <button class="inet_ok" hm-tap="loginPage.closeOfflineAlert()" >{{ 'common_words.OK' | translate }}</button>
     </div>
     <div ng-show="loginPage.isSendEmail" class="attantion">{{ 'login.USER_CHECK_EMAIL' | translate }}</div>
     <div ng-show="loginPage.isUserNotExist" class="attantion">{{ 'login.USER_NOT_EXIST' | translate }}</div>
     <div ng-show="loginPage.isUserNotActive" class="attantion">{{ 'login.USER_NOT_ACTIVE' | translate }}</div>
     <div ng-show="loginPage.isUserPasswordError" class="attantion">{{ 'login.USER_PASSWORD_ERROR' | translate }}</div>
+    <div ng-show="loginPage.isStartImport" class="attantion">{{ 'login.IMPORT_DB' | translate }}</div>
     <div class="logo"></div>
     <form name="loginForm" novalidate ng-submit="loginPage.enterForm(loginForm)">
       <div ng-class="{ 'has-error': loginPage.submitted &amp;&amp; loginForm.phone.$error.required }" class="input-field">

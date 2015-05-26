@@ -33,7 +33,8 @@
         NEW_TEMPLATE_TITLE: 'Template-Wechsel',
         TEMPLATE_CHANGES_LOST: 'Die Template-Änderungen gehen verloren! Fortfahren?',
         SELECT: 'wählen',
-        AND: 'und'
+        AND: 'und',
+        OK: 'OK'
       },
       login: {
         ENTER: 'Einloggen',
@@ -59,7 +60,8 @@
         SELECT_PRODUCER: 'Hersteller auswählen',
         SELECT_FACTORY: 'Sie haben noch keine gewählten Hersteller',
         USER_PASSWORD_ERROR: 'ungültiges Kennwort!',
-        OFFLINE: 'Keine Verbindung zum Internet!'
+        OFFLINE: 'Keine Verbindung zum Internet!',
+        IMPORT_DB: 'Databases JETZT HERUNTERLADEN! Warten Sie mal!'
       },
       mainpage: {
         MM: ' mm ',

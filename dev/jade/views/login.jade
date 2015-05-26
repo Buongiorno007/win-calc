@@ -2,11 +2,13 @@ section.login-page
 
   //---------------- LogIn Form
   #login-container.login-container(ng-hide="loginPage.isRegistration", ng-mousemove="loginPage.isSendEmail = false; loginPage.isUserNotExist = false; loginPage.isUserNotActive = false; loginPage.isUserPasswordError = false;")
-    .attantion(ng-hide="loginPage.isOnline") {{ 'login.OFFLINE' | translate }}
+    .attantion(ng-hide="loginPage.isOnline || !loginPage.isOffline") {{ 'login.OFFLINE' | translate }}
+      button.inet_ok(hm-tap="loginPage.closeOfflineAlert()") {{ 'common_words.OK' | translate }}
     .attantion(ng-show="loginPage.isSendEmail") {{ 'login.USER_CHECK_EMAIL' | translate }}
     .attantion(ng-show="loginPage.isUserNotExist") {{ 'login.USER_NOT_EXIST' | translate }}
     .attantion(ng-show="loginPage.isUserNotActive") {{ 'login.USER_NOT_ACTIVE' | translate }}
     .attantion(ng-show="loginPage.isUserPasswordError") {{ 'login.USER_PASSWORD_ERROR' | translate }}
+    .attantion(ng-show="loginPage.isStartImport") {{ 'login.IMPORT_DB' | translate }}
     .logo
     form(name='loginForm', novalidate, ng-submit="loginPage.enterForm(loginForm)")
       .input-field(ng-class="{ 'has-error': loginPage.submitted && loginForm.phone.$error.required }")
@@ -80,4 +82,5 @@ section.login-page
 
       button.login-submit(type="submit") {{ 'login.REGISTRATION' | translate }}
 
-  .backDarkView(ng-show="loginPage.isFactoryId || !loginPage.isOnline")
+  .backDarkView(ng-show="loginPage.isFactoryId")
+  .backDarkView(ng-show="loginPage.isOffline")

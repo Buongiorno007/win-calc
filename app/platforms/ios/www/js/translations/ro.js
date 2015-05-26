@@ -59,7 +59,8 @@
         SELECT_PRODUCER: 'Choose the producer',
         SELECT_FACTORY: 'Please select the producer',
         USER_PASSWORD_ERROR: 'Sorry, but your password is wrong!',
-        OFFLINE: 'Nu există conexiune la Internet!'
+        OFFLINE: 'Nu există conexiune la Internet!',
+        IMPORT_DB: 'Baze de date începe descărcarea! Va rugam asteptati! '
       },
       mainpage: {
         MM: ' mm ',
@@ -88,15 +89,15 @@
         CONFIGMENU_ADDITIONAL: 'Suplimentar',
         CONFIGMENU_IN_CART: 'Adaugă in coș',
         VOICE_SPEACH: 'Vorbiți...',
-        COMMENT: 'Leave a note on the order here.',
+        COMMENT: 'Lasă un bilet pe ordinea de aici.',
         ROOM_SELECTION: 'Interior selection',
         CONFIGMENU_NO_ADDELEMENTS: 'Suplimentare sunt selectate',
         HEATCOEF_VAL: 'W/m'
       },
       panels: {
-        TEMPLATE_WINDOW: 'fereastră',
-        TEMPLATE_BALCONY: 'balcon',
-        TEMPLATE_DOOR: 'ușă',
+        TEMPLATE_WINDOW: 'Fereastră',
+        TEMPLATE_BALCONY: 'Balcon',
+        TEMPLATE_DOOR: 'Ușă',
         TEMPLATE_BALCONY_ENTER: 'Ieșire la balcon',
         TEMPLATE_EDIT: 'Editare',
         TEMPLATE_DEFAULT: 'Proiect Standard',

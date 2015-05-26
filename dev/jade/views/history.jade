@@ -105,7 +105,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
               button.account-tool.account-select-btn(ng-hide="order.orderStyle == 'done'", hm-tap="historyPage.sendOrderToFactory(order.orderStyle, order.orderId)")
               button.account-tool.account-copy-btn(ng-hide="order.orderStyle == 'done'", hm-tap="historyPage.makeOrderCopy(order.orderStyle, order.orderId)")
               button.account-tool.account-print-btn(hm-tap="")
-              button.account-delete-btn(ng-hide="order.orderStyle == 'done'", hm-tap="historyPage.clickDeleteOrder(order.orderType, order.orderId)")
+              button.account-delete-btn(ng-hide="order.orderStyle == 'done'", hm-tap="historyPage.clickDeleteOrder(order.orderType, order.orderId, $event)")
               button.account-change-btn(ng-hide="order.orderStyle == 'done'", hm-tap="historyPage.editOrder(order.orderId)") {{ 'common_words.CHANGE' | translate }}
 
             .empty-search-result(ng-show="(orders | filter:historyPage.H.history.searchingWord).length == 0")
@@ -177,7 +177,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                     .account-value(ng-show="draft.orderStyle == 'credit'") {{ draft.orderPriceTOTAL }}{{ historyPage.U.userInfo.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.paymentMonthly}}{{ historyPage.U.userInfo.currency }}
                     .account-qty {{ draft.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{draft.newDeliveryDate | date:"dd.MM.yyyy"}}
                 button.account-tool.account-print-btn(hm-tap="")
-                button.account-delete-btn(hm-tap="historyPage.deleteOrder(draft.orderType, draft.orderId)")
+                button.account-delete-btn(hm-tap="historyPage.clickDeleteOrder(draft.orderType, draft.orderId, $event)")
 
 
             .empty-search-result(ng-show="historyPage.H.history.isEmptyResultDraft")

@@ -30,7 +30,8 @@
         NEW_TEMPLATE_TITLE: 'Template changing',
         TEMPLATE_CHANGES_LOST: 'The template changes will lost! Continue?',
         SELECT: 'Select',
-        AND: 'și'
+        AND: 'și',
+        OK: 'OK'
       },
       login: {
         ENTER: 'autentificare',
@@ -56,7 +57,8 @@
         SELECT_PRODUCER: 'Choose the producer',
         SELECT_FACTORY: 'Please select the producer',
         USER_PASSWORD_ERROR: 'Sorry, but your password is wrong!',
-        OFFLINE: 'Nu există conexiune la Internet!'
+        OFFLINE: 'Nu există conexiune la Internet!',
+        IMPORT_DB: 'Baze de date începe descărcarea! Va rugam asteptati! '
       },
       mainpage: {
         MM: ' mm ',

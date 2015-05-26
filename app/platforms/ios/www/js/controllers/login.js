@@ -10,12 +10,14 @@
     .module('LoginModule')
     .controller('LoginCtrl', loginPageCtrl);
 
-  function loginPageCtrl($location, $translate, $cordovaNetwork, $cordovaGlobalization, $cordovaProgress, globalConstants, globalDB, loginServ, UserStor) {
+  function loginPageCtrl($location, $cordovaNetwork, $cordovaProgress, globalConstants, globalDB, loginServ, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.isOnline = true;
     thisCtrl.isOffline = false;
+    thisCtrl.isGlobalDB = true;
     thisCtrl.isRegistration = false;
+    thisCtrl.generalLocations = {};
     thisCtrl.submitted = false;
     thisCtrl.isUserExist = false;
     thisCtrl.isUserNotExist = false;
@@ -24,6 +26,7 @@
     thisCtrl.isUserNotActive = false;
     thisCtrl.isFactoryId = false;
     thisCtrl.isFactoryNotSelect = false;
+    thisCtrl.isStartImport = false;
     thisCtrl.user = {};
     thisCtrl.factories;
     thisCtrl.regPhone = globalConstants.REG_PHONE;
@@ -37,245 +40,324 @@
     thisCtrl.selectLocation = selectLocation;
     thisCtrl.selectFactory = selectFactory;
     thisCtrl.closeFactoryDialog = closeFactoryDialog;
-    thisCtrl.closeOffline = closeOffline;
+    thisCtrl.closeOfflineAlert = closeOfflineAlert;
+
+
 
     //------- defined system language
-    $cordovaGlobalization.getPreferredLanguage().then(
-      function(result) {
-        loginServ.checkLangDictionary(result.value.split('-')[0]);
-        $translate.use(UserStor.userInfo.langLabel);
-      },
-      function(error) {
-        console.log('No language defined');
-      });
+    loginServ.getDeviceLanguage();
+
+    //------- check available Global DB
+    globalDB.checkGlobalDB().then(function(data) {
+      thisCtrl.isGlobalDB = data;
+      console.log('check DB = ', data);
+    });
 
 
-
-
-//    startApp();
 
 
     //============ methods ================//
 
-    function closeOffline() {
+    function closeOfflineAlert() {
       thisCtrl.isOffline = false;
-    }
-
-    function startApp() {
-
-      //------ check Internet
-      thisCtrl.isOnline = $cordovaNetwork.isOnline();
-      if(thisCtrl.isOnline) {
-        $cordovaProgress.showSimple(true);
-
-
-        //------ import Location Data & All Users
-        globalDB.clearLocation(function(result){}).then(function() {
-          globalDB.importLocation(function(result){}).then(function() {
-            //------ save Location Data in local obj
-            loginServ.prepareLocationToUse().then(function(data) {
-              thisCtrl.generalLocations = data;
-              $cordovaProgress.hide();
-            });
-          });
-        });
-      } else {
-        thisCtrl.isOnline = false;
-        thisCtrl.isOffline = true;
-      }
     }
 
 
 
     //-------- user sign in
     function enterForm(form) {
-
       //------ Trigger validation flag.
       thisCtrl.submitted = true;
       if (form.$valid) {
 
+        //------ check Internet
+        thisCtrl.isOnline = $cordovaNetwork.isOnline();
+        if(thisCtrl.isOnline) {
+
+          $cordovaProgress.showSimple(true);
+          //------ import Location Data & All Users
+          loginServ.downloadUsers().then(function(data) {
+            thisCtrl.generalLocations = data;
+
+            //---- checking user in GlobalDB
+            globalDB.selectDBGlobal(globalDB.usersTableDBGlobal, {'phone': thisCtrl.user.phone}, function (results) {
+              //---- user exists
+              if (results.status) {
+                //---------- check user password
+                var newUserPassword = globalDB.md5(thisCtrl.user.password);
+
+                if(newUserPassword === results.data[0].password) {
+                  angular.extend(UserStor.userInfo, results.data[0]);
+
+                  //----- checking user activation
+                  if(UserStor.userInfo.locked) {
+
+                    checkingFactory(UserStor.userInfo.factory_id);
+
+                  } else {
+
+                    globalDB.ifUserExist(thisCtrl.user.phone, function(result){
+                      //console.log(result);
+                      //---- user activated
+                      if(result.activation) {
+                        //----- update locked in user of GlobalDB
+                        globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {'locked': 1}, {'phone': thisCtrl.user.phone});
+                        //----- checking FactoryId
+                        checkingFactory(result.factory);
+
+                      } else {
+                        $cordovaProgress.hide();
+                        //---- show attantion
+                        thisCtrl.isUserNotActive = true;
+                      }
+                    });
+
+                  }
+
+
+                } else {
+                  $cordovaProgress.hide();
+                  //---- user not exists
+                  thisCtrl.isUserPasswordError = true;
+                }
+
+              } else {
+                $cordovaProgress.hide();
+                //---- user not exists
+                thisCtrl.isUserNotExist = true;
+              }
+
+            });
+
+          });
+
+
         //-------- check LocalDB
-        openDatabase('bauvoice', '1.0', 'bauvoice', 65536).transaction(function (transaction) {
-          transaction.executeSql("SELECT name FROM users WHERE id = 1", [], function (tx, results) {
+        } else if(thisCtrl.isGlobalDB) {
 
-            loginServ.prepareLocationToUse().then(function(data) {
-              thisCtrl.generalLocations = data;
-              $cordovaProgress.hide();
+          $cordovaProgress.showSimple(true);
+
+          loginServ.prepareLocationToUse().then(function(data) {
+            thisCtrl.generalLocations = data;
 
 
-              //---- checking user in GlobalDB
-              globalDB.selectDBGlobal(globalDB.usersTableDBGlobal, {'phone': thisCtrl.user.phone}, function (results) {
-                console.log('++++++++', results);
-                //---- user exists
-                if (results.status) {
-                  //---------- check user password
-                  var newUserPassword = globalDB.md5(thisCtrl.user.password);
+            //---- checking user in GlobalDB
+            globalDB.selectDBGlobal(globalDB.usersTableDBGlobal, {'phone': thisCtrl.user.phone}, function (results) {
+              //---- user exists
+              if (results.status) {
+                //---------- check user password
+                var newUserPassword = globalDB.md5(thisCtrl.user.password);
 
-                  if(newUserPassword === results.data[0].password) {
-                    angular.extend(UserStor.userInfo, results.data[0]);
+                if(newUserPassword === results.data[0].password) {
+                  angular.extend(UserStor.userInfo, results.data[0]);
 
-//                    //----- checking user activation
-//                    globalDB.ifUserExist(thisCtrl.user.phone, function(result){
-//                      //console.log(result);
-//                      //---- user activated
-//                      if(result.activation) {
-//                        //----- update locked in user of GlobalDB
-//                        globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {'locked': 1}, {'phone': thisCtrl.user.phone});
-//                        //----- checking FactoryId
+                  //----- checking user activation
+                  //---- user activated
+                  if(UserStor.userInfo.locked) {
 
-//                        if(result.factory) {
-                        if(results.data[0].factory_id) {
+                    //------- set User Location
+                    loginServ.setUserLocation(thisCtrl.generalLocations.mergerLocation, UserStor.userInfo.city_id);
+                    //------- checking if GlobalDB matches to user FactoryId
+                    globalDB.selectAllDBGlobal(globalDB.deviceTableDBGlobal, function (result) {
+                      if (result.status) {
+                        var currFactoryId = result.data[0].device_code;
 
-                          //------- set User Location
-                          loginServ.setUserLocation(thisCtrl.generalLocations.mergerLocation, UserStor.userInfo.city_id);
-
-                          //------- checking if GlobalDB matches to user FactoryId
-                          globalDB.selectAllDBGlobal(globalDB.deviceTableDBGlobal, function (result) {
-                            if (result.status) {
-                              var currFactoryId = result.data[0].device_code;
-
-                              if(currFactoryId == UserStor.userInfo.factory_id) {
-                                //------- current FactoryId matches to user FactoryId, go to main page without importDB
-                                $cordovaProgress.showSimple(true);
-//                                globalDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code, function(result){}).then(function(result) {
-                                  $cordovaProgress.hide();
-                                  $location.path('/main');
-//                                });
-                              } else {
-                                //-------- current FactoryId NOT matches to user FactoryId, update FactoryId & importDB
-                                importDBfromServer(UserStor.userInfo.factory_id);
-                              }
-                            } else {
-                              //------ GlobalDB is ampty
-                              //console.log('GlobalDB is empty');
-                              importDBfromServer(UserStor.userInfo.factory_id);
-                            }
-                          });
-
-                        } else {
-                          //---- show Factory List
-                          globalDB.getFactories(UserStor.userInfo.city_id, function(result){
-                            //console.log(result);
-                            if(result.status) {
-                              thisCtrl.factories = result.data;
-                              thisCtrl.isFactoryId = true;
-                            } else {
-                              console.log('can not get factories!');
-                            }
-                          });
+                        if(currFactoryId == UserStor.userInfo.factory_id) {
+                          //------- current FactoryId matches to user FactoryId, go to main page without importDB
+                          $cordovaProgress.hide();
+                          $location.path('/main');
                         }
-
-//                      } else {
-//                        //---- show attantion
-//                        thisCtrl.isUserNotActive = true;
-//                      }
-//                    });
-
-
+                      } else {
+                        //------ GlobalDB is ampty
+                        console.log('GlobalDB is empty');
+                      }
+                    });
 
 
                   } else {
-                    //---- user not exists
-                    thisCtrl.isUserPasswordError = true;
+                    $cordovaProgress.hide();
+                    //---- show attantion
+                    thisCtrl.isUserNotActive = true;
                   }
 
-                } else {
 
-                  //startApp();
+                } else {
+                  $cordovaProgress.hide();
                   //---- user not exists
-                  thisCtrl.isUserNotExist = true;
+                  thisCtrl.isUserPasswordError = true;
                 }
 
-              });
+              } else {
+                $cordovaProgress.hide();
+                //---- user not exists
+                thisCtrl.isUserNotExist = true;
+              }
+
             });
-
-          }, function (tx, results) {
-            if(Object.keys(tx).length == 0 && results.code == 5) {
-              startApp();
-            }
           });
-        });
 
 
+
+
+        } else {
+          thisCtrl.isOffline = true;
+        }
 
 
       }
     }
 
 
-      function selectFactory() {
-        if(thisCtrl.user.factoryId > 0) {
-            //-------- send selected Factory Id in Server
-          thisCtrl.user.factoryId = 1; //TODO for all factories id = 1
-          globalDB.setFactory(UserStor.userInfo.phone, thisCtrl.user.factoryId, UserStor.userInfo.device_code, function(result){
-            console.log(result);
-            if(result.status) {
-              //-------- close Factory Dialog
-              thisCtrl.isFactoryId = false;
-              importDBfromServer(thisCtrl.user.factoryId);
+
+    function checkingFactory(factory) {
+      var factory = parseInt(factory, 10);
+      //------- set User Location
+      loginServ.setUserLocation(thisCtrl.generalLocations.mergerLocation, UserStor.userInfo.city_id);
+      if(factory > 0) {
+
+        //------- checking if GlobalDB matches to user FactoryId
+        globalDB.selectAllDBGlobal(globalDB.deviceTableDBGlobal, function (result) {
+          if (result.status) {
+            var currFactoryId = result.data[0].device_code;
+
+            if(currFactoryId == UserStor.userInfo.factory_id) {
+              //------- current FactoryId matches to user FactoryId, go to main page without importDB
+              console.log(UserStor.userInfo);
+              globalDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code, function(result){}).then(function(result) {
+                $cordovaProgress.hide();
+                $location.path('/main');
+              });
             } else {
-              console.log('FactoryId not was sent!');
+              //-------- current FactoryId NOT matches to user FactoryId, update FactoryId & importDB
+              importDBfromServer(UserStor.userInfo.factory_id);
             }
-          });
-        } else {
-          //---- show attantion if any factory was chosen
-          thisCtrl.isFactoryNotSelect = true;
-        }
+          } else {
+            //------ GlobalDB is ampty
+            //console.log('GlobalDB is empty');
+            importDBfromServer(UserStor.userInfo.factory_id);
+          }
+        });
 
-      }
-
-      function closeFactoryDialog() {
-        thisCtrl.isFactoryNotSelect = false;
-        thisCtrl.isFactoryId = false;
-        delete thisCtrl.user.factoryId;
-      }
-
-
-      function importDBfromServer(factory) {
-        $cordovaProgress.showSimple(true);
-        globalDB.clearDb(function(result){}).then(function() {
-          globalDB.importDb(UserStor.userInfo.phone, factory, UserStor.userInfo.device_code, function(result){}).then(function() {
+      } else {
+        //---- show Factory List
+        globalDB.getFactories(UserStor.userInfo.city_id, function(result){
+          //console.log(result);
+          if(result.status) {
             $cordovaProgress.hide();
-            $location.path('/main');
-          });
+            thisCtrl.factories = result.data;
+            thisCtrl.isFactoryId = true;
+          } else {
+            console.log('can not get factories!');
+          }
         });
       }
+    }
 
 
-      //-------- user registration
-
-      function switchRegistration() {
-        thisCtrl.user = {};
-        thisCtrl.isRegistration = !thisCtrl.isRegistration;
-        //angular.element('#first_input').focus();
+    function selectFactory() {
+      if(thisCtrl.user.factoryId > 0) {
+          //-------- send selected Factory Id in Server
+        thisCtrl.user.factoryId = 1; //TODO for all factories id = 1
+        globalDB.setFactory(UserStor.userInfo.phone, thisCtrl.user.factoryId, UserStor.userInfo.device_code, function(result){
+          console.log(result);
+          if(result.status) {
+            //-------- close Factory Dialog
+            thisCtrl.isFactoryId = false;
+            $cordovaProgress.showSimple(true);
+            importDBfromServer(thisCtrl.user.factoryId);
+          } else {
+            console.log('FactoryId not was sent!');
+          }
+        });
+      } else {
+        //---- show attantion if any factory was chosen
+        thisCtrl.isFactoryNotSelect = true;
       }
+
+    }
+
+    function closeFactoryDialog() {
+      thisCtrl.isFactoryNotSelect = false;
+      thisCtrl.isFactoryId = false;
+      delete thisCtrl.user.factoryId;
+    }
+
+
+    function importDBfromServer(factory) {
+      thisCtrl.isStartImport = true;
+        globalDB.clearDb().then(function() {
+        globalDB.importDb(UserStor.userInfo.phone, factory, UserStor.userInfo.device_code).then(function() {
+          $cordovaProgress.hide();
+          thisCtrl.isStartImport = false;
+          $location.path('/main');
+        });
+      });
+    }
+
+
+    //-------- user registration
+
+    function switchRegistration() {
+      //------ check Internet
+      thisCtrl.isOnline = $cordovaNetwork.isOnline();
+      if(thisCtrl.isOnline) {
+        //------ if generalLocations is not exists refresh Location and Users
+        if(Object.keys(thisCtrl.generalLocations).length > 0) {
+          thisCtrl.user = {};
+          thisCtrl.isRegistration = !thisCtrl.isRegistration;
+        } else {
+          $cordovaProgress.showSimple(true);
+          //------ import Location Data & All Users
+          loginServ.downloadUsers().then(function(data) {
+            thisCtrl.generalLocations = data;
+            $cordovaProgress.hide();
+            thisCtrl.user = {};
+            thisCtrl.isRegistration = !thisCtrl.isRegistration;
+          });
+        }
+        //angular.element('#first_input').focus();
+      } else {
+        thisCtrl.isOffline = true;
+      }
+    }
+
 
     function registrForm(form) {
       // Trigger validation flag.
       thisCtrl.submitted = true;
       if (form.$valid) {
-        //--- checking user in server
-        globalDB.ifUserExist(thisCtrl.user.phone, function(result){
-          if(!result.status) {
-            //--- create new user
-            globalDB.createUser(thisCtrl.user.phone, {"name": thisCtrl.user.name, "phone": thisCtrl.user.phone, "cityId": thisCtrl.user.city.id, "email": thisCtrl.user.mail}, function(result){
-              if(result.status) {
-                //-------- sent confirmed email
-                thisCtrl.isSendEmail = true;
-                switchRegistration();
-                //-------- save new user in localDB
-                globalDB.importUser(result.userId, result.access_token, function(result){
-                  console.log(result);
-                });
-              } else {
-                console.log('some problem dureing user creating');
-              }
-            });
-          } else {
-            //---- show attantion
-            thisCtrl.isUserExist = true;
-          }
-        });
+        //------ check Internet
+        thisCtrl.isOnline = $cordovaNetwork.isOnline();
+        if(thisCtrl.isOnline) {
+          $cordovaProgress.showSimple(true);
+          //--- checking user in server
+          globalDB.ifUserExist(thisCtrl.user.phone, function(result){
+            if(!result.status) {
+              //--- create new user
+              globalDB.createUser(thisCtrl.user.phone, {"name": thisCtrl.user.name, "phone": thisCtrl.user.phone, "cityId": thisCtrl.user.city.id, "email": thisCtrl.user.mail}, function(result){
+                if(result.status) {
+                  $cordovaProgress.hide();
+                  //-------- sent confirmed email
+                  thisCtrl.isSendEmail = true;
+                  switchRegistration();
+                  //-------- save new user in localDB
+                  globalDB.importUser(result.userId, result.access_token, function(result){
+                    console.log(result);
+                  });
+                } else {
+                  console.log('some problem dureing user creating');
+                }
+              });
+            } else {
+              $cordovaProgress.hide();
+              //---- show attantion
+              thisCtrl.isUserExist = true;
+            }
+          });
+        } else {
+          $cordovaProgress.hide();
+          thisCtrl.isOffline = true;
+        }
       }
     }
 

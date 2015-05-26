@@ -306,7 +306,9 @@
     };
 
     //--------- Delete order
-    $scope.clickDeleteOrder = function(orderType, orderNum) {
+    $scope.clickDeleteOrder = function(orderType, orderNum, event) {
+      event.preventDefault();
+      event.srcEvent.stopPropagation();
   /*
       navigator.notification.confirm(
         $filter('translate')('common_words.DELETE_ORDER_TXT'),

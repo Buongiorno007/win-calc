@@ -14,7 +14,7 @@
         MONTHS_SHOT: 'Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sept, Oct, Nov, Dec',
         MONTHA: 'January, February, March, April, May, June, July, August, September, October, November, December',
         MONTH_LABEL: 'month',
-        MONTHA_LABEL: 'of the month',
+        MONTHA_LABEL: 'months',
         MONTHS_LABEL: 'months',
         ALL: 'All',
         MIN: 'min.',
@@ -60,7 +60,8 @@
         SELECT_PRODUCER: 'Choose the producer',
         SELECT_FACTORY: 'Please select the producer',
         USER_PASSWORD_ERROR: 'Sorry, but your password is wrong!',
-        OFFLINE: 'No internet connection!'
+        OFFLINE: 'No internet connection!',
+        IMPORT_DB: 'DataBase Import was started! Waite please!'
       },
       mainpage: {
         MM: ' mm ',
@@ -96,7 +97,7 @@
       },
       panels: {
         TEMPLATE_WINDOW: 'Window',
-        TEMPLATE_BALCONY: ' Balcony',
+        TEMPLATE_BALCONY: 'Balcony',
         TEMPLATE_DOOR: 'Door',
         TEMPLATE_BALCONY_ENTER: 'Exit to a balcony',
         TEMPLATE_EDIT: 'edit',

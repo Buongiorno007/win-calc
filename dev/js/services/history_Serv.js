@@ -212,7 +212,9 @@
 
     //========== Delete order ==========//
 
-    function clickDeleteOrder(orderType, orderNum) {
+    function clickDeleteOrder(orderType, orderNum, event) {
+      event.preventDefault();
+      event.srcEvent.stopPropagation();
 
       $cordovaDialogs.confirm(
         $filter('translate')('common_words.DELETE_ORDER_TXT'),

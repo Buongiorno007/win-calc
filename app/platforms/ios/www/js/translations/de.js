@@ -14,7 +14,7 @@
         MONTHS_SHOT: 'Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez',
         MONTHA: 'Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember',
         MONTH_LABEL: 'Monat',
-        MONTHA_LABEL: 'des Monats',
+        MONTHA_LABEL: 'Monats',
         MONTHS_LABEL: 'Monate',
         ALL: 'alles',
         MIN: 'min.',
@@ -59,7 +59,8 @@
         SELECT_PRODUCER: 'Hersteller auswählen',
         SELECT_FACTORY: 'Sie haben noch keine gewählten Hersteller',
         USER_PASSWORD_ERROR: 'ungültiges Kennwort!',
-        OFFLINE: 'Keine Verbindung zum Internet!'
+        OFFLINE: 'Keine Verbindung zum Internet!',
+        IMPORT_DB: 'Databases JETZT HERUNTERLADEN! Warten Sie mal!'
       },
       mainpage: {
         MM: ' mm ',

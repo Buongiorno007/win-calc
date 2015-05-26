@@ -33,7 +33,8 @@
         NEW_TEMPLATE_TITLE: 'Template changing',
         TEMPLATE_CHANGES_LOST: 'The template changes will lost! Continue?',
         SELECT: 'Select',
-        AND: 'and'
+        AND: 'and',
+        OK: 'OK'
       },
       login: {
         ENTER: 'To enter',
@@ -60,7 +61,8 @@
         SELECT_PRODUCER: 'Choose the producer',
         SELECT_FACTORY: 'Please select the producer',
         USER_PASSWORD_ERROR: 'Sorry, but your password is wrong!',
-        OFFLINE: 'No internet connection!'
+        OFFLINE: 'No internet connection!',
+        IMPORT_DB: 'DataBase Import was started! Waite please!'
       },
       mainpage: {
         MM: ' mm ',

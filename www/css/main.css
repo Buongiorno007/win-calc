@@ -3379,12 +3379,19 @@ body {
   z-index: 12;
 }
 
-/* line 134, ../../dev/sass/pages/login.scss */
+/* line 135, ../../dev/sass/pages/login.scss */
+.inet_ok {
+  display: block;
+  margin: auto auto;
+  margin-top: 1rem;
+}
+
+/* line 141, ../../dev/sass/pages/login.scss */
 .placeholder-select {
   color: #A9A9AB;
 }
 
-/* line 138, ../../dev/sass/pages/login.scss */
+/* line 145, ../../dev/sass/pages/login.scss */
 .factory_box {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   position: absolute;
@@ -3401,46 +3408,46 @@ body {
   z-index: 10;
 }
 
-/* line 153, ../../dev/sass/pages/login.scss */
+/* line 160, ../../dev/sass/pages/login.scss */
 .factory_title {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
   margin-bottom: 0.625rem;
   text-align: center;
 }
 
-/* line 158, ../../dev/sass/pages/login.scss */
+/* line 165, ../../dev/sass/pages/login.scss */
 .factory_list {
   height: 76%;
   overflow: auto;
   padding: 0 2.5rem;
 }
 
-/* line 163, ../../dev/sass/pages/login.scss */
+/* line 170, ../../dev/sass/pages/login.scss */
 table.factory_table {
   border: none;
 }
-/* line 165, ../../dev/sass/pages/login.scss */
+/* line 172, ../../dev/sass/pages/login.scss */
 table.factory_table td {
   padding: 1.5625rem 0;
 }
 
-/* line 169, ../../dev/sass/pages/login.scss */
+/* line 176, ../../dev/sass/pages/login.scss */
 tr.factory_item {
   vertical-align: top;
 }
 
-/* line 172, ../../dev/sass/pages/login.scss */
+/* line 179, ../../dev/sass/pages/login.scss */
 .factory_select {
   width: 5%;
   padding-right: 0.3125rem;
 }
 
-/* line 176, ../../dev/sass/pages/login.scss */
+/* line 183, ../../dev/sass/pages/login.scss */
 .factory_name {
   width: 45%;
 }
 
-/* line 179, ../../dev/sass/pages/login.scss */
+/* line 186, ../../dev/sass/pages/login.scss */
 .factory_name, .factory_place {
   text-align: left;
 }

@@ -285,16 +285,35 @@
       },
 
 
+
+      //========= check available Global DB
+      checkGlobalDB: function() {
+        var deferred = $q.defer();
+        db.transaction(function (transaction) {
+          transaction.executeSql("SELECT last_sync FROM device WHERE id = 1", [], function (tx, results) {
+            if(results.rows.item(0).last_sync) {
+              deferred.resolve(1);
+            } else {
+              deferred.resolve(0);
+            }
+          }, function (tx, results) {
+            if(Object.keys(tx).length == 0 && results.code == 5) {
+              deferred.resolve(0);
+            }
+          });
+        });
+        return deferred.promise;
+      },
+
+
       //========= delete countries, regions and cities tables in Global DB
-      clearLocation: function (callback) {
+      clearLocation: function () {
         var deferred = $q.defer();
         db.transaction(function (transaction) {
           for (var i = 9; i < 13; i++) {
             transaction.executeSql(deleteTablesSQL[i], [], function () {
-              callback({status: true});
               deferred.resolve('Location tables clearing is done!');
             }, function () {
-              callback(new ErrorResult(2, 'Something went wrong with deleting table'));
               deferred.resolve('not find deleting table');
             });
           }
@@ -303,7 +322,7 @@
       },
 
       //========= import countries, regions and cities tables in Global DB
-      importLocation: function (callback) {
+      importLocation: function () {
         var deferred = $q.defer();
         var i, table;
         db.transaction(function (transaction) {
@@ -315,17 +334,12 @@
           db.transaction(function (transaction) {
             for (table in result.tables) {
               for (i = 0; i < result.tables[table].rows.length; i++) {
-                transaction.executeSql('INSERT INTO ' + table + ' (' + result.tables[table].fields.join(', ') + ') VALUES (' + getValuesString(result.tables[table].rows[i]) + ')', [], function () {
-                }, function () {
-                  callback(new ErrorResult(2, 'Something went wrong with inserting ' + table + ' record'));
-                });
+                transaction.executeSql('INSERT INTO ' + table + ' (' + result.tables[table].fields.join(', ') + ') VALUES (' + getValuesString(result.tables[table].rows[i]) + ')', [], function () {}, null);
               }
             }
-            callback({status: true});
             deferred.resolve('import of Location tables is done!');
           });
         }).error(function () {
-          callback(new ErrorResult(2, 'Something went wrong with importing Database!'));
           deferred.reject('Something went wrong with importing Database!');
         });
         return deferred.promise;
@@ -400,7 +414,7 @@
         });
         db.transaction(function (transaction) {
           transaction.executeSql(deleteTablesSQL[0], [], null, function () {
-            callback(new ErrorResult(2, 'Something went wrong with deleting table'));
+//            callback(new ErrorResult(2, 'Something went wrong with deleting table'));
           });
         });
         db.transaction(function (transaction) {
@@ -409,7 +423,7 @@
         db.transaction(function (transaction) {
           transaction.executeSql(insertDeviceCodeLocalDb, [1, factory_id, 0], function () {
           }, function () {
-            callback(new ErrorResult(2, 'Something went wrong with inserting device record'));
+//            callback(new ErrorResult(2, 'Something went wrong with inserting device record'));
           });
         });
         db.transaction(function (transaction) {
@@ -424,7 +438,7 @@
               for (i = 0; i < result.tables[table].rows.length; i++) {
                 transaction.executeSql('INSERT INTO ' + table + ' (' + result.tables[table].fields.join(', ') + ') VALUES (' + getValuesString(result.tables[table].rows[i]) + ')', [], function () {
                 }, function () {
-                  callback(new ErrorResult(2, 'Something went wrong with inserting ' + table + ' record'));
+//                  callback(new ErrorResult(2, 'Something went wrong with inserting ' + table + ' record'));
                 });
               }
             }
@@ -432,12 +446,12 @@
               console.log('Database import is finished!');
               deferred.resolve('importDb is done!');
             }, function () {
-              callback(new ErrorResult(2, 'Something went wrong with updating device table!'));
+//              callback(new ErrorResult(2, 'Something went wrong with updating device table!'));
             });
-            callback({status: true});
+//            callback({status: true});
           });
         }).error(function () {
-          callback(new ErrorResult(2, 'Something went wrong with importing Database!'));
+//          callback(new ErrorResult(2, 'Something went wrong with importing Database!'));
         });
         return deferred.promise;
       },
@@ -462,6 +476,7 @@
         var self = this;
         self.getLastSync(function (result) {
           lastSyncDate = result.data.last_sync;
+          console.log('sync $$$$=', lastSyncDate);
           $http.get('http://api.voice-creator.net/sync/elements?login='+login+'&access_token=' + access_token + '&last_sync=' + lastSyncDate).success(function (result) {
             db.transaction(function (transaction) {
               if(result.tables.length) {
@@ -504,15 +519,13 @@
         });
       },
 
-      clearDb: function (callback) {
+      clearDb: function () {
         var deferred = $q.defer();
         db.transaction(function (transaction) {
           for (var j = 0; j < deleteTablesSQL.length; j++) {
             transaction.executeSql(deleteTablesSQL[j], [], function () {
-              callback({status: true});
               deferred.resolve({status: true});
             }, function () {
-              callback(new ErrorResult(2, 'Something went wrong with deleting table'));
               deferred.resolve('clearDb has problemms');
             });
           }

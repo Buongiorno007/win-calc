@@ -182,7 +182,7 @@
               <button ng-hide="order.orderStyle == 'done'" hm-tap="historyPage.sendOrderToFactory(order.orderStyle, order.orderId)" class="account-tool account-select-btn"></button>
               <button ng-hide="order.orderStyle == 'done'" hm-tap="historyPage.makeOrderCopy(order.orderStyle, order.orderId)" class="account-tool account-copy-btn"></button>
               <button hm-tap="" class="account-tool account-print-btn"></button>
-              <button ng-hide="order.orderStyle == 'done'" hm-tap="historyPage.clickDeleteOrder(order.orderType, order.orderId)" class="account-delete-btn"></button>
+              <button ng-hide="order.orderStyle == 'done'" hm-tap="historyPage.clickDeleteOrder(order.orderType, order.orderId, $event)" class="account-delete-btn"></button>
               <button ng-hide="order.orderStyle == 'done'" hm-tap="historyPage.editOrder(order.orderId)" class="account-change-btn">{{ 'common_words.CHANGE' | translate }}</button>
             </div>
             <div ng-show="(orders | filter:historyPage.H.history.searchingWord).length == 0" class="empty-search-result">
@@ -257,7 +257,7 @@
                   </div>
                 </div>
                 <button hm-tap="" class="account-tool account-print-btn"></button>
-                <button hm-tap="historyPage.deleteOrder(draft.orderType, draft.orderId)" class="account-delete-btn"></button>
+                <button hm-tap="historyPage.clickDeleteOrder(draft.orderType, draft.orderId, $event)" class="account-delete-btn"></button>
               </div>
             </div>
             <div ng-show="historyPage.H.history.isEmptyResultDraft" class="empty-search-result">
