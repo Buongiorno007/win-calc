@@ -554,34 +554,43 @@ function setLines(points) {
 
   for(; i < pointsQty; i++) {
     var line = {};
-    if(points[i].dir === 'line') {
-      line.dir = 'line';
-      if(points[i].id) {
-        line.from = points[i].id;
+
+    if(points[i].id) {
+      line.from = points[i].id;
+    }
+    line.startX = points[i].x;
+    line.startY = points[i].y;
+    line.dir = (points[i].dir === 'curv') ? 'curv' : 'line';
+
+    if(i === (pointsQty - 1)) {
+      line.endX = points[0].x;
+      line.endY = points[0].y;
+      line.type = setLineType(points[i].type, points[0].type);
+      if(points[0].id) {
+        line.to = points[0].id;
       }
-      line.startX = points[i].x;
-      line.startY = points[i].y;
-      if(i === (pointsQty - 1)) {
-        line.endX = points[0].x;
-        line.endY = points[0].y;
-        line.type = setLineType(points[i].type, points[0].type);
-        if(points[0].id) {
-          line.to = points[0].id;
-        }
-      } else {
-        line.endX = points[i+1].x;
-        line.endY = points[i+1].y;
-        line.type = setLineType(points[i].type, points[i+1].type);
-        if(points[i+1].id) {
-          line.to = points[i+1].id;
-        }
+      if(line.dir === 'line') {
+        line.dir = (points[0].dir === 'curv') ? 'curv' : 'line';
       }
 
-      line.size = Math.round(Math.sqrt( Math.pow((line.endX - line.startX), 2) + Math.pow((line.endY - line.startY), 2) ) * 100) / 100;
-      line.coefA = (line.startY - line.endY);
-      line.coefB = (line.endX - line.startX);
-      line.coefC = (line.startX*line.endY - line.endX*line.startY);
+    } else {
+      line.endX = points[i+1].x;
+      line.endY = points[i+1].y;
+      line.type = setLineType(points[i].type, points[i+1].type);
+      if(points[i+1].id) {
+        line.to = points[i+1].id;
+      }
+      if(line.dir === 'line') {
+        line.dir = (points[i+1].dir === 'curv') ? 'curv' : 'line';
+      }
+
     }
+
+    line.size = Math.round(Math.sqrt( Math.pow((line.endX - line.startX), 2) + Math.pow((line.endY - line.startY), 2) ) * 100) / 100;
+    line.coefA = (line.startY - line.endY);
+    line.coefB = (line.endX - line.startX);
+    line.coefC = (line.startX*line.endY - line.endX*line.startY);
+
     lines.push(line);
   }
   //------ change place last element in array to first
@@ -655,7 +664,11 @@ function getCoordCrossPoint(line1, line2, coefC1, coefC2) {
   crossPoint.x = baseX / base;
   crossPoint.y = baseY / base;
   crossPoint.type = setPointType(line1.type, line2.type);
-  crossPoint.dir = setPointDir(line1.dir, line2.dir);
+  crossPoint.dir = (line1.dir === 'curv' && line2.dir === 'curv') ? 'curv' : 'line';//setPointDir(line1.dir, line2.dir);
+  if(line2.radius) {
+    crossPoint.radius = line2.radius;
+  }
+
   return crossPoint;
 }
 
@@ -698,15 +711,54 @@ function setParts(block) {
       type: block.pointsOut[i].type,
       points: []
     };
+    //----- если первая стоит опорная точка Q
+    if(i == 0 && block.pointsOut[i].dir === 'curv') {
+      part.points.push(block.pointsOut[(pointsQty - 1)]);
+    }
     part.points.push(block.pointsOut[i]);
-    part.points.push(block.pointsOut[i+1]);
-    part.points.push(block.pointsIn[i+1]);
+
+
+    if(i === (pointsQty - 1)) {
+      part.points.push(block.pointsOut[0]);
+      part.points.push(block.pointsIn[0]);
+    } else {
+      if(block.pointsOut[i+1].dir === 'curv') {
+        part.points.push(block.pointsOut[i+1]);
+        part.points.push(block.pointsOut[i+2]);
+        part.points.push(block.pointsIn[i+2]);
+      }
+      part.points.push(block.pointsOut[i+1]);
+      part.points.push(block.pointsIn[i+1]);
+    }
     part.points.push(block.pointsIn[i]);
+    part.path = assamblingPath(part.points);
     parts.push(part);
   }
+
   return parts;
 }
 
+
+function assamblingPath(arrPoints) {
+  var path = 'M ' + arrPoints[0].x + ',' + arrPoints[0].y,
+      p = 1,
+      pointQty = arrPoints.length;
+  console.log(arrPoints);
+  for(; p < pointQty; p++) {
+
+    if(arrPoints[p].dir === 'line') {
+      path += ' L ' + arrPoints[p].x + ',' + arrPoints[p].y;
+    } else if(arrPoints[p].dir === 'curv') {
+      path += ' Q '+ arrPoints[p].x +' '+ arrPoints[p].y;
+    }
+
+    if(p === (pointQty - 1)) {
+      path += 'Z';
+    }
+
+  }
+  return path;
+}
 
 
 //----- create fixed points of corners
@@ -756,11 +808,11 @@ var Template = function (sourceObj, depths) {
       this.objects[i].linesOut = setLines(this.objects[i].pointsOut);
 
       //------- if block is empty
-      if(!this.objects[i].inject.length) {
+      if(this.objects[i].inject.length < 1) {
         this.objects[i].pointsIn = setPointsIn(this.objects[i], depths);
         this.objects[i].linesIn = setLines(this.objects[i].pointsIn);
-        console.log('+++ each +++', this.objects[i]);
-        console.log(JSON.stringify(this.objects[i]));
+//        console.log('+++ each +++', this.objects[i]);
+//        console.log(JSON.stringify(this.objects[i]));
 
         //------ if block is frame
         if(this.objects[i].blockType === 'frame') {
@@ -775,8 +827,8 @@ var Template = function (sourceObj, depths) {
     }
   }
 
-  console.log('++++++ all +++++++', this.objects);
-  console.log(JSON.stringify(this.objects));
+//  console.log('++++++ all +++++++', this.objects);
+//  console.log(JSON.stringify(this.objects));
 };
 
 

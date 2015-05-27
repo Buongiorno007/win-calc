@@ -422,11 +422,12 @@
               'name':'Трехстворчатое',
               'objects':[
                 //------- main points
-                {'type':'frame', id:'fp1', x:0, y:0, dir:'line'},
-                {'type':'frame', id:'fp2', x:2100, y:0, dir:'line'},
-                {'type':'frame', id:'fp3', x:2100, y:1400, dir:'line', sill: 1},
-                {'type':'frame', id:'fp4', x:0, y:1400, dir:'line', sill: 1},
+                {type:'frame', id:'fp1', x:0, y:0, dir:'line'},
+                {type:'frame', id:'fp2', x:2100, y:0, dir:'line'},
+                {type:'frame', id:'fp3', x:2100, y:1400, dir:'line', sill: 1},
+                {type:'frame', id:'fp4', x:0, y:1400, dir:'line', sill: 1},
 
+                {type:'arc', id:'q1', x:1050, y:2450, dir:'curv'},
 //                {'type':'impost', id:'ip1', x:700, y:0, dir:'line'},
 //                {'type':'impost', id:'ip2', x:700, y:1400, dir:'line'},
 //                {'type':'impost', id:'ip3', x:1400, y:0, dir:'line'},
@@ -438,7 +439,7 @@
 
                 {'type':'skylight', id:'block_0', level: 0, blockType: 'frame', inject: ['block_1']},
 
-                {'type':'skylight', id:'block_1', level: 1, blockType: 'frame', inject: [], parent: 'block_0', pointsID: ['fp1', 'fp3', 'fp4', 'fp2']}//,
+                {'type':'skylight', id:'block_1', level: 1, blockType: 'frame', inject: [], parent: 'block_0', pointsID: ['fp1', 'fp3', 'fp4', 'fp2', 'q1']}//,
 
                 //inject: ['block_2', 'block_3', 'block_4']
 

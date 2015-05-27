@@ -19,40 +19,73 @@
         templateWidth: '=',
         templateHeight: '='
       },
+      template: '<div id="mainSVG"></div>',
       link: function (scope, elem, attrs) {
-        /*
-        var svg = buildTemplateSVG(scope.template, scope.templateWidth, scope.templateHeight);
-        if(scope.typeConstruction === 'edit') {
-          elem.css({opacity: 0, visibility: 'hidden'});
-        }
-        elem.html(svg);
-        if(scope.typeConstruction === 'edit') {
-          //if(window.panZoom) {
-          //  window.panZoom.destroy();
-          //  delete window.panZoom;
-          //}
-          startPinch();
-          elem.css({opacity: 1, visibility: 'visible'});
-        }
-  */
-        scope.$watch('template', function () {
-          var svg = buildTemplateSVG(scope.template, scope.templateWidth, scope.templateHeight);
-          if(scope.typeConstruction === 'edit') {
-            elem.css({opacity: 0, visibility: 'hidden'});
-          }
-          elem.html(svg);
-          if(scope.typeConstruction === 'edit') {
-            //if(window.panZoom) {
-            //  window.panZoom.destroy();
-            //  delete window.panZoom;
-            //}
-            startPinch();
-            setTimeout(function(){
-              elem.css({opacity: 1, visibility: 'visible'});
-            }, 100);
 
-          }
+        scope.$watch('template', function () {
+          buildSVG(scope.template, scope.templateWidth, scope.templateHeight);
+
+//          var svg = buildTemplateSVG(scope.template, scope.templateWidth, scope.templateHeight);
+//          if(scope.typeConstruction === 'edit') {
+//            elem.css({opacity: 0, visibility: 'hidden'});
+//          }
+//          elem.html(svg);
+//          if(scope.typeConstruction === 'edit') {
+//            //if(window.panZoom) {
+//            //  window.panZoom.destroy();
+//            //  delete window.panZoom;
+//            //}
+//            startPinch();
+//            setTimeout(function(){
+//              elem.css({opacity: 1, visibility: 'visible'});
+//            }, 100);
+//
+//          }
         });
+
+
+        function buildSVG(template, widthSVG, heightSVG) {
+
+          var mainSVG, mainGroup;
+
+          mainSVG = d3.select('#mainSVG').append('svg')
+            .attr({
+              'width': widthSVG,
+              'height': heightSVG,
+              'id': 'mainSVG'
+            });
+
+          mainGroup = mainSVG.append("g")
+            .attr({
+              'id': 'main_group',
+              'transform': 'translate(200, 20) scale(0.22)'
+            });
+
+          console.log('++++++ template +++++++', template.objects);
+          //========
+          var partsQty = template.objects.length,
+              i = 0;
+          for(; i < partsQty; i++) {
+            if(template.objects[i].type === 'skylight' && template.objects[i].level > 0) {
+
+              var blockItem = mainGroup.selectAll('path.block_item')
+                .data(template.objects[i].parts).enter()
+                .append('path')
+                .attr({
+                  'blockId': template.objects[i].id,
+                  //'class': function(d) { return d.type; },
+                  'class': 'frame',
+                  'd': function(d) { return d.path; }
+                });
+
+
+            }
+          }
+
+
+
+        }
+
   /*
         scope.$watch('doorConfig', function () {
           var svg = buildTemplateSVG(scope.template, scope.templateWidth, scope.templateHeight);

@@ -66,7 +66,7 @@
       thisCtrl.submitted = true;
       if (form.$valid) {
         //------ check Internet
-        thisCtrl.isOnline = $cordovaNetwork.isOnline();
+        //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
         if(thisCtrl.isOnline) {
 
           //TODO $cordovaProgress.showSimple(true);
