@@ -557,14 +557,14 @@ function setLines(points) {
 
   for(; i < pointsQty; i++) {
     var line = {};
-
+    //------- first
     if(points[i].id) {
       line.from = points[i].id;
     }
     line.startX = points[i].x;
     line.startY = points[i].y;
     line.dir = (points[i].dir === 'curv') ? 'curv' : 'line';
-
+    //------- end
     if(i === (pointsQty - 1)) {
       line.endX = points[0].x;
       line.endY = points[0].y;
@@ -650,59 +650,41 @@ function getNewCoefC(depths, line) {
     depth = depths.impostDepth.c / 2;
   }
   var newCoefC = line.coefC - (depth * Math.sqrt(Math.pow(line.coefA, 2) + Math.pow(line.coefB, 2)));
+  console.log('newCoefC = ', newCoefC);
   return newCoefC;
 }
 
 
 
 function getCoordCrossPoint(line1, line2, coefC1, coefC2) {
+  console.log('line1 = ', line1);
+  console.log('line2 = ', line2);
   var crossPoint = {},
-      coefA1 = line1.coefA,
-      coefB1 = line1.coefB,
-      coefA2 = line2.coefA,
-      coefB2 = line2.coefB,
-      base = (coefA1 * coefB2) - (coefA2 * coefB1),
-      baseX = ((-coefC1) * coefB2) - (coefB1 * (-coefC2)),
-      baseY = (coefA1 * (-coefC2)) - (coefA2 * (-coefC1));
-  crossPoint.x = baseX / base;
-  crossPoint.y = baseY / base;
-  crossPoint.type = setPointType(line1.type, line2.type);
-  crossPoint.dir = (line1.dir === 'curv' && line2.dir === 'curv') ? 'curv' : 'line';//setPointDir(line1.dir, line2.dir);
-  if(line2.radius) {
-    crossPoint.radius = line2.radius;
+      base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
+      baseX = ((-coefC1) * line2.coefB) - (line1.coefB * (-coefC2)),
+      baseY = (line1.coefA * (-coefC2)) - (line2.coefA * (-coefC1));
+
+  console.log('baseX = ', baseX);
+  console.log('baseY = ', baseY);
+  //------- if lines are paralles
+  if(base === 0 && baseX === 0 && baseY === 0) {
+
+  } else {
+    crossPoint.x = baseX / base;
+    crossPoint.y = baseY / base;
   }
+  crossPoint.type = (line1.type === 'impost' || line2.type === 'impost') ? 'impost' : 'frame';
+  crossPoint.dir = (line1.dir === 'curv' && line2.dir === 'curv') ? 'curv' : 'line';
 
   return crossPoint;
 }
 
 
-function setPointType(from, to) {
-  var type = '';
-  if(from === to) {
-    if(from === 'impost') {
-      type = 'impost';
-    } else {
-      type = 'frame';
-    }
-  } else {
-    type = 'frame';
-  }
-  return type;
-}
-
-function setPointDir(from, to) {
-  var dir = '';
-  if(from === 'curv' || to === 'curv') {
-    dir = 'curv';
-  } else {
-    dir = 'line';
-  }
-  return dir;
-}
-
-
-
-
+//function checkParallel(line1, line2) {
+//  var k1 = (line1.endY - line1.startY) / (line1.endX - line1.startX),
+//      k2 = (line2.endY - line2.startY) / (line2.endX - line2.startX);
+//  return (k1 === k2) ? 1 : 0;
+//}
 
 
 function setParts(block) {
@@ -714,26 +696,46 @@ function setParts(block) {
       type: block.pointsOut[i].type,
       points: []
     };
-    //----- если первая стоит опорная точка Q
-    if(i == 0 && block.pointsOut[i].dir === 'curv') {
-      part.points.push(block.pointsOut[(pointsQty - 1)]);
+
+    if(block.pointsOut[0].dir === 'curv') {
+      continue;
     }
-    part.points.push(block.pointsOut[i]);
-
-
+    //------ if last point
     if(i === (pointsQty - 1)) {
-      part.points.push(block.pointsOut[0]);
-      part.points.push(block.pointsIn[0]);
+      //------- if one point is 'curv' from both
+      if(block.pointsOut[i].dir === 'curv' || block.pointsOut[0].dir === 'curv') {
+        part.points.push(block.pointsOut[i]);
+        part.points.push(block.pointsOut[0]);
+        part.points.push(block.pointsOut[1]);
+        part.points.push(block.pointsIn[1]);
+        part.points.push(block.pointsIn[0]);
+        part.points.push(block.pointsIn[i]);
+      } else {
+        //-------- if line
+        part.points.push(block.pointsOut[i]);
+        part.points.push(block.pointsOut[0]);
+        part.points.push(block.pointsIn[0]);
+        part.points.push(block.pointsIn[i]);
+      }
     } else {
-      if(block.pointsOut[i+1].dir === 'curv') {
+      //------- if curv
+      if(block.pointsOut[i].dir === 'curv' || block.pointsOut[i+1].dir === 'curv') {
+        part.points.push(block.pointsOut[i]);
         part.points.push(block.pointsOut[i+1]);
         part.points.push(block.pointsOut[i+2]);
         part.points.push(block.pointsIn[i+2]);
+        part.points.push(block.pointsIn[i+1]);
+        part.points.push(block.pointsIn[i]);
+        i++;
+      } else {
+        //-------- if line
+        part.points.push(block.pointsOut[i]);
+        part.points.push(block.pointsOut[i+1]);
+        part.points.push(block.pointsIn[i+1]);
+        part.points.push(block.pointsIn[i]);
       }
-      part.points.push(block.pointsOut[i+1]);
-      part.points.push(block.pointsIn[i+1]);
     }
-    part.points.push(block.pointsIn[i]);
+
     part.path = assamblingPath(part.points);
     parts.push(part);
   }
@@ -746,20 +748,36 @@ function assamblingPath(arrPoints) {
   var path = 'M ' + arrPoints[0].x + ',' + arrPoints[0].y,
       p = 1,
       pointQty = arrPoints.length;
-  console.log(arrPoints);
-  for(; p < pointQty; p++) {
 
-    if(arrPoints[p].dir === 'line') {
+  //------- Line
+  if(pointQty === 4) {
+    for(; p < pointQty; p++) {
+
       path += ' L ' + arrPoints[p].x + ',' + arrPoints[p].y;
-    } else if(arrPoints[p].dir === 'curv') {
-      path += ' Q '+ arrPoints[p].x +' '+ arrPoints[p].y;
-    }
 
-    if(p === (pointQty - 1)) {
-      path += 'Z';
-    }
+      if(p === (pointQty - 1)) {
+        path += ' Z';
+      }
 
+    }
+  //--------- Curva
+  } else if(pointQty === 6) {
+    for(; p < pointQty; p++) {
+      if(p === 3) {
+        path += ' L ' + arrPoints[p].x + ',' + arrPoints[p].y;
+      } else {
+        path += ' Q '+ arrPoints[p].x +','+ arrPoints[p].y + ' ' + arrPoints[p+1].x +','+ arrPoints[p+1].y;
+        p++;
+      }
+
+      if(p === (pointQty - 1)) {
+        path += ' Z';
+      }
+
+    }
   }
+  console.log(arrPoints);
+
   return path;
 }
 
