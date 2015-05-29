@@ -61,18 +61,18 @@
               'transform': 'translate(200, 20) scale(0.22)'
             });
 
-          console.log('++++++ template +++++++', template.objects);
+          console.log('++++++ template +++++++', template.details);
           //========
-          var partsQty = template.objects.length,
+          var blocksQty = template.details.skylights.length,
               i = 0;
-          for(; i < partsQty; i++) {
-            if(template.objects[i].type === 'skylight' && template.objects[i].level > 0) {
+          for(; i < blocksQty; i++) {
+            if(template.details.skylights[i].level > 0) {
 
               var blockItem = mainGroup.selectAll('path.block_item')
-                .data(template.objects[i].parts).enter()
+                .data(template.details.skylights[i].parts).enter()
                 .append('path')
                 .attr({
-                  'blockId': template.objects[i].id,
+                  'blockId': template.details.skylights[i].id,
                   //'class': function(d) { return d.type; },
                   'class': 'frame',
                   'd': function(d) { return d.path; }

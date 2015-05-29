@@ -502,9 +502,9 @@ function sortingCoordin(dimentions, coordinates, typeDim, levelDim, limit, class
 
 //////////////////////////////////////////////////
 
-function centerBlock(template, block){
-  var blockQty = template.length,
-      pointsQty = block.pointsID.length,
+function centerBlock(points, block){
+  var pointsQty = points.length,
+      pointsIdQty = block.pointsID.length,
       i = 0;
 
     block.center = {
@@ -513,18 +513,18 @@ function centerBlock(template, block){
     };
     block.pointsOut = [];
 
-  for(; i < pointsQty; i++) {
-    for(var j = 0; j < blockQty; j++) {
-      if(block.pointsID[i] === template[j].id) {
-        block.pointsOut.push( JSON.parse(JSON.stringify(template[j])) );
-        block.center.centerX += template[j].x;
-        block.center.centerY += template[j].y;
+  for(; i < pointsIdQty; i++) {
+    for(var j = 0; j < pointsQty; j++) {
+      if(block.pointsID[i] === points[j].id) {
+        block.pointsOut.push( JSON.parse(JSON.stringify(points[j])) );
+        block.center.centerX += points[j].x;
+        block.center.centerY += points[j].y;
       }
     }
   }
 
-  block.center.centerX /= pointsQty;
-  block.center.centerY /= pointsQty;
+  block.center.centerX /= pointsIdQty;
+  block.center.centerY /= pointsIdQty;
   return block;
 }
 
@@ -563,12 +563,14 @@ function setLines(points) {
     }
     line.startX = points[i].x;
     line.startY = points[i].y;
+    line.startDir = points[i].dir;
     line.dir = (points[i].dir === 'curv') ? 'curv' : 'line';
     //------- end
     if(i === (pointsQty - 1)) {
       line.endX = points[0].x;
       line.endY = points[0].y;
       line.type = setLineType(points[i].type, points[0].type);
+      line.endDir = points[0].dir;
       if(points[0].id) {
         line.to = points[0].id;
       }
@@ -580,6 +582,7 @@ function setLines(points) {
       line.endX = points[i+1].x;
       line.endY = points[i+1].y;
       line.type = setLineType(points[i].type, points[i+1].type);
+      line.endDir = points[i+1].dir;
       if(points[i+1].id) {
         line.to = points[i+1].id;
       }
@@ -618,6 +621,117 @@ function setLineType(from, to) {
   return type;
 }
 
+
+
+
+
+function setDefaultCornerPoint(block) {
+  if(block.position === 'single') {
+    var pointsQty = block.pointsOut.length,
+        i = 0;
+
+    for(; i < pointsQty; i++){
+      if(block.pointsOut[i].view) {
+        var corner;
+
+        if(i === 0) {
+          if(block.pointsOut[pointsQty-1].type === 'frame' && block.pointsOut[i].type === 'frame' && block.pointsOut[i+1].type === 'frame') {
+            corner = createCornerPoint(block, (pointsQty-1), i, (i+1));
+          }
+        } else if(i === (pointsQty - 1)) {
+          if(block.pointsOut[i-1].type === 'frame' && block.pointsOut[i].type === 'frame' && block.pointsOut[0].type === 'frame') {
+            corner = createCornerPoint(block, (i-1), i, 0);
+          }
+        } else {
+          if(block.pointsOut[i-1].type === 'frame' && block.pointsOut[i].type === 'frame' && block.pointsOut[i+1].type === 'frame') {
+            corner = createCornerPoint(block, (i-1), i, (i+1));
+          }
+        }
+        if(corner) {
+          block.pointsOut.push(corner);
+        }
+
+
+      }
+    }
+
+    console.log('^^^^^^^^^^', block.pointsOut);
+
+//    while(--pointsQty > -1){
+//      if(block.pointsOut[pointsQty].view) {
+//        if(block.pointsOut[pointsQty].type === 'frame' && block.pointsOut[pointsQty-1].type === 'frame') {
+//          var cornerN = Number(block.pointsOut[pointsQty].id.replace(/\D+/g, ""));
+//          var corner = {
+//            type:'corner',
+//            id: 'c' + cornerN + '-2',
+//            dir:'line',
+//            view: 0
+//          };
+//          block.pointsOut.push(corner);
+//        }
+//      }
+//    }
+
+  } else if(block.position === 'first') {
+
+    if(block.pointsOut[i].fi > 90 && block.pointsOut[i].fi < 270) {
+
+    }
+
+  } else if(block.position === 'last') {
+
+    if(block.pointsOut[i].fi < 90 || block.pointsOut[i].fi > 270) {
+
+    }
+
+  }
+
+  return block;
+
+
+}
+
+
+function createCornerPoint(block, indexPrev, index, indexNext) {
+  var dictance = 20;
+  var cornerN = Number(block.pointsOut[index].id.replace(/\D+/g, ""));
+  var ratioL = dictance / block.linesOut[indexNext].size;
+  var corner = {
+    type:'corner',
+    id: 'c' + cornerN + '-1',
+    dir:'line',
+    view: 0
+  };
+
+  corner.x = ( block.linesOut[indexNext].startX + ratioL * block.linesOut[indexNext].endX)/(1 + ratioL);
+  corner.y = ( block.linesOut[indexNext].startY + ratioL * block.linesOut[indexNext].endY)/(1 + ratioL);
+
+  return corner;
+}
+
+
+
+function setDefaultArcPoints(block) {
+  //  var linesOutQty = block.linesOut.length,
+  //      point = {
+  //        type:'arc',
+  //        id:'q',
+  //        x:0,
+  //        y:0,
+  //        dir:'curv'
+  //      },
+  //      i = 0;
+  //
+  //  for(; i < linesOutQty; i++) {
+  //
+  //    if(fi < 0) {
+  //      fi += 360;
+  //    }
+  //    block.push();
+  //  }
+  //
+  //  return block;
+}
 
 function setPointsIn(block, depths) {
   var pointsIn = [],
@@ -660,31 +774,51 @@ function getCoordCrossPoint(line1, line2, coefC1, coefC2) {
   console.log('line1 = ', line1);
   console.log('line2 = ', line2);
   var crossPoint = {},
-      base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
-      baseX = ((-coefC1) * line2.coefB) - (line1.coefB * (-coefC2)),
-      baseY = (line1.coefA * (-coefC2)) - (line2.coefA * (-coefC1));
+      coord = {},
+      isParall = checkParallel(line1, line2);
 
-  console.log('baseX = ', baseX);
-  console.log('baseY = ', baseY);
   //------- if lines are paralles
-  if(base === 0 && baseX === 0 && baseY === 0) {
-
+  if(isParall) {
+    console.log('parallel = ', isParall);
+    //----- set normal statement
+    var normal = {
+      coefA: 1,
+      coefB: -(line1.coefB / line1.coefA),
+      coefC: (line1.coefB * line1.endX/ line1.coefA) - line1.endY
+    };
+    coord = findCrossPoint(normal, line1, normal.coefC, coefC1);
   } else {
-    crossPoint.x = baseX / base;
-    crossPoint.y = baseY / base;
+    coord = findCrossPoint(line1, line2, coefC1, coefC2);
   }
+
+  crossPoint.x = coord.x;
+  crossPoint.y = coord.y;
   crossPoint.type = (line1.type === 'impost' || line2.type === 'impost') ? 'impost' : 'frame';
-  crossPoint.dir = (line1.dir === 'curv' && line2.dir === 'curv') ? 'curv' : 'line';
+  crossPoint.dir = (line1.endDir === 'curv' && line2.startDir === 'curv') ? 'curv' : 'line';
 
   return crossPoint;
 }
 
 
-//function checkParallel(line1, line2) {
-//  var k1 = (line1.endY - line1.startY) / (line1.endX - line1.startX),
-//      k2 = (line2.endY - line2.startY) / (line2.endX - line2.startX);
-//  return (k1 === k2) ? 1 : 0;
-//}
+function checkParallel(line1, line2) {
+  var k1 = (line1.endY - line1.startY) / (line1.endX - line1.startX),
+      k2 = (line2.endY - line2.startY) / (line2.endX - line2.startX);
+  return (k1 === k2) ? 1 : 0;
+}
+
+function findCrossPoint(line1, line2, coefC1, coefC2) {
+  var base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
+      baseX = ((-coefC1) * line2.coefB) - (line1.coefB * (-coefC2)),
+      baseY = (line1.coefA * (-coefC2)) - (line2.coefA * (-coefC1)),
+      crossPoint = {
+        x: baseX / base,
+        y: baseY / base
+      };
+  console.log('base = ', base);
+  console.log('baseX = ', baseX);
+  console.log('baseY = ', baseY);
+  return crossPoint;
+}
 
 
 function setParts(block) {
@@ -696,14 +830,16 @@ function setParts(block) {
       type: block.pointsOut[i].type,
       points: []
     };
-
-    if(block.pointsOut[0].dir === 'curv') {
+    //----- passing if first point is curv
+    if(i === 0 && block.pointsOut[i].dir === 'curv') {
       continue;
     }
     //------ if last point
     if(i === (pointsQty - 1)) {
       //------- if one point is 'curv' from both
-      if(block.pointsOut[i].dir === 'curv' || block.pointsOut[0].dir === 'curv') {
+      if(block.pointsOut[i].dir === 'curv') {
+        break;
+      } else if(block.pointsOut[0].dir === 'curv') {
         part.points.push(block.pointsOut[i]);
         part.points.push(block.pointsOut[0]);
         part.points.push(block.pointsOut[1]);
@@ -722,8 +858,13 @@ function setParts(block) {
       if(block.pointsOut[i].dir === 'curv' || block.pointsOut[i+1].dir === 'curv') {
         part.points.push(block.pointsOut[i]);
         part.points.push(block.pointsOut[i+1]);
-        part.points.push(block.pointsOut[i+2]);
-        part.points.push(block.pointsIn[i+2]);
+        if(block.pointsOut[i+2]) {
+          part.points.push(block.pointsOut[i+2]);
+          part.points.push(block.pointsIn[i+2]);
+        } else {
+          part.points.push(block.pointsOut[0]);
+          part.points.push(block.pointsIn[0]);
+        }
         part.points.push(block.pointsIn[i+1]);
         part.points.push(block.pointsIn[i]);
         i++;
@@ -735,8 +876,7 @@ function setParts(block) {
         part.points.push(block.pointsIn[i]);
       }
     }
-
-    part.path = assamblingPath(part.points);
+//    part.path = assamblingPath(part.points);
     parts.push(part);
   }
 
@@ -782,32 +922,7 @@ function assamblingPath(arrPoints) {
 }
 
 
-//----- create fixed points of corners
-//function setFixedPointCorners(sourceObj) {
-//  var dictance = 20,
-//      corners = [],
-//      corner = {};
-//
-//  for(var i = 0; i < sourceObj.objects.length; i++) {
-//    if(sourceObj.objects[i].type === 'skylight' && sourceObj.objects[i].level) {
-//      for(var j = 0; j < sourceObj.objects[i].points.length; j++) {
-//        var fpN = Number(sourceObj.objects[i].points[j].replace(/\D+/g, ""));
-//        if(fpN === 1) {
-//          corner = {
-//            type: 'fixed_point_corner',
-//            id: 'fp_corner'+fpN+'_1',
-//            x: 20,
-//            y: 0
-//          };
-//          console.log('sourceObj.objects[i].x == ', sourceObj.objects[i].x);
-//          sourceObj.objects.push(corner);
-//        }
-//      }
-//
-//    }
-//  }
-//
-//}
+
 
 
 ////////////////////////////////////////////
@@ -816,76 +931,130 @@ function assamblingPath(arrPoints) {
 
 var Template = function (sourceObj, depths) {
   this.name = sourceObj.name;
-  this.objects = sourceObj.objects;
+  this.details = sourceObj.details;
   //this.dimentions = createDimentions(sourceObj);
 
-    var objQty = this.objects.length,
-        i = 0;
-  for(; i < objQty; i++) {
-    if(this.objects[i].type === 'skylight' && this.objects[i].level > 0) {
+  var blocksQty = this.details.skylights.length,
+      i = 0;
 
-      this.objects[i] = centerBlock(this.objects, this.objects[i]);
-      this.objects[i] = sortingPoints(this.objects[i]);
-      this.objects[i].linesOut = setLines(this.objects[i].pointsOut);
+  for(; i < blocksQty; i++) {
+    //------ block 0
+    if(this.details.skylights[i].level === 0) {
+
+      var childQty = this.details.skylights[i].children.length;
+      if(childQty === 1) {
+        for(var b = 0; b < blocksQty; b++) {
+          if(this.details.skylights[i].children[0] === this.details.skylights[b].id) {
+            this.details.skylights[b].position = 'single';
+          }
+        }
+      } else if(childQty > 1) {
+        for(var b = 0; b < blocksQty; b++) {
+          if(this.details.skylights[i].children[0] === this.details.skylights[b].id) {
+            this.details.skylights[b].position = 'first';
+          } else if(this.details.skylights[i].children[childQty-1] === this.details.skylights[b].id) {
+            this.details.skylights[b].position = 'last';
+          }
+        }
+      }
+
+    } else {
+      this.details.skylights[i] = centerBlock(this.details.points, this.details.skylights[i]);
+      this.details.skylights[i] = sortingPoints(this.details.skylights[i]);
+      this.details.skylights[i].linesOut = setLines(this.details.skylights[i].pointsOut);
+
+      //------- if block 1, set corners points
+      if(this.details.skylights[i].level === 1) {
+        this.details.skylights[i] = setDefaultCornerPoint(this.details.skylights[i]);
+      }
+
 
       //------- if block is empty
-      if(this.objects[i].inject.length < 1) {
-        this.objects[i].pointsIn = setPointsIn(this.objects[i], depths);
-        this.objects[i].linesIn = setLines(this.objects[i].pointsIn);
-//        console.log('+++ each +++', this.objects[i]);
-//        console.log(JSON.stringify(this.objects[i]));
+      if(this.details.skylights[i].children.length < 1) {
+        this.details.skylights[i].pointsIn = setPointsIn(this.details.skylights[i], depths);
+        this.details.skylights[i].linesIn = setLines(this.details.skylights[i].pointsIn);
+        //        console.log('+++ each +++', this.details.skylights[i]);
+        //        console.log(JSON.stringify(this.details.skylights[i]));
 
         //------ if block is frame
-        if(this.objects[i].blockType === 'frame') {
+        if(this.details.skylights[i].blockType === 'frame') {
           // bead glass
-        } else if(this.objects[i].blockType === 'sash') {
+        } else if(this.details.skylights[i].blockType === 'sash') {
           // sash bead glass
         }
         //------- set points for each part of construction
-        this.objects[i].parts = setParts(this.objects[i]);
+        this.details.skylights[i].parts = setParts(this.details.skylights[i]);
       }
-
     }
   }
 
-//  console.log('++++++ all +++++++', this.objects);
-//  console.log(JSON.stringify(this.objects));
+//  console.log('++++++ all +++++++', this.details);
+//  console.log(JSON.stringify(this.details));
 };
+
+
+
+
+
 
 
 var TemplateIcon = function (sourceObj, depths) {
   var tmpObject, coeffScale = 2;
 
   this.name = sourceObj.name;
-  this.objects = sourceObj.objects;
+  this.details = sourceObj.details;
   //this.dimentions = createDimentions(sourceObj);
 
-  var objQty = this.objects.length,
+  var blocksQty = this.details.skylights.length,
       i = 0;
-  for(; i < objQty; i++) {
-    if(this.objects[i].type === 'skylight' && this.objects[i].level > 0) {
+  for(; i < blocksQty; i++) {
+    if(this.details.skylights[i].level === 0) {
+      //------ block 0
+      var childQty = this.details.skylights[i].children.length;
+      if(childQty === 1) {
+        for(var b = 0; b < blocksQty; b++) {
+          if(this.details.skylights[i].children[0] === this.details.skylights[b].id) {
+            this.details.skylights[b].position = 'single';
+          }
+        }
+      } else if(childQty > 1) {
+        for(var b = 0; b < blocksQty; b++) {
+          if(this.details.skylights[i].children[0] === this.details.skylights[b].id) {
+            this.details.skylights[b].position = 'first';
+          } else if(this.details.skylights[i].children[childQty-1] === this.details.skylights[b].id) {
+            this.details.skylights[b].position = 'last';
+          }
+        }
+      }
 
-      this.objects[i] = centerBlock(this.objects, this.objects[i]);
-      this.objects[i] = sortingPoints(this.objects[i]);
-      this.objects[i].linesOut = setLines(this.objects[i].pointsOut);
+    } else {
+      this.details.skylights[i] = centerBlock(this.details.points, this.details.skylights[i]);
+      this.details.skylights[i] = sortingPoints(this.details.skylights[i]);
+      this.details.skylights[i].linesOut = setLines(this.details.skylights[i].pointsOut);
+
+      //this.details.skylights[i] = setDefaultCornerPoint(this.details.skylights[i]);
 
       //------- if block is empty
-      if(!this.objects[i].inject.length) {
-        this.objects[i].pointsIn = setPointsIn(this.objects[i], depths);
-        this.objects[i].linesIn = setLines(this.objects[i].pointsIn);
+      if(this.details.skylights[i].children.length < 1) {
+        this.details.skylights[i].pointsIn = setPointsIn(this.details.skylights[i], depths);
+        this.details.skylights[i].linesIn = setLines(this.details.skylights[i].pointsIn);
+        //        console.log('+++ each +++', this.details.skylights[i]);
+        //        console.log(JSON.stringify(this.details.skylights[i]));
 
         //------ if block is frame
-        if(this.objects[i].blockType === 'frame') {
+        if(this.details.skylights[i].blockType === 'frame') {
           // bead glass
-        } else if(this.objects[i].blockType === 'sash') {
+        } else if(this.details.skylights[i].blockType === 'sash') {
           // sash bead glass
         }
         //------- set points for each part of construction
-        this.objects[i].parts = setParts(this.objects[i]);
+        this.details.skylights[i].parts = setParts(this.details.skylights[i]);
       }
-
     }
   }
+
+  //  console.log('++++++ all +++++++', this.details);
+  //  console.log(JSON.stringify(this.details));
 
 };
 
