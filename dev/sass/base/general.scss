@@ -424,6 +424,12 @@ body {
   stroke: $main_orange;
   stroke-width: 2;
 }
+.corner_mark {
+  stroke: none;
+  fill: rgba(34, 34, 255, 0.5);
+}
+
+
 
 
 //=========== Scrolling

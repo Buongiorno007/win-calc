@@ -20,6 +20,7 @@
       designCancel: designCancel,
       setDefaultConstruction: setDefaultConstruction,
 
+      setCornerPoints: setCornerPoints,
       //---- change sizes
       selectSizeBlock: selectSizeBlock,
       setValueSize: setValueSize,
@@ -179,8 +180,82 @@
 
 
 
+    function setCornerPoints(corner) {
+
+      console.log('########### = ', corner);
+      var cornerN = Number(corner.id.replace(/\D+/g, "")),
+          points = DesignStor.design.templateTEMP.details.points,
+          blocks = DesignStor.design.templateTEMP.details.skylights,
+          blocksQty = blocks.length,
+          b = 0;
+      console.log('template +++++', DesignStor.design.templateTEMP.details.skylights);
+
+      for(; b < blocksQty; b++) {
+        if(blocks[b].level === 1) {
+
+          for(var j = 0; j < blocks[b].pointsID.length; j++) {
+            if(blocks[b].pointsID[j] === corner.id) {
+              blocks[b].pointsID.splice(j, 1);
+            }
+          }
 
 
+          var linesQty = blocks[b].linesOut.length,
+              l = 0;
+          for(; l < linesQty; l++) {
+            if(blocks[b].linesOut[l].from.id === corner.id) {
+              createCornerPoint(1, cornerN, blocks[b].linesOut[l], blocks[b], points);
+            } else if(blocks[b].linesOut[l].to.id === corner.id) {
+              createCornerPoint(2, cornerN, blocks[b].linesOut[l], blocks[b], points);
+            }
+          }
+
+        }
+      }
+      //----- hide this point
+      for(var i = 0; i < points.length; i++) {
+        if(points[i].id === corner.id) {
+          points[i].view = 0;
+        }
+      }
+
+      //------ change templateSource
+      DesignStor.design.templateSourceTEMP.details.points = angular.copy(DesignStor.design.templateTEMP.details.points);
+      for(var i = 0; i < DesignStor.design.templateSourceTEMP.details.skylights.length; i++) {
+        if(DesignStor.design.templateSourceTEMP.details.skylights[i].level === 1) {
+          DesignStor.design.templateSourceTEMP.details.skylights[i].pointsID = angular.copy(DesignStor.design.templateTEMP.details.skylights[i].pointsID);
+        }
+      }
+
+      DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
+      $rootScope.$apply();
+      console.log('template Source +++2++', DesignStor.design.templateSourceTEMP.details);
+      console.log('template +++2++', DesignStor.design.templateTEMP.details);
+
+    }
+
+
+    function createCornerPoint(pointN, cornerN, line, block, points) {
+      var dictance = 20,
+          ratioL = dictance / line.size,
+          cornerPoint = {
+            type:'corner',
+            id: 'c' + cornerN + '-' + pointN,
+            dir:'line',
+            view: 1
+          };
+      if(pointN === 1) {
+        cornerPoint.x = ( line.from.x + ratioL * line.to.x)/(1 + ratioL);
+        cornerPoint.y = ( line.from.y + ratioL * line.to.y)/(1 + ratioL);
+      } else if(pointN === 2) {
+        cornerPoint.x = ( line.to.x + ratioL * line.from.x)/(1 + ratioL);
+        cornerPoint.y = ( line.to.y + ratioL * line.from.y)/(1 + ratioL);
+      }
+
+
+      block.pointsID.push(cornerPoint.id);
+      points.push(cornerPoint);
+    }
 
 
 

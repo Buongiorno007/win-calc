@@ -519,7 +519,8 @@ function centerBlock(points, block){
       }
     }
   }
-
+console.log('@@@@@@@@', block.pointsID);
+console.log('@@@@@@@@', block.pointsOut);
   block.center.centerX /= pointsIdQty;
   block.center.centerY /= pointsIdQty;
   return block;
@@ -555,51 +556,33 @@ function setLines(points) {
   for(; i < pointsQty; i++) {
     var line = {};
     //------- first
-    if(points[i].id) {
-      line.from = points[i].id;
-    }
-    line.startX = points[i].x;
-    line.startY = points[i].y;
-    line.startDir = points[i].dir;
+    line.from = JSON.parse(JSON.stringify(points[i]));
     line.dir = (points[i].dir === 'curv') ? 'curv' : 'line';
     //------- end
     if(i === (pointsQty - 1)) {
-      line.endX = points[0].x;
-      line.endY = points[0].y;
+      line.to = JSON.parse(JSON.stringify(points[0]));
       line.type = setLineType(points[i].type, points[0].type);
-      line.endDir = points[0].dir;
-      if(points[0].id) {
-        line.to = points[0].id;
-      }
       if(line.dir === 'line') {
         line.dir = (points[0].dir === 'curv') ? 'curv' : 'line';
       }
-
     } else {
-      line.endX = points[i+1].x;
-      line.endY = points[i+1].y;
+      line.to = JSON.parse(JSON.stringify(points[i+1]));
       line.type = setLineType(points[i].type, points[i+1].type);
-      line.endDir = points[i+1].dir;
-      if(points[i+1].id) {
-        line.to = points[i+1].id;
-      }
       if(line.dir === 'line') {
         line.dir = (points[i+1].dir === 'curv') ? 'curv' : 'line';
       }
-
     }
-
-    line.size = Math.round(Math.sqrt( Math.pow((line.endX - line.startX), 2) + Math.pow((line.endY - line.startY), 2) ) * 100) / 100;
-    line.coefA = (line.startY - line.endY);
-    line.coefB = (line.endX - line.startX);
-    line.coefC = (line.startX*line.endY - line.endX*line.startY);
-
+    line.size = Math.round(Math.sqrt( Math.pow((line.to.x - line.from.x), 2) + Math.pow((line.to.y - line.from.y), 2) ) * 100) / 100;
+    line.coefA = (line.from.y - line.to.y);
+    line.coefB = (line.to.x - line.from.x);
+    line.coefC = (line.from.x*line.to.y - line.to.x*line.from.y);
     lines.push(line);
   }
   //------ change place last element in array to first
   var last = lines.pop();
   lines.unshift(last);
 
+console.log('@@@@@@@ = ',lines);
   return lines;
 }
 
@@ -622,129 +605,21 @@ function setLineType(from, to) {
 
 
 
-function setDefaultCornerPoint(block) {
-  if(block.position === 'single') {
-    var pointsQty = block.pointsOut.length,
-        i = 0;
-
-    for(; i < pointsQty; i++){
-      if(block.pointsOut[i].view) {
-        var corner;
-
-        if(i === 0) {
-          if(block.pointsOut[pointsQty-1].type === 'frame' && block.pointsOut[i].type === 'frame' && block.pointsOut[i+1].type === 'frame') {
-            corner = createCornerPoint(block, (pointsQty-1), i, (i+1));
-          }
-        } else if(i === (pointsQty - 1)) {
-          if(block.pointsOut[i-1].type === 'frame' && block.pointsOut[i].type === 'frame' && block.pointsOut[0].type === 'frame') {
-            corner = createCornerPoint(block, (i-1), i, 0);
-          }
-        } else {
-          if(block.pointsOut[i-1].type === 'frame' && block.pointsOut[i].type === 'frame' && block.pointsOut[i+1].type === 'frame') {
-            corner = createCornerPoint(block, (i-1), i, (i+1));
-          }
-        }
-        if(corner) {
-          block.pointsOut.push(corner);
-        }
-
-
-      }
-    }
-
-    console.log('^^^^^^^^^^', block.pointsOut);
-
-//    while(--pointsQty > -1){
-//      if(block.pointsOut[pointsQty].view) {
-//        if(block.pointsOut[pointsQty].type === 'frame' && block.pointsOut[pointsQty-1].type === 'frame') {
-//          var cornerN = Number(block.pointsOut[pointsQty].id.replace(/\D+/g, ""));
-//          var corner = {
-//            type:'corner',
-//            id: 'c' + cornerN + '-2',
-//            dir:'line',
-//            view: 0
-//          };
-//          block.pointsOut.push(corner);
-//        }
-//      }
-//    }
-
-  } else if(block.position === 'first') {
-
-    if(block.pointsOut[i].fi > 90 && block.pointsOut[i].fi < 270) {
-
-    }
-
-  } else if(block.position === 'last') {
-
-    if(block.pointsOut[i].fi < 90 || block.pointsOut[i].fi > 270) {
-
-    }
-
-  }
-
-  return block;
-
-
-}
-
-
-function createCornerPoint(block, indexPrev, index, indexNext) {
-  var dictance = 20;
-  var cornerN = Number(block.pointsOut[index].id.replace(/\D+/g, ""));
-  var ratioL = dictance / block.linesOut[indexNext].size;
-  var corner = {
-    type:'corner',
-    id: 'c' + cornerN + '-1',
-    dir:'line',
-    view: 0
-  };
-
-  corner.x = ( block.linesOut[indexNext].startX + ratioL * block.linesOut[indexNext].endX)/(1 + ratioL);
-  corner.y = ( block.linesOut[indexNext].startY + ratioL * block.linesOut[indexNext].endY)/(1 + ratioL);
-
-  return corner;
-}
-
-
-
-function setDefaultArcPoints(block) {
-  //  var linesOutQty = block.linesOut.length,
-  //      point = {
-  //        type:'arc',
-  //        id:'q',
-  //        x:0,
-  //        y:0,
-  //        dir:'curv'
-  //      },
-  //      i = 0;
-  //
-  //  for(; i < linesOutQty; i++) {
-  //
-  //    if(fi < 0) {
-  //      fi += 360;
-  //    }
-  //    block.push();
-  //  }
-  //
-  //  return block;
-}
-
-function setPointsIn(block, depths) {
+function setPointsIn(block, depths, group) {
   var pointsIn = [],
       linesQty = block.linesOut.length,
       i = 0;
 
   for(; i < linesQty; i++) {
-    var newCoefC1 = getNewCoefC(depths, block.linesOut[i]),
+    var newCoefC1 = getNewCoefC(depths, block.linesOut[i], group),
         newCoefC2 = 0,
         crossPoint = {};
 
     if(i === (linesQty - 1)) {
-      newCoefC2 = getNewCoefC(depths, block.linesOut[0]);
+      newCoefC2 = getNewCoefC(depths, block.linesOut[0], group);
       crossPoint = getCoordCrossPoint (block.linesOut[i], block.linesOut[0], newCoefC1, newCoefC2);
     } else {
-      newCoefC2 = getNewCoefC(depths, block.linesOut[i+1]);
+      newCoefC2 = getNewCoefC(depths, block.linesOut[i+1], group);
       crossPoint = getCoordCrossPoint (block.linesOut[i], block.linesOut[i+1], newCoefC1, newCoefC2);
     }
     pointsIn.push(crossPoint);
@@ -753,35 +628,90 @@ function setPointsIn(block, depths) {
   return pointsIn;
 }
 
-function getNewCoefC(depths, line) {
-  var depth = 0;
-  if(line.type === 'frame') {
-    depth = depths.frameDepth.c
-  } else if(line.type === 'impost') {
-    depth = depths.impostDepth.c / 2;
+function getNewCoefC(depths, line, group) {
+  var depth = 0, beadDepth = 20;
+
+  switch(group) {
+    case 'frame':
+      if(line.type === 'frame') {
+        depth = depths.frameDepth.c;
+      } else if(line.type === 'impost') {
+        depth = depths.impostDepth.c / 2;
+      }
+      break;
+    case 'frame-bead':
+      if(line.type === 'frame') {
+        depth = depths.frameDepth.c + beadDepth;
+      } else if(line.type === 'impost') {
+        depth = (depths.impostDepth.c / 2) + beadDepth;
+      }
+      break;
+    case 'frame-glass':
+      if(line.type === 'frame') {
+        depth = depths.frameDepth.d;
+      } else if(line.type === 'impost') {
+        depth = depths.impostDepth.b;
+      }
+      break;
+    case 'sash-out':
+      if(line.type === 'frame') {
+        depth = depths.frameDepth.b;
+      } else if(line.type === 'impost') {
+        depth = depths.impostDepth.d;
+      }
+      break;
+    case 'sash-in':
+      if(line.type === 'frame') {
+        depth = depths.frameDepth.b + depths.sashDepth.c;
+      } else if(line.type === 'impost') {
+        depth = depths.impostDepth.d + depths.sashDepth.c;
+      }
+      break;
+    case 'hardware':
+      if(line.type === 'frame') {
+        depth = depths.frameDepth.b + depths.sashDepth.b;
+      } else if(line.type === 'impost') {
+        depth = depths.impostDepth.d + depths.sashDepth.b;
+      }
+      break;
+    case 'sash-bead':
+      if(line.type === 'frame') {
+        depth = depths.frameDepth.b + depths.sashDepth.c + beadDepth;
+      } else if(line.type === 'impost') {
+        depth = depths.impostDepth.d + depths.sashDepth.c + beadDepth;
+      }
+      break;
+    case 'sash-glass':
+      if(line.type === 'frame') {
+        depth = depths.frameDepth.b + depths.sashDepth.d;
+      } else if(line.type === 'impost') {
+        depth = depths.impostDepth.d + depths.sashDepth.d;
+      }
+      break;
   }
+//console.log('depth+++++', depth);
   var newCoefC = line.coefC - (depth * Math.sqrt(Math.pow(line.coefA, 2) + Math.pow(line.coefB, 2)));
-  console.log('newCoefC = ', newCoefC);
+//  console.log('newCoefC = ', newCoefC);
   return newCoefC;
 }
 
 
 
 function getCoordCrossPoint(line1, line2, coefC1, coefC2) {
-  console.log('line1 = ', line1);
-  console.log('line2 = ', line2);
+//  console.log('line1 = ', line1);
+//  console.log('line2 = ', line2);
   var crossPoint = {},
       coord = {},
       isParall = checkParallel(line1, line2);
 
   //------- if lines are paralles
   if(isParall) {
-    console.log('parallel = ', isParall);
+//    console.log('parallel = ', isParall);
     //----- set normal statement
     var normal = {
       coefA: 1,
       coefB: -(line1.coefB / line1.coefA),
-      coefC: (line1.coefB * line1.endX/ line1.coefA) - line1.endY
+      coefC: (line1.coefB * line1.to.x/ line1.coefA) - line1.to.y
     };
     coord = findCrossPoint(normal, line1, normal.coefC, coefC1);
   } else {
@@ -791,15 +721,15 @@ function getCoordCrossPoint(line1, line2, coefC1, coefC2) {
   crossPoint.x = coord.x;
   crossPoint.y = coord.y;
   crossPoint.type = (line1.type === 'impost' || line2.type === 'impost') ? 'impost' : 'frame';
-  crossPoint.dir = (line1.endDir === 'curv' && line2.startDir === 'curv') ? 'curv' : 'line';
-
+  crossPoint.dir = (line1.to.dir === 'curv') ? 'curv' : 'line';
+  crossPoint.id = line1.to.id +'-in';
   return crossPoint;
 }
 
 
 function checkParallel(line1, line2) {
-  var k1 = (line1.endY - line1.startY) / (line1.endX - line1.startX),
-      k2 = (line2.endY - line2.startY) / (line2.endX - line2.startX);
+  var k1 = (line1.to.x - line1.from.y) / (line1.to.x - line1.from.x),
+      k2 = (line2.to.y - line2.from.y) / (line2.to.x - line2.from.x);
   return (k1 === k2) ? 1 : 0;
 }
 
@@ -811,69 +741,69 @@ function findCrossPoint(line1, line2, coefC1, coefC2) {
         x: baseX / base,
         y: baseY / base
       };
-  console.log('base = ', base);
-  console.log('baseX = ', baseX);
-  console.log('baseY = ', baseY);
+//  console.log('base = ', base);
+//  console.log('baseX = ', baseX);
+//  console.log('baseY = ', baseY);
   return crossPoint;
 }
 
 
-function setParts(block) {
+function setParts(pointsOut, pointsIn) {
   var parts = [],
-      pointsQty = block.pointsOut.length,
+      pointsQty = pointsOut.length,
       i = 0;
   for(; i < pointsQty; i++) {
     var part = {
-      type: block.pointsOut[i].type,
+      type: pointsOut[i].type,
       points: []
     };
     //----- passing if first point is curv
-    if(i === 0 && block.pointsOut[i].dir === 'curv') {
+    if(i === 0 && pointsOut[i].dir === 'curv') {
       continue;
     }
     //------ if last point
     if(i === (pointsQty - 1)) {
       //------- if one point is 'curv' from both
-      if(block.pointsOut[i].dir === 'curv') {
+      if(pointsOut[i].dir === 'curv') {
         break;
-      } else if(block.pointsOut[0].dir === 'curv') {
-        part.points.push(block.pointsOut[i]);
-        part.points.push(block.pointsOut[0]);
-        part.points.push(block.pointsOut[1]);
-        part.points.push(block.pointsIn[1]);
-        part.points.push(block.pointsIn[0]);
-        part.points.push(block.pointsIn[i]);
+      } else if(pointsOut[0].dir === 'curv') {
+        part.points.push(pointsOut[i]);
+        part.points.push(pointsOut[0]);
+        part.points.push(pointsOut[1]);
+        part.points.push(pointsIn[1]);
+        part.points.push(pointsIn[0]);
+        part.points.push(pointsIn[i]);
       } else {
         //-------- if line
-        part.points.push(block.pointsOut[i]);
-        part.points.push(block.pointsOut[0]);
-        part.points.push(block.pointsIn[0]);
-        part.points.push(block.pointsIn[i]);
+        part.points.push(pointsOut[i]);
+        part.points.push(pointsOut[0]);
+        part.points.push(pointsIn[0]);
+        part.points.push(pointsIn[i]);
       }
     } else {
       //------- if curv
-      if(block.pointsOut[i].dir === 'curv' || block.pointsOut[i+1].dir === 'curv') {
-        part.points.push(block.pointsOut[i]);
-        part.points.push(block.pointsOut[i+1]);
-        if(block.pointsOut[i+2]) {
-          part.points.push(block.pointsOut[i+2]);
-          part.points.push(block.pointsIn[i+2]);
+      if(pointsOut[i].dir === 'curv' || pointsOut[i+1].dir === 'curv') {
+        part.points.push(pointsOut[i]);
+        part.points.push(pointsOut[i+1]);
+        if(pointsOut[i+2]) {
+          part.points.push(pointsOut[i+2]);
+          part.points.push(pointsIn[i+2]);
         } else {
-          part.points.push(block.pointsOut[0]);
-          part.points.push(block.pointsIn[0]);
+          part.points.push(pointsOut[0]);
+          part.points.push(pointsIn[0]);
         }
-        part.points.push(block.pointsIn[i+1]);
-        part.points.push(block.pointsIn[i]);
+        part.points.push(pointsIn[i+1]);
+        part.points.push(pointsIn[i]);
         i++;
       } else {
         //-------- if line
-        part.points.push(block.pointsOut[i]);
-        part.points.push(block.pointsOut[i+1]);
-        part.points.push(block.pointsIn[i+1]);
-        part.points.push(block.pointsIn[i]);
+        part.points.push(pointsOut[i]);
+        part.points.push(pointsOut[i+1]);
+        part.points.push(pointsIn[i+1]);
+        part.points.push(pointsIn[i]);
       }
     }
-//    part.path = assamblingPath(part.points);
+    part.path = assamblingPath(part.points);
     parts.push(part);
   }
 
@@ -913,11 +843,158 @@ function assamblingPath(arrPoints) {
 
     }
   }
-  console.log(arrPoints);
+//  console.log(arrPoints);
 
   return path;
 }
 
+
+
+function setGlass(glassPoints) {
+  console.log(glassPoints);
+  var part = {
+        type: 'glass',
+        path: 'M ',
+        square: 0
+      },
+      pointsQty = glassPoints.length,
+      i = 0;
+
+  for(; i < pointsQty; i++) {
+    //----- if first point
+    if(i === 0) {
+      //----- passing if first point is curv
+      if(glassPoints[i].dir === 'curv'){
+        part.path += glassPoints[pointsQty - 1].x + ',' + glassPoints[pointsQty - 1].y;
+        part.path += ' Q ' + glassPoints[i].x + ',' + glassPoints[i].y + ',' + glassPoints[i+1].x + ',' + glassPoints[i+1].y;
+        i++;
+      } else {
+        part.path += glassPoints[i].x + ',' + glassPoints[i].y;
+      }
+
+    } else {
+      //------- if curv
+      if(glassPoints[i].dir === 'curv') {
+        part.path += ' Q ' + glassPoints[i].x + ',' + glassPoints[i].y + ',';
+        if(glassPoints[i+1]) {
+          part.path += glassPoints[i+1].x + ',' + glassPoints[i+1].y;
+        } else {
+          part.path += glassPoints[0].x + ',' + glassPoints[0].y + ' Z';
+        }
+        i++;
+      } else {
+        //-------- if line
+        part.path += ' L ' + glassPoints[i].x + ',' + glassPoints[i].y;
+        if(i === (pointsQty - 1)) {
+          part.path += ' Z';
+        }
+      }
+    }
+
+  }
+  part.square = calcSquare(glassPoints);
+  return part;
+}
+
+
+
+
+function calcSquare(arrPoints) {
+  var square = 0,
+      p = 1,
+      pointQty = arrPoints.length;
+
+  for(; p < pointQty; p++) {
+    if(arrPoints[p+1]) {
+      square += (arrPoints[p+1].y + arrPoints[p].y)*(arrPoints[p+1].x - arrPoints[p].x) / (2 * 1000000);
+    }
+  }
+
+  return square;
+}
+
+
+
+
+
+function setCornerProp(blocks) {
+  var blocksQty = blocks.length,
+    b = 0;
+
+  for(; b < blocksQty; b++) {
+    //------- if block 1, set corners points
+    if(blocks[b].level === 1) {
+      var pointsQty = blocks[b].pointsOut.length,
+        i = 0;
+      if(blocks[b].position === 'single') {
+
+        for(; i < pointsQty; i++){
+          blocks[b].pointsOut[i].corner = checkPointXCorner(blocks[b].pointsOut, (pointsQty-1), i);
+        }
+
+      } else if(blocks[b].position === 'first') {
+        for(; i < pointsQty; i++){
+          if(blocks[b].pointsOut[i].fi > 90 && blocks[b].pointsOut[i].fi < 270) {
+            blocks[b].pointsOut[i].corner = checkPointXCorner(blocks[b].pointsOut, (pointsQty-1), i);
+          }
+        }
+      } else if(blocks[b].position === 'last') {
+        for(; i < pointsQty; i++){
+          if(blocks[b].pointsOut[i].fi < 90 || blocks[b].pointsOut[i].fi > 270) {
+            blocks[b].pointsOut[i].corner = checkPointXCorner(blocks[b].pointsOut, (pointsQty-1), i);
+          }
+        }
+      }
+    }
+  }
+
+}
+
+function checkPointXCorner(points, last, curr) {
+  if(curr === 0) {
+    if(points[last].dir === 'line' && points[curr].dir === 'line' && points[curr+1].dir === 'line') {
+      return 1;
+    } else {
+      return 0;
+    }
+  } else if(curr === last) {
+    if(points[curr-1].dir === 'line' && points[curr].dir === 'line' && points[0].dir === 'line') {
+      return 1;
+    } else {
+      return 0;
+    }
+  } else {
+    if(points[curr-1].dir === 'line' && points[curr].dir === 'line' && points[curr+1].dir === 'line') {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+}
+
+
+
+function setDefaultArcPoints(block) {
+  //  var linesOutQty = block.linesOut.length,
+  //      point = {
+  //        type:'arc',
+  //        id:'q',
+  //        x:0,
+  //        y:0,
+  //        dir:'curv'
+  //      },
+  //      i = 0;
+  //
+  //  for(; i < linesOutQty; i++) {
+  //
+  //    if(fi < 0) {
+  //      fi += 360;
+  //    }
+  //    block.push();
+  //  }
+  //
+  //  return block;
+}
 
 
 
@@ -927,8 +1004,8 @@ function assamblingPath(arrPoints) {
 
 
 var Template = function (sourceObj, depths) {
-  this.name = sourceObj.name;
-  this.details = sourceObj.details;
+//  this.name = sourceObj.name;
+  this.details = JSON.parse( JSON.stringify(sourceObj.details) );
   //this.dimentions = createDimentions(sourceObj);
 
   var blocksQty = this.details.skylights.length,
@@ -938,15 +1015,16 @@ var Template = function (sourceObj, depths) {
     //------ block 0
     if(this.details.skylights[i].level === 0) {
 
-      var childQty = this.details.skylights[i].children.length;
+      var childQty = this.details.skylights[i].children.length,
+          b = 0;
       if(childQty === 1) {
-        for(var b = 0; b < blocksQty; b++) {
+        for(; b < blocksQty; b++) {
           if(this.details.skylights[i].children[0] === this.details.skylights[b].id) {
             this.details.skylights[b].position = 'single';
           }
         }
       } else if(childQty > 1) {
-        for(var b = 0; b < blocksQty; b++) {
+        for(; b < blocksQty; b++) {
           if(this.details.skylights[i].children[0] === this.details.skylights[b].id) {
             this.details.skylights[b].position = 'first';
           } else if(this.details.skylights[i].children[childQty-1] === this.details.skylights[b].id) {
@@ -960,33 +1038,57 @@ var Template = function (sourceObj, depths) {
       this.details.skylights[i] = sortingPoints(this.details.skylights[i]);
       this.details.skylights[i].linesOut = setLines(this.details.skylights[i].pointsOut);
 
-      //------- if block 1, set corners points
       if(this.details.skylights[i].level === 1) {
-        this.details.skylights[i] = setDefaultCornerPoint(this.details.skylights[i]);
+        setCornerProp(this.details.skylights);
       }
-
-
       //------- if block is empty
       if(this.details.skylights[i].children.length < 1) {
-        this.details.skylights[i].pointsIn = setPointsIn(this.details.skylights[i], depths);
+        this.details.skylights[i].pointsIn = setPointsIn(this.details.skylights[i], depths, 'frame');
         this.details.skylights[i].linesIn = setLines(this.details.skylights[i].pointsIn);
-        //        console.log('+++ each +++', this.details.skylights[i]);
-        //        console.log(JSON.stringify(this.details.skylights[i]));
+
+        //------- set points for each part of construction
+        $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].pointsOut, this.details.skylights[i].pointsIn));
 
         //------ if block is frame
         if(this.details.skylights[i].blockType === 'frame') {
-          // bead glass
+          this.details.skylights[i].beadPointsOut = JSON.parse( JSON.stringify(this.details.skylights[i].pointsIn));
+          this.details.skylights[i].beadLinesOut = JSON.parse( JSON.stringify(this.details.skylights[i].linesIn));
+          this.details.skylights[i].beadPointsIn = setPointsIn(this.details.skylights[i], depths, 'frame-bead');
+          this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);
+
+          this.details.skylights[i].glassPoints = setPointsIn(this.details.skylights[i], depths, 'frame-glass');
+          this.details.skylights[i].glassLines = setLines(this.details.skylights[i].beadPointsIn);
+
+          this.details.skylights[i].parts.push(setGlass(this.details.skylights[i].glassPoints));
+          $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].beadPointsOut, this.details.skylights[i].beadPointsIn));
+
         } else if(this.details.skylights[i].blockType === 'sash') {
-          // sash bead glass
+          this.details.skylights[i].sashPointsOut = setPointsIn(this.details.skylights[i], depths, 'sash-out');
+          this.details.skylights[i].sashLinesOut = setLines(this.details.skylights[i].sashPointsOut);
+          this.details.skylights[i].sashPointsIn = setPointsIn(this.details.skylights[i], depths, 'sash-in');
+          this.details.skylights[i].sashLinesIn = setLines(this.details.skylights[i].sashPointsIn);
+
+          this.details.skylights[i].hardwarePoints = setPointsIn(this.details.skylights[i], depths, 'hardware');
+          this.details.skylights[i].hardwareLines = setLines(this.details.skylights[i].sashPointsIn);
+
+          this.details.skylights[i].beadPointsOut = JSON.parse( JSON.stringify(this.details.skylights[i].sashPointsIn));
+          this.details.skylights[i].beadLinesOut = JSON.parse( JSON.stringify(this.details.skylights[i].sashLinesIn));
+          this.details.skylights[i].beadPointsIn = setPointsIn(this.details.skylights[i], depths, 'sash-bead');
+          this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);
+
+          this.details.skylights[i].glassPoints = setPointsIn(this.details.skylights[i], depths, 'sash-glass');
+          this.details.skylights[i].glassLines = setLines(this.details.skylights[i].beadPointsIn);
+
+          $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].sashPointsOut, this.details.skylights[i].sashPointsIn));
+          this.details.skylights[i].parts.push(setGlass(this.details.skylights[i].glassPoints));
+          $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].beadPointsOut, this.details.skylights[i].beadPointsIn));
+
         }
-        //------- set points for each part of construction
-        this.details.skylights[i].parts = setParts(this.details.skylights[i]);
+
       }
     }
   }
 
-//  console.log('++++++ all +++++++', this.details);
-//  console.log(JSON.stringify(this.details));
 };
 
 
@@ -998,24 +1100,27 @@ var Template = function (sourceObj, depths) {
 var TemplateIcon = function (sourceObj, depths) {
   var tmpObject, coeffScale = 2;
 
-  this.name = sourceObj.name;
-  this.details = sourceObj.details;
+//  this.name = sourceObj.name;
+  this.details = JSON.parse( JSON.stringify(sourceObj.details) );
   //this.dimentions = createDimentions(sourceObj);
 
   var blocksQty = this.details.skylights.length,
       i = 0;
+
   for(; i < blocksQty; i++) {
+    //------ block 0
     if(this.details.skylights[i].level === 0) {
-      //------ block 0
-      var childQty = this.details.skylights[i].children.length;
+
+      var childQty = this.details.skylights[i].children.length,
+          b = 0;
       if(childQty === 1) {
-        for(var b = 0; b < blocksQty; b++) {
+        for(; b < blocksQty; b++) {
           if(this.details.skylights[i].children[0] === this.details.skylights[b].id) {
             this.details.skylights[b].position = 'single';
           }
         }
       } else if(childQty > 1) {
-        for(var b = 0; b < blocksQty; b++) {
+        for(; b < blocksQty; b++) {
           if(this.details.skylights[i].children[0] === this.details.skylights[b].id) {
             this.details.skylights[b].position = 'first';
           } else if(this.details.skylights[i].children[childQty-1] === this.details.skylights[b].id) {
@@ -1029,29 +1134,56 @@ var TemplateIcon = function (sourceObj, depths) {
       this.details.skylights[i] = sortingPoints(this.details.skylights[i]);
       this.details.skylights[i].linesOut = setLines(this.details.skylights[i].pointsOut);
 
-      //this.details.skylights[i] = setDefaultCornerPoint(this.details.skylights[i]);
-
+      if(this.details.skylights[i].level === 1) {
+        setCornerProp(this.details.skylights);
+      }
       //------- if block is empty
       if(this.details.skylights[i].children.length < 1) {
-        this.details.skylights[i].pointsIn = setPointsIn(this.details.skylights[i], depths);
+        this.details.skylights[i].pointsIn = setPointsIn(this.details.skylights[i], depths, 'frame');
         this.details.skylights[i].linesIn = setLines(this.details.skylights[i].pointsIn);
         //        console.log('+++ each +++', this.details.skylights[i]);
         //        console.log(JSON.stringify(this.details.skylights[i]));
 
+        //------- set points for each part of construction
+        $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].pointsOut, this.details.skylights[i].pointsIn));
         //------ if block is frame
         if(this.details.skylights[i].blockType === 'frame') {
-          // bead glass
+          this.details.skylights[i].beadPointsOut = JSON.parse( JSON.stringify(this.details.skylights[i].pointsIn));
+          this.details.skylights[i].beadLinesOut = JSON.parse( JSON.stringify(this.details.skylights[i].linesIn));
+          this.details.skylights[i].beadPointsIn = setPointsIn(this.details.skylights[i], depths, 'frame-bead');
+          this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);
+
+          this.details.skylights[i].glassPoints = setPointsIn(this.details.skylights[i], depths, 'frame-glass');
+          this.details.skylights[i].glassLines = setLines(this.details.skylights[i].beadPointsIn);
+
+          $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].beadPointsOut, this.details.skylights[i].beadPointsIn));
+          this.details.skylights[i].parts.push(setGlass(this.details.skylights[i].glassPoints));
+
         } else if(this.details.skylights[i].blockType === 'sash') {
-          // sash bead glass
+          this.details.skylights[i].sashPointsOut = setPointsIn(this.details.skylights[i], depths, 'sash-out');
+          this.details.skylights[i].sashLinesOut = setLines(this.details.skylights[i].sashPointsOut);
+          this.details.skylights[i].sashPointsIn = setPointsIn(this.details.skylights[i], depths, 'sash-in');
+          this.details.skylights[i].sashLinesIn = setLines(this.details.skylights[i].sashPointsIn);
+
+          this.details.skylights[i].hardwarePoints = setPointsIn(this.details.skylights[i], depths, 'hardware');
+          this.details.skylights[i].hardwareLines = setLines(this.details.skylights[i].sashPointsIn);
+
+          this.details.skylights[i].beadPointsOut = JSON.parse( JSON.stringify(this.details.skylights[i].sashPointsIn));
+          this.details.skylights[i].beadLinesOut = JSON.parse( JSON.stringify(this.details.skylights[i].sashLinesIn));
+          this.details.skylights[i].beadPointsIn = setPointsIn(this.details.skylights[i], depths, 'sash-bead');
+          this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);
+
+          this.details.skylights[i].glassPoints = setPointsIn(this.details.skylights[i], depths, 'sash-glass');
+          this.details.skylights[i].glassLines = setLines(this.details.skylights[i].beadPointsIn);
+
+          $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].sashPointsOut, this.details.skylights[i].sashPointsIn));
+          $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].beadPointsOut, this.details.skylights[i].beadPointsIn));
+          this.details.skylights[i].parts.push(setGlass(this.details.skylights[i].glassPoints));
         }
-        //------- set points for each part of construction
-        this.details.skylights[i].parts = setParts(this.details.skylights[i]);
+
       }
     }
   }
-
-  //  console.log('++++++ all +++++++', this.details);
-  //  console.log(JSON.stringify(this.details));
 
 };
 

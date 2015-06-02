@@ -94,6 +94,7 @@
           break;
         case 2:
           thisCtrl.config.isAngelEdit = true;
+          showAllAvailableCorner();
           break;
         case 3:
           thisCtrl.config.isImpostEdit = true;
@@ -127,6 +128,17 @@
       thisCtrl.config.isArchEdit = false;
       thisCtrl.config.isPositionEdit = false;
     }
+
+
+
+    function showAllAvailableCorner() {
+      d3.selectAll('#tamlateSVG .corner_mark')
+        .transition()
+        .duration(300)
+        .ease("linear")
+        .attr('r', 50);
+    }
+
 
 
 
