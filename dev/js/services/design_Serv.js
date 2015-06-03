@@ -21,6 +21,8 @@
       setDefaultConstruction: setDefaultConstruction,
 
       setCornerPoints: setCornerPoints,
+      creatArc: creatArc,
+
       //---- change sizes
       selectSizeBlock: selectSizeBlock,
       setValueSize: setValueSize,
@@ -182,23 +184,15 @@
 
     function setCornerPoints(corner) {
 
-      console.log('########### = ', corner);
+//      console.log('########### = ', corner);
       var cornerN = Number(corner.id.replace(/\D+/g, "")),
           points = DesignStor.design.templateTEMP.details.points,
           blocks = DesignStor.design.templateTEMP.details.skylights,
           blocksQty = blocks.length,
           b = 0;
-      console.log('template +++++', DesignStor.design.templateTEMP.details.skylights);
 
       for(; b < blocksQty; b++) {
         if(blocks[b].level === 1) {
-
-          for(var j = 0; j < blocks[b].pointsID.length; j++) {
-            if(blocks[b].pointsID[j] === corner.id) {
-              blocks[b].pointsID.splice(j, 1);
-            }
-          }
-
 
           var linesQty = blocks[b].linesOut.length,
               l = 0;
@@ -229,32 +223,41 @@
 
       DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
       $rootScope.$apply();
-      console.log('template Source +++2++', DesignStor.design.templateSourceTEMP.details);
-      console.log('template +++2++', DesignStor.design.templateTEMP.details);
+//      console.log('template Source +++2++', DesignStor.design.templateSourceTEMP.details);
+//      console.log('template +++2++', DesignStor.design.templateTEMP.details);
 
     }
 
 
     function createCornerPoint(pointN, cornerN, line, block, points) {
-      var dictance = 20,
-          ratioL = dictance / line.size,
+      var dictance = 200,
           cornerPoint = {
             type:'corner',
             id: 'c' + cornerN + '-' + pointN,
-            dir:'line',
-            view: 1
+            dir:'line'
           };
       if(pointN === 1) {
-        cornerPoint.x = ( line.from.x + ratioL * line.to.x)/(1 + ratioL);
-        cornerPoint.y = ( line.from.y + ratioL * line.to.y)/(1 + ratioL);
+        cornerPoint.x = ( line.from.x * (line.size - dictance) + line.to.x * dictance)/ line.size;
+        cornerPoint.y = ( line.from.y * (line.size - dictance) + line.to.y * dictance)/ line.size;
       } else if(pointN === 2) {
-        cornerPoint.x = ( line.to.x + ratioL * line.from.x)/(1 + ratioL);
-        cornerPoint.y = ( line.to.y + ratioL * line.from.y)/(1 + ratioL);
+        cornerPoint.x = ( line.from.x * dictance + line.to.x * (line.size - dictance))/ line.size;
+        cornerPoint.y = ( line.from.y * dictance + line.to.y * (line.size - dictance))/ line.size;
       }
-
 
       block.pointsID.push(cornerPoint.id);
       points.push(cornerPoint);
+    }
+
+
+
+
+    function creatArc(line) {
+      console.log('creatArc ===', line);
+      if(line.type === 'frame') {
+
+      } else if(line.type === 'arc') {
+
+      }
     }
 
 

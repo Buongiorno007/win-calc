@@ -1427,49 +1427,49 @@ body {
   z-index: 9;
 }
 
-/* line 331, ../../dev/sass/base/general.scss */
+/* line 330, ../../dev/sass/base/general.scss */
+.active_svg, .glass-active, .corner_mark {
+  fill: rgba(34, 34, 255, 0.5) !important;
+}
+
+/* line 333, ../../dev/sass/base/general.scss */
 .glass {
   fill: rgba(155, 204, 255, 0.2);
 }
 
-/* line 336, ../../dev/sass/base/general.scss */
-.glass-active {
-  fill: rgba(34, 34, 255, 0.69);
-}
-
-/* line 340, ../../dev/sass/base/general.scss */
+/* line 341, ../../dev/sass/base/general.scss */
 .frame, .sash, .impost, .bead {
   fill: #f9f9f9;
   stroke: #363636;
   stroke-width: 2;
 }
 
-/* line 345, ../../dev/sass/base/general.scss */
+/* line 346, ../../dev/sass/base/general.scss */
 .frame-icon, .sash-icon, .impost-icon, .bead-icon {
   fill: #ccc;
   stroke: #000;
   stroke-width: 4;
 }
 
-/* line 350, ../../dev/sass/base/general.scss */
+/* line 351, ../../dev/sass/base/general.scss */
 .doorstep {
   fill: #4f4f4f;
   stroke: #4f4f4f;
 }
 
-/* line 354, ../../dev/sass/base/general.scss */
+/* line 355, ../../dev/sass/base/general.scss */
 .main-line {
   fill: #363636;
 }
 
-/* line 357, ../../dev/sass/base/general.scss */
+/* line 358, ../../dev/sass/base/general.scss */
 .size-line {
   fill: none;
   stroke: #D2D2D2;
   stroke-width: 1;
 }
 
-/* line 365, ../../dev/sass/base/general.scss */
+/* line 366, ../../dev/sass/base/general.scss */
 .size-box {
   cursor: pointer;
 }
@@ -1486,19 +1486,19 @@ body {
   }
 }
 */
-/* line 380, ../../dev/sass/base/general.scss */
+/* line 381, ../../dev/sass/base/general.scss */
 .size-rect, .size-rect-active {
   stroke: #6ed44a;
   stroke-width: 0.1875rem;
   fill: #fff;
 }
 
-/* line 385, ../../dev/sass/base/general.scss */
+/* line 386, ../../dev/sass/base/general.scss */
 .size-rect-active {
   fill: #6ed44a;
 }
 
-/* line 389, ../../dev/sass/base/general.scss */
+/* line 390, ../../dev/sass/base/general.scss */
 .size-value, .size-value-edit, .size-value-active {
   font-size: 5.625rem;
   stroke: #D2D2D2;
@@ -1517,7 +1517,7 @@ body {
   //@include rotate(180deg);
 }
 */
-/* line 406, ../../dev/sass/base/general.scss */
+/* line 407, ../../dev/sass/base/general.scss */
 .size-value-edit {
   stroke: #6ed44a;
   fill: #6ed44a;
@@ -1529,26 +1529,25 @@ body {
   //text-anchor: end;
 }
 */
-/* line 417, ../../dev/sass/base/general.scss */
+/* line 418, ../../dev/sass/base/general.scss */
 .size-value-active {
   stroke: #fff;
   fill: #fff;
 }
 
-/* line 422, ../../dev/sass/base/general.scss */
+/* line 423, ../../dev/sass/base/general.scss */
 .open-direction {
   fill: none;
   stroke: #f98000;
   stroke-width: 2;
 }
 
-/* line 427, ../../dev/sass/base/general.scss */
+/* line 428, ../../dev/sass/base/general.scss */
 .corner_mark {
   stroke: none;
-  fill: rgba(34, 34, 255, 0.5);
 }
 
-/* line 437, ../../dev/sass/base/general.scss */
+/* line 438, ../../dev/sass/base/general.scss */
 .scrolling-container, .scroll-vert-container, .scroll-hor-container, .cart-page .addelements-detail-content {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -1557,33 +1556,33 @@ body {
   overflow-scrolling: touch;
 }
 
-/* line 440, ../../dev/sass/base/general.scss */
+/* line 441, ../../dev/sass/base/general.scss */
 .scroll-vert, .scroll-vert-container {
   overflow-x: hidden;
   overflow-y: scroll;
 }
 
-/* line 444, ../../dev/sass/base/general.scss */
+/* line 445, ../../dev/sass/base/general.scss */
 .scroll-hor, .scroll-hor-container {
   overflow-x: scroll;
   overflow-y: hidden;
 }
 
-/* line 448, ../../dev/sass/base/general.scss */
+/* line 449, ../../dev/sass/base/general.scss */
 .scroll-vert-container {
   width: 100%;
   height: 90%;
   padding-top: 2rem;
 }
 
-/* line 455, ../../dev/sass/base/general.scss */
+/* line 456, ../../dev/sass/base/general.scss */
 .scroll-hor-container {
   width: 100%;
   height: 100%;
   padding-top: 2rem;
 }
 
-/* line 464, ../../dev/sass/base/general.scss */
+/* line 465, ../../dev/sass/base/general.scss */
 #sounds {
   visibility: hidden;
 }

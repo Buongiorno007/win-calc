@@ -23,7 +23,6 @@
       link: function (scope, elem, attrs) {
 
         scope.$watch('template', function () {
-          console.log('watch!!!!');
           buildSVG(scope.template, scope.templateWidth, scope.templateHeight);
         });
 
@@ -31,6 +30,8 @@
         function buildSVG(template, widthSVG, heightSVG) {
 
           var mainSVG, mainGroup;
+
+          d3.select('#tamlateSVG').remove();
 
           mainSVG = d3.select('#mainSVG').append('svg').attr({
             'width': widthSVG,
@@ -43,7 +44,7 @@
             'transform': 'translate(200, 20) scale(0.22)'
           });
 
-          console.log('++++++ template +++++++', template.details);
+//          console.log('++++++ template +++++++', mainGroup);
           //========
           var blocksQty = template.details.skylights.length,
               i = 0;
@@ -59,6 +60,12 @@
                   //'class': function(d) { return d.type; },
                   'class': function (d) {
                     return (d.type === 'glass') ? 'glass' : 'frame'
+                  },
+                  'item-type': function(d) {
+                    return d.type;
+                  },
+                  'item-dir': function(d) {
+                    return d.dir;
                   },
                   'd': function (d) {
                     return d.path;

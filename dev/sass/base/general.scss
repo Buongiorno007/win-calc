@@ -327,14 +327,15 @@ body {
 
 
 //=============== SVG
-
+.active_svg {
+  fill: rgba(34, 34, 255, 0.5)!important;
+}
 .glass {
   fill: rgba(155, 204, 255, 0.20);
-  //cursor: pointer;
 }
 
 .glass-active {
-  fill: rgba(34, 34, 255, 0.69);
+  @extend .active_svg;
 }
 
 .frame, .sash, .impost, .bead {
@@ -425,8 +426,8 @@ body {
   stroke-width: 2;
 }
 .corner_mark {
+  @extend .active_svg;
   stroke: none;
-  fill: rgba(34, 34, 255, 0.5);
 }
 
 

@@ -497,6 +497,11 @@ function sortingCoordin(dimentions, coordinates, typeDim, levelDim, limit, class
 }
 
 
+
+
+
+
+
 //////////////////////////////////////////////////
 
 function centerBlock(points, block){
@@ -519,8 +524,6 @@ function centerBlock(points, block){
       }
     }
   }
-console.log('@@@@@@@@', block.pointsID);
-console.log('@@@@@@@@', block.pointsOut);
   block.center.centerX /= pointsIdQty;
   block.center.centerY /= pointsIdQty;
   return block;
@@ -554,23 +557,45 @@ function setLines(points) {
       i = 0;
 
   for(; i < pointsQty; i++) {
+    //------ if point.view = 0
+    if(points[i].type === 'frame' && !points[i].view) {
+      continue;
+    }
     var line = {};
     //------- first
     line.from = JSON.parse(JSON.stringify(points[i]));
     line.dir = (points[i].dir === 'curv') ? 'curv' : 'line';
     //------- end
     if(i === (pointsQty - 1)) {
-      line.to = JSON.parse(JSON.stringify(points[0]));
-      line.type = setLineType(points[i].type, points[0].type);
-      if(line.dir === 'line') {
-        line.dir = (points[0].dir === 'curv') ? 'curv' : 'line';
+      if(points[0].type === 'frame' && !points[0].view) {
+        line.to = JSON.parse(JSON.stringify(points[1]));
+        line.type = setLineType(points[i].type, points[1].type);
+        if(line.dir === 'line') {
+          line.dir = (points[1].dir === 'curv') ? 'curv' : 'line';
+        }
+      } else {
+        line.to = JSON.parse(JSON.stringify(points[0]));
+        line.type = setLineType(points[i].type, points[0].type);
+        if(line.dir === 'line') {
+          line.dir = (points[0].dir === 'curv') ? 'curv' : 'line';
+        }
       }
+
     } else {
-      line.to = JSON.parse(JSON.stringify(points[i+1]));
-      line.type = setLineType(points[i].type, points[i+1].type);
-      if(line.dir === 'line') {
-        line.dir = (points[i+1].dir === 'curv') ? 'curv' : 'line';
+      if(points[i+1].type === 'frame' && !points[i+1].view) {
+        line.to = JSON.parse(JSON.stringify(points[i+2]));
+        line.type = setLineType(points[i].type, points[i+2].type);
+        if(line.dir === 'line') {
+          line.dir = (points[i+2].dir === 'curv') ? 'curv' : 'line';
+        }
+      } else {
+        line.to = JSON.parse(JSON.stringify(points[i+1]));
+        line.type = setLineType(points[i].type, points[i+1].type);
+        if(line.dir === 'line') {
+          line.dir = (points[i+1].dir === 'curv') ? 'curv' : 'line';
+        }
       }
+
     }
     line.size = Math.round(Math.sqrt( Math.pow((line.to.x - line.from.x), 2) + Math.pow((line.to.y - line.from.y), 2) ) * 100) / 100;
     line.coefA = (line.from.y - line.to.y);
@@ -582,7 +607,6 @@ function setLines(points) {
   var last = lines.pop();
   lines.unshift(last);
 
-console.log('@@@@@@@ = ',lines);
   return lines;
 }
 
@@ -728,7 +752,7 @@ function getCoordCrossPoint(line1, line2, coefC1, coefC2) {
 
 
 function checkParallel(line1, line2) {
-  var k1 = (line1.to.x - line1.from.y) / (line1.to.x - line1.from.x),
+  var k1 = (line1.to.y - line1.from.y) / (line1.to.x - line1.from.x),
       k2 = (line2.to.y - line2.from.y) / (line2.to.x - line2.from.x);
   return (k1 === k2) ? 1 : 0;
 }
@@ -744,71 +768,119 @@ function findCrossPoint(line1, line2, coefC1, coefC2) {
 //  console.log('base = ', base);
 //  console.log('baseX = ', baseX);
 //  console.log('baseY = ', baseY);
+//  console.log('crossPoint = ', crossPoint);
   return crossPoint;
 }
 
 
 function setParts(pointsOut, pointsIn) {
+//  console.log(pointsOut);
+//  console.log(pointsIn);
   var parts = [],
-      pointsQty = pointsOut.length,
-      i = 0;
-  for(; i < pointsQty; i++) {
-    var part = {
-      type: pointsOut[i].type,
-      points: []
-    };
-    //----- passing if first point is curv
-    if(i === 0 && pointsOut[i].dir === 'curv') {
+      pointsQty = pointsOut.length;
+
+  for(var out = 0, inn = 0; out < pointsQty; out++, inn++) {
+    //----- passing if first point is hidden
+    if(pointsOut[out].type === 'frame' && !pointsOut[out].view) {
+      --inn;
       continue;
     }
+    //----- passing if first point is curv
+    if(out === 0 && pointsOut[out].dir === 'curv') {
+      continue;
+    }
+    var part = {
+      type: pointsOut[out].type,
+      dir: 'line',
+      points: []
+    };
     //------ if last point
-    if(i === (pointsQty - 1)) {
+    if(out === (pointsQty - 1)) {
       //------- if one point is 'curv' from both
-      if(pointsOut[i].dir === 'curv') {
+      if(pointsOut[out].dir === 'curv') {
         break;
       } else if(pointsOut[0].dir === 'curv') {
-        part.points.push(pointsOut[i]);
+        part.points.push(pointsOut[out]);
         part.points.push(pointsOut[0]);
         part.points.push(pointsOut[1]);
         part.points.push(pointsIn[1]);
         part.points.push(pointsIn[0]);
-        part.points.push(pointsIn[i]);
+        part.points.push(pointsIn[inn]);
+        part.type = 'arc';
+        part.dir = 'curv';
       } else {
         //-------- if line
-        part.points.push(pointsOut[i]);
-        part.points.push(pointsOut[0]);
-        part.points.push(pointsIn[0]);
-        part.points.push(pointsIn[i]);
+        part.points.push(pointsOut[out]);
+        if(pointsOut[0].type === 'frame' && !pointsOut[0].view) {
+          part.points.push(pointsOut[1]);
+          part.points.push(pointsIn[0]);
+          if(pointsOut[out].type === 'corner' || pointsOut[1].type === 'corner') {
+            part.type = 'corner';
+          }
+        } else {
+          part.points.push(pointsOut[0]);
+          part.points.push(pointsIn[0]);
+          if(pointsOut[out].type === 'corner' || pointsOut[0].type === 'corner') {
+            part.type = 'corner';
+          }
+        }
+        part.points.push(pointsIn[inn]);
+
       }
     } else {
       //------- if curv
-      if(pointsOut[i].dir === 'curv' || pointsOut[i+1].dir === 'curv') {
-        part.points.push(pointsOut[i]);
-        part.points.push(pointsOut[i+1]);
-        if(pointsOut[i+2]) {
-          part.points.push(pointsOut[i+2]);
-          part.points.push(pointsIn[i+2]);
+      if(pointsOut[out].dir === 'curv' || pointsOut[out+1].dir === 'curv') {
+        part.points.push(pointsOut[out]);
+        part.points.push(pointsOut[out+1]);
+        if(pointsOut[out+2]) {
+          part.points.push(pointsOut[out+2]);
+          part.points.push(pointsIn[inn+2]);
         } else {
           part.points.push(pointsOut[0]);
           part.points.push(pointsIn[0]);
         }
-        part.points.push(pointsIn[i+1]);
-        part.points.push(pointsIn[i]);
-        i++;
+        part.points.push(pointsIn[inn+1]);
+        part.points.push(pointsIn[inn]);
+        part.type = 'arc';
+        part.dir = 'curv';
+        out++;
+        inn++;
       } else {
         //-------- if line
-        part.points.push(pointsOut[i]);
-        part.points.push(pointsOut[i+1]);
-        part.points.push(pointsIn[i+1]);
-        part.points.push(pointsIn[i]);
+        part.points.push(pointsOut[out]);
+        if(pointsOut[out+1].type === 'frame' && !pointsOut[out+1].view) {
+          part.points.push(pointsOut[out+2]);
+          part.points.push(pointsIn[inn+1]);
+          if(pointsOut[out].type === 'corner' || pointsOut[out+2].type === 'corner') {
+            part.type = 'corner';
+          }
+        } else {
+          part.points.push(pointsOut[out+1]);
+          part.points.push(pointsIn[inn+1]);
+          if(pointsOut[out].type === 'corner' || pointsOut[out+1].type === 'corner') {
+            part.type = 'corner';
+          }
+        }
+        part.points.push(pointsIn[inn]);
       }
+
+
     }
     part.path = assamblingPath(part.points);
+
+    if(pointsOut[out].type === 'bead') {
+      part.type = 'bead';
+    } else if(pointsOut[out].type === 'sash') {
+      part.type = 'sash';
+    }
+
     parts.push(part);
   }
 
   return parts;
 }
+
+
 
 
 function assamblingPath(arrPoints) {
@@ -851,7 +923,7 @@ function assamblingPath(arrPoints) {
 
 
 function setGlass(glassPoints) {
-  console.log(glassPoints);
+//  console.log(glassPoints);
   var part = {
         type: 'glass',
         path: 'M ',
@@ -952,19 +1024,19 @@ function setCornerProp(blocks) {
 
 function checkPointXCorner(points, last, curr) {
   if(curr === 0) {
-    if(points[last].dir === 'line' && points[curr].dir === 'line' && points[curr+1].dir === 'line') {
+    if(points[last].dir === 'line' && points[curr].dir === 'line' && points[curr+1].dir === 'line' && points[curr].type === 'frame') {
       return 1;
     } else {
       return 0;
     }
   } else if(curr === last) {
-    if(points[curr-1].dir === 'line' && points[curr].dir === 'line' && points[0].dir === 'line') {
+    if(points[curr-1].dir === 'line' && points[curr].dir === 'line' && points[0].dir === 'line' && points[curr].type === 'frame') {
       return 1;
     } else {
       return 0;
     }
   } else {
-    if(points[curr-1].dir === 'line' && points[curr].dir === 'line' && points[curr+1].dir === 'line') {
+    if(points[curr-1].dir === 'line' && points[curr].dir === 'line' && points[curr+1].dir === 'line' && points[curr].type === 'frame') {
       return 1;
     } else {
       return 0;
@@ -975,6 +1047,7 @@ function checkPointXCorner(points, last, curr) {
 
 
 function setDefaultArcPoints(block) {
+
   //  var linesOutQty = block.linesOut.length,
   //      point = {
   //        type:'arc',
@@ -996,7 +1069,14 @@ function setDefaultArcPoints(block) {
   //  return block;
 }
 
-
+function setPointsOut(pointsArr, label) {
+  var newPointsArr = JSON.parse( JSON.stringify(pointsArr)),
+      newPointsQty = newPointsArr.length;
+  while(--newPointsQty > -1) {
+    newPointsArr[newPointsQty].type = label;
+  }
+  return newPointsArr;
+}
 
 
 ////////////////////////////////////////////
@@ -1040,19 +1120,20 @@ var Template = function (sourceObj, depths) {
 
       if(this.details.skylights[i].level === 1) {
         setCornerProp(this.details.skylights);
+//        $.merge(this.details.points , setDefaultArcPoints(this.details.skylights[i]));
       }
       //------- if block is empty
       if(this.details.skylights[i].children.length < 1) {
         this.details.skylights[i].pointsIn = setPointsIn(this.details.skylights[i], depths, 'frame');
         this.details.skylights[i].linesIn = setLines(this.details.skylights[i].pointsIn);
-
+//        console.log('frame');
         //------- set points for each part of construction
         $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].pointsOut, this.details.skylights[i].pointsIn));
 
         //------ if block is frame
         if(this.details.skylights[i].blockType === 'frame') {
-          this.details.skylights[i].beadPointsOut = JSON.parse( JSON.stringify(this.details.skylights[i].pointsIn));
-          this.details.skylights[i].beadLinesOut = JSON.parse( JSON.stringify(this.details.skylights[i].linesIn));
+          this.details.skylights[i].beadPointsOut = setPointsOut(this.details.skylights[i].pointsIn, 'bead');
+          this.details.skylights[i].beadLinesOut = setLines(this.details.skylights[i].beadPointsOut);//JSON.parse( JSON.stringify(this.details.skylights[i].linesIn));
           this.details.skylights[i].beadPointsIn = setPointsIn(this.details.skylights[i], depths, 'frame-bead');
           this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);
 
@@ -1060,10 +1141,11 @@ var Template = function (sourceObj, depths) {
           this.details.skylights[i].glassLines = setLines(this.details.skylights[i].beadPointsIn);
 
           this.details.skylights[i].parts.push(setGlass(this.details.skylights[i].glassPoints));
+//          console.log('beads');
           $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].beadPointsOut, this.details.skylights[i].beadPointsIn));
 
         } else if(this.details.skylights[i].blockType === 'sash') {
-          this.details.skylights[i].sashPointsOut = setPointsIn(this.details.skylights[i], depths, 'sash-out');
+          this.details.skylights[i].sashPointsOut = setPointsOut(setPointsIn(this.details.skylights[i], depths, 'sash-out'), 'sash');
           this.details.skylights[i].sashLinesOut = setLines(this.details.skylights[i].sashPointsOut);
           this.details.skylights[i].sashPointsIn = setPointsIn(this.details.skylights[i], depths, 'sash-in');
           this.details.skylights[i].sashLinesIn = setLines(this.details.skylights[i].sashPointsIn);
@@ -1071,8 +1153,8 @@ var Template = function (sourceObj, depths) {
           this.details.skylights[i].hardwarePoints = setPointsIn(this.details.skylights[i], depths, 'hardware');
           this.details.skylights[i].hardwareLines = setLines(this.details.skylights[i].sashPointsIn);
 
-          this.details.skylights[i].beadPointsOut = JSON.parse( JSON.stringify(this.details.skylights[i].sashPointsIn));
-          this.details.skylights[i].beadLinesOut = JSON.parse( JSON.stringify(this.details.skylights[i].sashLinesIn));
+          this.details.skylights[i].beadPointsOut = setPointsOut(this.details.skylights[i].sashPointsIn, 'bead');//JSON.parse( JSON.stringify(this.details.skylights[i].sashPointsIn));
+          this.details.skylights[i].beadLinesOut = setLines(this.details.skylights[i].beadPointsOut);//JSON.parse( JSON.stringify(this.details.skylights[i].sashLinesIn));
           this.details.skylights[i].beadPointsIn = setPointsIn(this.details.skylights[i], depths, 'sash-bead');
           this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);
 

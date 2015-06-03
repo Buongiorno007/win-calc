@@ -102,6 +102,7 @@
           break;
         case 4:
           thisCtrl.config.isArchEdit = true;
+          showAllAvailableArc();
           break;
         case 5:
           thisCtrl.config.isPositionEdit = true;
@@ -139,7 +140,24 @@
         .attr('r', 50);
     }
 
+    function showAllAvailableArc() {
+      var arc = d3.selectAll('#tamlateSVG .frame')
+        .each(function(d) {
+          if(d.type === 'frame' || d.type === 'arc') {
+            d3.select(this).classed('active_svg', true)
+              .on('click', function (d) {
+                deselectAllArc();
+                d3.select(this).classed('active_svg', true);
+                DesignServ.creatArc(d);
+              });
+          }
+        });
+    }
 
+    function deselectAllArc() {
+      d3.selectAll('#tamlateSVG .frame')
+        .classed('active_svg', false);
+    }
 
 
 
