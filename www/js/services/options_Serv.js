@@ -423,10 +423,10 @@
               details: {
                 //------- main points
                 points: [
-                  {type:'frame', id:'fp1', x:1000, y:1000, dir:'line', view: 0},
-                  {type:'frame', id:'fp2', x:2000, y:1000, dir:'line', view: 1},
-                  {type:'frame', id:'fp3', x:2000, y:2000, dir:'line', view: 1, sill: 1},
-                  {type:'frame', id:'fp4', x:1000, y:2000, dir:'line', view: 1, sill: 1},
+                  {type:'frame', id:'fp1', x:1000, y:1000, dir:'line', view:0},
+                  {type:'frame', id:'fp2', x:2000, y:1000, dir:'line', view:1},
+                  {type:'frame', id:'fp3', x:2000, y:2000, dir:'line', view:1, sill:1},
+                  {type:'frame', id:'fp4', x:1000, y:2000, dir:'line', view:1, sill:1},
 
 //                  {type:'arc', id:'q1', x:1500, y:500, dir:'curv'},
                   {type:'arc', id:'q2', x:2100, y:1500, dir:'curv'},

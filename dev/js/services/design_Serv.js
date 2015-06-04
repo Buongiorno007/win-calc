@@ -252,6 +252,14 @@
 
 
     function creatArc(line) {
+      var point = {
+                type:'arc',
+                id:'q',
+                x:0,
+                y:0,
+                dir:'curv'
+              };
+
       console.log('creatArc ===', line);
       if(line.type === 'frame') {
 

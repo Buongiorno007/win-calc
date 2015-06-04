@@ -131,7 +131,7 @@
     }
 
 
-
+//-------- show all Corner Marks
     function showAllAvailableCorner() {
       d3.selectAll('#tamlateSVG .corner_mark')
         .transition()
@@ -139,6 +139,8 @@
         .ease("linear")
         .attr('r', 50);
     }
+
+
 
     function showAllAvailableArc() {
       var arc = d3.selectAll('#tamlateSVG .frame')

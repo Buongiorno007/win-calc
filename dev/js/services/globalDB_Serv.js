@@ -37,7 +37,7 @@
         "CREATE TABLE IF NOT EXISTS window_hardware_types (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), short_name VARCHAR(100), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
         "CREATE TABLE IF NOT EXISTS window_hardware_types_base (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
         "CREATE TABLE IF NOT EXISTS window_hardware_groups (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), short_name VARCHAR(100), factory_id INTEGER, is_editable INTEGER, parent_id INTEGER, is_group INTEGER, is_in_calculation INTEGER, base_type_id INTEGER, position INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(base_type_id) REFERENCES window_hardware_types_base(id))",
-        "CREATE TABLE IF NOT EXISTS window_hardware (id INTEGER PRIMARY KEY AUTOINCREMENT, window_hardware_type_id INTEGER, min_width INTEGER, max_width INTEGER, min_height INTEGER, max_height INTEGER, direction_id INTEGER, window_hardware_color_id INTEGER, length INTEGER, count INTEGER, child_id INTEGER, child_type VARCHAR(100), position INTEGER, factory_id INTEGER, window_hardware_group_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(window_hardware_type_id) REFERENCES window_hardware_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(window_hardware_group_id) REFERENCES window_hardware_groups(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id))",
+        "CREATE TABLE IF NOT EXISTS window_hardwares (id INTEGER PRIMARY KEY AUTOINCREMENT, window_hardware_type_id INTEGER, min_width INTEGER, max_width INTEGER, min_height INTEGER, max_height INTEGER, direction_id INTEGER, window_hardware_color_id INTEGER, length INTEGER, count INTEGER, child_id INTEGER, child_type VARCHAR(100), position INTEGER, factory_id INTEGER, window_hardware_group_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(window_hardware_type_id) REFERENCES window_hardware_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(window_hardware_group_id) REFERENCES window_hardware_groups(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id))",
         "CREATE TABLE IF NOT EXISTS profile_system_folders (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), factory_id INTEGER, position INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id))",
         "CREATE TABLE IF NOT EXISTS profile_systems (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), short_name VARCHAR(100), profile_system_folder_id INTEGER, rama_list_id INTEGER, rama_still_list_id INTEGER, stvorka_list_id INTEGER, impost_list_id INTEGER, shtulp_list_id INTEGER, is_editable INTEGER, is_default INTEGER, position INTEGER, country VARCHAR(100), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, cameras INTEGER, FOREIGN KEY(profile_system_folder_id) REFERENCES profile_system_folders(id))",
         "CREATE TABLE IF NOT EXISTS glass_profile_systems (id INTEGER PRIMARY KEY AUTOINCREMENT, profile_system_id INTEGER, list_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(list_id) REFERENCES lists(id))",
@@ -63,7 +63,7 @@
       "DROP table lists_types", "DROP table addition_colors", "DROP table margin_types", "DROP table suppliers", "DROP table currencies", "DROP table countries",
       "DROP table regions", "DROP table cities", "DROP table users", "DROP table lamination_colors", "DROP table elements", "DROP table lists_groups", "DROP table lists",
       "DROP table directions", "DROP table rules_types", "DROP table window_hardware_colors", "DROP table list_contents", "DROP table window_hardware_types",
-      "DROP table window_hardware_types_base", "DROP table window_hardware_groups", "DROP table window_hardware", "DROP table profile_system_folders",
+      "DROP table window_hardware_types_base", "DROP table window_hardware_groups", "DROP table window_hardwares", "DROP table profile_system_folders",
       "DROP table profile_systems", "DROP table glass_profile_systems", "DROP table beed_profile_systems","DROP table addition_folders", "DROP table addition_types"
     ];
 
@@ -83,7 +83,7 @@
       profileTypeTableDBGlobal: 'profile_system_folders',
       profileTableDBGlobal: 'profile_systems',
       hardwareTypeTableDBGlobal: 'window_hardware_groups',
-      hardwareTableDBGlobal: 'window_hardware',
+      hardwareTableDBGlobal: 'window_hardwares',
 
       addElementDBId: [
         20, // 0 - grids
@@ -736,7 +736,7 @@
       getByHardwareId: function(whId, construction, callback){
         var self = this;
         db.transaction(function (transaction) {
-          transaction.executeSql('select * from window_hardware where window_hardware_group_id = ? and child_id > 0 and count > 0', [whId], function (transaction, result){
+          transaction.executeSql('select * from window_hardwares where window_hardware_group_id = ? and child_id > 0 and count > 0', [whId], function (transaction, result){
             var hardwareresult = [];
             for(var i = 0; i < result.rows.length; i++){
               for(var j = 0; j < construction.sashesBlock.length; j++){
