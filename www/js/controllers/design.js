@@ -27,13 +27,13 @@
     thisCtrl.config = {
       //---- design menu
       activeMenuItem: 0,
-      isSashEdit: false,
-      isAngelEdit: false,
-      isImpostEdit: false,
-      isArchEdit: false,
-      isPositionEdit: false,
-      isSashEditMenu: false,
-      isImpostEditMenu: false,
+//      isSashEdit: false,
+//      isAngelEdit: false,
+//      isImpostEdit: false,
+//      isArchEdit: false,
+//      isPositionEdit: false,
+//      isSashEditMenu: false,
+//      isImpostEditMenu: false,
 
       //----- door
       isDoorConfig: 0,
@@ -62,6 +62,7 @@
     thisCtrl.selectMenuItem = selectMenuItem;
     thisCtrl.setDefaultConstruction = DesignServ.setDefaultConstruction;
 
+    //----- door config
     thisCtrl.toggleDoorConfig = toggleDoorConfig;
     thisCtrl.selectDoor = selectDoor;
     thisCtrl.selectSash = selectSash;
@@ -70,6 +71,8 @@
     thisCtrl.closeDoorConfig = closeDoorConfig;
     thisCtrl.saveDoorConfig = saveDoorConfig;
 
+    //------ edit design
+    thisCtrl.insertCorner = insertCorner;
     thisCtrl.insertNewSash = editSash;
     thisCtrl.insertNewImpost = editImpost;
 
@@ -85,62 +88,119 @@
     //--------Select menu item
     function selectMenuItem(id) {
       thisCtrl.config.activeMenuItem = (thisCtrl.config.activeMenuItem === id) ? 0 : id;
+      hideCornerMarks();
 
-      deactivateShapeMenu();
-      thisCtrl.config.isSashEditMenu = false;
-      thisCtrl.config.isImpostEditMenu = false;
-      manipulationWithGlasses(thisCtrl.config.activeMenuItem);
+//      deactivateShapeMenu();
+//      thisCtrl.config.isSashEditMenu = false;
+//      thisCtrl.config.isImpostEditMenu = false;
+//      manipulationWithGlasses(thisCtrl.config.activeMenuItem);
+
       switch(thisCtrl.config.activeMenuItem) {
         case 1:
-          thisCtrl.config.isSashEdit = true;
-          manipulationWithGlasses(thisCtrl.config.isSashEdit);
+//          thisCtrl.config.isSashEdit = true;
+//          manipulationWithGlasses(thisCtrl.config.isSashEdit);
           break;
         case 2:
-          thisCtrl.config.isAngelEdit = true;
+//          thisCtrl.config.isAngelEdit = true;
           showAllAvailableCorner();
           break;
         case 3:
-          thisCtrl.config.isImpostEdit = true;
-          manipulationWithGlasses(thisCtrl.config.isImpostEdit);
+//          thisCtrl.config.isImpostEdit = true;
+//          manipulationWithGlasses(thisCtrl.config.isImpostEdit);
           break;
         case 4:
-          thisCtrl.config.isArchEdit = true;
+//          thisCtrl.config.isArchEdit = true;
           showAllAvailableArc();
           break;
         case 5:
-          thisCtrl.config.isPositionEdit = true;
+//          thisCtrl.config.isPositionEdit = true;
           break;
       }
     }
 
     //------- Select and deselect Glasses
-    function manipulationWithGlasses(indicator) {
-      $('svg-template').find('.glass').each(function() {
-        if(indicator) {
-          $(this).css('fill', 'rgba(34, 34, 255, 0.69)');
-        } else {
-          $(this).css('fill', 'rgba(155, 204, 255, 0.20)');
-        }
-      });
-    }
+//    function manipulationWithGlasses(indicator) {
+//      $('svg-template').find('.glass').each(function() {
+//        if(indicator) {
+//          $(this).css('fill', 'rgba(34, 34, 255, 0.69)');
+//        } else {
+//          $(this).css('fill', 'rgba(155, 204, 255, 0.20)');
+//        }
+//      });
+//    }
 
 
-    function deactivateShapeMenu() {
-      thisCtrl.config.isSashEdit = false;
-      thisCtrl.config.isAngelEdit = false;
-      thisCtrl.config.isImpostEdit = false;
-      thisCtrl.config.isArchEdit = false;
-      thisCtrl.config.isPositionEdit = false;
-    }
+//    function deactivateShapeMenu() {
+//      thisCtrl.config.isSashEdit = false;
+//      thisCtrl.config.isAngelEdit = false;
+//      thisCtrl.config.isImpostEdit = false;
+//      thisCtrl.config.isArchEdit = false;
+//      thisCtrl.config.isPositionEdit = false;
+//    }
 
 
 //-------- show all Corner Marks
     function showAllAvailableCorner() {
+      var corners = d3.selectAll('#tamlateSVG .corner_mark');
+
+      corners.transition()
+        .duration(300)
+        .ease("linear")
+        .attr('r', 50);
+
+//      console.log('all corners = ', corners);
+      DesignStor.design.selectedCorner = corners;
+      corners.on('click', function () {
+        //----- hide all cornerMark
+        hideCornerMarks();
+
+        //----- show selected cornerMark
+        var corner = d3.select(this)
+          .transition()
+          .duration(300)
+          .ease("linear")
+          .attr('r', 50);
+//        console.log('one corner = ', corner);
+        DesignStor.design.selectedCorner = corner;
+
+      });
+
+    }
+
+    function insertCorner(conerType) {
+//      console.log('DesignStor.selectedCorner = ', DesignStor.design.selectedCorner);
+      var cornerQty = DesignStor.design.selectedCorner[0].length,
+          i = 0;
+
+      switch(conerType) {
+        //----- delete
+        case 1:
+          for(; i < cornerQty; i++) {
+            DesignServ.deleteCornerPoints(DesignStor.design.selectedCorner[0][i]);
+          }
+          break;
+        //----- line angel
+        case 2:
+          for(; i < cornerQty; i++) {
+            DesignServ.setCornerPoints(DesignStor.design.selectedCorner[0][i]);
+          }
+          break;
+        //----- curv angel
+        case 3:
+          for(; i < cornerQty; i++) {
+            DesignServ.setCurvCornerPoints(DesignStor.design.selectedCorner[0][i]);
+          }
+          break;
+      }
+
+    }
+
+    function hideCornerMarks() {
       d3.selectAll('#tamlateSVG .corner_mark')
         .transition()
         .duration(300)
         .ease("linear")
-        .attr('r', 50);
+        .attr('r', 0);
     }
 
 
@@ -280,34 +340,6 @@
     }
 
     $('.construction-right-menu .size-calculator').hammer().off("tap", ".calc-delete").on("tap", ".calc-delete", DesignServ.deleteLastNumber);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

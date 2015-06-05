@@ -20,6 +20,8 @@
         templateTEMP: {},
         designSteps: [],
 
+        //----- Edit
+        selectedCorner: [],
         //----- Sizes
         openVoiceHelper: false,
         loudVoice: false,

@@ -708,21 +708,26 @@ function getNewCoefC(depths, line, group) {
 
 
 function getCoordCrossPoint(line1, line2, coefC1, coefC2) {
-//  console.log('line1 = ', line1);
-//  console.log('line2 = ', line2);
+
   var crossPoint = {},
       coord = {},
       isParall = checkParallel(line1, line2);
 
   //------- if lines are paralles
   if(isParall) {
-//    console.log('parallel = ', isParall);
+    console.log('parallel = ', isParall);
     //----- set normal statement
+//    var normal = {
+//      coefA: 1,
+//      coefB: -(line1.coefB / line1.coefA),
+//      coefC: (line1.coefB * line1.to.x/ line1.coefA) - line1.to.y
+//    };
     var normal = {
-      coefA: 1,
-      coefB: -(line1.coefB / line1.coefA),
-      coefC: (line1.coefB * line1.to.x/ line1.coefA) - line1.to.y
+      coefA: line1.coefB,
+      coefB: -line1.coefA,
+      coefC: (line1.coefA * line1.to.y - line1.coefB * line1.to.x)
     };
+    console.log('normal ===', normal);
     coord = findCrossPoint(normal, line1, normal.coefC, coefC1);
   } else {
     coord = findCrossPoint(line1, line2, coefC1, coefC2);
@@ -744,6 +749,10 @@ function checkParallel(line1, line2) {
 }
 
 function findCrossPoint(line1, line2, coefC1, coefC2) {
+  console.log('line1 = ', line1);
+  console.log('line2 = ', line2);
+  console.log('coefC1 = ', coefC1);
+  console.log('coefC2 = ', coefC2);
   var base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
       baseX = ((-coefC1) * line2.coefB) - (line1.coefB * (-coefC2)),
       baseY = (line1.coefA * (-coefC2)) - (line2.coefA * (-coefC1)),
@@ -751,10 +760,10 @@ function findCrossPoint(line1, line2, coefC1, coefC2) {
         x: baseX / base,
         y: baseY / base
       };
-//  console.log('base = ', base);
-//  console.log('baseX = ', baseX);
-//  console.log('baseY = ', baseY);
-//  console.log('crossPoint = ', crossPoint);
+  console.log('base = ', base);
+  console.log('baseX = ', baseX);
+  console.log('baseY = ', baseY);
+  console.log('crossPoint = ', crossPoint);
   return crossPoint;
 }
 
@@ -852,6 +861,7 @@ function setParts(pointsOut, pointsIn) {
 
 
     }
+//    console.log(part.points);
     part.path = assamblingPath(part.points);
 
     if(pointsOut[out].type === 'bead') {
@@ -1113,17 +1123,16 @@ var Template = function (sourceObj, depths) {
 
         //------ if block is frame
         if(this.details.skylights[i].blockType === 'frame') {
-          this.details.skylights[i].beadPointsOut = setPointsOut(this.details.skylights[i].pointsIn, 'bead');
-          this.details.skylights[i].beadLinesOut = setLines(this.details.skylights[i].beadPointsOut);
-          this.details.skylights[i].beadPointsIn = setPointsIn(this.details.skylights[i], depths, 'frame-bead');
-//          this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);
-
-          this.details.skylights[i].glassPoints = setPointsIn(this.details.skylights[i], depths, 'frame-glass');
-//          this.details.skylights[i].glassLines = setLines(this.details.skylights[i].beadPointsIn);
-
-          this.details.skylights[i].parts.push(setGlass(this.details.skylights[i].glassPoints));
-//          console.log('beads');
-          $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].beadPointsOut, this.details.skylights[i].beadPointsIn));
+//          this.details.skylights[i].beadPointsOut = setPointsOut(this.details.skylights[i].pointsIn, 'bead');
+//          this.details.skylights[i].beadLinesOut = setLines(this.details.skylights[i].beadPointsOut);
+//          this.details.skylights[i].beadPointsIn = setPointsIn(this.details.skylights[i], depths, 'frame-bead');
+///*          this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);*/
+//
+//          this.details.skylights[i].glassPoints = setPointsIn(this.details.skylights[i], depths, 'frame-glass');
+///*          this.details.skylights[i].glassLines = setLines(this.details.skylights[i].beadPointsIn);*/
+//
+//          this.details.skylights[i].parts.push(setGlass(this.details.skylights[i].glassPoints));
+//          $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].beadPointsOut, this.details.skylights[i].beadPointsIn));
 
         } else if(this.details.skylights[i].blockType === 'sash') {
           this.details.skylights[i].sashPointsOut = setPointsOut(setPointsIn(this.details.skylights[i], depths, 'sash-out'), 'sash');
@@ -1163,90 +1172,92 @@ var Template = function (sourceObj, depths) {
 var TemplateIcon = function (sourceObj, depths) {
   var tmpObject, coeffScale = 2;
 
-//  this.name = sourceObj.name;
-  this.details = JSON.parse( JSON.stringify(sourceObj.details) );
-  //this.dimentions = createDimentions(sourceObj);
-
-  var blocksQty = this.details.skylights.length,
-      i = 0;
-
-  for(; i < blocksQty; i++) {
-    //------ block 0
-    if(this.details.skylights[i].level === 0) {
-
-      var childQty = this.details.skylights[i].children.length,
-          b = 0;
-      if(childQty === 1) {
-        for(; b < blocksQty; b++) {
-          if(this.details.skylights[i].children[0] === this.details.skylights[b].id) {
-            this.details.skylights[b].position = 'single';
-          }
-        }
-      } else if(childQty > 1) {
-        for(; b < blocksQty; b++) {
-          if(this.details.skylights[i].children[0] === this.details.skylights[b].id) {
-            this.details.skylights[b].position = 'first';
-          } else if(this.details.skylights[i].children[childQty-1] === this.details.skylights[b].id) {
-            this.details.skylights[b].position = 'last';
-          }
-        }
-      }
-
-    } else {
-      this.details.skylights[i] = centerBlock(this.details.points, this.details.skylights[i]);
-      this.details.skylights[i] = sortingPoints(this.details.skylights[i]);
-      this.details.skylights[i].linesOut = setLines(this.details.skylights[i].pointsOut);
-
-      if(this.details.skylights[i].level === 1) {
-        setCornerProp(this.details.skylights);
-      }
-      //------- if block is empty
-      if(this.details.skylights[i].children.length < 1) {
-        this.details.skylights[i].pointsIn = setPointsIn(this.details.skylights[i], depths, 'frame');
-        this.details.skylights[i].linesIn = setLines(this.details.skylights[i].pointsIn);
-        //        console.log('+++ each +++', this.details.skylights[i]);
-        //        console.log(JSON.stringify(this.details.skylights[i]));
-
-        //------- set points for each part of construction
-        $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].pointsOut, this.details.skylights[i].pointsIn));
-        //------ if block is frame
-        if(this.details.skylights[i].blockType === 'frame') {
-          this.details.skylights[i].beadPointsOut = JSON.parse( JSON.stringify(this.details.skylights[i].pointsIn));
-          this.details.skylights[i].beadLinesOut = JSON.parse( JSON.stringify(this.details.skylights[i].linesIn));
-          this.details.skylights[i].beadPointsIn = setPointsIn(this.details.skylights[i], depths, 'frame-bead');
-          this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);
-
-          this.details.skylights[i].glassPoints = setPointsIn(this.details.skylights[i], depths, 'frame-glass');
-          this.details.skylights[i].glassLines = setLines(this.details.skylights[i].beadPointsIn);
-
-          $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].beadPointsOut, this.details.skylights[i].beadPointsIn));
-          this.details.skylights[i].parts.push(setGlass(this.details.skylights[i].glassPoints));
-
-        } else if(this.details.skylights[i].blockType === 'sash') {
-          this.details.skylights[i].sashPointsOut = setPointsIn(this.details.skylights[i], depths, 'sash-out');
-          this.details.skylights[i].sashLinesOut = setLines(this.details.skylights[i].sashPointsOut);
-          this.details.skylights[i].sashPointsIn = setPointsIn(this.details.skylights[i], depths, 'sash-in');
-          this.details.skylights[i].sashLinesIn = setLines(this.details.skylights[i].sashPointsIn);
-
-          this.details.skylights[i].hardwarePoints = setPointsIn(this.details.skylights[i], depths, 'hardware');
-          this.details.skylights[i].hardwareLines = setLines(this.details.skylights[i].sashPointsIn);
-
-          this.details.skylights[i].beadPointsOut = JSON.parse( JSON.stringify(this.details.skylights[i].sashPointsIn));
-          this.details.skylights[i].beadLinesOut = JSON.parse( JSON.stringify(this.details.skylights[i].sashLinesIn));
-          this.details.skylights[i].beadPointsIn = setPointsIn(this.details.skylights[i], depths, 'sash-bead');
-          this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);
-
-          this.details.skylights[i].glassPoints = setPointsIn(this.details.skylights[i], depths, 'sash-glass');
-          this.details.skylights[i].glassLines = setLines(this.details.skylights[i].beadPointsIn);
-
-          $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].sashPointsOut, this.details.skylights[i].sashPointsIn));
-          $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].beadPointsOut, this.details.skylights[i].beadPointsIn));
-          this.details.skylights[i].parts.push(setGlass(this.details.skylights[i].glassPoints));
-        }
-
-      }
-    }
-  }
+////  this.name = sourceObj.name;
+//  this.details = JSON.parse( JSON.stringify(sourceObj.details) );
+//  //this.dimentions = createDimentions(sourceObj);
+//
+//  var blocksQty = this.details.skylights.length,
+//      i = 0;
+//
+//  for(; i < blocksQty; i++) {
+//    //------ block 0
+//    if(this.details.skylights[i].level === 0) {
+//
+//      var childQty = this.details.skylights[i].children.length,
+//          b = 0;
+//      if(childQty === 1) {
+//        for(; b < blocksQty; b++) {
+//          if(this.details.skylights[i].children[0] === this.details.skylights[b].id) {
+//            this.details.skylights[b].position = 'single';
+//          }
+//        }
+//      } else if(childQty > 1) {
+//        for(; b < blocksQty; b++) {
+//          if(this.details.skylights[i].children[0] === this.details.skylights[b].id) {
+//            this.details.skylights[b].position = 'first';
+//          } else if(this.details.skylights[i].children[childQty-1] === this.details.skylights[b].id) {
+//            this.details.skylights[b].position = 'last';
+//          }
+//        }
+//      }
+//
+//    } else {
+//      this.details.skylights[i] = centerBlock(this.details.points, this.details.skylights[i]);
+//      this.details.skylights[i] = sortingPoints(this.details.skylights[i]);
+//      this.details.skylights[i].linesOut = setLines(this.details.skylights[i].pointsOut);
+//
+//      if(this.details.skylights[i].level === 1) {
+//        setCornerProp(this.details.skylights);
+//        //        $.merge(this.details.points , setDefaultArcPoints(this.details.skylights[i]));
+//      }
+//      //------- if block is empty
+//      if(this.details.skylights[i].children.length < 1) {
+//        this.details.skylights[i].pointsIn = setPointsIn(this.details.skylights[i], depths, 'frame');
+//        this.details.skylights[i].linesIn = setLines(this.details.skylights[i].pointsIn);
+//
+//        //------- set points for each part of construction
+//        $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].pointsOut, this.details.skylights[i].pointsIn));
+//
+//        //------ if block is frame
+//        if(this.details.skylights[i].blockType === 'frame') {
+//          this.details.skylights[i].beadPointsOut = setPointsOut(this.details.skylights[i].pointsIn, 'bead');
+//          this.details.skylights[i].beadLinesOut = setLines(this.details.skylights[i].beadPointsOut);
+//          this.details.skylights[i].beadPointsIn = setPointsIn(this.details.skylights[i], depths, 'frame-bead');
+//          //          this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);
+//
+//          this.details.skylights[i].glassPoints = setPointsIn(this.details.skylights[i], depths, 'frame-glass');
+//          //          this.details.skylights[i].glassLines = setLines(this.details.skylights[i].beadPointsIn);
+//
+//          this.details.skylights[i].parts.push(setGlass(this.details.skylights[i].glassPoints));
+//          //          console.log('beads');
+//          $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].beadPointsOut, this.details.skylights[i].beadPointsIn));
+//
+//        } else if(this.details.skylights[i].blockType === 'sash') {
+//          this.details.skylights[i].sashPointsOut = setPointsOut(setPointsIn(this.details.skylights[i], depths, 'sash-out'), 'sash');
+//          this.details.skylights[i].sashLinesOut = setLines(this.details.skylights[i].sashPointsOut);
+//          this.details.skylights[i].sashPointsIn = setPointsIn(this.details.skylights[i], depths, 'sash-in');
+//          //          this.details.skylights[i].sashLinesIn = setLines(this.details.skylights[i].sashPointsIn);
+//
+//          this.details.skylights[i].hardwarePoints = setPointsIn(this.details.skylights[i], depths, 'hardware');
+//          this.details.skylights[i].hardwareLines = setLines(this.details.skylights[i].sashPointsIn);
+//
+//          this.details.skylights[i].beadPointsOut = setPointsOut(this.details.skylights[i].sashPointsIn, 'bead');
+//          this.details.skylights[i].beadLinesOut = setLines(this.details.skylights[i].beadPointsOut);
+//          this.details.skylights[i].beadPointsIn = setPointsIn(this.details.skylights[i], depths, 'sash-bead');
+//          //          this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);
+//
+//          this.details.skylights[i].glassPoints = setPointsIn(this.details.skylights[i], depths, 'sash-glass');
+//          //          this.details.skylights[i].glassLines = setLines(this.details.skylights[i].beadPointsIn);
+//
+//          $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].sashPointsOut, this.details.skylights[i].sashPointsIn));
+//          this.details.skylights[i].parts.push(setGlass(this.details.skylights[i].glassPoints));
+//          $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].beadPointsOut, this.details.skylights[i].beadPointsIn));
+//
+//        }
+//
+//      }
+//    }
+//  }
 
 };
 

@@ -46,11 +46,20 @@ $door-config-content: $ipad-height - $door-config-header;
   .figure-item {
     position: relative;
     height: rem(215px);
+  }
+  .figure-item-block {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
     border-style: solid;
     border-color: #d2d2d2;
     border-width: 0 1px 1px 0;
     padding: rem(40px);
     text-align: center;
+    z-index: 10;
 
     &.selected {
       background-color: $main_green;
@@ -59,6 +68,7 @@ $door-config-content: $ipad-height - $door-config-header;
       }
     }
   }
+
   .figure-icon {
     @extend .splash;
     @include font-general-icon(rem(88px), 1);
@@ -126,54 +136,29 @@ $door-config-content: $ipad-height - $door-config-header;
   @include transition(all 0.3s linear);
   @include roboto-lt(rem(36px), rem(65px));
   position: absolute;
-  top: 25%;
+  top: 30%;
   right: 0;
   padding: 0 rem(20px);
   border-radius: rem(16px);
   background-color: #242424;
   color: #fff;
   cursor: pointer;
-  z-index: -1;
-
+  z-index: 5;
 }
 
 #sash-shape-menu.active {
   right: -37.6rem;
 }
 #angel-shape-menu.active {
-  right: -12.6rem;
+  right: -17.6rem;
 }
 #impost-shape-menu.active {
-  right: -12.6rem;
+  right: -17.6rem;
 }
 #arc-shape-menu.active {
   right: -12.6rem;
 }
 
-//.constr-shape-menu {
-//  @include top_left_coord(0px, 0px);
-//  @include roboto-lt(rem(36px), rem(65px));
-//  position: absolute;
-//  padding: 0 rem(20px);
-//  border-radius: rem(16px);
-//  background-color: #242424;
-//  color: #fff;
-//  cursor: pointer;
-//  z-index: 999;
-//
-//  &:before {
-//    position: absolute;
-//    z-index: 99;
-//    bottom: rem(-20px);
-//    left: rem(30px);
-//    display: block;
-//    width: 0;
-//    border-width: rem(20px) rem(20px) 0;
-//    border-style: solid;
-//    border-color: #242424 transparent;
-//    content: '';
-//  }
-//}
 
 ul.constr-shape-list {
   display: inline-flex;
@@ -184,7 +169,6 @@ ul.constr-shape-list {
 
 li.constr-shape-icon {
   @include font-general-icon(rem(50px), rem(80px));
-//  display: inline-block;
   width: rem(80px);
   height: rem(80px);
   float: left;

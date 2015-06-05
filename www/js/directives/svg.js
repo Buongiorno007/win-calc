@@ -96,24 +96,6 @@
                       return d.y;
                     },
                     'r': 0
-                  }).on('click', function (d) {
-                    //----- hide this cornerMark
-                    d3.select(this)
-                      .transition()
-                      .duration(300)
-                      .ease("linear")
-                      .attr('r', 0)
-                      .call(function () {
-                        //------ create Corner Points
-                        mainGroup.transition()
-                          .duration(300)
-                          .ease('linear')
-                          .attr({
-//                            'transform': 'translate(500, 250) scale(0)'
-                            'transform': 'translate(200, 20) scale(0.22)'
-                          });
-                        DesignServ.setCornerPoints(d);
-                      });
                   });
               }
 
