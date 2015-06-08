@@ -420,7 +420,7 @@
               details: {
                 //------- main points
                 points: [
-                  {type:'frame', id:'fp1', x:1000, y:1000, dir:'line', view:0},
+                  {type:'frame', id:'fp1', x:1000, y:1000, dir:'line', view:1},
                   {type:'frame', id:'fp2', x:2000, y:1000, dir:'line', view:1},
                   {type:'frame', id:'fp3', x:2000, y:2000, dir:'line', view:1, sill:1},
                   {type:'frame', id:'fp4', x:1000, y:2000, dir:'line', view:1, sill:1},
@@ -430,10 +430,10 @@
                   {type:'arc', id:'q3', x:1500, y:2500, dir:'curv'},
                   {type:'arc', id:'q4', x:500, y:1500, dir:'curv'},
 
-                  {type:'corner', id:'c1-1', x:1200, y:1000, dir:'line'},
-                  {type:'corner', id:'c1-2', x:1000, y:1200, dir:'line'},
+//                  {type:'corner', id:'c1-1', x:1200, y:1000, dir:'line'},
+//                  {type:'corner', id:'c1-2', x:1000, y:1200, dir:'line'},
 
-                  {type:'corner', id:'qc1', x:1000, y:1000, dir:'curv'}
+//                  {type:'corner', id:'qc1', x:1000, y:1000, dir:'curv'}
 
 //                {'type':'impost', id:'ip1', x:700, y:0, dir:'line'},
 //                {'type':'impost', id:'ip2', x:700, y:1400, dir:'line'},
@@ -448,7 +448,7 @@
                 skylights: [
                   {'type':'skylight', id:'block_0', level: 0, blockType: 'frame', children: ['block_1']},
 
-                  {'type':'skylight', id:'block_1', level: 1, blockType: 'frame', children: [], parent: 'block_0', pointsID: ['fp1', 'fp3', 'fp4', 'fp2', 'q2', /*'q1', 'q3', 'q4',*/ 'c1-1', 'c1-2', 'qc1' ], parts: []}//,
+                  {'type':'skylight', id:'block_1', level: 1, blockType: 'frame', children: [], parent: 'block_0', pointsID: ['fp1', 'fp3', 'fp4', 'fp2' /*, 'q2', 'q3', 'q1',  'q4', 'c1-1', 'c1-2', 'qc1'*/ ], parts: []}//,
                   //children: ['block_2', 'block_3', 'block_4']
 
                   //                {'type':'skylight', id:'block_2', level: 2, blockType: 'sash', children: [], parent: 'block_1', pointsID: ['fp1', 'ip1', 'ip2', 'fp4'], glassId: 0, gridId: 0, openDir: [1, 4], handlePos: 4},

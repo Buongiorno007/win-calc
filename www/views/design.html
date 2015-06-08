@@ -27,9 +27,9 @@
           </div>
           <div id="angel-shape-menu" ng-class="{'active': designPage.config.activeMenuItem == 2}" class="edit_submenu">
             <ul class="constr-shape-list">
-              <li hm-tap="designPage.insertCorner(1)" class="constr-shape-icon sash-empty"></li>
-              <li hm-tap="designPage.insertCorner(2)" class="constr-shape-icon impost-vert"></li>
-              <li hm-tap="designPage.insertCorner(3)" class="constr-shape-icon impost-hor"></li>
+              <li hm-tap="designPage.insertCorner(1, $event)" class="constr-shape-icon sash-empty"></li>
+              <li hm-tap="designPage.insertCorner(2, $event)" class="constr-shape-icon impost-vert"></li>
+              <li hm-tap="designPage.insertCorner(3, $event)" class="constr-shape-icon impost-hor"></li>
             </ul>
           </div>
         </li>

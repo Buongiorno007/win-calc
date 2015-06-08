@@ -77,7 +77,6 @@
                 var corners = template.details.skylights[i].pointsOut.filter(function (item) {
                   return item.corner > 0;
                 });
-
                 var cornerMarks = mainGroup.selectAll('circle.corner_mark')
                   .data(corners).enter()
                   .append('circle')

@@ -718,20 +718,22 @@ function getCoordCrossPoint(line1, line2, coefC1, coefC2) {
 
   //------- if lines are paralles
   if(isParall) {
-    console.log('parallel = ', isParall);
+//    console.log('parallel = ', isParall);
     //----- set normal statement
 //    var normal = {
 //      coefA: 1,
 //      coefB: -(line1.coefB / line1.coefA),
 //      coefC: (line1.coefB * line1.to.x/ line1.coefA) - line1.to.y
 //    };
+
     var normal = {
       coefA: line1.coefB,
       coefB: -line1.coefA,
       coefC: (line1.coefA * line1.to.y - line1.coefB * line1.to.x)
     };
-    console.log('normal ===', normal);
-    coord = findCrossPoint(normal, line1, normal.coefC, coefC1);
+//    console.log('line1  ===', line1);
+//    console.log('normal ===', normal);
+    coord = findCrossPoint(line1, normal, coefC1, normal.coefC);
   } else {
     coord = findCrossPoint(line1, line2, coefC1, coefC2);
   }
@@ -752,124 +754,120 @@ function checkParallel(line1, line2) {
 }
 
 function findCrossPoint(line1, line2, coefC1, coefC2) {
-  console.log('line1 = ', line1);
-  console.log('line2 = ', line2);
-  console.log('coefC1 = ', coefC1);
-  console.log('coefC2 = ', coefC2);
+//  console.log('line1 = ', line1);
+//  console.log('line2 = ', line2);
+//  console.log('coefC1 = ', coefC1);
+//  console.log('coefC2 = ', coefC2);
+
   var base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
-      baseX = ((-coefC1) * line2.coefB) - (line1.coefB * (-coefC2)),
-      baseY = (line1.coefA * (-coefC2)) - (line2.coefA * (-coefC1)),
+      baseX = (line1.coefB * (coefC2)) - (line2.coefB * (coefC1)),
+      baseY = (line2.coefA * (coefC1)) - (line1.coefA * (coefC2)),
       crossPoint = {
         x: baseX / base,
         y: baseY / base
       };
-  console.log('base = ', base);
-  console.log('baseX = ', baseX);
-  console.log('baseY = ', baseY);
-  console.log('crossPoint = ', crossPoint);
+//  console.log('base = ', base);
+//  console.log('baseX = ', baseX);
+//  console.log('baseY = ', baseY);
+//  console.log('crossPoint = ', crossPoint);
   return crossPoint;
 }
 
 
 function setParts(pointsOut, pointsIn) {
-//  console.log(pointsOut);
-//  console.log(pointsIn);
-  var parts = [],
-      pointsQty = pointsOut.length;
-
-  for(var out = 0, inn = 0; out < pointsQty; out++, inn++) {
-    //----- passing if point is hidden
-    if(pointsOut[out].type === 'frame' && !pointsOut[out].view) {
-      --inn;
-      continue;
+//  console.log('out++++', pointsOut);
+//  console.log('in++++', pointsIn);
+  var newPointsOut = pointsOut.filter(function (item) {
+    if(item.type === 'frame' && !item.view) {
+      return false;
+    } else {
+      return true;
     }
+  });
+//  console.log('%%%%%%%%=', newPointsOut);
+  var parts = [],
+      pointsQty = newPointsOut.length;
+
+  for(var index = 0; index < pointsQty; index++) {
     //----- passing if first point is curv
-    if(out === 0 && pointsOut[out].dir === 'curv') {
+    if(index === 0 && newPointsOut[index].dir === 'curv') {
       continue;
     }
     var part = {
-      type: pointsOut[out].type,
+      type: newPointsOut[index].type,
       dir: 'line',
       points: []
     };
     //------ if last point
-    if(out === (pointsQty - 1)) {
+    if(index === (pointsQty - 1)) {
       //------- if one point is 'curv' from both
-      if(pointsOut[out].dir === 'curv') {
+      if(newPointsOut[index].dir === 'curv') {
         break;
-      } else if(pointsOut[0].dir === 'curv') {
-        part.points.push(pointsOut[out]);
-        part.points.push(pointsOut[0]);
-        part.points.push(pointsOut[1]);
+      } else if(newPointsOut[0].dir === 'curv') {
+        part.type = 'arc';
+        part.points.push(newPointsOut[index]);
+        part.points.push(newPointsOut[0]);
+        part.points.push(newPointsOut[1]);
         part.points.push(pointsIn[1]);
         part.points.push(pointsIn[0]);
-        part.points.push(pointsIn[inn]);
-        part.type = 'arc';
+        part.points.push(pointsIn[index]);
+        if(newPointsOut[index].type === 'corner' || newPointsOut[1].type === 'corner') {
+          part.type = 'arc-corner';
+        }
         part.dir = 'curv';
       } else {
         //-------- if line
-        part.points.push(pointsOut[out]);
-        if(pointsOut[0].type === 'frame' && !pointsOut[0].view) {
-          part.points.push(pointsOut[1]);
-          part.points.push(pointsIn[0]);
-          if(pointsOut[out].type === 'corner' || pointsOut[1].type === 'corner') {
-            part.type = 'corner';
-          }
-        } else {
-          part.points.push(pointsOut[0]);
-          part.points.push(pointsIn[0]);
-          if(pointsOut[out].type === 'corner' || pointsOut[0].type === 'corner') {
-            part.type = 'corner';
-          }
+        part.points.push(newPointsOut[index]);
+        part.points.push(newPointsOut[0]);
+        part.points.push(pointsIn[0]);
+        if(newPointsOut[index].type === 'corner' || newPointsOut[0].type === 'corner') {
+          part.type = 'corner';
         }
-        part.points.push(pointsIn[inn]);
+        part.points.push(pointsIn[index]);
 
       }
     } else {
+
       //------- if curv
-      if(pointsOut[out].dir === 'curv' || pointsOut[out+1].dir === 'curv') {
-        part.points.push(pointsOut[out]);
-        part.points.push(pointsOut[out+1]);
-        if(pointsOut[out+2]) {
-          part.points.push(pointsOut[out+2]);
-          part.points.push(pointsIn[inn+2]);
-        } else {
-          part.points.push(pointsOut[0]);
-          part.points.push(pointsIn[0]);
-        }
-        part.points.push(pointsIn[inn+1]);
-        part.points.push(pointsIn[inn]);
+      if(newPointsOut[index].dir === 'curv' || newPointsOut[index+1].dir === 'curv') {
         part.type = 'arc';
+        part.points.push(newPointsOut[index]);
+        part.points.push(newPointsOut[index+1]);
+        if(newPointsOut[index+2]) {
+          part.points.push(newPointsOut[index+2]);
+          part.points.push(pointsIn[index+2]);
+          if(newPointsOut[index].type === 'corner' || newPointsOut[index+2].type === 'corner') {
+            part.type = 'arc-corner';
+          }
+        } else {
+          part.points.push(newPointsOut[0]);
+          part.points.push(pointsIn[0]);
+          if(newPointsOut[index].type === 'corner' || newPointsOut[0].type === 'corner') {
+            part.type = 'arc-corner';
+          }
+        }
+        part.points.push(pointsIn[index+1]);
+        part.points.push(pointsIn[index]);
         part.dir = 'curv';
-        out++;
-        inn++;
+        index++;
       } else {
         //-------- if line
-        part.points.push(pointsOut[out]);
-        if(pointsOut[out+1].type === 'frame' && !pointsOut[out+1].view) {
-          part.points.push(pointsOut[out+2]);
-          part.points.push(pointsIn[inn+1]);
-          if(pointsOut[out].type === 'corner' || pointsOut[out+2].type === 'corner') {
-            part.type = 'corner';
-          }
-        } else {
-          part.points.push(pointsOut[out+1]);
-          part.points.push(pointsIn[inn+1]);
-          if(pointsOut[out].type === 'corner' || pointsOut[out+1].type === 'corner') {
-            part.type = 'corner';
-          }
+        part.points.push(newPointsOut[index]);
+        part.points.push(newPointsOut[index+1]);
+        part.points.push(pointsIn[index+1]);
+        if(newPointsOut[index].type === 'corner' || newPointsOut[index+1].type === 'corner') {
+          part.type = 'corner';
         }
-        part.points.push(pointsIn[inn]);
+        part.points.push(pointsIn[index]);
       }
-
 
     }
 //    console.log(part.points);
     part.path = assamblingPath(part.points);
 
-    if(pointsOut[out].type === 'bead') {
+    if(newPointsOut[index].type === 'bead') {
       part.type = 'bead';
-    } else if(pointsOut[out].type === 'sash') {
+    } else if(newPointsOut[index].type === 'sash') {
       part.type = 'sash';
     }
 
@@ -883,6 +881,7 @@ function setParts(pointsOut, pointsIn) {
 
 
 function assamblingPath(arrPoints) {
+//  console.log(arrPoints);
   var path = 'M ' + arrPoints[0].x + ',' + arrPoints[0].y,
       p = 1,
       pointQty = arrPoints.length;

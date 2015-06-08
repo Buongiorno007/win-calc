@@ -164,11 +164,13 @@
 
     }
 
-    function insertCorner(conerType) {
+    function insertCorner(conerType, event) {
+      event.srcEvent.stopPropagation();
+      thisCtrl.config.activeMenuItem = 0;
+      hideCornerMarks();
 //      console.log('DesignStor.selectedCorner = ', DesignStor.design.selectedCorner);
       var cornerQty = DesignStor.design.selectedCorner[0].length,
           i = 0;
-
       switch(conerType) {
         //----- delete
         case 1:

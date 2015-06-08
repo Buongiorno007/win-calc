@@ -25,9 +25,9 @@ section.construction-page
 
           #angel-shape-menu.edit_submenu(ng-class="{'active': designPage.config.activeMenuItem == 2}")
             ul.constr-shape-list
-              li.constr-shape-icon.sash-empty(hm-tap="designPage.insertCorner(1)")
-              li.constr-shape-icon.impost-vert(hm-tap="designPage.insertCorner(2)")
-              li.constr-shape-icon.impost-hor(hm-tap="designPage.insertCorner(3)")
+              li.constr-shape-icon.sash-empty(hm-tap="designPage.insertCorner(1, $event)")
+              li.constr-shape-icon.impost-vert(hm-tap="designPage.insertCorner(2, $event)")
+              li.constr-shape-icon.impost-hor(hm-tap="designPage.insertCorner(3, $event)")
 
         li.figure-item(hm-tap="designPage.selectMenuItem(3)")
           .figure-item-block(ng-class="{'selected': designPage.config.activeMenuItem == 3}")
