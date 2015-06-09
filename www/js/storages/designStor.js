@@ -21,7 +21,9 @@
         designSteps: [],
 
         //----- Edit
+        selectedGlass: [],
         selectedCorner: [],
+        selectedArc: [],
         //----- Sizes
         openVoiceHelper: false,
         loudVoice: false,

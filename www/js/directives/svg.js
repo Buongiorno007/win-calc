@@ -84,6 +84,7 @@
                   .data(corners).enter()
                   .append('circle')
                   .attr({
+                    'blockId': template.details.skylights[i].id,
                     'class': 'corner_mark',
                     'parent': function (d) {
                       return d.id;

@@ -23,12 +23,16 @@
       designCancel: designCancel,
       setDefaultConstruction: setDefaultConstruction,
 
+      //------- edit sash
+      createSash: createSash,
+      deleteSash: deleteSash,
       //------- edit corners
       setCornerPoints: setCornerPoints,
       setCurvCornerPoints: setCurvCornerPoints,
       deleteCornerPoints: deleteCornerPoints,
-
+      //-------- edit arc
       createArc: createArc,
+      deleteArc: deleteArc,
 
       //---- change sizes
       selectSizeBlock: selectSizeBlock,
@@ -189,18 +193,93 @@
 
     //========== Edit Design =============//
 
+    //++++++++++ Edit Sash +++++++++//
+
+    function createSash(type, glassObj) {
+//      console.log('######',glassObj);
+      var blockParent = glassObj.attributes.blockId.nodeValue,
+          blocks = DesignStor.design.templateSourceTEMP.details.skylights,
+          blocksQty = blocks.length;
+
+      for(var b = 0; b < blocksQty; b++) {
+        if (blocks[b].id === blockParent) {
+          blocks[b].blockType = 'sash';
+
+          switch(type) {
+            //----- 'left'
+            case 2:
+              blocks[b].openDir = [4];
+              blocks[b].handlePos = 4;
+              break;
+            //----- 'right'
+            case 3:
+              blocks[b].openDir = [2];
+              blocks[b].handlePos = 2;
+              break;
+            //----- 'up'
+            case 4:
+              blocks[b].openDir = [1];
+              blocks[b].handlePos = 1;
+              break;
+            //------ 'down'
+            case 5:
+              blocks[b].openDir = [3];
+              blocks[b].handlePos = 3;
+              break;
+            //------ 'up', 'right'
+            case 6:
+              blocks[b].openDir = [1, 2];
+              blocks[b].handlePos = 2;
+              break;
+            //------ 'up', 'left'
+            case 7:
+              blocks[b].openDir = [1, 4];
+              blocks[b].handlePos = 4;
+              break;
+          }
+        }
+      }
+
+      DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
+    }
+
+
+
+    function deleteSash(glassObj) {
+      var blockParent = glassObj.attributes.blockId.nodeValue,
+          blocks = DesignStor.design.templateSourceTEMP.details.skylights,
+          blocksQty = blocks.length;
+
+      for(var b = 0; b < blocksQty; b++) {
+        if (blocks[b].id === blockParent) {
+          blocks[b].blockType = 'frame';
+          blocks[b].openDir = 0;
+          blocks[b].handlePos = 0;
+
+        }
+      }
+
+      DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
+    }
+
+
+
+
+
+    //++++++++++ Edit Corners ++++++++//
 
     function setCornerPoints(cornerObj) {
 //      console.log(cornerObj.__data__);
       var cornerID = cornerObj.__data__.id,
           cornerN = Number(cornerID.replace(/\D+/g, "")),
+          blockParent = cornerObj.attributes.blockId.nodeValue,
           points = DesignStor.design.templateTEMP.details.points,
           blocks = DesignStor.design.templateTEMP.details.skylights,
           blocksQty = blocks.length,
           b = 0;
 
       for(; b < blocksQty; b++) {
-        if(blocks[b].level === 1) {
+        if(blocks[b].id === blockParent) {
 
           //---- set simple corner
           if(cornerObj.__data__.view) {
@@ -241,18 +320,113 @@
         }
       }
       //------ change templateSource
+      changeTemplate();
+    }
+
+
+
+    function setCurvCornerPoints(cornerObj) {
+//      console.log(cornerObj.__data__);
+      var cornerID = cornerObj.__data__.id,
+          cornerN = Number(cornerID.replace(/\D+/g, "")),
+          blockParent = cornerObj.attributes.blockId.nodeValue,
+          points = DesignStor.design.templateTEMP.details.points,
+          blocks = DesignStor.design.templateTEMP.details.skylights,
+          blocksQty = blocks.length,
+          b = 0;
+
+      for(; b < blocksQty; b++) {
+        if(blocks[b].id === blockParent) {
+          //----- set curve corner
+          if (cornerObj.__data__.view) {
+
+            var linesQty = blocks[b].linesOut.length,
+                l = 0;
+            for(; l < linesQty; l++) {
+              if(blocks[b].linesOut[l].from.id === cornerID) {
+                createCornerPoint(1, cornerN, blocks[b].linesOut[l], blocks[b], points);
+              } else if(blocks[b].linesOut[l].to.id === cornerID) {
+                createCornerPoint(2, cornerN, blocks[b].linesOut[l], blocks[b], points);
+              }
+            }
+
+            createQCPoint(cornerN, cornerObj.__data__, blocks[b], points);
+
+            //----- change simple corner to corve
+          } else {
+
+            var linesQty = blocks[b].linesOut.length,
+                l = 0;
+            for(; l < linesQty; l++) {
+              if(blocks[b].linesOut[l].from.id === 'c'+cornerN+'-2' && blocks[b].linesOut[l].to.id === 'c'+cornerN+'-1' ) {
+                var qcPoint = setQPointCoord(cornerN, blocks[b].linesOut[l]);
+                createQCPoint(cornerN, qcPoint, blocks[b], points);
+              }
+            }
+
+          }
+        }
+      }
+
+      //----- hide this point
+      if(cornerObj.__data__.view) {
+        for (var i = 0; i < points.length; i++) {
+          if (points[i].id === cornerID) {
+            points[i].view = 0;
+          }
+        }
+      }
+      //------ change templateSource
+      changeTemplate();
+    }
+
+
+
+
+    function changeTemplate() {
       DesignStor.design.templateSourceTEMP.details.points = angular.copy(DesignStor.design.templateTEMP.details.points);
       for(var i = 0; i < DesignStor.design.templateSourceTEMP.details.skylights.length; i++) {
         if(DesignStor.design.templateSourceTEMP.details.skylights[i].level === 1) {
           DesignStor.design.templateSourceTEMP.details.skylights[i].pointsID = angular.copy(DesignStor.design.templateTEMP.details.skylights[i].pointsID);
         }
       }
-
       DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
-//      $rootScope.$apply();
-//      console.log('template Source +++2++', DesignStor.design.templateSourceTEMP.details);
-//      console.log('template +++2++', DesignStor.design.templateTEMP.details);
+    }
 
+
+
+
+    function deleteCornerPoints(cornerObj) {
+      var cornerID = cornerObj.__data__.id,
+          cornerN = Number(cornerID.replace(/\D+/g, "")),
+          blockParent = cornerObj.attributes.blockId.nodeValue,
+          points = DesignStor.design.templateSourceTEMP.details.points,
+          blocks = DesignStor.design.templateSourceTEMP.details.skylights,
+          blocksQty = blocks.length,
+          pointsQty = points.length;
+
+      //------- delete corner point IDs in block (pointsID)
+      for(var b = 0; b < blocksQty; b++) {
+        if(blocks[b].id === blockParent) {
+          var pointsIdQty = blocks[b].pointsID.length;
+          while(--pointsIdQty > -1) {
+            if(blocks[b].pointsID[pointsIdQty] === 'c'+cornerN+'-1' || blocks[b].pointsID[pointsIdQty] === 'c'+cornerN+'-2' || blocks[b].pointsID[pointsIdQty] === 'qc'+cornerN) {
+              blocks[b].pointsID.splice(pointsIdQty, 1);
+            }
+          }
+        }
+      }
+      while(--pointsQty > -1) {
+        //----- show this frame point
+        if(points[pointsQty].id === cornerID) {
+          points[pointsQty].view = 1;
+        }
+        //----- delete corner points
+        if(points[pointsQty].id === 'c'+cornerN+'-1' || points[pointsQty].id === 'c'+cornerN+'-2' || points[pointsQty].id === 'qc'+cornerN) {
+          points.splice(pointsQty, 1);
+        }
+      }
+      DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
     }
 
 
@@ -277,168 +451,185 @@
 
 
 
+
+    function setQPointCoord(side, line) {
+      var midX = (line.from.x + line.to.x)/ 2,
+          midY = (line.from.y + line.to.y)/ 2,
+          dist = line.size/ 2,
+          coordQP = {};
+
+      if(!line.coefA || !line.coefB) {
+        coordQP.x = Math.round(Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ))) + midX;
+        coordQP.y = Math.round(Math.sqrt( Math.pow(dist, 2) - Math.pow((coordQP.x - midX), 2)  )) + midY;
+      } else {
+        switch(side) {
+          case 1:
+            coordQP.y = midY - Math.round(Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )));
+            coordQP.x = midX - Math.round(Math.sqrt( Math.pow(dist, 2) - Math.pow((midY - coordQP.y), 2)  ));
+            break;
+          case 2:
+            coordQP.y = midY - Math.round(Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )));
+            coordQP.x = Math.round(Math.sqrt( Math.pow(dist, 2) - Math.pow((coordQP.y - midY), 2)  )) + midX;
+            break;
+          case 3:
+            coordQP.y = Math.round(Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ))) + midY;
+            coordQP.x = Math.round(Math.sqrt( Math.pow(dist, 2) - Math.pow((coordQP.y - midY), 2)  )) + midX;
+            break;
+          case 4:
+            coordQP.y = Math.round(Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ))) + midY;
+            coordQP.x = midX - Math.round(Math.sqrt( Math.pow(dist, 2) - Math.pow((midY - coordQP.y), 2)  ));
+            break;
+        }
+      }
+
+      return coordQP;
+    }
+
+
+
+
     function createQCPoint(cornerN, framePoint, block, points) {
       var QCPoint = {
-            type:'corner',
-            id: 'qc' + cornerN,
-            x: framePoint.x,
-            y: framePoint.y,
-            dir:'curv'
-          };
+        type:'corner',
+        id: 'qc' + cornerN,
+        x: framePoint.x,
+        y: framePoint.y,
+        dir:'curv'
+      };
       block.pointsID.push(QCPoint.id);
       points.push(QCPoint);
     }
 
 
 
+    //++++++++++ Edit Arc ++++++++//
 
 
-    function setCurvCornerPoints(cornerObj) {
-//      console.log(cornerObj.__data__);
-      var cornerID = cornerObj.__data__.id,
-          cornerN = Number(cornerID.replace(/\D+/g, "")),
-          points = DesignStor.design.templateTEMP.details.points,
-          blocks = DesignStor.design.templateTEMP.details.skylights,
-          blocksQty = blocks.length,
-          b = 0;
 
-      for(; b < blocksQty; b++) {
-        if(blocks[b].level === 1) {
-          //----- set curve corner
-          if (cornerObj.__data__.view) {
+    function createArc(arcObj) {
+      var arc = arcObj.__data__;
 
-            var linesQty = blocks[b].linesOut.length,
-                l = 0;
-            for(; l < linesQty; l++) {
-              if(blocks[b].linesOut[l].from.id === cornerID) {
-                createCornerPoint(1, cornerN, blocks[b].linesOut[l], blocks[b], points);
-              } else if(blocks[b].linesOut[l].to.id === cornerID) {
-                createCornerPoint(2, cornerN, blocks[b].linesOut[l], blocks[b], points);
+      if(arc.type === 'frame') {
+        var arcN = Number(arc.points[0].id.replace(/\D+/g, "")),
+            blockParent = arcObj.attributes.blockId.nodeValue,
+            blocks = DesignStor.design.templateTEMP.details.skylights,
+            blocksQty = blocks.length,
+            points = DesignStor.design.templateSourceTEMP.details.points,
+            pointsQty = points.length,
+            currBlockID, currLine;
+
+        //------- find line
+        for(var b = 0; b < blocksQty; b++) {
+          if(blocks[b].id === blockParent) {
+            var linesQty = blocks[b].linesOut.length;
+            while(--linesQty > -1) {
+              if(blocks[b].linesOut[linesQty].from.id === arc.points[0].id && blocks[b].linesOut[linesQty].to.id === arc.points[1].id) {
+                currBlockID = b;
+                currLine = blocks[b].linesOut[linesQty];
               }
             }
-
-            createQCPoint(cornerN, cornerObj.__data__, blocks[b], points);
-
-            //----- change simple corner to corve
-          } else {
-
-            var linesQty = blocks[b].linesOut.length,
-                l = 0;
-            for(; l < linesQty; l++) {
-              if(blocks[b].linesOut[l].from.id === 'c'+cornerN+'-2' && blocks[b].linesOut[l].to.id === 'c'+cornerN+'-1' ) {
-
-                var midX = (blocks[b].linesOut[l].from.x + blocks[b].linesOut[l].to.x)/ 2,
-                    midY = (blocks[b].linesOut[l].from.y + blocks[b].linesOut[l].to.y)/ 2,
-                    dist = blocks[b].linesOut[l].size/ 2,
-                    qcPoint = {};
-
-                switch(cornerN) {
-                  case 1:
-                    qcPoint.y = midY - Math.round(Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((blocks[b].linesOut[l].coefB), 2) / Math.pow((blocks[b].linesOut[l].coefA), 2) ) )));
-                    qcPoint.x = midX - Math.round(Math.sqrt( Math.pow(dist, 2) - Math.pow((midY - qcPoint.y), 2)  ));
-                    break;
-                  case 2:
-                    qcPoint.y = midY - Math.round(Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((blocks[b].linesOut[l].coefB), 2) / Math.pow((blocks[b].linesOut[l].coefA), 2) ) )));
-                    qcPoint.x = Math.round(Math.sqrt( Math.pow(dist, 2) - Math.pow((qcPoint.y - midY), 2)  )) + midX;
-                    break;
-                  case 3:
-                    qcPoint.y = Math.round(Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((blocks[b].linesOut[l].coefB), 2) / Math.pow((blocks[b].linesOut[l].coefA), 2) ) ))) + midY;
-                    qcPoint.x = Math.round(Math.sqrt( Math.pow(dist, 2) - Math.pow((qcPoint.y - midY), 2)  )) + midX;
-                    break;
-                  case 4:
-                    qcPoint.y = Math.round(Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((blocks[b].linesOut[l].coefB), 2) / Math.pow((blocks[b].linesOut[l].coefA), 2) ) ))) + midY;
-                    qcPoint.x = midX - Math.round(Math.sqrt( Math.pow(dist, 2) - Math.pow((midY - qcPoint.y), 2)  ));
-                    break;
-                }
-//                console.log('change conre',  qcPoint.x,  qcPoint.y);
-                createQCPoint(cornerN, qcPoint, blocks[b], points);
-              }
-            }
-
           }
         }
-      }
 
-      //----- hide this point
-      if(cornerObj.__data__.view) {
-        for (var i = 0; i < points.length; i++) {
-          if (points[i].id === cornerID) {
-            points[i].view = 0;
+        //------ up
+        if(arc.points[0].fi < 180 && arc.points[1].fi < 180) {
+          var coordQ = setQPointCoord(1, currLine),
+              shift = coordQ.y;
+//          console.log('coordQ = ', coordQ);
+          for(var j = 0; j < pointsQty; j++) {
+            points[j].y += shift;
           }
-        }
-      }
-      //------ change templateSource
-      DesignStor.design.templateSourceTEMP.details.points = angular.copy(DesignStor.design.templateTEMP.details.points);
-      for(var i = 0; i < DesignStor.design.templateSourceTEMP.details.skylights.length; i++) {
-        if(DesignStor.design.templateSourceTEMP.details.skylights[i].level === 1) {
-          DesignStor.design.templateSourceTEMP.details.skylights[i].pointsID = angular.copy(DesignStor.design.templateTEMP.details.skylights[i].pointsID);
-        }
-      }
+          coordQ.y = 0;
+          createArcPoint(arcN, coordQ, currBlockID);
 
-      DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
+        //------ right
+        } else if(arc.points[0].fi < 90 && arc.points[1].fi > 270) {
+          var coordQ = setQPointCoord(2, currLine);
+//          console.log('coordQ = ', coordQ);
+          createArcPoint(arcN, coordQ, currBlockID);
+
+        //------ down
+        } else if(arc.points[0].fi > 180 && arc.points[1].fi > 180) {
+          var coordQ = setQPointCoord(3, currLine);
+//          console.log('coordQ = ', coordQ);
+          createArcPoint(arcN, coordQ, currBlockID);
+        //------ left
+        } else if(arc.points[0].fi < 270 && arc.points[1].fi > 90) {
+          var coordQ = setQPointCoord(4, currLine),
+              shift = coordQ.x;
+//          console.log('coordQ = ', coordQ);
+          for(var j = 0; j < pointsQty; j++) {
+            points[j].x += shift;
+          }
+          coordQ.x = 0;
+          createArcPoint(arcN, coordQ, currBlockID);
+        }
+
+        DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
+
+      }
+    }
+
+
+
+    function createArcPoint(arcN, coordQP, blockID) {
+      var pointQ = {
+        type:'arc',
+        id:'q'+arcN,
+        x: coordQP.x,
+        y: coordQP.y,
+        dir:'curv'
+      };
+      DesignStor.design.templateSourceTEMP.details.skylights[blockID].pointsID.push(pointQ.id);
+      DesignStor.design.templateSourceTEMP.details.points.push(pointQ);
     }
 
 
 
 
+    function deleteArc(arcObj) {
+      var arc = arcObj.__data__;
 
-    function deleteCornerPoints(cornerObj) {
-      var cornerID = cornerObj.__data__.id,
-          cornerN = Number(cornerID.replace(/\D+/g, "")),
-          points = DesignStor.design.templateSourceTEMP.details.points,
-          blocks = DesignStor.design.templateSourceTEMP.details.skylights,
-          blocksQty = blocks.length,
-          pointsQty = points.length;
+      if(arc.type === 'arc') {
+        var arcID = arc.points[1].id,
+            blockParent = arcObj.attributes.blockId.nodeValue,
+            points = DesignStor.design.templateSourceTEMP.details.points,
+            blocks = DesignStor.design.templateSourceTEMP.details.skylights,
+            blocksQty = blocks.length,
+            pointsQty = points.length,
+            shiftX = 0, shiftY = 0;
 
-      //------- delete corner point IDs in block (pointsID)
-      for(var b = 0; b < blocksQty; b++) {
-        if(blocks[b].level === 1) {
-          var pointsIdQty = blocks[b].pointsID.length;
-          while(--pointsIdQty > -1) {
-            if(blocks[b].pointsID[pointsIdQty] === 'c'+cornerN+'-1' || blocks[b].pointsID[pointsIdQty] === 'c'+cornerN+'-2' || blocks[b].pointsID[pointsIdQty] === 'qc'+cornerN) {
-              blocks[b].pointsID.splice(pointsIdQty, 1);
+        //------- delete Q point IDs in block (pointsID)
+        for(var b = 0; b < blocksQty; b++) {
+          if(blocks[b].id === blockParent) {
+            var pointsIdQty = blocks[b].pointsID.length;
+            while(--pointsIdQty > -1) {
+              if(blocks[b].pointsID[pointsIdQty] === arcID) {
+                blocks[b].pointsID.splice(pointsIdQty, 1);
+              }
             }
           }
         }
-      }
-      while(--pointsQty > -1) {
-        //----- show this frame point
-        if(points[pointsQty].id === cornerID) {
-          points[pointsQty].view = 1;
+        //------ shifting
+        if(!arc.points[1].x) {
+          shiftX = arc.points[0].x;
+        } else if(!arc.points[1].y) {
+          shiftY = arc.points[0].y;
         }
         //----- delete corner points
-        if(points[pointsQty].id === 'c'+cornerN+'-1' || points[pointsQty].id === 'c'+cornerN+'-2' || points[pointsQty].id === 'qc'+cornerN) {
-          points.splice(pointsQty, 1);
+        while(--pointsQty > -1) {
+          if(points[pointsQty].id === arcID) {
+            points.splice(pointsQty, 1);
+          } else {
+            points[pointsQty].x -= shiftX;
+            points[pointsQty].y -= shiftY;
+          }
         }
-      }
-      DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
-    }
 
-
-
-
-
-
-
-
-    function createArc(line) {
-      var point = {
-                type:'arc',
-                id:'q',
-                x:0,
-                y:0,
-                dir:'curv'
-              };
-
-      console.log('creatArc ===', line);
-      if(line.type === 'frame') {
-
-      } else if(line.type === 'arc') {
+        DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
 
       }
     }
-
-
 
 
 

@@ -1125,16 +1125,16 @@ var Template = function (sourceObj, depths) {
 
         //------ if block is frame
         if(this.details.skylights[i].blockType === 'frame') {
-//          this.details.skylights[i].beadPointsOut = setPointsOut(this.details.skylights[i].pointsIn, 'bead');
-//          this.details.skylights[i].beadLinesOut = setLines(this.details.skylights[i].beadPointsOut);
-//          this.details.skylights[i].beadPointsIn = setPointsIn(this.details.skylights[i], depths, 'frame-bead');
-///*          this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);*/
-//
-//          this.details.skylights[i].glassPoints = setPointsIn(this.details.skylights[i], depths, 'frame-glass');
-///*          this.details.skylights[i].glassLines = setLines(this.details.skylights[i].beadPointsIn);*/
-//
-//          this.details.skylights[i].parts.push(setGlass(this.details.skylights[i].glassPoints));
-//          $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].beadPointsOut, this.details.skylights[i].beadPointsIn));
+          this.details.skylights[i].beadPointsOut = setPointsOut(this.details.skylights[i].pointsIn, 'bead');
+          this.details.skylights[i].beadLinesOut = setLines(this.details.skylights[i].beadPointsOut);
+          this.details.skylights[i].beadPointsIn = setPointsIn(this.details.skylights[i], depths, 'frame-bead');
+/*          this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);*/
+
+          this.details.skylights[i].glassPoints = setPointsIn(this.details.skylights[i], depths, 'frame-glass');
+/*          this.details.skylights[i].glassLines = setLines(this.details.skylights[i].beadPointsIn);*/
+
+          this.details.skylights[i].parts.push(setGlass(this.details.skylights[i].glassPoints));
+          $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].beadPointsOut, this.details.skylights[i].beadPointsIn));
 
         } else if(this.details.skylights[i].blockType === 'sash') {
           this.details.skylights[i].sashPointsOut = setPointsOut(setPointsIn(this.details.skylights[i], depths, 'sash-out'), 'sash');

@@ -10,13 +10,13 @@
           </div>
           <div id="sash-shape-menu" ng-class="{'active': designPage.config.activeMenuItem == 1}" class="edit_submenu">
             <ul class="constr-shape-list">
-              <li ng-hide="designPage.P.product.constructionType === 4" hm-tap="designPage.insertNewSash('empty')" class="constr-shape-icon sash-empty"></li>
-              <li hm-tap="designPage.insertNewSash('left')" class="constr-shape-icon sash-left"></li>
-              <li hm-tap="designPage.insertNewSash('right')" class="constr-shape-icon sash-right"></li>
-              <li hm-tap="designPage.insertNewSash('up')" class="constr-shape-icon sash-up"></li>
-              <li hm-tap="designPage.insertNewSash('down')" class="constr-shape-icon sash-down"></li>
-              <li hm-tap="designPage.insertNewSash('up', 'right')" class="constr-shape-icon sash-right-up"></li>
-              <li hm-tap="designPage.insertNewSash('up', 'left')" class="constr-shape-icon sash-left-up"></li>
+              <li ng-hide="designPage.P.product.constructionType === 4" hm-tap="designPage.insertSash(1, $event)" class="constr-shape-icon sash-empty"></li>
+              <li hm-tap="designPage.insertSash(2, $event)" class="constr-shape-icon sash-left"></li>
+              <li hm-tap="designPage.insertSash(3, $event)" class="constr-shape-icon sash-right"></li>
+              <li hm-tap="designPage.insertSash(4, $event)" class="constr-shape-icon sash-up"></li>
+              <li hm-tap="designPage.insertSash(5, $event)" class="constr-shape-icon sash-down"></li>
+              <li hm-tap="designPage.insertSash(6, $event)" class="constr-shape-icon sash-right-up"></li>
+              <li hm-tap="designPage.insertSash(7, $event)" class="constr-shape-icon sash-left-up"></li>
             </ul>
           </div>
         </li>
@@ -53,8 +53,8 @@
           </div>
           <div id="arc-shape-menu" ng-class="{'active': designPage.config.activeMenuItem == 4}" class="edit_submenu">
             <ul class="constr-shape-list">
-              <li ng-hide="designPage.P.product.constructionType === 4" hm-tap="designPage.insertNewSash('empty')" class="constr-shape-icon sash-empty"></li>
-              <li hm-tap="designPage.insertNewImpost('horis')" class="constr-shape-icon impost-hor"></li>
+              <li hm-tap="designPage.insertArc(1, $event)" class="constr-shape-icon sash-empty"></li>
+              <li hm-tap="designPage.insertArc(2, $event)" class="constr-shape-icon impost-hor"></li>
             </ul>
           </div>
         </li>

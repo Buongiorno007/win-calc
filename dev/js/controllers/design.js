@@ -69,8 +69,9 @@
     thisCtrl.saveDoorConfig = saveDoorConfig;
 
     //------ edit design
+    thisCtrl.insertSash = insertSash;
     thisCtrl.insertCorner = insertCorner;
-    thisCtrl.insertNewSash = editSash;
+    thisCtrl.insertArc = insertArc;
     thisCtrl.insertNewImpost = editImpost;
 
     thisCtrl.stepBack = DesignServ.stepBack;
@@ -86,7 +87,8 @@
     function selectMenuItem(id) {
       thisCtrl.config.activeMenuItem = (thisCtrl.config.activeMenuItem === id) ? 0 : id;
       hideCornerMarks();
-
+      deselectAllArc();
+      deselectAllGlass();
 //      deactivateShapeMenu();
 //      thisCtrl.config.isSashEditMenu = false;
 //      thisCtrl.config.isImpostEditMenu = false;
@@ -94,8 +96,7 @@
 
       switch(thisCtrl.config.activeMenuItem) {
         case 1:
-//          thisCtrl.config.isSashEdit = true;
-//          manipulationWithGlasses(thisCtrl.config.isSashEdit);
+          showAllAvailableGlass();
           break;
         case 2:
 //          thisCtrl.config.isAngelEdit = true;
@@ -135,8 +136,64 @@
 //      thisCtrl.config.isPositionEdit = false;
 //    }
 
+    //++++++++++ Edit Sash ++++++++++//
 
-//-------- show all Corner Marks
+    function showAllAvailableGlass() {
+      var glasses = d3.selectAll('#tamlateSVG .glass');
+      DesignStor.design.selectedGlass = glasses;
+      glasses.classed('glass-active', true);
+
+      glasses.on('click', function() {
+        var glass = d3.select(this);
+        deselectAllGlass();
+        glass.classed('glass-active', true);
+        DesignStor.design.selectedGlass = glass;
+      });
+    }
+
+
+
+    function deselectAllGlass() {
+      d3.selectAll('#tamlateSVG .glass').classed('glass-active', false);
+    }
+
+
+
+    function insertSash(sashType, event) {
+      event.srcEvent.stopPropagation();
+      thisCtrl.config.activeMenuItem = 0;
+      deselectAllGlass();
+      console.log('DesignStor.selectedCorner = ', DesignStor.design.selectedGlass);
+
+      var glassQty = DesignStor.design.selectedGlass[0].length,
+          i = 0;
+      switch(sashType) {
+        //----- delete sash
+        case 1:
+          for(; i < glassQty; i++) {
+            DesignServ.deleteSash(DesignStor.design.selectedGlass[0][i]);
+          }
+          break;
+        //----- insert sash
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+          for(; i < glassQty; i++) {
+            DesignServ.createSash(sashType, DesignStor.design.selectedGlass[0][i]);
+          }
+          break;
+      }
+
+    }
+
+
+
+    //++++++++++ Edit Corner ++++++++//
+
+    //-------- show all Corner Marks
     function showAllAvailableCorner() {
       var corners = d3.selectAll('#tamlateSVG .corner_mark');
 
@@ -191,7 +248,6 @@
           }
           break;
       }
-
     }
 
     function hideCornerMarks() {
@@ -204,23 +260,59 @@
 
 
 
+    //++++++++++ Edit Arc ++++++++//
+
     function showAllAvailableArc() {
-      var arc = d3.selectAll('#tamlateSVG .frame')
-        .each(function(d) {
-          if(d.type === 'frame' || d.type === 'arc') {
-            d3.select(this).classed('active_svg', true)
-              .on('click', function (d) {
-                deselectAllArc();
-                d3.select(this).classed('active_svg', true);
-                DesignServ.creatArc(d);
-              });
-          }
+      var arcs = [],
+          frames = d3.selectAll('#tamlateSVG .frame');
+
+      arcs.push(frames[0].filter(function(item) {
+        if(item.__data__.type === 'frame' || item.__data__.type === 'arc') {
+          return true;
+        }
+      }));
+      DesignStor.design.selectedArc = arcs;
+
+      d3.selectAll(arcs[0])
+        .classed('active_svg', true)
+        .on('click', function() {
+          deselectAllArc();
+          var arc = d3.select(this);
+          arc.classed('active_svg', true);
+          DesignStor.design.selectedArc = arc;
         });
+
     }
 
+
+    function insertArc(arcType, event) {
+      event.srcEvent.stopPropagation();
+      thisCtrl.config.activeMenuItem = 0;
+      deselectAllArc();
+      console.log('DesignStor.selectedCorner = ', DesignStor.design.selectedArc);
+
+      var arcQty = DesignStor.design.selectedArc[0].length,
+          i = 0;
+      switch(arcType) {
+        //----- delete arc
+        case 1:
+          for(; i < arcQty; i++) {
+            DesignServ.deleteArc(DesignStor.design.selectedArc[0][i]);
+          }
+          break;
+        //----- insert arc
+        case 2:
+          for(; i < arcQty; i++) {
+            DesignServ.createArc(DesignStor.design.selectedArc[0][i]);
+          }
+          break;
+      }
+
+    }
+
+
     function deselectAllArc() {
-      d3.selectAll('#tamlateSVG .frame')
-        .classed('active_svg', false);
+      d3.selectAll('#tamlateSVG .frame').classed('active_svg', false);
     }
 
 

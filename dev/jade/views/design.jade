@@ -10,13 +10,13 @@ section.construction-page
 
           #sash-shape-menu.edit_submenu(ng-class="{'active': designPage.config.activeMenuItem == 1}")
             ul.constr-shape-list
-              li.constr-shape-icon.sash-empty(ng-hide="designPage.P.product.constructionType === 4", hm-tap="designPage.insertNewSash('empty')")
-              li.constr-shape-icon.sash-left(hm-tap="designPage.insertNewSash('left')")
-              li.constr-shape-icon.sash-right(hm-tap="designPage.insertNewSash('right')")
-              li.constr-shape-icon.sash-up(hm-tap="designPage.insertNewSash('up')")
-              li.constr-shape-icon.sash-down(hm-tap="designPage.insertNewSash('down')")
-              li.constr-shape-icon.sash-right-up(hm-tap="designPage.insertNewSash('up', 'right')")
-              li.constr-shape-icon.sash-left-up(hm-tap="designPage.insertNewSash('up', 'left')")
+              li.constr-shape-icon.sash-empty(ng-hide="designPage.P.product.constructionType === 4", hm-tap="designPage.insertSash(1, $event)")
+              li.constr-shape-icon.sash-left(hm-tap="designPage.insertSash(2, $event)")
+              li.constr-shape-icon.sash-right(hm-tap="designPage.insertSash(3, $event)")
+              li.constr-shape-icon.sash-up(hm-tap="designPage.insertSash(4, $event)")
+              li.constr-shape-icon.sash-down(hm-tap="designPage.insertSash(5, $event)")
+              li.constr-shape-icon.sash-right-up(hm-tap="designPage.insertSash(6, $event)")
+              li.constr-shape-icon.sash-left-up(hm-tap="designPage.insertSash(7, $event)")
 
         li.figure-item(hm-tap="designPage.selectMenuItem(2)")
           .figure-item-block(ng-class="{'selected': designPage.config.activeMenuItem == 2}")
@@ -47,8 +47,8 @@ section.construction-page
 
           #arc-shape-menu.edit_submenu(ng-class="{'active': designPage.config.activeMenuItem == 4}")
             ul.constr-shape-list
-              li.constr-shape-icon.sash-empty(ng-hide="designPage.P.product.constructionType === 4", hm-tap="designPage.insertNewSash('empty')")
-              li.constr-shape-icon.impost-hor(hm-tap="designPage.insertNewImpost('horis')")
+              li.constr-shape-icon.sash-empty(hm-tap="designPage.insertArc(1, $event)")
+              li.constr-shape-icon.impost-hor(hm-tap="designPage.insertArc(2, $event)")
 
         li.figure-item(hm-tap="designPage.selectMenuItem(5)")
           .figure-item-block(ng-class="{'selected': designPage.config.activeMenuItem == 5}")
