@@ -35,323 +35,7 @@ function sortNumbers(a, b) {
 
 //--------- TEMPLATE JSON PARSE ----------------
 
-var FrameObject = function (sourceObj) {
-  this.id = sourceObj.id;
-  this.type = sourceObj.type;
-};
 
-//-----------FixedPoint-------------------
-var FixedPoint = function (sourceObj) {
-  FrameObject.call(this, sourceObj);
-  this.x = sourceObj.x;
-  this.y = sourceObj.y;
-};
-//FixedPoint.prototype = FrameObject;
-
-//-----------LineObject-------------------
-var LineObject = function (sourceObj) {
-  FrameObject.call(this, sourceObj);
-  this.fromPointId = sourceObj.from;
-  this.toPointId = sourceObj.to;
-  this.lineType = sourceObj.lineType;
-
-  this.parseIds = function(fullTemplate) {
-    this.fromPoint = fullTemplate.findById(this.fromPointId);
-    this.toPoint = fullTemplate.findById(this.toPointId);
-    this.getLength(this.fromPoint, this.toPoint);
-  };
-
-  this.getLength = function(fromPoint, toPoint) {
-    var x1 = parseFloat(fromPoint.x),
-        x2 = parseFloat(toPoint.x),
-        y1 = parseFloat(fromPoint.y),
-        y2 = parseFloat(toPoint.y);
-
-    this.lengthVal = Math.round(Math.sqrt( Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2) ) * 100) / 100;
-
-    this.coefA = (y1 - y2);
-    this.coefB = (x2 - x1);
-    this.coefC = (x1*y2 - x2*y1);
-  }
-};
-//LineObject.prototype = FrameObject;
-
-//-----------FrameLine-------------------
-var FrameLine = function (sourceObj) {
-  LineObject.call(this, sourceObj);
-  this.sill = sourceObj.sill;
-};
-//FrameLine.prototype = LineObject;
-
-//-----------CrossPoint-------------------
-var CrossPoint = function (sourceObj, depthSource) {
-  FrameObject.call(this, sourceObj);
-  this.lineId1 = sourceObj.line1;
-  this.lineId2 = sourceObj.line2;
-  this.depth = depthSource;
-
-  this.parseIds = function(fullTemplate) {
-    this.line1 = fullTemplate.findById(this.lineId1);
-    this.line2 = fullTemplate.findById(this.lineId2);
-    this.getCoordinates(this.line1, this.line2, this.depth);
-  };
-
-  this.getCoordinates = function(line1, line2, depth) {
-    var newCoefC1 = this.getNewCoefC(depth ,line1),
-        newCoefC2 = this.getNewCoefC(depth ,line2);
-    this.getCoordCrossPoint (line1, line2, newCoefC1, newCoefC2);
-  };
-
-  this.getNewCoefC = function (depth, line) {
-    var newCoefC = line.coefC - (depth * Math.sqrt(Math.pow(line.coefA, 2) + Math.pow(line.coefB, 2)));
-    return newCoefC;
-  };
-
-  this.getCoordCrossPoint = function(line1, line2, coefC1, coefC2) {
-    var coefA1 = line1.coefA,
-        coefB1 = line1.coefB,
-        coefA2 = line2.coefA,
-        coefB2 = line2.coefB,
-        base = (coefA1 * coefB2) - (coefA2 * coefB1),
-        baseX = ((-coefC1) * coefB2) - (coefB1 * (-coefC2)),
-        baseY = (coefA1 * (-coefC2)) - (coefA2 * (-coefC1));
-    this.x = baseX / base;
-    this.y = baseY / base;
-  };
-};
-//CrossPoint.prototype = FrameObject;
-
-
-
-var CPoint= function (sourceObj, depthSource, coeffScale) {
-  FrameObject.call(this, sourceObj);
-  this.lineId1 = sourceObj.line1;
-  this.lineId2 = sourceObj.line2;
-  this.depths = depthSource;
-  this.blockType = sourceObj.blockType;
-
-  this.parseIds = function(fullTemplate) {
-    this.line1 = fullTemplate.findById(this.lineId1);
-    this.line2 = fullTemplate.findById(this.lineId2);
-
-    if(sourceObj.type === 'cross_point_impost') {
-      if (this.blockType === 'frame') {
-        if (this.line1.id.indexOf('impostcenterline') + 1) {
-          this.depth1 = this.depths.impostDepth.c / 2;
-        } else {
-          this.depth1 = this.depths.frameDepth.c;
-        }
-        if (this.line2.id.indexOf('impostcenterline') + 1) {
-          this.depth2 = this.depths.impostDepth.c / 2;
-        } else {
-          this.depth2 = this.depths.frameDepth.c;
-        }
-
-      } else if (this.blockType === 'sash') {
-        if (this.line1.id.indexOf('impostcenterline') + 1) {
-          if (this.line1.lineType === 'sash') {
-            this.depth1 = (this.depths.impostDepth.d) + this.depths.sashDepth.c;
-          } else if (this.line1.lineType === 'frame') {
-            this.depth1 = this.depths.impostDepth.c / 2;
-          }
-        } else {
-          this.depth1 = (this.depths.frameDepth.b + this.depths.sashDepth.c);
-        }
-        if (this.line2.id.indexOf('impostcenterline') + 1) {
-          if (this.line2.lineType === 'sash') {
-            this.depth2 = (this.depths.impostDepth.d) + this.depths.sashDepth.c;
-          } else if (this.line2.lineType === 'frame') {
-            this.depth2 = this.depths.impostDepth.c / 2;
-          }
-        } else {
-          this.depth2 = (this.depths.frameDepth.b + this.depths.sashDepth.c);
-        }
-      }
-    } else if(sourceObj.type === 'cross_point_sash_out') {
-        if (this.line1.id.indexOf('impostcenterline') + 1) {
-          this.depth1 = this.depths.impostDepth.d;
-        } else {
-          this.depth1 = this.depths.frameDepth.b;
-        }
-        if (this.line2.id.indexOf('impostcenterline') + 1) {
-          this.depth2 = this.depths.impostDepth.d;
-        } else {
-          this.depth2 = this.depths.frameDepth.b;
-        }
-    } else if(sourceObj.type === 'cross_point_bead_out') {
-      if (this.blockType === 'frame') {
-        if (this.line1.id.indexOf('impostcenterline') + 1) {
-          this.depth1 = this.depths.impostDepth.c / 2;
-        } else {
-          this.depth1 = this.depths.frameDepth.c;
-        }
-        if (this.line2.id.indexOf('impostcenterline') + 1) {
-          this.depth2 = this.depths.impostDepth.c / 2;
-        } else {
-          this.depth2 = this.depths.frameDepth.c;
-        }
-
-      } else if (this.blockType === 'sash') {
-        if (this.line1.id.indexOf('impostcenterline') + 1) {
-          if (this.line1.lineType === 'sash') {
-            this.depth1 = (this.depths.impostDepth.d + this.depths.sashDepth.c);
-          } else if (this.line1.lineType === 'frame') {
-            this.depth1 = this.depths.impostDepth.c / 2;
-          }
-        } else {
-          this.depth1 = (this.depths.frameDepth.b + this.depths.sashDepth.c);
-        }
-        if (this.line2.id.indexOf('impostcenterline') + 1) {
-          if (this.line2.lineType === 'sash') {
-            this.depth2 = (this.depths.impostDepth.d + this.depths.sashDepth.c);
-          } else if (this.line2.lineType === 'frame') {
-            this.depth2 = this.depths.impostDepth.c / 2;
-          }
-        } else {
-          this.depth2 = (this.depths.frameDepth.b + this.depths.sashDepth.c);
-        }
-      }
-    } else if(sourceObj.type === 'cross_point_glass') {
-      if (this.blockType === 'frame') {
-        if (this.line1.id.indexOf('impostcenterline') + 1) {
-          this.depth1 = this.depths.impostDepth.b;
-        } else {
-          this.depth1 = this.depths.frameDepth.d;
-        }
-        if (this.line2.id.indexOf('impostcenterline') + 1) {
-          this.depth2 = this.depths.impostDepth.b;
-        } else {
-          this.depth2 = this.depths.frameDepth.d;
-        }
-
-      } else if (this.blockType === 'sash') {
-        if (this.line1.id.indexOf('impostcenterline') + 1) {
-          if (this.line1.lineType === 'sash') {
-            this.depth1 = (this.depths.impostDepth.d + this.depths.sashDepth.d);
-          } else if (this.line1.lineType === 'frame') {
-            this.depth1 = this.depths.impostDepth.b;
-          }
-        } else {
-          this.depth1 = (this.depths.frameDepth.b + this.depths.sashDepth.d);
-        }
-        if (this.line2.id.indexOf('impostcenterline') + 1) {
-          if (this.line2.lineType === 'sash') {
-            this.depth2 = (this.depths.impostDepth.d + this.depths.sashDepth.d);
-          } else if (this.line2.lineType === 'frame') {
-            this.depth2 = this.depths.impostDepth.b;
-          }
-        } else {
-          this.depth2 = (this.depths.frameDepth.b + this.depths.sashDepth.d);
-        }
-      }
-    }
-
-    this.getCoordinates(this.line1, this.line2, (this.depth1 * coeffScale), (this.depth2 * coeffScale));
-  };
-
-  this.getCoordinates = function(line1, line2, depth1, depth2) {
-    var newCoefC1 = this.getNewCoefC(depth1 ,line1),
-        newCoefC2 = this.getNewCoefC(depth2 ,line2);
-    this.getCoordCrossPoint (line1, line2, newCoefC1, newCoefC2);
-  };
-
-  this.getNewCoefC = function (depth1, line) {
-    var newCoefC = line.coefC - (depth1 * Math.sqrt(Math.pow(line.coefA, 2) + Math.pow(line.coefB, 2)));
-    return newCoefC;
-  };
-
-  this.getCoordCrossPoint = function(line1, line2, coefC1, coefC2) {
-    var coefA1 = line1.coefA,
-        coefB1 = line1.coefB,
-        coefA2 = line2.coefA,
-        coefB2 = line2.coefB,
-        base = (coefA1 * coefB2) - (coefA2 * coefB1),
-        baseX = ((-coefC1) * coefB2) - (coefB1 * (-coefC2)),
-        baseY = (coefA1 * (-coefC2)) - (coefA2 * (-coefC1));
-
-    this.x = baseX / base;
-    this.y = baseY / base;
-  };
-};
-//CPoint.prototype = FrameObject;
-
-
-
-
-
-//-----------Frame Object-------------------
-var Frame = function (sourceObj) {
-  FrameObject.call(this, sourceObj);
-  this.parts = [];
-
-  this.parseParts = function(fullTemplate) {
-    for(var p = 0; p < sourceObj.parts.length; p++) {
-      var part = fullTemplate.findById(sourceObj.parts[p]);
-      this.parts.push(part);
-    }
-  };
-
-};
-//Frame.prototype = FrameObject;
-
-//-----------Sash Object-------------------
-var Sash = function (sourceObj) {
-  FrameObject.call(this, sourceObj);
-  this.parts = [];
-  this.openType = [];
-
-  this.parseParts = function(fullTemplate) {
-    for(var p = 0; p < sourceObj.parts.length; p++) {
-      var part = fullTemplate.findById(sourceObj.parts[p]);
-      this.parts.push(part);
-    }
-    if(sourceObj.openType) {
-      for(var t = 0; t < sourceObj.openType.length; t++) {
-        var direction = fullTemplate.findById(sourceObj.openType[t]);
-        this.openType.push(direction);
-      }
-    }
-  };
-
-};
-//Sash.prototype = FrameObject;
-
-
-//-----------SashBlock Object-------------------
-var SashBlock = function (sourceObj) {
-  FrameObject.call(this, sourceObj);
-  this.parts = [];
-  this.openDir = sourceObj.openDir;
-  this.handlePos = sourceObj.handlePos;
-
-  this.parseParts = function(fullTemplate) {
-    for(var p = 0; p < sourceObj.parts.length; p++) {
-      var part = fullTemplate.findById(sourceObj.parts[p]);
-      this.parts.push(part);
-    }
-  };
-};
-//SashBlock.prototype = FrameObject;
-
-
-//-----------Glass Object-------------------
-var Glass = function (sourceObj) {
-  FrameObject.call(this, sourceObj);
-  this.parts = [];
-
-  this.parseParts = function(fullTemplate) {
-    for(var p = 0; p < sourceObj.parts.length; p++) {
-      var part = fullTemplate.findById(sourceObj.parts[p]);
-      this.parts.push(part);
-      //-------- calculate glass square
-      if(p  === sourceObj.parts.length - 1) {
-        this.square = (this.parts[0].lengthVal * this.parts[p].lengthVal) / 1000000;
-      }
-    }
-
-  };
-};
-//Glass.prototype = FrameObject;
 
 //-----------Dimension-------------------
 var Dimension = function (sourceObj) {
@@ -536,11 +220,7 @@ function sortingPoints(block) {
       i = 0;
 
   for(; i < blockPointsQty; i++) {
-    var fi = Math.atan2(block.center.centerY - block.pointsOut[i].y, block.pointsOut[i].x - block.center.centerX) * (180 / Math.PI);
-    if(fi < 0) {
-      fi += 360;
-    }
-    block.pointsOut[i].fi = fi;
+    block.pointsOut[i].fi = getAngelPoint(block.center, block.pointsOut[i]);
   }
   block.pointsOut.sort(function(a, b){
     return b.fi - a.fi;
@@ -549,13 +229,20 @@ function sortingPoints(block) {
 }
 
 
+function getAngelPoint(center, point) {
+  var fi;
+  fi = Math.atan2(center.centerY - point.y, point.x - center.centerX) * (180 / Math.PI);
+  if(fi < 0) {
+    fi += 360;
+  }
+  return fi;
+}
 
 
 function setLines(points) {
   var lines = [],
       pointsQty = points.length,
       i = 0;
-
   for(; i < pointsQty; i++) {
     //------ if point.view = 0
     if(points[i].type === 'frame' && !points[i].view) {
@@ -584,8 +271,8 @@ function setLines(points) {
     if(line.dir === 'line') {
       line.dir = (points[index].dir === 'curv') ? 'curv' : 'line';
     }
-
-    line.size = Math.round(Math.sqrt( Math.pow((line.to.x - line.from.x), 2) + Math.pow((line.to.y - line.from.y), 2) ) * 100) / 100;
+//    line.size = Math.round(Math.sqrt( Math.pow((line.to.x - line.from.x), 2) + Math.pow((line.to.y - line.from.y), 2) ) * 100) / 100;
+    line.size = Math.round(Math.hypot((line.to.x - line.from.x), (line.to.y - line.from.y)) * 100) / 100;
     line.coefA = (line.from.y - line.to.y);
     line.coefB = (line.to.x - line.from.x);
     line.coefC = (line.from.x*line.to.y - line.to.x*line.from.y);
@@ -612,8 +299,6 @@ function setLineType(from, to) {
   }
   return type;
 }
-
-
 
 
 
@@ -700,7 +385,8 @@ function getNewCoefC(depths, line, group) {
       }
       break;
   }
-  var newCoefC = line.coefC - (depth * Math.sqrt(Math.pow(line.coefA, 2) + Math.pow(line.coefB, 2)));
+//  var newCoefC = line.coefC - (depth * Math.sqrt(Math.pow(line.coefA, 2) + Math.pow(line.coefB, 2)));
+  var newCoefC = line.coefC - (depth * Math.hypot(line.coefA, line.coefB));
 //  console.log('newCoefC = ', newCoefC);
   return newCoefC;
 }
@@ -728,8 +414,6 @@ function getCoordCrossPoint(line1, line2, coefC1, coefC2) {
       coefB: -line1.coefA,
       coefC: (line1.coefA * line1.to.y - line1.coefB * line1.to.x)
     };
-//    console.log('line1  ===', line1);
-//    console.log('normal ===', normal);
     coord = findCrossPoint(line1, normal, coefC1, normal.coefC);
   } else {
     coord = findCrossPoint(line1, line2, coefC1, coefC2);
@@ -740,6 +424,7 @@ function getCoordCrossPoint(line1, line2, coefC1, coefC2) {
   crossPoint.type = (line1.type === 'impost' || line2.type === 'impost') ? 'impost' : 'frame';
   crossPoint.dir = (line1.to.dir === 'curv') ? 'curv' : 'line';
   crossPoint.id = line1.to.id +'-in';
+  crossPoint.view = 1;
   return crossPoint;
 }
 
@@ -751,11 +436,6 @@ function checkParallel(line1, line2) {
 }
 
 function findCrossPoint(line1, line2, coefC1, coefC2) {
-//  console.log('line1 = ', line1);
-//  console.log('line2 = ', line2);
-//  console.log('coefC1 = ', coefC1);
-//  console.log('coefC2 = ', coefC2);
-
   var base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
       baseX = (line1.coefB * (coefC2)) - (line2.coefB * (coefC1)),
       baseY = (line2.coefA * (coefC1)) - (line1.coefA * (coefC2)),
@@ -763,17 +443,11 @@ function findCrossPoint(line1, line2, coefC1, coefC2) {
         x: baseX / base,
         y: baseY / base
       };
-//  console.log('base = ', base);
-//  console.log('baseX = ', baseX);
-//  console.log('baseY = ', baseY);
-//  console.log('crossPoint = ', crossPoint);
   return crossPoint;
 }
 
 
 function setParts(pointsOut, pointsIn) {
-//  console.log('out++++', pointsOut);
-//  console.log('in++++', pointsIn);
   var newPointsOut = pointsOut.filter(function (item) {
     if(item.type === 'frame' && !item.view) {
       return false;
@@ -781,7 +455,7 @@ function setParts(pointsOut, pointsIn) {
       return true;
     }
   });
-//  console.log('%%%%%%%%=', newPointsOut);
+
   var parts = [],
       pointsQty = newPointsOut.length;
 
@@ -859,9 +533,10 @@ function setParts(pointsOut, pointsIn) {
       }
 
     }
-//    console.log(part.points);
     part.path = assamblingPath(part.points);
-
+    //------- culc length
+    part.size = culcLength(part.points);
+//    console.log(part);
     if(newPointsOut[index].type === 'bead') {
       part.type = 'bead';
     } else if(newPointsOut[index].type === 'sash') {
@@ -878,7 +553,6 @@ function setParts(pointsOut, pointsIn) {
 
 
 function assamblingPath(arrPoints) {
-//  console.log(arrPoints);
   var path = 'M ' + arrPoints[0].x + ',' + arrPoints[0].y,
       p = 1,
       pointQty = arrPoints.length;
@@ -917,10 +591,34 @@ function assamblingPath(arrPoints) {
 
 
 
+function culcLength(arrPoints) {
+  var pointQty = arrPoints.length,
+      size = 0;
+
+  //------- Line
+  if(pointQty === 4) {
+    size = Math.round(Math.hypot((arrPoints[1].x - arrPoints[0].x), (arrPoints[1].y - arrPoints[0].y)) * 100) / 100;
+
+  //--------- Curve
+  } else if(pointQty === 6) {
+    var step = 0.01,
+        t = 0;
+    while(t <= 1) {
+      var sizeX = 2*((1-t)*(arrPoints[1].x - arrPoints[0].x) + t*(arrPoints[2].x - arrPoints[1].x));
+      var sizeY = 2*((1-t)*(arrPoints[1].y - arrPoints[0].y) + t*(arrPoints[2].y - arrPoints[1].y));
+      size += Math.hypot(sizeX, sizeY)*step;
+      t += step;
+    }
+  }
+  return size;
+}
+
+
 function setGlass(glassPoints) {
 //  console.log(glassPoints);
   var part = {
         type: 'glass',
+        points: glassPoints,
         path: 'M ',
         square: 0
       },
@@ -1069,6 +767,170 @@ function setPointsOut(pointsArr, label) {
 }
 
 
+function setOpenDir(direction, center, beadLines) {
+
+  var parts = [],
+      newLines = prepareLines(beadLines),
+//      linesQty = newLines.length,
+      dirQty = direction.length,
+      index = 0;
+
+  console.log('newLines =', newLines);
+
+
+
+  for(; index < dirQty; index++) {
+
+    var part = {
+      type: 'sash-dir',
+      path: 'M ',
+      points: []
+    },
+      point = {};
+
+    var lineMark = {};
+
+    console.log('%%%%%%%%=', Math.tan(90 * Math.PI / 180));
+
+    switch(direction[index]) {
+      //----- 'up'
+      case 1:
+//        point.x = maxX/2;
+//        point.y = minY;
+        break;
+      //----- 'right'
+      case 2:
+//        point.x = maxX;
+//        point.y = maxY/2;
+        break;
+      //------ 'down'
+      case 3:
+        lineMark.coefA = 1;
+        lineMark.coefB = 0;
+        lineMark.coefC = - center.centerX;
+
+//        point.x = maxX/2;
+//        point.y = maxY/2;
+        break;
+      //----- 'left'
+      case 4:
+        lineMark.coefA = 0;
+        lineMark.coefB = 1;
+        lineMark.coefC = -center.centerY;
+
+        var crossPoints = getCrossPointInBlock(lineMark, newLines, center);
+
+        var cpQty = crossPoints.length;
+        while(--cpQty > -1) {
+          if(crossPoints[cpQty].fi > 90 && crossPoints[cpQty].fi < 270) {
+            point = crossPoints[cpQty];
+          }
+        }
+console.log('crossPoints ++++++', crossPoints);
+//        point.x = minX;
+//        point.y = maxY/2;
+        break;
+
+    }
+
+
+//    part.path = assamblingPath(part.points);
+    parts.push(part);
+  }
+
+  return parts;
+
+}
+
+
+
+
+
+
+function prepareLines(lines) {
+  var linesQty = lines.length,
+      newLines = [],
+      p = 0;
+  for(; p < linesQty; p++) {
+    //----- passing if first line is curv
+    if(p === 0 && lines[p].dir === 'curv' && lines[p+1].dir === 'line') {
+      continue;
+    }
+
+    //------ if last line
+    if(p === (linesQty - 1)) {
+      //------- if one point is 'curv' from both
+      if(lines[p].dir === 'curv' && lines[0].dir === 'curv') {
+        var curve = {
+          points: [],
+          dir: 'curv'
+        };
+        curve.points.push(lines[p].from);
+        curve.points.push(lines[p].to);
+        curve.points.push(lines[0].to);
+        newLines.push(curve);
+
+      } else {
+        //-------- if line
+        newLines.push(lines[p]);
+      }
+    } else {
+
+      //------- if curv
+      if(lines[p].dir === 'curv' && lines[p+1].dir === 'curv') {
+        var curve = {
+          points: [],
+          dir: 'curv'
+        };
+        curve.points.push(lines[p].from);
+        curve.points.push(lines[p].to);
+        curve.points.push(lines[p+1].to);
+        newLines.push(curve);
+        p++;
+      } else {
+        //-------- if line
+        newLines.push(lines[p]);
+      }
+    }
+  }
+
+  return newLines;
+}
+
+
+
+
+
+
+function getCrossPointInBlock(lineMark, lines, center) {
+  var linesQty = lines.length,
+      crossPoints = [],
+      l = 0;
+
+  for(; l < linesQty; l++) {
+    if(lines[l].dir === 'line') {
+      var coord = findCrossPoint(lineMark, lines[l], lineMark.coefC, lines[l].coefC);
+      if(coord.x > 0 && coord.y > 0) {
+        coord.fi = getAngelPoint(center, coord);
+        crossPoints.push(coord);
+      }
+    } else {
+
+//      var step = 0.01,
+//          t = 0;
+//      while(t <= 1) {
+//        var sizeX = 2*((1-t)*(lines[1].x - lines[0].x) + t*(lines[2].x - lines[1].x));
+//        var sizeY = 2*((1-t)*(lines[1].y - lines[0].y) + t*(lines[2].y - lines[1].y));
+//        size += Math.hypot(sizeX, sizeY)*step;
+//        t += step;
+//      }
+
+    }
+  }
+
+  return crossPoints;
+}
+
 ////////////////////////////////////////////
 
 
@@ -1106,6 +968,7 @@ var Template = function (sourceObj, depths) {
     } else {
       this.details.skylights[i] = centerBlock(this.details.points, this.details.skylights[i]);
       this.details.skylights[i] = sortingPoints(this.details.skylights[i]);
+      console.log('lineout');
       this.details.skylights[i].linesOut = setLines(this.details.skylights[i].pointsOut);
 
       if(this.details.skylights[i].level === 1) {
@@ -1115,6 +978,7 @@ var Template = function (sourceObj, depths) {
       //------- if block is empty
       if(this.details.skylights[i].children.length < 1) {
         this.details.skylights[i].pointsIn = setPointsIn(this.details.skylights[i], depths, 'frame');
+//        console.log('linein');
         this.details.skylights[i].linesIn = setLines(this.details.skylights[i].pointsIn);
 
         //------- set points for each part of construction
@@ -1135,17 +999,21 @@ var Template = function (sourceObj, depths) {
 
         } else if(this.details.skylights[i].blockType === 'sash') {
           this.details.skylights[i].sashPointsOut = setPointsOut(setPointsIn(this.details.skylights[i], depths, 'sash-out'), 'sash');
+//          console.log('sashout');
           this.details.skylights[i].sashLinesOut = setLines(this.details.skylights[i].sashPointsOut);
           this.details.skylights[i].sashPointsIn = setPointsIn(this.details.skylights[i], depths, 'sash-in');
 //          this.details.skylights[i].sashLinesIn = setLines(this.details.skylights[i].sashPointsIn);
 
           this.details.skylights[i].hardwarePoints = setPointsIn(this.details.skylights[i], depths, 'hardware');
+//          console.log('hardware');
           this.details.skylights[i].hardwareLines = setLines(this.details.skylights[i].sashPointsIn);
 
           this.details.skylights[i].beadPointsOut = setPointsOut(this.details.skylights[i].sashPointsIn, 'bead');
+//          console.log('beadout');
           this.details.skylights[i].beadLinesOut = setLines(this.details.skylights[i].beadPointsOut);
           this.details.skylights[i].beadPointsIn = setPointsIn(this.details.skylights[i], depths, 'sash-bead');
-//          this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);
+//          console.log('beadin');
+          this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);
 
           this.details.skylights[i].glassPoints = setPointsIn(this.details.skylights[i], depths, 'sash-glass');
 //          this.details.skylights[i].glassLines = setLines(this.details.skylights[i].beadPointsIn);
@@ -1154,6 +1022,9 @@ var Template = function (sourceObj, depths) {
           this.details.skylights[i].parts.push(setGlass(this.details.skylights[i].glassPoints));
           $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].beadPointsOut, this.details.skylights[i].beadPointsIn));
 
+          //----- set openPoints for sash
+          console.log(this.details.skylights[i]);
+          $.merge(this.details.skylights[i].parts, setOpenDir(this.details.skylights[i].openDir, this.details.skylights[i].center, this.details.skylights[i].beadLinesIn));
         }
 
       }
@@ -1171,92 +1042,7 @@ var Template = function (sourceObj, depths) {
 var TemplateIcon = function (sourceObj, depths) {
   var tmpObject, coeffScale = 2;
 
-////  this.name = sourceObj.name;
-//  this.details = JSON.parse( JSON.stringify(sourceObj.details) );
-//  //this.dimentions = createDimentions(sourceObj);
-//
-//  var blocksQty = this.details.skylights.length,
-//      i = 0;
-//
-//  for(; i < blocksQty; i++) {
-//    //------ block 0
-//    if(this.details.skylights[i].level === 0) {
-//
-//      var childQty = this.details.skylights[i].children.length,
-//          b = 0;
-//      if(childQty === 1) {
-//        for(; b < blocksQty; b++) {
-//          if(this.details.skylights[i].children[0] === this.details.skylights[b].id) {
-//            this.details.skylights[b].position = 'single';
-//          }
-//        }
-//      } else if(childQty > 1) {
-//        for(; b < blocksQty; b++) {
-//          if(this.details.skylights[i].children[0] === this.details.skylights[b].id) {
-//            this.details.skylights[b].position = 'first';
-//          } else if(this.details.skylights[i].children[childQty-1] === this.details.skylights[b].id) {
-//            this.details.skylights[b].position = 'last';
-//          }
-//        }
-//      }
-//
-//    } else {
-//      this.details.skylights[i] = centerBlock(this.details.points, this.details.skylights[i]);
-//      this.details.skylights[i] = sortingPoints(this.details.skylights[i]);
-//      this.details.skylights[i].linesOut = setLines(this.details.skylights[i].pointsOut);
-//
-//      if(this.details.skylights[i].level === 1) {
-//        setCornerProp(this.details.skylights);
-//        //        $.merge(this.details.points , setDefaultArcPoints(this.details.skylights[i]));
-//      }
-//      //------- if block is empty
-//      if(this.details.skylights[i].children.length < 1) {
-//        this.details.skylights[i].pointsIn = setPointsIn(this.details.skylights[i], depths, 'frame');
-//        this.details.skylights[i].linesIn = setLines(this.details.skylights[i].pointsIn);
-//
-//        //------- set points for each part of construction
-//        $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].pointsOut, this.details.skylights[i].pointsIn));
-//
-//        //------ if block is frame
-//        if(this.details.skylights[i].blockType === 'frame') {
-//          this.details.skylights[i].beadPointsOut = setPointsOut(this.details.skylights[i].pointsIn, 'bead');
-//          this.details.skylights[i].beadLinesOut = setLines(this.details.skylights[i].beadPointsOut);
-//          this.details.skylights[i].beadPointsIn = setPointsIn(this.details.skylights[i], depths, 'frame-bead');
-//          //          this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);
-//
-//          this.details.skylights[i].glassPoints = setPointsIn(this.details.skylights[i], depths, 'frame-glass');
-//          //          this.details.skylights[i].glassLines = setLines(this.details.skylights[i].beadPointsIn);
-//
-//          this.details.skylights[i].parts.push(setGlass(this.details.skylights[i].glassPoints));
-//          //          console.log('beads');
-//          $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].beadPointsOut, this.details.skylights[i].beadPointsIn));
-//
-//        } else if(this.details.skylights[i].blockType === 'sash') {
-//          this.details.skylights[i].sashPointsOut = setPointsOut(setPointsIn(this.details.skylights[i], depths, 'sash-out'), 'sash');
-//          this.details.skylights[i].sashLinesOut = setLines(this.details.skylights[i].sashPointsOut);
-//          this.details.skylights[i].sashPointsIn = setPointsIn(this.details.skylights[i], depths, 'sash-in');
-//          //          this.details.skylights[i].sashLinesIn = setLines(this.details.skylights[i].sashPointsIn);
-//
-//          this.details.skylights[i].hardwarePoints = setPointsIn(this.details.skylights[i], depths, 'hardware');
-//          this.details.skylights[i].hardwareLines = setLines(this.details.skylights[i].sashPointsIn);
-//
-//          this.details.skylights[i].beadPointsOut = setPointsOut(this.details.skylights[i].sashPointsIn, 'bead');
-//          this.details.skylights[i].beadLinesOut = setLines(this.details.skylights[i].beadPointsOut);
-//          this.details.skylights[i].beadPointsIn = setPointsIn(this.details.skylights[i], depths, 'sash-bead');
-//          //          this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);
-//
-//          this.details.skylights[i].glassPoints = setPointsIn(this.details.skylights[i], depths, 'sash-glass');
-//          //          this.details.skylights[i].glassLines = setLines(this.details.skylights[i].beadPointsIn);
-//
-//          $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].sashPointsOut, this.details.skylights[i].sashPointsIn));
-//          this.details.skylights[i].parts.push(setGlass(this.details.skylights[i].glassPoints));
-//          $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].beadPointsOut, this.details.skylights[i].beadPointsIn));
-//
-//        }
-//
-//      }
-//    }
-//  }
+
 
 };
 

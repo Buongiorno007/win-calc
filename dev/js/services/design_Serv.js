@@ -194,50 +194,64 @@
 
     function createSash(type, glassObj) {
 //      console.log('######',glassObj);
-      var blockParent = glassObj.attributes.blockId.nodeValue,
+      var glass = glassObj.__data__,
+          blockParent = glassObj.attributes.blockId.nodeValue,
           blocks = DesignStor.design.templateSourceTEMP.details.skylights,
-          blocksQty = blocks.length;
+          blocksQty = blocks.length,
+          squareLimit = 0.5,
+          widthLimit = 200,
+          heightLimint = 200,
+          minX = d3.min(glass.points, function(d) { return d.x; }),
+          maxX = d3.max(glass.points, function(d) { return d.x; }),
+          minY = d3.min(glass.points, function(d) { return d.y; }),
+          maxY = d3.max(glass.points, function(d) { return d.y; });
 
-      for(var b = 0; b < blocksQty; b++) {
-        if (blocks[b].id === blockParent) {
-          blocks[b].blockType = 'sash';
+//      console.log('X', minX, maxX);
+//      console.log('Y', minY, maxY);
 
-          switch(type) {
-            //----- 'left'
-            case 2:
-              blocks[b].openDir = [4];
-              blocks[b].handlePos = 4;
-              break;
-            //----- 'right'
-            case 3:
-              blocks[b].openDir = [2];
-              blocks[b].handlePos = 2;
-              break;
-            //----- 'up'
-            case 4:
-              blocks[b].openDir = [1];
-              blocks[b].handlePos = 1;
-              break;
-            //------ 'down'
-            case 5:
-              blocks[b].openDir = [3];
-              blocks[b].handlePos = 3;
-              break;
-            //------ 'up', 'right'
-            case 6:
-              blocks[b].openDir = [1, 2];
-              blocks[b].handlePos = 2;
-              break;
-            //------ 'up', 'left'
-            case 7:
-              blocks[b].openDir = [1, 4];
-              blocks[b].handlePos = 4;
-              break;
+      if(glass.square > squareLimit && (maxX - minX) > widthLimit && (maxY - minY) > heightLimint) {
+
+        for (var b = 0; b < blocksQty; b++) {
+          if (blocks[b].id === blockParent) {
+            blocks[b].blockType = 'sash';
+
+            switch (type) {
+              //----- 'left'
+              case 2:
+                blocks[b].openDir = [4];
+                blocks[b].handlePos = 4;
+                break;
+              //----- 'right'
+              case 3:
+                blocks[b].openDir = [2];
+                blocks[b].handlePos = 2;
+                break;
+              //----- 'up'
+              case 4:
+                blocks[b].openDir = [1];
+                blocks[b].handlePos = 1;
+                break;
+              //------ 'down'
+              case 5:
+                blocks[b].openDir = [3];
+                blocks[b].handlePos = 3;
+                break;
+              //------ 'up', 'right'
+              case 6:
+                blocks[b].openDir = [1, 2];
+                blocks[b].handlePos = 2;
+                break;
+              //------ 'up', 'left'
+              case 7:
+                blocks[b].openDir = [1, 4];
+                blocks[b].handlePos = 4;
+                break;
+            }
           }
         }
-      }
 
-      DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
+        DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
+      }
     }
 
 
@@ -478,7 +492,6 @@
             break;
         }
       }
-
       return coordQP;
     }
 
