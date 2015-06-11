@@ -245,7 +245,8 @@
         VOICE_NOT_UNDERSTAND: 'It is not clear',
         VOICE_SMALLEST_SIZE: 'The smallest size',
         VOICE_BIGGEST_SIZE: "The biggest size",
-        VOICE_SMALL_GLASS_BLOCK: "too small skylights"
+        VOICE_SMALL_GLASS_BLOCK: "too small skylights",
+        NOT_AVAILABLE: 'Not Available!'
       },
       history: {
         SEARCH_PLACEHOLDER: 'Search by keyword',

@@ -7,7 +7,7 @@
     .module('DesignModule')
     .controller('DesignCtrl', designPageCtrl);
 
-  function designPageCtrl(globalConstants, DesignServ, GlobalStor, ProductStor, DesignStor) {
+  function designPageCtrl($timeout, globalConstants, DesignServ, GlobalStor, ProductStor, DesignStor) {
 
     var thisCtrl = this;
 
@@ -24,6 +24,7 @@
     thisCtrl.config = {
       //---- design menu
       activeMenuItem: 0,
+      isDesignError: 0,
 //      isSashEdit: false,
 //      isAngelEdit: false,
 //      isImpostEdit: false,
@@ -99,7 +100,6 @@
           showAllAvailableGlass();
           break;
         case 2:
-//          thisCtrl.config.isAngelEdit = true;
           showAllAvailableCorner();
           break;
         case 3:
@@ -107,7 +107,6 @@
 //          manipulationWithGlasses(thisCtrl.config.isImpostEdit);
           break;
         case 4:
-//          thisCtrl.config.isArchEdit = true;
           showAllAvailableArc();
           break;
         case 5:
@@ -116,29 +115,20 @@
       }
     }
 
-    //------- Select and deselect Glasses
-//    function manipulationWithGlasses(indicator) {
-//      $('svg-template').find('.glass').each(function() {
-//        if(indicator) {
-//          $(this).css('fill', 'rgba(34, 34, 255, 0.69)');
-//        } else {
-//          $(this).css('fill', 'rgba(155, 204, 255, 0.20)');
-//        }
-//      });
-//    }
 
+    function showDesignError() {
+      thisCtrl.config.isDesignError = 1;
+      thisCtrl.config.activeMenuItem = 0;
+      $timeout(function(){
+        thisCtrl.config.isDesignError = 0;
+      }, 500);
+    }
 
-//    function deactivateShapeMenu() {
-//      thisCtrl.config.isSashEdit = false;
-//      thisCtrl.config.isAngelEdit = false;
-//      thisCtrl.config.isImpostEdit = false;
-//      thisCtrl.config.isArchEdit = false;
-//      thisCtrl.config.isPositionEdit = false;
-//    }
 
     //++++++++++ Edit Sash ++++++++++//
 
     function showAllAvailableGlass() {
+
       var glasses = d3.selectAll('#tamlateSVG .glass');
       DesignStor.design.selectedGlass = glasses;
       glasses.classed('glass-active', true);
@@ -163,7 +153,6 @@
       event.srcEvent.stopPropagation();
       thisCtrl.config.activeMenuItem = 0;
       deselectAllGlass();
-      console.log('DesignStor.selectedCorner = ', DesignStor.design.selectedGlass);
 
       var glassQty = DesignStor.design.selectedGlass[0].length,
           i = 0;
@@ -196,28 +185,30 @@
     //-------- show all Corner Marks
     function showAllAvailableCorner() {
       var corners = d3.selectAll('#tamlateSVG .corner_mark');
-
-      corners.transition()
-        .duration(300)
-        .ease("linear")
-        .attr('r', 50);
-
-//      console.log('all corners = ', corners);
-      DesignStor.design.selectedCorner = corners;
-      corners.on('click', function () {
-        //----- hide all cornerMark
-        hideCornerMarks();
-
-        //----- show selected cornerMark
-        var corner = d3.select(this)
-          .transition()
+      if(corners[0].length) {
+        corners.transition()
           .duration(300)
           .ease("linear")
           .attr('r', 50);
-//        console.log('one corner = ', corner);
-        DesignStor.design.selectedCorner = corner;
 
-      });
+        DesignStor.design.selectedCorner = corners;
+        corners.on('click', function () {
+          //----- hide all cornerMark
+          hideCornerMarks();
+
+          //----- show selected cornerMark
+          var corner = d3.select(this)
+            .transition()
+            .duration(300)
+            .ease("linear")
+            .attr('r', 50);
+          DesignStor.design.selectedCorner = corner;
+
+        });
+
+      } else {
+        showDesignError();
+      }
 
     }
 

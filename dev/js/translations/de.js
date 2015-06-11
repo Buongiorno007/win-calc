@@ -244,7 +244,8 @@
         VOICE_NOT_UNDERSTAND: 'es ist nicht klar',
         VOICE_SMALLEST_SIZE: 'zu klein',
         VOICE_BIGGEST_SIZE: "zu groß",
-        VOICE_SMALL_GLASS_BLOCK: "zu kleine Oberlichter"
+        VOICE_SMALL_GLASS_BLOCK: "zu kleine Oberlichter",
+        NOT_AVAILABLE: 'nicht Verfügbar!'
       },
       history: {
         SEARCH_PLACEHOLDER: 'Suche nach Stichwort',

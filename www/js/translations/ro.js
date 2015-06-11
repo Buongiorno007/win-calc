@@ -247,7 +247,8 @@
         VOICE_NOT_UNDERSTAND: 'nu este clar',
         VOICE_SMALLEST_SIZE: 'prea mic',
         VOICE_BIGGEST_SIZE: "prea mare",
-        VOICE_SMALL_GLASS_BLOCK: "luminatoare prea mici"
+        VOICE_SMALL_GLASS_BLOCK: "luminatoare prea mici",
+        NOT_AVAILABLE: 'nu Este Disponibil!'
       },
       history: {
         SEARCH_PLACEHOLDER: 'Căutare după cuvinte cheie',

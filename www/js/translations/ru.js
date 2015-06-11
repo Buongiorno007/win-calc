@@ -247,7 +247,8 @@
         VOICE_NOT_UNDERSTAND: 'Не понятно',
         VOICE_SMALLEST_SIZE: 'слишком маленький размер',
         VOICE_BIGGEST_SIZE: "слишком большой размер",
-        VOICE_SMALL_GLASS_BLOCK: "слишком маленький световой проем"
+        VOICE_SMALL_GLASS_BLOCK: "слишком маленький световой проем",
+        NOT_AVAILABLE: 'Недоступно!'
       },
       history: {
         SEARCH_PLACEHOLDER: 'Поиск по ключевым словам',

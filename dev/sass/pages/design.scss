@@ -228,6 +228,11 @@ li.constr-shape-icon {
   overflow: auto;
 }
 
+.design-attantion {
+  @extend .attantion;
+  top: 45%;
+  left: 35%;
+}
 
 // Construction Right Menu
 

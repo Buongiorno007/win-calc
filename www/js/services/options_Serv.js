@@ -451,7 +451,7 @@
                 skylights: [
                   {'type':'skylight', id:'block_0', level: 0, blockType: 'frame', children: ['block_1']},
 
-                  {'type':'skylight', id:'block_1', level: 1, blockType: 'sash', children: [], parent: 'block_0', pointsID: ['fp1', 'fp3', 'fp4', 'fp2' /*, 'q2', 'q3', 'q1',  'q4', 'c1-1', 'c1-2', 'qc1'*/ ], parts: [], glassId: 0, gridId: 0, openDir: [1, 4], handlePos: 4}//,
+                  {'type':'skylight', id:'block_1', level: 1, blockType: 'frame', children: [], parent: 'block_0', pointsID: ['fp1', 'fp3', 'fp4', 'fp2'/*, 'q2', 'q3', 'q1',  'q4', 'c1-1', 'c1-2', 'qc1'*/ ], parts: [], glassId: 0, gridId: 0}//,
                   //children: ['block_2', 'block_3', 'block_4']
 
                   //                {'type':'skylight', id:'block_2', level: 2, blockType: 'sash', children: [], parent: 'block_1', pointsID: ['fp1', 'ip1', 'ip2', 'fp4'], glassId: 0, gridId: 0, openDir: [1, 4], handlePos: 4},

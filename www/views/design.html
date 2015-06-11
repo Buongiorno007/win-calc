@@ -249,5 +249,6 @@
         <button ng-show="designPage.config.selectedStep4" hm-tap="designPage.saveDoorConfig()" class="door-config-btn save-door-config"></button>
       </div>
     </section>
+    <div ng-show="designPage.config.isDesignError" class="design-attantion">{{ 'construction.NOT_AVAILABLE' | translate }}</div>
   </section>
 </section>

@@ -55,7 +55,7 @@
           for (; i < blocksQty; i++) {
             if (template.details.skylights[i].level > 0) {
 
-              var blockItem = mainGroup.selectAll('path.block_item')
+              var blockItem = mainGroup.selectAll('path')
                 .data(template.details.skylights[i].parts).enter()
                 .append('path')
                 .attr({
@@ -74,6 +74,18 @@
                     return d.path;
                   }
                 });
+
+
+              //----- sash open direction
+              if(template.details.skylights[i].sashOpenDir) {
+                var openSashMarks = mainGroup.selectAll('path.sash_mark')
+                  .data(template.details.skylights[i].sashOpenDir).enter()
+                  .append('path')
+                  .classed('sash_mark', true)
+                  .attr('d', function(d){return d.path;});
+              }
+
+
 
               if (template.details.skylights[i].level === 1) {
                 //----- create array of frame points with corner = true
@@ -98,6 +110,7 @@
                     'r': 0
                   });
               }
+
 
             }
           }

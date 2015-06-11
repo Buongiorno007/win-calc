@@ -672,29 +672,17 @@ function setGlass(glassPoints) {
 
 function calcSquare(arrPoints) {
   var square = 0,
-      s1 = 0,
-      s2 = 0,
       p = 0,
       pointQty = arrPoints.length;
 
-
   for(; p < pointQty; p++) {
     if(arrPoints[p+1]) {
-      s1 += (arrPoints[p].x * arrPoints[p+1].y);
-      s2 += (arrPoints[p+1].x * arrPoints[p].y);
+      square += arrPoints[p].x * arrPoints[p+1].y - arrPoints[p].y * arrPoints[p+1].x;
     } else {
-      s1 += (arrPoints[p].x * arrPoints[0].y);
-      s2 += (arrPoints[0].x * arrPoints[p].y);
+      square += arrPoints[p].x * arrPoints[0].y - arrPoints[p].y * arrPoints[0].x
     }
   }
-  square = (s1 - s2)/(2 * 1000000);
-
-  // not work correctly
-//  for(; p < pointQty; p++) {
-//    if(arrPoints[p+1]) {
-//      square -= (arrPoints[p+1].y + arrPoints[p].y)*(arrPoints[p+1].x - arrPoints[p].x) / (2 * 1000000) ;
-//    }
-//  }
+  square /= (2 * 1000000);
 
 //  console.log('square = ', square);
   return square;
@@ -709,8 +697,8 @@ function setCornerProp(blocks) {
       b = 0;
 
   for(; b < blocksQty; b++) {
-    //------- if block 1, set corners points
-    if(blocks[b].level === 1) {
+    //------- if block 1 and without sash, set corners points
+    if(blocks[b].level === 1 && blocks[b].blockType === 'frame') {
       var pointsQty = blocks[b].pointsOut.length,
           i = 0;
       if(blocks[b].position === 'single') {
@@ -770,79 +758,181 @@ function setPointsOut(pointsArr, label) {
 }
 
 
-function setOpenDir(direction, center, beadLines) {
 
+
+
+function setOpenDir(direction, center, beadLines) {
   var parts = [],
-      newLines = prepareLines(beadLines),
-//      linesQty = newLines.length,
+      newPoints = preparePointsXMaxMin(beadLines),
+      minX = d3.min(newPoints, function(d) { return d.x; }),
+      maxX = d3.max(newPoints, function(d) { return d.x; }),
+      minY = d3.min(newPoints, function(d) { return d.y; }),
+      maxY = d3.max(newPoints, function(d) { return d.y; }),
+      geomCenter = {
+        x: (minX + maxX)/2,
+        y: (minY + maxY)/2
+      },
       dirQty = direction.length,
       index = 0;
-
-  console.log('newLines =', newLines);
-
 
 
   for(; index < dirQty; index++) {
 
     var part = {
       type: 'sash-dir',
-      path: 'M ',
       points: []
-    },
-      point = {};
-
-    var lineMark = {};
-
-    console.log('%%%%%%%%=', Math.tan(90 * Math.PI / 180));
+    };
 
     switch(direction[index]) {
       //----- 'up'
       case 1:
-//        point.x = maxX/2;
-//        point.y = minY;
+        part.points.push(getCrossPointSashDir(1, center, geomCenter, 225, beadLines));
+        part.points.push({x: geomCenter.x, y: minY});
+        part.points.push(getCrossPointSashDir(1, center, geomCenter, 315, beadLines));
         break;
       //----- 'right'
       case 2:
-//        point.x = maxX;
-//        point.y = maxY/2;
+        part.points.push(getCrossPointSashDir(2, center, geomCenter, 225, beadLines));
+        part.points.push({x: maxX, y: geomCenter.y});
+        part.points.push(getCrossPointSashDir(2, center, geomCenter, 135, beadLines));
         break;
       //------ 'down'
       case 3:
-        lineMark.coefA = 1;
-        lineMark.coefB = 0;
-        lineMark.coefC = - center.centerX;
-
-//        point.x = maxX/2;
-//        point.y = maxY/2;
+        part.points.push(getCrossPointSashDir(3, center, geomCenter, 135, beadLines));
+        part.points.push({x: geomCenter.x, y: maxY});
+        part.points.push(getCrossPointSashDir(3, center, geomCenter, 45, beadLines));
         break;
       //----- 'left'
       case 4:
-        lineMark.coefA = 0;
-        lineMark.coefB = 1;
-        lineMark.coefC = -center.centerY;
-
-        var crossPoints = getCrossPointInBlock(lineMark, newLines, center);
-
-        var cpQty = crossPoints.length;
-        while(--cpQty > -1) {
-          if(crossPoints[cpQty].fi > 90 && crossPoints[cpQty].fi < 270) {
-            point = crossPoints[cpQty];
-          }
-        }
-console.log('crossPoints ++++++', crossPoints);
-//        point.x = minX;
-//        point.y = maxY/2;
+        part.points.push(getCrossPointSashDir(4, center, geomCenter, 45, beadLines));
+        part.points.push({x: minX, y: geomCenter.y});
+        part.points.push(getCrossPointSashDir(4, center, geomCenter, 315, beadLines));
         break;
-
     }
 
-
-//    part.path = assamblingPath(part.points);
+    part.path = assamblingSashPath(part.points);
     parts.push(part);
   }
 
   return parts;
+}
 
+
+
+
+function preparePointsXMaxMin(lines) {
+  var points = [],
+      linesQty = lines.length,
+      l = 0;
+  for(; l < linesQty; l++) {
+    if(lines[l].dir === 'curv') {
+      var t = 0.5,
+          peak = {
+            x: Math.pow(t,2) * (lines[l].points[0].x - 2*lines[l].points[1].x + lines[l].points[2].x) - 2*t*(lines[l].points[0].x - lines[l].points[1].x) + lines[l].points[0].x,
+            y: Math.pow(t,2) * (lines[l].points[0].y - 2*lines[l].points[1].y + lines[l].points[2].y) - 2*t*(lines[l].points[0].y - lines[l].points[1].y) + lines[l].points[0].y
+          };
+      points.push(peak);
+    } else {
+      points.push(lines[l].to);
+    }
+  }
+  return points;
+}
+
+
+function getCrossPointSashDir(position, centerMass, centerGeom, angel, lines) {
+  var sashLineMark = cteateSashDirLine(centerGeom, angel);
+  var crossPoints = getCrossPointInBlock(position, centerMass, sashLineMark, lines);
+  return crossPoints;
+}
+
+
+
+function cteateSashDirLine(center, angel) {
+  var k =  Math.tan(angel * Math.PI / 180),
+    lineMark = {
+      coefA: k,
+      coefB: -1,
+      coefC: (center.y - k*center.x)
+    };
+  return lineMark;
+}
+
+
+
+function getCrossPointInBlock(position, center, lineMark, lines) {
+  var linesQty = lines.length,
+//      crossPoints = [],
+      l = 0;
+
+  for(; l < linesQty; l++) {
+    if(lines[l].dir === 'line') {
+      var coord = findCrossPoint(lineMark, lines[l], lineMark.coefC, lines[l].coefC);
+      if(coord.x > 0 && coord.y > 0) {
+        coord.fi = getAngelPoint(center, coord);
+
+        var px = (coord.x - lines[l].to.x)/(lines[l].from.x - lines[l].to.x);
+        var py = (coord.y - lines[l].to.y)/(lines[l].from.y - lines[l].to.y);
+
+        if(px >= 0 && px < 1 || py >=0 && py < 1) {
+          console.log('TRUE = ', coord);
+//          crossPoints.push(coord);
+          switch(position) {
+            case 1:
+              if(coord.fi > 180 && coord.fi < 360) {
+                return coord;
+              }
+              break;
+            case 2:
+              if(coord.fi > 90 && coord.fi < 270) {
+                return coord;
+              }
+              break;
+            case 3:
+              if(coord.fi < 180) {
+                return coord;
+              }
+              break;
+            case 4:
+              if(coord.fi > 270 || coord.fi < 90) {
+                return coord;
+              }
+              break;
+          }
+
+        }
+
+      }
+    } else {
+
+//      var step = 0.01,
+//          t = 0;
+//      while(t <= 1) {
+//        var sizeX = 2*((1-t)*(lines[1].x - lines[0].x) + t*(lines[2].x - lines[1].x));
+//        var sizeY = 2*((1-t)*(lines[1].y - lines[0].y) + t*(lines[2].y - lines[1].y));
+//        size += Math.hypot(sizeX, sizeY)*step;
+//        t += step;
+//      }
+
+    }
+  }
+//  console.log('crossPoints ++++++', crossPoints);
+//  return crossPoints;
+}
+
+
+
+
+
+function assamblingSashPath(arrPoints) {
+  var path = 'M ' + arrPoints[0].x + ',' + arrPoints[0].y,
+      p = 1,
+      pointQty = arrPoints.length;
+
+  for(; p < pointQty; p++) {
+    path += ' L ' + arrPoints[p].x + ',' + arrPoints[p].y;
+  }
+  return path;
 }
 
 
@@ -850,11 +940,28 @@ console.log('crossPoints ++++++', crossPoints);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+//---------- for impost
+
+
 function prepareLines(lines) {
   var linesQty = lines.length,
       newLines = [],
       p = 0;
+
   for(; p < linesQty; p++) {
+    console.log(lines[p]);
     //----- passing if first line is curv
     if(p === 0 && lines[p].dir === 'curv' && lines[p+1].dir === 'line') {
       continue;
@@ -900,39 +1007,6 @@ function prepareLines(lines) {
   return newLines;
 }
 
-
-
-
-
-
-function getCrossPointInBlock(lineMark, lines, center) {
-  var linesQty = lines.length,
-      crossPoints = [],
-      l = 0;
-
-  for(; l < linesQty; l++) {
-    if(lines[l].dir === 'line') {
-      var coord = findCrossPoint(lineMark, lines[l], lineMark.coefC, lines[l].coefC);
-      if(coord.x > 0 && coord.y > 0) {
-        coord.fi = getAngelPoint(center, coord);
-        crossPoints.push(coord);
-      }
-    } else {
-
-//      var step = 0.01,
-//          t = 0;
-//      while(t <= 1) {
-//        var sizeX = 2*((1-t)*(lines[1].x - lines[0].x) + t*(lines[2].x - lines[1].x));
-//        var sizeY = 2*((1-t)*(lines[1].y - lines[0].y) + t*(lines[2].y - lines[1].y));
-//        size += Math.hypot(sizeX, sizeY)*step;
-//        t += step;
-//      }
-
-    }
-  }
-
-  return crossPoints;
-}
 
 ////////////////////////////////////////////
 
@@ -992,7 +1066,7 @@ var Template = function (sourceObj, depths) {
           this.details.skylights[i].beadPointsOut = setPointsOut(this.details.skylights[i].pointsIn, 'bead');
           this.details.skylights[i].beadLinesOut = setLines(this.details.skylights[i].beadPointsOut);
           this.details.skylights[i].beadPointsIn = setPointsIn(this.details.skylights[i], depths, 'frame-bead');
-/*          this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);*/
+//          this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);
 
           this.details.skylights[i].glassPoints = setPointsIn(this.details.skylights[i], depths, 'frame-glass');
 /*          this.details.skylights[i].glassLines = setLines(this.details.skylights[i].beadPointsIn);*/
@@ -1026,8 +1100,7 @@ var Template = function (sourceObj, depths) {
           $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].beadPointsOut, this.details.skylights[i].beadPointsIn));
 
           //----- set openPoints for sash
-          console.log(this.details.skylights[i]);
-          $.merge(this.details.skylights[i].parts, setOpenDir(this.details.skylights[i].openDir, this.details.skylights[i].center, this.details.skylights[i].beadLinesIn));
+          this.details.skylights[i].sashOpenDir = setOpenDir(this.details.skylights[i].openDir, this.details.skylights[i].center, this.details.skylights[i].beadLinesIn);
         }
 
       }

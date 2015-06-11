@@ -331,7 +331,7 @@ body {
   fill: rgba(34, 34, 255, 0.5)!important;
 }
 .glass {
-  @include transition(all 0.3s linear);
+  @include transition(all 0.1s linear);
   fill: rgba(155, 204, 255, 0.20);
 }
 
@@ -340,7 +340,7 @@ body {
 }
 
 .frame, .sash, .impost, .bead {
-  @include transition(all 0.3s linear);
+  @include transition(all 0.2s linear);
   fill: #f9f9f9;
   stroke: $main_gray_txt;
   stroke-width: 2;
@@ -422,7 +422,8 @@ body {
   stroke: #fff;
   fill: #fff;
 }
-.open-direction {
+
+.sash_mark {
   fill: none;
   stroke: $main_orange;
   stroke-width: 2;
@@ -430,6 +431,10 @@ body {
 .corner_mark {
   @extend .active_svg;
   stroke: none;
+}
+
+.error_glass {
+  fill: $error_color;
 }
 
 
