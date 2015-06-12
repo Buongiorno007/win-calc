@@ -28,20 +28,29 @@
 
 
         function buildSVG(template, widthSVG, heightSVG) {
-
-          var mainSVG, mainGroup;
+          var mainSVG, mainGroup, padding = 1;
 
           d3.select('#tamlateSVG').remove();
+
+          if(scope.typeConstruction === 'edit') {
+            widthSVG += '%';
+            heightSVG += '%';
+            padding = 0.7;
+          }
 
           mainSVG = d3.select('#mainSVG').append('svg').attr({
             'width': widthSVG,
             'height': heightSVG,
             'id': 'tamlateSVG'
+//            'viewBox': "0 0 800 800",
+//            'preserveAspectRatio': "xMidYMid meet"
           });
+          var scale = setTemplateScale(template, widthSVG, heightSVG, padding);
+          var position = setTemplatePosition(template, widthSVG, heightSVG, scale);
 
           mainGroup = mainSVG.append("g").attr({
             'id': 'main_group',
-            'transform': 'translate(200, 20) scale(0.22)'
+            'transform': 'translate('+ position.x +', '+ position.y +') scale('+ scale +')'
           });
 
 //          console.log('++++++ template +++++++', mainGroup);
@@ -113,6 +122,60 @@
           }
 
         }
+
+
+
+
+        function setTemplateScale(template, width, height, padding) {
+          var dim = getMaxMinCoord(template.details.points),
+              windowW = width,
+              windowH = height,
+              scale;
+
+          if(width === '100%') {
+            windowW = window.innerWidth;
+            windowH = window.innerHeight;
+          }
+
+          var windowS = windowW * windowH,// * padding,
+              templateS = (dim.maxX - dim.minX) * (dim.maxY - dim.minY);
+
+          if(windowS < templateS) {
+            scale = windowS/templateS;
+            var del = (templateS - windowS)/templateS ;
+          } else {
+            scale = templateS/windowS;
+            var del = (windowS - templateS)/windowS ;
+          }
+
+          console.log('scale = ', templateS, windowS);
+          console.log('scale = ', scale);
+         console.log('del = ', del);
+scale *= (padding + del);
+          console.log('scale2 = ', scale);
+          return scale;
+        }
+
+
+        function setTemplatePosition(template, width, height, scale) {
+          var dim = getMaxMinCoord(template.details.points),
+              windowW = width,
+              windowH = height;
+
+          if(width === '100%') {
+            windowW = window.innerWidth;
+            windowH = window.innerHeight;
+          }
+
+          var position = {
+            x: (windowW - (dim.minX + dim.maxX)*scale)/2,
+            y: (windowH - (dim.minY + dim.maxY)*scale)/2
+          };
+
+          console.log('position = ', position);
+          return position;
+        }
+
 
 
       }

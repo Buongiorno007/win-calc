@@ -119,8 +119,8 @@ $door-config-content: $ipad-height - $door-config-header;
     @extend .middle-button;
     @extend .splash;
 
-    display: block;
-    width: rem(318px);
+    display: inline-block;
+//    width: rem(318px);
     height: rem(72px);
     padding: rem(13px) rem(26px);
     color: #fff;
@@ -227,7 +227,9 @@ li.constr-shape-icon {
   text-align: center;
   overflow: auto;
 }
-
+#mainSVG {
+  height: 100%;
+}
 .design-attantion {
   @extend .attantion;
   top: 45%;
@@ -236,14 +238,17 @@ li.constr-shape-icon {
 
 // Construction Right Menu
 
-.construction-right-menu {
-  @extend .construction-menu;
-
-  top: 0;
-  right: 0;
+//.construction-right-menu {
+//  @extend .construction-menu;
+//
+//  top: 0;
+//  right: 0;
 
   .right-menu-header {
-    margin-top: rem(50px);
+//    margin-top: rem(50px);
+    position: absolute;
+    right: 0;
+    top: 3%;
   }
   .construct-tools {
     @extend .cross-btn;
@@ -336,7 +341,7 @@ li.constr-shape-icon {
   .calc-equal {
     background-color: $main_green;
   }
-}
+//}
 
 
 

@@ -24,14 +24,8 @@
     thisCtrl.config = {
       //---- design menu
       activeMenuItem: 0,
+      activeSubMenuItem: 0,
       isDesignError: 0,
-//      isSashEdit: false,
-//      isAngelEdit: false,
-//      isImpostEdit: false,
-//      isArchEdit: false,
-//      isPositionEdit: false,
-//      isSashEditMenu: false,
-//      isImpostEditMenu: false,
 
       //----- door
       isDoorConfig: 0,
@@ -87,27 +81,26 @@
     //--------Select menu item
     function selectMenuItem(id) {
       thisCtrl.config.activeMenuItem = (thisCtrl.config.activeMenuItem === id) ? 0 : id;
+      if(!thisCtrl.config.activeMenuItem) {
+        thisCtrl.config.activeSubMenuItem = 0;
+      }
       hideCornerMarks();
       deselectAllArc();
       deselectAllGlass();
-//      deactivateShapeMenu();
-//      thisCtrl.config.isSashEditMenu = false;
-//      thisCtrl.config.isImpostEditMenu = false;
-//      manipulationWithGlasses(thisCtrl.config.activeMenuItem);
 
       switch(thisCtrl.config.activeMenuItem) {
         case 1:
-          showAllAvailableGlass();
+          showAllAvailableGlass(id);
           break;
         case 2:
-          showAllAvailableCorner();
+          showAllAvailableCorner(id);
           break;
         case 3:
 //          thisCtrl.config.isImpostEdit = true;
 //          manipulationWithGlasses(thisCtrl.config.isImpostEdit);
           break;
         case 4:
-          showAllAvailableArc();
+          showAllAvailableArc(id);
           break;
         case 5:
 //          thisCtrl.config.isPositionEdit = true;
@@ -119,16 +112,17 @@
     function showDesignError() {
       thisCtrl.config.isDesignError = 1;
       thisCtrl.config.activeMenuItem = 0;
+      thisCtrl.config.activeSubMenuItem = 0;
       $timeout(function(){
         thisCtrl.config.isDesignError = 0;
-      }, 500);
+      }, 800);
     }
 
 
     //++++++++++ Edit Sash ++++++++++//
 
-    function showAllAvailableGlass() {
-
+    function showAllAvailableGlass(menuId) {
+      thisCtrl.config.activeSubMenuItem = menuId;
       var glasses = d3.selectAll('#tamlateSVG .glass');
       DesignStor.design.selectedGlass = glasses;
       glasses.classed('glass-active', true);
@@ -152,6 +146,7 @@
     function insertSash(sashType, event) {
       event.srcEvent.stopPropagation();
       thisCtrl.config.activeMenuItem = 0;
+      thisCtrl.config.activeSubMenuItem = 0;
       deselectAllGlass();
 
       var glassQty = DesignStor.design.selectedGlass[0].length,
@@ -183,9 +178,12 @@
     //++++++++++ Edit Corner ++++++++//
 
     //-------- show all Corner Marks
-    function showAllAvailableCorner() {
+    function showAllAvailableCorner(menuId) {
       var corners = d3.selectAll('#tamlateSVG .corner_mark');
       if(corners[0].length) {
+        //---- show submenu
+        thisCtrl.config.activeSubMenuItem = menuId;
+
         corners.transition()
           .duration(300)
           .ease("linear")
@@ -214,7 +212,9 @@
 
     function insertCorner(conerType, event) {
       event.srcEvent.stopPropagation();
+      //------ hide menu
       thisCtrl.config.activeMenuItem = 0;
+      thisCtrl.config.activeSubMenuItem = 0;
       hideCornerMarks();
 //      console.log('DesignStor.selectedCorner = ', DesignStor.design.selectedCorner);
       var cornerQty = DesignStor.design.selectedCorner[0].length,
@@ -253,32 +253,52 @@
 
     //++++++++++ Edit Arc ++++++++//
 
-    function showAllAvailableArc() {
-      var arcs = [],
-          frames = d3.selectAll('#tamlateSVG .frame');
+    function showAllAvailableArc(menuId) {
+      var blocks = DesignStor.design.templateTEMP.details.skylights,
+          blocksQty = blocks.length,
+          permit = 0;
 
-      arcs.push(frames[0].filter(function(item) {
-        if(item.__data__.type === 'frame' || item.__data__.type === 'arc') {
-          return true;
+      //------ check block type for sash
+      while(--blocksQty > -1) {
+        if(blocks[blocksQty].level === 1 && blocks[blocksQty].blockType === 'frame') {
+          permit++;
         }
-      }));
-      DesignStor.design.selectedArc = arcs;
+      }
 
-      d3.selectAll(arcs[0])
-        .classed('active_svg', true)
-        .on('click', function() {
-          deselectAllArc();
-          var arc = d3.select(this);
-          arc.classed('active_svg', true);
-          DesignStor.design.selectedArc = arc;
-        });
+      if(permit) {
+        var arcs = [],
+            frames = d3.selectAll('#tamlateSVG .frame');
 
+        arcs.push(frames[0].filter(function (item) {
+          if (item.__data__.type === 'frame' || item.__data__.type === 'arc') {
+            return true;
+          }
+        }));
+
+        if(arcs.length) {
+          thisCtrl.config.activeSubMenuItem = menuId;
+          DesignStor.design.selectedArc = arcs;
+
+          d3.selectAll(arcs[0]).classed('active_svg', true).on('click', function () {
+            deselectAllArc();
+            var arc = d3.select(this);
+            arc.classed('active_svg', true);
+            DesignStor.design.selectedArc = arc;
+          });
+
+        } else {
+          showDesignError();
+        }
+      } else {
+        showDesignError();
+      }
     }
 
 
     function insertArc(arcType, event) {
       event.srcEvent.stopPropagation();
       thisCtrl.config.activeMenuItem = 0;
+      thisCtrl.config.activeSubMenuItem = 0;
       deselectAllArc();
       console.log('DesignStor.selectedCorner = ', DesignStor.design.selectedArc);
 

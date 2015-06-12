@@ -22,8 +22,8 @@
       svgTemplateIconHeight: 70,
       svgTemplateIconBigWidth: 500,
       svgTemplateIconBigHeight: 450,
-      svgTemplateWidth: 800,
-      svgTemplateHeight: 700,
+      svgTemplateWidth: 100,
+      svgTemplateHeight: 100,
 
       activeClass: 'active',
       addElementsGroupClass: [

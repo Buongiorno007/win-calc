@@ -8,7 +8,7 @@ section.construction-page
             .figure-icon.sash-shape
             .figure-label(data-output="{{ 'construction.SASH_SHAPE' | translate }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
-          #sash-shape-menu.edit_submenu(ng-class="{'active': designPage.config.activeMenuItem == 1}")
+          #sash-shape-menu.edit_submenu(ng-class="{'active': designPage.config.activeSubMenuItem == 1}")
             ul.constr-shape-list
               li.constr-shape-icon.sash-empty(ng-hide="designPage.P.product.constructionType === 4", hm-tap="designPage.insertSash(1, $event)")
               li.constr-shape-icon.sash-left(hm-tap="designPage.insertSash(2, $event)")
@@ -23,7 +23,7 @@ section.construction-page
             .figure-icon.angel-shape
             .figure-label(data-output="{{ 'construction.ANGEL_SHAPE' | translate }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
-          #angel-shape-menu.edit_submenu(ng-class="{'active': designPage.config.activeMenuItem == 2}")
+          #angel-shape-menu.edit_submenu(ng-class="{'active': designPage.config.activeSubMenuItem == 2}")
             ul.constr-shape-list
               li.constr-shape-icon.sash-empty(hm-tap="designPage.insertCorner(1, $event)")
               li.constr-shape-icon.impost-vert(hm-tap="designPage.insertCorner(2, $event)")
@@ -34,7 +34,7 @@ section.construction-page
             .figure-icon.impost-shape
             .figure-label(data-output="{{ 'construction.IMPOST_SHAPE' | translate }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
-          #impost-shape-menu.edit_submenu(ng-class="{'active': designPage.config.activeMenuItem == 3}")
+          #impost-shape-menu.edit_submenu(ng-class="{'active': designPage.config.activeSubMenuItem == 3}")
             ul.constr-shape-list
               li.constr-shape-icon.sash-empty(ng-hide="designPage.P.product.constructionType === 4", hm-tap="designPage.insertNewSash('empty')")
               li.constr-shape-icon.impost-vert(hm-tap="designPage.insertNewImpost('vert')")
@@ -45,7 +45,7 @@ section.construction-page
             .figure-icon.arch-shape
             .figure-label(data-output="{{ 'construction.ARCH_SHAPE' | translate }}", typing="{{ designPage.config.typing }}", typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}")
 
-          #arc-shape-menu.edit_submenu(ng-class="{'active': designPage.config.activeMenuItem == 4}")
+          #arc-shape-menu.edit_submenu(ng-class="{'active': designPage.config.activeSubMenuItem == 4}")
             ul.constr-shape-list
               li.constr-shape-icon.sash-empty(hm-tap="designPage.insertArc(1, $event)")
               li.constr-shape-icon.impost-hor(hm-tap="designPage.insertArc(2, $event)")
@@ -68,24 +68,24 @@ section.construction-page
 
 
 
-    .construction-right-menu
-      .right-menu-header
-        button.construct-tools.step-back(ng-show="designPage.designSteps.length > 0", hm-tap="designPage.stepBack()")
-        button.construct-tools.save-construction(hm-tap="designPage.designSaved()")
-        button.construct-tools.close-construction(hm-tap="designPage.designCancel()")
+      //.construction-right-menu
+    .right-menu-header
+      button.construct-tools.step-back(ng-show="designPage.designSteps.length > 0", hm-tap="designPage.stepBack()")
+      button.construct-tools.save-construction(hm-tap="designPage.designSaved()")
+      button.construct-tools.close-construction(hm-tap="designPage.designCancel()")
 
-      .door-config-menu(ng-show="designPage.P.product.constructionType === 4")
-        button.door-config-btn(ng-class="{'active': designPage.config.isDoorConfig}", hm-tap="designPage.toggleDoorConfig()")
-        .door-config-label {{ 'construction.DOOR_CONFIG_LABEL' | translate }}
-        .door-config-description {{ 'construction.DOOR_CONFIG_DESCTIPT' | translate }}: {{ designPage.D.design.doorShapeList[designPage.D.design.doorConfig.doorShapeIndex].shapeLabel }};
-        .door-config-description {{ 'construction.SASH_CONFIG_DESCTIPT' | translate }}: {{ designPage.D.design.sashShapeList[designPage.D.design.doorConfig.sashShapeIndex].shapeLabel }};
-        .door-config-description {{ 'construction.HANDLE_CONFIG_DESCTIPT' | translate }}: {{ designPage.D.design.handleShapeList[designPage.D.design.doorConfig.handleShapeIndex].shapeLabel }};
-        .door-config-description {{ 'construction.LOCK_CONFIG_DESCTIPT' | translate }}: {{ designPage.D.design.lockShapeList[designPage.D.design.doorConfig.lockShapeIndex].shapeLabel }};
+    .door-config-menu(ng-show="designPage.P.product.constructionType === 4")
+      button.door-config-btn(ng-class="{'active': designPage.config.isDoorConfig}", hm-tap="designPage.toggleDoorConfig()")
+      .door-config-label {{ 'construction.DOOR_CONFIG_LABEL' | translate }}
+      .door-config-description {{ 'construction.DOOR_CONFIG_DESCTIPT' | translate }}: {{ designPage.D.design.doorShapeList[designPage.D.design.doorConfig.doorShapeIndex].shapeLabel }};
+      .door-config-description {{ 'construction.SASH_CONFIG_DESCTIPT' | translate }}: {{ designPage.D.design.sashShapeList[designPage.D.design.doorConfig.sashShapeIndex].shapeLabel }};
+      .door-config-description {{ 'construction.HANDLE_CONFIG_DESCTIPT' | translate }}: {{ designPage.D.design.handleShapeList[designPage.D.design.doorConfig.handleShapeIndex].shapeLabel }};
+      .door-config-description {{ 'construction.LOCK_CONFIG_DESCTIPT' | translate }}: {{ designPage.D.design.lockShapeList[designPage.D.design.doorConfig.lockShapeIndex].shapeLabel }};
 
-      .right-menu-footer
-        .size-calculator(ng-class="{'active': designPage.G.global.isSizeCalculator}")
-          include parts/_size-calculator
-        include parts/_voice
+    .right-menu-footer
+      .size-calculator(ng-class="{'active': designPage.G.global.isSizeCalculator}")
+        include parts/_size-calculator
+      include parts/_voice
 
 
     section.door-configuration(ng-class="{'active': designPage.config.isDoorConfig}")

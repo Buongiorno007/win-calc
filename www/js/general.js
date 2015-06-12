@@ -27,7 +27,15 @@ function sortNumbers(a, b) {
 }
 
 
-
+function getMaxMinCoord(points) {
+  var overall = {
+    minX: d3.min(points, function(d) { return d.x; }),
+    maxX: d3.max(points, function(d) { return d.x; }),
+    minY: d3.min(points, function(d) { return d.y; }),
+    maxY: d3.max(points, function(d) { return d.y; })
+  };
+  return overall;
+}
 
 
 
@@ -764,13 +772,10 @@ function setPointsOut(pointsArr, label) {
 function setOpenDir(direction, center, beadLines) {
   var parts = [],
       newPoints = preparePointsXMaxMin(beadLines),
-      minX = d3.min(newPoints, function(d) { return d.x; }),
-      maxX = d3.max(newPoints, function(d) { return d.x; }),
-      minY = d3.min(newPoints, function(d) { return d.y; }),
-      maxY = d3.max(newPoints, function(d) { return d.y; }),
+      dim = getMaxMinCoord(newPoints),
       geomCenter = {
-        x: (minX + maxX)/2,
-        y: (minY + maxY)/2
+        x: (dim.minX + dim.maxX)/2,
+        y: (dim.minY + dim.maxY)/2
       },
       dirQty = direction.length,
       index = 0;
@@ -787,25 +792,25 @@ function setOpenDir(direction, center, beadLines) {
       //----- 'up'
       case 1:
         part.points.push(getCrossPointSashDir(1, center, geomCenter, 225, beadLines));
-        part.points.push({x: geomCenter.x, y: minY});
+        part.points.push({x: geomCenter.x, y: dim.minY});
         part.points.push(getCrossPointSashDir(1, center, geomCenter, 315, beadLines));
         break;
       //----- 'right'
       case 2:
         part.points.push(getCrossPointSashDir(2, center, geomCenter, 225, beadLines));
-        part.points.push({x: maxX, y: geomCenter.y});
+        part.points.push({x: dim.maxX, y: geomCenter.y});
         part.points.push(getCrossPointSashDir(2, center, geomCenter, 135, beadLines));
         break;
       //------ 'down'
       case 3:
         part.points.push(getCrossPointSashDir(3, center, geomCenter, 135, beadLines));
-        part.points.push({x: geomCenter.x, y: maxY});
+        part.points.push({x: geomCenter.x, y: dim.maxY});
         part.points.push(getCrossPointSashDir(3, center, geomCenter, 45, beadLines));
         break;
       //----- 'left'
       case 4:
         part.points.push(getCrossPointSashDir(4, center, geomCenter, 45, beadLines));
-        part.points.push({x: minX, y: geomCenter.y});
+        part.points.push({x: dim.minX, y: geomCenter.y});
         part.points.push(getCrossPointSashDir(4, center, geomCenter, 315, beadLines));
         break;
     }
