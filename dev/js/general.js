@@ -877,7 +877,7 @@ function getCrossPointInBlock(position, center, lineMark, lines) {
         var py = (coord.y - lines[l].to.y)/(lines[l].from.y - lines[l].to.y);
 
         if(px >= 0 && px < 1 || py >=0 && py < 1) {
-          console.log('TRUE = ', coord);
+//          console.log('TRUE = ', coord);
 //          crossPoints.push(coord);
           switch(position) {
             case 1:
@@ -943,10 +943,93 @@ function assamblingSashPath(arrPoints) {
 
 
 
+function setImpostPoints(impostID, points) {
+  var impostPoints = [],
+      pointsQty = points.length,
+      i = 0;
+  console.log('impost poits=====', points);
+  for(; i < pointsQty; i++) {
+    //------ if point match to impostId
+    if(points[i].id.indexOf(impostID[0]) + 1 || points[i].id.indexOf(impostID[1]) + 1) {
+      impostPoints.push(JSON.parse(JSON.stringify(points[i])));
+    }
+  }
+
+  console.log('impost poits', impostPoints);
+  return impostPoints;
+}
 
 
 
 
+
+function setImpostParts(points) {
+
+  var pointsQty = points.length,
+      center = {
+        centerX: 0,
+        centerY: 0
+      };
+
+  for(var i = 0; i < pointsQty; i++) {
+    center.centerX += points[i].x;
+    center.centerY += points[i].y;
+  }
+  center.centerX /= pointsQty;
+  center.centerY /= pointsQty;
+
+  for(var i = 0; i < pointsQty; i++) {
+    points[i].fi = getAngelPoint(center, points[i]);
+  }
+
+  points.sort(function(a, b){
+    return b.fi - a.fi;
+  });
+
+  var part = {
+        type: 'impost',
+        points: points,
+        path: 'M ',
+        dir: 'line'
+      };
+
+  for(var i = 0; i < pointsQty; i++) {
+    //----- if first point
+    if(i === 0) {
+      //----- if first point is curve
+      if(points[i].dir === 'curv'){
+        part.path += points[pointsQty - 1].x + ',' + points[pointsQty - 1].y;
+        part.path += ' Q ' + points[i].x + ',' + points[i].y + ',' + points[i+1].x + ',' + points[i+1].y;
+        i++;
+
+        //-------- if line
+      } else {
+        part.path += points[i].x + ',' + points[i].y;
+      }
+
+    } else {
+      //------- if curve
+      if(points[i].dir === 'curv') {
+        part.path += ' Q ' + points[i].x + ',' + points[i].y + ',';
+        if(points[i+1]) {
+          part.path += points[i+1].x + ',' + points[i+1].y;
+        } else {
+          part.path += points[0].x + ',' + points[0].y + ' Z';
+        }
+        i++;
+
+        //-------- if line
+      } else {
+        part.path += ' L ' + points[i].x + ',' + points[i].y;
+        if(i === (pointsQty - 1)) {
+          part.path += ' Z';
+        }
+      }
+    }
+  }
+  console.log('part###### = ', part);
+  return part;
+}
 
 
 
@@ -1019,10 +1102,10 @@ var Template = function (sourceObj, depths) {
   this.details = JSON.parse( JSON.stringify(sourceObj.details) );
   //this.dimentions = createDimentions(sourceObj);
 
-  var blocksQty = this.details.skylights.length,
-      i = 0;
+  var blocksQty = this.details.skylights.length;
 
-  for(; i < blocksQty; i++) {
+
+  for(var i = 0; i < blocksQty; i++) {
     //------ block 0
     if(this.details.skylights[i].level === 0) {
 
@@ -1047,21 +1130,23 @@ var Template = function (sourceObj, depths) {
     } else {
       this.details.skylights[i] = centerBlock(this.details.points, this.details.skylights[i]);
       this.details.skylights[i] = sortingPoints(this.details.skylights[i]);
-      console.log('lineout');
       this.details.skylights[i].linesOut = setLines(this.details.skylights[i].pointsOut);
+      this.details.skylights[i].pointsIn = setPointsIn(this.details.skylights[i], depths, 'frame');
+      this.details.skylights[i].linesIn = setLines(this.details.skylights[i].pointsIn);
+
+      console.log('block +++++ ',this.details.skylights[i].id, this.details.skylights[i]);
 
       if(this.details.skylights[i].level === 1) {
         setCornerProp(this.details.skylights);
-//        $.merge(this.details.points , setDefaultArcPoints(this.details.skylights[i]));
-      }
-      //------- if block is empty
-      if(this.details.skylights[i].children.length < 1) {
-        this.details.skylights[i].pointsIn = setPointsIn(this.details.skylights[i], depths, 'frame');
-//        console.log('linein');
-        this.details.skylights[i].linesIn = setLines(this.details.skylights[i].pointsIn);
-
         //------- set points for each part of construction
         $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].pointsOut, this.details.skylights[i].pointsIn));
+      } else {
+        this.details.skylights[i].impostIn = setImpostPoints(this.details.skylights[i].impostID, this.details.skylights[i].pointsIn);
+      }
+
+
+      //------- if block is empty
+      if(this.details.skylights[i].children.length < 1) {
 
         //------ if block is frame
         if(this.details.skylights[i].blockType === 'frame') {
@@ -1076,22 +1161,20 @@ var Template = function (sourceObj, depths) {
           this.details.skylights[i].parts.push(setGlass(this.details.skylights[i].glassPoints));
           $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].beadPointsOut, this.details.skylights[i].beadPointsIn));
 
+
+
         } else if(this.details.skylights[i].blockType === 'sash') {
           this.details.skylights[i].sashPointsOut = setPointsOut(setPointsIn(this.details.skylights[i], depths, 'sash-out'), 'sash');
-//          console.log('sashout');
           this.details.skylights[i].sashLinesOut = setLines(this.details.skylights[i].sashPointsOut);
           this.details.skylights[i].sashPointsIn = setPointsIn(this.details.skylights[i], depths, 'sash-in');
 //          this.details.skylights[i].sashLinesIn = setLines(this.details.skylights[i].sashPointsIn);
 
           this.details.skylights[i].hardwarePoints = setPointsIn(this.details.skylights[i], depths, 'hardware');
-//          console.log('hardware');
           this.details.skylights[i].hardwareLines = setLines(this.details.skylights[i].sashPointsIn);
 
           this.details.skylights[i].beadPointsOut = setPointsOut(this.details.skylights[i].sashPointsIn, 'bead');
-//          console.log('beadout');
           this.details.skylights[i].beadLinesOut = setLines(this.details.skylights[i].beadPointsOut);
           this.details.skylights[i].beadPointsIn = setPointsIn(this.details.skylights[i], depths, 'sash-bead');
-//          console.log('beadin');
           this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);
 
           this.details.skylights[i].glassPoints = setPointsIn(this.details.skylights[i], depths, 'sash-glass');
@@ -1105,6 +1188,22 @@ var Template = function (sourceObj, depths) {
           this.details.skylights[i].sashOpenDir = setOpenDir(this.details.skylights[i].openDir, this.details.skylights[i].center, this.details.skylights[i].beadLinesIn);
         }
 
+      }
+    }
+  }
+  for(var i = 0; i < blocksQty; i++) {
+    if(this.details.skylights[i].level > 0) {
+      if(this.details.skylights[i].children.length) {
+
+        //----- collect impost points
+        var bQty = blocksQty;
+        while(--bQty > -1) {
+          if(this.details.skylights[bQty].id === this.details.skylights[i].children[0] || this.details.skylights[bQty].id === this.details.skylights[i].children[1]) {
+            $.merge(this.details.skylights[i].impost, this.details.skylights[bQty].impostIn);
+          }
+        }
+
+        this.details.skylights[i].parts.push( setImpostParts(this.details.skylights[i].impost) );
       }
     }
   }

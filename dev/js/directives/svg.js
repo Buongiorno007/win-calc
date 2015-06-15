@@ -35,7 +35,7 @@
           if(scope.typeConstruction === 'edit') {
             widthSVG += '%';
             heightSVG += '%';
-            padding = 0.7;
+            padding = 0.6;
           }
 
           mainSVG = d3.select('#mainSVG').append('svg').attr({
@@ -55,13 +55,11 @@
 
 //          console.log('++++++ template +++++++', mainGroup);
           //========
-          var blocksQty = template.details.skylights.length,
-              i = 0;
+          var blocksQty = template.details.skylights.length;
 
-          for (; i < blocksQty; i++) {
+          for (var i = 0; i < blocksQty; i++) {
             if (template.details.skylights[i].level > 0) {
-
-              var blockItem = mainGroup.selectAll('path')
+              mainGroup.selectAll('path.'+template.details.skylights[i].id)
                 .data(template.details.skylights[i].parts).enter()
                 .append('path')
                 .attr({
@@ -84,7 +82,7 @@
 
               //----- sash open direction
               if(template.details.skylights[i].sashOpenDir) {
-                var openSashMarks = mainGroup.selectAll('path.sash_mark')
+                var openSashMarks = mainGroup.selectAll('path.sash_mark.'+template.details.skylights[i].id)
                   .data(template.details.skylights[i].sashOpenDir).enter()
                   .append('path')
                   .classed('sash_mark', true)
@@ -92,13 +90,13 @@
               }
 
 
-
+              //---- corner markers
               if (template.details.skylights[i].level === 1) {
                 //----- create array of frame points with corner = true
                 var corners = template.details.skylights[i].pointsOut.filter(function (item) {
                   return item.corner > 0;
                 });
-                var cornerMarks = mainGroup.selectAll('circle.corner_mark')
+                var cornerMarks = mainGroup.selectAll('circle.corner_mark.'+template.details.skylights[i].id)
                   .data(corners).enter()
                   .append('circle')
                   .attr({
@@ -130,29 +128,25 @@
           var dim = getMaxMinCoord(template.details.points),
               windowW = width,
               windowH = height,
-              scale;
+              scale, del;
 
           if(width === '100%') {
             windowW = window.innerWidth;
             windowH = window.innerHeight;
           }
 
-          var windowS = windowW * windowH,// * padding,
+          var windowS = windowW * windowH,
               templateS = (dim.maxX - dim.minX) * (dim.maxY - dim.minY);
 
           if(windowS < templateS) {
             scale = windowS/templateS;
-            var del = (templateS - windowS)/templateS ;
+            del = (templateS - windowS)/templateS ;
           } else {
             scale = templateS/windowS;
-            var del = (windowS - templateS)/windowS ;
+            del = (windowS - templateS)/windowS ;
           }
-
-          console.log('scale = ', templateS, windowS);
-          console.log('scale = ', scale);
-         console.log('del = ', del);
-scale *= (padding + del);
-          console.log('scale2 = ', scale);
+          scale = (scale * padding) + del/10;
+//          console.log('scale = ', scale);
           return scale;
         }
 
@@ -172,7 +166,7 @@ scale *= (padding + del);
             y: (windowH - (dim.minY + dim.maxY)*scale)/2
           };
 
-          console.log('position = ', position);
+//          console.log('position = ', position);
           return position;
         }
 

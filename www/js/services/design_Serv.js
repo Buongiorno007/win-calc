@@ -339,9 +339,9 @@
                 l = 0;
             for(; l < linesQty; l++) {
               if(blocks[b].linesOut[l].from.id === cornerID) {
-                createCornerPoint(1, cornerN, blocks[b].linesOut[l], blocks[b], points);
+                createCornerPoint(1, cornerN, blocks[b].linesOut[l], blocks, points);
               } else if(blocks[b].linesOut[l].to.id === cornerID) {
-                createCornerPoint(2, cornerN, blocks[b].linesOut[l], blocks[b], points);
+                createCornerPoint(2, cornerN, blocks[b].linesOut[l], blocks, points);
               }
             }
 
@@ -484,8 +484,9 @@
 
 
 
-    function createCornerPoint(pointN, cornerN, line, block, points) {
+    function createCornerPoint(pointN, cornerN, line, blocks, points) {
       var dictance = 200,
+          blockQty = blocks.length,
           cornerPoint = {
             type:'corner',
             id: 'c' + cornerN + '-' + pointN,
@@ -499,7 +500,17 @@
         cornerPoint.y = ( line.from.y * dictance + line.to.y * (line.size - dictance))/ line.size;
       }
 
-      block.pointsID.push(cornerPoint.id);
+      while(--blockQty > -1) {
+        if(blocks[blockQty].level > 0) {
+          var idQty = blocks[blockQty].pointsID.length;
+          while(--idQty > -1) {
+            if(blocks[blockQty].pointsID[idQty] === 'fp'+cornerN) {
+              blocks[blockQty].pointsID.push(cornerPoint.id);
+            }
+          }
+        }
+      }
+
       points.push(cornerPoint);
     }
 
