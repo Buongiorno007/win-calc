@@ -438,10 +438,12 @@
 
 //                  {type:'corner', id:'qc1', x:1000, y:1000, dir:'curv'}
 
-                {'type':'impost', id:'ip1', x:500, y:0, dir:'line'},
-                {'type':'impost', id:'ip2', x:500, y:1000, dir:'line'},
-                {'type':'impost', id:'ip3', x:1000, y:500, dir:'line'},
-                {'type':'impost', id:'ip4', x:500, y:500, dir:'line'},
+//                  {type:'impost', id:'qip1', x:1000, y:1000, dir:'curv'}
+
+                {type:'impost', id:'ip1', x:500, y:0, dir:'line'},
+                {type:'impost', id:'ip2', x:500, y:1000, dir:'line'},
+                {type:'impost', id:'ip3', x:1000, y:500, dir:'line'},
+                {type:'impost', id:'ip4', x:500, y:500, dir:'line'}//,
 //                {'type':'impost', id:'ip5', x:700, y:700, dir:'line'},
 //                {'type':'impost', id:'ip6', x:1400, y:700, dir:'line'},
 //                {'type':'impost', id:'ip7', x:700, y:1050, dir:'line'},
@@ -449,15 +451,85 @@
                 ],
 
                 skylights: [
-                  {'type':'skylight', id:'block_0', level: 0, blockType: 'frame', children: ['block_1']},
-
-                  {'type':'skylight', id:'block_1', level: 1, blockType: 'frame', children: ['block_2', 'block_3'], parent: 'block_0', pointsID: ['fp1', 'fp3', 'fp4', 'fp2'/*, 'q2', 'q3', 'q1',  'q4', 'c1-1', 'c1-2', 'qc1'*/ ], impost: [], parts: [], glassId: 0, gridId: 0},
-
-                  {'type':'skylight', id:'block_2', level: 2, blockType: 'sash', children: [], parent: 'block_1', pointsID: ['fp1', 'ip1', 'ip2', 'fp4'], impostID: ['ip1', 'ip2'], parts: [], glassId: 0, gridId: 0, openDir: [1, 4], handlePos: 4},
-                  {'type':'skylight', id:'block_3', level: 2, blockType: 'frame', children: ['block_4', 'block_5'], parent: 'block_1', pointsID: ['ip1', 'fp2', 'fp3', 'ip2'], impostID: ['ip1', 'ip2'], impost: [], parts: [], glassId: 0, gridId: 0},
-
-                  {'type':'skylight', id:'block_4', level: 3, blockType: 'frame', children: [], parent: 'block_3', pointsID: ['ip1', 'fp2', 'ip3', 'ip4'], impostID: ['ip3', 'ip4'], parts: [], glassId: 0, gridId: 0},
-                  {'type':'skylight', id:'block_5', level: 3, blockType: 'frame', children: [], parent: 'block_3', pointsID: ['ip4', 'ip3', 'fp3', 'ip2'], impostID: ['ip3', 'ip4'], parts: [], glassId: 0, gridId: 0}//,
+                  {
+                    type:'skylight',
+                    id:'block_0',
+                    level:0,
+                    blockType:'frame',
+                    children:['block_1']
+                  },
+//------- Level 1
+                  {
+                    type:'skylight',
+                    id:'block_1',
+                    level: 1,
+                    blockType:'frame',
+                    parent: 'block_0',
+                    children: ['block_2', 'block_3'],
+//                    children: [],
+                    pointsID: ['fp1', 'fp3', 'fp4', 'fp2'/*, 'q2', 'q3', 'q1',  'q4', 'c1-1', 'c1-2', 'qc1'*/ ],
+                    impostIn: [],
+                    parts: [],
+                    glassId: 0,
+                    gridId: 0
+                  },
+//------- Level 2
+                  {
+                    type:'skylight',
+                    id:'block_2',
+                    level: 2,
+                    blockType: 'sash',
+                    parent: 'block_1',
+                    children: [],
+                    pointsID: ['fp1', 'ip1', 'ip2', 'fp4'],
+                    impostID: ['ip1', 'ip2'],
+                    parts: [],
+                    glassId: 0,
+                    gridId: 0,
+                    openDir: [1, 4],
+                    handlePos: 4
+                  },
+                  {
+                    type:'skylight',
+                    id:'block_3',
+                    level: 2,
+                    blockType: 'frame',
+                    parent: 'block_1',
+                    children: ['block_4', 'block_5'],
+                    pointsID: ['ip1', 'fp2', 'fp3', 'ip2'],
+                    impostID: ['ip1', 'ip2'],
+                    impostIn: [],
+                    parts: [],
+                    glassId: 0,
+                    gridId: 0
+                  },
+//------- Level 3
+                  {
+                    'type':'skylight',
+                    id:'block_4',
+                    level: 3,
+                    blockType: 'frame',
+                    parent: 'block_3',
+                    children: [],
+                    pointsID: ['ip1', 'fp2', 'ip3', 'ip4'],
+                    impostID: ['ip3', 'ip4'],
+                    parts: [],
+                    glassId: 0,
+                    gridId: 0
+                  },
+                  {
+                    'type':'skylight',
+                    id:'block_5',
+                    level: 3,
+                    blockType: 'frame',
+                    parent: 'block_3',
+                    children: [],
+                    pointsID: ['ip4', 'ip3', 'fp3', 'ip2'],
+                    impostID: ['ip3', 'ip4'],
+                    parts: [],
+                    glassId: 0,
+                    gridId: 0
+                  }//,
                   //                {'type':'skylight', id:'block_6', level: 3, blockType: 'frame', children: [], parent: 'block_3', pointsID: ['ip6', 'ip5', 'ip7', 'ip8'], glassId: 0, gridId: 0},
                   //                {'type':'skylight', id:'block_7', level: 3, blockType: 'frame', children: [], parent: 'block_3', pointsID: ['ip8', 'ip7', 'ip4', 'ip2'], glassId: 0, gridId: 0},
                 ]
@@ -642,7 +714,7 @@
                 {'type': 'square', id: 'sqr', widths: ['overallDimH'], heights: ['overallDimV']}
                 */
 //              ]}
-            },
+            }//,
 /*
             {
               'name':'Двухстворчатое',

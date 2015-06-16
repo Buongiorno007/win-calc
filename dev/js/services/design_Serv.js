@@ -207,17 +207,15 @@
           blockID = glassObj.attributes.blockId.nodeValue,
           blocks = DesignStor.design.templateSourceTEMP.details.skylights,
           blocksQty = blocks.length,
-          squareLimit = 0.5,
+          squareLimit = 0.2,
           widthLimit = 200,
           heightLimint = 200,
           dim = getMaxMinCoord(glass.points);
-
       if(glass.square > squareLimit && (dim.maxX - dim.minX) > widthLimit && (dim.maxY - dim.minY) > heightLimint) {
-
         for (var b = 0; b < blocksQty; b++) {
           if (blocks[b].id === blockID) {
 
-            if(checkBlockXSash(DesignStor.design.templateTEMP.details.skylights[b].linesOut)) {
+//            if(checkBlockXSash(DesignStor.design.templateTEMP.details.skylights[b].linesOut)) {
               blocks[b].blockType = 'sash';
 
               switch (type) {
@@ -253,45 +251,56 @@
                   break;
               }
               DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
-            } else {
-              //------ show error
-              d3.selectAll('#tamlateSVG .glass').each(function(){
-                if(this.attributes.blockId.nodeValue === blockID) {
-                  var currGlass = d3.select(this),
-                      i = 1;
-
-                  var interval = setInterval(function() {
-                    if(i === 11) {
-                      clearInterval(interval);
-                    }
-                    if(i%2) {
-                      currGlass.classed('error_glass', false);
-                    } else {
-                      currGlass.classed('error_glass', true);
-                    }
-                    i++;
-                  }, 50);
-                }
-              });
-            }
+//            } else {
+//
+//            }
 
           }
         }
+      } else {
+        console.log('not available');
+//        var el = d3.select('[blockId='+blockID+']').classed('error_glass', true);
+//        console.log(el);
+        //------ show error
+//        d3.selectAll('#tamlateSVG .glass').each(function(){
+//          if(this.attributes.blockId.nodeValue === blockID) {
+//            console.log('blockID_____', blockID);
+            var currGlass = d3.select(this),
+                i = 1;
+//            currGlass.classed('error_glass', true);
+//            console.log('_____', currGlass);
+
+            var interval = setInterval(function() {
+              if(i === 11) {
+                clearInterval(interval);
+              }
+              if(i%2) {
+            d3.select('[blockId='+blockID+']')
+                currGlass.classed('error_glass', false);
+              } else {
+            d3.select('[blockId='+blockID+']')
+                currGlass.classed('error_glass', true);
+              }
+              i++;
+            }, 50);
+//          }
+//        });
+
       }
     }
 
 
-
-    function checkBlockXSash(lines) {
-      var linesQty = lines.length,
-          p = 0;
-      for(; p < linesQty; p++) {
-        if(lines[p].dir === 'curv' || lines[p].from.type === 'corner' || lines[p].to.type === 'corner') {
-          return false;
-        }
-      }
-      return true;
-    }
+//
+//    function checkBlockXSash(lines) {
+//      var linesQty = lines.length,
+//          p = 0;
+//      for(; p < linesQty; p++) {
+//        if(lines[p].dir === 'curv' || lines[p].from.type === 'corner' || lines[p].to.type === 'corner') {
+//          return false;
+//        }
+//      }
+//      return true;
+//    }
 
 
 
@@ -304,9 +313,8 @@
       for(var b = 0; b < blocksQty; b++) {
         if (blocks[b].id === blockID) {
           blocks[b].blockType = 'frame';
-          blocks[b].openDir = 0;
-          blocks[b].handlePos = 0;
-
+          delete blocks[b].openDir;
+          delete blocks[b].handlePos;
         }
       }
 
@@ -332,38 +340,34 @@
         if(blocks[b].id === blockID) {
           //---- set simple corner
           if(cornerObj.__data__.view) {
-            var linesQty = blocks[b].linesOut.length,
-                l = 0;
-            for(; l < linesQty; l++) {
-              if(blocks[b].linesOut[l].from.id === cornerID) {
-                createCornerPoint(1, cornerN, blocks[b].linesOut[l], blocks, points);
-              } else if(blocks[b].linesOut[l].to.id === cornerID) {
-                createCornerPoint(2, cornerN, blocks[b].linesOut[l], blocks, points);
-              }
-            }
+            startCreateCornerPoint(cornerID, cornerN, blocks[b].linesOut, blocks, points);
+
+
+
+//            var linesQty = blocks[b].linesOut.length,
+//                l = 0;
+//            for(; l < linesQty; l++) {
+//              if(blocks[b].linesOut[l].from.id === cornerID) {
+//                createCornerPoint(1, cornerN, blocks[b].linesOut[l], blocks, points);
+//              } else if(blocks[b].linesOut[l].to.id === cornerID) {
+//                createCornerPoint(2, cornerN, blocks[b].linesOut[l], blocks, points);
+//              }
+//            }
 
             //----- change curve corner to simple
           } else {
-            //---- delete qc point
-            var pointsIdQty = blocks[b].pointsID.length,
-                pointsQty = points.length;
-            while(--pointsIdQty > -1) {
-              if(blocks[b].pointsID[pointsIdQty] === 'qc'+cornerN) {
-                blocks[b].pointsID.splice(pointsIdQty, 1);
-              }
-            }
-            while(--pointsQty > -1) {
-              if(points[pointsQty].id === 'qc'+cornerN) {
-                points.splice(pointsQty, 1);
-              }
-            }
+            //---- delete qc point Id in blocks
+            removePointId(['qc'+cornerN], blocks);
+            //---- delete qc point in points
+            removePoint(['qc'+cornerN], points);
           }
 
         }
       }
       //----- hide this point
       if(cornerObj.__data__.view) {
-        for (var i = 0; i < points.length; i++) {
+        var pointsQty = points.length;
+        for (var i = 0; i < pointsQty; i++) {
           if (points[i].id === cornerID) {
             points[i].view = 0;
           }
@@ -390,27 +394,17 @@
           //----- set curve corner
           if (cornerObj.__data__.view) {
 
-            var linesQty = blocks[b].linesOut.length,
-                l = 0;
-            for(; l < linesQty; l++) {
-              if(blocks[b].linesOut[l].from.id === cornerID) {
-                createCornerPoint(1, cornerN, blocks[b].linesOut[l], blocks[b], points);
-              } else if(blocks[b].linesOut[l].to.id === cornerID) {
-                createCornerPoint(2, cornerN, blocks[b].linesOut[l], blocks[b], points);
-              }
-            }
+            startCreateCornerPoint(cornerID, cornerN, blocks[b].linesOut, blocks, points);
+            createQCPoint(cornerN, cornerObj.__data__, blocks, points);
 
-            createQCPoint(cornerN, cornerObj.__data__, blocks[b], points);
-
-            //----- change simple corner to corve
+          //----- change simple corner to corve
           } else {
 
-            var linesQty = blocks[b].linesOut.length,
-                l = 0;
-            for(; l < linesQty; l++) {
+            var linesQty = blocks[b].linesOut.length;
+            for(var l = 0; l < linesQty; l++) {
               if(blocks[b].linesOut[l].from.id === 'c'+cornerN+'-2' && blocks[b].linesOut[l].to.id === 'c'+cornerN+'-1' ) {
                 var qcPoint = setQPointCoord(cornerN, blocks[b].linesOut[l]);
-                createQCPoint(cornerN, qcPoint, blocks[b], points);
+                createQCPoint(cornerN, qcPoint, blocks, points);
               }
             }
 
@@ -436,7 +430,7 @@
     function changeTemplate() {
       DesignStor.design.templateSourceTEMP.details.points = angular.copy(DesignStor.design.templateTEMP.details.points);
       for(var i = 0; i < DesignStor.design.templateSourceTEMP.details.skylights.length; i++) {
-        if(DesignStor.design.templateSourceTEMP.details.skylights[i].level === 1) {
+        if(DesignStor.design.templateSourceTEMP.details.skylights[i].level > 0) {
           DesignStor.design.templateSourceTEMP.details.skylights[i].pointsID = angular.copy(DesignStor.design.templateTEMP.details.skylights[i].pointsID);
         }
       }
@@ -449,41 +443,41 @@
     function deleteCornerPoints(cornerObj) {
       var cornerID = cornerObj.__data__.id,
           cornerN = Number(cornerID.replace(/\D+/g, "")),
-          blockID = cornerObj.attributes.blockId.nodeValue,
           points = DesignStor.design.templateSourceTEMP.details.points,
           blocks = DesignStor.design.templateSourceTEMP.details.skylights,
-          blocksQty = blocks.length,
           pointsQty = points.length;
 
       //------- delete corner point IDs in block (pointsID)
-      for(var b = 0; b < blocksQty; b++) {
-        if(blocks[b].id === blockID) {
-          var pointsIdQty = blocks[b].pointsID.length;
-          while (--pointsIdQty > -1) {
-            if (blocks[b].pointsID[pointsIdQty] === 'c' + cornerN + '-1' || blocks[b].pointsID[pointsIdQty] === 'c' + cornerN + '-2' || blocks[b].pointsID[pointsIdQty] === 'qc' + cornerN) {
-              blocks[b].pointsID.splice(pointsIdQty, 1);
-            }
-          }
-        }
-      }
+      removePointId(['c' + cornerN + '-1', 'c' + cornerN + '-2', 'qc'+cornerN], blocks);
+
       while (--pointsQty > -1) {
         //----- show this frame point
         if (points[pointsQty].id === cornerID) {
           points[pointsQty].view = 1;
         }
-        //----- delete corner points
-        if (points[pointsQty].id === 'c' + cornerN + '-1' || points[pointsQty].id === 'c' + cornerN + '-2' || points[pointsQty].id === 'qc' + cornerN) {
-          points.splice(pointsQty, 1);
-        }
       }
+      //----- delete corner points
+      removePoint(['c' + cornerN + '-1', 'c' + cornerN + '-2', 'qc'+cornerN], points);
       DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
     }
 
 
 
+    function startCreateCornerPoint(cornerID, cornerN, lines, blocks, points) {
+      var linesQty = lines.length,
+          l = 0;
+      for(; l < linesQty; l++) {
+        if(lines[l].from.id === cornerID) {
+          createCornerPoint(1, cornerN, lines[l], blocks, points);
+        } else if(lines[l].to.id === cornerID) {
+          createCornerPoint(2, cornerN, lines[l], blocks, points);
+        }
+      }
+    }
+
+
     function createCornerPoint(pointN, cornerN, line, blocks, points) {
       var dictance = 200,
-          blockQty = blocks.length,
           cornerPoint = {
             type:'corner',
             id: 'c' + cornerN + '-' + pointN,
@@ -497,17 +491,7 @@
         cornerPoint.y = ( line.from.y * dictance + line.to.y * (line.size - dictance))/ line.size;
       }
 
-      while(--blockQty > -1) {
-        if(blocks[blockQty].level > 0) {
-          var idQty = blocks[blockQty].pointsID.length;
-          while(--idQty > -1) {
-            if(blocks[blockQty].pointsID[idQty] === 'fp'+cornerN) {
-              blocks[blockQty].pointsID.push(cornerPoint.id);
-            }
-          }
-        }
-      }
-
+      addPointId(cornerPoint.id, 'fp'+cornerN, blocks);
       points.push(cornerPoint);
     }
 
@@ -549,7 +533,7 @@
 
 
 
-    function createQCPoint(cornerN, framePoint, block, points) {
+    function createQCPoint(cornerN, framePoint, blocks, points) {
       var QCPoint = {
         type:'corner',
         id: 'qc' + cornerN,
@@ -557,9 +541,58 @@
         y: framePoint.y,
         dir:'curv'
       };
-      block.pointsID.push(QCPoint.id);
+      addPointId(QCPoint.id, 'fp'+cornerN, blocks);
       points.push(QCPoint);
     }
+
+
+    function addPointId(newId, criterion, blocks) {
+      var blockQty = blocks.length;
+      while(--blockQty > -1) {
+        if(blocks[blockQty].level > 0) {
+          var idQty = blocks[blockQty].pointsID.length;
+          while(--idQty > -1) {
+            if(blocks[blockQty].pointsID[idQty] === criterion) {
+              blocks[blockQty].pointsID.push(newId);
+            }
+          }
+        }
+      }
+    }
+
+
+    function removePointId(criterions, blocks) {
+      var blockQty = blocks.length;
+      while(--blockQty > -1) {
+        if(blocks[blockQty].level > 0) {
+          var idQty = blocks[blockQty].pointsID.length;
+          while(--idQty > -1) {
+            var critQty = criterions.length;
+            while(--critQty > -1) {
+              if(blocks[blockQty].pointsID[idQty] === criterions[critQty]) {
+                blocks[blockQty].pointsID.splice(idQty, 1);
+                break;
+              }
+            }
+          }
+        }
+      }
+    }
+
+
+    function removePoint(criterions, points) {
+      var pointsQty = points.length;
+      while(--pointsQty > -1) {
+        var critQty = criterions.length;
+        while(--critQty > -1) {
+          if(points[pointsQty].id === criterions[critQty]) {
+            points.splice(pointsQty, 1);
+            break;
+          }
+        }
+      }
+    }
+
 
 
 

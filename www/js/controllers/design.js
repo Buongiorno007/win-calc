@@ -126,7 +126,8 @@
 
     function showAllAvailableGlass(menuId) {
       thisCtrl.config.activeSubMenuItem = menuId;
-      var glasses = d3.selectAll('#tamlateSVG .glass');
+      //------- checking all glasses on corners and arcs
+      var glasses = d3.selectAll(checkBlockXSash(d3.selectAll('#tamlateSVG .glass')));
       DesignStor.design.selectedGlass = glasses;
       glasses.classed('glass-active', true);
 
@@ -138,6 +139,20 @@
       });
     }
 
+
+    function checkBlockXSash(blocks) {
+      var newBlocks = blocks[0].filter(function(elem) {
+            var pointsQty = elem.__data__.points.length;
+            while(--pointsQty > -1) {
+              if(elem.__data__.points[pointsQty].id.indexOf('q')+1 || elem.__data__.points[pointsQty].id.indexOf('c')+1) {
+                return 0;
+              } else {
+                return 1;
+              }
+            }
+        });
+      return newBlocks;
+    }
 
 
     function deselectAllGlass() {
@@ -152,12 +167,11 @@
       thisCtrl.config.activeSubMenuItem = 0;
       deselectAllGlass();
 
-      var glassQty = DesignStor.design.selectedGlass[0].length,
-          i = 0;
+      var glassQty = DesignStor.design.selectedGlass[0].length;
       switch(sashType) {
         //----- delete sash
         case 1:
-          for(; i < glassQty; i++) {
+          for(var i = 0; i < glassQty; i++) {
             DesignServ.deleteSash(DesignStor.design.selectedGlass[0][i]);
           }
           break;
@@ -168,7 +182,7 @@
         case 5:
         case 6:
         case 7:
-          for(; i < glassQty; i++) {
+          for(var i = 0; i < glassQty; i++) {
             DesignServ.createSash(sashType, DesignStor.design.selectedGlass[0][i]);
           }
           break;
