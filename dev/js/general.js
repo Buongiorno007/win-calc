@@ -286,9 +286,7 @@ function setLines(points) {
     }
 //    line.size = Math.round(Math.sqrt( Math.pow((line.to.x - line.from.x), 2) + Math.pow((line.to.y - line.from.y), 2) ) * 100) / 100;
     line.size = Math.round(Math.hypot((line.to.x - line.from.x), (line.to.y - line.from.y)) * 100) / 100;
-    line.coefA = (line.from.y - line.to.y);
-    line.coefB = (line.to.x - line.from.x);
-    line.coefC = (line.from.x*line.to.y - line.to.x*line.from.y);
+    setLineCoef(line);
     lines.push(line);
   }
   //------ change place last element in array to first
@@ -298,6 +296,12 @@ function setLines(points) {
   return lines;
 }
 
+
+function setLineCoef(line) {
+  line.coefA = (line.from.y - line.to.y);
+  line.coefB = (line.to.x - line.from.x);
+  line.coefC = (line.from.x*line.to.y - line.to.x*line.from.y);
+}
 
 function setLineType(from, to) {
   var type = '';
@@ -724,12 +728,20 @@ function setCornerProp(blocks) {
         for(; i < pointsQty; i++){
           if(blocks[b].pointsOut[i].fi > 90 && blocks[b].pointsOut[i].fi < 270) {
             blocks[b].pointsOut[i].corner = checkPointXCorner(blocks[b].pointsOut, (pointsQty-1), i);
+            //------- check children
+            if(blocks[b].pointsOut[i].corner) {
+              blocks[b].pointsOut[i].corner = checkChildXSash(blocks[b].pointsOut[i].id, blocks[b], blocks);
+            }
           }
         }
       } else if(blocks[b].position === 'last') {
         for(; i < pointsQty; i++){
           if(blocks[b].pointsOut[i].fi < 90 || blocks[b].pointsOut[i].fi > 270) {
             blocks[b].pointsOut[i].corner = checkPointXCorner(blocks[b].pointsOut, (pointsQty-1), i);
+            //------- check children
+            if(blocks[b].pointsOut[i].corner) {
+              blocks[b].pointsOut[i].corner = checkChildXSash(blocks[b].pointsOut[i].id, blocks[b], blocks);
+            }
           }
         }
       }
@@ -762,6 +774,8 @@ function checkPointXCorner(points, last, curr) {
 }
 
 
+
+//---------- it use also in design.js !!!!!!!
 function checkChildXSash(pointId, block, blocks) {
   var childQty = block.children.length;
   if(childQty) {
@@ -994,6 +1008,7 @@ function setImpostPoints(impostID, points) {
       impostPoints.push(JSON.parse(JSON.stringify(points[i])));
     }
   }
+//  console.log('impostPoints =', impostPoints);
   return impostPoints;
 }
 
@@ -1187,17 +1202,26 @@ var Template = function (sourceObj, depths) {
     if(this.details.skylights[i].level > 0) {
       if(this.details.skylights[i].children.length) {
 
-        //----- collect impost points
+        //TODO----- collect impost points
         var bQty = blocksQty;
         while(--bQty > -1) {
+          if(this.details.skylights[bQty].id === this.details.skylights[i].children[0]) {
+            var pointsOutQty = this.details.skylights[bQty].pointsOut.length;
+            while(--pointsOutQty > -1) {
+              if(this.details.skylights[bQty].pointsOut[pointsOutQty].id.indexOf('ip') + 1) {
+                this.details.skylights[i].impost.impostAxis.push(this.details.skylights[bQty].pointsOut[pointsOutQty]);
+              }
+            }
+          }
           if(this.details.skylights[bQty].id === this.details.skylights[i].children[0] || this.details.skylights[bQty].id === this.details.skylights[i].children[1]) {
-            $.merge(this.details.skylights[i].impostIn, this.details.skylights[bQty].impostOut);
+            $.merge(this.details.skylights[i].impost.impostIn, this.details.skylights[bQty].impostOut);
           }
         }
 
-        this.details.skylights[i].parts.push( setImpostParts(this.details.skylights[i].impostIn) );
+        this.details.skylights[i].parts.push( setImpostParts(this.details.skylights[i].impost.impostIn) );
       }
     }
+    console.log('^^^^^^^^^', this.details.skylights[i]);
   }
 
 };

@@ -273,43 +273,68 @@
     function showAllAvailableArc(menuId) {
       var blocks = DesignStor.design.templateTEMP.details.skylights,
           blocksQty = blocks.length,
-          permit = 0;
+          frames = d3.selectAll('#tamlateSVG .frame'),
+          permit = 0, arcs;
+
+
+      arcs = frames[0].filter(function (item) {
+        if (item.__data__.type === 'frame' || item.__data__.type === 'arc') {
+          return true;
+        }
+      });
 
       //------ check block type for sash
-      while(--blocksQty > -1) {
-        if(blocks[blocksQty].level === 1 && blocks[blocksQty].blockType === 'frame') {
-          permit++;
+      var arcsQty = arcs.length;
+      if(arcsQty) {
+
+        while(--blocksQty > -1) {
+          if(blocks[blocksQty].level === 1 && blocks[blocksQty].blockType === 'frame') {
+            permit = 1;
+
+            while(--arcsQty > -1) {
+              var pointsQty = arcs[arcsQty].__data__.points.length;
+
+              while(--pointsQty > -1) {
+                var pointId = arcs[arcsQty].__data__.points[pointsQty].id;
+                if(pointId.indexOf('-in') + 1) {
+                  continue;
+                } else {
+                  permit = checkChildXSash(pointId, blocks[blocksQty], blocks);
+                }
+                if(!permit) {
+                  break;
+                }
+              }
+              //------ delete part with sash from all arcs
+              if(!permit) {
+                arcs.splice(arcsQty, 1);
+              }
+
+            }
+
+          }
         }
+
       }
 
-      if(permit) {
-        var arcs = [],
-            frames = d3.selectAll('#tamlateSVG .frame');
+      if(arcs.length) {
 
-        arcs.push(frames[0].filter(function (item) {
-          if (item.__data__.type === 'frame' || item.__data__.type === 'arc') {
-            return true;
-          }
-        }));
+        thisCtrl.config.activeSubMenuItem = menuId;
+        var arcs = d3.selectAll(arcs);
+        DesignStor.design.selectedArc = arcs;
 
-        if(arcs.length) {
-          thisCtrl.config.activeSubMenuItem = menuId;
-          DesignStor.design.selectedArc = arcs;
+        arcs.classed('active_svg', true).on('click', function () {
+          deselectAllArc();
+          var arc = d3.select(this);
+          arc.classed('active_svg', true);
+          DesignStor.design.selectedArc = arc;
+        });
 
-          d3.selectAll(arcs[0]).classed('active_svg', true).on('click', function () {
-            deselectAllArc();
-            var arc = d3.select(this);
-            arc.classed('active_svg', true);
-            DesignStor.design.selectedArc = arc;
-          });
-
-        } else {
-          showDesignError();
-        }
       } else {
         showDesignError();
       }
     }
+
 
 
     function insertArc(arcType, event) {

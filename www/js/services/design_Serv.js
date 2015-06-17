@@ -210,11 +210,12 @@
           blockID = glassObj.attributes.blockId.nodeValue,
           blocks = DesignStor.design.templateSourceTEMP.details.skylights,
           blocksQty = blocks.length,
-          squareLimit = 0.2,
+//          squareLimit = 0.2,
           widthLimit = 200,
           heightLimint = 200,
           dim = getMaxMinCoord(glass.points);
-      if(glass.square > squareLimit && (dim.maxX - dim.minX) > widthLimit && (dim.maxY - dim.minY) > heightLimint) {
+//      if(glass.square > squareLimit && (dim.maxX - dim.minX) > widthLimit && (dim.maxY - dim.minY) > heightLimint) {
+      if((dim.maxX - dim.minX) > widthLimit && (dim.maxY - dim.minY) > heightLimint) {
         for (var b = 0; b < blocksQty; b++) {
           if (blocks[b].id === blockID) {
 
@@ -262,35 +263,41 @@
         }
       } else {
         console.log('not available');
-//        var el = d3.select('[blockId='+blockID+']').classed('error_glass', true);
-//        console.log(el);
-        //------ show error
-//        d3.selectAll('#tamlateSVG .glass').each(function(){
-//          if(this.attributes.blockId.nodeValue === blockID) {
-//            console.log('blockID_____', blockID);
+        console.log(blockID);
+        console.log(d3.selectAll('[blockId='+blockID+']'));//"[color=red]"
+
+//        //------ show error
+//        d3.selectAll('[blockId="'+blockID+'"]').each(function() {
+//          if(this.attributes.class.nodeValue === 'glass') {
+//            console.log('__class___', this.attributes.class.nodeValue);
+//            var currGlass = d3.select(this);
+//            currGlass.classed('error_glass', true);
+//          }
+//        });
+        d3.selectAll('#tamlateSVG .glass').each(function(){
+          if(this.attributes.blockId.nodeValue === blockID) {
             var currGlass = d3.select(this),
                 i = 1;
-//            currGlass.classed('error_glass', true);
-//            console.log('_____', currGlass);
 
             var interval = setInterval(function() {
               if(i === 11) {
                 clearInterval(interval);
               }
               if(i%2) {
-            d3.select('[blockId='+blockID+']')
                 currGlass.classed('error_glass', false);
               } else {
-            d3.select('[blockId='+blockID+']')
                 currGlass.classed('error_glass', true);
               }
               i++;
             }, 50);
-//          }
-//        });
+
+
+          }
+        });
 
       }
     }
+
 
 
 //
@@ -661,6 +668,23 @@
           createArcPoint(arcN, coordQ, currBlockID);
         }
 
+
+        //------ check crossing currLine with all imposts
+        for(var b = 0; b < blocksQty; b++) {
+          if(blocks[b].level && blocks[b].impostID) {
+            console.log('%%%%currLine ==== ', currLine);
+            var impostIdQty = blocks[b].impostID.length;
+            if(impostIdQty) {
+              for(var p = 0; p < impostIdQty; p++) {
+                getImpostCP(blocks[blocksQty].impostIn, currLine, coordQ);
+              }
+            }
+
+
+          }
+        }
+
+
         DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
 
       }
@@ -680,6 +704,19 @@
       DesignStor.design.templateSourceTEMP.details.points.push(pointQ);
     }
 
+
+
+    function getImpostCP(impost, currLine, coordQ) {
+      console.log('$$$impost$$$', impost);
+      console.log('currLine', currLine);
+      console.log('coordQ', coordQ);
+
+//      var impostLine1 = {}, impostLine2 = {},
+//          impostPointsQty = impost.length;
+//
+//      setLineCoef(impostLine1);
+//      setLineCoef(impostLine2);
+    }
 
 
 
