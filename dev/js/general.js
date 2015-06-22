@@ -284,7 +284,7 @@ function setLines(points) {
     if(line.dir === 'line') {
       line.dir = (points[index].dir === 'curv') ? 'curv' : 'line';
     }
-//    line.size = Math.round(Math.sqrt( Math.pow((line.to.x - line.from.x), 2) + Math.pow((line.to.y - line.from.y), 2) ) * 100) / 100;
+//  line.size = Math.round(Math.sqrt( Math.pow((line.to.x - line.from.x), 2) + Math.pow((line.to.y - line.from.y), 2) ) * 100) / 100;
     line.size = Math.round(Math.hypot((line.to.x - line.from.x), (line.to.y - line.from.y)) * 100) / 100;
     setLineCoef(line);
     lines.push(line);
@@ -632,7 +632,6 @@ function culcLength(arrPoints) {
 
 
 function setGlass(glassPoints) {
-//  console.log(glassPoints);
   var part = {
         type: 'glass',
         points: glassPoints,
@@ -646,33 +645,29 @@ function setGlass(glassPoints) {
     //----- if first point
     if(i === 0) {
       //----- if first point is curve
-      if(glassPoints[i].dir === 'curv'){
+      if (glassPoints[i].dir === 'curv') {
         part.path += glassPoints[pointsQty - 1].x + ',' + glassPoints[pointsQty - 1].y;
-        part.path += ' Q ' + glassPoints[i].x + ',' + glassPoints[i].y + ',' + glassPoints[i+1].x + ',' + glassPoints[i+1].y;
-        i++;
 
-      //-------- if line
+        //-------- if line
       } else {
         part.path += glassPoints[i].x + ',' + glassPoints[i].y;
       }
-
-    } else {
-      //------- if curve
-      if(glassPoints[i].dir === 'curv') {
-        part.path += ' Q ' + glassPoints[i].x + ',' + glassPoints[i].y + ',';
-        if(glassPoints[i+1]) {
-          part.path += glassPoints[i+1].x + ',' + glassPoints[i+1].y;
-        } else {
-          part.path += glassPoints[0].x + ',' + glassPoints[0].y + ' Z';
-        }
-        i++;
-
-      //-------- if line
+    }
+    //------- if curve
+    if(glassPoints[i].dir === 'curv') {
+      part.path += ' Q ' + glassPoints[i].x + ',' + glassPoints[i].y + ',';
+      if(glassPoints[i+1]) {
+        part.path += glassPoints[i+1].x + ',' + glassPoints[i+1].y;
       } else {
-        part.path += ' L ' + glassPoints[i].x + ',' + glassPoints[i].y;
-        if(i === (pointsQty - 1)) {
-          part.path += ' Z';
-        }
+        part.path += glassPoints[0].x + ',' + glassPoints[0].y + ' Z';
+      }
+      i++;
+
+    //-------- if line
+    } else {
+      part.path += ' L ' + glassPoints[i].x + ',' + glassPoints[i].y;
+      if(i === (pointsQty - 1)) {
+        part.path += ' Z';
       }
     }
 
@@ -999,15 +994,23 @@ function assamblingSashPath(arrPoints) {
 
 
 
-function setImpostPoints(impostID, points) {
+function setImpostPoints(blocks, parentID, points) {
   var impostPoints = [],
+      blocksQty = blocks.length,
       pointsQty = points.length;
-  for(var i = 0; i < pointsQty; i++) {
-    //------ if point match to impostId
-    if(points[i].id.indexOf(impostID[0]) + 1 || points[i].id.indexOf(impostID[1]) + 1) {
-      impostPoints.push(JSON.parse(JSON.stringify(points[i])));
+  while(--blocksQty > -1) {
+    if(blocks[blocksQty].id === parentID) {
+
+      //---- find impost in points
+      while(--pointsQty > -1) {
+        //------ if point match to impostId
+        if(points[pointsQty].id.indexOf(blocks[blocksQty].impost.impostID[0]) + 1 || points[pointsQty].id.indexOf(blocks[blocksQty].impost.impostID[1]) + 1) {
+          impostPoints.push(JSON.parse(JSON.stringify(points[pointsQty])));
+        }
+      }
     }
   }
+
 //  console.log('impostPoints =', impostPoints);
   return impostPoints;
 }
@@ -1148,7 +1151,7 @@ var Template = function (sourceObj, depths) {
         //------- set points for each part of construction
         $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].pointsOut, this.details.skylights[i].pointsIn));
       } else {
-        this.details.skylights[i].impostOut = setImpostPoints(this.details.skylights[i].impostID, this.details.skylights[i].pointsIn);
+        this.details.skylights[i].impostOut = setImpostPoints(this.details.skylights, this.details.skylights[i].parent, this.details.skylights[i].pointsIn);
       }
 
 
@@ -1182,6 +1185,7 @@ var Template = function (sourceObj, depths) {
           this.details.skylights[i].beadPointsOut = copyPointsOut(this.details.skylights[i].sashPointsIn, 'bead');
           this.details.skylights[i].beadLinesOut = setLines(this.details.skylights[i].beadPointsOut);
           this.details.skylights[i].beadPointsIn = setPointsIn(this.details.skylights[i], depths, 'sash-bead');
+          //------ for defined open directions of sash
           this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);
 
           this.details.skylights[i].glassPoints = setPointsIn(this.details.skylights[i], depths, 'sash-glass');
@@ -1198,22 +1202,18 @@ var Template = function (sourceObj, depths) {
       }
     }
   }
+
+
+
   for(var i = 0; i < blocksQty; i++) {
     if(this.details.skylights[i].level > 0) {
       if(this.details.skylights[i].children.length) {
 
-        //TODO----- collect impost points
+        this.details.skylights[i].impost.impostAxis = setPointsOut(this.details.skylights[i].impost.impostID, this.details.points);
+        //------- collect all impost pointsOut in impostIn
         var bQty = blocksQty;
         while(--bQty > -1) {
-          if(this.details.skylights[bQty].id === this.details.skylights[i].children[0]) {
-            var pointsOutQty = this.details.skylights[bQty].pointsOut.length;
-            while(--pointsOutQty > -1) {
-              if(this.details.skylights[bQty].pointsOut[pointsOutQty].id.indexOf('ip') + 1) {
-                this.details.skylights[i].impost.impostAxis.push(this.details.skylights[bQty].pointsOut[pointsOutQty]);
-              }
-            }
-          }
-          if(this.details.skylights[bQty].id === this.details.skylights[i].children[0] || this.details.skylights[bQty].id === this.details.skylights[i].children[1]) {
+          if(this.details.skylights[i].id === this.details.skylights[bQty].parent) {
             $.merge(this.details.skylights[i].impost.impostIn, this.details.skylights[bQty].impostOut);
           }
         }

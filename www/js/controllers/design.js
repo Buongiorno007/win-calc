@@ -286,34 +286,65 @@
       //------ check block type for sash
       var arcsQty = arcs.length;
       if(arcsQty) {
+        console.log('arcs', arcs);
+        while(--arcsQty > -1) {
+          //------- take each arc place
+          var pointsQty = arcs[arcsQty].__data__.points.length;
+          //----- if line
+          if(arcs[arcsQty].__data__.dir === 'line') {
 
-        while(--blocksQty > -1) {
-          if(blocks[blocksQty].level === 1 && blocks[blocksQty].blockType === 'frame') {
-            permit = 1;
+            var arcPlace = {};
+            console.log('blocks = ', blocks);
 
-            while(--arcsQty > -1) {
-              var pointsQty = arcs[arcsQty].__data__.points.length;
-
-              while(--pointsQty > -1) {
-                var pointId = arcs[arcsQty].__data__.points[pointsQty].id;
-                if(pointId.indexOf('-in') + 1) {
-                  continue;
+            while(--pointsQty > -1) {
+              if(arcs[arcsQty].__data__.points[pointsQty].indexOf('-in') + 1) {
+                continue;
+              } else {
+                if(arcPlace.from) {
+                  arcPlace.to = arcs[arcsQty].__data__.points[pointsQty];
                 } else {
-                  permit = checkChildXSash(pointId, blocks[blocksQty], blocks);
-                }
-                if(!permit) {
-                  break;
+                  arcPlace.from = arcs[arcsQty].__data__.points[pointsQty];
                 }
               }
-              //------ delete part with sash from all arcs
-              if(!permit) {
-                arcs.splice(arcsQty, 1);
-              }
-
             }
 
+          //----- if curve
+          } else if(arcs[arcsQty].__data__.dir === 'curv') {
+
           }
+
+                        while(--pointsQty > -1) {}
         }
+
+//        while(--blocksQty > -1) {
+//          if(blocks[blocksQty].level === 1 && blocks[blocksQty].blockType === 'frame') {
+//            permit = 1;
+//
+//            while(--arcsQty > -1) {
+//              var pointsQty = arcs[arcsQty].__data__.points.length;
+//
+//              while(--pointsQty > -1) {
+//                var pointId = arcs[arcsQty].__data__.points[pointsQty].id;
+//                if(pointId.indexOf('-in') + 1) {
+//                  continue;
+//                } else {
+//                  permit = checkChildXSash(pointId, blocks[blocksQty], blocks);
+//                }
+//                console.log('permit == ', permit);
+//                if(!permit) {
+//                  break;
+//                }
+//              }
+//              //------ delete part with sash from all arcs
+//              console.log('permit22 == ', permit);
+//              if(!permit) {
+//                arcs.splice(arcsQty, 1);
+//              }
+//
+//            }
+//
+//          }
+//        }
 
       }
 
