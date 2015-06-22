@@ -126,8 +126,7 @@
 
     function showAllAvailableGlass(menuId) {
       thisCtrl.config.activeSubMenuItem = menuId;
-      //------- checking all glasses on corners and arcs
-      var glasses = d3.selectAll(checkBlockXSash(d3.selectAll('#tamlateSVG .glass')));
+      var glasses = d3.selectAll('#tamlateSVG .glass');
       DesignStor.design.selectedGlass = glasses;
       glasses.classed('glass-active', true);
 
@@ -137,21 +136,6 @@
         glass.classed('glass-active', true);
         DesignStor.design.selectedGlass = glass;
       });
-    }
-
-
-    function checkBlockXSash(blocks) {
-      var newBlocks = blocks[0].filter(function(elem) {
-            var pointsQty = elem.__data__.points.length;
-            while(--pointsQty > -1) {
-              if(elem.__data__.points[pointsQty].id.indexOf('q')+1 || elem.__data__.points[pointsQty].id.indexOf('c')+1) {
-                return 0;
-              } else {
-                return 1;
-              }
-            }
-        });
-      return newBlocks;
     }
 
 
@@ -197,34 +181,28 @@
     //-------- show all Corner Marks
     function showAllAvailableCorner(menuId) {
       var corners = d3.selectAll('#tamlateSVG .corner_mark');
-      if(corners[0].length) {
-        //---- show submenu
-        thisCtrl.config.activeSubMenuItem = menuId;
+      //---- show submenu
+      thisCtrl.config.activeSubMenuItem = menuId;
 
-        corners.transition()
+      corners.transition()
+        .duration(300)
+        .ease("linear")
+        .attr('r', 50);
+
+      DesignStor.design.selectedCorner = corners;
+      corners.on('click', function () {
+        //----- hide all cornerMark
+        hideCornerMarks();
+
+        //----- show selected cornerMark
+        var corner = d3.select(this)
+          .transition()
           .duration(300)
           .ease("linear")
           .attr('r', 50);
+        DesignStor.design.selectedCorner = corner;
 
-        DesignStor.design.selectedCorner = corners;
-        corners.on('click', function () {
-          //----- hide all cornerMark
-          hideCornerMarks();
-
-          //----- show selected cornerMark
-          var corner = d3.select(this)
-            .transition()
-            .duration(300)
-            .ease("linear")
-            .attr('r', 50);
-          DesignStor.design.selectedCorner = corner;
-
-        });
-
-      } else {
-        showDesignError();
-      }
-
+      });
     }
 
     function insertCorner(conerType, event) {
@@ -271,82 +249,11 @@
     //++++++++++ Edit Arc ++++++++//
 
     function showAllAvailableArc(menuId) {
-      var blocks = DesignStor.design.templateTEMP.details.skylights,
-          blocksQty = blocks.length,
-          frames = d3.selectAll('#tamlateSVG .frame'),
-          permit = 0, arcs;
-
-
-      arcs = frames[0].filter(function (item) {
+      var arcs = d3.selectAll('#tamlateSVG .frame')[0].filter(function (item) {
         if (item.__data__.type === 'frame' || item.__data__.type === 'arc') {
           return true;
         }
       });
-
-      //------ check block type for sash
-      var arcsQty = arcs.length;
-      if(arcsQty) {
-        console.log('arcs', arcs);
-        while(--arcsQty > -1) {
-          //------- take each arc place
-          var pointsQty = arcs[arcsQty].__data__.points.length;
-          //----- if line
-          if(arcs[arcsQty].__data__.dir === 'line') {
-
-            var arcPlace = {};
-            console.log('blocks = ', blocks);
-
-            while(--pointsQty > -1) {
-              if(arcs[arcsQty].__data__.points[pointsQty].indexOf('-in') + 1) {
-                continue;
-              } else {
-                if(arcPlace.from) {
-                  arcPlace.to = arcs[arcsQty].__data__.points[pointsQty];
-                } else {
-                  arcPlace.from = arcs[arcsQty].__data__.points[pointsQty];
-                }
-              }
-            }
-
-          //----- if curve
-          } else if(arcs[arcsQty].__data__.dir === 'curv') {
-
-          }
-
-                        while(--pointsQty > -1) {}
-        }
-
-//        while(--blocksQty > -1) {
-//          if(blocks[blocksQty].level === 1 && blocks[blocksQty].blockType === 'frame') {
-//            permit = 1;
-//
-//            while(--arcsQty > -1) {
-//              var pointsQty = arcs[arcsQty].__data__.points.length;
-//
-//              while(--pointsQty > -1) {
-//                var pointId = arcs[arcsQty].__data__.points[pointsQty].id;
-//                if(pointId.indexOf('-in') + 1) {
-//                  continue;
-//                } else {
-//                  permit = checkChildXSash(pointId, blocks[blocksQty], blocks);
-//                }
-//                console.log('permit == ', permit);
-//                if(!permit) {
-//                  break;
-//                }
-//              }
-//              //------ delete part with sash from all arcs
-//              console.log('permit22 == ', permit);
-//              if(!permit) {
-//                arcs.splice(arcsQty, 1);
-//              }
-//
-//            }
-//
-//          }
-//        }
-
-      }
 
       if(arcs.length) {
 
@@ -373,8 +280,6 @@
       thisCtrl.config.activeMenuItem = 0;
       thisCtrl.config.activeSubMenuItem = 0;
       deselectAllArc();
-      console.log('DesignStor.selectedCorner = ', DesignStor.design.selectedArc);
-
       var arcQty = DesignStor.design.selectedArc[0].length,
           i = 0;
       switch(arcType) {
@@ -391,7 +296,6 @@
           }
           break;
       }
-
     }
 
 

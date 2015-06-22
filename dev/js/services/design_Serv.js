@@ -191,14 +191,6 @@
     //========== Edit Design =============//
 
 
-    function checkBlockType(block) {
-      if(block.blockType === 'frame') {
-        return true;
-      } else {
-        return false;
-      }
-    }
-
 
     //++++++++++ Edit Sash +++++++++//
 
@@ -215,47 +207,41 @@
       if((dim.maxX - dim.minX) > widthLimit && (dim.maxY - dim.minY) > heightLimint) {
         for (var b = 0; b < blocksQty; b++) {
           if (blocks[b].id === blockID) {
+            blocks[b].blockType = 'sash';
 
-//            if(checkBlockXSash(DesignStor.design.templateTEMP.details.skylights[b].linesOut)) {
-              blocks[b].blockType = 'sash';
-
-              switch (type) {
-                //----- 'left'
-                case 2:
-                  blocks[b].openDir = [4];
-                  blocks[b].handlePos = 4;
-                  break;
-                //----- 'right'
-                case 3:
-                  blocks[b].openDir = [2];
-                  blocks[b].handlePos = 2;
-                  break;
-                //----- 'up'
-                case 4:
-                  blocks[b].openDir = [1];
-                  blocks[b].handlePos = 1;
-                  break;
-                //------ 'down'
-                case 5:
-                  blocks[b].openDir = [3];
-                  blocks[b].handlePos = 3;
-                  break;
-                //------ 'up', 'right'
-                case 6:
-                  blocks[b].openDir = [1, 2];
-                  blocks[b].handlePos = 2;
-                  break;
-                //------ 'up', 'left'
-                case 7:
-                  blocks[b].openDir = [1, 4];
-                  blocks[b].handlePos = 4;
-                  break;
-              }
-              DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
-//            } else {
-//
-//            }
-
+            switch (type) {
+              //----- 'left'
+              case 2:
+                blocks[b].openDir = [4];
+                blocks[b].handlePos = 4;
+                break;
+              //----- 'right'
+              case 3:
+                blocks[b].openDir = [2];
+                blocks[b].handlePos = 2;
+                break;
+              //----- 'up'
+              case 4:
+                blocks[b].openDir = [1];
+                blocks[b].handlePos = 1;
+                break;
+              //------ 'down'
+              case 5:
+                blocks[b].openDir = [3];
+                blocks[b].handlePos = 3;
+                break;
+              //------ 'up', 'right'
+              case 6:
+                blocks[b].openDir = [1, 2];
+                blocks[b].handlePos = 2;
+                break;
+              //------ 'up', 'left'
+              case 7:
+                blocks[b].openDir = [1, 4];
+                blocks[b].handlePos = 4;
+                break;
+            }
+            DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
           }
         }
       } else {
@@ -297,18 +283,6 @@
 
 
 
-//
-//    function checkBlockXSash(lines) {
-//      var linesQty = lines.length,
-//          p = 0;
-//      for(; p < linesQty; p++) {
-//        if(lines[p].dir === 'curv' || lines[p].from.type === 'corner' || lines[p].to.type === 'corner') {
-//          return false;
-//        }
-//      }
-//      return true;
-//    }
-
 
 
 
@@ -348,18 +322,6 @@
           //---- set simple corner
           if(cornerObj.__data__.view) {
             startCreateCornerPoint(cornerID, cornerN, blocks[b].linesOut, blocks, points);
-
-
-
-//            var linesQty = blocks[b].linesOut.length,
-//                l = 0;
-//            for(; l < linesQty; l++) {
-//              if(blocks[b].linesOut[l].from.id === cornerID) {
-//                createCornerPoint(1, cornerN, blocks[b].linesOut[l], blocks, points);
-//              } else if(blocks[b].linesOut[l].to.id === cornerID) {
-//                createCornerPoint(2, cornerN, blocks[b].linesOut[l], blocks, points);
-//              }
-//            }
 
             //----- change curve corner to simple
           } else {
@@ -617,16 +579,18 @@
             blocksQty = blocks.length,
             points = DesignStor.design.templateSourceTEMP.details.points,
             pointsQty = points.length,
-            currBlockID, currLine;
+            currBlockID = [], currLine;
 
-        //------- find line
+        //------- find line and block Ids to insert Q point
         for(var b = 0; b < blocksQty; b++) {
-          if(blocks[b].id === blockID) {
+          if(blocks[b].level > 0) {
             var linesQty = blocks[b].linesOut.length;
             while(--linesQty > -1) {
               if(blocks[b].linesOut[linesQty].from.id === arc.points[0].id && blocks[b].linesOut[linesQty].to.id === arc.points[1].id) {
-                currBlockID = b;
-                currLine = blocks[b].linesOut[linesQty];
+                currBlockID.push(b);
+                if(blocks[b].id === blockID) {
+                  currLine = blocks[b].linesOut[linesQty];
+                }
               }
             }
           }
@@ -696,8 +660,15 @@
         x: coordQP.x,
         y: coordQP.y,
         dir:'curv'
-      };
-      DesignStor.design.templateSourceTEMP.details.skylights[blockID].pointsID.push(pointQ.id);
+      },
+      blockIdQty = blockID.length;
+
+      //---- insert pointQ in all relative blocks
+      if(blockIdQty) {
+        while(--blockIdQty > -1) {
+          DesignStor.design.templateSourceTEMP.details.skylights[blockID[blockIdQty]].pointsID.push(pointQ.id);
+        }
+      }
       DesignStor.design.templateSourceTEMP.details.points.push(pointQ);
     }
 
@@ -722,24 +693,14 @@
 
       if(arc.type === 'arc') {
         var arcID = arc.points[1].id,
-            blockID = arcObj.attributes.blockId.nodeValue,
             points = DesignStor.design.templateSourceTEMP.details.points,
             blocks = DesignStor.design.templateSourceTEMP.details.skylights,
-            blocksQty = blocks.length,
             pointsQty = points.length,
             shiftX = 0, shiftY = 0;
 
         //------- delete Q point IDs in block (pointsID)
-        for(var b = 0; b < blocksQty; b++) {
-          if(blocks[b].id === blockID) {
-            var pointsIdQty = blocks[b].pointsID.length;
-            while(--pointsIdQty > -1) {
-              if(blocks[b].pointsID[pointsIdQty] === arcID) {
-                blocks[b].pointsID.splice(pointsIdQty, 1);
-              }
-            }
-          }
-        }
+        removePointId([arcID], blocks);
+
         //------ shifting
         if(!arc.points[1].x) {
           shiftX = arc.points[0].x;

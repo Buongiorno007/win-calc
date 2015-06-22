@@ -284,7 +284,6 @@ function setLines(points) {
     if(line.dir === 'line') {
       line.dir = (points[index].dir === 'curv') ? 'curv' : 'line';
     }
-//  line.size = Math.round(Math.sqrt( Math.pow((line.to.x - line.from.x), 2) + Math.pow((line.to.y - line.from.y), 2) ) * 100) / 100;
     line.size = Math.round(Math.hypot((line.to.x - line.from.x), (line.to.y - line.from.y)) * 100) / 100;
     setLineCoef(line);
     lines.push(line);
@@ -402,9 +401,7 @@ function getNewCoefC(depths, line, group) {
       }
       break;
   }
-//  var newCoefC = line.coefC - (depth * Math.sqrt(Math.pow(line.coefA, 2) + Math.pow(line.coefB, 2)));
   var newCoefC = line.coefC - (depth * Math.hypot(line.coefA, line.coefB));
-//  console.log('newCoefC = ', newCoefC);
   return newCoefC;
 }
 
@@ -705,38 +702,24 @@ function setCornerProp(blocks) {
       b = 0;
 
   for(; b < blocksQty; b++) {
-    //------- if block 1 and without sash, set corners points
-    if(blocks[b].level === 1 && blocks[b].blockType === 'frame') {
+    //------- if block 1
+    if(blocks[b].level === 1) {
       var pointsQty = blocks[b].pointsOut.length,
           i = 0;
       if(blocks[b].position === 'single') {
-
         for(; i < pointsQty; i++){
           blocks[b].pointsOut[i].corner = checkPointXCorner(blocks[b].pointsOut, (pointsQty-1), i);
-          //------- check children
-          if(blocks[b].pointsOut[i].corner) {
-            blocks[b].pointsOut[i].corner = checkChildXSash(blocks[b].pointsOut[i].id, blocks[b], blocks);
-          }
         }
-
       } else if(blocks[b].position === 'first') {
         for(; i < pointsQty; i++){
           if(blocks[b].pointsOut[i].fi > 90 && blocks[b].pointsOut[i].fi < 270) {
             blocks[b].pointsOut[i].corner = checkPointXCorner(blocks[b].pointsOut, (pointsQty-1), i);
-            //------- check children
-            if(blocks[b].pointsOut[i].corner) {
-              blocks[b].pointsOut[i].corner = checkChildXSash(blocks[b].pointsOut[i].id, blocks[b], blocks);
-            }
           }
         }
       } else if(blocks[b].position === 'last') {
         for(; i < pointsQty; i++){
           if(blocks[b].pointsOut[i].fi < 90 || blocks[b].pointsOut[i].fi > 270) {
             blocks[b].pointsOut[i].corner = checkPointXCorner(blocks[b].pointsOut, (pointsQty-1), i);
-            //------- check children
-            if(blocks[b].pointsOut[i].corner) {
-              blocks[b].pointsOut[i].corner = checkChildXSash(blocks[b].pointsOut[i].id, blocks[b], blocks);
-            }
           }
         }
       }
@@ -765,44 +748,6 @@ function checkPointXCorner(points, last, curr) {
     } else {
       return 0;
     }
-  }
-}
-
-
-
-//---------- it use also in design.js !!!!!!!
-function checkChildXSash(pointId, block, blocks) {
-  var childQty = block.children.length;
-  if(childQty) {
-    while(--childQty > -1) {
-      var blocksQty = blocks.length;
-      while(--blocksQty > -1) {
-        if(block.children[childQty] === blocks[blocksQty].id) {
-          //----- work with child, checking its pointsId
-          var pointsQty = blocks[blocksQty].pointsID.length;
-          while(--pointsQty > -1) {
-            //------- if it was found
-            if(blocks[blocksQty].pointsID[pointsQty] === pointId) {
-              //----- check sash
-              if(blocks[blocksQty].blockType === 'sash') {
-                return 0;
-              } else {
-                //------ if there is not sash but block has children - switch on recursion
-                if(blocks[blocksQty].children.length) {
-                  return checkChildXSash(pointId, blocks[blocksQty], blocks);
-                } else {
-                  return 1;
-                }
-
-              }
-            }
-          }
-
-        }
-      }
-    }
-  } else {
-    return 1;
   }
 }
 
@@ -881,16 +826,25 @@ function preparePointsXMaxMin(lines) {
       linesQty = lines.length,
       l = 0;
   for(; l < linesQty; l++) {
-//    if(lines[l].dir === 'curv') {
-//      var t = 0.5,
-//          peak = {
-//            x: Math.pow(t,2) * (lines[l].points[0].x - 2*lines[l].points[1].x + lines[l].points[2].x) - 2*t*(lines[l].points[0].x - lines[l].points[1].x) + lines[l].points[0].x,
-//            y: Math.pow(t,2) * (lines[l].points[0].y - 2*lines[l].points[1].y + lines[l].points[2].y) - 2*t*(lines[l].points[0].y - lines[l].points[1].y) + lines[l].points[0].y
-//          };
-//      points.push(peak);
-//    } else {
+    if(lines[l].dir === 'curv') {
+      var t = 0.5,
+          peak = {}, ind0, ind1 = l, ind2;
+      if(l === 0) {
+        ind0 = linesQty - 1;
+        ind2 = l + 1;
+      } else if(l === (linesQty - 1)) {
+        ind0 = l - 1;
+        ind2 = 0;
+      } else {
+        ind0 = l - 1;
+        ind2 = l + 1;
+      }
+      peak.x = Math.pow(t,2) * (lines[ind0].to.x - 2*lines[ind1].to.x + lines[ind2].to.x) - 2*t*(lines[ind0].to.x - lines[ind1].to.x) + lines[ind0].to.x;
+      peak.y = Math.pow(t,2) * (lines[ind0].to.y - 2*lines[ind1].to.y + lines[ind2].to.y) - 2*t*(lines[ind0].to.y - lines[ind1].to.y) + lines[ind0].to.y;
+      points.push(peak);
+    } else {
       points.push(lines[l].to);
-//    }
+    }
   }
   return points;
 }
@@ -906,8 +860,11 @@ function getCrossPointSashDir(position, centerMass, centerGeom, angel, lines) {
 
 
 function cteateSashDirLine(center, angel) {
+  console.log(angel);
   var k =  Math.tan(angel * Math.PI / 180),
     lineMark = {
+      center: center,
+      k: k,
       coefA: k,
       coefB: -1,
       coefC: (center.y - k*center.x)
@@ -919,7 +876,9 @@ function cteateSashDirLine(center, angel) {
 
 function getCrossPointInBlock(position, center, lineMark, lines) {
   var linesQty = lines.length;
+  console.log('%%%lines = ', lines);
   for(var l = 0; l < linesQty; l++) {
+    //------ if line
     if(lines[l].dir === 'line') {
       var coord = findCrossPoint(lineMark, lines[l], lineMark.coefC, lines[l].coefC);
       if(coord.x > 0 && coord.y > 0) {
@@ -957,17 +916,38 @@ function getCrossPointInBlock(position, center, lineMark, lines) {
         }
 
       }
+
+    //------- if line is curve
     } else {
+      var nextId, P0, P1, P2;
+      //------ if first curve and next is not curve
+      if(l === 0 && lines[l+1].dir === 'line') {
+        continue;
+      }
+      //-------- if last curve
+      if(l === linesQty-1 && lines[0].dir === 'curv') {
+        nextId = 0;
+      } else {
+        nextId = l+1;
+      }
+      P0 = lines[l].from;
+      P1 = lines[l].to;
+      P2 = lines[nextId].to;
+      console.log('lineMark',lineMark);
+      console.log('P0',P0);
+      console.log('P0',P1);
+      console.log('P0',P2);
+      var a = -lineMark.k*(P0.x - 2*P1.x + P2.x) + P0.y - 2*P1.y + P2.y;
+      var b = -2*(-lineMark.k*(P0.x - P1.x) + (P0.y - P1.y));
+      var c = -lineMark.k*(P0.x - lineMark.center.x) + (P0.y - lineMark.center.y);
+      var delta = Math.sqrt(Math.pow(b,2) - 4*a*c);
+      var t1 = (-b + Math.sqrt(delta))/2*a;
+      var t2 = (-b - Math.sqrt(delta))/2*a;
 
-//      var step = 0.01,
-//          t = 0;
-//      while(t <= 1) {
-//        var sizeX = 2*((1-t)*(lines[1].x - lines[0].x) + t*(lines[2].x - lines[1].x));
-//        var sizeY = 2*((1-t)*(lines[1].y - lines[0].y) + t*(lines[2].y - lines[1].y));
-//        size += Math.hypot(sizeX, sizeY)*step;
-//        t += step;
-//      }
-
+      console.log('delta', delta);
+      console.log('t1', t1);
+      console.log('t2', t2);
+      l++;
     }
   }
 //  console.log('crossPoints ++++++', crossPoints);
@@ -992,7 +972,7 @@ function assamblingSashPath(arrPoints) {
 
 
 
-
+//---------- for impost
 
 function setImpostPoints(blocks, parentID, points) {
   var impostPoints = [],
@@ -1044,62 +1024,6 @@ function setImpostParts(points) {
 
 
 
-
-
-//---------- for impost
-
-
-function prepareLines(lines) {
-  var linesQty = lines.length,
-      newLines = [],
-      p = 0;
-
-  for(; p < linesQty; p++) {
-    console.log(lines[p]);
-    //----- passing if first line is curv
-    if(p === 0 && lines[p].dir === 'curv' && lines[p+1].dir === 'line') {
-      continue;
-    }
-
-    //------ if last line
-    if(p === (linesQty - 1)) {
-      //------- if one point is 'curv' from both
-      if(lines[p].dir === 'curv' && lines[0].dir === 'curv') {
-        var curve = {
-          points: [],
-          dir: 'curv'
-        };
-        curve.points.push(lines[p].from);
-        curve.points.push(lines[p].to);
-        curve.points.push(lines[0].to);
-        newLines.push(curve);
-
-      } else {
-        //-------- if line
-        newLines.push(lines[p]);
-      }
-    } else {
-
-      //------- if curv
-      if(lines[p].dir === 'curv' && lines[p+1].dir === 'curv') {
-        var curve = {
-          points: [],
-          dir: 'curv'
-        };
-        curve.points.push(lines[p].from);
-        curve.points.push(lines[p].to);
-        curve.points.push(lines[p+1].to);
-        newLines.push(curve);
-        p++;
-      } else {
-        //-------- if line
-        newLines.push(lines[p]);
-      }
-    }
-  }
-
-  return newLines;
-}
 
 
 ////////////////////////////////////////////
@@ -1221,7 +1145,7 @@ var Template = function (sourceObj, depths) {
         this.details.skylights[i].parts.push( setImpostParts(this.details.skylights[i].impost.impostIn) );
       }
     }
-    console.log('^^^^^^^^^', this.details.skylights[i]);
+//    console.log('^^^^^^^^^', this.details.skylights[i]);
   }
 
 };
