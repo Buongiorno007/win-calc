@@ -867,7 +867,6 @@ function cteateSashDirLine(center, angel) {
   var k =  Math.tan(angel * Math.PI / 180),
     lineMark = {
       center: center,
-      k: k,
       coefA: k,
       coefB: -1,
       coefC: (center.y - k*center.x)
@@ -879,20 +878,18 @@ function cteateSashDirLine(center, angel) {
 
 function getCrossPointInBlock(position, center, lineMark, lines) {
   var linesQty = lines.length;
-  console.log('%%%lines = ', lines);
+
   for(var l = 0; l < linesQty; l++) {
     //------ if line
+    console.log('line ++++', lines[l]);
     if(lines[l].dir === 'line') {
       var coord = findCrossPoint(lineMark, lines[l], lineMark.coefC, lines[l].coefC);
+      console.log('coord ++++', coord);
       if(coord.x > 0 && coord.y > 0) {
         coord.fi = getAngelPoint(center, coord);
         //------ checking is cross point inner of line
-        var px = (coord.x - lines[l].to.x)/(lines[l].from.x - lines[l].to.x);
-        var py = (coord.y - lines[l].to.y)/(lines[l].from.y - lines[l].to.y);
-
-        if(px >= 0 && px < 1 || py >=0 && py < 1) {
-//          console.log('TRUE = ', coord);
-//          crossPoints.push(coord);
+        var checkPoint = checkLineOwnPoint(coord, lines[l].to, lines[l].from);
+        if(checkPoint.x >= 0 && checkPoint.x < 1 || checkPoint.y >=0 && checkPoint.y < 1) {
           switch(position) {
             case 1:
               if(coord.fi > 180 && coord.fi < 360) {
@@ -922,7 +919,8 @@ function getCrossPointInBlock(position, center, lineMark, lines) {
 
     //------- if line is curve
     } else {
-      var nextId, P0, P1, P2;
+
+      var nextId, p1, p2, p3, l1, l2;
       //------ if first curve and next is not curve
       if(l === 0 && lines[l+1].dir === 'line') {
         continue;
@@ -930,33 +928,132 @@ function getCrossPointInBlock(position, center, lineMark, lines) {
       //-------- if last curve
       if(l === linesQty-1 && lines[0].dir === 'curv') {
         nextId = 0;
-      } else {
+      } else if(lines[l+1].dir === 'curv') {
         nextId = l+1;
+      } else if(lines[l-1].dir === 'curv') {
+        nextId = l-1;
       }
-      P0 = lines[l].from;
-      P1 = lines[l].to;
-      P2 = lines[nextId].to;
-      console.log('lineMark',lineMark);
-      console.log('P0',P0);
-      console.log('P0',P1);
-      console.log('P0',P2);
-      var a = -lineMark.k*(P0.x - 2*P1.x + P2.x) + P0.y - 2*P1.y + P2.y;
-      var b = -2*(-lineMark.k*(P0.x - P1.x) + (P0.y - P1.y));
-      var c = -lineMark.k*(P0.x - lineMark.center.x) + (P0.y - lineMark.center.y);
-      var delta = Math.sqrt(Math.pow(b,2) - 4*a*c);
-      var t1 = (-b + Math.sqrt(delta))/2*a;
-      var t2 = (-b - Math.sqrt(delta))/2*a;
 
-      console.log('delta', delta);
-      console.log('t1', t1);
-      console.log('t2', t2);
-      l++;
+      //------- cross point lineMark with curve line
+      var coord = findCrossPoint(lineMark, lines[l], lineMark.coefC, lines[l].coefC);
+      if(coord.x > 0 && coord.y > 0) {
+        //------ checking is cross point inner of line
+        var checkPoint = checkLineOwnPoint(coord, lines[l].to, lines[l].from);
+
+        if(checkPoint.x >= 0 && checkPoint.x < 1 || checkPoint.y >=0 && checkPoint.y < 1) {
+
+          // qCurve & line defs
+          if(lines[l].from.id.indexOf('fp') + 1 && lines[l].to.id.indexOf('q') + 1) {
+            p1 = lines[l].from;
+            p2 = lines[l].to;
+            p3 = lines[nextId].to;
+          } else {
+            p1 = lines[nextId].from;
+            p2 = lines[l].from;
+            p3 = lines[l].to;
+          }
+
+          l1 = lineMark.center;
+          l2 = coord;
+          console.log('p1 ------',p1);
+          console.log('p2 ------',p2);
+          console.log('p3 ------',p3);
+          console.log('l1 ------',l1);
+          console.log('l2 ------',l2);
+          // calc the intersections
+          var points = QLineIntersections(p1, p2, p3, l1, l2);
+          console.log('---+++++++++----', points);
+          return points[0];
+        }
+      }
+
     }
   }
-//  console.log('crossPoints ++++++', crossPoints);
-//  return crossPoints;
+
+
 }
 
+function checkLineOwnPoint(point, lineTo, lineFrom) {
+  var check = {
+    x: (point.x - lineTo.x) / (lineFrom.x - lineTo.x),
+    y: (point.y - lineTo.y) / (lineFrom.y - lineTo.y)
+  };
+  return check;
+}
+
+
+function QLineIntersections(p1, p2, p3, a1, a2) {
+  var intersections = [],
+  // inverse line normal
+  normal = {
+    x: a1.y-a2.y,
+    y: a2.x-a1.x
+  },
+  // Q-coefficients
+  c2 = {
+    x: p1.x + p2.x*-2 + p3.x,
+    y: p1.y + p2.y*-2 + p3.y
+  },
+  c1 = {
+    x: p1.x*-2 + p2.x*2,
+    y: p1.y*-2 + p2.y*2
+  },
+  c0 = {
+    x: p1.x,
+    y: p1.y
+  },
+  // Transform to line
+  coefficient = a1.x*a2.y - a2.x*a1.y,
+  a = normal.x*c2.x + normal.y*c2.y,
+  b = (normal.x*c1.x + normal.y*c1.y)/ a,
+  c = (normal.x*c0.x + normal.y*c0.y + coefficient)/ a,
+  // solve the roots
+  roots = [],
+  d = b*b - 4*c;
+
+  if(d > 0) {
+    var delta = Math.sqrt(d);
+    roots.push((-b + delta)/2);
+    roots.push((-b - delta)/2);
+  } else if(d === 0) {
+    roots.push(-b/2);
+  }
+
+  // calc the solution points
+  for(var i=0; i<roots.length; i++) {
+    var minX = Math.min(a1.x, a2.x),
+        minY = Math.min(a1.y, a2.y),
+        maxX = Math.max(a1.x, a2.x),
+        maxY = Math.max(a1.y, a2.y),
+        t = roots[i];
+
+    if(t>=0 && t<=1) {
+      // possible point -- pending bounds check
+      var point = {
+        x: lerp(lerp(p1.x,p2.x,t),lerp(p2.x,p3.x,t),t),
+        y: lerp(lerp(p1.y,p2.y,t),lerp(p2.y,p3.y,t),t)
+      },
+      x = point.x,
+      y = point.y;
+      // bounds checks
+      if(a1.x=== a2.x && y>=minY && y<=maxY){
+        // vertical line
+        intersections.push(point);
+      }else if(a1.y=== a2.y && x>=minX && x<=maxX){
+        // horizontal line
+        intersections.push(point);
+      }else if(x>=minX && y>=minY && x<=maxX && y<=maxY){
+        // line passed bounds check
+        intersections.push(point);
+      }
+    }
+  }
+  return intersections;
+}
+
+
+// linear interpolation utility
+function lerp(a,b,x) { return(a+x*(b-a)); }
 
 
 
