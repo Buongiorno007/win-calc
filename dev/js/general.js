@@ -322,6 +322,7 @@ function setPointsIn(block, depths, group) {
   var pointsIn = [],
       linesQty = block.linesOut.length,
       i = 0;
+//  console.log('block.linesOut = ', block.level);
 
   for(; i < linesQty; i++) {
     var newCoefC1 = getNewCoefC(depths, block.linesOut[i], group),
@@ -401,6 +402,8 @@ function getNewCoefC(depths, line, group) {
       }
       break;
   }
+//  console.log('depth', line.type);
+//  console.log('depth', depth);
   var newCoefC = line.coefC - (depth * Math.hypot(line.coefA, line.coefB));
   return newCoefC;
 }
@@ -408,7 +411,8 @@ function getNewCoefC(depths, line, group) {
 
 
 function getCoordCrossPoint(line1, line2, coefC1, coefC2) {
-
+//  console.log('block.linesOut = ', line1);
+//  console.log('block.linesOut = ', line2);
   var crossPoint = {},
       coord = {},
       isParall = checkParallel(line1, line2);
@@ -432,7 +436,7 @@ function getCoordCrossPoint(line1, line2, coefC1, coefC2) {
   } else {
     coord = findCrossPoint(line1, line2, coefC1, coefC2);
   }
-
+//  console.log('coord = ', coord);
   crossPoint.x = coord.x;
   crossPoint.y = coord.y;
   crossPoint.type = (line1.type === 'impost' || line2.type === 'impost') ? 'impost' : 'frame';
@@ -787,30 +791,30 @@ function setOpenDir(direction, center, beadLines) {
     switch(direction[index]) {
       //----- 'up'
       case 1:
-        part.points.push(getCrossPointSashDir(1, center, geomCenter, 225, beadLines));
+        part.points.push(getCrossPointSashDir(1, geomCenter, 225, beadLines));
         part.points.push({x: geomCenter.x, y: dim.minY});
-        part.points.push(getCrossPointSashDir(1, center, geomCenter, 315, beadLines));
+        part.points.push(getCrossPointSashDir(1, geomCenter, 315, beadLines));
         break;
       //----- 'right'
       case 2:
-        part.points.push(getCrossPointSashDir(2, center, geomCenter, 225, beadLines));
+        part.points.push(getCrossPointSashDir(2, geomCenter, 225, beadLines));
         part.points.push({x: dim.maxX, y: geomCenter.y});
-        part.points.push(getCrossPointSashDir(2, center, geomCenter, 135, beadLines));
+        part.points.push(getCrossPointSashDir(2, geomCenter, 135, beadLines));
         break;
       //------ 'down'
       case 3:
-        part.points.push(getCrossPointSashDir(3, center, geomCenter, 135, beadLines));
+        part.points.push(getCrossPointSashDir(3, geomCenter, 135, beadLines));
         part.points.push({x: geomCenter.x, y: dim.maxY});
-        part.points.push(getCrossPointSashDir(3, center, geomCenter, 45, beadLines));
+        part.points.push(getCrossPointSashDir(3, geomCenter, 45, beadLines));
         break;
       //----- 'left'
       case 4:
-        part.points.push(getCrossPointSashDir(4, center, geomCenter, 45, beadLines));
+        part.points.push(getCrossPointSashDir(4, geomCenter, 45, beadLines));
         part.points.push({x: dim.minX, y: geomCenter.y});
-        part.points.push(getCrossPointSashDir(4, center, geomCenter, 315, beadLines));
+        part.points.push(getCrossPointSashDir(4, geomCenter, 315, beadLines));
         break;
     }
-
+//console.log('path ====', part.points);
     part.path = assamblingSashPath(part.points);
     parts.push(part);
   }
@@ -850,18 +854,18 @@ function preparePointsXMaxMin(lines) {
 }
 
 
-function getCrossPointSashDir(position, centerMass, centerGeom, angel, lines) {
+function getCrossPointSashDir(position, centerGeom, angel, lines) {
 
   var sashLineMark = cteateSashDirLine(centerGeom, angel);
-  var crossPoints = getCrossPointInBlock(position, centerMass, sashLineMark, lines);
+  var crossPoints = getCrossPointInBlock(position, sashLineMark, lines);
   return crossPoints;
 }
 
 
 
 function cteateSashDirLine(center, angel) {
-  console.log(angel);
-  var k =  Math.tan(angel * Math.PI / 180),
+//  console.log(angel);
+  var k =  Math.round(Math.tan(angel * Math.PI / 180)),
     lineMark = {
       center: center,
       coefA: k,
@@ -873,74 +877,38 @@ function cteateSashDirLine(center, angel) {
 
 
 
-function getCrossPointInBlock(position, center, lineMark, lines) {
+function getCrossPointInBlock(position, lineMark, lines) {
   var linesQty = lines.length;
-
   for(var l = 0; l < linesQty; l++) {
-    //------ if line
-    console.log('line ++++', lines[l]);
-    if(lines[l].dir === 'line') {
-      var coord = findCrossPoint(lineMark, lines[l], lineMark.coefC, lines[l].coefC);
-      console.log('coord ++++', coord);
-      if(coord.x > 0 && coord.y > 0) {
-        coord.fi = getAngelPoint(center, coord);
-        //------ checking is cross point inner of line
-        var checkPoint = checkLineOwnPoint(coord, lines[l].to, lines[l].from);
-        if(checkPoint.x >= 0 && checkPoint.x < 1 || checkPoint.y >=0 && checkPoint.y < 1) {
-          switch(position) {
-            case 1:
-              if(coord.fi > 180 && coord.fi < 360) {
-                return coord;
-              }
-              break;
-            case 2:
-              if(coord.fi > 90 && coord.fi < 270) {
-                return coord;
-              }
-              break;
-            case 3:
-              if(coord.fi < 180) {
-                return coord;
-              }
-              break;
-            case 4:
-              if(coord.fi > 270 || coord.fi < 90) {
-                return coord;
-              }
-              break;
+
+//    console.log('line ++++', lines[l]);
+    var coord = findCrossPoint(lineMark, lines[l], lineMark.coefC, lines[l].coefC);
+    if(coord.x > 0 && coord.y > 0) {
+
+      //------ checking is cross point inner of line
+      var checkPoint = checkLineOwnPoint(coord, lines[l].to, lines[l].from);
+      if(checkPoint.x >= 0 && checkPoint.x <= 1 || checkPoint.y >=0 && checkPoint.y <= 1) {
+
+
+        if(lines[l].dir === 'curv') {
+          var nextId, p1, p2, p3, l1, l2;
+          //------ if first curve and next is not curve
+          if(l === 0 && lines[l+1].dir === 'line') {
+            nextId = linesQty-1;
+            //-------- if last curve
+          } else if(l === linesQty-1 && lines[0].dir === 'curv') {
+            nextId = 0;
+          } else if(lines[l+1].dir === 'curv') {
+            nextId = l+1;
+          } else if(lines[l-1].dir === 'curv') {
+            nextId = l-1;
           }
 
-        }
-
-      }
-
-    //------- if line is curve
-    } else {
-
-      var nextId, p1, p2, p3, l1, l2;
-      //------ if first curve and next is not curve
-      if(l === 0 && lines[l+1].dir === 'line') {
-        continue;
-      }
-      //-------- if last curve
-      if(l === linesQty-1 && lines[0].dir === 'curv') {
-        nextId = 0;
-      } else if(lines[l+1].dir === 'curv') {
-        nextId = l+1;
-      } else if(lines[l-1].dir === 'curv') {
-        nextId = l-1;
-      }
-
-      //------- cross point lineMark with curve line
-      var coord = findCrossPoint(lineMark, lines[l], lineMark.coefC, lines[l].coefC);
-      if(coord.x > 0 && coord.y > 0) {
-        //------ checking is cross point inner of line
-        var checkPoint = checkLineOwnPoint(coord, lines[l].to, lines[l].from);
-
-        if(checkPoint.x >= 0 && checkPoint.x < 1 || checkPoint.y >=0 && checkPoint.y < 1) {
-
           // qCurve & line defs
-          if(lines[l].from.id.indexOf('fp') + 1 && lines[l].to.id.indexOf('q') + 1) {
+          var regFP = /fp\d/;
+          var regC = /c\d-\d/;
+
+          if(regFP.test(lines[l].from.id) || regC.test(lines[l].from.id) && lines[l].to.id.indexOf('q') + 1) {
             p1 = lines[l].from;
             p2 = lines[l].to;
             p3 = lines[nextId].to;
@@ -952,19 +920,46 @@ function getCrossPointInBlock(position, center, lineMark, lines) {
 
           l1 = lineMark.center;
           l2 = coord;
-          console.log('p1 ------',p1);
-          console.log('p2 ------',p2);
-          console.log('p3 ------',p3);
-          console.log('l1 ------',l1);
-          console.log('l2 ------',l2);
+//          console.log('p1 ------',p1);
+//          console.log('p2 ------',p2);
+//          console.log('p3 ------',p3);
+//          console.log('l1 ------',l1);
+//          console.log('l2 ------',l2);
           // calc the intersections
           var points = QLineIntersections(p1, p2, p3, l1, l2);
-          console.log('---+++++++++----', points);
-          return points[0];
+          coord.x = points[0].x;
+          coord.y = points[0].y;
         }
+
+
+        coord.fi = getAngelPoint(lineMark.center, coord);
+        switch(position) {
+          case 1:
+            if(coord.fi > 180 && coord.fi < 360) {
+              return coord;
+            }
+            break;
+          case 2:
+            if(coord.fi > 90 && coord.fi < 270) {
+              return coord;
+            }
+            break;
+          case 3:
+            if(coord.fi < 180) {
+              return coord;
+            }
+            break;
+          case 4:
+            if(coord.fi > 270 || coord.fi < 90) {
+              return coord;
+            }
+            break;
+        }
+
       }
 
     }
+
   }
 
 
@@ -988,12 +983,12 @@ function QLineIntersections(p1, p2, p3, a1, a2) {
   },
   // Q-coefficients
   c2 = {
-    x: p1.x + p2.x*-2 + p3.x,
-    y: p1.y + p2.y*-2 + p3.y
+    x: p1.x - 2*p2.x + p3.x,
+    y: p1.y - 2*p2.y + p3.y
   },
   c1 = {
-    x: p1.x*-2 + p2.x*2,
-    y: p1.y*-2 + p2.y*2
+    x: -2*p1.x + 2*p2.x,
+    y: -2*p1.y + 2*p2.y
   },
   c0 = {
     x: p1.x,
@@ -1001,13 +996,26 @@ function QLineIntersections(p1, p2, p3, a1, a2) {
   },
   // Transform to line
   coefficient = a1.x*a2.y - a2.x*a1.y,
-  a = normal.x*c2.x + normal.y*c2.y,
+  roots = [],
+  a, b, c, d;
+
+//  console.log('coefficient', coefficient);
+
+  if(Math.abs(normal.x) === Math.abs(normal.y)) {
+    a = Math.abs(normal.x*c2.x) + Math.abs(normal.y*c2.y);
+  //------ if line is vert or horisontal
+  } else if(!Math.abs(normal.x)) {
+    a = c2.x + normal.y * c2.y;
+  } else if(!Math.abs(normal.y)) {
+    a = normal.x*c2.x + c2.y;
+  } else {
+    a = normal.x*c2.x + normal.y*c2.y;
+  }
   b = (normal.x*c1.x + normal.y*c1.y)/ a,
   c = (normal.x*c0.x + normal.y*c0.y + coefficient)/ a,
-  // solve the roots
-  roots = [],
   d = b*b - 4*c;
 
+  // solve the roots
   if(d > 0) {
     var delta = Math.sqrt(d);
     roots.push((-b + delta)/2);
@@ -1015,14 +1023,17 @@ function QLineIntersections(p1, p2, p3, a1, a2) {
   } else if(d === 0) {
     roots.push(-b/2);
   }
+//  console.log('normal ++++',normal);
+//  console.log('c2 ++++',c2);
+//  console.log('a ++++',a);
+//  console.log('b ++++',b);
+//  console.log('c ++++',c);
+//  console.log('d ++++',d);
+//  console.log('t++++',roots);
 
   // calc the solution points
   for(var i=0; i<roots.length; i++) {
-    var minX = Math.min(a1.x, a2.x),
-        minY = Math.min(a1.y, a2.y),
-        maxX = Math.max(a1.x, a2.x),
-        maxY = Math.max(a1.y, a2.y),
-        t = roots[i];
+    var t = roots[i];
 
     if(t>=0 && t<=1) {
       // possible point -- pending bounds check
@@ -1031,16 +1042,24 @@ function QLineIntersections(p1, p2, p3, a1, a2) {
         y: lerp(lerp(p1.y,p2.y,t),lerp(p2.y,p3.y,t),t)
       },
       x = point.x,
-      y = point.y;
+      y = point.y,
+      minX = Math.min(a1.x, a2.x, p1.x, p2.x, p3.x),
+      minY = Math.min(a1.y, a2.y, p1.y, p2.y, p3.y),
+      maxX = Math.max(a1.x, a2.x, p1.x, p2.x, p3.x),
+      maxY = Math.max(a1.y, a2.y, p1.y, p2.y, p3.y);
+      console.log(x,y,minX,minY,maxX,maxY);
       // bounds checks
-      if(a1.x=== a2.x && y>=minY && y<=maxY){
+      if(a1.x === a2.x && y>=minY && y<=maxY){
         // vertical line
+//        console.log('vert');
         intersections.push(point);
-      }else if(a1.y=== a2.y && x>=minX && x<=maxX){
+      } else if(a1.y === a2.y && x>=minX && x<=maxX){
         // horizontal line
+//        console.log('hor');
         intersections.push(point);
-      }else if(x>=minX && y>=minY && x<=maxX && y<=maxY){
+      } else if(x>=minX && y>=minY && x<=maxX && y<=maxY){
         // line passed bounds check
+//        console.log('passed');
         intersections.push(point);
       }
     }

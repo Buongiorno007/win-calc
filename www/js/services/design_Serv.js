@@ -586,7 +586,7 @@
 
         //------- find line and block Ids to insert Q point
         for(var b = 0; b < blocksQty; b++) {
-          if(blocks[b].level > 0) {
+          if(blocks[b].level) {
             var linesQty = blocks[b].linesOut.length;
             while(--linesQty > -1) {
               if(blocks[b].linesOut[linesQty].from.id === arc.points[0].id && blocks[b].linesOut[linesQty].to.id === arc.points[1].id) {
@@ -632,22 +632,14 @@
           createArcPoint(arcN, coordQ, currBlockID);
         }
 
-
+        //------ check imposts
         //------ check crossing currLine with all imposts
         for(var b = 0; b < blocksQty; b++) {
-          if(blocks[b].level && blocks[b].impostID) {
+          if(blocks[b].level && blocks[b].impost) {
             console.log('%%%%currLine ==== ', currLine);
-            var impostIdQty = blocks[b].impostID.length;
-            if(impostIdQty) {
-              for(var p = 0; p < impostIdQty; p++) {
-                getImpostCP(blocks[blocksQty].impostIn, currLine, coordQ);
-              }
-            }
-
-
+            getCPImpostArc(blocks[b].impost, currLine, coordQ);
           }
         }
-
 
         DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
 
@@ -677,18 +669,49 @@
 
 
 
-    function getImpostCP(impost, currLine, coordQ) {
-      console.log('$$$impost$$$', impost);
-      console.log('currLine', currLine);
-      console.log('coordQ', coordQ);
+    function getCPImpostArc(impost, currLine, coordQ) {
+//      console.log('$$$impost$$$', impost);
+//      console.log('currLine', currLine);
+//      console.log('coordQ', coordQ);
 
-//      var impostLine1 = {}, impostLine2 = {},
-//          impostPointsQty = impost.length;
-//
-//      setLineCoef(impostLine1);
-//      setLineCoef(impostLine2);
+
+      // calc the intersections impost with arc
+      var points = QLineIntersections(currLine.from, coordQ, currLine.to, impost.impostAxis[0], impost.impostAxis[1]);
+//      console.log('points ------',points);
+
+      //----- which of the points of impost should be changed
+      if(points.length) {
+        var pointIdOld = getImpostPointIdXChange(impost.impostAxis, points[0]);
+        setNewImpostPoint(points[0], pointIdOld);
+      }
+
     }
 
+
+
+    function getImpostPointIdXChange(impost, newPoint) {
+      var size = Math.round(Math.hypot((impost[1].x - impost[0].x), (impost[1].y - impost[0].y)) * 100) / 100,
+      size1 = Math.round(Math.hypot((newPoint.x - impost[0].x), (newPoint.y - impost[0].y)) * 100) / 100,
+      size2 = Math.round(Math.hypot((newPoint.x - impost[1].x), (newPoint.y - impost[1].y)) * 100) / 100;
+
+      if(size1 > size) {
+        return impost[1].id;
+      } else if(size2 > size) {
+        return impost[0].id;
+      }
+    }
+
+
+    function setNewImpostPoint(coord, pointId) {
+      var points = DesignStor.design.templateSourceTEMP.details.points,
+          pointsQty = points.length;
+      while(--pointsQty > -1) {
+        if(points[pointsQty].id === pointId) {
+          points[pointsQty].x = coord.x;
+          points[pointsQty].y = coord.y;
+        }
+      }
+    }
 
 
     function deleteArc(arcObj) {
