@@ -466,7 +466,6 @@
                     blockType:'frame',
                     parent: 'block_0',
                     children: ['block_2', 'block_3'],
-//                    children: [],
                     pointsID: ['fp1', 'fp3', 'fp4', 'fp2'/*, 'q2', 'q3', 'q1',  'q4', 'c1-1', 'c1-2', 'qc1'*/ ],
                     impost: {
                       impostID: ['ip1', 'ip2'],
@@ -485,7 +484,8 @@
                     blockType: 'sash',
                     parent: 'block_1',
                     children: [],
-                    pointsID: ['fp1', 'ip1', 'ip2', 'fp4'],
+//                    pointsID: ['fp1', 'ip1', 'ip2', 'fp4'],
+                    pointsID: ['ip1', 'ip2'],
                     parts: [],
                     glassId: 0,
                     gridId: 0,
@@ -499,7 +499,8 @@
                     blockType: 'frame',
                     parent: 'block_1',
                     children: ['block_4', 'block_5'],
-                    pointsID: ['ip1', 'fp2', 'fp3', 'ip2'],
+//                    pointsID: ['ip1', 'fp2', 'fp3', 'ip2'],
+                    pointsID: ['ip1', 'ip2'],
                     impost: {
                       impostID: ['ip3', 'ip4'],
                       impostAxis: [],
@@ -517,7 +518,8 @@
                     blockType: 'frame',
                     parent: 'block_3',
                     children: [],
-                    pointsID: ['ip1', 'fp2', 'ip3', 'ip4'],
+//                    pointsID: ['ip1', 'fp2', 'ip3', 'ip4'],
+                    pointsID: ['ip3', 'ip4'],
                     parts: [],
                     glassId: 0,
                     gridId: 0
@@ -529,7 +531,8 @@
                     blockType: 'frame',
                     parent: 'block_3',
                     children: [],
-                    pointsID: ['ip4', 'ip3', 'fp3', 'ip2'],
+//                    pointsID: ['ip4', 'ip3', 'fp3', 'ip2'],
+                    pointsID: ['ip4', 'ip3'],
                     parts: [],
                     glassId: 0,
                     gridId: 0

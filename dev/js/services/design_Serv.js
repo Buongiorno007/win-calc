@@ -321,7 +321,7 @@
         if(blocks[b].id === blockID) {
           //---- set simple corner
           if(cornerObj.__data__.view) {
-            startCreateCornerPoint(cornerID, cornerN, blocks[b].linesOut, blocks, points);
+            startCreateCornerPoint(cornerID, cornerN, blocks[b].linesOut, b, blocks, points);
 
             //----- change curve corner to simple
           } else {
@@ -363,17 +363,17 @@
           //----- set curve corner
           if (cornerObj.__data__.view) {
 
-            startCreateCornerPoint(cornerID, cornerN, blocks[b].linesOut, blocks, points);
-            createQCPoint(cornerN, cornerObj.__data__, blocks, points);
+            startCreateCornerPoint(cornerID, cornerN, blocks[b].linesOut, b, blocks, points);
+            createQCPoint(cornerN, cornerObj.__data__, b, blocks, points);
 
           //----- change simple corner to corve
           } else {
 
             var linesQty = blocks[b].linesOut.length;
-            for(var l = 0; l < linesQty; l++) {
-              if(blocks[b].linesOut[l].from.id === 'c'+cornerN+'-2' && blocks[b].linesOut[l].to.id === 'c'+cornerN+'-1' ) {
+            for (var l = 0; l < linesQty; l++) {
+              if (blocks[b].linesOut[l].from.id === 'c'+cornerN+'-2' && blocks[b].linesOut[l].to.id === 'c'+cornerN+'-1' ) {
                 var qcPoint = setQPointCoord(cornerN, blocks[b].linesOut[l]);
-                createQCPoint(cornerN, qcPoint, blocks, points);
+                createQCPoint(cornerN, qcPoint, b, blocks, points);
               }
             }
 
@@ -393,59 +393,21 @@
     }
 
 
-
-
-
-    function changeTemplate() {
-      DesignStor.design.templateSourceTEMP.details.points = angular.copy(DesignStor.design.templateTEMP.details.points);
-      for(var i = 0; i < DesignStor.design.templateSourceTEMP.details.skylights.length; i++) {
-        if(DesignStor.design.templateSourceTEMP.details.skylights[i].level > 0) {
-          DesignStor.design.templateSourceTEMP.details.skylights[i].pointsID = angular.copy(DesignStor.design.templateTEMP.details.skylights[i].pointsID);
-        }
-      }
-      DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
-    }
-
-
-
-
-    function deleteCornerPoints(cornerObj) {
-      var cornerID = cornerObj.__data__.id,
-          cornerN = Number(cornerID.replace(/\D+/g, "")),
-          points = DesignStor.design.templateSourceTEMP.details.points,
-          blocks = DesignStor.design.templateSourceTEMP.details.skylights,
-          pointsQty = points.length;
-
-      //------- delete corner point IDs in block (pointsID)
-      removePointId(['c' + cornerN + '-1', 'c' + cornerN + '-2', 'qc'+cornerN], blocks);
-
-      while (--pointsQty > -1) {
-        //----- show this frame point
-        if (points[pointsQty].id === cornerID) {
-          points[pointsQty].view = 1;
-        }
-      }
-      //----- delete corner points
-      removePoint(['c' + cornerN + '-1', 'c' + cornerN + '-2', 'qc'+cornerN], points);
-      DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
-    }
-
-
-
-    function startCreateCornerPoint(cornerID, cornerN, lines, blocks, points) {
+    function startCreateCornerPoint(cornerID, cornerN, lines, blockIndex, blocks, points) {
       var linesQty = lines.length,
           l = 0;
       for(; l < linesQty; l++) {
         if(lines[l].from.id === cornerID) {
-          createCornerPoint(1, cornerN, lines[l], blocks, points);
+          createCornerPoint(1, cornerN, lines[l], blockIndex, blocks, points);
         } else if(lines[l].to.id === cornerID) {
-          createCornerPoint(2, cornerN, lines[l], blocks, points);
+          createCornerPoint(2, cornerN, lines[l], blockIndex, blocks, points);
         }
       }
     }
 
 
-    function createCornerPoint(pointN, cornerN, line, blocks, points) {
+
+    function createCornerPoint(pointN, cornerN, line, blockIndex, blocks, points) {
       var dictance = 200,
           cornerPoint = {
             type:'corner',
@@ -460,10 +422,22 @@
         cornerPoint.y = ( line.from.y * dictance + line.to.y * (line.size - dictance))/ line.size;
       }
 
-      addPointId(cornerPoint.id, 'fp'+cornerN, blocks);
+      blocks[blockIndex].pointsID.push(cornerPoint.id);
       points.push(cornerPoint);
     }
 
+
+    function createQCPoint(cornerN, framePoint, blockIndex, blocks, points) {
+      var QCPoint = {
+        type:'corner',
+        id: 'qc' + cornerN,
+        x: framePoint.x,
+        y: framePoint.y,
+        dir:'curv'
+      };
+      blocks[blockIndex].pointsID.push(QCPoint.id);
+      points.push(QCPoint);
+    }
 
 
 
@@ -502,38 +476,63 @@
 
 
 
-    function createQCPoint(cornerN, framePoint, blocks, points) {
-      var QCPoint = {
-        type:'corner',
-        id: 'qc' + cornerN,
-        x: framePoint.x,
-        y: framePoint.y,
-        dir:'curv'
-      };
-      addPointId(QCPoint.id, 'fp'+cornerN, blocks);
-      points.push(QCPoint);
-    }
 
-
-    function addPointId(newId, criterion, blocks) {
-      var blockQty = blocks.length;
-      while(--blockQty > -1) {
-        if(blocks[blockQty].level > 0) {
-          var idQty = blocks[blockQty].pointsID.length;
-          while(--idQty > -1) {
-            if(blocks[blockQty].pointsID[idQty] === criterion) {
-              blocks[blockQty].pointsID.push(newId);
-            }
-          }
+    function changeTemplate() {
+      DesignStor.design.templateSourceTEMP.details.points = angular.copy(DesignStor.design.templateTEMP.details.points);
+      for(var i = 0; i < DesignStor.design.templateSourceTEMP.details.skylights.length; i++) {
+        if(DesignStor.design.templateSourceTEMP.details.skylights[i].level) {
+          DesignStor.design.templateSourceTEMP.details.skylights[i].pointsID = angular.copy(DesignStor.design.templateTEMP.details.skylights[i].pointsID);
         }
       }
+      DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
     }
+
+
+
+
+    function deleteCornerPoints(cornerObj) {
+      var cornerID = cornerObj.__data__.id,
+          cornerN = Number(cornerID.replace(/\D+/g, "")),
+          points = DesignStor.design.templateSourceTEMP.details.points,
+          blocks = DesignStor.design.templateSourceTEMP.details.skylights,
+          pointsQty = points.length;
+
+      //------- delete corner point IDs in block (pointsID)
+      removePointId(['c' + cornerN + '-1', 'c' + cornerN + '-2', 'qc'+cornerN], blocks);
+
+      while (--pointsQty > -1) {
+        //----- show this frame point
+        if (points[pointsQty].id === cornerID) {
+          points[pointsQty].view = 1;
+        }
+      }
+      //----- delete corner points
+      removePoint(['c' + cornerN + '-1', 'c' + cornerN + '-2', 'qc'+cornerN], points);
+      DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
+    }
+
+
+
+
+//    function addPointId(newId, criterion, blocks) {
+//      var blockQty = blocks.length;
+//      while(--blockQty > -1) {
+//        if(blocks[blockQty].level) {
+//          var idQty = blocks[blockQty].pointsID.length;
+//          while(--idQty > -1) {
+//            if(blocks[blockQty].pointsID[idQty] === criterion) {
+//              blocks[blockQty].pointsID.push(newId);
+//            }
+//          }
+//        }
+//      }
+//    }
 
 
     function removePointId(criterions, blocks) {
       var blockQty = blocks.length;
       while(--blockQty > -1) {
-        if(blocks[blockQty].level > 0) {
+        if(blocks[blockQty].level) {
           var idQty = blocks[blockQty].pointsID.length;
           while(--idQty > -1) {
             var critQty = criterions.length;
@@ -577,7 +576,7 @@
             blockID = arcObj.attributes.blockId.nodeValue,
             blocks = DesignStor.design.templateTEMP.details.skylights,
             blocksQty = blocks.length,
-            points = DesignStor.design.templateSourceTEMP.details.points,
+            points = DesignStor.design.templateTEMP.details.points,
             pointsQty = points.length,
             currBlockID = [], currLine;
 
@@ -633,12 +632,12 @@
         //------ check crossing currLine with all imposts
         for(var b = 0; b < blocksQty; b++) {
           if(blocks[b].level && blocks[b].impost) {
-            console.log('%%%%currLine ==== ', currLine);
-            getCPImpostArc(blocks[b].impost, currLine, coordQ);
+            console.log('impost +++ ', blocks[b].impost);
+            getPImpostArc(arcN, b, blocks[b], currLine, coordQ, points);
           }
         }
 
-        DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
+        changeTemplate();
 
       }
     }
@@ -658,50 +657,127 @@
       //---- insert pointQ in all relative blocks
       if(blockIdQty) {
         while(--blockIdQty > -1) {
-          DesignStor.design.templateSourceTEMP.details.skylights[blockID[blockIdQty]].pointsID.push(pointQ.id);
+          DesignStor.design.templateTEMP.details.skylights[blockID[blockIdQty]].pointsID.push(pointQ.id);
         }
       }
-      DesignStor.design.templateSourceTEMP.details.points.push(pointQ);
+      DesignStor.design.templateTEMP.details.points.push(pointQ);
     }
 
 
 
-    function getCPImpostArc(impost, currLine, coordQ) {
-//      console.log('$$$impost$$$', impost);
-//      console.log('currLine', currLine);
-//      console.log('coordQ', coordQ);
+    function getPImpostArc(arcN, ipN, block, currLine, coordQ, points) {
+      //------ calc the intersections impost with arc
+      var intersect = QLineIntersections(currLine.from, coordQ, currLine.to, block.impost.impostAxis[0], block.impost.impostAxis[1]);
+      console.log('intersect ------',intersect);
 
+      if(intersect.length) {
+        //------ set subPoints Q left / right side of impost
+        var impostQP1 = setQPImost(intersect[0].t, currLine.from, coordQ),
+            impostQP2 = setQPImost(intersect[0].t, currLine.to, coordQ);
+        console.log('QPssss', impostQP1, impostQP2);
 
-      // calc the intersections impost with arc
-      var points = QLineIntersections(currLine.from, coordQ, currLine.to, impost.impostAxis[0], impost.impostAxis[1]);
-//      console.log('points ------',points);
+        //------- checking place of subPoints Q as to impost
+        var placeImpostQP1 = setPointLocationToLine(block.impost.impostAxis[0], block.impost.impostAxis[1], impostQP1);
+        var placeImpostQP2 = setPointLocationToLine(block.impost.impostAxis[0], block.impost.impostAxis[1], impostQP2);
+        console.log('wherePoint +++ ', placeImpostQP1, placeImpostQP2);
 
-      //----- which of the points of impost should be changed
-      if(points.length) {
-        var pointIdOld = getImpostPointIdXChange(impost.impostAxis, points[0]);
-        setNewImpostPoint(points[0], pointIdOld);
+        //------- set blocks Ids according to left / right side
+        var blockIds = setBlockLocationToLine(block.impost.impostAxis[0], block.impost.impostAxis[1], block.children);
+
+        //----- create Q impost points
+        var blockID1 = (placeImpostQP1 > 0) ? blockIds.pos : blockIds.neg,
+            blockID2 = (placeImpostQP2 > 0) ? blockIds.pos : blockIds.neg;
+
+        console.log('blockId +++ ', impostQP1, blockID1);
+        console.log('blockId +++ ', impostQP2, blockID2);
+        createQPImpost(1, arcN, ipN, impostQP1, points, blockID1);
+        createQPImpost(2, arcN, ipN, impostQP2, points, blockID2);
+        //----- which of the points of impost should be changed
+        var pointIdOld = getImpostPointIdXChange(block.impost.impostAxis, intersect[0]);
+        //----- change coordinates of impost point in SourceTEMP
+        setNewCoordImpostPoint(intersect[0], pointIdOld, points);
       }
 
     }
 
+
+    function setQPImost(t, p0, p1) {
+      var qpi = {
+        x: (1-t)*p0.x + t*p1.x,
+        y: (1-t)*p0.y + t*p1.y
+      };
+      return qpi;
+    }
+
+
+    function createQPImpost(nP, arcN, ipN, coordQP, points, blockIndex) {
+      var pointQ = {
+            type:'arc',
+            id:'q'+arcN+'-ip'+ipN+'-'+nP,
+            x: coordQP.x,
+            y: coordQP.y,
+            dir:'curv'
+          };
+      points.push(pointQ);
+
+      //----- insert Q point id in blocks
+      DesignStor.design.templateTEMP.details.skylights[blockIndex].pointsID.push(pointQ.id);
+
+      //----- if block has children
+      if(DesignStor.design.templateTEMP.details.skylights[blockIndex].children.length) {
+//TODO
+      }
+    }
+
+
+
+    function setPointLocationToLine(lineP1, lineP2, newP) {
+      return (newP.x - lineP2.x)*(newP.y - lineP1.y)-(newP.y - lineP2.y)*(newP.x - lineP1.x);
+    }
+
+
+
+
+    function setBlockLocationToLine(lineP1, lineP2, currBlockId) {
+      var currBlockIdQty = currBlockId.length,
+          blocks = DesignStor.design.templateTEMP.details.skylights,
+          blocksQty = blocks.length,
+          blockIndex = {};
+      console.log('currBlockId ====', currBlockId);
+      while(--currBlockIdQty > - 1) {
+        for(var i = 0; i <  blocksQty; i++) {
+          if(blocks[i].id === currBlockId[currBlockIdQty]) {
+            var location = 0,
+                pointsOutQty = blocks[i].pointsOut.length;
+            while(--pointsOutQty > -1) {
+              var placePoint = setPointLocationToLine(lineP1, lineP2, blocks[i].pointsOut[pointsOutQty]);
+              console.log('placePoint ====', blocks[i].pointsOut[pointsOutQty]);
+              console.log('placePoint ====', placePoint);
+              if(placePoint > 0) {
+                location = 1;
+              }
+            }
+            if(location) {
+              blockIndex.pos = i;
+            } else {
+              blockIndex.neg = i;
+            }
+          }
+        }
+      }
+      return blockIndex;
+    }
 
 
     function getImpostPointIdXChange(impost, newPoint) {
       var size = Math.round(Math.hypot((impost[1].x - impost[0].x), (impost[1].y - impost[0].y)) * 100) / 100,
-      size1 = Math.round(Math.hypot((newPoint.x - impost[0].x), (newPoint.y - impost[0].y)) * 100) / 100,
-      size2 = Math.round(Math.hypot((newPoint.x - impost[1].x), (newPoint.y - impost[1].y)) * 100) / 100;
-
-      if(size1 > size) {
-        return impost[1].id;
-      } else if(size2 > size) {
-        return impost[0].id;
-      }
+      size1 = Math.round(Math.hypot((newPoint.x - impost[0].x), (newPoint.y - impost[0].y)) * 100) / 100;
+      return (size1 > size) ? impost[1].id : impost[0].id;
     }
 
 
-    function setNewImpostPoint(coord, pointId) {
-      var points = DesignStor.design.templateSourceTEMP.details.points,
-          pointsQty = points.length;
+    function setNewCoordImpostPoint(coord, pointId, points) {
+      var pointsQty = points.length;
       while(--pointsQty > -1) {
         if(points[pointsQty].id === pointId) {
           points[pointsQty].x = coord.x;
@@ -709,6 +785,14 @@
         }
       }
     }
+
+
+
+
+
+
+
+
 
 
     function deleteArc(arcObj) {

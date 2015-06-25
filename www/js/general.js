@@ -255,6 +255,41 @@ function getAngelPoint(center, point) {
 }
 
 
+function setPointsIDXChildren(currBlock, blocks, points) {
+  if(currBlock.children.length) {
+    currBlock.impost.impostAxis = setPointsOut(currBlock.impost.impostID, points);
+    var blocksQty = blocks.length,
+        pointsIDQty = currBlock.pointsOut.length;
+
+    while(--pointsIDQty > -1) {
+      var position = setPointLocationToLine(currBlock.impost.impostAxis[0], currBlock.impost.impostAxis[1], currBlock.pointsOut[pointsIDQty]);
+      console.log(position);
+      if(position > 0) {
+        for(var i = 0; i < blocksQty; i++) {
+          if(blocks[i].id === currBlock.children[1]) {
+            console.log(blocks[i].id);
+            blocks[i].pointsID.push(currBlock.pointsOut[pointsIDQty].id);
+          }
+        }
+      } else {
+        for(var i = 0; i < blocksQty; i++) {
+          if(blocks[i].id === currBlock.children[0]) {
+            console.log(blocks[i].id);
+            blocks[i].pointsID.push(currBlock.pointsOut[pointsIDQty].id);
+          }
+        }
+      }
+    }
+  }
+}
+
+
+function setPointLocationToLine(lineP1, lineP2, newP) {
+  return (newP.x - lineP2.x)*(newP.y - lineP1.y)-(newP.y - lineP2.y)*(newP.x - lineP1.x);
+}
+
+
+
 function setLines(points) {
   var lines = [],
       pointsQty = points.length,
@@ -929,9 +964,11 @@ function getCrossPointInBlock(position, lineMark, lines) {
 //          console.log('l1 ------',l1);
 //          console.log('l2 ------',l2);
           // calc the intersections
-          var points = QLineIntersections(p1, p2, p3, l1, l2);
-          coord.x = points[0].x;
-          coord.y = points[0].y;
+          var intersect = QLineIntersections(p1, p2, p3, l1, l2);
+          if(intersect.length) {
+            coord.x = intersect[0].x;
+            coord.y = intersect[0].y;
+          }
         }
 
 
@@ -1026,43 +1063,38 @@ function QLineIntersections(p1, p2, p3, a1, a2) {
   } else if(d === 0) {
     roots.push(-b/2);
   }
-//  console.log('normal ++++',normal);
-//  console.log('c2 ++++',c2);
-//  console.log('a ++++',a);
-//  console.log('b ++++',b);
-//  console.log('c ++++',c);
-//  console.log('d ++++',d);
-//  console.log('t++++',roots);
+  console.log('normal ++++',normal);
+  console.log('c2 ++++',c2);
+  console.log('a ++++',a);
+  console.log('b ++++',b);
+  console.log('c ++++',c);
+  console.log('d ++++',d);
+  console.log('t++++',roots);
 
   // calc the solution points
   for(var i=0; i<roots.length; i++) {
     var t = roots[i];
 
-    if(t>=0 && t<=1) {
+    if(t >= 0 && t <= 1) {
       // possible point -- pending bounds check
       var point = {
+        t: t,
         x: lerp(lerp(p1.x,p2.x,t),lerp(p2.x,p3.x,t),t),
         y: lerp(lerp(p1.y,p2.y,t),lerp(p2.y,p3.y,t),t)
       },
-      x = point.x,
-      y = point.y,
       minX = Math.min(a1.x, a2.x, p1.x, p2.x, p3.x),
       minY = Math.min(a1.y, a2.y, p1.y, p2.y, p3.y),
       maxX = Math.max(a1.x, a2.x, p1.x, p2.x, p3.x),
       maxY = Math.max(a1.y, a2.y, p1.y, p2.y, p3.y);
-      console.log(x,y,minX,minY,maxX,maxY);
       // bounds checks
-      if(a1.x === a2.x && y>=minY && y<=maxY){
+      if(a1.x === a2.x && point.y >= minY && point.y <= maxY){
         // vertical line
-//        console.log('vert');
         intersections.push(point);
-      } else if(a1.y === a2.y && x>=minX && x<=maxX){
+      } else if(a1.y === a2.y && point.x >= minX && point.x <= maxX){
         // horizontal line
-//        console.log('hor');
         intersections.push(point);
-      } else if(x>=minX && y>=minY && x<=maxX && y<=maxY){
+      } else if(point.x >= minX && point.y >= minY && point.x <= maxX && point.y <= maxY){
         // line passed bounds check
-//        console.log('passed');
         intersections.push(point);
       }
     }
@@ -1183,6 +1215,7 @@ var Template = function (sourceObj, depths) {
       this.details.skylights[i].pointsOut = setPointsOut(this.details.skylights[i].pointsID, this.details.points);
       this.details.skylights[i].center = centerBlock(this.details.skylights[i].pointsOut);
       this.details.skylights[i].pointsOut = sortingPoints(this.details.skylights[i].pointsOut, this.details.skylights[i].center);
+      setPointsIDXChildren(this.details.skylights[i], this.details.skylights, this.details.points);
       this.details.skylights[i].linesOut = setLines(this.details.skylights[i].pointsOut);
       this.details.skylights[i].pointsIn = setPointsIn(this.details.skylights[i], depths, 'frame');
       this.details.skylights[i].linesIn = setLines(this.details.skylights[i].pointsIn);
@@ -1239,7 +1272,7 @@ var Template = function (sourceObj, depths) {
           $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].beadPointsOut, this.details.skylights[i].beadPointsIn));
 
           //----- set openPoints for sash
-          this.details.skylights[i].sashOpenDir = setOpenDir(this.details.skylights[i].openDir, this.details.skylights[i].center, this.details.skylights[i].beadLinesIn);
+//          this.details.skylights[i].sashOpenDir = setOpenDir(this.details.skylights[i].openDir, this.details.skylights[i].center, this.details.skylights[i].beadLinesIn);
         }
 
       }
@@ -1252,7 +1285,7 @@ var Template = function (sourceObj, depths) {
     if(this.details.skylights[i].level > 0) {
       if(this.details.skylights[i].children.length) {
 
-        this.details.skylights[i].impost.impostAxis = setPointsOut(this.details.skylights[i].impost.impostID, this.details.points);
+//        this.details.skylights[i].impost.impostAxis = setPointsOut(this.details.skylights[i].impost.impostID, this.details.points);
         //------- collect all impost pointsOut in impostIn
         var bQty = blocksQty;
         while(--bQty > -1) {
@@ -1264,7 +1297,7 @@ var Template = function (sourceObj, depths) {
         this.details.skylights[i].parts.push( setImpostParts(this.details.skylights[i].impost.impostIn) );
       }
     }
-//    console.log('^^^^^^^^^', this.details.skylights[i]);
+    console.log('^^^^^^^^^', this.details.skylights[i]);
   }
 
 };
