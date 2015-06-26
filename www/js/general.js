@@ -257,29 +257,44 @@ function getAngelPoint(center, point) {
 
 function setPointsIDXChildren(currBlock, blocks, points) {
   if(currBlock.children.length) {
-    currBlock.impost.impostAxis = setPointsOut(currBlock.impost.impostID, points);
     var blocksQty = blocks.length,
-        pointsIDQty = currBlock.pointsOut.length;
+        pointsIDQty = currBlock.pointsOut.length,
+        indexChildBlock1, indexChildBlock2;
 
-    while(--pointsIDQty > -1) {
-      var position = setPointLocationToLine(currBlock.impost.impostAxis[0], currBlock.impost.impostAxis[1], currBlock.pointsOut[pointsIDQty]);
-      console.log(position);
-      if(position > 0) {
-        for(var i = 0; i < blocksQty; i++) {
-          if(blocks[i].id === currBlock.children[1]) {
-            console.log(blocks[i].id);
-            blocks[i].pointsID.push(currBlock.pointsOut[pointsIDQty].id);
-          }
-        }
-      } else {
-        for(var i = 0; i < blocksQty; i++) {
-          if(blocks[i].id === currBlock.children[0]) {
-            console.log(blocks[i].id);
-            blocks[i].pointsID.push(currBlock.pointsOut[pointsIDQty].id);
-          }
-        }
+    //------- set points for impostAxis
+    currBlock.impost.impostAxis = setPointsOut(currBlock.impost.impostID, points);
+
+    //-------- set indexes of children blocks
+    for(var i = 0; i < blocksQty; i++) {
+      if(blocks[i].id === currBlock.children[0]) {
+        indexChildBlock1 = i;
+      } else if(blocks[i].id === currBlock.children[1]) {
+        indexChildBlock2 = i;
       }
     }
+console.log('-----------',currBlock);
+    //------- insert Ids of pointsOut in pointsID of children blocks
+    while(--pointsIDQty > -1) {
+      //------- check pointsOut of parent block as to impost
+      var position = setPointLocationToLine(currBlock.impost.impostAxis[0], currBlock.impost.impostAxis[1], currBlock.pointsOut[pointsIDQty]);
+      console.log(currBlock.impost.impostAxis);
+      console.log(currBlock.pointsOut[pointsIDQty]);
+      console.log('position', position);
+      //------ block right side
+      if(position > 0) {
+        blocks[indexChildBlock2].pointsID.push(currBlock.pointsOut[pointsIDQty].id);
+      //------ block left side
+      } else if(position < 0){
+        blocks[indexChildBlock1].pointsID.push(currBlock.pointsOut[pointsIDQty].id);
+      }
+    }
+
+    //------- insert Ids of impost in pointsID of children blocks
+    for(var j = 0; j < currBlock.impost.impostID.length; j++) {
+      blocks[indexChildBlock1].pointsID.push(currBlock.impost.impostID[j]);
+      blocks[indexChildBlock2].pointsID.push(currBlock.impost.impostID[j]);
+    }
+
   }
 }
 
@@ -1058,10 +1073,10 @@ function QLineIntersections(p1, p2, p3, a1, a2) {
   // solve the roots
   if(d > 0) {
     var delta = Math.sqrt(d);
-    roots.push((-b + delta)/2);
-    roots.push((-b - delta)/2);
+    roots.push( parseFloat(((-b + delta)/2).toFixed(2)) );
+    roots.push( parseFloat(((-b - delta)/2).toFixed(2)) );
   } else if(d === 0) {
-    roots.push(-b/2);
+    roots.push( parseFloat((-b/2).toFixed(2)) );
   }
   console.log('normal ++++',normal);
   console.log('c2 ++++',c2);
@@ -1075,7 +1090,8 @@ function QLineIntersections(p1, p2, p3, a1, a2) {
   for(var i=0; i<roots.length; i++) {
     var t = roots[i];
 
-    if(t >= 0 && t <= 1) {
+//    if(t >= 0 && t <= 1) {
+    if(t > 0 && t < 1) {
       // possible point -- pending bounds check
       var point = {
         t: t,
@@ -1135,21 +1151,18 @@ function setImpostPoints(blocks, parentID, points) {
       //---- find impost in points
       while(--pointsQty > -1) {
         //------ if point match to impostId
-        if(points[pointsQty].id.indexOf(blocks[blocksQty].impost.impostID[0]) + 1 || points[pointsQty].id.indexOf(blocks[blocksQty].impost.impostID[1]) + 1) {
+        if(points[pointsQty].id === blocks[blocksQty].impost.impostID[0]+'-in' || points[pointsQty].id === blocks[blocksQty].impost.impostID[1]+'-in' ) {
           impostPoints.push(JSON.parse(JSON.stringify(points[pointsQty])));
         }
       }
     }
   }
-
-//  console.log('impostPoints =', impostPoints);
   return impostPoints;
 }
 
 
 
 function setImpostParts(points) {
-//console.log('impost part++++++', points);
   var pointsQty = points.length,
       part = {
         type: 'impost',
@@ -1166,8 +1179,6 @@ function setImpostParts(points) {
   } else if(pointsQty === 6){
 
   }
-
-//  console.log('part###### = ', part);
   return part;
 }
 
@@ -1282,7 +1293,7 @@ var Template = function (sourceObj, depths) {
 
 
   for(var i = 0; i < blocksQty; i++) {
-    if(this.details.skylights[i].level > 0) {
+    if(this.details.skylights[i].level) {
       if(this.details.skylights[i].children.length) {
 
 //        this.details.skylights[i].impost.impostAxis = setPointsOut(this.details.skylights[i].impost.impostID, this.details.points);

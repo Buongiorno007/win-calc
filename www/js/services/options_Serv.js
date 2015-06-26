@@ -488,7 +488,7 @@
                     parent: 'block_1',
                     children: [],
 //                    pointsID: ['fp1', 'ip1', 'ip2', 'fp4'],
-                    pointsID: ['ip1', 'ip2'],
+                    pointsID: [],
                     parts: [],
                     glassId: 0,
                     gridId: 0,
@@ -503,7 +503,7 @@
                     parent: 'block_1',
                     children: ['block_4', 'block_5'],
 //                    pointsID: ['ip1', 'fp2', 'fp3', 'ip2'],
-                    pointsID: ['ip1', 'ip2'],
+                    pointsID: [],
                     impost: {
                       impostID: ['ip3', 'ip4'],
                       impostAxis: [],
@@ -522,7 +522,7 @@
                     parent: 'block_3',
                     children: [],
 //                    pointsID: ['ip1', 'fp2', 'ip3', 'ip4'],
-                    pointsID: ['ip3', 'ip4'],
+                    pointsID: [],
                     parts: [],
                     glassId: 0,
                     gridId: 0
@@ -535,7 +535,7 @@
                     parent: 'block_3',
                     children: [],
 //                    pointsID: ['ip4', 'ip3', 'fp3', 'ip2'],
-                    pointsID: ['ip4', 'ip3'],
+                    pointsID: [],
                     parts: [],
                     glassId: 0,
                     gridId: 0
