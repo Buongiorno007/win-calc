@@ -272,14 +272,13 @@ function setPointsIDXChildren(currBlock, blocks, points) {
         indexChildBlock2 = i;
       }
     }
-console.log('-----------',currBlock);
     //------- insert Ids of pointsOut in pointsID of children blocks
     while(--pointsIDQty > -1) {
       //------- check pointsOut of parent block as to impost
       var position = setPointLocationToLine(currBlock.impost.impostAxis[0], currBlock.impost.impostAxis[1], currBlock.pointsOut[pointsIDQty]);
-      console.log(currBlock.impost.impostAxis);
-      console.log(currBlock.pointsOut[pointsIDQty]);
-      console.log('position', position);
+//      console.log(currBlock.impost.impostAxis);
+//      console.log(currBlock.pointsOut[pointsIDQty]);
+//      console.log('position', position);
       //------ block right side
       if(position > 0) {
         blocks[indexChildBlock2].pointsID.push(currBlock.pointsOut[pointsIDQty].id);
@@ -511,8 +510,8 @@ function findCrossPoint(line1, line2, coefC1, coefC2) {
       baseX = (line1.coefB * (coefC2)) - (line2.coefB * (coefC1)),
       baseY = (line2.coefA * (coefC1)) - (line1.coefA * (coefC2)),
       crossPoint = {
-        x: baseX / base,
-        y: baseY / base
+        x: Math.abs(baseX / base),
+        y: Math.abs(baseY / base)
       };
   return crossPoint;
 }
@@ -940,6 +939,7 @@ function getCrossPointInBlock(position, lineMark, lines) {
 
       //------ checking is cross point inner of line
       var checkPoint = checkLineOwnPoint(coord, lines[l].to, lines[l].from);
+//      console.log('^^^^^checkPoint^^^^', checkPoint);
       if(checkPoint.x >= 0 && checkPoint.x <= 1 || checkPoint.y >=0 && checkPoint.y <= 1) {
 
 
@@ -1021,9 +1021,13 @@ function getCrossPointInBlock(position, lineMark, lines) {
 }
 
 function checkLineOwnPoint(point, lineTo, lineFrom) {
+//  var check = {
+//    x: (point.x - lineTo.x) / (lineFrom.x - lineTo.x),
+//    y: (point.y - lineTo.y) / (lineFrom.y - lineTo.y)
+//  };
   var check = {
-    x: (point.x - lineTo.x) / (lineFrom.x - lineTo.x),
-    y: (point.y - lineTo.y) / (lineFrom.y - lineTo.y)
+    x: Math.abs( (point.x - lineFrom.x) / (lineTo.x - lineFrom.x) ),
+    y: Math.abs( (point.y - lineFrom.y) / (lineTo.y - lineFrom.y) )
   };
   return check;
 }
@@ -1078,13 +1082,13 @@ function QLineIntersections(p1, p2, p3, a1, a2) {
   } else if(d === 0) {
     roots.push( parseFloat((-b/2).toFixed(2)) );
   }
-  console.log('normal ++++',normal);
-  console.log('c2 ++++',c2);
-  console.log('a ++++',a);
-  console.log('b ++++',b);
-  console.log('c ++++',c);
-  console.log('d ++++',d);
-  console.log('t++++',roots);
+//  console.log('normal ++++',normal);
+//  console.log('c2 ++++',c2);
+//  console.log('a ++++',a);
+//  console.log('b ++++',b);
+//  console.log('c ++++',c);
+//  console.log('d ++++',d);
+//  console.log('t++++',roots);
 
   // calc the solution points
   for(var i=0; i<roots.length; i++) {
@@ -1308,7 +1312,7 @@ var Template = function (sourceObj, depths) {
         this.details.skylights[i].parts.push( setImpostParts(this.details.skylights[i].impost.impostIn) );
       }
     }
-    console.log('^^^^^^^^^', this.details.skylights[i]);
+//    console.log('^^^^^^^^^', this.details.skylights[i]);
   }
 
 };

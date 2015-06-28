@@ -566,6 +566,9 @@
           }
         }
 
+        //------ collect imposts which are crossed with arc line
+        var imposts = findImpostsCrossLine(currLine, blocksQty, blocks);
+//        console.log('position++++++++=', imposts);
         //------ up
         if(arc.points[0].fi < 180 && arc.points[1].fi < 180) {
           position = 1;
@@ -596,15 +599,11 @@
         currLine = rebuildLinesOut(arc.points, currBlockIndex, blocksSource, pointsSource);
         createArcPoint(arcN, coordQ, currBlockIndex, blocksSource, pointsSource);
 
-
-        //------ check imposts
-
-
-        console.log('currLine+++++', currLine);
-        //------ check crossing currLine with all imposts
-        for(var b = 0; b < blocksQty; b++) {
-          if(blocks[b].level && blocks[b].impost) {
-            getPImpostArc(arcN, b, blocks[b], currLine, coordQ, blocks, blocksSource, pointsSource);
+        //------ create Q points (left/right) of crossing impost with arc and new point of impost
+        var impostsQty = imposts.length;
+        if(impostsQty) {
+          while(--impostsQty > -1) {
+            setQPointImpostArc(arcN, imposts[impostsQty], currLine, coordQ, blocks, blocksSource, pointsSource);
           }
         }
 
@@ -615,18 +614,37 @@
 
 
 
-    function createArcPoint(arcN, coordQP, blockIndex, blocks, points) {
-      var pointQ = {
-        type:'arc',
-        id:'q'+arcN,
-        x: coordQP.x,
-        y: coordQP.y,
-        dir:'curv'
-      };
+    function findImpostsCrossLine(arc, blocksQty, blocks) {
+      var imposts = [];
+      for(var b = 0; b < blocksQty; b++) {
+        if(blocks[b].level && blocks[b].impost) {
+          var impost = {
+            indexBlock: b,
+            from: blocks[b].impost.impostAxis[0],
+            to: blocks[b].impost.impostAxis[1]
+          };
+          setLineCoef(impost);
+          impost.intersect = findCrossPoint(arc, impost, arc.coefC, impost.coefC);
+          if(impost.intersect.x >= 0 && impost.intersect.y >= 0) {
 
-      //---- insert pointQ in all relative blocks
-      blocks[blockIndex].pointsID.push(pointQ.id);
-      points.push(pointQ);
+            //------ checking is cross point inner of line
+            var checkPoint = checkLineOwnPoint(impost.intersect, impost.to, impost.from);
+            if (checkPoint.x >= 0 && checkPoint.x <= 1 || checkPoint.y >= 0 && checkPoint.y <= 1) {
+              imposts.push(impost);
+
+              var position1 = setPointLocationToLine(arc.from, arc.to, blocks[b].impost.impostAxis[0]),
+                  position2 = setPointLocationToLine(arc.from, arc.to, blocks[b].impost.impostAxis[1]);
+//              console.log('position++++++++=',position1, position2);
+              if(position1 > 0) {
+                impost.pointIdChange = blocks[b].impost.impostAxis[0].id;
+              } else if(position2 > 0) {
+                impost.pointIdChange = blocks[b].impost.impostAxis[1].id;
+              }
+            }
+          }
+        }
+      }
+      return imposts;
     }
 
 
@@ -646,36 +664,54 @@
     }
 
 
+    function createArcPoint(arcN, coordQP, blockIndex, blocks, points) {
+      var pointQ = {
+        type:'arc',
+        id:'q'+arcN,
+        x: coordQP.x,
+        y: coordQP.y,
+        dir:'curv'
+      };
 
-    function getPImpostArc(arcN, ipN, currBlock, currLine, coordQ, blocks, blocksSource, points) {
+      //---- insert pointQ in all relative blocks
+      blocks[blockIndex].pointsID.push(pointQ.id);
+      points.push(pointQ);
+    }
+
+
+
+
+
+
+    function setQPointImpostArc(arcN, impost, currLine, coordQ, blocks, blocksSource, points) {
       //------ calc the intersections impost with arc
-      var intersect = QLineIntersections(currLine.from, coordQ, currLine.to, currBlock.impost.impostAxis[0], currBlock.impost.impostAxis[1]);
-      console.log('intersect ------',intersect);
+      var intersect = QLineIntersections(currLine.from, coordQ, currLine.to, impost.from, impost.to);
+//      console.log('intersect ------',intersect);
 
       if(intersect.length) {
         //------ set subPoints Q left / right side of impost
-        var impostQP1 = setQPImost(intersect[0].t, currLine.from, coordQ),
-            impostQP2 = setQPImost(intersect[0].t, currLine.to, coordQ);
-        console.log('QPssss', impostQP1, impostQP2);
+        var impostQP1 = getCoordQPImostArc(intersect[0].t, currLine.from, coordQ),
+            impostQP2 = getCoordQPImostArc(intersect[0].t, currLine.to, coordQ);
+//        console.log('QPssss', impostQP1, impostQP2);
 
         //------- checking place of subPoints Q as to impost
-        var placeImpostQP1 = setPointLocationToLine(currBlock.impost.impostAxis[0], currBlock.impost.impostAxis[1], impostQP1);
-        var placeImpostQP2 = setPointLocationToLine(currBlock.impost.impostAxis[0], currBlock.impost.impostAxis[1], impostQP2);
-        console.log('wherePoint +++ ', placeImpostQP1, placeImpostQP2);
+        var placeImpostQP1 = setPointLocationToLine(impost.from, impost.to, impostQP1);
+        var placeImpostQP2 = setPointLocationToLine(impost.from, impost.to, impostQP2);
+//        console.log('wherePoint +++ ', placeImpostQP1, placeImpostQP2);
 
         //------- set blocks Ids according to left / right side
-        var blockIds = setBlockLocationToLine(currBlock.impost.impostAxis[0], currBlock.impost.impostAxis[1], currBlock.children, blocks);
+        var blockIds = setBlockLocationToLine(impost.from, impost.to, blocks[impost.indexBlock].children, blocks);
 
         //----- create Q impost points
         var blockID1 = (placeImpostQP1 > 0) ? blockIds.pos : blockIds.neg,
             blockID2 = (placeImpostQP2 > 0) ? blockIds.pos : blockIds.neg;
 
-        console.log('blockId +++ ', impostQP1, blockID1);
-        console.log('blockId +++ ', impostQP2, blockID2);
-        createQPImpost(1, arcN, ipN, impostQP1, blockID1, blocksSource, points);
-        createQPImpost(2, arcN, ipN, impostQP2, blockID2, blocksSource, points);
+//        console.log('blockId +++ ', impostQP1, blockID1);
+//        console.log('blockId +++ ', impostQP2, blockID2);
+        createQPImpostArc(1, arcN, impost.indexBlock, impostQP1, blockID1, blocksSource, points);
+        createQPImpostArc(2, arcN, impost.indexBlock, impostQP2, blockID2, blocksSource, points);
         //----- which of the points of impost should be changed
-        var pointIdOld = getImpostPointIdXChange(currBlock.impost.impostAxis, intersect[0]);
+        var pointIdOld = getImpostPointIdXChange(impost, intersect[0]);
         //----- change coordinates of impost point in SourceTEMP
         setNewCoordImpostPoint(intersect[0], pointIdOld, points);
       }
@@ -683,7 +719,7 @@
     }
 
 
-    function setQPImost(t, p0, p1) {
+    function getCoordQPImostArc(t, p0, p1) {
       var qpi = {
         x: (1-t)*p0.x + t*p1.x,
         y: (1-t)*p0.y + t*p1.y
@@ -692,7 +728,7 @@
     }
 
 
-    function createQPImpost(nP, arcN, ipN, coordQP, blockIndex, blocks, points) {
+    function createQPImpostArc(nP, arcN, ipN, coordQP, blockIndex, blocks, points) {
       var pointQ = {
             type:'arc',
             id:'q'+arcN+'-ip'+ipN+'-'+nP,
@@ -713,7 +749,7 @@
       var currBlockIdQty = currBlockId.length,
           blocksQty = blocks.length,
           blockIndex = {};
-      console.log('currBlockId ====', currBlockId);
+//      console.log('currBlockId ====', currBlockId);
       while(--currBlockIdQty > - 1) {
         for(var i = 0; i <  blocksQty; i++) {
           if(blocks[i].id === currBlockId[currBlockIdQty]) {
@@ -721,8 +757,8 @@
                 pointsOutQty = blocks[i].pointsOut.length;
             while(--pointsOutQty > -1) {
               var placePoint = setPointLocationToLine(lineP1, lineP2, blocks[i].pointsOut[pointsOutQty]);
-              console.log('placePoint ====', blocks[i].pointsOut[pointsOutQty]);
-              console.log('placePoint ====', placePoint);
+//              console.log('placePoint ====', blocks[i].pointsOut[pointsOutQty]);
+//              console.log('placePoint ====', placePoint);
               if(placePoint > 0) {
                 location = 1;
               }
@@ -740,9 +776,9 @@
 
 
     function getImpostPointIdXChange(impost, newPoint) {
-      var size = Math.round(Math.hypot((impost[1].x - impost[0].x), (impost[1].y - impost[0].y)) * 100) / 100,
-      size1 = Math.round(Math.hypot((newPoint.x - impost[0].x), (newPoint.y - impost[0].y)) * 100) / 100;
-      return (size1 > size) ? impost[1].id : impost[0].id;
+      var size = Math.round(Math.hypot((impost.to.x - impost.from.x), (impost.to.y - impost.from.y)) * 100) / 100,
+      size1 = Math.round(Math.hypot((newPoint.x - impost.from.x), (newPoint.y - impost.from.y)) * 100) / 100;
+      return (size1 > size) ? impost.to.id : impost.from.id;
     }
 
 
@@ -771,14 +807,28 @@
       if(arc.type === 'arc') {
         var arcID = arc.points[1].id,
             blockID = arcObj.attributes.blockId.nodeValue,
-            points = DesignStor.design.templateSourceTEMP.details.points,
-            blocks = DesignStor.design.templateSourceTEMP.details.skylights,
-            pointsQty = points.length,
+            pointsSource = DesignStor.design.templateSourceTEMP.details.points,
+            pointsQty = pointsSource.length,
+            blocksSource = DesignStor.design.templateSourceTEMP.details.skylights,
+            blocks = DesignStor.design.templateTEMP.details.skylights,
+            blocksQty = blocks.length,
             shiftX = 0, shiftY = 0;
-
         //------- delete Q point IDs in block (pointsID)
-        removePointId([arcID], blockID, blocks);
+        removePointId([arcID], blockID, blocksSource);
+        //------- delete Q points IDs in all children blocks
+        removePointIdAllBlocks(arcID, blocksSource);
 
+        //------ return back the point of impost (cross point with frame)
+        var currLine = {
+          from: arc.points[0],
+          to: arc.points[2]
+        };
+        setLineCoef(currLine);
+        //----- imposts which cross current arc
+        var imposts = findImpostsCrossLine(currLine, blocksQty, blocks);
+        //----- change imposts coordinats
+        changeCoordImpostPoint(imposts, pointsSource);
+//        console.log('imposts++++++',imposts);
         //------ shifting
         if(!arc.points[1].x) {
           shiftX = arc.points[0].x;
@@ -787,11 +837,11 @@
         }
         //----- delete corner points
         while(--pointsQty > -1) {
-          if(points[pointsQty].id === arcID) {
-            points.splice(pointsQty, 1);
+          if(pointsSource[pointsQty].id.indexOf(arcID)+1) {
+            pointsSource.splice(pointsQty, 1);
           } else {
-            points[pointsQty].x -= shiftX;
-            points[pointsQty].y -= shiftY;
+            pointsSource[pointsQty].x -= shiftX;
+            pointsSource[pointsQty].y -= shiftY;
           }
         }
 
@@ -800,30 +850,38 @@
     }
 
 
-//    function changeTemplate() {
-//      DesignStor.design.templateSourceTEMP.details.points = angular.copy(DesignStor.design.templateTEMP.details.points);
-//      for(var i = 0; i < DesignStor.design.templateSourceTEMP.details.skylights.length; i++) {
-//        if(DesignStor.design.templateSourceTEMP.details.skylights[i].level) {
-//          DesignStor.design.templateSourceTEMP.details.skylights[i].pointsID = angular.copy(DesignStor.design.templateTEMP.details.skylights[i].pointsID);
-//        }
-//      }
-//      DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
-//    }
+    function removePointIdAllBlocks(criterion, blocks) {
+      var blockQty = blocks.length;
+      while(--blockQty > -1) {
+        if(blocks[blockQty].level) {
+          var idQty = blocks[blockQty].pointsID.length;
+          if(idQty) {
+            while(--idQty > -1) {
+              if(blocks[blockQty].pointsID[idQty].indexOf(criterion)+1) {
+                blocks[blockQty].pointsID.splice(idQty, 1);
+                break;
+              }
+            }
+          }
+        }
+      }
+    }
 
-    //    function addPointId(newId, criterion, blocks) {
-    //      var blockQty = blocks.length;
-    //      while(--blockQty > -1) {
-    //        if(blocks[blockQty].level) {
-    //          var idQty = blocks[blockQty].pointsID.length;
-    //          while(--idQty > -1) {
-    //            if(blocks[blockQty].pointsID[idQty] === criterion) {
-    //              blocks[blockQty].pointsID.push(newId);
-    //            }
-    //          }
-    //        }
-    //      }
-    //    }
 
+    function changeCoordImpostPoint(imposts, points) {
+      var impostsQty = imposts.length;
+      if(impostsQty) {
+        while(--impostsQty > -1) {
+          var pointsQty = points.length;
+          while(--pointsQty > -1) {
+            if(points[pointsQty].id === imposts[impostsQty].pointIdChange) {
+              points[pointsQty].x = imposts[impostsQty].intersect.x;
+              points[pointsQty].y = imposts[impostsQty].intersect.y;
+            }
+          }
+        }
+      }
+    }
 
 
 
