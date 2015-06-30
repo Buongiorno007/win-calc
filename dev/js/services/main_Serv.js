@@ -7,7 +7,7 @@
     .module('MainModule')
     .factory('MainServ', navFactory);
 
-  function navFactory($rootScope, $location, $q, $filter, $timeout, $cordovaProgress, globalConstants, globalDB, localDB, GeneralServ, loginServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function navFactory($rootScope, $location, $q, $filter, $timeout, $cordovaProgress, globalConstants, globalDB, localDB, GeneralServ, SVGServ, loginServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisFactory = this;
 
@@ -282,7 +282,12 @@
 
       var templatesQty = GlobalStor.global.templatesSource.length;
       for(var tem = 0; tem < templatesQty; tem++) {
-        GlobalStor.global.templates.push( new Template(GlobalStor.global.templatesSource[tem], GlobalStor.global.profileDepths) );
+
+        SVGServ.createSVGTemplate(GlobalStor.global.templatesSource[tem], GlobalStor.global.profileDepths).then(function(result) {
+          console.log('result++++', result);
+          GlobalStor.global.templates.push(result);
+        });
+//        GlobalStor.global.templates.push( new Template(GlobalStor.global.templatesSource[tem], GlobalStor.global.profileDepths) );
         GlobalStor.global.templatesIcon.push( new TemplateIcon(GlobalStor.global.templatesSource[tem], GlobalStor.global.profileDepths) );
       }
 
@@ -309,6 +314,7 @@
       ProductStor.product.templateSource = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
       ProductStor.product.template = angular.copy(GlobalStor.global.templates[templateIndex]);
       ProductStor.product.templateIcon = angular.copy(GlobalStor.global.templatesIcon[templateIndex]);
+      console.log('...........',ProductStor.product.template);
     }
 
 

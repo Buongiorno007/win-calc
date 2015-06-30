@@ -7,7 +7,7 @@
     .module('DesignModule')
     .controller('DesignCtrl', designPageCtrl);
 
-  function designPageCtrl($timeout, globalConstants, DesignServ, GlobalStor, ProductStor, DesignStor) {
+  function designPageCtrl($timeout, globalConstants, SVGServ, DesignServ, GlobalStor, ProductStor, DesignStor) {
 
     var thisCtrl = this;
 
@@ -40,6 +40,7 @@
 
     //--------- set template from ProductStor
     DesignServ.setDefaultTemplate();
+    console.log('templateTEMP+++++++++', DesignStor.design.templateTEMP);
 
     //============ if Door Construction
     if(ProductStor.product.constructionType === 4) {
@@ -178,28 +179,25 @@
     //-------- show all Corner Marks
     function showAllAvailableCorner(menuId) {
       var corners = d3.selectAll('#tamlateSVG .corner_mark');
-      //---- show submenu
-      thisCtrl.config.activeSubMenuItem = menuId;
+      if(corners[0].length) {
+        //---- show submenu
+        thisCtrl.config.activeSubMenuItem = menuId;
 
-      corners.transition()
-        .duration(300)
-        .ease("linear")
-        .attr('r', 50);
+        corners.transition().duration(300).ease("linear").attr('r', 50);
 
-      DesignStor.design.selectedCorner = corners;
-      corners.on('click', function () {
-        //----- hide all cornerMark
-        hideCornerMarks();
+        DesignStor.design.selectedCorner = corners;
+        corners.on('click', function () {
+          //----- hide all cornerMark
+          hideCornerMarks();
 
-        //----- show selected cornerMark
-        var corner = d3.select(this)
-          .transition()
-          .duration(300)
-          .ease("linear")
-          .attr('r', 50);
-        DesignStor.design.selectedCorner = corner;
+          //----- show selected cornerMark
+          var corner = d3.select(this).transition().duration(300).ease("linear").attr('r', 50);
+          DesignStor.design.selectedCorner = corner;
 
-      });
+        });
+      } else {
+        showDesignError();
+      }
     }
 
     function insertCorner(conerType, event) {
@@ -277,13 +275,24 @@
       thisCtrl.config.activeMenuItem = 0;
       thisCtrl.config.activeSubMenuItem = 0;
       deselectAllArc();
+      //---- get quantity of arcs
       var arcQty = DesignStor.design.selectedArc[0].length,
           i = 0;
+
+      console.log('%%%%%%',DesignStor.design.selectedArc[0]);
       switch(arcType) {
         //----- delete arc
         case 1:
-          for(; i < arcQty; i++) {
-            DesignServ.deleteArc(DesignStor.design.selectedArc[0][i]);
+          if(arcQty > 1) {
+//            for(; i < arcQty; i++) {
+//              var arc = d3.select('#tamlateSVG [item-type=arc]');
+//              console.log('$$$$$$$$$$',arc);
+//              DesignServ.deleteArc(arc[0][0]);
+//              arc.remove();
+//            }
+            DesignServ.deleteAllArcs(arcQty);
+          } else {
+            DesignServ.deleteArc(DesignStor.design.selectedArc[0][0]);
           }
           break;
         //----- insert arc
@@ -386,7 +395,10 @@
 
     //--------- Save Door Configuration
     function saveDoorConfig() {
-      DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths);
+      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+        DesignStor.design.templateTEMP = angular.copy(result);
+      });
+//      DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths);
       thisCtrl.config.isDoorConfig = 0;
     }
 

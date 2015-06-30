@@ -10,7 +10,7 @@
     .module('DesignModule')
     .factory('DesignServ', designFactory);
 
-  function designFactory($rootScope, $location, $timeout, $filter, $cordovaProgress, GeneralServ, MainServ, optionsServ, GlobalStor, DesignStor, ProductStor) {
+  function designFactory($rootScope, $location, $timeout, $filter, $q, $cordovaProgress, GeneralServ, MainServ, optionsServ, SVGServ, GlobalStor, DesignStor, ProductStor) {
 
     var thisFactory = this,
         sizeRectActClass = 'size-rect-active',
@@ -33,6 +33,7 @@
       //-------- edit arc
       createArc: createArc,
       deleteArc: deleteArc,
+      deleteAllArcs: deleteAllArcs,
 
       //---- change sizes
       selectSizeBlock: selectSizeBlock,
@@ -56,6 +57,7 @@
 
 
     function setDefaultTemplate() {
+      console.log('######', ProductStor.product.template);
       DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.templateSource);
       DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
       DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.templateSource);
@@ -244,7 +246,10 @@
                 blocks[b].handlePos = 4;
                 break;
             }
-            DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
+            SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+              DesignStor.design.templateTEMP = angular.copy(result);
+            });
+//            DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
           }
         }
       } else {
@@ -297,8 +302,10 @@
           delete blocks[b].handlePos;
         }
       }
-
-      DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
+      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+        DesignStor.design.templateTEMP = angular.copy(result);
+      });
+//      DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
     }
 
 
@@ -343,7 +350,11 @@
         }
       }
       //------ change templateTEMP
-      DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
+      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+        DesignStor.design.templateTEMP = angular.copy(result);
+      });
+//      DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
+
     }
 
 
@@ -390,7 +401,10 @@
       }
 
       //------ change templateTEMP
-      DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
+      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+        DesignStor.design.templateTEMP = angular.copy(result);
+      });
+//      DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
     }
 
 
@@ -494,7 +508,11 @@
       }
       //----- delete corner points
       removePoint(['c' + cornerN + '-1', 'c' + cornerN + '-2', 'qc'+cornerN], pointsSource);
-      DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
+
+      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+        DesignStor.design.templateTEMP = angular.copy(result);
+      });
+//      DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
     }
 
 
@@ -568,7 +586,7 @@
 
         //------ collect imposts which are crossed with arc line
         var imposts = findImpostsCrossLine(currLine, blocksQty, blocks);
-//        console.log('position++++++++=', imposts);
+//        console.log('imposts++++++++=', imposts);
         //------ up
         if(arc.points[0].fi < 180 && arc.points[1].fi < 180) {
           position = 1;
@@ -596,7 +614,10 @@
           }
           coordQ.x = 0;
         }
-        currLine = rebuildLinesOut(arc.points, currBlockIndex, blocksSource, pointsSource);
+        //------- rebuild linesOut after shifting of points
+        if(shift) {
+          currLine = rebuildLinesOut(arc.points, currBlockIndex, blocksSource, pointsSource);
+        }
         createArcPoint(arcN, coordQ, currBlockIndex, blocksSource, pointsSource);
 
         //------ create Q points (left/right) of crossing impost with arc and new point of impost
@@ -608,7 +629,10 @@
         }
 
         //------ change templateTEMP
-        DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
+        SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+          DesignStor.design.templateTEMP = angular.copy(result);
+        });
+//        DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
       }
     }
 
@@ -624,14 +648,20 @@
             to: blocks[b].impost.impostAxis[1]
           };
           setLineCoef(impost);
+//          console.log('arc', arc);
           impost.intersect = findCrossPoint(arc, impost, arc.coefC, impost.coefC);
+//          console.log('impost.intersect', impost.intersect);
           if(impost.intersect.x >= 0 && impost.intersect.y >= 0) {
 
             //------ checking is cross point inner of line
             var checkPoint = checkLineOwnPoint(impost.intersect, impost.to, impost.from);
+//            console.log('checkPoint', checkPoint);
             if (checkPoint.x >= 0 && checkPoint.x <= 1 || checkPoint.y >= 0 && checkPoint.y <= 1) {
               imposts.push(impost);
-
+//              console.log('arc.from++++', arc.from);
+//              console.log(' arc.to+++++',  arc.to);
+//              console.log('impostAxis0 +++', blocks[b].impost.impostAxis[0]);
+//              console.log('impostAxis1++++', blocks[b].impost.impostAxis[1]);
               var position1 = setPointLocationToLine(arc.from, arc.to, blocks[b].impost.impostAxis[0]),
                   position2 = setPointLocationToLine(arc.from, arc.to, blocks[b].impost.impostAxis[1]);
 //              console.log('position++++++++=',position1, position2);
@@ -802,7 +832,8 @@
 
 
     function deleteArc(arcObj) {
-      var arc = arcObj.__data__;
+      var defer = $q.defer(),
+          arc = arcObj.__data__;
 
       if(arc.type === 'arc') {
         var arcID = arc.points[1].id,
@@ -813,10 +844,7 @@
             blocks = DesignStor.design.templateTEMP.details.skylights,
             blocksQty = blocks.length,
             shiftX = 0, shiftY = 0;
-        //------- delete Q point IDs in block (pointsID)
-        removePointId([arcID], blockID, blocksSource);
-        //------- delete Q points IDs in all children blocks
-        removePointIdAllBlocks(arcID, blocksSource);
+
 
         //------ return back the point of impost (cross point with frame)
         var currLine = {
@@ -824,11 +852,13 @@
           to: arc.points[2]
         };
         setLineCoef(currLine);
+        console.log('currLine++++++',currLine);
         //----- imposts which cross current arc
         var imposts = findImpostsCrossLine(currLine, blocksQty, blocks);
+        console.log('imposts++++++',imposts);
         //----- change imposts coordinats
         changeCoordImpostPoint(imposts, pointsSource);
-//        console.log('imposts++++++',imposts);
+
         //------ shifting
         if(!arc.points[1].x) {
           shiftX = arc.points[0].x;
@@ -844,10 +874,49 @@
             pointsSource[pointsQty].y -= shiftY;
           }
         }
-
-        DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
+        //------- delete Q point IDs in block (pointsID)
+        removePointId([arcID], blockID, blocksSource);
+        //------- delete Q points IDs in all children blocks
+        removePointIdAllBlocks(arcID, blocksSource);
+//console.log('pointsSource+++++++',JSON.stringify(pointsSource));
+//console.log('blocksSource+++++++', JSON.stringify(blocksSource));
+        SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+          DesignStor.design.templateTEMP = angular.copy(result);
+          defer.resolve('done');
+        });
+//        DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
+        return defer.promise;
+        //---------- delete next arcs
+//        if(elemQty > 1) {
+//          setTimeout(function() {
+//            var arcNext = d3.select('#tamlateSVG [item-type=arc]');
+//            console.log('$$$$$$$$$$',arcNext);
+//            --elemQty;
+//            deleteArc(elemQty, arcNext[0][0]);
+//            arcNext.remove();
+//          }, 5050);
+//
+//        }
       }
     }
+
+
+
+    function changeCoordImpostPoint(imposts, points) {
+      var impostsQty = imposts.length;
+      if(impostsQty) {
+        while(--impostsQty > -1) {
+          var pointsQty = points.length;
+          while(--pointsQty > -1) {
+            if(points[pointsQty].id === imposts[impostsQty].pointIdChange) {
+              points[pointsQty].x = imposts[impostsQty].intersect.x;
+              points[pointsQty].y = imposts[impostsQty].intersect.y;
+            }
+          }
+        }
+      }
+    }
+
 
 
     function removePointIdAllBlocks(criterion, blocks) {
@@ -868,19 +937,19 @@
     }
 
 
-    function changeCoordImpostPoint(imposts, points) {
-      var impostsQty = imposts.length;
-      if(impostsQty) {
-        while(--impostsQty > -1) {
-          var pointsQty = points.length;
-          while(--pointsQty > -1) {
-            if(points[pointsQty].id === imposts[impostsQty].pointIdChange) {
-              points[pointsQty].x = imposts[impostsQty].intersect.x;
-              points[pointsQty].y = imposts[impostsQty].intersect.y;
-            }
-          }
+    function deleteAllArcs(qty) {
+      var arc = d3.select('#tamlateSVG [item-type=arc]');
+      console.log('$$$$$$$$$$',arc);
+      deleteArc(arc[0][0]).then(function() {
+        --qty;
+        if(qty > 0) {
+          $timeout(function() {
+            deleteAllArcs(qty);
+          }, 100)
+
         }
-      }
+      });
+      arc.remove();
     }
 
 
@@ -1093,7 +1162,10 @@
           //------- deactive size box in svg
           deactiveSizeBox(sizeRectActClass, sizeBoxActClass);
           //-------- build new template
-          DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths);
+          SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+            DesignStor.design.templateTEMP = angular.copy(result);
+          });
+//          DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths);
 
           DesignStor.design.tempSize.length = 0;
           DesignStor.design.isMinSizeRestriction = false;
@@ -1107,7 +1179,10 @@
               //------- deactive size box in svg
               deactiveSizeBox(sizeRectActClass, sizeBoxActClass);
               //-------- build new template
-              DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths);
+              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+                DesignStor.design.templateTEMP = angular.copy(result);
+              });
+//              DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths);
             } else {
               DesignStor.design.isMinSizeRestriction = true;
               DesignStor.design.isMaxSizeRestriction = false;
@@ -1118,7 +1193,10 @@
               //------- deactive size box in svg
               deactiveSizeBox(sizeRectActClass, sizeBoxActClass);
               //-------- build new template
-              DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths);
+              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+                DesignStor.design.templateTEMP = angular.copy(result);
+              });
+//              DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths);
             } else {
               DesignStor.design.isMinSizeRestriction = false;
               DesignStor.design.isMaxSizeRestriction = true;
@@ -1158,7 +1236,10 @@
     function stepBack() {
       var lastIndex = DesignStor.design.designSteps.length - 1;
       DesignStor.design.templateSourceTEMP = angular.copy(DesignStor.design.designSteps[lastIndex]);
-      DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths);
+      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+        DesignStor.design.templateTEMP = angular.copy(result);
+      });
+//      DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths);
       DesignStor.design.designSteps.pop();
     }
 

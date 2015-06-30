@@ -199,7 +199,7 @@ function sortingCoordin(dimentions, coordinates, typeDim, levelDim, limit, class
 
 //////////////////////////////////////////////////
 
-
+/*
 function setPointsOut(pointsId, points){
   var pointsQty = points.length,
       pointsIdQty = pointsId.length,
@@ -512,6 +512,8 @@ function findCrossPoint(line1, line2, coefC1, coefC2) {
       crossPoint = {
         x: Math.abs(baseX / base),
         y: Math.abs(baseY / base)
+//        x: baseX / base,
+//        y: baseY / base
       };
   return crossPoint;
 }
@@ -866,7 +868,7 @@ function setOpenDir(direction, center, beadLines) {
         part.points.push(getCrossPointSashDir(4, geomCenter, 315, beadLines));
         break;
     }
-//console.log('path ====', part.points);
+console.log('path ====', part.points);
     part.path = assamblingSashPath(part.points);
     parts.push(part);
   }
@@ -935,7 +937,8 @@ function getCrossPointInBlock(position, lineMark, lines) {
 
 //    console.log('line ++++', lines[l]);
     var coord = findCrossPoint(lineMark, lines[l], lineMark.coefC, lines[l].coefC);
-    if(coord.x > 0 && coord.y > 0) {
+    console.log('coord ++++', coord);
+    if(coord.x >= 0 && coord.y >= 0) {
 
       //------ checking is cross point inner of line
       var checkPoint = checkLineOwnPoint(coord, lines[l].to, lines[l].from);
@@ -1088,7 +1091,7 @@ function QLineIntersections(p1, p2, p3, a1, a2) {
 //  console.log('b ++++',b);
 //  console.log('c ++++',c);
 //  console.log('d ++++',d);
-//  console.log('t++++',roots);
+  console.log('t++++',roots);
 
   // calc the solution points
   for(var i=0; i<roots.length; i++) {
@@ -1187,14 +1190,14 @@ function setImpostParts(points) {
 }
 
 
-
+*/
 
 
 
 
 ////////////////////////////////////////////
 
-
+/*
 
 var Template = function (sourceObj, depths) {
 //  this.name = sourceObj.name;
@@ -1257,7 +1260,7 @@ var Template = function (sourceObj, depths) {
 //          this.details.skylights[i].beadLinesIn = setLines(this.details.skylights[i].beadPointsIn);
 
           this.details.skylights[i].glassPoints = setPointsIn(this.details.skylights[i], depths, 'frame-glass');
-/*          this.details.skylights[i].glassLines = setLines(this.details.skylights[i].beadPointsIn);*/
+//---          this.details.skylights[i].glassLines = setLines(this.details.skylights[i].beadPointsIn);
 
           this.details.skylights[i].parts.push(setGlass(this.details.skylights[i].glassPoints));
           $.merge(this.details.skylights[i].parts, setParts(this.details.skylights[i].beadPointsOut, this.details.skylights[i].beadPointsIn));
@@ -1299,8 +1302,6 @@ var Template = function (sourceObj, depths) {
   for(var i = 0; i < blocksQty; i++) {
     if(this.details.skylights[i].level) {
       if(this.details.skylights[i].children.length) {
-
-//        this.details.skylights[i].impost.impostAxis = setPointsOut(this.details.skylights[i].impost.impostID, this.details.points);
         //------- collect all impost pointsOut in impostIn
         var bQty = blocksQty;
         while(--bQty > -1) {
@@ -1321,7 +1322,7 @@ var Template = function (sourceObj, depths) {
 
 
 
-
+*/
 
 var TemplateIcon = function (sourceObj, depths) {
   var tmpObject, coeffScale = 2;

@@ -7,7 +7,7 @@
     .module('DesignModule')
     .factory('DesignStor', designStorageFactory);
 
-  function designStorageFactory(ProductStor) {
+  function designStorageFactory() {
 
     var thisFactory = this;
 
