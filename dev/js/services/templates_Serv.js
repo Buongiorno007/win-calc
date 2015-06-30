@@ -27,15 +27,16 @@
     //------- return to the initial template
     function backDefaultTemplate() {
       GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(GlobalStor.global.templatesSourceSTORE[ProductStor.product.templateIndex]);
-      GlobalStor.global.templates[ProductStor.product.templateIndex] = angular.copy(GlobalStor.global.templatesSTORE[ProductStor.product.templateIndex]);
-      GlobalStor.global.templatesIcon[ProductStor.product.templateIndex] = angular.copy(GlobalStor.global.templatesIconSTORE[ProductStor.product.templateIndex]);
+//      GlobalStor.global.templates[ProductStor.product.templateIndex] = angular.copy(GlobalStor.global.templatesSTORE[ProductStor.product.templateIndex]);
+//      GlobalStor.global.templatesIcon[ProductStor.product.templateIndex] = angular.copy(GlobalStor.global.templatesIconSTORE[ProductStor.product.templateIndex]);
     }
 
     function newPriceForNewTemplate(templateIndex) {
       ProductStor.product.templateIndex = templateIndex;
-      MainServ.saveTemplateInProduct(templateIndex);
-      //------ define product price
-      MainServ.preparePrice(GlobalStor.global.templates[templateIndex], ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId);
+      MainServ.saveTemplateInProduct(templateIndex).then(function() {
+        //------ define product price
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId);
+      });
     }
 
 

@@ -276,45 +276,30 @@
 
     function parseTemplate() {
       var deferred = $q.defer();
-      //--------- cleaning old templates
-      GlobalStor.global.templates.length = 0;
-      GlobalStor.global.templatesIcon.length = 0;
-
-      var templatesQty = GlobalStor.global.templatesSource.length;
-      for(var tem = 0; tem < templatesQty; tem++) {
-
-        SVGServ.createSVGTemplate(GlobalStor.global.templatesSource[tem], GlobalStor.global.profileDepths).then(function(result) {
-          console.log('result++++', result);
-          GlobalStor.global.templates.push(result);
-        });
-//        GlobalStor.global.templates.push( new Template(GlobalStor.global.templatesSource[tem], GlobalStor.global.profileDepths) );
-        GlobalStor.global.templatesIcon.push( new TemplateIcon(GlobalStor.global.templatesSource[tem], GlobalStor.global.profileDepths) );
-      }
-
-      //-------- Save Template Arrays in Store
-      GlobalStor.global.templatesSTORE = angular.copy(GlobalStor.global.templates);
-      GlobalStor.global.templatesIconSTORE = angular.copy(GlobalStor.global.templatesIcon);
-
       //------- set current template for product
-      saveTemplateInProduct(ProductStor.product.templateIndex);
-
-      setCurrentGlass();
-      setCurrentHardware();
-//TODO
-//      preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId).then(function() {
-//        deferred.resolve('done');
-//      });
-
+      saveTemplateInProduct(ProductStor.product.templateIndex).then(function() {
+        setCurrentGlass();
+        setCurrentHardware();
+        //TODO закомичена цена!!!!
+//        preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId).then(function() {
+//          deferred.resolve('done');
+//        });
+      });
       return deferred.promise;
     }
 
 
 
     function saveTemplateInProduct(templateIndex) {
+      var defer = $q.defer();
       ProductStor.product.templateSource = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
-      ProductStor.product.template = angular.copy(GlobalStor.global.templates[templateIndex]);
-      ProductStor.product.templateIcon = angular.copy(GlobalStor.global.templatesIcon[templateIndex]);
-      console.log('...........',ProductStor.product.template);
+      SVGServ.createSVGTemplate(ProductStor.product.templateSource, GlobalStor.global.profileDepths).then(function(result) {
+        ProductStor.product.template = angular.copy(result);
+
+        ProductStor.product.templateIcon = new TemplateIcon(ProductStor.product.templateSource, GlobalStor.global.profileDepths);
+        defer.resolve(ProductStor.product.template);
+      });
+      return defer.promise;
     }
 
 

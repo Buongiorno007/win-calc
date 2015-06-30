@@ -11,7 +11,7 @@
       .template-discr.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templatesPanel.G.global.templates[templatesPanel.P.product.templateIndex].name }}
 
     .template-section.unvisible(hm-tap="templatesPanel.gotoConstructionPage()", show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
-      svg-template(template="templatesPanel.G.global.templates[templatesPanel.P.product.templateIndex]", template-width="templatesPanel.constants.svgTemplateIconBigWidth", template-height="templatesPanel.constants.svgTemplateIconBigHeight", type-construction="bigIcon")
+      svg-template(template="templatesPanel.P.product.template", template-width="templatesPanel.constants.svgTemplateIconBigWidth", template-height="templatesPanel.constants.svgTemplateIconBigHeight", type-construction="bigIcon")
 
     .template-footer.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
       .other-templates(ng-show="templatesPanel.P.product.constructionType === 1")

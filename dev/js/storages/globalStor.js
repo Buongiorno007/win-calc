@@ -43,11 +43,11 @@
         //------- Templates
         templateLabel: '',
         templatesSource: [],
-        templates: [],
-        templatesIcon: [],
+//        templates: [],
+//        templatesIcon: [],
         templatesSourceSTORE: [],
-        templatesSTORE: [],
-        templatesIconSTORE: [],
+//        templatesSTORE: [],
+//        templatesIconSTORE: [],
 
         //------ Profiles
         profiles: [],

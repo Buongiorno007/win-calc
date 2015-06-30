@@ -19,9 +19,15 @@
 
     thisFactory.publicObj = {
       createSVGTemplate: createSVGTemplate,
-//      designSaved: designSaved,
-//      designCancel: designCancel,
-//      setDefaultConstruction: setDefaultConstruction
+      setPointsOut: setPointsOut,
+      centerBlock: centerBlock,
+      sortingPoints: sortingPoints,
+      setLines: setLines,
+      setLineCoef: setLineCoef,
+      findCrossPoint: findCrossPoint,
+      checkLineOwnPoint: checkLineOwnPoint,
+      setPointLocationToLine: setPointLocationToLine,
+      QLineIntersections: QLineIntersections
 
     };
 
@@ -127,7 +133,7 @@
               $.merge(thisObj.details.skylights[i].parts, setParts(thisObj.details.skylights[i].beadPointsOut, thisObj.details.skylights[i].beadPointsIn));
 
               //----- set openPoints for sash
-              //          thisObj.details.skylights[i].sashOpenDir = setOpenDir(thisObj.details.skylights[i].openDir, thisObj.details.skylights[i].center, thisObj.details.skylights[i].beadLinesIn);
+              thisObj.details.skylights[i].sashOpenDir = setOpenDir(thisObj.details.skylights[i].openDir, thisObj.details.skylights[i].center, thisObj.details.skylights[i].beadLinesIn);
             }
 
           }
@@ -286,16 +292,18 @@
         line.dir = points[i].dir;
         //------- end
         if(i === (pointsQty - 1)) {
-          if(points[0].type === 'frame' && !points[0].view) {
+          index = 0;
+          if(points[index].type === 'frame' && !points[index].view) {
             index = 1;
-          } else {
-            index = 0;
           }
         } else {
-          if(points[i+1].type === 'frame' && !points[i+1].view) {
-            index = i+2;
-          } else {
-            index = i+1;
+          index = i+1;
+          if(points[index].type === 'frame' && !points[index].view) {
+            if(index === (pointsQty - 1)) {
+              index = 0;
+            } else {
+              index = i+2;
+            }
           }
         }
         line.to = JSON.parse(JSON.stringify(points[index]));
@@ -801,7 +809,8 @@
           },
           dirQty = direction.length,
           index = 0;
-
+      console.log('beadLines+++++', newPoints);
+      console.log('geomCenter+++++', geomCenter);
       for(; index < dirQty; index++) {
 
         var part = {
@@ -876,7 +885,6 @@
 
 
     function getCrossPointSashDir(position, centerGeom, angel, lines) {
-
       var sashLineMark = cteateSashDirLine(centerGeom, angel);
       var crossPoints = getCrossPointInBlock(position, sashLineMark, lines);
       return crossPoints;
@@ -885,7 +893,7 @@
 
 
     function cteateSashDirLine(center, angel) {
-      //  console.log(angel);
+      console.log(angel);
       var k =  Math.round(Math.tan(angel * Math.PI / 180)),
           lineMark = {
             center: center,
@@ -909,7 +917,7 @@
 
           //------ checking is cross point inner of line
           var checkPoint = checkLineOwnPoint(coord, lines[l].to, lines[l].from);
-          //      console.log('^^^^^checkPoint^^^^', checkPoint);
+                console.log('^^^^^checkPoint^^^^', checkPoint);
           if(checkPoint.x >= 0 && checkPoint.x <= 1 || checkPoint.y >=0 && checkPoint.y <= 1) {
 
 
@@ -943,11 +951,11 @@
 
               l1 = lineMark.center;
               l2 = coord;
-              //          console.log('p1 ------',p1);
-              //          console.log('p2 ------',p2);
-              //          console.log('p3 ------',p3);
-              //          console.log('l1 ------',l1);
-              //          console.log('l2 ------',l2);
+                        console.log('p1 ------',p1);
+                        console.log('p2 ------',p2);
+                        console.log('p3 ------',p3);
+                        console.log('l1 ------',l1);
+                        console.log('l2 ------',l2);
               // calc the intersections
               var intersect = QLineIntersections(p1, p2, p3, l1, l2);
               if(intersect.length) {
@@ -980,7 +988,7 @@
                 }
                 break;
             }
-
+console.log('new coord----------', coord);
           }
 
         }

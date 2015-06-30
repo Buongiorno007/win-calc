@@ -132,7 +132,7 @@
             <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-discr unvisible">{{ templatesPanel.G.global.templates[templatesPanel.P.product.templateIndex].name }}</div>
           </div>
           <div hm-tap="templatesPanel.gotoConstructionPage()" show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-section unvisible">
-            <svg-template template="templatesPanel.G.global.templates[templatesPanel.P.product.templateIndex]" template-width="templatesPanel.constants.svgTemplateIconBigWidth" template-height="templatesPanel.constants.svgTemplateIconBigHeight" type-construction="bigIcon"></svg-template>
+            <svg-template template="templatesPanel.P.product.template" template-width="templatesPanel.constants.svgTemplateIconBigWidth" template-height="templatesPanel.constants.svgTemplateIconBigHeight" type-construction="bigIcon"></svg-template>
           </div>
           <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-footer unvisible">
             <div ng-show="templatesPanel.P.product.constructionType === 1" class="other-templates">

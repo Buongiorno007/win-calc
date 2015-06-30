@@ -40,7 +40,6 @@
 
     //--------- set template from ProductStor
     DesignServ.setDefaultTemplate();
-    console.log('templateTEMP+++++++++', DesignStor.design.templateTEMP);
 
     //============ if Door Construction
     if(ProductStor.product.constructionType === 4) {
@@ -276,29 +275,30 @@
       thisCtrl.config.activeSubMenuItem = 0;
       deselectAllArc();
       //---- get quantity of arcs
-      var arcQty = DesignStor.design.selectedArc[0].length,
-          i = 0;
+      var arcQty = DesignStor.design.selectedArc[0].length;
 
-      console.log('%%%%%%',DesignStor.design.selectedArc[0]);
       switch(arcType) {
-        //----- delete arc
+        //======= delete arc
         case 1:
+          //------ delete all arcs
           if(arcQty > 1) {
-//            for(; i < arcQty; i++) {
-//              var arc = d3.select('#tamlateSVG [item-type=arc]');
-//              console.log('$$$$$$$$$$',arc);
-//              DesignServ.deleteArc(arc[0][0]);
-//              arc.remove();
-//            }
-            DesignServ.deleteAllArcs(arcQty);
+            var arcsQty = d3.selectAll('#tamlateSVG [item-type=arc]')[0].length;
+            if(arcsQty) {
+              DesignServ.workingWithAllArcs('arc', arcsQty);
+            }
           } else {
+            //------ delete one selected arc
             DesignServ.deleteArc(DesignStor.design.selectedArc[0][0]);
           }
           break;
-        //----- insert arc
+        //======= insert arc
         case 2:
-          for(; i < arcQty; i++) {
-            DesignServ.createArc(DesignStor.design.selectedArc[0][i]);
+          //------ insert all arcs
+          if(arcQty > 1) {
+            DesignServ.workingWithAllArcs('frame', arcQty);
+          } else {
+            //------ insert one selected arc
+            DesignServ.createArc(DesignStor.design.selectedArc[0][0]);
           }
           break;
       }
