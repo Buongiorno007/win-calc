@@ -428,20 +428,20 @@
                   {type:'frame', id:'fp3', x:1000, y:1000, dir:'line', view:1, sill:1},
                   {type:'frame', id:'fp4', x:0, y:1000, dir:'line', view:1, sill:1},
 
-//                  {type:'arc', id:'q1', x:1500, y:500, dir:'curv'},
-//                  {type:'arc', id:'q2', x:1500, y:500, dir:'curv'},
-//                  {type:'arc', id:'q3', x:1500, y:2500, dir:'curv'},
-//                  {type:'arc', id:'q4', x:500, y:1500, dir:'curv'},
+//                  {type:'arc', id:'qa1', x:1500, y:500, dir:'curv'},
+//                  {type:'arc', id:'qa2', x:1500, y:500, dir:'curv'},
+//                  {type:'arc', id:'qa3', x:1500, y:2500, dir:'curv'},
+//                  {type:'arc', id:'qa4', x:500, y:1500, dir:'curv'},
 
-//                  {type:'arc', id:'q1-1', x:500, y:1500, dir:'curv'},
-//                  {type:'arc', id:'q1-2', x:500, y:1500, dir:'curv'},
+//                  {type:'arc', id:'qa1-1', x:500, y:1500, dir:'curv'},
+//                  {type:'arc', id:'qa1-2', x:500, y:1500, dir:'curv'},
 
 //                  {type:'corner', id:'c1-1', x:1200, y:1000, dir:'line'},
 //                  {type:'corner', id:'c1-2', x:1000, y:1200, dir:'line'},
 
 //                  {type:'corner', id:'qc1', x:1000, y:1000, dir:'curv'}
 
-//                  {type:'impost', id:'qip1', x:1000, y:1000, dir:'curv'}
+//                  {type:'impost', id:'qi1', x:1000, y:1000, dir:'curv'}
 
                 {type:'impost', id:'ip1', x:500, y:0, dir:'line'},
                 {type:'impost', id:'ip2', x:500, y:1000, dir:'line'},

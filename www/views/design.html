@@ -40,9 +40,9 @@
           </div>
           <div id="impost-shape-menu" ng-class="{'active': designPage.config.activeSubMenuItem == 3}" class="edit_submenu">
             <ul class="constr-shape-list">
-              <li ng-hide="designPage.P.product.constructionType === 4" hm-tap="designPage.insertNewSash('empty')" class="constr-shape-icon sash-empty"></li>
-              <li hm-tap="designPage.insertNewImpost('vert')" class="constr-shape-icon impost-vert"></li>
-              <li hm-tap="designPage.insertNewImpost('horis')" class="constr-shape-icon impost-hor"></li>
+              <li hm-tap="designPage.insertImpost(1, $event)" class="constr-shape-icon sash-empty"></li>
+              <li hm-tap="designPage.insertImpost(2, $event)" class="constr-shape-icon impost-vert"></li>
+              <li hm-tap="designPage.insertImpost(3, $event)" class="constr-shape-icon impost-hor"></li>
             </ul>
           </div>
         </li>

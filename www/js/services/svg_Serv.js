@@ -133,7 +133,7 @@
               $.merge(thisObj.details.skylights[i].parts, setParts(thisObj.details.skylights[i].beadPointsOut, thisObj.details.skylights[i].beadPointsIn));
 
               //----- set openPoints for sash
-              thisObj.details.skylights[i].sashOpenDir = setOpenDir(thisObj.details.skylights[i].openDir, thisObj.details.skylights[i].center, thisObj.details.skylights[i].beadLinesIn);
+              thisObj.details.skylights[i].sashOpenDir = setOpenDir(thisObj.details.skylights[i].openDir, thisObj.details.skylights[i].beadLinesIn);
             }
 
           }
@@ -799,7 +799,7 @@
 
 
 
-    function setOpenDir(direction, center, beadLines) {
+    function setOpenDir(direction, beadLines) {
       var parts = [],
           newPoints = preparePointsXMaxMin(beadLines),
           dim = getMaxMinCoord(newPoints),
@@ -809,10 +809,8 @@
           },
           dirQty = direction.length,
           index = 0;
-      console.log('beadLines+++++', newPoints);
-      console.log('geomCenter+++++', geomCenter);
-      for(; index < dirQty; index++) {
 
+      for(; index < dirQty; index++) {
         var part = {
           type: 'sash-dir',
           points: []
@@ -822,29 +820,29 @@
           //----- 'up'
           case 1:
             part.points.push(getCrossPointSashDir(1, geomCenter, 225, beadLines));
-            part.points.push({x: geomCenter.x, y: dim.minY});
+            part.points.push(getCrossPointSashDir(3, geomCenter, 90, beadLines));
             part.points.push(getCrossPointSashDir(1, geomCenter, 315, beadLines));
             break;
           //----- 'right'
           case 2:
             part.points.push(getCrossPointSashDir(2, geomCenter, 225, beadLines));
-            part.points.push({x: dim.maxX, y: geomCenter.y});
+            part.points.push(getCrossPointSashDir(4, geomCenter, 180, beadLines));
             part.points.push(getCrossPointSashDir(2, geomCenter, 135, beadLines));
             break;
           //------ 'down'
           case 3:
             part.points.push(getCrossPointSashDir(3, geomCenter, 135, beadLines));
-            part.points.push({x: geomCenter.x, y: dim.maxY});
+            part.points.push(getCrossPointSashDir(1, geomCenter, 270, beadLines));
             part.points.push(getCrossPointSashDir(3, geomCenter, 45, beadLines));
             break;
           //----- 'left'
           case 4:
             part.points.push(getCrossPointSashDir(4, geomCenter, 45, beadLines));
-            part.points.push({x: dim.minX, y: geomCenter.y});
+            part.points.push(getCrossPointSashDir(2, geomCenter, 180, beadLines));
             part.points.push(getCrossPointSashDir(4, geomCenter, 315, beadLines));
             break;
         }
-        console.log('path ====', part.points);
+//        console.log('path ====', part.points);
         part.path = assamblingSashPath(part.points);
         parts.push(part);
       }
@@ -887,13 +885,14 @@
     function getCrossPointSashDir(position, centerGeom, angel, lines) {
       var sashLineMark = cteateSashDirLine(centerGeom, angel);
       var crossPoints = getCrossPointInBlock(position, sashLineMark, lines);
+//      console.log('new coord----------', crossPoints);
       return crossPoints;
     }
 
 
 
     function cteateSashDirLine(center, angel) {
-      console.log(angel);
+//      console.log(angel);
       var k =  Math.round(Math.tan(angel * Math.PI / 180)),
           lineMark = {
             center: center,
@@ -908,38 +907,67 @@
 
     function getCrossPointInBlock(position, lineMark, lines) {
       var linesQty = lines.length;
+//      console.log('lines @@@@@@', lines);
       for(var l = 0; l < linesQty; l++) {
-
+//        console.log('line ++++', lines[l]);
         //    console.log('line ++++', lines[l]);
-        var coord = findCrossPoint(lineMark, lines[l], lineMark.coefC, lines[l].coefC);
-        console.log('coord ++++', coord);
+        var coord = findCrossPointSashDir(lineMark, lines[l], lineMark.coefC, lines[l].coefC);
+//        console.log('coord ++++', coord);
         if(coord.x >= 0 && coord.y >= 0) {
 
           //------ checking is cross point inner of line
           var checkPoint = checkLineOwnPoint(coord, lines[l].to, lines[l].from);
-                console.log('^^^^^checkPoint^^^^', checkPoint);
+//                console.log('^^^^^checkPoint^^^^', checkPoint);
           if(checkPoint.x >= 0 && checkPoint.x <= 1 || checkPoint.y >=0 && checkPoint.y <= 1) {
 
 
             if(lines[l].dir === 'curv') {
-              var nextId, p1, p2, p3, l1, l2;
+              var nextId, p1, p2, p3, l1, l2, curvDir = 1, curvId, isCurv;
+              //----- find curve id
+              if(lines[l].from.id.indexOf('q')+1) {
+                curvId = lines[l].from.id.slice(0,3);
+              } else {
+                curvId = lines[l].to.id.slice(0,3);
+              }
+//              console.log('curvId++++', curvId);
               //------ if first curve and next is not curve
-              if(l === 0 && lines[l+1].dir === 'line') {
-                nextId = linesQty-1;
-                //-------- if last curve
-              } else if(l === linesQty-1 && lines[0].dir === 'curv') {
-                nextId = 0;
-              } else if(lines[l+1].dir === 'curv') {
+              if(l === 0) {
                 nextId = l+1;
-              } else if(lines[l-1].dir === 'curv') {
-                nextId = l-1;
+                if(lines[nextId].dir === 'line') {
+                  nextId = linesQty-1;
+                  curvDir = 0;
+                } else {
+                  //---- checking id of curves
+                  isCurv = matchingCurveId(curvId, lines[nextId]);
+//                  console.log('isCurv++++', isCurv);
+                  if(!isCurv) {
+                    nextId = linesQty-1;
+                    curvDir = 0;
+                  }
+                }
+                //-------- if last curve
+              } else {
+                if(l === linesQty-1) {
+                  nextId = 0;
+                } else {
+                  nextId = l+1;
+                }
+                if(lines[nextId].dir === 'line') {
+                  nextId = l-1;
+                  curvDir = 0;
+                } else {
+                  //---- checking id of curves
+                  isCurv = matchingCurveId(curvId, lines[nextId]);
+//                  console.log('isCurv++++', isCurv);
+                  if(!isCurv) {
+                    nextId = l-1;
+                    curvDir = 0;
+                  }
+                }
               }
 
               // qCurve & line defs
-              var regFP = /fp\d/;
-              var regC = /c\d-\d/;
-
-              if(regFP.test(lines[l].from.id) || regC.test(lines[l].from.id) && lines[l].to.id.indexOf('q') + 1) {
+              if(curvDir) {
                 p1 = lines[l].from;
                 p2 = lines[l].to;
                 p3 = lines[nextId].to;
@@ -951,11 +979,11 @@
 
               l1 = lineMark.center;
               l2 = coord;
-                        console.log('p1 ------',p1);
-                        console.log('p2 ------',p2);
-                        console.log('p3 ------',p3);
-                        console.log('l1 ------',l1);
-                        console.log('l2 ------',l2);
+//                        console.log('p1 ------',p1);
+//                        console.log('p2 ------',p2);
+//                        console.log('p3 ------',p3);
+//                        console.log('l1 ------',l1);
+//                        console.log('l2 ------',l2);
               // calc the intersections
               var intersect = QLineIntersections(p1, p2, p3, l1, l2);
               if(intersect.length) {
@@ -968,7 +996,7 @@
             coord.fi = getAngelPoint(lineMark.center, coord);
             switch(position) {
               case 1:
-                if(coord.fi > 180 && coord.fi < 360) {
+                if(coord.fi > 180) {
                   return coord;
                 }
                 break;
@@ -988,7 +1016,7 @@
                 }
                 break;
             }
-console.log('new coord----------', coord);
+
           }
 
         }
@@ -996,6 +1024,17 @@ console.log('new coord----------', coord);
       }
 
 
+    }
+
+    function findCrossPointSashDir(line1, line2, coefC1, coefC2) {
+      var base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
+          baseX = (line1.coefB * (coefC2)) - (line2.coefB * (coefC1)),
+          baseY = (line2.coefA * (coefC1)) - (line1.coefA * (coefC2)),
+          crossPoint = {
+            x: baseX / base,
+            y: baseY / base
+          };
+      return crossPoint;
     }
 
     function checkLineOwnPoint(point, lineTo, lineFrom) {
@@ -1010,6 +1049,15 @@ console.log('new coord----------', coord);
       return check;
     }
 
+    function matchingCurveId(curvId, line) {
+      var check = 0;
+      if(line.from.id.indexOf(curvId)+1){
+        check = 1;
+      } else if(line.to.id.indexOf(curvId)+1) {
+        check = 1;
+      }
+      return check;
+    }
 
     function QLineIntersections(p1, p2, p3, a1, a2) {
       var intersections = [],
@@ -1049,8 +1097,8 @@ console.log('new coord----------', coord);
         a = normal.x*c2.x + normal.y*c2.y;
       }
       b = (normal.x*c1.x + normal.y*c1.y)/ a,
-        c = (normal.x*c0.x + normal.y*c0.y + coefficient)/ a,
-        d = b*b - 4*c;
+      c = (normal.x*c0.x + normal.y*c0.y + coefficient)/ a,
+      d = b*b - 4*c;
 
       // solve the roots
       if(d > 0) {
@@ -1066,7 +1114,7 @@ console.log('new coord----------', coord);
       //  console.log('b ++++',b);
       //  console.log('c ++++',c);
       //  console.log('d ++++',d);
-      console.log('t++++',roots);
+//      console.log('t++++',roots);
 
       // calc the solution points
       for(var i=0; i<roots.length; i++) {

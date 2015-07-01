@@ -20,6 +20,7 @@
         //----- Edit
         selectedGlass: [],
         selectedCorner: [],
+        selectedImpost: [],
         selectedArc: [],
         //----- Sizes
         openVoiceHelper: false,

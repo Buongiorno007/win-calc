@@ -31,6 +31,10 @@
       createArc: createArc,
       deleteArc: deleteArc,
       workingWithAllArcs: workingWithAllArcs,
+      //-------- edit impost
+      isExistImpostInSelected: isExistImpostInSelected,
+      createImpost: createImpost,
+      deleteImpost: deleteImpost,
 
       //---- change sizes
       selectSizeBlock: selectSizeBlock,
@@ -689,7 +693,7 @@
     function createArcPoint(arcN, coordQP, blockIndex, blocks, points) {
       var pointQ = {
         type:'arc',
-        id:'q'+arcN,
+        id:'qa'+arcN,
         x: coordQP.x,
         y: coordQP.y,
         dir:'curv'
@@ -753,7 +757,7 @@
     function createQPImpostArc(nP, arcN, ipN, coordQP, blockIndex, blocks, points) {
       var pointQ = {
             type:'arc',
-            id:'q'+arcN+'-ip'+ipN+'-'+nP,
+            id:'qa'+arcN+'-ip'+ipN+'-'+nP,
             x: coordQP.x,
             y: coordQP.y,
             dir:'curv'
@@ -819,10 +823,6 @@
 
 
 
-
-
-
-
     function deleteArc(arcObj) {
       var defer = $q.defer(),
           arc = arcObj.__data__;
@@ -844,10 +844,10 @@
           to: arc.points[2]
         };
         SVGServ.setLineCoef(currLine);
-        console.log('currLine++++++',currLine);
+//        console.log('currLine++++++',currLine);
         //----- imposts which cross current arc
         var imposts = findImpostsCrossLine(currLine, blocksQty, blocks);
-        console.log('imposts++++++',imposts);
+//        console.log('imposts++++++',imposts);
         //----- change imposts coordinats
         changeCoordImpostPoint(imposts, pointsSource);
 
@@ -945,6 +945,80 @@
 
 
 
+
+    //++++++++++ Edit Imposts ++++++++//
+
+
+    function isExistImpostInSelected(newImpost) {
+      var exist = 0,
+          newImpId = newImpost.attributes.blockId.nodeValue,
+          imposts = DesignStor.design.selectedImpost,
+          impostsQty = imposts.length;
+      while(--impostsQty > -1) {
+        //------ existed impost
+        if(imposts[impostsQty].attributes.blockId.nodeValue === newImpId) {
+          DesignStor.design.selectedImpost.splice(impostsQty, 1);
+          exist = 1;
+          break;
+        }
+      }
+      //-------- if the impost is new one
+      if(!exist){
+        DesignStor.design.selectedImpost.push(newImpost);
+      }
+      return exist;
+    }
+
+
+
+    function createImpost(impType, glassObj) {
+//      var defer = $q.defer(),
+//          glass = glassObj.__data__,
+//          blockID = glassObj.attributes.blockId.nodeValue,
+//
+//          blocks = DesignStor.design.templateTEMP.details.skylights,
+//          blocksQty = blocks.length,
+//          blocksSource = DesignStor.design.templateSourceTEMP.details.skylights,
+//          pointsSource = DesignStor.design.templateSourceTEMP.details.points,
+//          pointsQty = pointsSource.length;
+//
+//      //------- find line and block in order to insert Q point
+//      for(var b = 0; b < blocksQty; b++) {
+//        if(blocks[b].id === blockID) {
+//          var linesQty = blocks[b].linesOut.length;
+//          while(--linesQty > -1) {
+//            if(blocks[b].linesOut[linesQty].from.id === arc.points[0].id && blocks[b].linesOut[linesQty].to.id === arc.points[1].id) {
+//              currBlockIndex = b;
+//              currLine = blocks[b].linesOut[linesQty];
+//            }
+//          }
+//        }
+//      }
+
+
+
+      //------ change templateTEMP
+      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+        DesignStor.design.templateTEMP = angular.copy(result);
+      });
+
+    }
+
+
+
+    function deleteImpost(impObj) {
+      var defer = $q.defer(),
+          arc = impObj.__data__;
+
+//        var arcID = arc.points[1].id,
+//            blockID = impObj.attributes.blockId.nodeValue,
+//            pointsSource = DesignStor.design.templateSourceTEMP.details.points,
+//            pointsQty = pointsSource.length,
+//            blocksSource = DesignStor.design.templateSourceTEMP.details.skylights,
+//            blocks = DesignStor.design.templateTEMP.details.skylights,
+//            blocksQty = blocks.length,
+//            shiftX = 0, shiftY = 0;
+    }
 
 
 

@@ -327,25 +327,48 @@ body {
 
 
 //=============== SVG
-.active_svg {
-  fill: rgba(34, 34, 255, 0.5)!important;
-}
-.glass {
-  @include transition(all 0.1s linear);
-  fill: rgba(155, 204, 255, 0.20);
-}
 
-.glass-active {
-  @extend .active_svg;
-}
-
-.frame, .sash, .impost, .bead {
+.frame {
   @include transition(all 0.2s linear);
   fill: #f9f9f9;
   stroke: $main_gray_txt;
   stroke-width: 2;
 }
-.frame-icon, .sash-icon, .impost-icon, .bead-icon {
+
+.glass {
+  @include transition(all 0.1s linear);
+  fill: rgba(155, 204, 255, 0.20);
+}
+
+.active_svg {
+  fill: rgba(34, 34, 255, 0.5)!important;
+}
+
+.frame-active, .glass-active {
+  @extend .active_svg;
+}
+
+.sash_mark {
+  fill: none;
+  stroke: $main_orange;
+  stroke-width: 2;
+}
+.corner_mark {
+  @extend .active_svg;
+  stroke: none;
+}
+
+.error_glass {
+  fill: $error_color;
+}
+
+
+
+
+
+
+
+.frame-icon {
   fill: #ccc;
   stroke: #000;
   stroke-width: 4;
@@ -423,19 +446,7 @@ body {
   fill: #fff;
 }
 
-.sash_mark {
-  fill: none;
-  stroke: $main_orange;
-  stroke-width: 2;
-}
-.corner_mark {
-  @extend .active_svg;
-  stroke: none;
-}
 
-.error_glass {
-  fill: $error_color;
-}
 
 
 
