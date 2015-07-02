@@ -156,26 +156,17 @@
       deselectAllGlass();
 
       var glassQty = DesignStor.design.selectedGlass[0].length;
-      switch(sashType) {
+      if(sashType === 1) {
         //----- delete sash
-        case 1:
-          for(var i = 0; i < glassQty; i++) {
-            DesignServ.deleteSash(DesignStor.design.selectedGlass[0][i]);
-          }
-          break;
+        for(var i = 0; i < glassQty; i++) {
+          DesignServ.deleteSash(DesignStor.design.selectedGlass[0][i]);
+        }
+      } else {
         //----- insert sash
-        case 2:
-        case 3:
-        case 4:
-        case 5:
-        case 6:
-        case 7:
-          for(var i = 0; i < glassQty; i++) {
-            DesignServ.createSash(sashType, DesignStor.design.selectedGlass[0][i]);
-          }
-          break;
+        for(var i = 0; i < glassQty; i++) {
+          DesignServ.createSash(sashType, DesignStor.design.selectedGlass[0][i]);
+        }
       }
-
     }
 
 
@@ -282,30 +273,28 @@
       //---- get quantity of arcs
       var arcQty = DesignStor.design.selectedArc[0].length;
 
-      switch(arcType) {
-        //======= delete arc
-        case 1:
-          //------ delete all arcs
-          if(arcQty > 1) {
-            var arcsQty = d3.selectAll('#tamlateSVG [item-type=arc]')[0].length;
-            if(arcsQty) {
-              DesignServ.workingWithAllArcs('arc', arcsQty);
-            }
-          } else {
-            //------ delete one selected arc
-            DesignServ.deleteArc(DesignStor.design.selectedArc[0][0]);
+      //======= delete arc
+      if(arcType === 1) {
+        //------ delete all arcs
+        if (arcQty > 1) {
+          var arcsQty = d3.selectAll('#tamlateSVG [item-type=arc]')[0].length;
+          if (arcsQty) {
+            DesignServ.workingWithAllArcs('arc', arcsQty);
           }
-          break;
-        //======= insert arc
-        case 2:
-          //------ insert all arcs
-          if(arcQty > 1) {
-            DesignServ.workingWithAllArcs('frame', arcQty);
-          } else {
-            //------ insert one selected arc
-            DesignServ.createArc(DesignStor.design.selectedArc[0][0]);
-          }
-          break;
+        } else {
+          //------ delete one selected arc
+          DesignServ.deleteArc(DesignStor.design.selectedArc[0][0]);
+        }
+
+      //======= insert arc
+      } else {
+        //------ insert all arcs
+        if(arcQty > 1) {
+          DesignServ.workingWithAllArcs('frame', arcQty);
+        } else {
+          //------ insert one selected arc
+          DesignServ.createArc(DesignStor.design.selectedArc[0][0]);
+        }
       }
     }
 
@@ -357,10 +346,6 @@
 
 
 
-
-
-
-
     function insertImpost(impostType, event) {
       event.srcEvent.stopPropagation();
       thisCtrl.config.activeMenuItem = 0;
@@ -368,36 +353,19 @@
       deselectAllGlass();
 
       var glassQty = DesignStor.design.selectedGlass[0].length;
-      switch(impostType) {
+      if(impostType === 1) {
         //----- delete imposts
-        case 1:
-          var impostsQty = DesignStor.design.selectedImpost.length;
-          if(impostsQty) {
-            for(var i = 0; i < impostsQty; i++) {
-              DesignServ.deleteImpost(DesignStor.design.selectedImpost[0][i]);
-            }
+        var impostsQty = DesignStor.design.selectedImpost.length;
+        if (impostsQty) {
+          for (var i = 0; i < impostsQty; i++) {
+            DesignServ.deleteImpost(DesignStor.design.selectedImpost[0][i]);
           }
-          break;
-        //----- vertical
-        case 2:
-          for(var i = 0; i < glassQty; i++) {
-            DesignServ.createImpost(impostType, DesignStor.design.selectedGlass[0][i]);
-          }
-          break;
-        //----- horisontal
-        case 3:
-          for(var i = 0; i < glassQty; i++) {
-            DesignServ.createImpost(impostType, DesignStor.design.selectedGlass[0][i]);
-          }
-          break;
-        case 4:
-        case 5:
-        case 6:
-        case 7:
-          for(var i = 0; i < glassQty; i++) {
-            DesignServ.createImpost(impostType, DesignStor.design.selectedGlass[0][i]);
-          }
-          break;
+        }
+      } else {
+        //------- insert imposts
+        for(var i = 0; i < glassQty; i++) {
+          DesignServ.createImpost(impostType, DesignStor.design.selectedGlass[0][i]);
+        }
       }
     }
 

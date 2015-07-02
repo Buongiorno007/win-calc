@@ -10,25 +10,25 @@
     .module('MainModule')
     .factory('SVGServ', designFactory);
 
-  function designFactory($timeout, $q) {
+  function designFactory($q) {
 
-    var thisFactory = this,
-        sizeRectActClass = 'size-rect-active',
-        sizeBoxActClass = 'size-value-active',
-        newLength;
+    var thisFactory = this;
 
     thisFactory.publicObj = {
       createSVGTemplate: createSVGTemplate,
       setPointsOut: setPointsOut,
       centerBlock: centerBlock,
       sortingPoints: sortingPoints,
+      getAngelPoint: getAngelPoint,
       setLines: setLines,
       setLineCoef: setLineCoef,
-      findCrossPoint: findCrossPoint,
+      getCoordCrossPoint: getCoordCrossPoint,
       checkLineOwnPoint: checkLineOwnPoint,
       setPointLocationToLine: setPointLocationToLine,
-      QLineIntersections: QLineIntersections
-
+      QLineIntersections: QLineIntersections,
+      cteateLineByAngel: cteateLineByAngel,
+      getIntersectionInCurve: getIntersectionInCurve,
+      getCoordCrossPointInBlock: getCoordCrossPointInBlock
     };
 
     return thisFactory.publicObj;
@@ -78,6 +78,10 @@
           thisObj.details.skylights[i].pointsOut = sortingPoints(thisObj.details.skylights[i].pointsOut, thisObj.details.skylights[i].center);
           setPointsIDXChildren(thisObj.details.skylights[i], thisObj.details.skylights, thisObj.details.points);
           thisObj.details.skylights[i].linesOut = setLines(thisObj.details.skylights[i].pointsOut);
+          //------- set Line Type, line coef === line frame
+          if(thisObj.details.skylights[i].level > 1) {
+            setLineTypeAsToFrames(thisObj.details.skylights[i].linesOut, thisObj.details.skylights);
+          }
           thisObj.details.skylights[i].pointsIn = setPointsIn(thisObj.details.skylights[i], depths, 'frame');
           thisObj.details.skylights[i].linesIn = setLines(thisObj.details.skylights[i].pointsIn);
 
@@ -156,7 +160,7 @@
             thisObj.details.skylights[i].parts.push( setImpostParts(thisObj.details.skylights[i].impost.impostIn) );
           }
         }
-        //    console.log('^^^^^^^^^', thisObj.details.skylights[i]);
+            console.log('^^^^^^^^^', thisObj.details.skylights[i]);
       }
       console.log('svg finish', new Date(), new Date().getMilliseconds());
       defer.resolve(thisObj);
@@ -245,13 +249,14 @@
             indexChildBlock2 = i;
           }
         }
+//        console.log('+++++++++++++++');
         //------- insert Ids of pointsOut in pointsID of children blocks
         while(--pointsIDQty > -1) {
           //------- check pointsOut of parent block as to impost
           var position = setPointLocationToLine(currBlock.impost.impostAxis[0], currBlock.impost.impostAxis[1], currBlock.pointsOut[pointsIDQty]);
-          //      console.log(currBlock.impost.impostAxis);
-          //      console.log(currBlock.pointsOut[pointsIDQty]);
-          //      console.log('position', position);
+//                console.log(currBlock.impost.impostAxis);
+//                console.log(currBlock.pointsOut[pointsIDQty]);
+//                console.log('position', position);
           //------ block right side
           if(position > 0) {
             blocks[indexChildBlock2].pointsID.push(currBlock.pointsOut[pointsIDQty].id);
@@ -344,6 +349,53 @@
     }
 
 
+    function setLineTypeAsToFrames(currLines, blocks) {
+      var currLinesQty = currLines.length;
+      while(--currLinesQty > -1) {
+        var blocksQty = blocks.length;
+        while(--blocksQty > -1) {
+          if(blocks[blocksQty].level === 1) {
+            var framesQty = blocks[blocksQty].linesOut.length;
+            while(--framesQty > -1) {
+
+              var isEquel1 = checkLineOwnPoint2(currLines[currLinesQty].from, blocks[blocksQty].linesOut[framesQty].to, blocks[blocksQty].linesOut[framesQty].from);
+              var isEquel2 = checkLineOwnPoint2(currLines[currLinesQty].to, blocks[blocksQty].linesOut[framesQty].to, blocks[blocksQty].linesOut[framesQty].from);
+//              console.log('---------------');
+//              console.log('0000000', blocks[blocksQty].linesOut[framesQty].from.id, blocks[blocksQty].linesOut[framesQty].to.id, currLines[currLinesQty].from.id);
+//              console.log('1111111', isEquel1);
+//              console.log('0000000', blocks[blocksQty].linesOut[framesQty].from.id, blocks[blocksQty].linesOut[framesQty].to.id, currLines[currLinesQty].to.id);
+//              console.log('22222222', isEquel2);
+
+              if(isEquel1.x === Infinity || isEquel1.y === Infinity || isEquel2.x === Infinity || isEquel2.y === Infinity) {
+                continue;
+              } else {
+                if(isEquel1.x > 0 && isEquel1.x < 1 && isEquel2.x > 0 && isEquel2.x < 1 || isEquel1.y >0 && isEquel1.y < 1 && isEquel2.y >0 && isEquel2.y < 1) {
+                  currLines[currLinesQty].type = 'frame';
+//                  console.log('++++++ frame ++++++');
+                }
+              }
+
+
+
+            }
+          }
+        }
+
+      }
+    }
+
+    function checkLineOwnPoint2(point, lineTo, lineFrom) {
+        var check = {
+          x: (point.x - lineTo.x) / (lineFrom.x - lineTo.x),
+          y: (point.y - lineTo.y) / (lineFrom.y - lineTo.y)
+        };
+      if(check.x === -Infinity) {
+        check.x = Infinity;
+      } else if(check.y === -Infinity) {
+        check.y = Infinity;
+      }
+      return check;
+    }
 
     function setPointsIn(block, depths, group) {
       var pointsIn = [],
@@ -362,7 +414,7 @@
           index = i+1;
         }
         newCoefC2 = getNewCoefC(depths, block.linesOut[index], group);
-        crossPoint = getCoordCrossPoint (block.linesOut[i], block.linesOut[index], newCoefC1, newCoefC2);
+        crossPoint = getCrossPoint2Lines (block.linesOut[i], block.linesOut[index], newCoefC1, newCoefC2);
         pointsIn.push(crossPoint);
       }
       return pointsIn;
@@ -437,7 +489,7 @@
 
 
 
-    function getCoordCrossPoint(line1, line2, coefC1, coefC2) {
+    function getCrossPoint2Lines(line1, line2, coefC1, coefC2) {
       //  console.log('block.linesOut = ', line1);
       //  console.log('block.linesOut = ', line2);
       var crossPoint = {},
@@ -459,9 +511,9 @@
           coefB: -line1.coefA,
           coefC: (line1.coefA * line1.to.y - line1.coefB * line1.to.x)
         };
-        coord = findCrossPoint(line1, normal, coefC1, normal.coefC);
+        coord = getCoordCrossPoint(line1, normal, coefC1, normal.coefC);
       } else {
-        coord = findCrossPoint(line1, line2, coefC1, coefC2);
+        coord = getCoordCrossPoint(line1, line2, coefC1, coefC2);
       }
       //  console.log('coord = ', coord);
       crossPoint.x = coord.x;
@@ -480,15 +532,13 @@
       return (k1 === k2) ? 1 : 0;
     }
 
-    function findCrossPoint(line1, line2, coefC1, coefC2) {
+    function getCoordCrossPoint(line1, line2, coefC1, coefC2) {
       var base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
           baseX = (line1.coefB * (coefC2)) - (line2.coefB * (coefC1)),
           baseY = (line2.coefA * (coefC1)) - (line1.coefA * (coefC2)),
           crossPoint = {
             x: Math.abs(baseX / base),
             y: Math.abs(baseY / base)
-            //        x: baseX / base,
-            //        y: baseY / base
           };
       return crossPoint;
     }
@@ -883,15 +933,15 @@
 
 
     function getCrossPointSashDir(position, centerGeom, angel, lines) {
-      var sashLineMark = cteateSashDirLine(centerGeom, angel);
-      var crossPoints = getCrossPointInBlock(position, sashLineMark, lines);
+      var sashDirVector = cteateLineByAngel(centerGeom, angel);
+      var crossPoints = getCrossPointInBlock(position, sashDirVector, lines);
 //      console.log('new coord----------', crossPoints);
       return crossPoints;
     }
 
 
 
-    function cteateSashDirLine(center, angel) {
+    function cteateLineByAngel(center, angel) {
 //      console.log(angel);
       var k =  Math.round(Math.tan(angel * Math.PI / 180)),
           lineMark = {
@@ -905,128 +955,64 @@
 
 
 
-    function getCrossPointInBlock(position, lineMark, lines) {
+    function getCrossPointInBlock(position, vector, lines) {
       var linesQty = lines.length;
 //      console.log('lines @@@@@@', lines);
       for(var l = 0; l < linesQty; l++) {
+        var coord, checkPoint, intersect;
 //        console.log('line ++++', lines[l]);
         //    console.log('line ++++', lines[l]);
-        var coord = findCrossPointSashDir(lineMark, lines[l], lineMark.coefC, lines[l].coefC);
+        coord = getCoordCrossPointInBlock(vector, lines[l], vector.coefC, lines[l].coefC);
 //        console.log('coord ++++', coord);
         if(coord.x >= 0 && coord.y >= 0) {
 
           //------ checking is cross point inner of line
-          var checkPoint = checkLineOwnPoint(coord, lines[l].to, lines[l].from);
+          checkPoint = checkLineOwnPoint(coord, lines[l].to, lines[l].from);
 //                console.log('^^^^^checkPoint^^^^', checkPoint);
           if(checkPoint.x >= 0 && checkPoint.x <= 1 || checkPoint.y >=0 && checkPoint.y <= 1) {
 
 
             if(lines[l].dir === 'curv') {
-              var nextId, p1, p2, p3, l1, l2, curvDir = 1, curvId, isCurv;
-              //----- find curve id
-              if(lines[l].from.id.indexOf('q')+1) {
-                curvId = lines[l].from.id.slice(0,3);
-              } else {
-                curvId = lines[l].to.id.slice(0,3);
-              }
-//              console.log('curvId++++', curvId);
-              //------ if first curve and next is not curve
-              if(l === 0) {
-                nextId = l+1;
-                if(lines[nextId].dir === 'line') {
-                  nextId = linesQty-1;
-                  curvDir = 0;
-                } else {
-                  //---- checking id of curves
-                  isCurv = matchingCurveId(curvId, lines[nextId]);
-//                  console.log('isCurv++++', isCurv);
-                  if(!isCurv) {
-                    nextId = linesQty-1;
-                    curvDir = 0;
-                  }
-                }
-                //-------- if last curve
-              } else {
-                if(l === linesQty-1) {
-                  nextId = 0;
-                } else {
-                  nextId = l+1;
-                }
-                if(lines[nextId].dir === 'line') {
-                  nextId = l-1;
-                  curvDir = 0;
-                } else {
-                  //---- checking id of curves
-                  isCurv = matchingCurveId(curvId, lines[nextId]);
-//                  console.log('isCurv++++', isCurv);
-                  if(!isCurv) {
-                    nextId = l-1;
-                    curvDir = 0;
-                  }
-                }
-              }
-
-              // qCurve & line defs
-              if(curvDir) {
-                p1 = lines[l].from;
-                p2 = lines[l].to;
-                p3 = lines[nextId].to;
-              } else {
-                p1 = lines[nextId].from;
-                p2 = lines[l].from;
-                p3 = lines[l].to;
-              }
-
-              l1 = lineMark.center;
-              l2 = coord;
-//                        console.log('p1 ------',p1);
-//                        console.log('p2 ------',p2);
-//                        console.log('p3 ------',p3);
-//                        console.log('l1 ------',l1);
-//                        console.log('l2 ------',l2);
-              // calc the intersections
-              var intersect = QLineIntersections(p1, p2, p3, l1, l2);
+              intersect = getIntersectionInCurve(l, linesQty, lines, vector, coord);
               if(intersect.length) {
                 coord.x = intersect[0].x;
                 coord.y = intersect[0].y;
               }
             }
 
-
-            coord.fi = getAngelPoint(lineMark.center, coord);
-            switch(position) {
-              case 1:
-                if(coord.fi > 180) {
-                  return coord;
-                }
-                break;
-              case 2:
-                if(coord.fi > 90 && coord.fi < 270) {
-                  return coord;
-                }
-                break;
-              case 3:
-                if(coord.fi < 180) {
-                  return coord;
-                }
-                break;
-              case 4:
-                if(coord.fi > 270 || coord.fi < 90) {
-                  return coord;
-                }
-                break;
+            coord.fi = getAngelPoint(vector.center, coord);
+            if(position) {
+              switch(position) {
+                case 1:
+                  if(coord.fi > 180) {
+                    return coord;
+                  }
+                  break;
+                case 2:
+                  if(coord.fi > 90 && coord.fi < 270) {
+                    return coord;
+                  }
+                  break;
+                case 3:
+                  if(coord.fi < 180) {
+                    return coord;
+                  }
+                  break;
+                case 4:
+                  if(coord.fi > 270 || coord.fi < 90) {
+                    return coord;
+                  }
+                  break;
+              }
+            } else {
+              return coord;
             }
-
           }
-
         }
-
       }
-
-
     }
 
-    function findCrossPointSashDir(line1, line2, coefC1, coefC2) {
+    function getCoordCrossPointInBlock(line1, line2, coefC1, coefC2) {
       var base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
           baseX = (line1.coefB * (coefC2)) - (line2.coefB * (coefC1)),
           baseY = (line2.coefA * (coefC1)) - (line1.coefA * (coefC2)),
@@ -1048,6 +1034,75 @@
       };
       return check;
     }
+
+
+    function getIntersectionInCurve(l, linesQty, lines, vector, coord) {
+      var nextId, p1, p2, p3, l1, l2, curvDir = 1, curvId, isCurv;
+      //----- find curve id
+      if(lines[l].from.id.indexOf('q')+1) {
+        curvId = lines[l].from.id.slice(0,3);
+      } else {
+        curvId = lines[l].to.id.slice(0,3);
+      }
+      //              console.log('curvId++++', curvId);
+      //------ if first curve and next is not curve
+      if(l === 0) {
+        nextId = l+1;
+        if(lines[nextId].dir === 'line') {
+          nextId = linesQty-1;
+          curvDir = 0;
+        } else {
+          //---- checking id of curves
+          isCurv = matchingCurveId(curvId, lines[nextId]);
+          //                  console.log('isCurv++++', isCurv);
+          if(!isCurv) {
+            nextId = linesQty-1;
+            curvDir = 0;
+          }
+        }
+        //-------- if last curve
+      } else {
+        if(l === linesQty-1) {
+          nextId = 0;
+        } else {
+          nextId = l+1;
+        }
+        if(lines[nextId].dir === 'line') {
+          nextId = l-1;
+          curvDir = 0;
+        } else {
+          //---- checking id of curves
+          isCurv = matchingCurveId(curvId, lines[nextId]);
+          //                  console.log('isCurv++++', isCurv);
+          if(!isCurv) {
+            nextId = l-1;
+            curvDir = 0;
+          }
+        }
+      }
+
+      // qCurve & line defs
+      if(curvDir) {
+        p1 = lines[l].from;
+        p2 = lines[l].to;
+        p3 = lines[nextId].to;
+      } else {
+        p1 = lines[nextId].from;
+        p2 = lines[l].from;
+        p3 = lines[l].to;
+      }
+
+      l1 = vector.center;
+      l2 = coord;
+      //                        console.log('p1 ------',p1);
+      //                        console.log('p2 ------',p2);
+      //                        console.log('p3 ------',p3);
+      //                        console.log('l1 ------',l1);
+      //                        console.log('l2 ------',l2);
+      // calc the intersections
+      return QLineIntersections(p1, p2, p3, l1, l2);
+    }
+
 
     function matchingCurveId(curvId, line) {
       var check = 0;
