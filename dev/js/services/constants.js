@@ -22,6 +22,11 @@
       svgTemplateWidth: 100,
       svgTemplateHeight: 100,
 
+      //---Edit Design
+      squareLimit: 0.2,
+      widthLimit: 200,
+      heightLimint: 200,
+
       activeClass: 'active',
       addElementsGroupClass: [
         'aux_color_connect',

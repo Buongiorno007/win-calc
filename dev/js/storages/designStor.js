@@ -16,6 +16,8 @@
         templateSourceTEMP: {},
         templateTEMP: {},
         designSteps: [],
+        activeMenuItem: 0,
+        activeSubMenuItem: 0,
 
         //----- Edit
         selectedGlass: [],

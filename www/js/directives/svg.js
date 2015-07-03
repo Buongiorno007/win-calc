@@ -10,7 +10,7 @@
     .module('BauVoiceApp')
     .directive('svgTemplate', svgTemplateDir);
 
-  function svgTemplateDir() {
+  function svgTemplateDir(DesignServ) {
 
     return {
       restrict: 'E',
@@ -121,6 +121,9 @@
 
             }
           }
+
+          //--------- set clicking to all imposts
+          DesignServ.initAllImposts();
           console.log('buildSVG done!!!!!!!!!', new Date(), new Date().getMilliseconds());
         }
 

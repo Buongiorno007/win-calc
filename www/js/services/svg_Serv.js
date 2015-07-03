@@ -28,7 +28,8 @@
       QLineIntersections: QLineIntersections,
       cteateLineByAngel: cteateLineByAngel,
       getIntersectionInCurve: getIntersectionInCurve,
-      getCoordCrossPointInBlock: getCoordCrossPointInBlock
+      getCoordCrossPointInBlock: getCoordCrossPointInBlock,
+      checkLineOwnPoint2: checkLineOwnPoint2
     };
 
     return thisFactory.publicObj;
@@ -140,6 +141,28 @@
               thisObj.details.skylights[i].sashOpenDir = setOpenDir(thisObj.details.skylights[i].openDir, thisObj.details.skylights[i].beadLinesIn);
             }
 
+          //-------- if block has children and type is sash
+          } else {
+            if(thisObj.details.skylights[i].blockType === 'sash') {
+              thisObj.details.skylights[i].sashPointsOut = copyPointsOut(setPointsIn(thisObj.details.skylights[i], depths, 'sash-out'), 'sash');
+              thisObj.details.skylights[i].sashLinesOut = setLines(thisObj.details.skylights[i].sashPointsOut);
+              thisObj.details.skylights[i].sashPointsIn = setPointsIn(thisObj.details.skylights[i], depths, 'sash-in');
+              //          thisObj.details.skylights[i].sashLinesIn = setLines(thisObj.details.skylights[i].sashPointsIn);
+
+              thisObj.details.skylights[i].hardwarePoints = setPointsIn(thisObj.details.skylights[i], depths, 'hardware');
+              thisObj.details.skylights[i].hardwareLines = setLines(thisObj.details.skylights[i].sashPointsIn);
+
+              thisObj.details.skylights[i].beadPointsOut = copyPointsOut(thisObj.details.skylights[i].sashPointsIn, 'bead');
+              thisObj.details.skylights[i].beadLinesOut = setLines(thisObj.details.skylights[i].beadPointsOut);
+              thisObj.details.skylights[i].beadPointsIn = setPointsIn(thisObj.details.skylights[i], depths, 'sash-bead');
+              //------ for defined open directions of sash
+              thisObj.details.skylights[i].beadLinesIn = setLines(thisObj.details.skylights[i].beadPointsIn);
+
+              $.merge(thisObj.details.skylights[i].parts, setParts(thisObj.details.skylights[i].sashPointsOut, thisObj.details.skylights[i].sashPointsIn));
+
+              //----- set openPoints for sash
+              thisObj.details.skylights[i].sashOpenDir = setOpenDir(thisObj.details.skylights[i].openDir, thisObj.details.skylights[i].beadLinesIn);
+            }
           }
         }
       }
@@ -257,12 +280,19 @@
 //                console.log(currBlock.impost.impostAxis);
 //                console.log(currBlock.pointsOut[pointsIDQty]);
 //                console.log('position', position);
+
           //------ block right side
           if(position > 0) {
-            blocks[indexChildBlock2].pointsID.push(currBlock.pointsOut[pointsIDQty].id);
-            //------ block left side
+            var exist = checkDoubleQPoints(currBlock.pointsOut[pointsIDQty].id, blocks[indexChildBlock2].pointsID);
+            if(!exist) {
+              blocks[indexChildBlock2].pointsID.push(currBlock.pointsOut[pointsIDQty].id);
+            }
+          //------ block left side
           } else if(position < 0){
-            blocks[indexChildBlock1].pointsID.push(currBlock.pointsOut[pointsIDQty].id);
+            var exist = checkDoubleQPoints(currBlock.pointsOut[pointsIDQty].id, blocks[indexChildBlock1].pointsID);
+            if(!exist) {
+              blocks[indexChildBlock1].pointsID.push(currBlock.pointsOut[pointsIDQty].id);
+            }
           }
         }
 
@@ -278,6 +308,23 @@
 
     function setPointLocationToLine(lineP1, lineP2, newP) {
       return (newP.x - lineP2.x)*(newP.y - lineP1.y)-(newP.y - lineP2.y)*(newP.x - lineP1.x);
+    }
+
+
+
+    function checkDoubleQPoints(newPointId, pointsID) {
+      var isExist = 0,
+          pointsIDQty = pointsID.length;
+      if(pointsIDQty){
+        while(--pointsIDQty > -1) {
+          if(pointsID[pointsIDQty].slice(0,3) === newPointId.slice(0,3)) {
+            if(pointsID[pointsIDQty].slice(0,3).indexOf('qa') + 1) {
+              isExist = 1;
+            }
+          }
+        }
+      }
+      return isExist;
     }
 
 
@@ -369,9 +416,11 @@
               if(isEquel1.x === Infinity || isEquel1.y === Infinity || isEquel2.x === Infinity || isEquel2.y === Infinity) {
                 continue;
               } else {
-                if(isEquel1.x > 0 && isEquel1.x < 1 && isEquel2.x > 0 && isEquel2.x < 1 || isEquel1.y >0 && isEquel1.y < 1 && isEquel2.y >0 && isEquel2.y < 1) {
-                  currLines[currLinesQty].type = 'frame';
-//                  console.log('++++++ frame ++++++');
+                if(isEquel1.x > 0 && isEquel1.x < 1 && isEquel2.x > 0 && isEquel2.x < 1 || isNaN(isEquel1.x) && isNaN(isEquel2.x)) {
+                  if(isEquel1.y >0 && isEquel1.y < 1 && isEquel2.y >0 && isEquel2.y < 1 || isNaN(isEquel1.y) && isNaN(isEquel2.y)) {
+                    currLines[currLinesQty].type = 'frame';
+//                    console.log('++++++ frame ++++++');
+                  }
                 }
               }
 
@@ -1024,10 +1073,6 @@
     }
 
     function checkLineOwnPoint(point, lineTo, lineFrom) {
-      //  var check = {
-      //    x: (point.x - lineTo.x) / (lineFrom.x - lineTo.x),
-      //    y: (point.y - lineTo.y) / (lineFrom.y - lineTo.y)
-      //  };
       var check = {
         x: Math.abs( (point.x - lineFrom.x) / (lineTo.x - lineFrom.x) ),
         y: Math.abs( (point.y - lineFrom.y) / (lineTo.y - lineFrom.y) )

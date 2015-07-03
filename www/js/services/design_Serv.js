@@ -10,7 +10,7 @@
     .module('DesignModule')
     .factory('DesignServ', designFactory);
 
-  function designFactory($rootScope, $location, $timeout, $filter, $q, $cordovaProgress, GeneralServ, MainServ, optionsServ, SVGServ, GlobalStor, DesignStor, ProductStor) {
+  function designFactory($rootScope, $location, $timeout, $filter, $q, $cordovaProgress, MainServ, globalConstants, optionsServ, SVGServ, GlobalStor, DesignStor, ProductStor) {
 
     var thisFactory = this,
         sizeRectActClass = 'size-rect-active',
@@ -23,6 +23,11 @@
       designCancel: designCancel,
       setDefaultConstruction: setDefaultConstruction,
 
+      initAllImposts: initAllImposts,
+      hideCornerMarks: hideCornerMarks,
+      deselectAllImpost: deselectAllImpost,
+      deselectAllArc: deselectAllArc,
+      deselectAllGlass: deselectAllGlass,
       //------- edit sash
       createSash: createSash,
       deleteSash: deleteSash,
@@ -107,8 +112,8 @@
     function changeTemplateInArray(templateIndex, newTemplateSource, newTemplate, newTemplateIcon) {
       //----- save new template in array of templates
       GlobalStor.global.templatesSource[templateIndex] = angular.copy(newTemplateSource);
-      GlobalStor.global.templates[templateIndex] = angular.copy(newTemplate);
-      GlobalStor.global.templatesIcon[templateIndex] = angular.copy(newTemplateIcon);
+//      GlobalStor.global.templates[templateIndex] = angular.copy(newTemplate);
+//      GlobalStor.global.templatesIcon[templateIndex] = angular.copy(newTemplateIcon);
     }
 
 
@@ -199,6 +204,70 @@
     //========== Edit Design =============//
 
 
+    //------ add to all imposts event on click
+    function initAllImposts() {
+      console.log('init imposts');
+      DesignStor.design.selectedImpost.length = 0;
+      d3.selectAll('#tamlateSVG [item-type=impost]')
+        .each(function() {
+          var impost = d3.select(this);
+          impost.on('click', function() {
+            var isImpost = isExistImpostInSelected(impost[0][0]);
+            if(isImpost) {
+              impost.classed('frame-active', false);
+              //----- if none imposts
+              if(!DesignStor.design.selectedImpost.length) {
+                //------- close impost menu and submenu
+                DesignStor.design.activeMenuItem = 0;
+                DesignStor.design.activeSubMenuItem = 0;
+                $rootScope.$apply();
+              }
+            } else {
+              impost.classed('frame-active', true);
+              //------- active impost menu and submenu
+              DesignStor.design.activeMenuItem = 3;
+              DesignStor.design.activeSubMenuItem = 3;
+              hideCornerMarks();
+              deselectAllArc();
+              deselectAllGlass();
+              $rootScope.$apply();
+            }
+          });
+        });
+    }
+
+
+    function hideCornerMarks() {
+      d3.selectAll('#tamlateSVG .corner_mark')
+        .transition()
+        .duration(300)
+        .ease("linear")
+        .attr('r', 0);
+    }
+
+    function deselectAllImpost() {
+      d3.selectAll('#tamlateSVG [item-type=impost]').classed('frame-active', false);
+      DesignStor.design.selectedImpost.length = 0;
+    }
+
+
+    function deselectAllArc() {
+      d3.selectAll('#tamlateSVG .frame').classed('active_svg', false);
+    }
+
+
+    function deselectAllGlass() {
+      d3.selectAll('#tamlateSVG .glass').classed('glass-active', false);
+    }
+
+
+
+    function rebuildSVGTemplate() {
+      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+        DesignStor.design.templateTEMP = angular.copy(result);
+      });
+    }
+
 
     //++++++++++ Edit Sash +++++++++//
 
@@ -207,12 +276,9 @@
           blockID = glassObj.attributes.blockId.nodeValue,
           blocks = DesignStor.design.templateSourceTEMP.details.skylights,
           blocksQty = blocks.length,
-//          squareLimit = 0.2,
-          widthLimit = 200,
-          heightLimint = 200,
           dim = getMaxMinCoord(glass.points);
-//      if(glass.square > squareLimit && (dim.maxX - dim.minX) > widthLimit && (dim.maxY - dim.minY) > heightLimint) {
-      if((dim.maxX - dim.minX) > widthLimit && (dim.maxY - dim.minY) > heightLimint) {
+//      if(glass.square > globalConstants.squareLimit && (dim.maxX - dim.minX) > globalConstants.widthLimit && (dim.maxY - dim.minY) > globalConstants.heightLimint) {
+      if((dim.maxX - dim.minX) > globalConstants.widthLimit && (dim.maxY - dim.minY) > globalConstants.heightLimint) {
         for (var b = 0; b < blocksQty; b++) {
           if (blocks[b].id === blockID) {
             blocks[b].blockType = 'sash';
@@ -250,9 +316,8 @@
                 blocks[b].handlePos = 4;
                 break;
             }
-            SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
-              DesignStor.design.templateTEMP = angular.copy(result);
-            });
+            //----- change Template
+            rebuildSVGTemplate();
           }
         }
       } else {
@@ -305,9 +370,9 @@
           delete blocks[b].handlePos;
         }
       }
-      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
-        DesignStor.design.templateTEMP = angular.copy(result);
-      });
+
+      //----- change Template
+      rebuildSVGTemplate();
     }
 
 
@@ -315,6 +380,8 @@
 
 
     //++++++++++ Edit Corners ++++++++//
+
+
 
     function setCornerPoints(cornerObj) {
       var cornerID = cornerObj.__data__.id,
@@ -350,10 +417,8 @@
           }
         }
       }
-      //------ change templateTEMP
-      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
-        DesignStor.design.templateTEMP = angular.copy(result);
-      });
+      //----- change Template
+      rebuildSVGTemplate();
     }
 
 
@@ -367,7 +432,7 @@
           blocks = DesignStor.design.templateTEMP.details.skylights,
           blocksQty = blocks.length,
           b = 0;
-      console.log('cornerID+++', cornerID);
+//      console.log('cornerID+++', cornerID);
       for(; b < blocksQty; b++) {
         if(blocks[b].id === blockID) {
           //----- set curve corner
@@ -399,10 +464,8 @@
         }
       }
 
-      //------ change templateTEMP
-      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
-        DesignStor.design.templateTEMP = angular.copy(result);
-      });
+      //----- change Template
+      rebuildSVGTemplate();
     }
 
 
@@ -507,10 +570,8 @@
       //----- delete corner points
       removePoint(['c' + cornerN + '-1', 'c' + cornerN + '-2', 'qc'+cornerN], pointsSource);
 
-      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
-        DesignStor.design.templateTEMP = angular.copy(result);
-      });
-//      DesignStor.design.templateTEMP = angular.copy(new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths));
+      //----- change Template
+      rebuildSVGTemplate();
     }
 
 
@@ -649,13 +710,13 @@
           };
           SVGServ.setLineCoef(impost);
 //          console.log('arc', arc);
-          impost.intersect = SVGServ.getCoordCrossPoint(arc, impost, arc.coefC, impost.coefC);
-//TODO          impost.intersect = SVGServ.getCoordCrossPointInBlock(arc, impost, arc.coefC, impost.coefC);
+//          impost.intersect = SVGServ.getCoordCrossPoint(arc, impost, arc.coefC, impost.coefC);
+          impost.intersect = SVGServ.getCoordCrossPointInBlock(arc, impost, arc.coefC, impost.coefC);
 //          console.log('impost.intersect', impost.intersect);
           if(impost.intersect.x >= 0 && impost.intersect.y >= 0) {
 
             //------ checking is cross point inner of line
-            var checkPoint = SVGServ.checkLineOwnPoint(impost.intersect, impost.to, impost.from);
+            var checkPoint = SVGServ.checkLineOwnPoint2(impost.intersect, impost.to, impost.from);
 //            console.log('checkPoint', checkPoint);
             if (checkPoint.x >= 0 && checkPoint.x <= 1 || checkPoint.y >= 0 && checkPoint.y <= 1) {
               imposts.push(impost);
@@ -715,15 +776,20 @@
 
 
     function setQPointImpostArc(arcN, impost, currLine, coordQ, blocks, blocksSource, points) {
+      console.log('impost ------', impost, blocks[impost.indexBlock].pointsOut);
+
       //------ calc the intersections impost with arc
       var intersect = SVGServ.QLineIntersections(currLine.from, coordQ, currLine.to, impost.from, impost.to);
 //      console.log('intersect ------',intersect);
 
       if(intersect.length) {
+
+        //------- find current line
+
         //------ set subPoints Q left / right side of impost
         var impostQP1 = getCoordQPImostArc(intersect[0].t, currLine.from, coordQ),
             impostQP2 = getCoordQPImostArc(intersect[0].t, currLine.to, coordQ);
-//        console.log('QPssss', impostQP1, impostQP2);
+        console.log('QPssss', impostQP1, impostQP2);
 
         //------- checking place of subPoints Q as to impost
         var placeImpostQP1 = SVGServ.setPointLocationToLine(impost.from, impost.to, impostQP1);
@@ -994,6 +1060,10 @@
 //      console.log('+++++',blockID);
 //      console.log('+++++',dim);
 
+//      if(glass.square > globalConstants.squareLimit && (dim.maxX - dim.minX) > globalConstants.widthLimit && (dim.maxY - dim.minY) > globalConstants.heightLimint) {
+//      if((dim.maxX - dim.minX) > globalConstants.widthLimit && (dim.maxY - dim.minY) > globalConstants.heightLimint) {
+//
+//      }
       switch(impType){
         //----- vertical
         case 2:
@@ -1002,6 +1072,14 @@
         //----- horisontal
         case 3:
           angel = 180;
+          break;
+        //----- inclined right
+        case 3:
+          angel = 45;
+          break;
+        //----- inclined left
+        case 3:
+          angel = 135;
           break;
       }
 
@@ -1028,12 +1106,11 @@
         }
       }
 
-      //------ change templateTEMP
-      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
-        DesignStor.design.templateTEMP = angular.copy(result);
-      });
-
+      //----- change Template
+      rebuildSVGTemplate();
     }
+
+
 
     function getLastPointNumber(pointsQty, pointsSource) {
       var impN = 0;
@@ -1150,18 +1227,51 @@
 
 
     function deleteImpost(impObj) {
-      var defer = $q.defer(),
-          arc = impObj.__data__;
+      var blockID = impObj.attributes.blockId.nodeValue,
+          pointsSource = DesignStor.design.templateSourceTEMP.details.points,
+          blocksSource = DesignStor.design.templateSourceTEMP.details.skylights,
+          blocksQty = blocksSource.length;
 
-//        var arcID = arc.points[1].id,
-//            blockID = impObj.attributes.blockId.nodeValue,
-//            pointsSource = DesignStor.design.templateSourceTEMP.details.points,
-//            pointsQty = pointsSource.length,
-//            blocksSource = DesignStor.design.templateSourceTEMP.details.skylights,
-//            blocks = DesignStor.design.templateTEMP.details.skylights,
-//            blocksQty = blocks.length,
-//            shiftX = 0, shiftY = 0;
+      //----- delete children blocks and impost points
+      while(--blocksQty > -1) {
+        if(blocksSource[blocksQty].id === blockID) {
+          removeAllChildrenBlock(blocksSource[blocksQty].children[0], blocksSource, pointsSource);
+          removeAllChildrenBlock(blocksSource[blocksQty].children[1], blocksSource, pointsSource);
+          blocksSource[blocksQty].children.length = 0;
+          removePoint([blocksSource[blocksQty].impost.impostID[0], blocksSource[blocksQty].impost.impostID[1]], pointsSource);
+          delete blocksSource[blocksQty].impost;
+          break;
+        }
+      }
+
+      //----- change Template
+      rebuildSVGTemplate();
     }
+
+
+    function removeAllChildrenBlock(blockID, blocks, points) {
+      var blocksQty = blocks.length;
+      while(--blocksQty > -1) {
+        if(blocks[blocksQty].id === blockID) {
+          var childQty = blocks[blocksQty].children.length;
+          if(childQty) {
+            removeAllChildrenBlock(blocks[blocksQty].children[0], blocks, points);
+            removeAllChildrenBlock(blocks[blocksQty].children[1], blocks, points);
+            removePoint([blocks[blocksQty].impost.impostID[0], blocks[blocksQty].impost.impostID[1]], points);
+            blocks.splice(blocksQty, 1);
+          } else {
+            blocks.splice(blocksQty, 1);
+          }
+          break;
+        }
+      }
+
+    }
+
+
+
+
+
 
 
 
