@@ -74,6 +74,7 @@
           }
 
         } else {
+          console.log('block ID++++++++++', thisObj.details.skylights[i].id);
           thisObj.details.skylights[i].pointsOut = setPointsOut(thisObj.details.skylights[i].pointsID, thisObj.details.points);
           thisObj.details.skylights[i].center = centerBlock(thisObj.details.skylights[i].pointsOut);
           thisObj.details.skylights[i].pointsOut = sortingPoints(thisObj.details.skylights[i].pointsOut, thisObj.details.skylights[i].center);
@@ -471,7 +472,7 @@
 
     function getNewCoefC(depths, line, group) {
       var depth = 0, beadDepth = 20;
-
+//      console.log('group', group);
       switch(group) {
         case 'frame':
           if(line.type === 'frame') {
@@ -530,8 +531,8 @@
           }
           break;
       }
-      //  console.log('depth', line.type);
-      //  console.log('depth', depth);
+//        console.log('depth', line.type);
+//        console.log('depth', depth);
       var newCoefC = line.coefC - (depth * Math.hypot(line.coefA, line.coefB));
       return newCoefC;
     }
@@ -582,13 +583,21 @@
     }
 
     function getCoordCrossPoint(line1, line2, coefC1, coefC2) {
+//      console.log('Cross Point line1=====', line1);
+//      console.log('Cross Point line2=====', line2);
       var base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
           baseX = (line1.coefB * (coefC2)) - (line2.coefB * (coefC1)),
           baseY = (line2.coefA * (coefC1)) - (line1.coefA * (coefC2)),
+          crossPoint2 = {
+            x: baseX / base,
+            y: baseY / base
+          },
           crossPoint = {
             x: Math.abs(baseX / base),
             y: Math.abs(baseY / base)
           };
+//      console.log('Cross Point crossPoint2=====', crossPoint2);
+//      console.log('Cross Point crossPoint=====', crossPoint);
       return crossPoint;
     }
 

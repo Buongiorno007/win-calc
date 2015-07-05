@@ -101,7 +101,7 @@
           showAllAvailableArc(id);
           break;
         case 5:
-//          thisCtrl.config.isPositionEdit = true;
+          DesignServ.initMirror();
           break;
       }
     }
@@ -315,9 +315,6 @@
         }
       }
     }
-
-
-
 
 
 
