@@ -35,11 +35,13 @@
     }
 
     function newPriceForNewTemplate(templateIndex) {
-      ProductStor.product.templateIndex = templateIndex;
-      MainServ.saveTemplateInProduct(templateIndex).then(function() {
-        //------ define product price
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId);
-      });
+      if(ProductStor.product.templateIndex !== templateIndex) {
+        ProductStor.product.templateIndex = templateIndex;
+        MainServ.saveTemplateInProduct(templateIndex).then(function() {
+          //------ define product price
+          //        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId);
+        });
+      }
     }
 
 

@@ -994,7 +994,7 @@
           <li ng-class="{'active': configMenu.G.global.activePanel == 1}" hm-tap="configMenu.selectConfigPanel(1)" class="item item-header">
             <div data-output="{{ 'mainpage.CONFIGMENU_CONFIGURATION' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
             <div ng-if="configMenu.G.global.isConfigMenu" show-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="icon unvisible">
-              <svg-template template="configMenu.P.product.templateIcon" template-width="configMenu.constants.svgTemplateIconWidth" template-height="configMenu.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
+              <svg-template-icon template="configMenu.P.product.templateIcon" template-width="configMenu.constants.svgTemplateIconWidth" template-height="configMenu.constants.svgTemplateIconHeight"></svg-template-icon>
             </div>
             <div data-output="{{ 'mainpage.CONFIGMENU_SIZING' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="name"></div>
             <div data-output="{{ configMenu.P.product.templateWidth }} {{ 'mainpage.MM' | translate }} *" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>

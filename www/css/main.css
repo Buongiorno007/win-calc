@@ -1437,7 +1437,14 @@ body {
   stroke-width: 2;
 }
 
-/* line 338, ../../dev/sass/base/general.scss */
+/* line 337, ../../dev/sass/base/general.scss */
+.frame-icon {
+  fill: #D2D2D2;
+  stroke: #000;
+  stroke-width: 4;
+}
+
+/* line 342, ../../dev/sass/base/general.scss */
 .glass {
   -moz-transition: all 0.1s linear;
   -webkit-transition: all 0.1s linear;
@@ -1445,33 +1452,26 @@ body {
   fill: rgba(155, 204, 255, 0.2);
 }
 
-/* line 343, ../../dev/sass/base/general.scss */
+/* line 347, ../../dev/sass/base/general.scss */
 .active_svg, .frame-active, .glass-active, .corner_mark {
   fill: rgba(34, 34, 255, 0.5) !important;
 }
 
-/* line 351, ../../dev/sass/base/general.scss */
+/* line 355, ../../dev/sass/base/general.scss */
 .sash_mark {
   fill: none;
   stroke: #f98000;
   stroke-width: 2;
 }
 
-/* line 356, ../../dev/sass/base/general.scss */
+/* line 360, ../../dev/sass/base/general.scss */
 .corner_mark {
   stroke: none;
 }
 
-/* line 361, ../../dev/sass/base/general.scss */
+/* line 365, ../../dev/sass/base/general.scss */
 .error_glass {
   fill: #f74f2e;
-}
-
-/* line 371, ../../dev/sass/base/general.scss */
-.frame-icon {
-  fill: #ccc;
-  stroke: #000;
-  stroke-width: 4;
 }
 
 /* line 376, ../../dev/sass/base/general.scss */

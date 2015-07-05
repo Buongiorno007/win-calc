@@ -334,7 +334,11 @@ body {
   stroke: $main_gray_txt;
   stroke-width: 2;
 }
-
+.frame-icon {
+  fill: #D2D2D2;
+  stroke: #000;
+  stroke-width: 4;
+}
 .glass {
   @include transition(all 0.1s linear);
   fill: rgba(155, 204, 255, 0.20);
@@ -368,11 +372,7 @@ body {
 
 
 
-.frame-icon {
-  fill: #ccc;
-  stroke: #000;
-  stroke-width: 4;
-}
+
 .doorstep {
   fill: #4f4f4f;
   stroke: #4f4f4f;

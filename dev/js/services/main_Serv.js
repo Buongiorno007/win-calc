@@ -293,11 +293,14 @@
     function saveTemplateInProduct(templateIndex) {
       var defer = $q.defer();
       ProductStor.product.templateSource = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
+      //----- create template
       SVGServ.createSVGTemplate(ProductStor.product.templateSource, GlobalStor.global.profileDepths).then(function(result) {
         ProductStor.product.template = angular.copy(result);
-
-        ProductStor.product.templateIcon = new TemplateIcon(ProductStor.product.templateSource, GlobalStor.global.profileDepths);
-        defer.resolve(ProductStor.product.template);
+        //----- create template icon
+        SVGServ.createSVGTemplateIcon(ProductStor.product.templateSource, GlobalStor.global.profileDepths).then(function(result) {
+          ProductStor.product.templateIcon = angular.copy(result);
+          defer.resolve('done');
+        });
       });
       return defer.promise;
     }

@@ -16,6 +16,10 @@
 
     thisFactory.publicObj = {
       createSVGTemplate: createSVGTemplate,
+      createSVGTemplateIcon: createSVGTemplateIcon,
+      setTemplateScale: setTemplateScale,
+      setTemplatePosition: setTemplatePosition,
+
       setPointsOut: setPointsOut,
       centerBlock: centerBlock,
       sortingPoints: sortingPoints,
@@ -193,6 +197,74 @@
 
 
 
+
+
+
+    function createSVGTemplateIcon(sourceObj, depths) {
+      var defer = $q.defer(),
+          newDepth = angular.copy(depths),
+          coeffScale = 2;
+      for(var p in newDepth) {
+        for(var el in newDepth[p]) {
+          newDepth[p][el] *= coeffScale;
+        }
+      }
+      createSVGTemplate(sourceObj, newDepth).then(function(refult) {
+        defer.resolve(refult);
+      });
+      return defer.promise;
+    }
+
+
+
+
+
+
+    function setTemplateScale(template, width, height, padding) {
+      var dim = getMaxMinCoord(template.details.points),
+          windowW = width,
+          windowH = height,
+          scale, del;
+
+      if(width === '100%') {
+        windowW = window.innerWidth;
+        windowH = window.innerHeight;
+      }
+
+      var windowS = windowW * windowH,
+          templateS = (dim.maxX - dim.minX) * (dim.maxY - dim.minY);
+
+      if(windowS < templateS) {
+        scale = windowS/templateS;
+        del = (templateS - windowS)/templateS ;
+      } else {
+        scale = templateS/windowS;
+        del = (windowS - templateS)/windowS ;
+      }
+      scale = (scale * padding) + del/10;
+      //          console.log('scale = ', scale);
+      return scale;
+    }
+
+
+    function setTemplatePosition(template, width, height, scale) {
+      var dim = getMaxMinCoord(template.details.points),
+          windowW = width,
+          windowH = height;
+
+      if(width === '100%') {
+        windowW = window.innerWidth;
+        windowH = window.innerHeight;
+      }
+
+      var position = {
+        x: (windowW - (dim.minX + dim.maxX)*scale)/2,
+        y: (windowH - (dim.minY + dim.maxY)*scale)/2
+      };
+
+      //          console.log('position = ', position);
+      return position;
+    }
 
 
 

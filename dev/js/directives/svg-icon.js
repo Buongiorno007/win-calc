@@ -1,6 +1,3 @@
-
-// directives/svg.js
-
 (function(){
   'use strict';
     /**
@@ -8,21 +5,20 @@
      */
   angular
     .module('BauVoiceApp')
-    .directive('svgTemplate', svgTemplateDir);
+    .directive('svgTemplateIcon', svgTemplateIcon);
 
-  function svgTemplateDir(SVGServ, DesignServ) {
+  function svgTemplateIcon(SVGServ, DesignServ) {
 
     return {
       restrict: 'E',
       replace: true,
       transclude: true,
       scope: {
-        typeConstruction: '@',
         template: '=',
         templateWidth: '=',
         templateHeight: '='
       },
-      template: '<div id="mainSVG"></div>',
+      template: '<div class="iconSVG"></div>',
       link: function (scope, elem, attrs) {
 
         scope.$watch('template', function () {
@@ -33,27 +29,22 @@
         function buildSVG(template, widthSVG, heightSVG) {
           var mainSVG, mainGroup, padding = 1;
           if(template && !$.isEmptyObject(template)) {
-            d3.select('#tamlateSVG').remove();
+            d3.select('.tamlateIconSVG').remove();
 
-            if (scope.typeConstruction === 'edit') {
-              widthSVG += '%';
-              heightSVG += '%';
-              padding = 0.6;
-            }
-
-            mainSVG = d3.select('#mainSVG').append('svg').attr({
+            mainSVG = d3.select('.iconSVG').append('svg').attr({
               'width': widthSVG,
               'height': heightSVG,
-              'id': 'tamlateSVG'
+              'class': 'tamlateIconSVG'
               //            'viewBox': "0 0 800 800",
               //            'preserveAspectRatio': "xMidYMid meet"
             });
-            var scale = SVGServ.setTemplateScale(template, widthSVG, heightSVG, padding);
+            var scale = setTemplateScale(template, widthSVG, heightSVG, padding);
             var position = SVGServ.setTemplatePosition(template, widthSVG, heightSVG, scale);
 
             mainGroup = mainSVG.append("g").attr({
               'id': 'main_group',
-              'transform': 'translate(' + position.x + ', ' + position.y + ') scale(' + scale + ')'
+              'transform': 'translate(0,0) scale(' + scale + ')'
+//              'transform': 'translate(' + position.x + ', ' + position.y + ') scale(' + scale + ')'
             });
 
             //          console.log('++++++ template +++++++', mainGroup);
@@ -66,7 +57,7 @@
                     'blockId': template.details.skylights[i].id,
                     //'class': function(d) { return d.type; },
                     'class': function (d) {
-                      return (d.type === 'glass') ? 'glass' : 'frame'
+                      return (d.type === 'glass') ? 'glass' : 'frame-icon'
                     },
                     'item-type': function (d) {
                       return d.type;
@@ -79,38 +70,6 @@
                     }
                   });
 
-
-                //----- sash open direction
-                if (template.details.skylights[i].sashOpenDir) {
-                  var openSashMarks = mainGroup.selectAll('path.sash_mark.' + template.details.skylights[i].id).data(template.details.skylights[i].sashOpenDir).enter().append('path').classed('sash_mark', true).attr('d', function (d) {
-                      return d.path;
-                    });
-                }
-
-
-                //---- corner markers
-                if (template.details.skylights[i].level === 1) {
-                  //----- create array of frame points with corner = true
-                  var corners = template.details.skylights[i].pointsOut.filter(function (item) {
-                    return item.corner > 0;
-                  });
-                  var cornerMarks = mainGroup.selectAll('circle.corner_mark.' + template.details.skylights[i].id).data(corners).enter().append('circle').attr({
-                      'blockId': template.details.skylights[i].id,
-                      'class': 'corner_mark',
-                      'parent': function (d) {
-                        return d.id;
-                      },
-                      'cx': function (d) {
-                        return d.x;
-                      },
-                      'cy': function (d) {
-                        return d.y;
-                      },
-                      'r': 0
-                    });
-                }
-
-
               }
             }
 
@@ -118,6 +77,28 @@
             DesignServ.initAllImposts();
             console.log('buildSVG done!!!!!!!!!', new Date(), new Date().getMilliseconds());
           }
+        }
+
+        function setTemplateScale(template, width, height, padding) {
+          var dim = getMaxMinCoord(template.details.points),
+              windowW = width,
+              windowH = height,
+              scale, del;
+
+
+          var windowS = windowW * windowH,
+              templateS = (dim.maxX - dim.minX) * (dim.maxY - dim.minY);
+
+          if(windowS < templateS) {
+            scale = windowS/templateS;
+            del = (templateS - windowS)/templateS ;
+          } else {
+            scale = templateS/windowS;
+            del = (windowS - templateS)/windowS ;
+          }
+          scale = (scale * padding) + del/16;
+          //          console.log('scale = ', scale);
+          return scale;
         }
 
 
