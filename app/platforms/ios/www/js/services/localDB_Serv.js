@@ -1,6 +1,3 @@
-
-// services/localDB_Serv.js
-
 (function(){
   'use strict';
   /**
@@ -10,7 +7,7 @@
     .module('BauVoiceApp')
     .factory('localDB', localDBFactory);
 
-  function localDBFactory($webSql) {
+  function localDBFactory($webSql, $q) {
 
     var thisFactory = this,
         dbName = 'localDB',
@@ -62,10 +59,6 @@
             "null": "NOT NULL"
           },
           "templateHeight": {
-            "type": "INTEGER",
-            "null": "NOT NULL"
-          },
-          "beadId": {
             "type": "INTEGER",
             "null": "NOT NULL"
           },
@@ -141,7 +134,7 @@
             "type": "INTEGER",
             "null": "NOT NULL"
           },
-          "laminationOutIndex": {
+          "laminationOutId": {
             "type": "INTEGER",
             "null": "NOT NULL"
           },
@@ -153,7 +146,7 @@
             "type": "FLOAT",
             "null": "NOT NULL"
           },
-          "laminationInIndex": {
+          "laminationInId": {
             "type": "INTEGER",
             "null": "NOT NULL"
           },
@@ -237,6 +230,38 @@
             "type": "INTEGER",
             "null": "NOT NULL"
           },
+          "orderDate": {
+            "type": "INTEGER",
+            "null": "NOT NULL"
+          },
+          "currCityId": {
+            "type": "INTEGER",
+            "null": "NOT NULL"
+          },
+          "currCityName": {
+            "type": "TEXT",
+            "null": "NOT NULL"
+          },
+          "currRegionName": {
+            "type": "TEXT",
+            "null": "NOT NULL"
+          },
+          "currCountryName": {
+            "type": "TEXT",
+            "null": "NOT NULL"
+          },
+          "currClimaticZone": {
+            "type": "INTEGER",
+            "null": "NOT NULL"
+          },
+          "currHeatTransfer": {
+            "type": "INTEGER",
+            "null": "NOT NULL"
+          },
+          "currFullLocation": {
+            "type": "TEXT",
+              "null": "NOT NULL"
+          },
           "orderType": {
             "type": "TEXT",
             "null": "NULL"
@@ -254,11 +279,11 @@
             "null": "NULL"
           },
           "deliveryDate": {
-            "type": "TEXT",
+            "type": "INTEGER",
             "null": "NULL"
           },
           "newDeliveryDate": {
-            "type": "TEXT",
+            "type": "INTEGER",
             "null": "NULL"
           },
           "deliveryPrice": {
@@ -266,11 +291,11 @@
             "null": "NULL"
           },
           "isDatePriceLess": {
-            "type": "BOOLEAN",
+            "type": "INTEGER",
             "null": "NOT NULL"
           },
           "isDatePriceMore": {
-            "type": "BOOLEAN",
+            "type": "INTEGER",
             "null": "NOT NULL"
           },
           "selectedFloor": {
@@ -302,7 +327,7 @@
             "null": "NULL"
           },
           "isOldPrice": {
-            "type": "BOOLEAN",
+            "type": "INTEGER",
             "null": "NOT NULL"
           },
           "paymentFirst": {
@@ -479,6 +504,7 @@
       ordersTableBD: 'orders',
       addElementsTableBD: 'add_elements',
       analyticsTableBD: 'analytics',
+      sqliteTableBD: 'sqlite_sequence',
 
       insertDB: insertDB,
       selectDB: selectDB,
@@ -507,33 +533,43 @@
       });*/
     }
 
-    function selectDB(tableName, options, callback) {
-      var handler = [];
-      db.select(tableName, options).then(function (results) {
-        if (results.rows.length) {
-          for (var i = 0; i < results.rows.length; i++) {
-            handler.push(results.rows.item(i));
+    function selectDB(tableName, options) {
+      var deferred = $q.defer(),
+          handler = [];
+      db.select(tableName, options).then(function (result) {
+        var resultQty = result.rows.length,
+            i = 0;
+        if (resultQty) {
+          for (; i < resultQty; i++) {
+            handler.push(result.rows.item(i));
           }
-          callback(new OkResult(handler));
+          deferred.resolve(handler);
         } else {
-          callback(new ErrorResult(1, 'No in database!'));
+          deferred.resolve();
         }
       });
+      return deferred.promise;
     }
 
-    function selectAllDB(tableName, callback) {
-      var handler = [];
-      db.selectAll(tableName).then(function (results) {
-        if (results.rows.length) {
-          for (var i = 0; i < results.rows.length; i++) {
-            handler.push(results.rows.item(i));
+
+    function selectAllDB(tableName) {
+      var deferred = $q.defer(),
+          handler = [];
+      db.selectAll(tableName).then(function (result) {
+        var resultQty = result.rows.length,
+            i = 0;
+        if(resultQty) {
+          for(;i < resultQty; i++) {
+            handler.push(result.rows.item(i));
           }
-          callback(new OkResult(handler));
+          deferred.resolve(handler);
         } else {
-          callback(new ErrorResult(1, 'No in database!'));
+          deferred.resolve();
         }
       });
+      return deferred.promise;
     }
+
 
     function updateDB(tableName, elem, options) {
       db.update(tableName, elem, options);

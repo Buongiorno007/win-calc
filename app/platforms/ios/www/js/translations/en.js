@@ -1,6 +1,3 @@
-
-// translations/en.js
-
 (function(){
   'use strict';
 
@@ -33,6 +30,7 @@
         NEW_TEMPLATE_TITLE: 'Template changing',
         TEMPLATE_CHANGES_LOST: 'The template changes will lost! Continue?',
         SELECT: 'Select',
+        AND: 'and',
         OK: 'OK'
       },
       login: {
@@ -87,6 +85,7 @@
         CONFIGMENU_HARDWARE: 'accessories',
         CONFIGMENU_LAMINATION: 'Lamination',
         CONFIGMENU_LAMINATION_TYPE: 'Facade / room',
+        CONFIGMENU_NOT_LAMINATION: 'withuot lamin.',
         CONFIGMENU_ADDITIONAL: 'Additionally',
         CONFIGMENU_IN_CART: 'In a basket',
         VOICE_SPEACH: 'You talk...',
@@ -109,7 +108,6 @@
         LAMINAT_INSIDE: 'Lamination of a frame in the room',
         LAMINAT_OUTSIDE: 'Lamination from a facade',
         LAMINAT_WHITE: 'without lamination, radical white color',
-        LAM_NO: 'no lamin.',
         ONE_WINDOW_TYPE: 'One-casement',
         TWO_WINDOW_TYPE: 'Two-casement',
         THREE_WINDOW_TYPE: 'Three-leaf',
@@ -247,7 +245,8 @@
         VOICE_NOT_UNDERSTAND: 'It is not clear',
         VOICE_SMALLEST_SIZE: 'The smallest size',
         VOICE_BIGGEST_SIZE: "The biggest size",
-        VOICE_SMALL_GLASS_BLOCK: "too small skylights"
+        VOICE_SMALL_GLASS_BLOCK: "too small skylights",
+        NOT_AVAILABLE: 'Not Available!'
       },
       history: {
         SEARCH_PLACEHOLDER: 'Search by keyword',
@@ -274,7 +273,8 @@
         SORT_SHOW_DONE: 'Only completed',
         BY_YOUR_REQUEST: 'According to your request',
         NOT_FIND: 'nothing found',
-        WAIT_MASTER: 'expects gager'
+        WAIT_MASTER: 'expects gager',
+        INCLUDED: 'included'
       },
       cart: {
         ALL_ADD_ELEMENTS: 'All additional elements order',

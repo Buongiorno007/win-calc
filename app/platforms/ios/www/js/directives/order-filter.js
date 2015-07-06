@@ -1,6 +1,3 @@
-
-// directives/order-filter.js
-
 (function(){
   'use strict';
   /**
@@ -48,4 +45,3 @@
 
   }
 })();
-

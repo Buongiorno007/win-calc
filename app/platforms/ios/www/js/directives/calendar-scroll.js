@@ -1,6 +1,3 @@
-
-// directives/calendar-scroll.js
-
 (function(){
   'use strict';
   /**

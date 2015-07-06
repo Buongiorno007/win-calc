@@ -1,6 +1,3 @@
-
-// translations/de.js
-
 (function(){
   'use strict';
 
@@ -33,6 +30,7 @@
         NEW_TEMPLATE_TITLE: 'Template-Wechsel',
         TEMPLATE_CHANGES_LOST: 'Die Template-Änderungen gehen verloren! Fortfahren?',
         SELECT: 'wählen',
+        AND: 'und',
         OK: 'OK'
       },
       login: {
@@ -86,6 +84,7 @@
         CONFIGMENU_HARDWARE: 'Zubehör',
         CONFIGMENU_LAMINATION: 'Laminierung',
         CONFIGMENU_LAMINATION_TYPE: 'Die Fassade / in den Zimmer',
+        CONFIGMENU_NOT_LAMINATION: 'ohne Lamin.',
         CONFIGMENU_ADDITIONAL: 'Zusätzlich',
         CONFIGMENU_IN_CART: 'Zum Warenkorb',
         VOICE_SPEACH: 'Sprechen...',
@@ -108,7 +107,6 @@
         LAMINAT_INSIDE: 'Laminieren des Rahmens im Raum',
         LAMINAT_OUTSIDE: 'Laminierung von Seiten der Straßenfront',
         LAMINAT_WHITE: 'ohne Laminierung, eine radikale weiß',
-        LAM_NO: 'ohne Lamin.',
         ONE_WINDOW_TYPE: 'Das Einaufklappbare',
         TWO_WINDOW_TYPE: 'Das Zweiaufklappbare',
         THREE_WINDOW_TYPE: 'Das Dreiaufklappbare',
@@ -246,7 +244,8 @@
         VOICE_NOT_UNDERSTAND: 'es ist nicht klar',
         VOICE_SMALLEST_SIZE: 'zu klein',
         VOICE_BIGGEST_SIZE: "zu groß",
-        VOICE_SMALL_GLASS_BLOCK: "zu kleine Oberlichter"
+        VOICE_SMALL_GLASS_BLOCK: "zu kleine Oberlichter",
+        NOT_AVAILABLE: 'nicht Verfügbar!'
       },
       history: {
         SEARCH_PLACEHOLDER: 'Suche nach Stichwort',
@@ -273,7 +272,8 @@
         SORT_SHOW_DONE: 'nur abgeschlossen',
         BY_YOUR_REQUEST: 'Je nach Wunsch',
         NOT_FIND: 'nichts gefunden',
-        WAIT_MASTER: 'erwartet Gager'
+        WAIT_MASTER: 'erwartet Gager',
+        INCLUDED: 'inbegriffen'
       },
       cart: {
         ALL_ADD_ELEMENTS: 'Alle Anbauteile bestellen',

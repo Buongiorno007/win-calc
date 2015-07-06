@@ -1,6 +1,3 @@
-
-// directives/price-x-qty.js
-
 (function(){
   'use strict';
   /**
@@ -45,4 +42,3 @@
 
   }
 })();
-

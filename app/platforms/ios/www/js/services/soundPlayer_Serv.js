@@ -1,6 +1,3 @@
-
-// services/soundPlayer_Serv.js
-
 (function(){
   'use strict';
   /**
@@ -60,4 +57,3 @@
 
   }
 })();
-

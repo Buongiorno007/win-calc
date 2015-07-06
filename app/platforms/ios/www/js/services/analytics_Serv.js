@@ -1,6 +1,3 @@
-
-// services/analytics_Serv.js
-
 (function(){
   'use strict';
   /**
@@ -10,7 +7,7 @@
     .module('BauVoiceApp')
     .factory('analyticsServ', analyticsFactory);
 
-  function analyticsFactory(globalDB, localDB, localStorage, UserStor) {
+  function analyticsFactory(globalDB, localDB, ProductStor, UserStor) {
 
     var thisFactory = this;
 
@@ -46,14 +43,14 @@
     //--------- save Analytics Data by Glass according to Construction (lightbox)
     function insertGlassAnalyticDB(userId, orderId, elementId, elementType) {
       var lightBlockArr = [],
-          templateLength = localStorage.storage.product.templateSource.objects.length,
+          templateLength = ProductStor.product.templateSource.objects.length,
           glassIndex = templateLength,
           sashIndex = templateLength;
 
       while(--glassIndex > -1) {
-        if(localStorage.storage.product.templateSource.objects[glassIndex].type === 'glass_paсkage') {
+        if(ProductStor.product.templateSource.objects[glassIndex].type === 'glass_paсkage') {
           var lightBlock = {
-            'blockId': localStorage.storage.product.templateSource.objects[glassIndex].id.replace(/\D+/g,""),
+            'blockId': ProductStor.product.templateSource.objects[glassIndex].id.replace(/\D+/g,""),
             'openDir': ''
           };
           lightBlockArr.push(lightBlock);
@@ -62,11 +59,11 @@
 
       var lightsLength = lightBlockArr.length;
       while(--sashIndex > -1) {
-        if(localStorage.storage.product.templateSource.objects[sashIndex].type === 'sash_block') {
-          var sashId = localStorage.storage.product.templateSource.objects[sashIndex].id.replace(/\D+/g,"");
+        if(ProductStor.product.templateSource.objects[sashIndex].type === 'sash_block') {
+          var sashId = ProductStor.product.templateSource.objects[sashIndex].id.replace(/\D+/g,"");
           for(var i = 0; i < lightsLength; i++) {
             if(sashId === lightBlockArr[i].blockId) {
-              lightBlockArr[i].openDir = localStorage.storage.product.templateSource.objects[sashIndex].openDir.join(',');
+              lightBlockArr[i].openDir = ProductStor.product.templateSource.objects[sashIndex].openDir.join(',');
             }
           }
         }
@@ -97,4 +94,3 @@
 
   }
 })();
-

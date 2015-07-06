@@ -1,6 +1,3 @@
-
-// translations/ua.js
-
 (function(){
   'use strict';
 
@@ -33,6 +30,7 @@
         NEW_TEMPLATE_TITLE: 'Зміна шаблона',
         TEMPLATE_CHANGES_LOST: 'Зміни у шаблоні будуть загублені. Продовжити?',
         SELECT: 'Выбрать',
+        AND: 'та',
         OK: 'OK'
       },
       login: {
@@ -65,7 +63,7 @@
       mainpage: {
         MM: ' мм ',
         CLIMATE_ZONE: 'кліматична зона',
-        THERMAL_RESISTANCE: 'теплопередача',
+        THERMAL_RESISTANCE: 'теплопередачa',
         AIR_CIRCULATION: 'коефіцієнт повітрообміну',
         NAVMENU_GEOLOCATION: 'Вибрати розташування',
         NAVMENU_CURRENT_GEOLOCATION: 'Поточне розташування',
@@ -86,6 +84,7 @@
         CONFIGMENU_HARDWARE: 'Фурнітура',
         CONFIGMENU_LAMINATION: 'Ламінація',
         CONFIGMENU_LAMINATION_TYPE: 'фасад / в кімнаті',
+        CONFIGMENU_NOT_LAMINATION: 'без ламін.',
         CONFIGMENU_ADDITIONAL: 'Додатково',
         CONFIGMENU_IN_CART: 'В кошик',
         VOICE_SPEACH: 'Говоріть...',
@@ -108,7 +107,6 @@
         LAMINAT_INSIDE: 'Ламінація рами в кімнаті',
         LAMINAT_OUTSIDE: 'Ламінація з боку фасаду',
         LAMINAT_WHITE: 'без ламінації, радикальний білий колір',
-        LAM_NO: 'без ламін.',
         ONE_WINDOW_TYPE: 'Одностворчатое',
         TWO_WINDOW_TYPE: 'Двухстворчатое',
         THREE_WINDOW_TYPE: 'Трехстворчатое',
@@ -247,7 +245,8 @@
         VOICE_NOT_UNDERSTAND: 'Не зрозуміло',
         VOICE_SMALLEST_SIZE: 'замалий розмір',
         VOICE_BIGGEST_SIZE: "завеликий розмір",
-        VOICE_SMALL_GLASS_BLOCK: "слишком маленький световой проем"
+        VOICE_SMALL_GLASS_BLOCK: "слишком маленький световой проем",
+        NOT_AVAILABLE: 'Недоступно!'
       },
       history: {
         SEARCH_PLACEHOLDER: 'Пошук за ключовими словами',
@@ -274,7 +273,8 @@
         SORT_SHOW_DONE: 'Тільки завершені',
         BY_YOUR_REQUEST: 'По вашому запиту',
         NOT_FIND: 'нічого не знайдено',
-        WAIT_MASTER: 'очікує замірювача'
+        WAIT_MASTER: 'очікує замірювача',
+        INCLUDED: 'включені'
       },
       cart: {
         ALL_ADD_ELEMENTS: 'Всі дод.елементи замовлення',

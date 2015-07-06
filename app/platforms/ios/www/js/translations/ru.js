@@ -1,6 +1,3 @@
-
-// translations/ru.js
-
 (function(){
   'use strict';
 
@@ -33,6 +30,7 @@
         NEW_TEMPLATE_TITLE: 'Изменение шаблона',
         TEMPLATE_CHANGES_LOST: 'Изменения в шаблоне будут потеряны! Продолжить?',
         SELECT: 'Выбрать',
+        AND: 'и',
         OK: 'OK'
       },
       login: {
@@ -86,6 +84,7 @@
         CONFIGMENU_HARDWARE: 'Фурнитура',
         CONFIGMENU_LAMINATION: 'Ламинация',
         CONFIGMENU_LAMINATION_TYPE: 'фасад / в комнате',
+        CONFIGMENU_NOT_LAMINATION: 'без ламин.',
         CONFIGMENU_ADDITIONAL: 'Дополнительно',
         CONFIGMENU_IN_CART: 'В корзину',
         VOICE_SPEACH: 'Говорите...',
@@ -108,7 +107,6 @@
         LAMINAT_INSIDE: 'Ламинация рамы в комнате',
         LAMINAT_OUTSIDE: 'Ламинация со стороны фасада',
         LAMINAT_WHITE: 'без ламинации, радикальный белый цвет',
-        LAM_NO: 'без ламин.',
         ONE_WINDOW_TYPE: 'Одностворчатое',
         TWO_WINDOW_TYPE: 'Двухстворчатое',
         THREE_WINDOW_TYPE: 'Трехстворчатое',
@@ -246,7 +244,8 @@
         VOICE_NOT_UNDERSTAND: 'Не понятно',
         VOICE_SMALLEST_SIZE: 'слишком маленький размер',
         VOICE_BIGGEST_SIZE: "слишком большой размер",
-        VOICE_SMALL_GLASS_BLOCK: "слишком маленький световой проем"
+        VOICE_SMALL_GLASS_BLOCK: "слишком маленький световой проем",
+        NOT_AVAILABLE: 'Недоступно!'
       },
       history: {
         SEARCH_PLACEHOLDER: 'Поиск по ключевым словам',
@@ -273,7 +272,8 @@
         SORT_SHOW_DONE: 'Только завершенные',
         BY_YOUR_REQUEST: 'По вашему запросу',
         NOT_FIND: 'ничего не найдено',
-        WAIT_MASTER: 'ожидает замерщика'
+        WAIT_MASTER: 'ожидает замерщика',
+        INCLUDED: 'включены'
       },
       cart: {
         ALL_ADD_ELEMENTS: 'Все доп.элементы заказа',

@@ -1,6 +1,3 @@
-
-// controllers/settings.js
-
 (function(){
   'use strict';
   /**
@@ -8,40 +5,66 @@
    */
   angular
     .module('SettingsModule')
-    .controller('SettingsCtrl', settingsCtrl);
+    .controller('SettingsCtrl', settingsPageCtrl);
 
-  function settingsCtrl($scope, $location, globalConstants, globalDB, localStorage, localDB, UserStor) {
+  function settingsPageCtrl($location, globalConstants, globalDB, localDB, GlobalStor, OrderStor, ProductStor, AuxStor, UserStor ) {
 
-    $scope.global = localStorage.storage;
-    $scope.userInfo = UserStor.userInfo;
+    var thisCtrl = this;
+    thisCtrl.U = UserStor;
 
-    $scope.settings = {
+
+    thisCtrl.config = {
       DELAY_START: globalConstants.STEP,
       DELAY_SHOW_ICONS: globalConstants.STEP * 10,
       isInsertPhone: false,
       isEmailError: false,
       addPhones: [],
       tempAddPhone: '',
-      regex: /^[0-9]{1,10}$/,
+      regex: globalConstants.REG_PHONE,
       mailReg: globalConstants.REG_MAIL,
       typing: 'on'
     };
-    $scope.global.startProgramm = false;
-    //----- for location page
-    $scope.global.isOpenSettingsPage = true;
+
+    //------- set current Page
+    GlobalStor.global.currOpenPage = 'settings';
+
+    //    $scope.global.startProgramm = false;
+    //    //----- for location page
+    //    $scope.global.isOpenSettingsPage = true;
 
     //----- parse additional phones
     if(UserStor.userInfo.contact_name !== '') {
-      $scope.settings.addPhones = UserStor.userInfo.contact_name.split(',');
+      thisCtrl.config.addPhones = UserStor.userInfo.contact_name.split(',');
     }
 
+
+    //------ clicking
+    thisCtrl.changeAvatar = changeAvatar;
+    thisCtrl.changeSettingData = changeSettingData;
+    thisCtrl.appendInputPhone = appendInputPhone;
+    thisCtrl.cancelAddPhone = cancelAddPhone;
+    thisCtrl.saveChanges = saveChanges;
+    thisCtrl.saveChangesBlur = saveChangesBlur;
+    thisCtrl.changeEmail = changeEmail;
+    thisCtrl.saveChangesPhone = saveChangesPhone;
+    thisCtrl.deletePhone = deletePhone;
+    thisCtrl.gotoPasswordPage = gotoPasswordPage;
+    thisCtrl.gotoLanguagePage = gotoLanguagePage;
+    thisCtrl.closeSettingsPage = closeSettingsPage;
+    thisCtrl.logOut = logOut;
+
+
+
+    //============ methods ================//
+
+
     //----- change avatar
-    $scope.changeAvatar = function() {
+    function changeAvatar() {
       navigator.camera.getPicture( function( data ) {
-        $scope.global.AvatarUrl = 'data:image/jpeg;base64,' + data;
+        UserStor.userInfo.avatarUrl = 'data:image/jpeg;base64,' + data;
       }, function( error ) {
         console.log( 'Error upload user avatar' + error );
-        console.log($scope.global.AvatarUrl);
+        console.log(UserStor.userInfo);
       }, {
         destinationType: Camera.DestinationType.DATA_URL,
         sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
@@ -50,36 +73,37 @@
         targetHeight: 76,
         mediaType: Camera.MediaType.PICTURE
       } );
-    };
+    }
 
-    $scope.changeSettingData = function(id, obj) {
-      $scope.settings.selectedSetting = id;
+    function changeSettingData(id, obj) {
+      thisCtrl.config.selectedSetting = id;
       findInput(obj.currentTarget.id);
-    };
+    }
 
-    $scope.appendInputPhone = function() {
-      $scope.settings.isInsertPhone = !$scope.settings.isInsertPhone;
-      $scope.settings.tempAddPhone = '';
-      $scope.settings.isErrorPhone = false;
+
+    function appendInputPhone() {
+      thisCtrl.config.isInsertPhone = !thisCtrl.config.isInsertPhone;
+      thisCtrl.config.tempAddPhone = '';
+      thisCtrl.config.isErrorPhone = false;
       findInputPhone();
-    };
+    }
 
-    $scope.cancelAddPhone = function() {
-      $scope.settings.isInsertPhone = false;
-      $scope.settings.isErrorPhone = false;
-    };
+    function cancelAddPhone() {
+      thisCtrl.config.isInsertPhone = false;
+      thisCtrl.config.isErrorPhone = false;
+    }
 
-    $scope.saveChanges = function(marker, newTxt) {
+    function saveChanges(marker, newTxt) {
       if (event.which == 13) {
-        $scope.saveTxtInBD(marker, newTxt);
+        saveTxtInBD(marker, newTxt);
       }
-    };
+    }
 
-    $scope.saveChangesBlur = function(marker, newTxt) {
-        $scope.saveTxtInBD(marker, newTxt);
-    };
+    function saveChangesBlur(marker, newTxt) {
+        saveTxtInBD(marker, newTxt);
+    }
 
-    $scope.saveTxtInBD = function(marker, newTxt) {
+    function saveTxtInBD(marker, newTxt) {
       switch(marker) {
         case 'user-name':
           globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"name": newTxt}, {"id": UserStor.userInfo.id});
@@ -88,77 +112,80 @@
           globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"city_phone": newTxt}, {"id": UserStor.userInfo.id}); //TODO создать поле в базе данных
           break;
         case 'user-email':
-          var checkEmail = $scope.settings.mailReg.test(newTxt);
+          var checkEmail = thisCtrl.config.mailReg.test(newTxt);
           if(checkEmail) {
-            $scope.settings.isEmailError = false;
+            thisCtrl.config.isEmailError = false;
             globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"email": newTxt}, {"id": UserStor.userInfo.id});
           } else {
-            $scope.settings.isEmailError = true;
+            thisCtrl.config.isEmailError = true;
           }
           break;
       }
-    };
+    }
 
-    $scope.changeEmail = function() {
-      $scope.settings.isEmailError = false;
-    };
+    function changeEmail() {
+      thisCtrl.config.isEmailError = false;
+    }
 
-    $scope.saveChangesPhone = function() {
+    function saveChangesPhone() {
       if (event.which == 13) {
-        var checkPhone = $scope.settings.regex.test($scope.settings.tempAddPhone);
+        var checkPhone = thisCtrl.config.regex.test(thisCtrl.config.tempAddPhone);
         if(checkPhone) {
-          $scope.settings.isInsertPhone = false;
-          $scope.settings.isErrorPhone = false;
-          $scope.settings.addPhones.push($scope.settings.tempAddPhone);
+          thisCtrl.config.isInsertPhone = false;
+          thisCtrl.config.isErrorPhone = false;
+          thisCtrl.config.addPhones.push(thisCtrl.config.tempAddPhone);
           //------- save phones in DB
-          $scope.savePhoneInDB($scope.settings.addPhones);
+          savePhoneInDB(thisCtrl.config.addPhones);
         } else {
-          $scope.settings.isErrorPhone = true;
+          thisCtrl.config.isErrorPhone = true;
         }
       }
-    };
+    }
 
-    $scope.deletePhone = function(phoneId) {
-      $scope.settings.addPhones.splice(phoneId, 1);
+    function deletePhone(phoneId) {
+      thisCtrl.config.addPhones.splice(phoneId, 1);
       //------- save phones in DB
-      $scope.savePhoneInDB($scope.settings.addPhones);
-    };
+      savePhoneInDB(thisCtrl.config.addPhones);
+    }
 
     //------- save phones in DB
-    $scope.savePhoneInDB = function(phones) {
+    function savePhoneInDB(phones) {
       var phonesString = phones.join();
       UserStor.userInfo.contact_name = phonesString;
       globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"contact_name": phonesString}, {"id": UserStor.userInfo.id}); //TODO создать поле в базе данных
-      $scope.settings.tempAddPhone = '';
-    };
+      thisCtrl.config.tempAddPhone = '';
+    }
 
-    $scope.gotoPasswordPage = function() {
+    function gotoPasswordPage() {
       $location.path('/change-pass');
-    };
+    }
 
-    $scope.gotoLanguagePage = function() {
-      //$location.path('/change-lang');
-    };
+    function gotoLanguagePage() {
+      $location.path('/change-lang');
+    }
 
-    $scope.closeSettingsPage = function() {
-      $scope.global.isOpenSettingsPage = false;
-      $scope.global.isReturnFromDiffPage = true;
-      $scope.global.gotoMainPage();
-    };
+    function closeSettingsPage() {
+//      $scope.global.isOpenSettingsPage = false;
+//      $scope.global.isReturnFromDiffPage = true;
+      $location.path('/main');
+    }
 
-    $scope.logOut = function() {
+    function logOut() {
       UserStor.userInfo = UserStor.setDefaultUser();
-      localStorage.storage = localStorage.setDefaultStorage();
+      GlobalStor.global = GlobalStor.setDefaultGlobal();
+      OrderStor.order = OrderStor.setDefaultOrder();
+      ProductStor.product = ProductStor.setDefaultProduct();
+      AuxStor.aux = AuxStor.setDefaultAuxiliary();
 
       //------- clearing local DB
       localDB.deleteDB(localDB.productsTableBD);
       localDB.deleteDB(localDB.addElementsTableBD);
       localDB.deleteDB(localDB.ordersTableBD);
       localDB.deleteDB(localDB.analyticsTableBD);
+      localDB.deleteDB(localDB.sqliteTableBD);
       console.log('UserStor 333= ', UserStor);
-      console.log('localStorage 333= ', localStorage);
       $location.path('/login');
-    };
+    }
 
     function findInput(idElement) {
       setTimeout(function() {

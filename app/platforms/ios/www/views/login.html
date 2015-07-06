@@ -2,7 +2,7 @@
 <section class="login-page">
   <div id="login-container" ng-hide="loginPage.isRegistration" ng-mousemove="loginPage.isSendEmail = false; loginPage.isUserNotExist = false; loginPage.isUserNotActive = false; loginPage.isUserPasswordError = false;" class="login-container">
     <div ng-hide="loginPage.isOnline || !loginPage.isOffline" class="attantion">{{ 'login.OFFLINE' | translate }}
-         <button class="inet_ok" hm-tap="loginPage.closeOfflineAlert()" >{{ 'common_words.OK' | translate }}</button>
+      <button hm-tap="loginPage.closeOfflineAlert()" class="inet_ok">{{ 'common_words.OK' | translate }}</button>
     </div>
     <div ng-show="loginPage.isSendEmail" class="attantion">{{ 'login.USER_CHECK_EMAIL' | translate }}</div>
     <div ng-show="loginPage.isUserNotExist" class="attantion">{{ 'login.USER_NOT_EXIST' | translate }}</div>

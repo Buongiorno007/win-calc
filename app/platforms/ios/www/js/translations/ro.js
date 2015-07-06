@@ -1,6 +1,3 @@
-
-// translations/ro.js
-
 (function(){
   'use strict';
 
@@ -33,6 +30,7 @@
         NEW_TEMPLATE_TITLE: 'Template changing',
         TEMPLATE_CHANGES_LOST: 'The template changes will lost! Continue?',
         SELECT: 'Select',
+        AND: 'și',
         OK: 'OK'
       },
       login: {
@@ -86,6 +84,7 @@
         CONFIGMENU_HARDWARE: 'furnitura ',
         CONFIGMENU_LAMINATION: 'laminare',
         CONFIGMENU_LAMINATION_TYPE: 'fațadă / camera',
+        CONFIGMENU_NOT_LAMINATION: 'fără lamin.',
         CONFIGMENU_ADDITIONAL: 'Suplimentar',
         CONFIGMENU_IN_CART: 'Adaugă in coș',
         VOICE_SPEACH: 'Vorbiți...',
@@ -108,7 +107,6 @@
         LAMINAT_INSIDE: 'Ламинация рамы в комнате',
         LAMINAT_OUTSIDE: 'Laminare din față',
         LAMINAT_WHITE: 'Fără laminare, de culoare albă radical',
-        LAM_NO: 'no lamin.',
         ONE_WINDOW_TYPE: 'One-casement',
         TWO_WINDOW_TYPE: 'Two-casement',
         THREE_WINDOW_TYPE: 'Three-leaf',
@@ -246,7 +244,8 @@
         VOICE_NOT_UNDERSTAND: 'nu este clar',
         VOICE_SMALLEST_SIZE: 'prea mic',
         VOICE_BIGGEST_SIZE: "prea mare",
-        VOICE_SMALL_GLASS_BLOCK: "luminatoare prea mici"
+        VOICE_SMALL_GLASS_BLOCK: "luminatoare prea mici",
+        NOT_AVAILABLE: 'nu Este Disponibil!'
       },
       history: {
         SEARCH_PLACEHOLDER: 'Căutare după cuvinte cheie',
@@ -273,7 +272,8 @@
         SORT_SHOW_DONE: 'Numai finalizat',
         BY_YOUR_REQUEST: 'Potrivit cererea dvs.',
         NOT_FIND: 'nimic nu a fost găsit',
-        WAIT_MASTER: 'aşteaptă inginerul'
+        WAIT_MASTER: 'aşteaptă inginerul',
+        INCLUDED: 'inclus'
       },
       cart: {
         ALL_ADD_ELEMENTS: 'toate elemente suplimentare a comenzii',
@@ -351,7 +351,6 @@
         NO_DISASSEMBL: "fără demontare",
         STANDART_ASSEMBL: "standard",
         VIP_ASSEMBL: "montaj VIP"
-
       },
       settings: {
         AUTHORIZATION: 'Autentificare:',

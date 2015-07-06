@@ -1,6 +1,3 @@
-
-// services/globalDB.js
-
 (function(){
   'use strict';
   /**
@@ -78,18 +75,36 @@
       citiesTableDBGlobal: 'cities',
       regionsTableDBGlobal: 'regions',
       countriesTableDBGlobal: 'countries',
+      currenciesTableDBGlobal: 'currencies',
       listsTableDBGlobal: 'lists',
       elementsTableDBGlobal: 'elements',
       beadsTableDBGlobal: 'beed_profile_systems',
+      laminationTableDBGlobal: 'lamination_colors',
+      profileTypeTableDBGlobal: 'profile_system_folders',
+      profileTableDBGlobal: 'profile_systems',
+      hardwareTypeTableDBGlobal: 'window_hardware_groups',
+      hardwareTableDBGlobal: 'window_hardwares',
 
-      visorDBId: 21,
-      gridDBId: 20,
-      spillwayDBId: 9,
-      windowsillDBId: 8,
+      addElementDBId: [
+        20, // 0 - grids
+        21, // 1 - visors
+        9, // 2 - spillways
+        19, // 3 - outSlope
+        0, // 4 - louvers
+        19, // 5 - inSlope
+        12, // 6 - connectors
+        0, // 7 - fans
+        8, // 8 - windowSill
+        24, // 9 - handles
+        16 // 10 - others
+      ],
 
       selectDBGlobal: selectDBGlobal,
       selectAllDBGlobal: selectAllDBGlobal,
       updateDBGlobal: updateDBGlobal,
+
+
+
 
       md5: function (string) {
         function RotateLeft(lValue, iShiftBits) {
@@ -413,18 +428,14 @@
           transaction.executeSql(createDevice, []);
         });
         db.transaction(function (transaction) {
-          transaction.executeSql(deleteTablesSQL[0], [], null, function () {
-//            callback(new ErrorResult(2, 'Something went wrong with deleting table'));
-          });
+          transaction.executeSql(deleteTablesSQL[0], [], null, null);
         });
         db.transaction(function (transaction) {
           transaction.executeSql(createDevice, []);
         });
         db.transaction(function (transaction) {
           transaction.executeSql(insertDeviceCodeLocalDb, [1, factory_id, 0], function () {
-          }, function () {
-//            callback(new ErrorResult(2, 'Something went wrong with inserting device record'));
-          });
+          }, null);
         });
         db.transaction(function (transaction) {
           for (i = 0; i < createTablesSQL.length; i++) {
@@ -437,21 +448,16 @@
             for (table in result.tables) {
               for (i = 0; i < result.tables[table].rows.length; i++) {
                 transaction.executeSql('INSERT INTO ' + table + ' (' + result.tables[table].fields.join(', ') + ') VALUES (' + getValuesString(result.tables[table].rows[i]) + ')', [], function () {
-                }, function () {
-//                  callback(new ErrorResult(2, 'Something went wrong with inserting ' + table + ' record'));
-                });
+                }, function () {});
               }
             }
             transaction.executeSql(updateDeviceSync, [""+result.last_sync+""], function(){
               console.log('Database import is finished!');
               deferred.resolve('importDb is done!');
-            }, function () {
-//              callback(new ErrorResult(2, 'Something went wrong with updating device table!'));
-            });
-//            callback({status: true});
+            }, function () {});
           });
         }).error(function () {
-//          callback(new ErrorResult(2, 'Something went wrong with importing Database!'));
+          console.log('Something went wrong with importing Database!');
         });
         return deferred.promise;
       },
@@ -470,13 +476,12 @@
         });
       },
 
-      syncDb: function (login, access_token, callback) {
+      syncDb: function (login, access_token) {
         var deferred = $q.defer();
         var i, k, table, updateSql, lastSyncDate;
         var self = this;
         self.getLastSync(function (result) {
           lastSyncDate = result.data.last_sync;
-          console.log('sync $$$$=', lastSyncDate);
           $http.get('http://api.voice-creator.net/sync/elements?login='+login+'&access_token=' + access_token + '&last_sync=' + lastSyncDate).success(function (result) {
             db.transaction(function (transaction) {
               if(result.tables.length) {
@@ -491,7 +496,7 @@
                     }
                     transaction.executeSql("UPDATE " + table + " SET " + updateSql + " WHERE id = " + result.tables[table].rows[i][0], [], function () {
                     }, function () {
-                      callback(new ErrorResult(2, 'Something went wrong with updating ' + table + ' record'));
+                      console.log('Something went wrong with updating ' + table + ' record');
                     });
                   }
                 }
@@ -499,13 +504,12 @@
               transaction.executeSql(updateDeviceSync, [""+result.last_sync+""], function(){
                 deferred.resolve('UPDATE is done!');
               }, function () {
-                callback(new ErrorResult(2, 'Something went wrong with updating device table!'));
+                console.log('Something went wrong with updating device table!');
               });
-              callback({status: true});
             });
 
           }).error(function () {
-            callback(new ErrorResult(2, 'Something went wrong with sync Database!'));
+            console.log('Something went wrong with sync Database!');
           });
         });
         return deferred.promise;
@@ -556,7 +560,6 @@
       getCurrentCurrency: function(currencyId, callback){
         db.transaction(function (transaction) {
           transaction.executeSql('select id, name, value from currencies where id = ?', [currencyId], function (transaction, result) {
-            console.log(result);
             if (result.rows.length) {
               callback(new OkResult(result.rows.item(0)));
             } else {
@@ -1838,33 +1841,43 @@
 
 
 
-    function selectDBGlobal(tableName, options, callback) {
-      var handler = [];
-      dbGlobal.select(tableName, options).then(function (results) {
-        if (results.rows.length) {
-          for (var i = 0; i < results.rows.length; i++) {
-            handler.push(results.rows.item(i));
+    function selectDBGlobal(tableName, options) {
+      var deferred = $q.defer(),
+          handler = [];
+      dbGlobal.select(tableName, options).then(function (result) {
+        var resultQty = result.rows.length,
+            i = 0;
+        if (resultQty) {
+          for (; i < resultQty; i++) {
+            handler.push(result.rows.item(i));
           }
-          callback(new OkResult(handler));
+          deferred.resolve(handler);
         } else {
-          callback(new ErrorResult(1, 'No in database!'));
+          deferred.resolve();
         }
       });
+      return deferred.promise;
     }
 
-    function selectAllDBGlobal(tableName, callback) {
-      var handler = [];
-      dbGlobal.selectAll(tableName).then(function (results) {
-        if (results.rows.length) {
-          for (var i = 0; i < results.rows.length; i++) {
-            handler.push(results.rows.item(i));
+
+    function selectAllDBGlobal(tableName) {
+      var deferred = $q.defer(),
+          handler = [];
+      dbGlobal.selectAll(tableName).then(function (result) {
+        var resultQty = result.rows.length,
+            i = 0;
+        if(resultQty) {
+          for(;i < resultQty; i++) {
+            handler.push(result.rows.item(i));
           }
-          callback(new OkResult(handler));
+          deferred.resolve(handler);
         } else {
-          callback(new ErrorResult(1, 'No in database!'));
+          deferred.resolve();
         }
       });
+      return deferred.promise;
     }
+
 
     function updateDBGlobal(tableName, elem, options) {
       dbGlobal.update(tableName, elem, options);
@@ -1873,7 +1886,6 @@
 
   }
 })();
-
 
 
 

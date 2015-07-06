@@ -105,6 +105,7 @@
       getTemplatesWindow: function(callback) {
         callback(new OkResult({
           windows: [
+            /*
             {
               details: {
                 //------- main points
@@ -204,7 +205,7 @@
                 ]
               }
             },
-
+*/
             {
               name: 'Трехстворчатое',
               details: {
@@ -230,14 +231,10 @@
 
 //                  {type:'impost', id:'qi1', x:1000, y:1000, dir:'curv'}
 
-                {type:'impost', id:'ip1', x:500, y:0, dir:'line'},
-                {type:'impost', id:'ip2', x:500, y:1000, dir:'line'},
-                {type:'impost', id:'ip3', x:1000, y:500, dir:'line'},
-                {type:'impost', id:'ip4', x:500, y:500, dir:'line'}//,
-//                {'type':'impost', id:'ip5', x:700, y:700, dir:'line'},
-//                {'type':'impost', id:'ip6', x:1400, y:700, dir:'line'},
-//                {'type':'impost', id:'ip7', x:700, y:1050, dir:'line'},
-//                {'type':'impost', id:'ip8', x:1400, y:1050, dir:'line'},
+                  {type:'impost', id:'ip1', x:500, y:0, dir:'line'},
+                  {type:'impost', id:'ip2', x:500, y:1000, dir:'line'},
+                  {type:'impost', id:'ip3', x:1000, y:500, dir:'line'},
+                  {type:'impost', id:'ip4', x:500, y:500, dir:'line'}
                 ],
 
                 skylights: [
@@ -262,6 +259,7 @@
                       impostAxis: [],
                       impostIn : []
                     },
+                    pointsIn: [],
                     parts: [],
                     glassId: 0
                   },
@@ -273,7 +271,7 @@
                     blockType: 'sash',
                     parent: 'block_1',
                     children: [],
-                    pointsID: [],
+                    pointsIn: [],
                     parts: [],
                     glassId: 0,
                     gridId: 0,
@@ -287,7 +285,7 @@
                     blockType: 'frame',
                     parent: 'block_1',
                     children: ['block_4', 'block_5'],
-                    pointsID: [],
+                    pointsIn: [],
                     impost: {
                       impostID: ['ip3', 'ip4'],
                       impostAxis: [],
@@ -304,7 +302,7 @@
                     blockType: 'frame',
                     parent: 'block_3',
                     children: [],
-                    pointsID: [],
+                    pointsIn: [],
                     parts: [],
                     glassId: 0
                   },
@@ -315,12 +313,10 @@
                     blockType: 'frame',
                     parent: 'block_3',
                     children: [],
-                    pointsID: [],
+                    pointsIn: [],
                     parts: [],
                     glassId: 0
-                  }//,
-                  //                {'type':'skylight', id:'block_6', level: 3, blockType: 'frame', children: [], parent: 'block_3', pointsID: ['ip6', 'ip5', 'ip7', 'ip8'], glassId: 0, gridId: 0},
-                  //                {'type':'skylight', id:'block_7', level: 3, blockType: 'frame', children: [], parent: 'block_3', pointsID: ['ip8', 'ip7', 'ip4', 'ip2'], glassId: 0, gridId: 0},
+                  }
                 ]
               }
 /*

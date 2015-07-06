@@ -1,6 +1,3 @@
-
-// storages/globalStor.js
-
 (function(){
   'use strict';
     /**
@@ -8,202 +5,89 @@
      */
   angular
     .module('BauVoiceApp')
-    .factory('GlobalStorage', globalStorageFactory);
+    .factory('GlobalStor', globalStorageFactory);
 
-  function globalStorageFactory() {
+  function globalStorageFactory($filter) {
 
-    return {
-      svgTemplateIconWidth: 70,
-      svgTemplateIconHeight: 70,
-      svgTemplateIconBigWidth: 500,
-      svgTemplateIconBigHeight: 450,
-      svgTemplateWidth: 800,
-      svgTemplateHeight: 700,
-      currentDate: new Date(),
-      productionDays: 15,
-      currency: '',
+    var thisFactory = this;
 
-      isConstructWind: true,
-      isConstructWindDoor: false,
-      isConstructBalcony: false,
-      isConstructDoor: false,
-      //---- чтобы не создавался черновик при запуске проги
-      startProgramm: true,
-      isCreatedNewProject: true,
-      isCreatedNewProduct: true,
-      isOrderFinished: false,
-      isOpenedCartPage: false,
-      isOpenedHistoryPage: false,
-      isReturnFromDiffPage: false,
-      isFindPriceProcess: false,
+    thisFactory.publicObj = {
 
-      productEditNumber: '',
-      orderEditNumber: false,
+      globalSource: {
+        startProgramm: true, // for START
+        //------ navigation
+        isNavMenu: true,
+        isConfigMenu: false,
+        activePanel: 0,
 
+        isCreatedNewProject: true,
+        isCreatedNewProduct: true,
+        productEditNumber: 0,
+        orderEditNumber: 0,
 
-      //------- Templates
-      templatesWindSTORE: [],
-      templatesWindDoorSTORE: [],
-      templatesBalconySTORE: [],
-      templatesDoorSTORE: [],
-      templatesWindListSTORE: [],
-      templatesWindIconListSTORE: [],
-      templatesWindDoorListSTORE: [],
-      templatesWindDoorIconListSTORE: [],
-      templatesBalconyListSTORE: [],
-      templatesBalconyIconListSTORE: [],
-      templatesDoorListSTORE: [],
-      templatesDoorIconListSTORE: [],
+        prevOpenPage: '',
+        currOpenPage: 'main',
 
-      templatesWindSource: [],
-      templatesWindDoorSource: [],
-      templatesBalconySource: [],
-      templatesDoorSource: [],
-      templatesWindList: [],
-      templatesWindDoorList: [],
-      templatesBalconyList: [],
-      templatesDoorList: [],
-      templatesWindIconList: [],
-      templatesWindDoorIconList: [],
-      templatesBalconyIconList: [],
-      templatesDoorIconList: [],
-      templateDepths: {},
+        isChangedTemplate: false,
+        isVoiceHelper: false,
+        voiceHelperLanguage: '',
+        showRoomSelectorDialog: false,
+        isShowCommentBlock: false,
 
-      templatesSource: [],
-      templates: [],
-      templatesIcons: [],
-      templateLabel: '',
+        //---- Calculators
+        isQtyCalculator: false,
+        isSizeCalculator: false,
+        isWidthCalculator: false,
+        isColorSelector: false,
 
-      //------ Profiles
-      profiles: [],
-      profilesType: [],
-      allProfileFrameSizes: [],
-      allProfileFrameStillSizes: [],
-      allProfileSashSizes: [],
-      allProfileImpostSizes: [],
-      allProfileShtulpSizes: [],
+        //------- Templates
+        templateLabel: '',
+        templatesSource: [],
+//        templates: [],
+//        templatesIcon: [],
+        templatesSourceSTORE: [],
+//        templatesSTORE: [],
+//        templatesIconSTORE: [],
 
-      //------- Glasses
-      glasses: [],
-      glassTypes: [],
+        //------ Profiles
+        profiles: [],
+        profilesType: [],
+        profileDepths: {
+          frameDepth: {},
+          frameStillDepth: {},
+          sashDepth: {},
+          impostDepth: {},
+          shtulpDepth: {}
+        },
 
-      //------ Hardwares
-      hardwares: [],
-      hardwareTypes: [],
+        //------- Glasses
+        glasses: [],
+        glassTypes: [],
 
-      //------ Lamination
-      laminationsWhite: '',
-      laminationsIn: [],
-      laminationsOut: [],
+        //------ Hardwares
+        hardwares: [],
+        hardwareTypes: [],
 
-      userInfo: {
-        city_id: 0,
-        cityName: '',
-        regionName: '',
-        countryName: '',
-        fullLocation: '',
-        climaticZone: 0,
-        heatTransfer: 0,
-        langLabel: '',
-        langName: ''
+        //------ Lamination
+        laminationsWhite: $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION')
+
       },
 
+      setDefaultGlobal: setDefaultGlobal
+    };
+
+    thisFactory.publicObj.global = setDefaultGlobal();
+
+    return thisFactory.publicObj;
 
 
-      objXFormedPriceSource: {
-        cityId: '',
-        profileId: '',
-        glassId: '',
-        framesSize: [],
-        sashsSize: [],
-        beadsSize: [],
-        impostsSize: [],
-        shtulpsSize: [],
-        sashesBlock: [],
-        glassSizes: [],
-        glassSquares: [],
-        frameSillSize: 0
-      },
+    //============ methods ================//
 
-      objXAddElementPriceSource: {
-        cityId: 0,
-        elementId: 0,
-        elementLength: 0
-      },
-
-      //------ config-pannels tools
-      showNavMenu: true,
-      isConfigMenu: false,
-      showPanels: {},
-      isTemplatePanel: false,
-      isProfilePanel: false,
-      isGlassPanel: false,
-      isHardwarePanel: false,
-      isLaminationPanel: false,
-      isAddElementsPanel: false,
-
-      //constructionPriceTOTAL: 0,
-      //hardwarePriceTOTAL: 0,
-      //laminationPriceTOTAL: 0,
-      //addElementsPriceTOTAL: 0,
-      //orderPrice: 0,
-
-      addElementsGroupClass: [
-        'aux_color_connect',
-        'aux_color_big',
-        'aux_color_middle',
-        'aux_color_slope',
-        'aux_color_middle',
-        'aux_color_slope',
-        'aux_color_connect',
-        'aux_color_small',
-        'aux_color_big',
-        'aux_color_middle',
-        'aux_color_small'
-      ],
-      isAddElement: false,
-      isAddElementListView: false,
-      isConstructSizeCalculator: false,
-      isTabFrame: false,
-
-      showRoomSelectorDialog: false,
-      isRoomsDialog: false,
-      isOpenSettingsPage: false,
-      isChangedTemplate: false,
-      isVoiceHelper: false,
-      voiceHelperLanguage: 'ru_ru',
-      isShowCommentBlock: false,
-
-
-    //------ WebSQL DB table names
-
-      //---- Global
-      usersTableDBGlobal: 'users',
-      citiesTableDBGlobal: 'cities',
-      regionsTableDBGlobal: 'regions',
-      countriesTableDBGlobal: 'countries',
-      listsTableDBGlobal: 'lists',
-      elementsTableDBGlobal: 'elements',
-      beadsTableDBGlobal: 'beed_profile_systems',
-
-      visorDBId: 21,
-      gridDBId: 20,
-      spillwayDBId: 9,
-      windowsillDBId: 8,
-
-      //------------ Languages
-      languages: [
-        {label: 'ua', name: 'Українська'},
-        {label: 'ru', name: 'Русский'},
-        {label: 'en', name: 'English'},
-        {label: 'de', name: 'Deutsch'},
-        {label: 'ro', name: 'Român'}
-      ]
-
-
+    function setDefaultGlobal() {
+      var publicObj = angular.copy(thisFactory.publicObj.globalSource);
+      return publicObj;
     }
 
 
   }
 })();
-

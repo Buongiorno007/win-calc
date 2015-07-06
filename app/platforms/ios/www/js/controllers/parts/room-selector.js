@@ -1,6 +1,3 @@
-
-// controllers/parts/room-selector.js
-
 (function(){
   'use strict';
   /**
@@ -10,10 +7,13 @@
     .module('MainModule')
     .controller('RoomSelectorCtrl', roomSelectorCtrl);
 
-  function roomSelectorCtrl($scope, localStorage, globalConstants) {
-    $scope.global = localStorage.storage;
+  function roomSelectorCtrl(globalConstants, GeneralServ, MainServ, GlobalStor, ProductStor) {
 
-    $scope.roomData = {
+    var thisCtrl = this;
+    thisCtrl.G = GlobalStor;
+    thisCtrl.P = ProductStor;
+
+    thisCtrl.config = {
       DELAY_SHOW_ROOM1: 5 * globalConstants.STEP,
       DELAY_SHOW_ROOM2: 6 * globalConstants.STEP,
       DELAY_SHOW_ROOM3: 7 * globalConstants.STEP,
@@ -22,20 +22,27 @@
       DELAY_SHOW_ROOM6: 10 * globalConstants.STEP
     };
 
+    //------ clicking
 
-    // Room Select
-    $scope.selectRoom = function(id) {
-      $scope.global.product.selectedRoomId = id;
-      $scope.closeRoomSelectorDialog();
-      $scope.global.prepareMainPage();
-      $scope.global.startProgramm = false;
-    };
+    thisCtrl.selectRoom = selectRoom;
+    thisCtrl.closeRoomSelectorDialog = closeRoomSelectorDialog;
 
-    // Close Room Selector Dialog
-    $scope.closeRoomSelectorDialog = function() {
-      $scope.global.showRoomSelectorDialog = false;
+    //============ methods ================//
+
+    //---------- Room Select
+    function selectRoom(id) {
+      ProductStor.product.selectedRoomId = id;
+      closeRoomSelectorDialog();
+      MainServ.prepareMainPage();
+      GeneralServ.stopStartProg();
+    }
+
+
+    //---------- Close Room Selector Dialog
+    function closeRoomSelectorDialog() {
+      GlobalStor.global.showRoomSelectorDialog = false;
       //playSound('fly');
-    };
+    }
 
   }
 })();

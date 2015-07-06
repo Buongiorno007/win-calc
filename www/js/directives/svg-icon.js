@@ -38,20 +38,14 @@
               'width': widthSVG,
               'height': heightSVG,
               'class': 'tamlateIconSVG'
-              //            'viewBox': "0 0 800 800",
-              //            'preserveAspectRatio': "xMidYMid meet"
             });
             var scale = setTemplateScale(template, widthSVG, heightSVG, padding);
-            var position = SVGServ.setTemplatePosition(template, widthSVG, heightSVG, scale);
 
             mainGroup = mainSVG.append("g").attr({
               'id': 'main_group',
               'transform': 'translate(0,0) scale(' + scale + ')'
-//              'transform': 'translate(' + position.x + ', ' + position.y + ') scale(' + scale + ')'
             });
 
-            //          console.log('++++++ template +++++++', mainGroup);
-            //========
             var blocksQty = template.details.skylights.length;
 
             for (var i = 0; i < blocksQty; i++) {
@@ -60,7 +54,7 @@
                     'blockId': template.details.skylights[i].id,
                     //'class': function(d) { return d.type; },
                     'class': function (d) {
-                      return (d.type === 'glass') ? 'glass' : 'frame-icon'
+                      return (d.type === 'glass') ? 'glass-icon' : 'frame-icon'
                     },
                     'item-type': function (d) {
                       return d.type;
@@ -99,7 +93,7 @@
             scale = templateS/windowS;
             del = (windowS - templateS)/windowS ;
           }
-          scale = (scale * padding) + del/16;
+          scale = (scale * padding) + del/20;
           //          console.log('scale = ', scale);
           return scale;
         }

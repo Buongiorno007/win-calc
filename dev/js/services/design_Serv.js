@@ -81,7 +81,10 @@
         //----- save new template in product
         ProductStor.product.templateSource = angular.copy(DesignStor.design.templateSourceTEMP);
         ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
-        ProductStor.product.templateIcon = new TemplateIcon(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths);
+        //----- create template icon
+        SVGServ.createSVGTemplateIcon(ProductStor.product.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+          ProductStor.product.templateIcon = angular.copy(result);
+        });
 
         //============ if Door Construction
         if(ProductStor.product.constructionType === 4) {
@@ -712,13 +715,12 @@
           };
           SVGServ.setLineCoef(impost);
 //          console.log('currLine', currLine);
-//          impost.intersect = SVGServ.getCoordCrossPoint(currLine, impost, currLine.coefC, impost.coefC);
-          impost.intersect = SVGServ.getCoordCrossPointInBlock(currLine, impost, currLine.coefC, impost.coefC);
+          impost.intersect = SVGServ.getCoordCrossPoint(currLine, impost);
 //          console.log('impost.intersect', impost.intersect);
           if(impost.intersect.x >= 0 && impost.intersect.y >= 0) {
 
             //------ checking is cross point inner of line
-            var checkPoint = SVGServ.checkLineOwnPoint2(impost.intersect, impost.to, impost.from);
+            var checkPoint = SVGServ.checkLineOwnPoint(impost.intersect, impost.to, impost.from);
 //            console.log('checkPoint', checkPoint);
             if (checkPoint.x >= 0 && checkPoint.x <= 1 || checkPoint.y >= 0 && checkPoint.y <= 1) {
 //              console.log('currLine.from++++', currLine.from);
@@ -1161,12 +1163,12 @@
       while(--linesQty > -1) {
         var coord, checkPoint, intersect;
 //                console.log('line ++++', lines[linesQty]);
-        coord = SVGServ.getCoordCrossPointInBlock(vector, lines[linesQty], vector.coefC, lines[linesQty].coefC);
+        coord = SVGServ.getCoordCrossPoint(vector, lines[linesQty]);
 //                console.log('coord ++++', coord);
         if(coord.x >= 0 && coord.y >= 0) {
 
           //------ checking is cross point inner of line
-          checkPoint = SVGServ.checkLineOwnPoint2(coord, lines[linesQty].to, lines[linesQty].from);
+          checkPoint = SVGServ.checkLineOwnPoint(coord, lines[linesQty].to, lines[linesQty].from);
 //                          console.log('^^^^^checkPoint^^^^', checkPoint);
           if(checkPoint.x >= 0 && checkPoint.x <= 1 || checkPoint.y >=0 && checkPoint.y <= 1) {
 

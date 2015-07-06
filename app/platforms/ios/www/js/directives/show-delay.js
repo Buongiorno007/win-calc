@@ -1,6 +1,3 @@
-
-// directives/show-delay.js
-
 (function(){
   'use strict';
     /**

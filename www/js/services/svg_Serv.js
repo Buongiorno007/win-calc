@@ -26,14 +26,13 @@
       getAngelPoint: getAngelPoint,
       setLines: setLines,
       setLineCoef: setLineCoef,
-      getCoordCrossPoint: getCoordCrossPoint,
-      checkLineOwnPoint: checkLineOwnPoint,
+//      getCoordCrossPointABS: getCoordCrossPointABS,
       setPointLocationToLine: setPointLocationToLine,
       QLineIntersections: QLineIntersections,
       cteateLineByAngel: cteateLineByAngel,
       getIntersectionInCurve: getIntersectionInCurve,
-      getCoordCrossPointInBlock: getCoordCrossPointInBlock,
-      checkLineOwnPoint2: checkLineOwnPoint2
+      getCoordCrossPoint: getCoordCrossPoint,
+      checkLineOwnPoint: checkLineOwnPoint
     };
 
     return thisFactory.publicObj;
@@ -79,40 +78,69 @@
 
         } else {
           console.log('block ID++++++++++', thisObj.details.skylights[i].id);
-          thisObj.details.skylights[i].pointsOut = setPointsOut(thisObj.details.skylights[i].pointsID, thisObj.details.points);
-          thisObj.details.skylights[i].center = centerBlock(thisObj.details.skylights[i].pointsOut);
-          thisObj.details.skylights[i].pointsOut = sortingPoints(thisObj.details.skylights[i].pointsOut, thisObj.details.skylights[i].center);
-          setPointsIDXChildren(thisObj.details.skylights[i], thisObj.details.skylights, thisObj.details.points);
-          thisObj.details.skylights[i].linesOut = setLines(thisObj.details.skylights[i].pointsOut);
-          //------- set Line Type, line coef === line frame
-          if(thisObj.details.skylights[i].level > 1) {
-            setLineTypeAsToFrames(thisObj.details.skylights[i].linesOut, thisObj.details.skylights);
+          if(thisObj.details.skylights[i].level === 1) {
+            thisObj.details.skylights[i].pointsOut = setPointsOut(thisObj.details.skylights[i].pointsID, thisObj.details.points);
+            thisObj.details.skylights[i].center = centerBlock(thisObj.details.skylights[i].pointsOut);
+            thisObj.details.skylights[i].pointsOut = sortingPoints(thisObj.details.skylights[i].pointsOut, thisObj.details.skylights[i].center);
+            thisObj.details.skylights[i].linesOut = setLines(thisObj.details.skylights[i].pointsOut);
+            thisObj.details.skylights[i].pointsIn = setPointsIn(thisObj.details.skylights[i].linesOut, depths, 'frame');
+          } else {
+            thisObj.details.skylights[i].center = centerBlock(thisObj.details.skylights[i].pointsIn);
+            thisObj.details.skylights[i].pointsIn = sortingPoints(thisObj.details.skylights[i].pointsIn, thisObj.details.skylights[i].center);
           }
-          thisObj.details.skylights[i].pointsIn = setPointsIn(thisObj.details.skylights[i], depths, 'frame');
           thisObj.details.skylights[i].linesIn = setLines(thisObj.details.skylights[i].pointsIn);
+          //------- set Line Type, line coef === line frame
+//          if(thisObj.details.skylights[i].level > 1) {
+//            setLineTypeAsToFrames(thisObj.details.skylights[i].linesOut, thisObj.details.skylights);
+//          }
 
-          //      console.log('block +++++ ',thisObj.details.skylights[i].id, thisObj.details.skylights[i]);
+
+          setPointsXChildren(thisObj.details.skylights[i], thisObj.details.skylights, thisObj.details.points, depths);
 
           if(thisObj.details.skylights[i].level === 1) {
             setCornerProp(thisObj.details.skylights);
             //------- set points for each part of construction
             $.merge(thisObj.details.skylights[i].parts, setParts(thisObj.details.skylights[i].pointsOut, thisObj.details.skylights[i].pointsIn));
-          } else {
-            thisObj.details.skylights[i].impostOut = setImpostPoints(thisObj.details.skylights, thisObj.details.skylights[i].parent, thisObj.details.skylights[i].pointsIn);
           }
 
 
-          //------- if block is empty
-          if(thisObj.details.skylights[i].children.length < 1) {
+          //-------- if block has children and type is sash
+          if(thisObj.details.skylights[i].children.length) {
 
+            //----- create impost parts
+            thisObj.details.skylights[i].parts.push( setImpostParts(thisObj.details.skylights[i].impost.impostIn) );
+
+            if(thisObj.details.skylights[i].blockType === 'sash') {
+              thisObj.details.skylights[i].sashPointsOut = copyPointsOut(setPointsIn(thisObj.details.skylights[i].linesIn, depths, 'sash-out'), 'sash');
+              thisObj.details.skylights[i].sashLinesOut = setLines(thisObj.details.skylights[i].sashPointsOut);
+              thisObj.details.skylights[i].sashPointsIn = setPointsIn(thisObj.details.skylights[i].sashLinesOut, depths, 'sash-in');
+              thisObj.details.skylights[i].sashLinesIn = setLines(thisObj.details.skylights[i].sashPointsIn);
+
+              thisObj.details.skylights[i].hardwarePoints = setPointsIn(thisObj.details.skylights[i].sashLinesOut, depths, 'hardware');
+              thisObj.details.skylights[i].hardwareLines = setLines(thisObj.details.skylights[i].sashPointsIn);
+
+//              thisObj.details.skylights[i].beadPointsOut = copyPointsOut(thisObj.details.skylights[i].sashPointsIn, 'bead');
+//              thisObj.details.skylights[i].beadLinesOut = setLines(thisObj.details.skylights[i].beadPointsOut);
+//              thisObj.details.skylights[i].beadPointsIn = setPointsIn(thisObj.details.skylights[i], depths, 'sash-bead');
+//              //------ for defined open directions of sash
+//              thisObj.details.skylights[i].beadLinesIn = setLines(thisObj.details.skylights[i].beadPointsIn);
+
+              $.merge(thisObj.details.skylights[i].parts, setParts(thisObj.details.skylights[i].sashPointsOut, thisObj.details.skylights[i].sashPointsIn));
+
+              //----- set openPoints for sash
+              thisObj.details.skylights[i].sashOpenDir = setOpenDir(thisObj.details.skylights[i].openDir, thisObj.details.skylights[i].sashLinesIn);
+            }
+
+          //------- if block is empty
+          } else {
             //------ if block is frame
             if(thisObj.details.skylights[i].blockType === 'frame') {
               thisObj.details.skylights[i].beadPointsOut = copyPointsOut(thisObj.details.skylights[i].pointsIn, 'bead');
               thisObj.details.skylights[i].beadLinesOut = setLines(thisObj.details.skylights[i].beadPointsOut);
-              thisObj.details.skylights[i].beadPointsIn = setPointsIn(thisObj.details.skylights[i], depths, 'frame-bead');
+              thisObj.details.skylights[i].beadPointsIn = setPointsIn(thisObj.details.skylights[i].beadLinesOut, depths, 'frame-bead');
               //          thisObj.details.skylights[i].beadLinesIn = setLines(thisObj.details.skylights[i].beadPointsIn);
 
-              thisObj.details.skylights[i].glassPoints = setPointsIn(thisObj.details.skylights[i], depths, 'frame-glass');
+              thisObj.details.skylights[i].glassPoints = setPointsIn(thisObj.details.skylights[i].beadLinesOut, depths, 'frame-glass');
               /*          thisObj.details.skylights[i].glassLines = setLines(thisObj.details.skylights[i].beadPointsIn);*/
 
               thisObj.details.skylights[i].parts.push(setGlass(thisObj.details.skylights[i].glassPoints));
@@ -121,21 +149,21 @@
 
 
             } else if(thisObj.details.skylights[i].blockType === 'sash') {
-              thisObj.details.skylights[i].sashPointsOut = copyPointsOut(setPointsIn(thisObj.details.skylights[i], depths, 'sash-out'), 'sash');
+              thisObj.details.skylights[i].sashPointsOut = copyPointsOut(setPointsIn(thisObj.details.skylights[i].linesIn, depths, 'sash-out'), 'sash');
               thisObj.details.skylights[i].sashLinesOut = setLines(thisObj.details.skylights[i].sashPointsOut);
-              thisObj.details.skylights[i].sashPointsIn = setPointsIn(thisObj.details.skylights[i], depths, 'sash-in');
-              //          thisObj.details.skylights[i].sashLinesIn = setLines(thisObj.details.skylights[i].sashPointsIn);
+              thisObj.details.skylights[i].sashPointsIn = setPointsIn(thisObj.details.skylights[i].sashLinesOut, depths, 'sash-in');
+              thisObj.details.skylights[i].sashLinesIn = setLines(thisObj.details.skylights[i].sashPointsIn);
 
-              thisObj.details.skylights[i].hardwarePoints = setPointsIn(thisObj.details.skylights[i], depths, 'hardware');
+              thisObj.details.skylights[i].hardwarePoints = setPointsIn(thisObj.details.skylights[i].sashLinesOut, depths, 'hardware');
               thisObj.details.skylights[i].hardwareLines = setLines(thisObj.details.skylights[i].sashPointsIn);
 
               thisObj.details.skylights[i].beadPointsOut = copyPointsOut(thisObj.details.skylights[i].sashPointsIn, 'bead');
               thisObj.details.skylights[i].beadLinesOut = setLines(thisObj.details.skylights[i].beadPointsOut);
-              thisObj.details.skylights[i].beadPointsIn = setPointsIn(thisObj.details.skylights[i], depths, 'sash-bead');
+              thisObj.details.skylights[i].beadPointsIn = setPointsIn(thisObj.details.skylights[i].beadLinesOut, depths, 'sash-bead');
               //------ for defined open directions of sash
               thisObj.details.skylights[i].beadLinesIn = setLines(thisObj.details.skylights[i].beadPointsIn);
 
-              thisObj.details.skylights[i].glassPoints = setPointsIn(thisObj.details.skylights[i], depths, 'sash-glass');
+              thisObj.details.skylights[i].glassPoints = setPointsIn(thisObj.details.skylights[i].beadLinesOut, depths, 'sash-glass');
               //          thisObj.details.skylights[i].glassLines = setLines(thisObj.details.skylights[i].beadPointsIn);
 
               $.merge(thisObj.details.skylights[i].parts, setParts(thisObj.details.skylights[i].sashPointsOut, thisObj.details.skylights[i].sashPointsIn));
@@ -145,51 +173,11 @@
               //----- set openPoints for sash
               thisObj.details.skylights[i].sashOpenDir = setOpenDir(thisObj.details.skylights[i].openDir, thisObj.details.skylights[i].beadLinesIn);
             }
-
-          //-------- if block has children and type is sash
-          } else {
-            if(thisObj.details.skylights[i].blockType === 'sash') {
-              thisObj.details.skylights[i].sashPointsOut = copyPointsOut(setPointsIn(thisObj.details.skylights[i], depths, 'sash-out'), 'sash');
-              thisObj.details.skylights[i].sashLinesOut = setLines(thisObj.details.skylights[i].sashPointsOut);
-              thisObj.details.skylights[i].sashPointsIn = setPointsIn(thisObj.details.skylights[i], depths, 'sash-in');
-              //          thisObj.details.skylights[i].sashLinesIn = setLines(thisObj.details.skylights[i].sashPointsIn);
-
-              thisObj.details.skylights[i].hardwarePoints = setPointsIn(thisObj.details.skylights[i], depths, 'hardware');
-              thisObj.details.skylights[i].hardwareLines = setLines(thisObj.details.skylights[i].sashPointsIn);
-
-              thisObj.details.skylights[i].beadPointsOut = copyPointsOut(thisObj.details.skylights[i].sashPointsIn, 'bead');
-              thisObj.details.skylights[i].beadLinesOut = setLines(thisObj.details.skylights[i].beadPointsOut);
-              thisObj.details.skylights[i].beadPointsIn = setPointsIn(thisObj.details.skylights[i], depths, 'sash-bead');
-              //------ for defined open directions of sash
-              thisObj.details.skylights[i].beadLinesIn = setLines(thisObj.details.skylights[i].beadPointsIn);
-
-              $.merge(thisObj.details.skylights[i].parts, setParts(thisObj.details.skylights[i].sashPointsOut, thisObj.details.skylights[i].sashPointsIn));
-
-              //----- set openPoints for sash
-              thisObj.details.skylights[i].sashOpenDir = setOpenDir(thisObj.details.skylights[i].openDir, thisObj.details.skylights[i].beadLinesIn);
-            }
           }
         }
       }
 
-
-
-      for(var i = 0; i < blocksQty; i++) {
-        if(thisObj.details.skylights[i].level) {
-          if(thisObj.details.skylights[i].children.length) {
-            //------- collect all impost pointsOut in impostIn
-            var bQty = blocksQty;
-            while(--bQty > -1) {
-              if(thisObj.details.skylights[i].id === thisObj.details.skylights[bQty].parent) {
-                $.merge(thisObj.details.skylights[i].impost.impostIn, thisObj.details.skylights[bQty].impostOut);
-              }
-            }
-
-            thisObj.details.skylights[i].parts.push( setImpostParts(thisObj.details.skylights[i].impost.impostIn) );
-          }
-        }
-            console.log('^^^^^^^^^', thisObj.details.skylights[i]);
-      }
+console.log('END++++', thisObj.details.skylights);
       console.log('svg finish', new Date(), new Date().getMilliseconds());
       defer.resolve(thisObj);
       return defer.promise;
@@ -209,8 +197,8 @@
           newDepth[p][el] *= coeffScale;
         }
       }
-      createSVGTemplate(sourceObj, newDepth).then(function(refult) {
-        defer.resolve(refult);
+      createSVGTemplate(sourceObj, newDepth).then(function(result) {
+        defer.resolve(result);
       });
       return defer.promise;
     }
@@ -328,16 +316,57 @@
     }
 
 
-    function setPointsIDXChildren(currBlock, blocks, points) {
+    function setPointsXChildren(currBlock, blocks, points, depths) {
       if(currBlock.children.length) {
         var blocksQty = blocks.length,
-            pointsIDQty = currBlock.pointsOut.length,
+            linesInQty = currBlock.linesIn.length,
+            impostVector1, impostVector2,
             indexChildBlock1, indexChildBlock2;
 
         //------- set points for impostAxis
         currBlock.impost.impostAxis = setPointsOut(currBlock.impost.impostID, points);
+        //------- create 2 impost vectors
+        impostVector1 = {
+          type: 'impost',
+          from: currBlock.impost.impostAxis[0],
+          to: currBlock.impost.impostAxis[1]
+        };
+        impostVector2 = {
+          type: 'impost',
+          from: currBlock.impost.impostAxis[1],
+          to: currBlock.impost.impostAxis[0]
+        };
+        setLineCoef(impostVector1);
+        setLineCoef(impostVector2);
+        impostVector1.coefC = getNewCoefC(depths, impostVector1, 'frame');
+        impostVector2.coefC = getNewCoefC(depths, impostVector2, 'frame');
+        //-------- finde cross points each impost vectors with lineIn of block
+        while(--linesInQty > -1) {
+          var ip1 = angular.copy(currBlock.impost.impostAxis[0]),
+              ip2 = angular.copy(currBlock.impost.impostAxis[1]),
+              cp1, cp2, isInside1, isInside2;
 
-        //-------- set indexes of children blocks
+          cp1 = getCoordCrossPoint(currBlock.linesIn[linesInQty], impostVector1);
+          cp2 = getCoordCrossPoint(currBlock.linesIn[linesInQty], impostVector2);
+          isInside1 = checkLineOwnPoint(cp1, currBlock.linesIn[linesInQty].to, currBlock.linesIn[linesInQty].from);
+          isInside2 = checkLineOwnPoint(cp2, currBlock.linesIn[linesInQty].to, currBlock.linesIn[linesInQty].from);
+          if(isInside1.x !== Infinity && isInside1.x >= 0 && isInside1.x <= 1 || isInside1.y !== Infinity && isInside1.y >=0 && isInside1.y <= 1) {
+//            ip1.id += '-in';
+            ip1.x = cp1.x;
+            ip1.y = cp1.y;
+            currBlock.impost.impostIn.push(ip1);
+          }
+          if(isInside2.x !== Infinity && isInside2.x >= 0 && isInside2.x <= 1 || isInside2.y !== Infinity && isInside2.y >=0 && isInside2.y <= 1) {
+//            ip2.id += '-in';
+            ip2.x = cp2.x;
+            ip2.y = cp2.y;
+            currBlock.impost.impostIn.push(ip2);
+          }
+
+        }
+        console.log('---------------', currBlock.impost.impostIn);
+        console.log('-+++++currBlock++++++++', currBlock);
+        //-------- get indexes of children blocks
         for(var i = 0; i < blocksQty; i++) {
           if(blocks[i].id === currBlock.children[0]) {
             indexChildBlock1 = i;
@@ -345,36 +374,41 @@
             indexChildBlock2 = i;
           }
         }
-//        console.log('+++++++++++++++');
-        //------- insert Ids of pointsOut in pointsID of children blocks
-        while(--pointsIDQty > -1) {
-          //------- check pointsOut of parent block as to impost
-          var position = setPointLocationToLine(currBlock.impost.impostAxis[0], currBlock.impost.impostAxis[1], currBlock.pointsOut[pointsIDQty]);
-//                console.log(currBlock.impost.impostAxis);
-//                console.log(currBlock.pointsOut[pointsIDQty]);
-//                console.log('position', position);
 
-          //------ block right side
-          if(position > 0) {
-            var exist = checkDoubleQPoints(currBlock.pointsOut[pointsIDQty].id, blocks[indexChildBlock2].pointsID);
-            if(!exist) {
-              blocks[indexChildBlock2].pointsID.push(currBlock.pointsOut[pointsIDQty].id);
-            }
+        //------- insert pointsIn of parent block in pointsIn of children blocks
+        collectPointsInXChildBlock(1, currBlock.impost.impostAxis, currBlock.pointsIn, indexChildBlock1, indexChildBlock2, blocks);
+
+        //------- insert impostIn of impost in pointsIn of children blocks
+        collectPointsInXChildBlock(0, currBlock.impost.impostAxis, currBlock.impost.impostIn, indexChildBlock1, indexChildBlock2, blocks);
+
+      }
+    }
+
+
+    function collectPointsInXChildBlock(param, impostVector, points, indexBlock1, indexBlock2, blocks) {
+      var pointsQty = points.length;
+      for(var i = 0; i < pointsQty; i++) {
+        //------- check pointsIn of parent block as to impost
+        var position = setPointLocationToLine(impostVector[0], impostVector[1], points[i]);
+        //------ block right side
+        if(position > 0) {
+          var exist = 0;
+          if(param && !i && blocks[indexBlock2].pointsIn.length) {
+            exist = checkDoubleQPoints(points[i].id, blocks[indexBlock2].pointsIn);
+          }
+          if(!exist) {
+            blocks[indexBlock2].pointsIn.push(points[i]);
+          }
           //------ block left side
-          } else if(position < 0){
-            var exist = checkDoubleQPoints(currBlock.pointsOut[pointsIDQty].id, blocks[indexChildBlock1].pointsID);
-            if(!exist) {
-              blocks[indexChildBlock1].pointsID.push(currBlock.pointsOut[pointsIDQty].id);
-            }
+        } else if(position < 0){
+          var exist = 0;
+          if(param && !i && blocks[indexBlock2].pointsIn.length) {
+            exist = checkDoubleQPoints(points[i].id, blocks[indexBlock1].pointsIn);
+          }
+          if(!exist) {
+            blocks[indexBlock1].pointsIn.push(points[i]);
           }
         }
-
-        //------- insert Ids of impost in pointsID of children blocks
-        for(var j = 0; j < currBlock.impost.impostID.length; j++) {
-          blocks[indexChildBlock1].pointsID.push(currBlock.impost.impostID[j]);
-          blocks[indexChildBlock2].pointsID.push(currBlock.impost.impostID[j]);
-        }
-
       }
     }
 
@@ -384,14 +418,14 @@
     }
 
 
-
-    function checkDoubleQPoints(newPointId, pointsID) {
+    function checkDoubleQPoints(newPointId, pointsIn) {
+      console.log('-----------', newPointId, pointsIn);
       var isExist = 0,
-          pointsIDQty = pointsID.length;
-      if(pointsIDQty){
-        while(--pointsIDQty > -1) {
-          if(pointsID[pointsIDQty].slice(0,3) === newPointId.slice(0,3)) {
-            if(pointsID[pointsIDQty].slice(0,3).indexOf('qa') + 1) {
+          pointsInQty = pointsIn.length;
+      if(pointsInQty){
+        while(--pointsInQty > -1) {
+          if(pointsIn[pointsInQty].id.slice(0,3) === newPointId.slice(0,3)) {
+            if(pointsIn[pointsInQty].id.slice(0,3).indexOf('qa') + 1) {
               isExist = 1;
             }
           }
@@ -469,151 +503,121 @@
     }
 
 
-    function setLineTypeAsToFrames(currLines, blocks) {
-      var currLinesQty = currLines.length;
-      while(--currLinesQty > -1) {
-        var blocksQty = blocks.length;
-        while(--blocksQty > -1) {
-          if(blocks[blocksQty].level === 1) {
-            var framesQty = blocks[blocksQty].linesOut.length;
-            while(--framesQty > -1) {
+//    function setLineTypeAsToFrames(currLines, blocks) {
+//      var currLinesQty = currLines.length;
+//      while(--currLinesQty > -1) {
+//        var blocksQty = blocks.length;
+//        while(--blocksQty > -1) {
+//          if(blocks[blocksQty].level === 1) {
+//            var framesQty = blocks[blocksQty].linesOut.length;
+//            while(--framesQty > -1) {
+//
+//              var isEquel1 = checkLineOwnPoint(currLines[currLinesQty].from, blocks[blocksQty].linesOut[framesQty].to, blocks[blocksQty].linesOut[framesQty].from);
+//              var isEquel2 = checkLineOwnPoint(currLines[currLinesQty].to, blocks[blocksQty].linesOut[framesQty].to, blocks[blocksQty].linesOut[framesQty].from);
+////              console.log('---------------');
+////              console.log('0000000', blocks[blocksQty].linesOut[framesQty].from.id, blocks[blocksQty].linesOut[framesQty].to.id, currLines[currLinesQty].from.id);
+////              console.log('1111111', isEquel1);
+////              console.log('0000000', blocks[blocksQty].linesOut[framesQty].from.id, blocks[blocksQty].linesOut[framesQty].to.id, currLines[currLinesQty].to.id);
+////              console.log('22222222', isEquel2);
+//
+//              if(isEquel1.x === Infinity || isEquel1.y === Infinity || isEquel2.x === Infinity || isEquel2.y === Infinity) {
+//                continue;
+//              } else {
+//                if(isEquel1.x > 0 && isEquel1.x < 1 && isEquel2.x > 0 && isEquel2.x < 1 || isNaN(isEquel1.x) && isNaN(isEquel2.x)) {
+//                  if(isEquel1.y >0 && isEquel1.y < 1 && isEquel2.y >0 && isEquel2.y < 1 || isNaN(isEquel1.y) && isNaN(isEquel2.y)) {
+//                    currLines[currLinesQty].type = 'frame';
+////                    console.log('++++++ frame ++++++');
+//                  }
+//                }
+//              }
+//            }
+//          }
+//        }
+//      }
+//    }
 
-              var isEquel1 = checkLineOwnPoint2(currLines[currLinesQty].from, blocks[blocksQty].linesOut[framesQty].to, blocks[blocksQty].linesOut[framesQty].from);
-              var isEquel2 = checkLineOwnPoint2(currLines[currLinesQty].to, blocks[blocksQty].linesOut[framesQty].to, blocks[blocksQty].linesOut[framesQty].from);
-//              console.log('---------------');
-//              console.log('0000000', blocks[blocksQty].linesOut[framesQty].from.id, blocks[blocksQty].linesOut[framesQty].to.id, currLines[currLinesQty].from.id);
-//              console.log('1111111', isEquel1);
-//              console.log('0000000', blocks[blocksQty].linesOut[framesQty].from.id, blocks[blocksQty].linesOut[framesQty].to.id, currLines[currLinesQty].to.id);
-//              console.log('22222222', isEquel2);
-
-              if(isEquel1.x === Infinity || isEquel1.y === Infinity || isEquel2.x === Infinity || isEquel2.y === Infinity) {
-                continue;
-              } else {
-                if(isEquel1.x > 0 && isEquel1.x < 1 && isEquel2.x > 0 && isEquel2.x < 1 || isNaN(isEquel1.x) && isNaN(isEquel2.x)) {
-                  if(isEquel1.y >0 && isEquel1.y < 1 && isEquel2.y >0 && isEquel2.y < 1 || isNaN(isEquel1.y) && isNaN(isEquel2.y)) {
-                    currLines[currLinesQty].type = 'frame';
-//                    console.log('++++++ frame ++++++');
-                  }
-                }
-              }
 
 
 
-            }
-          }
-        }
 
-      }
-    }
-
-    function checkLineOwnPoint2(point, lineTo, lineFrom) {
-        var check = {
-          x: (point.x - lineTo.x) / (lineFrom.x - lineTo.x),
-          y: (point.y - lineTo.y) / (lineFrom.y - lineTo.y)
-        };
-      if(check.x === -Infinity) {
-        check.x = Infinity;
-      } else if(check.y === -Infinity) {
-        check.y = Infinity;
-      }
-      return check;
-    }
-
-    function setPointsIn(block, depths, group) {
+    function setPointsIn(lines, depths, group) {
       var pointsIn = [],
-          linesQty = block.linesOut.length,
+          linesQty = lines.length,
           i = 0;
-      //  console.log('block.linesOut = ', block.level);
 
       for(; i < linesQty; i++) {
-        var newCoefC1 = getNewCoefC(depths, block.linesOut[i], group),
-            newCoefC2 = 0,
+        var newLine1 = {},
+            newLine2 = {},
             crossPoint = {},
             index;
+
+        newLine1 = angular.copy(lines[i]);
+//        console.log('newLine1****', newLine1);
+        newLine1.coefC = getNewCoefC(depths, newLine1, group);
+//        console.log('coefC1****', newLine1.coefC);
         if(i === (linesQty - 1)) {
           index = 0;
         } else {
           index = i+1;
         }
-        newCoefC2 = getNewCoefC(depths, block.linesOut[index], group);
-        crossPoint = getCrossPoint2Lines (block.linesOut[i], block.linesOut[index], newCoefC1, newCoefC2);
+        newLine2 = angular.copy(lines[index]);
+        newLine2.coefC = getNewCoefC(depths, newLine2, group);
+//        console.log('coefC2****', newLine2.coefC);
+        crossPoint = getCrossPoint2Lines(newLine1, newLine2);
+//        console.log('crossPoint****', crossPoint);
         pointsIn.push(crossPoint);
       }
       return pointsIn;
     }
 
+
+
     function getNewCoefC(depths, line, group) {
       var depth = 0, beadDepth = 20;
-//      console.log('group', group);
       switch(group) {
         case 'frame':
           if(line.type === 'frame') {
             depth = depths.frameDepth.c;
           } else if(line.type === 'impost') {
-            depth = depths.impostDepth.c / 2;
+            depth = depths.impostDepth.c/2;
           }
           break;
+
         case 'frame-bead':
-          if(line.type === 'frame') {
-            depth = depths.frameDepth.c + beadDepth;
-          } else if(line.type === 'impost') {
-            depth = (depths.impostDepth.c / 2) + beadDepth;
-          }
+        case 'sash-bead':
+          depth = beadDepth;
           break;
         case 'frame-glass':
           if(line.type === 'frame') {
-            depth = depths.frameDepth.d;
+            depth = depths.frameDepth.d - depths.frameDepth.c;
           } else if(line.type === 'impost') {
-            depth = depths.impostDepth.b;
+            depth = depths.impostDepth.b - depths.impostDepth.c/2;
           }
           break;
+
         case 'sash-out':
           if(line.type === 'frame') {
-            depth = depths.frameDepth.b;
+            depth = depths.frameDepth.b - depths.frameDepth.c;
           } else if(line.type === 'impost') {
-            depth = depths.impostDepth.d;
+            depth = depths.impostDepth.d - depths.impostDepth.c/2;
           }
           break;
         case 'sash-in':
-          if(line.type === 'frame') {
-            depth = depths.frameDepth.b + depths.sashDepth.c;
-          } else if(line.type === 'impost') {
-            depth = depths.impostDepth.d + depths.sashDepth.c;
-          }
+          depth = depths.sashDepth.c;
           break;
         case 'hardware':
-          if(line.type === 'frame') {
-            depth = depths.frameDepth.b + depths.sashDepth.b;
-          } else if(line.type === 'impost') {
-            depth = depths.impostDepth.d + depths.sashDepth.b;
-          }
+          depth = depths.sashDepth.b;
           break;
-        case 'sash-bead':
-          if(line.type === 'frame') {
-            depth = depths.frameDepth.b + depths.sashDepth.c + beadDepth;
-          } else if(line.type === 'impost') {
-            depth = depths.impostDepth.d + depths.sashDepth.c + beadDepth;
-          }
-          break;
+
         case 'sash-glass':
-          if(line.type === 'frame') {
-            depth = depths.frameDepth.b + depths.sashDepth.d;
-          } else if(line.type === 'impost') {
-            depth = depths.impostDepth.d + depths.sashDepth.d;
-          }
+          depth = depths.sashDepth.d - depths.sashDepth.c;
           break;
       }
-//        console.log('depth', line.type);
-//        console.log('depth', depth);
       var newCoefC = line.coefC - (depth * Math.hypot(line.coefA, line.coefB));
       return newCoefC;
     }
 
-
-
-    function getCrossPoint2Lines(line1, line2, coefC1, coefC2) {
-      //  console.log('block.linesOut = ', line1);
-      //  console.log('block.linesOut = ', line2);
+    function getCrossPoint2Lines(line1, line2) {
       var crossPoint = {},
           coord = {},
           isParall = checkParallel(line1, line2);
@@ -633,16 +637,17 @@
           coefB: -line1.coefA,
           coefC: (line1.coefA * line1.to.y - line1.coefB * line1.to.x)
         };
-        coord = getCoordCrossPoint(line1, normal, coefC1, normal.coefC);
+        coord = getCoordCrossPointABS(line1, normal);
       } else {
-        coord = getCoordCrossPoint(line1, line2, coefC1, coefC2);
+        coord = getCoordCrossPointABS(line1, line2);
       }
       //  console.log('coord = ', coord);
       crossPoint.x = coord.x;
       crossPoint.y = coord.y;
       crossPoint.type = (line1.type === 'impost' || line2.type === 'impost') ? 'impost' : 'frame';
       crossPoint.dir = (line1.to.dir === 'curv') ? 'curv' : 'line';
-      crossPoint.id = line1.to.id +'-in';
+//      crossPoint.id = line1.to.id + '-' + group;
+      crossPoint.id = line1.to.id;
       crossPoint.view = 1;
       return crossPoint;
     }
@@ -654,24 +659,8 @@
       return (k1 === k2) ? 1 : 0;
     }
 
-    function getCoordCrossPoint(line1, line2, coefC1, coefC2) {
-//      console.log('Cross Point line1=====', line1);
-//      console.log('Cross Point line2=====', line2);
-      var base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
-          baseX = (line1.coefB * (coefC2)) - (line2.coefB * (coefC1)),
-          baseY = (line2.coefA * (coefC1)) - (line1.coefA * (coefC2)),
-          crossPoint2 = {
-            x: baseX / base,
-            y: baseY / base
-          },
-          crossPoint = {
-            x: Math.abs(baseX / base),
-            y: Math.abs(baseY / base)
-          };
-//      console.log('Cross Point crossPoint2=====', crossPoint2);
-//      console.log('Cross Point crossPoint=====', crossPoint);
-      return crossPoint;
-    }
+
+
 
 
     function setParts(pointsOut, pointsIn) {
@@ -987,10 +976,12 @@
             x: (dim.minX + dim.maxX)/2,
             y: (dim.minY + dim.maxY)/2
           },
-          dirQty = direction.length,
-          index = 0;
+          dirQty = direction.length;
+console.log('DIR line===', beadLines);
+      console.log('DIR newPoints===', newPoints);
+      console.log('DIR geomCenter===', geomCenter);
 
-      for(; index < dirQty; index++) {
+      for(var index = 0; index < dirQty; index++) {
         var part = {
           type: 'sash-dir',
           points: []
@@ -1065,14 +1056,14 @@
     function getCrossPointSashDir(position, centerGeom, angel, lines) {
       var sashDirVector = cteateLineByAngel(centerGeom, angel);
       var crossPoints = getCrossPointInBlock(position, sashDirVector, lines);
-//      console.log('new coord----------', crossPoints);
+      console.log('DIR new coord----------', crossPoints);
       return crossPoints;
     }
 
 
 
     function cteateLineByAngel(center, angel) {
-//      console.log(angel);
+      console.log(angel);
       var k =  Math.round(Math.tan(angel * Math.PI / 180)),
           lineMark = {
             center: center,
@@ -1090,17 +1081,19 @@
 //      console.log('lines @@@@@@', lines);
       for(var l = 0; l < linesQty; l++) {
         var coord, checkPoint, intersect;
-//        console.log('line ++++', lines[l]);
-        //    console.log('line ++++', lines[l]);
-        coord = getCoordCrossPointInBlock(vector, lines[l], vector.coefC, lines[l].coefC);
-//        console.log('coord ++++', coord);
+        console.log('DIR line ++++', lines[l]);
+
+        coord = getCoordCrossPoint(vector, lines[l]);
+        console.log('DIR coord ++++', coord);
         if(coord.x >= 0 && coord.y >= 0) {
 
           //------ checking is cross point inner of line
+//          var checkPoint2 = checkLineOwnPoint(coord, lines[l].to, lines[l].from);
+//          console.log('^^^^^checkPoint^^^^', checkPoint2);
           checkPoint = checkLineOwnPoint(coord, lines[l].to, lines[l].from);
-//                console.log('^^^^^checkPoint^^^^', checkPoint);
+          console.log('^^^^^checkPoint ABS^^^^', checkPoint);
           if(checkPoint.x >= 0 && checkPoint.x <= 1 || checkPoint.y >=0 && checkPoint.y <= 1) {
-
+//          if(isInside1.x !== Infinity && isInside1.x >= 0 && isInside1.x <= 1 || isInside1.y !== Infinity && isInside1.y >=0 && isInside1.y <= 1) {
 
             if(lines[l].dir === 'curv') {
               intersect = getIntersectionInCurve(l, linesQty, lines, vector, coord);
@@ -1142,24 +1135,7 @@
       }
     }
 
-    function getCoordCrossPointInBlock(line1, line2, coefC1, coefC2) {
-      var base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
-          baseX = (line1.coefB * (coefC2)) - (line2.coefB * (coefC1)),
-          baseY = (line2.coefA * (coefC1)) - (line1.coefA * (coefC2)),
-          crossPoint = {
-            x: baseX / base,
-            y: baseY / base
-          };
-      return crossPoint;
-    }
 
-    function checkLineOwnPoint(point, lineTo, lineFrom) {
-      var check = {
-        x: Math.abs( (point.x - lineFrom.x) / (lineTo.x - lineFrom.x) ),
-        y: Math.abs( (point.y - lineFrom.y) / (lineTo.y - lineFrom.y) )
-      };
-      return check;
-    }
 
 
     function getIntersectionInCurve(l, linesQty, lines, vector, coord) {
@@ -1352,26 +1328,6 @@
 
     //---------- for impost
 
-    function setImpostPoints(blocks, parentID, points) {
-      var impostPoints = [],
-          blocksQty = blocks.length,
-          pointsQty = points.length;
-      while(--blocksQty > -1) {
-        if(blocks[blocksQty].id === parentID) {
-
-          //---- find impost in points
-          while(--pointsQty > -1) {
-            //------ if point match to impostId
-            if(points[pointsQty].id === blocks[blocksQty].impost.impostID[0]+'-in' || points[pointsQty].id === blocks[blocksQty].impost.impostID[1]+'-in' ) {
-              impostPoints.push(JSON.parse(JSON.stringify(points[pointsQty])));
-            }
-          }
-        }
-      }
-      return impostPoints;
-    }
-
-
 
     function setImpostParts(points) {
       var pointsQty = points.length,
@@ -1396,14 +1352,63 @@
 
 
 
+    function getCoordCrossPoint(line1, line2) {
+      var base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
+          baseX = (line1.coefB * (line2.coefC)) - (line2.coefB * (line1.coefC)),
+          baseY = (line2.coefA * (line1.coefC)) - (line1.coefA * (line2.coefC)),
+          crossPoint = {
+            x: parseFloat( (baseX/base).toFixed(2) ),
+            y: parseFloat( (baseY/base).toFixed(2) )
+          };
+      return crossPoint;
+    }
+
+
+    function getCoordCrossPointABS(line1, line2) {
+      var base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
+          baseX = (line1.coefB * (line2.coefC)) - (line2.coefB * (line1.coefC)),
+          baseY = (line2.coefA * (line1.coefC)) - (line1.coefA * (line2.coefC)),
+          crossPoint = {
+            x: Math.abs(baseX / base),
+            y: Math.abs(baseY / base)
+          };
+      return crossPoint;
+    }
 
 
 
-    ////////////////////////////////////////////
+
+    function checkLineOwnPoint(point, lineTo, lineFrom) {
+      var check = {
+        x: parseFloat( ( (point.x - lineTo.x)/(lineFrom.x - lineTo.x) ).toFixed(2) ),
+        y: parseFloat( ( (point.y - lineTo.y)/(lineFrom.y - lineTo.y) ).toFixed(2) )
+      };
+      if(check.x === -Infinity) {
+        check.x = Infinity;
+      } else if(check.y === -Infinity) {
+        check.y = Infinity;
+      }
+      if(check.x === -0) {
+        check.x = 0;
+      } else if(check.y === -0) {
+        check.y = 0;
+      }
+      return check;
+    }
 
 
 
-
+    function checkLineOwnPointABS(point, lineTo, lineFrom) {
+//      var check = {
+//        x: Math.abs( (point.x - lineFrom.x)/(lineTo.x - lineFrom.x) ),
+//        y: Math.abs( (point.y - lineFrom.y)/(lineTo.y - lineFrom.y) )
+//      };
+      var check = {
+        x: Math.abs( (point.x - lineTo.x)/(lineFrom.x - lineTo.x) ),
+        y: Math.abs( (point.y - lineTo.y)/(lineFrom.y - lineTo.y) )
+      };
+      return check;
+    }
 
 
 

@@ -1,6 +1,3 @@
-
-// controllers/change-lang.js
-
 (function(){
   'use strict';
   /**
@@ -10,30 +7,39 @@
     .module('SettingsModule')
     .controller('ChangeLangCtrl', changeLangCtrl);
 
-  function changeLangCtrl($scope, $translate, $timeout, globalConstants, localStorage, UserStor, NavMenuServ) {
+  function changeLangCtrl($location, $translate, $timeout, globalConstants, GlobalStor, UserStor, NavMenuServ) {
 
-    $scope.global = localStorage.storage;
-    $scope.userInfo = UserStor.userInfo;
-    $scope.language = {
+    var thisCtrl = this;
+    thisCtrl.constants = globalConstants;
+    thisCtrl.U = UserStor;
+
+    thisCtrl.config = {
       DELAY_START: globalConstants.STEP,
       typing: 'on'
     };
 
-    $scope.switchLang = function (languageId) {
-      $translate.use($scope.global.languages[languageId].label);
-      UserStor.userInfo.langLabel = $scope.global.languages[languageId].label;
-      UserStor.userInfo.langName = $scope.global.languages[languageId].name;
+    //------ clicking
+    thisCtrl.switchLang = switchLang;
+    thisCtrl.gotoSettingsPage = gotoSettingsPage;
+
+
+    //============ methods ================//
+
+    function switchLang(languageId) {
+      $translate.use(globalConstants.languages[languageId].label);
+      UserStor.userInfo.langLabel = globalConstants.languages[languageId].label;
+      UserStor.userInfo.langName = globalConstants.languages[languageId].name;
       //----- if Voice Helper switch on
-      if($scope.global.isVoiceHelper) {
-        $scope.global.voiceHelperLanguage = NavMenuServ.setLanguageVoiceHelper();
+      if(GlobalStor.global.isVoiceHelper) {
+        GlobalStor.global.voiceHelperLanguage = NavMenuServ.setLanguageVoiceHelper();
       }
       $timeout(function() {
-        $scope.global.isOpenSettingsPage = false;
-        $scope.global.startProgramm = false;
-        $scope.global.isReturnFromDiffPage = true;
-        $scope.global.gotoMainPage();
+        $location.path('/main');
       }, 200);
-    };
+    }
 
+    function gotoSettingsPage() {
+      $location.path('/settings');
+    }
   }
 })();

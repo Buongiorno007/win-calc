@@ -335,7 +335,7 @@ body {
   stroke-width: 2;
 }
 .frame-icon {
-  fill: #D2D2D2;
+  fill: #aaa;
   stroke: #000;
   stroke-width: 4;
 }
@@ -343,7 +343,9 @@ body {
   @include transition(all 0.1s linear);
   fill: rgba(155, 204, 255, 0.20);
 }
-
+.glass-icon {
+  fill: #94DEEE;
+}
 .active_svg {
   fill: rgba(34, 34, 255, 0.5)!important;
 }
