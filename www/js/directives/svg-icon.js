@@ -30,7 +30,7 @@
 
 
         function buildSVG(template, widthSVG, heightSVG) {
-          var mainSVG, mainGroup, padding = 1;
+          var mainSVG, mainGroup, padding = 1, points, dimMaxMin, scale, blocksQty;
           if(template && !$.isEmptyObject(template)) {
             d3.select('.tamlateIconSVG').remove();
 
@@ -39,19 +39,21 @@
               'height': heightSVG,
               'class': 'tamlateIconSVG'
             });
-            var scale = setTemplateScale(template, widthSVG, heightSVG, padding);
+            points = SVGServ.collectAllPointsOut(template.details);
+            dimMaxMin = getMaxMinCoord(points);
+            scale = setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
 
             mainGroup = mainSVG.append("g").attr({
               'id': 'main_group',
               'transform': 'translate(0,0) scale(' + scale + ')'
             });
 
-            var blocksQty = template.details.skylights.length;
+            blocksQty = template.details.length;
 
             for (var i = 0; i < blocksQty; i++) {
-              if (template.details.skylights[i].level > 0) {
-                mainGroup.selectAll('path.' + template.details.skylights[i].id).data(template.details.skylights[i].parts).enter().append('path').attr({
-                    'blockId': template.details.skylights[i].id,
+              if (template.details[i].level > 0) {
+                mainGroup.selectAll('path.' + template.details[i].id).data(template.details[i].parts).enter().append('path').attr({
+                    'blockId': template.details[i].id,
                     //'class': function(d) { return d.type; },
                     'class': function (d) {
                       return (d.type === 'glass') ? 'glass-icon' : 'frame-icon'
@@ -76,9 +78,8 @@
           }
         }
 
-        function setTemplateScale(template, width, height, padding) {
-          var dim = getMaxMinCoord(template.details.points),
-              windowW = width,
+        function setTemplateScale(dim, width, height, padding) {
+          var windowW = width,
               windowH = height,
               scale, del;
 

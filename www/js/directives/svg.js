@@ -31,7 +31,7 @@
 
 
         function buildSVG(template, widthSVG, heightSVG) {
-          var mainSVG, mainGroup, padding = 1;
+          var mainSVG, mainGroup, padding = 1, points, dimMaxMin, scale, position, blocksQty;
           if(template && !$.isEmptyObject(template)) {
             d3.select('#tamlateSVG').remove();
 
@@ -48,8 +48,10 @@
               //            'viewBox': "0 0 800 800",
               //            'preserveAspectRatio': "xMidYMid meet"
             });
-            var scale = SVGServ.setTemplateScale(template, widthSVG, heightSVG, padding);
-            var position = SVGServ.setTemplatePosition(template, widthSVG, heightSVG, scale);
+            points = SVGServ.collectAllPointsOut(template.details);
+            dimMaxMin = getMaxMinCoord(points);
+            scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
+            position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale);
 
             mainGroup = mainSVG.append("g").attr({
               'id': 'main_group',
@@ -58,12 +60,12 @@
 
             //          console.log('++++++ template +++++++', mainGroup);
             //========
-            var blocksQty = template.details.skylights.length;
+            blocksQty = template.details.length;
 
             for (var i = 0; i < blocksQty; i++) {
-              if (template.details.skylights[i].level > 0) {
-                mainGroup.selectAll('path.' + template.details.skylights[i].id).data(template.details.skylights[i].parts).enter().append('path').attr({
-                    'blockId': template.details.skylights[i].id,
+              if (template.details[i].level > 0) {
+                mainGroup.selectAll('path.' + template.details[i].id).data(template.details[i].parts).enter().append('path').attr({
+                    'blockId': template.details[i].id,
                     //'class': function(d) { return d.type; },
                     'class': function (d) {
                       return (d.type === 'glass') ? 'glass' : 'frame'
@@ -81,21 +83,21 @@
 
 
                 //----- sash open direction
-                if (template.details.skylights[i].sashOpenDir) {
-                  var openSashMarks = mainGroup.selectAll('path.sash_mark.' + template.details.skylights[i].id).data(template.details.skylights[i].sashOpenDir).enter().append('path').classed('sash_mark', true).attr('d', function (d) {
+                if (template.details[i].sashOpenDir) {
+                  var openSashMarks = mainGroup.selectAll('path.sash_mark.' + template.details[i].id).data(template.details[i].sashOpenDir).enter().append('path').classed('sash_mark', true).attr('d', function (d) {
                       return d.path;
                     });
                 }
 
 
                 //---- corner markers
-                if (template.details.skylights[i].level === 1) {
+                if (template.details[i].level === 1) {
                   //----- create array of frame points with corner = true
-                  var corners = template.details.skylights[i].pointsOut.filter(function (item) {
+                  var corners = template.details[i].pointsOut.filter(function (item) {
                     return item.corner > 0;
                   });
-                  var cornerMarks = mainGroup.selectAll('circle.corner_mark.' + template.details.skylights[i].id).data(corners).enter().append('circle').attr({
-                      'blockId': template.details.skylights[i].id,
+                  var cornerMarks = mainGroup.selectAll('circle.corner_mark.' + template.details[i].id).data(corners).enter().append('circle').attr({
+                      'blockId': template.details[i].id,
                       'class': 'corner_mark',
                       'parent': function (d) {
                         return d.id;
@@ -115,7 +117,10 @@
             }
 
             //--------- set clicking to all imposts
-            DesignServ.initAllImposts();
+            if (scope.typeConstruction === 'edit') {
+              DesignServ.initAllImposts();
+            }
+
             console.log('buildSVG done!!!!!!!!!', new Date(), new Date().getMilliseconds());
           }
         }

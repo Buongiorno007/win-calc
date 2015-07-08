@@ -37,7 +37,6 @@
       deleteArc: deleteArc,
       workingWithAllArcs: workingWithAllArcs,
       //-------- edit impost
-      isExistImpostInSelected: isExistImpostInSelected,
       createImpost: createImpost,
       deleteImpost: deleteImpost,
       //-------- mirror
@@ -276,7 +275,7 @@
     function createSash(type, glassObj) {
       var glass = glassObj.__data__,
           blockID = glassObj.attributes.blockId.nodeValue,
-          blocks = DesignStor.design.templateSourceTEMP.details.skylights,
+          blocks = DesignStor.design.templateSourceTEMP.details,
           blocksQty = blocks.length,
           dim = getMaxMinCoord(glass.points);
 //      if(glass.square > globalConstants.squareLimit && (dim.maxX - dim.minX) > globalConstants.widthLimit && (dim.maxY - dim.minY) > globalConstants.heightLimint) {
@@ -362,17 +361,16 @@
 
     function deleteSash(glassObj) {
       var blockID = glassObj.attributes.blockId.nodeValue,
-          blocks = DesignStor.design.templateSourceTEMP.details.skylights,
+          blocks = DesignStor.design.templateSourceTEMP.details,
           blocksQty = blocks.length;
-
       for(var b = 0; b < blocksQty; b++) {
         if (blocks[b].id === blockID) {
           blocks[b].blockType = 'frame';
           delete blocks[b].openDir;
           delete blocks[b].handlePos;
+          delete blocks[b].gridId;
         }
       }
-
       //----- change Template
       rebuildSVGTemplate();
     }
@@ -389,33 +387,20 @@
       var cornerID = cornerObj.__data__.id,
           cornerN = Number(cornerID.replace(/\D+/g, "")),
           blockID = cornerObj.attributes.blockId.nodeValue,
-          pointsSource = DesignStor.design.templateSourceTEMP.details.points,
-          blocksSource = DesignStor.design.templateSourceTEMP.details.skylights,
-          blocks = DesignStor.design.templateTEMP.details.skylights,
-          blocksQty = blocks.length,
-          b = 0;
-      for(; b < blocksQty; b++) {
-        if(blocks[b].id === blockID) {
+          blocksSource = DesignStor.design.templateSourceTEMP.details,
+          blocks = DesignStor.design.templateTEMP.details,
+          blocksQty = blocks.length;
+
+      while(--blocksQty > -1) {
+        if(blocks[blocksQty].id === blockID) {
           //---- set simple corner
           if(cornerObj.__data__.view) {
-            startCreateCornerPoint(cornerID, cornerN, blocks[b].linesOut, b, blocksSource, pointsSource);
+            startCreateCornerPoint(cornerID, cornerN, blocks[blocksQty].linesOut, blocksQty, blocksSource);
 
-            //----- change curve corner to simple
+          //----- change curve corner to simple
           } else {
-            //---- delete qc point Id in blocks
-            removePointId(['qc'+cornerN], blockID, blocksSource);
-            //---- delete qc point in points
-            removePoint(['qc'+cornerN], pointsSource);
-          }
-
-        }
-      }
-      //----- hide this point
-      if(cornerObj.__data__.view) {
-        var pointsQty = pointsSource.length;
-        for (var i = 0; i < pointsQty; i++) {
-          if (pointsSource[i].id === cornerID) {
-            pointsSource[i].view = 0;
+            //---- delete qc point in blocks
+            removePoint(['qc'+cornerN], blockID, blocksSource);
           }
         }
       }
@@ -429,63 +414,55 @@
       var cornerID = cornerObj.__data__.id,
           cornerN = Number(cornerID.replace(/\D+/g, "")),
           blockID = cornerObj.attributes.blockId.nodeValue,
-          pointsSource = DesignStor.design.templateSourceTEMP.details.points,
-          blocksSource = DesignStor.design.templateSourceTEMP.details.skylights,
-          blocks = DesignStor.design.templateTEMP.details.skylights,
-          blocksQty = blocks.length,
-          b = 0;
-//      console.log('cornerID+++', cornerID);
-      for(; b < blocksQty; b++) {
-        if(blocks[b].id === blockID) {
+          blocksSource = DesignStor.design.templateSourceTEMP.details,
+          blocks = DesignStor.design.templateTEMP.details,
+          blocksQty = blocks.length;
+
+      while(--blocksQty > -1) {
+        if(blocks[blocksQty].id === blockID) {
           //----- set curve corner
           if (cornerObj.__data__.view) {
-
-            startCreateCornerPoint(cornerID, cornerN, blocks[b].linesOut, b, blocksSource, pointsSource);
-            createQCPoint(cornerN, cornerObj.__data__, b, blocksSource, pointsSource);
+            startCreateCornerPoint(cornerID, cornerN, blocks[blocksQty].linesOut, blocksQty, blocksSource);
+            createQCPoint(cornerN, cornerObj.__data__, blocksQty, blocksSource);
 
           //----- change simple corner to corve
           } else {
-
-            var linesQty = blocks[b].linesOut.length;
+            var linesQty = blocks[blocksQty].linesOut.length;
             for (var l = 0; l < linesQty; l++) {
-              if (blocks[b].linesOut[l].from.id === 'c'+cornerN+'-2' && blocks[b].linesOut[l].to.id === 'c'+cornerN+'-1' ) {
-                var qcPoint = setQPointCoord(cornerN, blocks[b].linesOut[l]);
-                createQCPoint(cornerN, qcPoint, b, blocksSource, pointsSource);
+              if (blocks[blocksQty].linesOut[l].from.id === 'c'+cornerN+'-2' && blocks[blocksQty].linesOut[l].to.id === 'c'+cornerN+'-1' ) {
+                var qcPoint = setQPointCoord(cornerN, blocks[blocksQty].linesOut[l]);
+                createQCPoint(cornerN, qcPoint, blocksQty, blocksSource);
               }
             }
-
           }
         }
       }
-      //----- hide this point
-      if (cornerObj.__data__.view) {
-        for (var i = 0; i < pointsSource.length; i++) {
-          if (pointsSource[i].id === cornerID) {
-            pointsSource[i].view = 0;
-          }
-        }
-      }
-
       //----- change Template
       rebuildSVGTemplate();
     }
 
 
-    function startCreateCornerPoint(cornerID, cornerN, lines, blockIndex, blocks, points) {
-      var linesQty = lines.length,
-          l = 0;
-      for(; l < linesQty; l++) {
+    function startCreateCornerPoint(cornerID, cornerN, lines, blockIndex, blocks) {
+      var linesQty = lines.length;
+      for(var l = 0; l < linesQty; l++) {
         if(lines[l].from.id === cornerID) {
-          createCornerPoint(1, cornerN, lines[l], blockIndex, blocks, points);
+          createCornerPoint(1, cornerN, lines[l], blockIndex, blocks);
         } else if(lines[l].to.id === cornerID) {
-          createCornerPoint(2, cornerN, lines[l], blockIndex, blocks, points);
+          createCornerPoint(2, cornerN, lines[l], blockIndex, blocks);
+        }
+      }
+      //----- hide this point
+      var pointsOutQty = blocks[blockIndex].pointsOut.length;
+      while(--pointsOutQty > -1) {
+        if(blocks[blockIndex].pointsOut[pointsOutQty].id === cornerID) {
+          blocks[blockIndex].pointsOut[pointsOutQty].view = 0;
         }
       }
     }
 
 
 
-    function createCornerPoint(pointN, cornerN, line, blockIndex, blocks, points) {
+    function createCornerPoint(pointN, cornerN, line, blockIndex, blocks) {
       var dictance = 200,
           cornerPoint = {
             type:'corner',
@@ -499,13 +476,11 @@
         cornerPoint.x = ( line.from.x * dictance + line.to.x * (line.size - dictance))/ line.size;
         cornerPoint.y = ( line.from.y * dictance + line.to.y * (line.size - dictance))/ line.size;
       }
-
-      blocks[blockIndex].pointsID.push(cornerPoint.id);
-      points.push(cornerPoint);
+      blocks[blockIndex].pointsOut.push(cornerPoint);
     }
 
 
-    function createQCPoint(cornerN, framePoint, blockIndex, blocks, points) {
+    function createQCPoint(cornerN, framePoint, blockIndex, blocks) {
       var QCPoint = {
         type:'corner',
         id: 'qc' + cornerN,
@@ -513,8 +488,7 @@
         y: framePoint.y,
         dir:'curv'
       };
-      blocks[blockIndex].pointsID.push(QCPoint.id);
-      points.push(QCPoint);
+      blocks[blockIndex].pointsOut.push(QCPoint);
     }
 
 
@@ -548,6 +522,8 @@
             break;
         }
       }
+      coordQP.y = parseFloat(coordQP.y.toFixed(2));
+      coordQP.x = parseFloat(coordQP.x.toFixed(2));
       return coordQP;
     }
 
@@ -556,41 +532,38 @@
       var cornerID = cornerObj.__data__.id,
           cornerN = Number(cornerID.replace(/\D+/g, "")),
           blockID = cornerObj.attributes.blockId.nodeValue,
-          pointsSource = DesignStor.design.templateSourceTEMP.details.points,
-          blocksSource = DesignStor.design.templateSourceTEMP.details.skylights,
-          pointsQty = pointsSource.length;
+          blocksSource = DesignStor.design.templateSourceTEMP.details,
+          blocksSourceQty = blocksSource.length;
 
-      //------- delete corner point IDs in block (pointsID)
-      removePointId(['c' + cornerN + '-1', 'c' + cornerN + '-2', 'qc'+cornerN], blockID, blocksSource);
+      //------- delete corner point in block
+      removePoint(['c' + cornerN + '-1', 'c' + cornerN + '-2', 'qc'+cornerN], blockID, blocksSource);
 
-      while (--pointsQty > -1) {
-        //----- show this frame point
-        if (pointsSource[pointsQty].id === cornerID) {
-          pointsSource[pointsQty].view = 1;
+      while(--blocksSourceQty > -1) {
+        if(blocksSource[blocksSourceQty].id === blockID) {
+          var pointsOutQty = blocksSource[blocksSourceQty].pointsOut.length;
+          while(--pointsOutQty > -1) {
+            if(blocksSource[blocksSourceQty].pointsOut[pointsOutQty].id === cornerID) {
+              blocksSource[blocksSourceQty].pointsOut[pointsOutQty].view = 1;
+            }
+          }
         }
       }
-      //----- delete corner points
-      removePoint(['c' + cornerN + '-1', 'c' + cornerN + '-2', 'qc'+cornerN], pointsSource);
 
       //----- change Template
       rebuildSVGTemplate();
     }
 
 
-
-
-
-
-    function removePointId(criterions, blockId, blocks) {
+    function removePoint(criterions, blockId, blocks) {
       var blockQty = blocks.length;
       while(--blockQty > -1) {
         if(blocks[blockQty].id === blockId) {
-          var idQty = blocks[blockQty].pointsID.length;
-          while(--idQty > -1) {
+          var pointsQty = blocks[blockQty].pointsOut.length;
+          while(--pointsQty > -1) {
             var critQty = criterions.length;
             while(--critQty > -1) {
-              if(blocks[blockQty].pointsID[idQty] === criterions[critQty]) {
-                blocks[blockQty].pointsID.splice(idQty, 1);
+              if(blocks[blockQty].pointsOut[pointsQty].id === criterions[critQty]) {
+                blocks[blockQty].pointsOut.splice(pointsQty, 1);
                 break;
               }
             }
@@ -600,18 +573,6 @@
     }
 
 
-    function removePoint(criterions, points) {
-      var pointsQty = points.length;
-      while(--pointsQty > -1) {
-        var critQty = criterions.length;
-        while(--critQty > -1) {
-          if(points[pointsQty].id === criterions[critQty]) {
-            points.splice(pointsQty, 1);
-            break;
-          }
-        }
-      }
-    }
 
 
 
@@ -626,12 +587,10 @@
       if(arc.type === 'frame') {
         var arcN = Number(arc.points[0].id.replace(/\D+/g, "")),
             blockID = arcObj.attributes.blockId.nodeValue,
-            blocks = DesignStor.design.templateTEMP.details.skylights,
+            blocks = DesignStor.design.templateTEMP.details,
             blocksQty = blocks.length,
-            blocksSource = DesignStor.design.templateSourceTEMP.details.skylights,
-            pointsSource = DesignStor.design.templateSourceTEMP.details.points,
-            pointsQty = pointsSource.length,
-            currBlockIndex, currLine, position, shift;
+            blocksSource = DesignStor.design.templateSourceTEMP.details,
+            currBlockIndex, currLine, position;
 
         //------- find line and block in order to insert Q point
         for(var b = 0; b < blocksQty; b++) {
@@ -664,23 +623,17 @@
         }
         var coordQ = setQPointCoord(position, currLine);
         if(position === 1) {
-          shift = coordQ.y;
-          for(var j = 0; j < pointsQty; j++) {
-            pointsSource[j].y += shift;
-          }
+          shiftingAllPoints(1, 0, coordQ.y, blocksSource);
           coordQ.y = 0;
         } else if(position === 4) {
-          shift = coordQ.x;
-          for(var j = 0; j < pointsQty; j++) {
-            pointsSource[j].x += shift;
-          }
+          shiftingAllPoints(1, 1, coordQ.x, blocksSource);
           coordQ.x = 0;
         }
         //------- rebuild linesOut after shifting of points
-        if(shift) {
-          currLine = rebuildLinesOut(arc.points, currBlockIndex, blocksSource, pointsSource);
+        if(!coordQ.y || !coordQ.x) {
+          currLine = rebuildLinesOut(arc.points, currBlockIndex, blocksSource);
         }
-        createArcPoint(arcN, coordQ, currBlockIndex, blocksSource, pointsSource);
+        createArcPoint(arcN, coordQ, currBlockIndex, blocksSource);
 
         //------ create Q points (left/right) of crossing impost with arc and new point of impost
         var impostsQty = imposts.length;
@@ -689,8 +642,7 @@
           imposts.sort(function(a,b) {
             return a.indexBlock - b.indexBlock;
           });
-//          console.log('impostsSort!!!!!!!!!!!', JSON.stringify(imposts));
-          setQPointImpostArc(arcN, imposts, currLine.from, currLine.to, coordQ, blocks, blocksSource, pointsSource);
+          setQPointImpostArc(arcN, imposts, currLine.from, currLine.to, coordQ, blocks, blocksSource);
         }
 
         //------ change templateTEMP
@@ -731,9 +683,11 @@
                   position2 = SVGServ.setPointLocationToLine(currLine.from, currLine.to, blocks[b].impost.impostAxis[1]);
 //              console.log('position++++++++=',position1, position2);
               if(position1 > 0) {
-                impost.pointIdChange = blocks[b].impost.impostAxis[0].id;
+//                impost.pointIdChange = blocks[b].impost.impostAxis[0].id;
+                impost.pointIdChange = 0;
               } else if(position2 > 0) {
-                impost.pointIdChange = blocks[b].impost.impostAxis[1].id;
+//                impost.pointIdChange = blocks[b].impost.impostAxis[1].id;
+                impost.pointIdChange = 1;
               }
               imposts.push(impost);
             }
@@ -743,14 +697,56 @@
       return imposts;
     }
 
+    function shiftingAllPoints(dir, param, shift, blocks) {
+      var blocksQty = blocks.length;
+      while(--blocksQty > -1) {
+        if(blocks[blocksQty].level) {
+          //------ pointsOut
+          if(blocks[blocksQty].pointsOut.length) {
+            shiftingCoordPoints(dir, param, blocks[blocksQty].pointsOut, blocks[blocksQty].pointsOut.length, shift);
+          }
+          //------ pointsIn
+          if(blocks[blocksQty].pointsIn.length) {
+            shiftingCoordPoints(dir, param, blocks[blocksQty].pointsIn, blocks[blocksQty].pointsIn.length, shift);
+          }
+          //------ impostAxis
+          if(blocks[blocksQty].impost) {
+            var impostAxisQty = blocks[blocksQty].impost.impostAxis.length;
+            if(impostAxisQty) {
+              shiftingCoordPoints(dir, param, blocks[blocksQty].impost.impostAxis, impostAxisQty, shift);
+            }
+          }
+        }
+      }
+    }
 
-    function rebuildLinesOut(arc, blockIndex, blocks, points) {
+
+    function shiftingCoordPoints(dir, param, points, pointsQty, shift) {
+      while(--pointsQty > -1) {
+        if(param) {
+          if(dir) {
+            points[pointsQty].x += shift;
+          } else {
+            points[pointsQty].x -= shift;
+          }
+        } else {
+          if(dir) {
+            points[pointsQty].y += shift;
+          } else {
+            points[pointsQty].y -= shift;
+          }
+        }
+      }
+    }
+
+
+    function rebuildLinesOut(arc, blockIndex, blocks) {
       var currLine,
-          pointsOut = SVGServ.setPointsOut(blocks[blockIndex].pointsID, points),
-          center = SVGServ.centerBlock(pointsOut);
-      pointsOut = SVGServ.sortingPoints(pointsOut, center);
-      var linesOut = SVGServ.setLines(pointsOut);
-      var linesQty = linesOut.length;
+          center = SVGServ.centerBlock(blocks[blockIndex].pointsOut),
+          pointsOut = SVGServ.sortingPoints(blocks[blockIndex].pointsOut, center),
+          linesOut = SVGServ.setLines(pointsOut),
+          linesQty = linesOut.length;
+
       while(--linesQty > -1) {
         if(linesOut[linesQty].from.id === arc[0].id && linesOut[linesQty].to.id === arc[1].id) {
           currLine = linesOut[linesQty];
@@ -760,7 +756,7 @@
     }
 
 
-    function createArcPoint(arcN, coordQP, blockIndex, blocks, points) {
+    function createArcPoint(arcN, coordQP, blockIndex, blocks) {
       var pointQ = {
         type:'arc',
         id:'qa'+arcN,
@@ -768,10 +764,8 @@
         y: coordQP.y,
         dir:'curv'
       };
-
-      //---- insert pointQ in all relative blocks
-      blocks[blockIndex].pointsID.push(pointQ.id);
-      points.push(pointQ);
+      //---- insert pointQ in pointsOut of current block
+      blocks[blockIndex].pointsOut.push(pointQ);
     }
 
 
@@ -779,49 +773,47 @@
 
 
 
-    function setQPointImpostArc(arcN, imposts, currLineFrom, currLineTo, coordQ, blocks, blocksSource, points) {
+    function setQPointImpostArc(arcN, imposts, currLineFrom, currLineTo, coordQ, blocks, blocksSource) {
       var impost = imposts[0];
       if(impost) {
-        console.log('impost ------', impost);
-
+//        console.log('impost ``````````````````````', impost);
+//        console.log('currLineFrom, coordQ, currLineTo ``````````````````````', currLineFrom, coordQ, currLineTo);
         //------ calc the intersections impost with arc
         var intersect = SVGServ.QLineIntersections(currLineFrom, coordQ, currLineTo, impost.from, impost.to);
-        //      console.log('intersect ------',intersect);
+//              console.log('intersect ``````````````````',intersect);
 
         if (intersect.length) {
-
           //------- find current line
-
           //------ set subPoints Q left / right side of impost
-          var impostQP1 = getCoordQPImostArc(intersect[0].t, currLineFrom, coordQ), impostQP2 = getCoordQPImostArc(intersect[0].t, currLineTo, coordQ);
-          console.log('QPssss', impostQP1, impostQP2);
-
-          //------- checking place of subPoints Q as to impost
-          var placeImpostQP1 = SVGServ.setPointLocationToLine(impost.from, impost.to, impostQP1);
-          var placeImpostQP2 = SVGServ.setPointLocationToLine(impost.from, impost.to, impostQP2);
-          //        console.log('wherePoint +++ ', placeImpostQP1, placeImpostQP2);
-
-          //------- set blocks Ids according to left / right side
-          var blockIds = setBlockLocationToLine(impost.from, impost.to, blocks[impost.indexBlock].children, blocks);
-
-          //----- create Q impost points
-          var blockID1 = (placeImpostQP1 > 0) ? blockIds.pos : blockIds.neg, blockID2 = (placeImpostQP2 > 0) ? blockIds.pos : blockIds.neg;
-
+          var impostQP1 = getCoordQPImostArc(intersect[0].t, currLineFrom, coordQ),
+              impostQP2 = getCoordQPImostArc(intersect[0].t, currLineTo, coordQ),
+              impostQPIn1 = getCoordQPIn(currLineFrom, impostQP1, intersect[0]),
+              impostQPIn2 = getCoordQPIn(intersect[0], impostQP2, currLineTo),
+              //------- checking place of subPoints Q as to impost
+              placeImpostQP1 = SVGServ.setPointLocationToLine(impost.from, impost.to, impostQP1),
+              placeImpostQP2 = SVGServ.setPointLocationToLine(impost.from, impost.to, impostQP2),
+              //------- set blocks Ids according to left / right side
+              blockIds = setBlockLocationToLine(impost.from, impost.to, blocks[impost.indexBlock].children, blocks),
+              //----- create Q impost points
+              blockID1 = (placeImpostQP1 > 0) ? blockIds.pos : blockIds.neg,
+              blockID2 = (placeImpostQP2 > 0) ? blockIds.pos : blockIds.neg;
+//          console.log('QPssss', impostQP1, impostQP2, impostQPIn1, impostQPIn2);
+//        console.log('wherePoint +++ ', placeImpostQP1, placeImpostQP2);
           //        console.log('blockId +++ ', impostQP1, blockID1);
           //        console.log('blockId +++ ', impostQP2, blockID2);
-          createQPImpostArc(1, arcN, impost.indexBlock, impostQP1, blockID1, blocksSource, points);
-          createQPImpostArc(2, arcN, impost.indexBlock, impostQP2, blockID2, blocksSource, points);
+          createQPImpostArc(1, arcN, impost.indexBlock, impostQP1, impostQPIn1, blockID1, blocksSource);
+          createQPImpostArc(2, arcN, impost.indexBlock, impostQP2, impostQPIn2, blockID2, blocksSource);
           //----- which of the points of impost should be changed
           var pointIdOld = getImpostPointIdXChange(impost, intersect[0]);
           //----- change coordinates of impost point in SourceTEMP
-          setNewCoordImpostPoint(intersect[0], pointIdOld, points);
+          setNewCoordImpostPoint(intersect[0], pointIdOld, impost.indexBlock, blocksSource);
 
 
           //------ go to next impost
           imposts.shift();
           if (imposts.length) {
-            setQPointImpostArc(arcN, imposts, currLineFrom, intersect[0], impostQP1, blocks, blocksSource, points);
-            setQPointImpostArc(arcN, imposts, currLineTo, intersect[0], impostQP2, blocks, blocksSource, points);
+            setQPointImpostArc(arcN, imposts, currLineFrom, intersect[0], impostQP1, blocks, blocksSource);
+            setQPointImpostArc(arcN, imposts, currLineTo, intersect[0], impostQP2, blocks, blocksSource);
           }
 
         }
@@ -838,7 +830,31 @@
     }
 
 
-    function createQPImpostArc(nP, arcN, ipN, coordQP, blockIndex, blocks, points) {
+    function getCoordQPIn(currLineFrom, impostQP1, coordQ) {
+      var line1 = {
+            type: 'frame',
+            from: currLineFrom,
+            to: impostQP1
+          },
+          line2 = {
+            type: 'frame',
+            from: impostQP1,
+            to: coordQ
+          };
+      console.log('!!!!!!!!QP impost!!!!!currLineFrom, impostQP1, coordQ=====', currLineFrom, impostQP1, coordQ);
+      SVGServ.setLineCoef(line1);
+      SVGServ.setLineCoef(line2);
+      line1.coefC = SVGServ.getNewCoefC(GlobalStor.global.profileDepths, line1, 'frame');
+      line2.coefC = SVGServ.getNewCoefC(GlobalStor.global.profileDepths, line2, 'frame');
+      console.log('!!!!!!!!line1!!!!!', line1);
+      console.log('!!!!!!!!line2!!!!!', line2);
+      var coord = SVGServ.getCoordCrossPoint(line1, line2);
+      console.log('!!!!!!!!!!!!!', coord);
+      return coord;
+    }
+
+
+    function createQPImpostArc(nP, arcN, ipN, coordQP, coordQPIn, blockIndex, blocks) {
       var pointQ = {
             type:'arc',
             id:'qa'+arcN+'-ip'+ipN+'-'+nP,
@@ -846,10 +862,13 @@
             y: coordQP.y,
             dir:'curv'
           };
-      points.push(pointQ);
-
-      //----- insert Q point id in blocks
-      blocks[blockIndex].pointsID.push(pointQ.id);
+      var pointQIn = angular.copy(pointQ);
+      pointQIn.x = coordQPIn.x;
+      pointQIn.y = coordQPIn.y;
+      //----- insert Q point in pointsOut block
+      blocks[blockIndex].pointsOut.push(pointQ);
+      //----- insert Q point in pointsIn block
+      blocks[blockIndex].pointsIn.push(pointQIn);
     }
 
 
@@ -888,18 +907,23 @@
     function getImpostPointIdXChange(impost, newPoint) {
       var size = Math.round(Math.hypot((impost.to.x - impost.from.x), (impost.to.y - impost.from.y)) * 100) / 100,
       size1 = Math.round(Math.hypot((newPoint.x - impost.from.x), (newPoint.y - impost.from.y)) * 100) / 100;
-      return (size1 > size) ? impost.to.id : impost.from.id;
+//      return (size1 > size) ? impost.to.id : impost.from.id;
+      return (size1 > size) ? 1 : 0;
     }
 
 
-    function setNewCoordImpostPoint(coord, pointId, points) {
-      var pointsQty = points.length;
-      while(--pointsQty > -1) {
-        if(points[pointsQty].id === pointId) {
-          points[pointsQty].x = coord.x;
-          points[pointsQty].y = coord.y;
-        }
-      }
+    function setNewCoordImpostPoint(coord, pointId, indexBlock, blocks) {
+     if(blocks[indexBlock].impost) {
+       blocks[indexBlock].impost.impostAxis[pointId].x = coord.x;
+       blocks[indexBlock].impost.impostAxis[pointId].y = coord.y;
+//       if(blocks[indexBlock].impost.impostAxis[0].id ===  pointId) {
+//         blocks[indexBlock].impost.impostAxis[0].x = coord.x;
+//         blocks[indexBlock].impost.impostAxis[0].y = coord.y;
+//       } else if(blocks[indexBlock].impost.impostAxis[1].id ===  pointId) {
+//         blocks[indexBlock].impost.impostAxis[1].x = coord.x;
+//         blocks[indexBlock].impost.impostAxis[1].y = coord.y;
+//       }
+     }
     }
 
 
@@ -914,12 +938,9 @@
       if(arc.type === 'arc') {
         var arcID = arc.points[1].id,
             blockID = arcObj.attributes.blockId.nodeValue,
-            pointsSource = DesignStor.design.templateSourceTEMP.details.points,
-            pointsQty = pointsSource.length,
-            blocksSource = DesignStor.design.templateSourceTEMP.details.skylights,
-            blocks = DesignStor.design.templateTEMP.details.skylights,
-            blocksQty = blocks.length,
-            shiftX = 0, shiftY = 0;
+            blocksSource = DesignStor.design.templateSourceTEMP.details,
+            blocks = DesignStor.design.templateTEMP.details,
+            blocksQty = blocks.length;
 
 
         //------ return back the point of impost (cross point with frame)
@@ -933,27 +954,20 @@
         var imposts = findImpostsCrossLine(currLine, blocksQty, blocks);
 //        console.log('imposts++++++',imposts);
         //----- change imposts coordinats
-        changeCoordImpostPoint(imposts, pointsSource);
+        changeCoordImpostPoint(imposts, blocksSource);
 
-        //------ shifting
-        if(!arc.points[1].x) {
-          shiftX = arc.points[0].x;
-        } else if(!arc.points[1].y) {
-          shiftY = arc.points[0].y;
-        }
-        //----- delete corner points
-        while(--pointsQty > -1) {
-          if(pointsSource[pointsQty].id.indexOf(arcID)+1) {
-            pointsSource.splice(pointsQty, 1);
-          } else {
-            pointsSource[pointsQty].x -= shiftX;
-            pointsSource[pointsQty].y -= shiftY;
-          }
-        }
         //------- delete Q point IDs in block (pointsID)
-        removePointId([arcID], blockID, blocksSource);
+        removePoint([arcID], blockID, blocksSource);
         //------- delete Q points IDs in all children blocks
         removePointIdAllBlocks(arcID, blocksSource);
+
+        //------ unshifting
+        if(!arc.points[1].x) {
+          shiftingAllPoints(0, 1, arc.points[0].x, blocksSource);
+        } else if(!arc.points[1].y) {
+          shiftingAllPoints(0, 0, arc.points[0].y, blocksSource);
+        }
+
         //------ change templateTEMP
         SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
           DesignStor.design.templateTEMP = angular.copy(result);
@@ -965,32 +979,42 @@
 
 
 
-    function changeCoordImpostPoint(imposts, points) {
+    function changeCoordImpostPoint(imposts, blocks) {
       var impostsQty = imposts.length;
-      if(impostsQty) {
-        while(--impostsQty > -1) {
-          var pointsQty = points.length;
-          while(--pointsQty > -1) {
-            if(points[pointsQty].id === imposts[impostsQty].pointIdChange) {
-              points[pointsQty].x = imposts[impostsQty].intersect.x;
-              points[pointsQty].y = imposts[impostsQty].intersect.y;
-            }
+      while(--impostsQty > -1) {
+        if(blocks[imposts[impostsQty].indexBlock].impost) {
+          var impAxisQty = blocks[imposts[impostsQty].indexBlock].impost.impostAxis.length;
+          while(--impAxisQty > -1) {
+//            if(blocks[imposts[impostsQty].indexBlock].impost.impostAxis[impAxisQty].id === imposts[impostsQty].pointIdChange) {
+//              blocks[imposts[impostsQty].indexBlock].impost.impostAxis[impAxisQty].x = imposts[impostsQty].intersect.x;
+//              blocks[imposts[impostsQty].indexBlock].impost.impostAxis[impAxisQty].y = imposts[impostsQty].intersect.y;
+//            }
+            blocks[imposts[impostsQty].indexBlock].impost.impostAxis[imposts[impostsQty].pointIdChange].x = imposts[impostsQty].intersect.x;
+            blocks[imposts[impostsQty].indexBlock].impost.impostAxis[imposts[impostsQty].pointIdChange].y = imposts[impostsQty].intersect.y;
           }
         }
       }
     }
 
 
-
     function removePointIdAllBlocks(criterion, blocks) {
       var blockQty = blocks.length;
-      while(--blockQty > -1) {
-        if(blocks[blockQty].level) {
-          var idQty = blocks[blockQty].pointsID.length;
-          if(idQty) {
-            while(--idQty > -1) {
-              if(blocks[blockQty].pointsID[idQty].indexOf(criterion)+1) {
-                blocks[blockQty].pointsID.splice(idQty, 1);
+      while (--blockQty > -1) {
+        if (blocks[blockQty].level) {
+          var outQty = blocks[blockQty].pointsOut.length;
+          if (outQty) {
+            while (--outQty > -1) {
+              if (blocks[blockQty].pointsOut[outQty].id.indexOf(criterion) + 1) {
+                blocks[blockQty].pointsOut.splice(outQty, 1);
+                break;
+              }
+            }
+          }
+          var inQty = blocks[blockQty].pointsIn.length;
+          if (inQty) {
+            while (--inQty > -1) {
+              if (blocks[blockQty].pointsIn[inQty].id.indexOf(criterion) + 1) {
+                blocks[blockQty].pointsIn.splice(inQty, 1);
                 break;
               }
             }
@@ -1059,16 +1083,10 @@
       var glass = glassObj.__data__,
           blockID = glassObj.attributes.blockId.nodeValue,
           dim = getMaxMinCoord(glass.points),
-          centerGeom = {
-            x: (dim.minX + dim.maxX)/2,
-            y: (dim.minY + dim.maxY)/2
-          },
-          blocks = DesignStor.design.templateTEMP.details.skylights,
+          blocks = DesignStor.design.templateTEMP.details,
           blocksQty = blocks.length,
-          blocksSource = DesignStor.design.templateSourceTEMP.details.skylights,
-          pointsSource = DesignStor.design.templateSourceTEMP.details.points,
-          pointsQty = pointsSource.length,
-          angel, linesOut, blockIndex, impN, blockN, impVector, crossPoints;
+          blocksSource = DesignStor.design.templateSourceTEMP.details,
+          angel, linesOut, blockIndex, blockN, impVector, crossPoints;
 
 //      console.log('+++++',blockID);
 //      console.log('+++++',dim);
@@ -1092,7 +1110,7 @@
           break;
         //----- inclined left
         case 5:
-          angel = 120;
+          angel = 300;
           break;
       }
 
@@ -1104,43 +1122,30 @@
         }
       }
 
-      impN = getLastPointNumber(pointsQty, pointsSource);
       blockN = getLastBlockNumber();
-//console.log('$$$$', centerGeom, angel);
-      impVector = SVGServ.cteateLineByAngel(centerGeom, angel);
+      console.log('IMP center -----------', blocks[blockIndex].center, angel);
+      impVector = SVGServ.cteateLineByAngel(blocks[blockIndex].center, angel);
+      console.log('impVector$$$$', impVector);
       crossPoints = getImpostCrossPointInBlock(impVector, linesOut);
 
-//      console.log('+++crossPoints++',crossPoints);
+      console.log('IMP+++crossPoints++',crossPoints);
       var impPointsQty = crossPoints.length;
       if(impPointsQty) {
         while(--impPointsQty > -1) {
-          createImpostPoint(++impN, crossPoints[impPointsQty], blockIndex, blocksSource, pointsSource);
+          createImpostPoint(crossPoints[impPointsQty], blockIndex, blocksSource);
           createChildBlock(++blockN, blockIndex, blocksSource);
         }
       }
-
+console.log('blocksSource-------------',blocksSource);
       //----- change Template
       rebuildSVGTemplate();
     }
 
 
 
-    function getLastPointNumber(pointsQty, pointsSource) {
-      var impN = 0;
-      while(--pointsQty > -1) {
-        if(pointsSource[pointsQty].type === 'impost' && pointsSource[pointsQty].dir === 'line') {
-          var tempN = Number(pointsSource[pointsQty].id.replace(/\D+/g, ""));
-          if(tempN > impN) {
-            impN = tempN;
-          }
-        }
-      }
-      return impN;
-    }
-
 
     function getLastBlockNumber() {
-      var blocks = DesignStor.design.templateSourceTEMP.details.skylights,
+      var blocks = DesignStor.design.templateSourceTEMP.details,
           blocksQty = blocks.length,
           blockN = 0;
       while(--blocksQty > -1) {
@@ -1160,29 +1165,29 @@
           linesQty = lines.length;
 //      console.log('lines @@@@@@', lines);
 //      console.log('vector @@@@@@', vector);
-      while(--linesQty > -1) {
+      for(var l = 0; l < linesQty; l++) {
         var coord, checkPoint, intersect;
 //                console.log('line ++++', lines[linesQty]);
-        coord = SVGServ.getCoordCrossPoint(vector, lines[linesQty]);
-//                console.log('coord ++++', coord);
+        coord = SVGServ.getCoordCrossPoint(vector, lines[l]);
+                console.log('coord ++++', coord);
         if(coord.x >= 0 && coord.y >= 0) {
 
           //------ checking is cross point inner of line
-          checkPoint = SVGServ.checkLineOwnPoint(coord, lines[linesQty].to, lines[linesQty].from);
-//                          console.log('^^^^^checkPoint^^^^', checkPoint);
-          if(checkPoint.x >= 0 && checkPoint.x <= 1 || checkPoint.y >=0 && checkPoint.y <= 1) {
+          checkPoint = SVGServ.checkLineOwnPoint(coord, lines[l].to, lines[l].from);
+                          console.log('^^^^^checkPoint^^^^', checkPoint);
+          if(checkPoint.x >= 0 && checkPoint.x <= 1 || checkPoint.y >= 0 && checkPoint.y <= 1) {
 
 
-            if(lines[linesQty].dir === 'curv') {
-              intersect = SVGServ.getIntersectionInCurve(linesQty, linesQty, lines, vector, coord);
+            if(lines[l].dir === 'curv') {
+              intersect = SVGServ.getIntersectionInCurve(l, linesQty, lines, vector.center, coord);
               if(intersect.length) {
                 coord.x = intersect[0].x;
                 coord.y = intersect[0].y;
               }
             }
 
-            coord.x = Math.abs(Math.round(coord.x));
-            coord.y = Math.abs(Math.round(coord.y));
+//            coord.x = Math.abs(Math.round(coord.x));
+//            coord.y = Math.abs(Math.round(coord.y));
             coord.fi = SVGServ.getAngelPoint(vector.center, coord);
             impPoints.push(coord);
           }
@@ -1194,25 +1199,24 @@
 
 
 
-    function createImpostPoint(ipN, coord, blockIndex, blocks, points) {
-      var impPoint = {
+    function createImpostPoint(coord, blockIndex, blocks) {
+      var impN = Number(blocks[blockIndex].id.replace(/\D+/g, "")),
+        impPoint = {
         type:'impost',
-        id:'ip'+ipN,
+        id:'ip'+impN,
         x: coord.x,
         y: coord.y,
         fi: coord.fi,
         dir:'line'
       };
       //---- insert impostPoint in parent block
-      if(!blocks[blockIndex].hasOwnProperty('impost')) {
+      if(!blocks[blockIndex].impost) {
         blocks[blockIndex].impost = {
-          impostID: [],
           impostAxis: [],
           impostIn: []
         };
       }
-      blocks[blockIndex].impost.impostID.push(impPoint.id);
-      points.push(impPoint);
+      blocks[blockIndex].impost.impostAxis.push(impPoint);
     }
 
 
@@ -1226,7 +1230,8 @@
         blockType: 'frame',
         parent: blocks[blockIndex].id,
         children: [],
-        pointsID: [],
+        pointsOut: [],
+        pointsIn: [],
         parts: [],
         glassId: blocks[blockIndex].glassId
       };
@@ -1241,17 +1246,15 @@
 
     function deleteImpost(impObj) {
       var blockID = impObj.attributes.blockId.nodeValue,
-          pointsSource = DesignStor.design.templateSourceTEMP.details.points,
-          blocksSource = DesignStor.design.templateSourceTEMP.details.skylights,
+          blocksSource = DesignStor.design.templateSourceTEMP.details,
           blocksQty = blocksSource.length;
 
       //----- delete children blocks and impost points
       while(--blocksQty > -1) {
         if(blocksSource[blocksQty].id === blockID) {
-          removeAllChildrenBlock(blocksSource[blocksQty].children[0], blocksSource, pointsSource);
-          removeAllChildrenBlock(blocksSource[blocksQty].children[1], blocksSource, pointsSource);
+          removeAllChildrenBlock(blocksSource[blocksQty].children[0], blocksSource);
+          removeAllChildrenBlock(blocksSource[blocksQty].children[1], blocksSource);
           blocksSource[blocksQty].children.length = 0;
-          removePoint([blocksSource[blocksQty].impost.impostID[0], blocksSource[blocksQty].impost.impostID[1]], pointsSource);
           delete blocksSource[blocksQty].impost;
           break;
         }
@@ -1262,15 +1265,14 @@
     }
 
 
-    function removeAllChildrenBlock(blockID, blocks, points) {
+    function removeAllChildrenBlock(blockID, blocks) {
       var blocksQty = blocks.length;
       while(--blocksQty > -1) {
         if(blocks[blocksQty].id === blockID) {
           var childQty = blocks[blocksQty].children.length;
           if(childQty) {
-            removeAllChildrenBlock(blocks[blocksQty].children[0], blocks, points);
-            removeAllChildrenBlock(blocks[blocksQty].children[1], blocks, points);
-            removePoint([blocks[blocksQty].impost.impostID[0], blocks[blocksQty].impost.impostID[1]], points);
+            removeAllChildrenBlock(blocks[blocksQty].children[0], blocks);
+            removeAllChildrenBlock(blocks[blocksQty].children[1], blocks);
             blocks.splice(blocksQty, 1);
           } else {
             blocks.splice(blocksQty, 1);
@@ -1289,72 +1291,75 @@
 
 
     function initMirror() {
-      var blocks = DesignStor.design.templateSourceTEMP.details.skylights,
+      var blocks = DesignStor.design.templateSourceTEMP.details,
           blocksQty = blocks.length,
-          points = DesignStor.design.templateSourceTEMP.details.points,
-          maxX = d3.max(points, function(d) { return d.x; }),
-          pointsQty = points.length;
+          points = SVGServ.collectAllPointsOut(DesignStor.design.templateTEMP.details),
+          maxX = d3.max(points, function(d) { return d.x; });
 
-      //---- sorting points
-      points.sort(function(a,b) {
-        return b.x - a.x;
-      });
-
-      while(--pointsQty > -1) {
-//        if(points[pointsQty].type !== 'frame') {
-          if (points[pointsQty].x === 0) {
-            points[pointsQty].x = maxX;
-          } else if (points[pointsQty].x === maxX) {
-            points[pointsQty].x = 0;
-          } else {
-            points[pointsQty].x = maxX - points[pointsQty].x;
-          }
-//        }
-      }
+      changeCoordPointsAsMirror(maxX, blocks, blocksQty);
 
       for(var b = 0; b < blocksQty; b++) {
         if(blocks[b].level === 1) {
-          var childQty = blocks[b].children.length;
-          if(childQty) {
-            for(var c = 0; c < blocksQty; c++) {
-              if(blocks[c].id === blocks[b].children[0]) {
-                var firstChild = angular.copy(blocks[c]);
-                for(var i = 0; i < blocksQty; i++) {
-                  if(blocks[i].id === blocks[b].children[1]) {
-                    //---- insert in first
-                    blocks[c] = angular.copy(blocks[i]);
-                    blocks[c].id = firstChild.id;
-                    //---- insert in second
-                    firstChild.id = blocks[i].id;
-                    blocks[i] = angular.copy(firstChild);
-                    //----- change parent Id of children
-                    changeParentIdChildren(blocks[c], blocksQty, blocks);
-                    changeParentIdChildren(blocks[i], blocksQty, blocks);
-                    break;
-                  }
-                }
-                break;
-              }
-            }
-          }
+          changeChildrenIdChildren(b, blocksQty, blocks);
         }
       }
+//      console.log('mirror blocks_________', blocks);
       rebuildSVGTemplate();
       $timeout(function() {
         DesignStor.design.activeMenuItem = 0;
       }, 500);
     }
 
-    function changeParentIdChildren(curBlock, blocksQty, blocks) {
-      if(curBlock.children.length) {
-        for(var j = 0; j < curBlock.children.length; j++) {
-          for(var b = 0; b < blocksQty; b++) {
-            if(blocks[b].id === curBlock.children[j]) {
-              blocks[b].parent = curBlock.id;
-            }
+
+    function changeCoordPointsAsMirror(maxX, blocks, blocksQty) {
+      for(var b = 0; b < blocksQty; b++) {
+        if(blocks[b].level) {
+          if(blocks[b].impost) {
+            setNewCoordPointsAsMirror(maxX, blocks[b].impost.impostAxis);
+//            changeCoordYInclinedImpost(blocks[b].impost.impostAxis);
+          }
+          if(blocks[b].pointsOut.length) {
+            setNewCoordPointsAsMirror(maxX, blocks[b].pointsOut);
+          }
+          if(blocks[b].pointsIn.length) {
+            setNewCoordPointsAsMirror(maxX, blocks[b].pointsIn);
           }
         }
       }
+    }
+
+
+    function setNewCoordPointsAsMirror(maxX, points) {
+      var pointsQty = points.length;
+      while(--pointsQty > -1) {
+        //        if(points[pointsQty].type !== 'frame') {
+        if (points[pointsQty].x === 0) {
+          points[pointsQty].x = maxX;
+        } else if (points[pointsQty].x === maxX) {
+          points[pointsQty].x = 0;
+        } else {
+          points[pointsQty].x = maxX - points[pointsQty].x;
+        }
+        //        }
+      }
+    }
+
+
+
+    function changeChildrenIdChildren(indexBlock, blocksQty, blocks) {
+      var childQty = blocks[indexBlock].children.length;
+      if(childQty) {
+        //------- change Id place of children
+        var lastChildId = blocks[indexBlock].children.pop();
+        blocks[indexBlock].children.unshift(lastChildId);
+        for(var b = 0; b < blocksQty; b++) {
+          if(blocks[b].id === blocks[indexBlock].children[0] || blocks[b].id === blocks[indexBlock].children[1]) {
+            //----- change children
+            changeChildrenIdChildren(b, blocksQty, blocks);
+          }
+        }
+      }
+
     }
 
 
