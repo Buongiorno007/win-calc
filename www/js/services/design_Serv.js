@@ -590,7 +590,7 @@
       if(arc.type === 'frame') {
         var arcN = Number(arc.points[0].id.replace(/\D+/g, "")),
             blockID = arcObj.attributes.blockId.nodeValue,
-            blocks = DesignStor.design.templateTEMP.details,
+            blocks = angular.copy(DesignStor.design.templateTEMP.details),
             blocksQty = blocks.length,
             blocksSource = DesignStor.design.templateSourceTEMP.details,
             currBlockIndex, currLine, position;
@@ -608,9 +608,7 @@
           }
         }
 
-        //------ collect imposts which are crossed with arc line
-        var imposts = findImpostsCrossLine(currLine, blocksQty, blocks);
-        console.log('imposts++++++++=', imposts);
+
         //------ up
         if(arc.points[0].fi < 180 && arc.points[1].fi < 180) {
           position = 1;
@@ -626,9 +624,11 @@
         }
         var coordQ = setQPointCoord(position, currLine);
         if(position === 1) {
+          shiftingAllPoints(1, 0, coordQ.y, blocks);
           shiftingAllPoints(1, 0, coordQ.y, blocksSource);
           coordQ.y = 0;
         } else if(position === 4) {
+          shiftingAllPoints(1, 1, coordQ.x, blocks);
           shiftingAllPoints(1, 1, coordQ.x, blocksSource);
           coordQ.x = 0;
         }
@@ -637,6 +637,11 @@
           currLine = rebuildLinesOut(arc.points, currBlockIndex, blocksSource);
         }
         createArcPoint(arcN, coordQ, currBlockIndex, blocksSource);
+        console.log('blocksSource++++++++=', blocksSource);
+        console.log('blocks++++++++=', blocks);
+        //------ collect imposts which are crossed with arc line
+        var imposts = findImpostsCrossLineArc(currLine, blocksQty, blocks);
+        console.log('imposts++++++++=', imposts);
 
         //------ create Q points (left/right) of crossing impost with arc and new point of impost
         var impostsQty = imposts.length;
@@ -659,46 +664,7 @@
 
 
 
-    function findImpostsCrossLine(currLine, blocksQty, blocks) {
-      var imposts = [];
-      for(var b = 0; b < blocksQty; b++) {
-        if(blocks[b].level && blocks[b].impost) {
-          var impost = {
-            indexBlock: b,
-            from: blocks[b].impost.impostAxis[0],
-            to: blocks[b].impost.impostAxis[1]
-          };
-          SVGServ.setLineCoef(impost);
-//          console.log('currLine', currLine);
-          impost.intersect = SVGServ.getCoordCrossPoint(currLine, impost);
-//          console.log('impost.intersect', impost.intersect);
-          if(impost.intersect.x >= 0 && impost.intersect.y >= 0) {
 
-            //------ checking is cross point inner of line
-            var checkPoint = SVGServ.checkLineOwnPoint(impost.intersect, impost.to, impost.from);
-//            console.log('checkPoint', checkPoint);
-            if (checkPoint.x >= 0 && checkPoint.x <= 1 || checkPoint.y >= 0 && checkPoint.y <= 1) {
-//              console.log('currLine.from++++', currLine.from);
-//              console.log(' currLine.to+++++',  currLine.to);
-//              console.log('impostAxis0 +++', blocks[b].impost.impostAxis[0]);
-//              console.log('impostAxis1++++', blocks[b].impost.impostAxis[1]);
-              var position1 = SVGServ.setPointLocationToLine(currLine.from, currLine.to, blocks[b].impost.impostAxis[0]),
-                  position2 = SVGServ.setPointLocationToLine(currLine.from, currLine.to, blocks[b].impost.impostAxis[1]);
-//              console.log('position++++++++=',position1, position2);
-              if(position1 > 0) {
-//                impost.pointIdChange = blocks[b].impost.impostAxis[0].id;
-                impost.pointIdChange = 0;
-              } else if(position2 > 0) {
-//                impost.pointIdChange = blocks[b].impost.impostAxis[1].id;
-                impost.pointIdChange = 1;
-              }
-              imposts.push(impost);
-            }
-          }
-        }
-      }
-      return imposts;
-    }
 
     function shiftingAllPoints(dir, param, shift, blocks) {
       var blocksQty = blocks.length;
@@ -723,7 +689,6 @@
       }
     }
 
-
     function shiftingCoordPoints(dir, param, points, pointsQty, shift) {
       while(--pointsQty > -1) {
         if(param) {
@@ -741,6 +706,9 @@
         }
       }
     }
+
+
+
 
 
     function rebuildLinesOut(arc, blockIndex, blocks) {
@@ -773,23 +741,104 @@
 
 
 
+    function findImpostsCrossLineArc(currLine, blocksQty, blocks) {
+      var imposts = [];
+
+      var blockInds = findBlockCrossLineArc(currLine, blocksQty, blocks);
+      console.log('~~~~~~blockInds~~~~~', blockInds);
+      var blockIndsQty = blockInds.length;
+
+      for(var i = 0; i < blockIndsQty; i++) {
+        var b = blockInds[i];
+        if(blocks[b].impost) {
+          console.log('imp_______', blocks[b].impost);
+          var impost = {
+            indexBlock: b,
+            from: angular.copy(blocks[b].impost.impostAxis[0]),
+            to: angular.copy(blocks[b].impost.impostAxis[1])
+          };
+          SVGServ.setLineCoef(impost);
+          console.log('currLine +++++', currLine, impost);
+          impost.intersect = SVGServ.getCoordCrossPoint(currLine, impost);
+          console.log('impost.intersect', impost.intersect);
+          if(impost.intersect.x >= 0 && impost.intersect.y >= 0) {
+
+            //------ checking is cross point inner of line
+            var checkPoint = SVGServ.checkLineOwnPoint(impost.intersect, impost.to, impost.from);
+            console.log('checkPoint', checkPoint);
+            if (checkPoint.x >= 0 && checkPoint.x <= 1 || checkPoint.y >= 0 && checkPoint.y <= 1) {
+              console.log('currLine.from++++', currLine.from);
+              console.log(' currLine.to+++++',  currLine.to);
+              console.log('impostAxis0 +++', blocks[b].impost.impostAxis[0]);
+              console.log('impostAxis1++++', blocks[b].impost.impostAxis[1]);
+              var position1 = SVGServ.setPointLocationToLine(currLine.from, currLine.to, impost.from),
+                  position2 = SVGServ.setPointLocationToLine(currLine.from, currLine.to, impost.to);
+              console.log('position++++++++=',position1, position2);
+              if(position1 > 0) {
+                //                impost.pointIdChange = blocks[b].impost.impostAxis[0].id;
+                impost.pointIdChange = 0;
+              } else if(position2 > 0) {
+                //                impost.pointIdChange = blocks[b].impost.impostAxis[1].id;
+                impost.pointIdChange = 1;
+              }
+              impost.intersect.x = Math.abs(impost.intersect.x);
+              impost.intersect.y = Math.abs(impost.intersect.y);
+
+              imposts.push(impost);
+            }
+          }
+        }
+      }
+      return imposts;
+    }
+
+
+    function findBlockCrossLineArc(currLine, blocksQty, blocks) {
+      var impBlockIndex = [];
+      for(var b = 0; b < blocksQty; b++) {
+        if(blocks[b].level) {
+          var pointsQty = blocks[b].pointsOut.length,
+              match = 0;
+//          console.log('~~~~blocks[b]~~~~~', blocks[b]);
+//          console.log('~~~~currLine~~~~~', currLine);
+          if(pointsQty) {
+            while(--pointsQty > -1) {
+//              console.log('~~~~blocks[b].pointsOut[pointsQty]~~~~~', blocks[b].pointsOut[pointsQty]);
+              var checkPoint = SVGServ.checkLineOwnPoint(blocks[b].pointsOut[pointsQty], currLine.to, currLine.from);
+//              console.log('~~~~checkPoint~~~~~', checkPoint);
+              if(checkPoint.x !== Infinity && checkPoint.y !== Infinity) {
+                if(checkPoint.x >= 0 && checkPoint.x <= 1 || checkPoint.y >=0 && checkPoint.y <= 1) {
+                  match++;
+                }
+              }
+            }
+          }
+//          console.log('~~~~match~~~~~', match);
+          //--- if 2 points of block on currLine so take index of this block
+          if(match > 1) {
+            impBlockIndex.push(b);
+          }
+        }
+      }
+      return impBlockIndex;
+    }
 
 
 
     function setQPointImpostArc(arcN, imposts, currLineFrom, currLineTo, coordQ, blocks, blocksSource) {
       var impost = imposts[0];
       if(impost) {
-//        console.log('impost ``````````````````````', impost);
-//        console.log('currLineFrom, coordQ, currLineTo ``````````````````````', currLineFrom, coordQ, currLineTo);
+        console.log('impost ``````````````````````', impost.from, impost.to);
+        console.log('currLineFrom, coordQ, currLineTo ``````````````````````', currLineFrom, coordQ, currLineTo);
         //------ calc the intersections impost with arc
         var intersect = SVGServ.QLineIntersections(currLineFrom, coordQ, currLineTo, impost.from, impost.to);
-//              console.log('intersect ``````````````````',intersect);
+              console.log('intersect ``````````````````',intersect);
 
         if (intersect.length) {
           //------- find current line
           //------ set subPoints Q left / right side of impost
           var impostQP1 = getCoordQPImostArc(intersect[0].t, currLineFrom, coordQ),
-              impostQP2 = getCoordQPImostArc(intersect[0].t, currLineTo, coordQ),
+              impostQP2 = getCoordQPImostArc(intersect[0].t, coordQ, currLineTo),
               impostQPIn1 = getCoordQPIn(currLineFrom, impostQP1, intersect[0]),
               impostQPIn2 = getCoordQPIn(intersect[0], impostQP2, currLineTo),
               //------- checking place of subPoints Q as to impost
@@ -800,10 +849,11 @@
               //----- create Q impost points
               blockID1 = (placeImpostQP1 > 0) ? blockIds.pos : blockIds.neg,
               blockID2 = (placeImpostQP2 > 0) ? blockIds.pos : blockIds.neg;
-//          console.log('QPssss', impostQP1, impostQP2, impostQPIn1, impostQPIn2);
-//        console.log('wherePoint +++ ', placeImpostQP1, placeImpostQP2);
-          //        console.log('blockId +++ ', impostQP1, blockID1);
-          //        console.log('blockId +++ ', impostQP2, blockID2);
+          console.log('QPssss', impostQP1, impostQP2, impostQPIn1, impostQPIn2);
+          console.log('wherePoint +++ ', placeImpostQP1, placeImpostQP2);
+          console.log('blockIds +++ ', blockIds);
+                  console.log('blockId +++ ', impostQP1, blockID1);
+                  console.log('blockId +++ ', impostQP2, blockID2);
           createQPImpostArc(1, arcN, impost.indexBlock, impostQP1, impostQPIn1, blockID1, blocksSource);
           createQPImpostArc(2, arcN, impost.indexBlock, impostQP2, impostQPIn2, blockID2, blocksSource);
           //----- which of the points of impost should be changed
@@ -816,7 +866,7 @@
           imposts.shift();
           if (imposts.length) {
             setQPointImpostArc(arcN, imposts, currLineFrom, intersect[0], impostQP1, blocks, blocksSource);
-            setQPointImpostArc(arcN, imposts, currLineTo, intersect[0], impostQP2, blocks, blocksSource);
+            setQPointImpostArc(arcN, imposts, intersect[0], currLineTo, impostQP2, blocks, blocksSource);
           }
 
         }
@@ -889,8 +939,9 @@
                 pointsOutQty = blocks[i].pointsOut.length;
             while(--pointsOutQty > -1) {
               var placePoint = SVGServ.setPointLocationToLine(lineP1, lineP2, blocks[i].pointsOut[pointsOutQty]);
-//              console.log('placePoint ====', blocks[i].pointsOut[pointsOutQty]);
-//              console.log('placePoint ====', placePoint);
+              console.log('placePoint ====', blocks[i].pointsOut[pointsOutQty]);
+              console.log('placePoint ====', lineP1, lineP2);
+              console.log('placePoint ====', placePoint);
               if(placePoint > 0) {
                 location = 1;
               }
@@ -903,6 +954,7 @@
           }
         }
       }
+      console.log('blockIndex ====', blockIndex);
       return blockIndex;
     }
 
@@ -954,7 +1006,7 @@
         SVGServ.setLineCoef(currLine);
 //        console.log('currLine++++++',currLine);
         //----- imposts which cross current arc
-        var imposts = findImpostsCrossLine(currLine, blocksQty, blocks);
+        var imposts = findImpostsCrossLineArc(currLine, blocksQty, blocks);
 //        console.log('imposts++++++',imposts);
         //----- change imposts coordinats
         changeCoordImpostPoint(imposts, blocksSource);

@@ -486,6 +486,8 @@ console.log('END++++', thisObj.details);
       if(currBlock.children.length) {
         var blocksQty = blocks.length,
             pointsIn, linesIn,
+            impAx0 = angular.copy(currBlock.impost.impostAxis[0]),
+            impAx1 =  angular.copy(currBlock.impost.impostAxis[1]),
             impostVector1, impostVector2,
             indexChildBlock1, indexChildBlock2;
 
@@ -501,13 +503,13 @@ console.log('END++++', thisObj.details);
         //------- create 2 impost vectors
         impostVector1 = {
           type: 'impost',
-          from: currBlock.impost.impostAxis[0],
-          to: currBlock.impost.impostAxis[1]
+          from: impAx0,
+          to: impAx1
         };
         impostVector2 = {
           type: 'impost',
-          from: currBlock.impost.impostAxis[1],
-          to: currBlock.impost.impostAxis[0]
+          from: impAx1,
+          to: impAx0
         };
         setLineCoef(impostVector1);
         setLineCoef(impostVector2);
@@ -516,7 +518,7 @@ console.log('END++++', thisObj.details);
         //-------- finde cross points each impost vectors with lineIn of block
         for(var i = 0; i < linesInQty; i++) {
           var cp1, cp2, isInside1, isInside2;
-
+          console.log('CP linesIn[i] ++++', linesIn[i]);
           cp1 = getCoordCrossPoint(linesIn[i], impostVector1);
           cp2 = getCoordCrossPoint(linesIn[i], impostVector2);
           isInside1 = checkLineOwnPoint(cp1, linesIn[i].to, linesIn[i].from);
@@ -524,11 +526,11 @@ console.log('END++++', thisObj.details);
           console.log('CP impost ++++', cp1, cp2);
           console.log('CP impost isInside1++++', isInside1, isInside2);
           if(isInside1.x !== Infinity && isInside1.x >= 0 && isInside1.x <= 1 || isInside1.y !== Infinity && isInside1.y >=0 && isInside1.y <= 1) {
-            var ip1 = angular.copy(currBlock.impost.impostAxis[0]);
+            var ip1 = impAx0;
             ip1.x = cp1.x;
             ip1.y = cp1.y;
 
-            if(currBlock.linesIn[i].dir === 'curv') {
+            if(linesIn[i].dir === 'curv') {
               var cpTemp = findImpostTempPoint(impostVector1);
               console.log('cur 1 impostVector1++++', impostVector1);
               console.log('cur 1 cpTemp++++', cpTemp);
@@ -540,10 +542,10 @@ console.log('END++++', thisObj.details);
               }
             }
             console.log(' 1 impost++++', ip1);
-            currBlock.impost.impostIn.push(ip1);
+            currBlock.impost.impostIn.push(angular.copy(ip1));
           }
           if(isInside2.x !== Infinity && isInside2.x >= 0 && isInside2.x <= 1 || isInside2.y !== Infinity && isInside2.y >=0 && isInside2.y <= 1) {
-            var ip2 = angular.copy(currBlock.impost.impostAxis[1]);
+            var ip2 = impAx1;
             ip2.x = cp2.x;
             ip2.y = cp2.y;
 
@@ -560,7 +562,7 @@ console.log('END++++', thisObj.details);
               }
             }
             console.log('2 impost++++', ip2);
-            currBlock.impost.impostIn.push(ip2);
+            currBlock.impost.impostIn.push(angular.copy(ip2));
           }
 
         }
@@ -574,17 +576,17 @@ console.log('END++++', thisObj.details);
             indexChildBlock2 = i;
           }
         }
-
+        var impostAx = angular.copy(currBlock.impost.impostAxis);
         //------- insert pointsOut of parent block in pointsOut of children blocks
-        collectPointsXChildBlock(1, currBlock.impost.impostAxis, currBlock.pointsOut, blocks[indexChildBlock1].pointsOut, blocks[indexChildBlock2].pointsOut);
+        collectPointsXChildBlock(1, impostAx, angular.copy(currBlock.pointsOut), blocks[indexChildBlock1].pointsOut, blocks[indexChildBlock2].pointsOut);
         //------- insert impostOut of impost in pointsOut of children blocks
-        $.merge(blocks[indexChildBlock1].pointsOut, currBlock.impost.impostAxis);
-        $.merge(blocks[indexChildBlock2].pointsOut, currBlock.impost.impostAxis);
+        $.merge(blocks[indexChildBlock1].pointsOut, angular.copy(impostAx));
+        $.merge(blocks[indexChildBlock2].pointsOut, angular.copy(impostAx));
 
         //------- insert pointsIn of parent block in pointsIn of children blocks
-        collectPointsXChildBlock(1, currBlock.impost.impostAxis, pointsIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn);
+        collectPointsXChildBlock(1, impostAx, pointsIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn);
         //------- insert impostIn of impost in pointsIn of children blocks
-        collectPointsXChildBlock(0, currBlock.impost.impostAxis, currBlock.impost.impostIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn);
+        collectPointsXChildBlock(0, impostAx, currBlock.impost.impostIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn);
 
       }
     }
@@ -614,7 +616,8 @@ console.log('END++++', thisObj.details);
             exist = checkDoubleQPoints(points[i].id, pointsBlock2);
           }
           if(!exist) {
-            pointsBlock2.push(points[i]);
+            var p = JSON.parse(JSON.stringify(points[i]));
+            pointsBlock2.push(p);
           }
           //------ block left side
         } else if(position < 0){
@@ -623,7 +626,8 @@ console.log('END++++', thisObj.details);
             exist = checkDoubleQPoints(points[i].id, pointsBlock1);
           }
           if(!exist) {
-            pointsBlock1.push(points[i]);
+            var p = JSON.parse(JSON.stringify(points[i]));
+            pointsBlock1.push(p);
           }
         }
       }
@@ -966,11 +970,12 @@ console.log('END++++', thisObj.details);
     function setOpenDir(direction, beadLines) {
       var parts = [],
           newPoints = preparePointsXMaxMin(beadLines),
-          dim = getMaxMinCoord(newPoints),
-          geomCenter = {
-            x: (dim.minX + dim.maxX)/2,
-            y: (dim.minY + dim.maxY)/2
-          },
+          center = centerBlock(newPoints),
+//          dim = getMaxMinCoord(newPoints),
+//          geomCenter = {
+//            x: (dim.minX + dim.maxX)/2,
+//            y: (dim.minY + dim.maxY)/2
+//          },
           dirQty = direction.length;
 //      console.log('DIR line===', beadLines);
 //      console.log('DIR newPoints===', newPoints);
@@ -985,27 +990,27 @@ console.log('END++++', thisObj.details);
         switch(direction[index]) {
           //----- 'up'
           case 1:
-            part.points.push(getCrossPointSashDir(1, geomCenter, 225, beadLines));
-            part.points.push(getCrossPointSashDir(3, geomCenter, 90, beadLines));
-            part.points.push(getCrossPointSashDir(1, geomCenter, 315, beadLines));
+            part.points.push(getCrossPointSashDir(1, center, 225, beadLines));
+            part.points.push(getCrossPointSashDir(3, center, 90, beadLines));
+            part.points.push(getCrossPointSashDir(1, center, 315, beadLines));
             break;
           //----- 'right'
           case 2:
-            part.points.push(getCrossPointSashDir(2, geomCenter, 225, beadLines));
-            part.points.push(getCrossPointSashDir(4, geomCenter, 180, beadLines));
-            part.points.push(getCrossPointSashDir(2, geomCenter, 135, beadLines));
+            part.points.push(getCrossPointSashDir(2, center, 225, beadLines));
+            part.points.push(getCrossPointSashDir(4, center, 180, beadLines));
+            part.points.push(getCrossPointSashDir(2, center, 135, beadLines));
             break;
           //------ 'down'
           case 3:
-            part.points.push(getCrossPointSashDir(3, geomCenter, 135, beadLines));
-            part.points.push(getCrossPointSashDir(1, geomCenter, 270, beadLines));
-            part.points.push(getCrossPointSashDir(3, geomCenter, 45, beadLines));
+            part.points.push(getCrossPointSashDir(3, center, 135, beadLines));
+            part.points.push(getCrossPointSashDir(1, center, 270, beadLines));
+            part.points.push(getCrossPointSashDir(3, center, 45, beadLines));
             break;
           //----- 'left'
           case 4:
-            part.points.push(getCrossPointSashDir(4, geomCenter, 45, beadLines));
-            part.points.push(getCrossPointSashDir(2, geomCenter, 180, beadLines));
-            part.points.push(getCrossPointSashDir(4, geomCenter, 315, beadLines));
+            part.points.push(getCrossPointSashDir(4, center, 45, beadLines));
+            part.points.push(getCrossPointSashDir(2, center, 180, beadLines));
+            part.points.push(getCrossPointSashDir(4, center, 315, beadLines));
             break;
         }
 //        console.log('path ====', part.points);
@@ -1270,7 +1275,7 @@ console.log('END++++', thisObj.details);
 //        roots.push( -b/2 );
       }
 
-//      console.log('t++++',roots);
+      console.log('t++++',roots);
 
       // calc the solution points
       for(var i=0; i<roots.length; i++) {
@@ -1301,7 +1306,7 @@ console.log('END++++', thisObj.details);
           }
         }
       }
-//      console.log('~~~~~~~intersections ===', intersections);
+      console.log('~~~~~~~intersections ===', intersections);
       return intersections;
     }
 
