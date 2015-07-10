@@ -171,6 +171,7 @@
 
 console.log('END++++', thisObj.details);
       console.log('svg finish', new Date(), new Date().getMilliseconds());
+      console.log('------------------------------------------------------');
       defer.resolve(thisObj);
       return defer.promise;
     }
@@ -433,6 +434,10 @@ console.log('END++++', thisObj.details);
         case 'sash-glass':
           depth = depths.sashDepth.d - depths.sashDepth.c;
           break;
+
+        case 'frame+sash':
+          depth = depths.frameDepth.b + depths.sashDepth.c;
+          break;
       }
       var newCoefC = line.coefC - (depth * Math.hypot(line.coefA, line.coefB));
       return newCoefC;
@@ -493,7 +498,7 @@ console.log('END++++', thisObj.details);
             impAx1 =  angular.copy(currBlock.impost.impostAxis[1]),
             impostVector1, impostVector2,
             indexChildBlock1, indexChildBlock2;
-
+console.log('-------------setPointsXChildren -----------');
         if(currBlock.blockType === 'sash') {
           pointsIn = currBlock.sashPointsIn;
           linesIn = currBlock.sashLinesIn;
@@ -526,48 +531,55 @@ console.log('END++++', thisObj.details);
           cp2 = getCoordCrossPoint(linesIn[i], impostVector2);
           isInside1 = checkLineOwnPoint(cp1, linesIn[i].to, linesIn[i].from);
           isInside2 = checkLineOwnPoint(cp2, linesIn[i].to, linesIn[i].from);
-          console.log('CP impost ++++', cp1, cp2);
-          console.log('CP impost isInside1++++', isInside1, isInside2);
+          console.log('CP impost cp1, cp2 ++++', cp1, cp2);
+          console.log('CP impost isInside1, isInside2 ++++', isInside1, isInside2);
+
           if(isInside1.x !== Infinity && isInside1.x >= 0 && isInside1.x <= 1 || isInside1.y !== Infinity && isInside1.y >=0 && isInside1.y <= 1) {
-            var ip1 = impAx0;
-            ip1.x = cp1.x;
-            ip1.y = cp1.y;
+//          if(isInside1.x !== Infinity && isInside1.y !== Infinity) {
+//            if (isInside1.x >= 0 && isInside1.x <= 1 || isInside1.y >= 0 && isInside1.y <= 1) {
+              var ip1 = impAx0;
+              ip1.x = cp1.x;
+              ip1.y = cp1.y;
 
-            if(linesIn[i].dir === 'curv') {
-              var cpTemp = findImpostTempPoint(impostVector1);
-              console.log('cur 1 impostVector1++++', impostVector1);
-              console.log('cur 1 cpTemp++++', cpTemp);
-              console.log('cur 1 cp1++++', cp1);
-              var intersect = getIntersectionInCurve(i, linesInQty, linesIn, cpTemp, cp1);
-              if(intersect.length) {
-                ip1.x = intersect[0].x;
-                ip1.y = intersect[0].y;
+              if (linesIn[i].dir === 'curv') {
+                var cpTemp = findImpostTempPoint(impostVector1);
+                console.log('cur 1 impostVector1++++', impostVector1);
+                console.log('cur 1 cpTemp++++', cpTemp);
+                console.log('cur 1 cp1++++', cp1);
+                var intersect = getIntersectionInCurve(i, linesInQty, linesIn, cpTemp, cp1)[0];
+                if (intersect.length) {
+                  ip1.x = intersect.x;
+                  ip1.y = intersect.y;
+                }
               }
-            }
-            console.log(' 1 impost++++', ip1);
-            currBlock.impost.impostIn.push(angular.copy(ip1));
+              console.log('cur 1 ip1++++', ip1);
+              currBlock.impost.impostIn.push(angular.copy(ip1));
+//            }
           }
+
           if(isInside2.x !== Infinity && isInside2.x >= 0 && isInside2.x <= 1 || isInside2.y !== Infinity && isInside2.y >=0 && isInside2.y <= 1) {
-            var ip2 = impAx1;
-            ip2.x = cp2.x;
-            ip2.y = cp2.y;
+//          if(isInside2.x !== Infinity && isInside2.y !== Infinity) {
+//            if (isInside2.x >= 0 && isInside2.x <= 1 || isInside2.y >= 0 && isInside2.y <= 1) {
+              var ip2 = impAx1;
+              ip2.x = cp2.x;
+              ip2.y = cp2.y;
 
-            if(linesIn[i].dir === 'curv') {
-              var cpTemp = findImpostTempPoint(impostVector2);
+              if (linesIn[i].dir === 'curv') {
+                var cpTemp = findImpostTempPoint(impostVector2);
 
-              console.log('cur 2 impostVector2++++', impostVector2);
-              console.log('cur 2 cpTemp++++', cpTemp);
-              console.log('cur 2 cp2++++', cp2);
-              var intersect = getIntersectionInCurve(i, linesInQty, linesIn, cpTemp, cp2);
-              if(intersect.length) {
-                ip2.x = intersect[0].x;
-                ip2.y = intersect[0].y;
+                console.log('cur 2 impostVector2++++', impostVector2);
+                console.log('cur 2 cpTemp++++', cpTemp);
+                console.log('cur 2 cp2++++', cp2);
+                var intersect = getIntersectionInCurve(i, linesInQty, linesIn, cpTemp, cp2)[0];
+                if (intersect.length) {
+                  ip2.x = intersect.x;
+                  ip2.y = intersect.y;
+                }
               }
-            }
-            console.log('2 impost++++', ip2);
-            currBlock.impost.impostIn.push(angular.copy(ip2));
+              console.log('cur 2 ip2++++', ip2);
+              currBlock.impost.impostIn.push(angular.copy(ip2));
+//            }
           }
-
         }
 //        console.log('---------------', currBlock.impost.impostIn);
 //        console.log('-+++++currBlock++++++++', currBlock);
@@ -619,7 +631,7 @@ console.log('END++++', thisObj.details);
             exist = checkDoubleQPoints(points[i].id, pointsBlock2);
           }
           if(!exist) {
-            var p = JSON.parse(JSON.stringify(points[i]));
+            var p = angular.copy(points[i]);
             pointsBlock2.push(p);
           }
           //------ block left side
@@ -629,7 +641,7 @@ console.log('END++++', thisObj.details);
             exist = checkDoubleQPoints(points[i].id, pointsBlock1);
           }
           if(!exist) {
-            var p = JSON.parse(JSON.stringify(points[i]));
+            var p = angular.copy(points[i]);
             pointsBlock1.push(p);
           }
         }
