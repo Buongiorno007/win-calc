@@ -902,11 +902,15 @@
         if(intersect.x >= 0 && intersect.y >= 0) {
           var checkPoint = SVGServ.checkLineOwnPoint(intersect, impost.to, impost.from);
 //          console.log('IMP IMP checkPoint________', checkPoint);
-          if(checkPoint.x !== Infinity && checkPoint.y !== Infinity) {
-            if(checkPoint.x >= 0 && checkPoint.x <= 1 || checkPoint.y >=0 && checkPoint.y <= 1) {
-              return intersect;
-            }
+          var isInside = SVGServ.isInsidePointInLine(checkPoint);
+          if(isInside) {
+            return intersect;
           }
+//          if(checkPoint.x !== Infinity && checkPoint.y !== Infinity) {
+//            if(checkPoint.x >= 0 && checkPoint.x <= 1 || checkPoint.y >=0 && checkPoint.y <= 1) {
+//              return intersect;
+//            }
+//          }
 
         }
       }
