@@ -298,8 +298,8 @@
                   impost: {
                     impostAxis: [
                       {type:'impost', id:'ip3', x:1000, y:500, dir:'line'},
-                      {type:'impost', id:'ip3', x:500, y:500, dir:'line'},
-                      {type:'impost', id:'qi3', x:738, y:350, dir:'curv'}
+                      {type:'impost', id:'ip3', x:500, y:500, dir:'line'}//,
+//                      {type:'impost', id:'qi3', x:738, y:350, dir:'curv'}
                     ],
                     impostIn : []
                   },
