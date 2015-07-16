@@ -258,6 +258,7 @@
                       {type:'impost', id:'ip1', x:500, y:0, dir:'line'},
                       {type:'impost', id:'ip1', x:500, y:1000, dir:'line'}
                     ],
+                    impostOut: [],
                     impostIn : []
                   },
                   pointsOut: [
@@ -297,10 +298,11 @@
                   pointsIn: [],
                   impost: {
                     impostAxis: [
-                      {type:'impost', id:'ip3', x:1000, y:500, dir:'line'},
-                      {type:'impost', id:'ip3', x:500, y:500, dir:'line'}//,
+                      {type:'impost', id:'ip3', x:500, y:500, dir:'line'},
+                      {type:'impost', id:'ip3', x:1000, y:500, dir:'line'}
 //                      {type:'impost', id:'qi3', x:738, y:350, dir:'curv'}
                     ],
+                    impostOut: [],
                     impostIn : []
                   },
                   parts: [],

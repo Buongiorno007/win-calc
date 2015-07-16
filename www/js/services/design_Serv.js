@@ -283,7 +283,7 @@
 //          dim = getMaxMinCoord(glass.points),
           minGlassSize = d3.min(glass.sizes);
 
-      console.log('GLASS SIZES', glassObj.__data__);
+//      console.log('GLASS SIZES', glassObj.__data__);
 //      if(glass.square > globalConstants.squareLimit && (dim.maxX - dim.minX) > globalConstants.widthLimit && (dim.maxY - dim.minY) > globalConstants.heightLimint) {
 //      if((dim.maxX - dim.minX) > globalConstants.widthLimit && (dim.maxY - dim.minY) > globalConstants.heightLimint) {
       if(minGlassSize >= globalConstants.widthLimit && minGlassSize >= globalConstants.heightLimint) {
@@ -399,7 +399,7 @@
           while(--partsQty > -1) {
             if(template.details[blocksQty].parts[partsQty].type === 'glass') {
               var minGlassSize = d3.min(template.details[blocksQty].parts[partsQty].sizes);
-              console.log('GLASS SIZES', minGlassSize);
+//              console.log('GLASS SIZES', minGlassSize);
               if(minGlassSize <= globalConstants.widthLimit && minGlassSize <= globalConstants.heightLimint) {
                 //------ delete sash
                 removeSashPropInBlock(blocksSource[blocksQty]);
@@ -564,6 +564,7 @@
     }
 
 
+
     function deleteCornerPoints(cornerObj) {
       var cornerID = cornerObj.__data__.id,
           cornerN = Number(cornerID.replace(/\D+/g, "")),
@@ -588,6 +589,7 @@
       //----- change Template
       rebuildSVGTemplate();
     }
+
 
 
     function removePoint(criterions, blockId, blocks) {
@@ -677,7 +679,8 @@
 
         //------ create Q points (left/right) of crossing impost with arc and new point of impost
         if(imposts.length) {
-          setQPointImpostArc(arcN, 0, imposts, currLine.from, currLine.to, coordQ, blocks, blocksSource);
+          setQPointImpostArc(0, imposts, currLine.from, currLine.to, coordQ, blocksSource);
+//          setQPointImpostArc(arcN, 0, imposts, currLine.from, currLine.to, coordQ, blocks, blocksSource);
         }
 
         //------ change templateTEMP
@@ -759,6 +762,7 @@
       }
       return currLine;
     }
+
 
 
     function createArcPoint(arcN, coordQP, blockIndex, blocks) {
@@ -859,6 +863,78 @@
 
 
 
+    function setQPointImpostArc(indexImp, imposts, currLineFrom, currLineTo, coordQ, blocksSource) {
+      var impostsQty = imposts.length, intersectImp;
+      //      console.log('ARC indexImp ``````````````````````', indexImp);
+      //      console.log('ARC impost ``````````````````````', impost.from, impost.to);
+      //      console.log('ARC P0 ``````````````````````', currLineFrom);
+      //      console.log('ARC P1 ``````````````````````', coordQ);
+      //      console.log('ARC P2 ``````````````````````', currLineTo);
+      for(var i = 0; i < impostsQty; i++) {
+        //------ calc the intersections impost with arc
+        var intersect = SVGServ.QLineIntersections(currLineFrom, coordQ, currLineTo, imposts[i].from, imposts[i].to);
+        //      console.log('ARC intersect ``````````````````',intersect);
+
+        if (intersect.length) {
+          setNewCoordImpost(intersect[0], imposts[i]);
+          //        console.log('ARC imposts new ``````````````````', imposts);
+          //------- check current impost with other imposts to crossing
+          //------- except for first impost
+          if (indexImp) {
+            intersectImp = checkingImpostsToCrossSelf(imposts[i], imposts);
+            //          console.log('ARC intersectImp```````````', intersectImp);
+          }
+          //------- impost cross other impost
+          if (intersectImp) {
+            setNewCoordImpostAxis(intersectImp, imposts[i], blocksSource);
+            //------- impost cross arc
+          } else {
+            setNewCoordImpostAxis(intersect[0], imposts[i], blocksSource);
+          }
+        }
+      }
+    }
+
+
+
+    function setNewCoordImpost(coord, impost) {
+      if(!impost.pointIdChange) {
+        impost.from.x = coord.x;
+        impost.from.y = coord.y;
+      } else {
+        impost.to.x = coord.x;
+        impost.to.y = coord.y;
+      }
+    }
+
+
+
+    function checkingImpostsToCrossSelf(impost, imposts) {
+      var impQty = imposts.length;
+      while(--impQty > -1) {
+        var intersect = SVGServ.getCoordCrossPoint(impost, imposts[impQty]);
+        if(intersect.x >= 0 && intersect.y >= 0) {
+          var checkPoint = SVGServ.checkLineOwnPoint(intersect, impost.to, impost.from);
+          var isInside = SVGServ.isInsidePointInLine(checkPoint);
+          if(isInside) {
+            return intersect;
+          }
+        }
+      }
+    }
+
+
+
+    function setNewCoordImpostAxis(coord, impost, blocks) {
+      if(blocks[impost.indexBlock].impost) {
+        blocks[impost.indexBlock].impost.impostAxis[impost.pointIdChange].x = coord.x;
+        blocks[impost.indexBlock].impost.impostAxis[impost.pointIdChange].y = coord.y;
+      }
+    }
+
+
+    /*
+
     function setQPointImpostArc(arcN, indexImp, imposts, currLineFrom, currLineTo, coordQ, blocks, blocksSource) {
       var impost = imposts[indexImp], intersectImp;
 //      console.log('ARC indexImp ``````````````````````', indexImp);
@@ -918,39 +994,6 @@
 
     }
 
-
-    function setNewCoordImpost(coord, impost) {
-      if(!impost.pointIdChange) {
-        impost.from.x = coord.x;
-        impost.from.y = coord.y;
-      } else {
-        impost.to.x = coord.x;
-        impost.to.y = coord.y;
-      }
-    }
-
-
-    function checkingImpostsToCrossSelf(impost, imposts) {
-      var impQty = imposts.length;
-      while(--impQty > -1) {
-        var intersect = SVGServ.getCoordCrossPoint(impost, imposts[impQty]);
-//        console.log('IMP IMP intersect________', intersect);
-        if(intersect.x >= 0 && intersect.y >= 0) {
-          var checkPoint = SVGServ.checkLineOwnPoint(intersect, impost.to, impost.from);
-//          console.log('IMP IMP checkPoint________', checkPoint);
-          var isInside = SVGServ.isInsidePointInLine(checkPoint);
-          if(isInside) {
-            return intersect;
-          }
-//          if(checkPoint.x !== Infinity && checkPoint.y !== Infinity) {
-//            if(checkPoint.x >= 0 && checkPoint.x <= 1 || checkPoint.y >=0 && checkPoint.y <= 1) {
-//              return intersect;
-//            }
-//          }
-
-        }
-      }
-    }
 
 
     function getCoordQPIn(pointFrom, pointQ, pointTo, blockType) {
@@ -1033,15 +1076,10 @@
       blocks[blockIndex].pointsIn.push(pointQIn);
     }
 
+*/
 
 
 
-    function setNewCoordImpostAxis(coord, impost, blocks) {
-      if(blocks[impost.indexBlock].impost) {
-        blocks[impost.indexBlock].impost.impostAxis[impost.pointIdChange].x = coord.x;
-        blocks[impost.indexBlock].impost.impostAxis[impost.pointIdChange].y = coord.y;
-      }
-    }
 
 
 
@@ -1109,15 +1147,8 @@
       var impostsQty = imposts.length;
       while(--impostsQty > -1) {
         if(blocks[imposts[impostsQty].indexBlock].impost) {
-          var impAxisQty = blocks[imposts[impostsQty].indexBlock].impost.impostAxis.length;
-          while(--impAxisQty > -1) {
-//            if(blocks[imposts[impostsQty].indexBlock].impost.impostAxis[impAxisQty].id === imposts[impostsQty].pointIdChange) {
-//              blocks[imposts[impostsQty].indexBlock].impost.impostAxis[impAxisQty].x = imposts[impostsQty].intersect.x;
-//              blocks[imposts[impostsQty].indexBlock].impost.impostAxis[impAxisQty].y = imposts[impostsQty].intersect.y;
-//            }
-            blocks[imposts[impostsQty].indexBlock].impost.impostAxis[imposts[impostsQty].pointIdChange].x = imposts[impostsQty].intersect.x;
-            blocks[imposts[impostsQty].indexBlock].impost.impostAxis[imposts[impostsQty].pointIdChange].y = imposts[impostsQty].intersect.y;
-          }
+          blocks[imposts[impostsQty].indexBlock].impost.impostAxis[imposts[impostsQty].pointIdChange].x = imposts[impostsQty].intersect.x;
+          blocks[imposts[impostsQty].indexBlock].impost.impostAxis[imposts[impostsQty].pointIdChange].y = imposts[impostsQty].intersect.y;
         }
       }
     }
@@ -1211,7 +1242,7 @@
           blocks = DesignStor.design.templateTEMP.details,
           blocksQty = blocks.length,
           blocksSource = DesignStor.design.templateSourceTEMP.details,
-          angel, positionQ, linesOut, blockIndex, blockN, impVector, crossPoints;
+          angel, positionQ, linesOut, blockIndex, curBlockN, lastBlockN, impVector, crossPoints;
 
 //      console.log('+++++',blockID);
 //      console.log('+++++',dim);
@@ -1237,6 +1268,7 @@
         case 5:
           angel = 300;
           break;
+
         //----- curve vertical
         case 6:
           angel = 90;
@@ -1264,21 +1296,23 @@
         if(blocks[b].id === blockID) {
           linesOut = blocks[b].linesOut;
           blockIndex = b;
+          curBlockN = Number(blocks[b].id.replace(/\D+/g, ""));
         }
       }
 
-      blockN = getLastBlockNumber();
+      lastBlockN = getLastBlockNumber();
       console.log('IMP center -----------', blocks[blockIndex].center, angel);
+      console.log('IMP linesOut -----------', linesOut);
       impVector = SVGServ.cteateLineByAngel(blocks[blockIndex].center, angel);
       console.log('impVector$$$$', impVector);
       crossPoints = getImpostCrossPointInBlock(impVector, linesOut);
 
       console.log('IMP+++crossPoints++',crossPoints);
       var impPointsQty = crossPoints.length;
-      if(impPointsQty) {
+      if(impPointsQty == 2) {
         while(--impPointsQty > -1) {
-          createImpostPoint(crossPoints[impPointsQty], blockIndex, blocksSource);
-          createChildBlock(++blockN, blockIndex, blocksSource);
+          createImpostPoint(crossPoints[impPointsQty], curBlockN, blockIndex, blocksSource);
+          createChildBlock(++lastBlockN, blockIndex, blocksSource);
         }
       }
 console.log('blocksSource-------------',blocksSource);
@@ -1320,21 +1354,15 @@ console.log('blocksSource-------------',blocksSource);
           //------ checking is cross point inner of line
           checkPoint = SVGServ.checkLineOwnPoint(coord, lines[l].to, lines[l].from);
                           console.log('^^^^^checkPoint^^^^', checkPoint);
-          if(checkPoint.x >= 0 && checkPoint.x <= 1 || checkPoint.y >= 0 && checkPoint.y <= 1) {
-
-
-            if(lines[l].dir === 'curv') {
-              intersect = SVGServ.getIntersectionInCurve(l, linesQty, lines, vector.center, coord);
-              if(intersect.length) {
-                coord.x = intersect[0].x;
-                coord.y = intersect[0].y;
-              }
+//          if(checkPoint.x >= 0 && checkPoint.x <= 1 || checkPoint.y >= 0 && checkPoint.y <= 1) {
+          var isCross = SVGServ.isInsidePointInLine(checkPoint);
+          if(isCross) {
+            //---- checking dublicats
+            var noExist = SVGServ.checkEqualPoints(coord, impPoints);
+            if(noExist) {
+              coord.fi = SVGServ.getAngelPoint(vector.center, coord);
+              impPoints.push(coord);
             }
-
-//            coord.x = Math.abs(Math.round(coord.x));
-//            coord.y = Math.abs(Math.round(coord.y));
-            coord.fi = SVGServ.getAngelPoint(vector.center, coord);
-            impPoints.push(coord);
           }
         }
       }
@@ -1344,11 +1372,10 @@ console.log('blocksSource-------------',blocksSource);
 
 
 
-    function createImpostPoint(coord, blockIndex, blocks) {
-      var impN = Number(blocks[blockIndex].id.replace(/\D+/g, "")),
-        impPoint = {
+    function createImpostPoint(coord, curBlockN, blockIndex, blocks) {
+      var impPoint = {
         type:'impost',
-        id:'ip'+impN,
+        id:'ip'+curBlockN,
         x: coord.x,
         y: coord.y,
         fi: coord.fi,
@@ -1358,6 +1385,7 @@ console.log('blocksSource-------------',blocksSource);
       if(!blocks[blockIndex].impost) {
         blocks[blockIndex].impost = {
           impostAxis: [],
+          impostOut: [],
           impostIn: []
         };
       }
@@ -1386,6 +1414,11 @@ console.log('blocksSource-------------',blocksSource);
       //---- insert block in blocks
       blocks.push(newBlock);
     }
+
+
+
+
+
 
 
 
