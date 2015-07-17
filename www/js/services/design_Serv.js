@@ -530,10 +530,10 @@
 
 
 
-    function setQPointCoord(side, line) {
+    function setQPointCoord(side, line, coeff) {
       var midX = (line.from.x + line.to.x)/ 2,
           midY = (line.from.y + line.to.y)/ 2,
-          dist = line.size/ 2,
+          dist = line.size/ 2 * coeff,
           coordQP = {};
       if(!line.coefA || !line.coefB) {
         coordQP.x = Math.round(Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ))) + midX;
@@ -1242,7 +1242,7 @@
           blocks = DesignStor.design.templateTEMP.details,
           blocksQty = blocks.length,
           blocksSource = DesignStor.design.templateSourceTEMP.details,
-          angel, positionQ, linesOut, blockIndex, curBlockN, lastBlockN, impVector, crossPoints;
+          angel, isImpCurv = 0, positionQ, linesOut, blockIndex, curBlockN, lastBlockN, impVector, crossPoints;
 
 //      console.log('+++++',blockID);
 //      console.log('+++++',dim);
@@ -1272,22 +1272,46 @@
         //----- curve vertical
         case 6:
           angel = 90;
-          positionQ = 0;
+          isImpCurv = 1;
+          positionQ = 2; //---right
+          break;
+        case 7:
+          angel = 90;
+          isImpCurv = 1;
+          positionQ = 4; //---left
           break;
         //----- curve horisontal
-        case 7:
+        case 8:
           angel = 180;
-          positionQ = 0;
+          isImpCurv = 1;
+          positionQ = 1; //--- up
+          break;
+        case 9:
+          angel = 180;
+          isImpCurv = 1;
+          positionQ = 3; //--- down
           break;
         //----- inclined right curve
-        case 8:
+        case 10:
           angel = 60;
-          positionQ = 1;
+          isImpCurv = 1;
+          positionQ = 2; //---- right-up
+          break;
+        case 11:
+          angel = 60;
+          isImpCurv = 1;
+          positionQ = 4; //---- left-down
           break;
         //----- inclined left curve
-        case 9:
+        case 12:
           angel = 300;
-          positionQ = 1;
+          isImpCurv = 1;
+          positionQ = 1; //----- left-up
+          break;
+        case 13:
+          angel = 300;
+          isImpCurv = 1;
+          positionQ = 3; //----- right-down
           break;
       }
 
@@ -1306,14 +1330,26 @@
       impVector = SVGServ.cteateLineByAngel(blocks[blockIndex].center, angel);
       console.log('impVector$$$$', impVector);
       crossPoints = getImpostCrossPointInBlock(impVector, linesOut);
-
       console.log('IMP+++crossPoints++',crossPoints);
+
       var impPointsQty = crossPoints.length;
       if(impPointsQty == 2) {
         while(--impPointsQty > -1) {
-          createImpostPoint(crossPoints[impPointsQty], curBlockN, blockIndex, blocksSource);
+          createImpostPoint(0, crossPoints[impPointsQty], curBlockN, blockIndex, blocksSource);
           createChildBlock(++lastBlockN, blockIndex, blocksSource);
         }
+      }
+      //------- if impost is curve
+      if(isImpCurv) {
+        var impLine = {
+          from: angular.copy(crossPoints[0]),
+          to: angular.copy(crossPoints[1])
+        };
+        impLine.size = Math.round(Math.hypot((impLine.to.x - impLine.from.x), (impLine.to.y - impLine.from.y)) * 100) / 100;
+        SVGServ.setLineCoef(impLine);
+        var coordQ = setQPointCoord(positionQ, impLine, 0.3); //----- 30% less due to Q point will not more center of block
+        console.log('IMP+++coordQ++',coordQ);
+        createImpostPoint(isImpCurv, coordQ, curBlockN, blockIndex, blocksSource);
       }
 console.log('blocksSource-------------',blocksSource);
       //----- change Template
@@ -1348,12 +1384,12 @@ console.log('blocksSource-------------',blocksSource);
         var coord, checkPoint, intersect;
 //                console.log('line ++++', lines[linesQty]);
         coord = SVGServ.getCoordCrossPoint(vector, lines[l]);
-                console.log('coord ++++', coord);
+//                console.log('coord ++++', coord);
         if(coord.x >= 0 && coord.y >= 0) {
 
           //------ checking is cross point inner of line
           checkPoint = SVGServ.checkLineOwnPoint(coord, lines[l].to, lines[l].from);
-                          console.log('^^^^^checkPoint^^^^', checkPoint);
+//                          console.log('^^^^^checkPoint^^^^', checkPoint);
 //          if(checkPoint.x >= 0 && checkPoint.x <= 1 || checkPoint.y >= 0 && checkPoint.y <= 1) {
           var isCross = SVGServ.isInsidePointInLine(checkPoint);
           if(isCross) {
@@ -1372,15 +1408,20 @@ console.log('blocksSource-------------',blocksSource);
 
 
 
-    function createImpostPoint(coord, curBlockN, blockIndex, blocks) {
+    function createImpostPoint(isQP, coord, curBlockN, blockIndex, blocks) {
       var impPoint = {
         type:'impost',
         id:'ip'+curBlockN,
         x: coord.x,
         y: coord.y,
-        fi: coord.fi,
+//        fi: coord.fi,
         dir:'line'
       };
+      //----- if Q point create
+      if(isQP) {
+        impPoint.dir = 'curv';
+        impPoint.id = 'qi'+curBlockN;
+      }
       //---- insert impostPoint in parent block
       if(!blocks[blockIndex].impost) {
         blocks[blockIndex].impost = {
@@ -1414,6 +1455,8 @@ console.log('blocksSource-------------',blocksSource);
       //---- insert block in blocks
       blocks.push(newBlock);
     }
+
+
 
 
 
