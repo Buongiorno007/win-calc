@@ -30,10 +30,19 @@
         });
 
 
+
+
+
         function buildSVG(template, widthSVG, heightSVG) {
           var mainSVG, mainGroup, padding = 1, points, dimMaxMin, scale, position, blocksQty;
           if(template && !$.isEmptyObject(template)) {
+
             d3.select('#tamlateSVG').remove();
+
+            var lineCreator = d3.svg.line()
+              .x(function(d) { return d.x; })
+              .y(function(d) { return d.y; })
+              .interpolate("linear");
 
             if (scope.typeConstruction === 'edit') {
               widthSVG += '%';
@@ -63,8 +72,11 @@
             blocksQty = template.details.length;
 
             for (var i = 0; i < blocksQty; i++) {
-              if (template.details[i].level > 0) {
-                mainGroup.selectAll('path.' + template.details[i].id).data(template.details[i].parts).enter().append('path').attr({
+              if (template.details[i].level) {
+                mainGroup.selectAll('path.' + template.details[i].id)
+                  .data(template.details[i].parts)
+                  .enter().append('path')
+                  .attr({
                     'blockId': template.details[i].id,
                     //'class': function(d) { return d.type; },
                     'class': function (d) {
@@ -82,10 +94,15 @@
                   });
 
 
+
                 //----- sash open direction
                 if (template.details[i].sashOpenDir) {
-                  var openSashMarks = mainGroup.selectAll('path.sash_mark.' + template.details[i].id).data(template.details[i].sashOpenDir).enter().append('path').classed('sash_mark', true).attr('d', function (d) {
-                      return d.path;
+                  var openSashMarks = mainGroup.selectAll('path.sash_mark.' + template.details[i].id)
+                    .data(template.details[i].sashOpenDir)
+                    .enter().append('path')
+                    .classed('sash_mark', true)
+                    .attr('d', function (d) {
+                      return lineCreator(d.points);
                     });
                 }
 
@@ -96,7 +113,10 @@
                   var corners = template.details[i].pointsOut.filter(function (item) {
                     return item.corner > 0;
                   });
-                  var cornerMarks = mainGroup.selectAll('circle.corner_mark.' + template.details[i].id).data(corners).enter().append('circle').attr({
+                  var cornerMarks = mainGroup.selectAll('circle.corner_mark.' + template.details[i].id)
+                    .data(corners)
+                    .enter().append('circle')
+                    .attr({
                       'blockId': template.details[i].id,
                       'class': 'corner_mark',
                       'parent': function (d) {
@@ -124,6 +144,9 @@
             console.log('buildSVG done!!!!!!!!!', new Date(), new Date().getMilliseconds());
           }
         }
+
+
+
 
 
       }

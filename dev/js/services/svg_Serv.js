@@ -32,7 +32,9 @@
       checkLineOwnPoint: checkLineOwnPoint,
       isInsidePointInLine: isInsidePointInLine,
       getCoordSideQPCurve: getCoordSideQPCurve,
-      checkEqualPoints: checkEqualPoints
+      checkEqualPoints: checkEqualPoints,
+      setQPointCoord: setQPointCoord,
+      getCenterLine: getCenterLine
     };
 
     return thisFactory.publicObj;
@@ -50,7 +52,6 @@
           defer = $q.defer();
       //  thisObj.name = sourceObj.name;
       thisObj.details = angular.copy(sourceObj.details);
-      //thisObj.dimentions = createDimentions(sourceObj);
 
       var blocksQty = thisObj.details.length;
 
@@ -456,8 +457,6 @@
 
 
     function getCrossPoint2Lines(line1, line2) {
-//      console.log('L= ---------------');
-//      console.log('L=     ', line1, line2);
       var crossPoint = {},
           coord = {},
           isParall = checkParallel(line1, line2);
@@ -566,7 +565,6 @@ console.log('-------------setPointsXChildren -----------');
 
         //------- if curve impost
         if(impPointsQty === 3) {
-          var impAxQ = angular.copy(currBlock.impost.impostAxis[2]);
           //----- make order for impostOut
           var impostOutQty = currBlock.impost.impostOut.length;
           for(var i = 0; i < impostOutQty; i++) {
@@ -576,9 +574,26 @@ console.log('-------------setPointsXChildren -----------');
           if(currBlock.impost.impostOut[0].fi !== currBlock.impost.impostAxis[0].fi) {
             currBlock.impost.impostOut.reverse();
           }
-//          console.log('!!!!! impostAxis -----', currBlock.impost.impostAxis);
+          var impLineOut = {
+            from: angular.copy(currBlock.impost.impostOut[0]),
+            to: angular.copy(currBlock.impost.impostOut[1])
+          };
+          setLineCoef(impLineOut);
+          //------ get Q point Axis of impost
+          var impAxQ = setQPointCoord(currBlock.impost.impostAxis[2].positionQ, impLineOut, currBlock.impost.impostAxis[2].radius);
+          impAxQ.type = 'impost';
+          impAxQ.id = 'qi' + Number(currBlock.impost.impostOut[0].id.replace(/\D+/g, ""));
+          impAxQ.dir = 'curv';
+          if(!impLineOut.coefA && currBlock.impost.impostAxis[2].positionQ === 1) {
+            impAxQ.y -= currBlock.impost.impostAxis[2].radius * 2;
+          } else if(!impLineOut.coefB && currBlock.impost.impostAxis[2].positionQ === 4) {
+            impAxQ.x -= currBlock.impost.impostAxis[2].radius * 2;
+          }
+          blocks[indexChildBlock1].pointsOut.push(angular.copy(impAxQ));
+          blocks[indexChildBlock2].pointsOut.push(angular.copy(impAxQ));
+//          console.log('!!!!! impAxQ -----', impAxQ);
 //          console.log('!!!!! impostOut -----', currBlock.impost.impostOut);
-          //----- find Q points of impost
+          //----- find Q points Inner of impost
           getImpostQPIn(0, currBlock.impost.impostOut[0], currBlock.impost.impostOut[1], impAxQ, depths, currBlock.impost.impostIn);
           getImpostQPIn(1, currBlock.impost.impostOut[1], currBlock.impost.impostOut[0], impAxQ, depths, currBlock.impost.impostIn);
         }
@@ -586,12 +601,14 @@ console.log('-------------setPointsXChildren -----------');
 
         var impostAx = angular.copy(currBlock.impost.impostAxis);
         //------- insert pointsOut of parent block in pointsOut of children blocks
-//        console.log('COLLECT OUT------- indexChildBlock1', indexChildBlock1, indexChildBlock2);
         collectPointsXChildBlock(impostAx, pointsOut, blocks[indexChildBlock1].pointsOut, blocks[indexChildBlock2].pointsOut);
         //------- insert impostOut of impost in pointsOut of children blocks
-        $.merge(blocks[indexChildBlock1].pointsOut, angular.copy(impostAx));
-        $.merge(blocks[indexChildBlock2].pointsOut, angular.copy(impostAx));
-//        console.log('COLLECT IN------- indexChildBlock1', indexChildBlock1, indexChildBlock2);
+//        $.merge(blocks[indexChildBlock1].pointsOut, angular.copy(impostAx));
+        for(var i = 0; i < 2; i++) {
+          blocks[indexChildBlock1].pointsOut.push(angular.copy(impostAx[i]));
+          blocks[indexChildBlock2].pointsOut.push(angular.copy(impostAx[i]));
+        }
+
         //------- insert pointsIn of parent block in pointsIn of children blocks
         collectPointsXChildBlock(impostAx, pointsIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn);
         //------- insert impostIn of impost in pointsIn of children blocks
@@ -666,10 +683,7 @@ console.log('-------------setPointsXChildren -----------');
 
     function findImpostCenter(markAx, impost) {
       //---- take middle point of impost
-      var centerImpost = {
-            x: (impost.to.x + impost.from.x)/2,
-            y: (impost.to.y + impost.from.y)/2
-          };
+      var centerImpost = getCenterLine(impost.from, impost.to);
       //---- if impost Axis line
       if(markAx) {
         return centerImpost;
@@ -718,7 +732,7 @@ console.log('-------------setPointsXChildren -----------');
       //----- delete Q point parent
       var pQty = pointsIn.length;
       while(--pQty > -1) {
-        if(pointsIn[pQty].id.indexOf('q')+1) {
+        if(pointsIn[pQty].id === sideQP1.id) {
           pointsIn.splice(pQty, 1);
         }
       }
@@ -870,6 +884,37 @@ console.log('-------------setPointsXChildren -----------');
     }
 
 
+
+    function setQPointCoord(side, line, dist) {
+      var middle = getCenterLine(line.from, line.to),
+          coordQP = {};
+      if(!line.coefA || !line.coefB) {
+        coordQP.x = Math.round(Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ))) + middle.x;
+        coordQP.y = Math.round(Math.sqrt( Math.pow(dist, 2) - Math.pow((coordQP.x - middle.x), 2)  )) + middle.y;
+      } else {
+        switch(side) {
+          case 1:
+            coordQP.y = middle.y - Math.round(Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )));
+            coordQP.x = middle.x - Math.round(Math.sqrt( Math.pow(dist, 2) - Math.pow((middle.y - coordQP.y), 2)  ));
+            break;
+          case 2:
+            coordQP.y = middle.y - Math.round(Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )));
+            coordQP.x = Math.round(Math.sqrt( Math.pow(dist, 2) - Math.pow((coordQP.y - middle.y), 2)  )) + middle.x;
+            break;
+          case 3:
+            coordQP.y = Math.round(Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ))) + middle.y;
+            coordQP.x = Math.round(Math.sqrt( Math.pow(dist, 2) - Math.pow((coordQP.y - middle.y), 2)  )) + middle.x;
+            break;
+          case 4:
+            coordQP.y = Math.round(Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ))) + middle.y;
+            coordQP.x = middle.x - Math.round(Math.sqrt( Math.pow(dist, 2) - Math.pow((middle.y - coordQP.y), 2)  ));
+            break;
+        }
+      }
+      coordQP.y = Math.round(coordQP.y * 100)/100;
+      coordQP.x = Math.round(coordQP.x * 100)/100;
+      return coordQP;
+    }
 
 
 
@@ -1274,8 +1319,6 @@ console.log('-------------setPointsXChildren -----------');
             part.points.push(getCrossPointSashDir(4, center, 315, beadLines));
             break;
         }
-//        console.log('path ====', part.points);
-        part.path = assamblingSashPath(part.points);
         parts.push(part);
       }
 
@@ -1538,17 +1581,6 @@ console.log('-------------setPointsXChildren -----------');
 
 
 
-    function assamblingSashPath(arrPoints) {
-      var path = 'M ' + arrPoints[0].x + ',' + arrPoints[0].y,
-          pointQty = arrPoints.length;
-
-      for(var p = 1; p < pointQty; p++) {
-        path += ' L ' + arrPoints[p].x + ',' + arrPoints[p].y;
-      }
-      return path;
-    }
-
-
 
 
 
@@ -1658,6 +1690,14 @@ console.log('-------------setPointsXChildren -----------');
 
 
 
+    function getCenterLine(pointStart, pointEnd) {
+      var center = {
+        x: (pointStart.x + pointEnd.x)/2,
+        y: (pointStart.y + pointEnd.y)/2
+      };
+      return center;
+    }
+
 
     function collectAllPointsOut(blocks) {
       var points = [],
@@ -1668,7 +1708,7 @@ console.log('-------------setPointsXChildren -----------');
           if(pointsOutQty) {
             while(--pointsOutQty > -1) {
               if($.inArray(blocks[blocksQty].pointsOut[pointsOutQty], points) === -1) {
-                points.push(blocks[blocksQty].pointsOut[pointsOutQty]);
+                points.push(angular.copy(blocks[blocksQty].pointsOut[pointsOutQty]));
               }
             }
           }

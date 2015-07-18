@@ -110,12 +110,6 @@ function createDimentions(sourceObj) {
   impostVertXArr.sort(sortNumbers);
   impostHorYArr.sort(sortNumbers);
 
-/*
-  console.log('frameXArr sort== ', frameXArr);
-  console.log('impostVertXArr sort== ', impostVertXArr);
-  console.log('impostHorYArr sort== ', impostHorYArr);
-
-*/
 
   //----- set level
   if(impostVertXArr.length > 0) {
