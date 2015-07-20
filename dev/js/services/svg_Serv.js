@@ -169,8 +169,11 @@
             thisObj.details[i].parts.push( setImpostParts(thisObj.details[i].impost.impostIn) );
           }
 
+
         }
       }
+
+      thisObj.dimension = initDimensions(thisObj.details);
 
       console.log('END++++', thisObj.details);
       console.log('svg finish', new Date(), new Date().getMilliseconds());
@@ -277,10 +280,6 @@
 
       for(var i = 0; i < pointsQty; i++) {
         points[i].fi = getAngelPoint(center, points[i]);
-        //---- for curve impost
-//        if(points[i].id.indexOf('qi')+1 && !points[i].group) {
-//          points[i].fi = 360 - points[i].fi;
-//        }
       }
       points.sort(function(a, b){
         return b.fi - a.fi;
@@ -1707,7 +1706,7 @@ console.log('-------------setPointsXChildren -----------');
           var pointsOutQty = blocks[blocksQty].pointsOut.length;
           if(pointsOutQty) {
             while(--pointsOutQty > -1) {
-              if($.inArray(blocks[blocksQty].pointsOut[pointsOutQty], points) === -1) {
+              if(!$.inArray(blocks[blocksQty].pointsOut[pointsOutQty], points)+1) {
                 points.push(angular.copy(blocks[blocksQty].pointsOut[pointsOutQty]));
               }
             }
@@ -1716,6 +1715,120 @@ console.log('-------------setPointsXChildren -----------');
       }
       return points;
     }
+
+
+
+    function initDimensions(blocks) {
+      var dimension = {
+            dimX: [],
+            dimY: []
+          },
+          blockDimX = [],
+          blockDimY = [],
+          impDimX = [],
+          impDimY = [],
+          blocksQty = blocks.length,
+          points = collectAllPointsOut(blocks),
+          pointsQty = points.length,
+          pointsAllX = [],
+          pointsAllY = [];
+
+      console.log('DIM points =======', points);
+
+      for(var p = 0; p < pointsQty; p++) {
+        pointsAllX.push(points[p].x);
+        pointsAllY.push(points[p].y);
+      }
+      pointsAllX = pointsAllX.removeDuplicates();
+      pointsAllY = pointsAllY.removeDuplicates();
+      //---- sorting
+      pointsAllX.sort(sortNumbers);
+      pointsAllY.sort(sortNumbers);
+
+      console.log('DIM pointsAll =======', pointsAllX, pointsAllY);
+
+      for(var b = 0; b < blocksQty; b++) {
+        if(blocks[b].level === 1) {
+
+          var pointsOutQty = blocks[b].pointsOut.length,
+              childQty = blocks[b].children.length;
+
+          //----- take pointsOut
+          while(--pointsOutQty > -1) {
+//            if(!blocks[b].pointsOut[pointsOutQty].id.indexOf('q')+1 || blocks[b].pointsOut[pointsOutQty].view) {
+            if(!blocks[b].pointsOut[pointsOutQty].id.indexOf('q')+1) {
+              blockDimX.push(blocks[b].pointsOut[pointsOutQty].x);
+              blockDimY.push(blocks[b].pointsOut[pointsOutQty].y);
+            }
+          }
+          blockDimX = blockDimX.removeDuplicates();
+          blockDimY = blockDimY.removeDuplicates();
+          //---- sorting
+          blockDimX.sort(sortNumbers);
+          blockDimY.sort(sortNumbers);
+
+
+          //------- collect dimension Obj
+          var dimQty = blockDimX.length;
+          for(var d = 0; d < dimQty-1; d++) {
+            //------- by X
+            dimension.dimX.push(createDimObj(d, d+1, blockDimX, pointsAllX, blocks[b]));
+            //------- by Y
+            dimension.dimY.push(createDimObj(d, d+1, blockDimY, pointsAllY, blocks[b]));
+          }
+
+
+        }
+      }
+//      if(currBlock.level === 1 || childQty) {
+
+      console.log('DIM dimension========', dimension);
+
+      return dimension;
+    }
+
+
+    function createDimObj(index, indexNext, blockDim, pointsAll, currBlock) {
+      var dim = {
+            blockId: currBlock.id,
+            level: currBlock.level,
+            from: angular.copy(blockDim[index]),
+            to: angular.copy(blockDim[indexNext]),
+            text: Math.abs(blockDim[index] - blockDim[indexNext])
+          },
+          pointsQty = pointsAll.length;
+
+      //------ set Limints
+      for(var i = 0; i < pointsQty; i++) {
+        if(pointsAll[i] === blockDim[indexNext]) {
+          dim.minLimit = (pointsAll[i-1]) ? pointsAll[i-1] + 100 : 100;
+          dim.maxLimit = (pointsAll[i+1]) ? pointsAll[i+1] + 100 : 5000;
+        }
+      }
+      return dim;
+    }
+
+
+
+
+
+//    function getAllImpostDim(impostsDimX, impostsDimY, childBlockId, blocksQty, blocks) {
+//      for(var i = 0; i < blocksQty; i++) {
+//        if(blocks[i].id === childBlockId) {
+//          if(blocks[i].children.length) {
+//            var impQty = 2;
+//            while(--impQty > -1) {
+//              impostsDimX.push(blocks[i].impost.impostOut[impQty].x);
+//              impostsDimY.push(blocks[i].impost.impostOut[impQty].y);
+//            }
+//            getAllImpostDim(impostsDimX, blocks[i].children[0], blocksQty, blocks);
+//            getAllImpostDim(impostsDimY, blocks[i].children[1], blocksQty, blocks);
+//          }
+//        }
+//      }
+//    }
+
+
 
 
   }

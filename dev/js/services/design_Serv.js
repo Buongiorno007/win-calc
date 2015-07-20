@@ -770,9 +770,7 @@
           blockInds = findBlockCrossLineArc(currLine, blocksQty, blocks); //---- return [index block]
 
       //---- sorting blockInds
-      blockInds.sort(function(a,b) {
-        return a - b;
-      });
+      blockInds.sort(sortNumbers);
 //      console.log('ARC blockInds ~~~~~~~~', blockInds);
 
       var blockIndsQty = blockInds.length;
@@ -916,114 +914,6 @@
         blocks[impost.indexBlock].impost.impostAxis[impost.pointIdChange].y = coord.y;
       }
     }
-
-
-    /*
-
-    function setQPointImpostArc(arcN, indexImp, imposts, currLineFrom, currLineTo, coordQ, blocks, blocksSource) {
-      var impost = imposts[indexImp], intersectImp;
-//      console.log('ARC indexImp ``````````````````````', indexImp);
-//      console.log('ARC impost ``````````````````````', impost.from, impost.to);
-//      console.log('ARC P0 ``````````````````````', currLineFrom);
-//      console.log('ARC P1 ``````````````````````', coordQ);
-//      console.log('ARC P2 ``````````````````````', currLineTo);
-      //------ calc the intersections impost with arc
-      var intersect = SVGServ.QLineIntersections(currLineFrom, coordQ, currLineTo, impost.from, impost.to)[0];
-//      console.log('ARC intersect ``````````````````',intersect);
-
-      if (intersect) {
-        setNewCoordImpost(intersect, impost);
-//        console.log('ARC imposts new ``````````````````', imposts);
-        //------- check current impost with other imposts to crossing
-        //------- except for first impost
-        if(indexImp) {
-          intersectImp = checkingImpostsToCrossSelf(impost, imposts);
-//          console.log('ARC intersectImp```````````', intersectImp);
-        }
-        //------- impost cross other impost
-        if(intersectImp) {
-          setNewCoordImpostAxis(intersectImp, impost, blocksSource);
-        //------- impost cross arc
-        } else {
-          //------ set subPoints Q left / right side of impost
-          var impostQP1 = SVGServ.getCoordSideQPCurve(intersect.t, currLineFrom, coordQ),
-              impostQP2 = SVGServ.getCoordSideQPCurve(intersect.t, coordQ, currLineTo),
-              impostQPIn1 = getCoordQPIn(currLineFrom, impostQP1, intersect, blocks[impost.indexBlock].blockType),
-              impostQPIn2 = getCoordQPIn(intersect, impostQP2, currLineTo, blocks[impost.indexBlock].blockType),
-              //------- checking place of subPoints Q as to impost
-              placeImpostQP1 = SVGServ.setPointLocationToLine(impost.from, impost.to, impostQP1),
-              placeImpostQP2 = SVGServ.setPointLocationToLine(impost.from, impost.to, impostQP2),
-              //------- set blocks Ids according to left / right side
-              blockIds = setBlockLocationToLine(impost.from, impost.to, blocks[impost.indexBlock].children, blocks),
-              blockID1 = (placeImpostQP1 > 0) ? blockIds.pos : blockIds.neg,
-              blockID2 = (placeImpostQP2 > 0) ? blockIds.pos : blockIds.neg;
-
-//          console.log('ARC QPssss```````````', impostQP1, impostQP2, impostQPIn1, impostQPIn2);
-//          console.log('ARC placeImpost`````````````', placeImpostQP1, placeImpostQP2);
-//          console.log('ARC blockIds ```````````', blockIds);
-//          console.log('ARC blockID ```````````',  blockID1, blockID2);
-          createQPImpostArc(1, arcN, impost.indexBlock, impostQP1, impostQPIn1, blockID1, blocksSource);
-          createQPImpostArc(2, arcN, impost.indexBlock, impostQP2, impostQPIn2, blockID2, blocksSource);
-          //----- change coordinates of impost point in SourceTEMP
-          setNewCoordImpostAxis(intersect, impost, blocksSource);
-        }
-
-        ++indexImp;
-        //------ go to next impost
-        if (indexImp < imposts.length) {
-          setQPointImpostArc(arcN, indexImp, imposts, currLineFrom, intersect, impostQP1, blocks, blocksSource);
-          setQPointImpostArc(arcN, indexImp, imposts, intersect, currLineTo, impostQP2, blocks, blocksSource);
-        }
-
-      }
-
-    }
-
-
-
-
-
-
-    function setBlockLocationToLine(lineP1, lineP2, currBlockId, blocks) {
-      var currBlockIdQty = currBlockId.length,
-          blocksQty = blocks.length,
-          blockIndex = {};
-      //      console.log('currBlockId ====', currBlockId);
-      while(--currBlockIdQty > - 1) {
-        for(var i = 0; i <  blocksQty; i++) {
-          if(blocks[i].id === currBlockId[currBlockIdQty]) {
-            var location = 0,
-                pointsOutQty = blocks[i].pointsOut.length;
-            while(--pointsOutQty > -1) {
-              var lookPoint = blocks[i].pointsOut[pointsOutQty];
-              if(lookPoint.id === lineP1.id || lookPoint.id === lineP2.id) {
-                continue;
-              } else {
-                var placePoint = SVGServ.setPointLocationToLine(lineP1, lineP2, lookPoint);
-//                console.log('placePoint ====', lookPoint);
-//                console.log('placePoint ====', lineP1, lineP2);
-//                console.log('placePoint ====', placePoint);
-                if(placePoint > 0) {
-                  location = 1;
-                }
-              }
-            }
-            if(location) {
-              blockIndex.pos = i;
-            } else {
-              blockIndex.neg = i;
-            }
-          }
-        }
-      }
-//      console.log('blockIndex ====', blockIndex);
-      return blockIndex;
-    }
-
-
-*/
-
-
 
 
 
@@ -1274,12 +1164,12 @@
       }
 
       lastBlockN = getLastBlockNumber();
-      console.log('IMP center -----------', blocks[blockIndex].center, angel);
-      console.log('IMP linesOut -----------', linesOut);
+//      console.log('IMP center -----------', blocks[blockIndex].center, angel);
+//      console.log('IMP linesOut -----------', linesOut);
       impVector = SVGServ.cteateLineByAngel(blocks[blockIndex].center, angel);
-      console.log('impVector$$$$', impVector);
+//      console.log('impVector$$$$', impVector);
       crossPoints = getImpostCrossPointInBlock(impVector, linesOut);
-      console.log('IMP+++crossPoints++',crossPoints);
+//      console.log('IMP+++crossPoints++',crossPoints);
 
       var impPointsQty = crossPoints.length;
       if(impPointsQty == 2) {
@@ -1292,7 +1182,7 @@
       if(isImpCurv) {
         var distMax = getRadiusMaxImpostCurv(crossPoints[0], crossPoints[1], blocks[blockIndex].pointsIn);
         createImpostQPoint(distMax, positionQ, blockIndex, blocksSource);
-        console.log('IMP+++coordQ++',distMax);
+//        console.log('IMP+++coordQ++',distMax);
       }
 console.log('blocksSource-------------',blocksSource);
       //----- change Template
