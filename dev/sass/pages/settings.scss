@@ -100,7 +100,7 @@
     color: $main_orange;
     &:after {
       @extend .icon-setting;
-      @include font-general-icon(rem(50px), rem(50px));
+      @include font-icon(rem(50px), rem(50px));
       @include rotate(180deg);
 
       position: absolute;

@@ -169,9 +169,11 @@
             thisObj.details[i].parts.push( setImpostParts(thisObj.details[i].impost.impostIn) );
           }
 
-          thisObj.details[i].dimension = initDimensions(thisObj.details[i], thisObj.details);
+
         }
       }
+
+      thisObj.dimension = initDimensions(thisObj.details);
 
       console.log('END++++', thisObj.details);
       console.log('svg finish', new Date(), new Date().getMilliseconds());
@@ -1716,108 +1718,118 @@ console.log('-------------setPointsXChildren -----------');
 
 
 
-    function initDimensions(currBlock, blocks) {
-      var dimension = [],
+    function initDimensions(blocks) {
+      var dimension = {
+            dimX: [],
+            dimY: []
+          },
           blockDimX = [],
           blockDimY = [],
           impDimX = [],
           impDimY = [],
-          pointsOutQty = currBlock.pointsOut.length,
-          childQty = currBlock.children.length,
+          blocksQty = blocks.length,
+          points = collectAllPointsOut(blocks),
+          pointsQty = points.length,
+          pointsAllX = [],
+          pointsAllY = [];
 
-          dimMinX, dimMinY, dimMaxX, dimMaxY;
+      console.log('DIM points =======', points);
 
-//      if(currBlock.level === 1 || childQty) {
-      if(currBlock.level === 1) {
-        //----- take pointsOut
-        while(--pointsOutQty > -1) {
-          if(!currBlock.pointsOut[pointsOutQty].id.indexOf('q')+1 || currBlock.pointsOut[pointsOutQty].view) {
-            if(!$.inArray(currBlock.pointsOut[pointsOutQty].x, blockDimX)+1) {
-              blockDimX.push(currBlock.pointsOut[pointsOutQty].x);
-            }
-            if(!$.inArray(currBlock.pointsOut[pointsOutQty].y, blockDimY)+1) {
-              blockDimY.push(currBlock.pointsOut[pointsOutQty].y);
-            }
-          }
-        }
-        //---- sorting
-        blockDimX.sort(sortNumbers);
-        blockDimY.sort(sortNumbers);
-
-        //--- collect all imposts in order to define limits
-        if(childQty) {
-          var impQty = 2,
-              blocksQty = blocks.length,
-              impMaxX, impMaxY;
-
-          while(--impQty > -1) {
-            impDimX.push(currBlock.impost.impostOut[impQty].x);
-            impDimY.push(currBlock.impost.impostOut[impQty].y);
-          }
-          getAllImpostDim(impDimX, impDimY, currBlock.children[0], blocksQty, blocks);
-          getAllImpostDim(impDimX, impDimY, currBlock.children[1], blocksQty, blocks);
-
-          //---- sorting
-          impDimX.sort(sortNumbers);
-          impDimY.sort(sortNumbers);
-          console.log('DIM imposts========',impDimX, impDimY);
-
-        }
-
-        //------- collect dimension Obj
-        //------- by X
-        for(var d = 0; d < blockDimX.length; d++) {
-          var index = d+1;
-          if(blockDimX[index]) {
-            var dim = {
-              from: angular.copy(blockDimX[d]),
-              to: angular.copy(blockDimX[index]),
-              text: Math.abs(blockDimX[d] - blockDimX[index])
-            };
-            if(childQty) {
-              var impIndex = impDimX.length - 1;
-              if(blockDimX[index] === impDimX[impIndex]) {
-                impIndex = impDimX.length - 2;
-              }
-              dim.minLimit = impDimX[impIndex];
-            } else {
-              dim.minLimit = 100;
-
-              if(index === blockDimX.length-1) {
-                dim.maxLimit = 5000;
-              } else {
-
-              }
-            }
-
-            dimension.push(dim);
-          }
-        }
-        console.log('DIM dimension========', dimension);
-
+      //------ all points
+      for(var p = 0; p < pointsQty; p++) {
+        pointsAllX.push(points[p].x);
+        pointsAllY.push(points[p].y);
       }
+      pointsAllX = pointsAllX.removeDuplicates();
+      pointsAllY = pointsAllY.removeDuplicates();
+      //---- sorting
+      pointsAllX.sort(sortNumbers);
+      pointsAllY.sort(sortNumbers);
 
+      console.log('DIM pointsAll =======', pointsAllX, pointsAllY);
+
+      //------ in block
+      for(var b = 0; b < blocksQty; b++) {
+        if(blocks[b].level === 1) {
+
+          var pointsOutQty = blocks[b].pointsOut.length,
+              childQty = blocks[b].children.length;
+
+          //----- take pointsOut
+          while(--pointsOutQty > -1) {
+//            if(!blocks[b].pointsOut[pointsOutQty].id.indexOf('q')+1 || blocks[b].pointsOut[pointsOutQty].view) {
+            if(!blocks[b].pointsOut[pointsOutQty].id.indexOf('q')+1) {
+              blockDimX.push(blocks[b].pointsOut[pointsOutQty].x);
+              blockDimY.push(blocks[b].pointsOut[pointsOutQty].y);
+            }
+          }
+          blockDimX = blockDimX.removeDuplicates();
+          blockDimY = blockDimY.removeDuplicates();
+          //---- sorting
+          blockDimX.sort(sortNumbers);
+          blockDimY.sort(sortNumbers);
+
+
+          //------- collect dimension Obj
+          var dimQty = blockDimX.length;
+          for(var d = 0; d < dimQty-1; d++) {
+            //------- by X
+            dimension.dimX.push(createDimObj(d, d+1, blockDimX, pointsAllX, blocks[b]));
+            //------- by Y
+            dimension.dimY.push(createDimObj(d, d+1, blockDimY, pointsAllY, blocks[b]));
+          }
+
+
+        }
+      }
+//      if(currBlock.level === 1 || childQty) {
+
+      console.log('DIM dimension========', dimension);
 
       return dimension;
     }
 
 
 
-    function getAllImpostDim(impostsDimX, impostsDimY, childBlockId, blocksQty, blocks) {
-      for(var i = 0; i < blocksQty; i++) {
-        if(blocks[i].id === childBlockId) {
-          if(blocks[i].children.length) {
-            var impQty = 2;
-            while(--impQty > -1) {
-              impostsDimX.push(blocks[i].impost.impostOut[impQty].x);
-              impostsDimY.push(blocks[i].impost.impostOut[impQty].y);
-            }
-            getAllImpostDim(impostsDimX, blocks[i].children[0], blocksQty, blocks);
-            getAllImpostDim(impostsDimY, blocks[i].children[1], blocksQty, blocks);
-          }
+    function createDimObj(index, indexNext, blockDim, pointsAll, currBlock) {
+      var dim = {
+            blockId: currBlock.id,
+            level: currBlock.level,
+            from: angular.copy(blockDim[index]),
+            to: angular.copy(blockDim[indexNext]),
+            text: Math.abs(blockDim[index] - blockDim[indexNext])
+          },
+          pointsQty = pointsAll.length;
+
+      //------ set Limints
+      for(var i = 0; i < pointsQty; i++) {
+        if(pointsAll[i] === blockDim[indexNext]) {
+          dim.minLimit = (pointsAll[i-1]) ? pointsAll[i-1] + 100 : 100;
+          dim.maxLimit = (pointsAll[i+1]) ? pointsAll[i+1] + 100 : 5000;
         }
       }
+      return dim;
     }
+
+
+
+
+
+//    function getAllImpostDim(impostsDimX, impostsDimY, childBlockId, blocksQty, blocks) {
+//      for(var i = 0; i < blocksQty; i++) {
+//        if(blocks[i].id === childBlockId) {
+//          if(blocks[i].children.length) {
+//            var impQty = 2;
+//            while(--impQty > -1) {
+//              impostsDimX.push(blocks[i].impost.impostOut[impQty].x);
+//              impostsDimY.push(blocks[i].impost.impostOut[impQty].y);
+//            }
+//            getAllImpostDim(impostsDimX, blocks[i].children[0], blocksQty, blocks);
+//            getAllImpostDim(impostsDimY, blocks[i].children[1], blocksQty, blocks);
+//          }
+//        }
+//      }
+//    }
 
 
 

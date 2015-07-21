@@ -55,7 +55,7 @@
 
 
 .aux-color {
-  @include font-general-icon(rem(30px), 1);
+  @include font-icon(rem(30px), 1);
   @extend .splash;
   @extend .button;
 

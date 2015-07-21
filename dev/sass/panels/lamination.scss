@@ -44,7 +44,7 @@
       border-radius: rem($radius_lamination);
       background-color: $main_green;
       &:after {
-        @include font-general-icon(rem(130px), rem(130px));
+        @include font-icon(rem(130px), rem(130px));
 
         position: absolute;
         top: rem(40px);

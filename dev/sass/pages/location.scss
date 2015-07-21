@@ -6,7 +6,7 @@
   }
   .back {
     @extend .icon-setting;
-    @include font-nav-menu(rem(50px), 1);
+    @include font-icon(rem(50px), 1);
 
     width: rem(60px);
     height: rem(60px);

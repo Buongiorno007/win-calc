@@ -41,7 +41,7 @@
 
   .voice-icon {
     @extend .icon-setting;
-    @include font-general-icon(rem(60px), 2.25);
+    @include font-icon(rem(60px), 2.25);
 
     position: absolute;
     top: rem(10px);

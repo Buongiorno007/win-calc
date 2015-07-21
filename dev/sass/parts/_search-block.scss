@@ -4,7 +4,7 @@
 
   &:before {
     @extend .icon-setting;
-    @include font-general-icon(rem(50px), 1);
+    @include font-icon(rem(50px), 1);
 
     position: absolute;
     top: 25%;
@@ -33,7 +33,7 @@
   .delete-search {
     @extend .cross-btn;
     @extend .splash;
-    @include font-general-icon(rem(40px), 1);
+    @include font-icon(rem(40px), 1);
 
     position: absolute;
     top: 25%;

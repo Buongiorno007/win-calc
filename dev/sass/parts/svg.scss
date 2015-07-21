@@ -1,0 +1,130 @@
+//=============== SVG
+
+.frame {
+  @include transition(all 0.2s linear);
+  fill: #f9f9f9;
+  stroke: $main_gray_txt;
+  stroke-width: 2;
+}
+.frame-icon {
+  fill: #aaa;
+  stroke: #000;
+  stroke-width: 4;
+}
+.glass {
+  @include transition(all 0.1s linear);
+  fill: rgba(155, 204, 255, 0.20);
+}
+.glass-icon {
+  fill: #94DEEE;
+}
+.active_svg {
+  fill: rgba(34, 34, 255, 0.5)!important;
+}
+.frame-active, .glass-active {
+  @extend .active_svg;
+}
+.sash_mark {
+  fill: none;
+  stroke: $main_orange;
+  stroke-width: 2;
+}
+.corner_mark {
+  @extend .active_svg;
+  stroke: none;
+}
+.error_glass {
+  fill: $error_color;
+}
+//----- dimension
+.size-line {
+  fill: none;
+  stroke: #D2D2D2;
+  stroke-width: 1;
+}
+.size-rect {
+  stroke: $main_green;
+  stroke-width: 3px;
+  fill-opacity: 0;
+}
+.size-txt {
+  font-size: rem(90px);
+  stroke: #D2D2D2;
+  stroke-width: 1px;
+  text-anchor: middle;
+  alignment-baseline: middle;
+}
+.size-txt-edit {
+  @extend .size-txt;
+  stroke: $main_green;
+  fill: $main_green;
+}
+.size-rect-active {
+  @extend .size-rect;
+  fill: $main_green;
+  fill-opacity: 1;
+}
+.size-txt-active {
+  @extend .size-txt;
+  stroke: #fff;
+  fill: #fff;
+}
+
+
+
+
+
+.doorstep {
+  fill: #4f4f4f;
+  stroke: #4f4f4f;
+}
+.main-line {
+  fill: $main_gray_txt;
+}
+//.size-line {
+//  fill: none;
+//  stroke: #D2D2D2;
+//  stroke-width: 1;
+//stroke-linejoin: "round";
+//stroke-miterlimit: "10";
+//stroke-linecap: "round";
+//}
+
+//.size-rect-active {
+//  @extend .size-rect;
+//  fill: $main_green;
+//}
+//.size-value {
+//  font-size: rem(90px);
+//  stroke: #D2D2D2;
+//  stroke-width: 1px;
+//  text-anchor: middle;
+//  alignment-baseline: middle;
+//}
+/*
+.size-value-vertical {
+  @extend .size-value;
+  //text-anchor: end;
+
+  //writing-mode: tb;
+  //glyph-orientation-vertical: 190;
+  //@include rotate(180deg);
+}
+*/
+//.size-value-edit {
+//  @extend .size-value;
+//  stroke: $main_green;
+//  fill: $main_green;
+//}
+/*
+.size-value-edit-vertical {
+  @extend .size-value-edit;
+  //text-anchor: end;
+}
+*/
+//.size-value-active {
+//  @extend .size-value;
+//  stroke: #fff;
+//  fill: #fff;
+//}
+

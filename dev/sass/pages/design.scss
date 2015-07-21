@@ -71,7 +71,7 @@ $door-config-content: $ipad-height - $door-config-header;
 
   .figure-icon {
     @extend .splash;
-    @include font-general-icon(rem(88px), 1);
+    @include font-icon(rem(88px), 1);
     color: $main_green;
   }
 
@@ -168,7 +168,7 @@ ul.constr-shape-list {
 }
 
 li.constr-shape-icon {
-  @include font-general-icon(rem(50px), rem(80px));
+  @include font-icon(rem(50px), rem(80px));
   width: rem(80px);
   height: rem(80px);
   float: left;
@@ -264,7 +264,7 @@ li.constr-shape-icon {
     }
   }
   .save-construction {
-    @include font-general-icon(rem(28px), 1.5);
+    @include font-icon(rem(28px), 1.5);
 
     background-color: $main_green;
     &:after{
@@ -272,12 +272,12 @@ li.constr-shape-icon {
     }
   }
   .close-construction {
-    @include font-general-icon(rem(40px), 1);
+    @include font-icon(rem(40px), 1);
     background-color: $main_gray_btn;
   }
 
   .step-back {
-    @include font-general-icon(rem(40px), 1);
+    @include font-icon(rem(40px), 1);
     background-color: $main_gray_btn;
     &:after {
       content: $step-back;
@@ -302,7 +302,7 @@ li.constr-shape-icon {
     @extend .button;
     @extend .splash;
     @extend .icon-setting;
-    @include font-general-icon(rem(130px), 1);
+    @include font-icon(rem(130px), 1);
 
     margin: 0;
     padding: 0;
@@ -468,7 +468,7 @@ li.constr-shape-icon {
   .door-config-btn {
     @extend button;
     @extend .icon-setting;
-    @include font-general-icon(rem(60px), 1);
+    @include font-icon(rem(60px), 1);
 
     width: 100%;
     color: #fff;

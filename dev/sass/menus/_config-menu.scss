@@ -9,7 +9,7 @@
       background-color: #f0f0f0;
       &:before {
         @extend .icon-setting;
-        @include font-general-icon(rem(84px), 1);
+        @include font-icon(rem(84px), 1);
 
         position: absolute;
         z-index: 11;

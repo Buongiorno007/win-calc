@@ -81,19 +81,19 @@
     }
   }
   .search-btn {
-    @include font-general-icon(rem(40px), 1);
+    @include font-icon(rem(40px), 1);
     &:after {
       content: $search-icon;
     }
   }
   .calendar-btn {
-    @include font-general-icon(rem(40px), 1);
+    @include font-icon(rem(40px), 1);
     &:after {
       content: $calendar-icon;
     }
   }
   .settings-btn {
-    @include font-nav-menu(rem(40px), 1);
+    @include font-icon(rem(40px), 1);
     &:after {
       content: $settings-icon;
     }
@@ -204,7 +204,7 @@
 
   .filter-select-icon {
     @extend .select-icon;
-    @include font-general-icon(rem(30px), rem(70px));
+    @include font-icon(rem(30px), rem(70px));
 
     display: none;
   }
@@ -351,7 +351,7 @@
   }
   .complete-icon {
     @extend .select-icon;
-    @include font-general-icon(rem(30px), 1);
+    @include font-icon(rem(30px), 1);
   }
   .account-id {
     @include roboto-md(rem(36px));
@@ -380,7 +380,7 @@
   .account-tool {
     @extend .button;
     @extend .icon-setting;
-    @include font-general-icon(rem(45px), 1);
+    @include font-icon(rem(45px), 1);
 
     position: absolute;
     width: rem(120px);
@@ -390,7 +390,7 @@
     z-index: 1;
   }
   .account-select-btn {
-    @include font-general-icon(rem(30px), 1);
+    @include font-icon(rem(30px), 1);
     top: rem(50px);
     right: rem(-120px);
     background-color: $main_green;
@@ -487,7 +487,7 @@
   .result-icon {
     @extend .splash;
     @extend .icon-setting;
-    @include font-general-icon(rem(370px), 1.5);
+    @include font-icon(rem(370px), 1.5);
 
     &:after {
       color: #c6c6c6;

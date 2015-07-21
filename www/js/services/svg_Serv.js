@@ -1738,6 +1738,7 @@ console.log('-------------setPointsXChildren -----------');
 
       console.log('DIM points =======', points);
 
+      //------ all points
       for(var p = 0; p < pointsQty; p++) {
         pointsAllX.push(points[p].x);
         pointsAllY.push(points[p].y);
@@ -1750,18 +1751,27 @@ console.log('-------------setPointsXChildren -----------');
 
       console.log('DIM pointsAll =======', pointsAllX, pointsAllY);
 
+
+
+      //------ in block
       for(var b = 0; b < blocksQty; b++) {
         if(blocks[b].level === 1) {
 
-          var pointsOutQty = blocks[b].pointsOut.length,
-              childQty = blocks[b].children.length;
-
+          var pointsOutQty = blocks[b].pointsOut.length;
+console.log('DIM+++++pointsOut++++ ', blocks[b].pointsOut);
           //----- take pointsOut
-          while(--pointsOutQty > -1) {
-//            if(!blocks[b].pointsOut[pointsOutQty].id.indexOf('q')+1 || blocks[b].pointsOut[pointsOutQty].view) {
-            if(!blocks[b].pointsOut[pointsOutQty].id.indexOf('q')+1) {
-              blockDimX.push(blocks[b].pointsOut[pointsOutQty].x);
-              blockDimY.push(blocks[b].pointsOut[pointsOutQty].y);
+          for(var i = 0; i < pointsOutQty; i++) {
+            if(blocks[b].pointsOut[i].id.indexOf('c')+1 < 1) {
+//            if(blocks[b].pointsOut[i].id.indexOf('q')+1 < 1 || blocks[b].pointsOut[i].view) {
+              console.log('DIM+++++pointsOut ID++++ ', blocks[b].pointsOut[i]);
+              if(blocks[b].pointsOut[i].id.indexOf('q')+1 > 0) {
+                blockDimX.push(blocks[b].pointsOut[i].x);
+                blockDimY.push(blocks[b].pointsOut[i].y);
+              } else {
+                blockDimX.push(blocks[b].pointsOut[i].x);
+                blockDimY.push(blocks[b].pointsOut[i].y);
+              }
+
             }
           }
           blockDimX = blockDimX.removeDuplicates();
@@ -1770,14 +1780,19 @@ console.log('-------------setPointsXChildren -----------');
           blockDimX.sort(sortNumbers);
           blockDimY.sort(sortNumbers);
 
+          console.log('DIM+++++blockDimX++++ ', blockDimX);
+          console.log('DIM+++++blockDimY++++ ', blockDimY);
 
           //------- collect dimension Obj
-          var dimQty = blockDimX.length;
-          for(var d = 0; d < dimQty-1; d++) {
-            //------- by X
-            dimension.dimX.push(createDimObj(d, d+1, blockDimX, pointsAllX, blocks[b]));
-            //------- by Y
-            dimension.dimY.push(createDimObj(d, d+1, blockDimY, pointsAllY, blocks[b]));
+          var dimXQty = blockDimX.length,
+              dimYQty = blockDimY.length;
+          //------- by X
+          for(var dx = 0; dx < dimXQty-1; dx++) {
+            dimension.dimX.push(createDimObj(dx, dx+1, blockDimX, pointsAllX, blocks[b]));
+          }
+          //------- by Y
+          for(var dy =0; dy < dimYQty-1; dy++) {
+            dimension.dimY.push(createDimObj(dy, dy+1, blockDimY, pointsAllY, blocks[b]));
           }
 
 
@@ -1791,10 +1806,11 @@ console.log('-------------setPointsXChildren -----------');
     }
 
 
+
     function createDimObj(index, indexNext, blockDim, pointsAll, currBlock) {
       var dim = {
             blockId: currBlock.id,
-            level: currBlock.level,
+            level: currBlock.level,//TODO ?????
             from: angular.copy(blockDim[index]),
             to: angular.copy(blockDim[indexNext]),
             text: Math.abs(blockDim[index] - blockDim[indexNext])
@@ -1805,7 +1821,7 @@ console.log('-------------setPointsXChildren -----------');
       for(var i = 0; i < pointsQty; i++) {
         if(pointsAll[i] === blockDim[indexNext]) {
           dim.minLimit = (pointsAll[i-1]) ? pointsAll[i-1] + 100 : 100;
-          dim.maxLimit = (pointsAll[i+1]) ? pointsAll[i+1] + 100 : 5000;
+          dim.maxLimit = (pointsAll[i+1]) ? pointsAll[i+1] - 100 : 5000;
         }
       }
       return dim;

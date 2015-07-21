@@ -16,7 +16,7 @@
     position: absolute;
     &:before {
       @include top_left_coord(15px, 15px);
-      @include font-general-icon(rem(50px), 1);
+      @include font-icon(rem(50px), 1);
 
       position: absolute;
       color: $main_green;
@@ -41,7 +41,7 @@
     position: relative;
     &:before {
       @include top_left_coord(56px, -27px);
-      @include font-general-icon(rem(90px), rem(60px));
+      @include font-icon(rem(90px), rem(60px));
 
       position: absolute;
       color: $main_green;
@@ -117,7 +117,7 @@
         background-color: #57b23c;
       }
       &:after {
-        @include font-general-icon(rem(50px), 1);
+        @include font-icon(rem(50px), 1);
 
         position: absolute;
         color: #fff;

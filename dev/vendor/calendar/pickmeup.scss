@@ -84,7 +84,7 @@ $today-color						: $selected;
 			.pmu-prev,
 			.pmu-next {
         @extend .icon-setting;
-        @include font-general-icon(rem(35px), 1);
+        @include font-icon(rem(35px), 1);
 
 				display : none;
 				height  : 2em;

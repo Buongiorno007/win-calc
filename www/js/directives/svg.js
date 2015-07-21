@@ -142,87 +142,24 @@
             //--------- dimension
             var defs = dimGroup.append("defs"),
                 dimXQty = template.dimension.dimX.length,
-                dimYQty = template.dimension.dimY.length,
-
-                dimLineHeight = -150,
-                dimMarginBottom = -20,
-                dimEdger = 50,
-                sizeBoxWidth = 160,
-                sizeBoxHeight = 70,
-                sizeBoxRadius = 20,
-                sizeBoxMarginBottom = 50;
+                dimYQty = template.dimension.dimY.length;
 
             //----- horizontal marker arrow
-            defs.append("marker")
-              .attr({
-                'id': 'dimHor',
-                'viewBox': '-5, -5, 4, 5',
-                'refX': -5,
-                'refY': -2,
-                'markerWidth': 30,
-                'markerHeight': 30,
-                'orient': "auto"
-              })
-            .append("path")
-            .attr("d", "M 0,0 L -4,-2 L0,-4 z");
-
+            setMarkerArrow(defs, 'dimHorL', '-5, -5, 4, 5', -5, -2, 0, 'M 0,0 L -4,-2 L0,-4 z');
+            setMarkerArrow(defs, 'dimHorR', '-5, -5, 4, 5', -5, -2, 180, 'M 0,0 L -4,-2 L0,-4 z');
             //------- vertical marker arrow
-            defs.append("marker")
-              .attr({
-                'id': 'dimVert',
-                'viewBox': '1, -1, 4, 5',
-                'refX': 5,
-                'refY': 2,
-                'markerWidth': 30,
-                'markerHeight': 30,
-                'orient': 90
-              })
-              .append("path")
-              .attr("d", "M 0,0 L 4,2 L0,4 z");
+            setMarkerArrow(defs, 'dimVertL', '1, -1, 4, 5', 5, 2, 90, 'M 0,0 L 4,2 L0,4 z');
+            setMarkerArrow(defs, 'dimVertR', '1, -1, 4, 5', 5, 2, 270, 'M 0,0 L 4,2 L0,4 z');
 
-
-            for(var d = 0; d < dimXQty; d++) {
-
-              var lineSideR = [],
-                  lineSideL = [],
-                  sizeLines = [];
-
-              var pointR1 = {
-                    x: template.dimension.dimX[d].from,
-                    y: 0
-                  },
-                  pointR2 = {
-                    x: template.dimension.dimX[d].from,
-                    y: dimLineHeight
-                  },
-                  pointL1 = {
-                    x: template.dimension.dimX[d].to,
-                    y: 0
-                  },
-                  pointL2 = {
-                    x: template.dimension.dimX[d].to,
-                    y: dimLineHeight
-                  };
-              lineSideR.push(pointR1);
-              lineSideR.push(pointR2);
-              lineSideL.push(pointL1);
-              lineSideL.push(pointL2);
-
-              dimGroup.append('path')
-                .classed('size-line', true)
-                .attr('d', lineCreator(lineSideR));
-              dimGroup.append('path')
-                .classed('size-line', true)
-                .attr('d', lineCreator(lineSideL));
-
-//              var dimension = dimGroup.selectAll(".link")
-//                .data(links)
-//                .enter().append("path")
-//                .attr("class", "link")
-//                .attr("marker-end", "url(#arrowhead)")
-//                .attr("d", diagonal);
-
+            console.log('SVG=========dimX==', template.dimension.dimX);
+            console.log('SVG=========dimY==', template.dimension.dimY);
+            for(var dx = 0; dx < dimXQty; dx++) {
+              createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator);
             }
+            for(var dy = 0; dy < dimYQty; dy++) {
+              createDimension(1, template.dimension.dimY[dy], dimGroup, lineCreator);
+            }
+
 
 
             //--------- set clicking to all imposts
@@ -235,6 +172,120 @@
         }
 
 
+
+
+        function setMarkerArrow(defs, id, view, refX, refY, angel, path) {
+          defs.append("marker")
+            .classed('size-line', true)
+            .attr({
+              'id': id,
+              'viewBox': view,
+              'refX': refX,
+              'refY': refY,
+              'markerWidth': 30,
+              'markerHeight': 30,
+              'orient': angel
+            })
+            .append("path")
+            .attr("d", path);
+        }
+
+
+
+
+        function createDimension(dir, dim, dimGroup, lineCreator) {
+         var dimLineHeight = -150,
+             dimEdger = 50,
+             dimMarginBottom = -20,
+             sizeBoxWidth = 160,
+             sizeBoxHeight = 70,
+             sizeBoxRadius = 20,
+
+             lineSideL = [],
+             lineSideR = [],
+             lineCenter = [],
+             dimBlock,
+             pointL1 = {
+                x: (dir) ? dimMarginBottom : dim.from,
+                y: (dir) ? dim.from : dimMarginBottom
+              },
+              pointL2 = {
+                x: (dir) ? dimLineHeight : dim.from,
+                y: (dir) ? dim.from : dimLineHeight
+              },
+              pointR1 = {
+                x: (dir) ? dimMarginBottom : dim.to,
+                y: (dir) ? dim.to : dimMarginBottom
+              },
+              pointR2 = {
+                x: (dir) ? dimLineHeight : dim.to,
+                y: (dir) ? dim.to : dimLineHeight
+              },
+              pointC1 = {
+                x: (dir) ? dimLineHeight + dimEdger : dim.from,
+                y: (dir) ? dim.from : dimLineHeight + dimEdger
+              },
+              pointC2 = {
+                x: (dir) ? dimLineHeight + dimEdger : dim.to,
+                y: (dir) ? dim.to : dimLineHeight + dimEdger
+              };
+
+         lineSideL.push(pointL1);
+         lineSideL.push(pointL2);
+         lineSideR.push(pointR1);
+         lineSideR.push(pointR2);
+         lineCenter.push(pointC1);
+         lineCenter.push(pointC2);
+
+         dimBlock = dimGroup.append('g')
+           .classed('dim_block', true);
+
+         dimBlock.append('path')
+           .classed('size-line', true)
+           .attr('d', lineCreator(lineSideR));
+         dimBlock.append('path')
+           .classed('size-line', true)
+           .attr('d', lineCreator(lineSideL));
+
+         dimBlock.append('path')
+           .classed('size-line', true)
+           .attr({
+             'd': lineCreator(lineCenter),
+             'marker-start': function() { return (dir) ? 'url(#dimVertR)' : 'url(#dimHorL)' },
+             'marker-end': function() { return (dir) ? 'url(#dimVertL)' : 'url(#dimHorR)' }
+           });
+
+         if(scope.typeConstruction === 'edit') {
+           dimBlock.append('rect')
+             .classed('size-rect', true)
+             .attr({
+               'width': sizeBoxWidth,
+               'height': sizeBoxHeight,
+               'x': function() { return (dir) ? (dimLineHeight - sizeBoxWidth) : (dim.from + dim.to - sizeBoxWidth)/2 },
+               'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight) },
+               'rx': sizeBoxRadius,
+               'ry': sizeBoxRadius
+             });
+         }
+
+
+         dimBlock.append('text')
+           .text(dim.text)
+           .attr({
+             'class': function() { return (scope.typeConstruction === 'edit') ? 'size-txt-edit' : 'size-txt'; },
+             'x': function() { return (dir) ? (dimLineHeight - sizeBoxWidth) : (dim.from + dim.to - sizeBoxWidth)/2; },
+             'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight); },
+             'dx': 80,
+             'dy': 40,
+             'block-id': dim.blockId,
+             'from-point': dim.from,
+             'to-point': dim.to,
+             'size-val': dim.text,
+             'min-val': dim.minLimit,
+             'max-val': dim.maxLimit
+           });
+
+        }
 
 
 

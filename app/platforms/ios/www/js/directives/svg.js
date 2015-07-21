@@ -31,7 +31,7 @@
 
 
         function buildSVG(template, widthSVG, heightSVG) {
-          var mainSVG, mainGroup, padding = 1, points, dimMaxMin, scale, position, blocksQty;
+          var mainSVG, mainGroup, dimGroup, padding = 1, points, dimMaxMin, scale, position, blocksQty;
           if(template && !$.isEmptyObject(template)) {
 
             d3.select('#tamlateSVG').remove();
@@ -62,6 +62,9 @@
             mainGroup = mainSVG.append("g").attr({
               'id': 'main_group',
               'transform': 'translate(' + position.x + ', ' + position.y + ') scale(' + scale + ')'
+            });
+            dimGroup = mainGroup.append("g").attr({
+              'id': 'dim_group'
             });
 
             //          console.log('++++++ template +++++++', mainGroup);
@@ -131,23 +134,93 @@
 
 
               }
+            }
 
-              //-------- dimentions
-              var dimHeight = 150;
-              vis.append("defs").selectAll("marker")
-                .data(force.links())
-                .enter().append("marker")
-                .attr("id", function(d) { console.log(d); return d.source.id; })
-                .attr("viewBox", "0 -5 10 10")
-                .attr("refX", 7)
-                .attr("refY", -1)
-                .attr("markerWidth", 6)
-                .attr("markerHeight", 6)
-                .attr("orient", "auto")
-                .append("path")
-                .attr("d", "M0,-5L10,0L0,5");
+            //--------- dimension
+            var defs = dimGroup.append("defs"),
+                dimXQty = template.dimension.dimX.length,
+                dimYQty = template.dimension.dimY.length,
+
+                dimLineHeight = -150,
+                dimMarginBottom = -20,
+                dimEdger = 50,
+                sizeBoxWidth = 160,
+                sizeBoxHeight = 70,
+                sizeBoxRadius = 20,
+                sizeBoxMarginBottom = 50;
+
+            //----- horizontal marker arrow
+            defs.append("marker")
+              .attr({
+                'id': 'dimHor',
+                'viewBox': '-5, -5, 4, 5',
+                'refX': -5,
+                'refY': -2,
+                'markerWidth': 30,
+                'markerHeight': 30,
+                'orient': "auto"
+              })
+            .append("path")
+            .attr("d", "M 0,0 L -4,-2 L0,-4 z");
+
+            //------- vertical marker arrow
+            defs.append("marker")
+              .attr({
+                'id': 'dimVert',
+                'viewBox': '1, -1, 4, 5',
+                'refX': 5,
+                'refY': 2,
+                'markerWidth': 30,
+                'markerHeight': 30,
+                'orient': 90
+              })
+              .append("path")
+              .attr("d", "M 0,0 L 4,2 L0,4 z");
+
+
+            for(var d = 0; d < dimXQty; d++) {
+
+              var lineSideR = [],
+                  lineSideL = [],
+                  sizeLines = [];
+
+              var pointR1 = {
+                    x: template.dimension.dimX[d].from,
+                    y: 0
+                  },
+                  pointR2 = {
+                    x: template.dimension.dimX[d].from,
+                    y: dimLineHeight
+                  },
+                  pointL1 = {
+                    x: template.dimension.dimX[d].to,
+                    y: 0
+                  },
+                  pointL2 = {
+                    x: template.dimension.dimX[d].to,
+                    y: dimLineHeight
+                  };
+              lineSideR.push(pointR1);
+              lineSideR.push(pointR2);
+              lineSideL.push(pointL1);
+              lineSideL.push(pointL2);
+
+              dimGroup.append('path')
+                .classed('size-line', true)
+                .attr('d', lineCreator(lineSideR));
+              dimGroup.append('path')
+                .classed('size-line', true)
+                .attr('d', lineCreator(lineSideL));
+
+//              var dimension = dimGroup.selectAll(".link")
+//                .data(links)
+//                .enter().append("path")
+//                .attr("class", "link")
+//                .attr("marker-end", "url(#arrowhead)")
+//                .attr("d", diagonal);
 
             }
+
 
             //--------- set clicking to all imposts
             if (scope.typeConstruction === 'edit') {

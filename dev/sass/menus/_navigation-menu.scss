@@ -42,7 +42,7 @@
   }
   [class^='nav-icon-'],
   [class*=' nav-icon-'] {
-    @include font-nav-menu(rem(40px));
+    @include font-icon(rem(40px));
     @extend .icon-setting;
     @extend .splash;
 
@@ -85,7 +85,7 @@
     content: $settings-icon;
   }
   .nav-icon-voicehelp {
-    @include font-general-icon(rem(40px));
+    @include font-icon(rem(40px));
     &:before {
       color: $main_orange;
       content: $voice-icon;

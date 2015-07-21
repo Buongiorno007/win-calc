@@ -11,7 +11,7 @@
 
     &:after {
       @extend .icon-setting;
-      @include font-general-icon(rem(60px), 1.5);
+      @include font-icon(rem(60px), 1.5);
       @include rotate(180deg);
       @include transition(transform 1s ease);
 
@@ -189,7 +189,7 @@
         .value-percent {
           &:after {
             @extend .icon-setting;
-            @include font-general-icon(rem(36px), 1.5);
+            @include font-icon(rem(36px), 1.5);
             position: absolute;
             right: 0;
             line-height: 1;
@@ -219,7 +219,7 @@
       margin-left: rem(25px);
       color: $error_color;
       &:before {
-        @include font-general-icon(rem(26px), 1);
+        @include font-icon(rem(26px), 1);
         @include top_left_coord(12px, -30px);
         position: absolute;
         content: $triangle-up-icon;
@@ -230,7 +230,7 @@
       margin-right: rem(25px);
       color: $main_green;
       &:before {
-        @include font-general-icon(rem(26px), 1);
+        @include font-icon(rem(26px), 1);
         @include top_left_coord(12px, -30px);
 
         position: absolute;

@@ -17,7 +17,8 @@
 
 
 // PARTS
-@import 'parts/loader';
+@import 'parts/loader';//TODO delete!!!!
+@import 'parts/svg';
 @import 'parts/user-info';
 @import 'parts/room-info';
 @import 'parts/rooms-selector';
@@ -31,7 +32,6 @@
 
 // PAGES
 @import 'pages/login';
-@import 'pages/main';
 @import 'pages/settings';
 @import 'pages/change-pass';
 @import 'pages/change-lang';

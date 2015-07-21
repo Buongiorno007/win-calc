@@ -13,7 +13,7 @@
       position: relative;
       &:before {
         @include top_left_coord(56px, -27px);
-        @include font-general-icon(rem(90px), rem(60px));
+        @include font-icon(rem(90px), rem(60px));
 
         position: absolute;
         color: $main_green;
@@ -38,7 +38,7 @@
         position: relative;
         background-color: $main_green;
         &:after {
-          @include font-general-icon(rem(150px), rem(130px));
+          @include font-icon(rem(150px), rem(130px));
 
           position: absolute;
           top: rem(40px);
@@ -75,7 +75,7 @@
     position: absolute;
     text-decoration: none;
     &:before {
-      @include font-general-icon(rem(50px), rem(50px));
+      @include font-icon(rem(50px), rem(50px));
 
       color: $main_green;
       content: $info-panel-icon;

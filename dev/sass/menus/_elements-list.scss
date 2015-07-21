@@ -46,7 +46,7 @@
   }
   .close-elements-menu {
     @extend .cross-btn;
-    @include font-general-icon(rem(40px), 1);
+    @include font-icon(rem(40px), 1);
 
     position: relative;
     width: rem(85px);
@@ -95,7 +95,7 @@
     background-color: $main_gray_btn;
     &:after {
       @extend .icon-setting;
-      @include font-general-icon(rem(30px), 0);
+      @include font-icon(rem(30px), 0);
 
       //position: absolute;
       display: block;
@@ -166,7 +166,7 @@
       background-color: $main_green;
 
       &:after {
-        @include font-general-icon(rem(50px), rem(88px));
+        @include font-icon(rem(50px), rem(88px));
 
         position: absolute;
         left: rem(25px);
