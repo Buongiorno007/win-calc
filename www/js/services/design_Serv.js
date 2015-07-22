@@ -24,6 +24,8 @@
       setDefaultConstruction: setDefaultConstruction,
 
       initAllImposts: initAllImposts,
+      initAllGlassXDimension: initAllGlassXDimension,
+      initAllDimension: initAllDimension,
       hideCornerMarks: hideCornerMarks,
       deselectAllImpost: deselectAllImpost,
       deselectAllArc: deselectAllArc,
@@ -241,6 +243,77 @@
     }
 
 
+
+    //------- set click to all Glass for Dimensions
+    function initAllGlassXDimension() {
+      d3.selectAll('#tamlateSVG .glass')
+        .each(function() {
+          var glass = d3.select(this);
+          glass.on('click', function() {
+            hideAllDimension();
+            var parentID = glass[0][0].attributes.parentId.nodeValue,
+                blockID = glass[0][0].attributes.blockId.nodeValue;
+
+//            console.log('SELECTED GLASS+++++++++++++', parentID, blockID);
+            if(parentID === 'block_0') {
+              parentID = blockID;
+            }
+//            console.log('SELECTED dimBlockId+++++++++++++',parentID);
+            var dim = d3.selectAll('#tamlateSVG .dim_block[block_id='+parentID+']');
+            if(dim[0].length) {
+              d3.select('#tamlateSVG .dim_blockX').classed('dim_shiftX', true);
+              d3.select('#tamlateSVG .dim_blockY').classed('dim_shiftY', true);
+              dim.classed('dim_hidden', false);
+            }
+            console.log('SELECTED Dim+++++++++++++',dim);
+          });
+        });
+    }
+
+
+
+    function hideAllDimension() {
+      d3.select('#tamlateSVG .dim_blockX').classed('dim_shiftX', false);
+      d3.select('#tamlateSVG .dim_blockY').classed('dim_shiftY', false);
+      d3.selectAll('#tamlateSVG .dim_block').classed('dim_hidden', true);
+    }
+
+
+
+
+    //------- set click to all Dimensions
+    function initAllDimension() {
+      d3.selectAll('#tamlateSVG .size-box')
+        .each(function() {
+          var size = d3.select(this);
+          size.on('click', function() {
+            deselectAllDimension();
+            size.select('.size-rect').classed('active', true);
+            size.select('.size-txt-edit').classed('active', true);
+
+            //------- show caclulator or voice helper
+            if(GlobalStor.global.isVoiceHelper) {
+              DesignStor.design.openVoiceHelper = 1;
+            } else {
+              GlobalStor.global.isSizeCalculator = 1;
+            }
+            $rootScope.$apply();
+          });
+        });
+    }
+
+
+
+
+    function deselectAllDimension() {
+      d3.selectAll('#tamlateSVG .size-rect').classed('active', false);
+      d3.selectAll('#tamlateSVG .size-txt-edit').classed('active', false);
+    }
+
+
+
+
+
     function hideCornerMarks() {
       d3.selectAll('#tamlateSVG .corner_mark')
         .transition()
@@ -286,7 +359,7 @@
 //      console.log('GLASS SIZES', glassObj.__data__);
 //      if(glass.square > globalConstants.squareLimit && (dim.maxX - dim.minX) > globalConstants.widthLimit && (dim.maxY - dim.minY) > globalConstants.heightLimint) {
 //      if((dim.maxX - dim.minX) > globalConstants.widthLimit && (dim.maxY - dim.minY) > globalConstants.heightLimint) {
-      if(minGlassSize >= globalConstants.widthLimit && minGlassSize >= globalConstants.heightLimint) {
+      if(minGlassSize >= globalConstants.minSizeLimit && minGlassSize >= globalConstants.minSizeLimit) {
 
         //---- save last step
         DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
@@ -408,7 +481,7 @@
             if(template.details[blocksQty].parts[partsQty].type === 'glass') {
               var minGlassSize = d3.min(template.details[blocksQty].parts[partsQty].sizes);
 //              console.log('GLASS SIZES', minGlassSize);
-              if(minGlassSize <= globalConstants.widthLimit && minGlassSize <= globalConstants.heightLimint) {
+              if(minGlassSize <= globalConstants.minSizeLimit && minGlassSize <= globalConstants.minSizeLimit) {
                 //------ delete sash
                 removeSashPropInBlock(blocksSource[blocksQty]);
                 isSashDelet = 1;
@@ -1104,11 +1177,11 @@
           break;
         //----- inclined right
         case 4:
-          angel = 60;
+          angel = 150;
           break;
         //----- inclined left
         case 5:
-          angel = 300;
+          angel = 70;
           break;
 
         //----- curve vertical
@@ -1135,25 +1208,25 @@
           break;
         //----- inclined right curve
         case 10:
-          angel = 60;
+          angel = 120;
           isImpCurv = 1;
-          positionQ = 2; //---- right-up
+          positionQ = 1; //---- left-up
           break;
         case 11:
-          angel = 60;
+          angel = 120;
           isImpCurv = 1;
-          positionQ = 4; //---- left-down
+          positionQ = 3; //---- right-down
           break;
         //----- inclined left curve
         case 12:
-          angel = 300;
+          angel = 30;
           isImpCurv = 1;
-          positionQ = 1; //----- left-up
+          positionQ = 4; //----- left-down
           break;
         case 13:
-          angel = 300;
+          angel = 30;
           isImpCurv = 1;
-          positionQ = 3; //----- right-down
+          positionQ = 2; //----- right-up
           break;
       }
 
@@ -1310,7 +1383,6 @@ console.log('blocksSource-------------',blocksSource);
       pointsLeft.push(impP2);
       pointsRight.push(impP1);
       pointsRight.push(impP2);
-
       centerL = SVGServ.centerBlock(pointsLeft);
       centerR = SVGServ.centerBlock(pointsRight);
       distL = Math.round(Math.hypot((impCenter.x - centerL.x), (impCenter.y - centerL.y)) * 100) / 100;

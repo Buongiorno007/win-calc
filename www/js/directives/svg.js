@@ -81,6 +81,7 @@
                   .enter().append('path')
                   .attr({
                     'blockId': template.details[i].id,
+                    'parentId': template.details[i].parent,
                     //'class': function(d) { return d.type; },
                     'class': function (d) {
                       return (d.type === 'glass') ? 'glass' : 'frame'
@@ -165,6 +166,8 @@
             //--------- set clicking to all imposts
             if (scope.typeConstruction === 'edit') {
               DesignServ.initAllImposts();
+              DesignServ.initAllGlassXDimension();
+              DesignServ.initAllDimension();
             }
 
             console.log('buildSVG done!!!!!!!!!', new Date(), new Date().getMilliseconds());
@@ -204,7 +207,7 @@
              lineSideL = [],
              lineSideR = [],
              lineCenter = [],
-             dimBlock,
+             dimBlock, sizeBox,
              pointL1 = {
                 x: (dir) ? dimMarginBottom : dim.from,
                 y: (dir) ? dim.from : dimMarginBottom
@@ -238,7 +241,16 @@
          lineCenter.push(pointC2);
 
          dimBlock = dimGroup.append('g')
-           .classed('dim_block', true);
+           .attr({
+             'class': function() {
+               if(dir) {
+                 return (dim.level) ? 'dim_blockY' : 'dim_block dim_hidden';
+               } else {
+                 return (dim.level) ? 'dim_blockX' : 'dim_block dim_hidden';
+               }
+             },
+             'block_id': dim.blockId
+           });
 
          dimBlock.append('path')
            .classed('size-line', true)
@@ -255,29 +267,32 @@
              'marker-end': function() { return (dir) ? 'url(#dimVertL)' : 'url(#dimHorR)' }
            });
 
+          sizeBox = dimBlock.append('g')
+           .classed('size-box', true);
+
          if(scope.typeConstruction === 'edit') {
-           dimBlock.append('rect')
+           sizeBox.append('rect')
              .classed('size-rect', true)
              .attr({
                'width': sizeBoxWidth,
                'height': sizeBoxHeight,
-               'x': function() { return (dir) ? (dimLineHeight - sizeBoxWidth) : (dim.from + dim.to - sizeBoxWidth)/2 },
-               'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight) },
+               'x': function() { return (dir) ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2 },
+               'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8) },
                'rx': sizeBoxRadius,
                'ry': sizeBoxRadius
              });
          }
 
 
-         dimBlock.append('text')
+          sizeBox.append('text')
            .text(dim.text)
            .attr({
              'class': function() { return (scope.typeConstruction === 'edit') ? 'size-txt-edit' : 'size-txt'; },
-             'x': function() { return (dir) ? (dimLineHeight - sizeBoxWidth) : (dim.from + dim.to - sizeBoxWidth)/2; },
-             'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight); },
+             'x': function() { return (dir) ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2; },
+             'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8); },
              'dx': 80,
              'dy': 40,
-             'block-id': dim.blockId,
+             'block_id': dim.blockId,
              'from-point': dim.from,
              'to-point': dim.to,
              'size-val': dim.text,

@@ -37,6 +37,24 @@
   fill: $error_color;
 }
 //----- dimension
+.dim_blockX, .dim_blockY {
+  @include transition(all 0.5s linear);
+}
+.dim_shiftX {
+  @include translate(0, -150px);
+}
+.dim_shiftY {
+  @include translate(-200px, 0);
+}
+
+.dim_block {
+  @include transition(all 0.5s linear);
+  opacity: 1;
+}
+.dim_hidden {
+  opacity: 0;
+}
+
 .size-line {
   fill: none;
   stroke: #D2D2D2;
@@ -46,6 +64,11 @@
   stroke: $main_green;
   stroke-width: 3px;
   fill-opacity: 0;
+
+  &.active {
+    fill: $main_green;
+    fill-opacity: 1;
+  }
 }
 .size-txt {
   font-size: rem(90px);
@@ -58,16 +81,11 @@
   @extend .size-txt;
   stroke: $main_green;
   fill: $main_green;
-}
-.size-rect-active {
-  @extend .size-rect;
-  fill: $main_green;
-  fill-opacity: 1;
-}
-.size-txt-active {
-  @extend .size-txt;
-  stroke: #fff;
-  fill: #fff;
+
+  &.active {
+    stroke: #fff;
+    fill: #fff;
+  }
 }
 
 

@@ -127,7 +127,10 @@
                     {type:'frame', id:'fp1', x:0, y:0, dir:'line', view:1},
                     {type:'frame', id:'fp2', x:1300, y:0, dir:'line', view:1},
                     {type:'frame', id:'fp3', x:1300, y:1400, dir:'line', view:1, sill:1},
-                    {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1}
+                    {type:'frame', id:'fp4', x:0, y:1400, dir:'line', view:1},
+//                    {type:'corner', id:'c1-1', x:0, y:200, dir:'line', view:1},
+//                    {type:'corner', id:'c1-2', x:200, y:0, dir:'line', view:1}
+
                   ],
                   pointsIn: [],
                   parts: [],

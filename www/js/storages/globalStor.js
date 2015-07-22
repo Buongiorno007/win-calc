@@ -17,31 +17,31 @@
     thisFactory.publicObj = {
 
       globalSource: {
-        startProgramm: true, // for START
+        startProgramm: 1, // for START
         //------ navigation
-        isNavMenu: true,
-        isConfigMenu: false,
+        isNavMenu: 1,
+        isConfigMenu: 0,
         activePanel: 0,
 
-        isCreatedNewProject: true,
-        isCreatedNewProduct: true,
+        isCreatedNewProject: 1,
+        isCreatedNewProduct: 1,
         productEditNumber: 0,
         orderEditNumber: 0,
 
         prevOpenPage: '',
         currOpenPage: 'main',
 
-        isChangedTemplate: false,
-        isVoiceHelper: false,
+        isChangedTemplate: 0,
+        isVoiceHelper: 0,
         voiceHelperLanguage: '',
-        showRoomSelectorDialog: false,
-        isShowCommentBlock: false,
+        showRoomSelectorDialog: 0,
+        isShowCommentBlock: 0,
 
         //---- Calculators
-        isQtyCalculator: false,
-        isSizeCalculator: false,
-        isWidthCalculator: false,
-        isColorSelector: false,
+        isQtyCalculator: 0,
+        isSizeCalculator: 0,
+        isWidthCalculator: 0,
+        isColorSelector: 0,
 
         //------- Templates
         templateLabel: '',

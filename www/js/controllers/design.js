@@ -138,9 +138,6 @@
 
 
 
-
-
-
     function insertSash(sashType, event) {
       event.srcEvent.stopPropagation();
       DesignStor.design.activeMenuItem = 0;

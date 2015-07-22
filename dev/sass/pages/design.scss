@@ -146,22 +146,33 @@ $door-config-content: $ipad-height - $door-config-header;
   z-index: 5;
 }
 
-#sash-shape-menu.active {
-  right: -37.6rem;
+#sash-shape-menu {
+  width: 37.5rem;
+  &.active {
+    right: -37.5rem;
+  }
 }
-#angel-shape-menu.active {
-  right: -17.6rem;
+#angel-shape-menu {
+  width: 17.5rem;
+  &.active {
+    right: -17.5rem;
+  }
 }
-#impost-shape-menu.active {
-  right: -67.6rem;
+#impost-shape-menu {
+  width: 67.5rem;
+  &.active {
+    right: -67.5rem;
+  }
 }
-#arc-shape-menu.active {
-  right: -12.6rem;
+#arc-shape-menu {
+  width: 12.5rem;
+  &.active {
+    right: -12.5rem;
+  }
 }
 
 
 ul.constr-shape-list {
-  display: inline-flex;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -171,6 +182,7 @@ li.constr-shape-icon {
   @include font-icon(rem(50px), rem(80px));
   width: rem(80px);
   height: rem(80px);
+  display: inline-block;
   float: left;
   padding-right: 2px;
   border-right: 1px solid $main_gray_btn;
@@ -182,7 +194,7 @@ li.constr-shape-icon {
   }
 }
 
-.sash-empty:after {
+.clean:after {
   content: $sash-empty-icon;
 }
 .sash-left:after {
@@ -208,6 +220,45 @@ li.constr-shape-icon {
 }
 .impost-hor:after {
   content: $impost-hor-icon;
+}
+.impost-inc-hor:after {
+  content: $impost-inc-hor-icon;
+}
+.impost-inc-vert:after {
+  content: $impost-inc-vert-icon;
+}
+.impost-curv-right:after {
+  content: $impost-curv-right-icon;
+}
+.impost-curv-left:after {
+  content: $impost-curv-left-icon;
+}
+.impost-curv-up:after {
+  content: $impost-curv-up-icon;
+}
+.impost-curv-down:after {
+  content: $impost-curv-down-icon;
+}
+.impost-curv1:after {
+  content: $impost-curv1-icon;
+}
+.impost-curv3:after {
+  content: $impost-curv3-icon;
+}
+.impost-curv4:after {
+  content: $impost-curv4-icon;
+}
+.impost-curv2:after {
+  content: $impost-curv2-icon;
+}
+.arc:after {
+  content: $arc-icon;
+}
+.corner:after {
+  content: $corner-icon;
+}
+.corner-curv:after {
+  content: $corner-curv-icon;
 }
 
 
