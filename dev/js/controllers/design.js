@@ -416,11 +416,6 @@
 
 
 
-
-
-
-
-
     //=============== CHANGE CONSTRUCTION SIZE ==============
 
     $svgContainer.hammer({domEvents:true}).off("tap", "tspan").on("tap", "tspan", DesignServ.selectSizeBlock);
@@ -437,23 +432,6 @@
 
 //TODO  playTTS($filter('translate')('construction.VOICE_SMALL_GLASS_BLOCK'), $scope.global.voiceHelperLanguage);
 
-
-
-
-    //=============== CLICK ON GLASS PACKAGE ==============
-
-    /*
-     Hammer(svgContainer).on('tap', function( event ) {
-     console.log('tap', event);
-     console.log('event.target = ', event.target);
-     if( event.target && event.target.className.indexOf('glass') >= 0 ) {
-     console.log('select glass');
-     } else if(event.target && event.target.className.indexOf('size-box-edited') >= 0) {
-     console.log('select dimentions');
-     }
-     });
-     */
-//    $svgContainer.hammer({domEvents:true}).on("tap", ".glass", selectGlassBlock);
 
 
 

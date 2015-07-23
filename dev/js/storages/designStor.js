@@ -31,14 +31,15 @@
         voiceTxt: '',
         selectedGlassId: 0,
 
+        oldSize: 0,
+//        oldSizeValue: 0,//--- delete
         tempSize: [],
-        tempSizeId: '2',
-        tempSizeType: '',
-        minSizePoint: 0,
-        maxSizePoint: 0,
-        startSize: 0,
-        finishSize: 0,
-        oldSizeValue: 0,
+//        tempSizeId: '',
+//        tempSizeType: '',//--- delete
+//        minSizePoint: 0,
+//        maxSizePoint: 0,
+//        startSize: 0,
+//        finishSize: 0,
 
         isMinSizeRestriction: 0,
         isMaxSizeRestriction: 0,

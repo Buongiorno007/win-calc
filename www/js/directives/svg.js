@@ -74,70 +74,69 @@
             //========
             blocksQty = template.details.length;
 
-            for (var i = 0; i < blocksQty; i++) {
-              if (template.details[i].level) {
-                mainGroup.selectAll('path.' + template.details[i].id)
-                  .data(template.details[i].parts)
+            for (var i = 1; i < blocksQty; i++) {
+
+              mainGroup.selectAll('path.' + template.details[i].id)
+                .data(template.details[i].parts)
+                .enter().append('path')
+                .attr({
+                  'blockId': template.details[i].id,
+                  'parentId': template.details[i].parent,
+                  //'class': function(d) { return d.type; },
+                  'class': function (d) {
+                    return (d.type === 'glass') ? 'glass' : 'frame'
+                  },
+                  'item-type': function (d) {
+                    return d.type;
+                  },
+                  'item-dir': function (d) {
+                    return d.dir;
+                  },
+                  'd': function (d) {
+                    return d.path;
+                  }
+                });
+
+
+
+              //----- sash open direction
+              if (template.details[i].sashOpenDir) {
+                var openSashMarks = mainGroup.selectAll('path.sash_mark.' + template.details[i].id)
+                  .data(template.details[i].sashOpenDir)
                   .enter().append('path')
+                  .classed('sash_mark', true)
+                  .attr('d', function (d) {
+                    return lineCreator(d.points);
+                  });
+              }
+
+
+              //---- corner markers
+              if (template.details[i].level === 1) {
+                //----- create array of frame points with corner = true
+                var corners = template.details[i].pointsOut.filter(function (item) {
+                  return item.corner > 0;
+                });
+                var cornerMarks = mainGroup.selectAll('circle.corner_mark.' + template.details[i].id)
+                  .data(corners)
+                  .enter().append('circle')
                   .attr({
                     'blockId': template.details[i].id,
-                    'parentId': template.details[i].parent,
-                    //'class': function(d) { return d.type; },
-                    'class': function (d) {
-                      return (d.type === 'glass') ? 'glass' : 'frame'
+                    'class': 'corner_mark',
+                    'parent': function (d) {
+                      return d.id;
                     },
-                    'item-type': function (d) {
-                      return d.type;
+                    'cx': function (d) {
+                      return d.x;
                     },
-                    'item-dir': function (d) {
-                      return d.dir;
+                    'cy': function (d) {
+                      return d.y;
                     },
-                    'd': function (d) {
-                      return d.path;
-                    }
+                    'r': 0
                   });
-
-
-
-                //----- sash open direction
-                if (template.details[i].sashOpenDir) {
-                  var openSashMarks = mainGroup.selectAll('path.sash_mark.' + template.details[i].id)
-                    .data(template.details[i].sashOpenDir)
-                    .enter().append('path')
-                    .classed('sash_mark', true)
-                    .attr('d', function (d) {
-                      return lineCreator(d.points);
-                    });
-                }
-
-
-                //---- corner markers
-                if (template.details[i].level === 1) {
-                  //----- create array of frame points with corner = true
-                  var corners = template.details[i].pointsOut.filter(function (item) {
-                    return item.corner > 0;
-                  });
-                  var cornerMarks = mainGroup.selectAll('circle.corner_mark.' + template.details[i].id)
-                    .data(corners)
-                    .enter().append('circle')
-                    .attr({
-                      'blockId': template.details[i].id,
-                      'class': 'corner_mark',
-                      'parent': function (d) {
-                        return d.id;
-                      },
-                      'cx': function (d) {
-                        return d.x;
-                      },
-                      'cy': function (d) {
-                        return d.y;
-                      },
-                      'r': 0
-                    });
-                }
-
-
               }
+
+
             }
 
             //--------- dimension
@@ -293,11 +292,12 @@
              'dx': 80,
              'dy': 40,
              'block_id': dim.blockId,
-             'from-point': dim.from,
-             'to-point': dim.to,
-             'size-val': dim.text,
-             'min-val': dim.minLimit,
-             'max-val': dim.maxLimit
+             'from_point': dim.from,
+             'to_point': dim.to,
+             'size_val': dim.text,
+             'min_val': dim.minLimit,
+             'max_val': dim.maxLimit,
+             'axis': dim.axis
            });
 
         }

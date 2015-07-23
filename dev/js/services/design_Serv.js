@@ -45,7 +45,6 @@
       initMirror: initMirror,
 
       //---- change sizes
-      selectSizeBlock: selectSizeBlock,
       setValueSize: setValueSize,
       deleteLastNumber: deleteLastNumber,
       closeSizeCaclulator: closeSizeCaclulator,
@@ -278,39 +277,6 @@
 
 
 
-    //------- set click to all Dimensions
-    function initAllDimension() {
-      d3.selectAll('#tamlateSVG .size-box')
-        .each(function() {
-          var size = d3.select(this);
-          size.on('click', function() {
-            deselectAllDimension();
-            size.select('.size-rect').classed('active', true);
-            size.select('.size-txt-edit').classed('active', true);
-
-            //------- show caclulator or voice helper
-            if(GlobalStor.global.isVoiceHelper) {
-              DesignStor.design.openVoiceHelper = 1;
-            } else {
-              GlobalStor.global.isSizeCalculator = 1;
-            }
-            $rootScope.$apply();
-          });
-        });
-    }
-
-
-
-
-    function deselectAllDimension() {
-      d3.selectAll('#tamlateSVG .size-rect').classed('active', false);
-      d3.selectAll('#tamlateSVG .size-txt-edit').classed('active', false);
-    }
-
-
-
-
-
     function hideCornerMarks() {
       d3.selectAll('#tamlateSVG .corner_mark')
         .transition()
@@ -361,7 +327,7 @@
         //---- save last step
         DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
-        for (var b = 0; b < blocksQty; b++) {
+        for (var b = 1; b < blocksQty; b++) {
           if (blocks[b].id === blockID) {
             blocks[b].blockType = 'sash';
             blocks[b].gridId = 0;
@@ -448,7 +414,7 @@
       //---- save last step
       DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
-      for(var b = 0; b < blocksQty; b++) {
+      for(var b = 1; b < blocksQty; b++) {
         if (blocks[b].id === blockID) {
           removeSashPropInBlock(blocks[b]);
         }
@@ -471,7 +437,7 @@
       var blocksSource = DesignStor.design.templateSourceTEMP.details,
           blocksQty = template.details.length,
           isSashDelet = 0;
-      while(--blocksQty > -1) {
+      while(--blocksQty > 0) {
         if(template.details[blocksQty].level && template.details[blocksQty].blockType === 'sash') {
           var partsQty = template.details[blocksQty].parts.length;
           while(--partsQty > -1) {
@@ -509,7 +475,7 @@
       //---- save last step
       DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
-      while(--blocksQty > -1) {
+      while(--blocksQty > 0) {
         if(blocks[blocksQty].id === blockID) {
           //---- set simple corner
           if(cornerObj.__data__.view) {
@@ -539,7 +505,7 @@
       //---- save last step
       DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
-      while(--blocksQty > -1) {
+      while(--blocksQty > 0) {
         if(blocks[blocksQty].id === blockID) {
           //----- set curve corner
           if (cornerObj.__data__.view) {
@@ -630,7 +596,7 @@
       //------- delete corner point in block
       removePoint(['c' + cornerN + '-1', 'c' + cornerN + '-2', 'qc'+cornerN], blockID, blocksSource);
 
-      while(--blocksSourceQty > -1) {
+      while(--blocksSourceQty > 0) {
         if(blocksSource[blocksSourceQty].id === blockID) {
           var pointsOutQty = blocksSource[blocksSourceQty].pointsOut.length;
           while(--pointsOutQty > -1) {
@@ -649,7 +615,7 @@
 
     function removePoint(criterions, blockId, blocks) {
       var blockQty = blocks.length;
-      while(--blockQty > -1) {
+      while(--blockQty > 0) {
         if(blocks[blockQty].id === blockId) {
           var pointsQty = blocks[blockQty].pointsOut.length;
           while(--pointsQty > -1) {
@@ -690,7 +656,7 @@
         DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
         //------- find line and block in order to insert Q point
-        for(var b = 0; b < blocksQty; b++) {
+        for(var b = 1; b < blocksQty; b++) {
           if(blocks[b].id === blockID) {
             var linesQty = blocks[b].linesOut.length;
             while(--linesQty > -1) {
@@ -766,7 +732,7 @@
 
     function shiftingAllPoints(dir, param, shift, blocks) {
       var blocksQty = blocks.length;
-      while(--blocksQty > -1) {
+      while(--blocksQty > 0) {
         if(blocks[blocksQty].level) {
           //------ pointsOut
           if(blocks[blocksQty].pointsOut.length) {
@@ -895,8 +861,8 @@
 
     function findBlockCrossLineArc(currLine, blocksQty, blocks) {
       var impBlockIndex = [];
-      for(var b = 0; b < blocksQty; b++) {
-        if(blocks[b].level && blocks[b].impost) {
+      for(var b = 1; b < blocksQty; b++) {
+        if(blocks[b].impost) {
           var pointsQty = blocks[b].pointsOut.length,
               match = 0;
           if(pointsQty) {
@@ -1066,7 +1032,7 @@
 
     function removePointIdAllBlocks(criterion, blocks) {
       var blockQty = blocks.length;
-      while (--blockQty > -1) {
+      while (--blockQty > 0) {
         if (blocks[blockQty].level) {
           var outQty = blocks[blockQty].pointsOut.length;
           if (outQty) {
@@ -1228,7 +1194,7 @@
       }
 
       //------- find lines as to current block
-      for(var b = 0; b < blocksQty; b++) {
+      for(var b = 1; b < blocksQty; b++) {
         if(blocks[b].id === blockID) {
           linesOut = blocks[b].linesOut;
           blockIndex = b;
@@ -1245,7 +1211,7 @@
 //      console.log('IMP+++crossPoints++',crossPoints);
 
       var impPointsQty = crossPoints.length;
-      if(impPointsQty == 2) {
+      if(impPointsQty === 2) {
         while(--impPointsQty > -1) {
           createImpostPoint(crossPoints[impPointsQty], curBlockN, blockIndex, blocksSource);
           createChildBlock(++lastBlockN, blockIndex, blocksSource);
@@ -1269,7 +1235,7 @@ console.log('blocksSource-------------',blocksSource);
       var blocks = DesignStor.design.templateSourceTEMP.details,
           blocksQty = blocks.length,
           blockN = 0;
-      while(--blocksQty > -1) {
+      while(--blocksQty > 0) {
         if(blocks[blocksQty].level) {
           var tempN = Number(blocks[blocksQty].id.replace(/\D+/g, ""));
           if(tempN > blockN) {
@@ -1426,7 +1392,7 @@ console.log('blocksSource-------------',blocksSource);
       DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
       //----- delete children blocks and impost points
-      while(--blocksQty > -1) {
+      while(--blocksQty > 0) {
         if(blocksSource[blocksQty].id === blockID) {
           removeAllChildrenBlock(blocksSource[blocksQty].children[0], blocksSource);
           removeAllChildrenBlock(blocksSource[blocksQty].children[1], blocksSource);
@@ -1443,7 +1409,7 @@ console.log('blocksSource-------------',blocksSource);
 
     function removeAllChildrenBlock(blockID, blocks) {
       var blocksQty = blocks.length;
-      while(--blocksQty > -1) {
+      while(--blocksQty > 0) {
         if(blocks[blocksQty].id === blockID) {
           var childQty = blocks[blocksQty].children.length;
           if(childQty) {
@@ -1477,7 +1443,7 @@ console.log('blocksSource-------------',blocksSource);
 
       changeCoordPointsAsMirror(maxX, blocks, blocksQty);
 
-      for(var b = 0; b < blocksQty; b++) {
+      for(var b = 1; b < blocksQty; b++) {
         if(blocks[b].level === 1) {
           changeChildrenIdChildren(b, blocksQty, blocks);
         }
@@ -1491,18 +1457,16 @@ console.log('blocksSource-------------',blocksSource);
 
 
     function changeCoordPointsAsMirror(maxX, blocks, blocksQty) {
-      for(var b = 0; b < blocksQty; b++) {
-        if(blocks[b].level) {
-          if(blocks[b].impost) {
-            setNewCoordPointsAsMirror(maxX, blocks[b].impost.impostAxis);
+      for(var b = 1; b < blocksQty; b++) {
+        if(blocks[b].impost) {
+          setNewCoordPointsAsMirror(maxX, blocks[b].impost.impostAxis);
 //            changeCoordYInclinedImpost(blocks[b].impost.impostAxis);
-          }
-          if(blocks[b].pointsOut.length) {
-            setNewCoordPointsAsMirror(maxX, blocks[b].pointsOut);
-          }
-          if(blocks[b].pointsIn.length) {
-            setNewCoordPointsAsMirror(maxX, blocks[b].pointsIn);
-          }
+        }
+        if(blocks[b].pointsOut.length) {
+          setNewCoordPointsAsMirror(maxX, blocks[b].pointsOut);
+        }
+        if(blocks[b].pointsIn.length) {
+          setNewCoordPointsAsMirror(maxX, blocks[b].pointsIn);
         }
       }
     }
@@ -1531,7 +1495,7 @@ console.log('blocksSource-------------',blocksSource);
         //------- change Id place of children
         var lastChildId = blocks[indexBlock].children.pop();
         blocks[indexBlock].children.unshift(lastChildId);
-        for(var b = 0; b < blocksQty; b++) {
+        for(var b = 1; b < blocksQty; b++) {
           if(blocks[b].id === blocks[indexBlock].children[0] || blocks[b].id === blocks[indexBlock].children[1]) {
             //----- change children
             changeChildrenIdChildren(b, blocksQty, blocks);
@@ -1550,42 +1514,80 @@ console.log('blocksSource-------------',blocksSource);
 
     //=============== CHANGE CONSTRUCTION SIZE ==============//
 
-    //----- click on size SVG and get size value and Id
-    function selectSizeBlock() {
-      if (!GlobalStor.global.isSizeCalculator) {
-        var thisSize = $(this).parent();
-        DesignStor.design.startSize = +thisSize.attr('from-point');
-        DesignStor.design.finishSize = +thisSize.attr('to-point');
-        DesignStor.design.minSizePoint = +thisSize.attr('min-val');
-        DesignStor.design.maxSizePoint = +thisSize.attr('max-val');
-        DesignStor.design.maxSizeLimit = (DesignStor.design.maxSizePoint - DesignStor.design.startSize);
-        if(thisSize.attr('id') === 'overallDimH' || thisSize.attr('id') === 'overallDimV') {
-          DesignStor.design.minSizeLimit = DesignStor.design.minSizePoint;
-        } else {
-          DesignStor.design.minSizeLimit = 200;
-        }
-        DesignStor.design.tempSizeId = thisSize.attr('id');
-        DesignStor.design.tempSizeType = thisSize.attr('size-type');
-        DesignStor.design.oldSizeValue = +thisSize.text();
-        //--- change color of size block
-        /*
-         var sizeGroup = $(thisSize.parent());
-         //console.log('sizeGroup', sizeGroup);
-         thisSize.attr('class', '').attr('class', sizeBoxActClass);
-         sizeGroup.find('.size-rect').attr('class', '').attr('class', sizeRectActClass);
-         */
 
-        //--- show size calculator if voice helper is turn off
-        if (!GlobalStor.global.isVoiceHelper) {
-          GlobalStor.global.isSizeCalculator = true;
-        } else {
-          DesignStor.design.openVoiceHelper = true;
-          startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
+    //------- set click to all Dimensions
+    function initAllDimension() {
+      d3.selectAll('#tamlateSVG .size-box')
+        .each(function() {
+          var size = d3.select(this);
+          size.on('click', function() {
+            //----- if calculator is closed
+            if(!GlobalStor.global.isSizeCalculator) {
+              deselectAllDimension();
+              size.select('.size-rect').classed('active', true);
+              var dim = size.select('.size-txt-edit');
+              dim.classed('active', true);
+              console.log('SIZE CLICK', dim);
+              DesignStor.design.oldSize = dim[0][0];
+              DesignStor.design.minSizeLimit = +dim[0][0].attributes[9].nodeValue;
+              DesignStor.design.maxSizeLimit = +dim[0][0].attributes[10].nodeValue;
 
-        }
-        $rootScope.$apply();
-      }
+              //------- show caclulator or voice helper
+              if(GlobalStor.global.isVoiceHelper) {
+                DesignStor.design.openVoiceHelper = 1;
+                startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
+              } else {
+                GlobalStor.global.isSizeCalculator = 1;
+              }
+            } else {
+              deselectAllDimension();
+              GlobalStor.global.isSizeCalculator = 0;
+            }
+            $rootScope.$apply();
+          });
+        });
     }
+
+
+
+    function deselectAllDimension() {
+      d3.selectAll('#tamlateSVG .size-rect').classed('active', false);
+      d3.selectAll('#tamlateSVG .size-txt-edit').classed('active', false);
+    }
+
+
+
+
+
+//    //----- click on size SVG and get size value and Id
+//    function selectSizeBlock() {
+//      if (!GlobalStor.global.isSizeCalculator) {
+//        var thisSize = $(this).parent();
+//        DesignStor.design.startSize = +thisSize.attr('from-point');
+//        DesignStor.design.finishSize = +thisSize.attr('to-point');
+//        DesignStor.design.minSizePoint = +thisSize.attr('min-val');
+//        DesignStor.design.maxSizePoint = +thisSize.attr('max-val');
+//        DesignStor.design.maxSizeLimit = (DesignStor.design.maxSizePoint - DesignStor.design.startSize);
+//        if(thisSize.attr('id') === 'overallDimH' || thisSize.attr('id') === 'overallDimV') {
+//          DesignStor.design.minSizeLimit = DesignStor.design.minSizePoint;
+//        } else {
+//          DesignStor.design.minSizeLimit = 200;
+//        }
+//        DesignStor.design.tempSizeId = thisSize.attr('id');
+//        DesignStor.design.tempSizeType = thisSize.attr('size-type');
+//        DesignStor.design.oldSizeValue = +thisSize.text();
+//
+//        //--- show size calculator if voice helper is turn off
+//        if (!GlobalStor.global.isVoiceHelper) {
+//          GlobalStor.global.isSizeCalculator = true;
+//        } else {
+//          DesignStor.design.openVoiceHelper = true;
+//          startRecognition(doneRecognition, recognitionProgress, GlobalStor.global.voiceHelperLanguage);
+//
+//        }
+//        $rootScope.$apply();
+//      }
+//    }
 
 
 
@@ -1700,8 +1702,12 @@ console.log('blocksSource-------------',blocksSource);
       for(var numer = 0; numer < DesignStor.design.tempSize.length; numer++) {
         newSizeString += DesignStor.design.tempSize[numer].toString();
       }
-      //console.log(DesignStor.design.tempSizeId);
-      $('#' + DesignStor.design.tempSizeId).find('tspan').text(parseInt(newSizeString, 10));
+      console.log('changeSize++++++++++', newSizeString);
+      var dim = d3.select(DesignStor.design.oldSize);
+      dim.text(newSizeString);
+
+      console.log('changeSize++++++++++', DesignStor.design.oldSize);
+
       if(GlobalStor.global.isVoiceHelper) {
         closeSizeCaclulator();
       }
@@ -1715,44 +1721,74 @@ console.log('blocksSource-------------',blocksSource);
 
       if(DesignStor.design.tempSize.length > 0) {
         newLength = parseInt(DesignStor.design.tempSize.join(''), 10);
+
+
+        //              5: block_id
+        //              6: from-point
+        //              7: to-point
+        //              8: size-val
+        //              9: min-val
+        //              10: max-val
+
         //------- Dimensions limits checking
-        if (newLength > DesignStor.design.minSizeLimit && newLength < DesignStor.design.maxSizeLimit) {
-          DesignStor.design.isMinSizeRestriction = false;
-          DesignStor.design.isMaxSizeRestriction = false;
+        if (newLength >= DesignStor.design.minSizeLimit && newLength <= DesignStor.design.maxSizeLimit) {
+          DesignStor.design.isMinSizeRestriction = 0;
+          DesignStor.design.isMaxSizeRestriction = 0;
 
           //---- save last step
           DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
-          //-------- change point coordinates in templateSource
-          for (var k = 0; k < DesignStor.design.templateSourceTEMP.objects.length; k++) {
-            switch (DesignStor.design.templateSourceTEMP.objects[k].type) {
-              case 'fixed_point':
-              case 'fixed_point_impost':
-                if (DesignStor.design.tempSizeType === 'hor' && +DesignStor.design.templateSourceTEMP.objects[k].x === DesignStor.design.finishSize) {
-                  DesignStor.design.templateSourceTEMP.objects[k].x = DesignStor.design.startSize + newLength;
-                } else if(DesignStor.design.tempSizeType === 'vert' && +DesignStor.design.templateSourceTEMP.objects[k].y === DesignStor.design.finishSize) {
-                  DesignStor.design.templateSourceTEMP.objects[k].y = DesignStor.design.startSize + newLength;
-                }
 
-                break;
+          //-------- change point coordinates in templateSource
+          var oldSizeValue = +DesignStor.design.oldSize.attributes[7].nodeValue;
+          var startSize = +DesignStor.design.oldSize.attributes[6].nodeValue;
+          var axis = DesignStor.design.oldSize.attributes[11].nodeValue;
+          var blocks = DesignStor.design.templateSourceTEMP.details;
+
+          for (var b = 1; b < blocks.length; b++) {
+            var pointsOutQty = blocks[b].pointsOut.length;
+            if(pointsOutQty) {
+              while(--pointsOutQty > -1) {
+                if(axis === 'x') {
+                  if (blocks[b].pointsOut[pointsOutQty].x === oldSizeValue) {
+                    blocks[b].pointsOut[pointsOutQty].x = startSize + newLength;
+                  }
+                } else if(axis === 'y') {
+                  if (blocks[b].pointsOut[pointsOutQty].y === oldSizeValue) {
+                    blocks[b].pointsOut[pointsOutQty].y = startSize + newLength;
+                  }
+                }
+              }
             }
+            if(blocks[b].impost) {
+              for(var i = 0; i < 2; i++) {
+                if(axis === 'x') {
+                  if (blocks[b].impost.impostAxis[i].x === oldSizeValue) {
+                    blocks[b].impost.impostAxis[i].x = startSize + newLength;
+                  }
+                } else if (axis === 'y') {
+                  if (blocks[b].impost.impostAxis[i].y === oldSizeValue) {
+                    blocks[b].impost.impostAxis[i].y = startSize + newLength;
+                  }
+                }
+              }
+            }
+
+
           }
-          //console.log('$scope.templateSourceTEMP !!!!!!=== ', $scope.templateSourceTEMP);
 
 
           //------ close size calculator
-          GlobalStor.global.isSizeCalculator = false;
+          GlobalStor.global.isSizeCalculator = 0;
           //------- deactive size box in svg
-          deactiveSizeBox(sizeRectActClass, sizeBoxActClass);
-          //-------- build new template
-          SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
-            DesignStor.design.templateTEMP = angular.copy(result);
-          });
-//          DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths);
+          deselectAllDimension();
+
+          //----- change Template
+          rebuildSVGTemplate();
 
           DesignStor.design.tempSize.length = 0;
-          DesignStor.design.isMinSizeRestriction = false;
-          DesignStor.design.isMaxSizeRestriction = false;
+          DesignStor.design.isMinSizeRestriction = 0;
+          DesignStor.design.isMaxSizeRestriction = 0;
         } else {
 
           //------ show error size
@@ -1767,8 +1803,8 @@ console.log('blocksSource-------------',blocksSource);
               });
 //              DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths);
             } else {
-              DesignStor.design.isMinSizeRestriction = true;
-              DesignStor.design.isMaxSizeRestriction = false;
+              DesignStor.design.isMinSizeRestriction = 1;
+              DesignStor.design.isMaxSizeRestriction = 0;
             }
           } else if(newLength > DesignStor.design.maxSizeLimit) {
             if(GlobalStor.global.isVoiceHelper) {
@@ -1781,8 +1817,8 @@ console.log('blocksSource-------------',blocksSource);
               });
 //              DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths);
             } else {
-              DesignStor.design.isMinSizeRestriction = false;
-              DesignStor.design.isMaxSizeRestriction = true;
+              DesignStor.design.isMinSizeRestriction = 0;
+              DesignStor.design.isMaxSizeRestriction = 1;
             }
           }
 
@@ -1793,23 +1829,16 @@ console.log('blocksSource-------------',blocksSource);
          DesignStor.design.maxSizeLimit = 5000;
          */
         //------ close size calculator
-        GlobalStor.global.isSizeCalculator = false;
-        deactiveSizeBox(sizeRectActClass, sizeBoxActClass);
+        GlobalStor.global.isSizeCalculator = 0;
+        deselectAllDimension();
       }
-      DesignStor.design.openVoiceHelper = false;
-      DesignStor.design.loudVoice = false;
-      DesignStor.design.quietVoice = false;
+      DesignStor.design.openVoiceHelper = 0;
+      DesignStor.design.loudVoice = 0;
+      DesignStor.design.quietVoice = 0;
 
     }
 
 
-    //---------- Deactivate Size Box for SVG Construction
-    function deactiveSizeBox(sizeRectActClass, sizeBoxActClass) {
-      $('g.size-box').each(function () {
-        $(this).find('.'+sizeRectActClass).addClass('size-rect').removeClass(sizeRectActClass);
-        $(this).find('.'+sizeBoxActClass).addClass('size-value-edit').removeClass(sizeBoxActClass);
-      });
-    }
 
 
 
