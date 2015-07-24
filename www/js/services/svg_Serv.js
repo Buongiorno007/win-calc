@@ -28,7 +28,7 @@
       setLineCoef: setLineCoef,
       getNewCoefC: getNewCoefC,
       setPointLocationToLine: setPointLocationToLine,
-      QLineIntersections: QLineIntersections,
+      intersectionQ: intersectionQ,
       cteateLineByAngel: cteateLineByAngel,
       getIntersectionInCurve: getIntersectionInCurve,
       getCoordCrossPoint: getCoordCrossPoint,
@@ -137,8 +137,6 @@
 
               thisObj.details[i].parts.push(setGlass(thisObj.details[i].glassPoints));
               $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn));
-
-
 
             } else if(thisObj.details[i].blockType === 'sash') {
               thisObj.details[i].sashPointsOut = copyPointsOut(setPointsIn(thisObj.details[i].linesIn, depths, 'sash-out'), 'sash');
@@ -600,17 +598,19 @@ console.log('-------------setPointsXChildren -----------');
 
         impVector1.coefC = getNewCoefC(depths, impVector1, 'frame');
         impVector2.coefC = getNewCoefC(depths, impVector2, 'frame');
-//        console.log('IMP from+++++', impVectorAx1.from);
-//        console.log('IMP to+++++', impVectorAx1.to);
+//        console.log('IMP impVectorAx1+++++++++', impVectorAx1);
+//        console.log('IMP impVector1++++++++++', impVector1);
+//        console.log('IMP impVector2++++++++++', impVector2);
+        console.log('IMP linesIn++++++++++', linesIn);
         //-------- finde cross points each impost vectors with lineIn of block
         for(var i = 0; i < linesInQty; i++) {
+          console.log('!!!!! impVector1 -----');
           getCPImpostInsideBlock(0, 0, i, linesInQty, linesIn, impVector1, impAx0, currBlock.impost.impostIn);
+          console.log('!!!!! impVector2 -----');
           getCPImpostInsideBlock(1, 0, i, linesInQty, linesIn, impVector2, impAx1, currBlock.impost.impostIn);
+          console.log('!!!!! impVectorAx1 -----');
           getCPImpostInsideBlock(0, 1, i, linesInQty, linesIn, impVectorAx1, impAx0, currBlock.impost.impostOut, pointsIn);
         }
-
-//        console.log('!!!!! impVector1 -----',0, impVector1);
-//        console.log('!!!!! impVector2 -----',1, impVector2);
 
         //------- if curve impost
         if(impPointsQty === 3) {
@@ -629,15 +629,17 @@ console.log('-------------setPointsXChildren -----------');
           };
           setLineCoef(impLineOut);
           //------ get Q point Axis of impost
-          var impAxQ = setQPointCoord(currBlock.impost.impostAxis[2].positionQ, impLineOut, currBlock.impost.impostAxis[2].radius);
+          var impAxQ = setQPointCoord(currBlock.impost.impostAxis[2].positionQ, impLineOut, currBlock.impost.impostAxis[2].radius*2);
           impAxQ.type = 'impost';
           impAxQ.id = 'qi' + Number(currBlock.impost.impostOut[0].id.replace(/\D+/g, ""));
           impAxQ.dir = 'curv';
+          //------ if impost vert or hor
           if(!impLineOut.coefA && currBlock.impost.impostAxis[2].positionQ === 1) {
-            impAxQ.y -= currBlock.impost.impostAxis[2].radius * 2;
+            impAxQ.y -= currBlock.impost.impostAxis[2].radius * 4;
           } else if(!impLineOut.coefB && currBlock.impost.impostAxis[2].positionQ === 4) {
-            impAxQ.x -= currBlock.impost.impostAxis[2].radius * 2;
+            impAxQ.x -= currBlock.impost.impostAxis[2].radius * 4;
           }
+
           blocks[indexChildBlock1].pointsOut.push(angular.copy(impAxQ));
           blocks[indexChildBlock2].pointsOut.push(angular.copy(impAxQ));
 //          console.log('!!!!! impAxQ -----', impAxQ);
@@ -650,6 +652,8 @@ console.log('-------------setPointsXChildren -----------');
 
         var impostAx = angular.copy(currBlock.impost.impostAxis);
         //------- insert pointsOut of parent block in pointsOut of children blocks
+        console.log('!!!!! -----', blocks[indexChildBlock1].id, blocks[indexChildBlock2].id);
+        console.log('!!!!! pointsOut -----',JSON.stringify(pointsOut));
         collectPointsXChildBlock(impostAx, pointsOut, blocks[indexChildBlock1].pointsOut, blocks[indexChildBlock2].pointsOut);
         //------- insert impostOut of impost in pointsOut of children blocks
 //        $.merge(blocks[indexChildBlock1].pointsOut, angular.copy(impostAx));
@@ -657,18 +661,21 @@ console.log('-------------setPointsXChildren -----------');
           blocks[indexChildBlock1].pointsOut.push(angular.copy(impostAx[i]));
           blocks[indexChildBlock2].pointsOut.push(angular.copy(impostAx[i]));
         }
-
+        console.log('!!!!! pointsIn -----', JSON.stringify(pointsIn));
         //------- insert pointsIn of parent block in pointsIn of children blocks
         collectPointsXChildBlock(impostAx, pointsIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn);
+        console.log('!!!!! indexChildBlock1 -----', JSON.stringify(blocks[indexChildBlock1].pointsIn));
+        console.log('!!!!! indexChildBlock2 -----', JSON.stringify(blocks[indexChildBlock2].pointsIn));
         //------- insert impostIn of impost in pointsIn of children blocks
         collectImpPointsXChildBlock(currBlock.impost.impostIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn);
-
+        console.log('!!!!! indexChildBlock1 -----', JSON.stringify(blocks[indexChildBlock1].pointsIn));
+        console.log('!!!!! indexChildBlock2 -----', JSON.stringify(blocks[indexChildBlock2].pointsIn));
       }
     }
 
 
 
-    function getCPImpostInsideBlock(group, markAx, i, linesInQty, linesIn, impVector, impAx, impostIn, pointsIn) {
+    function getCPImpostInsideBlock(group, markAx, i, linesInQty, linesIn, impVector, impAx, impost, pointsIn) {
       var impCP = getCoordCrossPoint(linesIn[i], impVector),
           isInside = checkLineOwnPoint(impCP, linesIn[i].to, linesIn[i].from),
           isCross = isInsidePointInLine(isInside);
@@ -682,20 +689,25 @@ console.log('-------------setPointsXChildren -----------');
         if (linesIn[i].dir === 'curv') {
           var impCenterP = findImpostCenter(markAx, impVector);
           var intersect = getIntersectionInCurve(i, linesInQty, linesIn, impCenterP, impCP);
-//          console.log('intersect +++', intersect[0]);
+          console.log('intersect +++', intersect[0]);
           if (intersect.length) {
             ip.x = intersect[0].x;
             ip.y = intersect[0].y;
-            if(markAx){
-              setSideQPCurve(i, linesInQty, linesIn, intersect[0], pointsIn);
+            var noExist = checkEqualPoints(ip, impost);
+            if(noExist) {
+              if (markAx) {
+                setSideQPCurve(i, linesInQty, linesIn, intersect[0], pointsIn);
+              }
+              impost.push(angular.copy(ip));
             }
           }
-        }
-        //              console.log('isCross +++', isCross);
-        //              console.log('cur 1 ip++++', JSON.stringify(ip));
-        var noExist = checkEqualPoints(ip, impostIn);
-        if(noExist) {
-          impostIn.push(angular.copy(ip));
+        } else {
+          var noExist = checkEqualPoints(ip, impost);
+          if(noExist) {
+            console.log('impCP++++++++', JSON.stringify(ip));
+            impost.push(angular.copy(ip));
+            console.log('impost++++++++', JSON.stringify(impost));
+          }
         }
       }
     }
@@ -751,7 +763,7 @@ console.log('-------------setPointsXChildren -----------');
 
     function setSideQPCurve(i, linesInQty, linesIn, intersect, pointsIn) {
       var sideQP1, sideQP2, index, curvP0, curvP2;
-      if (linesIn[i].from.id.indexOf('q') + 1) {
+      if (linesIn[i].from.id.indexOf('q')+1) {
         index = i - 1;
         if (!linesIn[index]) {
           index = linesInQty - 1;
@@ -777,7 +789,8 @@ console.log('-------------setPointsXChildren -----------');
       sideQP1.y = impostQP1.y;
       sideQP2.x = impostQP2.x;
       sideQP2.y = impostQP2.y;
-
+      console.log('QQQQ--------', sideQP1, sideQP2);
+      console.log('QQQQ pointsIn--------', JSON.stringify(pointsIn));
       //----- delete Q point parent
       var pQty = pointsIn.length;
       while(--pQty > -1) {
@@ -785,14 +798,16 @@ console.log('-------------setPointsXChildren -----------');
           pointsIn.splice(pQty, 1);
         }
       }
+      console.log('QQQQ pointsIn after clean--------', JSON.stringify(pointsIn));
 
-//console.log('QQQQ--------', impostQP1, impostQP2);
       var noExist1 = checkEqualPoints(sideQP1, pointsIn);
       if(noExist1) {
+        console.log('noExist1-------');
         pointsIn.push(sideQP1);
       }
       var noExist2 = checkEqualPoints(sideQP2, pointsIn);
       if(noExist2) {
+        console.log('noExist2-------');
         pointsIn.push(sideQP2);
       }
 
@@ -833,33 +848,37 @@ console.log('-------------setPointsXChildren -----------');
 
     function collectPointsXChildBlock(impostVector, points, pointsBlock1, pointsBlock2) {
       var pointsQty = points.length;
-//      console.log('collect----- points-----', points);
+      console.log('POSITION-----', JSON.stringify(points));
       //      console.log('POSITION impostVector[1]-----', impostVector[1]);
 //      console.log('POSITION impostVector[0]-----', impostVector[0]);
 //      console.log('POSITION impostVector[1]-----', impostVector[1]);
       for(var i = 0; i < pointsQty; i++) {
         //------- check pointsIn of parent block as to impost
         var position = setPointLocationToLine(impostVector[0], impostVector[1], points[i]);
-//        console.log('POSITION p-----', points[i]);
-//        console.log('POSITION position -----', position);
+        console.log('POSITION p-----', points[i]);
+        console.log('POSITION position -----', position);
         //------ block right side
         if(position > 0) {
           var exist = 0;
+          console.log('POSITION p2-----', JSON.stringify(pointsBlock2));
+          console.log('POSITION p2-----', points[i].id);
           if(pointsBlock2.length) {
             exist = checkDoubleQPoints(points[i].id, pointsBlock2);
           }
           if(!exist) {
-//            console.log('collect+++++pointsBlock2=', pointsBlock2);
+            console.log('POSITION+++++push');
             pointsBlock2.push(angular.copy(points[i]));
           }
         //------ block left side
         } else if(position < 0){
           var exist = 0;
+          console.log('POSITION p1-----', JSON.stringify(pointsBlock1));
+          console.log('POSITION p1-----', points[i].id);
           if(pointsBlock1.length) {
             exist = checkDoubleQPoints(points[i].id, pointsBlock1);
           }
           if(!exist) {
-//            console.log('collect+++++pointsBlock1=', pointsBlock1);
+            console.log('POSITION+++++push');
             pointsBlock1.push(angular.copy(points[i]));
           }
         }
@@ -1519,12 +1538,12 @@ console.log('-------------setPointsXChildren -----------');
 //                              console.log('l1 ------',l1);
 //                              console.log('l2 ------',l2);
       // calc the intersections
-      return QLineIntersections(p1, p2, p3, l1, l2);
+      return intersectionQ(p1, p2, p3, l1, l2);
     }
 
 
 
-    function QLineIntersections(p1, p2, p3, a1, a2) {
+    function intersectionQ(p1, p2, p3, a1, a2) {
       var intersections = [],
           // inverse line normal
           normal = {
