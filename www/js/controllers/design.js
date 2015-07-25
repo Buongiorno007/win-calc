@@ -259,7 +259,7 @@
       if(arcType === 1) {
         //------ delete all arcs
         if (arcQty > 1) {
-          var arcsQty = d3.selectAll('#tamlateSVG [item-type=arc]')[0].length;
+          var arcsQty = d3.selectAll('#tamlateSVG [item_type=arc]')[0].length;
           if (arcsQty) {
             DesignServ.workingWithAllArcs('arc', arcsQty);
           }

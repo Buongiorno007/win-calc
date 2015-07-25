@@ -77,16 +77,16 @@
                 .data(template.details[i].parts)
                 .enter().append('path')
                 .attr({
-                  'blockId': template.details[i].id,
-                  'parentId': template.details[i].parent,
+                  'block_id': template.details[i].id,
+                  'parent_id': template.details[i].parent,
                   //'class': function(d) { return d.type; },
                   'class': function (d) {
                     return (d.type === 'glass') ? 'glass' : 'frame'
                   },
-                  'item-type': function (d) {
+                  'item_type': function (d) {
                     return d.type;
                   },
-                  'item-dir': function (d) {
+                  'item_dir': function (d) {
                     return d.dir;
                   },
                   'd': function (d) {
@@ -118,9 +118,9 @@
                   .data(corners)
                   .enter().append('circle')
                   .attr({
-                    'blockId': template.details[i].id,
+                    'block_id': template.details[i].id,
                     'class': 'corner_mark',
-                    'parent': function (d) {
+                    'parent_id': function (d) {
                       return d.id;
                     },
                     'cx': function (d) {
