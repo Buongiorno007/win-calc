@@ -34,7 +34,7 @@
 
 
         function buildSVG(template, widthSVG, heightSVG) {
-          var mainSVG, mainGroup, dimGroup, padding = 1, points, dimMaxMin, scale, position, blocksQty;
+          var mainSVG, mainGroup, elementsGroup, dimGroup, padding = 1, points, dimMaxMin, scale, position, blocksQty;
           if(template && !$.isEmptyObject(template)) {
 
             d3.select('#tamlateSVG').remove();
@@ -66,6 +66,9 @@
               'id': 'main_group',
               'transform': 'translate(' + position.x + ', ' + position.y + ') scale(' + scale + ')'
             });
+            elementsGroup = mainGroup.append("g").attr({
+              'id': 'elem_group'
+            });
             dimGroup = mainGroup.append("g").attr({
               'id': 'dim_group'
             });
@@ -76,7 +79,7 @@
 
             for (var i = 1; i < blocksQty; i++) {
 
-              mainGroup.selectAll('path.' + template.details[i].id)
+              elementsGroup.selectAll('path.' + template.details[i].id)
                 .data(template.details[i].parts)
                 .enter().append('path')
                 .attr({
@@ -101,7 +104,7 @@
 
               //----- sash open direction
               if (template.details[i].sashOpenDir) {
-                var openSashMarks = mainGroup.selectAll('path.sash_mark.' + template.details[i].id)
+                elementsGroup.selectAll('path.sash_mark.' + template.details[i].id)
                   .data(template.details[i].sashOpenDir)
                   .enter().append('path')
                   .classed('sash_mark', true)
@@ -117,7 +120,7 @@
                 var corners = template.details[i].pointsOut.filter(function (item) {
                   return item.corner > 0;
                 });
-                var cornerMarks = mainGroup.selectAll('circle.corner_mark.' + template.details[i].id)
+                elementsGroup.selectAll('circle.corner_mark.' + template.details[i].id)
                   .data(corners)
                   .enter().append('circle')
                   .attr({
@@ -142,7 +145,8 @@
             //--------- dimension
             var defs = dimGroup.append("defs"),
                 dimXQty = template.dimension.dimX.length,
-                dimYQty = template.dimension.dimY.length;
+                dimYQty = template.dimension.dimY.length,
+                dimQQty = template.dimension.dimQ.length;
 
             //----- horizontal marker arrow
             setMarkerArrow(defs, 'dimHorL', '-5, -5, 4, 5', -5, -2, 0, 'M 0,0 L -4,-2 L0,-4 z');
@@ -151,19 +155,24 @@
             setMarkerArrow(defs, 'dimVertL', '1, -1, 4, 5', 5, 2, 90, 'M 0,0 L 4,2 L0,4 z');
             setMarkerArrow(defs, 'dimVertR', '1, -1, 4, 5', 5, 2, 270, 'M 0,0 L 4,2 L0,4 z');
 
-            console.log('SVG=========dimX==', template.dimension.dimX);
-            console.log('SVG=========dimY==', template.dimension.dimY);
+            setMarkerArrow(defs, 'dimArrow', '1, -1, 4, 5', 5, 2, 'auto', 'M 0,0 L 4,2 L0,4 z');
+
+            console.log('SVG=========dim==', template.dimension);
             for(var dx = 0; dx < dimXQty; dx++) {
               createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator);
             }
             for(var dy = 0; dy < dimYQty; dy++) {
               createDimension(1, template.dimension.dimY[dy], dimGroup, lineCreator);
             }
+            for(var dq = 0; dq < dimQQty; dq++) {
+              createRadiusDimension(template.dimension.dimQ[dq], dimGroup, lineCreator);
+            }
 
 
 
             //--------- set clicking to all imposts
             if (scope.typeConstruction === 'edit') {
+              console.log('EDIT INIT IMPOST');
               DesignServ.initAllImposts();
               DesignServ.initAllGlassXDimension();
               DesignServ.initAllDimension();
@@ -196,18 +205,18 @@
 
 
         function createDimension(dir, dim, dimGroup, lineCreator) {
-         var dimLineHeight = -150,
-             dimEdger = 50,
-             dimMarginBottom = -20,
-             sizeBoxWidth = 160,
-             sizeBoxHeight = 70,
-             sizeBoxRadius = 20,
+          var dimLineHeight = -150,
+              dimEdger = 50,
+              dimMarginBottom = -20,
+              sizeBoxWidth = 160,
+              sizeBoxHeight = 70,
+              sizeBoxRadius = 20,
 
-             lineSideL = [],
-             lineSideR = [],
-             lineCenter = [],
-             dimBlock, sizeBox,
-             pointL1 = {
+              lineSideL = [],
+              lineSideR = [],
+              lineCenter = [],
+              dimBlock, sizeBox,
+              pointL1 = {
                 x: (dir) ? dimMarginBottom : dim.from,
                 y: (dir) ? dim.from : dimMarginBottom
               },
@@ -232,14 +241,11 @@
                 y: (dir) ? dim.to : dimLineHeight + dimEdger
               };
 
-         lineSideL.push(pointL1);
-         lineSideL.push(pointL2);
-         lineSideR.push(pointR1);
-         lineSideR.push(pointR2);
-         lineCenter.push(pointC1);
-         lineCenter.push(pointC2);
+          lineSideL.push(pointL1, pointL2);
+          lineSideR.push(pointR1, pointR2);
+          lineCenter.push(pointC1, pointC2);
 
-         dimBlock = dimGroup.append('g')
+          dimBlock = dimGroup.append('g')
            .attr({
              'class': function() {
                if(dir) {
@@ -251,14 +257,14 @@
              'block_id': dim.blockId
            });
 
-         dimBlock.append('path')
+          dimBlock.append('path')
            .classed('size-line', true)
            .attr('d', lineCreator(lineSideR));
-         dimBlock.append('path')
+          dimBlock.append('path')
            .classed('size-line', true)
            .attr('d', lineCreator(lineSideL));
 
-         dimBlock.append('path')
+          dimBlock.append('path')
            .classed('size-line', true)
            .attr({
              'd': lineCreator(lineCenter),
@@ -269,8 +275,8 @@
           sizeBox = dimBlock.append('g')
            .classed('size-box', true);
 
-         if(scope.typeConstruction === 'edit') {
-           sizeBox.append('rect')
+          if(scope.typeConstruction === 'edit') {
+            sizeBox.append('rect')
              .classed('size-rect', true)
              .attr({
                'width': sizeBoxWidth,
@@ -280,7 +286,7 @@
                'rx': sizeBoxRadius,
                'ry': sizeBoxRadius
              });
-         }
+          }
 
 
           sizeBox.append('text')
@@ -291,17 +297,85 @@
              'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8); },
              'dx': 80,
              'dy': 40,
+             'type': 'line',
              'block_id': dim.blockId,
-             'from_point': dim.from,
-             'to_point': dim.to,
              'size_val': dim.text,
              'min_val': dim.minLimit,
              'max_val': dim.maxLimit,
+             'from_point': dim.from,
+             'to_point': dim.to,
              'axis': dim.axis
            });
 
         }
 
+
+        function createRadiusDimension(dimQ, dimGroup, lineCreator) {
+
+          var radiusLine = [],
+              startPR = {
+                x: dimQ.startX,
+                y: dimQ.startY
+              },
+              endPR = {
+                x: dimQ.midleX,
+                y: dimQ.midleY
+              },
+              sizeBoxWidth = 160,
+              sizeBoxHeight = 70,
+              sizeBoxRadius = 20,
+              dimBlock, sizeBox;
+
+          radiusLine.push(endPR, startPR);
+
+          dimBlock = dimGroup.append('g')
+            .attr({
+              'class': 'dim_block dim_hidden',
+              'block_id': dimQ.blockId
+            });
+
+          dimBlock.append('path')
+            .classed('size-line', true)
+            .attr({
+              'd': lineCreator(radiusLine),
+              'marker-end': 'url(#dimArrow)'
+            });
+
+          sizeBox = dimBlock.append('g')
+            .classed('size-box', true);
+
+          if(scope.typeConstruction === 'edit') {
+            sizeBox.append('rect')
+              .classed('size-rect', true)
+              .attr({
+                'width': sizeBoxWidth,
+                'height': sizeBoxHeight,
+                'x': dimQ.midleX,
+                'y': dimQ.midleY,
+                'rx': sizeBoxRadius,
+                'ry': sizeBoxRadius
+              });
+          }
+
+
+          sizeBox.append('text')
+            .text(dimQ.radius)
+            .attr({
+              'class': 'size-txt-edit',
+              'x': dimQ.midleX,
+              'y': dimQ.midleY,
+              'dx': 80,
+              'dy': 40,
+              'type': 'curve',
+              'block_id': dimQ.blockId,
+              'size_val': dimQ.radius,
+              'min_val': dimQ.radiusMax,
+              'max_val': dimQ.radiusMin,
+              'radius_id': dimQ.id,
+              'chord': dimQ.lengthChord
+            });
+
+        }
 
 
       }

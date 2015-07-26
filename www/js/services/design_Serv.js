@@ -368,38 +368,22 @@
           }
         }
       } else {
-        console.log('not available');
-        console.log(blockID);
-        console.log(d3.selectAll('[block_id='+blockID+']'));//"[color=red]"
+        //------ show error
+        var currGlass = d3.select('#tamlateSVG .glass[block_id='+blockID+']'),
+            i = 1;
+        currGlass.classed('error_glass', true);
 
-//        //------ show error
-//        d3.selectAll('[blockId="'+blockID+'"]').each(function() {
-//          if(this.attributes.class.nodeValue === 'glass') {
-//            console.log('__class___', this.attributes.class.nodeValue);
-//            var currGlass = d3.select(this);
-//            currGlass.classed('error_glass', true);
-//          }
-//        });
-        d3.selectAll('#tamlateSVG .glass[block_id='+blockID+']').each(function(){
-//          if(this.attributes.block_id.nodeValue === blockID) {
-            var currGlass = d3.select(this),
-                i = 1;
-
-            var interval = setInterval(function() {
-              if(i === 11) {
-                clearInterval(interval);
-              }
-              if(i%2) {
-                currGlass.classed('error_glass', false);
-              } else {
-                currGlass.classed('error_glass', true);
-              }
-              i++;
-            }, 50);
-
-
-//          }
-        });
+        var interval = setInterval(function() {
+          if(i === 11) {
+            clearInterval(interval);
+          }
+          if(i%2) {
+            currGlass.classed('error_glass', false);
+          } else {
+            currGlass.classed('error_glass', true);
+          }
+          i++;
+        }, 50);
 
       }
     }
@@ -584,9 +568,9 @@
     function createCurveQPoint(typeQ, idQ, line, position, blockIndex, blocks) {
       var pointQ = {
         type: typeQ,
+        blockId: blocks[blockIndex].id,
         id: idQ,
-        radius: line.size/4,
-        radiusMax: line.size/4,
+        heightQ: line.size/4,
         fromPId: line.from.id,
         toPId: line.to.id,
         positionQ: position
@@ -1145,8 +1129,9 @@
 
     function createImpostQPoint(dist, position, curBlockN, blockIndex, blocks) {
       var impQPoint = {
+        blockId: blocks[blockIndex].id,
         id: 'ip'+curBlockN,
-        radius: dist,
+        heightQ: dist,
         positionQ: position
       };
       blocks[blockIndex].impost.impostAxis.push(impQPoint);
@@ -1302,8 +1287,8 @@
               dim.classed('active', true);
               console.log('SIZE CLICK', dim);
               DesignStor.design.oldSize = dim[0][0];
-              DesignStor.design.minSizeLimit = +dim[0][0].attributes[9].nodeValue;
-              DesignStor.design.maxSizeLimit = +dim[0][0].attributes[10].nodeValue;
+              DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
+              DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
 
               //------- show caclulator or voice helper
               if(GlobalStor.global.isVoiceHelper) {
@@ -1496,14 +1481,6 @@
       if(DesignStor.design.tempSize.length > 0) {
         newLength = parseInt(DesignStor.design.tempSize.join(''), 10);
 
-
-        //              5: block_id
-        //              6: from-point
-        //              7: to-point
-        //              8: size-val
-        //              9: min-val
-        //              10: max-val
-
         //------- Dimensions limits checking
         if (newLength >= DesignStor.design.minSizeLimit && newLength <= DesignStor.design.maxSizeLimit) {
           DesignStor.design.isMinSizeRestriction = 0;
@@ -1514,40 +1491,70 @@
 
 
           //-------- change point coordinates in templateSource
-          var oldSizeValue = +DesignStor.design.oldSize.attributes[7].nodeValue;
-          var startSize = +DesignStor.design.oldSize.attributes[6].nodeValue;
-          var axis = DesignStor.design.oldSize.attributes[11].nodeValue;
-          var blocks = DesignStor.design.templateSourceTEMP.details;
+          var blocks = DesignStor.design.templateSourceTEMP.details,
+              blocksQty = blocks.length;
+          //-------- change Radius
+          if(DesignStor.design.oldSize.attributes[5].nodeValue === 'curve') {
 
-          for (var b = 1; b < blocks.length; b++) {
-            var pointsOutQty = blocks[b].pointsOut.length;
-            if(pointsOutQty) {
-              while(--pointsOutQty > -1) {
-                if(axis === 'x') {
-                  if (blocks[b].pointsOut[pointsOutQty].x === oldSizeValue) {
-                    blocks[b].pointsOut[pointsOutQty].x = startSize + newLength;
+            var newHeightQ = culcHeightQByRadiusCurve(+DesignStor.design.oldSize.attributes[11].nodeValue, newLength),
+                dimId = DesignStor.design.oldSize.attributes[10].nodeValue;
+
+            mainFor: for (var b = 1; b < blocksQty; b++) {
+              if(blocks[b].id === DesignStor.design.oldSize.attributes[6].nodeValue) {
+                if(blocks[b].pointsQ) {
+                  var pointsQQty = blocks[b].pointsQ.length;
+                  while(--pointsQQty > -1) {
+                    if(blocks[b].pointsQ[pointsQQty].id === dimId) {
+                      blocks[b].pointsQ[pointsQQty].heightQ = newHeightQ;
+                      break mainFor;
+                    }
                   }
-                } else if(axis === 'y') {
-                  if (blocks[b].pointsOut[pointsOutQty].y === oldSizeValue) {
-                    blocks[b].pointsOut[pointsOutQty].y = startSize + newLength;
+                }
+
+                if(blocks[b].impost) {
+                  if(blocks[b].impost.impostAxis[2].id === dimId) {
+                    blocks[b].impost.impostAxis[2].heightQ = newHeightQ;
+                    break mainFor;
+                  }
+                }
+
+              }
+            }
+
+          } else {
+            var oldSizeValue = +DesignStor.design.oldSize.attributes[7].nodeValue,
+                startSize = +DesignStor.design.oldSize.attributes[10].nodeValue,
+                axis = DesignStor.design.oldSize.attributes[12].nodeValue;
+
+            for (var b = 1; b < blocksQty; b++) {
+              var pointsOutQty = blocks[b].pointsOut.length;
+              if(pointsOutQty) {
+                while(--pointsOutQty > -1) {
+                  if(axis === 'x') {
+                    if (blocks[b].pointsOut[pointsOutQty].x === oldSizeValue) {
+                      blocks[b].pointsOut[pointsOutQty].x = startSize + newLength;
+                    }
+                  } else if(axis === 'y') {
+                    if (blocks[b].pointsOut[pointsOutQty].y === oldSizeValue) {
+                      blocks[b].pointsOut[pointsOutQty].y = startSize + newLength;
+                    }
+                  }
+                }
+              }
+              if(blocks[b].impost) {
+                for(var i = 0; i < 2; i++) {
+                  if(axis === 'x') {
+                    if (blocks[b].impost.impostAxis[i].x === oldSizeValue) {
+                      blocks[b].impost.impostAxis[i].x = startSize + newLength;
+                    }
+                  } else if (axis === 'y') {
+                    if (blocks[b].impost.impostAxis[i].y === oldSizeValue) {
+                      blocks[b].impost.impostAxis[i].y = startSize + newLength;
+                    }
                   }
                 }
               }
             }
-            if(blocks[b].impost) {
-              for(var i = 0; i < 2; i++) {
-                if(axis === 'x') {
-                  if (blocks[b].impost.impostAxis[i].x === oldSizeValue) {
-                    blocks[b].impost.impostAxis[i].x = startSize + newLength;
-                  }
-                } else if (axis === 'y') {
-                  if (blocks[b].impost.impostAxis[i].y === oldSizeValue) {
-                    blocks[b].impost.impostAxis[i].y = startSize + newLength;
-                  }
-                }
-              }
-            }
-
 
           }
 
@@ -1614,6 +1621,9 @@
 
 
 
+    function culcHeightQByRadiusCurve(lineLength, radius) {
+      return Math.round( (radius - Math.sqrt(Math.pow(radius,2) - Math.pow(lineLength,2)/4)) * 100) / 100;
+    }
 
 
 

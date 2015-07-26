@@ -6740,7 +6740,7 @@ li.constr-shape-icon:last-child {
 .size-calc-container .calc-interval:after {
   font: normal 2.25rem/0 icons, sans-serif;
   top: 45%;
-  left: 40%;
+  left: 45%;
   position: absolute;
   color: #bebebe;
   content: "\e61d";
