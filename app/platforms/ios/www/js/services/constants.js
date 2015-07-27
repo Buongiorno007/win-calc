@@ -24,8 +24,8 @@
 
       //---Edit Design
       squareLimit: 0.2,
-      widthLimit: 100,
-      heightLimint: 100,
+      minSizeLimit: 100,
+      maxSizeLimit: 5000,
 
       activeClass: 'active',
       addElementsGroupClass: [

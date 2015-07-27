@@ -11,8 +11,6 @@
 
     var thisCtrl = this;
 
-    var $svgContainer = $('svg-template');
-
     thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
@@ -46,7 +44,8 @@
 
 
 
-    //------ clicking
+    //=========== clicking ============//
+
     thisCtrl.designSaved = DesignServ.designSaved;
     thisCtrl.designCancel = DesignServ.designCancel;
     thisCtrl.selectMenuItem = selectMenuItem;
@@ -132,9 +131,6 @@
         DesignStor.design.selectedGlass = glass;
       });
     }
-
-
-
 
 
 
@@ -260,7 +256,7 @@
       if(arcType === 1) {
         //------ delete all arcs
         if (arcQty > 1) {
-          var arcsQty = d3.selectAll('#tamlateSVG [item-type=arc]')[0].length;
+          var arcsQty = d3.selectAll('#tamlateSVG [item_type=arc]')[0].length;
           if (arcsQty) {
             DesignServ.workingWithAllArcs('arc', arcsQty);
           }
@@ -412,51 +408,6 @@
     }
 
     //=============== End Door ==================//
-
-
-
-
-
-
-
-
-
-
-
-
-    //=============== CHANGE CONSTRUCTION SIZE ==============
-
-    $svgContainer.hammer({domEvents:true}).off("tap", "tspan").on("tap", "tspan", DesignServ.selectSizeBlock);
-
-    //------ click on size calculator, get number
-    $('.construction-right-menu .size-calculator').hammer().off("tap", ".calc-digit").on("tap", ".calc-digit", getNewDigit);
-
-    function getNewDigit() {
-      var newValue = $(this).text();
-      DesignServ.setValueSize(newValue);
-    }
-
-    $('.construction-right-menu .size-calculator').hammer().off("tap", ".calc-delete").on("tap", ".calc-delete", DesignServ.deleteLastNumber);
-
-//TODO  playTTS($filter('translate')('construction.VOICE_SMALL_GLASS_BLOCK'), $scope.global.voiceHelperLanguage);
-
-
-
-
-    //=============== CLICK ON GLASS PACKAGE ==============
-
-    /*
-     Hammer(svgContainer).on('tap', function( event ) {
-     console.log('tap', event);
-     console.log('event.target = ', event.target);
-     if( event.target && event.target.className.indexOf('glass') >= 0 ) {
-     console.log('select glass');
-     } else if(event.target && event.target.className.indexOf('size-box-edited') >= 0) {
-     console.log('select dimentions');
-     }
-     });
-     */
-//    $svgContainer.hammer({domEvents:true}).on("tap", ".glass", selectGlassBlock);
 
 
 

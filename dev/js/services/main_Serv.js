@@ -280,10 +280,9 @@
       saveTemplateInProduct(ProductStor.product.templateIndex).then(function() {
         setCurrentGlass();
         setCurrentHardware();
-        //TODO закомичена цена!!!!
-//        preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId).then(function() {
-//          deferred.resolve('done');
-//        });
+        preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId).then(function() {
+          deferred.resolve('done');
+        });
       });
       return deferred.promise;
     }
@@ -342,66 +341,30 @@
               shtulpId:  ProductStor.product.profileShtulpId,
               beadId: beadId,
 
-              framesSize: [],
-              sashsSize: [],
-              beadsSize: [],
-              impostsSize: [],
-              shtulpsSize: [],
-              sashesBlock: [],
-              glassSizes: [],
-              glassSquares: [],
-              frameSillSize: 0
-            },
-            templateElemQty = template.objects.length,
-            item = 0;
-        for(; item < templateElemQty; item++) {
-          if (template.objects[item].type) {
-            switch (template.objects[item].type) {
-              case 'frame_line':
-                objXFormedPrice.framesSize.push(template.objects[item].lengthVal);
-                if (template.objects[item].sill) {
-                  objXFormedPrice.frameSillSize = template.objects[item].lengthVal;
-                }
-                break;
-              case 'impost':
-                objXFormedPrice.impostsSize.push(template.objects[item].parts[0].lengthVal);
-                break;
-              case 'sash':
-                objXFormedPrice.sashsSize.push(template.objects[item].parts[0].lengthVal);
-                break;
-              case 'bead_line':
-                objXFormedPrice.beadsSize.push(template.objects[item].lengthVal);
-                break;
-              case 'sash_block':
-                var tempSashBlock = {},
-                    tempSashBlockSize = [];
-                for (var sash = 0; sash < template.objects[item].parts.length; sash++) {
-                  tempSashBlockSize.push(template.objects[item].parts[sash].lengthVal);
-                }
-                tempSashBlock.sizes = tempSashBlockSize;
-                tempSashBlock.openDir = template.objects[item].openDir;
-                objXFormedPrice.sashesBlock.push(tempSashBlock);
-                break;
-              case 'glass_paсkage':
-                var tempGlassSizes = [];
-                for (var glass = 0; glass < template.objects[item].parts.length; glass++) {
-                  tempGlassSizes.push(template.objects[item].parts[glass].lengthVal);
-                }
-                objXFormedPrice.glassSizes.push(tempGlassSizes);
-                objXFormedPrice.glassSquares.push(template.objects[item].square);
-                break;
-              case 'dimensionsH':
-                ProductStor.product.templateWidth = template.objects[item].lengthVal;
-                break;
-              case 'dimensionsV':
-                ProductStor.product.templateHeight = template.objects[item].lengthVal;
-                break;
-            }
-          }
+              framesSize: template.priceElements.framesSize,
+              sashsSize: template.priceElements.sashsSize,
+              beadsSize: template.priceElements.beadsSize,
+              impostsSize: template.priceElements.impostsSize,
+              shtulpsSize: template.priceElements.shtulpsSize,
+              sashesBlock: template.priceElements.sashesBlock,
+              glassSizes: template.priceElements.glassSizes,
+              glassSquares: template.priceElements.glassSquares,
+              frameSillSize: template.priceElements.frameSillSize
+            };
+
+        //------- set Overall Dimensions
+        ProductStor.product.templateWidth = 0;
+        ProductStor.product.templateHeight = 0;
+        var overallQty = ProductStor.product.template.details[0].overallDim.length;
+        while(--overallQty > -1) {
+          ProductStor.product.templateWidth += ProductStor.product.template.details[0].overallDim[overallQty].w;
+          ProductStor.product.templateHeight += ProductStor.product.template.details[0].overallDim[overallQty].h;
         }
-        //console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
+
+//        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
 
         console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
+
         //--------- get product price
         calculationPrice(objXFormedPrice).then(function() {
           deferred.resolve('done');
@@ -471,20 +434,23 @@
 
     //---------- Coeffs define
     function calculateCoeffs(objXFormedPrice) {
-      var templateQty = ProductStor.product.template.objects.length,
-          constructionSquareTotal,
+      var overallQty = ProductStor.product.template.details[0].overallDim.length,
+          constructionSquareTotal = 0,
           glassSquareTotal,
           prifileHeatCoeffTotal,
-          glassHeatCoeffTotal,
-          item;
+          glassHeatCoeffTotal;
       //------- total construction square define
-      for (item = 0; item < templateQty; item++) {
-        if(ProductStor.product.template.objects[item].type === "square") {
-          constructionSquareTotal = ProductStor.product.template.objects[item].squares.reduce(function(sum, elem) {
-            return sum + elem;
-          });
-        }
+
+      while(--overallQty > -1) {
+        constructionSquareTotal += ProductStor.product.template.details[0].overallDim[overallQty].square;
       }
+//      for (var item = 0; item < templateQty; item++) {
+//        if(ProductStor.product.template.objects[item].type === "square") {
+//          constructionSquareTotal = ProductStor.product.template.objects[item].squares.reduce(function(sum, elem) {
+//            return sum + elem;
+//          });
+//        }
+//      }
       //-------- total glasses square define
       glassSquareTotal = objXFormedPrice.glassSquares.reduce(function(sum, elem) {
         return sum + elem;

@@ -26,7 +26,7 @@
       svgTemplateHeight: 100,
 
       //---Edit Design
-      squareLimit: 0.2,
+      squareLimit: 0.15,
       minSizeLimit: 100,
       maxSizeLimit: 5000,
 

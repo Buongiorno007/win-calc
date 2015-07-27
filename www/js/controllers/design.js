@@ -88,6 +88,8 @@
       DesignServ.deselectAllImpost();
       DesignServ.deselectAllArc();
       DesignServ.deselectAllGlass();
+      //----- hide culculator
+      GlobalStor.global.isSizeCalculator = 0;
 
       switch(DesignStor.design.activeMenuItem) {
         case 1:
@@ -103,6 +105,7 @@
           showAllAvailableArc(id);
           break;
         case 5:
+          DesignStor.design.activeSubMenuItem = 0;
           DesignServ.initMirror();
           break;
       }

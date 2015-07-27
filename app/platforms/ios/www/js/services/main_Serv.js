@@ -280,10 +280,9 @@
       saveTemplateInProduct(ProductStor.product.templateIndex).then(function() {
         setCurrentGlass();
         setCurrentHardware();
-        //TODO закомичена цена!!!!
-//        preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId).then(function() {
-//          deferred.resolve('done');
-//        });
+        preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId).then(function() {
+          deferred.resolve('done');
+        });
       });
       return deferred.promise;
     }
@@ -352,8 +351,11 @@
               glassSquares: [],
               frameSillSize: 0
             },
-            templateElemQty = template.objects.length,
-            item = 0;
+            templateBlockQty = template.details.length;
+        for(var b = 0; b < templateBlockQty; b++) {
+          var partsQty = template.details
+        }
+
         for(; item < templateElemQty; item++) {
           if (template.objects[item].type) {
             switch (template.objects[item].type) {
@@ -399,7 +401,7 @@
             }
           }
         }
-        //console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
+        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
 
         console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
         //--------- get product price

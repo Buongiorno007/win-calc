@@ -56,6 +56,17 @@
           defer = $q.defer();
       //  thisObj.name = sourceObj.name;
       thisObj.details = angular.copy(sourceObj.details);
+      thisObj.priceElements = {
+        framesSize: [],
+        sashsSize: [],
+        beadsSize: [],
+        impostsSize: [],
+        shtulpsSize: [],
+        sashesBlock: [],
+        glassSizes: [],
+        glassSquares: [],
+        frameSillSize: 0
+      };
 
       var blocksQty = thisObj.details.length;
 
@@ -83,6 +94,8 @@
             }
           }
 
+          thisObj.details[i].overallDim = [];
+
         } else {
 
           console.log('+++++++++ block ID ++++++++++', thisObj.details[i].id);
@@ -93,6 +106,7 @@
               setQPInMainBlock(thisObj.details[i]);
             }
           }
+          console.log('+++++++++ block ++++++++++pointsOut');
           thisObj.details[i].center = centerBlock(thisObj.details[i].pointsOut);
           thisObj.details[i].pointsOut = sortingPoints(thisObj.details[i].pointsOut, thisObj.details[i].center);
           thisObj.details[i].linesOut = setLines(thisObj.details[i].pointsOut);
@@ -100,7 +114,10 @@
             thisObj.details[i].pointsIn = setPointsIn(thisObj.details[i].linesOut, depths, 'frame');
           } else {
             thisObj.details[i].center = centerBlock(thisObj.details[i].pointsIn);
+//            console.log('+++++++++ block ++++++++++pointsIn', JSON.stringify(thisObj.details[i].pointsIn));
             thisObj.details[i].pointsIn = sortingPoints(thisObj.details[i].pointsIn, thisObj.details[i].center);
+//TODO            thisObj.details[i].pointsIn = sortingPointsIn(thisObj.details[i].pointsOut, thisObj.details[i].pointsIn);
+//            console.log('+++++++++ block ++++++++++pointsIn222', JSON.stringify(thisObj.details[i].pointsIn));
           }
           thisObj.details[i].linesIn = setLines(thisObj.details[i].pointsIn);
 
@@ -108,7 +125,7 @@
           if(thisObj.details[i].level === 1) {
             setCornerProp(thisObj.details);
             //------- set points for each part of construction
-            $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].pointsOut, thisObj.details[i].pointsIn));
+            $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].pointsOut, thisObj.details[i].pointsIn, thisObj.priceElements));
           }
 
 
@@ -124,16 +141,18 @@
               thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
               thisObj.details[i].hardwareLines = setLines(thisObj.details[i].sashPointsIn);
 
-              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn));
+              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements));
 
               //----- set openPoints for sash
               thisObj.details[i].sashOpenDir = setOpenDir(thisObj.details[i].openDir, thisObj.details[i].sashLinesIn);
+              setSashePropertyXPrice(thisObj.details[i].openDir, thisObj.details[i].hardwareLines, thisObj.priceElements);
             }
 
           //------- if block is empty
           } else {
             //------ if block is frame
             if(thisObj.details[i].blockType === 'frame') {
+              console.log('+++++++++ block ++++++++++beads');
               thisObj.details[i].beadPointsOut = copyPointsOut(thisObj.details[i].pointsIn, 'bead');
               thisObj.details[i].beadLinesOut = setLines(thisObj.details[i].beadPointsOut);
               thisObj.details[i].beadPointsIn = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'frame-bead');
@@ -142,8 +161,8 @@
               thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'frame-glass');
               /*          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);*/
 
-              thisObj.details[i].parts.push(setGlass(thisObj.details[i].glassPoints));
-              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn));
+              thisObj.details[i].parts.push(setGlass(thisObj.details[i].glassPoints, thisObj.priceElements));
+              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn, thisObj.priceElements));
 
             } else if(thisObj.details[i].blockType === 'sash') {
               thisObj.details[i].sashPointsOut = copyPointsOut(setPointsIn(thisObj.details[i].linesIn, depths, 'sash-out'), 'sash');
@@ -163,18 +182,19 @@
               thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'sash-glass');
               //          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);
 
-              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn));
-              thisObj.details[i].parts.push(setGlass(thisObj.details[i].glassPoints));
-              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn));
+              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements));
+              thisObj.details[i].parts.push(setGlass(thisObj.details[i].glassPoints, thisObj.priceElements));
+              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn, thisObj.priceElements));
 
               //----- set openPoints for sash
               thisObj.details[i].sashOpenDir = setOpenDir(thisObj.details[i].openDir, thisObj.details[i].beadLinesIn);
+              setSashePropertyXPrice(thisObj.details[i].openDir, thisObj.details[i].hardwareLines, thisObj.priceElements);
             }
           }
           setPointsXChildren(thisObj.details[i], thisObj.details, depths);
           //----- create impost parts
           if(thisObj.details[i].children.length) {
-            thisObj.details[i].parts.push( setImpostParts(thisObj.details[i].impost.impostIn) );
+            thisObj.details[i].parts.push( setImpostParts(thisObj.details[i].impost.impostIn, thisObj.priceElements) );
           }
 
 
@@ -183,7 +203,7 @@
 
       thisObj.dimension = initDimensions(thisObj.details);
 
-      console.log('END++++', thisObj.details);
+      console.log('END++++', thisObj);
       console.log('svg finish', new Date(), new Date().getMilliseconds());
       console.log('------------------------------------------------------');
       defer.resolve(thisObj);
@@ -311,7 +331,7 @@
 
 
     function changeOrderAsToImpostQP(points, pointsQty) {
-//      console.log('CHECK FI+++++', JSON.stringify(points));
+      console.log('CHECK FI+++++++++++++', JSON.stringify(points));
       var pointsQty1 = pointsQty,
           qiNArr = [], qiPointArr = [];
 
@@ -361,7 +381,27 @@
           //            console.log('add+++++++', points);
         }
       }
+      console.log('CHECK FI+++++finish+++++++++++', JSON.stringify(points));
 
+    }
+
+
+    //TODO ???????
+    function sortingPointsIn(pointsOut, pointsIn) {
+      var newPointsIn = [],
+          pointOutQty = pointsOut.length;
+      console.log('!!!!!!!!!!!!!!!', pointsOut);
+      for(var i = 0; i < pointOutQty; i++) {
+        var pointInQty = pointsIn.length;
+        for(var j = 0; j < pointInQty; j++) {
+          if(pointsIn[j].id === pointsOut[i].id) {
+            newPointsIn.push(angular.copy(pointsIn[j]));
+            break;
+          }
+        }
+      }
+      console.log('!!!!!!!!!!!!!!!', newPointsIn);
+      return newPointsIn;
     }
 
 
@@ -688,7 +728,8 @@
           var impAxQ = setQPointCoord(currBlock.impost.impostAxis[2].positionQ, impLineOut, currBlock.impost.impostAxis[2].heightQ*2);
 //          console.log('!!!!! impAxQ 1-----', JSON.stringify(impAxQ));
           impAxQ.type = 'impost';
-          impAxQ.id = 'qi' + Number(currBlock.impost.impostOut[0].id.replace(/\D+/g, ""));
+          impAxQ.id = currBlock.impost.impostAxis[2].id;
+//          impAxQ.id = 'qi' + Number(currBlock.impost.impostOut[0].id.replace(/\D+/g, ""));
           impAxQ.dir = 'curv';
           //------ if impost vert or hor
           if(!impLineOut.coefA && currBlock.impost.impostAxis[2].positionQ === 1) {
@@ -1025,7 +1066,7 @@
 
 
 
-    function setParts(pointsOut, pointsIn) {
+    function setParts(pointsOut, pointsIn, priceElements) {
       var newPointsOut = pointsOut.filter(function (item) {
         if(item.type === 'frame' && !item.view) {
           return false;
@@ -1074,6 +1115,10 @@
             }
             part.points.push(pointsIn[index]);
 
+            //-------- set sill
+            if(newPointsOut[index].sill && newPointsOut[0].sill) {
+              part.sill = 1;
+            }
           }
         } else {
 
@@ -1108,18 +1153,34 @@
               part.type = 'corner';
             }
             part.points.push(pointsIn[index]);
+
+            //-------- set sill
+            if(newPointsOut[index].sill && newPointsOut[index+1].sill) {
+              part.sill = 1;
+            }
           }
 
         }
         part.path = assamblingPath(part.points);
         //------- culc length
         part.size = culcLength(part.points);
-        //    console.log(part);
+
+        //------- per Price
         if(newPointsOut[index].type === 'bead') {
           part.type = 'bead';
+          priceElements.beadsSize.push(part.size);
         } else if(newPointsOut[index].type === 'sash') {
           part.type = 'sash';
+          priceElements.sashsSize.push(part.size);
+        } else if(part.type === 'frame') {
+          if(part.sill) {
+            priceElements.frameSillSize = part.size;
+//TODO много подоконников            priceElements.frameSillSize.push(part.size);
+          } else {
+            priceElements.framesSize.push(part.size);
+          }
         }
+//TODO----- if shtulpsSize: []
 
         parts.push(part);
       }
@@ -1169,13 +1230,12 @@
     function culcLength(arrPoints) {
       var pointQty = arrPoints.length,
           size = 0;
-
       //------- Line
-      if(pointQty === 4) {
+      if(pointQty === 2 || pointQty === 4) {
         size = Math.round(Math.hypot((arrPoints[1].x - arrPoints[0].x), (arrPoints[1].y - arrPoints[0].y)) * 100) / 100;
 
         //--------- Curve
-      } else if(pointQty === 6) {
+      } else if(pointQty === 3 || pointQty === 6) {
         var step = 0.01,
             t = 0;
         while(t <= 1) {
@@ -1189,7 +1249,7 @@
     }
 
 
-    function setGlass(glassPoints) {
+    function setGlass(glassPoints, priceElements) {
       var part = {
             type: 'glass',
             points: glassPoints,
@@ -1231,6 +1291,12 @@
       }
       part.square = calcSquare(glassPoints);
       part.sizes = culcLengthGlass(glassPoints);
+
+      //------- per Price
+      priceElements.glassSizes.push(part.sizes);
+      priceElements.glassSquares.push(part.square);
+
+
       return part;
     }
 
@@ -1657,13 +1723,24 @@
 
 
 
+    function setSashePropertyXPrice(openDir, hardwareLines, priceElements) {
+      var tempSashBlock = {
+            sizes: [],
+            openDir: openDir
+          },
+          hardwareQty = hardwareLines.length;
+      while(--hardwareQty > -1) {
+        tempSashBlock.sizes.push(hardwareLines[hardwareQty].size);
+      }
+      priceElements.sashesBlock.push(tempSashBlock);
+    }
 
 
 
     //---------- for impost
 
 
-    function setImpostParts(points) {
+    function setImpostParts(points, priceElements) {
       var pointsQty = points.length,
           part = {
             type: 'impost',
@@ -1680,6 +1757,14 @@
         part.points = sortingQImpostPoints(points);
       }
       part.path = assamblingPath(part.points);
+
+      //------- culc length
+      var sizePoints = sortingImpPXSizes(pointsQty, part.points);
+      part.size = culcLength(sizePoints);
+
+      //------- for Price
+      priceElements.impostsSize.push(part.size);
+
       return part;
     }
 
@@ -1730,6 +1815,35 @@
 //      console.log('-----------IMPOST Q -----------', newPoints);
       return newPoints;
     }
+
+
+    function sortingImpPXSizes(pointsQty, impPoints) {
+      var newImpPoints = [];
+      if(pointsQty === 4) {
+        while(--pointsQty > -1) {
+          if(impPoints[pointsQty].group) {
+            newImpPoints.push(impPoints[pointsQty]);
+          }
+        }
+      } else if(pointsQty === 6) {
+        for(var i = 0; i < pointsQty; i++) {
+          if(impPoints[i].group) {
+            if(impPoints[i].id.indexOf('ip')+1) {
+              newImpPoints.push(impPoints[i]);
+            }
+          }
+        }
+        for(var i = 0; i < pointsQty; i++) {
+          if(impPoints[i].group) {
+            if(impPoints[i].id.indexOf('qi')+1) {
+              newImpPoints.splice(1, 0, impPoints[i]);
+            }
+          }
+        }
+      }
+      return newImpPoints;
+    }
+
 
 
 
@@ -1810,8 +1924,7 @@
       //---- sorting
       pointsAllX.sort(sortNumbers);
       pointsAllY.sort(sortNumbers);
-//      console.log('DIM pointsAll+++++++', pointsAllX, pointsAllY);
-
+      console.log('DIM pointsAll+++++++', pointsAllX, pointsAllY);
 
 
       //------ in block
@@ -1828,7 +1941,10 @@
           //----- take pointsOut in block level 1
           if (blocks[b].level === 1) {
             var globalDimX = [],
-                globalDimY = [];
+                globalDimY = [],
+                overallPoints = [],
+                overallDim = {};
+
             limitsX = pointsAllX;
             limitsY = pointsAllY;
             for (var i = 0; i < pointsOutQty; i++) {
@@ -1846,10 +1962,16 @@
             globalDimY = globalDimY.removeDuplicates();
             globalDimX.sort(sortNumbers);
             globalDimY.sort(sortNumbers);
-            console.log('DIM+++++globalDimX++++ ', globalDimX);
-            console.log('DIM+++++globalDimY++++ ', globalDimY);
+//            console.log('DIM+++++globalDimX++++ ', globalDimX);
+//            console.log('DIM+++++globalDimY++++ ', globalDimY);
             collectDimension(1, 'x', globalDimX, dimension.dimX, limitsX, blocks[b].id);
             collectDimension(1, 'y', globalDimY, dimension.dimY, limitsY, blocks[b].id);
+
+
+            //--------- get Overall Dimension
+
+            overallDim.w = globalDimX[globalDimX.length-1];
+            overallDim.h = globalDimY[globalDimY.length-1];
 
             //----------- Curver Radius
             if(blocks[b].pointsQ) {
@@ -1858,9 +1980,25 @@
                 console.log('RRRR ARC=====', blocks[b].pointsQ);
                 while(--curveQty > -1) {
                   dimension.dimQ.push(blocks[b].pointsQ[curveQty]);
+                  //--------- get Overall Dimension
+                  if(blocks[b].pointsQ[curveQty].id.indexOf('qa')+1) {
+                    if(blocks[b].pointsQ[curveQty].positionQ === 2) {
+                      overallDim.w += blocks[b].pointsQ[curveQty].heightQ;
+                    } else if(blocks[b].pointsQ[curveQty].positionQ === 3) {
+                      overallDim.h += blocks[b].pointsQ[curveQty].heightQ;
+                    } else if(blocks[b].pointsQ[curveQty].positionQ === 1) {
+                      overallDim.h -= blocks[b].pointsQ[curveQty].heightQ;
+                    } else if(blocks[b].pointsQ[curveQty].positionQ === 4) {
+                      overallDim.w -= blocks[b].pointsQ[curveQty].heightQ;
+                    }
+                  }
+
                 }
               }
             }
+            overallDim.square = calcSquare(blocks[b].pointsOut);
+            //--------- push Overall Dimension
+            blocks[0].overallDim.push(overallDim);
 
           } else {
             //------ set limits x block
@@ -1899,8 +2037,10 @@
               blockDimY.push(blocks[b].impost.impostAxis[0].y);
             } else {
               for (var i = 0; i < 2; i++) {
-                blockDimX.push(blocks[b].impost.impostAxis[i].x);
-                blockDimY.push(blocks[b].impost.impostAxis[i].y);
+//                blockDimX.push(blocks[b].impost.impostAxis[i].x);
+//                blockDimY.push(blocks[b].impost.impostAxis[i].y);
+                blockDimX.push(blocks[b].impost.impostOut[i].x);
+                blockDimY.push(blocks[b].impost.impostOut[i].y);
               }
             }
 

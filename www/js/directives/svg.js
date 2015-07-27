@@ -338,6 +338,7 @@
             .classed('size-line', true)
             .attr({
               'd': lineCreator(radiusLine),
+              'style': 'stroke: #000;',
               'marker-end': 'url(#dimArrow)'
             });
 

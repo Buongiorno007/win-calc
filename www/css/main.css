@@ -1712,49 +1712,49 @@ body {
 /* line 58, ../../dev/sass/parts/svg.scss */
 .size-line {
   fill: none;
-  stroke: #D2D2D2;
+  stroke: #000;
   stroke-width: 1;
 }
 
-/* line 63, ../../dev/sass/parts/svg.scss */
+/* line 64, ../../dev/sass/parts/svg.scss */
 .size-rect {
   stroke: #6ed44a;
   stroke-width: 3px;
   fill-opacity: 0;
 }
-/* line 68, ../../dev/sass/parts/svg.scss */
+/* line 69, ../../dev/sass/parts/svg.scss */
 .size-rect.active {
   fill: #6ed44a;
   fill-opacity: 1;
 }
 
-/* line 73, ../../dev/sass/parts/svg.scss */
+/* line 74, ../../dev/sass/parts/svg.scss */
 .size-txt, .size-txt-edit {
   font-size: 5.625rem;
-  stroke: #D2D2D2;
+  stroke: #000;
   stroke-width: 1px;
   text-anchor: middle;
   alignment-baseline: middle;
 }
 
-/* line 80, ../../dev/sass/parts/svg.scss */
+/* line 82, ../../dev/sass/parts/svg.scss */
 .size-txt-edit {
   stroke: #6ed44a;
   fill: #6ed44a;
 }
-/* line 85, ../../dev/sass/parts/svg.scss */
+/* line 87, ../../dev/sass/parts/svg.scss */
 .size-txt-edit.active {
   stroke: #fff;
   fill: #fff;
 }
 
-/* line 95, ../../dev/sass/parts/svg.scss */
+/* line 97, ../../dev/sass/parts/svg.scss */
 .doorstep {
   fill: #4f4f4f;
   stroke: #4f4f4f;
 }
 
-/* line 99, ../../dev/sass/parts/svg.scss */
+/* line 101, ../../dev/sass/parts/svg.scss */
 .main-line {
   fill: #363636;
 }
@@ -6687,7 +6687,7 @@ li.constr-shape-icon:last-child {
   -webkit-user-select: none;
   user-select: none;
   display: block;
-  width: 9.75rem;
+  width: 9.82rem;
   height: 6.25rem;
 }
 /* line 26, ../../dev/sass/parts/_calculator-general.scss */
@@ -6748,8 +6748,9 @@ li.constr-shape-icon:last-child {
 /* line 35, ../../dev/sass/parts/_size-calculator.scss */
 .size-calc-container .calc-value-limit {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  max-width: 7rem;
 }
-/* line 38, ../../dev/sass/parts/_size-calculator.scss */
+/* line 39, ../../dev/sass/parts/_size-calculator.scss */
 .size-calc-container .calc-value-limit.restriction {
   color: #f74f2e;
 }

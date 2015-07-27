@@ -10,7 +10,7 @@
     .module('BauVoiceApp')
     .directive('svgTemplateIcon', svgTemplateIcon);
 
-  function svgTemplateIcon(SVGServ, DesignServ) {
+  function svgTemplateIcon(SVGServ) {
 
     return {
       restrict: 'E',
@@ -21,7 +21,6 @@
         templateWidth: '=',
         templateHeight: '='
       },
-      template: '<div class="iconSVG"></div>',
       link: function (scope, elem, attrs) {
 
         scope.$watch('template', function () {
@@ -32,9 +31,9 @@
         function buildSVG(template, widthSVG, heightSVG) {
           var mainSVG, mainGroup, padding = 1, points, dimMaxMin, scale, blocksQty;
           if(template && !$.isEmptyObject(template)) {
-            d3.select('.tamlateIconSVG').remove();
 
-            mainSVG = d3.select('.iconSVG').append('svg').attr({
+            var container = document.createElement('div');
+            mainSVG = d3.select(container).append('svg').attr({
               'width': widthSVG,
               'height': heightSVG,
               'class': 'tamlateIconSVG'
@@ -54,7 +53,6 @@
               if (template.details[i].level > 0) {
                 mainGroup.selectAll('path.' + template.details[i].id).data(template.details[i].parts).enter().append('path').attr({
                     'blockId': template.details[i].id,
-                    //'class': function(d) { return d.type; },
                     'class': function (d) {
                       return (d.type === 'glass') ? 'glass-icon' : 'frame-icon'
                     },
@@ -71,9 +69,7 @@
 
               }
             }
-
-            //--------- set clicking to all imposts
-            DesignServ.initAllImposts();
+            elem.html(container);
             console.log('buildSVG done!!!!!!!!!', new Date(), new Date().getMilliseconds());
           }
         }

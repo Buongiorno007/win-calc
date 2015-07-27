@@ -31,7 +31,7 @@
 
 
         function buildSVG(template, widthSVG, heightSVG) {
-          var mainSVG, mainGroup, dimGroup, padding = 1, points, dimMaxMin, scale, position, blocksQty;
+          var mainSVG, mainGroup, elementsGroup, dimGroup, padding = 1, points, dimMaxMin, scale, position, blocksQty;
           if(template && !$.isEmptyObject(template)) {
 
             d3.select('#tamlateSVG').remove();
@@ -63,6 +63,9 @@
               'id': 'main_group',
               'transform': 'translate(' + position.x + ', ' + position.y + ') scale(' + scale + ')'
             });
+            elementsGroup = mainGroup.append("g").attr({
+              'id': 'elem_group'
+            });
             dimGroup = mainGroup.append("g").attr({
               'id': 'dim_group'
             });
@@ -71,160 +74,105 @@
             //========
             blocksQty = template.details.length;
 
-            for (var i = 0; i < blocksQty; i++) {
-              if (template.details[i].level) {
-                mainGroup.selectAll('path.' + template.details[i].id)
-                  .data(template.details[i].parts)
+            for (var i = 1; i < blocksQty; i++) {
+
+              elementsGroup.selectAll('path.' + template.details[i].id)
+                .data(template.details[i].parts)
+                .enter().append('path')
+                .attr({
+                  'block_id': template.details[i].id,
+                  'parent_id': template.details[i].parent,
+                  //'class': function(d) { return d.type; },
+                  'class': function (d) {
+                    return (d.type === 'glass') ? 'glass' : 'frame'
+                  },
+                  'item_type': function (d) {
+                    return d.type;
+                  },
+                  'item_dir': function (d) {
+                    return d.dir;
+                  },
+                  'd': function (d) {
+                    return d.path;
+                  }
+                });
+
+
+
+              //----- sash open direction
+              if (template.details[i].sashOpenDir) {
+                elementsGroup.selectAll('path.sash_mark.' + template.details[i].id)
+                  .data(template.details[i].sashOpenDir)
                   .enter().append('path')
-                  .attr({
-                    'blockId': template.details[i].id,
-                    //'class': function(d) { return d.type; },
-                    'class': function (d) {
-                      return (d.type === 'glass') ? 'glass' : 'frame'
-                    },
-                    'item-type': function (d) {
-                      return d.type;
-                    },
-                    'item-dir': function (d) {
-                      return d.dir;
-                    },
-                    'd': function (d) {
-                      return d.path;
-                    }
+                  .classed('sash_mark', true)
+                  .attr('d', function (d) {
+                    return lineCreator(d.points);
                   });
-
-
-
-                //----- sash open direction
-                if (template.details[i].sashOpenDir) {
-                  var openSashMarks = mainGroup.selectAll('path.sash_mark.' + template.details[i].id)
-                    .data(template.details[i].sashOpenDir)
-                    .enter().append('path')
-                    .classed('sash_mark', true)
-                    .attr('d', function (d) {
-                      return lineCreator(d.points);
-                    });
-                }
-
-
-                //---- corner markers
-                if (template.details[i].level === 1) {
-                  //----- create array of frame points with corner = true
-                  var corners = template.details[i].pointsOut.filter(function (item) {
-                    return item.corner > 0;
-                  });
-                  var cornerMarks = mainGroup.selectAll('circle.corner_mark.' + template.details[i].id)
-                    .data(corners)
-                    .enter().append('circle')
-                    .attr({
-                      'blockId': template.details[i].id,
-                      'class': 'corner_mark',
-                      'parent': function (d) {
-                        return d.id;
-                      },
-                      'cx': function (d) {
-                        return d.x;
-                      },
-                      'cy': function (d) {
-                        return d.y;
-                      },
-                      'r': 0
-                    });
-                }
-
-
               }
+
+
+              //---- corner markers
+              if (template.details[i].level === 1) {
+                //----- create array of frame points with corner = true
+                var corners = template.details[i].pointsOut.filter(function (item) {
+                  return item.corner > 0;
+                });
+                elementsGroup.selectAll('circle.corner_mark.' + template.details[i].id)
+                  .data(corners)
+                  .enter().append('circle')
+                  .attr({
+                    'block_id': template.details[i].id,
+                    'class': 'corner_mark',
+                    'parent_id': function (d) {
+                      return d.id;
+                    },
+                    'cx': function (d) {
+                      return d.x;
+                    },
+                    'cy': function (d) {
+                      return d.y;
+                    },
+                    'r': 0
+                  });
+              }
+
+
             }
 
             //--------- dimension
             var defs = dimGroup.append("defs"),
                 dimXQty = template.dimension.dimX.length,
                 dimYQty = template.dimension.dimY.length,
-
-                dimLineHeight = -150,
-                dimMarginBottom = -20,
-                dimEdger = 50,
-                sizeBoxWidth = 160,
-                sizeBoxHeight = 70,
-                sizeBoxRadius = 20,
-                sizeBoxMarginBottom = 50;
+                dimQQty = template.dimension.dimQ.length;
 
             //----- horizontal marker arrow
-            defs.append("marker")
-              .attr({
-                'id': 'dimHor',
-                'viewBox': '-5, -5, 4, 5',
-                'refX': -5,
-                'refY': -2,
-                'markerWidth': 30,
-                'markerHeight': 30,
-                'orient': "auto"
-              })
-            .append("path")
-            .attr("d", "M 0,0 L -4,-2 L0,-4 z");
-
+            setMarkerArrow(defs, 'dimHorL', '-5, -5, 4, 5', -5, -2, 0, 'M 0,0 L -4,-2 L0,-4 z');
+            setMarkerArrow(defs, 'dimHorR', '-5, -5, 4, 5', -5, -2, 180, 'M 0,0 L -4,-2 L0,-4 z');
             //------- vertical marker arrow
-            defs.append("marker")
-              .attr({
-                'id': 'dimVert',
-                'viewBox': '1, -1, 4, 5',
-                'refX': 5,
-                'refY': 2,
-                'markerWidth': 30,
-                'markerHeight': 30,
-                'orient': 90
-              })
-              .append("path")
-              .attr("d", "M 0,0 L 4,2 L0,4 z");
+            setMarkerArrow(defs, 'dimVertL', '1, -1, 4, 5', 5, 2, 90, 'M 0,0 L 4,2 L0,4 z');
+            setMarkerArrow(defs, 'dimVertR', '1, -1, 4, 5', 5, 2, 270, 'M 0,0 L 4,2 L0,4 z');
 
+            setMarkerArrow(defs, 'dimArrow', '1, -1, 4, 5', 5, 2, 'auto', 'M 0,0 L 4,2 L0,4 z');
 
-            for(var d = 0; d < dimXQty; d++) {
-
-              var lineSideR = [],
-                  lineSideL = [],
-                  sizeLines = [];
-
-              var pointR1 = {
-                    x: template.dimension.dimX[d].from,
-                    y: 0
-                  },
-                  pointR2 = {
-                    x: template.dimension.dimX[d].from,
-                    y: dimLineHeight
-                  },
-                  pointL1 = {
-                    x: template.dimension.dimX[d].to,
-                    y: 0
-                  },
-                  pointL2 = {
-                    x: template.dimension.dimX[d].to,
-                    y: dimLineHeight
-                  };
-              lineSideR.push(pointR1);
-              lineSideR.push(pointR2);
-              lineSideL.push(pointL1);
-              lineSideL.push(pointL2);
-
-              dimGroup.append('path')
-                .classed('size-line', true)
-                .attr('d', lineCreator(lineSideR));
-              dimGroup.append('path')
-                .classed('size-line', true)
-                .attr('d', lineCreator(lineSideL));
-
-//              var dimension = dimGroup.selectAll(".link")
-//                .data(links)
-//                .enter().append("path")
-//                .attr("class", "link")
-//                .attr("marker-end", "url(#arrowhead)")
-//                .attr("d", diagonal);
-
+            console.log('SVG=========dim==', template.dimension);
+            for(var dx = 0; dx < dimXQty; dx++) {
+              createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator);
             }
+            for(var dy = 0; dy < dimYQty; dy++) {
+              createDimension(1, template.dimension.dimY[dy], dimGroup, lineCreator);
+            }
+            for(var dq = 0; dq < dimQQty; dq++) {
+              createRadiusDimension(template.dimension.dimQ[dq], dimGroup, lineCreator);
+            }
+
 
 
             //--------- set clicking to all imposts
             if (scope.typeConstruction === 'edit') {
+              console.log('EDIT INIT IMPOST');
               DesignServ.initAllImposts();
+              DesignServ.initAllGlassXDimension();
+              DesignServ.initAllDimension();
             }
 
             console.log('buildSVG done!!!!!!!!!', new Date(), new Date().getMilliseconds());
@@ -233,6 +181,199 @@
 
 
 
+
+        function setMarkerArrow(defs, id, view, refX, refY, angel, path) {
+          defs.append("marker")
+            .classed('size-line', true)
+            .attr({
+              'id': id,
+              'viewBox': view,
+              'refX': refX,
+              'refY': refY,
+              'markerWidth': 30,
+              'markerHeight': 30,
+              'orient': angel
+            })
+            .append("path")
+            .attr("d", path);
+        }
+
+
+
+
+        function createDimension(dir, dim, dimGroup, lineCreator) {
+          var dimLineHeight = -150,
+              dimEdger = 50,
+              dimMarginBottom = -20,
+              sizeBoxWidth = 160,
+              sizeBoxHeight = 70,
+              sizeBoxRadius = 20,
+
+              lineSideL = [],
+              lineSideR = [],
+              lineCenter = [],
+              dimBlock, sizeBox,
+              pointL1 = {
+                x: (dir) ? dimMarginBottom : dim.from,
+                y: (dir) ? dim.from : dimMarginBottom
+              },
+              pointL2 = {
+                x: (dir) ? dimLineHeight : dim.from,
+                y: (dir) ? dim.from : dimLineHeight
+              },
+              pointR1 = {
+                x: (dir) ? dimMarginBottom : dim.to,
+                y: (dir) ? dim.to : dimMarginBottom
+              },
+              pointR2 = {
+                x: (dir) ? dimLineHeight : dim.to,
+                y: (dir) ? dim.to : dimLineHeight
+              },
+              pointC1 = {
+                x: (dir) ? dimLineHeight + dimEdger : dim.from,
+                y: (dir) ? dim.from : dimLineHeight + dimEdger
+              },
+              pointC2 = {
+                x: (dir) ? dimLineHeight + dimEdger : dim.to,
+                y: (dir) ? dim.to : dimLineHeight + dimEdger
+              };
+
+          lineSideL.push(pointL1, pointL2);
+          lineSideR.push(pointR1, pointR2);
+          lineCenter.push(pointC1, pointC2);
+
+          dimBlock = dimGroup.append('g')
+           .attr({
+             'class': function() {
+               if(dir) {
+                 return (dim.level) ? 'dim_blockY' : 'dim_block dim_hidden';
+               } else {
+                 return (dim.level) ? 'dim_blockX' : 'dim_block dim_hidden';
+               }
+             },
+             'block_id': dim.blockId
+           });
+
+          dimBlock.append('path')
+           .classed('size-line', true)
+           .attr('d', lineCreator(lineSideR));
+          dimBlock.append('path')
+           .classed('size-line', true)
+           .attr('d', lineCreator(lineSideL));
+
+          dimBlock.append('path')
+           .classed('size-line', true)
+           .attr({
+             'd': lineCreator(lineCenter),
+             'marker-start': function() { return (dir) ? 'url(#dimVertR)' : 'url(#dimHorL)' },
+             'marker-end': function() { return (dir) ? 'url(#dimVertL)' : 'url(#dimHorR)' }
+           });
+
+          sizeBox = dimBlock.append('g')
+           .classed('size-box', true);
+
+          if(scope.typeConstruction === 'edit') {
+            sizeBox.append('rect')
+             .classed('size-rect', true)
+             .attr({
+               'width': sizeBoxWidth,
+               'height': sizeBoxHeight,
+               'x': function() { return (dir) ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2 },
+               'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8) },
+               'rx': sizeBoxRadius,
+               'ry': sizeBoxRadius
+             });
+          }
+
+
+          sizeBox.append('text')
+           .text(dim.text)
+           .attr({
+             'class': function() { return (scope.typeConstruction === 'edit') ? 'size-txt-edit' : 'size-txt'; },
+             'x': function() { return (dir) ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2; },
+             'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8); },
+             'dx': 80,
+             'dy': 40,
+             'type': 'line',
+             'block_id': dim.blockId,
+             'size_val': dim.text,
+             'min_val': dim.minLimit,
+             'max_val': dim.maxLimit,
+             'from_point': dim.from,
+             'to_point': dim.to,
+             'axis': dim.axis
+           });
+
+        }
+
+
+        function createRadiusDimension(dimQ, dimGroup, lineCreator) {
+
+          var radiusLine = [],
+              startPR = {
+                x: dimQ.startX,
+                y: dimQ.startY
+              },
+              endPR = {
+                x: dimQ.midleX,
+                y: dimQ.midleY
+              },
+              sizeBoxWidth = 160,
+              sizeBoxHeight = 70,
+              sizeBoxRadius = 20,
+              dimBlock, sizeBox;
+
+          radiusLine.push(endPR, startPR);
+
+          dimBlock = dimGroup.append('g')
+            .attr({
+              'class': 'dim_block dim_hidden',
+              'block_id': dimQ.blockId
+            });
+
+          dimBlock.append('path')
+            .classed('size-line', true)
+            .attr({
+              'd': lineCreator(radiusLine),
+              'style': 'stroke: #000;',
+              'marker-end': 'url(#dimArrow)'
+            });
+
+          sizeBox = dimBlock.append('g')
+            .classed('size-box', true);
+
+          if(scope.typeConstruction === 'edit') {
+            sizeBox.append('rect')
+              .classed('size-rect', true)
+              .attr({
+                'width': sizeBoxWidth,
+                'height': sizeBoxHeight,
+                'x': dimQ.midleX,
+                'y': dimQ.midleY,
+                'rx': sizeBoxRadius,
+                'ry': sizeBoxRadius
+              });
+          }
+
+
+          sizeBox.append('text')
+            .text(dimQ.radius)
+            .attr({
+              'class': 'size-txt-edit',
+              'x': dimQ.midleX,
+              'y': dimQ.midleY,
+              'dx': 80,
+              'dy': 40,
+              'type': 'curve',
+              'block_id': dimQ.blockId,
+              'size_val': dimQ.radius,
+              'min_val': dimQ.radiusMax,
+              'max_val': dimQ.radiusMin,
+              'radius_id': dimQ.id,
+              'chord': dimQ.lengthChord
+            });
+
+        }
 
 
       }

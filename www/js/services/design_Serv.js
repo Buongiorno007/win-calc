@@ -86,7 +86,7 @@
         ProductStor.product.templateSource = angular.copy(DesignStor.design.templateSourceTEMP);
         ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
         //----- create template icon
-        SVGServ.createSVGTemplateIcon(ProductStor.product.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+        SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
           ProductStor.product.templateIcon = angular.copy(result);
         });
 
@@ -315,13 +315,9 @@
           blockID = glassObj.attributes.block_id.nodeValue,
           blocks = DesignStor.design.templateSourceTEMP.details,
           blocksQty = blocks.length,
-//          dim = getMaxMinCoord(glass.points),
           minGlassSize = d3.min(glass.sizes);
 
-//      console.log('GLASS SIZES', glassObj.__data__);
-//      if(glass.square > globalConstants.squareLimit && (dim.maxX - dim.minX) > globalConstants.widthLimit && (dim.maxY - dim.minY) > globalConstants.heightLimint) {
-//      if((dim.maxX - dim.minX) > globalConstants.widthLimit && (dim.maxY - dim.minY) > globalConstants.heightLimint) {
-      if(minGlassSize >= globalConstants.minSizeLimit && minGlassSize >= globalConstants.minSizeLimit) {
+      if(minGlassSize >= globalConstants.minSizeLimit || glass.square >= globalConstants.squareLimit) {
 
         //---- save last step
         DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
@@ -369,24 +365,31 @@
         }
       } else {
         //------ show error
-        var currGlass = d3.select('#tamlateSVG .glass[block_id='+blockID+']'),
-            i = 1;
-        currGlass.classed('error_glass', true);
-
-        var interval = setInterval(function() {
-          if(i === 11) {
-            clearInterval(interval);
-          }
-          if(i%2) {
-            currGlass.classed('error_glass', false);
-          } else {
-            currGlass.classed('error_glass', true);
-          }
-          i++;
-        }, 50);
-
+        showErrorInBlock(blockID);
       }
     }
+
+
+
+    function showErrorInBlock(blockID) {
+      var currGlass = d3.select('#tamlateSVG .glass[block_id='+blockID+']'),
+          i = 1;
+      currGlass.classed('error_glass', true);
+
+      var interval = setInterval(function() {
+        if(i === 11) {
+          clearInterval(interval);
+        }
+        if(i%2) {
+          currGlass.classed('error_glass', false);
+        } else {
+          currGlass.classed('error_glass', true);
+        }
+        i++;
+      }, 50);
+    }
+
+
 
 
     function deleteSash(glassObj) {
@@ -898,108 +901,117 @@
     function createImpost(impType, glassObj) {
       var glass = glassObj.__data__,
           blockID = glassObj.attributes.block_id.nodeValue,
-          dim = getMaxMinCoord(glass.points),
+          minGlassSize = d3.min(glass.sizes),
           blocks = DesignStor.design.templateTEMP.details,
           blocksQty = blocks.length,
           blocksSource = DesignStor.design.templateSourceTEMP.details,
           angel, isImpCurv = 0, positionQ, currBlockInd, curBlockN, lastBlockN, impVector, crossPoints;
 
-//      console.log('+++++',dim);
-//TODO set limits
-//      if(glass.square > globalConstants.squareLimit && (dim.maxX - dim.minX) > globalConstants.widthLimit && (dim.maxY - dim.minY) > globalConstants.heightLimint) {
-//      if((dim.maxX - dim.minX) > globalConstants.widthLimit && (dim.maxY - dim.minY) > globalConstants.heightLimint) {
-//
-      //---- save last step
-      DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
-      switch(impType){
-        //----- vertical
-        case 2:
-          angel = 90;
-          break;
-        //----- horisontal
-        case 3:
-          angel = 180;
-          break;
-        //----- inclined right
-        case 4:
-          angel = 150;
-          break;
-        //----- inclined left
-        case 5:
-          angel = 70;
-          break;
+      if(minGlassSize >= globalConstants.minSizeLimit || glass.square >= globalConstants.squareLimit) {
 
-        //----- curve vertical
-        case 6:
-          angel = 90;
-          isImpCurv = 1;
-          positionQ = 2; //---right
-          break;
-        case 7:
-          angel = 90;
-          isImpCurv = 1;
-          positionQ = 4; //---left
-          break;
-        //----- curve horisontal
-        case 8:
-          angel = 180;
-          isImpCurv = 1;
-          positionQ = 1; //--- up
-          break;
-        case 9:
-          angel = 180;
-          isImpCurv = 1;
-          positionQ = 3; //--- down
-          break;
-        //----- inclined right curve
-        case 10:
-          angel = 120;
-          isImpCurv = 1;
-          positionQ = 1; //---- left-up
-          break;
-        case 11:
-          angel = 120;
-          isImpCurv = 1;
-          positionQ = 3; //---- right-down
-          break;
-        //----- inclined left curve
-        case 12:
-          angel = 30;
-          isImpCurv = 1;
-          positionQ = 4; //----- left-down
-          break;
-        case 13:
-          angel = 30;
-          isImpCurv = 1;
-          positionQ = 2; //----- right-up
-          break;
-      }
-      //------- find lines as to current block
-      for(var b = 1; b < blocksQty; b++) {
-        if(blocks[b].id === blockID) {
-          currBlockInd = b;
-          curBlockN = Number(blocks[b].id.replace(/\D+/g, ""));
-        }
-      }
-      lastBlockN = getLastBlockNumber(blocksSource);
-      impVector = SVGServ.cteateLineByAngel(blocks[currBlockInd].center, angel);
-      crossPoints = getImpostCrossPointInBlock(impVector, blocks[currBlockInd].linesOut);
+        //---- save last step
+        DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
 
-      var impPointsQty = crossPoints.length;
-      if(impPointsQty === 2) {
-        while(--impPointsQty > -1) {
-          createImpostPoint(crossPoints[impPointsQty], curBlockN, currBlockInd, blocksSource);
-          createChildBlock(++lastBlockN, currBlockInd, blocksSource);
+        switch (impType) {
+          //----- vertical
+          case 2:
+            angel = 90;
+            break;
+          //----- horisontal
+          case 3:
+            angel = 180;
+            break;
+          //----- inclined right
+          case 4:
+            angel = 150;
+            break;
+          //----- inclined left
+          case 5:
+            angel = 70;
+            break;
+
+          //----- curve vertical
+          case 6:
+            angel = 90;
+            isImpCurv = 1;
+            positionQ = 2; //---right
+            break;
+          case 7:
+            angel = 90;
+            isImpCurv = 1;
+            positionQ = 4; //---left
+            break;
+          //----- curve horisontal
+          case 8:
+            angel = 180;
+            isImpCurv = 1;
+            positionQ = 1; //--- up
+            break;
+          case 9:
+            angel = 180;
+            isImpCurv = 1;
+            positionQ = 3; //--- down
+            break;
+          //----- inclined right curve
+          case 10:
+            angel = 120;
+            isImpCurv = 1;
+            positionQ = 1; //---- left-up
+            break;
+          case 11:
+            angel = 120;
+            isImpCurv = 1;
+            positionQ = 3; //---- right-down
+            break;
+          //----- inclined left curve
+          case 12:
+            angel = 30;
+            isImpCurv = 1;
+            positionQ = 4; //----- left-down
+            break;
+          case 13:
+            angel = 30;
+            isImpCurv = 1;
+            positionQ = 2; //----- right-up
+            break;
         }
-        //------- if impost is curve
-        if(isImpCurv) {
-          var distMax = getRadiusMaxImpostCurv(positionQ, impVector, blocks[currBlockInd].linesIn, blocks[currBlockInd].pointsIn);
-          createImpostQPoint(distMax, positionQ, curBlockN, currBlockInd, blocksSource);
+        //------- find lines as to current block
+        for (var b = 1; b < blocksQty; b++) {
+          if (blocks[b].id === blockID) {
+            currBlockInd = b;
+            curBlockN = Number(blocks[b].id.replace(/\D+/g, ""));
+          }
         }
+        lastBlockN = getLastBlockNumber(blocksSource);
+        impVector = SVGServ.cteateLineByAngel(blocks[currBlockInd].center, angel);
+        crossPoints = getImpostCrossPointInBlock(impVector, blocks[currBlockInd].linesOut);
+
+        var impPointsQty = crossPoints.length;
+        if (impPointsQty === 2) {
+          while (--impPointsQty > -1) {
+//            createImpostPoint(crossPoints[impPointsQty], curBlockN, currBlockInd, blocksSource, impPointsQty);
+            createImpostPoint(crossPoints[impPointsQty], curBlockN, currBlockInd, blocksSource);
+            createChildBlock(++lastBlockN, currBlockInd, blocksSource);
+          }
+          //------- if impost is curve
+          if (isImpCurv) {
+            var distMax = getRadiusMaxImpostCurv(positionQ, impVector, blocks[currBlockInd].linesIn, blocks[currBlockInd].pointsIn);
+            createImpostQPoint(distMax, positionQ, curBlockN, currBlockInd, blocksSource);
+          }
+
+          //----- change Template
+          rebuildSVGTemplate();
+        } else {
+          //------ show error
+          showErrorInBlock(blockID);
+          //TODO reload again createImpost(impType, glassObj) with angel changed +10 degree
+        }
+
+      } else {
+        //------ show error
+        showErrorInBlock(blockID);
       }
-      //----- change Template
-      rebuildSVGTemplate();
     }
 
 
@@ -1032,7 +1044,17 @@
             //---- checking dublicats
             var noExist = SVGServ.checkEqualPoints(coord, impPoints);
             if(noExist) {
-              impPoints.push(coord);
+
+              //----------- avoid insert impost in corner
+              var noInCorner1 = checkImpPointInCorner(lines[l].from, coord);
+              if(noInCorner1) {
+                var noInCorner2 = checkImpPointInCorner(lines[l].to, coord);
+                if(noInCorner2) {
+                  console.log('IMp++++++++++ line', lines[l]);
+                  console.log('IMO++++++++++', coord);
+                  impPoints.push(coord);
+                }
+              }
             }
           }
         }
@@ -1041,9 +1063,25 @@
     }
 
 
-    function createImpostPoint(coord, curBlockN, blockIndex, blocks) {
+    function checkImpPointInCorner(linePoint, impPoint) {
+      var noMatch = 1,
+          limit = 40,
+          xDiff = impPoint.x - linePoint.x,
+          yDiff = impPoint.y - linePoint.y;
+
+      if(xDiff > 0 && xDiff < limit) {
+        if(yDiff > 0 && yDiff < limit) {
+          noMatch = 0;
+        }
+      }
+      return noMatch;
+    }
+
+
+    function createImpostPoint(coord, curBlockN, blockIndex, blocks, impPN) {
       var impPoint = {
         type:'impost',
+//        id:'ip'+curBlockN+'-'+impPN,
         id:'ip'+curBlockN,
         x: coord.x,
         y: coord.y,
@@ -1130,8 +1168,8 @@
     function createImpostQPoint(dist, position, curBlockN, blockIndex, blocks) {
       var impQPoint = {
         blockId: blocks[blockIndex].id,
-        id: 'ip'+curBlockN,
-        heightQ: dist,
+        id: 'qi'+curBlockN,
+        heightQ: dist/2,
         positionQ: position
       };
       blocks[blockIndex].impost.impostAxis.push(impQPoint);
@@ -1493,6 +1531,7 @@
           //-------- change point coordinates in templateSource
           var blocks = DesignStor.design.templateSourceTEMP.details,
               blocksQty = blocks.length;
+
           //-------- change Radius
           if(DesignStor.design.oldSize.attributes[5].nodeValue === 'curve') {
 

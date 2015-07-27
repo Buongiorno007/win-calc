@@ -39,7 +39,7 @@
         ProductStor.product.templateIndex = templateIndex;
         MainServ.saveTemplateInProduct(templateIndex).then(function() {
           //------ define product price
-          //        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId);
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId);
         });
       }
     }
