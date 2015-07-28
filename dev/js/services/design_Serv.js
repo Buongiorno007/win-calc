@@ -641,11 +641,13 @@
       var blockQty = blocks.length;
       while(--blockQty > 0) {
         if(blocks[blockQty].id === blockId) {
-          var qQty = blocks[blockQty].pointsQ.length;
-          while(--qQty > -1) {
-            if(blocks[blockQty].pointsQ[qQty].id === criterion) {
-              blocks[blockQty].pointsQ.splice(qQty, 1);
-              break;
+          if(blocks[blockQty].pointsQ) {
+            var qQty = blocks[blockQty].pointsQ.length;
+            while(--qQty > -1) {
+              if(blocks[blockQty].pointsQ[qQty].id === criterion) {
+                blocks[blockQty].pointsQ.splice(qQty, 1);
+                break;
+              }
             }
           }
         }
@@ -905,7 +907,7 @@
           angel, isImpCurv = 0, positionQ, currBlockInd, curBlockN, lastBlockN, impVector, crossPoints;
 
 
-      if(minGlassSize >= globalConstants.minSizeLimit || glass.square >= globalConstants.squareLimit) {
+//      if(minGlassSize >= globalConstants.minSizeLimit || glass.square >= globalConstants.squareLimit) {
 
         //---- save last step
         DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
@@ -982,6 +984,7 @@
         }
         lastBlockN = getLastBlockNumber(blocksSource);
         impVector = SVGServ.cteateLineByAngel(blocks[currBlockInd].center, angel);
+        console.log('~~~~~~~~~~~~impVector~~~~~~~~', impVector);
         crossPoints = getImpostCrossPointInBlock(impVector, blocks[currBlockInd].linesOut);
 
         var impPointsQty = crossPoints.length;
@@ -1005,10 +1008,10 @@
           //TODO reload again createImpost(impType, glassObj) with angel changed +10 degree
         }
 
-      } else {
-        //------ show error
-        showErrorInBlock(blockID);
-      }
+//      } else {
+//        //------ show error
+//        showErrorInBlock(blockID);
+//      }
     }
 
 
@@ -1032,10 +1035,12 @@
           linesQty = lines.length;
       for(var l = 0; l < linesQty; l++) {
         var coord, checkPoint;
+        console.log('~~~~~~~~~~~~lines[l]~~~~~~~~', lines[l]);
         coord = SVGServ.getCoordCrossPoint(vector, lines[l]);
         if(coord.x >= 0 && coord.y >= 0) {
           //------ checking is cross point inner of line
           checkPoint = SVGServ.checkLineOwnPoint(coord, lines[l].to, lines[l].from);
+          console.log('~~~~~~~~~~~~checkPoint~~~~~~~~', checkPoint);
           var isCross = SVGServ.isInsidePointInLine(checkPoint);
           if(isCross) {
             //---- checking dublicats
@@ -1047,8 +1052,8 @@
               if(noInCorner1) {
                 var noInCorner2 = checkImpPointInCorner(lines[l].to, coord);
                 if(noInCorner2) {
-                  console.log('IMp++++++++++ line', lines[l]);
-                  console.log('IMO++++++++++', coord);
+//                  console.log('IMp++++++++++ line', lines[l]);
+                  console.log('~~~~~~~~~~~~coord~~~~~~~~', coord);
                   impPoints.push(coord);
                 }
               }
@@ -1078,7 +1083,6 @@
     function createImpostPoint(coord, curBlockN, blockIndex, blocks, impPN) {
       var impPoint = {
         type:'impost',
-//        id:'ip'+curBlockN+'-'+impPN,
         id:'ip'+curBlockN,
         x: coord.x,
         y: coord.y,
@@ -1117,6 +1121,7 @@
 
 
     function getRadiusMaxImpostCurv(position, impVector, linesIn, pointsIn) {
+      console.log('!!!!!!!!!!getRadiusMaxImpostCurv!!!!!!!!!');
       var crossPointsIn = getImpostCrossPointInBlock(impVector, linesIn);
       if(crossPointsIn.length === 2) {
         var impLine = {
@@ -1166,7 +1171,7 @@
       var impQPoint = {
         blockId: blocks[blockIndex].id,
         id: 'qi'+curBlockN,
-        heightQ: dist/2,
+        heightQ: dist,
         positionQ: position
       };
       blocks[blockIndex].impost.impostAxis.push(impQPoint);

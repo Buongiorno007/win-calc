@@ -154,7 +154,7 @@
 
             setMarkerArrow(defs, 'dimArrow', '1, -1, 4, 5', 5, 2, 'auto', 'M 0,0 L 4,2 L0,4 z');
 
-            console.log('SVG=========dim==', template.dimension);
+//            console.log('SVG=========dim==', template.dimension);
             for(var dx = 0; dx < dimXQty; dx++) {
               createDimension(0, template.dimension.dimX[dx], dimGroup, lineCreator);
             }

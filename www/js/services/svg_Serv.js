@@ -102,13 +102,11 @@
           console.log('+++++++++ block ++++++++++', thisObj.details[i]);
           //----- create point Q for arc or curve corner in block 1
           if(thisObj.details[i].level === 1 && thisObj.details[i].pointsQ) {
-            if(thisObj.details[i].pointsQ.length) {
-              setQPInMainBlock(thisObj.details[i]);
-            }
+            setQPInMainBlock(thisObj.details[i]);
           }
-          console.log('+++++++++ block ++++++++++pointsOut');
           thisObj.details[i].center = centerBlock(thisObj.details[i].pointsOut);
           thisObj.details[i].pointsOut = sortingPoints(thisObj.details[i].pointsOut, thisObj.details[i].center);
+          console.log('+++++++++ block ++++++++++pointsOut');
           thisObj.details[i].linesOut = setLines(thisObj.details[i].pointsOut);
           if(thisObj.details[i].level === 1) {
             thisObj.details[i].pointsIn = setPointsIn(thisObj.details[i].linesOut, depths, 'frame');
@@ -116,11 +114,11 @@
             thisObj.details[i].center = centerBlock(thisObj.details[i].pointsIn);
 //            console.log('+++++++++ block ++++++++++pointsIn', JSON.stringify(thisObj.details[i].pointsIn));
             thisObj.details[i].pointsIn = sortingPoints(thisObj.details[i].pointsIn, thisObj.details[i].center);
+            console.log('+++++++++ block ++++++++++pointsIn');
 //TODO            thisObj.details[i].pointsIn = sortingPointsIn(thisObj.details[i].pointsOut, thisObj.details[i].pointsIn);
 //            console.log('+++++++++ block ++++++++++pointsIn222', JSON.stringify(thisObj.details[i].pointsIn));
           }
           thisObj.details[i].linesIn = setLines(thisObj.details[i].pointsIn);
-
 
           if(thisObj.details[i].level === 1) {
             setCornerProp(thisObj.details);
@@ -290,10 +288,18 @@
       var pointsQty = points.length,
           center = {
             x: points.reduce(function(sum, curr){
-              return sum + curr.x;
+              if(curr.dir === 'curv') {
+                return sum + curr.xQ;
+              } else {
+                return sum + curr.x;
+              }
             }, 0) / pointsQty,
             y: points.reduce(function(sum, curr){
-              return sum + curr.y;
+              if(curr.dir === 'curv') {
+                return sum + curr.yQ;
+              } else {
+                return sum + curr.y;
+              }
             }, 0) / pointsQty
           };
       return center;
@@ -301,28 +307,26 @@
 
 
     function sortingPoints(points, center) {
-      var pointsQty = points.length,
-          isCurveImp = 0;
+      var pointsQty = points.length;
 
       for(var i = 0; i < pointsQty; i++) {
         points[i].fi = getAngelPoint(center, points[i]);
-        if(points[i].id.indexOf('qi')+1) {
-          isCurveImp = 1;
-        }
       }
       points.sort(function(a, b){
         return b.fi - a.fi;
       });
-      if(isCurveImp) {
-        changeOrderAsToImpostQP(points, pointsQty);
-      }
+      console.log('CHECK FI+++++++++++++', JSON.stringify(points));
       return points;
     }
 
 
     function getAngelPoint(center, point) {
       var fi;
-      fi = Math.atan2(center.y - point.y, point.x - center.x) * (180 / Math.PI);
+      if(point.dir === 'curv') {
+        fi = Math.atan2(center.y - point.yQ, point.xQ - center.x) * (180 / Math.PI);
+      } else {
+        fi = Math.atan2(center.y - point.y, point.x - center.x) * (180 / Math.PI);
+      }
       if(fi < 0) {
         fi += 360;
       }
@@ -330,86 +334,12 @@
     }
 
 
-    function changeOrderAsToImpostQP(points, pointsQty) {
-      console.log('CHECK FI+++++++++++++', JSON.stringify(points));
-      var pointsQty1 = pointsQty,
-          qiNArr = [], qiPointArr = [];
-
-      for(var i = 0; i < pointsQty1; i++) {
-        if (points[i].id.indexOf('qi') + 1) {
-          qiPointArr.push(points[i]);
-          qiNArr.push(Number(points[i].id.replace(/\D+/g, "")));
-        }
-      }
-
-      var qiNQty = qiNArr.length;
-      while(--qiNQty > -1) {
-        var count = 0;
-        for(var j = 0; j < pointsQty1; j++) {
-          if(points[j].id === 'ip'+qiNArr[qiNQty]) {
-            ++count;
-          }
-        }
-        if(count !== 2) {
-          qiNArr.splice(qiNQty,1);
-          qiPointArr.splice(qiNQty,1);
-        }
-      }
-
-      var qiPQty = qiPointArr.length;
-      for(var p = 0; p < qiPQty; p++) {
-        while(--pointsQty1 > -1) {
-          if (points[pointsQty1].id === qiPointArr[p].id ) {
-            points.splice(pointsQty1, 1);
-          }
-        }
-      }
-
-      for(var p = 0; p < qiPQty; p++) {
-        var pointsQty2 = points.length,
-            ipIndArr = [];
-        for(var i = 0; i < pointsQty2; i++) {
-          if(points[i].id === 'ip'+qiNArr[p]) {
-            ipIndArr.push(i);
-          }
-        }
-        if(ipIndArr[0] === 0 && ipIndArr[1] === pointsQty2-1) {
-          points.unshift(qiPointArr[p]);
-          //            console.log('unshift++++++++ ', points);
-        } else if(ipIndArr[1] - ipIndArr[0] === 1){
-          points.splice(ipIndArr[1], 0, qiPointArr[p]);
-          //            console.log('add+++++++', points);
-        }
-      }
-      console.log('CHECK FI+++++finish+++++++++++', JSON.stringify(points));
-
-    }
-
-
-    //TODO ???????
-    function sortingPointsIn(pointsOut, pointsIn) {
-      var newPointsIn = [],
-          pointOutQty = pointsOut.length;
-      console.log('!!!!!!!!!!!!!!!', pointsOut);
-      for(var i = 0; i < pointOutQty; i++) {
-        var pointInQty = pointsIn.length;
-        for(var j = 0; j < pointInQty; j++) {
-          if(pointsIn[j].id === pointsOut[i].id) {
-            newPointsIn.push(angular.copy(pointsIn[j]));
-            break;
-          }
-        }
-      }
-      console.log('!!!!!!!!!!!!!!!', newPointsIn);
-      return newPointsIn;
-    }
-
 
     function setLines(points) {
       var lines = [],
-          pointsQty = points.length,
-          i = 0;
-      for(; i < pointsQty; i++) {
+          pointsQty = points.length;
+
+      for(var i = 0; i < pointsQty; i++) {
         //------ if point.view = 0
         if(points[i].type === 'frame' && !points[i].view) {
           continue;
@@ -569,10 +499,16 @@
         //      coefC: (line1.coefB * line1.to.x/ line1.coefA) - line1.to.y
         //    };
 
+        var x2 = line1.to.x,
+            y2 = line1.to.y;
+//        if(line1.to.dir === 'curv') {
+//          x2 = line1.to.xQ;
+//          y2 = line1.to.yQ;
+//        }
         var normal = {
           coefA: line1.coefB,
           coefB: -line1.coefA,
-          coefC: (line1.coefA * line1.to.y - line1.coefB * line1.to.x)
+          coefC: (line1.coefA * y2 - line1.coefB * x2)
         };
 //        console.log('normal = ',  normal);
         coord = getCoordCrossPoint(line1, normal);
@@ -592,54 +528,81 @@
 
 
     function checkParallel(line1, line2) {
-      var k1 = Math.round( (line1.to.y - line1.from.y) / (line1.to.x - line1.from.x) ),
-          k2 = Math.round( (line2.to.y - line2.from.y) / (line2.to.x - line2.from.x) );
+      var k1 = checkParallelCoef(line1),
+          k2 = checkParallelCoef(line2);
       return (k1 === k2) ? 1 : 0;
     }
 
+
+    function checkParallelCoef(line) {
+      var x1 = line.from.x,
+          y1 = line.from.y,
+          x2 = line.to.x,
+          y2 = line.to.y;
+//      if(line.from.dir === 'curv') {
+//        x1 = line.from.xQ;
+//        y1 = line.from.yQ;
+//      }
+//      if(line.to.dir === 'curv') {
+//        x2 = line.to.xQ;
+//        y2 = line.to.yQ;
+//      }
+      return Math.round( (y2 - y1) / (x2 - x1) );
+    }
 
 
 
     function setQPInMainBlock(currBlock) {
       var qpQty = currBlock.pointsQ.length;
-      for(var q = 0; q < qpQty; q++) {
-        var pointsOutQty = currBlock.pointsOut.length,
-            curvP0 = 0, curvP1 = 0;
-        for(var p = 0; p < pointsOutQty; p++) {
-          if(currBlock.pointsQ[q].fromPId === currBlock.pointsOut[p].id) {
-            curvP0 = currBlock.pointsOut[p];
+      if(qpQty) {
+        for (var q = 0; q < qpQty; q++) {
+          var pointsOutQty = currBlock.pointsOut.length, curvP0 = 0, curvP1 = 0;
+          for (var p = 0; p < pointsOutQty; p++) {
+            if (currBlock.pointsQ[q].fromPId === currBlock.pointsOut[p].id) {
+              curvP0 = currBlock.pointsOut[p];
+            }
+            if (currBlock.pointsQ[q].toPId === currBlock.pointsOut[p].id) {
+              curvP1 = currBlock.pointsOut[p];
+            }
           }
-          if(currBlock.pointsQ[q].toPId === currBlock.pointsOut[p].id) {
-            curvP1 = currBlock.pointsOut[p];
+
+          if (curvP0 && curvP1) {
+            var curvLine = {
+                  from: curvP0,
+                  to: curvP1
+                },
+                centerLine = getCenterLine(curvP0, curvP1),
+                curvQP = {
+                  type: currBlock.pointsQ[q].type,
+                  id: currBlock.pointsQ[q].id,
+                  dir: 'curv',
+                  xQ: centerLine.x,
+                  yQ: centerLine.y
+                }, coordQP;
+
+            setLineCoef(curvLine);
+
+            //------ get coordinates Q point
+            coordQP = setQPointCoord(currBlock.pointsQ[q].positionQ, curvLine, currBlock.pointsQ[q].heightQ * 2);
+            curvQP.x = coordQP.x;
+            curvQP.y = coordQP.y;
+
+            //------ if curve vert or hor
+            if (!curvLine.coefA && currBlock.pointsQ[q].positionQ === 1) {
+              curvQP.y -= currBlock.pointsQ[q].heightQ * 4;
+            } else if (!curvLine.coefB && currBlock.pointsQ[q].positionQ === 4) {
+              curvQP.x -= currBlock.pointsQ[q].heightQ * 4;
+            }
+            console.log('!!!!! curvQP -----', curvQP);
+            currBlock.pointsOut.push(angular.copy(curvQP));
+
+            //------ for R dimension, get coordinates for Radius location
+            currBlock.pointsQ[q].midleX = curvQP.xQ;
+            currBlock.pointsQ[q].midleY = curvQP.yQ;
+            setRadiusCoordXCurve(currBlock.pointsQ[q], curvP0, curvQP, curvP1);
           }
+
         }
-
-        if(curvP0 && curvP1) {
-          var curvLine = {
-            from: curvP0,
-            to: curvP1
-          };
-          setLineCoef(curvLine);
-          //------ get Q point
-          var curvQP = setQPointCoord(currBlock.pointsQ[q].positionQ, curvLine, currBlock.pointsQ[q].heightQ*2);
-//          console.log('!!!!! curvQP -----', curvQP);
-          curvQP.type = currBlock.pointsQ[q].type;
-          curvQP.id = currBlock.pointsQ[q].id;
-          curvQP.dir = 'curv';
-
-          //------ if curve vert or hor
-          if(!curvLine.coefA && currBlock.pointsQ[q].positionQ === 1) {
-            curvQP.y -= currBlock.pointsQ[q].heightQ * 4;
-          } else if(!curvLine.coefB && currBlock.pointsQ[q].positionQ === 4) {
-            curvQP.x -= currBlock.pointsQ[q].heightQ * 4;
-          }
-
-          currBlock.pointsOut.push(angular.copy(curvQP));
-
-          //------ for R dimension, get coordinates for Radius location
-          setRadiusCoordXCurve(currBlock.pointsQ[q], curvP0, curvQP, curvP1);
-        }
-
       }
     }
 
@@ -654,7 +617,7 @@
             pointsIn, linesIn,
             indexChildBlock1, indexChildBlock2;
 
-//console.log('-------------setPointsXChildren -----------');
+console.log('-------------setPointsXChildren -----------');
         if(currBlock.blockType === 'sash') {
           pointsIn = angular.copy(currBlock.sashPointsIn);
           linesIn = currBlock.sashLinesIn;
@@ -709,7 +672,7 @@
         //------- if curve impost
         if(impPointsQty === 3) {
           //----- make order for impostOut
-          var impostOutQty = currBlock.impost.impostOut.length;
+          var impostOutQty = currBlock.impost.impostOut.length, impAxQ;
           for(var i = 0; i < impostOutQty; i++) {
             currBlock.impost.impostOut[i].fi = getAngelPoint(currBlock.center, currBlock.impost.impostOut[i]);
             currBlock.impost.impostAxis[i].fi = getAngelPoint(currBlock.center, currBlock.impost.impostAxis[i]);
@@ -717,37 +680,17 @@
           if(currBlock.impost.impostOut[0].fi !== currBlock.impost.impostAxis[0].fi) {
             currBlock.impost.impostOut.reverse();
           }
-          var impLineOut = {
-            from: angular.copy(currBlock.impost.impostOut[0]),
-            to: angular.copy(currBlock.impost.impostOut[1])
-          };
-          setLineCoef(impLineOut);
-          //------ get Q point Axis of impost
-//          console.log('!!!!! impAxQ impLineOut-----', impLineOut);
-//          console.log('!!!!! impAxQ -----', currBlock.impost.impostAxis[2].positionQ, currBlock.impost.impostAxis[2].radius);
-          var impAxQ = setQPointCoord(currBlock.impost.impostAxis[2].positionQ, impLineOut, currBlock.impost.impostAxis[2].heightQ*2);
-//          console.log('!!!!! impAxQ 1-----', JSON.stringify(impAxQ));
-          impAxQ.type = 'impost';
-          impAxQ.id = currBlock.impost.impostAxis[2].id;
-//          impAxQ.id = 'qi' + Number(currBlock.impost.impostOut[0].id.replace(/\D+/g, ""));
-          impAxQ.dir = 'curv';
-          //------ if impost vert or hor
-          if(!impLineOut.coefA && currBlock.impost.impostAxis[2].positionQ === 1) {
-            impAxQ.y -= currBlock.impost.impostAxis[2].heightQ * 4;
-          } else if(!impLineOut.coefB && currBlock.impost.impostAxis[2].positionQ === 4) {
-            impAxQ.x -= currBlock.impost.impostAxis[2].heightQ * 4;
-          }
+
+          impAxQ = getImpostQP(0, 1, currBlock.impost);
+          getImpostQP(0, 0, currBlock.impost);
+          getImpostQP(1, 0, currBlock.impost);
 
           blocks[indexChildBlock1].pointsOut.push(angular.copy(impAxQ));
           blocks[indexChildBlock2].pointsOut.push(angular.copy(impAxQ));
-//          console.log('!!!!! impAxQ 2 -----', JSON.stringify(impAxQ));
-//          console.log('!!!!! impostOut -----', currBlock.impost.impostOut);
-          //----- find Q points Inner of impost
-          getImpostQPIn(0, currBlock.impost.impostOut[0], currBlock.impost.impostOut[1], impAxQ, depths, currBlock.impost.impostIn);
-          getImpostQPIn(1, currBlock.impost.impostOut[1], currBlock.impost.impostOut[0], impAxQ, depths, currBlock.impost.impostIn);
-
 
           //------ for R dimension, get coordinates for Radius location
+          currBlock.impost.impostAxis[2].midleX = impAxQ.xQ;
+          currBlock.impost.impostAxis[2].midleY = impAxQ.yQ;
           setRadiusCoordXCurve(currBlock.impost.impostAxis[2], currBlock.impost.impostOut[0], impAxQ, currBlock.impost.impostOut[1]);
         }
 
@@ -775,6 +718,8 @@
 
 
 
+
+
     function getCPImpostInsideBlock(group, markAx, i, linesInQty, linesIn, impVector, impAx, impost, pointsIn) {
       var impCP = getCoordCrossPoint(linesIn[i], impVector),
           isInside = checkLineOwnPoint(impCP, linesIn[i].to, linesIn[i].from),
@@ -794,21 +739,24 @@
           if (intersect.length) {
             ip.x = intersect[0].x;
             ip.y = intersect[0].y;
-            var noExist = checkEqualPoints(ip, impost);
-            if(noExist) {
-              if (markAx) {
-                setSideQPCurve(i, linesInQty, linesIn, intersect[0], pointsIn);
-              }
-              impost.push(angular.copy(ip));
-            }
+            ip.t = intersect[0].t;
+//            var noExist = checkEqualPoints(ip, impost);
+//            if(noExist) {
+//              if (markAx) {
+//                setSideQPCurve(i, linesInQty, linesIn, intersect[0], pointsIn);
+//              }
+//              impost.push(angular.copy(ip));
+//            }
           }
-        } else {
-          var noExist = checkEqualPoints(ip, impost);
-          if(noExist) {
+        }
+        var noExist = checkEqualPoints(ip, impost);
+        if(noExist) {
+          if (linesIn[i].dir === 'curv' && markAx) {
+            setSideQPCurve(i, linesInQty, linesIn, ip, pointsIn);
+          }
 //            console.log('impCP++++++++', JSON.stringify(ip));
-            impost.push(angular.copy(ip));
+          impost.push(angular.copy(ip));
 //            console.log('impost++++++++', JSON.stringify(impost));
-          }
         }
       }
     }
@@ -880,14 +828,22 @@
       sideQP2 = angular.copy(sideQP1);
 
       var impostQP1 = getCoordSideQPCurve(intersect.t, curvP0, sideQP1),
-          impostQP2 = getCoordSideQPCurve(intersect.t, sideQP2, curvP2);
+          impostQP2 = getCoordSideQPCurve(intersect.t, sideQP2, curvP2),
+          impostQPCenter1 = getCenterLine(curvP0, intersect),
+          impostQPCenter2 = getCenterLine(intersect, curvP2);
 
       sideQP1.x = impostQP1.x;
       sideQP1.y = impostQP1.y;
+      sideQP1.xQ = impostQPCenter1.x;
+      sideQP1.yQ = impostQPCenter1.y;
+
       sideQP2.x = impostQP2.x;
       sideQP2.y = impostQP2.y;
-//      console.log('QQQQ--------', sideQP1, sideQP2);
-//      console.log('QQQQ pointsIn--------', JSON.stringify(pointsIn));
+      sideQP2.xQ = impostQPCenter2.x;
+      sideQP2.yQ = impostQPCenter2.y;
+//      console.log('QQQQ--------', sideQP1);
+//      console.log('QQQQ--------', sideQP2);
+
       //----- delete Q point parent
       var pQty = pointsIn.length;
       while(--pQty > -1) {
@@ -907,37 +863,69 @@
 //        console.log('noExist2-------');
         pointsIn.push(sideQP2);
       }
+//      console.log('QQQQ pointsIn--------', JSON.stringify(pointsIn));
+    }
+
+
+
+
+    function getImpostQP(group, paramAx, impostBlock) {
+      var impQP, impCurvPoints = [];
+
+      //-------- for impostAxis
+      if(paramAx) {
+        impQP = {
+          type: 'impost',
+          id: impostBlock.impostAxis[2].id,
+          dir: 'curv'
+        };
+        impCurvPoints.push(impostBlock.impostOut[0], impostBlock.impostOut[1]);
+
+        //------- for impostsIn
+      } else {
+        impQP = angular.copy(impostBlock.impostOut[2]);
+        impCurvPoints = impostBlock.impostIn.filter(function(a) {
+          return (a.group === group && a.dir === 'line') ? 1 : 0;
+        });
+      }
+
+
+      if(impCurvPoints.length === 2) {
+        var impChord = {
+              from: angular.copy(impCurvPoints[0]),
+              to: angular.copy(impCurvPoints[1])
+            },
+            centerImpChord = getCenterLine(impChord.from, impChord.to),
+            coordQP;
+
+        setLineCoef(impChord);
+
+        //------ get Q point Axis of impost
+        coordQP = setQPointCoord(impostBlock.impostAxis[2].positionQ, impChord, impostBlock.impostAxis[2].heightQ*2);
+        impQP.x = coordQP.x;
+        impQP.y = coordQP.y;
+        impQP.xQ = centerImpChord.x;
+        impQP.yQ = centerImpChord.y;
+        impQP.group = group;
+
+        //------ if impost vert or hor
+        if(!impChord.coefA && impostBlock.impostAxis[2].positionQ === 1) {
+          impQP.y -= impostBlock.impostAxis[2].heightQ * 4;
+        } else if(!impChord.coefB && impostBlock.impostAxis[2].positionQ === 4) {
+          impQP.x -= impostBlock.impostAxis[2].heightQ * 4;
+        }
+        console.log('!!!!! impQP -----', impQP);
+        if(paramAx) {
+          impostBlock.impostOut.push(impQP);
+          return impQP;
+        } else {
+          impostBlock.impostIn.push(impQP);
+        }
+      }
 
     }
 
 
-    function getImpostQPIn(group, imp1, imp2, qi, depths, impostIn) {
-      var impVector1 = {
-            type: 'impost',
-            dir: 'curv',
-            from: imp1,
-            to: qi
-          },
-          impVector2 = {
-            type: 'impost',
-            dir: 'curv',
-            from: qi,
-            to: imp2
-          };
-//      console.log('!!!!! impVector1 -----', impVector1);
-//      console.log('!!!!! impVector2 -----', impVector2);
-      setLineCoef(impVector1);
-      setLineCoef(impVector2);
-      impVector1.coefC = getNewCoefC(depths, impVector1, 'frame');
-      impVector2.coefC = getNewCoefC(depths, impVector2, 'frame');
-      var coordCP = getCoordCrossPoint(impVector1, impVector2);
-//      console.log('coordCP---------',group, coordCP);
-      var impQP = angular.copy(qi);
-      impQP.group = group;
-      impQP.x = coordCP.x;
-      impQP.y = coordCP.y;
-      impostIn.push(impQP);
-    }
 
 
     function collectPointsXChildBlock(impostVector, points, pointsBlock1, pointsBlock2) {
@@ -1031,26 +1019,34 @@
     function setQPointCoord(side, line, dist) {
       var middle = getCenterLine(line.from, line.to),
           coordQP = {};
+//      console.log('setQPointCoord-----------', line, middle);
+      //------- line vert or hor
       if(!line.coefA || !line.coefB) {
         coordQP.x = Math.round(Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ))) + middle.x;
         coordQP.y = Math.round(Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((coordQP.x - middle.x), 2) ) )) + middle.y;
+//        console.log('line vert or hor');
       } else {
         switch(side) {
           case 1:
             coordQP.y = middle.y - Math.round(Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )));
             coordQP.x = middle.x - Math.round(Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((middle.y - coordQP.y), 2) ) ));
+//            console.log('1');
             break;
           case 2:
             coordQP.y = middle.y - Math.round(Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) )));
             coordQP.x = Math.round(Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((coordQP.y - middle.y), 2) ) )) + middle.x;
+//            console.log('2');
             break;
           case 3:
             coordQP.y = Math.round(Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ))) + middle.y;
             coordQP.x = Math.round(Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((coordQP.y - middle.y), 2) ) )) + middle.x;
+//            console.log('3');
             break;
           case 4:
             coordQP.y = Math.round(Math.sqrt( Math.pow(dist, 2) / ( 1 + ( Math.pow((line.coefB / line.coefA), 2) ) ))) + middle.y;
-            coordQP.x = middle.x - Math.round( Math.abs( Math.sqrt( Math.pow(dist, 2) - Math.pow((middle.y - coordQP.y), 2) ) ));
+            coordQP.x = middle.x - Math.round( Math.sqrt( Math.abs( Math.pow(dist, 2) - Math.pow((middle.y - coordQP.y), 2) ) ));
+//            console.log('4');
+
             break;
         }
       }
@@ -1669,7 +1665,7 @@
       // solve the roots
       if(d > 0) {
         var delta = Math.sqrt(d);
-        console.log('delta ++++', b, delta);
+//        console.log('delta ++++', b, delta);
         roots.push( Math.round((-b + delta)/2*100)/100 );
         roots.push( Math.round((-b - delta)/2*100)/100 );
 //        roots.push( (-b + delta)/2 );
@@ -1849,12 +1845,25 @@
 
     function getCoordCrossPoint(line1, line2) {
       var base = (line1.coefA * line2.coefB) - (line2.coefA * line1.coefB),
-          baseX = (line1.coefB * (line2.coefC)) - (line2.coefB * (line1.coefC)),
-          baseY = (line2.coefA * (line1.coefC)) - (line1.coefA * (line2.coefC)),
+          baseX = (line1.coefB * line2.coefC) - (line2.coefB * line1.coefC),
+          baseY = (line2.coefA * line1.coefC) - (line1.coefA * line2.coefC),
           crossPoint = {
             x: Math.round( (baseX/base)*100 )/100,
             y: Math.round( (baseY/base)*100 )/100
           };
+
+      var y = -( (line2.coefA * line1.coefC - line2.coefC)/(line1.coefB * line2.coefA + line2.coefB) );
+      var x = (-line1.coefC - line1.coefB*y)/line1.coefA;
+      if(crossPoint.x === -0) {
+        crossPoint.x = 0;
+      } else if(crossPoint.y === -0) {
+        crossPoint.y = 0;
+      }
+//      console.log('getCoordCrossPoint+++++++++++', base );
+//      console.log('getCoordCrossPoint+++++++++++', baseX );
+//      console.log('getCoordCrossPoint+++++++++++', baseY );
+//      console.log('getCoordCrossPoint+++++++++++', baseX/base, baseY/base );
+      console.log('getCoordCrossPoint+++++++++++', y, x );
       return crossPoint;
     }
 
@@ -1924,7 +1933,7 @@
       //---- sorting
       pointsAllX.sort(sortNumbers);
       pointsAllY.sort(sortNumbers);
-      console.log('DIM pointsAll+++++++', pointsAllX, pointsAllY);
+//      console.log('DIM pointsAll+++++++', pointsAllX, pointsAllY);
 
 
       //------ in block
@@ -1935,8 +1944,8 @@
               limitsX = [],
               limitsY = [];
 
-        console.log('DIM+++++++++', blocks[b].id);
-        console.log('DIM pointsOut++++++++', blocks[b].pointsOut);
+//        console.log('DIM+++++++++', blocks[b].id);
+//        console.log('DIM pointsOut++++++++', blocks[b].pointsOut);
 
           //----- take pointsOut in block level 1
           if (blocks[b].level === 1) {
@@ -1977,7 +1986,7 @@
             if(blocks[b].pointsQ) {
               var curveQty = blocks[b].pointsQ.length;
               if(curveQty) {
-                console.log('RRRR ARC=====', blocks[b].pointsQ);
+//                console.log('RRRR ARC=====', blocks[b].pointsQ);
                 while(--curveQty > -1) {
                   dimension.dimQ.push(blocks[b].pointsQ[curveQty]);
                   //--------- get Overall Dimension
@@ -2022,7 +2031,7 @@
               limitsY = limitsY.removeDuplicates();
               limitsX.sort(sortNumbers);
               limitsY.sort(sortNumbers);
-              console.log('DIM+++++ limits x block++++ ', limitsX, limitsY);
+//              console.log('DIM+++++ limits x block++++ ', limitsX, limitsY);
             }
           }
 
@@ -2046,7 +2055,7 @@
 
             //------ take radius of curve impost
             if (impQty === 3) {
-              console.log('RRRRR =====', blocks[b].impost.impostAxis[2]);
+//              console.log('RRRRR =====', blocks[b].impost.impostAxis[2]);
               dimension.dimQ.push(blocks[b].impost.impostAxis[2]);
             }
 
@@ -2155,10 +2164,6 @@
     function setRadiusCoordXCurve(pointQ, P0, QP, P1) {
       pointQ.startX = getCoordCurveByT(P0.x, QP.x, P1.x, 0.5);
       pointQ.startY = getCoordCurveByT(P0.y, QP.y, P1.y, 0.5);
-      var centerChord = getCenterLine(P0, P1);
-      pointQ.midleX = centerChord.x;
-      pointQ.midleY = centerChord.y;
-
       pointQ.lengthChord = Math.round(Math.hypot((P1.x - P0.x), (P1.y - P0.y)) * 100) / 100;
       pointQ.radius = culcRadiusCurve(pointQ.lengthChord, pointQ.heightQ);
       pointQ.radiusMax = culcRadiusCurve(pointQ.lengthChord, pointQ.lengthChord/4);
