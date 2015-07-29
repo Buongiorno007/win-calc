@@ -315,7 +315,7 @@
       points.sort(function(a, b){
         return b.fi - a.fi;
       });
-      console.log('CHECK FI+++++++++++++', JSON.stringify(points));
+//      console.log('CHECK FI+++++++++++++', JSON.stringify(points));
       return points;
     }
 
@@ -593,7 +593,7 @@
             } else if (!curvLine.coefB && currBlock.pointsQ[q].positionQ === 4) {
               curvQP.x -= currBlock.pointsQ[q].heightQ * 4;
             }
-            console.log('!!!!! curvQP -----', curvQP);
+//            console.log('!!!!! curvQP -----', curvQP);
             currBlock.pointsOut.push(angular.copy(curvQP));
 
             //------ for R dimension, get coordinates for Radius location
@@ -617,7 +617,7 @@
             pointsIn, linesIn,
             indexChildBlock1, indexChildBlock2;
 
-console.log('-------------setPointsXChildren -----------');
+//console.log('-------------setPointsXChildren -----------');
         if(currBlock.blockType === 'sash') {
           pointsIn = angular.copy(currBlock.sashPointsIn);
           linesIn = currBlock.sashLinesIn;
@@ -914,7 +914,7 @@ console.log('-------------setPointsXChildren -----------');
         } else if(!impChord.coefB && impostBlock.impostAxis[2].positionQ === 4) {
           impQP.x -= impostBlock.impostAxis[2].heightQ * 4;
         }
-        console.log('!!!!! impQP -----', impQP);
+//        console.log('!!!!! impQP -----', impQP);
         if(paramAx) {
           impostBlock.impostOut.push(impQP);
           return impQP;

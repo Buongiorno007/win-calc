@@ -987,7 +987,7 @@
         }
         lastBlockN = getLastBlockNumber(blocksSource);
         impVector = SVGServ.cteateLineByAngel(blocks[currBlockInd].center, angel);
-        console.log('~~~~~~~~~~~~impVector~~~~~~~~', impVector);
+//        console.log('~~~~~~~~~~~~impVector~~~~~~~~', impVector);
         crossPoints = getImpostCrossPointInBlock(impVector, blocks[currBlockInd].linesOut);
 
         if(crossPoints.length > 2) {
@@ -1043,12 +1043,12 @@
           linesQty = lines.length;
       for(var l = 0; l < linesQty; l++) {
         var coord, checkPoint;
-        console.log('~~~~~~~~~~~~lines[l]~~~~~~~~', lines[l]);
+//        console.log('~~~~~~~~~~~~lines[l]~~~~~~~~', lines[l]);
         coord = SVGServ.getCoordCrossPoint(vector, lines[l]);
         if(coord.x >= 0 && coord.y >= 0) {
           //------ checking is cross point inner of line
           checkPoint = SVGServ.checkLineOwnPoint(coord, lines[l].to, lines[l].from);
-          console.log('~~~~~~~~~~~~checkPoint~~~~~~~~', checkPoint);
+//          console.log('~~~~~~~~~~~~checkPoint~~~~~~~~', checkPoint);
           var isCross = SVGServ.isInsidePointInLine(checkPoint);
           if(isCross) {
             //---- checking dublicats
@@ -1061,7 +1061,7 @@
                 var noInCorner2 = checkImpPointInCorner(lines[l].to, coord);
                 if(noInCorner2) {
 //                  console.log('IMp++++++++++ line', lines[l]);
-                  console.log('~~~~~~~~~~~~coord~~~~~~~~', coord);
+//                  console.log('~~~~~~~~~~~~coord~~~~~~~~', coord);
                   impPoints.push(coord);
                 }
               }
@@ -1150,7 +1150,7 @@
 
 
     function getRadiusMaxImpostCurv(position, impVector, linesIn, pointsIn) {
-      console.log('!!!!!!!!!!getRadiusMaxImpostCurv!!!!!!!!!');
+//      console.log('!!!!!!!!!!getRadiusMaxImpostCurv!!!!!!!!!');
       var crossPointsIn = getImpostCrossPointInBlock(impVector, linesIn);
       if(crossPointsIn.length === 2) {
         var impLine = {
