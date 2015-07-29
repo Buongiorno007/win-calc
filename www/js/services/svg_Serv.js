@@ -1851,19 +1851,11 @@ console.log('-------------setPointsXChildren -----------');
             x: Math.round( (baseX/base)*100 )/100,
             y: Math.round( (baseY/base)*100 )/100
           };
-
-      var y = -( (line2.coefA * line1.coefC - line2.coefC)/(line1.coefB * line2.coefA + line2.coefB) );
-      var x = (-line1.coefC - line1.coefB*y)/line1.coefA;
       if(crossPoint.x === -0) {
         crossPoint.x = 0;
       } else if(crossPoint.y === -0) {
         crossPoint.y = 0;
       }
-//      console.log('getCoordCrossPoint+++++++++++', base );
-//      console.log('getCoordCrossPoint+++++++++++', baseX );
-//      console.log('getCoordCrossPoint+++++++++++', baseY );
-//      console.log('getCoordCrossPoint+++++++++++', baseX/base, baseY/base );
-      console.log('getCoordCrossPoint+++++++++++', y, x );
       return crossPoint;
     }
 

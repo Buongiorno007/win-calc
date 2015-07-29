@@ -987,8 +987,13 @@
         console.log('~~~~~~~~~~~~impVector~~~~~~~~', impVector);
         crossPoints = getImpostCrossPointInBlock(impVector, blocks[currBlockInd].linesOut);
 
+        if(crossPoints.length > 2) {
+          sliceExtraPoints(crossPoints);
+        }
+
         var impPointsQty = crossPoints.length;
         if (impPointsQty === 2) {
+
           while (--impPointsQty > -1) {
 //            createImpostPoint(crossPoints[impPointsQty], curBlockN, currBlockInd, blocksSource, impPointsQty);
             createImpostPoint(crossPoints[impPointsQty], curBlockN, currBlockInd, blocksSource);
@@ -1063,6 +1068,27 @@
       }
       return impPoints;
     }
+
+
+
+    function sliceExtraPoints(points) {
+      var diff = 5,
+          pQty = points.length;
+      while(--pQty > -1) {
+        var pQty2 = points.length;
+        while(--pQty2 > -1){
+          var difX = Math.abs( points[pQty].x - points[pQty2].x),
+              difY = Math.abs( points[pQty].y - points[pQty2].y);
+          if(difX > 0 && difX < diff) {
+            if(difY > 0 && difY < diff) {
+              points.splice(pQty, 1);
+              break;
+            }
+          }
+        }
+      }
+    }
+
 
 
     function checkImpPointInCorner(linePoint, impPoint) {
