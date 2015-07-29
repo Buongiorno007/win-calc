@@ -903,14 +903,13 @@
     function createImpost(impType, glassObj) {
       var glass = glassObj.__data__,
           blockID = glassObj.attributes.block_id.nodeValue,
-          minGlassSize = d3.min(glass.sizes),
           blocks = DesignStor.design.templateTEMP.details,
           blocksQty = blocks.length,
           blocksSource = DesignStor.design.templateSourceTEMP.details,
           angel, isImpCurv = 0, positionQ, currBlockInd, curBlockN, lastBlockN, impVector, crossPoints;
 
 
-//      if(minGlassSize >= globalConstants.minSizeLimit || glass.square >= globalConstants.squareLimit) {
+      if(glass.square >= globalConstants.squareLimit) {
 
         //---- save last step
         DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
@@ -987,7 +986,7 @@
         }
         lastBlockN = getLastBlockNumber(blocksSource);
         impVector = SVGServ.cteateLineByAngel(blocks[currBlockInd].center, angel);
-        console.log('~~~~~~~~~~~~impVector~~~~~~~~', impVector);
+//        console.log('~~~~~~~~~~~~impVector~~~~~~~~', impVector);
         crossPoints = getImpostCrossPointInBlock(impVector, blocks[currBlockInd].linesOut);
 
         if(crossPoints.length > 2) {
@@ -1016,10 +1015,10 @@
           //TODO reload again createImpost(impType, glassObj) with angel changed +10 degree
         }
 
-//      } else {
-//        //------ show error
-//        showErrorInBlock(blockID);
-//      }
+      } else {
+        //------ show error
+        showErrorInBlock(blockID);
+      }
     }
 
 
@@ -1043,12 +1042,12 @@
           linesQty = lines.length;
       for(var l = 0; l < linesQty; l++) {
         var coord, checkPoint;
-        console.log('~~~~~~~~~~~~lines[l]~~~~~~~~', lines[l]);
+//        console.log('~~~~~~~~~~~~lines[l]~~~~~~~~', lines[l]);
         coord = SVGServ.getCoordCrossPoint(vector, lines[l]);
         if(coord.x >= 0 && coord.y >= 0) {
           //------ checking is cross point inner of line
           checkPoint = SVGServ.checkLineOwnPoint(coord, lines[l].to, lines[l].from);
-          console.log('~~~~~~~~~~~~checkPoint~~~~~~~~', checkPoint);
+//          console.log('~~~~~~~~~~~~checkPoint~~~~~~~~', checkPoint);
           var isCross = SVGServ.isInsidePointInLine(checkPoint);
           if(isCross) {
             //---- checking dublicats
@@ -1056,15 +1055,15 @@
             if(noExist) {
 
               //----------- avoid insert impost in corner
-              var noInCorner1 = checkImpPointInCorner(lines[l].from, coord);
-              if(noInCorner1) {
-                var noInCorner2 = checkImpPointInCorner(lines[l].to, coord);
-                if(noInCorner2) {
+//              var noInCorner1 = checkImpPointInCorner(lines[l].from, coord);
+//              if(noInCorner1) {
+//                var noInCorner2 = checkImpPointInCorner(lines[l].to, coord);
+//                if(noInCorner2) {
 //                  console.log('IMp++++++++++ line', lines[l]);
-                  console.log('~~~~~~~~~~~~coord~~~~~~~~', coord);
+//                  console.log('~~~~~~~~~~~~coord~~~~~~~~', coord);
                   impPoints.push(coord);
-                }
-              }
+//                }
+//              }
             }
           }
         }
@@ -1097,8 +1096,8 @@
     function checkImpPointInCorner(linePoint, impPoint) {
       var noMatch = 1,
           limit = 40,
-          xDiff = impPoint.x - linePoint.x,
-          yDiff = impPoint.y - linePoint.y;
+          xDiff = Math.abs(impPoint.x - linePoint.x),
+          yDiff = Math.abs(impPoint.y - linePoint.y);
 
       if(xDiff > 0 && xDiff < limit) {
         if(yDiff > 0 && yDiff < limit) {
