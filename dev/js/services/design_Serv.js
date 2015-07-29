@@ -1182,7 +1182,7 @@
         currPoints.push(impLine.from, impLine.to);
         currBlockCenter = SVGServ.centerBlock(currPoints);
         distCenterToImpost = Math.round(Math.abs((impLine.coefA * currBlockCenter.x + impLine.coefB * currBlockCenter.y + impLine.coefC) / Math.hypot(impLine.coefA, impLine.coefB)) * 100) / 100;
-//      console.log('IMP -------------',impRadius, distCenterToImpost);
+      console.log('IMP -------------',impRadius, distCenterToImpost);
         if (impRadius < distCenterToImpost) {
           return impRadius / 2;
         } else {
