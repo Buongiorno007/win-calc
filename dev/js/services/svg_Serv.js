@@ -762,9 +762,7 @@ console.log('-------------setPointsXChildren -----------');
           if (linesIn[i].dir === 'curv' && markAx) {
             setSideQPCurve(i, linesInQty, linesIn, ip, pointsIn);
           }
-//            console.log('impCP++++++++', JSON.stringify(ip));
           impost.push(angular.copy(ip));
-//            console.log('impost++++++++', JSON.stringify(impost));
         }
       }
     }
