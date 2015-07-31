@@ -1971,196 +1971,331 @@
             dimQ: []
           },
           blocksQty = blocks.length,
-          pointsAllX,
-          pointsAllY,
+          globalLimitsX,
+          globalLimitsY,
           allPoints;
 
-      //------ all points
+      //=========== All points ==============//
       allPoints = collectAllPointsOut(blocks);
       //------ except Q points
       allPoints = allPoints.filter(function(elem) {
         return (elem.dir === 'curv') ? 0 : 1;
       });
 
-      pointsAllX = angular.copy(allPoints);
-      pointsAllY = angular.copy(allPoints);
+      globalLimitsX = angular.copy(allPoints);
+      globalLimitsY = angular.copy(allPoints);
       //------ delete dublicates
-      cleanDublicat(1, pointsAllX);
-      cleanDublicat(2, pointsAllY);
+      cleanDublicat(1, globalLimitsX);
+      cleanDublicat(2, globalLimitsY);
       //---- sorting
-      pointsAllX.sort(sortByX);
-      pointsAllY.sort(sortByY);
+      globalLimitsX.sort(sortByX);
+      globalLimitsY.sort(sortByY);
 
       console.log('DIM``````````allPoints``````', allPoints);
-      console.log('DIM``````````allPoints``````', pointsAllX);
-      console.log('DIM``````````allPoints``````', pointsAllY);
+      console.log('DIM``````````allPoints X``````', globalLimitsX);
+      console.log('DIM``````````allPoints Y``````', globalLimitsY);
 
 
+      //========== on eah block ==========//
 
-      //------ in block
       for(var b = 1; b < blocksQty; b++) {
-          var pointsOutQty = blocks[b].pointsOut.length,
-              blockDimX = [],
-              blockDimY = [],
-              limitsX = [],
-              limitsY = [];
+
+        var pointsOutQty = blocks[b].pointsOut.length,
+            blockDimX = [];
 
         console.log('DIM+++++++++', blocks[b].id);
-        console.log('DIM pointsOut++++++++', blocks[b].pointsOut);
 
-          //----- take pointsOut in block level 1
-          if (blocks[b].level === 1) {
-            var globalDimX = [],
-                globalDimY = [],
-                overallDim = {};
+        //========== Block level 1 ============//
 
-            limitsX = pointsAllX;
-            limitsY = pointsAllY;
-            console.log('DIM ========= block ==== 1 ++++++++');
-            for (var i = 0; i < pointsOutQty; i++) {
-              if (blocks[b].pointsOut[i].id.indexOf('fp')+1) {
-                globalDimX.push(blocks[b].pointsOut[i].x);
-                globalDimY.push(blocks[b].pointsOut[i].y);
+        if (blocks[b].level === 1) {
+          console.log('========= block 1===========');
+          var globalDimX = [],
+              globalDimY,
+              overallDim = {};
 
-              } else if (blocks[b].pointsOut[i].id.indexOf('c')+1 && blocks[b].pointsOut[i].dir === 'line') {
-                blockDimX.push(blocks[b].pointsOut[i].x);
-                blockDimY.push(blocks[b].pointsOut[i].y);
-              }
+          for (var i = 0; i < pointsOutQty; i++) {
+            if (blocks[b].pointsOut[i].id.indexOf('fp') + 1) {
+              globalDimX.push(blocks[b].pointsOut[i]);
+            } else if (blocks[b].pointsOut[i].id.indexOf('c') + 1 && blocks[b].pointsOut[i].dir === 'line') {
+              blockDimX.push(blocks[b].pointsOut[i]);
             }
+          }
+          globalDimY = angular.copy(globalDimX);
+          //------ delete dublicates
+          cleanDublicat(1, globalDimX);
+          cleanDublicat(2, globalDimY);
+          //---- sorting
+          globalDimX.sort(sortByX);
+          globalDimY.sort(sortByY);
 
-            globalDimX = globalDimX.removeDuplicates();
-            globalDimY = globalDimY.removeDuplicates();
-            globalDimX.sort(sortNumbers);
-            globalDimY.sort(sortNumbers);
-//            console.log('DIM+++++globalDimX++++ ', globalDimX);
-//            console.log('DIM+++++globalDimY++++ ', globalDimY);
-            console.log('collect dim------- by X');
-            collectDimension(1, 'x', globalDimX, dimension.dimX, limitsX, blocks[b].id);
-            console.log('collect dim------- by Y');
-            collectDimension(1, 'y', globalDimY, dimension.dimY, limitsY, blocks[b].id);
+//          console.log('DIM+++++globalDimX++++ ', globalDimX);
+//          console.log('DIM+++++globalDimY++++ ', globalDimY);
+//          console.log('collect dim------- by X');
+          collectDimension(1, 'x', globalDimX, dimension.dimX, globalLimitsX, blocks[b].id);
+//          console.log('collect dim------- by Y');
+          collectDimension(1, 'y', globalDimY, dimension.dimY, globalLimitsY, blocks[b].id);
 
 
-            //--------- get Overall Dimension
+          //--------- get Overall Dimension
 
-            overallDim.w = globalDimX[globalDimX.length-1];
-            overallDim.h = globalDimY[globalDimY.length-1];
+          overallDim.w = globalDimX[globalDimX.length - 1].x;
+          overallDim.h = globalDimY[globalDimY.length - 1].y;
 
-            //----------- Curver Radius
-            if(blocks[b].pointsQ) {
-              var curveQty = blocks[b].pointsQ.length;
-              if(curveQty) {
-//                console.log('RRRR ARC=====', blocks[b].pointsQ);
-                while(--curveQty > -1) {
-                  dimension.dimQ.push(blocks[b].pointsQ[curveQty]);
-                  //--------- get Overall Dimension
-                  if(blocks[b].pointsQ[curveQty].id.indexOf('qa')+1) {
-                    if(blocks[b].pointsQ[curveQty].positionQ === 2) {
-                      overallDim.w += blocks[b].pointsQ[curveQty].heightQ;
-                    } else if(blocks[b].pointsQ[curveQty].positionQ === 3) {
-                      overallDim.h += blocks[b].pointsQ[curveQty].heightQ;
-                    } else if(blocks[b].pointsQ[curveQty].positionQ === 1) {
-                      overallDim.h -= blocks[b].pointsQ[curveQty].heightQ;
-                    } else if(blocks[b].pointsQ[curveQty].positionQ === 4) {
-                      overallDim.w -= blocks[b].pointsQ[curveQty].heightQ;
-                    }
+          //----------- Curver Radius
+          if (blocks[b].pointsQ) {
+            var curveQty = blocks[b].pointsQ.length;
+            if (curveQty) {
+              //                console.log('RRRR ARC=====', blocks[b].pointsQ);
+              while (--curveQty > -1) {
+                dimension.dimQ.push(blocks[b].pointsQ[curveQty]);
+                //--------- get Overall Dimension
+                if (blocks[b].pointsQ[curveQty].id.indexOf('qa') + 1) {
+                  if (blocks[b].pointsQ[curveQty].positionQ === 2) {
+                    overallDim.w += blocks[b].pointsQ[curveQty].heightQ;
+                  } else if (blocks[b].pointsQ[curveQty].positionQ === 3) {
+                    overallDim.h += blocks[b].pointsQ[curveQty].heightQ;
+                  } else if (blocks[b].pointsQ[curveQty].positionQ === 1) {
+                    overallDim.h -= blocks[b].pointsQ[curveQty].heightQ;
+                  } else if (blocks[b].pointsQ[curveQty].positionQ === 4) {
+                    overallDim.w -= blocks[b].pointsQ[curveQty].heightQ;
                   }
-
                 }
+
               }
             }
-            overallDim.square = calcSquare(blocks[b].pointsOut);
-            //--------- push Overall Dimension
-            blocks[0].overallDim.push(overallDim);
+          }
+          overallDim.square = calcSquare(blocks[b].pointsOut);
+          //--------- push Overall Dimension
+          blocks[0].overallDim.push(overallDim);
 
-          } else {
-            //------ set limits x block
-            if (blocks[b].children.length) {
-              console.log('DIM block >>>> 1 ++++++++limits');
-              for (var i = 0; i < pointsOutQty; i++) {
-                if (blocks[b].pointsOut[i].dir !== 'curv') {
-                  limitsX.push(blocks[b].pointsOut[i].x);
-                  limitsY.push(blocks[b].pointsOut[i].y);
-                }
-              }
-              //----- add impost of current block
-              var impQty = 2;
-              while(--impQty > -1) {
-                if (blocks[b].impost.impostAxis[impQty].dimType) {
-                  limitsY.push(blocks[b].impost.impostAxis[impQty].y);
-                } else {
-                  limitsX.push(blocks[b].impost.impostAxis[impQty].x);
-                }
-              }
-              //----- add other impost of children
-              getAllImpostDim(limitsX, limitsY, blocks[b].children[0], blocksQty, blocks);
-              getAllImpostDim(limitsX, limitsY, blocks[b].children[1], blocksQty, blocks);
+        }
 
-              limitsX = limitsX.removeDuplicates();
-              limitsY = limitsY.removeDuplicates();
-              limitsX.sort(sortNumbers);
-              limitsY.sort(sortNumbers);
-//              console.log('DIM+++++ limits x block++++ ', limitsX, limitsY);
+        //========== block 1 with coner or impost || block.level > 1 =============//
+
+        if (blockDimX.length || blocks[b].children.length) {
+
+          var blockLimits = [],
+              blockDimY;
+
+          blockDimX.push({x: 0, y: 0});
+          blockDimY = angular.copy(blockDimX);
+
+          console.log('DIM +++++++++++++++ is Impost');
+          //======= set Block Limits =======//
+          //------- add pointsOut of current block
+          for (var i = 0; i < pointsOutQty; i++) {
+            if (blocks[b].pointsOut[i].dir !== 'curv') {
+              blockLimits.push(blocks[b].pointsOut[i]);
             }
           }
 
-          //----- take impost
-          if (blocks[b].children.length) {
-            console.log('DIM impost +++++++++++++++++++');
-            var impQty = blocks[b].impost.impostAxis.length;
-            //--- if impost is vertical
+          //----- add impost of current block
+          if(blocks[b].impost) {
+            //----- take impost for limits
+            blockLimits.push(blocks[b].impost.impostAxis[0], blocks[b].impost.impostAxis[1]);
 
+            //----- add other impost of children blocks
+            getAllImpostDim(blockLimits, blocks[b].children[0], blocksQty, blocks);
+            getAllImpostDim(blockLimits, blocks[b].children[1], blocksQty, blocks);
+
+            //----- take current impost for dimension
             if (blocks[b].impost.impostAxis[0].dimType) {
-              blockDimY.push(blocks[b].impost.impostAxis[0].y);
-              blockDimY.push(blocks[b].impost.impostAxis[1].y);
+              //---- if impost is horisontal
+              blockDimY.push(blocks[b].impost.impostAxis[0]);
+              //---- if impost is inclined
+              if (blocks[b].impost.impostAxis[0].y !== blocks[b].impost.impostAxis[1].y) {
+                blockDimY.push(blocks[b].impost.impostAxis[1]);
+              }
             } else {
-              blockDimX.push(blocks[b].impost.impostAxis[0].x);
-              blockDimX.push(blocks[b].impost.impostAxis[1].x);
+              //--- if impost is vertical
+              blockDimX.push(blocks[b].impost.impostAxis[0]);
+              //---- if impost is inclined
+              if (blocks[b].impost.impostAxis[0].x !== blocks[b].impost.impostAxis[1].x) {
+                blockDimX.push(blocks[b].impost.impostAxis[1]);
+              }
             }
-
-//            if (blocks[b].impost.impostAxis[0].x === blocks[b].impost.impostAxis[1].x) {
-//              blockDimX.push(blocks[b].impost.impostAxis[0].x);
-//            } else if (blocks[b].impost.impostAxis[0].y === blocks[b].impost.impostAxis[1].y) {
-//              //---- if impost is horisontal
-//              blockDimY.push(blocks[b].impost.impostAxis[0].y);
-//            } else {
-//              for (var i = 0; i < 2; i++) {
-//                blockDimX.push(blocks[b].impost.impostAxis[i].x);
-//                blockDimY.push(blocks[b].impost.impostAxis[i].y);
-////                blockDimX.push(blocks[b].impost.impostOut[i].x);
-////                blockDimY.push(blocks[b].impost.impostOut[i].y);
-//              }
-//            }
 
             //------ take radius of curve impost
-            if (impQty === 3) {
-//              console.log('RRRRR =====', blocks[b].impost.impostAxis[2]);
+            if (blocks[b].impost.impostAxis[2]) {
+              //              console.log('RRRRR =====', blocks[b].impost.impostAxis[2]);
               dimension.dimQ.push(blocks[b].impost.impostAxis[2]);
             }
-
           }
 
+          //========== build Dimension
           if (blockDimX.length > 1) {
-            blockDimX = blockDimX.removeDuplicates();
-            blockDimX.sort(sortNumbers);
-//            console.log('DIM+++++ limits 2 ++++ ', limitsX);
-//            console.log('DIM+++++blockDimX++++ ', blockDimX);
-            //------- collect dimension Obj
-            collectDimension(0, 'x', blockDimX, dimension.dimX, limitsX, blocks[b].id);
+            collectDimension(0, 'x', blockDimX, dimension.dimX, blockLimits, blocks[b].id);
           }
           if (blockDimY.length > 1) {
-            blockDimY = blockDimY.removeDuplicates();
-            blockDimY.sort(sortNumbers);
-//            console.log('DIM+++++ limits 2 ++++ ', limitsY);
-//            console.log('DIM+++++blockDimY++++ ', blockDimY);
-            //------- collect dimension Obj
-            collectDimension(0, 'y', blockDimY, dimension.dimY, limitsY, blocks[b].id);
+            collectDimension(0, 'y', blockDimY, dimension.dimY, blockLimits, blocks[b].id);
           }
 
-      }
-//      console.log('DIM dimension========', dimension);
+        }
 
+      }
+      console.log('DIM dimension========', dimension);
       return dimension;
     }
+
+
+
+    function getAllImpostDim(pointsBlock, childBlockId, blocksQty, blocks) {
+      for(var i = 1; i < blocksQty; i++) {
+        if(blocks[i].id === childBlockId) {
+          if(blocks[i].children.length) {
+            var impQty = 2;
+            while(--impQty > -1) {
+              pointsBlock.push(blocks[i].impost.impostAxis[impQty]);
+            }
+            getAllImpostDim(pointsBlock, blocks[i].children[0], blocksQty, blocks);
+            getAllImpostDim(pointsBlock, blocks[i].children[1], blocksQty, blocks);
+          }
+        }
+      }
+    }
+
+
+
+    function collectDimension(level, axis, pointsDim, dimension, limits, currBlockId) {
+      var dimQty = pointsDim.length;
+//      console.log('DIM points arr------------', pointsDim);
+      for(var d = 0; d < dimQty-1; d++) {
+        dimension.push(createDimObj(level, axis, d, d+1, pointsDim, limits, currBlockId));
+      }
+    }
+
+
+
+
+
+    function createDimObj(level, axis, index, indexNext, blockDim, limits, currBlockId) {
+//      console.log('FINISH current point---------', blockDim[index], blockDim[indexNext]);
+      var dim = {
+            blockId: currBlockId,
+            level: level,
+            axis: axis,
+            from: (axis === 'x') ? angular.copy(blockDim[index].x) : angular.copy(blockDim[index].y),
+            to: (axis === 'x') ? angular.copy(blockDim[indexNext].x) : angular.copy(blockDim[indexNext].y)
+          },
+          currLimit;
+
+      dim.text = Math.round(Math.abs(dim.to - dim.from) * 100)/100;
+
+//      console.log('FINISH limits---------', limits);
+
+      //=========== set Limints
+      //-------- for global
+      if(level) {
+        currLimit = setLimitsGlobalDim(axis, blockDim[indexNext], dim.from, limits);
+      } else {
+        //-------- for block
+        currLimit = setLimitsDim(axis, blockDim[indexNext], dim.from, limits);
+      }
+      dim.minLimit = currLimit.minL;
+      dim.maxLimit = currLimit.maxL;
+
+//      console.log('DIM FINISH ------------', dim);
+      return dim;
+    }
+
+
+
+
+    function setLimitsGlobalDim(axis, pointDim, startDim, limits) {
+      var dimLimit = {},
+          limitsQty = limits.length;
+      for(var i = 0; i < limitsQty; i++) {
+        if(axis === 'x') {
+          if(limits[i].x === pointDim.x) {
+            dimLimit.minL = (limits[i-1]) ? Math.round( (limits[i-1].x + globalConstants.minSizeLimit) * 100)/100 : globalConstants.minSizeLimit;
+            dimLimit.maxL = (limits[i+1]) ? Math.round( (limits[i+1].x - startDim - globalConstants.minSizeLimit) * 100)/100 : globalConstants.maxSizeLimit;
+          }
+        } else {
+          if(limits[i].y === pointDim.y) {
+            dimLimit.minL = (limits[i-1]) ? Math.round( (limits[i-1].y + globalConstants.minSizeLimit) * 100)/100 : globalConstants.minSizeLimit;
+            dimLimit.maxL = (limits[i+1]) ? Math.round( (limits[i+1].y - startDim - globalConstants.minSizeLimit) * 100)/100 : globalConstants.maxSizeLimit;
+          }
+        }
+      }
+      return dimLimit;
+    }
+
+
+
+    function setLimitsDim(axis, pointDim, startDim, limits) {
+      console.log('!!!!!!!!! DIM FINISH IMPOST ------------', axis, pointDim, startDim, limits);
+      var dimLimit = {},
+          currLimits = [],
+          limitsQty = limits.length;
+
+      //------ set new Limints by X or Y
+      if(axis === 'x') {
+        for(var i = 0; i < limitsQty; i++) {
+          if(limits[i].y === pointDim.y || limits[i].id === pointDim.id) {
+            currLimits.push(limits[i]);
+          }
+        }
+        //------ delete dublicates
+        cleanDublicat(1, currLimits);
+        //---- sorting
+        currLimits.sort(sortByX);
+      } else {
+        for(var i = 0; i < limitsQty; i++) {
+          if(limits[i].x === pointDim.x || limits[i].id === pointDim.id) {
+            currLimits.push(limits[i]);
+          }
+        }
+        //------ delete dublicates
+        cleanDublicat(2, currLimits);
+        //---- sorting
+        currLimits.sort(sortByY);
+      }
+
+      console.log('!!!!!!!!! DIM FINISH IMPOST ------------', currLimits);
+
+
+      var currLimitsQty = currLimits.length;
+      for(var i = 0; i < currLimitsQty; i++) {
+        if(axis === 'x') {
+          if(currLimits[i].x === pointDim.x) {
+            dimLimit.minL = globalConstants.minSizeLimit;
+            dimLimit.maxL = (currLimits[i+1]) ? Math.round( (currLimits[i+1].x - startDim - globalConstants.minSizeLimit) * 100)/100 : globalConstants.maxSizeLimit;
+          }
+        } else {
+          if(currLimits[i].y === pointDim.y) {
+//            dimLimit.minL = (limits[i-1]) ? Math.round( (limits[i-1].y + globalConstants.minSizeLimit) * 100)/100 : globalConstants.minSizeLimit;
+            dimLimit.minL = globalConstants.minSizeLimit;
+            dimLimit.maxLimit = (currLimits[i+1]) ? Math.round( (currLimits[i+1].y - startDim - globalConstants.minSizeLimit) * 100)/100 : globalConstants.maxSizeLimit;
+          }
+        }
+      }
+      return dimLimit;
+    }
+
+
+
+
+
+
+
+
+    function setRadiusCoordXCurve(pointQ, P0, QP, P1) {
+      pointQ.startX = getCoordCurveByT(P0.x, QP.x, P1.x, 0.5);
+      pointQ.startY = getCoordCurveByT(P0.y, QP.y, P1.y, 0.5);
+      pointQ.lengthChord = Math.round(Math.hypot((P1.x - P0.x), (P1.y - P0.y)) * 100) / 100;
+      pointQ.radius = culcRadiusCurve(pointQ.lengthChord, pointQ.heightQ);
+      pointQ.radiusMax = culcRadiusCurve(pointQ.lengthChord, pointQ.lengthChord/4);
+      pointQ.radiusMin = culcRadiusCurve(pointQ.lengthChord, 10);
+    }
+
+
+    function culcRadiusCurve(lineLength, heightQ) {
+      return Math.round( (heightQ/2 + (lineLength*lineLength)/(8*heightQ)) * 100) / 100;
+    }
+
+
+
+
 
 
 
@@ -2185,85 +2320,6 @@
       }
     }
 
-
-
-    function collectDimension(level, axis, pointsDim, dimension, limits, currBlockId) {
-      var dimQty = pointsDim.length;
-      console.log('DIM points arr------------', pointsDim);
-      for(var d = 0; d < dimQty-1; d++) {
-        dimension.push(createDimObj(level, axis, d, d+1, pointsDim, limits, currBlockId));
-      }
-    }
-
-
-    function createDimObj(level, axis, index, indexNext, blockDim, limits, currBlockId) {
-      console.log('FINISH current point---------', blockDim[index]);
-      var dim = {
-            blockId: currBlockId,
-            level: level,
-            axis: axis,
-            from: angular.copy(blockDim[index]),
-            to: angular.copy(blockDim[indexNext]),
-            text: Math.round(Math.abs(blockDim[index] - blockDim[indexNext]) * 100)/100
-          },
-          limitsQty = limits.length;
-            console.log('FINISH limits---------', limits);
-      //------ set Limints
-      for(var i = 0; i < limitsQty; i++) {
-        if(limits[i] === blockDim[indexNext]) {
-          //-------- for global
-          if(level) {
-            dim.minLimit = (limits[i-1]) ? Math.round( (limits[i-1] + globalConstants.minSizeLimit) * 100)/100 : globalConstants.minSizeLimit;
-          } else {
-            dim.minLimit = globalConstants.minSizeLimit;
-          }
-//          dim.maxLimit = (limits[i+1]) ? Math.round( (limits[i+1] - globalConstants.minSizeLimit) * 100)/100 : globalConstants.maxSizeLimit;
-          dim.maxLimit = (limits[i+1]) ? Math.round( (limits[i+1] - blockDim[index] - globalConstants.minSizeLimit) * 100)/100 : globalConstants.maxSizeLimit;
-        }
-      }
-            console.log('DIM FINISH ------------', dim);
-      return dim;
-    }
-
-
-
-    function getAllImpostDim(limitsX, limitsY, childBlockId, blocksQty, blocks) {
-      for(var i = 1; i < blocksQty; i++) {
-        if(blocks[i].id === childBlockId) {
-          if(blocks[i].children.length) {
-            var impQty = 2;
-            while(--impQty > -1) {
-//              limitsX.push(blocks[i].impost.impostOut[impQty].x);
-//              limitsY.push(blocks[i].impost.impostOut[impQty].y);
-
-              if (blocks[i].impost.impostAxis[impQty].dimType) {
-                limitsY.push(blocks[i].impost.impostAxis[impQty].y);
-              } else {
-                limitsX.push(blocks[i].impost.impostAxis[impQty].x);
-              }
-            }
-            getAllImpostDim(limitsX, blocks[i].children[0], blocksQty, blocks);
-            getAllImpostDim(limitsY, blocks[i].children[1], blocksQty, blocks);
-          }
-        }
-      }
-    }
-
-
-
-    function setRadiusCoordXCurve(pointQ, P0, QP, P1) {
-      pointQ.startX = getCoordCurveByT(P0.x, QP.x, P1.x, 0.5);
-      pointQ.startY = getCoordCurveByT(P0.y, QP.y, P1.y, 0.5);
-      pointQ.lengthChord = Math.round(Math.hypot((P1.x - P0.x), (P1.y - P0.y)) * 100) / 100;
-      pointQ.radius = culcRadiusCurve(pointQ.lengthChord, pointQ.heightQ);
-      pointQ.radiusMax = culcRadiusCurve(pointQ.lengthChord, pointQ.lengthChord/4);
-      pointQ.radiusMin = culcRadiusCurve(pointQ.lengthChord, 10);
-    }
-
-
-    function culcRadiusCurve(lineLength, heightQ) {
-      return Math.round( (heightQ/2 + (lineLength*lineLength)/(8*heightQ)) * 100) / 100;
-    }
 
 
 
