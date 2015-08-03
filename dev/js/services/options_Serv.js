@@ -113,7 +113,8 @@
                   id:'block_0',
                   level: 0,
                   blockType:'frame',
-                  children:['block_1']
+                  children:['block_1'],
+                  maxSizeLimit: 5000
                 },
                 //------- Level 1
                 {
@@ -131,7 +132,8 @@
                   ],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 }
               ]
             },
@@ -144,7 +146,8 @@
                   id:'block_0',
                   level: 0,
                   blockType:'frame',
-                  children:['block_1']
+                  children:['block_1'],
+                  maxSizeLimit: 5000
                 },
                 //------- Level 1
                 {
@@ -209,7 +212,8 @@
                   id:'block_0',
                   level: 0,
                   blockType:'frame',
-                  children:['block_1']
+                  children:['block_1'],
+                  maxSizeLimit: 5000
                 },
                 //------- Level 1
                 {
@@ -311,7 +315,8 @@
                   id:'block_0',
                   level: 0,
                   blockType:'frame',
-                  children:['block_1']
+                  children:['block_1'],
+                  maxSizeLimit: 5000
                 },
 //------- Level 1
                 {
@@ -408,7 +413,8 @@
                   id:'block_0',
                   level: 0,
                   blockType:'frame',
-                  children:['block_1']
+                  children:['block_1'],
+                  maxSizeLimit: 5000
                 },
 //------- Level 1
                 {
@@ -505,7 +511,8 @@
                   id:'block_0',
                   level: 0,
                   blockType:'frame',
-                  children:['block_1']
+                  children:['block_1'],
+                  maxSizeLimit: 5000
                 },
 //------- Level 1
                 {
@@ -634,7 +641,8 @@
                   id:'block_0',
                   level: 0,
                   blockType:'frame',
-                  children:['block_1']
+                  children:['block_1'],
+                  maxSizeLimit: 5000
                 },
                 //------- Level 1
                 {
@@ -699,7 +707,8 @@
                   id:'block_0',
                   level: 0,
                   blockType:'frame',
-                  children:['block_1']
+                  children:['block_1'],
+                  maxSizeLimit: 5000
                 },
 //------- Level 1
                 {
@@ -797,7 +806,8 @@
                   id:'block_0',
                   level: 0,
                   blockType:'frame',
-                  children:['block_1']
+                  children:['block_1'],
+                  maxSizeLimit: 5000
                 },
 //------- Level 1
                 {
@@ -929,7 +939,8 @@
                   id:'block_0',
                   level: 0,
                   blockType:'frame',
-                  children:['block_1']
+                  children:['block_1'],
+                  maxSizeLimit: 5000
                 },
 //------- Level 1
                 {
@@ -1093,7 +1104,8 @@
                   id:'block_0',
                   level: 0,
                   blockType:'frame',
-                  children:['block_1']
+                  children:['block_1'],
+                  maxSizeLimit: 5000
                 },
 //------- Level 1
                 {
@@ -1297,7 +1309,8 @@
                   id:'block_0',
                   level: 0,
                   blockType:'frame',
-                  children:['block_1', 'block_2']
+                  children:['block_1', 'block_2'],
+                  maxSizeLimit: 5000
                 },
                 //------- Level 1
                 {
@@ -1359,7 +1372,8 @@
                   id:'block_0',
                   level: 0,
                   blockType:'frame',
-                  children:['block_1']
+                  children:['block_1'],
+                  maxSizeLimit: 5000
                 },
 //------- Level 1
                 {
@@ -1469,7 +1483,8 @@
                   id:'block_0',
                   level: 0,
                   blockType:'frame',
-                  children:['block_1']
+                  children:['block_1'],
+                  maxSizeLimit: 5000
                 },
                 //------- Level 1
                 {

@@ -50,9 +50,11 @@
 .dim_block {
   @include transition(all 0.5s linear);
   opacity: 1;
+  visibility: visible;
 }
 .dim_hidden {
   opacity: 0;
+  visibility: hidden;
 }
 
 .size-line {

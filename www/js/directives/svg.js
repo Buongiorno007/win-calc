@@ -10,7 +10,7 @@
     .module('BauVoiceApp')
     .directive('svgTemplate', svgTemplateDir);
 
-  function svgTemplateDir(SVGServ, DesignServ) {
+  function svgTemplateDir(SVGServ, DesignServ, GlobalStor, DesignStor) {
 
     return {
       restrict: 'E',
@@ -74,7 +74,6 @@
             });
 
             //          console.log('++++++ template +++++++', mainGroup);
-            //========
             blocksQty = template.details.length;
 
             for (var i = 1; i < blocksQty; i++) {
@@ -94,6 +93,9 @@
                   },
                   'item_dir': function (d) {
                     return d.dir;
+                  },
+                  'item_id': function(d) {
+                    return d.points[0].id;
                   },
                   'd': function (d) {
                     return d.path;
@@ -149,13 +151,13 @@
                 dimQQty = template.dimension.dimQ.length;
 
             //----- horizontal marker arrow
-            setMarkerArrow(defs, 'dimHorL', '-5, -5, 4, 5', -5, -2, 0, 'M 0,0 L -4,-2 L0,-4 z');
-            setMarkerArrow(defs, 'dimHorR', '-5, -5, 4, 5', -5, -2, 180, 'M 0,0 L -4,-2 L0,-4 z');
+            setMarkerArrow(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z');
+            setMarkerArrow(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z');
             //------- vertical marker arrow
-            setMarkerArrow(defs, 'dimVertL', '1, -1, 4, 5', 5, 2, 90, 'M 0,0 L 4,2 L0,4 z');
-            setMarkerArrow(defs, 'dimVertR', '1, -1, 4, 5', 5, 2, 270, 'M 0,0 L 4,2 L0,4 z');
+            setMarkerArrow(defs, 'dimVertL', '4.2, -1, 8, 9', 5, 2, 90, 100, 60, 'M 0,0 L 4,2 L0,4 z');
+            setMarkerArrow(defs, 'dimVertR', '4.2, -1, 8, 9', 5, 2, 270, 100, 60, 'M 0,0 L 4,2 L0,4 z');
 
-            setMarkerArrow(defs, 'dimArrow', '1, -1, 4, 5', 5, 2, 'auto', 'M 0,0 L 4,2 L0,4 z');
+            setMarkerArrow(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z');
 
 //            console.log('SVG=========dim==', template.dimension);
             for(var dx = 0; dx < dimXQty; dx++) {
@@ -168,14 +170,16 @@
               createRadiusDimension(template.dimension.dimQ[dq], dimGroup, lineCreator);
             }
 
-
-
-            //--------- set clicking to all imposts
+            DesignServ.removeAllEventsInSVG();
+            //--------- set clicking to all elements
             if (scope.typeConstruction === 'edit') {
               console.log('EDIT INIT IMPOST');
               DesignServ.initAllImposts();
-              DesignServ.initAllGlassXDimension();
+              DesignServ.initAllGlass();
+              DesignServ.initAllArcs();
               DesignServ.initAllDimension();
+            } else {
+
             }
 
             console.log('buildSVG done!!!!!!!!!', new Date(), new Date().getMilliseconds());
@@ -185,7 +189,7 @@
 
 
 
-        function setMarkerArrow(defs, id, view, refX, refY, angel, path) {
+        function setMarkerArrow(defs, id, view, refX, refY, angel, w, h, path) {
           defs.append("marker")
             .classed('size-line', true)
             .attr({
@@ -193,8 +197,8 @@
               'viewBox': view,
               'refX': refX,
               'refY': refY,
-              'markerWidth': 30,
-              'markerHeight': 30,
+              'markerWidth': w,
+              'markerHeight': h,
               'orient': angel
             })
             .append("path")
@@ -254,7 +258,8 @@
                  return (dim.level) ? 'dim_blockX' : 'dim_block dim_hidden';
                }
              },
-             'block_id': dim.blockId
+             'block_id': dim.blockId,
+             'axis': dim.axis
            });
 
           dimBlock.append('path')
@@ -302,6 +307,7 @@
              'size_val': dim.text,
              'min_val': dim.minLimit,
              'max_val': dim.maxLimit,
+             'dim_id': dim.dimId,
              'from_point': dim.from,
              'to_point': dim.to,
              'axis': dim.axis
@@ -372,7 +378,7 @@
               'size_val': dimQ.radius,
               'min_val': dimQ.radiusMax,
               'max_val': dimQ.radiusMin,
-              'radius_id': dimQ.id,
+              'dim_id': dimQ.id,
               'chord': dimQ.lengthChord
             });
 

@@ -19,7 +19,12 @@ function getMaxMinCoord(points) {
   return overall;
 }
 
-
+function rounding10(value) {
+  return Math.round(value * 10) / 10;
+}
+function rounding100(value) {
+  return Math.round(value * 100) / 100;
+}
 
 Array.prototype.min = function () {
   return this.reduce(function (p, v) {
@@ -38,127 +43,6 @@ Array.prototype.removeDuplicates = function() {
     return index == self.indexOf(elem);
   });
 };
-
-
-
-
-
-
-//--------- TEMPLATE JSON PARSE ----------------
-
-
-
-//-----------Dimension-------------------
-var Dimension = function (sourceObj) {
-  LineObject.call(this, sourceObj);
-  this.level = sourceObj.level;
-  this.height = 150;
-  this.side = sourceObj.side;
-  this.limits = sourceObj.limits;
-  this.links = sourceObj.links;
-
-  this.fromPointId = sourceObj.from[0];
-  this.toPointId = sourceObj.to[0];
-
-  this.fromPointsArrId = sourceObj.from;
-  this.toPointsArrId = sourceObj.to;
-
-};
-
-
-
-function createDimentions(sourceObj) {
-  var frameXArr = [],
-      frameYArr = [],
-      impostVertXMax = 0,
-      impostHorYMax = 0,
-      impostVertXArr = [],
-      impostHorYArr = [],
-      levelUp = 1,
-      levelLeft = 1,
-      dimentions = [];
-
-  for (var i = 0; i < sourceObj.objects.length; i++) {
-    switch (sourceObj.objects[i].type) {
-      case 'fixed_point':
-        frameXArr.push(+sourceObj.objects[i].x);
-        frameYArr.push(+sourceObj.objects[i].y);
-        break;
-      case 'fixed_point_impost':
-        if(sourceObj.objects[i].dir === 'vert') {
-          impostVertXArr.push(+sourceObj.objects[i].x);
-        } else if(sourceObj.objects[i].dir === 'hor') {
-          impostHorYArr.push(+sourceObj.objects[i].y);
-        }
-        break;
-    }
-  }
-  if(impostVertXArr.length > 0) {
-    impostVertXMax = impostVertXArr.max();
-    impostVertXArr = impostVertXArr.concat(frameXArr);
-  }
-  if(impostHorYArr.length > 0) {
-    impostHorYMax = impostHorYArr.max();
-    impostHorYArr = impostHorYArr.concat(frameYArr);
-  }
-
-  //---- sorting and delete dublicats
-  frameXArr = frameXArr.removeDuplicates();
-  frameYArr = frameYArr.removeDuplicates();
-  impostVertXArr = impostVertXArr.removeDuplicates();
-  impostHorYArr = impostHorYArr.removeDuplicates();
-
-  frameXArr.sort(sortNumbers);
-  frameYArr.sort(sortNumbers);
-  impostVertXArr.sort(sortNumbers);
-  impostHorYArr.sort(sortNumbers);
-
-
-  //----- set level
-  if(impostVertXArr.length > 0) {
-    levelUp = 2;
-    sortingCoordin(dimentions, frameXArr, 'hor', levelUp, impostVertXMax, 'overallDimH');
-    sortingCoordin(dimentions, impostVertXArr, 'hor', (levelUp - 1));
-  } else {
-    sortingCoordin(dimentions, frameXArr, 'hor', levelUp);
-  }
-  if(impostHorYArr.length > 0) {
-    levelLeft = 2;
-    sortingCoordin(dimentions, frameYArr, 'vert', levelLeft, impostHorYMax, 'overallDimV');
-    sortingCoordin(dimentions, impostHorYArr, 'vert', (levelLeft - 1));
-
-  } else {
-    sortingCoordin(dimentions, frameYArr, 'vert', levelLeft);
-  }
-
-  //console.log('dimentions == ', dimentions);
-  return dimentions;
-
-}
-
-
-function sortingCoordin(dimentions, coordinates, typeDim, levelDim, limit, classSize) {
-  var dimPadding = (limit + 200) || 200,
-      maxDimFrame = 5000,
-      dimension;
-  for(var d = 0; d < coordinates.length; d++) {
-    if((d+1) < coordinates.length) {
-      if(coordinates[d+2]) {
-        dimension = {type: typeDim, from: coordinates[d], to: coordinates[d+1], level: levelDim, minDim: (coordinates[d] + dimPadding), maxDim: (coordinates[d+2] - dimPadding)};
-      } else {
-        if(limit) {
-          dimension = {id: classSize, type: typeDim, from: coordinates[d], to: coordinates[d+1], level: levelDim, minDim: (coordinates[d] + dimPadding), maxDim: maxDimFrame};
-        } else {
-          dimension = {type: typeDim, from: coordinates[d], to: coordinates[d+1], level: levelDim, minDim: (coordinates[d] + dimPadding), maxDim: maxDimFrame};
-        }
-      }
-      dimentions.push(dimension);
-    }
-  }
-}
-
-
-
 
 
 

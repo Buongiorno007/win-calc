@@ -78,33 +78,38 @@
     //--------Select menu item
     function selectMenuItem(id) {
       DesignStor.design.activeMenuItem = (DesignStor.design.activeMenuItem === id) ? 0 : id;
-      if(!DesignStor.design.activeMenuItem) {
-        DesignStor.design.activeSubMenuItem = 0;
-      }
       DesignServ.hideCornerMarks();
       DesignServ.deselectAllImpost();
-      DesignServ.deselectAllArc();
-      DesignServ.deselectAllGlass();
       //----- hide culculator
-      GlobalStor.global.isSizeCalculator = 0;
-
-      switch(DesignStor.design.activeMenuItem) {
-        case 1:
-          showAllAvailableGlass(id);
-          break;
-        case 2:
-          showAllAvailableCorner(id);
-          break;
-        case 3:
-          showAllAvailableGlass(id);
-          break;
-        case 4:
-          showAllAvailableArc(id);
-          break;
-        case 5:
-          DesignStor.design.activeSubMenuItem = 0;
-          DesignServ.initMirror();
-          break;
+      DesignServ.hideSizeTools();
+      if(DesignStor.design.activeMenuItem) {
+        switch(DesignStor.design.activeMenuItem) {
+          case 1:
+            showAllAvailableGlass(id);
+            break;
+          case 2:
+            DesignServ.deselectAllGlass();
+            showAllAvailableCorner(id);
+            break;
+          case 3:
+            showAllAvailableGlass(id);
+            break;
+          case 4:
+            DesignServ.deselectAllGlass();
+            showAllAvailableArc(id);
+            break;
+          case 5:
+            DesignServ.deselectAllGlass();
+            DesignStor.design.activeSubMenuItem = 0;
+            DesignServ.initMirror();
+            break;
+        }
+      } else {
+        //------ if we close menu
+        DesignStor.design.activeSubMenuItem = 0;
+        //-------- delete selected glasses
+        DesignServ.deselectAllGlass();
+        DesignServ.deselectAllArc();
       }
     }
 
@@ -123,16 +128,12 @@
 
     function showAllAvailableGlass(menuId) {
       DesignStor.design.activeSubMenuItem = menuId;
-      var glasses = d3.selectAll('#tamlateSVG .glass');
-      DesignStor.design.selectedGlass = glasses;
-      glasses.classed('glass-active', true);
-
-      glasses.on('click', function() {
-        var glass = d3.select(this);
-        DesignServ.deselectAllGlass();
-        glass.classed('glass-active', true);
-        DesignStor.design.selectedGlass = glass;
-      });
+      if(!DesignStor.design.selectedGlass.length) {
+        //----- show all glasses
+        var glasses = d3.selectAll('#tamlateSVG .glass');
+        DesignStor.design.selectedGlass = glasses[0];
+        glasses.classed('glass-active', true);
+      }
     }
 
 
@@ -141,18 +142,16 @@
       event.srcEvent.stopPropagation();
       DesignStor.design.activeMenuItem = 0;
       DesignStor.design.activeSubMenuItem = 0;
-      DesignServ.deselectAllGlass();
-
-      var glassQty = DesignStor.design.selectedGlass[0].length;
+      var glassQty = DesignStor.design.selectedGlass.length;
       if(sashType === 1) {
         //----- delete sash
         for(var i = 0; i < glassQty; i++) {
-          DesignServ.deleteSash(DesignStor.design.selectedGlass[0][i]);
+          DesignServ.deleteSash(DesignStor.design.selectedGlass[i]);
         }
       } else {
         //----- insert sash
         for(var i = 0; i < glassQty; i++) {
-          DesignServ.createSash(sashType, DesignStor.design.selectedGlass[0][i]);
+          DesignServ.createSash(sashType, DesignStor.design.selectedGlass[i]);
         }
       }
     }
@@ -167,17 +166,15 @@
       if(corners[0].length) {
         //---- show submenu
         DesignStor.design.activeSubMenuItem = menuId;
-
         corners.transition().duration(300).ease("linear").attr('r', 50);
-
-        DesignStor.design.selectedCorner = corners;
+        DesignStor.design.selectedCorner = corners[0];
         corners.on('click', function () {
           //----- hide all cornerMark
           DesignServ.hideCornerMarks();
 
           //----- show selected cornerMark
           var corner = d3.select(this).transition().duration(300).ease("linear").attr('r', 50);
-          DesignStor.design.selectedCorner = corner;
+          DesignStor.design.selectedCorner.push(corner[0][0]);
 
         });
       } else {
@@ -190,27 +187,25 @@
       //------ hide menu
       DesignStor.design.activeMenuItem = 0;
       DesignStor.design.activeSubMenuItem = 0;
-      DesignServ.hideCornerMarks();
-//      console.log('DesignStor.selectedCorner = ', DesignStor.design.selectedCorner);
-      var cornerQty = DesignStor.design.selectedCorner[0].length,
+      var cornerQty = DesignStor.design.selectedCorner.length,
           i = 0;
       switch(conerType) {
         //----- delete
         case 1:
           for(; i < cornerQty; i++) {
-            DesignServ.deleteCornerPoints(DesignStor.design.selectedCorner[0][i]);
+            DesignServ.deleteCornerPoints(DesignStor.design.selectedCorner[i]);
           }
           break;
         //----- line angel
         case 2:
           for(; i < cornerQty; i++) {
-            DesignServ.setCornerPoints(DesignStor.design.selectedCorner[0][i]);
+            DesignServ.setCornerPoints(DesignStor.design.selectedCorner[i]);
           }
           break;
         //----- curv angel
         case 3:
           for(; i < cornerQty; i++) {
-            DesignServ.setCurvCornerPoints(DesignStor.design.selectedCorner[0][i]);
+            DesignServ.setCurvCornerPoints(DesignStor.design.selectedCorner[i]);
           }
           break;
       }
@@ -228,18 +223,15 @@
           return true;
         }
       });
-
+      //----- if not corners
       if(arcs.length) {
         DesignStor.design.activeSubMenuItem = menuId;
-        var arcs = d3.selectAll(arcs);
-        DesignStor.design.selectedArc = arcs;
-
-        arcs.classed('active_svg', true).on('click', function () {
-          DesignServ.deselectAllArc();
-          var arc = d3.select(this);
-          arc.classed('active_svg', true);
-          DesignStor.design.selectedArc = arc;
-        });
+        if(!DesignStor.design.selectedArc.length) {
+          //----- show all frames and arc
+          var arcs = d3.selectAll(arcs);
+          DesignStor.design.selectedArc = arcs[0];
+          arcs.classed('active_svg', true);
+        }
       } else {
         showDesignError();
       }
@@ -251,31 +243,29 @@
       event.srcEvent.stopPropagation();
       DesignStor.design.activeMenuItem = 0;
       DesignStor.design.activeSubMenuItem = 0;
-      DesignServ.deselectAllArc();
       //---- get quantity of arcs
-      var arcQty = DesignStor.design.selectedArc[0].length;
+      var arcQty = DesignStor.design.selectedArc.length;
 
       //======= delete arc
       if(arcType === 1) {
         //------ delete all arcs
         if (arcQty > 1) {
-          var arcsQty = d3.selectAll('#tamlateSVG [item_type=arc]')[0].length;
-          if (arcsQty) {
-            DesignServ.workingWithAllArcs('arc', arcsQty);
-          }
+          DesignServ.workingWithAllArcs(0);
         } else {
           //------ delete one selected arc
-          DesignServ.deleteArc(DesignStor.design.selectedArc[0][0]);
+          DesignServ.deleteArc(DesignStor.design.selectedArc[0]);
+          DesignStor.design.selectedArc.length = 0;
         }
 
       //======= insert arc
       } else {
         //------ insert all arcs
         if(arcQty > 1) {
-          DesignServ.workingWithAllArcs('frame', arcQty);
+          DesignServ.workingWithAllArcs(1);
         } else {
           //------ insert one selected arc
-          DesignServ.createArc(DesignStor.design.selectedArc[0][0]);
+          DesignServ.createArc(DesignStor.design.selectedArc[0]);
+          DesignStor.design.selectedArc.length = 0;
         }
       }
     }
@@ -290,7 +280,6 @@
       event.srcEvent.stopPropagation();
       DesignStor.design.activeMenuItem = 0;
       DesignStor.design.activeSubMenuItem = 0;
-      DesignServ.deselectAllGlass();
       var impostsQty = DesignStor.design.selectedImpost.length;
 
       if(impostType === 1) {
@@ -302,11 +291,11 @@
         }
       } else {
         if(!impostsQty) {
-          var glassQty = DesignStor.design.selectedGlass[0].length;
+          var glassQty = DesignStor.design.selectedGlass.length;
           if(glassQty) {
             //------- insert imposts
             for(var i = 0; i < glassQty; i++) {
-              DesignServ.createImpost(impostType, DesignStor.design.selectedGlass[0][i]);
+              DesignServ.createImpost(impostType, DesignStor.design.selectedGlass[i]);
             }
           }
         } else {
