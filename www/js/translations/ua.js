@@ -354,7 +354,13 @@
         SELECT_INFO_SOURCE: 'Выберите источник информации',
         NO_DISASSEMBL: 'без демонтажа',
         STANDART_ASSEMBL: 'стандартный',
-        VIP_ASSEMBL: 'VIP-монтаж'
+        VIP_ASSEMBL: 'VIP-монтаж',
+        DISCOUNT: 'Знижка',
+        DISCOUNT_SELECT: 'Вибір знижки',
+        DISCOUNT_WITH: 'Зі знижкою',
+        DISCOUNT_WITHOUT: 'Без знижки',
+        DISCOUNT_WINDOW: 'Знижка на виріб',
+        DISCOUNT_ADDELEM: 'Знижка на додаткові елементи'
       },
       settings: {
         AUTHORIZATION: 'Авторизація:',

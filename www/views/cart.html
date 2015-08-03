@@ -50,7 +50,7 @@
   <section class="right-side">
     <section class="main-content">
       <section class="cart-page">
-        <section class="cart-container full-view">
+        <section ng-class="{'discount': cartPage.C.cart.isShowDiscount}" hm-swipedown="cartPage.swipeHideDiscount($event)" class="cart-container full-view">
           <div class="cart-header">
             <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
               <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button>
@@ -115,7 +115,41 @@
                 <div price-fixed="{{product.productPriceTOTAL}}" qty-element="{{product.productQty}}" currency-element="{{cartPage.U.userInfo.currency}}" class="order-footer"></div>
               </div>
             </div>
+            <div class="discount-container">
+              <div ng-class="{'selected': hardwarePanel.P.product.hardwareIndex == $index &amp;&amp; hardwarePanel.P.product.hardwareTypeIndex == $parent.$index}" hm-tap="hardwarePanel.selectHardware($parent.$index, $index)" class="discount-box">
+                <div class="discount-data">15%</div>
+                <div class="discounts-list">
+                  <select name="country" ng-model="loginPage.user.country" ng-options="country.name for country in loginPage.generalLocations.countries | orderBy:'name'" ng-change="loginPage.selectLocation()" class="discount-select-">
+                    <option value="">{{ 'login.SELECT_COUNTRY' | translate }}</option>
+                  </select>
+                  <div class="discounts-list"></div>
+                </div>
+                <div class="discount-txt">
+                  <div class="discounts-label">{{ 'cart.DISCOUNT_WINDOW' | translate }}</div>
+                </div>
+              </div>
+              <div ng-class="{'selected': hardwarePanel.P.product.hardwareIndex == $index &amp;&amp; hardwarePanel.P.product.hardwareTypeIndex == $parent.$index}" hm-tap="hardwarePanel.selectHardware($parent.$index, $index)" class="discount-box">
+                <div class="discount-data">15%
+                  <div class="discounts-list"></div>
+                </div>
+                <div class="discount-txt">
+                  <div class="discounts-label">{{ 'cart.DISCOUNT_ADDELEM' | translate }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="discount-container"></div>
           </div>
+          <div hm-swipeup="cartPage.swipeShowDiscount($event)" class="discount-swipe-up"></div>
+          <!--.discount-box(ng-if="hardwarePanel.G.global.activePanel == 4")
+          .hardware-block(ng-repeat="producer in hardwarePanel.G.global.hardwares", ng-class="{'selected': glassPanel.P.product.hardwareTypeIndex == $index}")
+            .group-block-header
+              .hardware-title(data-output="{{ hardwarePanel.G.global.hardwareTypes[$index] }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START }}")
+              .group-info
+                .info
+                
+                
+                
+          -->
           <button hm-tap="cartPage.viewSwitching()" class="view-switch-tab">{{ 'cart.LIGHT_VIEW' | translate }}</button>
         </section>
         <section ng-class="{'active': cartPage.config.isCartLightView}" class="cart-container light-view">

@@ -8,13 +8,17 @@
 
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 165%;
     padding: rem(50px);
     padding-left: rem(100px);
     //overflow-x: auto;
     //overflow-y: auto;
     &.full-view {
       @include top_left_coord(0px, 0px);
+
+      &.discount {
+        @include top_left_coord(-1000px, 0px);
+      }
     }
     &.light-view {
       @include top_left_coord(0px, -2500px);
@@ -366,6 +370,94 @@
   .order-label {
     padding-top: rem(10px);
   }
+}
+
+
+//======== DISCOUNT ========//
+.discount-swipe-up {
+  position: absolute;
+  left: 0;
+  top: 56%;
+  width: 100%;
+  height: 5%;
+  z-index: 3;
+}
+
+.discount-container {
+  width: 90%;
+  margin: auto;
+  margin-top: 5rem;
+  padding: 5rem 3.75rem;
+  border-top: 1px solid $main_gray_btn;
+}
+
+.discount-box {
+  @include display-flex();
+  @include flex-flow(row wrap);
+  @include justify-content(space-between);
+  position: relative;
+  width: 100%;
+  margin-top: rem(50px);
+
+  &.selected {
+    .discount-txt {
+      position: relative;
+      background-color: $main_green;
+      &:after {
+        @include font-icon(rem(150px), rem(130px));
+
+        position: absolute;
+        top: 0.5rem;
+        right: 1.875rem;
+        color: #fff;
+        content: $check-panel-icon;
+      }
+      .discounts-descr {
+        color: $main_gray_txt;
+      }
+    }
+  }
+}
+
+.discount-data {
+  @include display-flex();
+  @include align-items(center);
+  @include justify-content(center);
+  @include roboto-lt(rem(40px));
+
+  max-width: rem(200px);
+  width: rem(305px);
+  border-top-left-radius: rem($radius_profile-box);
+  border-bottom-left-radius: rem($radius_profile-box);
+  background-color: #fff;
+  margin-bottom: rem(5px);
+  color: $main_gray_txt;
+}
+
+.discounts-list{
+  @include top_left_coord(0px, 0px);
+  position: absolute;
+
+}
+
+.discount-txt {
+  @include display-flex();
+  @include flex-flow(row wrap);
+  @include justify-content(flex-start);
+  @include flex-grow(2);
+  @include transition(all .5s linear);
+
+  padding: rem(35px);
+  border-top-right-radius: rem($radius_profile-box);
+  border-bottom-right-radius: rem($radius_profile-box);
+  background-color: #fff;
+}
+
+.discounts-label {
+  @include roboto-md(rem(36px));
+
+  margin-bottom: rem(5px);
+  color: $main_gray_txt;
 }
 
 

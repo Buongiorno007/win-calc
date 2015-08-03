@@ -6,7 +6,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
 
       section.cart-page
 
-        section.cart-container.full-view
+        section.cart-container.full-view(ng-class="{'discount': cartPage.C.cart.isShowDiscount}" hm-swipedown="cartPage.swipeHideDiscount($event)")
           .cart-header
             include parts/_user-info
             button.cart-tool.additional-elements(hm-tap="cartPage.showAllAddElements()") {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
@@ -51,6 +51,48 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                     button.order-tool(hm-tap="cartPage.increaseProductQty($index)") +
                     .order-label.qty-label {{ 'cart.PRODUCT_QTY' | translate }}
                 .order-footer(price-fixed="{{product.productPriceTOTAL}}", qty-element="{{product.productQty}}", currency-element="{{cartPage.U.userInfo.currency}}")
+
+            .discount-container
+
+              .discount-box(ng-class="{'selected': hardwarePanel.P.product.hardwareIndex == $index && hardwarePanel.P.product.hardwareTypeIndex == $parent.$index}", hm-tap="hardwarePanel.selectHardware($parent.$index, $index)")
+                .discount-data 15%
+
+                .discounts-list
+                  select.discount-select-(name="country", ng-model="loginPage.user.country", ng-options="country.name for country in loginPage.generalLocations.countries | orderBy:'name'", ng-change="loginPage.selectLocation()")
+                    option(value='') {{ 'login.SELECT_COUNTRY' | translate }}
+
+                  .discounts-list
+                .discount-txt
+                  .discounts-label {{ 'cart.DISCOUNT_WINDOW' | translate }}
+
+              .discount-box(ng-class="{'selected': hardwarePanel.P.product.hardwareIndex == $index && hardwarePanel.P.product.hardwareTypeIndex == $parent.$index}", hm-tap="hardwarePanel.selectHardware($parent.$index, $index)")
+                .discount-data 15%
+                  .discounts-list
+                .discount-txt
+                  .discounts-label {{ 'cart.DISCOUNT_ADDELEM' | translate }}
+
+
+
+            .discount-container
+
+
+
+
+          .discount-swipe-up(hm-swipeup="cartPage.swipeShowDiscount($event)")
+
+
+
+
+
+          //.discount-box(ng-if="hardwarePanel.G.global.activePanel == 4")
+
+            .hardware-block(ng-repeat="producer in hardwarePanel.G.global.hardwares", ng-class="{'selected': glassPanel.P.product.hardwareTypeIndex == $index}")
+              .group-block-header
+                .hardware-title(data-output="{{ hardwarePanel.G.global.hardwareTypes[$index] }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START }}")
+                .group-info
+                  .info
+
+
 
           button.view-switch-tab(hm-tap="cartPage.viewSwitching()") {{ 'cart.LIGHT_VIEW' | translate }}
 

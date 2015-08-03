@@ -353,7 +353,13 @@
         SELECT_INFO_SOURCE: "Selectați sursa ",
         NO_DISASSEMBL: "fără demontare",
         STANDART_ASSEMBL: "standard",
-        VIP_ASSEMBL: "montaj VIP"
+        VIP_ASSEMBL: "montaj VIP",
+        DISCOUNT: 'Discount',
+        DISCOUNT_SELECT: 'Alegerea de reduceri',
+        DISCOUNT_WITH: 'Având în vedere reduceri',
+        DISCOUNT_WITHOUT: 'Discount Excluderea',
+        DISCOUNT_WINDOW: 'Discount pe un produs',
+        DISCOUNT_ADDELEM: 'Discount pe elemente suplimentare'
       },
       settings: {
         AUTHORIZATION: 'Autentificare:',

@@ -20,7 +20,7 @@
 
       position: absolute;
       color: $main_green;
-      content: '\e60d';
+      content: $info-panel-icon;
     }
   }
 
@@ -45,7 +45,7 @@
 
       position: absolute;
       color: $main_green;
-      content: '\e612';
+      content: $triangle-panel-icon;
     }
   }
 

@@ -7,7 +7,7 @@
     .module('BauVoiceApp')
     .directive('svgTemplate', svgTemplateDir);
 
-  function svgTemplateDir(SVGServ, DesignServ, GlobalStor, DesignStor) {
+  function svgTemplateDir(SVGServ, DesignServ) {
 
     return {
       restrict: 'E',
@@ -179,7 +179,7 @@
 
             }
 
-            console.log('buildSVG done!!!!!!!!!', new Date(), new Date().getMilliseconds());
+//            console.log('buildSVG done!!!!!!!!!', new Date(), new Date().getMilliseconds());
           }
         }
 

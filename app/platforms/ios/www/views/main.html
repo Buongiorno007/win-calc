@@ -236,7 +236,7 @@
                 <div class="info"></div>
               </div>
             </div>
-            <div ng-repeat="hardware in producer" show-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_BLOCK * $index) }}" ng-class="{'selected': glassPanel.P.product.hardwareIndex == $index &amp;&amp; glassPanel.P.product.hardwareTypeIndex == $parent.$index}" hm-tap="hardwarePanel.selectHardware($parent.$index, $index)" class="hardware-box unvisible"><a ng-href="{{ hardware.hardwareLink }}" class="info"></a>
+            <div ng-repeat="hardware in producer" show-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_BLOCK * $index) }}" ng-class="{'selected': hardwarePanel.P.product.hardwareIndex == $index &amp;&amp; hardwarePanel.P.product.hardwareTypeIndex == $parent.$index}" hm-tap="hardwarePanel.selectHardware($parent.$index, $index)" class="hardware-box unvisible"><a ng-href="{{ hardware.hardwareLink }}" class="info"></a>
               <div class="hardware-box-inner">
                 <div class="hardware-box-view">
                   <div class="hardware-logo"><img ng-src="{{ hardware.hardwareLogo }}"></div>

@@ -91,6 +91,8 @@
     thisCtrl.showAddElementDetail = showAddElementDetail;
     thisCtrl.closeAddElementDetail = closeAddElementDetail;
     thisCtrl.viewSwitching = viewSwitching;
+    thisCtrl.swipeShowDiscount = swipeShowDiscount;
+    thisCtrl.swipeHideDiscount = swipeHideDiscount;
 
 
 
@@ -121,12 +123,18 @@
 
 
 
+    //--------- Show Discount
+    function swipeShowDiscount(event) {
+      CartStor.cart.isShowDiscount = 1;
+    }
+
+    //--------- Hide Discount
+    function swipeHideDiscount(event) {
+      CartStor.cart.isShowDiscount = 0;
+    }
 
 
-
-
-
-    var p, prod, product, addElementUnique;
+//    var p, prod, product, addElementUnique;
 
 
     //$scope.global.startProgramm = false;

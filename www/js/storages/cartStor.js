@@ -17,12 +17,12 @@
     thisFactory.publicObj = {
       cartSource: {
         allAddElements: [],
-
-        isMasterDialog: false,
-        isOrderDialog: false,
-        isCreditDialog: false,
-        submitted: false,
-        isCityBox: false,
+        isShowDiscount: 0,
+        isMasterDialog: 0,
+        isOrderDialog: 0,
+        isCreditDialog: 0,
+        submitted: 0,
+        isCityBox: 0,
         user: {
           location: OrderStor.order.currCityName +', '+ OrderStor.order.currRegionName,
           sex: ''

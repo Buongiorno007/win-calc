@@ -47,13 +47,13 @@
     //----- Show Comments
     function swipeShowComment(event) {
       //playSound('swip');
-      GlobalStor.global.isShowCommentBlock = true;
-      GlobalStor.global.showRoomSelectorDialog = false;
+      GlobalStor.global.isShowCommentBlock = 1;
+      GlobalStor.global.showRoomSelectorDialog = 0;
     }
 
     function swipeHideComment(event) {
       //playSound('swip');
-      GlobalStor.global.isShowCommentBlock = false;
+      GlobalStor.global.isShowCommentBlock = 0;
     }
 
   }

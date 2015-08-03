@@ -350,7 +350,13 @@
         SELECT_INFO_SOURCE: "Quelle wählen",
         NO_DISASSEMBL: 'Ohne Demontage',
         STANDART_ASSEMBL: 'Der Standardmäßige',
-        VIP_ASSEMBL: 'Der VIP-Montage'
+        VIP_ASSEMBL: 'Der VIP-Montage',
+        DISCOUNT: 'Rabatt',
+        DISCOUNT_SELECT: 'Die Auswahl der Preisnachlässe',
+        DISCOUNT_WITH: 'Im Hinblick auf die Preisnachlässe',
+        DISCOUNT_WITHOUT: 'Ohne Rabatte',
+        DISCOUNT_WINDOW: 'Rabatt auf ein Produkt',
+        DISCOUNT_ADDELEM: 'Discount auf zusätzliche Elemente'
       },
       settings: {
         AUTHORIZATION: 'Autorisierung:',

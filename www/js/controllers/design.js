@@ -171,7 +171,7 @@
         DesignStor.design.activeSubMenuItem = menuId;
         corners.transition().duration(300).ease("linear").attr('r', 50);
         DesignStor.design.selectedCorner = corners[0];
-        corners.on('click', function () {
+        corners.on('touchstart', function () {
           //----- hide all cornerMark
           DesignServ.hideCornerMarks();
 

@@ -353,7 +353,13 @@
         SELECT_INFO_SOURCE: 'Выберите источник информации',
         NO_DISASSEMBL: 'без демонтажа',
         STANDART_ASSEMBL: 'стандартный',
-        VIP_ASSEMBL: 'VIP-монтаж'
+        VIP_ASSEMBL: 'VIP-монтаж',
+        DISCOUNT: 'Cкидка',
+        DISCOUNT_SELECT: 'Выбор скидки',
+        DISCOUNT_WITH: 'С учетом скидки',
+        DISCOUNT_WITHOUT: 'Без учета скидки',
+        DISCOUNT_WINDOW: 'Скидка на изделие',
+        DISCOUNT_ADDELEM: 'Скидка на дополнительные элементы'
       },
       settings: {
         AUTHORIZATION: 'Авторизация:',

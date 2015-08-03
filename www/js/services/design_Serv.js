@@ -220,7 +220,7 @@
       d3.selectAll('#tamlateSVG [item_type=impost]')
         .each(function() {
           var impost = d3.select(this);
-          impost.on('click', function() {
+          impost.on('touchstart', function() {
             var isImpost = isExistElementInSelected(impost[0][0], DesignStor.design.selectedImpost);
             if(isImpost) {
               impost.classed('frame-active', true);
@@ -269,17 +269,16 @@
 
     //------- set click to all Glass for Dimensions
     function initAllGlass() {
-      var delayDimShow = 1000, timeoutDim;
+      var delayDimShow = 1000;
       DesignStor.design.selectedGlass.length = 0;
-//      $(rootElement).hammer({domEvents:true}).on("press",".elementSelector",callback);
-//      $(element).hammer().on("hold",callback);
-//      $(rootElement).hammer().on("hold",".elementSelector",callback);
 
       d3.selectAll('#tamlateSVG .glass')
         .each(function() {
           var glass = d3.select(this);
-          glass.on('click', function() {
 
+          glass.on("touchstart", function() {
+
+            //========= select glass
             var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass);
             if(isGlass) {
               glass.classed('glass-active', true);
@@ -298,34 +297,25 @@
               }
             }
 
-          });
 
-          //---------- for Dimensions
-
-          glass.on("touchstart", function() {
+            //========= show Dimensions
 
             hideAllDimension();
             var parentID = glass[0][0].attributes.parent_id.nodeValue,
                 blockID = glass[0][0].attributes.block_id.nodeValue,
-                currDimId;
-
-            currDimId = (parentID === 'block_0') ? blockID : parentID;
-            showCurrentDimLevel(blockID, parentID);
-              console.log('SELECTED GLASS+++++++++++++first', parentID, blockID);
-//            if(parentID !== 'block_0') {
-            var count = 0;
-              timeoutDim = setTimeout(function () {
-                ++count;
-                console.log('SELECTED GLASS+++++++++++++', count);
-                console.log('SELECTED GLASS+++++++++++++currDimId1', currDimId);
-                currDimId = showNextDimensionLevel(currDimId);
-                console.log('SELECTED GLASS+++++++++++++currDimId2', currDimId);
+                currDimId = (parentID === 'block_0') ? blockID : parentID;
+            DesignStor.design.isDimAnimate = 1;
+            showCurrentDimLevel(currDimId);
+            if(DesignStor.design.isDimAnimate && parentID !== 'block_0') {
+              $timeout(function () {
+                showNextDimensionLevel(currDimId, delayDimShow);
               }, delayDimShow);
-//            }
+            }
           });
 
+
           glass.on("touchend", function() {
-            clearTimeout(timeoutDim);
+            DesignStor.design.isDimAnimate = 0;
           });
 
           /*
@@ -345,18 +335,19 @@
     }
 
 
-    function showCurrentDimLevel(currBlockId, parentID) {
-      var currDimId = (parentID === 'block_0') ? currBlockId : parentID,
-          dim = d3.selectAll('#tamlateSVG .dim_block[block_id='+currDimId+']'),
+    function showCurrentDimLevel(currDimId) {
+      var dim = d3.selectAll('#tamlateSVG .dim_block[block_id='+currDimId+']'),
           dimQty = dim[0].length;
 
       if(dimQty) {
         var isXDim = 0, isYDim = 0;
         while(--dimQty > -1) {
-          if(dim[0][dimQty].attributes.axis.nodeValue === 'x') {
-            ++isXDim;
-          } else if(dim[0][dimQty].attributes.axis.nodeValue === 'y') {
-            ++isYDim;
+          if(dim[0][dimQty].attributes.axis) {
+            if (dim[0][dimQty].attributes.axis.nodeValue === 'x') {
+              ++isXDim;
+            } else if (dim[0][dimQty].attributes.axis.nodeValue === 'y') {
+              ++isYDim;
+            }
           }
         }
         //------- hide all dimension Level 0
@@ -370,25 +361,30 @@
         }
         dim.classed('dim_hidden', false);
       }
-      return currDimId;
     }
 
 
-    function showNextDimensionLevel(currBlockId) {
+    function showNextDimensionLevel(currBlockId, delay) {
       var blocks = DesignStor.design.templateTEMP.details,
           blocksQty = blocks.length,
           parentID;
 
-      //----- find next parent block
-      for(var b = 0; b < blocksQty; b++) {
-        if(blocks[b].id === currBlockId) {
-          parentID = blocks[b].parent;
+      if(DesignStor.design.isDimAnimate) {
+        //----- find next parent block
+        for(var b = 0; b < blocksQty; b++) {
+          if(blocks[b].id === currBlockId) {
+            parentID = blocks[b].parent;
+          }
+        }
+        var currDimId = (parentID === 'block_0') ? currBlockId : parentID;
+        showCurrentDimLevel(currDimId);
+
+        if(DesignStor.design.isDimAnimate && parentID !== 'block_0') {
+          $timeout(function () {
+            showNextDimensionLevel(currDimId, delay);
+          }, delay);
         }
       }
-      console.log('SELECTED GLASS+++++++++++++second', parentID, currBlockId);
-      var lastDimId = showCurrentDimLevel(currBlockId, parentID);
-      console.log('SELECTED GLASS+++++++++++++second return', lastDimId);
-      return lastDimId;
     }
 
 
@@ -403,7 +399,7 @@
       if(arcs.length) {
         d3.selectAll(arcs).each(function() {
           var arc = d3.select(this);
-          arc.on('click', function() {
+          arc.on('touchstart', function() {
             var isArc = isExistArcInSelected(arc[0][0], DesignStor.design.selectedArc);
             if(isArc) {
               arc.classed('active_svg', true);
@@ -1571,7 +1567,7 @@
       d3.selectAll('#tamlateSVG .size-box')
         .each(function() {
           var size = d3.select(this);
-          size.on('click', function() {
+          size.on('touchstart', function() {
             var sizeRect = size.select('.size-rect'),
                 isActive = sizeRect[0][0].attributes[0].nodeValue.indexOf('active')+1;
 //            console.log(isActive);
@@ -1582,7 +1578,7 @@
               sizeRect.classed('active', true);
               var dim = size.select('.size-txt-edit');
               dim.classed('active', true);
-              console.log('SIZE CLICK', dim);
+//              console.log('SIZE CLICK', dim);
               DesignStor.design.oldSize = dim[0][0];
               DesignStor.design.minSizeLimit = +dim[0][0].attributes[8].nodeValue;
               DesignStor.design.maxSizeLimit = +dim[0][0].attributes[9].nodeValue;
@@ -1989,19 +1985,18 @@
       //--------- delete click on imposts
       d3.selectAll('#tamlateSVG [item_type=impost]')
         .each(function() {
-          d3.select(this).on('click', null);
+          d3.select(this).on('touchstart', null);
         });
       //--------- delete click on glasses
       d3.selectAll('#tamlateSVG .glass')
         .each(function() {
-          d3.select(this).on('click', null);
           d3.select(this).on("touchstart", null);
           d3.select(this).on("touchend", null);
         });
       //--------- delete click on dimension
       d3.selectAll('#tamlateSVG .size-box')
         .each(function() {
-          d3.select(this).on('click', null);
+          d3.select(this).on('touchstart', null);
         });
     }
 
