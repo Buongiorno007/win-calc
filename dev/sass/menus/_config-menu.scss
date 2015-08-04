@@ -6,7 +6,7 @@
   }
   .item {
     &.active {
-      background-color: #f0f0f0;
+      background-color: rgba(0,0,0,0.07);
       &:before {
         @extend .icon-setting;
         @include font-icon(rem(84px), 1);

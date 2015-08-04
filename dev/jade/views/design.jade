@@ -81,7 +81,7 @@ section.construction-page
       //.construction-right-menu
     .right-menu-header
       button.construct-tools.step-back(ng-show="designPage.D.design.designSteps.length > 0", hm-tap="designPage.stepBack()")
-      button.construct-tools.save-construction(hm-tap="designPage.designSaved()")
+      button.construct-tools.save-construction(hm-tap="designPage.G.global.activePanel = 0;designPage.designSaved()")
       button.construct-tools.close-construction(hm-tap="designPage.designCancel()")
 
     .door-config-menu(ng-show="designPage.P.product.constructionType === 4")

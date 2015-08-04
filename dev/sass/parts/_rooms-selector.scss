@@ -18,7 +18,7 @@
 
   .rooms-row {
     @include display-flex();
-    @include justify-content(space-between);
+
     &:first-of-type {
       margin-bottom: rem(25px);
     }

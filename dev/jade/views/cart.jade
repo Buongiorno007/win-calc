@@ -84,13 +84,6 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
 
 
 
-          //.discount-box(ng-if="hardwarePanel.G.global.activePanel == 4")
-
-            .hardware-block(ng-repeat="producer in hardwarePanel.G.global.hardwares", ng-class="{'selected': glassPanel.P.product.hardwareTypeIndex == $index}")
-              .group-block-header
-                .hardware-title(data-output="{{ hardwarePanel.G.global.hardwareTypes[$index] }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START }}")
-                .group-info
-                  .info
 
 
 

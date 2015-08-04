@@ -1,5 +1,5 @@
 // Инициализируем плагины
-var gulp        = require('gulp'),            // Собственно Gulp JS
+var gulp        = require('gulp'),       // Собственно Gulp JS
     config      = require('./config.json'),   // Конфиг для проектов
     newer       = require('gulp-newer'),      // Passing through only those source files that are newer than corresponding destination files
     concat      = require('gulp-concat'),     // Склейка файлов
@@ -28,6 +28,7 @@ gulp.task('clean', function() {
 
 
 // Форматирование стилей
+
 gulp.task('csscomb', function() {
   return gulp.src('./dev/sass/**/*.scss')
     .pipe(csscomb())

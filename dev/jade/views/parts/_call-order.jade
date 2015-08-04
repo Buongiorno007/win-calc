@@ -5,7 +5,6 @@
         button.cart-dialog-tool.back(hm-tap="orderDialog.closeOrderDialog()", type="button")
         button.cart-dialog-tool.print(hm-tap="", type="button")
         .cart-dialog-title {{ 'cart.CALL_ORDER' | translate }} {{ orderDialog.O.order.orderId }}
-        button.save(type="submit") {{ 'cart.READY' | translate }}
       .cart-dialog-body
         .cart-dialog-descrip {{ 'cart.CALL_ORDER_DESCRIP' | translate }}
 
@@ -73,3 +72,4 @@
           .subtitle-field {{ 'cart.CLIENT_INFO_SOURCE' | translate }}
           select.user-select-field(name="infoSource", ng-model="orderDialog.C.cart.user.infoSource", ng-options="info for info in orderDialog.C.optionInfo")
             option(value='') {{ 'cart.SELECT_INFO_SOURCE' | translate }}
+        button.save.save-order(type="submit") {{ 'cart.READY' | translate }}

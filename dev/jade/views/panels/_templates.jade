@@ -3,14 +3,14 @@
     .template-header
       button.template-title.unvisible(ng-class="{'active': templatesPanel.switcherTemplate}", hm-tap="templatesPanel.toggleTemplateType()", show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templatesPanel.G.global.templateLabel }}
         .template-type(ng-show="templatesPanel.switcherTemplate")
-          .template-type-btn(ng-if="templatesPanel.P.product.constructionType !== 1", hm-tap="templatesPanel.selectNewTemplateType(1)") {{ 'panels.TEMPLATE_WINDOW' | translate }}
-          .template-type-btn(ng-if="templatesPanel.P.product.constructionType !== 2", hm-tap="templatesPanel.selectNewTemplateType(2)") {{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}
-          .template-type-btn(ng-if="templatesPanel.P.product.constructionType !== 3", hm-tap="templatesPanel.selectNewTemplateType(3)") {{ 'panels.TEMPLATE_BALCONY' | translate }}
-          .template-type-btn(ng-if="templatesPanel.P.product.constructionType !== 4", hm-tap="templatesPanel.selectNewTemplateType(4)") {{ 'panels.TEMPLATE_DOOR' | translate }}
+          .template-type-btn(hm-tap="templatesPanel.selectNewTemplateType(1)") {{ 'panels.TEMPLATE_WINDOW' | translate }}
+          .template-type-btn(hm-tap="templatesPanel.selectNewTemplateType(2)") {{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}
+          .template-type-btn(hm-tap="templatesPanel.selectNewTemplateType(3)") {{ 'panels.TEMPLATE_BALCONY' | translate }}
+          .template-type-btn(hm-tap="templatesPanel.selectNewTemplateType(4)") {{ 'panels.TEMPLATE_DOOR' | translate }}
 
       .template-discr.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templatesPanel.G.global.templates[templatesPanel.P.product.templateIndex].name }}
 
-    .template-section.unvisible(hm-tap="templatesPanel.gotoConstructionPage()", show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
+    .template-section.unvisible(hm-tap="templatesPanel.gotoConstructionPage();", show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
       svg-template(template="templatesPanel.P.product.template", template-width="templatesPanel.constants.svgTemplateIconBigWidth", template-height="templatesPanel.constants.svgTemplateIconBigHeight", type-construction="bigIcon")
 
     .template-footer.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
