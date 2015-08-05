@@ -8,6 +8,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
 
         section.accounts-container.history-view(ng-class="{'dark-fon': historyPage.H.history.isOrderDate || historyPage.H.history.isOrderSort }")
           .history-header
+            button.history-back(hm-tap="historyPage.toCurrentCalculation()" )
             .history-user-info(ng-hide="historyPage.H.history.isOrderSearch")
               include parts/_user-info
             .history-search(ng-show="historyPage.H.history.isOrderSearch")

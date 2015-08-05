@@ -582,7 +582,7 @@
     }
 
 
-    function updateDB(tableName, elem, options) {
+    function updateDBupdateDB(tableName, elem, options) {
       db.update(tableName, elem, options);
     }
 

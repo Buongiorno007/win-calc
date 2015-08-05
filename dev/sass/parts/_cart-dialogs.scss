@@ -74,6 +74,18 @@
     color: #fff;
     background-color: $main_orange;
   }
+  .save-order{
+    position: inherit;
+    display: block;
+    height: 4.375rem;
+    width: 25rem;
+    height: 6rem;
+    padding: 0 1.75rem;
+    color: #fff;
+    background-color: #f98000;
+    margin: 0 auto;
+    font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  }
   .cart-dialog-body {
     padding: rem(60px);
     background-color: #f0f0f0;

@@ -5,6 +5,7 @@ section.page-container(ng-class="{ 'swiped': !mainPage.G.global.isNavMenu }")
   section.right-side.main-page-bg(ng-class="{'kitchen': mainPage.P.product.selectedRoomId == 1, 'livingroom': mainPage.P.product.selectedRoomId == 2, 'balcony': mainPage.P.product.selectedRoomId == 3, 'childroom': mainPage.P.product.selectedRoomId == 4, 'bedroom': mainPage.P.product.selectedRoomId == 5, 'door': mainPage.P.product.selectedRoomId == 6 }")
     section.main-content
       include parts/_user-info
+      include parts/_main-central
       include parts/_room-info
       include parts/_room-selector
 

@@ -61,6 +61,7 @@
     //----- change avatar
     function changeAvatar() {
       navigator.camera.getPicture( function( data ) {
+        //console.log('data:image/jpeg;base64,' + data);
         UserStor.userInfo.avatarUrl = 'data:image/jpeg;base64,' + data;
       }, function( error ) {
         console.log( 'Error upload user avatar' + error );

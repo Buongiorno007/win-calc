@@ -211,7 +211,7 @@ body {
 
   width: rem(image-width($img_avatar));
   height: rem(image-height($img_avatar));
-  background-image: image-url($img_avatar);
+//  background-image: image-url($img_avatar);
   background-size: cover;
 }
 

@@ -1,3 +1,6 @@
+
+// translations/ua.js
+
 (function(){
   'use strict';
 
@@ -70,10 +73,10 @@
         NAVMENU_CURRENT_CALCULATION: 'Поточний розрахунок',
         NAVMENU_CART: 'Кошик розрахунку',
         NAVMENU_ADD_ELEMENTS: 'Дод. елементи',
-        NAVMENU_ALL_CALCULATIONS: 'Всі розрахунки',
+        NAVMENU_ALL_CALCULATIONS: 'Історія замовлень',
         NAVMENU_SETTINGS: 'Налаштування',
         NAVMENU_MORE_INFO: 'Більше інформації',
-        NAVMENU_VOICE_HELPER: 'Голосовий помічник',
+        NAVMENU_VOICE_HELPER: 'Голосове управління',
         NAVMENU_CALCULATIONS: 'Розрахунки',
         NAVMENU_APPENDIX: 'Додаток',
         NAVMENU_NEW_CALC: '+Новий розрахунок',
@@ -351,7 +354,13 @@
         SELECT_INFO_SOURCE: 'Выберите источник информации',
         NO_DISASSEMBL: 'без демонтажа',
         STANDART_ASSEMBL: 'стандартный',
-        VIP_ASSEMBL: 'VIP-монтаж'
+        VIP_ASSEMBL: 'VIP-монтаж',
+        DISCOUNT: 'Знижка',
+        DISCOUNT_SELECT: 'Вибір знижки',
+        DISCOUNT_WITH: 'Зі знижкою',
+        DISCOUNT_WITHOUT: 'Без знижки',
+        DISCOUNT_WINDOW: 'Знижка на виріб',
+        DISCOUNT_ADDELEM: 'Знижка на додаткові елементи'
       },
       settings: {
         AUTHORIZATION: 'Авторизація:',

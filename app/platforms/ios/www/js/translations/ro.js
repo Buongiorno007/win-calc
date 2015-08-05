@@ -1,3 +1,6 @@
+
+// translations/ro.js
+
 (function(){
   'use strict';
 
@@ -70,10 +73,10 @@
         NAVMENU_CURRENT_CALCULATION: 'calcul actual',
         NAVMENU_CART: 'cosul de cumparaturi',
         NAVMENU_ADD_ELEMENTS: 'elemente suplimentare',
-        NAVMENU_ALL_CALCULATIONS: 'Toate calculele',
+        NAVMENU_ALL_CALCULATIONS: 'Istoric comenzi',
         NAVMENU_SETTINGS: 'Setări',
         NAVMENU_MORE_INFO: 'Mai multe informații',
-        NAVMENU_VOICE_HELPER: 'Asistent vocală',
+        NAVMENU_VOICE_HELPER: 'Сontrolul voce-activat',
         NAVMENU_CALCULATIONS: 'calcule',
         NAVMENU_APPENDIX: 'Propunere',
         NAVMENU_NEW_CALC: '+Calcul Nou',
@@ -350,7 +353,13 @@
         SELECT_INFO_SOURCE: "Selectați sursa ",
         NO_DISASSEMBL: "fără demontare",
         STANDART_ASSEMBL: "standard",
-        VIP_ASSEMBL: "montaj VIP"
+        VIP_ASSEMBL: "montaj VIP",
+        DISCOUNT: 'Discount',
+        DISCOUNT_SELECT: 'Alegerea de reduceri',
+        DISCOUNT_WITH: 'Având în vedere reduceri',
+        DISCOUNT_WITHOUT: 'Discount Excluderea',
+        DISCOUNT_WINDOW: 'Discount pe un produs',
+        DISCOUNT_ADDELEM: 'Discount pe elemente suplimentare'
       },
       settings: {
         AUTHORIZATION: 'Autentificare:',

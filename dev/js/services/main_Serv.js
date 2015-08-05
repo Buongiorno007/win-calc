@@ -499,6 +499,7 @@
         GlobalStor.global.isShowCommentBlock = false;
         GlobalStor.global.isCreatedNewProject = true;
         GlobalStor.global.isCreatedNewProduct = true;
+        GlobalStor.global.activePanel =0;
         if(GlobalStor.global.currOpenPage !== 'main') {
           $location.path('/main');
         }

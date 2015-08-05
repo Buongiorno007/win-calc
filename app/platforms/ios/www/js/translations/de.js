@@ -1,3 +1,6 @@
+
+// translations/de.js
+
 (function(){
   'use strict';
 
@@ -70,10 +73,10 @@
         NAVMENU_CURRENT_CALCULATION: 'Die laufende Berechnung',
         NAVMENU_CART: 'Der Korb der Berechnung',
         NAVMENU_ADD_ELEMENTS: 'Die zusätzlichen Elemente',
-        NAVMENU_ALL_CALCULATIONS: 'Alle Berechnungen',
+        NAVMENU_ALL_CALCULATIONS: 'Bestellverlauf',
         NAVMENU_SETTINGS: 'Einstellungen',
         NAVMENU_MORE_INFO: 'Es gibt als mehrere Informationen',
-        NAVMENU_VOICE_HELPER: 'Der Stimmhelfer',
+        NAVMENU_VOICE_HELPER: 'Der Stimmverwaltung',
         NAVMENU_CALCULATIONS: 'Die Berechnungen',
         NAVMENU_APPENDIX: 'Anwendung',
         NAVMENU_NEW_CALC: '+Neue Berechnungs',
@@ -350,7 +353,13 @@
         SELECT_INFO_SOURCE: "Quelle wählen",
         NO_DISASSEMBL: 'Ohne Demontage',
         STANDART_ASSEMBL: 'Der Standardmäßige',
-        VIP_ASSEMBL: 'Der VIP-Montage'
+        VIP_ASSEMBL: 'Der VIP-Montage',
+        DISCOUNT: 'Rabatt',
+        DISCOUNT_SELECT: 'Die Auswahl der Preisnachlässe',
+        DISCOUNT_WITH: 'Im Hinblick auf die Preisnachlässe',
+        DISCOUNT_WITHOUT: 'Ohne Rabatte',
+        DISCOUNT_WINDOW: 'Rabatt auf ein Produkt',
+        DISCOUNT_ADDELEM: 'Discount auf zusätzliche Elemente'
       },
       settings: {
         AUTHORIZATION: 'Autorisierung:',

@@ -1,3 +1,6 @@
+
+// translations/en.js
+
 (function(){
   'use strict';
 
@@ -71,10 +74,10 @@
         NAVMENU_CURRENT_CALCULATION: 'Current calculation',
         NAVMENU_CART: 'Basket of calculation',
         NAVMENU_ADD_ELEMENTS: 'Add. elements',
-        NAVMENU_ALL_CALCULATIONS: 'All calculations',
+        NAVMENU_ALL_CALCULATIONS: 'Order history',
         NAVMENU_SETTINGS: 'Settings',
         NAVMENU_MORE_INFO: 'More information',
-        NAVMENU_VOICE_HELPER: 'Vocal helper',
+        NAVMENU_VOICE_HELPER: 'Voice control',
         NAVMENU_CALCULATIONS: 'Calculations',
         NAVMENU_APPENDIX: 'Appendix',
         NAVMENU_NEW_CALC: '+New calculation',
@@ -351,7 +354,13 @@
         SELECT_INFO_SOURCE: 'Select source',
         NO_DISASSEMBL: 'without dismantle',
         STANDART_ASSEMBL: 'the standard',
-        VIP_ASSEMBL: 'VIP-installation'
+        VIP_ASSEMBL: 'VIP-installation',
+        DISCOUNT: 'Discount',
+        DISCOUNT_SELECT: 'The choice of discounts',
+        DISCOUNT_WITH: 'In view of the discounts',
+        DISCOUNT_WITHOUT: 'Excluding discounts',
+        DISCOUNT_WINDOW: 'Discount on a product',
+        DISCOUNT_ADDELEM: 'Discount on additional elements'
       },
       settings: {
         AUTHORIZATION: 'Authorization:',

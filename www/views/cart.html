@@ -53,8 +53,7 @@
         <section ng-class="{'discount': cartPage.config.isShowDiscount}" hm-swipedown="cartPage.swipeDiscountBlock(0)" class="cart-container full-view">
           <div class="cart-header">
             <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
-              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button>
-              <div class="user-foto"></div>
+              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-src="{{userBox.U.userInfo.avatarUrl}}" class="user-foto">
               <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
               <div class="user-info-block">
                 <div data-output="{{ userBox.U.userInfo.cityName }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
@@ -160,8 +159,7 @@
         <section ng-class="{'active': cartPage.config.isCartLightView}" class="cart-container light-view">
           <div class="cart-header">
             <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
-              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button>
-              <div class="user-foto"></div>
+              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-src="{{userBox.U.userInfo.avatarUrl}}" class="user-foto">
               <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
               <div class="user-info-block">
                 <div data-output="{{ userBox.U.userInfo.cityName }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
@@ -828,7 +826,6 @@
             <button hm-tap="orderDialog.closeOrderDialog()" type="button" class="cart-dialog-tool back"></button>
             <button hm-tap="" type="button" class="cart-dialog-tool print"></button>
             <div class="cart-dialog-title">{{ 'cart.CALL_ORDER' | translate }} {{ orderDialog.O.order.orderId }}</div>
-            <button type="submit" class="save">{{ 'cart.READY' | translate }}</button>
           </div>
           <div class="cart-dialog-body">
             <div class="cart-dialog-descrip">{{ 'cart.CALL_ORDER_DESCRIP' | translate }}</div>
@@ -895,6 +892,7 @@
                 <option value="">{{ 'cart.SELECT_INFO_SOURCE' | translate }}</option>
               </select>
             </div>
+            <button type="submit" class="save save-order">{{ 'cart.READY' | translate }}</button>
           </div>
         </form>
       </div>

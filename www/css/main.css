@@ -1310,7 +1310,6 @@ body {
 .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto {
   width: 9.5rem;
   height: 9.5rem;
-  background-image: url('../img/userPhoto.png?1428589555');
   background-size: cover;
 }
 
@@ -1495,7 +1494,7 @@ body {
 .pickmeup .pmu-instance .pmu-today {
   border-radius: 0.6em;
   background: #17384d;
-  color: white !important;
+  color: #fff !important;
 }
 /* line 49, ../../dev/vendor/calendar/pickmeup.scss */
 .pickmeup .pmu-instance .pmu-button:hover {
@@ -1508,14 +1507,14 @@ body {
 /* line 57, ../../dev/vendor/calendar/pickmeup.scss */
 .pickmeup .pmu-instance .pmu-disabled,
 .pickmeup .pmu-instance .pmu-disabled:hover {
-  color: #333333;
+  color: #333;
   cursor: default;
 }
 /* line 63, ../../dev/vendor/calendar/pickmeup.scss */
 .pickmeup .pmu-instance .pmu-selected {
   border-radius: 0.6em;
   background: #f98000;
-  color: white;
+  color: #fff;
 }
 /* line 69, ../../dev/vendor/calendar/pickmeup.scss */
 .pickmeup .pmu-instance .pmu-not-in-month.pmu-selected {
@@ -1565,7 +1564,7 @@ body {
 }
 /* line 118, ../../dev/vendor/calendar/pickmeup.scss */
 .pickmeup .pmu-instance .pmu-day-of-week {
-  color: #999999;
+  color: #999;
   cursor: default;
 }
 /* line 125, ../../dev/vendor/calendar/pickmeup.scss */
@@ -2025,8 +2024,6 @@ body {
 .rooms-selector-dialog .rooms-row {
   display: -webkit-flex;
   display: flex;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
 }
 /* line 22, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .rooms-row:first-of-type {
@@ -3014,6 +3011,19 @@ body {
   background-color: #f98000;
 }
 /* line 77, ../../dev/sass/parts/_cart-dialogs.scss */
+.cart-dialogs-container .save-order {
+  position: inherit;
+  display: block;
+  height: 4.375rem;
+  width: 25rem;
+  height: 6rem;
+  padding: 0 1.75rem;
+  color: #fff;
+  background-color: #f98000;
+  margin: 0 auto;
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+}
+/* line 89, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-body {
   padding: 3.75rem;
   background-color: #f0f0f0;
@@ -3274,6 +3284,15 @@ body {
 /* line 66, ../../dev/sass/parts/_voice.scss */
 .voice-container .quiet-voice {
   box-shadow: 0 0 0.5rem 0.4375rem rgba(248, 65, 65, 0.1);
+}
+
+/* line 1, ../../dev/sass/parts/_main-cental.scss */
+.main-central-part {
+  position: absolute;
+  top: 12rem;
+  left: 0;
+  bottom: 25rem;
+  width: 100%;
 }
 
 /* line 3, ../../dev/sass/pages/login.scss */
@@ -3792,7 +3811,26 @@ tr.factory_item {
   height: 9.375rem;
   margin-bottom: 3.125rem;
 }
-/* line 38, ../../dev/sass/pages/history.scss */
+/* line 37, ../../dev/sass/pages/history.scss */
+.accounts-container .history-header .history-back {
+  font: normal 3.125rem/1 icons, sans-serif;
+  left: -4.5rem;
+  position: absolute;
+  top: 25%;
+  width: 3.75rem;
+  height: 3.75rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  outline: none;
+}
+/* line 49, ../../dev/sass/pages/history.scss */
+.accounts-container .history-header .history-back:before {
+  content: "";
+  color: #f98000;
+}
+/* line 55, ../../dev/sass/pages/history.scss */
 .accounts-container .user-info-container {
   top: 0;
 }
@@ -5081,7 +5119,7 @@ tr.factory_item {
   padding-top: 2.5rem;
 }
 
-/* line 693, ../../dev/sass/pages/cart.scss */
+/* line 663, ../../dev/sass/pages/cart.scss */
 .addelementunit-delete {
   position: absolute;
   top: -1.25rem;
@@ -5090,12 +5128,12 @@ tr.factory_item {
   z-index: 9;
 }
 
-/* line 701, ../../dev/sass/pages/cart.scss */
+/* line 671, ../../dev/sass/pages/cart.scss */
 .addelementunit-content {
   padding: 2.5rem 1.25rem;
 }
 
-/* line 708, ../../dev/sass/pages/cart.scss */
+/* line 678, ../../dev/sass/pages/cart.scss */
 .addelementunit-footer {
   font: normal 3rem/6.25rem roboto-medium, sans-serif;
   border-bottom-left-radius: 1.25rem;
@@ -5104,7 +5142,7 @@ tr.factory_item {
   background-color: #4bd963;
 }
 
-/* line 718, ../../dev/sass/pages/cart.scss */
+/* line 688, ../../dev/sass/pages/cart.scss */
 .addelementunit-train {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -5114,18 +5152,18 @@ tr.factory_item {
   overflow-x: auto;
   overflow-y: auto;
 }
-/* line 723, ../../dev/sass/pages/cart.scss */
+/* line 693, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit-train-inner {
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 730, ../../dev/sass/pages/cart.scss */
+/* line 700, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit.unit-last .link-right {
   display: none;
 }
-/* line 736, ../../dev/sass/pages/cart.scss */
+/* line 706, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit-link {
   position: absolute;
   bottom: 3.125rem;
@@ -5133,11 +5171,11 @@ tr.factory_item {
   height: 5rem;
   border-bottom: 1px solid #4bd963;
 }
-/* line 742, ../../dev/sass/pages/cart.scss */
+/* line 712, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit-link.link-right {
   right: -3.4375rem;
 }
-/* line 750, ../../dev/sass/pages/cart.scss */
+/* line 720, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .link-explode-menu {
   font: normal 2.25rem/4.0625rem roboto-light, sans-serif;
   position: absolute;
@@ -5150,7 +5188,7 @@ tr.factory_item {
   cursor: pointer;
   z-index: 999;
 }
-/* line 762, ../../dev/sass/pages/cart.scss */
+/* line 732, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .link-explode-menu:before {
   position: absolute;
   z-index: 99;
@@ -5163,13 +5201,13 @@ tr.factory_item {
   border-color: #242424 transparent;
   content: '';
 }
-/* line 776, ../../dev/sass/pages/cart.scss */
+/* line 746, ../../dev/sass/pages/cart.scss */
 .addelementunit-train ul.link-explode-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 782, ../../dev/sass/pages/cart.scss */
+/* line 752, ../../dev/sass/pages/cart.scss */
 .addelementunit-train li.link-explode-item {
   display: inline-block;
   line-height: 5rem;
@@ -5178,79 +5216,79 @@ tr.factory_item {
   text-align: center;
   color: #ddd;
 }
-/* line 790, ../../dev/sass/pages/cart.scss */
+/* line 760, ../../dev/sass/pages/cart.scss */
 .addelementunit-train li.link-explode-item:last-child {
   border-right: none;
   padding-left: 0.5rem;
   padding-right: 0;
 }
 
-/* line 803, ../../dev/sass/pages/cart.scss */
+/* line 773, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block {
   padding: 3.125rem 0;
   border-bottom: 1px solid #bebebe;
 }
-/* line 807, ../../dev/sass/pages/cart.scss */
+/* line 777, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block:last-child {
   padding: 3.125rem 0 0 0;
   border: none;
 }
-/* line 813, ../../dev/sass/pages/cart.scss */
+/* line 783, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block-title,
 .addelementunit-only .aux-total-label {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
 }
-/* line 819, ../../dev/sass/pages/cart.scss */
+/* line 789, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block-title:first-letter {
   text-transform: uppercase;
 }
-/* line 822, ../../dev/sass/pages/cart.scss */
+/* line 792, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-row {
   margin-bottom: 1.25rem;
 }
-/* line 828, ../../dev/sass/pages/cart.scss */
+/* line 798, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-total-label {
   min-width: 69%;
 }
-/* line 832, ../../dev/sass/pages/cart.scss */
+/* line 802, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement {
   width: 100%;
 }
-/* line 835, ../../dev/sass/pages/cart.scss */
+/* line 805, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-name {
   width: 31.25rem;
 }
-/* line 837, ../../dev/sass/pages/cart.scss */
+/* line 807, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-name .aux-name {
   max-width: 100%;
 }
-/* line 841, ../../dev/sass/pages/cart.scss */
+/* line 811, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-total {
   width: 75%;
 }
-/* line 844, ../../dev/sass/pages/cart.scss */
+/* line 814, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-qty {
   width: 6.25rem;
 }
-/* line 847, ../../dev/sass/pages/cart.scss */
+/* line 817, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-width,
 .addelementunit-only .aux-list-addellement .aux-tablecell-height {
   width: 9.375rem;
 }
-/* line 851, ../../dev/sass/pages/cart.scss */
+/* line 821, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-color {
   width: 6.25rem;
 }
-/* line 854, ../../dev/sass/pages/cart.scss */
+/* line 824, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-price {
   width: 12.5rem;
 }
-/* line 856, ../../dev/sass/pages/cart.scss */
+/* line 826, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-price .aux-price, .addelementunit-only .aux-list-addellement .aux-tablecell-price .aux-total-price {
   text-align: center;
 }
-/* line 860, ../../dev/sass/pages/cart.scss */
+/* line 830, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-delete {
   width: 6.25rem;
 }
@@ -6011,7 +6049,7 @@ li.constr-shape-icon:last-child {
 
 /* line 8, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .item.active {
-  background-color: #f0f0f0;
+  background-color: rgba(0, 0, 0, 0.07);
 }
 /* line 10, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .item.active:before {
