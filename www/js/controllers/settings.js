@@ -10,7 +10,7 @@
     .module('SettingsModule')
     .controller('SettingsCtrl', settingsPageCtrl);
 
-  function settingsPageCtrl($location, globalConstants, globalDB, localDB, GlobalStor, OrderStor, ProductStor, AuxStor, UserStor ) {
+  function settingsPageCtrl($location, globalConstants, globalDB, localDB, SettingServ, GlobalStor, OrderStor, ProductStor, AuxStor, UserStor ) {
 
     var thisCtrl = this;
     thisCtrl.U = UserStor;
@@ -42,7 +42,7 @@
 
 
     //------ clicking
-    thisCtrl.changeAvatar = changeAvatar;
+    thisCtrl.changeAvatar = SettingServ.changeAvatar;
     thisCtrl.changeSettingData = changeSettingData;
     thisCtrl.appendInputPhone = appendInputPhone;
     thisCtrl.cancelAddPhone = cancelAddPhone;
@@ -60,23 +60,6 @@
 
     //============ methods ================//
 
-
-    //----- change avatar
-    function changeAvatar() {
-      navigator.camera.getPicture( function( data ) {
-        UserStor.userInfo.avatarUrl = 'data:image/jpeg;base64,' + data;
-      }, function( error ) {
-        console.log( 'Error upload user avatar' + error );
-        console.log(UserStor.userInfo);
-      }, {
-        destinationType: Camera.DestinationType.DATA_URL,
-        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-        allowEdit: false,
-        targetWidth: 76,
-        targetHeight: 76,
-        mediaType: Camera.MediaType.PICTURE
-      } );
-    }
 
     function changeSettingData(id, obj) {
       thisCtrl.config.selectedSetting = id;

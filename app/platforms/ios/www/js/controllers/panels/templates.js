@@ -1,6 +1,3 @@
-
-// controllers/panels/templates.js
-
 (function(){
 'use strict';
   /**

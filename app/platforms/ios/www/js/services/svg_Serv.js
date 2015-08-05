@@ -199,7 +199,7 @@
       thisObj.dimension = initDimensions(thisObj.details);
 
       console.log('END++++', thisObj);
-      console.log('svg finish', new Date(), new Date().getMilliseconds());
+//      console.log('svg finish', new Date(), new Date().getMilliseconds());
       console.log('------------------------------------------------------');
       defer.resolve(thisObj);
       return defer.promise;
@@ -1175,13 +1175,12 @@
         } else if(part.type === 'frame') {
           if(part.sill) {
             priceElements.frameSillSize = part.size;
-//TODO много подоконников            priceElements.frameSillSize.push(part.size);
+          //TODO много подоконников            priceElements.frameSillSize.push(part.size);
           } else {
             priceElements.framesSize.push(part.size);
           }
         }
-//TODO----- if shtulpsSize: []
-
+        //TODO----- if shtulpsSize: []
         parts.push(part);
       }
 
@@ -1966,7 +1965,7 @@
           globalLimitsX,
           globalLimitsY,
           allPoints;
-      console.log('----------------- START DIMENSION-----------------');
+//      console.log('----------------- START DIMENSION-----------------');
       //=========== All points ==============//
       allPoints = collectAllPointsOut(blocks);
       //------ except Q points
@@ -1993,12 +1992,12 @@
         var pointsOutQty = blocks[b].pointsOut.length,
             blockDimX = [];
 
-        console.log('+++++++++++BLOCKS+++++++++', blocks[b].id);
+//        console.log('+++++++++++BLOCKS+++++++++', blocks[b].id);
 
         //========== Block level 1 ============//
 
         if (blocks[b].level === 1) {
-          console.log('========= block 1===========');
+//          console.log('========= block 1===========');
           var globalDimX = [],
               globalDimY,
               overallDim = {};
@@ -2018,14 +2017,14 @@
           globalDimX.sort(sortByX);
           globalDimY.sort(sortByY);
 
-          console.log('``````````globalDimX ``````', globalDimX);
-          console.log('``````````globalDimY ``````', globalDimY);
-          console.log('``````````globalLimitsX``````', globalLimitsX);
-          console.log('``````````globalLimitsY``````', globalLimitsY);
+//          console.log('``````````globalDimX ``````', globalDimX);
+//          console.log('``````````globalDimY ``````', globalDimY);
+//          console.log('``````````globalLimitsX``````', globalLimitsX);
+//          console.log('``````````globalLimitsY``````', globalLimitsY);
 
-          console.log('``````````Create dim by X``````````');
+//          console.log('``````````Create dim by X``````````');
           collectDimension(1, 'x', globalDimX, dimension.dimX, globalLimitsX, blocks[b].id, maxSizeLimit);
-          console.log('``````````Create dim by Y``````````');
+//          console.log('``````````Create dim by Y``````````');
           collectDimension(1, 'y', globalDimY, dimension.dimY, globalLimitsY, blocks[b].id, maxSizeLimit);
 
 
@@ -2073,8 +2072,8 @@
           blockDimX.push({x: 0, y: 0});
           blockDimY = angular.copy(blockDimX);
 
-          console.log('===============is Impost or Corner ==============');
-          console.log('===============BLOCK LIMITS==============');
+//          console.log('===============is Impost or Corner ==============');
+//          console.log('===============BLOCK LIMITS==============');
           //======= set Block Limits =======//
           //------- add pointsOut of current block
           for (var i = 0; i < pointsOutQty; i++) {
@@ -2115,10 +2114,10 @@
               dimension.dimQ.push(blocks[b].impost.impostAxis[2]);
             }
           }
-          console.log('`````````` block limits``````````', blockLimits);
+//          console.log('`````````` block limits``````````', blockLimits);
           //========== build Dimension
           if (blockDimX.length > 1) {
-            console.log('``````````Create block dim by X``````````');
+//            console.log('``````````Create block dim by X``````````');
             //------ delete dublicates
             cleanDublicat(1, blockDimX);
             //---- sorting
@@ -2127,11 +2126,11 @@
             if(blockDimX[blockDimX.length-1].id.indexOf('c')+1) {
               blockDimX.splice(blockDimX.length-1, 1);
             }
-            console.log('`````````` dim by X``````````', blockDimX);
+//            console.log('`````````` dim by X``````````', blockDimX);
             collectDimension(0, 'x', blockDimX, dimension.dimX, blockLimits, blocks[b].id, maxSizeLimit, blocks[b].linesOut);
           }
           if (blockDimY.length > 1) {
-            console.log('``````````Create block dim by Y``````````');
+//            console.log('``````````Create block dim by Y``````````');
             //------ delete dublicates
             cleanDublicat(2, blockDimY);
             //---- sorting
@@ -2140,15 +2139,15 @@
             if(blockDimY[blockDimY.length-1].id.indexOf('c')+1) {
               blockDimY.splice(blockDimY.length-1, 1);
             }
-            console.log('`````````` dim by Y``````````', blockDimY);
+//            console.log('`````````` dim by Y``````````', blockDimY);
             collectDimension(0, 'y', blockDimY, dimension.dimY, blockLimits, blocks[b].id, maxSizeLimit, blocks[b].linesOut);
           }
 
         }
 
       }
-      console.log('DIM dimension========', dimension);
-      console.log('----------------- END DIMENSION-----------------');
+//      console.log('DIM dimension========', dimension);
+//      console.log('----------------- END DIMENSION-----------------');
       return dimension;
     }
 
@@ -2180,7 +2179,7 @@
 
 
     function createDimObj(level, axis, index, indexNext, blockDim, limits, currBlockId, maxSizeLimit, linesOut) {
-      console.log('FINISH current point---------', blockDim[index], blockDim[indexNext]);
+//      console.log('FINISH current point---------', blockDim[index], blockDim[indexNext]);
       var dim = {
             blockId: currBlockId,
             level: level,
@@ -2193,7 +2192,7 @@
 
       dim.text = rounding10( Math.abs(dim.to - dim.from) );
 
-      console.log('FINISH limits---------', limits);
+//      console.log('FINISH limits---------', limits);
 
       //=========== set Limints
       //-------- for global
@@ -2208,7 +2207,7 @@
       dim.minLimit = currLimit.minL;
       dim.maxLimit = currLimit.maxL;
 
-      console.log('DIM FINISH ------------', dim);
+//      console.log('DIM FINISH ------------', dim);
       return dim;
     }
 

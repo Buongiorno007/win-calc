@@ -1,6 +1,3 @@
-
-// translations/ru.js
-
 (function(){
   'use strict';
 

@@ -1,6 +1,3 @@
-
-// translations/ua.js
-
 (function(){
   'use strict';
 

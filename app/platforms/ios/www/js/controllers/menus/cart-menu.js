@@ -12,6 +12,7 @@
     var thisCtrl = this;
     thisCtrl.U = UserStor;
     thisCtrl.O = OrderStor;
+    thisCtrl.C = CartStor;
 
     thisCtrl.config = {
       activeMenuItem: false,

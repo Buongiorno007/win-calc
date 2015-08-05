@@ -7,11 +7,12 @@
     .module('SettingsModule')
     .factory('SettingServ', settingsFactory);
 
-  function settingsFactory($q, $location, globalDB, GlobalStor, UserStor) {
+  function settingsFactory($rootScope, $q, $location, globalDB, GlobalStor, UserStor) {
 
     var thisFactory = this;
 
     thisFactory.publicObj = {
+      changeAvatar: changeAvatar,
       downloadLocations: downloadLocations,
       closeLocationPage: closeLocationPage
     };
@@ -22,6 +23,26 @@
 
 
     //============ methods ================//
+
+    //----- change avatar
+    function changeAvatar() {
+      navigator.camera.getPicture( function( data ) {
+        UserStor.userInfo.avatarUrl = 'data:image/jpeg;base64,' + data;
+        $rootScope.$apply();
+      }, function( error ) {
+        console.log( 'Error upload user avatar' + error );
+        console.log(UserStor.userInfo);
+      }, {
+        destinationType: Camera.DestinationType.DATA_URL,
+        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+        allowEdit: false,
+        targetWidth: 76,
+        targetHeight: 76,
+        mediaType: Camera.MediaType.PICTURE
+      } );
+    }
+
+
 
     //------- collecting cities, regions and countries in one object for registration form
     function downloadLocations() {

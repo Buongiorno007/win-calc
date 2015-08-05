@@ -561,28 +561,9 @@
               <button ng-class="{'active': elementsListPanel.A.aux.isFocusedAddElement == typeAddElement.groupId}" class="group-indicator"></button>
               <div class="search-elements-block"></div>
             </li>
-            <!--li.aux-list-group.aux_color_big(data-output="") {{ 'add_elements.VISORS' | translate }}
-            button.group-indicator
-            .search-elements-block
-              button.search-element KO-350
-              button.search-element KO-350
-              button.search-element KO-350
-              button.search-element KO-350
-              button.search-element KO-350-258-000
-              button.search-element KO-350
-              button.search-element KO-350
-              button.search-element KO-350
-              button.search-element KO-350
-              button.search-element KO-350
-              button.search-element KO-350
-              button.search-element KO-350
-            
-            
-            -->
           </ul>
         </div>
         <div class="aux-list-content">
-          <!-- List Grids-->
           <div ng-if="elementsListPanel.P.product.chosenAddElements[0].length &gt; 0" class="aux-list-block aux_color_connect">
             <div data-output="{{ 'add_elements.GRIDS' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-list-block-title"></div>
             <table class="aux-list-addellement">
@@ -603,7 +584,7 @@
                 <td class="aux-tablecell-height"></td>
                 <td class="aux-tablecell-color"></td>
                 <td class="aux-tablecell-price">
-                  <div class="aux-price">+ {{ addElement.elementPrice }} {{ elementsListPanel.U.userInfo.currency }}</div>
+                  <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
                 <td class="aux-tablecell-delete">
                   <div hm-tap="elementsListPanel.deleteAddElement(1, $index)" class="aux-delete"></div>
@@ -611,7 +592,6 @@
               </tr>
             </table>
           </div>
-          <!-- List Visors-->
           <div ng-if="elementsListPanel.P.product.chosenAddElements[1].length &gt; 0" class="aux-list-block aux_color_big">
             <div data-output="{{ 'add_elements.VISORS' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-list-block-title"></div>
             <table class="aux-list-addellement">
@@ -637,7 +617,7 @@
                 <td class="aux-tablecell-height"></td>
                 <td class="aux-tablecell-color"></td>
                 <td class="aux-tablecell-price">
-                  <div class="aux-price">+ {{ addElement.elementPrice }} {{ elementsListPanel.U.userInfo.currency }}</div>
+                  <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
                 <td class="aux-tablecell-delete">
                   <div hm-tap="elementsListPanel.deleteAddElement(2, $index)" class="aux-delete"></div>
@@ -645,7 +625,6 @@
               </tr>
             </table>
           </div>
-          <!-- List Spillways-->
           <div ng-if="elementsListPanel.P.product.chosenAddElements[2].length &gt; 0" class="aux-list-block aux_color_middle">
             <div data-output="{{ 'add_elements.SPILLWAYS' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-list-block-title"></div>
             <table class="aux-list-addellement">
@@ -671,7 +650,7 @@
                 <td class="aux-tablecell-height"></td>
                 <td class="aux-tablecell-color"></td>
                 <td class="aux-tablecell-price">
-                  <div class="aux-price">+ {{ addElement.elementPrice }} {{ elementsListPanel.U.userInfo.currency }}</div>
+                  <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
                 <td class="aux-tablecell-delete">
                   <div hm-tap="elementsListPanel.deleteAddElement(3, $index)" class="aux-delete"></div>
@@ -679,7 +658,6 @@
               </tr>
             </table>
           </div>
-          <!-- List OutsideSlope-->
           <div ng-if="elementsListPanel.P.product.chosenAddElements[3].length &gt; 0" class="aux-list-block aux_color_slope">
             <div data-output="{{ 'add_elements.OUTSIDE' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-list-block-title"></div>
             <table class="aux-list-addellement">
@@ -705,7 +683,7 @@
                 <td class="aux-tablecell-height"></td>
                 <td class="aux-tablecell-color"></td>
                 <td class="aux-tablecell-price">
-                  <div class="aux-price">+ {{ addElement.elementPrice }} {{ elementsListPanel.U.userInfo.currency }}</div>
+                  <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
                 <td class="aux-tablecell-delete">
                   <div hm-tap="elementsListPanel.deleteAddElement(4, $index)" class="aux-delete"></div>
@@ -713,7 +691,6 @@
               </tr>
             </table>
           </div>
-          <!-- List Louvers-->
           <div ng-if="elementsListPanel.P.product.chosenAddElements[4].length &gt; 0" class="aux-list-block aux_color_middle">
             <div data-output="{{ 'add_elements.LOUVERS' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-list-block-title"></div>
             <table class="aux-list-addellement">
@@ -744,7 +721,7 @@
                 </td>
                 <td class="aux-tablecell-color"></td>
                 <td class="aux-tablecell-price">
-                  <div class="aux-price">+ {{ addElement.elementPrice }} {{ elementsListPanel.U.userInfo.currency }}</div>
+                  <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
                 <td class="aux-tablecell-delete">
                   <div hm-tap="elementsListPanel.deleteAddElement(5, $index)" class="aux-delete"></div>
@@ -752,7 +729,6 @@
               </tr>
             </table>
           </div>
-          <!-- List InsideSlope-->
           <div ng-if="elementsListPanel.P.product.chosenAddElements[5].length &gt; 0" class="aux-list-block aux_color_slope">
             <div data-output="{{ 'add_elements.INSIDE' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-list-block-title"></div>
             <table class="aux-list-addellement">
@@ -778,7 +754,7 @@
                 <td class="aux-tablecell-height"></td>
                 <td class="aux-tablecell-color"></td>
                 <td class="aux-tablecell-price">
-                  <div class="aux-price">+ {{ addElement.elementPrice }} {{ elementsListPanel.U.userInfo.currency }}</div>
+                  <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
                 <td class="aux-tablecell-delete">
                   <div hm-tap="elementsListPanel.deleteAddElement(6, $index)" class="aux-delete"></div>
@@ -786,7 +762,6 @@
               </tr>
             </table>
           </div>
-          <!-- List Connectors-->
           <div ng-if="elementsListPanel.P.product.chosenAddElements[6].length &gt; 0" class="aux-list-block aux_color_connect">
             <div data-output="{{ 'add_elements.CONNECTORS' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-list-block-title"></div>
             <table class="aux-list-addellement">
@@ -812,7 +787,7 @@
                 <td class="aux-tablecell-height"></td>
                 <td class="aux-tablecell-color"></td>
                 <td class="aux-tablecell-price">
-                  <div class="aux-price">+ {{ addElement.elementPrice }} {{ elementsListPanel.U.userInfo.currency }}</div>
+                  <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
                 <td class="aux-tablecell-delete">
                   <div hm-tap="elementsListPanel.deleteAddElement(7, $index)" class="aux-delete"></div>
@@ -820,7 +795,6 @@
               </tr>
             </table>
           </div>
-          <!-- List Fans-->
           <div ng-if="elementsListPanel.P.product.chosenAddElements[7].length &gt; 0" class="aux-list-block aux_color_small">
             <div data-output="{{ 'add_elements.FAN' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-list-block-title"></div>
             <table class="aux-list-addellement">
@@ -841,7 +815,7 @@
                 <td class="aux-tablecell-height"></td>
                 <td class="aux-tablecell-color"></td>
                 <td class="aux-tablecell-price">
-                  <div class="aux-price">+ {{ addElement.elementPrice }} {{ elementsListPanel.U.userInfo.currency }}</div>
+                  <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
                 <td class="aux-tablecell-delete">
                   <div hm-tap="elementsListPanel.deleteAddElement(8, $index)" class="aux-delete"></div>
@@ -849,7 +823,6 @@
               </tr>
             </table>
           </div>
-          <!-- List WindowSill-->
           <div ng-if="elementsListPanel.P.product.chosenAddElements[8].length &gt; 0" class="aux-list-block aux_color_big">
             <div data-output="{{ 'add_elements.WINDOWSILLS' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-list-block-title"></div>
             <table class="aux-list-addellement">
@@ -880,7 +853,7 @@
                   </div>
                 </td>
                 <td class="aux-tablecell-price">
-                  <div class="aux-price">+ {{ addElement.elementPrice }} {{ elementsListPanel.U.userInfo.currency }}</div>
+                  <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
                 <td class="aux-tablecell-delete">
                   <div hm-tap="elementsListPanel.deleteAddElement(9, $index)" class="aux-delete"></div>
@@ -888,7 +861,6 @@
               </tr>
             </table>
           </div>
-          <!-- List Handles-->
           <div ng-if="elementsListPanel.P.product.chosenAddElements[9].length &gt; 0" class="aux-list-block aux_color_middle">
             <div data-output="{{ 'add_elements.HANDLELS' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-list-block-title"></div>
             <table class="aux-list-addellement">
@@ -909,7 +881,7 @@
                 <td class="aux-tablecell-height"></td>
                 <td class="aux-tablecell-color"></td>
                 <td class="aux-tablecell-price">
-                  <div class="aux-price">+ {{ addElement.elementPrice }} {{ elementsListPanel.U.userInfo.currency }}</div>
+                  <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
                 <td class="aux-tablecell-delete">
                   <div hm-tap="elementsListPanel.deleteAddElement(10, $index)" class="aux-delete"></div>
@@ -917,7 +889,6 @@
               </tr>
             </table>
           </div>
-          <!-- List Others-->
           <div ng-if="elementsListPanel.P.product.chosenAddElements[10].length &gt; 0" class="aux-list-block aux_color_middle">
             <div data-output="{{ 'add_elements.OTHERS' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-list-block-title"></div>
             <table class="aux-list-addellement">
@@ -938,7 +909,7 @@
                 <td class="aux-tablecell-height"></td>
                 <td class="aux-tablecell-color"></td>
                 <td class="aux-tablecell-price">
-                  <div class="aux-price">+ {{ addElement.elementPrice }} {{ elementsListPanel.U.userInfo.currency }}</div>
+                  <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
                 <td class="aux-tablecell-delete">
                   <div hm-tap="elementsListPanel.deleteAddElement(11, $index)" class="aux-delete"></div>
@@ -953,7 +924,7 @@
                   <div data-output="{{ 'add_elements.TOTAL_PRICE_TXT' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-total-label"></div>
                 </td>
                 <td class="aux-tablecell-price">
-                  <div class="aux-total-price">{{ elementsListPanel.P.product.addElementsPriceSELECT }} {{ elementsListPanel.U.userInfo.currency }}</div>
+                  <div class="aux-total-price">{{ elementsListPanel.P.product.addElementsPriceSELECTDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
                 <td class="aux-tablecell-delete">
                   <div hm-tap="elementsListPanel.deleteAllAddElements()" class="aux-delete"></div>
@@ -1000,13 +971,13 @@
             <div ng-hide="configMenu.P.product.addElementsPriceSELECT &gt; 0" data-output="{{ 'mainpage.CONFIGMENU_NO_ADDELEMENTS' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="name"></div>
             <div class="additional-items-list">
               <ul ng-repeat="addElementGroup in configMenu.P.product.chosenAddElements" class="additional-items-group">
-                <li ng-repeat="addElement in addElementGroup" ng-init="dubleTyping()" class="additional-item"><span data-output="" class="value">{{ addElement.elementName }}</span></li>
+                <li ng-repeat="addElement in addElementGroup" class="additional-item"><span data-output="" class="value">{{ addElement.elementName }}</span></li>
               </ul>
             </div>
           </li>
         </ul>
         <footer ng-if="configMenu.G.global.isConfigMenu" show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}" class="menu-footer unvisible">
-          <price price-value="configMenu.P.product.productPriceTOTAL" price-currency="configMenu.U.userInfo.currency"></price>
+          <price price-value="configMenu.P.product.productPriceTOTALDis" price-currency="configMenu.U.userInfo.currency"></price>
           <button ng-if="!configMenu.G.global.productEditNumber" hm-tap="configMenu.inputProductInOrder()" class="cart-btn">{{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
             <div ng-if="configMenu.O.order.productsQty" show-delay="{{ configMenu.config.DELAY_START }}" class="qty unvisible">{{ configMenu.O.order.productsQty }}</div>
           </button>
@@ -1195,7 +1166,7 @@
                   <button class="aux-color"><img ng-src="{{ addElement.elementColor }}"></button>
                   <div class="aux-label">{{ 'add_elements.COLOR_LABEL' | translate }}</div>
                 </div>
-                <div class="aux-price">+{{ elementsMenu.A.aux.currAddElementPrice }} {{ elementsMenu.U.userInfo.currency }}</div>
+                <div class="aux-price">+{{ addElement.elementPriceDis }} {{ elementsMenu.U.userInfo.currency }}</div>
                 <button hm-tap="elementsMenu.chooseAddElementList($parent.$index, $index)" class="aux-choose-but">{{ 'add_elements.ADD' | translate }}</button>
               </div>
             </div>

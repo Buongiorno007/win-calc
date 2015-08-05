@@ -14,12 +14,19 @@
     thisFactory.publicObj = {
       cartSource: {
         allAddElements: [],
-
-        isMasterDialog: false,
-        isOrderDialog: false,
-        isCreditDialog: false,
-        submitted: false,
-        isCityBox: false,
+        productsPriceTOTALDis: 0,
+        orderPriceTOTALDis: 0,
+        orderPriceTOTALPrimaryDis: 0,
+        paymentFirstDis: 0,
+        paymentMonthlyDis: 0,
+        paymentFirstPrimaryDis: 0,
+        paymentMonthlyPrimaryDis: 0,
+        discountPriceDiff: 0,
+        isMasterDialog: 0,
+        isOrderDialog: 0,
+        isCreditDialog: 0,
+        submitted: 0,
+        isCityBox: 0,
         user: {
           location: OrderStor.order.currCityName +', '+ OrderStor.order.currRegionName,
           sex: ''

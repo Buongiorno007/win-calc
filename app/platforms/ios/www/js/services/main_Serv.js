@@ -47,6 +47,7 @@
 
     thisFactory.publicObj = {
       createOrderData: createOrderData,
+      setCurrDiscounts: setCurrDiscounts,
       downloadAllProfiles: downloadAllProfiles,
       prepareTemplates: prepareTemplates,
       //downloadAllHardwares: downloadAllHardwares,
@@ -89,6 +90,12 @@
       OrderStor.order.newDeliveryDate = angular.copy(OrderStor.order.deliveryDate);
     }
 
+
+
+    function setCurrDiscounts() {
+      OrderStor.order.currDiscount = angular.copy(UserStor.userInfo.discount);
+      OrderStor.order.currDiscountAddElem = angular.copy(UserStor.userInfo.discountAddElem);
+    }
 
 
     //----------- get all profiles
@@ -341,15 +348,15 @@
               shtulpId:  ProductStor.product.profileShtulpId,
               beadId: beadId,
 
-              framesSize: template.priceElements.framesSize,
-              sashsSize: template.priceElements.sashsSize,
-              beadsSize: template.priceElements.beadsSize,
-              impostsSize: template.priceElements.impostsSize,
-              shtulpsSize: template.priceElements.shtulpsSize,
-              sashesBlock: template.priceElements.sashesBlock,
-              glassSizes: template.priceElements.glassSizes,
-              glassSquares: template.priceElements.glassSquares,
-              frameSillSize: template.priceElements.frameSillSize
+              framesSize: angular.copy(template.priceElements.framesSize),
+              sashsSize: angular.copy(template.priceElements.sashsSize),
+              beadsSize: angular.copy(template.priceElements.beadsSize),
+              impostsSize: angular.copy(template.priceElements.impostsSize),
+              shtulpsSize: angular.copy(template.priceElements.shtulpsSize),
+              sashesBlock: angular.copy(template.priceElements.sashesBlock),
+              glassSizes: angular.copy(template.priceElements.glassSizes),
+              glassSquares: angular.copy(template.priceElements.glassSquares),
+              frameSillSize: angular.copy(template.priceElements.frameSillSize)
             };
 
         //------- set Overall Dimensions
@@ -416,8 +423,7 @@
       var deferred = $q.defer();
       globalDB.calculationPrice(obj, function (result) {
         if(result.status){
-//          console.log('price');
-//          console.log(result.data);
+//          console.log('price-------', result.data.price);
 
           ProductStor.product.templatePriceSELECT = GeneralServ.roundingNumbers(result.data.price);
           setProductPriceTOTAL();
@@ -470,7 +476,8 @@
 
     function setProductPriceTOTAL() {
       //playSound('price');
-      ProductStor.product.productPriceTOTAL = GeneralServ.roundingNumbers(ProductStor.product.templatePriceSELECT + ProductStor.product.laminationPriceSELECT + ProductStor.product.addElementsPriceSELECT);
+      ProductStor.product.productPriceTOTAL = GeneralServ.roundingNumbers( ProductStor.product.templatePriceSELECT + ProductStor.product.laminationPriceSELECT + ProductStor.product.addElementsPriceSELECT );
+      ProductStor.product.productPriceTOTALDis = GeneralServ.roundingNumbers( ((ProductStor.product.templatePriceSELECT + ProductStor.product.laminationPriceSELECT) * (1 - OrderStor.order.currDiscount/100)) + ProductStor.product.addElementsPriceSELECTDis );
       $rootScope.$apply();
     }
 
@@ -481,6 +488,8 @@
       console.log('new project!!!!!!!!!!!!!!');
       //------- set new orderId
       createOrderData();
+      //------- set current Discounts
+      setCurrDiscounts();
       //------- set new templates
       prepareTemplates(ProductStor.product.constructionType).then(function() {
         prepareMainPage();
@@ -490,6 +499,7 @@
         GlobalStor.global.isShowCommentBlock = false;
         GlobalStor.global.isCreatedNewProject = true;
         GlobalStor.global.isCreatedNewProduct = true;
+        GlobalStor.global.activePanel =0;
         if(GlobalStor.global.currOpenPage !== 'main') {
           $location.path('/main');
         }
@@ -596,7 +606,8 @@
       delete productData.profileSashId;
       delete productData.profileImpostId;
       delete productData.profileShtulpId;
-
+      delete productData.productPriceTOTALDis;
+      delete productData.addElementsPriceSELECTDis;
 
       localDB.insertDB(localDB.productsTableBD, productData);
       deferred.resolve('done');

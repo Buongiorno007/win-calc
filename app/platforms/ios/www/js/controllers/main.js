@@ -27,6 +27,8 @@
 
       //------- create order date
       MainServ.createOrderData();
+      //------- set Curr Discounts
+      MainServ.setCurrDiscounts();
 
       //----------- set all profiles for GlobalStor
       MainServ.downloadAllProfiles().then(function() {

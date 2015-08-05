@@ -1,6 +1,3 @@
-
-// controllers/parts/user-info.js
-
 (function(){
   'use strict';
   /**

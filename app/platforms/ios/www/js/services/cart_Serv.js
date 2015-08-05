@@ -7,7 +7,7 @@
     .module('CartModule')
     .factory('CartServ', cartFactory);
 
-  function cartFactory($location, $q, $filter, $cordovaDialogs, localDB, GeneralServ, MainServ, CartMenuServ, GlobalStor, OrderStor, ProductStor, CartStor) {
+  function cartFactory($location, $q, $filter, $cordovaDialogs, localDB, GeneralServ, MainServ, CartMenuServ, SVGServ, GlobalStor, OrderStor, ProductStor, CartStor, UserStor) {
 
     var thisFactory = this;
 
@@ -23,7 +23,10 @@
       clickDeleteProduct: clickDeleteProduct,
       calculateAllProductsPrice: calculateAllProductsPrice,
       calculateOrderPrice: calculateOrderPrice,
-      editProduct: editProduct
+      editProduct: editProduct,
+      createDiscontsList: createDiscontsList,
+      changeProductPriceAsDiscount: changeProductPriceAsDiscount,
+      changeAddElemPriceAsDiscount: changeAddElemPriceAsDiscount
     };
 
     return thisFactory.publicObj;
@@ -78,9 +81,10 @@
 //              console.log('templateSource', ProductStor.product.templateSource);
               //----- find depths and build design icon
               MainServ.setCurrentProfile().then(function(){
-                ProductStor.product.templateIcon = new TemplateIcon(ProductStor.product.templateSource, GlobalStor.global.profileDepths);
-                //console.log('++++++templateIcon+++', ProductStor.product.templateIcon);
-                deferred.resolve('done');
+                SVGServ.createSVGTemplateIcon(ProductStor.product.templateSource, GlobalStor.global.profileDepths).then(function(result) {
+                  ProductStor.product.templateIcon = angular.copy(result);
+                  deferred.resolve('done');
+                });
               });
             } else {
               deferred.resolve('done');
@@ -124,28 +128,41 @@
     }
 
 
-
+    //----------- create Discount List
+    function createDiscontsList() {
+      var discounts = {
+            window: [],
+            addElem: []
+          },
+          multipl = 5,
+          discQty = UserStor.userInfo.discountMax/multipl,
+          discAddQty = UserStor.userInfo.discountAddElemMax/multipl;
+      for(var d = 0; d <= discQty; d++) {
+        discounts.window.push( (d * multipl) );
+      }
+      for(var d = 0; d <= discAddQty; d++) {
+        discounts.addElem.push( (d * multipl) );
+      }
+      return discounts;
+    }
 
 
 
     //---------- parse Add Elements from LocalStorage
     function joinAllAddElements() {
       var productsQty = OrderStor.order.products.length,
-          prod = 0,
           product;
       //------ cleaning allAddElements
       CartStor.cart.allAddElements.length = 0;
 
-      for(; prod < productsQty; prod++) {
+      for(var prod = 0; prod < productsQty; prod++) {
         product = [];
-        var typeElementsQty = OrderStor.order.products[prod].chosenAddElements.length,
-            type = 0;
-        for(; type < typeElementsQty; type++) {
-          var elementsQty = OrderStor.order.products[prod].chosenAddElements[type].length,
-              elem = 0;
+        var typeElementsQty = OrderStor.order.products[prod].chosenAddElements.length;
+        for(var type = 0; type < typeElementsQty; type++) {
+          var elementsQty = OrderStor.order.products[prod].chosenAddElements[type].length;
           if(elementsQty > 0) {
             //$scope.cart.isOrderHaveAddElements = true;
-            for(; elem < elementsQty; elem++) {
+            for(var elem = 0; elem < elementsQty; elem++) {
               product.push(OrderStor.order.products[prod].chosenAddElements[type][elem]);
             }
           }
@@ -251,13 +268,15 @@
 
     //-------- Calculate All Products Price
     function calculateAllProductsPrice() {
-      var productsQty = OrderStor.order.products.length,
-          prod = 0;
+      var productsQty = OrderStor.order.products.length;
       OrderStor.order.productsPriceTOTAL = 0;
-      for(; prod < productsQty; prod++) {
+      CartStor.cart.productsPriceTOTALDis = 0;
+      for(var prod = 0; prod < productsQty; prod++) {
         OrderStor.order.productsPriceTOTAL += OrderStor.order.products[prod].productPriceTOTAL * OrderStor.order.products[prod].productQty;
+        CartStor.cart.productsPriceTOTALDis += OrderStor.order.products[prod].productPriceTOTALDis * OrderStor.order.products[prod].productQty;
       }
       OrderStor.order.productsPriceTOTAL = GeneralServ.roundingNumbers(OrderStor.order.productsPriceTOTAL);
+      CartStor.cart.productsPriceTOTALDis = GeneralServ.roundingNumbers(CartStor.cart.productsPriceTOTALDis);
     }
 
 
@@ -278,6 +297,41 @@
       //------- set previos Page
       GeneralServ.setPreviosPage();
       $location.path('/main');
+    }
+
+
+
+
+
+
+    function changeAddElemPriceAsDiscount(discount) {
+      var productQty = OrderStor.order.products.length;
+      for(var prod = 0; prod < productQty; prod++) {
+        var oldDiff =  OrderStor.order.products[prod].productPriceTOTALDis - OrderStor.order.products[prod].addElementsPriceSELECTDis;
+        OrderStor.order.products[prod].addElementsPriceSELECTDis = angular.copy( GeneralServ.roundingNumbers( OrderStor.order.products[prod].addElementsPriceSELECT * (1 - discount/100) ) );
+        OrderStor.order.products[prod].productPriceTOTALDis = angular.copy( GeneralServ.roundingNumbers( oldDiff + OrderStor.order.products[prod].addElementsPriceSELECTDis ));
+
+        var addElemsQty = OrderStor.order.products[prod].chosenAddElements.length;
+        for(var elem = 0; elem < addElemsQty; elem++) {
+          var elemQty = OrderStor.order.products[prod].chosenAddElements[elem].length;
+          if (elemQty > 0) {
+            for (var item = 0; item < elemQty; item++) {
+              OrderStor.order.products[prod].chosenAddElements[elem][item].elementPriceDis = angular.copy( GeneralServ.roundingNumbers( OrderStor.order.products[prod].chosenAddElements[elem][item].elementPrice * (1 - discount/100) ) );
+            }
+          }
+        }
+      }
+      calculateOrderPrice();
+    }
+
+
+    function changeProductPriceAsDiscount(discount) {
+      var productQty = OrderStor.order.products.length;
+      for(var prod = 0; prod < productQty; prod++) {
+        var oldDiff =  (OrderStor.order.products[prod].productPriceTOTAL - OrderStor.order.products[prod].addElementsPriceSELECT) * (1 - discount/100);
+        OrderStor.order.products[prod].productPriceTOTALDis = angular.copy( GeneralServ.roundingNumbers( oldDiff + OrderStor.order.products[prod].addElementsPriceSELECTDis ));
+      }
+      calculateOrderPrice();
     }
 
 

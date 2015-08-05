@@ -54,7 +54,7 @@
         OrderStor.order.isInstalment = 1;
         OrderStor.order.selectedInstalmentPeriod = period;
         OrderStor.order.selectedInstalmentPercent = percent;
-        calculateInstalmentPrice(OrderStor.order.orderPriceTOTAL, OrderStor.order.orderPriceTOTALPrimary);
+        calculateInstalmentPrice(OrderStor.order.orderPriceTOTAL, OrderStor.order.orderPriceTOTALPrimary, CartStor.cart.orderPriceTOTALDis, CartStor.cart.orderPriceTOTALPrimaryDis);
       }
     }
 
@@ -97,36 +97,52 @@
       //playSound('price');
 
       OrderStor.order.orderPriceTOTAL = 0;
+      CartStor.cart.orderPriceTOTALDis = 0;
+
       //----- add product prices, floor price, assembling price
       OrderStor.order.orderPriceTOTAL += OrderStor.order.productsPriceTOTAL + OrderStor.order.selectedFloorPrice + OrderStor.order.selectedAssemblingPrice;
+      CartStor.cart.orderPriceTOTALDis += CartStor.cart.productsPriceTOTALDis + OrderStor.order.selectedFloorPrice + OrderStor.order.selectedAssemblingPrice;
 
       //----- save primary total price
       OrderStor.order.orderPriceTOTALPrimary = OrderStor.order.orderPriceTOTAL;
+      CartStor.cart.orderPriceTOTALPrimaryDis = CartStor.cart.orderPriceTOTALDis;
       //----- add delivery price
       if(OrderStor.order.deliveryPrice) {
         if(OrderStor.order.isDatePriceMore) {
           OrderStor.order.orderPriceTOTAL += OrderStor.order.deliveryPrice;
+          CartStor.cart.orderPriceTOTALDis += OrderStor.order.deliveryPrice;
         } else if(OrderStor.order.isDatePriceLess) {
           OrderStor.order.orderPriceTOTAL -= OrderStor.order.deliveryPrice;
+          CartStor.cart.orderPriceTOTALDis -= OrderStor.order.deliveryPrice;
         }
       } else {
         OrderStor.order.orderPriceTOTAL = OrderStor.order.orderPriceTOTALPrimary;
+        CartStor.cart.orderPriceTOTALDis = CartStor.cart.orderPriceTOTALPrimaryDis;
       }
 
       OrderStor.order.orderPriceTOTAL = GeneralServ.roundingNumbers(OrderStor.order.orderPriceTOTAL);
+      CartStor.cart.orderPriceTOTALDis = GeneralServ.roundingNumbers(CartStor.cart.orderPriceTOTALDis);
+      CartStor.cart.discountPriceDiff = GeneralServ.roundingNumbers(OrderStor.order.orderPriceTOTAL - CartStor.cart.orderPriceTOTALDis);
+
+      console.log('OrderStor++++++',OrderStor.order);
+      console.log('OrderStor++++++',CartStor.cart);
       //------ get price with instalment
-      calculateInstalmentPrice(OrderStor.order.orderPriceTOTAL, OrderStor.order.orderPriceTOTALPrimary);
+      calculateInstalmentPrice(OrderStor.order.orderPriceTOTAL, OrderStor.order.orderPriceTOTALPrimary, CartStor.cart.orderPriceTOTALDis, CartStor.cart.orderPriceTOTALPrimaryDis);
     }
 
 
 
-    function calculateInstalmentPrice(price, pricePrimary) {
+    function calculateInstalmentPrice(price, pricePrimary, priceDis, pricePrimaryDis) {
       if(OrderStor.order.isInstalment) {
         OrderStor.order.paymentFirst = GeneralServ.roundingNumbers( (price * OrderStor.order.selectedInstalmentPercent / 100) );
         OrderStor.order.paymentMonthly = GeneralServ.roundingNumbers( ((price - OrderStor.order.paymentFirst) / OrderStor.order.selectedInstalmentPeriod) );
+        CartStor.cart.paymentFirstDis = GeneralServ.roundingNumbers( (priceDis * OrderStor.order.selectedInstalmentPercent / 100) );
+        CartStor.cart.paymentMonthlyDis = GeneralServ.roundingNumbers( ((priceDis - CartStor.cart.paymentFirstDis) / OrderStor.order.selectedInstalmentPeriod) );
         if(pricePrimary) {
           OrderStor.order.paymentFirstPrimary = GeneralServ.roundingNumbers( (pricePrimary * OrderStor.order.selectedInstalmentPercent / 100) );
           OrderStor.order.paymentMonthlyPrimary = GeneralServ.roundingNumbers( ((pricePrimary - OrderStor.order.paymentFirstPrimary) / OrderStor.order.selectedInstalmentPeriod) );
+          CartStor.cart.paymentFirstPrimaryDis = GeneralServ.roundingNumbers( (pricePrimaryDis * OrderStor.order.selectedInstalmentPercent / 100) );
+          CartStor.cart.paymentMonthlyPrimaryDis = GeneralServ.roundingNumbers( ((pricePrimaryDis - CartStor.cart.paymentFirstPrimaryDis) / OrderStor.order.selectedInstalmentPeriod) );
         }
       }
     }

@@ -47,7 +47,8 @@
         paymentMonthlyPrimary: 0,
         orderPriceTOTAL: 0,
         orderPriceTOTALPrimary: 0,
-
+        currDiscount: 0,
+        currDiscountAddElem: 0,
         name: '',
         location: '',
         address: '',
