@@ -88,6 +88,7 @@
         //----- save new template in product
         ProductStor.product.templateSource = angular.copy(DesignStor.design.templateSourceTEMP);
         ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
+
         //----- create template icon
         SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
           ProductStor.product.templateIcon = angular.copy(result);
@@ -103,7 +104,7 @@
         }
 
         //------ save new template in templates Array
-        changeTemplateInArray(ProductStor.product.templateIndex, ProductStor.product.templateSource, ProductStor.product.template, ProductStor.product.templateIcon);
+        GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(ProductStor.product.templateSource);
 
         //------- refresh price of new template
         MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId).then(function() {
@@ -116,14 +117,6 @@
       }
     }
 
-
-
-    function changeTemplateInArray(templateIndex, newTemplateSource, newTemplate, newTemplateIcon) {
-      //----- save new template in array of templates
-      GlobalStor.global.templatesSource[templateIndex] = angular.copy(newTemplateSource);
-//      GlobalStor.global.templates[templateIndex] = angular.copy(newTemplate);
-//      GlobalStor.global.templatesIcon[templateIndex] = angular.copy(newTemplateIcon);
-    }
 
 
 
@@ -143,7 +136,9 @@
       DesignStor.design = DesignStor.setDefaultDesign();
       //      delete DesignStor.design.templateSourceTEMP;
       //      delete DesignStor.design.templateTEMP;
-      MainServ.prepareMainPage();
+      GlobalStor.global.activePanel = 0;
+      GlobalStor.global.isNavMenu = false;
+      GlobalStor.global.isConfigMenu = true;
       $location.path('/main');
     }
 

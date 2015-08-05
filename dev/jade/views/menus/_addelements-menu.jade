@@ -78,7 +78,7 @@
               img(ng-src="{{ addElement.elementColor }}")
             .aux-label {{ 'add_elements.COLOR_LABEL' | translate }}
 
-          .aux-price +{{ elementsMenu.A.aux.currAddElementPrice }} {{ elementsMenu.U.userInfo.currency }}
+          .aux-price +{{ addElement.elementPriceDis }} {{ elementsMenu.U.userInfo.currency }}
           button.aux-choose-but(hm-tap="elementsMenu.chooseAddElementList($parent.$index, $index)") {{ 'add_elements.ADD' | translate }}
 
 

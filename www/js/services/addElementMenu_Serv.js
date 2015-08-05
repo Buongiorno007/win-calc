@@ -96,7 +96,9 @@
       AuxStor.aux.isAddElement = typeIndex+'-'+elementIndex;
       //------- checking if add element price is
       if(AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPrice > 0) {
-        AuxStor.aux.currAddElementPrice = AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPrice;
+        AuxStor.aux.currAddElementPrice = GeneralServ.roundingNumbers( AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPrice * (1 - OrderStor.order.currDiscountAddElem/100) );
+        AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
+
         deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
       } else {
         var objXAddElementPrice = {
@@ -106,12 +108,12 @@
           elementLength: AuxStor.aux.addElementsList[typeIndex][elementIndex].elementWidth
         };
 
-        console.log(objXAddElementPrice);
         //-------- get current add element price
         globalDB.getAdditionalPrice(objXAddElementPrice, function (results) {
           if (results.status) {
-            AuxStor.aux.currAddElementPrice = GeneralServ.roundingNumbers(results.data.price);
-            AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPrice = AuxStor.aux.currAddElementPrice;
+            AuxStor.aux.currAddElementPrice = GeneralServ.roundingNumbers( results.data.price * (1 - OrderStor.order.currDiscountAddElem/100) );
+            AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPrice = angular.copy(GeneralServ.roundingNumbers( results.data.price ));
+            AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
             $rootScope.$apply();
             deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
           } else {
@@ -161,11 +163,10 @@
 
 
     function setAddElementsTotalPrice() {
-      var elementTypeQty = ProductStor.product.chosenAddElements.length,
-          i = 0;
+      var elementTypeQty = ProductStor.product.chosenAddElements.length;
       ProductStor.product.addElementsPriceSELECT = 0;
-
-      for (; i < elementTypeQty; i++) {
+      ProductStor.product.addElementsPriceSELECTDis = 0;
+      for (var i = 0; i < elementTypeQty; i++) {
         var elementQty = ProductStor.product.chosenAddElements[i].length;
         if (elementQty > 0) {
           for (var j = 0; j < elementQty; j++) {
@@ -174,6 +175,7 @@
           }
         }
       }
+      ProductStor.product.addElementsPriceSELECTDis = GeneralServ.roundingNumbers( ProductStor.product.addElementsPriceSELECT * (1 - OrderStor.order.currDiscountAddElem/100) );
       $timeout(function() {
         MainServ.setProductPriceTOTAL();
       }, 50);
@@ -199,6 +201,7 @@
         ProductStor.product.chosenAddElements[index].length = 0;
       }
       ProductStor.product.addElementsPriceSELECT = 0;
+      ProductStor.product.addElementsPriceSELECTDis = 0;
     }
 
 
@@ -298,11 +301,10 @@
 //          console.log('change size!!!!!!!');
 //          console.log(results.data.price);
           //var newElementPrice = parseFloat(results.data.price);
-          var newElementPrice = GeneralServ.roundingNumbers(results.data.price);
           //$scope.addElementsMenu.isAddElementPrice = true;
-          AuxStor.aux.currAddElementPrice = newElementPrice;
-          ProductStor.product.chosenAddElements[index][elementIndex].elementPrice = newElementPrice;
-
+          AuxStor.aux.currAddElementPrice = GeneralServ.roundingNumbers( results.data.price * (1 - OrderStor.order.currDiscountAddElem/100) );
+          ProductStor.product.chosenAddElements[index][elementIndex].elementPrice = angular.copy(GeneralServ.roundingNumbers( results.data.price ));
+          ProductStor.product.chosenAddElements[index][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
           //------- Set Total Product Price
           setAddElementsTotalPrice();
           //$scope.$apply();

@@ -199,7 +199,7 @@
       thisObj.dimension = initDimensions(thisObj.details);
 
       console.log('END++++', thisObj);
-      console.log('svg finish', new Date(), new Date().getMilliseconds());
+//      console.log('svg finish', new Date(), new Date().getMilliseconds());
       console.log('------------------------------------------------------');
       defer.resolve(thisObj);
       return defer.promise;
@@ -1175,13 +1175,12 @@
         } else if(part.type === 'frame') {
           if(part.sill) {
             priceElements.frameSillSize = part.size;
-//TODO много подоконников            priceElements.frameSillSize.push(part.size);
+          //TODO много подоконников            priceElements.frameSillSize.push(part.size);
           } else {
             priceElements.framesSize.push(part.size);
           }
         }
-//TODO----- if shtulpsSize: []
-
+        //TODO----- if shtulpsSize: []
         parts.push(part);
       }
 

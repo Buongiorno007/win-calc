@@ -354,6 +354,14 @@
             "type": "INTEGER",
             "null": "NULL"
           },
+          "currDiscount": {
+            "type": "INTEGER",
+            "null": "NULL"
+          },
+          "currDiscountAddElem": {
+            "type": "INTEGER",
+            "null": "NULL"
+          },
           "name": {
             "type": "TEXT",
             "null": "NULL"

@@ -7,7 +7,7 @@
     .module('CartModule')
     .controller('CartCtrl', cartPageCtrl);
 
-  function cartPageCtrl($filter, globalConstants, GlobalStor, OrderStor, UserStor, CartStor, CartServ) {
+  function cartPageCtrl($filter, globalConstants, GeneralServ, GlobalStor, OrderStor, UserStor, CartStor, CartServ) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -20,7 +20,10 @@
       isAddElementDetail: false,
       isCartLightView: false,
       detailProductIndex: 0,
-
+      isShowDiscount: 0,
+      isShowDiscountList: 0,
+      isShowDiscountAddList: 0,
+      discountsList: {},
 //      allAddElementsListSource: {
 //        grids: [],
 //        visors: [],
@@ -55,9 +58,10 @@
       DELAY_START: globalConstants.STEP,
       typing: 'on'
     };
-
     //------- set current Page
     GlobalStor.global.currOpenPage = 'cart';
+
+    thisCtrl.config.discountsList = CartServ.createDiscontsList();
 
     //console.log('cart +++++', JSON.stringify(OrderStor.order));
     //================ EDIT order from Histoy Page
@@ -69,15 +73,14 @@
     } else {
       //-------- cleaning all templates in order.products
 //      CartServ.cleanAllTemplatesInOrder();
-//      console.log('++++++',OrderStor.order);
       //---- collect all AddElements of Order
       CartServ.joinAllAddElements();
       //----------- start order price total calculation
       CartServ.calculateAllProductsPrice();
       OrderStor.order.orderPriceTOTAL = OrderStor.order.productsPriceTOTAL;
+      CartStor.cart.orderPriceTOTALDis = CartStor.cart.productsPriceTOTALDis;
+      CartStor.cart.discountPriceDiff = GeneralServ.roundingNumbers(OrderStor.order.orderPriceTOTAL - CartStor.cart.orderPriceTOTALDis);
     }
-
-
 
 
 
@@ -91,8 +94,11 @@
     thisCtrl.showAddElementDetail = showAddElementDetail;
     thisCtrl.closeAddElementDetail = closeAddElementDetail;
     thisCtrl.viewSwitching = viewSwitching;
-    thisCtrl.swipeShowDiscount = swipeShowDiscount;
-    thisCtrl.swipeHideDiscount = swipeHideDiscount;
+
+    thisCtrl.swipeDiscountBlock = swipeDiscountBlock;
+    thisCtrl.switchDiscount = switchDiscount;
+    thisCtrl.openDiscountList = openDiscountList;
+    thisCtrl.selectDiscount = selectDiscount;
 
 
 
@@ -123,15 +129,74 @@
 
 
 
-    //--------- Show Discount
-    function swipeShowDiscount(event) {
-      CartStor.cart.isShowDiscount = 1;
+
+    function swipeDiscountBlock(dir) {
+      if(dir) {
+        //--------- Show Discount
+        thisCtrl.config.isShowDiscount = 1;
+      } else {
+        //--------- Hide Discount
+        thisCtrl.config.isShowDiscount = 0;
+      }
+
     }
 
-    //--------- Hide Discount
-    function swipeHideDiscount(event) {
-      CartStor.cart.isShowDiscount = 0;
+
+    function openDiscountList(type, event) {
+      event.srcEvent.stopPropagation();
+      //------- discount x add element
+      if(type) {
+        thisCtrl.config.isShowDiscountList = 0;
+        thisCtrl.config.isShowDiscountAddList = 1;
+      } else {
+        //------- discount x construction
+        thisCtrl.config.isShowDiscountList = 1;
+        thisCtrl.config.isShowDiscountAddList = 0;
+      }
     }
+
+    function switchDiscount(type) {
+      //------- discount x add element
+      if(type) {
+        OrderStor.order.currDiscountAddElem = 0;
+        CartServ.changeAddElemPriceAsDiscount(0);
+        thisCtrl.config.isShowDiscountAddList = 0;
+      } else {
+        //------- discount x construction
+        OrderStor.order.currDiscount = 0;
+        CartServ.changeProductPriceAsDiscount(0);
+        thisCtrl.config.isShowDiscountList = 0;
+      }
+    }
+
+
+    function selectDiscount(type, newDiscount, event) {
+      event.srcEvent.stopPropagation();
+      //------- discount x add element
+      if(type) {
+        if(OrderStor.order.currDiscountAddElem !== newDiscount) {
+          OrderStor.order.currDiscountAddElem = newDiscount;
+          CartServ.changeAddElemPriceAsDiscount(OrderStor.order.currDiscountAddElem);
+        }
+        //------ close Discount List
+        thisCtrl.config.isShowDiscountAddList = 0;
+      } else {
+        //------- discount x construction
+        if(OrderStor.order.currDiscount !== newDiscount) {
+          OrderStor.order.currDiscount = newDiscount;
+          CartServ.changeProductPriceAsDiscount(OrderStor.order.currDiscount);
+        }
+        //------ close Discount List
+        thisCtrl.config.isShowDiscountList = 0;
+      }
+    }
+
+
+
+
+
+
+
 
 
 //    var p, prod, product, addElementUnique;
@@ -143,13 +208,6 @@
 
     //------- finish edit product
 //    $scope.global.productEditNumber = '';
-
-
-
-
-
-
-
 
 
 

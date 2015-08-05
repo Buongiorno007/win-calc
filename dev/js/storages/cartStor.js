@@ -14,7 +14,14 @@
     thisFactory.publicObj = {
       cartSource: {
         allAddElements: [],
-        isShowDiscount: 0,
+        productsPriceTOTALDis: 0,
+        orderPriceTOTALDis: 0,
+        orderPriceTOTALPrimaryDis: 0,
+        paymentFirstDis: 0,
+        paymentMonthlyDis: 0,
+        paymentFirstPrimaryDis: 0,
+        paymentMonthlyPrimaryDis: 0,
+        discountPriceDiff: 0,
         isMasterDialog: 0,
         isOrderDialog: 0,
         isCreditDialog: 0,

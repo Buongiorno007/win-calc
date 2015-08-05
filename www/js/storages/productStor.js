@@ -88,6 +88,8 @@
         laminationPriceSELECT: 0,
         addElementsPriceSELECT: 0,
         productPriceTOTAL: 0,
+        addElementsPriceSELECTDis: 0,
+        productPriceTOTALDis: 0,
         comment: '',
         productQty: 1
       },

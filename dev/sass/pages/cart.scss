@@ -8,7 +8,7 @@
 
     position: absolute;
     width: 100%;
-    height: 165%;
+//    height: 180%;
     padding: rem(50px);
     padding-left: rem(100px);
     //overflow-x: auto;
@@ -16,13 +16,17 @@
     &.full-view {
       @include top_left_coord(0px, 0px);
 
+      .scroll-hor-container {
+        height: 83rem;
+      }
       &.discount {
-        @include top_left_coord(-1000px, 0px);
+        @include top_left_coord(-1200px, 0px);
       }
     }
     &.light-view {
       @include top_left_coord(0px, -2500px);
       @include transition(all 0.5s linear);
+      height: 100%;
       z-index: 5;
     }
     &.alladdelements-view {
@@ -253,6 +257,7 @@
     display: -webkit-inline-flex;
     display: -ms-inline-flexbox;
     display: inline-flex;
+    min-height: 45%;
   }
   .order {
     width: rem(512px);
@@ -377,7 +382,7 @@
 .discount-swipe-up {
   position: absolute;
   left: 0;
-  top: 56%;
+  top: 51%;
   width: 100%;
   height: 5%;
   z-index: 3;
@@ -387,78 +392,101 @@
   width: 90%;
   margin: auto;
   margin-top: 5rem;
-  padding: 5rem 3.75rem;
+  padding: 5rem 3.75rem 3rem;
   border-top: 1px solid $main_gray_btn;
 }
-
+.discount-title {
+  @include roboto-bd(rem(40px));
+  color: $main_gray_txt;
+}
 .discount-box {
   @include display-flex();
-  @include flex-flow(row wrap);
-  @include justify-content(space-between);
+//  @include flex-flow(row nowrap);
+//  @include justify-content(space-between);
   position: relative;
   width: 100%;
   margin-top: rem(50px);
 
   &.selected {
     .discount-txt {
-      position: relative;
       background-color: $main_green;
       &:after {
-        @include font-icon(rem(150px), rem(130px));
-
+        @include font-icon(7rem, 9rem);
         position: absolute;
         top: 0.5rem;
         right: 1.875rem;
         color: #fff;
         content: $check-panel-icon;
       }
-      .discounts-descr {
-        color: $main_gray_txt;
-      }
     }
   }
 }
 
 .discount-data {
-  @include display-flex();
-  @include align-items(center);
-  @include justify-content(center);
-  @include roboto-lt(rem(40px));
-
-  max-width: rem(200px);
-  width: rem(305px);
+  @include roboto-lt(3.5rem, 9rem);
+  width: 14rem;
+  text-align: center;
   border-top-left-radius: rem($radius_profile-box);
   border-bottom-left-radius: rem($radius_profile-box);
   background-color: #fff;
-  margin-bottom: rem(5px);
   color: $main_gray_txt;
 }
-
-.discounts-list{
-  @include top_left_coord(0px, 0px);
+.discounts-list {
+  @include top_left_coord(-80px, 0px);
+  @include roboto-lt(2.25rem, 5.4375rem);
   position: absolute;
-
+  height: 20rem;
+  width: 14rem;
+  background-color: #D5D5D5;
+  color: $main_gray_txt;
+  overflow-y: auto;
+  text-align: center;
+  border-radius: rem($radius_profile-box);
+  z-index: 5;
 }
-
+.discounts-item {
+  &.active {
+    border-top: 1px solid $main_gray_btn;
+    border-bottom: 1px solid $main_gray_btn;
+    color: $main_orange;
+  }
+}
 .discount-txt {
-  @include display-flex();
-  @include flex-flow(row wrap);
-  @include justify-content(flex-start);
   @include flex-grow(2);
   @include transition(all .5s linear);
-
   padding: rem(35px);
   border-top-right-radius: rem($radius_profile-box);
   border-bottom-right-radius: rem($radius_profile-box);
   background-color: #fff;
 }
-
 .discounts-label {
-  @include roboto-md(rem(36px));
-
-  margin-bottom: rem(5px);
+  @include roboto-md(2.25rem, 5rem);
   color: $main_gray_txt;
 }
+.discount-price-container {
+  @include display-flex();
+  width: 100%;
+  margin-top: rem(50px);
+  padding: 2rem 0;
+  border-radius: rem($radius_profile-box);
+  background-color: #fff;
+}
+.discount-price-box {
+  padding: 0 3rem;
+  @include flex-grow(1);
+  &:last-child {
+    border-left: 1px dashed $main_gray_txt;
+  }
+}
+.discount-price {
+  @include roboto-md(rem(48px), rem(100px));
+  color: $main_gray_txt;
+}
+.discount-price-label {
+  @include roboto-lt(rem(22px));
+  color: #8c8c8c;
+}
+
 
 
 //----- All AddElements panel
