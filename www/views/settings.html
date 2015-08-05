@@ -5,9 +5,8 @@
     <div data-output="{{ 'mainpage.NAVMENU_SETTINGS' | translate }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="title"></div>
   </div>
   <div class="setting-container">
-    <div class="setting-user-foto">
-      <!--img(ng-crs="global.AvatarUrl")-->
-      <div hm-tap="settingsPage.changeAvatar()" class="change-foto">{{ 'common_words.CHANGE' | translate }}</div>
+    <div hm-tap="settingsPage.changeAvatar()" class="setting-user-foto"><img ng-src="{{settingsPage.U.userInfo.avatarUrl}}" width="100%" height="100%">
+      <div class="change-foto">{{ 'common_words.CHANGE' | translate }}</div>
     </div>
     <div class="lists">
       <ul class="list">

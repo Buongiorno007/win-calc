@@ -51,8 +51,7 @@
   <section ng-class="{'kitchen': mainPage.P.product.selectedRoomId == 1, 'livingroom': mainPage.P.product.selectedRoomId == 2, 'balcony': mainPage.P.product.selectedRoomId == 3, 'childroom': mainPage.P.product.selectedRoomId == 4, 'bedroom': mainPage.P.product.selectedRoomId == 5, 'door': mainPage.P.product.selectedRoomId == 6 }" class="right-side main-page-bg">
     <section class="main-content">
       <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
-        <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button>
-        <div class="user-foto"></div>
+        <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-src="{{userBox.U.userInfo.avatarUrl}}" class="user-foto">
         <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
         <div class="user-info-block">
           <div data-output="{{ userBox.U.userInfo.cityName }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
@@ -83,35 +82,13 @@
         <div ng-if="rooms.G.global.showRoomSelectorDialog" class="rooms-inner">
           <div class="rooms-row">
             <div class="room-block">
-              <div show-delay="{{ rooms.config.DELAY_SHOW_ROOM1 }}" ng-class="{'selected': rooms.P.product.selectedRoomId === 1}" hm-tap="rooms.selectRoom(1)" class="room-box unvisible">
-                <div class="room-img kitchen"></div>
-              </div>
-            </div>
-            <div class="room-block">
-              <div show-delay="{{ rooms.config.DELAY_SHOW_ROOM2 }}" ng-class="{'selected': rooms.P.product.selectedRoomId === 2}" hm-tap="rooms.selectRoom(2)" class="room-box unvisible">
-                <div class="room-img livingroom"></div>
-              </div>
-            </div>
-            <div class="room-block">
-              <div show-delay="{{ rooms.config.DELAY_SHOW_ROOM3 }}" ng-class="{'selected': rooms.P.product.selectedRoomId === 3}" hm-tap="rooms.selectRoom(3)" class="room-box unvisible">
-                <div class="room-img balcony"></div>
-              </div>
-            </div>
-          </div>
-          <div class="rooms-row">
-            <div class="room-block">
               <div show-delay="{{ rooms.config.DELAY_SHOW_ROOM4 }}" ng-class="{'selected': rooms.P.product.selectedRoomId === 4}" hm-tap="rooms.selectRoom(4)" class="room-box unvisible">
                 <div class="room-img childroom"></div>
               </div>
             </div>
             <div class="room-block">
-              <div show-delay="{{ rooms.config.DELAY_SHOW_ROOM5 }}" ng-class="{'selected': rooms.P.product.selectedRoomId === 5}" hm-tap="rooms.selectRoom(5)" class="room-box unvisible">
-                <div class="room-img bedroom"></div>
-              </div>
-            </div>
-            <div class="room-block">
-              <div show-delay="{{ rooms.config.DELAY_SHOW_ROOM6 }}" ng-class="{'selected': rooms.P.product.selectedRoomId === 6}" hm-tap="rooms.selectRoom(6)" class="room-box unvisible">
-                <div class="room-img door"></div>
+              <div show-delay="{{ rooms.config.DELAY_SHOW_ROOM1 }}" ng-class="{'selected': rooms.P.product.selectedRoomId === 1}" hm-tap="rooms.selectRoom(1)" class="room-box unvisible">
+                <div class="room-img kitchen"></div>
               </div>
             </div>
           </div>
@@ -123,15 +100,15 @@
           <div class="template-header">
             <button ng-class="{'active': templatesPanel.switcherTemplate}" hm-tap="templatesPanel.toggleTemplateType()" show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-title unvisible">{{ templatesPanel.G.global.templateLabel }}
               <div ng-show="templatesPanel.switcherTemplate" class="template-type">
-                <div ng-if="templatesPanel.P.product.constructionType !== 1" hm-tap="templatesPanel.selectNewTemplateType(1)" class="template-type-btn">{{ 'panels.TEMPLATE_WINDOW' | translate }}</div>
-                <div ng-if="templatesPanel.P.product.constructionType !== 2" hm-tap="templatesPanel.selectNewTemplateType(2)" class="template-type-btn">{{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}</div>
-                <div ng-if="templatesPanel.P.product.constructionType !== 3" hm-tap="templatesPanel.selectNewTemplateType(3)" class="template-type-btn">{{ 'panels.TEMPLATE_BALCONY' | translate }}</div>
-                <div ng-if="templatesPanel.P.product.constructionType !== 4" hm-tap="templatesPanel.selectNewTemplateType(4)" class="template-type-btn">{{ 'panels.TEMPLATE_DOOR' | translate }}</div>
+                <div hm-tap="templatesPanel.selectNewTemplateType(1)" class="template-type-btn">{{ 'panels.TEMPLATE_WINDOW' | translate }}</div>
+                <div hm-tap="templatesPanel.selectNewTemplateType(2)" class="template-type-btn">{{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}</div>
+                <div hm-tap="templatesPanel.selectNewTemplateType(3)" class="template-type-btn">{{ 'panels.TEMPLATE_BALCONY' | translate }}</div>
+                <div hm-tap="templatesPanel.selectNewTemplateType(4)" class="template-type-btn">{{ 'panels.TEMPLATE_DOOR' | translate }}</div>
               </div>
             </button>
             <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-discr unvisible">{{ templatesPanel.G.global.templates[templatesPanel.P.product.templateIndex].name }}</div>
           </div>
-          <div hm-tap="templatesPanel.gotoConstructionPage()" show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-section unvisible">
+          <div hm-tap="templatesPanel.gotoConstructionPage();" show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-section unvisible">
             <svg-template template="templatesPanel.P.product.template" template-width="templatesPanel.constants.svgTemplateIconBigWidth" template-height="templatesPanel.constants.svgTemplateIconBigHeight" type-construction="bigIcon"></svg-template>
           </div>
           <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-footer unvisible">
@@ -598,8 +575,8 @@
               button.search-element KO-350
               button.search-element KO-350
               button.search-element KO-350
-              
-              
+            
+            
             -->
           </ul>
         </div>

@@ -1131,7 +1131,6 @@ body {
 .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto {
   width: 9.5rem;
   height: 9.5rem;
-  background-image: url('../img/userPhoto.png?1438673137');
   background-size: cover;
 }
 
