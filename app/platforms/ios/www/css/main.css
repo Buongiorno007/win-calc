@@ -3107,6 +3107,15 @@ body {
   box-shadow: 0 0 0.5rem 0.4375rem rgba(248, 65, 65, 0.1);
 }
 
+/* line 1, ../../dev/sass/parts/_main-cental.scss */
+.main-central-part {
+  position: absolute;
+  top: 12rem;
+  left: 0;
+  bottom: 25rem;
+  width: 100%;
+}
+
 /* line 3, ../../dev/sass/pages/login.scss */
 .login-page {
   display: -webkit-flex;
@@ -3624,11 +3633,30 @@ tr.factory_item {
   height: 9.375rem;
   margin-bottom: 3.125rem;
 }
-/* line 38, ../../dev/sass/pages/history.scss */
+/* line 37, ../../dev/sass/pages/history.scss */
+.accounts-container .history-header .history-back {
+  font: normal 3.125rem/1 icons, sans-serif;
+  left: -4.5rem;
+  position: absolute;
+  top: 25%;
+  width: 3.75rem;
+  height: 3.75rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  outline: none;
+}
+/* line 49, ../../dev/sass/pages/history.scss */
+.accounts-container .history-header .history-back:before {
+  content: "";
+  color: #f98000;
+}
+/* line 55, ../../dev/sass/pages/history.scss */
 .accounts-container .user-info-container {
   top: 0;
 }
-/* line 41, ../../dev/sass/pages/history.scss */
+/* line 58, ../../dev/sass/pages/history.scss */
 .accounts-container .history-tools-panel {
   display: -webkit-flex;
   display: flex;
@@ -3636,7 +3664,7 @@ tr.factory_item {
   top: 30%;
   right: 0;
 }
-/* line 48, ../../dev/sass/pages/history.scss */
+/* line 65, ../../dev/sass/pages/history.scss */
 .accounts-container .tools-block {
   display: -webkit-flex;
   display: flex;
@@ -3647,63 +3675,63 @@ tr.factory_item {
   position: relative;
   margin-right: 3.125rem;
 }
-/* line 55, ../../dev/sass/pages/history.scss */
+/* line 72, ../../dev/sass/pages/history.scss */
 .accounts-container .tools-block:last-child {
   margin: 0;
 }
-/* line 59, ../../dev/sass/pages/history.scss */
+/* line 76, ../../dev/sass/pages/history.scss */
 .accounts-container .tools-block.active .search-btn {
   display: none;
 }
-/* line 62, ../../dev/sass/pages/history.scss */
+/* line 79, ../../dev/sass/pages/history.scss */
 .accounts-container .tools-block.active .dropdown-tool-dialog {
   display: block;
 }
-/* line 67, ../../dev/sass/pages/history.scss */
+/* line 84, ../../dev/sass/pages/history.scss */
 .accounts-container .tool {
   position: relative;
   width: 3.125rem;
   height: 3.125rem;
   background-color: transparent;
 }
-/* line 76, ../../dev/sass/pages/history.scss */
+/* line 93, ../../dev/sass/pages/history.scss */
 .accounts-container .tool:after {
   position: absolute;
   top: 8%;
   left: 10%;
   color: #f98000;
 }
-/* line 83, ../../dev/sass/pages/history.scss */
+/* line 100, ../../dev/sass/pages/history.scss */
 .accounts-container .search-btn {
   font: normal 2.5rem/1 icons, sans-serif;
 }
-/* line 85, ../../dev/sass/pages/history.scss */
+/* line 102, ../../dev/sass/pages/history.scss */
 .accounts-container .search-btn:after {
   content: "";
 }
-/* line 89, ../../dev/sass/pages/history.scss */
+/* line 106, ../../dev/sass/pages/history.scss */
 .accounts-container .calendar-btn {
   font: normal 2.5rem/1 icons, sans-serif;
 }
-/* line 91, ../../dev/sass/pages/history.scss */
+/* line 108, ../../dev/sass/pages/history.scss */
 .accounts-container .calendar-btn:after {
   content: "";
 }
-/* line 95, ../../dev/sass/pages/history.scss */
+/* line 112, ../../dev/sass/pages/history.scss */
 .accounts-container .settings-btn {
   font: normal 2.5rem/1 icons, sans-serif;
 }
-/* line 97, ../../dev/sass/pages/history.scss */
+/* line 114, ../../dev/sass/pages/history.scss */
 .accounts-container .settings-btn:after {
   content: "";
 }
-/* line 101, ../../dev/sass/pages/history.scss */
+/* line 118, ../../dev/sass/pages/history.scss */
 .accounts-container .time-interval {
   font: normal 1.5rem/1.5rem roboto-bold, sans-serif;
   margin-left: 1.25rem;
   color: #363636;
 }
-/* line 108, ../../dev/sass/pages/history.scss */
+/* line 125, ../../dev/sass/pages/history.scss */
 .accounts-container .dropdown-tool-dialog {
   display: none;
   position: absolute;
@@ -3714,7 +3742,7 @@ tr.factory_item {
   background-color: #fff;
   z-index: 5;
 }
-/* line 119, ../../dev/sass/pages/history.scss */
+/* line 136, ../../dev/sass/pages/history.scss */
 .accounts-container .dropdown-tool-dialog:after {
   position: absolute;
   top: -1.5rem;
@@ -3724,19 +3752,19 @@ tr.factory_item {
   border-color: #f8f8f8 transparent;
   content: '';
 }
-/* line 130, ../../dev/sass/pages/history.scss */
+/* line 147, ../../dev/sass/pages/history.scss */
 .accounts-container .date-filter:after {
   left: 50%;
 }
-/* line 135, ../../dev/sass/pages/history.scss */
+/* line 152, ../../dev/sass/pages/history.scss */
 .accounts-container .sort-filter:after {
   right: 2%;
 }
-/* line 141, ../../dev/sass/pages/history.scss */
+/* line 158, ../../dev/sass/pages/history.scss */
 .accounts-container .time-interval.empty ~ .date-filter:after {
   left: 88%;
 }
-/* line 148, ../../dev/sass/pages/history.scss */
+/* line 165, ../../dev/sass/pages/history.scss */
 .accounts-container .filter-divider {
   font: normal 1.5rem/4.625rem roboto-bold, sans-serif;
   padding-left: 2.75rem;
@@ -3747,20 +3775,20 @@ tr.factory_item {
   border-color: #c4c3c3;
   border-width: 1px 0;
 }
-/* line 158, ../../dev/sass/pages/history.scss */
+/* line 175, ../../dev/sass/pages/history.scss */
 .accounts-container .filter-divider:first-child {
   border-top-width: 0;
   border-top-left-radius: 1.25rem;
   border-top-right-radius: 1.25rem;
 }
-/* line 165, ../../dev/sass/pages/history.scss */
+/* line 182, ../../dev/sass/pages/history.scss */
 .accounts-container .filter-list {
   margin: 0;
   padding: 0;
   list-style: none;
   padding-left: 2.75rem;
 }
-/* line 171, ../../dev/sass/pages/history.scss */
+/* line 188, ../../dev/sass/pages/history.scss */
 .accounts-container .filter-item {
   display: -webkit-flex;
   display: flex;
@@ -3771,25 +3799,25 @@ tr.factory_item {
   border-bottom: 1px solid #bebebe;
   cursor: pointer;
 }
-/* line 178, ../../dev/sass/pages/history.scss */
+/* line 195, ../../dev/sass/pages/history.scss */
 .accounts-container .filter-item:last-child {
   border-bottom: none;
 }
-/* line 182, ../../dev/sass/pages/history.scss */
+/* line 199, ../../dev/sass/pages/history.scss */
 .accounts-container .filter-item.selected .filter-select-icon {
   display: block;
 }
-/* line 187, ../../dev/sass/pages/history.scss */
+/* line 204, ../../dev/sass/pages/history.scss */
 .accounts-container .filter-label {
   font: normal 2.25rem/5.4375rem roboto-light, sans-serif;
   color: #363636;
 }
-/* line 193, ../../dev/sass/pages/history.scss */
+/* line 210, ../../dev/sass/pages/history.scss */
 .accounts-container .select-icon, .accounts-container .filter-select-icon, .accounts-container .complete-icon {
   position: relative;
   width: 4.0625rem;
 }
-/* line 196, ../../dev/sass/pages/history.scss */
+/* line 213, ../../dev/sass/pages/history.scss */
 .accounts-container .select-icon:after, .accounts-container .filter-select-icon:after, .accounts-container .complete-icon:after {
   top: 0.625rem;
   left: 0rem;
@@ -3797,16 +3825,16 @@ tr.factory_item {
   color: #f98000;
   content: "";
 }
-/* line 205, ../../dev/sass/pages/history.scss */
+/* line 222, ../../dev/sass/pages/history.scss */
 .accounts-container .filter-select-icon {
   font: normal 1.875rem/4.375rem icons, sans-serif;
   display: none;
 }
-/* line 214, ../../dev/sass/pages/history.scss */
+/* line 231, ../../dev/sass/pages/history.scss */
 .accounts-container .date-filter {
   text-align: center;
 }
-/* line 217, ../../dev/sass/pages/history.scss */
+/* line 234, ../../dev/sass/pages/history.scss */
 .accounts-container .filter-title {
   font: normal 1.5rem/5.5rem roboto-bold, sans-serif;
   border-top-left-radius: 1.25rem;
@@ -3815,19 +3843,19 @@ tr.factory_item {
   background-color: #f8f8f8;
   color: #363636;
 }
-/* line 227, ../../dev/sass/pages/history.scss */
+/* line 244, ../../dev/sass/pages/history.scss */
 .accounts-container .period {
   font: normal 2.25rem/5.5rem roboto-light, sans-serif;
   color: #f98000;
   background-color: #fff;
   cursor: pointer;
 }
-/* line 233, ../../dev/sass/pages/history.scss */
+/* line 250, ../../dev/sass/pages/history.scss */
 .accounts-container .period.selected {
   color: #fff;
   background-color: #f98000;
 }
-/* line 239, ../../dev/sass/pages/history.scss */
+/* line 256, ../../dev/sass/pages/history.scss */
 .accounts-container .dropdown-calendar-scroll {
   -moz-transition: all 0.5s linear;
   -o-transition: all 0.5s linear;
@@ -3836,16 +3864,16 @@ tr.factory_item {
   height: 0;
   overflow: hidden;
 }
-/* line 243, ../../dev/sass/pages/history.scss */
+/* line 260, ../../dev/sass/pages/history.scss */
 .accounts-container .dropdown-calendar-scroll.active {
   height: 20.375rem;
 }
-/* line 249, ../../dev/sass/pages/history.scss */
+/* line 266, ../../dev/sass/pages/history.scss */
 .accounts-container .total-date {
   border-bottom-left-radius: 1.25rem;
   border-bottom-right-radius: 1.25rem;
 }
-/* line 254, ../../dev/sass/pages/history.scss */
+/* line 271, ../../dev/sass/pages/history.scss */
 .accounts-container .date-list {
   margin: 0;
   padding: 0;
@@ -3854,7 +3882,7 @@ tr.factory_item {
   overflow-y: auto;
   background-color: #f8f8f8;
 }
-/* line 262, ../../dev/sass/pages/history.scss */
+/* line 279, ../../dev/sass/pages/history.scss */
 .accounts-container .date-item {
   display: -webkit-flex;
   display: flex;
@@ -3866,21 +3894,21 @@ tr.factory_item {
   color: #bebebe;
   cursor: pointer;
 }
-/* line 270, ../../dev/sass/pages/history.scss */
+/* line 287, ../../dev/sass/pages/history.scss */
 .accounts-container .date-item.selected {
   border-style: solid;
   border-color: #bebebe;
   border-width: 1px 0;
   color: #363636;
 }
-/* line 280, ../../dev/sass/pages/history.scss */
+/* line 297, ../../dev/sass/pages/history.scss */
 .accounts-container .account-block {
   position: relative;
   width: 93%;
   height: 27.875rem;
   margin-bottom: 3.125rem;
 }
-/* line 288, ../../dev/sass/pages/history.scss */
+/* line 305, ../../dev/sass/pages/history.scss */
 .accounts-container .account {
   -moz-box-shadow: #bebebe 0 0 0.9375rem 1px;
   -webkit-box-shadow: #bebebe 0 0 0.9375rem 1px;
@@ -3892,24 +3920,24 @@ tr.factory_item {
   background-color: #fff;
   z-index: 2;
 }
-/* line 298, ../../dev/sass/pages/history.scss */
+/* line 315, ../../dev/sass/pages/history.scss */
 .accounts-container .account.current .footer {
   background-color: #6ed44a;
 }
-/* line 303, ../../dev/sass/pages/history.scss */
+/* line 320, ../../dev/sass/pages/history.scss */
 .accounts-container .account.wait .footer {
   background-color: #f9b000;
 }
-/* line 307, ../../dev/sass/pages/history.scss */
+/* line 324, ../../dev/sass/pages/history.scss */
 .accounts-container .account.done {
   background-color: #f0f0f0;
 }
-/* line 309, ../../dev/sass/pages/history.scss */
+/* line 326, ../../dev/sass/pages/history.scss */
 .accounts-container .account.done .account-select-btn,
 .accounts-container .account.done .account-delete-btn {
   display: none;
 }
-/* line 316, ../../dev/sass/pages/history.scss */
+/* line 333, ../../dev/sass/pages/history.scss */
 .accounts-container .account-row {
   display: -webkit-flex;
   display: flex;
@@ -3919,20 +3947,20 @@ tr.factory_item {
   align-items: center;
   padding: 1.25rem 1.875rem;
 }
-/* line 322, ../../dev/sass/pages/history.scss */
+/* line 339, ../../dev/sass/pages/history.scss */
 .accounts-container .account-row:first-child {
   border-bottom: 1px solid #bebebe;
 }
-/* line 325, ../../dev/sass/pages/history.scss */
+/* line 342, ../../dev/sass/pages/history.scss */
 .accounts-container .account-row:last-of-type {
   border-top: 1px solid #bebebe;
 }
-/* line 328, ../../dev/sass/pages/history.scss */
+/* line 345, ../../dev/sass/pages/history.scss */
 .accounts-container .account-row.header, .accounts-container .account-row.footer {
   -webkit-justify-content: space-between;
   justify-content: space-between;
 }
-/* line 332, ../../dev/sass/pages/history.scss */
+/* line 349, ../../dev/sass/pages/history.scss */
 .accounts-container .account-row.footer {
   font: normal 3rem/1.42857 roboto-bold, sans-serif;
   border-bottom-left-radius: 0.9375rem;
@@ -3940,46 +3968,46 @@ tr.factory_item {
   color: #363636;
   cursor: pointer;
 }
-/* line 342, ../../dev/sass/pages/history.scss */
+/* line 359, ../../dev/sass/pages/history.scss */
 .accounts-container .account-data.title {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: row nowrap;
   flex-flow: row nowrap;
 }
-/* line 346, ../../dev/sass/pages/history.scss */
+/* line 363, ../../dev/sass/pages/history.scss */
 .accounts-container .account-data.phone {
   margin-right: 1.875rem;
   padding-right: 1.875rem;
   border-right: 1px solid #bebebe;
 }
-/* line 352, ../../dev/sass/pages/history.scss */
+/* line 369, ../../dev/sass/pages/history.scss */
 .accounts-container .complete-icon {
   font: normal 1.875rem/1 icons, sans-serif;
 }
-/* line 356, ../../dev/sass/pages/history.scss */
+/* line 373, ../../dev/sass/pages/history.scss */
 .accounts-container .account-id {
   font: normal 2.25rem/1.42857 roboto-medium, sans-serif;
   color: #363636;
 }
-/* line 361, ../../dev/sass/pages/history.scss */
+/* line 378, ../../dev/sass/pages/history.scss */
 .accounts-container .account-addinfo {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   margin-left: 0.625rem;
   color: #8c8c8c;
 }
-/* line 367, ../../dev/sass/pages/history.scss */
+/* line 384, ../../dev/sass/pages/history.scss */
 .accounts-container .account-date-filter,
 .accounts-container .account-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #8c8c8c;
 }
-/* line 374, ../../dev/sass/pages/history.scss */
+/* line 391, ../../dev/sass/pages/history.scss */
 .accounts-container .user-data {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 380, ../../dev/sass/pages/history.scss */
+/* line 397, ../../dev/sass/pages/history.scss */
 .accounts-container .account-tool {
   font: normal 2.8125rem/1 icons, sans-serif;
   position: absolute;
@@ -3989,45 +4017,45 @@ tr.factory_item {
   border-bottom-right-radius: 1.875rem;
   z-index: 1;
 }
-/* line 392, ../../dev/sass/pages/history.scss */
+/* line 409, ../../dev/sass/pages/history.scss */
 .accounts-container .account-select-btn {
   font: normal 1.875rem/1 icons, sans-serif;
   top: 3.125rem;
   right: -7.5rem;
   background-color: #6ed44a;
 }
-/* line 397, ../../dev/sass/pages/history.scss */
+/* line 414, ../../dev/sass/pages/history.scss */
 .accounts-container .account-select-btn:after {
   color: #fff;
   content: "";
 }
-/* line 402, ../../dev/sass/pages/history.scss */
+/* line 419, ../../dev/sass/pages/history.scss */
 .accounts-container .account-copy-btn {
   top: 11.25rem;
   right: -7.5rem;
   background-color: #c6c6c6;
 }
-/* line 406, ../../dev/sass/pages/history.scss */
+/* line 423, ../../dev/sass/pages/history.scss */
 .accounts-container .account-copy-btn:after {
   color: #363636;
   content: "";
 }
-/* line 411, ../../dev/sass/pages/history.scss */
+/* line 428, ../../dev/sass/pages/history.scss */
 .accounts-container .account-print-btn {
   top: 19.375rem;
   right: -7.5rem;
   background-color: #c6c6c6;
 }
-/* line 415, ../../dev/sass/pages/history.scss */
+/* line 432, ../../dev/sass/pages/history.scss */
 .accounts-container .account-print-btn:after {
   color: #363636;
   content: "";
 }
-/* line 420, ../../dev/sass/pages/history.scss */
+/* line 437, ../../dev/sass/pages/history.scss */
 .accounts-container .account.done ~ .account-print-btn {
   top: 3.125rem;
 }
-/* line 423, ../../dev/sass/pages/history.scss */
+/* line 440, ../../dev/sass/pages/history.scss */
 .accounts-container .account-delete-btn {
   position: absolute;
   top: -1.25rem;
@@ -4035,7 +4063,7 @@ tr.factory_item {
   background-color: #6ed44a;
   z-index: 2;
 }
-/* line 432, ../../dev/sass/pages/history.scss */
+/* line 449, ../../dev/sass/pages/history.scss */
 .accounts-container .account-change-btn {
   font: normal 1.5rem/1.42857 roboto-regular, sans-serif;
   position: absolute;
@@ -4050,71 +4078,71 @@ tr.factory_item {
   z-index: 2;
 }
 
-/* line 451, ../../dev/sass/pages/history.scss */
+/* line 468, ../../dev/sass/pages/history.scss */
 .draft-view .account-block {
   height: 12.75rem;
 }
-/* line 455, ../../dev/sass/pages/history.scss */
+/* line 472, ../../dev/sass/pages/history.scss */
 .draft-view .account-row:first-child {
   background-color: #e5e5e5;
   border-bottom: none;
 }
-/* line 459, ../../dev/sass/pages/history.scss */
+/* line 476, ../../dev/sass/pages/history.scss */
 .draft-view .account-row:last-of-type {
   background-color: #d8d8d8;
 }
-/* line 463, ../../dev/sass/pages/history.scss */
+/* line 480, ../../dev/sass/pages/history.scss */
 .draft-view .account-print-btn {
   top: 3.125rem;
 }
 
-/* line 469, ../../dev/sass/pages/history.scss */
+/* line 486, ../../dev/sass/pages/history.scss */
 .dark-fon {
   background-color: #e1e1e1;
 }
-/* line 471, ../../dev/sass/pages/history.scss */
+/* line 488, ../../dev/sass/pages/history.scss */
 .dark-fon .account,
 .dark-fon .account.done {
   background-color: #e5e5e5;
 }
 
-/* line 477, ../../dev/sass/pages/history.scss */
+/* line 494, ../../dev/sass/pages/history.scss */
 .empty-search-result {
   text-align: center;
   z-index: 10;
 }
-/* line 487, ../../dev/sass/pages/history.scss */
+/* line 504, ../../dev/sass/pages/history.scss */
 .empty-search-result .result-icon {
   font: normal 23.125rem/1.5 icons, sans-serif;
 }
-/* line 492, ../../dev/sass/pages/history.scss */
+/* line 509, ../../dev/sass/pages/history.scss */
 .empty-search-result .result-icon:after {
   color: #c6c6c6;
   content: "";
 }
-/* line 497, ../../dev/sass/pages/history.scss */
+/* line 514, ../../dev/sass/pages/history.scss */
 .empty-search-result .result-text {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 501, ../../dev/sass/pages/history.scss */
+/* line 518, ../../dev/sass/pages/history.scss */
 .empty-search-result .searchin-text {
   font: normal 2.25rem/1.42857 roboto-medium, sans-serif;
 }
 
-/* line 508, ../../dev/sass/pages/history.scss */
+/* line 525, ../../dev/sass/pages/history.scss */
 .mbsc-ios .dw-li {
   text-align: center !important;
 }
-/* line 510, ../../dev/sass/pages/history.scss */
+/* line 527, ../../dev/sass/pages/history.scss */
 .mbsc-ios .dw-li .dw-i {
   font-size: 2.1875rem !important;
 }
-/* line 512, ../../dev/sass/pages/history.scss */
+/* line 529, ../../dev/sass/pages/history.scss */
 .mbsc-ios .dw-li .dw-i div {
   display: none !important;
 }
-/* line 515, ../../dev/sass/pages/history.scss */
+/* line 532, ../../dev/sass/pages/history.scss */
 .mbsc-ios .dw-li .dw-i .dw-mon {
   font-size: 2.1875rem !important;
 }

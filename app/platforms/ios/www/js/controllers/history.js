@@ -1,3 +1,6 @@
+
+// controllers/history.js
+
 (function(){
   'use strict';
   /**
@@ -7,13 +10,15 @@
     .module('HistoryModule')
     .controller('HistoryCtrl', historyCtrl);
 
-  function historyCtrl(GlobalStor, UserStor, HistoryStor, HistoryServ) {
+  function historyCtrl(GlobalStor, UserStor, HistoryStor, HistoryServ, GeneralServ, $location) {
 
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.H = HistoryStor;
     thisCtrl.U = UserStor;
+
+    thisCtrl. toCurrentCalculation = toCurrentCalculation;
 
 
     //------- set current Page
@@ -39,6 +44,12 @@
     thisCtrl.sortingInit = HistoryServ.sortingInit;
 
     //============ methods ================//
+
+    //------ go to current calculations
+    function toCurrentCalculation () {
+      GeneralServ.setPreviosPage();
+      $location.path('/main');
+    }
 
 
   }

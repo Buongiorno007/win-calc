@@ -58,6 +58,7 @@
           <div data-output="{{ userBox.U.userInfo.name }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-name"></div>
         </div>
       </div>
+      <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" hm-tap="userBox.showNewCalculation()" class="main-central-part"></div>
       <div ng-controller="RoomInfoCtrl as roomInfo" ng-class="{'show-comment': roomInfo.G.global.isShowCommentBlock}" hm-swipeup="roomInfo.swipeShowComment($event)" hm-swipedown="roomInfo.swipeHideComment($event)" class="room-info-container">
         <div class="coeff-container">
           <div class="coeff-block">

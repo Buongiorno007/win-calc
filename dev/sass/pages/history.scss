@@ -34,6 +34,23 @@
     width: 100%;
     height: rem(150px);
     margin-bottom: rem(50px);
+    .history-back{
+      font: normal 3.125rem/1 icons, sans-serif;
+      left: -4.5rem;
+      position: absolute;
+      top: 25%;
+      width: 3.75rem;
+      height: 3.75rem;
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: transparent;
+      outline: none;
+      &:before {
+        content: $arrow-icon;
+        color: $main_orange;
+      }
+    }
   }
   .user-info-container {
     top: 0;

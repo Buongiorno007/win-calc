@@ -1,3 +1,6 @@
+
+// translations/ru.js
+
 (function(){
   'use strict';
 
@@ -70,10 +73,10 @@
         NAVMENU_CURRENT_CALCULATION: 'Текущий расчет',
         NAVMENU_CART: 'Корзина расчета',
         NAVMENU_ADD_ELEMENTS: 'Доп. элементы',
-        NAVMENU_ALL_CALCULATIONS: 'Все расчеты',
+        NAVMENU_ALL_CALCULATIONS: 'История заказов',
         NAVMENU_SETTINGS: 'Настройки',
         NAVMENU_MORE_INFO: 'Больше информации',
-        NAVMENU_VOICE_HELPER: 'Голосовой помошник',
+        NAVMENU_VOICE_HELPER: 'Голосовое управление',
         NAVMENU_CALCULATIONS: 'Расчеты',
         NAVMENU_APPENDIX: 'Приложение',
         NAVMENU_NEW_CALC: '+Новый расчет',
@@ -350,7 +353,13 @@
         SELECT_INFO_SOURCE: 'Выберите источник информации',
         NO_DISASSEMBL: 'без демонтажа',
         STANDART_ASSEMBL: 'стандартный',
-        VIP_ASSEMBL: 'VIP-монтаж'
+        VIP_ASSEMBL: 'VIP-монтаж',
+        DISCOUNT: 'Cкидка',
+        DISCOUNT_SELECT: 'Выбор скидки',
+        DISCOUNT_WITH: 'С учетом скидки',
+        DISCOUNT_WITHOUT: 'Без учета скидки',
+        DISCOUNT_WINDOW: 'Скидка на изделие',
+        DISCOUNT_ADDELEM: 'Скидка на дополнительные элементы'
       },
       settings: {
         AUTHORIZATION: 'Авторизация:',

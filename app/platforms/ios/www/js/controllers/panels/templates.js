@@ -1,3 +1,6 @@
+
+// controllers/panels/templates.js
+
 (function(){
 'use strict';
   /**
@@ -20,7 +23,7 @@
       DELAY_TEMPLATE_ELEMENT: 5 * globalConstants.STEP,
       typing: 'on'
     };
-    thisCtrl.switcherTemplate = false;
+    thisCtrl.switcherTemplate = true;
 
 
     //---------- download templates Img icons
@@ -114,6 +117,7 @@
 
 
     function gotoConstructionPage() {
+      thisCtrl.G.global.activePanel = 0;
       $location.path('/design');
     }
 

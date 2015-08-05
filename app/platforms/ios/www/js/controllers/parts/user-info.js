@@ -1,3 +1,6 @@
+
+// controllers/parts/user-info.js
+
 (function(){
   'use strict';
   /**
@@ -7,10 +10,11 @@
     .module('MainModule')
     .controller('UserInfoCtrl', userInfoCtrl);
 
-  function userInfoCtrl(globalConstants, GeneralServ, GlobalStor, UserStor) {
+  function userInfoCtrl(globalConstants, GeneralServ, GlobalStor, UserStor, MainServ) {
 
     var thisCtrl = this;
     thisCtrl.U = UserStor;
+    this.showNewCalculation = MainServ.prepareMainPage;
 
     thisCtrl.config = {
       DELAY_SHOW_USER_INFO: 40 * globalConstants.STEP,
