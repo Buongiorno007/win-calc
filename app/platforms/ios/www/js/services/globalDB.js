@@ -1,3 +1,6 @@
+
+// services/globalDB.js
+
 (function(){
   'use strict';
   /**
@@ -9,9 +12,10 @@
 
   function globalDBFactory($http, $webSql, $q) {
 
-    var elemLists = [], elemListsHw = [], elemListsAdd = [],tablesToSync=[],
+    var elemLists = [], elemListsHw = [], elemListsAdd = [],
         dbGlobal = $webSql.openDatabase('bauvoice', '1.0', 'bauvoice', 65536),
         db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
+
     // SQL requests for creating tables if they are not exists yet
     var createTablesSQL = ["CREATE TABLE IF NOT EXISTS factories (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
         "CREATE TABLE IF NOT EXISTS elements_groups (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(100), base_unit INTEGER, position INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
@@ -36,7 +40,7 @@
         "CREATE TABLE IF NOT EXISTS window_hardware_types (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), short_name VARCHAR(100), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
         "CREATE TABLE IF NOT EXISTS window_hardware_types_base (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
         "CREATE TABLE IF NOT EXISTS window_hardware_groups (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), short_name VARCHAR(100), factory_id INTEGER, is_editable INTEGER, parent_id INTEGER, is_group INTEGER, is_in_calculation INTEGER, base_type_id INTEGER, position INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(base_type_id) REFERENCES window_hardware_types_base(id))",
-        "CREATE TABLE IF NOT EXISTS window_hardwares (id INTEGER PRIMARY KEY AUTOINCREMENT, window_hardware_type_id INTEGER, min_width INTEGER, max_width INTEGER, min_height INTEGER, max_height INTEGER, direction_id INTEGER, window_hardware_color_id INTEGER, length INTEGER, count INTEGER, child_id INTEGER, child_type VARCHAR(100), position INTEGER, factory_id INTEGER, window_hardware_group_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(window_hardware_type_id) REFERENCES window_hardware_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(window_hardware_group_id) REFERENCES window_hardware_groups(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id))",
+        "CREATE TABLE IF NOT EXISTS window_hardware (id INTEGER PRIMARY KEY AUTOINCREMENT, window_hardware_type_id INTEGER, min_width INTEGER, max_width INTEGER, min_height INTEGER, max_height INTEGER, direction_id INTEGER, window_hardware_color_id INTEGER, length INTEGER, count INTEGER, child_id INTEGER, child_type VARCHAR(100), position INTEGER, factory_id INTEGER, window_hardware_group_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(window_hardware_type_id) REFERENCES window_hardware_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(window_hardware_group_id) REFERENCES window_hardware_groups(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id))",
         "CREATE TABLE IF NOT EXISTS profile_system_folders (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), factory_id INTEGER, position INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id))",
         "CREATE TABLE IF NOT EXISTS profile_systems (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), short_name VARCHAR(100), profile_system_folder_id INTEGER, rama_list_id INTEGER, rama_still_list_id INTEGER, stvorka_list_id INTEGER, impost_list_id INTEGER, shtulp_list_id INTEGER, is_editable INTEGER, is_default INTEGER, position INTEGER, country VARCHAR(100), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, cameras INTEGER, FOREIGN KEY(profile_system_folder_id) REFERENCES profile_system_folders(id))",
         "CREATE TABLE IF NOT EXISTS glass_profile_systems (id INTEGER PRIMARY KEY AUTOINCREMENT, profile_system_id INTEGER, list_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(list_id) REFERENCES lists(id))",
@@ -62,7 +66,7 @@
       "DROP table lists_types", "DROP table addition_colors", "DROP table margin_types", "DROP table suppliers", "DROP table currencies", "DROP table countries",
       "DROP table regions", "DROP table cities", "DROP table users", "DROP table lamination_colors", "DROP table elements", "DROP table lists_groups", "DROP table lists",
       "DROP table directions", "DROP table rules_types", "DROP table window_hardware_colors", "DROP table list_contents", "DROP table window_hardware_types",
-      "DROP table window_hardware_types_base", "DROP table window_hardware_groups", "DROP table window_hardwares", "DROP table profile_system_folders",
+      "DROP table window_hardware_types_base", "DROP table window_hardware_groups", "DROP table window_hardware", "DROP table profile_system_folders",
       "DROP table profile_systems", "DROP table glass_profile_systems", "DROP table beed_profile_systems","DROP table addition_folders", "DROP table addition_types"
     ];
 
@@ -74,36 +78,19 @@
       citiesTableDBGlobal: 'cities',
       regionsTableDBGlobal: 'regions',
       countriesTableDBGlobal: 'countries',
-      currenciesTableDBGlobal: 'currencies',
       listsTableDBGlobal: 'lists',
       elementsTableDBGlobal: 'elements',
       beadsTableDBGlobal: 'beed_profile_systems',
       laminationTableDBGlobal: 'lamination_colors',
-      profileTypeTableDBGlobal: 'profile_system_folders',
-      profileTableDBGlobal: 'profile_systems',
-      hardwareTypeTableDBGlobal: 'window_hardware_groups',
-      hardwareTableDBGlobal: 'window_hardwares',
 
-      addElementDBId: [
-        20, // 0 - grids
-        21, // 1 - visors
-        9, // 2 - spillways
-        19, // 3 - outSlope
-        0, // 4 - louvers
-        19, // 5 - inSlope
-        12, // 6 - connectors
-        0, // 7 - fans
-        8, // 8 - windowSill
-        24, // 9 - handles
-        16 // 10 - others
-      ],
+      visorDBId: 21,
+      gridDBId: 20,
+      spillwayDBId: 9,
+      windowsillDBId: 8,
 
       selectDBGlobal: selectDBGlobal,
       selectAllDBGlobal: selectAllDBGlobal,
       updateDBGlobal: updateDBGlobal,
-
-
-
 
       md5: function (string) {
         function RotateLeft(lValue, iShiftBits) {
@@ -299,35 +286,16 @@
       },
 
 
-
-      //========= check available Global DB
-      checkGlobalDB: function() {
-        var deferred = $q.defer();
-        db.transaction(function (transaction) {
-          transaction.executeSql("SELECT last_sync FROM device WHERE id = 1", [], function (tx, results) {
-            if(results.rows.item(0).last_sync) {
-              deferred.resolve(1);
-            } else {
-              deferred.resolve(0);
-            }
-          }, function (tx, results) {
-            if(Object.keys(tx).length == 0 && results.code == 5) {
-              deferred.resolve(0);
-            }
-          });
-        });
-        return deferred.promise;
-      },
-
-
       //========= delete countries, regions and cities tables in Global DB
-      clearLocation: function () {
+      clearLocation: function (callback) {
         var deferred = $q.defer();
         db.transaction(function (transaction) {
           for (var i = 9; i < 13; i++) {
             transaction.executeSql(deleteTablesSQL[i], [], function () {
+              callback({status: true});
               deferred.resolve('Location tables clearing is done!');
             }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with deleting table'));
               deferred.resolve('not find deleting table');
             });
           }
@@ -336,7 +304,7 @@
       },
 
       //========= import countries, regions and cities tables in Global DB
-      importLocation: function () {
+      importLocation: function (callback) {
         var deferred = $q.defer();
         var i, table;
         db.transaction(function (transaction) {
@@ -348,12 +316,17 @@
           db.transaction(function (transaction) {
             for (table in result.tables) {
               for (i = 0; i < result.tables[table].rows.length; i++) {
-                transaction.executeSql('INSERT INTO ' + table + ' (' + result.tables[table].fields.join(', ') + ') VALUES (' + getValuesString(result.tables[table].rows[i]) + ')', [], function () {}, null);
+                transaction.executeSql('INSERT INTO ' + table + ' (' + result.tables[table].fields.join(', ') + ') VALUES (' + getValuesString(result.tables[table].rows[i]) + ')', [], function () {
+                }, function () {
+                  callback(new ErrorResult(2, 'Something went wrong with inserting ' + table + ' record'));
+                });
               }
             }
+            callback({status: true});
             deferred.resolve('import of Location tables is done!');
           });
         }).error(function () {
+          callback(new ErrorResult(2, 'Something went wrong with importing Database!'));
           deferred.reject('Something went wrong with importing Database!');
         });
         return deferred.promise;
@@ -427,14 +400,18 @@
           transaction.executeSql(createDevice, []);
         });
         db.transaction(function (transaction) {
-          transaction.executeSql(deleteTablesSQL[0], [], null, null);
+          transaction.executeSql(deleteTablesSQL[0], [], null, function () {
+            callback(new ErrorResult(2, 'Something went wrong with deleting table'));
+          });
         });
         db.transaction(function (transaction) {
           transaction.executeSql(createDevice, []);
         });
         db.transaction(function (transaction) {
           transaction.executeSql(insertDeviceCodeLocalDb, [1, factory_id, 0], function () {
-          }, null);
+          }, function () {
+            callback(new ErrorResult(2, 'Something went wrong with inserting device record'));
+          });
         });
         db.transaction(function (transaction) {
           for (i = 0; i < createTablesSQL.length; i++) {
@@ -442,22 +419,26 @@
           }
         });
         console.log('Import database begin!');
-        $http.get('http://192.168.1.147:3002/sync/elements?login='+login+'&access_token='+access_token).success(function (result) {
-          console.log("IMPORT SUCCESS!");
+        $http.get('http://api.voice-creator.net/sync/elements?login='+login+'&access_token='+access_token).success(function (result) {
           db.transaction(function (transaction) {
             for (table in result.tables) {
               for (i = 0; i < result.tables[table].rows.length; i++) {
                 transaction.executeSql('INSERT INTO ' + table + ' (' + result.tables[table].fields.join(', ') + ') VALUES (' + getValuesString(result.tables[table].rows[i]) + ')', [], function () {
-                }, function () {});
+                }, function () {
+                  callback(new ErrorResult(2, 'Something went wrong with inserting ' + table + ' record'));
+                });
               }
             }
             transaction.executeSql(updateDeviceSync, [""+result.last_sync+""], function(){
               console.log('Database import is finished!');
               deferred.resolve('importDb is done!');
-            }, function () {});
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with updating device table!'));
+            });
+            callback({status: true});
           });
         }).error(function () {
-          console.log('Something went wrong with importing Database!');
+          callback(new ErrorResult(2, 'Something went wrong with importing Database!'));
         });
         return deferred.promise;
       },
@@ -476,7 +457,7 @@
         });
       },
 
-      syncDb: function (login, access_token) {
+      syncDb: function (login, access_token, callback) {
         var deferred = $q.defer();
         var i, k, table, updateSql, lastSyncDate;
         var self = this;
@@ -496,7 +477,7 @@
                     }
                     transaction.executeSql("UPDATE " + table + " SET " + updateSql + " WHERE id = " + result.tables[table].rows[i][0], [], function () {
                     }, function () {
-                      console.log('Something went wrong with updating ' + table + ' record');
+                      callback(new ErrorResult(2, 'Something went wrong with updating ' + table + ' record'));
                     });
                   }
                 }
@@ -504,50 +485,14 @@
               transaction.executeSql(updateDeviceSync, [""+result.last_sync+""], function(){
                 deferred.resolve('UPDATE is done!');
               }, function () {
-                console.log('Something went wrong with updating device table!');
+                callback(new ErrorResult(2, 'Something went wrong with updating device table!'));
               });
+              callback({status: true});
             });
 
           }).error(function () {
-            console.log('Something went wrong with sync Database!');
+            callback(new ErrorResult(2, 'Something went wrong with sync Database!'));
           });
-        });
-        return deferred.promise;
-      },
-
-      updateObjectInDB: function (table_name, object) {
-        var deferred = $q.defer();
-        db.transaction(function (tr){
-          var updateSQL='', tempObject={};
-          tr.executeSql("SELECT * FROM " + table_name + " LIMIT 1",[],function (trans, res){
-            //console.log(res.rows.item(0));
-            for( var attr in res.rows.item(0)){
-              if (object[attr] && (object[attr] != 'null')) {
-                tempObject[attr] = object[attr];
-                if (!updateSQL) {
-                  updateSQL += attr + " = '" + object[attr] + "'";
-                } else {
-                  updateSQL += ", " + attr + " = '" + object[attr] + "'";
-                }
-              }
-            }
-            tablesToSync.push({model: table_name, rowId: tempObject.id, field: JSON.stringify(tempObject)});
-            tr.executeSql("UPDATE " + table_name + " SET " + updateSQL + " WHERE id = " + object.id, [], function () {
-                console.log('Update ', table_name, 'table success!');
-
-                deferred.resolve('UPDATE is done!');
-              },
-              function () {
-                console.log('Something went wrong with updating ' + table_name + ' table!');
-                deferred.resolve('UPDATE is faild!');
-            });
-          }, function(){
-            console.log('Something went wrong with updating ' + table_name + ' table!');
-            deferred.resolve('UPDATE is faild!');
-          });
-        }, function () {
-          console.log('Something went wrong with updating ', table_name, ' table!');
-          deferred.resolve('UPDATE is faild!');
         });
         return deferred.promise;
       },
@@ -560,27 +505,15 @@
         });
       },
 
-      syncUpdatesToServer: function (login, access_token) {
-        syncToServer(login, access_token).then(function (data) {
-          tablesToSync=data;
-          if (tablesToSync) {
-            document.addEventListener("online", function () {
-              syncToServer(login, access_token).then(function (data) {
-                tablesToSync=data;
-              });
-            }, false);
-          }
-        });
-
-      },
-
-      clearDb: function () {
+      clearDb: function (callback) {
         var deferred = $q.defer();
         db.transaction(function (transaction) {
           for (var j = 0; j < deleteTablesSQL.length; j++) {
             transaction.executeSql(deleteTablesSQL[j], [], function () {
+              callback({status: true});
               deferred.resolve({status: true});
             }, function () {
+              callback(new ErrorResult(2, 'Something went wrong with deleting table'));
               deferred.resolve('clearDb has problemms');
             });
           }
@@ -611,6 +544,7 @@
       getCurrentCurrency: function(currencyId, callback){
         db.transaction(function (transaction) {
           transaction.executeSql('select id, name, value from currencies where id = ?', [currencyId], function (transaction, result) {
+            console.log(result);
             if (result.rows.length) {
               callback(new OkResult(result.rows.item(0)));
             } else {
@@ -787,7 +721,7 @@
       getByHardwareId: function(whId, construction, callback){
         var self = this;
         db.transaction(function (transaction) {
-          transaction.executeSql('select * from window_hardwares where window_hardware_group_id = ? and child_id > 0 and count > 0', [whId], function (transaction, result){
+          transaction.executeSql('select * from window_hardware where window_hardware_group_id = ? and child_id > 0 and count > 0', [whId], function (transaction, result){
             var hardwareresult = [];
             for(var i = 0; i < result.rows.length; i++){
               for(var j = 0; j < construction.sashesBlock.length; j++){
@@ -1889,68 +1823,36 @@
       return valuesString;
     }
 
-    function syncToServer (login, access_token) {
-      var deferred = $q.defer(),
-          temArr = [];
-      for (var i = 0, len = tablesToSync.length; i < len; i++) {
-        var querOb = angular.copy(tablesToSync[i]);
-        $http.post('http://192.168.1.147:3002/api/update?login=' + login + '&access_token=' + access_token, querOb)
-          .success(function (data) {
-            //console.log('tablesToSync:',tablesToSync, tablesToSync[0],i,tablesToSync[i]);
-            console.log('send changes to server success:',querOb);
-            if (i== len) {
-              deferred.resolve(temArr);
-            }
-          })
-          .error(function (data) {
-            console.log('send changes to server failed');
-            temArr.push(querOb);
-            if (i== len) {
-              deferred.resolve(temArr);
-            }
-          });
-      }
-      return deferred.promise;
-    }
 
 
-    function selectDBGlobal(tableName, options) {
-      var deferred = $q.defer(),
-          handler = [];
-      dbGlobal.select(tableName, options).then(function (result) {
-        var resultQty = result.rows.length,
-            i = 0;
-        if (resultQty) {
-          for (; i < resultQty; i++) {
-            handler.push(result.rows.item(i));
+
+    function selectDBGlobal(tableName, options, callback) {
+      var handler = [];
+      dbGlobal.select(tableName, options).then(function (results) {
+        if (results.rows.length) {
+          for (var i = 0; i < results.rows.length; i++) {
+            handler.push(results.rows.item(i));
           }
-          deferred.resolve(handler);
+          callback(new OkResult(handler));
         } else {
-          deferred.resolve();
+          callback(new ErrorResult(1, 'No in database!'));
         }
       });
-      return deferred.promise;
     }
 
-
-    function selectAllDBGlobal(tableName) {
-      var deferred = $q.defer(),
-          handler = [];
-      dbGlobal.selectAll(tableName).then(function (result) {
-        var resultQty = result.rows.length,
-            i = 0;
-        if(resultQty) {
-          for(;i < resultQty; i++) {
-            handler.push(result.rows.item(i));
+    function selectAllDBGlobal(tableName, callback) {
+      var handler = [];
+      dbGlobal.selectAll(tableName).then(function (results) {
+        if (results.rows.length) {
+          for (var i = 0; i < results.rows.length; i++) {
+            handler.push(results.rows.item(i));
           }
-          deferred.resolve(handler);
+          callback(new OkResult(handler));
         } else {
-          deferred.resolve();
+          callback(new ErrorResult(1, 'No in database!'));
         }
       });
-      return deferred.promise;
     }
-
 
     function updateDBGlobal(tableName, elem, options) {
       dbGlobal.update(tableName, elem, options);
@@ -1959,6 +1861,7 @@
 
   }
 })();
+
 
 
 

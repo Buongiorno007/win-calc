@@ -1,3 +1,6 @@
+
+// controllers/main.js
+
 (function(){
   'use strict';
   /**
@@ -7,16 +10,16 @@
     .module('MainModule')
     .controller('MainCtrl', mainPageCtrl);
 
-  function mainPageCtrl(GlobalStor, ProductStor, MainServ, optionsServ) {
+  function mainPageCtrl(GlobalStor, ProductStor, MainServ, optionsServ, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
+    thisCtrl.U = UserStor;
 
     //------- set current Page
     GlobalStor.global.currOpenPage = 'main';
-
-
+    console.log('USER:',thisCtrl.U.userInfo);
 
     //=============== FIRST START =========//
 

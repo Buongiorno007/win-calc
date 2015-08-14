@@ -1,3 +1,6 @@
+
+// controllers/change-pass.js
+
 (function(){
   'use strict';
   /**
@@ -14,9 +17,11 @@
 
     thisCtrl.config = {
       DELAY_START: globalConstants.STEP,
+      oldPassword: false,
       newPassword: false,
       confirmPassword: false,
       isErrorPassword: false,
+      isErrorOldPassword: false,
       typing: 'on'
     };
 
@@ -24,6 +29,7 @@
     thisCtrl.saveNewPassword = saveNewPassword;
     thisCtrl.gotoSettingsPage = gotoSettingsPage;
     thisCtrl.checkError = checkError;
+    thisCtrl.checkErrorOld = checkErrorOld;
 
 
     //============ methods ================//
@@ -33,15 +39,19 @@
     }
 
     function saveNewPassword() {
-      if(thisCtrl.config.newPassword && thisCtrl.config.confirmPassword && thisCtrl.config.newPassword === thisCtrl.config.confirmPassword) {
+      if( thisCtrl.config.oldPassword && UserStor.userInfo.password == globalDB.md5(thisCtrl.config.oldPassword) && thisCtrl.config.newPassword && thisCtrl.config.confirmPassword && thisCtrl.config.newPassword === thisCtrl.config.confirmPassword) {
         thisCtrl.config.isErrorPassword = false;
-        UserStor.userInfo.password = thisCtrl.config.newPassword;
+        UserStor.userInfo.password = globalDB.md5(thisCtrl.config.newPassword);
         //TODO save chand in Server not in GlobalDB
-        globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"password": thisCtrl.config.newPassword}, {"id": UserStor.userInfo.id});
-        //---- clean fields
-        thisCtrl.config.newPassword = thisCtrl.config.confirmPassword = false;
+        globalDB.updateObjectInDB(globalDB.usersTableDBGlobal,UserStor.userInfo).then(function () {
+          globalDB.syncUpdatesToServer(UserStor.userInfo.phone, UserStor.userInfo.device_code);
+          //---- clean fields
+          thisCtrl.config.newPassword = thisCtrl.config.confirmPassword = false;
+          gotoSettingsPage();
+        });
       } else {
-        thisCtrl.config.isErrorPassword = true;
+        if (!thisCtrl.config.oldPassword || (UserStor.userInfo.password != globalDB.md5(thisCtrl.config.oldPassword))){thisCtrl.config.isErrorOldPassword = true;}
+         else {thisCtrl.config.isErrorPassword = true;}
       }
 
 //      if(thisCtrl.config.newPassword === '' && thisCtrl.config.confirmPassword === '') {
@@ -64,5 +74,10 @@
       thisCtrl.config.isErrorPassword = false;
     }
 
+    function checkErrorOld() {
+      thisCtrl.config.isErrorOldPassword = false;
+    }
+
   }
 })();
+

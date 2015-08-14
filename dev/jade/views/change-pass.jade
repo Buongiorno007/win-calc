@@ -8,15 +8,17 @@ section.settings.password-page
     .lists
       form(name="passForm")
         ul.list
-          li.item
+          li.item.click
             .psw-label(data-output="{{ 'settings.CURRENT_PASSWORD' | translate }}", typing="{{ passwordPage.config.typing }}", typing-delay="{{ passwordPage.config.DELAY_START }}")
-            .psw-data(data-output="{{ passwordPage.U.userInfo.password }}", typing="{{ passwordPage.config.typing }}", typing-delay="{{ passwordPage.config.DELAY_START }}")
+            input.set-input-txt(type="password", name="oldPassword", ng-model="passwordPage.config.oldPassword", ng-minlength="3", ng-change="passwordPage.checkErrorOld()")
+            .error-tooltip(ng-show="passForm.oldPassword.$dirty && passForm.oldPassword.$error.minlength") {{ 'login.SHORT_PASSWORD' | translate }}
+            .error-tooltip(ng-show="passwordPage.config.isErrorOldPassword") {{ 'settings.NO_CONFIRM_PASS' | translate }}
           li.item.click
             .psw-label(data-output="{{ 'settings.NEW_PASSWORD' | translate }}", typing="{{ passwordPage.config.typing }}", typing-delay="{{ passwordPage.config.DELAY_START }}")
-            input.set-input-txt(type="text", name="newPassword", ng-model="passwordPage.config.newPassword", ng-minlength="3")
+            input.set-input-txt(type="password", name="newPassword", ng-model="passwordPage.config.newPassword", ng-minlength="3")
             .error-tooltip(ng-show="passForm.newPassword.$dirty && passForm.newPassword.$error.minlength") {{ 'login.SHORT_PASSWORD' | translate }}
           li.item.click
             .psw-label(data-output="{{ 'settings.CONFIRM_PASSWORD' | translate }}", typing="{{ passwordPage.config.typing }}", typing-delay="{{ passwordPage.config.DELAY_START }}")
-            input.set-input-txt(type="text", name="confirmPassword", ng-model="passwordPage.config.confirmPassword", ng-minlength="3", ng-change="passwordPage.checkError()")
+            input.set-input-txt(type="password", name="confirmPassword", ng-model="passwordPage.config.confirmPassword", ng-minlength="3", ng-change="passwordPage.checkError()")
             .error-tooltip(ng-show="passForm.confirmPassword.$dirty && passForm.confirmPassword.$error.minlength") {{ 'login.SHORT_PASSWORD' | translate }}
             .error-tooltip(ng-show="passwordPage.config.isErrorPassword") {{ 'settings.NO_CONFIRM_PASS' | translate }}

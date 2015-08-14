@@ -5,7 +5,7 @@ section.settings.setting-page
 
   .setting-container
     .setting-user-foto(hm-tap="settingsPage.changeAvatar()")
-      img(ng-src="{{ settingsPage.U.userInfo.avatarUrl }}" width="100%" height="100%")
+      img(ng-src="{{ settingsPage.U.userInfo.avatar }}" width="100%" height="100%")
       .change-foto {{ 'common_words.CHANGE' | translate }}
 
     .lists
@@ -15,7 +15,7 @@ section.settings.setting-page
         li.item
           .setting-item-label(data-output="{{ settingsPage.U.userInfo.phone }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
         li.item.click(hm-tap="settingsPage.gotoPasswordPage()")
-          .setting-item-label(data-output="{{ settingsPage.U.userInfo.password }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
+          .setting-item-label(data-output="********", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
           .setting-item-change(data-output="{{ 'settings.CHANGE_PASSWORD' | translate }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_SHOW_ICONS }}")
         li.item.click(hm-tap="settingsPage.gotoLanguagePage()")
           .setting-item-label(data-output="{{ settingsPage.U.userInfo.langName }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
