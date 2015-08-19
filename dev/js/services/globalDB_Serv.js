@@ -442,7 +442,7 @@
           }
         });
         console.log('Import database begin!');
-        $http.get('http://192.168.1.147:3002/sync/elements?login='+login+'&access_token='+access_token).success(function (result) {
+        $http.get('http://192.168.1.147:3002/api/sync/elements?login='+login+'&access_token='+access_token).success(function (result) {
           console.log("IMPORT SUCCESS!");
           db.transaction(function (transaction) {
             for (table in result.tables) {

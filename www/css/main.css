@@ -8974,3 +8974,13 @@ li.constr-shape-icon:last-child {
     transform: translate(-7.875rem, 43.75rem);
   }
 }
+@media (max-width: 1200px){
+  .wrapper-table{
+    max-width: 829px;
+  }
+}
+@media (max-width: 1100px){
+  .wrapper-table{
+    max-width: 729px;
+  }
+}

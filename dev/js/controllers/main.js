@@ -16,7 +16,8 @@
 
     //------- set current Page
     GlobalStor.global.currOpenPage = 'main';
-    console.log('USER:',thisCtrl.U.userInfo);
+    MainServ.getOrdersHistory(thisCtrl.U.userInfo.phone, thisCtrl.U.userInfo.device_code);
+    //console.log('USER:',thisCtrl.U.userInfo);
 
     //=============== FIRST START =========//
 
@@ -69,7 +70,6 @@
       console.log('product = ', ProductStor.product);
       //TODO templates!!!!!
     }
-
 
 
   }
