@@ -53,7 +53,7 @@
         <section ng-class="{'discount': cartPage.config.isShowDiscount}" hm-swipedown="cartPage.swipeDiscountBlock(0)" class="cart-container full-view">
           <div class="cart-header">
             <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
-              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-src="{{userBox.U.userInfo.avatarUrl}}" class="user-foto">
+              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
               <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
               <div class="user-info-block">
                 <div data-output="{{ userBox.U.userInfo.cityName }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
@@ -159,7 +159,7 @@
         <section ng-class="{'active': cartPage.config.isCartLightView}" class="cart-container light-view">
           <div class="cart-header">
             <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
-              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-src="{{userBox.U.userInfo.avatarUrl}}" class="user-foto">
+              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
               <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
               <div class="user-info-block">
                 <div data-output="{{ userBox.U.userInfo.cityName }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
@@ -295,12 +295,12 @@
                   .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
                 td.aux-tablecell-delete
                   .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
-                  
-                  
+        
+        
           // List Visors
           .aux-list-block.aux_color_big(ng-if="cart.addElementsUniqueList.visors.length > 0")
             .aux-list-block-title {{ 'add_elements.VISORS' | translate }}
-            
+        
             table.aux-list-addellement
               tr.aux-list-row(ng-repeat="elementUnit in cart.addElementsUniqueList.visors track by $index")
                 td.aux-tablecell-name
@@ -321,8 +321,8 @@
                   .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
                 td.aux-tablecell-delete
                   .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
-                  
-                  
+        
+        
           // List Spillways
           .aux-list-block.aux_color_middle(ng-if="cart.addElementsUniqueList.spillways.length > 0")
             .aux-list-block-title {{ 'add_elements.SPILLWAYS' | translate }}
@@ -346,9 +346,9 @@
                   .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
                 td.aux-tablecell-delete
                   .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
-                  
-                  
-                  
+        
+        
+        
           // List OutsideSlope
           .aux-list-block.aux_color_slope(ng-if="cart.addElementsUniqueList.outsideSlope.length > 0")
             .aux-list-block-title {{ 'add_elements.OUTSIDE' | translate }}
@@ -372,8 +372,8 @@
                   .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
                 td.aux-tablecell-delete
                   .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
-                  
-                  
+        
+        
           // List Louvers
           .aux-list-block.aux_color_middle(ng-if="cart.addElementsUniqueList.louvers.length > 0")
             .aux-list-block-title {{ 'add_elements.LOUVERS' | translate }}
@@ -400,8 +400,8 @@
                   .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
                 td.aux-tablecell-delete
                   .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
-                  
-                  
+        
+        
           // List InsideSlope
           .aux-list-block.aux_color_slope(ng-if="cart.addElementsUniqueList.insideSlope.length > 0")
             .aux-list-block-title {{ 'add_elements.INSIDE' | translate }}
@@ -425,8 +425,8 @@
                   .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
                 td.aux-tablecell-delete
                   .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
-                  
-                  
+        
+        
           // List Connectors
           .aux-list-block.aux_color_connect(ng-if="cart.addElementsUniqueList.connectors.length > 0")
             .aux-list-block-title(data-output="{{ 'add_elements.CONNECTORS' | translate }}", typing="{{ cart.typing }}", typing-delay="{{ cart.DELAY_START }}")
@@ -450,8 +450,8 @@
                   .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
                 td.aux-tablecell-delete
                   .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
-                  
-                  
+        
+        
           // List Fans
           .aux-list-block.aux_color_small(ng-if="cart.addElementsUniqueList.fans.length > 0")
             .aux-list-block-title {{ 'add_elements.FAN' | translate }}
@@ -472,8 +472,8 @@
                   .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
                 td.aux-tablecell-delete
                   .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
-                  
-                  
+        
+        
           // List WindowSill
           .aux-list-block.aux_color_big(ng-if="cart.addElementsUniqueList.windowSill.length > 0")
             .aux-list-block-title {{ 'add_elements.WINDOWSILLS' | translate }}
@@ -501,9 +501,9 @@
                   .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
                 td.aux-tablecell-delete
                   .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
-                  
-                  
-                  
+        
+        
+        
           // List Handles
           .aux-list-block.aux_color_middle(ng-if="cart.addElementsUniqueList.handles.length > 0")
             .aux-list-block-title {{ 'add_elements.HANDLELS' | translate }}
@@ -524,9 +524,9 @@
                   .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
                 td.aux-tablecell-delete
                   .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
-                  
-                  
-                  
+        
+        
+        
           // List Others
           .aux-list-block.aux_color_middle(ng-if="cart.addElementsUniqueList.others.length > 0")
             .aux-list-block-title {{ 'add_elements.OTHERS' | translate }}
@@ -547,7 +547,7 @@
                   .aux-price + {{ elementUnit.elementQty * elementUnit.elementPrice }} {{ global.currency }}
                 td.aux-tablecell-delete
                   .aux-delete(hm-tap="deleteAddElementList(elementUnit.elementType, elementUnit.elementId)")
-                  
+        
           //----- TOTAL
           .aux-list-block(ng-if="cart.addElementsListPriceTOTAL")
             table.aux-list-addellement
@@ -558,16 +558,16 @@
                   .aux-total-price {{ cart.addElementsListPriceTOTAL }} {{ global.currency }}
                 td.aux-tablecell-delete
                   .aux-delete(hm-tap="deleteAllAddElementsList()")
-                  
-                  
-                  
-                  
+        
+        
+        
+        
         -->
         <!--section.cart-container.addelement-view(ng-class="{'active': cart.isShowAddElementUnit}")
         .addelementunique-header
           button.close-alladdelements(hm-tap="showAddElementUnitDetail()")
           .addelementunit-header-fon
-          
+        
           table.aux-list-addellement
             tr.aux-list-row
               td.aux-tablecell-name
@@ -595,7 +595,7 @@
                 .aux-price + {{ cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementQty * cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementPrice }} {{ global.currency }}
               td.aux-tablecell-delete
                 .aux-delete(hm-tap="deleteAddElementList(cart.selectedAddElementUnitType, cart.selectedAddElementUnitId)")
-                
+        
         .addelementunits-container
         
         
@@ -612,8 +612,8 @@
                 .addelementunit-value {{ global.order.products[(addElem.productId - 1)].hardwareName }}
                 .addelementunit-value {{ global.order.products[(addElem.productId - 1)].laminationOutName }} / {{ global.order.products[(addElem.productId - 1)].laminationInName }}
               .addelementunit-footer {{ addElem.elementQty }} {{ 'add_elements.QTY_LABEL' | translate }}
-              
-              
+        
+        
           .addelementunit-train(ng-repeat="addElem in cart.selectedAddElementUnits track by $index", ng-if="addElem.length > 0")
             .addelementunit-train-inner
               .addelementunit(ng-repeat="addElemWagon in addElem track by $index", ng-class="{'unit-last': $last}")
@@ -635,8 +635,8 @@
                     li.link-explode-item(hm-tap="explodeUnitToOneProduct($parent.$index)") {{ 'cart.LINK_BETWEEN_COUPLE' | translate }}
                     li.link-explode-item(hm-tap="explodeUnitGroupToProducts($parent.$index)") {{ 'cart.LINK_BETWEEN_ALL' | translate }}
                     li.link-explode-item(hm-tap="deleteAddElementUnit($parent.$index, $index, addElemWagon)") {{ 'cart.LINK_DELETE_ALL_GROUPE' | translate }}
-                    
-                    
+        
+        
           .addelementunit-only(ng-repeat="addElem in cart.selectedAddElementUnits track by $index", ng-if="addElem.isAddElementsONLY")
             table.aux-list-addellement
               tr.aux-list-row
@@ -665,7 +665,7 @@
                   .aux-price + {{ addElem.elementQty * addElem.elementPrice }} {{ global.currency }}
                 td.aux-tablecell-delete
                   .aux-delete(hm-tap="deleteAddElementUnit('', $index, addElem)")
-                  
+        
         -->
       </section>
     </section>

@@ -1,3 +1,6 @@
+
+// controllers/login.js
+
 (function(){
   'use strict';
   /**
@@ -42,7 +45,7 @@
 
 
     //------- defined system language
-    loginServ.getDeviceLanguage();
+    //TODO loginServ.getDeviceLanguage();
 
     //------- check available Global DB
     globalDB.checkGlobalDB().then(function(data) {
@@ -63,10 +66,10 @@
       thisCtrl.submitted = true;
       if (form.$valid) {
         //------ check Internet
-        thisCtrl.isOnline = $cordovaNetwork.isOnline();
+        //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
         if(thisCtrl.isOnline) {
 
-          $cordovaProgress.showSimple(true);
+          //TODO $cordovaProgress.showSimple(true);
           //------ import Location Data & All Users
           loginServ.downloadUsers().then(function(data) {
             thisCtrl.generalLocations = data;
@@ -106,13 +109,13 @@
 
                   }
                 } else {
-                  $cordovaProgress.hide();
+                  //TODO $cordovaProgress.hide();
                   //---- user not exists
                   thisCtrl.isUserPasswordError = true;
                 }
 
               } else {
-                $cordovaProgress.hide();
+                //TODO $cordovaProgress.hide();
                 //---- user not exists
                 thisCtrl.isUserNotExist = true;
               }
@@ -124,7 +127,7 @@
         //-------- check LocalDB
         } else if(thisCtrl.isGlobalDB) {
 
-          $cordovaProgress.showSimple(true);
+          //TODO $cordovaProgress.showSimple(true);
 
           loginServ.prepareLocationToUse().then(function(data) {
             thisCtrl.generalLocations = data;
@@ -153,7 +156,7 @@
 
                         if(currFactoryId == UserStor.userInfo.factory_id) {
                           //------- current FactoryId matches to user FactoryId, go to main page without importDB
-                          $cordovaProgress.hide();
+                          //TODO $cordovaProgress.hide();
                           $location.path('/main');
                         }
                       } else {
@@ -164,20 +167,20 @@
 
 
                   } else {
-                    $cordovaProgress.hide();
+                    //TODO $cordovaProgress.hide();
                     //---- show attantion
                     thisCtrl.isUserNotActive = true;
                   }
 
 
                 } else {
-                  $cordovaProgress.hide();
+                  //TODO $cordovaProgress.hide();
                   //---- user not exists
                   thisCtrl.isUserPasswordError = true;
                 }
 
               } else {
-                $cordovaProgress.hide();
+                //TODO $cordovaProgress.hide();
                 //---- user not exists
                 thisCtrl.isUserNotExist = true;
               }
@@ -209,7 +212,7 @@
             if(currFactoryId == UserStor.userInfo.factory_id) {
               //------- current FactoryId matches to user FactoryId, go to main page without importDB
               globalDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
-                $cordovaProgress.hide();
+                //TODO $cordovaProgress.hide();
                 $location.path('/main');
               });
             } else {
@@ -227,7 +230,7 @@
         //---- show Factory List
         globalDB.getFactories(UserStor.userInfo.city_id, function(result){
           if(result.status) {
-            $cordovaProgress.hide();
+            //TODO $cordovaProgress.hide();
             thisCtrl.factories = result.data;
             thisCtrl.isFactoryId = true;
           } else {
@@ -249,7 +252,7 @@
           if(result.status) {
             //-------- close Factory Dialog
             thisCtrl.isFactoryId = false;
-            $cordovaProgress.showSimple(true);
+          //TODO $cordovaProgress.showSimple(true);
             importDBfromServer(thisCtrl.user.factoryId);
           } else {
             console.log('FactoryId not was sent!');
@@ -273,7 +276,7 @@
       thisCtrl.isStartImport = true;
         globalDB.clearDb().then(function() {
         globalDB.importDb(UserStor.userInfo.phone, factory, UserStor.userInfo.device_code).then(function() {
-          $cordovaProgress.hide();
+          //TODO $cordovaProgress.hide();
           thisCtrl.isStartImport = false;
           $location.path('/main');
         });
@@ -292,11 +295,11 @@
           thisCtrl.user = {};
           thisCtrl.isRegistration = !thisCtrl.isRegistration;
         } else {
-          $cordovaProgress.showSimple(true);
+          //TODO $cordovaProgress.showSimple(true);
           //------ import Location Data & All Users
           loginServ.downloadUsers().then(function(data) {
             thisCtrl.generalLocations = data;
-            $cordovaProgress.hide();
+            //TODO $cordovaProgress.hide();
             thisCtrl.user = {};
             thisCtrl.isRegistration = !thisCtrl.isRegistration;
           });
@@ -314,14 +317,14 @@
         //------ check Internet
         thisCtrl.isOnline = $cordovaNetwork.isOnline();
         if(thisCtrl.isOnline) {
-          $cordovaProgress.showSimple(true);
+          //TODO $cordovaProgress.showSimple(true);
           //--- checking user in server
           globalDB.ifUserExist(thisCtrl.user.phone, function(result){
             if(!result.status) {
               //--- create new user
               globalDB.createUser(thisCtrl.user.phone, {"name": thisCtrl.user.name, "phone": thisCtrl.user.phone, "cityId": thisCtrl.user.city.id, "email": thisCtrl.user.mail}, function(result){
                 if(result.status) {
-                  $cordovaProgress.hide();
+                  //TODO $cordovaProgress.hide();
                   //-------- sent confirmed email
                   thisCtrl.isSendEmail = true;
                   switchRegistration();
@@ -330,17 +333,17 @@
                     console.log(result);
                   });
                 } else {
-                  console.log('some problem dureing user creating');
+                  console.log('some problem during user creating');
                 }
               });
             } else {
-              $cordovaProgress.hide();
+              //TODO $cordovaProgress.hide();
               //---- show attantion
               thisCtrl.isUserExist = true;
             }
           });
         } else {
-          $cordovaProgress.hide();
+          //TODO $cordovaProgress.hide();
           thisCtrl.isOffline = true;
         }
       }

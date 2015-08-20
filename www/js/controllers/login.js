@@ -333,7 +333,7 @@
                     console.log(result);
                   });
                 } else {
-                  console.log('some problem dureing user creating');
+                  console.log('some problem during user creating');
                 }
               });
             } else {

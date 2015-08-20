@@ -9,10 +9,9 @@
 
   function globalDBFactory($http, $webSql, $q) {
 
-    var elemLists = [], elemListsHw = [], elemListsAdd = [],
+    var elemLists = [], elemListsHw = [], elemListsAdd = [],tablesToSync=[],
         dbGlobal = $webSql.openDatabase('bauvoice', '1.0', 'bauvoice', 65536),
         db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
-
     // SQL requests for creating tables if they are not exists yet
     var createTablesSQL = ["CREATE TABLE IF NOT EXISTS factories (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
         "CREATE TABLE IF NOT EXISTS elements_groups (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(100), base_unit INTEGER, position INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
@@ -443,7 +442,8 @@
           }
         });
         console.log('Import database begin!');
-        $http.get('http://api.voice-creator.net/sync/elements?login='+login+'&access_token='+access_token).success(function (result) {
+        $http.get('http://192.168.1.147:3002/api/sync/elements?login='+login+'&access_token='+access_token).success(function (result) {
+          console.log("IMPORT SUCCESS!");
           db.transaction(function (transaction) {
             for (table in result.tables) {
               for (i = 0; i < result.tables[table].rows.length; i++) {
@@ -515,12 +515,63 @@
         return deferred.promise;
       },
 
+      updateObjectInDB: function (table_name, object) {
+        var deferred = $q.defer();
+        db.transaction(function (tr){
+          var updateSQL='', tempObject={};
+          tr.executeSql("SELECT * FROM " + table_name + " LIMIT 1",[],function (trans, res){
+            //console.log(res.rows.item(0));
+            for( var attr in res.rows.item(0)){
+              if (object[attr] && (object[attr] != 'null')) {
+                tempObject[attr] = object[attr];
+                if (!updateSQL) {
+                  updateSQL += attr + " = '" + object[attr] + "'";
+                } else {
+                  updateSQL += ", " + attr + " = '" + object[attr] + "'";
+                }
+              }
+            }
+            tablesToSync.push({model: table_name, rowId: tempObject.id, field: JSON.stringify(tempObject)});
+            tr.executeSql("UPDATE " + table_name + " SET " + updateSQL + " WHERE id = " + object.id, [], function () {
+                console.log('Update ', table_name, 'table success!');
+
+                deferred.resolve('UPDATE is done!');
+              },
+              function () {
+                console.log('Something went wrong with updating ' + table_name + ' table!');
+                deferred.resolve('UPDATE is faild!');
+            });
+          }, function(){
+            console.log('Something went wrong with updating ' + table_name + ' table!');
+            deferred.resolve('UPDATE is faild!');
+          });
+        }, function () {
+          console.log('Something went wrong with updating ', table_name, ' table!');
+          deferred.resolve('UPDATE is faild!');
+        });
+        return deferred.promise;
+      },
+
       sendOrder: function (login, access_token, orderJson, callback) {
         $http.post('http://api.voice-creator.net/sync/orders?login='+login+'&access_token=' + access_token, orderJson).success(function (result) {
           callback(result);
         }).error(function () {
           callback(new ErrorResult(2, 'Something went wrong with sync Database!'));
         });
+      },
+
+      syncUpdatesToServer: function (login, access_token) {
+        syncToServer(login, access_token).then(function (data) {
+          tablesToSync=data;
+          if (tablesToSync) {
+            document.addEventListener("online", function () {
+              syncToServer(login, access_token).then(function (data) {
+                tablesToSync=data;
+              });
+            }, false);
+          }
+        });
+
       },
 
       clearDb: function () {
@@ -1838,7 +1889,29 @@
       return valuesString;
     }
 
-
+    function syncToServer (login, access_token) {
+      var deferred = $q.defer(),
+          temArr = [];
+      for (var i = 0, len = tablesToSync.length; i < len; i++) {
+        var querOb = angular.copy(tablesToSync[i]);
+        $http.post('http://192.168.1.147:3002/api/update?login=' + login + '&access_token=' + access_token, querOb)
+          .success(function (data) {
+            //console.log('tablesToSync:',tablesToSync, tablesToSync[0],i,tablesToSync[i]);
+            console.log('send changes to server success:',querOb);
+            if (i== len) {
+              deferred.resolve(temArr);
+            }
+          })
+          .error(function (data) {
+            console.log('send changes to server failed');
+            temArr.push(querOb);
+            if (i== len) {
+              deferred.resolve(temArr);
+            }
+          });
+      }
+      return deferred.promise;
+    }
 
 
     function selectDBGlobal(tableName, options) {

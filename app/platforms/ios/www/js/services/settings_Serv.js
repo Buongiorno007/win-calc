@@ -1,3 +1,6 @@
+
+// services/settings_Serv.js
+
 (function(){
   'use strict';
   /**
@@ -27,7 +30,7 @@
     //----- change avatar
     function changeAvatar() {
       navigator.camera.getPicture( function( data ) {
-        UserStor.userInfo.avatarUrl = 'data:image/jpeg;base64,' + data;
+        UserStor.userInfo.avatar = 'data:image/jpeg;base64,' + data;
         $rootScope.$apply();
       }, function( error ) {
         console.log( 'Error upload user avatar' + error );
@@ -126,3 +129,4 @@
 
   }
 })();
+

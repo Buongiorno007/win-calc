@@ -1,3 +1,6 @@
+
+// controllers/settings.js
+
 (function(){
   'use strict';
   /**
@@ -78,12 +81,12 @@
 
     function saveChanges(marker, newTxt) {
       if (event.which == 13) {
-        saveTxtInBD(marker, newTxt);
+        //saveTxtInBD(marker, newTxt);
       }
     }
 
     function saveChangesBlur(marker, newTxt) {
-        saveTxtInBD(marker, newTxt);
+        //saveTxtInBD(marker, newTxt);
     }
 
     function saveTxtInBD(marker, newTxt) {
@@ -150,7 +153,13 @@
     function closeSettingsPage() {
 //      $scope.global.isOpenSettingsPage = false;
 //      $scope.global.isReturnFromDiffPage = true;
-      $location.path('/main');
+      globalDB.updateObjectInDB(globalDB.usersTableDBGlobal, UserStor.userInfo).then(function (result) {
+        console.log(result);
+        globalDB.syncUpdatesToServer(UserStor.userInfo.phone, UserStor.userInfo.device_code);
+        $location.path('/main');
+//        globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, thisCtrl.U.userInfo, {"id": UserStor.userInfo.id});
+//        $location.path('/main');
+      });
     }
 
     function logOut() {

@@ -7,16 +7,17 @@
     .module('MainModule')
     .controller('MainCtrl', mainPageCtrl);
 
-  function mainPageCtrl(GlobalStor, ProductStor, MainServ, optionsServ) {
+  function mainPageCtrl(GlobalStor, ProductStor, MainServ, optionsServ, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
+    thisCtrl.U = UserStor;
 
     //------- set current Page
     GlobalStor.global.currOpenPage = 'main';
-
-
+    MainServ.getOrdersHistory(thisCtrl.U.userInfo.phone, thisCtrl.U.userInfo.device_code);
+    //console.log('USER:',thisCtrl.U.userInfo);
 
     //=============== FIRST START =========//
 
@@ -69,7 +70,6 @@
       console.log('product = ', ProductStor.product);
       //TODO templates!!!!!
     }
-
 
 
   }
