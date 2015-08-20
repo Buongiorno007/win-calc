@@ -1219,15 +1219,15 @@
             if(noExist) {
 
               //----------- avoid insert impost in corner
-              var noInCorner1 = checkImpPointInCorner(lines[l].from, coord);
-              if(noInCorner1) {
-                var noInCorner2 = checkImpPointInCorner(lines[l].to, coord);
-                if(noInCorner2) {
+//              var noInCorner1 = checkImpPointInCorner(lines[l].from, coord);
+//              if(noInCorner1) {
+//                var noInCorner2 = checkImpPointInCorner(lines[l].to, coord);
+//                if(noInCorner2) {
 //                  console.log('IMp++++++++++ line', lines[l]);
 //                  console.log('~~~~~~~~~~~~coord~~~~~~~~', coord);
                   impPoints.push(coord);
-                }
-              }
+//                }
+//              }
             }
           }
         }
@@ -1260,8 +1260,8 @@
     function checkImpPointInCorner(linePoint, impPoint) {
       var noMatch = 1,
           limit = 40,
-          xDiff = impPoint.x - linePoint.x,
-          yDiff = impPoint.y - linePoint.y;
+          xDiff = Math.abs(impPoint.x - linePoint.x),
+          yDiff = Math.abs(impPoint.y - linePoint.y);
 
       if(xDiff > 0 && xDiff < limit) {
         if(yDiff > 0 && yDiff < limit) {
