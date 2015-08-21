@@ -10,7 +10,7 @@
     .module('MainModule')
     .controller('MainCtrl', mainPageCtrl);
 
-  function mainPageCtrl(GlobalStor, ProductStor, MainServ, optionsServ, UserStor) {
+  function mainPageCtrl(globalDB, MainServ, optionsServ, GlobalStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -19,7 +19,23 @@
 
     //------- set current Page
     GlobalStor.global.currOpenPage = 'main';
-    MainServ.getOrdersHistory(thisCtrl.U.userInfo.phone, thisCtrl.U.userInfo.device_code);
+
+    //TODO загрузка заказов юзера, надо еще и продукты и допы
+    globalDB.getOrders(thisCtrl.U.userInfo.phone, thisCtrl.U.userInfo.device_code).then(function(result) {
+
+      console.log('getOrdersHistory++++++++', result);
+      console.log('getOrdersHistory++++++++', JSON.stringify(result));
+      for(var i = 0, len = result.orders.length; i < len; i++){
+        var tempObj = result.orders[i];
+        delete tempObj.user_id;
+        console.log(tempObj);
+        tempObj.orderType="complete";
+        tempObj.orderStyle="done";
+        MainServ.insertOrderInLocalDB(tempObj,"complete","done");
+      }
+
+    });
+
     //console.log('USER:',thisCtrl.U.userInfo);
 
     //=============== FIRST START =========//

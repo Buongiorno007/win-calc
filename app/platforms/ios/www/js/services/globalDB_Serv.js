@@ -1,6 +1,3 @@
-
-// services/globalDB_Serv.js
-
 (function(){
   'use strict';
   /**
@@ -12,41 +9,46 @@
 
   function globalDBFactory($http, $webSql, $q) {
 
-    var elemLists = [], elemListsHw = [], elemListsAdd = [],tablesToSync=[],
+    var elemLists = [], elemListsHw = [], elemListsAdd = [], tablesToSync=[],
         dbGlobal = $webSql.openDatabase('bauvoice', '1.0', 'bauvoice', 65536),
-        db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536);
+        db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536),
+        serverOldIP = 'http://api.voice-creator.net/sync/',
+        serverIP = 'http://192.168.1.147:3002/api/';
+
     // SQL requests for creating tables if they are not exists yet
-    var createTablesSQL = ["CREATE TABLE IF NOT EXISTS factories (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
-        "CREATE TABLE IF NOT EXISTS elements_groups (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(100), base_unit INTEGER, position INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
-        "CREATE TABLE IF NOT EXISTS glass_folders (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), factory_id INTEGER, position INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id))",
-        "CREATE TABLE IF NOT EXISTS lists_types (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), image_add_param VARCHAR(100), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
-        "CREATE TABLE IF NOT EXISTS addition_colors (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), lists_type_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(lists_type_id) REFERENCES lists_types(id))",
-        "CREATE TABLE IF NOT EXISTS margin_types (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
-        "CREATE TABLE IF NOT EXISTS suppliers (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), factory_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id))",
-        "CREATE TABLE IF NOT EXISTS currencies (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(100), value NUMERIC(10, 2), factory_id INTEGER, is_base INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id))",
-        "CREATE TABLE IF NOT EXISTS countries (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), currency_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(currency_id) REFERENCES currencies(id))",
-        "CREATE TABLE IF NOT EXISTS regions (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), country_id INTEGER, heat_transfer NUMERIC(10, 2), climatic_zone NUMERIC, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(country_id) REFERENCES countries(id))",
-        "CREATE TABLE IF NOT EXISTS cities (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), region_id INTEGER, transport VARCHAR(2), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(region_id) REFERENCES regions(id))",
-        "CREATE TABLE IF NOT EXISTS lamination_colors (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), factory_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id))",
-        "CREATE TABLE IF NOT EXISTS elements (id INTEGER PRIMARY KEY AUTOINCREMENT, sku VARCHAR(100), name VARCHAR(255), element_group_id INTEGER, price NUMERIC(10, 2), currency_id INTEGER, supplier_id INTEGER, margin_id INTEGER, waste NUMERIC(10, 2), is_optimized INTEGER, is_virtual INTEGER, is_additional INTEGER, weight_accounting_unit NUMERIC(10, 3), glass_folder_id INTEGER, min_width NUMERIC, min_height NUMERIC, max_width NUMERIC, max_height NUMERIC, max_sq NUMERIC, transcalency NUMERIC(10, 2), amendment_pruning NUMERIC(10, 2), glass_width INTEGER, factory_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, noise INTEGER, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(glass_folder_id) REFERENCES glass_folders(id), FOREIGN KEY(margin_id) REFERENCES margin_types(id), FOREIGN KEY(supplier_id) REFERENCES suppliers(id), FOREIGN KEY(currency_id) REFERENCES currencies(id), FOREIGN KEY(element_group_id) REFERENCES elements_groups(id))",
-        "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, email VARCHAR(255), password VARCHAR(255), short_id VARCHAR(2), parent_id INTEGER, factory_id INTEGER, discount_construct_max NUMERIC(10, 1), discount_construct_default NUMERIC(10, 1), discount_additional_elements_max NUMERIC(10, 1), discount_additional_elements_default NUMERIC(10, 1), name VARCHAR(255), phone VARCHAR(100), inn VARCHAR(100), okpo VARCHAR(100), mfo VARCHAR(100), bank_name VARCHAR(100), bank_acc_no VARCHAR(100), director VARCHAR(255), stamp_file_name VARCHAR(255), locked INTEGER, user_type INTEGER, contact_name VARCHAR(100), city_phone VARCHAR(100), city_id INTEGER, legal_name VARCHAR(255), fax VARCHAR(100), avatar VARCHAR(255), birthday DATE, sex VARCHAR(100), margin_mounting_mon NUMERIC(10, 2), margin_mounting_tue NUMERIC(10, 2), margin_mounting_wed NUMERIC(10, 2), margin_mounting_thu NUMERIC(10, 2), margin_mounting_fri NUMERIC(10, 2), margin_mounting_sat NUMERIC(10, 2), margin_mounting_sun NUMERIC(10, 2), min_term INTEGER, base_term INTEGER, device_code VARCHAR(250), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id))",
-        "CREATE TABLE IF NOT EXISTS lists_groups (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
-        "CREATE TABLE IF NOT EXISTS lists (id INTEGER PRIMARY KEY AUTOINCREMENT, parent_element_id INTEGER, name VARCHAR(255), list_group_id INTEGER, list_type_id INTEGER, add_color_id INTEGER, a NUMERIC(10, 2), b NUMERIC(10, 2), c NUMERIC(10, 2), d NUMERIC(10, 2), position NUMERIC, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, addition_folder_id INTEGER, FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id))",
-        "CREATE TABLE IF NOT EXISTS directions (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
-        "CREATE TABLE IF NOT EXISTS rules_types (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), parent_unit INTEGER, child_unit INTEGER, suffix VARCHAR(15), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
-        "CREATE TABLE IF NOT EXISTS window_hardware_colors (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
-        "CREATE TABLE IF NOT EXISTS list_contents (id INTEGER PRIMARY KEY AUTOINCREMENT, parent_list_id INTEGER, child_id INTEGER, child_type VARCHAR(255), value NUMERIC(10, 3), rules_type_id INTEGER, direction_id INTEGER, lamination_type_id INTEGER, window_hardware_color_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(parent_list_id) REFERENCES lists(id), FOREIGN KEY(rules_type_id) REFERENCES rules_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(lamination_type_id) REFERENCES lamination_types(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id))",
-        "CREATE TABLE IF NOT EXISTS window_hardware_types (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), short_name VARCHAR(100), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
-        "CREATE TABLE IF NOT EXISTS window_hardware_types_base (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
-        "CREATE TABLE IF NOT EXISTS window_hardware_groups (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), short_name VARCHAR(100), factory_id INTEGER, is_editable INTEGER, parent_id INTEGER, is_group INTEGER, is_in_calculation INTEGER, base_type_id INTEGER, position INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(base_type_id) REFERENCES window_hardware_types_base(id))",
-        "CREATE TABLE IF NOT EXISTS window_hardwares (id INTEGER PRIMARY KEY AUTOINCREMENT, window_hardware_type_id INTEGER, min_width INTEGER, max_width INTEGER, min_height INTEGER, max_height INTEGER, direction_id INTEGER, window_hardware_color_id INTEGER, length INTEGER, count INTEGER, child_id INTEGER, child_type VARCHAR(100), position INTEGER, factory_id INTEGER, window_hardware_group_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(window_hardware_type_id) REFERENCES window_hardware_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(window_hardware_group_id) REFERENCES window_hardware_groups(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id))",
-        "CREATE TABLE IF NOT EXISTS profile_system_folders (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), factory_id INTEGER, position INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id))",
-        "CREATE TABLE IF NOT EXISTS profile_systems (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), short_name VARCHAR(100), profile_system_folder_id INTEGER, rama_list_id INTEGER, rama_still_list_id INTEGER, stvorka_list_id INTEGER, impost_list_id INTEGER, shtulp_list_id INTEGER, is_editable INTEGER, is_default INTEGER, position INTEGER, country VARCHAR(100), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, cameras INTEGER, FOREIGN KEY(profile_system_folder_id) REFERENCES profile_system_folders(id))",
-        "CREATE TABLE IF NOT EXISTS glass_profile_systems (id INTEGER PRIMARY KEY AUTOINCREMENT, profile_system_id INTEGER, list_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(list_id) REFERENCES lists(id))",
-        "CREATE TABLE IF NOT EXISTS beed_profile_systems (id INTEGER PRIMARY KEY AUTOINCREMENT, profile_system_id INTEGER, list_id INTEGER, glass_width INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(list_id) REFERENCES lists(id))",
-        "CREATE TABLE IF NOT EXISTS addition_folders (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), addition_type_id INTEGER, factory_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(addition_type_id) REFERENCES addition_types(id))",
-        "CREATE TABLE IF NOT EXISTS addition_types (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)", "CREATE TABLE IF NOT EXISTS device (id INTEGER PRIMARY KEY AUTOINCREMENT, device_code VARCHAR(255), sync INTEGER, last_sync TIMESTAMP DEFAULT CURRENT_TIMESTAMP)"],
-      createDevice = "CREATE TABLE IF NOT EXISTS device (id INTEGER PRIMARY KEY AUTOINCREMENT, device_code VARCHAR(255), sync INTEGER, last_sync TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+    var createTablesSQL = [
+          "CREATE TABLE IF NOT EXISTS factories (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+          "CREATE TABLE IF NOT EXISTS elements_groups (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(100), base_unit INTEGER, position INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+          "CREATE TABLE IF NOT EXISTS glass_folders (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), factory_id INTEGER, position INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id))",
+          "CREATE TABLE IF NOT EXISTS lists_types (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), image_add_param VARCHAR(100), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+          "CREATE TABLE IF NOT EXISTS addition_colors (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), lists_type_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(lists_type_id) REFERENCES lists_types(id))",
+          "CREATE TABLE IF NOT EXISTS margin_types (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+          "CREATE TABLE IF NOT EXISTS suppliers (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), factory_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id))",
+          "CREATE TABLE IF NOT EXISTS currencies (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(100), value NUMERIC(10, 2), factory_id INTEGER, is_base INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id))",
+          "CREATE TABLE IF NOT EXISTS countries (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), currency_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(currency_id) REFERENCES currencies(id))",
+          "CREATE TABLE IF NOT EXISTS regions (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), country_id INTEGER, heat_transfer NUMERIC(10, 2), climatic_zone NUMERIC, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(country_id) REFERENCES countries(id))",
+          "CREATE TABLE IF NOT EXISTS cities (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), region_id INTEGER, transport VARCHAR(2), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(region_id) REFERENCES regions(id))",
+          "CREATE TABLE IF NOT EXISTS lamination_colors (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), factory_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id))",
+          "CREATE TABLE IF NOT EXISTS elements (id INTEGER PRIMARY KEY AUTOINCREMENT, sku VARCHAR(100), name VARCHAR(255), element_group_id INTEGER, price NUMERIC(10, 2), currency_id INTEGER, supplier_id INTEGER, margin_id INTEGER, waste NUMERIC(10, 2), is_optimized INTEGER, is_virtual INTEGER, is_additional INTEGER, weight_accounting_unit NUMERIC(10, 3), glass_folder_id INTEGER, min_width NUMERIC, min_height NUMERIC, max_width NUMERIC, max_height NUMERIC, max_sq NUMERIC, transcalency NUMERIC(10, 2), amendment_pruning NUMERIC(10, 2), glass_width INTEGER, factory_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, noise INTEGER, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(glass_folder_id) REFERENCES glass_folders(id), FOREIGN KEY(margin_id) REFERENCES margin_types(id), FOREIGN KEY(supplier_id) REFERENCES suppliers(id), FOREIGN KEY(currency_id) REFERENCES currencies(id), FOREIGN KEY(element_group_id) REFERENCES elements_groups(id))",
+          "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, email VARCHAR(255), password VARCHAR(255), short_id VARCHAR(2), parent_id INTEGER, factory_id INTEGER, discount_construct_max NUMERIC(10, 1), discount_construct_default NUMERIC(10, 1), discount_additional_elements_max NUMERIC(10, 1), discount_additional_elements_default NUMERIC(10, 1), name VARCHAR(255), phone VARCHAR(100), inn VARCHAR(100), okpo VARCHAR(100), mfo VARCHAR(100), bank_name VARCHAR(100), bank_acc_no VARCHAR(100), director VARCHAR(255), stamp_file_name VARCHAR(255), locked INTEGER, user_type INTEGER, contact_name VARCHAR(100), city_phone VARCHAR(100), city_id INTEGER, legal_name VARCHAR(255), fax VARCHAR(100), avatar VARCHAR(255), birthday DATE, sex VARCHAR(100), margin_mounting_mon NUMERIC(10, 2), margin_mounting_tue NUMERIC(10, 2), margin_mounting_wed NUMERIC(10, 2), margin_mounting_thu NUMERIC(10, 2), margin_mounting_fri NUMERIC(10, 2), margin_mounting_sat NUMERIC(10, 2), margin_mounting_sun NUMERIC(10, 2), min_term INTEGER, base_term INTEGER, device_code VARCHAR(250), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id))",
+          "CREATE TABLE IF NOT EXISTS lists_groups (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+          "CREATE TABLE IF NOT EXISTS lists (id INTEGER PRIMARY KEY AUTOINCREMENT, parent_element_id INTEGER, name VARCHAR(255), list_group_id INTEGER, list_type_id INTEGER, add_color_id INTEGER, a NUMERIC(10, 2), b NUMERIC(10, 2), c NUMERIC(10, 2), d NUMERIC(10, 2), position NUMERIC, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, addition_folder_id INTEGER, FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id))",
+          "CREATE TABLE IF NOT EXISTS directions (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+          "CREATE TABLE IF NOT EXISTS rules_types (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), parent_unit INTEGER, child_unit INTEGER, suffix VARCHAR(15), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+          "CREATE TABLE IF NOT EXISTS window_hardware_colors (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+          "CREATE TABLE IF NOT EXISTS list_contents (id INTEGER PRIMARY KEY AUTOINCREMENT, parent_list_id INTEGER, child_id INTEGER, child_type VARCHAR(255), value NUMERIC(10, 3), rules_type_id INTEGER, direction_id INTEGER, lamination_type_id INTEGER, window_hardware_color_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(parent_list_id) REFERENCES lists(id), FOREIGN KEY(rules_type_id) REFERENCES rules_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(lamination_type_id) REFERENCES lamination_types(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id))",
+          "CREATE TABLE IF NOT EXISTS window_hardware_types (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), short_name VARCHAR(100), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+          "CREATE TABLE IF NOT EXISTS window_hardware_types_base (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)",
+          "CREATE TABLE IF NOT EXISTS window_hardware_groups (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), short_name VARCHAR(100), factory_id INTEGER, is_editable INTEGER, parent_id INTEGER, is_group INTEGER, is_in_calculation INTEGER, base_type_id INTEGER, position INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(base_type_id) REFERENCES window_hardware_types_base(id))",
+          "CREATE TABLE IF NOT EXISTS window_hardwares (id INTEGER PRIMARY KEY AUTOINCREMENT, window_hardware_type_id INTEGER, min_width INTEGER, max_width INTEGER, min_height INTEGER, max_height INTEGER, direction_id INTEGER, window_hardware_color_id INTEGER, length INTEGER, count INTEGER, child_id INTEGER, child_type VARCHAR(100), position INTEGER, factory_id INTEGER, window_hardware_group_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(window_hardware_type_id) REFERENCES window_hardware_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(window_hardware_group_id) REFERENCES window_hardware_groups(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id))",
+          "CREATE TABLE IF NOT EXISTS profile_system_folders (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), factory_id INTEGER, position INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id))",
+          "CREATE TABLE IF NOT EXISTS profile_systems (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), short_name VARCHAR(100), profile_system_folder_id INTEGER, rama_list_id INTEGER, rama_still_list_id INTEGER, stvorka_list_id INTEGER, impost_list_id INTEGER, shtulp_list_id INTEGER, is_editable INTEGER, is_default INTEGER, position INTEGER, country VARCHAR(100), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, cameras INTEGER, FOREIGN KEY(profile_system_folder_id) REFERENCES profile_system_folders(id))",
+          "CREATE TABLE IF NOT EXISTS glass_profile_systems (id INTEGER PRIMARY KEY AUTOINCREMENT, profile_system_id INTEGER, list_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(list_id) REFERENCES lists(id))",
+          "CREATE TABLE IF NOT EXISTS beed_profile_systems (id INTEGER PRIMARY KEY AUTOINCREMENT, profile_system_id INTEGER, list_id INTEGER, glass_width INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(list_id) REFERENCES lists(id))",
+          "CREATE TABLE IF NOT EXISTS addition_folders (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), addition_type_id INTEGER, factory_id INTEGER, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(addition_type_id) REFERENCES addition_types(id))",
+          "CREATE TABLE IF NOT EXISTS addition_types (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255), modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP)", "CREATE TABLE IF NOT EXISTS device (id INTEGER PRIMARY KEY AUTOINCREMENT, device_code VARCHAR(255), sync INTEGER, last_sync TIMESTAMP DEFAULT CURRENT_TIMESTAMP)"
+        ],
+        createDevice = "CREATE TABLE IF NOT EXISTS device (id INTEGER PRIMARY KEY AUTOINCREMENT, device_code VARCHAR(255), sync INTEGER, last_sync TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 
     // SQL requests for select data from tables
     var selectDeviceCodeLocalDb = "SELECT device_code as code, sync FROM device",
@@ -61,12 +63,38 @@
     var updateDeviceSync = "UPDATE device SET sync = 1, last_sync = ? WHERE id = 1";
 
     // SQL requests for delete tables
-    var deleteTablesSQL = ["DROP table device", "DROP table factories", "DROP table elements_groups", "DROP table glass_folders",
-      "DROP table lists_types", "DROP table addition_colors", "DROP table margin_types", "DROP table suppliers", "DROP table currencies", "DROP table countries",
-      "DROP table regions", "DROP table cities", "DROP table users", "DROP table lamination_colors", "DROP table elements", "DROP table lists_groups", "DROP table lists",
-      "DROP table directions", "DROP table rules_types", "DROP table window_hardware_colors", "DROP table list_contents", "DROP table window_hardware_types",
-      "DROP table window_hardware_types_base", "DROP table window_hardware_groups", "DROP table window_hardwares", "DROP table profile_system_folders",
-      "DROP table profile_systems", "DROP table glass_profile_systems", "DROP table beed_profile_systems","DROP table addition_folders", "DROP table addition_types"
+    var deleteTablesSQL = [
+      "DROP table device",
+      "DROP table factories",
+      "DROP table elements_groups",
+      "DROP table glass_folders",
+      "DROP table lists_types",
+      "DROP table addition_colors",
+      "DROP table margin_types",
+      "DROP table suppliers",
+      "DROP table currencies",
+      "DROP table countries",
+      "DROP table regions",
+      "DROP table cities",
+      "DROP table users",
+      "DROP table lamination_colors",
+      "DROP table elements",
+      "DROP table lists_groups",
+      "DROP table lists",
+      "DROP table directions",
+      "DROP table rules_types",
+      "DROP table window_hardware_colors",
+      "DROP table list_contents",
+      "DROP table window_hardware_types",
+      "DROP table window_hardware_types_base",
+      "DROP table window_hardware_groups",
+      "DROP table window_hardwares",
+      "DROP table profile_system_folders",
+      "DROP table profile_systems",
+      "DROP table glass_profile_systems",
+      "DROP table beed_profile_systems",
+      "DROP table addition_folders",
+      "DROP table addition_types"
     ];
 
     return {
@@ -364,11 +392,13 @@
 
 
       ifUserExist: function (login, callback) {
-        $http.get('http://api.voice-creator.net/sync/user?login='+login).success(function (result) {
-          callback(result);
-        }).error(function () {
-          callback(new ErrorResult(2, 'Something went wrong when chack user login!'));
-        });
+        $http.get('http://api.voice-creator.net/sync/user?login='+login)
+          .success(function (result) {
+            callback(result);
+          })
+          .error(function () {
+            callback(new ErrorResult(2, 'Something went wrong when chack user login!'));
+          });
       },
 
 
@@ -423,45 +453,64 @@
       },
 
 
+      clearDb: function () {
+        var deferred = $q.defer();
+        db.transaction(function (transaction) {
+          for (var j = 0; j < deleteTablesSQL.length; j++) {
+            transaction.executeSql(deleteTablesSQL[j], [], function () {
+              deferred.resolve({status: true});
+            }, function () {
+              deferred.resolve('clearDb has problemms');
+            });
+          }
+        });
+        return deferred.promise;
+      },
 
-      importDb: function (login, factory_id, access_token, callback) {
+
+      importDb: function (login, factory_id, access_token) {
         var deferred = $q.defer(), i, table;
+//        db.transaction(function (transaction) {
+//          transaction.executeSql(createDevice, []);
+//        });
+//        db.transaction(function (transaction) {
+//          transaction.executeSql(deleteTablesSQL[0], [], null, null);
+//        });
+        console.log('createDevice', login, factory_id, access_token);
         db.transaction(function (transaction) {
           transaction.executeSql(createDevice, []);
-        });
-        db.transaction(function (transaction) {
-          transaction.executeSql(deleteTablesSQL[0], [], null, null);
-        });
-        db.transaction(function (transaction) {
-          transaction.executeSql(createDevice, []);
-        });
-        db.transaction(function (transaction) {
-          transaction.executeSql(insertDeviceCodeLocalDb, [1, factory_id, 0], function () {
-          }, null);
         });
         db.transaction(function (transaction) {
           for (i = 0; i < createTablesSQL.length; i++) {
             transaction.executeSql(createTablesSQL[i], []);
           }
         });
-        console.log('Import database begin!');
-        $http.get('http://192.168.1.147:3002/sync/elements?login='+login+'&access_token='+access_token).success(function (result) {
-          console.log("IMPORT SUCCESS!");
-          db.transaction(function (transaction) {
-            for (table in result.tables) {
-              for (i = 0; i < result.tables[table].rows.length; i++) {
-                transaction.executeSql('INSERT INTO ' + table + ' (' + result.tables[table].fields.join(', ') + ') VALUES (' + getValuesString(result.tables[table].rows[i]) + ')', [], function () {
-                }, function () {});
-              }
-            }
-            transaction.executeSql(updateDeviceSync, [""+result.last_sync+""], function(){
-              console.log('Database import is finished!');
-              deferred.resolve('importDb is done!');
-            }, function () {});
-          });
-        }).error(function () {
-          console.log('Something went wrong with importing Database!');
+        db.transaction(function (transaction) {
+          transaction.executeSql(insertDeviceCodeLocalDb, [1, factory_id, 0], function () {
+          }, null);
         });
+        console.log('Import database begin!');
+//        $http.get('http://api.voice-creator.net/sync/elements?login='+login+'&access_token='+access_token)
+        ///*
+        $http.get(serverIP+'sync?login='+login+'&access_token='+access_token)
+          .success(function (result) {
+            db.transaction(function (transaction) {
+              for (table in result.tables) {
+                for (i = 0; i < result.tables[table].rows.length; i++) {
+                  transaction.executeSql('INSERT INTO ' + table + ' (' + result.tables[table].fields.join(', ') + ') VALUES (' + getValuesString(result.tables[table].rows[i]) + ')', [], function () {
+                  }, function () {});
+                }
+              }
+              transaction.executeSql(updateDeviceSync, [""+result.last_sync+""], function(){
+                console.log('Database import is finished!');
+                deferred.resolve('importDb is done!');
+              }, function () {});
+            });
+          })
+          .error(function () {
+            console.log('Something went wrong with importing Database!');
+          });
+          //*/
         return deferred.promise;
       },
 
@@ -518,78 +567,48 @@
         return deferred.promise;
       },
 
-      updateObjectInDB: function (table_name, object) {
-        var deferred = $q.defer();
-        db.transaction(function (tr){
-          var updateSQL='', tempObject={};
-          tr.executeSql("SELECT * FROM " + table_name + " LIMIT 1",[],function (trans, res){
-            //console.log(res.rows.item(0));
-            for( var attr in res.rows.item(0)){
-              if (object[attr] && (object[attr] != 'null')) {
-                tempObject[attr] = object[attr];
-                if (!updateSQL) {
-                  updateSQL += attr + " = '" + object[attr] + "'";
-                } else {
-                  updateSQL += ", " + attr + " = '" + object[attr] + "'";
-                }
-              }
-            }
-            tablesToSync.push({model: table_name, rowId: tempObject.id, field: JSON.stringify(tempObject)});
-            tr.executeSql("UPDATE " + table_name + " SET " + updateSQL + " WHERE id = " + object.id, [], function () {
-                console.log('Update ', table_name, 'table success!');
 
-                deferred.resolve('UPDATE is done!');
-              },
-              function () {
-                console.log('Something went wrong with updating ' + table_name + ' table!');
-                deferred.resolve('UPDATE is faild!');
-            });
-          }, function(){
-            console.log('Something went wrong with updating ' + table_name + ' table!');
-            deferred.resolve('UPDATE is faild!');
+      getOrders: function (login, access_token) {
+        var defer = $q.defer();
+        $http.get(serverIP + 'get/orders?login='+login+'&access_token='+access_token)
+          .success(function (result){
+            console.log('Orders in server!');
+            defer.resolve(result);
+          })
+          .error(function (){
+            console.log('No orders in server!');
+            defer.reject(false);
           });
-        }, function () {
-          console.log('Something went wrong with updating ', table_name, ' table!');
-          deferred.resolve('UPDATE is faild!');
-        });
-        return deferred.promise;
+        return defer.promise;
       },
+
 
       sendOrder: function (login, access_token, orderJson, callback) {
-        $http.post('http://api.voice-creator.net/sync/orders?login='+login+'&access_token=' + access_token, orderJson).success(function (result) {
-          callback(result);
-        }).error(function () {
-          callback(new ErrorResult(2, 'Something went wrong with sync Database!'));
-        });
+        $http.post('http://api.voice-creator.net/sync/orders?login='+login+'&access_token=' + access_token, orderJson)
+          .success(function (result) {
+            callback(result);
+          })
+          .error(function () {
+            callback(new ErrorResult(2, 'Something went wrong with sync Database!'));
+          });
       },
+
 
       syncUpdatesToServer: function (login, access_token) {
         syncToServer(login, access_token).then(function (data) {
-          tablesToSync=data;
+          tablesToSync = data;
           if (tablesToSync) {
             document.addEventListener("online", function () {
               syncToServer(login, access_token).then(function (data) {
-                tablesToSync=data;
+                tablesToSync = data;
               });
             }, false);
           }
         });
-
       },
 
-      clearDb: function () {
-        var deferred = $q.defer();
-        db.transaction(function (transaction) {
-          for (var j = 0; j < deleteTablesSQL.length; j++) {
-            transaction.executeSql(deleteTablesSQL[j], [], function () {
-              deferred.resolve({status: true});
-            }, function () {
-              deferred.resolve('clearDb has problemms');
-            });
-          }
-        });
-        return deferred.promise;
-      },
+
+
 
 
 
@@ -1892,14 +1911,17 @@
       return valuesString;
     }
 
+
+
     function syncToServer (login, access_token) {
       var deferred = $q.defer(),
           temArr = [];
       for (var i = 0, len = tablesToSync.length; i < len; i++) {
         var querOb = angular.copy(tablesToSync[i]);
-        $http.post('http://192.168.1.147:3002/api/update?login=' + login + '&access_token=' + access_token, querOb)
+        $http.post(serverIP + 'update?login=' + login + '&access_token=' + access_token, querOb)
           .success(function (data) {
             //console.log('tablesToSync:',tablesToSync, tablesToSync[0],i,tablesToSync[i]);
+            console.log('send changes to server success:',querOb);
             if (i== len) {
               deferred.resolve(temArr);
             }
@@ -1920,10 +1942,9 @@
       var deferred = $q.defer(),
           handler = [];
       dbGlobal.select(tableName, options).then(function (result) {
-        var resultQty = result.rows.length,
-            i = 0;
+        var resultQty = result.rows.length;
         if (resultQty) {
-          for (; i < resultQty; i++) {
+          for (var i = 0; i < resultQty; i++) {
             handler.push(result.rows.item(i));
           }
           deferred.resolve(handler);
@@ -1939,10 +1960,9 @@
       var deferred = $q.defer(),
           handler = [];
       dbGlobal.selectAll(tableName).then(function (result) {
-        var resultQty = result.rows.length,
-            i = 0;
+        var resultQty = result.rows.length;
         if(resultQty) {
-          for(;i < resultQty; i++) {
+          for(var i = 0; i < resultQty; i++) {
             handler.push(result.rows.item(i));
           }
           deferred.resolve(handler);
@@ -1961,7 +1981,6 @@
 
   }
 })();
-
 
 
 

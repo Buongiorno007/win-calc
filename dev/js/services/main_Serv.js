@@ -68,8 +68,7 @@
       inputProductInOrder: inputProductInOrder,
       goToCart: goToCart,
       insertOrderInLocalDB: insertOrderInLocalDB,
-      deleteOrderFromLocalDB: deleteOrderFromLocalDB,
-      getOrdersHistory: getOrdersHistory
+      deleteOrderFromLocalDB: deleteOrderFromLocalDB
     };
 
     return thisFactory.publicObj;
@@ -98,23 +97,6 @@
       OrderStor.order.currDiscountAddElem = angular.copy(UserStor.userInfo.discountAddElem);
     }
 
-    function getOrdersHistory (login, access_token) {
-      var self = this;
-      $http.get('http://192.168.1.147:3002/api/get/orders?login='+login+'&access_token='+access_token)
-        .success(function (result){
-          for(var i= 0,len=result.orders.length;i<len;i++){
-            var tempObj = result.orders[i];
-            delete tempObj.user_id;
-            console.log(tempObj);
-            tempObj.orderType="complete";
-            tempObj.orderStyle="done";
-            self.insertOrderInLocalDB(tempObj,"complete","done");
-          }
-        })
-        .error(function (result){
-          console.log(result);
-        });
-    }
 
     //----------- get all profiles
     function downloadAllProfiles() {
