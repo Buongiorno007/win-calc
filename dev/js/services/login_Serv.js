@@ -13,7 +13,7 @@
 
     thisFactory.publicObj = {
       getDeviceLanguage: getDeviceLanguage,
-      downloadUsers: downloadUsers,
+      //downloadUsers: downloadUsers,
       prepareLocationToUse: prepareLocationToUse,
       setUserLocation: setUserLocation,
       setUserGeoLocation: setUserGeoLocation
@@ -51,7 +51,7 @@
 
 
 
-
+/*
     //------- download Users & Location
     function downloadUsers() {
       var deferred = $q.defer();
@@ -67,7 +67,7 @@
 
       return deferred.promise;
     }
-
+*/
 
 
     //------- collecting cities, regions and countries in one object for registration form

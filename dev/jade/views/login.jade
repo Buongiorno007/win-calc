@@ -42,7 +42,7 @@ section.login-page
 
   //------------- Registration Form
   .login-container(ng-show="loginPage.isRegistration", ng-mousemove="loginPage.isUserExist = false;")
-    button.close_dialog(type="button", hm-tap="loginPage.switchRegistration()")
+    button.close_dialog(type="button", hm-tap="loginPage.closeRegistration()")
     .attantion(ng-show="loginPage.isUserExist") {{ 'login.USER_EXIST' | translate }}
     .logo
     form(name='registrForm', novalidate, ng-submit="loginPage.registrForm(registrForm)")
@@ -84,3 +84,4 @@ section.login-page
 
   .backDarkView(ng-show="loginPage.isFactoryId")
   .backDarkView(ng-show="loginPage.isOffline")
+  include parts/_loader

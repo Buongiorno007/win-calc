@@ -44,7 +44,7 @@
     </div>
   </div>
   <div ng-show="loginPage.isRegistration" ng-mousemove="loginPage.isUserExist = false;" class="login-container">
-    <button type="button" hm-tap="loginPage.switchRegistration()" class="close_dialog"></button>
+    <button type="button" hm-tap="loginPage.closeRegistration()" class="close_dialog"></button>
     <div ng-show="loginPage.isUserExist" class="attantion">{{ 'login.USER_EXIST' | translate }}</div>
     <div class="logo"></div>
     <form name="registrForm" novalidate ng-submit="loginPage.registrForm(registrForm)">
@@ -89,4 +89,7 @@
   </div>
   <div ng-show="loginPage.isFactoryId" class="backDarkView"></div>
   <div ng-show="loginPage.isOffline" class="backDarkView"></div>
+  <div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader" class="loader-container">
+    <div class="loader"></div>
+  </div>
 </section>
