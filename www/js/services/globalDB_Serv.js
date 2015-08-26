@@ -254,13 +254,15 @@
 
         db.transaction(function (trans) {
           for (var t = 0; t < tableQty; t++) {
-            trans.executeSql("DROP TABLE IF EXISTS" + self.tablesLocalDB[tableKeys[t]].tableName, [], function () {
+            trans.executeSql("DROP TABLE IF EXISTS " + self.tablesLocalDB[tableKeys[t]].tableName, [], function () {
               if(t === tableQty) {
                 defer.resolve(1);
               }
             }, function () {
               console.log('not find deleting table');
-              defer.resolve(0);
+              if(t === tableQty) {
+                defer.resolve(0);
+              }
             });
           }
         });
@@ -282,7 +284,9 @@
               }
             }, function () {
               console.log('Something went wrong with creating table ' + self.tablesLocalDB[tableKeys[t]].tableName);
-              defer.resolve(0);
+              if(t === tableQty) {
+                defer.resolve(0);
+              }
             });
           }
         });
@@ -401,13 +405,7 @@
 
 
 
-
-
-
-
-
-
-
+      //============== SERVER ===========//
 
 
       //-------- get User from Server by login
@@ -508,20 +506,26 @@
       },
 
 
-
-
-
-
-
-
-
-      createUser: function (login, dataJson, callback) {
-        $http.post('http://api.voice-creator.net/sync/createuser?login=' + login, dataJson).success(function (result) {
-          callback(result);
-        }).error(function () {
-          callback(new ErrorResult(2, 'Something went wrong when user creating!'));
-        });
+      createUserServer: function (dataJson) {
+        $http.post(serverIP+'register', dataJson)
+          .success(function (result) {
+            console.log(result);
+          })
+          .error(function () {
+            console.log('Something went wrong when user creating!');
+          });
       },
+
+
+
+
+
+
+
+
+
+
+
 
 
       getLastSync: function (callback) {

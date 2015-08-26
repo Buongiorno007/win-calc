@@ -16,6 +16,7 @@
 
     thisFactory.publicObj = {
       getDeviceLanguage: getDeviceLanguage,
+      isLocalDBExist: isLocalDBExist,
       prepareLocationToUse: prepareLocationToUse,
       collectCityIdsAsCountry: collectCityIdsAsCountry,
       setUserLocation: setUserLocation,
@@ -53,6 +54,21 @@
       }
     }
 
+
+
+    function isLocalDBExist() {
+      var defer = $q.defer();
+//      globalDB.selectLocalDB(globalDB.tablesLocalDB.user.tableName).then(function(data) {
+      globalDB.selectLocalDB('sqlite_sequence').then(function(data) {
+        console.log('data ===', data);
+        if(data && data.rows.length > 2) {
+          defer.resolve(1);
+        } else {
+          defer.resolve(0);
+        }
+      });
+      return defer.promise;
+    }
 
 
 
