@@ -36,7 +36,7 @@ section.login-page
             td.factory_select
               input.radio-field(type="radio", name="factory", ng-model="loginPage.user.factoryId", ng-value="factory.id")
             td.factory_name {{ factory.name }}
-            td.factory_place {{ factory.country }}, {{ factory.region }}, {{ factory.city }}
+            td.factory_place {{ factory.location }}
       button.login-submit(hm-tap="loginPage.selectFactory()") {{ 'common_words.SELECT' | translate }}
 
 

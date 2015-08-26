@@ -10,7 +10,7 @@
     .module('LoginModule')
     .controller('LoginCtrl', loginPageCtrl);
 
-  function loginPageCtrl($location, $cordovaNetwork, $cordovaProgress, globalConstants, globalDB, loginServ, GlobalStor, UserStor) {
+  function loginPageCtrl($location, $cordovaNetwork, globalConstants, globalDB, loginServ, GlobalStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.isOnline = 1;
@@ -49,13 +49,13 @@
     //TODO loginServ.getDeviceLanguage();
 
     //------- check available Local DB
-    globalDB.isExistLocalDB().then(function(data) {
+    globalDB.selectLocalDB(globalDB.tablesLocalDB.user.tableName).then(function(data) {
       console.log('data ===', data);
       if(data) {
         thisCtrl.isLocalDB = data.rows.item(0).id;
+        console.log('data ===', thisCtrl.isLocalDB);
       }
     });
-
 
 
 
@@ -94,7 +94,7 @@
                     //------- set User Location
                     loginServ.prepareLocationToUse().then(function(data) {
                       thisCtrl.generalLocations = data;
-                      //                  checkingFactory(UserStor.userInfo.factory_id);
+                      checkingFactory();
                     });
 
                   } else {
@@ -118,11 +118,10 @@
           } else {
             //======== IMPORT
             globalDB.importUser(thisCtrl.user.phone).then(function(result) {
-              console.log('USER!!!!!!!!!!!!', result);
+//              console.log('USER!!!!!!!!!!!!', result);
               if(result.status) {
                 //---------- check user password
                 var newUserPassword = globalDB.md5(thisCtrl.user.password);
-                console.log('new USER password', newUserPassword);
                 if(newUserPassword === result.user.password) {
 
                   //----- checking user activation
@@ -135,14 +134,14 @@
                         globalDB.insertRowLocalDB(result.user, globalDB.tablesLocalDB.user.tableName);
                         //------- save user in Stor
                         angular.extend(UserStor.userInfo, result.user);
-                        console.log('new USER password', UserStor.userInfo);
+//                        console.log('new USER password', UserStor.userInfo);
                         //------- import Location
-                        globalDB.importLocation().then(function() {
+                        globalDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
                           //------ save Location Data in local obj
                           loginServ.prepareLocationToUse().then(function(data) {
                             thisCtrl.generalLocations = data;
-                            console.log('DOWNLOAD LOCATION', data);
-                            //                  checkingFactory(UserStor.userInfo.factory_id);
+//                            console.log('generalLocations----------', thisCtrl.generalLocations);
+                            checkingFactory();
                           });
                         });
                       });
@@ -289,67 +288,79 @@
     }
 
 
-    function checkingFactory(factory) {
-      var factory = parseInt(factory, 10);
+    function checkingFactory() {
       //------- set User Location
       loginServ.setUserLocation(thisCtrl.generalLocations.mergerLocation, UserStor.userInfo.city_id);
-      if(factory > 0) {
-
-        //------- checking if GlobalDB matches to user FactoryId
-        globalDB.selectAllDBGlobal(globalDB.deviceTableDB).then(function(result) {
-          console.log('TAKE DEVICE ', result);
-          if(result) {
-            var currFactoryId = result[0].device_code;
-
-            if(currFactoryId == UserStor.userInfo.factory_id) {
-              //------- current FactoryId matches to user FactoryId, go to main page without importDB
-              globalDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
-                //TODO $cordovaProgress.hide();
-                $location.path('/main');
-              });
-            } else {
-              //-------- current FactoryId NOT matches to user FactoryId, update FactoryId & importDB
-              importDBfromServer(UserStor.userInfo.factory_id);
-            }
-          } else {
-            //------ GlobalDB is ampty
-            //console.log('GlobalDB is empty');
-            importDBfromServer(UserStor.userInfo.factory_id);
-          }
-        });
+      if(+UserStor.userInfo.factory_id > 0) {
+        console.log('userInfo++++', UserStor.userInfo);
+        if(thisCtrl.isLocalDB) {
+          //------- current FactoryId matches to user FactoryId, go to main page without importDB
+          globalDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
+            //--------- set currency symbol
+            loginServ.setCurrency();
+            GlobalStor.global.isLoader = 0;
+            $location.path('/main');
+          });
+        } else {
+          //------ GlobalDB is ampty
+          console.log('GlobalDB is empty');
+          importDBfromServer(UserStor.userInfo.factory_id);
+        }
 
       } else {
         //---- show Factory List
-        globalDB.getFactories(UserStor.userInfo.city_id, function(result){
-          if(result.status) {
-            //TODO $cordovaProgress.hide();
-            thisCtrl.factories = result.data;
-            thisCtrl.isFactoryId = true;
-          } else {
-            console.log('can not get factories!');
-          }
+        //----- collect city Ids regarding to user country
+        loginServ.collectCityIdsAsCountry(thisCtrl.generalLocations.mergerLocation).then(function(cityIds) {
+          globalDB.importFactories(UserStor.userInfo.phone, UserStor.userInfo.device_code, cityIds).then(function(result){
+//            console.log('Factories++++++', result);
+            GlobalStor.global.isLoader = 0;
+            if(result.status) {
+              thisCtrl.factories = setFactoryLocation(result.factories, thisCtrl.generalLocations.mergerLocation);
+              //-------- close Factory Dialog
+              thisCtrl.isFactoryId = 1;
+            } else {
+              console.log('can not get factories!');
+            }
+          });
         });
       }
     }
 
 
+    function setFactoryLocation(factories, location) {
+      var factoryQty = factories.length,
+          locationQty = location.length;
+      while(--factoryQty > -1) {
+        for(var l = 0; l < locationQty; l++) {
+          if(factories[factoryQty].city_id === location[l].cityId) {
+            factories[factoryQty].location = location[l].fullLocation;
+          }
+        }
+      }
+      return factories;
+    }
+
 
 
     function selectFactory() {
       if(thisCtrl.user.factoryId > 0) {
+        GlobalStor.global.isLoader = 1;
           //-------- send selected Factory Id in Server
         thisCtrl.user.factoryId = 1; //TODO for all factories id = 1
-        globalDB.setFactory(UserStor.userInfo.phone, thisCtrl.user.factoryId, UserStor.userInfo.device_code, function(result){
-          console.log(result);
-          if(result.status) {
-            //-------- close Factory Dialog
-            thisCtrl.isFactoryId = 0;
-          //TODO $cordovaProgress.showSimple(true);
-            importDBfromServer(thisCtrl.user.factoryId);
-          } else {
-            console.log('FactoryId not was sent!');
-          }
-        });
+        UserStor.userInfo.factory_id = angular.copy(thisCtrl.user.factoryId);
+        console.log(UserStor.userInfo);
+        //----- update factoryId in LocalDB
+        globalDB.updateLocalDB(globalDB.tablesLocalDB.user.tableName, {'factory_id': UserStor.userInfo.factory_id}, {'id': UserStor.userInfo.id});
+        //----- update factoryId in Server
+        var dataToSend = [{
+          model: 'users',
+          rowId: UserStor.userInfo.id,
+          field: JSON.stringify({factory_id: UserStor.userInfo.factory_id})
+        }];
+        globalDB.updateServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, dataToSend);
+        //-------- close Factory Dialog
+        thisCtrl.isFactoryId = 0;
+        importDBfromServer();
       } else {
         //---- show attantion if any factory was chosen
         thisCtrl.isFactoryNotSelect = 1;
@@ -364,14 +375,14 @@
     }
 
 
-    function importDBfromServer(factory) {
+    function importDBfromServer() {
       thisCtrl.isStartImport = true;
-        globalDB.clearDb().then(function() {
-        globalDB.importDb(UserStor.userInfo.phone, factory, UserStor.userInfo.device_code).then(function() {
-          //TODO $cordovaProgress.hide();
-          thisCtrl.isStartImport = 0;
-          $location.path('/main');
-        });
+      globalDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
+        //--------- set currency symbol
+//        loginServ.setCurrency();
+        GlobalStor.global.isLoader = 0;
+        thisCtrl.isStartImport = 0;
+//        $location.path('/main');
       });
     }
 
