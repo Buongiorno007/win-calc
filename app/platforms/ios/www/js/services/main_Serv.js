@@ -7,17 +7,17 @@
     .module('MainModule')
     .factory('MainServ', navFactory);
 
-  function navFactory($rootScope, $location, $q,$http, $filter, $timeout, $cordovaProgress, globalConstants, globalDB, localDB, GeneralServ, SVGServ, loginServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function navFactory($rootScope, $location, $q,$http, $filter, $timeout, globalConstants, globalDB, localDB, GeneralServ, SVGServ, loginServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisFactory = this;
 
     //TODO move to GlobalDB
     var profilesSource = [
       {
-        profileDescrip: '4 камеры',
-        profileNoise: 4,
-        heatCoeff: 0.8,
-        airCoeff: 10
+        profileDescrip: '4 камеры', //cameras
+        profileNoise: 4, // noise_coeff
+        heatCoeff: 0.8, // heat_coeff
+        airCoeff: 10 // air_coeff
       },
       {
         profileDescrip: '4 камеры',
@@ -101,41 +101,47 @@
     //----------- get all profiles
     function downloadAllProfiles() {
       var deferred = $q.defer();
-      globalDB.selectAllDBGlobal(globalDB.profileTypeTableDBGlobal).then(function (result) {
+      globalDB.selectLocalDB(globalDB.tablesLocalDB.profile_system_folders.tableName).then(function(result) {
+//      globalDB.selectAllDBGlobal(globalDB.profileTypeTableDBGlobal).then(function (result) {
         if (result) {
-          var resultQty = result.length,
+          var resultQty = result.rows.length,
               countries;
-          GlobalStor.global.profilesType = angular.copy(result);
-          //-------- get all Countries
-          globalDB.selectAllDBGlobal(globalDB.countriesTableDBGlobal).then(function (result) {
-            if (result) {
-              countries = result;
-            }
-          }).then(function () {
+          if(resultQty) {
+            GlobalStor.global.profilesType = angular.copy(result.rows);
+            //-------- get all Countries
+            globalDB.selectLocalDB(globalDB.tablesLocalDB.countries.tableName).then(function(result) {
+//            globalDB.selectAllDBGlobal(globalDB.countriesTableDBGlobal).then(function (result) {
+              if (result) {
+                if (result.rows.length){
+                  countries = result.rows;
+                }
+              }
+            }).then(function () {
 
-            for (var i = 0; i < resultQty; i++) {
-              globalDB.selectDBGlobal(globalDB.profileTableDBGlobal, {'profile_system_folder_id': result[i].id}).then(function (result) {
-                if (result) {
-                  var tempProf = angular.copy(result),
-                      profileQty = tempProf.length,
-                      j = 0;
-
-                  //---- set countryName for each profile & adding absented elements
-                  for (; j < profileQty; j++) {
-                    angular.extend(tempProf[j], profilesSource[j]);
-                    for (var st = 0; st < countries.length; st++) {
-                      if (tempProf[j].country == countries[st].id) {
-                        tempProf[j].country = countries[st].name;
+              for (var i = 0; i < resultQty; i++) {
+                //              globalDB.selectDBGlobal(globalDB.profileTableDBGlobal, {'profile_system_folder_id': result[i].id}).then(function (result) {
+                globalDB.selectLocalDB(globalDB.tablesLocalDB.profile_systems.tableName, {'profile_system_folder_id': result.rows.item(i).id}).then(function (result) {
+                  if (result) {
+                    var tempProf = angular.copy(result.rows), profileQty = tempProf.length;
+                    if (profileQty) {
+                      //---- set countryName for each profile & adding absented elements
+                      for (var j = 0; j < profileQty; j++) {
+//                        angular.extend(tempProf[j], profilesSource[j]);
+                        for (var st = 0; st < countries.length; st++) {
+                          if (tempProf[j].country == countries[st].id) {
+                            tempProf[j].countryName = countries[st].name;
+                          }
+                        }
                       }
+                      GlobalStor.global.profiles.push(tempProf);
+                      deferred.resolve('done!');
                     }
                   }
-                  GlobalStor.global.profiles.push(tempProf);
-                  deferred.resolve('done!');
-                }
-              });
-            }
+                });
+              }
 
-          });
+            });
+          }
         }
       });
       return deferred.promise;
@@ -148,17 +154,17 @@
     //          GlobalStor.global.hardwares = angular.copy(results.data.hardwares);
     //
     //          //----- set default hardware in ProductStor
-    //          ProductStor.product.hardwareId = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].hardwareId;
-    //          ProductStor.product.hardwareName = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].hardwareName;
-    //          ProductStor.product.hardwareHeatCoeff = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].heatCoeff;
-    //          ProductStor.product.hardwareAirCoeff = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].airCoeff;
+    //          ProductStor.product.hardwareId = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].id;
+    //          ProductStor.product.hardwareName = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].name;
+    //          ProductStor.product.hardwareHeatCoeff = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].heat_сoeff;
+    //          ProductStor.product.hardwareAirCoeff = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].air_сoeff;
     //        }
     //      });
     //    }
 
     function prepareTemplates(type) {
       var deferred = $q.defer();
-      //$cordovaProgress.showSimple(true);
+      GlobalStor.global.isLoader = 1;
       downloadAllTemplates(type).then(function(data) {
         if(data) {
           GlobalStor.global.templatesSourceSTORE = angular.copy(data);
@@ -238,8 +244,8 @@
       var deferred = $q.defer();
       ProductStor.product.profileId = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].id;
       ProductStor.product.profileName = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].name;
-      ProductStor.product.profileHeatCoeff = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].heatCoeff;
-      ProductStor.product.profileAirCoeff = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].airCoeff;
+      ProductStor.product.profileHeatCoeff = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].heat_сoeff;
+      ProductStor.product.profileAirCoeff = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].air_сoeff;
       ProductStor.product.profileFrameId = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].rama_list_id;
       ProductStor.product.profileFrameStillId = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].rama_still_list_id;
       ProductStor.product.profileSashId = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].stvorka_list_id;
@@ -266,13 +272,13 @@
 
 
     function downloadProfileDepth(elementId) {
-      return globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'id': elementId}).then(function(result) {
+      return globalDB.selectLocalDB(globalDB.tablesLocalDB.lists.tableName, {'id': elementId}).then(function(result) {
         var resultObj = {};
-        if (result) {
-          resultObj.a = result[0].a;
-          resultObj.b = result[0].b;
-          resultObj.c = result[0].c;
-          resultObj.d = result[0].d;
+        if (result && result.rows.length) {
+          resultObj.a = result.rows.item(0).a;
+          resultObj.b = result.rows.item(0).b;
+          resultObj.c = result.rows.item(0).c;
+          resultObj.d = result.rows.item(0).d;
         }
         return resultObj;
       });
@@ -390,26 +396,32 @@
       var deferred = $q.defer(),
           parentId, glassDepth;
       //------ define Bead Id for define template price
-      globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'id': glassId }).then(function(result) {
+      globalDB.selectLocalDB(globalDB.tablesLocalDB.lists.tableName, {'id': glassId}).then(function(result) {
         if(result) {
-          parentId = result[0].parent_element_id;
-          //------ find glass depth
-          globalDB.selectDBGlobal(globalDB.elementsTableDBGlobal, {'id': parentId }).then(function(result) {
-            if(result) {
-              glassDepth = result[0].glass_width;
-              //------ find bead Id as to glass Depth and profile Id
-              globalDB.selectDBGlobal(globalDB.beadsTableDBGlobal, {'profile_system_id': {"value": profileId, "union": 'AND'}, "glass_width": glassDepth}).then(function(result) {
-                if(result) {
-                  //ProductStor.product.beadId = result[0].list_id;
-                  deferred.resolve(result[0].list_id);
-                } else {
-                  console.log(result);
+          if(result.rows.length) {
+            parentId = result.rows.item(0).parent_element_id;
+            //------ find glass depth
+            globalDB.selectLocalDB(globalDB.tablesLocalDB.elements.tableName, {'id': parentId}).then(function (result) {
+              if (result) {
+                if(result.rows.length) {
+                  glassDepth = result.rows.item(0).glass_width;
+                  //------ find bead Id as to glass Depth and profile Id
+                  globalDB.selectLocalDB(globalDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": glassDepth}).then(function (result) {
+                    if (result) {
+                      if(result.rows.length) {
+                        //ProductStor.product.beadId = result.rows.item(0).list_id;
+                        deferred.resolve(result.rows.item(0).list_id);
+                      }
+                    } else {
+                      console.log('Error!!', result);
+                    }
+                  });
                 }
-              });
-            } else {
-              console.log(result);
-            }
-          });
+              } else {
+                console.log(result);
+              }
+            });
+          }
         } else {
           console.log(result);
         }
@@ -427,7 +439,7 @@
 
           ProductStor.product.templatePriceSELECT = GeneralServ.roundingNumbers(result.data.price);
           setProductPriceTOTAL();
-          //$cordovaProgress.hide();
+          GlobalStor.global.isLoader = 0;
           console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
         } else {
           console.log(result);
@@ -493,7 +505,7 @@
       //------- set new templates
       prepareTemplates(ProductStor.product.constructionType).then(function() {
         prepareMainPage();
-        //$cordovaProgress.hide();
+        GlobalStor.global.isLoader = 0;
         GlobalStor.global.isChangedTemplate = false;
         GlobalStor.global.showRoomSelectorDialog = false;
         GlobalStor.global.isShowCommentBlock = false;

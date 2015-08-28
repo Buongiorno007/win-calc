@@ -1271,7 +1271,7 @@ body {
 }
 /* line 174, ../../dev/sass/base/general.scss */
 .right-side.kitchen {
-  background: url('../img/rooms-bg/kitchen.jpg?1428589558') no-repeat;
+  background: url('../img/rooms-bg/kitchen.jpg?1438791031') no-repeat;
   background-size: cover;
   opacity: 1;
 }
@@ -1494,7 +1494,7 @@ body {
 .pickmeup .pmu-instance .pmu-today {
   border-radius: 0.6em;
   background: #17384d;
-  color: #fff !important;
+  color: white !important;
 }
 /* line 49, ../../dev/vendor/calendar/pickmeup.scss */
 .pickmeup .pmu-instance .pmu-button:hover {
@@ -1507,14 +1507,14 @@ body {
 /* line 57, ../../dev/vendor/calendar/pickmeup.scss */
 .pickmeup .pmu-instance .pmu-disabled,
 .pickmeup .pmu-instance .pmu-disabled:hover {
-  color: #333;
+  color: #333333;
   cursor: default;
 }
 /* line 63, ../../dev/vendor/calendar/pickmeup.scss */
 .pickmeup .pmu-instance .pmu-selected {
   border-radius: 0.6em;
   background: #f98000;
-  color: #fff;
+  color: white;
 }
 /* line 69, ../../dev/vendor/calendar/pickmeup.scss */
 .pickmeup .pmu-instance .pmu-not-in-month.pmu-selected {
@@ -1564,7 +1564,7 @@ body {
 }
 /* line 118, ../../dev/vendor/calendar/pickmeup.scss */
 .pickmeup .pmu-instance .pmu-day-of-week {
-  color: #999;
+  color: #999999;
   cursor: default;
 }
 /* line 125, ../../dev/vendor/calendar/pickmeup.scss */
@@ -1600,22 +1600,21 @@ body {
 /* line 1, ../../dev/sass/parts/_loader.scss */
 .loader-container {
   position: fixed;
-  z-index: 5;
   top: 0;
   left: 0;
-  display: none;
   width: 100%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0.8);
+  z-index: 999;
 }
 /* line 10, ../../dev/sass/parts/_loader.scss */
 .loader-container .loader {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 3.125rem;
-  height: 3.125rem;
-  margin: -3.125rem/2 0 0 -3.125rem/2;
+  width: 6rem;
+  height: 6rem;
+  margin: -3rem 0 0 -3rem;
   background: url('../img/spinner.gif?1428589558') no-repeat;
   background-size: cover;
 }
@@ -2054,7 +2053,7 @@ body {
 }
 /* line 47, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.kitchen {
-  background: url('../img/rooms-dialog/kitchen.jpg?1428589558');
+  background: url('../img/rooms-dialog/kitchen.jpg?1438791031');
   background-size: contain;
 }
 /* line 51, ../../dev/sass/parts/_rooms-selector.scss */
@@ -3030,14 +3029,14 @@ body {
   border-bottom-left-radius: 2rem;
   border-bottom-right-radius: 2rem;
 }
-/* line 83, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 95, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-descrip {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   margin-bottom: 1.25rem;
   text-align: center;
   color: #363636;
 }
-/* line 91, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 103, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .location-list-tooltip {
   top: 0rem;
   left: 37.5rem;
@@ -3051,26 +3050,26 @@ body {
   outline: none;
   z-index: 5;
 }
-/* line 116, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 128, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .location-option {
   font: normal 2.25rem/5.5rem roboto-light, sans-serif;
   border-bottom: 1px solid #c4c3c3;
   color: #363636;
   cursor: pointer;
 }
-/* line 122, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 134, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .location-option:last-child {
   border-bottom: none;
 }
-/* line 125, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 137, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .location-option:first-letter {
   color: #f98000;
 }
-/* line 129, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 141, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .current-city {
   position: relative;
 }
-/* line 132, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 144, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .current-city:after {
   font: normal 1.875rem/1 icons, sans-serif;
   position: absolute;
@@ -3079,7 +3078,7 @@ body {
   color: #f98000;
   content: "\e609";
 }
-/* line 144, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 156, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-label {
   font: normal 3rem/1.42857 roboto-bold, sans-serif;
   margin-bottom: 1.25rem;
@@ -3087,12 +3086,12 @@ body {
   color: #363636;
 }
 
-/* line 154, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 166, ../../dev/sass/parts/_cart-dialogs.scss */
 #call-master-dialog .cart-dialogs-container {
   margin-top: 10%;
 }
 
-/* line 159, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 171, ../../dev/sass/parts/_cart-dialogs.scss */
 .order-dialog .cart-dialogs-container {
   margin-top: 1%;
   margin-bottom: 1%;
@@ -3126,23 +3125,23 @@ body {
   }
 }
 */
-/* line 198, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 210, ../../dev/sass/parts/_cart-dialogs.scss */
 .time-block {
   display: inline-block;
 }
-/* line 200, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 212, ../../dev/sass/parts/_cart-dialogs.scss */
 .time-block:first-child {
   margin: 0 15% 0 3%;
 }
 
-/* line 204, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 216, ../../dev/sass/parts/_cart-dialogs.scss */
 .time-label {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   margin-right: 0.625rem;
   color: #8c8c8c;
 }
 
-/* line 210, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 222, ../../dev/sass/parts/_cart-dialogs.scss */
 .time-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   display: inline-block;
@@ -3155,21 +3154,21 @@ body {
   outline: none;
 }
 
-/* line 223, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 235, ../../dev/sass/parts/_cart-dialogs.scss */
 .subtitle-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   text-align: left;
   color: #363636;
 }
 
-/* line 230, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 242, ../../dev/sass/parts/_cart-dialogs.scss */
 .label-field {
   margin: 10.25rem;
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
 
-/* line 236, ../../dev/sass/parts/_cart-dialogs.scss */
+/* line 248, ../../dev/sass/parts/_cart-dialogs.scss */
 .user-select-field {
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -3827,14 +3826,14 @@ tr.factory_item {
 }
 /* line 49, ../../dev/sass/pages/history.scss */
 .accounts-container .history-header .history-back:before {
-  content: "";
+  content: "\e612";
   color: #f98000;
 }
 /* line 55, ../../dev/sass/pages/history.scss */
 .accounts-container .user-info-container {
   top: 0;
 }
-/* line 41, ../../dev/sass/pages/history.scss */
+/* line 58, ../../dev/sass/pages/history.scss */
 .accounts-container .history-tools-panel {
   display: -webkit-flex;
   display: flex;
@@ -3842,7 +3841,7 @@ tr.factory_item {
   top: 30%;
   right: 0;
 }
-/* line 48, ../../dev/sass/pages/history.scss */
+/* line 65, ../../dev/sass/pages/history.scss */
 .accounts-container .tools-block {
   display: -webkit-flex;
   display: flex;
@@ -3853,63 +3852,63 @@ tr.factory_item {
   position: relative;
   margin-right: 3.125rem;
 }
-/* line 55, ../../dev/sass/pages/history.scss */
+/* line 72, ../../dev/sass/pages/history.scss */
 .accounts-container .tools-block:last-child {
   margin: 0;
 }
-/* line 59, ../../dev/sass/pages/history.scss */
+/* line 76, ../../dev/sass/pages/history.scss */
 .accounts-container .tools-block.active .search-btn {
   display: none;
 }
-/* line 62, ../../dev/sass/pages/history.scss */
+/* line 79, ../../dev/sass/pages/history.scss */
 .accounts-container .tools-block.active .dropdown-tool-dialog {
   display: block;
 }
-/* line 67, ../../dev/sass/pages/history.scss */
+/* line 84, ../../dev/sass/pages/history.scss */
 .accounts-container .tool {
   position: relative;
   width: 3.125rem;
   height: 3.125rem;
   background-color: transparent;
 }
-/* line 76, ../../dev/sass/pages/history.scss */
+/* line 93, ../../dev/sass/pages/history.scss */
 .accounts-container .tool:after {
   position: absolute;
   top: 8%;
   left: 10%;
   color: #f98000;
 }
-/* line 83, ../../dev/sass/pages/history.scss */
+/* line 100, ../../dev/sass/pages/history.scss */
 .accounts-container .search-btn {
   font: normal 2.5rem/1 icons, sans-serif;
 }
-/* line 85, ../../dev/sass/pages/history.scss */
+/* line 102, ../../dev/sass/pages/history.scss */
 .accounts-container .search-btn:after {
   content: "\e637";
 }
-/* line 89, ../../dev/sass/pages/history.scss */
+/* line 106, ../../dev/sass/pages/history.scss */
 .accounts-container .calendar-btn {
   font: normal 2.5rem/1 icons, sans-serif;
 }
-/* line 91, ../../dev/sass/pages/history.scss */
+/* line 108, ../../dev/sass/pages/history.scss */
 .accounts-container .calendar-btn:after {
   content: "\e639";
 }
-/* line 95, ../../dev/sass/pages/history.scss */
+/* line 112, ../../dev/sass/pages/history.scss */
 .accounts-container .settings-btn {
   font: normal 2.5rem/1 icons, sans-serif;
 }
-/* line 97, ../../dev/sass/pages/history.scss */
+/* line 114, ../../dev/sass/pages/history.scss */
 .accounts-container .settings-btn:after {
   content: "\e608";
 }
-/* line 101, ../../dev/sass/pages/history.scss */
+/* line 118, ../../dev/sass/pages/history.scss */
 .accounts-container .time-interval {
   font: normal 1.5rem/1.5rem roboto-bold, sans-serif;
   margin-left: 1.25rem;
   color: #363636;
 }
-/* line 108, ../../dev/sass/pages/history.scss */
+/* line 125, ../../dev/sass/pages/history.scss */
 .accounts-container .dropdown-tool-dialog {
   display: none;
   position: absolute;
@@ -3920,7 +3919,7 @@ tr.factory_item {
   background-color: #fff;
   z-index: 5;
 }
-/* line 119, ../../dev/sass/pages/history.scss */
+/* line 136, ../../dev/sass/pages/history.scss */
 .accounts-container .dropdown-tool-dialog:after {
   position: absolute;
   top: -1.5rem;
@@ -3930,19 +3929,19 @@ tr.factory_item {
   border-color: #f8f8f8 transparent;
   content: '';
 }
-/* line 130, ../../dev/sass/pages/history.scss */
+/* line 147, ../../dev/sass/pages/history.scss */
 .accounts-container .date-filter:after {
   left: 50%;
 }
-/* line 135, ../../dev/sass/pages/history.scss */
+/* line 152, ../../dev/sass/pages/history.scss */
 .accounts-container .sort-filter:after {
   right: 2%;
 }
-/* line 141, ../../dev/sass/pages/history.scss */
+/* line 158, ../../dev/sass/pages/history.scss */
 .accounts-container .time-interval.empty ~ .date-filter:after {
   left: 88%;
 }
-/* line 148, ../../dev/sass/pages/history.scss */
+/* line 165, ../../dev/sass/pages/history.scss */
 .accounts-container .filter-divider {
   font: normal 1.5rem/4.625rem roboto-bold, sans-serif;
   padding-left: 2.75rem;
@@ -3953,20 +3952,20 @@ tr.factory_item {
   border-color: #c4c3c3;
   border-width: 1px 0;
 }
-/* line 158, ../../dev/sass/pages/history.scss */
+/* line 175, ../../dev/sass/pages/history.scss */
 .accounts-container .filter-divider:first-child {
   border-top-width: 0;
   border-top-left-radius: 1.25rem;
   border-top-right-radius: 1.25rem;
 }
-/* line 165, ../../dev/sass/pages/history.scss */
+/* line 182, ../../dev/sass/pages/history.scss */
 .accounts-container .filter-list {
   margin: 0;
   padding: 0;
   list-style: none;
   padding-left: 2.75rem;
 }
-/* line 171, ../../dev/sass/pages/history.scss */
+/* line 188, ../../dev/sass/pages/history.scss */
 .accounts-container .filter-item {
   display: -webkit-flex;
   display: flex;
@@ -3977,25 +3976,25 @@ tr.factory_item {
   border-bottom: 1px solid #bebebe;
   cursor: pointer;
 }
-/* line 178, ../../dev/sass/pages/history.scss */
+/* line 195, ../../dev/sass/pages/history.scss */
 .accounts-container .filter-item:last-child {
   border-bottom: none;
 }
-/* line 182, ../../dev/sass/pages/history.scss */
+/* line 199, ../../dev/sass/pages/history.scss */
 .accounts-container .filter-item.selected .filter-select-icon {
   display: block;
 }
-/* line 187, ../../dev/sass/pages/history.scss */
+/* line 204, ../../dev/sass/pages/history.scss */
 .accounts-container .filter-label {
   font: normal 2.25rem/5.4375rem roboto-light, sans-serif;
   color: #363636;
 }
-/* line 193, ../../dev/sass/pages/history.scss */
+/* line 210, ../../dev/sass/pages/history.scss */
 .accounts-container .select-icon, .accounts-container .filter-select-icon, .accounts-container .complete-icon {
   position: relative;
   width: 4.0625rem;
 }
-/* line 196, ../../dev/sass/pages/history.scss */
+/* line 213, ../../dev/sass/pages/history.scss */
 .accounts-container .select-icon:after, .accounts-container .filter-select-icon:after, .accounts-container .complete-icon:after {
   top: 0.625rem;
   left: 0rem;
@@ -4003,16 +4002,16 @@ tr.factory_item {
   color: #f98000;
   content: "\e636";
 }
-/* line 205, ../../dev/sass/pages/history.scss */
+/* line 222, ../../dev/sass/pages/history.scss */
 .accounts-container .filter-select-icon {
   font: normal 1.875rem/4.375rem icons, sans-serif;
   display: none;
 }
-/* line 214, ../../dev/sass/pages/history.scss */
+/* line 231, ../../dev/sass/pages/history.scss */
 .accounts-container .date-filter {
   text-align: center;
 }
-/* line 217, ../../dev/sass/pages/history.scss */
+/* line 234, ../../dev/sass/pages/history.scss */
 .accounts-container .filter-title {
   font: normal 1.5rem/5.5rem roboto-bold, sans-serif;
   border-top-left-radius: 1.25rem;
@@ -4021,19 +4020,19 @@ tr.factory_item {
   background-color: #f8f8f8;
   color: #363636;
 }
-/* line 227, ../../dev/sass/pages/history.scss */
+/* line 244, ../../dev/sass/pages/history.scss */
 .accounts-container .period {
   font: normal 2.25rem/5.5rem roboto-light, sans-serif;
   color: #f98000;
   background-color: #fff;
   cursor: pointer;
 }
-/* line 233, ../../dev/sass/pages/history.scss */
+/* line 250, ../../dev/sass/pages/history.scss */
 .accounts-container .period.selected {
   color: #fff;
   background-color: #f98000;
 }
-/* line 239, ../../dev/sass/pages/history.scss */
+/* line 256, ../../dev/sass/pages/history.scss */
 .accounts-container .dropdown-calendar-scroll {
   -moz-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
@@ -4041,16 +4040,16 @@ tr.factory_item {
   height: 0;
   overflow: hidden;
 }
-/* line 243, ../../dev/sass/pages/history.scss */
+/* line 260, ../../dev/sass/pages/history.scss */
 .accounts-container .dropdown-calendar-scroll.active {
   height: 20.375rem;
 }
-/* line 249, ../../dev/sass/pages/history.scss */
+/* line 266, ../../dev/sass/pages/history.scss */
 .accounts-container .total-date {
   border-bottom-left-radius: 1.25rem;
   border-bottom-right-radius: 1.25rem;
 }
-/* line 254, ../../dev/sass/pages/history.scss */
+/* line 271, ../../dev/sass/pages/history.scss */
 .accounts-container .date-list {
   margin: 0;
   padding: 0;
@@ -4059,7 +4058,7 @@ tr.factory_item {
   overflow-y: auto;
   background-color: #f8f8f8;
 }
-/* line 262, ../../dev/sass/pages/history.scss */
+/* line 279, ../../dev/sass/pages/history.scss */
 .accounts-container .date-item {
   display: -webkit-flex;
   display: flex;
@@ -4071,21 +4070,21 @@ tr.factory_item {
   color: #bebebe;
   cursor: pointer;
 }
-/* line 270, ../../dev/sass/pages/history.scss */
+/* line 287, ../../dev/sass/pages/history.scss */
 .accounts-container .date-item.selected {
   border-style: solid;
   border-color: #bebebe;
   border-width: 1px 0;
   color: #363636;
 }
-/* line 280, ../../dev/sass/pages/history.scss */
+/* line 297, ../../dev/sass/pages/history.scss */
 .accounts-container .account-block {
   position: relative;
   width: 93%;
   height: 27.875rem;
   margin-bottom: 3.125rem;
 }
-/* line 288, ../../dev/sass/pages/history.scss */
+/* line 305, ../../dev/sass/pages/history.scss */
 .accounts-container .account {
   -moz-box-shadow: #bebebe 0 0 0.9375rem 1px;
   -webkit-box-shadow: #bebebe 0 0 0.9375rem 1px;
@@ -4097,24 +4096,24 @@ tr.factory_item {
   background-color: #fff;
   z-index: 2;
 }
-/* line 298, ../../dev/sass/pages/history.scss */
+/* line 315, ../../dev/sass/pages/history.scss */
 .accounts-container .account.current .footer {
   background-color: #6ed44a;
 }
-/* line 303, ../../dev/sass/pages/history.scss */
+/* line 320, ../../dev/sass/pages/history.scss */
 .accounts-container .account.wait .footer {
   background-color: #f9b000;
 }
-/* line 307, ../../dev/sass/pages/history.scss */
+/* line 324, ../../dev/sass/pages/history.scss */
 .accounts-container .account.done {
   background-color: #f0f0f0;
 }
-/* line 309, ../../dev/sass/pages/history.scss */
+/* line 326, ../../dev/sass/pages/history.scss */
 .accounts-container .account.done .account-select-btn,
 .accounts-container .account.done .account-delete-btn {
   display: none;
 }
-/* line 316, ../../dev/sass/pages/history.scss */
+/* line 333, ../../dev/sass/pages/history.scss */
 .accounts-container .account-row {
   display: -webkit-flex;
   display: flex;
@@ -4124,20 +4123,20 @@ tr.factory_item {
   align-items: center;
   padding: 1.25rem 1.875rem;
 }
-/* line 322, ../../dev/sass/pages/history.scss */
+/* line 339, ../../dev/sass/pages/history.scss */
 .accounts-container .account-row:first-child {
   border-bottom: 1px solid #bebebe;
 }
-/* line 325, ../../dev/sass/pages/history.scss */
+/* line 342, ../../dev/sass/pages/history.scss */
 .accounts-container .account-row:last-of-type {
   border-top: 1px solid #bebebe;
 }
-/* line 328, ../../dev/sass/pages/history.scss */
+/* line 345, ../../dev/sass/pages/history.scss */
 .accounts-container .account-row.header, .accounts-container .account-row.footer {
   -webkit-justify-content: space-between;
   justify-content: space-between;
 }
-/* line 332, ../../dev/sass/pages/history.scss */
+/* line 349, ../../dev/sass/pages/history.scss */
 .accounts-container .account-row.footer {
   font: normal 3rem/1.42857 roboto-bold, sans-serif;
   border-bottom-left-radius: 0.9375rem;
@@ -4145,46 +4144,46 @@ tr.factory_item {
   color: #363636;
   cursor: pointer;
 }
-/* line 342, ../../dev/sass/pages/history.scss */
+/* line 359, ../../dev/sass/pages/history.scss */
 .accounts-container .account-data.title {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: row nowrap;
   flex-flow: row nowrap;
 }
-/* line 346, ../../dev/sass/pages/history.scss */
+/* line 363, ../../dev/sass/pages/history.scss */
 .accounts-container .account-data.phone {
   margin-right: 1.875rem;
   padding-right: 1.875rem;
   border-right: 1px solid #bebebe;
 }
-/* line 352, ../../dev/sass/pages/history.scss */
+/* line 369, ../../dev/sass/pages/history.scss */
 .accounts-container .complete-icon {
   font: normal 1.875rem/1 icons, sans-serif;
 }
-/* line 356, ../../dev/sass/pages/history.scss */
+/* line 373, ../../dev/sass/pages/history.scss */
 .accounts-container .account-id {
   font: normal 2.25rem/1.42857 roboto-medium, sans-serif;
   color: #363636;
 }
-/* line 361, ../../dev/sass/pages/history.scss */
+/* line 378, ../../dev/sass/pages/history.scss */
 .accounts-container .account-addinfo {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   margin-left: 0.625rem;
   color: #8c8c8c;
 }
-/* line 367, ../../dev/sass/pages/history.scss */
+/* line 384, ../../dev/sass/pages/history.scss */
 .accounts-container .account-date-filter,
 .accounts-container .account-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #8c8c8c;
 }
-/* line 374, ../../dev/sass/pages/history.scss */
+/* line 391, ../../dev/sass/pages/history.scss */
 .accounts-container .user-data {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 380, ../../dev/sass/pages/history.scss */
+/* line 397, ../../dev/sass/pages/history.scss */
 .accounts-container .account-tool {
   font: normal 2.8125rem/1 icons, sans-serif;
   position: absolute;
@@ -4194,45 +4193,45 @@ tr.factory_item {
   border-bottom-right-radius: 1.875rem;
   z-index: 1;
 }
-/* line 392, ../../dev/sass/pages/history.scss */
+/* line 409, ../../dev/sass/pages/history.scss */
 .accounts-container .account-select-btn {
   font: normal 1.875rem/1 icons, sans-serif;
   top: 3.125rem;
   right: -7.5rem;
   background-color: #6ed44a;
 }
-/* line 397, ../../dev/sass/pages/history.scss */
+/* line 414, ../../dev/sass/pages/history.scss */
 .accounts-container .account-select-btn:after {
   color: #fff;
   content: "\e636";
 }
-/* line 402, ../../dev/sass/pages/history.scss */
+/* line 419, ../../dev/sass/pages/history.scss */
 .accounts-container .account-copy-btn {
   top: 11.25rem;
   right: -7.5rem;
   background-color: #c6c6c6;
 }
-/* line 406, ../../dev/sass/pages/history.scss */
+/* line 423, ../../dev/sass/pages/history.scss */
 .accounts-container .account-copy-btn:after {
   color: #363636;
   content: "\e638";
 }
-/* line 411, ../../dev/sass/pages/history.scss */
+/* line 428, ../../dev/sass/pages/history.scss */
 .accounts-container .account-print-btn {
   top: 19.375rem;
   right: -7.5rem;
   background-color: #c6c6c6;
 }
-/* line 415, ../../dev/sass/pages/history.scss */
+/* line 432, ../../dev/sass/pages/history.scss */
 .accounts-container .account-print-btn:after {
   color: #363636;
   content: "\e635";
 }
-/* line 420, ../../dev/sass/pages/history.scss */
+/* line 437, ../../dev/sass/pages/history.scss */
 .accounts-container .account.done ~ .account-print-btn {
   top: 3.125rem;
 }
-/* line 423, ../../dev/sass/pages/history.scss */
+/* line 440, ../../dev/sass/pages/history.scss */
 .accounts-container .account-delete-btn {
   position: absolute;
   top: -1.25rem;
@@ -4240,7 +4239,7 @@ tr.factory_item {
   background-color: #6ed44a;
   z-index: 2;
 }
-/* line 432, ../../dev/sass/pages/history.scss */
+/* line 449, ../../dev/sass/pages/history.scss */
 .accounts-container .account-change-btn {
   font: normal 1.5rem/1.42857 roboto-regular, sans-serif;
   position: absolute;
@@ -4255,71 +4254,71 @@ tr.factory_item {
   z-index: 2;
 }
 
-/* line 451, ../../dev/sass/pages/history.scss */
+/* line 468, ../../dev/sass/pages/history.scss */
 .draft-view .account-block {
   height: 12.75rem;
 }
-/* line 455, ../../dev/sass/pages/history.scss */
+/* line 472, ../../dev/sass/pages/history.scss */
 .draft-view .account-row:first-child {
   background-color: #e5e5e5;
   border-bottom: none;
 }
-/* line 459, ../../dev/sass/pages/history.scss */
+/* line 476, ../../dev/sass/pages/history.scss */
 .draft-view .account-row:last-of-type {
   background-color: #d8d8d8;
 }
-/* line 463, ../../dev/sass/pages/history.scss */
+/* line 480, ../../dev/sass/pages/history.scss */
 .draft-view .account-print-btn {
   top: 3.125rem;
 }
 
-/* line 469, ../../dev/sass/pages/history.scss */
+/* line 486, ../../dev/sass/pages/history.scss */
 .dark-fon {
   background-color: #e1e1e1;
 }
-/* line 471, ../../dev/sass/pages/history.scss */
+/* line 488, ../../dev/sass/pages/history.scss */
 .dark-fon .account,
 .dark-fon .account.done {
   background-color: #e5e5e5;
 }
 
-/* line 477, ../../dev/sass/pages/history.scss */
+/* line 494, ../../dev/sass/pages/history.scss */
 .empty-search-result {
   text-align: center;
   z-index: 10;
 }
-/* line 487, ../../dev/sass/pages/history.scss */
+/* line 504, ../../dev/sass/pages/history.scss */
 .empty-search-result .result-icon {
   font: normal 23.125rem/1.5 icons, sans-serif;
 }
-/* line 492, ../../dev/sass/pages/history.scss */
+/* line 509, ../../dev/sass/pages/history.scss */
 .empty-search-result .result-icon:after {
   color: #c6c6c6;
   content: "\e631";
 }
-/* line 497, ../../dev/sass/pages/history.scss */
+/* line 514, ../../dev/sass/pages/history.scss */
 .empty-search-result .result-text {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 501, ../../dev/sass/pages/history.scss */
+/* line 518, ../../dev/sass/pages/history.scss */
 .empty-search-result .searchin-text {
   font: normal 2.25rem/1.42857 roboto-medium, sans-serif;
 }
 
-/* line 508, ../../dev/sass/pages/history.scss */
+/* line 525, ../../dev/sass/pages/history.scss */
 .mbsc-ios .dw-li {
   text-align: center !important;
 }
-/* line 510, ../../dev/sass/pages/history.scss */
+/* line 527, ../../dev/sass/pages/history.scss */
 .mbsc-ios .dw-li .dw-i {
   font-size: 2.1875rem !important;
 }
-/* line 512, ../../dev/sass/pages/history.scss */
+/* line 529, ../../dev/sass/pages/history.scss */
 .mbsc-ios .dw-li .dw-i div {
   display: none !important;
 }
-/* line 515, ../../dev/sass/pages/history.scss */
+/* line 532, ../../dev/sass/pages/history.scss */
 .mbsc-ios .dw-li .dw-i .dw-mon {
   font-size: 2.1875rem !important;
 }
@@ -5119,7 +5118,7 @@ tr.factory_item {
   padding-top: 2.5rem;
 }
 
-/* line 663, ../../dev/sass/pages/cart.scss */
+/* line 693, ../../dev/sass/pages/cart.scss */
 .addelementunit-delete {
   position: absolute;
   top: -1.25rem;
@@ -5128,12 +5127,12 @@ tr.factory_item {
   z-index: 9;
 }
 
-/* line 671, ../../dev/sass/pages/cart.scss */
+/* line 701, ../../dev/sass/pages/cart.scss */
 .addelementunit-content {
   padding: 2.5rem 1.25rem;
 }
 
-/* line 678, ../../dev/sass/pages/cart.scss */
+/* line 708, ../../dev/sass/pages/cart.scss */
 .addelementunit-footer {
   font: normal 3rem/6.25rem roboto-medium, sans-serif;
   border-bottom-left-radius: 1.25rem;
@@ -5142,7 +5141,7 @@ tr.factory_item {
   background-color: #4bd963;
 }
 
-/* line 688, ../../dev/sass/pages/cart.scss */
+/* line 718, ../../dev/sass/pages/cart.scss */
 .addelementunit-train {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -5152,18 +5151,18 @@ tr.factory_item {
   overflow-x: auto;
   overflow-y: auto;
 }
-/* line 693, ../../dev/sass/pages/cart.scss */
+/* line 723, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit-train-inner {
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 700, ../../dev/sass/pages/cart.scss */
+/* line 730, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit.unit-last .link-right {
   display: none;
 }
-/* line 706, ../../dev/sass/pages/cart.scss */
+/* line 736, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit-link {
   position: absolute;
   bottom: 3.125rem;
@@ -5171,11 +5170,11 @@ tr.factory_item {
   height: 5rem;
   border-bottom: 1px solid #4bd963;
 }
-/* line 712, ../../dev/sass/pages/cart.scss */
+/* line 742, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit-link.link-right {
   right: -3.4375rem;
 }
-/* line 720, ../../dev/sass/pages/cart.scss */
+/* line 750, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .link-explode-menu {
   font: normal 2.25rem/4.0625rem roboto-light, sans-serif;
   position: absolute;
@@ -5188,7 +5187,7 @@ tr.factory_item {
   cursor: pointer;
   z-index: 999;
 }
-/* line 732, ../../dev/sass/pages/cart.scss */
+/* line 762, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .link-explode-menu:before {
   position: absolute;
   z-index: 99;
@@ -5201,13 +5200,13 @@ tr.factory_item {
   border-color: #242424 transparent;
   content: '';
 }
-/* line 746, ../../dev/sass/pages/cart.scss */
+/* line 776, ../../dev/sass/pages/cart.scss */
 .addelementunit-train ul.link-explode-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 752, ../../dev/sass/pages/cart.scss */
+/* line 782, ../../dev/sass/pages/cart.scss */
 .addelementunit-train li.link-explode-item {
   display: inline-block;
   line-height: 5rem;
@@ -5216,79 +5215,79 @@ tr.factory_item {
   text-align: center;
   color: #ddd;
 }
-/* line 760, ../../dev/sass/pages/cart.scss */
+/* line 790, ../../dev/sass/pages/cart.scss */
 .addelementunit-train li.link-explode-item:last-child {
   border-right: none;
   padding-left: 0.5rem;
   padding-right: 0;
 }
 
-/* line 773, ../../dev/sass/pages/cart.scss */
+/* line 803, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block {
   padding: 3.125rem 0;
   border-bottom: 1px solid #bebebe;
 }
-/* line 777, ../../dev/sass/pages/cart.scss */
+/* line 807, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block:last-child {
   padding: 3.125rem 0 0 0;
   border: none;
 }
-/* line 783, ../../dev/sass/pages/cart.scss */
+/* line 813, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block-title,
 .addelementunit-only .aux-total-label {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
 }
-/* line 789, ../../dev/sass/pages/cart.scss */
+/* line 819, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block-title:first-letter {
   text-transform: uppercase;
 }
-/* line 792, ../../dev/sass/pages/cart.scss */
+/* line 822, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-row {
   margin-bottom: 1.25rem;
 }
-/* line 798, ../../dev/sass/pages/cart.scss */
+/* line 828, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-total-label {
   min-width: 69%;
 }
-/* line 802, ../../dev/sass/pages/cart.scss */
+/* line 832, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement {
   width: 100%;
 }
-/* line 805, ../../dev/sass/pages/cart.scss */
+/* line 835, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-name {
   width: 31.25rem;
 }
-/* line 807, ../../dev/sass/pages/cart.scss */
+/* line 837, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-name .aux-name {
   max-width: 100%;
 }
-/* line 811, ../../dev/sass/pages/cart.scss */
+/* line 841, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-total {
   width: 75%;
 }
-/* line 814, ../../dev/sass/pages/cart.scss */
+/* line 844, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-qty {
   width: 6.25rem;
 }
-/* line 817, ../../dev/sass/pages/cart.scss */
+/* line 847, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-width,
 .addelementunit-only .aux-list-addellement .aux-tablecell-height {
   width: 9.375rem;
 }
-/* line 821, ../../dev/sass/pages/cart.scss */
+/* line 851, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-color {
   width: 6.25rem;
 }
-/* line 824, ../../dev/sass/pages/cart.scss */
+/* line 854, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-price {
   width: 12.5rem;
 }
-/* line 826, ../../dev/sass/pages/cart.scss */
+/* line 856, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-price .aux-price, .addelementunit-only .aux-list-addellement .aux-tablecell-price .aux-total-price {
   text-align: center;
 }
-/* line 830, ../../dev/sass/pages/cart.scss */
+/* line 860, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-delete {
   width: 6.25rem;
 }

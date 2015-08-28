@@ -1,6 +1,3 @@
-
-// controllers/main.js
-
 (function(){
   'use strict';
   /**
@@ -10,7 +7,7 @@
     .module('MainModule')
     .controller('MainCtrl', mainPageCtrl);
 
-  function mainPageCtrl(GlobalStor, ProductStor, MainServ, optionsServ, UserStor) {
+  function mainPageCtrl(globalDB, MainServ, optionsServ, GlobalStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -19,7 +16,24 @@
 
     //------- set current Page
     GlobalStor.global.currOpenPage = 'main';
-    console.log('USER:',thisCtrl.U.userInfo);
+
+    //TODO загрузка заказов юзера, надо еще и продукты и допы
+//    globalDB.getOrders(thisCtrl.U.userInfo.phone, thisCtrl.U.userInfo.device_code).then(function(result) {
+//
+//      console.log('getOrdersHistory++++++++', result);
+//      console.log('getOrdersHistory++++++++', JSON.stringify(result));
+//      for(var i = 0, len = result.orders.length; i < len; i++){
+//        var tempObj = result.orders[i];
+//        delete tempObj.user_id;
+//        console.log(tempObj);
+//        tempObj.orderType="complete";
+//        tempObj.orderStyle="done";
+//        MainServ.insertOrderInLocalDB(tempObj,"complete","done");
+//      }
+//
+//    });
+
+    //console.log('USER:',thisCtrl.U.userInfo);
 
     //=============== FIRST START =========//
 
@@ -28,6 +42,8 @@
       console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
       //playSound('menu');
 
+      //------- first User entrance send to Server
+      globalDB.exportUserEntrance(UserStor.userInfo.phone, UserStor.userInfo.device_code);
       //------- create order date
       MainServ.createOrderData();
       //------- set Curr Discounts
@@ -35,7 +51,7 @@
 
       //----------- set all profiles for GlobalStor
       MainServ.downloadAllProfiles().then(function() {
-
+console.log('PROFILES ALL =====', GlobalStor.global.profiles);
         //----------- set all hardware for GlobalStor
         optionsServ.getAllHardware(function (results) {
           if (results.status) {
@@ -72,7 +88,6 @@
       console.log('product = ', ProductStor.product);
       //TODO templates!!!!!
     }
-
 
 
   }

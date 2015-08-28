@@ -1,6 +1,3 @@
-
-// controllers/change-pass.js
-
 (function(){
   'use strict';
   /**
@@ -80,4 +77,3 @@
 
   }
 })();
-

@@ -33,11 +33,11 @@
 
 
   angular.module('BauVoiceApp', [
-      'ngRoute',
-      'angular-websql',
-      'pascalprecht.translate',
-      'hmTouchEvents',
-      'ngCordova',
+    'ngRoute',
+    'angular-websql',
+    'pascalprecht.translate',
+    'hmTouchEvents',
+    'ngCordova',
 
     'LoginModule',
     'MainModule',
@@ -45,7 +45,7 @@
     'CartModule',
     'HistoryModule',
     'SettingsModule'
-    ]).config(configurationApp);
+  ]).config(configurationApp);
 
   //============== Modules ============//
   angular

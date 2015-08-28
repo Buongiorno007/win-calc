@@ -226,99 +226,99 @@
             "null": "NOT NULL",
             "default": "CURRENT_TIMESTAMP"
           },
-          "orderId": {
+          "orderId": { // order_id
             "type": "INTEGER",
             "null": "NOT NULL"
           },
-          "orderDate": {
+          "orderDate": { // order_date
             "type": "INTEGER",
             "null": "NOT NULL"
           },
-          "currCityId": {
+          "currCityId": {//TODO delete
             "type": "INTEGER",
             "null": "NOT NULL"
           },
-          "currCityName": {
+          "currCityName": { // customer_city
             "type": "TEXT",
             "null": "NOT NULL"
           },
-          "currRegionName": {
+          "currRegionName": { // customer_region
             "type": "TEXT",
             "null": "NOT NULL"
           },
-          "currCountryName": {
+          "currCountryName": {// customer_country
             "type": "TEXT",
             "null": "NOT NULL"
           },
-          "currClimaticZone": {
+          "currClimaticZone": { // climatic_zone
             "type": "INTEGER",
             "null": "NOT NULL"
           },
-          "currHeatTransfer": {
+          "currHeatTransfer": { //TODO ?????
             "type": "INTEGER",
             "null": "NOT NULL"
           },
-          "currFullLocation": {
+          "currFullLocation": { // full_location
             "type": "TEXT",
               "null": "NOT NULL"
           },
-          "orderType": {
+          "orderType": { //TODO delete
             "type": "TEXT",
             "null": "NULL"
           },
-          "orderStyle": {
+          "orderStyle": {// order_style
             "type": "TEXT",
             "null": "NULL"
           },
-          "productsQty": {
+          "productsQty": { // products_qty
             "type": "INTEGER",
             "null": "NULL"
           },
-          "productsPriceTOTAL": {
+          "productsPriceTOTAL": { //products_price_total
             "type": "INTEGER",
             "null": "NULL"
           },
-          "deliveryDate": {
+          "deliveryDate": { //delivery_date
             "type": "INTEGER",
             "null": "NULL"
           },
-          "newDeliveryDate": {
+          "newDeliveryDate": { // new_delivery_date
             "type": "INTEGER",
             "null": "NULL"
           },
-          "deliveryPrice": {
+          "deliveryPrice": { // delivery_price
             "type": "INTEGER",
             "null": "NULL"
           },
-          "isDatePriceLess": {
+          "isDatePriceLess": { //is_date_price_less
             "type": "INTEGER",
             "null": "NOT NULL"
           },
-          "isDatePriceMore": {
+          "isDatePriceMore": { //is_date_price_more
             "type": "INTEGER",
             "null": "NOT NULL"
           },
-          "selectedFloor": {
+          "selectedFloor": { // floor_id
             "type": "INTEGER",
             "null": "NULL"
           },
-          "selectedFloorPrice": {
+          "selectedFloorPrice": { //TODO delete
             "type": "INTEGER",
             "null": "NULL"
           },
-          "selectedAssembling": {
+          "selectedAssembling": { // mounting_id
             "type": "TEXT",
             "null": "NULL"
           },
-          "selectedAssemblingPrice": {
+          "selectedAssemblingPrice": {//TODO delete
             "type": "INTEGER",
             "null": "NULL"
           },
-          "isInstalment": {
+          "isInstalment": { //is_instalment
             "type": "INTEGER",
             "null": "NULL"
           },
-          "selectedInstalmentPeriod": {
+          "selectedInstalmentPeriod": { //instalment_id
             "type": "INTEGER",
             "null": "NULL"
           },
@@ -326,43 +326,43 @@
             "type": "INTEGER",
             "null": "NULL"
           },
-          "isOldPrice": {
+          "isOldPrice": { // is_old_price
             "type": "INTEGER",
             "null": "NOT NULL"
           },
-          "paymentFirst": {
+          "paymentFirst": { //payment_first
             "type": "INTEGER",
             "null": "NULL"
           },
-          "paymentMonthly": {
+          "paymentMonthly": { // payment_monthly
             "type": "INTEGER",
             "null": "NULL"
           },
-          "paymentFirstPrimary": {
+          "paymentFirstPrimary": { // payment_first_primary
             "type": "INTEGER",
             "null": "NULL"
           },
-          "paymentMonthlyPrimary": {
+          "paymentMonthlyPrimary": { // payment_monthly_primary
             "type": "INTEGER",
             "null": "NULL"
           },
-          "orderPriceTOTAL": {
+          "orderPriceTOTAL": { // order_price_total
             "type": "INTEGER",
             "null": "NULL"
           },
-          "orderPriceTOTALPrimary": {
+          "orderPriceTOTALPrimary": { // order_price_total_primary
             "type": "INTEGER",
             "null": "NULL"
           },
-          "currDiscount": {
+          "currDiscount": { // discount_construct
             "type": "INTEGER",
             "null": "NULL"
           },
-          "currDiscountAddElem": {
+          "currDiscountAddElem": { // discount_addelem
             "type": "INTEGER",
             "null": "NULL"
           },
-          "name": {
+          "name": { // customer_name
             "type": "TEXT",
             "null": "NULL"
           },
@@ -374,51 +374,51 @@
             "type": "TEXT",
             "null": "NULL"
           },
-          "mail": {
+          "mail": { // customer_mail
             "type": "TEXT",
             "null": "NULL"
           },
-          "phone": {
+          "phone": { // customer_phone
             "type": "TEXT",
             "null": "NULL"
           },
-          "phone2": {
+          "phone2": { // customer_phone2 ??????
             "type": "TEXT",
             "null": "NULL"
           },
-          "itn": {
+          "itn": { // customer_itn
             "type": "INTEGER",
             "null": "NULL"
           },
-          "starttime": {
+          "starttime": { // customer_starttime
             "type": "TEXT",
             "null": "NULL"
           },
-          "endtime": {
+          "endtime": { // customer_endtime
             "type": "TEXT",
             "null": "NULL"
           },
-          "target": {
+          "target": { // customer_target
             "type": "TEXT",
             "null": "NULL"
           },
-          "sex": {
+          "sex": { // customer_sex
             "type": "TEXT",
             "null": "NULL"
           },
-          "age": {
+          "age": { // customer_age
             "type": "TEXT",
             "null": "NULL"
           },
-          "education": {
+          "education": { // customer_education
             "type": "TEXT",
             "null": "NULL"
           },
-          "occupation": {
+          "occupation": { // customer_occupation
             "type": "TEXT",
             "null": "NULL"
           },
-          "infoSource": {
+          "infoSource": { // customer_infoSource
             "type": "TEXT",
             "null": "NULL"
           }

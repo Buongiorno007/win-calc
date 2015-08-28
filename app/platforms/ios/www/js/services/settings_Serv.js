@@ -1,6 +1,3 @@
-
-// services/settings_Serv.js
-
 (function(){
   'use strict';
   /**
@@ -129,4 +126,3 @@
 
   }
 })();
-

@@ -10,7 +10,7 @@
   function globalDBFactory($http, $webSql, $q) {
 
     var dbGlobal = $webSql.openDatabase('bauvoice', '1.0', 'bauvoice', 65536),
-        db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536),
+        db = openDatabase('bauvoice', '1.0', 'bauvoice', 5000000),
         serverIP = 'http://192.168.1.147:3002/api/',
         elemLists = [], elemListsHw = [], elemListsAdd = [], tablesToSync=[];
 
@@ -75,7 +75,21 @@
         },
         'glass_prices': {
           'tableName': 'glass_prices',
-          'prop': 'element_id INTEGER, col_1_range NUMERIC(10, 2), col_1_price NUMERIC(10, 2), col_2_range_1 NUMERIC(10, 2), col_2_range_2 NUMERIC(10, 2), col_2_price NUMERIC(10, 2), col_3_range_1 NUMERIC(10, 2), col_3_range_2 NUMERIC(10, 2), col_3_price NUMERIC(10, 2), col_4_range_1 NUMERIC(10, 2), col_4_range_2 NUMERIC(10, 2), col_4_price NUMERIC(10, 2), col_5_range NUMERIC(10, 2), col_5_price NUMERIC(10, 2), table_width INTEGER',
+          'prop': 'element_id INTEGER,' +
+            ' col_1_range NUMERIC(10, 2),' +
+            ' col_1_price NUMERIC(10, 2),' +
+            ' col_2_range_1 NUMERIC(10, 2),' +
+            ' col_2_range_2 NUMERIC(10, 2),' +
+            ' col_2_price NUMERIC(10, 2),' +
+            ' col_3_range_1 NUMERIC(10, 2),' +
+            ' col_3_range_2 NUMERIC(10, 2),' +
+            ' col_3_price NUMERIC(10, 2),' +
+            ' col_4_range_1 NUMERIC(10, 2),' +
+            ' col_4_range_2 NUMERIC(10, 2),' +
+            ' col_4_price NUMERIC(10, 2),' +
+            ' col_5_range NUMERIC(10, 2),' +
+            ' col_5_price NUMERIC(10, 2),' +
+            ' table_width INTEGER',
           'foreignKey': ''
         },
         'glass_profile_systems': {
@@ -115,12 +129,46 @@
         },
         'options_discounts': {
           'tableName': 'options_discounts',
-          'prop': 'factory_id INTEGER, min_time INTEGER, standart_time INTEGER, base_time INTEGER, week_1 INTEGER, week_2 INTEGER, week_3 INTEGER, week_4 INTEGER, week_5 INTEGER, week_6 INTEGER, week_7 INTEGER, week_8 INTEGER, percents ARRAY',
+          'prop': 'factory_id INTEGER,' +
+            ' min_time INTEGER,' +
+            ' standart_time INTEGER,' +
+            ' base_time INTEGER,' +
+            ' week_1 INTEGER,' +
+            ' week_2 INTEGER,' +
+            ' week_3 INTEGER,' +
+            ' week_4 INTEGER,' +
+            ' week_5 INTEGER,' +
+            ' week_6 INTEGER,' +
+            ' week_7 INTEGER,' +
+            ' week_8 INTEGER,' +
+            ' percents ARRAY',
           'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id)'
         },
         'elements': {
           'tableName': 'elements',
-          'prop': 'sku VARCHAR(100), name VARCHAR(255), element_group_id INTEGER, currency_id INTEGER, supplier_id INTEGER, margin_id INTEGER, waste NUMERIC(10, 2), is_optimized INTEGER, is_virtual INTEGER, is_additional INTEGER, weight_accounting_unit NUMERIC(10, 3), glass_folder_id INTEGER, min_width NUMERIC, min_height NUMERIC, max_width NUMERIC, max_height NUMERIC, max_sq NUMERIC, transcalency NUMERIC(10, 2), glass_width INTEGER, factory_id INTEGER, price NUMERIC(10, 2), amendment_pruning NUMERIC(10, 2), noise INTEGER',
+          'prop': 'sku VARCHAR(100),' +
+            ' name VARCHAR(255),' +
+            ' element_group_id INTEGER,' +
+            ' currency_id INTEGER,' +
+            ' supplier_id INTEGER,' +
+            ' margin_id INTEGER,' +
+            ' waste NUMERIC(10, 2),' +
+            ' is_optimized INTEGER,' +
+            ' is_virtual INTEGER,' +
+            ' is_additional INTEGER,' +
+            ' weight_accounting_unit NUMERIC(10, 3),' +
+            ' glass_folder_id INTEGER,' +
+            ' min_width NUMERIC,' +
+            ' min_height NUMERIC,' +
+            ' max_width NUMERIC,' +
+            ' max_height NUMERIC,' +
+            ' max_sq NUMERIC,' +
+            ' transcalency NUMERIC(10, 2),' +
+            ' glass_width INTEGER,' +
+            ' factory_id INTEGER,' +
+            ' price NUMERIC(10, 2),' +
+            ' amendment_pruning NUMERIC(10, 2),' +
+            ' noise INTEGER',
           'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(glass_folder_id) REFERENCES glass_folders(id), FOREIGN KEY(margin_id) REFERENCES margin_types(id), FOREIGN KEY(supplier_id) REFERENCES suppliers(id), FOREIGN KEY(currency_id) REFERENCES currencies(id), FOREIGN KEY(element_group_id) REFERENCES elements_groups(id)'
         },
         'profile_system_folders': {
@@ -130,7 +178,23 @@
         },
         'profile_systems': {
           'tableName': 'profile_systems',
-          'prop': 'name VARCHAR(255), short_name VARCHAR(100), profile_system_folder_id INTEGER, rama_list_id INTEGER, rama_still_list_id INTEGER, stvorka_list_id INTEGER, impost_list_id INTEGER, shtulp_list_id INTEGER, is_editable INTEGER, is_default INTEGER, position INTEGER, country VARCHAR(100), cameras INTEGER, profile_system_group_id	INTEGER, heat_coeff INTEGER, noise_coeff INTEGER',
+          'prop': 'name VARCHAR(255),' +
+            ' short_name VARCHAR(100),' +
+            ' profile_system_folder_id INTEGER,' +
+            ' rama_list_id INTEGER,' +
+            ' rama_still_list_id INTEGER,' +
+            ' stvorka_list_id INTEGER,' +
+            ' impost_list_id INTEGER,' +
+            ' shtulp_list_id INTEGER,' +
+            ' is_editable INTEGER,' +
+            ' is_default INTEGER,' +
+            ' position INTEGER,' +
+            ' country VARCHAR(100),' +
+            ' cameras INTEGER,' +
+            ' profile_system_group_id	INTEGER,' +
+            ' heat_coeff INTEGER,' +
+            ' noise_coeff INTEGER,' +
+            ' air_coeff INTEGER',
           'foreignKey': ', FOREIGN KEY(profile_system_folder_id) REFERENCES profile_system_folders(id)'
         },
         'rules_types': {
@@ -150,17 +214,80 @@
         },
         'user': {
           'tableName': 'user',
-          'prop': 'created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, email VARCHAR(255), password VARCHAR(255), session VARCHAR(255), short_id VARCHAR(2), parent_id INTEGER, factory_id INTEGER, discount_construct_max NUMERIC(10, 1), discount_construct_default NUMERIC(10, 1), discount_additional_elements_max NUMERIC(10, 1), discount_additional_elements_default NUMERIC(10, 1), name VARCHAR(255), phone VARCHAR(100), inn VARCHAR(100), okpo VARCHAR(100), mfo VARCHAR(100), bank_name VARCHAR(100), bank_acc_no VARCHAR(100), director VARCHAR(255), stamp_file_name VARCHAR(255), locked INTEGER, user_type INTEGER, contact_name VARCHAR(100), city_phone VARCHAR(100), city_id INTEGER, legal_name VARCHAR(255), fax VARCHAR(100), avatar VARCHAR(255), birthday DATE, sex VARCHAR(100), margin_mounting_mon NUMERIC(10, 2), margin_mounting_tue NUMERIC(10, 2), margin_mounting_wed NUMERIC(10, 2), margin_mounting_thu NUMERIC(10, 2), margin_mounting_fri NUMERIC(10, 2), margin_mounting_sat NUMERIC(10, 2), margin_mounting_sun NUMERIC(10, 2), min_term INTEGER, base_term INTEGER, internal_count INTEGER, device_code VARCHAR(250)',
+          'prop': 'created_at TIMESTAMP,' +
+            ' updated_at TIMESTAMP,' +
+            ' email VARCHAR(255),' +
+            ' password VARCHAR(255),' +
+            ' session VARCHAR(255),' +
+            ' short_id VARCHAR(2),' +
+            ' parent_id INTEGER,' +
+            ' factory_id INTEGER,' +
+            ' discount_construct_max NUMERIC(10, 1),' +
+            ' discount_construct_default NUMERIC(10, 1),' +
+            ' discount_addelem_max NUMERIC(10, 1),' +
+            ' discount_addelem_default NUMERIC(10, 1),' +
+            ' name VARCHAR(255),' +
+            ' phone VARCHAR(100),' +
+            ' inn VARCHAR(100),' +
+            ' okpo VARCHAR(100),' +
+            ' mfo VARCHAR(100),' +
+            ' bank_name VARCHAR(100),' +
+            ' bank_acc_no VARCHAR(100),' +
+            ' director VARCHAR(255),' +
+            ' stamp_file_name VARCHAR(255),' +
+            ' locked INTEGER,' +
+            ' user_type INTEGER,' +
+            ' contact_name VARCHAR(100),' +
+            ' city_phone VARCHAR(100),' +
+            ' city_id INTEGER,' +
+            ' legal_name VARCHAR(255),' +
+            ' fax VARCHAR(100),' +
+            ' avatar VARCHAR(255),' +
+            ' birthday DATE,' +
+            ' sex VARCHAR(100),' +
+            ' margin_mounting_mon NUMERIC(10, 2),' +
+            ' margin_mounting_tue NUMERIC(10, 2),' +
+            ' margin_mounting_wed NUMERIC(10, 2),' +
+            ' margin_mounting_thu NUMERIC(10, 2),' +
+            ' margin_mounting_fri NUMERIC(10, 2),' +
+            ' margin_mounting_sat NUMERIC(10, 2),' +
+            ' margin_mounting_sun NUMERIC(10, 2),' +
+            ' min_term INTEGER,' +
+            ' base_term INTEGER,' +
+            ' internal_count INTEGER,' +
+            ' device_code VARCHAR(250),'+
+            ' entries INTEGER,'+
+            ' address VARCHAR,'+
+            ' identificator INTEGER',
           'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id)'
         },
         'lists': {
           'tableName': 'lists',
-          'prop': 'name VARCHAR(255), list_group_id INTEGER, list_type_id INTEGER, a NUMERIC(10, 2), b NUMERIC(10, 2), c NUMERIC(10, 2), d NUMERIC(10, 2), parent_element_id INTEGER, position NUMERIC, add_color_id INTEGER, addition_folder_id INTEGER, amendment_pruning NUMERIC(10, 2),  waste NUMERIC(10, 2)',
+          'prop': 'name VARCHAR(255),' +
+            ' list_group_id INTEGER,' +
+            ' list_type_id INTEGER,' +
+            ' a NUMERIC(10, 2),' +
+            ' b NUMERIC(10, 2),' +
+            ' c NUMERIC(10, 2),' +
+            ' d NUMERIC(10, 2),' +
+            ' parent_element_id INTEGER,' +
+            ' position NUMERIC,' +
+            ' add_color_id INTEGER,' +
+            ' addition_folder_id INTEGER,' +
+            ' amendment_pruning NUMERIC(10, 2),' +
+            ' waste NUMERIC(10, 2)',
           'foreignKey': ', FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id)'
         },
         'list_contents': {
           'tableName': 'list_contents',
-          'prop': 'parent_list_id INTEGER, child_id INTEGER, child_type VARCHAR(255), value NUMERIC(10, 3), rules_type_id INTEGER, direction_id INTEGER, window_hardware_color_id INTEGER, lamination_type_id INTEGER',
+          'prop': 'parent_list_id INTEGER,' +
+            ' child_id INTEGER,' +
+            ' child_type VARCHAR(255),' +
+            ' value NUMERIC(10, 3),' +
+            ' rules_type_id INTEGER,' +
+            ' direction_id INTEGER,' +
+            ' window_hardware_color_id INTEGER,' +
+            ' lamination_type_id INTEGER',
           'foreignKey': ', FOREIGN KEY(parent_list_id) REFERENCES lists(id), FOREIGN KEY(rules_type_id) REFERENCES rules_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(lamination_type_id) REFERENCES lamination_types(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id)'
         },
         'window_hardware_types': {
@@ -175,17 +302,49 @@
         },
         'window_hardware_groups': {
           'tableName': 'window_hardware_groups',
-          'prop': 'name VARCHAR(255), short_name VARCHAR(100), factory_id INTEGER, is_editable INTEGER, parent_id INTEGER, is_group INTEGER, is_in_calculation INTEGER, base_type_id INTEGER, position INTEGER',
+          'prop': 'name VARCHAR(255),' +
+            ' short_name VARCHAR(100),' +
+            ' factory_id INTEGER,' +
+            ' is_editable INTEGER,' +
+            ' parent_id INTEGER,' +
+            ' is_group INTEGER,' +
+            ' is_in_calculation INTEGER,' +
+            ' base_type_id INTEGER,' +
+            ' position INTEGER',
           'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(base_type_id) REFERENCES window_hardware_types_base(id)'
         },
         'window_hardwares': {
           'tableName': 'window_hardwares',
-          'prop': 'window_hardware_type_id INTEGER, min_width INTEGER, max_width INTEGER, min_height INTEGER, max_height INTEGER, direction_id INTEGER, window_hardware_color_id INTEGER, length INTEGER, count INTEGER, child_id INTEGER, child_type VARCHAR(100), position INTEGER, factory_id INTEGER, window_hardware_group_id INTEGER, window_hardware_feature_id INTEGER',
+          'prop': 'window_hardware_type_id INTEGER,' +
+            ' min_width INTEGER,' +
+            ' max_width INTEGER,' +
+            ' min_height INTEGER,' +
+            ' max_height INTEGER,' +
+            ' direction_id INTEGER,' +
+            ' window_hardware_color_id INTEGER,' +
+            ' length INTEGER,' +
+            ' count INTEGER,' +
+            ' child_id INTEGER,' +
+            ' child_type VARCHAR(100),' +
+            ' position INTEGER,' +
+            ' factory_id INTEGER,' +
+            ' window_hardware_group_id INTEGER,' +
+            ' window_hardware_feature_id INTEGER',
           'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(window_hardware_type_id) REFERENCES window_hardware_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(window_hardware_group_id) REFERENCES window_hardware_groups(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id)'
         },
         'window_hardware_features': {
           'tableName': 'window_hardware_features',
-          'prop': 'hardware_group_id INTEGER, name VARCHAR(255), producer VARCHAR(255), country VARCHAR(255), logo_url VARCHAR(255), link VARCHAR(255), noise INTEGER, heat_coeff INTEGER, air_coeff INTEGER, factory_id INTEGER, is_active INTEGER',
+          'prop': 'hardware_group_id INTEGER,' +
+            ' name VARCHAR(255),' +
+            ' producer VARCHAR(255),' +
+            ' country VARCHAR(255),' +
+            ' logo_url VARCHAR(255),' +
+            ' link VARCHAR(255),' +
+            ' noise INTEGER,' +
+            ' heat_coeff INTEGER,' +
+            ' air_coeff INTEGER,' +
+            ' factory_id INTEGER,' +
+            ' is_active INTEGER',
           'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id)'
         },
         'window_hardware_colors': {
@@ -197,9 +356,90 @@
           'tableName': 'window_hardware_handles',
           'prop': 'element_id INTEGER, location VARCHAR(255), constant_value NUMERIC(10, 2)',
           'foreignKey': ''
+        },
+        'orders': {
+          'tableName': 'orders',
+          'prop': 'color VARCHAR,' +
+            ' additional_payment VARCHAR,' +
+            ' created TIMESTAMP,' +
+            ' sended TIME,' +
+            ' state_to TIMESTAMP,' +
+            ' state_buch TIMESTAMP,' +
+            ' batch VARCHAR(255),' +
+            ' customer_phone VARCHAR(30),' +
+            ' square NUMERIC(13, 2),' +
+            ' base_price NUMERIC(13, 2),' +
+            ' perimeter NUMERIC(13, 2),' +
+            ' customer_phone_city VARCHAR(20),' +
+            ' customer_name TEXT,' +
+            ' customer_email TEXT,' +
+            ' customer_address TEXT,' +
+            ' customer_city TEXT,' +
+            ' profile_system_id INTEGER,'+
+            ' factory_margin NUMERIC(11, 2),'+
+            ' factory_id INTEGER,' +
+            ' order_id VARCHAR,' +
+            ' purchase_price NUMERIC(10, 2),' +
+            ' sale_price NUMERIC(10, 2),' +
+            ' hardware_group_id INTEGER,' +
+            ' delivery_price NUMERIC,'+
+            ' mounting_price NUMERIC,'+
+            ' user_id INTEGER,' +
+            ' order_date INTEGER,' +
+            ' customer_region VARCHAR,' +
+            ' customer_country VARCHAR,' +
+            ' climatic_zone INTEGER,' +
+            ' full_location VARCHAR,' +
+            ' order_style VARCHAR,' +
+            ' products_qty INTEGER,' +
+            ' products_price_total NUMERIC,'+
+            ' delivery_date INTEGER,' +
+            ' new_delivery_date INTEGER,' +
+            ' is_date_price_less INTEGER,' +
+            ' is_date_price_more INTEGER,' +
+            ' floor_id INTEGER,' +
+            ' mounting_id INTEGER,' +
+            ' is_instalment INTEGER,' +
+            ' instalment_id INTEGER,' +
+            ' is_old_price INTEGER,' +
+            ' payment_first NUMERIC,' +
+            ' payment_monthly NUMERIC,' +
+            ' payment_first_primary NUMERIC,' +
+            ' payment_monthly_primary NUMERIC,' +
+            ' order_price_total NUMERIC,' +
+            ' order_price_total_primary NUMERIC,' +
+            ' discount_construct NUMERIC,' +
+            ' discount_addelem NUMERIC,' +
+            ' customer_itn INTEGER,' +
+            ' customer_starttime INTEGER,' +
+            ' customer_endtime INTEGER,' +
+            ' customer_target VARCHAR,' +
+            ' customer_sex INTEGER,' +
+            ' customer_age INTEGER,' +
+            ' customer_education INTEGER,' +
+            ' customer_occupation INTEGER,' +
+            ' customer_infoSource INTEGER',
+          'foreignKey': ''
         }
       },
 
+      tablesLocationLocalDB: {
+        'cities': {
+          'tableName': 'cities',
+          'prop': 'name VARCHAR(255), region_id INTEGER, transport VARCHAR(2)',
+          'foreignKey': ', FOREIGN KEY(region_id) REFERENCES regions(id)'
+        },
+        'countries': {
+          'tableName': 'countries',
+          'prop': 'name VARCHAR(255), currency_id INTEGER',
+          'foreignKey': ', FOREIGN KEY(currency_id) REFERENCES currencies(id)'
+        },
+        'regions': {
+          'tableName': 'regions',
+          'prop': 'name VARCHAR(255), country_id INTEGER, heat_transfer NUMERIC(10, 2), climatic_zone NUMERIC',
+          'foreignKey': ', FOREIGN KEY(country_id) REFERENCES countries(id)'
+        }
+      },
 
       addElementDBId: [
         20, // 0 - grids
@@ -242,53 +482,46 @@
 
 
 
-
       cleanLocalDB: function () {
-        var defer = $q.defer(),
-            self = this,
+//        console.log('CLEEN START');
+        var self = this,
             tableKeys = Object.keys(self.tablesLocalDB),
-            tableQty = tableKeys.length;
-
-        db.transaction(function (trans) {
-          for (var t = 0; t < tableQty; t++) {
-            trans.executeSql("DROP TABLE IF EXISTS " + self.tablesLocalDB[tableKeys[t]].tableName, [], function () {
-              if(t === tableQty) {
-                defer.resolve(1);
-              }
-            }, function () {
-              console.log('not find deleting table');
-              if(t === tableQty) {
-                defer.resolve(0);
-              }
+            promises = tableKeys.map(function(table) {
+              var defer = $q.defer();
+              return db.transaction(function (trans) {
+                trans.executeSql("DROP TABLE IF EXISTS " + self.tablesLocalDB[table].tableName, [], function () {
+//                  console.log('DROP '+ table);
+                  defer.resolve(1);
+                }, function () {
+                  console.log('not find deleting table');
+                  defer.resolve(0);
+                });
+              });
             });
-          }
-        });
-        return defer.promise;
+        return $q.all(promises);
       },
 
 
-      createTablesLocalDB: function() {
-        var defer = $q.defer(),
-            self = this,
-            tableKeys = Object.keys(self.tablesLocalDB),
-            tableQty = tableKeys.length;
 
-        db.transaction(function (trans) {
-          for (var t = 0; t < tableQty; t++) {
-            trans.executeSql("CREATE TABLE IF NOT EXISTS " + self.tablesLocalDB[tableKeys[t]].tableName + " (id INTEGER PRIMARY KEY AUTOINCREMENT, "+ self.tablesLocalDB[tableKeys[t]].prop + ", modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP" + self.tablesLocalDB[tableKeys[t]].foreignKey+")", [], function() {
-              if(t === tableQty) {
-                defer.resolve(1);
-              }
-            }, function () {
-              console.log('Something went wrong with creating table ' + self.tablesLocalDB[tableKeys[t]].tableName);
-              if(t === tableQty) {
-                defer.resolve(0);
-              }
+      createTablesLocalDB: function(tables) {
+//        console.log('CREATE START');
+        var self = this,
+            tableKeys = Object.keys(tables),
+            promises = tableKeys.map(function(table) {
+              var defer = $q.defer();
+              return db.transaction(function (trans) {
+                trans.executeSql("CREATE TABLE IF NOT EXISTS " + self.tablesLocalDB[table].tableName + " (id INTEGER PRIMARY KEY AUTOINCREMENT, "+ self.tablesLocalDB[table].prop + ", modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP" + self.tablesLocalDB[table].foreignKey+")", [], function() {
+//                  console.log('CREATE '+ table);
+                  defer.resolve(1);
+                }, function () {
+                  console.log('Something went wrong with creating table ' + self.tablesLocalDB[table].tableName);
+                  defer.resolve(0);
+                });
+              });
             });
-          }
-        });
-        return defer.promise;
+        return $q.all(promises);
       },
+
 
 
       insertRowLocalDB: function(row, tableName) {
@@ -297,7 +530,6 @@
             values = keysArr.map(function (key) {
               return "'"+row[key]+"'";
             }).join(', ');
-
         db.transaction(function (trans) {
           trans.executeSql('INSERT INTO ' + tableName + ' (' + colums + ') VALUES (' + values + ')', [], null, function () {
             console.log('Something went wrong with insert into ' + tableName);
@@ -307,32 +539,38 @@
 
 
       insertTablesLocalDB: function(result) {
-        var defer = $q.defer(),
+//        console.log('INSERT START');
+        var promises = [],
             tableKeys = Object.keys(result.tables),
+//            tableKeys = ['currencies','list_contents'],//,'lists'],
             tableQty = tableKeys.length;
-
+//        console.log('tableQty =', tableKeys);
         db.transaction(function (trans) {
           for (var t = 0; t < tableQty; t++) {
             var colums = result.tables[tableKeys[t]].fields.join(', '),
                 rowsQty = result.tables[tableKeys[t]].rows.length;
+//            console.log('insert ++++', tableKeys[t]);
             if (rowsQty) {
               for (var r = 0; r < rowsQty; r++) {
-                var values = result.tables[tableKeys[t]].rows[r].map(function (elem) {
-                  return "'" + elem + "'";
-                }).join(', ');
+                var defer = $q.defer(),
+                    values = result.tables[tableKeys[t]].rows[r].map(function (elem) {
+                      return "'" + elem + "'";
+                    }).join(', ');
+
+//                console.log('insert ++++', values);
                 trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
-                  if(t === tableQty) {
-                    defer.resolve(1);
-                  }
+                  defer.resolve(1);
                 }, function() {
-                  console.log('Error!!!');
+                  console.log('Error!!! ' + tableKeys[t]);
                   defer.resolve(0);
                 });
+
+                promises.push(defer.promise);
               }
             }
           }
         });
-        return defer.promise;
+        return $q.all(promises);
       },
 
 
@@ -350,10 +588,20 @@
             }
           }
         }
+
         db.transaction(function (trans) {
           trans.executeSql("SELECT * FROM " + tableName + vhereOptions, [],
             function (tx, result) {
-              defer.resolve(result);
+              var resultQty = result.rows.length;
+              if (resultQty) {
+                var resultARR = [];
+                for(var i = 0; i < resultQty; i++) {
+                  resultARR.push(result.rows.item(i));
+                }
+                defer.resolve(resultARR);
+              } else {
+                defer.resolve(0);
+              }
             },
             function (tx, result) {
               if(Object.keys(tx).length == 0 && result.code == 5) {
@@ -426,10 +674,11 @@
             self = this;
         $http.get(serverIP + 'get/locations?login='+login+'&access_token='+access)
           .success(function (result) {
+//            console.log('import location is done!');
             if(result.status) {
               //-------- insert in LocalDB
               self.insertTablesLocalDB(result).then(function() {
-                defer.resolve('import of Location tables is done!');
+                defer.resolve(1);
               })
             } else {
               console.log('Error!');
@@ -463,14 +712,13 @@
         console.log('Import database begin!');
         $http.get(serverIP+'sync?login='+login+'&access_token='+access)
           .success(function (result) {
-            self.insertTablesLocalDB(result).then(function() {
-              console.log('importDb is done!');
-              defer.resolve(1);
-            });
+//            console.log('importAllDB+++', result);
+//            console.log('importDb is done!');
+            defer.resolve(result);
           })
           .error(function () {
             console.log('Something went wrong with importing Database!');
-            defer.reject(0);
+            defer.reject({status: 0});
           });
         return defer.promise;
       },
@@ -486,16 +734,12 @@
           $http.post(serverIP+'update?login='+login+'&access_token='+access, data[i])
             .success(function (result) {
               console.log('send changes to server success:', result);
-              if (i == dataQty) {
                 defer.resolve(temArr);
-              }
             })
             .error(function () {
               console.log('send changes to server failed');
               temArr.push(data[i]);
-              if (i == dataQty) {
                 defer.resolve(temArr);
-              }
             });
         }
         console.log('send changes');
@@ -514,10 +758,15 @@
       },
 
 
-
-
-
-
+      exportUserEntrance: function (login, access) {
+        $http.get(serverIP+'signed?login='+login+'&access_token='+access)
+          .success(function () {
+            console.log('Sucsess!');
+          })
+          .error(function () {
+            console.log('Something went wrong!');
+          });
+      },
 
 
 
@@ -2212,6 +2461,3 @@
 
   }
 })();
-
-
-

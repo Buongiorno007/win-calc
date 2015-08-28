@@ -24,10 +24,10 @@
         currencyId: 0,
         currency: '',
         //TODO тянутся с server
-        discount: 10,
-        discountAddElem: 10,
-        discountMax: 50,
-        discountAddElemMax: 50
+        discount: 10, //discount_construct_default
+        discountAddElem: 10, //discount_addelem_default
+        discountMax: 50, //discount_construct_max
+        discountAddElemMax: 50 //discount_addelem_max
       },
       setDefaultUser: setDefaultUser
     };

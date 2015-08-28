@@ -39,7 +39,7 @@
     //------ Download complete Orders from localDB
     function downloadOrders() {
       localDB.selectDB(localDB.ordersTableBD, {'orderType': globalConstants.fullOrderType}).then(function(result) {
-//        console.log('orders+++++', result);
+        console.log('orders+++++', result,globalConstants);
         if(result) {
           HistoryStor.history.ordersSource = angular.copy(result);
           HistoryStor.history.orders = angular.copy(result);

@@ -53,7 +53,7 @@
         <section ng-class="{'discount': cartPage.config.isShowDiscount}" hm-swipedown="cartPage.swipeDiscountBlock(0)" class="cart-container full-view">
           <div class="cart-header">
             <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
-              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-src="{{userBox.U.userInfo.avatarUrl}}" class="user-foto">
+              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
               <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
               <div class="user-info-block">
                 <div data-output="{{ userBox.U.userInfo.cityName }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
@@ -159,7 +159,7 @@
         <section ng-class="{'active': cartPage.config.isCartLightView}" class="cart-container light-view">
           <div class="cart-header">
             <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
-              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-src="{{userBox.U.userInfo.avatarUrl}}" class="user-foto">
+              <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
               <div show-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="icon-location unvisible"></div>
               <div class="user-info-block">
                 <div data-output="{{ userBox.U.userInfo.cityName }}" typing="{{ userBox.config.typing }}" typing-delay="{{ userBox.config.DELAY_SHOW_USER_INFO }}" class="user-location"></div>
