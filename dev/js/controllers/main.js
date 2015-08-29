@@ -33,7 +33,6 @@
       MainServ.createOrderData();
       //------- set Curr Discounts
       MainServ.setCurrDiscounts();
-
       //----------- set all profiles for GlobalStor
       MainServ.downloadAllProfiles().then(function() {
 console.log('PROFILES ALL =====', GlobalStor.global.profiles);
@@ -55,7 +54,9 @@ console.log('PROFILES ALL =====', GlobalStor.global.profiles);
             GlobalStor.global.glasses = angular.copy(results.data.glasses);
 
             //--------- set Templates
-            MainServ.prepareTemplates(ProductStor.product.constructionType);
+            MainServ.prepareTemplates(ProductStor.product.constructionType).then(function() {
+              MainServ.isAddElemExist();
+            });
 
           } else {
             console.log(results);

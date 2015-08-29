@@ -63,6 +63,8 @@
       setCurrentHardware: setCurrentHardware,
       preparePrice: preparePrice,
       setProductPriceTOTAL: setProductPriceTOTAL,
+      isAddElemExist: isAddElemExist,
+
       createNewProject: createNewProject,
       createNewProduct: createNewProduct,
       setDefaultDoorConfig: setDefaultDoorConfig,
@@ -495,6 +497,24 @@
     }
 
 
+    function isAddElemExist() {
+      var defer = $q.defer(),
+          promises = globalDB.addElementDBId.map(function(item) {
+            return globalDB.selectLocalDB(globalDB.tablesLocalDB.lists.tableName, {'list_group_id': item});
+          });
+
+      $q.all(promises).then(function (results) {
+        console.log('iis Addelem ++++', results);
+        var resultsQty = results.length;
+        if (resultsQty) {
+          GlobalStor.global.isAddElemExist = results.map(function(itme) {
+            return (itme && itme.length) ? 1 : 0;
+          });
+        }
+        defer.resolve(1);
+      });
+      return defer.promise;
+    }
 
 
     function createNewProject() {

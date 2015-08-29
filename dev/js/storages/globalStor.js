@@ -70,8 +70,10 @@
         hardwareTypes: [],
 
         //------ Lamination
-        laminationsWhite: $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION')
+        laminationsWhite: $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION'),
 
+        //------ Add Elements
+        isAddElemExist: []
       },
 
       setDefaultGlobal: setDefaultGlobal
