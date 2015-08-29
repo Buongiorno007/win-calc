@@ -7,7 +7,7 @@
     .module('CartModule')
     .factory('CartMenuServ', cartMenuFactory);
 
-  function cartMenuFactory($location, globalConstants, localDB, GeneralServ, MainServ, analyticsServ, GlobalStor, OrderStor, CartStor) {
+  function cartMenuFactory($location, globalConstants, GeneralServ, MainServ, analyticsServ, GlobalStor, OrderStor, CartStor) {
 
     var thisFactory = this;
 

@@ -10,7 +10,7 @@
     .module('SettingsModule')
     .controller('LocationCtrl', locationCtrl);
 
-  function locationCtrl($scope, globalDB, loginServ, SettingServ, GlobalStor, OrderStor, UserStor) {
+  function locationCtrl(globalDB, loginServ, SettingServ, GlobalStor, OrderStor, UserStor) {
 
     var thisCtrl = this;
 
@@ -48,8 +48,10 @@
             UserStor.userInfo.countryName = thisCtrl.locations[j].countryName;
             UserStor.userInfo.climaticZone = thisCtrl.locations[j].climaticZone;
             UserStor.userInfo.heatTransfer = thisCtrl.locations[j].heatTransfer;
-            //----- save new City Id in Global DB
-            globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"city_id": locationId}, {"id": UserStor.userInfo.id});
+            //----- save new City Id in LocalDB & Server
+            //----- update password in LocalDB & Server
+            globalDB.updateLocalServerDBs(globalDB.tablesLocalDB.user.tableName, UserStor.userInfo.id, {'city_id': locationId});
+
           //-------- if current geolocation changing
           } else if(GlobalStor.global.currOpenPage === 'main'){
             //----- build new currentGeoLocation

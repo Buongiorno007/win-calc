@@ -9,7 +9,7 @@
     .module('MainModule')
     .controller('NavMenuCtrl', navigationMenuCtrl);
 
-  function navigationMenuCtrl($location, $cordovaProgress, globalConstants, GeneralServ, NavMenuServ, GlobalStor, OrderStor, ProductStor) {
+  function navigationMenuCtrl($location, globalConstants, GeneralServ, NavMenuServ, GlobalStor, OrderStor, ProductStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;

@@ -13,6 +13,7 @@
   function loginPageCtrl($location, $cordovaNetwork, globalConstants, globalDB, loginServ, GlobalStor, UserStor) {
 
     var thisCtrl = this;
+    //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
     thisCtrl.isOnline = 1;
     thisCtrl.isOffline = 0;
     thisCtrl.isLocalDB = 0;
@@ -49,6 +50,10 @@
     //TODO loginServ.getDeviceLanguage();
 
 
+    //------- export data
+    if(thisCtrl.isOnline) {
+      loginServ.initExport();
+    }
 
 
     //============ methods ================//
@@ -60,7 +65,8 @@
 
 
 
-    //-------- user sign in
+    //=========== SIGN IN ========//
+
     function enterForm(form) {
       //------ Trigger validation flag.
       thisCtrl.submitted = 1;
@@ -73,11 +79,12 @@
           loginServ.isLocalDBExist().then(function(data){
             thisCtrl.isLocalDB = data;
             if(thisCtrl.isLocalDB) {
+
               //======== SYNC
               console.log('SYNC');
               //---- checking user in LocalDB
               globalDB.selectLocalDB(globalDB.tablesLocalDB.user.tableName, {'phone': thisCtrl.user.phone}).then(function(data) {
-                console.log('SYNC', data);
+//                console.log('SYNC', data);
                 //---- user exists
                 if(data.length) {
                   //---------- check user password
@@ -121,27 +128,28 @@
         } else if(thisCtrl.isLocalDB) {
           console.log('OFFLINE');
           //---- checking user in LocalDB
-          globalDB.selectLocalDB(globalDB.userTableDB, {'phone': thisCtrl.user.phone}).then(function(result) {
+          globalDB.selectLocalDB(globalDB.tablesLocalDB.user.tableName, {'phone': thisCtrl.user.phone}).then(function(data) {
             //---- user exists
-            if(result) {
+            if(data.length) {
               //---------- check user password
               var newUserPassword = globalDB.md5(thisCtrl.user.password);
-
-              if(newUserPassword === result.rows.item(0).password) {
-
+              if(newUserPassword === data[0].password) {
                 //----- checking user activation
-                if(result.rows.item(0).locked) {
+                if(data[0].locked) {
                   //------- checking user FactoryId
-                  if(result.rows.item(0).factory_id > 0) {
-                    angular.extend(UserStor.userInfo, result.rows.item(0));
+                  if(data[0].factory_id > 0) {
+                    angular.extend(UserStor.userInfo, data[0]);
                     //------- set User Location
                     loginServ.prepareLocationToUse().then(function (data) {
                       thisCtrl.generalLocations = data;
                       loginServ.setUserLocation(thisCtrl.generalLocations.mergerLocation, UserStor.userInfo.city_id);
                       //--------- set currency symbol
-                      loginServ.setCurrency();
-                      GlobalStor.global.isLoader = 0;
-                      $location.path('/main');
+                      loginServ.setCurrency().then(function(data) {
+                        if(data) {
+                          GlobalStor.global.isLoader = 0;
+                          $location.path('/main');
+                        }
+                      });
                     });
                   } else {
                     GlobalStor.global.isLoader = 0;
@@ -166,10 +174,9 @@
           });
 
         } else {
+          GlobalStor.global.isLoader = 0;
           thisCtrl.isOffline = 1;
         }
-
-
       }
     }
 
@@ -186,7 +193,7 @@
             if(result.user.locked) {
               //------- clean all tables in LocalDB
 //              console.log('CLEEN START!!!!');
-              globalDB.cleanLocalDB().then(function(data) {
+              globalDB.cleanLocalDB(globalDB.tablesLocalDB).then(function(data) {
                 if(data) {
 //                  console.log('CLEEN DONE!!!!');
                   //------- creates all tables in LocalDB
@@ -204,7 +211,7 @@
 //                      console.log('START LOCATION');
                       globalDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
                         if(data) {
-                          console.log('INSERT LOCATION FINISH!!!!');
+//                          console.log('INSERT LOCATION FINISH!!!!');
                           //------ save Location Data in local obj
                           loginServ.prepareLocationToUse().then(function (data) {
                             thisCtrl.generalLocations = data;
@@ -280,25 +287,21 @@
     function importDBfromServer() {
       thisCtrl.isStartImport = true;
       console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
-      globalDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(result) {
-        if(result.status) {
-          globalDB.insertTablesLocalDB(result).then(function() {
-            console.log('insert AllDB is done!');
-            //--------- set currency symbol
-            loginServ.setCurrency().then(function(data) {
-              if(data) {
-                GlobalStor.global.isLoader = 0;
-                thisCtrl.isStartImport = 0;
-                console.log('Finish Time!!!!!!', new Date(), new Date().getMilliseconds());
-                $location.path('/main');
-              }
-            });
+      globalDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
+        if(data) {
+          console.log('insert AllDB is done!');
+          //--------- set currency symbol
+          loginServ.setCurrency().then(function(data) {
+            if(data) {
+              GlobalStor.global.isLoader = 0;
+              thisCtrl.isStartImport = 0;
+              console.log('Finish Time!!!!!!', new Date(), new Date().getMilliseconds());
+              $location.path('/main');
+            }
           });
         } else {
           console.log('Error!');
         }
-
-
       });
     }
 
@@ -328,20 +331,12 @@
           thisCtrl.user.factoryId = 1; //TODO for all factories id = 1
           UserStor.userInfo.factory_id = angular.copy(thisCtrl.user.factoryId);
           //        console.log(UserStor.userInfo);
-          //----- update factoryId in LocalDB
-          globalDB.updateLocalDB(globalDB.tablesLocalDB.user.tableName, {'factory_id': UserStor.userInfo.factory_id}, {'id': UserStor.userInfo.id});
-          //----- update factoryId in Server
-          var dataToSend = [
-            {
-              model: 'users',
-              rowId: UserStor.userInfo.id,
-              field: JSON.stringify({factory_id: UserStor.userInfo.factory_id})
-            }
-          ];
-          globalDB.updateServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, dataToSend);
-          //-------- close Factory Dialog
-          thisCtrl.isFactoryId = 0;
-          importDBfromServer();
+          //----- update factoryId in LocalDB & Server
+          globalDB.updateLocalServerDBs(globalDB.tablesLocalDB.user.tableName, UserStor.userInfo.id, {factory_id: UserStor.userInfo.factory_id}).then(function() {
+            //-------- close Factory Dialog
+            thisCtrl.isFactoryId = 0;
+            importDBfromServer();
+          });
         } else {
           thisCtrl.isOffline = 1;
         }
@@ -382,20 +377,26 @@
           } else {
             GlobalStor.global.isLoader = 1;
             //------- clean all tables in LocalDB
-            globalDB.cleanLocalDB().then(function() {
-              //------- creates all tables in LocalDB
-              globalDB.createTablesLocalDB(globalDB.tablesLocationLocalDB).then(function () {
-                //------- import Location
-                globalDB.importLocation().then(function() {
-                  //------ save Location Data in local obj
-                  loginServ.prepareLocationToUse().then(function(data) {
-                    thisCtrl.generalLocations = data;
-//                    console.log('DOWNLOAD LOCATION 2', data);
-                    GlobalStor.global.isLoader = 0;
-                    thisCtrl.isRegistration = 1;
-                  });
+            globalDB.cleanLocalDB(globalDB.tablesLocalDB).then(function(data) {
+              if(data) {
+                //------- creates all tables in LocalDB
+                globalDB.createTablesLocalDB(globalDB.tablesLocationLocalDB).then(function (data) {
+                  if(data) {
+                    //------- import Location
+                    globalDB.importLocation().then(function(data) {
+                      if(data) {
+                        //------ save Location Data in local obj
+                        loginServ.prepareLocationToUse().then(function(data) {
+                          thisCtrl.generalLocations = data;
+//                          console.log('DOWNLOAD LOCATION 2', data);
+                          GlobalStor.global.isLoader = 0;
+                          thisCtrl.isRegistration = 1;
+                        });
+                      }
+                    });
+                  }
                 });
-              });
+              }
             });
           }
           thisCtrl.user = {};
@@ -422,7 +423,7 @@
           GlobalStor.global.isLoader = 1;
           //--- checking user in server
           globalDB.importUser(thisCtrl.user.phone).then(function(result) {
-            console.log('USER!!!!!!!!!!!!', result);
+//            console.log('REG USER!!!!!!!!!!!!', result);
             if(result.status) {
               GlobalStor.global.isLoader = 0;
               //---- show attantion
@@ -458,8 +459,6 @@
         delete thisCtrl.user.city;
       }
     }
-
-
 
 
   }

@@ -10,7 +10,7 @@
     .module('MainModule')
     .factory('MainServ', navFactory);
 
-  function navFactory($rootScope, $location, $q,$http, $filter, $timeout, globalConstants, globalDB, localDB, GeneralServ, SVGServ, loginServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function navFactory($rootScope, $location, $q, $filter, $timeout, globalConstants, globalDB, localDB, GeneralServ, SVGServ, loginServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisFactory = this;
 
@@ -104,49 +104,47 @@
     //----------- get all profiles
     function downloadAllProfiles() {
       var deferred = $q.defer();
+      //------- get all Prifile Folders
       globalDB.selectLocalDB(globalDB.tablesLocalDB.profile_system_folders.tableName).then(function(result) {
-//      globalDB.selectAllDBGlobal(globalDB.profileTypeTableDBGlobal).then(function (result) {
-        if (result) {
-          var resultQty = result.rows.length,
-              countries;
-          if(resultQty) {
-            GlobalStor.global.profilesType = angular.copy(result.rows);
-            //-------- get all Countries
-            globalDB.selectLocalDB(globalDB.tablesLocalDB.countries.tableName).then(function(result) {
-//            globalDB.selectAllDBGlobal(globalDB.countriesTableDBGlobal).then(function (result) {
-              if (result) {
-                if (result.rows.length){
-                  countries = angular.copy(result.rows);
-                }
-              }
-            }).then(function () {
+        var resultQty = result.length,
+            countries;
+        if (resultQty) {
+          GlobalStor.global.profilesType = angular.copy(result);
 
-              for (var i = 0; i < resultQty; i++) {
-//                globalDB.selectDBGlobal(globalDB.profileTableDBGlobal, {'profile_system_folder_id': result[i].id}).then(function (result) {
-                globalDB.selectLocalDB(globalDB.tablesLocalDB.profile_systems.tableName, {'profile_system_folder_id': result.rows.item(i).id}).then(function (result) {
-                  if (result) {
-                    console.log('PROFILES ++++', result.rows);
-                    var tempProf = angular.copy(result.rows),
-                        profileQty = tempProf.length;
-                    if (profileQty) {
-                      //---- set countryName for each profile & adding absented elements
-                      for (var j = 0; j < profileQty; j++) {
+          //-------- get all Countries
+          globalDB.selectLocalDB(globalDB.tablesLocalDB.countries.tableName).then(function(result) {
+            if (result.length){
+              countries = angular.copy(result);
+            }
+          }).then(function () {
+
+            for (var i = 0; i < resultQty; i++) {
+              globalDB.selectLocalDB(globalDB.tablesLocalDB.profile_systems.tableName, {'profile_system_folder_id': result[i].id}).then(function (result) {
+                var profileQty = result.length;
+                if (profileQty) {
+                  var tempProf = angular.copy(result),
+                      countryQty = countries.length;
+                  console.log('PROFILES ++++', tempProf);
+                  //---- set countryName for each profile & adding absented elements
+                  for (var j = 0; j < profileQty; j++) {
 //                        angular.extend(tempProf[j], profilesSource[j]);
-                        for (var st = 0; st < countries.length; st++) {
-                          if (tempProf[j].country == countries[st].id) {
-                            tempProf[j].countryName = countries[st].name;
-                          }
-                        }
+                    for (var st = 0; st < countryQty; st++) {
+                      if (tempProf[j].country == countries[st].id) {
+                        tempProf[j].countryName = countries[st].name;
                       }
-                      GlobalStor.global.profiles.push(tempProf);
-                      deferred.resolve('done!');
                     }
                   }
-                });
-              }
+                  GlobalStor.global.profiles.push(tempProf);
+                  deferred.resolve(1);
+                } else {
+                  deferred.resolve(0);
+                }
+              });
+            }
 
-            });
-          }
+          });
+        } else {
+          deferred.resolve(0);
         }
       });
       return deferred.promise;
@@ -178,7 +176,7 @@
           //--------- set current profile in ProductStor
           setCurrentProfile().then(function(){
             parseTemplate().then(function() {
-              deferred.resolve('done');
+              deferred.resolve(1);
             });
 
           });
@@ -279,11 +277,11 @@
     function downloadProfileDepth(elementId) {
       return globalDB.selectLocalDB(globalDB.tablesLocalDB.lists.tableName, {'id': elementId}).then(function(result) {
         var resultObj = {};
-        if (result && result.rows.length) {
-          resultObj.a = result.rows.item(0).a;
-          resultObj.b = result.rows.item(0).b;
-          resultObj.c = result.rows.item(0).c;
-          resultObj.d = result.rows.item(0).d;
+        if (result.length) {
+          resultObj.a = result[0].a;
+          resultObj.b = result[0].b;
+          resultObj.c = result[0].c;
+          resultObj.d = result[0].d;
         }
         return resultObj;
       });
@@ -385,7 +383,7 @@
 
         //--------- get product price
         calculationPrice(objXFormedPrice).then(function() {
-          deferred.resolve('done');
+          deferred.resolve(1);
         });
 
         //------ calculate coeffs
@@ -398,40 +396,38 @@
 
     //------------ set Bead Id
     function setBeadId(profileId, glassId) {
-      var deferred = $q.defer(),
+      var defer = $q.defer(),
           parentId, glassDepth;
       //------ define Bead Id for define template price
+      console.log('BEAD =====', glassId);
       globalDB.selectLocalDB(globalDB.tablesLocalDB.lists.tableName, {'id': glassId}).then(function(result) {
-        if(result) {
-          if(result.rows.length) {
-            parentId = result.rows.item(0).parent_element_id;
-            //------ find glass depth
-            globalDB.selectLocalDB(globalDB.tablesLocalDB.elements.tableName, {'id': parentId}).then(function (result) {
-              if (result) {
-                if(result.rows.length) {
-                  glassDepth = result.rows.item(0).glass_width;
-                  //------ find bead Id as to glass Depth and profile Id
-                  globalDB.selectLocalDB(globalDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": glassDepth}).then(function (result) {
-                    if (result) {
-                      if(result.rows.length) {
-                        //ProductStor.product.beadId = result.rows.item(0).list_id;
-                        deferred.resolve(result.rows.item(0).list_id);
-                      }
-                    } else {
-                      console.log('Error!!', result);
-                    }
-                  });
+        if(result.length) {
+          parentId = result[0].parent_element_id;
+          //------ find glass depth
+          globalDB.selectLocalDB(globalDB.tablesLocalDB.elements.tableName, {'id': parentId}).then(function (result) {
+            if(result.length) {
+              glassDepth = result[0].glass_width;
+              //------ find bead Id as to glass Depth and profile Id
+              globalDB.selectLocalDB(globalDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": glassDepth}).then(function (result) {
+                if(result.length) {
+                  //ProductStor.product.beadId = result[0].list_id;
+                  defer.resolve(result[0].list_id);
+                } else {
+                  console.log('Error!!', result);
+                  defer.resolve(0);
                 }
-              } else {
-                console.log(result);
-              }
-            });
-          }
+              });
+            } else {
+              console.log('Error!!', result);
+              defer.resolve(0);
+            }
+          });
         } else {
-          console.log(result);
+          console.log('Error!!', result);
+          defer.resolve(0);
         }
       });
-      return deferred.promise;
+      return defer.promise;
     }
 
 

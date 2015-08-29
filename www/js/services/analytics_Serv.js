@@ -90,7 +90,8 @@
           //----- send Analytics Data to globalDB
           globalDB.sendOrder(UserStor.userInfo.phone, UserStor.userInfo.device_code, analData, function(result){});
           //---- clear Analytics Table in localDB
-          localDB.deleteDB(localDB.analyticsTableBD);
+//          localDB.deleteDB(localDB.analyticsTableBD);
+          globalDB.cleanLocalDB({analytics: 1});
         }
       });
     }

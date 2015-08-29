@@ -10,36 +10,9 @@
     .module('BauVoiceApp')
     .factory('optionsServ', optionFactory);
 
-  function optionFactory($q, $filter) {
-
-    // SQL requests for select data from tables
-    var selectWindowHardware = "SELECT id, name, short_name as shortName FROM window_hardware_groups WHERE is_in_calculation = 1";
+  function optionFactory($filter) {
 
     return {
-
-
-      getAllWindowHardwares: function (callback) {
-        var db = openDatabase('bauvoice', '1.0', 'bauvoice', 65536), i, AllWindowHardwares = [];
-        db.transaction(function (transaction) {
-          transaction.executeSql(selectWindowHardware, [], function (transaction, result) {
-            if (result.rows.length) {
-              for (i = 0; i < result.rows.length; i++) {
-                AllWindowHardwares.push({
-                  id: result.rows.item(i).id,
-                  name: result.rows.item(i).name + "",
-                  shortName: result.rows.item(i).shortName + ""
-                });
-              }
-              callback(new OkResult(AllWindowHardwares));
-            } else {
-              callback(new ErrorResult(1, 'No window_hardware in database!'));
-            }
-          }, function () {
-            callback(new ErrorResult(2, 'Something went wrong with selection window_hardware_groups record'));
-          });
-        });
-      },
-
 
 
       getTemplateImgIcons: function (callback) {
@@ -1535,7 +1508,7 @@
           glasses: [
             [
               {
-                glassId: 145,
+                glassId: 198294,//145,
                 glassName: '6/12/6',
                 glassUrl: 'img/glasses/glass1.png',
                 glassDescrip: '1 ' + $filter('translate')('panels.CAMERa'),

@@ -64,8 +64,8 @@
       AuxStor.aux.addElementsMenuStyle = globalConstants.addElementsGroupClass[ index ];
 
       //TODO download form GlobalDB
-//      globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'list_group_id': globalDB.addElementDBId[index]}).then(function (result) {
-//        if (result) {
+//      globalDB.selectLocalDB(globalDB.tablesLocalDB.lists.tableName, {'list_group_id': globalDB.addElementDBId[index]}).then(function(result) {
+//        if (result.length) {
 //          AuxStor.aux.addElementsList = angular.copy(result);
 //        } else {
 //          console.log(result);

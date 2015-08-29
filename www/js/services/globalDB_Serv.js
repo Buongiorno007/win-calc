@@ -10,12 +10,11 @@
     .module('BauVoiceApp')
     .factory('globalDB', globalDBFactory);
 
-  function globalDBFactory($http, $webSql, $q) {
+  function globalDBFactory($http, $q, UserStor) {
 
-    var dbGlobal = $webSql.openDatabase('bauvoice', '1.0', 'bauvoice', 65536),
-        db = openDatabase('bauvoice', '1.0', 'bauvoice', 5000000),
+    var db = openDatabase('bauvoice', '1.0', 'bauvoice', 5000000),
         serverIP = 'http://192.168.1.147:3002/api/',
-        elemLists = [], elemListsHw = [], elemListsAdd = [], tablesToSync=[];
+        elemLists = [], elemListsHw = [], elemListsAdd = [];
 
 
 
@@ -393,7 +392,7 @@
             ' customer_country VARCHAR,' +
             ' climatic_zone INTEGER,' +
             ' full_location VARCHAR,' +
-            ' order_style VARCHAR,' +
+            ' order_style VARCHAR,' + //TODO add orderType!!!! draft
             ' products_qty INTEGER,' +
             ' products_price_total NUMERIC,'+
             ' delivery_date INTEGER,' +
@@ -423,8 +422,74 @@
             ' customer_occupation INTEGER,' +
             ' customer_infoSource INTEGER',
           'foreignKey': ''
+        },
+        'order_products': {
+          'tableName': 'order_products',
+          'prop': 'order_id VARCHAR,' +
+            ' is_addelem_only INTEGER,' + //TODO change
+            ' selected_room_id INTEGER,' +
+            ' construction_type INTEGER,' +
+            ' template_index INTEGER,' + //TODO change
+            ' template_source TEXT,' +
+            ' template_width NUMERIC,' +
+            ' template_height NUMERIC,' +
+            ' profile_type_index INTEGER,' + //TODO change
+            ' profile_index INTEGER,' + //TODO change
+            ' profile_id INTEGER,' +
+            ' profile_name VARCHAR,' +//TODO change
+            ' profileHeatCoeff INTEGER,' +//TODO change
+            ' profileAirCoeff INTEGER,' +//TODO change
+            ' glassTypeIndex INTEGER,' +//TODO change
+            ' glassIndex INTEGER,' +//TODO change
+            ' glass_id INTEGER,' +
+            ' glassName VARCHAR, glassHeatCoeff INTEGER, glassAirCoeff INTEGER,' +//TODO change
+            ' hardwareTypeIndex INTEGER, hardwareIndex INTEGER,' +//TODO change
+            ' hardware_id INTEGER,' +
+            ' hardwareName VARCHAR, hardwareHeatCoeff INTEGER, hardwareAirCoeff INTEGER,' +//TODO change
+            ' lamination_out_id INTEGER,' +
+            ' laminationOutName VARCHAR, laminationOutPrice NUMERIC,' +//TODO change
+            ' lamination_in_id INTEGER,' +
+            ' laminationInName VARCHAR, laminationInPrice NUMERIC,' +//TODO change
+            ' door_shape_id INTEGER,' +
+            ' door_sash_shape_id INTEGER,' +
+            ' door_handle_shape_id INTEGER,' +
+            ' door_lock_shape_id INTEGER,' +
+            ' heat_transfer_min INTEGER,' +
+            ' heat_transfer_total INTEGER,' +
+            ' airCirculationTOTAL INTEGER,' +//TODO change
+            ' templatePriceSELECT NUMERIC,' +//TODO change
+            ' laminationPriceSELECT NUMERIC, addElementsPriceSELECT NUMERIC, productPriceTOTAL NUMERIC,' +//TODO change
+            ' comment TEXT,' +
+            ' product_qty INTEGER',
+          'foreignKey': ''
+        },
+        'order_addelem': {
+          'tableName': 'order_addelem',
+          'prop': 'order_id VARCHAR,' +
+            ' product_id INTEGER,' +
+            ' element_type INTEGER,' +
+            ' elementName VARCHAR,' +//TODO change
+            ' element_width NUMERIC,' +
+            ' element_height NUMERIC,' +
+            ' elementColor INTEGER, elementPrice NUMERIC,' +//TODO change
+            ' element_qty INTEGER',
+          'foreignKey': ''
+        },
+        'analytics': {
+          'tableName': 'analytics',
+          'prop': 'created TIMESTAMP, user_id INTEGER, order_id VARCHAR, element_id INTEGER, element_type INTEGER',
+          'foreignKey': ''
+        },
+
+        'export': {
+          'tableName': 'export',
+//          'prop': 'table_name VARCHAR, row_id INTEGER, message TEXT',
+          'prop': 'model VARCHAR, rowId INTEGER, field TEXT',
+          'foreignKey': ''
         }
       },
+
+
 
       tablesLocationLocalDB: {
         'cities': {
@@ -477,22 +542,17 @@
       hardwareTableDBGlobal: 'window_hardwares',
 
 
-//TODO delete
-      selectDBGlobal: selectDBGlobal,
-      selectAllDBGlobal: selectAllDBGlobal,
-      updateDBGlobal: updateDBGlobal,
 
 
 
 
-      cleanLocalDB: function () {
+      cleanLocalDB: function (tables) {
 //        console.log('CLEEN START');
-        var self = this,
-            tableKeys = Object.keys(self.tablesLocalDB),
+        var tableKeys = Object.keys(tables),
             promises = tableKeys.map(function(table) {
               var defer = $q.defer();
               return db.transaction(function (trans) {
-                trans.executeSql("DROP TABLE IF EXISTS " + self.tablesLocalDB[table].tableName, [], function () {
+                trans.executeSql("DROP TABLE IF EXISTS " + table, [], function () {
 //                  console.log('DROP '+ table);
                   defer.resolve(1);
                 }, function () {
@@ -559,7 +619,6 @@
                     values = result.tables[tableKeys[t]].rows[r].map(function (elem) {
                       return "'" + elem + "'";
                     }).join(', ');
-
 //                console.log('insert ++++', values);
                 trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
                   defer.resolve(1);
@@ -591,7 +650,6 @@
             }
           }
         }
-
         db.transaction(function (trans) {
           trans.executeSql("SELECT * FROM " + tableName + vhereOptions, [],
             function (tx, result) {
@@ -677,7 +735,6 @@
             self = this;
         $http.get(serverIP + 'get/locations?login='+login+'&access_token='+access)
           .success(function (result) {
-//            console.log('import location is done!');
             if(result.status) {
               //-------- insert in LocalDB
               self.insertTablesLocalDB(result).then(function() {
@@ -685,11 +742,12 @@
               })
             } else {
               console.log('Error!');
+              defer.resolve(0);
             }
           })
           .error(function () {
             console.log('Something went wrong with Location!');
-            defer.resolve({status: 0});
+            defer.resolve(0);
           });
         return defer.promise;
       },
@@ -717,11 +775,19 @@
           .success(function (result) {
 //            console.log('importAllDB+++', result);
 //            console.log('importDb is done!');
-            defer.resolve(result);
+            if(result.status) {
+              //-------- insert in LocalDB
+              self.insertTablesLocalDB(result).then(function() {
+                defer.resolve(1);
+              })
+            } else {
+              console.log('Error!');
+              defer.resolve(0);
+            }
           })
           .error(function () {
             console.log('Something went wrong with importing Database!');
-            defer.reject({status: 0});
+            defer.resolve(0);
           });
         return defer.promise;
       },
@@ -729,9 +795,22 @@
 
 
       updateServer: function (login, access, data) {
+        var promises = data.map(function(item) {
+          var defer = $q.defer();
+          return $http.post(serverIP+'update?login='+login+'&access_token='+access, item)
+            .success(function (result) {
+              console.log('send changes to server success:', result);
+              defer.resolve(1);
+            })
+            .error(function () {
+              console.log('send changes to server failed');
+              defer.resolve(0);
+            });
+        });
+        return $q.all(promises);
+        /*
         var defer = $q.defer(),
-            dataQty = data.length,
-            temArr = [];
+            dataQty = data.length;
 //        tablesToSync.push({model: table_name, rowId: tempObject.id, field: JSON.stringify(tempObject)});
         for (var i = 0; i < dataQty; i++) {
           $http.post(serverIP+'update?login='+login+'&access_token='+access, data[i])
@@ -747,6 +826,7 @@
         }
         console.log('send changes');
         return defer.promise;
+        */
       },
 
 
@@ -770,6 +850,33 @@
             console.log('Something went wrong!');
           });
       },
+
+
+
+      updateLocalServerDBs: function(table, row, data) {
+        var defer = $q.defer(),
+            self = this,
+            dataToSend = [
+              {
+                model: table,
+                rowId: row,
+                field: JSON.stringify(data)
+              }
+            ];
+        self.updateLocalDB(table, data, {'id': row});
+        self.updateServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, dataToSend).then(function(data) {
+          if(!data) {
+            //----- if no connect with Server save in Export LocalDB
+            self.insertRowLocalDB(dataToSend, self.tablesLocalDB.export.tableName);
+          }
+          defer.resolve(1);
+        });
+
+        return defer.promise;
+      },
+
+
+
 
 
 

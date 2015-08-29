@@ -13,6 +13,7 @@
 
     thisFactory.publicObj = {
       getDeviceLanguage: getDeviceLanguage,
+      initExport: initExport,
       isLocalDBExist: isLocalDBExist,
       prepareLocationToUse: prepareLocationToUse,
       collectCityIdsAsCountry: collectCityIdsAsCountry,
@@ -53,11 +54,38 @@
 
 
 
+
+    function initExport() {
+      var defer = $q.defer();
+      console.log('EXPORT');
+      //------- check Export Table
+      globalDB.selectLocalDB(globalDB.tablesLocalDB.export.tableName).then(function(data) {
+        //        console.log('data ===', data);
+        if(data.length) {
+          //----- get last user
+          globalDB.selectLocalDB(globalDB.tablesLocalDB.user.tableName).then(function(user) {
+            if(user.length) {
+              globalDB.updateServer(user[0].phone, user[0].device_code, data).then(function(result) {
+                console.log('FINISH export',result);
+                //----- if update Server is success, clean Export in LocalDB
+                if(result) {
+                  globalDB.cleanLocalDB({export: 1});
+                  defer.resolve(1);
+                }
+              });
+            }
+          });
+        }
+      });
+      return defer.promise;
+    }
+
+
     function isLocalDBExist() {
       var defer = $q.defer();
 //      globalDB.selectLocalDB(globalDB.tablesLocalDB.user.tableName).then(function(data) {
       globalDB.selectLocalDB('sqlite_sequence').then(function(data) {
-        console.log('data ===', data);
+//        console.log('data ===', data);
         if(data && data.length > 5) {
           defer.resolve(1);
         } else {
@@ -164,13 +192,11 @@
 
     function collectCityIdsAsCountry(location) {
       var defer = $q.defer(),
-          locationQty = location.length,
-          cityIds = [];
-      while(--locationQty > -1) {
-        if(location[locationQty].countryId === UserStor.userInfo.countryId) {
-          cityIds.push(location[locationQty].cityId);
-        }
-      }
+          cityIds = location.map(function(loc) {
+            if(loc.countryId === UserStor.userInfo.countryId) {
+              return loc.cityId;
+            }
+          });
       defer.resolve(cityIds.join(','));
       return defer.promise;
     }

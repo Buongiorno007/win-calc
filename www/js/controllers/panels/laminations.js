@@ -24,7 +24,7 @@
     };
 
     //----------- get all lamination
-    globalDB.selectAllDBGlobal(globalDB.laminationTableDBGlobal).then(function(result){
+    globalDB.selectLocalDB(globalDB.tablesLocalDB.lamination_factory_colors.tableName).then(function(result) {
       if(result) {
         var laminations = result,
             laminationQty = laminations.length;

@@ -20,8 +20,8 @@
     thisCtrl.C = CartStor;
 
     thisCtrl.config = {
-      isAddElementDetail: false,
-      isCartLightView: false,
+      isAddElementDetail: 0,
+      isCartLightView: 0,
       detailProductIndex: 0,
       isShowDiscount: 0,
       isShowDiscountList: 0,

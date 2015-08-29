@@ -10,7 +10,7 @@
     .module('MainModule')
     .controller('AddElementsListCtrl', addElementsListCtrl);
 
-  function addElementsListCtrl($filter, globalConstants, GlobalStor, ProductStor, UserStor, AuxStor, AddElementsServ, AddElementMenuServ) {
+  function addElementsListCtrl(globalConstants, GlobalStor, ProductStor, UserStor, AuxStor, AddElementsServ, AddElementMenuServ) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;

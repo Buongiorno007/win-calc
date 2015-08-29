@@ -10,7 +10,7 @@
     .module('HistoryModule')
     .factory('HistoryServ', historyFactory);
 
-  function historyFactory($location, $filter, $cordovaDialogs, $cordovaProgress, globalConstants, globalDB, localDB, GeneralServ, MainServ, CartServ, GlobalStor, OrderStor, UserStor, HistoryStor) {
+  function historyFactory($location, $filter, $cordovaDialogs, globalConstants, globalDB, localDB, GeneralServ, MainServ, CartServ, GlobalStor, OrderStor, UserStor, HistoryStor) {
 
     var thisFactory = this,
         orderMasterStyle = 'master',
@@ -260,7 +260,7 @@
 
     //--------------- Edit Order & Draft
     function editOrder(orderNum) {
-      //$cordovaProgress.showSimple(true);
+      GlobalStor.global.isLoader = 1;
       GlobalStor.global.orderEditNumber = orderNum;
       GlobalStor.global.isConfigMenu = true;
       GlobalStor.global.isNavMenu = false;
@@ -275,7 +275,7 @@
       CartServ.downloadProducts().then(function() {
         //------ Download All Add Elements from LocalDB
         CartServ.downloadAddElements().then(function () {
-          //$cordovaProgress.hide();
+          GlobalStor.global.isLoader = 0;
           $location.path('/cart');
         });
       });
