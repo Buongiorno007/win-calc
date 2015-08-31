@@ -65,14 +65,14 @@
           'prop': 'profile_system_id INTEGER, list_id INTEGER, glass_width INTEGER',
           'foreignKey': ', FOREIGN KEY(list_id) REFERENCES lists(id)'
         },
-        'glass_folders': {
-          'tableName': 'glass_folders',
-          'prop': 'name VARCHAR(255), factory_id INTEGER, position INTEGER',
-          'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id)'
-        },
         'factories': {
           'tableName': 'factories',
           'prop': 'name VARCHAR(255)',
+          'foreignKey': ''
+        },
+        'glass_folders': {
+          'tableName': 'glass_folders',
+          'prop': 'name VARCHAR(255), img VARCHAR, position INTEGER',
           'foreignKey': ''
         },
         'glass_prices': {
@@ -94,11 +94,11 @@
             ' table_width INTEGER',
           'foreignKey': ''
         },
-        'glass_profile_systems': {
-          'tableName': 'glass_profile_systems',
-          'prop': 'profile_system_id INTEGER, list_id INTEGER',
-          'foreignKey': ', FOREIGN KEY(list_id) REFERENCES lists(id)'
-        },
+//        'glass_profile_systems': {
+//          'tableName': 'glass_profile_systems',
+//          'prop': 'profile_system_id INTEGER, list_id INTEGER',
+//          'foreignKey': ', FOREIGN KEY(list_id) REFERENCES lists(id)'
+//        },
         'lamination_default_colors': {
           'tableName': 'lamination_default_colors',
           'prop': 'name VARCHAR(255), url VARCHAR(255)',
@@ -170,7 +170,8 @@
             ' factory_id INTEGER,' +
             ' price NUMERIC(10, 2),' +
             ' amendment_pruning NUMERIC(10, 2),' +
-            ' noise INTEGER',
+            ' noise_coeff INTEGER,' +
+            ' heat_coeff INTEGER',
           'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(glass_folder_id) REFERENCES glass_folders(id), FOREIGN KEY(margin_id) REFERENCES margin_types(id), FOREIGN KEY(supplier_id) REFERENCES suppliers(id), FOREIGN KEY(currency_id) REFERENCES currencies(id), FOREIGN KEY(element_group_id) REFERENCES elements_groups(id)'
         },
         'profile_system_folders': {
@@ -216,51 +217,51 @@
         },
         'user': {
           'tableName': 'user',
-          'prop': 'created_at TIMESTAMP,' +
-            ' updated_at TIMESTAMP,' +
+          'prop': //'created_at TIMESTAMP,' +
+//            ' updated_at TIMESTAMP,' +
             ' email VARCHAR(255),' +
             ' password VARCHAR(255),' +
-            ' session VARCHAR(255),' +
-            ' short_id VARCHAR(2),' +
-            ' parent_id INTEGER,' +
+//            ' session VARCHAR(255),' +
+//            ' short_id VARCHAR(2),' +
+//            ' parent_id INTEGER,' +
             ' factory_id INTEGER,' +
-            ' discount_construct_max NUMERIC(10, 1),' +
-            ' discount_construct_default NUMERIC(10, 1),' +
-            ' discount_addelem_max NUMERIC(10, 1),' +
-            ' discount_addelem_default NUMERIC(10, 1),' +
+//            ' discount_construct_max NUMERIC(10, 1),' +
+//            ' discount_construct_default NUMERIC(10, 1),' +
+//            ' discount_addelem_max NUMERIC(10, 1),' +
+//            ' discount_addelem_default NUMERIC(10, 1),' +
             ' name VARCHAR(255),' +
             ' phone VARCHAR(100),' +
-            ' inn VARCHAR(100),' +
-            ' okpo VARCHAR(100),' +
-            ' mfo VARCHAR(100),' +
-            ' bank_name VARCHAR(100),' +
-            ' bank_acc_no VARCHAR(100),' +
-            ' director VARCHAR(255),' +
-            ' stamp_file_name VARCHAR(255),' +
+//            ' inn VARCHAR(100),' +
+//            ' okpo VARCHAR(100),' +
+//            ' mfo VARCHAR(100),' +
+//            ' bank_name VARCHAR(100),' +
+//            ' bank_acc_no VARCHAR(100),' +
+//            ' director VARCHAR(255),' +
+//            ' stamp_file_name VARCHAR(255),' +
             ' locked INTEGER,' +
             ' user_type INTEGER,' +
-            ' contact_name VARCHAR(100),' +
+//            ' contact_name VARCHAR(100),' +
             ' city_phone VARCHAR(100),' +
             ' city_id INTEGER,' +
-            ' legal_name VARCHAR(255),' +
+//            ' legal_name VARCHAR(255),' +
             ' fax VARCHAR(100),' +
             ' avatar VARCHAR(255),' +
             ' birthday DATE,' +
             ' sex VARCHAR(100),' +
-            ' margin_mounting_mon NUMERIC(10, 2),' +
-            ' margin_mounting_tue NUMERIC(10, 2),' +
-            ' margin_mounting_wed NUMERIC(10, 2),' +
-            ' margin_mounting_thu NUMERIC(10, 2),' +
-            ' margin_mounting_fri NUMERIC(10, 2),' +
-            ' margin_mounting_sat NUMERIC(10, 2),' +
-            ' margin_mounting_sun NUMERIC(10, 2),' +
-            ' min_term INTEGER,' +
-            ' base_term INTEGER,' +
-            ' internal_count INTEGER,' +
+//            ' margin_mounting_mon NUMERIC(10, 2),' +
+//            ' margin_mounting_tue NUMERIC(10, 2),' +
+//            ' margin_mounting_wed NUMERIC(10, 2),' +
+//            ' margin_mounting_thu NUMERIC(10, 2),' +
+//            ' margin_mounting_fri NUMERIC(10, 2),' +
+//            ' margin_mounting_sat NUMERIC(10, 2),' +
+//            ' margin_mounting_sun NUMERIC(10, 2),' +
+//            ' min_term INTEGER,' +
+//            ' base_term INTEGER,' +
+//            ' internal_count INTEGER,' +
             ' device_code VARCHAR(250),'+
             ' entries INTEGER,'+
-            ' address VARCHAR,'+
-            ' identificator INTEGER',
+            ' address VARCHAR',
+//            ' identificator INTEGER',
           'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id)'
         },
         'lists': {
@@ -277,7 +278,8 @@
             ' add_color_id INTEGER,' +
             ' addition_folder_id INTEGER,' +
             ' amendment_pruning NUMERIC(10, 2),' +
-            ' waste NUMERIC(10, 2)',
+            ' waste NUMERIC(10, 2),' +
+            ' cameras INTEGER',
           'foreignKey': ', FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id)'
         },
         'list_contents': {
@@ -357,6 +359,11 @@
         'window_hardware_handles': {
           'tableName': 'window_hardware_handles',
           'prop': 'element_id INTEGER, location VARCHAR(255), constant_value NUMERIC(10, 2)',
+          'foreignKey': ''
+        },
+        'elements_profile_systems': {
+          'tableName': 'elements_profile_systems',
+          'prop': 'profile_system_id INTEGER, element_id INTEGER',
           'foreignKey': ''
         },
         'orders': {
@@ -551,7 +558,7 @@
         var tableKeys = Object.keys(tables),
             promises = tableKeys.map(function(table) {
               var defer = $q.defer();
-              return db.transaction(function (trans) {
+              db.transaction(function (trans) {
                 trans.executeSql("DROP TABLE IF EXISTS " + table, [], function () {
 //                  console.log('DROP '+ table);
                   defer.resolve(1);
@@ -560,6 +567,7 @@
                   defer.resolve(0);
                 });
               });
+              return defer.promise;
             });
         return $q.all(promises);
       },
@@ -572,7 +580,7 @@
             tableKeys = Object.keys(tables),
             promises = tableKeys.map(function(table) {
               var defer = $q.defer();
-              return db.transaction(function (trans) {
+              db.transaction(function (trans) {
                 trans.executeSql("CREATE TABLE IF NOT EXISTS " + self.tablesLocalDB[table].tableName + " (id INTEGER PRIMARY KEY AUTOINCREMENT, "+ self.tablesLocalDB[table].prop + ", modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP" + self.tablesLocalDB[table].foreignKey+")", [], function() {
 //                  console.log('CREATE '+ table);
                   defer.resolve(1);
@@ -581,6 +589,7 @@
                   defer.resolve(0);
                 });
               });
+              return defer.promise;
             });
         return $q.all(promises);
       },
@@ -773,7 +782,7 @@
         console.log('Import database begin!');
         $http.get(serverIP+'sync?login='+login+'&access_token='+access)
           .success(function (result) {
-//            console.log('importAllDB+++', result);
+            console.log('importAllDB+++', result);
 //            console.log('importDb is done!');
             if(result.status) {
               //-------- insert in LocalDB
@@ -795,9 +804,10 @@
 
 
       updateServer: function (login, access, data) {
+//        tablesToSync.push({model: table_name, rowId: tempObject.id, field: JSON.stringify(tempObject)});
         var promises = data.map(function(item) {
           var defer = $q.defer();
-          return $http.post(serverIP+'update?login='+login+'&access_token='+access, item)
+          $http.post(serverIP+'update?login='+login+'&access_token='+access, item)
             .success(function (result) {
               console.log('send changes to server success:', result);
               defer.resolve(1);
@@ -806,27 +816,9 @@
               console.log('send changes to server failed');
               defer.resolve(0);
             });
+          return defer.promise;
         });
         return $q.all(promises);
-        /*
-        var defer = $q.defer(),
-            dataQty = data.length;
-//        tablesToSync.push({model: table_name, rowId: tempObject.id, field: JSON.stringify(tempObject)});
-        for (var i = 0; i < dataQty; i++) {
-          $http.post(serverIP+'update?login='+login+'&access_token='+access, data[i])
-            .success(function (result) {
-              console.log('send changes to server success:', result);
-                defer.resolve(temArr);
-            })
-            .error(function () {
-              console.log('send changes to server failed');
-              temArr.push(data[i]);
-                defer.resolve(temArr);
-            });
-        }
-        console.log('send changes');
-        return defer.promise;
-        */
       },
 
 

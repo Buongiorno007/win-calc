@@ -62,8 +62,9 @@
         },
 
         //------- Glasses
-        glasses: [],
+        glassesAll: [],
         glassTypes: [],
+        glasses: [],
 
         //------ Hardwares
         hardwares: [],
@@ -71,6 +72,8 @@
 
         //------ Lamination
         laminationsWhite: $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION'),
+        laminationsIn: [],
+        laminationsOut: [],
 
         //------ Add Elements
         isAddElemExist: []

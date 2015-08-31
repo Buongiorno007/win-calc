@@ -23,26 +23,6 @@
       typing: 'on'
     };
 
-    //----------- get all lamination
-    globalDB.selectLocalDB(globalDB.tablesLocalDB.lamination_factory_colors.tableName).then(function(result) {
-      if(result) {
-        var laminations = result,
-            laminationQty = laminations.length;
-        //TODO вообще пустую ламинацию удалить из базы
-        //-------- find and delete white lamination from lamination Arr
-        while(--laminationQty > -1) {
-          if(laminations[laminationQty].name === 'No color') {
-            laminations.splice(laminationQty, 1);
-          }
-        }
-        thisCtrl.laminationsIn = angular.copy(laminations);
-        thisCtrl.laminationsOut = angular.copy(laminations);
-      } else {
-        console.log('No laminations in database');
-      }
-    });
-
-
     //------ clicking
     thisCtrl.selectLaminatIn = selectLaminatIn;
     thisCtrl.selectLaminatOut = selectLaminatOut;

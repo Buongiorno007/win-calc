@@ -3,7 +3,7 @@
     .glass-block(ng-repeat="typeGlass in glassPanel.G.global.glasses", ng-class="{'selected': glassPanel.P.product.glassTypeIndex == $index}")
 
       .group-block-header
-        .title(data-output="{{ glassPanel.G.global.glassTypes[$index] }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START }}")
+        .title(data-output="{{ glassPanel.G.global.glassTypes[$index].name }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START }}")
         .group-info
           .info
 
@@ -15,7 +15,7 @@
                 img(ng-src="{{ glass.glassUrl }}")
               .label(data-output="{{ glass.glassDescrip }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
             .glass-box-data
-              .glass-descr(data-output="{{ glass.glassName }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
+              .glass-descr(data-output="{{ glass.sku }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
               .coef-level.heat-insulation(ng-class="{'coef-level-1': glass.heatCoeff == 1, 'coef-level-2': glass.heatCoeff == 2, 'coef-level-3': glass.heatCoeff == 3, 'coef-level-4': glass.heatCoeff == 4}")
                 .coef-index
                 .coef-index

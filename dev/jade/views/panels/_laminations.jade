@@ -11,9 +11,9 @@
 
       .lamination-options.clearfix
 
-        .lam-option-box.unvisible(ng-repeat="laminatInner in laminPanel.laminationsIn", show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * $index) }}")
+        .lam-option-box.unvisible(ng-repeat="laminatInner in laminPanel.G.global.laminationsIn", show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * $index) }}")
           .lamination-img(ng-class="{'selected': laminPanel.P.product.laminationInId == laminatInner.id}", hm-tap="laminPanel.selectLaminatIn($index)")
-            img(ng-src="img/lamination/{{ laminatInner.id }}.png")
+            img(ng-src="img/lamination/{{ laminatInner.url }}")
           .lamination-label(data-output="{{ laminatInner.name }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_TYPING * $index) }}")
           .info.unvisible(show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * 2 * $index) }}")
 
@@ -27,8 +27,8 @@
 
       .lamination-options.clearfix
 
-        .lam-option-box.unvisible(ng-repeat="laminatOuter in laminPanel.laminationsOut", show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * $index) }}")
+        .lam-option-box.unvisible(ng-repeat="laminatOuter in laminPanel.G.global.laminationsOut", show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * $index) }}")
           .lamination-img(ng-class="{'selected': laminPanel.P.product.laminationOutId == laminatOuter.id}", hm-tap="laminPanel.selectLaminatOut($index)")
-            img(ng-src="img/lamination/{{ laminatOuter.id }}.png")
+            img(ng-src="img/lamination/{{ laminatOuter.url }}")
           .lamination-label(data-output="{{ laminatOuter.name }}", typing="{{ laminPanel.config.typing }}", typing-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_TYPING * $index) }}")
           .info.unvisible(show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * 2 * $index) }}")

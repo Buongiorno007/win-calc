@@ -37,34 +37,65 @@
       //------- set Curr Discounts
       MainServ.setCurrDiscounts();
       //----------- set all profiles for GlobalStor
-      MainServ.downloadAllProfiles().then(function() {
-console.log('PROFILES ALL =====', GlobalStor.global.profiles);
-        //----------- set all hardware for GlobalStor
-        optionsServ.getAllHardware(function (results) {
-          if (results.status) {
-            GlobalStor.global.hardwareTypes = angular.copy(results.data.hardwaresTypes);
-            GlobalStor.global.hardwares = angular.copy(results.data.hardwares);
-          } else {
-            console.log(results);
-          }
-        });
+      MainServ.downloadAllProfiles().then(function(data) {
+        if(data) {
+          console.log('PROFILES ALL =====', GlobalStor.global.profilesType);
+          console.log('PROFILES ALL =====', GlobalStor.global.profiles);
+
+          MainServ.downloadAllGlasses().then(function(data) {
+            if(data) {
+              //--------- sorting glasses as to glassType
+              MainServ.sortingGlasses();
+              console.log('glassesAll!!!!!', GlobalStor.global.glassesAll);
+
+
+              //-------- Hardware
+              optionsServ.getAllHardware(function (results) {
+                if (results.status) {
+                  GlobalStor.global.hardwareTypes = angular.copy(results.data.hardwaresTypes);
+                  GlobalStor.global.hardwares = angular.copy(results.data.hardwares);
+                } else {
+                  console.log(results);
+                }
+              });
+
+              //--------- set Templates
+              MainServ.prepareTemplates(ProductStor.product.constructionType).then(function() {
+
+                //-------- Lamination
+                MainServ.downloadAllLamination().then(function(lamins) {
+                  //                console.log('LAMINATION++++', lamins);
+                  if(lamins.length) {
+                    GlobalStor.global.laminationsIn = angular.copy(lamins);
+                    GlobalStor.global.laminationsOut = angular.copy(lamins);
+                  }
+                });
+                //-------- checking AddElements
+                MainServ.isAddElemExist();
+              });
+
+            }
+          });
+        }
+
+
+
+
+
         //        MainServ.downloadAllHardwares();
 
         //----------- set all glasses for GlobalStor
-        optionsServ.getAllGlass(function (results) {
-          if (results.status) {
-            GlobalStor.global.glassTypes = angular.copy(results.data.glassTypes);
-            GlobalStor.global.glasses = angular.copy(results.data.glasses);
+//        optionsServ.getAllGlass(function (results) {
+//          if (results.status) {
+//            GlobalStor.global.glassTypes = angular.copy(results.data.glassTypes);
+//            GlobalStor.global.glasses = angular.copy(results.data.glasses);
+//
 
-            //--------- set Templates
-            MainServ.prepareTemplates(ProductStor.product.constructionType).then(function() {
-              MainServ.isAddElemExist();
-            });
-
-          } else {
-            console.log(results);
-          }
-        });
+//
+//          } else {
+//            console.log(results);
+//          }
+//        });
 
       });
 

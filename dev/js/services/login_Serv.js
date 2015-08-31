@@ -234,8 +234,7 @@
 
     function setCurrency() {
       var defer = $q.defer();
-      globalDB.selectLocalDB(globalDB.tablesLocalDB.currencies.tableName, {'id':  UserStor.userInfo.currencyId}).then(function(data) {
-//        console.log('setCurrency = ',result);
+      globalDB.selectLocalDB(globalDB.tablesLocalDB.currencies.tableName, {'is_base': 1}).then(function(data) {
         if(data.length) {
           switch(data[0].name) {
             case 'uah':  UserStor.userInfo.currency = '₴';

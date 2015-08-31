@@ -139,7 +139,7 @@
                   <ng-pluralize count="profile.cameras" when="{'1':'{{ profilesPanel.config.camera }}', '2':'{{ profilesPanel.config.camer }}', '3':'{{ profilesPanel.config.camer }}', '4':'{{ profilesPanel.config.camer }}', 'other':'{{ profilesPanel.config.camers }}'}"></ng-pluralize>
                 </div>
                 <div data-output="{{ profile.name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
-                <div data-output="{{ profile.countryName }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-country"></div>
+                <div data-output="{{ profile.country }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-country"></div>
                 <div data-output="{{ 'panels.COUNTRY' | translate }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
               </div>
               <div class="profile-box-bottom">
@@ -169,7 +169,7 @@
         <div ng-if="glassPanel.G.global.activePanel == 3" class="panel-inner">
           <div ng-repeat="typeGlass in glassPanel.G.global.glasses" ng-class="{'selected': glassPanel.P.product.glassTypeIndex == $index}" class="glass-block">
             <div class="group-block-header">
-              <div data-output="{{ glassPanel.G.global.glassTypes[$index] }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START }}" class="title"></div>
+              <div data-output="{{ glassPanel.G.global.glassTypes[$index].name }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START }}" class="title"></div>
               <div class="group-info">
                 <div class="info"></div>
               </div>
@@ -182,7 +182,7 @@
                     <div data-output="{{ glass.glassDescrip }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
                   </div>
                   <div class="glass-box-data">
-                    <div data-output="{{ glass.glassName }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}" class="glass-descr"></div>
+                    <div data-output="{{ glass.sku }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}" class="glass-descr"></div>
                     <div ng-class="{'coef-level-1': glass.heatCoeff == 1, 'coef-level-2': glass.heatCoeff == 2, 'coef-level-3': glass.heatCoeff == 3, 'coef-level-4': glass.heatCoeff == 4}" class="coef-level heat-insulation">
                       <div class="coef-index"></div>
                       <div class="coef-index"></div>
@@ -266,8 +266,8 @@
               <div data-output="{{ 'panels.LAMINAT_WHITE' | translate }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-label for-white"></div>
             </div>
             <div class="lamination-options clearfix">
-              <div ng-repeat="laminatInner in laminPanel.laminationsIn" show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * $index) }}" class="lam-option-box unvisible">
-                <div ng-class="{'selected': laminPanel.P.product.laminationInId == laminatInner.id}" hm-tap="laminPanel.selectLaminatIn($index)" class="lamination-img"><img ng-src="img/lamination/{{ laminatInner.id }}.png"></div>
+              <div ng-repeat="laminatInner in laminPanel.G.global.laminationsIn" show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * $index) }}" class="lam-option-box unvisible">
+                <div ng-class="{'selected': laminPanel.P.product.laminationInId == laminatInner.id}" hm-tap="laminPanel.selectLaminatIn($index)" class="lamination-img"><img ng-src="img/lamination/{{ laminatInner.url }}"></div>
                 <div data-output="{{ laminatInner.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_TYPING * $index) }}" class="lamination-label"></div>
                 <div show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * 2 * $index) }}" class="info unvisible"></div>
               </div>
@@ -280,8 +280,8 @@
               <div data-output="{{ 'panels.LAMINAT_WHITE' | translate }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-label for-white"></div>
             </div>
             <div class="lamination-options clearfix">
-              <div ng-repeat="laminatOuter in laminPanel.laminationsOut" show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * $index) }}" class="lam-option-box unvisible">
-                <div ng-class="{'selected': laminPanel.P.product.laminationOutId == laminatOuter.id}" hm-tap="laminPanel.selectLaminatOut($index)" class="lamination-img"><img ng-src="img/lamination/{{ laminatOuter.id }}.png"></div>
+              <div ng-repeat="laminatOuter in laminPanel.G.global.laminationsOut" show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * $index) }}" class="lam-option-box unvisible">
+                <div ng-class="{'selected': laminPanel.P.product.laminationOutId == laminatOuter.id}" hm-tap="laminPanel.selectLaminatOut($index)" class="lamination-img"><img ng-src="img/lamination/{{ laminatOuter.url }}"></div>
                 <div data-output="{{ laminatOuter.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_TYPING * $index) }}" class="lamination-label"></div>
                 <div show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * 2 * $index) }}" class="info unvisible"></div>
               </div>
@@ -291,7 +291,7 @@
       </div>
       <div ng-controller="AddElementsCtrl as elementsPanel" ng-class="{'active': elementsPanel.G.global.activePanel == 6}" class="config-panel auxiliaries-container">
         <div ng-if="elementsPanel.G.global.activePanel == 6" class="auxiliaries-inner">
-          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_GRID }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 1 &amp;&amp; elementsPanel.P.product.chosenAddElements[0].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[0].length &gt; 0}" class="auxiliary-item aux-grid unvisible">
+          <div ng-if="elementsPanel.G.global.isAddElemExist[0]" show-delay="{{ elementsPanel.config.DELAY_SHOW_GRID }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 1 &amp;&amp; elementsPanel.P.product.chosenAddElements[0].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[0].length &gt; 0}" class="auxiliary-item aux-grid unvisible">
             <div class="aux-grid-img move-grid"></div>
             <div class="aux-txt-box aux-grid-txt">
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.P.product.chosenAddElements[0].length &gt; 0" class="choose-block unvisible">
@@ -306,7 +306,7 @@
               </div>
             </div>
           </div>
-          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_VISOR }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 2 &amp;&amp; elementsPanel.P.product.chosenAddElements[1].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[1].length &gt; 0}" class="auxiliary-item aux-visor unvisible">
+          <div ng-if="elementsPanel.G.global.isAddElemExist[1]" show-delay="{{ elementsPanel.config.DELAY_SHOW_VISOR }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 2 &amp;&amp; elementsPanel.P.product.chosenAddElements[1].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[1].length &gt; 0}" class="auxiliary-item aux-visor unvisible">
             <div class="aux-visor-img move-visor"></div>
             <div class="aux-txt-box aux-visor-txt">
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.P.product.chosenAddElements[1].length &gt; 0" class="choose-block unvisible">
@@ -332,7 +332,7 @@
               </div>
             </div>
           </div>
-          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_SPILLWAY }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 3 &amp;&amp; elementsPanel.P.product.chosenAddElements[2].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[2].length &gt; 0}" class="auxiliary-item aux-spillway unvisible">
+          <div ng-if="elementsPanel.G.global.isAddElemExist[2]" show-delay="{{ elementsPanel.config.DELAY_SHOW_SPILLWAY }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 3 &amp;&amp; elementsPanel.P.product.chosenAddElements[2].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[2].length &gt; 0}" class="auxiliary-item aux-spillway unvisible">
             <div class="aux-spillway-img move-spillway"></div>
             <div class="aux-txt-box aux-spillway-txt">
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.P.product.chosenAddElements[2].length &gt; 0" class="choose-block unvisible">
@@ -358,7 +358,7 @@
               </div>
             </div>
           </div>
-          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 4 &amp;&amp; elementsPanel.P.product.chosenAddElements[3].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[3].length &gt; 0}" class="auxiliary-item aux-outside unvisible">
+          <div ng-if="elementsPanel.G.global.isAddElemExist[3]" show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 4 &amp;&amp; elementsPanel.P.product.chosenAddElements[3].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[3].length &gt; 0}" class="auxiliary-item aux-outside unvisible">
             <div class="aux-outside-img move-outside"></div>
             <div class="aux-txt-box aux-outside-txt">
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.P.product.chosenAddElements[3].length &gt; 0" class="choose-block unvisible">
@@ -373,7 +373,7 @@
               </div>
             </div>
           </div>
-          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_LOUVER }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 5 &amp;&amp; elementsPanel.P.product.chosenAddElements[4].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[4].length &gt; 0}" class="auxiliary-item aux-louver unvisible">
+          <div ng-if="elementsPanel.G.global.isAddElemExist[4]" show-delay="{{ elementsPanel.config.DELAY_SHOW_LOUVER }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 5 &amp;&amp; elementsPanel.P.product.chosenAddElements[4].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[4].length &gt; 0}" class="auxiliary-item aux-louver unvisible">
             <div class="aux-louver-img move-louvers">
               <div class="aux-louver-top"></div>
               <div class="aux-louver-midle louver-midle-1 move-louver-midle-1"></div>
@@ -409,7 +409,7 @@
               </div>
             </div>
           </div>
-          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPE }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 6 &amp;&amp; elementsPanel.P.product.chosenAddElements[5].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[5].length &gt; 0}" class="auxiliary-item aux-inside unvisible">
+          <div ng-if="elementsPanel.G.global.isAddElemExist[5]" show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPE }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 6 &amp;&amp; elementsPanel.P.product.chosenAddElements[5].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[5].length &gt; 0}" class="auxiliary-item aux-inside unvisible">
             <div class="aux-inside-img">
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPETOP }}" class="aux-inside-top move-inside-top unvisible"></div>
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPERIGHT }}" class="aux-inside-right move-inside-right unvisible"></div>
@@ -428,7 +428,7 @@
               </div>
             </div>
           </div>
-          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_CONNECTORS }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 7 &amp;&amp; elementsPanel.P.product.chosenAddElements[6].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[6].length &gt; 0}" class="auxiliary-item aux-connectors unvisible">
+          <div ng-if="elementsPanel.G.global.isAddElemExist[6]" show-delay="{{ elementsPanel.config.DELAY_SHOW_CONNECTORS }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 7 &amp;&amp; elementsPanel.P.product.chosenAddElements[6].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[6].length &gt; 0}" class="auxiliary-item aux-connectors unvisible">
             <div class="aux-connectors-img">
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_FORCECONNECT }}" class="aux-force-connect unvisible"></div>
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BALCONCONNECT }}" class="aux-balcon-connect unvisible"></div>
@@ -457,7 +457,7 @@
               </div>
             </div>
           </div>
-          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_FAN }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 8 &amp;&amp; elementsPanel.P.product.chosenAddElements[7].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[7].length &gt; 0}" class="auxiliary-item aux-fan unvisible">
+          <div ng-if="elementsPanel.G.global.isAddElemExist[7]" show-delay="{{ elementsPanel.config.DELAY_SHOW_FAN }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 8 &amp;&amp; elementsPanel.P.product.chosenAddElements[7].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[7].length &gt; 0}" class="auxiliary-item aux-fan unvisible">
             <div class="aux-fan-img move-fan"></div>
             <div class="aux-txt-box aux-fan-txt">
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.P.product.chosenAddElements[7].length &gt; 0" class="choose-block unvisible">
@@ -472,7 +472,7 @@
               </div>
             </div>
           </div>
-          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_WINDOWSILL }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 9 &amp;&amp; elementsPanel.P.product.chosenAddElements[8].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[8].length &gt; 0}" class="auxiliary-item aux-windowsill unvisible">
+          <div ng-if="elementsPanel.G.global.isAddElemExist[8]" show-delay="{{ elementsPanel.config.DELAY_SHOW_WINDOWSILL }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 9 &amp;&amp; elementsPanel.P.product.chosenAddElements[8].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[8].length &gt; 0}" class="auxiliary-item aux-windowsill unvisible">
             <div class="aux-windowsill-img move-windowsill"></div>
             <div class="aux-txt-box aux-windowsill-txt">
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.P.product.chosenAddElements[8].length &gt; 0" class="choose-block unvisible">
@@ -502,7 +502,7 @@
               </div>
             </div>
           </div>
-          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_HANDLE }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 10 &amp;&amp; elementsPanel.P.product.chosenAddElements[9].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[9].length &gt; 0}" class="auxiliary-item aux-handle unvisible">
+          <div ng-if="elementsPanel.G.global.isAddElemExist[9]" show-delay="{{ elementsPanel.config.DELAY_SHOW_HANDLE }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 10 &amp;&amp; elementsPanel.P.product.chosenAddElements[9].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[9].length &gt; 0}" class="auxiliary-item aux-handle unvisible">
             <div class="aux-handle-img move-handle"></div>
             <div class="aux-txt-box aux-handle-txt">
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.P.product.chosenAddElements[9].length &gt; 0" class="choose-block unvisible">
@@ -524,7 +524,7 @@
               </div>
             </div>
           </div>
-          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_OTHERS }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 11 &amp;&amp; elementsPanel.P.product.chosenAddElements[10].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[10].length &gt; 0}" class="auxiliary-item aux-others unvisible">
+          <div ng-if="elementsPanel.G.global.isAddElemExist[10]" show-delay="{{ elementsPanel.config.DELAY_SHOW_OTHERS }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 11 &amp;&amp; elementsPanel.P.product.chosenAddElements[10].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[10].length &gt; 0}" class="auxiliary-item aux-others unvisible">
             <div class="aux-txt-box aux-others-txt">
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.P.product.chosenAddElements[10].length &gt; 0" class="choose-block unvisible">
                 <button ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 11}" hm-tap="elementsPanel.selectAddElement(11)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement == 11" class="aux-choose-but aux_small_but">{{ 'add_elements.CHOOSE' | translate }}</button>
