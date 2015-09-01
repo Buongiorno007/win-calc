@@ -38,6 +38,8 @@
     cursor: pointer;
     img {
       max-width: rem(190px);
+      width: 11.875rem;
+      height: 11.5rem;
     }
     &.selected {
       position: relative;

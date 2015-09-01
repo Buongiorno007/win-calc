@@ -17,7 +17,8 @@
       downloadAllProfiles: downloadAllProfiles,
       downloadAllGlasses: downloadAllGlasses,
       sortingGlasses: sortingGlasses,
-      //downloadAllHardwares: downloadAllHardwares,
+      downloadAllHardwares: downloadAllHardwares,
+      sortingHardware: sortingHardware,
       downloadAllLamination: downloadAllLamination,
       prepareTemplates: prepareTemplates,
 
@@ -89,7 +90,7 @@
             });
             return defer2.promise;
           });
-          $q.all(promises).then(function(data){
+          $q.all(promises).then(function(){
             defer.resolve(1);
           });
         } else {
@@ -150,10 +151,11 @@
           $q.all(promises3).then(function(glassIds) {
             //-------- get glass as to its Id
             var glassIdsQty = glassIds.length,
-                promises4 = [];
+                promises4 = [], promises6 = [];
 //            console.log('glassIds!!!!', glassIds);
             for(var i = 0; i < glassIdsQty; i++) {
               var defer4 = $q.defer();
+
               var promises5 = glassIds[i].map(function(item) {
                 var defer5 = $q.defer();
                 globalDB.selectLocalDB(globalDB.tablesLocalDB.elements.tableName, {'id': item.element_id}).then(function (glass) {
@@ -167,20 +169,49 @@
                 });
                 return defer5.promise;
               });
+
               defer4.resolve($q.all(promises5));
               promises4.push(defer4.promise);
             }
 
+            for(var i = 0; i < glassIdsQty; i++) {
+              var defer6 = $q.defer();
+
+              var promises7 = glassIds[i].map(function(item) {
+                var defer7 = $q.defer();
+                globalDB.selectLocalDB(globalDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id}).then(function (list) {
+                  var listQty = list.length;
+                  if(listQty){
+                    defer7.resolve(list[0]);
+                  } else {
+                    defer7.resolve(0);
+                  }
+                });
+                return defer7.promise;
+              });
+
+              defer6.resolve($q.all(promises7));
+              promises6.push(defer6.promise);
+            }
+
             $q.all(promises4).then(function(glasses) {
-//              console.log('glasses after!!!!', glasses);
+//              console.log('glasses after 1111!!!!', glasses);
               var glassesQty = glasses.length;
               if(glassesQty) {
                 for(var i = 0; i < glassesQty; i++) {
                   GlobalStor.global.glassesAll[i].glasses = glasses[i];
+                }
+              }
+            });
+            $q.all(promises6).then(function(lists) {
+//              console.log('glasses after 2222!!!!', lists);
+              var listsQty = lists.length;
+              if(listsQty) {
+                for(var i = 0; i < listsQty; i++) {
+                  GlobalStor.global.glassesAll[i].glassLists = lists[i];
                   defer.resolve(1);
                 }
               }
-
             });
 
           });
@@ -193,7 +224,20 @@
 
     function sortingGlasses() {
       var glassAllQty = GlobalStor.global.glassesAll.length;
+
+
       for(var g = 0; g < glassAllQty; g++) {
+        //------- merge glassList to glasses
+        var listQty = GlobalStor.global.glassesAll[g].glassLists.length;
+        for(var l = 0; l < listQty; l++) {
+          if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalStor.global.glassesAll[g].glasses[l].id) {
+            GlobalStor.global.glassesAll[g].glasses[l].list_id = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].id);
+            GlobalStor.global.glassesAll[g].glasses[l].list_name = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].name);
+            GlobalStor.global.glassesAll[g].glasses[l].cameras = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].cameras);
+          }
+        }
+
+        //------- sorting glasses by type
         var glassTypeQty = GlobalStor.global.glassesAll[g].glassTypes.length,
             newGlassesType = [],
             newGlasses = [];
@@ -209,58 +253,75 @@
         }
         GlobalStor.global.glassesAll[g].glassTypes = angular.copy(newGlassesType);
         GlobalStor.global.glassesAll[g].glasses = angular.copy(newGlasses);
+        delete GlobalStor.global.glassesAll[g].glassLists;
       }
 
-      getGlassListTitle().then(function(lists) {
-        console.log('LISTS GLASS ID+++++', lists.length, lists);
-        //GlobalStor.global.glassesAll[glassAllQty].glasses[glassesQty][glassQty].listName = ;
-      });
     }
 
 
-    function getGlassListTitle() {
-      var glassAllQty = GlobalStor.global.glassesAll.length,
-          defer = $q.defer(),
-          glassIds = [];
-      //------ collect glasses ids
-      while(--glassAllQty > -1) {
-        var glassesQty = GlobalStor.global.glassesAll[glassAllQty].glasses.length;
-        while (--glassesQty > -1) {
-          var glassQty = GlobalStor.global.glassesAll[glassAllQty].glasses[glassesQty].length;
-          while(--glassQty > -1) {
-            glassIds.push(GlobalStor.global.glassesAll[glassAllQty].glasses[glassesQty][glassQty].id);
-          }
+
+    function downloadAllHardwares() {
+      var defer = $q.defer();
+      //------- get all Hardware Groups
+      globalDB.selectLocalDB(globalDB.tablesLocalDB.window_hardware_groups.tableName).then(function(types) {
+        var typesQty = types.length;
+        if (typesQty) {
+          GlobalStor.global.hardwareTypes = angular.copy(types);
+
+          globalDB.selectLocalDB(globalDB.tablesLocalDB.window_hardware_features.tableName).then(function (ware) {
+            if (ware.length) {
+              GlobalStor.global.hardwares = angular.copy(ware);
+              defer.resolve(1);
+            } else {
+              defer.resolve(0);
+            }
+          });
+        } else {
+          defer.resolve(0);
         }
-      }
-      var promises = glassIds.map(function(item) {
-        var defer2 = $q.defer();
-        globalDB.selectLocalDB(globalDB.tablesLocalDB.lists.tableName, {'parent_element_id': item}).then(function (list) {
-          console.log('LISTS+++++', list[0].name);
-          defer2.resolve(list[0].name);
-        });
-        return defer2.promise;
       });
-      defer.resolve($q.all(promises));
       return defer.promise;
     }
 
 
-//
-//    function downloadAllHardwares() {
-//      globalDB.selectDBGlobal(globalDB.hardwareTypeTableDBGlobal, {'is_in_calculation': 1}).then(function (result) {
-//        if(result) {
-//          GlobalStor.global.hardwareTypes = angular.copy(results.data.hardwaresTypes);
-//          GlobalStor.global.hardwares = angular.copy(results.data.hardwares);
-//
-//          //----- set default hardware in ProductStor
-//          ProductStor.product.hardwareId = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].id;
-//          ProductStor.product.hardwareName = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].name;
-//          ProductStor.product.hardwareHeatCoeff = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].heat_сoeff;
-//          ProductStor.product.hardwareAirCoeff = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].air_сoeff;
-//        }
-//      });
-//    }
-
+    function sortingHardware() {
+      var wareTypeQty = GlobalStor.global.hardwareTypes.length,
+          waresQty = GlobalStor.global.hardwares.length,
+          wares = [], wareOther = [], typeDelete = [];
+      for(var t = 0; t < wareTypeQty; t++) {
+        var ware = [];
+        for(var w = 0; w < waresQty; w++) {
+          if(GlobalStor.global.hardwareTypes[t].id === GlobalStor.global.hardwares[w].hardware_group_id) {
+            ware.push(angular.copy(GlobalStor.global.hardwares[w]));
+          }
+        }
+        if(ware.length) {
+          wares.push(ware);
+        } else {
+          typeDelete.push(t);
+        }
+      }
+      //------- delete empty groups
+      var delQty = typeDelete.length;
+      if(delQty) {
+        while(--delQty > -1) {
+          GlobalStor.global.hardwareTypes.splice(typeDelete[delQty], 1);
+        }
+      }
+      //------ collect other hardware no include in group
+      for(var w = 0; w < waresQty; w++) {
+        if(GlobalStor.global.hardwares[w].hardware_group_id === 0) {
+          wareOther.push(angular.copy(GlobalStor.global.hardwares[w]));
+        }
+      }
+      if(wareOther.length) {
+        wares.push(wareOther);
+        GlobalStor.global.hardwareTypes.push({
+          name: $filter('translate')('panels.OTHER_TYPE')
+        });
+      }
+      GlobalStor.global.hardwares = wares;
+    }
 
 
     function downloadAllLamination() {
@@ -378,7 +439,6 @@
       ProductStor.product.profileSashId = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].stvorka_list_id;
       ProductStor.product.profileImpostId = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].impost_list_id;
       ProductStor.product.profileShtulpId = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].shtulp_list_id;
-      console.log('depths@@@@@', GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex]);
       //------- set Depths
       $q.all([
         downloadProfileDepth(ProductStor.product.profileFrameId),
@@ -387,7 +447,6 @@
         downloadProfileDepth(ProductStor.product.profileImpostId),
         downloadProfileDepth(ProductStor.product.profileShtulpId)
       ]).then(function (result) {
-        console.log('&&&&&&&&===',result);
         GlobalStor.global.profileDepths.frameDepth = result[0];
         GlobalStor.global.profileDepths.frameStillDepth = result[1];
         GlobalStor.global.profileDepths.sashDepth = result[2];
@@ -423,7 +482,7 @@
       saveTemplateInProduct(ProductStor.product.templateIndex).then(function() {
         setCurrentGlass();
         setCurrentHardware();
-        preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId).then(function() {
+        preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glass.list_id, ProductStor.product.hardwareId).then(function() {
           deferred.resolve('done');
         });
       });
@@ -458,6 +517,8 @@
       if(tempGlassArr.length) {
         GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
         GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+        ProductStor.product.glass = GlobalStor.global.glasses[ProductStor.product.glassTypeIndex][ProductStor.product.glassIndex];
+
         ProductStor.product.glassId = GlobalStor.global.glasses[ProductStor.product.glassTypeIndex][ProductStor.product.glassIndex].id;
         ProductStor.product.glassName = GlobalStor.global.glasses[ProductStor.product.glassTypeIndex][ProductStor.product.glassIndex].sku;
         ProductStor.product.glassHeatCoeff = GlobalStor.global.glasses[ProductStor.product.glassTypeIndex][ProductStor.product.glassIndex].heatCoeff;//todo add
@@ -481,7 +542,7 @@
       setBeadId(profileId, glassId).then(function(beadId) {
         var objXFormedPrice = {
               //cityId: UserStor.userInfo.city_id,
-              currencyId: UserStor.userInfo.currencyId,
+              currencyId: 46,//UserStor.userInfo.currencyId,
               profileId: profileId,
               glassId: glassId,
               hardwareId: hardwareId,
@@ -513,7 +574,7 @@
           ProductStor.product.templateHeight += ProductStor.product.template.details[0].overallDim[overallQty].h;
         }
 
-//        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
+        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
 
         console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
 
@@ -536,16 +597,16 @@
           parentId, glassDepth;
       //------ define Bead Id for define template price
       console.log('BEAD =====', profileId);
-      console.log('BEAD =====', glassId);
-      globalDB.selectLocalDB(globalDB.tablesLocalDB.lists.tableName, {'id': glassId}).then(function(result) {
-        if(result.length) {
-          parentId = result[0].parent_element_id;
-          //------ find glass depth
-          globalDB.selectLocalDB(globalDB.tablesLocalDB.elements.tableName, {'id': parentId}).then(function (result) {
-            if(result.length) {
-              glassDepth = result[0].glass_width;
+      console.log('BEAD glass=====', ProductStor.product.glass);
+//      globalDB.selectLocalDB(globalDB.tablesLocalDB.lists.tableName, {'id': glassId}).then(function(result) {
+//        if(result.length) {
+//          parentId = result[0].parent_element_id;
+//          //------ find glass depth
+//          globalDB.selectLocalDB(globalDB.tablesLocalDB.elements.tableName, {'id': parentId}).then(function (result) {
+//            if(result.length) {
+
               //------ find bead Id as to glass Depth and profile Id
-              globalDB.selectLocalDB(globalDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": glassDepth}).then(function (result) {
+              globalDB.selectLocalDB(globalDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": ProductStor.product.glass.glass_width}).then(function (result) {
                 if(result.length) {
                   //ProductStor.product.beadId = result[0].list_id;
                   defer.resolve(result[0].list_id);
@@ -554,16 +615,16 @@
                   defer.resolve(0);
                 }
               });
-            } else {
-              console.log('Error!!', result);
-              defer.resolve(0);
-            }
-          });
-        } else {
-          console.log('Error!!', result);
-          defer.resolve(0);
-        }
-      });
+//            } else {
+//              console.log('Error!!', result);
+//              defer.resolve(0);
+//            }
+//          });
+//        } else {
+//          console.log('Error!!', result);
+//          defer.resolve(0);
+//        }
+//      });
       return defer.promise;
     }
 

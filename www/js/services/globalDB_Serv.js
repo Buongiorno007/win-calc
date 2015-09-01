@@ -299,11 +299,11 @@
           'prop': 'name VARCHAR(255), short_name VARCHAR(100)',
           'foreignKey': ''
         },
-        'window_hardware_types_base': {
-          'tableName': 'window_hardware_types_base',
-          'prop': 'name VARCHAR(255)',
-          'foreignKey': ''
-        },
+//        'window_hardware_types_base': {
+//          'tableName': 'window_hardware_types_base',
+//          'prop': 'name VARCHAR(255)',
+//          'foreignKey': ''
+//        },
         'window_hardware_groups': {
           'tableName': 'window_hardware_groups',
           'prop': 'name VARCHAR(255),' +
@@ -342,9 +342,9 @@
             ' name VARCHAR(255),' +
             ' producer VARCHAR(255),' +
             ' country VARCHAR(255),' +
-            ' logo_url VARCHAR(255),' +
+            ' logo_url TEXT,' +
             ' link VARCHAR(255),' +
-            ' noise INTEGER,' +
+            ' noise_coeff INTEGER,' +
             ' heat_coeff INTEGER,' +
             ' air_coeff INTEGER,' +
             ' factory_id INTEGER,' +
@@ -1650,6 +1650,7 @@
             priceObj.beadIds = result.data;
             elemLists = [];
             db.transaction(function (transaction) {
+              console.log('PRICE ids++++', construction.frameId, construction.frameSillId, construction.sashId, construction.impostId, construction.glassId, construction.beadId);
               transaction.executeSql('select parent_element_id, name from lists where id in (?, ?, ?, ?, ?, ?)', [construction.frameId, construction.frameSillId, construction.sashId, construction.impostId, construction.glassId, construction.beadId], function (transaction, result){next_6(result);}, function () {
                 callback(new ErrorResult(2, 'Something went wrong when get parent_element_id'));
               });

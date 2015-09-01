@@ -37,6 +37,7 @@
         profileImpostId: 0,
         profileShtulpId: 0,
 
+        glass: {},
         glassTypeIndex: 0,
         glassIndex: 0,
         glassId: 0,

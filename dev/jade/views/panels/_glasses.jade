@@ -11,9 +11,15 @@
         .footer-inner
           .box.glass-box.unvisible(ng-repeat="glass in typeGlass", ng-class="{'selected': glassPanel.P.product.glassIndex == $index && glassPanel.P.product.glassTypeIndex == $parent.$index}", hm-tap="glassPanel.selectGlass($parent.$index, $index, glass.glassId)", show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}")
             .glass-box-view
-              .glass-img
-                img(ng-src="{{ glass.glassUrl }}")
-              .label(data-output="{{ glass.glassDescrip }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
+              .glass-img(ng-switch="glass.cameras")
+                img(ng-switch-when="1", ng-if="glassPanel.G.global.glassTypes[$index].id !== 6", ng-src="img/glasses/glass1.png")
+                img(ng-switch-when="2", ng-if="glassPanel.G.global.glassTypes[$index].id !== 6", ng-src="img/glasses/glass2.png")
+                img(ng-switch-when="1", ng-if="glassPanel.G.global.glassTypes[$index].id === 6", ng-src="img/glasses/glass10.png")
+                img(ng-switch-when="2", ng-if="glassPanel.G.global.glassTypes[$index].id === 6", ng-src="img/glasses/glass20.png")
+              .label {{ glass.cameras }}
+                ng-pluralize(count="glass.cameras",
+                when="{'1':'{{ glassPanel.config.camera }}', '2':'{{ glassPanel.config.camer }}', '3':'{{ glassPanel.config.camer }}', '4':'{{ glassPanel.config.camer }}', 'other':'{{ glassPanel.config.camers }}'}")
+                span(ng-if="glassPanel.G.global.glassTypes[$index].id === 6") {{ 'panels.ENERGY_SAVE' | translate }}
             .glass-box-data
               .glass-descr(data-output="{{ glass.sku }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
               .coef-level.heat-insulation(ng-class="{'coef-level-1': glass.heatCoeff == 1, 'coef-level-2': glass.heatCoeff == 2, 'coef-level-3': glass.heatCoeff == 3, 'coef-level-4': glass.heatCoeff == 4}")
