@@ -35,12 +35,6 @@
         showRoomSelectorDialog: 0,
         isShowCommentBlock: 0,
 
-        //---- Calculators
-        isQtyCalculator: 0,
-        isSizeCalculator: 0,
-        isWidthCalculator: 0,
-        isColorSelector: 0,
-
         //------- Templates
         templateLabel: '',
         templatesSource: [],
@@ -49,6 +43,7 @@
         templatesSourceSTORE: [],
 //        templatesSTORE: [],
 //        templatesIconSTORE: [],
+        isSashesInTemplate: 0,
 
         //------ Profiles
         profiles: [],
@@ -76,7 +71,13 @@
         laminationsOut: [],
 
         //------ Add Elements
-        isAddElemExist: []
+        isAddElemExist: [],
+
+        //---- Calculators
+        isQtyCalculator: 0,
+        isSizeCalculator: 0,
+        isWidthCalculator: 0,
+        isColorSelector: 0
       },
 
       setDefaultGlobal: setDefaultGlobal

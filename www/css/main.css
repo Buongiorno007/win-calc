@@ -7183,12 +7183,12 @@ li.constr-shape-icon:last-child {
   justify-content: space-between;
   float: left;
   overflow: hidden;
-  max-width: 9.375rem;
+  max-width: 12rem;
   text-align: center;
 }
 /* line 51, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box-view .label {
-  max-width: 9.375rem;
+  max-width: 12rem;
   word-wrap: break-word;
 }
 /* line 57, ../../dev/sass/panels/glass.scss */

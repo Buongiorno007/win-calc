@@ -31,15 +31,14 @@
     //============ methods ================//
 
     //------- Select glass
-    function selectGlass(typeIndex, glassIndex, glassId) {
-      ProductStor.product.glassTypeIndex = typeIndex;
-      ProductStor.product.glassIndex = glassIndex;
+    function selectGlass(newId) {
       //------- set currenct Glass
-      MainServ.setCurrentGlass();
+      MainServ.setCurrentGlass(newId);
       //------ calculate price
-      MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profileId, glassId, ProductStor.product.hardwareId);
+      MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, newId, ProductStor.product.hardware.id);
       //------ save analytics data
-      analyticsServ.saveGlassAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, glassId, typeIndex);
+//      analyticsServ.saveGlassAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, newId, typeIndex);
+      analyticsServ.saveGlassAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, newId);
     }
 
   }

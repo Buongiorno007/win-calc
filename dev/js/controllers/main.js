@@ -7,7 +7,7 @@
     .module('MainModule')
     .controller('MainCtrl', mainPageCtrl);
 
-  function mainPageCtrl(globalDB, MainServ, optionsServ, GlobalStor, ProductStor, UserStor) {
+  function mainPageCtrl(globalDB, MainServ, GlobalStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -23,6 +23,7 @@
     //=============== FIRST START =========//
 
     if(GlobalStor.global.startProgramm) {
+//      GlobalStor.global.isLoader = 1;
       console.log('START main CTRL!!!!!!');
       console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
       //playSound('menu');
@@ -54,7 +55,7 @@
 
                     //-------- Lamination
                     MainServ.downloadAllLamination().then(function(lamins) {
-                      //                console.log('LAMINATION++++', lamins);
+                      console.log('LAMINATION++++', lamins);
                       if(lamins.length) {
                         GlobalStor.global.laminationsIn = angular.copy(lamins);
                         GlobalStor.global.laminationsOut = angular.copy(lamins);
@@ -70,25 +71,6 @@
             }
           });
         }
-
-
-
-
-
-        //        MainServ.downloadAllHardwares();
-
-        //----------- set all glasses for GlobalStor
-//        optionsServ.getAllGlass(function (results) {
-//          if (results.status) {
-//            GlobalStor.global.glassTypes = angular.copy(results.data.glassTypes);
-//            GlobalStor.global.glasses = angular.copy(results.data.glasses);
-//
-
-//
-//          } else {
-//            console.log(results);
-//          }
-//        });
 
       });
 

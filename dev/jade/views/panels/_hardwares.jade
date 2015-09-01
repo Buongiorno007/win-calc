@@ -1,4 +1,4 @@
-.config-panel.hardware-container(ng-controller="HardwaresCtrl as hardwarePanel", ng-class="{'active': hardwarePanel.G.global.activePanel == 4}")
+.config-panel.hardware-container(ng-controller="HardwaresCtrl as hardwarePanel", ng-class="{'active': hardwarePanel.G.global.activePanel == 4 && hardwarePanel.G.global.isSashesInTemplate}")
   .panel-inner(ng-if="hardwarePanel.G.global.activePanel == 4")
 
     .hardware-block(ng-repeat="producer in hardwarePanel.G.global.hardwares", ng-class="{'selected': glassPanel.P.product.hardwareTypeIndex == $index}")

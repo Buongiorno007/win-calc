@@ -217,7 +217,6 @@
           UserStor.userInfo.countryName = locations[loc].countryName;
           UserStor.userInfo.countryId = locations[loc].countryId;
           UserStor.userInfo.fullLocation = locations[loc].fullLocation;
-          UserStor.userInfo.currencyId = locations[loc].currencyId;
           //------ set current GeoLocation
           setUserGeoLocation(cityId, locations[loc].cityName, locations[loc].regionName, locations[loc].countryName, locations[loc].climaticZone, locations[loc].heatTransfer, locations[loc].fullLocation);
         }
@@ -239,6 +238,7 @@
       var defer = $q.defer();
       globalDB.selectLocalDB(globalDB.tablesLocalDB.currencies.tableName, {'is_base': 1}).then(function(data) {
         if(data.length) {
+          UserStor.userInfo.currencyId = data[0].id;
           switch(data[0].name) {
             case 'uah':  UserStor.userInfo.currency = '₴';
               break;
