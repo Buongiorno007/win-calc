@@ -264,12 +264,12 @@
           <div class="lamination-block">
             <div data-output="{{ 'panels.LAMINAT_INSIDE' | translate }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-title"></div>
             <div show-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-white unvisible">
-              <div ng-class="{'selected': laminPanel.P.product.laminationInId === 'white'}" hm-tap="laminPanel.selectLaminatIn('white')" class="lamination-img"><img src="img/lamination/empty.png"></div>
+              <div ng-class="{'selected': !laminPanel.P.product.laminationInId}" hm-tap="laminPanel.selectLaminatIn(0)" class="lamination-img"><img src="img/lamination/0.png"></div>
               <div data-output="{{ 'panels.LAMINAT_WHITE' | translate }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-label for-white"></div>
             </div>
             <div class="lamination-options clearfix">
               <div ng-repeat="laminatInner in laminPanel.G.global.laminationsIn" show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * $index) }}" class="lam-option-box unvisible">
-                <div ng-class="{'selected': laminPanel.P.product.laminationInId == laminatInner.id}" hm-tap="laminPanel.selectLaminatIn($index)" class="lamination-img"><img ng-src="{{ laminatInner.url }}"></div>
+                <div ng-class="{'selected': laminPanel.P.product.laminationInId == laminatInner.lamination_type_id}" hm-tap="laminPanel.selectLaminatIn(laminatInner.lamination_type_id, laminatInner.name)" class="lamination-img"><img ng-src="img/lamination/{{ laminatInner.lamination_type_id }}.jpg"></div>
                 <div data-output="{{ laminatInner.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_TYPING * $index) }}" class="lamination-label"></div>
                 <div show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * 2 * $index) }}" class="info unvisible"></div>
               </div>
@@ -278,12 +278,12 @@
           <div class="lamination-block">
             <div data-output="{{ 'panels.LAMINAT_OUTSIDE' | translate }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-title"></div>
             <div show-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-white unvisible">
-              <div ng-class="{'selected': laminPanel.P.product.laminationOutId === 'white'}" hm-tap="laminPanel.selectLaminatOut('white')" class="lamination-img"><img src="img/lamination/empty.png"></div>
+              <div ng-class="{'selected': !laminPanel.P.product.laminationOutId}" hm-tap="laminPanel.selectLaminatOut(0)" class="lamination-img"><img src="img/lamination/0.png"></div>
               <div data-output="{{ 'panels.LAMINAT_WHITE' | translate }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-label for-white"></div>
             </div>
             <div class="lamination-options clearfix">
               <div ng-repeat="laminatOuter in laminPanel.G.global.laminationsOut" show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * $index) }}" class="lam-option-box unvisible">
-                <div ng-class="{'selected': laminPanel.P.product.laminationOutId == laminatOuter.id}" hm-tap="laminPanel.selectLaminatOut($index)" class="lamination-img"><img ng-src="{{ laminatOuter.url }}"></div>
+                <div ng-class="{'selected': laminPanel.P.product.laminationOutId == laminatOuter.lamination_type_id}" hm-tap="laminPanel.selectLaminatOut(laminatOuter.lamination_type_id, laminatOuter.name)" class="lamination-img"><img ng-src="img/lamination/{{ laminatOuter.lamination_type_id }}.jpg"></div>
                 <div data-output="{{ laminatOuter.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_TYPING * $index) }}" class="lamination-label"></div>
                 <div show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * 2 * $index) }}" class="info unvisible"></div>
               </div>

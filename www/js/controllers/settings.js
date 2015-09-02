@@ -10,7 +10,7 @@
     .module('SettingsModule')
     .controller('SettingsCtrl', settingsPageCtrl);
 
-  function settingsPageCtrl($location, globalConstants, globalDB, localDB, SettingServ, GlobalStor, OrderStor, ProductStor, AuxStor, UserStor ) {
+  function settingsPageCtrl($location, globalConstants, localDB, SettingServ, GlobalStor, OrderStor, ProductStor, AuxStor, UserStor ) {
 
     var thisCtrl = this;
     thisCtrl.U = UserStor;
@@ -108,7 +108,7 @@
       }
       if(!$.isEmptyObject(updateData)) {
         //----- update factoryId in LocalDB & Server
-        globalDB.updateLocalServerDBs(globalDB.tablesLocalDB.user.tableName, UserStor.userInfo.id, updateData);
+        localDB.updateLocalServerDBs(localDB.tablesLocalDB.user.tableName, UserStor.userInfo.id, updateData);
       }
     }
 
@@ -141,7 +141,7 @@
     function savePhoneInDB(phones) {
       var phonesString = phones.join();
       UserStor.userInfo.contact_name = phonesString;
-      globalDB.updateLocalServerDBs(globalDB.tablesLocalDB.user.tableName, UserStor.userInfo.id, {"contact_name": phonesString});
+      localDB.updateLocalServerDBs(localDB.tablesLocalDB.user.tableName, UserStor.userInfo.id, {"contact_name": phonesString});
       thisCtrl.config.tempAddPhone = '';
     }
 
@@ -166,13 +166,6 @@
       ProductStor.product = ProductStor.setDefaultProduct();
       AuxStor.aux = AuxStor.setDefaultAuxiliary();
 
-      //------- clearing local DB
-//      localDB.deleteDB(localDB.productsTableBD);
-//      localDB.deleteDB(localDB.addElementsTableBD);
-//      localDB.deleteDB(localDB.ordersTableBD);
-//      localDB.deleteDB(localDB.analyticsTableBD);
-//      localDB.deleteDB(localDB.sqliteTableBD);
-//      console.log('UserStor 333= ', UserStor);
       $location.path('/login');
     }
 

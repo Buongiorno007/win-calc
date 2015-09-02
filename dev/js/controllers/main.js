@@ -7,7 +7,7 @@
     .module('MainModule')
     .controller('MainCtrl', mainPageCtrl);
 
-  function mainPageCtrl(globalDB, MainServ, GlobalStor, ProductStor, UserStor) {
+  function mainPageCtrl(localDB, MainServ, GlobalStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -17,6 +17,12 @@
     //------- set current Page
     GlobalStor.global.currOpenPage = 'main';
 
+/*
+    window.onbeforeunload = function (){
+      console.log('REFRESH');
+      return "REFRESH!!!!!";
+    };
+*/
 
     //console.log('USER:',thisCtrl.U.userInfo);
 
@@ -29,7 +35,7 @@
       //playSound('menu');
 
       //------- first User entrance send to Server
-      globalDB.exportUserEntrance(UserStor.userInfo.phone, UserStor.userInfo.device_code); //TODO сохранять локально в юзер поле entrance
+      localDB.exportUserEntrance(UserStor.userInfo.phone, UserStor.userInfo.device_code); //TODO сохранять локально в юзер поле entrance
       //------- create order date
       MainServ.createOrderData();
       //------- set Curr Discounts

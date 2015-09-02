@@ -7,7 +7,7 @@
     .module('SettingsModule')
     .controller('LocationCtrl', locationCtrl);
 
-  function locationCtrl(globalDB, loginServ, SettingServ, GlobalStor, OrderStor, UserStor) {
+  function locationCtrl(localDB, loginServ, SettingServ, GlobalStor, OrderStor, UserStor) {
 
     var thisCtrl = this;
 
@@ -47,7 +47,7 @@
             UserStor.userInfo.heatTransfer = thisCtrl.locations[j].heatTransfer;
             //----- save new City Id in LocalDB & Server
             //----- update password in LocalDB & Server
-            globalDB.updateLocalServerDBs(globalDB.tablesLocalDB.user.tableName, UserStor.userInfo.id, {'city_id': locationId});
+            localDB.updateLocalServerDBs(localDB.tablesLocalDB.user.tableName, UserStor.userInfo.id, {'city_id': locationId});
 
           //-------- if current geolocation changing
           } else if(GlobalStor.global.currOpenPage === 'main'){

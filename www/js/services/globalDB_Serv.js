@@ -8,7 +8,7 @@
    */
   angular
     .module('BauVoiceApp')
-    .factory('globalDB', globalDBFactory);
+    .factory('localDB', globalDBFactory);
 
   function globalDBFactory($http, $q, UserStor) {
 
@@ -866,8 +866,6 @@
 
 
 
-
-
       updateLocalServerDBs: function(table, row, data) {
         var defer = $q.defer(),
             self = this,
@@ -897,7 +895,7 @@
 
 
 
-
+//TODO old
 
       getLastSync: function (callback) {
         db.transaction(function (transaction) {
@@ -951,87 +949,6 @@
         });
         return deferred.promise;
       },
-
-
-
-      updateObjectInDB: function (table_name, object) {
-        var deferred = $q.defer();
-        db.transaction(function (tr){
-          var updateSQL='', tempObject={};
-          tr.executeSql("SELECT * FROM " + table_name + " LIMIT 1",[],function (trans, res){
-            //console.log(res.rows.item(0));
-            for( var attr in res.rows.item(0)){
-              if (object[attr] && (object[attr] != 'null')) {
-                tempObject[attr] = object[attr];
-                if (!updateSQL) {
-                  updateSQL += attr + " = '" + object[attr] + "'";
-                } else {
-                  updateSQL += ", " + attr + " = '" + object[attr] + "'";
-                }
-              }
-            }
-            tablesToSync.push({model: table_name, rowId: tempObject.id, field: JSON.stringify(tempObject)});
-            tr.executeSql("UPDATE " + table_name + " SET " + updateSQL + " WHERE id = " + object.id, [], function () {
-                console.log('Update ', table_name, 'table success!');
-
-                deferred.resolve('UPDATE is done!');
-              },
-              function () {
-                console.log('Something went wrong with updating ' + table_name + ' table!');
-                deferred.resolve('UPDATE is faild!');
-              });
-          }, function(){
-            console.log('Something went wrong with updating ' + table_name + ' table!');
-            deferred.resolve('UPDATE is faild!');
-          });
-        }, function () {
-          console.log('Something went wrong with updating ', table_name, ' table!');
-          deferred.resolve('UPDATE is faild!');
-        });
-        return deferred.promise;
-      },
-
-
-//TODO delete
-      getOrders: function (login, access_token) {
-        var defer = $q.defer();
-        $http.get(serverIP + 'get/orders?login='+login+'&access_token='+access_token)
-          .success(function (result){
-            console.log('Orders in server!');
-            defer.resolve(result);
-          })
-          .error(function (){
-            console.log('No orders in server!');
-            defer.reject(false);
-          });
-        return defer.promise;
-      },
-
-
-      sendOrder: function (login, access_token, orderJson, callback) {
-        $http.post('http://api.voice-creator.net/sync/orders?login='+login+'&access_token=' + access_token, orderJson)
-          .success(function (result) {
-            callback(result);
-          })
-          .error(function () {
-            callback(new ErrorResult(2, 'Something went wrong with sync Database!'));
-          });
-      },
-
-
-//      syncUpdatesToServer: function (login, access_token) {
-//        syncToServer(login, access_token).then(function (data) {
-//          tablesToSync = data;
-//          if (tablesToSync) {
-//            document.addEventListener("online", function () {
-//              syncToServer(login, access_token).then(function (data) {
-//                tablesToSync = data;
-//              });
-//            }, false);
-//          }
-//        });
-//      },
-
 
 
 
@@ -2501,88 +2418,6 @@
 
     };
 
-
-
-    //============ methods ================//
-//TODO delete
-//    function getValuesString(data){
-//      var valuesString = '', i;
-//      for (i = 0; i < data.length; i++) {
-//        if(!i){
-//          valuesString += "'" + data[i] + "'";
-//        } else {
-//          valuesString += ", '" + data[i] + "'";
-//        }
-//      }
-//      return valuesString;
-//    }
-
-
-
-//    function syncToServer (login, access_token) {
-//      var deferred = $q.defer(),
-//          temArr = [];
-//      for (var i = 0, len = tablesToSync.length; i < len; i++) {
-//        var querOb = angular.copy(tablesToSync[i]);
-//        $http.post(serverIP + 'update?login=' + login + '&access_token=' + access_token, querOb)
-//          .success(function (data) {
-//            //console.log('tablesToSync:',tablesToSync, tablesToSync[0],i,tablesToSync[i]);
-//            console.log('send changes to server success:',querOb);
-//            if (i== len) {
-//              deferred.resolve(temArr);
-//            }
-//          })
-//          .error(function (data) {
-//            console.log('send changes to server failed');
-//            temArr.push(querOb);
-//            if (i== len) {
-//              deferred.resolve(temArr);
-//            }
-//          });
-//      }
-//      return deferred.promise;
-//    }
-
-
-//    function selectDBGlobal(tableName, options) {
-//      var deferred = $q.defer(),
-//          handler = [];
-//      dbGlobal.select(tableName, options).then(function (result) {
-//        var resultQty = result.rows.length;
-//        if (resultQty) {
-//          for (var i = 0; i < resultQty; i++) {
-//            handler.push(result.rows.item(i));
-//          }
-//          deferred.resolve(handler);
-//        } else {
-//          deferred.resolve();
-//        }
-//      });
-//      return deferred.promise;
-//    }
-//
-//
-//    function selectAllDBGlobal(tableName) {
-//      var deferred = $q.defer(),
-//          handler = [];
-//      dbGlobal.selectAll(tableName).then(function (result) {
-//        var resultQty = result.rows.length;
-//        if(resultQty) {
-//          for(var i = 0; i < resultQty; i++) {
-//            handler.push(result.rows.item(i));
-//          }
-//          deferred.resolve(handler);
-//        } else {
-//          deferred.resolve();
-//        }
-//      });
-//      return deferred.promise;
-//    }
-//
-//
-//    function updateDBGlobal(tableName, elem, options) {
-//      dbGlobal.update(tableName, elem, options);
-//    }
 
 
   }

@@ -10,7 +10,7 @@
     .module('MainModule')
     .controller('LaminationsCtrl', laminationSelectorCtrl);
 
-  function laminationSelectorCtrl($timeout, globalConstants, globalDB, GlobalStor, OrderStor, ProductStor, UserStor, MainServ, analyticsServ) {
+  function laminationSelectorCtrl($timeout, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, MainServ, analyticsServ) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -33,15 +33,15 @@
     //============ methods ================//
 
     //------------ Select lamination
-    function selectLaminatIn(laminatIndex) {
-      if(laminatIndex === 'white') {
-        ProductStor.product.laminationInId = 'white';
+    function selectLaminatIn(id, name) {
+      if(id) {
+        ProductStor.product.laminationInId = id;
+        ProductStor.product.laminationInName = name;
+        ProductStor.product.laminationInPrice = 547; //TODO price is absented in GlobalDB
+      } else {
+        ProductStor.product.laminationInId = 0;
         ProductStor.product.laminationInName =  GlobalStor.global.laminationsWhite;
         ProductStor.product.laminationInPrice = 0;
-      } else {
-        ProductStor.product.laminationInId = thisCtrl.laminationsIn[laminatIndex].id;
-        ProductStor.product.laminationInName = thisCtrl.laminationsIn[laminatIndex].name;
-        ProductStor.product.laminationInPrice = 547; //TODO price is absented in GlobalDB
       }
       setLaminationTotalPrice();
       //------ save analytics data
@@ -49,15 +49,15 @@
     }
 
 
-    function selectLaminatOut(laminatIndex) {
-      if(laminatIndex === 'white') {
-        ProductStor.product.laminationOutId = 'white';
+    function selectLaminatOut(id, name) {
+      if(id) {
+        ProductStor.product.laminationOutId = id;
+        ProductStor.product.laminationOutName = name;
+        ProductStor.product.laminationOutPrice = 547; //TODO price is absented in GlobalDB
+      } else {
+        ProductStor.product.laminationOutId = 0;
         ProductStor.product.laminationOutName =  GlobalStor.global.laminationsWhite;
         ProductStor.product.laminationOutPrice = 0;
-      } else {
-        ProductStor.product.laminationOutId = thisCtrl.laminationsOut[laminatIndex].id;
-        ProductStor.product.laminationOutName = thisCtrl.laminationsOut[laminatIndex].name;
-        ProductStor.product.laminationOutPrice = 547; //TODO price is absented in GlobalDB
       }
       setLaminationTotalPrice();
       //------ save analytics data

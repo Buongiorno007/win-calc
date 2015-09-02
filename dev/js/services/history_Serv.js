@@ -101,7 +101,7 @@
 
               //------ synchronize with Global BD
               console.log('sendOrder!!!!', HistoryStor.history.orders[ord]);
-              globalDB.sendOrder(UserStor.userInfo.phone, UserStor.userInfo.device_code, HistoryStor.history.orders[ord], function(result){console.log(result)});
+              //TODO globalDB.sendOrder(UserStor.userInfo.phone, UserStor.userInfo.device_code, HistoryStor.history.orders[ord], function(result){console.log(result)});
             }
           }
           localDB.updateDB(localDB.ordersTableBD, {'orderStyle': orderDoneStyle}, {'orderId': orderNum});

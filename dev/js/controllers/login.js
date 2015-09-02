@@ -7,7 +7,7 @@
     .module('LoginModule')
     .controller('LoginCtrl', loginPageCtrl);
 
-  function loginPageCtrl($location, $cordovaNetwork, globalConstants, globalDB, loginServ, GlobalStor, UserStor) {
+  function loginPageCtrl($location, $cordovaNetwork, globalConstants, localDB, loginServ, GlobalStor, UserStor) {
 
     var thisCtrl = this;
     //TODO thisCtrl.isOnline = $cordovaNetwork.isOnline();
@@ -80,12 +80,12 @@
               //======== SYNC
               console.log('SYNC');
               //---- checking user in LocalDB
-              globalDB.selectLocalDB(globalDB.tablesLocalDB.user.tableName, {'phone': thisCtrl.user.phone}).then(function(data) {
+              localDB.selectLocalDB(localDB.tablesLocalDB.user.tableName, {'phone': thisCtrl.user.phone}).then(function(data) {
 //                console.log('SYNC', data);
                 //---- user exists
                 if(data.length) {
                   //---------- check user password
-                  var newUserPassword = globalDB.md5(thisCtrl.user.password);
+                  var newUserPassword = localDB.md5(thisCtrl.user.password);
                   if(newUserPassword === data[0].password) {
                     //----- checking user activation
                     if(data[0].locked) {
@@ -125,11 +125,11 @@
         } else if(thisCtrl.isLocalDB) {
           console.log('OFFLINE');
           //---- checking user in LocalDB
-          globalDB.selectLocalDB(globalDB.tablesLocalDB.user.tableName, {'phone': thisCtrl.user.phone}).then(function(data) {
+          localDB.selectLocalDB(localDB.tablesLocalDB.user.tableName, {'phone': thisCtrl.user.phone}).then(function(data) {
             //---- user exists
             if(data.length) {
               //---------- check user password
-              var newUserPassword = globalDB.md5(thisCtrl.user.password);
+              var newUserPassword = localDB.md5(thisCtrl.user.password);
               if(newUserPassword === data[0].password) {
                 //----- checking user activation
                 if(data[0].locked) {
@@ -179,34 +179,34 @@
 
 
     function importDBProsses() {
-      globalDB.importUser(thisCtrl.user.phone).then(function(result) {
+      localDB.importUser(thisCtrl.user.phone).then(function(result) {
 //        console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
         if(result.status) {
           //---------- check user password
-          var newUserPassword = globalDB.md5(thisCtrl.user.password);
+          var newUserPassword = localDB.md5(thisCtrl.user.password);
           if(newUserPassword === result.user.password) {
 
             //----- checking user activation
             if(result.user.locked) {
               //------- clean all tables in LocalDB
 //              console.log('CLEEN START!!!!');
-              globalDB.cleanLocalDB(globalDB.tablesLocalDB).then(function(data) {
+              localDB.cleanLocalDB(localDB.tablesLocalDB).then(function(data) {
                 if(data) {
 //                  console.log('CLEEN DONE!!!!');
                   //------- creates all tables in LocalDB
 //                  console.log('CREATE START!!!!');
-                  globalDB.createTablesLocalDB(globalDB.tablesLocalDB).then(function(data) {
+                  localDB.createTablesLocalDB(localDB.tablesLocalDB).then(function(data) {
                     if(data) {
 //                      console.log('CREATE DONE!!!!');
                       //------- save user in LocalDB
-                      globalDB.insertRowLocalDB(result.user, globalDB.tablesLocalDB.user.tableName);
+                      localDB.insertRowLocalDB(result.user, localDB.tablesLocalDB.user.tableName);
                       //------- save user in Stor
                       angular.extend(UserStor.userInfo, result.user);
                       //                        console.log('new USER password', UserStor.userInfo);
 
                       //------- import Location
 //                      console.log('START LOCATION');
-                      globalDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
+                      localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
                         if(data) {
 //                          console.log('INSERT LOCATION FINISH!!!!');
                           //------ save Location Data in local obj
@@ -248,7 +248,7 @@
         console.log('userInfo++++', UserStor.userInfo);
         if(thisCtrl.isLocalDB) {
           //------- current FactoryId matches to user FactoryId, go to main page without importDB
-          //TODO globalDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
+          //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
             //--------- set currency symbol
             loginServ.setCurrency();
             GlobalStor.global.isLoader = 0;
@@ -264,7 +264,7 @@
         //---- show Factory List
         //----- collect city Ids regarding to user country
         loginServ.collectCityIdsAsCountry(thisCtrl.generalLocations.mergerLocation).then(function(cityIds) {
-          globalDB.importFactories(UserStor.userInfo.phone, UserStor.userInfo.device_code, cityIds).then(function(result){
+          localDB.importFactories(UserStor.userInfo.phone, UserStor.userInfo.device_code, cityIds).then(function(result){
 //            console.log('Factories++++++', result);
             GlobalStor.global.isLoader = 0;
             if(result.status) {
@@ -284,7 +284,7 @@
     function importDBfromServer() {
       thisCtrl.isStartImport = true;
       console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
-      globalDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
+      localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
         if(data) {
           console.log('insert AllDB is done!');
           //--------- set currency symbol
@@ -329,7 +329,7 @@
           UserStor.userInfo.factory_id = angular.copy(thisCtrl.user.factoryId);
           //        console.log(UserStor.userInfo);
           //----- update factoryId in LocalDB & Server
-          globalDB.updateLocalServerDBs(globalDB.tablesLocalDB.user.tableName, UserStor.userInfo.id, {factory_id: UserStor.userInfo.factory_id}).then(function() {
+          localDB.updateLocalServerDBs(localDB.tablesLocalDB.user.tableName, UserStor.userInfo.id, {factory_id: UserStor.userInfo.factory_id}).then(function() {
             //-------- close Factory Dialog
             thisCtrl.isFactoryId = 0;
             importDBfromServer();
@@ -374,13 +374,13 @@
           } else {
             GlobalStor.global.isLoader = 1;
             //------- clean all tables in LocalDB
-            globalDB.cleanLocalDB(globalDB.tablesLocalDB).then(function(data) {
+            localDB.cleanLocalDB(localDB.tablesLocalDB).then(function(data) {
               if(data) {
                 //------- creates all tables in LocalDB
-                globalDB.createTablesLocalDB(globalDB.tablesLocationLocalDB).then(function (data) {
+                localDB.createTablesLocalDB(localDB.tablesLocationLocalDB).then(function (data) {
                   if(data) {
                     //------- import Location
-                    globalDB.importLocation().then(function(data) {
+                    localDB.importLocation().then(function(data) {
                       if(data) {
                         //------ save Location Data in local obj
                         loginServ.prepareLocationToUse().then(function(data) {
@@ -419,7 +419,7 @@
         if(thisCtrl.isOnline) {
           GlobalStor.global.isLoader = 1;
           //--- checking user in server
-          globalDB.importUser(thisCtrl.user.phone).then(function(result) {
+          localDB.importUser(thisCtrl.user.phone).then(function(result) {
 //            console.log('REG USER!!!!!!!!!!!!', result);
             if(result.status) {
               GlobalStor.global.isLoader = 0;
@@ -431,10 +431,10 @@
                 phone: thisCtrl.user.phone,
                 email: thisCtrl.user.mail,
                 cityId: thisCtrl.user.city.id,
-                password: globalDB.md5(thisCtrl.user.phone)
+                password: localDB.md5(thisCtrl.user.phone)
               };
               //--- create new user in Server
-              globalDB.createUserServer(userData);
+              localDB.createUserServer(userData);
               GlobalStor.global.isLoader = 0;
               //-------- sent confirmed email
               thisCtrl.isSendEmail = 1;

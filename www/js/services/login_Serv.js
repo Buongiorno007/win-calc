@@ -10,7 +10,7 @@
     .module('LoginModule')
     .factory('loginServ', startFactory);
 
-  function startFactory($q, $cordovaGlobalization, $translate, globalDB, globalConstants, GeneralServ, OrderStor, UserStor) {
+  function startFactory($q, $cordovaGlobalization, $translate, localDB, globalConstants, GeneralServ, OrderStor, UserStor) {
 
     var thisFactory = this;
 
@@ -62,17 +62,17 @@
       var defer = $q.defer();
       console.log('EXPORT');
       //------- check Export Table
-      globalDB.selectLocalDB(globalDB.tablesLocalDB.export.tableName).then(function(data) {
+      localDB.selectLocalDB(localDB.tablesLocalDB.export.tableName).then(function(data) {
         //        console.log('data ===', data);
         if(data.length) {
           //----- get last user
-          globalDB.selectLocalDB(globalDB.tablesLocalDB.user.tableName).then(function(user) {
+          localDB.selectLocalDB(localDB.tablesLocalDB.user.tableName).then(function(user) {
             if(user.length) {
-              globalDB.updateServer(user[0].phone, user[0].device_code, data).then(function(result) {
+              localDB.updateServer(user[0].phone, user[0].device_code, data).then(function(result) {
                 console.log('FINISH export',result);
                 //----- if update Server is success, clean Export in LocalDB
                 if(result) {
-                  globalDB.cleanLocalDB({export: 1});
+                  localDB.cleanLocalDB({export: 1});
                   defer.resolve(1);
                 }
               });
@@ -86,8 +86,8 @@
 
     function isLocalDBExist() {
       var defer = $q.defer();
-//      globalDB.selectLocalDB(globalDB.tablesLocalDB.user.tableName).then(function(data) {
-      globalDB.selectLocalDB('sqlite_sequence').then(function(data) {
+//      localDB.selectLocalDB(localDB.tablesLocalDB.user.tableName).then(function(data) {
+      localDB.selectLocalDB('sqlite_sequence').then(function(data) {
 //        console.log('data ===', data);
         if(data && data.length > 5) {
           defer.resolve(1);
@@ -111,7 +111,7 @@
           },
           countryQty, regionQty, cityQty;
       //---- get all counties
-      globalDB.selectLocalDB(globalDB.tablesLocalDB.countries.tableName).then(function(data) {
+      localDB.selectLocalDB(localDB.tablesLocalDB.countries.tableName).then(function(data) {
         countryQty = data.length;
         if(countryQty) {
           for (var stat = 0; stat < countryQty; stat++) {
@@ -128,7 +128,7 @@
       }).then(function(){
 
         //--------- get all regions
-        globalDB.selectLocalDB(globalDB.tablesLocalDB.regions.tableName).then(function(data) {
+        localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName).then(function(data) {
           regionQty = data.length;
           if(regionQty) {
             for (var reg = 0; reg < regionQty; reg++) {
@@ -148,7 +148,7 @@
         }).then(function() {
 
           //--------- get all cities
-          globalDB.selectLocalDB(globalDB.tablesLocalDB.cities.tableName).then(function(data) {
+          localDB.selectLocalDB(localDB.tablesLocalDB.cities.tableName).then(function(data) {
             cityQty = data.length;
             if(cityQty) {
               for(var cit = 0; cit < cityQty; cit++) {
@@ -236,7 +236,7 @@
 
     function setCurrency() {
       var defer = $q.defer();
-      globalDB.selectLocalDB(globalDB.tablesLocalDB.currencies.tableName, {'is_base': 1}).then(function(data) {
+      localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, {'is_base': 1}).then(function(data) {
         if(data.length) {
           UserStor.userInfo.currencyId = data[0].id;
           switch(data[0].name) {

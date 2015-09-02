@@ -51,8 +51,8 @@
 //    }
 
     function downloadOrder() {
-      localDB.selectDB(localDB.ordersTableBD, {'orderId': GlobalStor.global.orderEditNumber}).then(function(result) {
-        if(result) {
+      localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {'order_number': GlobalStor.global.orderEditNumber}).then(function(result) {
+        if(result.length) {
           angular.extend(OrderStor.order, result[0]);
           //---- fill form
           CartStor.fillOrderForm();
@@ -66,7 +66,7 @@
     //------ Download All Products Data for Order
     function downloadProducts() {
       var deferred = $q.defer();
-      localDB.selectDB(localDB.productsTableBD, {'orderId': GlobalStor.global.orderEditNumber}).then(function(result) {
+      localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_number': GlobalStor.global.orderEditNumber}).then(function(result) {
         if(result) {
           var editedProducts = angular.copy(result),
             editedProductsQty = editedProducts.length,
@@ -106,7 +106,7 @@
     //------ Download All Add Elements from LocalDB
     function downloadAddElements() {
       var deferred = $q.defer();
-      localDB.selectDB(localDB.addElementsTableBD, {'orderId': GlobalStor.global.orderEditNumber}).then(function(result) {
+      localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_number': GlobalStor.global.orderEditNumber}).then(function(result) {
         if(result) {
 //          console.log('results.data === ', result);
           var allAddElements = angular.copy(result),
@@ -197,6 +197,7 @@
           productIdBD = productIndex + 1;
       OrderStor.order.products[productIndex].productQty = newProductQty;
       //------- Change product value in DB
+      //TODO
       localDB.updateDB(localDB.productsTableBD, {"productQty": newProductQty}, {'orderId': {"value": OrderStor.order.orderId, "union": 'AND'}, "productId": productIdBD});
       calculateOrderPrice();
     }
@@ -214,6 +215,7 @@
         --newProductQty;
         OrderStor.order.products[productIndex].productQty = newProductQty;
         //------ Change product value in DB
+        //TODO
         localDB.updateDB(localDB.productsTableBD, {"productQty": newProductQty}, {'orderId': {"value": OrderStor.order.orderId, "union": 'AND'}, "productId": productIdBD});
         calculateOrderPrice();
       }
@@ -239,6 +241,7 @@
 
           if(GlobalStor.global.orderEditNumber > 0) {
             var productIdBD = productIndex + 1;
+            //TODO
             localDB.deleteDB(localDB.productsTableBD, {'orderId': {"value": GlobalStor.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
             localDB.deleteDB(localDB.addElementsTableBD, {'orderId': {"value": GlobalStor.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
           }

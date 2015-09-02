@@ -10,7 +10,7 @@
     .module('MainModule')
     .factory('AddElementMenuServ', addElemMenuFactory);
 
-  function addElemMenuFactory($rootScope, $q, $timeout, globalConstants, GlobalStor, AuxStor, OrderStor, ProductStor, UserStor, globalDB, GeneralServ, MainServ, AddElementsServ, analyticsServ) {
+  function addElemMenuFactory($rootScope, $q, $timeout, globalConstants, GlobalStor, AuxStor, OrderStor, ProductStor, UserStor, localDB, GeneralServ, MainServ, AddElementsServ, analyticsServ) {
 
     var thisFactory = this,
         delayShowElementsMenu = globalConstants.STEP * 12,
@@ -109,7 +109,7 @@
         };
 
         //-------- get current add element price
-        globalDB.getAdditionalPrice(objXAddElementPrice, function (results) {
+        localDB.getAdditionalPrice(objXAddElementPrice, function (results) {
           if (results.status) {
             AuxStor.aux.currAddElementPrice = GeneralServ.roundingNumbers( results.data.price * (1 - OrderStor.order.currDiscountAddElem/100) );
             AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPrice = angular.copy(GeneralServ.roundingNumbers( results.data.price ));
@@ -297,7 +297,7 @@
       };
 
       //console.log('objXAddElementPrice change size ===== ', $scope.global.objXAddElementPrice);
-      globalDB.getAdditionalPrice(objXAddElementPrice, function (results) {
+      localDB.getAdditionalPrice(objXAddElementPrice, function (results) {
         if (results.status) {
 //          console.log('change size!!!!!!!');
 //          console.log(results.data.price);

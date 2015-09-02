@@ -10,7 +10,7 @@
     .module('MainModule')
     .factory('AddElementsServ', addElemFactory);
 
-  function addElemFactory($filter, $timeout, globalConstants, GlobalStor, ProductStor, AuxStor, globalDB, optionsServ) {
+  function addElemFactory($filter, $timeout, globalConstants, GlobalStor, ProductStor, AuxStor, localDB, optionsServ) {
 
     var thisFactory = this,
       delayShowElementsMenu = globalConstants.STEP * 12;
@@ -64,7 +64,7 @@
       AuxStor.aux.addElementsMenuStyle = globalConstants.addElementsGroupClass[ index ];
 
       //TODO download form GlobalDB
-//      globalDB.selectLocalDB(globalDB.tablesLocalDB.lists.tableName, {'list_group_id': globalDB.addElementDBId[index]}).then(function(result) {
+//      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': localDB.addElementDBId[index]}).then(function(result) {
 //        if (result.length) {
 //          AuxStor.aux.addElementsList = angular.copy(result);
 //        } else {

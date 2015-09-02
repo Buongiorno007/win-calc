@@ -10,7 +10,7 @@
     .module('SettingsModule')
     .factory('SettingServ', settingsFactory);
 
-  function settingsFactory($rootScope, $q, $location, globalDB, GlobalStor, UserStor) {
+  function settingsFactory($rootScope, $q, $location, localDB, GlobalStor, UserStor) {
 
     var thisFactory = this;
 
@@ -31,7 +31,7 @@
     function changeAvatar() {
       navigator.camera.getPicture( function( data ) {
         UserStor.userInfo.avatar = 'data:image/jpeg;base64,' + data;
-        globalDB.updateLocalServerDBs(globalDB.tablesLocalDB.user.tableName, UserStor.userInfo.id, {"avatar": UserStor.userInfo.avatar});
+        localDB.updateLocalServerDBs(localDB.tablesLocalDB.user.tableName, UserStor.userInfo.id, {"avatar": UserStor.userInfo.avatar});
         $rootScope.$apply();
       }, function( error ) {
         console.log( 'Error upload user avatar' + error );
@@ -56,7 +56,7 @@
           regionQty, cityQty;
 
         //--------- get all regions relative to current countryID
-        globalDB.selectLocalDB(globalDB.tablesLocalDB.regions.tableName, {'country_id':  UserStor.userInfo.countryId}).then(function(result) {
+        localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName, {'country_id':  UserStor.userInfo.countryId}).then(function(result) {
           regionQty = result.length;
           if(regionQty) {
             for (var reg = 0; reg < regionQty; reg++) {
@@ -76,7 +76,7 @@
         }).then(function() {
 
           //--------- get all cities relative to current countryID
-          globalDB.selectLocalDB(globalDB.tablesLocalDB.cities.tableName).then(function(results) {
+          localDB.selectLocalDB(localDB.tablesLocalDB.cities.tableName).then(function(results) {
             cityQty = results.length;
             if(cityQty) {
               for(var cit = 0; cit < cityQty; cit++) {

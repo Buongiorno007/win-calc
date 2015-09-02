@@ -7,7 +7,7 @@
     .module('MainModule')
     .factory('MainServ', navFactory);
 
-  function navFactory($rootScope, $location, $q, $filter, $timeout, globalConstants, globalDB, localDB, GeneralServ, SVGServ, loginServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function navFactory($rootScope, $location, $q, $filter, $timeout, globalConstants, localDB, GeneralServ, SVGServ, loginServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisFactory = this;
 
@@ -75,13 +75,13 @@
     function downloadAllProfiles() {
       var defer = $q.defer();
       //------- get all Prifile Folders
-      globalDB.selectLocalDB(globalDB.tablesLocalDB.profile_system_folders.tableName).then(function(types) {
+      localDB.selectLocalDB(localDB.tablesLocalDB.profile_system_folders.tableName).then(function(types) {
         var typesQty = types.length;
         if (typesQty) {
           GlobalStor.global.profilesType = angular.copy(types);
           var promises = types.map(function(type) {
             var defer2 = $q.defer();
-            globalDB.selectLocalDB(globalDB.tablesLocalDB.profile_systems.tableName, {'profile_system_folder_id': type.id}).then(function (profile) {
+            localDB.selectLocalDB(localDB.tablesLocalDB.profile_systems.tableName, {'profile_system_folder_id': type.id}).then(function (profile) {
               if (profile.length) {
                 GlobalStor.global.profiles.push(angular.copy(profile));
                 defer2.resolve(1);
@@ -120,7 +120,7 @@
       var promises2 = profileIds.map(function(item) {
         var defer2 = $q.defer(),
             glassObj = {profileId: item, glassTypes: [], glasses: []};
-        globalDB.selectLocalDB(globalDB.tablesLocalDB.glass_folders.tableName).then(function (types) {
+        localDB.selectLocalDB(localDB.tablesLocalDB.glass_folders.tableName).then(function (types) {
           if(types.length) {
             glassObj.glassTypes = angular.copy(types);
             GlobalStor.global.glassesAll.push(glassObj);
@@ -138,7 +138,7 @@
           //-------- select all glass Ids as to profile Id
           var promises3 = GlobalStor.global.glassesAll.map(function(item) {
             var defer3 = $q.defer();
-            globalDB.selectLocalDB(globalDB.tablesLocalDB.elements_profile_systems.tableName, {'profile_system_id': item.profileId}).then(function (glassId) {
+            localDB.selectLocalDB(localDB.tablesLocalDB.elements_profile_systems.tableName, {'profile_system_id': item.profileId}).then(function (glassId) {
               var glassIdQty = glassId.length;
               if(glassIdQty){
                 defer3.resolve(glassId);
@@ -159,7 +159,7 @@
 
               var promises5 = glassIds[i].map(function(item) {
                 var defer5 = $q.defer();
-                globalDB.selectLocalDB(globalDB.tablesLocalDB.elements.tableName, {'id': item.element_id}).then(function (glass) {
+                localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.element_id}).then(function (glass) {
 //                  console.log('glass!!!!', glass);
                   var glassQty = glass.length;
                   if(glassQty){
@@ -180,7 +180,7 @@
 
               var promises7 = glassIds[i].map(function(item) {
                 var defer7 = $q.defer();
-                globalDB.selectLocalDB(globalDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id}).then(function (list) {
+                localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id}).then(function (list) {
                   var listQty = list.length;
                   if(listQty){
                     defer7.resolve(list[0]);
@@ -264,12 +264,12 @@
     function downloadAllHardwares() {
       var defer = $q.defer();
       //------- get all Hardware Groups
-      globalDB.selectLocalDB(globalDB.tablesLocalDB.window_hardware_groups.tableName).then(function(types) {
+      localDB.selectLocalDB(localDB.tablesLocalDB.window_hardware_groups.tableName).then(function(types) {
         var typesQty = types.length;
         if (typesQty) {
           GlobalStor.global.hardwareTypes = angular.copy(types);
 
-          globalDB.selectLocalDB(globalDB.tablesLocalDB.window_hardware_features.tableName).then(function (ware) {
+          localDB.selectLocalDB(localDB.tablesLocalDB.window_hardware_features.tableName).then(function (ware) {
             if (ware.length) {
               GlobalStor.global.hardwares = angular.copy(ware);
               defer.resolve(1);
@@ -328,18 +328,9 @@
     function downloadAllLamination() {
       var defer = $q.defer();
       //----------- get all lamination
-      globalDB.selectLocalDB(globalDB.tablesLocalDB.lamination_factory_colors.tableName).then(function(laminIds) {
-        if(laminIds.length) {
-          var promises = laminIds.map(function(item) {
-            var defer2 = $q.defer();
-            globalDB.selectLocalDB(globalDB.tablesLocalDB.lamination_default_colors.tableName, {'id': item.lamination_type_id}).then(function(lamin) {
-              if(lamin.length) {
-                defer2.resolve(lamin[0]);
-              }
-            });
-            return defer2.promise;
-          });
-          defer.resolve($q.all(promises));
+      localDB.selectLocalDB(localDB.tablesLocalDB.lamination_factory_colors.tableName).then(function(lamin) {
+        if(lamin.length) {
+          defer.resolve(lamin);
         } else {
           console.log('No laminations in database');
           defer.reject(0);
@@ -472,7 +463,7 @@
 
     function downloadProfileDepth(elementId) {
       var defer = $q.defer();
-      globalDB.selectLocalDB(globalDB.tablesLocalDB.lists.tableName, {'id': elementId}).then(function(result) {
+      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': elementId}).then(function(result) {
         var resultObj = {};
         if (result.length) {
           resultObj.a = result[0].a;
@@ -624,7 +615,7 @@
     function setBeadId(profileId) {
       var defer = $q.defer();
         //------ find bead Id as to glass Depth and profile Id
-        globalDB.selectLocalDB(globalDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": ProductStor.product.glass.glass_width}).then(function (result) {
+        localDB.selectLocalDB(localDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": ProductStor.product.glass.glass_width}).then(function (result) {
           if(result.length) {
             defer.resolve(result[0].list_id);
           } else {
@@ -639,7 +630,7 @@
     //---------- Price define
     function calculationPrice(obj) {
       var deferred = $q.defer();
-      globalDB.calculationPrice(obj, function (result) {
+      localDB.calculationPrice(obj, function (result) {
         if(result.status){
 //          console.log('price-------', result.data.price);
 
@@ -707,8 +698,8 @@
 
     function isAddElemExist() {
       var defer = $q.defer(),
-          promises = globalDB.addElementDBId.map(function(item) {
-            return globalDB.selectLocalDB(globalDB.tablesLocalDB.lists.tableName, {'list_group_id': item});
+          promises = localDB.addElementDBId.map(function(item) {
+            return localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': item});
           });
 
       $q.all(promises).then(function (results) {
@@ -862,7 +853,7 @@
 
 
       //-------- insert product into local DB
-      globalDB.insertRowLocalDB(productData, globalDB.tablesLocalDB.order_products.tableName);
+      localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
       deferred.resolve(1);
       //--------- insert additional elements into local DB
       for(var prop = 0; prop < addElementsQty; prop++) {
@@ -881,7 +872,7 @@
               element_price: product.chosenAddElements[prop][elem].elementPrice,
               element_qty: product.chosenAddElements[prop][elem].elementQty
             };
-            globalDB.insertRowLocalDB(addElementsData, globalDB.tablesLocalDB.order_addelements.tableName);
+            localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
           }
         }
       }
@@ -949,7 +940,7 @@
             product_qty: OrderStor.order.products[p].productQty
           };
           console.log('SEND PRODUCT------', productData);
-          globalDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, globalDB.tablesLocalDB.order_products.tableName, productData);
+          localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_products.tableName, productData);
 
           var addElemQty = OrderStor.order.products[p].chosenAddElements.length;
           for(var add = 0; add < addElemQty; add++) {
@@ -969,7 +960,7 @@
                   element_qty: OrderStor.order.products[p].chosenAddElements[add][elem].elementQty
                 };
                 console.log('SEND DOPP',addElementsData);
-                globalDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, globalDB.tablesLocalDB.order_addelements.tableName, addElementsData);
+                localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_addelements.tableName, addElementsData);
               }
             }
           }
@@ -1058,8 +1049,8 @@
 //      selectedInstalmentPeriod: 0
 
 
-      globalDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, globalDB.tablesLocalDB.orders.tableName, orderData);
-      globalDB.insertRowLocalDB(orderData, globalDB.tablesLocalDB.orders.tableName);
+      localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, orderData);
+      localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
 
       //----- cleaning order
       OrderStor.order = OrderStor.setDefaultOrder();
@@ -1073,9 +1064,9 @@
 
     //-------- delete order from LocalDB
     function deleteOrderFromLocalDB(orderNum) {
-      localDB.deleteDB(localDB.ordersTableBD, {'orderId': orderNum});
-      localDB.deleteDB(localDB.productsTableBD, {'orderId': orderNum});
-      localDB.deleteDB(localDB.addElementsTableBD, {'orderId': orderNum});
+      localDB.deleteRowLocalDB(localDB.tablesLocalDB.orders.tableName, {'order_number': orderNum});
+      localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_number': orderNum});
+      localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_number': orderNum});
     }
 
 
