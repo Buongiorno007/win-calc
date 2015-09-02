@@ -365,12 +365,11 @@
         },
         'orders': {
           'tableName': 'orders',
-          'prop': 'color VARCHAR,' +
-            ' additional_payment VARCHAR,' +
+          'prop': 'additional_payment VARCHAR,' +
             ' created TIMESTAMP,' +
-            ' sended TIME,' +
-            ' state_to TIMESTAMP,' +
-            ' state_buch TIMESTAMP,' +
+            ' sended INTEGER,' +
+            ' state_to INTEGER,' +
+            ' state_buch INTEGER,' +
             ' batch VARCHAR(255),' +
             ' customer_phone VARCHAR(30),' +
             ' square NUMERIC(13, 2),' +
@@ -381,13 +380,11 @@
             ' customer_email TEXT,' +
             ' customer_address TEXT,' +
             ' customer_city TEXT,' +
-            ' profile_system_id INTEGER,'+
             ' factory_margin NUMERIC(11, 2),'+
             ' factory_id INTEGER,' +
             ' order_id VARCHAR,' +
             ' purchase_price NUMERIC(10, 2),' +
             ' sale_price NUMERIC(10, 2),' +
-            ' hardware_group_id INTEGER,' +
             ' delivery_price NUMERIC,'+
             ' mounting_price NUMERIC,'+
             ' user_id INTEGER,' +
@@ -396,7 +393,7 @@
             ' customer_country VARCHAR,' +
             ' climatic_zone INTEGER,' +
             ' full_location VARCHAR,' +
-            ' order_style VARCHAR,' + //TODO add orderType!!!! draft
+            ' order_style VARCHAR,' +
             ' products_qty INTEGER,' +
             ' products_price_total NUMERIC,'+
             ' delivery_date INTEGER,' +
@@ -417,8 +414,8 @@
             ' discount_construct NUMERIC,' +
             ' discount_addelem NUMERIC,' +
             ' customer_itn INTEGER,' +
-            ' customer_starttime INTEGER,' +
-            ' customer_endtime INTEGER,' +
+            ' customer_starttime VARCHAR,' +
+            ' customer_endtime VARCHAR,' +
             ' customer_target VARCHAR,' +
             ' customer_sex INTEGER,' +
             ' customer_age INTEGER,' +
@@ -429,7 +426,8 @@
         },
         'order_products': {
           'tableName': 'order_products',
-          'prop': 'order_id VARCHAR,' +
+          'prop': 'order_id INTEGER,' +
+            ' order_number VARCHAR,' +
             ' product_id INTEGER,' +
             ' is_addelem_only INTEGER,' +
             ' room_id INTEGER,' +
@@ -455,8 +453,8 @@
           'foreignKey': ''
         },
         'order_addelements': {
-          'tableName': 'order_addelem',
-          'prop': 'order_id VARCHAR,' +
+          'tableName': 'order_addelements',
+          'prop': 'order_number VARCHAR,' +
             ' product_id INTEGER,' +
             ' element_type INTEGER,' +
             ' element_id INTEGER,' +
@@ -468,6 +466,21 @@
             ' element_qty INTEGER',
           'foreignKey': ''
         },
+        'template_groups':{
+          'tableName': 'template_groups',
+          'prop': 'name VARCHAR(255)',
+          'foreignKey': ''
+        },
+        'templates':{
+          'tableName': 'templates',
+          'prop': 'group_id INTEGER,'+
+            'name VARCHAR(255),' +
+            'icon TEXT,' +
+            'template_object TEXT',
+          'foreignKey': ''
+        },
+
+
         'analytics': {
           'tableName': 'analytics',
           'prop': 'created TIMESTAMP, user_id INTEGER, order_id VARCHAR, element_id INTEGER, element_type INTEGER',
@@ -600,9 +613,8 @@
 //        console.log('INSERT START');
         var promises = [],
             tableKeys = Object.keys(result.tables),
-//            tableKeys = ['currencies','list_contents'],//,'lists'],
             tableQty = tableKeys.length;
-//        console.log('tableQty =', tableKeys);
+//        console.log('tabless =', tableKeys);
         db.transaction(function (trans) {
           for (var t = 0; t < tableQty; t++) {
             var colums = result.tables[tableKeys[t]].fields.join(', '),
@@ -614,11 +626,11 @@
                     values = result.tables[tableKeys[t]].rows[r].map(function (elem) {
                       return "'" + elem + "'";
                     }).join(', ');
-//                console.log('insert ++++', values);
+//                console.log('insert ++++', tableKeys[t], colums);
                 trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
                   defer.resolve(1);
-                }, function() {
-                  console.log('Error!!! ' + tableKeys[t]);
+                }, function(error) {
+                  console.log('Error!!! ' + error);
                   defer.resolve(0);
                 });
 
@@ -788,6 +800,24 @@
       },
 
 
+      insertServer: function(login, access, table, data) {
+        var defer = $q.defer(),
+            dataToSend = {
+              model: table,
+              row: JSON.stringify(data)
+            };
+        $http.post(serverIP+'insert?login='+login+'&access_token='+access, dataToSend)
+          .success(function (result) {
+            console.log('send changes to server success:', result);
+            defer.resolve(1);
+          })
+          .error(function () {
+            console.log('send changes to server failed');
+            defer.resolve(0);
+          });
+        return defer.promise;
+      },
+
 
       updateServer: function (login, access, data) {
 //        tablesToSync.push({model: table_name, rowId: tempObject.id, field: JSON.stringify(tempObject)});
@@ -828,6 +858,10 @@
             console.log('Something went wrong!');
           });
       },
+
+
+
+
 
 
 
@@ -982,18 +1016,18 @@
       },
 
 
-      syncUpdatesToServer: function (login, access_token) {
-        syncToServer(login, access_token).then(function (data) {
-          tablesToSync = data;
-          if (tablesToSync) {
-            document.addEventListener("online", function () {
-              syncToServer(login, access_token).then(function (data) {
-                tablesToSync = data;
-              });
-            }, false);
-          }
-        });
-      },
+//      syncUpdatesToServer: function (login, access_token) {
+//        syncToServer(login, access_token).then(function (data) {
+//          tablesToSync = data;
+//          if (tablesToSync) {
+//            document.addEventListener("online", function () {
+//              syncToServer(login, access_token).then(function (data) {
+//                tablesToSync = data;
+//              });
+//            }, false);
+//          }
+//        });
+//      },
 
 
 
@@ -2468,84 +2502,84 @@
 
     //============ methods ================//
 //TODO delete
-    function getValuesString(data){
-      var valuesString = '', i;
-      for (i = 0; i < data.length; i++) {
-        if(!i){
-          valuesString += "'" + data[i] + "'";
-        } else {
-          valuesString += ", '" + data[i] + "'";
-        }
-      }
-      return valuesString;
-    }
+//    function getValuesString(data){
+//      var valuesString = '', i;
+//      for (i = 0; i < data.length; i++) {
+//        if(!i){
+//          valuesString += "'" + data[i] + "'";
+//        } else {
+//          valuesString += ", '" + data[i] + "'";
+//        }
+//      }
+//      return valuesString;
+//    }
 
 
 
-    function syncToServer (login, access_token) {
-      var deferred = $q.defer(),
-          temArr = [];
-      for (var i = 0, len = tablesToSync.length; i < len; i++) {
-        var querOb = angular.copy(tablesToSync[i]);
-        $http.post(serverIP + 'update?login=' + login + '&access_token=' + access_token, querOb)
-          .success(function (data) {
-            //console.log('tablesToSync:',tablesToSync, tablesToSync[0],i,tablesToSync[i]);
-            console.log('send changes to server success:',querOb);
-            if (i== len) {
-              deferred.resolve(temArr);
-            }
-          })
-          .error(function (data) {
-            console.log('send changes to server failed');
-            temArr.push(querOb);
-            if (i== len) {
-              deferred.resolve(temArr);
-            }
-          });
-      }
-      return deferred.promise;
-    }
+//    function syncToServer (login, access_token) {
+//      var deferred = $q.defer(),
+//          temArr = [];
+//      for (var i = 0, len = tablesToSync.length; i < len; i++) {
+//        var querOb = angular.copy(tablesToSync[i]);
+//        $http.post(serverIP + 'update?login=' + login + '&access_token=' + access_token, querOb)
+//          .success(function (data) {
+//            //console.log('tablesToSync:',tablesToSync, tablesToSync[0],i,tablesToSync[i]);
+//            console.log('send changes to server success:',querOb);
+//            if (i== len) {
+//              deferred.resolve(temArr);
+//            }
+//          })
+//          .error(function (data) {
+//            console.log('send changes to server failed');
+//            temArr.push(querOb);
+//            if (i== len) {
+//              deferred.resolve(temArr);
+//            }
+//          });
+//      }
+//      return deferred.promise;
+//    }
 
 
-    function selectDBGlobal(tableName, options) {
-      var deferred = $q.defer(),
-          handler = [];
-      dbGlobal.select(tableName, options).then(function (result) {
-        var resultQty = result.rows.length;
-        if (resultQty) {
-          for (var i = 0; i < resultQty; i++) {
-            handler.push(result.rows.item(i));
-          }
-          deferred.resolve(handler);
-        } else {
-          deferred.resolve();
-        }
-      });
-      return deferred.promise;
-    }
-
-
-    function selectAllDBGlobal(tableName) {
-      var deferred = $q.defer(),
-          handler = [];
-      dbGlobal.selectAll(tableName).then(function (result) {
-        var resultQty = result.rows.length;
-        if(resultQty) {
-          for(var i = 0; i < resultQty; i++) {
-            handler.push(result.rows.item(i));
-          }
-          deferred.resolve(handler);
-        } else {
-          deferred.resolve();
-        }
-      });
-      return deferred.promise;
-    }
-
-
-    function updateDBGlobal(tableName, elem, options) {
-      dbGlobal.update(tableName, elem, options);
-    }
+//    function selectDBGlobal(tableName, options) {
+//      var deferred = $q.defer(),
+//          handler = [];
+//      dbGlobal.select(tableName, options).then(function (result) {
+//        var resultQty = result.rows.length;
+//        if (resultQty) {
+//          for (var i = 0; i < resultQty; i++) {
+//            handler.push(result.rows.item(i));
+//          }
+//          deferred.resolve(handler);
+//        } else {
+//          deferred.resolve();
+//        }
+//      });
+//      return deferred.promise;
+//    }
+//
+//
+//    function selectAllDBGlobal(tableName) {
+//      var deferred = $q.defer(),
+//          handler = [];
+//      dbGlobal.selectAll(tableName).then(function (result) {
+//        var resultQty = result.rows.length;
+//        if(resultQty) {
+//          for(var i = 0; i < resultQty; i++) {
+//            handler.push(result.rows.item(i));
+//          }
+//          deferred.resolve(handler);
+//        } else {
+//          deferred.resolve();
+//        }
+//      });
+//      return deferred.promise;
+//    }
+//
+//
+//    function updateDBGlobal(tableName, elem, options) {
+//      dbGlobal.update(tableName, elem, options);
+//    }
 
 
   }

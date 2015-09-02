@@ -133,7 +133,8 @@
               elementType: AuxStor.aux.isFocusedAddElement,
               elementWidth: 0,
               elementHeight: 0,
-              elementColor: ''
+              elementColor: '',
+              elementColorId: 0
             },
             newElement = angular.extend(newElementSource, currElement);
 

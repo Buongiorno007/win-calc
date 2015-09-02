@@ -67,7 +67,7 @@
             <div class="order-block">
               <div ng-repeat="product in cartPage.O.order.products track by $index" class="order">
                 <button hm-tap="cartPage.clickDeleteProduct($index)" class="order-delete"></button>
-                <div hm-tap="cartPage.editProduct($index, 'product')" class="order-header"><img ng-src="img/rooms-dialog/{{product.selectedRoomId}}.jpg" class="order-header-fon">
+                <div hm-tap="cartPage.editProduct($index, 'product')" class="order-header"><img ng-src="img/rooms-dialog/{{product.roomId}}.jpg" class="order-header-fon">
                   <div class="order-template">
                     <svg-template-icon template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template-icon>
                   </div>
@@ -81,15 +81,15 @@
                       <div class="order-label">{{ 'mainpage.CONFIGMENU_SIZING' | translate }}</div>
                     </li>
                     <li class="order-item">
-                      <div class="order-value">{{ product.profileName }}</div>
+                      <div class="order-value">{{ product.profile.name }}</div>
                       <div class="order-label">{{ 'mainpage.CONFIGMENU_PROFILE' | translate }}</div>
                     </li>
                     <li class="order-item">
-                      <div class="order-value">{{ product.glassName }}</div>
+                      <div class="order-value">{{ product.glass.sku }}</div>
                       <div class="order-label">{{ 'mainpage.CONFIGMENU_GLASS' | translate }}</div>
                     </li>
                     <li class="order-item">
-                      <div class="order-value">{{ product.hardwareName }}</div>
+                      <div class="order-value">{{ product.hardware.name }}</div>
                       <div class="order-label">{{ 'mainpage.CONFIGMENU_HARDWARE' | translate }}</div>
                     </li>
                     <li class="order-item">

@@ -4447,6 +4447,7 @@ tr.factory_item {
 /* line 99, ../../dev/sass/pages/cart.scss */
 .cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value, .cart-page .addelementunit-value {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  min-height: 3.214rem;
   color: #363636;
 }
 /* line 105, ../../dev/sass/pages/cart.scss */

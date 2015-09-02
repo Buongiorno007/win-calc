@@ -27,7 +27,7 @@
 
         scope.$watch('template', function () {
           buildSVG(scope.template, scope.templateWidth, scope.templateHeight);
-          startPinch();
+//TODO          startPinch();
         });
 
 

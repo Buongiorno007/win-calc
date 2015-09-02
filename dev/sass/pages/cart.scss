@@ -99,7 +99,7 @@
   .order-value {
     @extend .truncated;
     @include roboto-lt(rem(36px));
-
+    min-height: 3.214rem;
     color: $main_gray_txt;
   }
   .addelements-btn {

@@ -360,8 +360,10 @@
               </div>
             </div>
           </div>
-          <div ng-if="elementsPanel.G.global.isAddElemExist[3]" show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 4 &amp;&amp; elementsPanel.P.product.chosenAddElements[3].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[3].length &gt; 0}" class="auxiliary-item aux-outside unvisible">
+          <div show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}" class="auxiliary-item aux-outside unvisible">
             <div class="aux-outside-img move-outside"></div>
+          </div>
+          <div ng-if="elementsPanel.G.global.isAddElemExist[3]" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 4 &amp;&amp; elementsPanel.P.product.chosenAddElements[3].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[3].length &gt; 0}" show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}" class="auxiliary-item aux-outside unvisible">
             <div class="aux-txt-box aux-outside-txt">
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.P.product.chosenAddElements[3].length &gt; 0" class="choose-block unvisible">
                 <button ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 4}" hm-tap="elementsPanel.selectAddElement(4)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement == 4" class="aux-choose-but aux_slope_but">{{ 'add_elements.CHOOSE' | translate }}</button>
@@ -411,7 +413,7 @@
               </div>
             </div>
           </div>
-          <div ng-if="elementsPanel.G.global.isAddElemExist[5]" show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPE }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 6 &amp;&amp; elementsPanel.P.product.chosenAddElements[5].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[5].length &gt; 0}" class="auxiliary-item aux-inside unvisible">
+          <div ng-if="elementsPanel.G.global.isAddElemExist[5]" ng-class="{'focused': (elementsPanel.A.aux.isFocusedAddElement == 6 &amp;&amp; elementsPanel.P.product.chosenAddElements[5].length === 0) || (elementsPanel.A.aux.isFocusedAddElement == 4 &amp;&amp; elementsPanel.P.product.chosenAddElements[3].length === 0), 'selected': (elementsPanel.P.product.chosenAddElements[5].length &gt; 0) || (elementsPanel.P.product.chosenAddElements[3].length &gt; 0)}" show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPE }}" class="auxiliary-item aux-inside unvisible">
             <div class="aux-inside-img">
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPETOP }}" class="aux-inside-top move-inside-top unvisible"></div>
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPERIGHT }}" class="aux-inside-right move-inside-right unvisible"></div>

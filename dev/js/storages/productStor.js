@@ -53,10 +53,10 @@
 //        hardwareHeatCoeff: 0,
 //        hardwareAirCoeff: 0,
 
-        laminationOutId: 'white',
+        laminationOutId: 0,
         laminationOutName: $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION'),
         laminationOutPrice: 0,
-        laminationInId: 'white',
+        laminationInId: 0,
         laminationInName: $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION'),
         laminationInPrice: 0,
 

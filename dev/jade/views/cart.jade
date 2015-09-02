@@ -17,7 +17,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
               .order(ng-repeat="product in cartPage.O.order.products track by $index")
                 button.order-delete(hm-tap="cartPage.clickDeleteProduct($index)")
                 .order-header(hm-tap="cartPage.editProduct($index, 'product')")
-                  img.order-header-fon(ng-src="img/rooms-dialog/{{product.selectedRoomId}}.jpg")
+                  img.order-header-fon(ng-src="img/rooms-dialog/{{product.roomId}}.jpg")
                   .order-template
                     svg-template-icon(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="icon")
                   .order-u-coeff(ng-class="{'u-coeff-low': product.heatTransferTOTAL < product.heatTransferMin}") U = {{ product.heatTransferTOTAL }}
@@ -28,13 +28,13 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                       .order-value {{ product.templateHeight }} {{ 'mainpage.MM' | translate }}
                       .order-label {{ 'mainpage.CONFIGMENU_SIZING' | translate }}
                     li.order-item
-                      .order-value {{ product.profileName }}
+                      .order-value {{ product.profile.name }}
                       .order-label {{ 'mainpage.CONFIGMENU_PROFILE' | translate }}
                     li.order-item
-                      .order-value {{ product.glassName }}
+                      .order-value {{ product.glass.sku }}
                       .order-label {{ 'mainpage.CONFIGMENU_GLASS' | translate }}
                     li.order-item
-                      .order-value {{ product.hardwareName }}
+                      .order-value {{ product.hardware.name }}
                       .order-label {{ 'mainpage.CONFIGMENU_HARDWARE' | translate }}
                     li.order-item
                       .order-label {{ 'mainpage.CONFIGMENU_LAMINATION_TYPE' | translate }}
