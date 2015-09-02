@@ -15,13 +15,14 @@
 
     thisFactory.publicObj = {
       productSource: {
-        orderId: 0,
+//        orderId: 0,
         productId: 0,
         isAddElementsONLY: 0,
-        selectedRoomId: 4,
+        roomId: 4,
         constructionType: 1, // 1 - window; 2 - windowDoor; 3 - balcony; 4 - door
 
         templateIndex: 0,
+        templateId: 0,
         templateSource: {},
         template: {},
         templateIcon: {},

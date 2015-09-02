@@ -430,52 +430,41 @@
         'order_products': {
           'tableName': 'order_products',
           'prop': 'order_id VARCHAR,' +
-            ' is_addelem_only INTEGER,' + //TODO change
-            ' selected_room_id INTEGER,' +
+            ' product_id INTEGER,' +
+            ' is_addelem_only INTEGER,' +
+            ' room_id INTEGER,' +
             ' construction_type INTEGER,' +
-            ' template_index INTEGER,' + //TODO change
+            ' template_id INTEGER,' +
             ' template_source TEXT,' +
-            ' template_width NUMERIC,' +
-            ' template_height NUMERIC,' +
-            ' profile_type_index INTEGER,' + //TODO change
-            ' profile_index INTEGER,' + //TODO change
             ' profile_id INTEGER,' +
-            ' profile_name VARCHAR,' +//TODO change
-            ' profileHeatCoeff INTEGER,' +//TODO change
-            ' profileAirCoeff INTEGER,' +//TODO change
-            ' glassTypeIndex INTEGER,' +//TODO change
-            ' glassIndex INTEGER,' +//TODO change
             ' glass_id INTEGER,' +
-            ' glassName VARCHAR, glassHeatCoeff INTEGER, glassAirCoeff INTEGER,' +//TODO change
-            ' hardwareTypeIndex INTEGER, hardwareIndex INTEGER,' +//TODO change
             ' hardware_id INTEGER,' +
-            ' hardwareName VARCHAR, hardwareHeatCoeff INTEGER, hardwareAirCoeff INTEGER,' +//TODO change
             ' lamination_out_id INTEGER,' +
-            ' laminationOutName VARCHAR, laminationOutPrice NUMERIC,' +//TODO change
             ' lamination_in_id INTEGER,' +
-            ' laminationInName VARCHAR, laminationInPrice NUMERIC,' +//TODO change
             ' door_shape_id INTEGER,' +
             ' door_sash_shape_id INTEGER,' +
             ' door_handle_shape_id INTEGER,' +
             ' door_lock_shape_id INTEGER,' +
-            ' heat_transfer_min INTEGER,' +
-            ' heat_transfer_total INTEGER,' +
-            ' airCirculationTOTAL INTEGER,' +//TODO change
-            ' templatePriceSELECT NUMERIC,' +//TODO change
-            ' laminationPriceSELECT NUMERIC, addElementsPriceSELECT NUMERIC, productPriceTOTAL NUMERIC,' +//TODO change
+            ' heat_coef_min INTEGER,' +
+            ' heat_coef_total INTEGER,' +
+            ' template_price NUMERIC,' +
+            ' addelem_price NUMERIC,' +
+            ' product_price NUMERIC,' +
             ' comment TEXT,' +
             ' product_qty INTEGER',
           'foreignKey': ''
         },
-        'order_addelem': {
+        'order_addelements': {
           'tableName': 'order_addelem',
           'prop': 'order_id VARCHAR,' +
             ' product_id INTEGER,' +
             ' element_type INTEGER,' +
-            ' elementName VARCHAR,' +//TODO change
+            ' element_id INTEGER,' +
+            ' element_name VARCHAR,' +
             ' element_width NUMERIC,' +
             ' element_height NUMERIC,' +
-            ' elementColor INTEGER, elementPrice NUMERIC,' +//TODO change
+            ' element_color INTEGER,' +
+            ' element_price NUMERIC,' +
             ' element_qty INTEGER',
           'foreignKey': ''
         },

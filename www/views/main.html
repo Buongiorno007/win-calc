@@ -48,7 +48,7 @@
     </div>
   </section>
   <!--TODO change to directive!!!! rooms will be more-->
-  <section ng-class="{'kitchen': mainPage.P.product.selectedRoomId == 1, 'livingroom': mainPage.P.product.selectedRoomId == 2, 'balcony': mainPage.P.product.selectedRoomId == 3, 'childroom': mainPage.P.product.selectedRoomId == 4, 'bedroom': mainPage.P.product.selectedRoomId == 5, 'door': mainPage.P.product.selectedRoomId == 6 }" class="right-side main-page-bg">
+  <section ng-class="{'kitchen': mainPage.P.product.roomId == 1, 'livingroom': mainPage.P.product.roomId == 2, 'balcony': mainPage.P.product.roomId == 3, 'childroom': mainPage.P.product.roomId == 4, 'bedroom': mainPage.P.product.roomId == 5, 'door': mainPage.P.product.roomId == 6 }" class="right-side main-page-bg">
     <section class="main-content">
       <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
         <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
@@ -83,12 +83,12 @@
         <div ng-if="rooms.G.global.showRoomSelectorDialog" class="rooms-inner">
           <div class="rooms-row">
             <div class="room-block">
-              <div show-delay="{{ rooms.config.DELAY_SHOW_ROOM4 }}" ng-class="{'selected': rooms.P.product.selectedRoomId === 4}" hm-tap="rooms.selectRoom(4)" class="room-box unvisible">
+              <div show-delay="{{ rooms.config.DELAY_SHOW_ROOM4 }}" ng-class="{'selected': rooms.P.product.roomId === 4}" hm-tap="rooms.selectRoom(4)" class="room-box unvisible">
                 <div class="room-img childroom"></div>
               </div>
             </div>
             <div class="room-block">
-              <div show-delay="{{ rooms.config.DELAY_SHOW_ROOM1 }}" ng-class="{'selected': rooms.P.product.selectedRoomId === 1}" hm-tap="rooms.selectRoom(1)" class="room-box unvisible">
+              <div show-delay="{{ rooms.config.DELAY_SHOW_ROOM1 }}" ng-class="{'selected': rooms.P.product.roomId === 1}" hm-tap="rooms.selectRoom(1)" class="room-box unvisible">
                 <div class="room-img kitchen"></div>
               </div>
             </div>
@@ -218,7 +218,7 @@
                 <div class="info"></div>
               </div>
             </div>
-            <div ng-repeat="hardware in producer" show-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_BLOCK * $index) }}" ng-class="{'selected': hardwarePanel.P.product.hardwareIndex == $index &amp;&amp; hardwarePanel.P.product.hardwareTypeIndex == $parent.$index}" hm-tap="hardwarePanel.selectHardware($parent.$index, $index)" class="hardware-box unvisible"><a ng-href="{{ hardware.hardwareLink }}" class="info"></a>
+            <div ng-repeat="hardware in producer" ng-class="{'selected': hardware.id === hardwarePanel.P.product.hardware.id}" hm-tap="hardwarePanel.selectHardware(hardware.id)" show-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_BLOCK * $index) }}" class="hardware-box unvisible"><a ng-href="{{ hardware.hardwareLink }}" class="info"></a>
               <div class="hardware-box-inner">
                 <div class="hardware-box-view">
                   <div class="hardware-logo"><img ng-src="{{ hardware.logo_url }}"></div>

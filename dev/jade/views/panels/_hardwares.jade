@@ -7,7 +7,7 @@
         .group-info
           .info
 
-      .hardware-box.unvisible(ng-repeat="hardware in producer", show-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_BLOCK * $index) }}", ng-class="{'selected': hardwarePanel.P.product.hardwareIndex == $index && hardwarePanel.P.product.hardwareTypeIndex == $parent.$index}", hm-tap="hardwarePanel.selectHardware($parent.$index, $index)")
+      .hardware-box.unvisible(ng-repeat="hardware in producer", ng-class="{'selected': hardware.id === hardwarePanel.P.product.hardware.id}", hm-tap="hardwarePanel.selectHardware(hardware.id)", show-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_BLOCK * $index) }}")
         a.info(ng-href="{{ hardware.hardwareLink }}")
         .hardware-box-inner
           .hardware-box-view

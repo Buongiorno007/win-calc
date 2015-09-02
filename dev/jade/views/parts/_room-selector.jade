@@ -2,9 +2,9 @@
   .rooms-inner(ng-if="rooms.G.global.showRoomSelectorDialog")
     .rooms-row
       .room-block
-        .room-box.unvisible(show-delay="{{ rooms.config.DELAY_SHOW_ROOM4 }}", ng-class="{'selected': rooms.P.product.selectedRoomId === 4}", hm-tap="rooms.selectRoom(4)")
+        .room-box.unvisible(show-delay="{{ rooms.config.DELAY_SHOW_ROOM4 }}", ng-class="{'selected': rooms.P.product.roomId === 4}", hm-tap="rooms.selectRoom(4)")
           .room-img.childroom
       .room-block
-        .room-box.unvisible(show-delay="{{ rooms.config.DELAY_SHOW_ROOM1 }}", ng-class="{'selected': rooms.P.product.selectedRoomId === 1}", hm-tap="rooms.selectRoom(1)")
+        .room-box.unvisible(show-delay="{{ rooms.config.DELAY_SHOW_ROOM1 }}", ng-class="{'selected': rooms.P.product.roomId === 1}", hm-tap="rooms.selectRoom(1)")
           .room-img.kitchen
     .close-dialog(hm-tap="rooms.closeRoomSelectorDialog()")

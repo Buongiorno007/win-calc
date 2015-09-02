@@ -38,8 +38,9 @@
       if(ProductStor.product.templateIndex !== templateIndex) {
         ProductStor.product.templateIndex = templateIndex;
         MainServ.saveTemplateInProduct(templateIndex).then(function() {
+          MainServ.setCurrentHardware();
           //------ define product price
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId);
+          MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass.id, ProductStor.product.hardware.id);
         });
       }
     }
