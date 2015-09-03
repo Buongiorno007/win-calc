@@ -25,11 +25,6 @@
         currentAddElementId: false,
         auxParameter: false,
 
-        addElementLaminatWhiteMatt: {},
-        addElementLaminatWhiteGlossy: {},
-        addElementLaminatColor: [],
-        isAddElementColor: false,
-
         currAddElementPrice: 0,
         isTabFrame: false,
         isAddElementListView: false,

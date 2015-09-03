@@ -54,11 +54,9 @@
 //        hardwareAirCoeff: 0,
 
         laminationOutId: 0,
-        laminationOutName: $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION'),
-        laminationOutPrice: 0,
+        laminationOutName: $filter('translate')('mainpage.WHITE_LAMINATION'),
         laminationInId: 0,
-        laminationInName: $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION'),
-        laminationInPrice: 0,
+        laminationInName: $filter('translate')('mainpage.WHITE_LAMINATION'),
 
         chosenAddElements: [
           [], // 0 - grids

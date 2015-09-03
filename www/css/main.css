@@ -2614,9 +2614,10 @@ body {
 /* line 78, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-color img {
   width: 2.8125rem;
+  height: 2.8125rem;
 }
 
-/* line 85, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 87, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-list-row {
   display: -webkit-flex;
   display: flex;
@@ -2628,18 +2629,18 @@ body {
   align-items: flex-start;
 }
 
-/* line 91, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 93, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-name {
   max-width: 50%;
 }
 
-/* line 94, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 96, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-title {
   max-width: 90%;
   cursor: pointer;
 }
 
-/* line 98, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 100, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux-price, .alladdelements-block .aux-total-price, .addelementunique-header .aux-total-price, .addelementunit-only .aux-total-price, .additional-list-container .aux-total-price {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
   min-width: 20%;
@@ -2647,222 +2648,222 @@ body {
   color: #363636;
 }
 
-/* line 108, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 110, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_big .item.active {
   background-color: #4bd963;
 }
-/* line 114, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 116, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_big .aux-list-item.selected .aux-choose-but {
   color: #fff;
   border-color: #4bd963;
   background-color: #4bd963;
 }
-/* line 122, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 124, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_big .frame-tab.active {
   border-top-color: #4bd963;
 }
-/* line 127, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 129, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_big .aux-params-but {
   color: #4bd963;
   border-color: #4bd963;
 }
-/* line 130, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 132, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_big .aux-params-but.selected {
   color: #fff;
   border-color: #4bd963;
   background-color: #4bd963;
 }
-/* line 137, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 139, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_big .aux-title,
 .aux_color_big .calc-value-limit {
   color: #4bd963;
 }
-/* line 142, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 144, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_big .calc-equal,
 .aux_color_big .search-element {
   background-color: #4bd963;
 }
-/* line 147, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 149, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_big .group-indicator {
   background-color: #4bd963;
 }
-/* line 149, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 151, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_big .group-indicator:before {
   border-color: transparent #4bd963;
 }
 
-/* line 157, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 159, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_middle .item.active {
   background-color: #5755d5;
 }
-/* line 163, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 165, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_middle .aux-list-item.selected .aux-choose-but {
   color: #fff;
   border-color: #5755d5;
   background-color: #5755d5;
 }
-/* line 171, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 173, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_middle .frame-tab.active {
   border-top-color: #5755d5;
 }
-/* line 175, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 177, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_middle .aux-params-but {
   color: #5755d5;
   border-color: #5755d5;
 }
-/* line 178, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 180, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_middle .aux-params-but.selected {
   color: #fff;
   border-color: #5755d5;
   background-color: #5755d5;
 }
-/* line 185, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 187, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_middle .aux-title,
 .aux_color_middle .calc-value-limit {
   color: #5755d5;
 }
-/* line 190, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 192, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_middle .calc-equal,
 .aux_color_middle .search-element {
   background-color: #5755d5;
 }
-/* line 195, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 197, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_middle .group-indicator {
   background-color: #5755d5;
 }
-/* line 197, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 199, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_middle .group-indicator:before {
   border-color: transparent #5755d5;
 }
 
-/* line 205, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 207, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_connect .item.active {
   background-color: #0079ff;
 }
-/* line 211, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 213, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_connect .aux-list-item.selected .aux-choose-but {
   color: #fff;
   border-color: #0079ff;
   background-color: #0079ff;
 }
-/* line 219, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 221, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_connect .frame-tab.active {
   border-top-color: #0079ff;
 }
-/* line 223, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 225, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_connect .aux-params-but {
   color: #0079ff;
   border-color: #0079ff;
 }
-/* line 226, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 228, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_connect .aux-params-but.selected {
   color: #fff;
   border-color: #0079ff;
   background-color: #0079ff;
 }
-/* line 233, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 235, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_connect .aux-title,
 .aux_color_connect .calc-value-limit {
   color: #0079ff;
 }
-/* line 238, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 240, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_connect .calc-equal,
 .aux_color_connect .search-element {
   background-color: #0079ff;
 }
-/* line 243, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 245, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_connect .group-indicator {
   background-color: #0079ff;
 }
-/* line 245, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 247, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_connect .group-indicator:before {
   border-color: transparent #0079ff;
 }
 
-/* line 253, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 255, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_slope .item.active {
   background-color: #6ed44a;
 }
-/* line 259, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 261, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_slope .aux-list-item.selected .aux-choose-but {
   color: #fff;
   border-color: #6ed44a;
   background-color: #6ed44a;
 }
-/* line 267, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 269, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_slope .frame-tab.active {
   border-top-color: #6ed44a;
 }
-/* line 272, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 274, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_slope .aux-params-but {
   color: #6ed44a;
   border-color: #6ed44a;
 }
-/* line 275, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 277, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_slope .aux-params-but.selected {
   color: #fff;
   border-color: #6ed44a;
   background-color: #6ed44a;
 }
-/* line 282, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 284, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_slope .aux-title,
 .aux_color_slope .calc-value-limit {
   color: #6ed44a;
 }
-/* line 287, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 289, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_slope .calc-equal,
 .aux_color_slope .search-element {
   background-color: #6ed44a;
 }
-/* line 292, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 294, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_slope .group-indicator {
   background-color: #6ed44a;
 }
-/* line 294, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 296, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_slope .group-indicator:before {
   border-color: transparent #6ed44a;
 }
 
-/* line 302, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 304, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_small .item.active {
   background-color: #34aadc;
 }
-/* line 308, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 310, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_small .aux-list-item.selected .aux-choose-but {
   color: #fff;
   border-color: #34aadc;
   background-color: #34aadc;
 }
-/* line 316, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 318, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_small .frame-tab.active {
   border-top-color: #34aadc;
 }
-/* line 321, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 323, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_small .aux-params-but {
   color: #34aadc;
   border-color: #34aadc;
 }
-/* line 324, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 326, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_small .aux-params-but.selected {
   color: #fff;
   border-color: #34aadc;
   background-color: #34aadc;
 }
-/* line 331, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 333, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_small .aux-title,
 .aux_color_small .calc-value-limit {
   color: #34aadc;
 }
-/* line 336, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 338, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_small .calc-equal,
 .aux_color_small .search-element {
   background-color: #34aadc;
 }
-/* line 341, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 343, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_small .group-indicator {
   background-color: #34aadc;
 }
-/* line 343, ../../dev/sass/parts/_additional-elements-general.scss */
+/* line 345, ../../dev/sass/parts/_additional-elements-general.scss */
 .aux_color_small .group-indicator:before {
   border-color: transparent #34aadc;
 }
@@ -6321,14 +6322,15 @@ li.constr-shape-icon:last-child {
 /* line 160, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .color-img img {
   max-width: 5.5rem;
+  height: 5.5rem;
 }
-/* line 163, ../../dev/sass/menus/_elements-list.scss */
+/* line 164, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .color-img.selected {
   position: relative;
   border-radius: 0.3125rem;
   background-color: #6ed44a;
 }
-/* line 168, ../../dev/sass/menus/_elements-list.scss */
+/* line 169, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .color-img.selected:after {
   font: normal 3.125rem/5.5rem icons, sans-serif;
   position: absolute;
@@ -6336,40 +6338,40 @@ li.constr-shape-icon:last-child {
   color: #6ed44a;
   content: "\e627";
 }
-/* line 178, ../../dev/sass/menus/_elements-list.scss */
+/* line 179, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .color-labels {
   margin-left: 0.625rem;
 }
-/* line 181, ../../dev/sass/menus/_elements-list.scss */
+/* line 182, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .aux-label-bold {
   font: normal 1.375rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
 }
-/* line 186, ../../dev/sass/menus/_elements-list.scss */
+/* line 187, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .color-options {
   height: 19.375rem;
   overflow-x: hidden;
   overflow-y: auto;
 }
-/* line 191, ../../dev/sass/menus/_elements-list.scss */
+/* line 192, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .color-option {
   width: 6rem;
   margin-right: 0.9375rem;
 }
 
-/* line 199, ../../dev/sass/menus/_elements-list.scss */
+/* line 200, ../../dev/sass/menus/_elements-list.scss */
 .list-items {
   position: relative;
 }
 
-/* line 202, ../../dev/sass/menus/_elements-list.scss */
+/* line 203, ../../dev/sass/menus/_elements-list.scss */
 .list-item {
   top: 0rem;
   left: 0rem;
   position: absolute;
 }
 
-/* line 206, ../../dev/sass/menus/_elements-list.scss */
+/* line 207, ../../dev/sass/menus/_elements-list.scss */
 .aux-list-item {
   -moz-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
@@ -6386,18 +6388,18 @@ li.constr-shape-icon:last-child {
   background-color: #fff;
   z-index: 2;
 }
-/* line 220, ../../dev/sass/menus/_elements-list.scss */
+/* line 221, ../../dev/sass/menus/_elements-list.scss */
 .aux-list-item.selected {
   left: -93.75rem;
 }
 
-/* line 226, ../../dev/sass/menus/_elements-list.scss */
+/* line 227, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs {
   top: 3.75rem;
   left: 0rem;
   position: absolute;
 }
-/* line 230, ../../dev/sass/menus/_elements-list.scss */
+/* line 231, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-block {
   -moz-transition: left 0.5s ease;
   -webkit-transition: left 0.5s ease;
@@ -6413,21 +6415,21 @@ li.constr-shape-icon:last-child {
   border-style: solid;
   z-index: 1;
 }
-/* line 244, ../../dev/sass/menus/_elements-list.scss */
+/* line 245, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-block.active {
   left: -53.75rem;
 }
-/* line 249, ../../dev/sass/menus/_elements-list.scss */
+/* line 250, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .simple-frame {
   top: 0rem;
   left: 0rem;
 }
-/* line 252, ../../dev/sass/menus/_elements-list.scss */
+/* line 253, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .hard-frame {
   top: 21.875rem;
   left: 0rem;
 }
-/* line 256, ../../dev/sass/menus/_elements-list.scss */
+/* line 257, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .frame-tab {
   -moz-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
@@ -6451,18 +6453,18 @@ li.constr-shape-icon:last-child {
   color: #363636;
   z-index: 1;
 }
-/* line 274, ../../dev/sass/menus/_elements-list.scss */
+/* line 275, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .frame-tab.active {
   border-top-width: 0.3125rem;
   background-color: #fff;
 }
-/* line 279, ../../dev/sass/menus/_elements-list.scss */
+/* line 280, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-content {
   overflow-x: hidden;
   overflow-y: auto;
   max-height: 31.25rem;
 }
-/* line 284, ../../dev/sass/menus/_elements-list.scss */
+/* line 285, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-content-empty {
   display: -webkit-flex;
   display: flex;
@@ -6472,13 +6474,13 @@ li.constr-shape-icon:last-child {
   justify-content: center;
   height: 13rem;
 }
-/* line 290, ../../dev/sass/menus/_elements-list.scss */
+/* line 291, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-empty {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   text-align: center;
   color: #bebebe;
 }
-/* line 295, ../../dev/sass/menus/_elements-list.scss */
+/* line 296, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-aux-row {
   display: -webkit-flex;
   display: flex;
@@ -6490,11 +6492,11 @@ li.constr-shape-icon:last-child {
   align-items: flex-start;
   margin-bottom: 1.25rem;
 }
-/* line 302, ../../dev/sass/menus/_elements-list.scss */
+/* line 303, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-aux-row:last-child {
   margin: 0;
 }
-/* line 306, ../../dev/sass/menus/_elements-list.scss */
+/* line 307, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .aux-title {
   width: 23.125rem;
 }

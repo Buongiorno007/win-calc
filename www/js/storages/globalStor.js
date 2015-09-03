@@ -10,7 +10,7 @@
     .module('BauVoiceApp')
     .factory('GlobalStor', globalStorageFactory);
 
-  function globalStorageFactory($filter) {
+  function globalStorageFactory() {
 
     var thisFactory = this;
 
@@ -69,7 +69,6 @@
         hardwareTypes: [],
 
         //------ Lamination
-        laminationsWhite: $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION'),
         laminationsIn: [],
         laminationsOut: [],
 

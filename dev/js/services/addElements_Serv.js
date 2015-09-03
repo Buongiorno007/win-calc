@@ -209,18 +209,7 @@
             GlobalStor.global.isWidthCalculator = false;
             break;
           case 4:
-            //GlobalStor.global.isColorSelector = false;
-            optionsServ.getLaminationAddElements(function (results) {
-              if (results.status) {
-                AuxStor.aux.addElementLaminatWhiteMatt = results.data.laminationWhiteMatt;
-                AuxStor.aux.addElementLaminatWhiteGlossy = results.data.laminationWhiteGlossy;
-                AuxStor.aux.addElementLaminatColor = results.data.laminations;
-              } else {
-                console.log(results);
-              }
-            });
             GlobalStor.global.isColorSelector = true;
-            AuxStor.aux.isAddElementColor = ProductStor.product.chosenAddElements[8][elementIndex].elementColorId;
             break;
         }
       }

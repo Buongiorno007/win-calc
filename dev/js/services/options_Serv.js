@@ -1923,7 +1923,7 @@
                 elementName: 'LIGNODUR 200' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementHeight: 1500,
-                elementColorId: 'matt',
+                elementColorId: 0,
                 elementColor: 'img/lamination/empty.png',
                 elementQty: 1,
                 elementPrice: 100
@@ -1933,7 +1933,7 @@
                 elementName: 'LIGNODUR 300' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementHeight: 1500,
-                elementColorId: 'matt',
+                elementColorId: 0,
                 elementColor: 'img/lamination/empty.png',
                 elementQty: 1,
                 elementPrice: 100
@@ -1943,7 +1943,7 @@
                 elementName: 'LIGNODUR 400' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementHeight: 1500,
-                elementColorId: 'matt',
+                elementColorId: 0,
                 elementColor: 'img/lamination/empty.png',
                 elementQty: 1,
                 elementPrice: 100
@@ -1955,7 +1955,7 @@
                 elementName: 'DANKE 100' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementHeight: 1500,
-                elementColorId: 'matt',
+                elementColorId: 0,
                 elementColor: 'img/lamination/empty.png',
                 elementQty: 1,
                 elementPrice: 100
@@ -1965,7 +1965,7 @@
                 elementName: 'DANKE 300' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementHeight: 1500,
-                elementColorId: 'matt',
+                elementColorId: 0,
                 elementColor: 'img/lamination/empty.png',
                 elementQty: 1,
                 elementPrice: 100
@@ -1977,7 +1977,7 @@
                 elementName: 'OpenTeck 100' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementHeight: 1500,
-                elementColorId: 'matt',
+                elementColorId: 0,
                 elementColor: 'img/lamination/empty.png',
                 elementQty: 1,
                 elementPrice: 100
@@ -1987,7 +1987,7 @@
                 elementName: 'OpenTeck 200' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementHeight: 1500,
-                elementColorId: 'matt',
+                elementColorId: 0,
                 elementColor: 'img/lamination/empty.png',
                 elementQty: 1,
                 elementPrice: 100
@@ -1997,7 +1997,7 @@
                 elementName: 'OpenTeck 300' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementHeight: 1500,
-                elementColorId: 'matt',
+                elementColorId: 0,
                 elementColor: 'img/lamination/empty.png',
                 elementQty: 1,
                 elementPrice: 100
@@ -2007,7 +2007,7 @@
                 elementName: 'OpenTeck 400' + $filter('translate')('mainpage.MM'),
                 elementWidth: 1500,
                 elementHeight: 1500,
-                elementColorId: 'matt',
+                elementColorId: 0,
                 elementColor: 'img/lamination/empty.png',
                 elementQty: 1,
                 elementPrice: 100
@@ -2122,53 +2122,6 @@
             ]
           ]
 
-        }));
-      },
-
-      getLaminationAddElements: function (callback) {
-        callback(new OkResult({
-          laminationWhiteMatt: {
-            laminationName: $filter('translate')('panels.LAM_WHITE'),
-            laminationLabel: $filter('translate')('panels.LAM_MAT'),
-            laminationUrl: 'img/lamination/empty.png'
-          },
-          laminationWhiteGlossy: {
-            laminationName: $filter('translate')('panels.LAM_WHITE'),
-            laminationLabel: $filter('translate')('panels.LAM_GLOSSY'),
-            laminationUrl: 'img/lamination/empty.png'
-          },
-          laminations: [
-            {
-              laminationId: 1,
-              laminationName: $filter('translate')('panels.LAM_LIGHT_OAK'),
-              laminationUrl: 'img/lamination/343551.png',
-              laminationPrice: 100
-            },
-            {
-              laminationId: 2,
-              laminationName: $filter('translate')('panels.LAM_GOLD_OAK'),
-              laminationUrl: 'img/lamination/343552.png',
-              laminationPrice: 100
-            },
-            {
-              laminationId: 3,
-              laminationName: $filter('translate')('panels.LAM_BIRCH'),
-              laminationUrl: 'img/lamination/343553.png',
-              laminationPrice: 100
-            },
-            {
-              laminationId: 4,
-              laminationName: $filter('translate')('panels.LAM_MAHAGON'),
-              laminationUrl: 'img/lamination/343554.png',
-              laminationPrice: 100
-            },
-            {
-              laminationId: 5,
-              laminationName: $filter('translate')('panels.LAM_PINE'),
-              laminationUrl: 'img/lamination/343555.png',
-              laminationPrice: 100
-            }
-          ]
         }));
       },
 

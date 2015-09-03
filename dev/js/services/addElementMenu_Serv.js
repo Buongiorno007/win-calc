@@ -193,9 +193,8 @@
 
     //--------- Delete All List of selected AddElements
     function deleteAllAddElements() {
-      var elementsQty = ProductStor.product.chosenAddElements.length,
-          index = 0;
-      for(; index < elementsQty; index++) {
+      var elementsQty = ProductStor.product.chosenAddElements.length;
+      for(var index = 0; index < elementsQty; index++) {
         ProductStor.product.chosenAddElements[index].length = 0;
       }
       ProductStor.product.addElementsPriceSELECT = 0;
@@ -319,22 +318,19 @@
     function selectAddElementColor(id) {
       var elementIndex = AuxStor.aux.currentAddElementId,
           index = (AuxStor.aux.isFocusedAddElement - 1);
-
-      AuxStor.aux.isAddElementColor = id;
-      if(id === 'matt') {
-        ProductStor.product.chosenAddElements[index][elementIndex].elementColor = AuxStor.aux.addElementLaminatWhiteMatt.laminationUrl;
-        ProductStor.product.chosenAddElements[index][elementIndex].elementColorId = 'matt';
-      } else if(id === 'glossy') {
-        ProductStor.product.chosenAddElements[index][elementIndex].elementColor = AuxStor.aux.addElementLaminatWhiteGlossy.laminationUrl;
-        ProductStor.product.chosenAddElements[index][elementIndex].elementColorId = 'glossy';
-      } else {
-        ProductStor.product.chosenAddElements[index][elementIndex].elementColor = AuxStor.aux.addElementLaminatColor[id].laminationUrl;
-        ProductStor.product.chosenAddElements[index][elementIndex].elementColorId = id;
-      }
+      console.log('SELECT COLOR++++', id, index, elementIndex);
+      ProductStor.product.chosenAddElements[index][elementIndex].elementColorId = id;
+//      if(id === 'matt') {
+//        ProductStor.product.chosenAddElements[index][elementIndex].elementColor = AuxStor.aux.addElementLaminatWhiteMatt.laminationUrl;
+//        ProductStor.product.chosenAddElements[index][elementIndex].elementColorId = 'matt';
+//      } else if(id === 'glossy') {
+//        ProductStor.product.chosenAddElements[index][elementIndex].elementColor = AuxStor.aux.addElementLaminatWhiteGlossy.laminationUrl;
+//        ProductStor.product.chosenAddElements[index][elementIndex].elementColorId = 'glossy';
+//      } else {
+//        ProductStor.product.chosenAddElements[index][elementIndex].elementColor = AuxStor.aux.addElementLaminatColor[id].laminationUrl;
+//        ProductStor.product.chosenAddElements[index][elementIndex].elementColorId = id;
+//      }
     }
-
-
-
 
 
   }

@@ -264,7 +264,7 @@
           <div class="lamination-block">
             <div data-output="{{ 'panels.LAMINAT_INSIDE' | translate }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-title"></div>
             <div show-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-white unvisible">
-              <div ng-class="{'selected': !laminPanel.P.product.laminationInId}" hm-tap="laminPanel.selectLaminatIn(0)" class="lamination-img"><img src="img/lamination/0.png"></div>
+              <div ng-class="{'selected': !laminPanel.P.product.laminationInId}" hm-tap="laminPanel.selectLaminatIn(0)" class="lamination-img"><img src="img/lamination/0.jpg"></div>
               <div data-output="{{ 'panels.LAMINAT_WHITE' | translate }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-label for-white"></div>
             </div>
             <div class="lamination-options clearfix">
@@ -278,7 +278,7 @@
           <div class="lamination-block">
             <div data-output="{{ 'panels.LAMINAT_OUTSIDE' | translate }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-title"></div>
             <div show-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-white unvisible">
-              <div ng-class="{'selected': !laminPanel.P.product.laminationOutId}" hm-tap="laminPanel.selectLaminatOut(0)" class="lamination-img"><img src="img/lamination/0.png"></div>
+              <div ng-class="{'selected': !laminPanel.P.product.laminationOutId}" hm-tap="laminPanel.selectLaminatOut(0)" class="lamination-img"><img src="img/lamination/0.jpg"></div>
               <div data-output="{{ 'panels.LAMINAT_WHITE' | translate }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-label for-white"></div>
             </div>
             <div class="lamination-options clearfix">
@@ -498,7 +498,7 @@
                     <div data-output="{{ 'add_elements.SIZE_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                   <div class="aux-params">
-                    <button ng-class="{'selected': elementsPanel.A.aux.auxParameter === '9-4-0'}" hm-tap="elementsPanel.initAddElementTools(4, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 9" class="aux-color"><img ng-src="{{ elementsPanel.P.product.chosenAddElements[8][0].elementColor }}"></button>
+                    <button ng-class="{'selected': elementsPanel.A.aux.auxParameter === '9-4-0'}" hm-tap="elementsPanel.initAddElementTools(4, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 9" class="aux-color"><img ng-src="img/lamination/{{ elementsPanel.P.product.chosenAddElements[8][0].elementColorId }}.jpg"></button>
                     <div data-output="{{ 'add_elements.COLOR_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                 </div>
@@ -1124,23 +1124,23 @@
             <div ng-class="{'active': elementsMenu.G.global.isColorSelector}" class="elements-tools color-selector">
               <div class="color-label">{{ 'add_elements_menu.COLOR_AVAILABLE' | translate }}</div>
               <div class="color-block">
-                <div ng-class="{'selected': elementsMenu.A.aux.isAddElementColor === 'matt'}" hm-tap="elementsMenu.selectAddElementColor('matt')" class="color-img"><img ng-src="{{ elementsMenu.A.aux.addElementLaminatWhiteMatt.laminationUrl }}"></div>
+                <div ng-class="{'selected': !elementsMenu.P.product.chosenAddElements[8][0].elementColorId}" hm-tap="elementsMenu.selectAddElementColor(0)" class="color-img"><img ng-src="img/lamination/0.jpg"></div>
                 <div class="color-labels">
-                  <div data-output="{{ elementsMenu.A.aux.addElementLaminatWhiteMatt.laminationName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-label"></div>
-                  <div data-output="{{ elementsMenu.A.aux.addElementLaminatWhiteMatt.laminationLabel }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-label-bold"></div>
+                  <div data-output="{{ 'mainpage.WHITE_LAMINATION' | translate }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-label"></div>
+                  <div data-output="{{ 'panels.LAM_MAT' | translate }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-label-bold"></div>
                 </div>
               </div>
               <div class="color-block">
-                <div ng-class="{'selected': elementsMenu.A.aux.isAddElementColor === 'glossy'}" hm-tap="elementsMenu.selectAddElementColor('glossy')" class="color-img"><img ng-src="{{ elementsMenu.A.aux.addElementLaminatWhiteGlossy.laminationUrl }}"></div>
+                <div ng-class="{'selected': !elementsMenu.P.product.chosenAddElements[8][0].elementColorId}" hm-tap="elementsMenu.selectAddElementColor(0)" class="color-img"><img ng-src="img/lamination/0.jpg"></div>
                 <div class="color-labels">
-                  <div data-output="{{ elementsMenu.A.aux.addElementLaminatWhiteGlossy.laminationName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-label"></div>
-                  <div data-output="{{ elementsMenu.A.aux.addElementLaminatWhiteGlossy.laminationLabel }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-label-bold"></div>
+                  <div data-output="{{ 'mainpage.WHITE_LAMINATION' | translate }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-label"></div>
+                  <div data-output="{{ 'panels.LAM_GLOSSY' | translate }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-label-bold"></div>
                 </div>
               </div>
               <div class="color-block color-options">
-                <div ng-repeat="color in elementsMenu.A.aux.addElementLaminatColor" class="color-option">
-                  <div ng-class="{'selected': elementsMenu.G.global.isAddElementColor === $index}" hm-tap="elementsMenu.selectAddElementColor($index)" class="color-img"><img ng-src="{{ color.laminationUrl }}"></div>
-                  <div data-output="{{ color.laminationName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-label"></div>
+                <div ng-repeat="color in elementsMenu.G.global.laminationsIn" class="color-option">
+                  <div ng-class="{'selected': color.lamination_type_id === elementsMenu.P.product.chosenAddElements[8][0].elementColorId}" hm-tap="elementsMenu.selectAddElementColor(color.lamination_type_id)" class="color-img"><img ng-src="img/lamination/{{ color.lamination_type_id }}.jpg"></div>
+                  <div data-output="{{ color.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-label"></div>
                 </div>
               </div>
             </div>
@@ -1169,7 +1169,7 @@
                   <div class="aux-label">{{ 'add_elements.SIZE_LABEL' | translate }}</div>
                 </div>
                 <div ng-if="addElement.elementColor" class="aux-params">
-                  <button class="aux-color"><img ng-src="{{ addElement.elementColor }}"></button>
+                  <button class="aux-color"><img ng-src="img/lamination/{{ addElement.elementColorId }}.jpg"></button>
                   <div class="aux-label">{{ 'add_elements.COLOR_LABEL' | translate }}</div>
                 </div>
                 <div class="aux-price">+{{ addElement.elementPriceDis }} {{ elementsMenu.U.userInfo.currency }}</div>
@@ -1404,7 +1404,7 @@
                   <div class="aux-label">{{ 'add_elements.WIDTH_LABEL' | translate }}</div>
                 </div>
                 <div class="aux-params">
-                  <button ng-class="{'selected': elementsMenu.A.aux.auxParameter === '9-4-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" hm-tap="elementsMenu.initAddElementTools(4, $index)" class="aux-color"><img ng-src="{{ addElement.elementColor }}"></button>
+                  <button ng-class="{'selected': elementsMenu.A.aux.auxParameter === '9-4-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" hm-tap="elementsMenu.initAddElementTools(4, $index)" class="aux-color"><img ng-src="img/lamination/{{ addElement.elementColorId }}.jpg"></button>
                   <div class="aux-label">{{ 'add_elements.COLOR_LABEL' | translate }}</div>
                 </div>
                 <div hm-tap="elementsMenu.deleteAddElement(9, $index)" class="aux-delete"></div>

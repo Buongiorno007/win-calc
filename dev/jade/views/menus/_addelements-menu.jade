@@ -31,27 +31,27 @@
         include ../parts/_qty-calculator
       .elements-tools.color-selector(ng-class="{'active': elementsMenu.G.global.isColorSelector}")
         .color-label {{ 'add_elements_menu.COLOR_AVAILABLE' | translate }}
-
+        //----матовый
         .color-block
-          .color-img(ng-class="{'selected': elementsMenu.A.aux.isAddElementColor === 'matt'}", hm-tap="elementsMenu.selectAddElementColor('matt')")
-            img(ng-src="{{ elementsMenu.A.aux.addElementLaminatWhiteMatt.laminationUrl }}")
+          .color-img(ng-class="{'selected': !elementsMenu.P.product.chosenAddElements[8][0].elementColorId}", hm-tap="elementsMenu.selectAddElementColor(0)")
+            img(ng-src="img/lamination/0.jpg")
           .color-labels
-            .aux-label(data-output="{{ elementsMenu.A.aux.addElementLaminatWhiteMatt.laminationName }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
-            .aux-label-bold(data-output="{{ elementsMenu.A.aux.addElementLaminatWhiteMatt.laminationLabel }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
-
+            .aux-label(data-output="{{ 'mainpage.WHITE_LAMINATION' | translate }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
+            .aux-label-bold(data-output="{{ 'panels.LAM_MAT' | translate }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
+        //----глянцевый
         .color-block
-          .color-img(ng-class="{'selected': elementsMenu.A.aux.isAddElementColor === 'glossy'}", hm-tap="elementsMenu.selectAddElementColor('glossy')")
-            img(ng-src="{{ elementsMenu.A.aux.addElementLaminatWhiteGlossy.laminationUrl }}")
+          .color-img(ng-class="{'selected': !elementsMenu.P.product.chosenAddElements[8][0].elementColorId}", hm-tap="elementsMenu.selectAddElementColor(0)")
+            img(ng-src="img/lamination/0.jpg")
           .color-labels
-            .aux-label(data-output="{{ elementsMenu.A.aux.addElementLaminatWhiteGlossy.laminationName }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
-            .aux-label-bold(data-output="{{ elementsMenu.A.aux.addElementLaminatWhiteGlossy.laminationLabel }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
+            .aux-label(data-output="{{ 'mainpage.WHITE_LAMINATION' | translate }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
+            .aux-label-bold(data-output="{{ 'panels.LAM_GLOSSY' | translate }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
 
 
         .color-block.color-options
-          .color-option(ng-repeat="color in elementsMenu.A.aux.addElementLaminatColor")
-            .color-img(ng-class="{'selected': elementsMenu.G.global.isAddElementColor === $index}", hm-tap="elementsMenu.selectAddElementColor($index)")
-              img(ng-src="{{ color.laminationUrl }}")
-            .aux-label(data-output="{{ color.laminationName }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
+          .color-option(ng-repeat="color in elementsMenu.G.global.laminationsIn")
+            .color-img(ng-class="{'selected': color.lamination_type_id === elementsMenu.P.product.chosenAddElements[8][0].elementColorId}", hm-tap="elementsMenu.selectAddElementColor(color.lamination_type_id)")
+              img(ng-src="img/lamination/{{ color.lamination_type_id }}.jpg")
+            .aux-label(data-output="{{ color.name }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
 
 
 
@@ -75,7 +75,7 @@
             .aux-label {{ 'add_elements.SIZE_LABEL' | translate }}
           .aux-params(ng-if="addElement.elementColor")
             button.aux-color
-              img(ng-src="{{ addElement.elementColor }}")
+              img(ng-src="img/lamination/{{ addElement.elementColorId }}.jpg")
             .aux-label {{ 'add_elements.COLOR_LABEL' | translate }}
 
           .aux-price +{{ addElement.elementPriceDis }} {{ elementsMenu.U.userInfo.currency }}
@@ -265,7 +265,7 @@
             .aux-label {{ 'add_elements.WIDTH_LABEL' | translate }}
           .aux-params
             button.aux-color(ng-class="{'selected': elementsMenu.A.aux.auxParameter === '9-4-'+$index && elementsMenu.A.aux.currentAddElementId === $index}", hm-tap="elementsMenu.initAddElementTools(4, $index)")
-              img(ng-src="{{ addElement.elementColor }}")
+              img(ng-src="img/lamination/{{ addElement.elementColorId }}.jpg")
             .aux-label {{ 'add_elements.COLOR_LABEL' | translate }}
           .aux-delete(hm-tap="elementsMenu.deleteAddElement(9, $index)")
 

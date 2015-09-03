@@ -7,7 +7,7 @@
     .module('MainModule')
     .controller('LaminationsCtrl', laminationSelectorCtrl);
 
-  function laminationSelectorCtrl($timeout, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, MainServ, analyticsServ) {
+  function laminationSelectorCtrl($timeout, $filter, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, MainServ, analyticsServ) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -37,7 +37,7 @@
         ProductStor.product.laminationInPrice = 547; //TODO price is absented in GlobalDB
       } else {
         ProductStor.product.laminationInId = 0;
-        ProductStor.product.laminationInName =  GlobalStor.global.laminationsWhite;
+        ProductStor.product.laminationInName =  $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION');
         ProductStor.product.laminationInPrice = 0;
       }
       setLaminationTotalPrice();
@@ -53,7 +53,7 @@
         ProductStor.product.laminationOutPrice = 547; //TODO price is absented in GlobalDB
       } else {
         ProductStor.product.laminationOutId = 0;
-        ProductStor.product.laminationOutName =  GlobalStor.global.laminationsWhite;
+        ProductStor.product.laminationOutName =  $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION');
         ProductStor.product.laminationOutPrice = 0;
       }
       setLaminationTotalPrice();
