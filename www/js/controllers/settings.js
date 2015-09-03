@@ -34,11 +34,12 @@
     //    $scope.global.startProgramm = false;
     //    //----- for location page
     //    $scope.global.isOpenSettingsPage = true;
-
+//TODO where additional phones?
     //----- parse additional phones
-    if(UserStor.userInfo.contact_name !== '') {
-      thisCtrl.config.addPhones = UserStor.userInfo.contact_name.split(',');
-    }
+//    console.log('CONTACT+++++', UserStor.userInfo.contact_name);
+//    if(UserStor.userInfo.contact_name !== '') {
+//      thisCtrl.config.addPhones = UserStor.userInfo.contact_name.split(',');
+//    }
 
 
     //------ clicking
