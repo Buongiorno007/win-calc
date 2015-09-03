@@ -168,7 +168,9 @@
             ' price NUMERIC(10, 2),' +
             ' amendment_pruning NUMERIC(10, 2),' +
             ' noise_coeff INTEGER,' +
-            ' heat_coeff INTEGER',
+            ' heat_coeff INTEGER,' +
+            ' lamination_in_id INTEGER,' +
+            ' lamination_out_id INTEGER',
           'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(glass_folder_id) REFERENCES glass_folders(id), FOREIGN KEY(margin_id) REFERENCES margin_types(id), FOREIGN KEY(supplier_id) REFERENCES suppliers(id), FOREIGN KEY(currency_id) REFERENCES currencies(id), FOREIGN KEY(element_group_id) REFERENCES elements_groups(id)'
         },
         'profile_system_folders': {
@@ -276,7 +278,8 @@
             ' addition_folder_id INTEGER,' +
             ' amendment_pruning NUMERIC(10, 2),' +
             ' waste NUMERIC(10, 2),' +
-            ' cameras INTEGER',
+            ' cameras INTEGER,' +
+            ' sills_group INTEGER',
           'foreignKey': ', FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id)'
         },
         'list_contents': {
@@ -365,39 +368,34 @@
         },
         'orders': {
           'tableName': 'orders',
-          'prop': 'additional_payment VARCHAR,' +
+          'prop':
+            'additional_payment VARCHAR,' +
+            ' order_number VARCHAR,' +
+            ' order_date TIMESTAMP,' +
+            ' order_type INTEGER,' +
+            ' order_style VARCHAR,' +
+            ' user_id INTEGER,' +
             ' created TIMESTAMP,' +
-            ' sended INTEGER,' +
-            ' state_to INTEGER,' +
-            ' state_buch INTEGER,' +
-            ' batch VARCHAR(255),' +
+            ' sended TIMESTAMP,' +
+            ' state_to TIMESTAMP,' +
+            ' state_buch TIMESTAMP,' +
+            ' batch VARCHAR,' +
             ' customer_phone VARCHAR(30),' +
             ' square NUMERIC(13, 2),' +
             ' base_price NUMERIC(13, 2),' +
             ' perimeter NUMERIC(13, 2),' +
-            ' customer_phone_city VARCHAR(20),' +
-            ' customer_name TEXT,' +
-            ' customer_email TEXT,' +
-            ' customer_address TEXT,' +
-            ' customer_city TEXT,' +
             ' factory_margin NUMERIC(11, 2),'+
             ' factory_id INTEGER,' +
-            ' order_id VARCHAR,' +
             ' purchase_price NUMERIC(10, 2),' +
             ' sale_price NUMERIC(10, 2),' +
             ' delivery_price NUMERIC,'+
             ' mounting_price NUMERIC,'+
-            ' user_id INTEGER,' +
-            ' order_date INTEGER,' +
-            ' customer_region VARCHAR,' +
-            ' customer_country VARCHAR,' +
+            ' delivery_date TIMESTAMP,' +
+            ' new_delivery_date TIMESTAMP,' +
             ' climatic_zone INTEGER,' +
             ' full_location VARCHAR,' +
-            ' order_style VARCHAR,' +
             ' products_qty INTEGER,' +
             ' products_price_total NUMERIC,'+
-            ' delivery_date INTEGER,' +
-            ' new_delivery_date INTEGER,' +
             ' is_date_price_less INTEGER,' +
             ' is_date_price_more INTEGER,' +
             ' floor_id INTEGER,' +
@@ -413,6 +411,13 @@
             ' order_price_total_primary NUMERIC,' +
             ' discount_construct NUMERIC,' +
             ' discount_addelem NUMERIC,' +
+            ' customer_phone_city VARCHAR(20),' +
+            ' customer_name TEXT,' +
+            ' customer_email TEXT,' +
+            ' customer_address TEXT,' +
+            ' customer_city TEXT,' +
+            ' customer_region VARCHAR,' +
+            ' customer_country VARCHAR,' +
             ' customer_itn INTEGER,' +
             ' customer_starttime VARCHAR,' +
             ' customer_endtime VARCHAR,' +
@@ -426,7 +431,8 @@
         },
         'order_products': {
           'tableName': 'order_products',
-          'prop': 'order_id INTEGER,' +
+          'prop':
+            'order_id INTEGER,' +
             ' order_number VARCHAR,' +
             ' product_id INTEGER,' +
             ' is_addelem_only INTEGER,' +
@@ -458,10 +464,8 @@
             ' product_id INTEGER,' +
             ' element_type INTEGER,' +
             ' element_id INTEGER,' +
-            ' element_name VARCHAR,' +
             ' element_width NUMERIC,' +
             ' element_height NUMERIC,' +
-            ' element_color INTEGER,' +
             ' element_price NUMERIC,' +
             ' element_qty INTEGER',
           'foreignKey': ''
@@ -481,6 +485,8 @@
         },
 
 
+
+        //-------- inner temables
         'analytics': {
           'tableName': 'analytics',
           'prop': 'created TIMESTAMP, user_id INTEGER, order_number VARCHAR, element_id INTEGER, element_type INTEGER',
@@ -528,27 +534,6 @@
         24, // 9 - handles
         16 // 10 - others
       ],
-
-
-//TODO delete
-      //------ WebSQL DB table names
-      deviceTableDB: 'device',
-      userTableDB: 'user',
-      citiesTableDBGlobal: 'cities',
-      regionsTableDBGlobal: 'regions',
-      countriesTableDBGlobal: 'countries',
-      currenciesTableDBGlobal: 'currencies',
-      listsTableDBGlobal: 'lists',
-      elementsTableDBGlobal: 'elements',
-      beadsTableDBGlobal: 'beed_profile_systems',
-      laminationTableDBGlobal: 'lamination_colors',
-      profileTypeTableDBGlobal: 'profile_system_folders',
-      profileTableDBGlobal: 'profile_systems',
-      hardwareTypeTableDBGlobal: 'window_hardware_groups',
-      hardwareTableDBGlobal: 'window_hardwares',
-
-
-
 
 
 
@@ -868,7 +853,7 @@
       exportUserEntrance: function (login, access) {
         $http.get(serverIP+'signed?login='+login+'&access_token='+access)
           .success(function () {
-            console.log('Sucsess!');
+            console.log('Enter Sucsess!');
           })
           .error(function () {
             console.log('Something went wrong!');

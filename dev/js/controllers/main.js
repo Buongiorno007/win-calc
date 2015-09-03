@@ -30,8 +30,8 @@
 
     if(GlobalStor.global.startProgramm) {
 //      GlobalStor.global.isLoader = 1;
-      console.log('START main CTRL!!!!!!');
-      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
+//      console.log('START main CTRL!!!!!!');
+//      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
       //playSound('menu');
 
       //------- first User entrance send to Server

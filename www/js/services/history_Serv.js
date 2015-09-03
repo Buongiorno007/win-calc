@@ -10,7 +10,7 @@
     .module('HistoryModule')
     .factory('HistoryServ', historyFactory);
 
-  function historyFactory($location, $filter, $cordovaDialogs, globalConstants, localDB, GeneralServ, MainServ, CartServ, GlobalStor, OrderStor, UserStor, HistoryStor) {
+  function historyFactory($location, $filter, $cordovaDialogs, localDB, GeneralServ, MainServ, CartServ, GlobalStor, OrderStor, UserStor, HistoryStor) {
 
     var thisFactory = this,
         orderMasterStyle = 'master',
@@ -49,8 +49,7 @@
 
     //------ Download complete Orders from localDB
     function downloadOrders() {
-//      localDB.selectDB(localDB.ordersTableBD, {'orderType': globalConstants.fullOrderType}).then(function(result) {
-      localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName).then(function(orders) {
+      localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {order_type: 1}).then(function(orders) {
         console.log('orders+++++', orders);
         if(orders.length) {
           HistoryStor.history.ordersSource = angular.copy(orders);
@@ -74,7 +73,7 @@
         //var oldDateArr = orders[it].deliveryDate.split('.');
         //var newDateStr = Date.parse(oldDateArr[1]+'/'+oldDateArr[0]+'/'+oldDateArr[2]);
         //var newDateStr = Date.parse(oldDateArr[2], oldDateArr[1], oldDateArr[0]);
-        ordersDateArr.push(orders[it].newDeliveryDate);
+        ordersDateArr.push(orders[it].new_delivery_date);
       }
       ordersDateArr.sort(function (a, b) {
         return b - a
@@ -103,20 +102,17 @@
 
       function sendOrder(button) {
         if(button == 1) {
-          var ordersQty = HistoryStor.history.orders.length,
-              ord = 0;
-          for(; ord < ordersQty; ord++) {
-            if(HistoryStor.history.orders[ord].orderId === orderNum) {
+          var ordersQty = HistoryStor.history.orders.length;
+          for(var ord = 0; ord < ordersQty; ord++) {
+            if(HistoryStor.history.orders[ord].order_number === orderNum) {
               //-------- change style for order
-              HistoryStor.history.orders[ord].orderStyle = orderDoneStyle;
-              HistoryStor.history.ordersSource[ord].orderStyle = orderDoneStyle;
+              HistoryStor.history.orders[ord].order_style = orderDoneStyle;
+              HistoryStor.history.ordersSource[ord].order_style = orderDoneStyle;
 
-              //------ synchronize with Global BD
-              console.log('sendOrder!!!!', HistoryStor.history.orders[ord]);
-              //TODO globalDB.sendOrder(UserStor.userInfo.phone, UserStor.userInfo.device_code, HistoryStor.history.orders[ord], function(result){console.log(result)});
+              //------ update in Local BD
+              localDB.updateLocalServerDBs(localDB.tablesLocalDB.orders.tableName,  HistoryStor.history.orders[ord].id, {order_style: orderDoneStyle});
             }
           }
-          localDB.updateDB(localDB.ordersTableBD, {'orderStyle': orderDoneStyle}, {'orderId': orderNum});
         }
       }
 
@@ -145,23 +141,24 @@
         if (button == 1) {
 
           //---- new order number
-          var newOrderId = Math.floor((Math.random() * 100000)),
+          var newOrderNum = Math.floor((Math.random() * 100000)),
               ordersQty = HistoryStor.history.orders.length,
-              ord = 0,
               newOrderCopy;
 
-          for(; ord < ordersQty; ord++) {
-            if(HistoryStor.history.orders[ord].orderId === orderNum) {
+          for(var ord = 0; ord < ordersQty; ord++) {
+            if(HistoryStor.history.orders[ord].order_number === orderNum) {
               newOrderCopy = angular.copy(HistoryStor.history.orders[ord]);
             }
           }
 
           delete newOrderCopy.id;
+          delete newOrderCopy.order_number;
           delete newOrderCopy.created;
-          newOrderCopy.orderId = newOrderId;
+          newOrderCopy.order_number = newOrderNum;
 
           //---- save new order in LocalDB
-          localDB.insertDB(localDB.ordersTableBD, newOrderCopy);
+          localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy);
+          localDB.insertRowLocalDB(newOrderCopy, localDB.tablesLocalDB.orders.tableName);
 
           //---- get it again from LocalDB as to "created date"
           //TODO переделать на создание даты здесь, а не в базе? переделака директивы на другой формат даты
@@ -181,39 +178,47 @@
           HistoryStor.history.orders.push(newOrderCopy);
           HistoryStor.history.ordersSource.push(newOrderCopy);
           //------ copy all Products of this order
-          copyOrderElements(newOrderId, localDB.productsTableBD);
+          copyOrderElements(orderNum, newOrderNum, localDB.tablesLocalDB.order_products.tableName);
 
           //------ copy all AddElements of this order
-          copyOrderElements(newOrderId, localDB.addElementsTableBD);
+          copyOrderElements(orderNum, newOrderNum, localDB.tablesLocalDB.order_addelements.tableName);
           //TODO send to Server???
         }
       }
 
-      function copyOrderElements(newOrderId, nameTableDB) {
+      function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
         var allElements = [];
         //------ Download elements of order from localDB
-        localDB.selectDB(nameTableDB, {'orderId': orderNum}).then(function (result) {
-          if (result) {
-            allElements = angular.copy(result[0]);
+        localDB.selectLocalDB(nameTableDB, {'order_number': oldOrderNum}).then(function(result) {
+//          console.log('result+++++', result);
+          if(result.length) {
 
-            var allElemQty = allElements.length, i = 0, j = 0;
+            allElements = angular.copy(result);
+            var allElemQty = allElements.length,
+                i = 0;
             if (allElemQty > 0) {
               //-------- set new orderId in all elements of order
               for (; i < allElemQty; i++) {
                 delete allElements[i].id;
                 delete allElements[i].created;
-                allElements[i].orderId = newOrderId;
+                allElements[i].order_number = newOrderNum;
               }
               //-------- insert all elements in LocalDB
-              for (; j < allElemQty; j++) {
-                localDB.insertDB(nameTableDB, allElements[j]);
+              for (; i < allElemQty; i++) {
+                localDB.insertDB(nameTableDB, allElements[i]);
+                //TODO
+//                localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy);
+//                localDB.insertRowLocalDB(newOrderCopy, localDB.tablesLocalDB.orders.tableName);
               }
             }
 
+//            console.log('maxDeliveryDateOrder =', HistoryStor.history.maxDeliveryDateOrder);
           } else {
-            console.log(result);
+            console.log('Empty result = ', result);
           }
         });
+
+
       }
 
     }
@@ -240,7 +245,7 @@
         if(button == 1) {
           var orderList, orderListSource;
           //-------- delete order
-          if(orderType === globalConstants.fullOrderType) {
+          if(orderType) {
             orderList = HistoryStor.history.orders;
             orderListSource = HistoryStor.history.ordersSource;
           //-------- delete draft
@@ -248,18 +253,16 @@
             orderList = HistoryStor.history.drafts;
             orderListSource = HistoryStor.history.draftsSource;
           }
-          var orderListQty = orderList.length,
-              i = 0;
-          for(; i < orderListQty; i++) {
-            if(orderList[i].orderId === orderNum) {
-              orderList.splice(i, 1);
-              orderListSource.splice(i, 1);
+          var orderListQty = orderList.length;
+          while(--orderListQty > -1) {
+            if(orderList[orderListQty].order_number === orderNum) {
+              orderList.splice(orderListQty, 1);
+              orderListSource.splice(orderListQty, 1);
             }
           }
-
-          //------- delete order/draft and all its elements in Local DB
-          MainServ.deleteOrderFromLocalDB(orderNum);
-
+          //TODO delet on Server
+          //------- delete order/draft and all its elements in LocalDB
+          MainServ.deleteOrderInLocalDB(orderNum);
         }
       }
     }
@@ -305,10 +308,10 @@
 
     //------ Download draft Orders from localDB
     function downloadDrafts() {
-      localDB.selectDB(localDB.ordersTableBD, {'orderType': globalConstants.draftOrderType}).then(function(result) {
-        if(result) {
-          HistoryStor.history.draftsSource = angular.copy(result);
-          HistoryStor.history.drafts = angular.copy(result);
+      localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {'order_type': 0}).then(function(drafts) {
+        if(drafts.length) {
+          HistoryStor.history.draftsSource = angular.copy(drafts);
+          HistoryStor.history.drafts = angular.copy(drafts);
         } else {
           HistoryStor.history.isEmptyResultDraft = true;
         }
@@ -521,7 +524,7 @@
           ord = 0;
 
       for(; ord < ordersQty; ord++) {
-        if(HistoryStor.history.orders[ord].orderStyle === marker1 || HistoryStor.history.orders[ord].orderStyle === marker2) {
+        if(HistoryStor.history.orders[ord].order_style === marker1 || HistoryStor.history.orders[ord].order_style === marker2) {
           ordersSortCounter++;
         }
       }

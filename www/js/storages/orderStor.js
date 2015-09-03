@@ -13,6 +13,9 @@
   function orderStorageFactory() {
     var thisFactory = this;
 
+    // 1 - order
+    // 0 - draft
+
     thisFactory.publicObj = {
       orderSource: {
         orderId: 0,
@@ -26,7 +29,6 @@
         currHeatTransfer: 0,
         currFullLocation: '',
 
-        orderType: '',
         orderStyle: '',
         productsQty: 0,
         products: [],
@@ -63,9 +65,6 @@
         endtime: '',
         target: ''
       },
-
-      fullOrderType: 'complete',
-      draftOrderType: 'draft',
 
       setDefaultOrder: setDefaultOrder
     };

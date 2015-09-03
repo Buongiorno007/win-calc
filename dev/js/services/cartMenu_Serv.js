@@ -163,7 +163,7 @@
       } else if(CartStor.cart.isMasterDialog) {
         orderStyle = 'master';
       }
-      MainServ.insertOrderInLocalDB(CartStor.cart.user, globalConstants.fullOrderType, orderStyle);
+      MainServ.insertOrderInLocalDB(CartStor.cart.user, 1, orderStyle);
       //--------- Close cart dialog, go to history
       closeOrderDialog();
       //------- set previos Page

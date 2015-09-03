@@ -41,7 +41,7 @@
       inputProductInOrder: inputProductInOrder,
       goToCart: goToCart,
       insertOrderInLocalDB: insertOrderInLocalDB,
-      deleteOrderFromLocalDB: deleteOrderFromLocalDB
+      deleteOrderInLocalDB: deleteOrderInLocalDB
     };
 
     return thisFactory.publicObj;
@@ -594,9 +594,9 @@
           ProductStor.product.templateHeight += ProductStor.product.template.details[0].overallDim[overallQty].h;
         }
 
-        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
+//        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
 
-        console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
+//        console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
 
         //--------- get product price
         calculationPrice(objXFormedPrice).then(function() {
@@ -637,7 +637,7 @@
           ProductStor.product.templatePriceSELECT = GeneralServ.roundingNumbers(result.data.price);
           setProductPriceTOTAL();
           GlobalStor.global.isLoader = 0;
-          console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
+//          console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
         } else {
           console.log(result);
         }
@@ -905,11 +905,9 @@
     function insertOrderInLocalDB(newOptions, orderType, orderStyle) {
       //---------- if EDIT Order, before inserting delete old order
       if(GlobalStor.global.orderEditNumber) {
-        deleteOrderFromLocalDB(GlobalStor.global.orderEditNumber);
+        deleteOrderInLocalDB(GlobalStor.global.orderEditNumber);
         GlobalStor.global.orderEditNumber = 0;
       }
-      OrderStor.order.orderType = orderType;
-      OrderStor.order.orderStyle = orderStyle;
       angular.extend(OrderStor.order, newOptions);
 
       var prodQty = OrderStor.order.products.length;
@@ -937,7 +935,8 @@
             addelem_price: GeneralServ.roundingNumbers(OrderStor.order.products[p].addElementsPriceSELECT),
             product_price: GeneralServ.roundingNumbers(OrderStor.order.products[p].productPriceTOTAL),
             comment: OrderStor.order.products[p].comment,
-            product_qty: OrderStor.order.products[p].productQty
+            product_qty: OrderStor.order.products[p].productQty,
+            modified: new Date()
           };
           console.log('SEND PRODUCT------', productData);
           localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_products.tableName, productData);
@@ -952,12 +951,11 @@
                   product_id: OrderStor.order.products[p].productId,
                   element_id: OrderStor.order.products[p].chosenAddElements[add][elem].elementId,
                   element_type: OrderStor.order.products[p].chosenAddElements[add][elem].elementType,
-                  element_name: OrderStor.order.products[p].chosenAddElements[add][elem].elementName,
                   element_width: OrderStor.order.products[p].chosenAddElements[add][elem].elementWidth,
                   element_height: OrderStor.order.products[p].chosenAddElements[add][elem].elementHeight,
-                  element_color: OrderStor.order.products[p].chosenAddElements[add][elem].elementColorId,
                   element_price: OrderStor.order.products[p].chosenAddElements[add][elem].elementPrice,
-                  element_qty: OrderStor.order.products[p].chosenAddElements[add][elem].elementQty
+                  element_qty: OrderStor.order.products[p].chosenAddElements[add][elem].elementQty,
+                  modified: new Date()
                 };
                 console.log('SEND DOPP',addElementsData);
                 localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_addelements.tableName, addElementsData);
@@ -972,7 +970,8 @@
       var orderData = {
         order_number: OrderStor.order.orderId,
         order_date: new Date(OrderStor.order.orderDate),
-        order_style: OrderStor.order.orderStyle,
+        order_type: orderType,
+        order_style: orderStyle,
         factory_id: UserStor.userInfo.factory_id,
         user_id: UserStor.userInfo.id,
 
@@ -1063,7 +1062,7 @@
 
 
     //-------- delete order from LocalDB
-    function deleteOrderFromLocalDB(orderNum) {
+    function deleteOrderInLocalDB(orderNum) {
       localDB.deleteRowLocalDB(localDB.tablesLocalDB.orders.tableName, {'order_number': orderNum});
       localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_number': orderNum});
       localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_number': orderNum});
