@@ -34,27 +34,27 @@
     //------- Select dropdown menu item
 
     function selectFloorPrice(floorName, floorPrice) {
-      if(OrderStor.order.selectedFloor !== floorName) {
-        OrderStor.order.selectedFloor = floorName;
+      if(OrderStor.order.floor_id !== floorName) {
+        OrderStor.order.floor_id = floorName;
         OrderStor.order.selectedFloorPrice = parseFloat(floorPrice);
         calculateTotalOrderPrice();
       }
     }
 
     function selectAssembling(assembName, assembPrice) {
-      if(OrderStor.order.selectedAssembling !== assembName) {
-        OrderStor.order.selectedAssembling = assembName;
-        OrderStor.order.selectedAssemblingPrice = parseFloat(assembPrice);
+      if(OrderStor.order.mounting_id !== assembName) {
+        OrderStor.order.mounting_id = assembName;
+        OrderStor.order.mounting_price = parseFloat(assembPrice);
         calculateTotalOrderPrice();
       }
     }
 
     function selectInstalment(period, percent) {
       if(OrderStor.order.selectedInstalmentPeriod !== period) {
-        OrderStor.order.isInstalment = 1;
+        OrderStor.order.is_instalment = 1;
         OrderStor.order.selectedInstalmentPeriod = period;
         OrderStor.order.selectedInstalmentPercent = percent;
-        calculateInstalmentPrice(OrderStor.order.orderPriceTOTAL, OrderStor.order.orderPriceTOTALPrimary, CartStor.cart.orderPriceTOTALDis, CartStor.cart.orderPriceTOTALPrimaryDis);
+        calculateInstalmentPrice(OrderStor.order.order_price_total, OrderStor.order.order_price_total_primary, CartStor.cart.orderPriceTOTALDis, CartStor.cart.orderPriceTOTALPrimaryDis);
       }
     }
 
@@ -69,22 +69,22 @@
       qtyDays = Math.floor((newDate - lastDate)/(1000*60*60*24));
 
       if(qtyDays && qtyDays > 0) {
-        OrderStor.order.deliveryPrice = globalConstants.ratePriceDeliveryLess * qtyDays;
-        OrderStor.order.isDatePriceLess = 1;
-        OrderStor.order.isDatePriceMore = 0;
-        OrderStor.order.isOldPrice = 1;
+        OrderStor.order.delivery_price = globalConstants.ratePriceDeliveryLess * qtyDays;
+        OrderStor.order.is_date_price_less = 1;
+        OrderStor.order.is_date_price_more = 0;
+        OrderStor.order.is_old_price = 1;
       } else if (qtyDays && qtyDays < 0) {
-        OrderStor.order.deliveryPrice = globalConstants.ratePriceDeliveryMore * Math.abs(qtyDays);
-        OrderStor.order.isDatePriceMore = 1;
-        OrderStor.order.isDatePriceLess = 0;
-        OrderStor.order.isOldPrice = 1;
+        OrderStor.order.delivery_price = globalConstants.ratePriceDeliveryMore * Math.abs(qtyDays);
+        OrderStor.order.is_date_price_more = 1;
+        OrderStor.order.is_date_price_less = 0;
+        OrderStor.order.is_old_price = 1;
       } else {
-        OrderStor.order.deliveryPrice = 0;
-        OrderStor.order.isDatePriceLess = 0;
-        OrderStor.order.isDatePriceMore = 0;
-        OrderStor.order.isOldPrice = 0;
+        OrderStor.order.delivery_price = 0;
+        OrderStor.order.is_date_price_less = 0;
+        OrderStor.order.is_date_price_more = 0;
+        OrderStor.order.is_old_price = 0;
       }
-      OrderStor.order.newDeliveryDate = newDate.getTime();
+      OrderStor.order.new_delivery_date = newDate.getTime();
       calculateTotalOrderPrice();
     }
 
@@ -96,51 +96,51 @@
     function calculateTotalOrderPrice() {
       //playSound('price');
 
-      OrderStor.order.orderPriceTOTAL = 0;
+      OrderStor.order.order_price_total = 0;
       CartStor.cart.orderPriceTOTALDis = 0;
 
       //----- add product prices, floor price, assembling price
-      OrderStor.order.orderPriceTOTAL += OrderStor.order.productsPriceTOTAL + OrderStor.order.selectedFloorPrice + OrderStor.order.selectedAssemblingPrice;
-      CartStor.cart.orderPriceTOTALDis += CartStor.cart.productsPriceTOTALDis + OrderStor.order.selectedFloorPrice + OrderStor.order.selectedAssemblingPrice;
+      OrderStor.order.order_price_total += OrderStor.order.products_price_total + OrderStor.order.selectedFloorPrice + OrderStor.order.mounting_price;
+      CartStor.cart.orderPriceTOTALDis += CartStor.cart.productsPriceTOTALDis + OrderStor.order.selectedFloorPrice + OrderStor.order.mounting_price;
 
       //----- save primary total price
-      OrderStor.order.orderPriceTOTALPrimary = OrderStor.order.orderPriceTOTAL;
+      OrderStor.order.order_price_total_primary = OrderStor.order.order_price_total;
       CartStor.cart.orderPriceTOTALPrimaryDis = CartStor.cart.orderPriceTOTALDis;
       //----- add delivery price
-      if(OrderStor.order.deliveryPrice) {
-        if(OrderStor.order.isDatePriceMore) {
-          OrderStor.order.orderPriceTOTAL += OrderStor.order.deliveryPrice;
-          CartStor.cart.orderPriceTOTALDis += OrderStor.order.deliveryPrice;
-        } else if(OrderStor.order.isDatePriceLess) {
-          OrderStor.order.orderPriceTOTAL -= OrderStor.order.deliveryPrice;
-          CartStor.cart.orderPriceTOTALDis -= OrderStor.order.deliveryPrice;
+      if(OrderStor.order.delivery_price) {
+        if(OrderStor.order.is_date_price_more) {
+          OrderStor.order.order_price_total += OrderStor.order.delivery_price;
+          CartStor.cart.orderPriceTOTALDis += OrderStor.order.delivery_price;
+        } else if(OrderStor.order.is_date_price_less) {
+          OrderStor.order.order_price_total -= OrderStor.order.delivery_price;
+          CartStor.cart.orderPriceTOTALDis -= OrderStor.order.delivery_price;
         }
       } else {
-        OrderStor.order.orderPriceTOTAL = OrderStor.order.orderPriceTOTALPrimary;
+        OrderStor.order.order_price_total = OrderStor.order.order_price_total_primary;
         CartStor.cart.orderPriceTOTALDis = CartStor.cart.orderPriceTOTALPrimaryDis;
       }
 
-      OrderStor.order.orderPriceTOTAL = GeneralServ.roundingNumbers(OrderStor.order.orderPriceTOTAL);
+      OrderStor.order.order_price_total = GeneralServ.roundingNumbers(OrderStor.order.order_price_total);
       CartStor.cart.orderPriceTOTALDis = GeneralServ.roundingNumbers(CartStor.cart.orderPriceTOTALDis);
-      CartStor.cart.discountPriceDiff = GeneralServ.roundingNumbers(OrderStor.order.orderPriceTOTAL - CartStor.cart.orderPriceTOTALDis);
+      CartStor.cart.discountPriceDiff = GeneralServ.roundingNumbers(OrderStor.order.order_price_total - CartStor.cart.orderPriceTOTALDis);
 
       console.log('OrderStor++++++',OrderStor.order);
       console.log('OrderStor++++++',CartStor.cart);
       //------ get price with instalment
-      calculateInstalmentPrice(OrderStor.order.orderPriceTOTAL, OrderStor.order.orderPriceTOTALPrimary, CartStor.cart.orderPriceTOTALDis, CartStor.cart.orderPriceTOTALPrimaryDis);
+      calculateInstalmentPrice(OrderStor.order.order_price_total, OrderStor.order.order_price_total_primary, CartStor.cart.orderPriceTOTALDis, CartStor.cart.orderPriceTOTALPrimaryDis);
     }
 
 
 
     function calculateInstalmentPrice(price, pricePrimary, priceDis, pricePrimaryDis) {
-      if(OrderStor.order.isInstalment) {
-        OrderStor.order.paymentFirst = GeneralServ.roundingNumbers( (price * OrderStor.order.selectedInstalmentPercent / 100) );
-        OrderStor.order.paymentMonthly = GeneralServ.roundingNumbers( ((price - OrderStor.order.paymentFirst) / OrderStor.order.selectedInstalmentPeriod) );
+      if(OrderStor.order.is_instalment) {
+        OrderStor.order.payment_first = GeneralServ.roundingNumbers( (price * OrderStor.order.selectedInstalmentPercent / 100) );
+        OrderStor.order.payment_monthly = GeneralServ.roundingNumbers( ((price - OrderStor.order.payment_first) / OrderStor.order.selectedInstalmentPeriod) );
         CartStor.cart.paymentFirstDis = GeneralServ.roundingNumbers( (priceDis * OrderStor.order.selectedInstalmentPercent / 100) );
         CartStor.cart.paymentMonthlyDis = GeneralServ.roundingNumbers( ((priceDis - CartStor.cart.paymentFirstDis) / OrderStor.order.selectedInstalmentPeriod) );
         if(pricePrimary) {
-          OrderStor.order.paymentFirstPrimary = GeneralServ.roundingNumbers( (pricePrimary * OrderStor.order.selectedInstalmentPercent / 100) );
-          OrderStor.order.paymentMonthlyPrimary = GeneralServ.roundingNumbers( ((pricePrimary - OrderStor.order.paymentFirstPrimary) / OrderStor.order.selectedInstalmentPeriod) );
+          OrderStor.order.payment_first_primary = GeneralServ.roundingNumbers( (pricePrimary * OrderStor.order.selectedInstalmentPercent / 100) );
+          OrderStor.order.payment_monthly_primary = GeneralServ.roundingNumbers( ((pricePrimary - OrderStor.order.payment_first_primary) / OrderStor.order.selectedInstalmentPeriod) );
           CartStor.cart.paymentFirstPrimaryDis = GeneralServ.roundingNumbers( (pricePrimaryDis * OrderStor.order.selectedInstalmentPercent / 100) );
           CartStor.cart.paymentMonthlyPrimaryDis = GeneralServ.roundingNumbers( ((pricePrimaryDis - CartStor.cart.paymentFirstPrimaryDis) / OrderStor.order.selectedInstalmentPeriod) );
         }

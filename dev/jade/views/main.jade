@@ -2,7 +2,7 @@ section.page-container(ng-class="{ 'swiped': !mainPage.G.global.isNavMenu }")
   section.left-side
     include menus/_navigation-menu
   //TODO change to directive!!!! rooms will be more
-  section.right-side.main-page-bg(ng-class="{'kitchen': mainPage.P.product.roomId == 1, 'livingroom': mainPage.P.product.roomId == 2, 'balcony': mainPage.P.product.roomId == 3, 'childroom': mainPage.P.product.roomId == 4, 'bedroom': mainPage.P.product.roomId == 5, 'door': mainPage.P.product.roomId == 6 }")
+  section.right-side.main-page-bg(ng-class="{'kitchen': mainPage.P.product.room_id == 1, 'livingroom': mainPage.P.product.room_id == 2, 'balcony': mainPage.P.product.room_id == 3, 'childroom': mainPage.P.product.room_id == 4, 'bedroom': mainPage.P.product.room_id == 5, 'door': mainPage.P.product.room_id == 6 }")
     section.main-content
       include parts/_user-info
       include parts/_main-central

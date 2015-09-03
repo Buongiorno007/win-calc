@@ -10,57 +10,79 @@
   function orderStorageFactory() {
     var thisFactory = this;
 
-    // 1 - order
-    // 0 - draft
 
     thisFactory.publicObj = {
       orderSource: {
-        orderId: 0,
-        orderDate: new Date().getTime(),
-        //------- current Geolocation
-        currCityId: 0,
-        currCityName: '',
-        currRegionName: '',
-        currCountryName: '',
-        currClimaticZone: 0,
-        currHeatTransfer: 0,
-        currFullLocation: '',
+        order_number: 0,
+        order_type: 1, // 0 - draft
+        order_date: new Date().getTime(),
+        order_style: '',
 
-        orderStyle: '',
-        productsQty: 0,
+        delivery_date: 0,
+        new_delivery_date: 0,
+        discount_construct: 0,
+        discount_addelem: 0,
+
+        //------- current Geolocation
+        currCityId: 0, //*
+//        currCityName: '',
+//        currRegionName: '',
+//        currCountryName: '',
+//        currClimaticZone: 0,
+        currHeatTransfer: 0, //????
+//        currFullLocation: '',
+
+        climatic_zone: 0,
+        customer_city: '',
+        customer_region: '',
+        customer_country: '',
+        full_location: '',
+
+        products_qty: 0,
         products: [],
-        productsPriceTOTAL: 0,
-        deliveryDate: 0,
-        newDeliveryDate: 0,
-        deliveryPrice: 0,
-        isDatePriceLess: 0,
-        isDatePriceMore: 0,
-        selectedFloor: 'free',
+        products_price_total: 0,
+
+        delivery_price: 0,
+        is_date_price_less: 0,
+        is_date_price_more: 0,
+
+//        selectedFloor: 'free',
+        floor_id: 1,
         selectedFloorPrice: 0,
-        selectedAssembling: 'free',
-        selectedAssemblingPrice: 0,
-        isInstalment: 0,
-        selectedInstalmentPeriod: 0,
-        selectedInstalmentPercent: 0,
-        isOldPrice: 0,
-        paymentFirst: 0,
-        paymentMonthly: 0,
-        paymentFirstPrimary: 0,
-        paymentMonthlyPrimary: 0,
-        orderPriceTOTAL: 0,
-        orderPriceTOTALPrimary: 0,
-        currDiscount: 0,
-        currDiscountAddElem: 0,
-        name: '',
-        location: '',
-        address: '',
-        mail: '',
-        phone: '',
-        phone2: '',
-        itn: 0,
-        starttime: '',
-        endtime: '',
-        target: ''
+        mounting_id: 1,
+        mounting_price: 0,
+//        selectedAssembling: 'free',
+//        selectedAssemblingPrice: 0,
+        is_instalment: 0,
+        instalment_id: 0,
+        selectedInstalmentPeriod: 0, //*
+        selectedInstalmentPercent: 0, //*
+
+        is_old_price: 0,
+        payment_first: 0,
+        payment_monthly: 0,
+        payment_first_primary: 0,
+        payment_monthly_primary: 0,
+        order_price_total: 0,
+        order_price_total_primary: 0,
+
+
+        customer_name: '',
+        customer_email: '',
+        customer_phone: '',
+        customer_phone_city: '',
+        customer_address: '',
+        //location: '',
+        customer_itn: 0,
+        customer_starttime: '',
+        customer_endtime: '',
+        customer_target: '',
+        customer_sex: 0,
+        customer_age: 0,
+        customer_education: 0,
+        customer_occupation: 0,
+        customer_infoSource: 0
+
       },
 
       setDefaultOrder: setDefaultOrder

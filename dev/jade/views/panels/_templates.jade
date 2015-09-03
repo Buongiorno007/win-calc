@@ -14,7 +14,7 @@
       svg-template(template="templatesPanel.P.product.template", template-width="templatesPanel.constants.svgTemplateIconBigWidth", template-height="templatesPanel.constants.svgTemplateIconBigHeight", type-construction="bigIcon")
 
     .template-footer.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")
-      .other-templates(ng-show="templatesPanel.P.product.constructionType === 1")
+      .other-templates(ng-show="templatesPanel.P.product.construction_type === 1")
         //.other-template(ng-repeat="templateIcon in global.templatesIcons", hm-tap="selectNewTemplate($index)")
         .other-template(ng-repeat="templateIcon in templatesPanel.templatesImgs", hm-tap="templatesPanel.selectNewTemplate($index)")
           .other-template-img.unvisible(show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}")

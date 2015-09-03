@@ -75,13 +75,14 @@
             angular.extend(ProductStor.product, editedProducts[prod]);
 
             //----- checking product with design or only addElements
-            if(!ProductStor.product.isAddElementsONLY || ProductStor.product.isAddElementsONLY === 'false') {
+            if(!ProductStor.product.is_addelem_only || ProductStor.product.is_addelem_only === 'false') {
               //----- parsing design from string to object
-              ProductStor.product.templateSource = parsingTemplateSource(ProductStor.product.templateSource);
+//              ProductStor.product.template_source = parsingTemplateSource(ProductStor.product.templateSource);
+              ProductStor.product.template_source = JSON.parse(ProductStor.product.template_source);
 //              console.log('templateSource', ProductStor.product.templateSource);
               //----- find depths and build design icon
               MainServ.setCurrentProfile().then(function(){
-                SVGServ.createSVGTemplateIcon(ProductStor.product.templateSource, GlobalStor.global.profileDepths).then(function(result) {
+                SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, GlobalStor.global.profileDepths).then(function(result) {
                   ProductStor.product.templateIcon = angular.copy(result);
                   deferred.resolve('done');
                 });
@@ -112,9 +113,9 @@
 
           for(; elem < allAddElementsQty; elem++) {
             var prod = 0;
-            for(; prod < OrderStor.order.productsQty; prod++) {
-              if(allAddElements[elem].productId === OrderStor.order.products[prod].productId) {
-                OrderStor.order.products[prod].chosenAddElements[allAddElements[elem].elementType].push(allAddElements[elem]);
+            for(; prod < OrderStor.order.products_qty; prod++) {
+              if(allAddElements[elem].product_id === OrderStor.order.products[prod].product_id) {
+                OrderStor.order.products[prod].chosenAddElements[allAddElements[elem].element_type].push(allAddElements[elem]);
                 deferred.resolve('done');
               }
             }
@@ -190,9 +191,9 @@
 
     //----- Increase Product Qty
     function increaseProductQty(productIndex) {
-      var newProductQty = OrderStor.order.products[productIndex].productQty + 1,
+      var newProductQty = OrderStor.order.products[productIndex].product_qty + 1,
           productIdBD = productIndex + 1;
-      OrderStor.order.products[productIndex].productQty = newProductQty;
+      OrderStor.order.products[productIndex].product_qty = newProductQty;
       //------- Change product value in DB
       //TODO
       localDB.updateDB(localDB.productsTableBD, {"productQty": newProductQty}, {'orderId': {"value": OrderStor.order.orderId, "union": 'AND'}, "productId": productIdBD});
@@ -203,14 +204,14 @@
 
     //----- Reduce Product Qty
     function decreaseProductQty(productIndex) {
-      var newProductQty = OrderStor.order.products[productIndex].productQty;
+      var newProductQty = OrderStor.order.products[productIndex].product_qty;
       //----- if product 1 - delete product completely
       if(newProductQty === 1) {
         clickDeleteProduct(productIndex);
       } else {
         var productIdBD = productIndex + 1;
         --newProductQty;
-        OrderStor.order.products[productIndex].productQty = newProductQty;
+        OrderStor.order.products[productIndex].product_qty = newProductQty;
         //------ Change product value in DB
         //TODO
         localDB.updateDB(localDB.productsTableBD, {"productQty": newProductQty}, {'orderId': {"value": OrderStor.order.orderId, "union": 'AND'}, "productId": productIdBD});
@@ -272,13 +273,13 @@
     //-------- Calculate All Products Price
     function calculateAllProductsPrice() {
       var productsQty = OrderStor.order.products.length;
-      OrderStor.order.productsPriceTOTAL = 0;
+      OrderStor.order.products_price_total = 0;
       CartStor.cart.productsPriceTOTALDis = 0;
       for(var prod = 0; prod < productsQty; prod++) {
-        OrderStor.order.productsPriceTOTAL += OrderStor.order.products[prod].productPriceTOTAL * OrderStor.order.products[prod].productQty;
-        CartStor.cart.productsPriceTOTALDis += OrderStor.order.products[prod].productPriceTOTALDis * OrderStor.order.products[prod].productQty;
+        OrderStor.order.products_price_total += OrderStor.order.products[prod].product_price * OrderStor.order.products[prod].product_qty;
+        CartStor.cart.productsPriceTOTALDis += OrderStor.order.products[prod].productPriceTOTALDis * OrderStor.order.products[prod].product_qty;
       }
-      OrderStor.order.productsPriceTOTAL = GeneralServ.roundingNumbers(OrderStor.order.productsPriceTOTAL);
+      OrderStor.order.products_price_total = GeneralServ.roundingNumbers(OrderStor.order.products_price_total);
       CartStor.cart.productsPriceTOTALDis = GeneralServ.roundingNumbers(CartStor.cart.productsPriceTOTALDis);
     }
 
@@ -311,7 +312,7 @@
       var productQty = OrderStor.order.products.length;
       for(var prod = 0; prod < productQty; prod++) {
         var oldDiff =  OrderStor.order.products[prod].productPriceTOTALDis - OrderStor.order.products[prod].addElementsPriceSELECTDis;
-        OrderStor.order.products[prod].addElementsPriceSELECTDis = angular.copy( GeneralServ.roundingNumbers( OrderStor.order.products[prod].addElementsPriceSELECT * (1 - discount/100) ) );
+        OrderStor.order.products[prod].addElementsPriceSELECTDis = angular.copy( GeneralServ.roundingNumbers( OrderStor.order.products[prod].addelem_price * (1 - discount/100) ) );
         OrderStor.order.products[prod].productPriceTOTALDis = angular.copy( GeneralServ.roundingNumbers( oldDiff + OrderStor.order.products[prod].addElementsPriceSELECTDis ));
 
         var addElemsQty = OrderStor.order.products[prod].chosenAddElements.length;
@@ -319,7 +320,7 @@
           var elemQty = OrderStor.order.products[prod].chosenAddElements[elem].length;
           if (elemQty > 0) {
             for (var item = 0; item < elemQty; item++) {
-              OrderStor.order.products[prod].chosenAddElements[elem][item].elementPriceDis = angular.copy( GeneralServ.roundingNumbers( OrderStor.order.products[prod].chosenAddElements[elem][item].elementPrice * (1 - discount/100) ) );
+              OrderStor.order.products[prod].chosenAddElements[elem][item].elementPriceDis = angular.copy( GeneralServ.roundingNumbers( OrderStor.order.products[prod].chosenAddElements[elem][item].element_price * (1 - discount/100) ) );
             }
           }
         }
@@ -331,7 +332,7 @@
     function changeProductPriceAsDiscount(discount) {
       var productQty = OrderStor.order.products.length;
       for(var prod = 0; prod < productQty; prod++) {
-        var oldDiff =  (OrderStor.order.products[prod].productPriceTOTAL - OrderStor.order.products[prod].addElementsPriceSELECT) * (1 - discount/100);
+        var oldDiff =  (OrderStor.order.products[prod].product_price - OrderStor.order.products[prod].addelem_price) * (1 - discount/100);
         OrderStor.order.products[prod].productPriceTOTALDis = angular.copy( GeneralServ.roundingNumbers( oldDiff + OrderStor.order.products[prod].addElementsPriceSELECTDis ));
       }
       calculateOrderPrice();

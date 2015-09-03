@@ -37,8 +37,8 @@
 //      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
       //playSound('menu');
 
-      //------- first User entrance send to Server
-      localDB.exportUserEntrance(UserStor.userInfo.phone, UserStor.userInfo.device_code); //TODO сохранять локально в юзер поле entrance
+      //------- save first User entrance
+      MainServ.saveUserEntry();
       //------- create order date
       MainServ.createOrderData();
       //------- set Curr Discounts
@@ -60,7 +60,7 @@
                   MainServ.sortingHardware();
                   console.log('HARDWARE ALL ++++++', GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares);
                   //--------- set Templates
-                  MainServ.prepareTemplates(ProductStor.product.constructionType).then(function() {
+                  MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
 
                     //-------- Lamination
                     MainServ.downloadAllLamination().then(function(lamins) {

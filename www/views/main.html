@@ -19,8 +19,8 @@
           <li ng-if="(navMenu.G.global.currOpenPage === 'history' &amp;&amp; navMenu.G.global.isCreatedNewProject &amp;&amp; navMenu.G.global.isCreatedNewProduct)" ng-class="{'selected': navMenu.activeMenuItem == 3}" hm-tap="navMenu.selectMenuItem(3)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 4)}}" class="nav-icon-calculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CURRENT_CALCULATION' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 4) }}" class="title"></span></div>
           </li>
-          <li ng-if="navMenu.O.order.productsQty &gt; 0 &amp;&amp; ((!navMenu.G.global.isOpenedHistoryPage &amp;&amp; !navMenu.G.global.isCreatedNewProject) || (navMenu.G.global.isOpenedHistoryPage &amp;&amp; navMenu.G.global.isOrderFinished))" ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.G.global.isOpenedCartPage}" hm-tap="navMenu.selectMenuItem(4)" class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}" class="nav-icon-basketOfCalculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CART' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}" class="title"></span><span show-delay="{{ navMenu.config.DELAY_SHOW_ORDERS }}" class="badge unvisible">{{ navMenu.O.order.productsQty }}</span></div>
+          <li ng-if="navMenu.O.order.products_qty &gt; 0 &amp;&amp; ((!navMenu.G.global.isOpenedHistoryPage &amp;&amp; !navMenu.G.global.isCreatedNewProject) || (navMenu.G.global.isOpenedHistoryPage &amp;&amp; navMenu.G.global.isOrderFinished))" ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.G.global.isOpenedCartPage}" hm-tap="navMenu.selectMenuItem(4)" class="item">
+            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}" class="nav-icon-basketOfCalculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CART' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}" class="title"></span><span show-delay="{{ navMenu.config.DELAY_SHOW_ORDERS }}" class="badge unvisible">{{ navMenu.O.order.products_qty }}</span></div>
           </li>
           <li ng-if="!navMenu.G.global.isOpenedHistoryPage &amp;&amp; !navMenu.G.global.isOpenedCartPage" ng-class="{'selected': navMenu.activeMenuItem == 5}" hm-tap="navMenu.selectMenuItem(5)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 6) }}" class="nav-icon-additionalComponents unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_ADD_ELEMENTS' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 6) }}" class="title"></span></div>
@@ -48,7 +48,7 @@
     </div>
   </section>
   <!--TODO change to directive!!!! rooms will be more-->
-  <section ng-class="{'kitchen': mainPage.P.product.roomId == 1, 'livingroom': mainPage.P.product.roomId == 2, 'balcony': mainPage.P.product.roomId == 3, 'childroom': mainPage.P.product.roomId == 4, 'bedroom': mainPage.P.product.roomId == 5, 'door': mainPage.P.product.roomId == 6 }" class="right-side main-page-bg">
+  <section ng-class="{'kitchen': mainPage.P.product.room_id == 1, 'livingroom': mainPage.P.product.room_id == 2, 'balcony': mainPage.P.product.room_id == 3, 'childroom': mainPage.P.product.room_id == 4, 'bedroom': mainPage.P.product.room_id == 5, 'door': mainPage.P.product.room_id == 6 }" class="right-side main-page-bg">
     <section class="main-content">
       <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
         <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
@@ -113,7 +113,7 @@
             <svg-template template="templatesPanel.P.product.template" template-width="templatesPanel.constants.svgTemplateIconBigWidth" template-height="templatesPanel.constants.svgTemplateIconBigHeight" type-construction="bigIcon"></svg-template>
           </div>
           <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-footer unvisible">
-            <div ng-show="templatesPanel.P.product.constructionType === 1" class="other-templates">
+            <div ng-show="templatesPanel.P.product.construction_type === 1" class="other-templates">
               <!--.other-template(ng-repeat="templateIcon in global.templatesIcons", hm-tap="selectNewTemplate($index)")-->
               <div ng-repeat="templateIcon in templatesPanel.templatesImgs" hm-tap="templatesPanel.selectNewTemplate($index)" class="other-template">
                 <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="other-template-img unvisible"><img ng-src="{{ templateIcon.src }}"></div>
@@ -264,12 +264,12 @@
           <div class="lamination-block">
             <div data-output="{{ 'panels.LAMINAT_INSIDE' | translate }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-title"></div>
             <div show-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-white unvisible">
-              <div ng-class="{'selected': !laminPanel.P.product.laminationInId}" hm-tap="laminPanel.selectLaminatIn(0)" class="lamination-img"><img src="img/lamination/0.jpg"></div>
+              <div ng-class="{'selected': !laminPanel.P.product.lamination_in_id}" hm-tap="laminPanel.selectLaminatIn(0)" class="lamination-img"><img src="img/lamination/0.jpg"></div>
               <div data-output="{{ 'panels.LAMINAT_WHITE' | translate }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-label for-white"></div>
             </div>
             <div class="lamination-options clearfix">
               <div ng-repeat="laminatInner in laminPanel.G.global.laminationsIn" show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * $index) }}" class="lam-option-box unvisible">
-                <div ng-class="{'selected': laminPanel.P.product.laminationInId == laminatInner.lamination_type_id}" hm-tap="laminPanel.selectLaminatIn(laminatInner.lamination_type_id, laminatInner.name)" class="lamination-img"><img ng-src="img/lamination/{{ laminatInner.lamination_type_id }}.jpg"></div>
+                <div ng-class="{'selected': laminPanel.P.product.lamination_in_id == laminatInner.lamination_type_id}" hm-tap="laminPanel.selectLaminatIn(laminatInner.lamination_type_id, laminatInner.name)" class="lamination-img"><img ng-src="img/lamination/{{ laminatInner.lamination_type_id }}.jpg"></div>
                 <div data-output="{{ laminatInner.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_TYPING * $index) }}" class="lamination-label"></div>
                 <div show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * 2 * $index) }}" class="info unvisible"></div>
               </div>
@@ -278,12 +278,12 @@
           <div class="lamination-block">
             <div data-output="{{ 'panels.LAMINAT_OUTSIDE' | translate }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-title"></div>
             <div show-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-white unvisible">
-              <div ng-class="{'selected': !laminPanel.P.product.laminationOutId}" hm-tap="laminPanel.selectLaminatOut(0)" class="lamination-img"><img src="img/lamination/0.jpg"></div>
+              <div ng-class="{'selected': !laminPanel.P.product.lamination_out_id}" hm-tap="laminPanel.selectLaminatOut(0)" class="lamination-img"><img src="img/lamination/0.jpg"></div>
               <div data-output="{{ 'panels.LAMINAT_WHITE' | translate }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-label for-white"></div>
             </div>
             <div class="lamination-options clearfix">
               <div ng-repeat="laminatOuter in laminPanel.G.global.laminationsOut" show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * $index) }}" class="lam-option-box unvisible">
-                <div ng-class="{'selected': laminPanel.P.product.laminationOutId == laminatOuter.lamination_type_id}" hm-tap="laminPanel.selectLaminatOut(laminatOuter.lamination_type_id, laminatOuter.name)" class="lamination-img"><img ng-src="img/lamination/{{ laminatOuter.lamination_type_id }}.jpg"></div>
+                <div ng-class="{'selected': laminPanel.P.product.lamination_out_id == laminatOuter.lamination_type_id}" hm-tap="laminPanel.selectLaminatOut(laminatOuter.lamination_type_id, laminatOuter.name)" class="lamination-img"><img ng-src="img/lamination/{{ laminatOuter.lamination_type_id }}.jpg"></div>
                 <div data-output="{{ laminatOuter.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_TYPING * $index) }}" class="lamination-label"></div>
                 <div show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * 2 * $index) }}" class="info unvisible"></div>
               </div>
@@ -954,7 +954,7 @@
           </li>
           <li ng-class="{'active': configMenu.G.global.activePanel == 6}" hm-tap="configMenu.selectConfigPanel(6)" class="item">
             <div data-output="{{ 'mainpage.CONFIGMENU_ADDITIONAL' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
-            <div ng-hide="configMenu.P.product.addElementsPriceSELECT &gt; 0" data-output="{{ 'mainpage.CONFIGMENU_NO_ADDELEMENTS' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="name"></div>
+            <div ng-hide="configMenu.P.product.addelem_price &gt; 0" data-output="{{ 'mainpage.CONFIGMENU_NO_ADDELEMENTS' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="name"></div>
             <div class="additional-items-list">
               <ul ng-repeat="addElementGroup in configMenu.P.product.chosenAddElements" class="additional-items-group">
                 <li ng-repeat="addElement in addElementGroup" class="additional-item"><span data-output="" class="value">{{ addElement.elementName }}</span></li>
@@ -965,15 +965,15 @@
         <footer ng-if="configMenu.G.global.isConfigMenu" show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}" class="menu-footer unvisible">
           <price price-value="configMenu.P.product.productPriceTOTALDis" price-currency="configMenu.U.userInfo.currency"></price>
           <button ng-if="!configMenu.G.global.productEditNumber" hm-tap="configMenu.inputProductInOrder()" class="cart-btn">{{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
-            <div ng-if="configMenu.O.order.productsQty" show-delay="{{ configMenu.config.DELAY_START }}" class="qty unvisible">{{ configMenu.O.order.productsQty }}</div>
+            <div ng-if="configMenu.O.order.products_qty" show-delay="{{ configMenu.config.DELAY_START }}" class="qty unvisible">{{ configMenu.O.order.products_qty }}</div>
           </button>
           <button ng-if="configMenu.G.global.productEditNumber" hm-tap="configMenu.inputProductInOrder()" class="cart-btn">{{ 'settings.SAVE' | translate }}</button>
         </footer>
-        <div ng-if="configMenu.G.global.isConfigMenu" ng-class="{'u-coeff-low': configMenu.P.product.heatTransferTOTAL &lt; configMenu.O.order.currHeatTransfer}" show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}" class="product-u-coeff unvisible">
-          <div>U = {{ configMenu.P.product.heatTransferTOTAL }}</div>
+        <div ng-if="configMenu.G.global.isConfigMenu" ng-class="{'u-coeff-low': configMenu.P.product.heat_coef_total &lt; configMenu.O.order.currHeatTransfer}" show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}" class="product-u-coeff unvisible">
+          <div>U = {{ configMenu.P.product.heat_coef_total }}</div>
           <div>{{ 'mainpage.HEATCOEF_VAL' | translate }}&sup2;&middot;K</div>
         </div>
-        <div ng-show="configMenu.P.product.isAddElementsONLY" class="curtain"></div>
+        <div ng-show="configMenu.P.product.is_addelem_only" class="curtain"></div>
       </div>
       <div ng-controller="addElementMenuCtrl as elementsMenu" ng-class="[elementsMenu.A.aux.showAddElementsMenu, elementsMenu.A.aux.addElementsMenuStyle]" class="elements-list-container">
         <div class="elements-menu">

@@ -68,7 +68,7 @@
           setAddElementsTotalPrice();
 
           //------ save analytics data
-          analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, addElem.elementId, typeIndex);
+          analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, addElem.element_id, typeIndex);
         });
       }
     }
@@ -82,7 +82,7 @@
       //----- hide element price in menu
       AuxStor.aux.currAddElementPrice = 0;
       //------ save analytics data
-      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, AuxStor.aux.addElementsList[typeIndex][elementIndex].elementId, typeIndex);
+      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, AuxStor.aux.addElementsList[typeIndex][elementIndex].element_id, typeIndex);
       AuxStor.aux.isAddElement = false;
     }
 
@@ -91,8 +91,8 @@
       var deferred = $q.defer();
       AuxStor.aux.isAddElement = typeIndex+'-'+elementIndex;
       //------- checking if add element price is
-      if(AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPrice > 0) {
-        AuxStor.aux.currAddElementPrice = GeneralServ.roundingNumbers( AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPrice * (1 - OrderStor.order.currDiscountAddElem/100) );
+      if(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price > 0) {
+        AuxStor.aux.currAddElementPrice = GeneralServ.roundingNumbers( AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price * (1 - OrderStor.order.discount_addelem/100) );
         AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
 
         deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
@@ -100,15 +100,15 @@
         var objXAddElementPrice = {
           cityId: UserStor.userInfo.city_id,
           currencyId: UserStor.userInfo.currencyId,
-          elementId: AuxStor.aux.addElementsList[typeIndex][elementIndex].elementId,
-          elementLength: AuxStor.aux.addElementsList[typeIndex][elementIndex].elementWidth
+          elementId: AuxStor.aux.addElementsList[typeIndex][elementIndex].element_id,
+          elementLength: AuxStor.aux.addElementsList[typeIndex][elementIndex].element_width
         };
 
         //-------- get current add element price
         localDB.getAdditionalPrice(objXAddElementPrice, function (results) {
           if (results.status) {
-            AuxStor.aux.currAddElementPrice = GeneralServ.roundingNumbers( results.data.price * (1 - OrderStor.order.currDiscountAddElem/100) );
-            AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPrice = angular.copy(GeneralServ.roundingNumbers( results.data.price ));
+            AuxStor.aux.currAddElementPrice = GeneralServ.roundingNumbers( results.data.price * (1 - OrderStor.order.discount_addelem/100) );
+            AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers( results.data.price ));
             AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
             $rootScope.$apply();
             deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
@@ -126,12 +126,12 @@
       var index = (AuxStor.aux.isFocusedAddElement - 1),
           existedElement;
 
-      existedElement = checkExistedSelectAddElement(ProductStor.product.chosenAddElements[index], currElement.elementId);
+      existedElement = checkExistedSelectAddElement(ProductStor.product.chosenAddElements[index], currElement.element_id);
       if(existedElement === undefined) {
         var newElementSource = {
-              elementType: AuxStor.aux.isFocusedAddElement,
-              elementWidth: 0,
-              elementHeight: 0
+              element_type: AuxStor.aux.isFocusedAddElement,
+              element_width: 0,
+              element_height: 0
             },
             newElement = angular.extend(newElementSource, currElement);
 
@@ -141,7 +141,7 @@
           AuxStor.aux.isTabFrame = true;
         }
       } else {
-        ProductStor.product.chosenAddElements[index][existedElement].elementQty += 1;
+        ProductStor.product.chosenAddElements[index][existedElement].element_qty += 1;
       }
 
     }
@@ -150,7 +150,7 @@
     //--------- when we select new addElement, function checks is there this addElements in order to increase only elementQty
     function checkExistedSelectAddElement(elementsArr, elementId) {
       for(var j = 0; j < elementsArr.length; j++){
-        if(elementsArr[j].elementId === elementId) {
+        if(elementsArr[j].element_id === elementId) {
           return j;
         }
       }
@@ -159,18 +159,18 @@
 
     function setAddElementsTotalPrice() {
       var elementTypeQty = ProductStor.product.chosenAddElements.length;
-      ProductStor.product.addElementsPriceSELECT = 0;
+      ProductStor.product.addelem_price = 0;
       ProductStor.product.addElementsPriceSELECTDis = 0;
       for (var i = 0; i < elementTypeQty; i++) {
         var elementQty = ProductStor.product.chosenAddElements[i].length;
         if (elementQty > 0) {
           for (var j = 0; j < elementQty; j++) {
-            ProductStor.product.addElementsPriceSELECT += ProductStor.product.chosenAddElements[i][j].elementQty * ProductStor.product.chosenAddElements[i][j].elementPrice;
-            ProductStor.product.addElementsPriceSELECT = GeneralServ.roundingNumbers(ProductStor.product.addElementsPriceSELECT);
+            ProductStor.product.addelem_price += ProductStor.product.chosenAddElements[i][j].element_qty * ProductStor.product.chosenAddElements[i][j].element_price;
+            ProductStor.product.addelem_price = GeneralServ.roundingNumbers(ProductStor.product.addelem_price);
           }
         }
       }
-      ProductStor.product.addElementsPriceSELECTDis = GeneralServ.roundingNumbers( ProductStor.product.addElementsPriceSELECT * (1 - OrderStor.order.currDiscountAddElem/100) );
+      ProductStor.product.addElementsPriceSELECTDis = GeneralServ.roundingNumbers( ProductStor.product.addelem_price * (1 - OrderStor.order.discount_addelem/100) );
       $timeout(function() {
         MainServ.setProductPriceTOTAL();
       }, 50);
@@ -194,7 +194,7 @@
       for(var index = 0; index < elementsQty; index++) {
         ProductStor.product.chosenAddElements[index].length = 0;
       }
-      ProductStor.product.addElementsPriceSELECT = 0;
+      ProductStor.product.addelem_price = 0;
       ProductStor.product.addElementsPriceSELECTDis = 0;
     }
 
@@ -210,12 +210,12 @@
       var elementIndex = AuxStor.aux.currentAddElementId,
         index = (AuxStor.aux.isFocusedAddElement - 1);
 
-      if(ProductStor.product.chosenAddElements[index][elementIndex].elementQty < 2 && newValue < 0) {
+      if(ProductStor.product.chosenAddElements[index][elementIndex].element_qty < 2 && newValue < 0) {
         return false;
-      } else if(ProductStor.product.chosenAddElements[index][elementIndex].elementQty < 6 && newValue == -5) {
+      } else if(ProductStor.product.chosenAddElements[index][elementIndex].element_qty < 6 && newValue == -5) {
         return false;
       } else {
-        ProductStor.product.chosenAddElements[index][elementIndex].elementQty += newValue;
+        ProductStor.product.chosenAddElements[index][elementIndex].element_qty += newValue;
       }
 
       //--------- Set Total Product Price
@@ -263,10 +263,10 @@
       newElementSize = parseInt(newElementSize, 10);
 
       if(GlobalStor.global.isWidthCalculator) {
-        ProductStor.product.chosenAddElements[index][elementIndex].elementWidth = newElementSize;
+        ProductStor.product.chosenAddElements[index][elementIndex].element_width = newElementSize;
       } else {
         if(index === 4) {
-          ProductStor.product.chosenAddElements[index][elementIndex].elementHeight = newElementSize;
+          ProductStor.product.chosenAddElements[index][elementIndex].element_height = newElementSize;
         }
       }
     }
@@ -285,8 +285,8 @@
       var objXAddElementPrice = {
         cityId: UserStor.userInfo.city_id,
         currencyId: UserStor.userInfo.currencyId,
-        elementId: ProductStor.product.chosenAddElements[index][elementIndex].elementId,
-        elementLength: ProductStor.product.chosenAddElements[index][elementIndex].elementWidth
+        elementId: ProductStor.product.chosenAddElements[index][elementIndex].element_id,
+        elementLength: ProductStor.product.chosenAddElements[index][elementIndex].element_width
       };
 
       //console.log('objXAddElementPrice change size ===== ', $scope.global.objXAddElementPrice);
@@ -296,8 +296,8 @@
 //          console.log(results.data.price);
           //var newElementPrice = parseFloat(results.data.price);
           //$scope.addElementsMenu.isAddElementPrice = true;
-          AuxStor.aux.currAddElementPrice = GeneralServ.roundingNumbers( results.data.price * (1 - OrderStor.order.currDiscountAddElem/100) );
-          ProductStor.product.chosenAddElements[index][elementIndex].elementPrice = angular.copy(GeneralServ.roundingNumbers( results.data.price ));
+          AuxStor.aux.currAddElementPrice = GeneralServ.roundingNumbers( results.data.price * (1 - OrderStor.order.discount_addelem/100) );
+          ProductStor.product.chosenAddElements[index][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers( results.data.price ));
           ProductStor.product.chosenAddElements[index][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
           //------- Set Total Product Price
           setAddElementsTotalPrice();

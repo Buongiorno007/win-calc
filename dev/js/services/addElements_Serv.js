@@ -7,7 +7,7 @@
     .module('MainModule')
     .factory('AddElementsServ', addElemFactory);
 
-  function addElemFactory($filter, $timeout, globalConstants, GlobalStor, ProductStor, AuxStor, localDB, optionsServ) {
+  function addElemFactory($filter, $timeout, globalConstants, GlobalStor, AuxStor, optionsServ) {
 
     var thisFactory = this,
       delayShowElementsMenu = globalConstants.STEP * 12;

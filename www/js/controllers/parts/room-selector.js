@@ -34,7 +34,7 @@
 
     //---------- Room Select
     function selectRoom(id) {
-      ProductStor.product.roomId = id;
+      ProductStor.product.room_id = id;
       closeRoomSelectorDialog();
       MainServ.prepareMainPage();
       GeneralServ.stopStartProg();

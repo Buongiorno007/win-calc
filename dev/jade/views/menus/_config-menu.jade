@@ -28,7 +28,7 @@
 
     li.item(ng-class="{'active': configMenu.G.global.activePanel == 6}", hm-tap="configMenu.selectConfigPanel(6)")
       .title(data-output="{{ 'mainpage.CONFIGMENU_ADDITIONAL' | translate }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
-      .name(ng-hide="configMenu.P.product.addElementsPriceSELECT > 0", data-output="{{ 'mainpage.CONFIGMENU_NO_ADDELEMENTS' | translate }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+      .name(ng-hide="configMenu.P.product.addelem_price > 0", data-output="{{ 'mainpage.CONFIGMENU_NO_ADDELEMENTS' | translate }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
       .additional-items-list
         ul.additional-items-group(ng-repeat="addElementGroup in configMenu.P.product.chosenAddElements")
           li.additional-item(ng-repeat="addElement in addElementGroup")
@@ -37,10 +37,10 @@
   footer.menu-footer.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}")
     price(price-value="configMenu.P.product.productPriceTOTALDis", price-currency="configMenu.U.userInfo.currency")
     button.cart-btn(ng-if="!configMenu.G.global.productEditNumber", hm-tap="configMenu.inputProductInOrder()") {{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
-      .qty.unvisible(ng-if="configMenu.O.order.productsQty", show-delay="{{ configMenu.config.DELAY_START }}") {{ configMenu.O.order.productsQty }}
+      .qty.unvisible(ng-if="configMenu.O.order.products_qty", show-delay="{{ configMenu.config.DELAY_START }}") {{ configMenu.O.order.products_qty }}
     button.cart-btn(ng-if="configMenu.G.global.productEditNumber", hm-tap="configMenu.inputProductInOrder()") {{ 'settings.SAVE' | translate }}
 
-  .product-u-coeff.unvisible(ng-if="configMenu.G.global.isConfigMenu", ng-class="{'u-coeff-low': configMenu.P.product.heatTransferTOTAL < configMenu.O.order.currHeatTransfer}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
-    div U = {{ configMenu.P.product.heatTransferTOTAL }}
+  .product-u-coeff.unvisible(ng-if="configMenu.G.global.isConfigMenu", ng-class="{'u-coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.currHeatTransfer}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
+    div U = {{ configMenu.P.product.heat_coef_total }}
     div {{ 'mainpage.HEATCOEF_VAL' | translate }}&sup2;&middot;K
-  .curtain(ng-show="configMenu.P.product.isAddElementsONLY")
+  .curtain(ng-show="configMenu.P.product.is_addelem_only")

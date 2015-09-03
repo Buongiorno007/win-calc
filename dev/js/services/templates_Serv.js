@@ -44,7 +44,7 @@
 
 
     function initNewTemplateType(marker) {
-      ProductStor.product.constructionType = marker;
+      ProductStor.product.construction_type = marker;
       ProductStor.product.templateIndex = 0;
       MainServ.prepareTemplates(marker);
     }

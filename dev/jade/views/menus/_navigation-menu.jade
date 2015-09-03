@@ -24,11 +24,11 @@
           span.nav-icon-calculation.unvisible(show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 4)}}")
           span.title(data-output="{{ 'mainpage.NAVMENU_CURRENT_CALCULATION' | translate }}", typing="{{ navMenu.config.typing }}", typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 4) }}")
 
-      li.item(ng-if="navMenu.O.order.productsQty > 0 && ((!navMenu.G.global.isOpenedHistoryPage && !navMenu.G.global.isCreatedNewProject) || (navMenu.G.global.isOpenedHistoryPage && navMenu.G.global.isOrderFinished))", ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.G.global.isOpenedCartPage}", hm-tap="navMenu.selectMenuItem(4)")
+      li.item(ng-if="navMenu.O.order.products_qty > 0 && ((!navMenu.G.global.isOpenedHistoryPage && !navMenu.G.global.isCreatedNewProject) || (navMenu.G.global.isOpenedHistoryPage && navMenu.G.global.isOrderFinished))", ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.G.global.isOpenedCartPage}", hm-tap="navMenu.selectMenuItem(4)")
         .item-content
           span.nav-icon-basketOfCalculation.unvisible(show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}")
           span.title(data-output="{{ 'mainpage.NAVMENU_CART' | translate }}", typing="{{ navMenu.config.typing }}", typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}")
-          span.badge.unvisible(show-delay="{{ navMenu.config.DELAY_SHOW_ORDERS }}") {{ navMenu.O.order.productsQty }}
+          span.badge.unvisible(show-delay="{{ navMenu.config.DELAY_SHOW_ORDERS }}") {{ navMenu.O.order.products_qty }}
 
       li.item(ng-if="!navMenu.G.global.isOpenedHistoryPage && !navMenu.G.global.isOpenedCartPage", ng-class="{'selected': navMenu.activeMenuItem == 5}", hm-tap="navMenu.selectMenuItem(5)")
         .item-content

@@ -853,16 +853,6 @@
       },
 
 
-      exportUserEntrance: function (login, access) {
-        $http.get(serverIP+'signed?login='+login+'&access_token='+access)
-          .success(function () {
-            console.log('Enter Sucsess!');
-          })
-          .error(function () {
-            console.log('Something went wrong!');
-          });
-      },
-
 
 
 
