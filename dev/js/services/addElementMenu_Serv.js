@@ -24,8 +24,7 @@
       setValueQty: setValueQty,
       setValueSize: setValueSize,
       deleteLastNumber: deleteLastNumber,
-      closeSizeCaclulator: closeSizeCaclulator,
-      selectAddElementColor: selectAddElementColor
+      closeSizeCaclulator: closeSizeCaclulator
     };
 
     return thisFactory.publicObj;
@@ -132,9 +131,7 @@
         var newElementSource = {
               elementType: AuxStor.aux.isFocusedAddElement,
               elementWidth: 0,
-              elementHeight: 0,
-              elementColor: '',
-              elementColorId: 0
+              elementHeight: 0
             },
             newElement = angular.extend(newElementSource, currElement);
 
@@ -311,25 +308,6 @@
         }
       });
 
-    }
-
-
-    // Select Add Element Lamination
-    function selectAddElementColor(id) {
-      var elementIndex = AuxStor.aux.currentAddElementId,
-          index = (AuxStor.aux.isFocusedAddElement - 1);
-      console.log('SELECT COLOR++++', id, index, elementIndex);
-      ProductStor.product.chosenAddElements[index][elementIndex].elementColorId = id;
-//      if(id === 'matt') {
-//        ProductStor.product.chosenAddElements[index][elementIndex].elementColor = AuxStor.aux.addElementLaminatWhiteMatt.laminationUrl;
-//        ProductStor.product.chosenAddElements[index][elementIndex].elementColorId = 'matt';
-//      } else if(id === 'glossy') {
-//        ProductStor.product.chosenAddElements[index][elementIndex].elementColor = AuxStor.aux.addElementLaminatWhiteGlossy.laminationUrl;
-//        ProductStor.product.chosenAddElements[index][elementIndex].elementColorId = 'glossy';
-//      } else {
-//        ProductStor.product.chosenAddElements[index][elementIndex].elementColor = AuxStor.aux.addElementLaminatColor[id].laminationUrl;
-//        ProductStor.product.chosenAddElements[index][elementIndex].elementColorId = id;
-//      }
     }
 
 

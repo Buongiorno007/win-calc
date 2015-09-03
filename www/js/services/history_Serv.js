@@ -10,13 +10,14 @@
     .module('HistoryModule')
     .factory('HistoryServ', historyFactory);
 
-  function historyFactory($location, $filter, $cordovaDialogs, globalConstants, globalDB, localDB, GeneralServ, MainServ, CartServ, GlobalStor, OrderStor, UserStor, HistoryStor) {
+  function historyFactory($location, $filter, $cordovaDialogs, globalConstants, localDB, GeneralServ, MainServ, CartServ, GlobalStor, OrderStor, UserStor, HistoryStor) {
 
     var thisFactory = this,
         orderMasterStyle = 'master',
         orderDoneStyle = 'done';
 
     thisFactory.publicObj = {
+      toCurrentCalculation: toCurrentCalculation,
       downloadOrders: downloadOrders,
       sendOrderToFactory: sendOrderToFactory,
       makeOrderCopy: makeOrderCopy,
@@ -39,13 +40,21 @@
     //============ methods ================//
 
 
+    //------ go to current calculations
+    function toCurrentCalculation () {
+      GeneralServ.setPreviosPage();
+      $location.path('/main');
+    }
+
+
     //------ Download complete Orders from localDB
     function downloadOrders() {
-      localDB.selectDB(localDB.ordersTableBD, {'orderType': globalConstants.fullOrderType}).then(function(result) {
-        console.log('orders+++++', result,globalConstants);
-        if(result) {
-          HistoryStor.history.ordersSource = angular.copy(result);
-          HistoryStor.history.orders = angular.copy(result);
+//      localDB.selectDB(localDB.ordersTableBD, {'orderType': globalConstants.fullOrderType}).then(function(result) {
+      localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName).then(function(orders) {
+        console.log('orders+++++', orders);
+        if(orders.length) {
+          HistoryStor.history.ordersSource = angular.copy(orders);
+          HistoryStor.history.orders = angular.copy(orders);
           //----- max day for calendar-scroll
           HistoryStor.history.maxDeliveryDateOrder = getOrderMaxDate(HistoryStor.history.orders);
           console.log('maxDeliveryDateOrder =', HistoryStor.history.maxDeliveryDateOrder);

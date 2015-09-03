@@ -341,7 +341,7 @@ th {
 }
 /* line 183, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
-.nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .elements-menu .color-img, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .hardware-container .hardware-box, .lamination-container .lamination-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
+.nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .hardware-container .hardware-box, .lamination-container .lamination-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
   -moz-animation: splashing 0.5s 0 ease 1;
   -webkit-animation: splashing 0.5s 0 ease 1;
   animation: splashing 0.5s 0 ease 1;
@@ -2554,7 +2554,7 @@ body {
   background-color: transparent;
 }
 /* line 23, ../../dev/sass/parts/_additional-elements-general.scss */
-.parameters-block .aux-label, .alladdelements-block .aux-label, .addelementunit-only .aux-label, .elements-list-container .aux-label, .auxiliaries-container .aux-label, .additional-list-container .aux-list-content .aux-label, .parameters-block .elements-menu .color-label, .elements-menu .parameters-block .color-label, .alladdelements-block .elements-menu .color-label, .elements-menu .alladdelements-block .color-label, .addelementunit-only .elements-menu .color-label, .elements-menu .addelementunit-only .color-label, .elements-list-container .elements-menu .color-label, .elements-menu .elements-list-container .color-label, .auxiliaries-container .elements-menu .color-label, .elements-menu .auxiliaries-container .color-label, .additional-list-container .aux-list-content .elements-menu .color-label, .elements-menu .additional-list-container .aux-list-content .color-label {
+.parameters-block .aux-label, .alladdelements-block .aux-label, .addelementunit-only .aux-label, .elements-list-container .aux-label, .auxiliaries-container .aux-label, .additional-list-container .aux-list-content .aux-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
@@ -5010,7 +5010,7 @@ tr.factory_item {
   color: #363636;
 }
 /* line 600, ../../dev/sass/pages/cart.scss */
-.addelementunique-header .aux-label, .addelementunique-header .elements-menu .color-label, .elements-menu .addelementunique-header .color-label {
+.addelementunique-header .aux-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
@@ -6282,96 +6282,25 @@ li.constr-shape-icon:last-child {
   padding-top: 1.25rem;
   background-color: #f8f8f8;
 }
-/* line 133, ../../dev/sass/menus/_elements-list.scss */
-.elements-menu .color-selector {
-  padding: 1.25rem 2.75rem;
-  text-align: left;
-}
-/* line 137, ../../dev/sass/menus/_elements-list.scss */
-.elements-menu .color-label {
-  margin-bottom: 0.625rem;
-}
-/* line 141, ../../dev/sass/menus/_elements-list.scss */
-.elements-menu .color-block {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -webkit-justify-content: flex-start;
-  justify-content: flex-start;
-  -webkit-align-items: flex-start;
-  align-items: flex-start;
-  margin-bottom: 0.9375rem;
-}
-/* line 147, ../../dev/sass/menus/_elements-list.scss */
-.elements-menu .color-block:first-child {
-  margin-top: 0.625rem;
-}
-/* line 151, ../../dev/sass/menus/_elements-list.scss */
-.elements-menu .color-img {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-align-items: center;
-  align-items: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  width: 6rem;
-  height: 6rem;
-  cursor: pointer;
-}
-/* line 160, ../../dev/sass/menus/_elements-list.scss */
-.elements-menu .color-img img {
-  max-width: 5.5rem;
-  height: 5.5rem;
-}
-/* line 164, ../../dev/sass/menus/_elements-list.scss */
-.elements-menu .color-img.selected {
-  position: relative;
-  border-radius: 0.3125rem;
-  background-color: #6ed44a;
-}
-/* line 169, ../../dev/sass/menus/_elements-list.scss */
-.elements-menu .color-img.selected:after {
-  font: normal 3.125rem/5.5rem icons, sans-serif;
-  position: absolute;
-  left: 1.5625rem;
-  color: #6ed44a;
-  content: "\e627";
-}
-/* line 179, ../../dev/sass/menus/_elements-list.scss */
-.elements-menu .color-labels {
-  margin-left: 0.625rem;
-}
-/* line 182, ../../dev/sass/menus/_elements-list.scss */
+/* line 134, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .aux-label-bold {
   font: normal 1.375rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
 }
-/* line 187, ../../dev/sass/menus/_elements-list.scss */
-.elements-menu .color-options {
-  height: 19.375rem;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-/* line 192, ../../dev/sass/menus/_elements-list.scss */
-.elements-menu .color-option {
-  width: 6rem;
-  margin-right: 0.9375rem;
-}
 
-/* line 200, ../../dev/sass/menus/_elements-list.scss */
+/* line 142, ../../dev/sass/menus/_elements-list.scss */
 .list-items {
   position: relative;
 }
 
-/* line 203, ../../dev/sass/menus/_elements-list.scss */
+/* line 145, ../../dev/sass/menus/_elements-list.scss */
 .list-item {
   top: 0rem;
   left: 0rem;
   position: absolute;
 }
 
-/* line 207, ../../dev/sass/menus/_elements-list.scss */
+/* line 149, ../../dev/sass/menus/_elements-list.scss */
 .aux-list-item {
   -moz-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
@@ -6388,18 +6317,18 @@ li.constr-shape-icon:last-child {
   background-color: #fff;
   z-index: 2;
 }
-/* line 221, ../../dev/sass/menus/_elements-list.scss */
+/* line 163, ../../dev/sass/menus/_elements-list.scss */
 .aux-list-item.selected {
   left: -93.75rem;
 }
 
-/* line 227, ../../dev/sass/menus/_elements-list.scss */
+/* line 169, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs {
   top: 3.75rem;
   left: 0rem;
   position: absolute;
 }
-/* line 231, ../../dev/sass/menus/_elements-list.scss */
+/* line 173, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-block {
   -moz-transition: left 0.5s ease;
   -webkit-transition: left 0.5s ease;
@@ -6415,21 +6344,21 @@ li.constr-shape-icon:last-child {
   border-style: solid;
   z-index: 1;
 }
-/* line 245, ../../dev/sass/menus/_elements-list.scss */
+/* line 187, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-block.active {
   left: -53.75rem;
 }
-/* line 250, ../../dev/sass/menus/_elements-list.scss */
+/* line 192, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .simple-frame {
   top: 0rem;
   left: 0rem;
 }
-/* line 253, ../../dev/sass/menus/_elements-list.scss */
+/* line 195, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .hard-frame {
   top: 21.875rem;
   left: 0rem;
 }
-/* line 257, ../../dev/sass/menus/_elements-list.scss */
+/* line 199, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .frame-tab {
   -moz-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
@@ -6453,18 +6382,18 @@ li.constr-shape-icon:last-child {
   color: #363636;
   z-index: 1;
 }
-/* line 275, ../../dev/sass/menus/_elements-list.scss */
+/* line 217, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .frame-tab.active {
   border-top-width: 0.3125rem;
   background-color: #fff;
 }
-/* line 280, ../../dev/sass/menus/_elements-list.scss */
+/* line 222, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-content {
   overflow-x: hidden;
   overflow-y: auto;
   max-height: 31.25rem;
 }
-/* line 285, ../../dev/sass/menus/_elements-list.scss */
+/* line 227, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-content-empty {
   display: -webkit-flex;
   display: flex;
@@ -6474,13 +6403,13 @@ li.constr-shape-icon:last-child {
   justify-content: center;
   height: 13rem;
 }
-/* line 291, ../../dev/sass/menus/_elements-list.scss */
+/* line 233, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-empty {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   text-align: center;
   color: #bebebe;
 }
-/* line 296, ../../dev/sass/menus/_elements-list.scss */
+/* line 238, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-aux-row {
   display: -webkit-flex;
   display: flex;
@@ -6492,11 +6421,11 @@ li.constr-shape-icon:last-child {
   align-items: flex-start;
   margin-bottom: 1.25rem;
 }
-/* line 303, ../../dev/sass/menus/_elements-list.scss */
+/* line 245, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-aux-row:last-child {
   margin: 0;
 }
-/* line 307, ../../dev/sass/menus/_elements-list.scss */
+/* line 249, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .aux-title {
   width: 23.125rem;
 }
@@ -8237,7 +8166,7 @@ li.constr-shape-icon:last-child {
 
 /* line 183, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
-.nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .elements-menu .color-img, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .hardware-container .hardware-box, .lamination-container .lamination-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
+.nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .hardware-container .hardware-box, .lamination-container .lamination-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
   -moz-animation: splashing 0.5s 0 ease 1;
   -webkit-animation: splashing 0.5s 0 ease 1;
   animation: splashing 0.5s 0 ease 1;

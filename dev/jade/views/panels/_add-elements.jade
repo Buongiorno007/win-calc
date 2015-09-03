@@ -161,10 +161,6 @@
             .aux-params(ng-class="{'selected': elementsPanel.A.aux.auxParameter === '9-2-0'}")
               button.aux-params-but.aux_big_but(hm-tap="elementsPanel.initAddElementTools(2, 0)", ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 9")  {{ elementsPanel.P.product.chosenAddElements[8][0].elementWidth }}
               .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ elementsPanel.config.typing }}", typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}")
-            .aux-params
-              button.aux-color(ng-class="{'selected': elementsPanel.A.aux.auxParameter === '9-4-0'}", hm-tap="elementsPanel.initAddElementTools(4, 0)", ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 9")
-                img(ng-src="img/lamination/{{ elementsPanel.P.product.chosenAddElements[8][0].elementColorId }}.jpg")
-              .aux-label(data-output="{{ 'add_elements.COLOR_LABEL' | translate }}", typing="{{ elementsPanel.config.typing }}", typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}")
           .aux-more(ng-show="elementsPanel.P.product.chosenAddElements[8].length > 1") {{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ elementsPanel.P.product.chosenAddElements[8].length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}
 
 

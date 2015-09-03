@@ -29,30 +29,6 @@
         include ../parts/_size-calculator
       .elements-tools.qty-calculator(ng-class="{'active': elementsMenu.G.global.isQtyCalculator}")
         include ../parts/_qty-calculator
-      .elements-tools.color-selector(ng-class="{'active': elementsMenu.G.global.isColorSelector}")
-        .color-label {{ 'add_elements_menu.COLOR_AVAILABLE' | translate }}
-        //----матовый
-        .color-block
-          .color-img(ng-class="{'selected': !elementsMenu.P.product.chosenAddElements[8][0].elementColorId}", hm-tap="elementsMenu.selectAddElementColor(0)")
-            img(ng-src="img/lamination/0.jpg")
-          .color-labels
-            .aux-label(data-output="{{ 'mainpage.WHITE_LAMINATION' | translate }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
-            .aux-label-bold(data-output="{{ 'panels.LAM_MAT' | translate }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
-        //----глянцевый
-        .color-block
-          .color-img(ng-class="{'selected': !elementsMenu.P.product.chosenAddElements[8][0].elementColorId}", hm-tap="elementsMenu.selectAddElementColor(0)")
-            img(ng-src="img/lamination/0.jpg")
-          .color-labels
-            .aux-label(data-output="{{ 'mainpage.WHITE_LAMINATION' | translate }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
-            .aux-label-bold(data-output="{{ 'panels.LAM_GLOSSY' | translate }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
-
-
-        .color-block.color-options
-          .color-option(ng-repeat="color in elementsMenu.G.global.laminationsIn")
-            .color-img(ng-class="{'selected': color.lamination_type_id === elementsMenu.P.product.chosenAddElements[8][0].elementColorId}", hm-tap="elementsMenu.selectAddElementColor(color.lamination_type_id)")
-              img(ng-src="img/lamination/{{ color.lamination_type_id }}.jpg")
-            .aux-label(data-output="{{ color.name }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
-
 
 
   .list-items(ng-show="elementsMenu.A.aux.isAddElementListView", ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index")
@@ -73,10 +49,6 @@
           .aux-params(ng-if="addElement.elementHeight")
             button.aux-params-but.aux_big_but {{ addElement.elementHeight }}
             .aux-label {{ 'add_elements.SIZE_LABEL' | translate }}
-          .aux-params(ng-if="addElement.elementColor")
-            button.aux-color
-              img(ng-src="img/lamination/{{ addElement.elementColorId }}.jpg")
-            .aux-label {{ 'add_elements.COLOR_LABEL' | translate }}
 
           .aux-price +{{ addElement.elementPriceDis }} {{ elementsMenu.U.userInfo.currency }}
           button.aux-choose-but(hm-tap="elementsMenu.chooseAddElementList($parent.$index, $index)") {{ 'add_elements.ADD' | translate }}
@@ -263,10 +235,6 @@
           .aux-params(ng-class="{'selected': elementsMenu.A.aux.auxParameter === '9-2-'+$index && elementsMenu.A.aux.currentAddElementId === $index}")
             button.aux-params-but.aux_big_but(hm-tap="elementsMenu.initAddElementTools(2, $index)", ng-disabled="elementsMenu.G.global.isSizeCalculator") {{ addElement.elementWidth }}
             .aux-label {{ 'add_elements.WIDTH_LABEL' | translate }}
-          .aux-params
-            button.aux-color(ng-class="{'selected': elementsMenu.A.aux.auxParameter === '9-4-'+$index && elementsMenu.A.aux.currentAddElementId === $index}", hm-tap="elementsMenu.initAddElementTools(4, $index)")
-              img(ng-src="img/lamination/{{ addElement.elementColorId }}.jpg")
-            .aux-label {{ 'add_elements.COLOR_LABEL' | translate }}
           .aux-delete(hm-tap="elementsMenu.deleteAddElement(9, $index)")
 
 

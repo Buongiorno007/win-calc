@@ -142,48 +142,48 @@
             </div>
           </div>
           <div class="scroll-vert-container">
-            <div ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter:historyPage.H.history.searchingWord track by $index" ng-hide="order.orderStyle == 'order' &amp;&amp; historyPage.H.history.isCurrentOrdersHide || order.orderStyle == 'credit' &amp;&amp; historyPage.H.history.isCurrentOrdersHide || order.orderStyle == 'master' &amp;&amp; historyPage.H.history.isWaitOrdersHide || order.orderStyle == 'done' &amp;&amp; historyPage.H.history.isDoneOrdersHide" class="account-block">
-              <div ng-class="{'current': order.orderStyle == 'order' || order.orderStyle == 'credit', 'wait': order.orderStyle == 'master', 'done': order.orderStyle == 'done' }" class="account">
+            <div ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter:historyPage.H.history.searchingWord track by $index" ng-hide="order.order_style == 'order' &amp;&amp; historyPage.H.history.isCurrentOrdersHide || order.order_style == 'credit' &amp;&amp; historyPage.H.history.isCurrentOrdersHide || order.order_style == 'master' &amp;&amp; historyPage.H.history.isWaitOrdersHide || order.order_style == 'done' &amp;&amp; historyPage.H.history.isDoneOrdersHide" class="account-block">
+              <div ng-class="{'current': order.order_style == 'order' || order.order_style == 'credit', 'wait': order.order_style == 'master', 'done': order.order_style == 'done' }" class="account">
                 <div class="account-row header">
                   <div class="account-data title">
-                    <div ng-show="order.orderStyle == 'done'" class="complete-icon"></div>
-                    <div class="account-id">id {{ order.orderId }}</div>
-                    <div class="account-addinfo"><span ng-hide="order.selectedFloorPrice == 0 &amp;&amp; order.selectedAssemblingPrice == 0">- {{ 'history.INCLUDED' | translate }}:</span><span ng-hide="order.selectedFloorPrice == 0">&nbsp; {{ 'cart.DELIVERY' | translate }}</span><span ng-hide="order.selectedFloorPrice == 0 || order.selectedAssemblingPrice == 0">&nbsp; {{ 'common_words.AND' | translate }}</span><span ng-hide="order.selectedAssemblingPrice == 0">&nbsp; {{ 'cart.ASSEMBLING' | translate }}</span></div>
+                    <div ng-show="order.order_style == 'done'" class="complete-icon"></div>
+                    <div class="account-id">id {{ order.order_number }}</div>
+                    <div class="account-addinfo"><span ng-hide="!order.floor_id &amp;&amp; !order.mounting_id">- {{ 'history.INCLUDED' | translate }}:</span><span ng-hide="!order.floor_id">&nbsp; {{ 'cart.DELIVERY' | translate }}</span><span ng-hide="!order.floor_id || !order.mounting_id">&nbsp; {{ 'common_words.AND' | translate }}</span><span ng-hide="!order.mounting_id">&nbsp; {{ 'cart.ASSEMBLING' | translate }}</span></div>
                   </div>
                   <div class="account-data">
-                    <div class="account-label account-date-filter">{{ 'history.FROM' | translate }} {{order.orderDate | date:"dd MMMM, yyyy"}}
+                    <div class="account-label account-date-filter">{{ 'history.FROM' | translate }} {{order.order_date | date:"dd MMMM, yyyy"}}
                       <!--span(order-date="{{ order.created }}", type-date="'order'")-->
                     </div>
                   </div>
                 </div>
                 <div class="account-row">
                   <div class="account-data">
-                    <div class="user-data account-user">{{ order.name }}</div>
+                    <div class="user-data account-user">{{ order.customer_name }}</div>
                     <div class="account-label">{{ 'history.CLIENT' | translate }}</div>
                   </div>
                 </div>
                 <div class="account-row">
                   <div class="account-data phone">
-                    <div class="user-data account-user-phone">{{ order.phone }}</div>
+                    <div class="user-data account-user-phone">{{ order.customer_phone }}</div>
                     <div class="account-label">{{ 'history.PHONE' | translate }}</div>
                   </div>
                   <div class="account-data">
-                    <div class="user-data account-user-adress">{{ order.location }}, {{ order.address }}</div>
+                    <div class="user-data account-user-adress">{{ order.full_location }}, {{ order.customer_address }}</div>
                     <div class="account-label">{{ 'history.ADDRESS' | translate }}</div>
                   </div>
                 </div>
                 <div class="account-row footer">
-                  <div ng-hide="order.orderStyle == 'credit'" class="account-value">{{ order.orderPriceTOTAL }}{{ historyPage.U.userInfo.currency }}</div>
-                  <div ng-show="order.orderStyle == 'credit'" class="account-value">{{ order.orderPriceTOTAL }}{{ historyPage.U.userInfo.currency }}, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.paymentMonthly}}{{ historyPage.U.userInfo.currency }}</div>
-                  <div ng-show="order.orderStyle == 'master'" class="account-value">{{ 'history.WAIT_MASTER' | translate }}</div>
-                  <div class="account-date">{{ order.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{order.newDeliveryDate | date:"dd.MM.yyyy"}}</div>
+                  <div ng-hide="order.order_style == 'credit'" class="account-value">{{ order.order_price_total }}{{ historyPage.U.userInfo.currency }}</div>
+                  <div ng-show="order.order_style == 'credit'" class="account-value">{{ order.order_price_total }}{{ historyPage.U.userInfo.currency }}, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.payment_monthly}}{{ historyPage.U.userInfo.currency }}</div>
+                  <div ng-show="order.order_style == 'master'" class="account-value">{{ 'history.WAIT_MASTER' | translate }}</div>
+                  <div class="account-date">{{ order.products_qty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
                 </div>
               </div>
-              <button ng-hide="order.orderStyle == 'done'" hm-tap="historyPage.sendOrderToFactory(order.orderStyle, order.orderId)" class="account-tool account-select-btn"></button>
-              <button ng-hide="order.orderStyle == 'done'" hm-tap="historyPage.makeOrderCopy(order.orderStyle, order.orderId)" class="account-tool account-copy-btn"></button>
+              <button ng-hide="order.order_style == 'done'" hm-tap="historyPage.sendOrderToFactory(order.order_style, order.order_number)" class="account-tool account-select-btn"></button>
+              <button ng-hide="order.order_style == 'done'" hm-tap="historyPage.makeOrderCopy(order.order_style, order.order_number)" class="account-tool account-copy-btn"></button>
               <button hm-tap="" class="account-tool account-print-btn"></button>
-              <button ng-hide="order.orderStyle == 'done'" hm-tap="historyPage.clickDeleteOrder(order.orderType, order.orderId, $event)" class="account-delete-btn"></button>
-              <button ng-hide="order.orderStyle == 'done'" hm-tap="historyPage.editOrder(order.orderId)" class="account-change-btn">{{ 'common_words.CHANGE' | translate }}</button>
+              <button ng-hide="order.order_style == 'done'" hm-tap="historyPage.clickDeleteOrder(order.orderType, order.order_number, $event)" class="account-delete-btn"></button>
+              <button ng-hide="order.order_style == 'done'" hm-tap="historyPage.editOrder(order.order_number)" class="account-change-btn">{{ 'common_words.CHANGE' | translate }}</button>
             </div>
             <div ng-show="(orders | filter:historyPage.H.history.searchingWord).length == 0" class="empty-search-result">
               <div class="result-icon"></div>
@@ -250,8 +250,8 @@
                     <div class="account-label account-date-filter">{{ 'history.FROM' | translate }}<span order-date="{{ draft.created }}" type-date="'order'"></span></div>
                   </div>
                   <div hm-tap="historyPage.editOrder(draft.orderId)" class="account-row footer">
-                    <div ng-hide="draft.orderStyle == 'credit'" class="account-value">{{ draft.orderPriceTOTAL }}{{ historyPage.U.userInfo.currency }}</div>
-                    <div ng-show="draft.orderStyle == 'credit'" class="account-value">{{ draft.orderPriceTOTAL }}{{ historyPage.U.userInfo.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.paymentMonthly}}{{ historyPage.U.userInfo.currency }}</div>
+                    <div ng-hide="draft.order_style == 'credit'" class="account-value">{{ draft.orderPriceTOTAL }}{{ historyPage.U.userInfo.currency }}</div>
+                    <div ng-show="draft.order_style == 'credit'" class="account-value">{{ draft.orderPriceTOTAL }}{{ historyPage.U.userInfo.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.paymentMonthly}}{{ historyPage.U.userInfo.currency }}</div>
                     <div class="account-qty">{{ draft.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{draft.newDeliveryDate | date:"dd.MM.yyyy"}}</div>
                   </div>
                 </div>

@@ -130,70 +130,12 @@
     padding-top: rem(20px);
     background-color: #f8f8f8;
   }
-  .color-selector {
-    padding: rem(20px) rem(44px);
-    text-align: left;
-  }
-  .color-label {
-    @extend .aux-label;
-    margin-bottom: rem(10px);
-  }
-  .color-block {
-    @include display-flex();
-    @include flex-flow(row wrap);
-    @include justify-content(flex-start);
-    @include align-items(flex-start);
-    margin-bottom: rem(15px);
-    &:first-child {
-      margin-top: rem(10px);
-    }
-  }
-  .color-img {
-    @extend .splash;
-    @include display-flex();
-    @include align-items(center);
-    @include justify-content(center);
 
-    width: rem(96px);
-    height: rem(96px);
-    cursor: pointer;
-    img {
-      max-width: rem(88px);
-      height: 5.5rem;
-    }
-    &.selected {
-      position: relative;
-      border-radius: rem(5px);
-      background-color: $main_green;
-
-      &:after {
-        @include font-icon(rem(50px), rem(88px));
-
-        position: absolute;
-        left: rem(25px);
-        color: $main_green;
-        content: $check-panel-icon;
-      }
-    }
-  }
-  .color-labels {
-    margin-left: rem(10px);
-  }
   .aux-label-bold {
     @include roboto-bd(rem(22px));
 
     color: $main_gray_txt;
   }
-  .color-options {
-    height: rem(310px);
-    overflow-x: hidden;
-    overflow-y: auto;
-  }
-  .color-option {
-    width: rem(96px);
-    margin-right: rem(15px);
-  }
-
 }
 
 

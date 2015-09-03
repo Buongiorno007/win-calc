@@ -208,9 +208,6 @@
             GlobalStor.global.isSizeCalculator = true;
             GlobalStor.global.isWidthCalculator = false;
             break;
-          case 4:
-            GlobalStor.global.isColorSelector = true;
-            break;
         }
       }
     }
@@ -245,7 +242,6 @@
       GlobalStor.global.isQtyCalculator = false;
       GlobalStor.global.isSizeCalculator = false;
       GlobalStor.global.isWidthCalculator = false;
-      GlobalStor.global.isColorSelector = false;
     }
 
 

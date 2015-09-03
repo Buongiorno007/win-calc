@@ -161,8 +161,6 @@
         OTHER4: 'Das ausrüstende Profil',
         OTHER5: 'Die untere Schlinge auf dem Rahmen',
         OTHER6: 'Die Wendeschlinge Komfort die 12/20-13 Linke',
-        LAM_MAT: 'Matte',
-        LAM_GLOSSY: 'Glänzend',
         DOOR_TYPE1: 'Nach dem Perimeter',
         DOOR_TYPE2: 'Ohne Schwelle',
         DOOR_TYPE3: 'Die Aluminiumschwelle, Typ',
@@ -199,7 +197,6 @@
         SIZE_LABEL: 'Größe',
         WIDTH_LABEL: 'Breite',
         HEIGHT_LABEL: 'Höhe',
-        COLOR_LABEL: 'Farbe',
         OTHER_ELEMENTS1: 'Noch',
         OTHER_ELEMENTS2: 'Komponente ...',
         SCHEME_VIEW: 'Schematisch',
@@ -214,7 +211,6 @@
       add_elements_menu: {
         TIP: 'Wählen Sie ein Element aus der Liste',
         EMPTY_ELEMENT: 'Ohne das Element',
-        COLOR_AVAILABLE: 'Verfügbare Farben:',
         TAB_NAME_SIMPLE_FRAME: 'Einfacher Aufbau',
         TAB_NAME_HARD_FRAME: 'Verbundstruktur',
         TAB_EMPTY_EXPLAIN: 'Wählen Sie den Anfangspunkt zu starten Bau.'

@@ -30,7 +30,6 @@
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-width
           td.aux-tablecell-height
-          td.aux-tablecell-color
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}
           td.aux-tablecell-delete
@@ -56,7 +55,6 @@
               button.aux-params-but.aux_big_but(hm-tap="elementsListPanel.initAddElementTools(2, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.elementWidth }}
               .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-height
-          td.aux-tablecell-color
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}
           td.aux-tablecell-delete
@@ -81,7 +79,6 @@
               button.aux-params-but.aux_middle_but(hm-tap="elementsListPanel.initAddElementTools(2, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.elementWidth }}
               .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-height
-          td.aux-tablecell-color
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}
           td.aux-tablecell-delete
@@ -107,7 +104,6 @@
               button.aux-params-but.aux_slope_but(hm-tap="elementsListPanel.initAddElementTools(2, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.elementWidth }}
               .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-height
-          td.aux-tablecell-color
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}
           td.aux-tablecell-delete
@@ -135,7 +131,6 @@
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '5-3-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
               button.aux-params-but.aux_middle_but(hm-tap="elementsListPanel.initAddElementTools(3, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.elementWidth }}
               .aux-label(data-output="{{ 'add_elements.HEIGHT_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
-          td.aux-tablecell-color
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}
           td.aux-tablecell-delete
@@ -160,7 +155,6 @@
               button.aux-params-but.aux_slope_but(hm-tap="elementsListPanel.initAddElementTools(2, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.elementWidth }}
               .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-height
-          td.aux-tablecell-color
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}
           td.aux-tablecell-delete
@@ -185,7 +179,6 @@
               button.aux-params-but.aux_connect_but(hm-tap="elementsListPanel.initAddElementTools(2, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.elementWidth }}
               .aux-label(data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-height
-          td.aux-tablecell-color
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}
           td.aux-tablecell-delete
@@ -207,7 +200,6 @@
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-width
           td.aux-tablecell-height
-          td.aux-tablecell-color
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}
           td.aux-tablecell-delete
@@ -232,11 +224,6 @@
               button.aux-params-but.aux_big_but(hm-tap="elementsListPanel.initAddElementTools(2, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.elementWidth }}
               .aux-label(data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-height
-          td.aux-tablecell-color
-            .aux-params
-              button.aux-color(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '9-4-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}", hm-tap="elementsListPanel.initAddElementTools(4, $index)")
-                img(ng-src="{{ addElement.elementColor }}")
-              .aux-label {{ 'add_elements.COLOR_LABEL' | translate }}
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}
           td.aux-tablecell-delete
@@ -259,7 +246,6 @@
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-width
           td.aux-tablecell-height
-          td.aux-tablecell-color
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}
           td.aux-tablecell-delete
@@ -282,7 +268,6 @@
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-width
           td.aux-tablecell-height
-          td.aux-tablecell-color
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}
           td.aux-tablecell-delete

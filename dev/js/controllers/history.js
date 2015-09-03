@@ -7,15 +7,13 @@
     .module('HistoryModule')
     .controller('HistoryCtrl', historyCtrl);
 
-  function historyCtrl(GlobalStor, UserStor, HistoryStor, HistoryServ, GeneralServ, $location) {
+  function historyCtrl(GlobalStor, UserStor, HistoryStor, HistoryServ) {
 
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.H = HistoryStor;
     thisCtrl.U = UserStor;
-
-    thisCtrl. toCurrentCalculation = toCurrentCalculation;
 
 
     //------- set current Page
@@ -28,6 +26,7 @@
 
 
     //------ clicking
+    thisCtrl.toCurrentCalculation = HistoryServ.toCurrentCalculation;
     thisCtrl.sendOrderToFactory = HistoryServ.sendOrderToFactory;
     thisCtrl.makeOrderCopy = HistoryServ.makeOrderCopy;
     thisCtrl.clickDeleteOrder = HistoryServ.clickDeleteOrder;
@@ -39,14 +38,6 @@
     thisCtrl.openCalendarScroll = HistoryServ.openCalendarScroll;
     thisCtrl.orderSorting = HistoryServ.orderSorting;
     thisCtrl.sortingInit = HistoryServ.sortingInit;
-
-    //============ methods ================//
-
-    //------ go to current calculations
-    function toCurrentCalculation () {
-      GeneralServ.setPreviosPage();
-      $location.path('/main');
-    }
 
 
   }

@@ -75,8 +75,7 @@
         //---- Calculators
         isQtyCalculator: 0,
         isSizeCalculator: 0,
-        isWidthCalculator: 0,
-        isColorSelector: 0
+        isWidthCalculator: 0
       },
 
       setDefaultGlobal: setDefaultGlobal

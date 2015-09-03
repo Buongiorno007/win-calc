@@ -497,10 +497,6 @@
                     <button hm-tap="elementsPanel.initAddElementTools(2, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 9" class="aux-params-but aux_big_but"> {{ elementsPanel.P.product.chosenAddElements[8][0].elementWidth }}</button>
                     <div data-output="{{ 'add_elements.SIZE_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
-                  <div class="aux-params">
-                    <button ng-class="{'selected': elementsPanel.A.aux.auxParameter === '9-4-0'}" hm-tap="elementsPanel.initAddElementTools(4, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 9" class="aux-color"><img ng-src="img/lamination/{{ elementsPanel.P.product.chosenAddElements[8][0].elementColorId }}.jpg"></button>
-                    <div data-output="{{ 'add_elements.COLOR_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
-                  </div>
                 </div>
                 <div ng-show="elementsPanel.P.product.chosenAddElements[8].length &gt; 1" class="aux-more">{{ 'add_elements.OTHER_ELEMENTS1' | translate }} {{ elementsPanel.P.product.chosenAddElements[8].length - 1 }} {{ 'add_elements.OTHER_ELEMENTS2' | translate }}</div>
               </div>
@@ -588,7 +584,6 @@
                 </td>
                 <td class="aux-tablecell-width"></td>
                 <td class="aux-tablecell-height"></td>
-                <td class="aux-tablecell-color"></td>
                 <td class="aux-tablecell-price">
                   <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
@@ -621,7 +616,6 @@
                   </div>
                 </td>
                 <td class="aux-tablecell-height"></td>
-                <td class="aux-tablecell-color"></td>
                 <td class="aux-tablecell-price">
                   <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
@@ -654,7 +648,6 @@
                   </div>
                 </td>
                 <td class="aux-tablecell-height"></td>
-                <td class="aux-tablecell-color"></td>
                 <td class="aux-tablecell-price">
                   <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
@@ -687,7 +680,6 @@
                   </div>
                 </td>
                 <td class="aux-tablecell-height"></td>
-                <td class="aux-tablecell-color"></td>
                 <td class="aux-tablecell-price">
                   <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
@@ -725,7 +717,6 @@
                     <div data-output="{{ 'add_elements.HEIGHT_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
-                <td class="aux-tablecell-color"></td>
                 <td class="aux-tablecell-price">
                   <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
@@ -758,7 +749,6 @@
                   </div>
                 </td>
                 <td class="aux-tablecell-height"></td>
-                <td class="aux-tablecell-color"></td>
                 <td class="aux-tablecell-price">
                   <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
@@ -791,7 +781,6 @@
                   </div>
                 </td>
                 <td class="aux-tablecell-height"></td>
-                <td class="aux-tablecell-color"></td>
                 <td class="aux-tablecell-price">
                   <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
@@ -819,7 +808,6 @@
                 </td>
                 <td class="aux-tablecell-width"></td>
                 <td class="aux-tablecell-height"></td>
-                <td class="aux-tablecell-color"></td>
                 <td class="aux-tablecell-price">
                   <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
@@ -852,12 +840,6 @@
                   </div>
                 </td>
                 <td class="aux-tablecell-height"></td>
-                <td class="aux-tablecell-color">
-                  <div class="aux-params">
-                    <button ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '9-4-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" hm-tap="elementsListPanel.initAddElementTools(4, $index)" class="aux-color"><img ng-src="{{ addElement.elementColor }}"></button>
-                    <div class="aux-label">{{ 'add_elements.COLOR_LABEL' | translate }}</div>
-                  </div>
-                </td>
                 <td class="aux-tablecell-price">
                   <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
@@ -885,7 +867,6 @@
                 </td>
                 <td class="aux-tablecell-width"></td>
                 <td class="aux-tablecell-height"></td>
-                <td class="aux-tablecell-color"></td>
                 <td class="aux-tablecell-price">
                   <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
@@ -913,7 +894,6 @@
                 </td>
                 <td class="aux-tablecell-width"></td>
                 <td class="aux-tablecell-height"></td>
-                <td class="aux-tablecell-color"></td>
                 <td class="aux-tablecell-price">
                   <div class="aux-price">+ {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
@@ -1121,29 +1101,6 @@
                 </tr>
               </table>
             </div>
-            <div ng-class="{'active': elementsMenu.G.global.isColorSelector}" class="elements-tools color-selector">
-              <div class="color-label">{{ 'add_elements_menu.COLOR_AVAILABLE' | translate }}</div>
-              <div class="color-block">
-                <div ng-class="{'selected': !elementsMenu.P.product.chosenAddElements[8][0].elementColorId}" hm-tap="elementsMenu.selectAddElementColor(0)" class="color-img"><img ng-src="img/lamination/0.jpg"></div>
-                <div class="color-labels">
-                  <div data-output="{{ 'mainpage.WHITE_LAMINATION' | translate }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-label"></div>
-                  <div data-output="{{ 'panels.LAM_MAT' | translate }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-label-bold"></div>
-                </div>
-              </div>
-              <div class="color-block">
-                <div ng-class="{'selected': !elementsMenu.P.product.chosenAddElements[8][0].elementColorId}" hm-tap="elementsMenu.selectAddElementColor(0)" class="color-img"><img ng-src="img/lamination/0.jpg"></div>
-                <div class="color-labels">
-                  <div data-output="{{ 'mainpage.WHITE_LAMINATION' | translate }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-label"></div>
-                  <div data-output="{{ 'panels.LAM_GLOSSY' | translate }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-label-bold"></div>
-                </div>
-              </div>
-              <div class="color-block color-options">
-                <div ng-repeat="color in elementsMenu.G.global.laminationsIn" class="color-option">
-                  <div ng-class="{'selected': color.lamination_type_id === elementsMenu.P.product.chosenAddElements[8][0].elementColorId}" hm-tap="elementsMenu.selectAddElementColor(color.lamination_type_id)" class="color-img"><img ng-src="img/lamination/{{ color.lamination_type_id }}.jpg"></div>
-                  <div data-output="{{ color.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-label"></div>
-                </div>
-              </div>
-            </div>
           </footer>
         </div>
         <div ng-show="elementsMenu.A.aux.isAddElementListView" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" class="list-items">
@@ -1167,10 +1124,6 @@
                 <div ng-if="addElement.elementHeight" class="aux-params">
                   <button class="aux-params-but aux_big_but">{{ addElement.elementHeight }}</button>
                   <div class="aux-label">{{ 'add_elements.SIZE_LABEL' | translate }}</div>
-                </div>
-                <div ng-if="addElement.elementColor" class="aux-params">
-                  <button class="aux-color"><img ng-src="img/lamination/{{ addElement.elementColorId }}.jpg"></button>
-                  <div class="aux-label">{{ 'add_elements.COLOR_LABEL' | translate }}</div>
                 </div>
                 <div class="aux-price">+{{ addElement.elementPriceDis }} {{ elementsMenu.U.userInfo.currency }}</div>
                 <button hm-tap="elementsMenu.chooseAddElementList($parent.$index, $index)" class="aux-choose-but">{{ 'add_elements.ADD' | translate }}</button>
@@ -1402,10 +1355,6 @@
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '9-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_big_but">{{ addElement.elementWidth }}</button>
                   <div class="aux-label">{{ 'add_elements.WIDTH_LABEL' | translate }}</div>
-                </div>
-                <div class="aux-params">
-                  <button ng-class="{'selected': elementsMenu.A.aux.auxParameter === '9-4-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" hm-tap="elementsMenu.initAddElementTools(4, $index)" class="aux-color"><img ng-src="img/lamination/{{ addElement.elementColorId }}.jpg"></button>
-                  <div class="aux-label">{{ 'add_elements.COLOR_LABEL' | translate }}</div>
                 </div>
                 <div hm-tap="elementsMenu.deleteAddElement(9, $index)" class="aux-delete"></div>
               </div>

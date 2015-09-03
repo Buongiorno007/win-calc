@@ -158,8 +158,6 @@
         OTHER4: 'The reinforcing profile',
         OTHER5: 'The lower loop on frame',
         OTHER6: 'Rotary loop of Komfort 12/20-13 left',
-        LAM_MAT: 'opaque',
-        LAM_GLOSSY: 'glossy',
         DOOR_TYPE1: 'on perimeter',
         DOOR_TYPE2: 'without threshold',
         DOOR_TYPE3: 'aluminum threshold, type',
@@ -196,7 +194,6 @@
         SIZE_LABEL: 'dimensiune',
         WIDTH_LABEL: 'lățime',
         HEIGHT_LABEL: 'înălțime',
-        COLOR_LABEL: 'culoare',
         OTHER_ELEMENTS1: 'încă',
         OTHER_ELEMENTS2: 'componenta...',
         SCHEME_VIEW: 'schematic',
@@ -211,7 +208,6 @@
       add_elements_menu: {
         TIP: 'Selectați un element din listă',
         EMPTY_ELEMENT: 'fără elementul',
-        COLOR_AVAILABLE: 'culori disponibile:',
         TAB_NAME_SIMPLE_FRAME: 'construcție simplă',
         TAB_NAME_HARD_FRAME: 'construcție component',
         TAB_EMPTY_EXPLAIN: 'Vă rugăm să selectați primul element,pentru a porni construcția.'

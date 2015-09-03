@@ -72,42 +72,42 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
 
 
           .scroll-vert-container
-            .account-block(ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter:historyPage.H.history.searchingWord track by $index", ng-hide="order.orderStyle == 'order' && historyPage.H.history.isCurrentOrdersHide || order.orderStyle == 'credit' && historyPage.H.history.isCurrentOrdersHide || order.orderStyle == 'master' && historyPage.H.history.isWaitOrdersHide || order.orderStyle == 'done' && historyPage.H.history.isDoneOrdersHide")
-              .account(ng-class="{'current': order.orderStyle == 'order' || order.orderStyle == 'credit', 'wait': order.orderStyle == 'master', 'done': order.orderStyle == 'done' }")
+            .account-block(ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter:historyPage.H.history.searchingWord track by $index", ng-hide="order.order_style == 'order' && historyPage.H.history.isCurrentOrdersHide || order.order_style == 'credit' && historyPage.H.history.isCurrentOrdersHide || order.order_style == 'master' && historyPage.H.history.isWaitOrdersHide || order.order_style == 'done' && historyPage.H.history.isDoneOrdersHide")
+              .account(ng-class="{'current': order.order_style == 'order' || order.order_style == 'credit', 'wait': order.order_style == 'master', 'done': order.order_style == 'done' }")
                 .account-row.header
                   .account-data.title
-                    .complete-icon(ng-show="order.orderStyle == 'done'")
-                    .account-id id {{ order.orderId }}
+                    .complete-icon(ng-show="order.order_style == 'done'")
+                    .account-id id {{ order.order_number }}
                     .account-addinfo
-                      span(ng-hide="order.selectedFloorPrice == 0 && order.selectedAssemblingPrice == 0") - {{ 'history.INCLUDED' | translate }}:
-                      span(ng-hide="order.selectedFloorPrice == 0") &nbsp; {{ 'cart.DELIVERY' | translate }}
-                      span(ng-hide="order.selectedFloorPrice == 0 || order.selectedAssemblingPrice == 0") &nbsp; {{ 'common_words.AND' | translate }}
-                      span(ng-hide="order.selectedAssemblingPrice == 0") &nbsp; {{ 'cart.ASSEMBLING' | translate }}
+                      span(ng-hide="!order.floor_id && !order.mounting_id") - {{ 'history.INCLUDED' | translate }}:
+                      span(ng-hide="!order.floor_id") &nbsp; {{ 'cart.DELIVERY' | translate }}
+                      span(ng-hide="!order.floor_id || !order.mounting_id") &nbsp; {{ 'common_words.AND' | translate }}
+                      span(ng-hide="!order.mounting_id") &nbsp; {{ 'cart.ASSEMBLING' | translate }}
                   .account-data
-                    .account-label.account-date-filter {{ 'history.FROM' | translate }} {{order.orderDate | date:"dd MMMM, yyyy"}}
+                    .account-label.account-date-filter {{ 'history.FROM' | translate }} {{order.order_date | date:"dd MMMM, yyyy"}}
                       //span(order-date="{{ order.created }}", type-date="'order'")
                 .account-row
                   .account-data
-                    .user-data.account-user {{ order.name }}
+                    .user-data.account-user {{ order.customer_name }}
                     .account-label {{ 'history.CLIENT' | translate }}
                 .account-row
                   .account-data.phone
-                    .user-data.account-user-phone {{ order.phone }}
+                    .user-data.account-user-phone {{ order.customer_phone }}
                     .account-label {{ 'history.PHONE' | translate }}
                   .account-data
-                    .user-data.account-user-adress {{ order.location }}, {{ order.address }}
+                    .user-data.account-user-adress {{ order.full_location }}, {{ order.customer_address }}
                     .account-label {{ 'history.ADDRESS' | translate }}
                 .account-row.footer
-                  .account-value(ng-hide="order.orderStyle == 'credit'") {{ order.orderPriceTOTAL }}{{ historyPage.U.userInfo.currency }}
-                  .account-value(ng-show="order.orderStyle == 'credit'") {{ order.orderPriceTOTAL }}{{ historyPage.U.userInfo.currency }}, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.paymentMonthly}}{{ historyPage.U.userInfo.currency }}
-                  .account-value(ng-show="order.orderStyle == 'master'") {{ 'history.WAIT_MASTER' | translate }}
-                  .account-date {{ order.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{order.newDeliveryDate | date:"dd.MM.yyyy"}}
+                  .account-value(ng-hide="order.order_style == 'credit'") {{ order.order_price_total }}{{ historyPage.U.userInfo.currency }}
+                  .account-value(ng-show="order.order_style == 'credit'") {{ order.order_price_total }}{{ historyPage.U.userInfo.currency }}, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.payment_monthly}}{{ historyPage.U.userInfo.currency }}
+                  .account-value(ng-show="order.order_style == 'master'") {{ 'history.WAIT_MASTER' | translate }}
+                  .account-date {{ order.products_qty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}
 
-              button.account-tool.account-select-btn(ng-hide="order.orderStyle == 'done'", hm-tap="historyPage.sendOrderToFactory(order.orderStyle, order.orderId)")
-              button.account-tool.account-copy-btn(ng-hide="order.orderStyle == 'done'", hm-tap="historyPage.makeOrderCopy(order.orderStyle, order.orderId)")
+              button.account-tool.account-select-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.sendOrderToFactory(order.order_style, order.order_number)")
+              button.account-tool.account-copy-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.makeOrderCopy(order.order_style, order.order_number)")
               button.account-tool.account-print-btn(hm-tap="")
-              button.account-delete-btn(ng-hide="order.orderStyle == 'done'", hm-tap="historyPage.clickDeleteOrder(order.orderType, order.orderId, $event)")
-              button.account-change-btn(ng-hide="order.orderStyle == 'done'", hm-tap="historyPage.editOrder(order.orderId)") {{ 'common_words.CHANGE' | translate }}
+              button.account-delete-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.clickDeleteOrder(order.orderType, order.order_number, $event)")
+              button.account-change-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.editOrder(order.order_number)") {{ 'common_words.CHANGE' | translate }}
 
             .empty-search-result(ng-show="(orders | filter:historyPage.H.history.searchingWord).length == 0")
               .result-icon
@@ -174,8 +174,8 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                     .account-label.account-date-filter {{ 'history.FROM' | translate }}
                       span(order-date="{{ draft.created }}", type-date="'order'")
                   .account-row.footer(hm-tap="historyPage.editOrder(draft.orderId)")
-                    .account-value(ng-hide="draft.orderStyle == 'credit'") {{ draft.orderPriceTOTAL }}{{ historyPage.U.userInfo.currency }}
-                    .account-value(ng-show="draft.orderStyle == 'credit'") {{ draft.orderPriceTOTAL }}{{ historyPage.U.userInfo.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.paymentMonthly}}{{ historyPage.U.userInfo.currency }}
+                    .account-value(ng-hide="draft.order_style == 'credit'") {{ draft.orderPriceTOTAL }}{{ historyPage.U.userInfo.currency }}
+                    .account-value(ng-show="draft.order_style == 'credit'") {{ draft.orderPriceTOTAL }}{{ historyPage.U.userInfo.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.paymentMonthly}}{{ historyPage.U.userInfo.currency }}
                     .account-qty {{ draft.productsQty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{draft.newDeliveryDate | date:"dd.MM.yyyy"}}
                 button.account-tool.account-print-btn(hm-tap="")
                 button.account-delete-btn(hm-tap="historyPage.clickDeleteOrder(draft.orderType, draft.orderId, $event)")
