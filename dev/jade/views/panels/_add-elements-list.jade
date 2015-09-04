@@ -22,11 +22,11 @@
         tr.aux-list-row(ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[0] track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(1)") )
+              .aux-title(data-output="{{ addElement.element_name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(1)") )
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '1-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
-              button.aux-params-but.aux_connect_but(hm-tap="elementsListPanel.initAddElementTools(1, $index)", ng-disabled="elementsListPanel.G.global.isQtyCalculator") {{ addElement.elementQty }}
+              button.aux-params-but.aux_connect_but(hm-tap="elementsListPanel.initAddElementTools(1, $index)", ng-disabled="elementsListPanel.G.global.isQtyCalculator") {{ addElement.element_qty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-width
           td.aux-tablecell-height
@@ -44,15 +44,15 @@
         tr.aux-list-row(ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[1] track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(2)")
+              .aux-title(data-output="{{ addElement.element_name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(2)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '2-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
-              button.aux-params-but.aux_big_but(hm-tap="elementsListPanel.initAddElementTools(1, $index)", ng-disabled="elementsListPanel.G.global.isQtyCalculator") {{ addElement.elementQty }}
+              button.aux-params-but.aux_big_but(hm-tap="elementsListPanel.initAddElementTools(1, $index)", ng-disabled="elementsListPanel.G.global.isQtyCalculator") {{ addElement.element_qty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-width
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '2-2-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
-              button.aux-params-but.aux_big_but(hm-tap="elementsListPanel.initAddElementTools(2, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.elementWidth }}
+              button.aux-params-but.aux_big_but(hm-tap="elementsListPanel.initAddElementTools(2, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.element_width }}
               .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-height
           td.aux-tablecell-price
@@ -68,15 +68,15 @@
         tr.aux-list-row(ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[2] track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(3)")
+              .aux-title(data-output="{{ addElement.element_name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(3)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '3-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
-              button.aux-params-but.aux_middle_but(hm-tap="elementsListPanel.initAddElementTools(1, $index)", ng-disabled="elementsListPanel.G.global.isQtyCalculator") {{ addElement.elementQty }}
+              button.aux-params-but.aux_middle_but(hm-tap="elementsListPanel.initAddElementTools(1, $index)", ng-disabled="elementsListPanel.G.global.isQtyCalculator") {{ addElement.element_qty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-width
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '3-2-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
-              button.aux-params-but.aux_middle_but(hm-tap="elementsListPanel.initAddElementTools(2, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.elementWidth }}
+              button.aux-params-but.aux_middle_but(hm-tap="elementsListPanel.initAddElementTools(2, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.element_width }}
               .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-height
           td.aux-tablecell-price
@@ -93,15 +93,15 @@
         tr.aux-list-row(ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[3] track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(4)")
+              .aux-title(data-output="{{ addElement.element_name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(4)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '4-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
-              button.aux-params-but.aux_slope_but(hm-tap="elementsListPanel.initAddElementTools(1, $index)", ng-disabled="elementsListPanel.G.global.isQtyCalculator") {{ addElement.elementQty }}
+              button.aux-params-but.aux_slope_but(hm-tap="elementsListPanel.initAddElementTools(1, $index)", ng-disabled="elementsListPanel.G.global.isQtyCalculator") {{ addElement.element_qty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-width
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '4-2-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
-              button.aux-params-but.aux_slope_but(hm-tap="elementsListPanel.initAddElementTools(2, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.elementWidth }}
+              button.aux-params-but.aux_slope_but(hm-tap="elementsListPanel.initAddElementTools(2, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.element_width }}
               .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-height
           td.aux-tablecell-price
@@ -117,19 +117,19 @@
         tr.aux-list-row(ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[4] track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(5)")
+              .aux-title(data-output="{{ addElement.element_name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(5)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '5-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
-              button.aux-params-but.aux_middle_but(hm-tap="elementsListPanel.initAddElementTools(1, $index)", ng-disabled="elementsListPanel.G.global.isQtyCalculator") {{ addElement.elementQty }}
+              button.aux-params-but.aux_middle_but(hm-tap="elementsListPanel.initAddElementTools(1, $index)", ng-disabled="elementsListPanel.G.global.isQtyCalculator") {{ addElement.element_qty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-width
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '5-2-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
-              button.aux-params-but.aux_middle_but(hm-tap="elementsListPanel.initAddElementTools(2, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.elementWidth }}
+              button.aux-params-but.aux_middle_but(hm-tap="elementsListPanel.initAddElementTools(2, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.element_width }}
               .aux-label(data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-height
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '5-3-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
-              button.aux-params-but.aux_middle_but(hm-tap="elementsListPanel.initAddElementTools(3, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.elementWidth }}
+              button.aux-params-but.aux_middle_but(hm-tap="elementsListPanel.initAddElementTools(3, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.element_width }}
               .aux-label(data-output="{{ 'add_elements.HEIGHT_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-price
             .aux-price + {{ addElement.elementPriceDis }} {{ elementsListPanel.U.userInfo.currency }}
@@ -144,15 +144,15 @@
         tr.aux-list-row(ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[5] track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(6)")
+              .aux-title(data-output="{{ addElement.element_name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(6)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '6-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
-              button.aux-params-but.aux_slope_but(hm-tap="elementsListPanel.initAddElementTools(1, $index)", ng-disabled="elementsListPanel.G.global.isQtyCalculator") {{ addElement.elementQty }}
+              button.aux-params-but.aux_slope_but(hm-tap="elementsListPanel.initAddElementTools(1, $index)", ng-disabled="elementsListPanel.G.global.isQtyCalculator") {{ addElement.element_qty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-width
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '6-2-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
-              button.aux-params-but.aux_slope_but(hm-tap="elementsListPanel.initAddElementTools(2, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.elementWidth }}
+              button.aux-params-but.aux_slope_but(hm-tap="elementsListPanel.initAddElementTools(2, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.element_width }}
               .aux-label(data-output="{{ 'add_elements.SIZE_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-height
           td.aux-tablecell-price
@@ -168,15 +168,15 @@
         tr.aux-list-row(ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[6] track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(7)")
+              .aux-title(data-output="{{ addElement.element_name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(7)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '7-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
-              button.aux-params-but.aux_connect_but(hm-tap="elementsListPanel.initAddElementTools(1, $index)", ng-disabled="elementsListPanel.G.global.isQtyCalculator") {{ addElement.elementQty }}
+              button.aux-params-but.aux_connect_but(hm-tap="elementsListPanel.initAddElementTools(1, $index)", ng-disabled="elementsListPanel.G.global.isQtyCalculator") {{ addElement.element_qty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-width
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '7-2-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
-              button.aux-params-but.aux_connect_but(hm-tap="elementsListPanel.initAddElementTools(2, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.elementWidth }}
+              button.aux-params-but.aux_connect_but(hm-tap="elementsListPanel.initAddElementTools(2, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.element_width }}
               .aux-label(data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-height
           td.aux-tablecell-price
@@ -192,11 +192,11 @@
         tr.aux-list-row(ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[7] track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(8)")
+              .aux-title(data-output="{{ addElement.element_name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(8)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '8-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
-              button.aux-params-but.aux_small_but(hm-tap="elementsListPanel.initAddElementTools(1, $index)", ng-disabled="elementsListPanel.G.global.isQtyCalculator") {{ addElement.elementQty }}
+              button.aux-params-but.aux_small_but(hm-tap="elementsListPanel.initAddElementTools(1, $index)", ng-disabled="elementsListPanel.G.global.isQtyCalculator") {{ addElement.element_qty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-width
           td.aux-tablecell-height
@@ -213,15 +213,15 @@
         tr.aux-list-row(ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[8] track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(9)")
+              .aux-title(data-output="{{ addElement.element_name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(9)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '9-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
-              button.aux-params-but.aux_big_but(hm-tap="elementsListPanel.initAddElementTools(1, $index)", ng-disabled="elementsListPanel.G.global.isQtyCalculator") {{ addElement.elementQty }}
+              button.aux-params-but.aux_big_but(hm-tap="elementsListPanel.initAddElementTools(1, $index)", ng-disabled="elementsListPanel.G.global.isQtyCalculator") {{ addElement.element_qty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-width
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '9-2-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
-              button.aux-params-but.aux_big_but(hm-tap="elementsListPanel.initAddElementTools(2, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.elementWidth }}
+              button.aux-params-but.aux_big_but(hm-tap="elementsListPanel.initAddElementTools(2, $index)", ng-disabled="elementsListPanel.G.global.isSizeCalculator") {{ addElement.element_width }}
               .aux-label(data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-height
           td.aux-tablecell-price
@@ -238,11 +238,11 @@
         tr.aux-list-row(ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[9] track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(10)")
+              .aux-title(data-output="{{ addElement.element_name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(10)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '10-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
-              button.aux-params-but.aux_middle_but(hm-tap="elementsListPanel.initAddElementTools(1, $index)", ng-disabled="elementsListPanel.G.global.isQtyCalculator") {{ addElement.elementQty }}
+              button.aux-params-but.aux_middle_but(hm-tap="elementsListPanel.initAddElementTools(1, $index)", ng-disabled="elementsListPanel.G.global.isQtyCalculator") {{ addElement.element_qty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-width
           td.aux-tablecell-height
@@ -260,11 +260,11 @@
         tr.aux-list-row(ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[10] track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.elementName }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(11)")
+              .aux-title(data-output="{{ addElement.element_name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(11)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '10-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
-              button.aux-params-but.aux_small_but(hm-tap="elementsListPanel.initAddElementTools(1, $index)", ng-disabled="elementsListPanel.G.global.isQtyCalculator") {{ addElement.elementQty }}
+              button.aux-params-but.aux_small_but(hm-tap="elementsListPanel.initAddElementTools(1, $index)", ng-disabled="elementsListPanel.G.global.isQtyCalculator") {{ addElement.element_qty }}
               .aux-label(data-output="{{ 'add_elements.QTY_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-width
           td.aux-tablecell-height

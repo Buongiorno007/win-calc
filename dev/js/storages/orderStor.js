@@ -24,19 +24,13 @@
         discount_addelem: 0,
 
         //------- current Geolocation
-        currCityId: 0, //*
-//        currCityName: '',
-//        currRegionName: '',
-//        currCountryName: '',
-//        currClimaticZone: 0,
-        currHeatTransfer: 0, //????
-//        currFullLocation: '',
-
+        currCityName: '',//*
+        currRegionName: '',//*
+        currCountryName: '',//*
+        currFullLocation: '',
         climatic_zone: 0,
-        customer_city: '',
-        customer_region: '',
-        customer_country: '',
-        full_location: '',
+        heat_coef_min: 0,
+        customer_city: 0,
 
         products_qty: 0,
         products: [],
@@ -72,7 +66,7 @@
         customer_phone: '',
         customer_phone_city: '',
         customer_address: '',
-        //location: '',
+        customer_location: '',
         customer_itn: 0,
         customer_starttime: '',
         customer_endtime: '',

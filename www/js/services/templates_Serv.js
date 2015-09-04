@@ -40,14 +40,14 @@
         MainServ.saveTemplateInProduct(templateIndex).then(function() {
           MainServ.setCurrentHardware();
           //------ define product price
-          MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass.id, ProductStor.product.hardware.id);
+          MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass.list_id, ProductStor.product.hardware.id);
         });
       }
     }
 
 
     function initNewTemplateType(marker) {
-      ProductStor.product.constructionType = marker;
+      ProductStor.product.construction_type = marker;
       ProductStor.product.templateIndex = 0;
       MainServ.prepareTemplates(marker);
     }

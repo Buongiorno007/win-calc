@@ -874,7 +874,6 @@
 //            door_handle_shape_id: product.door_handle_shape_id,
 //            door_lock_shape_id: product.door_lock_shape_id,
 //
-//            heat_coef_min: product.heatTransferMin,
 //            heat_coef_total: product.heat_coef_total,
 //            template_price: GeneralServ.roundingNumbers(product.template_price),
 //            addelem_price: GeneralServ.roundingNumbers(product.addelem_price),
@@ -894,10 +893,12 @@
       delete productData.templateIcon;
       delete productData.templateWidth;
       delete productData.templateHeight;
+      delete productData.profile;
+      delete productData.glass;
+      delete productData.hardware;
       delete productData.laminationOutName;
       delete productData.laminationInName;
       delete productData.chosenAddElements;
-      delete productData.airCirculationTOTAL; //TODO delete
       delete productData.addElementsPriceSELECTDis;
       delete productData.productPriceTOTALDis;
 
@@ -919,17 +920,19 @@
 //              product_id: product.productId,
 //              element_id: product.chosenAddElements[prop][elem].elementId,
 //              element_type: product.chosenAddElements[prop][elem].elementType,
-//              element_name: product.chosenAddElements[prop][elem].elementName,
 //              element_width: product.chosenAddElements[prop][elem].elementWidth,
 //              element_height: product.chosenAddElements[prop][elem].elementHeight,
 //              element_price: product.chosenAddElements[prop][elem].elementPrice,
 //              element_qty: product.chosenAddElements[prop][elem].elementQty
 //            };
             var addElementsData = angular.copy(product.chosenAddElements[prop][elem]);
+
             addElementsData.order_number = OrderStor.order.order_number;
             addElementsData.product_id = product.product_id;
             addElementsData.modified = new Date();
+//            delete addElementsData.$$hashKey;
             delete addElementsData.elementPriceDis;
+            delete addElementsData.element_name;
 
             localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
           }
@@ -1149,7 +1152,10 @@
       orderData.modified = new Date();
 
       delete orderData.products;
-      delete orderData.currCityId;
+      delete orderData.currCityName;
+      delete orderData.currRegionName;
+      delete orderData.currCountryName;
+      delete orderData.currFullLocation;
       delete orderData.selectedInstalmentPeriod;
       delete orderData.selectedInstalmentPercent;
 

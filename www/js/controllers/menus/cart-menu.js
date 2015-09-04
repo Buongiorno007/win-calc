@@ -81,7 +81,7 @@
     }
 
     function closeInstalment() {
-      OrderStor.order.isInstalment = 0;
+      OrderStor.order.is_instalment = 0;
       OrderStor.order.selectedInstalmentPeriod = 0;
       OrderStor.order.selectedInstalmentPercent = 0;
       thisCtrl.config.activeMenuItem = false;
@@ -94,7 +94,7 @@
 
     //------ show Order/Credit Dialog
     function openOrderDialog() {
-      if(OrderStor.order.isInstalment) {
+      if(OrderStor.order.is_instalment) {
         CartStor.cart.isCreditDialog = true;
       } else {
         CartStor.cart.isOrderDialog = true;

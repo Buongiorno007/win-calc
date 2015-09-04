@@ -380,7 +380,6 @@
             ' state_to TIMESTAMP,' +
             ' state_buch TIMESTAMP,' +
             ' batch VARCHAR,' +
-            ' customer_phone VARCHAR(30),' +
             ' square NUMERIC(13, 2),' +
             ' base_price NUMERIC(13, 2),' +
             ' perimeter NUMERIC(13, 2),' +
@@ -393,7 +392,7 @@
             ' delivery_date TIMESTAMP,' +
             ' new_delivery_date TIMESTAMP,' +
             ' climatic_zone INTEGER,' +
-            ' full_location VARCHAR,' +
+            ' heat_coef_min INTEGER,' +
             ' products_qty INTEGER,' +
             ' products_price_total NUMERIC,'+
             ' is_date_price_less INTEGER,' +
@@ -411,13 +410,12 @@
             ' order_price_total_primary NUMERIC,' +
             ' discount_construct NUMERIC,' +
             ' discount_addelem NUMERIC,' +
-            ' customer_phone_city VARCHAR(20),' +
             ' customer_name TEXT,' +
             ' customer_email TEXT,' +
+            ' customer_phone VARCHAR(30),' +
+            ' customer_phone_city VARCHAR(20),' +
             ' customer_address TEXT,' +
-            ' customer_city TEXT,' +
-            ' customer_region VARCHAR,' +
-            ' customer_country VARCHAR,' +
+            ' customer_location VARCHAR,' +
             ' customer_itn INTEGER,' +
             ' customer_starttime VARCHAR,' +
             ' customer_endtime VARCHAR,' +
@@ -449,7 +447,6 @@
             ' door_sash_shape_id INTEGER,' +
             ' door_handle_shape_id INTEGER,' +
             ' door_lock_shape_id INTEGER,' +
-            ' heat_coef_min INTEGER,' +
             ' heat_coef_total INTEGER,' +
             ' template_price NUMERIC,' +
             ' addelem_price NUMERIC,' +

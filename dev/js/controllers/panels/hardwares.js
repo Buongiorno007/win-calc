@@ -35,7 +35,7 @@
       //-------- set current Hardware
       MainServ.setCurrentHardware();
       //------ calculate price
-      MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId);
+      MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass.list_id, ProductStor.product.hardware_id);
       //------ save analytics data
       analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, hardwareIndex, hardwareTypeIndex);
     }

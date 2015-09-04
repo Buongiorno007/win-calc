@@ -37,7 +37,7 @@
         MainServ.saveTemplateInProduct(templateIndex).then(function() {
           MainServ.setCurrentHardware();
           //------ define product price
-          MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass.id, ProductStor.product.hardware.id);
+          MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass.list_id, ProductStor.product.hardware.id);
         });
       }
     }

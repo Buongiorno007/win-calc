@@ -1111,10 +1111,13 @@ body {
 
 /* line 23, ../../dev/sass/base/general.scss */
 .app-container {
+  width: 128rem;
   height: 100%;
+  margin: auto;
+  overflow: hidden;
 }
 
-/* line 27, ../../dev/sass/base/general.scss */
+/* line 30, ../../dev/sass/base/general.scss */
 .page-container {
   display: -webkit-flex;
   display: flex;
@@ -1124,20 +1127,20 @@ body {
   width: 157.625rem;
   height: 100%;
 }
-/* line 33, ../../dev/sass/base/general.scss */
+/* line 36, ../../dev/sass/base/general.scss */
 .page-container.swiped {
   width: 165.5rem;
 }
-/* line 35, ../../dev/sass/base/general.scss */
+/* line 38, ../../dev/sass/base/general.scss */
 .page-container.swiped .main-content, .page-container.swiped .main-history {
   width: 98.375rem;
 }
-/* line 38, ../../dev/sass/base/general.scss */
+/* line 41, ../../dev/sass/base/general.scss */
 .page-container.swiped .main-history {
   width: 128rem;
 }
 
-/* line 44, ../../dev/sass/base/general.scss */
+/* line 47, ../../dev/sass/base/general.scss */
 .swiped {
   -moz-transform: translateX(-37.5rem);
   -ms-transform: translateX(-37.5rem);
@@ -1145,27 +1148,27 @@ body {
   transform: translateX(-37.5rem);
 }
 
-/* line 48, ../../dev/sass/base/general.scss */
+/* line 51, ../../dev/sass/base/general.scss */
 .left-side {
   width: 37.5rem;
   height: 100%;
 }
 
-/* line 53, ../../dev/sass/base/general.scss */
+/* line 56, ../../dev/sass/base/general.scss */
 .right-side {
   display: -webkit-flex;
   display: flex;
   height: 100%;
 }
 
-/* line 59, ../../dev/sass/base/general.scss */
+/* line 62, ../../dev/sass/base/general.scss */
 .right-menu {
   position: relative;
   width: 29.625rem;
   height: 100%;
 }
 
-/* line 65, ../../dev/sass/base/general.scss */
+/* line 68, ../../dev/sass/base/general.scss */
 .main-content, .main-history {
   -moz-transition: width 0.5s linear;
   -webkit-transition: width 0.5s linear;
@@ -1177,12 +1180,12 @@ body {
   z-index: 0;
 }
 
-/* line 76, ../../dev/sass/base/general.scss */
+/* line 79, ../../dev/sass/base/general.scss */
 .unvisible {
   display: none !important;
 }
 
-/* line 82, ../../dev/sass/base/general.scss */
+/* line 85, ../../dev/sass/base/general.scss */
 .icon-setting, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu, .pickmeup .pmu-instance nav .pmu-prev,
 .pickmeup .pmu-instance nav .pmu-next, .user-info-container .icon-location:before, .search-block:before, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .current-city:after, .voice-container .voice-icon, .close_dialog, .setting-container .setting-item-change:after, .password-page .back, .language-page .back, .location-page .back, .accounts-container .tool, .accounts-container .account-tool, .empty-search-result .result-icon, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .close-alladdelements, .door-config-btn, .door-configuration .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .config-menu .item.active:before, .elements-menu .element-info:after, .cart-menu .item:after, .cart-menu .drop-instalment .dropdown-item.selected .value-percent:after, .cart-menu .calendar-price, .size-calc-container .calc-delete:after, .size-calc-container .calc-interval:after {
@@ -1197,7 +1200,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* line 97, ../../dev/sass/base/general.scss */
+/* line 100, ../../dev/sass/base/general.scss */
 .button, .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn, .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .middle-button, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default, .small-button, .cart-page .order-tool, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu, .view-switch-tab, .aux-color, .setting-container .phone-btn, .accounts-container .tool, .accounts-container .account-tool, .accounts-container .account-change-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .close-alladdelements, .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .auxiliaries-container .scheme-info, .additional-list-container .group-indicator, .additional-list-container .search-element {
   border: 0;
   outline: none;
@@ -1206,38 +1209,38 @@ body {
   padding: 0;
 }
 
-/* line 105, ../../dev/sass/base/general.scss */
+/* line 108, ../../dev/sass/base/general.scss */
 .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn {
   border-width: 1px;
   border-style: solid;
 }
 
-/* line 112, ../../dev/sass/base/general.scss */
+/* line 115, ../../dev/sass/base/general.scss */
 .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .nav-menu .new-calc, .cart-menu .measure-btn {
   font: normal 3rem/1.42857 roboto-light, sans-serif;
   border-radius: 2rem;
 }
 
-/* line 119, ../../dev/sass/base/general.scss */
+/* line 122, ../../dev/sass/base/general.scss */
 .middle-button, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default {
   font: normal 1.5rem/2.25rem roboto-regular, sans-serif;
   border-radius: 2rem;
 }
 
-/* line 126, ../../dev/sass/base/general.scss */
+/* line 129, ../../dev/sass/base/general.scss */
 .small-button, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .order-tool {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   border-radius: 1.25rem;
 }
 
-/* line 133, ../../dev/sass/base/general.scss */
+/* line 136, ../../dev/sass/base/general.scss */
 .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit {
   height: 6.875rem;
   color: #fff;
   background-color: #f98000;
 }
 
-/* line 141, ../../dev/sass/base/general.scss */
+/* line 144, ../../dev/sass/base/general.scss */
 .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back {
   font: normal 3.125rem/1 icons, sans-serif;
   width: 3.75rem;
@@ -1246,74 +1249,74 @@ body {
   padding: 0;
   background: transparent;
 }
-/* line 151, ../../dev/sass/base/general.scss */
+/* line 154, ../../dev/sass/base/general.scss */
 .menu-btn:before, .user-info-container .nav-menu-btn:before, .setting-page .back:before, .setting-back:before {
   color: #fff;
   content: "\e617";
 }
 
-/* line 160, ../../dev/sass/base/general.scss */
+/* line 163, ../../dev/sass/base/general.scss */
 .truncated, .room-info-container .select-rooms, .menu-right-general .value, .config-menu .value, .elements-menu .value, .cart-menu .value, .old-price-tab .value, .old-price-inst-tab .value, .parameters-block .aux-title, .alladdelements-block .aux-title, .addelementunit-only .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title, .setting-container .setting-item-data, .cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value, .cart-page .addelementunit-value, .light-view .order-value, .light-view .addelementunit-value, .addelementunique-header .aux-title, .addelementunit-value, .construction-left-menu .figure-label, .nav-menu .title, .config-menu .additional-item, .template-container .other-template-subscr, .profile-container .profile-descr, .glass-container .glass-descr {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-/* line 168, ../../dev/sass/base/general.scss */
+/* line 171, ../../dev/sass/base/general.scss */
 .right-side {
   -moz-transition: all 1.3s linear;
   -webkit-transition: all 1.3s linear;
   transition: all 1.3s linear;
 }
-/* line 170, ../../dev/sass/base/general.scss */
+/* line 173, ../../dev/sass/base/general.scss */
 .right-side.main-page-bg {
   opacity: 0.2;
 }
-/* line 174, ../../dev/sass/base/general.scss */
+/* line 177, ../../dev/sass/base/general.scss */
 .right-side.kitchen {
   background: url('../img/rooms-bg/kitchen.jpg?1440876224') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 179, ../../dev/sass/base/general.scss */
+/* line 182, ../../dev/sass/base/general.scss */
 .right-side.livingroom {
   background: url('../img/rooms-bg/livingroom.jpg?1428589558') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 184, ../../dev/sass/base/general.scss */
+/* line 187, ../../dev/sass/base/general.scss */
 .right-side.balcony {
   background: url('../img/rooms-bg/balcony.jpg?1428589558') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 189, ../../dev/sass/base/general.scss */
+/* line 192, ../../dev/sass/base/general.scss */
 .right-side.childroom {
-  background: url('../img/rooms-bg/childroom.jpg?1428589558') no-repeat;
+  background: url('../img/rooms-bg/childroom.jpg?1441358331') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 194, ../../dev/sass/base/general.scss */
+/* line 197, ../../dev/sass/base/general.scss */
 .right-side.bedroom {
   background: url('../img/rooms-bg/bedroom.jpg?1428589558') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 199, ../../dev/sass/base/general.scss */
+/* line 202, ../../dev/sass/base/general.scss */
 .right-side.door {
   background: url('../img/rooms-bg/door.jpg?1428589558') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 
-/* line 209, ../../dev/sass/base/general.scss */
+/* line 212, ../../dev/sass/base/general.scss */
 .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto {
   width: 9.5rem;
   height: 9.5rem;
   background-size: cover;
 }
 
-/* line 220, ../../dev/sass/base/general.scss */
+/* line 223, ../../dev/sass/base/general.scss */
 .modal-dialog, .rooms-selector-dialog, .auxiliaries-container .scheme-view-dialog {
   top: 18.75rem;
   left: -125rem;
@@ -1326,36 +1329,36 @@ body {
   border-radius: 1.25rem;
   background-color: rgba(255, 255, 255, 0.85);
 }
-/* line 231, ../../dev/sass/base/general.scss */
+/* line 234, ../../dev/sass/base/general.scss */
 .modal-dialog.active, .active.rooms-selector-dialog, .auxiliaries-container .active.scheme-view-dialog {
   top: 18.75rem;
   left: 5rem;
 }
 
-/* line 237, ../../dev/sass/base/general.scss */
+/* line 240, ../../dev/sass/base/general.scss */
 .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu {
   border-radius: 50%;
 }
-/* line 242, ../../dev/sass/base/general.scss */
+/* line 245, ../../dev/sass/base/general.scss */
 .cross-btn:after, .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .addelementunit-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after, .search-block .delete-search:after, .construct-tools:after, .elements-menu .close-elements-menu:after {
   position: absolute;
   color: #fff;
   content: "\e628";
 }
 
-/* line 248, ../../dev/sass/base/general.scss */
+/* line 251, ../../dev/sass/base/general.scss */
 .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete {
   font: normal 2.5rem/1 icons, sans-serif;
   width: 3.125rem;
   height: 3.125rem;
 }
-/* line 254, ../../dev/sass/base/general.scss */
+/* line 257, ../../dev/sass/base/general.scss */
 .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .addelementunit-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after {
   top: 8%;
   left: 10%;
 }
 
-/* line 261, ../../dev/sass/base/general.scss */
+/* line 264, ../../dev/sass/base/general.scss */
 .close-dialog {
   position: absolute;
   top: 1.875rem;
@@ -1363,7 +1366,7 @@ body {
   background-color: #f98000;
 }
 
-/* line 271, ../../dev/sass/base/general.scss */
+/* line 274, ../../dev/sass/base/general.scss */
 .aux-delete, .addelementunit-delete {
   top: 0rem;
   left: 0rem;
@@ -1371,7 +1374,7 @@ body {
   background-color: #bebebe;
 }
 
-/* line 280, ../../dev/sass/base/general.scss */
+/* line 283, ../../dev/sass/base/general.scss */
 .view-switch-tab {
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
@@ -1394,7 +1397,7 @@ body {
   z-index: 1;
 }
 
-/* line 300, ../../dev/sass/base/general.scss */
+/* line 303, ../../dev/sass/base/general.scss */
 .test {
   position: absolute;
   left: 3.125rem;
@@ -1404,14 +1407,14 @@ body {
   background-color: red;
   box-shadow: 0 0 1.25rem 0.625rem rgba(0, 0, 0, 0.3);
 }
-/* line 309, ../../dev/sass/base/general.scss */
+/* line 312, ../../dev/sass/base/general.scss */
 .test input {
   height: 3.125rem;
   width: 18.75rem;
   font-size: 2.25rem;
 }
 
-/* line 317, ../../dev/sass/base/general.scss */
+/* line 320, ../../dev/sass/base/general.scss */
 .backDarkView {
   position: absolute;
   top: 0;
@@ -1422,7 +1425,7 @@ body {
   z-index: 9;
 }
 
-/* line 336, ../../dev/sass/base/general.scss */
+/* line 339, ../../dev/sass/base/general.scss */
 .scrolling-container, .scroll-vert-container, .scroll-hor-container, .cart-page .addelements-detail-content {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -1431,33 +1434,33 @@ body {
   overflow-scrolling: touch;
 }
 
-/* line 339, ../../dev/sass/base/general.scss */
+/* line 342, ../../dev/sass/base/general.scss */
 .scroll-vert, .scroll-vert-container {
   overflow-x: hidden;
   overflow-y: scroll;
 }
 
-/* line 343, ../../dev/sass/base/general.scss */
+/* line 346, ../../dev/sass/base/general.scss */
 .scroll-hor, .scroll-hor-container {
   overflow-x: scroll;
   overflow-y: hidden;
 }
 
-/* line 347, ../../dev/sass/base/general.scss */
+/* line 350, ../../dev/sass/base/general.scss */
 .scroll-vert-container {
   width: 100%;
   height: 90%;
   padding-top: 2rem;
 }
 
-/* line 354, ../../dev/sass/base/general.scss */
+/* line 357, ../../dev/sass/base/general.scss */
 .scroll-hor-container {
   width: 100%;
   height: 100%;
   padding-top: 2rem;
 }
 
-/* line 363, ../../dev/sass/base/general.scss */
+/* line 366, ../../dev/sass/base/general.scss */
 #sounds {
   visibility: hidden;
 }
@@ -7403,85 +7406,85 @@ li.constr-shape-icon:last-child {
 }
 /* line 12, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-grid-img {
-  background-image: url('../img/auxiliaries-focused/grid.png');
+  background-image: url('../img/auxiliaries-focused/grid.png?1441278950');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 17, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-visor-img {
-  background-image: url('../img/auxiliaries-focused/visor.png');
+  background-image: url('../img/auxiliaries-focused/visor.png?1441278950');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 22, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-spillway-img {
-  background-image: url('../img/auxiliaries-focused/spillway.png');
+  background-image: url('../img/auxiliaries-focused/spillway.png?1441278950');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 27, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-focused/windowsill.png');
+  background-image: url('../img/auxiliaries-focused/windowsill.png?1441278950');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 32, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-top {
-  background-image: url('../img/auxiliaries-focused/louvers-top.png');
+  background-image: url('../img/auxiliaries-focused/louvers-top.png?1441278950');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 37, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-midle {
-  background-image: url('../img/auxiliaries-focused/louvers-middle.png');
+  background-image: url('../img/auxiliaries-focused/louvers-middle.png?1441278950');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 42, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-focused/louvers-bottom.png');
+  background-image: url('../img/auxiliaries-focused/louvers-bottom.png?1441278950');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 47, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-top {
-  background-image: url('../img/auxiliaries-focused/inside-slope-top.png');
+  background-image: url('../img/auxiliaries-focused/inside-slope-top.png?1441278950');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 52, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-right {
-  background-image: url('../img/auxiliaries-focused/inside-slope-right.png');
+  background-image: url('../img/auxiliaries-focused/inside-slope-right.png?1441278950');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 57, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-inside-left {
-  background-image: url('../img/auxiliaries-focused/inside-slope-left.png');
+  background-image: url('../img/auxiliaries-focused/inside-slope-left.png?1441278950');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 62, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-fan-img {
-  background-image: url('../img/auxiliaries-focused/fan.png');
+  background-image: url('../img/auxiliaries-focused/fan.png?1441278950');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 67, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-force-connect {
-  background-image: url('../img/auxiliaries-focused/force-connector.png');
+  background-image: url('../img/auxiliaries-focused/force-connector.png?1441278950');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 72, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-focused/balcon-connector.png');
+  background-image: url('../img/auxiliaries-focused/balcon-connector.png?1441278950');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 77, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.focused .aux-handle-img {
-  background-image: url('../img/auxiliaries-focused/handle.png');
+  background-image: url('../img/auxiliaries-focused/handle.png?1441278950');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7511,85 +7514,85 @@ li.constr-shape-icon:last-child {
 }
 /* line 108, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-grid-img {
-  background-image: url('../img/auxiliaries-selected/grid.png');
+  background-image: url('../img/auxiliaries-selected/grid.png?1441278955');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 113, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-visor-img {
-  background-image: url('../img/auxiliaries-selected/visor.png');
+  background-image: url('../img/auxiliaries-selected/visor.png?1441278955');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 118, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-spillway-img {
-  background-image: url('../img/auxiliaries-selected/spillway.png');
+  background-image: url('../img/auxiliaries-selected/spillway.png?1441278955');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 123, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-windowsill-img {
-  background-image: url('../img/auxiliaries-selected/windowsill.png');
+  background-image: url('../img/auxiliaries-selected/windowsill.png?1441278955');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 128, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-top {
-  background-image: url('../img/auxiliaries-selected/louvers-top.png');
+  background-image: url('../img/auxiliaries-selected/louvers-top.png?1441278955');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 133, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-midle {
-  background-image: url('../img/auxiliaries-selected/louvers-middle.png');
+  background-image: url('../img/auxiliaries-selected/louvers-middle.png?1441278955');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 138, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-louver-bottom {
-  background-image: url('../img/auxiliaries-selected/louvers-bottom.png');
+  background-image: url('../img/auxiliaries-selected/louvers-bottom.png?1441278955');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 143, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-top {
-  background-image: url('../img/auxiliaries-selected/inside-slope-top.png');
+  background-image: url('../img/auxiliaries-selected/inside-slope-top.png?1441278955');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 148, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-right {
-  background-image: url('../img/auxiliaries-selected/inside-slope-right.png');
+  background-image: url('../img/auxiliaries-selected/inside-slope-right.png?1441278955');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 153, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-inside-left {
-  background-image: url('../img/auxiliaries-selected/inside-slope-left.png');
+  background-image: url('../img/auxiliaries-selected/inside-slope-left.png?1441278955');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 158, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-fan-img {
-  background-image: url('../img/auxiliaries-selected/fan.png');
+  background-image: url('../img/auxiliaries-selected/fan.png?1441278950');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 163, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-force-connect {
-  background-image: url('../img/auxiliaries-selected/force-connector.png');
+  background-image: url('../img/auxiliaries-selected/force-connector.png?1441278950');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 168, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-balcon-connect {
-  background-image: url('../img/auxiliaries-selected/balcon-connector.png');
+  background-image: url('../img/auxiliaries-selected/balcon-connector.png?1441278950');
   background-repeat: no-repeat;
   background-size: contain;
 }
 /* line 173, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .auxiliary-item.selected .aux-handle-img {
-  background-image: url('../img/auxiliaries-selected/handle.png');
+  background-image: url('../img/auxiliaries-selected/handle.png?1441278955');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7612,7 +7615,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 13.75rem;
   height: 24.375rem;
-  background-image: url('../img/auxiliaries/grid.png');
+  background-image: url('../img/auxiliaries/grid.png?1441278949');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7629,7 +7632,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 55.8125rem;
   height: 16.3125rem;
-  background-image: url('../img/auxiliaries/visor.png');
+  background-image: url('../img/auxiliaries/visor.png?1441278950');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7646,7 +7649,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 44.9375rem;
   height: 12.875rem;
-  background-image: url('../img/auxiliaries/spillway.png');
+  background-image: url('../img/auxiliaries/spillway.png?1441278950');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7663,7 +7666,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 40.625rem;
   height: 38.125rem;
-  background-image: url('../img/auxiliaries/outside.png');
+  background-image: url('../img/auxiliaries/outside.png?1441278950');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7680,7 +7683,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 45rem;
   height: 14.75rem;
-  background-image: url('../img/auxiliaries/windowsill.png');
+  background-image: url('../img/auxiliaries/windowsill.png?1441278950');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7704,7 +7707,7 @@ li.constr-shape-icon:last-child {
   z-index: 10;
   width: 16.3125rem;
   height: 4.9375rem;
-  background-image: url('../img/auxiliaries/louvers-top.png');
+  background-image: url('../img/auxiliaries/louvers-top.png?1441278949');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7714,7 +7717,7 @@ li.constr-shape-icon:last-child {
   left: 3.125rem;
   width: 16.3125rem;
   height: 6.1875rem;
-  background-image: url('../img/auxiliaries/louvers-middle.png');
+  background-image: url('../img/auxiliaries/louvers-middle.png?1441278949');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7741,7 +7744,7 @@ li.constr-shape-icon:last-child {
   z-index: 6;
   width: 16.3125rem;
   height: 6.5rem;
-  background-image: url('../img/auxiliaries/louvers-bottom.png');
+  background-image: url('../img/auxiliaries/louvers-bottom.png?1441278949');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7764,7 +7767,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 41.25rem;
   height: 11.4375rem;
-  background-image: url('../img/auxiliaries/inside-slope-top.png');
+  background-image: url('../img/auxiliaries/inside-slope-top.png?1441278949');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7775,7 +7778,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 5.625rem;
   height: 27.125rem;
-  background-image: url('../img/auxiliaries/inside-slope-right.png');
+  background-image: url('../img/auxiliaries/inside-slope-right.png?1441278949');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7786,7 +7789,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 6.0625rem;
   height: 25.5rem;
-  background-image: url('../img/auxiliaries/inside-slope-left.png');
+  background-image: url('../img/auxiliaries/inside-slope-left.png?1441278949');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7803,7 +7806,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 7.125rem;
   height: 7.5rem;
-  background-image: url('../img/auxiliaries/fan.png');
+  background-image: url('../img/auxiliaries/fan.png?1441278949');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7826,7 +7829,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/force-connector.png');
+  background-image: url('../img/auxiliaries/force-connector.png?1441278949');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7837,7 +7840,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 8rem;
   height: 10.5rem;
-  background-image: url('../img/auxiliaries/balcon-connector.png');
+  background-image: url('../img/auxiliaries/balcon-connector.png?1441278949');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -7854,7 +7857,7 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 6.625rem;
   height: 7.875rem;
-  background-image: url('../img/auxiliaries/handle.png');
+  background-image: url('../img/auxiliaries/handle.png?1441278949');
   background-repeat: no-repeat;
   background-size: contain;
 }

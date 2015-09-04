@@ -1506,36 +1506,36 @@
           elementsList: [
             [
               {
-                elementId: 4030,
-                elementName: $filter('translate')('add_elements.GRID') + ' СO-100',
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 4030,
+                element_name: $filter('translate')('add_elements.GRID') + ' СO-100',
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 585,
-                elementName: $filter('translate')('add_elements.GRID') + ' СO-200',
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 585,
+                element_name: $filter('translate')('add_elements.GRID') + ' СO-200',
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 585,
-                elementName: $filter('translate')('add_elements.GRID') + ' СO-200',
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 585,
+                element_name: $filter('translate')('add_elements.GRID') + ' СO-200',
+                element_qty: 1,
+                element_price: 100
               }
             ],
             [
               {
-                elementId: 585,
-                elementName: $filter('translate')('add_elements.GRID') + ' СO-300',
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 585,
+                element_name: $filter('translate')('add_elements.GRID') + ' СO-300',
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 585,
-                elementName: $filter('translate')('add_elements.GRID') + ' СO-300',
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 585,
+                element_name: $filter('translate')('add_elements.GRID') + ' СO-300',
+                element_qty: 1,
+                element_price: 100
               }
             ]
           ]
@@ -1554,62 +1554,62 @@
           elementsList: [
             [
               {
-                elementId: 210675,
-                elementName: $filter('translate')('panels.VISOR_ITEM') + ' 100' + $filter('translate')('mainpage.MM'),
-                elementWidth: 1500,
-                elementQty: 1
+                element_id: 210675,
+                element_name: $filter('translate')('panels.VISOR_ITEM') + ' 100' + $filter('translate')('mainpage.MM'),
+                element_width: 1500,
+                element_qty: 1
               },
               {
-                elementId: 210676,
-                elementName: $filter('translate')('panels.VISOR_ITEM') + ' 200' + $filter('translate')('mainpage.MM'),
-                elementWidth: 1500,
-                elementQty: 1
+                element_id: 210676,
+                element_name: $filter('translate')('panels.VISOR_ITEM') + ' 200' + $filter('translate')('mainpage.MM'),
+                element_width: 1500,
+                element_qty: 1
               },
               {
-                elementId: 210677,
-                elementName: $filter('translate')('panels.VISOR_ITEM') + ' 300' + $filter('translate')('mainpage.MM'),
-                elementWidth: 1500,
-                elementQty: 1
+                element_id: 210677,
+                element_name: $filter('translate')('panels.VISOR_ITEM') + ' 300' + $filter('translate')('mainpage.MM'),
+                element_width: 1500,
+                element_qty: 1
               }
             ],
             [
               {
-                elementId: 210687,
-                elementName: $filter('translate')('panels.VISOR_ITEM2') + ' 100' + $filter('translate')('mainpage.MM'),
-                elementWidth: 1500,
-                elementQty: 1
+                element_id: 210687,
+                element_name: $filter('translate')('panels.VISOR_ITEM2') + ' 100' + $filter('translate')('mainpage.MM'),
+                element_width: 1500,
+                element_qty: 1
               },
               {
-                elementId: 210693,
-                elementName: $filter('translate')('panels.VISOR_ITEM2') + ' 200' + $filter('translate')('mainpage.MM'),
-                elementWidth: 1500,
-                elementQty: 1
+                element_id: 210693,
+                element_name: $filter('translate')('panels.VISOR_ITEM2') + ' 200' + $filter('translate')('mainpage.MM'),
+                element_width: 1500,
+                element_qty: 1
               },
               {
-                elementId: 210694,
-                elementName: $filter('translate')('panels.VISOR_ITEM2') + ' 300' + $filter('translate')('mainpage.MM'),
-                elementWidth: 1500,
-                elementQty: 1
+                element_id: 210694,
+                element_name: $filter('translate')('panels.VISOR_ITEM2') + ' 300' + $filter('translate')('mainpage.MM'),
+                element_width: 1500,
+                element_qty: 1
               },
               {
-                elementId: 210695,
-                elementName: $filter('translate')('panels.VISOR_ITEM2') + ' 400' + $filter('translate')('mainpage.MM'),
-                elementWidth: 1500,
-                elementQty: 1
+                element_id: 210695,
+                element_name: $filter('translate')('panels.VISOR_ITEM2') + ' 400' + $filter('translate')('mainpage.MM'),
+                element_width: 1500,
+                element_qty: 1
               },
               {
-                elementId: 210696,
-                elementName: $filter('translate')('panels.VISOR_ITEM2') + ' 500' + $filter('translate')('mainpage.MM'),
-                elementWidth: 1500,
-                elementQty: 1
+                element_id: 210696,
+                element_name: $filter('translate')('panels.VISOR_ITEM2') + ' 500' + $filter('translate')('mainpage.MM'),
+                element_width: 1500,
+                element_qty: 1
               }
             ],
             [
               {
-                elementId: 210697,
-                elementName: $filter('translate')('panels.VISOR_ITEM3'),
-                elementWidth: 1500,
-                elementQty: 1
+                element_id: 210697,
+                element_name: $filter('translate')('panels.VISOR_ITEM3'),
+                element_width: 1500,
+                element_qty: 1
               }
             ]
           ]
@@ -1628,43 +1628,43 @@
           elementsList: [
             [
               {
-                elementId: 497,
-                elementName: $filter('translate')('panels.OUTFLOW_W') + ' КO-200',
-                elementWidth: 1500,
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 497,
+                element_name: $filter('translate')('panels.OUTFLOW_W') + ' КO-200',
+                element_width: 1500,
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 498,
-                elementName: $filter('translate')('panels.OUTFLOW_B') + ' 260' + $filter('translate')('mainpage.MM'),
-                elementWidth: 1500,
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 498,
+                element_name: $filter('translate')('panels.OUTFLOW_B') + ' 260' + $filter('translate')('mainpage.MM'),
+                element_width: 1500,
+                element_qty: 1,
+                element_price: 100
               }
             ],
             [
               {
-                elementId: 547,
-                elementName: $filter('translate')('panels.OUTFLOW_G') +' 20' + $filter('translate')('mainpage.MM'),
-                elementWidth: 1500,
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 547,
+                element_name: $filter('translate')('panels.OUTFLOW_G') +' 20' + $filter('translate')('mainpage.MM'),
+                element_width: 1500,
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 571,
-                elementName: $filter('translate')('panels.OUTFLOW_G') +' 50' + $filter('translate')('mainpage.MM'),
-                elementWidth: 1500,
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 571,
+                element_name: $filter('translate')('panels.OUTFLOW_G') +' 50' + $filter('translate')('mainpage.MM'),
+                element_width: 1500,
+                element_qty: 1,
+                element_price: 100
               }
             ],
             [
               {
-                elementId: 540,
-                elementName: $filter('translate')('panels.OUTFLOW_NO_STANDART'),
-                elementWidth: 1500,
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 540,
+                element_name: $filter('translate')('panels.OUTFLOW_NO_STANDART'),
+                element_width: 1500,
+                element_qty: 1,
+                element_price: 100
               }
             ]
           ]
@@ -1681,25 +1681,25 @@
           elementsList: [
             [
               {
-                elementId: 89349,
-                elementName: $filter('translate')('panels.SLOPE_P'),
-                elementWidth: 200,
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 89349,
+                element_name: $filter('translate')('panels.SLOPE_P'),
+                element_width: 200,
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 89350,
-                elementName: $filter('translate')('panels.SLOPE_G'),
-                elementWidth: 200,
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 89350,
+                element_name: $filter('translate')('panels.SLOPE_G'),
+                element_width: 200,
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 89351,
-                elementName: $filter('translate')('panels.SLOPE_C'),
-                elementWidth: 200,
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 89351,
+                element_name: $filter('translate')('panels.SLOPE_C'),
+                element_width: 200,
+                element_qty: 1,
+                element_price: 100
               }
             ]
           ]
@@ -1717,25 +1717,25 @@
           elementsList: [
             [
               {
-                elementId: 89349,
-                elementName: $filter('translate')('panels.SLOPE_P'),
-                elementWidth: 200,
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 89349,
+                element_name: $filter('translate')('panels.SLOPE_P'),
+                element_width: 200,
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 89350,
-                elementName: $filter('translate')('panels.SLOPE_G'),
-                elementWidth: 200,
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 89350,
+                element_name: $filter('translate')('panels.SLOPE_G'),
+                element_width: 200,
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 89351,
-                elementName: $filter('translate')('panels.SLOPE_C'),
-                elementWidth: 200,
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 89351,
+                element_name: $filter('translate')('panels.SLOPE_C'),
+                element_width: 200,
+                element_qty: 1,
+                element_price: 100
               }
             ]
           ]
@@ -1755,56 +1755,56 @@
           elementsList: [
             [
               {
-                elementId: 1,
-                elementName: $filter('translate')('add_elements.LOUVERS') + ' КO-200',
-                elementWidth: 700,
-                elementHeight: 700,
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 1,
+                element_name: $filter('translate')('add_elements.LOUVERS') + ' КO-200',
+                element_width: 700,
+                element_height: 700,
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 2,
-                elementName: $filter('translate')('add_elements.LOUVERS') + ' КO-300',
-                elementWidth: 700,
-                elementHeight: 700,
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 2,
+                element_name: $filter('translate')('add_elements.LOUVERS') + ' КO-300',
+                element_width: 700,
+                element_height: 700,
+                element_qty: 1,
+                element_price: 100
               }
             ],
             [
               {
-                elementId: 1,
-                elementName: $filter('translate')('add_elements.LOUVERS') + ' КO-100',
-                elementWidth: 700,
-                elementHeight: 700,
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 1,
+                element_name: $filter('translate')('add_elements.LOUVERS') + ' КO-100',
+                element_width: 700,
+                element_height: 700,
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 2,
-                elementName: $filter('translate')('add_elements.LOUVERS') + ' КO-300',
-                elementWidth: 700,
-                elementHeight: 700,
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 2,
+                element_name: $filter('translate')('add_elements.LOUVERS') + ' КO-300',
+                element_width: 700,
+                element_height: 700,
+                element_qty: 1,
+                element_price: 100
               }
             ],
             [
               {
-                elementId: 1,
-                elementName: $filter('translate')('add_elements.LOUVERS') + ' КO-300',
-                elementWidth: 700,
-                elementHeight: 700,
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 1,
+                element_name: $filter('translate')('add_elements.LOUVERS') + ' КO-300',
+                element_width: 700,
+                element_height: 700,
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 2,
-                elementName: $filter('translate')('add_elements.LOUVERS') + ' КO-300',
-                elementWidth: 700,
-                elementHeight: 700,
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 2,
+                element_name: $filter('translate')('add_elements.LOUVERS') + ' КO-300',
+                element_width: 700,
+                element_height: 700,
+                element_qty: 1,
+                element_price: 100
               }
             ]
           ]
@@ -1824,36 +1824,36 @@
           elementsList: [
             [
               {
-                elementId: 577,
-                elementName:  $filter('translate')('panels.CONNECTOR_S') + ' 5/10',
-                elementWidth: 1500,
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 577,
+                element_name:  $filter('translate')('panels.CONNECTOR_S') + ' 5/10',
+                element_width: 1500,
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 577,
-                elementName: $filter('translate')('panels.CONNECTOR_S') + ' 3/10',
-                elementWidth: 1500,
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 577,
+                element_name: $filter('translate')('panels.CONNECTOR_S') + ' 3/10',
+                element_width: 1500,
+                element_qty: 1,
+                element_price: 100
               }
             ],
             [
               {
-                elementId: 577,
-                elementName: $filter('translate')('panels.CONNECTOR_F') + ' 5/13',
-                elementWidth: 1500,
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 577,
+                element_name: $filter('translate')('panels.CONNECTOR_F') + ' 5/13',
+                element_width: 1500,
+                element_qty: 1,
+                element_price: 100
               }
             ],
             [
               {
-                elementId: 577,
-                elementName: $filter('translate')('panels.CONNECTOR_B') + ' 5/13',
-                elementWidth: 1500,
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 577,
+                element_name: $filter('translate')('panels.CONNECTOR_B') + ' 5/13',
+                element_width: 1500,
+                element_qty: 1,
+                element_price: 100
               }
             ]
           ]
@@ -1872,38 +1872,38 @@
           elementsList: [
             [
               {
-                elementId: 1,
-                elementName: $filter('translate')('panels.FAN1'),
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 1,
+                element_name: $filter('translate')('panels.FAN1'),
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 2,
-                elementName: $filter('translate')('panels.FAN2'),
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 2,
+                element_name: $filter('translate')('panels.FAN2'),
+                element_qty: 1,
+                element_price: 100
               }
             ],
             [
               {
-                elementId: 1,
-                elementName: $filter('translate')('panels.FAN3'),
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 1,
+                element_name: $filter('translate')('panels.FAN3'),
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 2,
-                elementName: $filter('translate')('panels.FAN4'),
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 2,
+                element_name: $filter('translate')('panels.FAN4'),
+                element_qty: 1,
+                element_price: 100
               }
             ],
             [
               {
-                elementId: 1,
-                elementName: $filter('translate')('panels.FAN5'),
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 1,
+                element_name: $filter('translate')('panels.FAN5'),
+                element_qty: 1,
+                element_price: 100
               }
             ]
           ]
@@ -1922,98 +1922,80 @@
           elementsList: [
             [
               {
-                elementId: 333,
-                elementName: 'LIGNODUR 200' + $filter('translate')('mainpage.MM'),
-                elementWidth: 1500,
-                elementHeight: 1500,
-                elementColorId: 0,
-                elementColor: 'img/lamination/empty.png',
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 333,
+                element_name: 'LIGNODUR 200' + $filter('translate')('mainpage.MM'),
+                element_width: 1500,
+                element_height: 1500,
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 334,
-                elementName: 'LIGNODUR 300' + $filter('translate')('mainpage.MM'),
-                elementWidth: 1500,
-                elementHeight: 1500,
-                elementColorId: 0,
-                elementColor: 'img/lamination/empty.png',
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 334,
+                element_name: 'LIGNODUR 300' + $filter('translate')('mainpage.MM'),
+                element_width: 1500,
+                element_height: 1500,
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 335,
-                elementName: 'LIGNODUR 400' + $filter('translate')('mainpage.MM'),
-                elementWidth: 1500,
-                elementHeight: 1500,
-                elementColorId: 0,
-                elementColor: 'img/lamination/empty.png',
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 335,
+                element_name: 'LIGNODUR 400' + $filter('translate')('mainpage.MM'),
+                element_width: 1500,
+                element_height: 1500,
+                element_qty: 1,
+                element_price: 100
               }
             ],
             [
               {
-                elementId: 341,
-                elementName: 'DANKE 100' + $filter('translate')('mainpage.MM'),
-                elementWidth: 1500,
-                elementHeight: 1500,
-                elementColorId: 0,
-                elementColor: 'img/lamination/empty.png',
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 341,
+                element_name: 'DANKE 100' + $filter('translate')('mainpage.MM'),
+                element_width: 1500,
+                element_height: 1500,
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 342,
-                elementName: 'DANKE 300' + $filter('translate')('mainpage.MM'),
-                elementWidth: 1500,
-                elementHeight: 1500,
-                elementColorId: 0,
-                elementColor: 'img/lamination/empty.png',
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 342,
+                element_name: 'DANKE 300' + $filter('translate')('mainpage.MM'),
+                element_width: 1500,
+                element_height: 1500,
+                element_qty: 1,
+                element_price: 100
               }
             ],
             [
               {
-                elementId: 301,
-                elementName: 'OpenTeck 100' + $filter('translate')('mainpage.MM'),
-                elementWidth: 1500,
-                elementHeight: 1500,
-                elementColorId: 0,
-                elementColor: 'img/lamination/empty.png',
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 301,
+                element_name: 'OpenTeck 100' + $filter('translate')('mainpage.MM'),
+                element_width: 1500,
+                element_height: 1500,
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 302,
-                elementName: 'OpenTeck 200' + $filter('translate')('mainpage.MM'),
-                elementWidth: 1500,
-                elementHeight: 1500,
-                elementColorId: 0,
-                elementColor: 'img/lamination/empty.png',
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 302,
+                element_name: 'OpenTeck 200' + $filter('translate')('mainpage.MM'),
+                element_width: 1500,
+                element_height: 1500,
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 303,
-                elementName: 'OpenTeck 300' + $filter('translate')('mainpage.MM'),
-                elementWidth: 1500,
-                elementHeight: 1500,
-                elementColorId: 0,
-                elementColor: 'img/lamination/empty.png',
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 303,
+                element_name: 'OpenTeck 300' + $filter('translate')('mainpage.MM'),
+                element_width: 1500,
+                element_height: 1500,
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 304,
-                elementName: 'OpenTeck 400' + $filter('translate')('mainpage.MM'),
-                elementWidth: 1500,
-                elementHeight: 1500,
-                elementColorId: 0,
-                elementColor: 'img/lamination/empty.png',
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 304,
+                element_name: 'OpenTeck 400' + $filter('translate')('mainpage.MM'),
+                element_width: 1500,
+                element_height: 1500,
+                element_qty: 1,
+                element_price: 100
               }
             ]
           ]
@@ -2032,38 +2014,38 @@
           elementsList: [
             [
               {
-                elementId: 586,
-                elementName:  $filter('translate')('panels.HANDLE1'),
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 586,
+                element_name:  $filter('translate')('panels.HANDLE1'),
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 587,
-                elementName: $filter('translate')('panels.HANDLE2'),
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 587,
+                element_name: $filter('translate')('panels.HANDLE2'),
+                element_qty: 1,
+                element_price: 100
               }
             ],
             [
               {
-                elementId: 588,
-                elementName: $filter('translate')('panels.HANDLE3'),
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 588,
+                element_name: $filter('translate')('panels.HANDLE3'),
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 589,
-                elementName: $filter('translate')('panels.HANDLE4'),
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 589,
+                element_name: $filter('translate')('panels.HANDLE4'),
+                element_qty: 1,
+                element_price: 100
               }
             ],
             [
               {
-                elementId: 586,
-                elementName: $filter('translate')('panels.HANDLE5'),
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 586,
+                element_name: $filter('translate')('panels.HANDLE5'),
+                element_qty: 1,
+                element_price: 100
               }
             ]
           ]
@@ -2083,44 +2065,44 @@
           elementsList: [
             [
               {
-                elementId: 1,
-                elementName: $filter('translate')('panels.OTHER1') + ' 40х40',
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 1,
+                element_name: $filter('translate')('panels.OTHER1') + ' 40х40',
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 2,
-                elementName: $filter('translate')('panels.OTHER2'),
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 2,
+                element_name: $filter('translate')('panels.OTHER2'),
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 3,
-                elementName: $filter('translate')('panels.OTHER3') + ' 170 (481-600), KS',
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 3,
+                element_name: $filter('translate')('panels.OTHER3') + ' 170 (481-600), KS',
+                element_qty: 1,
+                element_price: 100
               }
             ],
             [
               {
-                elementId: 1,
-                elementName: $filter('translate')('panels.OTHER4') + ' 15х30',
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 1,
+                element_name: $filter('translate')('panels.OTHER4') + ' 15х30',
+                element_qty: 1,
+                element_price: 100
               },
               {
-                elementId: 2,
-                elementName: $filter('translate')('panels.OTHER5') + ' K3/100',
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 2,
+                element_name: $filter('translate')('panels.OTHER5') + ' K3/100',
+                element_qty: 1,
+                element_price: 100
               }
             ],
             [
               {
-                elementId: 1,
-                elementName: $filter('translate')('panels.OTHER6'),
-                elementQty: 1,
-                elementPrice: 100
+                element_id: 1,
+                element_name: $filter('translate')('panels.OTHER6'),
+                element_qty: 1,
+                element_price: 100
               }
             ]
           ]

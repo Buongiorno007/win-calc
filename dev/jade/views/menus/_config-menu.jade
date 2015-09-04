@@ -32,7 +32,7 @@
       .additional-items-list
         ul.additional-items-group(ng-repeat="addElementGroup in configMenu.P.product.chosenAddElements")
           li.additional-item(ng-repeat="addElement in addElementGroup")
-            span.value(data-output="") {{ addElement.elementName }}
+            span.value(data-output="") {{ addElement.element_name }}
 
   footer.menu-footer.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}")
     price(price-value="configMenu.P.product.productPriceTOTALDis", price-currency="configMenu.U.userInfo.currency")

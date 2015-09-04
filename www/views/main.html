@@ -62,12 +62,12 @@
       <div ng-controller="RoomInfoCtrl as roomInfo" ng-class="{'show-comment': roomInfo.G.global.isShowCommentBlock}" hm-swipeup="roomInfo.swipeShowComment($event)" hm-swipedown="roomInfo.swipeHideComment($event)" class="room-info-container">
         <div class="coeff-container">
           <div class="coeff-block">
-            <div class="coeff climate">{{ roomInfo.O.order.currClimaticZone }}</div>
+            <div class="coeff climate">{{ roomInfo.O.order.climatic_zone }}</div>
             <div data-output="{{ 'mainpage.CLIMATE_ZONE' | translate }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
           </div>
           <div class="coeff-block">
-            <div ng-class="{'coeff-low': roomInfo.P.product.heatTransferTOTAL &lt; roomInfo.O.order.currHeatTransfer}" class="coeff heat-transfer">{{ roomInfo.P.product.heatTransferTOTAL }}
-              <div class="coeff-max">{{ roomInfo.O.order.currHeatTransfer }}</div>
+            <div ng-class="{'coeff-low': roomInfo.P.product.heat_coef_total &lt; roomInfo.O.order.heat_coef_min}" class="coeff heat-transfer">{{ roomInfo.P.product.heat_coef_total }}
+              <div class="coeff-max">{{ roomInfo.O.order.heat_coef_min }}</div>
             </div>
             <div data-output="{{ 'mainpage.THERMAL_RESISTANCE' | translate }}" typing="{{ roomInfo.config.typing }}" typing-delay="{{ roomInfo.config.DELAY_SHOW_COEFF }}" class="coeff-title"></div>
           </div>
@@ -83,12 +83,12 @@
         <div ng-if="rooms.G.global.showRoomSelectorDialog" class="rooms-inner">
           <div class="rooms-row">
             <div class="room-block">
-              <div show-delay="{{ rooms.config.DELAY_SHOW_ROOM4 }}" ng-class="{'selected': rooms.P.product.roomId === 4}" hm-tap="rooms.selectRoom(4)" class="room-box unvisible">
+              <div show-delay="{{ rooms.config.DELAY_SHOW_ROOM4 }}" ng-class="{'selected': rooms.P.product.room_id === 4}" hm-tap="rooms.selectRoom(4)" class="room-box unvisible">
                 <div class="room-img childroom"></div>
               </div>
             </div>
             <div class="room-block">
-              <div show-delay="{{ rooms.config.DELAY_SHOW_ROOM1 }}" ng-class="{'selected': rooms.P.product.roomId === 1}" hm-tap="rooms.selectRoom(1)" class="room-box unvisible">
+              <div show-delay="{{ rooms.config.DELAY_SHOW_ROOM1 }}" ng-class="{'selected': rooms.P.product.room_id === 1}" hm-tap="rooms.selectRoom(1)" class="room-box unvisible">
                 <div class="room-img kitchen"></div>
               </div>
             </div>
@@ -302,7 +302,7 @@
               </div>
               <div ng-show="elementsPanel.P.product.chosenAddElements[0].length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[0][0].elementName }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(1)" class="aux-title"></div>
+                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[0][0].element_name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(1)" class="aux-title"></div>
                   <div data-output="{{ 'add_elements.GRID' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-label"></div>
                 </div>
               </div>
@@ -317,16 +317,16 @@
               </div>
               <div ng-show="elementsPanel.P.product.chosenAddElements[1].length &gt; 0" class="selected-block horisontal">
                 <div class="aux-info-box">
-                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[1][0].elementName }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(2)" class="aux-title"></div>
+                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[1][0].element_name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(2)" class="aux-title"></div>
                   <div data-output="{{ 'add_elements.VISOR' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
                 <div class="aux-sizing-box">
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '2-1-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(1, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 2" class="aux-params-but aux_big_but">{{ elementsPanel.P.product.chosenAddElements[1][0].elementQty }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(1, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 2" class="aux-params-but aux_big_but">{{ elementsPanel.P.product.chosenAddElements[1][0].element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '2-2-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(2, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 2" class="aux-params-but aux_big_but"> {{ elementsPanel.P.product.chosenAddElements[1][0].elementWidth }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(2, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 2" class="aux-params-but aux_big_but"> {{ elementsPanel.P.product.chosenAddElements[1][0].element_width }}</button>
                     <div data-output="{{ 'add_elements.SIZE_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                 </div>
@@ -343,16 +343,16 @@
               </div>
               <div ng-show="elementsPanel.P.product.chosenAddElements[2].length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[2][0].elementName }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(3)" class="aux-title"></div>
+                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[2][0].element_name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(3)" class="aux-title"></div>
                   <div data-output="{{ 'add_elements.SPILLWAY' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
                 <div class="aux-sizing-box">
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '3-1-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(1, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 3" class="aux-params-but aux_middle_but">{{ elementsPanel.P.product.chosenAddElements[2][0].elementQty }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(1, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 3" class="aux-params-but aux_middle_but">{{ elementsPanel.P.product.chosenAddElements[2][0].element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '3-2-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(2, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 3" class="aux-params-but aux_middle_but"> {{ elementsPanel.P.product.chosenAddElements[2][0].elementWidth }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(2, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 3" class="aux-params-but aux_middle_but"> {{ elementsPanel.P.product.chosenAddElements[2][0].element_width }}</button>
                     <div data-output="{{ 'add_elements.SIZE_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                 </div>
@@ -371,7 +371,7 @@
               </div>
               <div ng-show="elementsPanel.P.product.chosenAddElements[3].length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[3][0].elementName }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(4)" class="aux-title"></div>
+                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[3][0].element_name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(4)" class="aux-title"></div>
                   <div data-output="{{ 'add_elements.OUTSIDE' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
               </div>
@@ -392,20 +392,20 @@
               </div>
               <div ng-show="elementsPanel.P.product.chosenAddElements[4].length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[4][0].elementName }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(5)" class="aux-title"></div>
+                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[4][0].element_name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(5)" class="aux-title"></div>
                   <div data-output="{{ 'add_elements.LOUVERS' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
                 <div class="aux-sizing-box">
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '5-1-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(1, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 5" class="aux-params-but aux_middle_but">{{ elementsPanel.P.product.chosenAddElements[4][0].elementQty }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(1, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 5" class="aux-params-but aux_middle_but">{{ elementsPanel.P.product.chosenAddElements[4][0].element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '5-2-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(2, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 5" class="aux-params-but aux_middle_but"> {{ elementsPanel.P.product.chosenAddElements[4][0].elementWidth }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(2, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 5" class="aux-params-but aux_middle_but"> {{ elementsPanel.P.product.chosenAddElements[4][0].element_width }}</button>
                     <div data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '5-3-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(3, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 5" class="aux-params-but aux_middle_but"> {{ elementsPanel.P.product.chosenAddElements[4][0].elementHeight }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(3, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 5" class="aux-params-but aux_middle_but"> {{ elementsPanel.P.product.chosenAddElements[4][0].element_height }}</button>
                     <div data-output="{{ 'add_elements.HEIGHT_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                 </div>
@@ -426,7 +426,7 @@
               </div>
               <div ng-show="elementsPanel.P.product.chosenAddElements[5].length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[5][0].elementName }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(6)" class="aux-title"></div>
+                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[5][0].element_name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(6)" class="aux-title"></div>
                   <div data-output="{{ 'add_elements.INSIDE' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
               </div>
@@ -444,16 +444,16 @@
               </div>
               <div ng-show="elementsPanel.P.product.chosenAddElements[6].length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[6][0].elementName }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(7)" class="aux-title"></div>
+                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[6][0].element_name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(7)" class="aux-title"></div>
                   <div data-output="{{ 'add_elements.CONNECTORS' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
                 <div class="aux-sizing-box">
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '7-1-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(1, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 7" class="aux-params-but aux_connect_but"> {{ elementsPanel.P.product.chosenAddElements[6][0].elementQty }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(1, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 7" class="aux-params-but aux_connect_but"> {{ elementsPanel.P.product.chosenAddElements[6][0].element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '7-2-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(2, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 7" class="aux-params-but aux_connect_but"> {{ elementsPanel.P.product.chosenAddElements[6][0].elementWidth }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(2, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 7" class="aux-params-but aux_connect_but"> {{ elementsPanel.P.product.chosenAddElements[6][0].element_width }}</button>
                     <div data-output="{{ 'add_elements.SIZE_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                 </div>
@@ -470,7 +470,7 @@
               </div>
               <div ng-show="elementsPanel.P.product.chosenAddElements[7].length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[7][0].elementName }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(8)" class="aux-title"></div>
+                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[7][0].element_name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(8)" class="aux-title"></div>
                   <div data-output="{{ 'add_elements.FAN' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
               </div>
@@ -485,16 +485,16 @@
               </div>
               <div ng-show="elementsPanel.P.product.chosenAddElements[8].length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[8][0].elementName }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(9)" class="aux-title"></div>
+                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[8][0].element_name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(9)" class="aux-title"></div>
                   <div data-output="{{ 'add_elements.WINDOWSILL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
                 <div class="aux-sizing-box">
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '9-1-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(1, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 9" class="aux-params-but aux_big_but"> {{ elementsPanel.P.product.chosenAddElements[8][0].elementQty }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(1, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 9" class="aux-params-but aux_big_but"> {{ elementsPanel.P.product.chosenAddElements[8][0].element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '9-2-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(2, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 9" class="aux-params-but aux_big_but"> {{ elementsPanel.P.product.chosenAddElements[8][0].elementWidth }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(2, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 9" class="aux-params-but aux_big_but"> {{ elementsPanel.P.product.chosenAddElements[8][0].element_width }}</button>
                     <div data-output="{{ 'add_elements.SIZE_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                 </div>
@@ -511,12 +511,12 @@
               </div>
               <div ng-show="elementsPanel.P.product.chosenAddElements[9].length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[9][0].elementName }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(10)" class="aux-title"></div>
+                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[9][0].element_name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(10)" class="aux-title"></div>
                   <div data-output="{{ 'add_elements.HANDLEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
                 <div class="aux-sizing-box">
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '10-1-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(1, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 10" class="aux-params-but aux_middle_but"> {{ elementsPanel.P.product.chosenAddElements[9][0].elementQty }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(1, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 10" class="aux-params-but aux_middle_but"> {{ elementsPanel.P.product.chosenAddElements[9][0].element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                 </div>
@@ -572,13 +572,13 @@
               <tr ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[0] track by $index" class="aux-list-row">
                 <td class="aux-tablecell-name">
                   <div class="aux-name">
-                    <div data-output="{{ addElement.elementName }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(1)" class="aux-title">)</div>
+                    <div data-output="{{ addElement.element_name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(1)" class="aux-title">)</div>
                     <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
                 <td class="aux-tablecell-qty">
                   <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '1-1-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                    <button hm-tap="elementsListPanel.initAddElementTools(1, $index)" ng-disabled="elementsListPanel.G.global.isQtyCalculator" class="aux-params-but aux_connect_but">{{ addElement.elementQty }}</button>
+                    <button hm-tap="elementsListPanel.initAddElementTools(1, $index)" ng-disabled="elementsListPanel.G.global.isQtyCalculator" class="aux-params-but aux_connect_but">{{ addElement.element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
@@ -599,19 +599,19 @@
               <tr ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[1] track by $index" class="aux-list-row">
                 <td class="aux-tablecell-name">
                   <div class="aux-name">
-                    <div data-output="{{ addElement.elementName }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(2)" class="aux-title"></div>
+                    <div data-output="{{ addElement.element_name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(2)" class="aux-title"></div>
                     <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
                 <td class="aux-tablecell-qty">
                   <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '2-1-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                    <button hm-tap="elementsListPanel.initAddElementTools(1, $index)" ng-disabled="elementsListPanel.G.global.isQtyCalculator" class="aux-params-but aux_big_but">{{ addElement.elementQty }}</button>
+                    <button hm-tap="elementsListPanel.initAddElementTools(1, $index)" ng-disabled="elementsListPanel.G.global.isQtyCalculator" class="aux-params-but aux_big_but">{{ addElement.element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
                 <td class="aux-tablecell-width">
                   <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '2-2-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                    <button hm-tap="elementsListPanel.initAddElementTools(2, $index)" ng-disabled="elementsListPanel.G.global.isSizeCalculator" class="aux-params-but aux_big_but">{{ addElement.elementWidth }}</button>
+                    <button hm-tap="elementsListPanel.initAddElementTools(2, $index)" ng-disabled="elementsListPanel.G.global.isSizeCalculator" class="aux-params-but aux_big_but">{{ addElement.element_width }}</button>
                     <div data-output="{{ 'add_elements.SIZE_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
@@ -631,19 +631,19 @@
               <tr ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[2] track by $index" class="aux-list-row">
                 <td class="aux-tablecell-name">
                   <div class="aux-name">
-                    <div data-output="{{ addElement.elementName }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(3)" class="aux-title"></div>
+                    <div data-output="{{ addElement.element_name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(3)" class="aux-title"></div>
                     <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
                 <td class="aux-tablecell-qty">
                   <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '3-1-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                    <button hm-tap="elementsListPanel.initAddElementTools(1, $index)" ng-disabled="elementsListPanel.G.global.isQtyCalculator" class="aux-params-but aux_middle_but">{{ addElement.elementQty }}</button>
+                    <button hm-tap="elementsListPanel.initAddElementTools(1, $index)" ng-disabled="elementsListPanel.G.global.isQtyCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
                 <td class="aux-tablecell-width">
                   <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '3-2-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                    <button hm-tap="elementsListPanel.initAddElementTools(2, $index)" ng-disabled="elementsListPanel.G.global.isSizeCalculator" class="aux-params-but aux_middle_but">{{ addElement.elementWidth }}</button>
+                    <button hm-tap="elementsListPanel.initAddElementTools(2, $index)" ng-disabled="elementsListPanel.G.global.isSizeCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_width }}</button>
                     <div data-output="{{ 'add_elements.SIZE_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
@@ -663,19 +663,19 @@
               <tr ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[3] track by $index" class="aux-list-row">
                 <td class="aux-tablecell-name">
                   <div class="aux-name">
-                    <div data-output="{{ addElement.elementName }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(4)" class="aux-title"></div>
+                    <div data-output="{{ addElement.element_name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(4)" class="aux-title"></div>
                     <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
                 <td class="aux-tablecell-qty">
                   <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '4-1-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                    <button hm-tap="elementsListPanel.initAddElementTools(1, $index)" ng-disabled="elementsListPanel.G.global.isQtyCalculator" class="aux-params-but aux_slope_but">{{ addElement.elementQty }}</button>
+                    <button hm-tap="elementsListPanel.initAddElementTools(1, $index)" ng-disabled="elementsListPanel.G.global.isQtyCalculator" class="aux-params-but aux_slope_but">{{ addElement.element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
                 <td class="aux-tablecell-width">
                   <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '4-2-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                    <button hm-tap="elementsListPanel.initAddElementTools(2, $index)" ng-disabled="elementsListPanel.G.global.isSizeCalculator" class="aux-params-but aux_slope_but">{{ addElement.elementWidth }}</button>
+                    <button hm-tap="elementsListPanel.initAddElementTools(2, $index)" ng-disabled="elementsListPanel.G.global.isSizeCalculator" class="aux-params-but aux_slope_but">{{ addElement.element_width }}</button>
                     <div data-output="{{ 'add_elements.SIZE_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
@@ -695,25 +695,25 @@
               <tr ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[4] track by $index" class="aux-list-row">
                 <td class="aux-tablecell-name">
                   <div class="aux-name">
-                    <div data-output="{{ addElement.elementName }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(5)" class="aux-title"></div>
+                    <div data-output="{{ addElement.element_name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(5)" class="aux-title"></div>
                     <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
                 <td class="aux-tablecell-qty">
                   <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '5-1-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                    <button hm-tap="elementsListPanel.initAddElementTools(1, $index)" ng-disabled="elementsListPanel.G.global.isQtyCalculator" class="aux-params-but aux_middle_but">{{ addElement.elementQty }}</button>
+                    <button hm-tap="elementsListPanel.initAddElementTools(1, $index)" ng-disabled="elementsListPanel.G.global.isQtyCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
                 <td class="aux-tablecell-width">
                   <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '5-2-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                    <button hm-tap="elementsListPanel.initAddElementTools(2, $index)" ng-disabled="elementsListPanel.G.global.isSizeCalculator" class="aux-params-but aux_middle_but">{{ addElement.elementWidth }}</button>
+                    <button hm-tap="elementsListPanel.initAddElementTools(2, $index)" ng-disabled="elementsListPanel.G.global.isSizeCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_width }}</button>
                     <div data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
                 <td class="aux-tablecell-height">
                   <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '5-3-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                    <button hm-tap="elementsListPanel.initAddElementTools(3, $index)" ng-disabled="elementsListPanel.G.global.isSizeCalculator" class="aux-params-but aux_middle_but">{{ addElement.elementWidth }}</button>
+                    <button hm-tap="elementsListPanel.initAddElementTools(3, $index)" ng-disabled="elementsListPanel.G.global.isSizeCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_width }}</button>
                     <div data-output="{{ 'add_elements.HEIGHT_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
@@ -732,19 +732,19 @@
               <tr ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[5] track by $index" class="aux-list-row">
                 <td class="aux-tablecell-name">
                   <div class="aux-name">
-                    <div data-output="{{ addElement.elementName }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(6)" class="aux-title"></div>
+                    <div data-output="{{ addElement.element_name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(6)" class="aux-title"></div>
                     <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
                 <td class="aux-tablecell-qty">
                   <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '6-1-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                    <button hm-tap="elementsListPanel.initAddElementTools(1, $index)" ng-disabled="elementsListPanel.G.global.isQtyCalculator" class="aux-params-but aux_slope_but">{{ addElement.elementQty }}</button>
+                    <button hm-tap="elementsListPanel.initAddElementTools(1, $index)" ng-disabled="elementsListPanel.G.global.isQtyCalculator" class="aux-params-but aux_slope_but">{{ addElement.element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
                 <td class="aux-tablecell-width">
                   <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '6-2-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                    <button hm-tap="elementsListPanel.initAddElementTools(2, $index)" ng-disabled="elementsListPanel.G.global.isSizeCalculator" class="aux-params-but aux_slope_but">{{ addElement.elementWidth }}</button>
+                    <button hm-tap="elementsListPanel.initAddElementTools(2, $index)" ng-disabled="elementsListPanel.G.global.isSizeCalculator" class="aux-params-but aux_slope_but">{{ addElement.element_width }}</button>
                     <div data-output="{{ 'add_elements.SIZE_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
@@ -764,19 +764,19 @@
               <tr ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[6] track by $index" class="aux-list-row">
                 <td class="aux-tablecell-name">
                   <div class="aux-name">
-                    <div data-output="{{ addElement.elementName }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(7)" class="aux-title"></div>
+                    <div data-output="{{ addElement.element_name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(7)" class="aux-title"></div>
                     <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
                 <td class="aux-tablecell-qty">
                   <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '7-1-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                    <button hm-tap="elementsListPanel.initAddElementTools(1, $index)" ng-disabled="elementsListPanel.G.global.isQtyCalculator" class="aux-params-but aux_connect_but">{{ addElement.elementQty }}</button>
+                    <button hm-tap="elementsListPanel.initAddElementTools(1, $index)" ng-disabled="elementsListPanel.G.global.isQtyCalculator" class="aux-params-but aux_connect_but">{{ addElement.element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
                 <td class="aux-tablecell-width">
                   <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '7-2-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                    <button hm-tap="elementsListPanel.initAddElementTools(2, $index)" ng-disabled="elementsListPanel.G.global.isSizeCalculator" class="aux-params-but aux_connect_but">{{ addElement.elementWidth }}</button>
+                    <button hm-tap="elementsListPanel.initAddElementTools(2, $index)" ng-disabled="elementsListPanel.G.global.isSizeCalculator" class="aux-params-but aux_connect_but">{{ addElement.element_width }}</button>
                     <div data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
@@ -796,13 +796,13 @@
               <tr ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[7] track by $index" class="aux-list-row">
                 <td class="aux-tablecell-name">
                   <div class="aux-name">
-                    <div data-output="{{ addElement.elementName }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(8)" class="aux-title"></div>
+                    <div data-output="{{ addElement.element_name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(8)" class="aux-title"></div>
                     <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
                 <td class="aux-tablecell-qty">
                   <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '8-1-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                    <button hm-tap="elementsListPanel.initAddElementTools(1, $index)" ng-disabled="elementsListPanel.G.global.isQtyCalculator" class="aux-params-but aux_small_but">{{ addElement.elementQty }}</button>
+                    <button hm-tap="elementsListPanel.initAddElementTools(1, $index)" ng-disabled="elementsListPanel.G.global.isQtyCalculator" class="aux-params-but aux_small_but">{{ addElement.element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
@@ -823,19 +823,19 @@
               <tr ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[8] track by $index" class="aux-list-row">
                 <td class="aux-tablecell-name">
                   <div class="aux-name">
-                    <div data-output="{{ addElement.elementName }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(9)" class="aux-title"></div>
+                    <div data-output="{{ addElement.element_name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(9)" class="aux-title"></div>
                     <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
                 <td class="aux-tablecell-qty">
                   <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '9-1-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                    <button hm-tap="elementsListPanel.initAddElementTools(1, $index)" ng-disabled="elementsListPanel.G.global.isQtyCalculator" class="aux-params-but aux_big_but">{{ addElement.elementQty }}</button>
+                    <button hm-tap="elementsListPanel.initAddElementTools(1, $index)" ng-disabled="elementsListPanel.G.global.isQtyCalculator" class="aux-params-but aux_big_but">{{ addElement.element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
                 <td class="aux-tablecell-width">
                   <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '9-2-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                    <button hm-tap="elementsListPanel.initAddElementTools(2, $index)" ng-disabled="elementsListPanel.G.global.isSizeCalculator" class="aux-params-but aux_big_but">{{ addElement.elementWidth }}</button>
+                    <button hm-tap="elementsListPanel.initAddElementTools(2, $index)" ng-disabled="elementsListPanel.G.global.isSizeCalculator" class="aux-params-but aux_big_but">{{ addElement.element_width }}</button>
                     <div data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
@@ -855,13 +855,13 @@
               <tr ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[9] track by $index" class="aux-list-row">
                 <td class="aux-tablecell-name">
                   <div class="aux-name">
-                    <div data-output="{{ addElement.elementName }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(10)" class="aux-title"></div>
+                    <div data-output="{{ addElement.element_name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(10)" class="aux-title"></div>
                     <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
                 <td class="aux-tablecell-qty">
                   <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '10-1-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                    <button hm-tap="elementsListPanel.initAddElementTools(1, $index)" ng-disabled="elementsListPanel.G.global.isQtyCalculator" class="aux-params-but aux_middle_but">{{ addElement.elementQty }}</button>
+                    <button hm-tap="elementsListPanel.initAddElementTools(1, $index)" ng-disabled="elementsListPanel.G.global.isQtyCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
@@ -882,13 +882,13 @@
               <tr ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[10] track by $index" class="aux-list-row">
                 <td class="aux-tablecell-name">
                   <div class="aux-name">
-                    <div data-output="{{ addElement.elementName }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(11)" class="aux-title"></div>
+                    <div data-output="{{ addElement.element_name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(11)" class="aux-title"></div>
                     <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
                 <td class="aux-tablecell-qty">
                   <div ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '10-1-'+$index &amp;&amp; elementsListPanel.A.aux.currentAddElementId === $index}" class="aux-params">
-                    <button hm-tap="elementsListPanel.initAddElementTools(1, $index)" ng-disabled="elementsListPanel.G.global.isQtyCalculator" class="aux-params-but aux_small_but">{{ addElement.elementQty }}</button>
+                    <button hm-tap="elementsListPanel.initAddElementTools(1, $index)" ng-disabled="elementsListPanel.G.global.isQtyCalculator" class="aux-params-but aux_small_but">{{ addElement.element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
@@ -957,7 +957,7 @@
             <div ng-hide="configMenu.P.product.addelem_price &gt; 0" data-output="{{ 'mainpage.CONFIGMENU_NO_ADDELEMENTS' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="name"></div>
             <div class="additional-items-list">
               <ul ng-repeat="addElementGroup in configMenu.P.product.chosenAddElements" class="additional-items-group">
-                <li ng-repeat="addElement in addElementGroup" class="additional-item"><span data-output="" class="value">{{ addElement.elementName }}</span></li>
+                <li ng-repeat="addElement in addElementGroup" class="additional-item"><span data-output="" class="value">{{ addElement.element_name }}</span></li>
               </ul>
             </div>
           </li>
@@ -990,11 +990,11 @@
             <ul ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" class="items-list">
               <div data-output="{{ elementsMenu.A.aux.addElementsType[$index] }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="title"></div>
               <li ng-hide="elementsMenu.A.aux.isAddElementListView" ng-repeat="addElement in type track by $index" ng-class="{'active': elementsMenu.A.aux.isAddElement === $parent.$index+'-'+$index}" hm-tap="elementsMenu.chooseAddElement($parent.$index, $index)" class="item">
-                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="value"></div>
+                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="value"></div>
                 <button class="element-info"></button>
               </li>
               <li ng-show="elementsMenu.A.aux.isAddElementListView" ng-repeat="addElement in type track by $index" ng-class="{'active': elementsMenu.A.aux.isAddElement === $parent.$index+'-'+$index}" hm-tap="elementsMenu.selectAddElementList($parent.$index, $index, $event)" class="item">
-                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="value"></div>
+                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="value"></div>
                 <button class="element-info"></button>
               </li>
             </ul>
@@ -1108,21 +1108,21 @@
             <div ng-class="{'selected': elementsMenu.A.aux.isAddElement == $parent.$index +'-'+ $index}" ng-style="elementsMenu.coordinats" class="aux-list-item">
               <div class="aux-list-row">
                 <div class="aux-name">
-                  <div class="aux-title">{{ addElement.elementName }}</div>
+                  <div class="aux-title">{{ addElement.element_name }}</div>
                   <div class="aux-label">{{ 'add_elements.NAME_LABEL' | translate }}</div>
                 </div>
-                <div ng-if="addElement.elementQty" class="aux-params">
-                  <!--button.aux-params-but.aux_big_but(hm-tap="global.initAddElementTools(1, $index)") {{ addElement.elementQty }}-->
-                  <button class="aux-params-but aux_big_but">{{ addElement.elementQty }}</button>
+                <div ng-if="addElement.element_qty" class="aux-params">
+                  <!--button.aux-params-but.aux_big_but(hm-tap="global.initAddElementTools(1, $index)") {{ addElement.element_qty }}-->
+                  <button class="aux-params-but aux_big_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
                 </div>
-                <div ng-if="addElement.elementWidth" class="aux-params">
-                  <!--button.aux-params-but.aux_big_but(hm-tap="global.initAddElementTools(2, $index)") {{ addElement.elementWidth }}-->
-                  <button class="aux-params-but aux_big_but">{{ addElement.elementWidth }}</button>
+                <div ng-if="addElement.element_width" class="aux-params">
+                  <!--button.aux-params-but.aux_big_but(hm-tap="global.initAddElementTools(2, $index)") {{ addElement.element_width }}-->
+                  <button class="aux-params-but aux_big_but">{{ addElement.element_width }}</button>
                   <div class="aux-label">{{ 'add_elements.SIZE_LABEL' | translate }}</div>
                 </div>
-                <div ng-if="addElement.elementHeight" class="aux-params">
-                  <button class="aux-params-but aux_big_but">{{ addElement.elementHeight }}</button>
+                <div ng-if="addElement.element_height" class="aux-params">
+                  <button class="aux-params-but aux_big_but">{{ addElement.element_height }}</button>
                   <div class="aux-label">{{ 'add_elements.SIZE_LABEL' | translate }}</div>
                 </div>
                 <div class="aux-price">+{{ addElement.elementPriceDis }} {{ elementsMenu.U.userInfo.currency }}</div>
@@ -1143,9 +1143,9 @@
             </div>
             <div ng-if="elementsMenu.P.product.chosenAddElements[0].length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[0] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '1-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_connect_but">{{ addElement.elementQty }}</button>
+                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_connect_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
                 </div>
                 <div hm-tap="elementsMenu.deleteAddElement(1, $index)" class="aux-delete"></div>
@@ -1165,13 +1165,13 @@
             </div>
             <div ng-if="elementsMenu.P.product.chosenAddElements[1].length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[1] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '2-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_big_but">{{ addElement.elementQty }}</button>
+                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_big_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
                 </div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '2-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_big_but">{{ addElement.elementWidth }}</button>
+                  <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_big_but">{{ addElement.element_width }}</button>
                   <div class="aux-label">{{ 'add_elements.SIZE_LABEL' | translate }}</div>
                 </div>
                 <div hm-tap="elementsMenu.deleteAddElement(2, $index)" class="aux-delete"></div>
@@ -1191,13 +1191,13 @@
             </div>
             <div ng-if="elementsMenu.P.product.chosenAddElements[2].length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[2] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '3-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_middle_but">{{ addElement.elementQty }}</button>
+                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
                 </div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '3-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_middle_but">{{ addElement.elementWidth }}</button>
+                  <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_width }}</button>
                   <div class="aux-label">{{ 'add_elements.SIZE_LABEL' | translate }}</div>
                 </div>
                 <div hm-tap="elementsMenu.deleteAddElement(3, $index)" class="aux-delete"></div>
@@ -1217,13 +1217,13 @@
             </div>
             <div ng-if="elementsMenu.P.product.chosenAddElements[3].length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[3] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '4-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_slope_but">{{ addElement.elementQty }}</button>
+                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_slope_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
                 </div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '4-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_slope_but">{{ addElement.elementWidth }}</button>
+                  <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_slope_but">{{ addElement.element_width }}</button>
                   <div class="aux-label">{{ 'add_elements.SIZE_LABEL' | translate }}</div>
                 </div>
                 <div hm-tap="elementsMenu.deleteAddElement(4, $index)" class="aux-delete"></div>
@@ -1243,17 +1243,17 @@
             </div>
             <div ng-if="elementsMenu.P.product.chosenAddElements[4].length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[4] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '5-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_middle_but">{{ addElement.elementQty }}</button>
+                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
                 </div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '5-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_middle_but">{{ addElement.elementWidth }}</button>
+                  <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_width }}</button>
                   <div class="aux-label">{{ 'add_elements.WIDTH_LABEL' | translate }}</div>
                 </div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '5-3-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(3, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_middle_but">{{ addElement.elementHeight }}</button>
+                  <button hm-tap="elementsMenu.initAddElementTools(3, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_height }}</button>
                   <div class="aux-label">{{ 'add_elements.HEIGHT_LABEL' | translate }}</div>
                 </div>
                 <div hm-tap="elementsMenu.deleteAddElement(5, $index)" class="aux-delete"></div>
@@ -1273,13 +1273,13 @@
             </div>
             <div ng-if="elementsMenu.P.product.chosenAddElements[5].length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[5] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '6-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_slope_but">{{ addElement.elementQty }}</button>
+                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_slope_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
                 </div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '6-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_slope_but">{{ addElement.elementWidth }}</button>
+                  <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_slope_but">{{ addElement.element_width }}</button>
                   <div class="aux-label">{{ 'add_elements.SIZE_LABEL' | translate }}</div>
                 </div>
                 <div hm-tap="elementsMenu.deleteAddElement(6, $index)" class="aux-delete"></div>
@@ -1299,13 +1299,13 @@
             </div>
             <div ng-if="elementsMenu.P.product.chosenAddElements[6].length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[6] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '7-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_connect_but">{{ addElement.elementQty }}</button>
+                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_connect_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
                 </div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '7-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_connect_but">{{ addElement.elementWidth }}</button>
+                  <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_connect_but">{{ addElement.element_width }}</button>
                   <div class="aux-label">{{ 'add_elements.SIZE_LABEL' | translate }}</div>
                 </div>
                 <div hm-tap="elementsMenu.deleteAddElement(7, $index)" class="aux-delete"></div>
@@ -1325,9 +1325,9 @@
             </div>
             <div ng-if="elementsMenu.P.product.chosenAddElements[7].length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[7] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '8-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_small_but">{{ addElement.elementQty }}</button>
+                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_small_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
                 </div>
                 <div hm-tap="elementsMenu.deleteAddElement(8, $index)" class="aux-delete"></div>
@@ -1347,13 +1347,13 @@
             </div>
             <div ng-if="elementsMenu.P.product.chosenAddElements[8].length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[8] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '9-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_big_but">{{ addElement.elementQty }}</button>
+                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_big_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
                 </div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '9-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_big_but">{{ addElement.elementWidth }}</button>
+                  <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_big_but">{{ addElement.element_width }}</button>
                   <div class="aux-label">{{ 'add_elements.WIDTH_LABEL' | translate }}</div>
                 </div>
                 <div hm-tap="elementsMenu.deleteAddElement(9, $index)" class="aux-delete"></div>
@@ -1373,9 +1373,9 @@
             </div>
             <div ng-if="elementsMenu.P.product.chosenAddElements[9].length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[9] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '10-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_middle_but">{{ addElement.elementQty }}</button>
+                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
                 </div>
                 <div hm-tap="elementsMenu.deleteAddElement(10, $index)" class="aux-delete"></div>
@@ -1395,9 +1395,9 @@
             </div>
             <div ng-if="elementsMenu.P.product.chosenAddElements[10].length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[10] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.elementName }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '11-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_small_but">{{ addElement.elementQty }}</button>
+                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_small_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
                 </div>
                 <div hm-tap="elementsMenu.deleteAddElement(11, $index)" class="aux-delete"></div>

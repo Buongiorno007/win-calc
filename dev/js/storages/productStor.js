@@ -17,6 +17,7 @@
         is_addelem_only: 0,
         room_id: 4,
         construction_type: 1, // 1 - window; 2 - windowDoor; 3 - balcony; 4 - door
+        heat_coef_total: 0,
 
         templateIndex: 0, //*
         template_id: 0,
@@ -53,10 +54,6 @@
         door_sash_shape_id: 0,
         door_handle_shape_id: 0,
         door_lock_shape_id: 0,
-
-        heat_coef_min: 0, //????
-        heat_coef_total: 0,
-        airCirculationTOTAL: 0, //*
 
         template_price: 0,
         addelem_price: 0,
