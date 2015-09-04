@@ -1,3 +1,6 @@
+
+// services/main_Serv.js
+
 (function(){
   'use strict';
   /**
@@ -7,59 +10,33 @@
     .module('MainModule')
     .factory('MainServ', navFactory);
 
-  function navFactory($rootScope, $location, $q,$http, $filter, $timeout, globalConstants, globalDB, localDB, GeneralServ, SVGServ, loginServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function navFactory($rootScope, $location, $q, $filter, $timeout, globalConstants, localDB, GeneralServ, SVGServ, loginServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisFactory = this;
 
-    //TODO move to GlobalDB
-    var profilesSource = [
-      {
-        profileDescrip: '4 камеры', //cameras
-        profileNoise: 4, // noise_coeff
-        heatCoeff: 0.8, // heat_coeff
-        airCoeff: 10 // air_coeff
-      },
-      {
-        profileDescrip: '4 камеры',
-        profileNoise: 4,
-        heatCoeff: 0.82,
-        airCoeff: 11
-      },
-      {
-        profileDescrip: '5 камер',
-        profileNoise: 5,
-        heatCoeff: 0.84,
-        airCoeff: 9
-      },
-      {
-        profileDescrip: '4 камеры',
-        profileNoise: 4,
-        heatCoeff: 0.71,
-        airCoeff: 8
-      },
-      {
-        profileDescrip: '3 камеры',
-        profileNoise: 3,
-        heatCoeff: 0.8,
-        airCoeff: 8
-      }
-    ];
-
     thisFactory.publicObj = {
+      saveUserEntry: saveUserEntry,
       createOrderData: createOrderData,
       setCurrDiscounts: setCurrDiscounts,
       downloadAllProfiles: downloadAllProfiles,
+      downloadAllGlasses: downloadAllGlasses,
+      sortingGlasses: sortingGlasses,
+      downloadAllHardwares: downloadAllHardwares,
+      sortingHardware: sortingHardware,
       prepareTemplates: prepareTemplates,
-      //downloadAllHardwares: downloadAllHardwares,
+      //downloadAllTemplates: downloadAllTemplates,
+      downloadAllLamination: downloadAllLamination,
 
       setCurrentProfile: setCurrentProfile,
-      //downloadAllTemplates: downloadAllTemplates,
-      parseTemplate: parseTemplate,
-      saveTemplateInProduct: saveTemplateInProduct,
       setCurrentGlass: setCurrentGlass,
       setCurrentHardware: setCurrentHardware,
+      parseTemplate: parseTemplate,
+      saveTemplateInProduct: saveTemplateInProduct,
+      checkSashInTemplate: checkSashInTemplate,
       preparePrice: preparePrice,
       setProductPriceTOTAL: setProductPriceTOTAL,
+      isAddElemExist: isAddElemExist,
+
       createNewProject: createNewProject,
       createNewProduct: createNewProduct,
       setDefaultDoorConfig: setDefaultDoorConfig,
@@ -68,7 +45,7 @@
       inputProductInOrder: inputProductInOrder,
       goToCart: goToCart,
       insertOrderInLocalDB: insertOrderInLocalDB,
-      deleteOrderFromLocalDB: deleteOrderFromLocalDB
+      deleteOrderInLocalDB: deleteOrderInLocalDB
     };
 
     return thisFactory.publicObj;
@@ -79,92 +56,322 @@
 
     //============ methods ================//
 
+
+    function saveUserEntry() {
+
+      localDB.exportUserEntrance(UserStor.userInfo.phone, UserStor.userInfo.device_code);
+      //TODO offline
+//      ++UserStor.userInfo.entries;
+//      var data = {entries: UserStor.userInfo.entries},
+//          dataToSend = [
+//            {
+//              model: 'users',
+//              rowId: UserStor.userInfo.id,
+//              field: JSON.stringify(data)
+//            }
+//          ];
+//      localDB.updateLocalDB(localDB.tablesLocalDB.user.tableName, data, {'id': UserStor.userInfo.id});
+//      localDB.updateServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, dataToSend).then(function(data) {
+//        if(!data) {
+//          //----- if no connect with Server save in Export LocalDB
+//          localDB.insertRowLocalDB(dataToSend, localDB.tablesLocalDB.export.tableName);
+//        }
+//      });
+    }
+
+
     //------------- Create Order Id and Date
     function createOrderData() {
       var productDay;
       //----------- create order number for new project
-      OrderStor.order.orderId = Math.floor((Math.random() * 100000));
+      OrderStor.order.order_number = Math.floor((Math.random() * 100000));
       //------ set delivery day
-      productDay = new Date(OrderStor.order.orderDate).getDate() + globalConstants.productionDays;
-      OrderStor.order.deliveryDate = new Date().setDate(productDay);
-      OrderStor.order.newDeliveryDate = angular.copy(OrderStor.order.deliveryDate);
+      productDay = new Date(OrderStor.order.order_date).getDate() + globalConstants.productionDays;
+      OrderStor.order.delivery_date = new Date().setDate(productDay);
+      OrderStor.order.new_delivery_date = angular.copy(OrderStor.order.delivery_date);
     }
 
 
 
     function setCurrDiscounts() {
-      OrderStor.order.currDiscount = angular.copy(UserStor.userInfo.discount);
-      OrderStor.order.currDiscountAddElem = angular.copy(UserStor.userInfo.discountAddElem);
+      OrderStor.order.discount_construct = angular.copy(UserStor.userInfo.discount);//TODO is not table user-discounts
+      OrderStor.order.discount_addelem = angular.copy(UserStor.userInfo.discountAddElem);
     }
-
 
     //----------- get all profiles
     function downloadAllProfiles() {
-      var deferred = $q.defer();
-      globalDB.selectLocalDB(globalDB.tablesLocalDB.profile_system_folders.tableName).then(function(result) {
-//      globalDB.selectAllDBGlobal(globalDB.profileTypeTableDBGlobal).then(function (result) {
-        if (result) {
-          var resultQty = result.rows.length,
-              countries;
-          if(resultQty) {
-            GlobalStor.global.profilesType = angular.copy(result.rows);
-            //-------- get all Countries
-            globalDB.selectLocalDB(globalDB.tablesLocalDB.countries.tableName).then(function(result) {
-//            globalDB.selectAllDBGlobal(globalDB.countriesTableDBGlobal).then(function (result) {
-              if (result) {
-                if (result.rows.length){
-                  countries = result.rows;
-                }
+      var defer = $q.defer();
+      //------- get all Prifile Folders
+      localDB.selectLocalDB(localDB.tablesLocalDB.profile_system_folders.tableName).then(function(types) {
+        var typesQty = types.length;
+        if (typesQty) {
+          GlobalStor.global.profilesType = angular.copy(types);
+          var promises = types.map(function(type) {
+            var defer2 = $q.defer();
+            localDB.selectLocalDB(localDB.tablesLocalDB.profile_systems.tableName, {'profile_system_folder_id': type.id}).then(function (profile) {
+              if (profile.length) {
+                GlobalStor.global.profiles.push(angular.copy(profile));
+                defer2.resolve(1);
+              } else {
+                defer2.resolve(0);
               }
-            }).then(function () {
-
-              for (var i = 0; i < resultQty; i++) {
-                //              globalDB.selectDBGlobal(globalDB.profileTableDBGlobal, {'profile_system_folder_id': result[i].id}).then(function (result) {
-                globalDB.selectLocalDB(globalDB.tablesLocalDB.profile_systems.tableName, {'profile_system_folder_id': result.rows.item(i).id}).then(function (result) {
-                  if (result) {
-                    var tempProf = angular.copy(result.rows), profileQty = tempProf.length;
-                    if (profileQty) {
-                      //---- set countryName for each profile & adding absented elements
-                      for (var j = 0; j < profileQty; j++) {
-//                        angular.extend(tempProf[j], profilesSource[j]);
-                        for (var st = 0; st < countries.length; st++) {
-                          if (tempProf[j].country == countries[st].id) {
-                            tempProf[j].countryName = countries[st].name;
-                          }
-                        }
-                      }
-                      GlobalStor.global.profiles.push(tempProf);
-                      deferred.resolve('done!');
-                    }
-                  }
-                });
-              }
-
             });
-          }
+            return defer2.promise;
+          });
+          $q.all(promises).then(function(){
+            defer.resolve(1);
+          });
+        } else {
+          defer.resolve(0);
         }
       });
-      return deferred.promise;
+      return defer.promise;
     }
 
-    //    function downloadAllHardwares() {
-    //      globalDB.selectDBGlobal(globalDB.hardwareTypeTableDBGlobal, {'is_in_calculation': 1}).then(function (result) {
-    //        if(result) {
-    //          GlobalStor.global.hardwareTypes = angular.copy(results.data.hardwaresTypes);
-    //          GlobalStor.global.hardwares = angular.copy(results.data.hardwares);
-    //
-    //          //----- set default hardware in ProductStor
-    //          ProductStor.product.hardwareId = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].id;
-    //          ProductStor.product.hardwareName = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].name;
-    //          ProductStor.product.hardwareHeatCoeff = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].heat_сoeff;
-    //          ProductStor.product.hardwareAirCoeff = GlobalStor.global.hardwares[ProductStor.product.hardwareIndex][ProductStor.product.hardwareIndex].air_сoeff;
-    //        }
-    //      });
-    //    }
+
+
+    function downloadAllGlasses() {
+      var defer = $q.defer(),
+          profilesQty = GlobalStor.global.profiles.length,
+          profileIds = [];
+      //----- collect profiles in one array
+      while(--profilesQty > -1) {
+        var profileQty = GlobalStor.global.profiles[profilesQty].length;
+        while(--profileQty > -1) {
+          profileIds.push(GlobalStor.global.profiles[profilesQty][profileQty].id);
+        }
+      }
+
+      //------ create structure of GlobalStor.global.glassesAll
+      //------ insert profile Id and glass Types
+      var promises2 = profileIds.map(function(item) {
+        var defer2 = $q.defer(),
+            glassObj = {profileId: item, glassTypes: [], glasses: []};
+        localDB.selectLocalDB(localDB.tablesLocalDB.glass_folders.tableName).then(function (types) {
+          if(types.length) {
+            glassObj.glassTypes = angular.copy(types);
+            GlobalStor.global.glassesAll.push(glassObj);
+            defer2.resolve(1);
+          } else {
+            defer2.resolve(0);
+          }
+        });
+        return defer2.promise;
+      });
+
+      $q.all(promises2).then(function(data){
+//        console.log('data!!!!', data);
+        if(data) {
+          //-------- select all glass Ids as to profile Id
+          var promises3 = GlobalStor.global.glassesAll.map(function(item) {
+            var defer3 = $q.defer();
+            localDB.selectLocalDB(localDB.tablesLocalDB.elements_profile_systems.tableName, {'profile_system_id': item.profileId}).then(function (glassId) {
+              var glassIdQty = glassId.length;
+              if(glassIdQty){
+                defer3.resolve(glassId);
+              } else {
+                defer3.resolve(0);
+              }
+            });
+            return defer3.promise;
+          });
+
+          $q.all(promises3).then(function(glassIds) {
+            //-------- get glass as to its Id
+            var glassIdsQty = glassIds.length,
+                promises4 = [], promises6 = [];
+//            console.log('glassIds!!!!', glassIds);
+            for(var i = 0; i < glassIdsQty; i++) {
+              var defer4 = $q.defer();
+
+              var promises5 = glassIds[i].map(function(item) {
+                var defer5 = $q.defer();
+                localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.element_id}).then(function (glass) {
+//                  console.log('glass!!!!', glass);
+                  var glassQty = glass.length;
+                  if(glassQty){
+                    defer5.resolve(glass[0]);
+                  } else {
+                    defer5.resolve(0);
+                  }
+                });
+                return defer5.promise;
+              });
+
+              defer4.resolve($q.all(promises5));
+              promises4.push(defer4.promise);
+            }
+
+            for(var i = 0; i < glassIdsQty; i++) {
+              var defer6 = $q.defer();
+
+              var promises7 = glassIds[i].map(function(item) {
+                var defer7 = $q.defer();
+                localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id}).then(function (list) {
+                  var listQty = list.length;
+                  if(listQty){
+                    defer7.resolve(list[0]);
+                  } else {
+                    defer7.resolve(0);
+                  }
+                });
+                return defer7.promise;
+              });
+
+              defer6.resolve($q.all(promises7));
+              promises6.push(defer6.promise);
+            }
+
+            $q.all(promises4).then(function(glasses) {
+//              console.log('glasses after 1111!!!!', glasses);
+              var glassesQty = glasses.length;
+              if(glassesQty) {
+                for(var i = 0; i < glassesQty; i++) {
+                  GlobalStor.global.glassesAll[i].glasses = glasses[i];
+                }
+              }
+            });
+            $q.all(promises6).then(function(lists) {
+//              console.log('glasses after 2222!!!!', lists);
+              var listsQty = lists.length;
+              if(listsQty) {
+                for(var i = 0; i < listsQty; i++) {
+                  GlobalStor.global.glassesAll[i].glassLists = lists[i];
+                  defer.resolve(1);
+                }
+              }
+            });
+
+          });
+
+        }
+      });
+      return defer.promise;
+    }
+
+
+    function sortingGlasses() {
+      var glassAllQty = GlobalStor.global.glassesAll.length;
+
+
+      for(var g = 0; g < glassAllQty; g++) {
+        //------- merge glassList to glasses
+        var listQty = GlobalStor.global.glassesAll[g].glassLists.length;
+        for(var l = 0; l < listQty; l++) {
+          if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalStor.global.glassesAll[g].glasses[l].id) {
+            GlobalStor.global.glassesAll[g].glasses[l].list_id = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].id);
+            GlobalStor.global.glassesAll[g].glasses[l].list_name = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].name);
+            GlobalStor.global.glassesAll[g].glasses[l].cameras = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].cameras);
+          }
+        }
+
+        //------- sorting glasses by type
+        var glassTypeQty = GlobalStor.global.glassesAll[g].glassTypes.length,
+            newGlassesType = [],
+            newGlasses = [];
+        while(--glassTypeQty > -1) {
+          var glassByType = GlobalStor.global.glassesAll[g].glasses.filter(function(elem) {
+            return elem.glass_folder_id === GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].id;
+          });
+//          console.log('glassByType!!!!!', glassByType);
+          if(glassByType.length) {
+            newGlassesType.push(GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty]);
+            newGlasses.push(glassByType);
+          }
+        }
+        GlobalStor.global.glassesAll[g].glassTypes = angular.copy(newGlassesType);
+        GlobalStor.global.glassesAll[g].glasses = angular.copy(newGlasses);
+        delete GlobalStor.global.glassesAll[g].glassLists;
+      }
+
+    }
+
+
+
+    function downloadAllHardwares() {
+      var defer = $q.defer();
+      //------- get all Hardware Groups
+      localDB.selectLocalDB(localDB.tablesLocalDB.window_hardware_groups.tableName).then(function(types) {
+        var typesQty = types.length;
+        if (typesQty) {
+          GlobalStor.global.hardwareTypes = angular.copy(types);
+
+          localDB.selectLocalDB(localDB.tablesLocalDB.window_hardware_features.tableName).then(function (ware) {
+            if (ware.length) {
+              GlobalStor.global.hardwares = angular.copy(ware);
+              defer.resolve(1);
+            } else {
+              defer.resolve(0);
+            }
+          });
+        } else {
+          defer.resolve(0);
+        }
+      });
+      return defer.promise;
+    }
+
+
+    function sortingHardware() {
+      var wareTypeQty = GlobalStor.global.hardwareTypes.length,
+          waresQty = GlobalStor.global.hardwares.length,
+          wares = [], wareOther = [], typeDelete = [];
+      for(var t = 0; t < wareTypeQty; t++) {
+        var ware = [];
+        for(var w = 0; w < waresQty; w++) {
+          if(GlobalStor.global.hardwareTypes[t].id === GlobalStor.global.hardwares[w].hardware_group_id) {
+            ware.push(angular.copy(GlobalStor.global.hardwares[w]));
+          }
+        }
+        if(ware.length) {
+          wares.push(ware);
+        } else {
+          typeDelete.push(t);
+        }
+      }
+      //------- delete empty groups
+      var delQty = typeDelete.length;
+      if(delQty) {
+        while(--delQty > -1) {
+          GlobalStor.global.hardwareTypes.splice(typeDelete[delQty], 1);
+        }
+      }
+      //------ collect other hardware no include in group
+      for(var w = 0; w < waresQty; w++) {
+        if(GlobalStor.global.hardwares[w].hardware_group_id === 0) {
+          wareOther.push(angular.copy(GlobalStor.global.hardwares[w]));
+        }
+      }
+      if(wareOther.length) {
+        wares.push(wareOther);
+        GlobalStor.global.hardwareTypes.push({
+          name: $filter('translate')('panels.OTHER_TYPE')
+        });
+      }
+      GlobalStor.global.hardwares = wares;
+    }
+
+
+    function downloadAllLamination() {
+      var defer = $q.defer();
+      //----------- get all lamination
+      localDB.selectLocalDB(localDB.tablesLocalDB.lamination_factory_colors.tableName).then(function(lamin) {
+        if(lamin.length) {
+          defer.resolve(lamin);
+        } else {
+          console.log('No laminations in database');
+          defer.reject(0);
+        }
+      });
+      return defer.promise;
+    }
+
+
+
 
     function prepareTemplates(type) {
       var deferred = $q.defer();
-      GlobalStor.global.isLoader = 1;
+//      GlobalStor.global.isLoader = 1;
       downloadAllTemplates(type).then(function(data) {
         if(data) {
           GlobalStor.global.templatesSourceSTORE = angular.copy(data);
@@ -173,7 +380,7 @@
           //--------- set current profile in ProductStor
           setCurrentProfile().then(function(){
             parseTemplate().then(function() {
-              deferred.resolve('done');
+              deferred.resolve(1);
             });
 
           });
@@ -240,24 +447,21 @@
 
 
     //-------- set default profile
-    function setCurrentProfile() {
+    function setCurrentProfile(id) {
       var deferred = $q.defer();
-      ProductStor.product.profileId = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].id;
-      ProductStor.product.profileName = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].name;
-      ProductStor.product.profileHeatCoeff = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].heat_сoeff;
-      ProductStor.product.profileAirCoeff = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].air_сoeff;
-      ProductStor.product.profileFrameId = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].rama_list_id;
-      ProductStor.product.profileFrameStillId = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].rama_still_list_id;
-      ProductStor.product.profileSashId = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].stvorka_list_id;
-      ProductStor.product.profileImpostId = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].impost_list_id;
-      ProductStor.product.profileShtulpId = GlobalStor.global.profiles[ProductStor.product.profileTypeIndex][ProductStor.product.profileIndex].shtulp_list_id;
+      if(id) {
+        ProductStor.product.profile = fineItemById(id, GlobalStor.global.profiles);
+      } else {
+        ProductStor.product.profile = GlobalStor.global.profiles[0][0];
+      }
+
       //------- set Depths
       $q.all([
-        downloadProfileDepth(ProductStor.product.profileFrameId),
-        downloadProfileDepth(ProductStor.product.profileFrameStillId),
-        downloadProfileDepth(ProductStor.product.profileSashId),
-        downloadProfileDepth(ProductStor.product.profileImpostId),
-        downloadProfileDepth(ProductStor.product.profileShtulpId)
+        downloadProfileDepth(ProductStor.product.profile.rama_list_id),
+        downloadProfileDepth(ProductStor.product.profile.rama_still_list_id),
+        downloadProfileDepth(ProductStor.product.profile.stvorka_list_id),
+        downloadProfileDepth(ProductStor.product.profile.impost_list_id),
+        downloadProfileDepth(ProductStor.product.profile.shtulp_list_id)
       ]).then(function (result) {
         GlobalStor.global.profileDepths.frameDepth = result[0];
         GlobalStor.global.profileDepths.frameStillDepth = result[1];
@@ -271,17 +475,32 @@
     }
 
 
-    function downloadProfileDepth(elementId) {
-      return globalDB.selectLocalDB(globalDB.tablesLocalDB.lists.tableName, {'id': elementId}).then(function(result) {
-        var resultObj = {};
-        if (result && result.rows.length) {
-          resultObj.a = result.rows.item(0).a;
-          resultObj.b = result.rows.item(0).b;
-          resultObj.c = result.rows.item(0).c;
-          resultObj.d = result.rows.item(0).d;
+    function fineItemById(id, list) {
+      var typeQty = list.length;
+      while(--typeQty > -1) {
+        var itemQty = list[typeQty].length;
+        while(--itemQty > -1) {
+          if(list[typeQty][itemQty].id === id) {
+            return list[typeQty][itemQty];
+          }
         }
-        return resultObj;
+      }
+    }
+
+
+    function downloadProfileDepth(elementId) {
+      var defer = $q.defer();
+      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'id': elementId}).then(function(result) {
+        var resultObj = {};
+        if (result.length) {
+          resultObj.a = result[0].a;
+          resultObj.b = result[0].b;
+          resultObj.c = result[0].c;
+          resultObj.d = result[0].d;
+        }
+        defer.resolve(resultObj);
       });
+      return defer.promise;
     }
 
 
@@ -293,8 +512,8 @@
       saveTemplateInProduct(ProductStor.product.templateIndex).then(function() {
         setCurrentGlass();
         setCurrentHardware();
-        preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId).then(function() {
-          deferred.resolve('done');
+        preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass.list_id, ProductStor.product.hardware.id).then(function() {
+          deferred.resolve(1);
         });
       });
       return deferred.promise;
@@ -304,14 +523,16 @@
 
     function saveTemplateInProduct(templateIndex) {
       var defer = $q.defer();
-      ProductStor.product.templateSource = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
+      ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
       //----- create template
-      SVGServ.createSVGTemplate(ProductStor.product.templateSource, GlobalStor.global.profileDepths).then(function(result) {
+      SVGServ.createSVGTemplate(ProductStor.product.template_source, GlobalStor.global.profileDepths).then(function(result) {
         ProductStor.product.template = angular.copy(result);
+        GlobalStor.global.isSashesInTemplate = checkSashInTemplate();
+        console.log('TEMPLATE +++', ProductStor.product.template);
         //----- create template icon
-        SVGServ.createSVGTemplateIcon(ProductStor.product.templateSource, GlobalStor.global.profileDepths).then(function(result) {
+        SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, GlobalStor.global.profileDepths).then(function(result) {
           ProductStor.product.templateIcon = angular.copy(result);
-          defer.resolve('done');
+          defer.resolve(1);
         });
       });
       return defer.promise;
@@ -319,27 +540,53 @@
 
 
 
-    function setCurrentGlass() {
-      //----- set default glass in ProductStor
-      ProductStor.product.glassId = GlobalStor.global.glasses[ProductStor.product.glassTypeIndex][ProductStor.product.glassIndex].glassId;
-      ProductStor.product.glassName = GlobalStor.global.glasses[ProductStor.product.glassTypeIndex][ProductStor.product.glassIndex].glassName;
-      ProductStor.product.glassHeatCoeff = GlobalStor.global.glasses[ProductStor.product.glassTypeIndex][ProductStor.product.glassIndex].heatCoeff;
-      ProductStor.product.glassAirCoeff = GlobalStor.global.glasses[ProductStor.product.glassTypeIndex][ProductStor.product.glassIndex].airCoeff;
+    function checkSashInTemplate() {
+      var templQty = ProductStor.product.template.details.length,
+          counter = 0;
+      while(--templQty > 0) {
+        if(ProductStor.product.template.details[templQty].blockType === 'sash') {
+          ++counter;
+        }
+      }
+      return counter;
     }
 
-    function setCurrentHardware() {
-      //----- set default hardware in ProductStor
-      ProductStor.product.hardwareId = GlobalStor.global.hardwares[ProductStor.product.hardwareTypeIndex][ProductStor.product.hardwareIndex].hardwareId;
-      ProductStor.product.hardwareName = GlobalStor.global.hardwares[ProductStor.product.hardwareTypeIndex][ProductStor.product.hardwareIndex].hardwareName;
-      ProductStor.product.hardwareHeatCoeff = GlobalStor.global.hardwares[ProductStor.product.hardwareTypeIndex][ProductStor.product.hardwareIndex].heatCoeff;
-      ProductStor.product.hardwareAirCoeff = GlobalStor.global.hardwares[ProductStor.product.hardwareTypeIndex][ProductStor.product.hardwareIndex].airCoeff;
+
+
+    function setCurrentGlass(id) {
+      if(id) {
+        ProductStor.product.glass = fineItemById(id, GlobalStor.global.glasses);
+      } else {
+        //----- set default glass in ProductStor
+        var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+          return item.profileId === ProductStor.product.profile.id;
+        });
+        //      console.log('tempGlassArr = ', tempGlassArr);
+        if(tempGlassArr.length) {
+          GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
+          GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
+          ProductStor.product.glass = GlobalStor.global.glasses[0][0];
+        }
+      }
+
+    }
+
+    function setCurrentHardware(id) {
+      if(id) {
+        ProductStor.product.hardware = fineItemById(id, GlobalStor.global.hardwares);
+      } else {
+        //----- set default hardware in ProductStor
+        if(GlobalStor.global.isSashesInTemplate) {
+          ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+        }
+      }
     }
 
 
     //--------- create object to send in server for price calculation
     function preparePrice(template, profileId, glassId, hardwareId) {
       var deferred = $q.defer();
-      setBeadId(profileId, glassId).then(function(beadId) {
+      setBeadId(profileId).then(function(beadId) {
         var objXFormedPrice = {
               //cityId: UserStor.userInfo.city_id,
               currencyId: UserStor.userInfo.currencyId,
@@ -347,11 +594,11 @@
               glassId: glassId,
               hardwareId: hardwareId,
               hardwareColor: ProductStor.product.laminationInName,
-              frameId: ProductStor.product.profileFrameId,
-              frameSillId: ProductStor.product.profileFrameStillId,
-              sashId: ProductStor.product.profileSashId,
-              impostId: ProductStor.product.profileImpostId,
-              shtulpId:  ProductStor.product.profileShtulpId,
+              frameId: ProductStor.product.profile.rama_list_id,
+              frameSillId: ProductStor.product.profile.rama_still_list_id,
+              sashId: ProductStor.product.profile.stvorka_list_id,
+              impostId: ProductStor.product.profile.impost_list_id,
+              shtulpId:  ProductStor.product.profile.shtulp_list_id,
               beadId: beadId,
 
               framesSize: angular.copy(template.priceElements.framesSize),
@@ -376,11 +623,11 @@
 
 //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
 
-        console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
+//        console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
 
         //--------- get product price
         calculationPrice(objXFormedPrice).then(function() {
-          deferred.resolve('done');
+          deferred.resolve(1);
         });
 
         //------ calculate coeffs
@@ -392,55 +639,32 @@
 
 
     //------------ set Bead Id
-    function setBeadId(profileId, glassId) {
-      var deferred = $q.defer(),
-          parentId, glassDepth;
-      //------ define Bead Id for define template price
-      globalDB.selectLocalDB(globalDB.tablesLocalDB.lists.tableName, {'id': glassId}).then(function(result) {
-        if(result) {
-          if(result.rows.length) {
-            parentId = result.rows.item(0).parent_element_id;
-            //------ find glass depth
-            globalDB.selectLocalDB(globalDB.tablesLocalDB.elements.tableName, {'id': parentId}).then(function (result) {
-              if (result) {
-                if(result.rows.length) {
-                  glassDepth = result.rows.item(0).glass_width;
-                  //------ find bead Id as to glass Depth and profile Id
-                  globalDB.selectLocalDB(globalDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": glassDepth}).then(function (result) {
-                    if (result) {
-                      if(result.rows.length) {
-                        //ProductStor.product.beadId = result.rows.item(0).list_id;
-                        deferred.resolve(result.rows.item(0).list_id);
-                      }
-                    } else {
-                      console.log('Error!!', result);
-                    }
-                  });
-                }
-              } else {
-                console.log(result);
-              }
-            });
+    function setBeadId(profileId) {
+      var defer = $q.defer();
+        //------ find bead Id as to glass Depth and profile Id
+        localDB.selectLocalDB(localDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": ProductStor.product.glass.glass_width}).then(function (result) {
+          if(result.length) {
+            defer.resolve(result[0].list_id);
+          } else {
+            console.log('Error!!', result);
+            defer.resolve(0);
           }
-        } else {
-          console.log(result);
-        }
-      });
-      return deferred.promise;
+        });
+      return defer.promise;
     }
 
 
     //---------- Price define
     function calculationPrice(obj) {
       var deferred = $q.defer();
-      globalDB.calculationPrice(obj, function (result) {
+      localDB.calculationPrice(obj, function (result) {
         if(result.status){
 //          console.log('price-------', result.data.price);
 
-          ProductStor.product.templatePriceSELECT = GeneralServ.roundingNumbers(result.data.price);
+          ProductStor.product.template_price = GeneralServ.roundingNumbers(result.data.price);
           setProductPriceTOTAL();
           GlobalStor.global.isLoader = 0;
-          console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
+//          console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
         } else {
           console.log(result);
         }
@@ -474,10 +698,13 @@
         return sum + elem;
       });
       //-------- coeffs define
-      prifileHeatCoeffTotal = ProductStor.product.profileHeatCoeff * (constructionSquareTotal - glassSquareTotal);
-      glassHeatCoeffTotal = ProductStor.product.glassHeatCoeff * glassSquareTotal;
+      prifileHeatCoeffTotal = ProductStor.product.profile.heat_coeff * (constructionSquareTotal - glassSquareTotal);
+      if(ProductStor.product.glass.heat_coeff == 'null'){
+        ProductStor.product.glass.heat_coeff = 1;
+      }
+      glassHeatCoeffTotal = ProductStor.product.glass.heat_coeff * glassSquareTotal;
       //-------- calculate Heat Coeff Total
-      ProductStor.product.heatTransferTOTAL = GeneralServ.roundingNumbers( constructionSquareTotal/(prifileHeatCoeffTotal + glassHeatCoeffTotal) );
+      ProductStor.product.heat_coef_total = GeneralServ.roundingNumbers( constructionSquareTotal/(prifileHeatCoeffTotal + glassHeatCoeffTotal) );
 
       //-------- calculate Air Coeff Total
       //ProductStor.product.airCirculationTOTAL = + ProductStor.product.profileAirCoeff + ProductStor.product.glassAirCoeff + ProductStor.product.hardwareAirCoeff;
@@ -488,13 +715,39 @@
 
     function setProductPriceTOTAL() {
       //playSound('price');
-      ProductStor.product.productPriceTOTAL = GeneralServ.roundingNumbers( ProductStor.product.templatePriceSELECT + ProductStor.product.laminationPriceSELECT + ProductStor.product.addElementsPriceSELECT );
-      ProductStor.product.productPriceTOTALDis = GeneralServ.roundingNumbers( ((ProductStor.product.templatePriceSELECT + ProductStor.product.laminationPriceSELECT) * (1 - OrderStor.order.currDiscount/100)) + ProductStor.product.addElementsPriceSELECTDis );
+//      ProductStor.product.product_price = GeneralServ.roundingNumbers( ProductStor.product.template_price + ProductStor.product.laminationPriceSELECT + ProductStor.product.addelem_price );
+      ProductStor.product.product_price = GeneralServ.roundingNumbers( ProductStor.product.template_price + ProductStor.product.addelem_price );
+//      ProductStor.product.productPriceTOTALDis = GeneralServ.roundingNumbers( ((ProductStor.product.template_price + ProductStor.product.laminationPriceSELECT) * (1 - OrderStor.order.currDiscount/100)) + ProductStor.product.addElementsPriceSELECTDis );
+      ProductStor.product.productPriceTOTALDis = GeneralServ.roundingNumbers( (ProductStor.product.template_price * (1 - OrderStor.order.discount_construct/100)) + ProductStor.product.addElementsPriceSELECTDis );
       $rootScope.$apply();
     }
 
 
+    function isAddElemExist() {
+      var defer = $q.defer(),
+          promises = localDB.addElementDBId.map(function(item) {
+            return localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': item});
+          });
 
+      $q.all(promises).then(function (results) {
+        console.log('iis Addelem ++++', results);
+        var resultsQty = results.length;
+        if (resultsQty) {
+          GlobalStor.global.isAddElemExist = results.map(function(itme) {
+            return (itme && itme.length) ? 1 : 0;
+          });
+        }
+        defer.resolve(1);
+      });
+      return defer.promise;
+    }
+
+
+
+
+
+
+    //========== CREATE ORDER ==========//
 
     function createNewProject() {
       console.log('new project!!!!!!!!!!!!!!');
@@ -520,13 +773,18 @@
 
 
 
+
+
+
+    //========== CREATE PRODUCT ==========//
+
     function createNewProduct() {
       console.log('new product!!!!!!!!!!!!!!!');
       //------- cleaning product
       ProductStor.product = ProductStor.setDefaultProduct();
       GlobalStor.global.isCreatedNewProduct = true;
       //------- set new templates
-      prepareTemplates(ProductStor.product.constructionType).then(function() {
+      prepareTemplates(ProductStor.product.construction_type).then(function() {
         prepareMainPage();
         if(GlobalStor.global.currOpenPage !== 'main') {
           $location.path('/main');
@@ -536,10 +794,10 @@
 
 
     function setDefaultDoorConfig() {
-      ProductStor.product.doorShapeId = 0;
-      ProductStor.product.doorSashShapeId = 0;
-      ProductStor.product.doorHandleShapeId = 0;
-      ProductStor.product.doorLockShapeId = 0;
+      ProductStor.product.door_shape_id = 0;
+      ProductStor.product.door_sash_shape_id = 0;
+      ProductStor.product.door_handle_shape_id = 0;
+      ProductStor.product.door_lock_shape_id = 0;
     }
 
 
@@ -576,13 +834,13 @@
         GlobalStor.global.productEditNumber = 0;
       //---------- if New Product
       } else {
-        //-------- add product in order LocalStorage
-        ProductStor.product.orderId = OrderStor.order.orderId;
-        ProductStor.product.productId = (OrderStor.order.productsQty > 0) ? (OrderStor.order.productsQty + 1) : 1;
+        //-------- add product in order LocalStor
+//        ProductStor.product.orderId = OrderStor.order.orderId;
+        ProductStor.product.product_id = (OrderStor.order.products_qty > 0) ? (OrderStor.order.products_qty + 1) : 1;
         delete ProductStor.product.template;
         //-------- insert product in order
         OrderStor.order.products.push(ProductStor.product);
-        OrderStor.order.productsQty = ProductStor.product.productId;
+        OrderStor.order.products_qty = ProductStor.product.product_id;
         insertProductInLocalDB(ProductStor.product).then(function() {
           //----- cleaning product
           ProductStor.product = ProductStor.setDefaultProduct();
@@ -600,48 +858,49 @@
     function insertProductInLocalDB(product) {
       var deferred = $q.defer(),
           productData = angular.copy(product),
-          addElementsQty = product.chosenAddElements.length,
-          prop = 0, addElementsData;
+          addElementsQty = product.chosenAddElements.length;
+
+      productData.order_number = OrderStor.order.order_number;
+      productData.template_source = JSON.stringify(product.template_source);
+      productData.profile_id = product.profile.id;
+      productData.glass_id = product.glass.id;
+      productData.hardware_id = product.hardware.id;
+      productData.modified = new Date();
+      delete productData.templateIndex; //TODO delete
+      delete productData.templateIcon;
+      delete productData.templateWidth;
+      delete productData.templateHeight;
+      delete productData.profile;
+      delete productData.glass;
+      delete productData.hardware;
+      delete productData.laminationOutName;
+      delete productData.laminationInName;
+      delete productData.chosenAddElements;
+      delete productData.addElementsPriceSELECTDis;
+      delete productData.productPriceTOTALDis;
 
       console.log('!!!!!!!!!! product save !!!!!!!!!!!');
-      //-------- insert product into local DB
-      productData.heatTransferMin = OrderStor.order.currHeatTransfer;
-      productData.templateSource = JSON.stringify(product.templateSource);
-      productData.laminationPriceSELECT =  GeneralServ.roundingNumbers(product.laminationPriceSELECT);
-      productData.addElementsPriceSELECT =  GeneralServ.roundingNumbers(product.addElementsPriceSELECT);
-      productData.productPriceTOTAL =  GeneralServ.roundingNumbers(product.productPriceTOTAL);
-      delete productData.template;
-      delete productData.templateIcon;
-      delete productData.chosenAddElements;
-      delete productData.profileFrameId;
-      delete productData.profileFrameStillId;
-      delete productData.profileSashId;
-      delete productData.profileImpostId;
-      delete productData.profileShtulpId;
-      delete productData.productPriceTOTALDis;
-      delete productData.addElementsPriceSELECTDis;
+      console.log('!!!!!!!!!! product ', product);
 
-      localDB.insertDB(localDB.productsTableBD, productData);
-      deferred.resolve('done');
+
+
+      //-------- insert product into local DB
+      localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
+      deferred.resolve(1);
       //--------- insert additional elements into local DB
-      for(; prop < addElementsQty; prop++) {
-        var elementsQty = product.chosenAddElements[prop].length,
-            elem = 0;
+      for(var prop = 0; prop < addElementsQty; prop++) {
+        var elementsQty = product.chosenAddElements[prop].length;
         if(elementsQty > 0) {
-          for (; elem < elementsQty; elem++) {
-            addElementsData = {
-              "orderId": product.orderId,
-              "productId": product.productId,
-              "elementId": product.chosenAddElements[prop][elem].elementId,
-              "elementType": product.chosenAddElements[prop][elem].elementType,
-              "elementName": product.chosenAddElements[prop][elem].elementName,
-              "elementWidth": product.chosenAddElements[prop][elem].elementWidth,
-              "elementHeight": product.chosenAddElements[prop][elem].elementHeight,
-              "elementColor": product.chosenAddElements[prop][elem].elementColor,
-              "elementPrice": product.chosenAddElements[prop][elem].elementPrice,
-              "elementQty": product.chosenAddElements[prop][elem].elementQty
-            };
-            localDB.insertDB(localDB.addElementsTableBD, addElementsData);
+          for (var elem = 0; elem < elementsQty; elem++) {
+            var addElementsData = angular.copy(product.chosenAddElements[prop][elem]);
+
+            addElementsData.order_number = OrderStor.order.order_number;
+            addElementsData.product_id = product.product_id;
+            addElementsData.modified = new Date();
+            delete addElementsData.elementPriceDis;
+            delete addElementsData.element_name;
+
+            localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
           }
         }
       }
@@ -674,15 +933,95 @@
     function insertOrderInLocalDB(newOptions, orderType, orderStyle) {
       //---------- if EDIT Order, before inserting delete old order
       if(GlobalStor.global.orderEditNumber) {
-        deleteOrderFromLocalDB(GlobalStor.global.orderEditNumber);
+        deleteOrderInLocalDB(GlobalStor.global.orderEditNumber);
         GlobalStor.global.orderEditNumber = 0;
       }
-      OrderStor.order.orderType = orderType;
-      OrderStor.order.orderStyle = orderStyle;
       angular.extend(OrderStor.order, newOptions);
+
+      var prodQty = OrderStor.order.products.length;
+        for(var p = 0; p < prodQty; p++) {
+
+          var productData = angular.copy(OrderStor.order.products[p]);
+          productData.order_number = OrderStor.order.order_number;
+          productData.template_source = JSON.stringify(OrderStor.order.products[p].template_source);
+          productData.profile_id = OrderStor.order.products[p].profile.id;
+          productData.glass_id = OrderStor.order.products[p].glass.id;
+          productData.hardware_id = OrderStor.order.products[p].hardware.id;
+          productData.modified = new Date();
+          delete productData.templateIndex; //TODO delete
+          delete productData.templateIcon;
+          delete productData.templateWidth;
+          delete productData.templateHeight;
+          delete productData.laminationOutName;
+          delete productData.laminationInName;
+          delete productData.chosenAddElements;
+          delete productData.addElementsPriceSELECTDis;
+          delete productData.productPriceTOTALDis;
+
+          console.log('SEND PRODUCT------', productData);
+          localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_products.tableName, productData);
+
+          var addElemQty = OrderStor.order.products[p].chosenAddElements.length;
+          for(var add = 0; add < addElemQty; add++) {
+            var elemQty = OrderStor.order.products[p].chosenAddElements[add].length;
+            if(elemQty > 0) {
+              for (var elem = 0; elem < elemQty; elem++) {
+                var addElementsData = angular.copy(OrderStor.order.products[p].chosenAddElements[add][elem]);
+                addElementsData.order_number = OrderStor.order.order_number;
+                addElementsData.product_id = OrderStor.order.products[p].product_id;
+                addElementsData.modified = new Date();
+                delete addElementsData.elementPriceDis;
+                console.log('SEND DOPP',addElementsData);
+                localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_addelements.tableName, addElementsData);
+              }
+            }
+          }
+        }
+
       //------- save order in LocalDB
-      delete OrderStor.order.products;
-      localDB.insertDB(localDB.ordersTableBD, OrderStor.order);
+//      delete OrderStor.order.products;
+      console.log('!!!!ORDER!!!!', OrderStor.order);
+      var orderData = angular.copy(OrderStor.order);
+      orderData.order_date = new Date(OrderStor.order.order_date);
+      orderData.order_type = orderType;
+      orderData.order_style = orderStyle;
+      orderData.factory_id = UserStor.userInfo.factory_id;
+      orderData.user_id = UserStor.userInfo.id;
+      orderData.delivery_date = new Date(OrderStor.order.delivery_date);
+      orderData.new_delivery_date = new Date(OrderStor.order.new_delivery_date);
+      orderData.customer_sex = (OrderStor.order.customer_sex) ? +OrderStor.order.customer_sex : 0;
+      orderData.customer_age = (OrderStor.order.customer_age) ? OrderStor.order.customer_age.id : 0;
+      orderData.customer_education = (OrderStor.order.customer_education) ? OrderStor.order.customer_education.id : 0;
+      orderData.customer_occupation = (OrderStor.order.customer_occupation) ? OrderStor.order.customer_occupation.id : 0;
+      orderData.customer_infoSource = (OrderStor.order.customer_infoSource) ? OrderStor.order.customer_infoSource.id : 0;
+
+      orderData.additional_payment = '';
+      orderData.created = new Date();
+      orderData.sended = new Date(0);
+      orderData.state_to = new Date(0);
+      orderData.state_buch = new Date(0);
+      orderData.batch = '';
+      orderData.square = 0;
+      orderData.base_price = 0;
+      orderData.perimeter = 0;
+      orderData.factory_margin = 0;
+      orderData.purchase_price = 0;
+      orderData.sale_price = 0;
+      orderData.modified = new Date();
+
+      delete orderData.products;
+      delete orderData.currCityId;
+      delete orderData.currRegionName;
+      delete orderData.currCountryName;
+      delete orderData.currFullLocation;
+      delete orderData.selectedFloorPrice;
+      delete orderData.selectedInstalmentPeriod;
+      delete orderData.selectedInstalmentPercent;
+
+      console.log('!!!!orderData!!!!', orderData);
+      localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, orderData);
+      localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
+
       //----- cleaning order
       OrderStor.order = OrderStor.setDefaultOrder();
       //------ set current GeoLocation
@@ -694,13 +1033,14 @@
 
 
     //-------- delete order from LocalDB
-    function deleteOrderFromLocalDB(orderNum) {
-      localDB.deleteDB(localDB.ordersTableBD, {'orderId': orderNum});
-      localDB.deleteDB(localDB.productsTableBD, {'orderId': orderNum});
-      localDB.deleteDB(localDB.addElementsTableBD, {'orderId': orderNum});
+    function deleteOrderInLocalDB(orderNum) {
+      localDB.deleteRowLocalDB(localDB.tablesLocalDB.orders.tableName, {'order_number': orderNum});
+      localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_number': orderNum});
+      localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_number': orderNum});
     }
 
 
 
   }
 })();
+

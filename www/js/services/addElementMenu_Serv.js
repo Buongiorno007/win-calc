@@ -71,7 +71,7 @@
           setAddElementsTotalPrice();
 
           //------ save analytics data
-          analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, addElem.element_id, typeIndex);
+          //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, addElem.element_id, typeIndex);
         });
       }
     }
@@ -85,7 +85,7 @@
       //----- hide element price in menu
       AuxStor.aux.currAddElementPrice = 0;
       //------ save analytics data
-      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, AuxStor.aux.addElementsList[typeIndex][elementIndex].element_id, typeIndex);
+      //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, AuxStor.aux.addElementsList[typeIndex][elementIndex].element_id, typeIndex);
       AuxStor.aux.isAddElement = false;
     }
 

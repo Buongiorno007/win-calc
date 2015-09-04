@@ -1,3 +1,6 @@
+
+// storages/productStor.js
+
 (function(){
   'use strict';
     /**
@@ -12,51 +15,29 @@
 
     thisFactory.publicObj = {
       productSource: {
-        orderId: 0,
-        productId: 0,
-        isAddElementsONLY: 0,
-        selectedRoomId: 4,
-        constructionType: 1, // 1 - window; 2 - windowDoor; 3 - balcony; 4 - door
+//        order_number: 0,
+        product_id: 0,
+        is_addelem_only: 0,
+        room_id: 4,
+        construction_type: 1, // 1 - window; 2 - windowDoor; 3 - balcony; 4 - door
+        heat_coef_total: 0,
 
-        templateIndex: 0,
-        templateSource: {},
-        template: {},
-        templateIcon: {},
-        templateWidth: 0,
-        templateHeight: 0,
+        templateIndex: 0, //*
+        template_id: 0,
+        template_source: {},
+        template: {}, //*
+        templateIcon: {}, //*
+        templateWidth: 0, //*
+        templateHeight: 0, //*
 
-        profileTypeIndex: 0,
-        profileIndex: 0,
-        profileId: 0,
-        profileName: '',
-        profileHeatCoeff: 0,
-        profileAirCoeff: 0,
-        profileFrameId: 0,
-        profileFrameStillId: 0,
-        profileSashId: 0,
-        profileImpostId: 0,
-        profileShtulpId: 0,
+        profile: {},
+        glass: {},
+        hardware: {},
 
-        glassTypeIndex: 0,
-        glassIndex: 0,
-        glassId: 0,
-        glassName: '',
-        glassHeatCoeff: 0,
-        glassAirCoeff: 0,
-
-        hardwareTypeIndex: 0,
-        hardwareIndex: 0,
-        hardwareId: 0,
-        hardwareName: '',
-        hardwareHeatCoeff: 0,
-        hardwareAirCoeff: 0,
-
-        laminationOutId: 'white',
-        laminationOutName: $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION'),
-        laminationOutPrice: 0,
-        laminationInId: 'white',
-        laminationInName: $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION'),
-        laminationInPrice: 0,
+        lamination_out_id: 0,
+        laminationOutName: $filter('translate')('mainpage.WHITE_LAMINATION'), //*
+        lamination_in_id: 0,
+        laminationInName: $filter('translate')('mainpage.WHITE_LAMINATION'), //*
 
         chosenAddElements: [
           [], // 0 - grids
@@ -72,23 +53,20 @@
           [] // 10 - others
         ],
 
-        doorShapeId: 0,
-        doorSashShapeId: 0,
-        doorHandleShapeId: 0,
-        doorLockShapeId: 0,
+        door_shape_id: 0,
+        door_sash_shape_id: 0,
+        door_handle_shape_id: 0,
+        door_lock_shape_id: 0,
 
-        heatTransferMin: 0,
-        heatTransferTOTAL: 0,
-        airCirculationTOTAL: 0,
+        template_price: 0,
+        addelem_price: 0,
+        product_price: 0,
 
-        templatePriceSELECT: 0,
-        laminationPriceSELECT: 0,
-        addElementsPriceSELECT: 0,
-        productPriceTOTAL: 0,
-        addElementsPriceSELECTDis: 0,
-        productPriceTOTALDis: 0,
+        addElementsPriceSELECTDis: 0, //*
+        productPriceTOTALDis: 0, //*
         comment: '',
-        productQty: 1
+        product_qty: 1
+
       },
 
       setDefaultProduct: setDefaultProduct
@@ -108,3 +86,4 @@
 
   }
 })();
+

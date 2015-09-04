@@ -1,3 +1,6 @@
+
+// controllers/parts/loader.js
+
 (function(){
   'use strict';
   /**

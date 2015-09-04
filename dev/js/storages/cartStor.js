@@ -28,7 +28,7 @@
         submitted: 0,
         isCityBox: 0,
         customer: {
-          customer_location: OrderStor.order.currCityName +', '+ OrderStor.order.currRegionName,
+          customer_location: OrderStor.order.customer_city +', '+ OrderStor.order.currRegionName,
           customer_sex: 0 //1-m, 2-f
         }
       },

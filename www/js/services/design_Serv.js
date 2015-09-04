@@ -106,8 +106,15 @@
         //------ save new template in templates Array
         GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(ProductStor.product.template_source);
 
+        //------- if sash was added in empty template
+        if(!GlobalStor.global.isSashesInTemplate) {
+          GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate();
+          if (GlobalStor.global.isSashesInTemplate) {
+            ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+          }
+        }
         //------- refresh price of new template
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass.id, ProductStor.product.hardware.id).then(function() {
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass.list_id, ProductStor.product.hardware.id).then(function() {
           //-------- template was changed
           GlobalStor.global.isChangedTemplate = true;
           //$cordovaProgress.hide();

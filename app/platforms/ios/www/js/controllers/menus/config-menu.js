@@ -1,3 +1,6 @@
+
+// controllers/menus/config-menu.js
+
 (function(){
   'use strict';
 

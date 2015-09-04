@@ -1,3 +1,6 @@
+
+// controllers/panels/add-elements.js
+
 (function(){
   'use strict';
   /**
@@ -65,3 +68,4 @@
 
   }
 })();
+

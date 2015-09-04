@@ -11,7 +11,7 @@
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 2) }}" class="nav-icon-geoLocation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CURRENT_GEOLOCATION' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 2) }}" class="title"></span></div>
           </li>
           <li class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 3) }}" class="nav-icon-location unvisible"></span><span data-output="{{ navMenu.O.order.currCityName }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 3) }}" class="title"></span></div>
+            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 3) }}" class="nav-icon-location unvisible"></span><span data-output="{{ navMenu.O.order.customer_city }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 3) }}" class="title"></span></div>
           </li>
         </ul>
         <div data-output="{{ 'mainpage.NAVMENU_CALCULATIONS' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_DIVIDER }}" class="divider"></div>
@@ -866,25 +866,25 @@
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_AGE' | translate }}</div>
-              <select name="age" ng-model="orderDialog.C.cart.customer.customer_age" ng-options="age for age in orderDialog.C.optionAge" class="user-select-field">
+              <select name="age" ng-model="orderDialog.C.cart.customer.customer_age" ng-options="age.name for age in orderDialog.C.optionAge" class="user-select-field">
                 <option value="">{{ 'cart.SELECT_AGE' | translate }}</option>
               </select>
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_EDUCATION' | translate }}</div>
-              <select name="education" ng-model="orderDialog.C.cart.customer.customer_education" ng-options="educ for educ in orderDialog.C.optionEductaion" class="user-select-field">
+              <select name="education" ng-model="orderDialog.C.cart.customer.customer_education" ng-options="educ.name for educ in orderDialog.C.optionEductaion" class="user-select-field">
                 <option value="">{{ 'cart.SELECT_ADUCATION' | translate }}</option>
               </select>
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_OCCUPATION' | translate }}</div>
-              <select name="occupation" ng-model="orderDialog.C.cart.customer.customer_occupation" ng-options="occup for occup in orderDialog.C.optionOccupation" class="user-select-field">
+              <select name="occupation" ng-model="orderDialog.C.cart.customer.customer_occupation" ng-options="occup.name for occup in orderDialog.C.optionOccupation" class="user-select-field">
                 <option value="">{{ 'cart.SELECT_OCCUPATION' | translate }}</option>
               </select>
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_INFO_SOURCE' | translate }}</div>
-              <select name="infoSource" ng-model="orderDialog.C.cart.customer.customer_infoSource" ng-options="info for info in orderDialog.C.optionInfo" class="user-select-field">
+              <select name="infoSource" ng-model="orderDialog.C.cart.customer.customer_infoSource" ng-options="info.name for info in orderDialog.C.optionInfo" class="user-select-field">
                 <option value="">{{ 'cart.SELECT_INFO_SOURCE' | translate }}</option>
               </select>
             </div>
@@ -967,25 +967,25 @@
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_AGE' | translate }}</div>
-              <select name="age" ng-model="creditDialog.C.cart.customer.customer_age" ng-options="age for age in creditDialog.C.optionAge" class="user-select-field">
+              <select name="age" ng-model="creditDialog.C.cart.customer.customer_age" ng-options="age.name for age in creditDialog.C.optionAge" class="user-select-field">
                 <option value="">{{ 'cart.SELECT_AGE' | translate }}</option>
               </select>
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_EDUCATION' | translate }}</div>
-              <select name="education" ng-model="creditDialog.C.cart.customer.customer_education" ng-options="educ for educ in creditDialog.C.optionEductaion" class="user-select-field">
+              <select name="education" ng-model="creditDialog.C.cart.customer.customer_education" ng-options="educ.name for educ in creditDialog.C.optionEductaion" class="user-select-field">
                 <option value="">{{ 'cart.SELECT_ADUCATION' | translate }}</option>
               </select>
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_OCCUPATION' | translate }}</div>
-              <select name="occupation" ng-model="creditDialog.C.cart.customer.customer_occupation" ng-options="occup for occup in creditDialog.C.optionOccupation" class="user-select-field">
+              <select name="occupation" ng-model="creditDialog.C.cart.customer.customer_occupation" ng-options="occup.name for occup in creditDialog.C.optionOccupation" class="user-select-field">
                 <option value="">{{ 'cart.SELECT_OCCUPATION' | translate }}</option>
               </select>
             </div>
             <div class="input-field">
               <div class="subtitle-field">{{ 'cart.CLIENT_INFO_SOURCE' | translate }}</div>
-              <select name="infoSource" ng-model="creditDialog.C.cart.customer.customer_infoSource" ng-options="info for info in creditDialog.C.optionInfo" class="user-select-field">
+              <select name="infoSource" ng-model="creditDialog.C.cart.customer.customer_infoSource" ng-options="info.name for info in creditDialog.C.optionInfo" class="user-select-field">
                 <option value="">{{ 'cart.SELECT_INFO_SOURCE' | translate }}</option>
               </select>
             </div>

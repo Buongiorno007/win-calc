@@ -1,3 +1,6 @@
+
+// translations/ru.js
+
 (function(){
   'use strict';
 
@@ -84,7 +87,7 @@
         CONFIGMENU_HARDWARE: 'Фурнитура',
         CONFIGMENU_LAMINATION: 'Ламинация',
         CONFIGMENU_LAMINATION_TYPE: 'фасад / в комнате',
-        CONFIGMENU_NOT_LAMINATION: 'без ламин.',
+        WHITE_LAMINATION: 'Белая',
         CONFIGMENU_ADDITIONAL: 'Дополнительно',
         CONFIGMENU_IN_CART: 'В корзину',
         VOICE_SPEACH: 'Говорите...',
@@ -118,11 +121,6 @@
         CAMER: 'камеры',
         CAMERs: 'камер',
         ENERGY_SAVE: '+энергосбережение',
-        LAM_LIGHT_OAK: 'светлый дуб',
-        LAM_GOLD_OAK: 'золотой дуб',
-        LAM_BIRCH: 'береза',
-        LAM_MAHAGON: 'махагон',
-        LAM_PINE: 'сосна',
         STANDART_TYPE: 'Стандартные',
         ENERGY_TYPE: 'Энергосберегающие',
         MIRROR_TYPE: 'Зеркальные',
@@ -163,9 +161,6 @@
         OTHER4: 'Армирующий профиль',
         OTHER5: 'Нижняя петля на раме',
         OTHER6: 'Поворотная петля Komfort 12/20-13 левая',
-        LAM_WHITE: 'Белый',
-        LAM_MAT: 'матовый',
-        LAM_GLOSSY: 'глянцевый',
         DOOR_TYPE1: 'по периметру',
         DOOR_TYPE2: 'без порога',
         DOOR_TYPE3: 'алюминиевый порог, тип',
@@ -202,7 +197,6 @@
         SIZE_LABEL: 'размер',
         WIDTH_LABEL: 'ширина',
         HEIGHT_LABEL: 'высота',
-        COLOR_LABEL: 'цвет',
         OTHER_ELEMENTS1: 'Еще',
         OTHER_ELEMENTS2: 'компонента...',
         SCHEME_VIEW: 'Схематически',
@@ -217,7 +211,6 @@
       add_elements_menu: {
         TIP: 'Выберите элемент из списка',
         EMPTY_ELEMENT: 'Без элемента',
-        COLOR_AVAILABLE: 'Доступные цвета:',
         TAB_NAME_SIMPLE_FRAME: 'Простая конструкция',
         TAB_NAME_HARD_FRAME: 'Составная конструкция',
         TAB_EMPTY_EXPLAIN: 'Выберите из списка первый элемент, чтобы начать составлять конструкцию.'

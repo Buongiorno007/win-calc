@@ -48,8 +48,8 @@
                     //TODO before need to fine currencyId!!!!
                     //TODO loginServ.setUserGeoLocation(cityId, cityName, regionName, countryName, climatic, heat, fullLocation, currencyId)
 
-                    OrderStor.order.customer_city = 156; //TODO должны тянуть с базы согласно новому городу, но город гугл дает на украинском языке, в базе на русском
-                    OrderStor.order.currCityName = deviceLocation[deviceLocation.length-3];
+                    OrderStor.order.currCityId = 156; //TODO должны тянуть с базы согласно новому городу, но город гугл дает на украинском языке, в базе на русском
+                    OrderStor.order.customer_city = deviceLocation[deviceLocation.length-3];
                     OrderStor.order.currRegionName = deviceLocation[deviceLocation.length-2];
                     OrderStor.order.currCountryName = deviceLocation[deviceLocation.length-1];
                     OrderStor.order.climatic_zone = 7; //TODO

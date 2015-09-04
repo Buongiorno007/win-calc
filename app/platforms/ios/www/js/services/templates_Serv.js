@@ -1,3 +1,6 @@
+
+// services/templates_Serv.js
+
 (function(){
   'use strict';
   /**
@@ -35,15 +38,16 @@
       if(ProductStor.product.templateIndex !== templateIndex) {
         ProductStor.product.templateIndex = templateIndex;
         MainServ.saveTemplateInProduct(templateIndex).then(function() {
+          MainServ.setCurrentHardware();
           //------ define product price
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId);
+          MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass.list_id, ProductStor.product.hardware.id);
         });
       }
     }
 
 
     function initNewTemplateType(marker) {
-      ProductStor.product.constructionType = marker;
+      ProductStor.product.construction_type = marker;
       ProductStor.product.templateIndex = 0;
       MainServ.prepareTemplates(marker);
     }
@@ -52,3 +56,4 @@
 
   }
 })();
+

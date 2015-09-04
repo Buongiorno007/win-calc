@@ -1,3 +1,6 @@
+
+// services/navMenu_Serv.js
+
 (function(){
   'use strict';
   /**
@@ -46,11 +49,11 @@
                     //TODO loginServ.setUserGeoLocation(cityId, cityName, regionName, countryName, climatic, heat, fullLocation, currencyId)
 
                     OrderStor.order.currCityId = 156; //TODO должны тянуть с базы согласно новому городу, но город гугл дает на украинском языке, в базе на русском
-                    OrderStor.order.currCityName = deviceLocation[deviceLocation.length-3];
+                    OrderStor.order.customer_city = deviceLocation[deviceLocation.length-3];
                     OrderStor.order.currRegionName = deviceLocation[deviceLocation.length-2];
                     OrderStor.order.currCountryName = deviceLocation[deviceLocation.length-1];
-                    OrderStor.order.currClimaticZone = 7; //TODO
-                    OrderStor.order.currHeatTransfer = 0.99; //TODO
+                    OrderStor.order.climatic_zone = 7; //TODO
+                    OrderStor.order.heat_coef_min = 0.99; //TODO
                     OrderStor.order.currFullLocation = deviceLocation[deviceLocation.length-3] + ', ' + deviceLocation[deviceLocation.length-2] + ', ' + deviceLocation[deviceLocation.length-1];
 
                 }).
@@ -111,12 +114,12 @@
 
     function createAddElementsProduct() {
       GeneralServ.stopStartProg();
-      if(ProductStor.product.isAddElementsONLY) {
+      if(ProductStor.product.is_addelem_only) {
         MainServ.createNewProduct();
       } else {
         //------- create new empty product
         ProductStor.product = ProductStor.setDefaultProduct();
-        ProductStor.product.isAddElementsONLY = true;
+        ProductStor.product.is_addelem_only = true;
         GlobalStor.global.isNavMenu = false;
         GlobalStor.global.isConfigMenu = true;
         //------ open AddElements Panel
@@ -145,7 +148,7 @@
           MainServ.inputProductInOrder();
           //------- define order Price
           CartServ.calculateAllProductsPrice();
-          OrderStor.order.orderPriceTOTAL = OrderStor.order.productsPriceTOTAL;
+          OrderStor.order.order_price_total = OrderStor.order.products_price_total;
           //-------- save order as Draft
           MainServ.insertOrderInLocalDB({}, globalConstants.draftOrderType, '');
 
@@ -166,3 +169,4 @@
 
   }
 })();
+

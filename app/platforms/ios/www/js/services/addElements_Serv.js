@@ -1,3 +1,6 @@
+
+// services/addElements_Serv.js
+
 (function(){
   'use strict';
   /**
@@ -7,7 +10,7 @@
     .module('MainModule')
     .factory('AddElementsServ', addElemFactory);
 
-  function addElemFactory($filter, $timeout, globalConstants, GlobalStor, ProductStor, AuxStor, globalDB, optionsServ) {
+  function addElemFactory($filter, $timeout, globalConstants, GlobalStor, AuxStor, optionsServ) {
 
     var thisFactory = this,
       delayShowElementsMenu = globalConstants.STEP * 12;
@@ -61,8 +64,8 @@
       AuxStor.aux.addElementsMenuStyle = globalConstants.addElementsGroupClass[ index ];
 
       //TODO download form GlobalDB
-//      globalDB.selectDBGlobal(globalDB.listsTableDBGlobal, {'list_group_id': globalDB.addElementDBId[index]}).then(function (result) {
-//        if (result) {
+//      localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': localDB.addElementDBId[index]}).then(function(result) {
+//        if (result.length) {
 //          AuxStor.aux.addElementsList = angular.copy(result);
 //        } else {
 //          console.log(result);
@@ -208,20 +211,6 @@
             GlobalStor.global.isSizeCalculator = true;
             GlobalStor.global.isWidthCalculator = false;
             break;
-          case 4:
-            //GlobalStor.global.isColorSelector = false;
-            optionsServ.getLaminationAddElements(function (results) {
-              if (results.status) {
-                AuxStor.aux.addElementLaminatWhiteMatt = results.data.laminationWhiteMatt;
-                AuxStor.aux.addElementLaminatWhiteGlossy = results.data.laminationWhiteGlossy;
-                AuxStor.aux.addElementLaminatColor = results.data.laminations;
-              } else {
-                console.log(results);
-              }
-            });
-            GlobalStor.global.isColorSelector = true;
-            AuxStor.aux.isAddElementColor = ProductStor.product.chosenAddElements[8][elementIndex].elementColorId;
-            break;
         }
       }
     }
@@ -256,7 +245,6 @@
       GlobalStor.global.isQtyCalculator = false;
       GlobalStor.global.isSizeCalculator = false;
       GlobalStor.global.isWidthCalculator = false;
-      GlobalStor.global.isColorSelector = false;
     }
 
 
@@ -292,3 +280,4 @@
 
   }
 })();
+

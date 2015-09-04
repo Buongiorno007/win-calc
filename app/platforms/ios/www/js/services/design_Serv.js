@@ -1,3 +1,6 @@
+
+// services/design_Serv.js
+
 /* globals d3, startRecognition, parseStringToDimension, playTTS, rounding10 */
 (function(){
   'use strict';
@@ -69,9 +72,9 @@
 
 
     function setDefaultTemplate() {
-      DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.templateSource);
+      DesignStor.designSource.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
       DesignStor.designSource.templateTEMP = angular.copy(ProductStor.product.template);
-      DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.templateSource);
+      DesignStor.design.templateSourceTEMP = angular.copy(ProductStor.product.template_source);
       DesignStor.design.templateTEMP = angular.copy(ProductStor.product.template);
     }
 
@@ -83,7 +86,7 @@
       if(!GlobalStor.global.isSizeCalculator) {
         //$cordovaProgress.showSimple(true);
         //----- save new template in product
-        ProductStor.product.templateSource = angular.copy(DesignStor.design.templateSourceTEMP);
+        ProductStor.product.template_source = angular.copy(DesignStor.design.templateSourceTEMP);
         ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
 
         //----- create template icon
@@ -92,19 +95,26 @@
         });
 
         //============ if Door Construction
-        if(ProductStor.product.constructionType === 4) {
+        if(ProductStor.product.construction_type === 4) {
           //------- save new door config
-          ProductStor.product.doorShapeId = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.doorShapeIndex].shapeId;
-          ProductStor.product.doorSashShapeId = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.sashShapeIndex].shapeId;
-          ProductStor.product.doorHandleShapeId = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.handleShapeIndex].shapeId;
-          ProductStor.product.doorLockShapeId = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.lockShapeIndex].shapeId;
+          ProductStor.product.door_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.doorShapeIndex].shapeId;
+          ProductStor.product.door_sash_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.sashShapeIndex].shapeId;
+          ProductStor.product.door_handle_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.handleShapeIndex].shapeId;
+          ProductStor.product.door_lock_shape_id = DesignStor.design.doorShapeList[DesignStor.design.doorConfig.lockShapeIndex].shapeId;
         }
 
         //------ save new template in templates Array
-        GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(ProductStor.product.templateSource);
+        GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(ProductStor.product.template_source);
 
+        //------- if sash was added in empty template
+        if(!GlobalStor.global.isSashesInTemplate) {
+          GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate();
+          if (GlobalStor.global.isSashesInTemplate) {
+            ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+          }
+        }
         //------- refresh price of new template
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId).then(function() {
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass.list_id, ProductStor.product.hardware.id).then(function() {
           //-------- template was changed
           GlobalStor.global.isChangedTemplate = true;
           //$cordovaProgress.hide();
@@ -147,7 +157,7 @@
         DesignStor.design = DesignStor.setDefaultDesign();
         setDefaultTemplate();
         //============ if Door Construction
-        if(ProductStor.product.constructionType === 4) {
+        if(ProductStor.product.construction_type === 4) {
           //---- set indexes
           setIndexDoorConfig();
         }
@@ -178,10 +188,10 @@
     }
 
     function setIndexDoorConfig() {
-      DesignStor.designSource.doorConfig.doorShapeIndex = setDoorConfigIndex(DesignStor.design.doorShapeList, ProductStor.product.doorShapeId);
-      DesignStor.designSource.doorConfig.sashShapeIndex = setDoorConfigIndex(DesignStor.design.doorShapeList, ProductStor.product.doorSashShapeId);
-      DesignStor.designSource.doorConfig.handleShapeIndex = setDoorConfigIndex(DesignStor.design.doorShapeList, ProductStor.product.doorHandleShapeId);
-      DesignStor.designSource.doorConfig.lockShapeIndex = setDoorConfigIndex(DesignStor.design.doorShapeList, ProductStor.product.doorLockShapeId);
+      DesignStor.designSource.doorConfig.doorShapeIndex = setDoorConfigIndex(DesignStor.design.doorShapeList, ProductStor.product.door_shape_id);
+      DesignStor.designSource.doorConfig.sashShapeIndex = setDoorConfigIndex(DesignStor.design.doorShapeList, ProductStor.product.door_sash_shape_id);
+      DesignStor.designSource.doorConfig.handleShapeIndex = setDoorConfigIndex(DesignStor.design.doorShapeList, ProductStor.product.door_handle_shape_id);
+      DesignStor.designSource.doorConfig.lockShapeIndex = setDoorConfigIndex(DesignStor.design.doorShapeList, ProductStor.product.door_lock_shape_id);
 
       //-------- set Default values in design
       DesignStor.design.doorConfig = DesignStor.setDefaultDoor();
@@ -2009,3 +2019,4 @@
 
   }
 })();
+

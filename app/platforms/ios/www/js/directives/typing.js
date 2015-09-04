@@ -1,3 +1,6 @@
+
+// directives/typing.js
+
 (function(){
   'use strict';
     /**

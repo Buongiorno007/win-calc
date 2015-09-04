@@ -34,7 +34,6 @@
 
   angular.module('BauVoiceApp', [
     'ngRoute',
-    'angular-websql',
     'pascalprecht.translate',
     'hmTouchEvents',
     'ngCordova',

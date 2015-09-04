@@ -1,3 +1,6 @@
+
+// controllers/panels/glasses.js
+
 (function(){
   'use strict';
   /**
@@ -7,13 +10,16 @@
     .module('MainModule')
     .controller('GlassesCtrl', glassSelectorCtrl);
 
-  function glassSelectorCtrl(globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, MainServ, analyticsServ) {
+  function glassSelectorCtrl($filter, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, MainServ, analyticsServ) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
     thisCtrl.P = ProductStor;
 
     thisCtrl.config = {
+      camera: $filter('translate')('panels.CAMERa'),
+      camer: $filter('translate')('panels.CAMER'),
+      camers: $filter('translate')('panels.CAMERs'),
       DELAY_START: 5 * globalConstants.STEP,
       DELAY_BLOCK: 2 * globalConstants.STEP,
       DELAY_TYPING: 2.5 * globalConstants.STEP,
@@ -28,16 +34,16 @@
     //============ methods ================//
 
     //------- Select glass
-    function selectGlass(typeIndex, glassIndex, glassId) {
-      ProductStor.product.glassTypeIndex = typeIndex;
-      ProductStor.product.glassIndex = glassIndex;
+    function selectGlass(newId) {
       //------- set currenct Glass
-      MainServ.setCurrentGlass();
+      MainServ.setCurrentGlass(newId);
       //------ calculate price
-      MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profileId, glassId, ProductStor.product.hardwareId);
+      MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass.list_id, ProductStor.product.hardware.id);
       //------ save analytics data
-      analyticsServ.saveGlassAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, glassId, typeIndex);
+//      analyticsServ.saveGlassAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, newId, typeIndex);
+      //TODO analyticsServ.saveGlassAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, newId);
     }
 
   }
 })();
+

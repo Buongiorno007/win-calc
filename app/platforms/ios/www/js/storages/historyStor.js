@@ -1,3 +1,6 @@
+
+// storages/historyStor.js
+
 (function(){
   'use strict';
     /**
@@ -70,3 +73,4 @@
 
   }
 })();
+

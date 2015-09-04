@@ -76,20 +76,20 @@
 
         .input-field
           .subtitle-field {{ 'cart.CLIENT_AGE' | translate }}
-          select.user-select-field(name="age", ng-model="creditDialog.C.cart.customer.customer_age", ng-options="age for age in creditDialog.C.optionAge")
+          select.user-select-field(name="age", ng-model="creditDialog.C.cart.customer.customer_age", ng-options="age.name for age in creditDialog.C.optionAge")
             option(value='') {{ 'cart.SELECT_AGE' | translate }}
 
         .input-field
           .subtitle-field {{ 'cart.CLIENT_EDUCATION' | translate }}
-          select.user-select-field(name="education", ng-model="creditDialog.C.cart.customer.customer_education", ng-options="educ for educ in creditDialog.C.optionEductaion")
+          select.user-select-field(name="education", ng-model="creditDialog.C.cart.customer.customer_education", ng-options="educ.name for educ in creditDialog.C.optionEductaion")
             option(value='') {{ 'cart.SELECT_ADUCATION' | translate }}
 
         .input-field
           .subtitle-field {{ 'cart.CLIENT_OCCUPATION' | translate }}
-          select.user-select-field(name="occupation", ng-model="creditDialog.C.cart.customer.customer_occupation", ng-options="occup for occup in creditDialog.C.optionOccupation")
+          select.user-select-field(name="occupation", ng-model="creditDialog.C.cart.customer.customer_occupation", ng-options="occup.name for occup in creditDialog.C.optionOccupation")
             option(value='') {{ 'cart.SELECT_OCCUPATION' | translate }}
 
         .input-field
           .subtitle-field {{ 'cart.CLIENT_INFO_SOURCE' | translate }}
-          select.user-select-field(name="infoSource", ng-model="creditDialog.C.cart.customer.customer_infoSource", ng-options="info for info in creditDialog.C.optionInfo")
+          select.user-select-field(name="infoSource", ng-model="creditDialog.C.cart.customer.customer_infoSource", ng-options="info.name for info in creditDialog.C.optionInfo")
             option(value='') {{ 'cart.SELECT_INFO_SOURCE' | translate }}

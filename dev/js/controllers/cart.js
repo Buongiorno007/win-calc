@@ -77,9 +77,9 @@
       CartServ.joinAllAddElements();
       //----------- start order price total calculation
       CartServ.calculateAllProductsPrice();
-      OrderStor.order.orderPriceTOTAL = OrderStor.order.productsPriceTOTAL;
+      OrderStor.order.order_price_total = OrderStor.order.products_price_total;
       CartStor.cart.orderPriceTOTALDis = CartStor.cart.productsPriceTOTALDis;
-      CartStor.cart.discountPriceDiff = GeneralServ.roundingNumbers(OrderStor.order.orderPriceTOTAL - CartStor.cart.orderPriceTOTALDis);
+      CartStor.cart.discountPriceDiff = GeneralServ.roundingNumbers(OrderStor.order.order_price_total - CartStor.cart.orderPriceTOTALDis);
     }
 
 
@@ -158,12 +158,12 @@
     function switchDiscount(type) {
       //------- discount x add element
       if(type) {
-        OrderStor.order.currDiscountAddElem = 0;
+        OrderStor.order.discount_addelem = 0;
         CartServ.changeAddElemPriceAsDiscount(0);
         thisCtrl.config.isShowDiscountAddList = 0;
       } else {
         //------- discount x construction
-        OrderStor.order.currDiscount = 0;
+        OrderStor.order.discount_construct = 0;
         CartServ.changeProductPriceAsDiscount(0);
         thisCtrl.config.isShowDiscountList = 0;
       }
@@ -174,17 +174,17 @@
       event.srcEvent.stopPropagation();
       //------- discount x add element
       if(type) {
-        if(OrderStor.order.currDiscountAddElem !== newDiscount) {
-          OrderStor.order.currDiscountAddElem = newDiscount;
-          CartServ.changeAddElemPriceAsDiscount(OrderStor.order.currDiscountAddElem);
+        if(OrderStor.order.discount_addelem !== newDiscount) {
+          OrderStor.order.discount_addelem = newDiscount;
+          CartServ.changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
         }
         //------ close Discount List
         thisCtrl.config.isShowDiscountAddList = 0;
       } else {
         //------- discount x construction
-        if(OrderStor.order.currDiscount !== newDiscount) {
-          OrderStor.order.currDiscount = newDiscount;
-          CartServ.changeProductPriceAsDiscount(OrderStor.order.currDiscount);
+        if(OrderStor.order.discount_construct !== newDiscount) {
+          OrderStor.order.discount_construct = newDiscount;
+          CartServ.changeProductPriceAsDiscount(OrderStor.order.discount_construct);
         }
         //------ close Discount List
         thisCtrl.config.isShowDiscountList = 0;

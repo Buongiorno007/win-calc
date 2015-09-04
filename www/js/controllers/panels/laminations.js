@@ -37,15 +37,13 @@
       if(id) {
         ProductStor.product.lamination_in_id = id;
         ProductStor.product.laminationInName = name;
-        ProductStor.product.laminationInPrice = 547; //TODO price is absented in GlobalDB
       } else {
         ProductStor.product.lamination_in_id = 0;
         ProductStor.product.laminationInName =  $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION');
-        ProductStor.product.laminationInPrice = 0;
       }
       setLaminationTotalPrice();
       //------ save analytics data
-      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, ProductStor.product.lamination_in_id, 1);
+      //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, ProductStor.product.lamination_in_id, 1);
     }
 
 
@@ -53,24 +51,21 @@
       if(id) {
         ProductStor.product.lamination_out_id = id;
         ProductStor.product.laminationOutName = name;
-        ProductStor.product.laminationOutPrice = 547; //TODO price is absented in GlobalDB
       } else {
         ProductStor.product.lamination_out_id = 0;
         ProductStor.product.laminationOutName =  $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION');
-        ProductStor.product.laminationOutPrice = 0;
       }
       setLaminationTotalPrice();
       //------ save analytics data
-      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, ProductStor.product.lamination_out_id, 2);
+      //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, ProductStor.product.lamination_out_id, 2);
     }
 
-
+    //TODO?????
     function setLaminationTotalPrice() {
-      ProductStor.product.laminationPriceSELECT = ProductStor.product.laminationInPrice + ProductStor.product.laminationOutPrice; //TODO?????
-      $timeout(function() {
-        MainServ.setProductPriceTOTAL();
-      }, 50);
-
+//      ProductStor.product.laminationPriceSELECT = ProductStor.product.laminationInPrice + ProductStor.product.laminationOutPrice;
+//      $timeout(function() {
+//        MainServ.setProductPriceTOTAL();
+//      }, 50);
     }
 
   }

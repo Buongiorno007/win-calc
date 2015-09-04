@@ -1,3 +1,6 @@
+
+// storages/cartStor.js
+
 (function(){
   'use strict';
     /**
@@ -27,38 +30,38 @@
         isCreditDialog: 0,
         submitted: 0,
         isCityBox: 0,
-        user: {
-          location: OrderStor.order.currCityName +', '+ OrderStor.order.currRegionName,
-          sex: ''
+        customer: {
+          customer_location: OrderStor.order.customer_city +', '+ OrderStor.order.currRegionName,
+          customer_sex: 0 //1-m, 2-f
         }
       },
 
       //------- data x order dialogs
       optionAge: [
-        '20-30',
-        '31-40',
-        '41-50',
-        '51-60',
-        $filter('translate')('cart.CLIENT_AGE_OLDER') +' 61'
+        {id: 1, name: '20-30'},
+        {id: 2, name: '31-40'},
+        {id: 3, name: '41-50'},
+        {id: 4, name: '51-60'},
+        {id: 5, name: $filter('translate')('cart.CLIENT_AGE_OLDER') +' 61'}
       ],
       optionEductaion: [
-        $filter('translate')('cart.CLIENT_EDUC_MIDLE'),
-        $filter('translate')('cart.CLIENT_EDUC_SPEC'),
-        $filter('translate')('cart.CLIENT_EDUC_HIGH')
+        {id: 1, name: $filter('translate')('cart.CLIENT_EDUC_MIDLE')},
+        {id: 2, name: $filter('translate')('cart.CLIENT_EDUC_SPEC')},
+        {id: 3, name: $filter('translate')('cart.CLIENT_EDUC_HIGH')}
       ],
       optionOccupation: [
-        $filter('translate')('cart.CLIENT_OCCUP_WORKER'),
-        $filter('translate')('cart.CLIENT_OCCUP_HOUSE'),
-        $filter('translate')('cart.CLIENT_OCCUP_BOSS'),
-        $filter('translate')('cart.CLIENT_OCCUP_STUD'),
-        $filter('translate')('cart.CLIENT_OCCUP_PENSION')
+        {id: 1, name: $filter('translate')('cart.CLIENT_OCCUP_WORKER')},
+        {id: 2, name: $filter('translate')('cart.CLIENT_OCCUP_HOUSE')},
+        {id: 3, name: $filter('translate')('cart.CLIENT_OCCUP_BOSS')},
+        {id: 4, name: $filter('translate')('cart.CLIENT_OCCUP_STUD')},
+        {id: 5, name: $filter('translate')('cart.CLIENT_OCCUP_PENSION')}
       ],
       optionInfo: [
-        'TV',
-        'InterNET',
-        $filter('translate')('cart.CLIENT_INFO_PRESS'),
-        $filter('translate')('cart.CLIENT_INFO_FRIEND'),
-        $filter('translate')('cart.CLIENT_INFO_ADV')
+        {id: 1, name: 'TV'},
+        {id: 2, name: 'InterNET'},
+        {id: 3, name: $filter('translate')('cart.CLIENT_INFO_PRESS')},
+        {id: 4, name: $filter('translate')('cart.CLIENT_INFO_FRIEND')},
+        {id: 5, name: $filter('translate')('cart.CLIENT_INFO_ADV')}
       ],
 
       setDefaultCart: setDefaultCart,
@@ -105,3 +108,4 @@
 
   }
 })();
+

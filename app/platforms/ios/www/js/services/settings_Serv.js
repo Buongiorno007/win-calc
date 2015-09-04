@@ -1,3 +1,6 @@
+
+// services/settings_Serv.js
+
 (function(){
   'use strict';
   /**
@@ -7,7 +10,7 @@
     .module('SettingsModule')
     .factory('SettingServ', settingsFactory);
 
-  function settingsFactory($rootScope, $q, $location, globalDB, GlobalStor, UserStor) {
+  function settingsFactory($rootScope, $q, $location, localDB, GlobalStor, UserStor) {
 
     var thisFactory = this;
 
@@ -28,6 +31,7 @@
     function changeAvatar() {
       navigator.camera.getPicture( function( data ) {
         UserStor.userInfo.avatar = 'data:image/jpeg;base64,' + data;
+        localDB.updateLocalServerDBs(localDB.tablesLocalDB.user.tableName, UserStor.userInfo.id, {"avatar": UserStor.userInfo.avatar});
         $rootScope.$apply();
       }, function( error ) {
         console.log( 'Error upload user avatar' + error );
@@ -49,14 +53,13 @@
       var deferred = $q.defer(),
           regions = [],
           mergerLocation = [],
-          reg = 0,
           regionQty, cityQty;
 
         //--------- get all regions relative to current countryID
-        globalDB.selectDBGlobal(globalDB.regionsTableDBGlobal, {'country_id':  UserStor.userInfo.countryId}).then(function(result) {
-          if(result) {
-            regionQty = result.length;
-            for (; reg < regionQty; reg++) {
+        localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName, {'country_id':  UserStor.userInfo.countryId}).then(function(result) {
+          regionQty = result.length;
+          if(regionQty) {
+            for (var reg = 0; reg < regionQty; reg++) {
               var tempRegion = {
                 id: result[reg].id,
                 countryId: result[reg].country_id,
@@ -73,11 +76,10 @@
         }).then(function() {
 
           //--------- get all cities relative to current countryID
-          globalDB.selectAllDBGlobal(globalDB.citiesTableDBGlobal).then(function(results) {
-            if(results) {
-              var cit = 0;
-              cityQty = results.length;
-              for(; cit < cityQty; cit++) {
+          localDB.selectLocalDB(localDB.tablesLocalDB.cities.tableName).then(function(results) {
+            cityQty = results.length;
+            if(cityQty) {
+              for(var cit = 0; cit < cityQty; cit++) {
                 for(var r = 0; r < regionQty; r++) {
                   if(results[cit].region_id === regions[r].id) {
                     var location = {
@@ -106,23 +108,12 @@
     }
 
 
-
-
     //-------- close Location Page
     function closeLocationPage() {
       $location.path('/' + GlobalStor.global.currOpenPage);
-//      if($scope.global.isOpenSettingsPage) {
-//        $scope.global.gotoSettingsPage();
-//      } else {
-//        $scope.global.showNavMenu = true;
-//        $scope.global.isConfigMenu = false;
-//        $scope.global.showPanels = {};
-//        $location.path('/main');
-//      }
     }
-
-
 
 
   }
 })();
+

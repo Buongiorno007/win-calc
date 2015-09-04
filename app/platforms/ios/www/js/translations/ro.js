@@ -1,3 +1,6 @@
+
+// translations/ro.js
+
 (function(){
   'use strict';
 
@@ -84,7 +87,7 @@
         CONFIGMENU_HARDWARE: 'furnitura ',
         CONFIGMENU_LAMINATION: 'laminare',
         CONFIGMENU_LAMINATION_TYPE: 'fațadă / camera',
-        CONFIGMENU_NOT_LAMINATION: 'fără lamin.',
+        WHITE_LAMINATION: 'Белая',
         CONFIGMENU_ADDITIONAL: 'Suplimentar',
         CONFIGMENU_IN_CART: 'Adaugă in coș',
         VOICE_SPEACH: 'Vorbiți...',
@@ -118,11 +121,6 @@
         CAMER: 'cameras',
         CAMERs: 'cameras',
         ENERGY_SAVE: '+energy saving',
-        LAM_LIGHT_OAK: 'light oak',
-        LAM_GOLD_OAK: 'gold oak',
-        LAM_BIRCH: 'birch',
-        LAM_MAHAGON: 'mahogan',
-        LAM_PINE: 'pine',
         STANDART_TYPE: 'The standard',
         ENERGY_TYPE: 'The energy saving',
         MIRROR_TYPE: 'The mirror',
@@ -163,9 +161,6 @@
         OTHER4: 'The reinforcing profile',
         OTHER5: 'The lower loop on frame',
         OTHER6: 'Rotary loop of Komfort 12/20-13 left',
-        LAM_WHITE: 'White',
-        LAM_MAT: 'opaque',
-        LAM_GLOSSY: 'glossy',
         DOOR_TYPE1: 'on perimeter',
         DOOR_TYPE2: 'without threshold',
         DOOR_TYPE3: 'aluminum threshold, type',
@@ -202,7 +197,6 @@
         SIZE_LABEL: 'dimensiune',
         WIDTH_LABEL: 'lățime',
         HEIGHT_LABEL: 'înălțime',
-        COLOR_LABEL: 'culoare',
         OTHER_ELEMENTS1: 'încă',
         OTHER_ELEMENTS2: 'componenta...',
         SCHEME_VIEW: 'schematic',
@@ -217,7 +211,6 @@
       add_elements_menu: {
         TIP: 'Selectați un element din listă',
         EMPTY_ELEMENT: 'fără elementul',
-        COLOR_AVAILABLE: 'culori disponibile:',
         TAB_NAME_SIMPLE_FRAME: 'construcție simplă',
         TAB_NAME_HARD_FRAME: 'construcție component',
         TAB_EMPTY_EXPLAIN: 'Vă rugăm să selectați primul element,pentru a porni construcția.'

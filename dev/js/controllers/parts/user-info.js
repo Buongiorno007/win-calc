@@ -7,11 +7,10 @@
     .module('MainModule')
     .controller('UserInfoCtrl', userInfoCtrl);
 
-  function userInfoCtrl(globalConstants, GeneralServ, GlobalStor, UserStor, MainServ) {
+  function userInfoCtrl(globalConstants, GeneralServ, GlobalStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.U = UserStor;
-    this.showNewCalculation = MainServ.prepareMainPage;
 
     thisCtrl.config = {
       DELAY_SHOW_USER_INFO: 40 * globalConstants.STEP,

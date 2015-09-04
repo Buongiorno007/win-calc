@@ -222,8 +222,8 @@
 
     //--------- set current user geolocation
     function setUserGeoLocation(cityId, cityName, regionName, countryName, climatic, heat, fullLocation) {
-      OrderStor.order.customer_city = cityId;
-      OrderStor.order.currCityName = cityName;
+      OrderStor.order.currCityId = cityId;
+      OrderStor.order.customer_city = cityName;
       OrderStor.order.currRegionName = regionName;
       OrderStor.order.currCountryName = countryName;
       OrderStor.order.climatic_zone = climatic;

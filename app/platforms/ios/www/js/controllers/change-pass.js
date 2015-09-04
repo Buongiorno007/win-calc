@@ -1,3 +1,6 @@
+
+// controllers/change-pass.js
+
 (function(){
   'use strict';
   /**
@@ -7,18 +10,18 @@
     .module('SettingsModule')
     .controller('ChangePassCtrl', changePassCtrl);
 
-  function changePassCtrl($location, globalConstants, UserStor, globalDB) {
+  function changePassCtrl($location, globalConstants, UserStor, localDB) {
 
     var thisCtrl = this;
     thisCtrl.U = UserStor;
 
     thisCtrl.config = {
       DELAY_START: globalConstants.STEP,
-      oldPassword: false,
-      newPassword: false,
-      confirmPassword: false,
-      isErrorPassword: false,
-      isErrorOldPassword: false,
+      oldPassword: 0,
+      newPassword: 0,
+      confirmPassword: 0,
+      isErrorPassword: 0,
+      isErrorOldPassword: 0,
       typing: 'on'
     };
 
@@ -36,44 +39,33 @@
     }
 
     function saveNewPassword() {
-      if( thisCtrl.config.oldPassword && UserStor.userInfo.password == globalDB.md5(thisCtrl.config.oldPassword) && thisCtrl.config.newPassword && thisCtrl.config.confirmPassword && thisCtrl.config.newPassword === thisCtrl.config.confirmPassword) {
-        thisCtrl.config.isErrorPassword = false;
-        UserStor.userInfo.password = globalDB.md5(thisCtrl.config.newPassword);
-        //TODO save chand in Server not in GlobalDB
-        globalDB.updateObjectInDB(globalDB.usersTableDBGlobal,UserStor.userInfo).then(function () {
-          globalDB.syncUpdatesToServer(UserStor.userInfo.phone, UserStor.userInfo.device_code);
+      if( thisCtrl.config.oldPassword && UserStor.userInfo.password == localDB.md5(thisCtrl.config.oldPassword) && thisCtrl.config.newPassword && thisCtrl.config.confirmPassword && thisCtrl.config.newPassword === thisCtrl.config.confirmPassword) {
+        thisCtrl.config.isErrorPassword = 0;
+        UserStor.userInfo.password = localDB.md5(thisCtrl.config.newPassword);
+        //----- update password in LocalDB & Server
+        localDB.updateLocalServerDBs(localDB.tablesLocalDB.user.tableName, UserStor.userInfo.id, {'password': UserStor.userInfo.password}).then(function() {
           //---- clean fields
-          thisCtrl.config.newPassword = thisCtrl.config.confirmPassword = false;
+          thisCtrl.config.newPassword = thisCtrl.config.confirmPassword = '';
           gotoSettingsPage();
         });
       } else {
-        if (!thisCtrl.config.oldPassword || (UserStor.userInfo.password != globalDB.md5(thisCtrl.config.oldPassword))){thisCtrl.config.isErrorOldPassword = true;}
-         else {thisCtrl.config.isErrorPassword = true;}
+        if (!thisCtrl.config.oldPassword || (UserStor.userInfo.password != localDB.md5(thisCtrl.config.oldPassword)) ) {
+          thisCtrl.config.isErrorOldPassword = 1;
+        } else {
+          thisCtrl.config.isErrorPassword = 1;
+        }
       }
-
-//      if(thisCtrl.config.newPassword === '' && thisCtrl.config.confirmPassword === '') {
-//        thisCtrl.config.isErrorPassword = true;
-//      }
-//      if(thisCtrl.config.newPassword !== thisCtrl.config.confirmPassword) {
-//        thisCtrl.config.isErrorPassword = true;
-//      } else {
-//        $scope.password.isErrorPassword = false;
-//        UserStor.userInfo.password = $scope.password.newPassword;
-//        //TODO save chand in Server not in GlobalDB
-//        globalDB.updateDBGlobal(globalDB.usersTableDBGlobal, {"password": $scope.password.newPassword}, {"id": UserStor.userInfo.id});
-//        //---- clean fields
-//        $scope.password.newPassword = $scope.password.confirmPassword = '';
-//      }
 
     }
 
     function checkError() {
-      thisCtrl.config.isErrorPassword = false;
+      thisCtrl.config.isErrorPassword = 0;
     }
 
     function checkErrorOld() {
-      thisCtrl.config.isErrorOldPassword = false;
+      thisCtrl.config.isErrorOldPassword = 0;
     }
 
   }
 })();
+

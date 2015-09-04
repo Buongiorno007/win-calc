@@ -1,3 +1,6 @@
+
+// storages/designStor.js
+
 (function(){
   'use strict';
     /**
@@ -77,3 +80,4 @@
 
   }
 })();
+

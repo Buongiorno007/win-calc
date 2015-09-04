@@ -1,3 +1,6 @@
+
+// controllers/design.js
+
 (function(){
   'use strict';
   /**
@@ -38,7 +41,7 @@
     DesignServ.setDefaultTemplate();
 
     //============ if Door Construction
-    if(ProductStor.product.constructionType === 4) {
+    if(ProductStor.product.construction_type === 4) {
       DesignServ.downloadDoorConfig();
     }
 
@@ -405,3 +408,4 @@
 
   }
 })();
+

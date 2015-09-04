@@ -166,7 +166,7 @@
       } else if(CartStor.cart.isMasterDialog) {
         orderStyle = 'master';
       }
-      MainServ.insertOrderInLocalDB(CartStor.cart.user, 1, orderStyle);
+      MainServ.insertOrderInLocalDB(CartStor.cart.customer, 1, orderStyle);
       //--------- Close cart dialog, go to history
       closeOrderDialog();
       //------- set previos Page
@@ -184,7 +184,7 @@
       if(GlobalStor.global.orderEditNumber > 0) {
         CartStor.fillOrderForm();
       } else{
-        CartStor.cart.user = CartStor.setDefaultUser();
+        CartStor.cart.customer = CartStor.setDefaultUser();
       }
       CartStor.cart.isMasterDialog = false;
       CartStor.cart.isOrderDialog = false;
@@ -193,7 +193,7 @@
 
 
     function changeLocation() {
-      if(CartStor.cart.user.location) {
+      if(CartStor.cart.customer.customer_location) {
         CartStor.cart.isCityBox = true;
       } else {
         CartStor.cart.isCityBox = false;
@@ -202,7 +202,7 @@
 
     //-------- Select City
     function selectCity(place) {
-      CartStor.cart.user.location = place;
+      CartStor.cart.customer.customer_location = place;
       CartStor.cart.isCityBox = false;
     }
 

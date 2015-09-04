@@ -1,3 +1,6 @@
+
+// controllers/panels/hardwares.js
+
 (function(){
   'use strict';
   /**
@@ -29,16 +32,15 @@
 
 
     //----------- Select hardware
-    function selectHardware(hardwareTypeIndex, hardwareIndex) {
-      ProductStor.product.hardwareTypeIndex = hardwareTypeIndex;
-      ProductStor.product.hardwareIndex = hardwareIndex;
+    function selectHardware(newId) {
       //-------- set current Hardware
-      MainServ.setCurrentHardware();
+      MainServ.setCurrentHardware(newId);
       //------ calculate price
-      MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profileId, ProductStor.product.glassId, ProductStor.product.hardwareId);
+      MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass.list_id, ProductStor.product.hardware.id);
       //------ save analytics data
-      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, hardwareIndex, hardwareTypeIndex);
+//TODO      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, hardwareIndex, hardwareTypeIndex);
     }
 
   }
 })();
+

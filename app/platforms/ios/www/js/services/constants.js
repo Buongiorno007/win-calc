@@ -1,3 +1,6 @@
+
+// services/constants.js
+
 (function(){
   'use strict';
 
@@ -40,8 +43,6 @@
         'aux_color_middle',
         'aux_color_small'
       ],
-      fullOrderType: 'complete',
-      draftOrderType: 'draft',
       //------------ Languages
       languages: [
         {label: 'ua', name: 'Українська'},
@@ -54,3 +55,4 @@
     });
 
 })();
+

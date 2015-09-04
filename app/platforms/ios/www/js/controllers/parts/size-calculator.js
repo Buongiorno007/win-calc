@@ -1,3 +1,6 @@
+
+// controllers/parts/size-calculator.js
+
 (function(){
   'use strict';
   /**

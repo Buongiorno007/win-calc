@@ -1,3 +1,6 @@
+
+// controllers/main.js
+
 (function(){
   'use strict';
   /**
@@ -7,7 +10,7 @@
     .module('MainModule')
     .controller('MainCtrl', mainPageCtrl);
 
-  function mainPageCtrl(globalDB, MainServ, optionsServ, GlobalStor, ProductStor, UserStor) {
+  function mainPageCtrl(MainServ, GlobalStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -17,65 +20,66 @@
     //------- set current Page
     GlobalStor.global.currOpenPage = 'main';
 
-    //TODO загрузка заказов юзера, надо еще и продукты и допы
-//    globalDB.getOrders(thisCtrl.U.userInfo.phone, thisCtrl.U.userInfo.device_code).then(function(result) {
-//
-//      console.log('getOrdersHistory++++++++', result);
-//      console.log('getOrdersHistory++++++++', JSON.stringify(result));
-//      for(var i = 0, len = result.orders.length; i < len; i++){
-//        var tempObj = result.orders[i];
-//        delete tempObj.user_id;
-//        console.log(tempObj);
-//        tempObj.orderType="complete";
-//        tempObj.orderStyle="done";
-//        MainServ.insertOrderInLocalDB(tempObj,"complete","done");
-//      }
-//
-//    });
+/*
+    window.onbeforeunload = function (){
+      console.log('REFRESH');
+      return "REFRESH!!!!!";
+    };
+*/
 
     //console.log('USER:',thisCtrl.U.userInfo);
 
     //=============== FIRST START =========//
 
     if(GlobalStor.global.startProgramm) {
-      console.log('START main CTRL!!!!!!');
-      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
+//      GlobalStor.global.isLoader = 1;
+//      console.log('START main CTRL!!!!!!');
+//      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
       //playSound('menu');
 
-      //------- first User entrance send to Server
-      globalDB.exportUserEntrance(UserStor.userInfo.phone, UserStor.userInfo.device_code);
+      //------- save first User entrance
+      MainServ.saveUserEntry();
       //------- create order date
       MainServ.createOrderData();
       //------- set Curr Discounts
       MainServ.setCurrDiscounts();
+      //----------- Profiles
+      MainServ.downloadAllProfiles().then(function(data) {
+        if(data) {
+          console.log('PROFILES ALL ++++++', GlobalStor.global.profiles);
+          //---------- Glasses
+          MainServ.downloadAllGlasses().then(function(data) {
+            if(data) {
+              //--------- sorting glasses as to Type
+              MainServ.sortingGlasses();
+              console.log('GLASSES All +++++', GlobalStor.global.glassesAll);
+              //-------- Hardwares
+              MainServ.downloadAllHardwares().then(function(data){
+                if(data) {
+                  //--------- sorting hardware as to Type
+                  MainServ.sortingHardware();
+                  console.log('HARDWARE ALL ++++++', GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares);
+                  //--------- set Templates
+                  MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
 
-      //----------- set all profiles for GlobalStor
-      MainServ.downloadAllProfiles().then(function() {
-console.log('PROFILES ALL =====', GlobalStor.global.profiles);
-        //----------- set all hardware for GlobalStor
-        optionsServ.getAllHardware(function (results) {
-          if (results.status) {
-            GlobalStor.global.hardwareTypes = angular.copy(results.data.hardwaresTypes);
-            GlobalStor.global.hardwares = angular.copy(results.data.hardwares);
-          } else {
-            console.log(results);
-          }
-        });
-        //        MainServ.downloadAllHardwares();
+                    //-------- Lamination
+                    MainServ.downloadAllLamination().then(function(lamins) {
+                      console.log('LAMINATION++++', lamins);
+                      if(lamins.length) {
+                        GlobalStor.global.laminationsIn = angular.copy(lamins);
+                        GlobalStor.global.laminationsOut = angular.copy(lamins);
+                      }
+                    });
+                    //-------- checking AddElements
+                    MainServ.isAddElemExist();
+                  });
 
-        //----------- set all glasses for GlobalStor
-        optionsServ.getAllGlass(function (results) {
-          if (results.status) {
-            GlobalStor.global.glassTypes = angular.copy(results.data.glassTypes);
-            GlobalStor.global.glasses = angular.copy(results.data.glasses);
+                }
+              });
 
-            //--------- set Templates
-            MainServ.prepareTemplates(ProductStor.product.constructionType);
-
-          } else {
-            console.log(results);
-          }
-        });
+            }
+          });
+        }
 
       });
 

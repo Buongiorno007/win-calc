@@ -1,3 +1,6 @@
+
+// controllers/change-lang.js
+
 (function(){
   'use strict';
   /**

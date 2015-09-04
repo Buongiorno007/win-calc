@@ -1,3 +1,6 @@
+
+// directives/svg-icon.js
+
 (function(){
   'use strict';
     /**

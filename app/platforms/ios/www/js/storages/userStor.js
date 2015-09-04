@@ -1,3 +1,6 @@
+
+// storages/userStor.js
+
 (function(){
   'use strict';
     /**
@@ -46,3 +49,4 @@
 
   }
 })();
+

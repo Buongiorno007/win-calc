@@ -1,3 +1,6 @@
+
+// translations/de.js
+
 (function(){
   'use strict';
 
@@ -84,7 +87,7 @@
         CONFIGMENU_HARDWARE: 'Zubehör',
         CONFIGMENU_LAMINATION: 'Laminierung',
         CONFIGMENU_LAMINATION_TYPE: 'Die Fassade / in den Zimmer',
-        CONFIGMENU_NOT_LAMINATION: 'ohne Lamin.',
+        WHITE_LAMINATION: 'Weiß',
         CONFIGMENU_ADDITIONAL: 'Zusätzlich',
         CONFIGMENU_IN_CART: 'Zum Warenkorb',
         VOICE_SPEACH: 'Sprechen...',
@@ -118,11 +121,6 @@
         CAMER: 'Kameras',
         CAMERs: 'Kameras',
         ENERGY_SAVE: '+Energiesparen',
-        LAM_LIGHT_OAK: 'Das helle Eichenholz',
-        LAM_GOLD_OAK: 'Das goldene Eichenholz',
-        LAM_BIRCH: 'Die Birke',
-        LAM_MAHAGON: 'Mahagon',
-        LAM_PINE: 'Die Kiefer',
         STANDART_TYPE: 'Die Standardmäßigen',
         ENERGY_TYPE: 'Energiesparen',
         MIRROR_TYPE: 'Spiegel',
@@ -163,9 +161,6 @@
         OTHER4: 'Das ausrüstende Profil',
         OTHER5: 'Die untere Schlinge auf dem Rahmen',
         OTHER6: 'Die Wendeschlinge Komfort die 12/20-13 Linke',
-        LAM_WHITE: 'Weiß',
-        LAM_MAT: 'Matte',
-        LAM_GLOSSY: 'Glänzend',
         DOOR_TYPE1: 'Nach dem Perimeter',
         DOOR_TYPE2: 'Ohne Schwelle',
         DOOR_TYPE3: 'Die Aluminiumschwelle, Typ',
@@ -202,7 +197,6 @@
         SIZE_LABEL: 'Größe',
         WIDTH_LABEL: 'Breite',
         HEIGHT_LABEL: 'Höhe',
-        COLOR_LABEL: 'Farbe',
         OTHER_ELEMENTS1: 'Noch',
         OTHER_ELEMENTS2: 'Komponente ...',
         SCHEME_VIEW: 'Schematisch',
@@ -217,7 +211,6 @@
       add_elements_menu: {
         TIP: 'Wählen Sie ein Element aus der Liste',
         EMPTY_ELEMENT: 'Ohne das Element',
-        COLOR_AVAILABLE: 'Verfügbare Farben:',
         TAB_NAME_SIMPLE_FRAME: 'Einfacher Aufbau',
         TAB_NAME_HARD_FRAME: 'Verbundstruktur',
         TAB_EMPTY_EXPLAIN: 'Wählen Sie den Anfangspunkt zu starten Bau.'

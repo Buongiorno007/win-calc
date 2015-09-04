@@ -1,3 +1,6 @@
+
+// services/login_Serv.js
+
 (function(){
   'use strict';
     /**
@@ -7,12 +10,13 @@
     .module('LoginModule')
     .factory('loginServ', startFactory);
 
-  function startFactory($q, $cordovaGlobalization, $translate, globalDB, globalConstants, GeneralServ, OrderStor, UserStor) {
+  function startFactory($q, $cordovaGlobalization, $translate, localDB, globalConstants, GeneralServ, OrderStor, UserStor) {
 
     var thisFactory = this;
 
     thisFactory.publicObj = {
       getDeviceLanguage: getDeviceLanguage,
+      initExport: initExport,
       isLocalDBExist: isLocalDBExist,
       prepareLocationToUse: prepareLocationToUse,
       collectCityIdsAsCountry: collectCityIdsAsCountry,
@@ -53,12 +57,39 @@
 
 
 
+
+    function initExport() {
+      var defer = $q.defer();
+      console.log('EXPORT');
+      //------- check Export Table
+      localDB.selectLocalDB(localDB.tablesLocalDB.export.tableName).then(function(data) {
+        //        console.log('data ===', data);
+        if(data.length) {
+          //----- get last user
+          localDB.selectLocalDB(localDB.tablesLocalDB.user.tableName).then(function(user) {
+            if(user.length) {
+              localDB.updateServer(user[0].phone, user[0].device_code, data).then(function(result) {
+                console.log('FINISH export',result);
+                //----- if update Server is success, clean Export in LocalDB
+                if(result) {
+                  localDB.cleanLocalDB({export: 1});
+                  defer.resolve(1);
+                }
+              });
+            }
+          });
+        }
+      });
+      return defer.promise;
+    }
+
+
     function isLocalDBExist() {
       var defer = $q.defer();
-//      globalDB.selectLocalDB(globalDB.tablesLocalDB.user.tableName).then(function(data) {
-      globalDB.selectLocalDB('sqlite_sequence').then(function(data) {
+//      localDB.selectLocalDB(localDB.tablesLocalDB.user.tableName).then(function(data) {
+      localDB.selectLocalDB('sqlite_sequence').then(function(data) {
 //        console.log('data ===', data);
-        if(data && data.rows.length > 5) {
+        if(data && data.length > 5) {
           defer.resolve(1);
         } else {
           defer.resolve(0);
@@ -80,60 +111,60 @@
           },
           countryQty, regionQty, cityQty;
       //---- get all counties
-      globalDB.selectLocalDB(globalDB.tablesLocalDB.countries.tableName).then(function(result) {
-        if(result) {
-          countryQty = result.rows.length;
+      localDB.selectLocalDB(localDB.tablesLocalDB.countries.tableName).then(function(data) {
+        countryQty = data.length;
+        if(countryQty) {
           for (var stat = 0; stat < countryQty; stat++) {
             var tempCountry = {
-              id: result.rows.item(stat).id,
-              name: result.rows.item(stat).name,
-              currency: result.rows.item(stat).currency_id
+              id: data[stat].id,
+              name: data[stat].name,
+              currency: data[stat].currency_id
             };
             generalLocations.countries.push(tempCountry);
           }
         } else {
-          console.log('Error!!!', result);
+          console.log('Error!!!', data);
         }
       }).then(function(){
 
         //--------- get all regions
-        globalDB.selectLocalDB(globalDB.tablesLocalDB.regions.tableName).then(function(result) {
-          if(result) {
-            regionQty = result.rows.length;
+        localDB.selectLocalDB(localDB.tablesLocalDB.regions.tableName).then(function(data) {
+          regionQty = data.length;
+          if(regionQty) {
             for (var reg = 0; reg < regionQty; reg++) {
               var tempRegion = {
-                id: result.rows.item(reg).id,
-                countryId: result.rows.item(reg).country_id,
-                name: result.rows.item(reg).name,
-                climaticZone: result.rows.item(reg).climatic_zone,
-                heatTransfer: result.rows.item(reg).heat_transfer
+                id: data[reg].id,
+                countryId: data[reg].country_id,
+                name: data[reg].name,
+                climaticZone: data[reg].climatic_zone,
+                heatTransfer: data[reg].heat_transfer
               };
               generalLocations.regions.push(tempRegion);
             }
           } else {
-            console.log('Error!!!', result);
+            console.log('Error!!!', data);
           }
 
         }).then(function() {
 
           //--------- get all cities
-          globalDB.selectLocalDB(globalDB.tablesLocalDB.cities.tableName).then(function(result) {
-            if(result) {
-              cityQty = result.rows.length;
+          localDB.selectLocalDB(localDB.tablesLocalDB.cities.tableName).then(function(data) {
+            cityQty = data.length;
+            if(cityQty) {
               for(var cit = 0; cit < cityQty; cit++) {
                 var tempCity = {
-                  id: result.rows.item(cit).id,
-                  regionId: result.rows.item(cit).region_id,
-                  name: result.rows.item(cit).name
+                  id: data[cit].id,
+                  regionId: data[cit].region_id,
+                  name: data[cit].name
                 };
                 generalLocations.cities.push(tempCity);
 
                 var location = {
-                  cityId: result.rows.item(cit).id,
-                  cityName: result.rows.item(cit).name
+                  cityId: data[cit].id,
+                  cityName: data[cit].name
                 };
                 for(var r = 0; r < regionQty; r++) {
-                  if(result.rows.item(cit).region_id === generalLocations.regions[r].id) {
+                  if(data[cit].region_id === generalLocations.regions[r].id) {
                     location.regionName = generalLocations.regions[r].name;
                     location.climaticZone = generalLocations.regions[r].climaticZone;
                     location.heatTransfer = GeneralServ.roundingNumbers(1/generalLocations.regions[r].heatTransfer);
@@ -152,7 +183,7 @@
               }
               deferred.resolve(generalLocations);
             } else {
-              deferred.reject(result);
+              deferred.reject(data);
             }
           });
 
@@ -164,13 +195,11 @@
 
     function collectCityIdsAsCountry(location) {
       var defer = $q.defer(),
-          locationQty = location.length,
-          cityIds = [];
-      while(--locationQty > -1) {
-        if(location[locationQty].countryId === UserStor.userInfo.countryId) {
-          cityIds.push(location[locationQty].cityId);
-        }
-      }
+          cityIds = location.map(function(loc) {
+            if(loc.countryId === UserStor.userInfo.countryId) {
+              return loc.cityId;
+            }
+          });
       defer.resolve(cityIds.join(','));
       return defer.promise;
     }
@@ -188,7 +217,6 @@
           UserStor.userInfo.countryName = locations[loc].countryName;
           UserStor.userInfo.countryId = locations[loc].countryId;
           UserStor.userInfo.fullLocation = locations[loc].fullLocation;
-          UserStor.userInfo.currencyId = locations[loc].currencyId;
           //------ set current GeoLocation
           setUserGeoLocation(cityId, locations[loc].cityName, locations[loc].regionName, locations[loc].countryName, locations[loc].climaticZone, locations[loc].heatTransfer, locations[loc].fullLocation);
         }
@@ -198,20 +226,20 @@
     //--------- set current user geolocation
     function setUserGeoLocation(cityId, cityName, regionName, countryName, climatic, heat, fullLocation) {
       OrderStor.order.currCityId = cityId;
-      OrderStor.order.currCityName = cityName;
+      OrderStor.order.customer_city = cityName;
       OrderStor.order.currRegionName = regionName;
       OrderStor.order.currCountryName = countryName;
-      OrderStor.order.currClimaticZone = climatic;
-      OrderStor.order.currHeatTransfer = heat;
+      OrderStor.order.climatic_zone = climatic;
+      OrderStor.order.heat_coef_min = heat;
       OrderStor.order.currFullLocation = fullLocation;
     }
 
     function setCurrency() {
       var defer = $q.defer();
-      globalDB.selectLocalDB(globalDB.tablesLocalDB.currencies.tableName, {'id':  UserStor.userInfo.currencyId}).then(function(result) {
-//        console.log('setCurrency = ',result);
-        if(result && result.rows.length) {
-          switch(result.rows.item(0).name) {
+      localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, {'is_base': 1}).then(function(data) {
+        if(data.length) {
+          UserStor.userInfo.currencyId = data[0].id;
+          switch(data[0].name) {
             case 'uah':  UserStor.userInfo.currency = '₴';
               break;
             case 'rub':  UserStor.userInfo.currency = '₽';
@@ -223,11 +251,14 @@
             default:  UserStor.userInfo.currency = '₴';
               break;
           }
+          defer.resolve(1);
+        } else {
+          defer.resolve(0);
         }
-        defer.resolve(1);
       });
       return defer.promise;
     }
 
   }
 })();
+

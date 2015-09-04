@@ -29,7 +29,7 @@
       setCurrentHardware: setCurrentHardware,
       parseTemplate: parseTemplate,
       saveTemplateInProduct: saveTemplateInProduct,
-
+      checkSashInTemplate: checkSashInTemplate,
       preparePrice: preparePrice,
       setProductPriceTOTAL: setProductPriceTOTAL,
       isAddElemExist: isAddElemExist,
@@ -55,22 +55,25 @@
 
 
     function saveUserEntry() {
-      ++UserStor.userInfo.entries;
-      var data = {entries: UserStor.userInfo.entries},
-          dataToSend = [
-            {
-              model: 'users',
-              rowId: UserStor.userInfo.id,
-              field: JSON.stringify(data)
-            }
-          ];
-      localDB.updateLocalDB(localDB.tablesLocalDB.user.tableName, data, {'id': UserStor.userInfo.id});
-      localDB.updateServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, dataToSend).then(function(data) {
-        if(!data) {
-          //----- if no connect with Server save in Export LocalDB
-          localDB.insertRowLocalDB(dataToSend, localDB.tablesLocalDB.export.tableName);
-        }
-      });
+
+      localDB.exportUserEntrance(UserStor.userInfo.phone, UserStor.userInfo.device_code);
+      //TODO offline
+//      ++UserStor.userInfo.entries;
+//      var data = {entries: UserStor.userInfo.entries},
+//          dataToSend = [
+//            {
+//              model: 'users',
+//              rowId: UserStor.userInfo.id,
+//              field: JSON.stringify(data)
+//            }
+//          ];
+//      localDB.updateLocalDB(localDB.tablesLocalDB.user.tableName, data, {'id': UserStor.userInfo.id});
+//      localDB.updateServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, dataToSend).then(function(data) {
+//        if(!data) {
+//          //----- if no connect with Server save in Export LocalDB
+//          localDB.insertRowLocalDB(dataToSend, localDB.tablesLocalDB.export.tableName);
+//        }
+//      });
     }
 
 
@@ -91,7 +94,6 @@
       OrderStor.order.discount_construct = angular.copy(UserStor.userInfo.discount);//TODO is not table user-discounts
       OrderStor.order.discount_addelem = angular.copy(UserStor.userInfo.discountAddElem);
     }
-
 
     //----------- get all profiles
     function downloadAllProfiles() {
@@ -853,31 +855,6 @@
     function insertProductInLocalDB(product) {
       var deferred = $q.defer(),
           productData = angular.copy(product),
-//          productData = {
-//            order_number: OrderStor.order.orderId,
-//            product_id: product.product_id,
-//            is_addelem_only: product.isAddElementsONLY,
-//            room_id: product.roomId,
-//            construction_type: product.constructionType,
-//            template_id: product.templateId,
-//            template_source: JSON.stringify(product.templateSource),
-//            profile_id: product.profile.id,
-//            glass_id: product.glass.id,
-//            hardware_id: product.hardware.id,
-//            lamination_out_id: product.laminationOutId,
-//            lamination_in_id: product.laminationInId,
-//            door_shape_id: product.doorShapeId,
-//            door_sash_shape_id: product.door_sash_shape_id,
-//            door_handle_shape_id: product.door_handle_shape_id,
-//            door_lock_shape_id: product.door_lock_shape_id,
-//
-//            heat_coef_total: product.heat_coef_total,
-//            template_price: GeneralServ.roundingNumbers(product.template_price),
-//            addelem_price: GeneralServ.roundingNumbers(product.addelem_price),
-//            product_price: GeneralServ.roundingNumbers(product.product_price),
-//            comment: product.comment,
-//            product_qty: product.productQty
-//          },
           addElementsQty = product.chosenAddElements.length;
 
       productData.order_number = OrderStor.order.order_number;
@@ -912,22 +889,11 @@
         var elementsQty = product.chosenAddElements[prop].length;
         if(elementsQty > 0) {
           for (var elem = 0; elem < elementsQty; elem++) {
-//            var addElementsData = {
-//              order_number: OrderStor.order.orderId,
-//              product_id: product.productId,
-//              element_id: product.chosenAddElements[prop][elem].elementId,
-//              element_type: product.chosenAddElements[prop][elem].elementType,
-//              element_width: product.chosenAddElements[prop][elem].elementWidth,
-//              element_height: product.chosenAddElements[prop][elem].elementHeight,
-//              element_price: product.chosenAddElements[prop][elem].elementPrice,
-//              element_qty: product.chosenAddElements[prop][elem].elementQty
-//            };
             var addElementsData = angular.copy(product.chosenAddElements[prop][elem]);
 
             addElementsData.order_number = OrderStor.order.order_number;
             addElementsData.product_id = product.product_id;
             addElementsData.modified = new Date();
-//            delete addElementsData.$$hashKey;
             delete addElementsData.elementPriceDis;
             delete addElementsData.element_name;
 
@@ -972,32 +938,6 @@
       var prodQty = OrderStor.order.products.length;
         for(var p = 0; p < prodQty; p++) {
 
-//          var productData = {
-//            order_number: OrderStor.order.orderId,
-//            product_id: OrderStor.order.products[p].productId,
-//            is_addelem_only: OrderStor.order.products[p].isAddElementsONLY,
-//            room_id: OrderStor.order.products[p].roomId,
-//            construction_type: OrderStor.order.products[p].constructionType,
-//            template_id: OrderStor.order.products[p].templateId,
-//            template_source: JSON.stringify(OrderStor.order.products[p].templateSource),
-//            profile_id: OrderStor.order.products[p].profile.id,
-//            glass_id: OrderStor.order.products[p].glass.id,
-//            hardware_id: OrderStor.order.products[p].hardware.id,
-//            lamination_out_id: OrderStor.order.products[p].laminationOutId,
-//            lamination_in_id: OrderStor.order.products[p].laminationInId,
-//            door_shape_id: OrderStor.order.products[p].doorShapeId,
-//            door_sash_shape_id: OrderStor.order.products[p].door_sash_shape_id,
-//            door_handle_shape_id: OrderStor.order.products[p].door_handle_shape_id,
-//            door_lock_shape_id: OrderStor.order.products[p].door_lock_shape_id,
-//            heat_coef_min: OrderStor.order.products[p].heatTransferMin,
-//            heat_coef_total: OrderStor.order.products[p].heat_coef_total,
-//            template_price: GeneralServ.roundingNumbers(OrderStor.order.products[p].template_price),
-//            addelem_price: GeneralServ.roundingNumbers(OrderStor.order.products[p].addelem_price),
-//            product_price: GeneralServ.roundingNumbers(OrderStor.order.products[p].product_price),
-//            comment: OrderStor.order.products[p].comment,
-//            product_qty: OrderStor.order.products[p].productQty,
-//            modified: new Date()
-//          };
           var productData = angular.copy(OrderStor.order.products[p]);
           productData.order_number = OrderStor.order.order_number;
           productData.template_source = JSON.stringify(OrderStor.order.products[p].template_source);
@@ -1012,7 +952,6 @@
           delete productData.laminationOutName;
           delete productData.laminationInName;
           delete productData.chosenAddElements;
-          delete productData.airCirculationTOTAL; //TODO delete
           delete productData.addElementsPriceSELECTDis;
           delete productData.productPriceTOTALDis;
 
@@ -1024,17 +963,6 @@
             var elemQty = OrderStor.order.products[p].chosenAddElements[add].length;
             if(elemQty > 0) {
               for (var elem = 0; elem < elemQty; elem++) {
-//                var addElementsData = {
-//                  order_number: OrderStor.order.orderId,
-//                  product_id: OrderStor.order.products[p].productId,
-//                  element_id: OrderStor.order.products[p].chosenAddElements[add][elem].elementId,
-//                  element_type: OrderStor.order.products[p].chosenAddElements[add][elem].elementType,
-//                  element_width: OrderStor.order.products[p].chosenAddElements[add][elem].elementWidth,
-//                  element_height: OrderStor.order.products[p].chosenAddElements[add][elem].elementHeight,
-//                  element_price: OrderStor.order.products[p].chosenAddElements[add][elem].elementPrice,
-//                  element_qty: OrderStor.order.products[p].chosenAddElements[add][elem].elementQty,
-//                  modified: new Date()
-//                };
                 var addElementsData = angular.copy(OrderStor.order.products[p].chosenAddElements[add][elem]);
                 addElementsData.order_number = OrderStor.order.order_number;
                 addElementsData.product_id = OrderStor.order.products[p].product_id;
@@ -1050,81 +978,6 @@
       //------- save order in LocalDB
 //      delete OrderStor.order.products;
       console.log('!!!!ORDER!!!!', OrderStor.order);
-      var orderData = {
-//        order_number: OrderStor.order.orderId,
-//        order_date: new Date(OrderStor.order.orderDate),
-//        order_type: orderType,
-//        order_style: orderStyle,
-//        factory_id: UserStor.userInfo.factory_id,
-//        user_id: UserStor.userInfo.id,
-
-//        climatic_zone: OrderStor.order.currClimaticZone,
-//        full_location: OrderStor.order.currFullLocation,
-//        is_date_price_less: OrderStor.order.isDatePriceLess,
-//        is_date_price_more: OrderStor.order.isDatePriceMore,
-//        floor_id: 0,
-//        mounting_id: 0,
-//        is_instalment: OrderStor.order.isInstalment,
-//        instalment_id: 0,
-//        is_old_price: OrderStor.order.isOldPrice,
-//
-//        delivery_date: new Date(OrderStor.order.deliveryDate),
-//        new_delivery_date: new Date(OrderStor.order.newDeliveryDate),
-//        delivery_price: OrderStor.order.deliveryPrice,
-//        mounting_price: OrderStor.order.selectedAssemblingPrice,
-//        products_price_total: OrderStor.order.productsPriceTOTAL,
-//        products_qty: OrderStor.order.productsQty,
-//        payment_first: OrderStor.order.paymentFirst,
-//        payment_monthly: OrderStor.order.paymentMonthly,
-//        payment_first_primary: OrderStor.order.paymentFirstPrimary,
-//        payment_monthly_primary: OrderStor.order.paymentMonthlyPrimary,
-//        order_price_total: OrderStor.order.orderPriceTOTAL,
-//        order_price_total_primary: OrderStor.order.orderPriceTOTALPrimary,
-//        discount_construct: OrderStor.order.currDiscount,
-//        discount_addelem: OrderStor.order.currDiscountAddElem,
-
-//        customer_name: OrderStor.order.name,
-//        customer_email: OrderStor.order.mail,
-//        customer_phone: OrderStor.order.phone,
-//        customer_phone_city: OrderStor.order.phone2,
-//        customer_address: OrderStor.order.address,
-//        customer_city: OrderStor.order.currCityName,
-//        customer_region: OrderStor.order.currRegionName,
-//        customer_country: OrderStor.order.currCountryName,
-//        customer_itn: OrderStor.order.itn,
-//        customer_starttime: OrderStor.order.starttime,
-//        customer_endtime: OrderStor.order.endtime,
-//        customer_target: OrderStor.order.target,
-//        customer_sex: 1,
-//        customer_age: 1,
-//        customer_education: 1,
-//        customer_occupation: 1,
-//        customer_infoSource: 1,
-
-//        additional_payment: '',
-//        created: new Date(),
-//        sended: new Date(0),
-//        state_to: new Date(0),
-//        state_buch: new Date(0),
-//        batch: '',
-//        square: 0,
-//        base_price: 0,
-//        perimeter: 0,
-//        factory_margin: 0,
-//        purchase_price: 0,
-//        sale_price: 0,
-//        modified: new Date()
-      };
-
-//      currCityId: 156
-//      currHeatTransfer: 1.33
-//      location: "Dnepropetrovsk, Днепропетровская"
-//      selectedAssembling: "free"
-//      selectedFloor: "free"
-//      selectedFloorPrice: 0
-//      selectedInstalmentPercent: 0
-//      selectedInstalmentPeriod: 0
-
       var orderData = angular.copy(OrderStor.order);
       orderData.order_date = new Date(OrderStor.order.order_date);
       orderData.order_type = orderType;
@@ -1133,6 +986,11 @@
       orderData.user_id = UserStor.userInfo.id;
       orderData.delivery_date = new Date(OrderStor.order.delivery_date);
       orderData.new_delivery_date = new Date(OrderStor.order.new_delivery_date);
+      orderData.customer_sex = (OrderStor.order.customer_sex) ? +OrderStor.order.customer_sex : 0;
+      orderData.customer_age = (OrderStor.order.customer_age) ? OrderStor.order.customer_age.id : 0;
+      orderData.customer_education = (OrderStor.order.customer_education) ? OrderStor.order.customer_education.id : 0;
+      orderData.customer_occupation = (OrderStor.order.customer_occupation) ? OrderStor.order.customer_occupation.id : 0;
+      orderData.customer_infoSource = (OrderStor.order.customer_infoSource) ? OrderStor.order.customer_infoSource.id : 0;
 
       orderData.additional_payment = '';
       orderData.created = new Date();
@@ -1149,13 +1007,15 @@
       orderData.modified = new Date();
 
       delete orderData.products;
-      delete orderData.currCityName;
+      delete orderData.currCityId;
       delete orderData.currRegionName;
       delete orderData.currCountryName;
       delete orderData.currFullLocation;
+      delete orderData.selectedFloorPrice;
       delete orderData.selectedInstalmentPeriod;
       delete orderData.selectedInstalmentPercent;
 
+      console.log('!!!!orderData!!!!', orderData);
       localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, orderData);
       localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
 

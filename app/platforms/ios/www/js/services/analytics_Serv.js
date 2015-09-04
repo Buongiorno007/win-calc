@@ -1,3 +1,6 @@
+
+// services/analytics_Serv.js
+
 (function(){
   'use strict';
   /**
@@ -7,15 +10,16 @@
     .module('BauVoiceApp')
     .factory('analyticsServ', analyticsFactory);
 
-  function analyticsFactory(globalDB, localDB, ProductStor, UserStor) {
+  function analyticsFactory(localDB, ProductStor) {
 
     var thisFactory = this;
 
     thisFactory.analyticsObjSource = {
-      "userId": '',
-      "orderId": '',
-      "elementId": '',
-      "elementType": ''
+      user_id: 0,
+      order_number: 0,
+      element_id: 0,
+      element_type: 0,
+      created: 0
     };
 
     thisFactory.publicObj = {
@@ -31,26 +35,26 @@
 
     function insertAnalyticsDB(userId, orderId, elementId, elementType) {
       var analyticsObj = angular.copy(thisFactory.analyticsObjSource);
-      analyticsObj.userId = userId;
-      analyticsObj.orderId = orderId;
-      analyticsObj.elementId = elementId;
-      analyticsObj.elementType = elementType;
-
-      localDB.insertDB(localDB.analyticsTableBD, analyticsObj);
+      analyticsObj.user_id = userId;
+      analyticsObj.order_number = orderId;
+      analyticsObj.element_id = elementId;
+      analyticsObj.element_type = elementType;
+      analyticsObj.created = new Date();
+      localDB.insertRowLocalDB(analyticsObj, localDB.tablesLocalDB.analytics.tableName);
     }
 
 
     //--------- save Analytics Data by Glass according to Construction (lightbox)
     function insertGlassAnalyticDB(userId, orderId, elementId, elementType) {
       var lightBlockArr = [],
-          templateLength = ProductStor.product.templateSource.objects.length,
+          templateLength = ProductStor.product.template_source.details.length,
           glassIndex = templateLength,
           sashIndex = templateLength;
 
       while(--glassIndex > -1) {
-        if(ProductStor.product.templateSource.objects[glassIndex].type === 'glass_paсkage') {
+        if(ProductStor.product.template_source.details[glassIndex].type === 'glass_paсkage') {
           var lightBlock = {
-            'blockId': ProductStor.product.templateSource.objects[glassIndex].id.replace(/\D+/g,""),
+            'blockId': ProductStor.product.template_source.objects[glassIndex].id.replace(/\D+/g,""),
             'openDir': ''
           };
           lightBlockArr.push(lightBlock);
@@ -59,11 +63,11 @@
 
       var lightsLength = lightBlockArr.length;
       while(--sashIndex > -1) {
-        if(ProductStor.product.templateSource.objects[sashIndex].type === 'sash_block') {
-          var sashId = ProductStor.product.templateSource.objects[sashIndex].id.replace(/\D+/g,"");
+        if(ProductStor.product.template_source.objects[sashIndex].type === 'sash_block') {
+          var sashId = ProductStor.product.template_source.objects[sashIndex].id.replace(/\D+/g,"");
           for(var i = 0; i < lightsLength; i++) {
             if(sashId === lightBlockArr[i].blockId) {
-              lightBlockArr[i].openDir = ProductStor.product.templateSource.objects[sashIndex].openDir.join(',');
+              lightBlockArr[i].openDir = ProductStor.product.template_source.objects[sashIndex].openDir.join(',');
             }
           }
         }
@@ -78,19 +82,20 @@
 
     function sendAnalyticsDB(order) {
       //----- get Analytics Data from localDB
-      localDB.selectAllDB(localDB.analyticsTableBD, function (results) {
-        if (results.status) {
+      localDB.selectLocalDB(localDB.tablesLocalDB.analytics.tableName).then(function(data) {
+        if (data.length) {
           var analData = {
             'order': JSON.stringify(order),
-            'analytics': JSON.stringify(results.data)
+            'analytics': JSON.stringify(data)
           };
           //----- send Analytics Data to globalDB
-          globalDB.sendOrder(UserStor.userInfo.phone, UserStor.userInfo.device_code, analData, function(result){});
+          //TODO globalDB.sendOrder(UserStor.userInfo.phone, UserStor.userInfo.device_code, analData, function(result){});
           //---- clear Analytics Table in localDB
-          localDB.deleteDB(localDB.analyticsTableBD);
+          localDB.cleanLocalDB({analytics: 1});
         }
       });
     }
 
   }
 })();
+

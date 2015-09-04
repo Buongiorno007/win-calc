@@ -1,3 +1,6 @@
+
+// controllers/panels/profiles.js
+
 (function(){
   'use strict';
   /**
@@ -31,17 +34,16 @@
     //============ methods ================//
 
     //---------- Select profile
-    function selectProfile(producerIndex, profileIndex) {
-      ProductStor.product.profileTypeIndex = producerIndex;
-      ProductStor.product.profileIndex = profileIndex;
-
-      MainServ.setCurrentProfile().then(function(){
+    function selectProfile(newId) {
+      MainServ.setCurrentProfile(newId).then(function(){
         MainServ.parseTemplate();
       });
 
       //------ save analytics data
-      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, ProductStor.product.profileId, producerIndex);
+//      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, id, producerIndex);
+//TODO      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, newId);
     }
 
   }
 })();
+

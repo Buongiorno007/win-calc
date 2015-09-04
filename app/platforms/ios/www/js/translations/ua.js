@@ -1,3 +1,6 @@
+
+// translations/ua.js
+
 (function(){
   'use strict';
 
@@ -84,7 +87,8 @@
         CONFIGMENU_HARDWARE: 'Фурнітура',
         CONFIGMENU_LAMINATION: 'Ламінація',
         CONFIGMENU_LAMINATION_TYPE: 'фасад / в кімнаті',
-        CONFIGMENU_NOT_LAMINATION: 'без ламін.',
+//        CONFIGMENU_NOT_LAMINATION: 'без ламин.',
+        WHITE_LAMINATION: 'Біла',
         CONFIGMENU_ADDITIONAL: 'Додатково',
         CONFIGMENU_IN_CART: 'В кошик',
         VOICE_SPEACH: 'Говоріть...',
@@ -118,11 +122,6 @@
         CAMER: 'камеры',
         CAMERs: 'камер',
         ENERGY_SAVE: '+энергосбережение',
-        LAM_LIGHT_OAK: 'светлый дуб',
-        LAM_GOLD_OAK: 'золотой дуб',
-        LAM_BIRCH: 'береза',
-        LAM_MAHAGON: 'махагон',
-        LAM_PINE: 'сосна',
         STANDART_TYPE: 'Стандартные',
         ENERGY_TYPE: 'Энергосберегающие',
         MIRROR_TYPE: 'Зеркальные',
@@ -163,9 +162,6 @@
         OTHER4: 'Армирующий профиль',
         OTHER5: 'Нижняя петля на раме',
         OTHER6: 'Поворотная петля Komfort 12/20-13 левая',
-        LAM_WHITE: 'Белый',
-        LAM_MAT: 'матовый',
-        LAM_GLOSSY: 'глянцевый',
         DOOR_TYPE1: 'по периметру',
         DOOR_TYPE2: 'без порога',
         DOOR_TYPE3: 'алюминевый порог, тип',
@@ -203,7 +199,6 @@
         SIZE_LABEL: 'розмір',
         WIDTH_LABEL: 'ширина',
         HEIGHT_LABEL: 'висота',
-        COLOR_LABEL: 'колір',
         OTHER_ELEMENTS1: 'Ще',
         OTHER_ELEMENTS2: 'компонента...',
         SCHEME_VIEW: 'Схематично',
@@ -218,7 +213,6 @@
       add_elements_menu: {
         TIP: 'Виберіть елемент зі списку',
         EMPTY_ELEMENT: 'Без элементу',
-        COLOR_AVAILABLE: 'Доступні кольори:',
         TAB_NAME_SIMPLE_FRAME: 'Проста конструкція',
         TAB_NAME_HARD_FRAME: 'Складена конструкція',
         TAB_EMPTY_EXPLAIN: 'Виберіть зі списку перший елемент, щоб почати складати конструкцію.'

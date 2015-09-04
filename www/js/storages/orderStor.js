@@ -27,13 +27,13 @@
         discount_addelem: 0,
 
         //------- current Geolocation
-        currCityName: '',//*
+        currCityId: 0,//*
         currRegionName: '',//*
         currCountryName: '',//*
         currFullLocation: '',
         climatic_zone: 0,
         heat_coef_min: 0,
-        customer_city: 0,
+        customer_city: '',
 
         products_qty: 0,
         products: [],
@@ -62,7 +62,6 @@
         payment_monthly_primary: 0,
         order_price_total: 0,
         order_price_total_primary: 0,
-
 
         customer_name: '',
         customer_email: '',

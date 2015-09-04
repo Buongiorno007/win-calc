@@ -23,7 +23,6 @@
     thisCtrl.config = {
       DELAY_START: globalConstants.STEP,
       DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 6,
-
       filteredGroups: [],
       typing: 'on'
     };

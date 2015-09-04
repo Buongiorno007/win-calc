@@ -1,3 +1,6 @@
+
+// services/svg_Serv.js
+
 /* globals sortNumbers, rounding100, rounding10 */
 (function(){
   'use strict';
@@ -49,8 +52,8 @@
 
 
     function createSVGTemplate(sourceObj, depths) {
-      console.log('------------------------------------------------------');
-      console.log('svg start', new Date(), new Date().getMilliseconds());
+//      console.log('------------------------------------------------------');
+//      console.log('svg start', new Date(), new Date().getMilliseconds());
       var thisObj = {},
           defer = $q.defer();
       //  thisObj.name = sourceObj.name;
@@ -97,8 +100,8 @@
 
         } else {
 
-          console.log('+++++++++ block ID ++++++++++', thisObj.details[i].id);
-          console.log('+++++++++ block ++++++++++', thisObj.details[i]);
+//          console.log('+++++++++ block ID ++++++++++', thisObj.details[i].id);
+//          console.log('+++++++++ block ++++++++++', thisObj.details[i]);
           //----- create point Q for arc or curve corner in block 1
           if(thisObj.details[i].level === 1 && thisObj.details[i].pointsQ) {
             setQPInMainBlock(thisObj.details[i]);
@@ -198,9 +201,9 @@
 
       thisObj.dimension = initDimensions(thisObj.details);
 
-      console.log('END++++', thisObj);
+//      console.log('END++++', thisObj);
 //      console.log('svg finish', new Date(), new Date().getMilliseconds());
-      console.log('------------------------------------------------------');
+//      console.log('------------------------------------------------------');
       defer.resolve(thisObj);
       return defer.promise;
     }
@@ -2401,3 +2404,4 @@
 
   }
 })();
+

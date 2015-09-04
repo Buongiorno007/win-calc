@@ -14,7 +14,7 @@
       li.item
         .item-content
           span.nav-icon-location.unvisible(show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 3) }}")
-          span.title(data-output="{{ navMenu.O.order.currCityName }}", typing="{{ navMenu.config.typing }}", typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 3) }}")
+          span.title(data-output="{{ navMenu.O.order.customer_city }}", typing="{{ navMenu.config.typing }}", typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 3) }}")
 
     .divider(data-output="{{ 'mainpage.NAVMENU_CALCULATIONS' | translate }}", typing="{{ navMenu.config.typing }}", typing-delay="{{ navMenu.config.DELAY_TYPE_DIVIDER }}")
 

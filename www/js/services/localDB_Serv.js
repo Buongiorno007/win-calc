@@ -250,21 +250,46 @@
             ' avatar VARCHAR(255),' +
             ' birthday DATE,' +
             ' sex VARCHAR(100),' +
-//            ' margin_mounting_mon NUMERIC(10, 2),' +
-//            ' margin_mounting_tue NUMERIC(10, 2),' +
-//            ' margin_mounting_wed NUMERIC(10, 2),' +
-//            ' margin_mounting_thu NUMERIC(10, 2),' +
-//            ' margin_mounting_fri NUMERIC(10, 2),' +
-//            ' margin_mounting_sat NUMERIC(10, 2),' +
-//            ' margin_mounting_sun NUMERIC(10, 2),' +
+            ' mount_mon NUMERIC(5,2),' +
+            ' mount_tue NUMERIC(5,2),' +
+            ' mount_wed NUMERIC(5,2),' +
+            ' mount_thu NUMERIC(5,2),' +
+            ' mount_fri NUMERIC(5,2),' +
+            ' mount_sat NUMERIC(5,2),' +
+            ' mount_sun NUMERIC(5,2),' +
 //            ' min_term INTEGER,' +
 //            ' base_term INTEGER,' +
 //            ' internal_count INTEGER,' +
             ' device_code VARCHAR(250),'+
-            ' entries INTEGER,'+
+//            ' entries INTEGER,'+
             ' address VARCHAR',
 //            ' identificator INTEGER',
           'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id)'
+        },
+        'users_discounts': {
+          'tableName': 'users_discounts',
+          'prop': 'user_id INTEGER,' +
+            ' max_construct NUMERIC(5,1),' +
+            ' max_add_elem NUMERIC(5,1),' +
+            ' default_construct NUMERIC(5,1),' +
+            ' default_add_elem NUMERIC(5,1),' +
+            ' week_1_construct NUMERIC(5,1),' +
+            ' week_1_add_elem NUMERIC(5,1),' +
+            ' week_2_construct NUMERIC(5,1),' +
+            ' week_2_add_elem NUMERIC(5,1),' +
+            ' week_3_construct NUMERIC(5,1),' +
+            ' week_3_add_elem NUMERIC(5,1),' +
+            ' week_4_construct NUMERIC(5,1),' +
+            ' week_4_add_elem NUMERIC(5,1),' +
+            ' week_5_construct NUMERIC(5,1),' +
+            ' week_5_add_elem NUMERIC(5,1),' +
+            ' week_6_construct NUMERIC(5,1),' +
+            ' week_6_add_elem NUMERIC(5,1),' +
+            ' week_7_construct NUMERIC(5,1),' +
+            ' week_7_add_elem NUMERIC(5,1),' +
+            ' week_8_construct NUMERIC(5,1),' +
+            ' week_8_add_elem NUMERIC(5,1)',
+          'foreignKey': ''
         },
         'lists': {
           'tableName': 'lists',
@@ -417,6 +442,7 @@
             ' customer_email TEXT,' +
             ' customer_phone VARCHAR(30),' +
             ' customer_phone_city VARCHAR(20),' +
+            ' customer_city VARCHAR,' +
             ' customer_address TEXT,' +
             ' customer_location VARCHAR,' +
             ' customer_itn INTEGER,' +
@@ -849,6 +875,17 @@
           });
       },
 
+
+      exportUserEntrance: function (login, access) {
+        var currTime = new Date();
+        $http.get(serverIP+'signed?login='+login+'&access_token='+access+'&date='+currTime)
+          .success(function () {
+            console.log('Sucsess!');
+          })
+          .error(function () {
+            console.log('Something went wrong!');
+          });
+      },
 
 
 

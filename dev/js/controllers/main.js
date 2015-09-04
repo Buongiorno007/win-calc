@@ -7,7 +7,7 @@
     .module('MainModule')
     .controller('MainCtrl', mainPageCtrl);
 
-  function mainPageCtrl(localDB, MainServ, GlobalStor, ProductStor, UserStor) {
+  function mainPageCtrl(MainServ, GlobalStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;

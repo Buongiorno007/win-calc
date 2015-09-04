@@ -1,3 +1,6 @@
+
+// controllers/parts/search-box.js
+
 (function(){
   'use strict';
   /**

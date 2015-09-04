@@ -195,8 +195,8 @@
           productIdBD = productIndex + 1;
       OrderStor.order.products[productIndex].product_qty = newProductQty;
       //------- Change product value in DB
-      //TODO
-      localDB.updateDB(localDB.productsTableBD, {"productQty": newProductQty}, {'orderId': {"value": OrderStor.order.orderId, "union": 'AND'}, "productId": productIdBD});
+
+      //TODO localDB.updateDB(localDB.productsTableBD, {"productQty": newProductQty}, {'orderId': {"value": OrderStor.order.orderId, "union": 'AND'}, "productId": productIdBD});
       calculateOrderPrice();
     }
 
@@ -213,8 +213,8 @@
         --newProductQty;
         OrderStor.order.products[productIndex].product_qty = newProductQty;
         //------ Change product value in DB
-        //TODO
-        localDB.updateDB(localDB.productsTableBD, {"productQty": newProductQty}, {'orderId': {"value": OrderStor.order.orderId, "union": 'AND'}, "productId": productIdBD});
+
+        //TODOlocalDB.updateDB(localDB.productsTableBD, {"productQty": newProductQty}, {'orderId': {"value": OrderStor.order.orderId, "union": 'AND'}, "productId": productIdBD});
         calculateOrderPrice();
       }
     }
@@ -239,9 +239,9 @@
 
           if(GlobalStor.global.orderEditNumber > 0) {
             var productIdBD = productIndex + 1;
-            //TODO
-            localDB.deleteDB(localDB.productsTableBD, {'orderId': {"value": GlobalStor.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
-            localDB.deleteDB(localDB.addElementsTableBD, {'orderId': {"value": GlobalStor.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
+
+            //TODO localDB.deleteDB(localDB.productsTableBD, {'orderId': {"value": GlobalStor.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
+            //TODO localDB.deleteDB(localDB.addElementsTableBD, {'orderId': {"value": GlobalStor.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
           }
 
           //----- if all products were deleted go to main page????

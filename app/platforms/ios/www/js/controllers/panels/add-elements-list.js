@@ -1,3 +1,6 @@
+
+// controllers/panels/add-elements-list.js
+
 (function(){
   'use strict';
   /**
@@ -7,7 +10,7 @@
     .module('MainModule')
     .controller('AddElementsListCtrl', addElementsListCtrl);
 
-  function addElementsListCtrl($filter, globalConstants, GlobalStor, ProductStor, UserStor, AuxStor, AddElementsServ, AddElementMenuServ) {
+  function addElementsListCtrl(globalConstants, GlobalStor, ProductStor, UserStor, AuxStor, AddElementsServ, AddElementMenuServ) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -20,7 +23,6 @@
     thisCtrl.config = {
       DELAY_START: globalConstants.STEP,
       DELAY_SHOW_ELEMENTS_MENU: globalConstants.STEP * 6,
-
       filteredGroups: [],
       typing: 'on'
     };
@@ -35,3 +37,4 @@
 
   }
 })();
+

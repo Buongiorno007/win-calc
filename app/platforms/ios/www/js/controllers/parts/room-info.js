@@ -1,3 +1,6 @@
+
+// controllers/parts/room-info.js
+
 (function(){
   'use strict';
   /**

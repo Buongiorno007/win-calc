@@ -1,3 +1,6 @@
+
+// storages/globalStor.js
+
 (function(){
   'use strict';
     /**
@@ -7,7 +10,7 @@
     .module('BauVoiceApp')
     .factory('GlobalStor', globalStorageFactory);
 
-  function globalStorageFactory($filter) {
+  function globalStorageFactory() {
 
     var thisFactory = this;
 
@@ -35,12 +38,6 @@
         showRoomSelectorDialog: 0,
         isShowCommentBlock: 0,
 
-        //---- Calculators
-        isQtyCalculator: 0,
-        isSizeCalculator: 0,
-        isWidthCalculator: 0,
-        isColorSelector: 0,
-
         //------- Templates
         templateLabel: '',
         templatesSource: [],
@@ -49,6 +46,7 @@
         templatesSourceSTORE: [],
 //        templatesSTORE: [],
 //        templatesIconSTORE: [],
+        isSashesInTemplate: 0,
 
         //------ Profiles
         profiles: [],
@@ -62,16 +60,25 @@
         },
 
         //------- Glasses
-        glasses: [],
+        glassesAll: [],
         glassTypes: [],
+        glasses: [],
 
         //------ Hardwares
         hardwares: [],
         hardwareTypes: [],
 
         //------ Lamination
-        laminationsWhite: $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION')
+        laminationsIn: [],
+        laminationsOut: [],
 
+        //------ Add Elements
+        isAddElemExist: [],
+
+        //---- Calculators
+        isQtyCalculator: 0,
+        isSizeCalculator: 0,
+        isWidthCalculator: 0
       },
 
       setDefaultGlobal: setDefaultGlobal
@@ -92,3 +99,4 @@
 
   }
 })();
+
