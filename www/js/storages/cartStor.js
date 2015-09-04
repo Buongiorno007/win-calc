@@ -83,27 +83,27 @@
     }
 
     function setDefaultUser() {
-      var publicObj = angular.copy(thisFactory.publicObj.cartSource.user);
+      var publicObj = angular.copy(thisFactory.publicObj.cartSource.customer);
       return publicObj;
     }
 
     //------- filling order form
     function fillOrderForm() {
-      thisFactory.publicObj.cart.user.name = angular.copy(OrderStor.order.name);
-      thisFactory.publicObj.cart.user.location = angular.copy(OrderStor.order.location);
-      thisFactory.publicObj.cart.user.address = angular.copy(OrderStor.order.address);
-      thisFactory.publicObj.cart.user.mail = angular.copy(OrderStor.order.mail);
-      thisFactory.publicObj.cart.user.phone = angular.copy(OrderStor.order.phone);
-      thisFactory.publicObj.cart.user.phone2 = angular.copy(OrderStor.order.phone2);
-      thisFactory.publicObj.cart.user.itn = angular.copy(OrderStor.order.itn);
-      thisFactory.publicObj.cart.user.starttime = angular.copy(OrderStor.order.starttime);
-      thisFactory.publicObj.cart.user.endtime = angular.copy(OrderStor.order.endtime);
-      thisFactory.publicObj.cart.user.target = angular.copy(OrderStor.order.target);
-      thisFactory.publicObj.cart.user.sex = angular.copy(OrderStor.order.sex);
-      thisFactory.publicObj.cart.user.age = angular.copy(OrderStor.order.age);
-      thisFactory.publicObj.cart.user.education = angular.copy(OrderStor.order.education);
-      thisFactory.publicObj.cart.user.occupation = angular.copy(OrderStor.order.occupation);
-      thisFactory.publicObj.cart.user.infoSource = angular.copy(OrderStor.order.infoSource);
+      thisFactory.publicObj.cart.customer.customer_name = angular.copy(OrderStor.order.customer_name);
+      thisFactory.publicObj.cart.customer.customer_location = angular.copy(OrderStor.order.customer_location);
+      thisFactory.publicObj.cart.customer.customer_address = angular.copy(OrderStor.order.customer_address);
+      thisFactory.publicObj.cart.customer.customer_mail = angular.copy(OrderStor.order.customer_mail);
+      thisFactory.publicObj.cart.customer.customer_phone = angular.copy(OrderStor.order.customer_phone);
+      thisFactory.publicObj.cart.customer.customer_phone_city = angular.copy(OrderStor.order.customer_phone_city);
+      thisFactory.publicObj.cart.customer.customer_itn = angular.copy(OrderStor.order.customer_itn);
+      thisFactory.publicObj.cart.customer.customer_starttime = angular.copy(OrderStor.order.customer_starttime);
+      thisFactory.publicObj.cart.customer.customer_endtime = angular.copy(OrderStor.order.customer_endtime);
+      thisFactory.publicObj.cart.customer.customer_target = angular.copy(OrderStor.order.customer_target);
+      thisFactory.publicObj.cart.customer.customer_sex = angular.copy(OrderStor.order.customer_sex);
+      thisFactory.publicObj.cart.customer.customer_age = angular.copy(OrderStor.order.customer_age);
+      thisFactory.publicObj.cart.customer.customer_education = angular.copy(OrderStor.order.customer_education);
+      thisFactory.publicObj.cart.customer.customer_occupation = angular.copy(OrderStor.order.customer_occupation);
+      thisFactory.publicObj.cart.customer.customer_infoSource = angular.copy(OrderStor.order.customer_infoSource);
     }
 
   }

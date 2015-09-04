@@ -19,7 +19,8 @@
       collectCityIdsAsCountry: collectCityIdsAsCountry,
       setUserLocation: setUserLocation,
       setUserGeoLocation: setUserGeoLocation,
-      setCurrency: setCurrency
+      setCurrency: setCurrency,
+      setUserDiscounts: setUserDiscounts
     };
 
     return thisFactory.publicObj;
@@ -231,6 +232,7 @@
       OrderStor.order.currFullLocation = fullLocation;
     }
 
+
     function setCurrency() {
       var defer = $q.defer();
       localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, {'is_base': 1}).then(function(data) {
@@ -255,6 +257,25 @@
       });
       return defer.promise;
     }
+
+
+    function setUserDiscounts() {
+      var defer = $q.defer();
+      localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(data) {
+        if(data.length) {
+          console.log('DISCTOUN=====', data);
+          UserStor.userInfo.discountConstr = data[0].default_construct;
+          UserStor.userInfo.discountAddElem = data[0].default_add_elem;
+          UserStor.userInfo.discountConstrMax = data[0].max_construct;
+          UserStor.userInfo.discountAddElemMax = data[0].max_add_elem;
+          defer.resolve(1);
+        } else {
+          defer.resolve(0);
+        }
+      });
+      return defer.promise;
+    }
+
 
   }
 })();

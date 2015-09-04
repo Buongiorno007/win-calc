@@ -1437,12 +1437,12 @@ body {
 /* line 342, ../../dev/sass/base/general.scss */
 .scroll-vert, .scroll-vert-container {
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 /* line 346, ../../dev/sass/base/general.scss */
 .scroll-hor, .scroll-hor-container {
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
 }
 
@@ -3513,32 +3513,32 @@ body {
 }
 /* line 47, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.kitchen {
-  background: url('../img/rooms-dialog/kitchen.jpg?1440876224');
+  background: url('../img/rooms-dialog/1.jpg?1440876224');
   background-size: contain;
 }
 /* line 51, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.livingroom {
-  background: url('../img/rooms-dialog/livingroom.jpg?1428589558');
+  background: url('../img/rooms-dialog/livingroom.jpg');
   background-size: contain;
 }
 /* line 55, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.balcony {
-  background: url('../img/rooms-dialog/balcony.jpg?1428589558');
+  background: url('../img/rooms-dialog/balcony.jpg');
   background-size: contain;
 }
 /* line 59, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.childroom {
-  background: url('../img/rooms-dialog/childroom.jpg?1428589558');
+  background: url('../img/rooms-dialog/4.jpg?1418313468');
   background-size: contain;
 }
 /* line 63, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.bedroom {
-  background: url('../img/rooms-dialog/bedroom.jpg?1428589558');
+  background: url('../img/rooms-dialog/bedroom.jpg');
   background-size: contain;
 }
 /* line 67, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img.door {
-  background: url('../img/rooms-dialog/door.jpg?1428589558');
+  background: url('../img/rooms-dialog/door.jpg');
   background-size: contain;
 }
 /* line 72, ../../dev/sass/parts/_rooms-selector.scss */
@@ -5862,7 +5862,7 @@ tr.factory_item {
   position: relative;
   width: 100%;
   height: 9.375rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: -2.5rem;
 }
 /* line 58, ../../dev/sass/pages/cart.scss */
 .cart-page .user-info-container {

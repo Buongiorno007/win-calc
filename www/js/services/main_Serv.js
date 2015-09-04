@@ -94,8 +94,9 @@
 
 
     function setCurrDiscounts() {
-      OrderStor.order.discount_construct = angular.copy(UserStor.userInfo.discount);//TODO is not table user-discounts
+      OrderStor.order.discount_construct = angular.copy(UserStor.userInfo.discountConstr);
       OrderStor.order.discount_addelem = angular.copy(UserStor.userInfo.discountAddElem);
+      console.log('CHECKING======', JSON.stringify(UserStor.userInfo.discountConstr));
     }
 
     //----------- get all profiles

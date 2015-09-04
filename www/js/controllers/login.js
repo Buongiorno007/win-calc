@@ -146,8 +146,12 @@
                       //--------- set currency symbol
                       loginServ.setCurrency().then(function(data) {
                         if(data) {
-                          GlobalStor.global.isLoader = 0;
-                          $location.path('/main');
+                          loginServ.setUserDiscounts().then(function(data) {
+                            if(data) {
+                              GlobalStor.global.isLoader = 0;
+                              $location.path('/main');
+                            }
+                          });
                         }
                       });
                     });
@@ -253,9 +257,16 @@
           //------- current FactoryId matches to user FactoryId, go to main page without importDB
           //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
             //--------- set currency symbol
-            loginServ.setCurrency();
-            GlobalStor.global.isLoader = 0;
-            $location.path('/main');
+            loginServ.setCurrency().then(function(data) {
+              if(data) {
+                loginServ.setUserDiscounts().then(function(data) {
+                  if(data) {
+                    GlobalStor.global.isLoader = 0;
+                    $location.path('/main');
+                  }
+                });
+              }
+            });
           //});
         } else {
           //------ GlobalDB is ampty
@@ -293,10 +304,14 @@
           //--------- set currency symbol
           loginServ.setCurrency().then(function(data) {
             if(data) {
-              GlobalStor.global.isLoader = 0;
-              thisCtrl.isStartImport = 0;
-              console.log('Finish Time!!!!!!', new Date(), new Date().getMilliseconds());
-              $location.path('/main');
+              loginServ.setUserDiscounts().then(function(data) {
+                if(data) {
+                  GlobalStor.global.isLoader = 0;
+                  thisCtrl.isStartImport = 0;
+                  console.log('Finish Time!!!!!!', new Date(), new Date().getMilliseconds());
+                  $location.path('/main');
+                }
+              });
             }
           });
         } else {

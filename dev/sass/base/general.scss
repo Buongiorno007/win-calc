@@ -341,10 +341,10 @@ body {
 }
 .scroll-vert {
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .scroll-hor {
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
 }
 .scroll-vert-container {

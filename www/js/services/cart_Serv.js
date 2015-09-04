@@ -139,7 +139,7 @@
             addElem: []
           },
           multipl = 5,
-          discQty = UserStor.userInfo.discountMax/multipl,
+          discQty = UserStor.userInfo.discountConstrMax/multipl,
           discAddQty = UserStor.userInfo.discountAddElemMax/multipl;
       for(var d = 0; d <= discQty; d++) {
         discounts.window.push( (d * multipl) );

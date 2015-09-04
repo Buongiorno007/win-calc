@@ -4,12 +4,12 @@
       li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 1}", hm-tap="cartMenu.selectMenuItem(1)")
         .title(data-output="{{ 'cart.DELIVERY' | translate }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
         .cart-item-data
-          .value(ng-show="cartMenu.O.order.floor_id == 'free'", data-output="{{ 'cart.SELF_EXPORT' | translate }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-          .value(ng-hide="cartMenu.O.order.floor_id == 'free'", data-output="{{ cartMenu.O.order.floor_id }} {{ 'cart.FLOOR' | translate }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+          .value(ng-show="!cartMenu.O.order.floor_id", data-output="{{ 'cart.SELF_EXPORT' | translate }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+          .value(ng-show="cartMenu.O.order.floor_id", data-output="{{ cartMenu.O.order.floor_id }} {{ 'cart.FLOOR' | translate }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
           span.name.aside(ng-hide="cartMenu.O.order.floor_id == 'free'", data-output=" + {{ cartMenu.O.order.selectedFloorPrice }} {{ cartMenu.U.userInfo.currency }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
       .dropdown-cart-menu.drop-delivery(ng-class="{'active': cartMenu.config.activeMenuItem == 1}")
         ul.dropdown-items-list
-          li.dropdown-item(ng-class="{'selected': cartMenu.O.order.floor_id == 'free'}", hm-tap="cartMenu.selectFloorPrice('free', 0)")
+          li.dropdown-item(ng-class="{'selected': !cartMenu.O.order.floor_id}", hm-tap="cartMenu.selectFloorPrice(0, 0)")
             .dropdown-item-inner
               .value.drop-txt {{ 'cart.SELF_EXPORT' | translate }}
               .name.drop-txt
@@ -21,12 +21,12 @@
       li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 2}", hm-tap="cartMenu.selectMenuItem(2)")
         .title(data-output="{{ 'cart.ASSEMBLING' | translate }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
         .cart-item-data
-          .value(ng-show="cartMenu.O.order.mounting_id == 'free'", data-output="{{ 'cart.WITHOUT_ASSEMBLING' | translate }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-          .value(ng-hide="cartMenu.O.order.mounting_id == 'free'", data-output="{{ cartMenu.O.order.mounting_id }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+          .value(ng-show="!cartMenu.O.order.mounting_id", data-output="{{ 'cart.WITHOUT_ASSEMBLING' | translate }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+          .value(ng-show="cartMenu.O.order.mounting_id", data-output="{{ cartMenu.O.order.mounting_id }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
           span.name.aside(ng-hide="cartMenu.O.order.mounting_id == 'free'", data-output=" + {{ cartMenu.O.order.mounting_price }} {{ cartMenu.U.userInfo.currency }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
       .dropdown-cart-menu.drop-assembling(ng-class="{'active': cartMenu.config.activeMenuItem == 2}")
         ul.dropdown-items-list
-          li.dropdown-item(ng-class="{'selected': cartMenu.O.order.mounting_id == 'free'}", hm-tap="cartMenu.selectAssembling('free', 0)")
+          li.dropdown-item(ng-class="{'selected': !cartMenu.O.order.mounting_id}", hm-tap="cartMenu.selectAssembling(0, 0)")
             .dropdown-item-inner
               .value.drop-txt {{ 'cart.WITHOUT_ASSEMBLING' | translate }}
               .name.drop-txt {{ 'cart.FREE' | translate }}

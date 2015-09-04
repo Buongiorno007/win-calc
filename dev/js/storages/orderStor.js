@@ -41,9 +41,9 @@
         is_date_price_more: 0,
 
 //        selectedFloor: 'free',
-        floor_id: 1,
+        floor_id: 0,
         selectedFloorPrice: 0,
-        mounting_id: 1,
+        mounting_id: 0,
         mounting_price: 0,
 //        selectedAssembling: 'free',
 //        selectedAssemblingPrice: 0,

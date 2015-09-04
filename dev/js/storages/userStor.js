@@ -23,11 +23,10 @@
         langName: 'English',
         currencyId: 0,
         currency: '',
-        //TODO тянутся с server
-        discount: 10, //discount_construct_default
-        discountAddElem: 10, //discount_addelem_default
-        discountMax: 50, //discount_construct_max
-        discountAddElemMax: 50 //discount_addelem_max
+        discountConstr: 0,
+        discountAddElem: 0,
+        discountConstrMax: 0,
+        discountAddElemMax: 0
       },
       setDefaultUser: setDefaultUser
     };

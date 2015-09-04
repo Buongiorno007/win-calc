@@ -59,16 +59,16 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
           .discount-container
             .discount-title {{ 'cart.DISCOUNT_SELECT' | translate }}
 
-            .discount-box(ng-class="{'selected': cartPage.O.order.discount_construct }", hm-tap="cartPage.switchDiscount(0)")
+            .discount-box(ng-class="{'selected': cartPage.O.order.discount_construct }")
               .discount-data(hm-tap="cartPage.openDiscountList(0, $event)") {{cartPage.O.order.discount_construct}}%
-              .discount-txt
+              .discount-txt(hm-tap="cartPage.switchDiscount(0)")
                 .discounts-label {{ 'cart.DISCOUNT_WINDOW' | translate }}
               .discounts-list(ng-show="cartPage.config.isShowDiscountList")
                 .discounts-item(ng-repeat="discount in cartPage.config.discountsList.window", ng-class="{ 'active': discount === cartPage.O.order.discount_construct }", hm-tap="cartPage.selectDiscount(0, discount, $event)") {{ discount }}%
 
-            .discount-box(ng-class="{'selected': cartPage.O.order.discount_addelem }", hm-tap="cartPage.switchDiscount(1)")
+            .discount-box(ng-class="{'selected': cartPage.O.order.discount_addelem }")
               .discount-data(hm-tap="cartPage.openDiscountList(1, $event)") {{cartPage.O.order.discount_addelem}}%
-              .discount-txt
+              .discount-txt(hm-tap="cartPage.switchDiscount(1)")
                 .discounts-label {{ 'cart.DISCOUNT_ADDELEM' | translate }}
               .discounts-list(ng-show="cartPage.config.isShowDiscountAddList")
                 .discounts-item(ng-repeat="discount in cartPage.config.discountsList.addElem", ng-class="{ 'active': discount === cartPage.O.order.discount_addelem }", hm-tap="cartPage.selectDiscount(1, discount, $event)") {{ discount }}%
