@@ -1,5 +1,5 @@
 
-// services/localDB_Serv.js
+// services/localdb_serv.js
 
 (function(){
   'use strict';

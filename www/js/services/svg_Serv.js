@@ -1,5 +1,5 @@
 
-// services/svg_Serv.js
+// services/svg_serv.js
 
 /* globals sortNumbers, rounding100, rounding10 */
 (function(){

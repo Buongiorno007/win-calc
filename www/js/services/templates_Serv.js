@@ -1,5 +1,5 @@
 
-// services/templates_Serv.js
+// services/templates_serv.js
 
 (function(){
   'use strict';

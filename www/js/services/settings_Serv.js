@@ -1,5 +1,5 @@
 
-// services/settings_Serv.js
+// services/settings_serv.js
 
 (function(){
   'use strict';

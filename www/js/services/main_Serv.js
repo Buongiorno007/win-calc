@@ -1,5 +1,5 @@
 
-// services/main_Serv.js
+// services/main_serv.js
 
 (function(){
   'use strict';

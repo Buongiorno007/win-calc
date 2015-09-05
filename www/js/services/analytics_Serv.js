@@ -1,5 +1,5 @@
 
-// services/analytics_Serv.js
+// services/analytics_serv.js
 
 (function(){
   'use strict';

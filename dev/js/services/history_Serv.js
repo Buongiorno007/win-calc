@@ -7,7 +7,7 @@
     .module('HistoryModule')
     .factory('HistoryServ', historyFactory);
 
-  function historyFactory($location, $filter, $cordovaDialogs, localDB, GeneralServ, MainServ, CartServ, GlobalStor, OrderStor, UserStor, HistoryStor) {
+  function historyFactory($location, $filter, $cordovaDialogs, localDB, GeneralServ, MainServ, CartServ, GlobalStor, OrderStor, UserStor, HistoryStor, CartStor) {
 
     var thisFactory = this,
         orderMasterStyle = 'master',
@@ -47,13 +47,20 @@
     //------ Download complete Orders from localDB
     function downloadOrders() {
       localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {order_type: 1}).then(function(orders) {
-        console.log('orders+++++', orders);
-        if(orders.length) {
+//        console.log('orders+++++', orders);
+        var orderQty = orders.length;
+        if(orderQty) {
+          while(--orderQty > -1) {
+            orders[orderQty].created = new Date(orders[orderQty].created);
+            orders[orderQty].delivery_date = new Date(orders[orderQty].delivery_date);
+            orders[orderQty].new_delivery_date = new Date(orders[orderQty].new_delivery_date);
+            orders[orderQty].order_date = new Date(orders[orderQty].order_date);
+          }
           HistoryStor.history.ordersSource = angular.copy(orders);
           HistoryStor.history.orders = angular.copy(orders);
           //----- max day for calendar-scroll
           HistoryStor.history.maxDeliveryDateOrder = getOrderMaxDate(HistoryStor.history.orders);
-          console.log('maxDeliveryDateOrder =', HistoryStor.history.maxDeliveryDateOrder);
+//          console.log('maxDeliveryDateOrder =', HistoryStor.history.maxDeliveryDateOrder);
         } else {
           HistoryStor.history.isEmptyResult = true;
         }
@@ -271,14 +278,25 @@
     function editOrder(orderNum) {
       GlobalStor.global.isLoader = 1;
       GlobalStor.global.orderEditNumber = orderNum;
-      GlobalStor.global.isConfigMenu = true;
-      GlobalStor.global.isNavMenu = false;
-      //------- set previos Page
-      GeneralServ.setPreviosPage();
       //----- cleaning order
       OrderStor.order = OrderStor.setDefaultOrder();
-      //------- download edited Order
-      CartServ.downloadOrder();
+
+      var ordersQty = HistoryStor.history.orders.length;
+      while(--ordersQty > -1) {
+        if(HistoryStor.history.orders[ordersQty].order_number === orderNum) {
+          angular.extend(OrderStor.order, HistoryStor.history.orders[ordersQty]);
+          CartStor.fillOrderForm();
+        }
+      }
+
+
+
+
+      GlobalStor.global.isConfigMenu = 1;
+      GlobalStor.global.isNavMenu = 0;
+      //------- set previos Page
+      GeneralServ.setPreviosPage();
+
 
       //------ Download All Products of edited Order
       CartServ.downloadProducts().then(function() {
@@ -290,6 +308,67 @@
       });
     }
 
+    /*
+     additional_payment: ""
+     base_price: 0
+     batch: ""
+     climatic_zone: 1
+     created: "2015-09-04T15:36:50.000Z"
+     customer_address: "ubuhu"
+     customer_age: 0
+     customer_city: "Dnepropetrovsk"
+     customer_education: 0
+     customer_email: ""
+     customer_endtime: ""
+     customer_infoSource: 0
+     customer_itn: 0
+     customer_location: "hijhjh"
+     customer_name: "Gygygygyg"
+     customer_occupation: 0
+     customer_phone: "67554"
+     customer_phone_city: ""
+     customer_sex: 0
+     customer_starttime: ""
+     customer_target: ""
+     delivery_date: "2015-09-19T15:33:02.344Z"
+     delivery_price: 0
+     discount_addelem: 10
+     discount_construct: 10
+     factory_id: 208
+     factory_margin: 0
+     floor_id: 1
+     heat_coef_min: 1
+     id: 86
+     instalment_id: 0
+     is_date_price_less: 0
+     is_date_price_more: 0
+     is_instalment: 0
+     is_old_price: 0
+     modified: "2015-09-04T15:36:50.000Z"
+     mounting_id: 1
+     mounting_price: 0
+     new_delivery_date: "2015-09-19T15:33:02.344Z"
+     order_date: "2015-09-04T15:32:38.715Z"
+     order_number: "83664"
+     order_price_total: 716.08
+     order_price_total_primary: 716.08
+     order_style: "master"
+     order_type: 1
+     payment_first: 0
+     payment_first_primary: 0
+     payment_monthly: 0
+     payment_monthly_primary: 0
+     perimeter: 0
+     products_price_total: 716.08
+     products_qty: 1
+     purchase_price: 0
+     sale_price: 0
+     sended: "1970-01-01T00:00:00.000Z"
+     square: 0
+     state_buch: "1970-01-01T00:00:00.000Z"
+     state_to: "1970-01-01T00:00:00.000Z"
+     user_id: 1254
+     */
 
 
 

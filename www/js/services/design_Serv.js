@@ -1,5 +1,5 @@
 
-// services/design_Serv.js
+// services/design_serv.js
 
 /* globals d3, startRecognition, parseStringToDimension, playTTS, rounding10 */
 (function(){

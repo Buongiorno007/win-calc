@@ -1,5 +1,5 @@
 
-// services/cart_Serv.js
+// services/cart_serv.js
 
 (function(){
   'use strict';
@@ -16,7 +16,7 @@
 
     thisFactory.publicObj = {
 //      cleanAllTemplatesInOrder: cleanAllTemplatesInOrder,
-      downloadOrder: downloadOrder,
+//      downloadOrder: downloadOrder,
       downloadProducts: downloadProducts,
       downloadAddElements: downloadAddElements,
       joinAllAddElements: joinAllAddElements,
@@ -50,17 +50,17 @@
 //      }
 //    }
 
-    function downloadOrder() {
-      localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {'order_number': GlobalStor.global.orderEditNumber}).then(function(result) {
-        if(result.length) {
-          angular.extend(OrderStor.order, result[0]);
-          //---- fill form
-          CartStor.fillOrderForm();
-        } else {
-          console.log(result);
-        }
-      });
-    }
+//    function downloadOrder() {
+//      localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {'order_number': GlobalStor.global.orderEditNumber}).then(function(result) {
+//        if(result.length) {
+//          angular.extend(OrderStor.order, result[0]);
+//          //---- fill form
+//          CartStor.fillOrderForm();
+//        } else {
+//          console.log(result);
+//        }
+//      });
+//    }
 
 
     //------ Download All Products Data for Order

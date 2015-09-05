@@ -1,5 +1,5 @@
 
-// services/general_Serv.js
+// services/general_serv.js
 
 (function(){
   'use strict';
