@@ -433,6 +433,8 @@
             ' payment_monthly_primary NUMERIC,' +
             ' order_price_total NUMERIC,' +
             ' order_price_total_primary NUMERIC,' +
+            ' construct_price_total NUMERIC,' +
+            ' addelem_price_total NUMERIC,' +
             ' discount_construct NUMERIC,' +
             ' discount_addelem NUMERIC,' +
             ' customer_name TEXT,' +

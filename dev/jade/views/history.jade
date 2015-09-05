@@ -18,7 +18,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
               .tools-block.search-tool(ng-class="{ 'active': historyPage.H.history.isOrderSearch }")
                 button.tool.search-btn(hm-tap="historyPage.orderSearching()")
 
-              .tools-block.tool-drop(ng-class="{ 'active': historyPage.H.history.isOrderDate }")
+              //.tools-block.tool-drop(ng-class="{ 'active': historyPage.H.history.isOrderDate }")
                 button.tool.calendar-btn(hm-tap="historyPage.orderDateSelecting()")
                 .time-interval(ng-class="{ 'empty': historyPage.H.history.startDate === '' &&  historyPage.H.history.finishDate === ''}")
                   span(ng-if="historyPage.H.history.startDate !== ''") {{ 'history.FROM' | translate }} {{historyPage.H.history.startDate | date:"dd.MM.yyyy"}}
@@ -98,8 +98,9 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                     .user-data.account-user-adress {{ order.full_location }}, {{ order.customer_address }}
                     .account-label {{ 'history.ADDRESS' | translate }}
                 .account-row.footer
-                  .account-value(ng-hide="order.order_style == 'credit'") {{ order.order_price_total }}{{ historyPage.U.userInfo.currency }}
-                  .account-value(ng-show="order.order_style == 'credit'") {{ order.order_price_total }}{{ historyPage.U.userInfo.currency }}, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.payment_monthly}}{{ historyPage.U.userInfo.currency }}
+                  .account-value(ng-hide="order.order_style == 'credit'") {{ order.orderPriceTOTALDis }}{{ historyPage.U.userInfo.currency }}
+                  .account-value(ng-show="order.order_style == 'credit'") {{ order.orderPriceTOTALDis }}{{ historyPage.U.userInfo.currency }}
+                  //.account-value(ng-show="order.order_style == 'credit'") {{ order.orderPriceTOTALDis }}{{ historyPage.U.userInfo.currency }}, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.payment_monthly}}{{ historyPage.U.userInfo.currency }}
                   .account-value(ng-show="order.order_style == 'master'") {{ 'history.WAIT_MASTER' | translate }}
                   .account-date {{ order.products_qty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}
 
@@ -117,7 +118,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
               .result-icon
               .result-text {{ 'history.BY_YOUR_REQUEST' | translate }} {{ 'history.NOT_FIND' | translate }}.
 
-          button.view-switch-tab(hm-tap="historyPage.viewSwitching()") {{ 'history.DRAFT_VIEW' | translate }}
+          //button.view-switch-tab(hm-tap="historyPage.viewSwitching()") {{ 'history.DRAFT_VIEW' | translate }}
 
 
 

@@ -83,6 +83,7 @@
       DesignStor.design.activeMenuItem = (DesignStor.design.activeMenuItem === id) ? 0 : id;
       DesignServ.hideCornerMarks();
       DesignServ.deselectAllImpost();
+      DesignServ.deselectAllArc();
       //----- hide culculator
       DesignServ.hideSizeTools();
       if(DesignStor.design.activeMenuItem) {
@@ -157,6 +158,7 @@
           DesignServ.createSash(sashType, DesignStor.design.selectedGlass[i]);
         }
       }
+      console.log('INSERT SASH =====', DesignStor.design.activeSubMenuItem);
     }
 
 
@@ -171,7 +173,8 @@
         DesignStor.design.activeSubMenuItem = menuId;
         corners.transition().duration(300).ease("linear").attr('r', 50);
         DesignStor.design.selectedCorner = corners[0];
-        corners.on('touchstart', function () {
+//        corners.on('touchstart', function () {
+        corners.on('click', function () {
           //----- hide all cornerMark
           DesignServ.hideCornerMarks();
 

@@ -7,7 +7,7 @@
     .module('HistoryModule')
     .factory('HistoryServ', historyFactory);
 
-  function historyFactory($location, $filter, $cordovaDialogs, localDB, GeneralServ, MainServ, CartServ, GlobalStor, OrderStor, UserStor, HistoryStor, CartStor) {
+  function historyFactory($location, $filter, $cordovaDialogs, $q, localDB, GeneralServ, MainServ, SVGServ, GlobalStor, OrderStor, ProductStor, UserStor, HistoryStor, CartStor) {
 
     var thisFactory = this,
         orderMasterStyle = 'master',
@@ -47,14 +47,18 @@
     //------ Download complete Orders from localDB
     function downloadOrders() {
       localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {order_type: 1}).then(function(orders) {
-//        console.log('orders+++++', orders);
-        var orderQty = orders.length;
+        console.log('orders+++++', orders);
+       var orderQty = orders.length;
         if(orderQty) {
           while(--orderQty > -1) {
             orders[orderQty].created = new Date(orders[orderQty].created);
             orders[orderQty].delivery_date = new Date(orders[orderQty].delivery_date);
             orders[orderQty].new_delivery_date = new Date(orders[orderQty].new_delivery_date);
             orders[orderQty].order_date = new Date(orders[orderQty].order_date);
+
+            //------- set order price with discounts
+            setOrderPriceByDiscount(orders[orderQty]);
+
           }
           HistoryStor.history.ordersSource = angular.copy(orders);
           HistoryStor.history.orders = angular.copy(orders);
@@ -66,6 +70,18 @@
         }
       });
     }
+
+
+    function setOrderPriceByDiscount(order) {
+      order.orderPriceTOTALDis = (order.construct_price_total * (1 - order.discount_construct/100)) + (order.addelem_price_total * (1 - order.discount_addelem/100)) + order.floor_price + order.mounting_price;
+      if(order.is_date_price_less) {
+        order.orderPriceTOTALDis -= order.delivery_price;
+      } else if(order.is_date_price_more) {
+        order.orderPriceTOTALDis += order.delivery_price
+      }
+      order.orderPriceTOTALDis = GeneralServ.roundingNumbers(order.orderPriceTOTALDis);
+    }
+
 
 
     //------- defind Order MaxDate
@@ -289,23 +305,83 @@
         }
       }
 
-
-
-
-      GlobalStor.global.isConfigMenu = 1;
-      GlobalStor.global.isNavMenu = 0;
-      //------- set previos Page
-      GeneralServ.setPreviosPage();
-
-
       //------ Download All Products of edited Order
-      CartServ.downloadProducts().then(function() {
+      downloadProducts().then(function() {
         //------ Download All Add Elements from LocalDB
-        CartServ.downloadAddElements().then(function () {
+        downloadAddElements().then(function () {
+          GlobalStor.global.isConfigMenu = 1;
+          GlobalStor.global.isNavMenu = 0;
+          //------- set previos Page
+          GeneralServ.setPreviosPage();
           GlobalStor.global.isLoader = 0;
           $location.path('/cart');
         });
       });
+
+    }
+
+
+    //------ Download All Products Data for Order
+    function downloadProducts() {
+      var deferred = $q.defer();
+      localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_number': GlobalStor.global.orderEditNumber}).then(function(products) {
+        var productsQty = products.length;
+        if(productsQty) {
+          //------------- parsing All Templates Source and Icons for Order
+          for(var prod = 0; prod < productsQty; prod++) {
+            ProductStor.product = ProductStor.setDefaultProduct();
+            angular.extend(ProductStor.product, products[prod]);
+console.log('EDIT PRODUCT', ProductStor.product);
+            //----- checking product with design or only addElements
+            if(!ProductStor.product.is_addelem_only || ProductStor.product.is_addelem_only === 'false') {
+              //----- parsing design from string to object
+              ProductStor.product.template_source = JSON.parse(ProductStor.product.template_source);
+              //              console.log('templateSource', ProductStor.product.templateSource);
+              //----- find depths and build design icon
+              MainServ.setCurrentProfile(ProductStor.product.profile_id).then(function(){
+                MainServ.setCurrentGlass(ProductStor.product.glass_id);
+                MainServ.setCurrentHardware(ProductStor.product.hardware_id);
+                SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, GlobalStor.global.profileDepths).then(function(result) {
+                  ProductStor.product.templateIcon = angular.copy(result);
+                  deferred.resolve(1);
+                });
+              });
+            } else {
+              deferred.resolve(1);
+            }
+            OrderStor.order.products.push(ProductStor.product);
+          }
+
+        } else {
+          deferred.reject(products);
+        }
+      });
+      return deferred.promise;
+    }
+
+
+    //------ Download All Add Elements from LocalDB
+    function downloadAddElements() {
+      var deferred = $q.defer();
+      localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_number': GlobalStor.global.orderEditNumber}).then(function(result) {
+        var allAddElementsQty = result.length;
+        if(allAddElementsQty) {
+          //          console.log('results.data === ', result);
+
+          for(var elem = 0; elem < allAddElementsQty; elem++) {
+            for(var prod = 0; prod < OrderStor.order.products_qty; prod++) {
+              if(result[elem].product_id === OrderStor.order.products[prod].product_id) {
+                OrderStor.order.products[prod].chosenAddElements[result[elem].element_type].push(result[elem]);
+                deferred.resolve(1);
+              }
+            }
+          }
+
+        } else {
+          deferred.resolve(1);
+        }
+      });
+      return deferred.promise;
     }
 
     /*

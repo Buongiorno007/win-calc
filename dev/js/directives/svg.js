@@ -171,7 +171,7 @@
             DesignServ.removeAllEventsInSVG();
             //--------- set clicking to all elements
             if (scope.typeConstruction === 'edit') {
-              console.log('EDIT INIT IMPOST');
+//              console.log('EDIT INIT IMPOST');
               DesignServ.initAllImposts();
               DesignServ.initAllGlass();
               DesignServ.initAllArcs();
@@ -393,105 +393,105 @@
 
         //--------- PAN AND PINCH SVG
 
-        var eventsHandler = {
-          haltEventListeners: ['touchstart', 'touchend', 'touchmove', 'touchleave', 'touchcancel'],
-          init: function(options) {
-            var instance = options.instance,
-                initialScale = 1,
-                pannedX = 0,
-                pannedY = 0;
-
-            // Init Hammer
-            // Listen only for pointer and touch events
-            this.hammer = Hammer(options.svgElement, {
-              inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput
-            });
-
-            // Enable pinch
-            this.hammer.get('pinch').set({enable: true});
-
-            // Handle double tap
-            this.hammer.on('doubletap', function(ev){
-              //console.log('ev.type = ', ev.type);
-              instance.zoomIn();
-            });
-
-            // Handle pan
-            this.hammer.on('pan panstart panend', function(ev){
-              // On pan start reset panned variables
-              //console.log('ev.type = ', ev.type);
-              if (ev.type === 'panstart') {
-                pannedX = 0;
-                pannedY = 0;
-              }
-
-              // Pan only the difference
-              if (ev.type === 'pan' || ev.type === 'panend') {
-                //console.log('p');
-                instance.panBy({x: ev.deltaX - pannedX, y: ev.deltaY - pannedY});
-                pannedX = ev.deltaX;
-                pannedY = ev.deltaY;
-              }
-            });
-
-            // Handle pinch
-            this.hammer.on('pinch pinchstart pinchend', function(ev){
-              //console.log('ev.type = ', ev.type);
-              // On pinch start remember initial zoom
-              if (ev.type === 'pinchstart') {
-                initialScale = instance.getZoom();
-                instance.zoom(initialScale * ev.scale);
-              }
-
-              // On pinch zoom
-              if (ev.type === 'pinch' || ev.type === 'pinchend') {
-                instance.zoom(initialScale * ev.scale);
-              }
-            });
-
-            // Prevent moving the page on some devices when panning over SVG
-            options.svgElement.addEventListener('touchmove', function(e){ e.preventDefault(); });
-          },//--- init
-
-          destroy: function(){
-            this.hammer.destroy();
-          }
-        };
-
-        var beforePan = function(oldPan, newPan){
-          var stopHorizontal = false,
-              stopVertical = false,
-              gutterWidth = 200,
-              gutterHeight = 200,
-              // Computed variables
-              sizes = this.getSizes(),
-              leftLimit = -((sizes.viewBox.x + sizes.viewBox.width) * sizes.realZoom) + gutterWidth,
-              rightLimit = sizes.width - gutterWidth - (sizes.viewBox.x * sizes.realZoom),
-              topLimit = -((sizes.viewBox.y + sizes.viewBox.height) * sizes.realZoom) + gutterHeight,
-              bottomLimit = sizes.height - gutterHeight - (sizes.viewBox.y * sizes.realZoom),
-              customPan = {};
-
-          customPan.x = Math.max(leftLimit, Math.min(rightLimit, newPan.x));
-          customPan.y = Math.max(topLimit, Math.min(bottomLimit, newPan.y));
-          return customPan;
-        };
-
-
-        function startPinch() {
-          var svgElement = document.getElementById('tamlateSVG');
-          //console.log('svgElement', svgElement);
-          // Expose to window namespace for testing purposes
-          window.panZoom = svgPanZoom(svgElement, {
-            zoomEnabled: true,
-            controlIconsEnabled: false,
-            zoomScaleSensitivity: 0.1,
-            fit: 1,
-            center: 1,
-            refreshRate: 'auto',
-            beforePan: beforePan,
-            customEventsHandler: eventsHandler
-          });
-        }
+//        var eventsHandler = {
+//          haltEventListeners: ['touchstart', 'touchend', 'touchmove', 'touchleave', 'touchcancel'],
+//          init: function(options) {
+//            var instance = options.instance,
+//                initialScale = 1,
+//                pannedX = 0,
+//                pannedY = 0;
+//
+//            // Init Hammer
+//            // Listen only for pointer and touch events
+//            this.hammer = Hammer(options.svgElement, {
+//              inputClass: Hammer.SUPPORT_POINTER_EVENTS ? Hammer.PointerEventInput : Hammer.TouchInput
+//            });
+//
+//            // Enable pinch
+//            this.hammer.get('pinch').set({enable: true});
+//
+//            // Handle double tap
+//            this.hammer.on('doubletap', function(ev){
+//              //console.log('ev.type = ', ev.type);
+//              instance.zoomIn();
+//            });
+//
+//            // Handle pan
+//            this.hammer.on('pan panstart panend', function(ev){
+//              // On pan start reset panned variables
+//              //console.log('ev.type = ', ev.type);
+//              if (ev.type === 'panstart') {
+//                pannedX = 0;
+//                pannedY = 0;
+//              }
+//
+//              // Pan only the difference
+//              if (ev.type === 'pan' || ev.type === 'panend') {
+//                //console.log('p');
+//                instance.panBy({x: ev.deltaX - pannedX, y: ev.deltaY - pannedY});
+//                pannedX = ev.deltaX;
+//                pannedY = ev.deltaY;
+//              }
+//            });
+//
+//            // Handle pinch
+//            this.hammer.on('pinch pinchstart pinchend', function(ev){
+//              //console.log('ev.type = ', ev.type);
+//              // On pinch start remember initial zoom
+//              if (ev.type === 'pinchstart') {
+//                initialScale = instance.getZoom();
+//                instance.zoom(initialScale * ev.scale);
+//              }
+//
+//              // On pinch zoom
+//              if (ev.type === 'pinch' || ev.type === 'pinchend') {
+//                instance.zoom(initialScale * ev.scale);
+//              }
+//            });
+//
+//            // Prevent moving the page on some devices when panning over SVG
+//            options.svgElement.addEventListener('touchmove', function(e){ e.preventDefault(); });
+//          },//--- init
+//
+//          destroy: function(){
+//            this.hammer.destroy();
+//          }
+//        };
+//
+//        var beforePan = function(oldPan, newPan){
+//          var stopHorizontal = false,
+//              stopVertical = false,
+//              gutterWidth = 200,
+//              gutterHeight = 200,
+//              // Computed variables
+//              sizes = this.getSizes(),
+//              leftLimit = -((sizes.viewBox.x + sizes.viewBox.width) * sizes.realZoom) + gutterWidth,
+//              rightLimit = sizes.width - gutterWidth - (sizes.viewBox.x * sizes.realZoom),
+//              topLimit = -((sizes.viewBox.y + sizes.viewBox.height) * sizes.realZoom) + gutterHeight,
+//              bottomLimit = sizes.height - gutterHeight - (sizes.viewBox.y * sizes.realZoom),
+//              customPan = {};
+//
+//          customPan.x = Math.max(leftLimit, Math.min(rightLimit, newPan.x));
+//          customPan.y = Math.max(topLimit, Math.min(bottomLimit, newPan.y));
+//          return customPan;
+//        };
+//
+//
+//        function startPinch() {
+//          var svgElement = document.getElementById('tamlateSVG');
+//          //console.log('svgElement', svgElement);
+//          // Expose to window namespace for testing purposes
+//          window.panZoom = svgPanZoom(svgElement, {
+//            zoomEnabled: true,
+//            controlIconsEnabled: false,
+//            zoomScaleSensitivity: 0.1,
+//            fit: 1,
+//            center: 1,
+//            refreshRate: 'auto',
+//            beforePan: beforePan,
+//            customEventsHandler: eventsHandler
+//          });
+//        }
 
 
 

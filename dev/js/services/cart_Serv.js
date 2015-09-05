@@ -14,8 +14,8 @@
     thisFactory.publicObj = {
 //      cleanAllTemplatesInOrder: cleanAllTemplatesInOrder,
 //      downloadOrder: downloadOrder,
-      downloadProducts: downloadProducts,
-      downloadAddElements: downloadAddElements,
+//      downloadProducts: downloadProducts,
+//      downloadAddElements: downloadAddElements,
       joinAllAddElements: joinAllAddElements,
       increaseProductQty: increaseProductQty,
       decreaseProductQty: decreaseProductQty,
@@ -60,72 +60,72 @@
 //    }
 
 
-    //------ Download All Products Data for Order
-    function downloadProducts() {
-      var deferred = $q.defer();
-      localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_number': GlobalStor.global.orderEditNumber}).then(function(result) {
-        if(result) {
-          var editedProducts = angular.copy(result),
-            editedProductsQty = editedProducts.length;
-
-          //------------- parsing All Templates Source and Icons for Order
-          for(var prod = 0; prod < editedProductsQty; prod++) {
-            ProductStor.product = ProductStor.setDefaultProduct();
-            angular.extend(ProductStor.product, editedProducts[prod]);
-
-            //----- checking product with design or only addElements
-            if(!ProductStor.product.is_addelem_only || ProductStor.product.is_addelem_only === 'false') {
-              //----- parsing design from string to object
-//              ProductStor.product.template_source = parsingTemplateSource(ProductStor.product.templateSource);
-              ProductStor.product.template_source = JSON.parse(ProductStor.product.template_source);
-//              console.log('templateSource', ProductStor.product.templateSource);
-              //----- find depths and build design icon
-              MainServ.setCurrentProfile().then(function(){
-                SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, GlobalStor.global.profileDepths).then(function(result) {
-                  ProductStor.product.templateIcon = angular.copy(result);
-                  deferred.resolve('done');
-                });
-              });
-            } else {
-              deferred.resolve('done');
-            }
-            OrderStor.order.products.push(ProductStor.product);
-          }
-
-        } else {
-          deferred.reject(result);
-        }
-      });
-      return deferred.promise;
-    }
-
-
-    //------ Download All Add Elements from LocalDB
-    function downloadAddElements() {
-      var deferred = $q.defer();
-      localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_number': GlobalStor.global.orderEditNumber}).then(function(result) {
-        if(result) {
-//          console.log('results.data === ', result);
-          var allAddElements = angular.copy(result),
-              allAddElementsQty = allAddElements.length,
-              elem = 0;
-
-          for(; elem < allAddElementsQty; elem++) {
-            var prod = 0;
-            for(; prod < OrderStor.order.products_qty; prod++) {
-              if(allAddElements[elem].product_id === OrderStor.order.products[prod].product_id) {
-                OrderStor.order.products[prod].chosenAddElements[allAddElements[elem].element_type].push(allAddElements[elem]);
-                deferred.resolve('done');
-              }
-            }
-          }
-
-        } else {
-          deferred.resolve('done');
-        }
-      });
-      return deferred.promise;
-    }
+//    //------ Download All Products Data for Order
+//    function downloadProducts() {
+//      var deferred = $q.defer();
+//      localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_number': GlobalStor.global.orderEditNumber}).then(function(result) {
+//        if(result) {
+//          var editedProducts = angular.copy(result),
+//            editedProductsQty = editedProducts.length;
+//
+//          //------------- parsing All Templates Source and Icons for Order
+//          for(var prod = 0; prod < editedProductsQty; prod++) {
+//            ProductStor.product = ProductStor.setDefaultProduct();
+//            angular.extend(ProductStor.product, editedProducts[prod]);
+//
+//            //----- checking product with design or only addElements
+//            if(!ProductStor.product.is_addelem_only || ProductStor.product.is_addelem_only === 'false') {
+//              //----- parsing design from string to object
+////              ProductStor.product.template_source = parsingTemplateSource(ProductStor.product.templateSource);
+//              ProductStor.product.template_source = JSON.parse(ProductStor.product.template_source);
+////              console.log('templateSource', ProductStor.product.templateSource);
+//              //----- find depths and build design icon
+//              MainServ.setCurrentProfile().then(function(){
+//                SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, GlobalStor.global.profileDepths).then(function(result) {
+//                  ProductStor.product.templateIcon = angular.copy(result);
+//                  deferred.resolve('done');
+//                });
+//              });
+//            } else {
+//              deferred.resolve('done');
+//            }
+//            OrderStor.order.products.push(ProductStor.product);
+//          }
+//
+//        } else {
+//          deferred.reject(result);
+//        }
+//      });
+//      return deferred.promise;
+//    }
+//
+//
+//    //------ Download All Add Elements from LocalDB
+//    function downloadAddElements() {
+//      var deferred = $q.defer();
+//      localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_number': GlobalStor.global.orderEditNumber}).then(function(result) {
+//        if(result) {
+////          console.log('results.data === ', result);
+//          var allAddElements = angular.copy(result),
+//              allAddElementsQty = allAddElements.length,
+//              elem = 0;
+//
+//          for(; elem < allAddElementsQty; elem++) {
+//            var prod = 0;
+//            for(; prod < OrderStor.order.products_qty; prod++) {
+//              if(allAddElements[elem].product_id === OrderStor.order.products[prod].product_id) {
+//                OrderStor.order.products[prod].chosenAddElements[allAddElements[elem].element_type].push(allAddElements[elem]);
+//                deferred.resolve('done');
+//              }
+//            }
+//          }
+//
+//        } else {
+//          deferred.resolve('done');
+//        }
+//      });
+//      return deferred.promise;
+//    }
 
 
     //----------- create Discount List
@@ -213,7 +213,7 @@
         OrderStor.order.products[productIndex].product_qty = newProductQty;
         //------ Change product value in DB
 
-        //TODOlocalDB.updateDB(localDB.productsTableBD, {"productQty": newProductQty}, {'orderId': {"value": OrderStor.order.orderId, "union": 'AND'}, "productId": productIdBD});
+        //TODO localDB.updateDB(localDB.productsTableBD, {"productQty": newProductQty}, {'orderId': {"value": OrderStor.order.orderId, "union": 'AND'}, "productId": productIdBD});
         calculateOrderPrice();
       }
     }
@@ -272,12 +272,18 @@
     //-------- Calculate All Products Price
     function calculateAllProductsPrice() {
       var productsQty = OrderStor.order.products.length;
+      OrderStor.order.construct_price_total = 0;
+      OrderStor.order.addelem_price_total = 0;
       OrderStor.order.products_price_total = 0;
       CartStor.cart.productsPriceTOTALDis = 0;
-      for(var prod = 0; prod < productsQty; prod++) {
-        OrderStor.order.products_price_total += OrderStor.order.products[prod].product_price * OrderStor.order.products[prod].product_qty;
-        CartStor.cart.productsPriceTOTALDis += OrderStor.order.products[prod].productPriceTOTALDis * OrderStor.order.products[prod].product_qty;
+      while(--productsQty > -1) {
+        OrderStor.order.addelem_price_total += OrderStor.order.products[productsQty].addelem_price * OrderStor.order.products[productsQty].product_qty;
+        OrderStor.order.construct_price_total += OrderStor.order.products[productsQty].template_price * OrderStor.order.products[productsQty].product_qty;
+        OrderStor.order.products_price_total += OrderStor.order.products[productsQty].product_price * OrderStor.order.products[productsQty].product_qty;
+        CartStor.cart.productsPriceTOTALDis += OrderStor.order.products[productsQty].productPriceTOTALDis * OrderStor.order.products[productsQty].product_qty;
       }
+      OrderStor.order.addelem_price_total = GeneralServ.roundingNumbers(OrderStor.order.addelem_price_total);
+      OrderStor.order.construct_price_total = GeneralServ.roundingNumbers(OrderStor.order.construct_price_total);
       OrderStor.order.products_price_total = GeneralServ.roundingNumbers(OrderStor.order.products_price_total);
       CartStor.cart.productsPriceTOTALDis = GeneralServ.roundingNumbers(CartStor.cart.productsPriceTOTALDis);
     }

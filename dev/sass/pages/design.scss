@@ -109,7 +109,8 @@ $door-config-content: $ipad-height - $door-config-header;
   .left-menu-footer {
     position: absolute;
     left: rem(60px);
-    bottom: rem(50px);
+//    bottom: rem(50px);
+    bottom: 8rem;
     width: rem(350px);
   }
   .footer-description {
@@ -385,7 +386,8 @@ li.constr-shape-icon {
     background-color: #f8f8f8;
     border-left: 1px solid $main_gray_btn;
     &.active {
-      bottom: 0;
+//TODO ipad      bottom: 0;
+      bottom: 6rem;
     }
   }
 

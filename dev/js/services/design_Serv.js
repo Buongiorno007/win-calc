@@ -219,7 +219,8 @@
       d3.selectAll('#tamlateSVG [item_type=impost]')
         .each(function() {
           var impost = d3.select(this);
-          impost.on('touchstart', function() {
+//          impost.on('touchstart', function() {
+          impost.on('click', function() {
             var isImpost = isExistElementInSelected(impost[0][0], DesignStor.design.selectedImpost);
             if(isImpost) {
               impost.classed('frame-active', true);
@@ -270,12 +271,12 @@
     function initAllGlass() {
       var delayDimShow = 1000;
       DesignStor.design.selectedGlass.length = 0;
-
       d3.selectAll('#tamlateSVG .glass')
         .each(function() {
           var glass = d3.select(this);
 
-          glass.on("touchstart", function() {
+//          glass.on("touchstart", function() {
+          glass.on("mousedown", function() {
 
             //========= select glass
             var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass);
@@ -313,7 +314,8 @@
           });
 
 
-          glass.on("touchend", function() {
+//          glass.on("touchend", function() {
+          glass.on("mouseup", function() {
             DesignStor.design.isDimAnimate = 0;
           });
 
@@ -398,7 +400,8 @@
       if(arcs.length) {
         d3.selectAll(arcs).each(function() {
           var arc = d3.select(this);
-          arc.on('touchstart', function() {
+//          arc.on('touchstart', function() {
+          arc.on('click', function() {
             var isArc = isExistArcInSelected(arc[0][0], DesignStor.design.selectedArc);
             if(isArc) {
               arc.classed('active_svg', true);
@@ -1566,7 +1569,8 @@
       d3.selectAll('#tamlateSVG .size-box')
         .each(function() {
           var size = d3.select(this);
-          size.on('touchstart', function() {
+//          size.on('touchstart', function() {
+          size.on('click', function() {
             var sizeRect = size.select('.size-rect'),
                 isActive = sizeRect[0][0].attributes[0].nodeValue.indexOf('active')+1;
 //            console.log(isActive);
@@ -1984,18 +1988,22 @@
       //--------- delete click on imposts
       d3.selectAll('#tamlateSVG [item_type=impost]')
         .each(function() {
-          d3.select(this).on('touchstart', null);
+//          d3.select(this).on('touchstart', null);
+          d3.select(this).on('click', null);
         });
       //--------- delete click on glasses
       d3.selectAll('#tamlateSVG .glass')
         .each(function() {
-          d3.select(this).on("touchstart", null);
-          d3.select(this).on("touchend", null);
+//          d3.select(this).on("touchstart", null);
+          d3.select(this).on("mousedown", null);
+//          d3.select(this).on("touchend", null);
+          d3.select(this).on("mouseup", null);
         });
       //--------- delete click on dimension
       d3.selectAll('#tamlateSVG .size-box')
         .each(function() {
-          d3.select(this).on('touchstart', null);
+//          d3.select(this).on('touchstart', null);
+          d3.select(this).on('click', null);
         });
     }
 

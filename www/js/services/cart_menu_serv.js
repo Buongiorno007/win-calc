@@ -39,7 +39,7 @@
     function selectFloorPrice(floorName, floorPrice) {
       if(OrderStor.order.floor_id !== floorName) {
         OrderStor.order.floor_id = floorName;
-        OrderStor.order.selectedFloorPrice = parseFloat(floorPrice);
+        OrderStor.order.floor_price = parseFloat(floorPrice);
         calculateTotalOrderPrice();
       }
     }
@@ -103,8 +103,8 @@
       CartStor.cart.orderPriceTOTALDis = 0;
 
       //----- add product prices, floor price, assembling price
-      OrderStor.order.order_price_total += OrderStor.order.products_price_total + OrderStor.order.selectedFloorPrice + OrderStor.order.mounting_price;
-      CartStor.cart.orderPriceTOTALDis += CartStor.cart.productsPriceTOTALDis + OrderStor.order.selectedFloorPrice + OrderStor.order.mounting_price;
+      OrderStor.order.order_price_total += OrderStor.order.products_price_total + OrderStor.order.floor_price + OrderStor.order.mounting_price;
+      CartStor.cart.orderPriceTOTALDis += CartStor.cart.productsPriceTOTALDis + OrderStor.order.floor_price + OrderStor.order.mounting_price;
 
       //----- save primary total price
       OrderStor.order.order_price_total_primary = OrderStor.order.order_price_total;

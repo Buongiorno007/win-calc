@@ -22,25 +22,30 @@ body {
 
 .app-container {
   width: rem($ipad-width);
-  height: 100%;
-  margin: auto;
-  overflow: hidden;
+  //TODO ipad  height: 100%
+  height: 91rem;
+  margin: auto auto; //TODO ipad delete
+  overflow: hidden; //TODO ipad delete
 }
 
 .page-container {
   @include display-flex();
   @include transition(transform .5s linear, width .5s linear);
-
-  width: rem($page_container-width);
+  position: relative; //TODO ipad delete
+  top: 0; //TODO ipad delete
+  left: 0; //TODO ipad delete
+  //TODO ipad   width: rem($page_container-width);
+  width: rem($page_container-width-right_menu);
   height: 100%;
   &.swiped {
-    width: rem($page_container-width-right_menu);
-    .main-content {
-      width: rem($main_content-width-right_menu);
-    }
-    .main-history {
-      width: rem($ipad-width);
-    }
+    top: 0;
+    //TODO ipad     width: rem($page_container-width-right_menu);
+    //TODO ipad     .main-content {
+    //TODO ipad       width: rem($main_content-width-right_menu);
+    //TODO ipad     }
+    //TODO ipad     .main-history {
+    //TODO ipad       width: rem($ipad-width);
+    //TODO ipad     }
   }
 }
 
@@ -70,7 +75,8 @@ body {
 
   position: relative;
   overflow: hidden;
-  width: rem($main_content-width);
+  //TODO ipad   width: rem($main_content-width);
+  width: rem($main_content-width-right_menu);
   height: 100%;
   z-index: 0;
 }

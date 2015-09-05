@@ -1112,35 +1112,30 @@ body {
 /* line 23, ../../dev/sass/base/general.scss */
 .app-container {
   width: 128rem;
-  height: 100%;
-  margin: auto;
+  height: 91rem;
+  margin: auto auto;
   overflow: hidden;
 }
 
-/* line 30, ../../dev/sass/base/general.scss */
+/* line 31, ../../dev/sass/base/general.scss */
 .page-container {
   display: -webkit-flex;
   display: flex;
   -moz-transition: -moz-transform 0.5s linear, width 0.5s linear;
   -webkit-transition: -webkit-transform 0.5s linear, width 0.5s linear;
   transition: transform 0.5s linear, width 0.5s linear;
-  width: 157.625rem;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 165.5rem;
   height: 100%;
 }
-/* line 36, ../../dev/sass/base/general.scss */
+/* line 40, ../../dev/sass/base/general.scss */
 .page-container.swiped {
-  width: 165.5rem;
-}
-/* line 38, ../../dev/sass/base/general.scss */
-.page-container.swiped .main-content, .page-container.swiped .main-history {
-  width: 98.375rem;
-}
-/* line 41, ../../dev/sass/base/general.scss */
-.page-container.swiped .main-history {
-  width: 128rem;
+  top: 0;
 }
 
-/* line 47, ../../dev/sass/base/general.scss */
+/* line 52, ../../dev/sass/base/general.scss */
 .swiped {
   -moz-transform: translateX(-37.5rem);
   -ms-transform: translateX(-37.5rem);
@@ -1148,44 +1143,44 @@ body {
   transform: translateX(-37.5rem);
 }
 
-/* line 51, ../../dev/sass/base/general.scss */
+/* line 56, ../../dev/sass/base/general.scss */
 .left-side {
   width: 37.5rem;
   height: 100%;
 }
 
-/* line 56, ../../dev/sass/base/general.scss */
+/* line 61, ../../dev/sass/base/general.scss */
 .right-side {
   display: -webkit-flex;
   display: flex;
   height: 100%;
 }
 
-/* line 62, ../../dev/sass/base/general.scss */
+/* line 67, ../../dev/sass/base/general.scss */
 .right-menu {
   position: relative;
   width: 29.625rem;
   height: 100%;
 }
 
-/* line 68, ../../dev/sass/base/general.scss */
+/* line 73, ../../dev/sass/base/general.scss */
 .main-content, .main-history {
   -moz-transition: width 0.5s linear;
   -webkit-transition: width 0.5s linear;
   transition: width 0.5s linear;
   position: relative;
   overflow: hidden;
-  width: 90.5rem;
+  width: 98.375rem;
   height: 100%;
   z-index: 0;
 }
 
-/* line 79, ../../dev/sass/base/general.scss */
+/* line 85, ../../dev/sass/base/general.scss */
 .unvisible {
   display: none !important;
 }
 
-/* line 85, ../../dev/sass/base/general.scss */
+/* line 91, ../../dev/sass/base/general.scss */
 .icon-setting, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu, .pickmeup .pmu-instance nav .pmu-prev,
 .pickmeup .pmu-instance nav .pmu-next, .user-info-container .icon-location:before, .search-block:before, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .current-city:after, .voice-container .voice-icon, .close_dialog, .setting-container .setting-item-change:after, .password-page .back, .language-page .back, .location-page .back, .accounts-container .tool, .accounts-container .account-tool, .empty-search-result .result-icon, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .close-alladdelements, .door-config-btn, .door-configuration .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .config-menu .item.active:before, .elements-menu .element-info:after, .cart-menu .item:after, .cart-menu .drop-instalment .dropdown-item.selected .value-percent:after, .cart-menu .calendar-price, .size-calc-container .calc-delete:after, .size-calc-container .calc-interval:after {
@@ -1200,7 +1195,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* line 100, ../../dev/sass/base/general.scss */
+/* line 106, ../../dev/sass/base/general.scss */
 .button, .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn, .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .middle-button, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default, .small-button, .cart-page .order-tool, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu, .view-switch-tab, .aux-color, .setting-container .phone-btn, .accounts-container .tool, .accounts-container .account-tool, .accounts-container .account-change-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .close-alladdelements, .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .auxiliaries-container .scheme-info, .additional-list-container .group-indicator, .additional-list-container .search-element {
   border: 0;
   outline: none;
@@ -1209,38 +1204,38 @@ body {
   padding: 0;
 }
 
-/* line 108, ../../dev/sass/base/general.scss */
+/* line 114, ../../dev/sass/base/general.scss */
 .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn {
   border-width: 1px;
   border-style: solid;
 }
 
-/* line 115, ../../dev/sass/base/general.scss */
+/* line 121, ../../dev/sass/base/general.scss */
 .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .nav-menu .new-calc, .cart-menu .measure-btn {
   font: normal 3rem/1.42857 roboto-light, sans-serif;
   border-radius: 2rem;
 }
 
-/* line 122, ../../dev/sass/base/general.scss */
+/* line 128, ../../dev/sass/base/general.scss */
 .middle-button, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default {
   font: normal 1.5rem/2.25rem roboto-regular, sans-serif;
   border-radius: 2rem;
 }
 
-/* line 129, ../../dev/sass/base/general.scss */
+/* line 135, ../../dev/sass/base/general.scss */
 .small-button, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .order-tool {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   border-radius: 1.25rem;
 }
 
-/* line 136, ../../dev/sass/base/general.scss */
+/* line 142, ../../dev/sass/base/general.scss */
 .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit {
   height: 6.875rem;
   color: #fff;
   background-color: #f98000;
 }
 
-/* line 144, ../../dev/sass/base/general.scss */
+/* line 150, ../../dev/sass/base/general.scss */
 .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back {
   font: normal 3.125rem/1 icons, sans-serif;
   width: 3.75rem;
@@ -1249,74 +1244,74 @@ body {
   padding: 0;
   background: transparent;
 }
-/* line 154, ../../dev/sass/base/general.scss */
+/* line 160, ../../dev/sass/base/general.scss */
 .menu-btn:before, .user-info-container .nav-menu-btn:before, .setting-page .back:before, .setting-back:before {
   color: #fff;
   content: "\e617";
 }
 
-/* line 163, ../../dev/sass/base/general.scss */
+/* line 169, ../../dev/sass/base/general.scss */
 .truncated, .room-info-container .select-rooms, .menu-right-general .value, .config-menu .value, .elements-menu .value, .cart-menu .value, .old-price-tab .value, .old-price-inst-tab .value, .parameters-block .aux-title, .alladdelements-block .aux-title, .addelementunit-only .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title, .setting-container .setting-item-data, .cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value, .cart-page .addelementunit-value, .light-view .order-value, .light-view .addelementunit-value, .addelementunique-header .aux-title, .addelementunit-value, .construction-left-menu .figure-label, .nav-menu .title, .config-menu .additional-item, .template-container .other-template-subscr, .profile-container .profile-descr, .glass-container .glass-descr {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-/* line 171, ../../dev/sass/base/general.scss */
+/* line 177, ../../dev/sass/base/general.scss */
 .right-side {
   -moz-transition: all 1.3s linear;
   -webkit-transition: all 1.3s linear;
   transition: all 1.3s linear;
 }
-/* line 173, ../../dev/sass/base/general.scss */
+/* line 179, ../../dev/sass/base/general.scss */
 .right-side.main-page-bg {
   opacity: 0.2;
 }
-/* line 177, ../../dev/sass/base/general.scss */
+/* line 183, ../../dev/sass/base/general.scss */
 .right-side.kitchen {
   background: url('../img/rooms-bg/kitchen.jpg?1440876224') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 182, ../../dev/sass/base/general.scss */
+/* line 188, ../../dev/sass/base/general.scss */
 .right-side.livingroom {
   background: url('../img/rooms-bg/livingroom.jpg?1428589558') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 187, ../../dev/sass/base/general.scss */
+/* line 193, ../../dev/sass/base/general.scss */
 .right-side.balcony {
   background: url('../img/rooms-bg/balcony.jpg?1428589558') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 192, ../../dev/sass/base/general.scss */
+/* line 198, ../../dev/sass/base/general.scss */
 .right-side.childroom {
   background: url('../img/rooms-bg/childroom.jpg?1441358331') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 197, ../../dev/sass/base/general.scss */
+/* line 203, ../../dev/sass/base/general.scss */
 .right-side.bedroom {
   background: url('../img/rooms-bg/bedroom.jpg?1428589558') no-repeat;
   background-size: cover;
   opacity: 1;
 }
-/* line 202, ../../dev/sass/base/general.scss */
+/* line 208, ../../dev/sass/base/general.scss */
 .right-side.door {
   background: url('../img/rooms-bg/door.jpg?1428589558') no-repeat;
   background-size: cover;
   opacity: 1;
 }
 
-/* line 212, ../../dev/sass/base/general.scss */
+/* line 218, ../../dev/sass/base/general.scss */
 .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto {
   width: 9.5rem;
   height: 9.5rem;
   background-size: cover;
 }
 
-/* line 223, ../../dev/sass/base/general.scss */
+/* line 229, ../../dev/sass/base/general.scss */
 .modal-dialog, .rooms-selector-dialog, .auxiliaries-container .scheme-view-dialog {
   top: 18.75rem;
   left: -125rem;
@@ -1329,36 +1324,36 @@ body {
   border-radius: 1.25rem;
   background-color: rgba(255, 255, 255, 0.85);
 }
-/* line 234, ../../dev/sass/base/general.scss */
+/* line 240, ../../dev/sass/base/general.scss */
 .modal-dialog.active, .active.rooms-selector-dialog, .auxiliaries-container .active.scheme-view-dialog {
   top: 18.75rem;
   left: 5rem;
 }
 
-/* line 240, ../../dev/sass/base/general.scss */
+/* line 246, ../../dev/sass/base/general.scss */
 .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu {
   border-radius: 50%;
 }
-/* line 245, ../../dev/sass/base/general.scss */
+/* line 251, ../../dev/sass/base/general.scss */
 .cross-btn:after, .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .addelementunit-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after, .search-block .delete-search:after, .construct-tools:after, .elements-menu .close-elements-menu:after {
   position: absolute;
   color: #fff;
   content: "\e628";
 }
 
-/* line 251, ../../dev/sass/base/general.scss */
+/* line 257, ../../dev/sass/base/general.scss */
 .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete {
   font: normal 2.5rem/1 icons, sans-serif;
   width: 3.125rem;
   height: 3.125rem;
 }
-/* line 257, ../../dev/sass/base/general.scss */
+/* line 263, ../../dev/sass/base/general.scss */
 .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .addelementunit-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after {
   top: 8%;
   left: 10%;
 }
 
-/* line 264, ../../dev/sass/base/general.scss */
+/* line 270, ../../dev/sass/base/general.scss */
 .close-dialog {
   position: absolute;
   top: 1.875rem;
@@ -1366,7 +1361,7 @@ body {
   background-color: #f98000;
 }
 
-/* line 274, ../../dev/sass/base/general.scss */
+/* line 280, ../../dev/sass/base/general.scss */
 .aux-delete, .addelementunit-delete {
   top: 0rem;
   left: 0rem;
@@ -1374,7 +1369,7 @@ body {
   background-color: #bebebe;
 }
 
-/* line 283, ../../dev/sass/base/general.scss */
+/* line 289, ../../dev/sass/base/general.scss */
 .view-switch-tab {
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
@@ -1397,7 +1392,7 @@ body {
   z-index: 1;
 }
 
-/* line 303, ../../dev/sass/base/general.scss */
+/* line 309, ../../dev/sass/base/general.scss */
 .test {
   position: absolute;
   left: 3.125rem;
@@ -1407,14 +1402,14 @@ body {
   background-color: red;
   box-shadow: 0 0 1.25rem 0.625rem rgba(0, 0, 0, 0.3);
 }
-/* line 312, ../../dev/sass/base/general.scss */
+/* line 318, ../../dev/sass/base/general.scss */
 .test input {
   height: 3.125rem;
   width: 18.75rem;
   font-size: 2.25rem;
 }
 
-/* line 320, ../../dev/sass/base/general.scss */
+/* line 326, ../../dev/sass/base/general.scss */
 .backDarkView {
   position: absolute;
   top: 0;
@@ -1425,7 +1420,7 @@ body {
   z-index: 9;
 }
 
-/* line 339, ../../dev/sass/base/general.scss */
+/* line 345, ../../dev/sass/base/general.scss */
 .scrolling-container, .scroll-vert-container, .scroll-hor-container, .cart-page .addelements-detail-content {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -1434,33 +1429,33 @@ body {
   overflow-scrolling: touch;
 }
 
-/* line 342, ../../dev/sass/base/general.scss */
+/* line 348, ../../dev/sass/base/general.scss */
 .scroll-vert, .scroll-vert-container {
   overflow-x: hidden;
   overflow-y: auto;
 }
 
-/* line 346, ../../dev/sass/base/general.scss */
+/* line 352, ../../dev/sass/base/general.scss */
 .scroll-hor, .scroll-hor-container {
   overflow-x: auto;
   overflow-y: hidden;
 }
 
-/* line 350, ../../dev/sass/base/general.scss */
+/* line 356, ../../dev/sass/base/general.scss */
 .scroll-vert-container {
   width: 100%;
   height: 90%;
   padding-top: 2rem;
 }
 
-/* line 357, ../../dev/sass/base/general.scss */
+/* line 363, ../../dev/sass/base/general.scss */
 .scroll-hor-container {
   width: 100%;
   height: 100%;
   padding-top: 2rem;
 }
 
-/* line 366, ../../dev/sass/base/general.scss */
+/* line 372, ../../dev/sass/base/general.scss */
 #sounds {
   visibility: hidden;
 }
@@ -5948,7 +5943,7 @@ tr.factory_item {
 /* line 136, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail {
   position: absolute;
-  top: 17rem;
+  top: 10rem;
   left: 30rem;
   width: 32rem;
   background-color: #fff;
@@ -5956,7 +5951,7 @@ tr.factory_item {
   border-bottom-right-radius: 1.25rem;
   z-index: 10;
 }
-/* line 146, ../../dev/sass/pages/cart.scss */
+/* line 147, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-tools {
   display: -webkit-flex;
   display: flex;
@@ -5964,7 +5959,7 @@ tr.factory_item {
   flex-flow: row nowrap;
   height: 6.25rem;
 }
-/* line 152, ../../dev/sass/pages/cart.scss */
+/* line 153, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-edit {
   -webkit-flex-grow: 3;
   flex-grow: 3;
@@ -5972,39 +5967,39 @@ tr.factory_item {
   background-color: #6ed44a;
   color: #fff;
 }
-/* line 160, ../../dev/sass/pages/cart.scss */
+/* line 161, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-close {
   -webkit-flex-grow: 1;
   flex-grow: 1;
   background-color: #bebebe;
 }
-/* line 165, ../../dev/sass/pages/cart.scss */
+/* line 166, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-close:after {
   font: normal 2.5rem/1 icons, sans-serif;
   color: #fff;
   content: "\e628";
 }
-/* line 171, ../../dev/sass/pages/cart.scss */
+/* line 172, ../../dev/sass/pages/cart.scss */
 .cart-page .product-template {
   padding: 2.125rem;
   border-bottom: 1px solid #bebebe;
 }
-/* line 175, ../../dev/sass/pages/cart.scss */
+/* line 176, ../../dev/sass/pages/cart.scss */
 .cart-page .product-template-icon {
   margin-bottom: 1.25rem;
 }
-/* line 178, ../../dev/sass/pages/cart.scss */
+/* line 179, ../../dev/sass/pages/cart.scss */
 .cart-page .product-icon-thumb {
   display: inline-block;
   width: 12.5rem;
   margin-right: 0.625rem;
 }
-/* line 190, ../../dev/sass/pages/cart.scss */
+/* line 191, ../../dev/sass/pages/cart.scss */
 .cart-page .product-icon-label {
   max-width: 7.1875rem;
   text-align: right;
 }
-/* line 194, ../../dev/sass/pages/cart.scss */
+/* line 195, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-row, .cart-page .addelements-detail-footer {
   display: -webkit-flex;
   display: flex;
@@ -6015,25 +6010,25 @@ tr.factory_item {
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 200, ../../dev/sass/pages/cart.scss */
+/* line 201, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-content {
   height: 46.25rem;
   overflow-x: hidden;
   overflow-y: auto;
   padding: 1.875rem 3.125rem;
 }
-/* line 207, ../../dev/sass/pages/cart.scss */
+/* line 208, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 212, ../../dev/sass/pages/cart.scss */
+/* line 213, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-item {
   padding-top: 1.25rem;
   border-bottom: 1px solid #bebebe;
 }
-/* line 216, ../../dev/sass/pages/cart.scss */
+/* line 217, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-parameters {
   display: -webkit-flex;
   display: flex;
@@ -6045,34 +6040,34 @@ tr.factory_item {
   align-items: center;
   margin: 1.25rem 0;
 }
-/* line 223, ../../dev/sass/pages/cart.scss */
+/* line 224, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-parameter {
   margin-right: 1rem;
 }
-/* line 226, ../../dev/sass/pages/cart.scss */
+/* line 227, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-value {
   margin-right: 1.25rem;
 }
-/* line 230, ../../dev/sass/pages/cart.scss */
+/* line 231, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-value img {
   width: 2.8125rem;
 }
-/* line 237, ../../dev/sass/pages/cart.scss */
+/* line 238, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-price-value {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
   margin-right: 1.25rem;
 }
-/* line 243, ../../dev/sass/pages/cart.scss */
+/* line 244, ../../dev/sass/pages/cart.scss */
 .cart-page .price-one-product {
   margin-top: 1.875rem;
 }
-/* line 246, ../../dev/sass/pages/cart.scss */
+/* line 247, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-footer {
   padding-right: 3.125rem;
 }
 
-/* line 255, ../../dev/sass/pages/cart.scss */
+/* line 256, ../../dev/sass/pages/cart.scss */
 .full-view {
   /*
   .coeff-label {
@@ -6086,31 +6081,31 @@ tr.factory_item {
   }
   */
 }
-/* line 256, ../../dev/sass/pages/cart.scss */
+/* line 257, ../../dev/sass/pages/cart.scss */
 .full-view .order-block {
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
   min-height: 45%;
 }
-/* line 262, ../../dev/sass/pages/cart.scss */
+/* line 263, ../../dev/sass/pages/cart.scss */
 .full-view .order, .full-view .addelementunit {
   width: 32rem;
   float: left;
   border-bottom-right-radius: 1.25rem;
   border-bottom-left-radius: 1.25rem;
 }
-/* line 268, ../../dev/sass/pages/cart.scss */
+/* line 269, ../../dev/sass/pages/cart.scss */
 .full-view .order-header {
   height: 20rem;
 }
-/* line 271, ../../dev/sass/pages/cart.scss */
+/* line 272, ../../dev/sass/pages/cart.scss */
 .full-view .order-header-fon {
   width: 32rem;
   height: 20rem;
   cursor: pointer;
 }
-/* line 276, ../../dev/sass/pages/cart.scss */
+/* line 277, ../../dev/sass/pages/cart.scss */
 .full-view .order-template {
   position: absolute;
   bottom: -4.5625rem;
@@ -6119,7 +6114,7 @@ tr.factory_item {
   background-color: #fff;
   border-radius: 0.625rem;
 }
-/* line 284, ../../dev/sass/pages/cart.scss */
+/* line 285, ../../dev/sass/pages/cart.scss */
 .full-view .order-u-coeff {
   font: normal 2.625rem/1.42857 roboto-light, sans-serif;
   bottom: -3.75rem;
@@ -6129,27 +6124,27 @@ tr.factory_item {
   background-color: #fff;
   color: #6ed44a;
 }
-/* line 293, ../../dev/sass/pages/cart.scss */
+/* line 294, ../../dev/sass/pages/cart.scss */
 .full-view .order-u-coeff.u-coeff-low {
   color: #f74f2e;
 }
-/* line 308, ../../dev/sass/pages/cart.scss */
+/* line 309, ../../dev/sass/pages/cart.scss */
 .full-view .order-content {
   padding: 4.375rem 2.5rem 0 3.125rem;
   background-color: #fff;
 }
-/* line 312, ../../dev/sass/pages/cart.scss */
+/* line 313, ../../dev/sass/pages/cart.scss */
 .full-view .order-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 317, ../../dev/sass/pages/cart.scss */
+/* line 318, ../../dev/sass/pages/cart.scss */
 .full-view .order-item {
   padding: 0.4375rem 0;
   border-bottom: 1px solid #bebebe;
 }
-/* line 321, ../../dev/sass/pages/cart.scss */
+/* line 322, ../../dev/sass/pages/cart.scss */
 .full-view .order-qty {
   -webkit-flex-flow: row nowrap;
   flex-flow: row nowrap;
@@ -6157,23 +6152,23 @@ tr.factory_item {
   justify-content: space-between;
   height: 6.25rem;
 }
-/* line 326, ../../dev/sass/pages/cart.scss */
+/* line 327, ../../dev/sass/pages/cart.scss */
 .full-view .qty-label {
   max-width: 10.625rem;
 }
-/* line 329, ../../dev/sass/pages/cart.scss */
+/* line 330, ../../dev/sass/pages/cart.scss */
 .full-view .order-footer, .full-view .cart-page .addelements-detail-footer, .cart-page .full-view .addelements-detail-footer {
   padding-left: 3.125rem;
 }
 
-/* line 336, ../../dev/sass/pages/cart.scss */
+/* line 337, ../../dev/sass/pages/cart.scss */
 .light-view .order-block {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
 }
-/* line 340, ../../dev/sass/pages/cart.scss */
+/* line 341, ../../dev/sass/pages/cart.scss */
 .light-view .order, .light-view .addelementunit {
   width: 26.25rem;
   max-height: 41.5rem;
@@ -6183,26 +6178,26 @@ tr.factory_item {
   background-color: #fff;
   text-align: center;
 }
-/* line 349, ../../dev/sass/pages/cart.scss */
+/* line 350, ../../dev/sass/pages/cart.scss */
 .light-view .order-template {
   cursor: pointer;
 }
-/* line 355, ../../dev/sass/pages/cart.scss */
+/* line 356, ../../dev/sass/pages/cart.scss */
 .light-view .order-header {
   padding-top: 2.5rem;
 }
-/* line 358, ../../dev/sass/pages/cart.scss */
+/* line 359, ../../dev/sass/pages/cart.scss */
 .light-view .order-content {
   padding: 2.5rem 1.25rem;
 }
-/* line 364, ../../dev/sass/pages/cart.scss */
+/* line 365, ../../dev/sass/pages/cart.scss */
 .light-view .addelements-btn {
   margin-top: 0.625rem;
   padding: 0.625rem 0;
   border-top: 1px solid #bebebe;
   border-bottom: 1px solid #bebebe;
 }
-/* line 370, ../../dev/sass/pages/cart.scss */
+/* line 371, ../../dev/sass/pages/cart.scss */
 .light-view .order-qty {
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
@@ -6210,14 +6205,14 @@ tr.factory_item {
   justify-content: space-around;
   padding-top: 2.5rem;
 }
-/* line 375, ../../dev/sass/pages/cart.scss */
+/* line 376, ../../dev/sass/pages/cart.scss */
 .light-view .order-label, .light-view .cart-page .product-icon-label, .cart-page .light-view .product-icon-label,
 .light-view .cart-page .product-label,
 .cart-page .light-view .product-label, .light-view .cart-page .addelement-label, .cart-page .light-view .addelement-label {
   padding-top: 0.625rem;
 }
 
-/* line 382, ../../dev/sass/pages/cart.scss */
+/* line 383, ../../dev/sass/pages/cart.scss */
 .discount-swipe-up {
   position: absolute;
   left: 0;
@@ -6227,7 +6222,7 @@ tr.factory_item {
   z-index: 3;
 }
 
-/* line 391, ../../dev/sass/pages/cart.scss */
+/* line 392, ../../dev/sass/pages/cart.scss */
 .discount-container {
   width: 90%;
   margin: auto;
@@ -6236,13 +6231,13 @@ tr.factory_item {
   border-top: 1px solid #bebebe;
 }
 
-/* line 398, ../../dev/sass/pages/cart.scss */
+/* line 399, ../../dev/sass/pages/cart.scss */
 .discount-title {
   font: normal 2.5rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
 }
 
-/* line 402, ../../dev/sass/pages/cart.scss */
+/* line 403, ../../dev/sass/pages/cart.scss */
 .discount-box {
   display: -webkit-flex;
   display: flex;
@@ -6250,11 +6245,11 @@ tr.factory_item {
   width: 100%;
   margin-top: 3.125rem;
 }
-/* line 411, ../../dev/sass/pages/cart.scss */
+/* line 412, ../../dev/sass/pages/cart.scss */
 .discount-box.selected .discount-txt {
   background-color: #6ed44a;
 }
-/* line 413, ../../dev/sass/pages/cart.scss */
+/* line 414, ../../dev/sass/pages/cart.scss */
 .discount-box.selected .discount-txt:after {
   font: normal 7rem/9rem icons, sans-serif;
   position: absolute;
@@ -6264,7 +6259,7 @@ tr.factory_item {
   content: "\e627";
 }
 
-/* line 425, ../../dev/sass/pages/cart.scss */
+/* line 426, ../../dev/sass/pages/cart.scss */
 .discount-data {
   font: normal 3.5rem/9rem roboto-light, sans-serif;
   width: 14rem;
@@ -6275,7 +6270,7 @@ tr.factory_item {
   color: #363636;
 }
 
-/* line 434, ../../dev/sass/pages/cart.scss */
+/* line 435, ../../dev/sass/pages/cart.scss */
 .discounts-list {
   top: -5rem;
   left: 0rem;
@@ -6291,14 +6286,14 @@ tr.factory_item {
   z-index: 5;
 }
 
-/* line 448, ../../dev/sass/pages/cart.scss */
+/* line 449, ../../dev/sass/pages/cart.scss */
 .discounts-item.active {
   border-top: 1px solid #bebebe;
   border-bottom: 1px solid #bebebe;
   color: #f98000;
 }
 
-/* line 454, ../../dev/sass/pages/cart.scss */
+/* line 455, ../../dev/sass/pages/cart.scss */
 .discount-txt {
   -webkit-flex-grow: 2;
   flex-grow: 2;
@@ -6311,13 +6306,13 @@ tr.factory_item {
   background-color: #fff;
 }
 
-/* line 462, ../../dev/sass/pages/cart.scss */
+/* line 463, ../../dev/sass/pages/cart.scss */
 .discounts-label {
   font: normal 2.25rem/5rem roboto-medium, sans-serif;
   color: #363636;
 }
 
-/* line 466, ../../dev/sass/pages/cart.scss */
+/* line 467, ../../dev/sass/pages/cart.scss */
 .discount-price-container {
   display: -webkit-flex;
   display: flex;
@@ -6328,37 +6323,37 @@ tr.factory_item {
   background-color: #fff;
 }
 
-/* line 474, ../../dev/sass/pages/cart.scss */
+/* line 475, ../../dev/sass/pages/cart.scss */
 .discount-price-box {
   padding: 0 3rem;
   -webkit-flex-grow: 1;
   flex-grow: 1;
 }
-/* line 477, ../../dev/sass/pages/cart.scss */
+/* line 478, ../../dev/sass/pages/cart.scss */
 .discount-price-box:last-child {
   border-left: 1px dashed #363636;
 }
 
-/* line 481, ../../dev/sass/pages/cart.scss */
+/* line 482, ../../dev/sass/pages/cart.scss */
 .discount-price {
   font: normal 3rem/6.25rem roboto-medium, sans-serif;
   color: #363636;
 }
 
-/* line 485, ../../dev/sass/pages/cart.scss */
+/* line 486, ../../dev/sass/pages/cart.scss */
 .discount-price-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #8c8c8c;
 }
 
-/* line 494, ../../dev/sass/pages/cart.scss */
+/* line 495, ../../dev/sass/pages/cart.scss */
 .alladdelements-header {
   position: relative;
   width: 100%;
   height: 6.25rem;
 }
 
-/* line 499, ../../dev/sass/pages/cart.scss */
+/* line 500, ../../dev/sass/pages/cart.scss */
 .close-alladdelements {
   font: normal 3.125rem/1 icons, sans-serif;
   top: 0rem;
@@ -6370,13 +6365,13 @@ tr.factory_item {
   border-top-right-radius: 2rem;
   border-bottom-right-radius: 2rem;
 }
-/* line 510, ../../dev/sass/pages/cart.scss */
+/* line 511, ../../dev/sass/pages/cart.scss */
 .close-alladdelements:before {
   color: #fff;
   content: "\e61c";
 }
 
-/* line 515, ../../dev/sass/pages/cart.scss */
+/* line 516, ../../dev/sass/pages/cart.scss */
 .alladdelements-block {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -6387,149 +6382,149 @@ tr.factory_item {
   overflow-y: auto;
   height: 95%;
 }
-/* line 522, ../../dev/sass/pages/cart.scss */
+/* line 523, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-block {
   padding: 3.125rem 0;
   border-bottom: 1px solid #bebebe;
 }
-/* line 526, ../../dev/sass/pages/cart.scss */
+/* line 527, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-block:last-child {
   padding: 3.125rem 0 0 0;
   border: none;
 }
-/* line 532, ../../dev/sass/pages/cart.scss */
+/* line 533, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-block-title,
 .alladdelements-block .aux-total-label {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
 }
-/* line 538, ../../dev/sass/pages/cart.scss */
+/* line 539, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-block-title:first-letter {
   text-transform: uppercase;
 }
-/* line 541, ../../dev/sass/pages/cart.scss */
+/* line 542, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-row {
   margin-bottom: 1.25rem;
 }
-/* line 547, ../../dev/sass/pages/cart.scss */
+/* line 548, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-total-label {
   min-width: 69%;
 }
-/* line 551, ../../dev/sass/pages/cart.scss */
+/* line 552, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement {
   width: 100%;
 }
-/* line 554, ../../dev/sass/pages/cart.scss */
+/* line 555, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-name {
   width: 31.25rem;
 }
-/* line 556, ../../dev/sass/pages/cart.scss */
+/* line 557, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-name .aux-name {
   max-width: 100%;
 }
-/* line 560, ../../dev/sass/pages/cart.scss */
+/* line 561, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-total {
   width: 75%;
 }
-/* line 563, ../../dev/sass/pages/cart.scss */
+/* line 564, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-qty {
   width: 6.25rem;
 }
-/* line 566, ../../dev/sass/pages/cart.scss */
+/* line 567, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-width,
 .alladdelements-block .aux-list-addellement .aux-tablecell-height {
   width: 9.375rem;
 }
-/* line 570, ../../dev/sass/pages/cart.scss */
+/* line 571, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-color {
   width: 6.25rem;
 }
-/* line 573, ../../dev/sass/pages/cart.scss */
+/* line 574, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-price {
   width: 12.5rem;
 }
-/* line 575, ../../dev/sass/pages/cart.scss */
+/* line 576, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-price .aux-price, .alladdelements-block .aux-list-addellement .aux-tablecell-price .aux-total-price {
   text-align: center;
 }
-/* line 579, ../../dev/sass/pages/cart.scss */
+/* line 580, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-delete {
   width: 6.25rem;
 }
 
-/* line 589, ../../dev/sass/pages/cart.scss */
+/* line 590, ../../dev/sass/pages/cart.scss */
 .addelementunique-header {
   position: relative;
   width: 100%;
   height: 6.25rem;
   background-color: #fff;
 }
-/* line 595, ../../dev/sass/pages/cart.scss */
+/* line 596, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-title {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 600, ../../dev/sass/pages/cart.scss */
+/* line 601, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 604, ../../dev/sass/pages/cart.scss */
+/* line 605, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-params-but {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 608, ../../dev/sass/pages/cart.scss */
+/* line 609, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-row {
   padding-top: 1%;
 }
-/* line 615, ../../dev/sass/pages/cart.scss */
+/* line 616, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-total-label {
   min-width: 69%;
 }
-/* line 619, ../../dev/sass/pages/cart.scss */
+/* line 620, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement {
   width: 100%;
 }
-/* line 622, ../../dev/sass/pages/cart.scss */
+/* line 623, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-name {
   width: 31.25rem;
 }
-/* line 624, ../../dev/sass/pages/cart.scss */
+/* line 625, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-name .aux-name {
   max-width: 100%;
 }
-/* line 628, ../../dev/sass/pages/cart.scss */
+/* line 629, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-total {
   width: 75%;
 }
-/* line 631, ../../dev/sass/pages/cart.scss */
+/* line 632, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-qty {
   width: 6.25rem;
 }
-/* line 634, ../../dev/sass/pages/cart.scss */
+/* line 635, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-width,
 .addelementunique-header .aux-list-addellement .aux-tablecell-height {
   width: 9.375rem;
 }
-/* line 638, ../../dev/sass/pages/cart.scss */
+/* line 639, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-color {
   width: 6.25rem;
 }
-/* line 641, ../../dev/sass/pages/cart.scss */
+/* line 642, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-price {
   width: 12.5rem;
 }
-/* line 643, ../../dev/sass/pages/cart.scss */
+/* line 644, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-price .aux-price, .addelementunique-header .aux-list-addellement .aux-tablecell-price .aux-total-price {
   text-align: center;
 }
-/* line 647, ../../dev/sass/pages/cart.scss */
+/* line 648, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-delete {
   width: 6.25rem;
 }
 
-/* line 654, ../../dev/sass/pages/cart.scss */
+/* line 655, ../../dev/sass/pages/cart.scss */
 .addelementunit-header-fon {
   top: -3.125rem;
   left: -6.25rem;
@@ -6540,7 +6535,7 @@ tr.factory_item {
   z-index: -1;
 }
 
-/* line 663, ../../dev/sass/pages/cart.scss */
+/* line 664, ../../dev/sass/pages/cart.scss */
 .addelementunits-container {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -6554,7 +6549,7 @@ tr.factory_item {
   padding-top: 3%;
 }
 
-/* line 672, ../../dev/sass/pages/cart.scss */
+/* line 673, ../../dev/sass/pages/cart.scss */
 .addelementunit-block {
   display: -webkit-flex;
   display: flex;
@@ -6562,7 +6557,7 @@ tr.factory_item {
   flex-flow: row wrap;
 }
 
-/* line 677, ../../dev/sass/pages/cart.scss */
+/* line 678, ../../dev/sass/pages/cart.scss */
 .addelementunit {
   width: 26.25rem;
   min-width: 26.25rem;
@@ -6573,14 +6568,14 @@ tr.factory_item {
   text-align: center;
 }
 
-/* line 688, ../../dev/sass/pages/cart.scss */
+/* line 689, ../../dev/sass/pages/cart.scss */
 .addelementunit-header {
   position: relative;
   height: 13.125rem;
   padding-top: 2.5rem;
 }
 
-/* line 693, ../../dev/sass/pages/cart.scss */
+/* line 694, ../../dev/sass/pages/cart.scss */
 .addelementunit-delete {
   position: absolute;
   top: -1.25rem;
@@ -6589,12 +6584,12 @@ tr.factory_item {
   z-index: 9;
 }
 
-/* line 701, ../../dev/sass/pages/cart.scss */
+/* line 702, ../../dev/sass/pages/cart.scss */
 .addelementunit-content {
   padding: 2.5rem 1.25rem;
 }
 
-/* line 708, ../../dev/sass/pages/cart.scss */
+/* line 709, ../../dev/sass/pages/cart.scss */
 .addelementunit-footer {
   font: normal 3rem/6.25rem roboto-medium, sans-serif;
   border-bottom-left-radius: 1.25rem;
@@ -6603,7 +6598,7 @@ tr.factory_item {
   background-color: #4bd963;
 }
 
-/* line 718, ../../dev/sass/pages/cart.scss */
+/* line 719, ../../dev/sass/pages/cart.scss */
 .addelementunit-train {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -6613,18 +6608,18 @@ tr.factory_item {
   overflow-x: auto;
   overflow-y: auto;
 }
-/* line 723, ../../dev/sass/pages/cart.scss */
+/* line 724, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit-train-inner {
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 730, ../../dev/sass/pages/cart.scss */
+/* line 731, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit.unit-last .link-right {
   display: none;
 }
-/* line 736, ../../dev/sass/pages/cart.scss */
+/* line 737, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit-link {
   position: absolute;
   bottom: 3.125rem;
@@ -6632,11 +6627,11 @@ tr.factory_item {
   height: 5rem;
   border-bottom: 1px solid #4bd963;
 }
-/* line 742, ../../dev/sass/pages/cart.scss */
+/* line 743, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit-link.link-right {
   right: -3.4375rem;
 }
-/* line 750, ../../dev/sass/pages/cart.scss */
+/* line 751, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .link-explode-menu {
   font: normal 2.25rem/4.0625rem roboto-light, sans-serif;
   position: absolute;
@@ -6649,7 +6644,7 @@ tr.factory_item {
   cursor: pointer;
   z-index: 999;
 }
-/* line 762, ../../dev/sass/pages/cart.scss */
+/* line 763, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .link-explode-menu:before {
   position: absolute;
   z-index: 99;
@@ -6662,13 +6657,13 @@ tr.factory_item {
   border-color: #242424 transparent;
   content: '';
 }
-/* line 776, ../../dev/sass/pages/cart.scss */
+/* line 777, ../../dev/sass/pages/cart.scss */
 .addelementunit-train ul.link-explode-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 782, ../../dev/sass/pages/cart.scss */
+/* line 783, ../../dev/sass/pages/cart.scss */
 .addelementunit-train li.link-explode-item {
   display: inline-block;
   line-height: 5rem;
@@ -6677,79 +6672,79 @@ tr.factory_item {
   text-align: center;
   color: #ddd;
 }
-/* line 790, ../../dev/sass/pages/cart.scss */
+/* line 791, ../../dev/sass/pages/cart.scss */
 .addelementunit-train li.link-explode-item:last-child {
   border-right: none;
   padding-left: 0.5rem;
   padding-right: 0;
 }
 
-/* line 803, ../../dev/sass/pages/cart.scss */
+/* line 804, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block {
   padding: 3.125rem 0;
   border-bottom: 1px solid #bebebe;
 }
-/* line 807, ../../dev/sass/pages/cart.scss */
+/* line 808, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block:last-child {
   padding: 3.125rem 0 0 0;
   border: none;
 }
-/* line 813, ../../dev/sass/pages/cart.scss */
+/* line 814, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block-title,
 .addelementunit-only .aux-total-label {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
 }
-/* line 819, ../../dev/sass/pages/cart.scss */
+/* line 820, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block-title:first-letter {
   text-transform: uppercase;
 }
-/* line 822, ../../dev/sass/pages/cart.scss */
+/* line 823, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-row {
   margin-bottom: 1.25rem;
 }
-/* line 828, ../../dev/sass/pages/cart.scss */
+/* line 829, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-total-label {
   min-width: 69%;
 }
-/* line 832, ../../dev/sass/pages/cart.scss */
+/* line 833, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement {
   width: 100%;
 }
-/* line 835, ../../dev/sass/pages/cart.scss */
+/* line 836, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-name {
   width: 31.25rem;
 }
-/* line 837, ../../dev/sass/pages/cart.scss */
+/* line 838, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-name .aux-name {
   max-width: 100%;
 }
-/* line 841, ../../dev/sass/pages/cart.scss */
+/* line 842, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-total {
   width: 75%;
 }
-/* line 844, ../../dev/sass/pages/cart.scss */
+/* line 845, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-qty {
   width: 6.25rem;
 }
-/* line 847, ../../dev/sass/pages/cart.scss */
+/* line 848, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-width,
 .addelementunit-only .aux-list-addellement .aux-tablecell-height {
   width: 9.375rem;
 }
-/* line 851, ../../dev/sass/pages/cart.scss */
+/* line 852, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-color {
   width: 6.25rem;
 }
-/* line 854, ../../dev/sass/pages/cart.scss */
+/* line 855, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-price {
   width: 12.5rem;
 }
-/* line 856, ../../dev/sass/pages/cart.scss */
+/* line 857, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-price .aux-price, .addelementunit-only .aux-list-addellement .aux-tablecell-price .aux-total-price {
   text-align: center;
 }
-/* line 860, ../../dev/sass/pages/cart.scss */
+/* line 861, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-delete {
   width: 6.25rem;
 }
@@ -6850,10 +6845,10 @@ tr.factory_item {
 .construction-left-menu .left-menu-footer {
   position: absolute;
   left: 3.75rem;
-  bottom: 3.125rem;
+  bottom: 8rem;
   width: 21.875rem;
 }
-/* line 118, ../../dev/sass/pages/design.scss */
+/* line 119, ../../dev/sass/pages/design.scss */
 .construction-left-menu .project-default {
   display: inline-block;
   height: 4.5rem;
@@ -6862,7 +6857,7 @@ tr.factory_item {
   background-color: #6ed44a;
 }
 
-/* line 135, ../../dev/sass/pages/design.scss */
+/* line 136, ../../dev/sass/pages/design.scss */
 .edit_submenu {
   -moz-transition: all 0.3s linear;
   -webkit-transition: all 0.3s linear;
@@ -6879,50 +6874,50 @@ tr.factory_item {
   z-index: 5;
 }
 
-/* line 149, ../../dev/sass/pages/design.scss */
+/* line 150, ../../dev/sass/pages/design.scss */
 #sash-shape-menu {
   width: 37.5rem;
 }
-/* line 151, ../../dev/sass/pages/design.scss */
+/* line 152, ../../dev/sass/pages/design.scss */
 #sash-shape-menu.active {
   right: -37.5rem;
 }
 
-/* line 155, ../../dev/sass/pages/design.scss */
+/* line 156, ../../dev/sass/pages/design.scss */
 #angel-shape-menu {
   width: 17.5rem;
 }
-/* line 157, ../../dev/sass/pages/design.scss */
+/* line 158, ../../dev/sass/pages/design.scss */
 #angel-shape-menu.active {
   right: -17.5rem;
 }
 
-/* line 161, ../../dev/sass/pages/design.scss */
+/* line 162, ../../dev/sass/pages/design.scss */
 #impost-shape-menu {
   width: 67.5rem;
 }
-/* line 163, ../../dev/sass/pages/design.scss */
+/* line 164, ../../dev/sass/pages/design.scss */
 #impost-shape-menu.active {
   right: -67.5rem;
 }
 
-/* line 167, ../../dev/sass/pages/design.scss */
+/* line 168, ../../dev/sass/pages/design.scss */
 #arc-shape-menu {
   width: 12.5rem;
 }
-/* line 169, ../../dev/sass/pages/design.scss */
+/* line 170, ../../dev/sass/pages/design.scss */
 #arc-shape-menu.active {
   right: -12.5rem;
 }
 
-/* line 175, ../../dev/sass/pages/design.scss */
+/* line 176, ../../dev/sass/pages/design.scss */
 ul.constr-shape-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-/* line 181, ../../dev/sass/pages/design.scss */
+/* line 182, ../../dev/sass/pages/design.scss */
 li.constr-shape-icon {
   font: normal 3.125rem/5rem icons, sans-serif;
   width: 5rem;
@@ -6934,129 +6929,129 @@ li.constr-shape-icon {
   text-align: center;
   color: #ddd;
 }
-/* line 192, ../../dev/sass/pages/design.scss */
+/* line 193, ../../dev/sass/pages/design.scss */
 li.constr-shape-icon:last-child {
   border-right: none;
 }
 
-/* line 197, ../../dev/sass/pages/design.scss */
+/* line 198, ../../dev/sass/pages/design.scss */
 .clean:after {
   content: "\e634";
 }
 
-/* line 200, ../../dev/sass/pages/design.scss */
+/* line 201, ../../dev/sass/pages/design.scss */
 .sash-left:after {
   content: "\e641";
 }
 
-/* line 203, ../../dev/sass/pages/design.scss */
+/* line 204, ../../dev/sass/pages/design.scss */
 .sash-right:after {
   content: "\e640";
 }
 
-/* line 206, ../../dev/sass/pages/design.scss */
+/* line 207, ../../dev/sass/pages/design.scss */
 .sash-up:after {
   content: "\e642";
 }
 
-/* line 209, ../../dev/sass/pages/design.scss */
+/* line 210, ../../dev/sass/pages/design.scss */
 .sash-down:after {
   content: "\e643";
 }
 
-/* line 212, ../../dev/sass/pages/design.scss */
+/* line 213, ../../dev/sass/pages/design.scss */
 .sash-right-up:after {
   content: "\e63e";
 }
 
-/* line 215, ../../dev/sass/pages/design.scss */
+/* line 216, ../../dev/sass/pages/design.scss */
 .sash-left-up:after {
   content: "\e63f";
 }
 
-/* line 218, ../../dev/sass/pages/design.scss */
+/* line 219, ../../dev/sass/pages/design.scss */
 .impost-vert:after {
   content: "\e644";
 }
 
-/* line 221, ../../dev/sass/pages/design.scss */
+/* line 222, ../../dev/sass/pages/design.scss */
 .impost-hor:after {
   content: "\e645";
 }
 
-/* line 224, ../../dev/sass/pages/design.scss */
+/* line 225, ../../dev/sass/pages/design.scss */
 .impost-inc-hor:after {
   content: "\e661";
 }
 
-/* line 227, ../../dev/sass/pages/design.scss */
+/* line 228, ../../dev/sass/pages/design.scss */
 .impost-inc-vert:after {
   content: "\e660";
 }
 
-/* line 230, ../../dev/sass/pages/design.scss */
+/* line 231, ../../dev/sass/pages/design.scss */
 .impost-curv-right:after {
   content: "\e65f";
 }
 
-/* line 233, ../../dev/sass/pages/design.scss */
+/* line 234, ../../dev/sass/pages/design.scss */
 .impost-curv-left:after {
   content: "\e65e";
 }
 
-/* line 236, ../../dev/sass/pages/design.scss */
+/* line 237, ../../dev/sass/pages/design.scss */
 .impost-curv-up:after {
   content: "\e65d";
 }
 
-/* line 239, ../../dev/sass/pages/design.scss */
+/* line 240, ../../dev/sass/pages/design.scss */
 .impost-curv-down:after {
   content: "\e65c";
 }
 
-/* line 242, ../../dev/sass/pages/design.scss */
+/* line 243, ../../dev/sass/pages/design.scss */
 .impost-curv1:after {
   content: "\e65b";
 }
 
-/* line 245, ../../dev/sass/pages/design.scss */
+/* line 246, ../../dev/sass/pages/design.scss */
 .impost-curv3:after {
   content: "\e65a";
 }
 
-/* line 248, ../../dev/sass/pages/design.scss */
+/* line 249, ../../dev/sass/pages/design.scss */
 .impost-curv4:after {
   content: "\e659";
 }
 
-/* line 251, ../../dev/sass/pages/design.scss */
+/* line 252, ../../dev/sass/pages/design.scss */
 .impost-curv2:after {
   content: "\e658";
 }
 
-/* line 254, ../../dev/sass/pages/design.scss */
+/* line 255, ../../dev/sass/pages/design.scss */
 .arc:after {
   content: "\e657";
 }
 
-/* line 257, ../../dev/sass/pages/design.scss */
+/* line 258, ../../dev/sass/pages/design.scss */
 .corner:after {
   content: "\e656";
 }
 
-/* line 260, ../../dev/sass/pages/design.scss */
+/* line 261, ../../dev/sass/pages/design.scss */
 .corner-curv:after {
   content: "\e652";
 }
 
-/* line 267, ../../dev/sass/pages/design.scss */
+/* line 268, ../../dev/sass/pages/design.scss */
 .construction-block {
   width: 128rem;
   height: 96rem;
   text-align: center;
 }
 
-/* line 274, ../../dev/sass/pages/design.scss */
+/* line 275, ../../dev/sass/pages/design.scss */
 .construction-scrollbox {
   width: 100%;
   height: 100%;
@@ -7065,64 +7060,64 @@ li.constr-shape-icon:last-child {
   overflow: auto;
 }
 
-/* line 281, ../../dev/sass/pages/design.scss */
+/* line 282, ../../dev/sass/pages/design.scss */
 #mainSVG {
   height: 100%;
 }
 
-/* line 284, ../../dev/sass/pages/design.scss */
+/* line 285, ../../dev/sass/pages/design.scss */
 .design-attantion {
   top: 45%;
   left: 35%;
 }
 
-/* line 298, ../../dev/sass/pages/design.scss */
+/* line 299, ../../dev/sass/pages/design.scss */
 .right-menu-header {
   position: absolute;
   right: 0;
   top: 3%;
 }
 
-/* line 304, ../../dev/sass/pages/design.scss */
+/* line 305, ../../dev/sass/pages/design.scss */
 .construct-tools {
   position: relative;
   width: 5.3125rem;
   height: 5.3125rem;
   margin-right: 3.125rem;
 }
-/* line 312, ../../dev/sass/pages/design.scss */
+/* line 313, ../../dev/sass/pages/design.scss */
 .construct-tools:after {
   top: 25%;
   left: 25%;
 }
 
-/* line 317, ../../dev/sass/pages/design.scss */
+/* line 318, ../../dev/sass/pages/design.scss */
 .save-construction {
   font: normal 1.75rem/1.5 icons, sans-serif;
   background-color: #6ed44a;
 }
-/* line 321, ../../dev/sass/pages/design.scss */
+/* line 322, ../../dev/sass/pages/design.scss */
 .save-construction:after {
   content: "\e636";
 }
 
-/* line 325, ../../dev/sass/pages/design.scss */
+/* line 326, ../../dev/sass/pages/design.scss */
 .close-construction {
   font: normal 2.5rem/1 icons, sans-serif;
   background-color: #bebebe;
 }
 
-/* line 330, ../../dev/sass/pages/design.scss */
+/* line 331, ../../dev/sass/pages/design.scss */
 .step-back {
   font: normal 2.5rem/1 icons, sans-serif;
   background-color: #bebebe;
 }
-/* line 333, ../../dev/sass/pages/design.scss */
+/* line 334, ../../dev/sass/pages/design.scss */
 .step-back:after {
   content: "\e965";
 }
 
-/* line 338, ../../dev/sass/pages/design.scss */
+/* line 339, ../../dev/sass/pages/design.scss */
 .right-menu-footer {
   position: absolute;
   right: 0;
@@ -7131,7 +7126,7 @@ li.constr-shape-icon:last-child {
   height: 31.875rem;
 }
 
-/* line 345, ../../dev/sass/pages/design.scss */
+/* line 346, ../../dev/sass/pages/design.scss */
 .door-config-menu {
   position: absolute;
   top: 25%;
@@ -7140,29 +7135,29 @@ li.constr-shape-icon:last-child {
   text-align: right;
 }
 
-/* line 352, ../../dev/sass/pages/design.scss */
+/* line 353, ../../dev/sass/pages/design.scss */
 .door-config-btn {
   font: normal 8.125rem/1 icons, sans-serif;
   margin: 0;
   padding: 0;
   background: transparent;
 }
-/* line 361, ../../dev/sass/pages/design.scss */
+/* line 362, ../../dev/sass/pages/design.scss */
 .door-config-btn:after {
   color: #6ed44a;
   content: "\e63a";
 }
-/* line 366, ../../dev/sass/pages/design.scss */
+/* line 367, ../../dev/sass/pages/design.scss */
 .door-config-btn.active:after {
   content: "\e633";
 }
 
-/* line 371, ../../dev/sass/pages/design.scss */
+/* line 372, ../../dev/sass/pages/design.scss */
 .door-config-label {
   margin-bottom: 1.875rem;
 }
 
-/* line 379, ../../dev/sass/pages/design.scss */
+/* line 380, ../../dev/sass/pages/design.scss */
 .size-calculator {
   -moz-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
@@ -7173,17 +7168,17 @@ li.constr-shape-icon:last-child {
   background-color: #f8f8f8;
   border-left: 1px solid #bebebe;
 }
-/* line 387, ../../dev/sass/pages/design.scss */
+/* line 388, ../../dev/sass/pages/design.scss */
 .size-calculator.active {
-  bottom: 0;
+  bottom: 6rem;
 }
 
-/* line 392, ../../dev/sass/pages/design.scss */
+/* line 394, ../../dev/sass/pages/design.scss */
 .calc-equal {
   background-color: #6ed44a;
 }
 
-/* line 401, ../../dev/sass/pages/design.scss */
+/* line 403, ../../dev/sass/pages/design.scss */
 .door-configuration {
   top: 0rem;
   left: -156.25rem;
@@ -7196,12 +7191,12 @@ li.constr-shape-icon:last-child {
   background-color: #fafafa;
   z-index: 2;
 }
-/* line 411, ../../dev/sass/pages/design.scss */
+/* line 413, ../../dev/sass/pages/design.scss */
 .door-configuration.active {
   top: 0rem;
   left: 0rem;
 }
-/* line 415, ../../dev/sass/pages/design.scss */
+/* line 417, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-column {
   -moz-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
@@ -7211,40 +7206,40 @@ li.constr-shape-icon:last-child {
   position: absolute;
   width: 32rem;
 }
-/* line 422, ../../dev/sass/pages/design.scss */
+/* line 424, ../../dev/sass/pages/design.scss */
 .door-configuration .step1 {
   top: 0rem;
   left: 0rem;
   z-index: 6;
 }
-/* line 427, ../../dev/sass/pages/design.scss */
+/* line 429, ../../dev/sass/pages/design.scss */
 .door-configuration .step2 {
   z-index: 5;
 }
-/* line 429, ../../dev/sass/pages/design.scss */
+/* line 431, ../../dev/sass/pages/design.scss */
 .door-configuration .step2.active {
   top: 0rem;
   left: 28.25rem;
 }
-/* line 433, ../../dev/sass/pages/design.scss */
+/* line 435, ../../dev/sass/pages/design.scss */
 .door-configuration .step3 {
   z-index: 4;
 }
-/* line 435, ../../dev/sass/pages/design.scss */
+/* line 437, ../../dev/sass/pages/design.scss */
 .door-configuration .step3.active {
   top: 0rem;
   left: 56.25rem;
 }
-/* line 439, ../../dev/sass/pages/design.scss */
+/* line 441, ../../dev/sass/pages/design.scss */
 .door-configuration .step4 {
   z-index: 3;
 }
-/* line 441, ../../dev/sass/pages/design.scss */
+/* line 443, ../../dev/sass/pages/design.scss */
 .door-configuration .step4.active {
   top: 0rem;
   left: 84.5rem;
 }
-/* line 445, ../../dev/sass/pages/design.scss */
+/* line 447, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-backfon {
   -moz-box-shadow: #bebebe 0 0.3125rem 0.625rem;
   -webkit-box-shadow: #bebebe 0 0.3125rem 0.625rem;
@@ -7258,58 +7253,58 @@ li.constr-shape-icon:last-child {
   background-color: #fafafa;
   z-index: -1;
 }
-/* line 456, ../../dev/sass/pages/design.scss */
+/* line 458, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-header {
   height: 22.1875rem;
   padding-left: 3.125rem;
   width: 28.25rem;
 }
-/* line 461, ../../dev/sass/pages/design.scss */
+/* line 463, ../../dev/sass/pages/design.scss */
 .door-configuration .door-inner {
   height: 100%;
   padding: 2.5rem 1.25rem;
   border-bottom: 1px solid #d2d2d2;
 }
-/* line 466, ../../dev/sass/pages/design.scss */
+/* line 468, ../../dev/sass/pages/design.scss */
 .door-configuration .door-title {
   font: normal 3rem/1.42857 roboto-bold, sans-serif;
   padding: 1.25rem 0 1.875rem 0;
   color: #363636;
 }
-/* line 471, ../../dev/sass/pages/design.scss */
+/* line 473, ../../dev/sass/pages/design.scss */
 .door-configuration .door-subtitle {
   font: normal 2.25rem/2.75rem roboto-bold, sans-serif;
   color: #363636;
 }
-/* line 476, ../../dev/sass/pages/design.scss */
+/* line 478, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-content {
   height: 73.8125rem;
   overflow: hidden;
 }
-/* line 479, ../../dev/sass/pages/design.scss */
+/* line 481, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-content.scroll-box {
   overflow-x: hidden;
   overflow-y: auto;
 }
-/* line 484, ../../dev/sass/pages/design.scss */
+/* line 486, ../../dev/sass/pages/design.scss */
 .door-configuration ul.door-config-list {
   width: 32rem;
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 490, ../../dev/sass/pages/design.scss */
+/* line 492, ../../dev/sass/pages/design.scss */
 .door-configuration li.door-config-option {
   width: 28.25rem;
   padding-left: 3.125rem;
   cursor: pointer;
   position: relative;
 }
-/* line 495, ../../dev/sass/pages/design.scss */
+/* line 497, ../../dev/sass/pages/design.scss */
 .door-configuration li.door-config-option.selected {
   background-color: #6ed44a;
 }
-/* line 499, ../../dev/sass/pages/design.scss */
+/* line 501, ../../dev/sass/pages/design.scss */
 .door-configuration .selected-item-arrow {
   position: absolute;
   top: 0;
@@ -7319,19 +7314,19 @@ li.constr-shape-icon:last-child {
   background: url('../img/door-arrow.png?1428589555') no-repeat;
   background-size: 100% 100%;
 }
-/* line 508, ../../dev/sass/pages/design.scss */
+/* line 510, ../../dev/sass/pages/design.scss */
 .door-configuration .door-option-label {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 513, ../../dev/sass/pages/design.scss */
+/* line 515, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-tools {
   position: absolute;
   top: 0;
   right: 0;
   width: 15.25rem;
 }
-/* line 519, ../../dev/sass/pages/design.scss */
+/* line 521, ../../dev/sass/pages/design.scss */
 .door-configuration .door-config-btn {
   font: normal 3.75rem/1 icons, sans-serif;
   width: 100%;
@@ -7339,29 +7334,29 @@ li.constr-shape-icon:last-child {
   outline: none;
   border: none;
 }
-/* line 529, ../../dev/sass/pages/design.scss */
+/* line 531, ../../dev/sass/pages/design.scss */
 .door-configuration .close-door-config {
   height: 22.1875rem;
   background-color: #bebebe;
 }
-/* line 532, ../../dev/sass/pages/design.scss */
+/* line 534, ../../dev/sass/pages/design.scss */
 .door-configuration .close-door-config:after {
   content: "\e63b";
 }
-/* line 536, ../../dev/sass/pages/design.scss */
+/* line 538, ../../dev/sass/pages/design.scss */
 .door-configuration .save-door-config {
   height: 73.8125rem;
   background-color: #6ed44a;
 }
-/* line 539, ../../dev/sass/pages/design.scss */
+/* line 541, ../../dev/sass/pages/design.scss */
 .door-configuration .save-door-config:after {
   content: "\e636";
 }
-/* line 543, ../../dev/sass/pages/design.scss */
+/* line 545, ../../dev/sass/pages/design.scss */
 .door-configuration .door-shape {
   width: 7rem;
 }
-/* line 546, ../../dev/sass/pages/design.scss */
+/* line 548, ../../dev/sass/pages/design.scss */
 .door-configuration .door-hardware {
   width: 10rem;
 }

@@ -80,6 +80,8 @@
       OrderStor.order.order_price_total = OrderStor.order.products_price_total;
       CartStor.cart.orderPriceTOTALDis = CartStor.cart.productsPriceTOTALDis;
       CartStor.cart.discountPriceDiff = GeneralServ.roundingNumbers(OrderStor.order.order_price_total - CartStor.cart.orderPriceTOTALDis);
+
+      console.log('CART ORDER++++++', OrderStor.order);
     }
 
 

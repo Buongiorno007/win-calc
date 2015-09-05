@@ -45,7 +45,8 @@
 
 //        selectedFloor: 'free',
         floor_id: 0,
-        selectedFloorPrice: 0,
+        floor_price: 0,
+//        selectedFloorPrice: 0,
         mounting_id: 0,
         mounting_price: 0,
 //        selectedAssembling: 'free',
@@ -55,6 +56,9 @@
         selectedInstalmentPeriod: 0, //*
         selectedInstalmentPercent: 0, //*
 
+        construct_price_total: 0,
+        addelem_price_total: 0,
+
         is_old_price: 0,
         payment_first: 0,
         payment_monthly: 0,
@@ -62,6 +66,7 @@
         payment_monthly_primary: 0,
         order_price_total: 0,
         order_price_total_primary: 0,
+        orderPriceTOTALDis: 0,
 
         customer_name: '',
         customer_email: '',

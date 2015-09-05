@@ -14,7 +14,7 @@
 
   function glassSelectorCtrl(globalConstants, GlobalStor, OrderStor, ProductStor, AuxStor, UserStor, MainServ, AddElementsServ) {
 
-    console.log('START CONFIG MENU!!!!!!');
+//    console.log('START CONFIG MENU!!!!!!');
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
     thisCtrl.G = GlobalStor;

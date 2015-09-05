@@ -6,7 +6,7 @@
         .cart-item-data
           .value(ng-show="!cartMenu.O.order.floor_id", data-output="{{ 'cart.SELF_EXPORT' | translate }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
           .value(ng-show="cartMenu.O.order.floor_id", data-output="{{ cartMenu.O.order.floor_id }} {{ 'cart.FLOOR' | translate }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-          span.name.aside(ng-hide="cartMenu.O.order.floor_id == 'free'", data-output=" + {{ cartMenu.O.order.selectedFloorPrice }} {{ cartMenu.U.userInfo.currency }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
+          span.name.aside(ng-hide="cartMenu.O.order.floor_id == 'free'", data-output=" + {{ cartMenu.O.order.floor_price }} {{ cartMenu.U.userInfo.currency }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
       .dropdown-cart-menu.drop-delivery(ng-class="{'active': cartMenu.config.activeMenuItem == 1}")
         ul.dropdown-items-list
           li.dropdown-item(ng-class="{'selected': !cartMenu.O.order.floor_id}", hm-tap="cartMenu.selectFloorPrice(0, 0)")

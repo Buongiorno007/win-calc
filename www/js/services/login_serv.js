@@ -266,7 +266,7 @@
       var defer = $q.defer();
       localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(data) {
         if(data.length) {
-          console.log('DISCTOUN=====', data);
+//          console.log('DISCTOUN=====', data);
           UserStor.userInfo.discountConstr = data[0].default_construct;
           UserStor.userInfo.discountAddElem = data[0].default_add_elem;
           UserStor.userInfo.discountConstrMax = data[0].max_construct;

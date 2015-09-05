@@ -673,7 +673,7 @@
               <div data-output="{{ 'cart.DELIVERY' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
               <div class="cart-item-data">
                 <div ng-show="!cartMenu.O.order.floor_id" data-output="{{ 'cart.SELF_EXPORT' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
-                <div ng-show="cartMenu.O.order.floor_id" data-output="{{ cartMenu.O.order.floor_id }} {{ 'cart.FLOOR' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div><span ng-hide="cartMenu.O.order.floor_id == 'free'" data-output=" + {{ cartMenu.O.order.selectedFloorPrice }} {{ cartMenu.U.userInfo.currency }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span>
+                <div ng-show="cartMenu.O.order.floor_id" data-output="{{ cartMenu.O.order.floor_id }} {{ 'cart.FLOOR' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div><span ng-hide="cartMenu.O.order.floor_id == 'free'" data-output=" + {{ cartMenu.O.order.floor_price }} {{ cartMenu.U.userInfo.currency }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span>
               </div>
             </li>
             <div ng-class="{'active': cartMenu.config.activeMenuItem == 1}" class="dropdown-cart-menu drop-delivery">
