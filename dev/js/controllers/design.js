@@ -155,7 +155,6 @@
           DesignServ.createSash(sashType, DesignStor.design.selectedGlass[i]);
         }
       }
-      console.log('INSERT SASH =====', DesignStor.design.activeSubMenuItem);
     }
 
 

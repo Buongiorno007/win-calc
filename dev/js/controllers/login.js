@@ -50,10 +50,28 @@
     //------- export data
     if(thisCtrl.isOnline) {
       loginServ.initExport();
+
+      entriyWithoutLogin();
     }
 
 
     //============ methods ================//
+
+
+    function entriyWithoutLogin() {
+      var url = $location.search();
+      console.log('url = ', url); //{access: '5555555'}
+      if(url.access === '555555') {
+        GlobalStor.global.isLoader = 1;
+        thisCtrl.user.phone = url.access;
+        thisCtrl.user.password = url.access;
+        importDBProsses();
+      }
+    }
+
+
+
+
 
 
     function closeOfflineAlert() {
@@ -65,6 +83,7 @@
     //=========== SIGN IN ========//
 
     function enterForm(form) {
+//      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
       //------ Trigger validation flag.
       thisCtrl.submitted = 1;
       if (form.$valid) {
@@ -293,8 +312,8 @@
 
 
     function importDBfromServer() {
-      thisCtrl.isStartImport = true;
-      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
+      thisCtrl.isStartImport = 1;
+//      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
       localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
         if(data) {
           console.log('insert AllDB is done!');
@@ -305,7 +324,7 @@
                 if(data) {
                   GlobalStor.global.isLoader = 0;
                   thisCtrl.isStartImport = 0;
-                  console.log('Finish Time!!!!!!', new Date(), new Date().getMilliseconds());
+//                  console.log('Finish Time!!!!!!', new Date(), new Date().getMilliseconds());
                   $location.path('/main');
                 }
               });

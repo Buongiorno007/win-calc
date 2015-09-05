@@ -43,7 +43,7 @@
 
 
     //------ clicking
-    thisCtrl.changeAvatar = SettingServ.changeAvatar;
+//    thisCtrl.changeAvatar = SettingServ.changeAvatar;
     thisCtrl.changeSettingData = changeSettingData;
     thisCtrl.appendInputPhone = appendInputPhone;
     thisCtrl.cancelAddPhone = cancelAddPhone;
@@ -60,6 +60,7 @@
 
 
     //============ methods ================//
+
 
 
     function changeSettingData(id, obj) {

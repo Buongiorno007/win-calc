@@ -4,9 +4,11 @@ section.settings.setting-page
     .title(data-output="{{ 'mainpage.NAVMENU_SETTINGS' | translate }}", typing="{{ settingsPage.config.typing }}", typing-delay="{{ settingsPage.config.DELAY_START }}")
 
   .setting-container
-    .setting-user-foto(hm-tap="settingsPage.changeAvatar()")
+    //TODO ipad .setting-user-foto(hm-tap="settingsPage.changeAvatar()")
+    .setting-user-foto
       img( ng-if="settingsPage.U.userInfo.avatar && (settingsPage.U.userInfo.avatar!='null')" ng-src="{{ settingsPage.U.userInfo.avatar }}" width="100%" height="100%")
-      .change-foto {{ 'common_words.CHANGE' | translate }}
+      label.change-foto {{ 'common_words.CHANGE' | translate }}
+        input(type="file", fileread="vm.uploadme", style="display: none;")
 
     .lists
       ul.list

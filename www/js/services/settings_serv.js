@@ -28,22 +28,25 @@
     //============ methods ================//
 
     //----- change avatar
-    function changeAvatar() {
-      navigator.camera.getPicture( function( data ) {
-        UserStor.userInfo.avatar = 'data:image/jpeg;base64,' + data;
-        localDB.updateLocalServerDBs(localDB.tablesLocalDB.user.tableName, UserStor.userInfo.id, {"avatar": UserStor.userInfo.avatar});
-        $rootScope.$apply();
-      }, function( error ) {
-        console.log( 'Error upload user avatar' + error );
-        console.log(UserStor.userInfo);
-      }, {
-        destinationType: Camera.DestinationType.DATA_URL,
-        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-        allowEdit: false,
-        targetWidth: 76,
-        targetHeight: 76,
-        mediaType: Camera.MediaType.PICTURE
-      } );
+    function changeAvatar(newAvatar) {
+      UserStor.userInfo.avatar = newAvatar;
+      localDB.updateLocalServerDBs(localDB.tablesLocalDB.user.tableName, UserStor.userInfo.id, {"avatar": UserStor.userInfo.avatar});
+//TODO ipad
+//      navigator.camera.getPicture( function( data ) {
+//        UserStor.userInfo.avatar = 'data:image/jpeg;base64,' + data;
+//        localDB.updateLocalServerDBs(localDB.tablesLocalDB.user.tableName, UserStor.userInfo.id, {"avatar": UserStor.userInfo.avatar});
+//        $rootScope.$apply();
+//      }, function( error ) {
+//        console.log( 'Error upload user avatar' + error );
+//        console.log(UserStor.userInfo);
+//      }, {
+//        destinationType: Camera.DestinationType.DATA_URL,
+//        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+//        allowEdit: false,
+//        targetWidth: 76,
+//        targetHeight: 76,
+//        mediaType: Camera.MediaType.PICTURE
+//      } );
     }
 
 

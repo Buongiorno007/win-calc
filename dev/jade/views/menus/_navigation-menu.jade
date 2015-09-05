@@ -52,8 +52,8 @@
         .item-content
           span.nav-icon-information.unvisible(show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 9) }}")
           span.title(data-output="{{ 'mainpage.NAVMENU_MORE_INFO' | translate }}", typing="{{ navMenu.config.typing }}", typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 9) }}")
-
-      li.item(ng-class="{'selected': navMenu.activeMenuItem == 9}", hm-tap="navMenu.selectMenuItem(9)")
+//TODO ipad
+      //li.item(ng-class="{'selected': navMenu.activeMenuItem == 9}", hm-tap="navMenu.selectMenuItem(9)")
         .item-content
           span.nav-icon-voicehelp.unvisible(show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}")
           span.title(data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}", typing="{{ navMenu.config.typing }}", typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}")
