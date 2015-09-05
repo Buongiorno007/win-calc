@@ -69,11 +69,10 @@
       localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_number': GlobalStor.global.orderEditNumber}).then(function(result) {
         if(result) {
           var editedProducts = angular.copy(result),
-            editedProductsQty = editedProducts.length,
-            prod = 0;
+            editedProductsQty = editedProducts.length;
 
           //------------- parsing All Templates Source and Icons for Order
-          for(; prod < editedProductsQty; prod++) {
+          for(var prod = 0; prod < editedProductsQty; prod++) {
             ProductStor.product = ProductStor.setDefaultProduct();
             angular.extend(ProductStor.product, editedProducts[prod]);
 
