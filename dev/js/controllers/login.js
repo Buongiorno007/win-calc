@@ -60,15 +60,16 @@
 
     function entriyWithoutLogin() {
       var url = $location.search();
-      console.log('url = ', url); //{access: '5555555'}
-      if(url.access === '555555') {
+//      console.log('url = ', url); //{access: '5b1b68a9abf4d2cd155c81a9225fd158'}
+      if(url.access === '5b1b68a9abf4d2cd155c81a9225fd158') {
         GlobalStor.global.isLoader = 1;
-        thisCtrl.user.phone = url.access;
-        thisCtrl.user.password = url.access;
+        thisCtrl.user.phone = '555555';
+        thisCtrl.user.password = '555555';
         importDBProsses();
       }
     }
-
+//?access=5b1b68a9abf4d2cd155c81a9225fd158
+//fbp_den@mail.ru
 
 
 
@@ -99,7 +100,7 @@
               //======== SYNC
               console.log('SYNC');
               //---- checking user in LocalDB
-              localDB.selectLocalDB(localDB.tablesLocalDB.user.tableName, {'phone': thisCtrl.user.phone}).then(function(data) {
+              localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone}).then(function(data) {
 //                console.log('SYNC', data);
                 //---- user exists
                 if(data.length) {
@@ -144,7 +145,7 @@
         } else if(thisCtrl.isLocalDB) {
           console.log('OFFLINE');
           //---- checking user in LocalDB
-          localDB.selectLocalDB(localDB.tablesLocalDB.user.tableName, {'phone': thisCtrl.user.phone}).then(function(data) {
+          localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone}).then(function(data) {
             //---- user exists
             if(data.length) {
               //---------- check user password
@@ -222,7 +223,7 @@
                     if(data) {
 //                      console.log('CREATE DONE!!!!');
                       //------- save user in LocalDB
-                      localDB.insertRowLocalDB(result.user, localDB.tablesLocalDB.user.tableName);
+                      localDB.insertRowLocalDB(result.user, localDB.tablesLocalDB.users.tableName);
                       //------- save user in Stor
                       angular.extend(UserStor.userInfo, result.user);
                       //                        console.log('new USER password', UserStor.userInfo);
@@ -268,7 +269,7 @@
       //------- set User Location
       loginServ.setUserLocation(thisCtrl.generalLocations.mergerLocation, UserStor.userInfo.city_id);
       if(+UserStor.userInfo.factory_id > 0) {
-        console.log('userInfo++++', UserStor.userInfo);
+//        console.log('userInfo++++', UserStor.userInfo);
         if(thisCtrl.isLocalDB) {
           //------- current FactoryId matches to user FactoryId, go to main page without importDB
           //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
@@ -316,7 +317,7 @@
 //      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
       localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
         if(data) {
-          console.log('insert AllDB is done!');
+//          console.log('insert AllDB is done!');
           //--------- set currency symbol
           loginServ.setCurrency().then(function(data) {
             if(data) {
@@ -363,7 +364,7 @@
           UserStor.userInfo.factory_id = angular.copy(thisCtrl.user.factoryId);
           //        console.log(UserStor.userInfo);
           //----- update factoryId in LocalDB & Server
-          localDB.updateLocalServerDBs(localDB.tablesLocalDB.user.tableName, UserStor.userInfo.id, {factory_id: UserStor.userInfo.factory_id}).then(function() {
+          localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {factory_id: UserStor.userInfo.factory_id}).then(function() {
             //-------- close Factory Dialog
             thisCtrl.isFactoryId = 0;
             importDBfromServer();

@@ -10,7 +10,7 @@
     .module('BauVoiceApp')
     .factory('GeneralServ', generalFactory);
 
-  function generalFactory(GlobalStor) {
+  function generalFactory($filter, $window, GlobalStor) {
 
     var thisFactory = this;
 
@@ -20,9 +20,14 @@
       roundingNumbers: roundingNumbers
     };
 
+    //TODO desktop
+    //-------- blocking to refresh page
+    $window.onbeforeunload = function (){
+      return $filter('translate')('common_words.PAGE_REFRESH');
+    };
+
+
     return thisFactory.publicObj;
-
-
 
 
     //============ methods ================//

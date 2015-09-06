@@ -32,6 +32,7 @@
         SEND_ORDER_TXT: 'Do you want to send an order on a factory?',
         NEW_TEMPLATE_TITLE: 'Template changing',
         TEMPLATE_CHANGES_LOST: 'The template changes will lost! Continue?',
+        PAGE_REFRESH: 'Reloading the page will lead to data loss!',
         SELECT: 'Select',
         AND: 'and',
         OK: 'OK'

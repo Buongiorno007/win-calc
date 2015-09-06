@@ -47,7 +47,7 @@
             UserStor.userInfo.heatTransfer = thisCtrl.locations[j].heatTransfer;
             //----- save new City Id in LocalDB & Server
             //----- update password in LocalDB & Server
-            localDB.updateLocalServerDBs(localDB.tablesLocalDB.user.tableName, UserStor.userInfo.id, {'city_id': locationId});
+            localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {'city_id': locationId});
 
           //-------- if current geolocation changing
           } else if(GlobalStor.global.currOpenPage === 'main'){
@@ -59,8 +59,6 @@
         }
       }
     }
-
-
 
 
   }

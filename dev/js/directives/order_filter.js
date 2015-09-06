@@ -14,7 +14,7 @@
 
       function buildOrdersByType(items, orderStyle) {
         angular.forEach(items, function(item) {
-          if(angular.equals(item.orderStyle, orderStyle)) {
+          if(angular.equals(item.order_style, orderStyle)) {
             filtered.push(item);
           }
         });

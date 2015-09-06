@@ -12,7 +12,7 @@
     .module('MainModule')
     .controller('NavMenuCtrl', navigationMenuCtrl);
 
-  function navigationMenuCtrl($location, globalConstants, GeneralServ, NavMenuServ, GlobalStor, OrderStor, ProductStor) {
+  function navigationMenuCtrl($location, $window, globalConstants, GeneralServ, NavMenuServ, GlobalStor, OrderStor, ProductStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -77,10 +77,12 @@
           $location.path('/settings');
           break;
         case 8:
-          var ref = window.open('http://axorindustry.com', '_system');
+          $window.open('http://windowscalculator.net:3002/login');
+
+          //TODO ipad var ref = window.open('http://axorindustry.com', '_system');
           //------- switch off navMenuItem
           thisCtrl.activeMenuItem = 0;
-          ref.close();
+          //TODO ipad ref.close();
           break;
         case 9:
           NavMenuServ.switchVoiceHelper();

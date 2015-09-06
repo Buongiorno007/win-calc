@@ -37,19 +37,18 @@
           <li ng-class="{'selected': navMenu.activeMenuItem == 8}" hm-tap="navMenu.selectMenuItem(8)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 9) }}" class="nav-icon-information unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_MORE_INFO' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 9) }}" class="title"></span></div>
           </li>
+          <!--li.item(ng-class="{'selected': navMenu.activeMenuItem == 9}", hm-tap="navMenu.selectMenuItem(9)")
+          .item-content
+            span.nav-icon-voicehelp.unvisible(show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}")
+            span.title(data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}", typing="{{ navMenu.config.typing }}", typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}")
+            
+          -->
         </ul>
       </header>
+      <footer class="nav-menu-footer">
+        <button ng-if="!navMenu.G.global.orderEditNumber" hm-tap="navMenu.clickNewProject()" show-delay="{{ navMenu.config.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
+      </footer>
     </div>
-    <!--TODO ipad
-    //li.item(ng-class="{'selected': navMenu.activeMenuItem == 9}", hm-tap="navMenu.selectMenuItem(9)")
-      .item-content
-        span.nav-icon-voicehelp.unvisible(show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}")
-        span.title(data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}", typing="{{ navMenu.config.typing }}", typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}")
-        
-    -->
-    <footer class="nav-menu-footer">
-      <button ng-if="!navMenu.G.global.orderEditNumber" hm-tap="navMenu.clickNewProject()" show-delay="{{ navMenu.config.DELAY_SHOW_NEWCALC_BTN }}" class="new-calc unvisible">{{ 'mainpage.NAVMENU_NEW_CALC' | translate }}</button>
-    </footer>
   </section>
   <section class="right-side">
     <section class="main-history">

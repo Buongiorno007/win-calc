@@ -17,14 +17,7 @@
     //------- set current Page
     GlobalStor.global.currOpenPage = 'main';
 
-/*
-    window.onbeforeunload = function (){
-      console.log('REFRESH');
-      return "REFRESH!!!!!";
-    };
-*/
-
-    //console.log('USER:',thisCtrl.U.userInfo);
+//    console.log('USER:',thisCtrl.U.userInfo);
 
     //=============== FIRST START =========//
 

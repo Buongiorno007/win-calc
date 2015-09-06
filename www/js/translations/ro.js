@@ -32,6 +32,7 @@
         SEND_ORDER_TXT: 'Doriți să trimiteți comanda la uzină?',
         NEW_TEMPLATE_TITLE: 'Template changing',
         TEMPLATE_CHANGES_LOST: 'The template changes will lost! Continue?',
+        PAGE_REFRESH: 'Reîncărcarea paginii va duce la pierderi de date!',
         SELECT: 'Select',
         AND: 'și',
         OK: 'OK'

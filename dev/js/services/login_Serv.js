@@ -64,7 +64,7 @@
         //        console.log('data ===', data);
         if(data.length) {
           //----- get last user
-          localDB.selectLocalDB(localDB.tablesLocalDB.user.tableName).then(function(user) {
+          localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName).then(function(user) {
             if(user.length) {
               localDB.updateServer(user[0].phone, user[0].device_code, data).then(function(result) {
                 console.log('FINISH export',result);
@@ -84,7 +84,7 @@
 
     function isLocalDBExist() {
       var defer = $q.defer();
-//      localDB.selectLocalDB(localDB.tablesLocalDB.user.tableName).then(function(data) {
+//      localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName).then(function(data) {
       localDB.selectLocalDB('sqlite_sequence').then(function(data) {
 //        console.log('data ===', data);
         if(data && data.length > 5) {

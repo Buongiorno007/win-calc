@@ -317,27 +317,27 @@ th {
 
 @font-face {
   font-family: "roboto-regular";
-  src: url('../fonts/roboto/Roboto-Regular.ttf?1428589557') format('truetype');
+  src: url('../fonts/roboto/Roboto-Regular.ttf?1406208812') format('truetype');
 }
 @font-face {
   font-family: "roboto-bold";
-  src: url('../fonts/roboto/Roboto-Bold.ttf?1428589556') format('truetype');
+  src: url('../fonts/roboto/Roboto-Bold.ttf?1406208812') format('truetype');
 }
 @font-face {
   font-family: "roboto-light";
-  src: url('../fonts/roboto/Roboto-Light.ttf?1428589556') format('truetype');
+  src: url('../fonts/roboto/Roboto-Light.ttf?1406208812') format('truetype');
 }
 @font-face {
   font-family: "roboto-medium";
-  src: url('../fonts/roboto/Roboto-Medium.ttf?1428589557') format('truetype');
+  src: url('../fonts/roboto/Roboto-Medium.ttf?1406208812') format('truetype');
 }
 @font-face {
   font-family: "roboto-thin";
-  src: url('../fonts/roboto/Roboto-Thin.ttf?1428589557') format('truetype');
+  src: url('../fonts/roboto/Roboto-Thin.ttf?1406208812') format('truetype');
 }
 @font-face {
   font-family: "icons";
-  src: url('../fonts/icons/icomoon.ttf?1437545586') format('truetype');
+  src: url('../fonts/icons/icomoon.ttf?1437493140') format('truetype');
 }
 /* line 183, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
@@ -1306,12 +1306,11 @@ body {
 
 /* line 218, ../../dev/sass/base/general.scss */
 .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto {
-  width: 9.5rem;
-  height: 9.5rem;
-  background-size: cover;
+  width: 8rem;
+  height: 8rem;
 }
 
-/* line 229, ../../dev/sass/base/general.scss */
+/* line 226, ../../dev/sass/base/general.scss */
 .modal-dialog, .rooms-selector-dialog, .auxiliaries-container .scheme-view-dialog {
   top: 18.75rem;
   left: -125rem;
@@ -1324,36 +1323,36 @@ body {
   border-radius: 1.25rem;
   background-color: rgba(255, 255, 255, 0.85);
 }
-/* line 240, ../../dev/sass/base/general.scss */
+/* line 237, ../../dev/sass/base/general.scss */
 .modal-dialog.active, .active.rooms-selector-dialog, .auxiliaries-container .active.scheme-view-dialog {
   top: 18.75rem;
   left: 5rem;
 }
 
-/* line 246, ../../dev/sass/base/general.scss */
+/* line 243, ../../dev/sass/base/general.scss */
 .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu {
   border-radius: 50%;
 }
-/* line 251, ../../dev/sass/base/general.scss */
+/* line 248, ../../dev/sass/base/general.scss */
 .cross-btn:after, .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .addelementunit-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after, .search-block .delete-search:after, .construct-tools:after, .elements-menu .close-elements-menu:after {
   position: absolute;
   color: #fff;
   content: "\e628";
 }
 
-/* line 257, ../../dev/sass/base/general.scss */
+/* line 254, ../../dev/sass/base/general.scss */
 .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete {
   font: normal 2.5rem/1 icons, sans-serif;
   width: 3.125rem;
   height: 3.125rem;
 }
-/* line 263, ../../dev/sass/base/general.scss */
+/* line 260, ../../dev/sass/base/general.scss */
 .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .addelementunit-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after {
   top: 8%;
   left: 10%;
 }
 
-/* line 270, ../../dev/sass/base/general.scss */
+/* line 267, ../../dev/sass/base/general.scss */
 .close-dialog {
   position: absolute;
   top: 1.875rem;
@@ -1361,7 +1360,7 @@ body {
   background-color: #f98000;
 }
 
-/* line 280, ../../dev/sass/base/general.scss */
+/* line 277, ../../dev/sass/base/general.scss */
 .aux-delete, .addelementunit-delete {
   top: 0rem;
   left: 0rem;
@@ -1369,7 +1368,7 @@ body {
   background-color: #bebebe;
 }
 
-/* line 289, ../../dev/sass/base/general.scss */
+/* line 286, ../../dev/sass/base/general.scss */
 .view-switch-tab {
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
@@ -1392,7 +1391,7 @@ body {
   z-index: 1;
 }
 
-/* line 309, ../../dev/sass/base/general.scss */
+/* line 306, ../../dev/sass/base/general.scss */
 .test {
   position: absolute;
   left: 3.125rem;
@@ -1402,14 +1401,14 @@ body {
   background-color: red;
   box-shadow: 0 0 1.25rem 0.625rem rgba(0, 0, 0, 0.3);
 }
-/* line 318, ../../dev/sass/base/general.scss */
+/* line 315, ../../dev/sass/base/general.scss */
 .test input {
   height: 3.125rem;
   width: 18.75rem;
   font-size: 2.25rem;
 }
 
-/* line 326, ../../dev/sass/base/general.scss */
+/* line 323, ../../dev/sass/base/general.scss */
 .backDarkView {
   position: absolute;
   top: 0;
@@ -1420,7 +1419,7 @@ body {
   z-index: 9;
 }
 
-/* line 345, ../../dev/sass/base/general.scss */
+/* line 342, ../../dev/sass/base/general.scss */
 .scrolling-container, .scroll-vert-container, .scroll-hor-container, .cart-page .addelements-detail-content {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -1429,33 +1428,33 @@ body {
   overflow-scrolling: touch;
 }
 
-/* line 348, ../../dev/sass/base/general.scss */
+/* line 345, ../../dev/sass/base/general.scss */
 .scroll-vert, .scroll-vert-container {
   overflow-x: hidden;
   overflow-y: auto;
 }
 
-/* line 352, ../../dev/sass/base/general.scss */
+/* line 349, ../../dev/sass/base/general.scss */
 .scroll-hor, .scroll-hor-container {
   overflow-x: auto;
   overflow-y: hidden;
 }
 
-/* line 356, ../../dev/sass/base/general.scss */
+/* line 353, ../../dev/sass/base/general.scss */
 .scroll-vert-container {
   width: 100%;
   height: 90%;
   padding-top: 2rem;
 }
 
-/* line 363, ../../dev/sass/base/general.scss */
+/* line 360, ../../dev/sass/base/general.scss */
 .scroll-hor-container {
   width: 100%;
   height: 100%;
   padding-top: 2rem;
 }
 
-/* line 372, ../../dev/sass/base/general.scss */
+/* line 369, ../../dev/sass/base/general.scss */
 #sounds {
   visibility: hidden;
 }
@@ -5115,31 +5114,38 @@ tr.factory_item {
   margin: 0;
   padding: 0;
   background: transparent;
+  outline: none;
 }
-/* line 11, ../../dev/sass/pages/change-pass.scss */
+/* line 12, ../../dev/sass/pages/change-pass.scss */
 .password-page .back:before {
   color: #f98000;
   content: "\e61c";
 }
-/* line 16, ../../dev/sass/pages/change-pass.scss */
+/* line 17, ../../dev/sass/pages/change-pass.scss */
 .password-page .psw-container {
   padding-left: 3.125rem;
   color: #fff;
 }
-/* line 20, ../../dev/sass/pages/change-pass.scss */
+/* line 21, ../../dev/sass/pages/change-pass.scss */
 .password-page .lists {
   overflow: visible;
 }
-/* line 23, ../../dev/sass/pages/change-pass.scss */
+/* line 24, ../../dev/sass/pages/change-pass.scss */
 .password-page .psw-label {
   font: normal 2.25rem/5.5rem roboto-light, sans-serif;
   min-width: 25rem;
   color: #bebebe;
 }
-/* line 29, ../../dev/sass/pages/change-pass.scss */
+/* line 30, ../../dev/sass/pages/change-pass.scss */
 .password-page .psw-data {
   font: normal 2.25rem/5.5rem roboto-light, sans-serif;
   color: #f98000;
+}
+/* line 34, ../../dev/sass/pages/change-pass.scss */
+.password-page .set-input-txt, .password-page .settings .set-input-phone, .settings .password-page .set-input-phone {
+  border-bottom-color: #4A4949;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
 }
 
 /* line 2, ../../dev/sass/pages/change-lang.scss */

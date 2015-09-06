@@ -10,7 +10,7 @@
     .module('SettingsModule')
     .controller('ChangePassCtrl', changePassCtrl);
 
-  function changePassCtrl($location, globalConstants, UserStor, localDB) {
+  function changePassCtrl(globalConstants, SettingServ, UserStor, localDB) {
 
     var thisCtrl = this;
     thisCtrl.U = UserStor;
@@ -27,26 +27,25 @@
 
     //------ clicking
     thisCtrl.saveNewPassword = saveNewPassword;
-    thisCtrl.gotoSettingsPage = gotoSettingsPage;
+    thisCtrl.gotoSettingsPage = SettingServ.gotoSettingsPage;
     thisCtrl.checkError = checkError;
     thisCtrl.checkErrorOld = checkErrorOld;
 
 
     //============ methods ================//
 
-    function gotoSettingsPage() {
-      $location.path('/settings');
-    }
+
 
     function saveNewPassword() {
       if( thisCtrl.config.oldPassword && UserStor.userInfo.password == localDB.md5(thisCtrl.config.oldPassword) && thisCtrl.config.newPassword && thisCtrl.config.confirmPassword && thisCtrl.config.newPassword === thisCtrl.config.confirmPassword) {
         thisCtrl.config.isErrorPassword = 0;
         UserStor.userInfo.password = localDB.md5(thisCtrl.config.newPassword);
+        console.log('CHENGE PASSWORD++++', UserStor.userInfo.password);
         //----- update password in LocalDB & Server
-        localDB.updateLocalServerDBs(localDB.tablesLocalDB.user.tableName, UserStor.userInfo.id, {'password': UserStor.userInfo.password}).then(function() {
+        localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {'password': UserStor.userInfo.password}).then(function() {
           //---- clean fields
           thisCtrl.config.newPassword = thisCtrl.config.confirmPassword = '';
-          gotoSettingsPage();
+          SettingServ.gotoSettingsPage();
         });
       } else {
         if (!thisCtrl.config.oldPassword || (UserStor.userInfo.password != localDB.md5(thisCtrl.config.oldPassword)) ) {

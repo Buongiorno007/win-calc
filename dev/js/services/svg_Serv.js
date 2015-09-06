@@ -232,12 +232,11 @@
       var windowW = width,
           windowH = height,
           scale, del;
-
-      if(width === '100%') {
-        windowW = window.innerWidth;
-        windowH = window.innerHeight;
-      }
-
+      //TODO ipad
+//      if(width === '100%') {
+//        windowW = window.innerWidth;
+//        windowH = window.innerHeight;
+//      }
       var windowS = windowW * windowH,
           templateS = (dim.maxX - dim.minX) * (dim.maxY - dim.minY);
 
@@ -259,11 +258,11 @@
     function setTemplatePosition(dim, width, height, scale) {
       var windowW = width,
           windowH = height;
-
-      if(width === '100%') {
-        windowW = window.innerWidth;
-        windowH = window.innerHeight;
-      }
+      //TODO ipad
+//      if(width === '100%') {
+//        windowW = window.innerWidth;
+//        windowH = window.innerHeight;
+//      }
 
       var position = {
         x: (windowW - (dim.minX + dim.maxX)*scale)/2,

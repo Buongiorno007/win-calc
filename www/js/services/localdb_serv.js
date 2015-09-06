@@ -217,8 +217,8 @@
           'prop': 'name VARCHAR(255), country_id INTEGER, heat_transfer NUMERIC(10, 2), climatic_zone NUMERIC',
           'foreignKey': ', FOREIGN KEY(country_id) REFERENCES countries(id)'
         },
-        'user': {
-          'tableName': 'user',
+        'users': {
+          'tableName': 'users',
           'prop': //'created_at TIMESTAMP,' +
 //            ' updated_at TIMESTAMP,' +
             ' email VARCHAR(255),' +
@@ -426,6 +426,7 @@
             ' is_date_price_less INTEGER,' +
             ' is_date_price_more INTEGER,' +
             ' floor_id INTEGER,' +
+            ' floor_price NUMERIC,' +
             ' mounting_id INTEGER,' +
             ' is_instalment INTEGER,' +
             ' instalment_id INTEGER,' +

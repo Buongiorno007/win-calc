@@ -15,7 +15,6 @@
     var thisFactory = this;
 
     thisFactory.publicObj = {
-//      cleanAllTemplatesInOrder: cleanAllTemplatesInOrder,
 //      downloadOrder: downloadOrder,
 //      downloadProducts: downloadProducts,
 //      downloadAddElements: downloadAddElements,
@@ -39,16 +38,6 @@
 
     //============ methods ================//
 
-    //------ clean template in products
-//    function cleanAllTemplatesInOrder() {
-//      var productsQty = OrderStor.order.products.length,
-//          prod = 0;
-//      for(; prod < productsQty; prod++) {
-//        if(OrderStor.order.products[prod].template) {
-//          delete OrderStor.order.products[prod].template;
-//        }
-//      }
-//    }
 
 //    function downloadOrder() {
 //      localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {'order_number': GlobalStor.global.orderEditNumber}).then(function(result) {

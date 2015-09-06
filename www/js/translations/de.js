@@ -32,6 +32,7 @@
         SEND_ORDER_TXT: 'Sie wollen die Bestellung auf den Betrieb absenden?',
         NEW_TEMPLATE_TITLE: 'Template-Wechsel',
         TEMPLATE_CHANGES_LOST: 'Die Template-Änderungen gehen verloren! Fortfahren?',
+        PAGE_REFRESH: 'Das Neuladen der Seite zu Datenverlust führen!',
         SELECT: 'wählen',
         AND: 'und',
         OK: 'OK'

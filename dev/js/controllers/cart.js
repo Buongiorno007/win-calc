@@ -7,7 +7,7 @@
     .module('CartModule')
     .controller('CartCtrl', cartPageCtrl);
 
-  function cartPageCtrl($filter, globalConstants, GeneralServ, GlobalStor, OrderStor, UserStor, CartStor, CartServ) {
+  function cartPageCtrl($filter, globalConstants, GeneralServ, GlobalStor, OrderStor, ProductStor, UserStor, CartStor, CartServ) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -71,8 +71,8 @@
 
     //=========== from Main Page
     } else {
-      //-------- cleaning all templates in order.products
-//      CartServ.cleanAllTemplatesInOrder();
+      //----- cleaning product
+      ProductStor.product = ProductStor.setDefaultProduct();
       //---- collect all AddElements of Order
       CartServ.joinAllAddElements();
       //----------- start order price total calculation

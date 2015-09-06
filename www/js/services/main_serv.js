@@ -844,8 +844,6 @@
         OrderStor.order.products.push(ProductStor.product);
         OrderStor.order.products_qty = ProductStor.product.product_id;
         //TODO insertProductInLocalDB(ProductStor.product).then(function() {
-          //----- cleaning product
-          ProductStor.product = ProductStor.setDefaultProduct();
           deferred.resolve(1);
 //        });
       }
@@ -967,7 +965,7 @@
           //-------- insert product into local DB
           localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
           //-------- send to Server
-//          localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_products.tableName, productData);
+          localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_products.tableName, productData);
 
 
 
@@ -985,7 +983,7 @@
 
                 console.log('SEND ADD',addElementsData);
                 localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
-//                localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_addelements.tableName, addElementsData);
+                localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_addelements.tableName, addElementsData);
               }
             }
           }
@@ -1029,12 +1027,12 @@
       delete orderData.currRegionName;
       delete orderData.currCountryName;
       delete orderData.currFullLocation;
-      delete orderData.selectedFloorPrice;
+      delete orderData.orderPriceTOTALDis;
       delete orderData.selectedInstalmentPeriod;
       delete orderData.selectedInstalmentPercent;
 
       console.log('!!!!orderData!!!!', orderData);
-//      localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, orderData);
+      localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, orderData);
       localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
 
       //----- cleaning order
