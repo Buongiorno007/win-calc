@@ -113,7 +113,7 @@
             <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-discr unvisible">{{ templatesPanel.G.global.templates[templatesPanel.P.product.templateIndex].name }}</div>
           </div>
           <div hm-tap="templatesPanel.gotoConstructionPage();" show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-section unvisible">
-            <svg-template template="templatesPanel.P.product.template" template-width="templatesPanel.constants.svgTemplateIconBigWidth" template-height="templatesPanel.constants.svgTemplateIconBigHeight" type-construction="bigIcon"></svg-template>
+            <svg-template template="templatesPanel.P.product.template" template-width="templatesPanel.constants.svgTemplateIconBigWidth" template-height="templatesPanel.constants.svgTemplateIconBigHeight" type-construction="iconBig"></svg-template>
           </div>
           <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-footer unvisible">
             <div ng-show="templatesPanel.P.product.construction_type === 1" class="other-templates">
@@ -932,7 +932,7 @@
           <li ng-class="{'active': configMenu.G.global.activePanel == 1}" hm-tap="configMenu.selectConfigPanel(1)" class="item item-header">
             <div data-output="{{ 'mainpage.CONFIGMENU_CONFIGURATION' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
             <div ng-if="configMenu.G.global.isConfigMenu" show-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="icon unvisible">
-              <svg-template-icon template="configMenu.P.product.templateIcon" template-width="configMenu.constants.svgTemplateIconWidth" template-height="configMenu.constants.svgTemplateIconHeight"></svg-template-icon>
+              <svg-template template="configMenu.P.product.templateIcon" template-width="configMenu.constants.svgTemplateIconWidth" template-height="configMenu.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
             </div>
             <div data-output="{{ 'mainpage.CONFIGMENU_SIZING' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="name"></div>
             <div data-output="{{ configMenu.P.product.templateWidth }} {{ 'mainpage.MM' | translate }} *" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>

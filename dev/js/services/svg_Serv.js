@@ -231,26 +231,17 @@
     function setTemplateScale(dim, width, height, padding) {
       var windowW = width,
           windowH = height,
-          scale, del;
-      //TODO ipad
+          templateW = (dim.maxX - dim.minX),
+          templateH = (dim.maxY - dim.minY);
+
+//TODO ipad
 //      if(width === '100%') {
 //        windowW = window.innerWidth;
 //        windowH = window.innerHeight;
 //      }
-      var windowS = windowW * windowH,
-          templateS = (dim.maxX - dim.minX) * (dim.maxY - dim.minY);
-
-      if(windowS < templateS) {
-        scale = windowS/templateS;
-        del = (templateS - windowS)/templateS ;
-      } else {
-        scale = templateS/windowS;
-        del = (windowS - templateS)/windowS ;
-      }
-      scale = (scale * padding) + del/10;
-      //          console.log('scale = ', scale);
-      return scale;
+      return (templateW > templateH) ? (windowW/templateW) * padding : (windowH/templateH) * padding;
     }
+
 
 
     //----------- TRANSLATE
@@ -258,18 +249,15 @@
     function setTemplatePosition(dim, width, height, scale) {
       var windowW = width,
           windowH = height;
-      //TODO ipad
+//TODO ipad
 //      if(width === '100%') {
 //        windowW = window.innerWidth;
 //        windowH = window.innerHeight;
 //      }
-
       var position = {
         x: (windowW - (dim.minX + dim.maxX)*scale)/2,
         y: (windowH - (dim.minY + dim.maxY)*scale)/2
       };
-
-      //          console.log('position = ', position);
       return position;
     }
 

@@ -11,7 +11,7 @@
     .module('DesignModule')
     .factory('DesignServ', designFactory);
 
-  function designFactory($rootScope, $location, $timeout, $filter, $q, $cordovaProgress, MainServ, globalConstants, optionsServ, SVGServ, GlobalStor, DesignStor, ProductStor) {
+  function designFactory($rootScope, $location, $timeout, $filter, $q, MainServ, globalConstants, optionsServ, SVGServ, GlobalStor, DesignStor, ProductStor) {
 
     var thisFactory = this,
         sizeRectActClass = 'size-rect-active',
@@ -57,6 +57,8 @@
       hideSizeTools: hideSizeTools,
 
       stepBack: stepBack,
+      zoomSVG: zoomSVG,
+      dragSVG: dragSVG,
 
       //---- door
       downloadDoorConfig: downloadDoorConfig,
@@ -217,7 +219,6 @@
 
     //------ add to all imposts event on click
     function initAllImposts() {
-//      console.log('init imposts');
       DesignStor.design.selectedImpost.length = 0;
       d3.selectAll('#tamlateSVG [item_type=impost]')
         .each(function() {
@@ -2021,6 +2022,68 @@ console.log('createSash++++', glass);
       });
       DesignStor.design.designSteps.pop();
       hideSizeTools();
+    }
+
+
+    function zoomSVG() {
+      $(window).on('DOMMouseScroll mousewheel', function ( event ) {
+        event.preventDefault();
+        var svgGroup = d3.select('#tamlateSVG #main_group'),
+            currPosXSVG = svgGroup[0][0].attributes[2].nodeValue,
+            currPosYSVG = svgGroup[0][0].attributes[3].nodeValue,
+            oldScaleSVG = svgGroup[0][0].attributes[4].nodeValue,
+            newScaleSVG;
+
+        if( event.originalEvent.detail > 0 || event.originalEvent.wheelDelta < 0 ) {
+          //scroll down
+          newScaleSVG = oldScaleSVG * (1 + globalConstants.scaleCoef);
+        } else {
+          //scroll up
+          newScaleSVG = oldScaleSVG * (1 - globalConstants.scaleCoef);
+        }
+        svgGroup.attr({
+          'transform': 'translate(' + currPosXSVG + ', ' + currPosYSVG + ') scale('+ newScaleSVG +','+ newScaleSVG +')',
+          'scale_val': newScaleSVG
+        });
+        //prevent page fom scrolling
+        return false;
+      });
+
+    }
+
+
+    function dragSVG() {
+      var drag = d3.behavior.drag(),
+          svg = d3.select('#tamlateSVG'),
+          startPoint = {};
+
+      svg.call(drag);
+
+      drag.on('dragstart', function() {
+            startPoint.x = d3.event.sourceEvent.x;
+            startPoint.y = d3.event.sourceEvent.y;
+      }).on('drag', function() {
+        d3.event.sourceEvent.stopPropagation();
+        d3.event.sourceEvent.preventDefault();
+        if(startPoint.x !== d3.event.sourceEvent.x && startPoint.y !== d3.event.sourceEvent.y) {
+          var svgGroup = d3.select('#tamlateSVG #main_group'),
+              oldPosXSVG = svgGroup[0][0].attributes[2].nodeValue,
+              oldPosYSVG = svgGroup[0][0].attributes[3].nodeValue,
+              currScaleSVG = svgGroup[0][0].attributes[4].nodeValue,
+              distX = (+startPoint.x - d3.event.sourceEvent.x) * globalConstants.translateCoef,
+              distY = (+startPoint.y - d3.event.sourceEvent.y) * globalConstants.translateCoef,
+              newPosXSVG = +oldPosXSVG - distX,
+              newPosYSVG = +oldPosYSVG - distY;
+
+          startPoint.x = d3.event.sourceEvent.x;
+          startPoint.y = d3.event.sourceEvent.y;
+          svgGroup.attr({
+            'transform': 'translate(' + newPosXSVG + ', ' + newPosYSVG + ') scale('+ currScaleSVG +','+ currScaleSVG +')',
+            'pos_x': newPosXSVG,
+            'pos_y': newPosYSVG
+          });
+        }
+      });
     }
 
 

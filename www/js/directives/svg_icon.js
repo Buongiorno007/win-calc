@@ -40,11 +40,11 @@
             });
             points = SVGServ.collectAllPointsOut(template.details);
             dimMaxMin = getMaxMinCoord(points);
-            scale = setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
+            scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
 
             mainGroup = mainSVG.append("g").attr({
               'id': 'main_group',
-              'transform': 'translate(0,0) scale(' + scale + ')'
+              'transform': 'translate(0,0) scale('+ scale.x +','+ scale.y +')'
             });
 
             blocksQty = template.details.length;
@@ -70,29 +70,7 @@
               }
             }
             elem.html(container);
-            console.log('buildSVG done!!!!!!!!!', new Date(), new Date().getMilliseconds());
           }
-        }
-
-        function setTemplateScale(dim, width, height, padding) {
-          var windowW = width,
-              windowH = height,
-              scale, del;
-
-
-          var windowS = windowW * windowH,
-              templateS = (dim.maxX - dim.minX) * (dim.maxY - dim.minY);
-
-          if(windowS < templateS) {
-            scale = windowS/templateS;
-            del = (templateS - windowS)/templateS ;
-          } else {
-            scale = templateS/windowS;
-            del = (windowS - templateS)/windowS ;
-          }
-          scale = (scale * padding) + del/20;
-          //          console.log('scale = ', scale);
-          return scale;
         }
 
 

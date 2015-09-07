@@ -26,6 +26,8 @@
 //      svgTemplateHeight: 100,
       svgTemplateWidth: 1024,
       svgTemplateHeight: 728,
+      scaleCoef: 0.03,
+      translateCoef: 0.6,
 
       //---Edit Design
       squareLimit: 0.15,

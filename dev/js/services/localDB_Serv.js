@@ -175,7 +175,12 @@
         },
         'profile_system_folders': {
           'tableName': 'profile_system_folders',
-          'prop': 'name VARCHAR(255), factory_id INTEGER, position INTEGER',
+          'prop': 'name VARCHAR(255),' +
+            ' factory_id INTEGER,' +
+            ' position INTEGER,' +
+            ' link VARCHAR,' +
+            ' description VARCHAR,' +
+            ' img VARCHAR',
           'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id)'
         },
         'profile_systems': {
@@ -339,7 +344,10 @@
             ' is_group INTEGER,' +
             ' is_in_calculation INTEGER,' +
             ' base_type_id INTEGER,' +
-            ' position INTEGER',
+            ' position INTEGER,' +
+            ' link VARCHAR,' +
+            ' description VARCHAR,' +
+            ' img VARCHAR',
           'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(base_type_id) REFERENCES window_hardware_types_base(id)'
         },
         'window_hardwares': {
