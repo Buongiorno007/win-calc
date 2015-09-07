@@ -143,7 +143,9 @@
 
 
     function insertSash(sashType, event) {
-      event.srcEvent.stopPropagation();
+      console.log('INSER SASH ===', event, DesignStor.design.activeSubMenuItem);
+      event.preventDefault();
+//      event.srcEvent.stopPropagation();
       DesignStor.design.activeMenuItem = 0;
       DesignStor.design.activeSubMenuItem = 0;
       var glassQty = DesignStor.design.selectedGlass.length;
@@ -158,6 +160,7 @@
           DesignServ.createSash(sashType, DesignStor.design.selectedGlass[i]);
         }
       }
+      console.log('INSER SASH 22===', DesignStor.design.activeSubMenuItem);
     }
 
 

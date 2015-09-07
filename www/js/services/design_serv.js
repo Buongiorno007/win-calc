@@ -499,7 +499,7 @@
           blocks = DesignStor.design.templateSourceTEMP.details,
           blocksQty = blocks.length,
           minGlassSize = d3.min(glass.sizes);
-console.log('createSash++++', glass);
+console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
       if(minGlassSize >= globalConstants.minSizeLimit || glass.square >= globalConstants.squareLimit) {
 
         //---- save last step

@@ -8,29 +8,11 @@
             <div class="figure-icon sash-shape"></div>
             <div data-output="{{ 'construction.SASH_SHAPE' | translate }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
           </div>
-          <div id="sash-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 1}" class="edit_submenu">
-            <ul class="constr-shape-list">
-              <li ng-hide="designPage.P.product.constructionType === 4" hm-tap="designPage.insertSash(1, $event)" class="constr-shape-icon clean"></li>
-              <li hm-tap="designPage.insertSash(2, $event)" class="constr-shape-icon sash-left"></li>
-              <li hm-tap="designPage.insertSash(3, $event)" class="constr-shape-icon sash-right"></li>
-              <li hm-tap="designPage.insertSash(4, $event)" class="constr-shape-icon sash-up"></li>
-              <li hm-tap="designPage.insertSash(5, $event)" class="constr-shape-icon sash-down"></li>
-              <li hm-tap="designPage.insertSash(6, $event)" class="constr-shape-icon sash-right-up"></li>
-              <li hm-tap="designPage.insertSash(7, $event)" class="constr-shape-icon sash-left-up"></li>
-            </ul>
-          </div>
         </li>
         <li hm-tap="designPage.selectMenuItem(2)" class="figure-item">
           <div ng-class="{'selected': designPage.D.design.activeMenuItem == 2}" class="figure-item-block">
             <div class="figure-icon angel-shape"></div>
             <div data-output="{{ 'construction.ANGEL_SHAPE' | translate }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
-          </div>
-          <div id="angel-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 2}" class="edit_submenu">
-            <ul class="constr-shape-list">
-              <li hm-tap="designPage.insertCorner(1, $event)" class="constr-shape-icon clean"></li>
-              <li hm-tap="designPage.insertCorner(2, $event)" class="constr-shape-icon corner"></li>
-              <li hm-tap="designPage.insertCorner(3, $event)" class="constr-shape-icon corner-curv"></li>
-            </ul>
           </div>
         </li>
         <li hm-tap="designPage.selectMenuItem(3)" class="figure-item">
@@ -38,34 +20,11 @@
             <div class="figure-icon impost-shape"></div>
             <div data-output="{{ 'construction.IMPOST_SHAPE' | translate }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
           </div>
-          <div id="impost-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 3}" class="edit_submenu">
-            <ul class="constr-shape-list">
-              <li hm-tap="designPage.insertImpost(1, $event)" class="constr-shape-icon clean"></li>
-              <li hm-tap="designPage.insertImpost(2, $event)" class="constr-shape-icon impost-vert"></li>
-              <li hm-tap="designPage.insertImpost(3, $event)" class="constr-shape-icon impost-hor"></li>
-              <li hm-tap="designPage.insertImpost(4, $event)" class="constr-shape-icon impost-inc-hor"></li>
-              <li hm-tap="designPage.insertImpost(5, $event)" class="constr-shape-icon impost-inc-vert"></li>
-              <li hm-tap="designPage.insertImpost(6, $event)" class="constr-shape-icon impost-curv-right"></li>
-              <li hm-tap="designPage.insertImpost(7, $event)" class="constr-shape-icon impost-curv-left"></li>
-              <li hm-tap="designPage.insertImpost(8, $event)" class="constr-shape-icon impost-curv-up"></li>
-              <li hm-tap="designPage.insertImpost(9, $event)" class="constr-shape-icon impost-curv-down"></li>
-              <li hm-tap="designPage.insertImpost(10, $event)" class="constr-shape-icon impost-curv1"></li>
-              <li hm-tap="designPage.insertImpost(11, $event)" class="constr-shape-icon impost-curv3"></li>
-              <li hm-tap="designPage.insertImpost(12, $event)" class="constr-shape-icon impost-curv4"></li>
-              <li hm-tap="designPage.insertImpost(13, $event)" class="constr-shape-icon impost-curv2"></li>
-            </ul>
-          </div>
         </li>
         <li hm-tap="designPage.selectMenuItem(4)" class="figure-item">
           <div ng-class="{'selected': designPage.D.design.activeMenuItem == 4}" class="figure-item-block">
             <div class="figure-icon arch-shape"></div>
             <div data-output="{{ 'construction.ARCH_SHAPE' | translate }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="figure-label"></div>
-          </div>
-          <div id="arc-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 4}" class="edit_submenu">
-            <ul class="constr-shape-list">
-              <li hm-tap="designPage.insertArc(1, $event)" class="constr-shape-icon clean"></li>
-              <li hm-tap="designPage.insertArc(2, $event)" class="constr-shape-icon arc"></li>
-            </ul>
           </div>
         </li>
         <li hm-tap="designPage.selectMenuItem(5)" class="figure-item">
@@ -75,6 +34,47 @@
           </div>
         </li>
       </ul>
+      <div id="sash-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 1}" class="edit_submenu">
+        <ul class="constr-shape-list">
+          <li ng-hide="designPage.P.product.construction_type === 4" hm-tap="designPage.insertSash(1, $event)" class="constr-shape-icon clean"></li>
+          <li hm-tap="designPage.insertSash(2, $event)" class="constr-shape-icon sash-left"></li>
+          <li hm-tap="designPage.insertSash(3, $event)" class="constr-shape-icon sash-right"></li>
+          <li hm-tap="designPage.insertSash(4, $event)" class="constr-shape-icon sash-up"></li>
+          <li hm-tap="designPage.insertSash(5, $event)" class="constr-shape-icon sash-down"></li>
+          <li hm-tap="designPage.insertSash(6, $event)" class="constr-shape-icon sash-right-up"></li>
+          <li hm-tap="designPage.insertSash(7, $event)" class="constr-shape-icon sash-left-up"></li>
+        </ul>
+      </div>
+      <div id="angel-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 2}" class="edit_submenu">
+        <ul class="constr-shape-list">
+          <li hm-tap="designPage.insertCorner(1, $event)" class="constr-shape-icon clean"></li>
+          <li hm-tap="designPage.insertCorner(2, $event)" class="constr-shape-icon corner"></li>
+          <li hm-tap="designPage.insertCorner(3, $event)" class="constr-shape-icon corner-curv"></li>
+        </ul>
+      </div>
+      <div id="impost-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 3}" class="edit_submenu">
+        <ul class="constr-shape-list">
+          <li hm-tap="designPage.insertImpost(1, $event)" class="constr-shape-icon clean"></li>
+          <li hm-tap="designPage.insertImpost(2, $event)" class="constr-shape-icon impost-vert"></li>
+          <li hm-tap="designPage.insertImpost(3, $event)" class="constr-shape-icon impost-hor"></li>
+          <li hm-tap="designPage.insertImpost(4, $event)" class="constr-shape-icon impost-inc-hor"></li>
+          <li hm-tap="designPage.insertImpost(5, $event)" class="constr-shape-icon impost-inc-vert"></li>
+          <li hm-tap="designPage.insertImpost(6, $event)" class="constr-shape-icon impost-curv-right"></li>
+          <li hm-tap="designPage.insertImpost(7, $event)" class="constr-shape-icon impost-curv-left"></li>
+          <li hm-tap="designPage.insertImpost(8, $event)" class="constr-shape-icon impost-curv-up"></li>
+          <li hm-tap="designPage.insertImpost(9, $event)" class="constr-shape-icon impost-curv-down"></li>
+          <li hm-tap="designPage.insertImpost(10, $event)" class="constr-shape-icon impost-curv1"></li>
+          <li hm-tap="designPage.insertImpost(11, $event)" class="constr-shape-icon impost-curv3"></li>
+          <li hm-tap="designPage.insertImpost(12, $event)" class="constr-shape-icon impost-curv4"></li>
+          <li hm-tap="designPage.insertImpost(13, $event)" class="constr-shape-icon impost-curv2"></li>
+        </ul>
+      </div>
+      <div id="arc-shape-menu" ng-class="{'active': designPage.D.design.activeSubMenuItem == 4}" class="edit_submenu">
+        <ul class="constr-shape-list">
+          <li hm-tap="designPage.insertArc(1, $event)" class="constr-shape-icon clean"></li>
+          <li hm-tap="designPage.insertArc(2, $event)" class="constr-shape-icon arc"></li>
+        </ul>
+      </div>
       <div class="left-menu-footer">
         <div data-output="{{ 'construction.UNITS_DESCRIP' | translate }}" typing="{{ designPage.config.typing }}" typing-delay="{{ designPage.config.DELAY_SHOW_FIGURE_ITEM }}" class="footer-description"></div>
         <div hm-tap="designPage.setDefaultConstruction()" class="project-default">{{ 'construction.PROJECT_DEFAULT' | translate }}</div>
@@ -91,7 +91,7 @@
       <button hm-tap="designPage.G.global.activePanel = 0;designPage.designSaved()" class="construct-tools save-construction"></button>
       <button hm-tap="designPage.designCancel()" class="construct-tools close-construction"></button>
     </div>
-    <div ng-show="designPage.P.product.constructionType === 4" class="door-config-menu">
+    <div ng-show="designPage.P.product.construction_type === 4" class="door-config-menu">
       <button ng-class="{'active': designPage.config.isDoorConfig}" hm-tap="designPage.toggleDoorConfig()" class="door-config-btn"></button>
       <div class="door-config-label">{{ 'construction.DOOR_CONFIG_LABEL' | translate }}</div>
       <div class="door-config-description">{{ 'construction.DOOR_CONFIG_DESCTIPT' | translate }}: {{ designPage.D.design.doorShapeList[designPage.D.design.doorConfig.doorShapeIndex].shapeLabel }};</div>

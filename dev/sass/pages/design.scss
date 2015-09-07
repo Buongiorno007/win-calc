@@ -137,7 +137,7 @@ $door-config-content: $ipad-height - $door-config-header;
   @include transition(all 0.3s linear);
   @include roboto-lt(rem(36px), rem(65px));
   position: absolute;
-  top: 30%;
+//ipad  top: 30%;
   right: 0;
   padding: 0 rem(20px);
   border-radius: rem(16px);
@@ -148,24 +148,28 @@ $door-config-content: $ipad-height - $door-config-header;
 }
 
 #sash-shape-menu {
+  top: 3rem;
   width: 37.5rem;
   &.active {
     right: -37.5rem;
   }
 }
 #angel-shape-menu {
+  top: 17rem;
   width: 17.5rem;
   &.active {
     right: -17.5rem;
   }
 }
 #impost-shape-menu {
+  top: 31rem;
   width: 67.5rem;
   &.active {
     right: -67.5rem;
   }
 }
 #arc-shape-menu {
+  top: 44rem;
   width: 12.5rem;
   &.active {
     right: -12.5rem;
