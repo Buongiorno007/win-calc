@@ -10,7 +10,7 @@
     .module('HistoryModule')
     .factory('HistoryServ', historyFactory);
 
-  function historyFactory($location, $filter, $cordovaDialogs, $q, localDB, GeneralServ, MainServ, NavMenuServ, SVGServ, GlobalStor, OrderStor, ProductStor, UserStor, HistoryStor, CartStor) {
+  function historyFactory($location, $filter, $cordovaDialogs, $q, localDB, GeneralServ, MainServ, SVGServ, GlobalStor, OrderStor, ProductStor, UserStor, HistoryStor, CartStor) {
 
     var thisFactory = this,
         orderMasterStyle = 'master',
@@ -42,14 +42,14 @@
 
     //------ go to current calculations
     function toCurrentCalculation () {
-//      isCreatedNewProduct: 1
-//      isCreatedNewProject: 1
-      console.log(GlobalStor.global);
-//      if() {
-//        NavMenuServ.clickNewProject();
-//      }
-//      GeneralServ.setPreviosPage();
-//      $location.path('/main');
+      //------- set previos Page
+      GeneralServ.setPreviosPage();
+      if(GlobalStor.global.isCreatedNewProduct && GlobalStor.global.isCreatedNewProject) {
+        $location.path('/main');
+      } else {
+        //-------- CREATE NEW PROJECT
+        MainServ.createNewProject();
+      }
     }
 
 

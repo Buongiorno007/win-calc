@@ -188,7 +188,7 @@
               <button ng-hide="order.order_style == 'done'" hm-tap="historyPage.makeOrderCopy(order.order_style, order.order_number)" class="account-tool account-copy-btn"></button>
               <button hm-tap="" class="account-tool account-print-btn"></button>
               <button ng-hide="order.order_style == 'done'" hm-tap="historyPage.clickDeleteOrder(order.order_type, order.order_number, $event)" class="account-delete-btn"></button>
-              <button ng-hide="order.order_style == 'done'" hm-tap="historyPage.editOrder(order.order_number)" class="account-change-btn">{{ 'common_words.CHANGE' | translate }}</button>
+              <!--button.account-change-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.editOrder(order.order_number)") {{ 'common_words.CHANGE' | translate }}-->
             </div>
             <div ng-show="(orders | filter:historyPage.H.history.searchingWord).length == 0" class="empty-search-result">
               <div class="result-icon"></div>

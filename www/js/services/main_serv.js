@@ -757,7 +757,7 @@
       //------- set current Discounts
       setCurrDiscounts();
       //------- set new templates
-      prepareTemplates(ProductStor.product.constructionType).then(function() {
+      prepareTemplates(ProductStor.product.construction_type).then(function() {
         prepareMainPage();
         GlobalStor.global.isLoader = 0;
         GlobalStor.global.isChangedTemplate = false;

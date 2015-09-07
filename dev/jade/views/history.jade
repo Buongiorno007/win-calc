@@ -108,7 +108,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
               button.account-tool.account-copy-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.makeOrderCopy(order.order_style, order.order_number)")
               button.account-tool.account-print-btn(hm-tap="")
               button.account-delete-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.clickDeleteOrder(order.order_type, order.order_number, $event)")
-              button.account-change-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.editOrder(order.order_number)") {{ 'common_words.CHANGE' | translate }}
+              //button.account-change-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.editOrder(order.order_number)") {{ 'common_words.CHANGE' | translate }}
 
             .empty-search-result(ng-show="(orders | filter:historyPage.H.history.searchingWord).length == 0")
               .result-icon

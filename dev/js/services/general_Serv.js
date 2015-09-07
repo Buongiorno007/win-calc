@@ -19,9 +19,9 @@
 
     //TODO desktop
     //-------- blocking to refresh page
-    $window.onbeforeunload = function (){
-      return $filter('translate')('common_words.PAGE_REFRESH');
-    };
+//    $window.onbeforeunload = function (){
+//      return $filter('translate')('common_words.PAGE_REFRESH');
+//    };
 
 
     return thisFactory.publicObj;
