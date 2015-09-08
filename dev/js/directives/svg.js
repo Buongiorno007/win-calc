@@ -38,8 +38,6 @@
                 position = {x: 0, y: 0},
                 mainSVG, mainGroup, elementsGroup, dimGroup, points, dimMaxMin, scale, blocksQty;
 
-            //------- delete old SVG
-//            d3.select('#tamlateSVG').remove();
 
             if (scope.typeConstruction === 'edit') {
               padding = 0.6;
@@ -58,7 +56,6 @@
               mainSVG.attr('id', 'tamlateSVG');
             }
 
-
             points = SVGServ.collectAllPointsOut(template.details);
             dimMaxMin = getMaxMinCoord(points);
             scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
@@ -68,17 +65,24 @@
 
             mainGroup = mainSVG.append("g").attr({
               'id': 'main_group',
-              'transform': 'translate(' + position.x + ', ' + position.y + ') scale('+ scale +','+ scale +')',
-              'pos_x': position.x,
-              'pos_y': position.y,
-              'scale_val': scale
+              'transform': 'translate(' + position.x + ', ' + position.y + ') scale('+ scale +','+ scale +')'
             });
+
+            if (scope.typeConstruction === 'edit') {
+              mainSVG.call(d3.behavior.zoom()
+                .translate([position.x, position.y])
+                .scale(scale)
+                .scaleExtent([0, 8])
+                .on("zoom", zooming));
+            }
+
             elementsGroup = mainGroup.append("g").attr({
               'id': 'elem_group'
             });
             dimGroup = mainGroup.append("g").attr({
               'id': 'dim_group'
             });
+
 
             //          console.log('++++++ template +++++++', mainGroup);
             blocksQty = template.details.length;
@@ -191,13 +195,14 @@
               DesignServ.initAllGlass();
               DesignServ.initAllArcs();
               DesignServ.initAllDimension();
-              DesignServ.zoomSVG();
-              DesignServ.dragSVG();
             }
           }
         }
 
 
+        function zooming() {
+          d3.select('#main_group').attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+        }
 
 
         function setMarkerArrow(defs, id, view, refX, refY, angel, w, h, path) {
