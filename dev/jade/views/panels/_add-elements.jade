@@ -195,8 +195,7 @@
     button.scheme-info.unvisible(show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}", hm-tap="elementsPanel.showWindowScheme()")
 
     .scheme-view-dialog(ng-class="{'active': elementsPanel.A.aux.isWindowSchemeDialog}")
-      .template-scheme
-        svg-template(template="elementsPanel.P.product.template", template-width="elementsPanel.constants.svgTemplateIconBigWidth", template-height="elementsPanel.constants.svgTemplateIconBigHeight", type-construction="bigIcon")
+      svg-template(template="elementsPanel.P.product.template", template-width="elementsPanel.constants.svgTemplateIconBigWidth", template-height="elementsPanel.constants.svgTemplateIconBigHeight", type-construction="iconBig")
       .close-dialog(hm-tap="elementsPanel.closeWindowScheme()")
 
     button.view-switch-tab.unvisible(show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}", hm-tap="elementsPanel.openAddElementListView()") {{ 'add_elements.LIST_VIEW' | translate }}

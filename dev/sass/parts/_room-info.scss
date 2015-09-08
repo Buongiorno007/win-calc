@@ -76,7 +76,7 @@
     }
   }
   .coeff-title {
-    @include roboto-lt(rem(32px), rem(36px));
+    @include roboto-lt(rem(32px), rem(40px));
     float: left;
     width: rem(250px);
     max-height: 7rem;
@@ -95,7 +95,7 @@
     width: 90%;
     height: 80%;
     display: block;
-    margin: 0 auto;
+    margin: 0 1rem;
     padding: 2rem;
     border: none;
     border-radius: rem($radius_general-small_button);

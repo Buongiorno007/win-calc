@@ -18,7 +18,7 @@
         designSteps: [],
         activeMenuItem: 0,
         activeSubMenuItem: 0,
-
+        isImpostDelete: 0,
         //----- Edit
         selectedGlass: [],
         selectedCorner: [],

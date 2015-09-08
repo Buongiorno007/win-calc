@@ -186,7 +186,7 @@
 
     //------- Select Add Element Parameter
     function initAddElementTools(toolsId, elementIndex) {
-      console.log('Tools!+', toolsId, elementIndex);
+//      console.log('Tools!+', toolsId, elementIndex);
       if(AuxStor.aux.auxParameter === AuxStor.aux.isFocusedAddElement+'-'+toolsId+'-'+elementIndex) {
         desactiveAddElementParameters();
         AuxStor.aux.currentAddElementId = false;

@@ -146,7 +146,8 @@
                   ],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 //------- Level 2
                 {
@@ -159,7 +160,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -171,11 +173,11 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 }
               ]
             },
-            //                points: [//1:1 = 887
 
             {
               name: 'Трехстворчатое',
@@ -212,7 +214,8 @@
                   ],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 //------- Level 2
                 {
@@ -225,7 +228,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -245,7 +249,8 @@
                     impostIn : []
                   },
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 //------- Level 3
                 {
@@ -259,6 +264,7 @@
                   pointsIn: [],
                   parts: [],
                   glassId: 0,
+                  glassTxt: '',
                   gridId: 0,
                   openDir: [1, 4],
                   handlePos: 4
@@ -273,7 +279,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 }
               ]
             },
@@ -315,7 +322,8 @@
                   ],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
 //------- Level 2
                 {
@@ -336,7 +344,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -348,7 +357,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
 //------- Level 3
                 {
@@ -361,7 +371,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -373,7 +384,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 }
               ]
             },
@@ -413,7 +425,8 @@
                   ],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
 //------- Level 2
                 {
@@ -426,7 +439,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -446,7 +460,8 @@
                     impostIn : []
                   },
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
 //------- Level 3
                 {
@@ -459,7 +474,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -471,7 +487,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 }
               ]
             },
@@ -511,7 +528,8 @@
                   ],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
 //------- Level 2
                 {
@@ -532,7 +550,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -552,7 +571,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
 //------- Level 3
                 {
@@ -565,7 +585,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -577,7 +598,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -589,7 +611,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -601,7 +624,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 }
               ]
             },
@@ -641,7 +665,8 @@
                   ],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 //------- Level 2
                 {
@@ -654,7 +679,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -666,7 +692,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 }
               ]
             },
@@ -707,7 +734,8 @@
                   ],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
 //------- Level 2
                 {
@@ -720,7 +748,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -740,7 +769,8 @@
                     impostIn : []
                   },
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
 //------- Level 3
                 {
@@ -753,7 +783,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -765,7 +796,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 }
               ]
             },
@@ -806,7 +838,8 @@
                   ],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
 //------- Level 2
                 {
@@ -819,7 +852,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -839,7 +873,8 @@
                     impostIn : []
                   },
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
 //------- Level 3
                 {
@@ -852,7 +887,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -872,7 +908,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
 //------- Level 4
                 {
@@ -885,7 +922,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -897,7 +935,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 }
               ]
             },
@@ -939,7 +978,8 @@
                   ],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
 //------- Level 2
                 {
@@ -960,7 +1000,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -980,7 +1021,8 @@
                     impostIn : []
                   },
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
 //------- Level 3
                 {
@@ -993,7 +1035,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -1005,7 +1048,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -1017,7 +1061,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -1037,7 +1082,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
 //------- Level 4
                 {
@@ -1050,7 +1096,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -1062,7 +1109,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 }
               ]
             },
@@ -1104,7 +1152,8 @@
                   ],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
 //------- Level 2
                 {
@@ -1125,7 +1174,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -1145,7 +1195,8 @@
                     impostIn : []
                   },
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
 //------- Level 3
                 {
@@ -1158,7 +1209,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -1178,7 +1230,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -1190,7 +1243,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -1210,7 +1264,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
 //------- Level 4
                 {
@@ -1223,7 +1278,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -1235,7 +1291,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -1247,7 +1304,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -1259,7 +1317,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 }
               ]
             }
@@ -1301,7 +1360,8 @@
                   ],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -1319,6 +1379,7 @@
                   pointsIn: [],
                   parts: [],
                   glassId: 0,
+                  glassTxt: '',
                   gridId: 0,
                   openDir: [1, 4],
                   handlePos: 4
@@ -1372,7 +1433,8 @@
                   ],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
 //------- Level 2
                 {
@@ -1385,7 +1447,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -1405,23 +1468,22 @@
                     impostIn : []
                   },
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 },
 //------- Level 3
                 {
                   type:'skylight',
                   id:'block_4',
                   level: 3,
-                  blockType: 'sash',
+                  blockType: 'frame',
                   parent: 'block_3',
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
                   glassId: 0,
-                  gridId: 0,
-                  openDir: [1, 4],
-                  handlePos: 4
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',
@@ -1433,7 +1495,8 @@
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
-                  glassId: 0
+                  glassId: 0,
+                  glassTxt: ''
                 }
               ]
             }
@@ -1476,6 +1539,7 @@
                   pointsIn: [],
                   parts: [],
                   glassId: 0,
+                  glassTxt: '',
                   gridId: 0,
                   openDir: [1, 4],
                   handlePos: 4

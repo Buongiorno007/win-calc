@@ -68,13 +68,14 @@
 
   .template-footer {
     @include display-flex();
-    @include flex-flow(row nowrap);
-    @include justify-content(center);
+//    @include flex-flow(row nowrap);
+//    @include justify-content(center);
   }
 
   .other-templates {
     @include display-flex();
     @include overflow-scroll();
+    min-height: 14rem;
     overflow-y: hidden;
     overflow-x: auto;
   }

@@ -201,7 +201,7 @@
 
       thisObj.dimension = initDimensions(thisObj.details);
 
-//      console.log('END++++', thisObj);
+      console.log('TEMPLATE END++++', thisObj);
 //      console.log('svg finish', new Date(), new Date().getMilliseconds());
 //      console.log('------------------------------------------------------');
       defer.resolve(thisObj);
@@ -231,17 +231,9 @@
 
     //----------- SCALE
 
-    function setTemplateScale(dim, width, height, padding) {
-      var windowW = width,
-          windowH = height,
-          templateW = (dim.maxX - dim.minX),
+    function setTemplateScale(dim, windowW, windowH, padding) {
+      var templateW = (dim.maxX - dim.minX),
           templateH = (dim.maxY - dim.minY);
-
-//TODO ipad
-//      if(width === '100%') {
-//        windowW = window.innerWidth;
-//        windowH = window.innerHeight;
-//      }
       return (templateW > templateH) ? (windowW/templateW) * padding : (windowH/templateH) * padding;
     }
 
@@ -249,14 +241,7 @@
 
     //----------- TRANSLATE
 
-    function setTemplatePosition(dim, width, height, scale) {
-      var windowW = width,
-          windowH = height;
-//TODO ipad
-//      if(width === '100%') {
-//        windowW = window.innerWidth;
-//        windowH = window.innerHeight;
-//      }
+    function setTemplatePosition(dim, windowW, windowH, scale) {
       var position = {
         x: (windowW - (dim.minX + dim.maxX)*scale)/2,
         y: (windowH - (dim.minY + dim.maxY)*scale)/2

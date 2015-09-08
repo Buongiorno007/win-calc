@@ -4,6 +4,10 @@
   padding: rem(50px) rem(80px);
   .lamination-block {
     margin-bottom: rem(100px);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
   .lamination-title {
     @include roboto-bd(rem(48px));

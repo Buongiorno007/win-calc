@@ -225,6 +225,7 @@
               impost.classed('frame-active', true);
               //------- active impost menu and submenu
               DesignStor.design.activeMenuItem = 3;
+              DesignStor.design.isImpostDelete = 1;
               DesignStor.design.activeSubMenuItem = 3;
               hideCornerMarks();
               deselectAllArc();
@@ -238,6 +239,7 @@
                 DesignStor.design.activeMenuItem = 0;
                 DesignStor.design.activeSubMenuItem = 0;
                 $rootScope.$apply();
+                DesignStor.design.isImpostDelete = 0;
               }
             }
           });
@@ -1063,15 +1065,15 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
     function createImpost(impType, glassObj) {
       var glass = glassObj.__data__,
           blockID = glassObj.attributes.block_id.nodeValue,
-//          minGlassSize = d3.min(glass.sizes),
+          minGlassSize = d3.min(glass.sizes),
           blocks = DesignStor.design.templateTEMP.details,
           blocksQty = blocks.length,
           blocksSource = DesignStor.design.templateSourceTEMP.details,
           angel, dimType = 0, isImpCurv = 0, positionQ, currBlockInd, curBlockN, lastBlockN, impVector, crossPoints;
 
 
-//      if(minGlassSize >= globalConstants.minSizeLimit || glass.square >= globalConstants.squareLimit) {
-      if(glass.square >= globalConstants.squareLimit) {
+      if(minGlassSize >= globalConstants.minSizeLimit && glass.square >= globalConstants.squareLimit) {
+//      if(glass.square >= globalConstants.squareLimit) {
 
         //---- save last step
         DesignStor.design.designSteps.push(angular.copy(DesignStor.design.templateSourceTEMP));
@@ -1310,7 +1312,8 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
         pointsOut: [],
         pointsIn: [],
         parts: [],
-        glassId: blocks[blockIndex].glassId
+        glassId: blocks[blockIndex].glassId,
+        glassTxt: blocks[blockIndex].glassTxt
       };
       //---- add Id new block in parent block
       blocks[blockIndex].children.push(newBlock.id);

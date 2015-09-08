@@ -3,8 +3,8 @@ $door-config-content: $ipad-height - $door-config-header;
 
 .construction-container {
   position: relative;
-  width: rem($ipad-width);
-  height: rem($ipad-height);
+//  width: rem($ipad-width);
+//  height: rem($ipad-height);
 }
 
 
@@ -137,57 +137,37 @@ $door-config-content: $ipad-height - $door-config-header;
   @include transition(all 0.3s linear);
   @include roboto-lt(rem(36px), rem(65px));
   position: absolute;
-//ipad  top: 30%;
-  right: 0;
+  display: flex;
+  left: -60rem;
   padding: 0 rem(20px);
   border-radius: rem(16px);
   background-color: #242424;
   color: #fff;
   cursor: pointer;
   z-index: 5;
+
+  &.active {
+    left: 14rem;
+  }
 }
 
 #sash-shape-menu {
   top: 3rem;
-  width: 37.5rem;
-  &.active {
-    right: -37.5rem;
-  }
 }
 #angel-shape-menu {
   top: 17rem;
-  width: 17.5rem;
-  &.active {
-    right: -17.5rem;
-  }
 }
 #impost-shape-menu {
   top: 31rem;
-  width: 67.5rem;
-  &.active {
-    right: -67.5rem;
-  }
 }
 #arc-shape-menu {
   top: 44rem;
-  width: 12.5rem;
-  &.active {
-    right: -12.5rem;
-  }
 }
 
-
-ul.constr-shape-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-li.constr-shape-icon {
+.constr-shape-icon {
   @include font-icon(rem(50px), rem(80px));
   width: rem(80px);
   height: rem(80px);
-  display: inline-block;
   float: left;
   padding-right: 2px;
   border-right: 1px solid $main_gray_btn;
@@ -270,8 +250,8 @@ li.constr-shape-icon {
 // Construction SVG
 
 .construction-block {
-  width: rem($ipad-width);
-  height: rem($ipad-height);
+//  width: rem($ipad-width);
+//  height: rem($ipad-height);
   //padding: rem(250px);
   text-align: center;
   //overflow: auto;
@@ -388,7 +368,7 @@ li.constr-shape-icon {
     border-left: 1px solid $main_gray_btn;
     &.active {
 //TODO ipad      bottom: 0;
-      bottom: 6rem;
+      bottom: 2rem;
     }
   }
 

@@ -111,6 +111,9 @@
         //-------- delete selected glasses
         DesignServ.deselectAllGlass();
         DesignServ.deselectAllArc();
+        $timeout(function(){
+          DesignStor.design.isImpostDelete = 0;
+        }, 300);
       }
     }
 
