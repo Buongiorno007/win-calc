@@ -296,15 +296,13 @@
         var typesQty = types.length;
         if (typesQty) {
           GlobalStor.global.hardwareTypes = angular.copy(types);
-
-          localDB.selectLocalDB(localDB.tablesLocalDB.window_hardware_features.tableName).then(function (ware) {
-            if (ware.length) {
-              GlobalStor.global.hardwares = angular.copy(ware);
-              defer.resolve(1);
-            } else {
-              defer.resolve(0);
-            }
-          });
+        }
+      });
+      //------- get all Hardware
+      localDB.selectLocalDB(localDB.tablesLocalDB.window_hardware_groups.tableName).then(function (ware) {
+        if (ware.length) {
+          GlobalStor.global.hardwares = angular.copy(ware);
+          defer.resolve(1);
         } else {
           defer.resolve(0);
         }
@@ -317,38 +315,43 @@
       var wareTypeQty = GlobalStor.global.hardwareTypes.length,
           waresQty = GlobalStor.global.hardwares.length,
           wares = [], wareOther = [], typeDelete = [];
-      for(var t = 0; t < wareTypeQty; t++) {
-        var ware = [];
-        for(var w = 0; w < waresQty; w++) {
-          if(GlobalStor.global.hardwareTypes[t].id === GlobalStor.global.hardwares[w].hardware_group_id) {
-            ware.push(angular.copy(GlobalStor.global.hardwares[w]));
+
+      if(wareTypeQty) {
+        for(var t = 0; t < wareTypeQty; t++) {
+          var ware = [];
+          for(var w = 0; w < waresQty; w++) {
+            if(GlobalStor.global.hardwareTypes[t].id === GlobalStor.global.hardwares[w].hardware_group_id) {
+              ware.push(angular.copy(GlobalStor.global.hardwares[w]));
+            }
+          }
+          if(ware.length) {
+            wares.push(ware);
+          } else {
+            typeDelete.push(t);
           }
         }
-        if(ware.length) {
-          wares.push(ware);
-        } else {
-          typeDelete.push(t);
+        //------- delete empty groups
+        var delQty = typeDelete.length;
+        if(delQty) {
+          while(--delQty > -1) {
+            GlobalStor.global.hardwareTypes.splice(typeDelete[delQty], 1);
+          }
+        }
+      } else if(waresQty) {
+        //------ collect other hardware no include in group
+        for(var w = 0; w < waresQty; w++) {
+          if(GlobalStor.global.hardwares[w].hardware_group_id === 0) {
+            wareOther.push(angular.copy(GlobalStor.global.hardwares[w]));
+          }
+        }
+        if(wareOther.length) {
+          wares.push(wareOther);
+          GlobalStor.global.hardwareTypes.push({
+            name: $filter('translate')('panels.OTHER_TYPE')
+          });
         }
       }
-      //------- delete empty groups
-      var delQty = typeDelete.length;
-      if(delQty) {
-        while(--delQty > -1) {
-          GlobalStor.global.hardwareTypes.splice(typeDelete[delQty], 1);
-        }
-      }
-      //------ collect other hardware no include in group
-      for(var w = 0; w < waresQty; w++) {
-        if(GlobalStor.global.hardwares[w].hardware_group_id === 0) {
-          wareOther.push(angular.copy(GlobalStor.global.hardwares[w]));
-        }
-      }
-      if(wareOther.length) {
-        wares.push(wareOther);
-        GlobalStor.global.hardwareTypes.push({
-          name: $filter('translate')('panels.OTHER_TYPE')
-        });
-      }
+
       GlobalStor.global.hardwares = wares;
     }
 

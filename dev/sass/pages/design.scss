@@ -136,8 +136,8 @@ $door-config-content: $ipad-height - $door-config-header;
 .edit_submenu {
   @include transition(all 0.3s linear);
   @include roboto-lt(rem(36px), rem(65px));
+  @include display-flex();
   position: absolute;
-  display: flex;
   left: -60rem;
   padding: 0 rem(20px);
   border-radius: rem(16px);
@@ -320,9 +320,9 @@ $door-config-content: $ipad-height - $door-config-header;
   .right-menu-footer {
     position: absolute;
     right: 0;
-    bottom: 0;
+//    bottom: 0;
     width: rem(478px);
-    height: rem(510px);
+//    height: rem(510px);
   }
   .door-config-menu {
     position: absolute;

@@ -162,7 +162,10 @@
 
             if(scope.typeConstruction !== 'icon') {
               //--------- dimension
-              var defs = dimGroup.append("defs"), dimXQty = template.dimension.dimX.length, dimYQty = template.dimension.dimY.length, dimQQty = template.dimension.dimQ.length;
+              var defs = dimGroup.append("defs"),
+                  dimXQty = template.dimension.dimX.length,
+                  dimYQty = template.dimension.dimY.length,
+                  dimQQty = template.dimension.dimQ.length;
 
               //----- horizontal marker arrow
               setMarkerArrow(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z');

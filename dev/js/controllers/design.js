@@ -296,6 +296,9 @@
           for (var i = 0; i < impostsQty; i++) {
             DesignServ.deleteImpost(DesignStor.design.selectedImpost[i]);
           }
+          $timeout(function(){
+            DesignStor.design.isImpostDelete = 0;
+          }, 300);
         }
       } else {
         if(!impostsQty) {

@@ -201,7 +201,7 @@
             ' position INTEGER,' +
             ' country VARCHAR(100),' +
             ' cameras INTEGER,' +
-            ' profile_system_group_id	INTEGER,' +
+//            ' profile_system_group_id	INTEGER,' +
             ' heat_coeff INTEGER,' +
             ' noise_coeff INTEGER,' +
             ' air_coeff INTEGER',
@@ -343,15 +343,18 @@
             ' short_name VARCHAR(100),' +
             ' factory_id INTEGER,' +
             ' is_editable INTEGER,' +
-            ' parent_id INTEGER,' +
             ' is_group INTEGER,' +
             ' is_in_calculation INTEGER,' +
             ' base_type_id INTEGER,' +
             ' position INTEGER,' +
+            ' producer VARCHAR(255),' +
+            ' country VARCHAR(255),' +
+            ' noise_coeff INTEGER,' +
+            ' heat_coeff INTEGER,' +
             ' link VARCHAR,' +
             ' description VARCHAR,' +
             ' img VARCHAR',
-          'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(base_type_id) REFERENCES window_hardware_types_base(id)'
+          'foreignKey': ', FOREIGN KEY(base_type_id) REFERENCES window_hardware_types_base(id)'
         },
         'window_hardwares': {
           'tableName': 'window_hardwares',
@@ -372,21 +375,20 @@
             ' window_hardware_feature_id INTEGER',
           'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(window_hardware_type_id) REFERENCES window_hardware_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(window_hardware_group_id) REFERENCES window_hardware_groups(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id)'
         },
-        'window_hardware_features': {
-          'tableName': 'window_hardware_features',
-          'prop': 'hardware_group_id INTEGER,' +
-            ' name VARCHAR(255),' +
-            ' producer VARCHAR(255),' +
-            ' country VARCHAR(255),' +
-            ' logo_url TEXT,' +
-            ' link VARCHAR(255),' +
-            ' noise_coeff INTEGER,' +
-            ' heat_coeff INTEGER,' +
-            ' air_coeff INTEGER,' +
-            ' factory_id INTEGER,' +
-            ' is_active INTEGER',
-          'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id)'
-        },
+//        'window_hardware_features': {
+//          'tableName': 'window_hardware_features',
+//          'prop': 'hardware_group_id INTEGER,' +
+//            ' name VARCHAR(255),' +
+//            ' producer VARCHAR(255),' +
+//            ' country VARCHAR(255),' +
+//            ' logo_url TEXT,' +
+//            ' link VARCHAR(255),' +
+//            ' noise_coeff INTEGER,' +
+//            ' heat_coeff INTEGER,' +
+//            ' air_coeff INTEGER,' +
+//            ' is_active INTEGER',
+//          'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id)'
+//        },
         'window_hardware_colors': {
           'tableName': 'window_hardware_colors',
           'prop': 'name VARCHAR(255)',
@@ -1920,21 +1922,23 @@
                   for (var j = 0; j < priceObj.framesIds.length; j++) {
                     var priceTmp = 0;
                     if(priceObj.framesIds[j].elemLists.parent_list_id == construction.frameId){
-                      var value = self.getValueByRule(((construction.framesSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning)/1000), priceObj.framesIds[j].elemLists.value, priceObj.framesIds[j].elemLists.rules_type_id);
-                      priceObj.framesIds[j].elemLists.newValue = value;
-                      if(priceObj.framesIds[j].elemLists.rules_type_id === 3){
-                        priceTmp += (Math.round(((construction.framesSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning)/1000)*priceObj.framesIds[j].elemLists.value)*priceObj.framesIds[j].priceEl.price)*(1+(priceObj.framesIds[j].priceEl.waste/100));
-                      } else if(priceObj.framesIds[j].elemLists.rules_type_id === 2 || priceObj.framesIds[j].elemLists.rules_type_id === 4 || priceObj.framesIds[j].elemLists.rules_type_id === 15){
-                        priceTmp += (priceObj.framesIds[j].elemLists.value * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
-                      } else if (priceObj.framesIds[j].elemLists.rules_type_id === 1){
-                        priceTmp += (((construction.framesSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value*1000))/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
-                      } else {
-                        priceTmp += (((construction.framesSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning)/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
-                      }
-                      if (priceObj.currentCurrency.id != priceObj.framesIds[j].priceEl.currency_id){
-                        for (var k = 0; k < priceObj.currencies.length; k++) {
-                          if(priceObj.currencies[k].id == priceObj.framesIds[j].priceEl.currency_id){
-                            priceTmp = priceTmp * priceObj.currencies[k].value;
+                      if(priceObj.framesIds[j].priceEl) {
+                        var value = self.getValueByRule(((construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning) / 1000), priceObj.framesIds[j].elemLists.value, priceObj.framesIds[j].elemLists.rules_type_id);
+                        priceObj.framesIds[j].elemLists.newValue = value;
+                        if (priceObj.framesIds[j].elemLists.rules_type_id === 3) {
+                          priceTmp += (Math.round(((construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning) / 1000) * priceObj.framesIds[j].elemLists.value) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
+                        } else if (priceObj.framesIds[j].elemLists.rules_type_id === 2 || priceObj.framesIds[j].elemLists.rules_type_id === 4 || priceObj.framesIds[j].elemLists.rules_type_id === 15) {
+                          priceTmp += (priceObj.framesIds[j].elemLists.value * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
+                        } else if (priceObj.framesIds[j].elemLists.rules_type_id === 1) {
+                          priceTmp += (((construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value * 1000)) / 1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
+                        } else {
+                          priceTmp += (((construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning) / 1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
+                        }
+                        if (priceObj.currentCurrency.id != priceObj.framesIds[j].priceEl.currency_id) {
+                          for (var k = 0; k < priceObj.currencies.length; k++) {
+                            if (priceObj.currencies[k].id == priceObj.framesIds[j].priceEl.currency_id) {
+                              priceTmp = priceTmp * priceObj.currencies[k].value;
+                            }
                           }
                         }
                       }

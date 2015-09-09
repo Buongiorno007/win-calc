@@ -6868,8 +6868,9 @@ tr.factory_item {
   -webkit-transition: all 0.3s linear;
   transition: all 0.3s linear;
   font: normal 2.25rem/4.0625rem roboto-light, sans-serif;
-  position: absolute;
+  display: -webkit-flex;
   display: flex;
+  position: absolute;
   left: -60rem;
   padding: 0 1.25rem;
   border-radius: 1rem;
@@ -7099,9 +7100,7 @@ tr.factory_item {
 .right-menu-footer {
   position: absolute;
   right: 0;
-  bottom: 0;
   width: 29.875rem;
-  height: 31.875rem;
 }
 
 /* line 327, ../../dev/sass/pages/design.scss */

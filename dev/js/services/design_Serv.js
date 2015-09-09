@@ -301,17 +301,18 @@
 
             //========= show Dimensions
 
-            hideAllDimension();
+//            hideAllDimension();
             var parentID = glass[0][0].attributes.parent_id.nodeValue,
                 blockID = glass[0][0].attributes.block_id.nodeValue,
                 currDimId = (parentID === 'block_0') ? blockID : parentID;
             DesignStor.design.isDimAnimate = 1;
-            showCurrentDimLevel(currDimId);
-            if(DesignStor.design.isDimAnimate && parentID !== 'block_0') {
-              $timeout(function () {
-                showNextDimensionLevel(currDimId, delayDimShow);
-              }, delayDimShow);
-            }
+//            showCurrentDimLevel(currDimId);
+            showCurrentDimLevel(blockID);
+//            if(DesignStor.design.isDimAnimate && parentID !== 'block_0') {
+//              $timeout(function () {
+//                showNextDimensionLevel(currDimId, delayDimShow);
+//              }, delayDimShow);
+//            }
           });
 
 
@@ -319,20 +320,6 @@
           glass.on("mouseup", function() {
             DesignStor.design.isDimAnimate = 0;
           });
-
-          /*
-           //for mouse
-           item.on("mousedown", function() {
-           timeout = setTimeout(function() {
-           item.style("stroke-width", 10);
-           }, delay)
-           })
-           .on("mouseup", function() {
-           clearTimeout(timeout);
-           item.style("stroke-width", 1);
-           })
-           */
-
         });
     }
 
