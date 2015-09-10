@@ -15,12 +15,12 @@
 
     thisCtrl.config = {
       rooms: [],
-      DELAY_SHOW_ROOM: 5 * globalConstants.STEP
+      DELAY_SHOW_ROOM: 2*globalConstants.STEP
     };
 
 
     //TODO must be from Server
-    for(var r = 0; r < 16; r++) {
+    for(var r = 0; r < 13; r++) {
       var roomObj = {id: r};
       thisCtrl.config.rooms.push(roomObj);
     }

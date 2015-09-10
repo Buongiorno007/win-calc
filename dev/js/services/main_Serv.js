@@ -15,11 +15,9 @@
       saveUserEntry: saveUserEntry,
       createOrderData: createOrderData,
       setCurrDiscounts: setCurrDiscounts,
-      downloadAllProfiles: downloadAllProfiles,
+      downloadAllElemAsGroup: downloadAllElemAsGroup,
       downloadAllGlasses: downloadAllGlasses,
       sortingGlasses: sortingGlasses,
-      downloadAllHardwares: downloadAllHardwares,
-      sortingHardware: sortingHardware,
       prepareTemplates: prepareTemplates,
       //downloadAllTemplates: downloadAllTemplates,
       downloadAllLamination: downloadAllLamination,
@@ -96,19 +94,24 @@
 //      console.log('CHECKING======', JSON.stringify(UserStor.userInfo.discountConstr));
     }
 
-    //----------- get all profiles
-    function downloadAllProfiles() {
+
+
+
+
+    //----------- get all elements as to groups
+
+    function downloadAllElemAsGroup(tableGroup, tableElem, groups, elements) {
       var defer = $q.defer();
       //------- get all Prifile Folders
-      localDB.selectLocalDB(localDB.tablesLocalDB.profile_system_folders.tableName).then(function(types) {
+      localDB.selectLocalDB(tableGroup).then(function(types) {
         var typesQty = types.length;
         if (typesQty) {
-          GlobalStor.global.profilesType = angular.copy(types);
+          angular.extend(groups, types);
           var promises = types.map(function(type) {
             var defer2 = $q.defer();
-            localDB.selectLocalDB(localDB.tablesLocalDB.profile_systems.tableName, {'profile_system_folder_id': type.id}).then(function (profile) {
+            localDB.selectLocalDB(tableElem, {'folder_id': type.id}).then(function (profile) {
               if (profile.length) {
-                GlobalStor.global.profiles.push(angular.copy(profile));
+                elements.push(angular.copy(profile));
                 defer2.resolve(1);
               } else {
                 defer2.resolve(0);
@@ -284,73 +287,6 @@
 
     }
 
-
-
-    function downloadAllHardwares() {
-      var defer = $q.defer();
-      //------- get all Hardware Groups
-      localDB.selectLocalDB(localDB.tablesLocalDB.window_hardware_groups.tableName).then(function(types) {
-        var typesQty = types.length;
-        if (typesQty) {
-          GlobalStor.global.hardwareTypes = angular.copy(types);
-        }
-      });
-      //------- get all Hardware
-      localDB.selectLocalDB(localDB.tablesLocalDB.window_hardware_groups.tableName).then(function (ware) {
-        if (ware.length) {
-          GlobalStor.global.hardwares = angular.copy(ware);
-          defer.resolve(1);
-        } else {
-          defer.resolve(0);
-        }
-      });
-      return defer.promise;
-    }
-
-
-    function sortingHardware() {
-      var wareTypeQty = GlobalStor.global.hardwareTypes.length,
-          waresQty = GlobalStor.global.hardwares.length,
-          wares = [], wareOther = [], typeDelete = [];
-
-      if(wareTypeQty) {
-        for(var t = 0; t < wareTypeQty; t++) {
-          var ware = [];
-          for(var w = 0; w < waresQty; w++) {
-            if(GlobalStor.global.hardwareTypes[t].id === GlobalStor.global.hardwares[w].hardware_group_id) {
-              ware.push(angular.copy(GlobalStor.global.hardwares[w]));
-            }
-          }
-          if(ware.length) {
-            wares.push(ware);
-          } else {
-            typeDelete.push(t);
-          }
-        }
-        //------- delete empty groups
-        var delQty = typeDelete.length;
-        if(delQty) {
-          while(--delQty > -1) {
-            GlobalStor.global.hardwareTypes.splice(typeDelete[delQty], 1);
-          }
-        }
-      } else if(waresQty) {
-        //------ collect other hardware no include in group
-        for(var w = 0; w < waresQty; w++) {
-          if(GlobalStor.global.hardwares[w].hardware_group_id === 0) {
-            wareOther.push(angular.copy(GlobalStor.global.hardwares[w]));
-          }
-        }
-        if(wareOther.length) {
-          wares.push(wareOther);
-          GlobalStor.global.hardwareTypes.push({
-            name: $filter('translate')('panels.OTHER_TYPE')
-          });
-        }
-      }
-
-      GlobalStor.global.hardwares = wares;
-    }
 
 
     function downloadAllLamination() {
@@ -821,6 +757,7 @@
     //-------- Save Product in Order and go to Cart
     function inputProductInOrder() {
       var deferred = $q.defer();
+      GlobalStor.global.isConfigMenuTips = 0;
 
       //---------- if EDIT Product
       if(GlobalStor.global.productEditNumber) {

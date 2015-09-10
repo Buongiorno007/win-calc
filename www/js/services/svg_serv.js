@@ -680,11 +680,10 @@
 //        console.log('!!!!! pointsOut -----',JSON.stringify(pointsOut));
         collectPointsXChildBlock(impostAx, pointsOut, blocks[indexChildBlock1].pointsOut, blocks[indexChildBlock2].pointsOut);
         //------- insert impostOut of impost in pointsOut of children blocks
-//        $.merge(blocks[indexChildBlock1].pointsOut, angular.copy(impostAx));
-        for(var i = 0; i < 2; i++) {
-          blocks[indexChildBlock1].pointsOut.push(angular.copy(impostAx[i]));
-          blocks[indexChildBlock2].pointsOut.push(angular.copy(impostAx[i]));
-        }
+//        for(var i = 0; i < 2; i++) {
+//          blocks[indexChildBlock1].pointsOut.push(angular.copy(impostAx[i]));
+//          blocks[indexChildBlock2].pointsOut.push(angular.copy(impostAx[i]));
+//        }
 //        console.log('!!!!! pointsIn -----', JSON.stringify(pointsIn));
         //------- insert pointsIn of parent block in pointsIn of children blocks
         collectPointsXChildBlock(impostAx, pointsIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn);
@@ -692,6 +691,19 @@
         collectImpPointsXChildBlock(currBlock.impost.impostIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn);
 //        console.log('!!!!! indexChildBlock1 -----', JSON.stringify(blocks[indexChildBlock1].pointsIn));
 //        console.log('!!!!! indexChildBlock2 -----', JSON.stringify(blocks[indexChildBlock2].pointsIn));
+
+        //-------- set real impostAxis coord for dimensions
+        var linesOutQty = currBlock.linesOut.length;
+        currBlock.impost.impostAxis.splice(0, 2);
+        console.log('----impostAxis-------', currBlock.impost.impostAxis);
+        for(var i = 0; i < linesOutQty; i++) {
+          getCPImpostInsideBlock(0, 0, i, linesOutQty, currBlock.linesOut, impVectorAx1, impAx0, currBlock.impost.impostAxis);
+        }
+
+        for(var i = 0; i < 2; i++) {
+          blocks[indexChildBlock1].pointsOut.push(angular.copy(currBlock.impost.impostAxis[i]));
+          blocks[indexChildBlock2].pointsOut.push(angular.copy(currBlock.impost.impostAxis[i]));
+        }
       }
     }
 
@@ -1941,7 +1953,7 @@
           maxSizeLimit = blocks[0].maxSizeLimit,
           globalLimitsX, globalLimitsY, allPoints;
 
-      console.log('----------------- START DIMENSION-----------------');
+//      console.log('----------------- START DIMENSION-----------------');
       //=========== All points ==============//
       allPoints = collectAllPointsOut(blocks);
       //------ except Q points
@@ -1968,7 +1980,7 @@
 
         var pointsOutQty = blocks[b].pointsOut.length;
 
-        console.log('+++++++++++BLOCKS+++++++++', blocks[b].id);
+//        console.log('+++++++++++BLOCKS+++++++++', blocks[b].id);
 //        console.log('points Out----------', blocks[b].pointsOut);
 
         //========== Blocks level 1 ============//
@@ -2044,13 +2056,13 @@
               pointsOutXDim,
               blockLimits = [];
 
-          console.log('`````````` diff ``````````', pointsOutQty, blocks[b].pointsIn.length);
+//          console.log('`````````` diff ``````````', pointsOutQty, blocks[b].pointsIn.length);
           if(pointsOutQty === blocks[b].pointsIn.length) {
             pointsOutXDim = blocks[b].pointsOut;
           } else {
             pointsOutXDim = cleanPoitsOutXDim(blocks[b]);
           }
-          console.log('`````````` pointsOutXDim ``````````', pointsOutXDim);
+//          console.log('`````````` pointsOutXDim ``````````', pointsOutXDim);
 
           var pointsOutQty = pointsOutXDim.length;
           for (var i = 0; i < pointsOutQty; i++) {
@@ -2107,49 +2119,77 @@
         }
 
       }
+      dimension.dimX = angular.copy(deleteDublicatDim(dimension.dimX));
+      dimension.dimY = angular.copy(deleteDublicatDim(dimension.dimY));
       return dimension;
     }
 
 
-    function cleanPoitsOutXDim(currBlock) {
 
-      var newPointsIn = currBlock.pointsIn.filter(function(item) {
+
+    function cleanPoitsOutXDim(currBlock) {
+//      console.log('`````````` out ``````````', currBlock.pointsOut);
+
+      var pointsIn = currBlock.pointsIn.filter(function(item) {
         return (item.id.indexOf('qa')+1) ? 0 : 1;
       }),
           indexDel = [],
-          newPointsOut,
-          pQty = newPointsIn.length,
-          pointsOut = angular.copy(currBlock.pointsOut);
+          pinQty = pointsIn.length,
+          pointsOut = currBlock.pointsOut.filter(function(item) {
+            return (item.id.indexOf('fp')+1 && !item.view) ? 0 : 1;
+          }),
+          poutQty = pointsOut.length;
 
-      console.log('`````````` newPointsIn ``````````', newPointsIn, pointsOut);
+//      console.log('`````````` newPointsIn ``````````', pointsIn, pointsOut);
 
-      while(--pQty > -1) {
-        if(newPointsIn[pQty].t) {
-          indexDel.push(pQty);
+      if(pinQty !== poutQty) {
+        while (--pinQty > -1) {
+          if (pointsIn[pinQty].t) {
+            indexDel.push(pinQty);
+          }
+        }
+//        console.log('`````````` indexDel ``````````', indexDel);
+        var indexDelQty = indexDel.length;
+        if (indexDelQty) {
+          pointsOut = pointsOut.map(function (item, i) {
+            var count = 0;
+            for (var ind = 0; ind < indexDelQty; ind++) {
+              if (indexDel[ind] === i) {
+                ++count;
+              }
+            }
+            if (!count) {
+              return item;
+            }
+          }).filter(function (item) {
+            return (item) ? 1 : 0;
+          });
         }
       }
-      console.log('`````````` indexDel ``````````', indexDel);
-      var indexDelQty = indexDel.length;
-      if(indexDelQty) {
-        newPointsOut = pointsOut.map(function(item, i) {
-          var count = 0;
-          for(var ind = 0; ind < indexDelQty; ind++) {
-            if(indexDel[ind] === i) {
-              ++count;
-            }
-          }
-          if(!count) {
-            return item;
-          }
-        }).filter(function(item) {
-          return (item)? 1: 0;
-        });
-      }
-
-      return newPointsOut;
+      return pointsOut;
     }
 
 
+
+    function deleteDublicatDim(dimension) {
+      var dimXLevel1 = dimension.filter(function(item) {
+            return item.level === 1;
+          }),
+          dimXLevel1Qty = dimXLevel1.length,
+          dimX = dimension.filter(function(item) {
+            var count = 0;
+            for(var d = 0; d < dimXLevel1Qty; d++) {
+              if(!item.level && item.from === dimXLevel1[d].from && item.to === dimXLevel1[d].to) {
+                ++count;
+              }
+            }
+            if(!count) {
+              return 1;
+            }
+          });
+//      console.log('````````````````````', dimX);
+      return dimX;
+    }
 
 
 

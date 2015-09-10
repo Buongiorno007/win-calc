@@ -44,3 +44,5 @@
     div U = {{ configMenu.P.product.heat_coef_total }}
     div {{ 'mainpage.HEATCOEF_VAL' | translate }}&sup2;&middot;K
   .curtain(ng-show="configMenu.P.product.is_addelem_only")
+  .menu_tooltip(ng-show="configMenu.G.global.isConfigMenuTips", ng-class="{'tempate_tip': configMenu.G.global.isConfigMenuTips}") {{ configMenu.config.TOOLTIP }}
+    .close_menu_tooltip(hm-tap="configMenu.closeTooltip()")

@@ -22,8 +22,8 @@
       svgTemplateIconHeight: 70,
       svgTemplateIconBigWidth: 500,
       svgTemplateIconBigHeight: 450,
-      svgTemplateWidth: 1024,
-      svgTemplateHeight: 752,
+      svgTemplateWidth: 1022,
+      svgTemplateHeight: 767,
 
       //---Edit Design
       squareLimit: 0.15,

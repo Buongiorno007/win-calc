@@ -23,7 +23,7 @@ body {
 .app-container {
   width: rem($ipad-width);
   //TODO ipad  height: 100%
-  height: 94rem;
+  height: 96rem;
   margin: auto auto; //TODO ipad delete
   overflow: hidden; //TODO ipad delete
   border: 1px solid #000;
@@ -176,9 +176,11 @@ body {
 // Room backgrounds
 
 .right-side {
-  @include transition(all 1.3s linear);
-  opacity: 0.2;
   &.main-page-bg {
+    @include transition(all 1.3s linear);
+    opacity: 0.2;
+  }
+  &.main-room-bg {
     background-size: cover;
     background-repeat: no-repeat;
     opacity: 1;

@@ -17,7 +17,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
               .order(ng-repeat="product in cartPage.O.order.products track by $index")
                 button.order-delete(hm-tap="cartPage.clickDeleteProduct($index)")
                 .order-header(hm-tap="cartPage.editProduct($index, 'product')")
-                  img.order-header-fon(ng-src="img/rooms-dialog/{{product.room_id}}.jpg")
+                  img.order-header-fon(ng-src="img/rooms/{{product.room_id}}.jpg")
                   .order-template
                     svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="icon")
                   .order-u-coeff(ng-class="{'u-coeff-low': product.heat_coef_total < product.heatTransferMin}") U = {{ product.heat_coef_total }}

@@ -1,6 +1,6 @@
 .rooms-selector-dialog(ng-controller="RoomSelectorCtrl as rooms", ng-class="{'active': rooms.G.global.showRoomSelectorDialog}")
   .rooms-inner(ng-if="rooms.G.global.showRoomSelectorDialog")
     .room-block(ng-repeat="room in rooms.config.rooms")
-      .room-box.unvisible(ng-class="{'selected': rooms.P.product.room_id === room.id}", hm-tap="rooms.selectRoom(room.id)", show-delay="{{ $index * rooms.config.DELAY_SHOW_ROOM }}")
+      .room-box.unvisible(ng-class="{'selected': rooms.P.product.room_id === room.id}", hm-tap="rooms.selectRoom(room.id)", show-delay="{{ ($index+1) * rooms.config.DELAY_SHOW_ROOM }}")
         .room-img(ng-style="{'background-image':'url(img/rooms/'+room.id+'.jpg)'}")
   .close-dialog(hm-tap="rooms.closeRoomSelectorDialog()")

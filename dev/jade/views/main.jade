@@ -2,7 +2,7 @@ section.page-container(ng-class="{ 'swiped': !mainPage.G.global.isNavMenu }")
   section.left-side
     include menus/_navigation-menu
   //TODO change to directive!!!! rooms will be more
-  section.right-side.main-page-bg(ng-style="{'background-image':'url(img/rooms/'+mainPage.P.product.room_id+'.jpg)'}")
+  section.right-side(ng-class="{'main-page-bg': mainPage.G.global.currOpenPage === 'main', 'main-room-bg': mainPage.G.global.currOpenPage === 'main'}", ng-style="{'background-image':'url(img/rooms/'+mainPage.P.product.room_id+'.jpg)'}")
     section.main-content
       include parts/_user-info
       include parts/_main-central

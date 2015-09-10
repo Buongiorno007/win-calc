@@ -92,4 +92,52 @@
       color: $error_color;
     }
   }
+
+  .menu_tooltip {
+    @include transition(all 0.2s linear);
+    @include roboto-lt(rem(36px));
+    width: 20rem;
+    left: -22rem;
+    position: absolute;
+    padding: 2rem;
+    color: $main_gray_txt;
+    border-radius: rem($radius_rooms-dialog);
+    background-color: rgba(#fff, .85);
+    opacity: 0;
+    z-index: 2;
+    &:after {
+      position: absolute;
+      right: -1.4rem;
+      top: 50%;
+      display: block;
+      width: 0;
+      border-width: rem(25px) 0 rem(25px) rem(25px);
+      border-style: solid;
+      border-color: transparent rgba(#fff, .85);
+      content: '';
+    }
+    &.tempate_tip {
+      top: 2rem;
+      opacity: 1;
+    }
+    &.profile_tip {
+
+    }
+    &.glass_tip {
+
+    }
+    &.ware_tip {
+
+    }
+    &.lamin_tip {
+
+    }
+    .close_menu_tooltip {
+      @extend .small-cross-btn;
+      position: absolute;
+      top: 4%;
+      left: 2%;
+      background-color: $main_orange;
+    }
+  }
 }

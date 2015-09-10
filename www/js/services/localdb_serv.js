@@ -77,7 +77,8 @@
             ' position INTEGER,' +
             ' factory_id INTEGER,' +
             ' description VARCHAR,' +
-            ' link VARCHAR',
+            ' link VARCHAR,' +
+            ' is_base INTEGER',
           'foreignKey': ''
         },
         'glass_prices': {
@@ -104,11 +105,11 @@
 //          'prop': 'profile_system_id INTEGER, list_id INTEGER',
 //          'foreignKey': ', FOREIGN KEY(list_id) REFERENCES lists(id)'
 //        },
-        'lamination_default_colors': {
-          'tableName': 'lamination_default_colors',
-          'prop': 'name VARCHAR(255), url VARCHAR(255)',
-          'foreignKey': ''
-        },
+//        'lamination_default_colors': {
+//          'tableName': 'lamination_default_colors',
+//          'prop': 'name VARCHAR(255), url VARCHAR(255)',
+//          'foreignKey': ''
+//        },
         'lamination_factory_colors': {
           'tableName': 'lamination_factory_colors',
           'prop': 'name VARCHAR(255), lamination_type_id INTEGER, factory_id INTEGER',
@@ -195,7 +196,7 @@
           'tableName': 'profile_systems',
           'prop': 'name VARCHAR(255),' +
             ' short_name VARCHAR(100),' +
-            ' profile_system_folder_id INTEGER,' +
+            ' folder_id INTEGER,' +
             ' rama_list_id INTEGER,' +
             ' rama_still_list_id INTEGER,' +
             ' stvorka_list_id INTEGER,' +
@@ -210,7 +211,7 @@
             ' heat_coeff INTEGER,' +
             ' noise_coeff INTEGER,' +
             ' air_coeff INTEGER',
-          'foreignKey': ', FOREIGN KEY(profile_system_folder_id) REFERENCES profile_system_folders(id)'
+          'foreignKey': ''
         },
         'rules_types': {
           'tableName': 'rules_types',
@@ -337,16 +338,21 @@
           'prop': 'name VARCHAR(255), short_name VARCHAR(100)',
           'foreignKey': ''
         },
-//        'window_hardware_types_base': {
-//          'tableName': 'window_hardware_types_base',
-//          'prop': 'name VARCHAR(255)',
-//          'foreignKey': ''
-//        },
+        'window_hardware_folders': {
+          'tableName': 'window_hardware_folders',
+          'prop': 'name VARCHAR,' +
+            ' factory_id INTEGER,'+
+            ' link VARCHAR,' +
+            ' description VARCHAR,' +
+            ' img VARCHAR',
+          'foreignKey': ''
+        },
+
         'window_hardware_groups': {
           'tableName': 'window_hardware_groups',
           'prop': 'name VARCHAR(255),' +
             ' short_name VARCHAR(100),' +
-            ' factory_id INTEGER,' +
+            ' folder_id INTEGER,' +
             ' is_editable INTEGER,' +
             ' is_group INTEGER,' +
             ' is_in_calculation INTEGER,' +
@@ -404,6 +410,8 @@
           'prop': 'element_id INTEGER, location VARCHAR(255), constant_value NUMERIC(10, 2)',
           'foreignKey': ''
         },
+
+
         'elements_profile_systems': {
           'tableName': 'elements_profile_systems',
           'prop': 'profile_system_id INTEGER, element_id INTEGER',
@@ -581,7 +589,7 @@
 
 
 
-      cleanLocalDB: function (tables) {
+    cleanLocalDB: function (tables) {
 //        console.log('CLEEN START');
         var tableKeys = Object.keys(tables),
             promises = tableKeys.map(function(table) {
