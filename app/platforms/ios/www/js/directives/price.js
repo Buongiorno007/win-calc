@@ -1,6 +1,3 @@
-
-// directives/price.js
-
 (function(){
   'use strict';
   /**

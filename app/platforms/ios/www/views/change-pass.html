@@ -9,18 +9,18 @@
     <div class="lists">
       <form name="passForm">
         <ul class="list">
-          <li class="item click">
+          <li class="item">
             <div data-output="{{ 'settings.CURRENT_PASSWORD' | translate }}" typing="{{ passwordPage.config.typing }}" typing-delay="{{ passwordPage.config.DELAY_START }}" class="psw-label"></div>
             <input type="password" name="oldPassword" ng-model="passwordPage.config.oldPassword" ng-minlength="3" ng-change="passwordPage.checkErrorOld()" class="set-input-txt">
             <div ng-show="passForm.oldPassword.$dirty &amp;&amp; passForm.oldPassword.$error.minlength" class="error-tooltip">{{ 'login.SHORT_PASSWORD' | translate }}</div>
             <div ng-show="passwordPage.config.isErrorOldPassword" class="error-tooltip">{{ 'settings.NO_CONFIRM_PASS' | translate }}</div>
           </li>
-          <li class="item click">
+          <li class="item">
             <div data-output="{{ 'settings.NEW_PASSWORD' | translate }}" typing="{{ passwordPage.config.typing }}" typing-delay="{{ passwordPage.config.DELAY_START }}" class="psw-label"></div>
             <input type="password" name="newPassword" ng-model="passwordPage.config.newPassword" ng-minlength="3" class="set-input-txt">
             <div ng-show="passForm.newPassword.$dirty &amp;&amp; passForm.newPassword.$error.minlength" class="error-tooltip">{{ 'login.SHORT_PASSWORD' | translate }}</div>
           </li>
-          <li class="item click">
+          <li class="item">
             <div data-output="{{ 'settings.CONFIRM_PASSWORD' | translate }}" typing="{{ passwordPage.config.typing }}" typing-delay="{{ passwordPage.config.DELAY_START }}" class="psw-label"></div>
             <input type="password" name="confirmPassword" ng-model="passwordPage.config.confirmPassword" ng-minlength="3" ng-change="passwordPage.checkError()" class="set-input-txt">
             <div ng-show="passForm.confirmPassword.$dirty &amp;&amp; passForm.confirmPassword.$error.minlength" class="error-tooltip">{{ 'login.SHORT_PASSWORD' | translate }}</div>

@@ -5,8 +5,11 @@
     <div data-output="{{ 'mainpage.NAVMENU_SETTINGS' | translate }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="title"></div>
   </div>
   <div class="setting-container">
-    <div hm-tap="settingsPage.changeAvatar()" class="setting-user-foto"><img ng-if="settingsPage.U.userInfo.avatar &amp;&amp; (settingsPage.U.userInfo.avatar!='null')" ng-src="{{ settingsPage.U.userInfo.avatar }}" width="100%" height="100%">
-      <div class="change-foto">{{ 'common_words.CHANGE' | translate }}</div>
+    <!--TODO ipad .setting-user-foto(hm-tap="settingsPage.changeAvatar()")-->
+    <div class="setting-user-foto"><img ng-if="settingsPage.U.userInfo.avatar &amp;&amp; (settingsPage.U.userInfo.avatar!='null')" ng-src="{{ settingsPage.U.userInfo.avatar }}" width="100%" height="100%">
+      <label class="change-foto">{{ 'common_words.CHANGE' | translate }}
+        <input type="file" fileread="vm.uploadme" style="display: none;">
+      </label>
     </div>
     <div class="lists">
       <ul class="list">
@@ -41,8 +44,8 @@
         </li>
         <li id="user-address" hm-tap="settingsPage.changeSettingData(3, $event)" class="item click">
           <div data-output="{{ 'cart.CLIENT_ADDRESS' | translate }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-label"></div>
-          <div ng-hide="settingsPage.config.selectedSetting == 3" data-output="{{ settingsPage.U.userInfo.city_phone }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-data"></div>
-          <input ng-show="settingsPage.config.selectedSetting == 3" type="text" ng-model="settingsPage.U.userInfo.city_phone" ng-keypress="saveChanges('user-address', settingsPage.U.userInfo.city_phone)" ng-blur="saveChangesBlur('user-address', settingsPage.U.userInfo.city_phone)" class="set-input-txt">
+          <div ng-hide="settingsPage.config.selectedSetting == 3" data-output="{{ settingsPage.U.userInfo.address }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-data"></div>
+          <input ng-show="settingsPage.config.selectedSetting == 3" type="text" ng-model="settingsPage.U.userInfo.address" ng-keypress="settingsPage.saveChanges('user-address', settingsPage.U.userInfo.address)" ng-blur="settingsPage.saveChangesBlur('user-address', settingsPage.U.userInfo.address)" class="set-input-txt">
         </li>
         <li id="user-email" hm-tap="settingsPage.changeSettingData(4, $event)" class="item click">
           <div data-output="{{ 'cart.CLIENT_EMAIL' | translate }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-label"></div>
@@ -60,7 +63,7 @@
           <div data-output="{{ phone }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-label"></div>
         </li>
         <li class="item">
-          <button class="phone-btn add-phone">+</button>
+          <button hm-tap="settingsPage.addNewPhone()" class="phone-btn add-phone">+</button>
           <div ng-hide="settingsPage.config.isInsertPhone" hm-tap="settingsPage.appendInputPhone()" data-output="{{ 'settings.INSERT_PHONE' | translate }}" typing="{{ settingsPage.config.typing }}" typing-delay="{{ settingsPage.config.DELAY_START }}" class="setting-item-label"></div>
           <input ng-show="settingsPage.config.isInsertPhone" type="text" ng-model="settingsPage.config.tempAddPhone" ng-keypress="settingsPage.saveChangesPhone()" ng-blur="settingsPage.cancelAddPhone()" class="set-input-phone">
           <div ng-show="settingsPage.config.isErrorPhone" class="error-tooltip">{{ 'login.WRONG_NUMBER' | translate }}</div>

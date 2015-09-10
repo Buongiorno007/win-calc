@@ -1,10 +1,6 @@
 .rooms-selector-dialog(ng-controller="RoomSelectorCtrl as rooms", ng-class="{'active': rooms.G.global.showRoomSelectorDialog}")
   .rooms-inner(ng-if="rooms.G.global.showRoomSelectorDialog")
-    .rooms-row
-      .room-block
-        .room-box.unvisible(show-delay="{{ rooms.config.DELAY_SHOW_ROOM1 }}", ng-class="{'selected': rooms.P.product.room_id === 1}", hm-tap="rooms.selectRoom(1)")
-          .room-img.kitchen
-      .room-block
-        .room-box.unvisible(show-delay="{{ rooms.config.DELAY_SHOW_ROOM4 }}", ng-class="{'selected': rooms.P.product.room_id === 4}", hm-tap="rooms.selectRoom(4)")
-          .room-img.childroom
-    .close-dialog(hm-tap="rooms.closeRoomSelectorDialog()")
+    .room-block(ng-repeat="room in rooms.config.rooms")
+      .room-box.unvisible(ng-class="{'selected': rooms.P.product.room_id === room.id}", hm-tap="rooms.selectRoom(room.id)", show-delay="{{ $index * rooms.config.DELAY_SHOW_ROOM }}")
+        .room-img(ng-style="{'background-image':'url(img/rooms/'+room.id+'.jpg)'}")
+  .close-dialog(hm-tap="rooms.closeRoomSelectorDialog()")

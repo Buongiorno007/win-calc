@@ -51,7 +51,7 @@
     </div>
   </section>
   <!--TODO change to directive!!!! rooms will be more-->
-  <section ng-class="{'kitchen': mainPage.P.product.room_id == 1, 'livingroom': mainPage.P.product.room_id == 2, 'balcony': mainPage.P.product.room_id == 3, 'childroom': mainPage.P.product.room_id == 4, 'bedroom': mainPage.P.product.room_id == 5, 'door': mainPage.P.product.room_id == 6 }" class="right-side main-page-bg">
+  <section ng-style="{'background-image':'url(img/rooms/'+mainPage.P.product.room_id+'.jpg)'}" class="right-side main-page-bg">
     <section class="main-content">
       <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
         <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
@@ -84,20 +84,13 @@
       </div>
       <div ng-controller="RoomSelectorCtrl as rooms" ng-class="{'active': rooms.G.global.showRoomSelectorDialog}" class="rooms-selector-dialog">
         <div ng-if="rooms.G.global.showRoomSelectorDialog" class="rooms-inner">
-          <div class="rooms-row">
-            <div class="room-block">
-              <div show-delay="{{ rooms.config.DELAY_SHOW_ROOM1 }}" ng-class="{'selected': rooms.P.product.room_id === 1}" hm-tap="rooms.selectRoom(1)" class="room-box unvisible">
-                <div class="room-img kitchen"></div>
-              </div>
-            </div>
-            <div class="room-block">
-              <div show-delay="{{ rooms.config.DELAY_SHOW_ROOM4 }}" ng-class="{'selected': rooms.P.product.room_id === 4}" hm-tap="rooms.selectRoom(4)" class="room-box unvisible">
-                <div class="room-img childroom"></div>
-              </div>
+          <div ng-repeat="room in rooms.config.rooms" class="room-block">
+            <div ng-class="{'selected': rooms.P.product.room_id === room.id}" hm-tap="rooms.selectRoom(room.id)" show-delay="{{ $index * rooms.config.DELAY_SHOW_ROOM }}" class="room-box unvisible">
+              <div ng-style="{'background-image':'url(img/rooms/'+room.id+'.jpg)'}" class="room-img"></div>
             </div>
           </div>
-          <div hm-tap="rooms.closeRoomSelectorDialog()" class="close-dialog"></div>
         </div>
+        <div hm-tap="rooms.closeRoomSelectorDialog()" class="close-dialog"></div>
       </div>
       <div ng-controller="TemplatesCtrl as templatesPanel" ng-class="{'active': templatesPanel.G.global.activePanel == 1}" class="config-panel template-container">
         <div ng-if="templatesPanel.G.global.activePanel == 1" class="template-inner">

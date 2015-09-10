@@ -37,9 +37,12 @@
           <li ng-class="{'selected': navMenu.activeMenuItem == 8}" hm-tap="navMenu.selectMenuItem(8)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 9) }}" class="nav-icon-information unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_MORE_INFO' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 9) }}" class="title"></span></div>
           </li>
-          <li ng-class="{'selected': navMenu.activeMenuItem == 9}" hm-tap="navMenu.selectMenuItem(9)" class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}" class="nav-icon-voicehelp unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}" class="title"></span></div>
-          </li>
+          <!--li.item(ng-class="{'selected': navMenu.activeMenuItem == 9}", hm-tap="navMenu.selectMenuItem(9)")
+          .item-content
+            span.nav-icon-voicehelp.unvisible(show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}")
+            span.title(data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}", typing="{{ navMenu.config.typing }}", typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}")
+            
+          -->
         </ul>
       </header>
       <footer class="nav-menu-footer">
@@ -77,29 +80,30 @@
               <div ng-class="{ 'active': historyPage.H.history.isOrderSearch }" class="tools-block search-tool">
                 <button hm-tap="historyPage.orderSearching()" class="tool search-btn"></button>
               </div>
-              <div ng-class="{ 'active': historyPage.H.history.isOrderDate }" class="tools-block tool-drop">
-                <button hm-tap="historyPage.orderDateSelecting()" class="tool calendar-btn"></button>
-                <div ng-class="{ 'empty': historyPage.H.history.startDate === '' &amp;&amp;  historyPage.H.history.finishDate === ''}" class="time-interval"><span ng-if="historyPage.H.history.startDate !== ''">{{ 'history.FROM' | translate }} {{historyPage.H.history.startDate | date:"dd.MM.yyyy"}}</span>
-                  <!--span(order-date="{{ historyPage.H.history.startDate }}", type-date="")--><span ng-hide="historyPage.H.history.startDate == '' || historyPage.H.history.finishDate == ''">&nbsp; - &nbsp;</span><span ng-if="historyPage.H.history.finishDate !== ''">{{ 'history.UNTIL' | translate }} {{historyPage.H.history.finishDate | date:"dd.MM.yyyy"}}</span>
-                  <!--span(order-date="{{ historyPage.H.history.finishDate }}", type-date="")-->
-                </div>
-                <div class="dropdown-tool-dialog date-filter">
-                  <div class="filter-title">{{ 'history.DATE_RANGE' | translate }}</div>
-                  <div ng-class="{ 'selected': historyPage.H.history.isStartDate }" hm-tap="historyPage.openCalendarScroll('start-date')" class="period start-date">{{ 'history.FROM' | translate }} {{historyPage.H.history.startDate | date:"dd.MM.yyyy"}}
-                    <!--span(order-date="{{ historyPage.H.history.startDate }}", type-date="")-->
-                  </div>
-                  <div ng-class="{ 'active': historyPage.H.history.isStartDate }" class="dropdown-calendar-scroll">
-                    <calendar-scroll calendar-time="historyPage.H.history.startDate" max-time="{{ historyPage.H.history.maxDeliveryDateOrder }}"></calendar-scroll>
-                  </div>
-                  <div ng-class="{ 'selected': historyPage.H.history.isFinishDate }" hm-tap="historyPage.openCalendarScroll('finish-date')" class="period finish-date">{{ 'history.UNTIL' | translate }} {{historyPage.H.history.finishDate | date:"dd.MM.yyyy"}}
-                    <!--span(order-date="{{ historyPage.H.history.finishDate }}", type-date="")-->
-                  </div>
-                  <div ng-class="{ 'active': historyPage.H.history.isFinishDate }" class="dropdown-calendar-scroll">
-                    <calendar-scroll calendar-time="historyPage.H.history.finishDate" max-time="{{ historyPage.H.history.maxDeliveryDateOrder }}"></calendar-scroll>
-                  </div>
-                  <div ng-class="{ 'selected': historyPage.H.history.isAllPeriod }" hm-tap="historyPage.openCalendarScroll('full-date')" class="period total-date">{{ 'history.ALL_TIME' | translate }}</div>
-                </div>
-              </div>
+              <!--.tools-block.tool-drop(ng-class="{ 'active': historyPage.H.history.isOrderDate }")
+              button.tool.calendar-btn(hm-tap="historyPage.orderDateSelecting()")
+              .time-interval(ng-class="{ 'empty': historyPage.H.history.startDate === '' &&  historyPage.H.history.finishDate === ''}")
+                span(ng-if="historyPage.H.history.startDate !== ''") {{ 'history.FROM' | translate }} {{historyPage.H.history.startDate | date:"dd.MM.yyyy"}}
+                //span(order-date="{{ historyPage.H.history.startDate }}", type-date="")
+                span(ng-hide="historyPage.H.history.startDate == '' || historyPage.H.history.finishDate == ''") &nbsp; - &nbsp;
+                span(ng-if="historyPage.H.history.finishDate !== ''") {{ 'history.UNTIL' | translate }} {{historyPage.H.history.finishDate | date:"dd.MM.yyyy"}}
+                //span(order-date="{{ historyPage.H.history.finishDate }}", type-date="")
+                
+              .dropdown-tool-dialog.date-filter
+                .filter-title {{ 'history.DATE_RANGE' | translate }}
+                .period.start-date(ng-class="{ 'selected': historyPage.H.history.isStartDate }", hm-tap="historyPage.openCalendarScroll('start-date')") {{ 'history.FROM' | translate }} {{historyPage.H.history.startDate | date:"dd.MM.yyyy"}}
+                  //span(order-date="{{ historyPage.H.history.startDate }}", type-date="")
+                .dropdown-calendar-scroll(ng-class="{ 'active': historyPage.H.history.isStartDate }")
+                  calendar-scroll(calendar-time="historyPage.H.history.startDate", max-time="{{ historyPage.H.history.maxDeliveryDateOrder }}")
+                  
+                .period.finish-date(ng-class="{ 'selected': historyPage.H.history.isFinishDate }", hm-tap="historyPage.openCalendarScroll('finish-date')") {{ 'history.UNTIL' | translate }} {{historyPage.H.history.finishDate | date:"dd.MM.yyyy"}}
+                  //span(order-date="{{ historyPage.H.history.finishDate }}", type-date="")
+                .dropdown-calendar-scroll(ng-class="{ 'active': historyPage.H.history.isFinishDate }")
+                  calendar-scroll(calendar-time="historyPage.H.history.finishDate", max-time="{{ historyPage.H.history.maxDeliveryDateOrder }}")
+                  
+                .period.total-date(ng-class="{ 'selected': historyPage.H.history.isAllPeriod }", hm-tap="historyPage.openCalendarScroll('full-date')") {{ 'history.ALL_TIME' | translate }}
+                
+              -->
               <div ng-class="{ 'active': historyPage.H.history.isOrderSort }" class="tools-block tool-drop">
                 <button hm-tap="historyPage.orderSorting()" class="tool settings-btn"></button>
                 <div class="dropdown-tool-dialog sort-filter">
@@ -173,8 +177,9 @@
                   </div>
                 </div>
                 <div class="account-row footer">
-                  <div ng-hide="order.order_style == 'credit'" class="account-value">{{ order.order_price_total }}{{ historyPage.U.userInfo.currency }}</div>
-                  <div ng-show="order.order_style == 'credit'" class="account-value">{{ order.order_price_total }}{{ historyPage.U.userInfo.currency }}, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.payment_monthly}}{{ historyPage.U.userInfo.currency }}</div>
+                  <div ng-hide="order.order_style == 'credit'" class="account-value">{{ order.orderPriceTOTALDis }}{{ historyPage.U.userInfo.currency }}</div>
+                  <div ng-show="order.order_style == 'credit'" class="account-value">{{ order.orderPriceTOTALDis }}{{ historyPage.U.userInfo.currency }}</div>
+                  <!--.account-value(ng-show="order.order_style == 'credit'") {{ order.orderPriceTOTALDis }}{{ historyPage.U.userInfo.currency }}, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.payment_monthly}}{{ historyPage.U.userInfo.currency }}-->
                   <div ng-show="order.order_style == 'master'" class="account-value">{{ 'history.WAIT_MASTER' | translate }}</div>
                   <div class="account-date">{{ order.products_qty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
                 </div>
@@ -183,7 +188,7 @@
               <button ng-hide="order.order_style == 'done'" hm-tap="historyPage.makeOrderCopy(order.order_style, order.order_number)" class="account-tool account-copy-btn"></button>
               <button hm-tap="" class="account-tool account-print-btn"></button>
               <button ng-hide="order.order_style == 'done'" hm-tap="historyPage.clickDeleteOrder(order.order_type, order.order_number, $event)" class="account-delete-btn"></button>
-              <button ng-hide="order.order_style == 'done'" hm-tap="historyPage.editOrder(order.order_number)" class="account-change-btn">{{ 'common_words.CHANGE' | translate }}</button>
+              <!--button.account-change-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.editOrder(order.order_number)") {{ 'common_words.CHANGE' | translate }}-->
             </div>
             <div ng-show="(orders | filter:historyPage.H.history.searchingWord).length == 0" class="empty-search-result">
               <div class="result-icon"></div>
@@ -194,7 +199,7 @@
               <div class="result-text">{{ 'history.BY_YOUR_REQUEST' | translate }} {{ 'history.NOT_FIND' | translate }}.</div>
             </div>
           </div>
-          <button hm-tap="historyPage.viewSwitching()" class="view-switch-tab">{{ 'history.DRAFT_VIEW' | translate }}</button>
+          <!--button.view-switch-tab(hm-tap="historyPage.viewSwitching()") {{ 'history.DRAFT_VIEW' | translate }}-->
         </section>
         <section ng-class="{'active': historyPage.H.history.isDraftView, 'dark-fon': historyPage.H.history.isOrderDateDraft || historyPage.H.history.isOrderSortDraft }" class="accounts-container draft-view">
           <div class="history-header">

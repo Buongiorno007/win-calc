@@ -1,6 +1,3 @@
-
-// general.js
-
 'use strict';
 
 

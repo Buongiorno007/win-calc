@@ -72,7 +72,12 @@
         },
         'glass_folders': {
           'tableName': 'glass_folders',
-          'prop': 'name VARCHAR(255), img VARCHAR, position INTEGER',
+          'prop': 'name VARCHAR(255),' +
+            ' img VARCHAR,' +
+            ' position INTEGER,' +
+            ' factory_id INTEGER,' +
+            ' description VARCHAR,' +
+            ' link VARCHAR',
           'foreignKey': ''
         },
         'glass_prices': {

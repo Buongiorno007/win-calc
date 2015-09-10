@@ -1,6 +1,3 @@
-
-// controllers/panels/laminations.js
-
 (function(){
   'use strict';
   /**
@@ -70,4 +67,3 @@
 
   }
 })();
-

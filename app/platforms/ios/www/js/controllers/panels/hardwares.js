@@ -1,6 +1,3 @@
-
-// controllers/panels/hardwares.js
-
 (function(){
   'use strict';
   /**
@@ -43,4 +40,3 @@
 
   }
 })();
-

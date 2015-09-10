@@ -1958,9 +1958,9 @@
       globalLimitsX.sort(sortByX);
       globalLimitsY.sort(sortByY);
 
-      console.log('``````````allPoints``````', allPoints);
-      console.log('``````````globalLimitsX``````', globalLimitsX);
-      console.log('``````````globalLimitsY``````', globalLimitsY);
+//      console.log('``````````allPoints``````', allPoints);
+//      console.log('``````````globalLimitsX``````', globalLimitsX);
+//      console.log('``````````globalLimitsY``````', globalLimitsY);
 
       //========== on eah block ==========//
 
@@ -1992,8 +1992,8 @@
           globalDimX.sort(sortByX);
           globalDimY.sort(sortByY);
 
-          console.log('``````````globalDimX ``````', globalDimX);
-          console.log('``````````globalDimY ``````', globalDimY);
+//          console.log('``````````globalDimX ``````', globalDimX);
+//          console.log('``````````globalDimY ``````', globalDimY);
 
 
           //          console.log('``````````Create dim by X``````````');
@@ -2041,23 +2041,27 @@
         if (!blocks[b].children.length) {
           var blockDimX = [],
               blockDimY,
+              pointsOutXDim,
               blockLimits = [];
 
+          console.log('`````````` diff ``````````', pointsOutQty, blocks[b].pointsIn.length);
+          if(pointsOutQty === blocks[b].pointsIn.length) {
+            pointsOutXDim = blocks[b].pointsOut;
+          } else {
+            pointsOutXDim = cleanPoitsOutXDim(blocks[b]);
+          }
+          console.log('`````````` pointsOutXDim ``````````', pointsOutXDim);
 
-
-          var center = centerBlock(blocks[b].pointsOut);
-          var pointsOut = sortingPoints(blocks[b].pointsOut, center);
-          console.log('SORT----------',pointsOut);
-
+          var pointsOutQty = pointsOutXDim.length;
           for (var i = 0; i < pointsOutQty; i++) {
             //------- add pointsOut to Limits
-            if (blocks[b].pointsOut[i].dir !== 'curv') {
-              blockLimits.push(blocks[b].pointsOut[i]);
+            if (pointsOutXDim[i].dir !== 'curv') {
+              blockLimits.push(pointsOutXDim[i]);
             }
-            if (blocks[b].pointsOut[i].id.indexOf('qa') + 1) {
+            if (pointsOutXDim[i].id.indexOf('qa') + 1) {
 
             } else {
-              blockDimX.push(blocks[b].pointsOut[i]);
+              blockDimX.push(pointsOutXDim[i]);
             }
           }
 
@@ -2085,7 +2089,7 @@
             cleanDublicat(1, blockDimX);
             //---- sorting
             blockDimX.sort(sortByX);
-            console.log('`````````` dim by X``````````', blockDimX);
+//            console.log('`````````` dim by X``````````', blockDimX);
             collectDimension(0, 'x', blockDimX, dimension.dimX, blockLimits, blocks[b].id, maxSizeLimit, blocks[b].linesOut);
           }
           if (blockDimY.length > 1) {
@@ -2094,7 +2098,7 @@
             cleanDublicat(2, blockDimY);
             //---- sorting
             blockDimY.sort(sortByY);
-            console.log('`````````` dim by Y``````````', blockDimY);
+//            console.log('`````````` dim by Y``````````', blockDimY);
             collectDimension(0, 'y', blockDimY, dimension.dimY, blockLimits, blocks[b].id, maxSizeLimit, blocks[b].linesOut);
           }
 
@@ -2107,6 +2111,43 @@
     }
 
 
+    function cleanPoitsOutXDim(currBlock) {
+
+      var newPointsIn = currBlock.pointsIn.filter(function(item) {
+        return (item.id.indexOf('qa')+1) ? 0 : 1;
+      }),
+          indexDel = [],
+          newPointsOut,
+          pQty = newPointsIn.length,
+          pointsOut = angular.copy(currBlock.pointsOut);
+
+      console.log('`````````` newPointsIn ``````````', newPointsIn, pointsOut);
+
+      while(--pQty > -1) {
+        if(newPointsIn[pQty].t) {
+          indexDel.push(pQty);
+        }
+      }
+      console.log('`````````` indexDel ``````````', indexDel);
+      var indexDelQty = indexDel.length;
+      if(indexDelQty) {
+        newPointsOut = pointsOut.map(function(item, i) {
+          var count = 0;
+          for(var ind = 0; ind < indexDelQty; ind++) {
+            if(indexDel[ind] === i) {
+              ++count;
+            }
+          }
+          if(!count) {
+            return item;
+          }
+        }).filter(function(item) {
+          return (item)? 1: 0;
+        });
+      }
+
+      return newPointsOut;
+    }
 
 
 

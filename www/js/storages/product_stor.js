@@ -18,7 +18,7 @@
 //        order_number: 0,
         product_id: 0,
         is_addelem_only: 0,
-        room_id: 1,
+        room_id: 0,
         construction_type: 1, // 1 - window; 2 - windowDoor; 3 - balcony; 4 - door
         heat_coef_total: 0,
 

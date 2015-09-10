@@ -37,9 +37,12 @@
           <li ng-class="{'selected': navMenu.activeMenuItem == 8}" hm-tap="navMenu.selectMenuItem(8)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 9) }}" class="nav-icon-information unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_MORE_INFO' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 9) }}" class="title"></span></div>
           </li>
-          <li ng-class="{'selected': navMenu.activeMenuItem == 9}" hm-tap="navMenu.selectMenuItem(9)" class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}" class="nav-icon-voicehelp unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}" class="title"></span></div>
-          </li>
+          <!--li.item(ng-class="{'selected': navMenu.activeMenuItem == 9}", hm-tap="navMenu.selectMenuItem(9)")
+          .item-content
+            span.nav-icon-voicehelp.unvisible(show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}")
+            span.title(data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}", typing="{{ navMenu.config.typing }}", typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}")
+            
+          -->
         </ul>
       </header>
       <footer class="nav-menu-footer">
@@ -69,7 +72,7 @@
                 <button hm-tap="cartPage.clickDeleteProduct($index)" class="order-delete"></button>
                 <div hm-tap="cartPage.editProduct($index, 'product')" class="order-header"><img ng-src="img/rooms-dialog/{{product.room_id}}.jpg" class="order-header-fon">
                   <div class="order-template">
-                    <svg-template-icon template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template-icon>
+                    <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
                   </div>
                   <div ng-class="{'u-coeff-low': product.heat_coef_total &lt; product.heatTransferMin}" class="order-u-coeff">U = {{ product.heat_coef_total }}</div>
                 </div>
@@ -119,18 +122,18 @@
           </div>
           <div class="discount-container">
             <div class="discount-title">{{ 'cart.DISCOUNT_SELECT' | translate }}</div>
-            <div ng-class="{'selected': cartPage.O.order.discount_construct }" hm-tap="cartPage.switchDiscount(0)" class="discount-box">
+            <div ng-class="{'selected': cartPage.O.order.discount_construct }" class="discount-box">
               <div hm-tap="cartPage.openDiscountList(0, $event)" class="discount-data">{{cartPage.O.order.discount_construct}}%</div>
-              <div class="discount-txt">
+              <div hm-tap="cartPage.switchDiscount(0)" class="discount-txt">
                 <div class="discounts-label">{{ 'cart.DISCOUNT_WINDOW' | translate }}</div>
               </div>
               <div ng-show="cartPage.config.isShowDiscountList" class="discounts-list">
                 <div ng-repeat="discount in cartPage.config.discountsList.window" ng-class="{ 'active': discount === cartPage.O.order.discount_construct }" hm-tap="cartPage.selectDiscount(0, discount, $event)" class="discounts-item">{{ discount }}%</div>
               </div>
             </div>
-            <div ng-class="{'selected': cartPage.O.order.discount_addelem }" hm-tap="cartPage.switchDiscount(1)" class="discount-box">
+            <div ng-class="{'selected': cartPage.O.order.discount_addelem }" class="discount-box">
               <div hm-tap="cartPage.openDiscountList(1, $event)" class="discount-data">{{cartPage.O.order.discount_addelem}}%</div>
-              <div class="discount-txt">
+              <div hm-tap="cartPage.switchDiscount(1)" class="discount-txt">
                 <div class="discounts-label">{{ 'cart.DISCOUNT_ADDELEM' | translate }}</div>
               </div>
               <div ng-show="cartPage.config.isShowDiscountAddList" class="discounts-list">
@@ -174,7 +177,7 @@
               <button hm-tap="cartPage.clickDeleteProduct($index)" class="order-delete"></button>
               <div class="order-header">
                 <div hm-tap="cartPage.editProduct($index, 'product')" class="order-template">
-                  <svg-template-icon template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template-icon>
+                  <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
                 </div>
               </div>
               <div class="order-content">
@@ -207,8 +210,7 @@
               <div class="addelements-detail-row">
                 <div class="product-value">
                   <div class="product-icon-thumb">
-                    <svg-template-icon template="cartPage.O.order.products[cartPage.config.detailProductIndex].templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template-icon>
-                    <!--svg-template(template="cartPage.O.order.products[cartPage.config.detailProductIndex].templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="icon")-->
+                    <svg-template template="cartPage.O.order.products[cartPage.config.detailProductIndex].templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
                   </div><span class="product-template-qty">X {{ cartPage.O.order.products[cartPage.config.detailProductIndex].product_qty }}</span>
                 </div>
                 <div class="product-icon-label">{{ 'cart.PRODUCT_QTY' | translate }}</div>
@@ -672,13 +674,13 @@
             <li ng-class="{'active': cartMenu.config.activeMenuItem == 1}" hm-tap="cartMenu.selectMenuItem(1)" class="item">
               <div data-output="{{ 'cart.DELIVERY' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
               <div class="cart-item-data">
-                <div ng-show="cartMenu.O.order.floor_id == 'free'" data-output="{{ 'cart.SELF_EXPORT' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
-                <div ng-hide="cartMenu.O.order.floor_id == 'free'" data-output="{{ cartMenu.O.order.floor_id }} {{ 'cart.FLOOR' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div><span ng-hide="cartMenu.O.order.floor_id == 'free'" data-output=" + {{ cartMenu.O.order.selectedFloorPrice }} {{ cartMenu.U.userInfo.currency }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span>
+                <div ng-show="!cartMenu.O.order.floor_id" data-output="{{ 'cart.SELF_EXPORT' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
+                <div ng-show="cartMenu.O.order.floor_id" data-output="{{ cartMenu.O.order.floor_id }} {{ 'cart.FLOOR' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div><span ng-hide="cartMenu.O.order.floor_id == 'free'" data-output=" + {{ cartMenu.O.order.floor_price }} {{ cartMenu.U.userInfo.currency }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span>
               </div>
             </li>
             <div ng-class="{'active': cartMenu.config.activeMenuItem == 1}" class="dropdown-cart-menu drop-delivery">
               <ul class="dropdown-items-list">
-                <li ng-class="{'selected': cartMenu.O.order.floor_id == 'free'}" hm-tap="cartMenu.selectFloorPrice('free', 0)" class="dropdown-item">
+                <li ng-class="{'selected': !cartMenu.O.order.floor_id}" hm-tap="cartMenu.selectFloorPrice(0, 0)" class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value drop-txt">{{ 'cart.SELF_EXPORT' | translate }}</div>
                     <div class="name drop-txt"></div>
@@ -695,13 +697,13 @@
             <li ng-class="{'active': cartMenu.config.activeMenuItem == 2}" hm-tap="cartMenu.selectMenuItem(2)" class="item">
               <div data-output="{{ 'cart.ASSEMBLING' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="title"></div>
               <div class="cart-item-data">
-                <div ng-show="cartMenu.O.order.mounting_id == 'free'" data-output="{{ 'cart.WITHOUT_ASSEMBLING' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
-                <div ng-hide="cartMenu.O.order.mounting_id == 'free'" data-output="{{ cartMenu.O.order.mounting_id }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div><span ng-hide="cartMenu.O.order.mounting_id == 'free'" data-output=" + {{ cartMenu.O.order.mounting_price }} {{ cartMenu.U.userInfo.currency }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span>
+                <div ng-show="!cartMenu.O.order.mounting_id" data-output="{{ 'cart.WITHOUT_ASSEMBLING' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div>
+                <div ng-show="cartMenu.O.order.mounting_id" data-output="{{ cartMenu.O.order.mounting_id }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div><span ng-hide="cartMenu.O.order.mounting_id == 'free'" data-output=" + {{ cartMenu.O.order.mounting_price }} {{ cartMenu.U.userInfo.currency }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span>
               </div>
             </li>
             <div ng-class="{'active': cartMenu.config.activeMenuItem == 2}" class="dropdown-cart-menu drop-assembling">
               <ul class="dropdown-items-list">
-                <li ng-class="{'selected': cartMenu.O.order.mounting_id == 'free'}" hm-tap="cartMenu.selectAssembling('free', 0)" class="dropdown-item">
+                <li ng-class="{'selected': !cartMenu.O.order.mounting_id}" hm-tap="cartMenu.selectAssembling(0, 0)" class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value drop-txt">{{ 'cart.WITHOUT_ASSEMBLING' | translate }}</div>
                     <div class="name drop-txt">{{ 'cart.FREE' | translate }}</div>

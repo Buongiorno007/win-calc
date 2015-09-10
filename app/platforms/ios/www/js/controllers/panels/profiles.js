@@ -1,6 +1,3 @@
-
-// controllers/panels/profiles.js
-
 (function(){
   'use strict';
   /**
@@ -46,4 +43,3 @@
 
   }
 })();
-

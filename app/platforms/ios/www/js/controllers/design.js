@@ -1,6 +1,3 @@
-
-// controllers/design.js
-
 (function(){
   'use strict';
   /**
@@ -83,6 +80,7 @@
       DesignStor.design.activeMenuItem = (DesignStor.design.activeMenuItem === id) ? 0 : id;
       DesignServ.hideCornerMarks();
       DesignServ.deselectAllImpost();
+      DesignServ.deselectAllArc();
       //----- hide culculator
       DesignServ.hideSizeTools();
       if(DesignStor.design.activeMenuItem) {
@@ -113,6 +111,9 @@
         //-------- delete selected glasses
         DesignServ.deselectAllGlass();
         DesignServ.deselectAllArc();
+        $timeout(function(){
+          DesignStor.design.isImpostDelete = 0;
+        }, 300);
       }
     }
 
@@ -142,7 +143,9 @@
 
 
     function insertSash(sashType, event) {
-      event.srcEvent.stopPropagation();
+      console.log('INSER SASH ===', event, DesignStor.design.activeSubMenuItem);
+      event.preventDefault();
+//      event.srcEvent.stopPropagation();
       DesignStor.design.activeMenuItem = 0;
       DesignStor.design.activeSubMenuItem = 0;
       var glassQty = DesignStor.design.selectedGlass.length;
@@ -157,6 +160,7 @@
           DesignServ.createSash(sashType, DesignStor.design.selectedGlass[i]);
         }
       }
+      console.log('INSER SASH 22===', DesignStor.design.activeSubMenuItem);
     }
 
 
@@ -171,7 +175,8 @@
         DesignStor.design.activeSubMenuItem = menuId;
         corners.transition().duration(300).ease("linear").attr('r', 50);
         DesignStor.design.selectedCorner = corners[0];
-        corners.on('touchstart', function () {
+//        corners.on('touchstart', function () {
+        corners.on('click', function () {
           //----- hide all cornerMark
           DesignServ.hideCornerMarks();
 
@@ -291,6 +296,9 @@
           for (var i = 0; i < impostsQty; i++) {
             DesignServ.deleteImpost(DesignStor.design.selectedImpost[i]);
           }
+          $timeout(function(){
+            DesignStor.design.isImpostDelete = 0;
+          }, 300);
         }
       } else {
         if(!impostsQty) {
@@ -408,4 +416,3 @@
 
   }
 })();
-

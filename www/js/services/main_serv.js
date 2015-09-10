@@ -809,7 +809,7 @@
       GlobalStor.global.isNavMenu = false;
       GlobalStor.global.isConfigMenu = true;
       //------ open Template Panel
-      GlobalStor.global.activePanel = 1;
+//      GlobalStor.global.activePanel = 1;
     }
 
 

@@ -1,9 +1,7 @@
 .rooms-selector-dialog {
   @extend .modal-dialog;
-  @include display-flex();
-  @include flex-flow(column nowrap);
-  height: rem(800px);
-
+  height: 51rem;
+  overflow: hidden;
   &:after {
     position: absolute;
     right: 35%;
@@ -15,17 +13,16 @@
     border-color: rgba(#fff, .85) transparent;
     content: '';
   }
-
-  .rooms-row {
-    @include display-flex();
-
-    &:first-of-type {
-      margin-bottom: rem(25px);
-    }
+  .rooms-inner {
+    height: 100%;
+    width: 110%;
+    overflow-y: auto;
   }
   .room-block {
     width: rem(404px);
     height: rem(314px);
+    float: left;
+    margin-bottom: rem(25px);
   }
   .room-box {
     width: 100%;
@@ -40,44 +37,11 @@
   }
   .room-img {
     @extend .splash;
-
     position: relative;
     width: 100%;
     height: 100%;
-    &.kitchen {
-      background: image-url('rooms-dialog/1.jpg');
-      background-size: contain;
-    }
-    &.livingroom {
-      background: image-url('rooms-dialog/livingroom.jpg');
-      background-size: contain;
-    }
-    &.balcony {
-      background: image-url('rooms-dialog/balcony.jpg');
-      background-size: contain;
-    }
-    &.childroom {
-      background: image-url('rooms-dialog/4.jpg');
-      background-size: contain;
-    }
-    &.bedroom {
-      background: image-url('rooms-dialog/bedroom.jpg');
-      background-size: contain;
-    }
-    &.door {
-      background: image-url('rooms-dialog/door.jpg');
-      background-size: contain;
-    }
+    background-size: contain;
+    background-repeat: no-repeat;
   }
-  .room-title {
-    @include background-image(linear-gradient(color-stops(rgba(#efefef, .1), #474747)));
-    @include roboto-rg(rem(36px), rem(80px));
 
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding-left: rem(30px);
-    color: #fff;
-  }
 }

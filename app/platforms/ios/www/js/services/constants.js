@@ -1,6 +1,3 @@
-
-// services/constants.js
-
 (function(){
   'use strict';
 
@@ -22,8 +19,8 @@
       svgTemplateIconHeight: 70,
       svgTemplateIconBigWidth: 500,
       svgTemplateIconBigHeight: 450,
-      svgTemplateWidth: 100,
-      svgTemplateHeight: 100,
+      svgTemplateWidth: 1024,
+      svgTemplateHeight: 752,
 
       //---Edit Design
       squareLimit: 0.15,
@@ -55,4 +52,3 @@
     });
 
 })();
-

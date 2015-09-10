@@ -177,41 +177,12 @@ body {
 
 .right-side {
   @include transition(all 1.3s linear);
+  opacity: 0.2;
   &.main-page-bg {
-    opacity: 0.2;
-  }
-
-  &.kitchen {
-    background: image-url('rooms-bg/kitchen.jpg') no-repeat;
     background-size: cover;
+    background-repeat: no-repeat;
     opacity: 1;
   }
-  &.livingroom {
-    background: image-url('rooms-bg/livingroom.jpg') no-repeat;
-    background-size: cover;
-    opacity: 1;
-  }
-  &.balcony {
-    background: image-url('rooms-bg/balcony.jpg') no-repeat;
-    background-size: cover;
-    opacity: 1;
-  }
-  &.childroom {
-    background: image-url('rooms-bg/childroom.jpg') no-repeat;
-    background-size: cover;
-    opacity: 1;
-  }
-  &.bedroom {
-    background: image-url('rooms-bg/bedroom.jpg') no-repeat;
-    background-size: cover;
-    opacity: 1;
-  }
-  &.door {
-    background: image-url('rooms-bg/door.jpg') no-repeat;
-    background-size: cover;
-    opacity: 1;
-  }
-
 }
 
 

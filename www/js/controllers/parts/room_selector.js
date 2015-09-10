@@ -17,16 +17,19 @@
     thisCtrl.P = ProductStor;
 
     thisCtrl.config = {
-      DELAY_SHOW_ROOM1: 5 * globalConstants.STEP,
-      DELAY_SHOW_ROOM2: 6 * globalConstants.STEP,
-      DELAY_SHOW_ROOM3: 7 * globalConstants.STEP,
-      DELAY_SHOW_ROOM4: 8 * globalConstants.STEP,
-      DELAY_SHOW_ROOM5: 9 * globalConstants.STEP,
-      DELAY_SHOW_ROOM6: 10 * globalConstants.STEP
+      rooms: [],
+      DELAY_SHOW_ROOM: 5 * globalConstants.STEP
     };
 
-    //------ clicking
 
+    //TODO must be from Server
+    for(var r = 0; r < 16; r++) {
+      var roomObj = {id: r};
+      thisCtrl.config.rooms.push(roomObj);
+    }
+
+
+    //------ clicking
     thisCtrl.selectRoom = selectRoom;
     thisCtrl.closeRoomSelectorDialog = closeRoomSelectorDialog;
 
