@@ -70,7 +70,7 @@
             <div class="order-block">
               <div ng-repeat="product in cartPage.O.order.products track by $index" class="order">
                 <button hm-tap="cartPage.clickDeleteProduct($index)" class="order-delete"></button>
-                <div hm-tap="cartPage.editProduct($index, 'product')" class="order-header"><img ng-src="img/rooms-dialog/{{product.room_id}}.jpg" class="order-header-fon">
+                <div hm-tap="cartPage.editProduct($index, 'product')" class="order-header"><img ng-src="img/rooms/{{product.room_id}}.jpg" class="order-header-fon">
                   <div class="order-template">
                     <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
                   </div>
@@ -848,7 +848,7 @@
               <input type="text" name="address" ng-model="orderDialog.C.cart.customer.customer_address" placeholder="{{ 'cart.CLIENT_ADDRESS' | translate }}" required class="user-field">
               <div ng-show="orderDialog.C.cart.submitted &amp;&amp; callOrderForm.address.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
             </div>
-            <div class="cart-dialog-label">{{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }}: {{ orderDialog.order.orderPriceTOTALDis }} {{ orderDialog.U.userInfo.currency }}</div>
+            <div class="cart-dialog-label">{{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }}: {{ orderDialog.O.order.orderPriceTOTALDis }} {{ orderDialog.U.userInfo.currency }}</div>
             <div class="cart-dialog-label">{{ 'cart.CALL_ORDER_ADD_INFO' | translate }}</div>
             <div class="input-field">
               <input type="email" name="mail" ng-model="orderDialog.customer.customer_mail" placeholder="{{ 'cart.CLIENT_EMAIL' | translate }}" class="user-field">
@@ -933,11 +933,11 @@
               </div>
             </div>
             <div class="input-field">
-              <div class="user-field">{{ creditDialog.order.selectedInstalmentPeriod }}
+              <div class="user-field">{{ creditDialog.O.order.selectedInstalmentPeriod }}
                 <ng-pluralize count="creditDialog.O.order.selectedInstalmentPeriod" when="{'1': '{{ creditDialog.config.month }}', '2': '{{ creditDialog.config.montha }}', '3': '{{ creditDialog.config.montha }}', '4': '{{ creditDialog.config.montha }}', 'other': '{{ creditDialog.config.months }}'}">, {{creditDialog.O.order.selectedInstalmentPercent}}%</ng-pluralize>
               </div>
             </div>
-            <div class="cart-dialog-label">{{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }} {{ creditDialog.O.order.order_price_total }}{{ creditDialog.U.userInfo.currency }} {{ 'cart.CALL_CREDIT_PARTIAL_PRICE' | translate }} {{ creditDialog.O.order.payment_monthly }}{{ creditDialog.U.userInfo.currency }}</div>
+            <div class="cart-dialog-label">{{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }} {{ creditDialog.O.order.orderPriceTOTALDis }}{{ creditDialog.U.userInfo.currency }} {{ 'cart.CALL_CREDIT_PARTIAL_PRICE' | translate }} {{ creditDialog.O.order.payment_monthly }}{{ creditDialog.U.userInfo.currency }}</div>
             <div class="cart-dialog-label">{{ 'cart.CALL_ORDER_DELIVERY' | translate }} {{ creditDialog.O.order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
             <div ng-class="{ 'has-error' : creditDialog.C.cart.submitted &amp;&amp; callCreditForm.location.$error.required }" class="input-field">
               <input type="text" name="location" ng-model="creditDialog.C.cart.customer.customer_location" ng-change="creditDialog.changeLocation()" placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}" ng-blur="creditDialog.C.cart.isCityBox = false" required class="user-field">

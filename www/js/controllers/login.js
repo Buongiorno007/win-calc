@@ -64,15 +64,14 @@
     function entriyWithoutLogin() {
       var url = $location.search();
 //      console.log('url = ', url); //{access: '5b1b68a9abf4d2cd155c81a9225fd158'}
-      if(url.access === '5b1b68a9abf4d2cd155c81a9225fd158') {
+      if(url.access === '7d537b6746f925b1703aefa9b8a9a4bc') {
         GlobalStor.global.isLoader = 1;
-        thisCtrl.user.phone = '555555';
-        thisCtrl.user.password = '555555';
+        thisCtrl.user.phone = '0950604425';
+        thisCtrl.user.password = '0950604425';
         importDBProsses();
       }
     }
-//?access=5b1b68a9abf4d2cd155c81a9225fd158
-//fbp_den@mail.ru
+//?access=7d537b6746f925b1703aefa9b8a9a4bc
 
 
 

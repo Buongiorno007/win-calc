@@ -117,7 +117,6 @@
         ONE_WINDOW_TYPE: 'Одностворчатое',
         TWO_WINDOW_TYPE: 'Двухстворчатое',
         THREE_WINDOW_TYPE: 'Трехстворчатое',
-//        OTHER_TYPE: 'Другие...',
         UKRAINE: 'Украина',
         GERMANY: 'Германия',
         AUSTRIA: 'Австрия',
@@ -371,9 +370,8 @@
         NEW_PASSWORD: 'Новый',
         CONFIRM_PASSWORD: 'Подтвердить',
         NO_CONFIRM_PASS: 'Неверный пароль'
-      }//,
+      }
 
-      //'SWITCH_LANG': 'English'
     });
 
 })();

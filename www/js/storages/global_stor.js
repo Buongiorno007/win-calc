@@ -23,7 +23,7 @@
         isNavMenu: 1,
         isConfigMenu: 0,
         activePanel: 0,
-        isConfigMenuTips: 1,
+        configMenuTips: 1,
 
         isCreatedNewProject: 1,
         isCreatedNewProduct: 1,

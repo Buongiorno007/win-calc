@@ -52,8 +52,9 @@
 
     //------ Download complete Orders from localDB
     function downloadOrders() {
-      localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {order_type: 1}).then(function(orders) {
-        console.log('orders+++++', orders);
+      localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {order_type: 1}).then(function(result) {
+        var orders = angular.copy(result);
+//        console.log('orders+++++', orders);
        var orderQty = orders.length;
         if(orderQty) {
           while(--orderQty > -1) {

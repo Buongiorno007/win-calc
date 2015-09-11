@@ -109,9 +109,9 @@
           angular.extend(groups, types);
           var promises = types.map(function(type) {
             var defer2 = $q.defer();
-            localDB.selectLocalDB(tableElem, {'folder_id': type.id}).then(function (profile) {
-              if (profile.length) {
-                elements.push(angular.copy(profile));
+            localDB.selectLocalDB(tableElem, {'folder_id': type.id}).then(function (elem) {
+              if (elem.length) {
+                elements.push(angular.copy(elem));
                 defer2.resolve(1);
               } else {
                 defer2.resolve(0);
@@ -129,6 +129,33 @@
       return defer.promise;
     }
 
+
+//    function downloadElemImg() {
+//      console.log('USER:', window.navigator);
+//      console.log('USER:', window.navigator.userAgent); // regExp = Mobile
+//      console.log('USER:', window.navigator.platform);
+//      if(mobile) {
+//        var url = "http://cdn.wall-pix.net/albums/art-space/00030109.jpg";
+//        var targetPath = cordova.file.documentsDirectory + "testImage.png";
+//        var trustHosts = true;
+//        var options = {};
+//
+//        $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function(result) {
+//            // Success!
+//          },
+//          function(err) {
+//            // Error
+//          },
+//          function (progress) {
+//            $timeout(function () {
+//              $scope.downloadProgress = (progress.loaded / progress.total) * 100;
+//            })
+//          });
+//      } else {
+//        globalConstants.serverIP;
+//      }
+//
+//    }
 
 
     function downloadAllGlasses() {
@@ -757,7 +784,7 @@
     //-------- Save Product in Order and go to Cart
     function inputProductInOrder() {
       var deferred = $q.defer();
-      GlobalStor.global.isConfigMenuTips = 0;
+      GlobalStor.global.configMenuTips = 0;
 
       //---------- if EDIT Product
       if(GlobalStor.global.productEditNumber) {

@@ -51,7 +51,7 @@
     </div>
   </section>
   <!--TODO change to directive!!!! rooms will be more-->
-  <section ng-style="{'background-image':'url(img/rooms/'+mainPage.P.product.room_id+'.jpg)'}" class="right-side main-page-bg">
+  <section ng-class="{'main-page-bg': mainPage.G.global.currOpenPage === 'main', 'main-room-bg': mainPage.G.global.currOpenPage === 'main'}" ng-style="{'background-image':'url(img/rooms/'+mainPage.P.product.room_id+'.jpg)'}" class="right-side">
     <section class="main-content">
       <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
         <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
@@ -85,7 +85,7 @@
       <div ng-controller="RoomSelectorCtrl as rooms" ng-class="{'active': rooms.G.global.showRoomSelectorDialog}" class="rooms-selector-dialog">
         <div ng-if="rooms.G.global.showRoomSelectorDialog" class="rooms-inner">
           <div ng-repeat="room in rooms.config.rooms" class="room-block">
-            <div ng-class="{'selected': rooms.P.product.room_id === room.id}" hm-tap="rooms.selectRoom(room.id)" show-delay="{{ $index * rooms.config.DELAY_SHOW_ROOM }}" class="room-box unvisible">
+            <div ng-class="{'selected': rooms.P.product.room_id === room.id}" hm-tap="rooms.selectRoom(room.id)" show-delay="{{ ($index+1) * rooms.config.DELAY_SHOW_ROOM }}" class="room-box unvisible">
               <div ng-style="{'background-image':'url(img/rooms/'+room.id+'.jpg)'}" class="room-img"></div>
             </div>
           </div>
@@ -968,6 +968,9 @@
           <div>{{ 'mainpage.HEATCOEF_VAL' | translate }}&sup2;&middot;K</div>
         </div>
         <div ng-show="configMenu.P.product.is_addelem_only" class="curtain"></div>
+        <div ng-show="configMenu.G.global.configMenuTips" hm-tap="configMenu.showNextTip()" ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}" class="menu_tooltip">{{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}
+          <div class="close_menu_tooltip"></div>
+        </div>
       </div>
       <div ng-controller="addElementMenuCtrl as elementsMenu" ng-class="[elementsMenu.A.aux.showAddElementsMenu, elementsMenu.A.aux.addElementsMenuStyle]" class="elements-list-container">
         <div class="elements-menu">

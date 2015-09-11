@@ -96,7 +96,10 @@
         COMMENT: 'Залиште свою замітку про заказ тут.',
         ROOM_SELECTION: 'Вибір інтер`єру',
         CONFIGMENU_NO_ADDELEMENTS: 'Дод.елементи не вибранi',
-        HEATCOEF_VAL: 'Вт/м'
+        HEATCOEF_VAL: 'Вт/м',
+        TEMPLATE_TIP: 'Для зміни розмірів натисніть сюди',
+        PROFILE_TIP: 'Для вибору профілю натисніть сюди',
+        GLASS_TIP: 'Для вибору склопакета натисніть сюди'
       },
       panels: {
         TEMPLATE_WINDOW: 'Вікно',
@@ -115,7 +118,6 @@
         ONE_WINDOW_TYPE: 'Одностворчатое',
         TWO_WINDOW_TYPE: 'Двухстворчатое',
         THREE_WINDOW_TYPE: 'Трехстворчатое',
-        OTHER_TYPE: 'Другие...',
         UKRAINE: 'Украина',
         GERMANY: 'Германия',
         AUSTRIA: 'Австрия',

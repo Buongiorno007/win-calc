@@ -93,7 +93,10 @@
         COMMENT: 'Leave a note on the order here.',
         ROOM_SELECTION: 'Interior selection',
         CONFIGMENU_NO_ADDELEMENTS: 'Add Elements are not choosen',
-        HEATCOEF_VAL: 'W/m'
+        HEATCOEF_VAL: 'W/m',
+        TEMPLATE_TIP: 'To change the size, click here',
+        PROFILE_TIP: 'To select a profile, click here',
+        GLASS_TIP: 'To select a double-glazed window, click here'
       },
       panels: {
         TEMPLATE_WINDOW: 'Window',
@@ -112,7 +115,6 @@
         ONE_WINDOW_TYPE: 'One-casement',
         TWO_WINDOW_TYPE: 'Two-casement',
         THREE_WINDOW_TYPE: 'Three-leaf',
-        OTHER_TYPE: 'Others...',
         UKRAINE: 'Ukraine',
         GERMANY: 'Germany',
         AUSTRIA: 'Austria',

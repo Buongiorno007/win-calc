@@ -306,8 +306,8 @@
                 blockID = glass[0][0].attributes.block_id.nodeValue,
                 currDimId = (parentID === 'block_0') ? blockID : parentID;
             DesignStor.design.isDimAnimate = 1;
-//            showCurrentDimLevel(currDimId);
-            showCurrentDimLevel(blockID);
+            showCurrentDimLevel(currDimId);
+//            showCurrentDimLevel(blockID);
 //            if(DesignStor.design.isDimAnimate && parentID !== 'block_0') {
 //              $timeout(function () {
 //                showNextDimensionLevel(currDimId, delayDimShow);

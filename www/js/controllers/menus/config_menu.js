@@ -23,7 +23,12 @@
 
 
     thisCtrl.config = {
-      TOOLTIP: $filter('translate')('mainpage.TEMPLATE_TIP'),
+      TOOLTIP: [
+        '',
+        $filter('translate')('mainpage.TEMPLATE_TIP'),
+        $filter('translate')('mainpage.PROFILE_TIP'),
+        $filter('translate')('mainpage.GLASS_TIP')
+      ],
       DELAY_START: globalConstants.STEP,
       DELAY_SHOW_CONFIG_LIST: 5 * globalConstants.STEP,
       DELAY_SHOW_FOOTER: 5 * globalConstants.STEP,
@@ -39,6 +44,7 @@
     //------ clicking
     thisCtrl.selectConfigPanel = selectConfigPanel;
     thisCtrl.inputProductInOrder = saveProduct;
+    thisCtrl.showNextTip = showNextTip;
 
 
     //============ methods ================//
@@ -48,7 +54,7 @@
 
     function selectConfigPanel(id) {
       GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
-      GlobalStor.global.isConfigMenuTips = 0;
+      GlobalStor.global.configMenuTips = 0;
       AuxStor.aux.isWindowSchemeDialog = 0;
       AuxStor.aux.isAddElementListView = 0;
       AuxStor.aux.isFocusedAddElement = 0;
@@ -64,16 +70,14 @@
       });
     }
 
-    function showTooltip() {
-      thisCtrl.config.TOOLTIP = $filter('translate')('mainpage.PROFILE_TIP');
-      thisCtrl.config.TOOLTIP = $filter('translate')('mainpage.GLASS_TIP');
-
-
+    function showNextTip() {
+      var tipQty = thisCtrl.config.TOOLTIP.length;
+      ++GlobalStor.global.configMenuTips;
+      if(GlobalStor.global.configMenuTips === tipQty) {
+        GlobalStor.global.configMenuTips = 0;
+      }
     }
 
-    function closeTooltip() {
 
-    }
-    
   }
 })();

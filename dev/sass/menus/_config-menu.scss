@@ -99,16 +99,16 @@
     width: 20rem;
     left: -22rem;
     position: absolute;
-    padding: 2rem;
+    padding: 3rem 1rem 1rem 3rem;
     color: $main_gray_txt;
     border-radius: rem($radius_rooms-dialog);
     background-color: rgba(#fff, .85);
     opacity: 0;
-    z-index: 2;
+    z-index: 1;
     &:after {
       position: absolute;
       right: -1.4rem;
-      top: 50%;
+      top: 30%;
       display: block;
       width: 0;
       border-width: rem(25px) 0 rem(25px) rem(25px);
@@ -121,10 +121,12 @@
       opacity: 1;
     }
     &.profile_tip {
-
+      top: 22rem;
+      opacity: 1;
     }
     &.glass_tip {
-
+      top: 29rem;
+      opacity: 1;
     }
     &.ware_tip {
 

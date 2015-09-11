@@ -367,8 +367,7 @@ $door-config-content: $ipad-height - $door-config-header;
     background-color: #f8f8f8;
     border-left: 1px solid $main_gray_btn;
     &.active {
-//TODO ipad      bottom: 0;
-      bottom: 2rem;
+      bottom: 0;
     }
   }
 

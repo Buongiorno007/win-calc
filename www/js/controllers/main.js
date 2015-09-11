@@ -20,7 +20,6 @@
     //------- set current Page
     GlobalStor.global.currOpenPage = 'main';
 
-//    console.log('USER:',thisCtrl.U.userInfo);
 
     //=============== FIRST START =========//
 
@@ -39,7 +38,7 @@
       //----------- Profiles
       MainServ.downloadAllElemAsGroup(localDB.tablesLocalDB.profile_system_folders.tableName, localDB.tablesLocalDB.profile_systems.tableName, GlobalStor.global.profilesType, GlobalStor.global.profiles).then(function(data) {
         if(data) {
-          console.log('PROFILES ALL ++++++',GlobalStor.global.profilesType, GlobalStor.global.profiles);
+//          console.log('PROFILES ALL ++++++',GlobalStor.global.profilesType, GlobalStor.global.profiles);
           //---------- Glasses
           MainServ.downloadAllGlasses().then(function(data) {
             if(data) {
@@ -49,7 +48,7 @@
               //-------- Hardwares
               MainServ.downloadAllElemAsGroup(localDB.tablesLocalDB.window_hardware_folders.tableName, localDB.tablesLocalDB.window_hardware_groups.tableName, GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares).then(function(data){
                 if(data) {
-                  console.log('HARDWARE ALL ++++++', GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares);
+//                  console.log('HARDWARE ALL ++++++', GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares);
                   //--------- set Templates
                   MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
 

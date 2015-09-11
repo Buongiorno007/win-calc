@@ -44,5 +44,6 @@
     div U = {{ configMenu.P.product.heat_coef_total }}
     div {{ 'mainpage.HEATCOEF_VAL' | translate }}&sup2;&middot;K
   .curtain(ng-show="configMenu.P.product.is_addelem_only")
-  .menu_tooltip(ng-show="configMenu.G.global.isConfigMenuTips", ng-class="{'tempate_tip': configMenu.G.global.isConfigMenuTips}") {{ configMenu.config.TOOLTIP }}
-    .close_menu_tooltip(hm-tap="configMenu.closeTooltip()")
+
+  .menu_tooltip(ng-show="configMenu.G.global.configMenuTips && configMenu.G.global.isConfigMenu", hm-tap="configMenu.showNextTip()", ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}") {{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}
+    .close_menu_tooltip

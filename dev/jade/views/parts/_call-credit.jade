@@ -37,11 +37,11 @@
             input.time-field(type="nubmer", name="endtime", ng-model="creditDialog.C.cart.customer.customer_endtime", placeholder="00:00")
 
         .input-field
-          .user-field {{ creditDialog.order.selectedInstalmentPeriod }}
+          .user-field {{ creditDialog.O.order.selectedInstalmentPeriod }}
             ng-pluralize(count="creditDialog.O.order.selectedInstalmentPeriod",
             when="{'1': '{{ creditDialog.config.month }}', '2': '{{ creditDialog.config.montha }}', '3': '{{ creditDialog.config.montha }}', '4': '{{ creditDialog.config.montha }}', 'other': '{{ creditDialog.config.months }}'}") , {{creditDialog.O.order.selectedInstalmentPercent}}%
 
-        .cart-dialog-label {{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }} {{ creditDialog.O.order.order_price_total }}{{ creditDialog.U.userInfo.currency }} {{ 'cart.CALL_CREDIT_PARTIAL_PRICE' | translate }} {{ creditDialog.O.order.payment_monthly }}{{ creditDialog.U.userInfo.currency }}
+        .cart-dialog-label {{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }} {{ creditDialog.O.order.orderPriceTOTALDis }}{{ creditDialog.U.userInfo.currency }} {{ 'cart.CALL_CREDIT_PARTIAL_PRICE' | translate }} {{ creditDialog.O.order.payment_monthly }}{{ creditDialog.U.userInfo.currency }}
 
         .cart-dialog-label {{ 'cart.CALL_ORDER_DELIVERY' | translate }} {{ creditDialog.O.order.new_delivery_date | date:"dd.MM.yyyy"}}
 
