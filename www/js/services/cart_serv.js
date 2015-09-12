@@ -175,7 +175,6 @@
       MainServ.createNewProduct();
 
       MainServ.prepareMainPage();
-      GlobalStor.global.showRoomSelectorDialog = 1;
       $location.path('/main');
     }
 

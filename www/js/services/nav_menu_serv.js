@@ -150,12 +150,12 @@
           CartServ.calculateAllProductsPrice();
           OrderStor.order.order_price_total = OrderStor.order.products_price_total;
           //-------- save order as Draft
-          MainServ.insertOrderInLocalDB({}, globalConstants.draftOrderType, '');
+          MainServ.insertOrderInLocalDB({}, 0, '');
 
           //------- Create New Project with Draft saving in Cart Page
         } else if(GlobalStor.global.isCreatedNewProject && !GlobalStor.global.isCreatedNewProduct) {
           //-------- save order as Draft
-          MainServ.insertOrderInLocalDB({}, globalConstants.draftOrderType, '');
+          MainServ.insertOrderInLocalDB({}, 0, '');
         }
 
         //------- set previos Page

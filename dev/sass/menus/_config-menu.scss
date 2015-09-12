@@ -96,8 +96,8 @@
   .menu_tooltip {
     @include transition(all 0.2s linear);
     @include roboto-lt(rem(36px));
-    width: 20rem;
-    left: -22rem;
+    width: 24rem;
+    left: -26rem;
     position: absolute;
     padding: 3rem 1rem 1rem 3rem;
     color: $main_gray_txt;

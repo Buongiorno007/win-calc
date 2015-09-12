@@ -848,7 +848,7 @@
               <input type="text" name="address" ng-model="orderDialog.C.cart.customer.customer_address" placeholder="{{ 'cart.CLIENT_ADDRESS' | translate }}" required class="user-field">
               <div ng-show="orderDialog.C.cart.submitted &amp;&amp; callOrderForm.address.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
             </div>
-            <div class="cart-dialog-label">{{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }}: {{ orderDialog.O.order.orderPriceTOTALDis }} {{ orderDialog.U.userInfo.currency }}</div>
+            <div class="cart-dialog-label">{{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }}: {{ orderDialog.C.cart.orderPriceTOTALDis }} {{ orderDialog.U.userInfo.currency }}</div>
             <div class="cart-dialog-label">{{ 'cart.CALL_ORDER_ADD_INFO' | translate }}</div>
             <div class="input-field">
               <input type="email" name="mail" ng-model="orderDialog.customer.customer_mail" placeholder="{{ 'cart.CLIENT_EMAIL' | translate }}" class="user-field">
@@ -937,7 +937,7 @@
                 <ng-pluralize count="creditDialog.O.order.selectedInstalmentPeriod" when="{'1': '{{ creditDialog.config.month }}', '2': '{{ creditDialog.config.montha }}', '3': '{{ creditDialog.config.montha }}', '4': '{{ creditDialog.config.montha }}', 'other': '{{ creditDialog.config.months }}'}">, {{creditDialog.O.order.selectedInstalmentPercent}}%</ng-pluralize>
               </div>
             </div>
-            <div class="cart-dialog-label">{{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }} {{ creditDialog.O.order.orderPriceTOTALDis }}{{ creditDialog.U.userInfo.currency }} {{ 'cart.CALL_CREDIT_PARTIAL_PRICE' | translate }} {{ creditDialog.O.order.payment_monthly }}{{ creditDialog.U.userInfo.currency }}</div>
+            <div class="cart-dialog-label">{{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }} {{ creditDialog.C.cart.orderPriceTOTALDis }}{{ creditDialog.U.userInfo.currency }} {{ 'cart.CALL_CREDIT_PARTIAL_PRICE' | translate }} {{ creditDialog.O.order.payment_monthly }}{{ creditDialog.U.userInfo.currency }}</div>
             <div class="cart-dialog-label">{{ 'cart.CALL_ORDER_DELIVERY' | translate }} {{ creditDialog.O.order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
             <div ng-class="{ 'has-error' : creditDialog.C.cart.submitted &amp;&amp; callCreditForm.location.$error.required }" class="input-field">
               <input type="text" name="location" ng-model="creditDialog.C.cart.customer.customer_location" ng-change="creditDialog.changeLocation()" placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}" ng-blur="creditDialog.C.cart.isCityBox = false" required class="user-field">

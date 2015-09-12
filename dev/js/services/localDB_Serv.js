@@ -940,6 +940,32 @@
 
 
 
+      sendIMGServer: function(data) {
+        var defer = $q.defer();
+//        $http.post(globalConstants.serverIP+'/api/load-avatar', data, {
+////          withCredentials: true,
+//          headers: {'Content-Type': undefined },
+//          transformRequest: angular.identity
+//        }).success(function (result) {
+//          console.log('send changes to server success:', result);
+//          defer.resolve(1);
+//        }).error(function () {
+//          console.log('send changes to server failed');
+//          defer.resolve(0);
+//        });
+        $http.post(globalConstants.serverIP+'/api/load-avatar', data)
+          .success(function (result) {
+            console.log('send changes to server success:', result);
+            defer.resolve(1);
+          })
+          .error(function () {
+            console.log('send changes to server failed');
+            defer.resolve(0);
+          });
+        return defer.promise;
+      },
+
+
 
 
 

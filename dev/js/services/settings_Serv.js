@@ -30,9 +30,13 @@
     //============ methods ================//
 
     //----- change avatar
-    function changeAvatar(newAvatar) {
+    function changeAvatar(newAvatar, form) {
       UserStor.userInfo.avatar = newAvatar;
-      localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {"avatar": UserStor.userInfo.avatar});
+      //------- send avatar to Server
+      localDB.sendIMGServer(form);
+      //------- save avatar in LocalDB
+      localDB.updateLocalDB(localDB.tablesLocalDB.users.tableName, {avatar: newAvatar}, {'id': UserStor.userInfo.id});
+
 //TODO ipad
 //      navigator.camera.getPicture( function( data ) {
 //        UserStor.userInfo.avatar = 'data:image/jpeg;base64,' + data;
