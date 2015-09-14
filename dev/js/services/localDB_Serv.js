@@ -681,15 +681,15 @@
 
       selectLocalDB: function (tableName, options) {
         var defer = $q.defer(),
-            vhereOptions = '';
+            vhereOptions = "";
         if(options) {
           vhereOptions = " WHERE ";
           var optionKeys = Object.keys(options);
-          vhereOptions += optionKeys[0] + ' = ' + options[optionKeys[0]];
+          vhereOptions += optionKeys[0] + " = '" + options[optionKeys[0]] + "'";
           var optionQty = optionKeys.length;
           if(optionQty > 1) {
             for(var k = 1; k < optionQty; k++) {
-              vhereOptions += ' AND ' + optionKeys[k] + ' = ' + options[optionKeys[k]];
+              vhereOptions += " AND " + optionKeys[k] + " = '" + options[optionKeys[k]] + "'";
             }
           }
         }
@@ -723,7 +723,7 @@
             keysQty = keysArr.length,
             optionKeys = Object.keys(options),
             optionQty = optionKeys.length,
-            elements = '';
+            elements = "";
 
         if(keysQty) {
           for(var k = 0; k < keysQty; k++) {
@@ -736,10 +736,10 @@
         }
         if(optionQty) {
           vhereOptions = " WHERE ";
-          vhereOptions += optionKeys[0] + ' = ' + options[optionKeys[0]];
+          vhereOptions += optionKeys[0] + " = '" + options[optionKeys[0]] + "'";
           if(optionQty > 1) {
             for(var k = 1; k < optionQty; k++) {
-              vhereOptions += ' AND ' + optionKeys[k] + ' = ' + options[optionKeys[k]];
+              vhereOptions += " AND " + optionKeys[k] + " = '" + options[optionKeys[k]] + "'";
             }
           }
         }
@@ -755,11 +755,11 @@
       deleteRowLocalDB: function(tableName, options) {
         var optionKeys = Object.keys(options),
             optionQty = optionKeys.length,
-            vhereOptions = ' WHERE ' + optionKeys[0] + ' = ' + options[optionKeys[0]];
+            vhereOptions = " WHERE " + optionKeys[0] + " = '" + options[optionKeys[0]] + "'";
 
         if(optionQty > 1) {
           for(var k = 1; k < optionQty; k++) {
-            vhereOptions += ' AND ' + optionKeys[k] + ' = ' + options[optionKeys[k]];
+            vhereOptions += " AND " + optionKeys[k] + " = '" + options[optionKeys[k]] + "'";
           }
         }
         db.transaction(function (trans) {
@@ -942,27 +942,17 @@
 
       sendIMGServer: function(data) {
         var defer = $q.defer();
-//        $http.post(globalConstants.serverIP+'/api/load-avatar', data, {
-////          withCredentials: true,
-//          headers: {'Content-Type': undefined },
-//          transformRequest: angular.identity
-//        }).success(function (result) {
-//          console.log('send changes to server success:', result);
-//          defer.resolve(1);
-//        }).error(function () {
-//          console.log('send changes to server failed');
-//          defer.resolve(0);
-//        });
-        $http.post(globalConstants.serverIP+'/api/load-avatar', data)
-          .success(function (result) {
-            console.log('send changes to server success:', result);
-            defer.resolve(1);
-          })
-          .error(function () {
-            console.log('send changes to server failed');
-            defer.resolve(0);
-          });
-        return defer.promise;
+        $http.post(globalConstants.serverIP+'/api/load-avatar', data, {
+//          withCredentials: true,
+          headers: {'Content-Type': undefined },
+          transformRequest: angular.identity
+        }).success(function (result) {
+          console.log('send changes to server success:', result);
+          defer.resolve(1);
+        }).error(function () {
+          console.log('send changes to server failed');
+          defer.resolve(0);
+        });
       },
 
 

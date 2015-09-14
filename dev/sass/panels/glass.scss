@@ -14,9 +14,11 @@
   }
   .glass-block-footer {
     overflow-x: auto;
+    overflow-y: hidden;
     //min-width: 98%;
     height: rem(370px);
     margin-top: rem(50px);
+    padding-top: 1rem;
   }
   .footer-inner {
     @include display-flex();

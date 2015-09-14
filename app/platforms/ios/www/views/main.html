@@ -86,7 +86,7 @@
         <div ng-if="rooms.G.global.showRoomSelectorDialog" class="rooms-inner">
           <div ng-repeat="room in rooms.config.rooms" class="room-block">
             <div ng-class="{'selected': rooms.P.product.room_id === room.id}" hm-tap="rooms.selectRoom(room.id)" show-delay="{{ ($index+1) * rooms.config.DELAY_SHOW_ROOM }}" class="room-box unvisible">
-              <div ng-style="{'background-image':'url(img/rooms/'+room.id+'.jpg)'}" class="room-img"></div>
+              <div ng-style="{'background-image':'url(img/rooms-icon/'+room.id+'.jpg)'}" class="room-img"></div>
             </div>
           </div>
         </div>
@@ -217,7 +217,7 @@
             <div ng-repeat="hardware in producer" ng-class="{'selected': hardware.id === hardwarePanel.P.product.hardware.id}" hm-tap="hardwarePanel.selectHardware(hardware.id)" show-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_BLOCK * $index) }}" class="hardware-box unvisible"><a ng-href="{{ hardware.hardwareLink }}" class="info"></a>
               <div class="hardware-box-inner">
                 <div class="hardware-box-view">
-                  <div class="hardware-logo"><img ng-src="http://192.168.1.147:3002{{ hardware.logo_url }}"></div>
+                  <div class="hardware-logo"><img ng-src="http://windowscalculator.net:3002{{ hardware.img }}"></div>
                 </div>
                 <div class="hardware-box-data">
                   <div class="hardware-data-txt">
@@ -897,7 +897,7 @@
               </tr>
             </table>
           </div>
-          <div ng-if="elementsListPanel.P.product.addElementsPriceSELECT" class="aux-list-block">
+          <div ng-if="elementsListPanel.P.product.addElementsPriceSELECTDis" class="aux-list-block">
             <table class="aux-list-addellement">
               <tr class="aux-list-row">
                 <td class="aux-tablecell-total">
@@ -968,7 +968,7 @@
           <div>{{ 'mainpage.HEATCOEF_VAL' | translate }}&sup2;&middot;K</div>
         </div>
         <div ng-show="configMenu.P.product.is_addelem_only" class="curtain"></div>
-        <div ng-show="configMenu.G.global.configMenuTips" hm-tap="configMenu.showNextTip()" ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}" class="menu_tooltip">{{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}
+        <div ng-show="configMenu.G.global.configMenuTips &amp;&amp; configMenu.G.global.isConfigMenu" hm-tap="configMenu.showNextTip()" ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}" class="menu_tooltip">{{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}
           <div class="close_menu_tooltip"></div>
         </div>
       </div>

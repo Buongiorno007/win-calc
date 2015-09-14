@@ -95,7 +95,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                     .user-data.account-user-phone {{ order.customer_phone }}
                     .account-label {{ 'history.PHONE' | translate }}
                   .account-data
-                    .user-data.account-user-adress {{ order.full_location }}, {{ order.customer_address }}
+                    .user-data.account-user-adress {{ order.customer_location }}, {{ order.customer_address }}
                     .account-label {{ 'history.ADDRESS' | translate }}
                 .account-row.footer
                   .account-value(ng-hide="order.order_style == 'credit'") {{ order.orderPriceTOTALDis }}{{ historyPage.U.userInfo.currency }}

@@ -159,7 +159,7 @@ section.construction-page
               .selected-item-arrow(ng-show="designPage.D.design.doorConfig.lockShapeIndex === $index")
 
       .door-config-tools
-        button.door-config-btn.close-door-config(hm-tap="designPage.closeDoorConfig()")
-        button.door-config-btn.save-door-config(ng-show="designPage.config.selectedStep4", hm-tap="designPage.saveDoorConfig()")
+        button.door-config-finish-btn.close-door-config(hm-tap="designPage.closeDoorConfig()")
+        button.door-config-finish-btn.save-door-config(ng-show="designPage.config.selectedStep4", hm-tap="designPage.saveDoorConfig()")
 
     .design-attantion(ng-show="designPage.config.isDesignError") {{ 'construction.NOT_AVAILABLE' | translate }}

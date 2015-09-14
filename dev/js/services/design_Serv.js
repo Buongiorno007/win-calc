@@ -196,9 +196,8 @@
 
 
     function setDoorConfigIndex(list, configId) {
-      var listQty = list.length,
-          i = 0;
-      for(;i < listQty; i++) {
+      var listQty = list.length;
+      for(var i = 0; i < listQty; i++) {
         if(list[i].shapeId === configId) {
           return i;
         }

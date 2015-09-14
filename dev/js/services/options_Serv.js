@@ -2178,23 +2178,39 @@
           floors: [
             {
               name: 1,
-              price: 100
+              price: 1
             },
             {
               name: 2,
-              price: 200
+              price: 2
             },
             {
               name: 3,
-              price: 300
+              price: 3
             },
             {
               name: 4,
-              price: 400
+              price: 4
             },
             {
               name: 5,
-              price: 500
+              price: 5
+            },
+            {
+              name: 6,
+              price: 6
+            },
+            {
+              name: 7,
+              price: 7
+            },
+            {
+              name: 8,
+              price: 8
+            },
+            {
+              name: 9,
+              price: 9
             }
           ]
 
@@ -2207,15 +2223,15 @@
           assembling: [
             {
               name: $filter('translate')('cart.NO_DISASSEMBL'),
-              price: 200
+              price: 10
             },
             {
               name: $filter('translate')('cart.STANDART_ASSEMBL'),
-              price: 300
+              price: 20
             },
             {
               name: $filter('translate')('cart.VIP_ASSEMBL'),
-              price: 400
+              price: 30
             }
           ]
 

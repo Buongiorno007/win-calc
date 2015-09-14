@@ -262,6 +262,9 @@
 
     function setUserDiscounts() {
       var defer = $q.defer();
+      //-------- add server url to avatar img
+      UserStor.userInfo.avatar = globalConstants.serverIP + UserStor.userInfo.avatar;
+
       localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(data) {
 //        console.log('DISCTOUN=====', data);
         if(data.length) {

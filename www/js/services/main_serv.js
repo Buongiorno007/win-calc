@@ -10,7 +10,7 @@
     .module('MainModule')
     .factory('MainServ', navFactory);
 
-  function navFactory($rootScope, $location, $q, $filter, $timeout, globalConstants, localDB, GeneralServ, SVGServ, loginServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function navFactory($rootScope, $location, $q, $filter, $timeout, globalConstants, localDB, GeneralServ, SVGServ, loginServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor, AuxStor) {
 
     var thisFactory = this;
 
@@ -39,6 +39,7 @@
       createNewProduct: createNewProduct,
       setDefaultDoorConfig: setDefaultDoorConfig,
       prepareMainPage: prepareMainPage,
+      setDefaultAuxParam: setDefaultAuxParam,
 
       inputProductInOrder: inputProductInOrder,
       goToCart: goToCart,
@@ -56,7 +57,6 @@
 
 
     function saveUserEntry() {
-
       localDB.exportUserEntrance(UserStor.userInfo.phone, UserStor.userInfo.device_code);
       //TODO offline
 //      ++UserStor.userInfo.entries;
@@ -546,6 +546,8 @@
         //----- set default hardware in ProductStor
         if(GlobalStor.global.isSashesInTemplate) {
           ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+        } else {
+          ProductStor.product.hardware = {};
         }
       }
     }
@@ -725,14 +727,18 @@
       setCurrDiscounts();
       //------- set new templates
       prepareTemplates(ProductStor.product.construction_type).then(function() {
-        prepareMainPage();
         GlobalStor.global.isLoader = 0;
         GlobalStor.global.isChangedTemplate = 0;
         GlobalStor.global.isShowCommentBlock = 0;
         GlobalStor.global.isCreatedNewProject = 1;
         GlobalStor.global.isCreatedNewProduct = 1;
+        prepareMainPage();
         if(GlobalStor.global.currOpenPage !== 'main') {
+          GlobalStor.global.showRoomSelectorDialog = 0;
           $location.path('/main');
+          $timeout(function() {
+            GlobalStor.global.showRoomSelectorDialog = 1;
+          }, 1000);
         }
       });
     }
@@ -748,12 +754,16 @@
       console.log('new product!!!!!!!!!!!!!!!');
       //------- cleaning product
       ProductStor.product = ProductStor.setDefaultProduct();
-      GlobalStor.global.isCreatedNewProduct = true;
+      GlobalStor.global.isCreatedNewProduct = 1;
       //------- set new templates
       prepareTemplates(ProductStor.product.construction_type).then(function() {
         prepareMainPage();
         if(GlobalStor.global.currOpenPage !== 'main') {
+          GlobalStor.global.showRoomSelectorDialog = 0;
           $location.path('/main');
+          $timeout(function() {
+            GlobalStor.global.showRoomSelectorDialog = 1;
+          }, 1000);
         }
       });
     }
@@ -771,11 +781,18 @@
       GlobalStor.global.isNavMenu = 0;
       GlobalStor.global.isConfigMenu = 1;
       GlobalStor.global.activePanel = 0;
+      setDefaultAuxParam();
       GlobalStor.global.showRoomSelectorDialog = 1;
     }
 
 
-
+    function setDefaultAuxParam() {
+      AuxStor.aux.isWindowSchemeDialog = 0;
+      AuxStor.aux.isAddElementListView = 0;
+      AuxStor.aux.isFocusedAddElement = 0;
+      AuxStor.aux.isTabFrame = 0;
+      AuxStor.aux.showAddElementsMenu = 0;
+    }
 
 
 

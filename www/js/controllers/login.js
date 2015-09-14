@@ -102,18 +102,11 @@
               //======== SYNC
               console.log('SYNC');
               //---- checking user in LocalDB
-              console.log('SYNC', thisCtrl.user.phone);
-              localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {phone: thisCtrl.user.phone}).then(function(data) {
-                console.log('USERs all !!!!!====', data);
-              });
               localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone}).then(function(data) {
-                console.log('SYNC result', data);
-
                 //---- user exists
                 if(data.length) {
                   //---------- check user password
                   var newUserPassword = localDB.md5(thisCtrl.user.password);
-//                  console.log('SYNC password', newUserPassword, data[0].password);
                   if(newUserPassword === data[0].password) {
                     //----- checking user activation
                     if(data[0].locked) {
@@ -138,7 +131,6 @@
                   //======== IMPORT
                   console.log('Sync IMPORT');
                   importDBProsses();
-
                 }
 
               });
@@ -235,13 +227,10 @@
                       localDB.insertRowLocalDB(result.user, localDB.tablesLocalDB.users.tableName);
                       //------- save user in Stor
                       angular.extend(UserStor.userInfo, result.user);
-                      //                        console.log('new USER password', UserStor.userInfo);
 
                       //------- import Location
-//                      console.log('START LOCATION');
                       localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
                         if(data) {
-//                          console.log('INSERT LOCATION FINISH!!!!');
                           //------ save Location Data in local obj
                           loginServ.prepareLocationToUse().then(function (data) {
                             thisCtrl.generalLocations = data;
@@ -280,7 +269,6 @@
       if(+UserStor.userInfo.factory_id > 0) {
         loginServ.isLocalDBExist().then(function(data) {
           thisCtrl.isLocalDB = data;
-          console.log('isLocalDB++++', thisCtrl.isLocalDB);
           if (thisCtrl.isLocalDB) {
             //------- current FactoryId matches to user FactoryId, go to main page without importDB
             //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
@@ -298,7 +286,6 @@
             //});
           } else {
             //------ GlobalDB is ampty
-            //          console.log('GlobalDB is empty');
             importDBfromServer(UserStor.userInfo.factory_id);
           }
         });

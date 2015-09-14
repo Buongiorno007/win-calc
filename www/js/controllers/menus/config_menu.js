@@ -55,11 +55,7 @@
     function selectConfigPanel(id) {
       GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
       GlobalStor.global.configMenuTips = 0;
-      AuxStor.aux.isWindowSchemeDialog = 0;
-      AuxStor.aux.isAddElementListView = 0;
-      AuxStor.aux.isFocusedAddElement = 0;
-      AuxStor.aux.isTabFrame = 0;
-      AuxStor.aux.showAddElementsMenu = 0;
+      MainServ.setDefaultAuxParam();
       AddElementsServ.desactiveAddElementParameters();
     }
 

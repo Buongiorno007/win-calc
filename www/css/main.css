@@ -215,7 +215,7 @@ hr {
 }
 
 /* line 294, ../../dev/sass/base/normalize.scss */
-button, .door-configuration .door-config-btn,
+button, .door-configuration .door-config-finish-btn,
 input,
 optgroup,
 select,
@@ -226,13 +226,13 @@ textarea {
 }
 
 /* line 308, ../../dev/sass/base/normalize.scss */
-button, .door-configuration .door-config-btn,
+button, .door-configuration .door-config-finish-btn,
 select {
   text-transform: none;
 }
 
 /* line 320, ../../dev/sass/base/normalize.scss */
-button, .door-configuration .door-config-btn,
+button, .door-configuration .door-config-finish-btn,
 html input[type='button'],
 input[type='reset'],
 input[type='submit'] {
@@ -241,7 +241,7 @@ input[type='submit'] {
 }
 
 /* line 330, ../../dev/sass/base/normalize.scss */
-button[disabled], .door-configuration [disabled].door-config-btn,
+button[disabled], .door-configuration [disabled].door-config-finish-btn,
 html input[disabled] {
   cursor: default;
 }
@@ -1183,7 +1183,7 @@ body {
 
 /* line 92, ../../dev/sass/base/general.scss */
 .icon-setting, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu, .pickmeup .pmu-instance nav .pmu-prev,
-.pickmeup .pmu-instance nav .pmu-next, .user-info-container .icon-location:before, .search-block:before, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .current-city:after, .voice-container .voice-icon, .close_dialog, .setting-container .setting-item-change:after, .password-page .back, .language-page .back, .location-page .back, .accounts-container .tool, .accounts-container .account-tool, .empty-search-result .result-icon, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .close-alladdelements, .door-config-btn, .door-configuration .door-config-btn, .nav-menu [class^='nav-icon-'],
+.pickmeup .pmu-instance nav .pmu-next, .user-info-container .icon-location:before, .search-block:before, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .current-city:after, .voice-container .voice-icon, .close_dialog, .setting-container .setting-item-change:after, .password-page .back, .language-page .back, .location-page .back, .accounts-container .tool, .accounts-container .account-tool, .empty-search-result .result-icon, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .close-alladdelements, .door-config-btn, .door-configuration .door-config-finish-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .config-menu .item.active:before, .elements-menu .element-info:after, .cart-menu .item:after, .cart-menu .drop-instalment .dropdown-item.selected .value-percent:after, .cart-menu .calendar-price, .size-calc-container .calc-delete:after, .size-calc-container .calc-interval:after {
   font-weight: normal;
   font-style: normal;
@@ -1807,7 +1807,7 @@ body {
 }
 
 /* line 172, ../../dev/vendor/alerts/sweetalert.scss */
-.sweet-alert button, .sweet-alert .door-configuration .door-config-btn, .door-configuration .sweet-alert .door-config-btn {
+.sweet-alert button, .sweet-alert .door-configuration .door-config-finish-btn, .door-configuration .sweet-alert .door-config-finish-btn {
   background-color: #8CD4F5;
   color: white;
   border: none;
@@ -1822,66 +1822,66 @@ body {
 }
 
 /* line 184, ../../dev/vendor/alerts/sweetalert.scss */
-.sweet-alert button:focus, .sweet-alert .door-configuration .door-config-btn:focus, .door-configuration .sweet-alert .door-config-btn:focus {
+.sweet-alert button:focus, .sweet-alert .door-configuration .door-config-finish-btn:focus, .door-configuration .sweet-alert .door-config-finish-btn:focus {
   outline: none;
   box-shadow: 0 0 2px rgba(128, 179, 235, 0.5), inset 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
 /* line 187, ../../dev/vendor/alerts/sweetalert.scss */
-.sweet-alert button:hover, .sweet-alert .door-configuration .door-config-btn:hover, .door-configuration .sweet-alert .door-config-btn:hover {
+.sweet-alert button:hover, .sweet-alert .door-configuration .door-config-finish-btn:hover, .door-configuration .sweet-alert .door-config-finish-btn:hover {
   background-color: #7ecff4;
 }
 
 /* line 189, ../../dev/vendor/alerts/sweetalert.scss */
-.sweet-alert button:active, .sweet-alert .door-configuration .door-config-btn:active, .door-configuration .sweet-alert .door-config-btn:active {
+.sweet-alert button:active, .sweet-alert .door-configuration .door-config-finish-btn:active, .door-configuration .sweet-alert .door-config-finish-btn:active {
   background-color: #5dc2f1;
 }
 
 /* line 191, ../../dev/vendor/alerts/sweetalert.scss */
-.sweet-alert button.cancel, .sweet-alert .door-configuration .cancel.door-config-btn, .door-configuration .sweet-alert .cancel.door-config-btn {
+.sweet-alert button.cancel, .sweet-alert .door-configuration .cancel.door-config-finish-btn, .door-configuration .sweet-alert .cancel.door-config-finish-btn {
   background-color: #C1C1C1;
 }
 
 /* line 193, ../../dev/vendor/alerts/sweetalert.scss */
-.sweet-alert button.cancel:hover, .sweet-alert .door-configuration .cancel.door-config-btn:hover, .door-configuration .sweet-alert .cancel.door-config-btn:hover {
+.sweet-alert button.cancel:hover, .sweet-alert .door-configuration .cancel.door-config-finish-btn:hover, .door-configuration .sweet-alert .cancel.door-config-finish-btn:hover {
   background-color: #b9b9b9;
 }
 
 /* line 195, ../../dev/vendor/alerts/sweetalert.scss */
-.sweet-alert button.cancel:active, .sweet-alert .door-configuration .cancel.door-config-btn:active, .door-configuration .sweet-alert .cancel.door-config-btn:active {
+.sweet-alert button.cancel:active, .sweet-alert .door-configuration .cancel.door-config-finish-btn:active, .door-configuration .sweet-alert .cancel.door-config-finish-btn:active {
   background-color: #a8a8a8;
 }
 
 /* line 197, ../../dev/vendor/alerts/sweetalert.scss */
-.sweet-alert button.cancel:focus, .sweet-alert .door-configuration .cancel.door-config-btn:focus, .door-configuration .sweet-alert .cancel.door-config-btn:focus {
+.sweet-alert button.cancel:focus, .sweet-alert .door-configuration .cancel.door-config-finish-btn:focus, .door-configuration .sweet-alert .cancel.door-config-finish-btn:focus {
   box-shadow: rgba(197, 205, 211, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.04706) 0px 0px 0px 1px inset !important;
 }
 
 /* line 199, ../../dev/vendor/alerts/sweetalert.scss */
-.sweet-alert button[disabled], .sweet-alert .door-configuration [disabled].door-config-btn, .door-configuration .sweet-alert [disabled].door-config-btn {
+.sweet-alert button[disabled], .sweet-alert .door-configuration [disabled].door-config-finish-btn, .door-configuration .sweet-alert [disabled].door-config-finish-btn {
   opacity: .6;
   cursor: default;
 }
 
 /* line 202, ../../dev/vendor/alerts/sweetalert.scss */
-.sweet-alert button.confirm[disabled], .sweet-alert .door-configuration .confirm[disabled].door-config-btn, .door-configuration .sweet-alert .confirm[disabled].door-config-btn {
+.sweet-alert button.confirm[disabled], .sweet-alert .door-configuration .confirm[disabled].door-config-finish-btn, .door-configuration .sweet-alert .confirm[disabled].door-config-finish-btn {
   color: transparent;
 }
 
 /* line 204, ../../dev/vendor/alerts/sweetalert.scss */
-.sweet-alert button.confirm[disabled] ~ .la-ball-fall, .sweet-alert .door-configuration .confirm[disabled].door-config-btn ~ .la-ball-fall, .door-configuration .sweet-alert .confirm[disabled].door-config-btn ~ .la-ball-fall {
+.sweet-alert button.confirm[disabled] ~ .la-ball-fall, .sweet-alert .door-configuration .confirm[disabled].door-config-finish-btn ~ .la-ball-fall, .door-configuration .sweet-alert .confirm[disabled].door-config-finish-btn ~ .la-ball-fall {
   opacity: 1;
   visibility: visible;
   transition-delay: 0s;
 }
 
 /* line 208, ../../dev/vendor/alerts/sweetalert.scss */
-.sweet-alert button::-moz-focus-inner, .sweet-alert .door-configuration .door-config-btn::-moz-focus-inner, .door-configuration .sweet-alert .door-config-btn::-moz-focus-inner {
+.sweet-alert button::-moz-focus-inner, .sweet-alert .door-configuration .door-config-finish-btn::-moz-focus-inner, .door-configuration .sweet-alert .door-config-finish-btn::-moz-focus-inner {
   border: 0;
 }
 
 /* line 210, ../../dev/vendor/alerts/sweetalert.scss */
-.sweet-alert[data-has-cancel-button=false] button, .sweet-alert[data-has-cancel-button=false] .door-configuration .door-config-btn, .door-configuration .sweet-alert[data-has-cancel-button=false] .door-config-btn {
+.sweet-alert[data-has-cancel-button=false] button, .sweet-alert[data-has-cancel-button=false] .door-configuration .door-config-finish-btn, .door-configuration .sweet-alert[data-has-cancel-button=false] .door-config-finish-btn {
   box-shadow: none !important;
 }
 
@@ -6691,15 +6691,17 @@ tr.factory_item {
   position: absolute;
   height: 100%;
 }
-/* line 17, ../../dev/sass/pages/design.scss */
-.construction-menu .construction-label, .construction-left-menu .construction-label, .construction-left-menu .figure-label, .construction-menu .door-config-label, .construction-left-menu .door-config-label {
+
+/* line 18, ../../dev/sass/pages/design.scss */
+.construction-label, .construction-left-menu .figure-label, .door-config-label {
   font: normal 1.5rem/1.5rem roboto-bold, sans-serif;
   margin-top: 1.25rem;
   text-transform: uppercase;
   color: #363636;
 }
-/* line 24, ../../dev/sass/pages/design.scss */
-.construction-menu .construction-descrip, .construction-left-menu .construction-descrip, .construction-left-menu .footer-description, .construction-menu .door-config-description, .construction-left-menu .door-config-description {
+
+/* line 26, ../../dev/sass/pages/design.scss */
+.construction-descrip, .construction-left-menu .footer-description, .door-config-description {
   font: normal 1.5rem/1.42857 roboto-light, sans-serif;
   margin-bottom: 0.625rem;
   color: #666;
@@ -7091,7 +7093,7 @@ tr.factory_item {
   width: 100%;
   height: 100%;
   background-color: #fafafa;
-  z-index: 2;
+  z-index: 12;
 }
 /* line 393, ../../dev/sass/pages/design.scss */
 .door-configuration.active {
@@ -7229,7 +7231,7 @@ tr.factory_item {
   width: 15.25rem;
 }
 /* line 501, ../../dev/sass/pages/design.scss */
-.door-configuration .door-config-btn {
+.door-configuration .door-config-finish-btn {
   font: normal 3.75rem/1 icons, sans-serif;
   width: 100%;
   color: #fff;
@@ -8475,17 +8477,19 @@ tr.factory_item {
 /* line 15, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-block-footer {
   overflow-x: auto;
+  overflow-y: hidden;
   height: 23.125rem;
   margin-top: 3.125rem;
+  padding-top: 1rem;
 }
-/* line 21, ../../dev/sass/panels/glass.scss */
+/* line 23, ../../dev/sass/panels/glass.scss */
 .glass-container .footer-inner {
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 25, ../../dev/sass/panels/glass.scss */
+/* line 27, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box {
   -moz-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
@@ -8495,21 +8499,21 @@ tr.factory_item {
   height: 19.375rem;
   margin-right: 3.125rem;
 }
-/* line 31, ../../dev/sass/panels/glass.scss */
+/* line 33, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box.selected {
   position: relative;
   background-color: #6ed44a;
 }
-/* line 34, ../../dev/sass/panels/glass.scss */
+/* line 36, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box.selected .glass-type {
   background-color: #57b23c;
 }
-/* line 37, ../../dev/sass/panels/glass.scss */
+/* line 39, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box.selected:after {
   top: 2.5rem;
   left: 1.875rem;
 }
-/* line 42, ../../dev/sass/panels/glass.scss */
+/* line 44, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box-view {
   display: -webkit-flex;
   display: flex;
@@ -8522,27 +8526,27 @@ tr.factory_item {
   max-width: 12rem;
   text-align: center;
 }
-/* line 51, ../../dev/sass/panels/glass.scss */
+/* line 53, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box-view .label {
   max-width: 12rem;
   word-wrap: break-word;
 }
-/* line 57, ../../dev/sass/panels/glass.scss */
+/* line 59, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-img img {
   max-width: 9.375rem;
 }
-/* line 61, ../../dev/sass/panels/glass.scss */
+/* line 63, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-box-data {
   float: right;
   width: 14.0625rem;
 }
-/* line 65, ../../dev/sass/panels/glass.scss */
+/* line 67, ../../dev/sass/panels/glass.scss */
 .glass-container .glass-descr {
   font: normal 2.25rem/1.42857 roboto-medium, sans-serif;
   margin-bottom: 3.125rem;
   color: #363636;
 }
-/* line 72, ../../dev/sass/panels/glass.scss */
+/* line 74, ../../dev/sass/panels/glass.scss */
 .glass-container .label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #8c8c8c;

@@ -19,7 +19,6 @@
       },
       link: function (scope, element, attributes) {
         element.bind("change", function (changeEvent) {
-
           var fd = new FormData(),
               reader = new FileReader();
           fd.append("user", UserStor.userInfo.id);
@@ -31,8 +30,8 @@
               SettingServ.changeAvatar(scope.fileread, fd);
             });
           };
-
           reader.readAsDataURL(changeEvent.target.files[0]);
+
         });
       }
     }
