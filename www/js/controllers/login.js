@@ -358,9 +358,8 @@
         if(thisCtrl.isOnline) {
           GlobalStor.global.isLoader = 1;
           //-------- send selected Factory Id in Server
-          thisCtrl.user.factoryId = 1; //TODO for all factories id = 1
           UserStor.userInfo.factory_id = angular.copy(thisCtrl.user.factoryId);
-          //        console.log(UserStor.userInfo);
+//                  console.log(UserStor.userInfo.factory_id);
           //----- update factoryId in LocalDB & Server
           localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {factory_id: UserStor.userInfo.factory_id}).then(function() {
             //-------- close Factory Dialog
@@ -453,7 +452,6 @@
           GlobalStor.global.isLoader = 1;
           //--- checking user in server
           localDB.importUser(thisCtrl.user.phone).then(function(result) {
-//            console.log('REG USER!!!!!!!!!!!!', result);
             if(result.status) {
               GlobalStor.global.isLoader = 0;
               //---- show attantion
@@ -466,6 +464,7 @@
                 cityId: thisCtrl.user.city.id,
                 password: localDB.md5(thisCtrl.user.phone)
               };
+              console.log('CREATE USER!!!!!!!!!!!!', userData);
               //--- create new user in Server
               localDB.createUserServer(userData);
               GlobalStor.global.isLoader = 0;

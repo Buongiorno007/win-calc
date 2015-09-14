@@ -110,6 +110,7 @@
         var types = result.reverse(),
             typesQty = types.length;
         if (typesQty) {
+          groups.length = 0;
           angular.extend(groups, types);
           var promises = types.map(function(type) {
             var defer2 = $q.defer();
