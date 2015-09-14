@@ -7,7 +7,7 @@
     .module('BauVoiceApp')
     .factory('GeneralServ', generalFactory);
 
-  function generalFactory($filter, $window, GlobalStor) {
+  function generalFactory($filter, $window, $document, GlobalStor) {
 
     var thisFactory = this;
 
@@ -18,7 +18,15 @@
     };
 
     //TODO desktop
-    //-------- blocking to refresh page
+    //------- IMG rooms preload
+//    $document.ready(function() {
+//      for(var i = 0; i < 13; i++) {
+//        $("<img />").attr("src", "img/rooms-icon/"+i+".jpg");
+//        $("<img />").attr("src", "img/rooms/"+i+".jpg");
+//      }
+//    });
+//
+//    //-------- blocking to refresh page
 //    $window.onbeforeunload = function (){
 //      return $filter('translate')('common_words.PAGE_REFRESH');
 //    };

@@ -38,12 +38,13 @@
       closeRoomSelectorDialog();
       MainServ.prepareMainPage();
       GeneralServ.stopStartProg();
+      GlobalStor.global.showRoomSelectorDialog = 0;
     }
 
 
     //---------- Close Room Selector Dialog
     function closeRoomSelectorDialog() {
-      GlobalStor.global.showRoomSelectorDialog = false;
+      GlobalStor.global.showRoomSelectorDialog = 0;
       //playSound('fly');
     }
 

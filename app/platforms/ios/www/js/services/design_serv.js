@@ -196,9 +196,8 @@
 
 
     function setDoorConfigIndex(list, configId) {
-      var listQty = list.length,
-          i = 0;
-      for(;i < listQty; i++) {
+      var listQty = list.length;
+      for(var i = 0; i < listQty; i++) {
         if(list[i].shapeId === configId) {
           return i;
         }
@@ -306,8 +305,8 @@
                 blockID = glass[0][0].attributes.block_id.nodeValue,
                 currDimId = (parentID === 'block_0') ? blockID : parentID;
             DesignStor.design.isDimAnimate = 1;
-//            showCurrentDimLevel(currDimId);
-            showCurrentDimLevel(blockID);
+            showCurrentDimLevel(currDimId);
+//            showCurrentDimLevel(blockID);
 //            if(DesignStor.design.isDimAnimate && parentID !== 'block_0') {
 //              $timeout(function () {
 //                showNextDimensionLevel(currDimId, delayDimShow);

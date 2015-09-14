@@ -99,12 +99,19 @@
               //======== SYNC
               console.log('SYNC');
               //---- checking user in LocalDB
+//              console.log('SYNC phone', thisCtrl.user.phone);
+//              localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName).then(function(data) {
+//                console.log('USERs all !!!!!====', data);
+//              });
+
               localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone}).then(function(data) {
-//                console.log('SYNC', data);
+//                console.log('SYNC result', data);
+
                 //---- user exists
                 if(data.length) {
                   //---------- check user password
                   var newUserPassword = localDB.md5(thisCtrl.user.password);
+//                  console.log('SYNC password', newUserPassword, data[0].password);
                   if(newUserPassword === data[0].password) {
                     //----- checking user activation
                     if(data[0].locked) {
@@ -127,8 +134,9 @@
                   }
                 } else {
                   //======== IMPORT
-                  console.log('IMPORT');
+                  console.log('Sync IMPORT');
                   importDBProsses();
+
                 }
 
               });
@@ -268,28 +276,30 @@
       //------- set User Location
       loginServ.setUserLocation(thisCtrl.generalLocations.mergerLocation, UserStor.userInfo.city_id);
       if(+UserStor.userInfo.factory_id > 0) {
-//        console.log('userInfo++++', UserStor.userInfo);
-        if(thisCtrl.isLocalDB) {
-          //------- current FactoryId matches to user FactoryId, go to main page without importDB
-          //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
+        loginServ.isLocalDBExist().then(function(data) {
+          thisCtrl.isLocalDB = data;
+          console.log('isLocalDB++++', thisCtrl.isLocalDB);
+          if (thisCtrl.isLocalDB) {
+            //------- current FactoryId matches to user FactoryId, go to main page without importDB
+            //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
             //--------- set currency symbol
-            loginServ.setCurrency().then(function(data) {
-              if(data) {
-                loginServ.setUserDiscounts().then(function(data) {
-                  if(data) {
+            loginServ.setCurrency().then(function (data) {
+              if (data) {
+                loginServ.setUserDiscounts().then(function (data) {
+                  if (data) {
                     GlobalStor.global.isLoader = 0;
                     $location.path('/main');
                   }
                 });
               }
             });
-          //});
-        } else {
-          //------ GlobalDB is ampty
-//          console.log('GlobalDB is empty');
-          importDBfromServer(UserStor.userInfo.factory_id);
-        }
-
+            //});
+          } else {
+            //------ GlobalDB is ampty
+            //          console.log('GlobalDB is empty');
+            importDBfromServer(UserStor.userInfo.factory_id);
+          }
+        });
       } else {
         //---- show Factory List
         //----- collect city Ids regarding to user country

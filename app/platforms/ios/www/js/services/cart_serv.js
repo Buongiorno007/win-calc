@@ -166,14 +166,8 @@
     function addNewProductInOrder() {
       //------- set previos Page
       GeneralServ.setPreviosPage();
-      GlobalStor.global.isCreatedNewProduct = true;
-
       //=============== CREATE NEW PRODUCT =========//
       MainServ.createNewProduct();
-
-      MainServ.prepareMainPage();
-      GlobalStor.global.showRoomSelectorDialog = 1;
-      $location.path('/main');
     }
 
 

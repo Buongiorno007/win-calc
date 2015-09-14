@@ -198,7 +198,7 @@
 
       thisObj.dimension = initDimensions(thisObj.details);
 
-      console.log('TEMPLATE END++++', thisObj);
+//      console.log('TEMPLATE END++++', thisObj);
 //      console.log('svg finish', new Date(), new Date().getMilliseconds());
 //      console.log('------------------------------------------------------');
       defer.resolve(thisObj);
@@ -692,7 +692,7 @@
         //-------- set real impostAxis coord for dimensions
         var linesOutQty = currBlock.linesOut.length;
         currBlock.impost.impostAxis.splice(0, 2);
-        console.log('----impostAxis-------', currBlock.impost.impostAxis);
+//        console.log('----impostAxis-------', currBlock.impost.impostAxis);
         for(var i = 0; i < linesOutQty; i++) {
           getCPImpostInsideBlock(0, 0, i, linesOutQty, currBlock.linesOut, impVectorAx1, impAx0, currBlock.impost.impostAxis);
         }
@@ -2043,11 +2043,8 @@
           //--------- push Overall Dimension
           blocks[0].overallDim.push(overallDim);
 
-        }
-
-        //========== other blocks without children =============//
-
-        if (!blocks[b].children.length) {
+        } else if (!blocks[b].children.length) {
+          //========== other blocks without children =============//
           var blockDimX = [],
               blockDimY,
               pointsOutXDim,
@@ -2063,10 +2060,6 @@
 
           var pointsOutQty = pointsOutXDim.length;
           for (var i = 0; i < pointsOutQty; i++) {
-            //------- add pointsOut to Limits
-            if (pointsOutXDim[i].dir !== 'curv') {
-              blockLimits.push(pointsOutXDim[i]);
-            }
             if (pointsOutXDim[i].id.indexOf('qa') + 1) {
 
             } else {
@@ -2074,10 +2067,23 @@
             }
           }
 
+          //-------- set block Limits
           //------ go to parent and another children for Limits
           for (var bp = 1; bp < blocksQty; bp++) {
             if (blocks[bp].id === blocks[b].parent) {
-              var childQty = blocks[bp].children.length;
+              var childQty = blocks[bp].children.length,
+                  parentPOutQty = blocks[bp].pointsOut.length;
+              //------- add impost
+              if(blocks[bp].impost) {
+                blockLimits.push(blocks[bp].impost.impostAxis[0], blocks[bp].impost.impostAxis[1]);
+              }
+              //------- add pointsOut to Limits
+              while(--parentPOutQty > -1) {
+                if (blocks[bp].pointsOut[parentPOutQty].dir !== 'curv') {
+                  blockLimits.push(blocks[bp].pointsOut[parentPOutQty]);
+                }
+              }
+              //------- add imposts of anather childern of parent
               while(--childQty > -1) {
                 if(blocks[bp].children[childQty] !== blocks[b].id) {
                   //----- add other impost of children blocks
@@ -2088,27 +2094,34 @@
           }
 
           blockDimY = angular.copy(blockDimX);
-//          console.log('`````````` dim by X``````````', blockDimX);
-//          console.log('`````````` dim by Y``````````', blockDimY);
+//          blockLimitsY = angular.copy(blockLimitsX);
+
 
           //========== build Dimension
           if (blockDimX.length > 1) {
             //            console.log('``````````Create block dim by X``````````');
             //------ delete dublicates
             cleanDublicat(1, blockDimX);
+//            cleanDublicat(1, blockLimitsX);
             //---- sorting
             blockDimX.sort(sortByX);
+//            blockLimitsX.sort(sortByX);
+
 //            console.log('`````````` dim by X``````````', blockDimX);
-            collectDimension(0, 'x', blockDimX, dimension.dimX, blockLimits, blocks[b].id, maxSizeLimit, blocks[b].linesOut);
+//            console.log('`````````` blockLimits X``````````', blockLimits);
+            collectDimension(0, 'x', blockDimX, dimension.dimX, blockLimits, blocks[b].parent, maxSizeLimit, blocks[b].linesOut);
           }
           if (blockDimY.length > 1) {
             //            console.log('``````````Create block dim by Y``````````');
             //------ delete dublicates
             cleanDublicat(2, blockDimY);
+//            cleanDublicat(2, blockLimitsY);
             //---- sorting
             blockDimY.sort(sortByY);
+//            blockLimitsY.sort(sortByY);
 //            console.log('`````````` dim by Y``````````', blockDimY);
-            collectDimension(0, 'y', blockDimY, dimension.dimY, blockLimits, blocks[b].id, maxSizeLimit, blocks[b].linesOut);
+//            console.log('`````````` blockLimits Y``````````', blockLimits);
+            collectDimension(0, 'y', blockDimY, dimension.dimY, blockLimits, blocks[b].parent, maxSizeLimit, blocks[b].linesOut);
           }
 
 
@@ -2222,7 +2235,7 @@
       globalLimitsX.sort(sortByX);
       globalLimitsY.sort(sortByY);
 
-      console.log('``````````allPoints``````', allPoints);
+//      console.log('``````````allPoints``````', allPoints);
 
 
       //========== on eah block ==========//
@@ -2232,8 +2245,8 @@
         var pointsOutQty = blocks[b].pointsOut.length,
             blockDimX = [];
 
-        console.log('+++++++++++BLOCKS+++++++++', blocks[b].id);
-        console.log('points Out----------', blocks[b].pointsOut);
+//        console.log('+++++++++++BLOCKS+++++++++', blocks[b].id);
+//        console.log('points Out----------', blocks[b].pointsOut);
         //========== Block level 1 ============//
 
         if (blocks[b].level === 1) {
@@ -2257,10 +2270,10 @@
           globalDimX.sort(sortByX);
           globalDimY.sort(sortByY);
 
-          console.log('``````````globalDimX ``````', globalDimX);
-          console.log('``````````globalDimY ``````', globalDimY);
-          console.log('``````````globalLimitsX``````', globalLimitsX);
-          console.log('``````````globalLimitsY``````', globalLimitsY);
+//          console.log('``````````globalDimX ``````', globalDimX);
+//          console.log('``````````globalDimY ``````', globalDimY);
+//          console.log('``````````globalLimitsX``````', globalLimitsX);
+//          console.log('``````````globalLimitsY``````', globalLimitsY);
 
 //          console.log('``````````Create dim by X``````````');
           collectDimension(1, 'x', globalDimX, dimension.dimX, globalLimitsX, blocks[b].id, maxSizeLimit);
@@ -2312,7 +2325,7 @@
           blockDimX.push({x: 0, y: 0});
           blockDimY = angular.copy(blockDimX);
 
-          console.log('===============is Impost or Corner ==============', blockDimX);
+//          console.log('===============is Impost or Corner ==============', blockDimX);
 //          console.log('===============BLOCK LIMITS==============');
           //======= set Block Limits =======//
           //------- add pointsOut of current block
@@ -2419,7 +2432,7 @@
 
 
     function createDimObj(level, axis, index, indexNext, blockDim, limits, currBlockId, maxSizeLimit, linesOut) {
-//      console.log('FINISH current point---------', blockDim[index], blockDim[indexNext]);
+//      console.log('FINISH current point---------', blockDim[index], blockDim[indexNext], limits);
       var dim = {
             blockId: currBlockId,
             level: level,
@@ -2476,7 +2489,7 @@
 
 
     function setLimitsDim(axis, pointDim, startDim, limits, maxSizeLimit, linesOut) {
-//      console.log('!!!!!!!!! DIM FINISH IMPOST ------------', axis, pointDim, startDim, limits);
+//      console.log('!!!!!!!!! DIM LIMITS ------------', axis, pointDim, startDim, limits, maxSizeLimit, linesOut);
       var dimLimit = {},
           //------ set new Limints by X or Y
           currLimits = setNewLimitsInBlock(axis, pointDim, limits, linesOut),
@@ -2550,7 +2563,7 @@
 
 
 
-    function setNewLimitsInBlock(axis, pointDim, limits, linesOut) {
+    function setNewLimitsInBlockOLD(axis, pointDim, limits, linesOut) {
       var currLimits = [],
           linesOutQty = linesOut.length,
           limitsQty = limits.length,
@@ -2602,6 +2615,41 @@
 
       return currLimits;
     }
+
+    function setNewLimitsInBlock(axis, pointDim, limits, linesOut) {
+      var currLimits = [],
+          limitsQty = limits.length,
+          lim = 0;
+
+      if(axis === 'x') {
+
+        for(; lim < limitsQty; lim++) {
+          if(pointDim.y === limits[lim].y) {
+            currLimits.push(limits[lim]);
+          }
+        }
+
+        //------ delete dublicates
+        cleanDublicat(1, currLimits);
+        //---- sorting
+        currLimits.sort(sortByX);
+      } else {
+
+        for(; lim < limitsQty; lim++) {
+          if(pointDim.x === limits[lim].x) {
+            currLimits.push(limits[lim]);
+          }
+        }
+
+        //------ delete dublicates
+        cleanDublicat(2, currLimits);
+        //---- sorting
+        currLimits.sort(sortByY);
+      }
+
+      return currLimits;
+    }
+
 
 
 

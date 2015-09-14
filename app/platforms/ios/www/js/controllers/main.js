@@ -17,9 +17,6 @@
     //------- set current Page
     GlobalStor.global.currOpenPage = 'main';
 
-    console.log('USER:', window.navigator);
-    console.log('USER:', window.navigator.userAgent);
-    console.log('USER:', window.navigator.platform);
 
     //=============== FIRST START =========//
 
@@ -44,7 +41,7 @@
             if(data) {
               //--------- sorting glasses as to Type
               MainServ.sortingGlasses();
-//              console.log('GLASSES All +++++', GlobalStor.global.glassesAll);
+              console.log('GLASSES All +++++', GlobalStor.global.glassesAll);
               //-------- Hardwares
               MainServ.downloadAllElemAsGroup(localDB.tablesLocalDB.window_hardware_folders.tableName, localDB.tablesLocalDB.window_hardware_groups.tableName, GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares).then(function(data){
                 if(data) {

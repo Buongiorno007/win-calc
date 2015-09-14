@@ -79,7 +79,7 @@
     function createOrderData() {
       var productDay;
       //----------- create order number for new project
-      OrderStor.order.order_number = Math.floor((Math.random() * 100000));
+      OrderStor.order.order_number = ''+Math.floor((Math.random() * 100000));
       //------ set delivery day
       productDay = new Date(OrderStor.order.order_date).getDate() + globalConstants.productionDays;
       OrderStor.order.delivery_date = new Date().setDate(productDay);
@@ -103,15 +103,16 @@
     function downloadAllElemAsGroup(tableGroup, tableElem, groups, elements) {
       var defer = $q.defer();
       //------- get all Prifile Folders
-      localDB.selectLocalDB(tableGroup).then(function(types) {
-        var typesQty = types.length;
+      localDB.selectLocalDB(tableGroup).then(function(result) {
+        var types = result.reverse(),
+            typesQty = types.length;
         if (typesQty) {
           angular.extend(groups, types);
           var promises = types.map(function(type) {
             var defer2 = $q.defer();
-            localDB.selectLocalDB(tableElem, {'folder_id': type.id}).then(function (profile) {
-              if (profile.length) {
-                elements.push(angular.copy(profile));
+            localDB.selectLocalDB(tableElem, {'folder_id': type.id}).then(function (elem) {
+              if (elem.length) {
+                elements.push(angular.copy(elem));
                 defer2.resolve(1);
               } else {
                 defer2.resolve(0);
@@ -129,6 +130,33 @@
       return defer.promise;
     }
 
+
+//    function downloadElemImg() {
+//      console.log('USER:', window.navigator);
+//      console.log('USER:', window.navigator.userAgent); // regExp = Mobile
+//      console.log('USER:', window.navigator.platform);
+//      if(mobile) {
+//        var url = "http://cdn.wall-pix.net/albums/art-space/00030109.jpg";
+//        var targetPath = cordova.file.documentsDirectory + "testImage.png";
+//        var trustHosts = true;
+//        var options = {};
+//
+//        $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function(result) {
+//            // Success!
+//          },
+//          function(err) {
+//            // Error
+//          },
+//          function (progress) {
+//            $timeout(function () {
+//              $scope.downloadProgress = (progress.loaded / progress.total) * 100;
+//            })
+//          });
+//      } else {
+//        globalConstants.serverIP;
+//      }
+//
+//    }
 
 
     function downloadAllGlasses() {
@@ -280,8 +308,8 @@
             newGlasses.push(glassByType);
           }
         }
-        GlobalStor.global.glassesAll[g].glassTypes = angular.copy(newGlassesType);
-        GlobalStor.global.glassesAll[g].glasses = angular.copy(newGlasses);
+        GlobalStor.global.glassesAll[g].glassTypes = angular.copy(newGlassesType.reverse());
+        GlobalStor.global.glassesAll[g].glasses = angular.copy(newGlasses.reverse());
         delete GlobalStor.global.glassesAll[g].glassLists;
       }
 
@@ -515,6 +543,8 @@
         //----- set default hardware in ProductStor
         if(GlobalStor.global.isSashesInTemplate) {
           ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+        } else {
+          ProductStor.product.hardware = {};
         }
       }
     }
@@ -694,16 +724,18 @@
       setCurrDiscounts();
       //------- set new templates
       prepareTemplates(ProductStor.product.construction_type).then(function() {
-        prepareMainPage();
         GlobalStor.global.isLoader = 0;
-        GlobalStor.global.isChangedTemplate = false;
-        GlobalStor.global.showRoomSelectorDialog = false;
-        GlobalStor.global.isShowCommentBlock = false;
-        GlobalStor.global.isCreatedNewProject = true;
-        GlobalStor.global.isCreatedNewProduct = true;
-        GlobalStor.global.activePanel =0;
+        GlobalStor.global.isChangedTemplate = 0;
+        GlobalStor.global.isShowCommentBlock = 0;
+        GlobalStor.global.isCreatedNewProject = 1;
+        GlobalStor.global.isCreatedNewProduct = 1;
+        prepareMainPage();
         if(GlobalStor.global.currOpenPage !== 'main') {
+          GlobalStor.global.showRoomSelectorDialog = 0;
           $location.path('/main');
+          $timeout(function() {
+            GlobalStor.global.showRoomSelectorDialog = 1;
+          }, 1000);
         }
       });
     }
@@ -719,12 +751,16 @@
       console.log('new product!!!!!!!!!!!!!!!');
       //------- cleaning product
       ProductStor.product = ProductStor.setDefaultProduct();
-      GlobalStor.global.isCreatedNewProduct = true;
+      GlobalStor.global.isCreatedNewProduct = 1;
       //------- set new templates
       prepareTemplates(ProductStor.product.construction_type).then(function() {
         prepareMainPage();
         if(GlobalStor.global.currOpenPage !== 'main') {
+          GlobalStor.global.showRoomSelectorDialog = 0;
           $location.path('/main');
+          $timeout(function() {
+            GlobalStor.global.showRoomSelectorDialog = 1;
+          }, 1000);
         }
       });
     }
@@ -739,10 +775,11 @@
 
 
     function prepareMainPage() {
-      GlobalStor.global.isNavMenu = false;
-      GlobalStor.global.isConfigMenu = true;
-      //------ open Template Panel
-//      GlobalStor.global.activePanel = 1;
+      GlobalStor.global.isNavMenu = 0;
+      GlobalStor.global.isConfigMenu = 1;
+      GlobalStor.global.activePanel = 0;
+
+      GlobalStor.global.showRoomSelectorDialog = 1;
     }
 
 

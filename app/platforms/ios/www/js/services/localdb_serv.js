@@ -7,21 +7,15 @@
     .module('BauVoiceApp')
     .factory('localDB', globalDBFactory);
 
-  function globalDBFactory($http, $q, UserStor) {
+  function globalDBFactory($http, $q, globalConstants, UserStor) {
 
     var db = openDatabase('bauvoice', '1.0', 'bauvoice', 5000000),
-        serverIP = 'http://192.168.1.147:3002/api/',
         elemLists = [], elemListsHw = [], elemListsAdd = [];
 
 
 
     return {
       tablesLocalDB: {
-        'addition_colors': {
-          'tableName': 'addition_colors',
-          'prop': 'name VARCHAR(255), lists_type_id INTEGER',
-          'foreignKey': ', FOREIGN KEY(lists_type_id) REFERENCES lists_types(id)'
-        },
         'addition_types': {
           'tableName': 'addition_types',
           'prop': 'name VARCHAR(255)',
@@ -29,7 +23,13 @@
         },
         'addition_folders': {
           'tableName': 'addition_folders',
-          'prop': 'name VARCHAR(255), addition_type_id INTEGER, factory_id INTEGER',
+          'prop': 'name VARCHAR(255),' +
+            ' addition_type_id INTEGER,' +
+            ' factory_id INTEGER,' +
+            ' position INTEGER,' +
+            ' img VARCHAR,' +
+            ' description VARCHAR,' +
+            ' link VARCHAR',
           'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(addition_type_id) REFERENCES addition_types(id)'
         },
         'cities': {
@@ -315,7 +315,6 @@
             ' amendment_pruning NUMERIC(10, 2),' +
             ' waste NUMERIC(10, 2),' +
             ' cameras INTEGER,' +
-            ' folder_id INTEGER,' +
             ' link VARCHAR,' +
             ' description VARCHAR,' +
             ' img VARCHAR',
@@ -443,7 +442,7 @@
             ' delivery_date TIMESTAMP,' +
             ' new_delivery_date TIMESTAMP,' +
             ' climatic_zone INTEGER,' +
-            ' heat_coef_min INTEGER,' +
+            ' heat_coef_min NUMERIC,' +
             ' products_qty INTEGER,' +
             ' products_price_total NUMERIC,'+
             ' is_date_price_less INTEGER,' +
@@ -502,7 +501,7 @@
             ' door_sash_shape_id INTEGER,' +
             ' door_handle_shape_id INTEGER,' +
             ' door_lock_shape_id INTEGER,' +
-            ' heat_coef_total INTEGER,' +
+            ' heat_coef_total NUMERIC,' +
             ' template_price NUMERIC,' +
             ' addelem_price NUMERIC,' +
             ' product_price NUMERIC,' +
@@ -777,7 +776,7 @@
       //-------- get User from Server by login
       importUser: function (login) {
         var defer = $q.defer();
-        $http.post(serverIP + 'login', {login: login})
+        $http.post(globalConstants.serverIP + '/api/login', {login: login})
           .success(function (result) {
             defer.resolve(result);
           })
@@ -793,7 +792,7 @@
       importLocation: function (login, access) {
         var defer = $q.defer(),
             self = this;
-        $http.get(serverIP + 'get/locations?login='+login+'&access_token='+access)
+        $http.get(globalConstants.serverIP + '/api/get/locations?login='+login+'&access_token='+access)
           .success(function (result) {
             if(result.status) {
               //-------- insert in LocalDB
@@ -815,7 +814,7 @@
 
       importFactories: function (login, access, cityIds) {
         var defer = $q.defer();
-        $http.get(serverIP + 'get/factories-by-country?login='+login+'&access_token='+access+'&cities_ids='+cityIds)
+        $http.get(globalConstants.serverIP + '/api/get/factories-by-country?login='+login+'&access_token='+access+'&cities_ids='+cityIds)
           .success(function (result) {
             defer.resolve(result);
           })
@@ -831,7 +830,7 @@
         var defer = $q.defer(),
             self = this;
         console.log('Import database begin!');
-        $http.get(serverIP+'sync?login='+login+'&access_token='+access)
+        $http.get(globalConstants.serverIP+'/api/sync?login='+login+'&access_token='+access)
           .success(function (result) {
             console.log('importAllDB+++', result);
 //            console.log('importDb is done!');
@@ -859,7 +858,7 @@
               model: table,
               row: JSON.stringify(data)
             };
-        $http.post(serverIP+'insert?login='+login+'&access_token='+access, dataToSend)
+        $http.post(globalConstants.serverIP+'/api/insert?login='+login+'&access_token='+access, dataToSend)
           .success(function (result) {
             console.log('send changes to server success:', result);
             defer.resolve(1);
@@ -876,7 +875,7 @@
 //        tablesToSync.push({model: table_name, rowId: tempObject.id, field: JSON.stringify(tempObject)});
         var promises = data.map(function(item) {
           var defer = $q.defer();
-          $http.post(serverIP+'update?login='+login+'&access_token='+access, item)
+          $http.post(globalConstants.serverIP+'/api/update?login='+login+'&access_token='+access, item)
             .success(function (result) {
               console.log('send changes to server success:', result);
               defer.resolve(1);
@@ -892,7 +891,7 @@
 
 
       createUserServer: function (dataJson) {
-        $http.post(serverIP+'register', dataJson)
+        $http.post(globalConstants.serverIP+'/api/register', dataJson)
           .success(function (result) {
             console.log(result);
           })
@@ -904,7 +903,7 @@
 
       exportUserEntrance: function (login, access) {
         var currTime = new Date();
-        $http.get(serverIP+'signed?login='+login+'&access_token='+access+'&date='+currTime)
+        $http.get(globalConstants.serverIP+'/api/signed?login='+login+'&access_token='+access+'&date='+currTime)
           .success(function () {
             console.log('Sucsess!');
           })
@@ -939,6 +938,22 @@
         return defer.promise;
       },
 
+
+
+      sendIMGServer: function(data) {
+        var defer = $q.defer();
+        $http.post(globalConstants.serverIP+'/api/load-avatar', data, {
+//          withCredentials: true,
+          headers: {'Content-Type': undefined },
+          transformRequest: angular.identity
+        }).success(function (result) {
+          console.log('send changes to server success:', result);
+          defer.resolve(1);
+        }).error(function () {
+          console.log('send changes to server failed');
+          defer.resolve(0);
+        });
+      },
 
 
 
