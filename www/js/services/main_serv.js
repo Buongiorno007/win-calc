@@ -476,12 +476,16 @@
 
 
     function parseTemplate() {
-      var deferred = $q.defer();
+      var deferred = $q.defer(),
+        hardwareIds = 0;
       //------- set current template for product
       saveTemplateInProduct(ProductStor.product.templateIndex).then(function() {
         setCurrentGlass();
         setCurrentHardware();
-        preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass.list_id, ProductStor.product.hardware.id).then(function() {
+        if(ProductStor.product.hardware[0]) {
+          hardwareIds = ProductStor.product.hardware[0].id;
+        }
+        preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass[0].list_id, hardwareIds).then(function() {
           deferred.resolve(1);
         });
       });
@@ -524,7 +528,7 @@
 
     function setCurrentGlass(id) {
       if(id) {
-        ProductStor.product.glass = fineItemById(id, GlobalStor.global.glasses);
+        ProductStor.product.glass.unshift(fineItemById(id, GlobalStor.global.glasses));
       } else {
         //----- set default glass in ProductStor
         var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
@@ -534,7 +538,7 @@
         if(tempGlassArr.length) {
           GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
           GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
-          ProductStor.product.glass = GlobalStor.global.glasses[0][0];
+          ProductStor.product.glass.unshift(GlobalStor.global.glasses[0][0]);
         }
       }
 
@@ -542,13 +546,13 @@
 
     function setCurrentHardware(id) {
       if(id) {
-        ProductStor.product.hardware = fineItemById(id, GlobalStor.global.hardwares);
+        ProductStor.product.hardware.unshift(fineItemById(id, GlobalStor.global.hardwares));
       } else {
         //----- set default hardware in ProductStor
         if(GlobalStor.global.isSashesInTemplate) {
-          ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+          ProductStor.product.hardware.unshift(GlobalStor.global.hardwares[0][0]);
         } else {
-          ProductStor.product.hardware = {};
+          ProductStor.product.hardware.length = 0;
         }
       }
     }
@@ -613,7 +617,7 @@
     function setBeadId(profileId) {
       var defer = $q.defer();
         //------ find bead Id as to glass Depth and profile Id
-        localDB.selectLocalDB(localDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": ProductStor.product.glass.glass_width}).then(function (result) {
+        localDB.selectLocalDB(localDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": ProductStor.product.glass[0].glass_width}).then(function (result) {
           if(result.length) {
             defer.resolve(result[0].list_id);
           } else {
@@ -929,8 +933,12 @@
           productData.order_number = OrderStor.order.order_number;
           productData.template_source = JSON.stringify(OrderStor.order.products[p].template_source);
           productData.profile_id = OrderStor.order.products[p].profile.id;
-          productData.glass_id = OrderStor.order.products[p].glass.id;
-          productData.hardware_id = OrderStor.order.products[p].hardware.id;
+          productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
+            return item.id;
+          }).join(', ');
+          productData.hardware_id = OrderStor.order.products[p].hardware.map(function(item) {
+            return item.id;
+          }).join(', ');
           productData.modified = new Date();
           delete productData.templateIndex; //TODO delete
           delete productData.templateIcon;

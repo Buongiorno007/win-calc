@@ -112,6 +112,8 @@
         BRAND: 'торгова марка',
         HEAT_INSULATION: 'теплоізоляція',
         NOICE_INSULATION: 'шумоізоляція',
+        CORROSION_COEFF: 'aнтикорозійність',
+        BURGLAR_COEFF: 'протизламність',
         LAMINAT_INSIDE: 'Ламінація рами в кімнаті',
         LAMINAT_OUTSIDE: 'Ламінація з боку фасаду',
         LAMINAT_WHITE: 'без ламінації, радикальний білий колір',

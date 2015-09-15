@@ -111,6 +111,8 @@
         BRAND: 'Das Warenzeichen',
         HEAT_INSULATION: 'warm Isolation',
         NOICE_INSULATION: 'Isolierung',
+        CORROSION_COEFF: 'Korrosionsschutz',
+        BURGLAR_COEFF: 'Diebstahlschutz',
         LAMINAT_INSIDE: 'Laminieren des Rahmens im Raum',
         LAMINAT_OUTSIDE: 'Laminierung von Seiten der Straßenfront',
         LAMINAT_WHITE: 'ohne Laminierung, eine radikale weiß',

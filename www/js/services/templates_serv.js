@@ -36,11 +36,15 @@
 
     function newPriceForNewTemplate(templateIndex) {
       if(ProductStor.product.templateIndex !== templateIndex) {
+        var hardwareIds = 0;
         ProductStor.product.templateIndex = templateIndex;
         MainServ.saveTemplateInProduct(templateIndex).then(function() {
           MainServ.setCurrentHardware();
+          if(ProductStor.product.hardware[0]) {
+            hardwareIds = ProductStor.product.hardware[0].id;
+          }
           //------ define product price
-          MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass.list_id, ProductStor.product.hardware.id);
+          MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass[0].list_id, hardwareIds);
         });
       }
     }

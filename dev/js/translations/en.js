@@ -109,6 +109,8 @@
         BRAND: 'trademark',
         HEAT_INSULATION: 'thermal insulation',
         NOICE_INSULATION: 'noise isolation',
+        CORROSION_COEFF: 'Anticorrosion',
+        BURGLAR_COEFF: 'Burglar',
         LAMINAT_INSIDE: 'Lamination of a frame in the room',
         LAMINAT_OUTSIDE: 'Lamination from a facade',
         LAMINAT_WHITE: 'without lamination, radical white color',

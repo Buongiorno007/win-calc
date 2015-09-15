@@ -35,7 +35,7 @@
       //------- set currenct Glass
       MainServ.setCurrentGlass(newId);
       //------ calculate price
-      MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass.list_id, ProductStor.product.hardware.id);
+      MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass[0].list_id, ProductStor.product.hardware[0].id);//TODO array!!
       //------ save analytics data
 //      analyticsServ.saveGlassAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, newId, typeIndex);
       //TODO analyticsServ.saveGlassAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, newId);

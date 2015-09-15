@@ -33,7 +33,7 @@
       //-------- set current Hardware
       MainServ.setCurrentHardware(newId);
       //------ calculate price
-      MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass.list_id, ProductStor.product.hardware.id);
+      MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass[0].list_id, ProductStor.product.hardware[0].id);//TODO array!!
       //------ save analytics data
 //TODO      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, hardwareIndex, hardwareTypeIndex);
     }

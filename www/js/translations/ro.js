@@ -111,6 +111,8 @@
         BRAND: 'marcă comercială',
         HEAT_INSULATION: 'izolație termică',
         NOICE_INSULATION: 'izolare fonica',
+        CORROSION_COEFF: 'anticoroziune',
+        BURGLAR_COEFF: 'hoț',
         LAMINAT_INSIDE: 'Laminarea a cadrului in camera',
         LAMINAT_OUTSIDE: 'Laminare din față',
         LAMINAT_WHITE: 'Fără laminare, de culoare albă radical',

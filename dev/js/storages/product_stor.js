@@ -28,8 +28,8 @@
         templateHeight: 0, //*
 
         profile: {},
-        glass: {},
-        hardware: {},
+        glass: [],
+        hardware: [],
 
         lamination_out_id: 0,
         laminationOutName: $filter('translate')('mainpage.WHITE_LAMINATION'), //*
