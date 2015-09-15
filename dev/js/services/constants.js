@@ -27,6 +27,7 @@
       //---Edit Design
       squareLimit: 0.15,
       minSizeLimit: 100,
+      minRadiusHeight: 10,
 
       activeClass: 'active',
       addElementsGroupClass: [

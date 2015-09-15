@@ -3140,17 +3140,21 @@ body {
 
 /* line 66, ../../dev/sass/parts/svg.scss */
 .size-rect {
+  width: 160px;
+  height: 70px;
+  rx: 20px;
+  ry: 20px;
   stroke: #6ed44a;
   stroke-width: 3px;
   fill-opacity: 0;
 }
-/* line 71, ../../dev/sass/parts/svg.scss */
+/* line 75, ../../dev/sass/parts/svg.scss */
 .size-rect.active {
   fill: #6ed44a;
   fill-opacity: 1;
 }
 
-/* line 76, ../../dev/sass/parts/svg.scss */
+/* line 80, ../../dev/sass/parts/svg.scss */
 .size-txt, .size-txt-edit {
   font-size: 5.625rem;
   stroke: #000;
@@ -3159,24 +3163,24 @@ body {
   alignment-baseline: middle;
 }
 
-/* line 84, ../../dev/sass/parts/svg.scss */
+/* line 88, ../../dev/sass/parts/svg.scss */
 .size-txt-edit {
   stroke: #6ed44a;
   fill: #6ed44a;
 }
-/* line 89, ../../dev/sass/parts/svg.scss */
+/* line 93, ../../dev/sass/parts/svg.scss */
 .size-txt-edit.active {
   stroke: #fff;
   fill: #fff;
 }
 
-/* line 99, ../../dev/sass/parts/svg.scss */
+/* line 103, ../../dev/sass/parts/svg.scss */
 .doorstep {
   fill: #4f4f4f;
   stroke: #4f4f4f;
 }
 
-/* line 103, ../../dev/sass/parts/svg.scss */
+/* line 107, ../../dev/sass/parts/svg.scss */
 .main-line {
   fill: #363636;
 }

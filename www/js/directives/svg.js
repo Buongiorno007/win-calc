@@ -236,7 +236,6 @@
               dimMarginBottom = -20,
               sizeBoxWidth = 160,
               sizeBoxHeight = 70,
-              sizeBoxRadius = 20,
 
               lineSideL = [],
               lineSideR = [],
@@ -306,12 +305,8 @@
             sizeBox.append('rect')
              .classed('size-rect', true)
              .attr({
-               'width': sizeBoxWidth,
-               'height': sizeBoxHeight,
                'x': function() { return (dir) ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2 },
-               'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8) },
-               'rx': sizeBoxRadius,
-               'ry': sizeBoxRadius
+               'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8) }
              });
           }
 
@@ -349,9 +344,6 @@
                 x: dimQ.midleX,
                 y: dimQ.midleY
               },
-              sizeBoxWidth = 160,
-              sizeBoxHeight = 70,
-              sizeBoxRadius = 20,
               dimBlock, sizeBox;
 
           radiusLine.push(endPR, startPR);
@@ -377,12 +369,8 @@
             sizeBox.append('rect')
               .classed('size-rect', true)
               .attr({
-                'width': sizeBoxWidth,
-                'height': sizeBoxHeight,
                 'x': dimQ.midleX,
-                'y': dimQ.midleY,
-                'rx': sizeBoxRadius,
-                'ry': sizeBoxRadius
+                'y': dimQ.midleY
               });
           }
 

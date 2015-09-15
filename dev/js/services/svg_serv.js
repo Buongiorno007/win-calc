@@ -198,7 +198,7 @@
 
       thisObj.dimension = initDimensions(thisObj.details);
 
-//      console.log('TEMPLATE END++++', thisObj);
+      console.log('TEMPLATE END++++', thisObj);
 //      console.log('svg finish', new Date(), new Date().getMilliseconds());
 //      console.log('------------------------------------------------------');
       defer.resolve(thisObj);
@@ -1950,7 +1950,7 @@
           maxSizeLimit = blocks[0].maxSizeLimit,
           globalLimitsX, globalLimitsY, allPoints;
 
-//      console.log('----------------- START DIMENSION-----------------');
+      console.log('----------------- START DIMENSION-----------------');
       //=========== All points ==============//
       allPoints = collectAllPointsOut(blocks);
       //------ except Q points
@@ -1977,7 +1977,7 @@
 
         var pointsOutQty = blocks[b].pointsOut.length;
 
-//        console.log('+++++++++++BLOCKS+++++++++', blocks[b].id);
+        console.log('+++++++++++BLOCKS+++++++++', blocks[b].id);
 //        console.log('points Out----------', blocks[b].pointsOut);
 
         //========== Blocks level 1 ============//
@@ -1986,11 +1986,14 @@
           //          console.log('========= block 1===========');
           var globalDimX = [],
               globalDimY,
-              overallDim = {};
+              arcHeights = [],
+              overallDim = {w: 0, h: 0};
 
           for (var i = 0; i < pointsOutQty; i++) {
             if (blocks[b].pointsOut[i].id.indexOf('fp') + 1) {
               globalDimX.push(blocks[b].pointsOut[i]);
+            } else if(blocks[b].pointsOut[i].id.indexOf('qa') + 1) {
+              arcHeights.push(blocks[b].pointsOut[i]);
             }
           }
           globalDimY = angular.copy(globalDimX);
@@ -2003,42 +2006,33 @@
 
 //          console.log('``````````globalDimX ``````', globalDimX);
 //          console.log('``````````globalDimY ``````', globalDimY);
-
+          console.log('``````````heightArcX ``````', arcHeights);
 
           //          console.log('``````````Create dim by X``````````');
           collectDimension(1, 'x', globalDimX, dimension.dimX, globalLimitsX, blocks[b].id, maxSizeLimit);
           //          console.log('``````````Create dim by Y``````````');
           collectDimension(1, 'y', globalDimY, dimension.dimY, globalLimitsY, blocks[b].id, maxSizeLimit);
 
-
-          //--------- get Overall Dimension
-
-          overallDim.w = globalDimX[globalDimX.length - 1].x;
-          overallDim.h = globalDimY[globalDimY.length - 1].y;
+          //------ collect dim for arc height
+          createArcDim(1, blocks[b].id, arcHeights, dimension.dimX, dimension.dimY, blocks, blocksQty);
 
           //----------- Curver Radius
           if (blocks[b].pointsQ) {
             var curveQty = blocks[b].pointsQ.length;
             if (curveQty) {
-              //                console.log('RRRR ARC=====', blocks[b].pointsQ);
               while (--curveQty > -1) {
                 dimension.dimQ.push(blocks[b].pointsQ[curveQty]);
-                //--------- get Overall Dimension
-                if (blocks[b].pointsQ[curveQty].id.indexOf('qa') + 1) {
-                  if (blocks[b].pointsQ[curveQty].positionQ === 2) {
-                    overallDim.w += blocks[b].pointsQ[curveQty].heightQ;
-                  } else if (blocks[b].pointsQ[curveQty].positionQ === 3) {
-                    overallDim.h += blocks[b].pointsQ[curveQty].heightQ;
-                  } else if (blocks[b].pointsQ[curveQty].positionQ === 1) {
-                    overallDim.h -= blocks[b].pointsQ[curveQty].heightQ;
-                  } else if (blocks[b].pointsQ[curveQty].positionQ === 4) {
-                    overallDim.w -= blocks[b].pointsQ[curveQty].heightQ;
-                  }
-                }
-
               }
             }
           }
+
+
+          //--------- get Overall Dimension
+          console.log('for overall------', dimension.dimX, dimension.dimY);
+          collectOverallDim(overallDim, dimension);
+          console.log('for overall finish ------', overallDim);
+
+
           overallDim.square = calcSquare(blocks[b].pointsOut);
           //--------- push Overall Dimension
           blocks[0].overallDim.push(overallDim);
@@ -2056,7 +2050,7 @@
           } else {
             pointsOutXDim = cleanPoitsOutXDim(blocks[b]);
           }
-//          console.log('`````````` pointsOutXDim ``````````', pointsOutXDim);
+          console.log('`````````` pointsOutXDim ``````````', pointsOutXDim);
 
           var pointsOutQty = pointsOutXDim.length;
           for (var i = 0; i < pointsOutQty; i++) {
@@ -2202,8 +2196,79 @@
     }
 
 
+    function createArcDim(level, currBlockId, arcDims, dimX, dimY, blocks, blocksQty) {
+      var arcQty = arcDims.length;
+      while(--arcQty > -1) {
+        var dim = {
+              blockId: currBlockId,
+              level: level,
+              dimId: arcDims[arcQty].id,
+              minLimit: globalConstants.minRadiusHeight
+            };
+        //---------- find point Q in pointsQ
+        for(var b = 1; b < blocksQty; b++) {
+          if(blocks[b].level === 1) {
+            if(blocks[b].pointsQ) {
+              var pointsQQty = blocks[b].pointsQ.length;
+              if(pointsQQty) {
+                for(var q = 0; q < pointsQQty; q++) {
+                  if(blocks[b].pointsQ[q].id === dim.dimId) {
+//                    console.log('DIM HEIGHT ARC pointsQ ------------', blocks[b].pointsQ[q]);
+                    switch(blocks[b].pointsQ[q].positionQ) {
+                      case 1:
+                        dim.axis = 'y';
+                        dim.from = angular.copy(blocks[b].pointsQ[q].startY);
+                        dim.to = angular.copy(blocks[b].pointsQ[q].midleY);
+                        break;
+                      case 2:
+                        dim.axis = 'x';
+                        dim.from = angular.copy(blocks[b].pointsQ[q].midleX);
+                        dim.to = angular.copy(blocks[b].pointsQ[q].startX);
+                        break;
+                      case 3:
+                        dim.axis = 'y';
+                        dim.from = angular.copy(blocks[b].pointsQ[q].midleY);
+                        dim.to = angular.copy(blocks[b].pointsQ[q].startY);
+                        break;
+                      case 4:
+                        dim.axis = 'x';
+                        dim.from = angular.copy(blocks[b].pointsQ[q].startX);
+                        dim.to = angular.copy(blocks[b].pointsQ[q].midleX);
+                        break;
+                    }
+                    dim.text = rounding10( angular.copy(blocks[b].pointsQ[q].heightQ) );
+                    dim.maxLimit = blocks[b].pointsQ[q].lengthChord/4;
+                  }
+                }
+              }
+            }
+          }
+        }
+//        console.log('DIM HEIGHT ARC finish ------------', dim);
+        if(dim.axis === 'x') {
+          dimX.push(dim);
+        } else {
+          dimY.push(dim);
+        }
+      }
+    }
 
 
+
+    function collectOverallDim(overallDim, dimension) {
+      var dimXQty = dimension.dimX.length,
+          dimYQty = dimension.dimY.length;
+      while(--dimXQty > -1) {
+        if(dimension.dimX[dimXQty].level) {
+          overallDim.w += dimension.dimX[dimXQty].text;
+        }
+      }
+      while(--dimYQty > -1) {
+        if(dimension.dimY[dimYQty].level) {
+          overallDim.h += dimension.dimY[dimYQty].text;
+        }
+      }
+    }
 
 
 
@@ -2677,7 +2742,7 @@
       pointQ.lengthChord = rounding100( Math.hypot((P1.x - P0.x), (P1.y - P0.y)) );
       pointQ.radius = culcRadiusCurve(pointQ.lengthChord, pointQ.heightQ);
       pointQ.radiusMax = culcRadiusCurve(pointQ.lengthChord, pointQ.lengthChord/4);
-      pointQ.radiusMin = culcRadiusCurve(pointQ.lengthChord, 10);
+      pointQ.radiusMin = culcRadiusCurve(pointQ.lengthChord, globalConstants.minRadiusHeight);
     }
 
 
