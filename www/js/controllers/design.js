@@ -83,7 +83,9 @@
       DesignStor.design.activeMenuItem = (DesignStor.design.activeMenuItem === id) ? 0 : id;
       DesignServ.hideCornerMarks();
       DesignServ.deselectAllImpost();
-      DesignServ.deselectAllArc();
+      if(id !== 4) {
+        DesignServ.deselectAllArc();
+      }
       //----- hide culculator
       DesignServ.hideSizeTools();
       if(DesignStor.design.activeMenuItem) {
@@ -237,6 +239,7 @@
       //----- if not corners
       if(arcs.length) {
         DesignStor.design.activeSubMenuItem = menuId;
+        console.log('Arcs++++++', DesignStor.design.selectedArc);
         if(!DesignStor.design.selectedArc.length) {
           //----- show all frames and arc
           var arcs = d3.selectAll(arcs);

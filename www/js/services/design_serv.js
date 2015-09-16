@@ -272,7 +272,6 @@
 
     //------- set click to all Glass for Dimensions
     function initAllGlass() {
-      var delayDimShow = 1000;
       DesignStor.design.selectedGlass.length = 0;
       d3.selectAll('#tamlateSVG .glass')
         .each(function() {
@@ -282,46 +281,40 @@
           glass.on("mousedown", function() {
 
             //========= select glass
-            var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass);
+            var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass),
+                blockID = glass[0][0].attributes.block_id.nodeValue;
             if(isGlass) {
               glass.classed('glass-active', true);
               hideCornerMarks();
               deselectAllImpost();
               deselectAllArc();
               hideSizeTools();
+
+              //------- show Dimensions
+              showCurrentDimLevel(blockID);
+
               $rootScope.$apply();
             } else {
               glass.classed('glass-active', false);
+              //------- hide Dimensions of current Block
+              d3.selectAll('#tamlateSVG .dim_block[block_id='+blockID+']').classed('dim_hidden', true);
+
               if(!DesignStor.design.selectedGlass.length) {
                 //------- close glass menu and submenu
                 DesignStor.design.activeMenuItem = 0;
                 DesignStor.design.activeSubMenuItem = 0;
+                //---- shifting global dimension
+                hideAllDimension();
                 $rootScope.$apply();
               }
             }
 
-
-            //========= show Dimensions
-
-//            hideAllDimension();
-            var parentID = glass[0][0].attributes.parent_id.nodeValue,
-                blockID = glass[0][0].attributes.block_id.nodeValue,
-                currDimId = (parentID === 'block_0') ? blockID : parentID;
-            DesignStor.design.isDimAnimate = 1;
-            showCurrentDimLevel(currDimId);
-//            showCurrentDimLevel(blockID);
-//            if(DesignStor.design.isDimAnimate && parentID !== 'block_0') {
-//              $timeout(function () {
-//                showNextDimensionLevel(currDimId, delayDimShow);
-//              }, delayDimShow);
-//            }
+//            var parentID = glass[0][0].attributes.parent_id.nodeValue,
+//                blockID = glass[0][0].attributes.block_id.nodeValue,
+//                currDimId = (parentID === 'block_0') ? blockID : parentID;
           });
 
 
-//          glass.on("touchend", function() {
-          glass.on("mouseup", function() {
-            DesignStor.design.isDimAnimate = 0;
-          });
         });
     }
 
@@ -342,7 +335,7 @@
           }
         }
         //------- hide all dimension Level 0
-        d3.selectAll('#tamlateSVG .dim_block').classed('dim_hidden', true);
+//        d3.selectAll('#tamlateSVG .dim_block').classed('dim_hidden', true);
 
         if(isXDim) {
           d3.selectAll('#tamlateSVG .dim_blockX').classed('dim_shiftX', true);
@@ -351,30 +344,6 @@
           d3.selectAll('#tamlateSVG .dim_blockY').classed('dim_shiftY', true);
         }
         dim.classed('dim_hidden', false);
-      }
-    }
-
-
-    function showNextDimensionLevel(currBlockId, delay) {
-      var blocks = DesignStor.design.templateTEMP.details,
-          blocksQty = blocks.length,
-          parentID;
-
-      if(DesignStor.design.isDimAnimate) {
-        //----- find next parent block
-        for(var b = 0; b < blocksQty; b++) {
-          if(blocks[b].id === currBlockId) {
-            parentID = blocks[b].parent;
-          }
-        }
-        var currDimId = (parentID === 'block_0') ? currBlockId : parentID;
-        showCurrentDimLevel(currDimId);
-
-        if(DesignStor.design.isDimAnimate && parentID !== 'block_0') {
-          $timeout(function () {
-            showNextDimensionLevel(currDimId, delay);
-          }, delay);
-        }
       }
     }
 
@@ -393,6 +362,7 @@
 //          arc.on('touchstart', function() {
           arc.on('click', function() {
             var isArc = isExistArcInSelected(arc[0][0], DesignStor.design.selectedArc);
+            console.log('add to ARC++++', DesignStor.design.selectedArc);
             if(isArc) {
               arc.classed('active_svg', true);
               deselectAllGlass();
@@ -437,10 +407,11 @@
 
 
     function hideAllDimension() {
-      d3.select('#tamlateSVG .dim_blockX').classed('dim_shiftX', false);
-      d3.select('#tamlateSVG .dim_blockY').classed('dim_shiftY', false);
+      d3.selectAll('#tamlateSVG .dim_blockX').classed('dim_shiftX', false);
+      d3.selectAll('#tamlateSVG .dim_blockY').classed('dim_shiftY', false);
       d3.selectAll('#tamlateSVG .dim_block').classed('dim_hidden', true);
     }
+
 
 
     function hideCornerMarks() {
@@ -1364,6 +1335,7 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
     function createImpostQPoint(dist, position, curBlockN, blockIndex, blocks) {
       var impQPoint = {
         blockId: blocks[blockIndex].id,
+        dir:'curv',
         id: 'qi'+curBlockN,
         heightQ: dist,
         positionQ: position
@@ -1708,7 +1680,7 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
       for(var numer = 0; numer < DesignStor.design.tempSize.length; numer++) {
         newSizeString += DesignStor.design.tempSize[numer].toString();
       }
-//      console.log('changeSize++++++++++', newSizeString);
+      console.log('changeSize++++++++++', DesignStor.design.oldSize);
       var dim = d3.select(DesignStor.design.oldSize);
       dim.text(newSizeString);
 
@@ -1745,8 +1717,13 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
               dimId = DesignStor.design.oldSize.attributes[10].nodeValue,
               blocksQty = blocks.length;
 
-          //-------- change Radius
+          console.log('SIZE ````````curBlockId````````', curBlockId);
+          console.log('SIZE ````````curDimType````````', curDimType);
+          console.log('SIZE ````````dimId````````', dimId);
+
+
           if(curDimType === 'curve') {
+            //============ changing Radius
 
             var newHeightQ = culcHeightQByRadiusCurve(+DesignStor.design.oldSize.attributes[11].nodeValue, newLength);
 
@@ -1773,18 +1750,35 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
               }
             }
 
+          } else if(dimId.indexOf('qa')+1) {
+            //========== changing Arc Height
+
+            for(var b = 1; b < blocksQty; b++) {
+              if(blocks[b].level === 1) {
+                var pointsQQty = blocks[b].pointsQ.length;
+                if(pointsQQty) {
+                  while(--pointsQQty > -1) {
+                    if(blocks[b].pointsQ[pointsQQty].id === dimId) {
+                      blocks[b].pointsQ[pointsQQty].heightQ = newLength;
+//                      console.log('ARC height=====', blocks[b].pointsQ[pointsQQty]);
+                    }
+                  }
+                }
+              }
+            }
+
           } else {
+            //========== changing Line dimension
 
             var startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
                 oldSizeValue = +DesignStor.design.oldSize.attributes[12].nodeValue,
                 axis = DesignStor.design.oldSize.attributes[13].nodeValue;
 
-//            console.log('SIZE ````````newLength````````', newLength);
-//            console.log('SIZE ````````startSize````````', startSize);
-//            console.log('SIZE ````````oldSizeValue````````', oldSizeValue);
-//            console.log('SIZE ````````axis````````', axis);
-//            console.log('SIZE ````````dimId````````', dimId);
-
+            console.log('SIZE ````````newLength````````', newLength);
+            console.log('SIZE ````````startSize````````', startSize);
+            console.log('SIZE ````````oldSizeValue````````', oldSizeValue);
+            console.log('SIZE ````````axis````````', axis);
+/*
             //-------- if Dim point is impost
             if(dimId.indexOf('ip')+1) {
               //--------- check impost is vert/hor or inclinde
@@ -1857,7 +1851,7 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
                 }
               }
             } else {
-
+*/
               for(var b = 1; b < blocksQty; b++) {
                 var pointsOutQty = blocks[b].pointsOut.length;
                 if(pointsOutQty) {
@@ -1890,7 +1884,7 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
                 }
               }
 
-            }
+//            }
           }
 
 

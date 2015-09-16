@@ -476,15 +476,12 @@
 
 
     function parseTemplate() {
-      var deferred = $q.defer(),
-        hardwareIds = 0;
+      var deferred = $q.defer();
       //------- set current template for product
       saveTemplateInProduct(ProductStor.product.templateIndex).then(function() {
         setCurrentGlass();
         setCurrentHardware();
-        if(ProductStor.product.hardware[0]) {
-          hardwareIds = ProductStor.product.hardware[0].id;
-        }
+        var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
         preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass[0].list_id, hardwareIds).then(function() {
           deferred.resolve(1);
         });
@@ -546,13 +543,13 @@
 
     function setCurrentHardware(id) {
       if(id) {
-        ProductStor.product.hardware.unshift(fineItemById(id, GlobalStor.global.hardwares));
+        ProductStor.product.hardware = fineItemById(id, GlobalStor.global.hardwares);
       } else {
         //----- set default hardware in ProductStor
         if(GlobalStor.global.isSashesInTemplate) {
-          ProductStor.product.hardware.unshift(GlobalStor.global.hardwares[0][0]);
+          ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
         } else {
-          ProductStor.product.hardware.length = 0;
+          ProductStor.product.hardware = {};
         }
       }
     }
@@ -924,6 +921,7 @@
         deleteOrderInLocalDB(GlobalStor.global.orderEditNumber);
         GlobalStor.global.orderEditNumber = 0;
       }
+      console.log('newOptions++++++++++', newOptions)
       angular.extend(OrderStor.order, newOptions);
 
       var prodQty = OrderStor.order.products.length;
@@ -936,9 +934,7 @@
           productData.glass_id = OrderStor.order.products[p].glass.map(function(item) {
             return item.id;
           }).join(', ');
-          productData.hardware_id = OrderStor.order.products[p].hardware.map(function(item) {
-            return item.id;
-          }).join(', ');
+          productData.hardware_id = (OrderStor.order.products[p].hardware.id) ? OrderStor.order.products[p].hardware.id : 0;
           productData.modified = new Date();
           delete productData.templateIndex; //TODO delete
           delete productData.templateIcon;
@@ -957,7 +953,7 @@
           //-------- insert product into local DB
           localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
           //-------- send to Server
-          localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_products.tableName, productData);
+//          localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_products.tableName, productData);
 
 
 
@@ -975,7 +971,7 @@
 
                 console.log('SEND ADD',addElementsData);
                 localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
-                localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_addelements.tableName, addElementsData);
+//                localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_addelements.tableName, addElementsData);
               }
             }
           }
@@ -1024,7 +1020,7 @@
       delete orderData.selectedInstalmentPercent;
 
       console.log('!!!!orderData!!!!', orderData);
-      localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, orderData);
+//      localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, orderData);
       localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
 
       //----- cleaning order

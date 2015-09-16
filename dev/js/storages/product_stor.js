@@ -29,7 +29,7 @@
 
         profile: {},
         glass: [],
-        hardware: [],
+        hardware: {},
 
         lamination_out_id: 0,
         laminationOutName: $filter('translate')('mainpage.WHITE_LAMINATION'), //*

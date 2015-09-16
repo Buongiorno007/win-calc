@@ -166,6 +166,7 @@
       } else if(CartStor.cart.isMasterDialog) {
         orderStyle = 'master';
       }
+      console.log(JSON.stringify(CartStor.cart.customer));
       MainServ.insertOrderInLocalDB(CartStor.cart.customer, 1, orderStyle);
       //--------- Close cart dialog, go to history
       closeOrderDialog();

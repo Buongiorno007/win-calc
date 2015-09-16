@@ -262,7 +262,6 @@
                 x: (dir) ? dimLineHeight + dimEdger : dim.to,
                 y: (dir) ? dim.to : dimLineHeight + dimEdger
               };
-
           lineSideL.push(pointL1, pointL2);
           lineSideR.push(pointR1, pointR2);
           lineCenter.push(pointC1, pointC2);
@@ -347,7 +346,7 @@
 
           dimBlock = dimGroup.append('g')
             .attr({
-              'class': 'dim_block dim_hidden',
+              'class': 'dim_block_radius',
               'block_id': dimQ.blockId
             });
 

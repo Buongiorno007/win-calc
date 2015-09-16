@@ -951,8 +951,9 @@
               <div ng-show="creditDialog.C.cart.submitted &amp;&amp; callCreditForm.address.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
             </div>
             <div class="cart-dialog-label">{{ 'cart.CALL_ORDER_ADD_INFO' | translate }}</div>
-            <div class="input-field">
-              <input type="email" name="mail" ng-model="creditDialog.C.cart.customer.customer_mail" placeholder="{{ 'cart.CLIENT_EMAIL' | translate }}" class="user-field">
+            <div ng-class="{ 'has-error' : creditDialog.C.cart.submitted &amp;&amp; callCreditForm.mail.$error.required }" class="input-field">
+              <input type="email" name="mail" ng-model="creditDialog.C.cart.customer.customer_mail" placeholder="{{ 'cart.CLIENT_EMAIL' | translate }}" required class="user-field">
+              <div ng-show="creditDialog.C.cart.submitted &amp;&amp; callCreditForm.mail.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
               <div ng-show="creditDialog.C.cart.submitted &amp;&amp; callCreditForm.mail.$error.email" class="error-tooltip">{{ 'cart.WRONG_EMAIL' | translate }}</div>
             </div>
             <div class="input-field">

@@ -494,7 +494,7 @@
             ' template_source TEXT,' +
             ' profile_id INTEGER,' +
             ' glass_id VARCHAR,' +
-            ' hardware_id VARCHAR,' +
+            ' hardware_id INTEGER,' +
             ' lamination_out_id INTEGER,' +
             ' lamination_in_id INTEGER,' +
             ' door_shape_id INTEGER,' +
