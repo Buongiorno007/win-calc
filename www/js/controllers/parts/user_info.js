@@ -40,8 +40,8 @@
 
     function swipeLeft(event) {
       if(GlobalStor.global.isNavMenu) {
-        GlobalStor.global.isNavMenu = false;
-        GlobalStor.global.isConfigMenu = true;
+        GlobalStor.global.isNavMenu = 0;
+        GlobalStor.global.isConfigMenu = 1;
         GeneralServ.stopStartProg();
         //playSound('swip');
       }
@@ -49,8 +49,8 @@
 
     function swipeRight(event) {
       if(!GlobalStor.global.isNavMenu) {
-        GlobalStor.global.isNavMenu = true;
-        GlobalStor.global.isConfigMenu = false;
+        GlobalStor.global.isNavMenu = 1;
+        GlobalStor.global.isConfigMenu = 0;
         //playSound('swip');
       }
     }

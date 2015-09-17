@@ -27,10 +27,7 @@
     //------ clicking
 
     thisCtrl.showRoomSelectorDialog = showRoomSelectorDialog;
-    thisCtrl.swipeShowComment = swipeShowComment;
-    thisCtrl.swipeHideComment = swipeHideComment;
-
-
+    thisCtrl.switchComment = switchComment;
 
 
     //============ methods ================//
@@ -45,15 +42,9 @@
     }
 
     //----- Show Comments
-    function swipeShowComment(event) {
+    function switchComment(event) {
       //playSound('swip');
-      GlobalStor.global.isShowCommentBlock = 1;
-      GlobalStor.global.showRoomSelectorDialog = 0;
-    }
-
-    function swipeHideComment(event) {
-      //playSound('swip');
-      GlobalStor.global.isShowCommentBlock = 0;
+      GlobalStor.global.isShowCommentBlock = !GlobalStor.global.isShowCommentBlock;
     }
 
   }

@@ -5,10 +5,10 @@
   left: 0;
   width: 100%;
   height: rem(360px);
+  z-index: 11;
 
   &.show-comment {
     height: 95.5rem;
-    z-index: 11;
   }
   .room-header {
     @include top_left_coord(0px, 0px);
@@ -83,6 +83,16 @@
     margin-left: rem(20px);
     word-wrap: break-word;
     overflow: auto;
+  }
+
+  .comment-btn {
+    &:after {
+      @include font-icon(5rem, 1);
+      padding: 2rem;
+      content: $coment;
+      color: #fff;
+      cursor: pointer;
+    }
   }
 
   //----- Comment Block

@@ -2120,7 +2120,7 @@
               blockLimits = [];
 
           cleanPointsOutDim(blockDimX, blocks[b].pointsOut);
-          console.log('`````````` blockDimX ``````````', JSON.stringify(blockDimX));
+//          console.log('`````````` blockDimX ``````````', JSON.stringify(blockDimX));
 
           //-------- set block Limits
           //------ go to parent and another children for Limits
@@ -2131,7 +2131,7 @@
               cleanPointsOutDim(blockLimits, blocks[bp].pointsOut);
               //------- add impost
               if(blocks[bp].impost) {
-                console.log('dimQ+++++++++', blocks[bp].impost, blocks[bp].impost.impostAxis[0], blocks[bp].impost.impostAxis[1]);
+//                console.log('dimQ+++++++++', blocks[bp].impost, blocks[bp].impost.impostAxis[0], blocks[bp].impost.impostAxis[1]);
                 if(!blocks[bp].impost.impostAxis[0].t) {
                   blockLimits.push(blocks[bp].impost.impostAxis[0]);
                 }
@@ -2141,7 +2141,7 @@
 
                 //============ collect Curver Radius of impost
                 if (blocks[bp].impost.impostAxis[2]) {
-                  console.log('dimQ+++++++++', blocks[bp].impost, blocks[bp].impost.impostAxis[2]);
+//                  console.log('dimQ+++++++++', blocks[bp].impost, blocks[bp].impost.impostAxis[2]);
                   dimension.dimQ.push(blocks[bp].impost.impostAxis[2]);
                 }
               }
@@ -2168,7 +2168,7 @@
             blockDimX = cleanDublicatNoFP(1, blockDimX);
             //---- sorting
             blockDimX.sort(sortByX);
-            console.log('`````````` new dim X ``````````', blockDimX);
+//            console.log('`````````` new dim X ``````````', blockDimX);
 //            collectDimension(0, 'x', blockDimX, dimension.dimX, blockLimits, blocks[b].parent, maxSizeLimit);
             collectDimension(0, 'x', blockDimX, dimension.dimX, blockLimits, blocks[b].id, maxSizeLimit);
           }
@@ -2178,7 +2178,7 @@
             blockDimY = cleanDublicatNoFP(2, blockDimY);
             //---- sorting
             blockDimY.sort(sortByY);
-            console.log('`````````` new dim Y ``````````', blockDimY);
+//            console.log('`````````` new dim Y ``````````', blockDimY);
 //            collectDimension(0, 'y', blockDimY, dimension.dimY, blockLimits, blocks[b].parent, maxSizeLimit);
             collectDimension(0, 'y', blockDimY, dimension.dimY, blockLimits, blocks[b].id, maxSizeLimit);
           }
@@ -2337,7 +2337,7 @@
         if(!level && d+1 === dimQty && (pointsDim[d+1].type === 'frame' || pointsDim[d+1].type === 'corner')) {
           continue;
         } else {
-          console.log('````````````````````', pointsDim[d], pointsDim[d+1]);
+//          console.log('````````````````````', pointsDim[d], pointsDim[d+1]);
           dimension.push(createDimObj(level, axis, d, d+1, pointsDim, limits, currBlockId, maxSizeLimit));
         }
       }
@@ -2414,7 +2414,7 @@
 //          currLimits = limits,
           currLimitsQty = currLimits.length;
 
-      console.log('!!!!!!!!! DIM NEW LIMITS ------------', currLimits);
+//      console.log('!!!!!!!!! DIM NEW LIMITS ------------', currLimits);
 
       for(var i = 0; i < currLimitsQty; i++) {
 

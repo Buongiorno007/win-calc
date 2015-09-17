@@ -62,7 +62,7 @@
         </div>
       </div>
       <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" hm-tap="userBox.swipeMainPage($event)" class="main-central-part"></div>
-      <div ng-controller="RoomInfoCtrl as roomInfo" ng-class="{'show-comment': roomInfo.G.global.isShowCommentBlock}" hm-swipeup="roomInfo.swipeShowComment($event)" hm-swipedown="roomInfo.swipeHideComment($event)" class="room-info-container">
+      <div ng-controller="RoomInfoCtrl as roomInfo" ng-class="{'show-comment': roomInfo.G.global.isShowCommentBlock}" hm-swipeup="roomInfo.switchComment($event)" hm-swipedown="roomInfo.switchComment($event)" class="room-info-container">
         <div class="coeff-container">
           <div class="coeff-block">
             <div class="coeff climate">{{ roomInfo.O.order.climatic_zone }}</div>
@@ -77,6 +77,7 @@
           <div class="coeff-block">
             <button show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}" hm-tap="roomInfo.showRoomSelectorDialog($event)" class="select-rooms unvisible">{{ 'mainpage.ROOM_SELECTION' | translate }}</button>
           </div>
+          <div hm-tap="roomInfo.switchComment($event)" class="comment-btn"></div>
         </div>
         <div class="product-comment">
           <textarea ng-model="roomInfo.P.product.comment" placeholder="{{ 'mainpage.COMMENT' | translate }}" class="comment-field"></textarea>

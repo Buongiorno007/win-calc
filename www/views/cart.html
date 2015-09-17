@@ -844,14 +844,16 @@
               <ul ng-show="orderDialog.C.cart.isCityBox" tabindex="1" class="location-list-tooltip">
                 <li ng-repeat="location in orderDialog.locations | filter: {cityName: orderDialog.C.cart.customer.customer_location } | orderBy:'cityName'" hm-tap="orderDialog.selectCity(location.fullLocation)" class="location-option">{{location.fullLocation}}</li>
               </ul>
-              <div ng-class="{ 'has-error' : orderDialog.C.cart.submitted &amp;&amp; callOrderForm.address.$error.required }" class="input-field"></div>
+            </div>
+            <div ng-class="{ 'has-error' : orderDialog.C.cart.submitted &amp;&amp; callOrderForm.address.$error.required }" class="input-field">
               <input type="text" name="address" ng-model="orderDialog.C.cart.customer.customer_address" placeholder="{{ 'cart.CLIENT_ADDRESS' | translate }}" required class="user-field">
               <div ng-show="orderDialog.C.cart.submitted &amp;&amp; callOrderForm.address.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
             </div>
             <div class="cart-dialog-label">{{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }}: {{ orderDialog.C.cart.orderPriceTOTALDis }} {{ orderDialog.U.userInfo.currency }}</div>
             <div class="cart-dialog-label">{{ 'cart.CALL_ORDER_ADD_INFO' | translate }}</div>
-            <div class="input-field">
-              <input type="email" name="mail" ng-model="orderDialog.customer.customer_mail" placeholder="{{ 'cart.CLIENT_EMAIL' | translate }}" class="user-field">
+            <div ng-class="{ 'has-error' : orderDialog.C.cart.submitted &amp;&amp; orderDialog.mail.$error.required }" class="input-field">
+              <input type="email" name="mail" ng-model="orderDialog.C.cart.customer.customer_email" placeholder="{{ 'cart.CLIENT_EMAIL' | translate }}" required class="user-field">
+              <div ng-show="orderDialog.C.cart.submitted &amp;&amp; callOrderForm.mail.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
               <div ng-show="orderDialog.C.cart.submitted &amp;&amp; callOrderForm.mail.$error.email" class="error-tooltip">{{ 'cart.WRONG_EMAIL' | translate }}</div>
             </div>
             <div class="input-field">
@@ -952,7 +954,7 @@
             </div>
             <div class="cart-dialog-label">{{ 'cart.CALL_ORDER_ADD_INFO' | translate }}</div>
             <div ng-class="{ 'has-error' : creditDialog.C.cart.submitted &amp;&amp; callCreditForm.mail.$error.required }" class="input-field">
-              <input type="email" name="mail" ng-model="creditDialog.C.cart.customer.customer_mail" placeholder="{{ 'cart.CLIENT_EMAIL' | translate }}" required class="user-field">
+              <input type="email" name="mail" ng-model="creditDialog.C.cart.customer.customer_email" placeholder="{{ 'cart.CLIENT_EMAIL' | translate }}" required class="user-field">
               <div ng-show="creditDialog.C.cart.submitted &amp;&amp; callCreditForm.mail.$error.required" class="error-tooltip">{{ 'login.EMPTY_FIELD' | translate }}</div>
               <div ng-show="creditDialog.C.cart.submitted &amp;&amp; callCreditForm.mail.$error.email" class="error-tooltip">{{ 'cart.WRONG_EMAIL' | translate }}</div>
             </div>

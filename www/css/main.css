@@ -337,7 +337,7 @@ th {
 }
 @font-face {
   font-family: "icons";
-  src: url('../fonts/icons/icomoon.ttf?1437493140') format('truetype');
+  src: url('../fonts/icons/icomoon.ttf?1442479741') format('truetype');
 }
 /* line 183, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
@@ -3274,11 +3274,11 @@ body {
   left: 0;
   width: 100%;
   height: 22.5rem;
+  z-index: 11;
 }
-/* line 9, ../../dev/sass/parts/_room-info.scss */
+/* line 10, ../../dev/sass/parts/_room-info.scss */
 .room-info-container.show-comment {
   height: 95.5rem;
-  z-index: 11;
 }
 /* line 13, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .room-header {
@@ -3364,11 +3364,19 @@ body {
   overflow: auto;
 }
 /* line 89, ../../dev/sass/parts/_room-info.scss */
+.room-info-container .comment-btn:after {
+  font: normal 5rem/1 icons, sans-serif;
+  padding: 2rem;
+  content: "\e662";
+  color: #fff;
+  cursor: pointer;
+}
+/* line 99, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .product-comment {
   margin-top: 25rem;
   height: 90%;
 }
-/* line 93, ../../dev/sass/parts/_room-info.scss */
+/* line 103, ../../dev/sass/parts/_room-info.scss */
 .room-info-container textarea.comment-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   width: 90%;
@@ -3429,8 +3437,9 @@ body {
 .rooms-selector-dialog {
   height: 64rem;
   overflow: hidden;
+  z-index: 1;
 }
-/* line 5, ../../dev/sass/parts/_rooms-selector.scss */
+/* line 6, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog:after {
   position: absolute;
   right: 35%;
@@ -3442,20 +3451,20 @@ body {
   border-color: rgba(255, 255, 255, 0.85) transparent;
   content: '';
 }
-/* line 16, ../../dev/sass/parts/_rooms-selector.scss */
+/* line 17, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .rooms-inner {
   height: 100%;
   width: 110%;
   overflow-y: auto;
 }
-/* line 21, ../../dev/sass/parts/_rooms-selector.scss */
+/* line 22, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-block {
   width: 25.25rem;
   height: 19.625rem;
   float: left;
   margin-bottom: 1.5625rem;
 }
-/* line 27, ../../dev/sass/parts/_rooms-selector.scss */
+/* line 28, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-box {
   width: 100%;
   height: 100%;
@@ -3463,11 +3472,11 @@ body {
   border-radius: 0.9375rem;
   cursor: pointer;
 }
-/* line 33, ../../dev/sass/parts/_rooms-selector.scss */
+/* line 34, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-box:hover, .rooms-selector-dialog .room-box.selected {
   background-color: #6ed44a;
 }
-/* line 38, ../../dev/sass/parts/_rooms-selector.scss */
+/* line 39, ../../dev/sass/parts/_rooms-selector.scss */
 .rooms-selector-dialog .room-img {
   position: relative;
   width: 100%;
@@ -3706,6 +3715,7 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   background: rgba(255, 255, 255, 0.9);
+  z-index: 12;
 }
 /* line 12, ../../dev/sass/parts/_config-panel.scss */
 .config-panel.active {

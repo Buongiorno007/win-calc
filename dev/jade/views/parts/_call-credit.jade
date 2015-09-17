@@ -61,7 +61,7 @@
         .cart-dialog-label {{ 'cart.CALL_ORDER_ADD_INFO' | translate }}
 
         .input-field(ng-class="{ 'has-error' : creditDialog.C.cart.submitted && callCreditForm.mail.$error.required }")
-          input.user-field(type="email", name="mail", ng-model="creditDialog.C.cart.customer.customer_mail", placeholder="{{ 'cart.CLIENT_EMAIL' | translate }}", required)
+          input.user-field(type="email", name="mail", ng-model="creditDialog.C.cart.customer.customer_email", placeholder="{{ 'cart.CLIENT_EMAIL' | translate }}", required)
           .error-tooltip(ng-show="creditDialog.C.cart.submitted && callCreditForm.mail.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
           .error-tooltip(ng-show="creditDialog.C.cart.submitted && callCreditForm.mail.$error.email") {{ 'cart.WRONG_EMAIL' | translate }}
 

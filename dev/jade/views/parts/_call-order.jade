@@ -31,7 +31,7 @@
 
 
 
-          .input-field(ng-class="{ 'has-error' : orderDialog.C.cart.submitted && callOrderForm.address.$error.required }")
+        .input-field(ng-class="{ 'has-error' : orderDialog.C.cart.submitted && callOrderForm.address.$error.required }")
           input.user-field(type="text", name="address", ng-model="orderDialog.C.cart.customer.customer_address", placeholder="{{ 'cart.CLIENT_ADDRESS' | translate }}", required)
           .error-tooltip(ng-show="orderDialog.C.cart.submitted && callOrderForm.address.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
 
@@ -39,8 +39,9 @@
         .cart-dialog-label {{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }}: {{ orderDialog.C.cart.orderPriceTOTALDis }} {{ orderDialog.U.userInfo.currency }}
         .cart-dialog-label {{ 'cart.CALL_ORDER_ADD_INFO' | translate }}
 
-        .input-field
-          input.user-field(type="email", name="mail", ng-model="orderDialog.customer.customer_mail", placeholder="{{ 'cart.CLIENT_EMAIL' | translate }}")
+        .input-field(ng-class="{ 'has-error' : orderDialog.C.cart.submitted && orderDialog.mail.$error.required }")
+          input.user-field(type="email", name="mail", ng-model="orderDialog.C.cart.customer.customer_email", placeholder="{{ 'cart.CLIENT_EMAIL' | translate }}", required)
+          .error-tooltip(ng-show="orderDialog.C.cart.submitted && callOrderForm.mail.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
           .error-tooltip(ng-show="orderDialog.C.cart.submitted && callOrderForm.mail.$error.email") {{ 'cart.WRONG_EMAIL' | translate }}
 
         .input-field
