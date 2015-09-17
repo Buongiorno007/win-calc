@@ -30,7 +30,7 @@
       checkSashInTemplate: checkSashInTemplate,
       preparePrice: preparePrice,
       setProductPriceTOTAL: setProductPriceTOTAL,
-      isAddElemExist: isAddElemExist,
+      downloadAllAddElem: downloadAllAddElem,
 
       createNewProject: createNewProject,
       createNewProduct: createNewProduct,
@@ -692,23 +692,102 @@
     }
 
 
-    function isAddElemExist() {
-      var defer = $q.defer(),
-          promises = localDB.addElementDBId.map(function(item) {
+
+
+
+    function downloadAllAddElem() {
+      var promises = localDB.addElementDBId.map(function(item) {
             return localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': item});
           });
 
-      $q.all(promises).then(function (results) {
-//        console.log('iis Addelem ++++', results);
-        var resultsQty = results.length;
-        if (resultsQty) {
-          GlobalStor.global.isAddElemExist = results.map(function(itme) {
-            return (itme && itme.length) ? 1 : 0;
-          });
+
+      $q.all(promises).then(function (result) {
+        var resultQty = result.length;
+        for(var i = 0; i < resultQty; i++) {
+          var elemGroupObj = {elementType: [], elementsList: result[i]};
+          GlobalStor.global.addElementsAll.push(elemGroupObj);
+          //------- get elements
+          if(result[i]) {
+            var promisElem = result[i].map(function(item) {
+              return localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.parent_element_id});
+            });
+            $q.all(promisElem).then(function (result) {
+//              console.log('resssss ++++', result);
+              var resQty = result.length;
+              if(resQty) {
+                for(var i = 0; i < resQty; i++) {
+                  GlobalStor.global.tempAddElements.push(result[i][0]);
+                }
+              }
+            });
+          }
         }
-        defer.resolve(1);
+
+        localDB.selectLocalDB(localDB.tablesLocalDB.addition_folders.tableName).then(function(groups) {
+          var groupQty = groups.length;
+          if (groupQty) {
+            var elemAllQty = GlobalStor.global.addElementsAll.length,
+                defaultGroup = {
+                  id: 0,
+                  name: $filter('translate')('panels.OTHER_TYPE')
+                };
+            while(--elemAllQty > -1) {
+              if(GlobalStor.global.addElementsAll[elemAllQty].elementsList) {
+                GlobalStor.global.addElementsAll[elemAllQty].elementType = angular.copy(groups);
+                GlobalStor.global.addElementsAll[elemAllQty].elementType.push(defaultGroup);
+
+
+                //------- sorting
+                var newElemList = [],
+                    typeDelete = [],
+                    typeQty = GlobalStor.global.addElementsAll[elemAllQty].elementType.length,
+                    elemQty = GlobalStor.global.addElementsAll[elemAllQty].elementsList.length;
+
+                for(var t = 0; t < typeQty; t++) {
+                  var elements = [];
+                  for(var el = 0; el < elemQty; el++) {
+                    if(GlobalStor.global.addElementsAll[elemAllQty].elementType[t].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].addition_folder_id) {
+
+                      var tempElemQty = GlobalStor.global.tempAddElements.length;
+                      for(var i = 0; i < tempElemQty; i++) {
+                        if(GlobalStor.global.tempAddElements[i].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].parent_element_id) {
+                          GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = angular.copy(GlobalStor.global.tempAddElements[i].price);
+                          GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_width = 1500;
+                          GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_height = 1500;
+                          GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_qty = 1;
+                        }
+                      }
+                      elements.push(angular.copy(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el]));
+                    }
+                  }
+                  if(elements.length) {
+                    newElemList.push(elements);
+                  } else {
+                    typeDelete.push(t);
+                  }
+                }
+
+                if(newElemList.length) {
+                  GlobalStor.global.addElementsAll[elemAllQty].elementsList = angular.copy(newElemList);
+                } else {
+                  GlobalStor.global.addElementsAll[elemAllQty].elementsList = 0;
+                }
+
+                //------- delete empty groups
+                var delQty = typeDelete.length;
+                if(delQty) {
+                  while(--delQty > -1) {
+                    GlobalStor.global.addElementsAll[elemAllQty].elementType.splice(typeDelete[delQty], 1);
+                  }
+                }
+
+              }
+            }
+            console.log('addElementsAll ++++', GlobalStor.global.addElementsAll);
+          }
+        });
+
       });
-      return defer.promise;
     }
 
 
@@ -802,6 +881,7 @@
     //-------- Save Product in Order and go to Cart
     function inputProductInOrder() {
       var deferred = $q.defer();
+      GlobalStor.global.tempAddElements.length = 0;
       GlobalStor.global.configMenuTips = 0;
 
       //---------- if EDIT Product

@@ -19,11 +19,6 @@
 
     return {
       tablesLocalDB: {
-        'addition_types': {
-          'tableName': 'addition_types',
-          'prop': 'name VARCHAR(255)',
-          'foreignKey': ''
-        },
         'addition_folders': {
           'tableName': 'addition_folders',
           'prop': 'name VARCHAR(255),' +
@@ -580,10 +575,10 @@
         21, // 1 - visors
         9, // 2 - spillways
         19, // 3 - outSlope
-        0, // 4 - louvers
+        26, // 4 - louvers
         19, // 5 - inSlope
         12, // 6 - connectors
-        0, // 7 - fans
+        27, // 7 - fans
         8, // 8 - windowSill
         24, // 9 - handles
         16 // 10 - others

@@ -71,7 +71,7 @@
           setAddElementsTotalPrice();
 
           //------ save analytics data
-          //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, addElem.element_id, typeIndex);
+          //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, addElem.parent_element_id, typeIndex);
         });
       }
     }
@@ -85,7 +85,7 @@
       //----- hide element price in menu
       AuxStor.aux.currAddElementPrice = 0;
       //------ save analytics data
-      //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, AuxStor.aux.addElementsList[typeIndex][elementIndex].element_id, typeIndex);
+      //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, AuxStor.aux.addElementsList[typeIndex][elementIndex].parent_element_id, typeIndex);
       AuxStor.aux.isAddElement = false;
     }
 
@@ -103,7 +103,7 @@
         var objXAddElementPrice = {
           cityId: UserStor.userInfo.city_id,
           currencyId: UserStor.userInfo.currencyId,
-          elementId: AuxStor.aux.addElementsList[typeIndex][elementIndex].element_id,
+          elementId: AuxStor.aux.addElementsList[typeIndex][elementIndex].parent_element_id,
           elementLength: AuxStor.aux.addElementsList[typeIndex][elementIndex].element_width
         };
 
@@ -129,7 +129,7 @@
       var index = (AuxStor.aux.isFocusedAddElement - 1),
           existedElement;
 
-      existedElement = checkExistedSelectAddElement(ProductStor.product.chosenAddElements[index], currElement.element_id);
+      existedElement = checkExistedSelectAddElement(ProductStor.product.chosenAddElements[index], currElement.parent_element_id);
       if(existedElement === undefined) {
         var newElementSource = {
               element_type: AuxStor.aux.isFocusedAddElement,
@@ -153,7 +153,7 @@
     //--------- when we select new addElement, function checks is there this addElements in order to increase only elementQty
     function checkExistedSelectAddElement(elementsArr, elementId) {
       for(var j = 0; j < elementsArr.length; j++){
-        if(elementsArr[j].element_id === elementId) {
+        if(elementsArr[j].parent_element_id === elementId) {
           return j;
         }
       }
@@ -288,7 +288,7 @@
       var objXAddElementPrice = {
         cityId: UserStor.userInfo.city_id,
         currencyId: UserStor.userInfo.currencyId,
-        elementId: ProductStor.product.chosenAddElements[index][elementIndex].element_id,
+        elementId: ProductStor.product.chosenAddElements[index][elementIndex].parent_element_id,
         elementLength: ProductStor.product.chosenAddElements[index][elementIndex].element_width
       };
 

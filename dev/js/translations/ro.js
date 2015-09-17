@@ -172,7 +172,8 @@
         HANDLE_TYPE1: 'press set',
         HANDLE_TYPE2: 'standard office handle',
         LOCK_TYPE1: 'one-locking with a latch',
-        LOCK_TYPE2: 'multilocking with a latch'
+        LOCK_TYPE2: 'multilocking with a latch',
+        OTHER_TYPE: 'Others...'
       },
       add_elements: {
         CHOOSE: 'Alege',

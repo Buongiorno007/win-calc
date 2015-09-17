@@ -71,7 +71,8 @@
         laminationsOut: [],
 
         //------ Add Elements
-        isAddElemExist: [],
+        addElementsAll: [],
+        tempAddElements: [],
 
         //---- Calculators
         isQtyCalculator: 0,

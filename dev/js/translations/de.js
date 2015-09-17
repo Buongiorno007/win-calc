@@ -172,7 +172,8 @@
         HANDLE_TYPE1: 'Druck- die Garnitur',
         HANDLE_TYPE2: 'Der standardmäßige Bürogriff',
         LOCK_TYPE1: 'One-Stop-Verriegelung',
-        LOCK_TYPE2: 'Multipoint-Latch'
+        LOCK_TYPE2: 'Multipoint-Latch',
+        OTHER_TYPE: 'Andere...'
       },
       add_elements: {
         CHOOSE: 'Wählen',

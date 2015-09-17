@@ -58,8 +58,8 @@
                       }
                     });
                     GlobalStor.global.showRoomSelectorDialog = 1;
-                    //-------- checking AddElements
-                    MainServ.isAddElemExist();
+                    //-------- download All AddElements
+                    MainServ.downloadAllAddElem();
                   });
 
                 }
