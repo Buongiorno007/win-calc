@@ -68,7 +68,7 @@
           setAddElementsTotalPrice();
 
           //------ save analytics data
-          //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, addElem.parent_element_id, typeIndex);
+          //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, addElem.id, typeIndex);
         });
       }
     }
@@ -82,7 +82,7 @@
       //----- hide element price in menu
       AuxStor.aux.currAddElementPrice = 0;
       //------ save analytics data
-      //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, AuxStor.aux.addElementsList[typeIndex][elementIndex].parent_element_id, typeIndex);
+      //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, AuxStor.aux.addElementsList[typeIndex][elementIndex].id, typeIndex);
       AuxStor.aux.isAddElement = false;
     }
 
@@ -100,12 +100,14 @@
         var objXAddElementPrice = {
           cityId: UserStor.userInfo.city_id,
           currencyId: UserStor.userInfo.currencyId,
-          elementId: AuxStor.aux.addElementsList[typeIndex][elementIndex].parent_element_id,
+          elementId: AuxStor.aux.addElementsList[typeIndex][elementIndex].id,
           elementLength: AuxStor.aux.addElementsList[typeIndex][elementIndex].element_width
         };
-
+//        console.log('objXAddElementPrice=====', objXAddElementPrice);
         //-------- get current add element price
         localDB.getAdditionalPrice(objXAddElementPrice, function (results) {
+//          console.log('objXAddElementPrice result=====', results);
+
           if (results.status) {
             AuxStor.aux.currAddElementPrice = GeneralServ.roundingNumbers( results.data.price * (1 - OrderStor.order.discount_addelem/100) );
             AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers( results.data.price ));
@@ -126,7 +128,7 @@
       var index = (AuxStor.aux.isFocusedAddElement - 1),
           existedElement;
 
-      existedElement = checkExistedSelectAddElement(ProductStor.product.chosenAddElements[index], currElement.parent_element_id);
+      existedElement = checkExistedSelectAddElement(ProductStor.product.chosenAddElements[index], currElement.id);
       if(existedElement === undefined) {
         var newElementSource = {
               element_type: AuxStor.aux.isFocusedAddElement,
@@ -150,7 +152,7 @@
     //--------- when we select new addElement, function checks is there this addElements in order to increase only elementQty
     function checkExistedSelectAddElement(elementsArr, elementId) {
       for(var j = 0; j < elementsArr.length; j++){
-        if(elementsArr[j].parent_element_id === elementId) {
+        if(elementsArr[j].id === elementId) {
           return j;
         }
       }
@@ -285,24 +287,19 @@
       var objXAddElementPrice = {
         cityId: UserStor.userInfo.city_id,
         currencyId: UserStor.userInfo.currencyId,
-        elementId: ProductStor.product.chosenAddElements[index][elementIndex].parent_element_id,
+        elementId: ProductStor.product.chosenAddElements[index][elementIndex].id,
         elementLength: ProductStor.product.chosenAddElements[index][elementIndex].element_width
       };
 
-      //console.log('objXAddElementPrice change size ===== ', $scope.global.objXAddElementPrice);
+//      console.log('objXAddElementPrice change size ===== ', objXAddElementPrice);
       localDB.getAdditionalPrice(objXAddElementPrice, function (results) {
         if (results.status) {
-//          console.log('change size!!!!!!!');
 //          console.log(results.data.price);
-          //var newElementPrice = parseFloat(results.data.price);
-          //$scope.addElementsMenu.isAddElementPrice = true;
           AuxStor.aux.currAddElementPrice = GeneralServ.roundingNumbers( results.data.price * (1 - OrderStor.order.discount_addelem/100) );
           ProductStor.product.chosenAddElements[index][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers( results.data.price ));
           ProductStor.product.chosenAddElements[index][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
           //------- Set Total Product Price
           setAddElementsTotalPrice();
-          //$scope.$apply();
-
         } else {
           console.log(results);
         }

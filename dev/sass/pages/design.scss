@@ -212,6 +212,12 @@ $door-config-content: $ipad-height - $door-config-header;
 .impost-inc-vert:after {
   content: $impost-inc-vert-icon;
 }
+.impost-inc-hor2:after {
+  content: $impost-inc-hor2-icon;
+}
+.impost-inc-vert2:after {
+  content: $impost-inc-vert2-icon;
+}
 .impost-curv-right:after {
   content: $impost-curv-right-icon;
 }

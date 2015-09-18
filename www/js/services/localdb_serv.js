@@ -95,16 +95,6 @@
             ' table_width INTEGER',
           'foreignKey': ''
         },
-//        'glass_profile_systems': {
-//          'tableName': 'glass_profile_systems',
-//          'prop': 'profile_system_id INTEGER, list_id INTEGER',
-//          'foreignKey': ', FOREIGN KEY(list_id) REFERENCES lists(id)'
-//        },
-//        'lamination_default_colors': {
-//          'tableName': 'lamination_default_colors',
-//          'prop': 'name VARCHAR(255), url VARCHAR(255)',
-//          'foreignKey': ''
-//        },
         'lamination_factory_colors': {
           'tableName': 'lamination_factory_colors',
           'prop': 'name VARCHAR(255), lamination_type_id INTEGER, factory_id INTEGER',
@@ -213,11 +203,11 @@
           'prop': 'name VARCHAR(255), parent_unit INTEGER, child_unit INTEGER, suffix VARCHAR(15)',
           'foreignKey': ''
         },
-        'suppliers': {
-          'tableName': 'suppliers',
-          'prop': 'name VARCHAR(255), factory_id INTEGER',
-          'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id)'
-        },
+//        'suppliers': {
+//          'tableName': 'suppliers',
+//          'prop': 'name VARCHAR(255), factory_id INTEGER',
+//          'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id)'
+//        },
         'regions': {
           'tableName': 'regions',
           'prop': 'name VARCHAR(255), country_id INTEGER, heat_transfer NUMERIC(10, 2), climatic_zone NUMERIC',
@@ -383,20 +373,6 @@
             ' window_hardware_feature_id INTEGER',
           'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(window_hardware_type_id) REFERENCES window_hardware_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(window_hardware_group_id) REFERENCES window_hardware_groups(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id)'
         },
-//        'window_hardware_features': {
-//          'tableName': 'window_hardware_features',
-//          'prop': 'hardware_group_id INTEGER,' +
-//            ' name VARCHAR(255),' +
-//            ' producer VARCHAR(255),' +
-//            ' country VARCHAR(255),' +
-//            ' logo_url TEXT,' +
-//            ' link VARCHAR(255),' +
-//            ' noise_coeff INTEGER,' +
-//            ' heat_coeff INTEGER,' +
-//            ' air_coeff INTEGER,' +
-//            ' is_active INTEGER',
-//          'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id)'
-//        },
         'window_hardware_colors': {
           'tableName': 'window_hardware_colors',
           'prop': 'name VARCHAR(255)',

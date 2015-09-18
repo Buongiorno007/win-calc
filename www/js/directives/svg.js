@@ -128,8 +128,47 @@
                     .enter()
                     .append('path')
                     .classed('sash_mark', true)
-                    .attr('d', function (d) {
-                      return lineCreator(d.points);
+                    .attr({
+                      'd': function (d) {
+                            return lineCreator(d.points);
+                          },
+                      'marker-mid': function(d) {
+                        var dirQty = template.details[i].sashOpenDir.length;
+                        console.log('handle++++++', d, d.points[1]);
+                        if(dirQty === 1) {
+                          if(d.points[1].fi < 45 || d.points[1].fi > 315) {
+                            return 'url(#handleR)';
+                          } else if (d.points[1].fi > 45 && d.points[1].fi < 135) {
+                            return 'url(#handleU)';
+                          } else if(d.points[1].fi > 135 && d.points[1].fi < 225) {
+                            return 'url(#handleL)';
+                          } else if (d.points[1].fi > 225 && d.points[1].fi < 315) {
+                            return 'url(#handleD)';
+                          }
+//                          switch(d.points[1].fi) {
+//                            case 0:
+//                              return 'url(#handleR)';
+//                            case 90:
+//                              return 'url(#handleU)';
+//                            case 270:
+//                              return 'url(#handleD)';
+//                            case 180:
+//                              return 'url(#handleL)';
+//                          }
+                        } else if(dirQty === 2) {
+                          if(d.points[1].fi < 45 || d.points[1].fi > 315) {
+                            return 'url(#handleR)';
+                          } else if(d.points[1].fi > 135 && d.points[1].fi < 225) {
+                            return 'url(#handleL)';
+                          }
+//                          switch(d.points[1].fi) {
+//                            case 0:
+//                              return 'url(#handleR)';
+//                            case 180:
+//                              return 'url(#handleL)';
+//                          }
+                        }
+                      }
                     });
                 }
 
@@ -168,16 +207,24 @@
               var defs = dimGroup.append("defs"),
                   dimXQty = template.dimension.dimX.length,
                   dimYQty = template.dimension.dimY.length,
-                  dimQQty = template.dimension.dimQ.length;
+                  dimQQty = template.dimension.dimQ.length,
+                  pathHandle = "M4.5,0C2.015,0,0,2.015,0,4.5v6c0,1.56,0.795,2.933,2,3.74V7.5C2,6.119,3.119,5,4.5,5S7,6.119,7,7.5v6.74c1.205-0.807,2-2.18,2-3.74v-6C9,2.015,6.985,0,4.5,0z"+
+  "M7,26.5C7,27.881,5.881,29,4.5,29l0,0C3.119,29,2,27.881,2,26.5v-19C2,6.119,3.119,5,4.5,5l0,0C5.881,5,7,6.119,7,7.5V26.5z";
 
               //----- horizontal marker arrow
-              setMarkerArrow(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z');
-              setMarkerArrow(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z');
+              setMarker(defs, 'dimHorL', '-5, -5, 1, 8', -5, -2, 0, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
+              setMarker(defs, 'dimHorR', '-5, -5, 1, 8', -5, -2, 180, 50, 50, 'M 0,0 L -4,-2 L0,-4 z', 'size-line');
               //------- vertical marker arrow
-              setMarkerArrow(defs, 'dimVertL', '4.2, -1, 8, 9', 5, 2, 90, 100, 60, 'M 0,0 L 4,2 L0,4 z');
-              setMarkerArrow(defs, 'dimVertR', '4.2, -1, 8, 9', 5, 2, 270, 100, 60, 'M 0,0 L 4,2 L0,4 z');
+              setMarker(defs, 'dimVertL', '4.2, -1, 8, 9', 5, 2, 90, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
+              setMarker(defs, 'dimVertR', '4.2, -1, 8, 9', 5, 2, 270, 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
 
-              setMarkerArrow(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z');
+              setMarker(defs, 'dimArrow', '4.2, -1, 8, 9', 5, 2, 'auto', 100, 60, 'M 0,0 L 4,2 L0,4 z', 'size-line');
+
+              //------- marker handle
+              setMarker(defs, 'handleR', '0 -1 9 32', 4, 23, 90, 29, 49, pathHandle, 'handle-mark');
+              setMarker(defs, 'handleL', '0 -1 9 32', 5, 23, 270, 29, 49, pathHandle, 'handle-mark');
+              setMarker(defs, 'handleU', '0 -1 9 32', -10, 10, 270, 29, 49, pathHandle, 'handle-mark');
+              setMarker(defs, 'handleD', '0 -1 9 32', 20, 10, 270, 29, 49, pathHandle, 'handle-mark');
 
               //            console.log('SVG=========dim==', template.dimension);
               for (var dx = 0; dx < dimXQty; dx++) {
@@ -211,9 +258,9 @@
         }
 
 
-        function setMarkerArrow(defs, id, view, refX, refY, angel, w, h, path) {
+        function setMarker(defs, id, view, refX, refY, angel, w, h, path, classMarker) {
           defs.append("marker")
-            .classed('size-line', true)
+            .classed(classMarker, true)
             .attr({
               'id': id,
               'viewBox': view,
@@ -226,8 +273,6 @@
             .append("path")
             .attr("d", path);
         }
-
-
 
 
         function createDimension(dir, dim, dimGroup, lineCreator) {

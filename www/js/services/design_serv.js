@@ -114,7 +114,7 @@
           }
         }
         //------- refresh price of new template
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass.list_id, ProductStor.product.hardware.id).then(function() {
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass[0].list_id, ProductStor.product.hardware.id).then(function() {
           //-------- template was changed
           GlobalStor.global.isChangedTemplate = true;
           //$cordovaProgress.hide();
@@ -456,7 +456,7 @@
           blocks = DesignStor.design.templateSourceTEMP.details,
           blocksQty = blocks.length,
           minGlassSize = d3.min(glass.sizes);
-console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
+//console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
       if(minGlassSize >= globalConstants.minSizeLimit || glass.square >= globalConstants.squareLimit) {
 
         //---- save last step
@@ -1055,54 +1055,61 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
             angel = 170;
             dimType = 1;
             break;
-          //----- inclined left
           case 5:
+            angel = 190;
+            dimType = 1;
+            break;
+          //----- inclined left
+          case 6:
             angel = 80;
+            break;
+          case 7:
+            angel = 100;
             break;
 
           //----- curve vertical
-          case 6:
+          case 8:
             angel = 90;
             isImpCurv = 1;
             positionQ = 2; //---right
             break;
-          case 7:
+          case 9:
             angel = 90;
             isImpCurv = 1;
             positionQ = 4; //---left
             break;
           //----- curve horisontal
-          case 8:
+          case 10:
             angel = 180;
             dimType = 1;
             isImpCurv = 1;
             positionQ = 1; //--- up
             break;
-          case 9:
+          case 11:
             angel = 180;
             dimType = 1;
             isImpCurv = 1;
             positionQ = 3; //--- down
             break;
           //----- inclined right curve
-          case 10:
+          case 12:
             angel = 100;
             isImpCurv = 1;
             positionQ = 1; //---- left-up
             break;
-          case 11:
+          case 13:
             angel = 100;
             isImpCurv = 1;
             positionQ = 3; //---- right-down
             break;
           //----- inclined left curve
-          case 12:
+          case 14:
             angel = 10;
             dimType = 1;
             isImpCurv = 1;
             positionQ = 4; //----- left-down
             break;
-          case 13:
+          case 15:
             angel = 10;
             dimType = 1;
             isImpCurv = 1;
@@ -1680,7 +1687,7 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
       for(var numer = 0; numer < DesignStor.design.tempSize.length; numer++) {
         newSizeString += DesignStor.design.tempSize[numer].toString();
       }
-      console.log('changeSize++++++++++', DesignStor.design.oldSize);
+//      console.log('changeSize++++++++++', DesignStor.design.oldSize);
       var dim = d3.select(DesignStor.design.oldSize);
       dim.text(newSizeString);
 
@@ -1717,9 +1724,9 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
               dimId = DesignStor.design.oldSize.attributes[10].nodeValue,
               blocksQty = blocks.length;
 
-          console.log('SIZE ````````curBlockId````````', curBlockId);
-          console.log('SIZE ````````curDimType````````', curDimType);
-          console.log('SIZE ````````dimId````````', dimId);
+//          console.log('SIZE ````````curBlockId````````', curBlockId);
+//          console.log('SIZE ````````curDimType````````', curDimType);
+//          console.log('SIZE ````````dimId````````', dimId);
 
 
           if(curDimType === 'curve') {
@@ -1774,10 +1781,10 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
                 oldSizeValue = +DesignStor.design.oldSize.attributes[12].nodeValue,
                 axis = DesignStor.design.oldSize.attributes[13].nodeValue;
 
-            console.log('SIZE ````````newLength````````', newLength);
-            console.log('SIZE ````````startSize````````', startSize);
-            console.log('SIZE ````````oldSizeValue````````', oldSizeValue);
-            console.log('SIZE ````````axis````````', axis);
+//            console.log('SIZE ````````newLength````````', newLength);
+//            console.log('SIZE ````````startSize````````', startSize);
+//            console.log('SIZE ````````oldSizeValue````````', oldSizeValue);
+//            console.log('SIZE ````````axis````````', axis);
 /*
             //-------- if Dim point is impost
             if(dimId.indexOf('ip')+1) {

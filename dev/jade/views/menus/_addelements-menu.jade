@@ -22,7 +22,7 @@
           button.element-info
 
     footer.menu-footer
-      .price-element(ng-show="elementsMenu.A.aux.isAddElement && elementsMenu.A.aux.currAddElementPrice")
+      .price-element(ng-show="elementsMenu.A.aux.isAddElement")
         .price-value + {{ elementsMenu.A.aux.currAddElementPrice }} {{ elementsMenu.U.userInfo.currency }}
 
       .elements-tools.size-calculator(ng-class="{'active': elementsMenu.G.global.isSizeCalculator}")

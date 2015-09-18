@@ -33,6 +33,11 @@
   @extend .active_svg;
   stroke: none;
 }
+.handle-mark {
+  fill: #f9f9f9;
+  stroke: #5E5E5E;
+  stroke-width: 1;
+}
 .error_glass {
   fill: $error_color;
 }

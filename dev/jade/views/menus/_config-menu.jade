@@ -15,7 +15,7 @@
 
     li.item(ng-class="{'active': configMenu.G.global.activePanel == 3}", hm-tap="configMenu.selectConfigPanel(3)")
       .title(data-output="{{ 'mainpage.CONFIGMENU_GLASS' | translate }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
-      .value(data-output="{{ configMenu.P.product.glass.sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
+      .value(data-output="{{ configMenu.P.product.glass[0].sku }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
 
     li.item(ng-class="{'active': configMenu.G.global.activePanel == 4}", hm-tap="configMenu.selectConfigPanel(4)")
       .title(data-output="{{ 'mainpage.CONFIGMENU_HARDWARE' | translate }}", typing="{{ configMenu.config.typing }}", typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}")
@@ -32,7 +32,7 @@
       .additional-items-list
         ul.additional-items-group(ng-repeat="addElementGroup in configMenu.P.product.chosenAddElements")
           li.additional-item(ng-repeat="addElement in addElementGroup")
-            span.value(data-output="") {{ addElement.element_name }}
+            span.value(data-output="") {{ addElement.name }}
 
   footer.menu-footer.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}")
     price(price-value="configMenu.P.product.productPriceTOTALDis", price-currency="configMenu.U.userInfo.currency")

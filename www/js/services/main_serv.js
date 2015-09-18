@@ -669,12 +669,16 @@
       glassSquareTotal = objXFormedPrice.glassSquares.reduce(function(sum, elem) {
         return sum + elem;
       });
+//      console.log('heat_coef_total++++', glassSquareTotal);
       //-------- coeffs define
       prifileHeatCoeffTotal = ProductStor.product.profile.heat_coeff * (constructionSquareTotal - glassSquareTotal);
-      if(ProductStor.product.glass.heat_coeff == 'null'){
-        ProductStor.product.glass.heat_coeff = 1;
+
+      //TODO glass array!
+      if(ProductStor.product.glass[0].heat_coeff == 'null'){
+        ProductStor.product.glass[0].heat_coeff = 1;
       }
-      glassHeatCoeffTotal = ProductStor.product.glass.heat_coeff * glassSquareTotal;
+      glassHeatCoeffTotal = ProductStor.product.glass[0].heat_coeff * glassSquareTotal;
+//      console.log('heat_coef_total++++', ProductStor.product.glass[0].heat_coeff);
       //-------- calculate Heat Coeff Total
       ProductStor.product.heat_coef_total = GeneralServ.roundingNumbers( constructionSquareTotal/(prifileHeatCoeffTotal + glassHeatCoeffTotal) );
 
@@ -732,7 +736,7 @@
             var elemAllQty = GlobalStor.global.addElementsAll.length,
                 defaultGroup = {
                   id: 0,
-                  name: $filter('translate')('panels.OTHER_TYPE')
+                  name: $filter('translate')('add_elements.OTHERS')
                 };
             while(--elemAllQty > -1) {
               if(GlobalStor.global.addElementsAll[elemAllQty].elementsList) {
@@ -1028,7 +1032,7 @@
           delete productData.addElementsPriceSELECTDis;
           delete productData.productPriceTOTALDis;
 
-          console.log('SEND PRODUCT------', productData);
+//          console.log('SEND PRODUCT------', productData);
           //-------- insert product into local DB
           localDB.insertRowLocalDB(productData, localDB.tablesLocalDB.order_products.tableName);
           //-------- send to Server
@@ -1041,14 +1045,21 @@
             var elemQty = OrderStor.order.products[p].chosenAddElements[add].length;
             if(elemQty > 0) {
               for (var elem = 0; elem < elemQty; elem++) {
-                var addElementsData = angular.copy(OrderStor.order.products[p].chosenAddElements[add][elem]);
-                addElementsData.order_number = OrderStor.order.order_number;
-                addElementsData.product_id = OrderStor.order.products[p].product_id;
-                addElementsData.modified = new Date();
-                delete addElementsData.elementPriceDis;
-                delete addElementsData.element_name;
 
-                console.log('SEND ADD',addElementsData);
+                var addElementsData = {
+                  order_number: OrderStor.order.order_number,
+                  product_id: OrderStor.order.products[p].product_id,
+                  element_type: OrderStor.order.products[p].chosenAddElements[add][elem].element_type,
+                  element_id: OrderStor.order.products[p].chosenAddElements[add][elem].id,
+                  element_width: OrderStor.order.products[p].chosenAddElements[add][elem].element_width,
+                  element_height: OrderStor.order.products[p].chosenAddElements[add][elem].element_height,
+                  element_price: OrderStor.order.products[p].chosenAddElements[add][elem].element_price,
+                  element_qty: OrderStor.order.products[p].chosenAddElements[add][elem].element_qty,
+                  modified: new Date()
+                };
+
+
+//                console.log('SEND ADD',addElementsData);
                 localDB.insertRowLocalDB(addElementsData, localDB.tablesLocalDB.order_addelements.tableName);
                 localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.order_addelements.tableName, addElementsData);
               }
@@ -1098,7 +1109,7 @@
       delete orderData.selectedInstalmentPeriod;
       delete orderData.selectedInstalmentPercent;
 
-      console.log('!!!!orderData!!!!', orderData);
+//      console.log('!!!!orderData!!!!', orderData);
       localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, orderData);
       localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
 

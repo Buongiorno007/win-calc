@@ -76,7 +76,7 @@
           HistoryStor.history.maxDeliveryDateOrder = getOrderMaxDate(HistoryStor.history.orders);
 //          console.log('maxDeliveryDateOrder =', HistoryStor.history.maxDeliveryDateOrder);
         } else {
-          HistoryStor.history.isEmptyResult = true;
+          HistoryStor.history.isEmptyResult = 1;
         }
       });
     }

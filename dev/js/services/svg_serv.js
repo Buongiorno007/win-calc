@@ -1742,7 +1742,7 @@
       //------- if impost is curve
       } else if(pointsQty === 6){
         part.dir = 'curv';
-        console.log('-----------IMPOST Q -----------', points);
+//        console.log('-----------IMPOST Q -----------', points);
         part.points = sortingQImpostPoints(points);
       }
       part.path = assamblingPath(part.points);

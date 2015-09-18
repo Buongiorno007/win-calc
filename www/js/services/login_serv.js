@@ -241,7 +241,7 @@
     function setCurrency() {
       var defer = $q.defer();
       localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, {'is_base': 1}).then(function(data) {
-        console.log('curency ==', data);
+//        console.log('curency ==', data);
         if(data.length) {
           UserStor.userInfo.currencyId = data[0].id;
           switch(data[0].name) {
@@ -271,7 +271,7 @@
       UserStor.userInfo.avatar = globalConstants.serverIP + UserStor.userInfo.avatar;
 
       localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(data) {
-        console.log('DISCTOUN=====', data);
+//        console.log('DISCTOUN=====', data);
         if(data.length) {
           UserStor.userInfo.discountConstr = data[0].default_construct;
           UserStor.userInfo.discountAddElem = data[0].default_add_elem;

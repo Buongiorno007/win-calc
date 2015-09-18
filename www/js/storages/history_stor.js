@@ -19,42 +19,42 @@
         //===== Order
         orders: [],
         ordersSource: [],
-        isEmptyResult: false,
+        isEmptyResult: 0,
         //--- Tools
-        isOrderSearch: false,
+        isOrderSearch: 0,
         searchingWord: '',
 
-        isOrderDate: false,
+        isOrderDate: 0,
         startDate: '',
         finishDate: '',
-        isStartDate: false,
-        isFinishDate: false,
-        isAllPeriod: true,
+        isStartDate: 0,
+        isFinishDate: 0,
+        isAllPeriod: 1,
         maxDeliveryDateOrder: 0,
 
-        isOrderSort: false,
+        isOrderSort: 0,
         isSortType: 'last',
-        isCurrentOrdersHide: false,
-        isWaitOrdersHide: false,
-        isDoneOrdersHide: false,
+        isCurrentOrdersHide: 0,
+        isWaitOrdersHide: 0,
+        isDoneOrdersHide: 0,
 
 
         //===== Draft
-        isDraftView: false,
+        isDraftView: 0,
         drafts: [],
         draftsSource: [],
-        isEmptyResultDraft: false,
+        isEmptyResultDraft: 0,
         //--- Tools
-        isOrderDateDraft: false,
+        isOrderDateDraft: 0,
         startDateDraft: '',
         finishDateDraft: '',
-        isStartDateDraft: false,
-        isFinishDateDraft: false,
-        isAllPeriodDraft: true,
+        isStartDateDraft: 0,
+        isFinishDateDraft: 0,
+        isAllPeriodDraft: 1,
 
-        isOrderSortDraft: false,
+        isOrderSortDraft: 0,
         isSortTypeDraft: 'last',
-        reverseDraft: true
+        reverseDraft: 1
       },
       setDefaultHistory: setDefaultHistory
     };

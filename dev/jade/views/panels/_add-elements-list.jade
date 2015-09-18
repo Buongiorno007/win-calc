@@ -22,7 +22,7 @@
         tr.aux-list-row(ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[0] track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.element_name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(1)") )
+              .aux-title(data-output="{{ addElement.name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(1)") )
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '1-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
@@ -44,7 +44,7 @@
         tr.aux-list-row(ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[1] track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.element_name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(2)")
+              .aux-title(data-output="{{ addElement.name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(2)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '2-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
@@ -68,7 +68,7 @@
         tr.aux-list-row(ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[2] track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.element_name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(3)")
+              .aux-title(data-output="{{ addElement.name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(3)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '3-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
@@ -93,7 +93,7 @@
         tr.aux-list-row(ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[3] track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.element_name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(4)")
+              .aux-title(data-output="{{ addElement.name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(4)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '4-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
@@ -117,7 +117,7 @@
         tr.aux-list-row(ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[4] track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.element_name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(5)")
+              .aux-title(data-output="{{ addElement.name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(5)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '5-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
@@ -144,7 +144,7 @@
         tr.aux-list-row(ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[5] track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.element_name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(6)")
+              .aux-title(data-output="{{ addElement.name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(6)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '6-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
@@ -168,7 +168,7 @@
         tr.aux-list-row(ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[6] track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.element_name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(7)")
+              .aux-title(data-output="{{ addElement.name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(7)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '7-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
@@ -192,7 +192,7 @@
         tr.aux-list-row(ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[7] track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.element_name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(8)")
+              .aux-title(data-output="{{ addElement.name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(8)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '8-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
@@ -213,7 +213,7 @@
         tr.aux-list-row(ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[8] track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.element_name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(9)")
+              .aux-title(data-output="{{ addElement.name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(9)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '9-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
@@ -238,7 +238,7 @@
         tr.aux-list-row(ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[9] track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.element_name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(10)")
+              .aux-title(data-output="{{ addElement.name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(10)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '10-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")
@@ -260,7 +260,7 @@
         tr.aux-list-row(ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[10] track by $index")
           td.aux-tablecell-name
             .aux-name
-              .aux-title(data-output="{{ addElement.element_name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(11)")
+              .aux-title(data-output="{{ addElement.name }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}", hm-tap="elementsListPanel.selectAddElement(11)")
               .aux-label(data-output="{{ 'add_elements.NAME_LABEL' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-qty
             .aux-params(ng-class="{'selected': elementsListPanel.A.aux.auxParameter === '10-1-'+$index && elementsListPanel.A.aux.currentAddElementId === $index}")

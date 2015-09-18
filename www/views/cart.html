@@ -88,7 +88,7 @@
                       <div class="order-label">{{ 'mainpage.CONFIGMENU_PROFILE' | translate }}</div>
                     </li>
                     <li class="order-item">
-                      <div class="order-value">{{ product.glass.sku }}</div>
+                      <div class="order-value">{{ product.glass[0].sku }}</div>
                       <div class="order-label">{{ 'mainpage.CONFIGMENU_GLASS' | translate }}</div>
                     </li>
                     <li class="order-item">
@@ -228,7 +228,7 @@
           <div class="addelements-detail-content">
             <ul class="addelements-detail-list">
               <li ng-repeat="addelement in cartPage.C.cart.allAddElements[cartPage.config.detailProductIndex] track by $index" ng-switch="addelement.element_type" class="addelements-detail-item">
-                <div class="product-value">{{ addelement.element_name }}</div>
+                <div class="product-value">{{ addelement.name }}</div>
                 <div ng-switch-when="1" class="product-value">{{ 'add_elements.GRID' | translate }}</div>
                 <div ng-switch-when="2" class="product-value">{{ 'add_elements.VISOR' | translate }}</div>
                 <div ng-switch-when="3" class="product-value">{{ 'add_elements.SPILLWAY' | translate }}</div>

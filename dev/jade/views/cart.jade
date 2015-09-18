@@ -31,7 +31,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                       .order-value {{ product.profile.name }}
                       .order-label {{ 'mainpage.CONFIGMENU_PROFILE' | translate }}
                     li.order-item
-                      .order-value {{ product.glass.sku }}
+                      .order-value {{ product.glass[0].sku }}
                       .order-label {{ 'mainpage.CONFIGMENU_GLASS' | translate }}
                     li.order-item
                       .order-value {{ product.hardware.name }}
@@ -145,7 +145,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
           .addelements-detail-content
             ul.addelements-detail-list
               li.addelements-detail-item(ng-repeat="addelement in cartPage.C.cart.allAddElements[cartPage.config.detailProductIndex] track by $index", ng-switch="addelement.element_type")
-                .product-value {{ addelement.element_name }}
+                .product-value {{ addelement.name }}
                 .product-value(ng-switch-when="1") {{ 'add_elements.GRID' | translate }}
                 .product-value(ng-switch-when="2") {{ 'add_elements.VISOR' | translate }}
                 .product-value(ng-switch-when="3") {{ 'add_elements.SPILLWAY' | translate }}
