@@ -235,10 +235,10 @@
               promises4.push(defer4.promise);
             }
 
-            for(var i = 0; i < glassIdsQty; i++) {
+            for(var j = 0; j < glassIdsQty; j++) {
               var defer6 = $q.defer();
 
-              var promises7 = glassIds[i].map(function(item) {
+              var promises7 = glassIds[j].map(function(item) {
                 var defer7 = $q.defer();
                 localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id}).then(function (list) {
                   var listQty = list.length;

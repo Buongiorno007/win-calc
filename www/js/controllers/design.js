@@ -148,24 +148,25 @@
 
 
     function insertSash(sashType, event) {
-      console.log('INSER SASH ===', event, DesignStor.design.activeSubMenuItem);
+//      console.log('INSER SASH ===', event, DesignStor.design.activeSubMenuItem);
       event.preventDefault();
 //      event.srcEvent.stopPropagation();
       DesignStor.design.activeMenuItem = 0;
       DesignStor.design.activeSubMenuItem = 0;
-      var glassQty = DesignStor.design.selectedGlass.length;
+      var glassQty = DesignStor.design.selectedGlass.length,
+          i = 0;
       if(sashType === 1) {
         //----- delete sash
-        for(var i = 0; i < glassQty; i++) {
+        for(; i < glassQty; i++) {
           DesignServ.deleteSash(DesignStor.design.selectedGlass[i]);
         }
       } else {
         //----- insert sash
-        for(var i = 0; i < glassQty; i++) {
+        for(; i < glassQty; i++) {
           DesignServ.createSash(sashType, DesignStor.design.selectedGlass[i]);
         }
       }
-      console.log('INSER SASH 22===', DesignStor.design.activeSubMenuItem);
+//      console.log('INSER SASH 22===', DesignStor.design.activeSubMenuItem);
     }
 
 
@@ -239,12 +240,12 @@
       //----- if not corners
       if(arcs.length) {
         DesignStor.design.activeSubMenuItem = menuId;
-        console.log('Arcs++++++', DesignStor.design.selectedArc);
+//        console.log('Arcs++++++', DesignStor.design.selectedArc);
         if(!DesignStor.design.selectedArc.length) {
           //----- show all frames and arc
-          var arcs = d3.selectAll(arcs);
-          DesignStor.design.selectedArc = arcs[0];
-          arcs.classed('active_svg', true);
+          var arcsD3 = d3.selectAll(arcs);
+          DesignStor.design.selectedArc = arcsD3[0];
+          arcsD3.classed('active_svg', true);
         }
       } else {
         showDesignError();
@@ -294,12 +295,13 @@
       event.srcEvent.stopPropagation();
       DesignStor.design.activeMenuItem = 0;
       DesignStor.design.activeSubMenuItem = 0;
-      var impostsQty = DesignStor.design.selectedImpost.length;
+      var impostsQty = DesignStor.design.selectedImpost.length,
+          i = 0;
 
       if(impostType === 1) {
         //----- delete imposts
         if (impostsQty) {
-          for (var i = 0; i < impostsQty; i++) {
+          for (; i < impostsQty; i++) {
             DesignServ.deleteImpost(DesignStor.design.selectedImpost[i]);
           }
           $timeout(function(){
@@ -311,7 +313,7 @@
           var glassQty = DesignStor.design.selectedGlass.length;
           if(glassQty) {
             //------- insert imposts
-            for(var i = 0; i < glassQty; i++) {
+            for(; i < glassQty; i++) {
               DesignServ.createImpost(impostType, DesignStor.design.selectedGlass[i]);
             }
           }

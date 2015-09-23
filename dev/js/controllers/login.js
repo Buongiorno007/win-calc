@@ -26,7 +26,7 @@
     thisCtrl.isFactoryNotSelect = 0;
     thisCtrl.isStartImport = 0;
     thisCtrl.user = {};
-    thisCtrl.factories;
+    thisCtrl.factories = 0;
     thisCtrl.regPhone = globalConstants.REG_PHONE;
     thisCtrl.regName = globalConstants.REG_NAME;
     thisCtrl.regMail = globalConstants.REG_MAIL;

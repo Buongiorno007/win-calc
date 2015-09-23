@@ -323,7 +323,7 @@ angular.module("pascalprecht.translate",["ng"]).run(["$translate",function(a){va
 (function ($) {
 	var instances_count	= 0;
 	$.pickmeup = $.extend($.pickmeup || {}, {
-		date			: new Date,
+		date			: new Date(),
 		flat			: false,
 		first_day		: 1,
 		prev			: '&#9664;',
@@ -364,7 +364,7 @@ angular.module("pascalprecht.translate",["ng"]).run(["$translate",function(a){va
 			head	: function (d) {
 				var result	= '';
 				for (var i = 0; i < 7; ++i) {
-					result	+= '<div>' + d.day[i] + '</div>'
+					result	+= '<div>' + d.day[i] + '</div>';
 				}
 				return '<div class="pmu-instance">' +
 					'<nav>' +
@@ -380,7 +380,7 @@ angular.module("pascalprecht.translate",["ng"]).run(["$translate",function(a){va
 			body	: function (elements, container_class_name) {
 				var result	= '';
 				for (var i = 0; i < elements.length; ++i) {
-					result	+= '<div class="' + elements[i].class_name + ' pmu-button">' + elements[i].text + '</div>'
+					result	+= '<div class="' + elements[i].class_name + ' pmu-button">' + elements[i].text + '</div>';
 				}
 				return '<div class="' + container_class_name + '">' + result + '</div>';
 			}
@@ -395,7 +395,7 @@ angular.module("pascalprecht.translate",["ng"]).run(["$translate",function(a){va
 			header,
 			html,
 			instance,
-			today		= (new Date).setHours(0,0,0,0).valueOf(),
+			today		= (new Date()).setHours(0,0,0,0).valueOf(),
 			shown_date_from,
 			shown_date_to,
 			tmp_date;
@@ -512,7 +512,7 @@ angular.module("pascalprecht.translate",["ng"]).run(["$translate",function(a){va
 						(
 							new Date(actual_date).getFullYear() == year &&
 							new Date(actual_date).getMonth() == month
-						)
+						);
 			};
 			(function () {
 				var years			= [],
@@ -651,16 +651,16 @@ angular.module("pascalprecht.translate",["ng"]).run(["$translate",function(a){va
 		);
 		options.fill.apply(this);
 	}
-	function parseDate (date, format, separator, locale) {
+	function parseDate (date, format, separatorArg, locale) {
 		if (date.constructor == Date) {
 			return date;
 		} else if (!date) {
-			return new Date;
+			return new Date();
 		}
-		var splitted_date	= date.split(separator);
+		var splitted_date	= date.split(separatorArg);
 		if (splitted_date.length > 1) {
 			splitted_date.forEach(function (element, index, array) {
-				array[index]	= parseDate($.trim(element), format, separator, locale);
+				array[index]	= parseDate($.trim(element), format, separatorArg, locale);
 			});
 			return splitted_date;
 		}
@@ -722,7 +722,7 @@ angular.module("pascalprecht.translate",["ng"]).run(["$translate",function(a){va
 			0
 		);
 		if (isNaN(parsed_date * 1)) {
-			parsed_date = new Date;
+			parsed_date = new Date();
 		}
 		return parsed_date;
 	}
@@ -1015,7 +1015,7 @@ angular.module("pascalprecht.translate",["ng"]).run(["$translate",function(a){va
 				left = pos.left - pickmeup.offsetWidth;
 			}
 			if (left < viewport.l) {
-				left = pos.left + this.offsetWidth
+				left = pos.left + this.offsetWidth;
 			}
 			if (options.show() == false) {
 				return;
@@ -1118,7 +1118,7 @@ angular.module("pascalprecht.translate",["ng"]).run(["$translate",function(a){va
 		if (typeof formatted === 'string') {
 			var date = prepared_date[1];
 			if (date.constructor == Date) {
-				return formatDate(date, formatted, options.locale)
+				return formatDate(date, formatted, options.locale);
 			} else {
 				return date.map(function (value) {
 					return formatDate(value, formatted, options.locale);
@@ -1137,7 +1137,7 @@ angular.module("pascalprecht.translate",["ng"]).run(["$translate",function(a){va
 			options.date.setHours(0,0,0,0);
 		}
 		if (!options.date) {
-			options.date = new Date;
+			options.date = new Date();
 			options.date.setHours(0,0,0,0);
 		}
 		if (options.mode != 'single') {
@@ -1262,7 +1262,7 @@ angular.module("pascalprecht.translate",["ng"]).run(["$translate",function(a){va
 				options.date.setHours(0,0,0,0);
 			}
 			if (!options.date) {
-				options.date = new Date;
+				options.date = new Date();
 				options.date.setHours(0,0,0,0);
 			}
 			if (options.mode != 'single') {
@@ -1287,10 +1287,7 @@ angular.module("pascalprecht.translate",["ng"]).run(["$translate",function(a){va
 						options.date[i].setDate(1);
 						options.date[i]	= options.date[i].valueOf();
 						// Remove duplicates
-						if (
-							options.mode != 'range' &&
-							options.date.indexOf(options.date[i]) !== i
-						) {
+						if (options.mode != 'range' && options.date.indexOf(options.date[i]) !== i) {
 							delete options.date.splice(i, 1);
 							--i;
 						}

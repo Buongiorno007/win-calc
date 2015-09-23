@@ -19,14 +19,14 @@ function parseStringToDimension(value) {
     array = updateMM(array);
     value = summAll(array);
     return value;
-};
+}
 
 
 //helpers
 
 
 function updateDigits(array) {
-	for (var i =0; i < array.length; i++) {
+  for (var i =0; i < array.length; i++) {
 		if (array[i] === "ноль") {
 			array[i] = "0";
 		}
@@ -72,7 +72,7 @@ function updateCM(array) {
 
         
 		if ((i > 0) && (array[i] === "см") && (isNumber(array[i - 1]))) {
-			array[i - 1] = parseInt(array[i - 1]) * 10;
+			array[i - 1] = parseInt(array[i - 1], 10) * 10;
 			array.splice(i, 1);
 		}
 	}
@@ -101,7 +101,7 @@ function updateMs(array) {
 function updateM(array) {
 	for (var i =1; i < array.length; i++) {
 		if ((array[i] === "м") && (isNumber(array[i - 1]))) {
-			array[i - 1] = "" + parseInt(array[i - 1]) * 1000;
+			array[i - 1] = "" + parseInt(array[i - 1], 10) * 1000;
 			array = upadtePostM(array, i);
 			array.splice(i, 1);
 		}
@@ -121,7 +121,7 @@ function updateFirstTwoToM(array) {
 			array[1] = "м";
 			//array[0] = "" + parseInt(array[0]) * 1000;
 			
-			if (parseInt(array[2]) < 100) {
+			if (parseInt(array[2], 10) < 100) {
 				array[3] = "см";
 			} else {
 				array[3] = "мм";
@@ -133,12 +133,12 @@ function updateFirstTwoToM(array) {
 
 function upadtePostM(array, i) {
 	if (i === array.length - 2) {
-		if ((isNumber(array[i + 1])) && (parseInt(array[i + 1]) < 100)) {
-			array[i + 1] = "" + parseInt(array[i + 1]) * 10;
+		if ((isNumber(array[i + 1])) && (parseInt(array[i + 1], 10) < 100)) {
+			array[i + 1] = "" + parseInt(array[i + 1], 10) * 10;
 		}
 	} else if (i < array.length - 1) {
-		if ((isNumber(array[i + 1])) && (parseInt(array[i + 1]) < 100) && (isNumber(array[i + 2]))) {
-			array[i + 1] = "" + parseInt(array[i + 1]) * 10;
+		if ((isNumber(array[i + 1])) && (parseInt(array[i + 1], 10) < 100) && (isNumber(array[i + 2]))) {
+			array[i + 1] = "" + parseInt(array[i + 1], 10) * 10;
 		}		
 	}
 	return array;
@@ -159,7 +159,7 @@ function updateHalf(array) {
 function summAll(array) {
 	var ret = 0;
 	for (var i =0; i < array.length; i++) {
-		ret += parseInt(array[i]); 
+		ret += parseInt(array[i], 10);
 	}
 	return "" + ret;
 }
@@ -172,5 +172,5 @@ String.prototype.endsWith = function(suffix) {
 
 
 function isNumber(str) {
-   return  ("" + parseInt(str) === str); 
-};
+   return  ("" + parseInt(str, 10) === str);
+}

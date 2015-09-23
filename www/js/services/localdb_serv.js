@@ -725,8 +725,8 @@
           vhereOptions = " WHERE ";
           vhereOptions += optionKeys[0] + " = '" + options[optionKeys[0]] + "'";
           if(optionQty > 1) {
-            for(var k = 1; k < optionQty; k++) {
-              vhereOptions += " AND " + optionKeys[k] + " = '" + options[optionKeys[k]] + "'";
+            for(var op = 1; op < optionQty; op++) {
+              vhereOptions += " AND " + optionKeys[op] + " = '" + options[optionKeys[op]] + "'";
             }
           }
         }
@@ -785,7 +785,7 @@
               //-------- insert in LocalDB
               self.insertTablesLocalDB(result).then(function() {
                 defer.resolve(1);
-              })
+              });
             } else {
               console.log('Error!');
               defer.resolve(0);
@@ -825,7 +825,7 @@
               //-------- insert in LocalDB
               self.insertTablesLocalDB(result).then(function() {
                 defer.resolve(1);
-              })
+              });
             } else {
               console.log('Error!');
               defer.resolve(0);
@@ -977,10 +977,11 @@
                   for (i = 0; i < result.tables[table].rows.length; i++) {
                     updateSql = '';
                     for(k = 0; k < result.tables[table].fields.length; k++){
-                      if(!k)
+                      if(!k) {
                         updateSql += result.tables[table].fields[k] + " = '" + result.tables[table].rows[i][k] + "'";
-                      else
+                      } else {
                         updateSql += ", " + result.tables[table].fields[k] + " = '" + result.tables[table].rows[i][k] + "'";
+                      }
                     }
                     transaction.executeSql("UPDATE " + table + " SET " + updateSql + " WHERE id = " + result.tables[table].rows[i][0], [], function () {
                     }, function () {

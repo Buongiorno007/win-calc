@@ -84,7 +84,7 @@
       if(order.is_date_price_less) {
         order.orderPriceTOTALDis -= order.delivery_price;
       } else if(order.is_date_price_more) {
-        order.orderPriceTOTALDis += order.delivery_price
+        order.orderPriceTOTALDis += order.delivery_price;
       }
       order.orderPriceTOTALDis = GeneralServ.roundingNumbers(order.orderPriceTOTALDis);
     }
@@ -103,7 +103,7 @@
         ordersDateArr.push(orders[it].new_delivery_date);
       }
       ordersDateArr.sort(function (a, b) {
-        return b - a
+        return b - a;
       });
       return ordersDateArr[0];
     }
@@ -555,45 +555,45 @@ console.log('EDIT PRODUCT', ProductStor.product);
     function openCalendarScroll(dataType) {
       if(HistoryStor.history.isDraftView) {
         if (dataType === 'start-date' && !HistoryStor.history.isStartDateDraft ) {
-          HistoryStor.history.isStartDateDraft  = true;
-          HistoryStor.history.isFinishDateDraft  = false;
-          HistoryStor.history.isAllPeriodDraft  = false;
+          HistoryStor.history.isStartDateDraft  = 1;
+          HistoryStor.history.isFinishDateDraft  = 0;
+          HistoryStor.history.isAllPeriodDraft  = 0;
         } else if (dataType === 'finish-date' && !HistoryStor.history.isFinishDateDraft ) {
-          HistoryStor.history.isStartDateDraft  = false;
-          HistoryStor.history.isFinishDateDraft  = true;
-          HistoryStor.history.isAllPeriodDraft  = false;
+          HistoryStor.history.isStartDateDraft  = 0;
+          HistoryStor.history.isFinishDateDraft  = 1;
+          HistoryStor.history.isAllPeriodDraft  = 0;
         } else if (dataType === 'full-date' && !HistoryStor.history.isAllPeriodDraft ) {
-          HistoryStor.history.isStartDateDraft  = false;
-          HistoryStor.history.isFinishDateDraft  = false;
-          HistoryStor.history.isAllPeriodDraft  = true;
+          HistoryStor.history.isStartDateDraft  = 0;
+          HistoryStor.history.isFinishDateDraft  = 0;
+          HistoryStor.history.isAllPeriodDraft  = 1;
           HistoryStor.history.startDateDraft  = '';
           HistoryStor.history.finishDateDraft  = '';
           HistoryStor.history.drafts = angular.copy(HistoryStor.history.draftsSource);
         } else {
-          HistoryStor.history.isStartDateDraft  = false;
-          HistoryStor.history.isFinishDateDraft  = false;
-          HistoryStor.history.isAllPeriodDraft = false;
+          HistoryStor.history.isStartDateDraft  = 0;
+          HistoryStor.history.isFinishDateDraft  = 0;
+          HistoryStor.history.isAllPeriodDraft = 0;
         }
       } else {
         if (dataType === 'start-date' && !HistoryStor.history.isStartDate) {
-          HistoryStor.history.isStartDate = true;
-          HistoryStor.history.isFinishDate = false;
-          HistoryStor.history.isAllPeriod = false;
+          HistoryStor.history.isStartDate = 1;
+          HistoryStor.history.isFinishDate = 0;
+          HistoryStor.history.isAllPeriod = 0;
         } else if (dataType === 'finish-date' && !HistoryStor.history.isFinishDate) {
-          HistoryStor.history.isStartDate = false;
-          HistoryStor.history.isFinishDate = true;
-          HistoryStor.history.isAllPeriod = false;
+          HistoryStor.history.isStartDate = 0;
+          HistoryStor.history.isFinishDate = 1;
+          HistoryStor.history.isAllPeriod = 0;
         } else if (dataType === 'full-date' && !HistoryStor.history.isAllPeriod) {
-          HistoryStor.history.isStartDate = false;
-          HistoryStor.history.isFinishDate = false;
-          HistoryStor.history.isAllPeriod = true;
+          HistoryStor.history.isStartDate = 0;
+          HistoryStor.history.isFinishDate = 0;
+          HistoryStor.history.isAllPeriod = 1;
           HistoryStor.history.startDate = '';
           HistoryStor.history.finishDate = '';
           HistoryStor.history.orders = angular.copy(HistoryStor.history.ordersSource);
         } else {
-          HistoryStor.history.isStartDate = false;
-          HistoryStor.history.isFinishDate = false;
-          HistoryStor.history.isAllPeriod = false;
+          HistoryStor.history.isStartDate = 0;
+          HistoryStor.history.isFinishDate = 0;
+          HistoryStor.history.isAllPeriod = 0;
         }
       }
     }
@@ -607,11 +607,11 @@ console.log('EDIT PRODUCT', ProductStor.product);
     function orderSorting() {
       if(HistoryStor.history.isDraftView) {
         HistoryStor.history.isOrderSortDraft = !HistoryStor.history.isOrderSortDraft;
-        HistoryStor.history.isOrderDateDraft = false;
+        HistoryStor.history.isOrderDateDraft = 0;
       } else {
         HistoryStor.history.isOrderSort = !HistoryStor.history.isOrderSort;
-        HistoryStor.history.isOrderSearch = false;
-        HistoryStor.history.isOrderDate = false;
+        HistoryStor.history.isOrderSearch = 0;
+        HistoryStor.history.isOrderDate = 0;
       }
     }
 
@@ -621,16 +621,16 @@ console.log('EDIT PRODUCT', ProductStor.product);
       if(HistoryStor.history.isDraftView) {
 
         if(HistoryStor.history.isSortTypeDraft === sortType) {
-          HistoryStor.history.isSortTypeDraft = false;
-          HistoryStor.history.reverseDraft = true;
+          HistoryStor.history.isSortTypeDraft = 0;
+          HistoryStor.history.reverseDraft = 1;
         } else {
           HistoryStor.history.isSortTypeDraft = sortType;
 
           if(HistoryStor.history.isSortTypeDraft === 'first') {
-            HistoryStor.history.reverseDraft = true;
+            HistoryStor.history.reverseDraft = 1;
           }
           if(HistoryStor.history.isSortTypeDraft === 'last') {
-            HistoryStor.history.reverseDraft = false;
+            HistoryStor.history.reverseDraft = 0;
           }
         }
 
@@ -647,22 +647,22 @@ console.log('EDIT PRODUCT', ProductStor.product);
            deSelectSortingType()
            }*/
           if (HistoryStor.history.isSortType === 'current-order') {
-            HistoryStor.history.isCurrentOrdersHide = false;
-            HistoryStor.history.isWaitOrdersHide = true;
-            HistoryStor.history.isDoneOrdersHide = true;
+            HistoryStor.history.isCurrentOrdersHide = 0;
+            HistoryStor.history.isWaitOrdersHide = 1;
+            HistoryStor.history.isDoneOrdersHide = 1;
             checkExestingOrderType('order', 'credit');
           }
           if (HistoryStor.history.isSortType === 'wait-order') {
-            HistoryStor.history.isCurrentOrdersHide = true;
-            HistoryStor.history.isWaitOrdersHide = false;
-            HistoryStor.history.isDoneOrdersHide = true;
-            checkExestingOrderType(orderMasterStyle)
+            HistoryStor.history.isCurrentOrdersHide = 1;
+            HistoryStor.history.isWaitOrdersHide = 0;
+            HistoryStor.history.isDoneOrdersHide = 1;
+            checkExestingOrderType(orderMasterStyle);
           }
           if (HistoryStor.history.isSortType === 'done-order') {
-            HistoryStor.history.isWaitOrdersHide = true;
-            HistoryStor.history.isCurrentOrdersHide = true;
-            HistoryStor.history.isDoneOrdersHide = false;
-            checkExestingOrderType(orderDoneStyle)
+            HistoryStor.history.isWaitOrdersHide = 1;
+            HistoryStor.history.isCurrentOrdersHide = 1;
+            HistoryStor.history.isDoneOrdersHide = 0;
+            checkExestingOrderType(orderDoneStyle);
           }
         }
       }
@@ -671,9 +671,9 @@ console.log('EDIT PRODUCT', ProductStor.product);
 
 
     function deSelectSortingType() {
-      HistoryStor.history.isCurrentOrdersHide = false;
-      HistoryStor.history.isWaitOrdersHide = false;
-      HistoryStor.history.isDoneOrdersHide = false;
+      HistoryStor.history.isCurrentOrdersHide = 0;
+      HistoryStor.history.isWaitOrdersHide = 0;
+      HistoryStor.history.isDoneOrdersHide = 0;
     }
 
     //-------- checking orders quantity during order sorting
@@ -688,9 +688,9 @@ console.log('EDIT PRODUCT', ProductStor.product);
         }
       }
       if(ordersSortCounter > 0) {
-        HistoryStor.history.isEmptyResult = false;
+        HistoryStor.history.isEmptyResult = 0;
       } else {
-        HistoryStor.history.isEmptyResult = true;
+        HistoryStor.history.isEmptyResult = 1;
       }
     }
 

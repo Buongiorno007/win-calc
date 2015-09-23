@@ -338,8 +338,8 @@
            .classed('size-line', true)
            .attr({
              'd': lineCreator(lineCenter),
-             'marker-start': function() { return (dir) ? 'url(#dimVertR)' : 'url(#dimHorL)' },
-             'marker-end': function() { return (dir) ? 'url(#dimVertL)' : 'url(#dimHorR)' }
+             'marker-start': function() { return (dir) ? 'url(#dimVertR)' : 'url(#dimHorL)'; },
+             'marker-end': function() { return (dir) ? 'url(#dimVertL)' : 'url(#dimHorR)'; }
            });
 
           sizeBox = dimBlock.append('g')
@@ -349,8 +349,8 @@
             sizeBox.append('rect')
              .classed('size-rect', true)
              .attr({
-               'x': function() { return (dir) ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2 },
-               'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8) }
+               'x': function() { return (dir) ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2; },
+               'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8); }
              });
           }
 
@@ -439,7 +439,7 @@
         }
 
       }
-    }
+    };
 
   }
 })();

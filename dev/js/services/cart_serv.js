@@ -125,12 +125,13 @@
           },
           multipl = 5,
           discQty = UserStor.userInfo.discountConstrMax/multipl,
-          discAddQty = UserStor.userInfo.discountAddElemMax/multipl;
-      for(var d = 0; d <= discQty; d++) {
+          discAddQty = UserStor.userInfo.discountAddElemMax/multipl,
+          d = 0, da = 0;
+      for(; d <= discQty; d++) {
         discounts.window.push( (d * multipl) );
       }
-      for(var d = 0; d <= discAddQty; d++) {
-        discounts.addElem.push( (d * multipl) );
+      for(; da <= discAddQty; da++) {
+        discounts.addElem.push( (da * multipl) );
       }
       return discounts;
     }

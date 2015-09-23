@@ -7,20 +7,20 @@ var speechKit = new NuanceSpeechKitPlugin();
 
 function doInit() {
     var serverURL = "cvq.nmdp.nuancemobility.net";
-    speechKit.initialize("Credentials", serverURL, 443, false, function(r){printResult(r)}, function(e){printResult(e)} );
+    speechKit.initialize("Credentials", serverURL, 443, false, function(r){printResult(r);}, function(e){printResult(e);} );
 }
 
 function doCleanup(){
-    speechKit.cleanup( function(r){printResult(r)}, function(e){printResult(e)} );
+    speechKit.cleanup( function(r){printResult(r);}, function(e){printResult(e);} );
 }
 
 function startRecognition(callback, progressCalback, languageLabel){
     var recInProcess = true,
         recognitionLanguage = languageLabel;
     console.log("Before startRecognition");
-    speechKit.startRecognition("dictation", recognitionLanguage, function(r){printRecoResult(r)}, function(e){printRecoResult(e)} );
+    speechKit.startRecognition("dictation", recognitionLanguage, function(r){printRecoResult(r);}, function(e){printRecoResult(e);} );
     console.log("After startRecognition");
-    var tempObj = new Object();
+    var tempObj = {};
    
     setTimeout(forceStop, 5000);
     
@@ -34,7 +34,7 @@ function startRecognition(callback, progressCalback, languageLabel){
     }
     
     function forceStopRecognition(){
-        speechKit.stopRecognition(function(r){printRecoResult(r)}, function(e){console.log(e)} );
+        speechKit.stopRecognition(function(r){printRecoResult(r);}, function(e){console.log(e);} );
         
     }
 
@@ -73,13 +73,13 @@ function startRecognition(callback, progressCalback, languageLabel){
 
 
 function stopRecognition(){
-    speechKit.stopRecognition(function(r){printRecoResult(r)}, function(e){console.log(e)} );
+    speechKit.stopRecognition(function(r){printRecoResult(r);}, function(e){console.log(e);} );
     
 }
 
 
 function getResult(){
-    speechKit.getResults(function(r){printResult(r)}, function(e){console.log("getResult" + e)} );
+    speechKit.getResults(function(r){printResult(r);}, function(e){console.log("getResult" + e);} );
 }
 
 
@@ -94,7 +94,7 @@ function playTTS(text, languageLabel) {
         
         var ttsLanguageSelect = document.getElementById("tts-language");
         var ttsLanguage = languageLabel;
-        speechKit.playTTS(text, ttsLanguage, null, function(r){printTTSResult(r)}, function(e){printTTSResult(e)} );
+        speechKit.playTTS(text, ttsLanguage, null, function(r){printTTSResult(r);}, function(e){printTTSResult(e);} );
     }
     
     function printTTSResult(resultObject){
