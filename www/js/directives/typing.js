@@ -45,7 +45,7 @@
               }
               elem.text(text);
             }, NEXT_CHAR_DELAY);
-          }, parseInt(scope.typingDelay, 10));
+          }, scope.typingDelay*1);
         }
       }
     };

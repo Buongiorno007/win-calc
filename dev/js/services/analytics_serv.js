@@ -13,7 +13,7 @@
 
     thisFactory.analyticsObjSource = {
       user_id: 0,
-      order_number: 0,
+      order_id: 0,
       element_id: 0,
       element_type: 0,
       created: 0
@@ -33,7 +33,7 @@
     function insertAnalyticsDB(userId, orderId, elementId, elementType) {
       var analyticsObj = angular.copy(thisFactory.analyticsObjSource);
       analyticsObj.user_id = userId;
-      analyticsObj.order_number = orderId;
+      analyticsObj.order_id = orderId;
       analyticsObj.element_id = elementId;
       analyticsObj.element_type = elementType;
       analyticsObj.created = new Date();

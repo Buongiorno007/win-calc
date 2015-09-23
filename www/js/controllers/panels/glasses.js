@@ -42,7 +42,7 @@
       MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass[0].list_id, hardwareIds);//TODO array!!
       //------ save analytics data
 //      analyticsServ.saveGlassAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, newId, typeIndex);
-      //TODO analyticsServ.saveGlassAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, newId);
+      //TODO analyticsServ.saveGlassAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_id, newId);
     }
 
   }

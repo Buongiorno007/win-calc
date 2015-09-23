@@ -77,7 +77,8 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                 .account-row.header
                   .account-data.title
                     .complete-icon(ng-show="order.order_style == 'done'")
-                    .account-id id {{ order.order_number }}
+                    .account-id(ng-if="order.order_number") id {{ order.order_number }}
+                      span(ng-if="order.order_hz") {{ order.order_hz }}
                     .account-addinfo
                       span(ng-hide="!order.floor_id && !order.mounting_id") - {{ 'history.INCLUDED' | translate }}:
                       span(ng-hide="!order.floor_id") &nbsp; {{ 'cart.DELIVERY' | translate }}
@@ -104,11 +105,11 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                   .account-value(ng-show="order.order_style == 'master'") {{ 'history.WAIT_MASTER' | translate }}
                   .account-date {{ order.products_qty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}
 
-              button.account-tool.account-select-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.sendOrderToFactory(order.order_style, order.order_number)")
-              button.account-tool.account-copy-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.makeOrderCopy(order.order_style, order.order_number)")
+              button.account-tool.account-select-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.sendOrderToFactory(order.order_style, order.order_id)")
+              button.account-tool.account-copy-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.makeOrderCopy(order.order_style, order.order_id)")
               button.account-tool.account-print-btn(hm-tap="")
-              button.account-delete-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.clickDeleteOrder(order.order_type, order.order_number, $event)")
-              //button.account-change-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.editOrder(order.order_number)") {{ 'common_words.CHANGE' | translate }}
+              button.account-delete-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.clickDeleteOrder(order.order_type, order.order_id, $event)")
+              //button.account-change-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.editOrder(order.order_id)") {{ 'common_words.CHANGE' | translate }}
 
             .empty-search-result(ng-show="(orders | filter:historyPage.H.history.searchingWord).length == 0")
               .result-icon
@@ -168,18 +169,18 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
 
           .scroll-vert-container
             .scrolling-container
-              .account-block(ng-repeat="draft in historyPage.H.history.drafts | orderBy:historyPage.createdDate:historyPage.H.history.reverseDraft", hm-tap="historyPage.editOrder(draft.order_number)")
+              .account-block(ng-repeat="draft in historyPage.H.history.drafts | orderBy:historyPage.createdDate:historyPage.H.history.reverseDraft", hm-tap="historyPage.editOrder(draft.order_id)")
                 .account
                   .account-row.header
                     .account-id {{ 'history.DRAFT' | translate }}
                     .account-label.account-date-filter {{ 'history.FROM' | translate }}
                       span(order-date="{{ draft.created }}", type-date="'order'")
-                  .account-row.footer(hm-tap="historyPage.editOrder(draft.order_number)")
+                  .account-row.footer(hm-tap="historyPage.editOrder(draft.order_id)")
                     .account-value(ng-hide="draft.order_style == 'credit'") {{ draft.order_price_total }}{{ historyPage.U.userInfo.currency }}
                     .account-value(ng-show="draft.order_style == 'credit'") {{ draft.order_price_total }}{{ historyPage.U.userInfo.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.payment_monthly}}{{ historyPage.U.userInfo.currency }}
                     .account-qty {{ draft.products_qty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{draft.new_delivery_date | date:"dd.MM.yyyy"}}
                 button.account-tool.account-print-btn(hm-tap="")
-                button.account-delete-btn(hm-tap="historyPage.clickDeleteOrder(draft.order_type, draft.order_number, $event)")
+                button.account-delete-btn(hm-tap="historyPage.clickDeleteOrder(draft.order_type, draft.order_id, $event)")
 
 
             .empty-search-result(ng-show="historyPage.H.history.isEmptyResultDraft")

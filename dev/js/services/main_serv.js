@@ -14,6 +14,7 @@
     thisFactory.publicObj = {
       saveUserEntry: saveUserEntry,
       createOrderData: createOrderData,
+      createOrderID: createOrderID,
       setCurrDiscounts: setCurrDiscounts,
       downloadAllElemAsGroup: downloadAllElemAsGroup,
       downloadAllGlasses: downloadAllGlasses,
@@ -79,13 +80,18 @@
     function createOrderData() {
       var productDay;
       //----------- create order number for new project
-      OrderStor.order.order_number = ''+Math.floor((Math.random() * 100000));
+      OrderStor.order.order_id = createOrderID();
       //------ set delivery day
       productDay = new Date(OrderStor.order.order_date).getDate() + globalConstants.productionDays;
       OrderStor.order.delivery_date = new Date().setDate(productDay);
       OrderStor.order.new_delivery_date = angular.copy(OrderStor.order.delivery_date);
     }
 
+
+    function createOrderID() {
+      var currTime = new Date().getTime();
+      return (UserStor.userInfo.id + '000' + currTime)*1;
+    }
 
 
     function setCurrDiscounts() {
@@ -428,7 +434,7 @@
         downloadProfileDepth(ProductStor.product.profile.stvorka_list_id),
         downloadProfileDepth(ProductStor.product.profile.impost_list_id),
         downloadProfileDepth(ProductStor.product.profile.shtulp_list_id)
-      ]).then(function (result) {
+      ]).then(function (result) {//TODO why global ????
         GlobalStor.global.profileDepths.frameDepth = result[0];
         GlobalStor.global.profileDepths.frameStillDepth = result[1];
         GlobalStor.global.profileDepths.sashDepth = result[2];
@@ -1008,6 +1014,7 @@
         for(var p = 0; p < prodQty; p++) {
 
           var productData = angular.copy(OrderStor.order.products[p]);
+          productData.order_id = OrderStor.order.order_id;
           productData.order_number = OrderStor.order.order_number;
           productData.template_source = JSON.stringify(OrderStor.order.products[p].template_source);
           productData.profile_id = OrderStor.order.products[p].profile.id;
@@ -1044,6 +1051,7 @@
               for (var elem = 0; elem < elemQty; elem++) {
 
                 var addElementsData = {
+                  order_id: OrderStor.order.order_id,
                   order_number: OrderStor.order.order_number,
                   product_id: OrderStor.order.products[p].product_id,
                   element_type: OrderStor.order.products[p].chosenAddElements[add][elem].element_type,
@@ -1122,9 +1130,9 @@
 
     //-------- delete order from LocalDB
     function deleteOrderInLocalDB(orderNum) {
-      localDB.deleteRowLocalDB(localDB.tablesLocalDB.orders.tableName, {'order_number': orderNum});
-      localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_number': orderNum});
-      localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_number': orderNum});
+      localDB.deleteRowLocalDB(localDB.tablesLocalDB.orders.tableName, {'order_id': orderNum});
+      localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': orderNum});
+      localDB.deleteRowLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': orderNum});
     }
 
 

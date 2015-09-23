@@ -40,7 +40,7 @@
       }
       setLaminationTotalPrice();
       //------ save analytics data
-      //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, ProductStor.product.lamination_in_id, 1);
+      //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_id, ProductStor.product.lamination_in_id, 1);
     }
 
 
@@ -54,7 +54,7 @@
       }
       setLaminationTotalPrice();
       //------ save analytics data
-      //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, ProductStor.product.lamination_out_id, 2);
+      //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_id, ProductStor.product.lamination_out_id, 2);
     }
 
     //TODO?????

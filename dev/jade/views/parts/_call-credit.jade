@@ -4,7 +4,7 @@
       .cart-dialog-header
         button.cart-dialog-tool.back(hm-tap="creditDialog.closeOrderDialog()", type="button")
         button.cart-dialog-tool.print(hm-tap="", type="button")
-        .cart-dialog-title {{ 'cart.CALL_CREDIT' | translate }} {{ creditDialog.O.order.order_number }}
+        .cart-dialog-title {{ 'cart.CALL_CREDIT' | translate }}
         button.save(type="submit") {{ 'cart.READY' | translate }}
       .cart-dialog-body
         .cart-dialog-descrip {{ 'cart.CALL_CREDIT_DESCRIP' | translate }}

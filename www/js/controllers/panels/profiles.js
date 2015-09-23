@@ -41,7 +41,7 @@
 
       //------ save analytics data
 //      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, id, producerIndex);
-//TODO      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, newId);
+//TODO      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_id, newId);
     }
 
   }

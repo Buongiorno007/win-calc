@@ -131,7 +131,7 @@
         if(button == 1) {
           var ordersQty = HistoryStor.history.orders.length;
           for(var ord = 0; ord < ordersQty; ord++) {
-            if(HistoryStor.history.orders[ord].order_number === orderNum) {
+            if(HistoryStor.history.orders[ord].order_id === orderNum) {
               //-------- change style for order
               HistoryStor.history.orders[ord].order_style = orderDoneStyle;
               HistoryStor.history.ordersSource[ord].order_style = orderDoneStyle;
@@ -168,20 +168,25 @@
         if (button == 1) {
 
           //---- new order number
-          var newOrderNum = Math.floor((Math.random() * 100000)),
-              ordersQty = HistoryStor.history.orders.length,
+          var ordersQty = HistoryStor.history.orders.length,
               newOrderCopy;
 
           for(var ord = 0; ord < ordersQty; ord++) {
-            if(HistoryStor.history.orders[ord].order_number === orderNum) {
+            if(HistoryStor.history.orders[ord].order_id === orderNum) {
               newOrderCopy = angular.copy(HistoryStor.history.orders[ord]);
             }
           }
 
           delete newOrderCopy.id;
           delete newOrderCopy.order_number;
+          delete newOrderCopy.order_hz;
           delete newOrderCopy.created;
-          newOrderCopy.order_number = newOrderNum;
+          newOrderCopy.order_id = MainServ.createOrderID();
+
+          //TODO create date!
+          //---- save new order
+          HistoryStor.history.orders.push(newOrderCopy);
+          HistoryStor.history.ordersSource.push(newOrderCopy);
 
           //---- save new order in LocalDB
           localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy);
@@ -200,15 +205,12 @@
 //            }
 //          });
 
-          //TODO create date!
-          //---- save new order
-          HistoryStor.history.orders.push(newOrderCopy);
-          HistoryStor.history.ordersSource.push(newOrderCopy);
+
           //------ copy all Products of this order
-          copyOrderElements(orderNum, newOrderNum, localDB.tablesLocalDB.order_products.tableName);
+          copyOrderElements(orderNum, newOrderCopy.order_id, localDB.tablesLocalDB.order_products.tableName);
 
           //------ copy all AddElements of this order
-          copyOrderElements(orderNum, newOrderNum, localDB.tablesLocalDB.order_addelements.tableName);
+          copyOrderElements(orderNum, newOrderCopy.order_id, localDB.tablesLocalDB.order_addelements.tableName);
           //TODO send to Server???
         }
       }
@@ -216,7 +218,7 @@
       function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
         var allElements = [];
         //------ Download elements of order from localDB
-        localDB.selectLocalDB(nameTableDB, {'order_number': oldOrderNum}).then(function(result) {
+        localDB.selectLocalDB(nameTableDB, {'order_id': oldOrderNum}).then(function(result) {
 //          console.log('result+++++', result);
           if(result.length) {
 
@@ -228,7 +230,7 @@
               for (; i < allElemQty; i++) {
                 delete allElements[i].id;
                 delete allElements[i].created;
-                allElements[i].order_number = newOrderNum;
+                allElements[i].order_id = newOrderNum;
               }
               //-------- insert all elements in LocalDB
               for (; i < allElemQty; i++) {
@@ -282,7 +284,7 @@
           }
           var orderListQty = orderList.length;
           while(--orderListQty > -1) {
-            if(orderList[orderListQty].order_number === orderNum) {
+            if(orderList[orderListQty].order_id === orderNum) {
               orderList.splice(orderListQty, 1);
               orderListSource.splice(orderListQty, 1);
             }
@@ -306,7 +308,7 @@
 
       var ordersQty = HistoryStor.history.orders.length;
       while(--ordersQty > -1) {
-        if(HistoryStor.history.orders[ordersQty].order_number === orderNum) {
+        if(HistoryStor.history.orders[ordersQty].order_id === orderNum) {
           angular.extend(OrderStor.order, HistoryStor.history.orders[ordersQty]);
           CartStor.fillOrderForm();
         }
@@ -331,22 +333,30 @@
     //------ Download All Products Data for Order
     function downloadProducts() {
       var deferred = $q.defer();
-      localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_number': GlobalStor.global.orderEditNumber}).then(function(products) {
+      localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(products) {
         var productsQty = products.length;
         if(productsQty) {
           //------------- parsing All Templates Source and Icons for Order
           for(var prod = 0; prod < productsQty; prod++) {
             ProductStor.product = ProductStor.setDefaultProduct();
             angular.extend(ProductStor.product, products[prod]);
-console.log('EDIT PRODUCT', ProductStor.product);
+console.info('EDIT PRODUCT', ProductStor.product);
             //----- checking product with design or only addElements
-            if(!ProductStor.product.is_addelem_only || ProductStor.product.is_addelem_only === 'false') {
+            if(!ProductStor.product.is_addelem_only) {
               //----- parsing design from string to object
               ProductStor.product.template_source = JSON.parse(ProductStor.product.template_source);
               //              console.log('templateSource', ProductStor.product.templateSource);
               //----- find depths and build design icon
               MainServ.setCurrentProfile(ProductStor.product.profile_id).then(function(){
-                MainServ.setCurrentGlass(ProductStor.product.glass_id);
+                if(ProductStor.product.glass_id) {
+                  var glassIDs = ProductStor.product.glass_id.split(','),
+                      glassIDsQty = glassIDs.length;
+                  if(glassIDsQty) {
+                    while(--glassIDsQty > -1) {
+                      MainServ.setCurrentGlass(glassIDs[glassIDsQty]);
+                    }
+                  }
+                }
                 MainServ.setCurrentHardware(ProductStor.product.hardware_id);
                 SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, GlobalStor.global.profileDepths).then(function(result) {
                   ProductStor.product.templateIcon = angular.copy(result);
@@ -370,16 +380,20 @@ console.log('EDIT PRODUCT', ProductStor.product);
     //------ Download All Add Elements from LocalDB
     function downloadAddElements() {
       var deferred = $q.defer();
-      localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_number': GlobalStor.global.orderEditNumber}).then(function(result) {
-        var allAddElementsQty = result.length;
-        if(allAddElementsQty) {
+      localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(result) {
+        var allAddElemQty = result.length,
+            orderProductsQty = OrderStor.order.products.length;
+
+        if(allAddElemQty) {
           //          console.log('results.data === ', result);
 
-          for(var elem = 0; elem < allAddElementsQty; elem++) {
-            for(var prod = 0; prod < OrderStor.order.products_qty; prod++) {
-              if(result[elem].product_id === OrderStor.order.products[prod].product_id) {
-                OrderStor.order.products[prod].chosenAddElements[result[elem].element_type].push(result[elem]);
-                deferred.resolve(1);
+          while(--allAddElemQty > -1) {
+            for(var prod = 0; prod < orderProductsQty; prod++) {
+              if(result[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
+                OrderStor.order.products[prod].chosenAddElements[result[allAddElemQty].element_type].push(result[allAddElemQty]);
+                if(!allAddElemQty) {
+                  deferred.resolve(1);
+                }
               }
             }
           }

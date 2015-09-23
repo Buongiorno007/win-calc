@@ -241,7 +241,6 @@
 //            ' contact_name VARCHAR(100),' +
             ' city_phone VARCHAR(100),' +
             ' city_id INTEGER,' +
-//            ' legal_name VARCHAR(255),' +
             ' fax VARCHAR(100),' +
             ' avatar VARCHAR(255),' +
             ' birthday DATE,' +
@@ -253,11 +252,8 @@
             ' mount_fri NUMERIC(5,2),' +
             ' mount_sat NUMERIC(5,2),' +
             ' mount_sun NUMERIC(5,2),' +
-//            ' min_term INTEGER,' +
-//            ' base_term INTEGER,' +
-//            ' internal_count INTEGER,' +
             ' device_code VARCHAR(250),'+
-//            ' entries INTEGER,'+
+//            ' last_sync TIMESTAMP,' +
             ' address VARCHAR',
 //            ' identificator INTEGER',
           'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id)'
@@ -393,13 +389,15 @@
         'orders': {
           'tableName': 'orders',
           'prop':
-            'additional_payment VARCHAR,' +
+            'order_id NUMERIC,' +
             ' order_number VARCHAR,' +
+            ' order_hz VARCHAR,' +
             ' order_date TIMESTAMP,' +
             ' order_type INTEGER,' +
             ' order_style VARCHAR,' +
             ' user_id INTEGER,' +
             ' created TIMESTAMP,' +
+            ' additional_payment VARCHAR,' +
             ' sended TIMESTAMP,' +
             ' state_to TIMESTAMP,' +
             ' state_buch TIMESTAMP,' +
@@ -458,8 +456,7 @@
         'order_products': {
           'tableName': 'order_products',
           'prop':
-            'order_id INTEGER,' +
-            ' order_number VARCHAR,' +
+            'order_id NUMERIC,' +
             ' product_id INTEGER,' +
             ' is_addelem_only INTEGER,' +
             ' room_id INTEGER,' +
@@ -485,7 +482,7 @@
         },
         'order_addelements': {
           'tableName': 'order_addelements',
-          'prop': 'order_number VARCHAR,' +
+          'prop': 'order_id NUMERIC,' +
             ' product_id INTEGER,' +
             ' element_type INTEGER,' +
             ' element_id INTEGER,' +
@@ -514,7 +511,7 @@
         //-------- inner temables
         'analytics': {
           'tableName': 'analytics',
-          'prop': 'created TIMESTAMP, user_id INTEGER, order_number VARCHAR, element_id INTEGER, element_type INTEGER',
+          'prop': 'created TIMESTAMP, user_id INTEGER, order_id NUMERIC, element_id INTEGER, element_type INTEGER',
           'foreignKey': ''
         },
 

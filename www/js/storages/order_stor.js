@@ -16,7 +16,9 @@
 
     thisFactory.publicObj = {
       orderSource: {
+        order_id: 0,
         order_number: 0,
+        order_hz: 0,
         order_type: 1, // 0 - draft
         order_date: new Date().getTime(),
         order_style: '',

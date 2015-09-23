@@ -151,7 +151,7 @@
                 <div class="account-row header">
                   <div class="account-data title">
                     <div ng-show="order.order_style == 'done'" class="complete-icon"></div>
-                    <div class="account-id">id {{ order.order_number }}</div>
+                    <div ng-if="order.order_number" class="account-id">id {{ order.order_number }}<span ng-if="order.order_hz">{{ order.order_hz }}</span></div>
                     <div class="account-addinfo"><span ng-hide="!order.floor_id &amp;&amp; !order.mounting_id">- {{ 'history.INCLUDED' | translate }}:</span><span ng-hide="!order.floor_id">&nbsp; {{ 'cart.DELIVERY' | translate }}</span><span ng-hide="!order.floor_id || !order.mounting_id">&nbsp; {{ 'common_words.AND' | translate }}</span><span ng-hide="!order.mounting_id">&nbsp; {{ 'cart.ASSEMBLING' | translate }}</span></div>
                   </div>
                   <div class="account-data">
@@ -184,11 +184,11 @@
                   <div class="account-date">{{ order.products_qty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
                 </div>
               </div>
-              <button ng-hide="order.order_style == 'done'" hm-tap="historyPage.sendOrderToFactory(order.order_style, order.order_number)" class="account-tool account-select-btn"></button>
-              <button ng-hide="order.order_style == 'done'" hm-tap="historyPage.makeOrderCopy(order.order_style, order.order_number)" class="account-tool account-copy-btn"></button>
+              <button ng-hide="order.order_style == 'done'" hm-tap="historyPage.sendOrderToFactory(order.order_style, order.order_id)" class="account-tool account-select-btn"></button>
+              <button ng-hide="order.order_style == 'done'" hm-tap="historyPage.makeOrderCopy(order.order_style, order.order_id)" class="account-tool account-copy-btn"></button>
               <button hm-tap="" class="account-tool account-print-btn"></button>
-              <button ng-hide="order.order_style == 'done'" hm-tap="historyPage.clickDeleteOrder(order.order_type, order.order_number, $event)" class="account-delete-btn"></button>
-              <!--button.account-change-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.editOrder(order.order_number)") {{ 'common_words.CHANGE' | translate }}-->
+              <button ng-hide="order.order_style == 'done'" hm-tap="historyPage.clickDeleteOrder(order.order_type, order.order_id, $event)" class="account-delete-btn"></button>
+              <!--button.account-change-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.editOrder(order.order_id)") {{ 'common_words.CHANGE' | translate }}-->
             </div>
             <div ng-show="(orders | filter:historyPage.H.history.searchingWord).length == 0" class="empty-search-result">
               <div class="result-icon"></div>
@@ -248,20 +248,20 @@
           </div>
           <div class="scroll-vert-container">
             <div class="scrolling-container">
-              <div ng-repeat="draft in historyPage.H.history.drafts | orderBy:historyPage.createdDate:historyPage.H.history.reverseDraft" hm-tap="historyPage.editOrder(draft.order_number)" class="account-block">
+              <div ng-repeat="draft in historyPage.H.history.drafts | orderBy:historyPage.createdDate:historyPage.H.history.reverseDraft" hm-tap="historyPage.editOrder(draft.order_id)" class="account-block">
                 <div class="account">
                   <div class="account-row header">
                     <div class="account-id">{{ 'history.DRAFT' | translate }}</div>
                     <div class="account-label account-date-filter">{{ 'history.FROM' | translate }}<span order-date="{{ draft.created }}" type-date="'order'"></span></div>
                   </div>
-                  <div hm-tap="historyPage.editOrder(draft.order_number)" class="account-row footer">
+                  <div hm-tap="historyPage.editOrder(draft.order_id)" class="account-row footer">
                     <div ng-hide="draft.order_style == 'credit'" class="account-value">{{ draft.order_price_total }}{{ historyPage.U.userInfo.currency }}</div>
                     <div ng-show="draft.order_style == 'credit'" class="account-value">{{ draft.order_price_total }}{{ historyPage.U.userInfo.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.payment_monthly}}{{ historyPage.U.userInfo.currency }}</div>
                     <div class="account-qty">{{ draft.products_qty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{draft.new_delivery_date | date:"dd.MM.yyyy"}}</div>
                   </div>
                 </div>
                 <button hm-tap="" class="account-tool account-print-btn"></button>
-                <button hm-tap="historyPage.clickDeleteOrder(draft.order_type, draft.order_number, $event)" class="account-delete-btn"></button>
+                <button hm-tap="historyPage.clickDeleteOrder(draft.order_type, draft.order_id, $event)" class="account-delete-btn"></button>
               </div>
             </div>
             <div ng-show="historyPage.H.history.isEmptyResultDraft" class="empty-search-result">
