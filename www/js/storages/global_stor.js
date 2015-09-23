@@ -1,6 +1,7 @@
 
 // storages/global_stor.js
 
+/* exported  globalStorageFactory, setDefaultGlobal */
 (function(){
   'use strict';
     /**
