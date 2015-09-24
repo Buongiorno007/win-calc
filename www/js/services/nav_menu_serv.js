@@ -139,23 +139,23 @@
         MainServ.prepareMainPage();
 
       } else {
-        //$cordovaProgress.showSimple(true);
+        GlobalStor.global.isLoader = 1;
 
         //------- Create New Project with Draft saving in Main Page
         if(GlobalStor.global.isCreatedNewProject && GlobalStor.global.isCreatedNewProduct) {
 
-          //------ save product in LocalDB
+          //------ save product
           MainServ.inputProductInOrder();
           //------- define order Price
           CartServ.calculateAllProductsPrice();
           OrderStor.order.order_price_total = OrderStor.order.products_price_total;
           //-------- save order as Draft
-          MainServ.insertOrderInLocalDB({}, 0, '');
+          MainServ.saveOrderInDB({}, 0, '');
 
           //------- Create New Project with Draft saving in Cart Page
         } else if(GlobalStor.global.isCreatedNewProject && !GlobalStor.global.isCreatedNewProduct) {
           //-------- save order as Draft
-          MainServ.insertOrderInLocalDB({}, 0, '');
+          MainServ.saveOrderInDB({}, 0, '');
         }
 
         //------- set previos Page

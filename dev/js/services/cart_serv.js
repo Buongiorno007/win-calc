@@ -35,11 +35,33 @@
 
     //============ methods ================//
 
+    //TODO
+//    function setOrderPriceByDiscount(order) {
+//      order.orderPriceTOTALDis = (order.construct_price_total * (1 - order.discount_construct/100)) + (order.addelem_price_total * (1 - order.discount_addelem/100)) + order.floor_price + order.mounting_price;
+//      if(order.is_date_price_less) {
+//        order.orderPriceTOTALDis -= order.delivery_price;
+//      } else if(order.is_date_price_more) {
+//        order.orderPriceTOTALDis += order.delivery_price;
+//      }
+//      order.orderPriceTOTALDis = GeneralServ.roundingNumbers(order.orderPriceTOTALDis);
+//    }
+
+
+
+    //TODO
+    //    function editProductInLocalDB(product) {
+    //      console.log('!!!!Edit!!!!',product);
+    //      localDB.deleteDB(localDB.productsTableBD, {'orderId': {"value": product.orderId, "union": 'AND'}, "productId": product.productId});
+    //      localDB.deleteDB(localDB.addElementsTableBD, {'orderId': {"value": product.orderId, "union": 'AND'}, "productId": product.productId});
+    //      insertProductInLocalDB(product);
+    //    }
+
+
 
     //----------- create Discount List
     function createDiscontsList() {
       var discounts = {
-            window: [],
+            constr: [],
             addElem: []
           },
           multipl = 5,
@@ -47,7 +69,7 @@
           discAddQty = UserStor.userInfo.discountAddElemMax/multipl,
           d = 0, da = 0;
       for(; d <= discQty; d++) {
-        discounts.window.push( (d * multipl) );
+        discounts.constr.push( (d * multipl) );
       }
       for(; da <= discAddQty; da++) {
         discounts.addElem.push( (da * multipl) );

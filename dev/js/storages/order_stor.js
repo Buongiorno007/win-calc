@@ -13,9 +13,9 @@
 
     thisFactory.publicObj = {
       orderSource: {
-        order_id: 0,
+        id: 0,
         order_number: 0,
-        order_hz: 0,
+        order_hz: '---',
         order_type: 1, // 0 - draft
         order_date: new Date().getTime(),
         order_style: '',
@@ -42,14 +42,10 @@
         is_date_price_less: 0,
         is_date_price_more: 0,
 
-//        selectedFloor: 'free',
         floor_id: 0,
         floor_price: 0,
-//        selectedFloorPrice: 0,
         mounting_id: 0,
         mounting_price: 0,
-//        selectedAssembling: 'free',
-//        selectedAssemblingPrice: 0,
         is_instalment: 0,
         instalment_id: 0,
         selectedInstalmentPeriod: 0, //*
@@ -65,7 +61,7 @@
         payment_monthly_primary: 0,
         order_price_total: 0,
         order_price_total_primary: 0,
-        orderPriceTOTALDis: 0,
+        order_price_total_dis: 0,
 
         customer_name: '',
         customer_email: '',

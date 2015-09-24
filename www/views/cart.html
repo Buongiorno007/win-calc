@@ -79,8 +79,8 @@
                 <div class="order-content">
                   <ul class="order-list">
                     <li class="order-item">
-                      <div class="order-value">{{ product.templateWidth }} {{ 'mainpage.MM' | translate }}</div>
-                      <div class="order-value">{{ product.templateHeight }} {{ 'mainpage.MM' | translate }}</div>
+                      <div class="order-value">{{ product.template_width }} {{ 'mainpage.MM' | translate }}</div>
+                      <div class="order-value">{{ product.template_height }} {{ 'mainpage.MM' | translate }}</div>
                       <div class="order-label">{{ 'mainpage.CONFIGMENU_SIZING' | translate }}</div>
                     </li>
                     <li class="order-item">
@@ -128,7 +128,7 @@
                 <div class="discounts-label">{{ 'cart.DISCOUNT_WINDOW' | translate }}</div>
               </div>
               <div ng-show="cartPage.config.isShowDiscountList" class="discounts-list">
-                <div ng-repeat="discount in cartPage.config.discountsList.window" ng-class="{ 'active': discount === cartPage.O.order.discount_construct }" hm-tap="cartPage.selectDiscount(0, discount, $event)" class="discounts-item">{{ discount }}%</div>
+                <div ng-repeat="discount in cartPage.config.discountsList.constr" ng-class="{ 'active': discount === cartPage.O.order.discount_construct }" hm-tap="cartPage.selectDiscount(0, discount, $event)" class="discounts-item">{{ discount }}%</div>
               </div>
             </div>
             <div ng-class="{'selected': cartPage.O.order.discount_addelem }" class="discount-box">
@@ -150,7 +150,7 @@
               </div>
               <div class="discount-price-box">
                 <div class="discount-price-label">{{ 'cart.DISCOUNT_WITH' | translate }}</div>
-                <div class="discount-price">{{ cartPage.C.cart.orderPriceTOTALDis }} {{cartPage.U.userInfo.currency}}</div>
+                <div class="discount-price">{{ cartPage.C.cart.order_price_total_dis }} {{cartPage.U.userInfo.currency}}</div>
               </div>
               <div class="discount-price-box">
                 <div class="discount-price-label">{{ 'cart.DISCOUNT' | translate }}</div>
@@ -181,7 +181,7 @@
                 </div>
               </div>
               <div class="order-content">
-                <div class="order-value">{{ product.templateWidth }} * {{ product.templateHeight }} {{ 'mainpage.MM' | translate }}</div>
+                <div class="order-value">{{ product.template_width }} * {{ product.template_height }} {{ 'mainpage.MM' | translate }}</div>
                 <div hm-tap="cartPage.showAddElementDetail($index)" class="order-item addelements-btn">
                   <div class="order-value">{{cartPage.C.cart.allAddElements[$index].length}}
                     <ng-pluralize count="cartPage.C.cart.allAddElements[$index].length" when="{'0': '{{ cartPage.config.elements }}', '1': '{{ cartPage.config.element }}', '2': '{{ cartPage.config.elementa }}', '3': '{{ cartPage.config.elementa }}', '4': '{{ cartPage.config.elementa }}', 'other': '{{ cartPage.config.elements }}'}"></ng-pluralize>
@@ -216,11 +216,11 @@
                 <div class="product-icon-label">{{ 'cart.PRODUCT_QTY' | translate }}</div>
               </div>
               <div class="addelements-detail-row">
-                <div class="product-value">{{ cartPage.O.order.products[cartPage.config.detailProductIndex].templateWidth }} {{ 'mainpage.MM' | translate }} *</div>
+                <div class="product-value">{{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_width }} {{ 'mainpage.MM' | translate }} *</div>
                 <div class="product-label">{{ 'add_elements.WIDTH_LABEL' | translate }}</div>
               </div>
               <div class="addelements-detail-row">
-                <div class="product-value">{{ cartPage.O.order.products[cartPage.config.detailProductIndex].templateHeight }} {{ 'mainpage.MM' | translate }}</div>
+                <div class="product-value">{{ cartPage.O.order.products[cartPage.config.detailProductIndex].template_height }} {{ 'mainpage.MM' | translate }}</div>
                 <div class="product-label">{{ 'add_elements.HEIGHT_LABEL' | translate }}</div>
               </div>
             </div>

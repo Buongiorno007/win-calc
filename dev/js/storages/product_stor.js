@@ -12,7 +12,6 @@
 
     thisFactory.publicObj = {
       productSource: {
-//        order_number: 0,
         product_id: 0,
         is_addelem_only: 0,
         room_id: 0,
@@ -22,19 +21,20 @@
         templateIndex: 0, //*
         template_id: 0,
         template_source: {},
-        template: {}, //*
-        templateIcon: {}, //*
-        templateWidth: 0, //*
-        templateHeight: 0, //*
+        template: {},
+        templateIcon: {},
+        template_width: 0,
+        template_height: 0,
+        template_square: 0,
 
         profile: {},
         glass: [],
         hardware: {},
 
         lamination_out_id: 0,
-        laminationOutName: $filter('translate')('mainpage.WHITE_LAMINATION'), //*
+        laminationOutName: $filter('translate')('mainpage.WHITE_LAMINATION'),
         lamination_in_id: 0,
-        laminationInName: $filter('translate')('mainpage.WHITE_LAMINATION'), //*
+        laminationInName: $filter('translate')('mainpage.WHITE_LAMINATION'),
 
         chosenAddElements: [
           [], // 0 - grids

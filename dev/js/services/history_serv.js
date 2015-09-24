@@ -62,10 +62,6 @@
             orders[orderQty].delivery_date = new Date(orders[orderQty].delivery_date);
             orders[orderQty].new_delivery_date = new Date(orders[orderQty].new_delivery_date);
             orders[orderQty].order_date = new Date(orders[orderQty].order_date);
-
-            //------- set order price with discounts
-            setOrderPriceByDiscount(orders[orderQty]);
-
           }
           HistoryStor.history.ordersSource = angular.copy(orders);
           HistoryStor.history.orders = angular.copy(orders);
@@ -79,15 +75,6 @@
     }
 
 
-    function setOrderPriceByDiscount(order) {
-      order.orderPriceTOTALDis = (order.construct_price_total * (1 - order.discount_construct/100)) + (order.addelem_price_total * (1 - order.discount_addelem/100)) + order.floor_price + order.mounting_price;
-      if(order.is_date_price_less) {
-        order.orderPriceTOTALDis -= order.delivery_price;
-      } else if(order.is_date_price_more) {
-        order.orderPriceTOTALDis += order.delivery_price;
-      }
-      order.orderPriceTOTALDis = GeneralServ.roundingNumbers(order.orderPriceTOTALDis);
-    }
 
 
 
@@ -131,13 +118,13 @@
         if(button == 1) {
           var ordersQty = HistoryStor.history.orders.length;
           for(var ord = 0; ord < ordersQty; ord++) {
-            if(HistoryStor.history.orders[ord].order_id === orderNum) {
+            if(HistoryStor.history.orders[ord].id === orderNum) {
               //-------- change style for order
               HistoryStor.history.orders[ord].order_style = orderDoneStyle;
               HistoryStor.history.ordersSource[ord].order_style = orderDoneStyle;
 
               //------ update in Local BD
-              localDB.updateLocalServerDBs(localDB.tablesLocalDB.orders.tableName,  HistoryStor.history.orders[ord].id, {order_style: orderDoneStyle});
+              localDB.updateLocalServerDBs(localDB.tablesLocalDB.orders.tableName,  orderNum, {order_style: orderDoneStyle});
             }
           }
         }
@@ -172,76 +159,59 @@
               newOrderCopy;
 
           for(var ord = 0; ord < ordersQty; ord++) {
-            if(HistoryStor.history.orders[ord].order_id === orderNum) {
+            if(HistoryStor.history.orders[ord].id === orderNum) {
               newOrderCopy = angular.copy(HistoryStor.history.orders[ord]);
             }
           }
+          newOrderCopy.id = MainServ.createOrderID();
+          newOrderCopy.order_number = 0;
+          newOrderCopy.order_hz = '---';
+          newOrderCopy.created = new Date();
+          newOrderCopy.modified = new Date();
 
-          delete newOrderCopy.id;
-          delete newOrderCopy.order_number;
-          delete newOrderCopy.order_hz;
-          delete newOrderCopy.created;
-          newOrderCopy.order_id = MainServ.createOrderID();
-
-          //TODO create date!
-          //---- save new order
-          HistoryStor.history.orders.push(newOrderCopy);
-          HistoryStor.history.ordersSource.push(newOrderCopy);
-
-          //---- save new order in LocalDB
-          localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy);
-          localDB.insertRowLocalDB(newOrderCopy, localDB.tablesLocalDB.orders.tableName);
-
-          //---- get it again from LocalDB as to "created date"
-          //TODO переделать на создание даты здесь, а не в базе? переделака директивы на другой формат даты
-//          localDB.selectDB(localDB.ordersTableBD, {'orderId': newOrderId}).then(function (results) {
-//            if (results.status) {
-//              newOrderCopy = angular.copy(results.data);
-//              //---- add copied new order in Local Objects
-//              $scope.orders.push(newOrderCopy[0]);
-//              $scope.ordersSource.push(newOrderCopy[0]);
-//            } else {
-//              console.log(results);
-//            }
-//          });
-
+          localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy).then(function(respond) {
+            if(respond.status) {
+              newOrderCopy.order_number = respond.order_number;
+            }
+            //---- save new order
+            HistoryStor.history.orders.push(newOrderCopy);
+            HistoryStor.history.ordersSource.push(newOrderCopy);
+            //---- save new order in LocalDB
+            localDB.insertRowLocalDB(newOrderCopy, localDB.tablesLocalDB.orders.tableName);
+          });
 
           //------ copy all Products of this order
-          copyOrderElements(orderNum, newOrderCopy.order_id, localDB.tablesLocalDB.order_products.tableName);
+          copyOrderElements(orderNum, newOrderCopy.id, localDB.tablesLocalDB.order_products.tableName);
 
           //------ copy all AddElements of this order
-          copyOrderElements(orderNum, newOrderCopy.order_id, localDB.tablesLocalDB.order_addelements.tableName);
-          //TODO send to Server???
+          copyOrderElements(orderNum, newOrderCopy.id, localDB.tablesLocalDB.order_addelements.tableName);
         }
       }
 
+
+
       function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
-        var allElements = [];
         //------ Download elements of order from localDB
         localDB.selectLocalDB(nameTableDB, {'order_id': oldOrderNum}).then(function(result) {
 //          console.log('result+++++', result);
           if(result.length) {
-
-            allElements = angular.copy(result);
-            var allElemQty = allElements.length,
+            var allElements = angular.copy(result),
+                allElemQty = allElements.length,
                 i = 0;
+
             if (allElemQty > 0) {
               //-------- set new orderId in all elements of order
               for (; i < allElemQty; i++) {
                 delete allElements[i].id;
-                delete allElements[i].created;
+                allElements[i].modified = new Date();
                 allElements[i].order_id = newOrderNum;
-              }
-              //-------- insert all elements in LocalDB
-              for (; i < allElemQty; i++) {
-                localDB.insertDB(nameTableDB, allElements[i]);
-                //TODO
-//                localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy);
-//                localDB.insertRowLocalDB(newOrderCopy, localDB.tablesLocalDB.orders.tableName);
+
+                //-------- insert all elements in LocalDB
+                localDB.insertRowLocalDB(allElements[i], nameTableDB);
+                localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, nameTableDB, allElements[i]);
               }
             }
 
-//            console.log('maxDeliveryDateOrder =', HistoryStor.history.maxDeliveryDateOrder);
           } else {
             console.log('Empty result = ', result);
           }
@@ -284,14 +254,19 @@
           }
           var orderListQty = orderList.length;
           while(--orderListQty > -1) {
-            if(orderList[orderListQty].order_id === orderNum) {
+            if(orderList[orderListQty].id === orderNum) {
               orderList.splice(orderListQty, 1);
               orderListSource.splice(orderListQty, 1);
+              break;
             }
           }
-          //TODO delet on Server
+
           //------- delete order/draft and all its elements in LocalDB
-          MainServ.deleteOrderInLocalDB(orderNum);
+          MainServ.deleteOrderInDB(orderNum);
+
+          if(orderType) {
+            //TODO delet on Server
+          }
         }
       }
     }
@@ -308,7 +283,7 @@
 
       var ordersQty = HistoryStor.history.orders.length;
       while(--ordersQty > -1) {
-        if(HistoryStor.history.orders[ordersQty].order_id === orderNum) {
+        if(HistoryStor.history.orders[ordersQty].id === orderNum) {
           angular.extend(OrderStor.order, HistoryStor.history.orders[ordersQty]);
           CartStor.fillOrderForm();
         }
@@ -405,67 +380,6 @@ console.info('EDIT PRODUCT', ProductStor.product);
       return deferred.promise;
     }
 
-    /*
-     additional_payment: ""
-     base_price: 0
-     batch: ""
-     climatic_zone: 1
-     created: "2015-09-04T15:36:50.000Z"
-     customer_address: "ubuhu"
-     customer_age: 0
-     customer_city: "Dnepropetrovsk"
-     customer_education: 0
-     customer_email: ""
-     customer_endtime: ""
-     customer_infoSource: 0
-     customer_itn: 0
-     customer_location: "hijhjh"
-     customer_name: "Gygygygyg"
-     customer_occupation: 0
-     customer_phone: "67554"
-     customer_phone_city: ""
-     customer_sex: 0
-     customer_starttime: ""
-     customer_target: ""
-     delivery_date: "2015-09-19T15:33:02.344Z"
-     delivery_price: 0
-     discount_addelem: 10
-     discount_construct: 10
-     factory_id: 208
-     factory_margin: 0
-     floor_id: 1
-     heat_coef_min: 1
-     id: 86
-     instalment_id: 0
-     is_date_price_less: 0
-     is_date_price_more: 0
-     is_instalment: 0
-     is_old_price: 0
-     modified: "2015-09-04T15:36:50.000Z"
-     mounting_id: 1
-     mounting_price: 0
-     new_delivery_date: "2015-09-19T15:33:02.344Z"
-     order_date: "2015-09-04T15:32:38.715Z"
-     order_number: "83664"
-     order_price_total: 716.08
-     order_price_total_primary: 716.08
-     order_style: "master"
-     order_type: 1
-     payment_first: 0
-     payment_first_primary: 0
-     payment_monthly: 0
-     payment_monthly_primary: 0
-     perimeter: 0
-     products_price_total: 716.08
-     products_qty: 1
-     purchase_price: 0
-     sale_price: 0
-     sended: "1970-01-01T00:00:00.000Z"
-     square: 0
-     state_buch: "1970-01-01T00:00:00.000Z"
-     state_to: "1970-01-01T00:00:00.000Z"
-     user_id: 1254
-     */
 
 
 
@@ -486,7 +400,7 @@ console.info('EDIT PRODUCT', ProductStor.product);
           HistoryStor.history.draftsSource = angular.copy(drafts);
           HistoryStor.history.drafts = angular.copy(drafts);
         } else {
-          HistoryStor.history.isEmptyResultDraft = true;
+          HistoryStor.history.isEmptyResultDraft = 1;
         }
       });
     }
@@ -499,9 +413,9 @@ console.info('EDIT PRODUCT', ProductStor.product);
     //=========== Searching
 
     function orderSearching() {
-      HistoryStor.history.isOrderSearch = true;
-      HistoryStor.history.isOrderDate = false;
-      HistoryStor.history.isOrderSort = false;
+      HistoryStor.history.isOrderSearch = 1;
+      HistoryStor.history.isOrderDate = 0;
+      HistoryStor.history.isOrderSort = 0;
     }
 
 
@@ -525,7 +439,7 @@ console.info('EDIT PRODUCT', ProductStor.product);
           }
         }
         HistoryStor.history.isOrderDateDraft = !HistoryStor.history.isOrderDateDraft;
-        HistoryStor.history.isOrderSortDraft = false;
+        HistoryStor.history.isOrderSortDraft = 0;
 
         //------ in Orders
       } else {
@@ -537,8 +451,8 @@ console.info('EDIT PRODUCT', ProductStor.product);
           }
         }
         HistoryStor.history.isOrderDate = !HistoryStor.history.isOrderDate;
-        HistoryStor.history.isOrderSearch = false;
-        HistoryStor.history.isOrderSort = false;
+        HistoryStor.history.isOrderSearch = 0;
+        HistoryStor.history.isOrderSort = 0;
       }
     }
 

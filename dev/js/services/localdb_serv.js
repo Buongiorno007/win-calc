@@ -250,7 +250,7 @@
             ' mount_sat NUMERIC(5,2),' +
             ' mount_sun NUMERIC(5,2),' +
             ' device_code VARCHAR(250),'+
-//            ' last_sync TIMESTAMP,' +
+            ' last_sync TIMESTAMP,' +
             ' address VARCHAR',
 //            ' identificator INTEGER',
           'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id)'
@@ -386,8 +386,7 @@
         'orders': {
           'tableName': 'orders',
           'prop':
-            'order_id NUMERIC,' +
-            ' order_number VARCHAR,' +
+            'order_number VARCHAR,' +
             ' order_hz VARCHAR,' +
             ' order_date TIMESTAMP,' +
             ' order_type INTEGER,' +
@@ -427,6 +426,7 @@
             ' payment_first_primary NUMERIC,' +
             ' payment_monthly_primary NUMERIC,' +
             ' order_price_total NUMERIC,' +
+            ' order_price_total_dis NUMERIC,' +
             ' order_price_total_primary NUMERIC,' +
             ' construct_price_total NUMERIC,' +
             ' addelem_price_total NUMERIC,' +
@@ -460,6 +460,9 @@
             ' construction_type INTEGER,' +
             ' template_id INTEGER,' +
             ' template_source TEXT,' +
+            ' template_width NUMERIC,' +
+            ' template_height NUMERIC,' +
+            ' template_square NUMERIC,' +
             ' profile_id INTEGER,' +
             ' glass_id VARCHAR,' +
             ' hardware_id INTEGER,' +
@@ -842,11 +845,11 @@
         $http.post(globalConstants.serverIP+'/api/insert?login='+login+'&access_token='+access, dataToSend)
           .success(function (result) {
             console.log('send changes to server success:', result);
-            defer.resolve(1);
+            defer.resolve(result);
           })
           .error(function () {
             console.log('send changes to server failed');
-            defer.resolve(0);
+            defer.resolve(result);
           });
         return defer.promise;
       },

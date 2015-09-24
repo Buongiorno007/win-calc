@@ -38,92 +38,33 @@
 
     //============ methods ================//
 
-
-//    function downloadOrder() {
-//      localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {'order_number': GlobalStor.global.orderEditNumber}).then(function(result) {
-//        if(result.length) {
-//          angular.extend(OrderStor.order, result[0]);
-//          //---- fill form
-//          CartStor.fillOrderForm();
-//        } else {
-//          console.log(result);
-//        }
-//      });
+    //TODO
+//    function setOrderPriceByDiscount(order) {
+//      order.orderPriceTOTALDis = (order.construct_price_total * (1 - order.discount_construct/100)) + (order.addelem_price_total * (1 - order.discount_addelem/100)) + order.floor_price + order.mounting_price;
+//      if(order.is_date_price_less) {
+//        order.orderPriceTOTALDis -= order.delivery_price;
+//      } else if(order.is_date_price_more) {
+//        order.orderPriceTOTALDis += order.delivery_price;
+//      }
+//      order.orderPriceTOTALDis = GeneralServ.roundingNumbers(order.orderPriceTOTALDis);
 //    }
 
 
-//    //------ Download All Products Data for Order
-//    function downloadProducts() {
-//      var deferred = $q.defer();
-//      localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_number': GlobalStor.global.orderEditNumber}).then(function(result) {
-//        if(result) {
-//          var editedProducts = angular.copy(result),
-//            editedProductsQty = editedProducts.length;
-//
-//          //------------- parsing All Templates Source and Icons for Order
-//          for(var prod = 0; prod < editedProductsQty; prod++) {
-//            ProductStor.product = ProductStor.setDefaultProduct();
-//            angular.extend(ProductStor.product, editedProducts[prod]);
-//
-//            //----- checking product with design or only addElements
-//            if(!ProductStor.product.is_addelem_only || ProductStor.product.is_addelem_only === 'false') {
-//              //----- parsing design from string to object
-////              ProductStor.product.template_source = parsingTemplateSource(ProductStor.product.templateSource);
-//              ProductStor.product.template_source = JSON.parse(ProductStor.product.template_source);
-////              console.log('templateSource', ProductStor.product.templateSource);
-//              //----- find depths and build design icon
-//              MainServ.setCurrentProfile().then(function(){
-//                SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, GlobalStor.global.profileDepths).then(function(result) {
-//                  ProductStor.product.templateIcon = angular.copy(result);
-//                  deferred.resolve('done');
-//                });
-//              });
-//            } else {
-//              deferred.resolve('done');
-//            }
-//            OrderStor.order.products.push(ProductStor.product);
-//          }
-//
-//        } else {
-//          deferred.reject(result);
-//        }
-//      });
-//      return deferred.promise;
-//    }
-//
-//
-//    //------ Download All Add Elements from LocalDB
-//    function downloadAddElements() {
-//      var deferred = $q.defer();
-//      localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_number': GlobalStor.global.orderEditNumber}).then(function(result) {
-//        if(result) {
-////          console.log('results.data === ', result);
-//          var allAddElements = angular.copy(result),
-//              allAddElementsQty = allAddElements.length,
-//              elem = 0;
-//
-//          for(; elem < allAddElementsQty; elem++) {
-//            var prod = 0;
-//            for(; prod < OrderStor.order.products_qty; prod++) {
-//              if(allAddElements[elem].product_id === OrderStor.order.products[prod].product_id) {
-//                OrderStor.order.products[prod].chosenAddElements[allAddElements[elem].element_type].push(allAddElements[elem]);
-//                deferred.resolve('done');
-//              }
-//            }
-//          }
-//
-//        } else {
-//          deferred.resolve('done');
-//        }
-//      });
-//      return deferred.promise;
-//    }
+
+    //TODO
+    //    function editProductInLocalDB(product) {
+    //      console.log('!!!!Edit!!!!',product);
+    //      localDB.deleteDB(localDB.productsTableBD, {'orderId': {"value": product.orderId, "union": 'AND'}, "productId": product.productId});
+    //      localDB.deleteDB(localDB.addElementsTableBD, {'orderId': {"value": product.orderId, "union": 'AND'}, "productId": product.productId});
+    //      insertProductInLocalDB(product);
+    //    }
+
 
 
     //----------- create Discount List
     function createDiscontsList() {
       var discounts = {
-            window: [],
+            constr: [],
             addElem: []
           },
           multipl = 5,
@@ -131,7 +72,7 @@
           discAddQty = UserStor.userInfo.discountAddElemMax/multipl,
           d = 0, da = 0;
       for(; d <= discQty; d++) {
-        discounts.window.push( (d * multipl) );
+        discounts.constr.push( (d * multipl) );
       }
       for(; da <= discAddQty; da++) {
         discounts.addElem.push( (da * multipl) );
