@@ -229,17 +229,17 @@
             <ul class="addelements-detail-list">
               <li ng-repeat="addelement in cartPage.C.cart.allAddElements[cartPage.config.detailProductIndex] track by $index" ng-switch="addelement.element_type" class="addelements-detail-item">
                 <div class="product-value">{{ addelement.name }}</div>
-                <div ng-switch-when="1" class="product-value">{{ 'add_elements.GRID' | translate }}</div>
-                <div ng-switch-when="2" class="product-value">{{ 'add_elements.VISOR' | translate }}</div>
-                <div ng-switch-when="3" class="product-value">{{ 'add_elements.SPILLWAY' | translate }}</div>
-                <div ng-switch-when="4" class="product-value">{{ 'add_elements.OUTSIDE' | translate }}</div>
-                <div ng-switch-when="5" class="product-value">{{ 'add_elements.LOUVERS' | translate }}</div>
-                <div ng-switch-when="6" class="product-value">{{ 'add_elements.INSIDE' | translate }}</div>
-                <div ng-switch-when="7" class="product-value">{{ 'add_elements.CONNECTORS' | translate }}</div>
-                <div ng-switch-when="8" class="product-value">{{ 'add_elements.FAN' | translate }}</div>
-                <div ng-switch-when="9" class="product-value">{{ 'add_elements.WINDOWSILL' | translate }}</div>
-                <div ng-switch-when="10" class="product-value">{{ 'add_elements.HANDLEL' | translate }}</div>
-                <div ng-switch-when="11" class="product-value">{{ 'add_elements.OTHERS' | translate }}</div>
+                <div ng-switch-when="0" class="product-value">{{ 'add_elements.GRID' | translate }}</div>
+                <div ng-switch-when="1" class="product-value">{{ 'add_elements.VISOR' | translate }}</div>
+                <div ng-switch-when="2" class="product-value">{{ 'add_elements.SPILLWAY' | translate }}</div>
+                <div ng-switch-when="3" class="product-value">{{ 'add_elements.OUTSIDE' | translate }}</div>
+                <div ng-switch-when="4" class="product-value">{{ 'add_elements.LOUVERS' | translate }}</div>
+                <div ng-switch-when="5" class="product-value">{{ 'add_elements.INSIDE' | translate }}</div>
+                <div ng-switch-when="6" class="product-value">{{ 'add_elements.CONNECTORS' | translate }}</div>
+                <div ng-switch-when="7" class="product-value">{{ 'add_elements.FAN' | translate }}</div>
+                <div ng-switch-when="8" class="product-value">{{ 'add_elements.WINDOWSILL' | translate }}</div>
+                <div ng-switch-when="9" class="product-value">{{ 'add_elements.HANDLEL' | translate }}</div>
+                <div ng-switch-when="10" class="product-value">{{ 'add_elements.OTHERS' | translate }}</div>
                 <div class="addelement-parameters">
                   <div ng-show="addelement.element_width" class="addelement-parameter">
                     <div class="addelement-value">{{ addelement.element_width }}</div>
@@ -999,4 +999,7 @@
       </div>
     </div>
   </section>
+  <div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader" class="loader-container">
+    <div class="loader"></div>
+  </div>
 </section>

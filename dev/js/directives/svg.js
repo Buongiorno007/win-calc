@@ -142,28 +142,12 @@
                           } else if (d.points[1].fi > 225 && d.points[1].fi < 315) {
                             return 'url(#handleD)';
                           }
-//                          switch(d.points[1].fi) {
-//                            case 0:
-//                              return 'url(#handleR)';
-//                            case 90:
-//                              return 'url(#handleU)';
-//                            case 270:
-//                              return 'url(#handleD)';
-//                            case 180:
-//                              return 'url(#handleL)';
-//                          }
                         } else if(dirQty === 2) {
                           if(d.points[1].fi < 45 || d.points[1].fi > 315) {
                             return 'url(#handleR)';
                           } else if(d.points[1].fi > 135 && d.points[1].fi < 225) {
                             return 'url(#handleL)';
                           }
-//                          switch(d.points[1].fi) {
-//                            case 0:
-//                              return 'url(#handleR)';
-//                            case 180:
-//                              return 'url(#handleL)';
-//                          }
                         }
                       }
                     });

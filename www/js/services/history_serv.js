@@ -263,12 +263,16 @@
               break;
             }
           }
+          //------ if no more orders
+           if(!orderList.length) {
+             HistoryStor.history.isEmptyResult = 1;
+           }
 
           //------- delete order/draft and all its elements in LocalDB
           MainServ.deleteOrderInDB(orderNum);
-
+          //------- delet order in Server
           if(orderType) {
-            //TODO delet on Server
+            localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, orderNum);
           }
         }
       }
@@ -292,8 +296,17 @@
         }
       }
 
+
+
       //------ Download All Products of edited Order
-      downloadProducts().then(function() {
+      downloadProducts().then(function(tempIcon) {
+          var iconQty = tempIcon.length,
+              icon = 0;
+          for(; icon < iconQty; icon++) {
+            OrderStor.order.products[icon].templateIcon = angular.copy(tempIcon[icon]);
+          }
+
+        console.info('PROMISE 2++++',  OrderStor.order);
         //------ Download All Add Elements from LocalDB
         downloadAddElements().then(function () {
           GlobalStor.global.isConfigMenu = 1;
@@ -311,24 +324,29 @@
     //------ Download All Products Data for Order
     function downloadProducts() {
       var deferred = $q.defer();
+
       localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(products) {
-        var productsQty = products.length;
-        if(productsQty) {
+        if(products.length) {
+
           //------------- parsing All Templates Source and Icons for Order
-          for(var prod = 0; prod < productsQty; prod++) {
+          var productPromises = products.map(function(prod) {
+            var defer1 = $q.defer();
+
             ProductStor.product = ProductStor.setDefaultProduct();
-            angular.extend(ProductStor.product, products[prod]);
-console.info('EDIT PRODUCT', ProductStor.product);
+            angular.extend(ProductStor.product, prod);
+
             //----- checking product with design or only addElements
             if(!ProductStor.product.is_addelem_only) {
               //----- parsing design from string to object
               ProductStor.product.template_source = JSON.parse(ProductStor.product.template_source);
-              //              console.log('templateSource', ProductStor.product.templateSource);
+
               //----- find depths and build design icon
               MainServ.setCurrentProfile(ProductStor.product.profile_id).then(function(){
+                console.warn('glass ++++', ProductStor.product.glass_id);
                 if(ProductStor.product.glass_id) {
                   var glassIDs = ProductStor.product.glass_id.split(','),
                       glassIDsQty = glassIDs.length;
+                  console.warn('glass 2++++', glassIDs);
                   if(glassIDsQty) {
                     while(--glassIDsQty > -1) {
                       MainServ.setCurrentGlass(glassIDs[glassIDsQty]);
@@ -336,23 +354,40 @@ console.info('EDIT PRODUCT', ProductStor.product);
                   }
                 }
                 MainServ.setCurrentHardware(ProductStor.product.hardware_id);
-                SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, GlobalStor.global.profileDepths).then(function(result) {
-                  ProductStor.product.templateIcon = angular.copy(result);
-                  deferred.resolve(1);
-                });
+
+                OrderStor.order.products.push(ProductStor.product);
+
+                defer1.resolve(ProductStor.product);
               });
+
             } else {
-              deferred.resolve(1);
+              //deferred.resolve(1);
             }
-            OrderStor.order.products.push(ProductStor.product);
-          }
+            return defer1.promise;
+          });
+
+          $q.all(productPromises).then(function(data) {
+            console.info('PROMISE 1++++', data);
+            var iconPromise = data.map(function(item) {
+              var deferIcon = $q.defer();
+              SVGServ.createSVGTemplateIcon(item.template_source, GlobalStor.global.profileDepths).then(function(data) {
+                deferIcon.resolve(data);
+              });
+              return deferIcon.promise;
+            });
+
+            deferred.resolve($q.all(iconPromise));
+          });
 
         } else {
-          deferred.reject(products);
+//          deferred.reject(products);
         }
       });
       return deferred.promise;
     }
+
+
+
 
 
     //------ Download All Add Elements from LocalDB

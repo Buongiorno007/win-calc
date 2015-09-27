@@ -131,7 +131,7 @@
       existedElement = checkExistedSelectAddElement(ProductStor.product.chosenAddElements[index], currElement.id);
       if(existedElement === undefined) {
         var newElementSource = {
-              element_type: AuxStor.aux.isFocusedAddElement,
+              element_type: index,
               element_width: 0,
               element_height: 0
             },
@@ -140,7 +140,7 @@
         ProductStor.product.chosenAddElements[index].push(newElement);
         //---- open TABFrame when second element selected
         if(ProductStor.product.chosenAddElements[index].length === 2) {
-          AuxStor.aux.isTabFrame = true;
+          AuxStor.aux.isTabFrame = 1;
         }
       } else {
         ProductStor.product.chosenAddElements[index][existedElement].element_qty += 1;

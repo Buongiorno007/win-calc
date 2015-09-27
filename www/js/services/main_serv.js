@@ -935,6 +935,7 @@
 
     //-------- save Order into Local DB
     function saveOrderInDB(newOptions, orderType, orderStyle) {
+      var deferred = $q.defer();
       //---------- if EDIT Order, before inserting delete old order
       if(GlobalStor.global.orderEditNumber) {
         deleteOrderInDB(GlobalStor.global.orderEditNumber);
@@ -1051,10 +1052,12 @@
             orderData.order_number = respond.order_number;
           }
           localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
+          deferred.resolve(1);
         });
       } else {
         //------- save draft
         localDB.insertRowLocalDB(orderData, localDB.tablesLocalDB.orders.tableName);
+        deferred.resolve(1);
       }
 
 
@@ -1064,6 +1067,7 @@
       loginServ.setUserGeoLocation(UserStor.userInfo.city_id, UserStor.userInfo.cityName, UserStor.userInfo.regionName, UserStor.userInfo.countryName, UserStor.userInfo.climaticZone, UserStor.userInfo.heatTransfer, UserStor.userInfo.fullLocation);
       //----- finish working with order
       GlobalStor.global.isCreatedNewProject = 0;
+      return deferred.promise;
     }
 
 

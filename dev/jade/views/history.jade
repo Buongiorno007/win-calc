@@ -78,7 +78,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                   .account-data.title
                     .complete-icon(ng-show="order.order_style == 'done'")
                     .account-id(ng-if="order.order_number") id {{ order.order_number }}
-                      span(ng-if="order.order_hz") {{ order.order_hz }}
+                      span(ng-if="order.order_hz && order.order_hz !== '---'") {{ order.order_hz }}
                     .account-addinfo
                       span(ng-hide="!order.floor_id && !order.mounting_id") - {{ 'history.INCLUDED' | translate }}:
                       span(ng-hide="!order.floor_id") &nbsp; {{ 'cart.DELIVERY' | translate }}

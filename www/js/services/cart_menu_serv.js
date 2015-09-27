@@ -158,6 +158,7 @@
     //--------- send Order in Local DB
     function sendOrder() {
       var orderStyle;
+      GlobalStor.global.isLoader = 1;
       //------- set order style
       if(CartStor.cart.isOrderDialog) {
         orderStyle = 'order';
@@ -166,13 +167,15 @@
       } else if(CartStor.cart.isMasterDialog) {
         orderStyle = 'master';
       }
-      MainServ.saveOrder(CartStor.cart.customer, 1, orderStyle);
-      //--------- Close cart dialog, go to history
-      closeOrderDialog();
-      //------- set previos Page
-      GeneralServ.setPreviosPage();
-      analyticsServ.sendAnalyticsGlobalDB(OrderStor.order);
-      $location.path('/history');
+      MainServ.saveOrderInDB(CartStor.cart.customer, 1, orderStyle).then(function() {
+        //--------- Close cart dialog, go to history
+        closeOrderDialog();
+        //------- set previos Page
+        GeneralServ.setPreviosPage();
+        //TODO ??? analyticsServ.sendAnalyticsGlobalDB(OrderStor.order);
+        GlobalStor.global.isLoader = 0;
+        $location.path('/history');
+      });
     }
 
 

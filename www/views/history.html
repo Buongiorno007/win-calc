@@ -151,7 +151,7 @@
                 <div class="account-row header">
                   <div class="account-data title">
                     <div ng-show="order.order_style == 'done'" class="complete-icon"></div>
-                    <div ng-if="order.order_number" class="account-id">id {{ order.order_number }}<span ng-if="order.order_hz">{{ order.order_hz }}</span></div>
+                    <div ng-if="order.order_number" class="account-id">id {{ order.order_number }}<span ng-if="order.order_hz &amp;&amp; order.order_hz !== '---'">{{ order.order_hz }}</span></div>
                     <div class="account-addinfo"><span ng-hide="!order.floor_id &amp;&amp; !order.mounting_id">- {{ 'history.INCLUDED' | translate }}:</span><span ng-hide="!order.floor_id">&nbsp; {{ 'cart.DELIVERY' | translate }}</span><span ng-hide="!order.floor_id || !order.mounting_id">&nbsp; {{ 'common_words.AND' | translate }}</span><span ng-hide="!order.mounting_id">&nbsp; {{ 'cart.ASSEMBLING' | translate }}</span></div>
                   </div>
                   <div class="account-data">

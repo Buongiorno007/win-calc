@@ -850,7 +850,7 @@
             console.log('send changes to server success:', result);
             defer.resolve(result);
           })
-          .error(function () {
+          .error(function (result) {
             console.log('send changes to server failed');
             defer.resolve(result);
           });
@@ -900,6 +900,16 @@
       },
 
 
+      deleteOrderServer: function(login, access, orderNumber) {
+        var dataSend = {orderId: orderNumber*1};
+        $http.post(globalConstants.serverIP+'/api/remove-order?login='+login+'&access_token='+access, dataSend)
+          .success(function (result) {
+            console.log(result);
+          })
+          .error(function () {
+            console.log('Something went wrong with order delete!');
+          });
+      },
 
 
 

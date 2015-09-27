@@ -69,13 +69,13 @@
 
     //================ EDIT order from Histoy Page
     if(GlobalStor.global.orderEditNumber > 0) {
-
+      console.info('EDIT ORDER', OrderStor.order);
 
     //=========== from Main Page
     } else {
       //----- cleaning product
       ProductStor.product = ProductStor.setDefaultProduct();
-
+console.info(ProductStor.product);
       //----------- start order price total calculation
       CartServ.calculateAllProductsPrice();
       OrderStor.order.order_price_total = OrderStor.order.products_price_total;
