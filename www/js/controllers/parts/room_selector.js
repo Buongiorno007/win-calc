@@ -23,7 +23,7 @@
 
 
     //TODO must be from Server
-    for(var r = 0; r < 13; r++) {
+    for(var r = 0; r < 16; r++) {
       var roomObj = {id: r};
       thisCtrl.config.rooms.push(roomObj);
     }

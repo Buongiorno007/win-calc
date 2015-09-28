@@ -23,7 +23,7 @@
     //TODO desktop
     //------- IMG rooms preload
     $document.ready(function() {
-      for(var i = 0; i < 13; i++) {
+      for(var i = 0; i < 16; i++) {
         $("<img />").attr("src", "img/rooms-icon/"+i+".jpg");
         $("<img />").attr("src", "img/rooms/"+i+".jpg");
       }

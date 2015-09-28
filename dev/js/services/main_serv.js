@@ -26,6 +26,7 @@
       setCurrentProfile: setCurrentProfile,
       setCurrentGlass: setCurrentGlass,
       setCurrentHardware: setCurrentHardware,
+      fineItemById: fineItemById,
       parseTemplate: parseTemplate,
       saveTemplateInProduct: saveTemplateInProduct,
       checkSashInTemplate: checkSashInTemplate,
@@ -295,8 +296,9 @@
         var listQty = GlobalStor.global.glassesAll[g].glassLists.length;
         for(var l = 0; l < listQty; l++) {
           if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalStor.global.glassesAll[g].glasses[l].id) {
-            GlobalStor.global.glassesAll[g].glasses[l].list_id = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].id);
-            GlobalStor.global.glassesAll[g].glasses[l].list_name = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].name);
+            GlobalStor.global.glassesAll[g].glasses[l].elem_id = angular.copy(GlobalStor.global.glassesAll[g].glasses[l].id);
+            GlobalStor.global.glassesAll[g].glasses[l].id = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].id);
+            GlobalStor.global.glassesAll[g].glasses[l].name = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].name);
             GlobalStor.global.glassesAll[g].glasses[l].cameras = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].cameras);
           }
         }
@@ -349,7 +351,7 @@
           GlobalStor.global.templatesSource = angular.copy(data);
 
           //--------- set current profile in ProductStor
-          setCurrentProfile().then(function(){
+          setCurrentProfile(ProductStor.product).then(function(){
             parseTemplate().then(function() {
               deferred.resolve(1);
             });
@@ -418,21 +420,20 @@
 
 
     //-------- set default profile
-    function setCurrentProfile(id) {
+    function setCurrentProfile(product, id) {
       var deferred = $q.defer();
       if(id) {
-        ProductStor.product.profile = fineItemById(id, GlobalStor.global.profiles);
+        product.profile = fineItemById(id, GlobalStor.global.profiles);
       } else {
-        ProductStor.product.profile = GlobalStor.global.profiles[0][0];
+        product.profile = GlobalStor.global.profiles[0][0];
       }
-
       //------- set Depths
       $q.all([
-        downloadProfileDepth(ProductStor.product.profile.rama_list_id),
-        downloadProfileDepth(ProductStor.product.profile.rama_still_list_id),
-        downloadProfileDepth(ProductStor.product.profile.stvorka_list_id),
-        downloadProfileDepth(ProductStor.product.profile.impost_list_id),
-        downloadProfileDepth(ProductStor.product.profile.shtulp_list_id)
+        downloadProfileDepth(product.profile.rama_list_id),
+        downloadProfileDepth(product.profile.rama_still_list_id),
+        downloadProfileDepth(product.profile.stvorka_list_id),
+        downloadProfileDepth(product.profile.impost_list_id),
+        downloadProfileDepth(product.profile.shtulp_list_id)
       ]).then(function (result) {//TODO why global ????
         GlobalStor.global.profileDepths.frameDepth = result[0];
         GlobalStor.global.profileDepths.frameStillDepth = result[1];
@@ -481,10 +482,10 @@
       var deferred = $q.defer();
       //------- set current template for product
       saveTemplateInProduct(ProductStor.product.templateIndex).then(function() {
-        setCurrentGlass();
-        setCurrentHardware();
+        setCurrentGlass(ProductStor.product);
+        setCurrentHardware(ProductStor.product);
         var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
-        preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass[0].list_id, hardwareIds).then(function() {
+        preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass[0].id, hardwareIds).then(function() {
           deferred.resolve(1);
         });
       });
@@ -499,7 +500,7 @@
       //----- create template
       SVGServ.createSVGTemplate(ProductStor.product.template_source, GlobalStor.global.profileDepths).then(function(result) {
         ProductStor.product.template = angular.copy(result);
-        GlobalStor.global.isSashesInTemplate = checkSashInTemplate();
+        GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product);
 //        console.log('TEMPLATE +++', ProductStor.product.template);
         //----- create template icon
         SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, GlobalStor.global.profileDepths).then(function(result) {
@@ -512,11 +513,11 @@
 
 
 
-    function checkSashInTemplate() {
-      var templQty = ProductStor.product.template.details.length,
+    function checkSashInTemplate(product) {
+      var templQty = product.template_source.details.length,
           counter = 0;
       while(--templQty > 0) {
-        if(ProductStor.product.template.details[templQty].blockType === 'sash') {
+        if(product.template_source.details[templQty].blockType === 'sash') {
           ++counter;
         }
       }
@@ -525,33 +526,33 @@
 
 
 
-    function setCurrentGlass(id) {
+    function setCurrentGlass(product, id) {
       if(id) {
-        ProductStor.product.glass.unshift(fineItemById(id, GlobalStor.global.glasses));
+        product.glass.unshift(fineItemById(id, GlobalStor.global.glasses));
       } else {
         //----- set default glass in ProductStor
         var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
-          return item.profileId === ProductStor.product.profile.id;
+          return item.profileId === product.profile.id;
         });
         //      console.log('tempGlassArr = ', tempGlassArr);
         if(tempGlassArr.length) {
           GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
           GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
-          ProductStor.product.glass.unshift(GlobalStor.global.glasses[0][0]);
+          product.glass.unshift(GlobalStor.global.glasses[0][0]);
         }
       }
-
     }
 
-    function setCurrentHardware(id) {
+
+    function setCurrentHardware(product, id) {
       if(id) {
-        ProductStor.product.hardware = fineItemById(id, GlobalStor.global.hardwares);
+        product.hardware = fineItemById(id, GlobalStor.global.hardwares);
       } else {
         //----- set default hardware in ProductStor
         if(GlobalStor.global.isSashesInTemplate) {
-          ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+          product.hardware = GlobalStor.global.hardwares[0][0];
         } else {
-          ProductStor.product.hardware = {};
+          product.hardware = {};
         }
       }
     }

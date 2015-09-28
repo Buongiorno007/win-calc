@@ -32,7 +32,8 @@
 
     //---------- Select profile
     function selectProfile(newId) {
-      MainServ.setCurrentProfile(newId).then(function(){
+      MainServ.setCurrentProfile(ProductStor.product, newId).then(function(){
+        ProductStor.product.glass.length = 0;
         MainServ.parseTemplate();
       });
 

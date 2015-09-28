@@ -26,7 +26,6 @@
         template_width: 0,
         template_height: 0,
         template_square: 0,
-        template_svg: '',
 
         profile: {},
         glass: [],

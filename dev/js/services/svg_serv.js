@@ -688,7 +688,6 @@
         collectImpPointsXChildBlock(currBlock.impost.impostIn, blocks[indexChildBlock1].pointsIn, blocks[indexChildBlock2].pointsIn);
 //        console.log('!!!!! indexChildBlock1 -----', JSON.stringify(blocks[indexChildBlock1].pointsIn));
 //        console.log('!!!!! indexChildBlock2 -----', JSON.stringify(blocks[indexChildBlock2].pointsIn));
-
         //-------- set real impostAxis coord for dimensions
         var linesOutQty = currBlock.linesOut.length,
             impostQP;
@@ -696,7 +695,6 @@
           impostQP = angular.copy(currBlock.impost.impostAxis[2]);
         }
         currBlock.impost.impostAxis.length = 0;
-//        console.log('----impostAxis-------', currBlock.impost.impostAxis);
         for(var i = 0; i < linesOutQty; i++) {
           getCPImpostInsideBlock(0, 0, i, linesOutQty, currBlock.linesOut, impVectorAx1, impAx0, currBlock.impost.impostAxis);
         }

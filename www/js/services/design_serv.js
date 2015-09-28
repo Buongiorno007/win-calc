@@ -108,13 +108,13 @@
 
         //------- if sash was added in empty template
         if(!GlobalStor.global.isSashesInTemplate) {
-          GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate();
+          GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(ProductStor.product);
           if (GlobalStor.global.isSashesInTemplate) {
             ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
           }
         }
         //------- refresh price of new template
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass[0].list_id, ProductStor.product.hardware.id).then(function() {
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass[0].id, ProductStor.product.hardware.id).then(function() {
           //-------- template was changed
           GlobalStor.global.isChangedTemplate = true;
           //$cordovaProgress.hide();

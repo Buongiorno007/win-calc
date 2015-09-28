@@ -57,7 +57,7 @@
     function downloadOrders() {
       localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {order_type: 1}).then(function(result) {
         var orders = angular.copy(result);
-//        console.log('orders+++++', orders);
+        console.log('orders+++++', orders);
        var orderQty = orders.length;
         if(orderQty) {
           while(--orderQty > -1) {
@@ -74,6 +74,7 @@
         } else {
           HistoryStor.history.isEmptyResult = 1;
         }
+        console.info('isEmptyResult+++++++++',HistoryStor.history.isEmptyResult);
       });
     }
 
@@ -296,17 +297,8 @@
         }
       }
 
-
-
       //------ Download All Products of edited Order
-      downloadProducts().then(function(tempIcon) {
-          var iconQty = tempIcon.length,
-              icon = 0;
-          for(; icon < iconQty; icon++) {
-            OrderStor.order.products[icon].templateIcon = angular.copy(tempIcon[icon]);
-          }
-
-        console.info('PROMISE 2++++',  OrderStor.order);
+      downloadProducts().then(function() {
         //------ Download All Add Elements from LocalDB
         downloadAddElements().then(function () {
           GlobalStor.global.isConfigMenu = 1;
@@ -314,7 +306,8 @@
           //------- set previos Page
           GeneralServ.setPreviosPage();
           GlobalStor.global.isLoader = 0;
-          $location.path('/cart');
+          console.info('ORDER 2++++',  OrderStor.order);
+//          $location.path('/cart');
         });
       });
 
@@ -330,48 +323,49 @@
 
           //------------- parsing All Templates Source and Icons for Order
           var productPromises = products.map(function(prod) {
-            var defer1 = $q.defer();
-
-            ProductStor.product = ProductStor.setDefaultProduct();
-            angular.extend(ProductStor.product, prod);
+            var defer1 = $q.defer(),
+                tempProd = ProductStor.setDefaultProduct();
+            angular.extend(tempProd, prod);
 
             //----- checking product with design or only addElements
-            if(!ProductStor.product.is_addelem_only) {
+            if(!tempProd.is_addelem_only) {
               //----- parsing design from string to object
-              ProductStor.product.template_source = JSON.parse(ProductStor.product.template_source);
+              tempProd.template_source = JSON.parse(tempProd.template_source);
 
               //----- find depths and build design icon
-              MainServ.setCurrentProfile(ProductStor.product.profile_id).then(function(){
-                console.warn('glass ++++', ProductStor.product.glass_id);
-                if(ProductStor.product.glass_id) {
-                  var glassIDs = ProductStor.product.glass_id.split(','),
+              MainServ.setCurrentProfile(tempProd, tempProd.profile_id).then(function(){
+                if(tempProd.glass_id) {
+                  var glassIDs = tempProd.glass_id.split(', '),
                       glassIDsQty = glassIDs.length;
-                  console.warn('glass 2++++', glassIDs);
                   if(glassIDsQty) {
                     while(--glassIDsQty > -1) {
-                      MainServ.setCurrentGlass(glassIDs[glassIDsQty]);
+                      setGlassXOrder(tempProd, glassIDs[glassIDsQty]*1);
                     }
                   }
                 }
-                MainServ.setCurrentHardware(ProductStor.product.hardware_id);
-
-                OrderStor.order.products.push(ProductStor.product);
-
-                defer1.resolve(ProductStor.product);
+                GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd);
+                MainServ.setCurrentHardware(tempProd, tempProd.hardware_id);
+                setLaminationXOrder(tempProd);
+                defer1.resolve(tempProd);
               });
 
             } else {
-              //deferred.resolve(1);
+              defer1.resolve(1);
             }
             return defer1.promise;
           });
 
           $q.all(productPromises).then(function(data) {
-            console.info('PROMISE 1++++', data);
+
             var iconPromise = data.map(function(item) {
               var deferIcon = $q.defer();
               SVGServ.createSVGTemplateIcon(item.template_source, GlobalStor.global.profileDepths).then(function(data) {
-                deferIcon.resolve(data);
+                item.templateIcon = data;
+                delete item.profile_id;
+                delete item.glass_id;
+                delete item.hardware_id;
+                OrderStor.order.products.push(item);
+                deferIcon.resolve(1);
               });
               return deferIcon.promise;
             });
@@ -380,7 +374,7 @@
           });
 
         } else {
-//          deferred.reject(products);
+          deferred.reject(products);
         }
       });
       return deferred.promise;
@@ -388,6 +382,39 @@
 
 
 
+    function setGlassXOrder(product, id) {
+      //----- set default glass in ProductStor
+      var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+        return item.profileId === product.profile.id;
+      });
+      //      console.log('tempGlassArr = ', tempGlassArr);
+      if(tempGlassArr.length) {
+        product.glass.unshift(MainServ.fineItemById(id, tempGlassArr[0].glasses));
+      }
+
+    }
+
+
+    function setLaminationXOrder(product) {
+      console.info(product);
+      console.warn('lam ++++', GlobalStor.global.laminationsOut, GlobalStor.global.laminationsOut);
+      if(product.lamination_in_id) {
+        var lamInQty = GlobalStor.global.laminationsIn.length;
+        while(--lamInQty > -1) {
+          if(GlobalStor.global.laminationsIn[lamInQty].lamination_type_id === product.lamination_in_id) {
+            product.laminationInName = angular.copy(GlobalStor.global.laminationsIn[lamInQty].name);
+          }
+        }
+      }
+      if(product.lamination_out_id) {
+        var lamOutQty = GlobalStor.global.laminationsOut.length;
+        while(--lamOutQty > -1) {
+          if(GlobalStor.global.laminationsOut[lamOutQty].lamination_type_id === product.lamination_out_id) {
+            product.laminationOutName = angular.copy(GlobalStor.global.laminationsOut[lamOutQty].name);
+          }
+        }
+      }
+    }
 
 
     //------ Download All Add Elements from LocalDB
@@ -398,8 +425,6 @@
             orderProductsQty = OrderStor.order.products.length;
 
         if(allAddElemQty) {
-          //          console.log('results.data === ', result);
-
           while(--allAddElemQty > -1) {
             for(var prod = 0; prod < orderProductsQty; prod++) {
               if(result[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {

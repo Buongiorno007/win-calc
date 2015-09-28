@@ -64,16 +64,24 @@
     function entriyWithoutLogin() {
       var url = $location.search();
 //      console.log('url = ', url); //{access: '5b1b68a9abf4d2cd155c81a9225fd158'}
-      if(url.access === '7d537b6746f925b1703aefa9b8a9a4bc') {
+      switch(url.access) {
+        case '7d537b6746f925b1703aefa9b8a9a4bc':
+          thisCtrl.user.phone = '0950604425';
+          thisCtrl.user.password = '0950604425';
+          break;
+        case 'ff8134058378465dd485608f85eea994':
+          thisCtrl.user.phone = 'steko';
+          thisCtrl.user.password = 'steko';
+          break;
+      }
+      if(thisCtrl.user.phone && thisCtrl.user.password) {
         GlobalStor.global.isLoader = 1;
-        thisCtrl.user.phone = '0950604425';
-        thisCtrl.user.password = '0950604425';
         importDBProsses();
       }
+
     }
 //?access=7d537b6746f925b1703aefa9b8a9a4bc
-
-
+//?access=ff8134058378465dd485608f85eea994
 
 
 

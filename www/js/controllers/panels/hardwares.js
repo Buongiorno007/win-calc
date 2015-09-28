@@ -34,9 +34,9 @@
     //----------- Select hardware
     function selectHardware(newId) {
       //-------- set current Hardware
-      MainServ.setCurrentHardware(newId);
+      MainServ.setCurrentHardware(ProductStor.product, newId);
       //------ calculate price
-      MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass[0].list_id, ProductStor.product.hardware.id);//TODO array!!
+      MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass[0].id, ProductStor.product.hardware.id);//TODO array!!
       //------ save analytics data
 //TODO      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_id, hardwareIndex, hardwareTypeIndex);
     }

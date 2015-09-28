@@ -34,9 +34,9 @@
     function selectGlass(newId) {
       var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
       //------- set currenct Glass
-      MainServ.setCurrentGlass(newId);
+      MainServ.setCurrentGlass(ProductStor.product, newId);
       //------ calculate price
-      MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass[0].list_id, hardwareIds);//TODO array!!
+      MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass[0].id, hardwareIds);//TODO array!!
       //------ save analytics data
 //      analyticsServ.saveGlassAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, newId, typeIndex);
       //TODO analyticsServ.saveGlassAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_id, newId);
