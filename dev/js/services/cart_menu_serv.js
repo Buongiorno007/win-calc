@@ -54,7 +54,7 @@
         OrderStor.order.is_instalment = 1;
         OrderStor.order.selectedInstalmentPeriod = period;
         OrderStor.order.selectedInstalmentPercent = percent;
-        calculateInstalmentPrice(OrderStor.order.order_price_total, OrderStor.order.order_price_total_primary, CartStor.cart.orderPriceTOTALDis, CartStor.cart.orderPriceTOTALPrimaryDis);
+        calculateInstalmentPrice(OrderStor.order.order_price_total, OrderStor.order.order_price_total_primary, OrderStor.order.order_price_total_dis, CartStor.cart.orderPriceTOTALPrimaryDis);
       }
     }
 
@@ -97,37 +97,37 @@
       //playSound('price');
 
       OrderStor.order.order_price_total = 0;
-      CartStor.cart.orderPriceTOTALDis = 0;
+      OrderStor.order.order_price_total_dis = 0;
 
       //----- add product prices, floor price, assembling price
       OrderStor.order.order_price_total += OrderStor.order.products_price_total + OrderStor.order.floor_price + OrderStor.order.mounting_price;
-      CartStor.cart.orderPriceTOTALDis += CartStor.cart.productsPriceTOTALDis + OrderStor.order.floor_price + OrderStor.order.mounting_price;
+      OrderStor.order.order_price_total_dis += CartStor.cart.productsPriceTOTALDis + OrderStor.order.floor_price + OrderStor.order.mounting_price;
 
       //----- save primary total price
       OrderStor.order.order_price_total_primary = OrderStor.order.order_price_total;
-      CartStor.cart.orderPriceTOTALPrimaryDis = CartStor.cart.orderPriceTOTALDis;
+      CartStor.cart.orderPriceTOTALPrimaryDis = OrderStor.order.order_price_total_dis;
       //----- add delivery price
       if(OrderStor.order.delivery_price) {
         if(OrderStor.order.is_date_price_more) {
           OrderStor.order.order_price_total += OrderStor.order.delivery_price;
-          CartStor.cart.orderPriceTOTALDis += OrderStor.order.delivery_price;
+          OrderStor.order.order_price_total_dis += OrderStor.order.delivery_price;
         } else if(OrderStor.order.is_date_price_less) {
           OrderStor.order.order_price_total -= OrderStor.order.delivery_price;
-          CartStor.cart.orderPriceTOTALDis -= OrderStor.order.delivery_price;
+          OrderStor.order.order_price_total_dis -= OrderStor.order.delivery_price;
         }
       } else {
         OrderStor.order.order_price_total = OrderStor.order.order_price_total_primary;
-        CartStor.cart.orderPriceTOTALDis = CartStor.cart.orderPriceTOTALPrimaryDis;
+        OrderStor.order.order_price_total_dis = CartStor.cart.orderPriceTOTALPrimaryDis;
       }
 
       OrderStor.order.order_price_total = GeneralServ.roundingNumbers(OrderStor.order.order_price_total);
-      CartStor.cart.orderPriceTOTALDis = GeneralServ.roundingNumbers(CartStor.cart.orderPriceTOTALDis);
-      CartStor.cart.discountPriceDiff = GeneralServ.roundingNumbers(OrderStor.order.order_price_total - CartStor.cart.orderPriceTOTALDis);
+      OrderStor.order.order_price_total_dis = GeneralServ.roundingNumbers(OrderStor.order.order_price_total_dis);
+      CartStor.cart.discountPriceDiff = GeneralServ.roundingNumbers(OrderStor.order.order_price_total - OrderStor.order.order_price_total_dis);
 
       console.log('OrderStor++++++',OrderStor.order);
       console.log('OrderStor++++++',CartStor.cart);
       //------ get price with instalment
-      calculateInstalmentPrice(OrderStor.order.order_price_total, OrderStor.order.order_price_total_primary, CartStor.cart.orderPriceTOTALDis, CartStor.cart.orderPriceTOTALPrimaryDis);
+      calculateInstalmentPrice(OrderStor.order.order_price_total, OrderStor.order.order_price_total_primary, OrderStor.order.order_price_total_dis, CartStor.cart.orderPriceTOTALPrimaryDis);
     }
 
 

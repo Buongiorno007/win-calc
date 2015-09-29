@@ -12,9 +12,6 @@
     var thisFactory = this;
 
     thisFactory.publicObj = {
-//      downloadOrder: downloadOrder,
-//      downloadProducts: downloadProducts,
-//      downloadAddElements: downloadAddElements,
       joinAllAddElements: joinAllAddElements,
       increaseProductQty: increaseProductQty,
       decreaseProductQty: decreaseProductQty,

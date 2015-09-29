@@ -201,7 +201,7 @@
 
       thisObj.dimension = initDimensions(thisObj.details);
 
-      console.log('TEMPLATE END++++', thisObj);
+//      console.log('TEMPLATE END++++', thisObj);
 //      console.log('svg finish', new Date(), new Date().getMilliseconds());
 //      console.log('------------------------------------------------------');
       defer.resolve(thisObj);

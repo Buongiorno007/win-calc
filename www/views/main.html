@@ -958,7 +958,7 @@
           </li>
         </ul>
         <footer ng-if="configMenu.G.global.isConfigMenu" show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}" class="menu-footer unvisible">
-          <price price-value="configMenu.P.product.productPriceTOTALDis" price-currency="configMenu.U.userInfo.currency"></price>
+          <price price-value="configMenu.P.product.product_price_dis" price-currency="configMenu.U.userInfo.currency"></price>
           <button ng-if="!configMenu.G.global.productEditNumber" hm-tap="configMenu.inputProductInOrder()" class="cart-btn">{{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
             <div ng-if="configMenu.O.order.products_qty" show-delay="{{ configMenu.config.DELAY_START }}" class="qty unvisible">{{ configMenu.O.order.products_qty }}</div>
           </button>

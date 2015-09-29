@@ -101,7 +101,6 @@
     function setCurrDiscounts() {
       OrderStor.order.discount_construct = angular.copy(UserStor.userInfo.discountConstr);
       OrderStor.order.discount_addelem = angular.copy(UserStor.userInfo.discountAddElem);
-//      console.log('CHECKING======', JSON.stringify(UserStor.userInfo.discountConstr));
     }
 
 
@@ -438,11 +437,11 @@
         downloadProfileDepth(product.profile.impost_list_id),
         downloadProfileDepth(product.profile.shtulp_list_id)
       ]).then(function (result) {//TODO why global ????
-        GlobalStor.global.profileDepths.frameDepth = result[0];
-        GlobalStor.global.profileDepths.frameStillDepth = result[1];
-        GlobalStor.global.profileDepths.sashDepth = result[2];
-        GlobalStor.global.profileDepths.impostDepth = result[3];
-        GlobalStor.global.profileDepths.shtulpDepth = result[4];
+        product.profileDepths.frameDepth = result[0];
+        product.profileDepths.frameStillDepth = result[1];
+        product.profileDepths.sashDepth = result[2];
+        product.profileDepths.impostDepth = result[3];
+        product.profileDepths.shtulpDepth = result[4];
         deferred.resolve(1);
       });
       return deferred.promise;
@@ -501,12 +500,12 @@
       var defer = $q.defer();
       ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
       //----- create template
-      SVGServ.createSVGTemplate(ProductStor.product.template_source, GlobalStor.global.profileDepths).then(function(result) {
+      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
         ProductStor.product.template = angular.copy(result);
         GlobalStor.global.isSashesInTemplate = checkSashInTemplate(ProductStor.product);
 //        console.log('TEMPLATE +++', ProductStor.product.template);
         //----- create template icon
-        SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, GlobalStor.global.profileDepths).then(function(result) {
+        SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
           ProductStor.product.templateIcon = angular.copy(result);
           defer.resolve(1);
         });
@@ -696,7 +695,7 @@
     function setProductPriceTOTAL() {
       //playSound('price');
       ProductStor.product.product_price = GeneralServ.roundingNumbers( ProductStor.product.template_price + ProductStor.product.addelem_price );
-      ProductStor.product.productPriceTOTALDis = GeneralServ.roundingNumbers( (ProductStor.product.template_price * (1 - OrderStor.order.discount_construct/100)) + ProductStor.product.addElementsPriceSELECTDis );
+      ProductStor.product.product_price_dis = GeneralServ.roundingNumbers( (ProductStor.product.template_price * (1 - OrderStor.order.discount_construct/100)) + ProductStor.product.addelem_price_dis );
       $rootScope.$apply();
     }
 
@@ -937,6 +936,7 @@
     //-------- save Order into Local DB
     function saveOrderInDB(newOptions, orderType, orderStyle) {
       var deferred = $q.defer();
+
       //---------- if EDIT Order, before inserting delete old order
       if(GlobalStor.global.orderEditNumber) {
         deleteOrderInDB(GlobalStor.global.orderEditNumber);
@@ -964,8 +964,9 @@
           delete productData.laminationOutName;
           delete productData.laminationInName;
           delete productData.chosenAddElements;
-          delete productData.addElementsPriceSELECTDis;
-          delete productData.productPriceTOTALDis;
+          delete productData.profileDepths;
+          delete productData.addelem_price_dis;
+          delete productData.product_price_dis;
 
           console.log('SEND PRODUCT------', productData);
           //-------- insert product into local DB

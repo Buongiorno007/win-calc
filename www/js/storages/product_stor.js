@@ -34,6 +34,14 @@
         glass: [],
         hardware: {},
 
+        profileDepths: {
+          frameDepth: {},
+          frameStillDepth: {},
+          sashDepth: {},
+          impostDepth: {},
+          shtulpDepth: {}
+        },
+
         lamination_out_id: 0,
         laminationOutName: $filter('translate')('mainpage.WHITE_LAMINATION'),
         lamination_in_id: 0,
@@ -61,9 +69,9 @@
         template_price: 0,
         addelem_price: 0,
         product_price: 0,
+        addelem_price_dis: 0,
+        product_price_dis: 0,
 
-        addElementsPriceSELECTDis: 0, //*
-        productPriceTOTALDis: 0, //*
         comment: '',
         product_qty: 1
 

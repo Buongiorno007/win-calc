@@ -270,10 +270,22 @@
       localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(data) {
 //        console.log('DISCTOUN=====', data);
         if(data.length) {
-          UserStor.userInfo.discountConstr = data[0].default_construct;
-          UserStor.userInfo.discountAddElem = data[0].default_add_elem;
-          UserStor.userInfo.discountConstrMax = data[0].max_construct;
-          UserStor.userInfo.discountAddElemMax = data[0].max_add_elem;
+          UserStor.userInfo.discountConstr = data[0].default_construct*1;
+          UserStor.userInfo.discountAddElem = data[0].default_add_elem*1;
+          UserStor.userInfo.discountConstrMax = data[0].max_construct*1;
+          UserStor.userInfo.discountAddElemMax = data[0].max_add_elem*1;
+
+          var disKeys = Object.keys(data[0]),
+              disQty = disKeys.length;
+          for(var dis = 0; dis < disQty; dis++) {
+            if(disKeys[dis].indexOf('week')+1) {
+              if(disKeys[dis].indexOf('construct')+1) {
+                UserStor.userInfo.discConstrByDay.push(data[0][disKeys[dis]]);
+              } else if(disKeys[dis].indexOf('add_elem')+1) {
+                UserStor.userInfo.discAddElemByDay.push(data[0][disKeys[dis]]);
+              }
+            }
+          }
           defer.resolve(1);
         } else {
           defer.resolve(1);

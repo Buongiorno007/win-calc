@@ -29,7 +29,9 @@
         discountConstr: 0,
         discountAddElem: 0,
         discountConstrMax: 0,
-        discountAddElemMax: 0
+        discountAddElemMax: 0,
+        discConstrByDay: [],
+        discAddElemByDay: []
       },
       setDefaultUser: setDefaultUser
     };

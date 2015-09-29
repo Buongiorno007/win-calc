@@ -60,8 +60,8 @@
         payment_first_primary: 0,
         payment_monthly_primary: 0,
         order_price_total: 0,
-        order_price_total_primary: 0,
         order_price_total_dis: 0,
+        order_price_total_primary: 0,
 
         customer_name: '',
         customer_email: '',

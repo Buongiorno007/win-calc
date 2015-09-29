@@ -165,7 +165,7 @@
     function setAddElementsTotalPrice() {
       var elementTypeQty = ProductStor.product.chosenAddElements.length;
       ProductStor.product.addelem_price = 0;
-      ProductStor.product.addElementsPriceSELECTDis = 0;
+      ProductStor.product.addelem_price_dis = 0;
       for (var i = 0; i < elementTypeQty; i++) {
         var elementQty = ProductStor.product.chosenAddElements[i].length;
         if (elementQty > 0) {
@@ -175,7 +175,7 @@
           }
         }
       }
-      ProductStor.product.addElementsPriceSELECTDis = GeneralServ.roundingNumbers( ProductStor.product.addelem_price * (1 - OrderStor.order.discount_addelem/100) );
+      ProductStor.product.addelem_price_dis = GeneralServ.roundingNumbers( ProductStor.product.addelem_price * (1 - OrderStor.order.discount_addelem/100) );
       $timeout(function() {
         MainServ.setProductPriceTOTAL();
       }, 50);
@@ -200,7 +200,7 @@
         ProductStor.product.chosenAddElements[index].length = 0;
       }
       ProductStor.product.addelem_price = 0;
-      ProductStor.product.addElementsPriceSELECTDis = 0;
+      ProductStor.product.addelem_price_dis = 0;
     }
 
 

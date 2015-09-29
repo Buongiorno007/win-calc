@@ -131,7 +131,6 @@
                           },
                       'marker-mid': function(d) {
                         var dirQty = template.details[i].sashOpenDir.length;
-                        console.log('handle++++++', d, d.points[1]);
                         if(dirQty === 1) {
                           if(d.points[1].fi < 45 || d.points[1].fi > 315) {
                             return 'url(#handleR)';

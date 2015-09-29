@@ -55,10 +55,9 @@
 
     //------ Download complete Orders from localDB
     function downloadOrders() {
-      localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {order_type: 1}).then(function(result) {
-        var orders = angular.copy(result);
-        console.log('orders+++++', orders);
-       var orderQty = orders.length;
+      localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {order_type: 1}).then(function(orders) {
+        var orderQty = orders.length;
+        HistoryStor.history.isEmptyResult = 0;
         if(orderQty) {
           while(--orderQty > -1) {
             orders[orderQty].created = new Date(orders[orderQty].created);
@@ -74,7 +73,6 @@
         } else {
           HistoryStor.history.isEmptyResult = 1;
         }
-        console.info('isEmptyResult+++++++++',HistoryStor.history.isEmptyResult);
       });
     }
 
@@ -306,8 +304,7 @@
           //------- set previos Page
           GeneralServ.setPreviosPage();
           GlobalStor.global.isLoader = 0;
-          console.info('ORDER 2++++',  OrderStor.order);
-//          $location.path('/cart');
+          $location.path('/cart');
         });
       });
 
@@ -396,8 +393,6 @@
 
 
     function setLaminationXOrder(product) {
-      console.info(product);
-      console.warn('lam ++++', GlobalStor.global.laminationsOut, GlobalStor.global.laminationsOut);
       if(product.lamination_in_id) {
         var lamInQty = GlobalStor.global.laminationsIn.length;
         while(--lamInQty > -1) {
@@ -442,6 +437,10 @@
       });
       return deferred.promise;
     }
+
+
+
+
 
 
 

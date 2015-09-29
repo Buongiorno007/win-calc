@@ -43,23 +43,12 @@
         //------- Templates
         templateLabel: '',
         templatesSource: [],
-//        templates: [],
-//        templatesIcon: [],
         templatesSourceSTORE: [],
-//        templatesSTORE: [],
-//        templatesIconSTORE: [],
         isSashesInTemplate: 0,
 
         //------ Profiles
         profiles: [],
         profilesType: [],
-        profileDepths: {
-          frameDepth: {},
-          frameStillDepth: {},
-          sashDepth: {},
-          impostDepth: {},
-          shtulpDepth: {}
-        },
 
         //------- Glasses
         glassesAll: [],
