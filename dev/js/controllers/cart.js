@@ -69,6 +69,7 @@
 
     //================ EDIT order from Histoy Page
     if(GlobalStor.global.orderEditNumber > 0) {
+      CartServ.calculateOrderPrice();
       console.warn('EDIT ORDER', OrderStor.order);
 
     //=========== from Main Page
@@ -76,11 +77,7 @@
       //----- cleaning product
       ProductStor.product = ProductStor.setDefaultProduct();
       //----------- start order price total calculation
-      CartServ.calculateAllProductsPrice();
-      OrderStor.order.order_price_total = OrderStor.order.products_price_total;
-      OrderStor.order.order_price_total_dis = CartStor.cart.productsPriceTOTALDis;
-      CartStor.cart.discountPriceDiff = GeneralServ.roundingNumbers(OrderStor.order.order_price_total - CartStor.cart.orderPriceTOTALDis);
-
+      CartServ.calculateOrderPrice();
       console.warn('CREATE ORDER++++++', OrderStor.order);
     }
 

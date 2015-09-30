@@ -35,28 +35,6 @@
 
     //============ methods ================//
 
-    //TODO
-//    function setOrderPriceByDiscount(order) {
-//      order.orderPriceTOTALDis = (order.construct_price_total * (1 - order.discount_construct/100)) + (order.addelem_price_total * (1 - order.discount_addelem/100)) + order.floor_price + order.mounting_price;
-//      if(order.is_date_price_less) {
-//        order.orderPriceTOTALDis -= order.delivery_price;
-//      } else if(order.is_date_price_more) {
-//        order.orderPriceTOTALDis += order.delivery_price;
-//      }
-//      order.orderPriceTOTALDis = GeneralServ.roundingNumbers(order.orderPriceTOTALDis);
-//    }
-
-
-
-    //TODO
-    //    function editProductInLocalDB(product) {
-    //      console.log('!!!!Edit!!!!',product);
-    //      localDB.deleteDB(localDB.productsTableBD, {'orderId': {"value": product.orderId, "union": 'AND'}, "productId": product.productId});
-    //      localDB.deleteDB(localDB.addElementsTableBD, {'orderId': {"value": product.orderId, "union": 'AND'}, "productId": product.productId});
-    //      insertProductInLocalDB(product);
-    //    }
-
-
 
     //----------- create Discount List
     function createDiscontsList() {
@@ -198,20 +176,20 @@
     //-------- Calculate All Products Price
     function calculateAllProductsPrice() {
       var productsQty = OrderStor.order.products.length;
-      OrderStor.order.construct_price_total = 0;
-      OrderStor.order.addelem_price_total = 0;
-      OrderStor.order.products_price_total = 0;
-      CartStor.cart.productsPriceTOTALDis = 0;
+      OrderStor.order.templates_price = 0;
+      OrderStor.order.addelems_price = 0;
+      OrderStor.order.products_price = 0;
+      OrderStor.order.productsPriceDis = 0;
       while(--productsQty > -1) {
-        OrderStor.order.addelem_price_total += OrderStor.order.products[productsQty].addelem_price * OrderStor.order.products[productsQty].product_qty;
-        OrderStor.order.construct_price_total += OrderStor.order.products[productsQty].template_price * OrderStor.order.products[productsQty].product_qty;
-        OrderStor.order.products_price_total += OrderStor.order.products[productsQty].product_price * OrderStor.order.products[productsQty].product_qty;
-        CartStor.cart.productsPriceTOTALDis += OrderStor.order.products[productsQty].productPriceTOTALDis * OrderStor.order.products[productsQty].product_qty;
+        OrderStor.order.addelems_price += OrderStor.order.products[productsQty].addelem_price * OrderStor.order.products[productsQty].product_qty;
+        OrderStor.order.templates_price += OrderStor.order.products[productsQty].template_price * OrderStor.order.products[productsQty].product_qty;
+        OrderStor.order.products_price += OrderStor.order.products[productsQty].product_price * OrderStor.order.products[productsQty].product_qty;
+        OrderStor.order.productsPriceDis += OrderStor.order.products[productsQty].productPriceDis * OrderStor.order.products[productsQty].product_qty;
       }
-      OrderStor.order.addelem_price_total = GeneralServ.roundingNumbers(OrderStor.order.addelem_price_total);
-      OrderStor.order.construct_price_total = GeneralServ.roundingNumbers(OrderStor.order.construct_price_total);
-      OrderStor.order.products_price_total = GeneralServ.roundingNumbers(OrderStor.order.products_price_total);
-      CartStor.cart.productsPriceTOTALDis = GeneralServ.roundingNumbers(CartStor.cart.productsPriceTOTALDis);
+      OrderStor.order.addelems_price = GeneralServ.roundingNumbers(OrderStor.order.addelems_price);
+      OrderStor.order.templates_price = GeneralServ.roundingNumbers(OrderStor.order.templates_price);
+      OrderStor.order.products_price = GeneralServ.roundingNumbers(OrderStor.order.products_price);
+      OrderStor.order.productsPriceDis = GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis);
     }
 
 
@@ -242,16 +220,16 @@
     function changeAddElemPriceAsDiscount(discount) {
       var productQty = OrderStor.order.products.length;
       for(var prod = 0; prod < productQty; prod++) {
-        var oldDiff =  OrderStor.order.products[prod].productPriceTOTALDis - OrderStor.order.products[prod].addElementsPriceSELECTDis;
-        OrderStor.order.products[prod].addElementsPriceSELECTDis = angular.copy( GeneralServ.roundingNumbers( OrderStor.order.products[prod].addelem_price * (1 - discount/100) ) );
-        OrderStor.order.products[prod].productPriceTOTALDis = angular.copy( GeneralServ.roundingNumbers( oldDiff + OrderStor.order.products[prod].addElementsPriceSELECTDis ));
+        var templatePriceDis =  OrderStor.order.products[prod].productPriceDis - OrderStor.order.products[prod].addelemPriceDis;
+        OrderStor.order.products[prod].addelemPriceDis = GeneralServ.setPriceDis(OrderStor.order.products[prod].addelem_price, discount);
+        OrderStor.order.products[prod].productPriceDis = GeneralServ.roundingNumbers(templatePriceDis + OrderStor.order.products[prod].addelemPriceDis);
 
         var addElemsQty = OrderStor.order.products[prod].chosenAddElements.length;
         for(var elem = 0; elem < addElemsQty; elem++) {
           var elemQty = OrderStor.order.products[prod].chosenAddElements[elem].length;
           if (elemQty > 0) {
             for (var item = 0; item < elemQty; item++) {
-              OrderStor.order.products[prod].chosenAddElements[elem][item].elementPriceDis = angular.copy( GeneralServ.roundingNumbers( OrderStor.order.products[prod].chosenAddElements[elem][item].element_price * (1 - discount/100) ) );
+              OrderStor.order.products[prod].chosenAddElements[elem][item].elementPriceDis = GeneralServ.setPriceDis(OrderStor.order.products[prod].chosenAddElements[elem][item].element_price, discount);
             }
           }
         }
@@ -263,8 +241,7 @@
     function changeProductPriceAsDiscount(discount) {
       var productQty = OrderStor.order.products.length;
       for(var prod = 0; prod < productQty; prod++) {
-        var oldDiff =  (OrderStor.order.products[prod].product_price - OrderStor.order.products[prod].addelem_price) * (1 - discount/100);
-        OrderStor.order.products[prod].productPriceTOTALDis = angular.copy( GeneralServ.roundingNumbers( oldDiff + OrderStor.order.products[prod].addElementsPriceSELECTDis ));
+        OrderStor.order.products[prod].productPriceDis = angular.copy( GeneralServ.roundingNumbers( GeneralServ.setPriceDis(OrderStor.order.products[prod].template_price, discount) + OrderStor.order.products[prod].addelemPriceDis ));
       }
       calculateOrderPrice();
     }

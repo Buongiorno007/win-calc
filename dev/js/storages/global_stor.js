@@ -64,6 +64,11 @@
         addElementsAll: [],
         tempAddElements: [],
 
+        //------ Cart
+        floorData: [],
+        assemblingData: [],
+        instalmentsData: [],
+
         //---- Calculators
         isQtyCalculator: 0,
         isSizeCalculator: 0,

@@ -294,6 +294,24 @@
           CartStor.fillOrderForm();
         }
       }
+      OrderStor.order.order_date = new Date(OrderStor.order.order_date).getTime();
+      OrderStor.order.delivery_date = new Date(OrderStor.order.delivery_date).getTime();
+      OrderStor.order.new_delivery_date = new Date(OrderStor.order.new_delivery_date).getTime();
+      setOrderOptions(1, OrderStor.order.floor_id, GlobalStor.global.floorData);
+      setOrderOptions(2, OrderStor.order.mounting_id, GlobalStor.global.assemblingData);
+      setOrderOptions(3, OrderStor.order.instalment_id, GlobalStor.global.instalmentsData);
+
+      delete OrderStor.order.additional_payment;
+      delete OrderStor.order.created;
+      delete OrderStor.order.sended;
+      delete OrderStor.order.state_to;
+      delete OrderStor.order.state_buch;
+      delete OrderStor.order.batch;
+      delete OrderStor.order.base_price;
+      delete OrderStor.order.factory_margin;
+      delete OrderStor.order.purchase_price;
+      delete OrderStor.order.sale_price;
+      delete OrderStor.order.modified;
 
       //------ Download All Products of edited Order
       downloadProducts().then(function() {
@@ -304,10 +322,34 @@
           //------- set previos Page
           GeneralServ.setPreviosPage();
           GlobalStor.global.isLoader = 0;
+//          console.warn('ORDER ====', OrderStor.order);
           $location.path('/cart');
         });
       });
 
+    }
+
+
+    function setOrderOptions(param, id, data) {
+      if(id) {
+        var dataQty = data.length;
+        while(--dataQty > -1) {
+          if(data[dataQty].id === id) {
+            switch(param) {
+              case 1:
+                OrderStor.order.floorName = angular.copy(data[dataQty].name);
+                break;
+              case 2:
+                OrderStor.order.mountingName = angular.copy(data[dataQty].name);
+                break;
+              case 3:
+                OrderStor.order.selectedInstalmentPeriod = angular.copy(data[dataQty].name);
+                OrderStor.order.selectedInstalmentPercent = angular.copy(data[dataQty].value);
+                break;
+            }
+          }
+        }
+      }
     }
 
 
@@ -323,6 +365,8 @@
             var defer1 = $q.defer(),
                 tempProd = ProductStor.setDefaultProduct();
             angular.extend(tempProd, prod);
+            delete tempProd.id;
+            delete tempProd.modified;
 
             //----- checking product with design or only addElements
             if(!tempProd.is_addelem_only) {
@@ -356,11 +400,16 @@
 
             var iconPromise = data.map(function(item) {
               var deferIcon = $q.defer();
-              SVGServ.createSVGTemplateIcon(item.template_source, GlobalStor.global.profileDepths).then(function(data) {
+              SVGServ.createSVGTemplateIcon(item.template_source, item.profileDepths).then(function(data) {
                 item.templateIcon = data;
                 delete item.profile_id;
                 delete item.glass_id;
                 delete item.hardware_id;
+
+                //----- set price Discounts
+                item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
+                item.productPriceDis = (GeneralServ.setPriceDis(item.template_price, OrderStor.order.discount_construct) + item.addelemPriceDis);
+
                 OrderStor.order.products.push(item);
                 deferIcon.resolve(1);
               });
@@ -423,6 +472,11 @@
           while(--allAddElemQty > -1) {
             for(var prod = 0; prod < orderProductsQty; prod++) {
               if(result[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
+                result[allAddElemQty].id = angular.copy(result[allAddElemQty].element_id);
+                delete result[allAddElemQty].element_id;
+                delete result[allAddElemQty].modified;
+
+                result[allAddElemQty].elementPriceDis = GeneralServ.setPriceDis(result[allAddElemQty].element_price, OrderStor.order.discount_addelem);
                 OrderStor.order.products[prod].chosenAddElements[result[allAddElemQty].element_type].push(result[allAddElemQty]);
                 if(!allAddElemQty) {
                   deferred.resolve(1);

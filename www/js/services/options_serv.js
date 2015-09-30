@@ -1564,38 +1564,47 @@
 
           floors: [
             {
+              id: 1,
               name: 1,
               price: 1
             },
             {
+              id: 2,
               name: 2,
               price: 2
             },
             {
+              id: 3,
               name: 3,
               price: 3
             },
             {
+              id: 4,
               name: 4,
               price: 4
             },
             {
+              id: 5,
               name: 5,
               price: 5
             },
             {
+              id: 6,
               name: 6,
               price: 6
             },
             {
+              id: 7,
               name: 7,
               price: 7
             },
             {
+              id: 8,
               name: 8,
               price: 8
             },
             {
+              id: 9,
               name: 9,
               price: 9
             }
@@ -1609,14 +1618,17 @@
 
           assembling: [
             {
+              id: 1,
               name: $filter('translate')('cart.NO_DISASSEMBL'),
               price: 10
             },
             {
+              id: 2,
               name: $filter('translate')('cart.STANDART_ASSEMBL'),
               price: 20
             },
             {
+              id: 3,
               name: $filter('translate')('cart.VIP_ASSEMBL'),
               price: 30
             }
@@ -1630,24 +1642,29 @@
 
           instalment: [
             {
-              period: 1,
-              percent: 15
+              id: 1,
+              name: 1,
+              value: 15
             },
             {
-              period: 2,
-              percent: 20
+              id: 2,
+              name: 2,
+              value: 20
             },
             {
-              period: 3,
-              percent: 25
+              id: 3,
+              name: 3,
+              value: 25
             },
             {
-              period: 4,
-              percent: 30
+              id: 4,
+              name: 4,
+              value: 30
             },
             {
-              period: 5,
-              percent: 35
+              id: 5,
+              name: 5,
+              value: 35
             }
           ]
 

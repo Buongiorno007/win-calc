@@ -18,7 +18,6 @@
         construction_type: 1, // 1 - window; 2 - windowDoor; 3 - balcony; 4 - door
         heat_coef_total: 0,
 
-        templateIndex: 0, //*
         template_id: 0,
         template_source: {},
         template: {},
@@ -65,9 +64,9 @@
 
         template_price: 0,
         addelem_price: 0,
+        addelemPriceDis: 0,
         product_price: 0,
-        addelem_price_dis: 0,
-        product_price_dis: 0,
+        productPriceDis: 0,
 
         comment: '',
         product_qty: 1

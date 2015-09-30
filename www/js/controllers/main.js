@@ -63,6 +63,10 @@
                     GlobalStor.global.showRoomSelectorDialog = 1;
                     //-------- download All AddElements
                     MainServ.downloadAllAddElem();
+
+                    //----------- download Cart Menu Data
+                    MainServ.downloadCartMenuData();
+
                   });
 
                 }

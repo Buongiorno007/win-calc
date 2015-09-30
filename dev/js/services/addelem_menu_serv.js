@@ -162,7 +162,7 @@
     function setAddElementsTotalPrice() {
       var elementTypeQty = ProductStor.product.chosenAddElements.length;
       ProductStor.product.addelem_price = 0;
-      ProductStor.product.addelem_price_dis = 0;
+      ProductStor.product.addelemPriceDis = 0;
       for (var i = 0; i < elementTypeQty; i++) {
         var elementQty = ProductStor.product.chosenAddElements[i].length;
         if (elementQty > 0) {
@@ -172,7 +172,7 @@
           }
         }
       }
-      ProductStor.product.addelem_price_dis = GeneralServ.roundingNumbers( ProductStor.product.addelem_price * (1 - OrderStor.order.discount_addelem/100) );
+      ProductStor.product.addelemPriceDis = GeneralServ.setPriceDis(ProductStor.product.addelem_price, OrderStor.order.discount_addelem);
       $timeout(function() {
         MainServ.setProductPriceTOTAL();
       }, 50);
@@ -197,7 +197,7 @@
         ProductStor.product.chosenAddElements[index].length = 0;
       }
       ProductStor.product.addelem_price = 0;
-      ProductStor.product.addelem_price_dis = 0;
+      ProductStor.product.addelemPriceDis = 0;
     }
 
 
@@ -295,7 +295,7 @@
       localDB.getAdditionalPrice(objXAddElementPrice, function (results) {
         if (results.status) {
 //          console.log(results.data.price);
-          AuxStor.aux.currAddElementPrice = GeneralServ.roundingNumbers( results.data.price * (1 - OrderStor.order.discount_addelem/100) );
+          AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(results.data.price, OrderStor.order.discount_addelem);
           ProductStor.product.chosenAddElements[index][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers( results.data.price ));
           ProductStor.product.chosenAddElements[index][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
           //------- Set Total Product Price

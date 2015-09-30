@@ -87,7 +87,7 @@
         ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
 
         //----- create template icon
-        SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+        SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
           ProductStor.product.templateIcon = angular.copy(result);
         });
 
@@ -108,6 +108,8 @@
           GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(ProductStor.product);
           if (GlobalStor.global.isSashesInTemplate) {
             ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+          } else {
+            ProductStor.product.hardware.id = 0;
           }
         }
         //------- refresh price of new template
@@ -410,7 +412,6 @@
     }
 
 
-
     function hideCornerMarks() {
       DesignStor.design.selectedCorner.length = 0;
       d3.selectAll('#tamlateSVG .corner_mark')
@@ -439,7 +440,7 @@
 
 
     function rebuildSVGTemplate() {
-      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
         DesignStor.design.templateTEMP = angular.copy(result);
       });
     }
@@ -860,11 +861,11 @@
           createCurveQPoint('arc', 'qa'+arcN, currLine, position, currBlockIndex, blocksSource);
 
           //------ change templateTEMP
-          SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function (result) {
+          SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function (result) {
             //------ delete sash if block sizes are small
             var wasSashDelet = checkSashesBySizeBlock(result);
             if (wasSashDelet) {
-              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function (result) {
+              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function (result) {
                 DesignStor.design.templateTEMP = angular.copy(result);
                 defer.resolve('done');
               });
@@ -964,11 +965,11 @@
           }
 
           //------ change templateTEMP
-          SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function (result) {
+          SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function (result) {
             //------ delete sash if block sizes are small
             var wasSashDelet = checkSashesBySizeBlock(result);
             if (wasSashDelet) {
-              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function (result) {
+              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function (result) {
                 DesignStor.design.templateTEMP = angular.copy(result);
                 defer.resolve('done');
               });
@@ -1910,10 +1911,10 @@
               //------- deactive size box in svg
               deselectAllDimension();
               //-------- build new template
-              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
                 DesignStor.design.templateTEMP = angular.copy(result);
               });
-//              DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths);
+//              DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths);
             } else {
               DesignStor.design.isMinSizeRestriction = 1;
               DesignStor.design.isMaxSizeRestriction = 0;
@@ -1924,10 +1925,10 @@
               //------- deactive size box in svg
               deselectAllDimension();
               //-------- build new template
-              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
                 DesignStor.design.templateTEMP = angular.copy(result);
               });
-//              DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths);
+//              DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths);
             } else {
               DesignStor.design.isMinSizeRestriction = 0;
               DesignStor.design.isMaxSizeRestriction = 1;
@@ -2002,7 +2003,7 @@
     function stepBack() {
       var lastIndex = DesignStor.design.designSteps.length - 1;
       DesignStor.design.templateSourceTEMP = angular.copy(DesignStor.design.designSteps[lastIndex]);
-      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
         DesignStor.design.templateTEMP = angular.copy(result);
       });
       DesignStor.design.designSteps.pop();

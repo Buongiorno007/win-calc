@@ -33,6 +33,7 @@
       preparePrice: preparePrice,
       setProductPriceTOTAL: setProductPriceTOTAL,
       downloadAllAddElem: downloadAllAddElem,
+      downloadCartMenuData: downloadCartMenuData,
 
       createNewProject: createNewProject,
       createNewProduct: createNewProduct,
@@ -433,7 +434,7 @@
         downloadProfileDepth(product.profile.stvorka_list_id),
         downloadProfileDepth(product.profile.impost_list_id),
         downloadProfileDepth(product.profile.shtulp_list_id)
-      ]).then(function (result) {//TODO why global ????
+      ]).then(function (result) {
         product.profileDepths.frameDepth = result[0];
         product.profileDepths.frameStillDepth = result[1];
         product.profileDepths.sashDepth = result[2];
@@ -442,7 +443,6 @@
         deferred.resolve(1);
       });
       return deferred.promise;
-      //console.log('product', ProductStor.product);
     }
 
 
@@ -480,7 +480,7 @@
     function parseTemplate() {
       var deferred = $q.defer();
       //------- set current template for product
-      saveTemplateInProduct(ProductStor.product.templateIndex).then(function() {
+      saveTemplateInProduct(ProductStor.product.template_id).then(function() {
         setCurrentGlass(ProductStor.product);
         setCurrentHardware(ProductStor.product);
         var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
@@ -692,10 +692,9 @@
     function setProductPriceTOTAL() {
       //playSound('price');
       ProductStor.product.product_price = GeneralServ.roundingNumbers( ProductStor.product.template_price + ProductStor.product.addelem_price );
-      ProductStor.product.product_price_dis = GeneralServ.roundingNumbers( (ProductStor.product.template_price * (1 - OrderStor.order.discount_construct/100)) + ProductStor.product.addelem_price_dis );
+      ProductStor.product.productPriceDis = ( GeneralServ.setPriceDis(ProductStor.product.template_price, OrderStor.order.discount_construct) + ProductStor.product.addelemPriceDis );
       $rootScope.$apply();
     }
-
 
 
 
@@ -788,12 +787,41 @@
 
               }
             }
-            console.log('addElementsAll ++++', GlobalStor.global.addElementsAll);
+//            console.log('addElementsAll ++++', GlobalStor.global.addElementsAll);
           }
         });
 
       });
     }
+
+
+
+    function downloadCartMenuData() {
+      optionsServ.getFloorPrice(function (results) {
+        if (results.status) {
+          GlobalStor.global.floorData = angular.copy(results.data.floors);
+        } else {
+          console.log(results);
+        }
+      });
+
+      optionsServ.getAssemblingPrice(function (results) {
+        if (results.status) {
+          GlobalStor.global.assemblingData = angular.copy(results.data.assembling);
+        } else {
+          console.log(results);
+        }
+      });
+
+      optionsServ.getInstalment(function (results) {
+        if (results.status) {
+          GlobalStor.global.instalmentsData = results.data.instalment;
+        } else {
+          console.log(results);
+        }
+      });
+    }
+
 
 
 
@@ -953,7 +981,9 @@
           }).join(', ');
           productData.hardware_id = (OrderStor.order.products[p].hardware.id) ? OrderStor.order.products[p].hardware.id : 0;
           productData.modified = new Date();
-          delete productData.templateIndex; //TODO delete
+          if(productData.template) {
+            delete productData.template;
+          }
           delete productData.templateIcon;
           delete productData.profile;
           delete productData.glass;
@@ -962,8 +992,8 @@
           delete productData.laminationInName;
           delete productData.chosenAddElements;
           delete productData.profileDepths;
-          delete productData.addelem_price_dis;
-          delete productData.product_price_dis;
+          delete productData.addelemPriceDis;
+          delete productData.productPriceDis;
 
           console.log('SEND PRODUCT------', productData);
           //-------- insert product into local DB
@@ -1005,7 +1035,7 @@
         }
 
       //============ SAVE ORDER
-//      console.log('!!!!ORDER!!!!', OrderStor.order);
+//      console.log('!!!!ORDER!!!!', JSON.stringify(OrderStor.order));
       var orderData = angular.copy(OrderStor.order);
       orderData.order_date = new Date(OrderStor.order.order_date);
       orderData.order_type = orderType;
@@ -1027,9 +1057,7 @@
         orderData.state_to = new Date(0);
         orderData.state_buch = new Date(0);
         orderData.batch = '---';
-        orderData.square = 0;
         orderData.base_price = 0;
-        orderData.perimeter = 0;
         orderData.factory_margin = 0;
         orderData.purchase_price = 0;
         orderData.sale_price = 0;
@@ -1041,8 +1069,16 @@
       delete orderData.currRegionName;
       delete orderData.currCountryName;
       delete orderData.currFullLocation;
+      delete orderData.floorName;
+      delete orderData.mountingName;
       delete orderData.selectedInstalmentPeriod;
       delete orderData.selectedInstalmentPercent;
+      delete orderData.productsPriceDis;
+      delete orderData.orderPricePrimaryDis;
+      delete orderData.paymentFirstDis;
+      delete orderData.paymentMonthlyDis;
+      delete orderData.paymentFirstPrimaryDis;
+      delete orderData.paymentMonthlyPrimaryDis;
 
       console.log('!!!!orderData!!!!', orderData);
       if(orderType) {

@@ -36,28 +36,41 @@
 
     //------- Select dropdown menu item
 
-    function selectFloorPrice(floorName, floorPrice) {
-      if(OrderStor.order.floor_id !== floorName) {
-        OrderStor.order.floor_id = floorName;
-        OrderStor.order.floor_price = parseFloat(floorPrice);
+    function selectFloorPrice(id, name, price) {
+      if(OrderStor.order.floor_id !== id) {
+        OrderStor.order.floor_id = id;
+        if(id) {
+          OrderStor.order.floorName = name;
+          OrderStor.order.floor_price = parseFloat(price);
+        } else {
+          OrderStor.order.floorName = '';
+          OrderStor.order.floor_price = 0;
+        }
         calculateTotalOrderPrice();
       }
     }
 
-    function selectAssembling(assembName, assembPrice) {
-      if(OrderStor.order.mounting_id !== assembName) {
-        OrderStor.order.mounting_id = assembName;
-        OrderStor.order.mounting_price = parseFloat(assembPrice);
+    function selectAssembling(id, name, price) {
+      if(OrderStor.order.mounting_id !== id) {
+        OrderStor.order.mounting_id = id;
+        if(id) {
+          OrderStor.order.mountingName = name;
+          OrderStor.order.mounting_price = parseFloat(price);
+        } else {
+          OrderStor.order.mountingName = '';
+          OrderStor.order.mounting_price = 0;
+        }
         calculateTotalOrderPrice();
       }
     }
 
-    function selectInstalment(period, percent) {
-      if(OrderStor.order.selectedInstalmentPeriod !== period) {
+    function selectInstalment(id, period, percent) {
+      if(OrderStor.order.instalment_id !== id) {
         OrderStor.order.is_instalment = 1;
+        OrderStor.order.instalment_id = id;
         OrderStor.order.selectedInstalmentPeriod = period;
         OrderStor.order.selectedInstalmentPercent = percent;
-        calculateInstalmentPrice(OrderStor.order.order_price_total, OrderStor.order.order_price_total_primary, OrderStor.order.order_price_total_dis, CartStor.cart.orderPriceTOTALPrimaryDis);
+        calculateInstalmentPrice(OrderStor.order.order_price, OrderStor.order.order_price_primary, OrderStor.order.order_price_dis, OrderStor.order.orderPricePrimaryDis);
       }
     }
 
@@ -99,38 +112,36 @@
     function calculateTotalOrderPrice() {
       //playSound('price');
 
-      OrderStor.order.order_price_total = 0;
-      OrderStor.order.order_price_total_dis = 0;
+      OrderStor.order.order_price = 0;
+      OrderStor.order.order_price_dis = 0;
 
       //----- add product prices, floor price, assembling price
-      OrderStor.order.order_price_total += OrderStor.order.products_price_total + OrderStor.order.floor_price + OrderStor.order.mounting_price;
-      OrderStor.order.order_price_total_dis += CartStor.cart.productsPriceTOTALDis + OrderStor.order.floor_price + OrderStor.order.mounting_price;
+      OrderStor.order.order_price = OrderStor.order.products_price + OrderStor.order.floor_price + OrderStor.order.mounting_price;
+      OrderStor.order.order_price_dis = OrderStor.order.productsPriceDis + OrderStor.order.floor_price + OrderStor.order.mounting_price;
 
       //----- save primary total price
-      OrderStor.order.order_price_total_primary = OrderStor.order.order_price_total;
-      CartStor.cart.orderPriceTOTALPrimaryDis = OrderStor.order.order_price_total_dis;
+      OrderStor.order.order_price_primary = angular.copy(OrderStor.order.order_price);
+      OrderStor.order.orderPricePrimaryDis = angular.copy(OrderStor.order.order_price_dis);
       //----- add delivery price
       if(OrderStor.order.delivery_price) {
         if(OrderStor.order.is_date_price_more) {
-          OrderStor.order.order_price_total += OrderStor.order.delivery_price;
-          OrderStor.order.order_price_total_dis += OrderStor.order.delivery_price;
+          OrderStor.order.order_price += OrderStor.order.delivery_price;
+          OrderStor.order.order_price_dis += OrderStor.order.delivery_price;
         } else if(OrderStor.order.is_date_price_less) {
-          OrderStor.order.order_price_total -= OrderStor.order.delivery_price;
-          OrderStor.order.order_price_total_dis -= OrderStor.order.delivery_price;
+          OrderStor.order.order_price -= OrderStor.order.delivery_price;
+          OrderStor.order.order_price_dis -= OrderStor.order.delivery_price;
         }
       } else {
-        OrderStor.order.order_price_total = OrderStor.order.order_price_total_primary;
-        OrderStor.order.order_price_total_dis = CartStor.cart.orderPriceTOTALPrimaryDis;
+//        OrderStor.order.order_price_total = OrderStor.order.order_price_total_primary;
+//        OrderStor.order.order_price_total_dis = CartStor.cart.orderPriceTOTALPrimaryDis;
       }
 
-      OrderStor.order.order_price_total = GeneralServ.roundingNumbers(OrderStor.order.order_price_total);
-      OrderStor.order.order_price_total_dis = GeneralServ.roundingNumbers(OrderStor.order.order_price_total_dis);
-      CartStor.cart.discountPriceDiff = GeneralServ.roundingNumbers(OrderStor.order.order_price_total - OrderStor.order.order_price_total_dis);
+      OrderStor.order.order_price = GeneralServ.roundingNumbers(OrderStor.order.order_price);
+      OrderStor.order.order_price_dis = GeneralServ.roundingNumbers(OrderStor.order.order_price_dis);
+      CartStor.cart.discountPriceDiff = GeneralServ.roundingNumbers(OrderStor.order.order_price - OrderStor.order.order_price_dis);
 
-      console.log('OrderStor++++++',OrderStor.order);
-      console.log('OrderStor++++++',CartStor.cart);
       //------ get price with instalment
-      calculateInstalmentPrice(OrderStor.order.order_price_total, OrderStor.order.order_price_total_primary, OrderStor.order.order_price_total_dis, CartStor.cart.orderPriceTOTALPrimaryDis);
+      calculateInstalmentPrice(OrderStor.order.order_price, OrderStor.order.order_price_primary, OrderStor.order.order_price_dis, OrderStor.order.orderPricePrimaryDis);
     }
 
 
@@ -139,13 +150,13 @@
       if(OrderStor.order.is_instalment) {
         OrderStor.order.payment_first = GeneralServ.roundingNumbers( (price * OrderStor.order.selectedInstalmentPercent / 100) );
         OrderStor.order.payment_monthly = GeneralServ.roundingNumbers( ((price - OrderStor.order.payment_first) / OrderStor.order.selectedInstalmentPeriod) );
-        CartStor.cart.paymentFirstDis = GeneralServ.roundingNumbers( (priceDis * OrderStor.order.selectedInstalmentPercent / 100) );
-        CartStor.cart.paymentMonthlyDis = GeneralServ.roundingNumbers( ((priceDis - CartStor.cart.paymentFirstDis) / OrderStor.order.selectedInstalmentPeriod) );
+        OrderStor.order.paymentFirstDis = GeneralServ.roundingNumbers( (priceDis * OrderStor.order.selectedInstalmentPercent / 100) );
+        OrderStor.order.paymentMonthlyDis = GeneralServ.roundingNumbers( ((priceDis - OrderStor.order.paymentFirstDis) / OrderStor.order.selectedInstalmentPeriod) );
         if(pricePrimary) {
           OrderStor.order.payment_first_primary = GeneralServ.roundingNumbers( (pricePrimary * OrderStor.order.selectedInstalmentPercent / 100) );
           OrderStor.order.payment_monthly_primary = GeneralServ.roundingNumbers( ((pricePrimary - OrderStor.order.payment_first_primary) / OrderStor.order.selectedInstalmentPeriod) );
-          CartStor.cart.paymentFirstPrimaryDis = GeneralServ.roundingNumbers( (pricePrimaryDis * OrderStor.order.selectedInstalmentPercent / 100) );
-          CartStor.cart.paymentMonthlyPrimaryDis = GeneralServ.roundingNumbers( ((pricePrimaryDis - CartStor.cart.paymentFirstPrimaryDis) / OrderStor.order.selectedInstalmentPeriod) );
+          OrderStor.order.paymentFirstPrimaryDis = GeneralServ.roundingNumbers( (pricePrimaryDis * OrderStor.order.selectedInstalmentPercent / 100) );
+          OrderStor.order.paymentMonthlyPrimaryDis = GeneralServ.roundingNumbers( ((pricePrimaryDis - OrderStor.order.paymentFirstPrimaryDis) / OrderStor.order.selectedInstalmentPeriod) );
         }
       }
     }
@@ -182,31 +193,31 @@
 
     //---------- Close any Order Dialog
     function closeOrderDialog() {
-      CartStor.cart.submitted = false;
-      CartStor.cart.isCityBox = false;
+      CartStor.cart.submitted = 0;
+      CartStor.cart.isCityBox = 0;
       if(GlobalStor.global.orderEditNumber > 0) {
         CartStor.fillOrderForm();
       } else{
         CartStor.cart.customer = CartStor.setDefaultUser();
       }
-      CartStor.cart.isMasterDialog = false;
-      CartStor.cart.isOrderDialog = false;
-      CartStor.cart.isCreditDialog = false;
+      CartStor.cart.isMasterDialog = 0;
+      CartStor.cart.isOrderDialog = 0;
+      CartStor.cart.isCreditDialog = 0;
     }
 
 
     function changeLocation() {
       if(CartStor.cart.customer.customer_location) {
-        CartStor.cart.isCityBox = true;
+        CartStor.cart.isCityBox = 1;
       } else {
-        CartStor.cart.isCityBox = false;
+        CartStor.cart.isCityBox = 0;
       }
     }
 
     //-------- Select City
     function selectCity(place) {
       CartStor.cart.customer.customer_location = place;
-      CartStor.cart.isCityBox = false;
+      CartStor.cart.isCityBox = 0;
     }
 
   }

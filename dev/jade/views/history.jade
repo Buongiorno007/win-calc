@@ -99,8 +99,8 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                     .user-data.account-user-adress {{ order.customer_location }}, {{ order.customer_address }}
                     .account-label {{ 'history.ADDRESS' | translate }}
                 .account-row.footer
-                  .account-value(ng-hide="order.order_style == 'credit'") {{ order.order_price_total_dis }}{{ historyPage.U.userInfo.currency }}
-                  .account-value(ng-show="order.order_style == 'credit'") {{ order.order_price_total_dis }}{{ historyPage.U.userInfo.currency }}, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.payment_monthly}}{{ historyPage.U.userInfo.currency }}
+                  .account-value(ng-hide="order.order_style == 'credit'") {{ order.order_price_dis }}{{ historyPage.U.userInfo.currency }}
+                  .account-value(ng-show="order.order_style == 'credit'") {{ order.order_price_dis }}{{ historyPage.U.userInfo.currency }}, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.payment_monthly}}{{ historyPage.U.userInfo.currency }}
                   .account-value(ng-show="order.order_style == 'master'") {{ 'history.WAIT_MASTER' | translate }}
                   .account-date {{ order.products_qty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}
 
@@ -175,8 +175,8 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                     .account-label.account-date-filter {{ 'history.FROM' | translate }}
                       span(order-date="{{ draft.created }}", type-date="'order'")
                   .account-row.footer
-                    .account-value(ng-hide="draft.order_style == 'credit'") {{ draft.order_price_total_dis }}{{ historyPage.U.userInfo.currency }}
-                    .account-value(ng-show="draft.order_style == 'credit'") {{ draft.order_price_total_dis }}{{ historyPage.U.userInfo.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.payment_monthly}}{{ historyPage.U.userInfo.currency }}
+                    .account-value(ng-hide="draft.order_style == 'credit'") {{ draft.order_price_dis }}{{ historyPage.U.userInfo.currency }}
+                    .account-value(ng-show="draft.order_style == 'credit'") {{ draft.order_price_dis }}{{ historyPage.U.userInfo.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.payment_monthly}}{{ historyPage.U.userInfo.currency }}
                     .account-qty {{ draft.products_qty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{draft.new_delivery_date | date:"dd.MM.yyyy"}}
                 button.account-tool.account-print-btn(hm-tap="")
                 button.account-delete-btn(hm-tap="historyPage.clickDeleteOrder(draft.order_type, draft.id, $event)")

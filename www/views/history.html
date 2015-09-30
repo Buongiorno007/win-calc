@@ -177,8 +177,8 @@
                   </div>
                 </div>
                 <div class="account-row footer">
-                  <div ng-hide="order.order_style == 'credit'" class="account-value">{{ order.order_price_total_dis }}{{ historyPage.U.userInfo.currency }}</div>
-                  <div ng-show="order.order_style == 'credit'" class="account-value">{{ order.order_price_total_dis }}{{ historyPage.U.userInfo.currency }}, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.payment_monthly}}{{ historyPage.U.userInfo.currency }}</div>
+                  <div ng-hide="order.order_style == 'credit'" class="account-value">{{ order.order_price_dis }}{{ historyPage.U.userInfo.currency }}</div>
+                  <div ng-show="order.order_style == 'credit'" class="account-value">{{ order.order_price_dis }}{{ historyPage.U.userInfo.currency }}, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.payment_monthly}}{{ historyPage.U.userInfo.currency }}</div>
                   <div ng-show="order.order_style == 'master'" class="account-value">{{ 'history.WAIT_MASTER' | translate }}</div>
                   <div class="account-date">{{ order.products_qty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
                 </div>
@@ -254,8 +254,8 @@
                     <div class="account-label account-date-filter">{{ 'history.FROM' | translate }}<span order-date="{{ draft.created }}" type-date="'order'"></span></div>
                   </div>
                   <div class="account-row footer">
-                    <div ng-hide="draft.order_style == 'credit'" class="account-value">{{ draft.order_price_total_dis }}{{ historyPage.U.userInfo.currency }}</div>
-                    <div ng-show="draft.order_style == 'credit'" class="account-value">{{ draft.order_price_total_dis }}{{ historyPage.U.userInfo.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.payment_monthly}}{{ historyPage.U.userInfo.currency }}</div>
+                    <div ng-hide="draft.order_style == 'credit'" class="account-value">{{ draft.order_price_dis }}{{ historyPage.U.userInfo.currency }}</div>
+                    <div ng-show="draft.order_style == 'credit'" class="account-value">{{ draft.order_price_dis }}{{ historyPage.U.userInfo.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.payment_monthly}}{{ historyPage.U.userInfo.currency }}</div>
                     <div class="account-qty">{{ draft.products_qty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{draft.new_delivery_date | date:"dd.MM.yyyy"}}</div>
                   </div>
                 </div>

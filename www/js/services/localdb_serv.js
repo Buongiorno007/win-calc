@@ -401,38 +401,40 @@
             ' state_to TIMESTAMP,' +
             ' state_buch TIMESTAMP,' +
             ' batch VARCHAR,' +
-            ' square NUMERIC(13, 2),' +
             ' base_price NUMERIC(13, 2),' +
-            ' perimeter NUMERIC(13, 2),' +
             ' factory_margin NUMERIC(11, 2),'+
             ' factory_id INTEGER,' +
             ' purchase_price NUMERIC(10, 2),' +
             ' sale_price NUMERIC(10, 2),' +
-            ' delivery_price NUMERIC,'+
-            ' mounting_price NUMERIC,'+
-            ' delivery_date TIMESTAMP,' +
-            ' new_delivery_date TIMESTAMP,' +
             ' climatic_zone INTEGER,' +
             ' heat_coef_min NUMERIC,' +
+
             ' products_qty INTEGER,' +
-            ' products_price_total NUMERIC,'+
+            ' templates_price NUMERIC,' +
+            ' addelems_price NUMERIC,' +
+            ' products_price NUMERIC,'+
+
+            ' delivery_date TIMESTAMP,' +
+            ' new_delivery_date TIMESTAMP,' +
+            ' delivery_price NUMERIC,'+
             ' is_date_price_less INTEGER,' +
             ' is_date_price_more INTEGER,' +
             ' floor_id INTEGER,' +
             ' floor_price NUMERIC,' +
             ' mounting_id INTEGER,' +
+            ' mounting_price NUMERIC,'+
             ' is_instalment INTEGER,' +
             ' instalment_id INTEGER,' +
+
             ' is_old_price INTEGER,' +
             ' payment_first NUMERIC,' +
             ' payment_monthly NUMERIC,' +
             ' payment_first_primary NUMERIC,' +
             ' payment_monthly_primary NUMERIC,' +
-            ' order_price_total NUMERIC,' +
-            ' order_price_total_dis NUMERIC,' +
-            ' order_price_total_primary NUMERIC,' +
-            ' construct_price_total NUMERIC,' +
-            ' addelem_price_total NUMERIC,' +
+            ' order_price NUMERIC,' +
+            ' order_price_dis NUMERIC,' +
+            ' order_price_primary NUMERIC,' +
+
             ' discount_construct NUMERIC,' +
             ' discount_addelem NUMERIC,' +
             ' customer_name TEXT,' +

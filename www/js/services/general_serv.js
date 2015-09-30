@@ -17,7 +17,8 @@
     thisFactory.publicObj = {
       stopStartProg: stopStartProg,
       setPreviosPage: setPreviosPage,
-      roundingNumbers: roundingNumbers
+      roundingNumbers: roundingNumbers,
+      setPriceDis: setPriceDis
     };
 
     //TODO desktop
@@ -58,6 +59,11 @@
         return parseFloat(nubmer.toFixed(2));
       }
     }
+
+    function setPriceDis(price, discount) {
+      return roundingNumbers( price * (1 - discount/100) );
+    }
+
 
   }
 })();
