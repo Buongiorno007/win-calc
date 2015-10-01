@@ -60,26 +60,23 @@
     };
     //------- set current Page
     GlobalStor.global.currOpenPage = 'cart';
-    //------- set discounts List according to Max user value
-    thisCtrl.config.discountsList = CartServ.createDiscontsList();
+    GlobalStor.global.productEditNumber = 0;
     //------- collect all AddElements of Order
     CartServ.joinAllAddElements();
+    //----------- start order price total calculation
+    CartServ.calculateOrderPrice();
 
     //console.log('cart +++++', JSON.stringify(OrderStor.order));
 
-    //================ EDIT order from Histoy Page
-    if(GlobalStor.global.orderEditNumber > 0) {
-      CartServ.calculateOrderPrice();
-      console.warn('EDIT ORDER', OrderStor.order);
-
-    //=========== from Main Page
-    } else {
+    //-------- return from Main Page
+    if(GlobalStor.global.prevOpenPage === 'main') {
       //----- cleaning product
       ProductStor.product = ProductStor.setDefaultProduct();
-      //----------- start order price total calculation
-      CartServ.calculateOrderPrice();
-      console.warn('CREATE ORDER++++++', OrderStor.order);
     }
+    //------- set discounts List according to Max user value
+    thisCtrl.config.discountsList = CartServ.createDiscontsList();
+
+
 
 
 

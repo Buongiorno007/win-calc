@@ -251,7 +251,9 @@
                 <div class="account">
                   <div class="account-row header">
                     <div class="account-id">{{ 'history.DRAFT' | translate }}</div>
-                    <div class="account-label account-date-filter">{{ 'history.FROM' | translate }}<span order-date="{{ draft.created }}" type-date="'order'"></span></div>
+                    <div class="account-label account-date-filter">{{ 'history.FROM' | translate }} {{draft.order_date | date:"dd MMMM, yyyy"}}
+                      <!--span(order-date="{{ draft.order_date }}", type-date="'order'")-->
+                    </div>
                   </div>
                   <div class="account-row footer">
                     <div ng-hide="draft.order_style == 'credit'" class="account-value">{{ draft.order_price_dis }}{{ historyPage.U.userInfo.currency }}</div>

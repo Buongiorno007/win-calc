@@ -10,7 +10,7 @@
     .module('MainModule')
     .controller('MainCtrl', mainPageCtrl);
 
-  function mainPageCtrl(localDB, MainServ, GlobalStor, ProductStor, UserStor) {
+  function mainPageCtrl(localDB, MainServ, SVGServ, GlobalStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -82,10 +82,12 @@
 
 
     //================ EDIT PRODUCT =================
-    if (GlobalStor.global.productEditNumber > 0) {
+    if (GlobalStor.global.productEditNumber) {
       console.log('EDIT!!!!');
       console.log('product = ', ProductStor.product);
-      //TODO templates!!!!!
+      SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(data) {
+        ProductStor.product.template = data;
+      });
     }
 
 

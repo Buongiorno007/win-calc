@@ -637,7 +637,7 @@
       var deferred = $q.defer();
       localDB.calculationPrice(obj, function (result) {
         if(result.status){
-//          console.log('price-------', result.data.price);
+          console.log('price-------', result);
 
           ProductStor.product.template_price = GeneralServ.roundingNumbers(result.data.price);
           setProductPriceTOTAL();
@@ -790,7 +790,7 @@
 
               }
             }
-//            console.log('addElementsAll ++++', GlobalStor.global.addElementsAll);
+            console.log('addElementsAll ++++', GlobalStor.global.addElementsAll);
           }
         });
 
@@ -929,7 +929,6 @@
             OrderStor.order.products[productsQty] = angular.copy(ProductStor.product);
           }
         }
-        GlobalStor.global.productEditNumber = 0;
 
       //========== if New Product
       } else {
@@ -938,8 +937,8 @@
         //-------- insert product in order
         OrderStor.order.products.push(ProductStor.product);
         OrderStor.order.products_qty = ProductStor.product.product_id;
-        deferred.resolve(1);
       }
+      deferred.resolve(1);
       //----- finish working with product
       GlobalStor.global.isCreatedNewProduct = 0;
       return deferred.promise;
@@ -968,6 +967,7 @@
       //---------- if EDIT Order, before inserting delete old order
       if(GlobalStor.global.orderEditNumber) {
         deleteOrderInDB(GlobalStor.global.orderEditNumber);
+        localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, GlobalStor.global.orderEditNumber);
         GlobalStor.global.orderEditNumber = 0;
       }
       angular.extend(OrderStor.order, newOptions);
@@ -1019,6 +1019,7 @@
                   product_id: OrderStor.order.products[p].product_id,
                   element_type: OrderStor.order.products[p].chosenAddElements[add][elem].element_type,
                   element_id: OrderStor.order.products[p].chosenAddElements[add][elem].id,
+                  name: OrderStor.order.products[p].chosenAddElements[add][elem].name,
                   element_width: OrderStor.order.products[p].chosenAddElements[add][elem].element_width,
                   element_height: OrderStor.order.products[p].chosenAddElements[add][elem].element_height,
                   element_price: OrderStor.order.products[p].chosenAddElements[add][elem].element_price,

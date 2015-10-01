@@ -83,7 +83,7 @@
       AuxStor.aux.currAddElementPrice = 0;
       //------ save analytics data
       //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_id, AuxStor.aux.addElementsList[typeIndex][elementIndex].id, typeIndex);
-      AuxStor.aux.isAddElement = false;
+      AuxStor.aux.isAddElement = 0;
     }
 
 

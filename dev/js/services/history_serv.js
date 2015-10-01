@@ -472,7 +472,6 @@
                 result[allAddElemQty].id = angular.copy(result[allAddElemQty].element_id);
                 delete result[allAddElemQty].element_id;
                 delete result[allAddElemQty].modified;
-
                 result[allAddElemQty].elementPriceDis = GeneralServ.setPriceDis(result[allAddElemQty].element_price, OrderStor.order.discount_addelem);
                 OrderStor.order.products[prod].chosenAddElements[result[allAddElemQty].element_type].push(result[allAddElemQty]);
                 if(!allAddElemQty) {
@@ -509,9 +508,21 @@
     //------ Download draft Orders from localDB
     function downloadDrafts() {
       localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {'order_type': 0}).then(function(drafts) {
-        if(drafts.length) {
+        var draftQty = drafts.length;
+        console.log('draft =', drafts);
+        HistoryStor.history.isEmptyResultDraft = 0;
+        if(draftQty) {
+          while(--draftQty > -1) {
+            drafts[draftQty].created = new Date(drafts[draftQty].created);
+            drafts[draftQty].delivery_date = new Date(drafts[draftQty].delivery_date);
+            drafts[draftQty].new_delivery_date = new Date(drafts[draftQty].new_delivery_date);
+            drafts[draftQty].order_date = new Date(drafts[draftQty].order_date);
+          }
           HistoryStor.history.draftsSource = angular.copy(drafts);
           HistoryStor.history.drafts = angular.copy(drafts);
+          //TODO ????
+          //----- max day for calendar-scroll
+//          HistoryStor.history.maxDeliveryDateOrder = getOrderMaxDate(HistoryStor.history.orders);
         } else {
           HistoryStor.history.isEmptyResultDraft = 1;
         }

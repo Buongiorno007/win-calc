@@ -33,14 +33,14 @@
     function selectAddElement(id) {
       if(AuxStor.aux.isFocusedAddElement !== id && AuxStor.aux.showAddElementsMenu) {
         AuxStor.aux.isFocusedAddElement = id;
-        AuxStor.aux.isTabFrame = false;
+        AuxStor.aux.isTabFrame = 0;
         //playSound('swip');
-        AuxStor.aux.showAddElementsMenu = false;
+        AuxStor.aux.showAddElementsMenu = 0;
 
         desactiveAddElementParameters();
-        AuxStor.aux.isAddElement = false;
+        AuxStor.aux.isAddElement = 0;
         $timeout(function() {
-          AuxStor.aux.addElementsMenuStyle = false;
+          AuxStor.aux.addElementsMenuStyle = 0;
           //playSound('swip');
           AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
           downloadAddElementsData(id);
@@ -69,7 +69,7 @@
 //      console.log('Tools!+', toolsId, elementIndex);
       if(AuxStor.aux.auxParameter === AuxStor.aux.isFocusedAddElement+'-'+toolsId+'-'+elementIndex) {
         desactiveAddElementParameters();
-        AuxStor.aux.currentAddElementId = false;
+        AuxStor.aux.currentAddElementId = 0;
         //console.log('close-'+$scope.global.auxParameter);
       } else {
         desactiveAddElementParameters();
@@ -78,27 +78,27 @@
         AuxStor.aux.currentAddElementId = elementIndex;
         switch(toolsId) {
           case 1:
-            GlobalStor.global.isQtyCalculator = true;
+            GlobalStor.global.isQtyCalculator = 1;
             break;
           case 2:
-            GlobalStor.global.isSizeCalculator = true;
-            GlobalStor.global.isWidthCalculator = true;
+            GlobalStor.global.isSizeCalculator = 1;
+            GlobalStor.global.isWidthCalculator = 1;
             break;
           case 3:
-            GlobalStor.global.isSizeCalculator = true;
-            GlobalStor.global.isWidthCalculator = false;
+            GlobalStor.global.isSizeCalculator = 1;
+            GlobalStor.global.isWidthCalculator = 0;
             break;
         }
       }
     }
 
     function openAddElementListView() {
-      AuxStor.aux.isAddElementListView = true;
+      AuxStor.aux.isAddElementListView = 1;
       viewSwitching();
     }
 
     function closeAddElementListView() {
-      AuxStor.aux.isAddElementListView = false;
+      AuxStor.aux.isAddElementListView = 0;
       viewSwitching();
     }
 
@@ -106,22 +106,22 @@
     // Open Add Elements in List View
     function viewSwitching() {
       //playSound('swip');
-      AuxStor.aux.isFocusedAddElement = false;
-      AuxStor.aux.isTabFrame = false;
-      AuxStor.aux.showAddElementsMenu = false;
-      AuxStor.aux.isAddElement = false;
+      AuxStor.aux.isFocusedAddElement = 0;
+      AuxStor.aux.isTabFrame = 0;
+      AuxStor.aux.showAddElementsMenu = 0;
+      AuxStor.aux.isAddElement = 0;
       desactiveAddElementParameters();
       $timeout(function() {
-        AuxStor.aux.addElementsMenuStyle = false;
+        AuxStor.aux.addElementsMenuStyle = 0;
       }, delayShowElementsMenu);
     }
 
 
     function desactiveAddElementParameters() {
-      AuxStor.aux.auxParameter = false;
-      GlobalStor.global.isQtyCalculator = false;
-      GlobalStor.global.isSizeCalculator = false;
-      GlobalStor.global.isWidthCalculator = false;
+      AuxStor.aux.auxParameter = 0;
+      GlobalStor.global.isQtyCalculator = 0;
+      GlobalStor.global.isSizeCalculator = 0;
+      GlobalStor.global.isWidthCalculator = 0;
     }
 
 

@@ -488,6 +488,7 @@
             ' product_id INTEGER,' +
             ' element_type INTEGER,' +
             ' element_id INTEGER,' +
+            ' name VARCHAR,' +
             ' element_width NUMERIC,' +
             ' element_height NUMERIC,' +
             ' element_price NUMERIC,' +
@@ -2324,12 +2325,63 @@
             //====== Фурнитура - конец
             priceObj.price = priceObj.price.toFixed(2);
   //          console.log('Сумма:'+priceObj.price);
+            self.parseOrderElements(priceObj);
             callback(new OkResult(priceObj));
           } else {
             console.log(result);
           }
         }
       },
+
+
+      parseOrderElements: function(priceObj) {
+        var self = this;
+        var elementList = [];
+        var filteredList = [];
+        var parsedList = [];
+
+        /** Filter priceObj properties */
+        for (var key in priceObj) {
+          /** Filter currencies vs prices */
+          if (key !== 'currencies' && key !== 'currentCurrency' && key !== 'price') {
+
+            /** beadIds is incorrect array with own properties */
+            if (priceObj[key].length) {
+              priceObj[key].map(function(listContent) {
+                /** Ensure than listContent not broken */
+                if (listContent.priceEl) {
+                  elementList.push(listContent.priceEl.id);
+                } else {
+                  /** Broken listContent */
+                  if (listContent.elemLists && listContent.elemLists.child_type === 'element') {
+                    elementList.push(listContent.elemLists.id)
+                  }
+                }
+              });
+              /** Push beads element if exist */
+            } else if (priceObj[key].price) {
+              elementList.push(priceObj[key].price.id);
+            }
+          }
+        }
+
+        /** Filter duplicate ids */
+        elementList.map(function(id) {
+          if (filteredList[id]) {
+            filteredList[id]++;
+          } else {
+            filteredList[id] = 1;
+          }
+        });
+
+        /** Return parsed object */
+        filteredList.filter(function(length, id) {
+          parsedList.push({element_id: id, amount: length});
+        });
+
+        console.log('elementList', parsedList);
+      },
+
 
 
       getAdditionalPrice: function (addList, callback){

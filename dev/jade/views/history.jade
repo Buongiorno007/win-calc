@@ -172,8 +172,8 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                 .account
                   .account-row.header
                     .account-id {{ 'history.DRAFT' | translate }}
-                    .account-label.account-date-filter {{ 'history.FROM' | translate }}
-                      span(order-date="{{ draft.created }}", type-date="'order'")
+                    .account-label.account-date-filter {{ 'history.FROM' | translate }} {{draft.order_date | date:"dd MMMM, yyyy"}}
+                      //span(order-date="{{ draft.order_date }}", type-date="'order'")
                   .account-row.footer
                     .account-value(ng-hide="draft.order_style == 'credit'") {{ draft.order_price_dis }}{{ historyPage.U.userInfo.currency }}
                     .account-value(ng-show="draft.order_style == 'credit'") {{ draft.order_price_dis }}{{ historyPage.U.userInfo.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.payment_monthly}}{{ historyPage.U.userInfo.currency }}

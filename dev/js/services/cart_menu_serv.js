@@ -128,9 +128,6 @@
           OrderStor.order.order_price -= OrderStor.order.delivery_price;
           OrderStor.order.order_price_dis -= OrderStor.order.delivery_price;
         }
-      } else {
-//        OrderStor.order.order_price_total = OrderStor.order.order_price_total_primary;
-//        OrderStor.order.order_price_total_dis = CartStor.cart.orderPriceTOTALPrimaryDis;
       }
 
       OrderStor.order.order_price = GeneralServ.roundingNumbers(OrderStor.order.order_price);

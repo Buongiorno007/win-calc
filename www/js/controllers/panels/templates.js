@@ -56,7 +56,7 @@
         if(button == 1) {
           //------ change last changed template to old one
           TemplatesServ.backDefaultTemplate();
-          GlobalStor.global.isChangedTemplate = false;
+          GlobalStor.global.isChangedTemplate = 0;
           TemplatesServ.newPriceForNewTemplate(templateIndex);
         }
       }

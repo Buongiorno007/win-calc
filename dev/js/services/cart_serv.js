@@ -195,10 +195,10 @@
 
     //----- Edit Produtct in main page
     function editProduct(productIndex, type) {
-      GlobalStor.global.productEditNumber = productIndex;
       ProductStor.product = angular.copy(OrderStor.order.products[productIndex]);
-      //GlobalStor.global.isCreatedNewProject = false;
-      GlobalStor.global.isCreatedNewProduct = true;
+      GlobalStor.global.productEditNumber = ProductStor.product.product_id;
+      GlobalStor.global.isCreatedNewProduct = 1;
+      GlobalStor.global.isChangedTemplate = 1;
       MainServ.prepareMainPage();
       if(type === 'auxiliary') {
         //------ open AddElements Panel

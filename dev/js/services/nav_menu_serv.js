@@ -144,8 +144,9 @@
           //------ save product
           MainServ.inputProductInOrder();
           //------- define order Price
-          CartServ.calculateAllProductsPrice();
-          OrderStor.order.order_price_total = OrderStor.order.products_price_total;
+          CartServ.calculateOrderPrice();
+//          CartServ.calculateAllProductsPrice();
+//          OrderStor.order.order_price = OrderStor.order.products_price;
           //-------- save order as Draft
           MainServ.saveOrderInDB({}, 0, '');
 
