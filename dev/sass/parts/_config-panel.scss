@@ -14,6 +14,7 @@
   }
   .info {
     position: absolute;
+    cursor: pointer;
     &:before {
       @include top_left_coord(15px, 15px);
       @include font-icon(rem(50px), 1);
@@ -106,7 +107,6 @@
 
     position: relative;
     float: left;
-    padding: rem(45px);
     border-radius: rem($radius_profile-box);
     background-color: #fff;
     cursor: pointer;
@@ -144,6 +144,9 @@
         }
       }
     }
+  }
+  .box_inner {
+    padding: rem(45px);
   }
   .coef-level {
     @include display-flex();

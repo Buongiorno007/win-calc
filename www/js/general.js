@@ -4,11 +4,6 @@
 'use strict';
 
 
-function sortNumbers(a, b) {
-  return a - b;
-}
-
-
 function getMaxMinCoord(points) {
   var overall = {
     minX: d3.min(points, function(d) { return d.x; }),

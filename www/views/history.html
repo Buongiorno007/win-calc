@@ -187,7 +187,7 @@
               <button ng-hide="order.order_style == 'done'" hm-tap="historyPage.makeOrderCopy(order.order_style, order.id)" class="account-tool account-copy-btn"></button>
               <button hm-tap="" class="account-tool account-print-btn"></button>
               <button ng-hide="order.order_style == 'done'" hm-tap="historyPage.clickDeleteOrder(order.order_type, order.id, $event)" class="account-delete-btn"></button>
-              <button ng-hide="order.order_style == 'done'" hm-tap="historyPage.editOrder(order.id)" class="account-change-btn">{{ 'common_words.CHANGE' | translate }}</button>
+              <button ng-hide="order.order_style == 'done'" hm-tap="historyPage.editOrder(1, order.id)" class="account-change-btn">{{ 'common_words.CHANGE' | translate }}</button>
             </div>
             <div ng-show="(orders | filter:historyPage.H.history.searchingWord).length == 0" class="empty-search-result">
               <div class="result-icon"></div>
@@ -247,8 +247,8 @@
           </div>
           <div class="scroll-vert-container">
             <div class="scrolling-container">
-              <div ng-repeat="draft in historyPage.H.history.drafts | orderBy:historyPage.createdDate:historyPage.H.history.reverseDraft" hm-tap="historyPage.editOrder(draft.id)" class="account-block">
-                <div class="account">
+              <div ng-repeat="draft in historyPage.H.history.drafts | orderBy:historyPage.createdDate:historyPage.H.history.reverseDraft" class="account-block">
+                <div hm-tap="historyPage.editOrder(0, draft.id)" class="account">
                   <div class="account-row header">
                     <div class="account-id">{{ 'history.DRAFT' | translate }}</div>
                     <div class="account-label account-date-filter">{{ 'history.FROM' | translate }} {{draft.order_date | date:"dd MMMM, yyyy"}}

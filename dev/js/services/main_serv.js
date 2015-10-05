@@ -34,6 +34,7 @@
       setProductPriceTOTAL: setProductPriceTOTAL,
       downloadAllAddElem: downloadAllAddElem,
       downloadCartMenuData: downloadCartMenuData,
+      showInfoBox: showInfoBox,
 
       createNewProject: createNewProject,
       createNewProduct: createNewProduct,
@@ -288,37 +289,51 @@
 
 
     function sortingGlasses() {
-      var glassAllQty = GlobalStor.global.glassesAll.length;
+      var glassAllQty = GlobalStor.global.glassesAll.length, g = 0;
 
-
-      for(var g = 0; g < glassAllQty; g++) {
+      for(; g < glassAllQty; g++) {
         //------- merge glassList to glasses
-        var listQty = GlobalStor.global.glassesAll[g].glassLists.length;
+        var listQty = GlobalStor.global.glassesAll[g].glassLists.length,
+            glassTypeQty = GlobalStor.global.glassesAll[g].glassTypes.length,
+            newGlassesType = [],
+            newGlasses = [];
+        /** merge glassList to glasses */
         for(var l = 0; l < listQty; l++) {
           if(GlobalStor.global.glassesAll[g].glassLists[l].parent_element_id === GlobalStor.global.glassesAll[g].glasses[l].id) {
             GlobalStor.global.glassesAll[g].glasses[l].elem_id = angular.copy(GlobalStor.global.glassesAll[g].glasses[l].id);
             GlobalStor.global.glassesAll[g].glasses[l].id = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].id);
             GlobalStor.global.glassesAll[g].glasses[l].name = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].name);
             GlobalStor.global.glassesAll[g].glasses[l].cameras = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].cameras);
+            GlobalStor.global.glassesAll[g].glasses[l].position = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].position);
+            GlobalStor.global.glassesAll[g].glasses[l].img = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].img);
+            GlobalStor.global.glassesAll[g].glasses[l].link = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].link);
+            GlobalStor.global.glassesAll[g].glasses[l].description = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].description);
           }
         }
 
-        //------- sorting glasses by type
-        var glassTypeQty = GlobalStor.global.glassesAll[g].glassTypes.length,
-            newGlassesType = [],
-            newGlasses = [];
+        /** sorting glassTypes by position */
+        GlobalStor.global.glassesAll[g].glassTypes.sort(function(a, b) {
+          return GeneralServ.sorting(a.position, b.position);
+        });
+
+        /** sorting glasses by type */
         while(--glassTypeQty > -1) {
           var glassByType = GlobalStor.global.glassesAll[g].glasses.filter(function(elem) {
             return elem.glass_folder_id === GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].id;
           });
 //          console.log('glassByType!!!!!', glassByType);
           if(glassByType.length) {
-            newGlassesType.push(GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty]);
-            newGlasses.push(glassByType);
+            newGlassesType.unshift(GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty]);
+            /** sorting glasses by position */
+            glassByType.sort(function(a, b) {
+              return GeneralServ.sorting(a.position, b.position);
+            });
+            newGlasses.unshift(glassByType);
           }
         }
-        GlobalStor.global.glassesAll[g].glassTypes = angular.copy(newGlassesType.reverse());
-        GlobalStor.global.glassesAll[g].glasses = angular.copy(newGlasses.reverse());
+
+        GlobalStor.global.glassesAll[g].glassTypes = angular.copy(newGlassesType);
+        GlobalStor.global.glassesAll[g].glasses = angular.copy(newGlasses);
         delete GlobalStor.global.glassesAll[g].glassLists;
       }
 
@@ -596,12 +611,15 @@
           ProductStor.product.template_square += ProductStor.product.template.details[0].overallDim[overallQty].square;
         }
 
+
 //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
 
 //        console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
 
         //--------- get product price
-        calculationPrice(objXFormedPrice).then(function() {
+        calculationPrice(objXFormedPrice).then(function(result) {
+          console.warn('objXFormedPrice+++++++', objXFormedPrice);
+          console.warn('result+++++++', result);
           deferred.resolve(1);
         });
 
@@ -635,17 +653,80 @@
       localDB.calculationPrice(obj, function (result) {
         if(result.status){
           console.log('price-------', result);
-
           ProductStor.product.template_price = GeneralServ.roundingNumbers(result.data.price);
           setProductPriceTOTAL();
 //          console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
+          deferred.resolve(collectTemplatePartsIds(result.data));
         } else {
           console.log(result);
+          deferred.resolve(1);
         }
-        deferred.resolve(1);
       });
       return deferred.promise;
     }
+
+
+
+    function collectTemplatePartsIds(priceObj) {
+      var elementList = [];
+//      console.log('sort start', new Date(), new Date().getMilliseconds());
+      /** Filter priceObj properties */
+      for (var key in priceObj) {
+        /** Filter currencies & prices */
+        if (key !== 'currencies' && key !== 'currentCurrency' && key !== 'price') {
+          /** beadIds is incorrect array with own properties */
+          var keyQty = priceObj[key].length;
+          if (keyQty) {
+            while(--keyQty > -1) {
+              /** get element Id*/
+              var newID = 0;
+              if (priceObj[key][keyQty].priceEl) {
+                newID = priceObj[key][keyQty].priceEl.id;
+              } else {
+                if (priceObj[key][keyQty].elemLists && priceObj[key][keyQty].elemLists.child_type === 'element') {
+                  newID = priceObj[key][keyQty].elemLists.id;
+                }
+              }
+              if(newID) {
+                /** push object if new Id otherwise increase count property*/
+                seekDublicatPartId(newID, elementList);
+              }
+            }
+            /** Push beads element if exist */
+          } else if (priceObj[key].price) {
+            seekDublicatPartId(priceObj[key].price.id, elementList);
+          }
+        }
+      }
+//      console.log('sort finish', new Date(), new Date().getMilliseconds());
+//      console.log('elementList', elementList);
+      return elementList;
+    }
+
+
+    function seekDublicatPartId(newID, elementList) {
+      var elementListQty = elementList.length,
+          tempObj = {
+            element_id: newID,
+            amount: 1
+          },
+          exist = 0;
+      if(elementListQty) {
+        while(--elementListQty > -1) {
+          if(elementList[elementListQty].element_id === newID) {
+            exist++;
+            elementList[elementListQty].amount++;
+          }
+        }
+        if(!exist) {
+          elementList.push(tempObj);
+        }
+      } else {
+        elementList.push(tempObj);
+      }
+    }
+
+
 
 
     //---------- Coeffs define
@@ -665,21 +746,21 @@
       glassSquareTotal = objXFormedPrice.glassSquares.reduce(function(sum, elem) {
         return sum + elem;
       });
-//      console.log('heat_coef_total++++', glassSquareTotal);
+//      console.log('heat_coef_total++++', ProductStor.product.profile.heat_coeff_value, ProductStor.product.template_square, glassSquareTotal);
 
       //-------- coeffs define
-      if(!$.isNumeric(ProductStor.product.profile.heat_coeff)) {
-        ProductStor.product.profile.heat_coeff = 1;
+      if(!$.isNumeric(ProductStor.product.profile.heat_coeff_value)) {
+        ProductStor.product.profile.heat_coeff_value = 1;
       }
-      profileHeatCoeffTotal = ProductStor.product.profile.heat_coeff * (ProductStor.product.template_square - glassSquareTotal);
+      profileHeatCoeffTotal = ProductStor.product.profile.heat_coeff_value * (ProductStor.product.template_square - glassSquareTotal);
 
+//      console.log('heat_coef_total++++', ProductStor.product.glass[0].heat_coeff, glassSquareTotal);
       //TODO glass array!
-      if(!$.isNumeric(ProductStor.product.glass[0].heat_coeff)){
-        ProductStor.product.glass[0].heat_coeff = 1;
+      if(!$.isNumeric(ProductStor.product.glass[0].transcalency)){
+        ProductStor.product.glass[0].transcalency = 1;
       }
-      glassHeatCoeffTotal = ProductStor.product.glass[0].heat_coeff * glassSquareTotal;
-//      console.log('heat_coef_total++++', ProductStor.product.glass[0].heat_coeff);
-      //-------- calculate Heat Coeff Total
+      glassHeatCoeffTotal = ProductStor.product.glass[0].transcalency * glassSquareTotal;
+      /** calculate Heat Coeff Total */
       ProductStor.product.heat_coef_total = GeneralServ.roundingNumbers( ProductStor.product.template_square/(profileHeatCoeffTotal + glassHeatCoeffTotal) );
 
       //-------- calculate Air Coeff Total
@@ -824,6 +905,22 @@
 
 
 
+    /** show Info Box of element or group */
+    function showInfoBox(id, itemArr) {
+      if(GlobalStor.global.isInfoBox !== id) {
+        console.info(id, itemArr);
+        var itemArrQty = itemArr.length;
+        while(--itemArrQty > -1) {
+          if(itemArr[itemArrQty].id === id) {
+            GlobalStor.global.infoTitle = itemArr[itemArrQty].name;
+            GlobalStor.global.infoImg = itemArr[itemArrQty].img;
+            GlobalStor.global.infoLink = itemArr[itemArrQty].link;
+            GlobalStor.global.infoDescrip = itemArr[itemArrQty].description;
+          }
+        }
+        GlobalStor.global.isInfoBox = id;
+      }
+    }
 
 
 
@@ -832,6 +929,8 @@
 
     function createNewProject() {
       console.log('new project!!!!!!!!!!!!!!');
+      //----- cleaning product
+      ProductStor.product = ProductStor.setDefaultProduct();
       //------- set new orderId
       createOrderData();
       //------- set current Discounts

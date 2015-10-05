@@ -143,13 +143,10 @@
 
         //------- Create New Project with Draft saving in Main Page
         if(GlobalStor.global.isCreatedNewProject && GlobalStor.global.isCreatedNewProduct) {
-
           //------ save product
           MainServ.inputProductInOrder();
           //------- define order Price
           CartServ.calculateOrderPrice();
-//          CartServ.calculateAllProductsPrice();
-//          OrderStor.order.order_price = OrderStor.order.products_price;
           //-------- save order as Draft
           MainServ.saveOrderInDB({}, 0, '');
 

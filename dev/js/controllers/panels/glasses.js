@@ -26,6 +26,7 @@
 
     //------ clicking
     thisCtrl.selectGlass = selectGlass;
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
 
 
     //============ methods ================//

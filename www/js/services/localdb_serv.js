@@ -192,10 +192,9 @@
             ' position INTEGER,' +
             ' country VARCHAR(100),' +
             ' cameras INTEGER,' +
-//            ' profile_system_group_id	INTEGER,' +
             ' heat_coeff INTEGER,' +
             ' noise_coeff INTEGER,' +
-            ' air_coeff INTEGER',
+            ' heat_coeff_value NUMERIC',
           'foreignKey': ''
         },
         'rules_types': {
@@ -215,30 +214,14 @@
         },
         'users': {
           'tableName': 'users',
-          'prop': //'created_at TIMESTAMP,' +
-//            ' updated_at TIMESTAMP,' +
-            ' email VARCHAR(255),' +
+          'prop':
+            'email VARCHAR(255),' +
             ' password VARCHAR(255),' +
-//            ' session VARCHAR(255),' +
-//            ' short_id VARCHAR(2),' +
-//            ' parent_id INTEGER,' +
             ' factory_id INTEGER,' +
-//            ' discount_construct_max NUMERIC(10, 1),' +
-//            ' discount_construct_default NUMERIC(10, 1),' +
-//            ' discount_addelem_max NUMERIC(10, 1),' +
-//            ' discount_addelem_default NUMERIC(10, 1),' +
             ' name VARCHAR(255),' +
             ' phone VARCHAR(100),' +
-//            ' inn VARCHAR(100),' +
-//            ' okpo VARCHAR(100),' +
-//            ' mfo VARCHAR(100),' +
-//            ' bank_name VARCHAR(100),' +
-//            ' bank_acc_no VARCHAR(100),' +
-//            ' director VARCHAR(255),' +
-//            ' stamp_file_name VARCHAR(255),' +
             ' locked INTEGER,' +
             ' user_type INTEGER,' +
-//            ' contact_name VARCHAR(100),' +
             ' city_phone VARCHAR(100),' +
             ' city_id INTEGER,' +
             ' fax VARCHAR(100),' +
@@ -255,7 +238,6 @@
             ' device_code VARCHAR(250),'+
             ' last_sync TIMESTAMP,' +
             ' address VARCHAR',
-//            ' identificator INTEGER',
           'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id)'
         },
         'users_discounts': {
@@ -549,6 +531,34 @@
         }
       },
 
+//
+      //order_elements
+      //  size: {
+      //      type: 'NUMERIC',
+      //        allowNull: true,
+      //        defaultValue: '0.000'
+      //    },
+      //    amount: {
+      //      type: DataTypes.INTEGER,
+      //        allowNull: false
+      //    },
+      //    element_id: {
+      //      type: DataTypes.INTEGER,
+      //        allowNull: false
+      //    },
+      //    order_id: {
+      //      type: 'NUMERIC',
+      //        allowNull: false
+      //    },
+      //    id: {
+      //      type: DataTypes.INTEGER,
+      //        primaryKey: true,
+      //        autoIncrement: true,
+      //        allowNull: false
+      //    }
+
+
+
       addElementDBId: [
         20, // 0 - grids
         21, // 1 - visors
@@ -766,14 +776,15 @@
       //-------- get User from Server by login
       importUser: function (login) {
         var defer = $q.defer();
-        $http.post(globalConstants.serverIP + '/api/login', {login: login})
-          .success(function (result) {
-            defer.resolve(result);
-          })
-          .error(function () {
+        $http.post(globalConstants.serverIP + '/api/login', {login: login}).then(
+          function (result) {
+            defer.resolve(result.data);
+          },
+          function () {
             console.log('Something went wrong with User recive!');
             defer.resolve({status: 0});
-          });
+          }
+        );
         return defer.promise;
       },
 
@@ -782,36 +793,38 @@
       importLocation: function (login, access) {
         var defer = $q.defer(),
             self = this;
-        $http.get(globalConstants.serverIP + '/api/get/locations?login='+login+'&access_token='+access)
-          .success(function (result) {
-            if(result.status) {
+        $http.get(globalConstants.serverIP + '/api/get/locations?login='+login+'&access_token='+access).then(
+          function (result) {
+            if(result.data.status) {
               //-------- insert in LocalDB
-              self.insertTablesLocalDB(result).then(function() {
+              self.insertTablesLocalDB(result.data).then(function() {
                 defer.resolve(1);
               });
             } else {
               console.log('Error!');
               defer.resolve(0);
             }
-          })
-          .error(function () {
+          },
+          function () {
             console.log('Something went wrong with Location!');
             defer.resolve(0);
-          });
+          }
+        );
         return defer.promise;
       },
 
 
       importFactories: function (login, access, cityIds) {
         var defer = $q.defer();
-        $http.get(globalConstants.serverIP + '/api/get/factories-by-country?login='+login+'&access_token='+access+'&cities_ids='+cityIds)
-          .success(function (result) {
-            defer.resolve(result);
-          })
-          .error(function () {
+        $http.get(globalConstants.serverIP + '/api/get/factories-by-country?login='+login+'&access_token='+access+'&cities_ids='+cityIds).then(
+          function (result) {
+            defer.resolve(result.data);
+          },
+          function () {
             console.log('Something went wrong with get factories!');
             defer.resolve({status: 0});
-          });
+          }
+        );
         return defer.promise;
       },
 
@@ -820,26 +833,27 @@
         var defer = $q.defer(),
             self = this;
         console.log('Import database begin!');
-        $http.get(globalConstants.serverIP+'/api/sync?login='+login+'&access_token='+access)
-          .success(function (result) {
+        $http.get(globalConstants.serverIP+'/api/sync?login='+login+'&access_token='+access).then(
+          function (result) {
             console.log('importAllDB+++', result);
-//            console.log('importDb is done!');
-            if(result.status) {
+            if(result.data.status) {
               //-------- insert in LocalDB
-              self.insertTablesLocalDB(result).then(function() {
+              self.insertTablesLocalDB(result.data).then(function() {
                 defer.resolve(1);
               });
             } else {
               console.log('Error!');
               defer.resolve(0);
             }
-          })
-          .error(function () {
+          },
+          function () {
             console.log('Something went wrong with importing Database!');
             defer.resolve(0);
-          });
+          }
+        );
         return defer.promise;
       },
+
 
 
       insertServer: function(login, access, table, data) {
@@ -848,32 +862,35 @@
               model: table,
               row: JSON.stringify(data)
             };
-        $http.post(globalConstants.serverIP+'/api/insert?login='+login+'&access_token='+access, dataToSend)
-          .success(function (result) {
+        $http.post(globalConstants.serverIP+'/api/insert?login='+login+'&access_token='+access, dataToSend).then(
+          function (result) {
             console.log('send changes to server success:', result);
-            defer.resolve(result);
-          })
-          .error(function (result) {
+            defer.resolve(result.data);
+          },
+          function (result) {
             console.log('send changes to server failed');
-            defer.resolve(result);
-          });
+            defer.resolve(result.data);
+          }
+        );
         return defer.promise;
       },
+
 
 
       updateServer: function (login, access, data) {
 //        tablesToSync.push({model: table_name, rowId: tempObject.id, field: JSON.stringify(tempObject)});
         var promises = data.map(function(item) {
           var defer = $q.defer();
-          $http.post(globalConstants.serverIP+'/api/update?login='+login+'&access_token='+access, item)
-            .success(function (result) {
+          $http.post(globalConstants.serverIP+'/api/update?login='+login+'&access_token='+access, item).then(
+            function (result) {
               console.log('send changes to server success:', result);
               defer.resolve(1);
-            })
-            .error(function () {
+            },
+            function () {
               console.log('send changes to server failed');
               defer.resolve(0);
-            });
+            }
+          );
           return defer.promise;
         });
         return $q.all(promises);
@@ -881,37 +898,40 @@
 
 
       createUserServer: function (dataJson) {
-        $http.post(globalConstants.serverIP+'/api/register', dataJson)
-          .success(function (result) {
+        $http.post(globalConstants.serverIP+'/api/register', dataJson).then(
+          function (result) {
             console.log(result);
-          })
-          .error(function () {
+          },
+          function () {
             console.log('Something went wrong when user creating!');
-          });
+          }
+        );
       },
 
 
       exportUserEntrance: function (login, access) {
         var currTime = new Date();
-        $http.get(globalConstants.serverIP+'/api/signed?login='+login+'&access_token='+access+'&date='+currTime)
-          .success(function () {
+        $http.get(globalConstants.serverIP+'/api/signed?login='+login+'&access_token='+access+'&date='+currTime).then(
+          function () {
             console.log('Sucsess!');
-          })
-          .error(function () {
+          },
+          function () {
             console.log('Something went wrong!');
-          });
+          }
+        );
       },
 
 
       deleteOrderServer: function(login, access, orderNumber) {
         var dataSend = {orderId: orderNumber*1};
-        $http.post(globalConstants.serverIP+'/api/remove-order?login='+login+'&access_token='+access, dataSend)
-          .success(function (result) {
-            console.log(result);
-          })
-          .error(function () {
+        $http.post(globalConstants.serverIP+'/api/remove-order?login='+login+'&access_token='+access, dataSend).then(
+          function (result) {
+            console.log(result.data);
+          },
+          function () {
             console.log('Something went wrong with order delete!');
-          });
+          }
+        );
       },
 
 
@@ -934,7 +954,6 @@
           }
           defer.resolve(1);
         });
-
         return defer.promise;
       },
 
@@ -946,13 +965,16 @@
 //          withCredentials: true,
           headers: {'Content-Type': undefined },
           transformRequest: angular.identity
-        }).success(function (result) {
-          console.log('send changes to server success:', result);
-          defer.resolve(1);
-        }).error(function () {
-          console.log('send changes to server failed');
-          defer.resolve(0);
-        });
+        }).then(
+          function (result) {
+            console.log('send changes to server success:', result);
+            defer.resolve(1);
+          },
+          function () {
+            console.log('send changes to server failed');
+            defer.resolve(0);
+          }
+        );
       },
 
 
@@ -2328,7 +2350,7 @@
             //====== Фурнитура - конец
             priceObj.price = priceObj.price.toFixed(2);
   //          console.log('Сумма:'+priceObj.price);
-            self.parseOrderElements(priceObj);
+//            self.parseOrderElements(priceObj);
             callback(new OkResult(priceObj));
           } else {
             console.log(result);
@@ -2337,53 +2359,49 @@
       },
 
 
-      parseOrderElements: function(priceObj) {
-        var self = this;
-        var elementList = [];
-        var filteredList = [];
-        var parsedList = [];
-
-        /** Filter priceObj properties */
-        for (var key in priceObj) {
-          /** Filter currencies vs prices */
-          if (key !== 'currencies' && key !== 'currentCurrency' && key !== 'price') {
-
-            /** beadIds is incorrect array with own properties */
-            if (priceObj[key].length) {
-              priceObj[key].map(function(listContent) {
-                /** Ensure than listContent not broken */
-                if (listContent.priceEl) {
-                  elementList.push(listContent.priceEl.id);
-                } else {
-                  /** Broken listContent */
-                  if (listContent.elemLists && listContent.elemLists.child_type === 'element') {
-                    elementList.push(listContent.elemLists.id)
-                  }
-                }
-              });
-              /** Push beads element if exist */
-            } else if (priceObj[key].price) {
-              elementList.push(priceObj[key].price.id);
-            }
-          }
-        }
-
-        /** Filter duplicate ids */
-        elementList.map(function(id) {
-          if (filteredList[id]) {
-            filteredList[id]++;
-          } else {
-            filteredList[id] = 1;
-          }
-        });
-
-        /** Return parsed object */
-        filteredList.filter(function(length, id) {
-          parsedList.push({element_id: id, amount: length});
-        });
-
-        console.log('elementList', parsedList);
-      },
+//      parseOrderElements: function(priceObj) {
+//        var elementList = [];
+//        var filteredList = [];
+//        var parsedList = [];
+//console.log('sort start', new Date(), new Date().getMilliseconds());
+//        /** Filter priceObj properties */
+//        for (var key in priceObj) {
+//          /** Filter currencies vs prices */
+//          if (key !== 'currencies' && key !== 'currentCurrency' && key !== 'price') {
+//            /** beadIds is incorrect array with own properties */
+//            if (priceObj[key].length) {
+//              priceObj[key].map(function(listContent) {
+//                /** Ensure than listContent not broken */
+//                if (listContent.priceEl) {
+//                  elementList.push(listContent.priceEl.id);
+//                } else {
+//                  /** Broken listContent */
+//                  if (listContent.elemLists && listContent.elemLists.child_type === 'element') {
+//                    elementList.push(listContent.elemLists.id)
+//                  }
+//                }
+//              });
+//              /** Push beads element if exist */
+//            } else if (priceObj[key].price) {
+//              elementList.push(priceObj[key].price.id);
+//            }
+//          }
+//        }
+//        /** Filter duplicate ids */
+//        elementList.map(function(id) {
+//          if (filteredList[id]) {
+//            filteredList[id]++;
+//          } else {
+//            filteredList[id] = 1;
+//          }
+//        });
+//        /** Return parsed object */
+//        filteredList.filter(function(length, id) {
+//          parsedList.push({element_id: id, amount: length});
+//        });
+//        console.log('sort finish', new Date(), new Date().getMilliseconds());
+//        console.log('elementList', parsedList);
+//      },
 
 
 

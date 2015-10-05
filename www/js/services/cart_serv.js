@@ -205,7 +205,7 @@
       MainServ.prepareMainPage();
       if(type === 'auxiliary') {
         //------ open AddElements Panel
-        GlobalStor.global.activePanel = 5;
+        GlobalStor.global.activePanel = 6;
       }
       //------- set previos Page
       GeneralServ.setPreviosPage();

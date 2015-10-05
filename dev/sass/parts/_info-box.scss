@@ -1,0 +1,22 @@
+.info_container {
+  @extend .backLightView;
+
+  .info_box {
+    position: absolute;
+    top: 25%;
+    left: 30%;
+    width: 60rem;
+    min-height: 40rem;
+    margin: -3rem 0 0 -3rem;
+    background-color: #fff;
+
+  }
+
+  .info_box_inner{}
+  img{}
+  .info_title {}
+  .info_link{}
+  .info_descrip {}
+}
+
+

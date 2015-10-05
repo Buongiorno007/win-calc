@@ -84,6 +84,7 @@
     @include display-flex();
     @include flex-flow(row wrap);
     @include justify-content(space-between);
+    cursor: pointer;
   }
   .hardware-box-view {
     @include display-flex();

@@ -15,7 +15,8 @@
       stopStartProg: stopStartProg,
       setPreviosPage: setPreviosPage,
       roundingNumbers: roundingNumbers,
-      setPriceDis: setPriceDis
+      setPriceDis: setPriceDis,
+      sorting: sorting
     };
 
     //TODO desktop
@@ -61,6 +62,9 @@
       return roundingNumbers( price * (1 - discount/100) );
     }
 
+    function sorting(a, b) {
+      return a - b;
+    }
 
   }
 })();

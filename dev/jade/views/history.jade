@@ -108,7 +108,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
               button.account-tool.account-copy-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.makeOrderCopy(order.order_style, order.id)")
               button.account-tool.account-print-btn(hm-tap="")
               button.account-delete-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.clickDeleteOrder(order.order_type, order.id, $event)")
-              button.account-change-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.editOrder(order.id)") {{ 'common_words.CHANGE' | translate }}
+              button.account-change-btn(ng-hide="order.order_style == 'done'", hm-tap="historyPage.editOrder(1, order.id)") {{ 'common_words.CHANGE' | translate }}
 
             .empty-search-result(ng-show="(orders | filter:historyPage.H.history.searchingWord).length == 0")
               .result-icon
@@ -168,8 +168,8 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
 
           .scroll-vert-container
             .scrolling-container
-              .account-block(ng-repeat="draft in historyPage.H.history.drafts | orderBy:historyPage.createdDate:historyPage.H.history.reverseDraft", hm-tap="historyPage.editOrder(draft.id)")
-                .account
+              .account-block(ng-repeat="draft in historyPage.H.history.drafts | orderBy:historyPage.createdDate:historyPage.H.history.reverseDraft")
+                .account(hm-tap="historyPage.editOrder(0, draft.id)")
                   .account-row.header
                     .account-id {{ 'history.DRAFT' | translate }}
                     .account-label.account-date-filter {{ 'history.FROM' | translate }} {{draft.order_date | date:"dd MMMM, yyyy"}}

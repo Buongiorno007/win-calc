@@ -69,6 +69,13 @@
         assemblingData: [],
         instalmentsData: [],
 
+        //------ Info
+        isInfoBox: 0,
+        infoTitle: '',
+        infoImg: '',
+        infoLink: '',
+        infoDescrip: '',
+
         //---- Calculators
         isQtyCalculator: 0,
         isSizeCalculator: 0,

@@ -5,35 +5,36 @@
       .group-block-header
         .title(data-output="{{ glassPanel.G.global.glassTypes[$index].name }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START }}")
         .group-info
-          .info
+          .info(hm-tap="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)")
 
       .glass-block-footer.clearfix
         .footer-inner
-          .box.glass-box.unvisible(ng-repeat="glass in typeGlass", ng-class="{'selected': glass.id == glassPanel.P.product.glass[0].id}", hm-tap="glassPanel.selectGlass(glass.id)", show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}")
-            .glass-box-view
-              .glass-img(ng-switch="glass.cameras")
-                img(ng-switch-when="1", ng-if="glass.glass_folder_id !== 6", ng-src="img/glasses/glass1.png")
-                img(ng-switch-when="2", ng-if="glass.glass_folder_id !== 6", ng-src="img/glasses/glass2.png")
-                img(ng-switch-when="1", ng-if="glass.glass_folder_id === 6", ng-src="img/glasses/glass10.png")
-                img(ng-switch-when="2", ng-if="glass.glass_folder_id === 6", ng-src="img/glasses/glass20.png")
-              .label {{ glass.cameras }}
-                ng-pluralize(count="glass.cameras",
-                when="{'1':'{{ glassPanel.config.camera }}', '2':'{{ glassPanel.config.camer }}', '3':'{{ glassPanel.config.camer }}', '4':'{{ glassPanel.config.camer }}', 'other':'{{ glassPanel.config.camers }}'}")
-                span(ng-if="glass.glass_folder_id === 6") {{ 'panels.ENERGY_SAVE' | translate }}
-            .glass-box-data
-              .glass-descr(data-output="{{ glass.sku }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
-              .coef-level.heat-insulation(ng-class="{'coef-level-1': glass.heatCoeff == 1, 'coef-level-2': glass.heatCoeff == 2, 'coef-level-3': glass.heatCoeff == 3, 'coef-level-4': glass.heatCoeff == 4}")
-                .coef-index
-                .coef-index
-                .coef-index
-                .coef-index
-                .coef-index
-              .label(data-output="{{ 'panels.HEAT_INSULATION' | translate }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
-              .coef-level.noise-insulation(ng-class="{'coef-level-1': glass.glassNoise == 1, 'coef-level-2': glass.glassNoise == 2, 'coef-level-3': glass.glassNoise == 3, 'coef-level-4': glass.glassNoise == 4}")
-                .coef-index
-                .coef-index
-                .coef-index
-                .coef-index
-                .coef-index
-              .label(data-output="{{ 'panels.NOICE_INSULATION' | translate }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
-            .info
+          .box.glass-box.unvisible(ng-repeat="glass in typeGlass", ng-class="{'selected': glass.id == glassPanel.P.product.glass[0].id}", show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}")
+            .box_inner(hm-tap="glassPanel.selectGlass(glass.id)")
+              .glass-box-view
+                .glass-img(ng-switch="glass.cameras")
+                  img(ng-switch-when="1", ng-if="glass.glass_folder_id !== 6", ng-src="img/glasses/glass1.png")
+                  img(ng-switch-when="2", ng-if="glass.glass_folder_id !== 6", ng-src="img/glasses/glass2.png")
+                  img(ng-switch-when="1", ng-if="glass.glass_folder_id === 6", ng-src="img/glasses/glass10.png")
+                  img(ng-switch-when="2", ng-if="glass.glass_folder_id === 6", ng-src="img/glasses/glass20.png")
+                .label {{ glass.cameras }}
+                  ng-pluralize(count="glass.cameras",
+                  when="{'1':'{{ glassPanel.config.camera }}', '2':'{{ glassPanel.config.camer }}', '3':'{{ glassPanel.config.camer }}', '4':'{{ glassPanel.config.camer }}', 'other':'{{ glassPanel.config.camers }}'}")
+                  span(ng-if="glass.glass_folder_id === 6") {{ 'panels.ENERGY_SAVE' | translate }}
+              .glass-box-data
+                .glass-descr(data-output="{{ glass.sku }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
+                .coef-level.heat-insulation(ng-class="{'coef-level-1': glass.heatCoeff == 1, 'coef-level-2': glass.heatCoeff == 2, 'coef-level-3': glass.heatCoeff == 3, 'coef-level-4': glass.heatCoeff == 4}")
+                  .coef-index
+                  .coef-index
+                  .coef-index
+                  .coef-index
+                  .coef-index
+                .label(data-output="{{ 'panels.HEAT_INSULATION' | translate }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
+                .coef-level.noise-insulation(ng-class="{'coef-level-1': glass.glassNoise == 1, 'coef-level-2': glass.glassNoise == 2, 'coef-level-3': glass.glassNoise == 3, 'coef-level-4': glass.glassNoise == 4}")
+                  .coef-index
+                  .coef-index
+                  .coef-index
+                  .coef-index
+                  .coef-index
+                .label(data-output="{{ 'panels.NOICE_INSULATION' | translate }}", typing="{{ glassPanel.config.typing }}", typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}")
+            .info(hm-tap="glassPanel.showInfoBox(glass.id, typeGlass)")

@@ -26,6 +26,7 @@
 
     //------ clicking
     thisCtrl.selectHardware = selectHardware;
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
 
 
     //============ methods ================//

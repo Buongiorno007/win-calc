@@ -3,14 +3,8 @@
     @extend .config-section;
   }
   .profile-box {
-    @include display-flex();
-    @include flex-flow(column wrap);
-    @include justify-content(space-between);
-    @include align-items(space-between);
-
     width: rem(424px);
     min-width: rem(424px);
-    height: rem(532px);
     margin: rem(25px) rem(50px) rem(25px) 0;
     &.selected {
       &:after {
@@ -18,6 +12,13 @@
         right: rem(45px);
       }
     }
+  }
+  .box_inner {
+    @include display-flex();
+    @include flex-flow(column wrap);
+    @include justify-content(space-between);
+    @include align-items(space-between);
+    height: rem(532px);
   }
   .profile-box-top {
     width: 100%;

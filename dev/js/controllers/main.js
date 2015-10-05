@@ -35,23 +35,23 @@
       //----------- Profiles
       MainServ.downloadAllElemAsGroup(localDB.tablesLocalDB.profile_system_folders.tableName, localDB.tablesLocalDB.profile_systems.tableName, GlobalStor.global.profilesType, GlobalStor.global.profiles).then(function(data) {
         if(data) {
-//          console.log('PROFILES ALL ++++++',GlobalStor.global.profilesType, GlobalStor.global.profiles);
+          console.log('PROFILES ALL ++++++',GlobalStor.global.profilesType, GlobalStor.global.profiles);
           //---------- Glasses
           MainServ.downloadAllGlasses().then(function(data) {
             if(data) {
               //--------- sorting glasses as to Type
               MainServ.sortingGlasses();
-//              console.log('GLASSES All +++++', GlobalStor.global.glassesAll);
+              console.log('GLASSES All +++++', GlobalStor.global.glassesAll);
               //-------- Hardwares
               MainServ.downloadAllElemAsGroup(localDB.tablesLocalDB.window_hardware_folders.tableName, localDB.tablesLocalDB.window_hardware_groups.tableName, GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares).then(function(data){
                 if(data) {
-//                  console.log('HARDWARE ALL ++++++', GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares);
+                  console.log('HARDWARE ALL ++++++', GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares);
                   //--------- set Templates
                   MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
 
                     //-------- Lamination
                     MainServ.downloadAllLamination().then(function(lamins) {
-//                      console.log('LAMINATION++++', lamins);
+                      console.log('LAMINATION++++', lamins);
                       if(lamins.length) {
                         GlobalStor.global.laminationsIn = angular.copy(lamins);
                         GlobalStor.global.laminationsOut = angular.copy(lamins);

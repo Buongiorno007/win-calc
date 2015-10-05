@@ -278,18 +278,26 @@
 
 
     //--------------- Edit Order & Draft
-    function editOrder(orderNum) {
+    function editOrder(typeOrder, orderNum) {
       GlobalStor.global.isLoader = 1;
       GlobalStor.global.orderEditNumber = orderNum;
       //----- cleaning order
       OrderStor.order = OrderStor.setDefaultOrder();
 
-      var ordersQty = HistoryStor.history.orders.length;
+      var ordersQty = (typeOrder) ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
       while(--ordersQty > -1) {
-        if(HistoryStor.history.orders[ordersQty].id === orderNum) {
-          angular.extend(OrderStor.order, HistoryStor.history.orders[ordersQty]);
-          CartStor.fillOrderForm();
+        if(typeOrder) {
+          if(HistoryStor.history.orders[ordersQty].id === orderNum) {
+            angular.extend(OrderStor.order, HistoryStor.history.orders[ordersQty]);
+            CartStor.fillOrderForm();
+          }
+        } else {
+          if(HistoryStor.history.drafts[ordersQty].id === orderNum) {
+            angular.extend(OrderStor.order, HistoryStor.history.drafts[ordersQty]);
+            CartStor.fillOrderForm();
+          }
         }
+
       }
       OrderStor.order.order_date = new Date(OrderStor.order.order_date).getTime();
       OrderStor.order.delivery_date = new Date(OrderStor.order.delivery_date).getTime();

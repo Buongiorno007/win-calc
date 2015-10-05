@@ -25,6 +25,7 @@
 
     //------ clicking
     thisCtrl.selectProfile = selectProfile;
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
 
 
 

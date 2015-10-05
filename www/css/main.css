@@ -348,33 +348,23 @@ th {
 }
 
 @-webkit-keyframes splashing {
-  /* line 87, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: scale(0);
   }
-
-  /* line 90, ../../dev/sass/base/_animations.scss */
   50% {
     -webkit-transform: scale(1.3);
   }
-
-  /* line 93, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: scale(1);
   }
 }
 @keyframes splashing {
-  /* line 98, ../../dev/sass/base/_animations.scss */
   from {
     transform: scale(0);
   }
-
-  /* line 101, ../../dev/sass/base/_animations.scss */
   50% {
     transform: scale(1.3);
   }
-
-  /* line 104, ../../dev/sass/base/_animations.scss */
   to {
     transform: scale(1);
   }
@@ -387,113 +377,71 @@ th {
 }
 
 @-webkit-keyframes flashing {
-  /* line 112, ../../dev/sass/base/_animations.scss */
   from {
     opacity: 1;
   }
-
-  /* line 115, ../../dev/sass/base/_animations.scss */
   10% {
     opacity: 0;
   }
-
-  /* line 118, ../../dev/sass/base/_animations.scss */
   20% {
     opacity: 1;
   }
-
-  /* line 121, ../../dev/sass/base/_animations.scss */
   30% {
     opacity: 0;
   }
-
-  /* line 124, ../../dev/sass/base/_animations.scss */
   40% {
     opacity: 1;
   }
-
-  /* line 127, ../../dev/sass/base/_animations.scss */
   50% {
     opacity: 0;
   }
-
-  /* line 130, ../../dev/sass/base/_animations.scss */
   60% {
     opacity: 1;
   }
-
-  /* line 133, ../../dev/sass/base/_animations.scss */
   70% {
     opacity: 0;
   }
-
-  /* line 136, ../../dev/sass/base/_animations.scss */
   80% {
     opacity: 1;
   }
-
-  /* line 139, ../../dev/sass/base/_animations.scss */
   90% {
     opacity: 0;
   }
-
-  /* line 142, ../../dev/sass/base/_animations.scss */
   to {
     opacity: 1;
   }
 }
 @keyframes flashing {
-  /* line 147, ../../dev/sass/base/_animations.scss */
   from {
     opacity: 1;
   }
-
-  /* line 150, ../../dev/sass/base/_animations.scss */
   10% {
     opacity: 0;
   }
-
-  /* line 153, ../../dev/sass/base/_animations.scss */
   20% {
     opacity: 1;
   }
-
-  /* line 156, ../../dev/sass/base/_animations.scss */
   30% {
     opacity: 0;
   }
-
-  /* line 159, ../../dev/sass/base/_animations.scss */
   40% {
     opacity: 1;
   }
-
-  /* line 162, ../../dev/sass/base/_animations.scss */
   50% {
     opacity: 0;
   }
-
-  /* line 165, ../../dev/sass/base/_animations.scss */
   60% {
     opacity: 1;
   }
-
-  /* line 168, ../../dev/sass/base/_animations.scss */
   70% {
     opacity: 0;
   }
-
-  /* line 171, ../../dev/sass/base/_animations.scss */
   80% {
     opacity: 1;
   }
-
-  /* line 174, ../../dev/sass/base/_animations.scss */
   90% {
     opacity: 0;
   }
-
-  /* line 177, ../../dev/sass/base/_animations.scss */
   to {
     opacity: 1;
   }
@@ -506,23 +454,17 @@ th {
 }
 
 @-webkit-keyframes move-navmenu-list {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(-37.5rem, 0);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-navmenu-list {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(-37.5rem, 0);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -535,23 +477,17 @@ th {
 }
 
 @-webkit-keyframes move-menu-right {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(31.25rem, 0);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-menu-right {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(31.25rem, 0);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -564,23 +500,17 @@ th {
 }
 
 @-webkit-keyframes move-grid {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(62.5rem, -125rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-grid {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(62.5rem, -125rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -593,23 +523,17 @@ th {
 }
 
 @-webkit-keyframes move-visor {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(62.5rem, -125rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-visor {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(62.5rem, -125rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -622,23 +546,17 @@ th {
 }
 
 @-webkit-keyframes move-spillway {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(125rem, -125rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-spillway {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(125rem, -125rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -651,23 +569,17 @@ th {
 }
 
 @-webkit-keyframes move-outside {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(0, -125rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-outside {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(0, -125rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -680,23 +592,17 @@ th {
 }
 
 @-webkit-keyframes move-windowsill {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(-62.5rem, 125rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-windowsill {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(-62.5rem, 125rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -709,23 +615,17 @@ th {
 }
 
 @-webkit-keyframes move-louvers {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(0, -125rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-louvers {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(0, -125rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -738,33 +638,23 @@ th {
 }
 
 @-webkit-keyframes move-louver-1 {
-  /* line 41, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(0, 0);
   }
-
-  /* line 44, ../../dev/sass/base/_animations.scss */
   50% {
     -webkit-transform: translate(0, -1.875rem);
   }
-
-  /* line 47, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-louver-1 {
-  /* line 52, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(0, 0);
   }
-
-  /* line 55, ../../dev/sass/base/_animations.scss */
   50% {
     transform: translate(0, -1.875rem);
   }
-
-  /* line 58, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -777,33 +667,23 @@ th {
 }
 
 @-webkit-keyframes move-louver-2 {
-  /* line 41, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(0, 0);
   }
-
-  /* line 44, ../../dev/sass/base/_animations.scss */
   50% {
     -webkit-transform: translate(0, -3.75rem);
   }
-
-  /* line 47, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-louver-2 {
-  /* line 52, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(0, 0);
   }
-
-  /* line 55, ../../dev/sass/base/_animations.scss */
   50% {
     transform: translate(0, -3.75rem);
   }
-
-  /* line 58, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -816,33 +696,23 @@ th {
 }
 
 @-webkit-keyframes move-louver-3 {
-  /* line 41, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(0, 0);
   }
-
-  /* line 44, ../../dev/sass/base/_animations.scss */
   50% {
     -webkit-transform: translate(0, -5.625rem);
   }
-
-  /* line 47, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-louver-3 {
-  /* line 52, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(0, 0);
   }
-
-  /* line 55, ../../dev/sass/base/_animations.scss */
   50% {
     transform: translate(0, -5.625rem);
   }
-
-  /* line 58, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -855,33 +725,23 @@ th {
 }
 
 @-webkit-keyframes move-louver-bottom {
-  /* line 41, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(0, 0);
   }
-
-  /* line 44, ../../dev/sass/base/_animations.scss */
   50% {
     -webkit-transform: translate(0, -7.5rem);
   }
-
-  /* line 47, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-louver-bottom {
-  /* line 52, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(0, 0);
   }
-
-  /* line 55, ../../dev/sass/base/_animations.scss */
   50% {
     transform: translate(0, -7.5rem);
   }
-
-  /* line 58, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -894,23 +754,17 @@ th {
 }
 
 @-webkit-keyframes move-slope-top {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(0, -125rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-slope-top {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(0, -125rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -923,23 +777,17 @@ th {
 }
 
 @-webkit-keyframes move-slope-right {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(125rem, 125rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-slope-right {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(125rem, 125rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -952,23 +800,17 @@ th {
 }
 
 @-webkit-keyframes move-slope-left {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(-62.5rem, 0);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-slope-left {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(-62.5rem, 0);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -981,45 +823,33 @@ th {
 }
 
 @-webkit-keyframes move-fan {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(0, 125rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-fan {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(0, 125rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
 }
 @-webkit-keyframes rot-fan {
-  /* line 67, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: rotate(0deg);
   }
-
-  /* line 70, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: rotate(360deg);
   }
 }
 @keyframes rot-fan {
-  /* line 75, ../../dev/sass/base/_animations.scss */
   from {
     transform: rotate(0deg);
   }
-
-  /* line 78, ../../dev/sass/base/_animations.scss */
   to {
     transform: rotate(360deg);
   }
@@ -1032,23 +862,17 @@ th {
 }
 
 @-webkit-keyframes move-handle {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(-62.5rem, 125rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-handle {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(-62.5rem, 125rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -1061,23 +885,17 @@ th {
 }
 
 @-webkit-keyframes move-tab {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(-12.5rem, 43.75rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(-7.875rem, 43.75rem);
   }
 }
 @keyframes move-tab {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(-12.5rem, 43.75rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(-7.875rem, 43.75rem);
   }
@@ -1248,7 +1066,7 @@ body {
 /* line 161, ../../dev/sass/base/general.scss */
 .menu-btn:before, .user-info-container .nav-menu-btn:before, .setting-page .back:before, .setting-back:before {
   color: #fff;
-  content: "\e617";
+  content: "";
 }
 
 /* line 170, ../../dev/sass/base/general.scss */
@@ -1305,7 +1123,7 @@ body {
 .cross-btn:after, .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .addelementunit-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after, .config-menu .menu_tooltip .close_menu_tooltip:after, .search-block .delete-search:after, .construct-tools:after, .elements-menu .close-elements-menu:after {
   position: absolute;
   color: #fff;
-  content: "\e628";
+  content: "";
 }
 
 /* line 228, ../../dev/sass/base/general.scss */
@@ -1387,7 +1205,18 @@ body {
   z-index: 9;
 }
 
-/* line 316, ../../dev/sass/base/general.scss */
+/* line 307, ../../dev/sass/base/general.scss */
+.backLightView, .loader-container, .info_container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 999;
+}
+
+/* line 326, ../../dev/sass/base/general.scss */
 .scrolling-container, .scroll-vert-container, .scroll-hor-container, .cart-page .addelements-detail-content {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -1396,33 +1225,33 @@ body {
   overflow-scrolling: touch;
 }
 
-/* line 319, ../../dev/sass/base/general.scss */
+/* line 329, ../../dev/sass/base/general.scss */
 .scroll-vert, .scroll-vert-container {
   overflow-x: hidden;
   overflow-y: auto;
 }
 
-/* line 323, ../../dev/sass/base/general.scss */
+/* line 333, ../../dev/sass/base/general.scss */
 .scroll-hor, .scroll-hor-container {
   overflow-x: auto;
   overflow-y: hidden;
 }
 
-/* line 327, ../../dev/sass/base/general.scss */
+/* line 337, ../../dev/sass/base/general.scss */
 .scroll-vert-container {
   width: 100%;
   height: 90%;
   padding-top: 2rem;
 }
 
-/* line 334, ../../dev/sass/base/general.scss */
+/* line 344, ../../dev/sass/base/general.scss */
 .scroll-hor-container {
   width: 100%;
   height: 100%;
   padding-top: 2rem;
 }
 
-/* line 343, ../../dev/sass/base/general.scss */
+/* line 353, ../../dev/sass/base/general.scss */
 #sounds {
   visibility: hidden;
 }
@@ -1459,7 +1288,7 @@ body {
 .pickmeup .pmu-instance .pmu-today {
   border-radius: 0.6em;
   background: #17384d;
-  color: white !important;
+  color: #fff !important;
 }
 /* line 49, ../../dev/vendor/calendar/pickmeup.scss */
 .pickmeup .pmu-instance .pmu-button:hover {
@@ -1472,14 +1301,14 @@ body {
 /* line 57, ../../dev/vendor/calendar/pickmeup.scss */
 .pickmeup .pmu-instance .pmu-disabled,
 .pickmeup .pmu-instance .pmu-disabled:hover {
-  color: #333333;
+  color: #333;
   cursor: default;
 }
 /* line 63, ../../dev/vendor/calendar/pickmeup.scss */
 .pickmeup .pmu-instance .pmu-selected {
   border-radius: 0.6em;
   background: #f98000;
-  color: white;
+  color: #fff;
 }
 /* line 69, ../../dev/vendor/calendar/pickmeup.scss */
 .pickmeup .pmu-instance .pmu-not-in-month.pmu-selected {
@@ -1509,11 +1338,11 @@ body {
 .pickmeup .pmu-instance nav .pmu-prev:after,
 .pickmeup .pmu-instance nav .pmu-next:after {
   color: #f98000;
-  content: "\e612";
+  content: "";
 }
 /* line 98, ../../dev/vendor/calendar/pickmeup.scss */
 .pickmeup .pmu-instance nav .pmu-next:after {
-  content: "\e610";
+  content: "";
 }
 /* line 103, ../../dev/vendor/calendar/pickmeup.scss */
 .pickmeup .pmu-instance nav .pmu-month {
@@ -1529,7 +1358,7 @@ body {
 }
 /* line 118, ../../dev/vendor/calendar/pickmeup.scss */
 .pickmeup .pmu-instance .pmu-day-of-week {
-  color: #999999;
+  color: #999;
   cursor: default;
 }
 /* line 125, ../../dev/vendor/calendar/pickmeup.scss */
@@ -2113,165 +1942,121 @@ body {
  * Animations
  */
 @-webkit-keyframes showSweetAlert {
-  /* line 372, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     transform: scale(0.7);
     -webkit-transform: scale(0.7);
   }
-
-  /* line 375, ../../dev/vendor/alerts/sweetalert.scss */
   45% {
     transform: scale(1.05);
     -webkit-transform: scale(1.05);
   }
-
-  /* line 378, ../../dev/vendor/alerts/sweetalert.scss */
   80% {
     transform: scale(0.95);
     -webkit-transform: scale(0.95);
   }
-
-  /* line 381, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     transform: scale(1);
     -webkit-transform: scale(1);
   }
 }
 @keyframes showSweetAlert {
-  /* line 386, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     transform: scale(0.7);
     -webkit-transform: scale(0.7);
   }
-
-  /* line 389, ../../dev/vendor/alerts/sweetalert.scss */
   45% {
     transform: scale(1.05);
     -webkit-transform: scale(1.05);
   }
-
-  /* line 392, ../../dev/vendor/alerts/sweetalert.scss */
   80% {
     transform: scale(0.95);
     -webkit-transform: scale(0.95);
   }
-
-  /* line 395, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     transform: scale(1);
     -webkit-transform: scale(1);
   }
 }
 @-webkit-keyframes hideSweetAlert {
-  /* line 400, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     transform: scale(1);
     -webkit-transform: scale(1);
   }
-
-  /* line 403, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     transform: scale(0.5);
     -webkit-transform: scale(0.5);
   }
 }
 @keyframes hideSweetAlert {
-  /* line 408, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     transform: scale(1);
     -webkit-transform: scale(1);
   }
-
-  /* line 411, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     transform: scale(0.5);
     -webkit-transform: scale(0.5);
   }
 }
 @-webkit-keyframes slideFromTop {
-  /* line 416, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     top: 0%;
   }
-
-  /* line 418, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     top: 50%;
   }
 }
 @keyframes slideFromTop {
-  /* line 422, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     top: 0%;
   }
-
-  /* line 424, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     top: 50%;
   }
 }
 @-webkit-keyframes slideToTop {
-  /* line 428, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     top: 50%;
   }
-
-  /* line 430, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     top: 0%;
   }
 }
 @keyframes slideToTop {
-  /* line 434, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     top: 50%;
   }
-
-  /* line 436, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     top: 0%;
   }
 }
 @-webkit-keyframes slideFromBottom {
-  /* line 440, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     top: 70%;
   }
-
-  /* line 442, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     top: 50%;
   }
 }
 @keyframes slideFromBottom {
-  /* line 446, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     top: 70%;
   }
-
-  /* line 448, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     top: 50%;
   }
 }
 @-webkit-keyframes slideToBottom {
-  /* line 452, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     top: 50%;
   }
-
-  /* line 454, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     top: 70%;
   }
 }
 @keyframes slideToBottom {
-  /* line 458, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     top: 50%;
   }
-
-  /* line 460, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     top: 70%;
   }
@@ -2325,35 +2110,26 @@ body {
 }
 
 @-webkit-keyframes animateSuccessTip {
-  /* line 496, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     width: 0;
     left: 1px;
     top: 19px;
   }
-
-  /* line 500, ../../dev/vendor/alerts/sweetalert.scss */
   54% {
     width: 0;
     left: 1px;
     top: 19px;
   }
-
-  /* line 504, ../../dev/vendor/alerts/sweetalert.scss */
   70% {
     width: 50px;
     left: -8px;
     top: 37px;
   }
-
-  /* line 508, ../../dev/vendor/alerts/sweetalert.scss */
   84% {
     width: 17px;
     left: 21px;
     top: 48px;
   }
-
-  /* line 512, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     width: 25px;
     left: 14px;
@@ -2361,35 +2137,26 @@ body {
   }
 }
 @keyframes animateSuccessTip {
-  /* line 518, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     width: 0;
     left: 1px;
     top: 19px;
   }
-
-  /* line 522, ../../dev/vendor/alerts/sweetalert.scss */
   54% {
     width: 0;
     left: 1px;
     top: 19px;
   }
-
-  /* line 526, ../../dev/vendor/alerts/sweetalert.scss */
   70% {
     width: 50px;
     left: -8px;
     top: 37px;
   }
-
-  /* line 530, ../../dev/vendor/alerts/sweetalert.scss */
   84% {
     width: 17px;
     left: 21px;
     top: 48px;
   }
-
-  /* line 534, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     width: 25px;
     left: 14px;
@@ -2397,28 +2164,21 @@ body {
   }
 }
 @-webkit-keyframes animateSuccessLong {
-  /* line 540, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     width: 0;
     right: 46px;
     top: 54px;
   }
-
-  /* line 544, ../../dev/vendor/alerts/sweetalert.scss */
   65% {
     width: 0;
     right: 46px;
     top: 54px;
   }
-
-  /* line 548, ../../dev/vendor/alerts/sweetalert.scss */
   84% {
     width: 55px;
     right: 0px;
     top: 35px;
   }
-
-  /* line 552, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     width: 47px;
     right: 8px;
@@ -2426,28 +2186,21 @@ body {
   }
 }
 @keyframes animateSuccessLong {
-  /* line 558, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     width: 0;
     right: 46px;
     top: 54px;
   }
-
-  /* line 562, ../../dev/vendor/alerts/sweetalert.scss */
   65% {
     width: 0;
     right: 46px;
     top: 54px;
   }
-
-  /* line 566, ../../dev/vendor/alerts/sweetalert.scss */
   84% {
     width: 55px;
     right: 0px;
     top: 35px;
   }
-
-  /* line 570, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     width: 47px;
     right: 8px;
@@ -2455,50 +2208,36 @@ body {
   }
 }
 @-webkit-keyframes rotatePlaceholder {
-  /* line 576, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
   }
-
-  /* line 579, ../../dev/vendor/alerts/sweetalert.scss */
   5% {
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
   }
-
-  /* line 582, ../../dev/vendor/alerts/sweetalert.scss */
   12% {
     transform: rotate(-405deg);
     -webkit-transform: rotate(-405deg);
   }
-
-  /* line 585, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     transform: rotate(-405deg);
     -webkit-transform: rotate(-405deg);
   }
 }
 @keyframes rotatePlaceholder {
-  /* line 590, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
   }
-
-  /* line 593, ../../dev/vendor/alerts/sweetalert.scss */
   5% {
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
   }
-
-  /* line 596, ../../dev/vendor/alerts/sweetalert.scss */
   12% {
     transform: rotate(-405deg);
     -webkit-transform: rotate(-405deg);
   }
-
-  /* line 599, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     transform: rotate(-405deg);
     -webkit-transform: rotate(-405deg);
@@ -2523,14 +2262,11 @@ body {
 }
 
 @-webkit-keyframes animateErrorIcon {
-  /* line 616, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     transform: rotateX(100deg);
     -webkit-transform: rotateX(100deg);
     opacity: 0;
   }
-
-  /* line 620, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     transform: rotateX(0deg);
     -webkit-transform: rotateX(0deg);
@@ -2538,14 +2274,11 @@ body {
   }
 }
 @keyframes animateErrorIcon {
-  /* line 626, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     transform: rotateX(100deg);
     -webkit-transform: rotateX(100deg);
     opacity: 0;
   }
-
-  /* line 630, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     transform: rotateX(0deg);
     -webkit-transform: rotateX(0deg);
@@ -2559,30 +2292,23 @@ body {
 }
 
 @-webkit-keyframes animateXMark {
-  /* line 640, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     transform: scale(0.4);
     -webkit-transform: scale(0.4);
     margin-top: 26px;
     opacity: 0;
   }
-
-  /* line 645, ../../dev/vendor/alerts/sweetalert.scss */
   50% {
     transform: scale(0.4);
     -webkit-transform: scale(0.4);
     margin-top: 26px;
     opacity: 0;
   }
-
-  /* line 650, ../../dev/vendor/alerts/sweetalert.scss */
   80% {
     transform: scale(1.15);
     -webkit-transform: scale(1.15);
     margin-top: -6px;
   }
-
-  /* line 654, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     transform: scale(1);
     -webkit-transform: scale(1);
@@ -2591,30 +2317,23 @@ body {
   }
 }
 @keyframes animateXMark {
-  /* line 661, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     transform: scale(0.4);
     -webkit-transform: scale(0.4);
     margin-top: 26px;
     opacity: 0;
   }
-
-  /* line 666, ../../dev/vendor/alerts/sweetalert.scss */
   50% {
     transform: scale(0.4);
     -webkit-transform: scale(0.4);
     margin-top: 26px;
     opacity: 0;
   }
-
-  /* line 671, ../../dev/vendor/alerts/sweetalert.scss */
   80% {
     transform: scale(1.15);
     -webkit-transform: scale(1.15);
     margin-top: -6px;
   }
-
-  /* line 675, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     transform: scale(1);
     -webkit-transform: scale(1);
@@ -2629,23 +2348,17 @@ body {
 }
 
 @-webkit-keyframes pulseWarning {
-  /* line 686, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     border-color: #F8D486;
   }
-
-  /* line 688, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     border-color: #F8BB86;
   }
 }
 @keyframes pulseWarning {
-  /* line 692, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     border-color: #F8D486;
   }
-
-  /* line 694, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     border-color: #F8BB86;
   }
@@ -2657,23 +2370,17 @@ body {
 }
 
 @-webkit-keyframes pulseWarningIns {
-  /* line 702, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     background-color: #F8D486;
   }
-
-  /* line 704, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     background-color: #F8BB86;
   }
 }
 @keyframes pulseWarningIns {
-  /* line 708, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     background-color: #F8D486;
   }
-
-  /* line 710, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     background-color: #F8BB86;
   }
@@ -2685,23 +2392,17 @@ body {
 }
 
 @-webkit-keyframes rotate-loading {
-  /* line 718, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     transform: rotate(0deg);
   }
-
-  /* line 720, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     transform: rotate(360deg);
   }
 }
 @keyframes rotate-loading {
-  /* line 724, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     transform: rotate(0deg);
   }
-
-  /* line 726, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     transform: rotate(360deg);
   }
@@ -2856,38 +2557,27 @@ body {
  * Animation
  */
 @-webkit-keyframes ball-fall {
-  /* line 839, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     opacity: 0;
     -webkit-transform: translateY(-145%);
     transform: translateY(-145%);
   }
-
-  /* line 843, ../../dev/vendor/alerts/sweetalert.scss */
   10% {
     opacity: .5;
   }
-
-  /* line 845, ../../dev/vendor/alerts/sweetalert.scss */
   20% {
     opacity: 1;
     -webkit-transform: translateY(0);
     transform: translateY(0);
   }
-
-  /* line 849, ../../dev/vendor/alerts/sweetalert.scss */
   80% {
     opacity: 1;
     -webkit-transform: translateY(0);
     transform: translateY(0);
   }
-
-  /* line 853, ../../dev/vendor/alerts/sweetalert.scss */
   90% {
     opacity: .5;
   }
-
-  /* line 855, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     opacity: 0;
     -webkit-transform: translateY(145%);
@@ -2895,38 +2585,27 @@ body {
   }
 }
 @-moz-keyframes ball-fall {
-  /* line 861, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     opacity: 0;
     -moz-transform: translateY(-145%);
     transform: translateY(-145%);
   }
-
-  /* line 865, ../../dev/vendor/alerts/sweetalert.scss */
   10% {
     opacity: .5;
   }
-
-  /* line 867, ../../dev/vendor/alerts/sweetalert.scss */
   20% {
     opacity: 1;
     -moz-transform: translateY(0);
     transform: translateY(0);
   }
-
-  /* line 871, ../../dev/vendor/alerts/sweetalert.scss */
   80% {
     opacity: 1;
     -moz-transform: translateY(0);
     transform: translateY(0);
   }
-
-  /* line 875, ../../dev/vendor/alerts/sweetalert.scss */
   90% {
     opacity: .5;
   }
-
-  /* line 877, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     opacity: 0;
     -moz-transform: translateY(145%);
@@ -2934,38 +2613,27 @@ body {
   }
 }
 @-o-keyframes ball-fall {
-  /* line 883, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     opacity: 0;
     -o-transform: translateY(-145%);
     transform: translateY(-145%);
   }
-
-  /* line 887, ../../dev/vendor/alerts/sweetalert.scss */
   10% {
     opacity: .5;
   }
-
-  /* line 889, ../../dev/vendor/alerts/sweetalert.scss */
   20% {
     opacity: 1;
     -o-transform: translateY(0);
     transform: translateY(0);
   }
-
-  /* line 893, ../../dev/vendor/alerts/sweetalert.scss */
   80% {
     opacity: 1;
     -o-transform: translateY(0);
     transform: translateY(0);
   }
-
-  /* line 897, ../../dev/vendor/alerts/sweetalert.scss */
   90% {
     opacity: .5;
   }
-
-  /* line 899, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     opacity: 0;
     -o-transform: translateY(145%);
@@ -2973,7 +2641,6 @@ body {
   }
 }
 @keyframes ball-fall {
-  /* line 905, ../../dev/vendor/alerts/sweetalert.scss */
   0% {
     opacity: 0;
     -webkit-transform: translateY(-145%);
@@ -2981,13 +2648,9 @@ body {
     -o-transform: translateY(-145%);
     transform: translateY(-145%);
   }
-
-  /* line 911, ../../dev/vendor/alerts/sweetalert.scss */
   10% {
     opacity: .5;
   }
-
-  /* line 913, ../../dev/vendor/alerts/sweetalert.scss */
   20% {
     opacity: 1;
     -webkit-transform: translateY(0);
@@ -2995,8 +2658,6 @@ body {
     -o-transform: translateY(0);
     transform: translateY(0);
   }
-
-  /* line 919, ../../dev/vendor/alerts/sweetalert.scss */
   80% {
     opacity: 1;
     -webkit-transform: translateY(0);
@@ -3004,13 +2665,9 @@ body {
     -o-transform: translateY(0);
     transform: translateY(0);
   }
-
-  /* line 925, ../../dev/vendor/alerts/sweetalert.scss */
   90% {
     opacity: .5;
   }
-
-  /* line 927, ../../dev/vendor/alerts/sweetalert.scss */
   100% {
     opacity: 0;
     -webkit-transform: translateY(145%);
@@ -3019,17 +2676,7 @@ body {
     transform: translateY(145%);
   }
 }
-/* line 1, ../../dev/sass/parts/_loader.scss */
-.loader-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.8);
-  z-index: 999;
-}
-/* line 10, ../../dev/sass/parts/_loader.scss */
+/* line 4, ../../dev/sass/parts/_loader.scss */
 .loader-container .loader {
   position: absolute;
   top: 50%;
@@ -3254,7 +2901,7 @@ body {
   top: -1.875rem;
   margin-right: 0.375rem;
   color: #f98000;
-  content: "\e609";
+  content: "";
 }
 /* line 40, ../../dev/sass/parts/_user-info.scss */
 .user-info-container .user-info-block {
@@ -3374,7 +3021,7 @@ body {
 .room-info-container .comment-btn:after {
   font: normal 5rem/1 icons, sans-serif;
   padding: 2rem;
-  content: "\e662";
+  content: "";
   color: #fff;
   cursor: pointer;
 }
@@ -3397,45 +3044,33 @@ body {
 }
 
 @-webkit-keyframes moveRoomHeader {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(125rem, 0);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes moveRoomHeader {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(125rem, 0);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
 }
 @-webkit-keyframes moveCoeff {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(0, 125rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(250, 0);
   }
 }
 @keyframes moveCoeff {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(0, 125rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(250, 0);
   }
@@ -3732,17 +3367,18 @@ body {
 /* line 15, ../../dev/sass/parts/_config-panel.scss */
 .config-panel .info {
   position: absolute;
+  cursor: pointer;
 }
-/* line 17, ../../dev/sass/parts/_config-panel.scss */
+/* line 18, ../../dev/sass/parts/_config-panel.scss */
 .config-panel .info:before {
   top: 0.9375rem;
   left: 0.9375rem;
   font: normal 3.125rem/1 icons, sans-serif;
   position: absolute;
   color: #6ed44a;
-  content: "\e616";
+  content: "";
 }
-/* line 27, ../../dev/sass/parts/_config-panel.scss */
+/* line 28, ../../dev/sass/parts/_config-panel.scss */
 .config-panel .panel-inner {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -3754,26 +3390,26 @@ body {
   overflow-y: auto;
 }
 
-/* line 35, ../../dev/sass/parts/_config-panel.scss */
+/* line 36, ../../dev/sass/parts/_config-panel.scss */
 .config-section, .profile-container .profile-block, .glass-container .glass-block, .hardware-container .hardware-block {
   width: 98%;
   padding: 3.125rem 0 3.125rem 5rem;
   border-bottom: 1px solid #bebebe;
 }
-/* line 40, ../../dev/sass/parts/_config-panel.scss */
+/* line 41, ../../dev/sass/parts/_config-panel.scss */
 .config-section.selected, .profile-container .selected.profile-block, .glass-container .selected.glass-block, .hardware-container .selected.hardware-block {
   position: relative;
 }
-/* line 42, ../../dev/sass/parts/_config-panel.scss */
+/* line 43, ../../dev/sass/parts/_config-panel.scss */
 .config-section.selected:before, .profile-container .selected.profile-block:before, .glass-container .selected.glass-block:before, .hardware-container .selected.hardware-block:before {
   top: 3.5rem;
   left: -1.6875rem;
   font: normal 5.625rem/3.75rem icons, sans-serif;
   position: absolute;
   color: #6ed44a;
-  content: "\e61b";
+  content: "";
 }
-/* line 52, ../../dev/sass/parts/_config-panel.scss */
+/* line 53, ../../dev/sass/parts/_config-panel.scss */
 .config-section .group-block-header, .profile-container .profile-block .group-block-header, .glass-container .glass-block .group-block-header, .hardware-container .hardware-block .group-block-header {
   display: -webkit-flex;
   display: flex;
@@ -3782,21 +3418,21 @@ body {
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
 }
-/* line 57, ../../dev/sass/parts/_config-panel.scss */
+/* line 58, ../../dev/sass/parts/_config-panel.scss */
 .config-section .title, .profile-container .profile-block .title, .glass-container .glass-block .title, .hardware-container .hardware-block .title {
   font: normal 3rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
 }
-/* line 62, ../../dev/sass/parts/_config-panel.scss */
+/* line 63, ../../dev/sass/parts/_config-panel.scss */
 .config-section .group-info, .profile-container .profile-block .group-info, .glass-container .glass-block .group-info, .hardware-container .hardware-block .group-info {
   position: relative;
 }
-/* line 65, ../../dev/sass/parts/_config-panel.scss */
+/* line 66, ../../dev/sass/parts/_config-panel.scss */
 .config-section .group-info .info, .profile-container .profile-block .group-info .info, .glass-container .glass-block .group-info .info, .hardware-container .hardware-block .group-info .info {
   top: 0;
   right: 0;
 }
-/* line 70, ../../dev/sass/parts/_config-panel.scss */
+/* line 71, ../../dev/sass/parts/_config-panel.scss */
 .config-section .type, .profile-container .profile-block .type, .glass-container .glass-block .type, .hardware-container .hardware-block .type {
   font: normal 2.25rem/3.5rem roboto-medium, sans-serif;
   display: inline;
@@ -3805,44 +3441,43 @@ body {
   border-radius: 2rem;
   background-color: #6ed44a;
 }
-/* line 79, ../../dev/sass/parts/_config-panel.scss */
+/* line 80, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index, .profile-container .profile-block .coef-index, .glass-container .glass-block .coef-index, .hardware-container .hardware-block .coef-index {
   width: 19%;
   height: 1.5625rem;
   margin-right: 1%;
 }
-/* line 83, ../../dev/sass/parts/_config-panel.scss */
+/* line 84, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index:first-child, .profile-container .profile-block .coef-index:first-child, .glass-container .glass-block .coef-index:first-child, .hardware-container .hardware-block .coef-index:first-child {
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
   background-color: #55d995;
 }
-/* line 88, ../../dev/sass/parts/_config-panel.scss */
+/* line 89, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index:nth-child(2), .profile-container .profile-block .coef-index:nth-child(2), .glass-container .glass-block .coef-index:nth-child(2), .hardware-container .hardware-block .coef-index:nth-child(2) {
   background-color: #5bd883;
 }
-/* line 91, ../../dev/sass/parts/_config-panel.scss */
+/* line 92, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index:nth-child(3), .profile-container .profile-block .coef-index:nth-child(3), .glass-container .glass-block .coef-index:nth-child(3), .hardware-container .hardware-block .coef-index:nth-child(3) {
   background-color: #61d771;
 }
-/* line 94, ../../dev/sass/parts/_config-panel.scss */
+/* line 95, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index:nth-child(4), .profile-container .profile-block .coef-index:nth-child(4), .glass-container .glass-block .coef-index:nth-child(4), .hardware-container .hardware-block .coef-index:nth-child(4) {
   background-color: #68d55c;
 }
-/* line 97, ../../dev/sass/parts/_config-panel.scss */
+/* line 98, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-index:last-child, .profile-container .profile-block .coef-index:last-child, .glass-container .glass-block .coef-index:last-child, .hardware-container .hardware-block .coef-index:last-child {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   background-color: #6ed44a;
 }
-/* line 103, ../../dev/sass/parts/_config-panel.scss */
+/* line 104, ../../dev/sass/parts/_config-panel.scss */
 .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box {
   -moz-transition: all 0.3s linear;
   -webkit-transition: all 0.3s linear;
   transition: all 0.3s linear;
   position: relative;
   float: left;
-  padding: 2.8125rem;
   border-radius: 1rem;
   background-color: #fff;
   cursor: pointer;
@@ -3888,48 +3523,52 @@ body {
   background-color: #57b23c;
 }
 /* line 148, ../../dev/sass/parts/_config-panel.scss */
+.config-section .box_inner, .profile-container .profile-block .box_inner, .glass-container .glass-block .box_inner, .hardware-container .hardware-block .box_inner {
+  padding: 2.8125rem;
+}
+/* line 151, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level, .profile-container .profile-block .coef-level, .glass-container .glass-block .coef-level, .hardware-container .hardware-block .coef-level {
   display: -webkit-flex;
   display: flex;
   margin-top: 0.625rem;
 }
-/* line 152, ../../dev/sass/parts/_config-panel.scss */
+/* line 155, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level:first-child, .profile-container .profile-block .coef-level:first-child, .glass-container .glass-block .coef-level:first-child, .hardware-container .hardware-block .coef-level:first-child {
   margin-top: 0;
 }
-/* line 157, ../../dev/sass/parts/_config-panel.scss */
+/* line 160, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-1 .coef-index:nth-child(2), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(2), .glass-container .glass-block .coef-level.coef-level-1 .coef-index:nth-child(2), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(2), .config-section .coef-level.coef-level-1 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(3), .glass-container .glass-block .coef-level.coef-level-1 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(3), .config-section .coef-level.coef-level-1 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-1 .coef-index:nth-child(4), .glass-container .glass-block .coef-level.coef-level-1 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:nth-child(4), .config-section .coef-level.coef-level-1 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-1 .coef-index:last-child, .glass-container .glass-block .coef-level.coef-level-1 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:last-child {
   display: none;
 }
-/* line 163, ../../dev/sass/parts/_config-panel.scss */
+/* line 166, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-1 .coef-index:first-child, .profile-container .profile-block .coef-level.coef-level-1 .coef-index:first-child, .glass-container .glass-block .coef-level.coef-level-1 .coef-index:first-child, .hardware-container .hardware-block .coef-level.coef-level-1 .coef-index:first-child {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
 }
-/* line 171, ../../dev/sass/parts/_config-panel.scss */
+/* line 174, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-2 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(3), .glass-container .glass-block .coef-level.coef-level-2 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(3), .config-section .coef-level.coef-level-2 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(4), .glass-container .glass-block .coef-level.coef-level-2 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(4), .config-section .coef-level.coef-level-2 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-2 .coef-index:last-child, .glass-container .glass-block .coef-level.coef-level-2 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:last-child {
   display: none;
 }
-/* line 176, ../../dev/sass/parts/_config-panel.scss */
+/* line 179, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-2 .coef-index:nth-child(2), .profile-container .profile-block .coef-level.coef-level-2 .coef-index:nth-child(2), .glass-container .glass-block .coef-level.coef-level-2 .coef-index:nth-child(2), .hardware-container .hardware-block .coef-level.coef-level-2 .coef-index:nth-child(2) {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
 }
-/* line 184, ../../dev/sass/parts/_config-panel.scss */
+/* line 187, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-3 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-3 .coef-index:nth-child(4), .glass-container .glass-block .coef-level.coef-level-3 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:nth-child(4), .config-section .coef-level.coef-level-3 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-3 .coef-index:last-child, .glass-container .glass-block .coef-level.coef-level-3 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:last-child {
   display: none;
 }
-/* line 188, ../../dev/sass/parts/_config-panel.scss */
+/* line 191, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-3 .coef-index:nth-child(3), .profile-container .profile-block .coef-level.coef-level-3 .coef-index:nth-child(3), .glass-container .glass-block .coef-level.coef-level-3 .coef-index:nth-child(3), .hardware-container .hardware-block .coef-level.coef-level-3 .coef-index:nth-child(3) {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
 }
-/* line 196, ../../dev/sass/parts/_config-panel.scss */
+/* line 199, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-4 .coef-index:nth-child(4), .profile-container .profile-block .coef-level.coef-level-4 .coef-index:nth-child(4), .glass-container .glass-block .coef-level.coef-level-4 .coef-index:nth-child(4), .hardware-container .hardware-block .coef-level.coef-level-4 .coef-index:nth-child(4) {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
 }
-/* line 200, ../../dev/sass/parts/_config-panel.scss */
+/* line 203, ../../dev/sass/parts/_config-panel.scss */
 .config-section .coef-level.coef-level-4 .coef-index:last-child, .profile-container .profile-block .coef-level.coef-level-4 .coef-index:last-child, .glass-container .glass-block .coef-level.coef-level-4 .coef-index:last-child, .hardware-container .hardware-block .coef-level.coef-level-4 .coef-index:last-child {
   display: none;
 }
@@ -4004,7 +3643,7 @@ body {
   position: absolute;
   left: 20%;
   top: 15%;
-  content: "\e627";
+  content: "";
   color: #6ed44a;
 }
 /* line 78, ../../dev/sass/parts/_additional-elements-general.scss */
@@ -4276,7 +3915,7 @@ body {
   top: 25%;
   left: 1.875rem;
   color: #f98000;
-  content: "\e637";
+  content: "";
 }
 /* line 16, ../../dev/sass/parts/_search-block.scss */
 .search-block .search-input {
@@ -4384,7 +4023,7 @@ body {
 }
 /* line 48, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .back:before {
-  content: "\e612";
+  content: "";
 }
 /* line 52, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .print {
@@ -4392,7 +4031,7 @@ body {
 }
 /* line 54, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .print:before {
-  content: "\e635";
+  content: "";
 }
 /* line 59, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-title {
@@ -4479,7 +4118,7 @@ body {
   top: 35%;
   right: 1.875rem;
   color: #f98000;
-  content: "\e609";
+  content: "";
 }
 /* line 158, ../../dev/sass/parts/_cart-dialogs.scss */
 .cart-dialogs-container .cart-dialog-label {
@@ -4676,7 +4315,7 @@ body {
 .voice-container .voice-icon:after {
   display: block;
   text-align: center;
-  content: "\f130";
+  content: "";
   color: #f84141;
 }
 /* line 63, ../../dev/sass/parts/_voice.scss */
@@ -4695,6 +4334,17 @@ body {
   left: 0;
   bottom: 25rem;
   width: 100%;
+}
+
+/* line 4, ../../dev/sass/parts/_info-box.scss */
+.info_container .info_box {
+  position: absolute;
+  top: 25%;
+  left: 30%;
+  width: 60rem;
+  min-height: 40rem;
+  margin: -3rem 0 0 -3rem;
+  background-color: #fff;
 }
 
 /* line 3, ../../dev/sass/pages/login.scss */
@@ -4746,7 +4396,7 @@ body {
 }
 /* line 47, ../../dev/sass/pages/login.scss */
 .close_dialog:before {
-  content: "\e612";
+  content: "";
   color: #f98000;
 }
 
@@ -5030,7 +4680,7 @@ tr.factory_item {
   top: 1.25rem;
   right: -3rem;
   display: block;
-  content: "\e61c";
+  content: "";
 }
 /* line 113, ../../dev/sass/pages/settings.scss */
 .setting-container .phone-btn {
@@ -5067,7 +4717,7 @@ tr.factory_item {
 /* line 12, ../../dev/sass/pages/change-pass.scss */
 .password-page .back:before {
   color: #f98000;
-  content: "\e61c";
+  content: "";
 }
 /* line 17, ../../dev/sass/pages/change-pass.scss */
 .password-page .psw-container {
@@ -5108,7 +4758,7 @@ tr.factory_item {
 /* line 11, ../../dev/sass/pages/change-lang.scss */
 .language-page .back:before {
   color: #f98000;
-  content: "\e61c";
+  content: "";
 }
 /* line 16, ../../dev/sass/pages/change-lang.scss */
 .language-page .lang-container {
@@ -5146,7 +4796,7 @@ tr.factory_item {
 /* line 16, ../../dev/sass/pages/location.scss */
 .location-page .back:before {
   color: #ffe036;
-  content: "\e601";
+  content: "";
 }
 /* line 21, ../../dev/sass/pages/location.scss */
 .location-page .location-container {
@@ -5236,7 +4886,7 @@ tr.factory_item {
 }
 /* line 49, ../../dev/sass/pages/history.scss */
 .accounts-container .history-header .history-back:before {
-  content: "\e612";
+  content: "";
   color: #f98000;
 }
 /* line 55, ../../dev/sass/pages/history.scss */
@@ -5294,7 +4944,7 @@ tr.factory_item {
 }
 /* line 102, ../../dev/sass/pages/history.scss */
 .accounts-container .search-btn:after {
-  content: "\e637";
+  content: "";
 }
 /* line 106, ../../dev/sass/pages/history.scss */
 .accounts-container .calendar-btn {
@@ -5302,7 +4952,7 @@ tr.factory_item {
 }
 /* line 108, ../../dev/sass/pages/history.scss */
 .accounts-container .calendar-btn:after {
-  content: "\e639";
+  content: "";
 }
 /* line 112, ../../dev/sass/pages/history.scss */
 .accounts-container .settings-btn {
@@ -5310,7 +4960,7 @@ tr.factory_item {
 }
 /* line 114, ../../dev/sass/pages/history.scss */
 .accounts-container .settings-btn:after {
-  content: "\e608";
+  content: "";
 }
 /* line 118, ../../dev/sass/pages/history.scss */
 .accounts-container .time-interval {
@@ -5410,7 +5060,7 @@ tr.factory_item {
   left: 0rem;
   position: absolute;
   color: #f98000;
-  content: "\e636";
+  content: "";
 }
 /* line 222, ../../dev/sass/pages/history.scss */
 .accounts-container .filter-select-icon {
@@ -5613,7 +5263,7 @@ tr.factory_item {
 /* line 414, ../../dev/sass/pages/history.scss */
 .accounts-container .account-select-btn:after {
   color: #fff;
-  content: "\e636";
+  content: "";
 }
 /* line 419, ../../dev/sass/pages/history.scss */
 .accounts-container .account-copy-btn {
@@ -5624,7 +5274,7 @@ tr.factory_item {
 /* line 423, ../../dev/sass/pages/history.scss */
 .accounts-container .account-copy-btn:after {
   color: #363636;
-  content: "\e638";
+  content: "";
 }
 /* line 428, ../../dev/sass/pages/history.scss */
 .accounts-container .account-print-btn {
@@ -5635,7 +5285,7 @@ tr.factory_item {
 /* line 432, ../../dev/sass/pages/history.scss */
 .accounts-container .account-print-btn:after {
   color: #363636;
-  content: "\e635";
+  content: "";
 }
 /* line 437, ../../dev/sass/pages/history.scss */
 .accounts-container .account.done ~ .account-print-btn {
@@ -5704,7 +5354,7 @@ tr.factory_item {
 /* line 509, ../../dev/sass/pages/history.scss */
 .empty-search-result .result-icon:after {
   color: #c6c6c6;
-  content: "\e631";
+  content: "";
 }
 /* line 514, ../../dev/sass/pages/history.scss */
 .empty-search-result .result-text {
@@ -5930,7 +5580,7 @@ tr.factory_item {
 .cart-page .addelements-detail-close:after {
   font: normal 2.5rem/1 icons, sans-serif;
   color: #fff;
-  content: "\e628";
+  content: "";
 }
 /* line 172, ../../dev/sass/pages/cart.scss */
 .cart-page .product-template {
@@ -6209,7 +5859,7 @@ tr.factory_item {
   top: 0.5rem;
   right: 1.875rem;
   color: #fff;
-  content: "\e627";
+  content: "";
 }
 
 /* line 426, ../../dev/sass/pages/cart.scss */
@@ -6321,7 +5971,7 @@ tr.factory_item {
 /* line 511, ../../dev/sass/pages/cart.scss */
 .close-alladdelements:before {
   color: #fff;
-  content: "\e61c";
+  content: "";
 }
 
 /* line 516, ../../dev/sass/pages/cart.scss */
@@ -6776,23 +6426,23 @@ tr.factory_item {
 }
 /* line 79, ../../dev/sass/pages/design.scss */
 .construction-left-menu .sash-shape:after {
-  content: "\e648";
+  content: "";
 }
 /* line 84, ../../dev/sass/pages/design.scss */
 .construction-left-menu .angel-shape:after {
-  content: "\e64c";
+  content: "";
 }
 /* line 89, ../../dev/sass/pages/design.scss */
 .construction-left-menu .impost-shape:after {
-  content: "\e649";
+  content: "";
 }
 /* line 94, ../../dev/sass/pages/design.scss */
 .construction-left-menu .arch-shape:after {
-  content: "\e64a";
+  content: "";
 }
 /* line 99, ../../dev/sass/pages/design.scss */
 .construction-left-menu .position-shape:after {
-  content: "\e64b";
+  content: "";
 }
 /* line 109, ../../dev/sass/pages/design.scss */
 .construction-left-menu .left-menu-footer {
@@ -6870,122 +6520,122 @@ tr.factory_item {
 
 /* line 182, ../../dev/sass/pages/design.scss */
 .clean:after {
-  content: "\e634";
+  content: "";
 }
 
 /* line 185, ../../dev/sass/pages/design.scss */
 .sash-left:after {
-  content: "\e641";
+  content: "";
 }
 
 /* line 188, ../../dev/sass/pages/design.scss */
 .sash-right:after {
-  content: "\e640";
+  content: "";
 }
 
 /* line 191, ../../dev/sass/pages/design.scss */
 .sash-up:after {
-  content: "\e642";
+  content: "";
 }
 
 /* line 194, ../../dev/sass/pages/design.scss */
 .sash-down:after {
-  content: "\e643";
+  content: "";
 }
 
 /* line 197, ../../dev/sass/pages/design.scss */
 .sash-right-up:after {
-  content: "\e63e";
+  content: "";
 }
 
 /* line 200, ../../dev/sass/pages/design.scss */
 .sash-left-up:after {
-  content: "\e63f";
+  content: "";
 }
 
 /* line 203, ../../dev/sass/pages/design.scss */
 .impost-vert:after {
-  content: "\e644";
+  content: "";
 }
 
 /* line 206, ../../dev/sass/pages/design.scss */
 .impost-hor:after {
-  content: "\e645";
+  content: "";
 }
 
 /* line 209, ../../dev/sass/pages/design.scss */
 .impost-inc-hor:after {
-  content: "\e661";
+  content: "";
 }
 
 /* line 212, ../../dev/sass/pages/design.scss */
 .impost-inc-vert:after {
-  content: "\e660";
+  content: "";
 }
 
 /* line 215, ../../dev/sass/pages/design.scss */
 .impost-inc-hor2:after {
-  content: "\e664";
+  content: "";
 }
 
 /* line 218, ../../dev/sass/pages/design.scss */
 .impost-inc-vert2:after {
-  content: "\e663";
+  content: "";
 }
 
 /* line 221, ../../dev/sass/pages/design.scss */
 .impost-curv-right:after {
-  content: "\e65f";
+  content: "";
 }
 
 /* line 224, ../../dev/sass/pages/design.scss */
 .impost-curv-left:after {
-  content: "\e65e";
+  content: "";
 }
 
 /* line 227, ../../dev/sass/pages/design.scss */
 .impost-curv-up:after {
-  content: "\e65d";
+  content: "";
 }
 
 /* line 230, ../../dev/sass/pages/design.scss */
 .impost-curv-down:after {
-  content: "\e65c";
+  content: "";
 }
 
 /* line 233, ../../dev/sass/pages/design.scss */
 .impost-curv1:after {
-  content: "\e65b";
+  content: "";
 }
 
 /* line 236, ../../dev/sass/pages/design.scss */
 .impost-curv3:after {
-  content: "\e65a";
+  content: "";
 }
 
 /* line 239, ../../dev/sass/pages/design.scss */
 .impost-curv4:after {
-  content: "\e659";
+  content: "";
 }
 
 /* line 242, ../../dev/sass/pages/design.scss */
 .impost-curv2:after {
-  content: "\e658";
+  content: "";
 }
 
 /* line 245, ../../dev/sass/pages/design.scss */
 .arc:after {
-  content: "\e657";
+  content: "";
 }
 
 /* line 248, ../../dev/sass/pages/design.scss */
 .corner:after {
-  content: "\e656";
+  content: "";
 }
 
 /* line 251, ../../dev/sass/pages/design.scss */
 .corner-curv:after {
-  content: "\e652";
+  content: "";
 }
 
 /* line 258, ../../dev/sass/pages/design.scss */
@@ -7035,7 +6685,7 @@ tr.factory_item {
 }
 /* line 309, ../../dev/sass/pages/design.scss */
 .save-construction:after {
-  content: "\e636";
+  content: "";
 }
 
 /* line 313, ../../dev/sass/pages/design.scss */
@@ -7051,7 +6701,7 @@ tr.factory_item {
 }
 /* line 321, ../../dev/sass/pages/design.scss */
 .step-back:after {
-  content: "\e965";
+  content: "";
 }
 
 /* line 326, ../../dev/sass/pages/design.scss */
@@ -7080,11 +6730,11 @@ tr.factory_item {
 /* line 349, ../../dev/sass/pages/design.scss */
 .door-config-btn:after {
   color: #6ed44a;
-  content: "\e63a";
+  content: "";
 }
 /* line 354, ../../dev/sass/pages/design.scss */
 .door-config-btn.active:after {
-  content: "\e633";
+  content: "";
 }
 
 /* line 359, ../../dev/sass/pages/design.scss */
@@ -7276,7 +6926,7 @@ tr.factory_item {
 }
 /* line 520, ../../dev/sass/pages/design.scss */
 .door-configuration .close-door-config:after {
-  content: "\e63b";
+  content: "";
 }
 /* line 524, ../../dev/sass/pages/design.scss */
 .door-configuration .save-door-config {
@@ -7285,7 +6935,7 @@ tr.factory_item {
 }
 /* line 527, ../../dev/sass/pages/design.scss */
 .door-configuration .save-door-config:after {
-  content: "\e636";
+  content: "";
 }
 /* line 531, ../../dev/sass/pages/design.scss */
 .door-configuration .door-shape {
@@ -7356,47 +7006,47 @@ tr.factory_item {
 /* line 51, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-icon-additionalComponents:before {
   color: #ffe036;
-  content: "\e600";
+  content: "";
 }
 /* line 55, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-icon-addLocation:before {
   color: #ffe036;
-  content: "\e601";
+  content: "";
 }
 /* line 59, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-icon-basketOfCalculation:before {
   color: #f98000;
-  content: "\e602";
+  content: "";
 }
 /* line 63, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-icon-calculation:before {
   color: #ffe036;
-  content: "\e603";
+  content: "";
 }
 /* line 67, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-icon-calculationsHistory:before {
   color: #ffe036;
-  content: "\e604";
+  content: "";
 }
 /* line 71, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-icon-geoLocation:before {
   color: #f98000;
-  content: "\e605";
+  content: "";
 }
 /* line 75, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-icon-information:before {
   color: #34aadc;
-  content: "\e606";
+  content: "";
 }
 /* line 79, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-icon-location:before {
   color: #6e6e6e;
-  content: "\e607";
+  content: "";
 }
 /* line 83, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-icon-settings:before {
   color: #6ed44a;
-  content: "\e608";
+  content: "";
 }
 /* line 87, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-icon-voicehelp {
@@ -7405,7 +7055,7 @@ tr.factory_item {
 /* line 89, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-icon-voicehelp:before {
   color: #f98000;
-  content: "\f130";
+  content: "";
 }
 /* line 94, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .title {
@@ -7451,7 +7101,7 @@ tr.factory_item {
   left: -5rem;
   display: block;
   color: #f98000;
-  content: "\e61c";
+  content: "";
 }
 /* line 24, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .item-header {
@@ -7689,7 +7339,7 @@ tr.factory_item {
   font: normal 1.875rem/0 icons, sans-serif;
   display: block;
   color: #fff;
-  content: "\e615";
+  content: "";
 }
 /* line 108, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .menu-footer {
@@ -7902,7 +7552,7 @@ tr.factory_item {
   right: 1.25rem;
   display: block;
   color: #f98000;
-  content: "\e61c";
+  content: "";
 }
 /* line 26, ../../dev/sass/menus/_cart-menu.scss */
 .cart-menu .item.active {
@@ -8095,7 +7745,7 @@ tr.factory_item {
   right: 0;
   line-height: 1;
   color: #f98000;
-  content: "\e627";
+  content: "";
 }
 /* line 204, ../../dev/sass/menus/_cart-menu.scss */
 .cart-menu .drop-instalment .dropdown-item:first-child.selected .dropdown-item-inner {
@@ -8118,7 +7768,7 @@ tr.factory_item {
   top: 0.75rem;
   left: -1.875rem;
   position: absolute;
-  content: "\e61a";
+  content: "";
 }
 /* line 228, ../../dev/sass/menus/_cart-menu.scss */
 .cart-menu .calendar-price.down {
@@ -8132,7 +7782,7 @@ tr.factory_item {
   top: 0.75rem;
   left: -1.875rem;
   position: absolute;
-  content: "\e619";
+  content: "";
 }
 /* line 243, ../../dev/sass/menus/_cart-menu.scss */
 .cart-menu .menu-footer {
@@ -8283,7 +7933,7 @@ tr.factory_item {
   left: 30%;
   position: absolute;
   color: #363636;
-  content: "\e632";
+  content: "";
 }
 /* line 18, ../../dev/sass/parts/_size-calculator.scss */
 .size-calc-container .calc-interval {
@@ -8298,7 +7948,7 @@ tr.factory_item {
   left: 45%;
   position: absolute;
   color: #bebebe;
-  content: "\e61d";
+  content: "";
 }
 /* line 35, ../../dev/sass/parts/_size-calculator.scss */
 .size-calc-container .calc-value-limit {
@@ -8446,6 +8096,17 @@ tr.factory_item {
 
 /* line 5, ../../dev/sass/panels/profile.scss */
 .profile-container .profile-box {
+  width: 26.5rem;
+  min-width: 26.5rem;
+  margin: 1.5625rem 3.125rem 1.5625rem 0;
+}
+/* line 10, ../../dev/sass/panels/profile.scss */
+.profile-container .profile-box.selected:after {
+  top: 2.8125rem;
+  right: 2.8125rem;
+}
+/* line 16, ../../dev/sass/panels/profile.scss */
+.profile-container .box_inner {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: column wrap;
@@ -8454,37 +8115,29 @@ tr.factory_item {
   justify-content: space-between;
   -webkit-align-items: space-between;
   align-items: space-between;
-  width: 26.5rem;
-  min-width: 26.5rem;
   height: 33.25rem;
-  margin: 1.5625rem 3.125rem 1.5625rem 0;
 }
-/* line 16, ../../dev/sass/panels/profile.scss */
-.profile-container .profile-box.selected:after {
-  top: 2.8125rem;
-  right: 2.8125rem;
-}
-/* line 22, ../../dev/sass/panels/profile.scss */
+/* line 23, ../../dev/sass/panels/profile.scss */
 .profile-container .profile-box-top {
   width: 100%;
 }
-/* line 25, ../../dev/sass/panels/profile.scss */
+/* line 26, ../../dev/sass/panels/profile.scss */
 .profile-container .info {
   top: -1.875rem;
   right: 2.1875rem;
 }
-/* line 29, ../../dev/sass/panels/profile.scss */
+/* line 30, ../../dev/sass/panels/profile.scss */
 .profile-container .profile-descr {
   font: normal 2.25rem/1.42857 roboto-medium, sans-serif;
   margin: 1.875rem 0;
   color: #363636;
 }
-/* line 36, ../../dev/sass/panels/profile.scss */
+/* line 37, ../../dev/sass/panels/profile.scss */
 .profile-container .profile-country {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 41, ../../dev/sass/panels/profile.scss */
+/* line 42, ../../dev/sass/panels/profile.scss */
 .profile-container .label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #8c8c8c;
@@ -8606,7 +8259,7 @@ tr.factory_item {
   font: normal 5.625rem/3.75rem icons, sans-serif;
   position: absolute;
   color: #6ed44a;
-  content: "\e61b";
+  content: "";
 }
 /* line 24, ../../dev/sass/panels/hardware-window.scss */
 .hardware-container .hardware-title {
@@ -8631,7 +8284,7 @@ tr.factory_item {
   top: 2.5rem;
   right: 1.875rem;
   color: #fff;
-  content: "\e627";
+  content: "";
 }
 /* line 48, ../../dev/sass/panels/hardware-window.scss */
 .hardware-container .hardware-box.selected .hardware-box-data .hardware-label {
@@ -8668,7 +8321,7 @@ tr.factory_item {
 .hardware-container .info:before {
   font: normal 3.125rem/3.125rem icons, sans-serif;
   color: #6ed44a;
-  content: "\e616";
+  content: "";
 }
 /* line 83, ../../dev/sass/panels/hardware-window.scss */
 .hardware-container .hardware-box-inner {
@@ -8678,8 +8331,9 @@ tr.factory_item {
   flex-flow: row wrap;
   -webkit-justify-content: space-between;
   justify-content: space-between;
+  cursor: pointer;
 }
-/* line 88, ../../dev/sass/panels/hardware-window.scss */
+/* line 89, ../../dev/sass/panels/hardware-window.scss */
 .hardware-container .hardware-box-view {
   display: -webkit-flex;
   display: flex;
@@ -8692,11 +8346,11 @@ tr.factory_item {
   border-bottom-left-radius: 1rem;
   background-color: #fff;
 }
-/* line 99, ../../dev/sass/panels/hardware-window.scss */
+/* line 100, ../../dev/sass/panels/hardware-window.scss */
 .hardware-container .hardware-logo img {
   max-width: 12.5rem;
 }
-/* line 103, ../../dev/sass/panels/hardware-window.scss */
+/* line 104, ../../dev/sass/panels/hardware-window.scss */
 .hardware-container .hardware-box-data {
   display: -webkit-flex;
   display: flex;
@@ -8714,29 +8368,29 @@ tr.factory_item {
   border-bottom-right-radius: 1rem;
   background-color: #fff;
 }
-/* line 115, ../../dev/sass/panels/hardware-window.scss */
+/* line 116, ../../dev/sass/panels/hardware-window.scss */
 .hardware-container .hardware-data {
   float: left;
   margin-right: 2.8125rem;
 }
-/* line 119, ../../dev/sass/panels/hardware-window.scss */
+/* line 120, ../../dev/sass/panels/hardware-window.scss */
 .hardware-container .hardware-descr {
   font: normal 2.25rem/1.42857 roboto-medium, sans-serif;
   margin-bottom: 0.3125rem;
   color: #363636;
 }
-/* line 125, ../../dev/sass/panels/hardware-window.scss */
+/* line 126, ../../dev/sass/panels/hardware-window.scss */
 .hardware-container .hardware-brand {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   margin-bottom: 0.3125rem;
   color: #363636;
 }
-/* line 131, ../../dev/sass/panels/hardware-window.scss */
+/* line 132, ../../dev/sass/panels/hardware-window.scss */
 .hardware-container .hardware-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #8c8c8c;
 }
-/* line 136, ../../dev/sass/panels/hardware-window.scss */
+/* line 137, ../../dev/sass/panels/hardware-window.scss */
 .hardware-container .hardware-data-coeff {
   min-width: 40%;
 }
@@ -8815,7 +8469,7 @@ tr.factory_item {
   top: 2.5rem;
   right: 2.5rem;
   color: #6ed44a;
-  content: "\e627";
+  content: "";
 }
 /* line 63, ../../dev/sass/panels/lamination.scss */
 .lamination-container .lamination-label {
@@ -9432,7 +9086,7 @@ tr.factory_item {
 /* line 574, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .scheme-info:after {
   color: #fff;
-  content: "\e615";
+  content: "";
 }
 /* line 579, ../../dev/sass/panels/additional-elements.scss */
 .auxiliaries-container .scheme-view-dialog {
@@ -9611,33 +9265,23 @@ tr.factory_item {
 }
 
 @-webkit-keyframes splashing {
-  /* line 87, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: scale(0);
   }
-
-  /* line 90, ../../dev/sass/base/_animations.scss */
   50% {
     -webkit-transform: scale(1.3);
   }
-
-  /* line 93, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: scale(1);
   }
 }
 @keyframes splashing {
-  /* line 98, ../../dev/sass/base/_animations.scss */
   from {
     transform: scale(0);
   }
-
-  /* line 101, ../../dev/sass/base/_animations.scss */
   50% {
     transform: scale(1.3);
   }
-
-  /* line 104, ../../dev/sass/base/_animations.scss */
   to {
     transform: scale(1);
   }
@@ -9650,113 +9294,71 @@ tr.factory_item {
 }
 
 @-webkit-keyframes flashing {
-  /* line 112, ../../dev/sass/base/_animations.scss */
   from {
     opacity: 1;
   }
-
-  /* line 115, ../../dev/sass/base/_animations.scss */
   10% {
     opacity: 0;
   }
-
-  /* line 118, ../../dev/sass/base/_animations.scss */
   20% {
     opacity: 1;
   }
-
-  /* line 121, ../../dev/sass/base/_animations.scss */
   30% {
     opacity: 0;
   }
-
-  /* line 124, ../../dev/sass/base/_animations.scss */
   40% {
     opacity: 1;
   }
-
-  /* line 127, ../../dev/sass/base/_animations.scss */
   50% {
     opacity: 0;
   }
-
-  /* line 130, ../../dev/sass/base/_animations.scss */
   60% {
     opacity: 1;
   }
-
-  /* line 133, ../../dev/sass/base/_animations.scss */
   70% {
     opacity: 0;
   }
-
-  /* line 136, ../../dev/sass/base/_animations.scss */
   80% {
     opacity: 1;
   }
-
-  /* line 139, ../../dev/sass/base/_animations.scss */
   90% {
     opacity: 0;
   }
-
-  /* line 142, ../../dev/sass/base/_animations.scss */
   to {
     opacity: 1;
   }
 }
 @keyframes flashing {
-  /* line 147, ../../dev/sass/base/_animations.scss */
   from {
     opacity: 1;
   }
-
-  /* line 150, ../../dev/sass/base/_animations.scss */
   10% {
     opacity: 0;
   }
-
-  /* line 153, ../../dev/sass/base/_animations.scss */
   20% {
     opacity: 1;
   }
-
-  /* line 156, ../../dev/sass/base/_animations.scss */
   30% {
     opacity: 0;
   }
-
-  /* line 159, ../../dev/sass/base/_animations.scss */
   40% {
     opacity: 1;
   }
-
-  /* line 162, ../../dev/sass/base/_animations.scss */
   50% {
     opacity: 0;
   }
-
-  /* line 165, ../../dev/sass/base/_animations.scss */
   60% {
     opacity: 1;
   }
-
-  /* line 168, ../../dev/sass/base/_animations.scss */
   70% {
     opacity: 0;
   }
-
-  /* line 171, ../../dev/sass/base/_animations.scss */
   80% {
     opacity: 1;
   }
-
-  /* line 174, ../../dev/sass/base/_animations.scss */
   90% {
     opacity: 0;
   }
-
-  /* line 177, ../../dev/sass/base/_animations.scss */
   to {
     opacity: 1;
   }
@@ -9769,23 +9371,17 @@ tr.factory_item {
 }
 
 @-webkit-keyframes move-navmenu-list {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(-37.5rem, 0);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-navmenu-list {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(-37.5rem, 0);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -9798,23 +9394,17 @@ tr.factory_item {
 }
 
 @-webkit-keyframes move-menu-right {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(31.25rem, 0);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-menu-right {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(31.25rem, 0);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -9827,23 +9417,17 @@ tr.factory_item {
 }
 
 @-webkit-keyframes move-grid {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(62.5rem, -125rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-grid {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(62.5rem, -125rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -9856,23 +9440,17 @@ tr.factory_item {
 }
 
 @-webkit-keyframes move-visor {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(62.5rem, -125rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-visor {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(62.5rem, -125rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -9885,23 +9463,17 @@ tr.factory_item {
 }
 
 @-webkit-keyframes move-spillway {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(125rem, -125rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-spillway {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(125rem, -125rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -9914,23 +9486,17 @@ tr.factory_item {
 }
 
 @-webkit-keyframes move-outside {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(0, -125rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-outside {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(0, -125rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -9943,23 +9509,17 @@ tr.factory_item {
 }
 
 @-webkit-keyframes move-windowsill {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(-62.5rem, 125rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-windowsill {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(-62.5rem, 125rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -9972,23 +9532,17 @@ tr.factory_item {
 }
 
 @-webkit-keyframes move-louvers {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(0, -125rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-louvers {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(0, -125rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -10001,33 +9555,23 @@ tr.factory_item {
 }
 
 @-webkit-keyframes move-louver-1 {
-  /* line 41, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(0, 0);
   }
-
-  /* line 44, ../../dev/sass/base/_animations.scss */
   50% {
     -webkit-transform: translate(0, -1.875rem);
   }
-
-  /* line 47, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-louver-1 {
-  /* line 52, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(0, 0);
   }
-
-  /* line 55, ../../dev/sass/base/_animations.scss */
   50% {
     transform: translate(0, -1.875rem);
   }
-
-  /* line 58, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -10040,33 +9584,23 @@ tr.factory_item {
 }
 
 @-webkit-keyframes move-louver-2 {
-  /* line 41, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(0, 0);
   }
-
-  /* line 44, ../../dev/sass/base/_animations.scss */
   50% {
     -webkit-transform: translate(0, -3.75rem);
   }
-
-  /* line 47, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-louver-2 {
-  /* line 52, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(0, 0);
   }
-
-  /* line 55, ../../dev/sass/base/_animations.scss */
   50% {
     transform: translate(0, -3.75rem);
   }
-
-  /* line 58, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -10079,33 +9613,23 @@ tr.factory_item {
 }
 
 @-webkit-keyframes move-louver-3 {
-  /* line 41, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(0, 0);
   }
-
-  /* line 44, ../../dev/sass/base/_animations.scss */
   50% {
     -webkit-transform: translate(0, -5.625rem);
   }
-
-  /* line 47, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-louver-3 {
-  /* line 52, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(0, 0);
   }
-
-  /* line 55, ../../dev/sass/base/_animations.scss */
   50% {
     transform: translate(0, -5.625rem);
   }
-
-  /* line 58, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -10118,33 +9642,23 @@ tr.factory_item {
 }
 
 @-webkit-keyframes move-louver-bottom {
-  /* line 41, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(0, 0);
   }
-
-  /* line 44, ../../dev/sass/base/_animations.scss */
   50% {
     -webkit-transform: translate(0, -7.5rem);
   }
-
-  /* line 47, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-louver-bottom {
-  /* line 52, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(0, 0);
   }
-
-  /* line 55, ../../dev/sass/base/_animations.scss */
   50% {
     transform: translate(0, -7.5rem);
   }
-
-  /* line 58, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -10157,23 +9671,17 @@ tr.factory_item {
 }
 
 @-webkit-keyframes move-slope-top {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(0, -125rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-slope-top {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(0, -125rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -10186,23 +9694,17 @@ tr.factory_item {
 }
 
 @-webkit-keyframes move-slope-right {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(125rem, 125rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-slope-right {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(125rem, 125rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -10215,23 +9717,17 @@ tr.factory_item {
 }
 
 @-webkit-keyframes move-slope-left {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(-62.5rem, 0);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-slope-left {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(-62.5rem, 0);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -10244,45 +9740,33 @@ tr.factory_item {
 }
 
 @-webkit-keyframes move-fan {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(0, 125rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-fan {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(0, 125rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
 }
 @-webkit-keyframes rot-fan {
-  /* line 67, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: rotate(0deg);
   }
-
-  /* line 70, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: rotate(360deg);
   }
 }
 @keyframes rot-fan {
-  /* line 75, ../../dev/sass/base/_animations.scss */
   from {
     transform: rotate(0deg);
   }
-
-  /* line 78, ../../dev/sass/base/_animations.scss */
   to {
     transform: rotate(360deg);
   }
@@ -10295,23 +9779,17 @@ tr.factory_item {
 }
 
 @-webkit-keyframes move-handle {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(-62.5rem, 125rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(0, 0);
   }
 }
 @keyframes move-handle {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(-62.5rem, 125rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(0, 0);
   }
@@ -10324,23 +9802,17 @@ tr.factory_item {
 }
 
 @-webkit-keyframes move-tab {
-  /* line 22, ../../dev/sass/base/_animations.scss */
   from {
     -webkit-transform: translate(-12.5rem, 43.75rem);
   }
-
-  /* line 25, ../../dev/sass/base/_animations.scss */
   to {
     -webkit-transform: translate(-7.875rem, 43.75rem);
   }
 }
 @keyframes move-tab {
-  /* line 30, ../../dev/sass/base/_animations.scss */
   from {
     transform: translate(-12.5rem, 43.75rem);
   }
-
-  /* line 33, ../../dev/sass/base/_animations.scss */
   to {
     transform: translate(-7.875rem, 43.75rem);
   }
