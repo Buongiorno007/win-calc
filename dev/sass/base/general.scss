@@ -277,21 +277,6 @@ body {
   z-index: 1;
 }
 
-.test {
-  position: absolute;
-  left: rem(50px);
-  top: rem(50px);
-  z-index: 999;
-  padding: rem(20px);
-  background-color: red;
-  box-shadow: 0 0 rem(20px) rem(10px) rgba(0,0,0,0.3);
-
-  input {
-    height: rem(50px);
-    width: rem(300px);
-    font-size: rem(36px);
-  }
-}
 
 // in Cart AddElements Detail and Comment Product Backview
 .backDarkView {
@@ -305,7 +290,7 @@ body {
 }
 
 .backLightView {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;

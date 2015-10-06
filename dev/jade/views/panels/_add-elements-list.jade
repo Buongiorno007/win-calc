@@ -275,13 +275,13 @@
 
 
 
-    .aux-list-block(ng-if="elementsListPanel.P.product.addElementsPriceSELECTDis")
+    .aux-list-block(ng-if="elementsListPanel.P.product.addelemPriceDis")
       table.aux-list-addellement
         tr.aux-list-row
           td.aux-tablecell-total
             .aux-total-label(data-output="{{ 'add_elements.TOTAL_PRICE_TXT' | translate }}", typing="{{ elementsListPanel.config.typing }}", typing-delay="{{ elementsListPanel.config.DELAY_START }}")
           td.aux-tablecell-price
-            .aux-total-price {{ elementsListPanel.P.product.addElementsPriceSELECTDis }} {{ elementsListPanel.U.userInfo.currency }}
+            .aux-total-price {{ elementsListPanel.P.product.addelemPriceDis }} {{ elementsListPanel.U.userInfo.currency }}
           td.aux-tablecell-delete
             .aux-delete(hm-tap="elementsListPanel.deleteAllAddElements()")
 

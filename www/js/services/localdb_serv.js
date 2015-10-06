@@ -62,7 +62,7 @@
         },
         'factories': {
           'tableName': 'factories',
-          'prop': 'name VARCHAR(255)',
+          'prop': 'name VARCHAR(255), app_token VARCHAR',
           'foreignKey': ''
         },
         'glass_folders': {
@@ -202,11 +202,6 @@
           'prop': 'name VARCHAR(255), parent_unit INTEGER, child_unit INTEGER, suffix VARCHAR(15)',
           'foreignKey': ''
         },
-//        'suppliers': {
-//          'tableName': 'suppliers',
-//          'prop': 'name VARCHAR(255), factory_id INTEGER',
-//          'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id)'
-//        },
         'regions': {
           'tableName': 'regions',
           'prop': 'name VARCHAR(255), country_id INTEGER, heat_transfer NUMERIC(10, 2), climatic_zone NUMERIC',
@@ -1689,19 +1684,47 @@
           }
         }
         function next_6(result){
-          if(result.rows.length){
-            priceObj.framesIds.parent_element_id = result.rows.item(0).parent_element_id;
-            priceObj.frameSillsIds.parent_element_id = result.rows.item(1).parent_element_id;
-            priceObj.sashsIds.parent_element_id = result.rows.item(2).parent_element_id;
-            priceObj.impostIds.parent_element_id = result.rows.item(3).parent_element_id;
-            priceObj.glassIds.parent_element_id = result.rows.item(5).parent_element_id;
-            priceObj.beadIds.parent_element_id = result.rows.item(4).parent_element_id;
-            priceObj.framesIds.name = result.rows.item(0).name;
-            priceObj.frameSillsIds.name = result.rows.item(1).name;
-            priceObj.sashsIds.name = result.rows.item(2).name;
-            priceObj.impostIds.name = result.rows.item(3).name;
-            priceObj.glassIds.name = result.rows.item(5).name;
-            priceObj.beadIds.name = result.rows.item(4).name;
+          var resQty = result.rows.length;
+          //TODO in safari length = 5 must be 6
+//          console.warn(result);
+//          console.warn(resQty);
+          if(resQty){
+            for(var i = 0; i < resQty; i++) {
+              switch(i) {
+                case 0:
+                  priceObj.framesIds.parent_element_id = result.rows.item(i).parent_element_id;
+                  priceObj.framesIds.name = result.rows.item(i).name;
+                  break;
+                case 1:
+                  priceObj.frameSillsIds.parent_element_id = result.rows.item(i).parent_element_id;
+                  priceObj.frameSillsIds.name = result.rows.item(i).name;
+                  break;
+                case 2:
+                  priceObj.sashsIds.parent_element_id = result.rows.item(i).parent_element_id;
+                  priceObj.sashsIds.name = result.rows.item(i).name;
+                  break;
+                case 3:
+                  priceObj.impostIds.parent_element_id = result.rows.item(i).parent_element_id;
+                  priceObj.impostIds.name = result.rows.item(i).name;
+                  break;
+                case 4:
+                  priceObj.beadIds.parent_element_id = result.rows.item(i).parent_element_id;
+                  priceObj.beadIds.name = result.rows.item(i).name;
+                  break;
+                case 5:
+                  priceObj.glassIds.parent_element_id = result.rows.item(i).parent_element_id;
+                  priceObj.glassIds.name = result.rows.item(i).name;
+                  break;
+              }
+            }
+
+//            console.warn(result.rows.item(0));
+//            console.warn(result.rows.item(1));
+//            console.warn(result.rows.item(2));
+//            console.warn(result.rows.item(3));
+//            console.warn(result.rows.item(4));
+//            console.warn(result.rows.item(5));
+
             db.transaction(function (transaction) {
               transaction.executeSql('select id, currency_id, price, waste, name, amendment_pruning from elements where id in (?, ?, ?, ?, ?, ?)', [result.rows.item(0).parent_element_id, result.rows.item(1).parent_element_id, result.rows.item(2).parent_element_id, result.rows.item(3).parent_element_id, result.rows.item(4).parent_element_id, result.rows.item(5).parent_element_id], function (transaction, result){next_7(result);}, function () {
                 callback(new ErrorResult(2, 'Something went wrong when get element price'));
@@ -2221,18 +2244,29 @@
                           var value = self.getValueByRule(priceObj.impostIds[g].elemLists.newValue, priceObj.impostIds[j].elemLists.value, priceObj.impostIds[g].elemLists.rules_type_id);
                           priceObj.impostIds[j].elemLists.newValue = value;
                           if(priceObj.impostIds[j].elemLists.rules_type_id === 3){
-                            priceTmp += (Math.round((priceObj.impostIds[g].elemLists.newValue+(priceObj.impostIds[j].priceEl.amendment_pruning/1000))*priceObj.impostIds[j].elemLists.value)*priceObj.impostIds[j].priceEl.price)*(1+(priceObj.impostIds[j].priceEl.waste/100));
+                            if(priceObj.impostIds[j].priceEl) {
+                              priceTmp += (Math.round((priceObj.impostIds[g].elemLists.newValue + (priceObj.impostIds[j].priceEl.amendment_pruning / 1000)) * priceObj.impostIds[j].elemLists.value) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
+                            }
                           } else if(priceObj.impostIds[j].elemLists.rules_type_id === 2 || priceObj.impostIds[j].elemLists.rules_type_id === 4 || priceObj.impostIds[j].elemLists.rules_type_id === 15){
-                            priceTmp += (priceObj.impostIds[g].elemLists.newValue*priceObj.impostIds[j].elemLists.value * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
+//                            console.info(priceObj.impostIds[j].priceEl);
+                            if(priceObj.impostIds[j].priceEl) {
+                              priceTmp += (priceObj.impostIds[g].elemLists.newValue*priceObj.impostIds[j].elemLists.value * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
+                            }
                           } else if (priceObj.impostIds[j].elemLists.rules_type_id === 1){
-                            priceTmp += (((priceObj.impostIds[g].elemLists.newValue+priceObj.impostIds[j].priceEl.amendment_pruning - (priceObj.impostIds[j].elemLists.value*1000))/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
+                            if(priceObj.impostIds[j].priceEl) {
+                              priceTmp += (((priceObj.impostIds[g].elemLists.newValue+priceObj.impostIds[j].priceEl.amendment_pruning - (priceObj.impostIds[j].elemLists.value*1000))/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
+                            }
                           } else {
-                            priceTmp += (((priceObj.impostIds[g].elemLists.newValue+priceObj.impostIds[j].priceEl.amendment_pruning)/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
+                            if(priceObj.impostIds[j].priceEl) {
+                              priceTmp += (((priceObj.impostIds[g].elemLists.newValue+priceObj.impostIds[j].priceEl.amendment_pruning)/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
+                            }
                           }
-                          if (priceObj.currentCurrency.id != priceObj.impostIds[j].priceEl.currency_id){
-                            for (var k = 0; k < priceObj.currencies.length; k++) {
-                              if(priceObj.currencies[k].id == priceObj.impostIds[j].priceEl.currency_id){
-                                priceTmp = priceTmp * priceObj.currencies[k].value;
+                          if(priceObj.impostIds[j].priceEl) {
+                            if (priceObj.currentCurrency.id != priceObj.impostIds[j].priceEl.currency_id) {
+                              for (var k = 0; k < priceObj.currencies.length; k++) {
+                                if (priceObj.currencies[k].id == priceObj.impostIds[j].priceEl.currency_id) {
+                                  priceTmp = priceTmp * priceObj.currencies[k].value;
+                                }
                               }
                             }
                           }

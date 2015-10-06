@@ -1177,24 +1177,7 @@ body {
   z-index: 1;
 }
 
-/* line 280, ../../dev/sass/base/general.scss */
-.test {
-  position: absolute;
-  left: 3.125rem;
-  top: 3.125rem;
-  z-index: 999;
-  padding: 1.25rem;
-  background-color: red;
-  box-shadow: 0 0 1.25rem 0.625rem rgba(0, 0, 0, 0.3);
-}
-/* line 289, ../../dev/sass/base/general.scss */
-.test input {
-  height: 3.125rem;
-  width: 18.75rem;
-  font-size: 2.25rem;
-}
-
-/* line 297, ../../dev/sass/base/general.scss */
+/* line 282, ../../dev/sass/base/general.scss */
 .backDarkView {
   position: absolute;
   top: 0;
@@ -1205,9 +1188,9 @@ body {
   z-index: 9;
 }
 
-/* line 307, ../../dev/sass/base/general.scss */
+/* line 292, ../../dev/sass/base/general.scss */
 .backLightView, .loader-container, .info_container {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -1216,7 +1199,7 @@ body {
   z-index: 999;
 }
 
-/* line 326, ../../dev/sass/base/general.scss */
+/* line 311, ../../dev/sass/base/general.scss */
 .scrolling-container, .scroll-vert-container, .scroll-hor-container, .cart-page .addelements-detail-content {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -1225,33 +1208,33 @@ body {
   overflow-scrolling: touch;
 }
 
-/* line 329, ../../dev/sass/base/general.scss */
+/* line 314, ../../dev/sass/base/general.scss */
 .scroll-vert, .scroll-vert-container {
   overflow-x: hidden;
   overflow-y: auto;
 }
 
-/* line 333, ../../dev/sass/base/general.scss */
+/* line 318, ../../dev/sass/base/general.scss */
 .scroll-hor, .scroll-hor-container {
   overflow-x: auto;
   overflow-y: hidden;
 }
 
-/* line 337, ../../dev/sass/base/general.scss */
+/* line 322, ../../dev/sass/base/general.scss */
 .scroll-vert-container {
   width: 100%;
   height: 90%;
   padding-top: 2rem;
 }
 
-/* line 344, ../../dev/sass/base/general.scss */
+/* line 329, ../../dev/sass/base/general.scss */
 .scroll-hor-container {
   width: 100%;
   height: 100%;
   padding-top: 2rem;
 }
 
-/* line 353, ../../dev/sass/base/general.scss */
+/* line 338, ../../dev/sass/base/general.scss */
 #sounds {
   visibility: hidden;
 }
@@ -4336,15 +4319,64 @@ body {
   width: 100%;
 }
 
-/* line 4, ../../dev/sass/parts/_info-box.scss */
+/* line 1, ../../dev/sass/parts/_info-box.scss */
+.info_container {
+  -moz-transition: all 0.3s linear;
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+  visibility: hidden;
+  background-color: rgba(126, 124, 124, 0.8);
+}
+/* line 6, ../../dev/sass/parts/_info-box.scss */
+.info_container.active {
+  visibility: visible;
+}
+/* line 9, ../../dev/sass/parts/_info-box.scss */
 .info_container .info_box {
   position: absolute;
   top: 25%;
-  left: 30%;
+  left: 40%;
   width: 60rem;
-  min-height: 40rem;
+  height: 50rem;
   margin: -3rem 0 0 -3rem;
+  padding: 3rem 2rem;
   background-color: #fff;
+  border-radius: 1.25rem;
+  overflow: hidden;
+}
+/* line 22, ../../dev/sass/parts/_info-box.scss */
+.info_container .info_box_inner {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  color: #363636;
+}
+/* line 28, ../../dev/sass/parts/_info-box.scss */
+.info_container img {
+  width: 20rem;
+  height: 20rem;
+  float: left;
+  margin-right: 2rem;
+}
+/* line 34, ../../dev/sass/parts/_info-box.scss */
+.info_container .info_title {
+  font: normal 2.25rem/1.42857 roboto-medium, sans-serif;
+  margin: 0.3125rem 0;
+}
+/* line 38, ../../dev/sass/parts/_info-box.scss */
+.info_container .info_link {
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  text-decoration: underline;
+}
+/* line 42, ../../dev/sass/parts/_info-box.scss */
+.info_container .info_descrip {
+  font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  margin: 2rem 0;
+}
+/* line 46, ../../dev/sass/parts/_info-box.scss */
+.info_container .close-dialog {
+  top: 0.875rem;
+  right: 0.875rem;
 }
 
 /* line 3, ../../dev/sass/pages/login.scss */
@@ -7325,23 +7357,25 @@ tr.factory_item {
 /* line 84, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .value {
   max-width: 88%;
-  width: 23.125rem;
+  width: 26.125rem;
+  line-height: 6rem;
 }
-/* line 88, ../../dev/sass/menus/_elements-list.scss */
+/* line 89, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .element-info {
   width: 2.8125rem;
   height: 2.8125rem;
   border-radius: 50%;
   background-color: #bebebe;
+  margin-left: -2rem;
 }
-/* line 96, ../../dev/sass/menus/_elements-list.scss */
+/* line 98, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .element-info:after {
   font: normal 1.875rem/0 icons, sans-serif;
   display: block;
   color: #fff;
   content: "";
 }
-/* line 108, ../../dev/sass/menus/_elements-list.scss */
+/* line 110, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .menu-footer {
   display: -webkit-flex;
   display: flex;
@@ -7352,7 +7386,7 @@ tr.factory_item {
   margin-right: 2.75rem;
   padding-right: 0;
 }
-/* line 117, ../../dev/sass/menus/_elements-list.scss */
+/* line 119, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .elements-tools {
   -moz-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
@@ -7362,35 +7396,35 @@ tr.factory_item {
   width: 29.6875rem;
   background-color: #f8f8f8;
 }
-/* line 124, ../../dev/sass/menus/_elements-list.scss */
+/* line 126, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .elements-tools.active {
   bottom: 0;
 }
-/* line 128, ../../dev/sass/menus/_elements-list.scss */
+/* line 130, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .price-element {
   min-height: 8.125rem;
   padding-top: 1.25rem;
   background-color: #f8f8f8;
 }
-/* line 134, ../../dev/sass/menus/_elements-list.scss */
+/* line 136, ../../dev/sass/menus/_elements-list.scss */
 .elements-menu .aux-label-bold {
   font: normal 1.375rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
 }
 
-/* line 142, ../../dev/sass/menus/_elements-list.scss */
+/* line 144, ../../dev/sass/menus/_elements-list.scss */
 .list-items {
   position: relative;
 }
 
-/* line 145, ../../dev/sass/menus/_elements-list.scss */
+/* line 147, ../../dev/sass/menus/_elements-list.scss */
 .list-item {
   top: 0rem;
   left: 0rem;
   position: absolute;
 }
 
-/* line 149, ../../dev/sass/menus/_elements-list.scss */
+/* line 151, ../../dev/sass/menus/_elements-list.scss */
 .aux-list-item {
   -moz-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
@@ -7407,18 +7441,18 @@ tr.factory_item {
   background-color: #fff;
   z-index: 2;
 }
-/* line 163, ../../dev/sass/menus/_elements-list.scss */
+/* line 165, ../../dev/sass/menus/_elements-list.scss */
 .aux-list-item.selected {
   left: -93.75rem;
 }
 
-/* line 169, ../../dev/sass/menus/_elements-list.scss */
+/* line 171, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs {
   top: 3.75rem;
   left: 0rem;
   position: absolute;
 }
-/* line 173, ../../dev/sass/menus/_elements-list.scss */
+/* line 175, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-block {
   -moz-transition: left 0.5s ease;
   -webkit-transition: left 0.5s ease;
@@ -7434,21 +7468,21 @@ tr.factory_item {
   border-style: solid;
   z-index: 1;
 }
-/* line 187, ../../dev/sass/menus/_elements-list.scss */
+/* line 189, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-block.active {
   left: -53.75rem;
 }
-/* line 192, ../../dev/sass/menus/_elements-list.scss */
+/* line 194, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .simple-frame {
   top: 0rem;
   left: 0rem;
 }
-/* line 195, ../../dev/sass/menus/_elements-list.scss */
+/* line 197, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .hard-frame {
   top: 21.875rem;
   left: 0rem;
 }
-/* line 199, ../../dev/sass/menus/_elements-list.scss */
+/* line 201, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .frame-tab {
   -moz-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
@@ -7472,18 +7506,18 @@ tr.factory_item {
   color: #363636;
   z-index: 1;
 }
-/* line 217, ../../dev/sass/menus/_elements-list.scss */
+/* line 219, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .frame-tab.active {
   border-top-width: 0.3125rem;
   background-color: #fff;
 }
-/* line 222, ../../dev/sass/menus/_elements-list.scss */
+/* line 224, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-content {
   overflow-x: hidden;
   overflow-y: auto;
   max-height: 31.25rem;
 }
-/* line 227, ../../dev/sass/menus/_elements-list.scss */
+/* line 229, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-content-empty {
   display: -webkit-flex;
   display: flex;
@@ -7493,13 +7527,13 @@ tr.factory_item {
   justify-content: center;
   height: 13rem;
 }
-/* line 233, ../../dev/sass/menus/_elements-list.scss */
+/* line 235, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-empty {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   text-align: center;
   color: #bebebe;
 }
-/* line 238, ../../dev/sass/menus/_elements-list.scss */
+/* line 240, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-aux-row {
   display: -webkit-flex;
   display: flex;
@@ -7511,11 +7545,11 @@ tr.factory_item {
   align-items: flex-start;
   margin-bottom: 1.25rem;
 }
-/* line 245, ../../dev/sass/menus/_elements-list.scss */
+/* line 247, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .tab-aux-row:last-child {
   margin: 0;
 }
-/* line 249, ../../dev/sass/menus/_elements-list.scss */
+/* line 251, ../../dev/sass/menus/_elements-list.scss */
 .menu-right-tabs .aux-title {
   width: 23.125rem;
 }

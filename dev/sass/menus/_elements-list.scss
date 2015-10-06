@@ -83,7 +83,8 @@
   }
   .value {
     max-width: 88%;
-    width: rem(370px);
+    width: 26.125rem;
+    line-height: 6rem;
   }
   .element-info {
     @extend .button;
@@ -93,6 +94,7 @@
     height: rem(45px);
     border-radius: 50%;
     background-color: $main_gray_btn;
+    margin-left: -2rem;
     &:after {
       @extend .icon-setting;
       @include font-icon(rem(30px), 0);

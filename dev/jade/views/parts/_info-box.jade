@@ -1,8 +1,8 @@
 .info_container(ng-controller="infoBoxCtrl as infoBox", ng-class="{'active': infoBox.G.global.isInfoBox}")
   .info_box
     .info_box_inner
-      img(ng-src="infoBox.G.global.infoImg")
+      img(ng-src="{{infoBox.G.global.infoImg}}")
       .info_title {{infoBox.G.global.infoTitle}}
-      a.info_link(ng-href="infoBox.G.global.infoLink")
       .info_descrip {{infoBox.G.global.infoDescrip}}
+      a.info_link(ng-href="{{infoBox.G.global.infoLink}}", target="_blank") {{infoBox.G.global.infoLink}}
     .close-dialog(hm-tap="infoBox.closeInfoBox()")

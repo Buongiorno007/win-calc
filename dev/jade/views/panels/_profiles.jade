@@ -4,7 +4,7 @@
       .group-block-header
         .title(data-output="{{ profilesPanel.G.global.profilesType[$index].name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START }}")
         .group-info
-          .info(hm-tap="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)")
+          .info(ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description.length", hm-tap="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)")
       .box.profile-box.unvisible(ng-repeat="profile in producer", ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}", show-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_BLOCK * $index) }}")
         .box_inner(hm-tap="profilesPanel.selectProfile(profile.id)")
           .profile-box-top
@@ -30,4 +30,4 @@
               .coef-index
               .coef-index
             .label(data-output="{{ 'panels.NOICE_INSULATION' | translate }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}")
-        .info(hm-tap="profilesPanel.showInfoBox(profile.id, producer)")
+        .info(ng-if="profile.img.length || profile.link.length || profile.description.length", hm-tap="profilesPanel.showInfoBox(profile.id, producer)")

@@ -127,7 +127,7 @@
             <div class="group-block-header">
               <div data-output="{{ profilesPanel.G.global.profilesType[$index].name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title"></div>
               <div class="group-info">
-                <div hm-tap="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)" class="info"></div>
+                <div ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description.length" hm-tap="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)" class="info"></div>
               </div>
             </div>
             <div ng-repeat="profile in producer" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" show-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_BLOCK * $index) }}" class="box profile-box unvisible">
@@ -159,7 +159,7 @@
                   <div data-output="{{ 'panels.NOICE_INSULATION' | translate }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
                 </div>
               </div>
-              <div hm-tap="profilesPanel.showInfoBox(profile.id, producer)" class="info"></div>
+              <div ng-if="profile.img.length || profile.link.length || profile.description.length" hm-tap="profilesPanel.showInfoBox(profile.id, producer)" class="info"></div>
             </div>
           </div>
         </div>
@@ -170,7 +170,7 @@
             <div class="group-block-header">
               <div data-output="{{ glassPanel.G.global.glassTypes[$index].name }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START }}" class="title"></div>
               <div class="group-info">
-                <div hm-tap="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)" class="info"></div>
+                <div ng-if="glassPanel.G.global.glassTypes[$index].img.length || glassPanel.G.global.glassTypes[$index].link.length || glassPanel.G.global.glassTypes[$index].description.length" hm-tap="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)" class="info"></div>
               </div>
             </div>
             <div class="glass-block-footer clearfix">
@@ -203,7 +203,7 @@
                       <div data-output="{{ 'panels.NOICE_INSULATION' | translate }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
                     </div>
                   </div>
-                  <div hm-tap="glassPanel.showInfoBox(glass.id, typeGlass)" class="info"></div>
+                  <div ng-if="glass.img.length || glass.link.length || glass.description.length" hm-tap="glassPanel.showInfoBox(glass.id, typeGlass)" class="info"></div>
                 </div>
               </div>
             </div>
@@ -216,11 +216,11 @@
             <div class="group-block-header">
               <div data-output="{{ hardwarePanel.G.global.hardwareTypes[$index].name }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START }}" class="hardware-title"></div>
               <div class="group-info">
-                <div hm-tap="hardwarePanel.showInfoBox(hardwarePanel.G.global.hardwareTypes[$index].id, hardwarePanel.G.global.hardwareTypes)" class="info"></div>
+                <div ng-if="hardwarePanel.G.global.hardwareTypes[$index].img.length || hardwarePanel.G.global.hardwareTypes[$index].link.length || hardwarePanel.G.global.hardwareTypes[$index].description.length" hm-tap="hardwarePanel.showInfoBox(hardwarePanel.G.global.hardwareTypes[$index].id, hardwarePanel.G.global.hardwareTypes)" class="info"></div>
               </div>
             </div>
             <div ng-repeat="hardware in producer" ng-class="{'selected': hardware.id === hardwarePanel.P.product.hardware.id}" show-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_BLOCK * $index) }}" class="hardware-box unvisible">
-              <div hm-tap="hardwarePanel.showInfoBox(hardware.id, producer)" class="info"></div>
+              <div ng-if="hardware.img.length || hardware.link.length || hardware.description.length" hm-tap="hardwarePanel.showInfoBox(hardware.id, producer)" class="info"></div>
               <div hm-tap="hardwarePanel.selectHardware(hardware.id)" class="hardware-box-inner">
                 <div class="hardware-box-view">
                   <div class="hardware-logo"><img ng-src="http://windowscalculator.net:3002{{ hardware.img }}"></div>
@@ -273,7 +273,7 @@
               <div ng-repeat="laminatInner in laminPanel.G.global.laminationsIn" show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * $index) }}" class="lam-option-box unvisible">
                 <div ng-class="{'selected': laminPanel.P.product.lamination_in_id == laminatInner.lamination_type_id}" hm-tap="laminPanel.selectLaminatIn(laminatInner.lamination_type_id, laminatInner.name)" class="lamination-img"><img ng-src="img/lamination/{{ laminatInner.lamination_type_id }}.jpg"></div>
                 <div data-output="{{ laminatInner.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_TYPING * $index) }}" class="lamination-label"></div>
-                <div show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * 2 * $index) }}" class="info unvisible"></div>
+                <div ng-if="laminatInner.img.length || laminatInner.link.length || laminatInner.description.length" hm-tap="laminPanel.showInfoBox(laminatInner.lamination_type_id, laminPanel.G.global.laminationsIn)" show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * 2 * $index) }}" class="info unvisible"></div>
               </div>
             </div>
           </div>
@@ -287,7 +287,7 @@
               <div ng-repeat="laminatOuter in laminPanel.G.global.laminationsOut" show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * $index) }}" class="lam-option-box unvisible">
                 <div ng-class="{'selected': laminPanel.P.product.lamination_out_id == laminatOuter.lamination_type_id}" hm-tap="laminPanel.selectLaminatOut(laminatOuter.lamination_type_id, laminatOuter.name)" class="lamination-img"><img ng-src="img/lamination/{{ laminatOuter.lamination_type_id }}.jpg"></div>
                 <div data-output="{{ laminatOuter.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_TYPING * $index) }}" class="lamination-label"></div>
-                <div show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * 2 * $index) }}" class="info unvisible"></div>
+                <div ng-if="laminatOuter.img.length || laminatOuter.link.length || laminatOuter.description.length" hm-tap="laminPanel.showInfoBox(laminatOuter.lamination_type_id, laminPanel.G.global.laminationsOut)" show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * 2 * $index) }}" class="info unvisible"></div>
               </div>
             </div>
           </div>
@@ -903,14 +903,14 @@
               </tr>
             </table>
           </div>
-          <div ng-if="elementsListPanel.P.product.addElementsPriceSELECTDis" class="aux-list-block">
+          <div ng-if="elementsListPanel.P.product.addelemPriceDis" class="aux-list-block">
             <table class="aux-list-addellement">
               <tr class="aux-list-row">
                 <td class="aux-tablecell-total">
                   <div data-output="{{ 'add_elements.TOTAL_PRICE_TXT' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-total-label"></div>
                 </td>
                 <td class="aux-tablecell-price">
-                  <div class="aux-total-price">{{ elementsListPanel.P.product.addElementsPriceSELECTDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
+                  <div class="aux-total-price">{{ elementsListPanel.P.product.addelemPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
                 <td class="aux-tablecell-delete">
                   <div hm-tap="elementsListPanel.deleteAllAddElements()" class="aux-delete"></div>
@@ -992,13 +992,9 @@
             </ul>
             <ul ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" class="items-list">
               <div data-output="{{ elementsMenu.A.aux.addElementsType[$index].name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="title"></div>
-              <li ng-hide="elementsMenu.A.aux.isAddElementListView" ng-repeat="addElement in type track by $index" ng-class="{'active': elementsMenu.A.aux.isAddElement === $parent.$index+'-'+$index}" hm-tap="elementsMenu.chooseAddElement($parent.$index, $index)" class="item">
-                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="value"></div>
-                <button class="element-info"></button>
-              </li>
-              <li ng-show="elementsMenu.A.aux.isAddElementListView" ng-repeat="addElement in type track by $index" ng-class="{'active': elementsMenu.A.aux.isAddElement === $parent.$index+'-'+$index}" hm-tap="elementsMenu.selectAddElementList($parent.$index, $index, $event)" class="item">
-                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="value"></div>
-                <button class="element-info"></button>
+              <li ng-repeat="addElement in type track by $index" ng-class="{'active': elementsMenu.A.aux.isAddElement === $parent.$index+'-'+$index}" class="item">
+                <div hm-tap="elementsMenu.selectAddElement($parent.$index, $index, $event)" data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="value"></div>
+                <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" hm-tap="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
           </div>
@@ -1413,9 +1409,9 @@
   </section>
   <div ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" class="info_container">
     <div class="info_box">
-      <div class="info_box_inner"><img ng-src="infoBox.G.global.infoImg">
-        <div class="info_title">{{infoBox.G.global.infoTitle}}</div><a ng-href="infoBox.G.global.infoLink" class="info_link"></a>
-        <div class="info_descrip">{{infoBox.G.global.infoDescrip}}</div>
+      <div class="info_box_inner"><img ng-src="{{infoBox.G.global.infoImg}}">
+        <div class="info_title">{{infoBox.G.global.infoTitle}}</div>
+        <div class="info_descrip">{{infoBox.G.global.infoDescrip}}</div><a ng-href="{{infoBox.G.global.infoLink}}" target="_blank" class="info_link">{{infoBox.G.global.infoLink}}</a>
       </div>
       <div hm-tap="infoBox.closeInfoBox()" class="close-dialog"></div>
     </div>

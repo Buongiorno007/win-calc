@@ -26,7 +26,7 @@
     //------ clicking
     thisCtrl.selectLaminatIn = selectLaminatIn;
     thisCtrl.selectLaminatOut = selectLaminatOut;
-
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
 
 
 

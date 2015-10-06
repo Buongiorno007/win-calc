@@ -92,7 +92,7 @@
       AuxStor.aux.isAddElement = typeIndex+'-'+elementIndex;
       //------- checking if add element price is
       if(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price > 0) {
-        AuxStor.aux.currAddElementPrice = GeneralServ.roundingNumbers( AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price * (1 - OrderStor.order.discount_addelem/100) );
+        AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem);
         AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
 
         deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
@@ -109,7 +109,7 @@
 //          console.log('objXAddElementPrice result=====', results);
 
           if (results.status) {
-            AuxStor.aux.currAddElementPrice = GeneralServ.roundingNumbers( results.data.price * (1 - OrderStor.order.discount_addelem/100) );
+            AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(results.data.price, OrderStor.order.discount_addelem);
             AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers( results.data.price ));
             AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
             $rootScope.$apply();
@@ -205,7 +205,7 @@
 
 
 
-
+    /** Qty Calculator */
 
     //--------- Change Qty parameter
     function setValueQty(newValue) {
@@ -225,6 +225,8 @@
     }
 
 
+
+    /** SIze Calculator */
 
     //------- Change Size parameter
     function setValueSize(newValue) {
