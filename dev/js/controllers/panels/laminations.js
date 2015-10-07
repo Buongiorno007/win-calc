@@ -36,7 +36,7 @@
         ProductStor.product.laminationInName = name;
       } else {
         ProductStor.product.lamination_in_id = 0;
-        ProductStor.product.laminationInName =  $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION');
+        ProductStor.product.laminationInName =  $filter('translate')('mainpage.WHITE_LAMINATION');
       }
       setLaminationTotalPrice();
       //------ save analytics data
@@ -50,7 +50,7 @@
         ProductStor.product.laminationOutName = name;
       } else {
         ProductStor.product.lamination_out_id = 0;
-        ProductStor.product.laminationOutName =  $filter('translate')('mainpage.CONFIGMENU_NOT_LAMINATION');
+        ProductStor.product.laminationOutName =  $filter('translate')('mainpage.WHITE_LAMINATION');
       }
       setLaminationTotalPrice();
       //------ save analytics data

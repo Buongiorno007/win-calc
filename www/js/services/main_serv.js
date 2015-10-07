@@ -36,6 +36,7 @@
       preparePrice: preparePrice,
       setProductPriceTOTAL: setProductPriceTOTAL,
       downloadAllAddElem: downloadAllAddElem,
+      sortingAllAddElem: sortingAllAddElem,
       downloadCartMenuData: downloadCartMenuData,
       showInfoBox: showInfoBox,
 
@@ -513,7 +514,9 @@
 
     function saveTemplateInProduct(templateIndex) {
       var defer = $q.defer();
-      ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
+      if(!GlobalStor.global.isChangedTemplate) {
+        ProductStor.product.template_source = angular.copy(GlobalStor.global.templatesSource[templateIndex]);
+      }
       //----- create template
       SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
         ProductStor.product.template = angular.copy(result);
@@ -617,7 +620,7 @@
 
 //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
 
-//        console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
+        console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
 
         /**
          *
@@ -735,7 +738,7 @@
           console.log('price-------', result);
           ProductStor.product.template_price = GeneralServ.roundingNumbers(result.data.price);
           setProductPriceTOTAL();
-//          console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
+          console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
           deferred.resolve(collectTemplatePartsIds(result.data));
         } else {
           console.log(result);
@@ -861,99 +864,103 @@
 
 
     function downloadAllAddElem() {
-      var promises = localDB.addElementDBId.map(function(item) {
+      var defer = $q.defer(),
+          promises = localDB.addElementDBId.map(function(item) {
             return localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': item});
           });
-
-
+      /** get All kits of addElements*/
       $q.all(promises).then(function (result) {
         var resultQty = result.length;
         for(var i = 0; i < resultQty; i++) {
           var elemGroupObj = {elementType: [], elementsList: result[i]};
           GlobalStor.global.addElementsAll.push(elemGroupObj);
-          //------- get elements
+          /** get element of addElements*/
           if(result[i]) {
             var promisElem = result[i].map(function(item) {
               return localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.parent_element_id});
             });
             $q.all(promisElem).then(function (result) {
-//              console.log('resssss ++++', result);
               var resQty = result.length;
               if(resQty) {
-                for(var i = 0; i < resQty; i++) {
-                  GlobalStor.global.tempAddElements.push(result[i][0]);
+                for(var j = 0; j < resQty; j++) {
+                  GlobalStor.global.tempAddElements.push(result[j][0]);
                 }
+              }
+              if(i === resultQty) {
+                defer.resolve(1);
               }
             });
           }
         }
-
-        localDB.selectLocalDB(localDB.tablesLocalDB.addition_folders.tableName).then(function(groups) {
-          var groupQty = groups.length;
-          if (groupQty) {
-            var elemAllQty = GlobalStor.global.addElementsAll.length,
-                defaultGroup = {
-                  id: 0,
-                  name: $filter('translate')('add_elements.OTHERS')
-                };
-            while(--elemAllQty > -1) {
-              if(GlobalStor.global.addElementsAll[elemAllQty].elementsList) {
-                GlobalStor.global.addElementsAll[elemAllQty].elementType = angular.copy(groups);
-                GlobalStor.global.addElementsAll[elemAllQty].elementType.push(defaultGroup);
+      });
+      return defer.promise;
+    }
 
 
-                //------- sorting
-                var newElemList = [],
-                    typeDelete = [],
-                    typeQty = GlobalStor.global.addElementsAll[elemAllQty].elementType.length,
-                    elemQty = GlobalStor.global.addElementsAll[elemAllQty].elementsList.length;
+    function sortingAllAddElem() {
+      localDB.selectLocalDB(localDB.tablesLocalDB.addition_folders.tableName).then(function(groups) {
+        var groupQty = groups.length;
+        if (groupQty) {
+          var elemAllQty = GlobalStor.global.addElementsAll.length,
+              defaultGroup = {
+                id: 0,
+                name: $filter('translate')('add_elements.OTHERS')
+              };
 
-                for(var t = 0; t < typeQty; t++) {
-                  var elements = [];
-                  for(var el = 0; el < elemQty; el++) {
-                    if(GlobalStor.global.addElementsAll[elemAllQty].elementType[t].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].addition_folder_id) {
-
-                      var tempElemQty = GlobalStor.global.tempAddElements.length;
-                      for(var i = 0; i < tempElemQty; i++) {
-                        if(GlobalStor.global.tempAddElements[i].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].parent_element_id) {
-                          GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = angular.copy(GlobalStor.global.tempAddElements[i].price);
-                          GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_width = 1500;
-                          GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_height = 1500;
-                          GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_qty = 1;
-                        }
+          while(--elemAllQty > -1) {
+            if(GlobalStor.global.addElementsAll[elemAllQty].elementsList) {
+              GlobalStor.global.addElementsAll[elemAllQty].elementType = angular.copy(groups);
+              GlobalStor.global.addElementsAll[elemAllQty].elementType.push(defaultGroup);
+              //------- sorting
+              var newElemList = [],
+                  typeDelete = [],
+                  typeQty = GlobalStor.global.addElementsAll[elemAllQty].elementType.length,
+                  elemQty = GlobalStor.global.addElementsAll[elemAllQty].elementsList.length,
+                  tempElemQty = GlobalStor.global.tempAddElements.length;
+              for(var t = 0; t < typeQty; t++) {
+                var elements = [];
+                for(var el = 0; el < elemQty; el++) {
+                  if(GlobalStor.global.addElementsAll[elemAllQty].elementType[t].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].addition_folder_id) {
+                    GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_width = 1500;
+                    GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_height = 1500;
+                    GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_qty = 1;
+                    /** get price of element */
+                    for(var k = 0; k < tempElemQty; k++) {
+                      if(GlobalStor.global.tempAddElements[k].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].parent_element_id) {
+                        GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = angular.copy(GlobalStor.global.tempAddElements[k].price);
                       }
-                      elements.push(angular.copy(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el]));
                     }
-                  }
-                  if(elements.length) {
-                    newElemList.push(elements);
-                  } else {
-                    typeDelete.push(t);
+                    elements.push(angular.copy(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el]));
                   }
                 }
-
-                if(newElemList.length) {
-                  GlobalStor.global.addElementsAll[elemAllQty].elementsList = angular.copy(newElemList);
+                if(elements.length) {
+                  newElemList.push(elements);
                 } else {
-                  GlobalStor.global.addElementsAll[elemAllQty].elementsList = 0;
+                  typeDelete.push(t);
                 }
+              }
 
-                //------- delete empty groups
-                var delQty = typeDelete.length;
-                if(delQty) {
-                  while(--delQty > -1) {
-                    GlobalStor.global.addElementsAll[elemAllQty].elementType.splice(typeDelete[delQty], 1);
-                  }
+              if(newElemList.length) {
+                GlobalStor.global.addElementsAll[elemAllQty].elementsList = angular.copy(newElemList);
+              } else {
+                GlobalStor.global.addElementsAll[elemAllQty].elementsList = 0;
+              }
+
+              /** delete empty groups */
+              var delQty = typeDelete.length;
+              if(delQty) {
+                while(--delQty > -1) {
+                  GlobalStor.global.addElementsAll[elemAllQty].elementType.splice(typeDelete[delQty], 1);
                 }
-
               }
             }
 //            console.log('addElementsAll ++++', GlobalStor.global.addElementsAll);
           }
-        });
 
+        }
       });
     }
+
 
 
 
@@ -1056,6 +1063,7 @@
       //------- cleaning product
       ProductStor.product = ProductStor.setDefaultProduct();
       GlobalStor.global.isCreatedNewProduct = 1;
+      GlobalStor.global.isChangedTemplate = 0;
       //------- set new templates
       prepareTemplates(ProductStor.product.construction_type).then(function() {
         prepareMainPage();

@@ -249,7 +249,7 @@
     position: absolute;
     left: rem(500px);
     width: rem(415px);
-
+    cursor: pointer;
     &.active {
      left: 0;
     }

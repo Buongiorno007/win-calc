@@ -1,4 +1,3 @@
-/* exported  globalStorageFactory, setDefaultGlobal */
 (function(){
   'use strict';
     /**

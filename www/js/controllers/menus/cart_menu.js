@@ -37,6 +37,7 @@
     thisCtrl.selectInstalment = CartMenuServ.selectInstalment;
     thisCtrl.openMasterDialog = openMasterDialog;
     thisCtrl.openOrderDialog = openOrderDialog;
+    thisCtrl.swipeDiscountBlock = CartMenuServ.swipeDiscountBlock;
 
 
 

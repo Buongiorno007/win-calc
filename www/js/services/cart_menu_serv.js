@@ -24,7 +24,8 @@
       closeOrderDialog: closeOrderDialog,
       changeLocation: changeLocation,
       selectCity: selectCity,
-      sendOrder: sendOrder
+      sendOrder: sendOrder,
+      swipeDiscountBlock: swipeDiscountBlock
     };
 
     return thisFactory.publicObj;
@@ -216,6 +217,12 @@
       CartStor.cart.customer.customer_location = place;
       CartStor.cart.isCityBox = 0;
     }
+
+    /** open/close discount block */
+    function swipeDiscountBlock() {
+      CartStor.cart.isShowDiscount = !CartStor.cart.isShowDiscount;
+    }
+
 
   }
 })();

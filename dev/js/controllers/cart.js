@@ -7,7 +7,7 @@
     .module('CartModule')
     .controller('CartCtrl', cartPageCtrl);
 
-  function cartPageCtrl($filter, globalConstants, GeneralServ, GlobalStor, OrderStor, ProductStor, UserStor, CartStor, CartServ) {
+  function cartPageCtrl($filter, globalConstants, GeneralServ, GlobalStor, OrderStor, ProductStor, UserStor, CartStor, CartServ, CartMenuServ) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -17,13 +17,13 @@
     thisCtrl.C = CartStor;
 
     thisCtrl.config = {
+      currDisConstr: 0,
       isAddElementDetail: 0,
       isCartLightView: 0,
       detailProductIndex: 0,
-      isShowDiscount: 0,
-      isShowDiscountList: 0,
-      isShowDiscountAddList: 0,
-      discountsList: {},
+//      isShowDiscount: 0,
+      isShowDiscInput: 0,
+      isShowDiscInputAdd: 0,
 //      allAddElementsListSource: {
 //        grids: [],
 //        visors: [],
@@ -73,8 +73,6 @@
       //----- cleaning product
       ProductStor.product = ProductStor.setDefaultProduct();
     }
-    //------- set discounts List according to Max user value
-    thisCtrl.config.discountsList = CartServ.createDiscontsList();
 
 
 
@@ -91,10 +89,10 @@
     thisCtrl.closeAddElementDetail = closeAddElementDetail;
     thisCtrl.viewSwitching = viewSwitching;
 
-    thisCtrl.swipeDiscountBlock = swipeDiscountBlock;
+    thisCtrl.swipeDiscountBlock = CartMenuServ.swipeDiscountBlock;
     thisCtrl.switchDiscount = switchDiscount;
-    thisCtrl.openDiscountList = openDiscountList;
-    thisCtrl.selectDiscount = selectDiscount;
+    thisCtrl.openDiscInput = openDiscInput;
+    thisCtrl.setNewDiscont = setNewDiscont;
 
 
 
@@ -126,28 +124,16 @@
 
 
 
-    function swipeDiscountBlock(dir) {
-      if(dir) {
-        //--------- Show Discount
-        thisCtrl.config.isShowDiscount = 1;
-      } else {
-        //--------- Hide Discount
-        thisCtrl.config.isShowDiscount = 0;
-      }
 
-    }
-
-
-    function openDiscountList(type, event) {
-      event.srcEvent.stopPropagation();
+    function openDiscInput(type) {
       //------- discount x add element
       if(type) {
-        thisCtrl.config.isShowDiscountList = 0;
-        thisCtrl.config.isShowDiscountAddList = 1;
+        thisCtrl.config.isShowDiscInput = 0;
+        thisCtrl.config.isShowDiscInputAdd = 1;
       } else {
         //------- discount x construction
-        thisCtrl.config.isShowDiscountList = 1;
-        thisCtrl.config.isShowDiscountAddList = 0;
+        thisCtrl.config.isShowDiscInput = 1;
+        thisCtrl.config.isShowDiscInputAdd = 0;
       }
     }
 
@@ -156,36 +142,32 @@
       if(type) {
         OrderStor.order.discount_addelem = 0;
         CartServ.changeAddElemPriceAsDiscount(0);
-        thisCtrl.config.isShowDiscountAddList = 0;
+        thisCtrl.config.isShowDiscInputAdd = 0;
       } else {
         //------- discount x construction
         OrderStor.order.discount_construct = 0;
         CartServ.changeProductPriceAsDiscount(0);
-        thisCtrl.config.isShowDiscountList = 0;
+        thisCtrl.config.isShowDiscInput = 0;
       }
     }
 
 
-    function selectDiscount(type, newDiscount, event) {
-      event.srcEvent.stopPropagation();
+    function setNewDiscont(type) {
       //------- discount x add element
       if(type) {
-        if(OrderStor.order.discount_addelem !== newDiscount) {
-          OrderStor.order.discount_addelem = newDiscount;
-          CartServ.changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
+        if(!OrderStor.order.discount_addelem) {
+          OrderStor.order.discount_addelem = 0;
         }
-        //------ close Discount List
-        thisCtrl.config.isShowDiscountAddList = 0;
+        CartServ.changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
+      //------- discount x construction
       } else {
-        //------- discount x construction
-        if(OrderStor.order.discount_construct !== newDiscount) {
-          OrderStor.order.discount_construct = newDiscount;
-          CartServ.changeProductPriceAsDiscount(OrderStor.order.discount_construct);
+        if(!OrderStor.order.discount_construct) {
+          OrderStor.order.discount_construct = 0;
         }
-        //------ close Discount List
-        thisCtrl.config.isShowDiscountList = 0;
+        CartServ.changeProductPriceAsDiscount(OrderStor.order.discount_construct);
       }
     }
+
 
 
 

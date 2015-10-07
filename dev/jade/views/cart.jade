@@ -6,7 +6,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
 
       section.cart-page
 
-        section.cart-container.full-view(ng-class="{'discount': cartPage.config.isShowDiscount}" hm-swipedown="cartPage.swipeDiscountBlock(0)")
+        section.cart-container.full-view(ng-class="{'discount': cartPage.C.cart.isShowDiscount}" hm-swipedown="cartPage.swipeDiscountBlock()")
           .cart-header
             include parts/_user-info
             button.cart-tool.additional-elements(hm-tap="cartPage.showAllAddElements()") {{ 'cart.ALL_ADD_ELEMENTS' | translate }}
@@ -52,7 +52,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                     .order-label.qty-label {{ 'cart.PRODUCT_QTY' | translate }}
                 .order-footer(price-fixed="{{product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{cartPage.U.userInfo.currency}}")
 
-            .discount-swipe-up(hm-swipeup="cartPage.swipeDiscountBlock(1)")
+            .discount-swipe-up(hm-swipeup="cartPage.swipeDiscountBlock()")
             button.view-switch-tab(hm-tap="cartPage.viewSwitching()") {{ 'cart.LIGHT_VIEW' | translate }}
 
 
@@ -60,28 +60,33 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
             .discount-title {{ 'cart.DISCOUNT_SELECT' | translate }}
 
             .discount-box(ng-class="{'selected': cartPage.O.order.discount_construct }")
-              .discount-data(hm-tap="cartPage.openDiscountList(0, $event)") {{cartPage.O.order.discount_construct}}%
+              .discount-data(hm-tap="cartPage.openDiscInput(0)")
+                .disc-curr-data(ng-hide="cartPage.config.isShowDiscInput") {{cartPage.O.order.discount_construct}}%
+                .disc-input-box(ng-show="cartPage.config.isShowDiscInput")
+                  .disc-max {{ 'common_words.MAX' | translate }} {{cartPage.U.userInfo.discountConstrMax}}%
+                  input.disc-input(type="number", ng-model="cartPage.O.order.discount_construct", ng-change="cartPage.setNewDiscont(0)", max="{{cartPage.U.userInfo.discountConstrMax}}")
               .discount-txt(hm-tap="cartPage.switchDiscount(0)")
                 .discounts-label {{ 'cart.DISCOUNT_WINDOW' | translate }}
-              .discounts-list(ng-show="cartPage.config.isShowDiscountList")
-                .discounts-item(ng-repeat="discount in cartPage.config.discountsList.constr", ng-class="{ 'active': discount === cartPage.O.order.discount_construct }", hm-tap="cartPage.selectDiscount(0, discount, $event)") {{ discount }}%
 
             .discount-box(ng-class="{'selected': cartPage.O.order.discount_addelem }")
-              .discount-data(hm-tap="cartPage.openDiscountList(1, $event)") {{cartPage.O.order.discount_addelem}}%
+              .discount-data(hm-tap="cartPage.openDiscInput(1)")
+                .disc-curr-data(ng-hide="cartPage.config.isShowDiscInputAdd") {{cartPage.O.order.discount_addelem}}%
+                .disc-input-box(ng-show="cartPage.config.isShowDiscInputAdd")
+                  .disc-max {{ 'common_words.MAX' | translate }} {{cartPage.U.userInfo.discountAddElemMax}}%
+                  input.disc-input(type="number", ng-model="cartPage.O.order.discount_addelem", ng-change="cartPage.setNewDiscont(1)", max="{{cartPage.U.userInfo.discountAddElemMax}}")
               .discount-txt(hm-tap="cartPage.switchDiscount(1)")
                 .discounts-label {{ 'cart.DISCOUNT_ADDELEM' | translate }}
-              .discounts-list(ng-show="cartPage.config.isShowDiscountAddList")
-                .discounts-item(ng-repeat="discount in cartPage.config.discountsList.addElem", ng-class="{ 'active': discount === cartPage.O.order.discount_addelem }", hm-tap="cartPage.selectDiscount(1, discount, $event)") {{ discount }}%
+
 
           .discount-container
             .discount-title {{ 'cart.DISCOUNT' | translate }}
             .discount-price-container
               .discount-price-box
                 .discount-price-label {{ 'cart.DISCOUNT_WITHOUT' | translate }}
-                .discount-price {{ cartPage.O.order.order_price_total }} {{cartPage.U.userInfo.currency}}
+                .discount-price {{ cartPage.O.order.order_price }} {{cartPage.U.userInfo.currency}}
               .discount-price-box
                 .discount-price-label {{ 'cart.DISCOUNT_WITH' | translate }}
-                .discount-price {{ cartPage.C.cart.order_price_total_dis }} {{cartPage.U.userInfo.currency}}
+                .discount-price {{ cartPage.O.order.order_price_dis }} {{cartPage.U.userInfo.currency}}
               .discount-price-box
                 .discount-price-label {{ 'cart.DISCOUNT' | translate }}
                 .discount-price {{ cartPage.C.cart.discountPriceDiff }} {{cartPage.U.userInfo.currency}}

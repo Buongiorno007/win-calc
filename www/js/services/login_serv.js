@@ -10,7 +10,7 @@
     .module('LoginModule')
     .factory('loginServ', startFactory);
 
-  function startFactory($q, $cordovaGlobalization, $translate, localDB, globalConstants, GeneralServ, OrderStor, UserStor) {
+  function startFactory($q, $cordovaGlobalization, $translate, $filter, localDB, globalConstants, GeneralServ, GlobalStor, OrderStor, UserStor) {
 
     var thisFactory = this;
 

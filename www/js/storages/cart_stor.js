@@ -17,6 +17,7 @@
     thisFactory.publicObj = {
       cartSource: {
         allAddElements: [],
+        isShowDiscount: 0,
         discountPriceDiff: 0,
         isMasterDialog: 0,
         isOrderDialog: 0,

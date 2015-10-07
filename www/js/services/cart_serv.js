@@ -23,7 +23,6 @@
       calculateAllProductsPrice: calculateAllProductsPrice,
       calculateOrderPrice: calculateOrderPrice,
       editProduct: editProduct,
-      createDiscontsList: createDiscontsList,
       changeProductPriceAsDiscount: changeProductPriceAsDiscount,
       changeAddElemPriceAsDiscount: changeAddElemPriceAsDiscount
     };
@@ -34,26 +33,6 @@
 
 
     //============ methods ================//
-
-
-    //----------- create Discount List
-    function createDiscontsList() {
-      var discounts = {
-            constr: [],
-            addElem: []
-          },
-          multipl = 5,
-          discQty = UserStor.userInfo.discountConstrMax/multipl,
-          discAddQty = UserStor.userInfo.discountAddElemMax/multipl,
-          d = 0, da = 0;
-      for(; d <= discQty; d++) {
-        discounts.constr.push( (d * multipl) );
-      }
-      for(; da <= discAddQty; da++) {
-        discounts.addElem.push( (da * multipl) );
-      }
-      return discounts;
-    }
 
 
 
@@ -189,7 +168,13 @@
       OrderStor.order.addelems_price = GeneralServ.roundingNumbers(OrderStor.order.addelems_price);
       OrderStor.order.templates_price = GeneralServ.roundingNumbers(OrderStor.order.templates_price);
       OrderStor.order.products_price = GeneralServ.roundingNumbers(OrderStor.order.products_price);
-      OrderStor.order.productsPriceDis = GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis);
+      /** if default user discount = 0 */
+      if(OrderStor.order.productsPriceDis) {
+        OrderStor.order.productsPriceDis = GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis);
+      } else {
+        OrderStor.order.productsPriceDis = angular.copy(OrderStor.order.products_price);
+      }
+
     }
 
 
@@ -211,8 +196,6 @@
       GeneralServ.setPreviosPage();
       $location.path('/main');
     }
-
-
 
 
 

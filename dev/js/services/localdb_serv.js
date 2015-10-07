@@ -1568,6 +1568,10 @@
         callback(new OkResult(hardwareresult));
       },
 
+
+
+
+      /** START **/
       calculationPrice: function (construction, callback) {
         var self = this;
         var price = 0, profSys, priceObj = {};

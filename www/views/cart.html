@@ -53,7 +53,7 @@
   <section class="right-side">
     <section class="main-content">
       <section class="cart-page">
-        <section ng-class="{'discount': cartPage.config.isShowDiscount}" hm-swipedown="cartPage.swipeDiscountBlock(0)" class="cart-container full-view">
+        <section ng-class="{'discount': cartPage.C.cart.isShowDiscount}" hm-swipedown="cartPage.swipeDiscountBlock()" class="cart-container full-view">
           <div class="cart-header">
             <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
               <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
@@ -117,27 +117,33 @@
                 <div price-fixed="{{product.productPriceDis}}" qty-element="{{product.product_qty}}" currency-element="{{cartPage.U.userInfo.currency}}" class="order-footer"></div>
               </div>
             </div>
-            <div hm-swipeup="cartPage.swipeDiscountBlock(1)" class="discount-swipe-up"></div>
+            <div hm-swipeup="cartPage.swipeDiscountBlock()" class="discount-swipe-up"></div>
             <button hm-tap="cartPage.viewSwitching()" class="view-switch-tab">{{ 'cart.LIGHT_VIEW' | translate }}</button>
           </div>
           <div class="discount-container">
             <div class="discount-title">{{ 'cart.DISCOUNT_SELECT' | translate }}</div>
             <div ng-class="{'selected': cartPage.O.order.discount_construct }" class="discount-box">
-              <div hm-tap="cartPage.openDiscountList(0, $event)" class="discount-data">{{cartPage.O.order.discount_construct}}%</div>
+              <div hm-tap="cartPage.openDiscInput(0)" class="discount-data">
+                <div ng-hide="cartPage.config.isShowDiscInput" class="disc-curr-data">{{cartPage.O.order.discount_construct}}%</div>
+                <div ng-show="cartPage.config.isShowDiscInput" class="disc-input-box">
+                  <div class="disc-max">{{ 'common_words.MAX' | translate }} {{cartPage.U.userInfo.discountConstrMax}}%</div>
+                  <input type="number" ng-model="cartPage.O.order.discount_construct" ng-change="cartPage.setNewDiscont(0)" max="{{cartPage.U.userInfo.discountConstrMax}}" class="disc-input">
+                </div>
+              </div>
               <div hm-tap="cartPage.switchDiscount(0)" class="discount-txt">
                 <div class="discounts-label">{{ 'cart.DISCOUNT_WINDOW' | translate }}</div>
               </div>
-              <div ng-show="cartPage.config.isShowDiscountList" class="discounts-list">
-                <div ng-repeat="discount in cartPage.config.discountsList.constr" ng-class="{ 'active': discount === cartPage.O.order.discount_construct }" hm-tap="cartPage.selectDiscount(0, discount, $event)" class="discounts-item">{{ discount }}%</div>
-              </div>
             </div>
             <div ng-class="{'selected': cartPage.O.order.discount_addelem }" class="discount-box">
-              <div hm-tap="cartPage.openDiscountList(1, $event)" class="discount-data">{{cartPage.O.order.discount_addelem}}%</div>
+              <div hm-tap="cartPage.openDiscInput(1)" class="discount-data">
+                <div ng-hide="cartPage.config.isShowDiscInputAdd" class="disc-curr-data">{{cartPage.O.order.discount_addelem}}%</div>
+                <div ng-show="cartPage.config.isShowDiscInputAdd" class="disc-input-box">
+                  <div class="disc-max">{{ 'common_words.MAX' | translate }} {{cartPage.U.userInfo.discountAddElemMax}}%</div>
+                  <input type="number" ng-model="cartPage.O.order.discount_addelem" ng-change="cartPage.setNewDiscont(1)" max="{{cartPage.U.userInfo.discountAddElemMax}}" class="disc-input">
+                </div>
+              </div>
               <div hm-tap="cartPage.switchDiscount(1)" class="discount-txt">
                 <div class="discounts-label">{{ 'cart.DISCOUNT_ADDELEM' | translate }}</div>
-              </div>
-              <div ng-show="cartPage.config.isShowDiscountAddList" class="discounts-list">
-                <div ng-repeat="discount in cartPage.config.discountsList.addElem" ng-class="{ 'active': discount === cartPage.O.order.discount_addelem }" hm-tap="cartPage.selectDiscount(1, discount, $event)" class="discounts-item">{{ discount }}%</div>
               </div>
             </div>
           </div>
@@ -146,11 +152,11 @@
             <div class="discount-price-container">
               <div class="discount-price-box">
                 <div class="discount-price-label">{{ 'cart.DISCOUNT_WITHOUT' | translate }}</div>
-                <div class="discount-price">{{ cartPage.O.order.order_price_total }} {{cartPage.U.userInfo.currency}}</div>
+                <div class="discount-price">{{ cartPage.O.order.order_price }} {{cartPage.U.userInfo.currency}}</div>
               </div>
               <div class="discount-price-box">
                 <div class="discount-price-label">{{ 'cart.DISCOUNT_WITH' | translate }}</div>
-                <div class="discount-price">{{ cartPage.C.cart.order_price_total_dis }} {{cartPage.U.userInfo.currency}}</div>
+                <div class="discount-price">{{ cartPage.O.order.order_price_dis }} {{cartPage.U.userInfo.currency}}</div>
               </div>
               <div class="discount-price-box">
                 <div class="discount-price-label">{{ 'cart.DISCOUNT' | translate }}</div>
@@ -756,14 +762,14 @@
             </div>
           </ul>
           <footer class="menu-footer">
-            <div ng-class="{'active': cartMenu.O.order.is_instalment}" class="price-block price-with-instalments">
+            <div ng-class="{'active': cartMenu.O.order.is_instalment}" hm-tap="cartMenu.swipeDiscountBlock()" class="price-block price-with-instalments">
               <div class="name">{{ 'cart.FIRST_PAYMENT_LABEL' | translate }} {{ cartMenu.O.order.selectedInstalmentPercent }} %</div>
               <div class="name">{{ 'cart.DATE_DELIVERY_LABEL' | translate }} {{cartMenu.O.order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
               <price price-value="cartMenu.O.order.paymentFirstDis" price-currency="cartMenu.U.userInfo.currency"></price>
               <div class="name">{{ cartMenu.O.order.selectedInstalmentPeriod }} {{ 'cart.MONTHLY_PAYMENT_LABEL' | translate }}</div>
               <price price-value="cartMenu.O.order.paymentMonthlyDis" price-currency="cartMenu.U.userInfo.currency"></price>
             </div>
-            <div ng-class="{'active': !cartMenu.O.order.is_instalment}" class="price-block price-without-instalments">
+            <div ng-class="{'active': !cartMenu.O.order.is_instalment}" hm-tap="cartMenu.swipeDiscountBlock()" class="price-block price-without-instalments">
               <div class="name">{{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{cartMenu.O.order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
               <price price-value="cartMenu.O.order.order_price_dis" price-currency="cartMenu.U.userInfo.currency"></price>
             </div>

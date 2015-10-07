@@ -383,7 +383,7 @@
 .discount-swipe-up {
   position: absolute;
   left: 0;
-  top: 49.5%;
+  top: 51.5%;
   width: 100%;
   height: 4%;
   z-index: 3;
@@ -424,6 +424,8 @@
 }
 
 .discount-data {
+  @include display-flex();
+  @include justify-content(center);
   @include roboto-lt(3.5rem, 9rem);
   width: 14rem;
   text-align: center;
@@ -431,6 +433,21 @@
   border-bottom-left-radius: rem($radius_profile-box);
   background-color: #fff;
   color: $main_gray_txt;
+}
+.disc-input-box {
+  @include display-flex();
+  @include flex-flow(column nowrap);
+  @include justify-content(center);
+}
+.disc-max {
+  @include roboto-lt(2rem, 2rem);
+  color: $error_color;
+}
+.disc-input {
+  width: 7rem;
+  padding: 0;
+  margin: 0;
+  outline: none;
 }
 .discounts-list {
   @include top_left_coord(-80px, 0px);

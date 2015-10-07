@@ -23,35 +23,37 @@
     if(GlobalStor.global.startProgramm) {
 //      GlobalStor.global.isLoader = 1;
 //      console.log('START main CTRL!!!!!!');
-//      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
+      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
       //playSound('menu');
 
-      //------- save first User entrance
+      /** save first User entrance */
       MainServ.saveUserEntry();
-      //------- create order date
+      /** create order date */
       MainServ.createOrderData();
-      //------- set Curr Discounts
+      /** set Curr Discounts */
       MainServ.setCurrDiscounts();
-      //----------- Profiles
+      /** download All Profiles */
       MainServ.downloadAllElemAsGroup(localDB.tablesLocalDB.profile_system_folders.tableName, localDB.tablesLocalDB.profile_systems.tableName, GlobalStor.global.profilesType, GlobalStor.global.profiles).then(function(data) {
         if(data) {
 //          console.log('PROFILES ALL ++++++',GlobalStor.global.profilesType, GlobalStor.global.profiles);
-          //---------- Glasses
+          /** download All Glasses */
           MainServ.downloadAllGlasses().then(function(data) {
             if(data) {
-              //--------- sorting glasses as to Type
+              /** sorting glasses as to Type */
               MainServ.sortingGlasses();
 //              console.log('GLASSES All +++++', GlobalStor.global.glassesAll);
-              //-------- Hardwares
+              /** download All Hardwares */
               MainServ.downloadAllElemAsGroup(localDB.tablesLocalDB.window_hardware_folders.tableName, localDB.tablesLocalDB.window_hardware_groups.tableName, GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares).then(function(data){
                 if(data) {
 //                  console.log('HARDWARE ALL ++++++', GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares);
-                  //--------- set Templates
+                  /** set Templates */
                   MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
                     GlobalStor.global.showRoomSelectorDialog = 1;
-                    //-------- download All AddElements
-                    MainServ.downloadAllAddElem();
-                    //-------- Lamination
+                    /** download All AddElements */
+                    MainServ.downloadAllAddElem().then(function() {
+                      MainServ.sortingAllAddElem();
+                    });
+                    /** download All Lamination */
                     MainServ.downloadAllLamination().then(function(lamins) {
 //                      console.log('LAMINATION++++', lamins);
                       if(lamins.length) {
@@ -60,9 +62,9 @@
                       }
                     });
 
-                    //----------- download Cart Menu Data
+                    /** download Cart Menu Data */
                     MainServ.downloadCartMenuData();
-
+                    console.log('FINISH!!!!!!', new Date(), new Date().getMilliseconds());
                   });
 
                 }
