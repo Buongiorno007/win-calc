@@ -10,7 +10,7 @@
     .module('BauVoiceApp')
     .factory('localDB', globalDBFactory);
 
-  function globalDBFactory($http, $q, globalConstants, UserStor) {
+  function globalDBFactory($http, $q, globalConstants, GeneralServ, UserStor) {
 
     var db = openDatabase('bauvoice', '1.0', 'bauvoice', 5000000),
         elemLists = [], elemListsHw = [], elemListsAdd = [];
@@ -342,8 +342,7 @@
             ' child_type VARCHAR(100),' +
             ' position INTEGER,' +
             ' factory_id INTEGER,' +
-            ' window_hardware_group_id INTEGER,' +
-            ' window_hardware_feature_id INTEGER',
+            ' window_hardware_group_id INTEGER',
           'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(window_hardware_type_id) REFERENCES window_hardware_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(window_hardware_group_id) REFERENCES window_hardware_groups(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id)'
         },
         'window_hardware_colors': {
@@ -674,8 +673,9 @@
       },
 
 
-      selectLocalDB: function (tableName, options) {
+      selectLocalDB: function (tableName, options, columns) {
         var defer = $q.defer(),
+            properties = (columns) ? columns : '*',
             vhereOptions = "";
         if(options) {
           vhereOptions = " WHERE ";
@@ -689,7 +689,7 @@
           }
         }
         db.transaction(function (trans) {
-          trans.executeSql("SELECT * FROM " + tableName + vhereOptions, [],
+          trans.executeSql("SELECT "+properties+" FROM " + tableName + vhereOptions, [],
             function (tx, result) {
               var resultQty = result.rows.length;
               if (resultQty) {
@@ -1236,187 +1236,54 @@
 
 
 
-      getCurrentCurrency: function(currencyId, callback){
-        db.transaction(function (transaction) {
-          transaction.executeSql('select id, name, value from currencies where id = ?', [currencyId], function (transaction, result) {
-            if (result.rows.length) {
-              callback(new OkResult(result.rows.item(0)));
-            } else {
-              callback(new ErrorResult(1, 'Incorrect cityId!'));
-            }
-          }, function () {
-            callback(new ErrorResult(2, 'Something went wrong when get current currency'));
-          });
-        });
-      },
 
-      getPriceByIdList: function(liId, i, k, callback){
-        db.transaction(function (transaction) {
-          transaction.executeSql('select parent_element_id from lists where id = ?', [liId], function (transaction, result){
-            if(result.rows.length){
-              transaction.executeSql('select id, currency_id, price, waste, name, amendment_pruning from elements where id = ?', [result.rows.item(0).parent_element_id], function (transaction, result){
-                if(result.rows.length)
-                  callback(new OkResult({"currency":result.rows.item(0), "index":i, "ix":k}));
-              }, function () {
-                callback(new ErrorResult(2, 'Something went wrong when get element price'));
-              });
-            }
-          }, function () {
-            callback(new ErrorResult(2, 'Something went wrong when get parent_element_id'));
-          });
-        });
-      },
 
-      getPriceById: function(elId, i, k, callback){
-        db.transaction(function (transaction) {
-          transaction.executeSql('select id, currency_id, price, waste, name, amendment_pruning from elements where id = ?', [elId], function (transaction, result){
-            if(result.rows.length)
-              callback(new OkResult({"currency":result.rows.item(0), "index":i, "ix":k}));
-          }, function () {
-            callback(new ErrorResult(2, 'Something went wrong when get element price'));
-          });
-        });
-      },
+      parseList: function(listId){
+        var self = this,
+            defer = $q.defer(),
+            lists = [],
+            currListId;
 
-      parseList: function(listId, callback){
-        var currListId,
-            lists = [];
-        var self = this;
-        function addL(el){
-          return lists.push(el);
+        if(Array.isArray(listId)) {
+          lists = listId;
+        } else {
+          lists.push(listId);
         }
-        addL(listId);
+//        console.warn('parce', listId);
+
         (function nextRecord() {
+//          console.warn('parce Record', lists);
           if (lists.length) {
             currListId = lists[0];
-            db.transaction(function (transaction) {
-              transaction.executeSql('select * from list_contents where parent_list_id = ?', [currListId], function(transaction, result){
-                for (var i = 0; i < result.rows.length; i++) {
-                  elemLists.push({"elemLists":result.rows.item(i)});
-                  if(result.rows.item(i).child_type === 'list') {
-                    addL(result.rows.item(i).child_id);
+            self.selectLocalDB(self.tablesLocalDB.list_contents.tableName, {parent_list_id: currListId}).then(function(result) {
+              var resQty = result.length;
+              if(resQty) {
+                for (var i = 0; i < resQty; i++) {
+                  elemLists.push({"elemLists": result[i]});
+                  if(result[i].child_type === 'list') {
+                    lists.push(result[i].child_id);
                   }
                 }
-                nextRecord();
-              });
+              }
+              nextRecord();
             });
             lists.shift(0);
           } else {
-            callback(new OkResult(elemLists));
+//            callback(new OkResult(elemLists));
+            defer.resolve(elemLists);
           }
         })();
+        return defer.promise;
       },
 
-      parseListHw: function(listIdHw, callback){
-        var currListIdHw,
-            listsHw = [];
-        var self = this;
-        function addLHw(elHw){
-          return listsHw.push(elHw);
-        }
-        addLHw(listIdHw);
-        (function nextRecordHw() {
-          if (listsHw.length) {
-            currListIdHw = listsHw[0];
-            db.transaction(function (transaction) {
-              transaction.executeSql('select * from list_contents where parent_list_id = ?', [currListIdHw], function(transaction, result){
-                for (var i = 0; i < result.rows.length; i++) {
-                  elemListsHw.push({"elemLists":result.rows.item(i)});
-                  if(result.rows.item(i).child_type === 'list') {
-                    addLHw(result.rows.item(i).child_id);
-                  }
-                }
-                nextRecordHw();
-              });
-            });
-            listsHw.shift(0);
-          } else {
-            callback(new OkResult(elemListsHw));
-          }
-        })();
-      },
-
-      parseListAdd: function(listIdAdd, callback){
-        var currListIdAdd,
-            listsAdd = [];
-        var self = this;
-        function addLAdd(elAdd){
-          return listsAdd.push(elAdd);
-        }
-        addLAdd(listIdAdd);
-        (function nextRecordAdd() {
-          if (listsAdd.length) {
-            currListIdAdd = listsAdd[0];
-            db.transaction(function (transaction) {
-              transaction.executeSql('select * from list_contents where parent_list_id = ?', [currListIdAdd], function(transaction, result){
-                for (var i = 0; i < result.rows.length; i++) {
-                  elemListsAdd.push({"elemLists":result.rows.item(i)});
-                  if(result.rows.item(i).child_type === 'list') {
-                    addLAdd(result.rows.item(i).child_id);
-                  }
-                }
-                nextRecordAdd();
-              });
-            });
-            listsAdd.shift(0);
-          } else {
-            callback(new OkResult(elemListsAdd));
-          }
-        })();
-      },
-
-      getValueByRule: function (parentValue, childValue, rule){
-        var value = 0;
-        switch (rule) {
-          case 1:
-            value = parentValue - childValue;
-            break;
-          case 3:
-            value = (Math.round(parentValue) * childValue).toFixed(3);
-            break;
-          case 5:
-            value = parentValue * childValue;
-            break;
-          case 6:
-            value = (parentValue * childValue).toFixed(3);
-            break;
-          case 7:
-            value = (parentValue * childValue).toFixed(3);
-            break;
-          case 8:
-            value = (parentValue * childValue).toFixed(3);
-            break;
-          case 9:
-            value = (parentValue * childValue).toFixed(3);
-            break;
-          case 12:
-            value = (Math.round(parentValue) * childValue).toFixed(3);
-            break;
-          case 13:
-            value = (parentValue * childValue).toFixed(3);
-            break;
-          case 14:
-            value = (Math.round(parentValue) * childValue).toFixed(3);
-            break;
-          case 21:
-            break;
-          case 22:
-            break;
-          case 23:
-            value = (parentValue * childValue).toFixed(3);
-            break;
-          default:
-            value = childValue;
-            break;
-        }
-        return value;
-      },
 
       getByHardwareId: function(whId, construction, callback){
         var self = this;
+//        console.warn('hardware', whId, construction);
         db.transaction(function (transaction) {
           transaction.executeSql('select * from window_hardwares where window_hardware_group_id = ? and child_id > 0 and count > 0', [whId], function (transaction, result){
             var hardwareresult = [];
+//            console.warn('hardware2++', result);
             for(var i = 0; i < result.rows.length; i++){
               for(var j = 0; j < construction.sashesBlock.length; j++){
                 if(result.rows.item(i).min_width > 0 && result.rows.item(i).max_width > 0 && construction.sashesBlock[j].sizes[0] >= result.rows.item(i).min_width && construction.sashesBlock[j].sizes[0] <= result.rows.item(i).max_width && result.rows.item(i).direction_id == 1 && result.rows.item(i).min_height == 0 && result.rows.item(i).max_height == 0) {
@@ -1559,6 +1426,7 @@
         var currListIdHw;
         var listsHw = [];
         var self = this;
+        console.warn('hardware33++', hardwareresult);
         function addLHw(elHw, keysHw){
           return listsHw.push(elHw);
         }
@@ -1573,64 +1441,183 @@
 
 
 
+      getPriceById: function(elId, i, k, callback){
+        db.transaction(function (transaction) {
+          transaction.executeSql('select id, currency_id, price, waste, name, amendment_pruning from elements where id = ?', [elId], function (transaction, result){
+            if(result.rows.length)
+              callback(new OkResult({"currency":result.rows.item(0), "index":i, "ix":k}));
+          }, function () {
+            callback(new ErrorResult(2, 'Something went wrong when get element price'));
+          });
+        });
+      },
+
+
+
+      getPriceByIdList: function(liId, i, k, callback){
+        db.transaction(function (transaction) {
+          transaction.executeSql('select parent_element_id from lists where id = ?', [liId], function (transaction, result){
+            if(result.rows.length){
+              transaction.executeSql('select id, currency_id, price, waste, name, amendment_pruning from elements where id = ?', [result.rows.item(0).parent_element_id], function (transaction, result){
+                if(result.rows.length)
+                  callback(new OkResult({"currency":result.rows.item(0), "index":i, "ix":k}));
+              }, function () {
+                callback(new ErrorResult(2, 'Something went wrong when get element price'));
+              });
+            }
+          }, function () {
+            callback(new ErrorResult(2, 'Something went wrong when get parent_element_id'));
+          });
+        });
+      },
+
+
+      getValueByRule: function (parentValue, childValue, rule){
+        console.warn('rule++', parentValue, childValue, rule);
+        var value = 0;
+        switch (rule) {
+          case 1:
+            value = GeneralServ.roundingNumbers((parentValue - childValue), 3);
+            break;
+          case 3:
+          case 12:
+          case 14:
+            value = GeneralServ.roundingNumbers((Math.round(parentValue) * childValue), 3);
+            break;
+          case 5:
+            value = parentValue * childValue;
+            break;
+          case 6:
+          case 7:
+          case 8:
+          case 9:
+          case 13:
+          case 23:
+            value = GeneralServ.roundingNumbers((parentValue * childValue), 3);
+            break;
+          default:
+            value = childValue;
+            break;
+        }
+        return value;
+      },
+
+
+
+
+
+
+
+
+
+//TODO don't use
+//      parseListHw: function(listIdHw, callback){
+//        var currListIdHw,
+//            listsHw = [];
+//        var self = this;
+//        function addLHw(elHw){
+//          return listsHw.push(elHw);
+//        }
+//        addLHw(listIdHw);
+//        (function nextRecordHw() {
+//          if (listsHw.length) {
+//            currListIdHw = listsHw[0];
+//            db.transaction(function (transaction) {
+//              transaction.executeSql('select * from list_contents where parent_list_id = ?', [currListIdHw], function(transaction, result){
+//                for (var i = 0; i < result.rows.length; i++) {
+//                  elemListsHw.push({"elemLists":result.rows.item(i)});
+//                  if(result.rows.item(i).child_type === 'list') {
+//                    addLHw(result.rows.item(i).child_id);
+//                  }
+//                }
+//                nextRecordHw();
+//              });
+//            });
+//            listsHw.shift(0);
+//          } else {
+//            callback(new OkResult(elemListsHw));
+//          }
+//        })();
+//      },
+
+
+
+
+
+
+
+
 
       /** START **/
+
       calculationPrice: function (construction, callback) {
         var self = this;
         var price = 0, profSys, priceObj = {};
-        this.getCurrentCurrency(construction.currencyId, function (result){
-          next_1(result);
+
+        priceObj.currentCurrency = angular.copy(construction.currencyData);
+
+        self.parseList(construction.frameId).then(function (result){
+//          console.info('frameId 1', result);
+          priceObj.framesIds = angular.copy(result);
+          elemLists = [];
+
+          self.parseList(construction.frameSillId).then(function (result){
+//            console.info('frameSillId 2', result);
+            priceObj.frameSillsIds = angular.copy(result);
+            elemLists = [];
+
+            self.parseList(construction.sashId).then(function (result){
+//              console.info('sashId 3', result);
+              priceObj.sashsIds = angular.copy(result);
+              elemLists = [];
+
+              self.parseList(construction.impostId).then(function (result){
+//                console.info('impostId 4', result);
+                priceObj.impostIds = angular.copy(result);
+                elemLists = [];
+
+                //TODO array
+                self.parseList(construction.glassId).then(function (result){
+//                  console.info('glassId 5', result);
+                  priceObj.glassIds = angular.copy(result);
+                  elemLists = [];
+
+                  self.parseList(construction.beadId).then(function (result){
+                    priceObj.beadIds = angular.copy(result);
+                    elemLists = [];
+
+                    next_bead();
+
+                  });
+
+                });
+
+              });
+
+            });
+
+          });
+
         });
-        function next_1(result){
-          if(result.status){
-            priceObj.currentCurrency = result.data;
-            elemLists = [];
-            self.parseList(construction.frameId, function (result){next_2(result);});
+
+
+
+
+        function next_bead(){
+
+          /** if hardware exists */
+          if(construction.hardwareId) {
+            self.getByHardwareId(construction.hardwareId, construction, function (result){
+              console.info('HardwareId', result);
+              next_tmp(result);
+            });
           } else {
-            console.log(result);
+            priceObj.hardwareIds = [];
+            next_glass();
           }
+
         }
-        function next_2(result){
-          if(result.status){
-            priceObj.framesIds =  result.data;
-            elemLists = [];
-            self.parseList(construction.frameSillId, function (result){next_3(result);});
-          } else {
-            console.log(result);
-          }
-        }
-        function next_3(result){
-          if(result.status){
-            priceObj.frameSillsIds =  result.data;
-            elemLists = [];
-            self.parseList(construction.sashId, function (result){next_4(result);});
-          } else {
-            console.log(result);
-          }
-        }
-        function next_4(result){
-          if(result.status){
-            priceObj.sashsIds = result.data;
-            elemLists = [];
-            self.parseList(construction.impostId, function (result){next_5(result);});
-          } else {
-            console.log(result);
-          }
-        }
-        function next_5(result) {
-          if (result.status) {
-            priceObj.impostIds = result.data;
-            elemLists = [];
-            self.parseList(construction.glassId, function (result){next_bead(result);});
-          }
-        }
-        function next_bead(result){
-          if (result.status) {
-            priceObj.glassIds = result.data;
-            elemLists = [];
-            self.getByHardwareId(construction.hardwareId, construction, function (result){next_tmp(result);});
-          }
-        }
+
         function next_tmp(result){
           if (result.status) {
             priceObj.hardwareIds = result.data;
@@ -1646,52 +1633,56 @@
             if(ifList){
               next_hwlist(result.data);
             } else {
-              self.parseList(construction.beadId, function (result){next_glass(result);});
+              next_glass();
             }
           }
         }
+
         function next_hwlist(result){
           for(var i = 0; i < priceObj.hardwareIds.length; i++){
             if("lists" in priceObj.hardwareIds[i]){
               if(priceObj.hardwareIds[i].lists.length > 0){
-                self.parseList(priceObj.hardwareIds[i].lists[0], function (result){next_hwlist_res(result);});
+                self.parseList(priceObj.hardwareIds[i].lists[0]).then(function (result){
+                  next_hwlist_res(result);
+                });
               }
             }
           }
         }
         function next_hwlist_res(result){
-          if (result.status) {
-            //priceObj.hardwareIds.push({"hardwareLists":result.data});
-            for(var i = 0; i < priceObj.hardwareIds.length; i++){
-              if("lists" in priceObj.hardwareIds[i]){
-                if(priceObj.hardwareIds[i].lists.length > 0){
-                  priceObj.hardwareIds.push({"hardwareLists":result.data, "parent_list_id":priceObj.hardwareIds[i].lists[0]});
-                  priceObj.hardwareIds[i].lists.shift(0);
-                }
+          //priceObj.hardwareIds.push({"hardwareLists":result.data});
+          for(var i = 0; i < priceObj.hardwareIds.length; i++){
+            if("lists" in priceObj.hardwareIds[i]){
+              if(priceObj.hardwareIds[i].lists.length > 0){
+                priceObj.hardwareIds.push({"hardwareLists":result, "parent_list_id":priceObj.hardwareIds[i].lists[0]});
+                priceObj.hardwareIds[i].lists.shift(0);
               }
             }
-            next_tmp({"status":true, "data":priceObj.hardwareIds});
           }
+          next_tmp({"status":true, "data":priceObj.hardwareIds});
         }
-        function next_glass(result){
-          if(result.status){
-            priceObj.beadIds = result.data;
-            elemLists = [];
-            db.transaction(function (transaction) {
-              console.log('PRICE ids++++', construction.frameId, construction.frameSillId, construction.sashId, construction.impostId, construction.glassId, construction.beadId);
-              transaction.executeSql('select parent_element_id, name from lists where id in (?, ?, ?, ?, ?, ?)', [construction.frameId, construction.frameSillId, construction.sashId, construction.impostId, construction.glassId, construction.beadId], function (transaction, result){next_6(result);}, function () {
-                callback(new ErrorResult(2, 'Something went wrong when get parent_element_id'));
-              });
+
+
+
+
+
+        function next_glass(){
+          db.transaction(function (transaction) {
+            console.log('PRICE ids++++', construction.frameId, construction.frameSillId, construction.sashId, construction.impostId, construction.glassId, construction.beadId);
+            transaction.executeSql('select parent_element_id, name from lists where id in (?, ?, ?, ?, ?, ?)', [construction.frameId, construction.frameSillId, construction.sashId, construction.impostId, construction.glassId, construction.beadId], function (transaction, result){
+              next_6(result);
+            }, function () {
+              callback(new ErrorResult(2, 'Something went wrong when get parent_element_id'));
             });
-          } else {
-            console.log(result);
-          }
+          });
         }
+
         function next_6(result){
           var resQty = result.rows.length;
           //TODO in safari length = 5 must be 6
 //          console.warn(result);
 //          console.warn(resQty);
+//          console.warn('priceObj++++', JSON.stringify(priceObj));
           if(resQty){
             for(var i = 0; i < resQty; i++) {
               switch(i) {
@@ -1728,9 +1719,10 @@
 //            console.warn(result.rows.item(3));
 //            console.warn(result.rows.item(4));
 //            console.warn(result.rows.item(5));
-
             db.transaction(function (transaction) {
-              transaction.executeSql('select id, currency_id, price, waste, name, amendment_pruning from elements where id in (?, ?, ?, ?, ?, ?)', [result.rows.item(0).parent_element_id, result.rows.item(1).parent_element_id, result.rows.item(2).parent_element_id, result.rows.item(3).parent_element_id, result.rows.item(4).parent_element_id, result.rows.item(5).parent_element_id], function (transaction, result){next_7(result);}, function () {
+              transaction.executeSql('select id, currency_id, price, waste, name, amendment_pruning from elements where id in (?, ?, ?, ?, ?, ?)', [result.rows.item(0).parent_element_id, result.rows.item(1).parent_element_id, result.rows.item(2).parent_element_id, result.rows.item(3).parent_element_id, result.rows.item(4).parent_element_id, result.rows.item(5).parent_element_id], function (transaction, result){
+                next_7(result);
+              }, function () {
                 callback(new ErrorResult(2, 'Something went wrong when get element price'));
               });
             });
@@ -1738,6 +1730,7 @@
             console.log(result);
           }
         }
+
         function next_7(result) {
           if(result.rows.length){
             for (var i = 0; i < result.rows.length; i++) {
@@ -1906,193 +1899,301 @@
                 }
               }
             }
-            db.transaction(function (transaction) {
-              transaction.executeSql('select id, name, value from currencies', [], function (transaction, result){next_8(result);}, function () {
-                callback(new ErrorResult(2, 'Something went wrong when get parent_element_id'));
-              });
+
+            /** download all currencies */
+            self.selectLocalDB(self.tablesLocalDB.currencies.tableName, {'is_base': 1}, 'id, name, value').then(function(result) {
+              if(result.length) {
+                priceObj.currencies = angular.copy(result);
+                callback(new OkResult(next_8()));
+              }
             });
+
           } else {
             console.log(result);
           }
         }
 
-///*
-        function next_8(result) {
-          if(result.rows.length){
-            priceObj.currencies = [];
-            priceObj.price = 0;
-            for (var i = 0; i < result.rows.length; i++) {
-              priceObj.currencies.push(result.rows.item(i));
+
+        function next_8() {
+          priceObj.price = 0;
+console.warn('8888', JSON.stringify(construction.framesSize));
+          var priceTmp = 0;
+          if(construction.framesSize.length) {
+            for (var i = 0; i < construction.framesSize.length; i++) {
+              priceTmp += (((construction.framesSize[i] + priceObj.framesIds.price.amendment_pruning)/ 1000) * priceObj.framesIds.price.price) * (1 + (priceObj.framesIds.price.waste / 100));
             }
-            var priceTmp = 0;
-            if(construction.framesSize.length) {
-              for (var i = 0; i < construction.framesSize.length; i++) {
-                priceTmp += (((construction.framesSize[i] + priceObj.framesIds.price.amendment_pruning)/ 1000) * priceObj.framesIds.price.price) * (1 + (priceObj.framesIds.price.waste / 100));
-              }
-              if (priceObj.currentCurrency.id != priceObj.framesIds.price.currency_id){
-                for (var i = 0; i < priceObj.currencies.length; i++) {
-                  if(priceObj.currencies[i].id == priceObj.framesIds.price.currency_id){
-                    priceTmp = priceTmp * priceObj.currencies[i].value;
-                  }
+            if (priceObj.currentCurrency.id != priceObj.framesIds.price.currency_id){
+              for (var i = 0; i < priceObj.currencies.length; i++) {
+                if(priceObj.currencies[i].id == priceObj.framesIds.price.currency_id){
+                  priceTmp = priceTmp * priceObj.currencies[i].value; //TODO разные валюты умножать или делить
                 }
               }
             }
-            priceObj.price += priceTmp;
-            construction.framesSize.shift();
-            var priceTmp = 0;
-            if(construction.sashsSize.length) {
-              for (var i = 0; i < construction.sashsSize.length; i++) {
-                priceTmp += (((construction.sashsSize[i] + priceObj.sashsIds.price.amendment_pruning)/ 1000) * priceObj.sashsIds.price.price) * (1 + (priceObj.sashsIds.price.waste / 100));
-              }
-              if (priceObj.currentCurrency.id != priceObj.sashsIds.price.currency_id){
-                for (var i = 0; i < priceObj.currencies.length; i++) {
-                  if(priceObj.currencies[i].id == priceObj.sashsIds.price.currency_id){
-                    priceTmp = priceTmp * priceObj.currencies[i].value;
-                  }
+          }
+          priceObj.price += priceTmp;
+          construction.framesSize.shift(); //TODO ????
+
+          var priceTmp = 0;
+          if(construction.sashsSize.length) {
+            for (var i = 0; i < construction.sashsSize.length; i++) {
+              priceTmp += (((construction.sashsSize[i] + priceObj.sashsIds.price.amendment_pruning)/ 1000) * priceObj.sashsIds.price.price) * (1 + (priceObj.sashsIds.price.waste / 100));
+            }
+            if (priceObj.currentCurrency.id != priceObj.sashsIds.price.currency_id){
+              for (var i = 0; i < priceObj.currencies.length; i++) {
+                if(priceObj.currencies[i].id == priceObj.sashsIds.price.currency_id){
+                  priceTmp = priceTmp * priceObj.currencies[i].value;
                 }
               }
             }
-            priceObj.price += priceTmp;
-            var priceTmp = 0;
-            if(construction.beadsSize.length) {
-              for (var i = 0; i < construction.beadsSize.length; i++) {
-                priceTmp += (((construction.beadsSize[i] + priceObj.beadIds.price.amendment_pruning)/ 1000) * priceObj.beadIds.price.price) * (1 + (priceObj.beadIds.price.waste / 100));
-              }
-              if (priceObj.currentCurrency.id != priceObj.beadIds.price.currency_id){
-                for (var i = 0; i < priceObj.currencies.length; i++) {
-                  if(priceObj.currencies[i].id == priceObj.beadIds.price.currency_id){
-                    priceTmp = priceTmp * priceObj.currencies[i].value;
-                  }
+          }
+          priceObj.price += priceTmp;
+
+          var priceTmp = 0;
+          if(construction.beadsSize.length) {
+            for (var i = 0; i < construction.beadsSize.length; i++) {
+              priceTmp += (((construction.beadsSize[i] + priceObj.beadIds.price.amendment_pruning)/ 1000) * priceObj.beadIds.price.price) * (1 + (priceObj.beadIds.price.waste / 100));
+            }
+            if (priceObj.currentCurrency.id != priceObj.beadIds.price.currency_id){
+              for (var i = 0; i < priceObj.currencies.length; i++) {
+                if(priceObj.currencies[i].id == priceObj.beadIds.price.currency_id){
+                  priceTmp = priceTmp * priceObj.currencies[i].value;
                 }
               }
             }
-            priceObj.price += priceTmp;
-            var priceTmp = 0;
-            if(construction.impostsSize.length) {
-              for (var i = 0; i < construction.impostsSize.length; i++) {
-                priceTmp += (((construction.impostsSize[i] + priceObj.impostIds.price.amendment_pruning)/ 1000) * priceObj.impostIds.price.price) * (1 + (priceObj.impostIds.price.waste / 100));
-              }
-              if (priceObj.currentCurrency.id != priceObj.impostIds.price.currency_id){
-                for (var i = 0; i < priceObj.currencies.length; i++) {
-                  if(priceObj.currencies[i].id == priceObj.impostIds.price.currency_id){
-                    priceTmp = priceTmp * priceObj.currencies[i].value;
-                  }
+          }
+          priceObj.price += priceTmp;
+
+          var priceTmp = 0;
+          if(construction.impostsSize.length) {
+            for (var i = 0; i < construction.impostsSize.length; i++) {
+              priceTmp += (((construction.impostsSize[i] + priceObj.impostIds.price.amendment_pruning)/ 1000) * priceObj.impostIds.price.price) * (1 + (priceObj.impostIds.price.waste / 100));
+            }
+            if (priceObj.currentCurrency.id != priceObj.impostIds.price.currency_id){
+              for (var i = 0; i < priceObj.currencies.length; i++) {
+                if(priceObj.currencies[i].id == priceObj.impostIds.price.currency_id){
+                  priceTmp = priceTmp * priceObj.currencies[i].value;
                 }
               }
             }
-            priceObj.price += priceTmp;
-            var priceTmp = 0;
-            if(construction.glassSquares.length) {
-              for (var i = 0; i < construction.glassSquares.length; i++) {
-                priceTmp += construction.glassSquares[i] * priceObj.glassIds.price.price;
-              }
-              if (priceObj.currentCurrency.id != priceObj.glassIds.price.currency_id){
-                for (var i = 0; i < priceObj.currencies.length; i++) {
-                  if(priceObj.currencies[i].id == priceObj.glassIds.price.currency_id){
-                    priceTmp = priceTmp * priceObj.currencies[i].value;
-                  }
+          }
+          priceObj.price += priceTmp;
+
+          //TODO array!!!!!
+          var priceTmp = 0;
+          if(construction.glassSquares.length) {
+            for (var i = 0; i < construction.glassSquares.length; i++) {
+              priceTmp += construction.glassSquares[i] * priceObj.glassIds.price.price;
+            }
+            if (priceObj.currentCurrency.id != priceObj.glassIds.price.currency_id){
+              for (var i = 0; i < priceObj.currencies.length; i++) {
+                if(priceObj.currencies[i].id == priceObj.glassIds.price.currency_id){
+                  priceTmp = priceTmp * priceObj.currencies[i].value;
                 }
               }
             }
-            priceObj.price += priceTmp;
-  //======== Рама - начало
-            if(construction.framesSize.length) {
-              for (var i = 0; i < construction.framesSize.length; i++) {
-                if(priceObj.framesIds.length) {
-                  for (var j = 0; j < priceObj.framesIds.length; j++) {
-                    var priceTmp = 0;
-                    if(priceObj.framesIds[j].elemLists.parent_list_id == construction.frameId){
-                      if(priceObj.framesIds[j].priceEl) {
-                        var value = self.getValueByRule(((construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning) / 1000), priceObj.framesIds[j].elemLists.value, priceObj.framesIds[j].elemLists.rules_type_id);
-                        priceObj.framesIds[j].elemLists.newValue = value;
-                        if (priceObj.framesIds[j].elemLists.rules_type_id === 3) {
-                          priceTmp += (Math.round(((construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning) / 1000) * priceObj.framesIds[j].elemLists.value) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
-                        } else if (priceObj.framesIds[j].elemLists.rules_type_id === 2 || priceObj.framesIds[j].elemLists.rules_type_id === 4 || priceObj.framesIds[j].elemLists.rules_type_id === 15) {
-                          priceTmp += (priceObj.framesIds[j].elemLists.value * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
-                        } else if (priceObj.framesIds[j].elemLists.rules_type_id === 1) {
-                          priceTmp += (((construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value * 1000)) / 1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
-                        } else {
-                          priceTmp += (((construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning) / 1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
-                        }
-                        if (priceObj.currentCurrency.id != priceObj.framesIds[j].priceEl.currency_id) {
-                          for (var k = 0; k < priceObj.currencies.length; k++) {
-                            if (priceObj.currencies[k].id == priceObj.framesIds[j].priceEl.currency_id) {
-                              priceTmp = priceTmp * priceObj.currencies[k].value;
-                            }
-                          }
-                        }
-                      }
-                    } else {
-                      for (var g = 0; g < priceObj.framesIds.length; g++) {
-                        if(priceObj.framesIds[j].elemLists.parent_list_id == priceObj.framesIds[g].elemLists.child_id){
-                          var value = self.getValueByRule(priceObj.framesIds[g].elemLists.newValue, priceObj.framesIds[g].elemLists.value, priceObj.framesIds[g].elemLists.rules_type_id);
-                          priceObj.framesIds[j].elemLists.newValue = value;
-                          if(priceObj.framesIds[j].elemLists.rules_type_id === 3){
-                            priceTmp += (Math.round((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning)*priceObj.framesIds[j].elemLists.value)*priceObj.framesIds[j].priceEl.price)*(1+(priceObj.framesIds[j].priceEl.waste/100));
-                          } else if(priceObj.framesIds[j].elemLists.rules_type_id === 2 || priceObj.framesIds[j].elemLists.rules_type_id === 4 || priceObj.framesIds[j].elemLists.rules_type_id === 15){
-                            priceTmp += (priceObj.framesIds[g].elemLists.newValue*priceObj.framesIds[j].elemLists.value * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
-                          } else if (priceObj.framesIds[j].elemLists.rules_type_id === 1){
-                            priceTmp += (((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value*1000))/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
-                          } else {
-                            priceTmp += (((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning)/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
-                          }
-                          if (priceObj.currentCurrency.id != priceObj.framesIds[j].priceEl.currency_id){
-                            for (var k = 0; k < priceObj.currencies.length; k++) {
-                              if(priceObj.currencies[k].id == priceObj.framesIds[j].priceEl.currency_id){
-                                priceTmp = priceTmp * priceObj.currencies[k].value;
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                    priceObj.price += priceTmp;
-                  }
-                }
-              }
-            }
-  //===== Рама - конец
-  //====== Подоконный профиль - начало
-            if(construction.frameSillSize) {
-              if(priceObj.frameSillsIds.length) {
-                for (var j = 0; j < priceObj.frameSillsIds.length; j++) {
+          }
+          priceObj.price += priceTmp;
+
+          //TODO whewe shtulp????
+//======== Рама - начало
+          console.log('Рама - начало ---------------------');
+          if(construction.framesSize.length) {
+            for (var i = 0; i < construction.framesSize.length; i++) {
+              if(priceObj.framesIds.length) {
+                for (var j = 0; j < priceObj.framesIds.length; j++) {
                   var priceTmp = 0;
-                  if(priceObj.frameSillsIds[j].elemLists.parent_list_id == construction.frameSillId){
-                    var value = self.getValueByRule(((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000), priceObj.frameSillsIds[j].elemLists.value, priceObj.frameSillsIds[j].elemLists.rules_type_id);
-                    priceObj.frameSillsIds[j].elemLists.newValue = value;
-                    if(priceObj.frameSillsIds[j].elemLists.rules_type_id === 3){
-                      priceTmp += (Math.round(((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000)*priceObj.frameSillsIds[j].elemLists.value)*priceObj.frameSillsIds[j].priceEl.price)*(1+(priceObj.frameSillsIds[j].priceEl.waste/100));
-                    } else if(priceObj.frameSillsIds[j].elemLists.rules_type_id === 2 || priceObj.frameSillsIds[j].elemLists.rules_type_id === 4 || priceObj.frameSillsIds[j].elemLists.rules_type_id === 15){
-                      priceTmp += (priceObj.frameSillsIds[j].elemLists.value * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
-                    } else if (priceObj.frameSillsIds[j].elemLists.rules_type_id === 1){
-                      priceTmp += (((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning - (priceObj.frameSillsIds[j].elemLists.value*1000))/1000) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
-                    } else {
-                      priceTmp += (((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
+                  if(priceObj.framesIds[j].elemLists.parent_list_id == construction.frameId){
+                    if(priceObj.framesIds[j].priceEl) {
+
+                      console.log('Название: ' + priceObj.framesIds[j].elemName);
+                      console.log('Размер: ' + (construction.framesSize[i] / 1000).toFixed(3) + ' м');
+                      console.log('Цена: ' + priceObj.framesIds[j].priceEl.price);
+                      console.log('% отхода : ' + priceObj.framesIds[j].priceEl.waste);
+                      console.log('Поправка на обрезку : ' + priceObj.framesIds[j].priceEl.amendment_pruning);
+
+                      var value = self.getValueByRule(((construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning) / 1000), priceObj.framesIds[j].elemLists.value, priceObj.framesIds[j].elemLists.rules_type_id);
+                      priceObj.framesIds[j].elemLists.newValue = value;
+                      console.info(value);
+                      //debugger;
+                      if (priceObj.framesIds[j].elemLists.rules_type_id === 3) {
+                        console.log('Правило : ' + priceObj.framesIds[j].elemLists.value + ' шт. на метр родителя');
+                        console.log('Формула : (round(' + (construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning) / 1000 + '*' + priceObj.framesIds[j].elemLists.value + ')*' + priceObj.framesIds[j].priceEl.price + ')*(1+(' + priceObj.framesIds[j].priceEl.waste + '/100) = ' + ((Math.round(((construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning) / 1000) * priceObj.framesIds[j].elemLists.value) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100))).toFixed(2));
+
+                        priceTmp += (Math.round(((construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning) / 1000) * priceObj.framesIds[j].elemLists.value) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
+                      } else if (priceObj.framesIds[j].elemLists.rules_type_id === 2 || priceObj.framesIds[j].elemLists.rules_type_id === 4 || priceObj.framesIds[j].elemLists.rules_type_id === 15) {
+                        console.log('Правило : ' + priceObj.framesIds[j].elemLists.value + ' шт. на родителя');
+                        console.log('Формула : (1*' + value + '*' + priceObj.framesIds[j].priceEl.price + ')*(1+(' + priceObj.framesIds[j].priceEl.waste + '/100) = ' + (priceObj.framesIds[j].elemLists.value * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100)));
+
+                        priceTmp += (priceObj.framesIds[j].elemLists.value * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
+                      } else if (priceObj.framesIds[j].elemLists.rules_type_id === 1) {
+                        console.log('Правило : меньше родителя на ' + priceObj.framesIds[j].elemLists.value + ' м');
+                        console.log('Формула : (' + (construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value * 1000)) / 1000 + '*' + priceObj.framesIds[j].priceEl.price + ')*(1+(' + priceObj.framesIds[j].priceEl.waste + '/100) = ' + ((((construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value * 1000)) / 1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100))).toFixed(2));
+
+                        priceTmp += (((construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value * 1000)) / 1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
+                      } else {
+                        console.log('Формула : (' + (construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning) / 1000 + '*' + priceObj.framesIds[j].priceEl.price + ')*(1+(' + priceObj.framesIds[j].priceEl.waste + '/100) = ' + ((((construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning) / 1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100))).toFixed(2));
+
+                        priceTmp += (((construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning) / 1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
+                      }
+                      if (priceObj.currentCurrency.id != priceObj.framesIds[j].priceEl.currency_id) {
+                        for (var k = 0; k < priceObj.currencies.length; k++) {
+                          if (priceObj.currencies[k].id == priceObj.framesIds[j].priceEl.currency_id) {
+                            priceTmp = priceTmp * priceObj.currencies[k].value;
+                            console.log('Валюта: ' + priceObj.currencies[f].name);
+                          }
+                        }
+                      }
                     }
-                    if (priceObj.currentCurrency.id != priceObj.frameSillsIds[j].priceEl.currency_id){
+                  } else {
+                    for (var g = 0; g < priceObj.framesIds.length; g++) {
+                      if(priceObj.framesIds[j].elemLists.parent_list_id == priceObj.framesIds[g].elemLists.child_id){
+                        var value = self.getValueByRule(priceObj.framesIds[g].elemLists.newValue, priceObj.framesIds[g].elemLists.value, priceObj.framesIds[g].elemLists.rules_type_id);
+                        priceObj.framesIds[j].elemLists.newValue = value;
+                        console.info(value);
+                        console.log('Название: '+priceObj.framesIds[j].elemName);
+                        console.log('Размер: '+(priceObj.framesIds[g].elemLists.newValue).toFixed(3)+' м');
+                        console.log('Цена: '+priceObj.framesIds[j].priceEl.price);
+                        console.log('% отхода : '+priceObj.framesIds[j].priceEl.waste);
+                        console.log('Поправка на обрезку : '+priceObj.framesIds[j].priceEl.amendment_pruning);
+
+                        if(priceObj.framesIds[j].elemLists.rules_type_id === 3){
+                          console.log('Правило : '+priceObj.framesIds[j].elemLists.value+' шт. на метр родителя');
+                          console.log('Формула : (round('+(priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning).toFixed(3)+'*'+priceObj.framesIds[j].elemLists.value+')*'+priceObj.framesIds[j].priceEl.price+')*(1+('+priceObj.framesIds[j].priceEl.waste+'/100) = '+((Math.round((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning)*priceObj.framesIds[j].elemLists.value)*priceObj.framesIds[j].priceEl.price)*(1+(priceObj.framesIds[j].priceEl.waste/100))).toFixed(2));
+
+                          priceTmp += (Math.round((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning)*priceObj.framesIds[j].elemLists.value)*priceObj.framesIds[j].priceEl.price)*(1+(priceObj.framesIds[j].priceEl.waste/100));
+                        } else if(priceObj.framesIds[j].elemLists.rules_type_id === 2 || priceObj.framesIds[j].elemLists.rules_type_id === 4 || priceObj.framesIds[j].elemLists.rules_type_id === 15){
+                          console.log('Правило : '+priceObj.framesIds[j].elemLists.value+' шт. на родителя');
+                          console.log('Формула : ('+priceObj.framesIds[g].elemLists.newValue+'*'+priceObj.framesIds[j].elemLists.value+'*'+priceObj.framesIds[j].priceEl.price+')*(1+('+priceObj.framesIds[j].priceEl.waste+'/100) = '+(priceObj.framesIds[g].elemLists.newValue*priceObj.framesIds[j].elemLists.value * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100)));
+
+                          priceTmp += (priceObj.framesIds[g].elemLists.newValue*priceObj.framesIds[j].elemLists.value * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
+                        } else if (priceObj.framesIds[j].elemLists.rules_type_id === 1){
+                          console.log('Правило : меньше родителя на '+priceObj.framesIds[j].elemLists.value+' м');
+                          console.log('Формула : ('+(priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value*1000))/1000+'*'+priceObj.framesIds[j].priceEl.price+')*(1+('+priceObj.framesIds[j].priceEl.waste+'/100) = '+((((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value*100))/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100))).toFixed(2));
+
+                          priceTmp += (((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value*1000))/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
+                        } else {
+                          console.log('Формула : ('+(priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning)/1000+'*'+priceObj.framesIds[j].priceEl.price+')*(1+('+priceObj.framesIds[j].priceEl.waste+'/100) = '+((((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning)/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100))).toFixed(2));
+
+                          priceTmp += (((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning)/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
+                        }
+                        if (priceObj.currentCurrency.id != priceObj.framesIds[j].priceEl.currency_id){
+                          for (var k = 0; k < priceObj.currencies.length; k++) {
+                            if(priceObj.currencies[k].id == priceObj.framesIds[j].priceEl.currency_id){
+                              priceTmp = priceTmp * priceObj.currencies[k].value;
+                              console.log('Валюта: ' + priceObj.currencies[f].name);
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                  priceObj.price += priceTmp;
+                  console.log('Итого в гривне: '+priceTmp.toFixed(2)+' грн');
+                  console.log('  ');
+                }
+              }
+            }
+          }
+
+          console.log('Рама - конец ---------------------');
+
+//===== Рама - конец
+//====== Подоконный профиль - начало
+          if(construction.frameSillSize) {
+            if(priceObj.frameSillsIds.length) {
+              for (var j = 0; j < priceObj.frameSillsIds.length; j++) {
+                var priceTmp = 0;
+                if(priceObj.frameSillsIds[j].elemLists.parent_list_id == construction.frameSillId){
+                  var value = self.getValueByRule(((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000), priceObj.frameSillsIds[j].elemLists.value, priceObj.frameSillsIds[j].elemLists.rules_type_id);
+                  priceObj.frameSillsIds[j].elemLists.newValue = value;
+                  if(priceObj.frameSillsIds[j].elemLists.rules_type_id === 3){
+                    priceTmp += (Math.round(((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000)*priceObj.frameSillsIds[j].elemLists.value)*priceObj.frameSillsIds[j].priceEl.price)*(1+(priceObj.frameSillsIds[j].priceEl.waste/100));
+                  } else if(priceObj.frameSillsIds[j].elemLists.rules_type_id === 2 || priceObj.frameSillsIds[j].elemLists.rules_type_id === 4 || priceObj.frameSillsIds[j].elemLists.rules_type_id === 15){
+                    priceTmp += (priceObj.frameSillsIds[j].elemLists.value * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
+                  } else if (priceObj.frameSillsIds[j].elemLists.rules_type_id === 1){
+                    priceTmp += (((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning - (priceObj.frameSillsIds[j].elemLists.value*1000))/1000) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
+                  } else {
+                    priceTmp += (((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
+                  }
+                  if (priceObj.currentCurrency.id != priceObj.frameSillsIds[j].priceEl.currency_id){
+                    for (var k = 0; k < priceObj.currencies.length; k++) {
+                      if(priceObj.currencies[k].id == priceObj.frameSillsIds[j].priceEl.currency_id){
+                        priceTmp = priceTmp * priceObj.currencies[k].value;
+                      }
+                    }
+                  }
+                } else {
+                  for (var g = 0; g < priceObj.frameSillsIds.length; g++) {
+                    if(priceObj.frameSillsIds[j].elemLists.parent_list_id == priceObj.frameSillsIds[g].elemLists.child_id){
+                      var value = self.getValueByRule(priceObj.frameSillsIds[g].elemLists.newValue, priceObj.frameSillsIds[j].elemLists.value, priceObj.frameSillsIds[g].elemLists.rules_type_id);
+                      priceObj.frameSillsIds[j].elemLists.newValue = value;
+                      if(priceObj.frameSillsIds[j].elemLists.rules_type_id === 3){
+                        priceTmp += (Math.round((priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning)*priceObj.frameSillsIds[j].elemLists.value)*priceObj.frameSillsIds[j].priceEl.price)*(1+(priceObj.frameSillsIds[j].priceEl.waste/100));
+                      } else if(priceObj.frameSillsIds[j].elemLists.rules_type_id === 2 || priceObj.frameSillsIds[j].elemLists.rules_type_id === 4 || priceObj.frameSillsIds[j].elemLists.rules_type_id === 15){
+                        priceTmp += (priceObj.frameSillsIds[j].elemLists.value * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
+                      } else if (priceObj.frameSillsIds[j].elemLists.rules_type_id === 1){
+                        priceTmp += (((priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning - (priceObj.frameSillsIds[j].elemLists.value*1000))) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
+                      } else {
+                        priceTmp += (((priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
+                      }
+                      if (priceObj.currentCurrency.id != priceObj.frameSillsIds[j].priceEl.currency_id){
+                        for (var k = 0; k < priceObj.currencies.length; k++) {
+                          if(priceObj.currencies[k].id == priceObj.frameSillsIds[j].priceEl.currency_id){
+                            priceTmp = priceTmp * priceObj.currencies[k].value;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+                priceObj.price += priceTmp;
+              }
+            }
+          }
+          //======== Подоконный профиль - конец
+
+          //======== Створка - начало
+          if(construction.sashsSize.length) {
+            for (var i = 0; i < construction.sashsSize.length; i++) {
+              if(priceObj.sashsIds.length) {
+                for (var j = 0; j < priceObj.sashsIds.length; j++) {
+                  var priceTmp = 0;
+                  if(priceObj.sashsIds[j].elemLists.parent_list_id == construction.sashId){
+                    var value = self.getValueByRule(((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000), priceObj.sashsIds[j].elemLists.value, priceObj.sashsIds[j].elemLists.rules_type_id);
+                    priceObj.sashsIds[j].elemLists.newValue = value;
+                    if(priceObj.sashsIds[j].elemLists.rules_type_id === 3){
+                      priceTmp += (Math.round(((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000)*priceObj.sashsIds[j].elemLists.value)*priceObj.sashsIds[j].priceEl.price)*(1+(priceObj.sashsIds[j].priceEl.waste/100));
+                    } else if(priceObj.sashsIds[j].elemLists.rules_type_id === 2 || priceObj.sashsIds[j].elemLists.rules_type_id === 4 || priceObj.sashsIds[j].elemLists.rules_type_id === 15){
+                      priceTmp += (priceObj.sashsIds[j].elemLists.value * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
+                    } else if (priceObj.sashsIds[j].elemLists.rules_type_id === 1){
+                      priceTmp += (((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning - (priceObj.sashsIds[j].elemLists.value*1000))/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
+                    } else {
+                      priceTmp += (((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
+                    }
+                    if (priceObj.currentCurrency.id != priceObj.sashsIds[j].priceEl.currency_id){
                       for (var k = 0; k < priceObj.currencies.length; k++) {
-                        if(priceObj.currencies[k].id == priceObj.frameSillsIds[j].priceEl.currency_id){
+                        if(priceObj.currencies[k].id == priceObj.sashsIds[j].priceEl.currency_id){
                           priceTmp = priceTmp * priceObj.currencies[k].value;
                         }
                       }
                     }
                   } else {
-                    for (var g = 0; g < priceObj.frameSillsIds.length; g++) {
-                      if(priceObj.frameSillsIds[j].elemLists.parent_list_id == priceObj.frameSillsIds[g].elemLists.child_id){
-                        var value = self.getValueByRule(priceObj.frameSillsIds[g].elemLists.newValue, priceObj.frameSillsIds[j].elemLists.value, priceObj.frameSillsIds[g].elemLists.rules_type_id);
-                        priceObj.frameSillsIds[j].elemLists.newValue = value;
-                        if(priceObj.frameSillsIds[j].elemLists.rules_type_id === 3){
-                          priceTmp += (Math.round((priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning)*priceObj.frameSillsIds[j].elemLists.value)*priceObj.frameSillsIds[j].priceEl.price)*(1+(priceObj.frameSillsIds[j].priceEl.waste/100));
-                        } else if(priceObj.frameSillsIds[j].elemLists.rules_type_id === 2 || priceObj.frameSillsIds[j].elemLists.rules_type_id === 4 || priceObj.frameSillsIds[j].elemLists.rules_type_id === 15){
-                          priceTmp += (priceObj.frameSillsIds[j].elemLists.value * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
-                        } else if (priceObj.frameSillsIds[j].elemLists.rules_type_id === 1){
-                          priceTmp += (((priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning - (priceObj.frameSillsIds[j].elemLists.value*1000))) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
+                    for (var g = 0; g < priceObj.sashsIds.length; g++) {
+                      if(priceObj.sashsIds[j].elemLists.parent_list_id == priceObj.sashsIds[g].elemLists.child_id){
+                        var value = self.getValueByRule((priceObj.sashsIds[g].elemLists.newValue/1000), priceObj.sashsIds[j].elemLists.value, priceObj.sashsIds[g].elemLists.rules_type_id);
+                        priceObj.sashsIds[j].elemLists.newValue = value;
+                        if(priceObj.sashsIds[j].elemLists.rules_type_id === 3){
+                          priceTmp += (Math.round((priceObj.sashsIds[g].elemLists.newValue+(priceObj.sashsIds[j].priceEl.amendment_pruning/1000))*priceObj.sashsIds[j].elemLists.value)*priceObj.sashsIds[j].priceEl.price)*(1+(priceObj.sashsIds[j].priceEl.waste/100));
+                        } else if(priceObj.sashsIds[j].elemLists.rules_type_id === 2 || priceObj.sashsIds[j].elemLists.rules_type_id === 4 || priceObj.sashsIds[j].elemLists.rules_type_id === 15){
+                          priceTmp += (priceObj.sashsIds[g].elemLists.newValue*priceObj.sashsIds[j].elemLists.value * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
+                        } else if (priceObj.sashsIds[j].elemLists.rules_type_id === 1){
+                          priceTmp += (((priceObj.sashsIds[g].elemLists.newValue+priceObj.sashsIds[j].priceEl.amendment_pruning - (priceObj.sashsIds[j].elemLists.value*1000))/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
                         } else {
-                          priceTmp += (((priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
+                          priceTmp += (((priceObj.sashsIds[g].elemLists.newValue+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
                         }
-                        if (priceObj.currentCurrency.id != priceObj.frameSillsIds[j].priceEl.currency_id){
+                        if (priceObj.currentCurrency.id != priceObj.sashsIds[j].priceEl.currency_id){
                           for (var k = 0; k < priceObj.currencies.length; k++) {
-                            if(priceObj.currencies[k].id == priceObj.frameSillsIds[j].priceEl.currency_id){
+                            if(priceObj.currencies[k].id == priceObj.sashsIds[j].priceEl.currency_id){
                               priceTmp = priceTmp * priceObj.currencies[k].value;
                             }
                           }
@@ -2104,351 +2205,292 @@
                 }
               }
             }
-            //======== Подоконный профиль - конец
-
-            //======== Створка - начало
-            if(construction.sashsSize.length) {
-              for (var i = 0; i < construction.sashsSize.length; i++) {
-                if(priceObj.sashsIds.length) {
-                  for (var j = 0; j < priceObj.sashsIds.length; j++) {
-                    var priceTmp = 0;
-                    if(priceObj.sashsIds[j].elemLists.parent_list_id == construction.sashId){
-                      var value = self.getValueByRule(((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000), priceObj.sashsIds[j].elemLists.value, priceObj.sashsIds[j].elemLists.rules_type_id);
-                      priceObj.sashsIds[j].elemLists.newValue = value;
-                      if(priceObj.sashsIds[j].elemLists.rules_type_id === 3){
-                        priceTmp += (Math.round(((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000)*priceObj.sashsIds[j].elemLists.value)*priceObj.sashsIds[j].priceEl.price)*(1+(priceObj.sashsIds[j].priceEl.waste/100));
-                      } else if(priceObj.sashsIds[j].elemLists.rules_type_id === 2 || priceObj.sashsIds[j].elemLists.rules_type_id === 4 || priceObj.sashsIds[j].elemLists.rules_type_id === 15){
-                        priceTmp += (priceObj.sashsIds[j].elemLists.value * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
-                      } else if (priceObj.sashsIds[j].elemLists.rules_type_id === 1){
-                        priceTmp += (((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning - (priceObj.sashsIds[j].elemLists.value*1000))/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
-                      } else {
-                        priceTmp += (((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
-                      }
-                      if (priceObj.currentCurrency.id != priceObj.sashsIds[j].priceEl.currency_id){
-                        for (var k = 0; k < priceObj.currencies.length; k++) {
-                          if(priceObj.currencies[k].id == priceObj.sashsIds[j].priceEl.currency_id){
-                            priceTmp = priceTmp * priceObj.currencies[k].value;
-                          }
-                        }
-                      }
-                    } else {
-                      for (var g = 0; g < priceObj.sashsIds.length; g++) {
-                        if(priceObj.sashsIds[j].elemLists.parent_list_id == priceObj.sashsIds[g].elemLists.child_id){
-                          var value = self.getValueByRule((priceObj.sashsIds[g].elemLists.newValue/1000), priceObj.sashsIds[j].elemLists.value, priceObj.sashsIds[g].elemLists.rules_type_id);
-                          priceObj.sashsIds[j].elemLists.newValue = value;
-                          if(priceObj.sashsIds[j].elemLists.rules_type_id === 3){
-                            priceTmp += (Math.round((priceObj.sashsIds[g].elemLists.newValue+(priceObj.sashsIds[j].priceEl.amendment_pruning/1000))*priceObj.sashsIds[j].elemLists.value)*priceObj.sashsIds[j].priceEl.price)*(1+(priceObj.sashsIds[j].priceEl.waste/100));
-                          } else if(priceObj.sashsIds[j].elemLists.rules_type_id === 2 || priceObj.sashsIds[j].elemLists.rules_type_id === 4 || priceObj.sashsIds[j].elemLists.rules_type_id === 15){
-                            priceTmp += (priceObj.sashsIds[g].elemLists.newValue*priceObj.sashsIds[j].elemLists.value * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
-                          } else if (priceObj.sashsIds[j].elemLists.rules_type_id === 1){
-                            priceTmp += (((priceObj.sashsIds[g].elemLists.newValue+priceObj.sashsIds[j].priceEl.amendment_pruning - (priceObj.sashsIds[j].elemLists.value*1000))/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
-                          } else {
-                            priceTmp += (((priceObj.sashsIds[g].elemLists.newValue+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
-                          }
-                          if (priceObj.currentCurrency.id != priceObj.sashsIds[j].priceEl.currency_id){
-                            for (var k = 0; k < priceObj.currencies.length; k++) {
-                              if(priceObj.currencies[k].id == priceObj.sashsIds[j].priceEl.currency_id){
-                                priceTmp = priceTmp * priceObj.currencies[k].value;
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                    priceObj.price += priceTmp;
-                  }
-                }
-              }
-            }
-            //======== Створка - конец
-            //======== Штапик - начало
-            if(construction.beadsSize.length) {
-              for (var i = 0; i < construction.beadsSize.length; i++) {
-                if(priceObj.beadIds.length) {
-                  for (var j = 0; j < priceObj.beadIds.length; j++) {
-                    var priceTmp = 0;
-                    if(priceObj.beadIds[j].elemLists.parent_list_id == construction.beadId){
-                      var value = self.getValueByRule(((construction.beadsSize[i]+priceObj.beadIds[j].priceEl.amendment_pruning)/1000), priceObj.beadIds[j].elemLists.value, priceObj.beadIds[j].elemLists.rules_type_id);
-                      priceObj.beadIds[j].elemLists.newValue = value;
-                      if(priceObj.beadIds[j].elemLists.rules_type_id === 3){
-                        priceTmp += (Math.round(((construction.beadsSize[i]+priceObj.beadIds[j].priceEl.amendment_pruning)/1000)*priceObj.beadIds[j].elemLists.value)*priceObj.beadIds[j].priceEl.price)*(1+(priceObj.beadIds[j].priceEl.waste/100));
-                      } else if(priceObj.beadIds[j].elemLists.rules_type_id === 2 || priceObj.beadIds[j].elemLists.rules_type_id === 4 || priceObj.beadIds[j].elemLists.rules_type_id === 15){
-                        priceTmp += (priceObj.beadIds[j].elemLists.value * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
-                      } else if (priceObj.beadIds[j].elemLists.rules_type_id === 1){
-                        priceTmp += (((construction.beadsSize[i]+priceObj.beadIds[j].priceEl.amendment_pruning - (priceObj.beadIds[j].elemLists.value*1000))/1000) * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
-                      } else {
-                        priceTmp += (((construction.beadsSize[i]+priceObj.beadIds[j].priceEl.amendment_pruning)/1000) * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
-                      }
-                      if (priceObj.currentCurrency.id != priceObj.beadIds[j].priceEl.currency_id){
-                        for (var k = 0; k < priceObj.currencies.length; k++) {
-                          if(priceObj.currencies[k].id == priceObj.beadIds[j].priceEl.currency_id){
-                            priceTmp = priceTmp * priceObj.currencies[k].value;
-                          }
-                        }
-                      }
-                    } else {
-                      for (var g = 0; g < priceObj.beadIds.length; g++) {
-                        if(priceObj.beadIds[j].elemLists.parent_list_id == priceObj.beadIds[g].elemLists.child_id){
-                          var value = self.getValueByRule((priceObj.beadIds[g].elemLists.newValue/1000), priceObj.beadIds[j].elemLists.value, priceObj.beadIds[g].elemLists.rules_type_id);
-                          priceObj.beadIds[j].elemLists.newValue = value;
-                          if(priceObj.beadIds[j].elemLists.rules_type_id === 3){
-                            priceTmp += (Math.round((priceObj.beadIds[g].elemLists.newValue+(priceObj.beadIds[j].priceEl.amendment_pruning/1000))*priceObj.beadIds[j].elemLists.value)*priceObj.beadIds[j].priceEl.price)*(1+(priceObj.beadIds[j].priceEl.waste/100));
-                          } else if(priceObj.beadIds[j].elemLists.rules_type_id === 2 || priceObj.beadIds[j].elemLists.rules_type_id === 4 || priceObj.beadIds[j].elemLists.rules_type_id === 15){
-                            priceTmp += (priceObj.beadIds[g].elemLists.newValue*priceObj.beadIds[j].elemLists.value * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
-                          } else if (priceObj.beadIds[j].elemLists.rules_type_id === 1){
-                            priceTmp += (((priceObj.beadIds[g].elemLists.newValue+priceObj.beadIds[j].priceEl.amendment_pruning - (priceObj.beadIds[j].elemLists.value*1000))/1000) * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
-                          } else {
-                            priceTmp += (((priceObj.beadIds[g].elemLists.newValue+priceObj.beadIds[j].priceEl.amendment_pruning)/1000) * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
-                          }
-                          if (priceObj.currentCurrency.id != priceObj.beadIds[j].priceEl.currency_id){
-                            for (var k = 0; k < priceObj.currencies.length; k++) {
-                              if(priceObj.currencies[k].id == priceObj.beadIds[j].priceEl.currency_id){
-                                priceTmp = priceTmp * priceObj.currencies[k].value;
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                    priceObj.price += priceTmp;
-                  }
-                }
-              }
-            }
-            //======= Штапик - конец
-            //======= Импост - начало
-            if(construction.impostsSize.length) {
-              for (var i = 0; i < construction.impostsSize.length; i++) {
-                if(priceObj.impostIds.length) {
-                  for (var j = 0; j < priceObj.impostIds.length; j++) {
-                    var priceTmp = 0;
-                    if(priceObj.impostIds[j].elemLists.parent_list_id == construction.impostId){
-                      var value = self.getValueByRule(((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning)/1000), priceObj.impostIds[j].elemLists.value, priceObj.impostIds[j].elemLists.rules_type_id);
-                      priceObj.impostIds[j].elemLists.newValue = value;
-                      if(priceObj.impostIds[j].elemLists.rules_type_id === 3){
-                        priceTmp += (Math.round(((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning)/1000)*priceObj.impostIds[j].elemLists.value)*priceObj.impostIds[j].priceEl.price)*(1+(priceObj.impostIds[j].priceEl.waste/100));
-                      } else if(priceObj.impostIds[j].elemLists.rules_type_id === 2 || priceObj.impostIds[j].elemLists.rules_type_id === 4 || priceObj.impostIds[j].elemLists.rules_type_id === 15){
-                        priceTmp += (priceObj.impostIds[j].elemLists.value * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
-                      } else if (priceObj.impostIds[j].elemLists.rules_type_id === 1){
-                        priceTmp += (((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning - (priceObj.impostIds[j].elemLists.value*1000))/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
-                      } else {
-                        console.log('Формула : ('+(construction.sashsSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning)/1000+'*'+priceObj.impostIds[j].priceEl.price+')*(1+('+priceObj.impostIds[j].priceEl.waste+'/100) = '+((((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning)/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100))).toFixed(2));
-                        priceTmp += (((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning)/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
-                      }
-                      if (priceObj.currentCurrency.id != priceObj.impostIds[j].priceEl.currency_id){
-                        for (var k = 0; k < priceObj.currencies.length; k++) {
-                          if(priceObj.currencies[k].id == priceObj.impostIds[j].priceEl.currency_id){
-                            priceTmp = priceTmp * priceObj.currencies[k].value;
-                          }
-                        }
-                      }
-                    } else {
-                      for (var g = 0; g < priceObj.impostIds.length; g++) {
-                        if(priceObj.impostIds[j].elemLists.parent_list_id == priceObj.impostIds[g].elemLists.child_id){
-                          var value = self.getValueByRule(priceObj.impostIds[g].elemLists.newValue, priceObj.impostIds[j].elemLists.value, priceObj.impostIds[g].elemLists.rules_type_id);
-                          priceObj.impostIds[j].elemLists.newValue = value;
-                          if(priceObj.impostIds[j].elemLists.rules_type_id === 3){
-                            if(priceObj.impostIds[j].priceEl) {
-                              priceTmp += (Math.round((priceObj.impostIds[g].elemLists.newValue + (priceObj.impostIds[j].priceEl.amendment_pruning / 1000)) * priceObj.impostIds[j].elemLists.value) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
-                            }
-                          } else if(priceObj.impostIds[j].elemLists.rules_type_id === 2 || priceObj.impostIds[j].elemLists.rules_type_id === 4 || priceObj.impostIds[j].elemLists.rules_type_id === 15){
-//                            console.info(priceObj.impostIds[j].priceEl);
-                            if(priceObj.impostIds[j].priceEl) {
-                              priceTmp += (priceObj.impostIds[g].elemLists.newValue*priceObj.impostIds[j].elemLists.value * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
-                            }
-                          } else if (priceObj.impostIds[j].elemLists.rules_type_id === 1){
-                            if(priceObj.impostIds[j].priceEl) {
-                              priceTmp += (((priceObj.impostIds[g].elemLists.newValue+priceObj.impostIds[j].priceEl.amendment_pruning - (priceObj.impostIds[j].elemLists.value*1000))/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
-                            }
-                          } else {
-                            if(priceObj.impostIds[j].priceEl) {
-                              priceTmp += (((priceObj.impostIds[g].elemLists.newValue+priceObj.impostIds[j].priceEl.amendment_pruning)/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
-                            }
-                          }
-                          if(priceObj.impostIds[j].priceEl) {
-                            if (priceObj.currentCurrency.id != priceObj.impostIds[j].priceEl.currency_id) {
-                              for (var k = 0; k < priceObj.currencies.length; k++) {
-                                if (priceObj.currencies[k].id == priceObj.impostIds[j].priceEl.currency_id) {
-                                  priceTmp = priceTmp * priceObj.currencies[k].value;
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                    priceObj.price += priceTmp;
-                  }
-                }
-              }
-            }
-            //====== Импост - конец
-            //====== Стеклопакет - начало
-            if(construction.glassSquares.length) {
-              for (var i = 0; i < construction.glassSquares.length; i++) {
-                if(priceObj.glassIds.length) {
-                  for (var j = 0; j < priceObj.glassIds.length; j++) {
-                    var priceTmp = 0;
-                    if(priceObj.glassIds[j].elemLists.parent_list_id == construction.glassId){
-                      var value = self.getValueByRule(1, priceObj.glassIds[j].elemLists.value, priceObj.glassIds[j].elemLists.rules_type_id);
-                      priceObj.glassIds[j].elemLists.newValue = value;
-                      if(priceObj.glassIds[j].elemLists.rules_type_id === 3){
-                        priceTmp += (Math.round((1+priceObj.glassIds[j].priceEl.amendment_pruning)*priceObj.glassIds[j].elemLists.value)*priceObj.glassIds[j].priceEl.price)*(1+(priceObj.glassIds[j].priceEl.waste/100));
-                      } else if(priceObj.glassIds[j].elemLists.rules_type_id === 2 || priceObj.glassIds[j].elemLists.rules_type_id === 4 || priceObj.glassIds[j].elemLists.rules_type_id === 15){
-                        priceTmp += (priceObj.glassIds[j].elemLists.value * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
-                      } else if (priceObj.glassIds[j].elemLists.rules_type_id === 1){
-                        priceTmp += (((priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning - (priceObj.glassIds[j].elemLists.value*100))) * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
-                      } else {
-                        priceTmp += (((1+priceObj.glassIds[j].priceEl.amendment_pruning)/1000) * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
-                      }
-                      if (priceObj.currentCurrency.id != priceObj.glassIds[j].priceEl.currency_id){
-                        for (var k = 0; k < priceObj.currencies.length; k++) {
-                          if(priceObj.currencies[k].id == priceObj.glassIds[j].priceEl.currency_id){
-                            priceTmp = priceTmp * priceObj.currencies[k].value;
-                          }
-                        }
-                      }
-                    } else {
-                      for (var g = 0; g < priceObj.glassIds.length; g++) {
-                        if(priceObj.glassIds[j].elemLists.parent_list_id == priceObj.glassIds[g].elemLists.child_id){
-                          var value = self.getValueByRule(priceObj.glassIds[g].elemLists.newValue, priceObj.glassIds[j].elemLists.value, priceObj.glassIds[g].elemLists.rules_type_id);
-                          priceObj.glassIds[j].elemLists.newValue = value;
-                          if(priceObj.glassIds[j].elemLists.rules_type_id === 3){
-                            priceTmp += (Math.round((priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning)*priceObj.glassIds[j].elemLists.value)*priceObj.glassIds[j].priceEl.price)*(1+(priceObj.glassIds[j].priceEl.waste/100));
-                          } else if(priceObj.glassIds[j].elemLists.rules_type_id === 2 || priceObj.glassIds[j].elemLists.rules_type_id === 4 || priceObj.glassIds[j].elemLists.rules_type_id === 15){
-                            priceTmp += (priceObj.glassIds[g].elemLists.newValue*priceObj.glassIds[j].elemLists.value * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
-                          } else if (priceObj.glassIds[j].elemLists.rules_type_id === 1){
-                            priceTmp += (((priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning - (priceObj.glassIds[j].elemLists.value*1000))) * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
-                          } else {
-                            priceTmp += (((priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning)/1000) * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
-                          }
-                          if (priceObj.currentCurrency.id != priceObj.glassIds[j].priceEl.currency_id){
-                            for (var k = 0; k < priceObj.currencies.length; k++) {
-                              if(priceObj.currencies[k].id == priceObj.glassIds[j].priceEl.currency_id){
-                                priceTmp = priceTmp * priceObj.currencies[k].value;
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                    priceObj.price += priceTmp;
-                  }
-                }
-              }
-            }
-            //===== Стеклопакет - конец
-            //===== Фурнитура - начало
-            if (priceObj.hardwareIds.length) {
-              for (var j = 0; j < priceObj.hardwareIds.length; j++) {
-                if(priceObj.hardwareIds[j].elemLists){
+          }
+          //======== Створка - конец
+          //======== Штапик - начало
+          if(construction.beadsSize.length) {
+            for (var i = 0; i < construction.beadsSize.length; i++) {
+              if(priceObj.beadIds.length) {
+                for (var j = 0; j < priceObj.beadIds.length; j++) {
                   var priceTmp = 0;
-                  priceObj.hardwareIds[j].elemLists.newValue = priceObj.hardwareIds[j].elemLists.count;
-                  priceTmp += (priceObj.hardwareIds[j].elemLists.count * priceObj.hardwareIds[j].priceEl.price) * (1 + (priceObj.hardwareIds[j].priceEl.waste / 100));
-                  if (priceObj.currentCurrency.id != priceObj.hardwareIds[j].priceEl.currency_id){
-                    for (var kc = 0; kc < priceObj.currencies.length; kc++) {
-                      if(priceObj.currencies[kc].id == priceObj.hardwareIds[j].priceEl.currency_id){
-                        priceTmp = priceTmp * priceObj.currencies[kc].value;
+                  if(priceObj.beadIds[j].elemLists.parent_list_id == construction.beadId){
+                    var value = self.getValueByRule(((construction.beadsSize[i]+priceObj.beadIds[j].priceEl.amendment_pruning)/1000), priceObj.beadIds[j].elemLists.value, priceObj.beadIds[j].elemLists.rules_type_id);
+                    priceObj.beadIds[j].elemLists.newValue = value;
+                    if(priceObj.beadIds[j].elemLists.rules_type_id === 3){
+                      priceTmp += (Math.round(((construction.beadsSize[i]+priceObj.beadIds[j].priceEl.amendment_pruning)/1000)*priceObj.beadIds[j].elemLists.value)*priceObj.beadIds[j].priceEl.price)*(1+(priceObj.beadIds[j].priceEl.waste/100));
+                    } else if(priceObj.beadIds[j].elemLists.rules_type_id === 2 || priceObj.beadIds[j].elemLists.rules_type_id === 4 || priceObj.beadIds[j].elemLists.rules_type_id === 15){
+                      priceTmp += (priceObj.beadIds[j].elemLists.value * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
+                    } else if (priceObj.beadIds[j].elemLists.rules_type_id === 1){
+                      priceTmp += (((construction.beadsSize[i]+priceObj.beadIds[j].priceEl.amendment_pruning - (priceObj.beadIds[j].elemLists.value*1000))/1000) * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
+                    } else {
+                      priceTmp += (((construction.beadsSize[i]+priceObj.beadIds[j].priceEl.amendment_pruning)/1000) * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
+                    }
+                    if (priceObj.currentCurrency.id != priceObj.beadIds[j].priceEl.currency_id){
+                      for (var k = 0; k < priceObj.currencies.length; k++) {
+                        if(priceObj.currencies[k].id == priceObj.beadIds[j].priceEl.currency_id){
+                          priceTmp = priceTmp * priceObj.currencies[k].value;
+                        }
+                      }
+                    }
+                  } else {
+                    for (var g = 0; g < priceObj.beadIds.length; g++) {
+                      if(priceObj.beadIds[j].elemLists.parent_list_id == priceObj.beadIds[g].elemLists.child_id){
+                        var value = self.getValueByRule((priceObj.beadIds[g].elemLists.newValue/1000), priceObj.beadIds[j].elemLists.value, priceObj.beadIds[g].elemLists.rules_type_id);
+                        priceObj.beadIds[j].elemLists.newValue = value;
+                        if(priceObj.beadIds[j].elemLists.rules_type_id === 3){
+                          priceTmp += (Math.round((priceObj.beadIds[g].elemLists.newValue+(priceObj.beadIds[j].priceEl.amendment_pruning/1000))*priceObj.beadIds[j].elemLists.value)*priceObj.beadIds[j].priceEl.price)*(1+(priceObj.beadIds[j].priceEl.waste/100));
+                        } else if(priceObj.beadIds[j].elemLists.rules_type_id === 2 || priceObj.beadIds[j].elemLists.rules_type_id === 4 || priceObj.beadIds[j].elemLists.rules_type_id === 15){
+                          priceTmp += (priceObj.beadIds[g].elemLists.newValue*priceObj.beadIds[j].elemLists.value * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
+                        } else if (priceObj.beadIds[j].elemLists.rules_type_id === 1){
+                          priceTmp += (((priceObj.beadIds[g].elemLists.newValue+priceObj.beadIds[j].priceEl.amendment_pruning - (priceObj.beadIds[j].elemLists.value*1000))/1000) * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
+                        } else {
+                          priceTmp += (((priceObj.beadIds[g].elemLists.newValue+priceObj.beadIds[j].priceEl.amendment_pruning)/1000) * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
+                        }
+                        if (priceObj.currentCurrency.id != priceObj.beadIds[j].priceEl.currency_id){
+                          for (var k = 0; k < priceObj.currencies.length; k++) {
+                            if(priceObj.currencies[k].id == priceObj.beadIds[j].priceEl.currency_id){
+                              priceTmp = priceTmp * priceObj.currencies[k].value;
+                            }
+                          }
+                        }
                       }
                     }
                   }
                   priceObj.price += priceTmp;
-                } else if (priceObj.hardwareIds[j].hardwareLists) {
-                  for (var g = 0; g < priceObj.hardwareIds.length; g++) {
-                    if (priceObj.hardwareIds[g].elemLists) {
-                      if (priceObj.hardwareIds[j].parent_list_id == priceObj.hardwareIds[g].elemLists.child_id && priceObj.hardwareIds[g].elemLists.child_type == 'list') {
-                        for (var hwArr = 0; hwArr < priceObj.hardwareIds[j].hardwareLists.length; hwArr++) {
-                          var priceTmp = 0;
-                          var value = self.getValueByRule(priceObj.hardwareIds[g].elemLists.newValue, priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value, priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id);
-                          priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.newValue = value;
-                          if (priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id === 3) {
-                            priceTmp += (Math.round((priceObj.hardwareIds[g].elemLists.newValue + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.amendment_pruning / 1000)) * priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value) * priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price) * (1 + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste / 100));
-                          } else if (priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id === 2 || priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id === 4 || priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id === 15) {
-                            priceTmp += (priceObj.hardwareIds[g].elemLists.newValue * priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value * priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price) * (1 + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste / 100));
-                          } else if (priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id === 1) {
-                            priceTmp += (((priceObj.hardwareIds[g].elemLists.newValue + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.amendment_pruning - (priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value * 1000)) / 1000) * priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price) * (1 + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste / 100));
-                          } else {
-                            priceTmp += (((priceObj.hardwareIds[g].elemLists.newValue + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.amendment_pruning) / 1000) * priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price) * (1 + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste / 100));
+                }
+              }
+            }
+          }
+          //======= Штапик - конец
+          //======= Импост - начало
+          if(construction.impostsSize.length) {
+            for (var i = 0; i < construction.impostsSize.length; i++) {
+              if(priceObj.impostIds.length) {
+                for (var j = 0; j < priceObj.impostIds.length; j++) {
+                  var priceTmp = 0;
+                  if(priceObj.impostIds[j].elemLists.parent_list_id == construction.impostId){
+                    var value = self.getValueByRule(((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning)/1000), priceObj.impostIds[j].elemLists.value, priceObj.impostIds[j].elemLists.rules_type_id);
+                    priceObj.impostIds[j].elemLists.newValue = value;
+                    if(priceObj.impostIds[j].elemLists.rules_type_id === 3){
+                      priceTmp += (Math.round(((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning)/1000)*priceObj.impostIds[j].elemLists.value)*priceObj.impostIds[j].priceEl.price)*(1+(priceObj.impostIds[j].priceEl.waste/100));
+                    } else if(priceObj.impostIds[j].elemLists.rules_type_id === 2 || priceObj.impostIds[j].elemLists.rules_type_id === 4 || priceObj.impostIds[j].elemLists.rules_type_id === 15){
+                      priceTmp += (priceObj.impostIds[j].elemLists.value * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
+                    } else if (priceObj.impostIds[j].elemLists.rules_type_id === 1){
+                      priceTmp += (((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning - (priceObj.impostIds[j].elemLists.value*1000))/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
+                    } else {
+                      console.log('Формула : ('+(construction.sashsSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning)/1000+'*'+priceObj.impostIds[j].priceEl.price+')*(1+('+priceObj.impostIds[j].priceEl.waste+'/100) = '+((((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning)/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100))).toFixed(2));
+                      priceTmp += (((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning)/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
+                    }
+                    if (priceObj.currentCurrency.id != priceObj.impostIds[j].priceEl.currency_id){
+                      for (var k = 0; k < priceObj.currencies.length; k++) {
+                        if(priceObj.currencies[k].id == priceObj.impostIds[j].priceEl.currency_id){
+                          priceTmp = priceTmp * priceObj.currencies[k].value;
+                        }
+                      }
+                    }
+                  } else {
+                    for (var g = 0; g < priceObj.impostIds.length; g++) {
+                      if(priceObj.impostIds[j].elemLists.parent_list_id == priceObj.impostIds[g].elemLists.child_id){
+                        var value = self.getValueByRule(priceObj.impostIds[g].elemLists.newValue, priceObj.impostIds[j].elemLists.value, priceObj.impostIds[g].elemLists.rules_type_id);
+                        priceObj.impostIds[j].elemLists.newValue = value;
+                        if(priceObj.impostIds[j].elemLists.rules_type_id === 3){
+                          if(priceObj.impostIds[j].priceEl) {
+                            priceTmp += (Math.round((priceObj.impostIds[g].elemLists.newValue + (priceObj.impostIds[j].priceEl.amendment_pruning / 1000)) * priceObj.impostIds[j].elemLists.value) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
                           }
-                          if (priceObj.currentCurrency.id != priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.currency_id) {
+                        } else if(priceObj.impostIds[j].elemLists.rules_type_id === 2 || priceObj.impostIds[j].elemLists.rules_type_id === 4 || priceObj.impostIds[j].elemLists.rules_type_id === 15){
+//                            console.info(priceObj.impostIds[j].priceEl);
+                          if(priceObj.impostIds[j].priceEl) {
+                            priceTmp += (priceObj.impostIds[g].elemLists.newValue*priceObj.impostIds[j].elemLists.value * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
+                          }
+                        } else if (priceObj.impostIds[j].elemLists.rules_type_id === 1){
+                          if(priceObj.impostIds[j].priceEl) {
+                            priceTmp += (((priceObj.impostIds[g].elemLists.newValue+priceObj.impostIds[j].priceEl.amendment_pruning - (priceObj.impostIds[j].elemLists.value*1000))/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
+                          }
+                        } else {
+                          if(priceObj.impostIds[j].priceEl) {
+                            priceTmp += (((priceObj.impostIds[g].elemLists.newValue+priceObj.impostIds[j].priceEl.amendment_pruning)/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
+                          }
+                        }
+                        if(priceObj.impostIds[j].priceEl) {
+                          if (priceObj.currentCurrency.id != priceObj.impostIds[j].priceEl.currency_id) {
                             for (var k = 0; k < priceObj.currencies.length; k++) {
-                              if (priceObj.currencies[k].id == priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.currency_id) {
+                              if (priceObj.currencies[k].id == priceObj.impostIds[j].priceEl.currency_id) {
                                 priceTmp = priceTmp * priceObj.currencies[k].value;
                               }
                             }
                           }
-                          priceObj.price += priceTmp;
                         }
+                      }
+                    }
+                  }
+                  priceObj.price += priceTmp;
+                }
+              }
+            }
+          }
+          //====== Импост - конец
+          //====== Стеклопакет - начало
+          if(construction.glassSquares.length) {
+            for (var i = 0; i < construction.glassSquares.length; i++) {
+              if(priceObj.glassIds.length) {
+                for (var j = 0; j < priceObj.glassIds.length; j++) {
+                  var priceTmp = 0;
+                  if(priceObj.glassIds[j].elemLists.parent_list_id == construction.glassId){
+                    var value = self.getValueByRule(1, priceObj.glassIds[j].elemLists.value, priceObj.glassIds[j].elemLists.rules_type_id);
+                    priceObj.glassIds[j].elemLists.newValue = value;
+                    if(priceObj.glassIds[j].elemLists.rules_type_id === 3){
+                      priceTmp += (Math.round((1+priceObj.glassIds[j].priceEl.amendment_pruning)*priceObj.glassIds[j].elemLists.value)*priceObj.glassIds[j].priceEl.price)*(1+(priceObj.glassIds[j].priceEl.waste/100));
+                    } else if(priceObj.glassIds[j].elemLists.rules_type_id === 2 || priceObj.glassIds[j].elemLists.rules_type_id === 4 || priceObj.glassIds[j].elemLists.rules_type_id === 15){
+                      priceTmp += (priceObj.glassIds[j].elemLists.value * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
+                    } else if (priceObj.glassIds[j].elemLists.rules_type_id === 1){
+                      priceTmp += (((priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning - (priceObj.glassIds[j].elemLists.value*100))) * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
+                    } else {
+                      priceTmp += (((1+priceObj.glassIds[j].priceEl.amendment_pruning)/1000) * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
+                    }
+                    if (priceObj.currentCurrency.id != priceObj.glassIds[j].priceEl.currency_id){
+                      for (var k = 0; k < priceObj.currencies.length; k++) {
+                        if(priceObj.currencies[k].id == priceObj.glassIds[j].priceEl.currency_id){
+                          priceTmp = priceTmp * priceObj.currencies[k].value;
+                        }
+                      }
+                    }
+                  } else {
+                    for (var g = 0; g < priceObj.glassIds.length; g++) {
+                      if(priceObj.glassIds[j].elemLists.parent_list_id == priceObj.glassIds[g].elemLists.child_id){
+                        var value = self.getValueByRule(priceObj.glassIds[g].elemLists.newValue, priceObj.glassIds[j].elemLists.value, priceObj.glassIds[g].elemLists.rules_type_id);
+                        priceObj.glassIds[j].elemLists.newValue = value;
+                        if(priceObj.glassIds[j].elemLists.rules_type_id === 3){
+                          priceTmp += (Math.round((priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning)*priceObj.glassIds[j].elemLists.value)*priceObj.glassIds[j].priceEl.price)*(1+(priceObj.glassIds[j].priceEl.waste/100));
+                        } else if(priceObj.glassIds[j].elemLists.rules_type_id === 2 || priceObj.glassIds[j].elemLists.rules_type_id === 4 || priceObj.glassIds[j].elemLists.rules_type_id === 15){
+                          priceTmp += (priceObj.glassIds[g].elemLists.newValue*priceObj.glassIds[j].elemLists.value * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
+                        } else if (priceObj.glassIds[j].elemLists.rules_type_id === 1){
+                          priceTmp += (((priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning - (priceObj.glassIds[j].elemLists.value*1000))) * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
+                        } else {
+                          priceTmp += (((priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning)/1000) * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
+                        }
+                        if (priceObj.currentCurrency.id != priceObj.glassIds[j].priceEl.currency_id){
+                          for (var k = 0; k < priceObj.currencies.length; k++) {
+                            if(priceObj.currencies[k].id == priceObj.glassIds[j].priceEl.currency_id){
+                              priceTmp = priceTmp * priceObj.currencies[k].value;
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                  priceObj.price += priceTmp;
+                }
+              }
+            }
+          }
+          //===== Стеклопакет - конец
+          //===== Фурнитура - начало
+          if (priceObj.hardwareIds.length) {
+            for (var j = 0; j < priceObj.hardwareIds.length; j++) {
+              if(priceObj.hardwareIds[j].elemLists){
+                var priceTmp = 0;
+                priceObj.hardwareIds[j].elemLists.newValue = priceObj.hardwareIds[j].elemLists.count;
+                priceTmp += (priceObj.hardwareIds[j].elemLists.count * priceObj.hardwareIds[j].priceEl.price) * (1 + (priceObj.hardwareIds[j].priceEl.waste / 100));
+                if (priceObj.currentCurrency.id != priceObj.hardwareIds[j].priceEl.currency_id){
+                  for (var kc = 0; kc < priceObj.currencies.length; kc++) {
+                    if(priceObj.currencies[kc].id == priceObj.hardwareIds[j].priceEl.currency_id){
+                      priceTmp = priceTmp * priceObj.currencies[kc].value;
+                    }
+                  }
+                }
+                priceObj.price += priceTmp;
+              } else if (priceObj.hardwareIds[j].hardwareLists) {
+                for (var g = 0; g < priceObj.hardwareIds.length; g++) {
+                  if (priceObj.hardwareIds[g].elemLists) {
+                    if (priceObj.hardwareIds[j].parent_list_id == priceObj.hardwareIds[g].elemLists.child_id && priceObj.hardwareIds[g].elemLists.child_type == 'list') {
+                      for (var hwArr = 0; hwArr < priceObj.hardwareIds[j].hardwareLists.length; hwArr++) {
+                        var priceTmp = 0;
+                        var value = self.getValueByRule(priceObj.hardwareIds[g].elemLists.newValue, priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value, priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id);
+                        priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.newValue = value;
+                        if (priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id === 3) {
+                          priceTmp += (Math.round((priceObj.hardwareIds[g].elemLists.newValue + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.amendment_pruning / 1000)) * priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value) * priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price) * (1 + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste / 100));
+                        } else if (priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id === 2 || priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id === 4 || priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id === 15) {
+                          priceTmp += (priceObj.hardwareIds[g].elemLists.newValue * priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value * priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price) * (1 + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste / 100));
+                        } else if (priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id === 1) {
+                          priceTmp += (((priceObj.hardwareIds[g].elemLists.newValue + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.amendment_pruning - (priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value * 1000)) / 1000) * priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price) * (1 + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste / 100));
+                        } else {
+                          priceTmp += (((priceObj.hardwareIds[g].elemLists.newValue + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.amendment_pruning) / 1000) * priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price) * (1 + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste / 100));
+                        }
+                        if (priceObj.currentCurrency.id != priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.currency_id) {
+                          for (var k = 0; k < priceObj.currencies.length; k++) {
+                            if (priceObj.currencies[k].id == priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.currency_id) {
+                              priceTmp = priceTmp * priceObj.currencies[k].value;
+                            }
+                          }
+                        }
+                        priceObj.price += priceTmp;
                       }
                     }
                   }
                 }
               }
             }
-            //====== Фурнитура - конец
-            priceObj.price = priceObj.price.toFixed(2);
-  //          console.log('Сумма:'+priceObj.price);
-//            self.parseOrderElements(priceObj);
-            callback(new OkResult(priceObj));
-          } else {
-            console.log(result);
           }
+          //====== Фурнитура - конец
+          priceObj.price = priceObj.price.toFixed(2);
+          console.log('Сумма:'+priceObj.price);
+          return priceObj;
+//          callback(new OkResult(priceObj));
         }
       },
 
 
-//      parseOrderElements: function(priceObj) {
-//        var elementList = [];
-//        var filteredList = [];
-//        var parsedList = [];
-//console.log('sort start', new Date(), new Date().getMilliseconds());
-//        /** Filter priceObj properties */
-//        for (var key in priceObj) {
-//          /** Filter currencies vs prices */
-//          if (key !== 'currencies' && key !== 'currentCurrency' && key !== 'price') {
-//            /** beadIds is incorrect array with own properties */
-//            if (priceObj[key].length) {
-//              priceObj[key].map(function(listContent) {
-//                /** Ensure than listContent not broken */
-//                if (listContent.priceEl) {
-//                  elementList.push(listContent.priceEl.id);
-//                } else {
-//                  /** Broken listContent */
-//                  if (listContent.elemLists && listContent.elemLists.child_type === 'element') {
-//                    elementList.push(listContent.elemLists.id)
-//                  }
-//                }
-//              });
-//              /** Push beads element if exist */
-//            } else if (priceObj[key].price) {
-//              elementList.push(priceObj[key].price.id);
-//            }
-//          }
-//        }
-//        /** Filter duplicate ids */
-//        elementList.map(function(id) {
-//          if (filteredList[id]) {
-//            filteredList[id]++;
-//          } else {
-//            filteredList[id] = 1;
-//          }
-//        });
-//        /** Return parsed object */
-//        filteredList.filter(function(length, id) {
-//          parsedList.push({element_id: id, amount: length});
-//        });
-//        console.log('sort finish', new Date(), new Date().getMilliseconds());
-//        console.log('elementList', parsedList);
-//      },
 
+
+
+
+
+
+
+
+
+
+
+
+      parseListAdd: function(listIdAdd, callback){
+        var currListIdAdd,
+            listsAdd = [];
+        var self = this;
+        function addLAdd(elAdd){
+          return listsAdd.push(elAdd);
+        }
+        addLAdd(listIdAdd);
+        (function nextRecordAdd() {
+          if (listsAdd.length) {
+            currListIdAdd = listsAdd[0];
+            db.transaction(function (transaction) {
+              transaction.executeSql('select * from list_contents where parent_list_id = ?', [currListIdAdd], function(transaction, result){
+                for (var i = 0; i < result.rows.length; i++) {
+                  elemListsAdd.push({"elemLists":result.rows.item(i)});
+                  if(result.rows.item(i).child_type === 'list') {
+                    addLAdd(result.rows.item(i).child_id);
+                  }
+                }
+                nextRecordAdd();
+              });
+            });
+            listsAdd.shift(0);
+          } else {
+            callback(new OkResult(elemListsAdd));
+          }
+        })();
+      },
+
+
+      /** AddElements Price */
 
 
       getAdditionalPrice: function (addList, callback){
         var self = this;
         var price = 0, addPriceObj = {};
-        this.getCurrentCurrency(addList.currencyId, function (result){
-          next_1(result);
-        });
+
+        next_1(addList.currencyData);
+
         function next_1(result){
           if(result.status){
             addPriceObj.currentCurrency = result.data;

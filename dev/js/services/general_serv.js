@@ -49,12 +49,13 @@
       GlobalStor.global.prevOpenPage = GlobalStor.global.currOpenPage;
     }
 
-    function roundingNumbers(nubmer) {
-      var numberType = typeof nubmer;
+    function roundingNumbers(nubmer, radix) {
+      var radix = (radix) ? radix : 2,
+          numberType = typeof nubmer;
       if(numberType === 'string') {
-        return parseFloat( parseFloat(nubmer).toFixed(2) );
+        return parseFloat( parseFloat(nubmer).toFixed(radix) );
       } else if(numberType === 'number') {
-        return parseFloat(nubmer.toFixed(2));
+        return parseFloat(nubmer.toFixed(radix));
       }
     }
 

@@ -580,8 +580,7 @@
       var deferred = $q.defer();
       setBeadId(profileId).then(function(beadIds) {
         var objXFormedPrice = {
-              //cityId: UserStor.userInfo.city_id,
-              currencyId: UserStor.userInfo.currencyId,
+              currencyData: UserStor.userInfo.currencyData,
               profileId: profileId,
               glassId: glassId,
               hardwareId: hardwareId,
@@ -854,7 +853,7 @@
       //playSound('price');
       ProductStor.product.product_price = GeneralServ.roundingNumbers( ProductStor.product.template_price + ProductStor.product.addelem_price );
       ProductStor.product.productPriceDis = ( GeneralServ.setPriceDis(ProductStor.product.template_price, OrderStor.order.discount_construct) + ProductStor.product.addelemPriceDis );
-      $rootScope.$apply();
+//      $rootScope.$apply();
     }
 
 

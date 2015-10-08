@@ -102,7 +102,7 @@
       } else {
         var objXAddElementPrice = {
           cityId: UserStor.userInfo.city_id,
-          currencyId: UserStor.userInfo.currencyId,
+          currencyData: UserStor.userInfo.currencyData,
           elementId: AuxStor.aux.addElementsList[typeIndex][elementIndex].id,
           elementLength: AuxStor.aux.addElementsList[typeIndex][elementIndex].element_width
         };
@@ -291,7 +291,7 @@
       //-------- recalculate add element price
       var objXAddElementPrice = {
         cityId: UserStor.userInfo.city_id,
-        currencyId: UserStor.userInfo.currencyId,
+        currencyData: UserStor.userInfo.currencyData,
         elementId: ProductStor.product.chosenAddElements[index][elementIndex].id,
         elementLength: ProductStor.product.chosenAddElements[index][elementIndex].element_width
       };
