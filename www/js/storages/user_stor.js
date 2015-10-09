@@ -24,7 +24,7 @@
         heatTransfer: 0,
         langLabel: 'en',
         langName: 'English',
-        currencyData: {},
+        currencyId: 0,
         currency: '',
         discountConstr: 0,
         discountAddElem: 0,

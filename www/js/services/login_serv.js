@@ -240,10 +240,10 @@
 
     function setCurrency() {
       var defer = $q.defer();
-      localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, {'is_base': 1}, 'id, name, value').then(function(data) {
-        console.log('curency ==', data);
+      localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, {'is_base': 1}, 'id, name').then(function(data) {
+//        console.log('curency ==', data);
         if(data.length) {
-          UserStor.userInfo.currencyData = data[0];
+          UserStor.userInfo.currencyId = data[0].id;
           switch(data[0].name) {
             case 'uah':  UserStor.userInfo.currency = '₴';
               break;

@@ -57,14 +57,14 @@
       thisObj.details = angular.copy(sourceObj.details);
       thisObj.priceElements = {
         framesSize: [],
+        frameSillSize: [],
         sashsSize: [],
-        beadsSize: [],
         impostsSize: [],
         shtulpsSize: [],
-        sashesBlock: [],
-        glassSizes: [],
         glassSquares: [],
-        frameSillSize: 0
+        beadsSize: [],
+        sashesBlock: []
+//        glassSizes: [],
       };
 
       var blocksQty = thisObj.details.length;
@@ -1162,8 +1162,7 @@
           priceElements.sashsSize.push(part.size);
         } else if(part.type === 'frame') {
           if(part.sill) {
-            priceElements.frameSillSize = part.size;
-          //TODO много подоконников            priceElements.frameSillSize.push(part.size);
+            priceElements.frameSillSize.push(part.size);
           } else {
             priceElements.framesSize.push(part.size);
           }
@@ -1280,7 +1279,7 @@
       part.sizes = culcLengthGlass(glassPoints);
 
       //------- per Price
-      priceElements.glassSizes.push(part.sizes);
+//      priceElements.glassSizes.push(part.sizes);
       priceElements.glassSquares.push(part.square);
 
 

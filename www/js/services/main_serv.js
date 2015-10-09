@@ -582,12 +582,26 @@
     function preparePrice(template, profileId, glassId, hardwareId) {
       var deferred = $q.defer();
       setBeadId(profileId).then(function(beadIds) {
+
+        var glassArr = [];
+        glassArr.push(glassId, glassId);
+
         var objXFormedPrice = {
-              currencyData: UserStor.userInfo.currencyData,
-              profileId: profileId,
+              currencyId: UserStor.userInfo.currencyId,
+              ids: [
+                ProductStor.product.profile.rama_list_id, //frameId:
+                ProductStor.product.profile.rama_still_list_id, //frameSillId:
+                ProductStor.product.profile.stvorka_list_id, //sashId:
+                ProductStor.product.profile.impost_list_id, //impostId:
+                ProductStor.product.profile.shtulp_list_id, //shtulpId:
+                glassArr, //array glassId:
+                beadIds[0], //array beadId:
+                hardwareId //hardwareId:
+              ],
+              sizes: [],
+
               glassId: glassId,
               hardwareId: hardwareId,
-              hardwareColor: ProductStor.product.laminationInName,
               frameId: ProductStor.product.profile.rama_list_id,
               frameSillId: ProductStor.product.profile.rama_still_list_id,
               sashId: ProductStor.product.profile.stvorka_list_id,
@@ -601,10 +615,15 @@
               impostsSize: angular.copy(template.priceElements.impostsSize),
               shtulpsSize: angular.copy(template.priceElements.shtulpsSize),
               sashesBlock: angular.copy(template.priceElements.sashesBlock),
-              glassSizes: angular.copy(template.priceElements.glassSizes),
               glassSquares: angular.copy(template.priceElements.glassSquares),
               frameSillSize: angular.copy(template.priceElements.frameSillSize)
             };
+
+
+        //------- fill objXFormedPrice for sizes
+        for(var size in template.priceElements) {
+          objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
+        }
 
         //------- set Overall Dimensions
         ProductStor.product.template_width = 0;
@@ -615,7 +634,6 @@
           ProductStor.product.template_height += ProductStor.product.template.details[0].overallDim[overallQty].h;
           ProductStor.product.template_square += ProductStor.product.template.details[0].overallDim[overallQty].square;
         }
-
 
 //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
 
