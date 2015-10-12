@@ -598,25 +598,25 @@
                 beadIds[0], //array beadId:
                 hardwareId //hardwareId:
               ],
-              sizes: [],
+              sizes: []//,
 
-              glassId: glassId,
-              hardwareId: hardwareId,
-              frameId: ProductStor.product.profile.rama_list_id,
-              frameSillId: ProductStor.product.profile.rama_still_list_id,
-              sashId: ProductStor.product.profile.stvorka_list_id,
-              impostId: ProductStor.product.profile.impost_list_id,
-              shtulpId:  ProductStor.product.profile.shtulp_list_id,
-              beadId: beadIds[0],
-
-              framesSize: angular.copy(template.priceElements.framesSize),
-              sashsSize: angular.copy(template.priceElements.sashsSize),
-              beadsSize: angular.copy(template.priceElements.beadsSize),
-              impostsSize: angular.copy(template.priceElements.impostsSize),
-              shtulpsSize: angular.copy(template.priceElements.shtulpsSize),
-              sashesBlock: angular.copy(template.priceElements.sashesBlock),
-              glassSquares: angular.copy(template.priceElements.glassSquares),
-              frameSillSize: angular.copy(template.priceElements.frameSillSize)
+//              glassId: glassId,
+//              hardwareId: hardwareId,
+//              frameId: ProductStor.product.profile.rama_list_id,
+//              frameSillId: ProductStor.product.profile.rama_still_list_id,
+//              sashId: ProductStor.product.profile.stvorka_list_id,
+//              impostId: ProductStor.product.profile.impost_list_id,
+//              shtulpId:  ProductStor.product.profile.shtulp_list_id,
+//              beadId: beadIds[0],
+//
+//              framesSize: angular.copy(template.priceElements.framesSize),
+//              sashsSize: angular.copy(template.priceElements.sashsSize),
+//              beadsSize: angular.copy(template.priceElements.beadsSize),
+//              impostsSize: angular.copy(template.priceElements.impostsSize),
+//              shtulpsSize: angular.copy(template.priceElements.shtulpsSize),
+//              sashesBlock: angular.copy(template.priceElements.sashesBlock),
+//              glassSquares: angular.copy(template.priceElements.glassSquares),
+//              frameSillSize: angular.copy(template.priceElements.frameSillSize)
             };
 
 
@@ -843,7 +843,7 @@
 //        }
 //      }
       //-------- total glasses square define
-      glassSquareTotal = objXFormedPrice.glassSquares.reduce(function(sum, elem) {
+      glassSquareTotal = objXFormedPrice.sizes[5].reduce(function(sum, elem) {
         return sum + elem;
       });
 //      console.log('heat_coef_total++++', ProductStor.product.profile.heat_coeff_value, ProductStor.product.template_square, glassSquareTotal);

@@ -1277,7 +1277,6 @@
       var defer = $q.defer(),
           lists = [],
           elemLists = [];
-
       if(Array.isArray(listId)) {
         lists = listId;
       } else {
@@ -1289,7 +1288,7 @@
             var resQty = result.length;
             if(resQty) {
               for (var i = 0; i < resQty; i++) {
-                elemLists.push({"elemLists": result[i]});
+                elemLists.push(result[i]);
                 if(result[i].child_type === 'list') {
                   lists.push(result[i].child_id);
                 }
@@ -1311,7 +1310,6 @@
       var deff = $q.defer(),
           promisesKit = construction.sizes.map(function(item, index) {
             var deff1 = $q.defer();
-
             if(item.length) {
               if(Array.isArray(construction.ids[index])) {
                 var promisKits = construction.ids[index].map(function(item2){
@@ -1347,7 +1345,6 @@
             }
             return deff1.promise;
           });
-
       $q.all(promisesKit).then(function(result) {
         deff.resolve(result);
       });
@@ -1366,13 +1363,7 @@
                 var promisElem = item.map(function(item2){
                   var deff2 = $q.defer();
                   if(item2.parent_element_id) {
-                    selectLocalDB(tablesLocalDB.elements.tableName, {id: item2.parent_element_id}, 'id, currency_id, price, waste, name, amendment_pruning').then(function(result2) {
-                      if(result2.length) {
-                        deff2.resolve(result2);
-                      } else {
-                        deff2.resolve(0);
-                      }
-                    });
+                    deff2.resolve(getElementByListId(1, item2.parent_element_id));
                     return deff2.promise;
                   }
                 });
@@ -1385,20 +1376,13 @@
                   deff1.resolve(collectArr);
                 })
               } else if(item.parent_element_id){
-                selectLocalDB(tablesLocalDB.elements.tableName, {id: item.parent_element_id}, 'id, currency_id, price, waste, name, amendment_pruning').then(function(result) {
-                  if(result.length) {
-                    deff1.resolve(result[0]);
-                  } else {
-                    deff1.resolve(0);
-                  }
-                });
+                deff1.resolve(getElementByListId(0, item.parent_element_id));
               }
             } else {
               deff1.resolve(0);
             }
             return deff1.promise;
           });
-
       $q.all(promisesKitElem).then(function(result) {
         deff.resolve(result);
       });
@@ -1416,45 +1400,44 @@
             if(item) {
               var promConsistElem = item.map(function(item2) {
                 var deff2 = $q.defer();
-
-                if(item2.elemLists.child_type === 'element') {
-                  selectLocalDB(tablesLocalDB.elements.tableName, {id: item2.elemLists.child_id}, 'id, currency_id, price, waste, name, amendment_pruning').then(function(result) {
-                    if(result.length) {
-                      deff2.resolve(result[0]);
-                    } else {
-                      deff2.resolve(0);
-                    }
-                  });
-
+                if(item2.child_type === 'element') {
+                  deff2.resolve(getElementByListId(0, item2.child_id));
                 } else {
-
-                  selectLocalDB(tablesLocalDB.lists.tableName, {id: item2.elemLists.child_id}, 'parent_element_id').then(function(result) {
+                  selectLocalDB(tablesLocalDB.lists.tableName, {id: item2.child_id}, 'parent_element_id').then(function(result) {
                     if(result.length) {
-                      selectLocalDB(tablesLocalDB.elements.tableName, {id: result[0].parent_element_id}, 'id, currency_id, price, waste, name, amendment_pruning').then(function(result1) {
-                        if(result1.length) {
-                          deff2.resolve(result1[0]);
-                        } else {
-                          deff2.resolve(0);
-                        }
-                      });
+                      deff2.resolve(getElementByListId(0, result[0].parent_element_id));
                     } else {
                       deff2.resolve(0);
                     }
                   });
-
                 }
                 return deff2.promise;
               });
-
               deff1.resolve($q.all(promConsistElem));
             } else {
               deff1.resolve(0);
             }
             return deff1.promise;
           });
-
       deff.resolve($q.all(promConsist));
+      return deff.promise;
+    }
 
+
+
+    function getElementByListId(isArray, listID) {
+      var deff = $q.defer();
+      selectLocalDB(tablesLocalDB.elements.tableName, {id: listID}, 'id, currency_id, price, waste, name, amendment_pruning').then(function(result) {
+        if(result.length) {
+          if(isArray) {
+            deff.resolve(result);
+          } else {
+            deff.resolve(result[0]);
+          }
+        } else {
+          deff.resolve(0);
+        }
+      });
       return deff.promise;
     }
 
@@ -1466,6 +1449,244 @@
           return result;
         }
       });
+    }
+
+
+
+
+    function culcKitPrice(priceObj, sizes) {
+      var kitElemQty = priceObj.kitsElem.length,
+          sizeQty = 0,
+          constrElements = [];
+      priceObj.priceTotal = 0;
+
+      for(var ke = 0; ke < kitElemQty; ke++) {
+        if(priceObj.kitsElem[ke]) {
+          sizeQty = sizes[ke].length;
+          if(Array.isArray(priceObj.kitsElem[ke])) {
+            var kitElemChildQty = priceObj.kitsElem[ke].length;
+            for(var child = 0; child < kitElemChildQty; child++) {
+              culcPriceAsSize(ke, priceObj.kitsElem[ke][child], sizes[ke], sizeQty, priceObj, constrElements);
+            }
+          } else {
+            culcPriceAsSize(ke, priceObj.kitsElem[ke], sizes[ke], sizeQty, priceObj, constrElements);
+          }
+        }
+      }
+
+      return constrElements;
+    }
+
+
+
+
+    function culcPriceAsSize(index, kitsElem, sizes, sizeQty, priceObj, constrElements) {
+      var priceBySize = 0,
+          constrElem = {};
+      for(var siz = 0; siz < sizeQty; siz++) {
+        constrElem = angular.copy(kitsElem);
+        /** glasses */
+        if(index === 5) {
+          priceBySize = sizes[siz] * constrElem.price;
+        } else {
+          priceBySize = (((sizes[siz] + constrElem.amendment_pruning)/1000) * constrElem.price) * (1 + (constrElem.waste / 100));
+        }
+        /** currency conversion */
+        if (priceObj.currCurrencyId != constrElem.currency_id){
+          console.log('diff currency');
+          currencyExgange(priceBySize, constrElem.currency_id, priceObj.currencies);
+        }
+        constrElem.size = angular.copy(sizes[siz]);
+        constrElem.priceReal = angular.copy(priceBySize);
+        priceObj.priceTotal += priceBySize;
+        constrElements.push(constrElem);
+      }
+    }
+
+
+
+
+
+    function currencyExgange(price, currencyElemId, currencies) {
+      var currencyQty = currencies.length,
+          c = 0;
+      if(currencyQty) {
+        for (; c < currencyQty; c++) {
+          if(currencies[c].id === currencyElemId){
+            price *= currencies[c].value; //TODO разные валюты умножать или делить
+          }
+        }
+      }
+    }
+
+
+
+    function culcPriceAsRule(currValue, currSize, currConsist, currConsistElem, wasteValue, priceObj) {
+      var objTmp = angular.copy(currConsistElem),
+          priceReal = 0,
+          sizeReal = 0,
+          qtyReal = 0;
+
+      console.log('Название: ' + currConsistElem.name);
+      console.log('Цена: ' + currConsistElem.price);
+      console.log('% отхода : ' + currConsistElem.waste);
+      console.log('Поправка на обрезку : ' + currConsistElem.amendment_pruning);
+      console.log('Размер: ' + currSize + ' mm');
+
+      if (currConsist.rules_type_id === 3) {
+        console.log('Правило : ' + currConsist.value + ' шт. на метр родителя');
+
+        priceReal = ((currSize + currConsistElem.amendment_pruning) / 1000) * currConsist.value * currConsistElem.price * wasteValue;
+        qtyReal = angular.copy(currConsist.value);
+
+      } else if (currConsist.rules_type_id === 2 || currConsist.rules_type_id === 4 || currConsist.rules_type_id === 15) {
+        console.log('Правило : ' + currConsist.value + ' шт. на родителя');
+
+        priceReal = currValue * currConsist.value * currConsistElem.price * wasteValue;
+        qtyReal = angular.copy(currConsist.value);
+        
+        console.info(currValue, currConsist.value, sizeReal);
+      } else if (currConsist.rules_type_id === 1) {
+        console.log('Правило : меньше родителя на ' + currConsist.value + ' м');
+        sizeReal = (currSize + currConsistElem.amendment_pruning)/1000 - currConsist.value;
+        priceReal = sizeReal * currConsistElem.price * wasteValue;
+        qtyReal = 1;
+        console.info(currSize, currConsist.value, sizeReal);
+      } else {
+        priceReal = ((currSize + currConsistElem.amendment_pruning) / 1000) * currConsistElem.price * wasteValue;
+        qtyReal = 1;
+      }
+
+      /** currency conversion */
+      if (priceObj.currCurrencyId != currConsistElem.currency_id){
+        console.log('diff currency');
+        currencyExgange(priceReal, currConsistElem.currency_id, priceObj.currencies);
+      }
+
+      console.warn('finish -------------- priceTmp', objTmp);
+      objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
+      objTmp.size = GeneralServ.roundingNumbers(sizeReal, 3);
+      objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
+      priceObj.constrElements.push(objTmp);
+      priceObj.priceTotal += objTmp.priceReal * objTmp.qty;
+    }
+
+
+
+    function culcConsistPrice(priceObj, construction) {
+      var consistQty = priceObj.consist.length;
+
+      for(var group = 0; group < consistQty; group++) {
+        if(priceObj.consist[group]) {
+
+          var sizeQty = construction.sizes[group].length,
+              elemQty = priceObj.consist[group].length;
+
+          if(elemQty) {
+            for(var s = 0; s < sizeQty; s++) {
+
+              for(var elem = 0; elem < elemQty; elem++) {
+                var wasteValue = (1 + (priceObj.consistElem[group][elem].waste / 100));
+
+                if (Array.isArray(construction.ids[group])) {
+                  var idsQty = construction.ids[group].length;
+                  for (var id = 0; id < idsQty; id++) {
+                    console.error('arrays+', construction.ids[group][id]);
+                    if (priceObj.consist[group][elem].parent_list_id === construction.ids[group][id]) {
+                      var fullSize = ((construction.sizes[group][s] + priceObj.consistElem[group][elem].amendment_pruning) / 1000),
+                          value = getValueByRule(fullSize, priceObj.consist[group][elem].value, priceObj.consist[group][elem].rules_type_id);
+
+                      priceObj.consist[group][elem].newValue = value;
+                      console.info('value', value);
+                      culcPriceAsRule(1, construction.sizes[group][s], priceObj.consist[group][elem], priceObj.consistElem[group][elem], wasteValue, priceObj);
+
+                    } else {
+                      console.warn('else++++');
+                      for (var el = 0; el < elemQty; el++) {
+                        if(priceObj.consist[group][elem].parent_list_id == priceObj.consist[group][el].child_id){
+
+                          var value = getValueByRule(priceObj.consist[group][el].newValue, priceObj.consist[group][elem].value, priceObj.consist[group][el].rules_type_id);
+                          priceObj.consist[group][elem].newValue = value;
+                          console.info(value);
+
+                          culcPriceAsRule(value, value, priceObj.consist[group][elem], priceObj.consistElem[group][elem], wasteValue, priceObj);
+
+                        }
+                      }
+                    }
+
+                  }
+                } else {
+
+                  if (priceObj.consist[group][elem].parent_list_id === construction.ids[group]) {
+
+                    var fullSize = ((construction.sizes[group][s] + priceObj.consistElem[group][elem].amendment_pruning) / 1000),
+                        value = getValueByRule(fullSize, priceObj.consist[group][elem].value, priceObj.consist[group][elem].rules_type_id);
+
+                    priceObj.consist[group][elem].newValue = value;
+                    console.info('value', value);
+                    culcPriceAsRule(1, construction.sizes[group][s], priceObj.consist[group][elem], priceObj.consistElem[group][elem], wasteValue, priceObj);
+
+                  } else {
+                    console.warn('else++++');
+                    for (var el = 0; el < elemQty; el++) {
+                      if(priceObj.consist[group][elem].parent_list_id == priceObj.consist[group][el].child_id){
+
+                        var value = getValueByRule(priceObj.consist[group][el].newValue, priceObj.consist[group][elem].value, priceObj.consist[group][el].rules_type_id);
+                        priceObj.consist[group][elem].newValue = value;
+                        console.info(value);
+
+                        culcPriceAsRule(value, value, priceObj.consist[group][elem], priceObj.consistElem[group][elem], wasteValue, priceObj);
+
+                      }
+                    }
+                  }
+
+                }
+
+              }
+
+            }
+          }
+
+
+        }
+        console.log('Group - конец ---------------------');
+      }
+
+    }
+
+
+
+
+    function getValueByRule(parentValue, childValue, rule){
+      console.warn('rule++', parentValue, childValue, rule);
+      var value = 0;
+      switch (rule) {
+        case 1:
+          value = GeneralServ.roundingNumbers((parentValue - childValue), 3);
+          break;
+        case 3:
+        case 12:
+        case 14:
+          value = GeneralServ.roundingNumbers((Math.round(parentValue) * childValue), 3);
+          break;
+        case 5:
+          value = parentValue * childValue;
+          break;
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+        case 13:
+        case 23:
+          value = GeneralServ.roundingNumbers((parentValue * childValue), 3);
+          break;
+        default:
+          value = childValue;
+          break;
+      }
+      return value;
     }
 
 
@@ -1673,35 +1894,7 @@
 
 
 
-    function getValueByRule(parentValue, childValue, rule){
-      console.warn('rule++', parentValue, childValue, rule);
-      var value = 0;
-      switch (rule) {
-        case 1:
-          value = GeneralServ.roundingNumbers((parentValue - childValue), 3);
-          break;
-        case 3:
-        case 12:
-        case 14:
-          value = GeneralServ.roundingNumbers((Math.round(parentValue) * childValue), 3);
-          break;
-        case 5:
-          value = parentValue * childValue;
-          break;
-        case 6:
-        case 7:
-        case 8:
-        case 9:
-        case 13:
-        case 23:
-          value = GeneralServ.roundingNumbers((parentValue * childValue), 3);
-          break;
-        default:
-          value = childValue;
-          break;
-      }
-      return value;
-    }
+
 
 
 
@@ -1747,7 +1940,7 @@
             priceObj.kits = data2;
             parseKitElement(data2).then(function(data3) {
               console.warn('data3!!!!!!+', data3);
-              priceObj.elemKits = data3;
+              priceObj.kitsElem = data3;
               parseConsistElem(priceObj.consist).then(function(data4){
                 console.warn('data4!!!!!!+', data4);
                 priceObj.consistElem = data4;
@@ -1755,8 +1948,8 @@
                 downloadAllCurrencies().then(function(data5) {
                   console.warn('data5!!!!!!+', data5);
                   priceObj.currencies = data5;
-                  next_8();
-
+                  priceObj.constrElements = culcKitPrice(priceObj, construction.sizes);
+                  culcConsistPrice(priceObj, construction);
                 })
               });
             });
