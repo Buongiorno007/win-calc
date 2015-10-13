@@ -586,40 +586,32 @@
         var objXFormedPrice = {
               currencyId: UserStor.userInfo.currencyId,
               ids: [
-                ProductStor.product.profile.rama_list_id, //frameId:
-                ProductStor.product.profile.rama_still_list_id, //frameSillId:
-                ProductStor.product.profile.stvorka_list_id, //sashId:
-                ProductStor.product.profile.impost_list_id, //impostId:
-                ProductStor.product.profile.shtulp_list_id, //shtulpId:
-                glassArr, //array glassId:
-                beadIds[0], //array beadId:
-                hardwareId //hardwareId:
+                ProductStor.product.profile.rama_list_id,
+                ProductStor.product.profile.rama_still_list_id,
+                ProductStor.product.profile.stvorka_list_id,
+                ProductStor.product.profile.impost_list_id,
+                ProductStor.product.profile.shtulp_list_id,
+                glassArr, //array
+                beadIds[0], //array
+                hardwareId
               ],
-              sizes: []//,
-
-//              glassId: glassId,
-//              hardwareId: hardwareId,
-//              frameId: ProductStor.product.profile.rama_list_id,
-//              frameSillId: ProductStor.product.profile.rama_still_list_id,
-//              sashId: ProductStor.product.profile.stvorka_list_id,
-//              impostId: ProductStor.product.profile.impost_list_id,
-//              shtulpId:  ProductStor.product.profile.shtulp_list_id,
-//              beadId: beadIds[0],
-//
-//              framesSize: angular.copy(template.priceElements.framesSize),
-//              sashsSize: angular.copy(template.priceElements.sashsSize),
-//              beadsSize: angular.copy(template.priceElements.beadsSize),
-//              impostsSize: angular.copy(template.priceElements.impostsSize),
-//              shtulpsSize: angular.copy(template.priceElements.shtulpsSize),
-//              sashesBlock: angular.copy(template.priceElements.sashesBlock),
-//              glassSquares: angular.copy(template.priceElements.glassSquares),
-//              frameSillSize: angular.copy(template.priceElements.frameSillSize)
+              sizes: []
             };
 
 
         //------- fill objXFormedPrice for sizes
         for(var size in template.priceElements) {
-          objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
+          //----- converting size from mm to m
+          var newSizes = [];
+          //----- besides of glass squares
+          if(size === 'glassSquares' || size === 'sashesBlock') {
+            newSizes = angular.copy(template.priceElements[size]);
+          } else {
+            newSizes = angular.copy(template.priceElements[size]).map(function(item) {
+              return item/1000;
+            });
+          }
+          objXFormedPrice.sizes.push(newSizes);
         }
 
         //------- set Overall Dimensions
@@ -636,80 +628,16 @@
 
         console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
 
-        /**
-         *
-         currencyId: 545
-         profileId: 514
-         frameId: 311637
-         frameSillId: 311636
-         impostId: 311645
-         sashId: 311642
-         shtulpId: 311648
-
-         glassId: 311657 (list)
-
-         beadId: 311651
-
-         beadsSize: Array[4]
-         0: 1212
-         1: 1312
-         2: 1212
-         3: 1312
-         length: 4
-
-
-
-         frameSillSize: 1300
-
-         framesSize: Array[2]
-         0: 1300
-         1: 1400
-         length: 2
-
-
-         glassSizes: Array[1]
-         0: Array[4]
-           0: 1202
-           1: 1302
-           2: 1202
-           3: 1302
-         length: 4
-         length: 1
-
-         glassSquares: Array[1]
-         0: 1.565004
-         length: 1
-
-         hardwareColor: "White"
-         hardwareId: 0
-
-         impostsSize: Array[0]
-         length: 0
-
-
-
-         sashesBlock: Array[0]
-         length: 0
-
-         sashsSize: Array[0]
-         length: 0
-
-
-
-         shtulpsSize: Array[0]
-         length: 0
-         *
-         * */
-
-
         //--------- get product price
         calculationPrice(objXFormedPrice).then(function(result) {
-//          console.warn('objXFormedPrice+++++++', objXFormedPrice);
-//          console.warn('result+++++++', result);
           deferred.resolve(1);
+          /** set Report */
+          if(result) {
+            ProductStor.product.report = prepareReport(result.constrElements);
+          }
         });
 
-        //------ calculate coeffs
+        /** calculate coeffs */
         calculateCoeffs(objXFormedPrice);
 
       });
@@ -747,16 +675,16 @@
     //---------- Price define
     function calculationPrice(obj) {
       var deferred = $q.defer();
-      localDB.calculationPrice(obj, function (result) {
-        if(result.status){
-          console.log('price-------', result);
-          ProductStor.product.template_price = GeneralServ.roundingNumbers(result.data.price);
+      localDB.calculationPrice(obj).then(function (result) {
+//        console.log('price-------', result);
+        if(result.priceTotal){
+          ProductStor.product.template_price = result.priceTotal;
           setProductPriceTOTAL();
           console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
-          deferred.resolve(collectTemplatePartsIds(result.data));
+          deferred.resolve(result);
         } else {
-          console.log(result);
-          deferred.resolve(1);
+          ProductStor.product.template_price = 0;
+          deferred.resolve(0);
         }
       });
       return deferred.promise;
@@ -764,64 +692,44 @@
 
 
 
-    function collectTemplatePartsIds(priceObj) {
-      var elementList = [];
-//      console.log('sort start', new Date(), new Date().getMilliseconds());
-      /** Filter priceObj properties */
-      for (var key in priceObj) {
-        /** Filter currencies & prices */
-        if (key !== 'currencies' && key !== 'currentCurrency' && key !== 'price') {
-          /** beadIds is incorrect array with own properties */
-          var keyQty = priceObj[key].length;
-          if (keyQty) {
-            while(--keyQty > -1) {
-              /** get element Id*/
-              var newID = 0;
-              if (priceObj[key][keyQty].priceEl) {
-                newID = priceObj[key][keyQty].priceEl.id;
-              } else {
-                if (priceObj[key][keyQty].elemLists && priceObj[key][keyQty].elemLists.child_type === 'element') {
-                  newID = priceObj[key][keyQty].elemLists.id;
+    function prepareReport(elementList) {
+      var report = [];
+//      console.log('report start', new Date(), new Date().getMilliseconds());
+      var elementListQty = elementList.length,
+          ind = 0;
+      if(elementListQty) {
+        for (; ind < elementListQty; ind++) {
+          var tempObj = angular.copy(elementList[ind]);
+          tempObj.element_id = angular.copy(tempObj.id);
+          tempObj.amount = angular.copy(tempObj.qty);
+          delete tempObj.id;
+          delete tempObj.amendment_pruninng;
+          delete tempObj.currency_id;
+          delete tempObj.qty;
+          delete tempObj.waste;
+          if (ind) {
+            var reportQty = report.length, exist = 0;
+            if (reportQty) {
+              while (--reportQty > -1) {
+                if (report[reportQty].element_id === tempObj.element_id && report[reportQty].size === tempObj.size) {
+                  exist++;
+                  report[reportQty].amount += tempObj.amount;
                 }
               }
-              if(newID) {
-                /** push object if new Id otherwise increase count property*/
-                seekDublicatPartId(newID, elementList);
+              if (!exist) {
+                report.push(tempObj);
               }
             }
-            /** Push beads element if exist */
-          } else if (priceObj[key].price) {
-            seekDublicatPartId(priceObj[key].price.id, elementList);
+          } else {
+            report.push(tempObj);
           }
         }
       }
-//      console.log('sort finish', new Date(), new Date().getMilliseconds());
-//      console.log('elementList', elementList);
-      return elementList;
+//      console.log('report finish', new Date(), new Date().getMilliseconds());
+      return report;
     }
 
 
-    function seekDublicatPartId(newID, elementList) {
-      var elementListQty = elementList.length,
-          tempObj = {
-            element_id: newID,
-            amount: 1
-          },
-          exist = 0;
-      if(elementListQty) {
-        while(--elementListQty > -1) {
-          if(elementList[elementListQty].element_id === newID) {
-            exist++;
-            elementList[elementListQty].amount++;
-          }
-        }
-        if(!exist) {
-          elementList.push(tempObj);
-        }
-      } else {
-        elementList.push(tempObj);
-      }
-    }
 
 
 
@@ -1206,6 +1114,7 @@
           delete productData.profileDepths;
           delete productData.addelemPriceDis;
           delete productData.productPriceDis;
+          delete productData.report;
 
           console.log('SEND PRODUCT------', productData);
           //-------- insert product into local DB

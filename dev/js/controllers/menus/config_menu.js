@@ -42,6 +42,7 @@
     thisCtrl.selectConfigPanel = selectConfigPanel;
     thisCtrl.inputProductInOrder = saveProduct;
     thisCtrl.showNextTip = showNextTip;
+    thisCtrl.showReport = showReport;
 
 
     //============ methods ================//
@@ -71,6 +72,9 @@
       }
     }
 
+    function showReport() {
+      GlobalStor.global.isReport = !GlobalStor.global.isReport;
+    }
 
   }
 })();

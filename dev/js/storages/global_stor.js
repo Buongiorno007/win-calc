@@ -75,6 +75,9 @@
         infoLink: '',
         infoDescrip: '',
 
+        //---- report
+        isReport: 0,
+
         //---- Calculators
         isQtyCalculator: 0,
         isSizeCalculator: 0,
