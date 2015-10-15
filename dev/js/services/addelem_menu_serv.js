@@ -98,19 +98,16 @@
         deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
       } else {
         var objXAddElementPrice = {
-          cityId: UserStor.userInfo.city_id,
-          currencyData: UserStor.userInfo.currencyData,
+          currencyId: UserStor.userInfo.currencyId,
           elementId: AuxStor.aux.addElementsList[typeIndex][elementIndex].id,
-          elementLength: AuxStor.aux.addElementsList[typeIndex][elementIndex].element_width
+          elementWidth: (AuxStor.aux.addElementsList[typeIndex][elementIndex].element_width/1000)
         };
-//        console.log('objXAddElementPrice=====', objXAddElementPrice);
+//                console.log('objXAddElementPrice=====', objXAddElementPrice);
         //-------- get current add element price
-        localDB.getAdditionalPrice(objXAddElementPrice, function (results) {
-//          console.log('objXAddElementPrice result=====', results);
-
-          if (results.status) {
-            AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(results.data.price, OrderStor.order.discount_addelem);
-            AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers( results.data.price ));
+        localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
+          if (results) {
+            AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem);
+            AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers( results.priceTotal ));
             AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
             $rootScope.$apply();
             deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
@@ -210,7 +207,7 @@
     //--------- Change Qty parameter
     function setValueQty(newValue) {
       var elementIndex = AuxStor.aux.currentAddElementId,
-        index = (AuxStor.aux.isFocusedAddElement - 1);
+          index = (AuxStor.aux.isFocusedAddElement - 1);
 
       if(ProductStor.product.chosenAddElements[index][elementIndex].element_qty < 2 && newValue < 0) {
         return false;
@@ -228,7 +225,7 @@
 
     /** SIze Calculator */
 
-    //------- Change Size parameter
+      //------- Change Size parameter
     function setValueSize(newValue) {
       //console.log($scope.addElementsMenu.tempSize);
       if(tempSize.length == 1 && tempSize[0] === 0) {
@@ -287,18 +284,17 @@
 
       //-------- recalculate add element price
       var objXAddElementPrice = {
-        cityId: UserStor.userInfo.city_id,
-        currencyData: UserStor.userInfo.currencyData,
+        currencyId: UserStor.userInfo.currencyId,
         elementId: ProductStor.product.chosenAddElements[index][elementIndex].id,
-        elementLength: ProductStor.product.chosenAddElements[index][elementIndex].element_width
+        elementWidth: (ProductStor.product.chosenAddElements[index][elementIndex].element_width/1000)
       };
 
-//      console.log('objXAddElementPrice change size ===== ', objXAddElementPrice);
-      localDB.getAdditionalPrice(objXAddElementPrice, function (results) {
-        if (results.status) {
-//          console.log(results.data.price);
-          AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(results.data.price, OrderStor.order.discount_addelem);
-          ProductStor.product.chosenAddElements[index][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers( results.data.price ));
+      //      console.log('objXAddElementPrice change size ===== ', objXAddElementPrice);
+      localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
+        if (results) {
+          //          console.log(results.data.price);
+          AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem);
+          ProductStor.product.chosenAddElements[index][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers( results.priceTotal ));
           ProductStor.product.chosenAddElements[index][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
           //------- Set Total Product Price
           setAddElementsTotalPrice();

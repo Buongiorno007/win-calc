@@ -1000,9 +1000,9 @@ body {
 }
 
 /* line 92, ../../dev/sass/base/general.scss */
-.icon-setting, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu, .pickmeup .pmu-instance nav .pmu-prev,
+.icon-setting, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .config-menu .close_report, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu, .pickmeup .pmu-instance nav .pmu-prev,
 .pickmeup .pmu-instance nav .pmu-next, .user-info-container .icon-location:before, .search-block:before, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .current-city:after, .voice-container .voice-icon, .close_dialog, .setting-container .setting-item-change:after, .password-page .back, .language-page .back, .location-page .back, .accounts-container .tool, .accounts-container .account-tool, .empty-search-result .result-icon, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .close-alladdelements, .door-config-btn, .door-configuration .door-config-finish-btn, .nav-menu [class^='nav-icon-'],
-.nav-menu [class*=' nav-icon-'], .config-menu .item.active:before, .config-menu .report-btn:after, .elements-menu .element-info:after, .cart-menu .item:after, .cart-menu .drop-instalment .dropdown-item.selected .value-percent:after, .cart-menu .calendar-price, .size-calc-container .calc-delete:after, .size-calc-container .calc-interval:after {
+.nav-menu [class*=' nav-icon-'], .config-menu .item.active:before, .elements-menu .element-info:after, .cart-menu .item:after, .cart-menu .drop-instalment .dropdown-item.selected .value-percent:after, .cart-menu .calendar-price, .size-calc-container .calc-delete:after, .size-calc-container .calc-interval:after {
   font-weight: normal;
   font-style: normal;
   font-variant: normal;
@@ -1015,7 +1015,7 @@ body {
 }
 
 /* line 107, ../../dev/sass/base/general.scss */
-.button, .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn, .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .middle-button, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default, .small-button, .cart-page .order-tool, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu, .view-switch-tab, .aux-color, .setting-container .phone-btn, .accounts-container .tool, .accounts-container .account-tool, .accounts-container .account-change-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .close-alladdelements, .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .auxiliaries-container .scheme-info, .additional-list-container .group-indicator, .additional-list-container .search-element {
+.button, .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn, .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .middle-button, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default, .small-button, .cart-page .order-tool, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .config-menu .close_report, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu, .view-switch-tab, .aux-color, .setting-container .phone-btn, .accounts-container .tool, .accounts-container .account-tool, .accounts-container .account-change-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .close-alladdelements, .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .auxiliaries-container .scheme-info, .additional-list-container .group-indicator, .additional-list-container .search-element {
   border: 0;
   outline: none;
   cursor: pointer;
@@ -1116,24 +1116,24 @@ body {
 }
 
 /* line 217, ../../dev/sass/base/general.scss */
-.cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu {
+.cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .config-menu .close_report, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu {
   border-radius: 50%;
 }
 /* line 222, ../../dev/sass/base/general.scss */
-.cross-btn:after, .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .addelementunit-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after, .config-menu .menu_tooltip .close_menu_tooltip:after, .search-block .delete-search:after, .construct-tools:after, .elements-menu .close-elements-menu:after {
+.cross-btn:after, .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .addelementunit-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after, .config-menu .menu_tooltip .close_menu_tooltip:after, .config-menu .close_report:after, .search-block .delete-search:after, .construct-tools:after, .elements-menu .close-elements-menu:after {
   position: absolute;
   color: #fff;
   content: "";
 }
 
 /* line 228, ../../dev/sass/base/general.scss */
-.small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip {
+.small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .config-menu .close_report {
   font: normal 2.5rem/1 icons, sans-serif;
   width: 3.125rem;
   height: 3.125rem;
 }
 /* line 234, ../../dev/sass/base/general.scss */
-.small-cross-btn:after, .close-dialog:after, .aux-delete:after, .addelementunit-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after, .config-menu .menu_tooltip .close_menu_tooltip:after {
+.small-cross-btn:after, .close-dialog:after, .aux-delete:after, .addelementunit-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after, .config-menu .menu_tooltip .close_menu_tooltip:after, .config-menu .close_report:after {
   top: 8%;
   left: 10%;
 }
@@ -7148,6 +7148,11 @@ tr.factory_item {
   background: transparent;
 }
 
+/* line 1, ../../dev/sass/menus/_config-menu.scss */
+.config-menu {
+  /** Tooltip */
+  /** Report */
+}
 /* line 8, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .item.active {
   background-color: rgba(0, 0, 0, 0.07);
@@ -7238,7 +7243,7 @@ tr.factory_item {
 .config-menu .product-u-coeff.u-coeff-low {
   color: #f74f2e;
 }
-/* line 96, ../../dev/sass/menus/_config-menu.scss */
+/* line 98, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip {
   -moz-transition: all 0.2s linear;
   -webkit-transition: all 0.2s linear;
@@ -7254,7 +7259,7 @@ tr.factory_item {
   opacity: 0;
   z-index: 1;
 }
-/* line 108, ../../dev/sass/menus/_config-menu.scss */
+/* line 110, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip:after {
   position: absolute;
   right: -1.4rem;
@@ -7266,67 +7271,80 @@ tr.factory_item {
   border-color: transparent rgba(255, 255, 255, 0.85);
   content: '';
 }
-/* line 119, ../../dev/sass/menus/_config-menu.scss */
+/* line 121, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip.tempate_tip {
   top: 2rem;
   opacity: 1;
 }
-/* line 123, ../../dev/sass/menus/_config-menu.scss */
+/* line 125, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip.profile_tip {
   top: 22rem;
   opacity: 1;
 }
-/* line 127, ../../dev/sass/menus/_config-menu.scss */
+/* line 129, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip.glass_tip {
   top: 29rem;
   opacity: 1;
 }
-/* line 137, ../../dev/sass/menus/_config-menu.scss */
+/* line 139, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip .close_menu_tooltip {
   position: absolute;
   top: 4%;
   left: 2%;
   background-color: #f98000;
 }
-/* line 146, ../../dev/sass/menus/_config-menu.scss */
-.config-menu .report-btn {
-  top: 5rem;
-  right: 2rem;
-  position: absolute;
-  z-index: 2;
-  cursor: pointer;
-}
-/* line 152, ../../dev/sass/menus/_config-menu.scss */
-.config-menu .report-btn:after {
-  font: normal 5rem/1 icons, sans-serif;
-  color: #f98000;
-  content: "";
-}
-/* line 159, ../../dev/sass/menus/_config-menu.scss */
+/* line 150, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .report-container {
+  display: -webkit-flex;
+  display: flex;
   font: normal 1.875rem/1.42857 roboto-light, sans-serif;
   position: absolute;
   top: 0;
-  left: -55rem;
-  width: 55rem;
-  height: 70rem;
-  padding: 2rem;
+  left: -98rem;
+  width: 98rem;
+  height: 61rem;
+  padding: 3rem;
   z-index: 99;
   overflow: hidden;
   background-color: #fff;
 }
-/* line 171, ../../dev/sass/menus/_config-menu.scss */
+/* line 163, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .report-box {
   width: 100%;
   height: 100%;
   overflow-y: auto;
 }
-/* line 183, ../../dev/sass/menus/_config-menu.scss */
+/* line 168, ../../dev/sass/menus/_config-menu.scss */
+.config-menu .report-box table {
+  width: 100%;
+}
+/* line 172, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .report-elem {
   text-align: center;
   vertical-align: center;
   border: 1px solid #000;
   padding: 1rem;
+}
+/* line 179, ../../dev/sass/menus/_config-menu.scss */
+.config-menu .report-menu-item {
+  padding: 1rem;
+  padding-right: 0;
+  border-bottom: 1px solid #000;
+  color: #fff;
+  background-color: #363636;
+  cursor: pointer;
+}
+/* line 187, ../../dev/sass/menus/_config-menu.scss */
+.config-menu .report-menu-item.active {
+  color: #363636;
+  background-color: #c2c2c2;
+}
+/* line 192, ../../dev/sass/menus/_config-menu.scss */
+.config-menu .close_report {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: #f98000;
 }
 
 /* line 1, ../../dev/sass/menus/_elements-list.scss */

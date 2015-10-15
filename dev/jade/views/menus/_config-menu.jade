@@ -48,14 +48,21 @@
   .menu_tooltip(ng-show="configMenu.G.global.configMenuTips && configMenu.G.global.isConfigMenu && !configMenu.G.global.productEditNumber", hm-tap="configMenu.showNextTip()", ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}") {{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}
     .close_menu_tooltip
 
-  .report-btn.unvisible(ng-if="configMenu.G.global.isConfigMenu", hm-tap="configMenu.showReport()", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
-
   .report-container(ng-show="configMenu.G.global.isReport")
+    .close_report(hm-tap="configMenu.G.global.isReport = 0")
+    .report-menu
+      .report-menu-item(ng-repeat="reportMenu in configMenu.config.reportMenu | orderBy: reportMenu.position", hm-tap="configMenu.sortReport(reportMenu.id)", ng-class="{'active': reportMenu.id === configMenu.config.reportFilterId}") {{ reportMenu.name }}
     .report-box
       table
-        tr.report-item(ng-repeat="report in configMenu.P.product.report")
+        tr.report-item
+          th.report-elem ID
+          th.report-elem {{ 'add_elements.NAME_LABEL' | translate }}
+          th.report-elem {{ 'add_elements.QTY_LABEL' | translate }}
+          th.report-elem {{ 'add_elements.SIZE_LABEL' | translate }}
+          th.report-elem {{ configMenu.U.userInfo.currency }}
+        tr.report-item(ng-repeat="report in configMenu.P.product.report | filter: {element_group_id: configMenu.config.reportFilterId}")
           td.report-elem {{report.element_id}}
           td.report-elem {{report.name}}
           td.report-elem {{report.amount}}
           td.report-elem {{report.size}}
-          td.report-elem {{report.price}}
+          td.report-elem {{report.priceReal}}

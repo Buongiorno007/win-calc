@@ -977,16 +977,26 @@
         <div ng-show="configMenu.G.global.configMenuTips &amp;&amp; configMenu.G.global.isConfigMenu &amp;&amp; !configMenu.G.global.productEditNumber" hm-tap="configMenu.showNextTip()" ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}" class="menu_tooltip">{{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}
           <div class="close_menu_tooltip"></div>
         </div>
-        <div ng-if="configMenu.G.global.isConfigMenu" hm-tap="configMenu.showReport()" show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}" class="report-btn unvisible"></div>
         <div ng-show="configMenu.G.global.isReport" class="report-container">
+          <div hm-tap="configMenu.G.global.isReport = 0" class="close_report"></div>
+          <div class="report-menu">
+            <div ng-repeat="reportMenu in configMenu.config.reportMenu | orderBy: reportMenu.position" hm-tap="configMenu.sortReport(reportMenu.id)" ng-class="{'active': reportMenu.id === configMenu.config.reportFilterId}" class="report-menu-item">{{ reportMenu.name }}</div>
+          </div>
           <div class="report-box">
             <table>
-              <tr ng-repeat="report in configMenu.P.product.report" class="report-item">
+              <tr class="report-item">
+                <th class="report-elem">ID</th>
+                <th class="report-elem">{{ 'add_elements.NAME_LABEL' | translate }}</th>
+                <th class="report-elem">{{ 'add_elements.QTY_LABEL' | translate }}</th>
+                <th class="report-elem">{{ 'add_elements.SIZE_LABEL' | translate }}</th>
+                <th class="report-elem">{{ configMenu.U.userInfo.currency }}</th>
+              </tr>
+              <tr ng-repeat="report in configMenu.P.product.report | filter: {element_group_id: configMenu.config.reportFilterId}" class="report-item">
                 <td class="report-elem">{{report.element_id}}</td>
                 <td class="report-elem">{{report.name}}</td>
                 <td class="report-elem">{{report.amount}}</td>
                 <td class="report-elem">{{report.size}}</td>
-                <td class="report-elem">{{report.price}}</td>
+                <td class="report-elem">{{report.priceReal}}</td>
               </tr>
             </table>
           </div>

@@ -49,7 +49,8 @@
         {label: 'ru', name: 'Русский'},
         {label: 'en', name: 'English'},
         {label: 'de', name: 'Deutsch'},
-        {label: 'ro', name: 'Român'}
+        {label: 'ro', name: 'Român'},
+        {label: 'it', name: 'Italiano'}
       ]
 
     });

@@ -13,478 +13,475 @@
   function globalDBFactory($http, $q, globalConstants, GeneralServ, UserStor) {
     var thisFactory = this,
         db = openDatabase('bauvoice', '1.0', 'bauvoice', 5000000),
-//        elemLists = [],
-        elemListsHw = [],
-        elemListsAdd = [],
 
         tablesLocalDB = {
           'addition_folders': {
             'tableName': 'addition_folders',
-              'prop': 'name VARCHAR(255),' +
-            ' addition_type_id INTEGER,' +
-            ' factory_id INTEGER,' +
-            ' position INTEGER,' +
-            ' img VARCHAR,' +
-            ' description VARCHAR,' +
-            ' link VARCHAR',
-              'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(addition_type_id) REFERENCES addition_types(id)'
+            'prop': 'name VARCHAR(255),' +
+              ' addition_type_id INTEGER,' +
+              ' factory_id INTEGER,' +
+              ' position INTEGER,' +
+              ' img VARCHAR,' +
+              ' description VARCHAR,' +
+              ' link VARCHAR',
+            'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(addition_type_id) REFERENCES addition_types(id)'
           },
           'cities': {
             'tableName': 'cities',
-              'prop': 'name VARCHAR(255), region_id INTEGER, transport VARCHAR(2)',
-              'foreignKey': ', FOREIGN KEY(region_id) REFERENCES regions(id)'
+            'prop': 'name VARCHAR(255), region_id INTEGER, transport VARCHAR(2)',
+            'foreignKey': ', FOREIGN KEY(region_id) REFERENCES regions(id)'
           },
           'countries': {
             'tableName': 'countries',
-              'prop': 'name VARCHAR(255), currency_id INTEGER',
-              'foreignKey': ', FOREIGN KEY(currency_id) REFERENCES currencies(id)'
+            'prop': 'name VARCHAR(255), currency_id INTEGER',
+            'foreignKey': ', FOREIGN KEY(currency_id) REFERENCES currencies(id)'
           },
           'currencies': {
             'tableName': 'currencies',
-              'prop': 'name VARCHAR(100), value NUMERIC(10, 2), factory_id INTEGER, is_base INTEGER',
-              'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id)'
+            'prop': 'name VARCHAR(100), value NUMERIC(10, 2), factory_id INTEGER, is_base INTEGER',
+            'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id)'
           },
           'directions': {
             'tableName': 'directions',
-              'prop': 'name VARCHAR(255)',
-              'foreignKey': ''
+            'prop': 'name VARCHAR(255)',
+            'foreignKey': ''
           },
           'elements_groups': {
             'tableName': 'elements_groups',
-              'prop': 'name VARCHAR(255), base_unit INTEGER, position INTEGER',
-              'foreignKey': ''
+            'prop': 'name VARCHAR(255), base_unit INTEGER, position INTEGER',
+            'foreignKey': ''
           },
           'beed_profile_systems': {
             'tableName': 'beed_profile_systems',
-              'prop': 'profile_system_id INTEGER, list_id INTEGER, glass_width INTEGER',
-              'foreignKey': ', FOREIGN KEY(list_id) REFERENCES lists(id)'
+            'prop': 'profile_system_id INTEGER, list_id INTEGER, glass_width INTEGER',
+            'foreignKey': ', FOREIGN KEY(list_id) REFERENCES lists(id)'
           },
           'factories': {
             'tableName': 'factories',
-              'prop': 'name VARCHAR(255), app_token VARCHAR',
-              'foreignKey': ''
+            'prop': 'name VARCHAR(255), app_token VARCHAR',
+            'foreignKey': ''
           },
           'glass_folders': {
             'tableName': 'glass_folders',
-              'prop': 'name VARCHAR(255),' +
-            ' img VARCHAR,' +
-            ' position INTEGER,' +
-            ' factory_id INTEGER,' +
-            ' description VARCHAR,' +
-            ' link VARCHAR,' +
-            ' is_base INTEGER',
-              'foreignKey': ''
+            'prop': 'name VARCHAR(255),' +
+              ' img VARCHAR,' +
+              ' position INTEGER,' +
+              ' factory_id INTEGER,' +
+              ' description VARCHAR,' +
+              ' link VARCHAR,' +
+              ' is_base INTEGER',
+            'foreignKey': ''
           },
           'glass_prices': {
             'tableName': 'glass_prices',
-              'prop': 'element_id INTEGER,' +
-            ' col_1_range NUMERIC(10, 2),' +
-            ' col_1_price NUMERIC(10, 2),' +
-            ' col_2_range_1 NUMERIC(10, 2),' +
-            ' col_2_range_2 NUMERIC(10, 2),' +
-            ' col_2_price NUMERIC(10, 2),' +
-            ' col_3_range_1 NUMERIC(10, 2),' +
-            ' col_3_range_2 NUMERIC(10, 2),' +
-            ' col_3_price NUMERIC(10, 2),' +
-            ' col_4_range_1 NUMERIC(10, 2),' +
-            ' col_4_range_2 NUMERIC(10, 2),' +
-            ' col_4_price NUMERIC(10, 2),' +
-            ' col_5_range NUMERIC(10, 2),' +
-            ' col_5_price NUMERIC(10, 2),' +
-            ' table_width INTEGER',
-              'foreignKey': ''
+            'prop': 'element_id INTEGER,' +
+              ' col_1_range NUMERIC(10, 2),' +
+              ' col_1_price NUMERIC(10, 2),' +
+              ' col_2_range_1 NUMERIC(10, 2),' +
+              ' col_2_range_2 NUMERIC(10, 2),' +
+              ' col_2_price NUMERIC(10, 2),' +
+              ' col_3_range_1 NUMERIC(10, 2),' +
+              ' col_3_range_2 NUMERIC(10, 2),' +
+              ' col_3_price NUMERIC(10, 2),' +
+              ' col_4_range_1 NUMERIC(10, 2),' +
+              ' col_4_range_2 NUMERIC(10, 2),' +
+              ' col_4_price NUMERIC(10, 2),' +
+              ' col_5_range NUMERIC(10, 2),' +
+              ' col_5_price NUMERIC(10, 2),' +
+              ' table_width INTEGER',
+            'foreignKey': ''
           },
           'lamination_factory_colors': {
             'tableName': 'lamination_factory_colors',
-              'prop': 'name VARCHAR(255), lamination_type_id INTEGER, factory_id INTEGER',
-              'foreignKey': ', FOREIGN KEY(lamination_type_id) REFERENCES lamination_default_colors(id), FOREIGN KEY(factory_id) REFERENCES factories(id)'
+            'prop': 'name VARCHAR(255), lamination_type_id INTEGER, factory_id INTEGER',
+            'foreignKey': ', FOREIGN KEY(lamination_type_id) REFERENCES lamination_default_colors(id), FOREIGN KEY(factory_id) REFERENCES factories(id)'
           },
           'lamination_types': {
             'tableName': 'lamination_types',
-              'prop': 'name VARCHAR(255)',
-              'foreignKey': ''
+            'prop': 'name VARCHAR(255)',
+            'foreignKey': ''
           },
           'lists_groups': {
             'tableName': 'lists_groups',
-              'prop': 'name VARCHAR(255)',
-              'foreignKey': ''
+            'prop': 'name VARCHAR(255)',
+            'foreignKey': ''
           },
           'lists_types': {
             'tableName': 'lists_types',
-              'prop': 'name VARCHAR(255), image_add_param VARCHAR(100)',
-              'foreignKey': ''
+            'prop': 'name VARCHAR(255), image_add_param VARCHAR(100)',
+            'foreignKey': ''
           },
           'margin_types': {
             'tableName': 'margin_types',
-              'prop': 'name VARCHAR(255)',
-              'foreignKey': ''
+            'prop': 'name VARCHAR(255)',
+            'foreignKey': ''
           },
           'options_discounts': {
             'tableName': 'options_discounts',
-              'prop': 'factory_id INTEGER,' +
-            ' min_time INTEGER,' +
-            ' standart_time INTEGER,' +
-            ' base_time INTEGER,' +
-            ' week_1 INTEGER,' +
-            ' week_2 INTEGER,' +
-            ' week_3 INTEGER,' +
-            ' week_4 INTEGER,' +
-            ' week_5 INTEGER,' +
-            ' week_6 INTEGER,' +
-            ' week_7 INTEGER,' +
-            ' week_8 INTEGER,' +
-            ' percents ARRAY',
-              'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id)'
+            'prop': 'factory_id INTEGER,' +
+              ' min_time INTEGER,' +
+              ' standart_time INTEGER,' +
+              ' base_time INTEGER,' +
+              ' week_1 INTEGER,' +
+              ' week_2 INTEGER,' +
+              ' week_3 INTEGER,' +
+              ' week_4 INTEGER,' +
+              ' week_5 INTEGER,' +
+              ' week_6 INTEGER,' +
+              ' week_7 INTEGER,' +
+              ' week_8 INTEGER,' +
+              ' percents ARRAY',
+            'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id)'
           },
           'elements': {
             'tableName': 'elements',
-              'prop': 'sku VARCHAR(100),' +
-            ' name VARCHAR(255),' +
-            ' element_group_id INTEGER,' +
-            ' currency_id INTEGER,' +
-            ' supplier_id INTEGER,' +
-            ' margin_id INTEGER,' +
-            ' waste NUMERIC(10, 2),' +
-            ' is_optimized INTEGER,' +
-            ' is_virtual INTEGER,' +
-            ' is_additional INTEGER,' +
-            ' weight_accounting_unit NUMERIC(10, 3),' +
-            ' glass_folder_id INTEGER,' +
-            ' min_width NUMERIC,' +
-            ' min_height NUMERIC,' +
-            ' max_width NUMERIC,' +
-            ' max_height NUMERIC,' +
-            ' max_sq NUMERIC,' +
-            ' transcalency NUMERIC(10, 2),' +
-            ' glass_width INTEGER,' +
-            ' factory_id INTEGER,' +
-            ' price NUMERIC(10, 2),' +
-            ' amendment_pruning NUMERIC(10, 2),' +
-            ' noise_coeff INTEGER,' +
-            ' heat_coeff INTEGER,' +
-            ' lamination_in_id INTEGER,' +
-            ' lamination_out_id INTEGER',
-              'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(glass_folder_id) REFERENCES glass_folders(id), FOREIGN KEY(margin_id) REFERENCES margin_types(id), FOREIGN KEY(supplier_id) REFERENCES suppliers(id), FOREIGN KEY(currency_id) REFERENCES currencies(id), FOREIGN KEY(element_group_id) REFERENCES elements_groups(id)'
+            'prop': 'sku VARCHAR(100),' +
+              ' name VARCHAR(255),' +
+              ' element_group_id INTEGER,' +
+              ' currency_id INTEGER,' +
+              ' supplier_id INTEGER,' +
+              ' margin_id INTEGER,' +
+              ' waste NUMERIC(10, 2),' +
+              ' is_optimized INTEGER,' +
+              ' is_virtual INTEGER,' +
+              ' is_additional INTEGER,' +
+              ' weight_accounting_unit NUMERIC(10, 3),' +
+              ' glass_folder_id INTEGER,' +
+              ' min_width NUMERIC,' +
+              ' min_height NUMERIC,' +
+              ' max_width NUMERIC,' +
+              ' max_height NUMERIC,' +
+              ' max_sq NUMERIC,' +
+              ' transcalency NUMERIC(10, 2),' +
+              ' glass_width INTEGER,' +
+              ' factory_id INTEGER,' +
+              ' price NUMERIC(10, 2),' +
+              ' amendment_pruning NUMERIC(10, 2),' +
+              ' noise_coeff INTEGER,' +
+              ' heat_coeff INTEGER,' +
+              ' lamination_in_id INTEGER,' +
+              ' lamination_out_id INTEGER',
+            'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(glass_folder_id) REFERENCES glass_folders(id), FOREIGN KEY(margin_id) REFERENCES margin_types(id), FOREIGN KEY(supplier_id) REFERENCES suppliers(id), FOREIGN KEY(currency_id) REFERENCES currencies(id), FOREIGN KEY(element_group_id) REFERENCES elements_groups(id)'
           },
           'profile_system_folders': {
             'tableName': 'profile_system_folders',
-              'prop': 'name VARCHAR(255),' +
-            ' factory_id INTEGER,' +
-            ' position INTEGER,' +
-            ' link VARCHAR,' +
-            ' description VARCHAR,' +
-            ' img VARCHAR',
-              'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id)'
+            'prop': 'name VARCHAR(255),' +
+              ' factory_id INTEGER,' +
+              ' position INTEGER,' +
+              ' link VARCHAR,' +
+              ' description VARCHAR,' +
+              ' img VARCHAR',
+            'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id)'
           },
           'profile_systems': {
             'tableName': 'profile_systems',
-              'prop': 'name VARCHAR(255),' +
-            ' short_name VARCHAR(100),' +
-            ' folder_id INTEGER,' +
-            ' rama_list_id INTEGER,' +
-            ' rama_still_list_id INTEGER,' +
-            ' stvorka_list_id INTEGER,' +
-            ' impost_list_id INTEGER,' +
-            ' shtulp_list_id INTEGER,' +
-            ' is_editable INTEGER,' +
-            ' is_default INTEGER,' +
-            ' position INTEGER,' +
-            ' country VARCHAR(100),' +
-            ' cameras INTEGER,' +
-            ' heat_coeff INTEGER,' +
-            ' noise_coeff INTEGER,' +
-            ' heat_coeff_value NUMERIC',
-              'foreignKey': ''
+            'prop': 'name VARCHAR(255),' +
+              ' short_name VARCHAR(100),' +
+              ' folder_id INTEGER,' +
+              ' rama_list_id INTEGER,' +
+              ' rama_still_list_id INTEGER,' +
+              ' stvorka_list_id INTEGER,' +
+              ' impost_list_id INTEGER,' +
+              ' shtulp_list_id INTEGER,' +
+              ' is_editable INTEGER,' +
+              ' is_default INTEGER,' +
+              ' position INTEGER,' +
+              ' country VARCHAR(100),' +
+              ' cameras INTEGER,' +
+              ' heat_coeff INTEGER,' +
+              ' noise_coeff INTEGER,' +
+              ' heat_coeff_value NUMERIC',
+            'foreignKey': ''
           },
           'rules_types': {
             'tableName': 'rules_types',
-              'prop': 'name VARCHAR(255), parent_unit INTEGER, child_unit INTEGER, suffix VARCHAR(15)',
-              'foreignKey': ''
+            'prop': 'name VARCHAR(255), parent_unit INTEGER, child_unit INTEGER, suffix VARCHAR(15)',
+            'foreignKey': ''
           },
           'regions': {
             'tableName': 'regions',
-              'prop': 'name VARCHAR(255), country_id INTEGER, heat_transfer NUMERIC(10, 2), climatic_zone NUMERIC',
-              'foreignKey': ', FOREIGN KEY(country_id) REFERENCES countries(id)'
+            'prop': 'name VARCHAR(255), country_id INTEGER, heat_transfer NUMERIC(10, 2), climatic_zone NUMERIC',
+            'foreignKey': ', FOREIGN KEY(country_id) REFERENCES countries(id)'
           },
           'users': {
             'tableName': 'users',
-              'prop':
-            'email VARCHAR(255),' +
-            ' password VARCHAR(255),' +
-            ' factory_id INTEGER,' +
-            ' name VARCHAR(255),' +
-            ' phone VARCHAR(100),' +
-            ' locked INTEGER,' +
-            ' user_type INTEGER,' +
-            ' city_phone VARCHAR(100),' +
-            ' city_id INTEGER,' +
-            ' fax VARCHAR(100),' +
-            ' avatar VARCHAR(255),' +
-            ' birthday DATE,' +
-            ' sex VARCHAR(100),' +
-            ' mount_mon NUMERIC(5,2),' +
-            ' mount_tue NUMERIC(5,2),' +
-            ' mount_wed NUMERIC(5,2),' +
-            ' mount_thu NUMERIC(5,2),' +
-            ' mount_fri NUMERIC(5,2),' +
-            ' mount_sat NUMERIC(5,2),' +
-            ' mount_sun NUMERIC(5,2),' +
-            ' device_code VARCHAR(250),'+
-            ' last_sync TIMESTAMP,' +
-            ' address VARCHAR',
-              'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id)'
+            'prop':
+              'email VARCHAR(255),' +
+              ' password VARCHAR(255),' +
+              ' factory_id INTEGER,' +
+              ' name VARCHAR(255),' +
+              ' phone VARCHAR(100),' +
+              ' locked INTEGER,' +
+              ' user_type INTEGER,' +
+              ' city_phone VARCHAR(100),' +
+              ' city_id INTEGER,' +
+              ' fax VARCHAR(100),' +
+              ' avatar VARCHAR(255),' +
+              ' birthday DATE,' +
+              ' sex VARCHAR(100),' +
+              ' mount_mon NUMERIC(5,2),' +
+              ' mount_tue NUMERIC(5,2),' +
+              ' mount_wed NUMERIC(5,2),' +
+              ' mount_thu NUMERIC(5,2),' +
+              ' mount_fri NUMERIC(5,2),' +
+              ' mount_sat NUMERIC(5,2),' +
+              ' mount_sun NUMERIC(5,2),' +
+              ' device_code VARCHAR(250),'+
+              ' last_sync TIMESTAMP,' +
+              ' address VARCHAR',
+            'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(city_id) REFERENCES cities(id)'
           },
           'users_discounts': {
             'tableName': 'users_discounts',
-              'prop': 'user_id INTEGER,' +
-            ' max_construct NUMERIC(5,1),' +
-            ' max_add_elem NUMERIC(5,1),' +
-            ' default_construct NUMERIC(5,1),' +
-            ' default_add_elem NUMERIC(5,1),' +
-            ' week_1_construct NUMERIC(5,1),' +
-            ' week_1_add_elem NUMERIC(5,1),' +
-            ' week_2_construct NUMERIC(5,1),' +
-            ' week_2_add_elem NUMERIC(5,1),' +
-            ' week_3_construct NUMERIC(5,1),' +
-            ' week_3_add_elem NUMERIC(5,1),' +
-            ' week_4_construct NUMERIC(5,1),' +
-            ' week_4_add_elem NUMERIC(5,1),' +
-            ' week_5_construct NUMERIC(5,1),' +
-            ' week_5_add_elem NUMERIC(5,1),' +
-            ' week_6_construct NUMERIC(5,1),' +
-            ' week_6_add_elem NUMERIC(5,1),' +
-            ' week_7_construct NUMERIC(5,1),' +
-            ' week_7_add_elem NUMERIC(5,1),' +
-            ' week_8_construct NUMERIC(5,1),' +
-            ' week_8_add_elem NUMERIC(5,1)',
-              'foreignKey': ''
+            'prop': 'user_id INTEGER,' +
+              ' max_construct NUMERIC(5,1),' +
+              ' max_add_elem NUMERIC(5,1),' +
+              ' default_construct NUMERIC(5,1),' +
+              ' default_add_elem NUMERIC(5,1),' +
+              ' week_1_construct NUMERIC(5,1),' +
+              ' week_1_add_elem NUMERIC(5,1),' +
+              ' week_2_construct NUMERIC(5,1),' +
+              ' week_2_add_elem NUMERIC(5,1),' +
+              ' week_3_construct NUMERIC(5,1),' +
+              ' week_3_add_elem NUMERIC(5,1),' +
+              ' week_4_construct NUMERIC(5,1),' +
+              ' week_4_add_elem NUMERIC(5,1),' +
+              ' week_5_construct NUMERIC(5,1),' +
+              ' week_5_add_elem NUMERIC(5,1),' +
+              ' week_6_construct NUMERIC(5,1),' +
+              ' week_6_add_elem NUMERIC(5,1),' +
+              ' week_7_construct NUMERIC(5,1),' +
+              ' week_7_add_elem NUMERIC(5,1),' +
+              ' week_8_construct NUMERIC(5,1),' +
+              ' week_8_add_elem NUMERIC(5,1)',
+            'foreignKey': ''
           },
           'lists': {
             'tableName': 'lists',
-              'prop': 'name VARCHAR(255),' +
-            ' list_group_id INTEGER,' +
-            ' list_type_id INTEGER,' +
-            ' a NUMERIC(10, 2),' +
-            ' b NUMERIC(10, 2),' +
-            ' c NUMERIC(10, 2),' +
-            ' d NUMERIC(10, 2),' +
-            ' parent_element_id INTEGER,' +
-            ' position NUMERIC,' +
-            ' add_color_id INTEGER,' +
-            ' addition_folder_id INTEGER,' +
-            ' amendment_pruning NUMERIC(10, 2),' +
-            ' waste NUMERIC(10, 2),' +
-            ' cameras INTEGER,' +
-            ' link VARCHAR,' +
-            ' description VARCHAR,' +
-            ' img VARCHAR',
-              'foreignKey': ', FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id)'
+            'prop': 'name VARCHAR(255),' +
+              ' list_group_id INTEGER,' +
+              ' list_type_id INTEGER,' +
+              ' a NUMERIC(10, 2),' +
+              ' b NUMERIC(10, 2),' +
+              ' c NUMERIC(10, 2),' +
+              ' d NUMERIC(10, 2),' +
+              ' parent_element_id INTEGER,' +
+              ' position NUMERIC,' +
+              ' add_color_id INTEGER,' +
+              ' addition_folder_id INTEGER,' +
+              ' amendment_pruning NUMERIC(10, 2),' +
+              ' waste NUMERIC(10, 2),' +
+              ' cameras INTEGER,' +
+              ' link VARCHAR,' +
+              ' description VARCHAR,' +
+              ' img VARCHAR',
+            'foreignKey': ', FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(parent_element_id) REFERENCES elements(id), FOREIGN KEY(list_group_id) REFERENCES lists_groups(id), FOREIGN KEY(add_color_id) REFERENCES addition_colors(id)'
           },
           'list_contents': {
             'tableName': 'list_contents',
-              'prop': 'parent_list_id INTEGER,' +
-            ' child_id INTEGER,' +
-            ' child_type VARCHAR(255),' +
-            ' value NUMERIC(10, 3),' +
-            ' rules_type_id INTEGER,' +
-            ' direction_id INTEGER,' +
-            ' window_hardware_color_id INTEGER,' +
-            ' lamination_type_id INTEGER',
-              'foreignKey': ', FOREIGN KEY(parent_list_id) REFERENCES lists(id), FOREIGN KEY(rules_type_id) REFERENCES rules_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(lamination_type_id) REFERENCES lamination_types(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id)'
+            'prop': 'parent_list_id INTEGER,' +
+              ' child_id INTEGER,' +
+              ' child_type VARCHAR(255),' +
+              ' value NUMERIC(10, 3),' +
+              ' rules_type_id INTEGER,' +
+              ' direction_id INTEGER,' +
+              ' window_hardware_color_id INTEGER,' +
+              ' lamination_type_id INTEGER',
+            'foreignKey': ', FOREIGN KEY(parent_list_id) REFERENCES lists(id), FOREIGN KEY(rules_type_id) REFERENCES rules_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(lamination_type_id) REFERENCES lamination_types(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id)'
           },
           'window_hardware_types': {
             'tableName': 'window_hardware_types',
-              'prop': 'name VARCHAR(255), short_name VARCHAR(100)',
-              'foreignKey': ''
+            'prop': 'name VARCHAR(255), short_name VARCHAR(100)',
+            'foreignKey': ''
           },
           'window_hardware_folders': {
             'tableName': 'window_hardware_folders',
-              'prop': 'name VARCHAR,' +
-            ' factory_id INTEGER,'+
-            ' link VARCHAR,' +
-            ' description VARCHAR,' +
-            ' img VARCHAR',
-              'foreignKey': ''
+            'prop': 'name VARCHAR,' +
+              ' factory_id INTEGER,'+
+              ' link VARCHAR,' +
+              ' description VARCHAR,' +
+              ' img VARCHAR',
+            'foreignKey': ''
           },
 
           'window_hardware_groups': {
             'tableName': 'window_hardware_groups',
-              'prop': 'name VARCHAR(255),' +
-            ' short_name VARCHAR(100),' +
-            ' folder_id INTEGER,' +
-            ' is_editable INTEGER,' +
-            ' is_group INTEGER,' +
-            ' is_in_calculation INTEGER,' +
-            ' base_type_id INTEGER,' +
-            ' position INTEGER,' +
-            ' producer VARCHAR(255),' +
-            ' country VARCHAR(255),' +
-            ' noise_coeff INTEGER,' +
-            ' heat_coeff INTEGER,' +
-            ' link VARCHAR,' +
-            ' description VARCHAR,' +
-            ' img VARCHAR',
-              'foreignKey': ', FOREIGN KEY(base_type_id) REFERENCES window_hardware_types_base(id)'
+            'prop': 'name VARCHAR(255),' +
+              ' short_name VARCHAR(100),' +
+              ' folder_id INTEGER,' +
+              ' is_editable INTEGER,' +
+              ' is_group INTEGER,' +
+              ' is_in_calculation INTEGER,' +
+              ' base_type_id INTEGER,' +
+              ' position INTEGER,' +
+              ' producer VARCHAR(255),' +
+              ' country VARCHAR(255),' +
+              ' noise_coeff INTEGER,' +
+              ' heat_coeff INTEGER,' +
+              ' link VARCHAR,' +
+              ' description VARCHAR,' +
+              ' img VARCHAR',
+            'foreignKey': ', FOREIGN KEY(base_type_id) REFERENCES window_hardware_types_base(id)'
           },
           'window_hardwares': {
             'tableName': 'window_hardwares',
-              'prop': 'window_hardware_type_id INTEGER,' +
-            ' min_width INTEGER,' +
-            ' max_width INTEGER,' +
-            ' min_height INTEGER,' +
-            ' max_height INTEGER,' +
-            ' direction_id INTEGER,' +
-            ' window_hardware_color_id INTEGER,' +
-            ' length INTEGER,' +
-            ' count INTEGER,' +
-            ' child_id INTEGER,' +
-            ' child_type VARCHAR(100),' +
-            ' position INTEGER,' +
-            ' factory_id INTEGER,' +
-            ' window_hardware_group_id INTEGER',
-              'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(window_hardware_type_id) REFERENCES window_hardware_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(window_hardware_group_id) REFERENCES window_hardware_groups(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id)'
+            'prop': 'window_hardware_type_id INTEGER,' +
+              ' min_width INTEGER,' +
+              ' max_width INTEGER,' +
+              ' min_height INTEGER,' +
+              ' max_height INTEGER,' +
+              ' direction_id INTEGER,' +
+              ' window_hardware_color_id INTEGER,' +
+              ' length INTEGER,' +
+              ' count INTEGER,' +
+              ' child_id INTEGER,' +
+              ' child_type VARCHAR(100),' +
+              ' position INTEGER,' +
+              ' factory_id INTEGER,' +
+              ' window_hardware_group_id INTEGER',
+            'foreignKey': ', FOREIGN KEY(factory_id) REFERENCES factories(id), FOREIGN KEY(window_hardware_type_id) REFERENCES window_hardware_types(id), FOREIGN KEY(direction_id) REFERENCES directions(id), FOREIGN KEY(window_hardware_group_id) REFERENCES window_hardware_groups(id), FOREIGN KEY(window_hardware_color_id) REFERENCES window_hardware_colors(id)'
           },
           'window_hardware_colors': {
             'tableName': 'window_hardware_colors',
-              'prop': 'name VARCHAR(255)',
-              'foreignKey': ''
+            'prop': 'name VARCHAR(255)',
+            'foreignKey': ''
           },
           'window_hardware_handles': {
             'tableName': 'window_hardware_handles',
-              'prop': 'element_id INTEGER, location VARCHAR(255), constant_value NUMERIC(10, 2)',
-              'foreignKey': ''
+            'prop': 'element_id INTEGER, location VARCHAR(255), constant_value NUMERIC(10, 2)',
+            'foreignKey': ''
           },
 
 
           'elements_profile_systems': {
             'tableName': 'elements_profile_systems',
-              'prop': 'profile_system_id INTEGER, element_id INTEGER',
-              'foreignKey': ''
+            'prop': 'profile_system_id INTEGER, element_id INTEGER',
+            'foreignKey': ''
           },
           'orders': {
             'tableName': 'orders',
-              'prop':
-            'order_number VARCHAR,' +
-            ' order_hz VARCHAR,' +
-            ' order_date TIMESTAMP,' +
-            ' order_type INTEGER,' +
-            ' order_style VARCHAR,' +
-            ' user_id INTEGER,' +
-            ' created TIMESTAMP,' +
-            ' additional_payment VARCHAR,' +
-            ' sended TIMESTAMP,' +
-            ' state_to TIMESTAMP,' +
-            ' state_buch TIMESTAMP,' +
-            ' batch VARCHAR,' +
-            ' base_price NUMERIC(13, 2),' +
-            ' factory_margin NUMERIC(11, 2),'+
-            ' factory_id INTEGER,' +
-            ' purchase_price NUMERIC(10, 2),' +
-            ' sale_price NUMERIC(10, 2),' +
-            ' climatic_zone INTEGER,' +
-            ' heat_coef_min NUMERIC,' +
+            'prop':
+              'order_number VARCHAR,' +
+              ' order_hz VARCHAR,' +
+              ' order_date TIMESTAMP,' +
+              ' order_type INTEGER,' +
+              ' order_style VARCHAR,' +
+              ' user_id INTEGER,' +
+              ' created TIMESTAMP,' +
+              ' additional_payment VARCHAR,' +
+              ' sended TIMESTAMP,' +
+              ' state_to TIMESTAMP,' +
+              ' state_buch TIMESTAMP,' +
+              ' batch VARCHAR,' +
+              ' base_price NUMERIC(13, 2),' +
+              ' factory_margin NUMERIC(11, 2),'+
+              ' factory_id INTEGER,' +
+              ' purchase_price NUMERIC(10, 2),' +
+              ' sale_price NUMERIC(10, 2),' +
+              ' climatic_zone INTEGER,' +
+              ' heat_coef_min NUMERIC,' +
 
-            ' products_qty INTEGER,' +
-            ' templates_price NUMERIC,' +
-            ' addelems_price NUMERIC,' +
-            ' products_price NUMERIC,'+
+              ' products_qty INTEGER,' +
+              ' templates_price NUMERIC,' +
+              ' addelems_price NUMERIC,' +
+              ' products_price NUMERIC,'+
 
-            ' delivery_date TIMESTAMP,' +
-            ' new_delivery_date TIMESTAMP,' +
-            ' delivery_price NUMERIC,'+
-            ' is_date_price_less INTEGER,' +
-            ' is_date_price_more INTEGER,' +
-            ' floor_id INTEGER,' +
-            ' floor_price NUMERIC,' +
-            ' mounting_id INTEGER,' +
-            ' mounting_price NUMERIC,'+
-            ' is_instalment INTEGER,' +
-            ' instalment_id INTEGER,' +
+              ' delivery_date TIMESTAMP,' +
+              ' new_delivery_date TIMESTAMP,' +
+              ' delivery_price NUMERIC,'+
+              ' is_date_price_less INTEGER,' +
+              ' is_date_price_more INTEGER,' +
+              ' floor_id INTEGER,' +
+              ' floor_price NUMERIC,' +
+              ' mounting_id INTEGER,' +
+              ' mounting_price NUMERIC,'+
+              ' is_instalment INTEGER,' +
+              ' instalment_id INTEGER,' +
 
-            ' is_old_price INTEGER,' +
-            ' payment_first NUMERIC,' +
-            ' payment_monthly NUMERIC,' +
-            ' payment_first_primary NUMERIC,' +
-            ' payment_monthly_primary NUMERIC,' +
-            ' order_price NUMERIC,' +
-            ' order_price_dis NUMERIC,' +
-            ' order_price_primary NUMERIC,' +
+              ' is_old_price INTEGER,' +
+              ' payment_first NUMERIC,' +
+              ' payment_monthly NUMERIC,' +
+              ' payment_first_primary NUMERIC,' +
+              ' payment_monthly_primary NUMERIC,' +
+              ' order_price NUMERIC,' +
+              ' order_price_dis NUMERIC,' +
+              ' order_price_primary NUMERIC,' +
 
-            ' discount_construct NUMERIC,' +
-            ' discount_addelem NUMERIC,' +
-            ' customer_name TEXT,' +
-            ' customer_email TEXT,' +
-            ' customer_phone VARCHAR(30),' +
-            ' customer_phone_city VARCHAR(20),' +
-            ' customer_city VARCHAR,' +
-            ' customer_address TEXT,' +
-            ' customer_location VARCHAR,' +
-            ' customer_itn INTEGER,' +
-            ' customer_starttime VARCHAR,' +
-            ' customer_endtime VARCHAR,' +
-            ' customer_target VARCHAR,' +
-            ' customer_sex INTEGER,' +
-            ' customer_age INTEGER,' +
-            ' customer_education INTEGER,' +
-            ' customer_occupation INTEGER,' +
-            ' customer_infoSource INTEGER',
-              'foreignKey': ''
+              ' discount_construct NUMERIC,' +
+              ' discount_addelem NUMERIC,' +
+              ' customer_name TEXT,' +
+              ' customer_email TEXT,' +
+              ' customer_phone VARCHAR(30),' +
+              ' customer_phone_city VARCHAR(20),' +
+              ' customer_city VARCHAR,' +
+              ' customer_address TEXT,' +
+              ' customer_location VARCHAR,' +
+              ' customer_itn INTEGER,' +
+              ' customer_starttime VARCHAR,' +
+              ' customer_endtime VARCHAR,' +
+              ' customer_target VARCHAR,' +
+              ' customer_sex INTEGER,' +
+              ' customer_age INTEGER,' +
+              ' customer_education INTEGER,' +
+              ' customer_occupation INTEGER,' +
+              ' customer_infoSource INTEGER',
+            'foreignKey': ''
           },
           'order_products': {
             'tableName': 'order_products',
-              'prop':
-            'order_id NUMERIC,' +
-            ' product_id INTEGER,' +
-            ' is_addelem_only INTEGER,' +
-            ' room_id INTEGER,' +
-            ' construction_type INTEGER,' +
-            ' template_id INTEGER,' +
-            ' template_source TEXT,' +
-            ' template_width NUMERIC,' +
-            ' template_height NUMERIC,' +
-            ' template_square NUMERIC,' +
-            ' profile_id INTEGER,' +
-            ' glass_id VARCHAR,' +
-            ' hardware_id INTEGER,' +
-            ' lamination_out_id INTEGER,' +
-            ' lamination_in_id INTEGER,' +
-            ' door_shape_id INTEGER,' +
-            ' door_sash_shape_id INTEGER,' +
-            ' door_handle_shape_id INTEGER,' +
-            ' door_lock_shape_id INTEGER,' +
-            ' heat_coef_total NUMERIC,' +
-            ' template_price NUMERIC,' +
-            ' addelem_price NUMERIC,' +
-            ' product_price NUMERIC,' +
-            ' comment TEXT,' +
-            ' product_qty INTEGER',
-              'foreignKey': ''
+            'prop':
+              'order_id NUMERIC,' +
+              ' product_id INTEGER,' +
+              ' is_addelem_only INTEGER,' +
+              ' room_id INTEGER,' +
+              ' construction_type INTEGER,' +
+              ' template_id INTEGER,' +
+              ' template_source TEXT,' +
+              ' template_width NUMERIC,' +
+              ' template_height NUMERIC,' +
+              ' template_square NUMERIC,' +
+              ' profile_id INTEGER,' +
+              ' glass_id VARCHAR,' +
+              ' hardware_id INTEGER,' +
+              ' lamination_out_id INTEGER,' +
+              ' lamination_in_id INTEGER,' +
+              ' door_shape_id INTEGER,' +
+              ' door_sash_shape_id INTEGER,' +
+              ' door_handle_shape_id INTEGER,' +
+              ' door_lock_shape_id INTEGER,' +
+              ' heat_coef_total NUMERIC,' +
+              ' template_price NUMERIC,' +
+              ' addelem_price NUMERIC,' +
+              ' product_price NUMERIC,' +
+              ' comment TEXT,' +
+              ' product_qty INTEGER',
+            'foreignKey': ''
           },
           'order_addelements': {
             'tableName': 'order_addelements',
-              'prop': 'order_id NUMERIC,' +
-            ' product_id INTEGER,' +
-            ' element_type INTEGER,' +
-            ' element_id INTEGER,' +
-            ' name VARCHAR,' +
-            ' element_width NUMERIC,' +
-            ' element_height NUMERIC,' +
-            ' element_price NUMERIC,' +
-            ' element_qty INTEGER',
-              'foreignKey': ''
+            'prop': 'order_id NUMERIC,' +
+              ' product_id INTEGER,' +
+              ' element_type INTEGER,' +
+              ' element_id INTEGER,' +
+              ' name VARCHAR,' +
+              ' element_width NUMERIC,' +
+              ' element_height NUMERIC,' +
+              ' element_price NUMERIC,' +
+              ' element_qty INTEGER',
+            'foreignKey': ''
           },
           'template_groups':{
             'tableName': 'template_groups',
-              'prop': 'name VARCHAR(255)',
-              'foreignKey': ''
+            'prop': 'name VARCHAR(255)',
+            'foreignKey': ''
           },
           'templates':{
             'tableName': 'templates',
-              'prop': 'group_id INTEGER,'+
-            'name VARCHAR(255),' +
-            'icon TEXT,' +
-            'template_object TEXT',
-              'foreignKey': ''
+            'prop': 'group_id INTEGER,'+
+              'name VARCHAR(255),' +
+              'icon TEXT,' +
+              'template_object TEXT',
+            'foreignKey': ''
           },
 
 
@@ -492,15 +489,15 @@
           //-------- inner temables
           'analytics': {
             'tableName': 'analytics',
-              'prop': 'created TIMESTAMP, user_id INTEGER, order_id NUMERIC, element_id INTEGER, element_type INTEGER',
-              'foreignKey': ''
+            'prop': 'created TIMESTAMP, user_id INTEGER, order_id NUMERIC, element_id INTEGER, element_type INTEGER',
+            'foreignKey': ''
           },
 
           'export': {
             'tableName': 'export',
-              //          'prop': 'table_name VARCHAR, row_id INTEGER, message TEXT',
-              'prop': 'model VARCHAR, rowId INTEGER, field TEXT',
-              'foreignKey': ''
+            //          'prop': 'table_name VARCHAR, row_id INTEGER, message TEXT',
+            'prop': 'model VARCHAR, rowId INTEGER, field TEXT',
+            'foreignKey': ''
           }
         },
 
@@ -509,18 +506,18 @@
         tablesLocationLocalDB = {
           'cities': {
             'tableName': 'cities',
-              'prop': 'name VARCHAR(255), region_id INTEGER, transport VARCHAR(2)',
-              'foreignKey': ', FOREIGN KEY(region_id) REFERENCES regions(id)'
+            'prop': 'name VARCHAR(255), region_id INTEGER, transport VARCHAR(2)',
+            'foreignKey': ', FOREIGN KEY(region_id) REFERENCES regions(id)'
           },
           'countries': {
             'tableName': 'countries',
-              'prop': 'name VARCHAR(255), currency_id INTEGER',
-              'foreignKey': ', FOREIGN KEY(currency_id) REFERENCES currencies(id)'
+            'prop': 'name VARCHAR(255), currency_id INTEGER',
+            'foreignKey': ', FOREIGN KEY(currency_id) REFERENCES currencies(id)'
           },
           'regions': {
             'tableName': 'regions',
-              'prop': 'name VARCHAR(255), country_id INTEGER, heat_transfer NUMERIC(10, 2), climatic_zone NUMERIC',
-              'foreignKey': ', FOREIGN KEY(country_id) REFERENCES countries(id)'
+            'prop': 'name VARCHAR(255), country_id INTEGER, heat_transfer NUMERIC(10, 2), climatic_zone NUMERIC',
+            'foreignKey': ', FOREIGN KEY(country_id) REFERENCES countries(id)'
           }
         },
 
@@ -1206,7 +1203,7 @@
 
 
 
-//TODO old
+    //TODO old
 
     function getLastSync(callback) {
       db.transaction(function (transaction) {
@@ -1308,37 +1305,42 @@
 
     function parseMainKit(construction){
       var deff = $q.defer(),
-          promisesKit = construction.sizes.map(function(item, index) {
+          promisesKit = construction.sizes.map(function(item, index, arr) {
             var deff1 = $q.defer();
             if(item.length) {
-              if(Array.isArray(construction.ids[index])) {
-                var promisKits = construction.ids[index].map(function(item2){
-                  var deff2 = $q.defer();
-                  selectLocalDB(tablesLocalDB.lists.tableName, {id: item2}, 'parent_element_id, name').then(function(result2) {
-                    if(result2.length) {
-                      deff2.resolve(result2);
+              /** if hardware */
+              if(index === arr.length-1) {
+                deff1.resolve(0);
+              } else {
+                if(Array.isArray(construction.ids[index])) {
+                  var promisKits = construction.ids[index].map(function(item2){
+                    var deff2 = $q.defer();
+                    selectLocalDB(tablesLocalDB.lists.tableName, {id: item2}, 'parent_element_id, name').then(function(result2) {
+                      if(result2.length) {
+                        deff2.resolve(result2);
+                      } else {
+                        deff2.resolve(0);
+                      }
+                    });
+                    return deff2.promise;
+                  });
+                  $q.all(promisKits).then(function(result3) {
+                    var resQty = result3.length,
+                        collectArr = [];
+                    for(var i = 0; i < resQty; i++) {
+                      collectArr.push(result3[i][0]);
+                    }
+                    deff1.resolve(collectArr);
+                  })
+                } else {
+                  selectLocalDB(tablesLocalDB.lists.tableName, {id: construction.ids[index]}, 'parent_element_id, name').then(function(result) {
+                    if(result.length) {
+                      deff1.resolve(result[0]);
                     } else {
-                      deff2.resolve(0);
+                      deff1.resolve(0);
                     }
                   });
-                  return deff2.promise;
-                });
-                $q.all(promisKits).then(function(result3) {
-                  var resQty = result3.length,
-                      collectArr = [];
-                  for(var i = 0; i < resQty; i++) {
-                    collectArr.push(result3[i][0]);
-                  }
-                  deff1.resolve(collectArr);
-                })
-              } else {
-                selectLocalDB(tablesLocalDB.lists.tableName, {id: construction.ids[index]}, 'parent_element_id, name').then(function(result) {
-                  if(result.length) {
-                    deff1.resolve(result[0]);
-                  } else {
-                    deff1.resolve(0);
-                  }
-                });
+                }
               }
             } else {
               deff1.resolve(0);
@@ -1394,10 +1396,12 @@
 
 
     function parseConsistElem(consists) {
-      var deff = $q.defer(),
-          promConsist = consists.map(function(item) {
-            var deff1 = $q.defer();
-            if(item) {
+      var deff = $q.defer();
+      if(consists.length) {
+        var promConsist = consists.map(function(item) {
+          var deff1 = $q.defer();
+          if(item) {
+            if(item.length) {
               var promConsistElem = item.map(function(item2) {
                 var deff2 = $q.defer();
                 if(item2.child_type === 'element') {
@@ -1417,9 +1421,15 @@
             } else {
               deff1.resolve(0);
             }
-            return deff1.promise;
-          });
-      deff.resolve($q.all(promConsist));
+          } else {
+            deff1.resolve(0);
+          }
+          return deff1.promise;
+        });
+        deff.resolve($q.all(promConsist));
+      } else {
+        deff.resolve(0);
+      }
       return deff.promise;
     }
 
@@ -1427,7 +1437,7 @@
 
     function getElementByListId(isArray, listID) {
       var deff = $q.defer();
-      selectLocalDB(tablesLocalDB.elements.tableName, {id: listID}, 'id, sku, currency_id, price, waste, name, amendment_pruning').then(function(result) {
+      selectLocalDB(tablesLocalDB.elements.tableName, {id: listID}, 'id, sku, currency_id, price, waste, name, amendment_pruning, element_group_id').then(function(result) {
         if(result.length) {
           if(isArray) {
             deff.resolve(result);
@@ -1496,12 +1506,12 @@
         }
         /** currency conversion */
         if (priceObj.currCurrencyId != constrElem.currency_id){
-          console.log('diff currency');
-          currencyExgange(priceTemp, constrElem.currency_id, priceObj.currencies);
+//          console.log('diff currency');
+          currencyExgange(priceTemp, priceObj.currCurrencyId, constrElem.currency_id, priceObj.currencies);
         }
         constrElem.qty = 1;
-        constrElem.size = angular.copy(sizeTemp);
-        constrElem.priceReal = angular.copy(priceTemp);
+        constrElem.size = GeneralServ.roundingNumbers(sizeTemp, 3);
+        constrElem.priceReal = GeneralServ.roundingNumbers(priceTemp, 3);
         priceObj.priceTotal += priceTemp;
         constrElements.push(constrElem);
       }
@@ -1511,14 +1521,27 @@
 
 
 
-    function currencyExgange(price, currencyElemId, currencies) {
+    function currencyExgange(price, currCurrencyId, currencyElemId, currencies) {
       var currencyQty = currencies.length,
-          c = 0;
+          c = 0,
+          currIndex, elemIndex;
+//      console.info('currency++++', currCurrencyId, currencyElemId, currencies);
       if(currencyQty) {
         for (; c < currencyQty; c++) {
-          if(currencies[c].id === currencyElemId){
-            price *= currencies[c].value; //TODO разные валюты умножать или делить
+          if(currencies[c].id === currCurrencyId) {
+            currIndex = c;
           }
+          if(currencies[c].id === currencyElemId){
+            elemIndex = c;
+          }
+        }
+      }
+      if(currencies[currIndex] && currencies[elemIndex]) {
+        if(currencies[currIndex].name === 'uah' && (currencies[elemIndex].name === 'eur' || currencies[elemIndex].name === 'usd')) {
+          price *= currencies[elemIndex].value;
+        }
+        if(currencies[currIndex].name !== 'uah' && currencies[elemIndex].name === 'uah') {
+          price /= currencies[currIndex].value;
         }
       }
     }
@@ -1547,7 +1570,7 @@
                 if (Array.isArray(construction.ids[group])) {
                   var idsQty = construction.ids[group].length;
                   for (var id = 0; id < idsQty; id++) {
-                    console.error('!!!!!arrays+', construction.ids[group][id]);
+//                    console.error('!!!!!arrays+', construction.ids[group][id]);
                     culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], construction.ids[group][id], wasteValue, priceObj);
                   }
                 } else {
@@ -1560,7 +1583,7 @@
           }
 
         }
-        console.log('Group - конец ---------------------');
+//        console.log('Group - конец ---------------------');
       }
 
     }
@@ -1569,25 +1592,40 @@
 
 
     function culcPriceConsistElem(group, currConsist, currConsistElem, currConstrSize, currConstrIds, wasteValue, priceObj) {
-      if (currConsist.parent_list_id === currConstrIds) {
-
-        var fullSize = (currConstrSize + currConsistElem.amendment_pruning);
-
-        currConsist.newValue = getValueByRule(fullSize, currConsist.value, currConsist.rules_type_id);
-
-        culcPriceAsRule(1, currConstrSize, currConsist, currConsistElem, wasteValue, priceObj);
-
+      /** if hardware */
+      if(group === priceObj.consist.length-1) {
+        var objTmp = angular.copy(currConsistElem),
+            priceReal = 0;
+        currConsist.newValue = angular.copy(currConsist.count);
+        priceReal = currConsist.count * currConsistElem.price * wasteValue;
+        /** currency conversion */
+        if (priceObj.currCurrencyId != currConsistElem.currency_id){
+//          console.log('diff currency');
+          currencyExgange(priceReal, priceObj.currCurrencyId, currConsistElem.currency_id, priceObj.currencies);
+        }
+        objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
+        objTmp.size = 0;
+        objTmp.qty = angular.copy(currConsist.count);
+//        console.warn('finish -------hardware------- priceTmp', objTmp);
+        priceObj.constrElements.push(objTmp);
+        priceObj.priceTotal += objTmp.priceReal;
       } else {
-        console.warn('else++++');
-        var elemQty = priceObj.consist[group].length;
-        for (var el = 0; el < elemQty; el++) {
-          if(currConsist.parent_list_id == priceObj.consist[group][el].child_id){
+        if (currConsist.parent_list_id === currConstrIds) {
+          /** if glasses */
+          var fullSize = (group === 5) ? 1 : (currConstrSize + currConsistElem.amendment_pruning);
+          currConsist.newValue = getValueByRule(fullSize, currConsist.value, currConsist.rules_type_id);
+          culcPriceAsRule(1, currConstrSize, currConsist, currConsistElem, wasteValue, priceObj);
 
-//            currConsist.newValue = getValueByRule(priceObj.consist[group][el].newValue, currConsist.value, priceObj.consist[group][el].rules_type_id);
-            currConsist.newValue = getValueByRule(priceObj.consist[group][el].newValue, currConsist.value, currConsist.rules_type_id);
+        } else {
+//          console.warn('else++++');
+          var elemQty = priceObj.consist[group].length;
+          for (var el = 0; el < elemQty; el++) {
+            if(currConsist.parent_list_id == priceObj.consist[group][el].child_id){
+              //            currConsist.newValue = getValueByRule(priceObj.consist[group][el].newValue, currConsist.value, priceObj.consist[group][el].rules_type_id);
+              currConsist.newValue = getValueByRule(priceObj.consist[group][el].newValue, currConsist.value, currConsist.rules_type_id);
+              culcPriceAsRule(currConsist.newValue, priceObj.consist[group][el].newValue, currConsist, currConsistElem, wasteValue, priceObj);
 
-            culcPriceAsRule(currConsist.newValue, priceObj.consist[group][el].newValue, currConsist, currConsistElem, wasteValue, priceObj);
-
+            }
           }
         }
       }
@@ -1595,7 +1633,7 @@
 
 
     function getValueByRule(parentValue, childValue, rule){
-      console.warn('rule++', parentValue, childValue, rule);
+//      console.warn('rule++', parentValue, childValue, rule);
       var value = 0;
       switch (rule) {
         case 1:
@@ -1623,7 +1661,7 @@
           value = childValue;
           break;
       }
-      console.warn('rule++value+++', value);
+//      console.warn('rule++value+++', value);
       return value;
     }
 
@@ -1638,51 +1676,51 @@
           sizeReal = 0,
           qtyReal = 0;
 
-      console.log('Название: ' + currConsistElem.name);
-      console.log('Цена: ' + currConsistElem.price);
-      console.log('% отхода : ' + currConsistElem.waste);
-      console.log('Поправка на обрезку : ' + currConsistElem.amendment_pruning);
-      console.log('Размер: ' + currSize + ' m');
+//      console.log('Название: ' + currConsistElem.name);
+//      console.log('Цена: ' + currConsistElem.price);
+//      console.log('% отхода : ' + currConsistElem.waste);
+//      console.log('Поправка на обрезку : ' + currConsistElem.amendment_pruning);
+//      console.log('Размер: ' + currSize + ' m');
 
       if (currConsist.rules_type_id === 3) {
         qtyReal = Math.round(currSize + currConsistElem.amendment_pruning) * currConsist.value;
         priceReal = qtyReal * currConsistElem.price * wasteValue;
 
-        console.log('Правило 3 : ' + currConsist.value + ' шт. на метр родителя');
-        console.log('Правило 3 : ', currSize, qtyReal, ' шт. на метр родителя');
+//        console.log('Правило 3 : ' + currConsist.value + ' шт. на метр родителя');
+//        console.log('Правило 3 : ', currSize, qtyReal, ' шт. на метр родителя');
 
       } else if (currConsist.rules_type_id === 2 || currConsist.rules_type_id === 4 || currConsist.rules_type_id === 15) {
 
-        console.log('Правило 2: ', currValue, currConsist.value, ' шт. на родителя');
-//        qtyReal = currValue * currConsist.value;
+//        console.log('Правило 2: ', currValue, currConsist.value, ' шт. на родителя');
+        //        qtyReal = currValue * currConsist.value;
         qtyReal = angular.copy(currConsist.value);
         priceReal = qtyReal * currConsistElem.price * wasteValue;
 
       } else if (currConsist.rules_type_id === 1) {
-        console.log('Правило 1: меньше родителя на ' + currConsist.value + ' м');
+//        console.log('Правило 1: меньше родителя на ' + currConsist.value + ' м');
 
         sizeReal = GeneralServ.roundingNumbers((currSize + currConsistElem.amendment_pruning - currConsist.value), 3);
         priceReal = sizeReal * currConsistElem.price * wasteValue;
         qtyReal = 1;
 
-        console.log('Правило 1:', currSize, currConsist.value, sizeReal);
+//        console.log('Правило 1:', currSize, currConsist.value, sizeReal);
       } else {
         sizeReal = GeneralServ.roundingNumbers((currSize + currConsistElem.amendment_pruning), 3);
         priceReal = sizeReal * currConsistElem.price * wasteValue;
         qtyReal = 1;
-        console.log('Правило else:', currSize, sizeReal);
+//        console.log('Правило else:', currSize, sizeReal);
       }
 
       /** currency conversion */
       if (priceObj.currCurrencyId != currConsistElem.currency_id){
-        console.log('diff currency');
-        currencyExgange(priceReal, currConsistElem.currency_id, priceObj.currencies);
+//        console.log('diff currency');
+        currencyExgange(priceReal, priceObj.currCurrencyId, currConsistElem.currency_id, priceObj.currencies);
       }
 
       objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
       objTmp.size = GeneralServ.roundingNumbers(sizeReal, 3);
       objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
-      console.warn('finish -------------- priceTmp', objTmp);
+//      console.warn('finish -------------- priceTmp', objTmp);
       priceObj.constrElements.push(objTmp);
       priceObj.priceTotal += objTmp.priceReal;
     }
@@ -1695,7 +1733,7 @@
     function getHardwareAsId(whId, sizes){
       var deff = $q.defer();
       selectLocalDB(tablesLocalDB.window_hardwares.tableName, {window_hardware_group_id: whId}).then(function(result) {
-//        console.warn('*****hardware = ', result);
+        //        console.warn('*****hardware = ', result);
         var resQty = result.length,
             hardwareresult = [],
             lastInd = sizes.length - 1,
@@ -1708,8 +1746,8 @@
 
               var openDirQty = sizes[lastInd][s].openDir.length,
                   isExist = 0;
-//              console.info('*****', sizes[lastInd][s].openDir, sizes[lastInd][s].sizes);
-//              console.info('*****222', result[res]);
+              //              console.info('*****', sizes[lastInd][s].openDir, sizes[lastInd][s].sizes);
+              //              console.info('*****222', result[res]);
 
               if(result[res].direction_id == 1) {
 
@@ -1758,7 +1796,7 @@
                 }
 
               }
-//console.log('isExist+++', isExist);
+              //console.log('isExist+++', isExist);
               if(isExist) {
                 if(openDirQty == 1) {
                   if(sizes[lastInd][s].openDir[0] == 2 && result[res].window_hardware_type_id == 2){
@@ -1797,7 +1835,7 @@
             });
 
             $q.all(promHardware).then(function(result) {
-              console.warn('hardware2++', result);
+//              console.warn('hardware2++', result);
               var resQty = result.length;
               if(resQty) {
                 for(var r = 0; r < resQty; r++) {
@@ -1828,7 +1866,7 @@
 
 
 
-    /** START **/
+    /** CONSTRUCTION PRICE **/
 
     function calculationPrice(construction) {
       var deffMain = $q.defer(),
@@ -1836,7 +1874,7 @@
           finishPriceObj = {};
 
       priceObj.currCurrencyId = construction.currencyId;
-console.info('START+++', construction);
+//      console.info('START+++', construction);
       /** collect Kit Children Elements*/
       var parseKitPromises = construction.sizes.map(function(item, index, arr) {
         var deff = $q.defer();
@@ -1858,26 +1896,26 @@ console.info('START+++', construction);
       });
 
       $q.all(parseKitPromises).then(function(data1) {
-        console.warn('data1!!!!!!+', data1);
+//        console.warn('consist!!!!!!+', data1);
         priceObj.consist = data1;
 
         parseMainKit(construction).then(function(data2) {
-          console.warn('data2!!!!!!+', data2);
+//          console.warn('kits!!!!!!+', data2);
           priceObj.kits = data2;
           parseKitElement(data2).then(function(data3) {
-            console.warn('data3!!!!!!+', data3);
+//            console.warn('kitsElem!!!!!!+', data3);
             priceObj.kitsElem = data3;
             parseConsistElem(priceObj.consist).then(function(data4){
-              console.warn('data4!!!!!!+', data4);
+//              console.warn('consistElem!!!!!!+', data4);
               priceObj.consistElem = data4;
               /** download all currencies */
               downloadAllCurrencies().then(function(data5) {
-                console.warn('data5!!!!!!+', data5);
+//                console.warn('currencies!!!!!!+', data5);
                 priceObj.currencies = data5;
                 priceObj.constrElements = culcKitPrice(priceObj, construction.sizes);
                 culcConsistPrice(priceObj, construction);
                 priceObj.priceTotal = GeneralServ.roundingNumbers(priceObj.priceTotal);
-                console.info('FINISH====:', priceObj);
+//                console.info('FINISH====:', priceObj);
                 finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
                 finishPriceObj.priceTotal = angular.copy(priceObj.priceTotal);
                 deffMain.resolve(finishPriceObj);
@@ -1886,820 +1924,114 @@ console.info('START+++', construction);
           });
         });
       });
-
       return deffMain.promise;
+    }
 
 
 
 
+    /** ADDELEMENT PRICE */
 
-      function next_bead(){
-console.info(priceObj);
-        /** if hardware id exists */
-        if(construction.hardwareId) {
-          getByHardwareId(construction.hardwareId, construction, function (result){
-            console.info('HardwareId', result);
-            next_tmp(result);
-          });
-        } else {
-          priceObj.hardwareIds = [];
-//          parseMainKit();
-        }
+    function getAdditionalPrice(AddElement){
+      var deffMain = $q.defer(),
+          finishPriceObj = {},
+          priceObj = {
+            constrElements: [],
+            priceTotal: 0
+          };
 
-      }
+      priceObj.currCurrencyId = AddElement.currencyId;
+//      console.info('START+++', AddElement);
+      /** collect Kit Children Elements*/
+      parseListContent(angular.copy(AddElement.elementId)).then(function (result) {
+//        console.warn('consist!!!!!!+', result);
+        priceObj.consist = result;
 
+        /** parse Kit */
+        selectLocalDB(tablesLocalDB.lists.tableName, {id: AddElement.elementId}, 'parent_element_id, name').then(function(result) {
+          if(result.length) {
+            priceObj.kits = result[0];
+//            console.warn('kits!!!!!!+', result[0]);
+            /** parse Kit Element */
+            getElementByListId(0, priceObj.kits.parent_element_id ).then(function(result){
+              priceObj.kitsElem = result;
+//              console.warn('kitsElem!!!!!!+', result);
 
+              parseConsistElem(priceObj.consist).then(function(data4){
+//                console.warn('consistElem!!!!!!+', data4);
+                priceObj.consistElem = data4;
+                /** download all currencies */
+                downloadAllCurrencies().then(function(data5) {
+//                  console.warn('currencies!!!!!!+', data5);
+                  priceObj.currencies = data5;
 
-      function next_tmp(result){
-        if (result.status) {
-          priceObj.hardwareIds = result.data;
-          elemLists = [];
-          var ifList = false;
-          for(var i = 0; i < priceObj.hardwareIds.length; i++){
-            if("lists" in priceObj.hardwareIds[i]){
-              if(priceObj.hardwareIds[i].lists.length > 0) {
-                ifList = true;
-              }
-            }
-          }
-          if(ifList){
-            next_hwlist(result.data);
-          } else {
-            parseMainKit(construction);
-          }
-        }
-      }
+                  if (AddElement.elementWidth > 0) {
 
-      function next_hwlist(result){
-        for(var i = 0; i < priceObj.hardwareIds.length; i++){
-          if("lists" in priceObj.hardwareIds[i]){
-            if(priceObj.hardwareIds[i].lists.length > 0){
-              parseListContent(priceObj.hardwareIds[i].lists[0]).then(function (result){
-                next_hwlist_res(result);
-              });
-            }
-          }
-        }
-      }
-      function next_hwlist_res(result){
-        //priceObj.hardwareIds.push({"hardwareLists":result.data});
-        for(var i = 0; i < priceObj.hardwareIds.length; i++){
-          if("lists" in priceObj.hardwareIds[i]){
-            if(priceObj.hardwareIds[i].lists.length > 0){
-              priceObj.hardwareIds.push({"hardwareLists":result, "parent_list_id":priceObj.hardwareIds[i].lists[0]});
-              priceObj.hardwareIds[i].lists.shift(0);
-            }
-          }
-        }
-        next_tmp({"status":true, "data":priceObj.hardwareIds});
-      }
+                    /** culc Kit Price */
 
+                    var priceTemp = 0,
+                        sizeTemp = 0,
+                        constrElem = angular.copy(priceObj.kitsElem);
 
+                    sizeTemp = (AddElement.elementWidth + constrElem.amendment_pruning);
+                    priceTemp = (sizeTemp * constrElem.price) * (1 + (constrElem.waste / 100));
 
-
-
-
-
-
-
-
-
-
-      function next_7(result) {
-        if(result.rows.length){
-
-
-          if(priceObj.hardwareIds.length) {
-            for (var i = 0; i < priceObj.hardwareIds.length; i++) {
-              if(priceObj.hardwareIds[i].elemLists){
-                if (priceObj.hardwareIds[i].elemLists.child_type === 'element'){
-                  if(priceObj.hardwareIds[i].elemLists.child_id > 0){
-                    getPriceById(priceObj.hardwareIds[i].elemLists.child_id, i, i, function (result){
-                      priceObj.hardwareIds[result.data.index].priceEl = result.data.currency;
-                      priceObj.hardwareIds[result.data.index].elemName = result.data.currency.name;
-                      priceObj.hardwareIds[result.data.index].pruning = result.data.currency.amendment_pruning;
-                    });
-                  }
-                } else {
-                  if(priceObj.hardwareIds[i].elemLists.child_id > 0) {
-                    getPriceByIdList(priceObj.hardwareIds[i].elemLists.child_id, i, i, function (result) {
-                      priceObj.hardwareIds[result.data.index].priceEl = result.data.currency;
-                      priceObj.hardwareIds[result.data.index].elemName = result.data.currency.name;
-                      priceObj.hardwareIds[result.data.index].pruning = result.data.currency.amendment_pruning;
-                    });
-                  }
-                }
-              }
-            }
-          }
-          //TODO!!!!!!!
-          if(priceObj.hardwareIds.length) {
-            for (var i = 0; i < priceObj.hardwareIds.length; i++) {
-              if(priceObj.hardwareIds[i].hardwareLists){
-                for (var k = 0; k < priceObj.hardwareIds[i].hardwareLists.length; k++) {
-                  if (priceObj.hardwareIds[i].hardwareLists[k].elemLists.child_type === 'element') {
-                    getPriceById(priceObj.hardwareIds[i].hardwareLists[k].elemLists.child_id, i, k, function (result) {
-                      priceObj.hardwareIds[result.data.index].hardwareLists[result.data.ix].priceEl = result.data.currency;
-                      priceObj.hardwareIds[result.data.index].hardwareLists[result.data.ix].elemName = result.data.currency.name;
-                      priceObj.hardwareIds[result.data.index].hardwareLists[result.data.ix].pruning = result.data.currency.amendment_pruning;
-                    });
-                  } else {
-                    getPriceByIdList(priceObj.hardwareIds[i].hardwareLists[k].elemLists.child_id, i, k, function (result) {
-                      priceObj.hardwareIds[result.data.index].hardwareLists[result.data.ix].priceEl = result.data.currency;
-                      priceObj.hardwareIds[result.data.index].hardwareLists[result.data.ix].elemName = result.data.currency.name;
-                      priceObj.hardwareIds[result.data.index].hardwareLists[result.data.ix].pruning = result.data.currency.amendment_pruning;
-                    });
-                  }
-                }
-              }
-            }
-          }
-
-          /** download all currencies */
-          selectLocalDB(tablesLocalDB.currencies.tableName, null, 'id, name, value').then(function(result) {
-            if(result.length) {
-              priceObj.currencies = angular.copy(result);
-              callback(new OkResult(next_8()));
-            }
-          });
-
-        } else {
-          console.log(result);
-        }
-      }
-
-
-      function next_8() {
-        priceObj.price = 0;
-
-//======== Рама - начало
-        console.log('Рама - начало ---------------------');
-        if(construction.framesSize.length) {
-          for (var i = 0; i < construction.framesSize.length; i++) {
-            if(priceObj.framesIds.length) {
-              for (var j = 0; j < priceObj.framesIds.length; j++) {
-                var priceTmp = 0;
-                if(priceObj.framesIds[j].elemLists.parent_list_id == construction.frameId){
-                  if(priceObj.framesIds[j].priceEl) {
-
-                    console.log('Название: ' + priceObj.framesIds[j].elemName);
-                    console.log('Размер: ' + (construction.framesSize[i] / 1000).toFixed(3) + ' м');
-                    console.log('Цена: ' + priceObj.framesIds[j].priceEl.price);
-                    console.log('% отхода : ' + priceObj.framesIds[j].priceEl.waste);
-                    console.log('Поправка на обрезку : ' + priceObj.framesIds[j].priceEl.amendment_pruning);
-
-                    var value = getValueByRule(((construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning) / 1000), priceObj.framesIds[j].elemLists.value, priceObj.framesIds[j].elemLists.rules_type_id);
-                    priceObj.framesIds[j].elemLists.newValue = value;
-                    console.info(value);
-                    //debugger;
-                    if (priceObj.framesIds[j].elemLists.rules_type_id === 3) {
-                      console.log('Правило : ' + priceObj.framesIds[j].elemLists.value + ' шт. на метр родителя');
-                      console.log('Формула : (round(' + (construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning) / 1000 + '*' + priceObj.framesIds[j].elemLists.value + ')*' + priceObj.framesIds[j].priceEl.price + ')*(1+(' + priceObj.framesIds[j].priceEl.waste + '/100) = ' + ((Math.round(((construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning) / 1000) * priceObj.framesIds[j].elemLists.value) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100))).toFixed(2));
-
-                      priceTmp += (Math.round(((construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning) / 1000) * priceObj.framesIds[j].elemLists.value) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
-                    } else if (priceObj.framesIds[j].elemLists.rules_type_id === 2 || priceObj.framesIds[j].elemLists.rules_type_id === 4 || priceObj.framesIds[j].elemLists.rules_type_id === 15) {
-                      console.log('Правило : ' + priceObj.framesIds[j].elemLists.value + ' шт. на родителя');
-                      console.log('Формула : (1*' + value + '*' + priceObj.framesIds[j].priceEl.price + ')*(1+(' + priceObj.framesIds[j].priceEl.waste + '/100) = ' + (priceObj.framesIds[j].elemLists.value * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100)));
-
-                      priceTmp += (priceObj.framesIds[j].elemLists.value * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
-                    } else if (priceObj.framesIds[j].elemLists.rules_type_id === 1) {
-                      console.log('Правило : меньше родителя на ' + priceObj.framesIds[j].elemLists.value + ' м');
-                      console.log('Формула : (' + (construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value * 1000)) / 1000 + '*' + priceObj.framesIds[j].priceEl.price + ')*(1+(' + priceObj.framesIds[j].priceEl.waste + '/100) = ' + ((((construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value * 1000)) / 1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100))).toFixed(2));
-
-                      priceTmp += (((construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value * 1000)) / 1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
-                    } else {
-                      console.log('Формула : (' + (construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning) / 1000 + '*' + priceObj.framesIds[j].priceEl.price + ')*(1+(' + priceObj.framesIds[j].priceEl.waste + '/100) = ' + ((((construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning) / 1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100))).toFixed(2));
-
-                      priceTmp += (((construction.framesSize[i] + priceObj.framesIds[j].priceEl.amendment_pruning) / 1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
+                    /** currency conversion */
+                    if (priceObj.currCurrencyId != constrElem.currency_id){
+//                      console.log('diff currency');
+                      currencyExgange(priceTemp, priceObj.currCurrencyId, constrElem.currency_id, priceObj.currencies);
                     }
-                    if (priceObj.currCurrencyId != priceObj.framesIds[j].priceEl.currency_id) {
-                      for (var k = 0; k < priceObj.currencies.length; k++) {
-                        if (priceObj.currencies[k].id == priceObj.framesIds[j].priceEl.currency_id) {
-                          priceTmp = priceTmp * priceObj.currencies[k].value;
-                          console.log('Валюта: ' + priceObj.currencies[k].name);
-                        }
-                      }
-                    }
-                  }
-                } else {
-                  for (var g = 0; g < priceObj.framesIds.length; g++) {
-                    if(priceObj.framesIds[j].elemLists.parent_list_id == priceObj.framesIds[g].elemLists.child_id){
-                      var value = getValueByRule(priceObj.framesIds[g].elemLists.newValue, priceObj.framesIds[g].elemLists.value, priceObj.framesIds[g].elemLists.rules_type_id);
-                      priceObj.framesIds[j].elemLists.newValue = value;
-                      console.info(value);
-                      console.log('Название: '+priceObj.framesIds[j].elemName);
-                      console.log('Размер: '+(priceObj.framesIds[g].elemLists.newValue).toFixed(3)+' м');
-                      console.log('Цена: '+priceObj.framesIds[j].priceEl.price);
-                      console.log('% отхода : '+priceObj.framesIds[j].priceEl.waste);
-                      console.log('Поправка на обрезку : '+priceObj.framesIds[j].priceEl.amendment_pruning);
+                    constrElem.qty = 1;
+                    constrElem.size = angular.copy(sizeTemp);
+                    constrElem.priceReal = angular.copy(priceTemp);
+                    priceObj.priceTotal += priceTemp;
+                    priceObj.constrElements.push(constrElem);
+//                    console.warn('constrElem!!!!!!+', constrElem);
 
-                      if(priceObj.framesIds[j].elemLists.rules_type_id === 3){
-                        console.log('Правило : '+priceObj.framesIds[j].elemLists.value+' шт. на метр родителя');
-                        console.log('Формула : (round('+(priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning).toFixed(3)+'*'+priceObj.framesIds[j].elemLists.value+')*'+priceObj.framesIds[j].priceEl.price+')*(1+('+priceObj.framesIds[j].priceEl.waste+'/100) = '+((Math.round((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning)*priceObj.framesIds[j].elemLists.value)*priceObj.framesIds[j].priceEl.price)*(1+(priceObj.framesIds[j].priceEl.waste/100))).toFixed(2));
+                    /** culc Consist Price */
 
-                        priceTmp += (Math.round((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning)*priceObj.framesIds[j].elemLists.value)*priceObj.framesIds[j].priceEl.price)*(1+(priceObj.framesIds[j].priceEl.waste/100));
-                      } else if(priceObj.framesIds[j].elemLists.rules_type_id === 2 || priceObj.framesIds[j].elemLists.rules_type_id === 4 || priceObj.framesIds[j].elemLists.rules_type_id === 15){
-                        console.log('Правило : '+priceObj.framesIds[j].elemLists.value+' шт. на родителя');
-                        console.log('Формула : ('+priceObj.framesIds[g].elemLists.newValue+'*'+priceObj.framesIds[j].elemLists.value+'*'+priceObj.framesIds[j].priceEl.price+')*(1+('+priceObj.framesIds[j].priceEl.waste+'/100) = '+(priceObj.framesIds[g].elemLists.newValue*priceObj.framesIds[j].elemLists.value * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100)));
-
-                        priceTmp += (priceObj.framesIds[g].elemLists.newValue*priceObj.framesIds[j].elemLists.value * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
-                      } else if (priceObj.framesIds[j].elemLists.rules_type_id === 1){
-                        console.log('Правило : меньше родителя на '+priceObj.framesIds[j].elemLists.value+' м');
-                        console.log('Формула : ('+(priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value*1000))/1000+'*'+priceObj.framesIds[j].priceEl.price+')*(1+('+priceObj.framesIds[j].priceEl.waste+'/100) = '+((((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value*100))/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100))).toFixed(2));
-
-                        priceTmp += (((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning - (priceObj.framesIds[j].elemLists.value*1000))/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
-                      } else {
-                        console.log('Формула : ('+(priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning)/1000+'*'+priceObj.framesIds[j].priceEl.price+')*(1+('+priceObj.framesIds[j].priceEl.waste+'/100) = '+((((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning)/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100))).toFixed(2));
-
-                        priceTmp += (((priceObj.framesIds[g].elemLists.newValue+priceObj.framesIds[j].priceEl.amendment_pruning)/1000) * priceObj.framesIds[j].priceEl.price) * (1 + (priceObj.framesIds[j].priceEl.waste / 100));
-                      }
-                      if (priceObj.currCurrencyId != priceObj.framesIds[j].priceEl.currency_id){
-                        for (var k = 0; k < priceObj.currencies.length; k++) {
-                          if(priceObj.currencies[k].id == priceObj.framesIds[j].priceEl.currency_id){
-                            priceTmp = priceTmp * priceObj.currencies[k].value;
-                            console.log('Валюта: ' + priceObj.currencies[k].name);
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-                priceObj.price += priceTmp;
-                console.log('Итого в гривне: '+priceTmp.toFixed(2)+' грн');
-                console.log('  ');
-              }
-            }
-          }
-        }
-
-        console.log('Рама - конец ---------------------');
-
-//===== Рама - конец
-//====== Подоконный профиль - начало
-        if(construction.frameSillSize) {
-          if(priceObj.frameSillsIds.length) {
-            for (var j = 0; j < priceObj.frameSillsIds.length; j++) {
-              var priceTmp = 0;
-              if(priceObj.frameSillsIds[j].elemLists.parent_list_id == construction.frameSillId){
-                var value = getValueByRule(((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000), priceObj.frameSillsIds[j].elemLists.value, priceObj.frameSillsIds[j].elemLists.rules_type_id);
-                priceObj.frameSillsIds[j].elemLists.newValue = value;
-                if(priceObj.frameSillsIds[j].elemLists.rules_type_id === 3){
-                  priceTmp += (Math.round(((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000)*priceObj.frameSillsIds[j].elemLists.value)*priceObj.frameSillsIds[j].priceEl.price)*(1+(priceObj.frameSillsIds[j].priceEl.waste/100));
-                } else if(priceObj.frameSillsIds[j].elemLists.rules_type_id === 2 || priceObj.frameSillsIds[j].elemLists.rules_type_id === 4 || priceObj.frameSillsIds[j].elemLists.rules_type_id === 15){
-                  priceTmp += (priceObj.frameSillsIds[j].elemLists.value * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
-                } else if (priceObj.frameSillsIds[j].elemLists.rules_type_id === 1){
-                  priceTmp += (((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning - (priceObj.frameSillsIds[j].elemLists.value*1000))/1000) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
-                } else {
-                  priceTmp += (((construction.frameSillSize+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
-                }
-                if (priceObj.currCurrencyId != priceObj.frameSillsIds[j].priceEl.currency_id){
-                  for (var k = 0; k < priceObj.currencies.length; k++) {
-                    if(priceObj.currencies[k].id == priceObj.frameSillsIds[j].priceEl.currency_id){
-                      priceTmp = priceTmp * priceObj.currencies[k].value;
-                    }
-                  }
-                }
-              } else {
-                for (var g = 0; g < priceObj.frameSillsIds.length; g++) {
-                  if(priceObj.frameSillsIds[j].elemLists.parent_list_id == priceObj.frameSillsIds[g].elemLists.child_id){
-                    var value = getValueByRule(priceObj.frameSillsIds[g].elemLists.newValue, priceObj.frameSillsIds[j].elemLists.value, priceObj.frameSillsIds[g].elemLists.rules_type_id);
-                    priceObj.frameSillsIds[j].elemLists.newValue = value;
-                    if(priceObj.frameSillsIds[j].elemLists.rules_type_id === 3){
-                      priceTmp += (Math.round((priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning)*priceObj.frameSillsIds[j].elemLists.value)*priceObj.frameSillsIds[j].priceEl.price)*(1+(priceObj.frameSillsIds[j].priceEl.waste/100));
-                    } else if(priceObj.frameSillsIds[j].elemLists.rules_type_id === 2 || priceObj.frameSillsIds[j].elemLists.rules_type_id === 4 || priceObj.frameSillsIds[j].elemLists.rules_type_id === 15){
-                      priceTmp += (priceObj.frameSillsIds[j].elemLists.value * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
-                    } else if (priceObj.frameSillsIds[j].elemLists.rules_type_id === 1){
-                      priceTmp += (((priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning - (priceObj.frameSillsIds[j].elemLists.value*1000))) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
-                    } else {
-                      priceTmp += (((priceObj.frameSillsIds[g].elemLists.newValue+priceObj.frameSillsIds[j].priceEl.amendment_pruning)/1000) * priceObj.frameSillsIds[j].priceEl.price) * (1 + (priceObj.frameSillsIds[j].priceEl.waste / 100));
-                    }
-                    if (priceObj.currCurrencyId != priceObj.frameSillsIds[j].priceEl.currency_id){
-                      for (var k = 0; k < priceObj.currencies.length; k++) {
-                        if(priceObj.currencies[k].id == priceObj.frameSillsIds[j].priceEl.currency_id){
-                          priceTmp = priceTmp * priceObj.currencies[k].value;
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-              priceObj.price += priceTmp;
-            }
-          }
-        }
-        //======== Подоконный профиль - конец
-
-        //======== Створка - начало
-        if(construction.sashsSize.length) {
-          for (var i = 0; i < construction.sashsSize.length; i++) {
-            if(priceObj.sashsIds.length) {
-              for (var j = 0; j < priceObj.sashsIds.length; j++) {
-                var priceTmp = 0;
-                if(priceObj.sashsIds[j].elemLists.parent_list_id == construction.sashId){
-                  var value = getValueByRule(((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000), priceObj.sashsIds[j].elemLists.value, priceObj.sashsIds[j].elemLists.rules_type_id);
-                  priceObj.sashsIds[j].elemLists.newValue = value;
-                  if(priceObj.sashsIds[j].elemLists.rules_type_id === 3){
-                    priceTmp += (Math.round(((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000)*priceObj.sashsIds[j].elemLists.value)*priceObj.sashsIds[j].priceEl.price)*(1+(priceObj.sashsIds[j].priceEl.waste/100));
-                  } else if(priceObj.sashsIds[j].elemLists.rules_type_id === 2 || priceObj.sashsIds[j].elemLists.rules_type_id === 4 || priceObj.sashsIds[j].elemLists.rules_type_id === 15){
-                    priceTmp += (priceObj.sashsIds[j].elemLists.value * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
-                  } else if (priceObj.sashsIds[j].elemLists.rules_type_id === 1){
-                    priceTmp += (((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning - (priceObj.sashsIds[j].elemLists.value*1000))/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
-                  } else {
-                    priceTmp += (((construction.sashsSize[i]+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
-                  }
-                  if (priceObj.currCurrencyId != priceObj.sashsIds[j].priceEl.currency_id){
-                    for (var k = 0; k < priceObj.currencies.length; k++) {
-                      if(priceObj.currencies[k].id == priceObj.sashsIds[j].priceEl.currency_id){
-                        priceTmp = priceTmp * priceObj.currencies[k].value;
-                      }
-                    }
-                  }
-                } else {
-                  for (var g = 0; g < priceObj.sashsIds.length; g++) {
-                    if(priceObj.sashsIds[j].elemLists.parent_list_id == priceObj.sashsIds[g].elemLists.child_id){
-                      var value = getValueByRule((priceObj.sashsIds[g].elemLists.newValue/1000), priceObj.sashsIds[j].elemLists.value, priceObj.sashsIds[g].elemLists.rules_type_id);
-                      priceObj.sashsIds[j].elemLists.newValue = value;
-                      if(priceObj.sashsIds[j].elemLists.rules_type_id === 3){
-                        priceTmp += (Math.round((priceObj.sashsIds[g].elemLists.newValue+(priceObj.sashsIds[j].priceEl.amendment_pruning/1000))*priceObj.sashsIds[j].elemLists.value)*priceObj.sashsIds[j].priceEl.price)*(1+(priceObj.sashsIds[j].priceEl.waste/100));
-                      } else if(priceObj.sashsIds[j].elemLists.rules_type_id === 2 || priceObj.sashsIds[j].elemLists.rules_type_id === 4 || priceObj.sashsIds[j].elemLists.rules_type_id === 15){
-                        priceTmp += (priceObj.sashsIds[g].elemLists.newValue*priceObj.sashsIds[j].elemLists.value * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
-                      } else if (priceObj.sashsIds[j].elemLists.rules_type_id === 1){
-                        priceTmp += (((priceObj.sashsIds[g].elemLists.newValue+priceObj.sashsIds[j].priceEl.amendment_pruning - (priceObj.sashsIds[j].elemLists.value*1000))/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
-                      } else {
-                        priceTmp += (((priceObj.sashsIds[g].elemLists.newValue+priceObj.sashsIds[j].priceEl.amendment_pruning)/1000) * priceObj.sashsIds[j].priceEl.price) * (1 + (priceObj.sashsIds[j].priceEl.waste / 100));
-                      }
-                      if (priceObj.currCurrencyId != priceObj.sashsIds[j].priceEl.currency_id){
-                        for (var k = 0; k < priceObj.currencies.length; k++) {
-                          if(priceObj.currencies[k].id == priceObj.sashsIds[j].priceEl.currency_id){
-                            priceTmp = priceTmp * priceObj.currencies[k].value;
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-                priceObj.price += priceTmp;
-              }
-            }
-          }
-        }
-        //======== Створка - конец
-        //======== Штапик - начало
-        if(construction.beadsSize.length) {
-          for (var i = 0; i < construction.beadsSize.length; i++) {
-            if(priceObj.beadIds.length) {
-              for (var j = 0; j < priceObj.beadIds.length; j++) {
-                var priceTmp = 0;
-                if(priceObj.beadIds[j].elemLists.parent_list_id == construction.beadId){
-                  var value = getValueByRule(((construction.beadsSize[i]+priceObj.beadIds[j].priceEl.amendment_pruning)/1000), priceObj.beadIds[j].elemLists.value, priceObj.beadIds[j].elemLists.rules_type_id);
-                  priceObj.beadIds[j].elemLists.newValue = value;
-                  if(priceObj.beadIds[j].elemLists.rules_type_id === 3){
-                    priceTmp += (Math.round(((construction.beadsSize[i]+priceObj.beadIds[j].priceEl.amendment_pruning)/1000)*priceObj.beadIds[j].elemLists.value)*priceObj.beadIds[j].priceEl.price)*(1+(priceObj.beadIds[j].priceEl.waste/100));
-                  } else if(priceObj.beadIds[j].elemLists.rules_type_id === 2 || priceObj.beadIds[j].elemLists.rules_type_id === 4 || priceObj.beadIds[j].elemLists.rules_type_id === 15){
-                    priceTmp += (priceObj.beadIds[j].elemLists.value * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
-                  } else if (priceObj.beadIds[j].elemLists.rules_type_id === 1){
-                    priceTmp += (((construction.beadsSize[i]+priceObj.beadIds[j].priceEl.amendment_pruning - (priceObj.beadIds[j].elemLists.value*1000))/1000) * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
-                  } else {
-                    priceTmp += (((construction.beadsSize[i]+priceObj.beadIds[j].priceEl.amendment_pruning)/1000) * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
-                  }
-                  if (priceObj.currCurrencyId != priceObj.beadIds[j].priceEl.currency_id){
-                    for (var k = 0; k < priceObj.currencies.length; k++) {
-                      if(priceObj.currencies[k].id == priceObj.beadIds[j].priceEl.currency_id){
-                        priceTmp = priceTmp * priceObj.currencies[k].value;
-                      }
-                    }
-                  }
-                } else {
-                  for (var g = 0; g < priceObj.beadIds.length; g++) {
-                    if(priceObj.beadIds[j].elemLists.parent_list_id == priceObj.beadIds[g].elemLists.child_id){
-                      var value = getValueByRule((priceObj.beadIds[g].elemLists.newValue/1000), priceObj.beadIds[j].elemLists.value, priceObj.beadIds[g].elemLists.rules_type_id);
-                      priceObj.beadIds[j].elemLists.newValue = value;
-                      if(priceObj.beadIds[j].elemLists.rules_type_id === 3){
-                        priceTmp += (Math.round((priceObj.beadIds[g].elemLists.newValue+(priceObj.beadIds[j].priceEl.amendment_pruning/1000))*priceObj.beadIds[j].elemLists.value)*priceObj.beadIds[j].priceEl.price)*(1+(priceObj.beadIds[j].priceEl.waste/100));
-                      } else if(priceObj.beadIds[j].elemLists.rules_type_id === 2 || priceObj.beadIds[j].elemLists.rules_type_id === 4 || priceObj.beadIds[j].elemLists.rules_type_id === 15){
-                        priceTmp += (priceObj.beadIds[g].elemLists.newValue*priceObj.beadIds[j].elemLists.value * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
-                      } else if (priceObj.beadIds[j].elemLists.rules_type_id === 1){
-                        priceTmp += (((priceObj.beadIds[g].elemLists.newValue+priceObj.beadIds[j].priceEl.amendment_pruning - (priceObj.beadIds[j].elemLists.value*1000))/1000) * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
-                      } else {
-                        priceTmp += (((priceObj.beadIds[g].elemLists.newValue+priceObj.beadIds[j].priceEl.amendment_pruning)/1000) * priceObj.beadIds[j].priceEl.price) * (1 + (priceObj.beadIds[j].priceEl.waste / 100));
-                      }
-                      if (priceObj.currCurrencyId != priceObj.beadIds[j].priceEl.currency_id){
-                        for (var k = 0; k < priceObj.currencies.length; k++) {
-                          if(priceObj.currencies[k].id == priceObj.beadIds[j].priceEl.currency_id){
-                            priceTmp = priceTmp * priceObj.currencies[k].value;
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-                priceObj.price += priceTmp;
-              }
-            }
-          }
-        }
-        //======= Штапик - конец
-        //======= Импост - начало
-        if(construction.impostsSize.length) {
-          for (var i = 0; i < construction.impostsSize.length; i++) {
-            if(priceObj.impostIds.length) {
-              for (var j = 0; j < priceObj.impostIds.length; j++) {
-                var priceTmp = 0;
-                if(priceObj.impostIds[j].elemLists.parent_list_id == construction.impostId){
-                  var value = getValueByRule(((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning)/1000), priceObj.impostIds[j].elemLists.value, priceObj.impostIds[j].elemLists.rules_type_id);
-                  priceObj.impostIds[j].elemLists.newValue = value;
-                  if(priceObj.impostIds[j].elemLists.rules_type_id === 3){
-                    priceTmp += (Math.round(((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning)/1000)*priceObj.impostIds[j].elemLists.value)*priceObj.impostIds[j].priceEl.price)*(1+(priceObj.impostIds[j].priceEl.waste/100));
-                  } else if(priceObj.impostIds[j].elemLists.rules_type_id === 2 || priceObj.impostIds[j].elemLists.rules_type_id === 4 || priceObj.impostIds[j].elemLists.rules_type_id === 15){
-                    priceTmp += (priceObj.impostIds[j].elemLists.value * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
-                  } else if (priceObj.impostIds[j].elemLists.rules_type_id === 1){
-                    priceTmp += (((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning - (priceObj.impostIds[j].elemLists.value*1000))/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
-                  } else {
-                    console.log('Формула : ('+(construction.sashsSize[i]+priceObj.framesIds[j].priceEl.amendment_pruning)/1000+'*'+priceObj.impostIds[j].priceEl.price+')*(1+('+priceObj.impostIds[j].priceEl.waste+'/100) = '+((((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning)/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100))).toFixed(2));
-                    priceTmp += (((construction.impostsSize[i]+priceObj.impostIds[j].priceEl.amendment_pruning)/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
-                  }
-                  if (priceObj.currCurrencyId != priceObj.impostIds[j].priceEl.currency_id){
-                    for (var k = 0; k < priceObj.currencies.length; k++) {
-                      if(priceObj.currencies[k].id == priceObj.impostIds[j].priceEl.currency_id){
-                        priceTmp = priceTmp * priceObj.currencies[k].value;
-                      }
-                    }
-                  }
-                } else {
-                  for (var g = 0; g < priceObj.impostIds.length; g++) {
-                    if(priceObj.impostIds[j].elemLists.parent_list_id == priceObj.impostIds[g].elemLists.child_id){
-                      var value = getValueByRule(priceObj.impostIds[g].elemLists.newValue, priceObj.impostIds[j].elemLists.value, priceObj.impostIds[g].elemLists.rules_type_id);
-                      priceObj.impostIds[j].elemLists.newValue = value;
-                      if(priceObj.impostIds[j].elemLists.rules_type_id === 3){
-                        if(priceObj.impostIds[j].priceEl) {
-                          priceTmp += (Math.round((priceObj.impostIds[g].elemLists.newValue + (priceObj.impostIds[j].priceEl.amendment_pruning / 1000)) * priceObj.impostIds[j].elemLists.value) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
-                        }
-                      } else if(priceObj.impostIds[j].elemLists.rules_type_id === 2 || priceObj.impostIds[j].elemLists.rules_type_id === 4 || priceObj.impostIds[j].elemLists.rules_type_id === 15){
-//                            console.info(priceObj.impostIds[j].priceEl);
-                        if(priceObj.impostIds[j].priceEl) {
-                          priceTmp += (priceObj.impostIds[g].elemLists.newValue*priceObj.impostIds[j].elemLists.value * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
-                        }
-                      } else if (priceObj.impostIds[j].elemLists.rules_type_id === 1){
-                        if(priceObj.impostIds[j].priceEl) {
-                          priceTmp += (((priceObj.impostIds[g].elemLists.newValue+priceObj.impostIds[j].priceEl.amendment_pruning - (priceObj.impostIds[j].elemLists.value*1000))/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
-                        }
-                      } else {
-                        if(priceObj.impostIds[j].priceEl) {
-                          priceTmp += (((priceObj.impostIds[g].elemLists.newValue+priceObj.impostIds[j].priceEl.amendment_pruning)/1000) * priceObj.impostIds[j].priceEl.price) * (1 + (priceObj.impostIds[j].priceEl.waste / 100));
-                        }
-                      }
-                      if(priceObj.impostIds[j].priceEl) {
-                        if (priceObj.currCurrencyId != priceObj.impostIds[j].priceEl.currency_id) {
-                          for (var k = 0; k < priceObj.currencies.length; k++) {
-                            if (priceObj.currencies[k].id == priceObj.impostIds[j].priceEl.currency_id) {
-                              priceTmp = priceTmp * priceObj.currencies[k].value;
+                    if(priceObj.consistElem) {
+                      var consistQty = priceObj.consist.length;
+                      if(consistQty) {
+                        for(var cons = 0; cons < consistQty; cons++) {
+                          if(priceObj.consist[cons]) {
+                            var wasteValue = (1 + (priceObj.consistElem[cons].waste / 100));
+                            if (priceObj.consist[cons].parent_list_id === AddElement.elementId) {
+                              var fullSize = (AddElement.elementWidth + priceObj.consistElem[cons].amendment_pruning);
+                              priceObj.consist[cons].newValue = getValueByRule(fullSize, priceObj.consist[cons].value, priceObj.consist[cons].rules_type_id);
+                              culcPriceAsRule(1, AddElement.elementWidth, priceObj.consist[cons], priceObj.consistElem[cons], wasteValue, priceObj);
+                            } else {
+//                              console.warn('else++++');
+                              for (var el = 0; el < consistQty; el++) {
+                                if(priceObj.consist[cons].parent_list_id == priceObj.consist[el].child_id){
+                                  priceObj.consist[cons].newValue = getValueByRule(priceObj.consist[el].newValue, priceObj.consist[cons].value, priceObj.consist[cons].rules_type_id);
+                                  culcPriceAsRule(priceObj.consist[cons].newValue, priceObj.consist[el].newValue, priceObj.consist[cons], priceObj.consistElem[cons], wasteValue, priceObj);
+                                }
+                              }
                             }
                           }
                         }
                       }
                     }
                   }
-                }
-                priceObj.price += priceTmp;
-              }
-            }
+
+                  priceObj.priceTotal = GeneralServ.roundingNumbers(priceObj.priceTotal);
+//                  console.info('FINISH ADD ====:', priceObj);
+                  finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
+                  finishPriceObj.priceTotal = angular.copy(priceObj.priceTotal);
+                  deffMain.resolve(finishPriceObj);
+                })
+              });
+
+            });
+          } else {
+            deffMain.resolve(priceObj);
           }
-        }
-        //====== Импост - конец
-        //====== Стеклопакет - начало
-        if(construction.glassSquares.length) {
-          for (var i = 0; i < construction.glassSquares.length; i++) {
-            if(priceObj.glassIds.length) {
-              for (var j = 0; j < priceObj.glassIds.length; j++) {
-                var priceTmp = 0;
-                if(priceObj.glassIds[j].elemLists.parent_list_id == construction.glassId){
-                  var value = getValueByRule(1, priceObj.glassIds[j].elemLists.value, priceObj.glassIds[j].elemLists.rules_type_id);
-                  priceObj.glassIds[j].elemLists.newValue = value;
-                  if(priceObj.glassIds[j].elemLists.rules_type_id === 3){
-                    priceTmp += (Math.round((1+priceObj.glassIds[j].priceEl.amendment_pruning)*priceObj.glassIds[j].elemLists.value)*priceObj.glassIds[j].priceEl.price)*(1+(priceObj.glassIds[j].priceEl.waste/100));
-                  } else if(priceObj.glassIds[j].elemLists.rules_type_id === 2 || priceObj.glassIds[j].elemLists.rules_type_id === 4 || priceObj.glassIds[j].elemLists.rules_type_id === 15){
-                    priceTmp += (priceObj.glassIds[j].elemLists.value * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
-                  } else if (priceObj.glassIds[j].elemLists.rules_type_id === 1){
-                    priceTmp += (((priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning - (priceObj.glassIds[j].elemLists.value*100))) * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
-                  } else {
-                    priceTmp += (((1+priceObj.glassIds[j].priceEl.amendment_pruning)/1000) * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
-                  }
-                  if (priceObj.currCurrencyId != priceObj.glassIds[j].priceEl.currency_id){
-                    for (var k = 0; k < priceObj.currencies.length; k++) {
-                      if(priceObj.currencies[k].id == priceObj.glassIds[j].priceEl.currency_id){
-                        priceTmp = priceTmp * priceObj.currencies[k].value;
-                      }
-                    }
-                  }
-                } else {
-                  for (var g = 0; g < priceObj.glassIds.length; g++) {
-                    if(priceObj.glassIds[j].elemLists.parent_list_id == priceObj.glassIds[g].elemLists.child_id){
-                      var value = getValueByRule(priceObj.glassIds[g].elemLists.newValue, priceObj.glassIds[j].elemLists.value, priceObj.glassIds[g].elemLists.rules_type_id);
-                      priceObj.glassIds[j].elemLists.newValue = value;
-                      if(priceObj.glassIds[j].elemLists.rules_type_id === 3){
-                        priceTmp += (Math.round((priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning)*priceObj.glassIds[j].elemLists.value)*priceObj.glassIds[j].priceEl.price)*(1+(priceObj.glassIds[j].priceEl.waste/100));
-                      } else if(priceObj.glassIds[j].elemLists.rules_type_id === 2 || priceObj.glassIds[j].elemLists.rules_type_id === 4 || priceObj.glassIds[j].elemLists.rules_type_id === 15){
-                        priceTmp += (priceObj.glassIds[g].elemLists.newValue*priceObj.glassIds[j].elemLists.value * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
-                      } else if (priceObj.glassIds[j].elemLists.rules_type_id === 1){
-                        priceTmp += (((priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning - (priceObj.glassIds[j].elemLists.value*1000))) * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
-                      } else {
-                        priceTmp += (((priceObj.glassIds[g].elemLists.newValue+priceObj.glassIds[j].priceEl.amendment_pruning)/1000) * priceObj.glassIds[j].priceEl.price) * (1 + (priceObj.glassIds[j].priceEl.waste / 100));
-                      }
-                      if (priceObj.currCurrencyId != priceObj.glassIds[j].priceEl.currency_id){
-                        for (var k = 0; k < priceObj.currencies.length; k++) {
-                          if(priceObj.currencies[k].id == priceObj.glassIds[j].priceEl.currency_id){
-                            priceTmp = priceTmp * priceObj.currencies[k].value;
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-                priceObj.price += priceTmp;
-              }
-            }
-          }
-        }
-        //===== Стеклопакет - конец
-        //===== Фурнитура - начало
-        if (priceObj.hardwareIds.length) {
-          for (var j = 0; j < priceObj.hardwareIds.length; j++) {
-            if(priceObj.hardwareIds[j].elemLists){
-              var priceTmp = 0;
-              priceObj.hardwareIds[j].elemLists.newValue = priceObj.hardwareIds[j].elemLists.count;
-              priceTmp += (priceObj.hardwareIds[j].elemLists.count * priceObj.hardwareIds[j].priceEl.price) * (1 + (priceObj.hardwareIds[j].priceEl.waste / 100));
-              if (priceObj.currCurrencyId != priceObj.hardwareIds[j].priceEl.currency_id){
-                for (var kc = 0; kc < priceObj.currencies.length; kc++) {
-                  if(priceObj.currencies[kc].id == priceObj.hardwareIds[j].priceEl.currency_id){
-                    priceTmp = priceTmp * priceObj.currencies[kc].value;
-                  }
-                }
-              }
-              priceObj.price += priceTmp;
-            } else if (priceObj.hardwareIds[j].hardwareLists) {
-              for (var g = 0; g < priceObj.hardwareIds.length; g++) {
-                if (priceObj.hardwareIds[g].elemLists) {
-                  if (priceObj.hardwareIds[j].parent_list_id == priceObj.hardwareIds[g].elemLists.child_id && priceObj.hardwareIds[g].elemLists.child_type == 'list') {
-                    for (var hwArr = 0; hwArr < priceObj.hardwareIds[j].hardwareLists.length; hwArr++) {
-                      var priceTmp = 0;
-                      var value = getValueByRule(priceObj.hardwareIds[g].elemLists.newValue, priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value, priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id);
-                      priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.newValue = value;
-                      if (priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id === 3) {
-                        priceTmp += (Math.round((priceObj.hardwareIds[g].elemLists.newValue + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.amendment_pruning / 1000)) * priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value) * priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price) * (1 + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste / 100));
-                      } else if (priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id === 2 || priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id === 4 || priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id === 15) {
-                        priceTmp += (priceObj.hardwareIds[g].elemLists.newValue * priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value * priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price) * (1 + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste / 100));
-                      } else if (priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.rules_type_id === 1) {
-                        priceTmp += (((priceObj.hardwareIds[g].elemLists.newValue + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.amendment_pruning - (priceObj.hardwareIds[j].hardwareLists[hwArr].elemLists.value * 1000)) / 1000) * priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price) * (1 + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste / 100));
-                      } else {
-                        priceTmp += (((priceObj.hardwareIds[g].elemLists.newValue + priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.amendment_pruning) / 1000) * priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.price) * (1 + (priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.waste / 100));
-                      }
-                      if (priceObj.currCurrencyId != priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.currency_id) {
-                        for (var k = 0; k < priceObj.currencies.length; k++) {
-                          if (priceObj.currencies[k].id == priceObj.hardwareIds[j].hardwareLists[hwArr].priceEl.currency_id) {
-                            priceTmp = priceTmp * priceObj.currencies[k].value;
-                          }
-                        }
-                      }
-                      priceObj.price += priceTmp;
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-        //====== Фурнитура - конец
-        priceObj.price = priceObj.price.toFixed(2);
-        console.log('Сумма:'+priceObj.price);
-      }
+        });
+
+      });
+      return deffMain.promise;
     }
-
-
-
-
-
-
-
-
-
-
-
-  /** AddElements Price */
-
-
-    function parseListAdd(listIdAdd, callback){
-      var currListIdAdd,
-          listsAdd = [];
-      function addLAdd(elAdd){
-        return listsAdd.push(elAdd);
-      }
-      addLAdd(listIdAdd);
-      (function nextRecordAdd() {
-        if (listsAdd.length) {
-          currListIdAdd = listsAdd[0];
-          db.transaction(function (transaction) {
-            transaction.executeSql('select * from list_contents where parent_list_id = ?', [currListIdAdd], function(transaction, result){
-              for (var i = 0; i < result.rows.length; i++) {
-                elemListsAdd.push({"elemLists":result.rows.item(i)});
-                if(result.rows.item(i).child_type === 'list') {
-                  addLAdd(result.rows.item(i).child_id);
-                }
-              }
-              nextRecordAdd();
-            });
-          });
-          listsAdd.shift(0);
-        } else {
-          callback(new OkResult(elemListsAdd));
-        }
-      })();
-    }
-
-
-
-
-
-    function getAdditionalPrice(addList, callback){
-      var self = this;
-      var price = 0, addPriceObj = {};
-      addPriceObj.currCurrencyId = addList.currencyId;
-      next_1();
-
-      function next_1(){
-        elemListsAdd = [];
-        parseListAdd(addList.elementId, function (result){next_2(result);});
-      }
-      function next_2(result){
-        if(result.status){
-          addPriceObj.elementIds =  result.data;
-          db.transaction(function (transaction) {
-            transaction.executeSql('select parent_element_id, name from lists where id = ?', [addList.elementId], function (transaction, result){next_3(result);}, function () {
-              callback(new ErrorResult(2, 'Something went wrong when get parent_element_id'));
-            });
-          });
-        } else {
-          console.log(result);
-        }
-      }
-      function next_3(result){
-        if(result.rows.length){
-          addPriceObj.elementIds.parent_element_id = result.rows.item(0).parent_element_id;
-          addPriceObj.elementIds.name = result.rows.item(0).name;
-          db.transaction(function (transaction) {
-            transaction.executeSql('select id, currency_id, price, waste, name, amendment_pruning from elements where id = ?', [result.rows.item(0).parent_element_id], function (transaction, result){next_4(result);}, function () {
-              callback(new ErrorResult(2, 'Something went wrong when get element price'));
-            });
-          });
-        } else {
-          console.log(result);
-        }
-      }
-      function next_4(result) {
-        if(result.rows.length){
-          for (var i = 0; i < result.rows.length; i++) {
-            if(result.rows.item(i).id == addPriceObj.elementIds.parent_element_id){
-              addPriceObj.elementIds.price = result.rows.item(i);
-            }
-          }
-          if(addPriceObj.elementIds.length) {
-            for (var i = 0; i < addPriceObj.elementIds.length; i++) {
-              if (addPriceObj.elementIds[i].elemLists.child_type === 'element'){
-                getPriceById(addPriceObj.elementIds[i].elemLists.child_id, i, i, function (result){
-                  addPriceObj.elementIds[result.data.index].priceEl = result.data.currency;
-                  addPriceObj.elementIds[result.data.index].elemName = result.data.currency.name;
-                  addPriceObj.elementIds[result.data.index].pruning = result.data.currency.amendment_pruning;
-                });
-              } else {
-                getPriceByIdList(addPriceObj.elementIds[i].elemLists.child_id, i, i, function (result){
-                  addPriceObj.elementIds[result.data.index].priceEl = result.data.currency;
-                  addPriceObj.elementIds[result.data.index].elemName = result.data.currency.name;
-                  addPriceObj.elementIds[result.data.index].pruning = result.data.currency.amendment_pruning;
-                });
-              }
-            }
-          }
-          db.transaction(function (transaction) {
-            transaction.executeSql('select id, name, value from currencies', [], function (transaction, result){next_5(result);}, function () {
-              callback(new ErrorResult(2, 'Something went wrong when get parent_element_id'));
-            });
-          });
-        } else {
-          console.log(result);
-        }
-      }
-      function next_5(result) {
-        if (result.rows.length) {
-          addPriceObj.currencies = [];
-          addPriceObj.price = 0;
-          for (var i = 0; i < result.rows.length; i++) {
-            addPriceObj.currencies.push(result.rows.item(i));
-          }
-          var priceTmp = 0;
-          if (addList.elementLength > 0) {
-            priceTmp += (((addList.elementLength + addPriceObj.elementIds.price.amendment_pruning) / 1000) * addPriceObj.elementIds.price.price) * (1 + (addPriceObj.elementIds.price.waste / 100));
-            if (addPriceObj.currCurrencyId != addPriceObj.elementIds.price.currency_id) {
-              for (var i = 0; i < addPriceObj.currencies.length; i++) {
-                if (addPriceObj.currencies[i].id == addPriceObj.elementIds.price.currency_id) {
-                  priceTmp = priceTmp * addPriceObj.currencies[i].value;
-                }
-              }
-            }
-          }
-          addPriceObj.price += priceTmp;
-          //====== Начало - доп. элементы
-          if (addList.elementLength > 0) {
-            if (addPriceObj.elementIds.length) {
-              for (var j = 0; j < addPriceObj.elementIds.length; j++) {
-                var priceTmp = 0;
-                if (addPriceObj.elementIds[j].elemLists.parent_list_id == addList.elementId) {
-                  var value = self.getValueByRule(((addList.elementLength + addPriceObj.elementIds[j].priceEl.amendment_pruning) / 1000), addPriceObj.elementIds[j].elemLists.value, addPriceObj.elementIds[j].elemLists.rules_type_id);
-                  addPriceObj.elementIds[j].elemLists.newValue = value;
-                  if (addPriceObj.elementIds[j].elemLists.rules_type_id === 3) {
-                    priceTmp += (Math.round(((addList.elementLength + addPriceObj.elementIds[j].priceEl.amendment_pruning) / 1000) * addPriceObj.elementIds[j].elemLists.value) * addPriceObj.elementIds[j].priceEl.price) * (1 + (addPriceObj.elementIds[j].priceEl.waste / 100));
-                  } else if (addPriceObj.elementIds[j].elemLists.rules_type_id === 2 || addPriceObj.elementIds[j].elemLists.rules_type_id === 4 || addPriceObj.elementIds[j].elemLists.rules_type_id === 15) {
-                    priceTmp += (addPriceObj.elementIds[j].elemLists.value * addPriceObj.elementIds[j].priceEl.price) * (1 + (addPriceObj.elementIds[j].priceEl.waste / 100));
-                  } else if (addPriceObj.elementIds[j].elemLists.rules_type_id === 1) {
-                    priceTmp += (((addList.elementLength + addPriceObj.elementIds[j].priceEl.amendment_pruning - (addPriceObj.elementIds[j].elemLists.value * 1000)) / 1000) * addPriceObj.elementIds[j].priceEl.price) * (1 + (addPriceObj.elementIds[j].priceEl.waste / 100));
-                  } else {
-                    priceTmp += (((addList.elementLength + addPriceObj.elementIds[j].priceEl.amendment_pruning) / 1000) * addPriceObj.elementIds[j].priceEl.price) * (1 + (addPriceObj.elementIds[j].priceEl.waste / 100));
-                  }
-                  if (addPriceObj.currCurrencyId != addPriceObj.elementIds[j].priceEl.currency_id) {
-                    for (var k = 0; k < addPriceObj.currencies.length; k++) {
-                      if (addPriceObj.currencies[k].id == addPriceObj.elementIds[j].priceEl.currency_id) {
-                        priceTmp = priceTmp * addPriceObj.currencies[k].value;
-                      }
-                    }
-                  }
-                } else {
-                  for (var g = 0; g < addPriceObj.elementIds.length; g++) {
-                    if (addPriceObj.elementIds[j].elemLists.parent_list_id == addPriceObj.elementIds[g].elemLists.child_id) {
-                      var value = self.getValueByRule(addPriceObj.elementIds[g].elemLists.newValue, addPriceObj.elementIds[g].elemLists.value, addPriceObj.elementIds[g].elemLists.rules_type_id);
-                      addPriceObj.elementIds[j].elemLists.newValue = value;
-                      if (addPriceObj.elementIds[j].elemLists.rules_type_id === 3) {
-                        priceTmp += (Math.round((addPriceObj.elementIds[g].elemLists.newValue + addPriceObj.elementIds[j].priceEl.amendment_pruning) * addPriceObj.elementIds[j].elemLists.value) * addPriceObj.elementIds[j].priceEl.price) * (1 + (addPriceObj.elementIds[j].priceEl.waste / 100));
-                      } else if (addPriceObj.elementIds[j].elemLists.rules_type_id === 2 || addPriceObj.elementIds[j].elemLists.rules_type_id === 4 || addPriceObj.elementIds[j].elemLists.rules_type_id === 15) {
-                        priceTmp += (addPriceObj.elementIds[g].elemLists.newValue * addPriceObj.elementIds[j].elemLists.value * addPriceObj.elementIds[j].priceEl.price) * (1 + (addPriceObj.elementIds[j].priceEl.waste / 100));
-                      } else if (addPriceObj.elementIds[j].elemLists.rules_type_id === 1) {
-                        priceTmp += (((addPriceObj.elementIds[g].elemLists.newValue + addPriceObj.elementIds[j].priceEl.amendment_pruning - (addPriceObj.elementIds[j].elemLists.value * 1000)) / 1000) * addPriceObj.elementIds[j].priceEl.price) * (1 + (addPriceObj.elementIds[j].priceEl.waste / 100));
-                      } else {
-                        priceTmp += (((addPriceObj.elementIds[g].elemLists.newValue + addPriceObj.elementIds[j].priceEl.amendment_pruning) / 1000) * addPriceObj.elementIds[j].priceEl.price) * (1 + (addPriceObj.elementIds[j].priceEl.waste / 100));
-                      }
-                      if (addPriceObj.currCurrencyId != addPriceObj.elementIds[j].priceEl.currency_id) {
-                        for (var k = 0; k < addPriceObj.currencies.length; k++) {
-                          if (addPriceObj.currencies[k].id == addPriceObj.elementIds[j].priceEl.currency_id) {
-                            priceTmp = priceTmp * addPriceObj.currencies[k].value;
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-                addPriceObj.price += priceTmp;
-              }
-            }
-          }
-          //======= Доп. элементы - конец
-        }
-        addPriceObj.price = addPriceObj.price.toFixed(2);
-        callback(new OkResult(addPriceObj));
-      }
-
-    }
-
-
-  //TODO don't use
-  //      parseListHw: function(listIdHw, callback){
-  //        var currListIdHw,
-  //            listsHw = [];
-  //        var self = this;
-  //        function addLHw(elHw){
-  //          return listsHw.push(elHw);
-  //        }
-  //        addLHw(listIdHw);
-  //        (function nextRecordHw() {
-  //          if (listsHw.length) {
-  //            currListIdHw = listsHw[0];
-  //            db.transaction(function (transaction) {
-  //              transaction.executeSql('select * from list_contents where parent_list_id = ?', [currListIdHw], function(transaction, result){
-  //                for (var i = 0; i < result.rows.length; i++) {
-  //                  elemListsHw.push({"elemLists":result.rows.item(i)});
-  //                  if(result.rows.item(i).child_type === 'list') {
-  //                    addLHw(result.rows.item(i).child_id);
-  //                  }
-  //                }
-  //                nextRecordHw();
-  //              });
-  //            });
-  //            listsHw.shift(0);
-  //          } else {
-  //            callback(new OkResult(elemListsHw));
-  //          }
-  //        })();
-  //      },
-
-
-
-
 
   }
 })();

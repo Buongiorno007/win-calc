@@ -7,9 +7,9 @@
 
   angular
     .module('MainModule')
-    .controller('ConfigMenuCtrl', glassSelectorCtrl);
+    .controller('ConfigMenuCtrl', configMenuCtrl);
 
-  function glassSelectorCtrl($filter, globalConstants, GlobalStor, OrderStor, ProductStor, AuxStor, UserStor, MainServ, AddElementsServ) {
+  function configMenuCtrl($rootScope, $document, $filter, globalConstants, localDB, MainServ, AddElementsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -26,6 +26,8 @@
         $filter('translate')('mainpage.PROFILE_TIP'),
         $filter('translate')('mainpage.GLASS_TIP')
       ],
+      reportMenu: [],
+      reportFilterId: undefined,
       DELAY_START: globalConstants.STEP,
       DELAY_SHOW_CONFIG_LIST: 5 * globalConstants.STEP,
       DELAY_SHOW_FOOTER: 5 * globalConstants.STEP,
@@ -43,6 +45,7 @@
     thisCtrl.inputProductInOrder = saveProduct;
     thisCtrl.showNextTip = showNextTip;
     thisCtrl.showReport = showReport;
+    thisCtrl.sortReport = sortReport;
 
 
     //============ methods ================//
@@ -72,8 +75,41 @@
       }
     }
 
+    /** REPORT */
+    $document.off("keypress");
+    $document.bind("keypress", function(event) {
+//      console.warn(event);
+      //----- Button 'Ctrl + R'
+      //      if(event.keyCode === 82 || event.keyCode === 114) {
+      if(event.keyCode === 18) {
+        showReport();
+      }
+    });
+
+
     function showReport() {
       GlobalStor.global.isReport = !GlobalStor.global.isReport;
+      /** download report Menu */
+      if(GlobalStor.global.isReport) {
+        localDB.selectLocalDB(localDB.tablesLocalDB.elements_groups.tableName).then(function(result) {
+          thisCtrl.config.reportMenu = result.filter(function(item) {
+            return item.position > 0;
+          });
+          thisCtrl.config.reportMenu.push({
+            id: 0,
+            name: $filter('translate')('common_words.ALL')
+          });
+        });
+      }
+      $rootScope.$apply();
+    }
+
+    function sortReport(groupId) {
+      if(groupId) {
+        thisCtrl.config.reportFilterId = groupId;
+      } else {
+        thisCtrl.config.reportFilterId = undefined;
+      }
     }
 
   }

@@ -47,7 +47,7 @@
 
 
     //------- defined system language
-    //TODO loginServ.getDeviceLanguage();
+    loginServ.getDeviceLanguage();
 
 
     //------- export data

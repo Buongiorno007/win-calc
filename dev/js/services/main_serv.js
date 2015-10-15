@@ -142,9 +142,6 @@
 
 
 //    function downloadElemImg() {
-//      console.log('USER:', window.navigator);
-//      console.log('USER:', window.navigator.userAgent); // regExp = Mobile
-//      console.log('USER:', window.navigator.platform);
 //      if(mobile) {
 //        var url = "http://cdn.wall-pix.net/albums/art-space/00030109.jpg";
 //        var targetPath = cordova.file.documentsDirectory + "testImage.png";
@@ -580,9 +577,6 @@
       var deferred = $q.defer();
       setBeadId(profileId).then(function(beadIds) {
 
-        var glassArr = [];
-        glassArr.push(glassId, glassId);
-
         var objXFormedPrice = {
               currencyId: UserStor.userInfo.currencyId,
               ids: [
@@ -591,7 +585,7 @@
                 ProductStor.product.profile.stvorka_list_id,
                 ProductStor.product.profile.impost_list_id,
                 ProductStor.product.profile.shtulp_list_id,
-                glassArr, //array
+                glassId, //array
                 beadIds[0], //array
                 hardwareId
               ],
@@ -676,7 +670,7 @@
     function calculationPrice(obj) {
       var deferred = $q.defer();
       localDB.calculationPrice(obj).then(function (result) {
-//        console.log('price-------', result);
+        console.log('price-------', result);
         if(result.priceTotal){
           ProductStor.product.template_price = result.priceTotal;
           setProductPriceTOTAL();
@@ -843,8 +837,8 @@
                 var elements = [];
                 for(var el = 0; el < elemQty; el++) {
                   if(GlobalStor.global.addElementsAll[elemAllQty].elementType[t].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].addition_folder_id) {
-                    GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_width = 1500;
-                    GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_height = 1500;
+                    GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_width = 1000;
+                    GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_height = 1000;
                     GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_qty = 1;
                     /** get price of element */
                     for(var k = 0; k < tempElemQty; k++) {

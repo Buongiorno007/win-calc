@@ -10,7 +10,7 @@
     .module('LoginModule')
     .factory('loginServ', startFactory);
 
-  function startFactory($q, $cordovaGlobalization, $translate, $filter, localDB, globalConstants, GeneralServ, GlobalStor, OrderStor, UserStor) {
+  function startFactory($window, $q, $cordovaGlobalization, $translate, $filter, localDB, globalConstants, GeneralServ, GlobalStor, OrderStor, UserStor) {
 
     var thisFactory = this;
 
@@ -34,14 +34,37 @@
 
     //------- defined system language
     function getDeviceLanguage() {
-      $cordovaGlobalization.getPreferredLanguage().then(
-        function(result) {
-          checkLangDictionary(result.value.split('-')[0]);
-          $translate.use(UserStor.userInfo.langLabel);
-        },
-        function(error) {
-          console.log('No language defined');
-        });
+//      console.log('USER: navigator++', $window.navigator);
+//      console.log('USER: userAgent+++', $window.navigator.userAgent);
+//      console.log('USER: platform', $window.navigator.platform);
+
+      var browsers = {chrome: /chrome/i, safari: /safari/i, firefox: /firefox/i, ie: /internet explorer/i};
+      var userAgent = $window.navigator.userAgent;
+      var platform = 0;
+
+      for(var key in browsers) {
+        if (browsers[key].test(userAgent)) {
+          platform++;
+        }
+      }
+
+      /** if browser */
+      if(platform) {
+        var browserLang = navigator.language || navigator.userLanguage;
+        console.info("The language is: " + browserLang);
+        checkLangDictionary(browserLang.split('-')[0]);
+        $translate.use(UserStor.userInfo.langLabel);
+      } else {
+        /** if Ipad */
+        $cordovaGlobalization.getPreferredLanguage().then(
+          function(result) {
+            checkLangDictionary(result.value.split('-')[0]);
+            $translate.use(UserStor.userInfo.langLabel);
+          },
+          function(error) {
+            console.log('No language defined');
+          });
+      }
     }
 
 

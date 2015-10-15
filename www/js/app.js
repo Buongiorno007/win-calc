@@ -75,10 +75,11 @@
     'russianDictionary',
     'englishDictionary',
     'germanDictionary',
-    'romanianDictionary'
+    'romanianDictionary',
+    'italianDictionary'
   ];
 
-  function configurationApp($routeProvider, $locationProvider, $httpProvider, $translateProvider, ukrainianDictionary, russianDictionary, englishDictionary, germanDictionary, romanianDictionary) {
+  function configurationApp($routeProvider, $locationProvider, $httpProvider, $translateProvider, ukrainianDictionary, russianDictionary, englishDictionary, germanDictionary, romanianDictionary, italianDictionary) {
 
     $routeProvider
       .when('/', {
@@ -144,6 +145,7 @@
     $translateProvider.translations('en', englishDictionary);
     $translateProvider.translations('de', germanDictionary);
     $translateProvider.translations('ro', romanianDictionary);
+    $translateProvider.translations('it', italianDictionary);
 
     $translateProvider.preferredLanguage('en');
 
