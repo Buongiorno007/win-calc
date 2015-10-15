@@ -134,7 +134,6 @@
       add_elements: {
         CHOOSE: 'Wählen',
         ADD: 'drauflegen',
-
         GRID: 'Moskitonetz',
         VISOR: 'Deflektor',
         SPILLWAY: 'Entwässerungsanlage',
@@ -152,6 +151,7 @@
         WINDOWSILLS: 'Fensterbänke',
         HANDLELS: 'Griff',
         NAME_LABEL: 'Benennung',
+        ARTICUL_LABEL: 'Nachschlagewerke',
         QTY_LABEL: 'pcs',
         SIZE_LABEL: 'Größe',
         WIDTH_LABEL: 'Breite',

@@ -154,6 +154,7 @@
         WINDOWSILLS: 'підвіконня',
         HANDLELS: 'ручки',
         NAME_LABEL: 'найменування',
+        ARTICUL_LABEL: 'aртикул',
         QTY_LABEL: 'шт.',
         SIZE_LABEL: 'розмір',
         WIDTH_LABEL: 'ширина',

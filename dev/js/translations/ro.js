@@ -151,6 +151,7 @@
         WINDOWSILLS: 'Pervaze',
         HANDLELS: 'manere',
         NAME_LABEL: 'nume',
+        ARTICUL_LABEL: 'referință',
         QTY_LABEL: 'Bucăți',
         SIZE_LABEL: 'dimensiune',
         WIDTH_LABEL: 'lățime',

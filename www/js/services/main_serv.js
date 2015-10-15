@@ -116,24 +116,39 @@
       var defer = $q.defer();
       //------- get all Prifile Folders
       localDB.selectLocalDB(tableGroup).then(function(result) {
-        var types = result.reverse(),
+        /** sorting types by position */
+        var types = result.sort(function(a, b) {
+              return GeneralServ.sorting(a.position, b.position);
+            }),
             typesQty = types.length;
+
         if (typesQty) {
           groups.length = 0;
           angular.extend(groups, types);
           var promises = types.map(function(type) {
             var defer2 = $q.defer();
-            localDB.selectLocalDB(tableElem, {'folder_id': type.id}).then(function (elem) {
-              if (elem.length) {
-                elements.push(angular.copy(elem));
-                defer2.resolve(1);
+            localDB.selectLocalDB(tableElem, {'folder_id': type.id}).then(function (result2) {
+              if (result2.length) {
+                var elem = result2.sort(function(a, b) {
+                  return GeneralServ.sorting(a.position, b.position);
+                });
+                defer2.resolve(angular.copy(elem));
               } else {
                 defer2.resolve(0);
               }
             });
             return defer2.promise;
           });
-          $q.all(promises).then(function(){
+          $q.all(promises).then(function(result3){
+            var resQty = result3.length;
+            for(var r = 0; r < resQty; r++) {
+              if(result3[r].length) {
+                elements.push(result3[r]);
+              } else {
+                /** if no elements in group so delete group */
+                groups.splice(r, 1);
+              }
+            }
             defer.resolve(1);
           });
         } else {

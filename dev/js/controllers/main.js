@@ -16,6 +16,8 @@
 
     //------- set current Page
     GlobalStor.global.currOpenPage = 'main';
+    //------- close Report
+    GlobalStor.global.isReport = 0;
 
 //    localDB.cleanLocalDB({localDB.tablesLocalDB.order_addelements.tableName: 1});
     //=============== FIRST START =========//

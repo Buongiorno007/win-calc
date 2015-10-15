@@ -33,6 +33,8 @@
 
     //------- Select glass
     function selectGlass(newId) {
+      //----- open glass selector dialog
+      GlobalStor.global.showGlassSelectorDialog = 1;
       var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
       //------- set currenct Glass
       MainServ.setCurrentGlass(ProductStor.product, newId);

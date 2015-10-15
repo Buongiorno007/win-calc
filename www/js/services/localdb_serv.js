@@ -56,11 +56,11 @@
             'prop': 'profile_system_id INTEGER, list_id INTEGER, glass_width INTEGER',
             'foreignKey': ', FOREIGN KEY(list_id) REFERENCES lists(id)'
           },
-          'factories': {
-            'tableName': 'factories',
-            'prop': 'name VARCHAR(255), app_token VARCHAR',
-            'foreignKey': ''
-          },
+//          'factories': {
+//            'tableName': 'factories',
+//            'prop': 'name VARCHAR(255), app_token VARCHAR',
+//            'foreignKey': ''
+//          },
           'glass_folders': {
             'tableName': 'glass_folders',
             'prop': 'name VARCHAR(255),' +
@@ -157,7 +157,7 @@
               ' factory_id INTEGER,' +
               ' price NUMERIC(10, 2),' +
               ' amendment_pruning NUMERIC(10, 2),' +
-              ' noise_coeff INTEGER,' +
+              ' noise_coeff NUMERIC,' +
               ' heat_coeff INTEGER,' +
               ' lamination_in_id INTEGER,' +
               ' lamination_out_id INTEGER',
@@ -312,7 +312,7 @@
               ' is_editable INTEGER,' +
               ' is_group INTEGER,' +
               ' is_in_calculation INTEGER,' +
-              ' base_type_id INTEGER,' +
+              ' is_default INTEGER,' +
               ' position INTEGER,' +
               ' producer VARCHAR(255),' +
               ' country VARCHAR(255),' +
@@ -321,7 +321,7 @@
               ' link VARCHAR,' +
               ' description VARCHAR,' +
               ' img VARCHAR',
-            'foreignKey': ', FOREIGN KEY(base_type_id) REFERENCES window_hardware_types_base(id)'
+            'foreignKey': ''
           },
           'window_hardwares': {
             'tableName': 'window_hardwares',
@@ -1507,7 +1507,7 @@
         /** currency conversion */
         if (priceObj.currCurrencyId != constrElem.currency_id){
 //          console.log('diff currency');
-          currencyExgange(priceTemp, priceObj.currCurrencyId, constrElem.currency_id, priceObj.currencies);
+          priceTemp = currencyExgange(priceTemp, priceObj.currCurrencyId, constrElem.currency_id, priceObj.currencies);
         }
         constrElem.qty = 1;
         constrElem.size = GeneralServ.roundingNumbers(sizeTemp, 3);
@@ -1544,6 +1544,7 @@
           price /= currencies[currIndex].value;
         }
       }
+      return price;
     }
 
 
@@ -1601,7 +1602,7 @@
         /** currency conversion */
         if (priceObj.currCurrencyId != currConsistElem.currency_id){
 //          console.log('diff currency');
-          currencyExgange(priceReal, priceObj.currCurrencyId, currConsistElem.currency_id, priceObj.currencies);
+          priceReal = currencyExgange(priceReal, priceObj.currCurrencyId, currConsistElem.currency_id, priceObj.currencies);
         }
         objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
         objTmp.size = 0;
@@ -1714,7 +1715,7 @@
       /** currency conversion */
       if (priceObj.currCurrencyId != currConsistElem.currency_id){
 //        console.log('diff currency');
-        currencyExgange(priceReal, priceObj.currCurrencyId, currConsistElem.currency_id, priceObj.currencies);
+        priceReal = currencyExgange(priceReal, priceObj.currCurrencyId, currConsistElem.currency_id, priceObj.currencies);
       }
 
       objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
@@ -1915,7 +1916,7 @@
                 priceObj.constrElements = culcKitPrice(priceObj, construction.sizes);
                 culcConsistPrice(priceObj, construction);
                 priceObj.priceTotal = GeneralServ.roundingNumbers(priceObj.priceTotal);
-//                console.info('FINISH====:', priceObj);
+                console.info('FINISH====:', priceObj);
                 finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
                 finishPriceObj.priceTotal = angular.copy(priceObj.priceTotal);
                 deffMain.resolve(finishPriceObj);
@@ -1979,7 +1980,7 @@
                     /** currency conversion */
                     if (priceObj.currCurrencyId != constrElem.currency_id){
 //                      console.log('diff currency');
-                      currencyExgange(priceTemp, priceObj.currCurrencyId, constrElem.currency_id, priceObj.currencies);
+                      priceTemp = currencyExgange(priceTemp, priceObj.currCurrencyId, constrElem.currency_id, priceObj.currencies);
                     }
                     constrElem.qty = 1;
                     constrElem.size = angular.copy(sizeTemp);

@@ -57,12 +57,14 @@
         tr.report-item
           th.report-elem ID
           th.report-elem {{ 'add_elements.NAME_LABEL' | translate }}
+          th.report-elem {{ 'add_elements.ARTICUL_LABEL' | translate }}
           th.report-elem {{ 'add_elements.QTY_LABEL' | translate }}
           th.report-elem {{ 'add_elements.SIZE_LABEL' | translate }}
           th.report-elem {{ configMenu.U.userInfo.currency }}
         tr.report-item(ng-repeat="report in configMenu.P.product.report | filter: {element_group_id: configMenu.config.reportFilterId}")
           td.report-elem {{report.element_id}}
           td.report-elem {{report.name}}
+          td.report-elem {{report.sku}}
           td.report-elem {{report.amount}}
           td.report-elem {{report.size}}
           td.report-elem {{report.priceReal}}

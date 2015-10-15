@@ -37,6 +37,7 @@
         isVoiceHelper: 0,
         voiceHelperLanguage: '',
         showRoomSelectorDialog: 0,
+        showGlassSelectorDialog: 0,
         isShowCommentBlock: 0,
 
         //------- Templates

@@ -154,6 +154,7 @@
         WINDOWSILLS: 'подоконники',
         HANDLELS: 'ручки',
         NAME_LABEL: 'наименование',
+        ARTICUL_LABEL: 'aртикул',
         QTY_LABEL: 'шт.',
         SIZE_LABEL: 'размер',
         WIDTH_LABEL: 'ширина',

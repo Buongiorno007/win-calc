@@ -151,6 +151,7 @@
         WINDOWSILLS: 'sills',
         HANDLELS: 'handle',
         NAME_LABEL: 'name',
+        ARTICUL_LABEL: 'reference',
         QTY_LABEL: 'pcs.',
         SIZE_LABEL: 'size',
         WIDTH_LABEL: 'width',

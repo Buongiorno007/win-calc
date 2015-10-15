@@ -151,6 +151,7 @@
         WINDOWSILLS: 'i davanzali',
         HANDLELS: 'le maniglie',
         NAME_LABEL: 'denominazione',
+        ARTICUL_LABEL: 'riferimento',
         QTY_LABEL: 'pz.',
         SIZE_LABEL: 'dimensione, misura',
         WIDTH_LABEL: 'larghezza',

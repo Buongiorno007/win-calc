@@ -78,11 +78,13 @@
     /** REPORT */
     $document.off("keypress");
     $document.bind("keypress", function(event) {
-//      console.warn(event);
-      //----- Button 'Ctrl + R'
-      //      if(event.keyCode === 82 || event.keyCode === 114) {
-      if(event.keyCode === 18) {
-        showReport();
+      console.log(UserStor.userInfo.user_type);
+      //------ show report only for Plands (5,7)
+      if(UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
+        //----- Button 'R'
+        if(event.keyCode === 82 || event.keyCode === 114) {
+          showReport();
+        }
       }
     });
 
