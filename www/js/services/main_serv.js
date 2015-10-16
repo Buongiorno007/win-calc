@@ -140,13 +140,26 @@
             return defer2.promise;
           });
           $q.all(promises).then(function(result3){
-            var resQty = result3.length;
+            var resQty = result3.length,
+                deletInds = [];
             for(var r = 0; r < resQty; r++) {
               if(result3[r].length) {
                 elements.push(result3[r]);
               } else {
                 /** if no elements in group so delete group */
-                groups.splice(r, 1);
+                deletInds.push(r);
+              }
+            }
+            /** delete empty group */
+            var deletIndQty = deletInds.length,
+                groupQty =  groups.length;
+            if(deletIndQty) {
+              while(--groupQty > -1) {
+                while(--deletIndQty > -1) {
+                  if(groupQty === deletInds[deletIndQty]) {
+                    groups.splice(groupQty, 1);
+                  }
+                }
               }
             }
             defer.resolve(1);

@@ -921,6 +921,16 @@
         </div>
         <button hm-tap="elementsListPanel.closeAddElementListView()" class="view-switch-tab">{{ 'add_elements.SCHEME_VIEW' | translate }}</button>
       </div>
+      <div ng-controller="GlassSelectorCtrl as glassBox" ng-class="{'active': glassBox.G.global.showGlassSelectorDialog}" class="rooms-selector-dialog">
+        <div ng-if="rooms.G.global.showRoomSelectorDialog" class="rooms-inner">
+          <svg-template template="glassBox.P.product.template" template-width="glassBox.constants.svgTemplateIconBigWidth" template-height="glassBox.constants.svgTemplateIconBigHeight" type-construction="iconBig"></svg-template>
+          <!--.room-block(ng-repeat="room in rooms.config.rooms")
+          .room-box.unvisible(ng-class="{'selected': rooms.P.product.room_id === room.id}", hm-tap="rooms.selectRoom(room.id)", show-delay="{{ ($index+1) * rooms.config.DELAY_SHOW_ROOM }}")
+            .room-img(ng-style="{'background-image':'url(img/rooms-icon/'+room.id+'.jpg)'}")
+          -->
+        </div>
+        <div hm-tap="glassBox.closeGlassSelectorDialog()" class="close-dialog"></div>
+      </div>
       <div ng-show="mainPage.G.global.isShowCommentBlock" class="backDarkView"></div>
     </section>
     <section class="right-menu">
