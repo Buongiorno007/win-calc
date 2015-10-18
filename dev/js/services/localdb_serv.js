@@ -1267,52 +1267,26 @@
     /********* PRICE *********/
 
 
-    function parseListContent(listId){
-      var defer = $q.defer(),
-          lists = [],
-          elemLists = [];
-      if(Array.isArray(listId)) {
-        lists = listId;
-      } else {
-        lists.push(listId);
-      }
-      (function nextRecord() {
-        if (lists.length) {
-          selectLocalDB(tablesLocalDB.list_contents.tableName, {parent_list_id: lists[0]}).then(function(result) {
-            var resQty = result.length;
-            if(resQty) {
-              for (var i = 0; i < resQty; i++) {
-                elemLists.push(result[i]);
-                if(result[i].child_type === 'list') {
-                  lists.push(result[i].child_id);
-                }
-              }
-            }
-            nextRecord();
-          });
-          lists.shift(0);
-        } else {
-          defer.resolve(elemLists);
-        }
-      })();
-      return defer.promise;
-    }
-
-
-
     function parseMainKit(construction){
       var deff = $q.defer(),
           promisesKit = construction.sizes.map(function(item, index, arr) {
             var deff1 = $q.defer();
-            if(item.length) {
+			      //----- chekh is sizes and id
+            if(item.length && construction.ids[index]) {
               /** if hardware */
               if(index === arr.length-1) {
-                deff1.resolve(0);
+                parseHardwareKit(construction.ids[index], item, construction.lamination).then(function(hardwares) {
+                  if(hardwares.length) {
+                    deff1.resolve(hardwares);
+                  } else {
+                    deff1.resolve(0);
+                  }
+                });
               } else {
                 if(Array.isArray(construction.ids[index])) {
-                  var promisKits = construction.ids[index].map(function(item2){
+                  var promisKits = construction.ids[index].map(function(item2) {
                     var deff2 = $q.defer();
-                    selectLocalDB(tablesLocalDB.lists.tableName, {id: item2}, 'parent_element_id, name, waste, amendment_pruning').then(function(result2) {
+                    selectLocalDB(tablesLocalDB.lists.tableName, {id: item2}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result2) {
                       if(result2.length) {
                         deff2.resolve(result2);
                       } else {
@@ -1325,20 +1299,28 @@
                     var resQty = result3.length,
                         collectArr = [];
                     for(var i = 0; i < resQty; i++) {
-                      if(result3[i][0].amendment_pruning) {
-                        result3[i][0].amendment_pruning /= 1000;
+                      if(result3[i]) {
+                        if(result3[i][0].amendment_pruning) {
+                          result3[i][0].amendment_pruning /= 1000;
+                        }
+                        collectArr.push(result3[i][0]);
                       }
-                      collectArr.push(result3[i][0]);
                     }
-                    deff1.resolve(collectArr);
+					          if(collectArr.length > 1) {
+                      deff1.resolve(collectArr);
+                    } else if(collectArr.length === 1) {
+                      deff1.resolve(collectArr[0]);
+                    } else {
+                      deff1.resolve(0);
+                    }
                   })
                 } else {
-                  selectLocalDB(tablesLocalDB.lists.tableName, {id: construction.ids[index]}, 'parent_element_id, name, waste, amendment_pruning').then(function(result) {
-                    if(result.length) {
-                      if(result[0].amendment_pruning) {
-                        result[0].amendment_pruning /= 1000;
+                  selectLocalDB(tablesLocalDB.lists.tableName, {id: construction.ids[index]}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result1) {
+                    if(result1.length) {
+                      if(result1[0].amendment_pruning) {
+                        result1[0].amendment_pruning /= 1000;
                       }
-                      deff1.resolve(result[0]);
+                      deff1.resolve(result1[0]);
                     } else {
                       deff1.resolve(0);
                     }
@@ -1350,63 +1332,354 @@
             }
             return deff1.promise;
           });
-      $q.all(promisesKit).then(function(result) {
-        deff.resolve(result);
+	    deff.resolve($q.all(promisesKit));
+      return deff.promise;
+    }
+
+
+	
+	function parseHardwareKit(whId, sashBlock, color){
+      var deff = $q.defer();
+      selectLocalDB(tablesLocalDB.window_hardwares.tableName, {window_hardware_group_id: whId}).then(function(result) {
+        //        console.warn('*****hardware = ', result);
+        var resQty = result.length,
+            hardwareKits = [],
+            sashBlockQty = sashBlock.length;
+        if(resQty) {
+		  //----- loop by sizes (sashesBlock)
+          for(var s = 0; s < sashBlockQty; s++){
+		        var openDirQty = sashBlock[s].openDir.length;
+		    //------ loop by kits
+            for (var res = 0; res < resQty; res++) {
+              var isExist = 0;
+              //              console.info('*****', sizes[lastInd][s].openDir, sizes[lastInd][s].sizes);
+              //              console.info('*****222', result[res]);
+
+              if(result[res].direction_id == 1) {
+
+                if(result[res].min_width && result[res].max_width && !result[res].min_height && !result[res].max_height) {
+                  if(sashBlock[s].sizes[0] >= result[res].min_width && sashBlock[s].sizes[0] <= result[res].max_width) {
+                    isExist = 1;
+                  }
+                } else if (!result[res].min_width && !result[res].max_width && result[res].min_height && result[res].max_height) {
+                  if(sashBlock[s].sizes[1] >= result[res].min_height && sashBlock[s].sizes[1] <= result[res].max_height) {
+                    isExist = 1;
+                  }
+                } else if (result[res].min_width && result[res].max_width && result[res].min_height && result[res].max_height) {
+                  if(sashBlock[s].sizes[1] >= result[res].min_height && sashBlock[s].sizes[1] <= result[res].max_height) {
+                    if(sashBlock[s].sizes[0] >= result[res].min_width && sashBlock[s].sizes[0] <= result[res].max_width) {
+                      isExist = 1;
+                    }
+                  }
+                }
+
+              } else if(result[res].direction_id > 1 && openDirQty === 2){
+
+                if(!result[res].min_width && !result[res].max_width && !result[res].min_height && !result[res].max_height) {
+                  if(sashBlock[s].openDir[0] == 1 && sashBlock[s].openDir[1] == 2 && result[res].direction_id == 3 || sashBlock[s].openDir[0] == 1 && sashBlock[s].openDir[1] == 4 && result[res].direction_id == 2) {
+                    isExist = 1;
+                  }
+                } else if(result[res].min_width && result[res].max_width && !result[res].min_height && !result[res].max_height) {
+                  if(sashBlock[s].sizes[0] >= result[res].min_width && sashBlock[s].sizes[0] <= result[res].max_width) {
+                    if(sashBlock[s].openDir[0] == 1 && sashBlock[s].openDir[1] == 2 && result[res].direction_id == 3 || sashBlock[s].openDir[0] == 1 && sashBlock[s].openDir[1] == 4 && result[res].direction_id == 2) {
+                      isExist = 1;
+                    }
+                  }
+                } else if(!result[res].min_width && !result[res].max_width && result[res].min_height && result[res].max_height) {
+                  if(sashBlock[s].sizes[1] >= result[res].min_height && sashBlock[s].sizes[1] <= result[res].max_height) {
+                    if(sashBlock[s].openDir[0] == 1 && sashBlock[s].openDir[1] == 2 && result[res].direction_id == 3 || sashBlock[s].openDir[0] == 1 && sashBlock[s].openDir[1] == 4 && result[res].direction_id == 2) {
+                      isExist = 1;
+                    }
+                  }
+                } else if(result[res].min_width && result[res].max_width && result[res].min_height && result[res].max_height) {
+                  if(sashBlock[s].sizes[1] >= result[res].min_height && sashBlock[s].sizes[1] <= result[res].max_height) {
+                    if(sashBlock[s].sizes[0] >= result[res].min_width && sashBlock[s].sizes[0] <= result[res].max_width) {
+                      if(sashBlock[s].openDir[0] == 1 && sashBlock[s].openDir[1] == 2 && result[res].direction_id == 3 || sashBlock[s].openDir[0] == 1 && sashBlock[s].openDir[1] == 4 && result[res].direction_id == 2) {
+                        isExist = 1;
+                      }
+                    }
+                  }
+                }
+
+              }
+              //console.log('isExist+++', isExist);
+              if(isExist) {
+                if(openDirQty == 1) {
+                  if(sashBlock[s].openDir[0] == 2 && result[res].window_hardware_type_id == sashBlock[s].type){ //2
+                    hardwareKits.push(result[res]);
+                  } else if(sashBlock[s].openDir[0] == 4 && result[res].window_hardware_type_id == sashBlock[s].type){ //2
+                    hardwareKits.push(result[res]);
+                  } else if(sashBlock[s].openDir[0] == 1 && result[res].window_hardware_type_id == sashBlock[s].type){ //7
+                    hardwareKits.push(result[res]);
+                  //} else if(sizes[4].length && sashBlock[s].openDir[0] == 2 && result[res].window_hardware_type_id == 4){
+				          } else if(sashBlock[s].openDir[0] == 2 && result[res].window_hardware_type_id == sashBlock[s].type){ //4
+                    hardwareKits.push(result[res]);
+				          //} else if(sizes[4].length && sashBlock[s].openDir[0] == 4 && result[res].window_hardware_type_id == 4){
+                  } else if(sashBlock[s].openDir[0] == 4 && result[res].window_hardware_type_id == sashBlock[s].type){ //4
+                    hardwareKits.push(result[res]);
+                  }
+                } else if(openDirQty == 2) {
+                  if(result[res].window_hardware_type_id == sashBlock[s].type){ //6
+                    hardwareKits.push(result[res]);
+				          //} else if(sizes[4].length && result[res].window_hardware_type_id == 17){
+                  } else if(result[res].window_hardware_type_id == sashBlock[s].type){ //17
+                    hardwareKits.push(result[res]);
+                  }
+                }
+              }
+            }
+          }
+          if(hardwareKits.length) {
+		        deff.resolve(hardwareKits);
+          } else {
+            deff.resolve(0);
+          }
+        } else {
+          deff.resolve(0);
+        }
       });
       return deff.promise;
     }
 
 
 
-
-    function parseKitElement(kits){
+    function parseKitConsist(kits) {
       var deff = $q.defer(),
-          promisesKitElem = kits.map(function(item) {
+          promKits = kits.map(function(item, index, arr) {
             var deff1 = $q.defer();
             if(item) {
               if(Array.isArray(item)) {
                 var promisElem = item.map(function(item2){
-                  var deff2 = $q.defer();
-                  if(item2.parent_element_id) {
-                    deff2.resolve(getElementByListId(1, item2.parent_element_id));
-                    return deff2.promise;
+                  var deff2 = $q.defer(),
+                      itemId = 0;
+                  /** if hardware */
+                  if(index === arr.length-1) {
+                    itemId = item2.child_id;
+                  } else {
+                    itemId = item2.id;
                   }
+                  if(itemId) {
+                    parseListContent(itemId).then(function (result2) {
+                      if(result2.length) {
+                        deff2.resolve(result2);
+                      } else {
+                        deff2.resolve(0);
+                      }
+                    });
+                  } else {
+                    deff2.resolve(0);
+                  }
+                  return deff2.promise;
                 });
                 $q.all(promisElem).then(function(result3) {
                   var resQty = result3.length,
                       collectArr = [];
-                  for(var i = 0; i < resQty; i++) {
-                    collectArr.push(result3[i][0]);
+                  if(resQty) {
+                    for(var i = 0; i < resQty; i++) {
+                      if(Array.isArray(result3[i])) {
+                        collectArr.push(result3[i]);
+//                        var resArrQty = result3[i].length;
+//                        for(var j = 0; j < resArrQty; j++) {
+//                          if(result3[i][j]) {
+//                            collectArr.push(result3[i][j]);
+//                          }
+//                        }
+                      } else {
+                        if(result3[i][0]) {
+                          collectArr.push(result3[i][0]);
+                        }
+                      }
+                    }
                   }
-                  deff1.resolve(collectArr);
-                })
-              } else if(item.parent_element_id){
-                deff1.resolve(getElementByListId(0, item.parent_element_id));
+                  if(collectArr.length) {
+                    deff1.resolve(collectArr);
+                  } else {
+                    deff1.resolve(0);
+                  }
+                });
+              } else {
+                var itemId = 0;
+                /** if hardware */
+                if(index === arr.length-1) {
+                  itemId = item.child_id;
+                } else {
+                  itemId = item.id;
+                }
+                if(itemId) {
+                  parseListContent(itemId).then(function (result1) {
+                    if(result1.length) {
+                      deff1.resolve(result1);
+                    } else {
+                      deff1.resolve(0);
+                    }
+                  });
+                } else {
+                  deff1.resolve(0);
+                }
               }
             } else {
               deff1.resolve(0);
             }
             return deff1.promise;
           });
-      $q.all(promisesKitElem).then(function(result) {
-        deff.resolve(result);
+      deff.resolve($q.all(promKits));
+      return deff.promise;
+    }
+
+
+
+    function parseListContent(listId){
+      var defer = $q.defer(),
+          lists = [],
+          elemLists = [];
+      if(Array.isArray(listId)) {
+        lists = listId;
+      } else {
+        lists.push(listId);
+      }
+      (function nextRecord() {
+        if (lists.length) {
+          var currKitId = lists.shift(0);
+          selectLocalDB(tablesLocalDB.list_contents.tableName, {parent_list_id: currKitId}).then(function(result) {
+            var resQty = result.length;
+            if(resQty) {
+              for (var i = 0; i < resQty; i++) {
+                elemLists.push(result[i]);
+                if(result[i].child_type === 'list') {
+                  lists.push(result[i].child_id);
+                }
+              }
+            }
+            nextRecord();
+          });
+        } else {
+          if(elemLists.length) {
+            defer.resolve(elemLists);
+          } else {
+            defer.resolve(0);
+          }
+        }
+      })();
+      return defer.promise;
+    }
+
+
+
+    function parseKitElement(kits){
+      var deff = $q.defer(),
+          promisesKitElem = kits.map(function(item, index, arr) {
+            var deff1 = $q.defer();
+            if(item) {
+              if(Array.isArray(item)) {
+                var promisElem = item.map(function(item2){
+                  var deff2 = $q.defer(),
+                      itemId = 0;
+                  /** if hardware */
+                  if(index === arr.length-1) {
+                    itemId = item2.child_id;
+                  } else {
+                    itemId = item2.parent_element_id;
+                  }
+                  if(itemId) {
+                    deff2.resolve(getElementByListId(1, itemId));
+                  } else {
+                    deff2.resolve(0);
+                  }
+                  return deff2.promise;
+                });
+                $q.all(promisElem).then(function(result2) {
+                  var resQty = result2.length,
+                      collectArr = [];
+                  if(resQty) {
+                    for(var i = 0; i < resQty; i++) {
+                      if(result2[i][0]) {
+                        collectArr.push(result2[i][0]);
+                      }
+                    }
+                  }
+                  if(collectArr.length) {
+                    deff1.resolve(collectArr);
+                  } else {
+                    deff1.resolve(0);
+                  }
+                });
+              } else {
+                var itemId = 0;
+                /** if hardware */
+                if(index === arr.length-1) {
+                  itemId = item.child_id;
+                } else {
+                  itemId = item.parent_element_id;
+                }
+                if(itemId) {
+                  deff1.resolve(getElementByListId(0, itemId));
+                } else {
+                  deff1.resolve(0);
+                }
+              }
+            } else {
+              deff1.resolve(0);
+            }
+            return deff1.promise;
+          });
+      deff.resolve($q.all(promisesKitElem));
+      return deff.promise;
+    }
+
+
+
+	function getElementByListId(isArray, listID) {
+      var deff = $q.defer();
+      selectLocalDB(tablesLocalDB.elements.tableName, {id: listID}, 'id, sku, currency_id, price, name, element_group_id').then(function(result) {
+        if(result.length) {
+          if(isArray) {
+            deff.resolve(result);
+          } else {
+            deff.resolve(result[0]);
+          }
+        } else {
+          deff.resolve(0);
+        }
       });
       return deff.promise;
     }
 
 
 
-
-
+	
     function parseConsistElem(consists) {
       var deff = $q.defer();
       if(consists.length) {
         var promConsist = consists.map(function(item) {
           var deff1 = $q.defer();
-          if(item) {
-            if(item.length) {
-              var promConsistElem = item.map(function(item2) {
-                var deff2 = $q.defer();
+          if(item && item.length) {
+            var promConsistElem = item.map(function(item2) {
+              var deff2 = $q.defer();
+//              console.log('!@@@@@', item2);
+              if(Array.isArray(item2)) {
+                var promConsistArr = item2.map(function(item3) {
+                  var deff3 = $q.defer();
+                  if(item3.child_type === 'element') {
+                    deff3.resolve(getElementByListId(0, item3.child_id));
+                  } else {
+                    selectLocalDB(tablesLocalDB.lists.tableName, {id: item3.child_id}, 'parent_element_id, name, waste, amendment_pruning').then(function(result3) {
+                      if(result3.length) {
+                        if(result3[0].amendment_pruning) {
+                          result3[0].amendment_pruning /= 1000;
+                        }
+                        angular.extend(item3, result3[0]);
+                        deff3.resolve(getElementByListId(0, result3[0].parent_element_id));
+                      } else {
+                        deff3.resolve(0);
+                      }
+                    });
+                  }
+                  return deff3.promise;
+                });
+
+                deff2.resolve($q.all(promConsistArr));
+
+              } else {
                 if(item2.child_type === 'element') {
                   deff2.resolve(getElementByListId(0, item2.child_id));
                 } else {
@@ -1422,12 +1695,10 @@
                     }
                   });
                 }
-                return deff2.promise;
-              });
-              deff1.resolve($q.all(promConsistElem));
-            } else {
-              deff1.resolve(0);
-            }
+              }
+              return deff2.promise;
+            });
+            deff1.resolve($q.all(promConsistElem));
           } else {
             deff1.resolve(0);
           }
@@ -1441,22 +1712,6 @@
     }
 
 
-
-    function getElementByListId(isArray, listID) {
-      var deff = $q.defer();
-      selectLocalDB(tablesLocalDB.elements.tableName, {id: listID}, 'id, sku, currency_id, price, name, element_group_id').then(function(result) {
-        if(result.length) {
-          if(isArray) {
-            deff.resolve(result);
-          } else {
-            deff.resolve(result[0]);
-          }
-        } else {
-          deff.resolve(0);
-        }
-      });
-      return deff.promise;
-    }
 
 
 
@@ -1497,30 +1752,36 @@
 
 
 
-    function culcPriceAsSize(index, kits, kitsElem, sizes, sizeQty, priceObj, constrElements) {
+    function culcPriceAsSize(group, kits, kitsElem, sizes, sizeQty, priceObj, constrElements) {
       var priceTemp = 0,
           sizeTemp = 0,
+          qtyTemp = 1,
           constrElem = {},
-          waste = (1 + (kits.waste / 100));
+          waste = (kits.waste) ? (1 + (kits.waste / 100)) : 1;
       for(var siz = 0; siz < sizeQty; siz++) {
         constrElem = angular.copy(kitsElem);
         /** glasses */
-        if(index === 5) {
-          sizeTemp = sizes[siz];
-          priceTemp = sizeTemp * constrElem.price * waste;
+        if(group === 5) {
+          /** check size by id of glass */
+          if(sizes[siz].glassId === kits.id) {
+            sizeTemp = sizes[siz].square;
+            priceTemp = sizeTemp * constrElem.price * waste;
+          }
+        /** hardware */
+        } else if(group === 7) {
+          qtyTemp = kits.count;
+          priceTemp = qtyTemp * constrElem.price;
         } else {
           sizeTemp = (sizes[siz] + kits.amendment_pruning);
           priceTemp = (sizeTemp * constrElem.price) * waste;
         }
         /** currency conversion */
         if (priceObj.currCurrencyId != constrElem.currency_id){
-//          console.log('diff currency');
           priceTemp = currencyExgange(priceTemp, priceObj.currCurrencyId, constrElem.currency_id, priceObj.currencies);
         }
-        constrElem.qty = 1;
+        constrElem.qty = angular.copy(qtyTemp);
         constrElem.size = GeneralServ.roundingNumbers(sizeTemp, 3);
         constrElem.priceReal = GeneralServ.roundingNumbers(priceTemp, 3);
-//        console.info('price kits++++', priceTemp);
         priceObj.priceTotal += priceTemp;
         constrElements.push(constrElem);
       }
@@ -1534,7 +1795,6 @@
       var currencyQty = currencies.length,
           c = 0,
           currIndex, elemIndex;
-//      console.info('currency++++', currCurrencyId, currencyElemId, currencies);
       if(currencyQty) {
         for (; c < currencyQty; c++) {
           if(currencies[c].id === currCurrencyId) {
@@ -1563,31 +1823,26 @@
 
 
     function culcConsistPrice(priceObj, construction) {
-      var consistQty = priceObj.consist.length;
+      var groupQty = priceObj.consist.length,
+          group = 0;
 
-      for(var group = 0; group < consistQty; group++) {
+      for(; group < groupQty; group++) {
         if(priceObj.consist[group]) {
 
           var sizeQty = construction.sizes[group].length,
-              elemQty = priceObj.consist[group].length;
+              consistQty = priceObj.consist[group].length;
 
-          if(elemQty) {
+          if(consistQty) {
             for(var s = 0; s < sizeQty; s++) {
 
-              for(var elem = 0; elem < elemQty; elem++) {
-//                console.warn(priceObj.consistElem[group][elem].name);
-//                console.warn(priceObj.consist[group][elem].waste);
-
-                if (Array.isArray(construction.ids[group])) {
-                  var idsQty = construction.ids[group].length;
-                  for (var id = 0; id < idsQty; id++) {
-//                    console.error('!!!!!arrays+', construction.ids[group][id]);
-                    culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], construction.ids[group][id], priceObj.kits[group][id], priceObj);
-                  }
-                } else {
-                  culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], construction.ids[group], priceObj.kits[group], priceObj);
+              if(Array.isArray(priceObj.kits[group])) {
+                for(var elem = 0; elem < consistQty; elem++) {
+                  culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], priceObj.kits[group][elem], priceObj);
                 }
-
+              } else {
+                for(var elem = 0; elem < consistQty; elem++) {
+                  culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], priceObj.kits[group], priceObj);
+                }
               }
 
             }
@@ -1602,48 +1857,63 @@
 
 
 
-    function culcPriceConsistElem(group, currConsist, currConsistElem, currConstrSize, currConstrIds, mainKit, priceObj) {
+    function culcPriceConsistElem(group, currConsist, currConsistElem, currConstrSize, mainKit, priceObj) {
       /** if hardware */
       if(group === priceObj.consist.length-1) {
-        if(currConsist.child_type === "element") {
+        console.warn('-------hardware------- currConsist', currConsist);
+        console.warn('-------hardware------- currConsistElem', currConsistElem);
+        console.warn('-------hardware------- mainKit.child_id', mainKit.child_id);
+        if(Array.isArray(currConsistElem)) {
+          var hwElemQty = currConsistElem.length,
+              hwInd = 0;
+          for(; hwInd < hwElemQty; hwInd++) {
+            var objTmp = angular.copy(currConsistElem[hwInd]),
+                priceReal = 0,
+                wasteValue = 1;
 
-        } else {
-          var objTmp = angular.copy(currConsistElem),
-              wasteValue = (currConsist.waste) ? (1 + (currConsist.waste / 100)) : 1,
-              priceReal = 0;
-
-          console.warn('-------hardware------- priceTmp', currConsist);
-          console.warn('-------hardware------- priceTmp', currConsistElem);
-
-          currConsist.newValue = angular.copy(currConsist.count);
-          priceReal = currConsist.count * currConsistElem.price * wasteValue;
-          /** currency conversion */
-          if (priceObj.currCurrencyId != currConsistElem.currency_id){
-            //          console.log('diff currency');
-            priceReal = currencyExgange(priceReal, priceObj.currCurrencyId, currConsistElem.currency_id, priceObj.currencies);
+            if (currConsist[hwInd].parent_list_id === mainKit.child_id) {
+              wasteValue = (currConsist[hwInd].waste) ? (1 + (currConsist[hwInd].waste / 100)) : 1;
+              currConsist[hwInd].newValue = getValueByRule(mainKit.count, currConsist[hwInd].value, currConsist[hwInd].rules_type_id);
+              console.info('-------hardware------- count', mainKit.count, currConsist[hwInd].value);
+            } else {
+              for (var el = 0; el < hwElemQty; el++) {
+                if(currConsist[hwInd].parent_list_id == currConsist[el].child_id){
+                  wasteValue = (currConsist[el].waste) ? (1 + (currConsist[el].waste / 100)) : 1;
+                  currConsist[hwInd].newValue = getValueByRule(currConsist[el].newValue, currConsist[hwInd].value, currConsist[hwInd].rules_type_id);
+                }
+              }
+            }
+            priceReal = currConsist[hwInd].newValue * currConsistElem[hwInd].price * wasteValue;
+            console.log('++++++', priceReal, currConsist[hwInd].newValue, currConsistElem[hwInd].price, wasteValue);
+            if(priceReal) {
+              /** currency conversion */
+              if (priceObj.currCurrencyId != currConsistElem[hwInd].currency_id){
+                priceReal = currencyExgange(priceReal, priceObj.currCurrencyId, currConsistElem[hwInd].currency_id, priceObj.currencies);
+              }
+              objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
+              objTmp.size = 0;
+              objTmp.qty = angular.copy(currConsist[hwInd].newValue);
+              console.warn('finish -------hardware------- ', objTmp);
+              priceObj.constrElements.push(objTmp);
+              priceObj.priceTotal += objTmp.priceReal;
+            }
           }
-          objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
-          objTmp.size = 0;
-          objTmp.qty = angular.copy(currConsist.count);
-          console.warn('finish -------hardware------- priceTmp', objTmp);
-          priceObj.constrElements.push(objTmp);
-          priceObj.priceTotal += objTmp.priceReal;
         }
 
       } else {
-        if (currConsist.parent_list_id === currConstrIds) {
+        if (currConsist.parent_list_id === mainKit.id) {
           /** if glasses */
           var fullSize = (group === 5) ? 1 : (currConstrSize + mainKit.amendment_pruning),
-              wasteValue = (1 + (mainKit.waste / 100));
+              currSize = (group === 5) ? currConstrSize.square : currConstrSize,
+              wasteValue = (mainKit.waste) ? (1 + (mainKit.waste / 100)) : 1;
           currConsist.newValue = getValueByRule(fullSize, currConsist.value, currConsist.rules_type_id);
-          culcPriceAsRule(1, currConstrSize, currConsist, currConsistElem, mainKit.amendment_pruning, wasteValue, priceObj);
+          culcPriceAsRule(1, currSize, currConsist, currConsistElem, mainKit.amendment_pruning, wasteValue, priceObj);
 
         } else {
-//          console.warn('else++++');
-          var elemQty = priceObj.consist[group].length;
-          for (var el = 0; el < elemQty; el++) {
+          var consistQty = priceObj.consist[group].length;
+          for (var el = 0; el < consistQty; el++) {
             if(currConsist.parent_list_id == priceObj.consist[group][el].child_id){
-              var wasteValue = (1 + (priceObj.consist[group][el].waste / 100));
+              var wasteValue = (priceObj.consist[group][el].waste) ? (1 + (priceObj.consist[group][el].waste / 100)) : 1;
               //            currConsist.newValue = getValueByRule(priceObj.consist[group][el].newValue, currConsist.value, priceObj.consist[group][el].rules_type_id);
               currConsist.newValue = getValueByRule(priceObj.consist[group][el].newValue, currConsist.value, currConsist.rules_type_id);
               culcPriceAsRule(currConsist.newValue, priceObj.consist[group][el].newValue, currConsist, currConsistElem, priceObj.consist[group][el].amendment_pruning, wasteValue, priceObj);
@@ -1710,11 +1980,12 @@
         priceReal = qtyReal * currConsistElem.price * wasteValue;
 
 //        console.log('Правило 3 : ' + currConsist.value + ' шт. на метр родителя');
-//        console.log('Правило 3 : ', currSize, qtyReal, ' шт. на метр родителя');
+        console.log('Правило 3 : ', currConsist, ' шт. на метр родителя');
+        console.log('Правило 3 : ', currSize, pruning, currConsist.value, qtyReal, ' шт. на метр родителя');
 
       } else if (currConsist.rules_type_id === 2 || currConsist.rules_type_id === 4 || currConsist.rules_type_id === 15) {
 
-//        console.log('Правило 2: ', currValue, currConsist.value, ' шт. на родителя');
+        console.log('Правило 2: ',  currConsist.value, ' шт. на родителя');
         //        qtyReal = currValue * currConsist.value;
         qtyReal = angular.copy(currConsist.value);
         priceReal = qtyReal * currConsistElem.price * wasteValue;
@@ -1726,12 +1997,12 @@
         priceReal = sizeReal * currConsistElem.price * wasteValue;
         qtyReal = 1;
 
-//        console.log('Правило 1:', currSize, currConsist.value, sizeReal);
+        console.log('Правило 1:', currSize, currConsist.value, sizeReal);
       } else {
         sizeReal = GeneralServ.roundingNumbers((currSize + pruning), 3);
         priceReal = sizeReal * currConsistElem.price * wasteValue;
         qtyReal = 1;
-//        console.log('Правило else:', currSize, sizeReal);
+        console.log('Правило else:', currSize, sizeReal);
       }
 
       /** currency conversion */
@@ -1743,150 +2014,10 @@
       objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
       objTmp.size = GeneralServ.roundingNumbers(sizeReal, 3);
       objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
-//      console.warn('finish -------------- priceTmp', objTmp.priceReal, objTmp);
+      console.warn('finish -------------- priceTmp', objTmp.priceReal, objTmp);
       priceObj.constrElements.push(objTmp);
       priceObj.priceTotal += objTmp.priceReal;
     }
-
-
-
-
-
-
-    function getHardwareAsId(whId, sizes){
-      var deff = $q.defer();
-      selectLocalDB(tablesLocalDB.window_hardwares.tableName, {window_hardware_group_id: whId}).then(function(result) {
-        //        console.warn('*****hardware = ', result);
-        var resQty = result.length,
-            hardwareresult = [],
-            lastInd = sizes.length - 1,
-            sashBlockQty = sizes[lastInd].length;
-
-        if(resQty) {
-          for (var res = 0; res < resQty; res++) {
-            //----- go to sizes (sashesBlock)
-            for(var s = 0; s < sashBlockQty; s++){
-
-              var openDirQty = sizes[lastInd][s].openDir.length,
-                  isExist = 0;
-              //              console.info('*****', sizes[lastInd][s].openDir, sizes[lastInd][s].sizes);
-              //              console.info('*****222', result[res]);
-
-              if(result[res].direction_id == 1) {
-
-                if(result[res].min_width && result[res].max_width && !result[res].min_height && !result[res].max_height) {
-                  if(sizes[lastInd][s].sizes[0] >= result[res].min_width && sizes[lastInd][s].sizes[0] <= result[res].max_width) {
-                    isExist = 1;
-                  }
-                } else if (!result[res].min_width && !result[res].max_width && result[res].min_height && result[res].max_height) {
-                  if(sizes[lastInd][s].sizes[1] >= result[res].min_height && sizes[lastInd][s].sizes[1] <= result[res].max_height) {
-                    isExist = 1;
-                  }
-                } else if (result[res].min_width && result[res].max_width && result[res].min_height && result[res].max_height) {
-                  if(sizes[lastInd][s].sizes[1] >= result[res].min_height && sizes[lastInd][s].sizes[1] <= result[res].max_height) {
-                    if(sizes[lastInd][s].sizes[0] >= result[res].min_width && sizes[lastInd][s].sizes[0] <= result[res].max_width) {
-                      isExist = 1;
-                    }
-                  }
-                }
-
-              } else if(result[res].direction_id > 1 && openDirQty === 2){
-
-                if(!result[res].min_width && !result[res].max_width && !result[res].min_height && !result[res].max_height) {
-                  if(sizes[lastInd][s].openDir[0] == 1 && sizes[lastInd][s].openDir[1] == 2 && result[res].direction_id == 3 || sizes[lastInd][s].openDir[0] == 1 && sizes[lastInd][s].openDir[1] == 4 && result[res].direction_id == 2) {
-                    isExist = 1;
-                  }
-                } else if(result[res].min_width && result[res].max_width && !result[res].min_height && !result[res].max_height) {
-                  if(sizes[lastInd][s].sizes[0] >= result[res].min_width && sizes[lastInd][s].sizes[0] <= result[res].max_width) {
-                    if(sizes[lastInd][s].openDir[0] == 1 && sizes[lastInd][s].openDir[1] == 2 && result[res].direction_id == 3 || sizes[lastInd][s].openDir[0] == 1 && sizes[lastInd][s].openDir[1] == 4 && result[res].direction_id == 2) {
-                      isExist = 1;
-                    }
-                  }
-                } else if(!result[res].min_width && !result[res].max_width && result[res].min_height && result[res].max_height) {
-                  if(sizes[lastInd][s].sizes[1] >= result[res].min_height && sizes[lastInd][s].sizes[1] <= result[res].max_height) {
-                    if(sizes[lastInd][s].openDir[0] == 1 && sizes[lastInd][s].openDir[1] == 2 && result[res].direction_id == 3 || sizes[lastInd][s].openDir[0] == 1 && sizes[lastInd][s].openDir[1] == 4 && result[res].direction_id == 2) {
-                      isExist = 1;
-                    }
-                  }
-                } else if(result[res].min_width && result[res].max_width && result[res].min_height && result[res].max_height) {
-                  if(sizes[lastInd][s].sizes[1] >= result[res].min_height && sizes[lastInd][s].sizes[1] <= result[res].max_height) {
-                    if(sizes[lastInd][s].sizes[0] >= result[res].min_width && sizes[lastInd][s].sizes[0] <= result[res].max_width) {
-                      if(sizes[lastInd][s].openDir[0] == 1 && sizes[lastInd][s].openDir[1] == 2 && result[res].direction_id == 3 || sizes[lastInd][s].openDir[0] == 1 && sizes[lastInd][s].openDir[1] == 4 && result[res].direction_id == 2) {
-                        isExist = 1;
-                      }
-                    }
-                  }
-                }
-
-              }
-              //console.log('isExist+++', isExist);
-              if(isExist) {
-                if(openDirQty == 1) {
-                  if(sizes[lastInd][s].openDir[0] == 2 && result[res].window_hardware_type_id == 2){
-                    hardwareresult.push(result[res]);
-                  } else if(sizes[lastInd][s].openDir[0] == 4 && result[res].window_hardware_type_id == 2){
-                    hardwareresult.push(result[res]);
-                  } else if(sizes[lastInd][s].openDir[0] == 1 && result[res].window_hardware_type_id == 7){
-                    hardwareresult.push(result[res]);
-                  } else if(sizes[4].length && sizes[lastInd][s].openDir[0] == 2 && result[res].window_hardware_type_id == 4){
-                    hardwareresult.push(result[res]);
-                  } else if(sizes[4].length && sizes[lastInd][s].openDir[0] == 4 && result[res].window_hardware_type_id == 4){
-                    hardwareresult.push(result[res]);
-                  }
-                } else if(openDirQty == 2) {
-                  if(result[res].window_hardware_type_id == 6){
-                    hardwareresult.push(result[res]);
-                  } else if(sizes[4].length && result[res].window_hardware_type_id == 17){
-                    hardwareresult.push(result[res]);
-                  }
-                }
-              }
-            }
-          }
-          /** parse Kits */
-          if(hardwareresult.length) {
-            var promHardware = hardwareresult.map(function(item) {
-              var deff2 = $q.defer();
-              if(item.child_type === 'list'){
-                parseListContent(angular.copy(item.child_id)).then(function (result) {
-                  deff2.resolve(result);
-                });
-              } else {
-                deff2.resolve(0);
-              }
-              return deff2.promise;
-            });
-
-            $q.all(promHardware).then(function(result) {
-//              console.warn('hardware2++', result);
-              var resQty = result.length;
-              if(resQty) {
-                for(var r = 0; r < resQty; r++) {
-                  if(result[r]) {
-                    var res2Qty = result[r].length;
-                    if(res2Qty) {
-                      for(var rr = 0; rr < res2Qty; rr++) {
-                        hardwareresult.push(result[r][rr]);
-                      }
-                    }
-                  }
-                }
-              }
-              deff.resolve(hardwareresult);
-            });
-          } else {
-            deff.resolve(0);
-          }
-
-
-        }
-      });
-
-      return deff.promise;
-    }
-
-
-
 
 
 
@@ -1903,44 +2034,27 @@
 
       priceObj.currCurrencyId = construction.currencyId;
       console.info('START+++', construction);
-      /** collect Kit Children Elements*/
-      var parseKitPromises = construction.sizes.map(function(item, index, arr) {
-        var deff = $q.defer();
-        /** check size available */
-        if(item.length) {
-          /** if hardware exists */
-          if(index === arr.length-1 && construction.ids[index]) {
-            getHardwareAsId(construction.ids[index], construction.sizes).then(function (result){
-              deff.resolve(result);
-            });
-          } else {
-            parseListContent(angular.copy(construction.ids[index])).then(function (result) {
-              deff.resolve(result);
-            });
-          }
-        } else {
-          deff.resolve(0);
-        }
-        return deff.promise;
-      });
+	  
+	    parseMainKit(construction).then(function(kits) {
+        console.warn('kits!!!!!!+', kits);
+        priceObj.kits = kits;
 
-      $q.all(parseKitPromises).then(function(data1) {
-        console.warn('consist!!!!!!+', data1);
-        priceObj.consist = data1;
+        /** collect Kit Children Elements*/
+        parseKitConsist(priceObj.kits).then(function(consist){
+          console.warn('consist!!!!!!+', consist);
+          priceObj.consist = consist;
 
-        parseMainKit(construction).then(function(data2) {
-          console.warn('kits!!!!!!+', data2);
-          priceObj.kits = data2;
-          parseKitElement(data2).then(function(data3) {
-            console.warn('kitsElem!!!!!!+', data3);
-            priceObj.kitsElem = data3;
-            parseConsistElem(priceObj.consist).then(function(data4){
-              console.warn('consistElem!!!!!!+', data4);
-              priceObj.consistElem = data4;
+          parseKitElement(priceObj.kits).then(function(kitsElem) {
+            console.warn('kitsElem!!!!!!+', kitsElem);
+            priceObj.kitsElem = kitsElem;
+
+            parseConsistElem(priceObj.consist).then(function(consistElem){
+              console.warn('consistElem!!!!!!+', consistElem);
+              priceObj.consistElem = consistElem;
               /** download all currencies */
-              downloadAllCurrencies().then(function(data5) {
-                console.warn('currencies!!!!!!+', data5);
-                priceObj.currencies = data5;
+              downloadAllCurrencies().then(function(currencies) {
+                console.warn('currencies!!!!!!+', currencies);
+                priceObj.currencies = currencies;
                 priceObj.constrElements = culcKitPrice(priceObj, construction.sizes);
                 culcConsistPrice(priceObj, construction);
                 priceObj.priceTotal = GeneralServ.roundingNumbers(priceObj.priceTotal);
@@ -1950,6 +2064,7 @@
                 deffMain.resolve(finishPriceObj);
               })
             });
+
           });
         });
       });

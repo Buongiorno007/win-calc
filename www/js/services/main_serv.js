@@ -616,7 +616,7 @@
                 ProductStor.product.profile.stvorka_list_id,
                 ProductStor.product.profile.impost_list_id,
                 ProductStor.product.profile.shtulp_list_id,
-                glassId, //array
+                glassId, //[glassId, 222],//array
                 beadIds[0], //array
                 hardwareId
               ],
@@ -629,11 +629,26 @@
           //----- converting size from mm to m
           var newSizes = [];
           //----- besides of glass squares
-          if(size === 'glassSquares' || size === 'sashesBlock') {
-            newSizes = angular.copy(template.priceElements[size]);
+          if(size === 'sashesBlock') {
+            var sizeElemQty = template.priceElements[size].length,
+                sq = 0;
+            for(; sq < sizeElemQty; sq++) {
+              template.priceElements[size][sq].type = (template.priceElements[size][sq].openDir.length > 1) ? 6 : 2;
+              newSizes.push(angular.copy(template.priceElements[size][sq]));
+            }
+          } else if(size === 'glassSquares') { //TODO change!!!!!!
+            var sizeElemQty = template.priceElements[size].length,
+                sq = 0;
+            for(; sq < sizeElemQty; sq++) {
+              var glassSizeObj = {
+                glassId: glassId,
+                square: template.priceElements[size][sq]
+              };
+              newSizes.push(glassSizeObj);
+            }
           } else {
             newSizes = angular.copy(template.priceElements[size]).map(function(item) {
-              return item/1000;
+              return GeneralServ.roundingNumbers(item/1000, 3);
             });
           }
           objXFormedPrice.sizes.push(newSizes);
