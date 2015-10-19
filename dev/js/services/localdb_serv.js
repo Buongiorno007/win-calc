@@ -53,11 +53,6 @@
             'prop': 'profile_system_id INTEGER, list_id INTEGER, glass_width INTEGER',
             'foreignKey': ', FOREIGN KEY(list_id) REFERENCES lists(id)'
           },
-//          'factories': {
-//            'tableName': 'factories',
-//            'prop': 'name VARCHAR(255), app_token VARCHAR',
-//            'foreignKey': ''
-//          },
           'glass_folders': {
             'tableName': 'glass_folders',
             'prop': 'name VARCHAR(255),' +
@@ -111,6 +106,42 @@
           'margin_types': {
             'tableName': 'margin_types',
             'prop': 'name VARCHAR(255)',
+            'foreignKey': ''
+          },
+          'options_coefficients': {
+            'tableName': 'options_coefficients',
+            'prop': 'rentability_percent INTEGER,' +
+              ' rentability_hrn_m INTEGER,' +
+              ' rentability_hrn INTEGER,' +
+              ' others_percent INTEGER,' +
+              ' others_hrn_m INTEGER,' +
+              ' others_hrn INTEGER,' +
+              ' transport_cost_percent INTEGER,' +
+              ' transport_cost_hrn_m INTEGER,' +
+              ' transport_cost_hrn INTEGER,' +
+              ' salary_manager_percent INTEGER,' +
+              ' salary_manager_hrn_m INTEGER,' +
+              ' salary_manager_hrn INTEGER,' +
+              ' rent_offices_percent INTEGER,' +
+              ' rent_offices_hrn_m INTEGER,' +
+              ' rent_offices_hrn INTEGER,' +
+              ' salary_itr_percent INTEGER,' +
+              ' salary_itr_hrn_m INTEGER,' +
+              ' salary_itr_hrn INTEGER,' +
+              ' rent_production_percent INTEGER,' +
+              ' rent_production_hrn_m INTEGER,' +
+              ' rent_production_hrn INTEGER,' +
+              ' salary_glass_percent INTEGER,' +
+              ' salary_glass_hrn_m INTEGER,' +
+              ' salary_glass_hrn INTEGER,' +
+              ' salary_assembly_percent INTEGER,' +
+              ' salary_assembly_hrn_m INTEGER,' +
+              ' salary_assembly_hrn INTEGER,' +
+              ' estimated_cost INTEGER,' +
+              ' factory_id INTEGER,' +
+              ' plan_production INTEGER,' +
+              ' margin NUMERIC(10, 2),' +
+              ' coeff NUMERIC(10, 2)',
             'foreignKey': ''
           },
           'options_discounts': {
@@ -1315,15 +1346,8 @@
                     }
                   })
                 } else {
-                  selectLocalDB(tablesLocalDB.lists.tableName, {id: construction.ids[index]}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result1) {
-                    if(result1.length) {
-                      if(result1[0].amendment_pruning) {
-                        result1[0].amendment_pruning /= 1000;
-                      }
-                      deff1.resolve(result1[0]);
-                    } else {
-                      deff1.resolve(0);
-                    }
+                  getKitByID(construction.ids[index]).then(function(data) {
+                    deff1.resolve(data);
                   });
                 }
               }
@@ -1337,8 +1361,25 @@
     }
 
 
-	
-	function parseHardwareKit(whId, sashBlock, color){
+
+    function getKitByID(kitID) {
+      var deff = $q.defer();
+      selectLocalDB(tablesLocalDB.lists.tableName, {id: kitID}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result) {
+        if(result && result.length) {
+          if(result[0].amendment_pruning) {
+            result[0].amendment_pruning /= 1000;
+          }
+          deff.resolve(result[0]);
+        } else {
+          deff.resolve(0);
+        }
+      });
+      return deff.promise;
+    }
+
+
+
+	  function parseHardwareKit(whId, sashBlock, color){
       var deff = $q.defer();
       selectLocalDB(tablesLocalDB.window_hardwares.tableName, {window_hardware_group_id: whId}).then(function(result) {
         //        console.warn('*****hardware = ', result);
@@ -1478,12 +1519,6 @@
                     for(var i = 0; i < resQty; i++) {
                       if(Array.isArray(result3[i])) {
                         collectArr.push(result3[i]);
-//                        var resArrQty = result3[i].length;
-//                        for(var j = 0; j < resArrQty; j++) {
-//                          if(result3[i][j]) {
-//                            collectArr.push(result3[i][j]);
-//                          }
-//                        }
                       } else {
                         if(result3[i][0]) {
                           collectArr.push(result3[i][0]);
@@ -1574,17 +1609,32 @@
                 var promisElem = item.map(function(item2){
                   var deff2 = $q.defer(),
                       itemId = 0;
+
                   /** if hardware */
                   if(index === arr.length-1) {
-                    itemId = item2.child_id;
+                    if(item2.child_type === 'element') {
+                      deff2.resolve(getElementByListId(1, item2.child_id));
+                    } else {
+                      getKitByID(item2.child_id).then(function(data) {
+                        angular.extend(item2, data);
+                        deff2.resolve(getElementByListId(1, data.parent_element_id));
+                      });
+                    }
                   } else {
-                    itemId = item2.parent_element_id;
+                    deff2.resolve(getElementByListId(1, item2.parent_element_id));
                   }
-                  if(itemId) {
-                    deff2.resolve(getElementByListId(1, itemId));
-                  } else {
-                    deff2.resolve(0);
-                  }
+
+//                  /** if hardware */
+//                  if(index === arr.length-1) {
+//                    itemId = item2.child_id;
+//                  } else {
+//                    itemId = item2.parent_element_id;
+//                  }
+//                  if(itemId) {
+//                    deff2.resolve(getElementByListId(1, itemId));
+//                  } else {
+//                    deff2.resolve(0);
+//                  }
                   return deff2.promise;
                 });
                 $q.all(promisElem).then(function(result2) {
@@ -1604,17 +1654,18 @@
                   }
                 });
               } else {
-                var itemId = 0;
                 /** if hardware */
                 if(index === arr.length-1) {
-                  itemId = item.child_id;
+                  if(item.child_type === 'element') {
+                    deff1.resolve(getElementByListId(0, item.child_id));
+                  } else {
+                    getKitByID(item.child_id).then(function(data) {
+                      angular.extend(item, data);
+                      deff1.resolve(getElementByListId(0, data.parent_element_id));
+                    });
+                  }
                 } else {
-                  itemId = item.parent_element_id;
-                }
-                if(itemId) {
-                  deff1.resolve(getElementByListId(0, itemId));
-                } else {
-                  deff1.resolve(0);
+                  deff1.resolve(getElementByListId(0, item.parent_element_id));
                 }
               }
             } else {
@@ -1655,23 +1706,15 @@
           if(item && item.length) {
             var promConsistElem = item.map(function(item2) {
               var deff2 = $q.defer();
-//              console.log('!@@@@@', item2);
               if(Array.isArray(item2)) {
                 var promConsistArr = item2.map(function(item3) {
                   var deff3 = $q.defer();
                   if(item3.child_type === 'element') {
                     deff3.resolve(getElementByListId(0, item3.child_id));
                   } else {
-                    selectLocalDB(tablesLocalDB.lists.tableName, {id: item3.child_id}, 'parent_element_id, name, waste, amendment_pruning').then(function(result3) {
-                      if(result3.length) {
-                        if(result3[0].amendment_pruning) {
-                          result3[0].amendment_pruning /= 1000;
-                        }
-                        angular.extend(item3, result3[0]);
-                        deff3.resolve(getElementByListId(0, result3[0].parent_element_id));
-                      } else {
-                        deff3.resolve(0);
-                      }
+                    getKitByID(item3.child_id).then(function(data) {
+                      angular.extend(item3, data);
+                      deff3.resolve(getElementByListId(0, data.parent_element_id));
                     });
                   }
                   return deff3.promise;
@@ -1683,16 +1726,9 @@
                 if(item2.child_type === 'element') {
                   deff2.resolve(getElementByListId(0, item2.child_id));
                 } else {
-                  selectLocalDB(tablesLocalDB.lists.tableName, {id: item2.child_id}, 'parent_element_id, name, waste, amendment_pruning').then(function(result) {
-                    if(result.length) {
-                      if(result[0].amendment_pruning) {
-                        result[0].amendment_pruning /= 1000;
-                      }
-                      angular.extend(item2, result[0]);
-                      deff2.resolve(getElementByListId(0, result[0].parent_element_id));
-                    } else {
-                      deff2.resolve(0);
-                    }
+                  getKitByID(item2.child_id).then(function(data) {
+                    angular.extend(item2, data);
+                    deff2.resolve(getElementByListId(0, data.parent_element_id));
                   });
                 }
               }
@@ -1710,7 +1746,6 @@
       }
       return deff.promise;
     }
-
 
 
 
@@ -1770,7 +1805,7 @@
         /** hardware */
         } else if(group === 7) {
           qtyTemp = kits.count;
-          priceTemp = qtyTemp * constrElem.price;
+          priceTemp = qtyTemp * constrElem.price * waste;
         } else {
           sizeTemp = (sizes[siz] + kits.amendment_pruning);
           priceTemp = (sizeTemp * constrElem.price) * waste;
@@ -1828,7 +1863,7 @@
 
       for(; group < groupQty; group++) {
         if(priceObj.consist[group]) {
-
+//          console.log('Group  ---------------------', group);
           var sizeQty = construction.sizes[group].length,
               consistQty = priceObj.consist[group].length;
 
@@ -1860,9 +1895,9 @@
     function culcPriceConsistElem(group, currConsist, currConsistElem, currConstrSize, mainKit, priceObj) {
       /** if hardware */
       if(group === priceObj.consist.length-1) {
-        console.warn('-------hardware------- currConsist', currConsist);
-        console.warn('-------hardware------- currConsistElem', currConsistElem);
-        console.warn('-------hardware------- mainKit.child_id', mainKit.child_id);
+//        console.warn('-------hardware------- currConsist', currConsist);
+//        console.warn('-------hardware------- currConsistElem', currConsistElem);
+//        console.warn('-------hardware------- mainKit.child_id', mainKit.child_id);
         if(Array.isArray(currConsistElem)) {
           var hwElemQty = currConsistElem.length,
               hwInd = 0;
@@ -1872,19 +1907,20 @@
                 wasteValue = 1;
 
             if (currConsist[hwInd].parent_list_id === mainKit.child_id) {
+//              console.warn('-------hardware------- mainKit', mainKit);
               wasteValue = (currConsist[hwInd].waste) ? (1 + (currConsist[hwInd].waste / 100)) : 1;
               currConsist[hwInd].newValue = getValueByRule(mainKit.count, currConsist[hwInd].value, currConsist[hwInd].rules_type_id);
-              console.info('-------hardware------- count', mainKit.count, currConsist[hwInd].value);
             } else {
               for (var el = 0; el < hwElemQty; el++) {
                 if(currConsist[hwInd].parent_list_id == currConsist[el].child_id){
+//                  console.warn('-------hardware------- parent list', currConsist[el]);
                   wasteValue = (currConsist[el].waste) ? (1 + (currConsist[el].waste / 100)) : 1;
                   currConsist[hwInd].newValue = getValueByRule(currConsist[el].newValue, currConsist[hwInd].value, currConsist[hwInd].rules_type_id);
                 }
               }
             }
             priceReal = currConsist[hwInd].newValue * currConsistElem[hwInd].price * wasteValue;
-            console.log('++++++', priceReal, currConsist[hwInd].newValue, currConsistElem[hwInd].price, wasteValue);
+//            console.log('++++++', priceReal, currConsist[hwInd].newValue, currConsistElem[hwInd].price, wasteValue);
             if(priceReal) {
               /** currency conversion */
               if (priceObj.currCurrencyId != currConsistElem[hwInd].currency_id){
@@ -1893,7 +1929,7 @@
               objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
               objTmp.size = 0;
               objTmp.qty = angular.copy(currConsist[hwInd].newValue);
-              console.warn('finish -------hardware------- ', objTmp);
+//              console.warn('finish -------hardware------- ', objTmp);
               priceObj.constrElements.push(objTmp);
               priceObj.priceTotal += objTmp.priceReal;
             }
@@ -1901,35 +1937,80 @@
         }
 
       } else {
-        if (currConsist.parent_list_id === mainKit.id) {
-          /** if glasses */
-          var fullSize = (group === 5) ? 1 : (currConstrSize + mainKit.amendment_pruning),
-              currSize = (group === 5) ? currConstrSize.square : currConstrSize,
-              wasteValue = (mainKit.waste) ? (1 + (mainKit.waste / 100)) : 1;
-          currConsist.newValue = getValueByRule(fullSize, currConsist.value, currConsist.rules_type_id);
-          culcPriceAsRule(1, currSize, currConsist, currConsistElem, mainKit.amendment_pruning, wasteValue, priceObj);
-
+        if(Array.isArray(currConsistElem)) {
+          var elemQty = currConsistElem.length,
+              elemInd = 0;
+          for(; elemInd < elemQty; elemInd++) {
+            prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist[elemInd], currConsistElem[elemInd], currConsist, priceObj);
+          }
         } else {
-          var consistQty = priceObj.consist[group].length;
-          for (var el = 0; el < consistQty; el++) {
-            if(currConsist.parent_list_id == priceObj.consist[group][el].child_id){
-              var wasteValue = (priceObj.consist[group][el].waste) ? (1 + (priceObj.consist[group][el].waste / 100)) : 1;
-              //            currConsist.newValue = getValueByRule(priceObj.consist[group][el].newValue, currConsist.value, priceObj.consist[group][el].rules_type_id);
-              currConsist.newValue = getValueByRule(priceObj.consist[group][el].newValue, currConsist.value, currConsist.rules_type_id);
-              culcPriceAsRule(currConsist.newValue, priceObj.consist[group][el].newValue, currConsist, currConsistElem, priceObj.consist[group][el].amendment_pruning, wasteValue, priceObj);
+          prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist, currConsistElem, priceObj.consist[group], priceObj);
+        }
+      }
+    }
 
+
+
+
+    function prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist, currConsistElem, consistArr, priceObj) {
+      if (currConsist.parent_list_id === mainKit.id) {
+
+        var fullSize = 1,
+            currSize = 1,
+            wasteValue = (mainKit.waste) ? (1 + (mainKit.waste / 100)) : 1;
+        /** if glasses */
+        if(group === 5) {
+          if(currConsist.rules_type_id === 5) {
+            fullSize = currConstrSize.square;
+            currSize = currConstrSize.square;
+          } else if(currConsist.rules_type_id === 21) {
+            fullSize = currConstrSize.sizes[0];
+            currSize = currConstrSize.sizes[0];
+          } else if(currConsist.rules_type_id === 22) {
+            fullSize = currConstrSize.sizes[1];
+            currSize = currConstrSize.sizes[1];
+          } else {
+            currSize = currConstrSize.square;
+          }
+        } else {
+          fullSize = GeneralServ.roundingNumbers((currConstrSize + mainKit.amendment_pruning), 3);
+          currSize = currConstrSize;
+        }
+        if(currConsist.child_type === "list") {
+          currConsist.newValue = getValueByRule(fullSize, currConsist.value, currConsist.rules_type_id);
+        }
+        culcPriceAsRule(1, currSize, currConsist, currConsistElem, mainKit.amendment_pruning, wasteValue, priceObj);
+
+      } else {
+        var consistQty = consistArr.length;
+        for (var el = 0; el < consistQty; el++) {
+          if(currConsist.parent_list_id == consistArr[el].child_id){
+            var wasteValue = (consistArr[el].waste) ? (1 + (consistArr[el].waste / 100)) : 1,
+                newValue = 1;
+            if(currConsist.child_type === "list") {
+              currConsist.newValue = getValueByRule(consistArr[el].newValue, currConsist.value, currConsist.rules_type_id);
             }
+            if(consistArr[el].rules_type_id === 2) {
+              if(currConsist.rules_type_id === 2 || currConsist.rules_type_id === 4 || currConsist.rules_type_id === 15) {
+                newValue = consistArr[el].newValue;
+              }
+            }
+            culcPriceAsRule(newValue, consistArr[el].newValue, currConsist, currConsistElem, consistArr[el].amendment_pruning, wasteValue, priceObj);
+
           }
         }
       }
     }
 
 
+
     function getValueByRule(parentValue, childValue, rule){
-//      console.warn('rule++', parentValue, childValue, rule);
+//      console.info('rule++', parentValue, childValue, rule);
       var value = 0;
       switch (rule) {
         case 1:
+        case 21: //---- less width of glass
+        case 22: //---- less height of glass
           //------ меньше родителя на X (м)
           value = GeneralServ.roundingNumbers((parentValue - childValue), 3);
           break;
@@ -1939,22 +2020,22 @@
           //------ X шт. на метр родителя
           value = GeneralServ.roundingNumbers((Math.round(parentValue) * childValue), 3);
           break;
-        case 5:
-          value = parentValue * childValue;
+        case 5: //----- X шт. на 1 м2 родителя
+          value = Math.round(parentValue * childValue);
           break;
         case 6:
         case 7:
         case 8:
         case 9:
         case 13:
-        case 23:
+        case 23: //------ кг на м
           value = GeneralServ.roundingNumbers((parentValue * childValue), 3);
           break;
         default:
           value = childValue;
           break;
       }
-//      console.warn('rule++value+++', value);
+//      console.info('rule++value+++', value);
       return value;
     }
 
@@ -1963,58 +2044,64 @@
 
 
 
-    function culcPriceAsRule(currValue, currSize, currConsist, currConsistElem, pruning, wasteValue, priceObj) {
+    function culcPriceAsRule(parentValue, currSize, currConsist, currConsistElem, pruning, wasteValue, priceObj) {
       var objTmp = angular.copy(currConsistElem),
           priceReal = 0,
           sizeReal = 0,
-          qtyReal = 0;
+          qtyReal = 1;
 
+//      console.log('id: ' + currConsist.id + '///' + currConsistElem.id);
 //      console.log('Название: ' + currConsistElem.name);
 //      console.log('Цена: ' + currConsistElem.price);
 //      console.log('% отхода : ' + wasteValue);
 //      console.log('Поправка на обрезку : ' + pruning);
 //      console.log('Размер: ' + currSize + ' m');
+//      console.log('parentValue: ' + parentValue);
 
-      if (currConsist.rules_type_id === 3) {
-        qtyReal = Math.round(currSize + pruning) * currConsist.value;
-        priceReal = qtyReal * currConsistElem.price * wasteValue;
+      switch(currConsist.rules_type_id) {
+        case 1:
+        case 21:
+        case 22:
+          sizeReal = GeneralServ.roundingNumbers((currSize + pruning - currConsist.value), 3);
+//          console.log('Правило 1: меньше родителя на ', currSize, ' + ', pruning, ' - ', currConsist.value, ' = ', sizeReal);
+          break;
+        case 3:
+        case 5:
+          qtyReal = Math.round(currSize + pruning) * currConsist.value;
+//          console.log('Правило 3 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', qtyReal, ' шт. на метр родителя');
+          break;
+        case 6:
+        case 23:
+          qtyReal = GeneralServ.roundingNumbers((currSize + pruning) * currConsist.value, 3);
+//          console.log('Правило 23 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', qtyReal, ' kg. на метр родителя');
+          break;
+        case 2:
+        case 4:
+        case 15:
+          qtyReal = parentValue * currConsist.value;
+//          console.log('Правило 2: ',  parentValue, ' * ', currConsist.value, ' = ', qtyReal, ' шт. на родителя');
+          break;
+        default:
+          sizeReal = GeneralServ.roundingNumbers((currSize + pruning), 3);
+//          console.log('Правило else:', currSize, ' + ', pruning, ' = ', sizeReal);
+          break;
+      }
 
-//        console.log('Правило 3 : ' + currConsist.value + ' шт. на метр родителя');
-        console.log('Правило 3 : ', currConsist, ' шт. на метр родителя');
-        console.log('Правило 3 : ', currSize, pruning, currConsist.value, qtyReal, ' шт. на метр родителя');
-
-      } else if (currConsist.rules_type_id === 2 || currConsist.rules_type_id === 4 || currConsist.rules_type_id === 15) {
-
-        console.log('Правило 2: ',  currConsist.value, ' шт. на родителя');
-        //        qtyReal = currValue * currConsist.value;
-        qtyReal = angular.copy(currConsist.value);
-        priceReal = qtyReal * currConsistElem.price * wasteValue;
-
-      } else if (currConsist.rules_type_id === 1) {
-//        console.log('Правило 1: меньше родителя на ' + currConsist.value + ' м');
-
-        sizeReal = GeneralServ.roundingNumbers((currSize + pruning - currConsist.value), 3);
-        priceReal = sizeReal * currConsistElem.price * wasteValue;
-        qtyReal = 1;
-
-        console.log('Правило 1:', currSize, currConsist.value, sizeReal);
+      if(sizeReal) {
+        priceReal = sizeReal * qtyReal * currConsistElem.price * wasteValue;
       } else {
-        sizeReal = GeneralServ.roundingNumbers((currSize + pruning), 3);
-        priceReal = sizeReal * currConsistElem.price * wasteValue;
-        qtyReal = 1;
-        console.log('Правило else:', currSize, sizeReal);
+        priceReal = qtyReal * currConsistElem.price * wasteValue;
       }
 
       /** currency conversion */
       if (priceObj.currCurrencyId != currConsistElem.currency_id){
-//        console.log('diff currency');
         priceReal = currencyExgange(priceReal, priceObj.currCurrencyId, currConsistElem.currency_id, priceObj.currencies);
       }
 
       objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
       objTmp.size = GeneralServ.roundingNumbers(sizeReal, 3);
       objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
-      console.warn('finish -------------- priceTmp', objTmp.priceReal, objTmp);
+//      console.warn('finish -------------- priceTmp', objTmp.priceReal, objTmp);
       priceObj.constrElements.push(objTmp);
       priceObj.priceTotal += objTmp.priceReal;
     }

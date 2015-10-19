@@ -114,14 +114,13 @@
 
     function downloadAllElemAsGroup(tableGroup, tableElem, groups, elements) {
       var defer = $q.defer();
-      //------- get all Prifile Folders
+      //------- get all Folders
       localDB.selectLocalDB(tableGroup).then(function(result) {
         /** sorting types by position */
         var types = result.sort(function(a, b) {
               return GeneralServ.sorting(a.position, b.position);
             }),
             typesQty = types.length;
-
         if (typesQty) {
           groups.length = 0;
           angular.extend(groups, types);
@@ -141,24 +140,27 @@
           });
           $q.all(promises).then(function(result3){
             var resQty = result3.length,
-                deletInds = [];
-            for(var r = 0; r < resQty; r++) {
-              if(result3[r].length) {
+                existType = [],
+                r = 0;
+            for(; r < resQty; r++) {
+              if(result3[r] && result3[r].length) {
                 elements.push(result3[r]);
-              } else {
-                /** if no elements in group so delete group */
-                deletInds.push(r);
+                existType.push(result3[r][0].folder_id);
               }
             }
             /** delete empty group */
-            var deletIndQty = deletInds.length,
-                groupQty =  groups.length;
-            if(deletIndQty) {
+            var existTypeQty = existType.length,
+                groupQty = groups.length;
+            if(existTypeQty) {
               while(--groupQty > -1) {
-                while(--deletIndQty > -1) {
-                  if(groupQty === deletInds[deletIndQty]) {
-                    groups.splice(groupQty, 1);
+                var isExist = 0, t = 0;
+                for(; t < existTypeQty; t++) {
+                  if(groups[groupQty].id === existType[t]) {
+                    isExist = 1;
                   }
+                }
+                if(!isExist) {
+                  groups.splice(groupQty, 1);
                 }
               }
             }
@@ -616,7 +618,7 @@
                 ProductStor.product.profile.stvorka_list_id,
                 ProductStor.product.profile.impost_list_id,
                 ProductStor.product.profile.shtulp_list_id,
-                glassId, //[glassId, 222],//array
+                glassId, //[glassId, glassId], //array
                 beadIds[0], //array
                 hardwareId
               ],
@@ -642,7 +644,10 @@
             for(; sq < sizeElemQty; sq++) {
               var glassSizeObj = {
                 glassId: glassId,
-                square: template.priceElements[size][sq]
+                square: template.priceElements[size][sq].square,
+                sizes: angular.copy(template.priceElements[size][sq].sizes).map(function(item) {
+                  return GeneralServ.roundingNumbers(item/1000, 3);
+                })
               };
               newSizes.push(glassSizeObj);
             }
@@ -754,6 +759,7 @@
                 if (report[reportQty].element_id === tempObj.element_id && report[reportQty].size === tempObj.size) {
                   exist++;
                   report[reportQty].amount += tempObj.amount;
+                  report[reportQty].amount = GeneralServ.roundingNumbers(report[reportQty].amount, 3);
                 }
               }
               if (!exist) {
@@ -788,9 +794,9 @@
 //        }
 //      }
       //-------- total glasses square define
-      glassSquareTotal = objXFormedPrice.sizes[5].reduce(function(sum, elem) {
-        return sum + elem;
-      });
+      glassSquareTotal = GeneralServ.roundingNumbers(objXFormedPrice.sizes[5].reduce(function(sum, elem) {
+        return {square: (sum.square + elem.square)};
+      }).square, 3);
 //      console.log('heat_coef_total++++', ProductStor.product.profile.heat_coeff_value, ProductStor.product.template_square, glassSquareTotal);
 
       //-------- coeffs define

@@ -1002,7 +1002,7 @@
                 <th class="report-elem">{{ 'add_elements.SIZE_LABEL' | translate }}</th>
                 <th class="report-elem">{{ configMenu.U.userInfo.currency }}</th>
               </tr>
-              <tr ng-repeat="report in configMenu.P.product.report | filter: {element_group_id: configMenu.config.reportFilterId}" class="report-item">
+              <tr ng-repeat="report in configMenu.P.product.report | filter: {element_group_id: configMenu.config.reportFilterId}:true" class="report-item">
                 <td class="report-elem">{{report.element_id}}</td>
                 <td class="report-elem">{{report.name}}</td>
                 <td class="report-elem">{{report.sku}}</td>

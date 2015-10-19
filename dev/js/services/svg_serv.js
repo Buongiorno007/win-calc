@@ -1279,9 +1279,7 @@
       part.sizes = culcLengthGlass(glassPoints);
 
       //------- per Price
-//      priceElements.glassSizes.push(part.sizes);
-      priceElements.glassSquares.push(part.square);
-
+      priceElements.glassSquares.push(part);
 
       return part;
     }
