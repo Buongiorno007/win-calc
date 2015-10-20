@@ -178,7 +178,13 @@
     border: 1px solid #000;
     padding: 1rem;
   }
-
+  .report-price-total {
+    @include roboto-bd(rem(30px));
+    padding: 1rem;
+    border-top: 2px solid #000;
+    background-color: #c2c2c2;
+    text-align: right;
+  }
   .report-menu-item {
     padding: 1rem;
     padding-right: 0;

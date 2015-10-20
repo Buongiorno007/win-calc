@@ -609,6 +609,7 @@
 
         var objXFormedPrice = {
               currencyId: UserStor.userInfo.currencyId,
+              laminationId: ProductStor.product.lamination_in_id,
               ids: [
                 ProductStor.product.profile.rama_list_id,
                 ProductStor.product.profile.rama_still_list_id,
@@ -757,6 +758,8 @@
                   exist++;
                   report[reportQty].amount += tempObj.amount;
                   report[reportQty].amount = GeneralServ.roundingNumbers(report[reportQty].amount, 3);
+                  report[reportQty].priceReal += tempObj.priceReal;
+                  report[reportQty].priceReal = GeneralServ.roundingNumbers(report[reportQty].priceReal, 3);
                 }
               }
               if (!exist) {

@@ -1309,7 +1309,7 @@
             if(item.length && construction.ids[index]) {
               /** if hardware */
               if(index === arr.length-1) {
-                parseHardwareKit(construction.ids[index], item, construction.lamination).then(function(hardwares) {
+                parseHardwareKit(construction.ids[index], item, construction.laminationId).then(function(hardwares) {
                   if(hardwares.length) {
                     deff1.resolve(hardwares);
                   } else {
@@ -1349,8 +1349,15 @@
                     }
                   })
                 } else {
-                  getKitByID(construction.ids[index]).then(function(data) {
-                    deff1.resolve(data);
+                  selectLocalDB(tablesLocalDB.lists.tableName, {id: construction.ids[index]}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result) {
+                    if(result && result.length) {
+                      if(result[0].amendment_pruning) {
+                        result[0].amendment_pruning /= 1000;
+                      }
+                      deff1.resolve(result[0]);
+                    } else {
+                      deff1.resolve(0);
+                    }
                   });
                 }
               }
@@ -1367,7 +1374,7 @@
 
     function getKitByID(kitID) {
       var deff = $q.defer();
-      selectLocalDB(tablesLocalDB.lists.tableName, {id: kitID}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result) {
+      selectLocalDB(tablesLocalDB.lists.tableName, {id: kitID}, 'parent_element_id, name, waste, amendment_pruning').then(function(result) {
         if(result && result.length) {
           if(result[0].amendment_pruning) {
             result[0].amendment_pruning /= 1000;
@@ -1382,96 +1389,62 @@
 
 
 
-	  function parseHardwareKit(whId, sashBlock, color){
+	  function parseHardwareKit(whId, sashBlocks, color){
       var deff = $q.defer();
       selectLocalDB(tablesLocalDB.window_hardwares.tableName, {window_hardware_group_id: whId}).then(function(result) {
         //        console.warn('*****hardware = ', result);
         var resQty = result.length,
             hardwareKits = [],
-            sashBlockQty = sashBlock.length;
+            sashBlocksQty = sashBlocks.length;
         if(resQty) {
 		  //----- loop by sizes (sashesBlock)
-          for(var s = 0; s < sashBlockQty; s++){
-		        var openDirQty = sashBlock[s].openDir.length;
-		    //------ loop by kits
-            for (var res = 0; res < resQty; res++) {
-              var isExist = 0;
-              //              console.info('*****', sizes[lastInd][s].openDir, sizes[lastInd][s].sizes);
-              //              console.info('*****222', result[res]);
+          for(var s = 0; s < sashBlocksQty; s++){
+		        var hardware = [],
+                hardwareKits = [],
+                openDirQty = sashBlocks[s].openDir.length;
 
-              if(result[res].direction_id == 1) {
-
-                if(result[res].min_width && result[res].max_width && !result[res].min_height && !result[res].max_height) {
-                  if(sashBlock[s].sizes[0] >= result[res].min_width && sashBlock[s].sizes[0] <= result[res].max_width) {
-                    isExist = 1;
-                  }
-                } else if (!result[res].min_width && !result[res].max_width && result[res].min_height && result[res].max_height) {
-                  if(sashBlock[s].sizes[1] >= result[res].min_height && sashBlock[s].sizes[1] <= result[res].max_height) {
-                    isExist = 1;
-                  }
-                } else if (result[res].min_width && result[res].max_width && result[res].min_height && result[res].max_height) {
-                  if(sashBlock[s].sizes[1] >= result[res].min_height && sashBlock[s].sizes[1] <= result[res].max_height) {
-                    if(sashBlock[s].sizes[0] >= result[res].min_width && sashBlock[s].sizes[0] <= result[res].max_width) {
-                      isExist = 1;
-                    }
-                  }
-                }
-
-              } else if(result[res].direction_id > 1 && openDirQty === 2){
-
-                if(!result[res].min_width && !result[res].max_width && !result[res].min_height && !result[res].max_height) {
-                  if(sashBlock[s].openDir[0] == 1 && sashBlock[s].openDir[1] == 2 && result[res].direction_id == 3 || sashBlock[s].openDir[0] == 1 && sashBlock[s].openDir[1] == 4 && result[res].direction_id == 2) {
-                    isExist = 1;
-                  }
-                } else if(result[res].min_width && result[res].max_width && !result[res].min_height && !result[res].max_height) {
-                  if(sashBlock[s].sizes[0] >= result[res].min_width && sashBlock[s].sizes[0] <= result[res].max_width) {
-                    if(sashBlock[s].openDir[0] == 1 && sashBlock[s].openDir[1] == 2 && result[res].direction_id == 3 || sashBlock[s].openDir[0] == 1 && sashBlock[s].openDir[1] == 4 && result[res].direction_id == 2) {
-                      isExist = 1;
-                    }
-                  }
-                } else if(!result[res].min_width && !result[res].max_width && result[res].min_height && result[res].max_height) {
-                  if(sashBlock[s].sizes[1] >= result[res].min_height && sashBlock[s].sizes[1] <= result[res].max_height) {
-                    if(sashBlock[s].openDir[0] == 1 && sashBlock[s].openDir[1] == 2 && result[res].direction_id == 3 || sashBlock[s].openDir[0] == 1 && sashBlock[s].openDir[1] == 4 && result[res].direction_id == 2) {
-                      isExist = 1;
-                    }
-                  }
-                } else if(result[res].min_width && result[res].max_width && result[res].min_height && result[res].max_height) {
-                  if(sashBlock[s].sizes[1] >= result[res].min_height && sashBlock[s].sizes[1] <= result[res].max_height) {
-                    if(sashBlock[s].sizes[0] >= result[res].min_width && sashBlock[s].sizes[0] <= result[res].max_width) {
-                      if(sashBlock[s].openDir[0] == 1 && sashBlock[s].openDir[1] == 2 && result[res].direction_id == 3 || sashBlock[s].openDir[0] == 1 && sashBlock[s].openDir[1] == 4 && result[res].direction_id == 2) {
-                        isExist = 1;
-                      }
-                    }
-                  }
-                }
-
-              }
-              //console.log('isExist+++', isExist);
-              if(isExist) {
-                if(openDirQty == 1) {
-                  if(sashBlock[s].openDir[0] == 2 && result[res].window_hardware_type_id == sashBlock[s].type){ //2
-                    hardwareKits.push(result[res]);
-                  } else if(sashBlock[s].openDir[0] == 4 && result[res].window_hardware_type_id == sashBlock[s].type){ //2
-                    hardwareKits.push(result[res]);
-                  } else if(sashBlock[s].openDir[0] == 1 && result[res].window_hardware_type_id == sashBlock[s].type){ //7
-                    hardwareKits.push(result[res]);
-                  //} else if(sizes[4].length && sashBlock[s].openDir[0] == 2 && result[res].window_hardware_type_id == 4){
-				          } else if(sashBlock[s].openDir[0] == 2 && result[res].window_hardware_type_id == sashBlock[s].type){ //4
-                    hardwareKits.push(result[res]);
-				          //} else if(sizes[4].length && sashBlock[s].openDir[0] == 4 && result[res].window_hardware_type_id == 4){
-                  } else if(sashBlock[s].openDir[0] == 4 && result[res].window_hardware_type_id == sashBlock[s].type){ //4
-                    hardwareKits.push(result[res]);
-                  }
-                } else if(openDirQty == 2) {
-                  if(result[res].window_hardware_type_id == sashBlock[s].type){ //6
-                    hardwareKits.push(result[res]);
-				          //} else if(sizes[4].length && result[res].window_hardware_type_id == 17){
-                  } else if(result[res].window_hardware_type_id == sashBlock[s].type){ //17
-                    hardwareKits.push(result[res]);
-                  }
-                }
+            /** change openDir for directions
+             * direction_id == 1 - не учитывать
+             * 2 - право
+             * 3 - лево
+             * */
+            for(var dir = 0; dir < openDirQty; dir++) {
+              if(sashBlocks[s].openDir[dir] === 4) {
+                sashBlocks[s].openDir[dir] = 3;
+              } else if(sashBlocks[s].openDir[dir] !== 2) {
+                sashBlocks[s].openDir[dir] = 1;
               }
             }
+
+            //------ filter by type, direction and color
+            hardware = result.filter(function(item) {
+              if(openDirQty == 1) {
+                return item.window_hardware_type_id == sashBlocks[s].type && item.window_hardware_color_id == color && item.direction_id == sashBlocks[s].openDir[0];
+              } else if(openDirQty == 2) {
+                return item.window_hardware_type_id == sashBlocks[s].type && item.window_hardware_color_id == color && (item.direction_id == sashBlocks[s].openDir[0] || item.direction_id == sashBlocks[s].openDir[1]);
+              }
+            });
+
+            hardware = hardware.filter(function(item) {
+              if(item.min_width && item.max_width && !item.min_height && !item.max_height) {
+                if(sashBlocks[s].sizes[0] >= item.min_width && sashBlocks[s].sizes[0] <= item.max_width) {
+                  return item;
+                }
+              } else if (!item.min_width && !item.max_width && item.min_height && item.max_height) {
+                if(sashBlocks[s].sizes[1] >= item.min_height && sashBlocks[s].sizes[1] <= item.max_height) {
+                  return item;
+                }
+              } else if (item.min_width && item.max_width && item.min_height && item.max_height) {
+                if(sashBlocks[s].sizes[1] >= item.min_height && sashBlocks[s].sizes[1] <= item.max_height) {
+                  if(sashBlocks[s].sizes[0] >= item.min_width && sashBlocks[s].sizes[0] <= item.max_width) {
+                    return item;
+                  }
+                }
+              } else if (!item.min_width && !item.max_width && !item.min_height && !item.max_height) {
+                return item;
+              }
+            });
+            hardwareKits.push(hardware);
           }
           if(hardwareKits.length) {
 		        deff.resolve(hardwareKits);
@@ -1494,24 +1467,31 @@
             if(item) {
               if(Array.isArray(item)) {
                 var promisElem = item.map(function(item2){
-                  var deff2 = $q.defer(),
-                      itemId = 0;
+                  var deff2 = $q.defer();
                   /** if hardware */
                   if(index === arr.length-1) {
-                    itemId = item2.child_id;
+                    if(Array.isArray(item2)) {
+                      var promisHW = item2.map(function(item3) {
+                        var deff3 = $q.defer();
+                        parseListContent(item3.child_id).then(function (result4) {
+                          if(result4.length) {
+                            deff3.resolve(result4);
+                          } else {
+                            deff3.resolve(0);
+                          }
+                        });
+                        return deff3.promise;
+                      });
+                      deff2.resolve($q.all(promisHW));
+                    }
                   } else {
-                    itemId = item2.id;
-                  }
-                  if(itemId) {
-                    parseListContent(itemId).then(function (result2) {
+                    parseListContent(item2.id).then(function (result2) {
                       if(result2.length) {
                         deff2.resolve(result2);
                       } else {
                         deff2.resolve(0);
                       }
                     });
-                  } else {
-                    deff2.resolve(0);
                   }
                   return deff2.promise;
                 });
@@ -1577,14 +1557,27 @@
       }
       (function nextRecord() {
         if (lists.length) {
-          var currKitId = lists.shift(0);
-          selectLocalDB(tablesLocalDB.list_contents.tableName, {parent_list_id: currKitId}).then(function(result) {
+          var firstKit = lists.shift(0),
+              firstKitId = 0;
+          if(typeof firstKit === 'object') {
+            firstKitId = firstKit.childId;
+          } else {
+            firstKitId = firstKit;
+          }
+          selectLocalDB(tablesLocalDB.list_contents.tableName, {parent_list_id: firstKitId}).then(function(result) {
             var resQty = result.length;
             if(resQty) {
               for (var i = 0; i < resQty; i++) {
+                if(typeof firstKit === 'object') {
+                  result[i].parentId = firstKit.parentId;
+                }
                 elemLists.push(result[i]);
                 if(result[i].child_type === 'list') {
-                  lists.push(result[i].child_id);
+                  var nextKit = {
+                    childId: result[i].child_id,
+                    parentId: result[i].id
+                  };
+                  lists.push(nextKit);
                 }
               }
             }
@@ -1615,38 +1608,47 @@
 
                   /** if hardware */
                   if(index === arr.length-1) {
-                    if(item2.child_type === 'element') {
-                      deff2.resolve(getElementByListId(1, item2.child_id));
-                    } else {
-                      getKitByID(item2.child_id).then(function(data) {
-                        angular.extend(item2, data);
-                        deff2.resolve(getElementByListId(1, data.parent_element_id));
+                    if(Array.isArray(item2)) {
+                      var promisHW = item2.map(function (item3) {
+                        var deff3 = $q.defer();
+                        if(item3.child_type === 'element') {
+                          deff3.resolve(getElementByListId(1, item3.child_id));
+                        } else {
+                          getKitByID(item3.child_id).then(function(data) {
+                            angular.extend(item3, data);
+                            deff3.resolve(getElementByListId(1, data.parent_element_id));
+                          });
+                        }
+                        return deff3.promise;
                       });
+                      deff2.resolve($q.all(promisHW));
                     }
                   } else {
                     deff2.resolve(getElementByListId(1, item2.parent_element_id));
                   }
-
-//                  /** if hardware */
-//                  if(index === arr.length-1) {
-//                    itemId = item2.child_id;
-//                  } else {
-//                    itemId = item2.parent_element_id;
-//                  }
-//                  if(itemId) {
-//                    deff2.resolve(getElementByListId(1, itemId));
-//                  } else {
-//                    deff2.resolve(0);
-//                  }
                   return deff2.promise;
                 });
                 $q.all(promisElem).then(function(result2) {
+//                  console.error(result2);
                   var resQty = result2.length,
                       collectArr = [];
                   if(resQty) {
                     for(var i = 0; i < resQty; i++) {
-                      if(result2[i][0]) {
-                        collectArr.push(result2[i][0]);
+                      if(result2[i]) {
+                        if(Array.isArray(result2[i])) {
+                          var innerArr = [],
+                              innerQty = result2[i].length;
+//                          console.info(result2[i]);
+                          for(var j = 0; j < innerQty; j++) {
+                            if(result2[i][j]) {
+                              innerArr.push(result2[i][j][0]);
+                            }
+                          }
+                          collectArr.push(innerArr);
+                        } else {
+                          collectArr.push(result2[i][0]);
+                        }
+
                       }
                     }
                   }
@@ -1866,6 +1868,7 @@
 
       for(; group < groupQty; group++) {
         if(priceObj.consist[group]) {
+//          console.log('         ');
 //          console.log('Group  ---------------------', group);
           var sizeQty = construction.sizes[group].length,
               consistQty = priceObj.consist[group].length;
@@ -1915,10 +1918,11 @@
               currConsist[hwInd].newValue = getValueByRule(mainKit.count, currConsist[hwInd].value, currConsist[hwInd].rules_type_id);
             } else {
               for (var el = 0; el < hwElemQty; el++) {
-                if(currConsist[hwInd].parent_list_id == currConsist[el].child_id){
+                if(currConsist[hwInd].parent_list_id === currConsist[el].child_id && currConsist[hwInd].parentId === currConsist[el].id){
 //                  console.warn('-------hardware------- parent list', currConsist[el]);
                   wasteValue = (currConsist[el].waste) ? (1 + (currConsist[el].waste / 100)) : 1;
                   currConsist[hwInd].newValue = getValueByRule(currConsist[el].newValue, currConsist[hwInd].value, currConsist[hwInd].rules_type_id);
+                  break;
                 }
               }
             }
@@ -1987,7 +1991,7 @@
       } else {
         var consistQty = consistArr.length;
         for (var el = 0; el < consistQty; el++) {
-          if(currConsist.parent_list_id == consistArr[el].child_id){
+          if(currConsist.parent_list_id === consistArr[el].child_id && currConsist.parentId === consistArr[el].id){
             var wasteValue = (consistArr[el].waste) ? (1 + (consistArr[el].waste / 100)) : 1,
                 newValue = 1;
             if(currConsist.child_type === "list") {
@@ -1999,7 +2003,6 @@
               }
             }
             culcPriceAsRule(newValue, consistArr[el].newValue, currConsist, currConsistElem, consistArr[el].amendment_pruning, wasteValue, priceObj);
-
           }
         }
       }
@@ -2061,6 +2064,10 @@
 //      console.log('Размер: ' + currSize + ' m');
 //      console.log('parentValue: ' + parentValue);
 
+      /** if glass */
+      if(objTmp.element_group_id === 9) {
+        sizeReal = currSize;
+      }
       switch(currConsist.rules_type_id) {
         case 1:
         case 21:
@@ -2070,12 +2077,14 @@
           break;
         case 3:
         case 5:
-          qtyReal = Math.round(currSize + pruning) * currConsist.value;
+//          qtyReal = Math.round(currSize + pruning) * currConsist.value;
+          qtyReal = (currSize + pruning) * currConsist.value;
 //          console.log('Правило 3 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', qtyReal, ' шт. на метр родителя');
           break;
         case 6:
         case 23:
           qtyReal = GeneralServ.roundingNumbers((currSize + pruning) * currConsist.value, 3);
+//          qtyReal = (currSize + pruning) * currConsist.value;
 //          console.log('Правило 23 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', qtyReal, ' kg. на метр родителя');
           break;
         case 2:
@@ -2143,14 +2152,14 @@
               priceObj.consistElem = consistElem;
               /** download all currencies */
               downloadAllCurrencies().then(function(currencies) {
-                console.warn('currencies!!!!!!+', currencies);
+//                console.warn('currencies!!!!!!+', currencies);
                 priceObj.currencies = currencies;
                 priceObj.constrElements = culcKitPrice(priceObj, construction.sizes);
                 culcConsistPrice(priceObj, construction);
                 priceObj.priceTotal = GeneralServ.roundingNumbers(priceObj.priceTotal);
-                console.info('FINISH====:', priceObj);
+//                console.info('FINISH====:', priceObj);
                 finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
-                finishPriceObj.priceTotal = angular.copy(priceObj.priceTotal);
+                finishPriceObj.priceTotal = (isNaN(priceObj.priceTotal)) ? 0 : angular.copy(priceObj.priceTotal);
                 deffMain.resolve(finishPriceObj);
               })
             });

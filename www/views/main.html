@@ -995,7 +995,6 @@
           <div class="report-box">
             <table>
               <tr class="report-item">
-                <th class="report-elem">ID</th>
                 <th class="report-elem">{{ 'add_elements.NAME_LABEL' | translate }}</th>
                 <th class="report-elem">{{ 'add_elements.ARTICUL_LABEL' | translate }}</th>
                 <th class="report-elem">{{ 'add_elements.QTY_LABEL' | translate }}</th>
@@ -1003,7 +1002,6 @@
                 <th class="report-elem">{{ configMenu.U.userInfo.currency }}</th>
               </tr>
               <tr ng-repeat="report in configMenu.P.product.report | filter: {element_group_id: configMenu.config.reportFilterId}:true" class="report-item">
-                <td class="report-elem">{{report.element_id}}</td>
                 <td class="report-elem">{{report.name}}</td>
                 <td class="report-elem">{{report.sku}}</td>
                 <td class="report-elem">{{report.amount}}</td>
@@ -1011,6 +1009,7 @@
                 <td class="report-elem">{{report.priceReal}}</td>
               </tr>
             </table>
+            <div class="report-price-total">{{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }} {{configMenu.config.reportPriceTotal}} {{ configMenu.U.userInfo.currency }}</div>
           </div>
         </div>
       </div>

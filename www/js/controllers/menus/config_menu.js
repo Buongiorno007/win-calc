@@ -12,7 +12,7 @@
     .module('MainModule')
     .controller('ConfigMenuCtrl', configMenuCtrl);
 
-  function configMenuCtrl($rootScope, $document, $filter, globalConstants, localDB, MainServ, AddElementsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function configMenuCtrl($rootScope, $document, $filter, globalConstants, localDB, GeneralServ, MainServ, AddElementsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -31,6 +31,7 @@
       ],
       reportMenu: [],
       reportFilterId: undefined,
+      reportPriceTotal: 0,
       DELAY_START: globalConstants.STEP,
       DELAY_SHOW_CONFIG_LIST: 5 * globalConstants.STEP,
       DELAY_SHOW_FOOTER: 5 * globalConstants.STEP,
@@ -94,6 +95,8 @@
 
     function showReport() {
       GlobalStor.global.isReport = !GlobalStor.global.isReport;
+      /** cuclulate Total Price of Report */
+      culcReportPriceTotal();
       /** download report Menu */
       if(GlobalStor.global.isReport) {
         localDB.selectLocalDB(localDB.tablesLocalDB.elements_groups.tableName).then(function(result) {
@@ -110,10 +113,26 @@
     }
 
     function sortReport(groupId) {
+      /** cuclulate Total Price of group of Report */
+      culcReportPriceTotal(groupId);
       if(groupId) {
         thisCtrl.config.reportFilterId = groupId;
       } else {
         thisCtrl.config.reportFilterId = undefined;
+      }
+    }
+
+    function culcReportPriceTotal(group) {
+      var currReportList = (group) ? ProductStor.product.report.filter(function(item) {
+        return item.element_group_id === group;
+      }) : angular.copy(ProductStor.product.report);
+
+      if(currReportList.length) {
+        thisCtrl.config.reportPriceTotal = GeneralServ.roundingNumbers(rounding100(currReportList.reduce(function (sum, item) {
+          return {priceReal: sum.priceReal + item.priceReal};
+        }).priceReal), 3);
+      } else {
+        thisCtrl.config.reportPriceTotal = 0;
       }
     }
 
