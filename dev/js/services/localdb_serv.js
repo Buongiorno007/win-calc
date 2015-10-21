@@ -7,7 +7,7 @@
     .module('BauVoiceApp')
     .factory('localDB', globalDBFactory);
 
-  function globalDBFactory($http, $q, globalConstants, GeneralServ, UserStor) {
+  function globalDBFactory($http, $q, globalConstants, GeneralServ, UserStor, GlobalStor) {
     var thisFactory = this,
         db = openDatabase('bauvoice', '1.0', 'bauvoice', 5000000),
 
@@ -618,7 +618,8 @@
       md5: md5,
 
       calculationPrice: calculationPrice,
-      getAdditionalPrice: getAdditionalPrice
+      getAdditionalPrice: getAdditionalPrice,
+      currencyExgange: currencyExgange
     };
 
     return thisFactory.publicObj;
@@ -1709,20 +1710,40 @@
             var promConsistElem = item.map(function(item2) {
               var deff2 = $q.defer();
               if(Array.isArray(item2)) {
-                var promConsistArr = item2.map(function(item3) {
+                var promConsistElem2 = item2.map(function(item3) {
                   var deff3 = $q.defer();
-                  if(item3.child_type === 'element') {
-                    deff3.resolve(getElementByListId(0, item3.child_id));
-                  } else {
-                    getKitByID(item3.child_id).then(function(data) {
-                      angular.extend(item3, data);
-                      deff3.resolve(getElementByListId(0, data.parent_element_id));
-                    });
+                  if(item3) {
+                    if(Array.isArray(item3)) {
+                      var promConsistElem3 = item3.map(function(item4) {
+                        var deff4 = $q.defer();
+                        if(item4) {
+                          if(item4.child_type === 'element') {
+                            deff4.resolve(getElementByListId(0, item4.child_id));
+                          } else {
+                            getKitByID(item4.child_id).then(function(data4) {
+                              angular.extend(item4, data4);
+                              deff4.resolve(getElementByListId(0, data4.parent_element_id));
+                            });
+                          }
+                        }
+                        return deff4.promise;
+                      });
+                      deff3.resolve($q.all(promConsistElem3));
+                    } else {
+                      if(item3.child_type === 'element') {
+                        deff3.resolve(getElementByListId(0, item3.child_id));
+                      } else {
+                        getKitByID(item3.child_id).then(function(data) {
+                          angular.extend(item3, data);
+                          deff3.resolve(getElementByListId(0, data.parent_element_id));
+                        });
+                      }
+                    }
                   }
                   return deff3.promise;
                 });
 
-                deff2.resolve($q.all(promConsistArr));
+                deff2.resolve($q.all(promConsistElem2));
 
               } else {
                 if(item2.child_type === 'element') {
@@ -1752,16 +1773,6 @@
 
 
 
-    function downloadAllCurrencies() {
-      return selectLocalDB(tablesLocalDB.currencies.tableName, null, 'id, name, value').then(function(result) {
-        if(result.length) {
-          return result;
-        }
-      });
-    }
-
-
-
 
     function culcKitPrice(priceObj, sizes) {
       var kitElemQty = priceObj.kitsElem.length,
@@ -1775,7 +1786,15 @@
           if(Array.isArray(priceObj.kitsElem[ke])) {
             var kitElemChildQty = priceObj.kitsElem[ke].length;
             for(var child = 0; child < kitElemChildQty; child++) {
-              culcPriceAsSize(ke, priceObj.kits[ke][child], priceObj.kitsElem[ke][child], sizes[ke], sizeQty, priceObj, constrElements);
+              /** hardware */
+              if(Array.isArray(priceObj.kitsElem[ke][child])) {
+                var kitElemChildQty2 = priceObj.kitsElem[ke][child].length;
+                for(var child2 = 0; child2 < kitElemChildQty2; child2++) {
+                  culcPriceAsSize(ke, priceObj.kits[ke][child][child2], priceObj.kitsElem[ke][child][child2], sizes[ke][child], 1, priceObj, constrElements);
+                }
+              } else {
+                culcPriceAsSize(ke, priceObj.kits[ke][child], priceObj.kitsElem[ke][child], sizes[ke], sizeQty, priceObj, constrElements);
+              }
             }
           } else {
             culcPriceAsSize(ke, priceObj.kits[ke], priceObj.kitsElem[ke], sizes[ke], sizeQty, priceObj, constrElements);
@@ -1814,7 +1833,7 @@
         }
         /** currency conversion */
         if (priceObj.currCurrencyId != constrElem.currency_id){
-          priceTemp = currencyExgange(priceTemp, priceObj.currCurrencyId, constrElem.currency_id, priceObj.currencies);
+          priceTemp = currencyExgange(priceTemp, priceObj.currCurrencyId, constrElem.currency_id, GlobalStor.global.currencies);
         }
         constrElem.qty = angular.copy(qtyTemp);
         constrElem.size = GeneralServ.roundingNumbers(sizeTemp, 3);
@@ -1900,43 +1919,66 @@
       if(group === priceObj.consist.length-1) {
 //        console.warn('-------hardware------- currConsist', currConsist);
 //        console.warn('-------hardware------- currConsistElem', currConsistElem);
-//        console.warn('-------hardware------- mainKit.child_id', mainKit.child_id);
+//        console.warn('-------hardware------- mainKit', mainKit);
+//        console.warn('-------hardware------- currConstrSize', currConstrSize);
         if(Array.isArray(currConsistElem)) {
           var hwElemQty = currConsistElem.length,
+              openDirQty = currConstrSize.openDir.length,
               hwInd = 0;
           for(; hwInd < hwElemQty; hwInd++) {
-            var objTmp = angular.copy(currConsistElem[hwInd]),
-                priceReal = 0,
-                wasteValue = 1;
+            if(Array.isArray(currConsistElem[hwInd])) {
+              var hwElemQty2 = currConsistElem[hwInd].length,
+                  hwInd2 = 0;
+              hwElemLoop: for(; hwInd2 < hwElemQty2; hwInd2++) {
+                //------ check direction
+                if(checkDirectionConsistElem(currConsist[hwInd][hwInd2], currConstrSize.openDir, openDirQty)) {
+//                  console.warn('-------hardware----2--- currConsist', currConsist[hwInd][hwInd2]);
+//                  console.warn('-------hardware----2--- currConsistElem', currConsistElem[hwInd][hwInd2]);
 
-            if (currConsist[hwInd].parent_list_id === mainKit.child_id) {
-//              console.warn('-------hardware------- mainKit', mainKit);
-              wasteValue = (currConsist[hwInd].waste) ? (1 + (currConsist[hwInd].waste / 100)) : 1;
-              currConsist[hwInd].newValue = getValueByRule(mainKit.count, currConsist[hwInd].value, currConsist[hwInd].rules_type_id);
-            } else {
-              for (var el = 0; el < hwElemQty; el++) {
-                if(currConsist[hwInd].parent_list_id === currConsist[el].child_id && currConsist[hwInd].parentId === currConsist[el].id){
-//                  console.warn('-------hardware------- parent list', currConsist[el]);
-                  wasteValue = (currConsist[el].waste) ? (1 + (currConsist[el].waste / 100)) : 1;
-                  currConsist[hwInd].newValue = getValueByRule(currConsist[el].newValue, currConsist[hwInd].value, currConsist[hwInd].rules_type_id);
-                  break;
+                  var objTmp = angular.copy(currConsistElem[hwInd][hwInd2]), priceReal = 0, wasteValue = 1;
+
+                  if (currConsist[hwInd][hwInd2].parent_list_id === mainKit[hwInd].child_id) {
+//                    console.warn('-------hardware----2--- mainKit', mainKit[hwInd]);
+                    wasteValue = (mainKit[hwInd].waste) ? (1 + (mainKit[hwInd].waste / 100)) : 1;
+                    objTmp.qty = getValueByRule(mainKit[hwInd].count, currConsist[hwInd][hwInd2].value, currConsist[hwInd][hwInd2].rules_type_id);
+                    if (currConsist[hwInd][hwInd2].child_type === "list") {
+                      currConsist[hwInd][hwInd2].newValue = angular.copy(objTmp.qty);
+                    }
+                  } else {
+                    for (var el = 0; el < hwElemQty2; el++) {
+                      if (currConsist[hwInd][hwInd2].parent_list_id === currConsist[hwInd][el].child_id && currConsist[hwInd][hwInd2].parentId === currConsist[hwInd][el].id) {
+//                        console.warn('-------hardware------- parent list', currConsist[hwInd][el]);
+                        if(!checkDirectionConsistElem(currConsist[hwInd][el], currConstrSize.openDir, openDirQty)) {
+                          continue hwElemLoop;
+                        }
+                        wasteValue = (currConsist[hwInd][el].waste) ? (1 + (currConsist[hwInd][el].waste / 100)) : 1;
+                        objTmp.qty = getValueByRule(currConsist[hwInd][el].newValue, currConsist[hwInd][hwInd2].value, currConsist[hwInd][hwInd2].rules_type_id);
+                        if (currConsist[hwInd][hwInd2].child_type === "list") {
+                          currConsist[hwInd][hwInd2].newValue = angular.copy(objTmp.qty);
+                        }
+                      }
+                    }
+                  }
+
+                  priceReal = objTmp.qty * currConsistElem[hwInd][hwInd2].price * wasteValue;
+//                  console.log('++++++', priceReal, objTmp.qty, currConsistElem[hwInd][hwInd2].price, wasteValue);
+                  if (priceReal) {
+                    /** currency conversion */
+                    if (priceObj.currCurrencyId != currConsistElem[hwInd][hwInd2].currency_id) {
+                      priceReal = currencyExgange(priceReal, priceObj.currCurrencyId, currConsistElem[hwInd][hwInd2].currency_id, GlobalStor.global.currencies);
+                    }
+                    objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
+                    objTmp.size = 0;
+//                    console.info('finish -------priceObj------- ', priceObj);
+//                    console.info('finish -------hardware------- ', priceObj.priceTotal, ' + ', objTmp.priceReal);
+                    priceObj.constrElements.push(objTmp);
+                    priceObj.priceTotal += objTmp.priceReal;
+                  }
                 }
               }
             }
-            priceReal = currConsist[hwInd].newValue * currConsistElem[hwInd].price * wasteValue;
-//            console.log('++++++', priceReal, currConsist[hwInd].newValue, currConsistElem[hwInd].price, wasteValue);
-            if(priceReal) {
-              /** currency conversion */
-              if (priceObj.currCurrencyId != currConsistElem[hwInd].currency_id){
-                priceReal = currencyExgange(priceReal, priceObj.currCurrencyId, currConsistElem[hwInd].currency_id, priceObj.currencies);
-              }
-              objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
-              objTmp.size = 0;
-              objTmp.qty = angular.copy(currConsist[hwInd].newValue);
-//              console.warn('finish -------hardware------- ', objTmp);
-              priceObj.constrElements.push(objTmp);
-              priceObj.priceTotal += objTmp.priceReal;
-            }
+
+
           }
         }
 
@@ -1954,6 +1996,16 @@
     }
 
 
+    function checkDirectionConsistElem(currConsist, openDir, openDirQty) {
+      var isExist = 0,
+          d = 0;
+      for(; d < openDirQty; d++) {
+        if(openDir[d] === currConsist.direction_id) {
+          isExist++;
+        }
+      }
+      return isExist;
+    }
 
 
     function prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist, currConsistElem, consistArr, priceObj) {
@@ -2016,6 +2068,9 @@
         case 22: //---- less height of glass
           //------ меньше родителя на X (м)
           value = GeneralServ.roundingNumbers((parentValue - childValue), 3);
+          break;
+        case 2: //----- hardware
+          value = parentValue * childValue;
           break;
         case 3:
         case 12:
@@ -2104,7 +2159,7 @@
 
       /** currency conversion */
       if (priceObj.currCurrencyId != currConsistElem.currency_id){
-        priceReal = currencyExgange(priceReal, priceObj.currCurrencyId, currConsistElem.currency_id, priceObj.currencies);
+        priceReal = currencyExgange(priceReal, priceObj.currCurrencyId, currConsistElem.currency_id, GlobalStor.global.currencies);
       }
 
       objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
@@ -2129,36 +2184,31 @@
           finishPriceObj = {};
 
       priceObj.currCurrencyId = construction.currencyId;
-      console.info('START+++', construction);
+//      console.info('START+++', construction);
 	  
 	    parseMainKit(construction).then(function(kits) {
-        console.warn('kits!!!!!!+', kits);
+//        console.warn('kits!!!!!!+', kits);
         priceObj.kits = kits;
 
         /** collect Kit Children Elements*/
         parseKitConsist(priceObj.kits).then(function(consist){
-          console.warn('consist!!!!!!+', consist);
+//          console.warn('consist!!!!!!+', consist);
           priceObj.consist = consist;
 
           parseKitElement(priceObj.kits).then(function(kitsElem) {
-            console.warn('kitsElem!!!!!!+', kitsElem);
+//            console.warn('kitsElem!!!!!!+', kitsElem);
             priceObj.kitsElem = kitsElem;
 
             parseConsistElem(priceObj.consist).then(function(consistElem){
-              console.warn('consistElem!!!!!!+', consistElem);
+//              console.warn('consistElem!!!!!!+', consistElem);
               priceObj.consistElem = consistElem;
-              /** download all currencies */
-              downloadAllCurrencies().then(function(currencies) {
-//                console.warn('currencies!!!!!!+', currencies);
-                priceObj.currencies = currencies;
-                priceObj.constrElements = culcKitPrice(priceObj, construction.sizes);
-                culcConsistPrice(priceObj, construction);
-                priceObj.priceTotal = GeneralServ.roundingNumbers(priceObj.priceTotal);
+              priceObj.constrElements = culcKitPrice(priceObj, construction.sizes);
+              culcConsistPrice(priceObj, construction);
+              priceObj.priceTotal = GeneralServ.roundingNumbers(priceObj.priceTotal);
 //                console.info('FINISH====:', priceObj);
-                finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
-                finishPriceObj.priceTotal = (isNaN(priceObj.priceTotal)) ? 0 : angular.copy(priceObj.priceTotal);
-                deffMain.resolve(finishPriceObj);
-              })
+              finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
+              finishPriceObj.priceTotal = (isNaN(priceObj.priceTotal)) ? 0 : angular.copy(priceObj.priceTotal);
+              deffMain.resolve(finishPriceObj);
             });
 
           });
@@ -2179,74 +2229,71 @@
             constrElements: [],
             priceTotal: 0
           };
-
       priceObj.currCurrencyId = AddElement.currencyId;
-//      console.info('START+++', AddElement);
+      console.info('START+++', AddElement);
       /** collect Kit Children Elements*/
       parseListContent(angular.copy(AddElement.elementId)).then(function (result) {
-//        console.warn('consist!!!!!!+', result);
+        console.warn('consist!!!!!!+', result);
         priceObj.consist = result;
 
         /** parse Kit */
-        selectLocalDB(tablesLocalDB.lists.tableName, {id: AddElement.elementId}, 'parent_element_id, name').then(function(result) {
-          if(result.length) {
-            priceObj.kits = result[0];
-//            console.warn('kits!!!!!!+', result[0]);
+        getKitByID(AddElement.elementId).then(function(kits) {
+          if(kits) {
+            priceObj.kits = kits;
+            console.warn('kits!!!!!!+', kits);
             /** parse Kit Element */
-            getElementByListId(0, priceObj.kits.parent_element_id ).then(function(result){
-              priceObj.kitsElem = result;
-//              console.warn('kitsElem!!!!!!+', result);
+            getElementByListId(0, priceObj.kits.parent_element_id ).then(function(kitsElem){
+              priceObj.kitsElem = kitsElem;
+              console.warn('kitsElem!!!!!!+', kitsElem);
 
-              parseConsistElem(priceObj.consist).then(function(data4){
-//                console.warn('consistElem!!!!!!+', data4);
-                priceObj.consistElem = data4;
-                /** download all currencies */
-                downloadAllCurrencies().then(function(data5) {
-//                  console.warn('currencies!!!!!!+', data5);
-                  priceObj.currencies = data5;
+              parseConsistElem([priceObj.consist]).then(function(consist){
+                console.warn('consistElem!!!!!!+', consist[0]);
+                priceObj.consistElem = consist[0];
+                if (AddElement.elementWidth > 0) {
+                  /** culc Kit Price */
 
-                  if (AddElement.elementWidth > 0) {
+                  var priceTemp = 0,
+                      sizeTemp = 0,
+                      wasteValue = (priceObj.kits.waste) ? (1 + (priceObj.kits.waste / 100)) : 1,
+                      constrElem = angular.copy(priceObj.kitsElem);
 
-                    /** culc Kit Price */
+                  sizeTemp = (AddElement.elementWidth + priceObj.kits.amendment_pruning);
+                  priceTemp = (sizeTemp * constrElem.price) * wasteValue;
 
-                    var priceTemp = 0,
-                        sizeTemp = 0,
-                        constrElem = angular.copy(priceObj.kitsElem);
-
-                    sizeTemp = (AddElement.elementWidth + constrElem.amendment_pruning);
-                    priceTemp = (sizeTemp * constrElem.price) * (1 + (constrElem.waste / 100));
-
-                    /** currency conversion */
-                    if (priceObj.currCurrencyId != constrElem.currency_id){
+                  /** currency conversion */
+                  if (priceObj.currCurrencyId != constrElem.currency_id){
 //                      console.log('diff currency');
-                      priceTemp = currencyExgange(priceTemp, priceObj.currCurrencyId, constrElem.currency_id, priceObj.currencies);
-                    }
-                    constrElem.qty = 1;
-                    constrElem.size = angular.copy(sizeTemp);
-                    constrElem.priceReal = angular.copy(priceTemp);
-                    priceObj.priceTotal += priceTemp;
-                    priceObj.constrElements.push(constrElem);
+                    priceTemp = currencyExgange(priceTemp, priceObj.currCurrencyId, constrElem.currency_id, GlobalStor.global.currencies);
+                  }
+                  constrElem.qty = 1;
+                  constrElem.size = sizeTemp;
+                  constrElem.priceReal = priceTemp;
+                  priceObj.priceTotal += priceTemp;
+                  priceObj.constrElements.push(constrElem);
 //                    console.warn('constrElem!!!!!!+', constrElem);
 
-                    /** culc Consist Price */
+                  /** culc Consist Price */
 
-                    if(priceObj.consistElem) {
-                      var consistQty = priceObj.consist.length;
-                      if(consistQty) {
-                        for(var cons = 0; cons < consistQty; cons++) {
-                          if(priceObj.consist[cons]) {
-                            var wasteValue = (1 + (priceObj.consistElem[cons].waste / 100));
-                            if (priceObj.consist[cons].parent_list_id === AddElement.elementId) {
-                              var fullSize = (AddElement.elementWidth + priceObj.consistElem[cons].amendment_pruning);
-                              priceObj.consist[cons].newValue = getValueByRule(fullSize, priceObj.consist[cons].value, priceObj.consist[cons].rules_type_id);
-                              culcPriceAsRule(1, AddElement.elementWidth, priceObj.consist[cons], priceObj.consistElem[cons], wasteValue, priceObj);
-                            } else {
-//                              console.warn('else++++');
-                              for (var el = 0; el < consistQty; el++) {
-                                if(priceObj.consist[cons].parent_list_id == priceObj.consist[el].child_id){
+                  if(priceObj.consistElem) {
+                    var consistQty = priceObj.consist.length;
+                    if(consistQty) {
+                      for(var cons = 0; cons < consistQty; cons++) {
+//                          console.warn('child++++', priceObj.consist[cons]);
+                        if(priceObj.consist[cons]) {
+                          if (priceObj.consist[cons].parent_list_id === AddElement.elementId) {
+                            if(priceObj.consist[cons].child_type === "list") {
+                              priceObj.consist[cons].newValue = getValueByRule(sizeTemp, priceObj.consist[cons].value, priceObj.consist[cons].rules_type_id);
+                            }
+                            culcPriceAsRule(1, AddElement.elementWidth, priceObj.consist[cons], priceObj.consistElem[cons], priceObj.kits.amendment_pruning, wasteValue, priceObj);
+                          } else {
+                            for (var el = 0; el < consistQty; el++) {
+                              if(priceObj.consist[cons].parent_list_id === priceObj.consist[el].child_id && priceObj.consist[cons].parentId === priceObj.consist[el].id){
+//                                  console.warn('parent++++', priceObj.consist[el]);
+                                var wasteValue = (priceObj.consist[el].waste) ? (1 + (priceObj.consist[el].waste / 100)) : 1;
+                                if(priceObj.consist[cons].child_type === "list") {
                                   priceObj.consist[cons].newValue = getValueByRule(priceObj.consist[el].newValue, priceObj.consist[cons].value, priceObj.consist[cons].rules_type_id);
-                                  culcPriceAsRule(priceObj.consist[cons].newValue, priceObj.consist[el].newValue, priceObj.consist[cons], priceObj.consistElem[cons], wasteValue, priceObj);
                                 }
+                                culcPriceAsRule(priceObj.consist[cons].newValue, priceObj.consist[el].newValue, priceObj.consist[cons], priceObj.consistElem[cons], priceObj.consist[el].amendment_pruning, wasteValue, priceObj);
                               }
                             }
                           }
@@ -2254,13 +2301,12 @@
                       }
                     }
                   }
-
-                  priceObj.priceTotal = GeneralServ.roundingNumbers(priceObj.priceTotal);
-//                  console.info('FINISH ADD ====:', priceObj);
-                  finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
-                  finishPriceObj.priceTotal = angular.copy(priceObj.priceTotal);
-                  deffMain.resolve(finishPriceObj);
-                })
+                }
+                priceObj.priceTotal = GeneralServ.roundingNumbers(priceObj.priceTotal);
+                console.info('FINISH ADD ====:', priceObj);
+                finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
+                finishPriceObj.priceTotal = angular.copy(priceObj.priceTotal);
+                deffMain.resolve(finishPriceObj);
               });
 
             });

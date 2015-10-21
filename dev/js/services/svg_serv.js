@@ -134,7 +134,7 @@
               thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
 
               thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
-              thisObj.details[i].hardwareLines = setLines(thisObj.details[i].sashPointsIn);
+              thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
 
               $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements));
 
@@ -166,7 +166,7 @@
               thisObj.details[i].sashLinesIn = setLines(thisObj.details[i].sashPointsIn);
 
               thisObj.details[i].hardwarePoints = setPointsIn(thisObj.details[i].sashLinesOut, depths, 'hardware');
-              thisObj.details[i].hardwareLines = setLines(thisObj.details[i].sashPointsIn);
+              thisObj.details[i].hardwareLines = setLines(thisObj.details[i].hardwarePoints);
 
               thisObj.details[i].beadPointsOut = copyPointsOut(thisObj.details[i].sashPointsIn, 'bead');
               thisObj.details[i].beadLinesOut = setLines(thisObj.details[i].beadPointsOut);
@@ -334,7 +334,8 @@
           }
         }
         line.to = angular.copy(points[index]);
-        line.type = setLineType(points[i].type, points[index].type);
+//        line.type = setLineType(points[i].type, points[index].type);
+        line.type = setLineType(points[i].id, points[index].id);
         if(line.dir === 'line') {
           line.dir = (points[index].dir === 'curv') ? 'curv' : 'line';
         }
@@ -357,14 +358,24 @@
     }
 
 
+//    function setLineType(from, to) {
+//      var type = '';
+//      if(from === to) {
+//        if(from === 'impost') {
+//          type = 'impost';
+//        } else {
+//          type = 'frame';
+//        }
+//      } else {
+//        type = 'frame';
+//      }
+//      return type;
+//    }
+
     function setLineType(from, to) {
       var type = '';
-      if(from === to) {
-        if(from === 'impost') {
-          type = 'impost';
-        } else {
-          type = 'frame';
-        }
+      if(from.indexOf('ip')+1 && to.indexOf('ip')+1) {
+        type = 'impost';
       } else {
         type = 'frame';
       }
@@ -372,20 +383,17 @@
     }
 
 
+
     function setPointsIn(lines, depths, group) {
       var pointsIn = [],
           linesQty = lines.length;
 
       for(var i = 0; i < linesQty; i++) {
-        var newLine1 = {},
+        var newLine1 = angular.copy(lines[i]),
             newLine2 = {},
             crossPoint = {},
             index;
-
-        newLine1 = angular.copy(lines[i]);
-//        console.log('newLine1****', newLine1);
         newLine1.coefC = getNewCoefC(depths, newLine1, group);
-//        console.log('coefC1****', newLine1.coefC);
         if(i === (linesQty - 1)) {
           index = 0;
         } else {
@@ -393,9 +401,7 @@
         }
         newLine2 = angular.copy(lines[index]);
         newLine2.coefC = getNewCoefC(depths, newLine2, group);
-//        console.log('coefC2****', newLine2.coefC);
         crossPoint = getCrossPoint2Lines(newLine1, newLine2);
-//        console.log('crossPoint****', crossPoint);
         pointsIn.push(crossPoint);
       }
       return pointsIn;
@@ -404,7 +410,6 @@
 
     function getNewCoefC(depths, line, group) {
       var depth = 0, beadDepth = 20;
-//      console.log('getNewCoefC group--------', group);
       switch(group) {
         case 'frame':
           if(line.type === 'frame') {
@@ -413,7 +418,6 @@
             depth = depths.impostDepth.c/2;
           }
           break;
-
         case 'frame-bead':
         case 'sash-bead':
           depth = beadDepth;
@@ -439,7 +443,6 @@
         case 'hardware':
           depth = depths.sashDepth.b;
           break;
-
         case 'sash-glass':
           depth = depths.sashDepth.d - depths.sashDepth.c;
           break;

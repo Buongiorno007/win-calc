@@ -34,6 +34,8 @@
       MainServ.createOrderData();
       /** set Curr Discounts */
       MainServ.setCurrDiscounts();
+      /** download All Currencies */
+      MainServ.downloadAllCurrencies();
       /** download All Profiles */
       MainServ.downloadAllElemAsGroup(localDB.tablesLocalDB.profile_system_folders.tableName, localDB.tablesLocalDB.profile_systems.tableName, GlobalStor.global.profilesType, GlobalStor.global.profiles).then(function(data) {
         if(data) {

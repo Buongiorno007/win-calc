@@ -16,6 +16,7 @@
       createOrderData: createOrderData,
       createOrderID: createOrderID,
       setCurrDiscounts: setCurrDiscounts,
+      downloadAllCurrencies: downloadAllCurrencies,
       downloadAllElemAsGroup: downloadAllElemAsGroup,
       downloadAllGlasses: downloadAllGlasses,
       sortingGlasses: sortingGlasses,
@@ -104,6 +105,13 @@
     }
 
 
+    function downloadAllCurrencies() {
+      localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, null, 'id, name, value').then(function(result) {
+        if(result && result.length) {
+          GlobalStor.global.currencies = result;
+        }
+      });
+    }
 
 
 
@@ -895,7 +903,8 @@
                     /** get price of element */
                     for(var k = 0; k < tempElemQty; k++) {
                       if(GlobalStor.global.tempAddElements[k].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].parent_element_id) {
-                        GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = angular.copy(GlobalStor.global.tempAddElements[k].price);
+                        /** currency conversion */
+                        GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = localDB.currencyExgange(angular.copy(GlobalStor.global.tempAddElements[k].price), UserStor.userInfo.currencyId, GlobalStor.global.tempAddElements[k].currency_id, GlobalStor.global.currencies);
                       }
                     }
                     elements.push(angular.copy(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el]));

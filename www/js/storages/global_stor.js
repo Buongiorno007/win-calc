@@ -82,6 +82,8 @@
         //---- report
         isReport: 0,
 
+        currencies: [],
+
         //---- Calculators
         isQtyCalculator: 0,
         isSizeCalculator: 0,
