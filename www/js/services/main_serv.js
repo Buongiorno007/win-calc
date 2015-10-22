@@ -263,9 +263,10 @@
 
               var promises5 = glassIds[i].map(function(item) {
                 var defer5 = $q.defer();
-                localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.element_id}).then(function (glass) {
+                localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.element_id}).then(function (result) {
 //                  console.log('glass!!!!', glass);
-                  var glassQty = glass.length;
+                  var glass = angular.copy(result),
+                      glassQty = glass.length;
                   if(glassQty){
                     defer5.resolve(glass[0]);
                   } else {
@@ -284,8 +285,9 @@
 
               var promises7 = glassIds[j].map(function(item) {
                 var defer7 = $q.defer();
-                localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id}).then(function (list) {
-                  var listQty = list.length;
+                localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'parent_element_id': item.element_id}).then(function (result2) {
+                  var list = angular.copy(result2),
+                      listQty = list.length;
                   if(listQty){
                     defer7.resolve(list[0]);
                   } else {
