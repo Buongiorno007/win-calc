@@ -1097,7 +1097,7 @@ body {
 }
 
 /* line 200, ../../dev/sass/base/general.scss */
-.modal-dialog, .rooms-selector-dialog, .auxiliaries-container .scheme-view-dialog {
+.modal-dialog, .rooms-selector-dialog, .glass-selector-dialog, .auxiliaries-container .scheme-view-dialog {
   top: 18.75rem;
   left: -125rem;
   -moz-transition: all 0.3s linear;
@@ -1110,7 +1110,7 @@ body {
   background-color: rgba(255, 255, 255, 0.85);
 }
 /* line 211, ../../dev/sass/base/general.scss */
-.modal-dialog.active, .active.rooms-selector-dialog, .auxiliaries-container .active.scheme-view-dialog {
+.modal-dialog.active, .active.rooms-selector-dialog, .active.glass-selector-dialog, .auxiliaries-container .active.scheme-view-dialog {
   top: 18.75rem;
   left: 5rem;
 }
@@ -3108,6 +3108,22 @@ body {
   height: 100%;
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+/* line 1, ../../dev/sass/parts/_glass-selector.scss */
+.glass-selector-dialog {
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0 4rem;
+  height: 64rem;
+  background-color: #fff;
+  z-index: 12;
+}
+/* line 8, ../../dev/sass/parts/_glass-selector.scss */
+.glass-selector-dialog .dialog-inner {
+  height: 100%;
+  width: 100%;
+  text-align: center;
 }
 
 /* line 1, ../../dev/sass/parts/_settings-panel.scss */

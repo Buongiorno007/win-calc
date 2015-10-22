@@ -1607,8 +1607,7 @@
             if(item) {
               if(Array.isArray(item)) {
                 var promisElem = item.map(function(item2){
-                  var deff2 = $q.defer(),
-                      itemId = 0;
+                  var deff2 = $q.defer();
 
                   /** if hardware */
                   if(index === arr.length-1) {
@@ -1731,6 +1730,8 @@
                               deff4.resolve(getElementByListId(0, data4.parent_element_id));
                             });
                           }
+                        } else {
+                          deff4.resolve(0);
                         }
                         return deff4.promise;
                       });
@@ -1745,12 +1746,12 @@
                         });
                       }
                     }
+                  } else {
+                    deff3.resolve(0);
                   }
                   return deff3.promise;
                 });
-
                 deff2.resolve($q.all(promConsistElem2));
-
               } else {
                 if(item2.child_type === 'element') {
                   deff2.resolve(getElementByListId(0, item2.child_id));
@@ -2134,10 +2135,14 @@
 //          console.log('Правило 1: меньше родителя на ', currSize, ' + ', pruning, ' - ', currConsist.value, ' = ', sizeReal);
           break;
         case 3:
-        case 5:
 //          qtyReal = Math.round(currSize + pruning) * currConsist.value;
           qtyReal = (currSize + pruning) * currConsist.value;
 //          console.log('Правило 3 : (', currSize, ' + ', pruning, ') *', currConsist.value, ' = ', qtyReal, ' шт. на метр родителя');
+          break;
+        case 5:
+          var sizeTemp = ((currSize + pruning) < 1) ? 1 : parseInt(currSize + pruning);
+          qtyReal = sizeTemp * currConsist.value;
+//          console.log('Правило 5 : (', sizeTemp, ') *', currConsist.value, ' = ', qtyReal, ' шт. на 1 метр2 родителя');
           break;
         case 6:
         case 23:
@@ -2236,24 +2241,24 @@
             priceTotal: 0
           };
       priceObj.currCurrencyId = AddElement.currencyId;
-      console.info('START+++', AddElement);
+//      console.info('START+++', AddElement);
       /** collect Kit Children Elements*/
       parseListContent(angular.copy(AddElement.elementId)).then(function (result) {
-        console.warn('consist!!!!!!+', result);
+//        console.warn('consist!!!!!!+', result);
         priceObj.consist = result;
 
         /** parse Kit */
         getKitByID(AddElement.elementId).then(function(kits) {
           if(kits) {
             priceObj.kits = kits;
-            console.warn('kits!!!!!!+', kits);
+//            console.warn('kits!!!!!!+', kits);
             /** parse Kit Element */
             getElementByListId(0, priceObj.kits.parent_element_id ).then(function(kitsElem){
               priceObj.kitsElem = kitsElem;
-              console.warn('kitsElem!!!!!!+', kitsElem);
+//              console.warn('kitsElem!!!!!!+', kitsElem);
 
               parseConsistElem([priceObj.consist]).then(function(consist){
-                console.warn('consistElem!!!!!!+', consist[0]);
+//                console.warn('consistElem!!!!!!+', consist[0]);
                 priceObj.consistElem = consist[0];
                 if (AddElement.elementWidth > 0) {
                   /** culc Kit Price */
@@ -2309,7 +2314,7 @@
                   }
                 }
                 priceObj.priceTotal = GeneralServ.roundingNumbers(priceObj.priceTotal);
-                console.info('FINISH ADD ====:', priceObj);
+//                console.info('FINISH ADD ====:', priceObj);
                 finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
                 finishPriceObj.priceTotal = angular.copy(priceObj.priceTotal);
                 deffMain.resolve(finishPriceObj);

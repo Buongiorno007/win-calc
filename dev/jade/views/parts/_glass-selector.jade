@@ -1,8 +1,4 @@
-.rooms-selector-dialog(ng-controller="GlassSelectorCtrl as glassBox", ng-class="{'active': glassBox.G.global.showGlassSelectorDialog}")
-  .rooms-inner(ng-if="rooms.G.global.showRoomSelectorDialog")
-
+.glass-selector-dialog(ng-controller="GlassSelectorCtrl as glassBox", ng-class="{'active': glassBox.G.global.showGlassSelectorDialog}")
+  .dialog-inner
     svg-template(template="glassBox.P.product.template", template-width="glassBox.constants.svgTemplateIconBigWidth", template-height="glassBox.constants.svgTemplateIconBigHeight", type-construction="iconBig")
-    //.room-block(ng-repeat="room in rooms.config.rooms")
-      .room-box.unvisible(ng-class="{'selected': rooms.P.product.room_id === room.id}", hm-tap="rooms.selectRoom(room.id)", show-delay="{{ ($index+1) * rooms.config.DELAY_SHOW_ROOM }}")
-        .room-img(ng-style="{'background-image':'url(img/rooms-icon/'+room.id+'.jpg)'}")
   .close-dialog(hm-tap="glassBox.closeGlassSelectorDialog()")

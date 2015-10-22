@@ -269,6 +269,7 @@
                   glassId: 0,
                   glassTxt: '',
                   gridId: 0,
+                  sashType: 6,
                   openDir: [1, 4],
                   handlePos: 4
                 },

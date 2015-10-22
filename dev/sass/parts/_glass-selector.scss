@@ -1,0 +1,13 @@
+.glass-selector-dialog {
+  @extend .modal-dialog;
+  @include box-shadow(rgba(#000, 0.5) 0 0 4rem);
+  height: 64rem;
+  background-color: #fff;
+  z-index: 12;
+
+  .dialog-inner {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+  }
+}

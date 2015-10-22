@@ -22,10 +22,12 @@
 
     //------ clicking
 //    thisCtrl.selectRoom = selectRoom;
-//    thisCtrl.closeRoomSelectorDialog = closeRoomSelectorDialog;
+    thisCtrl.closeGlassSelectorDialog = closeGlassSelectorDialog;
 
     //============ methods ================//
 
-
+    function closeGlassSelectorDialog() {
+      GlobalStor.global.showGlassSelectorDialog = !GlobalStor.global.showGlassSelectorDialog;
+    }
   }
 })();

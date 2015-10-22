@@ -470,31 +470,37 @@
               case 2:
                 blocks[b].openDir = [4];
                 blocks[b].handlePos = 4;
+                blocks[b].sashType = 2;
                 break;
               //----- 'right'
               case 3:
                 blocks[b].openDir = [2];
                 blocks[b].handlePos = 2;
+                blocks[b].sashType = 2;
                 break;
               //----- 'up'
               case 4:
                 blocks[b].openDir = [1];
                 blocks[b].handlePos = 1;
+                blocks[b].sashType = 7;
                 break;
               //------ 'down'
               case 5:
                 blocks[b].openDir = [3];
                 blocks[b].handlePos = 3;
+                blocks[b].sashType = 2;
                 break;
               //------ 'up', 'right'
               case 6:
                 blocks[b].openDir = [1, 2];
                 blocks[b].handlePos = 2;
+                blocks[b].sashType = 6;
                 break;
               //------ 'up', 'left'
               case 7:
                 blocks[b].openDir = [1, 4];
                 blocks[b].handlePos = 4;
+                blocks[b].sashType = 6;
                 break;
             }
             //----- change Template

@@ -38,9 +38,9 @@
           shtulpDepth: {}
         },
 
-        lamination_out_id: 0,
+        lamination_out_id: 1,
         laminationOutName: $filter('translate')('mainpage.WHITE_LAMINATION'),
-        lamination_in_id: 0,
+        lamination_in_id: 1,
         laminationInName: $filter('translate')('mainpage.WHITE_LAMINATION'),
 
         chosenAddElements: [

@@ -162,7 +162,7 @@
         }
       } else {
         //----- insert sash
-        for(; i < glassQty; i++) {
+        for(; i < glassQty; i++) { //TODO download hardare types and create submenu
           DesignServ.createSash(sashType, DesignStor.design.selectedGlass[i]);
         }
       }

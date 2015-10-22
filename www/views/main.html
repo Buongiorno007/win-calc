@@ -266,12 +266,12 @@
           <div class="lamination-block">
             <div data-output="{{ 'panels.LAMINAT_INSIDE' | translate }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-title"></div>
             <div show-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-white unvisible">
-              <div ng-class="{'selected': !laminPanel.P.product.lamination_in_id}" hm-tap="laminPanel.selectLaminatIn(0)" class="lamination-img"><img src="img/lamination/0.jpg"></div>
+              <div ng-class="{'selected': laminPanel.P.product.lamination_in_id == 1}" hm-tap="laminPanel.selectLaminat(0, 1)" class="lamination-img"><img src="img/lamination/0.jpg"></div>
               <div data-output="{{ 'panels.LAMINAT_WHITE' | translate }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-label for-white"></div>
             </div>
             <div class="lamination-options clearfix">
               <div ng-repeat="laminatInner in laminPanel.G.global.laminationsIn" show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * $index) }}" class="lam-option-box unvisible">
-                <div ng-class="{'selected': laminPanel.P.product.lamination_in_id == laminatInner.lamination_type_id}" hm-tap="laminPanel.selectLaminatIn(laminatInner.lamination_type_id, laminatInner.name)" class="lamination-img"><img ng-src="img/lamination/{{ laminatInner.lamination_type_id }}.jpg"></div>
+                <div ng-class="{'selected': laminPanel.P.product.lamination_in_id == laminatInner.lamination_type_id}" hm-tap="laminPanel.selectLaminat(0, laminatInner.lamination_type_id, laminatInner.name)" class="lamination-img"><img ng-src="img/lamination/{{ laminatInner.lamination_type_id }}.jpg"></div>
                 <div data-output="{{ laminatInner.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_TYPING * $index) }}" class="lamination-label"></div>
                 <div ng-if="laminatInner.img.length || laminatInner.link.length || laminatInner.description.length" hm-tap="laminPanel.showInfoBox(laminatInner.lamination_type_id, laminPanel.G.global.laminationsIn)" show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * 2 * $index) }}" class="info unvisible"></div>
               </div>
@@ -280,12 +280,12 @@
           <div class="lamination-block">
             <div data-output="{{ 'panels.LAMINAT_OUTSIDE' | translate }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-title"></div>
             <div show-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-white unvisible">
-              <div ng-class="{'selected': !laminPanel.P.product.lamination_out_id}" hm-tap="laminPanel.selectLaminatOut(0)" class="lamination-img"><img src="img/lamination/0.jpg"></div>
+              <div ng-class="{'selected': laminPanel.P.product.lamination_out_id == 1}" hm-tap="laminPanel.selectLaminat(1, 1)" class="lamination-img"><img src="img/lamination/0.jpg"></div>
               <div data-output="{{ 'panels.LAMINAT_WHITE' | translate }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-label for-white"></div>
             </div>
             <div class="lamination-options clearfix">
               <div ng-repeat="laminatOuter in laminPanel.G.global.laminationsOut" show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * $index) }}" class="lam-option-box unvisible">
-                <div ng-class="{'selected': laminPanel.P.product.lamination_out_id == laminatOuter.lamination_type_id}" hm-tap="laminPanel.selectLaminatOut(laminatOuter.lamination_type_id, laminatOuter.name)" class="lamination-img"><img ng-src="img/lamination/{{ laminatOuter.lamination_type_id }}.jpg"></div>
+                <div ng-class="{'selected': laminPanel.P.product.lamination_out_id == laminatOuter.lamination_type_id}" hm-tap="laminPanel.selectLaminat(1, laminatOuter.lamination_type_id, laminatOuter.name)" class="lamination-img"><img ng-src="img/lamination/{{ laminatOuter.lamination_type_id }}.jpg"></div>
                 <div data-output="{{ laminatOuter.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_TYPING * $index) }}" class="lamination-label"></div>
                 <div ng-if="laminatOuter.img.length || laminatOuter.link.length || laminatOuter.description.length" hm-tap="laminPanel.showInfoBox(laminatOuter.lamination_type_id, laminPanel.G.global.laminationsOut)" show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * 2 * $index) }}" class="info unvisible"></div>
               </div>
@@ -921,13 +921,9 @@
         </div>
         <button hm-tap="elementsListPanel.closeAddElementListView()" class="view-switch-tab">{{ 'add_elements.SCHEME_VIEW' | translate }}</button>
       </div>
-      <div ng-controller="GlassSelectorCtrl as glassBox" ng-class="{'active': glassBox.G.global.showGlassSelectorDialog}" class="rooms-selector-dialog">
-        <div ng-if="rooms.G.global.showRoomSelectorDialog" class="rooms-inner">
+      <div ng-controller="GlassSelectorCtrl as glassBox" ng-class="{'active': glassBox.G.global.showGlassSelectorDialog}" class="glass-selector-dialog">
+        <div class="dialog-inner">
           <svg-template template="glassBox.P.product.template" template-width="glassBox.constants.svgTemplateIconBigWidth" template-height="glassBox.constants.svgTemplateIconBigHeight" type-construction="iconBig"></svg-template>
-          <!--.room-block(ng-repeat="room in rooms.config.rooms")
-          .room-box.unvisible(ng-class="{'selected': rooms.P.product.room_id === room.id}", hm-tap="rooms.selectRoom(room.id)", show-delay="{{ ($index+1) * rooms.config.DELAY_SHOW_ROOM }}")
-            .room-img(ng-style="{'background-image':'url(img/rooms-icon/'+room.id+'.jpg)'}")
-          -->
         </div>
         <div hm-tap="glassBox.closeGlassSelectorDialog()" class="close-dialog"></div>
       </div>
@@ -1001,7 +997,7 @@
                 <th class="report-elem">{{ 'add_elements.SIZE_LABEL' | translate }}</th>
                 <th class="report-elem">{{ configMenu.U.userInfo.currency }}</th>
               </tr>
-              <tr ng-repeat="report in configMenu.P.product.report | filter: {element_group_id: configMenu.config.reportFilterId}:true" class="report-item">
+              <tr ng-repeat="report in configMenu.P.product.report | filter: {element_group_id: configMenu.config.reportFilterId}:true | orderBy: 'name'" class="report-item">
                 <td class="report-elem">{{report.name}}</td>
                 <td class="report-elem">{{report.sku}}</td>
                 <td class="report-elem">{{report.amount}}</td>

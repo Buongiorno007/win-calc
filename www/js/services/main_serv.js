@@ -20,6 +20,7 @@
       createOrderID: createOrderID,
       setCurrDiscounts: setCurrDiscounts,
       downloadAllCurrencies: downloadAllCurrencies,
+      downloadPriceMargin: downloadPriceMargin,
       downloadAllElemAsGroup: downloadAllElemAsGroup,
       downloadAllGlasses: downloadAllGlasses,
       sortingGlasses: sortingGlasses,
@@ -109,11 +110,27 @@
 
 
     function downloadAllCurrencies() {
-      localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, null, 'id, name, value').then(function(result) {
-        if(result && result.length) {
-          GlobalStor.global.currencies = result;
+      localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, null, 'id, name, value').then(function(currencies) {
+        if(currencies && currencies.length) {
+          GlobalStor.global.currencies = currencies;
         }
       });
+    }
+
+
+    /** price Margins of Plant */
+
+    function downloadPriceMargin() {
+      localDB.selectLocalDB(localDB.tablesLocalDB.options_coefficients.tableName, null, 'margin, coeff').then(function(margins) {
+        if(margins && margins.length) {
+          GlobalStor.global.margins = angular.copy(margins[0]);
+          console.info(GlobalStor.global.margins);
+        }
+      });
+    }
+
+    function addMarginToPrice(price, margin) {
+      return price * margin;
     }
 
 
@@ -389,7 +406,6 @@
         if(lamin.length) {
           defer.resolve(lamin);
         } else {
-          console.log('No laminations in database');
           defer.reject(0);
         }
       });
@@ -643,12 +659,7 @@
           var newSizes = [];
           //----- besides of glass squares
           if(size === 'sashesBlock') {
-            var sizeElemQty = template.priceElements[size].length,
-                sq = 0;
-            for(; sq < sizeElemQty; sq++) {
-              template.priceElements[size][sq].type = (template.priceElements[size][sq].openDir.length > 1) ? 6 : 2;
-              newSizes.push(angular.copy(template.priceElements[size][sq]));
-            }
+            newSizes = angular.copy(template.priceElements[size]);
           } else if(size === 'glassSquares') { //TODO change!!!!!!
             var sizeElemQty = template.priceElements[size].length,
                 sq = 0;
@@ -681,6 +692,7 @@
         }
 
 //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
+//        console.log('objXFormedPrice+++++++', objXFormedPrice);
 
         console.log('START PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
 
@@ -734,7 +746,7 @@
       localDB.calculationPrice(obj).then(function (result) {
         console.log('price-------', result);
         if(result.priceTotal){
-          ProductStor.product.template_price = result.priceTotal;
+          ProductStor.product.template_price = addMarginToPrice(result.priceTotal, GlobalStor.global.margins.coeff);
           setProductPriceTOTAL();
           console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
           deferred.resolve(result);
@@ -755,32 +767,34 @@
           ind = 0;
       if(elementListQty) {
         for (; ind < elementListQty; ind++) {
-          var tempObj = angular.copy(elementList[ind]);
-          tempObj.element_id = angular.copy(tempObj.id);
-          tempObj.amount = angular.copy(tempObj.qty);
-          delete tempObj.id;
-          delete tempObj.amendment_pruninng;
-          delete tempObj.currency_id;
-          delete tempObj.qty;
-          delete tempObj.waste;
-          if (ind) {
-            var reportQty = report.length, exist = 0;
-            if (reportQty) {
-              while (--reportQty > -1) {
-                if (report[reportQty].element_id === tempObj.element_id && report[reportQty].size === tempObj.size) {
-                  exist++;
-                  report[reportQty].amount += tempObj.amount;
-                  report[reportQty].amount = GeneralServ.roundingNumbers(report[reportQty].amount, 3);
-                  report[reportQty].priceReal += tempObj.priceReal;
-                  report[reportQty].priceReal = GeneralServ.roundingNumbers(report[reportQty].priceReal, 3);
+          if(elementList[ind].priceReal) {
+            var tempObj = angular.copy(elementList[ind]);
+            tempObj.element_id = angular.copy(tempObj.id);
+            tempObj.amount = angular.copy(tempObj.qty);
+            delete tempObj.id;
+            delete tempObj.amendment_pruninng;
+            delete tempObj.currency_id;
+            delete tempObj.qty;
+            delete tempObj.waste;
+            if (ind) {
+              var reportQty = report.length, exist = 0;
+              if (reportQty) {
+                while (--reportQty > -1) {
+                  if (report[reportQty].element_id === tempObj.element_id && report[reportQty].size === tempObj.size) {
+                    exist++;
+                    report[reportQty].amount += tempObj.amount;
+                    report[reportQty].amount = GeneralServ.roundingNumbers(report[reportQty].amount, 3);
+                    report[reportQty].priceReal += tempObj.priceReal;
+                    report[reportQty].priceReal = GeneralServ.roundingNumbers(addMarginToPrice(report[reportQty].priceReal, GlobalStor.global.margins.coeff), 3);
+                  }
+                }
+                if (!exist) {
+                  report.push(tempObj);
                 }
               }
-              if (!exist) {
-                report.push(tempObj);
-              }
+            } else {
+              report.push(tempObj);
             }
-          } else {
-            report.push(tempObj);
           }
         }
       }
@@ -908,8 +922,10 @@
                     /** get price of element */
                     for(var k = 0; k < tempElemQty; k++) {
                       if(GlobalStor.global.tempAddElements[k].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].parent_element_id) {
+                        /** add price margin */
+                        GlobalStor.global.tempAddElements[k].price = addMarginToPrice(angular.copy(GlobalStor.global.tempAddElements[k].price), GlobalStor.global.margins.margin);
                         /** currency conversion */
-                        GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = localDB.currencyExgange(angular.copy(GlobalStor.global.tempAddElements[k].price), UserStor.userInfo.currencyId, GlobalStor.global.tempAddElements[k].currency_id, GlobalStor.global.currencies);
+                        GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = localDB.currencyExgange(GlobalStor.global.tempAddElements[k].price, UserStor.userInfo.currencyId, GlobalStor.global.tempAddElements[k].currency_id, GlobalStor.global.currencies);
                       }
                     }
                     elements.push(angular.copy(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el]));

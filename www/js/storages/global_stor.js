@@ -83,6 +83,7 @@
         isReport: 0,
 
         currencies: [],
+        margins: {},
 
         //---- Calculators
         isQtyCalculator: 0,

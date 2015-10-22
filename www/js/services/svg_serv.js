@@ -143,7 +143,7 @@
 
               //----- set openPoints for sash
               thisObj.details[i].sashOpenDir = setOpenDir(thisObj.details[i].openDir, thisObj.details[i].sashLinesIn);
-              setSashePropertyXPrice(thisObj.details[i].openDir, thisObj.details[i].hardwareLines, thisObj.priceElements);
+              setSashePropertyXPrice(thisObj.details[i].sashType, thisObj.details[i].openDir, thisObj.details[i].hardwareLines, thisObj.priceElements);
             }
 
           //------- if block is empty
@@ -186,7 +186,7 @@
 
               //----- set openPoints for sash
               thisObj.details[i].sashOpenDir = setOpenDir(thisObj.details[i].openDir, thisObj.details[i].beadLinesIn);
-              setSashePropertyXPrice(thisObj.details[i].openDir, thisObj.details[i].hardwareLines, thisObj.priceElements);
+              setSashePropertyXPrice(thisObj.details[i].sashType, thisObj.details[i].openDir, thisObj.details[i].hardwareLines, thisObj.priceElements);
             }
           }
           setPointsXChildren(thisObj.details[i], thisObj.details, depths);
@@ -1713,10 +1713,11 @@
 
 
 
-    function setSashePropertyXPrice(openDir, hardwareLines, priceElements) {
+    function setSashePropertyXPrice(sashType, openDir, hardwareLines, priceElements) {
       var tempSashBlock = {
             sizes: [],
-            openDir: openDir
+            openDir: openDir,
+            type: sashType
           },
           hardwareQty = hardwareLines.length;
       while(--hardwareQty > -1) {

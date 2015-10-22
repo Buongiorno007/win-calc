@@ -24,8 +24,7 @@
     };
 
     //------ clicking
-    thisCtrl.selectLaminatIn = selectLaminatIn;
-    thisCtrl.selectLaminatOut = selectLaminatOut;
+    thisCtrl.selectLaminat = selectLaminat;
     thisCtrl.showInfoBox = MainServ.showInfoBox;
 
 
@@ -33,32 +32,27 @@
     //============ methods ================//
 
     //------------ Select lamination
-    function selectLaminatIn(id, name) {
-      if(id) {
-        ProductStor.product.lamination_in_id = id;
-        ProductStor.product.laminationInName = name;
-      } else {
-        ProductStor.product.lamination_in_id = 0;
-        ProductStor.product.laminationInName =  $filter('translate')('mainpage.WHITE_LAMINATION');
-      }
-      setLaminationTotalPrice();
-      //------ save analytics data
-      //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_id, ProductStor.product.lamination_in_id, 1);
-    }
-
-
-    function selectLaminatOut(id, name) {
-      if(id) {
+    function selectLaminat(type, id, name) {
+      if(type) {
         ProductStor.product.lamination_out_id = id;
-        ProductStor.product.laminationOutName = name;
+        if(id === 1) {
+          ProductStor.product.laminationOutName =  $filter('translate')('mainpage.WHITE_LAMINATION');
+        } else {
+          ProductStor.product.laminationOutName = name;
+        }
       } else {
-        ProductStor.product.lamination_out_id = 0;
-        ProductStor.product.laminationOutName =  $filter('translate')('mainpage.WHITE_LAMINATION');
+        ProductStor.product.lamination_in_id = id;
+        if(id === 1) {
+          ProductStor.product.laminationInName =  $filter('translate')('mainpage.WHITE_LAMINATION');
+        } else {
+          ProductStor.product.laminationInName = name;
+        }
       }
       setLaminationTotalPrice();
       //------ save analytics data
-      //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_id, ProductStor.product.lamination_out_id, 2);
+      //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_id, id, type);
     }
+
 
     //TODO?????
     function setLaminationTotalPrice() {
