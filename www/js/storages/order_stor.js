@@ -20,7 +20,7 @@
         order_number: 0,
         order_hz: '---',
         order_type: 1, // 0 - draft
-        order_date: new Date().getTime(),
+        order_date: 0,
         order_style: '',
 
         //------- current Geolocation

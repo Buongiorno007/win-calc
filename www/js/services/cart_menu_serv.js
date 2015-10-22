@@ -80,26 +80,55 @@
     //------ change date
     function checkDifferentDate(lastday, newday) {
       var lastDateArr = lastday.split("."),
-      newDateArr = newday.split("."),
-      lastDate = new Date(lastDateArr[ 2 ], lastDateArr[ 1 ]-1, lastDateArr[0]),
-      newDate = new Date(newDateArr[ 2 ], newDateArr[ 1 ]-1, newDateArr[0]),
-      qtyDays = Math.floor((newDate - lastDate)/(1000*60*60*24));
+          newDateArr = newday.split("."),
+          lastDate = new Date(lastDateArr[ 2 ], lastDateArr[ 1 ]-1, lastDateArr[0]),
+          newDate = new Date(newDateArr[ 2 ], newDateArr[ 1 ]-1, newDateArr[0]),
+          qtyDays = Math.floor((newDate - lastDate)/(1000*60*60*24));
 
       if(qtyDays && qtyDays > 0) {
-        OrderStor.order.delivery_price = globalConstants.ratePriceDeliveryLess * qtyDays;
-        OrderStor.order.is_date_price_less = 1;
-        OrderStor.order.is_date_price_more = 0;
-        OrderStor.order.is_old_price = 1;
+        //------- culc Delivery Plant Discount
+        var weekNumber = qtyDays/ 7,
+            discount = 0;
+        if(weekNumber <= 1) {
+          discount = GlobalStor.global.deliveryCoeff.week_1;
+        } else if (weekNumber > 1 && weekNumber <= 2) {
+          discount = GlobalStor.global.deliveryCoeff.week_2;
+        } else if (weekNumber > 2 && weekNumber <= 3) {
+          discount = GlobalStor.global.deliveryCoeff.week_3;
+        } else if (weekNumber > 3 && weekNumber <= 4) {
+          discount = GlobalStor.global.deliveryCoeff.week_4;
+        } else if (weekNumber > 4 && weekNumber <= 5) {
+          discount = GlobalStor.global.deliveryCoeff.week_5;
+        } else if (weekNumber > 5 && weekNumber <= 6) {
+          discount = GlobalStor.global.deliveryCoeff.week_6;
+        } else if (weekNumber > 6 && weekNumber <= 7) {
+          discount = GlobalStor.global.deliveryCoeff.week_7;
+        } else if (weekNumber > 7 ) {
+          discount = GlobalStor.global.deliveryCoeff.week_8;
+        }
+        OrderStor.order.delivery_price = (discount) ? GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis - GeneralServ.setPriceDis(OrderStor.order.productsPriceDis, discount)) : 0;
+        if(OrderStor.order.delivery_price) {
+          OrderStor.order.is_date_price_less = 1;
+          OrderStor.order.is_date_price_more = 0;
+          OrderStor.order.is_old_price = 1;
+        } else {
+          hideDeliveryPriceOnCalendar();
+        }
       } else if (qtyDays && qtyDays < 0) {
-        OrderStor.order.delivery_price = globalConstants.ratePriceDeliveryMore * Math.abs(qtyDays);
-        OrderStor.order.is_date_price_more = 1;
-        OrderStor.order.is_date_price_less = 0;
-        OrderStor.order.is_old_price = 1;
+        //------- culc Delivery Plant Margin
+        var marginIndex = Math.abs(GlobalStor.global.deliveryCoeff.standart_time + qtyDays);
+        var margin = GlobalStor.global.deliveryCoeff.percents[marginIndex]*1;
+        OrderStor.order.delivery_price = (margin) ? GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis - GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis * (1 + margin / 100))) : 0;
+        if(OrderStor.order.delivery_price) {
+          OrderStor.order.is_date_price_more = 1;
+          OrderStor.order.is_date_price_less = 0;
+          OrderStor.order.is_old_price = 1;
+        } else {
+          hideDeliveryPriceOnCalendar();
+        }
       } else {
         OrderStor.order.delivery_price = 0;
-        OrderStor.order.is_date_price_less = 0;
-        OrderStor.order.is_date_price_more = 0;
-        OrderStor.order.is_old_price = 0;
+        hideDeliveryPriceOnCalendar();
       }
       OrderStor.order.new_delivery_date = newDate.getTime();
       calculateTotalOrderPrice();
@@ -107,6 +136,11 @@
 
 
 
+    function hideDeliveryPriceOnCalendar() {
+      OrderStor.order.is_date_price_less = 0;
+      OrderStor.order.is_date_price_more = 0;
+      OrderStor.order.is_old_price = 0;
+    }
 
 
     //-------- Calculate Total Order Price

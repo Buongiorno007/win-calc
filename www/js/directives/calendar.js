@@ -10,7 +10,7 @@
     .module('CartModule')
     .directive('calendar', calendarDir);
 
-  function calendarDir($filter, globalConstants, CartMenuServ, OrderStor) {
+  function calendarDir($filter, CartMenuServ, GlobalStor, OrderStor) {
 
     return {
       restrict: 'E',
@@ -18,8 +18,8 @@
       link: function (scope, element, attrs) {
 
         var orderDay = new Date(OrderStor.order.order_date).getDate(),
-        minDeliveryDate = new Date().setDate( (orderDay + globalConstants.minDeliveryDays) ),
-        maxDeliveryDate = new Date().setDate( (orderDay + globalConstants.maxDeliveryDays)),
+        minDeliveryDate = new Date().setDate( (orderDay + GlobalStor.global.deliveryCoeff.min_time - 1) ),
+//        maxDeliveryDate = new Date().setDate( (orderDay + globalConstants.maxDeliveryDays)),
         deliveryDate = $filter('date')(OrderStor.order.new_delivery_date, 'dd.MM.yyyy'),
         oldDeliveryDate = $filter('date')(OrderStor.order.delivery_date, 'dd.MM.yyyy');
 
@@ -36,7 +36,7 @@
             },
             date: deliveryDate,
             min: minDeliveryDate,
-            max: maxDeliveryDate,
+//            max: maxDeliveryDate,
             change: function (date) {
               CartMenuServ.checkDifferentDate(oldDeliveryDate, date);
               scope.$apply();

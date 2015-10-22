@@ -84,6 +84,7 @@
 
         currencies: [],
         margins: {},
+        deliveryCoeff: {},
 
         //---- Calculators
         isQtyCalculator: 0,

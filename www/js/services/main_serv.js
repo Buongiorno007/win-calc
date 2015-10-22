@@ -16,6 +16,7 @@
 
     thisFactory.publicObj = {
       saveUserEntry: saveUserEntry,
+      downloadDeliveryCoeff: downloadDeliveryCoeff,
       createOrderData: createOrderData,
       createOrderID: createOrderID,
       setCurrDiscounts: setCurrDiscounts,
@@ -84,18 +85,29 @@
 //      });
     }
 
+    /** delivery Coeff of Plant */
+    function downloadDeliveryCoeff() {
+      localDB.selectLocalDB(localDB.tablesLocalDB.options_discounts.tableName).then(function(coeff) {
+        if(coeff && coeff.length) {
+          GlobalStor.global.deliveryCoeff = angular.copy(coeff[0]);
+          GlobalStor.global.deliveryCoeff.percents = coeff[0].percents.split(',');
+          createOrderData();
+        }
+      });
+    }
 
-    //------------- Create Order Id and Date
+
+    /**  Create Order Id and Date */
     function createOrderData() {
       var productDay;
       //----------- create order number for new project
       OrderStor.order.id = createOrderID();
       //------ set delivery day
-      productDay = new Date(OrderStor.order.order_date).getDate() + globalConstants.productionDays;
+      OrderStor.order.order_date = new Date().getTime();
+      productDay = new Date(OrderStor.order.order_date).getDate() + GlobalStor.global.deliveryCoeff.standart_time;
       OrderStor.order.delivery_date = new Date().setDate(productDay);
       OrderStor.order.new_delivery_date = angular.copy(OrderStor.order.delivery_date);
     }
-
 
     function createOrderID() {
       var currTime = new Date().getTime();
@@ -108,7 +120,7 @@
       OrderStor.order.discount_addelem = angular.copy(UserStor.userInfo.discountAddElem);
     }
 
-
+    /** all Currencies */
     function downloadAllCurrencies() {
       localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, null, 'id, name, value').then(function(currencies) {
         if(currencies && currencies.length) {
@@ -119,12 +131,10 @@
 
 
     /** price Margins of Plant */
-
     function downloadPriceMargin() {
       localDB.selectLocalDB(localDB.tablesLocalDB.options_coefficients.tableName, null, 'margin, coeff').then(function(margins) {
         if(margins && margins.length) {
           GlobalStor.global.margins = angular.copy(margins[0]);
-          console.info(GlobalStor.global.margins);
         }
       });
     }
@@ -852,7 +862,10 @@
       //playSound('price');
       ProductStor.product.product_price = GeneralServ.roundingNumbers( ProductStor.product.template_price + ProductStor.product.addelem_price );
       ProductStor.product.productPriceDis = ( GeneralServ.setPriceDis(ProductStor.product.template_price, OrderStor.order.discount_construct) + ProductStor.product.addelemPriceDis );
-//      $rootScope.$apply();
+      //------ add Discount of standart delivery day of Plant
+      if(GlobalStor.global.deliveryCoeff.base_time) {
+        ProductStor.product.productPriceDis = GeneralServ.setPriceDis(ProductStor.product.productPriceDis, GlobalStor.global.deliveryCoeff.base_time);
+      }
     }
 
 

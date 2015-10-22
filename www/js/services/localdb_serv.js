@@ -2079,17 +2079,16 @@
           //------ меньше родителя на X (м)
           value = GeneralServ.roundingNumbers((parentValue - childValue), 3);
           break;
-        case 2: //----- hardware
-          value = parentValue * childValue;
+        case 2: //------ X шт. на родителя
+        case 5: //----- X шт. на 1 м2 родителя
+          var parentValueTemp = (parentValue < 1) ? 1 : parseInt(parentValue);
+          value = parentValueTemp * childValue;
           break;
         case 3:
         case 12:
         case 14:
           //------ X шт. на метр родителя
           value = GeneralServ.roundingNumbers((Math.round(parentValue) * childValue), 3);
-          break;
-        case 5: //----- X шт. на 1 м2 родителя
-          value = Math.round(parentValue * childValue);
           break;
         case 6:
         case 7:

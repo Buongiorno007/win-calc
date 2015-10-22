@@ -34,7 +34,7 @@
       /** save first User entrance */
       MainServ.saveUserEntry();
       /** create order date */
-      MainServ.createOrderData();
+      MainServ.downloadDeliveryCoeff();
       /** set Curr Discounts */
       MainServ.setCurrDiscounts();
       /** download All Currencies */
