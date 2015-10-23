@@ -31,13 +31,9 @@
       /** save first User entrance */
       MainServ.saveUserEntry();
       /** create order date */
-      MainServ.downloadDeliveryCoeff();
+      MainServ.createOrderData();
       /** set Curr Discounts */
       MainServ.setCurrDiscounts();
-      /** download All Currencies */
-      MainServ.downloadAllCurrencies();
-      /** download price Margins of Plant */
-      MainServ.downloadPriceMargin();
 
       /** download All Profiles */
       MainServ.downloadAllElemAsGroup(localDB.tablesLocalDB.profile_system_folders.tableName, localDB.tablesLocalDB.profile_systems.tableName, GlobalStor.global.profilesType, GlobalStor.global.profiles).then(function(data) {

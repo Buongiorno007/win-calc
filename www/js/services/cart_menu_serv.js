@@ -10,22 +10,28 @@
     .module('CartModule')
     .factory('CartMenuServ', cartMenuFactory);
 
-  function cartMenuFactory($location, globalConstants, GeneralServ, MainServ, analyticsServ, GlobalStor, OrderStor, CartStor) {
+  function cartMenuFactory($location, GeneralServ, MainServ, analyticsServ, GlobalStor, OrderStor, CartStor, UserStor) {
 
     var thisFactory = this;
 
     thisFactory.publicObj = {
+      //---- menu
       selectFloorPrice: selectFloorPrice,
       selectAssembling: selectAssembling,
       selectInstalment: selectInstalment,
       checkDifferentDate: checkDifferentDate,
+      //---- price
+      calculateOrderPrice: calculateOrderPrice,
+      calculateAllProductsPrice: calculateAllProductsPrice,
       calculateTotalOrderPrice: calculateTotalOrderPrice,
-
+      changeProductPriceAsDiscount: changeProductPriceAsDiscount,
+      changeAddElemPriceAsDiscount: changeAddElemPriceAsDiscount,
+      swipeDiscountBlock: swipeDiscountBlock,
+      //---- sent order
       closeOrderDialog: closeOrderDialog,
       changeLocation: changeLocation,
       selectCity: selectCity,
-      sendOrder: sendOrder,
-      swipeDiscountBlock: swipeDiscountBlock
+      sendOrder: sendOrder
     };
 
     return thisFactory.publicObj;
@@ -76,7 +82,7 @@
     }
 
 
-    //------- Calendar
+    /** Calendar */
     //------ change date
     function checkDifferentDate(lastday, newday) {
       var lastDateArr = lastday.split("."),
@@ -84,54 +90,90 @@
           lastDate = new Date(lastDateArr[ 2 ], lastDateArr[ 1 ]-1, lastDateArr[0]),
           newDate = new Date(newDateArr[ 2 ], newDateArr[ 1 ]-1, newDateArr[0]),
           qtyDays = Math.floor((newDate - lastDate)/(1000*60*60*24));
+      OrderStor.order.delivery_price = 0;
 
+      //------- culc Delivery Plant Discount
       if(qtyDays && qtyDays > 0) {
-        //------- culc Delivery Plant Discount
         var weekNumber = qtyDays/ 7,
-            discount = 0;
+            discountPlant = 0,
+            userDiscConstr = 0,
+            userDiscAddElem = 0;
+
         if(weekNumber <= 1) {
-          discount = GlobalStor.global.deliveryCoeff.week_1;
+          discountPlant = GlobalStor.global.deliveryCoeff.week_1;
+          userDiscConstr = UserStor.userInfo.discConstrByWeek[0];
+          userDiscAddElem = UserStor.userInfo.discAddElemByWeek[0];
         } else if (weekNumber > 1 && weekNumber <= 2) {
-          discount = GlobalStor.global.deliveryCoeff.week_2;
+          discountPlant = GlobalStor.global.deliveryCoeff.week_2;
+          userDiscConstr = UserStor.userInfo.discConstrByWeek[1];
+          userDiscAddElem = UserStor.userInfo.discAddElemByWeek[1];
         } else if (weekNumber > 2 && weekNumber <= 3) {
-          discount = GlobalStor.global.deliveryCoeff.week_3;
+          discountPlant = GlobalStor.global.deliveryCoeff.week_3;
+          userDiscConstr = UserStor.userInfo.discConstrByWeek[2];
+          userDiscAddElem = UserStor.userInfo.discAddElemByWeek[2];
         } else if (weekNumber > 3 && weekNumber <= 4) {
-          discount = GlobalStor.global.deliveryCoeff.week_4;
+          discountPlant = GlobalStor.global.deliveryCoeff.week_4;
+          userDiscConstr = UserStor.userInfo.discConstrByWeek[3];
+          userDiscAddElem = UserStor.userInfo.discAddElemByWeek[3];
         } else if (weekNumber > 4 && weekNumber <= 5) {
-          discount = GlobalStor.global.deliveryCoeff.week_5;
+          discountPlant = GlobalStor.global.deliveryCoeff.week_5;
+          userDiscConstr = UserStor.userInfo.discConstrByWeek[4];
+          userDiscAddElem = UserStor.userInfo.discAddElemByWeek[4];
         } else if (weekNumber > 5 && weekNumber <= 6) {
-          discount = GlobalStor.global.deliveryCoeff.week_6;
+          discountPlant = GlobalStor.global.deliveryCoeff.week_6;
+          userDiscConstr = UserStor.userInfo.discConstrByWeek[5];
+          userDiscAddElem = UserStor.userInfo.discAddElemByWeek[5];
         } else if (weekNumber > 6 && weekNumber <= 7) {
-          discount = GlobalStor.global.deliveryCoeff.week_7;
+          discountPlant = GlobalStor.global.deliveryCoeff.week_7;
+          userDiscConstr = UserStor.userInfo.discConstrByWeek[6];
+          userDiscAddElem = UserStor.userInfo.discAddElemByWeek[6];
         } else if (weekNumber > 7 ) {
-          discount = GlobalStor.global.deliveryCoeff.week_8;
+          discountPlant = GlobalStor.global.deliveryCoeff.week_8;
+          userDiscConstr = UserStor.userInfo.discConstrByWeek[7];
+          userDiscAddElem = UserStor.userInfo.discAddElemByWeek[7];
         }
-        OrderStor.order.delivery_price = (discount) ? GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis - GeneralServ.setPriceDis(OrderStor.order.productsPriceDis, discount)) : 0;
-        if(OrderStor.order.delivery_price) {
+
+        if(userDiscConstr) {
+          OrderStor.order.discount_construct = userDiscConstr;
+          changeProductPriceAsDiscount(userDiscConstr);
+        }
+        if(userDiscAddElem) {
+          OrderStor.order.discount_addelem = userDiscAddElem;
+          changeAddElemPriceAsDiscount(userDiscAddElem);
+        }
+//        console.info('discont', userDiscConstr, userDiscAddElem);
+//        console.info('discont Plant', discountPlant);
+        if(discountPlant) {
+          OrderStor.order.delivery_price = GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis * discountPlant / 100);
           OrderStor.order.is_date_price_less = 1;
           OrderStor.order.is_date_price_more = 0;
           OrderStor.order.is_old_price = 1;
-        } else {
+          calculateTotalOrderPrice();
+        }
+        if(!userDiscConstr && !userDiscAddElem && !discountPlant) {
+          calculateOrderPrice();
           hideDeliveryPriceOnCalendar();
         }
       } else if (qtyDays && qtyDays < 0) {
         //------- culc Delivery Plant Margin
         var marginIndex = Math.abs(GlobalStor.global.deliveryCoeff.standart_time + qtyDays);
         var margin = GlobalStor.global.deliveryCoeff.percents[marginIndex]*1;
-        OrderStor.order.delivery_price = (margin) ? GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis - GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis * (1 + margin / 100))) : 0;
-        if(OrderStor.order.delivery_price) {
+//        console.info('margin', margin);
+        if(margin) {
+          OrderStor.order.delivery_price = GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis * margin / 100);
           OrderStor.order.is_date_price_more = 1;
           OrderStor.order.is_date_price_less = 0;
           OrderStor.order.is_old_price = 1;
+          calculateTotalOrderPrice();
         } else {
+          calculateOrderPrice();
           hideDeliveryPriceOnCalendar();
         }
       } else {
-        OrderStor.order.delivery_price = 0;
+        calculateOrderPrice();
         hideDeliveryPriceOnCalendar();
       }
       OrderStor.order.new_delivery_date = newDate.getTime();
-      calculateTotalOrderPrice();
     }
 
 
@@ -140,6 +182,45 @@
       OrderStor.order.is_date_price_less = 0;
       OrderStor.order.is_date_price_more = 0;
       OrderStor.order.is_old_price = 0;
+    }
+
+
+
+
+
+    /**========== Calculate Order Price ============*/
+
+    function calculateOrderPrice() {
+      calculateAllProductsPrice();
+      //----- join together product prices and order option
+      calculateTotalOrderPrice();
+    }
+
+
+
+    //-------- Calculate All Products Price
+    function calculateAllProductsPrice() {
+      var productsQty = OrderStor.order.products.length;
+      OrderStor.order.templates_price = 0;
+      OrderStor.order.addelems_price = 0;
+      OrderStor.order.products_price = 0;
+      OrderStor.order.productsPriceDis = 0;
+      while(--productsQty > -1) {
+        OrderStor.order.addelems_price += OrderStor.order.products[productsQty].addelem_price * OrderStor.order.products[productsQty].product_qty;
+        OrderStor.order.templates_price += OrderStor.order.products[productsQty].template_price * OrderStor.order.products[productsQty].product_qty;
+        OrderStor.order.products_price += OrderStor.order.products[productsQty].product_price * OrderStor.order.products[productsQty].product_qty;
+        OrderStor.order.productsPriceDis += OrderStor.order.products[productsQty].productPriceDis * OrderStor.order.products[productsQty].product_qty;
+      }
+      OrderStor.order.addelems_price = GeneralServ.roundingNumbers(OrderStor.order.addelems_price);
+      OrderStor.order.templates_price = GeneralServ.roundingNumbers(OrderStor.order.templates_price);
+      OrderStor.order.products_price = GeneralServ.roundingNumbers(OrderStor.order.products_price);
+      /** if default user discount = 0 */
+      if(OrderStor.order.productsPriceDis) {
+        OrderStor.order.productsPriceDis = GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis);
+      } else {
+        OrderStor.order.productsPriceDis = angular.copy(OrderStor.order.products_price);
+      }
+
     }
 
 
@@ -157,7 +238,8 @@
       //----- save primary total price
       OrderStor.order.order_price_primary = angular.copy(OrderStor.order.order_price);
       OrderStor.order.orderPricePrimaryDis = angular.copy(OrderStor.order.order_price_dis);
-      //----- add delivery price
+
+      //----- add delivery price if order edit
       if(OrderStor.order.delivery_price) {
         if(OrderStor.order.is_date_price_more) {
           OrderStor.order.order_price += OrderStor.order.delivery_price;
@@ -194,11 +276,47 @@
     }
 
 
+    /** open/close discount block */
+    function swipeDiscountBlock() {
+      CartStor.cart.isShowDiscount = !CartStor.cart.isShowDiscount;
+    }
 
 
-    //========== Orders Dialogs ======//
+    function changeAddElemPriceAsDiscount(discount) {
+      var productQty = OrderStor.order.products.length;
+      for(var prod = 0; prod < productQty; prod++) {
+        var templatePriceDis =  OrderStor.order.products[prod].productPriceDis - OrderStor.order.products[prod].addelemPriceDis;
+        OrderStor.order.products[prod].addelemPriceDis = GeneralServ.setPriceDis(OrderStor.order.products[prod].addelem_price, discount);
+        OrderStor.order.products[prod].productPriceDis = GeneralServ.roundingNumbers(templatePriceDis + OrderStor.order.products[prod].addelemPriceDis);
 
-    //--------- send Order in Local DB
+        var addElemsQty = OrderStor.order.products[prod].chosenAddElements.length;
+        for(var elem = 0; elem < addElemsQty; elem++) {
+          var elemQty = OrderStor.order.products[prod].chosenAddElements[elem].length;
+          if (elemQty > 0) {
+            for (var item = 0; item < elemQty; item++) {
+              OrderStor.order.products[prod].chosenAddElements[elem][item].elementPriceDis = GeneralServ.setPriceDis(OrderStor.order.products[prod].chosenAddElements[elem][item].element_price, discount);
+            }
+          }
+        }
+      }
+      calculateOrderPrice();
+    }
+
+
+    function changeProductPriceAsDiscount(discount) {
+      var productQty = OrderStor.order.products.length;
+      for(var prod = 0; prod < productQty; prod++) {
+        OrderStor.order.products[prod].productPriceDis = angular.copy( GeneralServ.roundingNumbers( GeneralServ.setPriceDis(OrderStor.order.products[prod].template_price, discount) + OrderStor.order.products[prod].addelemPriceDis ));
+      }
+      calculateOrderPrice();
+    }
+
+
+
+
+    /** ========== Orders Dialogs ====== */
+
+    /** send Order in Local DB */
     function sendOrder() {
       var orderStyle;
       GlobalStor.global.isLoader = 1;
@@ -250,11 +368,6 @@
     function selectCity(place) {
       CartStor.cart.customer.customer_location = place;
       CartStor.cart.isCityBox = 0;
-    }
-
-    /** open/close discount block */
-    function swipeDiscountBlock() {
-      CartStor.cart.isShowDiscount = !CartStor.cart.isShowDiscount;
     }
 
 

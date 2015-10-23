@@ -263,25 +263,34 @@
 
     function setCurrency() {
       var defer = $q.defer();
-      localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, {'is_base': 1}, 'id, name').then(function(data) {
-//        console.log('curency ==', data);
-        if(data.length) {
-          UserStor.userInfo.currencyId = data[0].id;
-          switch(data[0].name) {
-            case 'uah':  UserStor.userInfo.currency = '₴';
-              break;
-            case 'rub':  UserStor.userInfo.currency = '₽';
-              break;
-            case 'usd':  UserStor.userInfo.currency = '$';
-              break;
-            case 'eur':  UserStor.userInfo.currency = '€';
-              break;
-            default:  UserStor.userInfo.currency = '₴';
-              break;
+      /** download All Currencies */
+      localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, null, 'id, is_base, name, value').then(function(currencies) {
+        var currencQty = currencies.length;
+        if(currencies && currencQty) {
+          GlobalStor.global.currencies = currencies;
+//          console.warn('all currencies!!', currencies);
+          /** set current currency */
+          while(--currencQty > -1) {
+            if(currencies[currencQty].is_base === 1) {
+              UserStor.userInfo.currencyId = currencies[currencQty].id;
+              switch(currencies[currencQty].name) {
+                case 'uah':  UserStor.userInfo.currency = '₴';
+                  break;
+                case 'rub':  UserStor.userInfo.currency = '₽';
+                  break;
+                case 'usd':  UserStor.userInfo.currency = '$';
+                  break;
+                case 'eur':  UserStor.userInfo.currency = '€';
+                  break;
+                default:  UserStor.userInfo.currency = '₴';
+                  break;
+              }
+            }
           }
           defer.resolve(1);
         } else {
-          defer.resolve(1);
+          console.error('not find currencies!');
+          defer.resolve(0);
         }
       });
       return defer.promise;
@@ -294,33 +303,71 @@
 //      UserStor.userInfo.avatar = globalConstants.serverIP + UserStor.userInfo.avatar;
       UserStor.userInfo.avatar = UserStor.userInfo.avatar;
 
-      localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(data) {
-//        console.log('DISCTOUN=====', data);
-        if(data.length) {
-          UserStor.userInfo.discountConstr = data[0].default_construct*1;
-          UserStor.userInfo.discountAddElem = data[0].default_add_elem*1;
-          UserStor.userInfo.discountConstrMax = data[0].max_construct*1;
-          UserStor.userInfo.discountAddElemMax = data[0].max_add_elem*1;
+      localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(result) {
+//        console.log('DISCTOUN=====', result);
+        var discounts = angular.copy(result[0]);
+        if(discounts) {
+          UserStor.userInfo.discountConstr = discounts.default_construct*1;
+          UserStor.userInfo.discountAddElem = discounts.default_add_elem*1;
+          UserStor.userInfo.discountConstrMax = discounts.max_construct*1;
+          UserStor.userInfo.discountAddElemMax = discounts.max_add_elem*1;
 
-          var disKeys = Object.keys(data[0]),
+          var disKeys = Object.keys(discounts),
               disQty = disKeys.length;
           for(var dis = 0; dis < disQty; dis++) {
             if(disKeys[dis].indexOf('week')+1) {
               if(disKeys[dis].indexOf('construct')+1) {
-                UserStor.userInfo.discConstrByDay.push(data[0][disKeys[dis]]);
+                UserStor.userInfo.discConstrByWeek.push(discounts[disKeys[dis]]*1);
               } else if(disKeys[dis].indexOf('add_elem')+1) {
-                UserStor.userInfo.discAddElemByDay.push(data[0][disKeys[dis]]);
+                UserStor.userInfo.discAddElemByWeek.push(discounts[disKeys[dis]]*1);
               }
             }
           }
-          defer.resolve(1);
+          /** download price Margins of Plant */
+          downloadPriceMargin().then(function(margins) {
+            if(margins && margins.length) {
+              GlobalStor.global.margins = angular.copy(margins[0]);
+//              console.warn('Margins!!', margins);
+              /** download delivery Coeff of Plant */
+              downloadDeliveryCoeff().then(function(coeff){
+                if(coeff && coeff.length) {
+//                  console.warn('delivery Coeff!!', coeff);
+                  GlobalStor.global.deliveryCoeff = angular.copy(coeff[0]);
+                  GlobalStor.global.deliveryCoeff.percents = coeff[0].percents.split(',');
+                  defer.resolve(1);
+                } else {
+                  console.error('not find options_discounts!');
+                  defer.resolve(0);
+                }
+              });
+            } else {
+              console.error('not find options_coefficients!');
+              defer.resolve(0);
+            }
+          });
         } else {
-          defer.resolve(1);
+          console.error('not find users_discounts!');
+          defer.resolve(0);
         }
       });
       return defer.promise;
     }
 
+
+
+    /** price Margins of Plant */
+    function downloadPriceMargin() {
+      return localDB.selectLocalDB(localDB.tablesLocalDB.options_coefficients.tableName, null, 'margin, coeff').then(function(margins) {
+        return margins;
+      });
+    }
+
+    /** delivery Coeff of Plant */
+    function downloadDeliveryCoeff() {
+      return localDB.selectLocalDB(localDB.tablesLocalDB.options_discounts.tableName).then(function(coeff) {
+        return coeff;
+      });
+    }
 
   }
 })();

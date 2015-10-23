@@ -30,8 +30,8 @@
         discountAddElem: 0,
         discountConstrMax: 0,
         discountAddElemMax: 0,
-        discConstrByDay: [],
-        discAddElemByDay: []
+        discConstrByWeek: [],
+        discAddElemByWeek: []
       },
       setDefaultUser: setDefaultUser
     };

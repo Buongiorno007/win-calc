@@ -16,12 +16,9 @@
 
     thisFactory.publicObj = {
       saveUserEntry: saveUserEntry,
-      downloadDeliveryCoeff: downloadDeliveryCoeff,
       createOrderData: createOrderData,
       createOrderID: createOrderID,
       setCurrDiscounts: setCurrDiscounts,
-      downloadAllCurrencies: downloadAllCurrencies,
-      downloadPriceMargin: downloadPriceMargin,
       downloadAllElemAsGroup: downloadAllElemAsGroup,
       downloadAllGlasses: downloadAllGlasses,
       sortingGlasses: sortingGlasses,
@@ -85,16 +82,7 @@
 //      });
     }
 
-    /** delivery Coeff of Plant */
-    function downloadDeliveryCoeff() {
-      localDB.selectLocalDB(localDB.tablesLocalDB.options_discounts.tableName).then(function(coeff) {
-        if(coeff && coeff.length) {
-          GlobalStor.global.deliveryCoeff = angular.copy(coeff[0]);
-          GlobalStor.global.deliveryCoeff.percents = coeff[0].percents.split(',');
-          createOrderData();
-        }
-      });
-    }
+
 
 
     /**  Create Order Id and Date */
@@ -120,25 +108,9 @@
       OrderStor.order.discount_addelem = angular.copy(UserStor.userInfo.discountAddElem);
     }
 
-    /** all Currencies */
-    function downloadAllCurrencies() {
-      localDB.selectLocalDB(localDB.tablesLocalDB.currencies.tableName, null, 'id, name, value').then(function(currencies) {
-        if(currencies && currencies.length) {
-          GlobalStor.global.currencies = currencies;
-        }
-      });
-    }
 
 
     /** price Margins of Plant */
-    function downloadPriceMargin() {
-      localDB.selectLocalDB(localDB.tablesLocalDB.options_coefficients.tableName, null, 'margin, coeff').then(function(margins) {
-        if(margins && margins.length) {
-          GlobalStor.global.margins = angular.copy(margins[0]);
-        }
-      });
-    }
-
     function addMarginToPrice(price, margin) {
       return price * margin;
     }
@@ -777,34 +749,32 @@
           ind = 0;
       if(elementListQty) {
         for (; ind < elementListQty; ind++) {
-          if(elementList[ind].priceReal) {
-            var tempObj = angular.copy(elementList[ind]);
-            tempObj.element_id = angular.copy(tempObj.id);
-            tempObj.amount = angular.copy(tempObj.qty);
-            delete tempObj.id;
-            delete tempObj.amendment_pruninng;
-            delete tempObj.currency_id;
-            delete tempObj.qty;
-            delete tempObj.waste;
-            if (ind) {
-              var reportQty = report.length, exist = 0;
-              if (reportQty) {
-                while (--reportQty > -1) {
-                  if (report[reportQty].element_id === tempObj.element_id && report[reportQty].size === tempObj.size) {
-                    exist++;
-                    report[reportQty].amount += tempObj.amount;
-                    report[reportQty].amount = GeneralServ.roundingNumbers(report[reportQty].amount, 3);
-                    report[reportQty].priceReal += tempObj.priceReal;
-                    report[reportQty].priceReal = GeneralServ.roundingNumbers(addMarginToPrice(report[reportQty].priceReal, GlobalStor.global.margins.coeff), 3);
-                  }
-                }
-                if (!exist) {
-                  report.push(tempObj);
+          var tempObj = angular.copy(elementList[ind]);
+          tempObj.element_id = angular.copy(tempObj.id);
+          tempObj.amount = angular.copy(tempObj.qty);
+          delete tempObj.id;
+          delete tempObj.amendment_pruninng;
+          delete tempObj.currency_id;
+          delete tempObj.qty;
+          delete tempObj.waste;
+          if (ind) {
+            var reportQty = report.length, exist = 0;
+            if (reportQty) {
+              while (--reportQty > -1) {
+                if (report[reportQty].element_id === tempObj.element_id && report[reportQty].size === tempObj.size) {
+                  exist++;
+                  report[reportQty].amount += tempObj.amount;
+                  report[reportQty].amount = GeneralServ.roundingNumbers(report[reportQty].amount, 3);
+                  report[reportQty].priceReal += tempObj.priceReal;
+                  report[reportQty].priceReal = GeneralServ.roundingNumbers(addMarginToPrice(report[reportQty].priceReal, GlobalStor.global.margins.coeff), 3);
                 }
               }
-            } else {
-              report.push(tempObj);
+              if (!exist) {
+                report.push(tempObj);
+              }
             }
+          } else {
+            report.push(tempObj);
           }
         }
       }

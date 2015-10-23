@@ -7,7 +7,7 @@
     .module('CartModule')
     .controller('CartCtrl', cartPageCtrl);
 
-  function cartPageCtrl($filter, globalConstants, GeneralServ, GlobalStor, OrderStor, ProductStor, UserStor, CartStor, CartServ, CartMenuServ) {
+  function cartPageCtrl($filter, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, CartStor, CartServ, CartMenuServ) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -21,7 +21,6 @@
       isAddElementDetail: 0,
       isCartLightView: 0,
       detailProductIndex: 0,
-//      isShowDiscount: 0,
       isShowDiscInput: 0,
       isShowDiscInputAdd: 0,
 //      allAddElementsListSource: {
@@ -64,7 +63,7 @@
     //------- collect all AddElements of Order
     CartServ.joinAllAddElements();
     //----------- start order price total calculation
-    CartServ.calculateOrderPrice();
+    CartMenuServ.calculateOrderPrice();
 
     //console.log('cart +++++', JSON.stringify(OrderStor.order));
 
@@ -141,12 +140,12 @@
       //------- discount x add element
       if(type) {
         OrderStor.order.discount_addelem = 0;
-        CartServ.changeAddElemPriceAsDiscount(0);
+        CartMenuServ.changeAddElemPriceAsDiscount(0);
         thisCtrl.config.isShowDiscInputAdd = 0;
       } else {
         //------- discount x construction
         OrderStor.order.discount_construct = 0;
-        CartServ.changeProductPriceAsDiscount(0);
+        CartMenuServ.changeProductPriceAsDiscount(0);
         thisCtrl.config.isShowDiscInput = 0;
       }
     }
@@ -158,13 +157,13 @@
         if(!OrderStor.order.discount_addelem) {
           OrderStor.order.discount_addelem = 0;
         }
-        CartServ.changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
+        CartMenuServ.changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
       //------- discount x construction
       } else {
         if(!OrderStor.order.discount_construct) {
           OrderStor.order.discount_construct = 0;
         }
-        CartServ.changeProductPriceAsDiscount(OrderStor.order.discount_construct);
+        CartMenuServ.changeProductPriceAsDiscount(OrderStor.order.discount_construct);
       }
     }
 
