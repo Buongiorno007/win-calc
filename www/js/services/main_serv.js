@@ -899,8 +899,24 @@
                 var elements = [];
                 for(var el = 0; el < elemQty; el++) {
                   if(GlobalStor.global.addElementsAll[elemAllQty].elementType[t].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].addition_folder_id) {
-                    GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_width = 1000;
-                    GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_height = 1000;
+                    var widthTemp = 0,
+                        heightTemp = 0;
+                    switch(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].list_group_id){
+                      case 21: // 1 - visors
+                      case 9: // 2 - spillways
+                      case 8: // 8 - windowSill
+                      case 19: // 3 - outSlope & inSlope
+                      case 12: // 6 - connectors
+                        widthTemp = 1000;
+                        break;
+                      case 20: // 0 - grids
+                      case 26: // 4 - louvers
+                        widthTemp = 1000;
+                        heightTemp = 1000;
+                        break;
+                    }
+                    GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_width = widthTemp;
+                    GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_height = heightTemp;
                     GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_qty = 1;
                     /** get price of element */
                     for(var k = 0; k < tempElemQty; k++) {

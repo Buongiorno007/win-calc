@@ -169,6 +169,12 @@
 
       //------- culc Delivery Plant Margin
       } else if (qtyDays && qtyDays < 0) {
+        //------- set default User discount
+        MainServ.setCurrDiscounts();
+        changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
+        changeProductPriceAsDiscount(OrderStor.order.discount_construct);
+        calculateAllProductsPrice();
+
         var marginIndex = Math.abs(GlobalStor.global.deliveryCoeff.standart_time + qtyDays);
         CartStor.cart.marginDeliveyPlant = GlobalStor.global.deliveryCoeff.percents[marginIndex]*1;
 //        console.info('margin', margin);
@@ -178,17 +184,14 @@
           OrderStor.order.is_date_price_less = 0;
           OrderStor.order.is_old_price = 1;
         } else {
-          calculateAllProductsPrice();
           hideDeliveryPriceOnCalendar();
         }
 
       //------ default delivery date
       } else {
-        //------- set default discount x add element
-        OrderStor.order.discount_addelem = angular.copy(UserStor.userInfo.discountAddElem);
+        //------- set default User discount
+        MainServ.setCurrDiscounts();
         changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
-        //------- set default discount x construction
-        OrderStor.order.discount_construct = angular.copy(UserStor.userInfo.discountConstr);
         changeProductPriceAsDiscount(OrderStor.order.discount_construct);
         calculateAllProductsPrice();
         hideDeliveryPriceOnCalendar();

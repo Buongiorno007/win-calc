@@ -106,11 +106,6 @@
             'prop': 'name VARCHAR(255), image_add_param VARCHAR(100)',
             'foreignKey': ''
           },
-          'margin_types': {
-            'tableName': 'margin_types',
-            'prop': 'name VARCHAR(255)',
-            'foreignKey': ''
-          },
           'options_coefficients': {
             'tableName': 'options_coefficients',
             'prop': 'rentability_percent INTEGER,' +
@@ -221,7 +216,7 @@
               ' cameras INTEGER,' +
               ' heat_coeff INTEGER,' +
               ' noise_coeff INTEGER,' +
-              ' heat_coeff_value NUMERIC ' +
+              ' heat_coeff_value NUMERIC(5,2),' +
               ' link VARCHAR,' +
               ' description VARCHAR,' +
               ' img VARCHAR',
@@ -288,6 +283,24 @@
               ' week_7_add_elem NUMERIC(5,1),' +
               ' week_8_construct NUMERIC(5,1),' +
               ' week_8_add_elem NUMERIC(5,1)',
+            'foreignKey': ''
+          },
+          'users_deliveries': {
+            'tableName': 'users_deliveries',
+            'prop': 'user_id INTEGER,' +
+              ' active INTEGER,' +
+              ' name VARCHAR,' +
+              ' type INTEGER,' +
+              ' price NUMERIC(6,1)',
+            'foreignKey': ''
+          },
+          'users_mountings': {
+            'tableName': 'users_mountings',
+            'prop': 'user_id INTEGER,' +
+              ' active INTEGER,' +
+              ' name VARCHAR,' +
+              ' type INTEGER,' +
+              ' price NUMERIC(6,1)',
             'foreignKey': ''
           },
           'lists': {
