@@ -27,6 +27,7 @@
       changeProductPriceAsDiscount: changeProductPriceAsDiscount,
       changeAddElemPriceAsDiscount: changeAddElemPriceAsDiscount,
       swipeDiscountBlock: swipeDiscountBlock,
+
       //---- sent order
       closeOrderDialog: closeOrderDialog,
       changeLocation: changeLocation,
@@ -98,7 +99,6 @@
             discountPlant = 0,
             userDiscConstr = 0,
             userDiscAddElem = 0;
-
         if(weekNumber <= 1) {
           discountPlant = GlobalStor.global.deliveryCoeff.week_1;
           userDiscConstr = UserStor.userInfo.discConstrByWeek[0];
@@ -136,47 +136,75 @@
         if(userDiscConstr) {
           OrderStor.order.discount_construct = userDiscConstr;
           changeProductPriceAsDiscount(userDiscConstr);
+          calculateAllProductsPrice();
+        } else {
+          //---- set default discount user
+          OrderStor.order.discount_construct = angular.copy(UserStor.userInfo.discountConstr);
+          changeProductPriceAsDiscount(OrderStor.order.discount_construct);
+          calculateAllProductsPrice();
         }
         if(userDiscAddElem) {
           OrderStor.order.discount_addelem = userDiscAddElem;
           changeAddElemPriceAsDiscount(userDiscAddElem);
+          calculateAllProductsPrice();
+        } else {
+          //---- set default discount user
+          OrderStor.order.discount_addelem = angular.copy(UserStor.userInfo.discountAddElem);
+          changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
+          calculateAllProductsPrice();
         }
+
 //        console.info('discont', userDiscConstr, userDiscAddElem);
 //        console.info('discont Plant', discountPlant);
         if(discountPlant) {
-          OrderStor.order.delivery_price = GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis * discountPlant / 100);
+          CartStor.cart.discountDeliveyPlant = discountPlant;
+          culcDeliveyPriceByDiscPlant();
           OrderStor.order.is_date_price_less = 1;
           OrderStor.order.is_date_price_more = 0;
           OrderStor.order.is_old_price = 1;
-          calculateTotalOrderPrice();
-        }
-        if(!userDiscConstr && !userDiscAddElem && !discountPlant) {
-          calculateOrderPrice();
+        } else {
+          calculateAllProductsPrice();
           hideDeliveryPriceOnCalendar();
         }
+
+      //------- culc Delivery Plant Margin
       } else if (qtyDays && qtyDays < 0) {
-        //------- culc Delivery Plant Margin
         var marginIndex = Math.abs(GlobalStor.global.deliveryCoeff.standart_time + qtyDays);
-        var margin = GlobalStor.global.deliveryCoeff.percents[marginIndex]*1;
+        CartStor.cart.marginDeliveyPlant = GlobalStor.global.deliveryCoeff.percents[marginIndex]*1;
 //        console.info('margin', margin);
-        if(margin) {
-          OrderStor.order.delivery_price = GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis * margin / 100);
+        if(CartStor.cart.marginDeliveyPlant) {
+          culcDeliveryPriceByMargPlant();
           OrderStor.order.is_date_price_more = 1;
           OrderStor.order.is_date_price_less = 0;
           OrderStor.order.is_old_price = 1;
-          calculateTotalOrderPrice();
         } else {
-          calculateOrderPrice();
+          calculateAllProductsPrice();
           hideDeliveryPriceOnCalendar();
         }
+
+      //------ default delivery date
       } else {
-        calculateOrderPrice();
+        //------- set default discount x add element
+        OrderStor.order.discount_addelem = angular.copy(UserStor.userInfo.discountAddElem);
+        changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
+        //------- set default discount x construction
+        OrderStor.order.discount_construct = angular.copy(UserStor.userInfo.discountConstr);
+        changeProductPriceAsDiscount(OrderStor.order.discount_construct);
+        calculateAllProductsPrice();
         hideDeliveryPriceOnCalendar();
       }
+      calculateTotalOrderPrice();
       OrderStor.order.new_delivery_date = newDate.getTime();
     }
 
 
+    function culcDeliveyPriceByDiscPlant() {
+      OrderStor.order.delivery_price = GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis * CartStor.cart.discountDeliveyPlant / 100);
+    }
+
+    function culcDeliveryPriceByMargPlant() {
+      OrderStor.order.delivery_price = GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis * CartStor.cart.marginDeliveyPlant / 100);
+    }
 
     function hideDeliveryPriceOnCalendar() {
       OrderStor.order.is_date_price_less = 0;
@@ -192,6 +220,13 @@
 
     function calculateOrderPrice() {
       calculateAllProductsPrice();
+      //------ reculculate delivery price
+      if(CartStor.cart.discountDeliveyPlant) {
+        culcDeliveyPriceByDiscPlant();
+      }
+      if(CartStor.cart.marginDeliveyPlant) {
+        culcDeliveryPriceByMargPlant();
+      }
       //----- join together product prices and order option
       calculateTotalOrderPrice();
     }
@@ -299,7 +334,6 @@
           }
         }
       }
-      calculateOrderPrice();
     }
 
 
@@ -308,7 +342,6 @@
       for(var prod = 0; prod < productQty; prod++) {
         OrderStor.order.products[prod].productPriceDis = angular.copy( GeneralServ.roundingNumbers( GeneralServ.setPriceDis(OrderStor.order.products[prod].template_price, discount) + OrderStor.order.products[prod].addelemPriceDis ));
       }
-      calculateOrderPrice();
     }
 
 

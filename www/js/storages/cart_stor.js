@@ -19,6 +19,8 @@
         allAddElements: [],
         isShowDiscount: 0,
         discountPriceDiff: 0,
+        discountDeliveyPlant: 0,
+        marginDeliveyPlant: 0,
         isMasterDialog: 0,
         isOrderDialog: 0,
         isCreditDialog: 0,

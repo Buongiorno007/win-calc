@@ -89,7 +89,6 @@
     thisCtrl.viewSwitching = viewSwitching;
 
     thisCtrl.swipeDiscountBlock = CartMenuServ.swipeDiscountBlock;
-    thisCtrl.switchDiscount = switchDiscount;
     thisCtrl.openDiscInput = openDiscInput;
     thisCtrl.setNewDiscont = setNewDiscont;
 
@@ -136,20 +135,6 @@
       }
     }
 
-    function switchDiscount(type) {
-      //------- discount x add element
-      if(type) {
-        OrderStor.order.discount_addelem = 0;
-        CartMenuServ.changeAddElemPriceAsDiscount(0);
-        thisCtrl.config.isShowDiscInputAdd = 0;
-      } else {
-        //------- discount x construction
-        OrderStor.order.discount_construct = 0;
-        CartMenuServ.changeProductPriceAsDiscount(0);
-        thisCtrl.config.isShowDiscInput = 0;
-      }
-    }
-
 
     function setNewDiscont(type) {
       //------- discount x add element
@@ -165,6 +150,8 @@
         }
         CartMenuServ.changeProductPriceAsDiscount(OrderStor.order.discount_construct);
       }
+      //----------- start order price total calculation
+      CartMenuServ.calculateOrderPrice();
     }
 
 

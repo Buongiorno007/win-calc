@@ -63,18 +63,18 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
               .discount-data(hm-tap="cartPage.openDiscInput(0)")
                 .disc-curr-data(ng-hide="cartPage.config.isShowDiscInput") {{cartPage.O.order.discount_construct}}%
                 .disc-input-box(ng-show="cartPage.config.isShowDiscInput")
-                  .disc-max {{ 'common_words.MAX' | translate }} {{cartPage.U.userInfo.discountConstrMax}}%
+                  .disc-max(ng-show="cartPage.O.order.discount_construct === cartPage.U.userInfo.discountConstrMax") {{ 'common_words.MAX' | translate }} {{cartPage.U.userInfo.discountConstrMax}}%
                   input.disc-input(type="number", ng-model="cartPage.O.order.discount_construct", ng-change="cartPage.setNewDiscont(0)", max="{{cartPage.U.userInfo.discountConstrMax}}")
-              .discount-txt(hm-tap="cartPage.switchDiscount(0)")
+              .discount-txt
                 .discounts-label {{ 'cart.DISCOUNT_WINDOW' | translate }}
 
             .discount-box(ng-class="{'selected': cartPage.O.order.discount_addelem }")
               .discount-data(hm-tap="cartPage.openDiscInput(1)")
                 .disc-curr-data(ng-hide="cartPage.config.isShowDiscInputAdd") {{cartPage.O.order.discount_addelem}}%
                 .disc-input-box(ng-show="cartPage.config.isShowDiscInputAdd")
-                  .disc-max {{ 'common_words.MAX' | translate }} {{cartPage.U.userInfo.discountAddElemMax}}%
+                  .disc-max(ng-show="cartPage.O.order.discount_addelem === cartPage.U.userInfo.discountAddElemMax") {{ 'common_words.MAX' | translate }} {{cartPage.U.userInfo.discountAddElemMax}}%
                   input.disc-input(type="number", ng-model="cartPage.O.order.discount_addelem", ng-change="cartPage.setNewDiscont(1)", max="{{cartPage.U.userInfo.discountAddElemMax}}")
-              .discount-txt(hm-tap="cartPage.switchDiscount(1)")
+              .discount-txt
                 .discounts-label {{ 'cart.DISCOUNT_ADDELEM' | translate }}
 
 

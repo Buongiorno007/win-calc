@@ -221,7 +221,10 @@
               ' cameras INTEGER,' +
               ' heat_coeff INTEGER,' +
               ' noise_coeff INTEGER,' +
-              ' heat_coeff_value NUMERIC',
+              ' heat_coeff_value NUMERIC ' +
+              ' link VARCHAR,' +
+              ' description VARCHAR,' +
+              ' img VARCHAR',
             'foreignKey': ''
           },
           'rules_types': {
@@ -349,6 +352,10 @@
               ' country VARCHAR(255),' +
               ' noise_coeff INTEGER,' +
               ' heat_coeff INTEGER,' +
+              ' min_height INTEGER,' +
+              ' max_height INTEGER,' +
+              ' min_width INTEGER,' +
+              ' max_width INTEGER,' +
               ' link VARCHAR,' +
               ' description VARCHAR,' +
               ' img VARCHAR',

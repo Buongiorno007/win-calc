@@ -65,12 +65,7 @@
 
     //----- Increase Product Qty
     function increaseProductQty(productIndex) {
-      var newProductQty = OrderStor.order.products[productIndex].product_qty + 1,
-          productIdBD = productIndex + 1;
-      OrderStor.order.products[productIndex].product_qty = newProductQty;
-      //------- Change product value in DB
-
-      //TODO localDB.updateDB(localDB.productsTableBD, {"productQty": newProductQty}, {'orderId': {"value": OrderStor.order.orderId, "union": 'AND'}, "productId": productIdBD});
+      OrderStor.order.products[productIndex].product_qty += 1;
       CartMenuServ.calculateOrderPrice();
     }
 
@@ -78,17 +73,12 @@
 
     //----- Reduce Product Qty
     function decreaseProductQty(productIndex) {
-      var newProductQty = OrderStor.order.products[productIndex].product_qty;
       //----- if product 1 - delete product completely
-      if(newProductQty === 1) {
+      if(OrderStor.order.products[productIndex].product_qty === 1) {
+        //------ ask client to delete
         clickDeleteProduct(productIndex);
       } else {
-        var productIdBD = productIndex + 1;
-        --newProductQty;
-        OrderStor.order.products[productIndex].product_qty = newProductQty;
-        //------ Change product value in DB
-
-        //TODO localDB.updateDB(localDB.productsTableBD, {"productQty": newProductQty}, {'orderId': {"value": OrderStor.order.orderId, "union": 'AND'}, "productId": productIdBD});
+        OrderStor.order.products[productIndex].product_qty -= 1;
         CartMenuServ.calculateOrderPrice();
       }
     }
@@ -111,20 +101,12 @@
           OrderStor.order.products.splice(productIndex, 1);
           CartStor.cart.allAddElements.splice(productIndex, 1);
 
-          if(GlobalStor.global.orderEditNumber > 0) {
-            var productIdBD = productIndex + 1;
-
-            //TODO localDB.deleteDB(localDB.productsTableBD, {'orderId': {"value": GlobalStor.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
-            //TODO localDB.deleteDB(localDB.addElementsTableBD, {'orderId': {"value": GlobalStor.global.orderEditNumber, "union": 'AND'}, "productId": productIdBD});
-          }
-
           //----- if all products were deleted go to main page????
+          CartMenuServ.calculateOrderPrice();
           if(OrderStor.order.products.length > 0 ) {
             //--------- Change order price
-            CartMenuServ.calculateOrderPrice();
           } else {
             //$scope.global.createNewProjectCart();
-            CartMenuServ.calculateOrderPrice();
             //TODO create new project
           }
 
