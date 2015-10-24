@@ -26,18 +26,17 @@
 
     //------- return to the initial template
     function backDefaultTemplate() {
-      GlobalStor.global.templatesSource[ProductStor.product.templateIndex] = angular.copy(GlobalStor.global.templatesSourceSTORE[ProductStor.product.templateIndex]);
-//      GlobalStor.global.templates[ProductStor.product.templateIndex] = angular.copy(GlobalStor.global.templatesSTORE[ProductStor.product.templateIndex]);
-//      GlobalStor.global.templatesIcon[ProductStor.product.templateIndex] = angular.copy(GlobalStor.global.templatesIconSTORE[ProductStor.product.templateIndex]);
+      GlobalStor.global.templatesSource[ProductStor.product.template_id] = angular.copy(GlobalStor.global.templatesSourceSTORE[ProductStor.product.template_id]);
     }
 
     function newPriceForNewTemplate(templateIndex) {
-      if(ProductStor.product.templateIndex !== templateIndex) {
-        ProductStor.product.templateIndex = templateIndex;
+      if(ProductStor.product.template_id !== templateIndex) {
+        ProductStor.product.template_id = templateIndex;
         MainServ.saveTemplateInProduct(templateIndex).then(function() {
-          MainServ.setCurrentHardware();
+          MainServ.setCurrentHardware(ProductStor.product);
+          var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
           //------ define product price
-          MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass.list_id, ProductStor.product.hardware.id);
+          MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass[0].id, hardwareIds);
         });
       }
     }
@@ -45,7 +44,7 @@
 
     function initNewTemplateType(marker) {
       ProductStor.product.construction_type = marker;
-      ProductStor.product.templateIndex = 0;
+      ProductStor.product.template_id = 0;
       MainServ.prepareTemplates(marker);
     }
 

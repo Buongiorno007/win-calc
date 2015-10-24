@@ -16,7 +16,6 @@
       },
       link: function (scope, element, attributes) {
         element.bind("change", function (changeEvent) {
-
           var fd = new FormData(),
               reader = new FileReader();
           fd.append("user", UserStor.userInfo.id);
@@ -32,7 +31,7 @@
 
         });
       }
-    }
+    };
   }
 
 })();

@@ -23,7 +23,7 @@
 
           setTimeout(function () {
             elem.removeClass(unvisibleClass);
-          }, parseInt(scope.showDelay, 10));
+          }, scope.showDelay*1);
         }
       }
     };

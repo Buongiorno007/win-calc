@@ -68,7 +68,7 @@
           setAddElementsTotalPrice();
 
           //------ save analytics data
-          //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, addElem.element_id, typeIndex);
+          //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_id, addElem.id, typeIndex);
         });
       }
     }
@@ -82,8 +82,8 @@
       //----- hide element price in menu
       AuxStor.aux.currAddElementPrice = 0;
       //------ save analytics data
-      //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, AuxStor.aux.addElementsList[typeIndex][elementIndex].element_id, typeIndex);
-      AuxStor.aux.isAddElement = false;
+      //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_id, AuxStor.aux.addElementsList[typeIndex][elementIndex].id, typeIndex);
+      AuxStor.aux.isAddElement = 0;
     }
 
 
@@ -92,23 +92,22 @@
       AuxStor.aux.isAddElement = typeIndex+'-'+elementIndex;
       //------- checking if add element price is
       if(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price > 0) {
-        AuxStor.aux.currAddElementPrice = GeneralServ.roundingNumbers( AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price * (1 - OrderStor.order.discount_addelem/100) );
+        AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price, OrderStor.order.discount_addelem);
         AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
 
         deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
       } else {
         var objXAddElementPrice = {
-          cityId: UserStor.userInfo.city_id,
           currencyId: UserStor.userInfo.currencyId,
-          elementId: AuxStor.aux.addElementsList[typeIndex][elementIndex].element_id,
-          elementLength: AuxStor.aux.addElementsList[typeIndex][elementIndex].element_width
+          elementId: AuxStor.aux.addElementsList[typeIndex][elementIndex].id,
+          elementWidth: (AuxStor.aux.addElementsList[typeIndex][elementIndex].element_width/1000)
         };
-
+//                console.log('objXAddElementPrice=====', objXAddElementPrice);
         //-------- get current add element price
-        localDB.getAdditionalPrice(objXAddElementPrice, function (results) {
-          if (results.status) {
-            AuxStor.aux.currAddElementPrice = GeneralServ.roundingNumbers( results.data.price * (1 - OrderStor.order.discount_addelem/100) );
-            AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers( results.data.price ));
+        localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
+          if (results) {
+            AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem);
+            AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers( results.priceTotal ));
             AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
             $rootScope.$apply();
             deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
@@ -126,10 +125,10 @@
       var index = (AuxStor.aux.isFocusedAddElement - 1),
           existedElement;
 
-      existedElement = checkExistedSelectAddElement(ProductStor.product.chosenAddElements[index], currElement.element_id);
+      existedElement = checkExistedSelectAddElement(ProductStor.product.chosenAddElements[index], currElement.id);
       if(existedElement === undefined) {
         var newElementSource = {
-              element_type: AuxStor.aux.isFocusedAddElement,
+              element_type: index,
               element_width: 0,
               element_height: 0
             },
@@ -138,7 +137,7 @@
         ProductStor.product.chosenAddElements[index].push(newElement);
         //---- open TABFrame when second element selected
         if(ProductStor.product.chosenAddElements[index].length === 2) {
-          AuxStor.aux.isTabFrame = true;
+          AuxStor.aux.isTabFrame = 1;
         }
       } else {
         ProductStor.product.chosenAddElements[index][existedElement].element_qty += 1;
@@ -150,7 +149,7 @@
     //--------- when we select new addElement, function checks is there this addElements in order to increase only elementQty
     function checkExistedSelectAddElement(elementsArr, elementId) {
       for(var j = 0; j < elementsArr.length; j++){
-        if(elementsArr[j].element_id === elementId) {
+        if(elementsArr[j].id === elementId) {
           return j;
         }
       }
@@ -160,7 +159,7 @@
     function setAddElementsTotalPrice() {
       var elementTypeQty = ProductStor.product.chosenAddElements.length;
       ProductStor.product.addelem_price = 0;
-      ProductStor.product.addElementsPriceSELECTDis = 0;
+      ProductStor.product.addelemPriceDis = 0;
       for (var i = 0; i < elementTypeQty; i++) {
         var elementQty = ProductStor.product.chosenAddElements[i].length;
         if (elementQty > 0) {
@@ -170,7 +169,7 @@
           }
         }
       }
-      ProductStor.product.addElementsPriceSELECTDis = GeneralServ.roundingNumbers( ProductStor.product.addelem_price * (1 - OrderStor.order.discount_addelem/100) );
+      ProductStor.product.addelemPriceDis = GeneralServ.setPriceDis(ProductStor.product.addelem_price, OrderStor.order.discount_addelem);
       $timeout(function() {
         MainServ.setProductPriceTOTAL();
       }, 50);
@@ -195,7 +194,7 @@
         ProductStor.product.chosenAddElements[index].length = 0;
       }
       ProductStor.product.addelem_price = 0;
-      ProductStor.product.addElementsPriceSELECTDis = 0;
+      ProductStor.product.addelemPriceDis = 0;
     }
 
 
@@ -203,12 +202,12 @@
 
 
 
-
+    /** Qty Calculator */
 
     //--------- Change Qty parameter
     function setValueQty(newValue) {
       var elementIndex = AuxStor.aux.currentAddElementId,
-        index = (AuxStor.aux.isFocusedAddElement - 1);
+          index = (AuxStor.aux.isFocusedAddElement - 1);
 
       if(ProductStor.product.chosenAddElements[index][elementIndex].element_qty < 2 && newValue < 0) {
         return false;
@@ -224,7 +223,9 @@
 
 
 
-    //------- Change Size parameter
+    /** SIze Calculator */
+
+      //------- Change Size parameter
     function setValueSize(newValue) {
       //console.log($scope.addElementsMenu.tempSize);
       if(tempSize.length == 1 && tempSize[0] === 0) {
@@ -283,26 +284,20 @@
 
       //-------- recalculate add element price
       var objXAddElementPrice = {
-        cityId: UserStor.userInfo.city_id,
         currencyId: UserStor.userInfo.currencyId,
-        elementId: ProductStor.product.chosenAddElements[index][elementIndex].element_id,
-        elementLength: ProductStor.product.chosenAddElements[index][elementIndex].element_width
+        elementId: ProductStor.product.chosenAddElements[index][elementIndex].id,
+        elementWidth: (ProductStor.product.chosenAddElements[index][elementIndex].element_width/1000)
       };
 
-      //console.log('objXAddElementPrice change size ===== ', $scope.global.objXAddElementPrice);
-      localDB.getAdditionalPrice(objXAddElementPrice, function (results) {
-        if (results.status) {
-//          console.log('change size!!!!!!!');
-//          console.log(results.data.price);
-          //var newElementPrice = parseFloat(results.data.price);
-          //$scope.addElementsMenu.isAddElementPrice = true;
-          AuxStor.aux.currAddElementPrice = GeneralServ.roundingNumbers( results.data.price * (1 - OrderStor.order.discount_addelem/100) );
-          ProductStor.product.chosenAddElements[index][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers( results.data.price ));
+      //      console.log('objXAddElementPrice change size ===== ', objXAddElementPrice);
+      localDB.getAdditionalPrice(objXAddElementPrice).then(function (results) {
+        if (results) {
+          //          console.log(results.data.price);
+          AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem);
+          ProductStor.product.chosenAddElements[index][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers( results.priceTotal ));
           ProductStor.product.chosenAddElements[index][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
           //------- Set Total Product Price
           setAddElementsTotalPrice();
-          //$scope.$apply();
-
         } else {
           console.log(results);
         }

@@ -15,19 +15,19 @@
       auxiliarySource: {
         addElementsType: [],
         addElementsList: [],
-        showAddElementsMenu: false,
-        addElementsMenuStyle: false,
+        showAddElementsMenu: 0,
+        addElementsMenuStyle: 0,
         isFocusedAddElement: 0,
-        isAddElement: false,
-        currentAddElementId: false,
-        auxParameter: false,
+        isAddElement: 0,
+        currentAddElementId: 0,
+        auxParameter: 0,
 
         currAddElementPrice: 0,
-        isTabFrame: false,
-        isAddElementListView: false,
-        isWindowSchemeDialog: false,
+        isTabFrame: 0,
+        isAddElementListView: 0,
+        isWindowSchemeDialog: 0,
 
-        showAddElementGroups: false,
+        showAddElementGroups: 0,
         addElementGroups: [],
         searchingWord: ''
       },

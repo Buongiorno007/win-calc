@@ -19,9 +19,10 @@
 
       link: function (scope, element, attrs) {
 
-        function getNewPrice(price, qty, currency) {
+        function getNewPrice(priceAtr, qty, currency) {
+          var price = priceAtr;
           if(typeof price === 'string') {
-            var price = parseFloat(price);
+            price = parseFloat(price);
           }
           var newPrice = parseFloat( (parseFloat(price.toFixed(2)) * qty).toFixed(2) ) + ' ' + currency;
           element.text(newPrice);

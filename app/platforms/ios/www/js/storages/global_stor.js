@@ -34,28 +34,18 @@
         isVoiceHelper: 0,
         voiceHelperLanguage: '',
         showRoomSelectorDialog: 0,
+        showGlassSelectorDialog: 0,
         isShowCommentBlock: 0,
 
         //------- Templates
         templateLabel: '',
         templatesSource: [],
-//        templates: [],
-//        templatesIcon: [],
         templatesSourceSTORE: [],
-//        templatesSTORE: [],
-//        templatesIconSTORE: [],
         isSashesInTemplate: 0,
 
         //------ Profiles
         profiles: [],
         profilesType: [],
-        profileDepths: {
-          frameDepth: {},
-          frameStillDepth: {},
-          sashDepth: {},
-          impostDepth: {},
-          shtulpDepth: {}
-        },
 
         //------- Glasses
         glassesAll: [],
@@ -71,7 +61,27 @@
         laminationsOut: [],
 
         //------ Add Elements
-        isAddElemExist: [],
+        addElementsAll: [],
+        tempAddElements: [],
+
+        //------ Cart
+        floorData: [],
+        assemblingData: [],
+        instalmentsData: [],
+
+        //------ Info
+        isInfoBox: 0,
+        infoTitle: '',
+        infoImg: '',
+        infoLink: '',
+        infoDescrip: '',
+
+        //---- report
+        isReport: 0,
+
+        currencies: [],
+        margins: {},
+        deliveryCoeff: {},
 
         //---- Calculators
         isQtyCalculator: 0,

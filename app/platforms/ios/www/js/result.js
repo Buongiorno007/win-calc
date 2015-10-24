@@ -1,6 +1,3 @@
-
-// result.js
-
 /* exported OkResult, ErrorResult */
 
 "use strict";

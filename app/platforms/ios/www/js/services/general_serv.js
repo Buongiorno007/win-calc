@@ -14,19 +14,21 @@
     thisFactory.publicObj = {
       stopStartProg: stopStartProg,
       setPreviosPage: setPreviosPage,
-      roundingNumbers: roundingNumbers
+      roundingNumbers: roundingNumbers,
+      setPriceDis: setPriceDis,
+      sorting: sorting
     };
 
     //TODO desktop
     //------- IMG rooms preload
-//    $document.ready(function() {
-//      for(var i = 0; i < 13; i++) {
-//        $("<img />").attr("src", "img/rooms-icon/"+i+".jpg");
-//        $("<img />").attr("src", "img/rooms/"+i+".jpg");
-//      }
-//    });
-//
-//    //-------- blocking to refresh page
+    $document.ready(function() {
+      for(var i = 0; i < 16; i++) {
+        $("<img />").attr("src", "img/rooms-icon/"+i+".jpg");
+        $("<img />").attr("src", "img/rooms/"+i+".jpg");
+      }
+    });
+
+    //-------- blocking to refresh page
 //    $window.onbeforeunload = function (){
 //      return $filter('translate')('common_words.PAGE_REFRESH');
 //    };
@@ -47,13 +49,22 @@
       GlobalStor.global.prevOpenPage = GlobalStor.global.currOpenPage;
     }
 
-    function roundingNumbers(nubmer) {
-      var numberType = typeof nubmer;
+    function roundingNumbers(nubmer, radix) {
+      var radix = (radix) ? radix : 2,
+          numberType = typeof nubmer;
       if(numberType === 'string') {
-        return parseFloat( parseFloat(nubmer).toFixed(2) );
+        return parseFloat( parseFloat(nubmer).toFixed(radix) );
       } else if(numberType === 'number') {
-        return parseFloat(nubmer.toFixed(2));
+        return parseFloat(nubmer.toFixed(radix));
       }
+    }
+
+    function setPriceDis(price, discount) {
+      return roundingNumbers( price * (1 - discount/100) );
+    }
+
+    function sorting(a, b) {
+      return a - b;
     }
 
   }

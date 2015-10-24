@@ -52,20 +52,15 @@
 
     //------ Download complete Orders from localDB
     function downloadOrders() {
-      localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {order_type: 1}).then(function(result) {
-        var orders = angular.copy(result);
-//        console.log('orders+++++', orders);
-       var orderQty = orders.length;
+      localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {order_type: 1}).then(function(orders) {
+        var orderQty = orders.length;
+        HistoryStor.history.isEmptyResult = 0;
         if(orderQty) {
           while(--orderQty > -1) {
             orders[orderQty].created = new Date(orders[orderQty].created);
             orders[orderQty].delivery_date = new Date(orders[orderQty].delivery_date);
             orders[orderQty].new_delivery_date = new Date(orders[orderQty].new_delivery_date);
             orders[orderQty].order_date = new Date(orders[orderQty].order_date);
-
-            //------- set order price with discounts
-            setOrderPriceByDiscount(orders[orderQty]);
-
           }
           HistoryStor.history.ordersSource = angular.copy(orders);
           HistoryStor.history.orders = angular.copy(orders);
@@ -73,21 +68,12 @@
           HistoryStor.history.maxDeliveryDateOrder = getOrderMaxDate(HistoryStor.history.orders);
 //          console.log('maxDeliveryDateOrder =', HistoryStor.history.maxDeliveryDateOrder);
         } else {
-          HistoryStor.history.isEmptyResult = true;
+          HistoryStor.history.isEmptyResult = 1;
         }
       });
     }
 
 
-    function setOrderPriceByDiscount(order) {
-      order.orderPriceTOTALDis = (order.construct_price_total * (1 - order.discount_construct/100)) + (order.addelem_price_total * (1 - order.discount_addelem/100)) + order.floor_price + order.mounting_price;
-      if(order.is_date_price_less) {
-        order.orderPriceTOTALDis -= order.delivery_price;
-      } else if(order.is_date_price_more) {
-        order.orderPriceTOTALDis += order.delivery_price
-      }
-      order.orderPriceTOTALDis = GeneralServ.roundingNumbers(order.orderPriceTOTALDis);
-    }
 
 
 
@@ -103,7 +89,7 @@
         ordersDateArr.push(orders[it].new_delivery_date);
       }
       ordersDateArr.sort(function (a, b) {
-        return b - a
+        return b - a;
       });
       return ordersDateArr[0];
     }
@@ -131,13 +117,13 @@
         if(button == 1) {
           var ordersQty = HistoryStor.history.orders.length;
           for(var ord = 0; ord < ordersQty; ord++) {
-            if(HistoryStor.history.orders[ord].order_number === orderNum) {
+            if(HistoryStor.history.orders[ord].id === orderNum) {
               //-------- change style for order
               HistoryStor.history.orders[ord].order_style = orderDoneStyle;
               HistoryStor.history.ordersSource[ord].order_style = orderDoneStyle;
 
               //------ update in Local BD
-              localDB.updateLocalServerDBs(localDB.tablesLocalDB.orders.tableName,  HistoryStor.history.orders[ord].id, {order_style: orderDoneStyle});
+              localDB.updateLocalServerDBs(localDB.tablesLocalDB.orders.tableName,  orderNum, {order_style: orderDoneStyle});
             }
           }
         }
@@ -168,78 +154,63 @@
         if (button == 1) {
 
           //---- new order number
-          var newOrderNum = Math.floor((Math.random() * 100000)),
-              ordersQty = HistoryStor.history.orders.length,
+          var ordersQty = HistoryStor.history.orders.length,
               newOrderCopy;
 
           for(var ord = 0; ord < ordersQty; ord++) {
-            if(HistoryStor.history.orders[ord].order_number === orderNum) {
+            if(HistoryStor.history.orders[ord].id === orderNum) {
               newOrderCopy = angular.copy(HistoryStor.history.orders[ord]);
             }
           }
+          newOrderCopy.id = MainServ.createOrderID();
+          newOrderCopy.order_number = 0;
+          newOrderCopy.order_hz = '---';
+          newOrderCopy.created = new Date();
+          newOrderCopy.modified = new Date();
 
-          delete newOrderCopy.id;
-          delete newOrderCopy.order_number;
-          delete newOrderCopy.created;
-          newOrderCopy.order_number = newOrderNum;
+          localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy).then(function(respond) {
+            if(respond.status) {
+              newOrderCopy.order_number = respond.order_number;
+            }
+            //---- save new order
+            HistoryStor.history.orders.push(newOrderCopy);
+            HistoryStor.history.ordersSource.push(newOrderCopy);
+            //---- save new order in LocalDB
+            localDB.insertRowLocalDB(newOrderCopy, localDB.tablesLocalDB.orders.tableName);
+          });
 
-          //---- save new order in LocalDB
-          localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy);
-          localDB.insertRowLocalDB(newOrderCopy, localDB.tablesLocalDB.orders.tableName);
-
-          //---- get it again from LocalDB as to "created date"
-          //TODO переделать на создание даты здесь, а не в базе? переделака директивы на другой формат даты
-//          localDB.selectDB(localDB.ordersTableBD, {'orderId': newOrderId}).then(function (results) {
-//            if (results.status) {
-//              newOrderCopy = angular.copy(results.data);
-//              //---- add copied new order in Local Objects
-//              $scope.orders.push(newOrderCopy[0]);
-//              $scope.ordersSource.push(newOrderCopy[0]);
-//            } else {
-//              console.log(results);
-//            }
-//          });
-
-          //TODO create date!
-          //---- save new order
-          HistoryStor.history.orders.push(newOrderCopy);
-          HistoryStor.history.ordersSource.push(newOrderCopy);
           //------ copy all Products of this order
-          copyOrderElements(orderNum, newOrderNum, localDB.tablesLocalDB.order_products.tableName);
+          copyOrderElements(orderNum, newOrderCopy.id, localDB.tablesLocalDB.order_products.tableName);
 
           //------ copy all AddElements of this order
-          copyOrderElements(orderNum, newOrderNum, localDB.tablesLocalDB.order_addelements.tableName);
-          //TODO send to Server???
+          copyOrderElements(orderNum, newOrderCopy.id, localDB.tablesLocalDB.order_addelements.tableName);
         }
       }
 
+
+
       function copyOrderElements(oldOrderNum, newOrderNum, nameTableDB) {
-        var allElements = [];
         //------ Download elements of order from localDB
-        localDB.selectLocalDB(nameTableDB, {'order_number': oldOrderNum}).then(function(result) {
+        localDB.selectLocalDB(nameTableDB, {'order_id': oldOrderNum}).then(function(result) {
 //          console.log('result+++++', result);
           if(result.length) {
-
-            allElements = angular.copy(result);
-            var allElemQty = allElements.length,
+            var allElements = angular.copy(result),
+                allElemQty = allElements.length,
                 i = 0;
+
             if (allElemQty > 0) {
               //-------- set new orderId in all elements of order
               for (; i < allElemQty; i++) {
                 delete allElements[i].id;
-                delete allElements[i].created;
-                allElements[i].order_number = newOrderNum;
-              }
-              //-------- insert all elements in LocalDB
-              for (; i < allElemQty; i++) {
-                localDB.insertDB(nameTableDB, allElements[i]);
-                //TODO
-//                localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy);
-//                localDB.insertRowLocalDB(newOrderCopy, localDB.tablesLocalDB.orders.tableName);
+                allElements[i].modified = new Date();
+                allElements[i].order_id = newOrderNum;
+
+                //-------- insert all elements in LocalDB
+                localDB.insertRowLocalDB(allElements[i], nameTableDB);
+                localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, nameTableDB, allElements[i]);
               }
             }
 
-//            console.log('maxDeliveryDateOrder =', HistoryStor.history.maxDeliveryDateOrder);
           } else {
             console.log('Empty result = ', result);
           }
@@ -282,14 +253,23 @@
           }
           var orderListQty = orderList.length;
           while(--orderListQty > -1) {
-            if(orderList[orderListQty].order_number === orderNum) {
+            if(orderList[orderListQty].id === orderNum) {
               orderList.splice(orderListQty, 1);
               orderListSource.splice(orderListQty, 1);
+              break;
             }
           }
-          //TODO delet on Server
+          //------ if no more orders
+           if(!orderList.length) {
+             HistoryStor.history.isEmptyResult = 1;
+           }
+
           //------- delete order/draft and all its elements in LocalDB
-          MainServ.deleteOrderInLocalDB(orderNum);
+          MainServ.deleteOrderInDB(orderNum);
+          //------- delet order in Server
+          if(orderType) {
+            localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, orderNum);
+          }
         }
       }
     }
@@ -298,19 +278,45 @@
 
 
     //--------------- Edit Order & Draft
-    function editOrder(orderNum) {
+    function editOrder(typeOrder, orderNum) {
       GlobalStor.global.isLoader = 1;
       GlobalStor.global.orderEditNumber = orderNum;
       //----- cleaning order
       OrderStor.order = OrderStor.setDefaultOrder();
 
-      var ordersQty = HistoryStor.history.orders.length;
+      var ordersQty = (typeOrder) ? HistoryStor.history.orders.length : HistoryStor.history.drafts.length;
       while(--ordersQty > -1) {
-        if(HistoryStor.history.orders[ordersQty].order_number === orderNum) {
-          angular.extend(OrderStor.order, HistoryStor.history.orders[ordersQty]);
-          CartStor.fillOrderForm();
+        if(typeOrder) {
+          if(HistoryStor.history.orders[ordersQty].id === orderNum) {
+            angular.extend(OrderStor.order, HistoryStor.history.orders[ordersQty]);
+            CartStor.fillOrderForm();
+          }
+        } else {
+          if(HistoryStor.history.drafts[ordersQty].id === orderNum) {
+            angular.extend(OrderStor.order, HistoryStor.history.drafts[ordersQty]);
+            CartStor.fillOrderForm();
+          }
         }
+
       }
+      OrderStor.order.order_date = new Date(OrderStor.order.order_date).getTime();
+      OrderStor.order.delivery_date = new Date(OrderStor.order.delivery_date).getTime();
+      OrderStor.order.new_delivery_date = new Date(OrderStor.order.new_delivery_date).getTime();
+      setOrderOptions(1, OrderStor.order.floor_id, GlobalStor.global.floorData);
+      setOrderOptions(2, OrderStor.order.mounting_id, GlobalStor.global.assemblingData);
+      setOrderOptions(3, OrderStor.order.instalment_id, GlobalStor.global.instalmentsData);
+
+      delete OrderStor.order.additional_payment;
+      delete OrderStor.order.created;
+      delete OrderStor.order.sended;
+      delete OrderStor.order.state_to;
+      delete OrderStor.order.state_buch;
+      delete OrderStor.order.batch;
+      delete OrderStor.order.base_price;
+      delete OrderStor.order.factory_margin;
+      delete OrderStor.order.purchase_price;
+      delete OrderStor.order.sale_price;
+      delete OrderStor.order.modified;
 
       //------ Download All Products of edited Order
       downloadProducts().then(function() {
@@ -321,6 +327,7 @@
           //------- set previos Page
           GeneralServ.setPreviosPage();
           GlobalStor.global.isLoader = 0;
+//          console.warn('ORDER ====', OrderStor.order);
           $location.path('/cart');
         });
       });
@@ -328,36 +335,94 @@
     }
 
 
+    function setOrderOptions(param, id, data) {
+      if(id) {
+        var dataQty = data.length;
+        while(--dataQty > -1) {
+          if(data[dataQty].id === id) {
+            switch(param) {
+              case 1:
+                OrderStor.order.floorName = angular.copy(data[dataQty].name);
+                break;
+              case 2:
+                OrderStor.order.mountingName = angular.copy(data[dataQty].name);
+                break;
+              case 3:
+                OrderStor.order.selectedInstalmentPeriod = angular.copy(data[dataQty].name);
+                OrderStor.order.selectedInstalmentPercent = angular.copy(data[dataQty].value);
+                break;
+            }
+          }
+        }
+      }
+    }
+
+
     //------ Download All Products Data for Order
     function downloadProducts() {
       var deferred = $q.defer();
-      localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_number': GlobalStor.global.orderEditNumber}).then(function(products) {
-        var productsQty = products.length;
-        if(productsQty) {
+
+      localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(products) {
+        if(products.length) {
+
           //------------- parsing All Templates Source and Icons for Order
-          for(var prod = 0; prod < productsQty; prod++) {
-            ProductStor.product = ProductStor.setDefaultProduct();
-            angular.extend(ProductStor.product, products[prod]);
-console.log('EDIT PRODUCT', ProductStor.product);
+          var productPromises = products.map(function(prod) {
+            var defer1 = $q.defer(),
+                tempProd = ProductStor.setDefaultProduct();
+            angular.extend(tempProd, prod);
+            delete tempProd.id;
+            delete tempProd.modified;
+
             //----- checking product with design or only addElements
-            if(!ProductStor.product.is_addelem_only || ProductStor.product.is_addelem_only === 'false') {
+            if(!tempProd.is_addelem_only) {
               //----- parsing design from string to object
-              ProductStor.product.template_source = JSON.parse(ProductStor.product.template_source);
-              //              console.log('templateSource', ProductStor.product.templateSource);
+              tempProd.template_source = JSON.parse(tempProd.template_source);
+
               //----- find depths and build design icon
-              MainServ.setCurrentProfile(ProductStor.product.profile_id).then(function(){
-                MainServ.setCurrentGlass(ProductStor.product.glass_id);
-                MainServ.setCurrentHardware(ProductStor.product.hardware_id);
-                SVGServ.createSVGTemplateIcon(ProductStor.product.template_source, GlobalStor.global.profileDepths).then(function(result) {
-                  ProductStor.product.templateIcon = angular.copy(result);
-                  deferred.resolve(1);
-                });
+              MainServ.setCurrentProfile(tempProd, tempProd.profile_id).then(function(){
+                if(tempProd.glass_id) {
+                  var glassIDs = tempProd.glass_id.split(', '),
+                      glassIDsQty = glassIDs.length;
+                  if(glassIDsQty) {
+                    while(--glassIDsQty > -1) {
+                      setGlassXOrder(tempProd, glassIDs[glassIDsQty]*1);
+                    }
+                  }
+                }
+                GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(tempProd);
+                MainServ.setCurrentHardware(tempProd, tempProd.hardware_id);
+                setLaminationXOrder(tempProd);
+                defer1.resolve(tempProd);
               });
+
             } else {
-              deferred.resolve(1);
+              defer1.resolve(1);
             }
-            OrderStor.order.products.push(ProductStor.product);
-          }
+            return defer1.promise;
+          });
+
+          $q.all(productPromises).then(function(data) {
+
+            var iconPromise = data.map(function(item) {
+              var deferIcon = $q.defer();
+              SVGServ.createSVGTemplateIcon(item.template_source, item.profileDepths).then(function(data) {
+                item.templateIcon = data;
+                delete item.profile_id;
+                delete item.glass_id;
+                delete item.hardware_id;
+
+                //----- set price Discounts
+                item.addelemPriceDis = GeneralServ.setPriceDis(item.addelem_price, OrderStor.order.discount_addelem);
+                item.productPriceDis = (GeneralServ.setPriceDis(item.template_price, OrderStor.order.discount_construct) + item.addelemPriceDis);
+
+                OrderStor.order.products.push(item);
+                deferIcon.resolve(1);
+              });
+              return deferIcon.promise;
+            });
+
+            deferred.resolve($q.all(iconPromise));
+          });
 
         } else {
           deferred.reject(products);
@@ -367,19 +432,59 @@ console.log('EDIT PRODUCT', ProductStor.product);
     }
 
 
+
+    function setGlassXOrder(product, id) {
+      //----- set default glass in ProductStor
+      var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
+        return item.profileId === product.profile.id;
+      });
+      //      console.log('tempGlassArr = ', tempGlassArr);
+      if(tempGlassArr.length) {
+        product.glass.unshift(MainServ.fineItemById(id, tempGlassArr[0].glasses));
+      }
+
+    }
+
+
+    function setLaminationXOrder(product) {
+      if(product.lamination_in_id) {
+        var lamInQty = GlobalStor.global.laminationsIn.length;
+        while(--lamInQty > -1) {
+          if(GlobalStor.global.laminationsIn[lamInQty].lamination_type_id === product.lamination_in_id) {
+            product.laminationInName = angular.copy(GlobalStor.global.laminationsIn[lamInQty].name);
+          }
+        }
+      }
+      if(product.lamination_out_id) {
+        var lamOutQty = GlobalStor.global.laminationsOut.length;
+        while(--lamOutQty > -1) {
+          if(GlobalStor.global.laminationsOut[lamOutQty].lamination_type_id === product.lamination_out_id) {
+            product.laminationOutName = angular.copy(GlobalStor.global.laminationsOut[lamOutQty].name);
+          }
+        }
+      }
+    }
+
+
     //------ Download All Add Elements from LocalDB
     function downloadAddElements() {
       var deferred = $q.defer();
-      localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_number': GlobalStor.global.orderEditNumber}).then(function(result) {
-        var allAddElementsQty = result.length;
-        if(allAddElementsQty) {
-          //          console.log('results.data === ', result);
+      localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(result) {
+        var allAddElemQty = result.length,
+            orderProductsQty = OrderStor.order.products.length;
 
-          for(var elem = 0; elem < allAddElementsQty; elem++) {
-            for(var prod = 0; prod < OrderStor.order.products_qty; prod++) {
-              if(result[elem].product_id === OrderStor.order.products[prod].product_id) {
-                OrderStor.order.products[prod].chosenAddElements[result[elem].element_type].push(result[elem]);
-                deferred.resolve(1);
+        if(allAddElemQty) {
+          while(--allAddElemQty > -1) {
+            for(var prod = 0; prod < orderProductsQty; prod++) {
+              if(result[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
+                result[allAddElemQty].id = angular.copy(result[allAddElemQty].element_id);
+                delete result[allAddElemQty].element_id;
+                delete result[allAddElemQty].modified;
+                result[allAddElemQty].elementPriceDis = GeneralServ.setPriceDis(result[allAddElemQty].element_price, OrderStor.order.discount_addelem);
+                OrderStor.order.products[prod].chosenAddElements[result[allAddElemQty].element_type].push(result[allAddElemQty]);
+                if(!allAddElemQty) {
+                  deferred.resolve(1);
+                }
               }
             }
           }
@@ -391,67 +496,10 @@ console.log('EDIT PRODUCT', ProductStor.product);
       return deferred.promise;
     }
 
-    /*
-     additional_payment: ""
-     base_price: 0
-     batch: ""
-     climatic_zone: 1
-     created: "2015-09-04T15:36:50.000Z"
-     customer_address: "ubuhu"
-     customer_age: 0
-     customer_city: "Dnepropetrovsk"
-     customer_education: 0
-     customer_email: ""
-     customer_endtime: ""
-     customer_infoSource: 0
-     customer_itn: 0
-     customer_location: "hijhjh"
-     customer_name: "Gygygygyg"
-     customer_occupation: 0
-     customer_phone: "67554"
-     customer_phone_city: ""
-     customer_sex: 0
-     customer_starttime: ""
-     customer_target: ""
-     delivery_date: "2015-09-19T15:33:02.344Z"
-     delivery_price: 0
-     discount_addelem: 10
-     discount_construct: 10
-     factory_id: 208
-     factory_margin: 0
-     floor_id: 1
-     heat_coef_min: 1
-     id: 86
-     instalment_id: 0
-     is_date_price_less: 0
-     is_date_price_more: 0
-     is_instalment: 0
-     is_old_price: 0
-     modified: "2015-09-04T15:36:50.000Z"
-     mounting_id: 1
-     mounting_price: 0
-     new_delivery_date: "2015-09-19T15:33:02.344Z"
-     order_date: "2015-09-04T15:32:38.715Z"
-     order_number: "83664"
-     order_price_total: 716.08
-     order_price_total_primary: 716.08
-     order_style: "master"
-     order_type: 1
-     payment_first: 0
-     payment_first_primary: 0
-     payment_monthly: 0
-     payment_monthly_primary: 0
-     perimeter: 0
-     products_price_total: 716.08
-     products_qty: 1
-     purchase_price: 0
-     sale_price: 0
-     sended: "1970-01-01T00:00:00.000Z"
-     square: 0
-     state_buch: "1970-01-01T00:00:00.000Z"
-     state_to: "1970-01-01T00:00:00.000Z"
-     user_id: 1254
-     */
+
+
+
+
 
 
 
@@ -468,11 +516,23 @@ console.log('EDIT PRODUCT', ProductStor.product);
     //------ Download draft Orders from localDB
     function downloadDrafts() {
       localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {'order_type': 0}).then(function(drafts) {
-        if(drafts.length) {
+        var draftQty = drafts.length;
+        console.log('draft =', drafts);
+        HistoryStor.history.isEmptyResultDraft = 0;
+        if(draftQty) {
+          while(--draftQty > -1) {
+            drafts[draftQty].created = new Date(drafts[draftQty].created);
+            drafts[draftQty].delivery_date = new Date(drafts[draftQty].delivery_date);
+            drafts[draftQty].new_delivery_date = new Date(drafts[draftQty].new_delivery_date);
+            drafts[draftQty].order_date = new Date(drafts[draftQty].order_date);
+          }
           HistoryStor.history.draftsSource = angular.copy(drafts);
           HistoryStor.history.drafts = angular.copy(drafts);
+          //TODO ????
+          //----- max day for calendar-scroll
+//          HistoryStor.history.maxDeliveryDateOrder = getOrderMaxDate(HistoryStor.history.orders);
         } else {
-          HistoryStor.history.isEmptyResultDraft = true;
+          HistoryStor.history.isEmptyResultDraft = 1;
         }
       });
     }
@@ -485,9 +545,9 @@ console.log('EDIT PRODUCT', ProductStor.product);
     //=========== Searching
 
     function orderSearching() {
-      HistoryStor.history.isOrderSearch = true;
-      HistoryStor.history.isOrderDate = false;
-      HistoryStor.history.isOrderSort = false;
+      HistoryStor.history.isOrderSearch = 1;
+      HistoryStor.history.isOrderDate = 0;
+      HistoryStor.history.isOrderSort = 0;
     }
 
 
@@ -511,7 +571,7 @@ console.log('EDIT PRODUCT', ProductStor.product);
           }
         }
         HistoryStor.history.isOrderDateDraft = !HistoryStor.history.isOrderDateDraft;
-        HistoryStor.history.isOrderSortDraft = false;
+        HistoryStor.history.isOrderSortDraft = 0;
 
         //------ in Orders
       } else {
@@ -523,8 +583,8 @@ console.log('EDIT PRODUCT', ProductStor.product);
           }
         }
         HistoryStor.history.isOrderDate = !HistoryStor.history.isOrderDate;
-        HistoryStor.history.isOrderSearch = false;
-        HistoryStor.history.isOrderSort = false;
+        HistoryStor.history.isOrderSearch = 0;
+        HistoryStor.history.isOrderSort = 0;
       }
     }
 
@@ -555,45 +615,45 @@ console.log('EDIT PRODUCT', ProductStor.product);
     function openCalendarScroll(dataType) {
       if(HistoryStor.history.isDraftView) {
         if (dataType === 'start-date' && !HistoryStor.history.isStartDateDraft ) {
-          HistoryStor.history.isStartDateDraft  = true;
-          HistoryStor.history.isFinishDateDraft  = false;
-          HistoryStor.history.isAllPeriodDraft  = false;
+          HistoryStor.history.isStartDateDraft  = 1;
+          HistoryStor.history.isFinishDateDraft  = 0;
+          HistoryStor.history.isAllPeriodDraft  = 0;
         } else if (dataType === 'finish-date' && !HistoryStor.history.isFinishDateDraft ) {
-          HistoryStor.history.isStartDateDraft  = false;
-          HistoryStor.history.isFinishDateDraft  = true;
-          HistoryStor.history.isAllPeriodDraft  = false;
+          HistoryStor.history.isStartDateDraft  = 0;
+          HistoryStor.history.isFinishDateDraft  = 1;
+          HistoryStor.history.isAllPeriodDraft  = 0;
         } else if (dataType === 'full-date' && !HistoryStor.history.isAllPeriodDraft ) {
-          HistoryStor.history.isStartDateDraft  = false;
-          HistoryStor.history.isFinishDateDraft  = false;
-          HistoryStor.history.isAllPeriodDraft  = true;
+          HistoryStor.history.isStartDateDraft  = 0;
+          HistoryStor.history.isFinishDateDraft  = 0;
+          HistoryStor.history.isAllPeriodDraft  = 1;
           HistoryStor.history.startDateDraft  = '';
           HistoryStor.history.finishDateDraft  = '';
           HistoryStor.history.drafts = angular.copy(HistoryStor.history.draftsSource);
         } else {
-          HistoryStor.history.isStartDateDraft  = false;
-          HistoryStor.history.isFinishDateDraft  = false;
-          HistoryStor.history.isAllPeriodDraft = false;
+          HistoryStor.history.isStartDateDraft  = 0;
+          HistoryStor.history.isFinishDateDraft  = 0;
+          HistoryStor.history.isAllPeriodDraft = 0;
         }
       } else {
         if (dataType === 'start-date' && !HistoryStor.history.isStartDate) {
-          HistoryStor.history.isStartDate = true;
-          HistoryStor.history.isFinishDate = false;
-          HistoryStor.history.isAllPeriod = false;
+          HistoryStor.history.isStartDate = 1;
+          HistoryStor.history.isFinishDate = 0;
+          HistoryStor.history.isAllPeriod = 0;
         } else if (dataType === 'finish-date' && !HistoryStor.history.isFinishDate) {
-          HistoryStor.history.isStartDate = false;
-          HistoryStor.history.isFinishDate = true;
-          HistoryStor.history.isAllPeriod = false;
+          HistoryStor.history.isStartDate = 0;
+          HistoryStor.history.isFinishDate = 1;
+          HistoryStor.history.isAllPeriod = 0;
         } else if (dataType === 'full-date' && !HistoryStor.history.isAllPeriod) {
-          HistoryStor.history.isStartDate = false;
-          HistoryStor.history.isFinishDate = false;
-          HistoryStor.history.isAllPeriod = true;
+          HistoryStor.history.isStartDate = 0;
+          HistoryStor.history.isFinishDate = 0;
+          HistoryStor.history.isAllPeriod = 1;
           HistoryStor.history.startDate = '';
           HistoryStor.history.finishDate = '';
           HistoryStor.history.orders = angular.copy(HistoryStor.history.ordersSource);
         } else {
-          HistoryStor.history.isStartDate = false;
-          HistoryStor.history.isFinishDate = false;
-          HistoryStor.history.isAllPeriod = false;
+          HistoryStor.history.isStartDate = 0;
+          HistoryStor.history.isFinishDate = 0;
+          HistoryStor.history.isAllPeriod = 0;
         }
       }
     }
@@ -607,11 +667,11 @@ console.log('EDIT PRODUCT', ProductStor.product);
     function orderSorting() {
       if(HistoryStor.history.isDraftView) {
         HistoryStor.history.isOrderSortDraft = !HistoryStor.history.isOrderSortDraft;
-        HistoryStor.history.isOrderDateDraft = false;
+        HistoryStor.history.isOrderDateDraft = 0;
       } else {
         HistoryStor.history.isOrderSort = !HistoryStor.history.isOrderSort;
-        HistoryStor.history.isOrderSearch = false;
-        HistoryStor.history.isOrderDate = false;
+        HistoryStor.history.isOrderSearch = 0;
+        HistoryStor.history.isOrderDate = 0;
       }
     }
 
@@ -621,16 +681,16 @@ console.log('EDIT PRODUCT', ProductStor.product);
       if(HistoryStor.history.isDraftView) {
 
         if(HistoryStor.history.isSortTypeDraft === sortType) {
-          HistoryStor.history.isSortTypeDraft = false;
-          HistoryStor.history.reverseDraft = true;
+          HistoryStor.history.isSortTypeDraft = 0;
+          HistoryStor.history.reverseDraft = 1;
         } else {
           HistoryStor.history.isSortTypeDraft = sortType;
 
           if(HistoryStor.history.isSortTypeDraft === 'first') {
-            HistoryStor.history.reverseDraft = true;
+            HistoryStor.history.reverseDraft = 1;
           }
           if(HistoryStor.history.isSortTypeDraft === 'last') {
-            HistoryStor.history.reverseDraft = false;
+            HistoryStor.history.reverseDraft = 0;
           }
         }
 
@@ -647,22 +707,22 @@ console.log('EDIT PRODUCT', ProductStor.product);
            deSelectSortingType()
            }*/
           if (HistoryStor.history.isSortType === 'current-order') {
-            HistoryStor.history.isCurrentOrdersHide = false;
-            HistoryStor.history.isWaitOrdersHide = true;
-            HistoryStor.history.isDoneOrdersHide = true;
+            HistoryStor.history.isCurrentOrdersHide = 0;
+            HistoryStor.history.isWaitOrdersHide = 1;
+            HistoryStor.history.isDoneOrdersHide = 1;
             checkExestingOrderType('order', 'credit');
           }
           if (HistoryStor.history.isSortType === 'wait-order') {
-            HistoryStor.history.isCurrentOrdersHide = true;
-            HistoryStor.history.isWaitOrdersHide = false;
-            HistoryStor.history.isDoneOrdersHide = true;
-            checkExestingOrderType(orderMasterStyle)
+            HistoryStor.history.isCurrentOrdersHide = 1;
+            HistoryStor.history.isWaitOrdersHide = 0;
+            HistoryStor.history.isDoneOrdersHide = 1;
+            checkExestingOrderType(orderMasterStyle);
           }
           if (HistoryStor.history.isSortType === 'done-order') {
-            HistoryStor.history.isWaitOrdersHide = true;
-            HistoryStor.history.isCurrentOrdersHide = true;
-            HistoryStor.history.isDoneOrdersHide = false;
-            checkExestingOrderType(orderDoneStyle)
+            HistoryStor.history.isWaitOrdersHide = 1;
+            HistoryStor.history.isCurrentOrdersHide = 1;
+            HistoryStor.history.isDoneOrdersHide = 0;
+            checkExestingOrderType(orderDoneStyle);
           }
         }
       }
@@ -671,9 +731,9 @@ console.log('EDIT PRODUCT', ProductStor.product);
 
 
     function deSelectSortingType() {
-      HistoryStor.history.isCurrentOrdersHide = false;
-      HistoryStor.history.isWaitOrdersHide = false;
-      HistoryStor.history.isDoneOrdersHide = false;
+      HistoryStor.history.isCurrentOrdersHide = 0;
+      HistoryStor.history.isWaitOrdersHide = 0;
+      HistoryStor.history.isDoneOrdersHide = 0;
     }
 
     //-------- checking orders quantity during order sorting
@@ -688,9 +748,9 @@ console.log('EDIT PRODUCT', ProductStor.product);
         }
       }
       if(ordersSortCounter > 0) {
-        HistoryStor.history.isEmptyResult = false;
+        HistoryStor.history.isEmptyResult = 0;
       } else {
-        HistoryStor.history.isEmptyResult = true;
+        HistoryStor.history.isEmptyResult = 1;
       }
     }
 

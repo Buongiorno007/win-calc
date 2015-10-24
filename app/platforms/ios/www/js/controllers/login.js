@@ -26,7 +26,7 @@
     thisCtrl.isFactoryNotSelect = 0;
     thisCtrl.isStartImport = 0;
     thisCtrl.user = {};
-    thisCtrl.factories;
+    thisCtrl.factories = 0;
     thisCtrl.regPhone = globalConstants.REG_PHONE;
     thisCtrl.regName = globalConstants.REG_NAME;
     thisCtrl.regMail = globalConstants.REG_MAIL;
@@ -44,7 +44,7 @@
 
 
     //------- defined system language
-    //TODO loginServ.getDeviceLanguage();
+    loginServ.getDeviceLanguage();
 
 
     //------- export data
@@ -61,16 +61,25 @@
     function entriyWithoutLogin() {
       var url = $location.search();
 //      console.log('url = ', url); //{access: '5b1b68a9abf4d2cd155c81a9225fd158'}
-      if(url.access === '7d537b6746f925b1703aefa9b8a9a4bc') {
+      switch(url.access) {
+        case '7d537b6746f925b1703aefa9b8a9a4bc':
+          thisCtrl.user.phone = '0950604425';
+          thisCtrl.user.password = '0950604425';
+          break;
+        case '3f5f0c7d46d318e026f9ba60dceffc65':
+          thisCtrl.user.phone = '0500505500';
+          thisCtrl.user.password = '0500505500';
+          break;
+      }
+      if(thisCtrl.user.phone && thisCtrl.user.password) {
         GlobalStor.global.isLoader = 1;
-        thisCtrl.user.phone = '0950604425';
-        thisCtrl.user.password = '0950604425';
         importDBProsses();
       }
+
     }
 //?access=7d537b6746f925b1703aefa9b8a9a4bc
-
-
+//?access=3f5f0c7d46d318e026f9ba60dceffc65
+//?access=ff8134058378465dd485608f85eea994
 
 
 
@@ -99,19 +108,11 @@
               //======== SYNC
               console.log('SYNC');
               //---- checking user in LocalDB
-//              console.log('SYNC phone', thisCtrl.user.phone);
-//              localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName).then(function(data) {
-//                console.log('USERs all !!!!!====', data);
-//              });
-
               localDB.selectLocalDB(localDB.tablesLocalDB.users.tableName, {'phone': thisCtrl.user.phone}).then(function(data) {
-//                console.log('SYNC result', data);
-
                 //---- user exists
                 if(data.length) {
                   //---------- check user password
                   var newUserPassword = localDB.md5(thisCtrl.user.password);
-//                  console.log('SYNC password', newUserPassword, data[0].password);
                   if(newUserPassword === data[0].password) {
                     //----- checking user activation
                     if(data[0].locked) {
@@ -136,7 +137,6 @@
                   //======== IMPORT
                   console.log('Sync IMPORT');
                   importDBProsses();
-
                 }
 
               });
@@ -233,13 +233,10 @@
                       localDB.insertRowLocalDB(result.user, localDB.tablesLocalDB.users.tableName);
                       //------- save user in Stor
                       angular.extend(UserStor.userInfo, result.user);
-                      //                        console.log('new USER password', UserStor.userInfo);
 
                       //------- import Location
-//                      console.log('START LOCATION');
                       localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
                         if(data) {
-//                          console.log('INSERT LOCATION FINISH!!!!');
                           //------ save Location Data in local obj
                           loginServ.prepareLocationToUse().then(function (data) {
                             thisCtrl.generalLocations = data;
@@ -278,7 +275,6 @@
       if(+UserStor.userInfo.factory_id > 0) {
         loginServ.isLocalDBExist().then(function(data) {
           thisCtrl.isLocalDB = data;
-          console.log('isLocalDB++++', thisCtrl.isLocalDB);
           if (thisCtrl.isLocalDB) {
             //------- current FactoryId matches to user FactoryId, go to main page without importDB
             //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
@@ -296,7 +292,6 @@
             //});
           } else {
             //------ GlobalDB is ampty
-            //          console.log('GlobalDB is empty');
             importDBfromServer(UserStor.userInfo.factory_id);
           }
         });
@@ -369,9 +364,8 @@
         if(thisCtrl.isOnline) {
           GlobalStor.global.isLoader = 1;
           //-------- send selected Factory Id in Server
-          thisCtrl.user.factoryId = 1; //TODO for all factories id = 1
           UserStor.userInfo.factory_id = angular.copy(thisCtrl.user.factoryId);
-          //        console.log(UserStor.userInfo);
+//                  console.log(UserStor.userInfo.factory_id);
           //----- update factoryId in LocalDB & Server
           localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {factory_id: UserStor.userInfo.factory_id}).then(function() {
             //-------- close Factory Dialog
@@ -464,7 +458,6 @@
           GlobalStor.global.isLoader = 1;
           //--- checking user in server
           localDB.importUser(thisCtrl.user.phone).then(function(result) {
-//            console.log('REG USER!!!!!!!!!!!!', result);
             if(result.status) {
               GlobalStor.global.isLoader = 0;
               //---- show attantion
@@ -477,6 +470,7 @@
                 cityId: thisCtrl.user.city.id,
                 password: localDB.md5(thisCtrl.user.phone)
               };
+              console.log('CREATE USER!!!!!!!!!!!!', userData);
               //--- create new user in Server
               localDB.createUserServer(userData);
               GlobalStor.global.isLoader = 0;

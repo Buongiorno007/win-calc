@@ -861,7 +861,7 @@
               var resQty = result.length;
               if(resQty) {
                 for(var j = 0; j < resQty; j++) {
-                  GlobalStor.global.tempAddElements.push(result[j][0]);
+                  GlobalStor.global.tempAddElements.push(angular.copy(result[j][0]));
                 }
               }
               if(i === resultQty) {

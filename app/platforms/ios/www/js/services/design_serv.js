@@ -87,7 +87,7 @@
         ProductStor.product.template = angular.copy(DesignStor.design.templateTEMP);
 
         //----- create template icon
-        SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+        SVGServ.createSVGTemplateIcon(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
           ProductStor.product.templateIcon = angular.copy(result);
         });
 
@@ -105,13 +105,15 @@
 
         //------- if sash was added in empty template
         if(!GlobalStor.global.isSashesInTemplate) {
-          GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate();
+          GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(ProductStor.product);
           if (GlobalStor.global.isSashesInTemplate) {
             ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+          } else {
+            ProductStor.product.hardware.id = 0;
           }
         }
         //------- refresh price of new template
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass.list_id, ProductStor.product.hardware.id).then(function() {
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass[0].id, ProductStor.product.hardware.id).then(function() {
           //-------- template was changed
           GlobalStor.global.isChangedTemplate = true;
           //$cordovaProgress.hide();
@@ -269,7 +271,6 @@
 
     //------- set click to all Glass for Dimensions
     function initAllGlass() {
-      var delayDimShow = 1000;
       DesignStor.design.selectedGlass.length = 0;
       d3.selectAll('#tamlateSVG .glass')
         .each(function() {
@@ -279,46 +280,40 @@
           glass.on("mousedown", function() {
 
             //========= select glass
-            var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass);
+            var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass),
+                blockID = glass[0][0].attributes.block_id.nodeValue;
             if(isGlass) {
               glass.classed('glass-active', true);
               hideCornerMarks();
               deselectAllImpost();
               deselectAllArc();
               hideSizeTools();
+
+              //------- show Dimensions
+              showCurrentDimLevel(blockID);
+
               $rootScope.$apply();
             } else {
               glass.classed('glass-active', false);
+              //------- hide Dimensions of current Block
+              d3.selectAll('#tamlateSVG .dim_block[block_id='+blockID+']').classed('dim_hidden', true);
+
               if(!DesignStor.design.selectedGlass.length) {
                 //------- close glass menu and submenu
                 DesignStor.design.activeMenuItem = 0;
                 DesignStor.design.activeSubMenuItem = 0;
+                //---- shifting global dimension
+                hideAllDimension();
                 $rootScope.$apply();
               }
             }
 
-
-            //========= show Dimensions
-
-//            hideAllDimension();
-            var parentID = glass[0][0].attributes.parent_id.nodeValue,
-                blockID = glass[0][0].attributes.block_id.nodeValue,
-                currDimId = (parentID === 'block_0') ? blockID : parentID;
-            DesignStor.design.isDimAnimate = 1;
-            showCurrentDimLevel(currDimId);
-//            showCurrentDimLevel(blockID);
-//            if(DesignStor.design.isDimAnimate && parentID !== 'block_0') {
-//              $timeout(function () {
-//                showNextDimensionLevel(currDimId, delayDimShow);
-//              }, delayDimShow);
-//            }
+//            var parentID = glass[0][0].attributes.parent_id.nodeValue,
+//                blockID = glass[0][0].attributes.block_id.nodeValue,
+//                currDimId = (parentID === 'block_0') ? blockID : parentID;
           });
 
 
-//          glass.on("touchend", function() {
-          glass.on("mouseup", function() {
-            DesignStor.design.isDimAnimate = 0;
-          });
         });
     }
 
@@ -339,7 +334,7 @@
           }
         }
         //------- hide all dimension Level 0
-        d3.selectAll('#tamlateSVG .dim_block').classed('dim_hidden', true);
+//        d3.selectAll('#tamlateSVG .dim_block').classed('dim_hidden', true);
 
         if(isXDim) {
           d3.selectAll('#tamlateSVG .dim_blockX').classed('dim_shiftX', true);
@@ -348,30 +343,6 @@
           d3.selectAll('#tamlateSVG .dim_blockY').classed('dim_shiftY', true);
         }
         dim.classed('dim_hidden', false);
-      }
-    }
-
-
-    function showNextDimensionLevel(currBlockId, delay) {
-      var blocks = DesignStor.design.templateTEMP.details,
-          blocksQty = blocks.length,
-          parentID;
-
-      if(DesignStor.design.isDimAnimate) {
-        //----- find next parent block
-        for(var b = 0; b < blocksQty; b++) {
-          if(blocks[b].id === currBlockId) {
-            parentID = blocks[b].parent;
-          }
-        }
-        var currDimId = (parentID === 'block_0') ? currBlockId : parentID;
-        showCurrentDimLevel(currDimId);
-
-        if(DesignStor.design.isDimAnimate && parentID !== 'block_0') {
-          $timeout(function () {
-            showNextDimensionLevel(currDimId, delay);
-          }, delay);
-        }
       }
     }
 
@@ -390,6 +361,7 @@
 //          arc.on('touchstart', function() {
           arc.on('click', function() {
             var isArc = isExistArcInSelected(arc[0][0], DesignStor.design.selectedArc);
+            console.log('add to ARC++++', DesignStor.design.selectedArc);
             if(isArc) {
               arc.classed('active_svg', true);
               deselectAllGlass();
@@ -434,8 +406,8 @@
 
 
     function hideAllDimension() {
-      d3.select('#tamlateSVG .dim_blockX').classed('dim_shiftX', false);
-      d3.select('#tamlateSVG .dim_blockY').classed('dim_shiftY', false);
+      d3.selectAll('#tamlateSVG .dim_blockX').classed('dim_shiftX', false);
+      d3.selectAll('#tamlateSVG .dim_blockY').classed('dim_shiftY', false);
       d3.selectAll('#tamlateSVG .dim_block').classed('dim_hidden', true);
     }
 
@@ -468,7 +440,7 @@
 
 
     function rebuildSVGTemplate() {
-      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
         DesignStor.design.templateTEMP = angular.copy(result);
       });
     }
@@ -482,7 +454,7 @@
           blocks = DesignStor.design.templateSourceTEMP.details,
           blocksQty = blocks.length,
           minGlassSize = d3.min(glass.sizes);
-console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
+//console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
       if(minGlassSize >= globalConstants.minSizeLimit || glass.square >= globalConstants.squareLimit) {
 
         //---- save last step
@@ -498,31 +470,37 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
               case 2:
                 blocks[b].openDir = [4];
                 blocks[b].handlePos = 4;
+                blocks[b].sashType = 2;
                 break;
               //----- 'right'
               case 3:
                 blocks[b].openDir = [2];
                 blocks[b].handlePos = 2;
+                blocks[b].sashType = 2;
                 break;
               //----- 'up'
               case 4:
                 blocks[b].openDir = [1];
                 blocks[b].handlePos = 1;
+                blocks[b].sashType = 7;
                 break;
               //------ 'down'
               case 5:
                 blocks[b].openDir = [3];
                 blocks[b].handlePos = 3;
+                blocks[b].sashType = 2;
                 break;
               //------ 'up', 'right'
               case 6:
                 blocks[b].openDir = [1, 2];
                 blocks[b].handlePos = 2;
+                blocks[b].sashType = 6;
                 break;
               //------ 'up', 'left'
               case 7:
                 blocks[b].openDir = [1, 4];
                 blocks[b].handlePos = 4;
+                blocks[b].sashType = 6;
                 break;
             }
             //----- change Template
@@ -889,11 +867,11 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
           createCurveQPoint('arc', 'qa'+arcN, currLine, position, currBlockIndex, blocksSource);
 
           //------ change templateTEMP
-          SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function (result) {
+          SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function (result) {
             //------ delete sash if block sizes are small
             var wasSashDelet = checkSashesBySizeBlock(result);
             if (wasSashDelet) {
-              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function (result) {
+              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function (result) {
                 DesignStor.design.templateTEMP = angular.copy(result);
                 defer.resolve('done');
               });
@@ -993,11 +971,11 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
           }
 
           //------ change templateTEMP
-          SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function (result) {
+          SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function (result) {
             //------ delete sash if block sizes are small
             var wasSashDelet = checkSashesBySizeBlock(result);
             if (wasSashDelet) {
-              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function (result) {
+              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function (result) {
                 DesignStor.design.templateTEMP = angular.copy(result);
                 defer.resolve('done');
               });
@@ -1081,54 +1059,61 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
             angel = 170;
             dimType = 1;
             break;
-          //----- inclined left
           case 5:
+            angel = 190;
+            dimType = 1;
+            break;
+          //----- inclined left
+          case 6:
             angel = 80;
+            break;
+          case 7:
+            angel = 100;
             break;
 
           //----- curve vertical
-          case 6:
+          case 8:
             angel = 90;
             isImpCurv = 1;
             positionQ = 2; //---right
             break;
-          case 7:
+          case 9:
             angel = 90;
             isImpCurv = 1;
             positionQ = 4; //---left
             break;
           //----- curve horisontal
-          case 8:
+          case 10:
             angel = 180;
             dimType = 1;
             isImpCurv = 1;
             positionQ = 1; //--- up
             break;
-          case 9:
+          case 11:
             angel = 180;
             dimType = 1;
             isImpCurv = 1;
             positionQ = 3; //--- down
             break;
           //----- inclined right curve
-          case 10:
+          case 12:
             angel = 100;
             isImpCurv = 1;
             positionQ = 1; //---- left-up
             break;
-          case 11:
+          case 13:
             angel = 100;
             isImpCurv = 1;
             positionQ = 3; //---- right-down
             break;
           //----- inclined left curve
-          case 12:
+          case 14:
             angel = 10;
             dimType = 1;
             isImpCurv = 1;
             positionQ = 4; //----- left-down
             break;
-          case 13:
+          case 15:
             angel = 10;
             dimType = 1;
             isImpCurv = 1;
@@ -1361,6 +1346,7 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
     function createImpostQPoint(dist, position, curBlockN, blockIndex, blocks) {
       var impQPoint = {
         blockId: blocks[blockIndex].id,
+        dir:'curv',
         id: 'qi'+curBlockN,
         heightQ: dist,
         positionQ: position
@@ -1705,7 +1691,7 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
       for(var numer = 0; numer < DesignStor.design.tempSize.length; numer++) {
         newSizeString += DesignStor.design.tempSize[numer].toString();
       }
-//      console.log('changeSize++++++++++', newSizeString);
+//      console.log('changeSize++++++++++', DesignStor.design.oldSize);
       var dim = d3.select(DesignStor.design.oldSize);
       dim.text(newSizeString);
 
@@ -1742,8 +1728,13 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
               dimId = DesignStor.design.oldSize.attributes[10].nodeValue,
               blocksQty = blocks.length;
 
-          //-------- change Radius
+//          console.log('SIZE ````````curBlockId````````', curBlockId);
+//          console.log('SIZE ````````curDimType````````', curDimType);
+//          console.log('SIZE ````````dimId````````', dimId);
+
+
           if(curDimType === 'curve') {
+            //============ changing Radius
 
             var newHeightQ = culcHeightQByRadiusCurve(+DesignStor.design.oldSize.attributes[11].nodeValue, newLength);
 
@@ -1770,7 +1761,25 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
               }
             }
 
+          } else if(dimId.indexOf('qa')+1) {
+            //========== changing Arc Height
+
+            for(var b = 1; b < blocksQty; b++) {
+              if(blocks[b].level === 1) {
+                var pointsQQty = blocks[b].pointsQ.length;
+                if(pointsQQty) {
+                  while(--pointsQQty > -1) {
+                    if(blocks[b].pointsQ[pointsQQty].id === dimId) {
+                      blocks[b].pointsQ[pointsQQty].heightQ = newLength;
+//                      console.log('ARC height=====', blocks[b].pointsQ[pointsQQty]);
+                    }
+                  }
+                }
+              }
+            }
+
           } else {
+            //========== changing Line dimension
 
             var startSize = +DesignStor.design.oldSize.attributes[11].nodeValue,
                 oldSizeValue = +DesignStor.design.oldSize.attributes[12].nodeValue,
@@ -1780,8 +1789,7 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
 //            console.log('SIZE ````````startSize````````', startSize);
 //            console.log('SIZE ````````oldSizeValue````````', oldSizeValue);
 //            console.log('SIZE ````````axis````````', axis);
-//            console.log('SIZE ````````dimId````````', dimId);
-
+/*
             //-------- if Dim point is impost
             if(dimId.indexOf('ip')+1) {
               //--------- check impost is vert/hor or inclinde
@@ -1854,7 +1862,7 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
                 }
               }
             } else {
-
+*/
               for(var b = 1; b < blocksQty; b++) {
                 var pointsOutQty = blocks[b].pointsOut.length;
                 if(pointsOutQty) {
@@ -1887,7 +1895,7 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
                 }
               }
 
-            }
+//            }
           }
 
 
@@ -1909,10 +1917,10 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
               //------- deactive size box in svg
               deselectAllDimension();
               //-------- build new template
-              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
                 DesignStor.design.templateTEMP = angular.copy(result);
               });
-//              DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths);
+//              DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths);
             } else {
               DesignStor.design.isMinSizeRestriction = 1;
               DesignStor.design.isMaxSizeRestriction = 0;
@@ -1923,10 +1931,10 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
               //------- deactive size box in svg
               deselectAllDimension();
               //-------- build new template
-              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+              SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
                 DesignStor.design.templateTEMP = angular.copy(result);
               });
-//              DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths);
+//              DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths);
             } else {
               DesignStor.design.isMinSizeRestriction = 0;
               DesignStor.design.isMaxSizeRestriction = 1;
@@ -2001,7 +2009,7 @@ console.log('createSash++++', glass, DesignStor.design.activeSubMenuItem);
     function stepBack() {
       var lastIndex = DesignStor.design.designSteps.length - 1;
       DesignStor.design.templateSourceTEMP = angular.copy(DesignStor.design.designSteps[lastIndex]);
-      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
+      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, ProductStor.product.profileDepths).then(function(result) {
         DesignStor.design.templateTEMP = angular.copy(result);
       });
       DesignStor.design.designSteps.pop();

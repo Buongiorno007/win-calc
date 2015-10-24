@@ -7,7 +7,7 @@
     .module('MainModule')
     .controller('addElementMenuCtrl', addElementMenuCtrl);
 
-  function addElementMenuCtrl($timeout, globalConstants, GlobalStor, ProductStor, UserStor, AuxStor, AddElementMenuServ, AddElementsServ) {
+  function addElementMenuCtrl($timeout, globalConstants, GlobalStor, ProductStor, UserStor, AuxStor, MainServ, AddElementMenuServ, AddElementsServ) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -26,13 +26,14 @@
 
 
     //------ clicking
+    thisCtrl.selectAddElement = selectAddElement;
     thisCtrl.closeAddElementsMenu = AddElementMenuServ.closeAddElementsMenu;
     thisCtrl.chooseAddElement = AddElementMenuServ.chooseAddElement;
-    thisCtrl.selectAddElementList = selectAddElementList;
     thisCtrl.chooseAddElementList = AddElementMenuServ.chooseAddElementList;
     thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;
     thisCtrl.showFrameTabs = showFrameTabs;
     thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
 
     thisCtrl.closeQtyCaclulator = closeQtyCaclulator;
     thisCtrl.setValueQty = AddElementMenuServ.setValueQty;
@@ -57,6 +58,18 @@
     function closeQtyCaclulator() {
       AddElementsServ.desactiveAddElementParameters();
     }
+
+
+    /** common function to select addElem in 2 cases*/
+    function selectAddElement(typeId, elementId, clickEvent) {
+      /** if isAddElementListView = 1 is list view otherwise is common view */
+      if(AuxStor.aux.isAddElementListView) {
+        selectAddElementList(typeId, elementId, clickEvent);
+      } else {
+        AddElementMenuServ.chooseAddElement(typeId, elementId);
+      }
+    }
+
 
     // Select Add Element when open List View
     function selectAddElementList(typeId, elementId, clickEvent) {

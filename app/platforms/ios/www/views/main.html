@@ -62,7 +62,7 @@
         </div>
       </div>
       <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" hm-tap="userBox.swipeMainPage($event)" class="main-central-part"></div>
-      <div ng-controller="RoomInfoCtrl as roomInfo" ng-class="{'show-comment': roomInfo.G.global.isShowCommentBlock}" hm-swipeup="roomInfo.swipeShowComment($event)" hm-swipedown="roomInfo.swipeHideComment($event)" class="room-info-container">
+      <div ng-controller="RoomInfoCtrl as roomInfo" ng-class="{'show-comment': roomInfo.G.global.isShowCommentBlock}" hm-swipeup="roomInfo.switchComment($event)" hm-swipedown="roomInfo.switchComment($event)" class="room-info-container">
         <div class="coeff-container">
           <div class="coeff-block">
             <div class="coeff climate">{{ roomInfo.O.order.climatic_zone }}</div>
@@ -77,6 +77,7 @@
           <div class="coeff-block">
             <button show-delay="{{ roomInfo.config.DELAY_SHOW_ALLROOMS_BTN }}" hm-tap="roomInfo.showRoomSelectorDialog($event)" class="select-rooms unvisible">{{ 'mainpage.ROOM_SELECTION' | translate }}</button>
           </div>
+          <div hm-tap="roomInfo.switchComment($event)" class="comment-btn"></div>
         </div>
         <div class="product-comment">
           <textarea ng-model="roomInfo.P.product.comment" placeholder="{{ 'mainpage.COMMENT' | translate }}" class="comment-field"></textarea>
@@ -126,37 +127,39 @@
             <div class="group-block-header">
               <div data-output="{{ profilesPanel.G.global.profilesType[$index].name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title"></div>
               <div class="group-info">
-                <div class="info"></div>
+                <div ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description.length" hm-tap="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)" class="info"></div>
               </div>
             </div>
-            <div ng-repeat="profile in producer" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" hm-tap="profilesPanel.selectProfile(profile.id)" show-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_BLOCK * $index) }}" class="box profile-box unvisible">
-              <div class="profile-box-top">
-                <div class="type">{{ profile.cameras }}
-                  <ng-pluralize count="profile.cameras" when="{'1':'{{ profilesPanel.config.camera }}', '2':'{{ profilesPanel.config.camer }}', '3':'{{ profilesPanel.config.camer }}', '4':'{{ profilesPanel.config.camer }}', 'other':'{{ profilesPanel.config.camers }}'}"></ng-pluralize>
+            <div ng-repeat="profile in producer" ng-class="{'selected': profile.id == profilesPanel.P.product.profile.id}" show-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_BLOCK * $index) }}" class="box profile-box unvisible">
+              <div hm-tap="profilesPanel.selectProfile(profile.id)" class="box_inner">
+                <div class="profile-box-top">
+                  <div class="type">{{ profile.cameras }}
+                    <ng-pluralize count="profile.cameras" when="{'1':'{{ profilesPanel.config.camera }}', '2':'{{ profilesPanel.config.camer }}', '3':'{{ profilesPanel.config.camer }}', '4':'{{ profilesPanel.config.camer }}', 'other':'{{ profilesPanel.config.camers }}'}"></ng-pluralize>
+                  </div>
+                  <div data-output="{{ profile.name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
+                  <div data-output="{{ profile.country }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-country"></div>
+                  <div data-output="{{ 'panels.COUNTRY' | translate }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
                 </div>
-                <div data-output="{{ profile.name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-descr"></div>
-                <div data-output="{{ profile.country }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="profile-country"></div>
-                <div data-output="{{ 'panels.COUNTRY' | translate }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
+                <div class="profile-box-bottom">
+                  <div ng-class="{'coef-level-1': profile.heat_coeff == 1, 'coef-level-2': profile.heat_coeff == 2, 'coef-level-3': profile.heat_coeff == 3, 'coef-level-4': profile.heat_coeff == 4}" class="coef-level heat-insulation">
+                    <div class="coef-index"></div>
+                    <div class="coef-index"></div>
+                    <div class="coef-index"></div>
+                    <div class="coef-index"></div>
+                    <div class="coef-index"></div>
+                  </div>
+                  <div data-output="{{ 'panels.HEAT_INSULATION' | translate }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
+                  <div ng-class="{'coef-level-1': profile.noise_coeff == 1, 'coef-level-2': profile.noise_coeff == 2, 'coef-level-3': profile.noise_coeff == 3, 'coef-level-4': profile.noise_coeff == 4}" class="coef-level noise-insulation">
+                    <div class="coef-index"></div>
+                    <div class="coef-index"></div>
+                    <div class="coef-index"></div>
+                    <div class="coef-index"></div>
+                    <div class="coef-index"></div>
+                  </div>
+                  <div data-output="{{ 'panels.NOICE_INSULATION' | translate }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
+                </div>
               </div>
-              <div class="profile-box-bottom">
-                <div ng-class="{'coef-level-1': profile.heat_coeff == 1, 'coef-level-2': profile.heat_coeff == 2, 'coef-level-3': profile.heat_coeff == 3, 'coef-level-4': profile.heat_coeff == 4}" class="coef-level heat-insulation">
-                  <div class="coef-index"></div>
-                  <div class="coef-index"></div>
-                  <div class="coef-index"></div>
-                  <div class="coef-index"></div>
-                  <div class="coef-index"></div>
-                </div>
-                <div data-output="{{ 'panels.HEAT_INSULATION' | translate }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
-                <div ng-class="{'coef-level-1': profile.noise_coeff == 1, 'coef-level-2': profile.noise_coeff == 2, 'coef-level-3': profile.noise_coeff == 3, 'coef-level-4': profile.noise_coeff == 4}" class="coef-level noise-insulation">
-                  <div class="coef-index"></div>
-                  <div class="coef-index"></div>
-                  <div class="coef-index"></div>
-                  <div class="coef-index"></div>
-                  <div class="coef-index"></div>
-                </div>
-                <div data-output="{{ 'panels.NOICE_INSULATION' | translate }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START + (profilesPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
-              </div>
-              <div class="info"></div>
+              <div ng-if="profile.img.length || profile.link.length || profile.description.length" hm-tap="profilesPanel.showInfoBox(profile.id, producer)" class="info"></div>
             </div>
           </div>
         </div>
@@ -167,38 +170,40 @@
             <div class="group-block-header">
               <div data-output="{{ glassPanel.G.global.glassTypes[$index].name }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START }}" class="title"></div>
               <div class="group-info">
-                <div class="info"></div>
+                <div ng-if="glassPanel.G.global.glassTypes[$index].img.length || glassPanel.G.global.glassTypes[$index].link.length || glassPanel.G.global.glassTypes[$index].description.length" hm-tap="glassPanel.showInfoBox(glassPanel.G.global.glassTypes[$index].id, glassPanel.G.global.glassTypes)" class="info"></div>
               </div>
             </div>
             <div class="glass-block-footer clearfix">
               <div class="footer-inner">
-                <div ng-repeat="glass in typeGlass" ng-class="{'selected': glass.id == glassPanel.P.product.glass.id}" hm-tap="glassPanel.selectGlass(glass.id)" show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}" class="box glass-box unvisible">
-                  <div class="glass-box-view">
-                    <div ng-switch="glass.cameras" class="glass-img"><img ng-switch-when="1" ng-if="glass.glass_folder_id !== 6" ng-src="img/glasses/glass1.png"><img ng-switch-when="2" ng-if="glass.glass_folder_id !== 6" ng-src="img/glasses/glass2.png"><img ng-switch-when="1" ng-if="glass.glass_folder_id === 6" ng-src="img/glasses/glass10.png"><img ng-switch-when="2" ng-if="glass.glass_folder_id === 6" ng-src="img/glasses/glass20.png"></div>
-                    <div class="label">{{ glass.cameras }}
-                      <ng-pluralize count="glass.cameras" when="{'1':'{{ glassPanel.config.camera }}', '2':'{{ glassPanel.config.camer }}', '3':'{{ glassPanel.config.camer }}', '4':'{{ glassPanel.config.camer }}', 'other':'{{ glassPanel.config.camers }}'}"></ng-pluralize><span ng-if="glass.glass_folder_id === 6">{{ 'panels.ENERGY_SAVE' | translate }}</span>
+                <div ng-repeat="glass in typeGlass" ng-class="{'selected': glass.id == glassPanel.P.product.glass[0].id}" show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}" class="box glass-box unvisible">
+                  <div hm-tap="glassPanel.selectGlass(glass.id)" class="box_inner">
+                    <div class="glass-box-view">
+                      <div ng-switch="glass.cameras" class="glass-img"><img ng-switch-when="1" ng-if="glass.glass_folder_id !== 6" ng-src="img/glasses/glass1.png"><img ng-switch-when="2" ng-if="glass.glass_folder_id !== 6" ng-src="img/glasses/glass2.png"><img ng-switch-when="1" ng-if="glass.glass_folder_id === 6" ng-src="img/glasses/glass10.png"><img ng-switch-when="2" ng-if="glass.glass_folder_id === 6" ng-src="img/glasses/glass20.png"></div>
+                      <div class="label">{{ glass.cameras }}
+                        <ng-pluralize count="glass.cameras" when="{'1':'{{ glassPanel.config.camera }}', '2':'{{ glassPanel.config.camer }}', '3':'{{ glassPanel.config.camer }}', '4':'{{ glassPanel.config.camer }}', 'other':'{{ glassPanel.config.camers }}'}"></ng-pluralize><span ng-if="glass.glass_folder_id === 6">{{ 'panels.ENERGY_SAVE' | translate }}</span>
+                      </div>
+                    </div>
+                    <div class="glass-box-data">
+                      <div data-output="{{ glass.sku }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}" class="glass-descr"></div>
+                      <div ng-class="{'coef-level-1': glass.heatCoeff == 1, 'coef-level-2': glass.heatCoeff == 2, 'coef-level-3': glass.heatCoeff == 3, 'coef-level-4': glass.heatCoeff == 4}" class="coef-level heat-insulation">
+                        <div class="coef-index"></div>
+                        <div class="coef-index"></div>
+                        <div class="coef-index"></div>
+                        <div class="coef-index"></div>
+                        <div class="coef-index"></div>
+                      </div>
+                      <div data-output="{{ 'panels.HEAT_INSULATION' | translate }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
+                      <div ng-class="{'coef-level-1': glass.glassNoise == 1, 'coef-level-2': glass.glassNoise == 2, 'coef-level-3': glass.glassNoise == 3, 'coef-level-4': glass.glassNoise == 4}" class="coef-level noise-insulation">
+                        <div class="coef-index"></div>
+                        <div class="coef-index"></div>
+                        <div class="coef-index"></div>
+                        <div class="coef-index"></div>
+                        <div class="coef-index"></div>
+                      </div>
+                      <div data-output="{{ 'panels.NOICE_INSULATION' | translate }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
                     </div>
                   </div>
-                  <div class="glass-box-data">
-                    <div data-output="{{ glass.sku }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}" class="glass-descr"></div>
-                    <div ng-class="{'coef-level-1': glass.heatCoeff == 1, 'coef-level-2': glass.heatCoeff == 2, 'coef-level-3': glass.heatCoeff == 3, 'coef-level-4': glass.heatCoeff == 4}" class="coef-level heat-insulation">
-                      <div class="coef-index"></div>
-                      <div class="coef-index"></div>
-                      <div class="coef-index"></div>
-                      <div class="coef-index"></div>
-                      <div class="coef-index"></div>
-                    </div>
-                    <div data-output="{{ 'panels.HEAT_INSULATION' | translate }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
-                    <div ng-class="{'coef-level-1': glass.glassNoise == 1, 'coef-level-2': glass.glassNoise == 2, 'coef-level-3': glass.glassNoise == 3, 'coef-level-4': glass.glassNoise == 4}" class="coef-level noise-insulation">
-                      <div class="coef-index"></div>
-                      <div class="coef-index"></div>
-                      <div class="coef-index"></div>
-                      <div class="coef-index"></div>
-                      <div class="coef-index"></div>
-                    </div>
-                    <div data-output="{{ 'panels.NOICE_INSULATION' | translate }}" typing="{{ glassPanel.config.typing }}" typing-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_TYPING * $index) }}" class="label"></div>
-                  </div>
-                  <div class="info"></div>
+                  <div ng-if="glass.img.length || glass.link.length || glass.description.length" hm-tap="glassPanel.showInfoBox(glass.id, typeGlass)" class="info"></div>
                 </div>
               </div>
             </div>
@@ -211,11 +216,12 @@
             <div class="group-block-header">
               <div data-output="{{ hardwarePanel.G.global.hardwareTypes[$index].name }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START }}" class="hardware-title"></div>
               <div class="group-info">
-                <div class="info"></div>
+                <div ng-if="hardwarePanel.G.global.hardwareTypes[$index].img.length || hardwarePanel.G.global.hardwareTypes[$index].link.length || hardwarePanel.G.global.hardwareTypes[$index].description.length" hm-tap="hardwarePanel.showInfoBox(hardwarePanel.G.global.hardwareTypes[$index].id, hardwarePanel.G.global.hardwareTypes)" class="info"></div>
               </div>
             </div>
-            <div ng-repeat="hardware in producer" ng-class="{'selected': hardware.id === hardwarePanel.P.product.hardware.id}" hm-tap="hardwarePanel.selectHardware(hardware.id)" show-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_BLOCK * $index) }}" class="hardware-box unvisible"><a ng-href="{{ hardware.hardwareLink }}" class="info"></a>
-              <div class="hardware-box-inner">
+            <div ng-repeat="hardware in producer" ng-class="{'selected': hardware.id === hardwarePanel.P.product.hardware.id}" show-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_BLOCK * $index) }}" class="hardware-box unvisible">
+              <div ng-if="hardware.img.length || hardware.link.length || hardware.description.length" hm-tap="hardwarePanel.showInfoBox(hardware.id, producer)" class="info"></div>
+              <div hm-tap="hardwarePanel.selectHardware(hardware.id)" class="hardware-box-inner">
                 <div class="hardware-box-view">
                   <div class="hardware-logo"><img ng-src="http://windowscalculator.net:3002{{ hardware.img }}"></div>
                 </div>
@@ -239,7 +245,7 @@
                       <div class="coef-index"></div>
                       <div class="coef-index"></div>
                     </div>
-                    <div data-output="{{ 'panels.HEAT_INSULATION' | translate }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-label"></div>
+                    <div data-output="{{ 'panels.CORROSION_COEFF' | translate }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-label"></div>
                     <div ng-class="{'coef-level-1': hardware.noise_coeff == 1, 'coef-level-2': hardware.noise_coeff == 2, 'coef-level-3': hardware.noise_coeff == 3, 'coef-level-4': hardware.noise_coeff == 4}" class="coef-level noise-insulation">
                       <div class="coef-index"></div>
                       <div class="coef-index"></div>
@@ -247,7 +253,7 @@
                       <div class="coef-index"></div>
                       <div class="coef-index"></div>
                     </div>
-                    <div data-output="{{ 'panels.NOICE_INSULATION' | translate }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-label"></div>
+                    <div data-output="{{ 'panels.BURGLAR_COEFF' | translate }}" typing="{{ hardwarePanel.config.typing }}" typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}" class="hardware-label"></div>
                   </div>
                 </div>
               </div>
@@ -260,28 +266,28 @@
           <div class="lamination-block">
             <div data-output="{{ 'panels.LAMINAT_INSIDE' | translate }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-title"></div>
             <div show-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-white unvisible">
-              <div ng-class="{'selected': !laminPanel.P.product.lamination_in_id}" hm-tap="laminPanel.selectLaminatIn(0)" class="lamination-img"><img src="img/lamination/0.jpg"></div>
+              <div ng-class="{'selected': laminPanel.P.product.lamination_in_id == 1}" hm-tap="laminPanel.selectLaminat(0, 1)" class="lamination-img"><img src="img/lamination/0.jpg"></div>
               <div data-output="{{ 'panels.LAMINAT_WHITE' | translate }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-label for-white"></div>
             </div>
             <div class="lamination-options clearfix">
               <div ng-repeat="laminatInner in laminPanel.G.global.laminationsIn" show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * $index) }}" class="lam-option-box unvisible">
-                <div ng-class="{'selected': laminPanel.P.product.lamination_in_id == laminatInner.lamination_type_id}" hm-tap="laminPanel.selectLaminatIn(laminatInner.lamination_type_id, laminatInner.name)" class="lamination-img"><img ng-src="img/lamination/{{ laminatInner.lamination_type_id }}.jpg"></div>
+                <div ng-class="{'selected': laminPanel.P.product.lamination_in_id == laminatInner.lamination_type_id}" hm-tap="laminPanel.selectLaminat(0, laminatInner.lamination_type_id, laminatInner.name)" class="lamination-img"><img ng-src="img/lamination/{{ laminatInner.lamination_type_id }}.jpg"></div>
                 <div data-output="{{ laminatInner.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_TYPING * $index) }}" class="lamination-label"></div>
-                <div show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * 2 * $index) }}" class="info unvisible"></div>
+                <div ng-if="laminatInner.img.length || laminatInner.link.length || laminatInner.description.length" hm-tap="laminPanel.showInfoBox(laminatInner.lamination_type_id, laminPanel.G.global.laminationsIn)" show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * 2 * $index) }}" class="info unvisible"></div>
               </div>
             </div>
           </div>
           <div class="lamination-block">
             <div data-output="{{ 'panels.LAMINAT_OUTSIDE' | translate }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-title"></div>
             <div show-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-white unvisible">
-              <div ng-class="{'selected': !laminPanel.P.product.lamination_out_id}" hm-tap="laminPanel.selectLaminatOut(0)" class="lamination-img"><img src="img/lamination/0.jpg"></div>
+              <div ng-class="{'selected': laminPanel.P.product.lamination_out_id == 1}" hm-tap="laminPanel.selectLaminat(1, 1)" class="lamination-img"><img src="img/lamination/0.jpg"></div>
               <div data-output="{{ 'panels.LAMINAT_WHITE' | translate }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START }}" class="lamination-label for-white"></div>
             </div>
             <div class="lamination-options clearfix">
               <div ng-repeat="laminatOuter in laminPanel.G.global.laminationsOut" show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * $index) }}" class="lam-option-box unvisible">
-                <div ng-class="{'selected': laminPanel.P.product.lamination_out_id == laminatOuter.lamination_type_id}" hm-tap="laminPanel.selectLaminatOut(laminatOuter.lamination_type_id, laminatOuter.name)" class="lamination-img"><img ng-src="img/lamination/{{ laminatOuter.lamination_type_id }}.jpg"></div>
+                <div ng-class="{'selected': laminPanel.P.product.lamination_out_id == laminatOuter.lamination_type_id}" hm-tap="laminPanel.selectLaminat(1, laminatOuter.lamination_type_id, laminatOuter.name)" class="lamination-img"><img ng-src="img/lamination/{{ laminatOuter.lamination_type_id }}.jpg"></div>
                 <div data-output="{{ laminatOuter.name }}" typing="{{ laminPanel.config.typing }}" typing-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_TYPING * $index) }}" class="lamination-label"></div>
-                <div show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * 2 * $index) }}" class="info unvisible"></div>
+                <div ng-if="laminatOuter.img.length || laminatOuter.link.length || laminatOuter.description.length" hm-tap="laminPanel.showInfoBox(laminatOuter.lamination_type_id, laminPanel.G.global.laminationsOut)" show-delay="{{ laminPanel.config.DELAY_START + (laminPanel.config.DELAY_BLOCK * 2 * $index) }}" class="info unvisible"></div>
               </div>
             </div>
           </div>
@@ -289,7 +295,7 @@
       </div>
       <div ng-controller="AddElementsCtrl as elementsPanel" ng-class="{'active': elementsPanel.G.global.activePanel == 6}" class="config-panel auxiliaries-container">
         <div ng-if="elementsPanel.G.global.activePanel == 6" class="auxiliaries-inner">
-          <div ng-if="elementsPanel.G.global.isAddElemExist[0]" show-delay="{{ elementsPanel.config.DELAY_SHOW_GRID }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 1 &amp;&amp; elementsPanel.P.product.chosenAddElements[0].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[0].length &gt; 0}" class="auxiliary-item aux-grid unvisible">
+          <div ng-if="elementsPanel.G.global.addElementsAll[0].elementsList" show-delay="{{ elementsPanel.config.DELAY_SHOW_GRID }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 1 &amp;&amp; elementsPanel.P.product.chosenAddElements[0].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[0].length &gt; 0}" class="auxiliary-item aux-grid unvisible">
             <div class="aux-grid-img move-grid"></div>
             <div class="aux-txt-box aux-grid-txt">
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.P.product.chosenAddElements[0].length &gt; 0" class="choose-block unvisible">
@@ -298,13 +304,13 @@
               </div>
               <div ng-show="elementsPanel.P.product.chosenAddElements[0].length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[0][0].element_name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(1)" class="aux-title"></div>
+                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[0][0].name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(1)" class="aux-title"></div>
                   <div data-output="{{ 'add_elements.GRID' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" class="aux-label"></div>
                 </div>
               </div>
             </div>
           </div>
-          <div ng-if="elementsPanel.G.global.isAddElemExist[1]" show-delay="{{ elementsPanel.config.DELAY_SHOW_VISOR }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 2 &amp;&amp; elementsPanel.P.product.chosenAddElements[1].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[1].length &gt; 0}" class="auxiliary-item aux-visor unvisible">
+          <div ng-if="elementsPanel.G.global.addElementsAll[1].elementsList" show-delay="{{ elementsPanel.config.DELAY_SHOW_VISOR }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 2 &amp;&amp; elementsPanel.P.product.chosenAddElements[1].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[1].length &gt; 0}" class="auxiliary-item aux-visor unvisible">
             <div class="aux-visor-img move-visor"></div>
             <div class="aux-txt-box aux-visor-txt">
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.P.product.chosenAddElements[1].length &gt; 0" class="choose-block unvisible">
@@ -313,7 +319,7 @@
               </div>
               <div ng-show="elementsPanel.P.product.chosenAddElements[1].length &gt; 0" class="selected-block horisontal">
                 <div class="aux-info-box">
-                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[1][0].element_name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(2)" class="aux-title"></div>
+                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[1][0].name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(2)" class="aux-title"></div>
                   <div data-output="{{ 'add_elements.VISOR' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
                 <div class="aux-sizing-box">
@@ -330,7 +336,7 @@
               </div>
             </div>
           </div>
-          <div ng-if="elementsPanel.G.global.isAddElemExist[2]" show-delay="{{ elementsPanel.config.DELAY_SHOW_SPILLWAY }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 3 &amp;&amp; elementsPanel.P.product.chosenAddElements[2].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[2].length &gt; 0}" class="auxiliary-item aux-spillway unvisible">
+          <div ng-if="elementsPanel.G.global.addElementsAll[2].elementsList" show-delay="{{ elementsPanel.config.DELAY_SHOW_SPILLWAY }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 3 &amp;&amp; elementsPanel.P.product.chosenAddElements[2].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[2].length &gt; 0}" class="auxiliary-item aux-spillway unvisible">
             <div class="aux-spillway-img move-spillway"></div>
             <div class="aux-txt-box aux-spillway-txt">
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.P.product.chosenAddElements[2].length &gt; 0" class="choose-block unvisible">
@@ -339,7 +345,7 @@
               </div>
               <div ng-show="elementsPanel.P.product.chosenAddElements[2].length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[2][0].element_name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(3)" class="aux-title"></div>
+                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[2][0].name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(3)" class="aux-title"></div>
                   <div data-output="{{ 'add_elements.SPILLWAY' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
                 <div class="aux-sizing-box">
@@ -359,7 +365,7 @@
           <div show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}" class="auxiliary-item aux-outside unvisible">
             <div class="aux-outside-img move-outside"></div>
           </div>
-          <div ng-if="elementsPanel.G.global.isAddElemExist[3]" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 4 &amp;&amp; elementsPanel.P.product.chosenAddElements[3].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[3].length &gt; 0}" show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}" class="auxiliary-item aux-outside unvisible">
+          <div ng-if="elementsPanel.G.global.addElementsAll[3].elementsList" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 4 &amp;&amp; elementsPanel.P.product.chosenAddElements[3].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[3].length &gt; 0}" show-delay="{{ elementsPanel.config.DELAY_SHOW_OUTSIDE }}" class="auxiliary-item aux-outside unvisible">
             <div class="aux-txt-box aux-outside-txt">
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.P.product.chosenAddElements[3].length &gt; 0" class="choose-block unvisible">
                 <button ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 4}" hm-tap="elementsPanel.selectAddElement(4)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement == 4" class="aux-choose-but aux_slope_but">{{ 'add_elements.CHOOSE' | translate }}</button>
@@ -367,13 +373,13 @@
               </div>
               <div ng-show="elementsPanel.P.product.chosenAddElements[3].length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[3][0].element_name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(4)" class="aux-title"></div>
+                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[3][0].name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(4)" class="aux-title"></div>
                   <div data-output="{{ 'add_elements.OUTSIDE' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
               </div>
             </div>
           </div>
-          <div ng-if="elementsPanel.G.global.isAddElemExist[4]" show-delay="{{ elementsPanel.config.DELAY_SHOW_LOUVER }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 5 &amp;&amp; elementsPanel.P.product.chosenAddElements[4].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[4].length &gt; 0}" class="auxiliary-item aux-louver unvisible">
+          <div ng-if="elementsPanel.G.global.addElementsAll[4].elementsList" show-delay="{{ elementsPanel.config.DELAY_SHOW_LOUVER }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 5 &amp;&amp; elementsPanel.P.product.chosenAddElements[4].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[4].length &gt; 0}" class="auxiliary-item aux-louver unvisible">
             <div class="aux-louver-img move-louvers">
               <div class="aux-louver-top"></div>
               <div class="aux-louver-midle louver-midle-1 move-louver-midle-1"></div>
@@ -388,7 +394,7 @@
               </div>
               <div ng-show="elementsPanel.P.product.chosenAddElements[4].length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[4][0].element_name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(5)" class="aux-title"></div>
+                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[4][0].name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(5)" class="aux-title"></div>
                   <div data-output="{{ 'add_elements.LOUVERS' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
                 <div class="aux-sizing-box">
@@ -409,7 +415,7 @@
               </div>
             </div>
           </div>
-          <div ng-if="elementsPanel.G.global.isAddElemExist[5]" ng-class="{'focused': (elementsPanel.A.aux.isFocusedAddElement == 6 &amp;&amp; elementsPanel.P.product.chosenAddElements[5].length === 0) || (elementsPanel.A.aux.isFocusedAddElement == 4 &amp;&amp; elementsPanel.P.product.chosenAddElements[3].length === 0), 'selected': (elementsPanel.P.product.chosenAddElements[5].length &gt; 0) || (elementsPanel.P.product.chosenAddElements[3].length &gt; 0)}" show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPE }}" class="auxiliary-item aux-inside unvisible">
+          <div ng-if="elementsPanel.G.global.addElementsAll[5].elementsList" ng-class="{'focused': (elementsPanel.A.aux.isFocusedAddElement == 6 &amp;&amp; elementsPanel.P.product.chosenAddElements[5].length === 0) || (elementsPanel.A.aux.isFocusedAddElement == 4 &amp;&amp; elementsPanel.P.product.chosenAddElements[3].length === 0), 'selected': (elementsPanel.P.product.chosenAddElements[5].length &gt; 0) || (elementsPanel.P.product.chosenAddElements[3].length &gt; 0)}" show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPE }}" class="auxiliary-item aux-inside unvisible">
             <div class="aux-inside-img">
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPETOP }}" class="aux-inside-top move-inside-top unvisible"></div>
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_INSIDESLOPERIGHT }}" class="aux-inside-right move-inside-right unvisible"></div>
@@ -422,13 +428,13 @@
               </div>
               <div ng-show="elementsPanel.P.product.chosenAddElements[5].length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[5][0].element_name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(6)" class="aux-title"></div>
+                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[5][0].name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(6)" class="aux-title"></div>
                   <div data-output="{{ 'add_elements.INSIDE' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
               </div>
             </div>
           </div>
-          <div ng-if="elementsPanel.G.global.isAddElemExist[6]" show-delay="{{ elementsPanel.config.DELAY_SHOW_CONNECTORS }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 7 &amp;&amp; elementsPanel.P.product.chosenAddElements[6].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[6].length &gt; 0}" class="auxiliary-item aux-connectors unvisible">
+          <div ng-if="elementsPanel.G.global.addElementsAll[6].elementsList" show-delay="{{ elementsPanel.config.DELAY_SHOW_CONNECTORS }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 7 &amp;&amp; elementsPanel.P.product.chosenAddElements[6].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[6].length &gt; 0}" class="auxiliary-item aux-connectors unvisible">
             <div class="aux-connectors-img">
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_FORCECONNECT }}" class="aux-force-connect unvisible"></div>
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BALCONCONNECT }}" class="aux-balcon-connect unvisible"></div>
@@ -440,7 +446,7 @@
               </div>
               <div ng-show="elementsPanel.P.product.chosenAddElements[6].length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[6][0].element_name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(7)" class="aux-title"></div>
+                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[6][0].name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(7)" class="aux-title"></div>
                   <div data-output="{{ 'add_elements.CONNECTORS' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
                 <div class="aux-sizing-box">
@@ -457,7 +463,7 @@
               </div>
             </div>
           </div>
-          <div ng-if="elementsPanel.G.global.isAddElemExist[7]" show-delay="{{ elementsPanel.config.DELAY_SHOW_FAN }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 8 &amp;&amp; elementsPanel.P.product.chosenAddElements[7].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[7].length &gt; 0}" class="auxiliary-item aux-fan unvisible">
+          <div ng-if="elementsPanel.G.global.addElementsAll[7].elementsList" show-delay="{{ elementsPanel.config.DELAY_SHOW_FAN }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 8 &amp;&amp; elementsPanel.P.product.chosenAddElements[7].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[7].length &gt; 0}" class="auxiliary-item aux-fan unvisible">
             <div class="aux-fan-img move-fan"></div>
             <div class="aux-txt-box aux-fan-txt">
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.P.product.chosenAddElements[7].length &gt; 0" class="choose-block unvisible">
@@ -466,13 +472,13 @@
               </div>
               <div ng-show="elementsPanel.P.product.chosenAddElements[7].length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[7][0].element_name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(8)" class="aux-title"></div>
+                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[7][0].name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(8)" class="aux-title"></div>
                   <div data-output="{{ 'add_elements.FAN' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
               </div>
             </div>
           </div>
-          <div ng-if="elementsPanel.G.global.isAddElemExist[8]" show-delay="{{ elementsPanel.config.DELAY_SHOW_WINDOWSILL }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 9 &amp;&amp; elementsPanel.P.product.chosenAddElements[8].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[8].length &gt; 0}" class="auxiliary-item aux-windowsill unvisible">
+          <div ng-if="elementsPanel.G.global.addElementsAll[8].elementsList" show-delay="{{ elementsPanel.config.DELAY_SHOW_WINDOWSILL }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 9 &amp;&amp; elementsPanel.P.product.chosenAddElements[8].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[8].length &gt; 0}" class="auxiliary-item aux-windowsill unvisible">
             <div class="aux-windowsill-img move-windowsill"></div>
             <div class="aux-txt-box aux-windowsill-txt">
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.P.product.chosenAddElements[8].length &gt; 0" class="choose-block unvisible">
@@ -481,7 +487,7 @@
               </div>
               <div ng-show="elementsPanel.P.product.chosenAddElements[8].length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[8][0].element_name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(9)" class="aux-title"></div>
+                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[8][0].name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(9)" class="aux-title"></div>
                   <div data-output="{{ 'add_elements.WINDOWSILL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
                 <div class="aux-sizing-box">
@@ -498,7 +504,7 @@
               </div>
             </div>
           </div>
-          <div ng-if="elementsPanel.G.global.isAddElemExist[9]" show-delay="{{ elementsPanel.config.DELAY_SHOW_HANDLE }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 10 &amp;&amp; elementsPanel.P.product.chosenAddElements[9].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[9].length &gt; 0}" class="auxiliary-item aux-handle unvisible">
+          <div ng-if="elementsPanel.G.global.addElementsAll[9].elementsList" show-delay="{{ elementsPanel.config.DELAY_SHOW_HANDLE }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 10 &amp;&amp; elementsPanel.P.product.chosenAddElements[9].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[9].length &gt; 0}" class="auxiliary-item aux-handle unvisible">
             <div class="aux-handle-img move-handle"></div>
             <div class="aux-txt-box aux-handle-txt">
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.P.product.chosenAddElements[9].length &gt; 0" class="choose-block unvisible">
@@ -507,7 +513,7 @@
               </div>
               <div ng-show="elementsPanel.P.product.chosenAddElements[9].length &gt; 0" class="selected-block vertival">
                 <div class="aux-info-box">
-                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[9][0].element_name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(10)" class="aux-title"></div>
+                  <div data-output="{{ elementsPanel.P.product.chosenAddElements[9][0].name }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_START }}" hm-tap="elementsPanel.selectAddElement(10)" class="aux-title"></div>
                   <div data-output="{{ 'add_elements.HANDLEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                 </div>
                 <div class="aux-sizing-box">
@@ -520,7 +526,7 @@
               </div>
             </div>
           </div>
-          <div ng-if="elementsPanel.G.global.isAddElemExist[10]" show-delay="{{ elementsPanel.config.DELAY_SHOW_OTHERS }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 11 &amp;&amp; elementsPanel.P.product.chosenAddElements[10].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[10].length &gt; 0}" class="auxiliary-item aux-others unvisible">
+          <div ng-if="elementsPanel.G.global.addElementsAll[10].elementsList" show-delay="{{ elementsPanel.config.DELAY_SHOW_OTHERS }}" ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 11 &amp;&amp; elementsPanel.P.product.chosenAddElements[10].length === 0, 'selected': elementsPanel.P.product.chosenAddElements[10].length &gt; 0}" class="auxiliary-item aux-others unvisible">
             <div class="aux-txt-box aux-others-txt">
               <div show-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" ng-hide="elementsPanel.P.product.chosenAddElements[10].length &gt; 0" class="choose-block unvisible">
                 <button ng-class="{'focused': elementsPanel.A.aux.isFocusedAddElement == 11}" hm-tap="elementsPanel.selectAddElement(11)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement == 11" class="aux-choose-but aux_small_but">{{ 'add_elements.CHOOSE' | translate }}</button>
@@ -566,7 +572,7 @@
               <tr ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[0] track by $index" class="aux-list-row">
                 <td class="aux-tablecell-name">
                   <div class="aux-name">
-                    <div data-output="{{ addElement.element_name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(1)" class="aux-title">)</div>
+                    <div data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(1)" class="aux-title">)</div>
                     <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
@@ -593,7 +599,7 @@
               <tr ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[1] track by $index" class="aux-list-row">
                 <td class="aux-tablecell-name">
                   <div class="aux-name">
-                    <div data-output="{{ addElement.element_name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(2)" class="aux-title"></div>
+                    <div data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(2)" class="aux-title"></div>
                     <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
@@ -625,7 +631,7 @@
               <tr ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[2] track by $index" class="aux-list-row">
                 <td class="aux-tablecell-name">
                   <div class="aux-name">
-                    <div data-output="{{ addElement.element_name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(3)" class="aux-title"></div>
+                    <div data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(3)" class="aux-title"></div>
                     <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
@@ -657,7 +663,7 @@
               <tr ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[3] track by $index" class="aux-list-row">
                 <td class="aux-tablecell-name">
                   <div class="aux-name">
-                    <div data-output="{{ addElement.element_name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(4)" class="aux-title"></div>
+                    <div data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(4)" class="aux-title"></div>
                     <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
@@ -689,7 +695,7 @@
               <tr ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[4] track by $index" class="aux-list-row">
                 <td class="aux-tablecell-name">
                   <div class="aux-name">
-                    <div data-output="{{ addElement.element_name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(5)" class="aux-title"></div>
+                    <div data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(5)" class="aux-title"></div>
                     <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
@@ -726,7 +732,7 @@
               <tr ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[5] track by $index" class="aux-list-row">
                 <td class="aux-tablecell-name">
                   <div class="aux-name">
-                    <div data-output="{{ addElement.element_name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(6)" class="aux-title"></div>
+                    <div data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(6)" class="aux-title"></div>
                     <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
@@ -758,7 +764,7 @@
               <tr ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[6] track by $index" class="aux-list-row">
                 <td class="aux-tablecell-name">
                   <div class="aux-name">
-                    <div data-output="{{ addElement.element_name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(7)" class="aux-title"></div>
+                    <div data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(7)" class="aux-title"></div>
                     <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
@@ -790,7 +796,7 @@
               <tr ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[7] track by $index" class="aux-list-row">
                 <td class="aux-tablecell-name">
                   <div class="aux-name">
-                    <div data-output="{{ addElement.element_name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(8)" class="aux-title"></div>
+                    <div data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(8)" class="aux-title"></div>
                     <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
@@ -817,7 +823,7 @@
               <tr ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[8] track by $index" class="aux-list-row">
                 <td class="aux-tablecell-name">
                   <div class="aux-name">
-                    <div data-output="{{ addElement.element_name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(9)" class="aux-title"></div>
+                    <div data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(9)" class="aux-title"></div>
                     <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
@@ -849,7 +855,7 @@
               <tr ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[9] track by $index" class="aux-list-row">
                 <td class="aux-tablecell-name">
                   <div class="aux-name">
-                    <div data-output="{{ addElement.element_name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(10)" class="aux-title"></div>
+                    <div data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(10)" class="aux-title"></div>
                     <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
@@ -876,7 +882,7 @@
               <tr ng-repeat="addElement in elementsListPanel.P.product.chosenAddElements[10] track by $index" class="aux-list-row">
                 <td class="aux-tablecell-name">
                   <div class="aux-name">
-                    <div data-output="{{ addElement.element_name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(11)" class="aux-title"></div>
+                    <div data-output="{{ addElement.name }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" hm-tap="elementsListPanel.selectAddElement(11)" class="aux-title"></div>
                     <div data-output="{{ 'add_elements.NAME_LABEL' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-label"></div>
                   </div>
                 </td>
@@ -897,14 +903,14 @@
               </tr>
             </table>
           </div>
-          <div ng-if="elementsListPanel.P.product.addElementsPriceSELECTDis" class="aux-list-block">
+          <div ng-if="elementsListPanel.P.product.addelemPriceDis" class="aux-list-block">
             <table class="aux-list-addellement">
               <tr class="aux-list-row">
                 <td class="aux-tablecell-total">
                   <div data-output="{{ 'add_elements.TOTAL_PRICE_TXT' | translate }}" typing="{{ elementsListPanel.config.typing }}" typing-delay="{{ elementsListPanel.config.DELAY_START }}" class="aux-total-label"></div>
                 </td>
                 <td class="aux-tablecell-price">
-                  <div class="aux-total-price">{{ elementsListPanel.P.product.addElementsPriceSELECTDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
+                  <div class="aux-total-price">{{ elementsListPanel.P.product.addelemPriceDis }} {{ elementsListPanel.U.userInfo.currency }}</div>
                 </td>
                 <td class="aux-tablecell-delete">
                   <div hm-tap="elementsListPanel.deleteAllAddElements()" class="aux-delete"></div>
@@ -914,6 +920,12 @@
           </div>
         </div>
         <button hm-tap="elementsListPanel.closeAddElementListView()" class="view-switch-tab">{{ 'add_elements.SCHEME_VIEW' | translate }}</button>
+      </div>
+      <div ng-controller="GlassSelectorCtrl as glassBox" ng-class="{'active': glassBox.G.global.showGlassSelectorDialog}" class="glass-selector-dialog">
+        <div class="dialog-inner">
+          <svg-template template="glassBox.P.product.template" template-width="glassBox.constants.svgTemplateIconBigWidth" template-height="glassBox.constants.svgTemplateIconBigHeight" type-construction="iconBig"></svg-template>
+        </div>
+        <div hm-tap="glassBox.closeGlassSelectorDialog()" class="close-dialog"></div>
       </div>
       <div ng-show="mainPage.G.global.isShowCommentBlock" class="backDarkView"></div>
     </section>
@@ -926,8 +938,8 @@
               <svg-template template="configMenu.P.product.templateIcon" template-width="configMenu.constants.svgTemplateIconWidth" template-height="configMenu.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
             </div>
             <div data-output="{{ 'mainpage.CONFIGMENU_SIZING' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="name"></div>
-            <div data-output="{{ configMenu.P.product.templateWidth }} {{ 'mainpage.MM' | translate }} *" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
-            <div data-output="{{ configMenu.P.product.templateHeight }} {{ 'mainpage.MM' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div data-output="{{ configMenu.P.product.template_width }} {{ 'mainpage.MM' | translate }} *" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div data-output="{{ configMenu.P.product.template_height }} {{ 'mainpage.MM' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
           </li>
           <li ng-class="{'active': configMenu.G.global.activePanel == 2}" hm-tap="configMenu.selectConfigPanel(2)" class="item">
             <div data-output="{{ 'mainpage.CONFIGMENU_PROFILE' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
@@ -935,7 +947,7 @@
           </li>
           <li ng-class="{'active': configMenu.G.global.activePanel == 3}" hm-tap="configMenu.selectConfigPanel(3)" class="item">
             <div data-output="{{ 'mainpage.CONFIGMENU_GLASS' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
-            <div data-output="{{ configMenu.P.product.glass.sku }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div data-output="{{ configMenu.P.product.glass[0].sku }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
           </li>
           <li ng-class="{'active': configMenu.G.global.activePanel == 4}" hm-tap="configMenu.selectConfigPanel(4)" class="item">
             <div data-output="{{ 'mainpage.CONFIGMENU_HARDWARE' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
@@ -951,13 +963,13 @@
             <div ng-hide="configMenu.P.product.addelem_price &gt; 0" data-output="{{ 'mainpage.CONFIGMENU_NO_ADDELEMENTS' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="name"></div>
             <div class="additional-items-list">
               <ul ng-repeat="addElementGroup in configMenu.P.product.chosenAddElements" class="additional-items-group">
-                <li ng-repeat="addElement in addElementGroup" class="additional-item"><span data-output="" class="value">{{ addElement.element_name }}</span></li>
+                <li ng-repeat="addElement in addElementGroup" class="additional-item"><span data-output="" class="value">{{ addElement.name }}</span></li>
               </ul>
             </div>
           </li>
         </ul>
         <footer ng-if="configMenu.G.global.isConfigMenu" show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}" class="menu-footer unvisible">
-          <price price-value="configMenu.P.product.productPriceTOTALDis" price-currency="configMenu.U.userInfo.currency"></price>
+          <price price-value="configMenu.P.product.productPriceDis" price-currency="configMenu.U.userInfo.currency"></price>
           <button ng-if="!configMenu.G.global.productEditNumber" hm-tap="configMenu.inputProductInOrder()" class="cart-btn">{{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
             <div ng-if="configMenu.O.order.products_qty" show-delay="{{ configMenu.config.DELAY_START }}" class="qty unvisible">{{ configMenu.O.order.products_qty }}</div>
           </button>
@@ -968,8 +980,33 @@
           <div>{{ 'mainpage.HEATCOEF_VAL' | translate }}&sup2;&middot;K</div>
         </div>
         <div ng-show="configMenu.P.product.is_addelem_only" class="curtain"></div>
-        <div ng-show="configMenu.G.global.configMenuTips &amp;&amp; configMenu.G.global.isConfigMenu" hm-tap="configMenu.showNextTip()" ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}" class="menu_tooltip">{{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}
+        <div ng-show="configMenu.G.global.configMenuTips &amp;&amp; configMenu.G.global.isConfigMenu &amp;&amp; !configMenu.G.global.productEditNumber" hm-tap="configMenu.showNextTip()" ng-class="{'tempate_tip': configMenu.G.global.configMenuTips == 1, 'profile_tip': configMenu.G.global.configMenuTips == 2, 'glass_tip': configMenu.G.global.configMenuTips == 3}" class="menu_tooltip">{{ configMenu.config.TOOLTIP[configMenu.G.global.configMenuTips] }}
           <div class="close_menu_tooltip"></div>
+        </div>
+        <div ng-show="configMenu.G.global.isReport" class="report-container">
+          <div hm-tap="configMenu.G.global.isReport = 0" class="close_report"></div>
+          <div class="report-menu">
+            <div ng-repeat="reportMenu in configMenu.config.reportMenu | orderBy: reportMenu.position" hm-tap="configMenu.sortReport(reportMenu.id)" ng-class="{'active': reportMenu.id === configMenu.config.reportFilterId}" class="report-menu-item">{{ reportMenu.name }}</div>
+          </div>
+          <div class="report-box">
+            <table>
+              <tr class="report-item">
+                <th class="report-elem">{{ 'add_elements.NAME_LABEL' | translate }}</th>
+                <th class="report-elem">{{ 'add_elements.ARTICUL_LABEL' | translate }}</th>
+                <th class="report-elem">{{ 'add_elements.QTY_LABEL' | translate }}</th>
+                <th class="report-elem">{{ 'add_elements.SIZE_LABEL' | translate }}</th>
+                <th class="report-elem">{{ configMenu.U.userInfo.currency }}</th>
+              </tr>
+              <tr ng-repeat="report in configMenu.P.product.report | filter: {element_group_id: configMenu.config.reportFilterId}:true | orderBy: 'name'" class="report-item">
+                <td class="report-elem">{{report.name}}</td>
+                <td class="report-elem">{{report.sku}}</td>
+                <td class="report-elem">{{report.amount}}</td>
+                <td class="report-elem">{{report.size}}</td>
+                <td class="report-elem">{{report.priceReal}}</td>
+              </tr>
+            </table>
+            <div class="report-price-total">{{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }} {{configMenu.config.reportPriceTotal}} {{ configMenu.U.userInfo.currency }}</div>
+          </div>
         </div>
       </div>
       <div ng-controller="addElementMenuCtrl as elementsMenu" ng-class="[elementsMenu.A.aux.showAddElementsMenu, elementsMenu.A.aux.addElementsMenuStyle]" class="elements-list-container">
@@ -985,19 +1022,15 @@
               </li>
             </ul>
             <ul ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" class="items-list">
-              <div data-output="{{ elementsMenu.A.aux.addElementsType[$index] }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="title"></div>
-              <li ng-hide="elementsMenu.A.aux.isAddElementListView" ng-repeat="addElement in type track by $index" ng-class="{'active': elementsMenu.A.aux.isAddElement === $parent.$index+'-'+$index}" hm-tap="elementsMenu.chooseAddElement($parent.$index, $index)" class="item">
-                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="value"></div>
-                <button class="element-info"></button>
-              </li>
-              <li ng-show="elementsMenu.A.aux.isAddElementListView" ng-repeat="addElement in type track by $index" ng-class="{'active': elementsMenu.A.aux.isAddElement === $parent.$index+'-'+$index}" hm-tap="elementsMenu.selectAddElementList($parent.$index, $index, $event)" class="item">
-                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="value"></div>
-                <button class="element-info"></button>
+              <div data-output="{{ elementsMenu.A.aux.addElementsType[$index].name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="title"></div>
+              <li ng-repeat="addElement in type track by $index" ng-class="{'active': elementsMenu.A.aux.isAddElement === $parent.$index+'-'+$index}" class="item">
+                <div hm-tap="elementsMenu.selectAddElement($parent.$index, $index, $event)" data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="value"></div>
+                <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" hm-tap="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
             </ul>
           </div>
           <footer class="menu-footer">
-            <div ng-show="elementsMenu.A.aux.isAddElement &amp;&amp; elementsMenu.A.aux.currAddElementPrice" class="price-element">
+            <div ng-show="elementsMenu.A.aux.isAddElement" class="price-element">
               <div class="price-value">+ {{ elementsMenu.A.aux.currAddElementPrice }} {{ elementsMenu.U.userInfo.currency }}</div>
             </div>
             <div ng-class="{'active': elementsMenu.G.global.isSizeCalculator}" class="elements-tools size-calculator">
@@ -1105,7 +1138,7 @@
             <div ng-class="{'selected': elementsMenu.A.aux.isAddElement == $parent.$index +'-'+ $index}" ng-style="elementsMenu.coordinats" class="aux-list-item">
               <div class="aux-list-row">
                 <div class="aux-name">
-                  <div class="aux-title">{{ addElement.element_name }}</div>
+                  <div class="aux-title">{{ addElement.name }}</div>
                   <div class="aux-label">{{ 'add_elements.NAME_LABEL' | translate }}</div>
                 </div>
                 <div ng-if="addElement.element_qty" class="aux-params">
@@ -1140,7 +1173,7 @@
             </div>
             <div ng-if="elementsMenu.P.product.chosenAddElements[0].length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[0] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '1-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_connect_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
@@ -1162,7 +1195,7 @@
             </div>
             <div ng-if="elementsMenu.P.product.chosenAddElements[1].length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[1] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '2-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_big_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
@@ -1188,7 +1221,7 @@
             </div>
             <div ng-if="elementsMenu.P.product.chosenAddElements[2].length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[2] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '3-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
@@ -1214,7 +1247,7 @@
             </div>
             <div ng-if="elementsMenu.P.product.chosenAddElements[3].length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[3] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '4-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_slope_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
@@ -1240,7 +1273,7 @@
             </div>
             <div ng-if="elementsMenu.P.product.chosenAddElements[4].length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[4] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '5-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
@@ -1270,7 +1303,7 @@
             </div>
             <div ng-if="elementsMenu.P.product.chosenAddElements[5].length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[5] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '6-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_slope_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
@@ -1296,7 +1329,7 @@
             </div>
             <div ng-if="elementsMenu.P.product.chosenAddElements[6].length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[6] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '7-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_connect_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
@@ -1322,7 +1355,7 @@
             </div>
             <div ng-if="elementsMenu.P.product.chosenAddElements[7].length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[7] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '8-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_small_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
@@ -1344,7 +1377,7 @@
             </div>
             <div ng-if="elementsMenu.P.product.chosenAddElements[8].length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[8] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '9-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_big_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
@@ -1370,7 +1403,7 @@
             </div>
             <div ng-if="elementsMenu.P.product.chosenAddElements[9].length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[9] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '10-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
@@ -1392,7 +1425,7 @@
             </div>
             <div ng-if="elementsMenu.P.product.chosenAddElements[10].length &gt; 0" class="tab-content">
               <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[10] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.element_name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
                 <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '11-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_small_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
@@ -1405,6 +1438,15 @@
       </div>
     </section>
   </section>
+  <div ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" class="info_container">
+    <div class="info_box">
+      <div class="info_box_inner"><img ng-src="{{infoBox.G.global.infoImg}}">
+        <div class="info_title">{{infoBox.G.global.infoTitle}}</div>
+        <div class="info_descrip">{{infoBox.G.global.infoDescrip}}</div><a ng-href="{{infoBox.G.global.infoLink}}" target="_blank" class="info_link">{{infoBox.G.global.infoLink}}</a>
+      </div>
+      <div hm-tap="infoBox.closeInfoBox()" class="close-dialog"></div>
+    </div>
+  </div>
   <div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader" class="loader-container">
     <div class="loader"></div>
   </div>

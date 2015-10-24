@@ -41,7 +41,7 @@
         ENTER: 'To enter',
         PASS_CODE: 'You will reveal to this code the manager.',
         YOUR_CODE: 'Your code: ',
-        EMPTY_FIELD: 'You will fill this field.',
+        EMPTY_FIELD: 'You should to fill this field.',
         WRONG_NUMBER: 'Incorrect number.',
         SHORT_NAME: 'Too short name',
         SHORT_PASSWORD: 'Too little password.',

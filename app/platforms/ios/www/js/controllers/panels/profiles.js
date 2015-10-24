@@ -25,6 +25,7 @@
 
     //------ clicking
     thisCtrl.selectProfile = selectProfile;
+    thisCtrl.showInfoBox = MainServ.showInfoBox;
 
 
 
@@ -32,13 +33,14 @@
 
     //---------- Select profile
     function selectProfile(newId) {
-      MainServ.setCurrentProfile(newId).then(function(){
+      MainServ.setCurrentProfile(ProductStor.product, newId).then(function(){
+        ProductStor.product.glass.length = 0;
         MainServ.parseTemplate();
       });
 
       //------ save analytics data
 //      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, id, producerIndex);
-//TODO      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_number, newId);
+//TODO      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_id, newId);
     }
 
   }

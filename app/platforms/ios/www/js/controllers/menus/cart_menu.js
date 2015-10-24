@@ -7,18 +7,16 @@
     .module('CartModule')
     .controller('CartMenuCtrl', cartMenuCtrl);
 
-  function cartMenuCtrl($filter, globalConstants, OrderStor, UserStor, CartStor, CartMenuServ, optionsServ) {
+  function cartMenuCtrl($filter, globalConstants, GlobalStor, OrderStor, UserStor, CartStor, CartMenuServ) {
 
     var thisCtrl = this;
+    thisCtrl.G = GlobalStor;
     thisCtrl.U = UserStor;
     thisCtrl.O = OrderStor;
     thisCtrl.C = CartStor;
 
     thisCtrl.config = {
       activeMenuItem: false,
-      floorData: [],
-      assemblingData: [],
-      instalmentsData: [],
       month: $filter('translate')('common_words.MONTH_LABEL'),
       montha: $filter('translate')('common_words.MONTHA_LABEL'),
       months: $filter('translate')('common_words.MONTHS_LABEL'),
@@ -26,34 +24,6 @@
       DELAY_START: globalConstants.STEP,
       typing: 'on'
     };
-
-
-    //----------- download Cart Menu Data
-
-    optionsServ.getFloorPrice(function (results) {
-      if (results.status) {
-        thisCtrl.config.floorData = angular.copy(results.data.floors);
-      } else {
-        console.log(results);
-      }
-    });
-
-    optionsServ.getAssemblingPrice(function (results) {
-      if (results.status) {
-        thisCtrl.config.assemblingData = angular.copy(results.data.assembling);
-      } else {
-        console.log(results);
-      }
-    });
-
-    optionsServ.getInstalment(function (results) {
-      if (results.status) {
-        thisCtrl.config.instalmentsData = results.data.instalment;
-      } else {
-        console.log(results);
-      }
-    });
-
 
 
     //------ clicking
@@ -64,6 +34,7 @@
     thisCtrl.selectInstalment = CartMenuServ.selectInstalment;
     thisCtrl.openMasterDialog = openMasterDialog;
     thisCtrl.openOrderDialog = openOrderDialog;
+    thisCtrl.swipeDiscountBlock = CartMenuServ.swipeDiscountBlock;
 
 
 
@@ -74,27 +45,28 @@
 
     //----- Select menu item
     function selectMenuItem(id) {
-      thisCtrl.config.activeMenuItem = (thisCtrl.config.activeMenuItem === id) ? false : id;
+      thisCtrl.config.activeMenuItem = (thisCtrl.config.activeMenuItem === id) ? 0 : id;
     }
 
     function closeInstalment() {
       OrderStor.order.is_instalment = 0;
+      OrderStor.order.instalment_id = 0;
       OrderStor.order.selectedInstalmentPeriod = 0;
       OrderStor.order.selectedInstalmentPercent = 0;
-      thisCtrl.config.activeMenuItem = false;
+      thisCtrl.config.activeMenuItem = 0;
     }
 
     //------ show Call Master Dialog
     function openMasterDialog() {
-      CartStor.cart.isMasterDialog = true;
+      CartStor.cart.isMasterDialog = 1;
     }
 
     //------ show Order/Credit Dialog
     function openOrderDialog() {
       if(OrderStor.order.is_instalment) {
-        CartStor.cart.isCreditDialog = true;
+        CartStor.cart.isCreditDialog = 1;
       } else {
-        CartStor.cart.isOrderDialog = true;
+        CartStor.cart.isOrderDialog = 1;
       }
     }
 
