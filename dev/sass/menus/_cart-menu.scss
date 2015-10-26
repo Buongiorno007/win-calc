@@ -158,6 +158,10 @@
     border-style: solid;
     border-width: 0 0 1px 0;
     border-color: $main_gray_btn;
+
+    .value {
+      width: 75%;
+    }
   }
 
   .drop-instalment {

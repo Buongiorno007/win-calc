@@ -962,22 +962,21 @@
 
 
     function downloadCartMenuData() {
-      optionsServ.getFloorPrice(function (results) {
-        if (results.status) {
-          GlobalStor.global.floorData = angular.copy(results.data.floors);
-        } else {
-          console.log(results);
+      /** download Supply Data */
+      localDB.selectLocalDB(localDB.tablesLocalDB.users_deliveries.tableName).then(function(supply) {
+        if (supply.length) {
+          GlobalStor.global.supplyData = angular.copy(supply);
+//          console.warn('supplyData=', GlobalStor.global.supplyData);
         }
       });
-
-      optionsServ.getAssemblingPrice(function (results) {
-        if (results.status) {
-          GlobalStor.global.assemblingData = angular.copy(results.data.assembling);
-        } else {
-          console.log(results);
+      /** download Mounting Data */
+      localDB.selectLocalDB(localDB.tablesLocalDB.users_mountings.tableName).then(function(mounting) {
+        if (mounting.length) {
+          GlobalStor.global.assemblingData = angular.copy(mounting);
+//          console.warn('assemblingData=', GlobalStor.global.assemblingData);
         }
       });
-
+      /** download Instalment Data */
       optionsServ.getInstalment(function (results) {
         if (results.status) {
           GlobalStor.global.instalmentsData = results.data.instalment;

@@ -5,16 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>BauVoice | {{ title }}</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0, user-scalable=no, maximum-scale=5" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=5">
     <link rel="stylesheet" href="css/main.css">
-
   </head>
   <body>
     <section ng-view class="app-container"></section>
     <script src="js/plugins.js"></script>
     <!--script(src='js/main.js')-->
     <script src="js/app.js"></script>
-
     <script src="js/services/localdb_serv.js"></script>
     <script src="js/services/options_serv.js"></script>
     <script src="js/services/constants.js"></script>
@@ -93,7 +91,6 @@
     <script src="js/nuancespeechkit.js"></script>
     <script src="js/voicerec.js"></script>
     <script src="js/parser.js"></script>
-
     <audio id="sounds">
       <source src="audio/soundsPrice.aac" type="audio/mpeg">
       <!--source(src="audio/sounds.aac", type="audio/mpeg")-->

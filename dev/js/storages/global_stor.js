@@ -65,7 +65,7 @@
         tempAddElements: [],
 
         //------ Cart
-        floorData: [],
+        supplyData: [],
         assemblingData: [],
         instalmentsData: [],
 

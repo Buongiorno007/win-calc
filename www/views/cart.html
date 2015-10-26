@@ -684,7 +684,7 @@
                 <div ng-show="cartMenu.O.order.floor_id" data-output="{{ cartMenu.O.order.floorName }} {{ 'cart.FLOOR' | translate }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div><span ng-show="cartMenu.O.order.floor_id" data-output=" + {{ cartMenu.O.order.floor_price }} {{ cartMenu.U.userInfo.currency }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span>
               </div>
             </li>
-            <div ng-class="{'active': cartMenu.config.activeMenuItem == 1}" class="dropdown-cart-menu drop-delivery">
+            <div ng-class="{'active': cartMenu.config.activeMenuItem == 1 &amp;&amp; cartMenu.G.global.supplyData.length}" class="dropdown-cart-menu drop-delivery">
               <ul class="dropdown-items-list">
                 <li ng-class="{'selected': !cartMenu.O.order.floor_id}" hm-tap="cartMenu.selectFloorPrice(0)" class="dropdown-item">
                   <div class="dropdown-item-inner">
@@ -692,10 +692,10 @@
                     <div class="name drop-txt"></div>
                   </div>
                 </li>
-                <li ng-repeat="floorList in cartMenu.G.global.floorData" ng-class="{'selected': floorList.id == cartMenu.O.order.floor_id}" hm-tap="cartMenu.selectFloorPrice(floorList.id, floorList.name, floorList.price)" class="dropdown-item">
+                <li ng-repeat="supplyList in cartMenu.G.global.supplyData" ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}" hm-tap="cartMenu.selectFloorPrice(supplyList.id, supplyList.name, supplyList.price)" class="dropdown-item">
                   <div class="dropdown-item-inner">
-                    <div class="value drop-txt">{{floorList.name}} {{ 'cart.FLOOR' | translate }}</div>
-                    <div class="name drop-txt">+ {{floorList.price}} {{ cartMenu.U.userInfo.currency }}</div>
+                    <div class="value drop-txt">{{supplyList.name}} {{ 'cart.FLOOR' | translate }}</div>
+                    <div class="name drop-txt">+ {{supplyList.price}} {{ cartMenu.U.userInfo.currency }}</div>
                   </div>
                 </li>
               </ul>
@@ -707,7 +707,7 @@
                 <div ng-show="cartMenu.O.order.mounting_id" data-output="{{ cartMenu.O.order.mountingName }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="value"></div><span ng-show="cartMenu.O.order.mounting_id" data-output=" + {{ cartMenu.O.order.mounting_price }} {{ cartMenu.U.userInfo.currency }}" typing="{{ cartMenu.config.typing }}" typing-delay="{{ cartMenu.config.DELAY_START }}" class="name aside"></span>
               </div>
             </li>
-            <div ng-class="{'active': cartMenu.config.activeMenuItem == 2}" class="dropdown-cart-menu drop-assembling">
+            <div ng-class="{'active': cartMenu.config.activeMenuItem == 2 &amp;&amp; cartMenu.G.global.assemblingData.length}" class="dropdown-cart-menu drop-assembling">
               <ul class="dropdown-items-list">
                 <li ng-class="{'selected': !cartMenu.O.order.mounting_id}" hm-tap="cartMenu.selectAssembling(0)" class="dropdown-item">
                   <div class="dropdown-item-inner">

@@ -7,16 +7,16 @@
           .value(ng-show="!cartMenu.O.order.floor_id", data-output="{{ 'cart.SELF_EXPORT' | translate }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
           .value(ng-show="cartMenu.O.order.floor_id", data-output="{{ cartMenu.O.order.floorName }} {{ 'cart.FLOOR' | translate }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
           span.name.aside(ng-show="cartMenu.O.order.floor_id", data-output=" + {{ cartMenu.O.order.floor_price }} {{ cartMenu.U.userInfo.currency }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-      .dropdown-cart-menu.drop-delivery(ng-class="{'active': cartMenu.config.activeMenuItem == 1}")
+      .dropdown-cart-menu.drop-delivery(ng-class="{'active': cartMenu.config.activeMenuItem == 1 && cartMenu.G.global.supplyData.length}")
         ul.dropdown-items-list
           li.dropdown-item(ng-class="{'selected': !cartMenu.O.order.floor_id}", hm-tap="cartMenu.selectFloorPrice(0)")
             .dropdown-item-inner
               .value.drop-txt {{ 'cart.SELF_EXPORT' | translate }}
               .name.drop-txt
-          li.dropdown-item(ng-repeat="floorList in cartMenu.G.global.floorData", ng-class="{'selected': floorList.id == cartMenu.O.order.floor_id}", hm-tap="cartMenu.selectFloorPrice(floorList.id, floorList.name, floorList.price)")
+          li.dropdown-item(ng-repeat="supplyList in cartMenu.G.global.supplyData", ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}", hm-tap="cartMenu.selectFloorPrice(supplyList.id, supplyList.name, supplyList.price)")
             .dropdown-item-inner
-              .value.drop-txt {{floorList.name}} {{ 'cart.FLOOR' | translate }}
-              .name.drop-txt + {{floorList.price}} {{ cartMenu.U.userInfo.currency }}
+              .value.drop-txt {{supplyList.name}} {{ 'cart.FLOOR' | translate }}
+              .name.drop-txt + {{supplyList.price}} {{ cartMenu.U.userInfo.currency }}
 
       li.item(ng-class="{'active': cartMenu.config.activeMenuItem == 2}", hm-tap="cartMenu.selectMenuItem(2)")
         .title(data-output="{{ 'cart.ASSEMBLING' | translate }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
@@ -24,7 +24,7 @@
           .value(ng-show="!cartMenu.O.order.mounting_id", data-output="{{ 'cart.WITHOUT_ASSEMBLING' | translate }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
           .value(ng-show="cartMenu.O.order.mounting_id", data-output="{{ cartMenu.O.order.mountingName }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
           span.name.aside(ng-show="cartMenu.O.order.mounting_id", data-output=" + {{ cartMenu.O.order.mounting_price }} {{ cartMenu.U.userInfo.currency }}", typing="{{ cartMenu.config.typing }}", typing-delay="{{ cartMenu.config.DELAY_START }}")
-      .dropdown-cart-menu.drop-assembling(ng-class="{'active': cartMenu.config.activeMenuItem == 2}")
+      .dropdown-cart-menu.drop-assembling(ng-class="{'active': cartMenu.config.activeMenuItem == 2 && cartMenu.G.global.assemblingData.length}")
         ul.dropdown-items-list
           li.dropdown-item(ng-class="{'selected': !cartMenu.O.order.mounting_id}", hm-tap="cartMenu.selectAssembling(0)")
             .dropdown-item-inner
