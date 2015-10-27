@@ -52,8 +52,9 @@
 
     //------ Download complete Orders from localDB
     function downloadOrders() {
-      localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {order_type: 1}).then(function(orders) {
-        var orderQty = orders.length;
+      localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {order_type: 1}).then(function(result) {
+        var orders = angular.copy(result),
+            orderQty = orders.length;
         HistoryStor.history.isEmptyResult = 0;
         if(orderQty) {
           while(--orderQty > -1) {
@@ -362,7 +363,8 @@
     function downloadProducts() {
       var deferred = $q.defer();
 
-      localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(products) {
+      localDB.selectLocalDB(localDB.tablesLocalDB.order_products.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(result) {
+        var products = angular.copy(result);
         if(products.length) {
 
           //------------- parsing All Templates Source and Icons for Order
@@ -470,18 +472,19 @@
     function downloadAddElements() {
       var deferred = $q.defer();
       localDB.selectLocalDB(localDB.tablesLocalDB.order_addelements.tableName, {'order_id': GlobalStor.global.orderEditNumber}).then(function(result) {
-        var allAddElemQty = result.length,
+        var elementsAdd = angular.copy(result),
+            allAddElemQty = elementsAdd.length,
             orderProductsQty = OrderStor.order.products.length;
 
         if(allAddElemQty) {
           while(--allAddElemQty > -1) {
             for(var prod = 0; prod < orderProductsQty; prod++) {
-              if(result[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
-                result[allAddElemQty].id = angular.copy(result[allAddElemQty].element_id);
-                delete result[allAddElemQty].element_id;
-                delete result[allAddElemQty].modified;
-                result[allAddElemQty].elementPriceDis = GeneralServ.setPriceDis(result[allAddElemQty].element_price, OrderStor.order.discount_addelem);
-                OrderStor.order.products[prod].chosenAddElements[result[allAddElemQty].element_type].push(result[allAddElemQty]);
+              if(elementsAdd[allAddElemQty].product_id === OrderStor.order.products[prod].product_id) {
+                elementsAdd[allAddElemQty].id = angular.copy(elementsAdd[allAddElemQty].element_id);
+                delete elementsAdd[allAddElemQty].element_id;
+                delete elementsAdd[allAddElemQty].modified;
+                elementsAdd[allAddElemQty].elementPriceDis = GeneralServ.setPriceDis(elementsAdd[allAddElemQty].element_price, OrderStor.order.discount_addelem);
+                OrderStor.order.products[prod].chosenAddElements[elementsAdd[allAddElemQty].element_type].push(elementsAdd[allAddElemQty]);
                 if(!allAddElemQty) {
                   deferred.resolve(1);
                 }
@@ -515,9 +518,10 @@
 
     //------ Download draft Orders from localDB
     function downloadDrafts() {
-      localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {'order_type': 0}).then(function(drafts) {
-        var draftQty = drafts.length;
-        console.log('draft =', drafts);
+      localDB.selectLocalDB(localDB.tablesLocalDB.orders.tableName, {'order_type': 0}).then(function(result) {
+        var drafts = angular.copy(result),
+            draftQty = drafts.length;
+//        console.log('draft =', drafts);
         HistoryStor.history.isEmptyResultDraft = 0;
         if(draftQty) {
           while(--draftQty > -1) {

@@ -1419,8 +1419,9 @@
         if(resQty) {
 		  //----- loop by sizes (sashesBlock)
           for(var s = 0; s < sashBlocksQty; s++){
-		        var hardware = [],
-                hardwareKits = [],
+		        var hardware = angular.copy(result),
+                hardware1 = [],
+                hardware2 = [],
                 openDirQty = sashBlocks[s].openDir.length;
 
             /** change openDir for directions
@@ -1439,17 +1440,17 @@
             }
 
             //------ filter by type, direction and color
-            hardware = result.filter(function(item) {
+            hardware1 = hardware.filter(function(item) {
               if(item.window_hardware_type_id == sashBlocks[s].type && (item.window_hardware_color_id == color || !item.window_hardware_color_id)) {
                 if (openDirQty == 1) {
-                  return  item.direction_id == sashBlocks[s].openDir[0];
+                  return  (item.direction_id == sashBlocks[s].openDir[0] || item.direction_id == 1);
                 } else if (openDirQty == 2) {
-                  return (item.direction_id == sashBlocks[s].openDir[0] || item.direction_id == sashBlocks[s].openDir[1]);
+                  return (item.direction_id == sashBlocks[s].openDir[0] || item.direction_id == sashBlocks[s].openDir[1] || item.direction_id == 1);
                 }
               }
             });
 
-            hardware = hardware.filter(function(item) {
+            hardware2 = hardware1.filter(function(item) {
               if(item.min_width && item.max_width && !item.min_height && !item.max_height) {
                 if(sashBlocks[s].sizes[0] >= item.min_width && sashBlocks[s].sizes[0] <= item.max_width) {
                   return item;
@@ -1468,7 +1469,7 @@
                 return item;
               }
             });
-            hardwareKits.push(hardware);
+            hardwareKits.push(hardware2);
           }
           if(hardwareKits.length) {
 		        deff.resolve(hardwareKits);
@@ -1917,19 +1918,19 @@
               consistQty = priceObj.consist[group].length;
 
           if(consistQty) {
-            for(var s = 0; s < sizeQty; s++) {
 
-              if(Array.isArray(priceObj.kits[group])) {
-                for(var elem = 0; elem < consistQty; elem++) {
-                  culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], priceObj.kits[group][elem], priceObj);
-                }
-              } else {
-                for(var elem = 0; elem < consistQty; elem++) {
+            if(Array.isArray(priceObj.kits[group])) {
+              for(var elem = 0; elem < consistQty; elem++) {
+                culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][elem], priceObj.kits[group][elem], priceObj);
+              }
+            } else {
+              for(var s = 0; s < sizeQty; s++) {
+                for (var elem = 0; elem < consistQty; elem++) {
                   culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], priceObj.kits[group], priceObj);
                 }
               }
-
             }
+
           }
 
         }
@@ -2024,14 +2025,18 @@
 
 
     function checkDirectionConsistElem(currConsist, openDir, openDirQty) {
-      var isExist = 0,
-          d = 0;
-      for(; d < openDirQty; d++) {
-        if(openDir[d] === currConsist.direction_id) {
-          isExist++;
+      if(currConsist.direction_id == 1) {
+        return 1;
+      } else {
+        var isExist = 0,
+            d = 0;
+        for(; d < openDirQty; d++) {
+          if(openDir[d] === currConsist.direction_id) {
+            isExist++;
+          }
         }
+        return isExist;
       }
-      return isExist;
     }
 
 
