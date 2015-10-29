@@ -4,7 +4,7 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: rem(360px);
+  height: 20.5rem;
   z-index: 11;
 
   &.show-comment {
@@ -35,7 +35,7 @@
   .coeff-container {
     @include display-flex();
     @include flex-flow(row wrap);
-    @include top_left_coord(230px, 0px);
+    @include top_left_coord(200px, 0px);
     @include animation(moveCoeff 1s 0 ease 1);
 
     position: absolute;
@@ -88,7 +88,7 @@
   .comment-btn {
     &:after {
       @include font-icon(5rem, 1);
-      padding: 2rem;
+//      padding: 2rem;
       content: $coment;
       color: #fff;
       cursor: pointer;

@@ -1,5 +1,6 @@
 .qty-calc-container {
   @extend .calculator;
+  width: 100%;
 
   .calc-interval {
     @include justify-content(center);

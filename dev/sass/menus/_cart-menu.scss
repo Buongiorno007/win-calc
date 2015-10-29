@@ -124,8 +124,9 @@
     }
   }
   .drop-calendar {
+    text-align: center;
     &.active {
-      height: 25rem;
+      height: 28rem;
     }
   }
   .dropdown-items-list {

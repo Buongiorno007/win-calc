@@ -35,24 +35,13 @@ body {
   position: relative; //TODO ipad delete
   top: 0; //TODO ipad delete
   left: 0; //TODO ipad delete
-  //TODO ipad   width: rem($page_container-width);
-  width: rem($page_container-width-right_menu);
+  width: rem($page_container-width);
   height: 100%;
   &.swiped {
-    top: 0;
-    //TODO ipad     width: rem($page_container-width-right_menu);
-    //TODO ipad     .main-content {
-    //TODO ipad       width: rem($main_content-width-right_menu);
-    //TODO ipad     }
-    //TODO ipad     .main-history {
-    //TODO ipad       width: rem($ipad-width);
-    //TODO ipad     }
+    @include translateX(rem(-$left_side-width));
   }
 }
 
-.swiped {
-  @include translateX(rem(-$left_side-width));
-}
 
 .left-side {
   width: rem($left_side-width);
@@ -73,11 +62,9 @@ body {
 
 .main-content {
   @include transition(width .5s linear);
-
   position: relative;
   overflow: hidden;
-  //TODO ipad   width: rem($main_content-width);
-  width: rem($main_content-width-right_menu);
+  width: rem($main_content-width);
   height: 100%;
   z-index: 0;
 }
@@ -209,7 +196,7 @@ body {
   background-color: rgba(#fff, .85);
 
   &.active {
-    @include top_left_coord(300px, 80px);
+    left: 5rem;
   }
 }
 

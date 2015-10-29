@@ -695,7 +695,7 @@
                 <li ng-repeat="supplyList in cartMenu.G.global.supplyData" ng-class="{'selected': supplyList.id == cartMenu.O.order.floor_id}" hm-tap="cartMenu.selectFloorPrice(supplyList.id, supplyList.name, supplyList.price)" class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value drop-txt">{{supplyList.name}} {{ 'cart.FLOOR' | translate }}</div>
-                    <div class="name drop-txt">+ {{supplyList.price}} {{ cartMenu.U.userInfo.currency }}</div>
+                    <div class="name drop-txt">+ {{supplyList.priceReal}} {{ cartMenu.U.userInfo.currency }}</div>
                   </div>
                 </li>
               </ul>
@@ -718,7 +718,7 @@
                 <li ng-repeat="assemb in cartMenu.G.global.assemblingData" ng-class="{'selected': assemb.id == cartMenu.O.order.mounting_id}" hm-tap="cartMenu.selectAssembling(assemb.id, assemb.name, assemb.price)" class="dropdown-item">
                   <div class="dropdown-item-inner">
                     <div class="value drop-txt">{{ assemb.name }}</div>
-                    <div class="name drop-txt">+ {{ assemb.price }} {{ cartMenu.U.userInfo.currency }}</div>
+                    <div class="name drop-txt">+ {{ assemb.priceReal }} {{ cartMenu.U.userInfo.currency }}</div>
                   </div>
                 </li>
               </ul>

@@ -7,7 +7,7 @@
     .module('MainModule')
     .factory('AddElementMenuServ', addElemMenuFactory);
 
-  function addElemMenuFactory($rootScope, $q, $timeout, globalConstants, GlobalStor, AuxStor, OrderStor, ProductStor, UserStor, localDB, GeneralServ, MainServ, AddElementsServ, analyticsServ) {
+  function addElemMenuFactory($q, $timeout, globalConstants, GlobalStor, AuxStor, OrderStor, ProductStor, UserStor, localDB, GeneralServ, MainServ, AddElementsServ, AnalyticsServ) {
 
     var thisFactory = this,
         delayShowElementsMenu = globalConstants.STEP * 12,
@@ -68,7 +68,7 @@
           setAddElementsTotalPrice();
 
           //------ save analytics data
-          //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_id, addElem.id, typeIndex);
+          //TODO ??? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, addElem.id, typeIndex);
         });
       }
     }
@@ -82,7 +82,7 @@
       //----- hide element price in menu
       AuxStor.aux.currAddElementPrice = 0;
       //------ save analytics data
-      //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_id, AuxStor.aux.addElementsList[typeIndex][elementIndex].id, typeIndex);
+      //TODO ??? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, AuxStor.aux.addElementsList[typeIndex][elementIndex].id, typeIndex);
       AuxStor.aux.isAddElement = 0;
     }
 
@@ -109,7 +109,6 @@
             AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem);
             AuxStor.aux.addElementsList[typeIndex][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers( results.priceTotal ));
             AuxStor.aux.addElementsList[typeIndex][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
-            $rootScope.$apply();
             deferred.resolve(angular.copy(AuxStor.aux.addElementsList[typeIndex][elementIndex]));
           } else {
             deferred.reject(results);

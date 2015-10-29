@@ -10,7 +10,7 @@
     .module('MainModule')
     .controller('LaminationsCtrl', laminationSelectorCtrl);
 
-  function laminationSelectorCtrl($timeout, $filter, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, MainServ, analyticsServ) {
+  function laminationSelectorCtrl($timeout, $filter, globalConstants, MainServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -34,23 +34,30 @@
     //------------ Select lamination
     function selectLaminat(type, id, name) {
       if(type) {
-        ProductStor.product.lamination_out_id = id;
-        if(id === 1) {
-          ProductStor.product.laminationOutName =  $filter('translate')('mainpage.WHITE_LAMINATION');
-        } else {
-          ProductStor.product.laminationOutName = name;
+        if(ProductStor.product.lamination_out_id !== id) {
+          ProductStor.product.lamination_out_id = id;
+          if (id === 1) {
+            ProductStor.product.laminationOutName = $filter('translate')('mainpage.WHITE_LAMINATION');
+          } else {
+            ProductStor.product.laminationOutName = name;
+          }
+          setLaminationTotalPrice();
+          //------ save analytics data
+          //TODO ?? analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, id, 4);
         }
       } else {
-        ProductStor.product.lamination_in_id = id;
-        if(id === 1) {
-          ProductStor.product.laminationInName =  $filter('translate')('mainpage.WHITE_LAMINATION');
-        } else {
-          ProductStor.product.laminationInName = name;
+        if(ProductStor.product.lamination_in_id !== id) {
+          ProductStor.product.lamination_in_id = id;
+          if (id === 1) {
+            ProductStor.product.laminationInName = $filter('translate')('mainpage.WHITE_LAMINATION');
+          } else {
+            ProductStor.product.laminationInName = name;
+          }
+          setLaminationTotalPrice();
+          //------ save analytics data
+          //TODO ?? analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, id, 4);
         }
       }
-      setLaminationTotalPrice();
-      //------ save analytics data
-      //TODO analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_id, id, type);
     }
 
 

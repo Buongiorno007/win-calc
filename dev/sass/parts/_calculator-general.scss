@@ -17,9 +17,7 @@
     @extend .button;
     @include roboto-lt(rem(36px));
     @include user-select(none);
-
-    display: block;
-    width: 9.82rem;//(156px);
+    width: 11rem;
     height: rem(100px);
   }
 

@@ -11,11 +11,9 @@
     .module('DesignModule')
     .factory('DesignServ', designFactory);
 
-  function designFactory($rootScope, $location, $timeout, $filter, $q, MainServ, globalConstants, optionsServ, SVGServ, GlobalStor, DesignStor, ProductStor) {
+  function designFactory($rootScope, $location, $timeout, $filter, $q, MainServ, AnalyticsServ, globalConstants, optionsServ, SVGServ, GlobalStor, DesignStor, OrderStor, ProductStor, UserStor) {
 
     var thisFactory = this,
-        sizeRectActClass = 'size-rect-active',
-        sizeBoxActClass = 'size-value-active',
         newLength;
 
     thisFactory.publicObj = {
@@ -111,6 +109,8 @@
           GlobalStor.global.isSashesInTemplate = MainServ.checkSashInTemplate(ProductStor.product);
           if (GlobalStor.global.isSashesInTemplate) {
             ProductStor.product.hardware = GlobalStor.global.hardwares[0][0];
+            //------ save analytics data
+            AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.hardware.id, 3);
           } else {
             ProductStor.product.hardware.id = 0;
           }
@@ -1640,7 +1640,6 @@
           changeSize();
         }
         deselectAllDimension();
-//        deactiveSizeBox(sizeRectActClass, sizeBoxActClass);
 
       } else {
         //---- clear array from 0 after delete all number in array

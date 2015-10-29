@@ -10,7 +10,7 @@
     .module('MainModule')
     .factory('MainServ', navFactory);
 
-  function navFactory($rootScope, $location, $q, $filter, $timeout, globalConstants, localDB, GeneralServ, SVGServ, loginServ, optionsServ, GlobalStor, OrderStor, ProductStor, UserStor, AuxStor) {
+  function navFactory($rootScope, $location, $q, $filter, $timeout, globalConstants, localDB, GeneralServ, SVGServ, loginServ, optionsServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor, AuxStor) {
 
     var thisFactory = this;
 
@@ -616,6 +616,7 @@
     //--------- create object to send in server for price calculation
     function preparePrice(template, profileId, glassId, hardwareId) {
       var deferred = $q.defer();
+      GlobalStor.global.isLoader = 1;
       setBeadId(profileId).then(function(beadIds) {
 
         var objXFormedPrice = {
@@ -666,6 +667,7 @@
         //------- set Overall Dimensions
         ProductStor.product.template_width = 0;
         ProductStor.product.template_height = 0;
+        ProductStor.product.template_square = 0;
         var overallQty = ProductStor.product.template.details[0].overallDim.length;
         while(--overallQty > -1) {
           ProductStor.product.template_width += ProductStor.product.template.details[0].overallDim[overallQty].w;
@@ -683,13 +685,20 @@
           deferred.resolve(1);
           /** set Report */
           if(result) {
-            ProductStor.product.report = prepareReport(result.constrElements);
+            //---- only for this type of user
+            if(UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
+              ProductStor.product.report = prepareReport(result.constrElements);
+            }
           }
         });
 
         /** calculate coeffs */
         calculateCoeffs(objXFormedPrice);
 
+        /** save analytics data first time */
+        if(GlobalStor.global.startProgramm) {
+          AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+        }
       });
       return deferred.promise;
     }
@@ -836,6 +845,7 @@
       if(GlobalStor.global.deliveryCoeff.base_time) {
         ProductStor.product.productPriceDis = GeneralServ.setPriceDis(ProductStor.product.productPriceDis, GlobalStor.global.deliveryCoeff.base_time);
       }
+      GlobalStor.global.isLoader = 0;
     }
 
 
@@ -1029,13 +1039,13 @@
       createOrderData();
       //------- set current Discounts
       setCurrDiscounts();
+      GlobalStor.global.isChangedTemplate = 0;
+      GlobalStor.global.isShowCommentBlock = 0;
+      GlobalStor.global.isCreatedNewProject = 1;
+      GlobalStor.global.isCreatedNewProduct = 1;
       //------- set new templates
       prepareTemplates(ProductStor.product.construction_type).then(function() {
         GlobalStor.global.isLoader = 0;
-        GlobalStor.global.isChangedTemplate = 0;
-        GlobalStor.global.isShowCommentBlock = 0;
-        GlobalStor.global.isCreatedNewProject = 1;
-        GlobalStor.global.isCreatedNewProduct = 1;
         prepareMainPage();
         if(GlobalStor.global.currOpenPage !== 'main') {
           GlobalStor.global.showRoomSelectorDialog = 0;
@@ -1291,6 +1301,8 @@
         deferred.resolve(1);
       }
 
+      //------ send analytics data to Server
+      AnalyticsServ.sendAnalyticsDB();
 
       //----- cleaning order
       OrderStor.order = OrderStor.setDefaultOrder();

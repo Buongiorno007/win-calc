@@ -7,7 +7,7 @@
     .module('CartModule')
     .factory('CartMenuServ', cartMenuFactory);
 
-  function cartMenuFactory($location, GeneralServ, MainServ, analyticsServ, GlobalStor, OrderStor, CartStor, UserStor) {
+  function cartMenuFactory($location, GeneralServ, MainServ, GlobalStor, OrderStor, CartStor, UserStor) {
 
     var thisFactory = this;
 
@@ -193,8 +193,8 @@
         calculateAllProductsPrice();
         hideDeliveryPriceOnCalendar();
       }
-      calculateTotalOrderPrice();
       OrderStor.order.new_delivery_date = newDate.getTime();
+      calculateTotalOrderPrice();
     }
 
 
@@ -213,6 +213,33 @@
     }
 
 
+    function setMenuItemPriceReal(items) {
+      if(items) {
+        var itemQty = items.length;
+        while(--itemQty > -1) {
+          if(items[itemQty].type) {
+            switch(items[itemQty].type) {
+              case 1: //----- Цена за 1 конструкцию
+                items[itemQty].priceReal = items[itemQty].price * CartStor.cart.qtyTotal;
+                break;
+              case 2: //----- Цена за 1 м2 конструкции
+                items[itemQty].priceReal = items[itemQty].price * CartStor.cart.squareTotal;
+                break;
+              case 3: //----- Цена за 1 м/п конструкции
+                items[itemQty].priceReal = items[itemQty].price * CartStor.cart.perimeterTotal;
+                break;
+              case 4: //----- Цена как % от стоимости
+                items[itemQty].priceReal = OrderStor.order.productsPriceDis * items[itemQty].price/100;
+                break;
+              default:
+                items[itemQty].priceReal = 0;
+                break;
+            }
+          }
+        }
+      }
+    }
+
 
 
 
@@ -229,6 +256,10 @@
       }
       //----- join together product prices and order option
       calculateTotalOrderPrice();
+
+      /** set Supply & Mounting Price for submenu items*/
+      setMenuItemPriceReal(GlobalStor.global.supplyData);
+      setMenuItemPriceReal(GlobalStor.global.assemblingData);
     }
 
 
@@ -240,11 +271,18 @@
       OrderStor.order.addelems_price = 0;
       OrderStor.order.products_price = 0;
       OrderStor.order.productsPriceDis = 0;
+      CartStor.cart.squareTotal = 0;
+      CartStor.cart.perimeterTotal = 0;
+      CartStor.cart.qtyTotal = 0;
       while(--productsQty > -1) {
         OrderStor.order.addelems_price += OrderStor.order.products[productsQty].addelem_price * OrderStor.order.products[productsQty].product_qty;
         OrderStor.order.templates_price += OrderStor.order.products[productsQty].template_price * OrderStor.order.products[productsQty].product_qty;
         OrderStor.order.products_price += OrderStor.order.products[productsQty].product_price * OrderStor.order.products[productsQty].product_qty;
         OrderStor.order.productsPriceDis += OrderStor.order.products[productsQty].productPriceDis * OrderStor.order.products[productsQty].product_qty;
+        //------ data for cuclulate Supply and Mounting Prices Submenu
+        CartStor.cart.squareTotal += (OrderStor.order.products[productsQty].template_square * OrderStor.order.products[productsQty].product_qty);
+        CartStor.cart.perimeterTotal += 0.002 * (OrderStor.order.products[productsQty].template_width + OrderStor.order.products[productsQty].template_height) * OrderStor.order.products[productsQty].product_qty;
+        CartStor.cart.qtyTotal += OrderStor.order.products[productsQty].product_qty;
       }
       OrderStor.order.addelems_price = GeneralServ.roundingNumbers(OrderStor.order.addelems_price);
       OrderStor.order.templates_price = GeneralServ.roundingNumbers(OrderStor.order.templates_price);
@@ -255,7 +293,6 @@
       } else {
         OrderStor.order.productsPriceDis = angular.copy(OrderStor.order.products_price);
       }
-
     }
 
 
@@ -265,6 +302,9 @@
 
       OrderStor.order.order_price = 0;
       OrderStor.order.order_price_dis = 0;
+
+      //----- add mounting margin by Day
+      setMountingMarginDay();
 
       //----- add product prices, floor price, assembling price
       OrderStor.order.order_price = OrderStor.order.products_price + OrderStor.order.floor_price + OrderStor.order.mounting_price;
@@ -309,6 +349,40 @@
         }
       }
     }
+
+
+    /** mounting margin by Day */
+    function setMountingMarginDay() {
+      var dayIndex = new Date(OrderStor.order.new_delivery_date).getDay(),
+          dayMargin = 0;
+//      console.warn('new_delivery_date', dayIndex);
+      switch(dayIndex) {
+        case 0: //---- Sunday
+          dayMargin = (UserStor.userInfo.mount_sun) ? UserStor.userInfo.mount_sun : 0;
+          break;
+        case 1: //---- Monday
+          dayMargin = (UserStor.userInfo.mount_mon) ? UserStor.userInfo.mount_mon : 0;
+          break;
+        case 2: //---- Tuesday
+          dayMargin = (UserStor.userInfo.mount_tue) ? UserStor.userInfo.mount_tue : 0;
+          break;
+        case 3: //---- Wednesday
+          dayMargin = (UserStor.userInfo.mount_wed) ? UserStor.userInfo.mount_wed : 0;
+          break;
+        case 4: //---- Thursday
+          dayMargin = (UserStor.userInfo.mount_thu) ? UserStor.userInfo.mount_thu : 0;
+          break;
+        case 5: //---- Friday
+          dayMargin = (UserStor.userInfo.mount_fri) ? UserStor.userInfo.mount_fri : 0;
+          break;
+        case 6: //---- Sataday
+          dayMargin = (UserStor.userInfo.mount_sat) ? UserStor.userInfo.mount_sat : 0;
+          break;
+      }
+//      console.log('dayMargin',dayMargin);
+      OrderStor.order.mounting_price = GeneralServ.roundingNumbers(OrderStor.order.mounting_price * (1 + (dayMargin/100)));
+    }
+
 
 
     /** open/close discount block */
@@ -366,7 +440,6 @@
         closeOrderDialog();
         //------- set previos Page
         GeneralServ.setPreviosPage();
-        //TODO ??? analyticsServ.sendAnalyticsGlobalDB(OrderStor.order);
         GlobalStor.global.isLoader = 0;
         $location.path('/history');
       });

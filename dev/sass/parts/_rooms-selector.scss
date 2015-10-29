@@ -1,6 +1,8 @@
 .rooms-selector-dialog {
   @extend .modal-dialog;
+  @include transform(translate3d(0,0,0));
   height: 64rem;
+  top: 15.75rem;
   overflow: hidden;
   z-index: 1;
   &:after {
@@ -15,8 +17,10 @@
     content: '';
   }
   .rooms-inner {
+    @include overflow-scroll();
     height: 100%;
     width: 110%;
+    overflow-x: hidden;
     overflow-y: auto;
   }
   .room-block {

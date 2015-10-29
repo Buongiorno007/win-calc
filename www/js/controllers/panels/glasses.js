@@ -10,7 +10,7 @@
     .module('MainModule')
     .controller('GlassesCtrl', glassSelectorCtrl);
 
-  function glassSelectorCtrl($filter, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, MainServ, analyticsServ) {
+  function glassSelectorCtrl($filter, globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, MainServ, AnalyticsServ) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -34,7 +34,7 @@
 
     //============ methods ================//
 
-    //------- Select glass
+    /** Select glass */
     function selectGlass(newId) {
       //----- open glass selector dialog
       GlobalStor.global.showGlassSelectorDialog = 1;
@@ -44,8 +44,7 @@
       //------ calculate price
       MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass[0].id, hardwareIds);//TODO array!!
       //------ save analytics data
-//      analyticsServ.saveGlassAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, newId, typeIndex);
-      //TODO analyticsServ.saveGlassAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_id, newId);
+      //TODO ?? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 2);
     }
 
   }

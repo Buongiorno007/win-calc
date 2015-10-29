@@ -10,7 +10,7 @@
     .module('MainModule')
     .controller('ProfilesCtrl', profileSelectorCtrl);
 
-  function profileSelectorCtrl($filter, globalConstants, MainServ, analyticsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
+  function profileSelectorCtrl($filter, globalConstants, MainServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -36,14 +36,15 @@
 
     //---------- Select profile
     function selectProfile(newId) {
-      MainServ.setCurrentProfile(ProductStor.product, newId).then(function(){
-        ProductStor.product.glass.length = 0;
-        MainServ.parseTemplate();
-      });
-
-      //------ save analytics data
-//      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.orderId, id, producerIndex);
-//TODO      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_id, newId);
+      if(ProductStor.product.profile.id !== newId) {
+        MainServ.setCurrentProfile(ProductStor.product, newId).then(function () {
+          ProductStor.product.glass.length = 0;
+          MainServ.parseTemplate().then(function () {
+            //------ save analytics data
+            AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 1);
+          });
+        });
+      }
     }
 
   }

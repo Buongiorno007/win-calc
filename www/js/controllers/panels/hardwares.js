@@ -10,7 +10,7 @@
     .module('MainModule')
     .controller('HardwaresCtrl', hardwareSelectorCtrl);
 
-  function hardwareSelectorCtrl(globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, MainServ, analyticsServ) {
+  function hardwareSelectorCtrl(globalConstants, GlobalStor, OrderStor, ProductStor, UserStor, MainServ, AnalyticsServ) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
@@ -34,12 +34,14 @@
 
     //----------- Select hardware
     function selectHardware(newId) {
-      //-------- set current Hardware
-      MainServ.setCurrentHardware(ProductStor.product, newId);
-      //------ calculate price
-      MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass[0].id, ProductStor.product.hardware.id);//TODO array!!
-      //------ save analytics data
-//TODO      analyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.order_id, hardwareIndex, hardwareTypeIndex);
+      if(ProductStor.product.hardware.id !== newId) {
+        //-------- set current Hardware
+        MainServ.setCurrentHardware(ProductStor.product, newId);
+        //------ calculate price
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass[0].id, ProductStor.product.hardware.id);//TODO array!!
+        //------ save analytics data
+        AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
+      }
     }
 
   }

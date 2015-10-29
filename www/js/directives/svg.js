@@ -264,7 +264,7 @@
               dimMarginBottom = -20,
               sizeBoxWidth = 160,
               sizeBoxHeight = 70,
-
+              sizeBoxRadius = 20,
               lineSideL = [],
               lineSideR = [],
               lineCenter = [],
@@ -333,7 +333,9 @@
              .classed('size-rect', true)
              .attr({
                'x': function() { return (dir) ? (dimLineHeight - sizeBoxWidth*0.8) : (dim.from + dim.to - sizeBoxWidth)/2; },
-               'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8); }
+               'y': function() { return (dir) ? (dim.from + dim.to - sizeBoxHeight)/2 : (dimLineHeight - sizeBoxHeight*0.8); },
+               'rx': sizeBoxRadius,
+               'ry': sizeBoxRadius
              });
           }
 
@@ -363,6 +365,7 @@
         function createRadiusDimension(dimQ, dimGroup, lineCreator) {
 
           var radiusLine = [],
+              sizeBoxRadius = 20,
               startPR = {
                 x: dimQ.startX,
                 y: dimQ.startY
@@ -397,7 +400,9 @@
               .classed('size-rect', true)
               .attr({
                 'x': dimQ.midleX,
-                'y': dimQ.midleY
+                'y': dimQ.midleY,
+                'rx': sizeBoxRadius,
+                'ry': sizeBoxRadius
               });
           }
 

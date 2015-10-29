@@ -3,6 +3,7 @@
 
   .calc-delete {
     position: relative;
+    display: table;
     background-color: $main_gray_btn;
     &:after {
       @extend .icon-setting;

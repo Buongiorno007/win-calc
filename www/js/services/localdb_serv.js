@@ -540,7 +540,7 @@
           //-------- inner temables
           'analytics': {
             'tableName': 'analytics',
-            'prop': 'created TIMESTAMP, user_id INTEGER, order_id NUMERIC, element_id INTEGER, element_type INTEGER',
+            'prop': 'order_id NUMERIC, user_id INTEGER, calculation_id INTEGER, element_id INTEGER, element_type INTEGER',
             'foreignKey': ''
           },
 
@@ -819,13 +819,15 @@
 
 
     function deleteRowLocalDB(tableName, options) {
-      var optionKeys = Object.keys(options),
-          optionQty = optionKeys.length,
-          vhereOptions = " WHERE " + optionKeys[0] + " = '" + options[optionKeys[0]] + "'";
-
-      if(optionQty > 1) {
-        for(var k = 1; k < optionQty; k++) {
-          vhereOptions += " AND " + optionKeys[k] + " = '" + options[optionKeys[k]] + "'";
+      var vhereOptions = "";
+      if(options) {
+        var optionKeys = Object.keys(options),
+            optionQty = optionKeys.length;
+        vhereOptions = " WHERE " + optionKeys[0] + " = '" + options[optionKeys[0]] + "'";
+        if(optionQty > 1) {
+          for(var k = 1; k < optionQty; k++) {
+            vhereOptions += " AND " + optionKeys[k] + " = '" + options[optionKeys[k]] + "'";
+          }
         }
       }
       db.transaction(function (trans) {
