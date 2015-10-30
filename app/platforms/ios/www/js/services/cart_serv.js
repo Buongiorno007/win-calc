@@ -87,13 +87,19 @@
     //----- Delete Product
     function clickDeleteProduct(productIndex) {
 
-      $cordovaDialogs.confirm(
-        $filter('translate')('common_words.DELETE_PRODUCT_TXT'),
+      GeneralServ.confirmAlert(
         $filter('translate')('common_words.DELETE_PRODUCT_TITLE'),
-        [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')])
-        .then(function(buttonIndex) {
-          deleteProduct(buttonIndex);
-        });
+        $filter('translate')('common_words.DELETE_PRODUCT_TXT'),
+        deleteProduct
+      );
+
+//      $cordovaDialogs.confirm(
+//        $filter('translate')('common_words.DELETE_PRODUCT_TXT'),
+//        $filter('translate')('common_words.DELETE_PRODUCT_TITLE'),
+//        [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')])
+//        .then(function(buttonIndex) {
+//          deleteProduct(buttonIndex);
+//        });
 
       function deleteProduct(button) {
         if(button == 1) {

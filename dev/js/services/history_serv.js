@@ -7,7 +7,7 @@
     .module('HistoryModule')
     .factory('HistoryServ', historyFactory);
 
-  function historyFactory($location, $filter, $cordovaDialogs, $q, localDB, GeneralServ, MainServ, SVGServ, GlobalStor, OrderStor, ProductStor, UserStor, HistoryStor, CartStor) {
+  function historyFactory($location, $filter, $q, localDB, GeneralServ, MainServ, SVGServ, GlobalStor, OrderStor, ProductStor, UserStor, HistoryStor, CartStor) {
 
     var thisFactory = this,
         orderMasterStyle = 'master',
@@ -105,27 +105,23 @@
     function sendOrderToFactory(orderStyle, orderNum) {
 
       if(orderStyle !== orderMasterStyle) {
-        $cordovaDialogs.confirm(
-          $filter('translate')('common_words.SEND_ORDER_TXT'),
+        GeneralServ.confirmAlert(
           $filter('translate')('common_words.SEND_ORDER_TITLE'),
-          [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')])
-          .then(function(buttonIndex) {
-            sendOrder(buttonIndex);
-          });
+          $filter('translate')('common_words.SEND_ORDER_TXT'),
+          sendOrder
+        );
       }
 
-      function sendOrder(button) {
-        if(button == 1) {
-          var ordersQty = HistoryStor.history.orders.length;
-          for(var ord = 0; ord < ordersQty; ord++) {
-            if(HistoryStor.history.orders[ord].id === orderNum) {
-              //-------- change style for order
-              HistoryStor.history.orders[ord].order_style = orderDoneStyle;
-              HistoryStor.history.ordersSource[ord].order_style = orderDoneStyle;
+      function sendOrder() {
+        var ordersQty = HistoryStor.history.orders.length;
+        for(var ord = 0; ord < ordersQty; ord++) {
+          if(HistoryStor.history.orders[ord].id === orderNum) {
+            //-------- change style for order
+            HistoryStor.history.orders[ord].order_style = orderDoneStyle;
+            HistoryStor.history.ordersSource[ord].order_style = orderDoneStyle;
 
-              //------ update in Local BD
-              localDB.updateLocalServerDBs(localDB.tablesLocalDB.orders.tableName,  orderNum, {order_style: orderDoneStyle});
-            }
+            //------ update in Local BD
+            localDB.updateLocalServerDBs(localDB.tablesLocalDB.orders.tableName,  orderNum, {order_style: orderDoneStyle});
           }
         }
       }
@@ -142,50 +138,45 @@
     function makeOrderCopy(orderStyle, orderNum) {
 
       if(orderStyle !== orderMasterStyle) {
-        $cordovaDialogs.confirm(
-          $filter('translate')('common_words.COPY_ORDER_TXT'),
+        GeneralServ.confirmAlert(
           $filter('translate')('common_words.COPY_ORDER_TITLE'),
-          [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')])
-          .then(function(buttonIndex) {
-            copyOrder(buttonIndex);
-          });
+          $filter('translate')('common_words.COPY_ORDER_TXT'),
+          copyOrder
+        );
       }
 
-      function copyOrder(button) {
-        if (button == 1) {
+      function copyOrder() {
+        //---- new order number
+        var ordersQty = HistoryStor.history.orders.length,
+            newOrderCopy;
 
-          //---- new order number
-          var ordersQty = HistoryStor.history.orders.length,
-              newOrderCopy;
-
-          for(var ord = 0; ord < ordersQty; ord++) {
-            if(HistoryStor.history.orders[ord].id === orderNum) {
-              newOrderCopy = angular.copy(HistoryStor.history.orders[ord]);
-            }
+        for(var ord = 0; ord < ordersQty; ord++) {
+          if(HistoryStor.history.orders[ord].id === orderNum) {
+            newOrderCopy = angular.copy(HistoryStor.history.orders[ord]);
           }
-          newOrderCopy.id = MainServ.createOrderID();
-          newOrderCopy.order_number = 0;
-          newOrderCopy.order_hz = '---';
-          newOrderCopy.created = new Date();
-          newOrderCopy.modified = new Date();
-
-          localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy).then(function(respond) {
-            if(respond.status) {
-              newOrderCopy.order_number = respond.order_number;
-            }
-            //---- save new order
-            HistoryStor.history.orders.push(newOrderCopy);
-            HistoryStor.history.ordersSource.push(newOrderCopy);
-            //---- save new order in LocalDB
-            localDB.insertRowLocalDB(newOrderCopy, localDB.tablesLocalDB.orders.tableName);
-          });
-
-          //------ copy all Products of this order
-          copyOrderElements(orderNum, newOrderCopy.id, localDB.tablesLocalDB.order_products.tableName);
-
-          //------ copy all AddElements of this order
-          copyOrderElements(orderNum, newOrderCopy.id, localDB.tablesLocalDB.order_addelements.tableName);
         }
+        newOrderCopy.id = MainServ.createOrderID();
+        newOrderCopy.order_number = 0;
+        newOrderCopy.order_hz = '---';
+        newOrderCopy.created = new Date();
+        newOrderCopy.modified = new Date();
+
+        localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, localDB.tablesLocalDB.orders.tableName, newOrderCopy).then(function(respond) {
+          if(respond.status) {
+            newOrderCopy.order_number = respond.order_number;
+          }
+          //---- save new order
+          HistoryStor.history.orders.push(newOrderCopy);
+          HistoryStor.history.ordersSource.push(newOrderCopy);
+          //---- save new order in LocalDB
+          localDB.insertRowLocalDB(newOrderCopy, localDB.tablesLocalDB.orders.tableName);
+        });
+
+        //------ copy all Products of this order
+        copyOrderElements(orderNum, newOrderCopy.id, localDB.tablesLocalDB.order_products.tableName);
+
+        //------ copy all AddElements of this order
+        copyOrderElements(orderNum, newOrderCopy.id, localDB.tablesLocalDB.order_addelements.tableName);
       }
 
 
@@ -232,45 +223,41 @@
       event.preventDefault();
       event.srcEvent.stopPropagation();
 
-      $cordovaDialogs.confirm(
-        $filter('translate')('common_words.DELETE_ORDER_TXT'),
+      GeneralServ.confirmAlert(
         $filter('translate')('common_words.DELETE_ORDER_TITLE'),
-        [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')])
-        .then(function(buttonIndex) {
-          deleteOrder(buttonIndex);
-        });
+        $filter('translate')('common_words.DELETE_ORDER_TXT'),
+        deleteOrder
+      );
 
-      function deleteOrder(button) {
-        if(button == 1) {
-          var orderList, orderListSource;
-          //-------- delete order
-          if(orderType) {
-            orderList = HistoryStor.history.orders;
-            orderListSource = HistoryStor.history.ordersSource;
-          //-------- delete draft
-          } else {
-            orderList = HistoryStor.history.drafts;
-            orderListSource = HistoryStor.history.draftsSource;
+      function deleteOrder() {
+        var orderList, orderListSource;
+        //-------- delete order
+        if(orderType) {
+          orderList = HistoryStor.history.orders;
+          orderListSource = HistoryStor.history.ordersSource;
+        //-------- delete draft
+        } else {
+          orderList = HistoryStor.history.drafts;
+          orderListSource = HistoryStor.history.draftsSource;
+        }
+        var orderListQty = orderList.length;
+        while(--orderListQty > -1) {
+          if(orderList[orderListQty].id === orderNum) {
+            orderList.splice(orderListQty, 1);
+            orderListSource.splice(orderListQty, 1);
+            break;
           }
-          var orderListQty = orderList.length;
-          while(--orderListQty > -1) {
-            if(orderList[orderListQty].id === orderNum) {
-              orderList.splice(orderListQty, 1);
-              orderListSource.splice(orderListQty, 1);
-              break;
-            }
-          }
-          //------ if no more orders
-           if(!orderList.length) {
-             HistoryStor.history.isEmptyResult = 1;
-           }
+        }
+        //------ if no more orders
+         if(!orderList.length) {
+           HistoryStor.history.isEmptyResult = 1;
+         }
 
-          //------- delete order/draft and all its elements in LocalDB
-          MainServ.deleteOrderInDB(orderNum);
-          //------- delet order in Server
-          if(orderType) {
-            localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, orderNum);
-          }
+        //------- delete order/draft and all its elements in LocalDB
+        MainServ.deleteOrderInDB(orderNum);
+        //------- delet order in Server
+        if(orderType) {
+          localDB.deleteOrderServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, orderNum);
         }
       }
     }

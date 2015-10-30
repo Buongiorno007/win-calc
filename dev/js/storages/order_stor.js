@@ -25,6 +25,7 @@
         currRegionName: '',
         currCountryName: '',
         currFullLocation: '',
+
         climatic_zone: 0,
         heat_coef_min: 0,
         customer_city: '',

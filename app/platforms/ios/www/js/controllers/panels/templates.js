@@ -7,7 +7,7 @@
     .module('MainModule')
     .controller('TemplatesCtrl', templateSelectorCtrl);
 
-  function templateSelectorCtrl($location, $filter, $cordovaDialogs, globalConstants, MainServ, TemplatesServ, optionsServ, GlobalStor, OrderStor, ProductStor) {
+  function templateSelectorCtrl($location, $filter, $cordovaDialogs, globalConstants, MainServ, GeneralServ, TemplatesServ, optionsServ, GlobalStor, OrderStor, ProductStor) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -50,6 +50,7 @@
         thisCtrl.switcherTemplate = false;
 
       function goToNewTemplate(button) {
+        console.info('button', button);
         if(button == 1) {
           //------ change last changed template to old one
           TemplatesServ.backDefaultTemplate();
@@ -60,13 +61,19 @@
 
       if(GlobalStor.global.isChangedTemplate) {
       //----- если выбран новый шаблон после изменения предыдущего
-        $cordovaDialogs.confirm(
-          $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
+        GeneralServ.confirmAlert(
           $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
-          [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')])
-          .then(function(buttonIndex) {
-            goToNewTemplate(buttonIndex);
-          });
+          $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
+          goToNewTemplate
+        );
+
+//      $cordovaDialogs.confirm(
+//        $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
+//        $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
+//        [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')])
+//        .then(function(buttonIndex) {
+//          goToNewTemplate(buttonIndex);
+//        });
 
       } else {
         TemplatesServ.newPriceForNewTemplate(templateIndex);

@@ -83,6 +83,12 @@
         margins: {},
         deliveryCoeff: {},
 
+        //----- Alert
+        isAlert: 0,
+        alertTitle: '',
+        alertDescr: '',
+        confirmAction: 0,
+
         //---- Calculators
         isQtyCalculator: 0,
         isSizeCalculator: 0,

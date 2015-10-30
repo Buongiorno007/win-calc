@@ -223,16 +223,16 @@
           if(items[itemQty].type) {
             switch(items[itemQty].type) {
               case 1: //----- Цена за 1 конструкцию
-                items[itemQty].priceReal = items[itemQty].price * CartStor.cart.qtyTotal;
+                items[itemQty].priceReal = Math.round(items[itemQty].price * CartStor.cart.qtyTotal);
                 break;
               case 2: //----- Цена за 1 м2 конструкции
-                items[itemQty].priceReal = items[itemQty].price * CartStor.cart.squareTotal;
+                items[itemQty].priceReal = Math.round(items[itemQty].price * CartStor.cart.squareTotal);
                 break;
               case 3: //----- Цена за 1 м/п конструкции
-                items[itemQty].priceReal = items[itemQty].price * CartStor.cart.perimeterTotal;
+                items[itemQty].priceReal = Math.round(items[itemQty].price * CartStor.cart.perimeterTotal);
                 break;
               case 4: //----- Цена как % от стоимости
-                items[itemQty].priceReal = OrderStor.order.productsPriceDis * items[itemQty].price/100;
+                items[itemQty].priceReal = Math.round(OrderStor.order.productsPriceDis * items[itemQty].price/100);
                 break;
               default:
                 items[itemQty].priceReal = 0;
@@ -290,6 +290,10 @@
       OrderStor.order.addelems_price = GeneralServ.roundingNumbers(OrderStor.order.addelems_price);
       OrderStor.order.templates_price = GeneralServ.roundingNumbers(OrderStor.order.templates_price);
       OrderStor.order.products_price = GeneralServ.roundingNumbers(OrderStor.order.products_price);
+      CartStor.cart.squareTotal = GeneralServ.roundingNumbers(CartStor.cart.squareTotal);
+      CartStor.cart.perimeterTotal = GeneralServ.roundingNumbers(CartStor.cart.perimeterTotal);
+      CartStor.cart.qtyTotal = GeneralServ.roundingNumbers(CartStor.cart.qtyTotal);
+
       /** if default user discount = 0 */
       if(OrderStor.order.productsPriceDis) {
         OrderStor.order.productsPriceDis = GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis);

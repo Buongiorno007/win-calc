@@ -275,7 +275,18 @@
       </section>
     </section>
   </section>
-  <div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader" class="loader-container">
-    <div class="loader"></div>
-  </div>
 </section>
+<div ng-controller="LoaderCtrl as loadBox" ng-show="loadBox.G.global.isLoader" class="loader-container">
+  <div class="loader"></div>
+</div>
+<div ng-controller="AlertCtrl as alertBox" ng-show="alertBox.G.global.isAlert" class="alert-overlay">
+  <div class="alert-block">
+    <div class="alert-sign"></div>
+    <div class="alert-title">{{ alertBox.G.global.alertTitle }}</div>
+    <div class="alert-descr">{{ alertBox.G.global.alertDescr }}</div>
+    <div class="alert-btns">
+      <button hm-tap="alertBox.G.global.isAlert = 0" class="alert-no">{{ 'common_words.BUTTON_N' | translate }}</button>
+      <button hm-tap="alertBox.clickYes()" class="alert-yes">{{ 'common_words.BUTTON_Y' | translate }}</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+.alert-overlay(ng-controller="AlertCtrl as alertBox", ng-show="alertBox.G.global.isAlert")
+  .alert-block
+    .alert-sign
+    .alert-title {{ alertBox.G.global.alertTitle }}
+    .alert-descr {{ alertBox.G.global.alertDescr }}
+    .alert-btns
+      button.alert-no(hm-tap="alertBox.G.global.isAlert = 0") {{ 'common_words.BUTTON_N' | translate }}
+      button.alert-yes(hm-tap="alertBox.clickYes()") {{ 'common_words.BUTTON_Y' | translate }}

@@ -5,7 +5,6 @@
         button.cart-dialog-tool.back(hm-tap="creditDialog.closeOrderDialog()", type="button")
         button.cart-dialog-tool.print(hm-tap="", type="button")
         .cart-dialog-title {{ 'cart.CALL_CREDIT' | translate }}
-        button.save(type="submit") {{ 'cart.READY' | translate }}
       .cart-dialog-body
         .cart-dialog-descrip {{ 'cart.CALL_CREDIT_DESCRIP' | translate }}
         .cart-dialog-label {{ 'cart.CALL_CREDIT_CLIENT_INFO' | translate }}
@@ -41,7 +40,7 @@
             ng-pluralize(count="creditDialog.O.order.selectedInstalmentPeriod",
             when="{'1': '{{ creditDialog.config.month }}', '2': '{{ creditDialog.config.montha }}', '3': '{{ creditDialog.config.montha }}', '4': '{{ creditDialog.config.montha }}', 'other': '{{ creditDialog.config.months }}'}") , {{creditDialog.O.order.selectedInstalmentPercent}}%
 
-        .cart-dialog-label {{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }} {{ creditDialog.C.cart.orderPriceTOTALDis }}{{ creditDialog.U.userInfo.currency }} {{ 'cart.CALL_CREDIT_PARTIAL_PRICE' | translate }} {{ creditDialog.O.order.payment_monthly }}{{ creditDialog.U.userInfo.currency }}
+        .cart-dialog-label {{ 'cart.CALL_ORDER_TOTAL_PRICE' | translate }} {{ creditDialog.O.order.order_price_dis }}{{ creditDialog.U.userInfo.currency }} {{ 'cart.CALL_CREDIT_PARTIAL_PRICE' | translate }} {{ creditDialog.O.order.payment_monthly }}{{ creditDialog.U.userInfo.currency }}
 
         .cart-dialog-label {{ 'cart.CALL_ORDER_DELIVERY' | translate }} {{ creditDialog.O.order.new_delivery_date | date:"dd.MM.yyyy"}}
 
@@ -75,22 +74,28 @@
           label.label-field {{ 'cart.CLIENT_SEX_F' | translate }}
             input.radio-field(type="radio", name="sex", ng-model="creditDialog.C.cart.customer.customer_sex", value="2")
 
-        .input-field
+        .input-field(ng-class="{ 'has-error' : creditDialog.C.cart.submitted && callCreditForm.age.$error.required }")
           .subtitle-field {{ 'cart.CLIENT_AGE' | translate }}
-          select.user-select-field(name="age", ng-model="creditDialog.C.cart.customer.customer_age", ng-options="age.name for age in creditDialog.C.optionAge")
+          select.user-select-field(name="age", ng-model="creditDialog.C.cart.customer.customer_age", ng-options="age.name for age in creditDialog.C.optionAge", required)
             option(value='') {{ 'cart.SELECT_AGE' | translate }}
+          .error-tooltip(ng-show="creditDialog.C.cart.submitted && callCreditForm.age.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
 
-        .input-field
+        .input-field(ng-class="{ 'has-error' : creditDialog.C.cart.submitted && callCreditForm.education.$error.required }")
           .subtitle-field {{ 'cart.CLIENT_EDUCATION' | translate }}
-          select.user-select-field(name="education", ng-model="creditDialog.C.cart.customer.customer_education", ng-options="educ.name for educ in creditDialog.C.optionEductaion")
+          select.user-select-field(name="education", ng-model="creditDialog.C.cart.customer.customer_education", ng-options="educ.name for educ in creditDialog.C.optionEductaion", required)
             option(value='') {{ 'cart.SELECT_ADUCATION' | translate }}
+          .error-tooltip(ng-show="creditDialog.C.cart.submitted && callCreditForm.education.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
 
-        .input-field
+        .input-field(ng-class="{ 'has-error' : creditDialog.C.cart.submitted && callCreditForm.occupation.$error.required }")
           .subtitle-field {{ 'cart.CLIENT_OCCUPATION' | translate }}
-          select.user-select-field(name="occupation", ng-model="creditDialog.C.cart.customer.customer_occupation", ng-options="occup.name for occup in creditDialog.C.optionOccupation")
+          select.user-select-field(name="occupation", ng-model="creditDialog.C.cart.customer.customer_occupation", ng-options="occup.name for occup in creditDialog.C.optionOccupation", required)
             option(value='') {{ 'cart.SELECT_OCCUPATION' | translate }}
+          .error-tooltip(ng-show="creditDialog.C.cart.submitted && callCreditForm.occupation.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
 
-        .input-field
+        .input-field(ng-class="{ 'has-error' : creditDialog.C.cart.submitted && callCreditForm.infoSource.$error.required }")
           .subtitle-field {{ 'cart.CLIENT_INFO_SOURCE' | translate }}
-          select.user-select-field(name="infoSource", ng-model="creditDialog.C.cart.customer.customer_infoSource", ng-options="info.name for info in creditDialog.C.optionInfo")
+          select.user-select-field(name="infoSource", ng-model="creditDialog.C.cart.customer.customer_infoSource", ng-options="info.name for info in creditDialog.C.optionInfo", required)
             option(value='') {{ 'cart.SELECT_INFO_SOURCE' | translate }}
+          .error-tooltip(ng-show="creditDialog.C.cart.submitted && callCreditForm.infoSource.$error.required") {{ 'login.EMPTY_FIELD' | translate }}
+
+        button.save.save-order(type="submit") {{ 'cart.READY' | translate }}

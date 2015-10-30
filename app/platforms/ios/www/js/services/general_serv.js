@@ -16,7 +16,8 @@
       setPreviosPage: setPreviosPage,
       roundingNumbers: roundingNumbers,
       setPriceDis: setPriceDis,
-      sorting: sorting
+      sorting: sorting,
+      confirmAlert: confirmAlert
     };
 
     //TODO desktop
@@ -65,6 +66,13 @@
 
     function sorting(a, b) {
       return a - b;
+    }
+
+    function confirmAlert(title, descript, callback) {
+      GlobalStor.global.isAlert = 1;
+      GlobalStor.global.alertTitle = title || '';
+      GlobalStor.global.alertDescr = descript || '';
+      GlobalStor.global.confirmAction = callback;
     }
 
   }

@@ -1,5 +1,4 @@
 section.login-page
-
   //---------------- LogIn Form
   #login-container.login-container(ng-hide="loginPage.isRegistration", ng-mousedown="loginPage.isSendEmail = 0; loginPage.isUserNotExist = 0; loginPage.isUserNotActive = 0; loginPage.isUserPasswordError = 0;")
     .attantion(ng-hide="loginPage.isOnline || !loginPage.isOffline") {{ 'login.OFFLINE' | translate }}
@@ -84,4 +83,4 @@ section.login-page
 
   .backDarkView(ng-show="loginPage.isFactoryId")
   .backDarkView(ng-show="loginPage.isOffline")
-  include parts/_loader
+include parts/_loader

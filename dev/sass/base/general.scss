@@ -21,20 +21,20 @@ body {
 }
 
 .app-container {
+  position: relative;
   width: rem($ipad-width);
-  //TODO ipad  height: 100%
   height: 96rem;
-  margin: auto auto; //TODO ipad delete
-  overflow: hidden; //TODO ipad delete
+  margin: auto auto;
+  overflow: hidden;
   border: 1px solid #000;
 }
 
 .page-container {
   @include display-flex();
   @include transition(transform .5s linear, width .5s linear);
-  position: relative; //TODO ipad delete
-  top: 0; //TODO ipad delete
-  left: 0; //TODO ipad delete
+  position: relative;
+  top: 0;
+  left: 0;
   width: rem($page_container-width);
   height: 100%;
   &.swiped {
@@ -266,23 +266,23 @@ body {
 
 
 // in Cart AddElements Detail and Comment Product Backview
-.backDarkView {
+.fullViewDiv {
   position: absolute;
-  top: 0;
   left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
+}
+.backDarkView {
+  @extend .fullViewDiv;
   background-color: rgba(black, .7);
   z-index: 9;
 }
-
 .backLightView {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, .8);
+  @extend .fullViewDiv;
+  background-color: rgba(white, .8);
   z-index: 999;
 }
 
@@ -290,6 +290,62 @@ body {
 
 
 
+//============ Alert confirn
+
+.alert-overlay {
+  @extend .backDarkView;
+  opacity: 1.08;
+  z-index: 10000;
+}
+.alert-block {
+  @include roboto-lt(2.25rem);
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 40rem;
+  margin-left: -20rem;
+  margin-top: -20rem;
+  padding: 3rem;
+  border-radius: $radius_room-box_dialog;
+  overflow: hidden;
+  background-color: white;
+  text-align: center;
+  z-index: 99999;
+}
+
+.alert-sign {
+  @include font-icon(10rem);
+  @extend .icon-setting;
+  @extend .splash;
+  &:after {
+    color: $error_color;
+    content: $warning;
+  }
+}
+.alert-title {
+  @include roboto-bd(2rem);
+}
+.alert-descr {
+  margin: 2rem 0;
+}
+.alert-btns {
+  @include display-flex();
+  @include justify-content(space-around);
+  button {
+    @extend .middle-button;
+    width: 10rem;
+    height: 4rem;
+    border-radius: 1rem;
+    color: white;
+  }
+}
+.alert-no {
+  background-color: #858181;
+}
+.alert-yes {
+  background-color: $main_orange;
+}
 
 
 
@@ -321,7 +377,10 @@ body {
   @extend .scrolling-container;
 }
 
-//------------ AUDIO
+
+
+//============ AUDIO
+
 #sounds {
   visibility: hidden;
 }

@@ -10,7 +10,7 @@
     .module('MainModule')
     .controller('TemplatesCtrl', templateSelectorCtrl);
 
-  function templateSelectorCtrl($location, $filter, $cordovaDialogs, globalConstants, MainServ, TemplatesServ, optionsServ, GlobalStor, OrderStor, ProductStor) {
+  function templateSelectorCtrl($location, $filter, globalConstants, MainServ, GeneralServ, TemplatesServ, optionsServ, GlobalStor, OrderStor, ProductStor) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -52,25 +52,20 @@
     function selectNewTemplate(templateIndex) {
         thisCtrl.switcherTemplate = false;
 
-      function goToNewTemplate(button) {
-        if(button == 1) {
-          //------ change last changed template to old one
-          TemplatesServ.backDefaultTemplate();
-          GlobalStor.global.isChangedTemplate = 0;
-          TemplatesServ.newPriceForNewTemplate(templateIndex);
-        }
+      function goToNewTemplate() {
+        //------ change last changed template to old one
+        TemplatesServ.backDefaultTemplate();
+        GlobalStor.global.isChangedTemplate = 0;
+        TemplatesServ.newPriceForNewTemplate(templateIndex);
       }
 
       if(GlobalStor.global.isChangedTemplate) {
       //----- если выбран новый шаблон после изменения предыдущего
-        $cordovaDialogs.confirm(
-          $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
+        GeneralServ.confirmAlert(
           $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
-          [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')])
-          .then(function(buttonIndex) {
-            goToNewTemplate(buttonIndex);
-          });
-
+          $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
+          goToNewTemplate
+        );
       } else {
         TemplatesServ.newPriceForNewTemplate(templateIndex);
       }
@@ -88,27 +83,21 @@
     function selectNewTemplateType(marker) {
         thisCtrl.switcherTemplate = false;
 
-      function goToNewTemplateType(button) {
-        if(button == 1) {
-
-          if (marker === 4) {
-            MainServ.setDefaultDoorConfig();
-          }
-          GlobalStor.global.isChangedTemplate = false;
-          TemplatesServ.initNewTemplateType(marker);
+      function goToNewTemplateType() {
+        if (marker === 4) {
+          MainServ.setDefaultDoorConfig();
         }
+        GlobalStor.global.isChangedTemplate = false;
+        TemplatesServ.initNewTemplateType(marker);
       }
 
       if (GlobalStor.global.isChangedTemplate) {
         //----- если выбран новый шаблон после изменения предыдущего
-        $cordovaDialogs.confirm(
-          $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
+        GeneralServ.confirmAlert(
           $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
-          [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')])
-          .then(function (marker) {
-            goToNewTemplateType(marker);
-          });
-
+          $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
+          goToNewTemplateType
+        );
       } else {
         TemplatesServ.initNewTemplateType(marker);
       }
