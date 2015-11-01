@@ -90,7 +90,6 @@
         customer_education: 0,
         customer_occupation: 0,
         customer_infoSource: 0
-
       },
 
       setDefaultOrder: setDefaultOrder

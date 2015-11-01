@@ -83,7 +83,6 @@
 .size-txt {
   font-size: rem(90px);
   stroke: #000;
-//  stroke: #D2D2D2;
   stroke-width: 1px;
   text-anchor: middle;
   alignment-baseline: middle;
@@ -99,7 +98,10 @@
   }
 }
 
-
+.glass-txt {
+  @extend .size-txt;
+  font-size: 7rem;
+}
 
 
 

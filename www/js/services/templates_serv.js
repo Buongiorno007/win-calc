@@ -36,6 +36,8 @@
       if(ProductStor.product.template_id !== templateIndex) {
         ProductStor.product.template_id = templateIndex;
         MainServ.saveTemplateInProduct(templateIndex).then(function() {
+          ProductStor.product.glass.length = 0;
+          MainServ.setCurrentGlass(ProductStor.product);
           MainServ.setCurrentHardware(ProductStor.product);
           var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
           //------ define product price

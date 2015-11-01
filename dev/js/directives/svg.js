@@ -34,16 +34,9 @@
                   .x(function(d) { return d.x; })
                   .y(function(d) { return d.y; })
                   .interpolate("linear"),
-                padding = 1,
+                padding = (scope.typeConstruction === 'icon') ? 1 : 0.7,
                 position = {x: 0, y: 0},
                 mainSVG, mainGroup, elementsGroup, dimGroup, points, dimMaxMin, scale, blocksQty;
-
-
-            if (scope.typeConstruction === 'edit') {
-              padding = 0.6;
-            } else if(scope.typeConstruction === 'iconBig') {
-              padding = 0.7;
-            }
 
             mainSVG = d3.select(container).append('svg').attr({
               'width': widthSVG,
@@ -154,29 +147,44 @@
 
 
                 //---- corner markers
-                if (template.details[i].level === 1) {
-                  //----- create array of frame points with corner = true
-                  var corners = template.details[i].pointsOut.filter(function (item) {
-                    return item.corner > 0;
-                  });
-                  elementsGroup.selectAll('circle.corner_mark.' + template.details[i].id)
-                    .data(corners)
-                    .enter()
-                    .append('circle')
-                    .attr({
-                      'block_id': template.details[i].id,
-                      'class': 'corner_mark',
-                      'parent_id': function (d) {
-                        return d.id;
-                      },
-                      'cx': function (d) {
-                        return d.x;
-                      },
-                      'cy': function (d) {
-                        return d.y;
-                      },
-                      'r': 0
+                if(scope.typeConstruction === 'edit') {
+                  if (template.details[i].level === 1) {
+                    //----- create array of frame points with corner = true
+                    var corners = template.details[i].pointsOut.filter(function (item) {
+                      return item.corner > 0;
                     });
+                    elementsGroup.selectAll('circle.corner_mark.' + template.details[i].id)
+                      .data(corners)
+                      .enter()
+                      .append('circle')
+                      .attr({
+                        'block_id': template.details[i].id,
+                        'class': 'corner_mark',
+                        'parent_id': function (d) {
+                          return d.id;
+                        },
+                        'cx': function (d) {
+                          return d.x;
+                        },
+                        'cy': function (d) {
+                          return d.y;
+                        },
+                        'r': 0
+                      });
+                  }
+                }
+
+                /** type Glass names */
+                if (scope.typeConstruction === 'setGlass') {
+                  if(!template.details[i].children.length) {
+                    elementsGroup.append('text')
+                      .text(template.details[i].glassTxt)
+                      .attr({
+                        'class': 'glass-txt',
+                        'x': template.details[i].center.x,
+                        'y': template.details[i].center.y
+                      });
+                  }
                 }
               }
 

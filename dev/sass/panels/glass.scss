@@ -76,4 +76,46 @@
 
     color: #8c8c8c;
   }
+
+
+  //======== Glasses dialog
+
+  .glass-selector-dialog {
+    @extend .modal-dialog;
+    @include box-shadow(rgba(#000, 0.5) 0 0 4rem);
+    height: 64rem;
+    background-color: #fff;
+    z-index: 12;
+
+    .dialog-inner {
+      height: 100%;
+      width: 100%;
+      text-align: center;
+    }
+    .set-glass-btn {
+      @extend .button;
+      @extend .splash;
+      @include font-icon(1.5rem, 2);
+      position: absolute;
+      top: 1.875rem;
+      right: 6rem;
+      border-radius: 50%;
+      width: 3.2rem;
+      background-color: $main_green;
+      text-align: center;
+
+      &:after{
+        color: #fff;
+        content: $select-history-icon;
+      }
+    }
+    .set-glass-all-btn {
+      @extend .middle-button;
+      @extend .splash;
+      display: inline-block;
+      padding: 0.8125rem 1.625rem;
+      color: #fff;
+      background-color: $main_green;
+    }
+  }
 }

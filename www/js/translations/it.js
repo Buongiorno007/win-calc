@@ -98,7 +98,8 @@
         HEATCOEF_VAL: 'Wt/m',
         TEMPLATE_TIP: 'Poiché il cambiamento delle dimensioni preme qui',
         PROFILE_TIP: 'Poiché una scelta di un profilo preme qui',
-        GLASS_TIP: 'Poiché una scelta di una finestra doppio invetriata preme qui'
+        GLASS_TIP: 'Poiché una scelta di una finestra doppio invetriata preme qui',
+        SELECT_ALL: 'Take all'
       },
       panels: {
         TEMPLATE_WINDOW: 'Finestra',

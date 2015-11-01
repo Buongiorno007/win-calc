@@ -24,11 +24,18 @@
 
 
     //------ clicking
-//    thisCtrl.selectRoom = selectRoom;
+    thisCtrl.confirmGlass = confirmGlass;
+    thisCtrl.setGlassToAll = MainServ.setGlassToAllTemplateBlocks(glassId, glassName);
     thisCtrl.closeGlassSelectorDialog = closeGlassSelectorDialog;
 
     //============ methods ================//
 
+    function confirmGlass() {
+
+    }
+    function setGlassToAll() {
+
+    }
     function closeGlassSelectorDialog() {
       GlobalStor.global.showGlassSelectorDialog = !GlobalStor.global.showGlassSelectorDialog;
     }

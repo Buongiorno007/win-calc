@@ -25,6 +25,7 @@
 
       setCurrentProfile: setCurrentProfile,
       setCurrentGlass: setCurrentGlass,
+      setGlassToAllTemplateBlocks: setGlassToAllTemplateBlocks,
       setCurrentHardware: setCurrentHardware,
       fineItemById: fineItemById,
       parseTemplate: parseTemplate,
@@ -92,7 +93,6 @@
       productDay = new Date(OrderStor.order.order_date).getDate() + GlobalStor.global.deliveryCoeff.standart_time;
       OrderStor.order.delivery_date = new Date().setDate(productDay);
       OrderStor.order.new_delivery_date = angular.copy(OrderStor.order.delivery_date);
-      console.warn(OrderStor.order);
     }
 
     function createOrderID() {
@@ -407,9 +407,7 @@
             parseTemplate().then(function() {
               deferred.resolve(1);
             });
-
           });
-
         } else {
           deferred.resolve(0);
         }
@@ -587,11 +585,38 @@
         var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
           return item.profileId === product.profile.id;
         });
-        //      console.log('tempGlassArr = ', tempGlassArr);
         if(tempGlassArr.length) {
           GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
           GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
           product.glass.unshift(GlobalStor.global.glasses[0][0]);
+
+          /** set Glass to all template blocks without children */
+          setGlassToAllTemplateBlocks(0, product.glass[0].id, product.glass[0].sku);
+        }
+      }
+    }
+
+
+    function setGlassToAllTemplateBlocks(blockId, glassId, glassName) {
+      var blocksQty = ProductStor.product.template_source.details.length;
+      while(--blocksQty > 0) {
+        var finded = 0;
+        if(blockId) {
+          /** set glass to template block by its Id */
+          if(ProductStor.product.template_source.details[blocksQty].id === blockId) {
+            finded++;
+          }
+        } else {
+          /** set glass to all template blocks */
+          if(!ProductStor.product.template_source.details[blocksQty].children.length) {
+            finded++;
+          }
+        }
+        if(finded) {
+          ProductStor.product.template_source.details[blocksQty].glassId = glassId;
+          ProductStor.product.template_source.details[blocksQty].glassTxt = glassName;
+          ProductStor.product.template.details[blocksQty].glassId = glassId;
+          ProductStor.product.template.details[blocksQty].glassTxt = glassName;
         }
       }
     }

@@ -98,7 +98,8 @@
         HEATCOEF_VAL: 'W/m',
         TEMPLATE_TIP: "Pentru a schimba dimensiunea, faceți clic aici",
         PROFILE_TIP: "Pentru a selecta un profil, faceți clic aici",
-        GLASS_TIP: "Pentru a selecta o fereastră termopan, click aici"
+        GLASS_TIP: "Pentru a selecta o fereastră termopan, click aici",
+        SELECT_ALL: 'Take all'
       },
       panels: {
         TEMPLATE_WINDOW: 'Fereastră',

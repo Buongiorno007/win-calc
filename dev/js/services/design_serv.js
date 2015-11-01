@@ -275,10 +275,8 @@
       d3.selectAll('#tamlateSVG .glass')
         .each(function() {
           var glass = d3.select(this);
-
 //          glass.on("touchstart", function() {
           glass.on("mousedown", function() {
-
             //========= select glass
             var isGlass = isExistElementInSelected(glass[0][0], DesignStor.design.selectedGlass),
                 blockID = glass[0][0].attributes.block_id.nodeValue;
@@ -307,13 +305,7 @@
                 $rootScope.$apply();
               }
             }
-
-//            var parentID = glass[0][0].attributes.parent_id.nodeValue,
-//                blockID = glass[0][0].attributes.block_id.nodeValue,
-//                currDimId = (parentID === 'block_0') ? blockID : parentID;
           });
-
-
         });
     }
 
