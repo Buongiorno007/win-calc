@@ -116,7 +116,7 @@
           }
         }
         //------- refresh price of new template
-        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass[0].id, ProductStor.product.hardware.id).then(function() {
+        MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id).then(function() {
           //-------- template was changed
           GlobalStor.global.isChangedTemplate = true;
           //$cordovaProgress.hide();

@@ -949,7 +949,8 @@
           </li>
           <li ng-class="{'active': configMenu.G.global.activePanel == 3}" hm-tap="configMenu.selectConfigPanel(3)" class="item">
             <div data-output="{{ 'mainpage.CONFIGMENU_GLASS' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
-            <div data-output="{{ configMenu.P.product.glass[0].sku }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div ng-if="configMenu.P.product.glass.length == 1" data-output="{{ configMenu.P.product.glass[0].sku }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div ng-if="configMenu.P.product.glass.length &gt; 1" data-output="{{ configMenu.P.product.glass[0].sku +', '+ configMenu.P.product.glass[1].sku }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
           </li>
           <li ng-class="{'active': configMenu.G.global.activePanel == 4}" hm-tap="configMenu.selectConfigPanel(4)" class="item">
             <div data-output="{{ 'mainpage.CONFIGMENU_HARDWARE' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>

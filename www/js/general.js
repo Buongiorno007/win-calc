@@ -38,24 +38,3 @@ Array.prototype.removeDuplicates = function() {
     return index == self.indexOf(elem);
   });
 };
-
-
-//----------- ALERTS
-navigator.notification = {};
-navigator.notification.confirm = function (obj1, obj2, obj3, obj4) {
-  swal({title: obj3,
-      text: obj1,
-      type: "warning",
-      showCancelButton: true,
-      showConfirmButton: true,
-      confirmButtonText: obj4[0],
-      cancelButtonText: obj4[1],
-      confirmButtonColor:	"#f98000"
-    },
-    function () {
-      console.log('click yes');
-      obj2(1);
-      return 1;
-    }
-  );
-};

@@ -522,6 +522,18 @@
               ' element_qty INTEGER',
             'foreignKey': ''
           },
+//          'order_elements': {
+//            'tableName': 'order_elements',
+//            'prop': 'order_id NUMERIC,' +
+//              ' element_id INTEGER,' +
+//              ' element_group_id INTEGER,' +
+//              ' name VARCHAR,' +
+//              ' sku VARCHAR,' +
+//              ' size NUMERIC,' +
+//              ' amount INTEGER,' +
+//              ' price NUMERIC',
+//            'foreignKey': ''
+//          },
           'template_groups':{
             'tableName': 'template_groups',
             'prop': 'name VARCHAR(255)',
@@ -589,30 +601,6 @@
 
 
 
-    //order_elements
-    //  size: {
-    //      type: 'NUMERIC',
-    //        allowNull: true,
-    //        defaultValue: '0.000'
-    //    },
-    //    amount: {
-    //      type: DataTypes.INTEGER,
-    //        allowNull: false
-    //    },
-    //    element_id: {
-    //      type: DataTypes.INTEGER,
-    //        allowNull: false
-    //    },
-    //    order_id: {
-    //      type: 'NUMERIC',
-    //        allowNull: false
-    //    },
-    //    id: {
-    //      type: DataTypes.INTEGER,
-    //        primaryKey: true,
-    //        autoIncrement: true,
-    //        allowNull: false
-    //    }
 
 
     thisFactory.publicObj = {
@@ -2225,7 +2213,7 @@
           finishPriceObj = {};
 
       priceObj.currCurrencyId = construction.currencyId;
-//      console.info('START+++', construction);
+      console.info('START+++', construction);
 	  
 	    parseMainKit(construction).then(function(kits) {
 //        console.warn('kits!!!!!!+', kits);
@@ -2246,7 +2234,7 @@
               priceObj.constrElements = culcKitPrice(priceObj, construction.sizes);
               culcConsistPrice(priceObj, construction);
               priceObj.priceTotal = GeneralServ.roundingNumbers(priceObj.priceTotal);
-//                console.info('FINISH====:', priceObj);
+                console.info('FINISH====:', priceObj);
               finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
               finishPriceObj.priceTotal = (isNaN(priceObj.priceTotal)) ? 0 : angular.copy(priceObj.priceTotal);
               deffMain.resolve(finishPriceObj);

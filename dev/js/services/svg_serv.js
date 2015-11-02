@@ -156,7 +156,7 @@
               thisObj.details[i].glassPoints = setPointsIn(thisObj.details[i].beadLinesOut, depths, 'frame-glass');
               /*          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);*/
 
-              thisObj.details[i].parts.push(setGlass(thisObj.details[i].glassPoints, thisObj.priceElements));
+              thisObj.details[i].parts.push(setGlass(thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId));
               $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn, thisObj.priceElements));
 
             } else if(thisObj.details[i].blockType === 'sash') {
@@ -178,7 +178,7 @@
               //          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);
 
               $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements));
-              thisObj.details[i].parts.push(setGlass(thisObj.details[i].glassPoints, thisObj.priceElements));
+              thisObj.details[i].parts.push(setGlass(thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId));
               $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn, thisObj.priceElements));
 
               //----- set openPoints for sash
@@ -1238,7 +1238,7 @@
     }
 
 
-    function setGlass(glassPoints, priceElements) {
+    function setGlass(glassPoints, priceElements, currGlassId) {
       var part = {
             type: 'glass',
             points: glassPoints,
@@ -1280,7 +1280,7 @@
       }
       part.square = calcSquare(glassPoints);
       part.sizes = culcLengthGlass(glassPoints);
-
+      part.glassId = currGlassId;
       //------- per Price
       priceElements.glassSquares.push(part);
 

@@ -41,7 +41,7 @@
           MainServ.setCurrentHardware(ProductStor.product);
           var hardwareIds = (ProductStor.product.hardware.id) ? ProductStor.product.hardware.id : 0;
           //------ define product price
-          MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass[0].id, hardwareIds);
+          MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, hardwareIds);
           //------ save analytics data
           AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
         });
