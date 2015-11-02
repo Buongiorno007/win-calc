@@ -97,7 +97,6 @@
                     var location = {
                       cityId: results[cit].id,
                       cityName: results[cit].name,
-                      regionName: regions[r].name,
                       climaticZone: regions[r].climaticZone,
                       heatTransfer: regions[r].heatTransfer,
                       countryId: UserStor.userInfo.countryId,

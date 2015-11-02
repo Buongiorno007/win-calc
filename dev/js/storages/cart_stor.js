@@ -27,7 +27,6 @@
         submitted: 0,
         isCityBox: 0,
         customer: {
-          customer_location: OrderStor.order.customer_city +', '+ OrderStor.order.currRegionName,
           customer_sex: 0 //1-m, 2-f
         }
       },
@@ -61,7 +60,6 @@
       ],
 
       setDefaultCart: setDefaultCart,
-      setDefaultUser: setDefaultUser,
       fillOrderForm: fillOrderForm
     };
 
@@ -78,16 +76,13 @@
       return publicObj;
     }
 
-    function setDefaultUser() {
-      var publicObj = angular.copy(thisFactory.publicObj.cartSource.customer);
-      return publicObj;
-    }
-
     //------- filling order form
     function fillOrderForm() {
       thisFactory.publicObj.cart.customer.customer_name = angular.copy(OrderStor.order.customer_name);
       thisFactory.publicObj.cart.customer.customer_location = angular.copy(OrderStor.order.customer_location);
       thisFactory.publicObj.cart.customer.customer_address = angular.copy(OrderStor.order.customer_address);
+      thisFactory.publicObj.cart.customer.customer_city = angular.copy(OrderStor.order.customer_city);
+      thisFactory.publicObj.cart.customer.customer_city_id = angular.copy(OrderStor.order.customer_city_id);
       thisFactory.publicObj.cart.customer.customer_email = angular.copy(OrderStor.order.customer_email);
       thisFactory.publicObj.cart.customer.customer_phone = angular.copy(OrderStor.order.customer_phone);
       thisFactory.publicObj.cart.customer.customer_phone_city = angular.copy(OrderStor.order.customer_phone_city);

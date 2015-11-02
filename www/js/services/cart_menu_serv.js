@@ -454,14 +454,15 @@
 
 
 
-    //---------- Close any Order Dialog
+    /** Close any Order Dialog */
     function closeOrderDialog() {
       CartStor.cart.submitted = 0;
       CartStor.cart.isCityBox = 0;
       if(GlobalStor.global.orderEditNumber > 0) {
         CartStor.fillOrderForm();
       } else{
-        CartStor.cart.customer = CartStor.setDefaultUser();
+        setDefaultCustomerData(OrderStor.order.customer_city_id, OrderStor.order.customer_city, OrderStor.order.customer_location);
+        CartStor.cart.customer.customer_sex = 0;
       }
       CartStor.cart.isMasterDialog = 0;
       CartStor.cart.isOrderDialog = 0;
@@ -477,12 +478,18 @@
       }
     }
 
-    //-------- Select City
-    function selectCity(place) {
-      CartStor.cart.customer.customer_location = place;
+    /** Select City in Order Dialogs */
+    function selectCity(location) {
+      setDefaultCustomerData(location.cityId, location.cityName, location.fullLocation);
       CartStor.cart.isCityBox = 0;
     }
 
+
+    function setDefaultCustomerData(cityId, cityName, fullLocation) {
+      CartStor.cart.customer.customer_city_id = cityId;
+      CartStor.cart.customer.customer_city = cityName;
+      CartStor.cart.customer.customer_location = fullLocation;
+    }
 
   }
 })();

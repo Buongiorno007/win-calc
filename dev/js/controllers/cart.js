@@ -57,6 +57,7 @@
       DELAY_START: globalConstants.STEP,
       typing: 'on'
     };
+
     //------- set current Page
     GlobalStor.global.currOpenPage = 'cart';
     GlobalStor.global.productEditNumber = 0;
@@ -72,8 +73,10 @@
       //----- cleaning product
       ProductStor.product = ProductStor.setDefaultProduct();
     }
-
-
+    //------- set customer data per order dialogs
+    if(!GlobalStor.global.orderEditNumber) {
+      CartStor.cart.customer.customer_location = OrderStor.order.customer_location;
+    }
 
 
 

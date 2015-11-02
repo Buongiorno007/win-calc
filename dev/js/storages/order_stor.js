@@ -20,15 +20,8 @@
         order_date: 0,
         order_style: '',
 
-        //------- current Geolocation
-        currCityId: 0,
-        currRegionName: '',
-        currCountryName: '',
-        currFullLocation: '',
-
         climatic_zone: 0,
         heat_coef_min: 0,
-        customer_city: '',
 
         discount_construct: 0,
         discount_addelem: 0,
@@ -78,6 +71,8 @@
         customer_phone_city: '',
         customer_address: '',
         customer_location: '',
+        customer_city: '',
+        customer_city_id: 0,
         customer_itn: 0,
         customer_starttime: '',
         customer_endtime: '',

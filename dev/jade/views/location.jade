@@ -6,7 +6,7 @@ section.settings.location-page
   .location-container
     .lists
       ul.list
-        li.item.click(ng-repeat="location in locationPage.locations | filter:locationPage.userNewLocation", hm-tap="locationPage.selectCity(location.cityId)")
+        li.item.click(ng-repeat="location in locationPage.locations | filter:locationPage.userNewLocation", hm-tap="locationPage.selectCity(location)")
           .location-label {{location.fullLocation}}
 
 

@@ -461,6 +461,7 @@
               ' customer_email TEXT,' +
               ' customer_phone VARCHAR(30),' +
               ' customer_phone_city VARCHAR(20),' +
+              ' customer_city_id INTEGER,' +
               ' customer_city VARCHAR,' +
               ' customer_address TEXT,' +
               ' customer_location VARCHAR,' +

@@ -237,27 +237,24 @@
       for(var loc = 0; loc < locationQty; loc++) {
         if(locations[loc].cityId === cityId) {
           UserStor.userInfo.cityName = locations[loc].cityName;
-          UserStor.userInfo.regionName = locations[loc].regionName;
           UserStor.userInfo.climaticZone = locations[loc].climaticZone;
           UserStor.userInfo.heatTransfer = locations[loc].heatTransfer;
           UserStor.userInfo.countryName = locations[loc].countryName;
           UserStor.userInfo.countryId = locations[loc].countryId;
           UserStor.userInfo.fullLocation = locations[loc].fullLocation;
           //------ set current GeoLocation
-          setUserGeoLocation(cityId, locations[loc].cityName, locations[loc].regionName, locations[loc].countryName, locations[loc].climaticZone, locations[loc].heatTransfer, locations[loc].fullLocation);
+          setUserGeoLocation(cityId, locations[loc].cityName, locations[loc].climaticZone, locations[loc].heatTransfer, locations[loc].fullLocation);
         }
       }
     }
 
     //--------- set current user geolocation
-    function setUserGeoLocation(cityId, cityName, regionName, countryName, climatic, heat, fullLocation) {
-      OrderStor.order.currCityId = cityId;
+    function setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation) {
+      OrderStor.order.customer_city_id = cityId;
       OrderStor.order.customer_city = cityName;
-      OrderStor.order.currRegionName = regionName;
-      OrderStor.order.currCountryName = countryName;
       OrderStor.order.climatic_zone = climatic;
       OrderStor.order.heat_coef_min = heat;
-      OrderStor.order.currFullLocation = fullLocation;
+      OrderStor.order.customer_location = fullLocation;
     }
 
 

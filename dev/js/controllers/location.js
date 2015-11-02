@@ -12,7 +12,7 @@
     var thisCtrl = this;
 
     //----- current user location
-    thisCtrl.userNewLocation = angular.copy(OrderStor.order.currFullLocation);
+    thisCtrl.userNewLocation = angular.copy(OrderStor.order.customer_location);
 
 
     //------ get all regions and cities
@@ -30,34 +30,29 @@
     //============ methods ================//
 
     //-------- Select City
-    function selectCity(locationId) {
-      var locationQty = thisCtrl.locations.length,
-          j = 0;
-      for(; j < locationQty; j++) {
-        if(thisCtrl.locations[j].cityId === locationId) {
-          thisCtrl.userNewLocation = thisCtrl.locations[j].fullLocation;
-          //----- if user settings changing
-          if(GlobalStor.global.currOpenPage === 'settings') {
-            UserStor.userInfo.fullLocation = thisCtrl.userNewLocation;
-            UserStor.userInfo.city_id = locationId;
-            UserStor.userInfo.cityName = thisCtrl.locations[j].cityName;
-            UserStor.userInfo.regionName = thisCtrl.locations[j].regionName;
-            UserStor.userInfo.countryName = thisCtrl.locations[j].countryName;
-            UserStor.userInfo.climaticZone = thisCtrl.locations[j].climaticZone;
-            UserStor.userInfo.heatTransfer = thisCtrl.locations[j].heatTransfer;
-            //----- save new City Id in LocalDB & Server
-            //----- update password in LocalDB & Server
-            localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {'city_id': locationId});
+    function selectCity(location) {
+      thisCtrl.userNewLocation = location.fullLocation;
 
-          //-------- if current geolocation changing
-          } else if(GlobalStor.global.currOpenPage === 'main'){
-            //----- build new currentGeoLocation
-            loginServ.setUserGeoLocation(locationId, thisCtrl.locations[j].cityName, thisCtrl.locations[j].regionName, thisCtrl.locations[j].countryName, thisCtrl.locations[j].climaticZone, thisCtrl.locations[j].heatTransfer, thisCtrl.userNewLocation);
-          }
-          GlobalStor.global.startProgramm = false;
-          SettingServ.closeLocationPage();
-        }
+      //----- if user settings changing
+      if(GlobalStor.global.currOpenPage === 'settings') {
+        UserStor.userInfo.city_id = location.cityId;
+        UserStor.userInfo.cityName = location.cityName;
+        UserStor.userInfo.countryId = location.countryId;
+        UserStor.userInfo.countryName = location.countryName;
+        UserStor.userInfo.fullLocation = location.fullLocation;
+        UserStor.userInfo.climaticZone = location.climaticZone;
+        UserStor.userInfo.heatTransfer = location.heatTransfer;
+        //----- save new City Id in LocalDB & Server
+        //----- update password in LocalDB & Server
+        localDB.updateLocalServerDBs(localDB.tablesLocalDB.users.tableName, UserStor.userInfo.id, {'city_id': location.cityId});
+
+        //-------- if current geolocation changing
+      } else if(GlobalStor.global.currOpenPage === 'main'){
+        //----- build new currentGeoLocation
+        loginServ.setUserGeoLocation(location.cityId, location.cityName, location.climaticZone, location.heatTransfer, location.fullLocation);
       }
+      GlobalStor.global.startProgramm = false;
+      SettingServ.closeLocationPage();
     }
 
 

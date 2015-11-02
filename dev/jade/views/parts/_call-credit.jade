@@ -45,10 +45,10 @@
         .cart-dialog-label {{ 'cart.CALL_ORDER_DELIVERY' | translate }} {{ creditDialog.O.order.new_delivery_date | date:"dd.MM.yyyy"}}
 
         .input-field(ng-class="{ 'has-error' : creditDialog.C.cart.submitted && callCreditForm.location.$error.required }")
-          input.user-field(type="text", name="location", ng-model="creditDialog.C.cart.customer.customer_location", ng-change="creditDialog.changeLocation()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", ng-blur="creditDialog.C.cart.isCityBox = false", required)
+          input.user-field(type="text", name="location", ng-model="creditDialog.C.cart.customer.customer_location", ng-change="creditDialog.changeLocation()", placeholder="{{ 'cart.CLIENT_LOCATION' | translate }}", ng-blur="creditDialog.C.cart.isCityBox = false", autocomplete="off", required)
           .error-tooltip(ng-show='creditDialog.C.cart.submitted && callCreditForm.location.$error.required') {{ 'login.EMPTY_FIELD' | translate }}
           ul.location-list-tooltip(ng-show="creditDialog.C.cart.isCityBox", tabindex="1")
-            li.location-option(ng-repeat="location in creditDialog.locations | filter: {cityName: creditDialog.C.cart.customer.customer_location } | orderBy:'cityName'", hm-tap="creditDialog.selectCity(location.fullLocation)") {{location.fullLocation}}
+            li.location-option(ng-repeat="location in creditDialog.locations | filter: {cityName: creditDialog.C.cart.customer.customer_location } | orderBy:'cityName'", hm-tap="creditDialog.selectCity(location)") {{location.fullLocation}}
 
 
 
