@@ -16,7 +16,7 @@
 
     function clickYes() {
       GlobalStor.global.isAlert = 0;
-      GlobalStor.global.confirmAction(1);
+      GlobalStor.global.confirmAction();
     }
 
   }

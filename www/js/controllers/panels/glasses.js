@@ -58,26 +58,27 @@
       if(selectBlockQty) {
         while (--selectBlockQty > -1) {
           var blockId = DesignStor.design.selectedGlass[selectBlockQty].attributes.block_id.nodeValue;
-          MainServ.setGlassToAllTemplateBlocks(blockId, thisCtrl.config.selectGlassId, thisCtrl.config.selectGlassName);
+          MainServ.setGlassToTemplateBlocks(blockId, thisCtrl.config.selectGlassId, thisCtrl.config.selectGlassName);
         }
-        changePriceAsNewGlass(0);
+        changePriceAsNewGlass();
       }
       closeGlassSelectorDialog();
     }
 
 
     function setGlassToAll() {
-      MainServ.setGlassToAllTemplateBlocks(0, thisCtrl.config.selectGlassId, thisCtrl.config.selectGlassName);
-      changePriceAsNewGlass(1);
+      MainServ.setGlassToTemplateBlocks(0, thisCtrl.config.selectGlassId, thisCtrl.config.selectGlassName);
+      changePriceAsNewGlass();
       closeGlassSelectorDialog();
     }
 
 
-    function changePriceAsNewGlass (replaceAll) {
+    function changePriceAsNewGlass () {
+      GlobalStor.global.selectLastGlassId = thisCtrl.config.selectGlassId;
       DesignStor.design.selectedGlass.length = 0;
       DesignServ.removeAllEventsInSVG();
       //------- set currenct Glass
-      MainServ.setCurrentGlass(ProductStor.product, thisCtrl.config.selectGlassId, replaceAll);
+      MainServ.setCurrentGlass(ProductStor.product, GlobalStor.global.selectLastGlassId);
       SVGServ.createSVGTemplate(ProductStor.product.template_source, ProductStor.product.profileDepths).then(function(result) {
         ProductStor.product.template = angular.copy(result);
         //------ calculate price

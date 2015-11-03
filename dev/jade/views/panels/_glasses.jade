@@ -9,7 +9,7 @@
 
       .glass-block-footer.clearfix
         .footer-inner
-          .box.glass-box.unvisible(ng-repeat="glass in typeGlass", ng-class="{'selected': glass.id == glassPanel.P.product.glass[0].id}", show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}")
+          .box.glass-box.unvisible(ng-repeat="glass in typeGlass", ng-class="{'selected': glass.id == glassPanel.G.global.selectLastGlassId }", show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}")
             .box_inner(hm-tap="glassPanel.selectGlass(glass.id, glass.sku)")
               .glass-box-view
                 .glass-img(ng-switch="glass.cameras")

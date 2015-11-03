@@ -95,7 +95,8 @@
         HEATCOEF_VAL: 'W/m',
         TEMPLATE_TIP: 'Um die Größe zu ändern, klicken Sie hier',
         PROFILE_TIP: 'Um ein Profil auszuwählen, klicken Sie hier',
-        GLASS_TIP: 'Um eine doppelt verglasten Fenster auszuwählen, klicken Sie hier'
+        GLASS_TIP: 'Um eine doppelt verglasten Fenster auszuwählen, klicken Sie hier',
+        SELECT_ALL: 'Take all'
       },
       panels: {
         TEMPLATE_WINDOW: 'Fenster',

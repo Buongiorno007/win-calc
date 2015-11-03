@@ -11,7 +11,7 @@
     .module('MainModule')
     .factory('SVGServ', designFactory);
 
-  function designFactory($q, globalConstants) {
+  function designFactory($q, globalConstants, GeneralServ) {
 
     var thisFactory = this;
 
@@ -160,7 +160,7 @@
               /*          thisObj.details[i].glassLines = setLines(thisObj.details[i].beadPointsIn);*/
 
               thisObj.details[i].parts.push(setGlass(thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId));
-              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn, thisObj.priceElements));
+              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn, thisObj.priceElements, thisObj.details[i].glassId));
 
             } else if(thisObj.details[i].blockType === 'sash') {
               thisObj.details[i].sashPointsOut = copyPointsOut(setPointsIn(thisObj.details[i].linesIn, depths, 'sash-out'), 'sash');
@@ -182,7 +182,7 @@
 
               $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].sashPointsOut, thisObj.details[i].sashPointsIn, thisObj.priceElements));
               thisObj.details[i].parts.push(setGlass(thisObj.details[i].glassPoints, thisObj.priceElements, thisObj.details[i].glassId));
-              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn, thisObj.priceElements));
+              $.merge(thisObj.details[i].parts, setParts(thisObj.details[i].beadPointsOut, thisObj.details[i].beadPointsIn, thisObj.priceElements, thisObj.details[i].glassId));
 
               //----- set openPoints for sash
               thisObj.details[i].sashOpenDir = setOpenDir(thisObj.details[i].openDir, thisObj.details[i].beadLinesIn);
@@ -1060,7 +1060,7 @@
 
 
 
-    function setParts(pointsOut, pointsIn, priceElements) {
+    function setParts(pointsOut, pointsIn, priceElements, currGlassId) {
       var newPointsOut = pointsOut.filter(function (item) {
         if(item.type === 'frame' && !item.view) {
           return false;
@@ -1070,7 +1070,11 @@
       });
 
       var parts = [],
-          pointsQty = newPointsOut.length;
+          pointsQty = newPointsOut.length,
+          beadObj = {
+            glassId: currGlassId,
+            sizes: []
+          };
 
       for(var index = 0; index < pointsQty; index++) {
         //----- passing if first point is curv
@@ -1160,23 +1164,27 @@
         part.size = culcLength(part.points);
 
         //------- per Price
+        //----- converting size from mm to m
+        var sizeValue = GeneralServ.roundingNumbers(angular.copy(part.size)/1000, 3);
         if(newPointsOut[index].type === 'bead') {
           part.type = 'bead';
-          priceElements.beadsSize.push(part.size);
+          beadObj.sizes.push(sizeValue);
         } else if(newPointsOut[index].type === 'sash') {
           part.type = 'sash';
-          priceElements.sashsSize.push(part.size);
+          priceElements.sashsSize.push(sizeValue);
         } else if(part.type === 'frame') {
           if(part.sill) {
-            priceElements.frameSillSize.push(part.size);
+            priceElements.frameSillSize.push(sizeValue);
           } else {
-            priceElements.framesSize.push(part.size);
+            priceElements.framesSize.push(sizeValue);
           }
         }
         //TODO----- if shtulpsSize: []
         parts.push(part);
       }
-
+      if(beadObj.sizes.length) {
+        priceElements.beadsSize.push(beadObj);
+      }
       return parts;
     }
 
@@ -1248,6 +1256,9 @@
             path: 'M ',
             square: 0
           },
+          glassObj = {
+            elemId: currGlassId
+          },
           pointsQty = glassPoints.length,
           i = 0;
 
@@ -1283,9 +1294,14 @@
       }
       part.square = calcSquare(glassPoints);
       part.sizes = culcLengthGlass(glassPoints);
-      part.glassId = currGlassId;
+
       //------- per Price
-      priceElements.glassSquares.push(part);
+      glassObj.square = angular.copy(part.square);
+      //----- converting size from mm to m
+      glassObj.sizes = angular.copy(part.sizes).map(function(item) {
+        return GeneralServ.roundingNumbers(item/1000, 3);
+      });
+      priceElements.glassSquares.push(glassObj);
 
       return part;
     }
@@ -1754,7 +1770,9 @@
       part.size = culcLength(sizePoints);
 
       //------- for Price
-      priceElements.impostsSize.push(part.size);
+      //----- converting size from mm to m
+      var sizeValue = GeneralServ.roundingNumbers(angular.copy(part.size)/1000, 3);
+      priceElements.impostsSize.push(sizeValue);
 
       return part;
     }

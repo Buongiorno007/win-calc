@@ -17,6 +17,7 @@
       roundingNumbers: roundingNumbers,
       setPriceDis: setPriceDis,
       sorting: sorting,
+      removeDuplicates: removeDuplicates,
       confirmAlert: confirmAlert
     };
 
@@ -66,6 +67,12 @@
 
     function sorting(a, b) {
       return a - b;
+    }
+
+    function removeDuplicates(arr) {
+      return arr.filter(function(elem, index, self) {
+        return index == self.indexOf(elem);
+      });
     }
 
     function confirmAlert(title, descript, callback) {

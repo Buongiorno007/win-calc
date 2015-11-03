@@ -54,6 +54,7 @@
         glassesAll: [],
         glassTypes: [],
         glasses: [],
+        selectLastGlassId: 0,
 
         //------ Hardwares
         hardwares: [],

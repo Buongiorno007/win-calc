@@ -7,7 +7,7 @@
     .module('CartModule')
     .factory('CartServ', cartFactory);
 
-  function cartFactory($location, $filter, $cordovaDialogs, localDB, GeneralServ, MainServ, CartMenuServ, GlobalStor, OrderStor, ProductStor, CartStor) {
+  function cartFactory($location, $filter, GeneralServ, MainServ, CartMenuServ, GlobalStor, OrderStor, ProductStor, CartStor) {
 
     var thisFactory = this;
 
@@ -93,31 +93,19 @@
         deleteProduct
       );
 
-//      $cordovaDialogs.confirm(
-//        $filter('translate')('common_words.DELETE_PRODUCT_TXT'),
-//        $filter('translate')('common_words.DELETE_PRODUCT_TITLE'),
-//        [$filter('translate')('common_words.BUTTON_Y'), $filter('translate')('common_words.BUTTON_N')])
-//        .then(function(buttonIndex) {
-//          deleteProduct(buttonIndex);
-//        });
+      function deleteProduct() {
+        //playSound('delete');
+        OrderStor.order.products.splice(productIndex, 1);
+        CartStor.cart.allAddElements.splice(productIndex, 1);
 
-      function deleteProduct(button) {
-        if(button == 1) {
-          //playSound('delete');
-          OrderStor.order.products.splice(productIndex, 1);
-          CartStor.cart.allAddElements.splice(productIndex, 1);
-
-          //----- if all products were deleted go to main page????
-          CartMenuServ.calculateOrderPrice();
-          if(OrderStor.order.products.length > 0 ) {
-            //--------- Change order price
-          } else {
-            //$scope.global.createNewProjectCart();
-            //TODO create new project
-          }
-
+        //----- if all products were deleted go to main page????
+        CartMenuServ.calculateOrderPrice();
+        if(OrderStor.order.products.length > 0 ) {
+          //--------- Change order price
+        } else {
+          //$scope.global.createNewProjectCart();
+          //TODO create new project
         }
-
       }
     }
 

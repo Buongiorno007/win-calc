@@ -43,15 +43,13 @@
                     var deviceLocation = data.results[0].formatted_address.split(', ');
                     //TODO set new currencyID!!!!
                     //TODO before need to fine currencyId!!!!
-                    //TODO loginServ.setUserGeoLocation(cityId, cityName, regionName, countryName, climatic, heat, fullLocation, currencyId)
+                    //TODO loginServ.setUserGeoLocation(cityId, cityName, climatic, heat, fullLocation, currencyId)
 
-                    OrderStor.order.currCityId = 156; //TODO должны тянуть с базы согласно новому городу, но город гугл дает на украинском языке, в базе на русском
+                    OrderStor.order.customer_city_id = 156; //TODO должны тянуть с базы согласно новому городу, но город гугл дает на украинском языке, в базе на русском
                     OrderStor.order.customer_city = deviceLocation[deviceLocation.length-3];
-                    OrderStor.order.currRegionName = deviceLocation[deviceLocation.length-2];
-                    OrderStor.order.currCountryName = deviceLocation[deviceLocation.length-1];
                     OrderStor.order.climatic_zone = 7; //TODO
                     OrderStor.order.heat_coef_min = 0.99; //TODO
-                    OrderStor.order.currFullLocation = deviceLocation[deviceLocation.length-3] + ', ' + deviceLocation[deviceLocation.length-2] + ', ' + deviceLocation[deviceLocation.length-1];
+                    OrderStor.order.customer_location = deviceLocation[deviceLocation.length-3] + ', ' + deviceLocation[deviceLocation.length-2] + ', ' + deviceLocation[deviceLocation.length-1];
 
                 }).
                 error(function(data, status, headers, config) {

@@ -33,8 +33,8 @@ Array.prototype.max = function () {
   });
 };
 
-Array.prototype.removeDuplicates = function() {
-  return this.filter(function(elem, index, self) {
-    return index == self.indexOf(elem);
-  });
-};
+//Array.prototype.removeDuplicates = function() {
+//  return this.filter(function(elem, index, self) {
+//    return index == self.indexOf(elem);
+//  });
+//};

@@ -175,8 +175,8 @@
             </div>
             <div class="glass-block-footer clearfix">
               <div class="footer-inner">
-                <div ng-repeat="glass in typeGlass" ng-class="{'selected': glass.id == glassPanel.P.product.glass[0].id}" show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}" class="box glass-box unvisible">
-                  <div hm-tap="glassPanel.selectGlass(glass.id)" class="box_inner">
+                <div ng-repeat="glass in typeGlass" ng-class="{'selected': glass.id == glassPanel.G.global.selectLastGlassId }" show-delay="{{ glassPanel.config.DELAY_START + (glassPanel.config.DELAY_BLOCK * $index) }}" class="box glass-box unvisible">
+                  <div hm-tap="glassPanel.selectGlass(glass.id, glass.sku)" class="box_inner">
                     <div class="glass-box-view">
                       <div ng-switch="glass.cameras" class="glass-img"><img ng-switch-when="1" ng-if="glass.glass_folder_id !== 6" ng-src="img/glasses/glass1.png"><img ng-switch-when="2" ng-if="glass.glass_folder_id !== 6" ng-src="img/glasses/glass2.png"><img ng-switch-when="1" ng-if="glass.glass_folder_id === 6" ng-src="img/glasses/glass10.png"><img ng-switch-when="2" ng-if="glass.glass_folder_id === 6" ng-src="img/glasses/glass20.png"></div>
                       <div class="label">{{ glass.cameras }}
@@ -208,6 +208,14 @@
               </div>
             </div>
           </div>
+        </div>
+        <div ng-class="{'active': glassPanel.G.global.showGlassSelectorDialog}" class="glass-selector-dialog">
+          <div class="dialog-inner">
+            <svg-template template="glassPanel.P.product.template" template-width="glassPanel.constants.svgTemplateIconBigWidth" template-height="glassPanel.constants.svgTemplateIconBigHeight" type-construction="setGlass"></svg-template>
+          </div>
+          <div hm-tap="glassPanel.confirmGlass()" class="set-glass-btn"></div>
+          <div hm-tap="glassPanel.setGlassToAll()" class="set-glass-all-btn">{{ 'mainpage.SELECT_ALL' | translate }}</div>
+          <div hm-tap="glassPanel.closeGlassSelectorDialog()" class="close-dialog"></div>
         </div>
       </div>
       <div ng-controller="HardwaresCtrl as hardwarePanel" ng-class="{'active': hardwarePanel.G.global.activePanel == 4 &amp;&amp; hardwarePanel.G.global.isSashesInTemplate}" class="config-panel hardware-container">
@@ -921,12 +929,6 @@
         </div>
         <button hm-tap="elementsListPanel.closeAddElementListView()" class="view-switch-tab">{{ 'add_elements.SCHEME_VIEW' | translate }}</button>
       </div>
-      <div ng-controller="GlassSelectorCtrl as glassBox" ng-class="{'active': glassBox.G.global.showGlassSelectorDialog}" class="glass-selector-dialog">
-        <div class="dialog-inner">
-          <svg-template template="glassBox.P.product.template" template-width="glassBox.constants.svgTemplateIconBigWidth" template-height="glassBox.constants.svgTemplateIconBigHeight" type-construction="iconBig"></svg-template>
-        </div>
-        <div hm-tap="glassBox.closeGlassSelectorDialog()" class="close-dialog"></div>
-      </div>
       <div ng-show="mainPage.G.global.isShowCommentBlock" class="backDarkView"></div>
     </section>
     <section class="right-menu">
@@ -947,7 +949,9 @@
           </li>
           <li ng-class="{'active': configMenu.G.global.activePanel == 3}" hm-tap="configMenu.selectConfigPanel(3)" class="item">
             <div data-output="{{ 'mainpage.CONFIGMENU_GLASS' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>
-            <div data-output="{{ configMenu.P.product.glass[0].sku }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div ng-if="configMenu.P.product.glass.length == 1" data-output="{{ configMenu.P.product.glass[0].sku }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div ng-if="configMenu.P.product.glass.length == 2" data-output="{{ configMenu.P.product.glass[0].sku +', '+ configMenu.P.product.glass[1].sku }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
+            <div ng-if="configMenu.P.product.glass.length &gt; 2" data-output="{{ configMenu.P.product.glass[0].sku +', '+ configMenu.P.product.glass[1].sku +', '+ configMenu.P.product.glass[2].sku }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="value"></div>
           </li>
           <li ng-class="{'active': configMenu.G.global.activePanel == 4}" hm-tap="configMenu.selectConfigPanel(4)" class="item">
             <div data-output="{{ 'mainpage.CONFIGMENU_HARDWARE' | translate }}" typing="{{ configMenu.config.typing }}" typing-delay="{{ configMenu.config.DELAY_TYPE_ITEM_TITLE }}" class="title"></div>

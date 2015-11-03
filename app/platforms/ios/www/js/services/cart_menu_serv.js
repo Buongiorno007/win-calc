@@ -220,16 +220,16 @@
           if(items[itemQty].type) {
             switch(items[itemQty].type) {
               case 1: //----- Цена за 1 конструкцию
-                items[itemQty].priceReal = items[itemQty].price * CartStor.cart.qtyTotal;
+                items[itemQty].priceReal = Math.round(items[itemQty].price * CartStor.cart.qtyTotal);
                 break;
               case 2: //----- Цена за 1 м2 конструкции
-                items[itemQty].priceReal = items[itemQty].price * CartStor.cart.squareTotal;
+                items[itemQty].priceReal = Math.round(items[itemQty].price * CartStor.cart.squareTotal);
                 break;
               case 3: //----- Цена за 1 м/п конструкции
-                items[itemQty].priceReal = items[itemQty].price * CartStor.cart.perimeterTotal;
+                items[itemQty].priceReal = Math.round(items[itemQty].price * CartStor.cart.perimeterTotal);
                 break;
               case 4: //----- Цена как % от стоимости
-                items[itemQty].priceReal = OrderStor.order.productsPriceDis * items[itemQty].price/100;
+                items[itemQty].priceReal = Math.round(OrderStor.order.productsPriceDis * items[itemQty].price/100);
                 break;
               default:
                 items[itemQty].priceReal = 0;
@@ -287,6 +287,10 @@
       OrderStor.order.addelems_price = GeneralServ.roundingNumbers(OrderStor.order.addelems_price);
       OrderStor.order.templates_price = GeneralServ.roundingNumbers(OrderStor.order.templates_price);
       OrderStor.order.products_price = GeneralServ.roundingNumbers(OrderStor.order.products_price);
+      CartStor.cart.squareTotal = GeneralServ.roundingNumbers(CartStor.cart.squareTotal);
+      CartStor.cart.perimeterTotal = GeneralServ.roundingNumbers(CartStor.cart.perimeterTotal);
+      CartStor.cart.qtyTotal = GeneralServ.roundingNumbers(CartStor.cart.qtyTotal);
+
       /** if default user discount = 0 */
       if(OrderStor.order.productsPriceDis) {
         OrderStor.order.productsPriceDis = GeneralServ.roundingNumbers(OrderStor.order.productsPriceDis);
@@ -447,14 +451,15 @@
 
 
 
-    //---------- Close any Order Dialog
+    /** Close any Order Dialog */
     function closeOrderDialog() {
       CartStor.cart.submitted = 0;
       CartStor.cart.isCityBox = 0;
       if(GlobalStor.global.orderEditNumber > 0) {
         CartStor.fillOrderForm();
       } else{
-        CartStor.cart.customer = CartStor.setDefaultUser();
+        setDefaultCustomerData(OrderStor.order.customer_city_id, OrderStor.order.customer_city, OrderStor.order.customer_location);
+        CartStor.cart.customer.customer_sex = 0;
       }
       CartStor.cart.isMasterDialog = 0;
       CartStor.cart.isOrderDialog = 0;
@@ -470,12 +475,18 @@
       }
     }
 
-    //-------- Select City
-    function selectCity(place) {
-      CartStor.cart.customer.customer_location = place;
+    /** Select City in Order Dialogs */
+    function selectCity(location) {
+      setDefaultCustomerData(location.cityId, location.cityName, location.fullLocation);
       CartStor.cart.isCityBox = 0;
     }
 
+
+    function setDefaultCustomerData(cityId, cityName, fullLocation) {
+      CartStor.cart.customer.customer_city_id = cityId;
+      CartStor.cart.customer.customer_city = cityName;
+      CartStor.cart.customer.customer_location = fullLocation;
+    }
 
   }
 })();

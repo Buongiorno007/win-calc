@@ -28,7 +28,7 @@
 
       setCurrentProfile: setCurrentProfile,
       setCurrentGlass: setCurrentGlass,
-      setGlassToAllTemplateBlocks: setGlassToAllTemplateBlocks,
+      setGlassToTemplateBlocks: setGlassToTemplateBlocks,
       setCurrentHardware: setCurrentHardware,
       fineItemById: fineItemById,
       parseTemplate: parseTemplate,
@@ -580,27 +580,17 @@
 
 
 
-    function setCurrentGlass(product, id, replaceAll) {
+    function setCurrentGlass(product, id) {
+      //------- cleaning glass in product
+      product.glass.length = 0;
       if(id) {
-        //-------- if one skylight so replace otherwise check dublicates and add
-        if(ProductStor.product.template_source.details.length === 2 || replaceAll) {
-          //----- one skylight
-          product.glass.length = 0;
-          product.glass.unshift(fineItemById(id, GlobalStor.global.glasses));
-        } else {
-          //----- check dublicates
-          var glassQty = product.glass.length,
-              isExist = 0;
-          while(--glassQty > -1) {
-            if(product.glass[glassQty].id === id) {
-              isExist++;
-            }
-          }
-          if(!isExist) {
-            product.glass.unshift(fineItemById(id, GlobalStor.global.glasses));
-          }
+        //----- get Glass Ids from template and check dublicates
+        var glassIds = GeneralServ.removeDuplicates(getGlassFromTemplateBlocks()),
+            glassIdsQty = glassIds.length;
+        //------- glass filling by new elements
+        while(--glassIdsQty > -1) {
+          product.glass.push(fineItemById(glassIds[glassIdsQty], GlobalStor.global.glasses));
         }
-        console.info('add glass --------- ', product.glass);
       } else {
         //----- set default glass in ProductStor
         var tempGlassArr = GlobalStor.global.glassesAll.filter(function(item) {
@@ -609,16 +599,31 @@
         if(tempGlassArr.length) {
           GlobalStor.global.glassTypes = angular.copy(tempGlassArr[0].glassTypes);
           GlobalStor.global.glasses = angular.copy(tempGlassArr[0].glasses);
-          product.glass.unshift(GlobalStor.global.glasses[0][0]);
-
+          product.glass.push(angular.copy(GlobalStor.global.glasses[0][0]));
+          GlobalStor.global.selectLastGlassId = product.glass[0].id;
           /** set Glass to all template blocks without children */
-          setGlassToAllTemplateBlocks(0, product.glass[0].id, product.glass[0].sku);
+          setGlassToTemplateBlocks(0, product.glass[0].id, product.glass[0].sku);
         }
       }
     }
 
 
-    function setGlassToAllTemplateBlocks(blockId, glassId, glassName) {
+    function getGlassFromTemplateBlocks() {
+      var blocksQty = ProductStor.product.template_source.details.length,
+          glassIds = [];
+      while(--blocksQty > 0) {
+        if(!ProductStor.product.template_source.details[blocksQty].children.length) {
+          if(ProductStor.product.template_source.details[blocksQty].glassId) {
+            glassIds.push(angular.copy(ProductStor.product.template_source.details[blocksQty].glassId));
+          }
+        }
+      }
+      return glassIds;
+    }
+
+
+
+    function setGlassToTemplateBlocks(blockId, glassId, glassName) {
       var blocksQty = ProductStor.product.template_source.details.length;
       while(--blocksQty > 0) {
         if(blockId) {
@@ -657,9 +662,17 @@
     function preparePrice(template, profileId, glassIds, hardwareId) {
       var deferred = $q.defer();
       GlobalStor.global.isLoader = 1;
-      setBeadId(profileId).then(function(beadIds) {
-        var objXFormedPrice = {
-              currencyId: UserStor.userInfo.currencyId,
+      setBeadId(profileId).then(function(beadResult) {
+        var beadIds = GeneralServ.removeDuplicates(angular.copy(beadResult).map(function(item) {
+              var beadQty = template.priceElements.beadsSize.length;
+              while(--beadQty > -1) {
+                if(template.priceElements.beadsSize[beadQty].glassId === item.glassId) {
+                  template.priceElements.beadsSize[beadQty].elemId = item.beadId;
+                }
+              }
+              return item.beadId;
+            })),
+            objXFormedPrice = {
               laminationId: ProductStor.product.lamination_in_id,
               ids: [
                 ProductStor.product.profile.rama_list_id,
@@ -668,39 +681,15 @@
                 ProductStor.product.profile.impost_list_id,
                 ProductStor.product.profile.shtulp_list_id,
                 (glassIds.length > 1) ? glassIds.map(function(item){ return item.id; }) : glassIds[0].id,
-                beadIds[0], //array
+                (beadIds.length > 1) ? beadIds : beadIds[0],
                 hardwareId
               ],
               sizes: []
             };
 
-
         //------- fill objXFormedPrice for sizes
         for(var size in template.priceElements) {
-          //----- converting size from mm to m
-          var newSizes = [];
-          //----- besides of glass squares
-          if(size === 'sashesBlock') {
-            newSizes = angular.copy(template.priceElements[size]);
-          } else if(size === 'glassSquares') {
-            var sizeElemQty = template.priceElements[size].length,
-                sq = 0;
-            for(; sq < sizeElemQty; sq++) {
-              var newGlassObj = angular.copy(template.priceElements[size][sq]);
-              newGlassObj.sizes = newGlassObj.sizes.map(function(item) {
-                return GeneralServ.roundingNumbers(item/1000, 3);
-              });
-              delete newGlassObj.path;
-              delete newGlassObj.points;
-              delete newGlassObj.type;
-              newSizes.push(newGlassObj);
-            }
-          } else {
-            newSizes = angular.copy(template.priceElements[size]).map(function(item) {
-              return GeneralServ.roundingNumbers(item/1000, 3);
-            });
-          }
-          objXFormedPrice.sizes.push(newSizes);
+          objXFormedPrice.sizes.push(angular.copy(template.priceElements[size]));
         }
 
         //------- set Overall Dimensions
@@ -749,9 +738,13 @@
           promises = ProductStor.product.glass.map(function(item) {
             var defer2 = $q.defer();
             if(item.glass_width) {
-              localDB.selectLocalDB(localDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": item.glass_width}).then(function (result) {
+              localDB.selectLocalDB(localDB.tablesLocalDB.beed_profile_systems.tableName, {'profile_system_id': profileId, "glass_width": item.glass_width}, 'list_id').then(function (result) {
                 if(result.length) {
-                  defer2.resolve(result[0].list_id);
+                  var beadObj = {
+                    glassId: item.id,
+                    beadId: result[0].list_id
+                  };
+                  defer2.resolve(beadObj);
                 } else {
                   console.log('Error!!', result);
                   defer2.resolve(0);
@@ -760,12 +753,7 @@
               return defer2.promise;
             }
           });
-
-      $q.all(promises).then(function(data) {
-        if(data) {
-          defer.resolve(data);
-        }
-      });
+      defer.resolve($q.all(promises));
       return defer.promise;
     }
 
@@ -973,7 +961,7 @@
                         /** add price margin */
                         GlobalStor.global.tempAddElements[k].price = addMarginToPrice(angular.copy(GlobalStor.global.tempAddElements[k].price), GlobalStor.global.margins.margin);
                         /** currency conversion */
-                        GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = localDB.currencyExgange(GlobalStor.global.tempAddElements[k].price, UserStor.userInfo.currencyId, GlobalStor.global.tempAddElements[k].currency_id, GlobalStor.global.currencies);
+                        GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = localDB.currencyExgange(GlobalStor.global.tempAddElements[k].price, GlobalStor.global.tempAddElements[k].currency_id);
                       }
                     }
                     elements.push(angular.copy(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el]));

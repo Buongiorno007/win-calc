@@ -461,6 +461,7 @@
               ' customer_email TEXT,' +
               ' customer_phone VARCHAR(30),' +
               ' customer_phone_city VARCHAR(20),' +
+              ' customer_city_id INTEGER,' +
               ' customer_city VARCHAR,' +
               ' customer_address TEXT,' +
               ' customer_location VARCHAR,' +
@@ -518,6 +519,18 @@
               ' element_qty INTEGER',
             'foreignKey': ''
           },
+//          'order_elements': {
+//            'tableName': 'order_elements',
+//            'prop': 'order_id NUMERIC,' +
+//              ' element_id INTEGER,' +
+//              ' element_group_id INTEGER,' +
+//              ' name VARCHAR,' +
+//              ' sku VARCHAR,' +
+//              ' size NUMERIC,' +
+//              ' amount INTEGER,' +
+//              ' price NUMERIC',
+//            'foreignKey': ''
+//          },
           'template_groups':{
             'tableName': 'template_groups',
             'prop': 'name VARCHAR(255)',
@@ -585,30 +598,6 @@
 
 
 
-    //order_elements
-    //  size: {
-    //      type: 'NUMERIC',
-    //        allowNull: true,
-    //        defaultValue: '0.000'
-    //    },
-    //    amount: {
-    //      type: DataTypes.INTEGER,
-    //        allowNull: false
-    //    },
-    //    element_id: {
-    //      type: DataTypes.INTEGER,
-    //        allowNull: false
-    //    },
-    //    order_id: {
-    //      type: 'NUMERIC',
-    //        allowNull: false
-    //    },
-    //    id: {
-    //      type: DataTypes.INTEGER,
-    //        primaryKey: true,
-    //        autoIncrement: true,
-    //        allowNull: false
-    //    }
 
 
     thisFactory.publicObj = {
@@ -1650,31 +1639,35 @@
                       deff2.resolve($q.all(promisHW));
                     }
                   } else {
-                    deff2.resolve(getElementByListId(1, item2.parent_element_id));
+                    deff2.resolve(getElementByListId(0, item2.parent_element_id));
                   }
                   return deff2.promise;
                 });
+
                 $q.all(promisElem).then(function(result2) {
-//                  console.error(result2);
                   var resQty = result2.length,
                       collectArr = [];
                   if(resQty) {
-                    for(var i = 0; i < resQty; i++) {
-                      if(result2[i]) {
-                        if(Array.isArray(result2[i])) {
-                          var innerArr = [],
-                              innerQty = result2[i].length;
-//                          console.info(result2[i]);
-                          for(var j = 0; j < innerQty; j++) {
-                            if(result2[i][j]) {
-                              innerArr.push(result2[i][j][0]);
+                    /** if glass or beads */
+                    if(index === 5 || index === 6) {
+                      collectArr = result2;
+                    } else {
+                      for (var i = 0; i < resQty; i++) {
+                        if (result2[i]) {
+                          if (Array.isArray(result2[i])) {
+                            var innerArr = [], innerQty = result2[i].length;
+                            //                          console.info(result2[i]);
+                            for (var j = 0; j < innerQty; j++) {
+                              if (result2[i][j]) {
+                                innerArr.push(result2[i][j][0]);
+                              }
                             }
+                            collectArr.push(innerArr);
+                          } else {
+                            collectArr.push(result2[i][0]);
                           }
-                          collectArr.push(innerArr);
-                        } else {
-                          collectArr.push(result2[i][0]);
-                        }
 
+                        }
                       }
                     }
                   }
@@ -1814,10 +1807,12 @@
         if(priceObj.kitsElem[ke]) {
           sizeQty = sizes[ke].length;
           if(Array.isArray(priceObj.kitsElem[ke])) {
+//            console.info('culcKitPrice ===== array');
             var kitElemChildQty = priceObj.kitsElem[ke].length;
             for(var child = 0; child < kitElemChildQty; child++) {
               /** hardware */
               if(Array.isArray(priceObj.kitsElem[ke][child])) {
+//                console.info('culcKitPrice ===== hardware');
                 var kitElemChildQty2 = priceObj.kitsElem[ke][child].length;
                 for(var child2 = 0; child2 < kitElemChildQty2; child2++) {
                   culcPriceAsSize(ke, priceObj.kits[ke][child][child2], priceObj.kitsElem[ke][child][child2], sizes[ke][child], 1, priceObj, constrElements);
@@ -1827,6 +1822,7 @@
               }
             }
           } else {
+//            console.info('culcKitPrice ===== object');
             culcPriceAsSize(ke, priceObj.kits[ke], priceObj.kitsElem[ke], sizes[ke], sizeQty, priceObj, constrElements);
           }
         }
@@ -1844,32 +1840,67 @@
           qtyTemp = 1,
           constrElem = {},
           waste = (kits.waste) ? (1 + (kits.waste / 100)) : 1;
-      for(var siz = 0; siz < sizeQty; siz++) {
-        constrElem = angular.copy(kitsElem);
-        /** glasses */
-        if(group === 5) {
-          /** check size by id of glass */
-          if(sizes[siz].glassId === kits.id) {
-            sizeTemp = sizes[siz].square;
-            priceTemp = sizeTemp * constrElem.price * waste;
+
+//      console.info('culcPriceAsSize =====', group, kits, kitsElem, sizes);
+
+      /** beads */
+      if(group === 6) {
+        for (var block = 0; block < sizeQty; block++) {
+          /** check beadId */
+          if (sizes[block].elemId === kits.id) {
+            var sizeBeadQty = sizes[block].sizes.length;
+            while(--sizeBeadQty > -1) {
+              constrElem = angular.copy(kitsElem);
+              sizeTemp = (sizes[block].sizes[sizeBeadQty] + kits.amendment_pruning);
+              priceTemp = (sizeTemp * constrElem.price) * waste;
+
+              /** currency conversion */
+              if (UserStor.userInfo.currencyId != constrElem.currency_id) {
+                priceTemp = currencyExgange(priceTemp, constrElem.currency_id);
+              }
+              constrElem.qty = angular.copy(qtyTemp);
+              constrElem.size = GeneralServ.roundingNumbers(sizeTemp, 3);
+              constrElem.priceReal = GeneralServ.roundingNumbers(priceTemp, 3);
+              priceObj.priceTotal += priceTemp;
+//              console.warn('finish bead-________',constrElem);
+              constrElements.push(constrElem);
+            }
           }
-        /** hardware */
-        } else if(group === 7) {
-          qtyTemp = kits.count;
-          priceTemp = qtyTemp * constrElem.price * waste;
-        } else {
-          sizeTemp = (sizes[siz] + kits.amendment_pruning);
-          priceTemp = (sizeTemp * constrElem.price) * waste;
         }
-        /** currency conversion */
-        if (priceObj.currCurrencyId != constrElem.currency_id){
-          priceTemp = currencyExgange(priceTemp, priceObj.currCurrencyId, constrElem.currency_id, GlobalStor.global.currencies);
+      } else {
+        for (var siz = 0; siz < sizeQty; siz++) {
+          constrElem = angular.copy(kitsElem);
+          /** glasses */
+          if (group === 5) {
+            var isExist = 0;
+            /** check size by id of glass */
+            if (sizes[siz].elemId === kits.id) {
+              sizeTemp = sizes[siz].square;
+              priceTemp = sizeTemp * constrElem.price * waste;
+              isExist++;
+            }
+            /** hardware */
+          } else if (group === 7) {
+            qtyTemp = kits.count;
+            priceTemp = qtyTemp * constrElem.price * waste;
+          } else {
+            sizeTemp = (sizes[siz] + kits.amendment_pruning);
+            priceTemp = (sizeTemp * constrElem.price) * waste;
+          }
+
+          if (group === 5 && isExist || group !== 5) {
+            /** currency conversion */
+            if (UserStor.userInfo.currencyId != constrElem.currency_id) {
+              priceTemp = currencyExgange(priceTemp, constrElem.currency_id);
+            }
+            constrElem.qty = angular.copy(qtyTemp);
+            constrElem.size = GeneralServ.roundingNumbers(sizeTemp, 3);
+            constrElem.priceReal = GeneralServ.roundingNumbers(priceTemp, 3);
+            priceObj.priceTotal += priceTemp;
+            //          console.warn(constrElem);
+            constrElements.push(constrElem);
+          }
         }
-        constrElem.qty = angular.copy(qtyTemp);
-        constrElem.size = GeneralServ.roundingNumbers(sizeTemp, 3);
-        constrElem.priceReal = GeneralServ.roundingNumbers(priceTemp, 3);
-        priceObj.priceTotal += priceTemp;
-        constrElements.push(constrElem);
       }
     }
 
@@ -1877,26 +1908,26 @@
 
 
 
-    function currencyExgange(price, currCurrencyId, currencyElemId, currencies) {
-      var currencyQty = currencies.length,
+    function currencyExgange(price, currencyElemId) {
+      var currencyQty = GlobalStor.global.currencies.length,
           c = 0,
           currIndex, elemIndex;
       if(currencyQty) {
         for (; c < currencyQty; c++) {
-          if(currencies[c].id === currCurrencyId) {
+          if(GlobalStor.global.currencies[c].id === UserStor.userInfo.currencyId) {
             currIndex = c;
           }
-          if(currencies[c].id === currencyElemId){
+          if(GlobalStor.global.currencies[c].id === currencyElemId){
             elemIndex = c;
           }
         }
       }
-      if(currencies[currIndex] && currencies[elemIndex]) {
-        if(currencies[currIndex].name === 'uah' && (currencies[elemIndex].name === 'eur' || currencies[elemIndex].name === 'usd')) {
-          price *= currencies[elemIndex].value;
+      if(GlobalStor.global.currencies[currIndex] && GlobalStor.global.currencies[elemIndex]) {
+        if(GlobalStor.global.currencies[currIndex].name === 'uah' && (GlobalStor.global.currencies[elemIndex].name === 'eur' || GlobalStor.global.currencies[elemIndex].name === 'usd')) {
+          price *= GlobalStor.global.currencies[elemIndex].value;
         }
-        if(currencies[currIndex].name !== 'uah' && currencies[elemIndex].name === 'uah') {
-          price /= currencies[currIndex].value;
+        if(GlobalStor.global.currencies[currIndex].name !== 'uah' && GlobalStor.global.currencies[elemIndex].name === 'uah') {
+          price /= GlobalStor.global.currencies[currIndex].value;
         }
       }
       return price;
@@ -1922,10 +1953,30 @@
           if(consistQty) {
 
             if(Array.isArray(priceObj.kits[group])) {
+//              console.info('culcConsistPrice ===== array');
+//                console.info('1-----', group);
+//                console.info('2-----', construction.sizes[group]);
+//                console.info('3-----', priceObj.kits[group]);
+//                console.info('4-----', priceObj.consist[group]);
+//                console.info('5-----', priceObj.consistElem[group]);
+
               for(var elem = 0; elem < consistQty; elem++) {
-                culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][elem], priceObj.kits[group][elem], priceObj);
+                /** if glass or beads */
+                if(group === 5 || group === 6) {
+                  var sizeObjQty = construction.sizes[group].length;
+                  for(var s = 0; s < sizeObjQty; s++) {
+                    if(construction.sizes[group][s].elemId === priceObj.kits[group][elem].id) {
+                      culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], priceObj.kits[group][elem], priceObj);
+                    }
+                  }
+                } else {
+                  culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][elem], priceObj.kits[group][elem], priceObj);
+                }
+
               }
+
             } else {
+//              console.info('culcConsistPrice ===== object');
               for(var s = 0; s < sizeQty; s++) {
                 for (var elem = 0; elem < consistQty; elem++) {
                   culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], priceObj.kits[group], priceObj);
@@ -1994,8 +2045,8 @@
 //                  console.log('++++++', priceReal, objTmp.qty, currConsistElem[hwInd][hwInd2].price, wasteValue);
                   if (priceReal) {
                     /** currency conversion */
-                    if (priceObj.currCurrencyId != currConsistElem[hwInd][hwInd2].currency_id) {
-                      priceReal = currencyExgange(priceReal, priceObj.currCurrencyId, currConsistElem[hwInd][hwInd2].currency_id, GlobalStor.global.currencies);
+                    if (UserStor.userInfo.currencyId != currConsistElem[hwInd][hwInd2].currency_id) {
+                      priceReal = currencyExgange(priceReal, currConsistElem[hwInd][hwInd2].currency_id);
                     }
                     objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
                     objTmp.size = 0;
@@ -2013,14 +2064,38 @@
         }
 
       } else {
+//        console.log('nooo hardware');
         if(Array.isArray(currConsistElem)) {
-          var elemQty = currConsistElem.length,
-              elemInd = 0;
-          for(; elemInd < elemQty; elemInd++) {
-            prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist[elemInd], currConsistElem[elemInd], currConsist, priceObj);
+//          console.log('array');
+//          console.info('1-----', group);
+//          console.info('2-----', currConstrSize);
+//          console.info('3-----', mainKit);
+          var elemQty = currConsistElem.length, elemInd = 0;
+          for (; elemInd < elemQty; elemInd++) {
+//            console.info('4-----', currConsist[elemInd], currConsistElem[elemInd]);
+
+            /** if beads */
+            if (group === 6) {
+              var sizeQty = currConstrSize.sizes.length;
+              while (--sizeQty > -1) {
+//                console.info('bead size-----', currConstrSize.sizes[sizeQty]);
+                prepareConsistElemPrice(group, currConstrSize.sizes[sizeQty], mainKit, currConsist[elemInd], currConsistElem[elemInd], currConsist, priceObj);
+              }
+            } else {
+              prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist[elemInd], currConsistElem[elemInd], currConsist, priceObj);
+            }
           }
         } else {
-          prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist, currConsistElem, priceObj.consist[group], priceObj);
+//          console.log('object');
+          /** if beads */
+          if(group === 6) {
+            var sizeQty = currConstrSize.sizes.length;
+            while(--sizeQty > -1) {
+              prepareConsistElemPrice(group, currConstrSize.sizes[sizeQty], mainKit, currConsist, currConsistElem, priceObj.consist[group], priceObj);
+            }
+          } else {
+            prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist, currConsistElem, priceObj.consist[group], priceObj);
+          }
         }
       }
     }
@@ -2043,6 +2118,9 @@
 
 
     function prepareConsistElemPrice(group, currConstrSize, mainKit, currConsist, currConsistElem, consistArr, priceObj) {
+//      console.info('1-----', group);
+//      console.info('2-----', currConsist, currConsistElem);
+//      console.info('3-----', currConstrSize, mainKit);
       if (currConsist.parent_list_id === mainKit.id) {
 
         var fullSize = 1,
@@ -2195,8 +2273,8 @@
       }
 
       /** currency conversion */
-      if (priceObj.currCurrencyId != currConsistElem.currency_id){
-        priceReal = currencyExgange(priceReal, priceObj.currCurrencyId, currConsistElem.currency_id, GlobalStor.global.currencies);
+      if (UserStor.userInfo.currencyId != currConsistElem.currency_id){
+        priceReal = currencyExgange(priceReal, currConsistElem.currency_id);
       }
 
       objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
@@ -2220,7 +2298,6 @@
           priceObj = {},
           finishPriceObj = {};
 
-      priceObj.currCurrencyId = construction.currencyId;
 //      console.info('START+++', construction);
 	  
 	    parseMainKit(construction).then(function(kits) {
@@ -2266,7 +2343,6 @@
             constrElements: [],
             priceTotal: 0
           };
-      priceObj.currCurrencyId = AddElement.currencyId;
 //      console.info('START+++', AddElement);
       /** collect Kit Children Elements*/
       parseListContent(angular.copy(AddElement.elementId)).then(function (result) {
@@ -2298,9 +2374,9 @@
                   priceTemp = (sizeTemp * constrElem.price) * wasteValue;
 
                   /** currency conversion */
-                  if (priceObj.currCurrencyId != constrElem.currency_id){
+                  if (UserStor.userInfo.currencyId != constrElem.currency_id){
 //                      console.log('diff currency');
-                    priceTemp = currencyExgange(priceTemp, priceObj.currCurrencyId, constrElem.currency_id, GlobalStor.global.currencies);
+                    priceTemp = currencyExgange(priceTemp, constrElem.currency_id);
                   }
                   constrElem.qty = 1;
                   constrElem.size = sizeTemp;
