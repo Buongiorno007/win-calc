@@ -3183,13 +3183,14 @@ body {
 .info_container .info_link {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   text-decoration: underline;
+  word-break: break-all;
 }
-/* line 42, ../../dev/sass/parts/_info-box.scss */
+/* line 43, ../../dev/sass/parts/_info-box.scss */
 .info_container .info_descrip {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   margin: 2rem 0;
 }
-/* line 46, ../../dev/sass/parts/_info-box.scss */
+/* line 47, ../../dev/sass/parts/_info-box.scss */
 .info_container .close-dialog {
   top: 0.875rem;
   right: 0.875rem;

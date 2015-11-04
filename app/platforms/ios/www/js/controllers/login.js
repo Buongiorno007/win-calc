@@ -89,7 +89,7 @@
 
 
 
-    //=========== SIGN IN ========//
+    /** =========== SIGN IN ======== */
 
     function enterForm(form) {
 //      console.log('@@@@@@@@@@@@=', typethisCtrl.user.phone, thisCtrl.user.password);
@@ -167,17 +167,8 @@
                     loginServ.prepareLocationToUse().then(function (data) {
                       thisCtrl.generalLocations = data;
                       loginServ.setUserLocation(thisCtrl.generalLocations.mergerLocation, UserStor.userInfo.city_id);
-                      //--------- set currency symbol
-                      loginServ.setCurrency().then(function(data) {
-                        if(data) {
-                          loginServ.setUserDiscounts().then(function(data) {
-                            if(data) {
-                              GlobalStor.global.isLoader = 0;
-                              $location.path('/main');
-                            }
-                          });
-                        }
-                      });
+                      /** download all data */
+                      loginServ.downloadAllData();
                     });
                   } else {
                     GlobalStor.global.isLoader = 0;
@@ -278,20 +269,11 @@
           if (thisCtrl.isLocalDB) {
             //------- current FactoryId matches to user FactoryId, go to main page without importDB
             //TODO localDB.syncDb(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function() {
-            //--------- set currency symbol
-            loginServ.setCurrency().then(function (data) {
-              if (data) {
-                loginServ.setUserDiscounts().then(function (data) {
-                  if (data) {
-                    GlobalStor.global.isLoader = 0;
-                    $location.path('/main');
-                  }
-                });
-              }
-            });
+            /** download all data */
+            loginServ.downloadAllData();
             //});
           } else {
-            //------ GlobalDB is ampty
+            //------ LocalDB is empty
             importDBfromServer(UserStor.userInfo.factory_id);
           }
         });
@@ -321,20 +303,9 @@
 //      console.log('START Time!!!!!!', new Date(), new Date().getMilliseconds());
       localDB.importAllDB(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
         if(data) {
-//          console.log('insert AllDB is done!');
-          //--------- set currency symbol
-          loginServ.setCurrency().then(function(data) {
-            if(data) {
-              loginServ.setUserDiscounts().then(function(data) {
-                if(data) {
-                  GlobalStor.global.isLoader = 0;
-                  thisCtrl.isStartImport = 0;
-//                  console.log('Finish Time!!!!!!', new Date(), new Date().getMilliseconds());
-                  $location.path('/main');
-                }
-              });
-            }
-          });
+          /** download all data */
+          loginServ.downloadAllData();
+          thisCtrl.isStartImport = 0;
         } else {
           console.log('Error!');
         }

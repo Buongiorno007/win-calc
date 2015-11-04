@@ -7,7 +7,7 @@
     .module('LoginModule')
     .factory('loginServ', startFactory);
 
-  function startFactory($window, $q, $cordovaGlobalization, $translate, $location, $filter, localDB, globalConstants, GeneralServ, optionsServ, GlobalStor, OrderStor, UserStor) {
+  function startFactory($q, $cordovaGlobalization, $cordovaFileTransfer, $translate, $location, $filter, localDB, globalConstants, GeneralServ, optionsServ, GlobalStor, OrderStor, UserStor) {
 
     var thisFactory = this;
 
@@ -30,54 +30,30 @@
 
     //------- defined system language
     function getDeviceLanguage() {
-//      console.log('USER: navigator++', $window.navigator);
-//      console.log('USER: userAgent+++', $window.navigator.userAgent);
-//      console.log('USER: platform', $window.navigator.platform);
-
-      var browsers = {chrome: /chrome/i, safari: /safari/i, firefox: /firefox/i, ie: /internet explorer/i};
-      var userAgent = $window.navigator.userAgent;
-      var platform = 0;
-
-      for(var key in browsers) {
-        if (browsers[key].test(userAgent)) {
-          platform++;
-        }
-      }
-
-      /** if browser */
-      if(platform) {
-        var browserLang = navigator.language || navigator.userLanguage;
-        console.info("The language is: " + browserLang);
-        checkLangDictionary(browserLang.split('-')[0]);
-        $translate.use(UserStor.userInfo.langLabel);
-      } else {
+      console.log('platform=222==', isDevice);
+      if(isDevice) {
         /** if Ipad */
         $cordovaGlobalization.getPreferredLanguage().then(
           function(result) {
+            console.log('language++', result);
             checkLangDictionary(result.value.split('-')[0]);
             $translate.use(UserStor.userInfo.langLabel);
           },
           function(error) {
             console.log('No language defined');
           });
+
+      } else {
+        /** if browser */
+        var browserLang = navigator.language || navigator.userLanguage;
+        console.info("The language is: " + browserLang);
+        checkLangDictionary(browserLang.split('-')[0]);
+        $translate.use(UserStor.userInfo.langLabel);
       }
     }
 
-    function detectmob() {
-      if( navigator.userAgent.match(/Android/i)
-        || navigator.userAgent.match(/webOS/i)
-        || navigator.userAgent.match(/iPhone/i)
-        || navigator.userAgent.match(/iPad/i)
-        || navigator.userAgent.match(/iPod/i)
-        || navigator.userAgent.match(/BlackBerry/i)
-        || navigator.userAgent.match(/Windows Phone/i)
-        ){
-        return true;
-      }
-      else {
-        return false;
-      }
-    }
+
+
 
     //------ compare device language with existing dictionary, if not exist set default language = English
     function checkLangDictionary(label) {
@@ -312,12 +288,10 @@
                                   console.log('HARDWARE ALL ++++++', GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares);
 
                                   /** download All AddElements */
-                                  downloadAllAddElem().then(function() {
-                                    sortingAllAddElem();
-
+                                  downloadAllAddElements().then(function() {
                                     /** download All Lamination */
                                     downloadAllLamination().then(function(lamins) {
-                                      console.log('LAMINATION++++', lamins);
+//                                      console.log('LAMINATION++++', lamins);
                                       if(lamins && lamins.length) {
                                         GlobalStor.global.laminationsIn = angular.copy(lamins);
                                         GlobalStor.global.laminationsOut = angular.copy(lamins);
@@ -330,6 +304,7 @@
                                       console.log('FINISH DOWNLOAD !!!!!!', new Date(), new Date().getMilliseconds());
 
                                     });
+
                                   });
 
                                 }
@@ -399,8 +374,7 @@
     function setUserDiscounts() {
       var defer = $q.defer();
       //-------- add server url to avatar img
-//      UserStor.userInfo.avatar = globalConstants.serverIP + UserStor.userInfo.avatar;
-      UserStor.userInfo.avatar = UserStor.userInfo.avatar;
+      UserStor.userInfo.avatar = globalConstants.serverIP + UserStor.userInfo.avatar;
 
       localDB.selectLocalDB(localDB.tablesLocalDB.users_discounts.tableName).then(function(result) {
 //        console.log('DISCTOUN=====', result);
@@ -462,9 +436,14 @@
         typesQty = types.length;
         if (typesQty) {
           groups.length = 0;
+          console.info('type!!!', types);
           angular.extend(groups, types);
           var promises = types.map(function(type) {
             var defer2 = $q.defer();
+
+            /** working with Images */
+            type.img = downloadElemImg(type.img);
+
             localDB.selectLocalDB(tableElem, {'folder_id': type.id}).then(function (result2) {
               if (result2.length) {
                 var elem = result2.sort(function(a, b) {
@@ -513,6 +492,34 @@
     }
 
 
+
+
+    function downloadElemImg(urlSource) {
+      if(urlSource) {
+        var url = globalConstants.serverIP + '' + urlSource;
+        if (isDevice) {
+          var imgName = urlSource.split('/').pop(),
+              targetPath = cordova.file.documentsDirectory +''+ imgName,
+              trustHosts = true,
+              options = {};
+
+          console.log(imgName);
+          console.log('image path====', targetPath);
+          $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
+              console.log('Success!', result);
+            }, function (err) {
+              console.log('Error!');
+            }, function (progress) {
+              //            $timeout(function () {
+              //              $scope.downloadProgress = (progress.loaded / progress.total) * 100;
+              //            })
+            });
+          return targetPath;
+        } else {
+          return url;
+        }
+      }
+    }
 
 
 
@@ -700,121 +707,152 @@
 
 
 
-    function downloadAllAddElem() {
-      var defer = $q.defer(),
-          promises = localDB.addElementDBId.map(function(item) {
-            return localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': item});
+    function downloadAllAddElements() {
+      var defer = $q.defer();
+      /** get All kits of addElements */
+      getAllAddKits().then(function() {
+        /** get All elements of addElements*/
+        getAllAddElems().then(function() {
+          sortingAllAddElem().then(function() {
+            defer.resolve(1);
           });
-      /** get All kits of addElements*/
-      $q.all(promises).then(function (result) {
-        var resultQty = result.length;
-        for(var i = 0; i < resultQty; i++) {
-          var elemGroupObj = {elementType: [], elementsList: result[i]};
-          GlobalStor.global.addElementsAll.push(elemGroupObj);
-          /** get element of addElements*/
-          if(result[i]) {
-            var promisElem = result[i].map(function(item) {
-              return localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.parent_element_id});
-            });
-            $q.all(promisElem).then(function (result) {
-              var resQty = result.length;
-              if(resQty) {
-                for(var j = 0; j < resQty; j++) {
-                  GlobalStor.global.tempAddElements.push(angular.copy(result[j][0]));
-                }
-              }
-              if(i === resultQty) {
-                defer.resolve(1);
-              }
-            });
-          }
-        }
+        })
       });
       return defer.promise;
     }
 
 
-    function sortingAllAddElem() {
-      localDB.selectLocalDB(localDB.tablesLocalDB.addition_folders.tableName).then(function(groups) {
-        var groupQty = groups.length;
-        if (groupQty) {
-          var elemAllQty = GlobalStor.global.addElementsAll.length,
-              defaultGroup = {
-                id: 0,
-                name: $filter('translate')('add_elements.OTHERS')
-              };
 
-          while(--elemAllQty > -1) {
-            if(GlobalStor.global.addElementsAll[elemAllQty].elementsList) {
-              GlobalStor.global.addElementsAll[elemAllQty].elementType = angular.copy(groups);
-              GlobalStor.global.addElementsAll[elemAllQty].elementType.push(defaultGroup);
-              //------- sorting
-              var newElemList = [],
-                  typeDelete = [],
-                  typeQty = GlobalStor.global.addElementsAll[elemAllQty].elementType.length,
-                  elemQty = GlobalStor.global.addElementsAll[elemAllQty].elementsList.length,
-                  tempElemQty = GlobalStor.global.tempAddElements.length;
-              for(var t = 0; t < typeQty; t++) {
-                var elements = [];
-                for(var el = 0; el < elemQty; el++) {
-                  if(GlobalStor.global.addElementsAll[elemAllQty].elementType[t].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].addition_folder_id) {
-                    var widthTemp = 0,
-                        heightTemp = 0;
-                    switch(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].list_group_id){
-                      case 21: // 1 - visors
-                      case 9: // 2 - spillways
-                      case 8: // 8 - windowSill
-                      case 19: // 3 - outSlope & inSlope
-                      case 12: // 6 - connectors
-                        widthTemp = 1000;
-                        break;
-                      case 20: // 0 - grids
-                      case 26: // 4 - louvers
-                        widthTemp = 1000;
-                        heightTemp = 1000;
-                        break;
-                    }
-                    GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_width = widthTemp;
-                    GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_height = heightTemp;
-                    GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_qty = 1;
-                    /** get price of element */
-                    for(var k = 0; k < tempElemQty; k++) {
-                      if(GlobalStor.global.tempAddElements[k].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].parent_element_id) {
-                        /** add price margin */
-                        GlobalStor.global.tempAddElements[k].price = GeneralServ.addMarginToPrice(angular.copy(GlobalStor.global.tempAddElements[k].price), GlobalStor.global.margins.margin);
-                        /** currency conversion */
-                        GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = localDB.currencyExgange(GlobalStor.global.tempAddElements[k].price, GlobalStor.global.tempAddElements[k].currency_id);
-                      }
-                    }
-                    elements.push(angular.copy(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el]));
+    function getAllAddKits() {
+      var defer = $q.defer(),
+          promises = localDB.addElementDBId.map(function(item) {
+            return localDB.selectLocalDB(localDB.tablesLocalDB.lists.tableName, {'list_group_id': item});
+          });
+      $q.all(promises).then(function (result) {
+        var addKits = angular.copy(result),
+            resultQty = addKits.length;
+        for(var i = 0; i < resultQty; i++) {
+          var elemGroupObj = {elementType: [], elementsList: addKits[i]};
+          GlobalStor.global.addElementsAll.push(elemGroupObj);
+        }
+        defer.resolve(1);
+      });
+      return defer.promise;
+    }
+
+
+    function getAllAddElems() {
+      var deff = $q.defer(),
+          promGroup = GlobalStor.global.addElementsAll.map(function(group) {
+            var deff1 = $q.defer();
+            if(group.elementsList && group.elementsList.length) {
+              var promElems = group.elementsList.map(function(item) {
+                var deff2 = $q.defer();
+                localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.parent_element_id}).then(function(result) {
+                  if(result && result.length) {
+                    GlobalStor.global.tempAddElements.push(angular.copy(result[0]));
+                    deff2.resolve(1);
+                  } else {
+                    deff2.resolve(0);
                   }
-                }
-                if(elements.length) {
-                  newElemList.push(elements);
-                } else {
-                  typeDelete.push(t);
+                });
+                return deff2.promise;
+              });
+              deff1.resolve($q.all(promElems));
+            } else {
+              deff1.resolve(0);
+            }
+            return deff1.promise;
+          });
+      deff.resolve($q.all(promGroup));
+      return deff.promise;
+    }
+
+
+    function sortingAllAddElem() {
+      var deff = $q.defer();
+      localDB.selectLocalDB(localDB.tablesLocalDB.addition_folders.tableName).then(function(groups) {
+
+        var elemAllQty = GlobalStor.global.addElementsAll.length,
+            defaultGroup = {
+              id: 0,
+              name: $filter('translate')('add_elements.OTHERS')
+            };
+
+//        console.info('sorting====', GlobalStor.global.addElementsAll);
+        while(--elemAllQty > -1) {
+          if(GlobalStor.global.addElementsAll[elemAllQty].elementsList) {
+            if(groups && groups.length) {
+              GlobalStor.global.addElementsAll[elemAllQty].elementType = angular.copy(groups);
+            }
+            GlobalStor.global.addElementsAll[elemAllQty].elementType.push(defaultGroup);
+            //------- sorting
+            var newElemList = [],
+                typeDelete = [],
+                typeQty = GlobalStor.global.addElementsAll[elemAllQty].elementType.length,
+                elemQty = GlobalStor.global.addElementsAll[elemAllQty].elementsList.length,
+                tempElemQty = GlobalStor.global.tempAddElements.length;
+            for(var t = 0; t < typeQty; t++) {
+              var elements = [];
+              for(var el = 0; el < elemQty; el++) {
+                if(GlobalStor.global.addElementsAll[elemAllQty].elementType[t].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].addition_folder_id) {
+                  var widthTemp = 0,
+                      heightTemp = 0;
+                  switch(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].list_group_id){
+                    case 21: // 1 - visors
+                    case 9: // 2 - spillways
+                    case 8: // 8 - windowSill
+                    case 19: // 3 - outSlope & inSlope
+                    case 12: // 6 - connectors
+                      widthTemp = 1000;
+                      break;
+                    case 20: // 0 - grids
+                    case 26: // 4 - louvers
+                      widthTemp = 1000;
+                      heightTemp = 1000;
+                      break;
+                  }
+                  GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_width = widthTemp;
+                  GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_height = heightTemp;
+                  GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_qty = 1;
+                  /** get price of element */
+                  for(var k = 0; k < tempElemQty; k++) {
+                    if(GlobalStor.global.tempAddElements[k].id === GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].parent_element_id) {
+                      /** add price margin */
+                      GlobalStor.global.tempAddElements[k].price = GeneralServ.addMarginToPrice(angular.copy(GlobalStor.global.tempAddElements[k].price), GlobalStor.global.margins.margin);
+                      /** currency conversion */
+                      GlobalStor.global.addElementsAll[elemAllQty].elementsList[el].element_price = localDB.currencyExgange(GlobalStor.global.tempAddElements[k].price, GlobalStor.global.tempAddElements[k].currency_id);
+                    }
+                  }
+                  elements.push(angular.copy(GlobalStor.global.addElementsAll[elemAllQty].elementsList[el]));
                 }
               }
-
-              if(newElemList.length) {
-                GlobalStor.global.addElementsAll[elemAllQty].elementsList = angular.copy(newElemList);
+              if(elements.length) {
+                newElemList.push(elements);
               } else {
-                GlobalStor.global.addElementsAll[elemAllQty].elementsList = 0;
-              }
-
-              /** delete empty groups */
-              var delQty = typeDelete.length;
-              if(delQty) {
-                while(--delQty > -1) {
-                  GlobalStor.global.addElementsAll[elemAllQty].elementType.splice(typeDelete[delQty], 1);
-                }
+                typeDelete.push(t);
               }
             }
-            //            console.log('addElementsAll ++++', GlobalStor.global.addElementsAll);
-          }
 
+            if(newElemList.length) {
+              GlobalStor.global.addElementsAll[elemAllQty].elementsList = angular.copy(newElemList);
+            } else {
+              GlobalStor.global.addElementsAll[elemAllQty].elementsList = 0;
+            }
+
+            /** delete empty groups */
+            var delQty = typeDelete.length;
+            if(delQty) {
+              while(--delQty > -1) {
+                GlobalStor.global.addElementsAll[elemAllQty].elementType.splice(typeDelete[delQty], 1);
+              }
+            }
+          }
+//          console.log('addElementsAll________________', GlobalStor.global.addElementsAll);
         }
+        deff.resolve(1);
       });
+      return deff.promise;
     }
 
 

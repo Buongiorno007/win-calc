@@ -1966,11 +1966,15 @@
                   var sizeObjQty = construction.sizes[group].length;
                   for(var s = 0; s < sizeObjQty; s++) {
                     if(construction.sizes[group][s].elemId === priceObj.kits[group][elem].id) {
-                      culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], priceObj.kits[group][elem], priceObj);
+                      if(priceObj.consistElem[group][elem]) {
+                        culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], priceObj.kits[group][elem], priceObj);
+                      }
                     }
                   }
                 } else {
-                  culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][elem], priceObj.kits[group][elem], priceObj);
+                  if(priceObj.consistElem[group][elem]) {
+                    culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][elem], priceObj.kits[group][elem], priceObj);
+                  }
                 }
 
               }
@@ -1979,7 +1983,9 @@
 //              console.info('culcConsistPrice ===== object');
               for(var s = 0; s < sizeQty; s++) {
                 for (var elem = 0; elem < consistQty; elem++) {
-                  culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], priceObj.kits[group], priceObj);
+                  if(priceObj.consistElem[group][elem]) {
+                    culcPriceConsistElem(group, priceObj.consist[group][elem], priceObj.consistElem[group][elem], construction.sizes[group][s], priceObj.kits[group], priceObj);
+                  }
                 }
               }
             }
@@ -2276,7 +2282,6 @@
       if (UserStor.userInfo.currencyId != currConsistElem.currency_id){
         priceReal = currencyExgange(priceReal, currConsistElem.currency_id);
       }
-
       objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
       objTmp.size = GeneralServ.roundingNumbers(sizeReal, 3);
       objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
@@ -2298,7 +2303,7 @@
           priceObj = {},
           finishPriceObj = {};
 
-//      console.info('START+++', construction);
+      console.info('START+++', construction);
 	  
 	    parseMainKit(construction).then(function(kits) {
 //        console.warn('kits!!!!!!+', kits);
@@ -2319,7 +2324,7 @@
               priceObj.constrElements = culcKitPrice(priceObj, construction.sizes);
               culcConsistPrice(priceObj, construction);
               priceObj.priceTotal = GeneralServ.roundingNumbers(priceObj.priceTotal);
-//                console.info('FINISH====:', priceObj);
+                console.info('FINISH====:', priceObj);
               finishPriceObj.constrElements = angular.copy(priceObj.constrElements);
               finishPriceObj.priceTotal = (isNaN(priceObj.priceTotal)) ? 0 : angular.copy(priceObj.priceTotal);
               deffMain.resolve(finishPriceObj);

@@ -105,40 +105,6 @@
 
 
 
-
-
-
-
-
-
-//    function downloadElemImg() {
-//      if(mobile) {
-//        var url = "http://cdn.wall-pix.net/albums/art-space/00030109.jpg";
-//        var targetPath = cordova.file.documentsDirectory + "testImage.png";
-//        var trustHosts = true;
-//        var options = {};
-//
-//        $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function(result) {
-//            // Success!
-//          },
-//          function(err) {
-//            // Error
-//          },
-//          function (progress) {
-//            $timeout(function () {
-//              $scope.downloadProgress = (progress.loaded / progress.total) * 100;
-//            })
-//          });
-//      } else {
-//        globalConstants.serverIP;
-//      }
-//
-//    }
-
-
-
-
-
     function prepareTemplates(type) {
       var deferred = $q.defer();
       downloadAllTemplates(type).then(function(data) {

@@ -1,35 +1,53 @@
+'use strict';
+/** global variable defined Browser or Device */
+var isDevice = 0;
+
 (function(){
-  'use strict';
 
-  window.PhonegapApp = {
-    initialize: function() {
-      this.bindEvents();
-    },
-    bindEvents: function() {
-      document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    onDeviceReady: function() {
-//      alert('onDeviceReady');
-      doInit();
-      angular.element(document).ready(function() {
-        angular.bootstrap(document, ['BauVoiceApp', 'LoginModule']);
+  /**------- defined system ------ */
+  console.log('USER: navigator++', window.navigator);
+  console.log('USER: userAgent+++', window.navigator.userAgent);
+  console.log('USER: platform', window.navigator.platform);
+  isDevice = detectDevice(window.navigator.userAgent);
 
-        //$(document).bind('touchmove', false);
-        //$cordovaDialogs
-        //      $cordovaInAppBrowser.open('http://ngcordova.com', '_blank', options).then(function () {
-        //        console.log("InAppBrowser opened http://ngcordova.com successfully");
-        //      }, function (error) {
-        //        console.log("Error: " + error);
-        //      });
-
-      });
-
-    }
-  };
-
-  PhonegapApp.initialize();
+//  var browsers = {chrome: /chrome/i, safari: /safari/i, firefox: /firefox/i, ie: /internet explorer/i};
+//      for(var key in browsers) {
+//        if (browsers[key].test(userAgent)) {
+//          platform++;
+//        }
+//      }
+  console.log('platform===', isDevice);
 
 
+  if(isDevice) {
+    window.PhonegapApp = {
+      initialize: function() {
+        this.bindEvents();
+      },
+      bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+      },
+      onDeviceReady: function() {
+        //      alert('onDeviceReady');
+        doInit();
+        angular.element(document).ready(function() {
+          angular.bootstrap(document, ['BauVoiceApp', 'LoginModule']);
+
+          //$(document).bind('touchmove', false);
+          //$cordovaDialogs
+          //      $cordovaInAppBrowser.open('http://ngcordova.com', '_blank', options).then(function () {
+          //        console.log("InAppBrowser opened http://ngcordova.com successfully");
+          //      }, function (error) {
+          //        console.log("Error: " + error);
+          //      });
+
+        });
+
+      }
+    };
+
+    PhonegapApp.initialize();
+  }
 
 
   angular.module('BauVoiceApp', [
@@ -194,6 +212,23 @@
     }];
 
 
+  }
+
+
+  function detectDevice(userAgent) {
+    if( userAgent.match(/Android/i)
+      || userAgent.match(/webOS/i)
+      || userAgent.match(/iPhone/i)
+      || userAgent.match(/iPad/i)
+      || userAgent.match(/iPod/i)
+      || userAgent.match(/BlackBerry/i)
+      || userAgent.match(/Windows Phone/i)
+      ){
+      return 1;
+    }
+    else {
+      return 0;
+    }
   }
 
 })();

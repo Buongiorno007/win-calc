@@ -38,6 +38,7 @@
   .info_link {
     @include roboto-lt(rem(36px));
     text-decoration: underline;
+    word-break: break-all;
   }
   .info_descrip {
     @include roboto-lt(rem(36px));
