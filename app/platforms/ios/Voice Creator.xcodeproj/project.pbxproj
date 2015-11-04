@@ -25,7 +25,6 @@
 		3088BBC0154F3926009F9C59 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBBA154F3926009F9C59 /* Default-Portrait~ipad.png */; };
 		3088BBC1154F3926009F9C59 /* Default@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBBB154F3926009F9C59 /* Default@2x~iphone.png */; };
 		3088BBC2154F3926009F9C59 /* Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 3088BBBC154F3926009F9C59 /* Default~iphone.png */; };
-		308D05371370CCF300D202BF /* icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 308D052E1370CCF300D202BF /* icon-72.png */; };
 		308D05381370CCF300D202BF /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 308D052F1370CCF300D202BF /* icon.png */; };
 		308D05391370CCF300D202BF /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 308D05301370CCF300D202BF /* icon@2x.png */; };
 		30B4F30019D5E07200D9F7D8 /* Default-667h.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B4F2FD19D5E07200D9F7D8 /* Default-667h.png */; };
@@ -54,6 +53,10 @@
 		552DFFAE1AC55D42003A6ECB /* Credentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 552DFFAA1AC55D42003A6ECB /* Credentials.m */; };
 		552DFFAF1AC55D42003A6ECB /* PhoneGapSpeechPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 552DFFAD1AC55D42003A6ECB /* PhoneGapSpeechPlugin.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		556CE7521BE2359A0058E4F4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55F479B21BE22E82007ABF34 /* Images.xcassets */; };
+		5586FC121BEA047B00AF0854 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5586FC111BEA047B00AF0854 /* Icon.png */; };
+		5588B6D61BE921C80034536D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5588B6D51BE921C80034536D /* CoreAudio.framework */; };
+		5588B6D81BE922510034536D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1465F5868B224E1D9647D0AA /* AudioToolbox.framework */; };
+		5588B6DA1BE922D30034536D /* CoreAudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5588B6D91BE922D30034536D /* CoreAudioKit.framework */; };
 		55F479B11BE22DCC007ABF34 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 55F479B01BE22DCC007ABF34 /* Icon-72.png */; };
 		5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */; };
 		5CA698F571624852AF0F847B /* CDVCapture.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FF7690B0C6E44880BFFF7350 /* CDVCapture.bundle */; };
@@ -153,6 +156,10 @@
 		552DFFAB1AC55D42003A6ECB /* ICredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICredentials.h; path = "Voice Creator/Plugins/ICredentials.h"; sourceTree = SOURCE_ROOT; };
 		552DFFAC1AC55D42003A6ECB /* PhoneGapSpeechPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhoneGapSpeechPlugin.h; path = "Voice Creator/Plugins/PhoneGapSpeechPlugin.h"; sourceTree = SOURCE_ROOT; };
 		552DFFAD1AC55D42003A6ECB /* PhoneGapSpeechPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhoneGapSpeechPlugin.m; path = "Voice Creator/Plugins/PhoneGapSpeechPlugin.m"; sourceTree = SOURCE_ROOT; };
+		5586FC111BEA047B00AF0854 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = "Voice Creator/Resources/icons/Icon.png"; sourceTree = "<group>"; };
+		5588B6D31BE920580034536D /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
+		5588B6D51BE921C80034536D /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		5588B6D91BE922D30034536D /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = System/Library/Frameworks/CoreAudioKit.framework; sourceTree = SDKROOT; };
 		55F479B01BE22DCC007ABF34 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Voice Creator/Resources/icons/Icon-72.png"; sourceTree = "<group>"; };
 		55F479B21BE22E82007ABF34 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Voice Creator/Images.xcassets"; sourceTree = SOURCE_ROOT; };
 		5688483327A9407B87182441 /* CDVExif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVExif.h; path = org.apache.cordova.camera/CDVExif.h; sourceTree = "<group>"; };
@@ -209,6 +216,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5588B6DA1BE922D30034536D /* CoreAudioKit.framework in Frameworks */,
+				5588B6D81BE922510034536D /* AudioToolbox.framework in Frameworks */,
+				5588B6D61BE921C80034536D /* CoreAudio.framework in Frameworks */,
 				552DFFA81AC55CD8003A6ECB /* Security.framework in Frameworks */,
 				552DFFA61AC55CCC003A6ECB /* UIKit.framework in Frameworks */,
 				552DFFA41AC55CBE003A6ECB /* Foundation.framework in Frameworks */,
@@ -262,6 +272,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				5586FC111BEA047B00AF0854 /* Icon.png */,
 				55F479B01BE22DCC007ABF34 /* Icon-72.png */,
 				EB87FDF41871DAF40020F90C /* config.xml */,
 				EB87FDF31871DA8E0020F90C /* www */,
@@ -306,6 +317,9 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5588B6D91BE922D30034536D /* CoreAudioKit.framework */,
+				5588B6D51BE921C80034536D /* CoreAudio.framework */,
+				5588B6D31BE920580034536D /* AudioUnit.framework */,
 				552DFFA71AC55CD8003A6ECB /* Security.framework */,
 				552DFFA51AC55CCC003A6ECB /* UIKit.framework */,
 				552DFFA31AC55CBE003A6ECB /* Foundation.framework */,
@@ -507,9 +521,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5586FC121BEA047B00AF0854 /* Icon.png in Resources */,
 				55F479B11BE22DCC007ABF34 /* Icon-72.png in Resources */,
 				7E7966DF1810823500FA85AD /* icon-40@2x.png in Resources */,
-				308D05371370CCF300D202BF /* icon-72.png in Resources */,
 				30B4F30119D5E07200D9F7D8 /* Default-736h.png in Resources */,
 				556CE7521BE2359A0058E4F4 /* Images.xcassets in Resources */,
 				308D05381370CCF300D202BF /* icon.png in Resources */,
@@ -679,8 +693,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
@@ -727,8 +741,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;

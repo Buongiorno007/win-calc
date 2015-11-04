@@ -7,7 +7,7 @@
     .module('MainModule')
     .factory('NavMenuServ', navFactory);
 
-  function navFactory($location, $http, $filter, $cordovaGeolocation, GeneralServ, MainServ, CartServ, GlobalStor, OrderStor, ProductStor) {
+  function navFactory($location, $http, $filter, $cordovaGeolocation, GeneralServ, MainServ, CartMenuServ, GlobalStor, OrderStor, ProductStor) {
 
     var thisFactory = this;
 
@@ -141,7 +141,7 @@
           //------ save product
           MainServ.inputProductInOrder();
           //------- define order Price
-          CartServ.calculateOrderPrice();
+          CartMenuServ.calculateOrderPrice();
           //-------- save order as Draft
           MainServ.saveOrderInDB({}, 0, '');
 
