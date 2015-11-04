@@ -7,7 +7,7 @@
     .module('BauVoiceApp')
     .directive('svgTemplate', svgTemplateDir);
 
-  function svgTemplateDir(SVGServ, DesignServ) {
+  function svgTemplateDir(GeneralServ, SVGServ, DesignServ) {
 
     return {
       restrict: 'E',
@@ -50,7 +50,7 @@
             }
 
             points = SVGServ.collectAllPointsOut(template.details);
-            dimMaxMin = getMaxMinCoord(points);
+            dimMaxMin = GeneralServ.getMaxMinCoord(points);
             scale = SVGServ.setTemplateScale(dimMaxMin, widthSVG, heightSVG, padding);
             if(scope.typeConstruction !== 'icon') {
               position = SVGServ.setTemplatePosition(dimMaxMin, widthSVG, heightSVG, scale);

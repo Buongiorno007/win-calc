@@ -1,7 +1,7 @@
 
 // services/design_serv.js
 
-/* globals d3, startRecognition, parseStringToDimension, playTTS, rounding10 */
+/* globals d3, startRecognition, parseStringToDimension, playTTS */
 (function(){
   'use strict';
   /**
@@ -11,7 +11,7 @@
     .module('DesignModule')
     .factory('DesignServ', designFactory);
 
-  function designFactory($rootScope, $location, $timeout, $filter, $q, MainServ, AnalyticsServ, globalConstants, optionsServ, SVGServ, GlobalStor, DesignStor, OrderStor, ProductStor, UserStor) {
+  function designFactory($rootScope, $location, $timeout, $filter, $q, globalConstants, GeneralServ, MainServ, AnalyticsServ, optionsServ, SVGServ, GlobalStor, DesignStor, OrderStor, ProductStor, UserStor) {
 
     var thisFactory = this,
         newLength;
@@ -702,7 +702,7 @@
         }
       }
       SVGServ.setLineCoef(currLine);
-      currLine.size = rounding10( (Math.hypot((currLine.to.x - currLine.from.x), (currLine.to.y - currLine.from.y))) );
+      currLine.size = GeneralServ.rounding10( (Math.hypot((currLine.to.x - currLine.from.x), (currLine.to.y - currLine.from.y))) );
       createCurveQPoint('corner', 'qc'+cornerN, currLine, cornerN, blocksInd, blocks);
     }
 
@@ -1298,7 +1298,7 @@
               from: crossPointsIn[0],
               to: crossPointsIn[1]
             },
-            impRadius = rounding10( (Math.hypot((impLine.from.x - impLine.to.x), (impLine.from.y - impLine.to.y)) / 2) ),
+            impRadius = GeneralServ.rounding10( (Math.hypot((impLine.from.x - impLine.to.x), (impLine.from.y - impLine.to.y)) / 2) ),
             pointsIn = angular.copy(pointsIn),
             pointsQty = pointsIn.length,
             currPoints = [],
@@ -1327,7 +1327,7 @@
 //        console.log('!!!!!!!!!!currPoints!!!!!!!!!', currPoints);
         currBlockCenter = SVGServ.centerBlock(currPoints);
 //        console.log('!!!!!!!!!!currBlockCenter!!!!!!!!!', currBlockCenter);
-        distCenterToImpost = rounding10( (Math.abs((impLine.coefA * currBlockCenter.x + impLine.coefB * currBlockCenter.y + impLine.coefC) / Math.hypot(impLine.coefA, impLine.coefB))) );
+        distCenterToImpost = GeneralServ.rounding10( (Math.abs((impLine.coefA * currBlockCenter.x + impLine.coefB * currBlockCenter.y + impLine.coefC) / Math.hypot(impLine.coefA, impLine.coefB))) );
 //      console.log('IMP -------------',impRadius, distCenterToImpost);
         if (impRadius < distCenterToImpost) {
           return impRadius / 2;
@@ -1953,7 +1953,7 @@
 
 
     function culcHeightQByRadiusCurve(lineLength, radius) {
-      return rounding10( (radius - Math.sqrt(Math.pow(radius,2) - Math.pow(lineLength,2)/4)) );
+      return GeneralServ.rounding10( (radius - Math.sqrt(Math.pow(radius,2) - Math.pow(lineLength,2)/4)) );
     }
 
 

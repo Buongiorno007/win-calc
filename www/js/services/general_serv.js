@@ -17,10 +17,14 @@
     thisFactory.publicObj = {
       stopStartProg: stopStartProg,
       setPreviosPage: setPreviosPage,
+      rounding10: rounding10,
+      rounding100: rounding100,
       roundingNumbers: roundingNumbers,
+      addMarginToPrice: addMarginToPrice,
       setPriceDis: setPriceDis,
       sorting: sorting,
       removeDuplicates: removeDuplicates,
+      getMaxMinCoord: getMaxMinCoord,
       confirmAlert: confirmAlert
     };
 
@@ -54,6 +58,15 @@
       GlobalStor.global.prevOpenPage = GlobalStor.global.currOpenPage;
     }
 
+
+    function rounding10(value) {
+      return Math.round(value * 10) / 10;
+    }
+
+    function rounding100(value) {
+      return Math.round(value * 100) / 100;
+    }
+
     function roundingNumbers(nubmer, radix) {
       var radix = (radix) ? radix : 2,
           numberType = typeof nubmer;
@@ -62,6 +75,11 @@
       } else if(numberType === 'number') {
         return parseFloat(nubmer.toFixed(radix));
       }
+    }
+
+    /** price Margins of Plant */
+    function addMarginToPrice(price, margin) {
+      return price * margin;
     }
 
     function setPriceDis(price, discount) {
@@ -77,6 +95,18 @@
         return index == self.indexOf(elem);
       });
     }
+
+
+    function getMaxMinCoord(points) {
+      var overall = {
+        minX: d3.min(points, function(d) { return d.x; }),
+        maxX: d3.max(points, function(d) { return d.x; }),
+        minY: d3.min(points, function(d) { return d.y; }),
+        maxY: d3.max(points, function(d) { return d.y; })
+      };
+      return overall;
+    }
+
 
     function confirmAlert(title, descript, callback) {
       GlobalStor.global.isAlert = 1;
