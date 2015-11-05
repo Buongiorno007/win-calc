@@ -1,5 +1,4 @@
 .info_container {
-  @include transition(all 0.3s linear);
   @extend .backLightView;
   visibility: hidden;
   background-color: rgba(126, 124, 124, 0.8);

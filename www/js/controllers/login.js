@@ -73,6 +73,11 @@
           thisCtrl.user.phone = '0500505500';
           thisCtrl.user.password = '0500505500';
           break;
+        case '799e078b084c6d57cea0b0d53a7e3008':
+          thisCtrl.user.phone = '78124541170';
+          thisCtrl.user.password = '78124541170';
+          break;
+
       }
       if(thisCtrl.user.phone && thisCtrl.user.password) {
         GlobalStor.global.isLoader = 1;
@@ -82,7 +87,7 @@
     }
 //?access=7d537b6746f925b1703aefa9b8a9a4bc
 //?access=3f5f0c7d46d318e026f9ba60dceffc65
-//?access=ff8134058378465dd485608f85eea994
+//?access=799e078b084c6d57cea0b0d53a7e3008
 
 
 

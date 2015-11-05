@@ -602,7 +602,7 @@
         }
         if(!$.isEmptyObject(tempObj)) {
           GlobalStor.global.infoTitle = tempObj.name;
-          GlobalStor.global.infoImg =  globalConstants.serverIP + tempObj.img;
+          GlobalStor.global.infoImg =  tempObj.img;
           GlobalStor.global.infoLink = tempObj.link;
           GlobalStor.global.infoDescrip = tempObj.description;
           GlobalStor.global.isInfoBox = id;

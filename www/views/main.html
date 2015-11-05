@@ -37,12 +37,9 @@
           <li ng-class="{'selected': navMenu.activeMenuItem == 8}" hm-tap="navMenu.selectMenuItem(8)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 9) }}" class="nav-icon-information unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_MORE_INFO' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 9) }}" class="title"></span></div>
           </li>
-          <!--li.item(ng-class="{'selected': navMenu.activeMenuItem == 9}", hm-tap="navMenu.selectMenuItem(9)")
-          .item-content
-            span.nav-icon-voicehelp.unvisible(show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}")
-            span.title(data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}", typing="{{ navMenu.config.typing }}", typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}")
-            
-          -->
+          <li ng-if="navMenu.G.global.isDevice" ng-class="{'selected': navMenu.activeMenuItem == 9}" hm-tap="navMenu.selectMenuItem(9)" class="item">
+            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}" class="nav-icon-voicehelp unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}" class="title"></span></div>
+          </li>
         </ul>
       </header>
       <footer class="nav-menu-footer">
@@ -124,7 +121,7 @@
       <div ng-controller="ProfilesCtrl as profilesPanel" ng-class="{'active': profilesPanel.G.global.activePanel == 2}" class="config-panel profile-container">
         <div ng-if="profilesPanel.G.global.activePanel == 2" class="panel-inner">
           <div ng-repeat="producer in profilesPanel.G.global.profiles" ng-class="{'selected': profilesPanel.P.product.profileTypeIndex == $index}" class="profile-block clearfix">
-            <div class="group-block-header">
+            <div ng-if="profilesPanel.G.global.profilesType[$index].name !== 'Default'" class="group-block-header">
               <div data-output="{{ profilesPanel.G.global.profilesType[$index].name }}" typing="{{ profilesPanel.config.typing }}" typing-delay="{{ profilesPanel.config.DELAY_START }}" class="title"></div>
               <div class="group-info">
                 <div ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description.length" hm-tap="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)" class="info"></div>
@@ -1444,7 +1441,7 @@
   </section>
   <div ng-controller="infoBoxCtrl as infoBox" ng-class="{'active': infoBox.G.global.isInfoBox}" class="info_container">
     <div class="info_box">
-      <div class="info_box_inner"><img ng-src="{{infoBox.G.global.infoImg}}">
+      <div class="info_box_inner"><img ng-if="infoBox.G.global.infoImg.length" ng-src="{{infoBox.G.global.infoImg}}">
         <div class="info_title">{{infoBox.G.global.infoTitle}}</div>
         <div class="info_descrip">{{infoBox.G.global.infoDescrip}}</div><a ng-href="{{infoBox.G.global.infoLink}}" target="_blank" class="info_link">{{infoBox.G.global.infoLink}}</a>
       </div>

@@ -35,7 +35,7 @@
     thisCtrl.clickNewProject = NavMenuServ.clickNewProject;
 
 
-
+console.log('isDevice_________', GlobalStor.global.isDevice);
     //============ methods ================//
 
     //------- Select menu item

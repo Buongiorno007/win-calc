@@ -30,8 +30,9 @@
 
     //------- defined system language
     function getDeviceLanguage() {
-      console.log('platform=222==', isDevice);
-      if(isDevice) {
+      GlobalStor.global.isDevice = isDevice;
+      console.log('platform=222==', GlobalStor.global.isDevice);
+      if(GlobalStor.global.isDevice) {
         /** if Ipad */
         $cordovaGlobalization.getPreferredLanguage().then(
           function(result) {
@@ -430,18 +431,18 @@
       //------- get all Folders
       localDB.selectLocalDB(tableGroup).then(function(result) {
         /** sorting types by position */
-        var types = result.sort(function(a, b) {
+        var types = angular.copy(result).sort(function(a, b) {
           return GeneralServ.sorting(a.position, b.position);
         }),
         typesQty = types.length;
         if (typesQty) {
           groups.length = 0;
-          console.info('type!!!', types);
+          console.log('type!!!', types);
           angular.extend(groups, types);
           var promises = types.map(function(type) {
             var defer2 = $q.defer();
 
-            /** working with Images */
+            /** change Images Path and save in device */
             type.img = downloadElemImg(type.img);
 
             localDB.selectLocalDB(tableElem, {'folder_id': type.id}).then(function (result2) {
@@ -493,30 +494,33 @@
 
 
 
-
+    /** change Images Path and save in device */
     function downloadElemImg(urlSource) {
       if(urlSource) {
-        var url = globalConstants.serverIP + '' + urlSource;
-        if (isDevice) {
-          var imgName = urlSource.split('/').pop(),
-              targetPath = cordova.file.documentsDirectory +''+ imgName,
-              trustHosts = true,
-              options = {};
+        /** check image */
+        if( /^.*\.(jpg|jpeg|png|gif|tiff)$/i.test(urlSource) ) {
+          var url = globalConstants.serverIP + '' + urlSource;
+          if (GlobalStor.global.isDevice) {
+            var imgName = urlSource.split('/').pop(),
+                targetPath = cordova.file.documentsDirectory + '' + imgName,
+                trustHosts = true,
+                options = {};
 
-          console.log(imgName);
-          console.log('image path====', targetPath);
-          $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
+            console.log('image name ====', imgName);
+            console.log('image path ====', targetPath);
+            $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
               console.log('Success!', result);
             }, function (err) {
-              console.log('Error!');
+              console.log('Error!', err);
             }, function (progress) {
               //            $timeout(function () {
               //              $scope.downloadProgress = (progress.loaded / progress.total) * 100;
               //            })
             });
-          return targetPath;
-        } else {
-          return url;
+            return targetPath;
+          } else {
+            return url;
+          }
         }
       }
     }

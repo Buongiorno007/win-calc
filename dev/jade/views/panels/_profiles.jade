@@ -1,7 +1,7 @@
 .config-panel.profile-container(ng-controller="ProfilesCtrl as profilesPanel", ng-class="{'active': profilesPanel.G.global.activePanel == 2}")
   .panel-inner(ng-if="profilesPanel.G.global.activePanel == 2")
     .profile-block.clearfix(ng-repeat="producer in profilesPanel.G.global.profiles", ng-class="{'selected': profilesPanel.P.product.profileTypeIndex == $index}")
-      .group-block-header
+      .group-block-header(ng-if="profilesPanel.G.global.profilesType[$index].name !== 'Default'")
         .title(data-output="{{ profilesPanel.G.global.profilesType[$index].name }}", typing="{{ profilesPanel.config.typing }}", typing-delay="{{ profilesPanel.config.DELAY_START }}")
         .group-info
           .info(ng-if="profilesPanel.G.global.profilesType[$index].img.length || profilesPanel.G.global.profilesType[$index].link.length || profilesPanel.G.global.profilesType[$index].description.length", hm-tap="profilesPanel.showInfoBox(profilesPanel.G.global.profilesType[$index].id, profilesPanel.G.global.profilesType)")

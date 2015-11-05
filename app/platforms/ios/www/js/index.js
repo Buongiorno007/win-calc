@@ -5,10 +5,10 @@ var isDevice = 0;
 (function(){
 
   /**------- defined system ------ */
-  console.log('USER: navigator++', window.navigator);
-  console.log('USER: userAgent+++', window.navigator.userAgent);
-  console.log('USER: platform', window.navigator.platform);
-  isDevice = detectDevice(window.navigator.userAgent);
+//  console.log('USER: navigator++', window.navigator);
+//  console.log('USER: userAgent+++', window.navigator.userAgent);
+//  console.log('USER: platform', window.navigator.platform);
+  isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.test(window.navigator.userAgent) ) ? 1 : 0;
 
 //  var browsers = {chrome: /chrome/i, safari: /safari/i, firefox: /firefox/i, ie: /internet explorer/i};
 //      for(var key in browsers) {
@@ -212,23 +212,6 @@ var isDevice = 0;
     }];
 
 
-  }
-
-
-  function detectDevice(userAgent) {
-    if( userAgent.match(/Android/i)
-      || userAgent.match(/webOS/i)
-      || userAgent.match(/iPhone/i)
-      || userAgent.match(/iPad/i)
-      || userAgent.match(/iPod/i)
-      || userAgent.match(/BlackBerry/i)
-      || userAgent.match(/Windows Phone/i)
-      ){
-      return 1;
-    }
-    else {
-      return 0;
-    }
   }
 
 })();

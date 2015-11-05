@@ -14,6 +14,7 @@
     thisFactory.publicObj = {
 
       globalSource: {
+        isDevice: 0,
         isLoader: 0,
         startProgramm: 1, // for START
         //------ navigation

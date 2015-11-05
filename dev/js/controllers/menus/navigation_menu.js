@@ -35,7 +35,6 @@
     thisCtrl.clickNewProject = NavMenuServ.clickNewProject;
 
 
-
     //============ methods ================//
 
     //------- Select menu item

@@ -33,8 +33,8 @@
 
     //------- defined system language
     function getDeviceLanguage() {
-      console.log('platform=222==', isDevice);
-      if(isDevice) {
+      GlobalStor.global.isDevice = isDevice;
+      if(GlobalStor.global.isDevice) {
         /** if Ipad */
         $cordovaGlobalization.getPreferredLanguage().then(
           function(result) {
@@ -293,11 +293,20 @@
                                   /** download All AddElements */
                                   downloadAllAddElements().then(function() {
                                     /** download All Lamination */
-                                    downloadAllLamination().then(function(lamins) {
+                                    downloadAllLamination().then(function(result) {
+                                      var lamins = angular.copy(result);
 //                                      console.log('LAMINATION++++', lamins);
-                                      if(lamins && lamins.length) {
-                                        GlobalStor.global.laminationsIn = angular.copy(lamins);
-                                        GlobalStor.global.laminationsOut = angular.copy(lamins);
+                                      if(lamins) {
+                                        var laminQty = lamins.length;
+                                        if(laminQty) {
+                                          /** change Images Path and save in device */
+                                          while(--laminQty > -1) {
+                                            lamins[laminQty].img = downloadElemImg(lamins[laminQty].img);
+                                          }
+                                          GlobalStor.global.laminationsIn = angular.copy(lamins);
+                                          GlobalStor.global.laminationsOut = angular.copy(lamins);
+                                        }
+
                                       }
 
                                       /** download Cart Menu Data */
@@ -350,17 +359,16 @@
           while(--currencQty > -1) {
             if(currencies[currencQty].is_base === 1) {
               UserStor.userInfo.currencyId = currencies[currencQty].id;
-              switch(currencies[currencQty].name) {
-                case 'uah':  UserStor.userInfo.currency = '₴';
-                  break;
-                case 'rub':  UserStor.userInfo.currency = '₽';
-                  break;
-                case 'usd':  UserStor.userInfo.currency = '$';
-                  break;
-                case 'eur':  UserStor.userInfo.currency = '€';
-                  break;
-                default:  UserStor.userInfo.currency = '₴';
-                  break;
+              if( /uah/i.test(currencies[currencQty].name) ) {
+                UserStor.userInfo.currency = '\u20b4';//'₴';
+              } else if( /rub/i.test(currencies[currencQty].name) ) {
+                UserStor.userInfo.currency = '\u20BD';//'₽';
+              } else if( /(usd|$)/i.test(currencies[currencQty].name) ) {
+                UserStor.userInfo.currency = '$';
+              } else if( /eur/i.test(currencies[currencQty].name) ) {
+                UserStor.userInfo.currency = '\u20AC';//'€'
+              } else {
+                UserStor.userInfo.currency = '\xA4';//Generic Currency Symbol
               }
             }
           }
@@ -433,26 +441,25 @@
       //------- get all Folders
       localDB.selectLocalDB(tableGroup).then(function(result) {
         /** sorting types by position */
-        var types = result.sort(function(a, b) {
+        var types = angular.copy(result).sort(function(a, b) {
           return GeneralServ.sorting(a.position, b.position);
         }),
         typesQty = types.length;
         if (typesQty) {
           groups.length = 0;
-          console.info('type!!!', types);
           angular.extend(groups, types);
           var promises = types.map(function(type) {
             var defer2 = $q.defer();
 
-            /** working with Images */
+            /** change Images Path and save in device */
             type.img = downloadElemImg(type.img);
 
             localDB.selectLocalDB(tableElem, {'folder_id': type.id}).then(function (result2) {
               if (result2.length) {
-                var elem = result2.sort(function(a, b) {
+                var elem = angular.copy(result2).sort(function(a, b) {
                   return GeneralServ.sorting(a.position, b.position);
                 });
-                defer2.resolve(angular.copy(elem));
+                defer2.resolve(elem);
               } else {
                 defer2.resolve(0);
               }
@@ -464,7 +471,12 @@
                 existType = [],
                 r = 0;
             for(; r < resQty; r++) {
-              if(result3[r] && result3[r].length) {
+              var elemsQty = result3[r].length;
+              if(result3[r] && elemsQty) {
+                /** change Images Path and save in device */
+                while(--elemsQty > -1) {
+                  result3[r][elemsQty].img = downloadElemImg(result3[r][elemsQty].img);
+                }
                 elements.push(result3[r]);
                 existType.push(result3[r][0].folder_id);
               }
@@ -496,30 +508,35 @@
 
 
 
-
+    /** change Images Path and save in device */
     function downloadElemImg(urlSource) {
       if(urlSource) {
-        var url = globalConstants.serverIP + '' + urlSource;
-        if (isDevice) {
-          var imgName = urlSource.split('/').pop(),
-              targetPath = cordova.file.documentsDirectory +''+ imgName,
-              trustHosts = true,
-              options = {};
+        /** check image */
+        if( /^.*\.(jpg|jpeg|png|gif|tiff)$/i.test(urlSource) ) {
+          var url = globalConstants.serverIP + '' + urlSource;
+          if (GlobalStor.global.isDevice) {
+            var imgName = urlSource.split('/').pop(),
+                targetPath = cordova.file.documentsDirectory + '' + imgName,
+                trustHosts = true,
+                options = {};
 
-          console.log(imgName);
-          console.log('image path====', targetPath);
-          $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
+            console.log('image name ====', imgName);
+            console.log('image path ====', targetPath);
+            $cordovaFileTransfer.download(url, targetPath, options, trustHosts).then(function (result) {
               console.log('Success!', result);
             }, function (err) {
-              console.log('Error!');
+              console.log('Error!', err);
             }, function (progress) {
-              //            $timeout(function () {
-              //              $scope.downloadProgress = (progress.loaded / progress.total) * 100;
-              //            })
+//            $timeout(function () {
+//              $scope.downloadProgress = (progress.loaded / progress.total) * 100;
+//            })
             });
-          return targetPath;
+            return targetPath;
+          } else {
+            return url;
+          }
         } else {
-          return url;
+          return '';
         }
       }
     }
@@ -666,6 +683,9 @@
             GlobalStor.global.glassesAll[g].glasses[l].cameras = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].cameras);
             GlobalStor.global.glassesAll[g].glasses[l].position = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].position);
             GlobalStor.global.glassesAll[g].glasses[l].img = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].img);
+            /** change Images Path and save in device */
+            GlobalStor.global.glassesAll[g].glasses[l].img = downloadElemImg(GlobalStor.global.glassesAll[g].glasses[l].img);
+
             GlobalStor.global.glassesAll[g].glasses[l].link = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].link);
             GlobalStor.global.glassesAll[g].glasses[l].description = angular.copy(GlobalStor.global.glassesAll[g].glassLists[l].description);
           }
@@ -678,6 +698,9 @@
 
         /** sorting glasses by type */
         while(--glassTypeQty > -1) {
+          /** change Images Path and save in device */
+          GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img = downloadElemImg(GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].img);
+
           var glassByType = GlobalStor.global.glassesAll[g].glasses.filter(function(elem) {
             return elem.glass_folder_id === GlobalStor.global.glassesAll[g].glassTypes[glassTypeQty].id;
           });
@@ -751,6 +774,10 @@
             if(group.elementsList && group.elementsList.length) {
               var promElems = group.elementsList.map(function(item) {
                 var deff2 = $q.defer();
+
+                /** change Images Path and save in device */
+                item.img = downloadElemImg(item.img);
+
                 localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.parent_element_id}).then(function(result) {
                   if(result && result.length) {
                     GlobalStor.global.tempAddElements.push(angular.copy(result[0]));

@@ -23,6 +23,10 @@
     /** close Info Box */
     function closeInfoBox() {
       GlobalStor.global.isInfoBox = 0;
+      GlobalStor.global.infoTitle = '';
+      GlobalStor.global.infoImg =  '';
+      GlobalStor.global.infoLink = '';
+      GlobalStor.global.infoDescrip = '';
     }
 
 
