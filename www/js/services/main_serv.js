@@ -620,7 +620,7 @@
 
 
 
-    //========== CREATE ORDER ==========//
+    /**========== CREATE ORDER ==========*/
 
     function createNewProject() {
       console.log('new project!!!!!!!!!!!!!!');
@@ -653,7 +653,7 @@
 
 
 
-    //========== CREATE PRODUCT ==========//
+    /**========== CREATE PRODUCT ==========*/
 
     function createNewProduct() {
       console.log('new product!!!!!!!!!!!!!!!');
@@ -704,7 +704,7 @@
 
 
 
-    //========== SAVE PRODUCT ==========//
+    /**========== SAVE PRODUCT ==========*/
 
     //-------- Save Product in Order and go to Cart
     function inputProductInOrder() {
@@ -728,7 +728,6 @@
         delete ProductStor.product.template;
         //-------- insert product in order
         OrderStor.order.products.push(ProductStor.product);
-        OrderStor.order.products_qty = ProductStor.product.product_id;
       }
       deferred.resolve(1);
       //----- finish working with product
@@ -750,7 +749,7 @@
 
 
 
-    //========== SAVE ORDER ==========//
+    /** ========== SAVE ORDER ==========*/
 
     //-------- save Order into Local DB
     function saveOrderInDB(newOptions, orderType, orderStyle) {
@@ -791,6 +790,9 @@
         delete productData.addelemPriceDis;
         delete productData.productPriceDis;
         delete productData.report;
+
+        /** culculate products quantity for order */
+        OrderStor.order.products_qty += OrderStor.order.products[p].product_qty;
 
         console.log('SEND PRODUCT------', productData);
         //-------- insert product into local DB
@@ -864,7 +866,7 @@
       orderData.customer_education = (OrderStor.order.customer_education) ? OrderStor.order.customer_education.id : 0;
       orderData.customer_occupation = (OrderStor.order.customer_occupation) ? OrderStor.order.customer_occupation.id : 0;
       orderData.customer_infoSource = (OrderStor.order.customer_infoSource) ? OrderStor.order.customer_infoSource.id : 0;
-
+      orderData.products_qty = GeneralServ.roundingNumbers(OrderStor.order.products_qty);
       if(orderType) {
         orderData.additional_payment = '';
         orderData.created = new Date();

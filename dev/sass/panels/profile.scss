@@ -1,6 +1,7 @@
 .profile-container {
   .profile-block {
     @extend .config-section;
+    width: 100%;
   }
   .profile-box {
     width: rem(424px);

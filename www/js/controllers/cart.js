@@ -26,6 +26,7 @@
       detailProductIndex: 0,
       isShowDiscInput: 0,
       isShowDiscInputAdd: 0,
+      isProductComment: 0,
 //      allAddElementsListSource: {
 //        grids: [],
 //        visors: [],
@@ -93,6 +94,7 @@
     thisCtrl.showAddElementDetail = showAddElementDetail;
     thisCtrl.closeAddElementDetail = closeAddElementDetail;
     thisCtrl.viewSwitching = viewSwitching;
+    thisCtrl.switchProductComment = switchProductComment;
 
     thisCtrl.swipeDiscountBlock = CartMenuServ.swipeDiscountBlock;
     thisCtrl.openDiscInput = openDiscInput;
@@ -126,6 +128,10 @@
     }
 
 
+    function switchProductComment(index) {
+      var commId = index+1;
+      thisCtrl.config.isProductComment = (thisCtrl.config.isProductComment === commId) ? 0 : commId;
+    }
 
 
 

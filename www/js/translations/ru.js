@@ -274,7 +274,7 @@
         CALL_START_TIME: 'Звонить от:',
         CALL_END_TIME: 'до:',
         CALL_CREDIT_PARTIAL_PRICE: 'по',
-        ADDELEMENTS_EDIT_LIST: 'Редактировать список',
+        ADDELEMENTS_EDIT_LIST: 'Редактировать список ...',
         ADDELEMENTS_PRODUCT_COST: 'в одном изделии',
         HEAT_TRANSFER: 'теплопередача',
         WRONG_EMAIL: 'Неверная электронная почта',
@@ -312,7 +312,8 @@
         DISCOUNT_WITH: 'С учетом скидки',
         DISCOUNT_WITHOUT: 'Без учета скидки',
         DISCOUNT_WINDOW: 'Скидка на изделие',
-        DISCOUNT_ADDELEM: 'Скидка на дополнительные элементы'
+        DISCOUNT_ADDELEM: 'Скидка на дополнительные элементы',
+        ORDER_COMMENT: 'Заметка о заказе'
       },
       settings: {
         AUTHORIZATION: 'Авторизация:',

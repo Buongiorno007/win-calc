@@ -701,19 +701,19 @@
       var promises = [],
           tableKeys = Object.keys(result.tables),
           tableQty = tableKeys.length;
-      //        console.log('tabless =', tableKeys);
+//      console.log('tabless =', tableKeys);
       db.transaction(function (trans) {
         for (var t = 0; t < tableQty; t++) {
           var colums = result.tables[tableKeys[t]].fields.join(', '),
               rowsQty = result.tables[tableKeys[t]].rows.length;
-          //            console.log('insert ++++', tableKeys[t]);
+//          console.log('insert ++++', tableKeys[t]);
           if (rowsQty) {
             for (var r = 0; r < rowsQty; r++) {
               var defer = $q.defer(),
                   values = result.tables[tableKeys[t]].rows[r].map(function (elem) {
                     return "'" + elem + "'";
                   }).join(', ');
-              //                console.log('insert ++++', tableKeys[t], colums);
+//              console.log('insert ++++', tableKeys[t], colums);
               trans.executeSql('INSERT INTO ' + tableKeys[t] + ' (' + colums + ') VALUES (' + values + ')', [], function() {
                 defer.resolve(1);
               }, function(error) {
@@ -853,13 +853,12 @@
 
     /** get Cities, Regions, Countries from Server */
     function importLocation(login, access) {
-      var defer = $q.defer(),
-          self = this;
+      var defer = $q.defer();
       $http.get(globalConstants.serverIP + '/api/get/locations?login='+login+'&access_token='+access).then(
         function (result) {
           if(result.data.status) {
             //-------- insert in LocalDB
-            self.insertTablesLocalDB(result.data).then(function() {
+            insertTablesLocalDB(result.data).then(function() {
               defer.resolve(1);
             });
           } else {

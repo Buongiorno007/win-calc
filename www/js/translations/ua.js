@@ -274,7 +274,7 @@
         CALL_START_TIME: 'Дзвонити від:',
         CALL_END_TIME: 'до:',
         CALL_CREDIT_PARTIAL_PRICE: 'по',
-        ADDELEMENTS_EDIT_LIST: 'Редагувати список',
+        ADDELEMENTS_EDIT_LIST: 'Редагувати список ...',
         ADDELEMENTS_PRODUCT_COST: 'в одному виробі',
         HEAT_TRANSFER: 'теплопередача',
         WRONG_EMAIL: 'Невірна електронна пошта',
@@ -312,7 +312,8 @@
         DISCOUNT_WITH: 'Зі знижкою',
         DISCOUNT_WITHOUT: 'Без знижки',
         DISCOUNT_WINDOW: 'Знижка на виріб',
-        DISCOUNT_ADDELEM: 'Знижка на додаткові елементи'
+        DISCOUNT_ADDELEM: 'Знижка на додаткові елементи',
+        ORDER_COMMENT: 'Заметка о заказе'
       },
       settings: {
         AUTHORIZATION: 'Авторизація:',

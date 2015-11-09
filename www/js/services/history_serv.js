@@ -268,7 +268,8 @@
 
 
 
-    //--------------- Edit Order & Draft
+    /** =========== Edit Order & Draft =========== */
+
     function editOrder(typeOrder, orderNum) {
       GlobalStor.global.isLoader = 1;
       GlobalStor.global.orderEditNumber = orderNum;

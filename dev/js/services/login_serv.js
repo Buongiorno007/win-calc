@@ -590,26 +590,27 @@
             //-------- get glass as to its Id
             var glassIdsQty = glassIds.length,
                 promises4 = [], promises6 = [];
-            //            console.log('glassIds!!!!', glassIds);
+//                        console.log('glassIds!!!!', glassIds);
             for(var i = 0; i < glassIdsQty; i++) {
               var defer4 = $q.defer();
-
-              var promises5 = glassIds[i].map(function(item) {
-                var defer5 = $q.defer();
-                localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.element_id}).then(function (result) {
-                  //                  console.log('glass!!!!', glass);
-                  var glass = angular.copy(result),
-                      glassQty = glass.length;
-                  if(glassQty){
-                    defer5.resolve(glass[0]);
-                  } else {
-                    defer5.resolve(0);
-                  }
+              if(glassIds[i]) {
+                var promises5 = glassIds[i].map(function (item) {
+                  var defer5 = $q.defer();
+                  localDB.selectLocalDB(localDB.tablesLocalDB.elements.tableName, {'id': item.element_id}).then(function (result) {
+                    //                  console.log('glass!!!!', glass);
+                    var glass = angular.copy(result), glassQty = glass.length;
+                    if (glassQty) {
+                      defer5.resolve(glass[0]);
+                    } else {
+                      defer5.resolve(0);
+                    }
+                  });
+                  return defer5.promise;
                 });
-                return defer5.promise;
-              });
-
-              defer4.resolve($q.all(promises5));
+                defer4.resolve($q.all(promises5));
+              } else {
+                defer4.resolve(0);
+              }
               promises4.push(defer4.promise);
             }
 

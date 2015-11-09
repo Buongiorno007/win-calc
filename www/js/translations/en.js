@@ -274,7 +274,7 @@
         CALL_START_TIME: 'Call from:',
         CALL_END_TIME: 'prior to:',
         CALL_CREDIT_PARTIAL_PRICE: 'on',
-        ADDELEMENTS_EDIT_LIST: 'Edit List',
+        ADDELEMENTS_EDIT_LIST: 'Edit List ...',
         ADDELEMENTS_PRODUCT_COST: 'one product',
         HEAT_TRANSFER: 'heat transfer',
         WRONG_EMAIL: 'Incorrect e-mail',
@@ -312,7 +312,8 @@
         DISCOUNT_WITH: 'In view of the discounts',
         DISCOUNT_WITHOUT: 'Excluding discounts',
         DISCOUNT_WINDOW: 'Discount on a product',
-        DISCOUNT_ADDELEM: 'Discount on additional elements'
+        DISCOUNT_ADDELEM: 'Discount on additional elements',
+        ORDER_COMMENT: 'Order note'
       },
       settings: {
         AUTHORIZATION: 'Authorization:',

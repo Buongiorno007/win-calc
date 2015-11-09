@@ -271,7 +271,7 @@
         CALL_START_TIME: 'Telefonare da:',
         CALL_END_TIME: 'fino a:',
         CALL_CREDIT_PARTIAL_PRICE: 'per',
-        ADDELEMENTS_EDIT_LIST: 'Redigere la lista',
+        ADDELEMENTS_EDIT_LIST: 'Redigere la lista ...',
         ADDELEMENTS_PRODUCT_COST: 'in un prodotto',
         HEAT_TRANSFER: 'tarsmissione di calore',
         WRONG_EMAIL: 'Posta elettronica errata',
@@ -309,7 +309,8 @@
         DISCOUNT_WITH: 'Prendere in considerazione uno sconto',
         DISCOUNT_WITHOUT: 'Senza uno sconto',
         DISCOUNT_WINDOW: 'Sconto a un prodotto',
-        DISCOUNT_ADDELEM: 'Sconto a elementi supplementari'
+        DISCOUNT_ADDELEM: 'Sconto a elementi supplementari',
+        ORDER_COMMENT: 'Nota Order'
       },
       settings: {
         AUTHORIZATION: 'Autorizzazione:',

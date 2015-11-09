@@ -271,7 +271,7 @@
         CALL_START_TIME: 'sunați de la:',
         CALL_END_TIME: 'pînă la :',
         CALL_CREDIT_PARTIAL_PRICE: 'pe ',
-        ADDELEMENTS_EDIT_LIST: 'redactarea listei',
+        ADDELEMENTS_EDIT_LIST: 'redactarea listei ...',
         ADDELEMENTS_PRODUCT_COST: 'într-o construcţie',
         HEAT_TRANSFER: 'transferul de căldură',
         WRONG_EMAIL: 'poșta electronica este incorectă',
@@ -309,7 +309,8 @@
         DISCOUNT_WITH: 'Având în vedere reduceri',
         DISCOUNT_WITHOUT: 'Discount Excluderea',
         DISCOUNT_WINDOW: 'Discount pe un produs',
-        DISCOUNT_ADDELEM: 'Discount pe elemente suplimentare'
+        DISCOUNT_ADDELEM: 'Discount pe elemente suplimentare',
+        ORDER_COMMENT: 'Nota Ordine'
       },
       settings: {
         AUTHORIZATION: 'Autentificare:',

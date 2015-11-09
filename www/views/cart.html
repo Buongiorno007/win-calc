@@ -19,10 +19,10 @@
           <li ng-if="(navMenu.G.global.currOpenPage === 'history' &amp;&amp; navMenu.G.global.isCreatedNewProject &amp;&amp; navMenu.G.global.isCreatedNewProduct)" ng-class="{'selected': navMenu.activeMenuItem == 3}" hm-tap="navMenu.selectMenuItem(3)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 4)}}" class="nav-icon-calculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CURRENT_CALCULATION' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 4) }}" class="title"></span></div>
           </li>
-          <li ng-if="navMenu.O.order.products_qty &gt; 0 &amp;&amp; ((!navMenu.G.global.isOpenedHistoryPage &amp;&amp; !navMenu.G.global.isCreatedNewProject) || (navMenu.G.global.isOpenedHistoryPage &amp;&amp; navMenu.G.global.isOrderFinished))" ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.G.global.isOpenedCartPage}" hm-tap="navMenu.selectMenuItem(4)" class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}" class="nav-icon-basketOfCalculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CART' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}" class="title"></span><span show-delay="{{ navMenu.config.DELAY_SHOW_ORDERS }}" class="badge unvisible">{{ navMenu.O.order.products_qty }}</span></div>
+          <li ng-show="navMenu.O.order.products.length &amp;&amp; navMenu.G.global.currOpenPage === 'main'" ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.G.global.isOpenedCartPage}" hm-tap="navMenu.selectMenuItem(4)" class="item">
+            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}" class="nav-icon-basketOfCalculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CART' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}" class="title"></span><span show-delay="{{ navMenu.config.DELAY_SHOW_ORDERS }}" class="badge unvisible">{{ navMenu.O.order.products.length }}</span></div>
           </li>
-          <li ng-if="!navMenu.G.global.isOpenedHistoryPage &amp;&amp; !navMenu.G.global.isOpenedCartPage" ng-class="{'selected': navMenu.activeMenuItem == 5}" hm-tap="navMenu.selectMenuItem(5)" class="item">
+          <li ng-class="{'selected': navMenu.activeMenuItem == 5}" hm-tap="navMenu.selectMenuItem(5)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 6) }}" class="nav-icon-additionalComponents unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_ADD_ELEMENTS' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 6) }}" class="title"></span></div>
           </li>
           <li ng-class="{'selected': navMenu.activeMenuItem == 6 || navMenu.G.global.isOpenedHistoryPage}" hm-tap="navMenu.selectMenuItem(6)" class="item">
@@ -31,7 +31,7 @@
         </ul>
         <div data-output="{{ 'mainpage.NAVMENU_APPENDIX' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_DIVIDER * 2 }}" class="divider"></div>
         <ul show-delay="{{ navMenu.config.DELAY_SHOW_NAV_LIST * 4 }}" class="items-list unvisible">
-          <li ng-if="!navMenu.G.global.isOpenedHistoryPage &amp;&amp; !navMenu.G.global.isOpenedCartPage" ng-class="{'selected': navMenu.activeMenuItem == 7}" hm-tap="navMenu.selectMenuItem(7)" class="item">
+          <li ng-class="{'selected': navMenu.activeMenuItem == 7}" hm-tap="navMenu.selectMenuItem(7)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 8) }}" class="nav-icon-settings unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_SETTINGS' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 8) }}" class="title"></span></div>
           </li>
           <li ng-class="{'selected': navMenu.activeMenuItem == 8}" hm-tap="navMenu.selectMenuItem(8)" class="item">
@@ -112,6 +112,13 @@
                   </div>
                 </div>
                 <div price-fixed="{{product.productPriceDis}}" qty-element="{{product.product_qty}}" currency-element="{{cartPage.U.userInfo.currency}}" class="order-footer"></div>
+                <div ng-show="product.comment.length" ng-class="{'active': cartPage.config.isProductComment === $index+1}" hm-tap="cartPage.switchProductComment($index)" class="order-comment-btn"></div>
+                <div ng-show="cartPage.config.isProductComment === $index+1" ng-class="{'active': cartPage.config.isProductComment === $index+1}" class="order-comment">
+                  <div class="order-comment-box">
+                    <div class="order-comment-title">{{ 'cart.ORDER_COMMENT' | translate }}</div>
+                    <div class="order-comment-content">{{ product.comment }}</div>
+                  </div>
+                </div>
               </div>
             </div>
             <div hm-swipeup="cartPage.swipeDiscountBlock()" class="discount-swipe-up"></div>

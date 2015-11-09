@@ -39,7 +39,7 @@
   footer.menu-footer.unvisible(ng-if="configMenu.G.global.isConfigMenu", show-delay="{{ configMenu.config.DELAY_SHOW_FOOTER }}")
     price(price-value="configMenu.P.product.productPriceDis", price-currency="configMenu.U.userInfo.currency")
     button.cart-btn(ng-if="!configMenu.G.global.productEditNumber", hm-tap="configMenu.inputProductInOrder()") {{ 'mainpage.CONFIGMENU_IN_CART' | translate }}
-      .qty.unvisible(ng-if="configMenu.O.order.products_qty", show-delay="{{ configMenu.config.DELAY_START }}") {{ configMenu.O.order.products_qty }}
+      .qty.unvisible(ng-if="configMenu.O.order.products.length", show-delay="{{ configMenu.config.DELAY_START }}") {{ configMenu.O.order.products.length }}
     button.cart-btn(ng-if="configMenu.G.global.productEditNumber", hm-tap="configMenu.inputProductInOrder()") {{ 'settings.SAVE' | translate }}
 
   .product-u-coeff.unvisible(ng-if="configMenu.G.global.isConfigMenu", ng-class="{'u-coeff-low': configMenu.P.product.heat_coef_total < configMenu.O.order.currHeatTransfer}", show-delay="{{ configMenu.config.DELAY_SHOW_U_COEFF }}")
