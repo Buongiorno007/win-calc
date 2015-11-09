@@ -31,6 +31,7 @@
 
         isOrderSort: 0,
         isSortType: 'last',
+        isFilterType: undefined,
         isCurrentOrdersHide: 0,
         isWaitOrdersHide: 0,
         isDoneOrdersHide: 0,

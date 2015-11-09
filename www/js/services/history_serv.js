@@ -68,6 +68,7 @@
           }
           HistoryStor.history.ordersSource = angular.copy(orders);
           HistoryStor.history.orders = angular.copy(orders);
+          console.info('HISTORY orders+++++', HistoryStor.history.orders);
           //----- max day for calendar-scroll
           HistoryStor.history.maxDeliveryDateOrder = getOrderMaxDate(HistoryStor.history.orders);
 //          console.log('maxDeliveryDateOrder =', HistoryStor.history.maxDeliveryDateOrder);
@@ -672,7 +673,7 @@
 
 
     //------ Select sorting type item in list
-    function sortingInit(sortType) {
+    function sortingInit(filterType, sortType) {
       if(HistoryStor.history.isDraftView) {
 
         if(HistoryStor.history.isSortTypeDraft === sortType) {
@@ -690,62 +691,22 @@
         }
 
       } else {
-        if (HistoryStor.history.isSortType === sortType) {
-          deSelectSortingType();
-          HistoryStor.history.orders = angular.copy(HistoryStor.history.ordersSource);
-          HistoryStor.history.isSortType = 'last';
+        if(filterType) {
+          /** filtering by Type order */
+          if(HistoryStor.history.isFilterType === sortType) {
+            HistoryStor.history.isFilterType = undefined;
+          } else {
+            HistoryStor.history.isFilterType = sortType;
+          }
         } else {
-          deSelectSortingType();
-          HistoryStor.history.isSortType = sortType;
-
-          /*if($scope.history.isSortType === 'all-order') {
-           deSelectSortingType()
-           }*/
-          if (HistoryStor.history.isSortType === 'current-order') {
-            HistoryStor.history.isCurrentOrdersHide = 0;
-            HistoryStor.history.isWaitOrdersHide = 1;
-            HistoryStor.history.isDoneOrdersHide = 1;
-            checkExestingOrderType('order', 'credit');
-          }
-          if (HistoryStor.history.isSortType === 'wait-order') {
-            HistoryStor.history.isCurrentOrdersHide = 1;
-            HistoryStor.history.isWaitOrdersHide = 0;
-            HistoryStor.history.isDoneOrdersHide = 1;
-            checkExestingOrderType(orderMasterStyle);
-          }
-          if (HistoryStor.history.isSortType === 'done-order') {
-            HistoryStor.history.isWaitOrdersHide = 1;
-            HistoryStor.history.isCurrentOrdersHide = 1;
-            HistoryStor.history.isDoneOrdersHide = 0;
-            checkExestingOrderType(orderDoneStyle);
+          /** sorting by time */
+          if (HistoryStor.history.isSortType === sortType) {
+            HistoryStor.history.orders = angular.copy(HistoryStor.history.ordersSource);
+            HistoryStor.history.isSortType = 'last';
+          } else {
+            HistoryStor.history.isSortType = sortType;
           }
         }
-      }
-    }
-
-
-
-    function deSelectSortingType() {
-      HistoryStor.history.isCurrentOrdersHide = 0;
-      HistoryStor.history.isWaitOrdersHide = 0;
-      HistoryStor.history.isDoneOrdersHide = 0;
-    }
-
-    //-------- checking orders quantity during order sorting
-    function checkExestingOrderType(marker1, marker2) {
-      var ordersSortCounter = 0,
-          ordersQty = HistoryStor.history.orders.length,
-          ord = 0;
-
-      for(; ord < ordersQty; ord++) {
-        if(HistoryStor.history.orders[ord].order_style === marker1 || HistoryStor.history.orders[ord].order_style === marker2) {
-          ordersSortCounter++;
-        }
-      }
-      if(ordersSortCounter > 0) {
-        HistoryStor.history.isEmptyResult = 0;
-      } else {
-        HistoryStor.history.isEmptyResult = 1;
       }
     }
 

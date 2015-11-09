@@ -708,6 +708,7 @@
       var deferred = $q.defer();
       GlobalStor.global.tempAddElements.length = 0;
       GlobalStor.global.configMenuTips = 0;
+      GlobalStor.global.isShowCommentBlock = 0;
 
       //============ if EDIT Product
       if(GlobalStor.global.productEditNumber) {

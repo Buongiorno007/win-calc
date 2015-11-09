@@ -435,13 +435,12 @@
       var orderStyle;
       GlobalStor.global.isLoader = 1;
       //------- set order style
-      if(CartStor.cart.isOrderDialog) {
-        orderStyle = 'order';
-      } else if(CartStor.cart.isCreditDialog) {
-        orderStyle = 'credit';
-      } else if(CartStor.cart.isMasterDialog) {
+      if(CartStor.cart.isMasterDialog) {
         orderStyle = 'master';
+      } else {
+        orderStyle = 'order';
       }
+
       MainServ.saveOrderInDB(CartStor.cart.customer, 1, orderStyle).then(function() {
         //--------- Close cart dialog, go to history
         closeOrderDialog();

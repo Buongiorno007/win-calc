@@ -25,7 +25,6 @@
 
       if(sortType === 'type') {
         buildOrdersByType(items, 'order');
-        buildOrdersByType(items, 'credit');
         buildOrdersByType(items, 'master');
         buildOrdersByType(items, 'done');
       } else if(sortType === 'first') {
@@ -38,10 +37,6 @@
           filtered.push(item);
         });
       }
-
-      /*filtered.sort(function (a, b) {
-        return (a[field] > b[field] ? 1 : -1);
-      });*/
 
       return filtered;
     };

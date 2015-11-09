@@ -46,34 +46,34 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                 .dropdown-tool-dialog.sort-filter
                   .filter-divider {{ 'history.SORTING' | translate }}
                   ul.filter-list
-                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isSortType == 'first' }", hm-tap="historyPage.sortingInit('first')")
+                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isSortType == 'first' }", hm-tap="historyPage.sortingInit(0, 'first')")
                       .filter-label {{ 'history.NEWEST_FIRST' | translate }}
                       .filter-select-icon
-                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isSortType == 'last' }", hm-tap="historyPage.sortingInit('last')")
+                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isSortType == 'last' }", hm-tap="historyPage.sortingInit(0, 'last')")
                       .filter-label {{ 'history.NEWEST_LAST' | translate }}
                       .filter-select-icon
-                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isSortType == 'type' }", hm-tap="historyPage.sortingInit('type')")
+                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isSortType == 'type' }", hm-tap="historyPage.sortingInit(0, 'type')")
                       .filter-label {{ 'history.SORT_BY_TYPE' | translate }}
                       .filter-select-icon
                   .filter-divider {{ 'history.SORT_SHOW' | translate }}
                   ul.filter-list
-                    //li.filter-item(ng-class="{ 'selected': history.isSortType == 'all-order' }", hm-tap="sortingInit('all-order')")
+                    li.filter-item(ng-class="{ 'selected': !historyPage.H.history.isFilterType }", hm-tap="historyPage.sortingInit(1, undefined)")
                       .filter-label {{ 'common_words.ALL' | translate }}
                       .filter-select-icon
-                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isSortType == 'current-order' }", hm-tap="historyPage.sortingInit('current-order')")
+                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isFilterType == 'order' }", hm-tap="historyPage.sortingInit(1, 'order')")
                       .filter-label {{ 'history.SORT_SHOW_ACTIVE' | translate }}
                       .filter-select-icon
-                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isSortType == 'wait-order' }", hm-tap="historyPage.sortingInit('wait-order')")
+                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isFilterType == 'master' }", hm-tap="historyPage.sortingInit(1, 'master')")
                       .filter-label {{ 'history.SORT_SHOW_WAIT' | translate }}
                       .filter-select-icon
-                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isSortType == 'done-order' }", hm-tap="historyPage.sortingInit('done-order')")
+                    li.filter-item(ng-class="{ 'selected': historyPage.H.history.isFilterType == 'done' }", hm-tap="historyPage.sortingInit(1, 'done')")
                       .filter-label {{ 'history.SORT_SHOW_DONE' | translate }}
                       .filter-select-icon
 
 
           .scroll-vert-container
-            .account-block(ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter:historyPage.H.history.searchingWord track by $index", ng-hide="order.order_style == 'order' && historyPage.H.history.isCurrentOrdersHide || order.order_style == 'credit' && historyPage.H.history.isCurrentOrdersHide || order.order_style == 'master' && historyPage.H.history.isWaitOrdersHide || order.order_style == 'done' && historyPage.H.history.isDoneOrdersHide")
-              .account(ng-class="{'current': order.order_style == 'order' || order.order_style == 'credit', 'wait': order.order_style == 'master', 'done': order.order_style == 'done' }")
+            .account-block(ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter: {order_style: historyPage.H.history.isFilterType} | filter:historyPage.H.history.searchingWord track by $index")
+              .account(ng-class="{'current': order.order_style == 'order', 'wait': order.order_style == 'master', 'done': order.order_style == 'done' }")
                 .account-row.header
                   .account-data.title
                     .complete-icon(ng-show="order.order_style == 'done'")
@@ -99,8 +99,8 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                     .user-data.account-user-adress {{ order.customer_location }}, {{ order.customer_address }}
                     .account-label {{ 'history.ADDRESS' | translate }}
                 .account-row.footer
-                  .account-value(ng-hide="order.order_style == 'credit'") {{ order.order_price_dis }}{{ historyPage.U.userInfo.currency }}
-                  .account-value(ng-show="order.order_style == 'credit'") {{ order.order_price_dis }}{{ historyPage.U.userInfo.currency }}, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.payment_monthly}}{{ historyPage.U.userInfo.currency }}
+                  .account-value {{ order.order_price_dis }} {{ historyPage.U.userInfo.currency }}
+                    span(ng-show="order.is_instalment") , {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.payment_monthly}} {{ historyPage.U.userInfo.currency }}
                   .account-value(ng-show="order.order_style == 'master'") {{ 'history.WAIT_MASTER' | translate }}
                   .account-date {{ order.products_qty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}
 
@@ -114,7 +114,7 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
               .result-icon
               .result-text {{ 'history.BY_YOUR_REQUEST' | translate }} "<span class="searchin-text"> {{ historyPage.H.history.searchingWord }} </span>" {{ 'history.NOT_FIND' | translate }}.
 
-            .empty-search-result(ng-show="historyPage.H.history.isEmptyResult")
+            .empty-search-result(ng-show="(orders | filter:{order_style: historyPage.H.history.isFilterType}).length == 0")
               .result-icon
               .result-text {{ 'history.BY_YOUR_REQUEST' | translate }} {{ 'history.NOT_FIND' | translate }}.
 
@@ -175,8 +175,8 @@ section.page-container(ng-class="{ 'swiped': !historyPage.G.global.isNavMenu }")
                     .account-label.account-date-filter {{ 'history.FROM' | translate }} {{draft.order_date | date:"dd MMMM, yyyy"}}
                       //span(order-date="{{ draft.order_date }}", type-date="'order'")
                   .account-row.footer
-                    .account-value(ng-hide="draft.order_style == 'credit'") {{ draft.order_price_dis }}{{ historyPage.U.userInfo.currency }}
-                    .account-value(ng-show="draft.order_style == 'credit'") {{ draft.order_price_dis }}{{ historyPage.U.userInfo.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.payment_monthly}}{{ historyPage.U.userInfo.currency }}
+                    .account-value {{ draft.order_price_dis }} {{ historyPage.U.userInfo.currency }}
+                      span(ng-show="draft.is_instalment") , {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.payment_monthly}} {{ historyPage.U.userInfo.currency }}
                     .account-qty {{ draft.products_qty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{draft.new_delivery_date | date:"dd.MM.yyyy"}}
                 button.account-tool.account-print-btn(hm-tap="")
                 button.account-delete-btn(hm-tap="historyPage.clickDeleteOrder(draft.order_type, draft.id, $event)")

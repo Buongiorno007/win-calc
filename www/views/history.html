@@ -106,34 +106,34 @@
                 <div class="dropdown-tool-dialog sort-filter">
                   <div class="filter-divider">{{ 'history.SORTING' | translate }}</div>
                   <ul class="filter-list">
-                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'first' }" hm-tap="historyPage.sortingInit('first')" class="filter-item">
+                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'first' }" hm-tap="historyPage.sortingInit(0, 'first')" class="filter-item">
                       <div class="filter-label">{{ 'history.NEWEST_FIRST' | translate }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
-                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'last' }" hm-tap="historyPage.sortingInit('last')" class="filter-item">
+                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'last' }" hm-tap="historyPage.sortingInit(0, 'last')" class="filter-item">
                       <div class="filter-label">{{ 'history.NEWEST_LAST' | translate }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
-                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'type' }" hm-tap="historyPage.sortingInit('type')" class="filter-item">
+                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'type' }" hm-tap="historyPage.sortingInit(0, 'type')" class="filter-item">
                       <div class="filter-label">{{ 'history.SORT_BY_TYPE' | translate }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
                   </ul>
                   <div class="filter-divider">{{ 'history.SORT_SHOW' | translate }}</div>
                   <ul class="filter-list">
-                    <!--li.filter-item(ng-class="{ 'selected': history.isSortType == 'all-order' }", hm-tap="sortingInit('all-order')")
-                    .filter-label {{ 'common_words.ALL' | translate }}
-                    .filter-select-icon
-                    -->
-                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'current-order' }" hm-tap="historyPage.sortingInit('current-order')" class="filter-item">
+                    <li ng-class="{ 'selected': !historyPage.H.history.isFilterType }" hm-tap="historyPage.sortingInit(1, undefined)" class="filter-item">
+                      <div class="filter-label">{{ 'common_words.ALL' | translate }}</div>
+                      <div class="filter-select-icon"></div>
+                    </li>
+                    <li ng-class="{ 'selected': historyPage.H.history.isFilterType == 'order' }" hm-tap="historyPage.sortingInit(1, 'order')" class="filter-item">
                       <div class="filter-label">{{ 'history.SORT_SHOW_ACTIVE' | translate }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
-                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'wait-order' }" hm-tap="historyPage.sortingInit('wait-order')" class="filter-item">
+                    <li ng-class="{ 'selected': historyPage.H.history.isFilterType == 'master' }" hm-tap="historyPage.sortingInit(1, 'master')" class="filter-item">
                       <div class="filter-label">{{ 'history.SORT_SHOW_WAIT' | translate }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
-                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'done-order' }" hm-tap="historyPage.sortingInit('done-order')" class="filter-item">
+                    <li ng-class="{ 'selected': historyPage.H.history.isFilterType == 'done' }" hm-tap="historyPage.sortingInit(1, 'done')" class="filter-item">
                       <div class="filter-label">{{ 'history.SORT_SHOW_DONE' | translate }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
@@ -143,8 +143,8 @@
             </div>
           </div>
           <div class="scroll-vert-container">
-            <div ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter:historyPage.H.history.searchingWord track by $index" ng-hide="order.order_style == 'order' &amp;&amp; historyPage.H.history.isCurrentOrdersHide || order.order_style == 'credit' &amp;&amp; historyPage.H.history.isCurrentOrdersHide || order.order_style == 'master' &amp;&amp; historyPage.H.history.isWaitOrdersHide || order.order_style == 'done' &amp;&amp; historyPage.H.history.isDoneOrdersHide" class="account-block">
-              <div ng-class="{'current': order.order_style == 'order' || order.order_style == 'credit', 'wait': order.order_style == 'master', 'done': order.order_style == 'done' }" class="account">
+            <div ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter: {order_style: historyPage.H.history.isFilterType} | filter:historyPage.H.history.searchingWord track by $index" class="account-block">
+              <div ng-class="{'current': order.order_style == 'order', 'wait': order.order_style == 'master', 'done': order.order_style == 'done' }" class="account">
                 <div class="account-row header">
                   <div class="account-data title">
                     <div ng-show="order.order_style == 'done'" class="complete-icon"></div>
@@ -174,8 +174,7 @@
                   </div>
                 </div>
                 <div class="account-row footer">
-                  <div ng-hide="order.order_style == 'credit'" class="account-value">{{ order.order_price_dis }}{{ historyPage.U.userInfo.currency }}</div>
-                  <div ng-show="order.order_style == 'credit'" class="account-value">{{ order.order_price_dis }}{{ historyPage.U.userInfo.currency }}, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.payment_monthly}}{{ historyPage.U.userInfo.currency }}</div>
+                  <div class="account-value">{{ order.order_price_dis }} {{ historyPage.U.userInfo.currency }}<span ng-show="order.is_instalment">, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.payment_monthly}} {{ historyPage.U.userInfo.currency }}</span></div>
                   <div ng-show="order.order_style == 'master'" class="account-value">{{ 'history.WAIT_MASTER' | translate }}</div>
                   <div class="account-date">{{ order.products_qty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
                 </div>
@@ -190,7 +189,7 @@
               <div class="result-icon"></div>
               <div class="result-text">{{ 'history.BY_YOUR_REQUEST' | translate }} "<span class="searchin-text"> {{ historyPage.H.history.searchingWord }} </span>" {{ 'history.NOT_FIND' | translate }}.</div>
             </div>
-            <div ng-show="historyPage.H.history.isEmptyResult" class="empty-search-result">
+            <div ng-show="(orders | filter:{order_style: historyPage.H.history.isFilterType}).length == 0" class="empty-search-result">
               <div class="result-icon"></div>
               <div class="result-text">{{ 'history.BY_YOUR_REQUEST' | translate }} {{ 'history.NOT_FIND' | translate }}.</div>
             </div>
@@ -253,8 +252,7 @@
                     </div>
                   </div>
                   <div class="account-row footer">
-                    <div ng-hide="draft.order_style == 'credit'" class="account-value">{{ draft.order_price_dis }}{{ historyPage.U.userInfo.currency }}</div>
-                    <div ng-show="draft.order_style == 'credit'" class="account-value">{{ draft.order_price_dis }}{{ historyPage.U.userInfo.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.payment_monthly}}{{ historyPage.U.userInfo.currency }}</div>
+                    <div class="account-value">{{ draft.order_price_dis }} {{ historyPage.U.userInfo.currency }}<span ng-show="draft.is_instalment">, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.payment_monthly}} {{ historyPage.U.userInfo.currency }}</span></div>
                     <div class="account-qty">{{ draft.products_qty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{draft.new_delivery_date | date:"dd.MM.yyyy"}}</div>
                   </div>
                 </div>
