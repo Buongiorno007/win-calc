@@ -1,32 +1,48 @@
 {
   "build": {
     "src": {
-      "html"      : [ "./dev/jade/**/*.jade",
-                      "!./dev/jade/**/_*.jade" ],
+      "html": [
+        "./dev/jade/**/*.jade",
+        "!./dev/jade/**/_*.jade"
+      ],
 
-      "css"       : "./dev/sass/*.scss",
+      "css": "./dev/sass/*.scss",
 
-      "js"        : [ "./dev/js/**/*.js",
-                      "!./dev/js/**/_*.js" ],
+      "js": [
+        "./dev/js/**/*.js",
+        "!./dev/js/**/_*.js"
+      ],
+      "js_order": [
+        "index.js",
+        "**/*.js"
+      ],
 
-      "js_vendor" : "./dev/vendor/**/*.js",
-      "js_order"  : [ "jquery/**/*.js",
-                      "hammer/**/*.js",
-                      "angular/**/*.js",
-                      "**/*.js" ],
+      "js_vendor": "./dev/vendor/**/*.js",
+      "js_vendor_order": [
+        "jquery/**/*.js",
+        "hammer/**/*.js",
+        "angular/**/*.js",
+        "**/*.js"
+      ],
 
-      "js_other"  : "./dev/js/**/_*.js",
+      "js_other": "./dev/js/**/_*.js",
 
-      "img"       : [ "dev/img/**/*.png",
-                      "dev/img/**/*.jpg",
-                      "dev/img/**/*.gif" ],
+      "img": [
+        "dev/img/**/*.png",
+        "dev/img/**/*.jpg",
+        "dev/img/**/*.gif",
+        "dev/img/**/*.ico"
+      ],
 
-      "fonts"     : [ "dev/fonts/**/*.eot",
-                      "dev/fonts/**/*.ttf",
-                      "dev/fonts/**/*.svg",
-                      "dev/fonts/**/*.otf",
-                      "dev/fonts/**/*.woff" ]
+      "fonts": [
+        "dev/fonts/**/*.eot",
+        "dev/fonts/**/*.ttf",
+        "dev/fonts/**/*.svg",
+        "dev/fonts/**/*.otf",
+        "dev/fonts/**/*.woff"
+      ]
     },
+
     "dest": {
       "css"   : "www/css",
       "html"  : "www/",
@@ -55,16 +71,13 @@
                     "dev/fonts/**/*.otf",
                     "dev/fonts/**/*.woff" ]
   },
+
   "server": {
-    "host": "host.com",
-    "port": "21",
-    "user": "username",
-    "pass": "userpass",
-    "remotePath": "/"
-  },
-  "upload": {
-    "css": "web/theme/css",
-    "js": "web/theme/js"
+    "host": "okoshko.ua",
+    "port": "",
+    "user": "voiceapp",
+    "pass": "Je6HDVaSQcaxaRo",
+    "remotePath": "/web/calculator"
   },
 
 

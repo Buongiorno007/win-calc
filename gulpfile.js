@@ -1,3 +1,4 @@
+
 // Инициализируем плагины
 var gulp        = require('gulp'),       // Собственно Gulp JS
     config      = require('./config.json'),   // Конфиг для проектов
@@ -36,16 +37,19 @@ gulp.task('csscomb', function() {
 });
 
 
-// https://www.npmjs.org/package/gulp-compass
+
 function compassTask() {
   return gulp.src(config.build.src.css)
     .pipe(plumber({ errorHandler: notify.onError("<%= error.message %>") }))
     .pipe(compass({
-      // project: "/",
+//      project: "/",
       css: "www/css",
       sass: "dev/sass",
       font: "www/fonts",
       image: "www/img",
+      javascript: "www/js",
+//      style: 'compressed',
+//      relative: true,
       comments: true
     })); // Пути к css и scss должны совпадать с путями в config.rb
 }
@@ -79,14 +83,15 @@ gulp.task('js', function() {
        header: '\n// ${filename}\n\n',
        footer: '\n'
     }))
-    //.pipe(concat('main.js'))
+    .pipe(order(config.build.src.js_order))
+    .pipe(concat('main.js'))
     .pipe(gulp.dest(config.build.dest.js))
     .pipe(reload({ stream: true }));
 });
 
 gulp.task('js-vendor', function() {
   return gulp.src(config.build.src.js_vendor)
-    .pipe(order(config.build.src.js_order))
+    .pipe(order(config.build.src.js_vendor_order))
     .pipe(concat('plugins.js'))
     .pipe(gulp.dest(config.build.dest.js))
     .pipe(reload({ stream: true }));
@@ -151,19 +156,19 @@ gulp.task('server', function () {
 
 
 // Запуск сервера разработки
-gulp.task('watch', ['jade', 'compass', 'js', 'js-other', 'js-vendor', 'images', 'fonts', 'server'], function() {
+gulp.task('watch', ['jade', 'images', 'fonts', 'compass', 'js', 'js-other', 'js-vendor', 'server'], function() {
   gulp.watch(config.watch.jade, ['jade']);
+  gulp.watch(config.watch.img, ['images']);
+  gulp.watch(config.watch.fonts, ['fonts']);
   gulp.watch(config.watch.scss, ['compass']);
   gulp.watch(config.watch.js, ['js', 'js-other']);
   gulp.watch(config.watch.js_vendor, ['js-vendor']);
-  gulp.watch(config.watch.img, ['images']);
-  gulp.watch(config.watch.fonts, ['fonts']);
 });
 
 
 // Сборка неминимизированного проекта
 gulp.task('build', ['clean'], function () {
-  gulp.start(['jade', 'compass', 'js', 'js-vendor', 'js-other', 'images', 'fonts']);
+  gulp.start(['jade', 'images', 'fonts', 'compass', 'js', 'js-vendor', 'js-other']);
 });
 
 
@@ -206,28 +211,40 @@ gulp.task('production', ['clean'], function() {
 });
 
 
-// Загрузка на удаленный сервер
-var settings = config.server;
+/**========= Загрузка на удаленный сервер =========*/
 
-// js
-gulp.task('upload-js', ['build'], function () {
-  settings.remotePath = '/web/js';
+/** upload index */
+gulp.task('upload-index', function () {
+  gulp.src(config.build.dest.html + 'index.html')
+    .pipe(ftp(config.server));
+});
+/** upload html */
+gulp.task('upload-html', function () {
+  var settings = JSON.parse(JSON.stringify(config.server));
+  settings.remotePath += '/views';
+  gulp.src(config.build.dest.html + 'views/*.html')
+    .pipe(ftp(settings));
+});
 
+/** upload js */
+gulp.task('upload-js', function () {
+  var settings = JSON.parse(JSON.stringify(config.server));
+  settings.remotePath += '/js';
   gulp.src(config.build.dest.js + '/**/*')
-    // .pipe(gulp.dest(config.upload.js))   // Дублировать для WP
     .pipe(ftp(settings));
 });
 
-// css
-gulp.task('upload-css', ['build'], function () {
-  settings.remotePath = '/web/css';
-
-  gulp.src(config.build.dest.css + '/**')
-    // .pipe(gulp.dest(config.upload.css))   // Дублировать для WP
+/** upload css */
+gulp.task('upload-css', function () {
+  var settings = JSON.parse(JSON.stringify(config.server));
+  settings.remotePath += '/css';
+  gulp.src(config.build.dest.css + '/**/*')
     .pipe(ftp(settings));
 });
 
-gulp.task('upload', ['upload-js', 'upload-css']);
+gulp.task('upload', ['upload-index', 'upload-html', 'upload-js', 'upload-css']);
+
+
 
 gulp.task('default', ['watch']);
 
