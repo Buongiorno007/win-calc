@@ -19,10 +19,10 @@
           <li ng-if="(navMenu.G.global.currOpenPage === 'history' &amp;&amp; navMenu.G.global.isCreatedNewProject &amp;&amp; navMenu.G.global.isCreatedNewProduct)" ng-class="{'selected': navMenu.activeMenuItem == 3}" hm-tap="navMenu.selectMenuItem(3)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 4)}}" class="nav-icon-calculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CURRENT_CALCULATION' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 4) }}" class="title"></span></div>
           </li>
-          <li ng-if="navMenu.O.order.products_qty &gt; 0 &amp;&amp; ((!navMenu.G.global.isOpenedHistoryPage &amp;&amp; !navMenu.G.global.isCreatedNewProject) || (navMenu.G.global.isOpenedHistoryPage &amp;&amp; navMenu.G.global.isOrderFinished))" ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.G.global.isOpenedCartPage}" hm-tap="navMenu.selectMenuItem(4)" class="item">
-            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}" class="nav-icon-basketOfCalculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CART' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}" class="title"></span><span show-delay="{{ navMenu.config.DELAY_SHOW_ORDERS }}" class="badge unvisible">{{ navMenu.O.order.products_qty }}</span></div>
+          <li ng-show="navMenu.O.order.products.length &amp;&amp; navMenu.G.global.currOpenPage === 'main'" ng-class="{'selected': navMenu.activeMenuItem == 4 || navMenu.G.global.isOpenedCartPage}" hm-tap="navMenu.selectMenuItem(4)" class="item">
+            <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}" class="nav-icon-basketOfCalculation unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_CART' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 5) }}" class="title"></span><span show-delay="{{ navMenu.config.DELAY_SHOW_ORDERS }}" class="badge unvisible">{{ navMenu.O.order.products.length }}</span></div>
           </li>
-          <li ng-if="!navMenu.G.global.isOpenedHistoryPage &amp;&amp; !navMenu.G.global.isOpenedCartPage" ng-class="{'selected': navMenu.activeMenuItem == 5}" hm-tap="navMenu.selectMenuItem(5)" class="item">
+          <li ng-class="{'selected': navMenu.activeMenuItem == 5}" hm-tap="navMenu.selectMenuItem(5)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 6) }}" class="nav-icon-additionalComponents unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_ADD_ELEMENTS' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 6) }}" class="title"></span></div>
           </li>
           <li ng-class="{'selected': navMenu.activeMenuItem == 6 || navMenu.G.global.isOpenedHistoryPage}" hm-tap="navMenu.selectMenuItem(6)" class="item">
@@ -31,13 +31,13 @@
         </ul>
         <div data-output="{{ 'mainpage.NAVMENU_APPENDIX' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_DIVIDER * 2 }}" class="divider"></div>
         <ul show-delay="{{ navMenu.config.DELAY_SHOW_NAV_LIST * 4 }}" class="items-list unvisible">
-          <li ng-if="!navMenu.G.global.isOpenedHistoryPage &amp;&amp; !navMenu.G.global.isOpenedCartPage" ng-class="{'selected': navMenu.activeMenuItem == 7}" hm-tap="navMenu.selectMenuItem(7)" class="item">
+          <li ng-class="{'selected': navMenu.activeMenuItem == 7}" hm-tap="navMenu.selectMenuItem(7)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 8) }}" class="nav-icon-settings unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_SETTINGS' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 8) }}" class="title"></span></div>
           </li>
           <li ng-class="{'selected': navMenu.activeMenuItem == 8}" hm-tap="navMenu.selectMenuItem(8)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 9) }}" class="nav-icon-information unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_MORE_INFO' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 9) }}" class="title"></span></div>
           </li>
-          <li ng-if="isDevice" ng-class="{'selected': navMenu.activeMenuItem == 9}" hm-tap="navMenu.selectMenuItem(9)" class="item">
+          <li ng-if="navMenu.G.global.isDevice" ng-class="{'selected': navMenu.activeMenuItem == 9}" hm-tap="navMenu.selectMenuItem(9)" class="item">
             <div class="item-content"><span show-delay="{{ navMenu.config.DELAY_SHOW_NAVICON * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}" class="nav-icon-voicehelp unvisible"></span><span data-output="{{ 'mainpage.NAVMENU_VOICE_HELPER' | translate }}" typing="{{ navMenu.config.typing }}" typing-delay="{{ navMenu.config.DELAY_TYPE_NAVTITLE * (1 + navMenu.config.DELAY_SHOW_STEP * 10) }}" class="title"></span></div>
           </li>
         </ul>
@@ -106,34 +106,34 @@
                 <div class="dropdown-tool-dialog sort-filter">
                   <div class="filter-divider">{{ 'history.SORTING' | translate }}</div>
                   <ul class="filter-list">
-                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'first' }" hm-tap="historyPage.sortingInit('first')" class="filter-item">
+                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'first' }" hm-tap="historyPage.sortingInit(0, 'first')" class="filter-item">
                       <div class="filter-label">{{ 'history.NEWEST_FIRST' | translate }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
-                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'last' }" hm-tap="historyPage.sortingInit('last')" class="filter-item">
+                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'last' }" hm-tap="historyPage.sortingInit(0, 'last')" class="filter-item">
                       <div class="filter-label">{{ 'history.NEWEST_LAST' | translate }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
-                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'type' }" hm-tap="historyPage.sortingInit('type')" class="filter-item">
+                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'type' }" hm-tap="historyPage.sortingInit(0, 'type')" class="filter-item">
                       <div class="filter-label">{{ 'history.SORT_BY_TYPE' | translate }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
                   </ul>
                   <div class="filter-divider">{{ 'history.SORT_SHOW' | translate }}</div>
                   <ul class="filter-list">
-                    <!--li.filter-item(ng-class="{ 'selected': history.isSortType == 'all-order' }", hm-tap="sortingInit('all-order')")
-                    .filter-label {{ 'common_words.ALL' | translate }}
-                    .filter-select-icon
-                    -->
-                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'current-order' }" hm-tap="historyPage.sortingInit('current-order')" class="filter-item">
+                    <li ng-class="{ 'selected': !historyPage.H.history.isFilterType }" hm-tap="historyPage.sortingInit(1, undefined)" class="filter-item">
+                      <div class="filter-label">{{ 'common_words.ALL' | translate }}</div>
+                      <div class="filter-select-icon"></div>
+                    </li>
+                    <li ng-class="{ 'selected': historyPage.H.history.isFilterType == 'order' }" hm-tap="historyPage.sortingInit(1, 'order')" class="filter-item">
                       <div class="filter-label">{{ 'history.SORT_SHOW_ACTIVE' | translate }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
-                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'wait-order' }" hm-tap="historyPage.sortingInit('wait-order')" class="filter-item">
+                    <li ng-class="{ 'selected': historyPage.H.history.isFilterType == 'master' }" hm-tap="historyPage.sortingInit(1, 'master')" class="filter-item">
                       <div class="filter-label">{{ 'history.SORT_SHOW_WAIT' | translate }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
-                    <li ng-class="{ 'selected': historyPage.H.history.isSortType == 'done-order' }" hm-tap="historyPage.sortingInit('done-order')" class="filter-item">
+                    <li ng-class="{ 'selected': historyPage.H.history.isFilterType == 'done' }" hm-tap="historyPage.sortingInit(1, 'done')" class="filter-item">
                       <div class="filter-label">{{ 'history.SORT_SHOW_DONE' | translate }}</div>
                       <div class="filter-select-icon"></div>
                     </li>
@@ -143,8 +143,8 @@
             </div>
           </div>
           <div class="scroll-vert-container">
-            <div ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter:historyPage.H.history.searchingWord track by $index" ng-hide="order.order_style == 'order' &amp;&amp; historyPage.H.history.isCurrentOrdersHide || order.order_style == 'credit' &amp;&amp; historyPage.H.history.isCurrentOrdersHide || order.order_style == 'master' &amp;&amp; historyPage.H.history.isWaitOrdersHide || order.order_style == 'done' &amp;&amp; historyPage.H.history.isDoneOrdersHide" class="account-block">
-              <div ng-class="{'current': order.order_style == 'order' || order.order_style == 'credit', 'wait': order.order_style == 'master', 'done': order.order_style == 'done' }" class="account">
+            <div ng-repeat="order in historyPage.H.history.orders | orderSorting:historyPage.H.history.isSortType | filter: {order_style: historyPage.H.history.isFilterType} | filter:historyPage.H.history.searchingWord track by $index" class="account-block">
+              <div ng-class="{'current': order.order_style == 'order', 'wait': order.order_style == 'master', 'done': order.order_style == 'done' }" class="account">
                 <div class="account-row header">
                   <div class="account-data title">
                     <div ng-show="order.order_style == 'done'" class="complete-icon"></div>
@@ -174,8 +174,7 @@
                   </div>
                 </div>
                 <div class="account-row footer">
-                  <div ng-hide="order.order_style == 'credit'" class="account-value">{{ order.order_price_dis }}{{ historyPage.U.userInfo.currency }}</div>
-                  <div ng-show="order.order_style == 'credit'" class="account-value">{{ order.order_price_dis }}{{ historyPage.U.userInfo.currency }}, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.payment_monthly}}{{ historyPage.U.userInfo.currency }}</div>
+                  <div class="account-value">{{ order.order_price_dis }} {{ historyPage.U.userInfo.currency }}<span ng-show="order.is_instalment">, {{ order.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{order.payment_monthly}} {{ historyPage.U.userInfo.currency }}</span></div>
                   <div ng-show="order.order_style == 'master'" class="account-value">{{ 'history.WAIT_MASTER' | translate }}</div>
                   <div class="account-date">{{ order.products_qty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{order.new_delivery_date | date:"dd.MM.yyyy"}}</div>
                 </div>
@@ -190,7 +189,7 @@
               <div class="result-icon"></div>
               <div class="result-text">{{ 'history.BY_YOUR_REQUEST' | translate }} "<span class="searchin-text"> {{ historyPage.H.history.searchingWord }} </span>" {{ 'history.NOT_FIND' | translate }}.</div>
             </div>
-            <div ng-show="historyPage.H.history.isEmptyResult" class="empty-search-result">
+            <div ng-show="(orders | filter:{order_style: historyPage.H.history.isFilterType}).length == 0" class="empty-search-result">
               <div class="result-icon"></div>
               <div class="result-text">{{ 'history.BY_YOUR_REQUEST' | translate }} {{ 'history.NOT_FIND' | translate }}.</div>
             </div>
@@ -253,8 +252,7 @@
                     </div>
                   </div>
                   <div class="account-row footer">
-                    <div ng-hide="draft.order_style == 'credit'" class="account-value">{{ draft.order_price_dis }}{{ historyPage.U.userInfo.currency }}</div>
-                    <div ng-show="draft.order_style == 'credit'" class="account-value">{{ draft.order_price_dis }}{{ historyPage.U.userInfo.currency }}, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.payment_monthly}}{{ historyPage.U.userInfo.currency }}</div>
+                    <div class="account-value">{{ draft.order_price_dis }} {{ historyPage.U.userInfo.currency }}<span ng-show="draft.is_instalment">, {{ draft.selectedInstalmentPeriod }} {{ 'history.PAYMENTS' | translate }} {{draft.payment_monthly}} {{ historyPage.U.userInfo.currency }}</span></div>
                     <div class="account-qty">{{ draft.products_qty }} {{ 'history.ALLPRODUCTS' | translate }} {{ 'history.ON' | translate }} {{draft.new_delivery_date | date:"dd.MM.yyyy"}}</div>
                   </div>
                 </div>

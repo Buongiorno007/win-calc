@@ -47,7 +47,6 @@
       </footer>
     </div>
   </section>
-  <!--TODO change to directive!!!! rooms will be more-->
   <section ng-class="{'main-page-bg': mainPage.G.global.currOpenPage === 'main', 'main-room-bg': mainPage.G.global.currOpenPage === 'main'}" ng-style="{'background-image':'url(img/rooms/'+mainPage.P.product.room_id+'.jpg)'}" class="right-side">
     <section class="main-content">
       <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
@@ -84,7 +83,12 @@
         <div ng-if="rooms.G.global.showRoomSelectorDialog" class="rooms-inner">
           <div ng-repeat="room in rooms.config.rooms" class="room-block">
             <div ng-class="{'selected': rooms.P.product.room_id === room.id}" hm-tap="rooms.selectRoom(room.id)" show-delay="{{ ($index+1) * rooms.config.DELAY_SHOW_ROOM }}" class="room-box unvisible">
-              <div ng-style="{'background-image':'url(img/rooms-icon/'+room.id+'.jpg)'}" class="room-img"></div>
+              <div ng-style="{'background-image':'url(img/rooms/'+room.id+'.jpg)'}" class="room-img">
+                <div class="room-title">
+                  <div ng-show="room.width" class="room-sizes">{{room.width}}x{{room.height}}</div>
+                  <div ng-show="room.price" class="room-price">{{room.price}} {{rooms.U.userInfo.currency}}</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

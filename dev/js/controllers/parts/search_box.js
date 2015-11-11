@@ -38,7 +38,7 @@
         if(thisCtrl.searchingWord.length === 1) {
           AuxStor.aux.addElementGroups = AddElementsServ.createAddElementGroups();
         }
-        AuxStor.aux.showAddElementGroups = true;
+        AuxStor.aux.showAddElementGroups = 1;
         AuxStor.aux.searchingWord = thisCtrl.searchingWord;
       }
     }
@@ -47,7 +47,7 @@
     function cancelSearching() {
       thisCtrl.searchingWord = '';
       AuxStor.aux.addElementGroups.length = 0;
-      AuxStor.aux.showAddElementGroups = false;
+      AuxStor.aux.showAddElementGroups = 0;
       AuxStor.aux.searchingWord = thisCtrl.searchingWord;
       AddElementMenuServ.closeAddElementsMenu();
     }
@@ -73,12 +73,14 @@
     //-------- Delete searching word
     function cancelSearchingHistory() {
       thisCtrl.searchingWord = '';
-      HistoryStor.history.isOrderSearch = false;
+      HistoryStor.history.searchingWord = '';
+      HistoryStor.history.isOrderSearch = 0;
     }
 
     //-------- Delete last chart searching word
     function deleteSearchChartHistory() {
       thisCtrl.searchingWord = thisCtrl.searchingWord.slice(0,-1);
+      HistoryStor.history.searchingWord = thisCtrl.searchingWord;
     }
 
 

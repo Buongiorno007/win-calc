@@ -38,7 +38,6 @@
         scope.$watch(attrs.output, function (price) {
           changePrice(price, elem);
         });
-
       }
     };
 

@@ -26,50 +26,45 @@
       ],
 
       "js_other": "./dev/js/**/_*.js",
-
-      "img": [
-        "dev/img/**/*.png",
-        "dev/img/**/*.jpg",
-        "dev/img/**/*.gif",
-        "dev/img/**/*.ico"
-      ],
-
-      "fonts": [
-        "dev/fonts/**/*.eot",
-        "dev/fonts/**/*.ttf",
-        "dev/fonts/**/*.svg",
-        "dev/fonts/**/*.otf",
-        "dev/fonts/**/*.woff"
-      ]
+      "img": "dev/img/**/*",
+      "fonts": "dev/fonts/**/*",
+      "audio": "dev/audio/*"
     },
 
     "dest": {
-      "css"   : "www/css",
-      "html"  : "www/",
-      "js"    : "www/js",
-      "img"   : "www/img",
-      "fonts" : "www/fonts"
+      "css": "www/css",
+      "html": "www/",
+      "js": "www/js",
+      "img": "www/img",
+      "fonts": "www/fonts",
+      "audio": "www/audio"
     }
   },
   "watch": {
-    "scss"      : ["dev/sass/**/*.scss",
-                   "dev/vendor/**/*.scss"],
+    "scss": [
+      "dev/sass/**/*.scss",
+      "dev/vendor/**/*.scss"
+    ],
 
-    "jade"      : "dev/jade/**/*.jade",
+    "jade": "dev/jade/**/*.jade",
 
-    "js"        : "dev/js/**/*.js",
+    "js": "dev/js/**/*.js",
 
-    "js_vendor" : "dev/vendor/**/*.js",
+    "js_vendor": "dev/vendor/**/*.js",
 
-    "img"       : [ "dev/img/**/*.png",
-                    "dev/img/**/*.jpg",
-                    "dev/img/**/*.gif" ],
+    "img": [
+      "dev/img/**/*.png",
+      "dev/img/**/*.jpg",
+      "dev/img/**/*.gif"
+    ],
 
-    "fonts"     : [ "dev/fonts/**/*.eot",
-                    "dev/fonts/**/*.ttf",
-                    "dev/fonts/**/*.svg",
-                    "dev/fonts/**/*.otf",
-                    "dev/fonts/**/*.woff" ]
+    "fonts": [
+      "dev/fonts/**/*.eot",
+      "dev/fonts/**/*.ttf",
+      "dev/fonts/**/*.svg",
+      "dev/fonts/**/*.otf",
+      "dev/fonts/**/*.woff"
+    ]
   },
 
   "server": {
@@ -83,18 +78,18 @@
 
   "buildApp": {
     "src": {
-      "css"   : "www/css",
-      "html"  : "www/views",
-      "js"    : "www/js",
-      "img"   : "www/img",
-      "fonts" : "www/fonts"
+      "css": "www/css",
+      "html": "www/views",
+      "js": "www/js",
+      "img": "www/img",
+      "fonts": "www/fonts"
     },
     "dest": {
-      "css"   : "app/www/css",
-      "html"  : "app/www/views",
-      "js"    : "app/www/js",
-      "img"   : "app/www/img",
-      "fonts" : "app/www/fonts"
+      "css": "app/www/css",
+      "html": "app/www/views",
+      "js": "app/www/js",
+      "img": "app/www/img",
+      "fonts": "app/www/fonts"
     }
   }
 }

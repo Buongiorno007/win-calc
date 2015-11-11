@@ -65,9 +65,9 @@
           }
           HistoryStor.history.ordersSource = angular.copy(orders);
           HistoryStor.history.orders = angular.copy(orders);
-          console.info('HISTORY orders+++++', HistoryStor.history.orders);
+//          console.info('HISTORY orders+++++', HistoryStor.history.orders);
           //----- max day for calendar-scroll
-          HistoryStor.history.maxDeliveryDateOrder = getOrderMaxDate(HistoryStor.history.orders);
+//          HistoryStor.history.maxDeliveryDateOrder = getOrderMaxDate(HistoryStor.history.orders);
 //          console.log('maxDeliveryDateOrder =', HistoryStor.history.maxDeliveryDateOrder);
         } else {
           HistoryStor.history.isEmptyResult = 1;
@@ -81,18 +81,14 @@
 
     //------- defind Order MaxDate
     function getOrderMaxDate(orders) {
-      var ordersDateArr = [],
-          ordersQty = orders.length,
-          it = 0;
-      for (; it < ordersQty; it++) {
+      var ordersDateArr = orders.map(function(item) {
+            return item.new_delivery_date;
+          }).sort(function (a, b) {
+            return b - a;
+          });
         //var oldDateArr = orders[it].deliveryDate.split('.');
         //var newDateStr = Date.parse(oldDateArr[1]+'/'+oldDateArr[0]+'/'+oldDateArr[2]);
         //var newDateStr = Date.parse(oldDateArr[2], oldDateArr[1], oldDateArr[0]);
-        ordersDateArr.push(orders[it].new_delivery_date);
-      }
-      ordersDateArr.sort(function (a, b) {
-        return b - a;
-      });
       return ordersDateArr[0];
     }
 

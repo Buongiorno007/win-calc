@@ -29,7 +29,6 @@
     //------- IMG rooms preload
     $document.ready(function() {
       for(var i = 0; i < 16; i++) {
-        $("<img />").attr("src", "img/rooms-icon/"+i+".jpg");
         $("<img />").attr("src", "img/rooms/"+i+".jpg");
       }
     });

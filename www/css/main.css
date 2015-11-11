@@ -1443,6 +1443,232 @@ body {
   display: none;
 }
 
+/* line 1, ../../dev/vendor/calendar-scroll/drum.scss */
+.date_range_container {
+  font: normal 2rem/1.42857 roboto-light, sans-serif;
+}
+
+/* line 4, ../../dev/vendor/calendar-scroll/drum.scss */
+div.drum-wrapper {
+  position: relative;
+  -webkit-touch-callout: none;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  width: 30px;
+}
+
+/* line 10, ../../dev/vendor/calendar-scroll/drum.scss */
+div.drum-wrapper .inner {
+  position: relative;
+  overflow: hidden;
+}
+
+/* line 14, ../../dev/vendor/calendar-scroll/drum.scss */
+div.drum-wrapper div.container {
+  position: absolute;
+  width: 100%;
+  top: 48px;
+  left: 0px;
+  -webkit-perspective: 1100px;
+  -moz-perspective: 1100px;
+  -o-perspective: 1100px;
+  perspective: 1100px;
+}
+
+/* line 25, ../../dev/vendor/calendar-scroll/drum.scss */
+div.drum-wrapper,
+div.drum-wrapper .inner {
+  height: 120px;
+}
+
+/* line 30, ../../dev/vendor/calendar-scroll/drum.scss */
+.outside div.drum-wrapper {
+  height: 140px;
+}
+
+/* line 33, ../../dev/vendor/calendar-scroll/drum.scss */
+.outside div.drum-wrapper .inner {
+  top: 12px;
+}
+
+/* line 36, ../../dev/vendor/calendar-scroll/drum.scss */
+.outside div.drum-wrapper .container {
+  top: 46px;
+}
+
+/* dail styles for mouse controls */
+/* line 41, ../../dev/vendor/calendar-scroll/drum.scss */
+div.drum-wrapper .dial {
+  position: absolute;
+  width: 100%;
+  left: 0px;
+  height: 48px;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: none;
+}
+
+/* line 49, ../../dev/vendor/calendar-scroll/drum.scss */
+.outside div.drum-wrapper .dial {
+  height: 58px;
+}
+
+/* line 52, ../../dev/vendor/calendar-scroll/drum.scss */
+div.drum-wrapper .dial div {
+  width: 20px;
+  height: 10px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+/* line 58, ../../dev/vendor/calendar-scroll/drum.scss */
+div.drum-wrapper .dial svg {
+  position: absolute;
+}
+
+/* line 61, ../../dev/vendor/calendar-scroll/drum.scss */
+div.drum-wrapper .up {
+  top: 0px;
+}
+
+/* line 64, ../../dev/vendor/calendar-scroll/drum.scss */
+div.drum-wrapper .up svg {
+  top: 2px;
+}
+
+/* line 67, ../../dev/vendor/calendar-scroll/drum.scss */
+div.drum-wrapper .down {
+  bottom: 0px;
+}
+
+/* line 70, ../../dev/vendor/calendar-scroll/drum.scss */
+div.drum-wrapper .down svg {
+  bottom: 2px;
+}
+
+/* actual drum styles */
+/* line 75, ../../dev/vendor/calendar-scroll/drum.scss */
+div.drum {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+/* line 86, ../../dev/vendor/calendar-scroll/drum.scss */
+div.drum figure {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: block;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  line-height: 20px;
+  color: black;
+  margin: 0px;
+  padding: 0px 3px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  text-align: left;
+}
+
+/* line 107, ../../dev/vendor/calendar-scroll/drum.scss */
+div.drum-wrapper div.container, div.drum-wrapper figure {
+  height: 25px;
+  line-height: 25px;
+}
+
+/* line 111, ../../dev/vendor/calendar-scroll/drum.scss */
+.date_range_from, .date_range_to {
+  width: 100%;
+  height: 100%;
+}
+
+/* line 116, ../../dev/vendor/calendar-scroll/drum.scss */
+.date_range_header {
+  height: 25px;
+  font-weight: 400;
+  border-bottom: 1px solid #CCC;
+  margin-bottom: 10px;
+}
+
+/* line 122, ../../dev/vendor/calendar-scroll/drum.scss */
+.date_range_header span.title {
+  float: left;
+  text-align: left;
+}
+
+/* line 126, ../../dev/vendor/calendar-scroll/drum.scss */
+.date_range_header span.selection {
+  float: right;
+  text-align: right;
+  color: #CE0000;
+}
+
+/* line 132, ../../dev/vendor/calendar-scroll/drum.scss */
+div.date_range form {
+  position: relative;
+}
+
+/* line 135, ../../dev/vendor/calendar-scroll/drum.scss */
+div.date_range div.date_range_container .lines {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-top: solid 1px #CCC;
+  border-bottom: solid 1px #CCC;
+  position: absolute;
+  top: 58px;
+  left: 0px;
+  width: 100%;
+  height: 24px;
+}
+
+/* line 145, ../../dev/vendor/calendar-scroll/drum.scss */
+div.date_range div.date_range_container .lines div {
+  margin-left: 220px;
+  line-height: 21px;
+}
+
+/* line 150, ../../dev/vendor/calendar-scroll/drum.scss */
+div.drum-wrapper {
+  float: left;
+}
+
+/* line 153, ../../dev/vendor/calendar-scroll/drum.scss */
+div.drum figure {
+  text-align: center;
+}
+
+/* line 157, ../../dev/vendor/calendar-scroll/drum.scss */
+#drum_from_date figure, #drum_to_date figure {
+  text-align: center;
+}
+
+/* line 161, ../../dev/vendor/calendar-scroll/drum.scss */
+#drum_from_date, #drum_to_date,
+#drum_from_fullYear, #drum_to_fullYear {
+  width: 20%;
+}
+
+/* line 166, ../../dev/vendor/calendar-scroll/drum.scss */
+#drum_from_month, #drum_to_month {
+  width: 60%;
+}
+
 /* line 4, ../../dev/sass/parts/_loader.scss */
 .loader-container .loader {
   position: absolute;
@@ -1909,8 +2135,33 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
+}
+/* line 52, ../../dev/sass/parts/_rooms-selector.scss */
+.rooms-selector-dialog .room-title {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzg0ODQ4NCIgc3RvcC1vcGFjaXR5PSIwLjEiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM0NzQ3NDciLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(132, 132, 132, 0.1)), color-stop(100%, #474747));
+  background-image: -moz-linear-gradient(rgba(132, 132, 132, 0.1), #474747);
+  background-image: -webkit-linear-gradient(rgba(132, 132, 132, 0.1), #474747);
+  background-image: linear-gradient(rgba(132, 132, 132, 0.1), #474747);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 2rem;
+  color: #fff;
+}
+/* line 61, ../../dev/sass/parts/_rooms-selector.scss */
+.rooms-selector-dialog .room-sizes {
+  font: normal 1.7rem/5rem roboto-regular, sans-serif;
+  float: left;
+}
+/* line 65, ../../dev/sass/parts/_rooms-selector.scss */
+.rooms-selector-dialog .room-price {
+  font: normal 2.3rem/5rem roboto-bold, sans-serif;
+  float: right;
 }
 
 /* line 1, ../../dev/sass/parts/_settings-panel.scss */
@@ -3949,7 +4200,7 @@ tr.factory_item {
 }
 /* line 260, ../../dev/sass/pages/history.scss */
 .accounts-container .dropdown-calendar-scroll.active {
-  height: 20.375rem;
+  height: 19rem;
 }
 /* line 266, ../../dev/sass/pages/history.scss */
 .accounts-container .total-date {

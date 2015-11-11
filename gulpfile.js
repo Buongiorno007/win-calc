@@ -126,6 +126,15 @@ gulp.task('fonts', function() {
 });
 
 
+// Копируем audio
+gulp.task('audio', function() {
+  return gulp.src(config.build.src.audio)
+    .pipe(newer(config.build.dest.audio))
+    .pipe(gulp.dest(config.build.dest.audio))
+    .pipe(reload({ stream: true }));
+});
+
+
 // Локальный сервер для разработки
 // http://www.browsersync.io/docs/options/
 gulp.task('server', function () {
@@ -156,7 +165,7 @@ gulp.task('server', function () {
 
 
 // Запуск сервера разработки
-gulp.task('watch', ['jade', 'images', 'fonts', 'compass', 'js', 'js-other', 'js-vendor', 'server'], function() {
+gulp.task('watch', ['jade', 'images', 'fonts', 'compass', 'js', 'js-other', 'js-vendor', 'audio', 'server'], function() {
   gulp.watch(config.watch.jade, ['jade']);
   gulp.watch(config.watch.img, ['images']);
   gulp.watch(config.watch.fonts, ['fonts']);
@@ -168,7 +177,7 @@ gulp.task('watch', ['jade', 'images', 'fonts', 'compass', 'js', 'js-other', 'js-
 
 // Сборка неминимизированного проекта
 gulp.task('build', ['clean'], function () {
-  gulp.start(['jade', 'images', 'fonts', 'compass', 'js', 'js-vendor', 'js-other']);
+  gulp.start(['jade', 'images', 'fonts', 'compass', 'js', 'js-vendor', 'js-other', 'audio']);
 });
 
 

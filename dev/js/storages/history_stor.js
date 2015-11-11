@@ -27,15 +27,11 @@
         isStartDate: 0,
         isFinishDate: 0,
         isAllPeriod: 1,
-        maxDeliveryDateOrder: 0,
+//        maxDeliveryDateOrder: 0,
 
         isOrderSort: 0,
         isSortType: 'last',
         isFilterType: undefined,
-        isCurrentOrdersHide: 0,
-        isWaitOrdersHide: 0,
-        isDoneOrdersHide: 0,
-
 
         //===== Draft
         isDraftView: 0,
