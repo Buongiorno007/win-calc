@@ -339,7 +339,7 @@ th {
   font-family: "icons";
   src: url('../fonts/icons/icomoon.ttf?1447154475') format('truetype');
 }
-/* line 183, ../../dev/sass/base/_animations.scss */
+/* line 218, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .glass-container .glass-selector-dialog .set-glass-btn, .glass-container .glass-selector-dialog .set-glass-all-btn, .hardware-container .hardware-box, .lamination-container .lamination-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
   -moz-animation: splashing 0.5s 0 ease 1;
@@ -369,7 +369,7 @@ th {
     transform: scale(1);
   }
 }
-/* line 189, ../../dev/sass/base/_animations.scss */
+/* line 224, ../../dev/sass/base/_animations.scss */
 .flashing, .room-info-container .coeff.coeff-low, .size-calc-container .calc-value-limit.restriction {
   -moz-animation: flashing 1.5s 0 ease 1;
   -webkit-animation: flashing 1.5s 0 ease 1;
@@ -446,53 +446,42 @@ th {
     opacity: 1;
   }
 }
-/* line 195, ../../dev/sass/base/_animations.scss */
-.move-menu-left, .nav-menu .items-list {
-  -moz-animation: move-navmenu-list 0.5s 0 ease 1;
-  -webkit-animation: move-navmenu-list 0.5s 0 ease 1;
-  animation: move-navmenu-list 0.5s 0 ease 1;
+/* line 230, ../../dev/sass/base/_animations.scss */
+.jumping, .config-menu .menu_tooltip {
+  -moz-animation: jump-hor 2s ease-in 0 infinite;
+  -webkit-animation: jump-hor 2s ease-in 0 infinite;
+  animation: jump-hor 2s ease-in 0 infinite;
 }
 
-@-webkit-keyframes move-navmenu-list {
+@-webkit-keyframes jump-hor {
   from {
-    -webkit-transform: translate(-37.5rem, 0);
+    -webkit-transform: translate(0, 0);
+  }
+  5% {
+    -webkit-transform: translate(-2.5rem, 0);
+  }
+  10% {
+    -webkit-transform: translate(0, 0);
   }
   to {
     -webkit-transform: translate(0, 0);
   }
 }
-@keyframes move-navmenu-list {
+@keyframes jump-hor {
   from {
-    transform: translate(-37.5rem, 0);
+    transform: translate(0, 0);
+  }
+  5% {
+    transform: translate(-2.5rem, 0);
+  }
+  10% {
+    transform: translate(0, 0);
   }
   to {
     transform: translate(0, 0);
   }
 }
-/* line 201, ../../dev/sass/base/_animations.scss */
-.move-menu-right, .config-menu .items-list {
-  -moz-animation: move-menu-right 0.5s 0 linear 1;
-  -webkit-animation: move-menu-right 0.5s 0 linear 1;
-  animation: move-menu-right 0.5s 0 linear 1;
-}
-
-@-webkit-keyframes move-menu-right {
-  from {
-    -webkit-transform: translate(31.25rem, 0);
-  }
-  to {
-    -webkit-transform: translate(0, 0);
-  }
-}
-@keyframes move-menu-right {
-  from {
-    transform: translate(31.25rem, 0);
-  }
-  to {
-    transform: translate(0, 0);
-  }
-}
-/* line 210, ../../dev/sass/base/_animations.scss */
+/* line 252, ../../dev/sass/base/_animations.scss */
 .move-grid {
   -moz-animation: move-grid 1s 0 ease 1;
   -webkit-animation: move-grid 1s 0 ease 1;
@@ -515,7 +504,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 215, ../../dev/sass/base/_animations.scss */
+/* line 257, ../../dev/sass/base/_animations.scss */
 .move-visor {
   -moz-animation: move-visor 1s 0 ease 1;
   -webkit-animation: move-visor 1s 0 ease 1;
@@ -538,7 +527,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 220, ../../dev/sass/base/_animations.scss */
+/* line 262, ../../dev/sass/base/_animations.scss */
 .move-spillway {
   -moz-animation: move-spillway 1s 0 ease 1;
   -webkit-animation: move-spillway 1s 0 ease 1;
@@ -561,7 +550,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 225, ../../dev/sass/base/_animations.scss */
+/* line 267, ../../dev/sass/base/_animations.scss */
 .move-outside {
   -moz-animation: move-outside 1s 0 ease 1;
   -webkit-animation: move-outside 1s 0 ease 1;
@@ -584,7 +573,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 230, ../../dev/sass/base/_animations.scss */
+/* line 272, ../../dev/sass/base/_animations.scss */
 .move-windowsill {
   -moz-animation: move-windowsill 2s 0 ease 1;
   -webkit-animation: move-windowsill 2s 0 ease 1;
@@ -607,7 +596,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 236, ../../dev/sass/base/_animations.scss */
+/* line 278, ../../dev/sass/base/_animations.scss */
 .move-louvers {
   -moz-animation: move-louvers 2s 0 ease 1;
   -webkit-animation: move-louvers 2s 0 ease 1;
@@ -630,7 +619,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 241, ../../dev/sass/base/_animations.scss */
+/* line 283, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-1 {
   -moz-animation: move-louver-1 2s 2s ease 1;
   -webkit-animation: move-louver-1 2s 2s ease 1;
@@ -659,7 +648,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 246, ../../dev/sass/base/_animations.scss */
+/* line 288, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-2 {
   -moz-animation: move-louver-2 2s 2s ease 1;
   -webkit-animation: move-louver-2 2s 2s ease 1;
@@ -688,7 +677,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 251, ../../dev/sass/base/_animations.scss */
+/* line 293, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-3 {
   -moz-animation: move-louver-3 2s 2s ease 1;
   -webkit-animation: move-louver-3 2s 2s ease 1;
@@ -717,7 +706,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 256, ../../dev/sass/base/_animations.scss */
+/* line 298, ../../dev/sass/base/_animations.scss */
 .move-louver-bottom {
   -moz-animation: move-louver-bottom 2s 2s ease 1;
   -webkit-animation: move-louver-bottom 2s 2s ease 1;
@@ -746,7 +735,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 262, ../../dev/sass/base/_animations.scss */
+/* line 304, ../../dev/sass/base/_animations.scss */
 .move-inside-top {
   -moz-animation: move-slope-top 1s 0 ease 1;
   -webkit-animation: move-slope-top 1s 0 ease 1;
@@ -769,7 +758,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 267, ../../dev/sass/base/_animations.scss */
+/* line 309, ../../dev/sass/base/_animations.scss */
 .move-inside-right {
   -moz-animation: move-slope-right 1s 0 ease 1;
   -webkit-animation: move-slope-right 1s 0 ease 1;
@@ -792,7 +781,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 272, ../../dev/sass/base/_animations.scss */
+/* line 314, ../../dev/sass/base/_animations.scss */
 .move-inside-left {
   -moz-animation: move-slope-left 1s 0 ease 1;
   -webkit-animation: move-slope-left 1s 0 ease 1;
@@ -815,7 +804,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 278, ../../dev/sass/base/_animations.scss */
+/* line 320, ../../dev/sass/base/_animations.scss */
 .move-fan {
   -moz-animation: move-fan 2s ease 1, rot-fan 1s 2s ease 1;
   -webkit-animation: move-fan 2s ease 1, rot-fan 1s 2s ease 1;
@@ -854,7 +843,7 @@ th {
     transform: rotate(360deg);
   }
 }
-/* line 285, ../../dev/sass/base/_animations.scss */
+/* line 327, ../../dev/sass/base/_animations.scss */
 .move-handle {
   -moz-animation: move-handle 1s 0 ease 1;
   -webkit-animation: move-handle 1s 0 ease 1;
@@ -877,7 +866,7 @@ th {
     transform: translate(0, 0);
   }
 }
-/* line 291, ../../dev/sass/base/_animations.scss */
+/* line 333, ../../dev/sass/base/_animations.scss */
 .move-view-tab {
   -moz-animation: move-tab 1s 0 ease 1;
   -webkit-animation: move-tab 1s 0 ease 1;
@@ -1506,7 +1495,7 @@ div.drum-wrapper .dial {
   left: 0px;
   height: 48px;
   background-color: rgba(255, 255, 255, 0.7);
-  display: none;
+  display: block;
 }
 
 /* line 49, ../../dev/vendor/calendar-scroll/drum.scss */
@@ -6173,22 +6162,22 @@ tr.factory_item {
   padding: 0;
   list-style: none;
 }
-/* line 22, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 20, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .item {
   padding-left: 3.125rem;
   background-color: rgba(255, 255, 255, 0.1);
   cursor: pointer;
 }
-/* line 26, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 24, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .item.selected {
   background-color: #0f0f0f;
   box-shadow: inset 0 0 0.4375rem 0.4375rem rgba(250, 250, 250, 0.3);
 }
-/* line 30, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 28, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .item:last-child .item-content {
   border-bottom: none;
 }
-/* line 34, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 32, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .item-content {
   display: -webkit-flex;
   display: flex;
@@ -6199,89 +6188,89 @@ tr.factory_item {
   border-bottom: 1px solid #0f0f0f;
   text-decoration: none;
 }
-/* line 43, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 41, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'] {
   font: normal 2.5rem/1.42857 icons, sans-serif;
   margin-right: 2.5rem;
 }
-/* line 51, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 49, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-icon-additionalComponents:before {
   color: #ffe036;
   content: "";
 }
-/* line 55, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 53, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-icon-addLocation:before {
   color: #ffe036;
   content: "";
 }
-/* line 59, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 57, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-icon-basketOfCalculation:before {
   color: #f98000;
   content: "";
 }
-/* line 63, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 61, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-icon-calculation:before {
   color: #ffe036;
   content: "";
 }
-/* line 67, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 65, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-icon-calculationsHistory:before {
   color: #ffe036;
   content: "";
 }
-/* line 71, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 69, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-icon-geoLocation:before {
   color: #f98000;
   content: "";
 }
-/* line 75, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 73, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-icon-information:before {
   color: #34aadc;
   content: "";
 }
-/* line 79, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 77, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-icon-location:before {
   color: #6e6e6e;
   content: "";
 }
-/* line 83, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 81, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-icon-settings:before {
   color: #6ed44a;
   content: "";
 }
-/* line 87, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 85, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-icon-voicehelp {
   font: normal 2.5rem/1.42857 icons, sans-serif;
 }
-/* line 89, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 87, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-icon-voicehelp:before {
   color: #f98000;
   content: "";
 }
-/* line 94, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 92, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .title {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   width: 25rem;
   color: #fff;
 }
-/* line 101, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 99, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .badge {
   font: normal 1.5rem/1.42857 roboto-medium, sans-serif;
   color: #999;
 }
-/* line 106, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 104, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .divider {
   font: normal 1.5rem/4.375rem roboto-medium, sans-serif;
   padding: 1.25rem 0 0 3.125rem;
   text-transform: uppercase;
   color: #999;
 }
-/* line 113, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 111, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .nav-menu-footer {
   padding: 3.125rem;
 }
-/* line 116, ../../dev/sass/menus/_navigation-menu.scss */
+/* line 114, ../../dev/sass/menus/_navigation-menu.scss */
 .nav-menu .new-calc {
   width: 100%;
   height: 6.875rem;
@@ -6295,11 +6284,11 @@ tr.factory_item {
   /** Tooltip */
   /** Report */
 }
-/* line 8, ../../dev/sass/menus/_config-menu.scss */
+/* line 5, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .item.active {
   background-color: rgba(0, 0, 0, 0.07);
 }
-/* line 10, ../../dev/sass/menus/_config-menu.scss */
+/* line 7, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .item.active:before {
   font: normal 5.25rem/1 icons, sans-serif;
   position: absolute;
@@ -6310,25 +6299,25 @@ tr.factory_item {
   color: #f98000;
   content: "";
 }
-/* line 24, ../../dev/sass/menus/_config-menu.scss */
+/* line 21, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .item-header {
   min-height: 21.875rem;
 }
-/* line 27, ../../dev/sass/menus/_config-menu.scss */
+/* line 24, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .title {
   margin: 0.625rem 0;
   color: #f98000;
 }
-/* line 31, ../../dev/sass/menus/_config-menu.scss */
+/* line 28, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .icon {
   height: 7.5rem;
   margin: 1.25rem 0;
 }
-/* line 36, ../../dev/sass/menus/_config-menu.scss */
+/* line 33, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .icon img {
   max-height: 100%;
 }
-/* line 41, ../../dev/sass/menus/_config-menu.scss */
+/* line 38, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .additional-items-list {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -6341,12 +6330,12 @@ tr.factory_item {
   overflow-x: hidden;
   overflow-y: auto;
 }
-/* line 49, ../../dev/sass/menus/_config-menu.scss */
+/* line 46, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .additional-items-group {
   margin: 0;
   padding: 0;
 }
-/* line 56, ../../dev/sass/menus/_config-menu.scss */
+/* line 53, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .qty {
   font: normal 2.25rem/3.75rem roboto-light, sans-serif;
   position: absolute;
@@ -6358,7 +6347,7 @@ tr.factory_item {
   border-radius: 50%;
   background-color: #fff;
 }
-/* line 70, ../../dev/sass/menus/_config-menu.scss */
+/* line 67, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .curtain {
   position: absolute;
   top: 0;
@@ -6368,7 +6357,7 @@ tr.factory_item {
   background: rgba(248, 248, 248, 0.95);
   z-index: 3;
 }
-/* line 80, ../../dev/sass/menus/_config-menu.scss */
+/* line 77, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .product-u-coeff {
   font: normal 2.625rem/1.42857 roboto-light, sans-serif;
   width: 40%;
@@ -6381,11 +6370,11 @@ tr.factory_item {
   color: #6ed44a;
   z-index: 2;
 }
-/* line 91, ../../dev/sass/menus/_config-menu.scss */
+/* line 88, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .product-u-coeff.u-coeff-low {
   color: #f74f2e;
 }
-/* line 98, ../../dev/sass/menus/_config-menu.scss */
+/* line 95, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip {
   -moz-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
@@ -6402,7 +6391,7 @@ tr.factory_item {
   opacity: 0;
   z-index: 1;
 }
-/* line 110, ../../dev/sass/menus/_config-menu.scss */
+/* line 108, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip:after {
   position: absolute;
   right: -1.4rem;
@@ -6414,29 +6403,35 @@ tr.factory_item {
   border-color: transparent rgba(255, 255, 255, 0.85);
   content: '';
 }
-/* line 121, ../../dev/sass/menus/_config-menu.scss */
+/* line 119, ../../dev/sass/menus/_config-menu.scss */
+.config-menu .menu_tooltip:hover {
+  -moz-animation-play-state: paused;
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
+/* line 122, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip.tempate_tip {
   top: 2rem;
   opacity: 1;
 }
-/* line 125, ../../dev/sass/menus/_config-menu.scss */
+/* line 126, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip.profile_tip {
   top: 22rem;
   opacity: 1;
 }
-/* line 129, ../../dev/sass/menus/_config-menu.scss */
+/* line 130, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip.glass_tip {
   top: 29rem;
   opacity: 1;
 }
-/* line 139, ../../dev/sass/menus/_config-menu.scss */
+/* line 140, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .menu_tooltip .close_menu_tooltip {
   position: absolute;
   top: 4%;
   left: 2%;
   background-color: #f98000;
 }
-/* line 150, ../../dev/sass/menus/_config-menu.scss */
+/* line 151, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .report-container {
   display: -webkit-flex;
   display: flex;
@@ -6451,28 +6446,28 @@ tr.factory_item {
   overflow: hidden;
   background-color: #fff;
 }
-/* line 163, ../../dev/sass/menus/_config-menu.scss */
+/* line 164, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .report-box {
   width: 100%;
   height: 100%;
   overflow-y: auto;
 }
-/* line 168, ../../dev/sass/menus/_config-menu.scss */
+/* line 169, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .report-box table {
   width: 100%;
 }
-/* line 171, ../../dev/sass/menus/_config-menu.scss */
+/* line 172, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .report-box th {
   background-color: #c2c2c2;
 }
-/* line 175, ../../dev/sass/menus/_config-menu.scss */
+/* line 176, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .report-elem {
   text-align: center;
   vertical-align: center;
   border: 1px solid #000;
   padding: 1rem;
 }
-/* line 181, ../../dev/sass/menus/_config-menu.scss */
+/* line 182, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .report-price-total {
   font: normal 1.875rem/1.42857 roboto-bold, sans-serif;
   padding: 1rem;
@@ -6480,7 +6475,7 @@ tr.factory_item {
   background-color: #c2c2c2;
   text-align: right;
 }
-/* line 188, ../../dev/sass/menus/_config-menu.scss */
+/* line 189, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .report-menu-item {
   padding: 1rem;
   padding-right: 0;
@@ -6489,12 +6484,12 @@ tr.factory_item {
   background-color: #363636;
   cursor: pointer;
 }
-/* line 196, ../../dev/sass/menus/_config-menu.scss */
+/* line 197, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .report-menu-item.active {
   color: #363636;
   background-color: #c2c2c2;
 }
-/* line 201, ../../dev/sass/menus/_config-menu.scss */
+/* line 202, ../../dev/sass/menus/_config-menu.scss */
 .config-menu .close_report {
   position: absolute;
   top: 1rem;
@@ -8603,7 +8598,7 @@ tr.factory_item {
   width: 6.25rem;
 }
 
-/* line 183, ../../dev/sass/base/_animations.scss */
+/* line 218, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .glass-container .glass-selector-dialog .set-glass-btn, .glass-container .glass-selector-dialog .set-glass-all-btn, .hardware-container .hardware-box, .lamination-container .lamination-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
   -moz-animation: splashing 0.5s 0 ease 1;
@@ -8633,7 +8628,7 @@ tr.factory_item {
     transform: scale(1);
   }
 }
-/* line 189, ../../dev/sass/base/_animations.scss */
+/* line 224, ../../dev/sass/base/_animations.scss */
 .flashing, .room-info-container .coeff.coeff-low, .size-calc-container .calc-value-limit.restriction {
   -moz-animation: flashing 1.5s 0 ease 1;
   -webkit-animation: flashing 1.5s 0 ease 1;
@@ -8710,53 +8705,42 @@ tr.factory_item {
     opacity: 1;
   }
 }
-/* line 195, ../../dev/sass/base/_animations.scss */
-.move-menu-left, .nav-menu .items-list {
-  -moz-animation: move-navmenu-list 0.5s 0 ease 1;
-  -webkit-animation: move-navmenu-list 0.5s 0 ease 1;
-  animation: move-navmenu-list 0.5s 0 ease 1;
+/* line 230, ../../dev/sass/base/_animations.scss */
+.jumping, .config-menu .menu_tooltip {
+  -moz-animation: jump-hor 2s ease-in 0 infinite;
+  -webkit-animation: jump-hor 2s ease-in 0 infinite;
+  animation: jump-hor 2s ease-in 0 infinite;
 }
 
-@-webkit-keyframes move-navmenu-list {
+@-webkit-keyframes jump-hor {
   from {
-    -webkit-transform: translate(-37.5rem, 0);
+    -webkit-transform: translate(0, 0);
+  }
+  5% {
+    -webkit-transform: translate(-2.5rem, 0);
+  }
+  10% {
+    -webkit-transform: translate(0, 0);
   }
   to {
     -webkit-transform: translate(0, 0);
   }
 }
-@keyframes move-navmenu-list {
+@keyframes jump-hor {
   from {
-    transform: translate(-37.5rem, 0);
+    transform: translate(0, 0);
+  }
+  5% {
+    transform: translate(-2.5rem, 0);
+  }
+  10% {
+    transform: translate(0, 0);
   }
   to {
     transform: translate(0, 0);
   }
 }
-/* line 201, ../../dev/sass/base/_animations.scss */
-.move-menu-right, .config-menu .items-list {
-  -moz-animation: move-menu-right 0.5s 0 linear 1;
-  -webkit-animation: move-menu-right 0.5s 0 linear 1;
-  animation: move-menu-right 0.5s 0 linear 1;
-}
-
-@-webkit-keyframes move-menu-right {
-  from {
-    -webkit-transform: translate(31.25rem, 0);
-  }
-  to {
-    -webkit-transform: translate(0, 0);
-  }
-}
-@keyframes move-menu-right {
-  from {
-    transform: translate(31.25rem, 0);
-  }
-  to {
-    transform: translate(0, 0);
-  }
-}
-/* line 210, ../../dev/sass/base/_animations.scss */
+/* line 252, ../../dev/sass/base/_animations.scss */
 .move-grid {
   -moz-animation: move-grid 1s 0 ease 1;
   -webkit-animation: move-grid 1s 0 ease 1;
@@ -8779,7 +8763,7 @@ tr.factory_item {
     transform: translate(0, 0);
   }
 }
-/* line 215, ../../dev/sass/base/_animations.scss */
+/* line 257, ../../dev/sass/base/_animations.scss */
 .move-visor {
   -moz-animation: move-visor 1s 0 ease 1;
   -webkit-animation: move-visor 1s 0 ease 1;
@@ -8802,7 +8786,7 @@ tr.factory_item {
     transform: translate(0, 0);
   }
 }
-/* line 220, ../../dev/sass/base/_animations.scss */
+/* line 262, ../../dev/sass/base/_animations.scss */
 .move-spillway {
   -moz-animation: move-spillway 1s 0 ease 1;
   -webkit-animation: move-spillway 1s 0 ease 1;
@@ -8825,7 +8809,7 @@ tr.factory_item {
     transform: translate(0, 0);
   }
 }
-/* line 225, ../../dev/sass/base/_animations.scss */
+/* line 267, ../../dev/sass/base/_animations.scss */
 .move-outside {
   -moz-animation: move-outside 1s 0 ease 1;
   -webkit-animation: move-outside 1s 0 ease 1;
@@ -8848,7 +8832,7 @@ tr.factory_item {
     transform: translate(0, 0);
   }
 }
-/* line 230, ../../dev/sass/base/_animations.scss */
+/* line 272, ../../dev/sass/base/_animations.scss */
 .move-windowsill {
   -moz-animation: move-windowsill 2s 0 ease 1;
   -webkit-animation: move-windowsill 2s 0 ease 1;
@@ -8871,7 +8855,7 @@ tr.factory_item {
     transform: translate(0, 0);
   }
 }
-/* line 236, ../../dev/sass/base/_animations.scss */
+/* line 278, ../../dev/sass/base/_animations.scss */
 .move-louvers {
   -moz-animation: move-louvers 2s 0 ease 1;
   -webkit-animation: move-louvers 2s 0 ease 1;
@@ -8894,7 +8878,7 @@ tr.factory_item {
     transform: translate(0, 0);
   }
 }
-/* line 241, ../../dev/sass/base/_animations.scss */
+/* line 283, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-1 {
   -moz-animation: move-louver-1 2s 2s ease 1;
   -webkit-animation: move-louver-1 2s 2s ease 1;
@@ -8923,7 +8907,7 @@ tr.factory_item {
     transform: translate(0, 0);
   }
 }
-/* line 246, ../../dev/sass/base/_animations.scss */
+/* line 288, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-2 {
   -moz-animation: move-louver-2 2s 2s ease 1;
   -webkit-animation: move-louver-2 2s 2s ease 1;
@@ -8952,7 +8936,7 @@ tr.factory_item {
     transform: translate(0, 0);
   }
 }
-/* line 251, ../../dev/sass/base/_animations.scss */
+/* line 293, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-3 {
   -moz-animation: move-louver-3 2s 2s ease 1;
   -webkit-animation: move-louver-3 2s 2s ease 1;
@@ -8981,7 +8965,7 @@ tr.factory_item {
     transform: translate(0, 0);
   }
 }
-/* line 256, ../../dev/sass/base/_animations.scss */
+/* line 298, ../../dev/sass/base/_animations.scss */
 .move-louver-bottom {
   -moz-animation: move-louver-bottom 2s 2s ease 1;
   -webkit-animation: move-louver-bottom 2s 2s ease 1;
@@ -9010,7 +8994,7 @@ tr.factory_item {
     transform: translate(0, 0);
   }
 }
-/* line 262, ../../dev/sass/base/_animations.scss */
+/* line 304, ../../dev/sass/base/_animations.scss */
 .move-inside-top {
   -moz-animation: move-slope-top 1s 0 ease 1;
   -webkit-animation: move-slope-top 1s 0 ease 1;
@@ -9033,7 +9017,7 @@ tr.factory_item {
     transform: translate(0, 0);
   }
 }
-/* line 267, ../../dev/sass/base/_animations.scss */
+/* line 309, ../../dev/sass/base/_animations.scss */
 .move-inside-right {
   -moz-animation: move-slope-right 1s 0 ease 1;
   -webkit-animation: move-slope-right 1s 0 ease 1;
@@ -9056,7 +9040,7 @@ tr.factory_item {
     transform: translate(0, 0);
   }
 }
-/* line 272, ../../dev/sass/base/_animations.scss */
+/* line 314, ../../dev/sass/base/_animations.scss */
 .move-inside-left {
   -moz-animation: move-slope-left 1s 0 ease 1;
   -webkit-animation: move-slope-left 1s 0 ease 1;
@@ -9079,7 +9063,7 @@ tr.factory_item {
     transform: translate(0, 0);
   }
 }
-/* line 278, ../../dev/sass/base/_animations.scss */
+/* line 320, ../../dev/sass/base/_animations.scss */
 .move-fan {
   -moz-animation: move-fan 2s ease 1, rot-fan 1s 2s ease 1;
   -webkit-animation: move-fan 2s ease 1, rot-fan 1s 2s ease 1;
@@ -9118,7 +9102,7 @@ tr.factory_item {
     transform: rotate(360deg);
   }
 }
-/* line 285, ../../dev/sass/base/_animations.scss */
+/* line 327, ../../dev/sass/base/_animations.scss */
 .move-handle {
   -moz-animation: move-handle 1s 0 ease 1;
   -webkit-animation: move-handle 1s 0 ease 1;
@@ -9141,7 +9125,7 @@ tr.factory_item {
     transform: translate(0, 0);
   }
 }
-/* line 291, ../../dev/sass/base/_animations.scss */
+/* line 333, ../../dev/sass/base/_animations.scss */
 .move-view-tab {
   -moz-animation: move-tab 1s 0 ease 1;
   -webkit-animation: move-tab 1s 0 ease 1;

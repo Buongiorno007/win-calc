@@ -180,6 +180,41 @@
   }
 }
 
+
+@mixin behavior-jump($nameJump, $fromX, $fromY, $toX, $toY) {
+  @-webkit-keyframes #{$nameJump} {
+    from {
+      -webkit-transform: translate($fromX, $fromY);
+    }
+    5% {
+      -webkit-transform: translate($toX, $toY);
+    }
+    10% {
+      -webkit-transform: translate($fromX, $fromY);
+    }
+    to {
+      -webkit-transform: translate($fromX, $fromY);
+    }
+  }
+  @keyframes #{$nameJump} {
+    from {
+      transform: translate($fromX, $fromY);
+    }
+    5% {
+      transform: translate($toX, $toY);
+    }
+    10% {
+      transform: translate($fromX, $fromY);
+    }
+    to {
+      transform: translate($fromX, $fromY);
+    }
+  }
+}
+
+
+
+
 .splash {
   @include animation(splashing .5s 0 ease 1);
 }
@@ -191,17 +226,24 @@
 }
 @include behavior-flashing(flashing);
 
-// Left Menu
-.move-menu-left {
-  @include animation(move-navmenu-list .5s 0 ease 1);
+
+.jumping {
+  @include animation(jump-hor 2s ease-in 0 infinite);
 }
-@include behavior-move(move-navmenu-list, rem(-600px), 0, 0, 0);
+@include behavior-jump(jump-hor, 0, 0, -2.5rem, 0);
+
+
+// Left Menu
+//.move-menu-left {
+//  @include animation(move-navmenu-list .5s 0 ease 1);
+//}
+//@include behavior-move(move-navmenu-list, rem(-600px), 0, 0, 0);
 
 // Right Menu
-.move-menu-right {
-  @include animation(move-menu-right .5s 0 linear 1);
-}
-@include behavior-move(move-menu-right, rem(500px), 0, 0, 0);
+//.move-menu-right {
+//  @include animation(move-menu-right .5s 0 linear 1);
+//}
+//@include behavior-move(move-menu-right, rem(500px), 0, 0, 0);
 
 
 

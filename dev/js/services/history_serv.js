@@ -75,22 +75,18 @@
       });
     }
 
-
-
-
-
     //------- defind Order MaxDate
-    function getOrderMaxDate(orders) {
-      var ordersDateArr = orders.map(function(item) {
-            return item.new_delivery_date;
-          }).sort(function (a, b) {
-            return b - a;
-          });
-        //var oldDateArr = orders[it].deliveryDate.split('.');
-        //var newDateStr = Date.parse(oldDateArr[1]+'/'+oldDateArr[0]+'/'+oldDateArr[2]);
-        //var newDateStr = Date.parse(oldDateArr[2], oldDateArr[1], oldDateArr[0]);
-      return ordersDateArr[0];
-    }
+//    function getOrderMaxDate(orders) {
+//      var ordersDateArr = orders.map(function(item) {
+//            return item.new_delivery_date;
+//          }).sort(function (a, b) {
+//            return b - a;
+//          });
+//        //var oldDateArr = orders[it].deliveryDate.split('.');
+//        //var newDateStr = Date.parse(oldDateArr[1]+'/'+oldDateArr[0]+'/'+oldDateArr[2]);
+//        //var newDateStr = Date.parse(oldDateArr[2], oldDateArr[1], oldDateArr[0]);
+//      return ordersDateArr[0];
+//    }
 
 
 
@@ -493,6 +489,8 @@
 
     //------- Orders/Drafts View switcher
     function viewSwitching() {
+      HistoryStor.history.isOrderDate = 0;
+      HistoryStor.history.isOrderDateDraft = 0;
       HistoryStor.history.isDraftView = !HistoryStor.history.isDraftView;
 
       //------ Download Drafts from localDB in first open
@@ -500,6 +498,8 @@
         downloadDrafts();
       }
     }
+
+
 
     //------ Download draft Orders from localDB
     function downloadDrafts() {
@@ -517,7 +517,6 @@
           }
           HistoryStor.history.draftsSource = angular.copy(drafts);
           HistoryStor.history.drafts = angular.copy(drafts);
-          //TODO ????
           //----- max day for calendar-scroll
 //          HistoryStor.history.maxDeliveryDateOrder = getOrderMaxDate(HistoryStor.history.orders);
         } else {
@@ -554,7 +553,7 @@
       if(HistoryStor.history.isDraftView) {
         if(HistoryStor.history.isOrderDateDraft) {
           //-------- filtering orders by selected date
-          filterResult = filteringByDate(HistoryStor.history.ordersSource, HistoryStor.history.startDateDraft, HistoryStor.history.finishDateDraft);
+          filterResult = filteringByDate(HistoryStor.history.draftsSource, HistoryStor.history.startDateDraft, HistoryStor.history.finishDateDraft);
           if(filterResult) {
             HistoryStor.history.drafts = filterResult;
           }

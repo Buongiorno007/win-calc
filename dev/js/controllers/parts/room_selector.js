@@ -113,15 +113,13 @@
     function selectRoom(id) {
       ProductStor.product.room_id = id;
       closeRoomSelectorDialog();
-      MainServ.prepareMainPage();
-      GeneralServ.stopStartProg();
-      GlobalStor.global.showRoomSelectorDialog = 0;
     }
 
 
     //---------- Close Room Selector Dialog
     function closeRoomSelectorDialog() {
       GlobalStor.global.showRoomSelectorDialog = 0;
+      GlobalStor.global.configMenuTips = (GlobalStor.global.startProgramm) ? 1 : 0;
       //playSound('fly');
     }
 

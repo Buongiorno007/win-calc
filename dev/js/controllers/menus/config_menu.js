@@ -57,6 +57,7 @@
     function selectConfigPanel(id) {
       GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
       GlobalStor.global.configMenuTips = 0;
+      GeneralServ.stopStartProg();
       MainServ.setDefaultAuxParam();
       AddElementsServ.desactiveAddElementParameters();
     }
@@ -73,6 +74,10 @@
       ++GlobalStor.global.configMenuTips;
       if(GlobalStor.global.configMenuTips === tipQty) {
         GlobalStor.global.configMenuTips = 0;
+        //------ open templates
+        GlobalStor.global.activePanel = 1;
+        //------ close rooms
+        GlobalStor.global.showRoomSelectorDialog = 0;
       }
     }
 

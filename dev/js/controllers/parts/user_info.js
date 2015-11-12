@@ -31,7 +31,7 @@
     function swipeMainPage(event) {
       GlobalStor.global.isNavMenu = !GlobalStor.global.isNavMenu;
       GlobalStor.global.isConfigMenu = !GlobalStor.global.isConfigMenu;
-      GeneralServ.stopStartProg();
+//      GeneralServ.stopStartProg();
       //playSound('swip');
     }
 
@@ -39,7 +39,7 @@
       if(GlobalStor.global.isNavMenu) {
         GlobalStor.global.isNavMenu = 0;
         GlobalStor.global.isConfigMenu = 1;
-        GeneralServ.stopStartProg();
+//        GeneralServ.stopStartProg();
         //playSound('swip');
       }
     }

@@ -685,7 +685,11 @@
       GlobalStor.global.isConfigMenu = 1;
       GlobalStor.global.activePanel = 0;
       setDefaultAuxParam();
-      GlobalStor.global.showRoomSelectorDialog = 1;
+      if(GlobalStor.global.startProgramm) {
+        $timeout(function() {
+          GlobalStor.global.showRoomSelectorDialog = 1;
+        }, 2000);
+      }
     }
 
 

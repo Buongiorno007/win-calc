@@ -99,12 +99,6 @@
           }
         }
 
-//        function update(section, datetime) {
-//          $("#" + section + "_date").drum('setIndex', datetime.getDate()-1);
-//          $("#" + section + "_month").drum('setIndex', datetime.getMonth());
-//          $("#" + section + "_fullYear").drum('setIndex', getIndexForValue($("#" + section + "_fullYear")[0], datetime.getFullYear()));
-//        }
-
         function update(panel, section, datetime) {
           $('.'+panel).find("#" + section + "_date").drum('setIndex', datetime.getDate()-1);
           $('.'+panel).find("#" + section + "_month").drum('setIndex', datetime.getMonth());
@@ -114,7 +108,6 @@
         $(function(){
           $("select.date").drum({
             onChange : function (elem) {
-//              console.info(elem);
               var elemNameArr = elem.name.split('_'),
                   section = elemNameArr[0],
                   isOrder = elemNameArr[2]*1,
@@ -125,9 +118,6 @@
                 eval ("date." + arr[s] + "(" + i + ")");
               }
 
-
-console.info('isOrder---', isOrder);
-console.info('section---', section);
               if(isOrder) {
                 update('history-view', section, date);
                 /** save Data for order */
@@ -145,7 +135,6 @@ console.info('section---', section);
                   HistoryStor.history.finishDateDraft = date;
                 }
               }
-              console.warn(HistoryStor.history);
               scope.$apply();
             }
           });

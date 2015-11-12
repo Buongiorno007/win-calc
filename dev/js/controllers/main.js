@@ -36,7 +36,7 @@
 
       /** set Templates */
       MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
-        GlobalStor.global.showRoomSelectorDialog = 1;
+        MainServ.prepareMainPage();
         console.log('FINISH!!!!!!', new Date(), new Date().getMilliseconds());
       });
     }
