@@ -126,27 +126,27 @@
           </div>
           <div class="discount-container">
             <div class="discount-title">{{ 'cart.DISCOUNT_SELECT' | translate }}</div>
-            <div ng-class="{'selected': cartPage.O.order.discount_construct }" class="discount-box">
+            <div ng-class="{'selected': cartPage.C.cart.tempConstructDisc }" class="discount-box">
               <div hm-tap="cartPage.openDiscInput(0)" class="discount-data">
-                <div ng-hide="cartPage.config.isShowDiscInput" class="disc-curr-data">{{cartPage.O.order.discount_construct}}%</div>
+                <div ng-hide="cartPage.config.isShowDiscInput" class="disc-curr-data">{{cartPage.C.cart.tempConstructDisc}}%</div>
                 <div ng-show="cartPage.config.isShowDiscInput" class="disc-input-box">
-                  <div ng-show="cartPage.O.order.discount_construct === cartPage.U.userInfo.discountConstrMax" class="disc-max">{{ 'common_words.MAX' | translate }} {{cartPage.U.userInfo.discountConstrMax}}%</div>
-                  <input type="number" ng-model="cartPage.O.order.discount_construct" ng-change="cartPage.setNewDiscont(0)" max="{{cartPage.U.userInfo.discountConstrMax}}" class="disc-input">
+                  <div ng-show="cartPage.C.cart.tempConstructDisc === cartPage.U.userInfo.discountConstrMax" class="disc-max">{{ 'common_words.MAX' | translate }} {{cartPage.U.userInfo.discountConstrMax}}%</div>
+                  <input type="number" ng-model="cartPage.C.cart.tempConstructDisc" ng-change="cartPage.setNewDiscont(0)" max="{{cartPage.U.userInfo.discountConstrMax}}" class="disc-input">
                 </div>
               </div>
-              <div class="discount-txt">
+              <div hm-tap="cartPage.approveNewDisc(0)" class="discount-txt">
                 <div class="discounts-label">{{ 'cart.DISCOUNT_WINDOW' | translate }}</div>
               </div>
             </div>
-            <div ng-class="{'selected': cartPage.O.order.discount_addelem }" class="discount-box">
+            <div ng-class="{'selected': cartPage.C.cart.tempAddelemDisc }" class="discount-box">
               <div hm-tap="cartPage.openDiscInput(1)" class="discount-data">
-                <div ng-hide="cartPage.config.isShowDiscInputAdd" class="disc-curr-data">{{cartPage.O.order.discount_addelem}}%</div>
+                <div ng-hide="cartPage.config.isShowDiscInputAdd" class="disc-curr-data">{{cartPage.C.cart.tempAddelemDisc}}%</div>
                 <div ng-show="cartPage.config.isShowDiscInputAdd" class="disc-input-box">
-                  <div ng-show="cartPage.O.order.discount_addelem === cartPage.U.userInfo.discountAddElemMax" class="disc-max">{{ 'common_words.MAX' | translate }} {{cartPage.U.userInfo.discountAddElemMax}}%</div>
-                  <input type="number" ng-model="cartPage.O.order.discount_addelem" ng-change="cartPage.setNewDiscont(1)" max="{{cartPage.U.userInfo.discountAddElemMax}}" class="disc-input">
+                  <div ng-show="cartPage.C.cart.tempAddelemDisc === cartPage.U.userInfo.discountAddElemMax" class="disc-max">{{ 'common_words.MAX' | translate }} {{cartPage.U.userInfo.discountAddElemMax}}%</div>
+                  <input type="number" ng-model="cartPage.C.cart.tempAddelemDisc" ng-change="cartPage.setNewDiscont(1)" max="{{cartPage.U.userInfo.discountAddElemMax}}" class="disc-input">
                 </div>
               </div>
-              <div class="discount-txt">
+              <div hm-tap="cartPage.approveNewDisc(1)" class="discount-txt">
                 <div class="discounts-label">{{ 'cart.DISCOUNT_ADDELEM' | translate }}</div>
               </div>
             </div>

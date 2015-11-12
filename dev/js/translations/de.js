@@ -90,7 +90,7 @@
         CONFIGMENU_IN_CART: 'Zum Warenkorb',
         VOICE_SPEACH: 'Sprechen...',
         COMMENT: 'Lassen Sie eine Notiz in der Größenordnung hier.',
-        ROOM_SELECTION: 'Die Wahl Interior',
+        ROOM_SELECTION: 'Die Wahl Template',
         CONFIGMENU_NO_ADDELEMENTS: 'Zusätzliche Elemente ausgewählt',
         HEATCOEF_VAL: 'W/m',
         TEMPLATE_TIP: 'Um die Größe zu ändern, klicken Sie hier',

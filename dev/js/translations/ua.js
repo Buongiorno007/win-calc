@@ -90,7 +90,7 @@
         CONFIGMENU_IN_CART: 'В кошик',
         VOICE_SPEACH: 'Говоріть...',
         COMMENT: 'Залиште свою замітку про заказ тут.',
-        ROOM_SELECTION: 'Вибір інтер`єру',
+        ROOM_SELECTION: 'Вибір шаблону',
         CONFIGMENU_NO_ADDELEMENTS: 'Дод.елементи не вибранi',
         HEATCOEF_VAL: 'Вт/м',
         TEMPLATE_TIP: 'Для зміни розмірів натисніть сюди',

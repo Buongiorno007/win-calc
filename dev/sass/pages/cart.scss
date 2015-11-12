@@ -469,6 +469,7 @@
   &.selected {
     .discount-txt {
       background-color: $main_green;
+      cursor: pointer;
       &:after {
         @include font-icon(7rem, 9rem);
         position: absolute;

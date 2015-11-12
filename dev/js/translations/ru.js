@@ -90,7 +90,7 @@
         CONFIGMENU_IN_CART: 'В корзину',
         VOICE_SPEACH: 'Говорите...',
         COMMENT: 'Оставьте свою заметку о заказе здесь.',
-        ROOM_SELECTION: 'Выбор интерьера',
+        ROOM_SELECTION: 'Выбор шаблона',
         CONFIGMENU_NO_ADDELEMENTS: 'Доп.элементы не выбраны',
         HEATCOEF_VAL: 'Вт/м',
         TEMPLATE_TIP: 'Для изменения размеров нажмите сюда',

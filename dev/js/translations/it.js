@@ -90,7 +90,7 @@
         CONFIGMENU_IN_CART: 'Nel cestino',
         VOICE_SPEACH: 'Parlate...',
         COMMENT: "Lasci la nota sull'ordine qui.",
-        ROOM_SELECTION: 'Scelta interna',
+        ROOM_SELECTION: 'Scelta template',
         CONFIGMENU_NO_ADDELEMENTS: 'Gli elementi supplementari non sono scelti',
         HEATCOEF_VAL: 'Wt/m',
         TEMPLATE_TIP: 'Poiché il cambiamento delle dimensioni preme qui',

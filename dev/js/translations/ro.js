@@ -90,7 +90,7 @@
         CONFIGMENU_IN_CART: 'Adaugă in coș',
         VOICE_SPEACH: 'Vorbiți...',
         COMMENT: 'Lasă un bilet pe ordinea de aici.',
-        ROOM_SELECTION: 'Interior selection',
+        ROOM_SELECTION: 'Template selection',
         CONFIGMENU_NO_ADDELEMENTS: 'Suplimentare sunt selectate',
         HEATCOEF_VAL: 'W/m',
         TEMPLATE_TIP: "Pentru a schimba dimensiunea, faceți clic aici",

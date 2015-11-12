@@ -15,6 +15,8 @@
       cartSource: {
         allAddElements: [],
         isShowDiscount: 0,
+        tempConstructDisc: 0,
+        tempAddelemDisc: 0,
         discountPriceDiff: 0,
         discountDeliveyPlant: 0,
         marginDeliveyPlant: 0,

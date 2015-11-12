@@ -391,6 +391,10 @@
 
     /** open/close discount block */
     function swipeDiscountBlock() {
+      if(!CartStor.cart.isShowDiscount) {
+        CartStor.cart.tempConstructDisc = OrderStor.order.discount_construct*1;
+        CartStor.cart.tempAddelemDisc = OrderStor.order.discount_addelem*1;
+      }
       CartStor.cart.isShowDiscount = !CartStor.cart.isShowDiscount;
     }
 

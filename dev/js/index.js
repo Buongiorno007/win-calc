@@ -1,6 +1,7 @@
 'use strict';
 /** global variable defined Browser or Device */
-var isDevice = 0;
+/** check first device */
+var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.test(window.navigator.userAgent) ) ? 1 : 0;
 
 (function(){
 
@@ -8,14 +9,10 @@ var isDevice = 0;
 //  console.log('USER: navigator++', window.navigator);
 //  console.log('USER: userAgent+++', window.navigator.userAgent);
 //  console.log('USER: platform', window.navigator.platform);
-  isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.test(window.navigator.userAgent) ) ? 1 : 0;
-
-//  var browsers = {chrome: /chrome/i, safari: /safari/i, firefox: /firefox/i, ie: /internet explorer/i};
-//      for(var key in browsers) {
-//        if (browsers[key].test(userAgent)) {
-//          platform++;
-//        }
-//      }
+  /** check browser */
+  if(/(chrome|Chromium|safari|firefox|Opera|Yandex|internet explorer|Seamonkey)/i.test(window.navigator.userAgent)) {
+    isDevice = 0;
+  }
   console.log('platform===', isDevice);
 
 

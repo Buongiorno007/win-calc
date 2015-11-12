@@ -36,7 +36,7 @@
         $cordovaGlobalization.getPreferredLanguage().then(
           function(result) {
             console.log('language++', result);
-            checkLangDictionary(result.value.split('-')[0]);
+            checkLangDictionary(result.value);
             $translate.use(UserStor.userInfo.langLabel);
           },
           function(error) {
@@ -46,8 +46,12 @@
       } else {
         /** if browser */
         var browserLang = navigator.language || navigator.userLanguage;
+        console.info(window.navigator);
+//        console.info(window.navigator.language);
+//        console.info(window.navigator.userLanguage);
+//        console.info(window.navigator.browserLanguage);
         console.info("The language is: " + browserLang);
-        checkLangDictionary(browserLang.split('-')[0]);
+        checkLangDictionary(browserLang);
         $translate.use(UserStor.userInfo.langLabel);
       }
     }
@@ -56,11 +60,13 @@
 
 
     //------ compare device language with existing dictionary, if not exist set default language = English
-    function checkLangDictionary(label) {
+    function checkLangDictionary(lang) {
       var langQty = globalConstants.languages.length;
       while(--langQty > -1) {
-        if(globalConstants.languages[langQty].label === label) {
-          UserStor.userInfo.langLabel = label;
+        if(lang.indexOf(globalConstants.languages[langQty].label)+1) {
+//          console.log(lang);
+//          console.log(globalConstants.languages[langQty].label);
+          UserStor.userInfo.langLabel = globalConstants.languages[langQty].label;
           UserStor.userInfo.langName = globalConstants.languages[langQty].name;
         }
       }

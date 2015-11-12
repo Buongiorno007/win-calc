@@ -96,7 +96,7 @@
     thisCtrl.swipeDiscountBlock = CartMenuServ.swipeDiscountBlock;
     thisCtrl.openDiscInput = openDiscInput;
     thisCtrl.setNewDiscont = setNewDiscont;
-
+    thisCtrl.approveNewDisc = approveNewDisc;
 
 
 
@@ -148,23 +148,32 @@
     function setNewDiscont(type) {
       //------- discount x add element
       if(type) {
-        if(!OrderStor.order.discount_addelem) {
-          OrderStor.order.discount_addelem = 0;
+        if(!CartStor.cart.tempAddelemDisc) {
+          CartStor.cart.tempAddelemDisc = UserStor.userInfo.discountAddElemMax*1;
         }
-        CartMenuServ.changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
       //------- discount x construction
       } else {
-        if(!OrderStor.order.discount_construct) {
-          OrderStor.order.discount_construct = 0;
+        if(!CartStor.cart.tempConstructDisc) {
+          CartStor.cart.tempConstructDisc = UserStor.userInfo.discountConstrMax*1;
         }
+      }
+    }
+
+
+    function approveNewDisc(type) {
+      if(type) {
+        //------- discount x add element
+        OrderStor.order.discount_addelem = CartStor.cart.tempAddelemDisc*1;
+        CartMenuServ.changeAddElemPriceAsDiscount(OrderStor.order.discount_addelem);
+
+      } else {
+        //------- discount x construction
+        OrderStor.order.discount_construct = CartStor.cart.tempConstructDisc*1;
         CartMenuServ.changeProductPriceAsDiscount(OrderStor.order.discount_construct);
       }
       //----------- start order price total calculation
       CartMenuServ.calculateOrderPrice();
     }
-
-
-
 
 
 

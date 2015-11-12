@@ -90,7 +90,7 @@
         CONFIGMENU_IN_CART: 'In a basket',
         VOICE_SPEACH: 'You talk...',
         COMMENT: 'Leave a note on the order here.',
-        ROOM_SELECTION: 'Interior selection',
+        ROOM_SELECTION: 'Template selection',
         CONFIGMENU_NO_ADDELEMENTS: 'Add Elements are not choosen',
         HEATCOEF_VAL: 'W/m',
         TEMPLATE_TIP: 'To change the size, click here',
