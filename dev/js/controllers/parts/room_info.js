@@ -33,7 +33,8 @@
     function showRoomSelectorDialog(event) {
       //----- open if comment block is closed
       if(!GlobalStor.global.isShowCommentBlock) {
-        GlobalStor.global.showRoomSelectorDialog = !GlobalStor.global.showRoomSelectorDialog;
+//        GlobalStor.global.showRoomSelectorDialog = !GlobalStor.global.showRoomSelectorDialog;
+        GlobalStor.global.showRoomSelectorDialog = 1;
         //playSound('fly');
       }
     }

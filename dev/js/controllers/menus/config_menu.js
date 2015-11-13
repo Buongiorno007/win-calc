@@ -56,7 +56,9 @@
 
     function selectConfigPanel(id) {
       GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+      GlobalStor.global.showRoomSelectorDialog = 0;
       GlobalStor.global.configMenuTips = 0;
+      GlobalStor.global.isShowCommentBlock = 0;
       GeneralServ.stopStartProg();
       MainServ.setDefaultAuxParam();
       AddElementsServ.desactiveAddElementParameters();

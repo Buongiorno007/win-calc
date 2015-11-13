@@ -143,8 +143,8 @@
       //      delete DesignStor.design.templateSourceTEMP;
       //      delete DesignStor.design.templateTEMP;
       GlobalStor.global.activePanel = 0;
-      GlobalStor.global.isNavMenu = false;
-      GlobalStor.global.isConfigMenu = true;
+      GlobalStor.global.isNavMenu = 0;
+      GlobalStor.global.isConfigMenu = 1;
       $location.path('/main');
     }
 

@@ -529,41 +529,41 @@
 
     //---------- Coeffs define
     function calculateCoeffs(objXFormedPrice) {
-      var glassSquareTotal,
-          profileHeatCoeffTotal,
-          glassHeatCoeffTotal;
+      var glassSquareTotal = 0,
+          glassHeatCoeffTotal = 0,
+          glassSizeQty = objXFormedPrice.sizes[5].length,
+          glassQty = ProductStor.product.glass.length,
+          profileHeatCoeffTotal = 0;
 
-//      for (var item = 0; item < templateQty; item++) {
-//        if(ProductStor.product.template.objects[item].type === "square") {
-//          constructionSquareTotal = ProductStor.product.template.objects[item].squares.reduce(function(sum, elem) {
-//            return sum + elem;
-//          });
-//        }
-//      }
-      //-------- total glasses square define
-      glassSquareTotal = GeneralServ.roundingNumbers(objXFormedPrice.sizes[5].reduce(function(sum, elem) {
-        return {square: (sum.square + elem.square)};
-      }).square, 3);
-//      console.log('heat_coef_total++++', ProductStor.product.profile.heat_coeff_value, ProductStor.product.template_square, glassSquareTotal);
+      /** working with glasses */
+      while(--glassSizeQty > -1) {
+        /** culculate glass Heat Coeff Total */
+        for(var g = 0; g < glassQty; g++) {
+          if(objXFormedPrice.sizes[5][glassSizeQty].elemId == ProductStor.product.glass[g].id) {
+            if(!$.isNumeric(ProductStor.product.glass[g].transcalency)){
+              ProductStor.product.glass[g].transcalency = 1;
+            }
+            glassHeatCoeffTotal += ProductStor.product.glass[g].transcalency * objXFormedPrice.sizes[5][glassSizeQty].square;
+          }
+        }
+        /** get total glasses square */
+        glassSquareTotal += objXFormedPrice.sizes[5][glassSizeQty].square;
+      }
+      glassHeatCoeffTotal = GeneralServ.roundingNumbers(GeneralServ.rounding100(glassHeatCoeffTotal), 3);
+      glassSquareTotal = GeneralServ.roundingNumbers(glassSquareTotal, 3);
 
-      //-------- coeffs define
+      /** culculate profile Heat Coeff Total */
       if(!$.isNumeric(ProductStor.product.profile.heat_coeff_value)) {
         ProductStor.product.profile.heat_coeff_value = 1;
       }
+      console.info(ProductStor.product.profile.heat_coeff_value +' * '+ ProductStor.product.template_square +'-'+ glassSquareTotal +'='+ (ProductStor.product.template_square - glassSquareTotal));
       profileHeatCoeffTotal = ProductStor.product.profile.heat_coeff_value * (ProductStor.product.template_square - glassSquareTotal);
 
-//      console.log('heat_coef_total++++', ProductStor.product.glass[0].heat_coeff, glassSquareTotal);
-      //TODO glass array!
-      if(!$.isNumeric(ProductStor.product.glass[0].transcalency)){
-        ProductStor.product.glass[0].transcalency = 1;
-      }
-      glassHeatCoeffTotal = ProductStor.product.glass[0].transcalency * glassSquareTotal;
       /** calculate Heat Coeff Total */
+      /** U */
       ProductStor.product.heat_coef_total = GeneralServ.roundingNumbers( ProductStor.product.template_square/(profileHeatCoeffTotal + glassHeatCoeffTotal) );
-
-      //-------- calculate Air Coeff Total
-      //ProductStor.product.airCirculationTOTAL = + ProductStor.product.profileAirCoeff + ProductStor.product.glassAirCoeff + ProductStor.product.hardwareAirCoeff;
-
+      /** R */
+//      ProductStor.product.heat_coef_total = GeneralServ.roundingNumbers( (profileHeatCoeffTotal + glassHeatCoeffTotal)/ProductStor.product.template_square );
     }
 
 
