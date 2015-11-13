@@ -556,7 +556,6 @@
       if(!$.isNumeric(ProductStor.product.profile.heat_coeff_value)) {
         ProductStor.product.profile.heat_coeff_value = 1;
       }
-      console.info(ProductStor.product.profile.heat_coeff_value +' * '+ ProductStor.product.template_square +'-'+ glassSquareTotal +'='+ (ProductStor.product.template_square - glassSquareTotal));
       profileHeatCoeffTotal = ProductStor.product.profile.heat_coeff_value * (ProductStor.product.template_square - glassSquareTotal);
 
       /** calculate Heat Coeff Total */
@@ -910,8 +909,9 @@
         deferred.resolve(1);
       }
 
+      //TODO
       //------ send analytics data to Server
-      AnalyticsServ.sendAnalyticsDB();
+//      AnalyticsServ.sendAnalyticsDB();
 
       //----- cleaning order
       OrderStor.order = OrderStor.setDefaultOrder();

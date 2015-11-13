@@ -19,15 +19,16 @@
     };
 
     thisFactory.publicObj = {
-      saveAnalyticDB: insertAnalyticsDB,
-      sendAnalyticsDB: sendAnalyticsDB
+      sendAnalyticsData: sendAnalyticsData//,
+//      saveAnalyticDB: insertAnalyticsDB,
+//      sendAnalyticsDB: sendAnalyticsDB
     };
 
     return thisFactory.publicObj;
 
 
     //============ methods ================//
-
+/*
     function insertAnalyticsDB(userId, orderId, templateId, elementId, elementType) {
       var analyticsObj = angular.copy(thisFactory.analyticsObjSource);
       analyticsObj.user_id = userId;
@@ -70,6 +71,33 @@
           localDB.deleteRowLocalDB(localDB.tablesLocalDB.analytics.tableName);
         }
       });
+    }
+*/
+
+    function sendAnalyticsData(userId, orderId, templateId, elementId, elementType) {
+      var analyticsObj = {
+            user_id: userId,
+            order_id: orderId,
+            calculation_id: templateId,
+            element_id: elementId,
+            date: new Date()
+          },
+          tableName = '';
+
+      switch(elementType) {
+        case 1: //----- profiles
+          tableName = 'profile_analytics';
+          break;
+        case 2: //----- glass
+          break;
+        case 3: //----- hardware
+          tableName = 'hardware_analytics';
+          break;
+        case 4: //----- lamination
+          break;
+      }
+      //----- send Analytics Data to Server
+      localDB.insertServer(UserStor.userInfo.phone, UserStor.userInfo.device_code, tableName, analyticsObj);
     }
 
   }

@@ -38,7 +38,9 @@
           ProductStor.product.glass.length = 0;
           MainServ.parseTemplate().then(function () {
             //------ save analytics data
-            AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 1);
+//            AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 1);
+            /** send analytics data to Server*/
+            AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 1);
           });
         });
       }

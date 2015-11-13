@@ -74,7 +74,10 @@
           thisCtrl.user.phone = '78124541170';
           thisCtrl.user.password = '78124541170';
           break;
-
+        case '9aefeef9c7e53f9de9bb36f32649dc3f':
+          thisCtrl.user.phone = '22274313';
+          thisCtrl.user.password = '22274313';
+          break;
       }
       if(thisCtrl.user.phone && thisCtrl.user.password) {
         GlobalStor.global.isLoader = 1;
@@ -85,7 +88,7 @@
 //?access=7d537b6746f925b1703aefa9b8a9a4bc
 //?access=3f5f0c7d46d318e026f9ba60dceffc65
 //?access=799e078b084c6d57cea0b0d53a7e3008
-
+//?access=9aefeef9c7e53f9de9bb36f32649dc3f
 
 
     function closeOfflineAlert() {

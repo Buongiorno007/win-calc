@@ -26,10 +26,10 @@
     thisCtrl.showInfoBox = MainServ.showInfoBox;
 
 
-    //============ methods ================//
+    /**============ methods ================*/
 
 
-    //----------- Select hardware
+    /**----------- Select hardware -------- */
     function selectHardware(newId) {
       if(ProductStor.product.hardware.id !== newId) {
         //-------- set current Hardware
@@ -37,7 +37,9 @@
         //------ calculate price
         MainServ.preparePrice(ProductStor.product.template, ProductStor.product.profile.id, ProductStor.product.glass, ProductStor.product.hardware.id);
         //------ save analytics data
-        AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
+//        AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
+        /** send analytics data to Server*/
+        AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, newId, 3);
       }
     }
 
