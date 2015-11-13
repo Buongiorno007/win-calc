@@ -128,7 +128,11 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
                   button.order-tool(hm-tap="cartPage.increaseProductQty($index)") +
                 .order-label {{ 'cart.PRODUCT_QTY' | translate }}
               .order-footer(price-fixed="{{product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{cartPage.U.userInfo.currency}}")
-
+              .order-comment-btn(ng-show="product.comment.length", ng-class="{'active': cartPage.config.isProductComment === $index+1}", hm-tap="cartPage.switchProductComment($index)")
+              .order-comment(ng-show="cartPage.config.isProductComment === $index+1", ng-class="{'active': cartPage.config.isProductComment === $index+1}")
+                .order-comment-box
+                  .order-comment-title {{ 'cart.ORDER_COMMENT' | translate }}
+                  .order-comment-content {{ product.comment }}
 
 
           button.view-switch-tab(hm-tap="cartPage.viewSwitching()") {{ 'cart.FULL_VIEW' | translate }}
@@ -198,7 +202,7 @@ section.page-container(ng-class="{ 'swiped': !cartPage.G.global.isNavMenu }")
 
 
         //------- All AddElements Panel
-        //section.cart-container.alladdelements-view(ng-class="{'active': cart.isShowAllAddElements}")
+        section.cart-container.alladdelements-view(ng-class="{'active': cartPage.config.isShowAllAddElements}")
           .alladdelements-header
             button.close-alladdelements(hm-tap="showAllAddElements()")
           .alladdelements-block

@@ -124,7 +124,6 @@
   }
   .order-footer {
     @include roboto-md(rem(48px), rem(100px));
-    position: relative;
     padding-left: rem(50px);
     border-bottom-left-radius: rem($radius_order);
     border-bottom-right-radius: rem($radius_order);
@@ -165,7 +164,7 @@
     background-color: #fff;
     overflow: hidden;
     &.active {
-      height: 37rem;
+      height: 35rem;
       padding: 2rem;
     }
     .order-comment-box {
@@ -433,6 +432,9 @@
   }
   .order-label {
     padding-top: rem(10px);
+  }
+  .order-footer {
+    text-align: left;
   }
 }
 

@@ -7,7 +7,7 @@
     .module('DesignModule')
     .controller('DesignCtrl', designPageCtrl);
 
-  function designPageCtrl($timeout, globalConstants, SVGServ, DesignServ, GlobalStor, ProductStor, DesignStor) {
+  function designPageCtrl($timeout, globalConstants, DesignServ, GlobalStor, ProductStor, DesignStor) {
 
     var thisCtrl = this;
 
@@ -39,7 +39,8 @@
 
     //============ if Door Construction
     if(ProductStor.product.construction_type === 4) {
-      DesignServ.downloadDoorConfig();
+//      DesignServ.downloadDoorConfig();
+      DesignServ.setIndexDoorConfig();
     }
 
 
@@ -326,16 +327,16 @@
 
 
 
-    //============= DOOR ===============//
+    /**============= DOOR ===============*/
 
     //---------- Show Door Configuration
     function toggleDoorConfig() {
       thisCtrl.config.isDoorConfig = 1;
       //----- set emplty index values
-      DesignStor.design.doorConfig.doorShapeIndex = '';
-      DesignStor.design.doorConfig.sashShapeIndex = '';
-      DesignStor.design.doorConfig.handleShapeIndex = '';
-      DesignStor.design.doorConfig.lockShapeIndex = '';
+//      DesignStor.design.doorConfig.doorShapeIndex = '';
+//      DesignStor.design.doorConfig.sashShapeIndex = '';
+//      DesignStor.design.doorConfig.handleShapeIndex = '';
+//      DesignStor.design.doorConfig.lockShapeIndex = '';
     }
 
     //---------- Select door shape
@@ -408,10 +409,7 @@
 
     //--------- Save Door Configuration
     function saveDoorConfig() {
-      SVGServ.createSVGTemplate(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths).then(function(result) {
-        DesignStor.design.templateTEMP = angular.copy(result);
-      });
-//      DesignStor.design.templateTEMP = new Template(DesignStor.design.templateSourceTEMP, GlobalStor.global.profileDepths);
+      DesignServ.rebuildSVGTemplate();
       thisCtrl.config.isDoorConfig = 0;
     }
 

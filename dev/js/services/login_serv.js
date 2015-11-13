@@ -281,17 +281,17 @@
                       /** download All Profiles */
                       downloadAllElemAsGroup(localDB.tablesLocalDB.profile_system_folders.tableName, localDB.tablesLocalDB.profile_systems.tableName, GlobalStor.global.profilesType, GlobalStor.global.profiles).then(function(data) {
                         if(data) {
-                          console.log('PROFILES ALL ++++++',GlobalStor.global.profilesType, GlobalStor.global.profiles);
+//                          console.log('PROFILES ALL ++++++',GlobalStor.global.profilesType, GlobalStor.global.profiles);
                           /** download All Glasses */
                           downloadAllGlasses().then(function(data) {
                             if(data) {
                               /** sorting glasses as to Type */
                               sortingGlasses();
-                              console.log('GLASSES All +++++', GlobalStor.global.glassesAll);
+//                              console.log('GLASSES All +++++', GlobalStor.global.glassesAll);
                               /** download All Hardwares */
                               downloadAllElemAsGroup(localDB.tablesLocalDB.window_hardware_folders.tableName, localDB.tablesLocalDB.window_hardware_groups.tableName, GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares).then(function(data){
                                 if(data) {
-                                  console.log('HARDWARE ALL ++++++', GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares);
+//                                  console.log('HARDWARE ALL ++++++', GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares);
 
                                   /** download All AddElements */
                                   downloadAllAddElements().then(function() {
@@ -309,7 +309,6 @@
                                           GlobalStor.global.laminationsIn = angular.copy(lamins);
                                           GlobalStor.global.laminationsOut = angular.copy(lamins);
                                         }
-
                                       }
 
                                       /** download Cart Menu Data */
@@ -317,20 +316,14 @@
                                       GlobalStor.global.isLoader = 0;
                                       $location.path('/main');
                                       console.log('FINISH DOWNLOAD !!!!!!', new Date(), new Date().getMilliseconds());
-
                                     });
-
                                   });
-
                                 }
                               });
-
                             }
                           });
                         }
-
                       });
-
 
                     } else {
                       console.error('not find options_discounts!');

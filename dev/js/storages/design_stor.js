@@ -7,7 +7,7 @@
     .module('DesignModule')
     .factory('DesignStor', designStorageFactory);
 
-  function designStorageFactory() {
+  function designStorageFactory($filter) {
 
     var thisFactory = this;
 
@@ -41,10 +41,74 @@
         maxSizeLimit: 5000,
 
         //----- Door
-        doorShapeList: [],
-        sashShapeList: [],
-        handleShapeList: [],
-        lockShapeList: [],
+        doorShapeList: [
+          {
+            shapeId: 1,
+            shapeLabel: $filter('translate')('panels.DOOR_TYPE1'),
+            shapeIcon: 'img/door-config/doorstep.png',
+            shapeIconSelect: 'img/door-config-selected/doorstep.png'
+          },
+          {
+            shapeId: 2,
+            shapeLabel: $filter('translate')('panels.DOOR_TYPE2'),
+            shapeIcon: 'img/door-config/no-doorstep.png',
+            shapeIconSelect: 'img/door-config-selected/no-doorstep.png'
+          },
+          {
+            shapeId: 3,
+            shapeLabel: $filter('translate')('panels.DOOR_TYPE3') + '1',
+            shapeIcon: 'img/door-config/doorstep-al1.png',
+            shapeIconSelect: 'img/door-config-selected/doorstep-al1.png'
+          },
+          {
+            shapeId: 4,
+            shapeLabel: $filter('translate')('panels.DOOR_TYPE3')+ '2',
+            shapeIcon: 'img/door-config/doorstep-al2.png',
+            shapeIconSelect: 'img/door-config-selected/doorstep-al2.png'
+          }
+        ],
+        sashShapeList: [
+          {
+            shapeId: 1,
+            shapeLabel: $filter('translate')('panels.SASH_TYPE1') + ', 98' + $filter('translate')('mainpage.MM')
+          },
+          {
+            shapeId: 2,
+            shapeLabel: $filter('translate')('panels.SASH_TYPE2') + ', 116' + $filter('translate')('mainpage.MM')
+          },
+          {
+            shapeId: 3,
+            shapeLabel: $filter('translate')('panels.SASH_TYPE3') +', 76' + $filter('translate')('mainpage.MM')
+          }
+        ],
+        handleShapeList: [
+          {
+            shapeId: 1,
+            shapeLabel: $filter('translate')('panels.HANDLE_TYPE1'),
+            shapeIcon: 'img/door-config/lever-handle.png',
+            shapeIconSelect: 'img/door-config-selected/lever-handle.png'
+          },
+          {
+            shapeId: 2,
+            shapeLabel: $filter('translate')('panels.HANDLE_TYPE2'),
+            shapeIcon: 'img/door-config/standart-handle.png',
+            shapeIconSelect: 'img/door-config-selected/standart-handle.png'
+          }
+        ],
+        lockShapeList: [
+          {
+            shapeId: 1,
+            shapeLabel: $filter('translate')('panels.LOCK_TYPE1'),
+            shapeIcon: 'img/door-config/onelock.png',
+            shapeIconSelect: 'img/door-config-selected/onelock.png'
+          },
+          {
+            shapeId: 2,
+            shapeLabel: $filter('translate')('panels.LOCK_TYPE2'),
+            shapeIcon: 'img/door-config/multilock.png',
+            shapeIconSelect: 'img/door-config-selected/multilock.png'
+          }
+        ],
         doorConfig: {
           doorShapeIndex: 0,
           sashShapeIndex: 0,

@@ -43,7 +43,7 @@
 //
 //      addElementsListPriceTOTAL: 0,
 //      isAllAddElements: false,
-//      isShowAllAddElements: false,
+      isShowAllAddElements: 0,
 //      isShowAddElementUnit: false,
 //      selectedAddElementUnitId: 0,
 //      selectedAddElementUnitIndex: 0,
@@ -82,7 +82,7 @@
 
 
     //------ clicking
-    //thisCtrl.showAllAddElements = showAllAddElements;
+    thisCtrl.showAllAddElements = showAllAddElements;
     thisCtrl.decreaseProductQty = CartServ.decreaseProductQty;
     thisCtrl.increaseProductQty = CartServ.increaseProductQty;
     thisCtrl.addNewProductInOrder = CartServ.addNewProductInOrder;
@@ -178,6 +178,22 @@
 
 
 
+    //-------- show All Add Elements panel
+    function showAllAddElements() {
+      //--- open if AddElements are existed
+      if($scope.cart.isOrderHaveAddElements) {
+        //playSound('swip');
+        thisCtrl.config.isShowAllAddElements = !thisCtrl.config.isShowAllAddElements;
+        if(thisCtrl.config.isShowAllAddElements) {
+          $scope.prepareAllAddElementsList();
+          $scope.cleaningAllAddElementsList();
+          $scope.getTOTALAddElementsPrice();
+        } else {
+          $scope.cart.allAddElementsList = angular.copy($scope.cart.allAddElementsListSource);
+          $scope.cart.addElementsUniqueList = {};
+        }
+      }
+    };
 
 
 

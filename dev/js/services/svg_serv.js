@@ -7,7 +7,7 @@
     .module('MainModule')
     .factory('SVGServ', designFactory);
 
-  function designFactory($q, globalConstants, GeneralServ) {
+  function designFactory($q, globalConstants, GeneralServ, ProductStor, DesignStor) {
 
     var thisFactory = this;
 
@@ -63,7 +63,6 @@
         glassSquares: [],
         beadsSize: [],
         sashesBlock: []
-//        glassSizes: [],
       };
 
       var blocksQty = thisObj.details.length;
@@ -95,7 +94,6 @@
           thisObj.details[i].overallDim = [];
 
         } else {
-
 //          console.log('+++++++++ block ID ++++++++++', thisObj.details[i].id);
 //          console.log('+++++++++ block ++++++++++', thisObj.details[i]);
           //----- create point Q for arc or curve corner in block 1
@@ -1139,6 +1137,17 @@
             part.dir = 'curv';
             index++;
           } else {
+            //TODO----- DOOR
+            if(ProductStor.product.construction_type === 4) {
+              console.info('doorShapeIndex+++++', DesignStor.design.doorConfig.doorShapeIndex);
+              console.info('newPointsOut+++++', newPointsOut[index]);
+              if(newPointsOut[index].type === 'frame' && newPointsOut[index].id === 'fp3') {
+                if (DesignStor.design.doorConfig.doorShapeIndex === 1) {
+                  continue;
+                }
+              }
+            }
+
             //-------- if line
             part.points.push(newPointsOut[index]);
             part.points.push(newPointsOut[index+1]);

@@ -429,7 +429,10 @@
 
         /** save analytics data first time */
         if(GlobalStor.global.startProgramm) {
-          AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+//          AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
+          /** send analytics data to Server*/
+          //------ profile
+          AnalyticsServ.sendAnalyticsData(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.template_id, ProductStor.product.profile.id, 1);
         }
       });
       return deferred.promise;
@@ -733,6 +736,7 @@
       deferred.resolve(1);
       //----- finish working with product
       GlobalStor.global.isCreatedNewProduct = 0;
+      GeneralServ.stopStartProg();
       return deferred.promise;
     }
 

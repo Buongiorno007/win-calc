@@ -27,6 +27,8 @@
       deselectAllImpost: deselectAllImpost,
       deselectAllArc: deselectAllArc,
       deselectAllGlass: deselectAllGlass,
+      rebuildSVGTemplate: rebuildSVGTemplate,
+
       //------- edit sash
       createSash: createSash,
       deleteSash: deleteSash,
@@ -54,7 +56,7 @@
       stepBack: stepBack,
 
       //---- door
-      downloadDoorConfig: downloadDoorConfig,
+//      downloadDoorConfig: downloadDoorConfig,
       setIndexDoorConfig: setIndexDoorConfig
     };
 
@@ -169,22 +171,20 @@
 
     //============== Door ============//
 
-    function downloadDoorConfig() {
-      optionsServ.getDoorConfig(function (results) {
-        if (results.status) {
-          DesignStor.design.doorShapeList = results.data.doorType;
-          DesignStor.design.sashShapeList = results.data.sashType;
-          DesignStor.design.handleShapeList = results.data.handleType;
-          DesignStor.design.lockShapeList = results.data.lockType;
-
+//    function downloadDoorConfig() {
+//      optionsServ.getDoorConfig(function (results) {
+//        if (results.status) {
+//          DesignStor.design.doorShapeList = results.data.doorType;
+//          DesignStor.design.sashShapeList = results.data.sashType;
+//          DesignStor.design.handleShapeList = results.data.handleType;
+//          DesignStor.design.lockShapeList = results.data.lockType;
           //---- set indexes
-          setIndexDoorConfig();
-
-        } else {
-          console.log(results);
-        }
-      });
-    }
+//          setIndexDoorConfig();
+//        } else {
+//          console.log(results);
+//        }
+//      });
+//    }
 
     function setIndexDoorConfig() {
       DesignStor.designSource.doorConfig.doorShapeIndex = setDoorConfigIndex(DesignStor.design.doorShapeList, ProductStor.product.door_shape_id);
