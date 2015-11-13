@@ -86,9 +86,11 @@
   }
 
   .comment-btn {
+    position: absolute;
+    bottom: 0;
+    right: 1rem;
     &:after {
       @include font-icon(5rem, 1);
-//      padding: 2rem;
       content: $coment;
       color: #fff;
       cursor: pointer;

@@ -342,9 +342,9 @@ th {
 /* line 218, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .glass-container .glass-selector-dialog .set-glass-btn, .glass-container .glass-selector-dialog .set-glass-all-btn, .hardware-container .hardware-box, .lamination-container .lamination-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
-  -moz-animation: splashing 0.5s 0 ease 1;
-  -webkit-animation: splashing 0.5s 0 ease 1;
-  animation: splashing 0.5s 0 ease 1;
+  -moz-animation: splashing 0.5s ease 0s 1;
+  -webkit-animation: splashing 0.5s ease 0s 1;
+  animation: splashing 0.5s ease 0s 1;
 }
 
 @-webkit-keyframes splashing {
@@ -371,9 +371,9 @@ th {
 }
 /* line 224, ../../dev/sass/base/_animations.scss */
 .flashing, .room-info-container .coeff.coeff-low, .size-calc-container .calc-value-limit.restriction {
-  -moz-animation: flashing 1.5s 0 ease 1;
-  -webkit-animation: flashing 1.5s 0 ease 1;
-  animation: flashing 1.5s 0 ease 1;
+  -moz-animation: flashing 1.5s ease 0s 1;
+  -webkit-animation: flashing 1.5s ease 0s 1;
+  animation: flashing 1.5s ease 0s 1;
 }
 
 @-webkit-keyframes flashing {
@@ -448,9 +448,9 @@ th {
 }
 /* line 230, ../../dev/sass/base/_animations.scss */
 .jumping, .config-menu .menu_tooltip {
-  -moz-animation: jump-hor 2s ease-in 0 infinite;
-  -webkit-animation: jump-hor 2s ease-in 0 infinite;
-  animation: jump-hor 2s ease-in 0 infinite;
+  -moz-animation: jump-hor 2s ease-in 0s infinite;
+  -webkit-animation: jump-hor 2s ease-in 0s infinite;
+  animation: jump-hor 2s ease-in 0s infinite;
 }
 
 @-webkit-keyframes jump-hor {
@@ -483,9 +483,9 @@ th {
 }
 /* line 252, ../../dev/sass/base/_animations.scss */
 .move-grid {
-  -moz-animation: move-grid 1s 0 ease 1;
-  -webkit-animation: move-grid 1s 0 ease 1;
-  animation: move-grid 1s 0 ease 1;
+  -moz-animation: move-grid 1s ease 0s 1;
+  -webkit-animation: move-grid 1s ease 0s 1;
+  animation: move-grid 1s ease 0s 1;
 }
 
 @-webkit-keyframes move-grid {
@@ -506,9 +506,9 @@ th {
 }
 /* line 257, ../../dev/sass/base/_animations.scss */
 .move-visor {
-  -moz-animation: move-visor 1s 0 ease 1;
-  -webkit-animation: move-visor 1s 0 ease 1;
-  animation: move-visor 1s 0 ease 1;
+  -moz-animation: move-visor 1s ease 0s 1;
+  -webkit-animation: move-visor 1s ease 0s 1;
+  animation: move-visor 1s ease 0s 1;
 }
 
 @-webkit-keyframes move-visor {
@@ -529,9 +529,9 @@ th {
 }
 /* line 262, ../../dev/sass/base/_animations.scss */
 .move-spillway {
-  -moz-animation: move-spillway 1s 0 ease 1;
-  -webkit-animation: move-spillway 1s 0 ease 1;
-  animation: move-spillway 1s 0 ease 1;
+  -moz-animation: move-spillway 1s ease 0s 1;
+  -webkit-animation: move-spillway 1s ease 0s 1;
+  animation: move-spillway 1s ease 0s 1;
 }
 
 @-webkit-keyframes move-spillway {
@@ -552,9 +552,9 @@ th {
 }
 /* line 267, ../../dev/sass/base/_animations.scss */
 .move-outside {
-  -moz-animation: move-outside 1s 0 ease 1;
-  -webkit-animation: move-outside 1s 0 ease 1;
-  animation: move-outside 1s 0 ease 1;
+  -moz-animation: move-outside 1s ease 0s 1;
+  -webkit-animation: move-outside 1s ease 0s 1;
+  animation: move-outside 1s ease 0s 1;
 }
 
 @-webkit-keyframes move-outside {
@@ -575,9 +575,9 @@ th {
 }
 /* line 272, ../../dev/sass/base/_animations.scss */
 .move-windowsill {
-  -moz-animation: move-windowsill 2s 0 ease 1;
-  -webkit-animation: move-windowsill 2s 0 ease 1;
-  animation: move-windowsill 2s 0 ease 1;
+  -moz-animation: move-windowsill 2s ease 0s 1;
+  -webkit-animation: move-windowsill 2s ease 0s 1;
+  animation: move-windowsill 2s ease 0s 1;
 }
 
 @-webkit-keyframes move-windowsill {
@@ -598,9 +598,9 @@ th {
 }
 /* line 278, ../../dev/sass/base/_animations.scss */
 .move-louvers {
-  -moz-animation: move-louvers 2s 0 ease 1;
-  -webkit-animation: move-louvers 2s 0 ease 1;
-  animation: move-louvers 2s 0 ease 1;
+  -moz-animation: move-louvers 2s ease 0s 1;
+  -webkit-animation: move-louvers 2s ease 0s 1;
+  animation: move-louvers 2s ease 0s 1;
 }
 
 @-webkit-keyframes move-louvers {
@@ -621,9 +621,9 @@ th {
 }
 /* line 283, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-1 {
-  -moz-animation: move-louver-1 2s 2s ease 1;
-  -webkit-animation: move-louver-1 2s 2s ease 1;
-  animation: move-louver-1 2s 2s ease 1;
+  -moz-animation: move-louver-1 2s ease 2s 1;
+  -webkit-animation: move-louver-1 2s ease 2s 1;
+  animation: move-louver-1 2s ease 2s 1;
 }
 
 @-webkit-keyframes move-louver-1 {
@@ -650,9 +650,9 @@ th {
 }
 /* line 288, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-2 {
-  -moz-animation: move-louver-2 2s 2s ease 1;
-  -webkit-animation: move-louver-2 2s 2s ease 1;
-  animation: move-louver-2 2s 2s ease 1;
+  -moz-animation: move-louver-2 2s ease 2s 1;
+  -webkit-animation: move-louver-2 2s ease 2s 1;
+  animation: move-louver-2 2s ease 2s 1;
 }
 
 @-webkit-keyframes move-louver-2 {
@@ -679,9 +679,9 @@ th {
 }
 /* line 293, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-3 {
-  -moz-animation: move-louver-3 2s 2s ease 1;
-  -webkit-animation: move-louver-3 2s 2s ease 1;
-  animation: move-louver-3 2s 2s ease 1;
+  -moz-animation: move-louver-3 2s ease 2s 1;
+  -webkit-animation: move-louver-3 2s ease 2s 1;
+  animation: move-louver-3 2s ease 2s 1;
 }
 
 @-webkit-keyframes move-louver-3 {
@@ -708,9 +708,9 @@ th {
 }
 /* line 298, ../../dev/sass/base/_animations.scss */
 .move-louver-bottom {
-  -moz-animation: move-louver-bottom 2s 2s ease 1;
-  -webkit-animation: move-louver-bottom 2s 2s ease 1;
-  animation: move-louver-bottom 2s 2s ease 1;
+  -moz-animation: move-louver-bottom 2s ease 2s 1;
+  -webkit-animation: move-louver-bottom 2s ease 2s 1;
+  animation: move-louver-bottom 2s ease 2s 1;
 }
 
 @-webkit-keyframes move-louver-bottom {
@@ -737,9 +737,9 @@ th {
 }
 /* line 304, ../../dev/sass/base/_animations.scss */
 .move-inside-top {
-  -moz-animation: move-slope-top 1s 0 ease 1;
-  -webkit-animation: move-slope-top 1s 0 ease 1;
-  animation: move-slope-top 1s 0 ease 1;
+  -moz-animation: move-slope-top 1s ease 0s 1;
+  -webkit-animation: move-slope-top 1s ease 0s 1;
+  animation: move-slope-top 1s ease 0s 1;
 }
 
 @-webkit-keyframes move-slope-top {
@@ -760,9 +760,9 @@ th {
 }
 /* line 309, ../../dev/sass/base/_animations.scss */
 .move-inside-right {
-  -moz-animation: move-slope-right 1s 0 ease 1;
-  -webkit-animation: move-slope-right 1s 0 ease 1;
-  animation: move-slope-right 1s 0 ease 1;
+  -moz-animation: move-slope-right 1s ease 0s 1;
+  -webkit-animation: move-slope-right 1s ease 0s 1;
+  animation: move-slope-right 1s ease 0s 1;
 }
 
 @-webkit-keyframes move-slope-right {
@@ -783,9 +783,9 @@ th {
 }
 /* line 314, ../../dev/sass/base/_animations.scss */
 .move-inside-left {
-  -moz-animation: move-slope-left 1s 0 ease 1;
-  -webkit-animation: move-slope-left 1s 0 ease 1;
-  animation: move-slope-left 1s 0 ease 1;
+  -moz-animation: move-slope-left 1s ease 0s 1;
+  -webkit-animation: move-slope-left 1s ease 0s 1;
+  animation: move-slope-left 1s ease 0s 1;
 }
 
 @-webkit-keyframes move-slope-left {
@@ -806,9 +806,9 @@ th {
 }
 /* line 320, ../../dev/sass/base/_animations.scss */
 .move-fan {
-  -moz-animation: move-fan 2s ease 1, rot-fan 1s 2s ease 1;
-  -webkit-animation: move-fan 2s ease 1, rot-fan 1s 2s ease 1;
-  animation: move-fan 2s ease 1, rot-fan 1s 2s ease 1;
+  -moz-animation: move-fan 2s ease 1, rot-fan 1s ease 2s 1;
+  -webkit-animation: move-fan 2s ease 1, rot-fan 1s ease 2s 1;
+  animation: move-fan 2s ease 1, rot-fan 1s ease 2s 1;
 }
 
 @-webkit-keyframes move-fan {
@@ -845,9 +845,9 @@ th {
 }
 /* line 327, ../../dev/sass/base/_animations.scss */
 .move-handle {
-  -moz-animation: move-handle 1s 0 ease 1;
-  -webkit-animation: move-handle 1s 0 ease 1;
-  animation: move-handle 1s 0 ease 1;
+  -moz-animation: move-handle 1s ease 0s 1;
+  -webkit-animation: move-handle 1s ease 0s 1;
+  animation: move-handle 1s ease 0s 1;
 }
 
 @-webkit-keyframes move-handle {
@@ -868,9 +868,9 @@ th {
 }
 /* line 333, ../../dev/sass/base/_animations.scss */
 .move-view-tab {
-  -moz-animation: move-tab 1s 0 ease 1;
-  -webkit-animation: move-tab 1s 0 ease 1;
-  animation: move-tab 1s 0 ease 1;
+  -moz-animation: move-tab 1s ease 0s 1;
+  -webkit-animation: move-tab 1s ease 0s 1;
+  animation: move-tab 1s ease 0s 1;
 }
 
 @-webkit-keyframes move-tab {
@@ -2008,19 +2008,25 @@ div.drum figure {
   word-wrap: break-word;
   overflow: auto;
 }
-/* line 89, ../../dev/sass/parts/_room-info.scss */
+/* line 88, ../../dev/sass/parts/_room-info.scss */
+.room-info-container .comment-btn {
+  position: absolute;
+  bottom: 0;
+  right: 1rem;
+}
+/* line 92, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .comment-btn:after {
   font: normal 5rem/1 icons, sans-serif;
   content: "";
   color: #fff;
   cursor: pointer;
 }
-/* line 99, ../../dev/sass/parts/_room-info.scss */
+/* line 101, ../../dev/sass/parts/_room-info.scss */
 .room-info-container .product-comment {
   margin-top: 25rem;
   height: 90%;
 }
-/* line 103, ../../dev/sass/parts/_room-info.scss */
+/* line 105, ../../dev/sass/parts/_room-info.scss */
 .room-info-container textarea.comment-field {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   width: 90%;
@@ -8602,9 +8608,9 @@ tr.factory_item {
 /* line 218, ../../dev/sass/base/_animations.scss */
 .splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .glass-container .glass-selector-dialog .set-glass-btn, .glass-container .glass-selector-dialog .set-glass-all-btn, .hardware-container .hardware-box, .lamination-container .lamination-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
-  -moz-animation: splashing 0.5s 0 ease 1;
-  -webkit-animation: splashing 0.5s 0 ease 1;
-  animation: splashing 0.5s 0 ease 1;
+  -moz-animation: splashing 0.5s ease 0s 1;
+  -webkit-animation: splashing 0.5s ease 0s 1;
+  animation: splashing 0.5s ease 0s 1;
 }
 
 @-webkit-keyframes splashing {
@@ -8631,9 +8637,9 @@ tr.factory_item {
 }
 /* line 224, ../../dev/sass/base/_animations.scss */
 .flashing, .room-info-container .coeff.coeff-low, .size-calc-container .calc-value-limit.restriction {
-  -moz-animation: flashing 1.5s 0 ease 1;
-  -webkit-animation: flashing 1.5s 0 ease 1;
-  animation: flashing 1.5s 0 ease 1;
+  -moz-animation: flashing 1.5s ease 0s 1;
+  -webkit-animation: flashing 1.5s ease 0s 1;
+  animation: flashing 1.5s ease 0s 1;
 }
 
 @-webkit-keyframes flashing {
@@ -8708,9 +8714,9 @@ tr.factory_item {
 }
 /* line 230, ../../dev/sass/base/_animations.scss */
 .jumping, .config-menu .menu_tooltip {
-  -moz-animation: jump-hor 2s ease-in 0 infinite;
-  -webkit-animation: jump-hor 2s ease-in 0 infinite;
-  animation: jump-hor 2s ease-in 0 infinite;
+  -moz-animation: jump-hor 2s ease-in 0s infinite;
+  -webkit-animation: jump-hor 2s ease-in 0s infinite;
+  animation: jump-hor 2s ease-in 0s infinite;
 }
 
 @-webkit-keyframes jump-hor {
@@ -8743,9 +8749,9 @@ tr.factory_item {
 }
 /* line 252, ../../dev/sass/base/_animations.scss */
 .move-grid {
-  -moz-animation: move-grid 1s 0 ease 1;
-  -webkit-animation: move-grid 1s 0 ease 1;
-  animation: move-grid 1s 0 ease 1;
+  -moz-animation: move-grid 1s ease 0s 1;
+  -webkit-animation: move-grid 1s ease 0s 1;
+  animation: move-grid 1s ease 0s 1;
 }
 
 @-webkit-keyframes move-grid {
@@ -8766,9 +8772,9 @@ tr.factory_item {
 }
 /* line 257, ../../dev/sass/base/_animations.scss */
 .move-visor {
-  -moz-animation: move-visor 1s 0 ease 1;
-  -webkit-animation: move-visor 1s 0 ease 1;
-  animation: move-visor 1s 0 ease 1;
+  -moz-animation: move-visor 1s ease 0s 1;
+  -webkit-animation: move-visor 1s ease 0s 1;
+  animation: move-visor 1s ease 0s 1;
 }
 
 @-webkit-keyframes move-visor {
@@ -8789,9 +8795,9 @@ tr.factory_item {
 }
 /* line 262, ../../dev/sass/base/_animations.scss */
 .move-spillway {
-  -moz-animation: move-spillway 1s 0 ease 1;
-  -webkit-animation: move-spillway 1s 0 ease 1;
-  animation: move-spillway 1s 0 ease 1;
+  -moz-animation: move-spillway 1s ease 0s 1;
+  -webkit-animation: move-spillway 1s ease 0s 1;
+  animation: move-spillway 1s ease 0s 1;
 }
 
 @-webkit-keyframes move-spillway {
@@ -8812,9 +8818,9 @@ tr.factory_item {
 }
 /* line 267, ../../dev/sass/base/_animations.scss */
 .move-outside {
-  -moz-animation: move-outside 1s 0 ease 1;
-  -webkit-animation: move-outside 1s 0 ease 1;
-  animation: move-outside 1s 0 ease 1;
+  -moz-animation: move-outside 1s ease 0s 1;
+  -webkit-animation: move-outside 1s ease 0s 1;
+  animation: move-outside 1s ease 0s 1;
 }
 
 @-webkit-keyframes move-outside {
@@ -8835,9 +8841,9 @@ tr.factory_item {
 }
 /* line 272, ../../dev/sass/base/_animations.scss */
 .move-windowsill {
-  -moz-animation: move-windowsill 2s 0 ease 1;
-  -webkit-animation: move-windowsill 2s 0 ease 1;
-  animation: move-windowsill 2s 0 ease 1;
+  -moz-animation: move-windowsill 2s ease 0s 1;
+  -webkit-animation: move-windowsill 2s ease 0s 1;
+  animation: move-windowsill 2s ease 0s 1;
 }
 
 @-webkit-keyframes move-windowsill {
@@ -8858,9 +8864,9 @@ tr.factory_item {
 }
 /* line 278, ../../dev/sass/base/_animations.scss */
 .move-louvers {
-  -moz-animation: move-louvers 2s 0 ease 1;
-  -webkit-animation: move-louvers 2s 0 ease 1;
-  animation: move-louvers 2s 0 ease 1;
+  -moz-animation: move-louvers 2s ease 0s 1;
+  -webkit-animation: move-louvers 2s ease 0s 1;
+  animation: move-louvers 2s ease 0s 1;
 }
 
 @-webkit-keyframes move-louvers {
@@ -8881,9 +8887,9 @@ tr.factory_item {
 }
 /* line 283, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-1 {
-  -moz-animation: move-louver-1 2s 2s ease 1;
-  -webkit-animation: move-louver-1 2s 2s ease 1;
-  animation: move-louver-1 2s 2s ease 1;
+  -moz-animation: move-louver-1 2s ease 2s 1;
+  -webkit-animation: move-louver-1 2s ease 2s 1;
+  animation: move-louver-1 2s ease 2s 1;
 }
 
 @-webkit-keyframes move-louver-1 {
@@ -8910,9 +8916,9 @@ tr.factory_item {
 }
 /* line 288, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-2 {
-  -moz-animation: move-louver-2 2s 2s ease 1;
-  -webkit-animation: move-louver-2 2s 2s ease 1;
-  animation: move-louver-2 2s 2s ease 1;
+  -moz-animation: move-louver-2 2s ease 2s 1;
+  -webkit-animation: move-louver-2 2s ease 2s 1;
+  animation: move-louver-2 2s ease 2s 1;
 }
 
 @-webkit-keyframes move-louver-2 {
@@ -8939,9 +8945,9 @@ tr.factory_item {
 }
 /* line 293, ../../dev/sass/base/_animations.scss */
 .move-louver-midle-3 {
-  -moz-animation: move-louver-3 2s 2s ease 1;
-  -webkit-animation: move-louver-3 2s 2s ease 1;
-  animation: move-louver-3 2s 2s ease 1;
+  -moz-animation: move-louver-3 2s ease 2s 1;
+  -webkit-animation: move-louver-3 2s ease 2s 1;
+  animation: move-louver-3 2s ease 2s 1;
 }
 
 @-webkit-keyframes move-louver-3 {
@@ -8968,9 +8974,9 @@ tr.factory_item {
 }
 /* line 298, ../../dev/sass/base/_animations.scss */
 .move-louver-bottom {
-  -moz-animation: move-louver-bottom 2s 2s ease 1;
-  -webkit-animation: move-louver-bottom 2s 2s ease 1;
-  animation: move-louver-bottom 2s 2s ease 1;
+  -moz-animation: move-louver-bottom 2s ease 2s 1;
+  -webkit-animation: move-louver-bottom 2s ease 2s 1;
+  animation: move-louver-bottom 2s ease 2s 1;
 }
 
 @-webkit-keyframes move-louver-bottom {
@@ -8997,9 +9003,9 @@ tr.factory_item {
 }
 /* line 304, ../../dev/sass/base/_animations.scss */
 .move-inside-top {
-  -moz-animation: move-slope-top 1s 0 ease 1;
-  -webkit-animation: move-slope-top 1s 0 ease 1;
-  animation: move-slope-top 1s 0 ease 1;
+  -moz-animation: move-slope-top 1s ease 0s 1;
+  -webkit-animation: move-slope-top 1s ease 0s 1;
+  animation: move-slope-top 1s ease 0s 1;
 }
 
 @-webkit-keyframes move-slope-top {
@@ -9020,9 +9026,9 @@ tr.factory_item {
 }
 /* line 309, ../../dev/sass/base/_animations.scss */
 .move-inside-right {
-  -moz-animation: move-slope-right 1s 0 ease 1;
-  -webkit-animation: move-slope-right 1s 0 ease 1;
-  animation: move-slope-right 1s 0 ease 1;
+  -moz-animation: move-slope-right 1s ease 0s 1;
+  -webkit-animation: move-slope-right 1s ease 0s 1;
+  animation: move-slope-right 1s ease 0s 1;
 }
 
 @-webkit-keyframes move-slope-right {
@@ -9043,9 +9049,9 @@ tr.factory_item {
 }
 /* line 314, ../../dev/sass/base/_animations.scss */
 .move-inside-left {
-  -moz-animation: move-slope-left 1s 0 ease 1;
-  -webkit-animation: move-slope-left 1s 0 ease 1;
-  animation: move-slope-left 1s 0 ease 1;
+  -moz-animation: move-slope-left 1s ease 0s 1;
+  -webkit-animation: move-slope-left 1s ease 0s 1;
+  animation: move-slope-left 1s ease 0s 1;
 }
 
 @-webkit-keyframes move-slope-left {
@@ -9066,9 +9072,9 @@ tr.factory_item {
 }
 /* line 320, ../../dev/sass/base/_animations.scss */
 .move-fan {
-  -moz-animation: move-fan 2s ease 1, rot-fan 1s 2s ease 1;
-  -webkit-animation: move-fan 2s ease 1, rot-fan 1s 2s ease 1;
-  animation: move-fan 2s ease 1, rot-fan 1s 2s ease 1;
+  -moz-animation: move-fan 2s ease 1, rot-fan 1s ease 2s 1;
+  -webkit-animation: move-fan 2s ease 1, rot-fan 1s ease 2s 1;
+  animation: move-fan 2s ease 1, rot-fan 1s ease 2s 1;
 }
 
 @-webkit-keyframes move-fan {
@@ -9105,9 +9111,9 @@ tr.factory_item {
 }
 /* line 327, ../../dev/sass/base/_animations.scss */
 .move-handle {
-  -moz-animation: move-handle 1s 0 ease 1;
-  -webkit-animation: move-handle 1s 0 ease 1;
-  animation: move-handle 1s 0 ease 1;
+  -moz-animation: move-handle 1s ease 0s 1;
+  -webkit-animation: move-handle 1s ease 0s 1;
+  animation: move-handle 1s ease 0s 1;
 }
 
 @-webkit-keyframes move-handle {
@@ -9128,9 +9134,9 @@ tr.factory_item {
 }
 /* line 333, ../../dev/sass/base/_animations.scss */
 .move-view-tab {
-  -moz-animation: move-tab 1s 0 ease 1;
-  -webkit-animation: move-tab 1s 0 ease 1;
-  animation: move-tab 1s 0 ease 1;
+  -moz-animation: move-tab 1s ease 0s 1;
+  -webkit-animation: move-tab 1s ease 0s 1;
+  animation: move-tab 1s ease 0s 1;
 }
 
 @-webkit-keyframes move-tab {
