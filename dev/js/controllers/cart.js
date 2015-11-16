@@ -24,33 +24,6 @@
       isShowDiscInput: 0,
       isShowDiscInputAdd: 0,
       isProductComment: 0,
-//      allAddElementsListSource: {
-//        grids: [],
-//        visors: [],
-//        spillways: [],
-//        outsideSlope: [],
-//        louvers: [],
-//        insideSlope: [],
-//        connectors: [],
-//        fans: [],
-//        windowSill: [],
-//        handles: [],
-//        others: []
-//      },
-//      allAddElementsList: {},
-//      addElementsUniqueList: {},
-//      allTemplateIcons: [],
-//
-//      addElementsListPriceTOTAL: 0,
-//      isAllAddElements: false,
-      isShowAllAddElements: 0,
-//      isShowAddElementUnit: false,
-//      selectedAddElementUnitId: 0,
-//      selectedAddElementUnitIndex: 0,
-//      selectedAddElementUnitType: 0,
-//      selectedAddElementUnits: [],
-//      isOrderHaveAddElements: false,
-//      isShowLinkExplodeMenu: false,
 
       element: $filter('translate')('add_elements.ELEMENT'),
       elementa: $filter('translate')('add_elements.ELEMENTA'),
@@ -82,7 +55,6 @@
 
 
     //------ clicking
-    thisCtrl.showAllAddElements = showAllAddElements;
     thisCtrl.decreaseProductQty = CartServ.decreaseProductQty;
     thisCtrl.increaseProductQty = CartServ.increaseProductQty;
     thisCtrl.addNewProductInOrder = CartServ.addNewProductInOrder;
@@ -92,6 +64,8 @@
     thisCtrl.closeAddElementDetail = closeAddElementDetail;
     thisCtrl.viewSwitching = viewSwitching;
     thisCtrl.switchProductComment = switchProductComment;
+
+    thisCtrl.showAllAddElements = CartServ.showAllAddElements;
 
     thisCtrl.swipeDiscountBlock = CartMenuServ.swipeDiscountBlock;
     thisCtrl.openDiscInput = openDiscInput;
@@ -178,36 +152,16 @@
 
 
 
-    //-------- show All Add Elements panel
-    function showAllAddElements() {
-      //--- open if AddElements are existed
-      if($scope.cart.isOrderHaveAddElements) {
-        //playSound('swip');
-        thisCtrl.config.isShowAllAddElements = !thisCtrl.config.isShowAllAddElements;
-        if(thisCtrl.config.isShowAllAddElements) {
-          $scope.prepareAllAddElementsList();
-          $scope.cleaningAllAddElementsList();
-          $scope.getTOTALAddElementsPrice();
-        } else {
-          $scope.cart.allAddElementsList = angular.copy($scope.cart.allAddElementsListSource);
-          $scope.cart.addElementsUniqueList = {};
-        }
-      }
-    };
+
+
+
+
+
+
 
 
 
 //    var p, prod, product, addElementUnique;
-
-
-    //$scope.global.startProgramm = false;
-    //$scope.global.isReturnFromDiffPage = false;
-    //$scope.global.isChangedTemplate = false;
-
-    //------- finish edit product
-//    $scope.global.productEditNumber = '';
-
-
 
 
     //============= ALL AddElements panels

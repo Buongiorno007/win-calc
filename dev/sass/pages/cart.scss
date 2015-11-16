@@ -32,6 +32,7 @@
     &.alladdelements-view {
       @include top_left_coord(0px, -2500px);
       @include transition(all 0.5s linear);
+      height: 100%;
       z-index: 6;
     }
     &.addelement-view {
@@ -597,15 +598,21 @@
   overflow-y: auto;
   height: 95%;
   @extend .parameters-block;
+  padding-right: 3rem;
+  margin-right: -6rem;
 
   .aux-list-block {
+    &:last-child {
+      .aux-block-inner {
+        padding: rem(50px) 0 0 0;
+        border: none;
+      }
+    }
+  }
+
+  .aux-block-inner {
     padding: rem(50px) 0;
     border-bottom: 1px solid $main_gray_btn;
-
-    &:last-child {
-      padding: rem(50px) 0 0 0;
-      border: none;
-    }
   }
 
   .aux-list-block-title,

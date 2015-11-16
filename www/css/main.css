@@ -4528,9 +4528,10 @@ tr.factory_item {
   -o-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
   transition: all 0.5s linear;
+  height: 100%;
   z-index: 6;
 }
-/* line 37, ../../dev/sass/pages/cart.scss */
+/* line 38, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-container.addelement-view {
   top: 0rem;
   left: -156.25rem;
@@ -4540,12 +4541,12 @@ tr.factory_item {
   transition: all 0.5s linear;
   z-index: 7;
 }
-/* line 42, ../../dev/sass/pages/cart.scss */
+/* line 43, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-container.active {
   top: 0rem;
   left: 0rem;
 }
-/* line 47, ../../dev/sass/pages/cart.scss */
+/* line 48, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-header {
   display: -webkit-flex;
   display: flex;
@@ -4559,28 +4560,28 @@ tr.factory_item {
   width: 100%;
   height: 9.375rem;
 }
-/* line 58, ../../dev/sass/pages/cart.scss */
+/* line 59, ../../dev/sass/pages/cart.scss */
 .cart-page .user-info-container {
   top: 0;
 }
-/* line 61, ../../dev/sass/pages/cart.scss */
+/* line 62, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-tool {
   position: relative;
   padding: 1.125rem 1.875rem;
   z-index: 2;
 }
-/* line 69, ../../dev/sass/pages/cart.scss */
+/* line 70, ../../dev/sass/pages/cart.scss */
 .cart-page .additional-elements {
   margin-right: 1.25rem;
   background-color: #dcdcdc;
   color: #363636;
 }
-/* line 74, ../../dev/sass/pages/cart.scss */
+/* line 75, ../../dev/sass/pages/cart.scss */
 .cart-page .new-order {
   background-color: #6ed44a;
   color: #fff;
 }
-/* line 79, ../../dev/sass/pages/cart.scss */
+/* line 80, ../../dev/sass/pages/cart.scss */
 .cart-page .order, .cart-page .addelementunit {
   -moz-box-shadow: rgba(0, 0, 0, 0.3) 0.9375rem 0.625rem 1.875rem 0;
   -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0.9375rem 0.625rem 1.875rem 0;
@@ -4588,11 +4589,11 @@ tr.factory_item {
   position: relative;
   margin-right: 3.125rem;
 }
-/* line 86, ../../dev/sass/pages/cart.scss */
+/* line 87, ../../dev/sass/pages/cart.scss */
 .cart-page .order-header {
   position: relative;
 }
-/* line 89, ../../dev/sass/pages/cart.scss */
+/* line 90, ../../dev/sass/pages/cart.scss */
 .cart-page .order-delete {
   position: absolute;
   top: -1.25rem;
@@ -4600,30 +4601,30 @@ tr.factory_item {
   background-color: #6ed44a;
   z-index: 1;
 }
-/* line 99, ../../dev/sass/pages/cart.scss */
+/* line 100, ../../dev/sass/pages/cart.scss */
 .cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value, .cart-page .addelementunit-value {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   min-height: 3.214rem;
   color: #363636;
 }
-/* line 105, ../../dev/sass/pages/cart.scss */
+/* line 106, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-btn {
   cursor: pointer;
 }
-/* line 108, ../../dev/sass/pages/cart.scss */
+/* line 109, ../../dev/sass/pages/cart.scss */
 .cart-page .order-label, .cart-page .product-icon-label,
 .cart-page .product-label, .cart-page .addelement-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #8c8c8c;
 }
-/* line 113, ../../dev/sass/pages/cart.scss */
+/* line 114, ../../dev/sass/pages/cart.scss */
 .cart-page .order-qty {
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 117, ../../dev/sass/pages/cart.scss */
+/* line 118, ../../dev/sass/pages/cart.scss */
 .cart-page .order-tool {
   width: 4.0625rem;
   height: 2.8125rem;
@@ -4631,7 +4632,7 @@ tr.factory_item {
   background-color: #6ed44a;
   color: #fff;
 }
-/* line 125, ../../dev/sass/pages/cart.scss */
+/* line 126, ../../dev/sass/pages/cart.scss */
 .cart-page .order-footer, .cart-page .addelements-detail-footer {
   font: normal 3rem/6.25rem roboto-medium, sans-serif;
   padding-left: 3.125rem;
@@ -4640,7 +4641,7 @@ tr.factory_item {
   background-color: #f0f0f0;
   color: #363636;
 }
-/* line 135, ../../dev/sass/pages/cart.scss */
+/* line 136, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment-btn {
   font: normal 3.5rem/1.75 icons, sans-serif;
   position: absolute;
@@ -4648,18 +4649,18 @@ tr.factory_item {
   bottom: 0;
   cursor: pointer;
 }
-/* line 142, ../../dev/sass/pages/cart.scss */
+/* line 143, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment-btn:after {
   content: "";
   color: #363636;
   border-left: 1px dotted #bebebe;
   padding-left: 1rem;
 }
-/* line 148, ../../dev/sass/pages/cart.scss */
+/* line 149, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment-btn.active:after {
   color: #f98000;
 }
-/* line 152, ../../dev/sass/pages/cart.scss */
+/* line 153, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment {
   -moz-transition: height 2s ease;
   -o-transition: height 2s ease;
@@ -4678,28 +4679,28 @@ tr.factory_item {
   background-color: #fff;
   overflow: hidden;
 }
-/* line 166, ../../dev/sass/pages/cart.scss */
+/* line 167, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment.active {
   height: 35rem;
   padding: 2rem;
 }
-/* line 170, ../../dev/sass/pages/cart.scss */
+/* line 171, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment .order-comment-box {
   width: 114%;
   padding-right: 2rem;
   overflow-y: auto;
   height: 100%;
 }
-/* line 176, ../../dev/sass/pages/cart.scss */
+/* line 177, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment .order-comment-title {
   font: normal 2.25rem/1.7 roboto-medium, sans-serif;
   text-align: center;
 }
-/* line 180, ../../dev/sass/pages/cart.scss */
+/* line 181, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment .order-comment-content {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
 }
-/* line 187, ../../dev/sass/pages/cart.scss */
+/* line 188, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail {
   position: absolute;
   top: 10rem;
@@ -4710,7 +4711,7 @@ tr.factory_item {
   border-bottom-right-radius: 1.25rem;
   z-index: 10;
 }
-/* line 198, ../../dev/sass/pages/cart.scss */
+/* line 199, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-tools {
   display: -webkit-flex;
   display: flex;
@@ -4718,7 +4719,7 @@ tr.factory_item {
   flex-flow: row nowrap;
   height: 6.25rem;
 }
-/* line 204, ../../dev/sass/pages/cart.scss */
+/* line 205, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-edit {
   -webkit-flex-grow: 3;
   flex-grow: 3;
@@ -4726,44 +4727,44 @@ tr.factory_item {
   background-color: #6ed44a;
   color: #fff;
 }
-/* line 211, ../../dev/sass/pages/cart.scss */
+/* line 212, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-edit:after {
   font: normal 1.5rem/6.25rem icons, sans-serif;
   content: "";
 }
-/* line 216, ../../dev/sass/pages/cart.scss */
+/* line 217, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-close {
   -webkit-flex-grow: 1;
   flex-grow: 1;
   background-color: #bebebe;
 }
-/* line 221, ../../dev/sass/pages/cart.scss */
+/* line 222, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-close:after {
   font: normal 2.5rem/1 icons, sans-serif;
   color: #fff;
   content: "";
 }
-/* line 227, ../../dev/sass/pages/cart.scss */
+/* line 228, ../../dev/sass/pages/cart.scss */
 .cart-page .product-template {
   padding: 2.125rem;
   border-bottom: 1px solid #bebebe;
 }
-/* line 231, ../../dev/sass/pages/cart.scss */
+/* line 232, ../../dev/sass/pages/cart.scss */
 .cart-page .product-template-icon {
   margin-bottom: 1.25rem;
 }
-/* line 234, ../../dev/sass/pages/cart.scss */
+/* line 235, ../../dev/sass/pages/cart.scss */
 .cart-page .product-icon-thumb {
   display: inline-block;
   width: 12.5rem;
   margin-right: 0.625rem;
 }
-/* line 246, ../../dev/sass/pages/cart.scss */
+/* line 247, ../../dev/sass/pages/cart.scss */
 .cart-page .product-icon-label {
   max-width: 7.1875rem;
   text-align: right;
 }
-/* line 250, ../../dev/sass/pages/cart.scss */
+/* line 251, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-row, .cart-page .addelements-detail-footer {
   display: -webkit-flex;
   display: flex;
@@ -4774,25 +4775,25 @@ tr.factory_item {
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 256, ../../dev/sass/pages/cart.scss */
+/* line 257, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-content {
   height: 46.25rem;
   overflow-x: hidden;
   overflow-y: auto;
   padding: 1.875rem 3.125rem;
 }
-/* line 263, ../../dev/sass/pages/cart.scss */
+/* line 264, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 268, ../../dev/sass/pages/cart.scss */
+/* line 269, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-item {
   padding-top: 1.25rem;
   border-bottom: 1px solid #bebebe;
 }
-/* line 272, ../../dev/sass/pages/cart.scss */
+/* line 273, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-parameters {
   display: -webkit-flex;
   display: flex;
@@ -4804,34 +4805,34 @@ tr.factory_item {
   align-items: center;
   margin: 1.25rem 0;
 }
-/* line 279, ../../dev/sass/pages/cart.scss */
+/* line 280, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-parameter {
   margin-right: 1rem;
 }
-/* line 282, ../../dev/sass/pages/cart.scss */
+/* line 283, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-value {
   margin-right: 1.25rem;
 }
-/* line 286, ../../dev/sass/pages/cart.scss */
+/* line 287, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-value img {
   width: 2.8125rem;
 }
-/* line 293, ../../dev/sass/pages/cart.scss */
+/* line 294, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-price-value {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
   margin-right: 1.25rem;
 }
-/* line 299, ../../dev/sass/pages/cart.scss */
+/* line 300, ../../dev/sass/pages/cart.scss */
 .cart-page .price-one-product {
   margin-top: 1.875rem;
 }
-/* line 302, ../../dev/sass/pages/cart.scss */
+/* line 303, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-footer {
   padding-right: 3.125rem;
 }
 
-/* line 311, ../../dev/sass/pages/cart.scss */
+/* line 312, ../../dev/sass/pages/cart.scss */
 .full-view {
   /*
   .coeff-label {
@@ -4845,7 +4846,7 @@ tr.factory_item {
   }
   */
 }
-/* line 312, ../../dev/sass/pages/cart.scss */
+/* line 313, ../../dev/sass/pages/cart.scss */
 .full-view .order-block {
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -4854,24 +4855,24 @@ tr.factory_item {
   min-height: 45%;
   z-index: 4;
 }
-/* line 320, ../../dev/sass/pages/cart.scss */
+/* line 321, ../../dev/sass/pages/cart.scss */
 .full-view .order, .full-view .addelementunit {
   width: 32rem;
   float: left;
   border-bottom-right-radius: 1.25rem;
   border-bottom-left-radius: 1.25rem;
 }
-/* line 326, ../../dev/sass/pages/cart.scss */
+/* line 327, ../../dev/sass/pages/cart.scss */
 .full-view .order-header {
   height: 20rem;
 }
-/* line 329, ../../dev/sass/pages/cart.scss */
+/* line 330, ../../dev/sass/pages/cart.scss */
 .full-view .order-header-fon {
   width: 32rem;
   height: 20rem;
   cursor: pointer;
 }
-/* line 334, ../../dev/sass/pages/cart.scss */
+/* line 335, ../../dev/sass/pages/cart.scss */
 .full-view .order-template {
   position: absolute;
   bottom: -4.5625rem;
@@ -4880,7 +4881,7 @@ tr.factory_item {
   background-color: #fff;
   border-radius: 0.625rem;
 }
-/* line 342, ../../dev/sass/pages/cart.scss */
+/* line 343, ../../dev/sass/pages/cart.scss */
 .full-view .order-u-coeff {
   font: normal 2.625rem/1.42857 roboto-light, sans-serif;
   bottom: -3.75rem;
@@ -4890,27 +4891,27 @@ tr.factory_item {
   background-color: #fff;
   color: #6ed44a;
 }
-/* line 351, ../../dev/sass/pages/cart.scss */
+/* line 352, ../../dev/sass/pages/cart.scss */
 .full-view .order-u-coeff.u-coeff-low {
   color: #f74f2e;
 }
-/* line 366, ../../dev/sass/pages/cart.scss */
+/* line 367, ../../dev/sass/pages/cart.scss */
 .full-view .order-content {
   padding: 4.375rem 2.5rem 0 3.125rem;
   background-color: #fff;
 }
-/* line 370, ../../dev/sass/pages/cart.scss */
+/* line 371, ../../dev/sass/pages/cart.scss */
 .full-view .order-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 375, ../../dev/sass/pages/cart.scss */
+/* line 376, ../../dev/sass/pages/cart.scss */
 .full-view .order-item {
   padding: 0.4375rem 0;
   border-bottom: 1px solid #bebebe;
 }
-/* line 379, ../../dev/sass/pages/cart.scss */
+/* line 380, ../../dev/sass/pages/cart.scss */
 .full-view .order-qty {
   -webkit-flex-flow: row nowrap;
   flex-flow: row nowrap;
@@ -4918,23 +4919,23 @@ tr.factory_item {
   justify-content: space-between;
   height: 6.25rem;
 }
-/* line 384, ../../dev/sass/pages/cart.scss */
+/* line 385, ../../dev/sass/pages/cart.scss */
 .full-view .qty-label {
   max-width: 10.625rem;
 }
-/* line 387, ../../dev/sass/pages/cart.scss */
+/* line 388, ../../dev/sass/pages/cart.scss */
 .full-view .order-footer, .full-view .cart-page .addelements-detail-footer, .cart-page .full-view .addelements-detail-footer {
   padding-left: 3.125rem;
 }
 
-/* line 394, ../../dev/sass/pages/cart.scss */
+/* line 395, ../../dev/sass/pages/cart.scss */
 .light-view .order-block {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
 }
-/* line 398, ../../dev/sass/pages/cart.scss */
+/* line 399, ../../dev/sass/pages/cart.scss */
 .light-view .order, .light-view .addelementunit {
   width: 26.25rem;
   max-height: 41.5rem;
@@ -4944,26 +4945,26 @@ tr.factory_item {
   background-color: #fff;
   text-align: center;
 }
-/* line 407, ../../dev/sass/pages/cart.scss */
+/* line 408, ../../dev/sass/pages/cart.scss */
 .light-view .order-template {
   cursor: pointer;
 }
-/* line 413, ../../dev/sass/pages/cart.scss */
+/* line 414, ../../dev/sass/pages/cart.scss */
 .light-view .order-header {
   padding-top: 2.5rem;
 }
-/* line 416, ../../dev/sass/pages/cart.scss */
+/* line 417, ../../dev/sass/pages/cart.scss */
 .light-view .order-content {
   padding: 2.5rem 1.25rem;
 }
-/* line 422, ../../dev/sass/pages/cart.scss */
+/* line 423, ../../dev/sass/pages/cart.scss */
 .light-view .addelements-btn {
   margin-top: 0.625rem;
   padding: 0.625rem 0;
   border-top: 1px solid #bebebe;
   border-bottom: 1px solid #bebebe;
 }
-/* line 428, ../../dev/sass/pages/cart.scss */
+/* line 429, ../../dev/sass/pages/cart.scss */
 .light-view .order-qty {
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
@@ -4971,18 +4972,18 @@ tr.factory_item {
   justify-content: space-around;
   padding-top: 2.5rem;
 }
-/* line 433, ../../dev/sass/pages/cart.scss */
+/* line 434, ../../dev/sass/pages/cart.scss */
 .light-view .order-label, .light-view .cart-page .product-icon-label, .cart-page .light-view .product-icon-label,
 .light-view .cart-page .product-label,
 .cart-page .light-view .product-label, .light-view .cart-page .addelement-label, .cart-page .light-view .addelement-label {
   padding-top: 0.625rem;
 }
-/* line 436, ../../dev/sass/pages/cart.scss */
+/* line 437, ../../dev/sass/pages/cart.scss */
 .light-view .order-footer, .light-view .cart-page .addelements-detail-footer, .cart-page .light-view .addelements-detail-footer {
   text-align: left;
 }
 
-/* line 443, ../../dev/sass/pages/cart.scss */
+/* line 444, ../../dev/sass/pages/cart.scss */
 .discount-swipe-up {
   position: absolute;
   left: 0;
@@ -4992,7 +4993,7 @@ tr.factory_item {
   z-index: 3;
 }
 
-/* line 452, ../../dev/sass/pages/cart.scss */
+/* line 453, ../../dev/sass/pages/cart.scss */
 .discount-container {
   width: 90%;
   margin: auto;
@@ -5001,13 +5002,13 @@ tr.factory_item {
   border-top: 1px solid #bebebe;
 }
 
-/* line 459, ../../dev/sass/pages/cart.scss */
+/* line 460, ../../dev/sass/pages/cart.scss */
 .discount-title {
   font: normal 2.5rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
 }
 
-/* line 463, ../../dev/sass/pages/cart.scss */
+/* line 464, ../../dev/sass/pages/cart.scss */
 .discount-box {
   display: -webkit-flex;
   display: flex;
@@ -5015,12 +5016,12 @@ tr.factory_item {
   width: 100%;
   margin-top: 3.125rem;
 }
-/* line 472, ../../dev/sass/pages/cart.scss */
+/* line 473, ../../dev/sass/pages/cart.scss */
 .discount-box.selected .discount-txt {
   background-color: #6ed44a;
   cursor: pointer;
 }
-/* line 475, ../../dev/sass/pages/cart.scss */
+/* line 476, ../../dev/sass/pages/cart.scss */
 .discount-box.selected .discount-txt:after {
   font: normal 7rem/9rem icons, sans-serif;
   position: absolute;
@@ -5030,7 +5031,7 @@ tr.factory_item {
   content: "";
 }
 
-/* line 487, ../../dev/sass/pages/cart.scss */
+/* line 488, ../../dev/sass/pages/cart.scss */
 .discount-data {
   display: -webkit-flex;
   display: flex;
@@ -5045,7 +5046,7 @@ tr.factory_item {
   color: #363636;
 }
 
-/* line 498, ../../dev/sass/pages/cart.scss */
+/* line 499, ../../dev/sass/pages/cart.scss */
 .disc-input-box {
   display: -webkit-flex;
   display: flex;
@@ -5055,13 +5056,13 @@ tr.factory_item {
   justify-content: center;
 }
 
-/* line 503, ../../dev/sass/pages/cart.scss */
+/* line 504, ../../dev/sass/pages/cart.scss */
 .disc-max {
   font: normal 2rem/2rem roboto-light, sans-serif;
   color: #f74f2e;
 }
 
-/* line 507, ../../dev/sass/pages/cart.scss */
+/* line 508, ../../dev/sass/pages/cart.scss */
 .disc-input {
   width: 7rem;
   padding: 0;
@@ -5069,7 +5070,7 @@ tr.factory_item {
   outline: none;
 }
 
-/* line 513, ../../dev/sass/pages/cart.scss */
+/* line 514, ../../dev/sass/pages/cart.scss */
 .discounts-list {
   top: -5rem;
   left: 0rem;
@@ -5085,14 +5086,14 @@ tr.factory_item {
   z-index: 5;
 }
 
-/* line 527, ../../dev/sass/pages/cart.scss */
+/* line 528, ../../dev/sass/pages/cart.scss */
 .discounts-item.active {
   border-top: 1px solid #bebebe;
   border-bottom: 1px solid #bebebe;
   color: #f98000;
 }
 
-/* line 533, ../../dev/sass/pages/cart.scss */
+/* line 534, ../../dev/sass/pages/cart.scss */
 .discount-txt {
   -webkit-flex-grow: 2;
   flex-grow: 2;
@@ -5106,13 +5107,13 @@ tr.factory_item {
   background-color: #fff;
 }
 
-/* line 541, ../../dev/sass/pages/cart.scss */
+/* line 542, ../../dev/sass/pages/cart.scss */
 .discounts-label {
   font: normal 2.25rem/5rem roboto-medium, sans-serif;
   color: #363636;
 }
 
-/* line 545, ../../dev/sass/pages/cart.scss */
+/* line 546, ../../dev/sass/pages/cart.scss */
 .discount-price-container {
   display: -webkit-flex;
   display: flex;
@@ -5123,37 +5124,37 @@ tr.factory_item {
   background-color: #fff;
 }
 
-/* line 553, ../../dev/sass/pages/cart.scss */
+/* line 554, ../../dev/sass/pages/cart.scss */
 .discount-price-box {
   padding: 0 3rem;
   -webkit-flex-grow: 1;
   flex-grow: 1;
 }
-/* line 556, ../../dev/sass/pages/cart.scss */
+/* line 557, ../../dev/sass/pages/cart.scss */
 .discount-price-box:last-child {
   border-left: 1px dashed #363636;
 }
 
-/* line 560, ../../dev/sass/pages/cart.scss */
+/* line 561, ../../dev/sass/pages/cart.scss */
 .discount-price {
   font: normal 3rem/6.25rem roboto-medium, sans-serif;
   color: #363636;
 }
 
-/* line 564, ../../dev/sass/pages/cart.scss */
+/* line 565, ../../dev/sass/pages/cart.scss */
 .discount-price-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #8c8c8c;
 }
 
-/* line 573, ../../dev/sass/pages/cart.scss */
+/* line 574, ../../dev/sass/pages/cart.scss */
 .alladdelements-header {
   position: relative;
   width: 100%;
   height: 6.25rem;
 }
 
-/* line 578, ../../dev/sass/pages/cart.scss */
+/* line 579, ../../dev/sass/pages/cart.scss */
 .close-alladdelements {
   font: normal 3.125rem/1 icons, sans-serif;
   top: 0rem;
@@ -5165,13 +5166,13 @@ tr.factory_item {
   border-top-right-radius: 2rem;
   border-bottom-right-radius: 2rem;
 }
-/* line 589, ../../dev/sass/pages/cart.scss */
+/* line 590, ../../dev/sass/pages/cart.scss */
 .close-alladdelements:before {
   color: #fff;
   content: "";
 }
 
-/* line 594, ../../dev/sass/pages/cart.scss */
+/* line 595, ../../dev/sass/pages/cart.scss */
 .alladdelements-block {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -5181,150 +5182,152 @@ tr.factory_item {
   overflow-x: hidden;
   overflow-y: auto;
   height: 95%;
+  padding-right: 3rem;
+  margin-right: -6rem;
 }
-/* line 601, ../../dev/sass/pages/cart.scss */
-.alladdelements-block .aux-list-block {
-  padding: 3.125rem 0;
-  border-bottom: 1px solid #bebebe;
-}
-/* line 605, ../../dev/sass/pages/cart.scss */
-.alladdelements-block .aux-list-block:last-child {
+/* line 606, ../../dev/sass/pages/cart.scss */
+.alladdelements-block .aux-list-block:last-child .aux-block-inner {
   padding: 3.125rem 0 0 0;
   border: none;
 }
-/* line 611, ../../dev/sass/pages/cart.scss */
+/* line 613, ../../dev/sass/pages/cart.scss */
+.alladdelements-block .aux-block-inner {
+  padding: 3.125rem 0;
+  border-bottom: 1px solid #bebebe;
+}
+/* line 618, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-block-title,
 .alladdelements-block .aux-total-label {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
 }
-/* line 617, ../../dev/sass/pages/cart.scss */
+/* line 624, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-block-title:first-letter {
   text-transform: uppercase;
 }
-/* line 620, ../../dev/sass/pages/cart.scss */
+/* line 627, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-row {
   margin-bottom: 1.25rem;
 }
-/* line 626, ../../dev/sass/pages/cart.scss */
+/* line 633, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-total-label {
   min-width: 69%;
 }
-/* line 630, ../../dev/sass/pages/cart.scss */
+/* line 637, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement {
   width: 100%;
 }
-/* line 633, ../../dev/sass/pages/cart.scss */
+/* line 640, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-name {
   width: 31.25rem;
 }
-/* line 635, ../../dev/sass/pages/cart.scss */
+/* line 642, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-name .aux-name {
   max-width: 100%;
 }
-/* line 639, ../../dev/sass/pages/cart.scss */
+/* line 646, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-total {
   width: 75%;
 }
-/* line 642, ../../dev/sass/pages/cart.scss */
+/* line 649, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-qty {
   width: 6.25rem;
 }
-/* line 645, ../../dev/sass/pages/cart.scss */
+/* line 652, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-width,
 .alladdelements-block .aux-list-addellement .aux-tablecell-height {
   width: 9.375rem;
 }
-/* line 649, ../../dev/sass/pages/cart.scss */
+/* line 656, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-color {
   width: 6.25rem;
 }
-/* line 652, ../../dev/sass/pages/cart.scss */
+/* line 659, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-price {
   width: 12.5rem;
 }
-/* line 654, ../../dev/sass/pages/cart.scss */
+/* line 661, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-price .aux-price, .alladdelements-block .aux-list-addellement .aux-tablecell-price .aux-total-price {
   text-align: center;
 }
-/* line 658, ../../dev/sass/pages/cart.scss */
+/* line 665, ../../dev/sass/pages/cart.scss */
 .alladdelements-block .aux-list-addellement .aux-tablecell-delete {
   width: 6.25rem;
 }
 
-/* line 668, ../../dev/sass/pages/cart.scss */
+/* line 675, ../../dev/sass/pages/cart.scss */
 .addelementunique-header {
   position: relative;
   width: 100%;
   height: 6.25rem;
   background-color: #fff;
 }
-/* line 674, ../../dev/sass/pages/cart.scss */
+/* line 681, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-title {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 679, ../../dev/sass/pages/cart.scss */
+/* line 686, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 683, ../../dev/sass/pages/cart.scss */
+/* line 690, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-params-but {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 687, ../../dev/sass/pages/cart.scss */
+/* line 694, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-row {
   padding-top: 1%;
 }
-/* line 694, ../../dev/sass/pages/cart.scss */
+/* line 701, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-total-label {
   min-width: 69%;
 }
-/* line 698, ../../dev/sass/pages/cart.scss */
+/* line 705, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement {
   width: 100%;
 }
-/* line 701, ../../dev/sass/pages/cart.scss */
+/* line 708, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-name {
   width: 31.25rem;
 }
-/* line 703, ../../dev/sass/pages/cart.scss */
+/* line 710, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-name .aux-name {
   max-width: 100%;
 }
-/* line 707, ../../dev/sass/pages/cart.scss */
+/* line 714, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-total {
   width: 75%;
 }
-/* line 710, ../../dev/sass/pages/cart.scss */
+/* line 717, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-qty {
   width: 6.25rem;
 }
-/* line 713, ../../dev/sass/pages/cart.scss */
+/* line 720, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-width,
 .addelementunique-header .aux-list-addellement .aux-tablecell-height {
   width: 9.375rem;
 }
-/* line 717, ../../dev/sass/pages/cart.scss */
+/* line 724, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-color {
   width: 6.25rem;
 }
-/* line 720, ../../dev/sass/pages/cart.scss */
+/* line 727, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-price {
   width: 12.5rem;
 }
-/* line 722, ../../dev/sass/pages/cart.scss */
+/* line 729, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-price .aux-price, .addelementunique-header .aux-list-addellement .aux-tablecell-price .aux-total-price {
   text-align: center;
 }
-/* line 726, ../../dev/sass/pages/cart.scss */
+/* line 733, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-delete {
   width: 6.25rem;
 }
 
-/* line 733, ../../dev/sass/pages/cart.scss */
+/* line 740, ../../dev/sass/pages/cart.scss */
 .addelementunit-header-fon {
   top: -3.125rem;
   left: -6.25rem;
@@ -5335,7 +5338,7 @@ tr.factory_item {
   z-index: -1;
 }
 
-/* line 742, ../../dev/sass/pages/cart.scss */
+/* line 749, ../../dev/sass/pages/cart.scss */
 .addelementunits-container {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -5349,7 +5352,7 @@ tr.factory_item {
   padding-top: 3%;
 }
 
-/* line 751, ../../dev/sass/pages/cart.scss */
+/* line 758, ../../dev/sass/pages/cart.scss */
 .addelementunit-block {
   display: -webkit-flex;
   display: flex;
@@ -5357,7 +5360,7 @@ tr.factory_item {
   flex-flow: row wrap;
 }
 
-/* line 756, ../../dev/sass/pages/cart.scss */
+/* line 763, ../../dev/sass/pages/cart.scss */
 .addelementunit {
   width: 26.25rem;
   min-width: 26.25rem;
@@ -5368,14 +5371,14 @@ tr.factory_item {
   text-align: center;
 }
 
-/* line 767, ../../dev/sass/pages/cart.scss */
+/* line 774, ../../dev/sass/pages/cart.scss */
 .addelementunit-header {
   position: relative;
   height: 13.125rem;
   padding-top: 2.5rem;
 }
 
-/* line 772, ../../dev/sass/pages/cart.scss */
+/* line 779, ../../dev/sass/pages/cart.scss */
 .addelementunit-delete {
   position: absolute;
   top: -1.25rem;
@@ -5384,12 +5387,12 @@ tr.factory_item {
   z-index: 9;
 }
 
-/* line 780, ../../dev/sass/pages/cart.scss */
+/* line 787, ../../dev/sass/pages/cart.scss */
 .addelementunit-content {
   padding: 2.5rem 1.25rem;
 }
 
-/* line 787, ../../dev/sass/pages/cart.scss */
+/* line 794, ../../dev/sass/pages/cart.scss */
 .addelementunit-footer {
   font: normal 3rem/6.25rem roboto-medium, sans-serif;
   border-bottom-left-radius: 1.25rem;
@@ -5398,7 +5401,7 @@ tr.factory_item {
   background-color: #4bd963;
 }
 
-/* line 797, ../../dev/sass/pages/cart.scss */
+/* line 804, ../../dev/sass/pages/cart.scss */
 .addelementunit-train {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -5408,18 +5411,18 @@ tr.factory_item {
   overflow-x: auto;
   overflow-y: auto;
 }
-/* line 802, ../../dev/sass/pages/cart.scss */
+/* line 809, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit-train-inner {
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 809, ../../dev/sass/pages/cart.scss */
+/* line 816, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit.unit-last .link-right {
   display: none;
 }
-/* line 815, ../../dev/sass/pages/cart.scss */
+/* line 822, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit-link {
   position: absolute;
   bottom: 3.125rem;
@@ -5427,11 +5430,11 @@ tr.factory_item {
   height: 5rem;
   border-bottom: 1px solid #4bd963;
 }
-/* line 821, ../../dev/sass/pages/cart.scss */
+/* line 828, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit-link.link-right {
   right: -3.4375rem;
 }
-/* line 829, ../../dev/sass/pages/cart.scss */
+/* line 836, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .link-explode-menu {
   font: normal 2.25rem/4.0625rem roboto-light, sans-serif;
   position: absolute;
@@ -5444,7 +5447,7 @@ tr.factory_item {
   cursor: pointer;
   z-index: 999;
 }
-/* line 841, ../../dev/sass/pages/cart.scss */
+/* line 848, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .link-explode-menu:before {
   position: absolute;
   z-index: 99;
@@ -5457,13 +5460,13 @@ tr.factory_item {
   border-color: #242424 transparent;
   content: '';
 }
-/* line 855, ../../dev/sass/pages/cart.scss */
+/* line 862, ../../dev/sass/pages/cart.scss */
 .addelementunit-train ul.link-explode-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 861, ../../dev/sass/pages/cart.scss */
+/* line 868, ../../dev/sass/pages/cart.scss */
 .addelementunit-train li.link-explode-item {
   display: inline-block;
   line-height: 5rem;
@@ -5472,79 +5475,79 @@ tr.factory_item {
   text-align: center;
   color: #ddd;
 }
-/* line 869, ../../dev/sass/pages/cart.scss */
+/* line 876, ../../dev/sass/pages/cart.scss */
 .addelementunit-train li.link-explode-item:last-child {
   border-right: none;
   padding-left: 0.5rem;
   padding-right: 0;
 }
 
-/* line 882, ../../dev/sass/pages/cart.scss */
+/* line 889, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block {
   padding: 3.125rem 0;
   border-bottom: 1px solid #bebebe;
 }
-/* line 886, ../../dev/sass/pages/cart.scss */
+/* line 893, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block:last-child {
   padding: 3.125rem 0 0 0;
   border: none;
 }
-/* line 892, ../../dev/sass/pages/cart.scss */
+/* line 899, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block-title,
 .addelementunit-only .aux-total-label {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
 }
-/* line 898, ../../dev/sass/pages/cart.scss */
+/* line 905, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block-title:first-letter {
   text-transform: uppercase;
 }
-/* line 901, ../../dev/sass/pages/cart.scss */
+/* line 908, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-row {
   margin-bottom: 1.25rem;
 }
-/* line 907, ../../dev/sass/pages/cart.scss */
+/* line 914, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-total-label {
   min-width: 69%;
 }
-/* line 911, ../../dev/sass/pages/cart.scss */
+/* line 918, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement {
   width: 100%;
 }
-/* line 914, ../../dev/sass/pages/cart.scss */
+/* line 921, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-name {
   width: 31.25rem;
 }
-/* line 916, ../../dev/sass/pages/cart.scss */
+/* line 923, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-name .aux-name {
   max-width: 100%;
 }
-/* line 920, ../../dev/sass/pages/cart.scss */
+/* line 927, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-total {
   width: 75%;
 }
-/* line 923, ../../dev/sass/pages/cart.scss */
+/* line 930, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-qty {
   width: 6.25rem;
 }
-/* line 926, ../../dev/sass/pages/cart.scss */
+/* line 933, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-width,
 .addelementunit-only .aux-list-addellement .aux-tablecell-height {
   width: 9.375rem;
 }
-/* line 930, ../../dev/sass/pages/cart.scss */
+/* line 937, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-color {
   width: 6.25rem;
 }
-/* line 933, ../../dev/sass/pages/cart.scss */
+/* line 940, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-price {
   width: 12.5rem;
 }
-/* line 935, ../../dev/sass/pages/cart.scss */
+/* line 942, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-price .aux-price, .addelementunit-only .aux-list-addellement .aux-tablecell-price .aux-total-price {
   text-align: center;
 }
-/* line 939, ../../dev/sass/pages/cart.scss */
+/* line 946, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-delete {
   width: 6.25rem;
 }

@@ -23,6 +23,12 @@
         squareTotal: 0,
         perimeterTotal: 0,
         qtyTotal: 0,
+
+        isExistAddElems: 0,
+        isAllAddElems: 0,
+        allAddElemsOrder: [],
+        addElemsOrderPriceTOTAL: 0,
+
         isMasterDialog: 0,
         isOrderDialog: 0,
         isCreditDialog: 0,

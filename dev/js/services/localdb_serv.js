@@ -548,11 +548,11 @@
 
 
           //-------- inner temables
-          'analytics': {
-            'tableName': 'analytics',
-            'prop': 'order_id NUMERIC, user_id INTEGER, calculation_id INTEGER, element_id INTEGER, element_type INTEGER',
-            'foreignKey': ''
-          },
+//          'analytics': {
+//            'tableName': 'analytics',
+//            'prop': 'order_id NUMERIC, user_id INTEGER, calculation_id INTEGER, element_id INTEGER, element_type INTEGER',
+//            'foreignKey': ''
+//          },
 
           'export': {
             'tableName': 'export',

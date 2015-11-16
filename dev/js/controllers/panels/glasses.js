@@ -58,8 +58,8 @@
           MainServ.setGlassToTemplateBlocks(blockId, thisCtrl.config.selectGlassId, thisCtrl.config.selectGlassName);
         }
         changePriceAsNewGlass();
+        closeGlassSelectorDialog();
       }
-      closeGlassSelectorDialog();
     }
 
 

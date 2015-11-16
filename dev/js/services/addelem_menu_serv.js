@@ -170,7 +170,7 @@
       }
       ProductStor.product.addelemPriceDis = GeneralServ.setPriceDis(ProductStor.product.addelem_price, OrderStor.order.discount_addelem);
       $timeout(function() {
-        MainServ.setProductPriceTOTAL();
+        MainServ.setProductPriceTOTAL(ProductStor.product);
       }, 50);
     }
 

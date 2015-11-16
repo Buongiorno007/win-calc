@@ -472,7 +472,7 @@
         console.log('price-------', result);
         if(result.priceTotal){
           ProductStor.product.template_price = GeneralServ.addMarginToPrice(result.priceTotal, GlobalStor.global.margins.coeff);
-          setProductPriceTOTAL();
+          setProductPriceTOTAL(ProductStor.product);
           console.log('FINISH PRICE Time!!!!!!', new Date(), new Date().getMilliseconds());
           deferred.resolve(result);
         } else {
@@ -570,13 +570,13 @@
 
 
 
-    function setProductPriceTOTAL() {
+    function setProductPriceTOTAL(Product) {
       //playSound('price');
-      ProductStor.product.product_price = GeneralServ.roundingNumbers( ProductStor.product.template_price + ProductStor.product.addelem_price );
-      ProductStor.product.productPriceDis = ( GeneralServ.setPriceDis(ProductStor.product.template_price, OrderStor.order.discount_construct) + ProductStor.product.addelemPriceDis );
+      Product.product_price = GeneralServ.roundingNumbers( Product.template_price + Product.addelem_price );
+      Product.productPriceDis = ( GeneralServ.setPriceDis(Product.template_price, OrderStor.order.discount_construct) + Product.addelemPriceDis );
       //------ add Discount of standart delivery day of Plant
       if(GlobalStor.global.deliveryCoeff.base_time) {
-        ProductStor.product.productPriceDis = GeneralServ.setPriceDis(ProductStor.product.productPriceDis, GlobalStor.global.deliveryCoeff.base_time);
+        Product.productPriceDis = GeneralServ.setPriceDis(Product.productPriceDis, GlobalStor.global.deliveryCoeff.base_time);
       }
       GlobalStor.global.isLoader = 0;
     }

@@ -17,7 +17,11 @@
       decreaseProductQty: decreaseProductQty,
       addNewProductInOrder: addNewProductInOrder,
       clickDeleteProduct: clickDeleteProduct,
-      editProduct: editProduct
+      editProduct: editProduct,
+
+      showAllAddElements: showAllAddElements
+//      collectAllAddElems: collectAllAddElems,
+//      getAddElemsPriceTotal: getAddElemsPriceTotal
     };
 
     return thisFactory.publicObj;
@@ -32,22 +36,34 @@
     //---------- parse Add Elements from LocalStorage
     function joinAllAddElements() {
       var productsQty = OrderStor.order.products.length,
-          product;
+          isExistElem = 0,
+          typeElementsQty, elementsQty,
+          product, tempElement;
       //------ cleaning allAddElements
       CartStor.cart.allAddElements.length = 0;
+      CartStor.cart.isExistAddElems = 0;
 
       for(var prod = 0; prod < productsQty; prod++) {
         product = [];
-        var typeElementsQty = OrderStor.order.products[prod].chosenAddElements.length;
+        typeElementsQty = OrderStor.order.products[prod].chosenAddElements.length;
         for(var type = 0; type < typeElementsQty; type++) {
-          var elementsQty = OrderStor.order.products[prod].chosenAddElements[type].length;
+          elementsQty = OrderStor.order.products[prod].chosenAddElements[type].length;
           if(elementsQty > 0) {
             for(var elem = 0; elem < elementsQty; elem++) {
-              product.push(OrderStor.order.products[prod].chosenAddElements[type][elem]);
+              tempElement = angular.copy(OrderStor.order.products[prod].chosenAddElements[type][elem]);
+              tempElement.element_qty *= OrderStor.order.products[prod].product_qty;
+              product.push(tempElement);
             }
           }
         }
+        if(product.length) {
+          isExistElem++;
+        }
         CartStor.cart.allAddElements.push(product);
+      }
+      //------ to show button All AddElements
+      if(isExistElem) {
+        CartStor.cart.isExistAddElems = 1;
       }
     }
 
@@ -124,6 +140,60 @@
       //------- set previos Page
       GeneralServ.setPreviosPage();
       $location.path('/main');
+    }
+
+
+
+
+
+
+
+    /**======== ALL ADD LEMENTS PANEL ========*/
+
+    /** show All Add Elements Panel */
+    function showAllAddElements() {
+      collectAllAddElems();
+      getAddElemsPriceTotal();
+      CartStor.cart.isAllAddElems = 1;
+    }
+
+
+    function collectAllAddElems() {
+      var addElemsQty = CartStor.cart.allAddElements.length,
+          prodQty, elemsOrderQty, noExist = 1;
+      CartStor.cart.allAddElemsOrder.length = 0;
+      while(--addElemsQty > -1) {
+        prodQty = CartStor.cart.allAddElements[addElemsQty].length;
+        if(prodQty) {
+          while(--prodQty > -1) {
+            elemsOrderQty = CartStor.cart.allAddElemsOrder.length;
+            if(elemsOrderQty) {
+              while(--elemsOrderQty > -1) {
+                if(CartStor.cart.allAddElemsOrder[elemsOrderQty].id === CartStor.cart.allAddElements[addElemsQty][prodQty].id && CartStor.cart.allAddElemsOrder[elemsOrderQty].element_width === CartStor.cart.allAddElements[addElemsQty][prodQty].element_width && CartStor.cart.allAddElemsOrder[elemsOrderQty].element_height === CartStor.cart.allAddElements[addElemsQty][prodQty].element_height) {
+                  CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty = GeneralServ.roundingNumbers(CartStor.cart.allAddElemsOrder[elemsOrderQty].element_qty + CartStor.cart.allAddElements[addElemsQty][prodQty].element_qty);
+                  --noExist;
+                }
+              }
+              if(noExist) {
+                CartStor.cart.allAddElemsOrder.push(CartStor.cart.allAddElements[addElemsQty][prodQty]);
+              }
+            } else {
+              CartStor.cart.allAddElemsOrder.push(CartStor.cart.allAddElements[addElemsQty][prodQty]);
+            }
+          }
+        }
+      }
+    }
+
+
+
+    function getAddElemsPriceTotal() {
+      var productsQty = OrderStor.order.products.length;
+      CartStor.cart.addElemsOrderPriceTOTAL = 0;
+      while(--productsQty > -1) {
+        CartStor.cart.addElemsOrderPriceTOTAL += OrderStor.order.products[productsQty].addelemPriceDis;
+      }
+      CartStor.cart.addElemsOrderPriceTOTAL = GeneralServ.roundingNumbers(CartStor.cart.addElemsOrderPriceTOTAL);
     }
 
 
