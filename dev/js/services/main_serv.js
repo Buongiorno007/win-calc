@@ -728,7 +728,7 @@
 
       //========== if New Product
       } else {
-        ProductStor.product.product_id = (OrderStor.order.products_qty > 0) ? (OrderStor.order.products_qty + 1) : 1;
+        ProductStor.product.product_id = (OrderStor.order.products.length > 0) ? (OrderStor.order.products.length + 1) : 1;
         delete ProductStor.product.template;
         //-------- insert product in order
         OrderStor.order.products.push(ProductStor.product);

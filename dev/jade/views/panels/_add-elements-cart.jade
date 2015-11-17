@@ -22,7 +22,7 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
           tr.aux-list-row(ng-repeat="addElem in elemCartPanel.C.cart.allAddElemsOrder | filter: {list_group_id: elemType} track by $index")
             td.aux-tablecell-name
               .aux-name
-                button.aux-params-but.aux_connect_but.aux-title(ng-class="{'selected': addElem.id === cart.selectedAddElementUnit}", hm-tap="showAddElementUnitDetail(addElem.element_type, addElem.id, $index)") {{ addElem.name }}
+                button.aux-params-but.aux_connect_but.aux-title(ng-class="{'selected': addElem.id === elemCartPanel.config.selectedAddElemUnit.id}", hm-tap="elemCartPanel.showAddElemUnitDetail(addElem)") {{ addElem.name }}
                 .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
             td.aux-tablecell-qty
               .aux-params(ng-show="addElem.element_qty")
@@ -60,106 +60,88 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
 
 
 
-//------- Selected AddElement Unit Panel
-section.cart-container.addelement-view(ng-class="{'active': cart.isShowAddElementUnit}")
-  .addelementunique-header
-    button.close-alladdelements(hm-tap="showAddElementUnitDetail()")
-    .addelementunit-header-fon
+  //------- Selected AddElement Unit Panel
+  section.cart-container.addelement-view(ng-class="{'active': elemCartPanel.config.isAddElemUnitDetail}")
+    .addelementunique-header
+      button.close-alladdelements(hm-tap="elemCartPanel.closeAddElemUnitDetail()")
+      .addelementunit-header-fon
 
-    table.aux-list-addellement
-      tr.aux-list-row
-        td.aux-tablecell-name
-          .aux-name
-            .aux-title {{ cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementName }}
-            .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
-        td.aux-tablecell-qty
-          .aux-params
-            .aux-params-but {{ cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementQty }}
-            .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
-        td.aux-tablecell-width
-          .aux-params(ng-if="cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementWidth")
-            .aux-params-but {{ cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementWidth }}
-            .aux-label {{ 'add_elements.WIDTH_LABEL' | translate }}
-        td.aux-tablecell-height
-          .aux-params(ng-if="cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementHeight")
-            .aux-params-but {{ cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementHeight }}
-            .aux-label {{ 'add_elements.HEIGHT_LABEL' | translate }}
-        td.aux-tablecell-color
-          .aux-params(ng-if="cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementColor")
-            .aux-color
-              img(ng-src="{{ cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementColor }}")
-            .aux-label {{ 'add_elements.COLOR_LABEL' | translate }}
-        td.aux-tablecell-price
-          .aux-price + {{ cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementQty * cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementPrice }} {{ global.currency }}
-        td.aux-tablecell-delete
-          .aux-delete(hm-tap="deleteAddElementList(cart.selectedAddElementUnitType, cart.selectedAddElementUnitId)")
-
-  .addelementunits-container
-
-
-    .addelementunit-block
-      .addelementunit(ng-repeat="addElem in cart.selectedAddElementUnits track by $index", ng-if="!addElem.isAddElementsONLY && addElem.productQty === 1")
-        button.addelementunit-delete(hm-tap="deleteAddElementUnit('', $index, addElem)")
-        .addelementunit-header
-          .addelementunit-template
-            svg-template(template="global.order.products[(addElem.productId - 1)].templateIcon", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="icon")
-        .addelementunit-content
-          .addelementunit-value {{ global.order.products[(addElem.productId - 1)].templateWidth }} * {{ global.order.products[(addElem.productId - 1)].templateHeight }} {{ 'mainpage.MM' | translate }}
-          .addelementunit-value {{ global.order.products[(addElem.productId - 1)].profileName }}
-          .addelementunit-value {{ global.order.products[(addElem.productId - 1)].glassName }}
-          .addelementunit-value {{ global.order.products[(addElem.productId - 1)].hardwareName }}
-          .addelementunit-value {{ global.order.products[(addElem.productId - 1)].laminationOutName }} / {{ global.order.products[(addElem.productId - 1)].laminationInName }}
-        .addelementunit-footer {{ addElem.elementQty }} {{ 'add_elements.QTY_LABEL' | translate }}
-
-
-    .addelementunit-train(ng-repeat="addElem in cart.selectedAddElementUnits track by $index", ng-if="addElem.length > 0")
-      .addelementunit-train-inner
-        .addelementunit(ng-repeat="addElemWagon in addElem track by $index", ng-class="{'unit-last': $last}")
-          .addelementunit-link.link-right(hm-tap="toggleExplodeLinkMenu()")
-          //button.addelementunit-delete(hm-tap="deleteAddElementUnit($parent.$index, $index, addElemWagon)")
-          .addelementunit-header
-            .addelementunit-template
-              svg-template(template="global.order.products[(addElemWagon.productId - 1)].templateIcon", template-width="global.svgTemplateIconWidth", template-height="global.svgTemplateIconHeight", type-construction="icon")
-          .addelementunit-content
-            .addelementunit-value {{ global.order.products[(addElemWagon.productId - 1)].templateWidth }} * {{ global.order.products[(addElemWagon.productId - 1)].templateHeight }} {{ 'mainpage.MM' | translate }}
-            .addelementunit-value {{ global.order.products[(addElemWagon.productId - 1)].profileName }}
-            .addelementunit-value {{ global.order.products[(addElemWagon.productId - 1)].glassName }}
-            .addelementunit-value {{ global.order.products[(addElemWagon.productId - 1)].hardwareName }}
-            .addelementunit-value {{ global.order.products[(addElemWagon.productId - 1)].laminationOutName }} / {{ global.order.products[(addElemWagon.productId - 1)].laminationInName }}
-          .addelementunit-footer {{ addElemWagon.elementQty }} {{ 'add_elements.QTY_LABEL' | translate }}
-          //link explode menu
-          .link-explode-menu(ng-show="$first && cart.isShowLinkExplodeMenu")
-            ul.link-explode-list
-              li.link-explode-item(hm-tap="explodeUnitToOneProduct($parent.$index)") {{ 'cart.LINK_BETWEEN_COUPLE' | translate }}
-              li.link-explode-item(hm-tap="explodeUnitGroupToProducts($parent.$index)") {{ 'cart.LINK_BETWEEN_ALL' | translate }}
-              li.link-explode-item(hm-tap="deleteAddElementUnit($parent.$index, $index, addElemWagon)") {{ 'cart.LINK_DELETE_ALL_GROUPE' | translate }}
-
-
-    .addelementunit-only(ng-repeat="addElem in cart.selectedAddElementUnits track by $index", ng-if="addElem.isAddElementsONLY")
       table.aux-list-addellement
         tr.aux-list-row
           td.aux-tablecell-name
             .aux-name
-              button.aux-params-but.aux_big_but.aux-title {{ addElem.elementName }}
+              .aux-title {{ elemCartPanel.config.selectedAddElemUnit.name }}
               .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
           td.aux-tablecell-qty
-            .aux-params
-              .aux-params-but {{ addElem.elementQty }}
+            .aux-params(ng-show="elemCartPanel.config.selectedAddElemUnit.element_qty")
+              .aux-params-but {{elemCartPanel.config.selectedAddElemUnit.element_qty }}
               .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
           td.aux-tablecell-width
-            .aux-params(ng-if="addElem.elementWidth")
-              .aux-params-but {{ addElem.elementWidth }}
+            .aux-params(ng-show="elemCartPanel.config.selectedAddElemUnit.element_width")
+              .aux-params-but {{elemCartPanel.config.selectedAddElemUnit.element_width }}
               .aux-label {{ 'add_elements.WIDTH_LABEL' | translate }}
           td.aux-tablecell-height
-            .aux-params(ng-if="addElem.elementHeight")
-              .aux-params-but {{ addElem.elementHeight }}
+            .aux-params(ng-show="elemCartPanel.config.selectedAddElemUnit.element_height")
+              .aux-params-but {{elemCartPanel.config.selectedAddElemUnit.element_height }}
               .aux-label {{ 'add_elements.HEIGHT_LABEL' | translate }}
-          td.aux-tablecell-color
-            .aux-params(ng-if="addElem.elementColor")
-              .aux-color
-                img(ng-src="{{ addElem.elementColor }}")
-              .aux-label {{ 'add_elements.COLOR_LABEL' | translate }}
           td.aux-tablecell-price
-            .aux-price + {{ addElem.elementQty * addElem.elementPrice }} {{ global.currency }}
+            .aux-price + {{ elemCartPanel.config.selectedAddElemUnit.element_qty * elemCartPanel.config.selectedAddElemUnit.elementPriceDis }} {{ elemCartPanel.U.userInfo.currency }}
           td.aux-tablecell-delete
-            .aux-delete(hm-tap="deleteAddElementUnit('', $index, addElem)")
+            .aux-delete(hm-tap="elemCartPanel.deleteAddElemsItem(elemCartPanel.config.selectedAddElemUnit)")
+
+    .addelementunits-container
+
+      .addelementunit-block
+        .addelementunit(ng-repeat="addElemUnit in elemCartPanel.config.addElemUnitProducts track by $index", ng-if="!addElemUnit.is_addelem_only && !addElemUnit.length")
+          button.addelementunit-delete(hm-tap="elemCartPanel.deleteAddElemUnit(addElemUnit.productIndex)")
+          .addelementunit-header
+            .addelementunit-template
+              svg-template(template="elemCartPanel.O.order.products[addElemUnit.productIndex].templateIcon", template-width="elemCartPanel.constants.svgTemplateIconWidth", template-height="elemCartPanel.constants.svgTemplateIconHeight", type-construction="icon")
+          .addelementunit-content
+            .addelementunit-value {{ elemCartPanel.O.order.products[addElemUnit.productIndex].template_width }} * {{ elemCartPanel.O.order.products[addElemUnit.productIndex].template_height }} {{ 'mainpage.MM' | translate }}
+          .addelementunit-footer {{ addElemUnit.element_qty }} {{ 'add_elements.QTY_LABEL' | translate }}
+
+
+      .addelementunit-train(ng-repeat="addElemUnit in elemCartPanel.config.addElemUnitProducts track by $index", ng-if="addElemUnit.length > 0")
+        .addelementunit-train-inner
+          .addelementunit(ng-repeat="addElemWagon in addElemUnit track by $index", ng-class="{'unit-last': $last}")
+            .addelementunit-link.link-right(hm-tap="elemCartPanel.toggleExplodeLinkMenu($index)")
+            //button.addelementunit-delete(hm-tap="deleteAddElementUnit($parent.$index, $index, addElemWagon)")
+            .addelementunit-header
+              .addelementunit-template
+                svg-template(template="elemCartPanel.O.order.products[addElemWagon.productIndex].templateIcon", template-width="elemCartPanel.constants.svgTemplateIconWidth", template-height="elemCartPanel.constants.svgTemplateIconHeight", type-construction="icon")
+            .addelementunit-content
+              .addelementunit-value {{ elemCartPanel.O.order.products[addElemWagon.productIndex].template_width }} * {{ elemCartPanel.O.order.products[addElemWagon.productIndex].template_height }} {{ 'mainpage.MM' | translate }}
+            .addelementunit-footer {{ addElemWagon.element_qty }} {{ 'add_elements.QTY_LABEL' | translate }}
+            //link explode menu .link-explode-menu(ng-show="$first && elemCartPanel.config.isLinkExplodeMenu")
+
+        .link-explode-menu(ng-show="elemCartPanel.config.isLinkExplodeMenu")
+          ul.link-explode-list
+            li.link-explode-item(hm-tap="explodeUnitToOneProduct($parent.$index)") {{ 'cart.LINK_BETWEEN_COUPLE' | translate }}
+            li.link-explode-item(hm-tap="explodeUnitGroupToProducts($parent.$index)") {{ 'cart.LINK_BETWEEN_ALL' | translate }}
+            li.link-explode-item(hm-tap="deleteAddElementUnit($parent.$index, $index, addElemWagon)") {{ 'cart.LINK_DELETE_ALL_GROUPE' | translate }}
+
+
+      .addelementunit-only(ng-repeat="addElemUnit in elemCartPanel.config.addElemUnitProducts track by $index", ng-if="addElemUnit.is_addelem_only")
+        table.aux-list-addellement
+          tr.aux-list-row
+            td.aux-tablecell-name
+              .aux-name
+                button.aux-params-but.aux_big_but.aux-title {{ addElemUnit.name }}
+                .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
+            td.aux-tablecell-qty
+              .aux-params
+                .aux-params-but {{ addElemUnit.element_qty }}
+                .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
+            td.aux-tablecell-width
+              .aux-params(ng-if="addElemUnit.element_width")
+                .aux-params-but {{ addElemUnit.element_width }}
+                .aux-label {{ 'add_elements.WIDTH_LABEL' | translate }}
+            td.aux-tablecell-height
+              .aux-params(ng-if="addElemUnit.element_height")
+                .aux-params-but {{ addElemUnit.element_height }}
+                .aux-label {{ 'add_elements.HEIGHT_LABEL' | translate }}
+            td.aux-tablecell-price
+              .aux-price + {{ addElemUnit.element_qty * addElemUnit.elementPriceDis }} {{ elemCartPanel.U.userInfo.currency }}
+            td.aux-tablecell-delete
+              .aux-delete(hm-tap="elemCartPanel.deleteAddElemUnit(addElemUnit.productIndex)")

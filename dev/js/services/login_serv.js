@@ -350,7 +350,6 @@
         var currencQty = currencies.length;
         if(currencies && currencQty) {
           GlobalStor.global.currencies = currencies;
-//          console.warn('all currencies!!', currencies);
           /** set current currency */
           while(--currencQty > -1) {
             if(currencies[currencQty].is_base === 1) {
@@ -359,10 +358,10 @@
                 UserStor.userInfo.currency = '\u20b4';//'₴';
               } else if( /rub/i.test(currencies[currencQty].name) ) {
                 UserStor.userInfo.currency = '\u20BD';//'₽';
-              } else if( /(usd|$)/i.test(currencies[currencQty].name) ) {
+              } else if( /(usd|\$)/i.test(currencies[currencQty].name) ) {
                 UserStor.userInfo.currency = '$';
               } else if( /eur/i.test(currencies[currencQty].name) ) {
-                UserStor.userInfo.currency = '\u20AC';//'€'
+                UserStor.userInfo.currency = '\u20AC';//'€';
               } else {
                 UserStor.userInfo.currency = '\xA4';//Generic Currency Symbol
               }

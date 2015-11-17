@@ -307,7 +307,7 @@
                   <tr ng-repeat="addElem in elemCartPanel.C.cart.allAddElemsOrder | filter: {list_group_id: elemType} track by $index" class="aux-list-row">
                     <td class="aux-tablecell-name">
                       <div class="aux-name">
-                        <button ng-class="{'selected': addElem.id === cart.selectedAddElementUnit}" hm-tap="showAddElementUnitDetail(addElem.element_type, addElem.id, $index)" class="aux-params-but aux_connect_but aux-title">{{ addElem.name }}</button>
+                        <button ng-class="{'selected': addElem.id === elemCartPanel.config.selectedAddElemUnit.id}" hm-tap="elemCartPanel.showAddElemUnitDetail(addElem)" class="aux-params-but aux_connect_but aux-title">{{ addElem.name }}</button>
                         <div class="aux-label">{{ 'add_elements.NAME_LABEL' | translate }}</div>
                       </div>
                     </td>
@@ -355,143 +355,123 @@
               </table>
             </div>
           </div>
-        </section>
-        <section ng-class="{'active': cart.isShowAddElementUnit}" class="cart-container addelement-view">
-          <div class="addelementunique-header">
-            <button hm-tap="showAddElementUnitDetail()" class="close-alladdelements"></button>
-            <div class="addelementunit-header-fon"></div>
-            <table class="aux-list-addellement">
-              <tr class="aux-list-row">
-                <td class="aux-tablecell-name">
-                  <div class="aux-name">
-                    <div class="aux-title">{{ cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementName }}</div>
-                    <div class="aux-label">{{ 'add_elements.NAME_LABEL' | translate }}</div>
-                  </div>
-                </td>
-                <td class="aux-tablecell-qty">
-                  <div class="aux-params">
-                    <div class="aux-params-but">{{ cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementQty }}</div>
-                    <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
-                  </div>
-                </td>
-                <td class="aux-tablecell-width">
-                  <div ng-if="cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementWidth" class="aux-params">
-                    <div class="aux-params-but">{{ cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementWidth }}</div>
-                    <div class="aux-label">{{ 'add_elements.WIDTH_LABEL' | translate }}</div>
-                  </div>
-                </td>
-                <td class="aux-tablecell-height">
-                  <div ng-if="cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementHeight" class="aux-params">
-                    <div class="aux-params-but">{{ cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementHeight }}</div>
-                    <div class="aux-label">{{ 'add_elements.HEIGHT_LABEL' | translate }}</div>
-                  </div>
-                </td>
-                <td class="aux-tablecell-color">
-                  <div ng-if="cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementColor" class="aux-params">
-                    <div class="aux-color"><img ng-src="{{ cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementColor }}"></div>
-                    <div class="aux-label">{{ 'add_elements.COLOR_LABEL' | translate }}</div>
-                  </div>
-                </td>
-                <td class="aux-tablecell-price">
-                  <div class="aux-price">+ {{ cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementQty * cart.addElementsUniqueList[cart.selectedAddElementUnitType][cart.selectedAddElementUnitIndex].elementPrice }} {{ global.currency }}</div>
-                </td>
-                <td class="aux-tablecell-delete">
-                  <div hm-tap="deleteAddElementList(cart.selectedAddElementUnitType, cart.selectedAddElementUnitId)" class="aux-delete"></div>
-                </td>
-              </tr>
-            </table>
-          </div>
-          <div class="addelementunits-container">
-            <div class="addelementunit-block">
-              <div ng-repeat="addElem in cart.selectedAddElementUnits track by $index" ng-if="!addElem.isAddElementsONLY &amp;&amp; addElem.productQty === 1" class="addelementunit">
-                <button hm-tap="deleteAddElementUnit('', $index, addElem)" class="addelementunit-delete"></button>
-                <div class="addelementunit-header">
-                  <div class="addelementunit-template">
-                    <svg-template template="global.order.products[(addElem.productId - 1)].templateIcon" template-width="global.svgTemplateIconWidth" template-height="global.svgTemplateIconHeight" type-construction="icon"></svg-template>
-                  </div>
-                </div>
-                <div class="addelementunit-content">
-                  <div class="addelementunit-value">{{ global.order.products[(addElem.productId - 1)].templateWidth }} * {{ global.order.products[(addElem.productId - 1)].templateHeight }} {{ 'mainpage.MM' | translate }}</div>
-                  <div class="addelementunit-value">{{ global.order.products[(addElem.productId - 1)].profileName }}</div>
-                  <div class="addelementunit-value">{{ global.order.products[(addElem.productId - 1)].glassName }}</div>
-                  <div class="addelementunit-value">{{ global.order.products[(addElem.productId - 1)].hardwareName }}</div>
-                  <div class="addelementunit-value">{{ global.order.products[(addElem.productId - 1)].laminationOutName }} / {{ global.order.products[(addElem.productId - 1)].laminationInName }}</div>
-                </div>
-                <div class="addelementunit-footer">{{ addElem.elementQty }} {{ 'add_elements.QTY_LABEL' | translate }}</div>
-              </div>
-            </div>
-            <div ng-repeat="addElem in cart.selectedAddElementUnits track by $index" ng-if="addElem.length &gt; 0" class="addelementunit-train">
-              <div class="addelementunit-train-inner">
-                <div ng-repeat="addElemWagon in addElem track by $index" ng-class="{'unit-last': $last}" class="addelementunit">
-                  <div hm-tap="toggleExplodeLinkMenu()" class="addelementunit-link link-right"></div>
-                  <!--button.addelementunit-delete(hm-tap="deleteAddElementUnit($parent.$index, $index, addElemWagon)")-->
-                  <div class="addelementunit-header">
-                    <div class="addelementunit-template">
-                      <svg-template template="global.order.products[(addElemWagon.productId - 1)].templateIcon" template-width="global.svgTemplateIconWidth" template-height="global.svgTemplateIconHeight" type-construction="icon"></svg-template>
-                    </div>
-                  </div>
-                  <div class="addelementunit-content">
-                    <div class="addelementunit-value">{{ global.order.products[(addElemWagon.productId - 1)].templateWidth }} * {{ global.order.products[(addElemWagon.productId - 1)].templateHeight }} {{ 'mainpage.MM' | translate }}</div>
-                    <div class="addelementunit-value">{{ global.order.products[(addElemWagon.productId - 1)].profileName }}</div>
-                    <div class="addelementunit-value">{{ global.order.products[(addElemWagon.productId - 1)].glassName }}</div>
-                    <div class="addelementunit-value">{{ global.order.products[(addElemWagon.productId - 1)].hardwareName }}</div>
-                    <div class="addelementunit-value">{{ global.order.products[(addElemWagon.productId - 1)].laminationOutName }} / {{ global.order.products[(addElemWagon.productId - 1)].laminationInName }}</div>
-                  </div>
-                  <div class="addelementunit-footer">{{ addElemWagon.elementQty }} {{ 'add_elements.QTY_LABEL' | translate }}</div>
-                  <!--link explode menu-->
-                  <div ng-show="$first &amp;&amp; cart.isShowLinkExplodeMenu" class="link-explode-menu">
-                    <ul class="link-explode-list">
-                      <li hm-tap="explodeUnitToOneProduct($parent.$index)" class="link-explode-item">{{ 'cart.LINK_BETWEEN_COUPLE' | translate }}</li>
-                      <li hm-tap="explodeUnitGroupToProducts($parent.$index)" class="link-explode-item">{{ 'cart.LINK_BETWEEN_ALL' | translate }}</li>
-                      <li hm-tap="deleteAddElementUnit($parent.$index, $index, addElemWagon)" class="link-explode-item">{{ 'cart.LINK_DELETE_ALL_GROUPE' | translate }}</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div ng-repeat="addElem in cart.selectedAddElementUnits track by $index" ng-if="addElem.isAddElementsONLY" class="addelementunit-only">
+          <section ng-class="{'active': elemCartPanel.config.isAddElemUnitDetail}" class="cart-container addelement-view">
+            <div class="addelementunique-header">
+              <button hm-tap="elemCartPanel.closeAddElemUnitDetail()" class="close-alladdelements"></button>
+              <div class="addelementunit-header-fon"></div>
               <table class="aux-list-addellement">
                 <tr class="aux-list-row">
                   <td class="aux-tablecell-name">
                     <div class="aux-name">
-                      <button class="aux-params-but aux_big_but aux-title">{{ addElem.elementName }}</button>
+                      <div class="aux-title">{{ elemCartPanel.config.selectedAddElemUnit.name }}</div>
                       <div class="aux-label">{{ 'add_elements.NAME_LABEL' | translate }}</div>
                     </div>
                   </td>
                   <td class="aux-tablecell-qty">
-                    <div class="aux-params">
-                      <div class="aux-params-but">{{ addElem.elementQty }}</div>
+                    <div ng-show="elemCartPanel.config.selectedAddElemUnit.element_qty" class="aux-params">
+                      <div class="aux-params-but">{{elemCartPanel.config.selectedAddElemUnit.element_qty }}</div>
                       <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
                     </div>
                   </td>
                   <td class="aux-tablecell-width">
-                    <div ng-if="addElem.elementWidth" class="aux-params">
-                      <div class="aux-params-but">{{ addElem.elementWidth }}</div>
+                    <div ng-show="elemCartPanel.config.selectedAddElemUnit.element_width" class="aux-params">
+                      <div class="aux-params-but">{{elemCartPanel.config.selectedAddElemUnit.element_width }}</div>
                       <div class="aux-label">{{ 'add_elements.WIDTH_LABEL' | translate }}</div>
                     </div>
                   </td>
                   <td class="aux-tablecell-height">
-                    <div ng-if="addElem.elementHeight" class="aux-params">
-                      <div class="aux-params-but">{{ addElem.elementHeight }}</div>
+                    <div ng-show="elemCartPanel.config.selectedAddElemUnit.element_height" class="aux-params">
+                      <div class="aux-params-but">{{elemCartPanel.config.selectedAddElemUnit.element_height }}</div>
                       <div class="aux-label">{{ 'add_elements.HEIGHT_LABEL' | translate }}</div>
                     </div>
                   </td>
-                  <td class="aux-tablecell-color">
-                    <div ng-if="addElem.elementColor" class="aux-params">
-                      <div class="aux-color"><img ng-src="{{ addElem.elementColor }}"></div>
-                      <div class="aux-label">{{ 'add_elements.COLOR_LABEL' | translate }}</div>
-                    </div>
-                  </td>
                   <td class="aux-tablecell-price">
-                    <div class="aux-price">+ {{ addElem.elementQty * addElem.elementPrice }} {{ global.currency }}</div>
+                    <div class="aux-price">+ {{ elemCartPanel.config.selectedAddElemUnit.element_qty * elemCartPanel.config.selectedAddElemUnit.elementPriceDis }} {{ elemCartPanel.U.userInfo.currency }}</div>
                   </td>
                   <td class="aux-tablecell-delete">
-                    <div hm-tap="deleteAddElementUnit('', $index, addElem)" class="aux-delete"></div>
+                    <div hm-tap="elemCartPanel.deleteAddElemsItem(elemCartPanel.config.selectedAddElemUnit)" class="aux-delete"></div>
                   </td>
                 </tr>
               </table>
             </div>
-          </div>
+            <div class="addelementunits-container">
+              <div class="addelementunit-block">
+                <div ng-repeat="addElemUnit in elemCartPanel.config.addElemUnitProducts track by $index" ng-if="!addElemUnit.is_addelem_only &amp;&amp; !addElemUnit.length" class="addelementunit">
+                  <button hm-tap="elemCartPanel.deleteAddElemUnit(addElemUnit.productIndex)" class="addelementunit-delete"></button>
+                  <div class="addelementunit-header">
+                    <div class="addelementunit-template">
+                      <svg-template template="elemCartPanel.O.order.products[addElemUnit.productIndex].templateIcon" template-width="elemCartPanel.constants.svgTemplateIconWidth" template-height="elemCartPanel.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
+                    </div>
+                  </div>
+                  <div class="addelementunit-content">
+                    <div class="addelementunit-value">{{ elemCartPanel.O.order.products[addElemUnit.productIndex].template_width }} * {{ elemCartPanel.O.order.products[addElemUnit.productIndex].template_height }} {{ 'mainpage.MM' | translate }}</div>
+                  </div>
+                  <div class="addelementunit-footer">{{ addElemUnit.element_qty }} {{ 'add_elements.QTY_LABEL' | translate }}</div>
+                </div>
+              </div>
+              <div ng-repeat="addElemUnit in elemCartPanel.config.addElemUnitProducts track by $index" ng-if="addElemUnit.length &gt; 0" class="addelementunit-train">
+                <div class="addelementunit-train-inner">
+                  <div ng-repeat="addElemWagon in addElemUnit track by $index" ng-class="{'unit-last': $last}" class="addelementunit">
+                    <div hm-tap="elemCartPanel.toggleExplodeLinkMenu($index)" class="addelementunit-link link-right"></div>
+                    <!--button.addelementunit-delete(hm-tap="deleteAddElementUnit($parent.$index, $index, addElemWagon)")-->
+                    <div class="addelementunit-header">
+                      <div class="addelementunit-template">
+                        <svg-template template="elemCartPanel.O.order.products[addElemWagon.productIndex].templateIcon" template-width="elemCartPanel.constants.svgTemplateIconWidth" template-height="elemCartPanel.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
+                      </div>
+                    </div>
+                    <div class="addelementunit-content">
+                      <div class="addelementunit-value">{{ elemCartPanel.O.order.products[addElemWagon.productIndex].template_width }} * {{ elemCartPanel.O.order.products[addElemWagon.productIndex].template_height }} {{ 'mainpage.MM' | translate }}</div>
+                    </div>
+                    <div class="addelementunit-footer">{{ addElemWagon.element_qty }} {{ 'add_elements.QTY_LABEL' | translate }}</div>
+                    <!--link explode menu .link-explode-menu(ng-show="$first && elemCartPanel.config.isLinkExplodeMenu")-->
+                  </div>
+                </div>
+                <div ng-show="elemCartPanel.config.isLinkExplodeMenu" class="link-explode-menu">
+                  <ul class="link-explode-list">
+                    <li hm-tap="explodeUnitToOneProduct($parent.$index)" class="link-explode-item">{{ 'cart.LINK_BETWEEN_COUPLE' | translate }}</li>
+                    <li hm-tap="explodeUnitGroupToProducts($parent.$index)" class="link-explode-item">{{ 'cart.LINK_BETWEEN_ALL' | translate }}</li>
+                    <li hm-tap="deleteAddElementUnit($parent.$index, $index, addElemWagon)" class="link-explode-item">{{ 'cart.LINK_DELETE_ALL_GROUPE' | translate }}</li>
+                  </ul>
+                </div>
+              </div>
+              <div ng-repeat="addElemUnit in elemCartPanel.config.addElemUnitProducts track by $index" ng-if="addElemUnit.is_addelem_only" class="addelementunit-only">
+                <table class="aux-list-addellement">
+                  <tr class="aux-list-row">
+                    <td class="aux-tablecell-name">
+                      <div class="aux-name">
+                        <button class="aux-params-but aux_big_but aux-title">{{ addElemUnit.name }}</button>
+                        <div class="aux-label">{{ 'add_elements.NAME_LABEL' | translate }}</div>
+                      </div>
+                    </td>
+                    <td class="aux-tablecell-qty">
+                      <div class="aux-params">
+                        <div class="aux-params-but">{{ addElemUnit.element_qty }}</div>
+                        <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
+                      </div>
+                    </td>
+                    <td class="aux-tablecell-width">
+                      <div ng-if="addElemUnit.element_width" class="aux-params">
+                        <div class="aux-params-but">{{ addElemUnit.element_width }}</div>
+                        <div class="aux-label">{{ 'add_elements.WIDTH_LABEL' | translate }}</div>
+                      </div>
+                    </td>
+                    <td class="aux-tablecell-height">
+                      <div ng-if="addElemUnit.element_height" class="aux-params">
+                        <div class="aux-params-but">{{ addElemUnit.element_height }}</div>
+                        <div class="aux-label">{{ 'add_elements.HEIGHT_LABEL' | translate }}</div>
+                      </div>
+                    </td>
+                    <td class="aux-tablecell-price">
+                      <div class="aux-price">+ {{ addElemUnit.element_qty * addElemUnit.elementPriceDis }} {{ elemCartPanel.U.userInfo.currency }}</div>
+                    </td>
+                    <td class="aux-tablecell-delete">
+                      <div hm-tap="elemCartPanel.deleteAddElemUnit(addElemUnit.productIndex)" class="aux-delete"></div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </section>
         </section>
       </section>
     </section>

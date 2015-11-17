@@ -1921,13 +1921,9 @@
           }
         }
       }
+//      console.warn('currencies+++++++', GlobalStor.global.currencies[currIndex], GlobalStor.global.currencies[elemIndex]);
       if(GlobalStor.global.currencies[currIndex] && GlobalStor.global.currencies[elemIndex]) {
-        if( /(uah|rub)/.test(GlobalStor.global.currencies[currIndex].name) && /(eur|usd|$)/.test(GlobalStor.global.currencies[elemIndex].name) ) {
-          price *= GlobalStor.global.currencies[elemIndex].value;
-        }
-        if( /(eur|usd|$)/.test(GlobalStor.global.currencies[currIndex].name) && /(uah|rub)/.test(GlobalStor.global.currencies[elemIndex].name) ) {
-          price /= GlobalStor.global.currencies[currIndex].value;
-        }
+        price *= GlobalStor.global.currencies[elemIndex].value;
       }
       return price;
     }
@@ -2379,7 +2375,6 @@
 
                   /** currency conversion */
                   if (UserStor.userInfo.currencyId != constrElem.currency_id){
-//                      console.log('diff currency');
                     priceTemp = currencyExgange(priceTemp, constrElem.currency_id);
                   }
                   constrElem.qty = 1;

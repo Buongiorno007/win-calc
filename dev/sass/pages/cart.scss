@@ -38,6 +38,7 @@
     &.addelement-view {
       @include top_left_coord(0px, -2500px);
       @include transition(all 0.5s linear);
+      height: 100%;
       z-index: 7;
     }
     &.active {
@@ -603,13 +604,9 @@
 
   .aux-list-block {
     &:last-child {
-      .aux-block-inner {
-        padding: rem(50px) 0 0 0;
-        border: none;
-      }
+      padding: rem(50px) 0 0 0;
     }
   }
-
   .aux-block-inner {
     padding: rem(50px) 0;
     border-bottom: 1px solid $main_gray_btn;
@@ -664,6 +661,15 @@
     }
     .aux-tablecell-delete {
       width: rem(100px);
+    }
+
+    .aux-params {
+      text-align: center;
+
+      .aux-params-but {
+        border: none;
+        cursor: default;
+      }
     }
   }
 
@@ -747,11 +753,8 @@
 }
 
 .addelementunits-container {
-  @include overflow-scroll();
-  height: 94%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  margin-top: 2%;
+  @extend .scroll-vert-container;
+  margin: 2% 0 0 -3rem;
   padding-top: 3%;
 }
 
