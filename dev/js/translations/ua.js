@@ -277,7 +277,7 @@
         WRONG_EMAIL: 'Невірна електронна пошта',
         LINK_BETWEEN_COUPLE: 'між парою',
         LINK_BETWEEN_ALL: 'між усіма',
-        LINK_DELETE_ALL_GROUPE: 'видалити усі',
+//        LINK_DELETE_ALL_GROUPE: 'видалити усі',
         CLIENT_SEX: 'Стать',
         CLIENT_SEX_M: 'Ч',
         CLIENT_SEX_F: 'Ж',

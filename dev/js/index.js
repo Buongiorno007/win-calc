@@ -13,7 +13,7 @@ var isDevice = ( /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i.te
   if(/(chrome|Chromium|safari|firefox|Opera|Yandex|internet explorer|Seamonkey)/i.test(window.navigator.userAgent)) {
     isDevice = 0;
   }
-  console.log('platform===', isDevice);
+  console.log('isDevice===', isDevice);
 
 
   if(isDevice) {

@@ -84,14 +84,17 @@
     }
 
     /** REPORT */
-    $document.off("keypress");
-    $document.bind("keypress", function(event) {
+
+//    $document.off("keypress");
+//    $document.bind("keypress", function(event) {
+    $('.main-central-part').off("keypress");
+    $('.main-central-part').keypress(function(event) {
 //      console.log(UserStor.userInfo.user_type);
-//      console.log(event);
+      console.log(event.keyCode);
       //------ show report only for Plands (5,7)
       if(UserStor.userInfo.user_type === 5 || UserStor.userInfo.user_type === 7) {
         //----- Button 'R'
-        if(event.keyCode === 82 || event.keyCode === 114 || event.keyCode === 1082) {
+        if(event.keyCode === 82 || event.keyCode === 114) {
           showReport();
         }
       }

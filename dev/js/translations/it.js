@@ -277,7 +277,7 @@
         WRONG_EMAIL: 'Posta elettronica errata',
         LINK_BETWEEN_COUPLE: 'tra coppia',
         LINK_BETWEEN_ALL: 'tra tutti',
-        LINK_DELETE_ALL_GROUPE: 'cancelare tutto',
+//        LINK_DELETE_ALL_GROUPE: 'cancelare tutto',
         CLIENT_SEX: 'di sesso',
         CLIENT_SEX_M: 'U',
         CLIENT_SEX_F: 'D',

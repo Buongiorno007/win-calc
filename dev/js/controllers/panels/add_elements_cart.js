@@ -22,13 +22,9 @@
       selectedAddElemUnit: {id: 0},
       isAddElemUnitDetail: 0,
       addElemUnitProducts: [],
-      isLinkExplodeMenu: 0
-      //      selectedAddElementUnitId: 0,
-      //      selectedAddElementUnitIndex: 0,
-      //      selectedAddElementUnitType: 0,
-      //      selectedAddElementUnits: [],
-      //      isOrderHaveAddElements: false,
-      //      isShowLinkExplodeMenu: false,
+      isLinkExplodeMenu: 0,
+      explodeMenuTop: 0,
+      explodeMenuLeft: 0
     };
 
     //------ clicking
@@ -40,6 +36,7 @@
     thisCtrl.closeAddElemUnitDetail = closeAddElemUnitDetail;
     thisCtrl.deleteAddElemUnit = deleteAddElemUnit;
     thisCtrl.toggleExplodeLinkMenu = toggleExplodeLinkMenu;
+    thisCtrl.explodeUnitToProduct = explodeUnitToProduct;
 
 
     function closeAllAddElemsPanel() {
@@ -172,7 +169,7 @@
                     is_addelem_only: OrderStor.order.products[i].is_addelem_only,
                     element_width: CartStor.cart.allAddElements[i][j].element_width,
                     element_height: CartStor.cart.allAddElements[i][j].element_height,
-                    element_qty: CartStor.cart.allAddElements[i][j].element_qty * OrderStor.order.products[i].product_qty,
+                    element_qty: CartStor.cart.allAddElements[i][j].element_qty,
                     elementPriceDis: CartStor.cart.allAddElements[i][j].elementPriceDis
                   };
                   thisCtrl.config.addElemUnitProducts.push(addElemProd);
@@ -182,7 +179,7 @@
                   addElemProd = {
                     productIndex: i,
                     is_addelem_only: OrderStor.order.products[i].is_addelem_only,
-                    element_qty: CartStor.cart.allAddElements[i][j].element_qty
+                    element_qty: CartStor.cart.allAddElements[i][j].element_qty / OrderStor.order.products[i].product_qty
                   };
 //                  console.info('addElemProd------', thisCtrl.config.selectedAddElemUnit);
 //                  console.info('addElemProd------', CartStor.cart.allAddElements[i][j]);
@@ -214,17 +211,23 @@
     function closeAddElemUnitDetail() {
       thisCtrl.config.isAddElemUnitDetail = 0;
       thisCtrl.config.selectedAddElemUnit = {id: 0};
+      thisCtrl.config.isLinkExplodeMenu = 0;
     }
 
 
 
-    function deleteAddElemUnit(productIndex) {
-      console.info('delet----', productIndex);
+    function deleteAddElemUnit(addElemUnit, isWagon) {
+      console.info('delet----', thisCtrl.config.selectedAddElemUnit);
 
-      //------- delete AddElem in Product
-      delAddElemUnitInProduct(productIndex);
+      if(isWagon) {
+        //------- decrease Product quantity
+        CartServ.decreaseProductQty(addElemUnit[0].productIndex);
+      } else {
+        //------- delete AddElem in Product
+        delAddElemUnitInProduct(addElemUnit);
+        CartServ.joinAllAddElements();
+      }
 
-      CartServ.joinAllAddElements();
       //------ if last AddElem was delete
       if(!CartStor.cart.isExistAddElems) {
         //------ go back in cart
@@ -233,6 +236,8 @@
       } else {
         CartServ.showAllAddElements();
         collectAddElemUnitProducts();
+        //------ change selected AddElemUnit
+        reviewAddElemUnit();
       }
       //------ culculate AddElems Price in each Products
       calculateAddElemsProductsPrice(1);
@@ -264,97 +269,67 @@
     }
 
 
-
-
-    //-------- Show/Hide Explode Link Menu
-    function toggleExplodeLinkMenu(prodInd) {
-      console.log(prodInd);
-      thisCtrl.config.isLinkExplodeMenu = !thisCtrl.config.isLinkExplodeMenu;
+    function reviewAddElemUnit() {
+      var addElemsQty = CartStor.cart.allAddElemsOrder.length,
+        noExist = 1;
+      while(--addElemsQty > -1) {
+        if(CartStor.cart.allAddElemsOrder[addElemsQty].id === thisCtrl.config.selectedAddElemUnit.id) {
+          thisCtrl.config.selectedAddElemUnit.element_qty = angular.copy(CartStor.cart.allAddElemsOrder[addElemsQty].element_qty);
+          --noExist;
+        }
+      }
+      if(noExist) {
+        closeAddElemUnitDetail();
+      }
     }
 
 
+    /**-------- Show/Hide Explode Link Menu ------*/
+    function toggleExplodeLinkMenu(prodInd, event) {
+      console.log(prodInd);
+      console.log(event.center);
+      thisCtrl.config.isLinkExplodeMenu = !thisCtrl.config.isLinkExplodeMenu;
+      thisCtrl.config.explodeMenuTop = event.center.y - 50;
+      thisCtrl.config.explodeMenuLeft = event.center.x - 30;
+    }
 
 
-    //
-    //
-    //    //------ delete AddElement Unit in selectedAddElementUnits panel
-    //    $scope.deleteAddElementUnit = function(parentIndex, elementIndex, addElementUnit) {
-    //      console.log('start delete addElementsUniqueList = ', $scope.cart.addElementsUniqueList);
-    //      //---- close selectedAddElementUnits panel when we delete last unit
-    //      if($scope.cart.selectedAddElementUnits.length === 1) {
-    //        $scope.deleteAddElementList($scope.cart.selectedAddElementUnitType, addElementUnit.elementId);
-    //        $scope.cart.selectedAddElementUnits.length = 0;
-    //        $scope.cart.isShowLinkExplodeMenu = false;
-    //      } else if($scope.cart.selectedAddElementUnits.length > 1) {
-    //        if(parentIndex === '') {
-    //          $scope.cart.selectedAddElementUnits.splice(elementIndex, 1);
-    //        } else {
-    //          //-------- Delete all group
-    //          $scope.cart.isShowLinkExplodeMenu = false;
-    //          $scope.cart.selectedAddElementUnits.splice(parentIndex, 1);
-    //        }
-    //        var curentType = $scope.cart.selectedAddElementUnitType;
-    //        for (var el = ($scope.cart.allAddElementsList[curentType].length - 1); el >= 0; el--) {
-    //          if($scope.cart.allAddElementsList[curentType][el].productId === addElementUnit.productId && $scope.cart.allAddElementsList[curentType][el].elementId === addElementUnit.elementId) {
-    //            $scope.cart.allAddElementsList[curentType].splice(el, 1);
-    //          }
-    //        }
-    //        $scope.cleaningAllAddElementsList();
-    //        for (var p = 0; p < $scope.global.order.products.length; p++) {
-    //          for (var prop in $scope.global.order.products[p].chosenAddElements) {
-    //            if (!$scope.global.order.products[p].chosenAddElements.hasOwnProperty(prop)) {
-    //              continue;
-    //            }
-    //            if ((prop.toUpperCase()).indexOf(curentType.toUpperCase()) + 1 && $scope.global.order.products[p].chosenAddElements[prop].length > 0) {
-    //              for (var elem = ($scope.global.order.products[p].chosenAddElements[prop].length - 1); elem >= 0; elem--) {
-    //                if ($scope.global.order.products[p].productId === addElementUnit.productId && $scope.global.order.products[p].chosenAddElements[prop][elem].elementId === addElementUnit.elementId) {
-    //                  $scope.global.order.products[p].addElementsPriceSELECT -= $scope.global.order.products[p].chosenAddElements[prop][elem].elementPrice;
-    //                  $scope.global.order.products[p].productPriceTOTAL -= $scope.global.order.products[p].chosenAddElements[prop][elem].elementPrice;
-    //                  $scope.global.order.products[p].chosenAddElements[prop].splice(elem, 1);
-    //                }
-    //              }
-    //            }
-    //          }
-    //        }
-    //        console.log($scope.global.order.products);
-    //        $scope.getTOTALAddElementsPrice();
-    //        $scope.parseAddElementsLocaly();
-    //        $scope.global.calculateOrderPrice();
-    //
-    //      }
-    //      console.log('end delete addElementsUniqueList = ', $scope.cart.addElementsUniqueList);
-    //    };
-    //
-    //
-    //
-    //    //-------- Explode group to one unit
-    //    $scope.explodeUnitToOneProduct = function(parentIndex) {
-    //      $scope.cart.isShowLinkExplodeMenu = !$scope.cart.isShowLinkExplodeMenu;
-    //
-    //      //----- change selected product
-    //      var currentProductId = $scope.cart.selectedAddElementUnits[parentIndex][0].productId;
-    //      var currentProductIndex = currentProductId - 1;
-    //      var newProductsQty = $scope.global.order.products[currentProductIndex].productQty - 1;
-    //
-    //      // making clone
-    //      var cloneProduct = angular.copy($scope.global.order.products[currentProductIndex]);
-    //      cloneProduct.productId = '';
-    //      cloneProduct.productQty = 1;
-    //      $scope.global.order.products.push(cloneProduct);
-    //
-    //      $scope.global.order.products[currentProductIndex].productQty = newProductsQty;
-    //      // Change product value in DB
-    //      localDB.updateDB(localDB.productsTableBD, {"productQty": newProductsQty}, {'orderId': {"value": $scope.global.order.orderId, "union": 'AND'}, "productId": currentProductId});
-    //
-    //      console.log('selectedAddElementUnits == ', $scope.cart.selectedAddElementUnits);
-    //      console.log('selected obj == ', $scope.cart.selectedAddElementUnits[parentIndex][0]);
-    //      console.log('selected product id== ' );
-    //    };
-    //
-    //    //-------- Explode all group
-    //    $scope.explodeUnitGroupToProducts = function(parentIndex) {
-    //      $scope.cart.isShowLinkExplodeMenu = !$scope.cart.isShowLinkExplodeMenu;
-    //    };
+    /**-------- Explode by Products ------*/
+    function explodeUnitToProduct(addElemUnit, isAllProducts) {
+      var lastProductId = d3.max(OrderStor.order.products.map(function (item) {
+            return item.product_id;
+          })),
+          cloneProduct = angular.copy(OrderStor.order.products[addElemUnit[0].productIndex]),
+          newProductQty = cloneProduct.product_qty-1;
+
+      cloneProduct.product_qty = 1;
+
+      //--------- whole explode product
+      if(isAllProducts) {
+        OrderStor.order.products[addElemUnit[0].productIndex].product_qty = 1;
+        while(--newProductQty > -1) {
+          CartServ.addCloneProductInOrder(cloneProduct, lastProductId);
+        }
+      } else {
+        //--------- explode product once
+        OrderStor.order.products[addElemUnit[0].productIndex].product_qty -= 1;
+        CartServ.addCloneProductInOrder(cloneProduct, lastProductId);
+      }
+
+      thisCtrl.config.isLinkExplodeMenu = 0;
+      CartServ.joinAllAddElements();
+
+      CartServ.showAllAddElements();
+      collectAddElemUnitProducts();
+      //------ change selected AddElemUnit
+      reviewAddElemUnit();
+
+      //------ culculate AddElems Price in each Products
+      calculateAddElemsProductsPrice(1);
+      //------ change order Price
+      CartMenuServ.calculateOrderPrice();
+
+    }
 
 
   }

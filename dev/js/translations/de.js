@@ -277,7 +277,7 @@
         WRONG_EMAIL: 'Falsche E-Mail',
         LINK_BETWEEN_COUPLE: 'zwischen einem Paar von',
         LINK_BETWEEN_ALL: 'unter allen',
-        LINK_DELETE_ALL_GROUPE: 'unter allen',
+//        LINK_DELETE_ALL_GROUPE: 'unter allen',
         CLIENT_SEX: 'Paul',
         CLIENT_SEX_M: 'M',
         CLIENT_SEX_F: 'F',

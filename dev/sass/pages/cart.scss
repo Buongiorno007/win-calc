@@ -575,7 +575,7 @@
 .alladdelements-header {
   position: relative;
   width: 100%;
-  height: rem(100px);
+  height: 8rem;
 }
 .close-alladdelements {
   @extend .button;
@@ -597,7 +597,7 @@
   @include overflow-scroll();
   overflow-x: hidden;
   overflow-y: auto;
-  height: 95%;
+  height: 75%;
   @extend .parameters-block;
   padding-right: 3rem;
   margin-right: -6rem;
@@ -673,6 +673,39 @@
     }
   }
 
+}
+
+
+.product-selector {
+  position: relative;
+  height: 20%;
+
+  .product-selector-block {
+    @include transition(top 0.5s linear);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 112%;
+//    height: 50rem;
+    margin-left: -7rem;
+    padding: 3rem;
+    background-color: #848484;
+
+    &.active {
+      top: -38rem;
+    }
+
+    .products-block {
+      .product {
+        @extend .addelementunit;
+        text-align: left;
+      }
+    }
+    .nav-products-block {
+      width: 20%;
+    }
+
+  }
 }
 
 
@@ -815,6 +848,7 @@
   }
 
   .addelementunit {
+    margin-top: 1.5rem;
     &.unit-last {
       .link-right {
         display: none;
@@ -824,12 +858,20 @@
 
   .addelementunit-link {
     position: absolute;
-    bottom: rem(50px);
-    width: rem(60px);
-    height: rem(80px);
-    border-bottom: 1px solid $aux_big_color;
+    bottom: 0;
+    width: 3.75rem;
+    height: 6rem;
+    cursor: pointer;
     &.link-right {
       right: rem(-55px);
+    }
+    &:before {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: inherit;
+      border-top: 1px solid $aux_big_color;
+      content: ' ';
     }
   }
 
@@ -839,8 +881,7 @@
   .link-explode-menu {
     @include roboto-lt(rem(36px), rem(65px));
     position: absolute;
-    bottom: rem(95px);
-    right: -40rem;
+    min-width: 32rem;
     padding: 0 rem(20px);
     border-radius: rem(16px);
     background-color: #242424;

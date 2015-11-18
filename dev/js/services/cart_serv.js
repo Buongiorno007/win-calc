@@ -19,9 +19,9 @@
       clickDeleteProduct: clickDeleteProduct,
       editProduct: editProduct,
 
-      showAllAddElements: showAllAddElements
-//      collectAllAddElems: collectAllAddElems,
-//      getAddElemsPriceTotal: getAddElemsPriceTotal
+      showAllAddElements: showAllAddElements,
+      createProductCopy: createProductCopy,
+      addCloneProductInOrder: addCloneProductInOrder
     };
 
     return thisFactory.publicObj;
@@ -51,8 +51,18 @@
           if(elementsQty > 0) {
             for(var elem = 0; elem < elementsQty; elem++) {
               tempElement = angular.copy(OrderStor.order.products[prod].chosenAddElements[type][elem]);
-              tempElement.element_qty *= OrderStor.order.products[prod].product_qty;
-              product.push(tempElement);
+              var element = {
+                id: tempElement.id,
+                list_group_id: tempElement.list_group_id,
+                name: tempElement.name,
+                elementPriceDis: tempElement.elementPriceDis,
+                element_price: tempElement.element_price,
+                element_qty: tempElement.element_qty * OrderStor.order.products[prod].product_qty,
+                element_type: tempElement.element_type,
+                element_width: tempElement.element_width,
+                element_height: tempElement.element_height
+              };
+              product.push(element);
             }
           }
         }
@@ -82,6 +92,7 @@
     //----- Increase Product Qty
     function increaseProductQty(productIndex) {
       OrderStor.order.products[productIndex].product_qty += 1;
+      joinAllAddElements();
       CartMenuServ.calculateOrderPrice();
     }
 
@@ -97,6 +108,7 @@
         OrderStor.order.products[productIndex].product_qty -= 1;
         CartMenuServ.calculateOrderPrice();
       }
+      joinAllAddElements();
     }
 
 
@@ -198,9 +210,28 @@
       var productsQty = OrderStor.order.products.length;
       CartStor.cart.addElemsOrderPriceTOTAL = 0;
       while(--productsQty > -1) {
-        CartStor.cart.addElemsOrderPriceTOTAL += OrderStor.order.products[productsQty].addelemPriceDis;
+        CartStor.cart.addElemsOrderPriceTOTAL += (OrderStor.order.products[productsQty].addelemPriceDis * OrderStor.order.products[productsQty].product_qty);
       }
       CartStor.cart.addElemsOrderPriceTOTAL = GeneralServ.roundingNumbers(CartStor.cart.addElemsOrderPriceTOTAL);
+    }
+
+
+
+    function createProductCopy(currProdInd) {
+      var lastProductId = d3.max(OrderStor.order.products.map(function(item) {
+            return item.product_id;
+          })),
+      cloneProduct = angular.copy(OrderStor.order.products[currProdInd]);
+      addCloneProductInOrder(cloneProduct, lastProductId);
+      joinAllAddElements();
+      CartMenuServ.calculateOrderPrice();
+    }
+
+
+    function addCloneProductInOrder(cloneProduct, lastProductId) {
+      ++lastProductId;
+      cloneProduct.product_id = lastProductId;
+      OrderStor.order.products.push(cloneProduct);
     }
 
 

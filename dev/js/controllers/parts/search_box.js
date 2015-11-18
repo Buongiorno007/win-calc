@@ -15,7 +15,7 @@
 
     //------ clicking
     //----------- for AddElements List View
-    if(GlobalStor.global.currOpenPage === 'main') {
+    if(GlobalStor.global.currOpenPage === 'main' || GlobalStor.global.currOpenPage === 'cart') {
       thisCtrl.placeholder = $filter('translate')('add_elements.INPUT_ADD_ELEMENT');
       thisCtrl.checkChanges = checkChanges;
       thisCtrl.cancelSearching = cancelSearching;
@@ -27,7 +27,6 @@
       thisCtrl.cancelSearching = cancelSearchingHistory;
       thisCtrl.deleteSearchChart = deleteSearchChartHistory;
     }
-
 
     //============ methods ================//
 

@@ -2,6 +2,7 @@
 section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as elemCartPanel", ng-class="{'active': elemCartPanel.C.cart.isAllAddElems}")
   .alladdelements-header
     button.close-alladdelements(hm-tap="elemCartPanel.closeAllAddElemsPanel()")
+    include ../parts/_search-block
   .alladdelements-block
 
     .aux-list-block(ng-repeat="elemType in elemCartPanel.config.addElemsTypes track by $index", ng-class="{'aux_color_connect': (!$index || $index === 6), 'aux_color_big': ($index === 1 || $index === 8), 'aux_color_middle': ($index === 2 || $index === 4 || $index === 9 || $index === 10), 'aux_color_slope': ($index === 3 || $index === 5), 'aux_color_small': $index === 7}")
@@ -54,7 +55,38 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
             .aux-delete(hm-tap="elemCartPanel.deleteAllAddElems()")
 
 
+  .product-selector
+    .product-selector-block
+      .products-block
 
+        .product(ng-repeat="product in cartPage.O.order.products track by $index")
+          .select-mark
+          .order-header
+            .product-icon-thumb
+              svg-template(template="cartPage.O.order.products[cartPage.config.detailProductIndex].templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="icon")
+              span.product-template-qty X {{ cartPage.O.order.products[cartPage.config.detailProductIndex].product_qty }}
+          .order-content
+            ul.order-list
+              li.order-item
+                .order-value {{ product.template_width }} {{ 'mainpage.MM' | translate }}
+                .order-value {{ product.template_height }} {{ 'mainpage.MM' | translate }}
+                .order-label {{ 'mainpage.CONFIGMENU_SIZING' | translate }}
+              li.order-item
+                .order-value {{ product.profile.name }}
+                .order-label {{ 'mainpage.CONFIGMENU_PROFILE' | translate }}
+              li.order-item
+                .order-value {{ product.glass[0].sku }}
+                .order-label {{ 'mainpage.CONFIGMENU_GLASS' | translate }}
+              li.order-item
+                .order-value {{ product.hardware.name }}
+                .order-label {{ 'mainpage.CONFIGMENU_HARDWARE' | translate }}
+              li.order-item
+                .order-label {{ 'mainpage.CONFIGMENU_LAMINATION_TYPE' | translate }}
+                .order-value {{ product.laminationOutName }} / {{ product.laminationInName }}
+                .order-label {{ 'mainpage.CONFIGMENU_LAMINATION' | translate }}
+          .order-footer(price-fixed="{{product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{cartPage.U.userInfo.currency}}")
+
+      .nav-products-block
 
 
 
@@ -105,21 +137,19 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
       .addelementunit-train(ng-repeat="addElemUnit in elemCartPanel.config.addElemUnitProducts track by $index", ng-if="addElemUnit.length > 0")
         .addelementunit-train-inner
           .addelementunit(ng-repeat="addElemWagon in addElemUnit track by $index", ng-class="{'unit-last': $last}")
-            .addelementunit-link.link-right(hm-tap="elemCartPanel.toggleExplodeLinkMenu($index)")
-            //button.addelementunit-delete(hm-tap="deleteAddElementUnit($parent.$index, $index, addElemWagon)")
+            .addelementunit-link.link-right(hm-tap="elemCartPanel.toggleExplodeLinkMenu($index, $event)")
+            button.addelementunit-delete(hm-tap="elemCartPanel.deleteAddElemUnit(addElemUnit, 1)")
             .addelementunit-header
               .addelementunit-template
                 svg-template(template="elemCartPanel.O.order.products[addElemWagon.productIndex].templateIcon", template-width="elemCartPanel.constants.svgTemplateIconWidth", template-height="elemCartPanel.constants.svgTemplateIconHeight", type-construction="icon")
             .addelementunit-content
               .addelementunit-value {{ elemCartPanel.O.order.products[addElemWagon.productIndex].template_width }} * {{ elemCartPanel.O.order.products[addElemWagon.productIndex].template_height }} {{ 'mainpage.MM' | translate }}
             .addelementunit-footer {{ addElemWagon.element_qty }} {{ 'add_elements.QTY_LABEL' | translate }}
-            //link explode menu .link-explode-menu(ng-show="$first && elemCartPanel.config.isLinkExplodeMenu")
 
-        .link-explode-menu(ng-show="elemCartPanel.config.isLinkExplodeMenu")
+        .link-explode-menu(ng-show="elemCartPanel.config.isLinkExplodeMenu", ng-style="{'top': elemCartPanel.config.explodeMenuTop+'px', 'left': elemCartPanel.config.explodeMenuLeft+'px'}")
           ul.link-explode-list
-            li.link-explode-item(hm-tap="explodeUnitToOneProduct($parent.$index)") {{ 'cart.LINK_BETWEEN_COUPLE' | translate }}
-            li.link-explode-item(hm-tap="explodeUnitGroupToProducts($parent.$index)") {{ 'cart.LINK_BETWEEN_ALL' | translate }}
-            li.link-explode-item(hm-tap="deleteAddElementUnit($parent.$index, $index, addElemWagon)") {{ 'cart.LINK_DELETE_ALL_GROUPE' | translate }}
+            li.link-explode-item(hm-tap="elemCartPanel.explodeUnitToProduct(addElemUnit)") {{ 'cart.LINK_BETWEEN_COUPLE' | translate }}
+            li.link-explode-item(hm-tap="elemCartPanel.explodeUnitToProduct(addElemUnit, 1)") {{ 'cart.LINK_BETWEEN_ALL' | translate }}
 
 
       .addelementunit-only(ng-repeat="addElemUnit in elemCartPanel.config.addElemUnitProducts track by $index", ng-if="addElemUnit.is_addelem_only")

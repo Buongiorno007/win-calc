@@ -407,6 +407,7 @@
           ProductStor.product.template_square += ProductStor.product.template.details[0].overallDim[overallQty].square;
         }
 
+//        console.warn(ProductStor.product.template_width, ProductStor.product.template_height);
 //        console.log('objXFormedPrice+++++++', JSON.stringify(objXFormedPrice));
 //        console.log('objXFormedPrice+++++++', objXFormedPrice);
 
@@ -469,7 +470,6 @@
     function calculationPrice(obj) {
       var deferred = $q.defer();
       localDB.calculationPrice(obj).then(function (result) {
-        console.log('price-------', result);
         if(result.priceTotal){
           ProductStor.product.template_price = GeneralServ.addMarginToPrice(result.priceTotal, GlobalStor.global.margins.coeff);
           setProductPriceTOTAL(ProductStor.product);

@@ -340,7 +340,7 @@ th {
   src: url('../fonts/icons/icomoon.ttf?1447154475') format('truetype');
 }
 /* line 218, ../../dev/sass/base/_animations.scss */
-.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
+.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .addelementunit, .cart-page .product-selector .product-selector-block .products-block .product, .product-selector .product-selector-block .products-block .cart-page .product, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .glass-container .glass-selector-dialog .set-glass-btn, .glass-container .glass-selector-dialog .set-glass-all-btn, .hardware-container .hardware-box, .lamination-container .lamination-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
   -moz-animation: splashing 0.5s ease 0s 1;
   -webkit-animation: splashing 0.5s ease 0s 1;
@@ -1908,6 +1908,16 @@ div.drum figure {
   color: #363636;
 }
 
+/* line 57, ../../dev/sass/parts/_user-info.scss */
+.main-central-part {
+  position: absolute;
+  top: 12rem;
+  left: 0;
+  height: 75%;
+  width: 100%;
+  outline: none;
+}
+
 /* line 1, ../../dev/sass/parts/_room-info.scss */
 .room-info-container {
   -moz-transition: height 0.5s linear;
@@ -3371,15 +3381,6 @@ div.drum figure {
   box-shadow: 0 0 0.5rem 0.4375rem rgba(248, 65, 65, 0.1);
 }
 
-/* line 1, ../../dev/sass/parts/_main-cental.scss */
-.main-central-part {
-  position: absolute;
-  top: 12rem;
-  left: 0;
-  bottom: 25rem;
-  width: 100%;
-}
-
 /* line 1, ../../dev/sass/parts/_info-box.scss */
 .info_container {
   visibility: hidden;
@@ -4583,7 +4584,7 @@ tr.factory_item {
   color: #fff;
 }
 /* line 81, ../../dev/sass/pages/cart.scss */
-.cart-page .order, .cart-page .addelementunit {
+.cart-page .order, .cart-page .addelementunit, .cart-page .product-selector .product-selector-block .products-block .product, .product-selector .product-selector-block .products-block .cart-page .product {
   -moz-box-shadow: rgba(0, 0, 0, 0.3) 0.9375rem 0.625rem 1.875rem 0;
   -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0.9375rem 0.625rem 1.875rem 0;
   box-shadow: rgba(0, 0, 0, 0.3) 0.9375rem 0.625rem 1.875rem 0;
@@ -4857,7 +4858,7 @@ tr.factory_item {
   z-index: 4;
 }
 /* line 322, ../../dev/sass/pages/cart.scss */
-.full-view .order, .full-view .addelementunit {
+.full-view .order, .full-view .addelementunit, .full-view .product-selector .product-selector-block .products-block .product, .product-selector .product-selector-block .products-block .full-view .product {
   width: 32rem;
   float: left;
   border-bottom-right-radius: 1.25rem;
@@ -4937,7 +4938,7 @@ tr.factory_item {
   flex-flow: row wrap;
 }
 /* line 400, ../../dev/sass/pages/cart.scss */
-.light-view .order, .light-view .addelementunit {
+.light-view .order, .light-view .addelementunit, .light-view .product-selector .product-selector-block .products-block .product, .product-selector .product-selector-block .products-block .light-view .product {
   width: 26.25rem;
   max-height: 41.5rem;
   margin-bottom: 3.125rem;
@@ -5152,7 +5153,7 @@ tr.factory_item {
 .alladdelements-header {
   position: relative;
   width: 100%;
-  height: 6.25rem;
+  height: 8rem;
 }
 
 /* line 580, ../../dev/sass/pages/cart.scss */
@@ -5182,7 +5183,7 @@ tr.factory_item {
   overflow-scrolling: touch;
   overflow-x: hidden;
   overflow-y: auto;
-  height: 95%;
+  height: 75%;
   padding-right: 3rem;
   margin-right: -6rem;
 }
@@ -5264,79 +5265,111 @@ tr.factory_item {
   cursor: default;
 }
 
-/* line 681, ../../dev/sass/pages/cart.scss */
+/* line 679, ../../dev/sass/pages/cart.scss */
+.product-selector {
+  position: relative;
+  height: 20%;
+}
+/* line 683, ../../dev/sass/pages/cart.scss */
+.product-selector .product-selector-block {
+  -moz-transition: top 0.5s linear;
+  -o-transition: top 0.5s linear;
+  -webkit-transition: top 0.5s linear;
+  transition: top 0.5s linear;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 112%;
+  margin-left: -7rem;
+  padding: 3rem;
+  background-color: #848484;
+}
+/* line 694, ../../dev/sass/pages/cart.scss */
+.product-selector .product-selector-block.active {
+  top: -38rem;
+}
+/* line 699, ../../dev/sass/pages/cart.scss */
+.product-selector .product-selector-block .products-block .product {
+  text-align: left;
+}
+/* line 704, ../../dev/sass/pages/cart.scss */
+.product-selector .product-selector-block .nav-products-block {
+  width: 20%;
+}
+
+/* line 714, ../../dev/sass/pages/cart.scss */
 .addelementunique-header {
   position: relative;
   width: 100%;
   height: 6.25rem;
   background-color: #fff;
 }
-/* line 687, ../../dev/sass/pages/cart.scss */
+/* line 720, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-title {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 692, ../../dev/sass/pages/cart.scss */
+/* line 725, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 696, ../../dev/sass/pages/cart.scss */
+/* line 729, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-params-but {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 700, ../../dev/sass/pages/cart.scss */
+/* line 733, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-row {
   padding-top: 1%;
 }
-/* line 707, ../../dev/sass/pages/cart.scss */
+/* line 740, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-total-label {
   min-width: 69%;
 }
-/* line 711, ../../dev/sass/pages/cart.scss */
+/* line 744, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement {
   width: 100%;
 }
-/* line 714, ../../dev/sass/pages/cart.scss */
+/* line 747, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-name {
   width: 31.25rem;
 }
-/* line 716, ../../dev/sass/pages/cart.scss */
+/* line 749, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-name .aux-name {
   max-width: 100%;
 }
-/* line 720, ../../dev/sass/pages/cart.scss */
+/* line 753, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-total {
   width: 75%;
 }
-/* line 723, ../../dev/sass/pages/cart.scss */
+/* line 756, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-qty {
   width: 6.25rem;
 }
-/* line 726, ../../dev/sass/pages/cart.scss */
+/* line 759, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-width,
 .addelementunique-header .aux-list-addellement .aux-tablecell-height {
   width: 9.375rem;
 }
-/* line 730, ../../dev/sass/pages/cart.scss */
+/* line 763, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-color {
   width: 6.25rem;
 }
-/* line 733, ../../dev/sass/pages/cart.scss */
+/* line 766, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-price {
   width: 12.5rem;
 }
-/* line 735, ../../dev/sass/pages/cart.scss */
+/* line 768, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-price .aux-price, .addelementunique-header .aux-list-addellement .aux-tablecell-price .aux-total-price {
   text-align: center;
 }
-/* line 739, ../../dev/sass/pages/cart.scss */
+/* line 772, ../../dev/sass/pages/cart.scss */
 .addelementunique-header .aux-list-addellement .aux-tablecell-delete {
   width: 6.25rem;
 }
 
-/* line 746, ../../dev/sass/pages/cart.scss */
+/* line 779, ../../dev/sass/pages/cart.scss */
 .addelementunit-header-fon {
   top: -3.125rem;
   left: -6.25rem;
@@ -5347,13 +5380,13 @@ tr.factory_item {
   z-index: -1;
 }
 
-/* line 755, ../../dev/sass/pages/cart.scss */
+/* line 788, ../../dev/sass/pages/cart.scss */
 .addelementunits-container {
   margin: 2% 0 0 -3rem;
   padding-top: 3%;
 }
 
-/* line 761, ../../dev/sass/pages/cart.scss */
+/* line 794, ../../dev/sass/pages/cart.scss */
 .addelementunit-block {
   display: -webkit-flex;
   display: flex;
@@ -5361,8 +5394,8 @@ tr.factory_item {
   flex-flow: row wrap;
 }
 
-/* line 766, ../../dev/sass/pages/cart.scss */
-.addelementunit {
+/* line 799, ../../dev/sass/pages/cart.scss */
+.addelementunit, .product-selector .product-selector-block .products-block .product {
   width: 26.25rem;
   min-width: 26.25rem;
   margin-bottom: 3.125rem;
@@ -5372,14 +5405,14 @@ tr.factory_item {
   text-align: center;
 }
 
-/* line 777, ../../dev/sass/pages/cart.scss */
+/* line 810, ../../dev/sass/pages/cart.scss */
 .addelementunit-header {
   position: relative;
   height: 13.125rem;
   padding-top: 2.5rem;
 }
 
-/* line 782, ../../dev/sass/pages/cart.scss */
+/* line 815, ../../dev/sass/pages/cart.scss */
 .addelementunit-delete {
   position: absolute;
   top: -1.25rem;
@@ -5388,12 +5421,12 @@ tr.factory_item {
   z-index: 9;
 }
 
-/* line 790, ../../dev/sass/pages/cart.scss */
+/* line 823, ../../dev/sass/pages/cart.scss */
 .addelementunit-content {
   padding: 2.5rem 1.25rem;
 }
 
-/* line 797, ../../dev/sass/pages/cart.scss */
+/* line 830, ../../dev/sass/pages/cart.scss */
 .addelementunit-footer {
   font: normal 3rem/6.25rem roboto-medium, sans-serif;
   border-bottom-left-radius: 1.25rem;
@@ -5402,7 +5435,7 @@ tr.factory_item {
   background-color: #4bd963;
 }
 
-/* line 807, ../../dev/sass/pages/cart.scss */
+/* line 840, ../../dev/sass/pages/cart.scss */
 .addelementunit-train {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
@@ -5412,35 +5445,47 @@ tr.factory_item {
   overflow-x: auto;
   overflow-y: auto;
 }
-/* line 812, ../../dev/sass/pages/cart.scss */
+/* line 845, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit-train-inner {
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 819, ../../dev/sass/pages/cart.scss */
-.addelementunit-train .addelementunit.unit-last .link-right {
+/* line 850, ../../dev/sass/pages/cart.scss */
+.addelementunit-train .addelementunit, .addelementunit-train .product-selector .product-selector-block .products-block .product, .product-selector .product-selector-block .products-block .addelementunit-train .product {
+  margin-top: 1.5rem;
+}
+/* line 853, ../../dev/sass/pages/cart.scss */
+.addelementunit-train .addelementunit.unit-last .link-right, .addelementunit-train .product-selector .product-selector-block .products-block .unit-last.product .link-right, .product-selector .product-selector-block .products-block .addelementunit-train .unit-last.product .link-right {
   display: none;
 }
-/* line 825, ../../dev/sass/pages/cart.scss */
+/* line 859, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit-link {
   position: absolute;
-  bottom: 3.125rem;
+  bottom: 0;
   width: 3.75rem;
-  height: 5rem;
-  border-bottom: 1px solid #4bd963;
+  height: 6rem;
+  cursor: pointer;
 }
-/* line 831, ../../dev/sass/pages/cart.scss */
+/* line 865, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .addelementunit-link.link-right {
   right: -3.4375rem;
 }
-/* line 839, ../../dev/sass/pages/cart.scss */
+/* line 868, ../../dev/sass/pages/cart.scss */
+.addelementunit-train .addelementunit-link:before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: inherit;
+  border-top: 1px solid #4bd963;
+  content: ' ';
+}
+/* line 881, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .link-explode-menu {
   font: normal 2.25rem/4.0625rem roboto-light, sans-serif;
   position: absolute;
-  bottom: 5.9375rem;
-  right: -40rem;
+  min-width: 32rem;
   padding: 0 1.25rem;
   border-radius: 1rem;
   background-color: #242424;
@@ -5448,7 +5493,7 @@ tr.factory_item {
   cursor: pointer;
   z-index: 999;
 }
-/* line 851, ../../dev/sass/pages/cart.scss */
+/* line 892, ../../dev/sass/pages/cart.scss */
 .addelementunit-train .link-explode-menu:before {
   position: absolute;
   z-index: 99;
@@ -5461,13 +5506,13 @@ tr.factory_item {
   border-color: #242424 transparent;
   content: '';
 }
-/* line 865, ../../dev/sass/pages/cart.scss */
+/* line 906, ../../dev/sass/pages/cart.scss */
 .addelementunit-train ul.link-explode-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 871, ../../dev/sass/pages/cart.scss */
+/* line 912, ../../dev/sass/pages/cart.scss */
 .addelementunit-train li.link-explode-item {
   display: inline-block;
   line-height: 5rem;
@@ -5476,79 +5521,79 @@ tr.factory_item {
   text-align: center;
   color: #ddd;
 }
-/* line 879, ../../dev/sass/pages/cart.scss */
+/* line 920, ../../dev/sass/pages/cart.scss */
 .addelementunit-train li.link-explode-item:last-child {
   border-right: none;
   padding-left: 0.5rem;
   padding-right: 0;
 }
 
-/* line 892, ../../dev/sass/pages/cart.scss */
+/* line 933, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block {
   padding: 3.125rem 0;
   border-bottom: 1px solid #bebebe;
 }
-/* line 896, ../../dev/sass/pages/cart.scss */
+/* line 937, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block:last-child {
   padding: 3.125rem 0 0 0;
   border: none;
 }
-/* line 902, ../../dev/sass/pages/cart.scss */
+/* line 943, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block-title,
 .addelementunit-only .aux-total-label {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
 }
-/* line 908, ../../dev/sass/pages/cart.scss */
+/* line 949, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-block-title:first-letter {
   text-transform: uppercase;
 }
-/* line 911, ../../dev/sass/pages/cart.scss */
+/* line 952, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-row {
   margin-bottom: 1.25rem;
 }
-/* line 917, ../../dev/sass/pages/cart.scss */
+/* line 958, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-total-label {
   min-width: 69%;
 }
-/* line 921, ../../dev/sass/pages/cart.scss */
+/* line 962, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement {
   width: 100%;
 }
-/* line 924, ../../dev/sass/pages/cart.scss */
+/* line 965, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-name {
   width: 31.25rem;
 }
-/* line 926, ../../dev/sass/pages/cart.scss */
+/* line 967, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-name .aux-name {
   max-width: 100%;
 }
-/* line 930, ../../dev/sass/pages/cart.scss */
+/* line 971, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-total {
   width: 75%;
 }
-/* line 933, ../../dev/sass/pages/cart.scss */
+/* line 974, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-qty {
   width: 6.25rem;
 }
-/* line 936, ../../dev/sass/pages/cart.scss */
+/* line 977, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-width,
 .addelementunit-only .aux-list-addellement .aux-tablecell-height {
   width: 9.375rem;
 }
-/* line 940, ../../dev/sass/pages/cart.scss */
+/* line 981, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-color {
   width: 6.25rem;
 }
-/* line 943, ../../dev/sass/pages/cart.scss */
+/* line 984, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-price {
   width: 12.5rem;
 }
-/* line 945, ../../dev/sass/pages/cart.scss */
+/* line 986, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-price .aux-price, .addelementunit-only .aux-list-addellement .aux-tablecell-price .aux-total-price {
   text-align: center;
 }
-/* line 949, ../../dev/sass/pages/cart.scss */
+/* line 990, ../../dev/sass/pages/cart.scss */
 .addelementunit-only .aux-list-addellement .aux-tablecell-delete {
   width: 6.25rem;
 }
@@ -8613,7 +8658,7 @@ tr.factory_item {
 }
 
 /* line 218, ../../dev/sass/base/_animations.scss */
-.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .addelementunit, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
+.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .addelementunit, .cart-page .product-selector .product-selector-block .products-block .product, .product-selector .product-selector-block .products-block .cart-page .product, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .glass-container .glass-selector-dialog .set-glass-btn, .glass-container .glass-selector-dialog .set-glass-all-btn, .hardware-container .hardware-box, .lamination-container .lamination-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
   -moz-animation: splashing 0.5s ease 0s 1;
   -webkit-animation: splashing 0.5s ease 0s 1;

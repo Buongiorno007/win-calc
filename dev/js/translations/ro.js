@@ -277,7 +277,7 @@
         WRONG_EMAIL: 'poșta electronica este incorectă',
         LINK_BETWEEN_COUPLE: 'între o pereche de',
         LINK_BETWEEN_ALL: 'printre toate',
-        LINK_DELETE_ALL_GROUPE: 'Eliminați toate',
+//        LINK_DELETE_ALL_GROUPE: 'Eliminați toate',
         CLIENT_SEX: "Sex",
         CLIENT_SEX_M: 'M',
         CLIENT_SEX_F: "F",
