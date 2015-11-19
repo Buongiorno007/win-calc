@@ -17,8 +17,7 @@
       initAddElementTools: initAddElementTools,
       desactiveAddElementParameters: desactiveAddElementParameters,
       openAddElementListView: openAddElementListView,
-      closeAddElementListView: closeAddElementListView,
-      createAddElementGroups: createAddElementGroups
+      closeAddElementListView: closeAddElementListView
     };
 
     return thisFactory.publicObj;
@@ -125,35 +124,7 @@
     }
 
 
-    //----------- create AddElement Groups for Searching
 
-    function createAddElementGroups() {
-      var groups = [],
-          groupNames = [
-            $filter('translate')('add_elements.GRIDS'),
-            $filter('translate')('add_elements.VISORS'),
-            $filter('translate')('add_elements.SPILLWAYS'),
-            $filter('translate')('add_elements.OUTSIDE'),
-            $filter('translate')('add_elements.INSIDE'),
-            $filter('translate')('add_elements.LOUVERS'),
-            $filter('translate')('add_elements.CONNECTORS'),
-            $filter('translate')('add_elements.FAN'),
-            $filter('translate')('add_elements.WINDOWSILLS'),
-            $filter('translate')('add_elements.HANDLELS'),
-            $filter('translate')('add_elements.OTHERS')
-          ],
-          groupNamesQty = groupNames.length,
-          g = 0;
-
-      for(; g < groupNamesQty; g++){
-        var groupTempObj = {};
-        groupTempObj.groupId = (g+1);
-        groupTempObj.groupName = groupNames[g];
-        groupTempObj.groupClass = globalConstants.addElementsGroupClass[g];
-        groups.push(groupTempObj);
-      }
-      return groups;
-    }
 
   }
 })();

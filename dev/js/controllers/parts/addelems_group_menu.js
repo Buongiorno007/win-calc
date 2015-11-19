@@ -5,12 +5,15 @@
    */
   angular
     .module('MainModule')
-    .controller('searchCtrl', searchCtrl);
+    .controller('AddElemGroupMenuCtrl', addElemGroupCtrl);
 
-  function searchCtrl($filter, GlobalStor, AuxStor, HistoryStor, AddElementsServ, AddElementMenuServ) {
+  function addElemGroupCtrl($filter, globalConstants, GlobalStor, AuxStor, HistoryStor, AddElementsServ, AddElementMenuServ) {
 
     var thisCtrl = this;
     thisCtrl.G = GlobalStor;
+    thisCtrl.A = AuxStor;
+
+    createAddElementGroups();
 
 
     //------ clicking
@@ -30,13 +33,48 @@
 
     //============ methods ================//
 
+
+
+    //----------- create AddElement Groups for Searching
+
+    function createAddElementGroups() {
+      var groupNames = [
+            $filter('translate')('add_elements.GRIDS'),
+            $filter('translate')('add_elements.VISORS'),
+            $filter('translate')('add_elements.SPILLWAYS'),
+            $filter('translate')('add_elements.OUTSIDE'),
+            $filter('translate')('add_elements.INSIDE'),
+            $filter('translate')('add_elements.LOUVERS'),
+            $filter('translate')('add_elements.CONNECTORS'),
+            $filter('translate')('add_elements.FAN'),
+            $filter('translate')('add_elements.WINDOWSILLS'),
+            $filter('translate')('add_elements.HANDLELS'),
+            $filter('translate')('add_elements.OTHERS')
+          ],
+          groupNamesQty = groupNames.length,
+          g = 0;
+
+      for(; g < groupNamesQty; g++){
+        if(GlobalStor.global.addElementsAll[g].elementsList) {
+          var groupTempObj = {};
+          groupTempObj.groupId = (g+1);
+          groupTempObj.groupName = groupNames[g];
+          groupTempObj.groupClass = globalConstants.addElementsGroupClass[g];
+          AuxStor.aux.addElementGroups.push(groupTempObj);
+        }
+      }
+
+    }
+
+
+
     //----------- Searching Block in AddElements List View
 
     function checkChanges() {
       if(thisCtrl.searchingWord !== '') {
-//        if(thisCtrl.searchingWord.length === 1) {
-//          AuxStor.aux.addElementGroups = AddElementsServ.createAddElementGroups();
-//        }
+        if(thisCtrl.searchingWord.length === 1) {
+          AuxStor.aux.addElementGroups = AddElementsServ.createAddElementGroups();
+        }
         AuxStor.aux.showAddElementGroups = 1;
         AuxStor.aux.searchingWord = thisCtrl.searchingWord;
       }

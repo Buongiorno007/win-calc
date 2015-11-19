@@ -3,4 +3,3 @@ form(ng-controller="searchCtrl as searchBox", name='searchForm')
     input.search-input(type="text", name="searching", ng-model="searchBox.searchingWord", ng-change="searchBox.checkChanges()", placeholder="{{searchBox.placeholder}}")
     button.delete-search(hm-tap="searchBox.deleteSearchChart()")
     button.cancel-search(hm-tap="searchBox.cancelSearching()") {{ 'add_elements.CANCEL' | translate }}
-    //button.cancel-search(ng-show="searchBox.global.isHistoryPage && searchBox.history.isOrderSearch", hm-tap="searchBox.cancelSearching()") {{ 'add_elements.CANCEL' | translate }}

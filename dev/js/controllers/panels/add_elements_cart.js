@@ -7,16 +7,9 @@
     .module('CartModule')
     .controller('AddElemCartCtrl', addElementsCartCtrl);
 
-  function addElementsCartCtrl(localDB, GeneralServ, MainServ, CartServ, CartMenuServ, globalConstants, GlobalStor, OrderStor, CartStor, UserStor) {
+  function addElementsCartCtrl(localDB, GeneralServ, MainServ, CartServ, CartMenuServ, OrderStor, CartStor) {
 
     var thisCtrl = this;
-    thisCtrl.constants = globalConstants;
-    thisCtrl.G = GlobalStor;
-    thisCtrl.O = OrderStor;
-    thisCtrl.C = CartStor;
-    thisCtrl.U = UserStor;
-
-
     thisCtrl.config = {
       addElemsTypes: localDB.addElementDBId,
       selectedAddElemUnit: {id: 0},
@@ -24,10 +17,11 @@
       addElemUnitProducts: [],
       isLinkExplodeMenu: 0,
       explodeMenuTop: 0,
-      explodeMenuLeft: 0
+      explodeMenuLeft: 0,
+      isSwipeProdSelector: 0
     };
 
-    //------ clicking
+    //=========== clicking =============//
     thisCtrl.closeAllAddElemsPanel = closeAllAddElemsPanel;
     thisCtrl.deleteAllAddElems = deleteAllAddElems;
     thisCtrl.deleteAddElemsItem = deleteAddElemsItem;
@@ -38,12 +32,23 @@
     thisCtrl.toggleExplodeLinkMenu = toggleExplodeLinkMenu;
     thisCtrl.explodeUnitToProduct = explodeUnitToProduct;
 
+    //------ adding elements to product
+    thisCtrl.swipeProductSelector = swipeProductSelector;
+    thisCtrl.selectProductToAddElem = selectProductToAddElem;
+
+
+
+
+    //============ methods ================//
+
 
     function closeAllAddElemsPanel() {
       CartStor.cart.isAllAddElems = 0;
       //------ clean AddElems array for All AddElems Panel
       CartStor.cart.allAddElemsOrder.length = 0;
       CartStor.cart.addElemsOrderPriceTOTAL = 0;
+      //------ hide searching box
+      CartStor.cart.isSelectedProduct = 0;
     }
 
 
@@ -329,6 +334,45 @@
       //------ change order Price
       CartMenuServ.calculateOrderPrice();
 
+    }
+
+
+
+
+    /** ======== ADDING ADDELEMENTS TO PRODUCTS ==========*/
+
+
+
+    /** open/close product selector by swipe */
+    function swipeProductSelector() {
+      thisCtrl.config.isSwipeProdSelector = !thisCtrl.config.isSwipeProdSelector;
+    }
+
+
+
+    function selectProductToAddElem(prodInd) {
+      var isSelected = CartStor.cart.selectedProducts[prodInd].length;
+      if(isSelected) {
+        CartStor.cart.selectedProducts[prodInd].length = 0;
+        //------- check another products
+        checkAllSelectedProducts();
+      } else {
+        CartStor.cart.selectedProducts[prodInd].push(1);
+        CartStor.cart.isSelectedProduct = 1;
+      }
+    }
+
+
+
+    function checkAllSelectedProducts() {
+      var isSelected = 0,
+          prodIndQty = CartStor.cart.selectedProducts.length;
+      while(--prodIndQty > -1) {
+        if(CartStor.cart.selectedProducts[prodIndQty].length) {
+          isSelected++;
+        }
+      }
+      CartStor.cart.isSelectedProduct = (isSelected) ? 1 : 0;
     }
 
 

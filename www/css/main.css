@@ -340,7 +340,7 @@ th {
   src: url('../fonts/icons/icomoon.ttf?1447154475') format('truetype');
 }
 /* line 218, ../../dev/sass/base/_animations.scss */
-.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .addelementunit, .cart-page .product-selector .product-selector-block .products-block .product, .product-selector .product-selector-block .products-block .cart-page .product, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
+.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit, .cart-page .products-selector .products-selector-block .products-block .select-mark, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .glass-container .glass-selector-dialog .set-glass-btn, .glass-container .glass-selector-dialog .set-glass-all-btn, .hardware-container .hardware-box, .lamination-container .lamination-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
   -moz-animation: splashing 0.5s ease 0s 1;
   -webkit-animation: splashing 0.5s ease 0s 1;
@@ -987,8 +987,8 @@ body {
 }
 
 /* line 79, ../../dev/sass/base/general.scss */
-.icon-setting, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .config-menu .close_report, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu, .alert-sign, .pickmeup .pmu-instance nav .pmu-prev,
-.pickmeup .pmu-instance nav .pmu-next, .user-info-container .icon-location:before, .search-block:before, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .current-city:after, .voice-container .voice-icon, .close_dialog, .setting-container .setting-item-change:after, .password-page .back, .language-page .back, .location-page .back, .accounts-container .tool, .accounts-container .account-tool, .empty-search-result .result-icon, .cart-page .order-comment-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .close-alladdelements, .door-config-btn, .door-configuration .door-config-finish-btn, .nav-menu [class^='nav-icon-'],
+.icon-setting, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .cart-page .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .config-menu .close_report, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu, .alert-sign, .pickmeup .pmu-instance nav .pmu-prev,
+.pickmeup .pmu-instance nav .pmu-next, .user-info-container .icon-location:before, .search-block:before, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .current-city:after, .voice-container .voice-icon, .close_dialog, .setting-container .setting-item-change:after, .password-page .back, .language-page .back, .location-page .back, .accounts-container .tool, .accounts-container .account-tool, .empty-search-result .result-icon, .cart-page .order-comment-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .cart-page .close-alladdelements, .door-config-btn, .door-configuration .door-config-finish-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .config-menu .item.active:before, .elements-menu .element-info:after, .cart-menu .item:after, .cart-menu .drop-instalment .dropdown-item.selected .value-percent:after, .cart-menu .calendar-price, .size-calc-container .calc-delete:after, .size-calc-container .calc-interval:after {
   font-weight: normal;
   font-style: normal;
@@ -1002,7 +1002,7 @@ body {
 }
 
 /* line 94, ../../dev/sass/base/general.scss */
-.button, .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn, .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .middle-button, .alert-btns button, .alert-btns .door-configuration .door-config-finish-btn, .door-configuration .alert-btns .door-config-finish-btn, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default, .glass-container .glass-selector-dialog .set-glass-all-btn, .small-button, .cart-page .order-tool, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .config-menu .close_report, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu, .view-switch-tab, .aux-color, .setting-container .phone-btn, .accounts-container .tool, .accounts-container .account-tool, .accounts-container .account-change-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .close-alladdelements, .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .glass-container .glass-selector-dialog .set-glass-btn, .auxiliaries-container .scheme-info, .additional-list-container .group-indicator, .additional-list-container .search-element {
+.button, .ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn, .big-button, .orange-big-btn, .room-info-container .select-rooms, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .login-submit, .middle-button, .alert-btns button, .alert-btns .door-configuration .door-config-finish-btn, .door-configuration .alert-btns .door-config-finish-btn, .settings .save, .search-block .cancel-search, .cart-dialogs-container .save, .cart-page .cart-tool, .construction-left-menu .project-default, .glass-container .glass-selector-dialog .set-glass-all-btn, .small-button, .cart-page .order-tool, .menu-btn, .user-info-container .nav-menu-btn, .setting-page .back, .setting-back, .cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .cart-page .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .config-menu .close_report, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu, .view-switch-tab, .aux-color, .setting-container .phone-btn, .accounts-container .tool, .accounts-container .account-tool, .accounts-container .account-change-btn, .cart-page .addelements-detail-edit, .cart-page .addelements-detail-close, .cart-page .close-alladdelements, .door-config-btn, .elements-menu .element-info, .menu-right-tabs .frame-tab, .calculator .cell, .size-calc-container .cell, .qty-calc-container .cell, .calculator .calc-digit, .size-calc-container .calc-digit, .qty-calc-container .calc-digit, .glass-container .glass-selector-dialog .set-glass-btn, .auxiliaries-container .scheme-info, .additional-list-container .search-element, .group-indicator {
   border: 0;
   outline: none;
   cursor: pointer;
@@ -1011,7 +1011,7 @@ body {
 }
 
 /* line 102, ../../dev/sass/base/general.scss */
-.ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn {
+.ghost-button, .aux-choose-but, .parameters-block .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .nav-menu .new-calc, .cart-menu .measure-btn {
   border-width: 1px;
   border-style: solid;
 }
@@ -1029,7 +1029,7 @@ body {
 }
 
 /* line 123, ../../dev/sass/base/general.scss */
-.small-button, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .order-tool {
+.small-button, .aux-choose-but, .parameters-block .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .cart-page .order-tool {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   border-radius: 1.25rem;
 }
@@ -1057,7 +1057,7 @@ body {
 }
 
 /* line 157, ../../dev/sass/base/general.scss */
-.truncated, .room-info-container .select-rooms, .menu-right-general .value, .config-menu .value, .elements-menu .value, .cart-menu .value, .old-price-tab .value, .old-price-inst-tab .value, .parameters-block .aux-title, .alladdelements-block .aux-title, .addelementunit-only .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title, .setting-container .setting-item-data, .cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value, .cart-page .addelementunit-value, .light-view .order-value, .light-view .addelementunit-value, .addelementunique-header .aux-title, .addelementunit-value, .construction-left-menu .figure-label, .nav-menu .title, .config-menu .additional-item, .template-container .other-template-subscr, .profile-container .profile-descr, .glass-container .glass-descr {
+.truncated, .room-info-container .select-rooms, .menu-right-general .value, .config-menu .value, .elements-menu .value, .cart-menu .value, .old-price-tab .value, .old-price-inst-tab .value, .parameters-block .aux-title, .cart-page .alladdelements-block .aux-title, .cart-page .addelementunit-only .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title, .setting-container .setting-item-data, .cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value, .cart-page .addelementunit-value, .cart-page .light-view .order-value, .cart-page .light-view .product-value, .cart-page .light-view .addelement-value, .cart-page .light-view .addelementunit-value, .cart-page .addelementunique-header .aux-title, .construction-left-menu .figure-label, .nav-menu .title, .config-menu .additional-item, .template-container .other-template-subscr, .profile-container .profile-descr, .glass-container .glass-descr {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -1104,24 +1104,24 @@ body {
 }
 
 /* line 204, ../../dev/sass/base/general.scss */
-.cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .config-menu .close_report, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu {
+.cross-btn, .small-cross-btn, .close-dialog, .aux-delete, .cart-page .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .config-menu .close_report, .search-block .delete-search, .construct-tools, .elements-menu .close-elements-menu {
   border-radius: 50%;
 }
 /* line 209, ../../dev/sass/base/general.scss */
-.cross-btn:after, .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .addelementunit-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after, .config-menu .menu_tooltip .close_menu_tooltip:after, .config-menu .close_report:after, .search-block .delete-search:after, .construct-tools:after, .elements-menu .close-elements-menu:after {
+.cross-btn:after, .small-cross-btn:after, .close-dialog:after, .aux-delete:after, .cart-page .addelementunit-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after, .config-menu .menu_tooltip .close_menu_tooltip:after, .config-menu .close_report:after, .search-block .delete-search:after, .construct-tools:after, .elements-menu .close-elements-menu:after {
   position: absolute;
   color: #fff;
   content: "";
 }
 
 /* line 215, ../../dev/sass/base/general.scss */
-.small-cross-btn, .close-dialog, .aux-delete, .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .config-menu .close_report {
+.small-cross-btn, .close-dialog, .aux-delete, .cart-page .addelementunit-delete, .accounts-container .account-delete-btn, .cart-page .order-delete, .config-menu .menu_tooltip .close_menu_tooltip, .config-menu .close_report {
   font: normal 2.5rem/1 icons, sans-serif;
   width: 3.125rem;
   height: 3.125rem;
 }
 /* line 221, ../../dev/sass/base/general.scss */
-.small-cross-btn:after, .close-dialog:after, .aux-delete:after, .addelementunit-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after, .config-menu .menu_tooltip .close_menu_tooltip:after, .config-menu .close_report:after {
+.small-cross-btn:after, .close-dialog:after, .aux-delete:after, .cart-page .addelementunit-delete:after, .accounts-container .account-delete-btn:after, .cart-page .order-delete:after, .config-menu .menu_tooltip .close_menu_tooltip:after, .config-menu .close_report:after {
   top: 8%;
   left: 10%;
 }
@@ -1135,7 +1135,7 @@ body {
 }
 
 /* line 238, ../../dev/sass/base/general.scss */
-.aux-delete, .addelementunit-delete {
+.aux-delete, .cart-page .addelementunit-delete {
   top: 0rem;
   left: 0rem;
   position: relative;
@@ -1258,7 +1258,7 @@ body {
 }
 
 /* line 354, ../../dev/sass/base/general.scss */
-.scrolling-container, .scroll-vert-container, .addelementunits-container, .scroll-hor-container, .cart-page .addelements-detail-content {
+.scrolling-container, .scroll-vert-container, .cart-page .addelementunits-container, .scroll-hor-container, .cart-page .addelements-detail-content, .cart-page .products-selector .products-selector-block .products-block {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
   -o-overflow-scrolling: touch;
@@ -1267,19 +1267,19 @@ body {
 }
 
 /* line 357, ../../dev/sass/base/general.scss */
-.scroll-vert, .scroll-vert-container, .addelementunits-container {
+.scroll-vert, .scroll-vert-container, .cart-page .addelementunits-container {
   overflow-x: hidden;
   overflow-y: auto;
 }
 
 /* line 361, ../../dev/sass/base/general.scss */
-.scroll-hor, .scroll-hor-container {
+.scroll-hor, .scroll-hor-container, .cart-page .products-selector .products-selector-block .products-block {
   overflow-x: auto;
   overflow-y: hidden;
 }
 
 /* line 365, ../../dev/sass/base/general.scss */
-.scroll-vert-container, .addelementunits-container {
+.scroll-vert-container, .cart-page .addelementunits-container {
   width: 105%;
   height: 90%;
   padding-top: 2rem;
@@ -2632,16 +2632,16 @@ div.drum figure {
 }
 
 /* line 11, ../../dev/sass/parts/_additional-elements-general.scss */
-.parameters-block .aux-title, .alladdelements-block .aux-title, .addelementunit-only .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title {
+.parameters-block .aux-title, .cart-page .alladdelements-block .aux-title, .cart-page .addelementunit-only .aux-title, .elements-list-container .aux-title, .auxiliaries-container .aux-title, .additional-list-container .aux-list-content .aux-title {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
 }
 /* line 15, ../../dev/sass/parts/_additional-elements-general.scss */
-.parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but {
+.parameters-block .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but {
   padding: 0 1.25rem;
   background-color: transparent;
 }
 /* line 23, ../../dev/sass/parts/_additional-elements-general.scss */
-.parameters-block .aux-label, .alladdelements-block .aux-label, .addelementunit-only .aux-label, .elements-list-container .aux-label, .auxiliaries-container .aux-label, .additional-list-container .aux-list-content .aux-label {
+.parameters-block .aux-label, .cart-page .alladdelements-block .aux-label, .cart-page .addelementunit-only .aux-label, .elements-list-container .aux-label, .auxiliaries-container .aux-label, .additional-list-container .aux-list-content .aux-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
@@ -2728,7 +2728,7 @@ div.drum figure {
 }
 
 /* line 100, ../../dev/sass/parts/_additional-elements-general.scss */
-.aux-price, .alladdelements-block .aux-total-price, .addelementunique-header .aux-total-price, .addelementunit-only .aux-total-price, .additional-list-container .aux-total-price {
+.aux-price, .cart-page .alladdelements-block .aux-total-price, .cart-page .addelementunique-header .aux-total-price, .cart-page .addelementunit-only .aux-total-price, .additional-list-container .aux-total-price {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
   min-width: 20%;
   text-align: right;
@@ -4483,7 +4483,16 @@ tr.factory_item {
   width: 100%;
   height: 100%;
 }
-/* line 6, ../../dev/sass/pages/cart.scss */
+/* line 7, ../../dev/sass/pages/cart.scss */
+.cart-page .product-light-container, .cart-page .light-view .order, .cart-page .light-view .addelementunit, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit {
+  width: 26.25rem;
+  margin-bottom: 3.125rem;
+  margin-right: 2.75rem;
+  border-radius: 1.25rem;
+  background-color: #fff;
+  text-align: center;
+}
+/* line 17, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-container {
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y3ZjdmNyIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2Q3ZGJkOCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
   background-size: 100%;
@@ -4496,21 +4505,21 @@ tr.factory_item {
   padding: 3.125rem;
   padding-left: 6.25rem;
 }
-/* line 16, ../../dev/sass/pages/cart.scss */
+/* line 24, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-container.full-view {
   top: 0rem;
   left: 0rem;
 }
-/* line 19, ../../dev/sass/pages/cart.scss */
+/* line 27, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-container.full-view .scroll-hor-container {
   height: 83rem;
 }
-/* line 22, ../../dev/sass/pages/cart.scss */
+/* line 30, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-container.full-view.discount {
   top: -75rem;
   left: 0rem;
 }
-/* line 26, ../../dev/sass/pages/cart.scss */
+/* line 34, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-container.light-view {
   top: 0rem;
   left: -156.25rem;
@@ -4521,7 +4530,7 @@ tr.factory_item {
   height: 100%;
   z-index: 5;
 }
-/* line 32, ../../dev/sass/pages/cart.scss */
+/* line 40, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-container.alladdelements-view {
   top: 0rem;
   left: -156.25rem;
@@ -4532,7 +4541,7 @@ tr.factory_item {
   height: 100%;
   z-index: 6;
 }
-/* line 38, ../../dev/sass/pages/cart.scss */
+/* line 46, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-container.addelement-view {
   top: 0rem;
   left: -156.25rem;
@@ -4543,12 +4552,12 @@ tr.factory_item {
   height: 100%;
   z-index: 7;
 }
-/* line 44, ../../dev/sass/pages/cart.scss */
+/* line 52, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-container.active {
   top: 0rem;
   left: 0rem;
 }
-/* line 49, ../../dev/sass/pages/cart.scss */
+/* line 57, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-header {
   display: -webkit-flex;
   display: flex;
@@ -4562,40 +4571,40 @@ tr.factory_item {
   width: 100%;
   height: 9.375rem;
 }
-/* line 60, ../../dev/sass/pages/cart.scss */
+/* line 67, ../../dev/sass/pages/cart.scss */
 .cart-page .user-info-container {
   top: 0;
 }
-/* line 63, ../../dev/sass/pages/cart.scss */
+/* line 70, ../../dev/sass/pages/cart.scss */
 .cart-page .cart-tool {
   position: relative;
   padding: 1.125rem 1.875rem;
   z-index: 2;
 }
-/* line 71, ../../dev/sass/pages/cart.scss */
+/* line 78, ../../dev/sass/pages/cart.scss */
 .cart-page .additional-elements {
   margin-right: 1.25rem;
   background-color: #dcdcdc;
   color: #363636;
 }
-/* line 76, ../../dev/sass/pages/cart.scss */
+/* line 83, ../../dev/sass/pages/cart.scss */
 .cart-page .new-order {
   background-color: #6ed44a;
   color: #fff;
 }
-/* line 81, ../../dev/sass/pages/cart.scss */
-.cart-page .order, .cart-page .addelementunit, .cart-page .product-selector .product-selector-block .products-block .product, .product-selector .product-selector-block .products-block .cart-page .product {
+/* line 88, ../../dev/sass/pages/cart.scss */
+.cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit {
   -moz-box-shadow: rgba(0, 0, 0, 0.3) 0.9375rem 0.625rem 1.875rem 0;
   -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0.9375rem 0.625rem 1.875rem 0;
   box-shadow: rgba(0, 0, 0, 0.3) 0.9375rem 0.625rem 1.875rem 0;
   position: relative;
   margin-right: 3.125rem;
 }
-/* line 88, ../../dev/sass/pages/cart.scss */
+/* line 95, ../../dev/sass/pages/cart.scss */
 .cart-page .order-header {
   position: relative;
 }
-/* line 91, ../../dev/sass/pages/cart.scss */
+/* line 98, ../../dev/sass/pages/cart.scss */
 .cart-page .order-delete {
   position: absolute;
   top: -1.25rem;
@@ -4603,30 +4612,30 @@ tr.factory_item {
   background-color: #6ed44a;
   z-index: 1;
 }
-/* line 101, ../../dev/sass/pages/cart.scss */
+/* line 108, ../../dev/sass/pages/cart.scss */
 .cart-page .order-value, .cart-page .product-value, .cart-page .addelement-value, .cart-page .addelementunit-value {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   min-height: 3.214rem;
   color: #363636;
 }
-/* line 107, ../../dev/sass/pages/cart.scss */
+/* line 114, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-btn {
   cursor: pointer;
 }
-/* line 110, ../../dev/sass/pages/cart.scss */
+/* line 117, ../../dev/sass/pages/cart.scss */
 .cart-page .order-label, .cart-page .product-icon-label,
 .cart-page .product-label, .cart-page .addelement-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #8c8c8c;
 }
-/* line 115, ../../dev/sass/pages/cart.scss */
+/* line 122, ../../dev/sass/pages/cart.scss */
 .cart-page .order-qty {
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 119, ../../dev/sass/pages/cart.scss */
+/* line 126, ../../dev/sass/pages/cart.scss */
 .cart-page .order-tool {
   width: 4.0625rem;
   height: 2.8125rem;
@@ -4634,35 +4643,39 @@ tr.factory_item {
   background-color: #6ed44a;
   color: #fff;
 }
-/* line 127, ../../dev/sass/pages/cart.scss */
+/* line 134, ../../dev/sass/pages/cart.scss */
 .cart-page .order-footer, .cart-page .addelements-detail-footer {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row nowrap;
+  flex-flow: row nowrap;
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+  -webkit-align-items: center;
+  align-items: center;
   font: normal 3rem/6.25rem roboto-medium, sans-serif;
-  padding-left: 3.125rem;
   border-bottom-left-radius: 1.25rem;
   border-bottom-right-radius: 1.25rem;
   background-color: #f0f0f0;
   color: #363636;
 }
-/* line 137, ../../dev/sass/pages/cart.scss */
+/* line 147, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment-btn {
   font: normal 3.5rem/1.75 icons, sans-serif;
-  position: absolute;
-  right: 2rem;
-  bottom: 0;
   cursor: pointer;
 }
-/* line 144, ../../dev/sass/pages/cart.scss */
+/* line 151, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment-btn:after {
   content: "";
   color: #363636;
   border-left: 1px dotted #bebebe;
   padding-left: 1rem;
 }
-/* line 150, ../../dev/sass/pages/cart.scss */
+/* line 157, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment-btn.active:after {
   color: #f98000;
 }
-/* line 154, ../../dev/sass/pages/cart.scss */
+/* line 161, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment {
   -moz-transition: height 2s ease;
   -o-transition: height 2s ease;
@@ -4681,28 +4694,28 @@ tr.factory_item {
   background-color: #fff;
   overflow: hidden;
 }
-/* line 168, ../../dev/sass/pages/cart.scss */
+/* line 175, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment.active {
   height: 35rem;
-  padding: 2rem;
-}
-/* line 172, ../../dev/sass/pages/cart.scss */
-.cart-page .order-comment .order-comment-box {
-  width: 114%;
-  padding-right: 2rem;
-  overflow-y: auto;
-  height: 100%;
 }
 /* line 178, ../../dev/sass/pages/cart.scss */
+.cart-page .order-comment .order-comment-box {
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  overflow-y: auto;
+}
+/* line 184, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment .order-comment-title {
   font: normal 2.25rem/1.7 roboto-medium, sans-serif;
   text-align: center;
 }
-/* line 182, ../../dev/sass/pages/cart.scss */
+/* line 188, ../../dev/sass/pages/cart.scss */
 .cart-page .order-comment .order-comment-content {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
+  text-align: justify;
 }
-/* line 189, ../../dev/sass/pages/cart.scss */
+/* line 196, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail {
   position: absolute;
   top: 10rem;
@@ -4713,7 +4726,7 @@ tr.factory_item {
   border-bottom-right-radius: 1.25rem;
   z-index: 10;
 }
-/* line 200, ../../dev/sass/pages/cart.scss */
+/* line 207, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-tools {
   display: -webkit-flex;
   display: flex;
@@ -4721,7 +4734,7 @@ tr.factory_item {
   flex-flow: row nowrap;
   height: 6.25rem;
 }
-/* line 206, ../../dev/sass/pages/cart.scss */
+/* line 213, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-edit {
   -webkit-flex-grow: 3;
   flex-grow: 3;
@@ -4729,45 +4742,45 @@ tr.factory_item {
   background-color: #6ed44a;
   color: #fff;
 }
-/* line 213, ../../dev/sass/pages/cart.scss */
+/* line 220, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-edit:after {
   font: normal 1.5rem/6.25rem icons, sans-serif;
   content: "";
 }
-/* line 218, ../../dev/sass/pages/cart.scss */
+/* line 225, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-close {
   -webkit-flex-grow: 1;
   flex-grow: 1;
   background-color: #bebebe;
 }
-/* line 223, ../../dev/sass/pages/cart.scss */
+/* line 230, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-close:after {
   font: normal 2.5rem/1 icons, sans-serif;
   color: #fff;
   content: "";
 }
-/* line 229, ../../dev/sass/pages/cart.scss */
+/* line 236, ../../dev/sass/pages/cart.scss */
 .cart-page .product-template {
   padding: 2.125rem;
   border-bottom: 1px solid #bebebe;
 }
-/* line 233, ../../dev/sass/pages/cart.scss */
+/* line 240, ../../dev/sass/pages/cart.scss */
 .cart-page .product-template-icon {
   margin-bottom: 1.25rem;
 }
-/* line 236, ../../dev/sass/pages/cart.scss */
+/* line 243, ../../dev/sass/pages/cart.scss */
 .cart-page .product-icon-thumb {
   display: inline-block;
   width: 12.5rem;
   margin-right: 0.625rem;
 }
-/* line 248, ../../dev/sass/pages/cart.scss */
+/* line 255, ../../dev/sass/pages/cart.scss */
 .cart-page .product-icon-label {
   max-width: 7.1875rem;
   text-align: right;
 }
-/* line 252, ../../dev/sass/pages/cart.scss */
-.cart-page .addelements-detail-row, .cart-page .addelements-detail-footer {
+/* line 259, ../../dev/sass/pages/cart.scss */
+.cart-page .addelements-detail-row {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: row wrap;
@@ -4777,25 +4790,25 @@ tr.factory_item {
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 258, ../../dev/sass/pages/cart.scss */
+/* line 265, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-content {
   height: 46.25rem;
   overflow-x: hidden;
   overflow-y: auto;
   padding: 1.875rem 3.125rem;
 }
-/* line 265, ../../dev/sass/pages/cart.scss */
+/* line 272, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 270, ../../dev/sass/pages/cart.scss */
+/* line 277, ../../dev/sass/pages/cart.scss */
 .cart-page .addelements-detail-item {
   padding-top: 1.25rem;
   border-bottom: 1px solid #bebebe;
 }
-/* line 274, ../../dev/sass/pages/cart.scss */
+/* line 281, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-parameters {
   display: -webkit-flex;
   display: flex;
@@ -4807,49 +4820,35 @@ tr.factory_item {
   align-items: center;
   margin: 1.25rem 0;
 }
-/* line 281, ../../dev/sass/pages/cart.scss */
+/* line 288, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-parameter {
   margin-right: 1rem;
 }
-/* line 284, ../../dev/sass/pages/cart.scss */
+/* line 291, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-value {
   margin-right: 1.25rem;
 }
-/* line 288, ../../dev/sass/pages/cart.scss */
+/* line 295, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-value img {
   width: 2.8125rem;
 }
-/* line 295, ../../dev/sass/pages/cart.scss */
+/* line 302, ../../dev/sass/pages/cart.scss */
 .cart-page .addelement-price-value {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
   margin-right: 1.25rem;
 }
-/* line 301, ../../dev/sass/pages/cart.scss */
+/* line 308, ../../dev/sass/pages/cart.scss */
 .cart-page .price-one-product {
   margin-top: 1.875rem;
 }
-/* line 304, ../../dev/sass/pages/cart.scss */
-.cart-page .addelements-detail-footer {
-  padding-right: 3.125rem;
+/* line 315, ../../dev/sass/pages/cart.scss */
+.cart-page .order-item {
+  padding: 0.4375rem 0;
+  border-bottom: 1px solid #bebebe;
 }
-
-/* line 313, ../../dev/sass/pages/cart.scss */
-.full-view {
-  /*
-  .coeff-label {
-    @include roboto-lt(rem(28px));
-    color: #8c8c8c;
-  }
-  .coeff-value {
-    @include roboto-lt(rem(42px));
-    color: $main_green;
-    margin-left: rem(5px);
-  }
-  */
-}
-/* line 314, ../../dev/sass/pages/cart.scss */
-.full-view .order-block {
+/* line 322, ../../dev/sass/pages/cart.scss */
+.cart-page .full-view .order-block {
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -4857,25 +4856,25 @@ tr.factory_item {
   min-height: 45%;
   z-index: 4;
 }
-/* line 322, ../../dev/sass/pages/cart.scss */
-.full-view .order, .full-view .addelementunit, .full-view .product-selector .product-selector-block .products-block .product, .product-selector .product-selector-block .products-block .full-view .product {
+/* line 330, ../../dev/sass/pages/cart.scss */
+.cart-page .full-view .order, .cart-page .full-view .products-selector .products-selector-block .products-block .product, .cart-page .products-selector .products-selector-block .products-block .full-view .product, .cart-page .full-view .addelementunit {
   width: 32rem;
   float: left;
   border-bottom-right-radius: 1.25rem;
   border-bottom-left-radius: 1.25rem;
 }
-/* line 328, ../../dev/sass/pages/cart.scss */
-.full-view .order-header {
+/* line 336, ../../dev/sass/pages/cart.scss */
+.cart-page .full-view .order-header {
   height: 20rem;
 }
-/* line 331, ../../dev/sass/pages/cart.scss */
-.full-view .order-header-fon {
+/* line 339, ../../dev/sass/pages/cart.scss */
+.cart-page .full-view .order-header-fon {
   width: 32rem;
   height: 20rem;
   cursor: pointer;
 }
-/* line 336, ../../dev/sass/pages/cart.scss */
-.full-view .order-template {
+/* line 344, ../../dev/sass/pages/cart.scss */
+.cart-page .full-view .order-template {
   position: absolute;
   bottom: -4.5625rem;
   left: 0.625rem;
@@ -4883,8 +4882,8 @@ tr.factory_item {
   background-color: #fff;
   border-radius: 0.625rem;
 }
-/* line 344, ../../dev/sass/pages/cart.scss */
-.full-view .order-u-coeff {
+/* line 352, ../../dev/sass/pages/cart.scss */
+.cart-page .full-view .order-u-coeff {
   font: normal 2.625rem/1.42857 roboto-light, sans-serif;
   bottom: -3.75rem;
   right: 3.3rem;
@@ -4893,100 +4892,78 @@ tr.factory_item {
   background-color: #fff;
   color: #6ed44a;
 }
-/* line 353, ../../dev/sass/pages/cart.scss */
-.full-view .order-u-coeff.u-coeff-low {
+/* line 361, ../../dev/sass/pages/cart.scss */
+.cart-page .full-view .order-u-coeff.u-coeff-low {
   color: #f74f2e;
 }
-/* line 368, ../../dev/sass/pages/cart.scss */
-.full-view .order-content {
+/* line 365, ../../dev/sass/pages/cart.scss */
+.cart-page .full-view .order-content {
   padding: 4.375rem 2.5rem 0 3.125rem;
   background-color: #fff;
 }
-/* line 372, ../../dev/sass/pages/cart.scss */
-.full-view .order-list {
+/* line 369, ../../dev/sass/pages/cart.scss */
+.cart-page .full-view .order-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 377, ../../dev/sass/pages/cart.scss */
-.full-view .order-item {
-  padding: 0.4375rem 0;
-  border-bottom: 1px solid #bebebe;
-}
-/* line 381, ../../dev/sass/pages/cart.scss */
-.full-view .order-qty {
+/* line 374, ../../dev/sass/pages/cart.scss */
+.cart-page .full-view .order-qty {
   -webkit-flex-flow: row nowrap;
   flex-flow: row nowrap;
   -webkit-justify-content: space-between;
   justify-content: space-between;
   height: 6.25rem;
 }
-/* line 386, ../../dev/sass/pages/cart.scss */
-.full-view .qty-label {
+/* line 379, ../../dev/sass/pages/cart.scss */
+.cart-page .full-view .qty-label {
   max-width: 10.625rem;
 }
-/* line 389, ../../dev/sass/pages/cart.scss */
-.full-view .order-footer, .full-view .cart-page .addelements-detail-footer, .cart-page .full-view .addelements-detail-footer {
-  padding-left: 3.125rem;
-}
-
-/* line 396, ../../dev/sass/pages/cart.scss */
-.light-view .order-block {
+/* line 386, ../../dev/sass/pages/cart.scss */
+.cart-page .light-view .order-block {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
 }
-/* line 400, ../../dev/sass/pages/cart.scss */
-.light-view .order, .light-view .addelementunit, .light-view .product-selector .product-selector-block .products-block .product, .product-selector .product-selector-block .products-block .light-view .product {
-  width: 26.25rem;
+/* line 390, ../../dev/sass/pages/cart.scss */
+.cart-page .light-view .order, .cart-page .light-view .products-selector .products-selector-block .products-block .product, .cart-page .products-selector .products-selector-block .products-block .light-view .product, .cart-page .light-view .addelementunit {
   max-height: 41.5rem;
-  margin-bottom: 3.125rem;
-  margin-right: 2.75rem;
-  border-radius: 1.25rem;
-  background-color: #fff;
-  text-align: center;
 }
-/* line 409, ../../dev/sass/pages/cart.scss */
-.light-view .order-template {
+/* line 394, ../../dev/sass/pages/cart.scss */
+.cart-page .light-view .order-template {
   cursor: pointer;
 }
-/* line 415, ../../dev/sass/pages/cart.scss */
-.light-view .order-header {
+/* line 397, ../../dev/sass/pages/cart.scss */
+.cart-page .light-view .order-header {
   padding-top: 2.5rem;
 }
-/* line 418, ../../dev/sass/pages/cart.scss */
-.light-view .order-content {
+/* line 400, ../../dev/sass/pages/cart.scss */
+.cart-page .light-view .order-content {
   padding: 2.5rem 1.25rem;
 }
-/* line 424, ../../dev/sass/pages/cart.scss */
-.light-view .addelements-btn {
+/* line 406, ../../dev/sass/pages/cart.scss */
+.cart-page .light-view .addelements-btn {
   margin-top: 0.625rem;
   padding: 0.625rem 0;
   border-top: 1px solid #bebebe;
   border-bottom: 1px solid #bebebe;
 }
-/* line 430, ../../dev/sass/pages/cart.scss */
-.light-view .order-qty {
+/* line 412, ../../dev/sass/pages/cart.scss */
+.cart-page .light-view .order-qty {
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
   -webkit-justify-content: space-around;
   justify-content: space-around;
   padding-top: 2.5rem;
 }
-/* line 435, ../../dev/sass/pages/cart.scss */
-.light-view .order-label, .light-view .cart-page .product-icon-label, .cart-page .light-view .product-icon-label,
-.light-view .cart-page .product-label,
-.cart-page .light-view .product-label, .light-view .cart-page .addelement-label, .cart-page .light-view .addelement-label {
+/* line 417, ../../dev/sass/pages/cart.scss */
+.cart-page .light-view .order-label, .cart-page .light-view .product-icon-label,
+.cart-page .light-view .product-label, .cart-page .light-view .addelement-label {
   padding-top: 0.625rem;
 }
-/* line 438, ../../dev/sass/pages/cart.scss */
-.light-view .order-footer, .light-view .cart-page .addelements-detail-footer, .cart-page .light-view .addelements-detail-footer {
-  text-align: left;
-}
-
-/* line 445, ../../dev/sass/pages/cart.scss */
-.discount-swipe-up {
+/* line 424, ../../dev/sass/pages/cart.scss */
+.cart-page .discount-swipe-up {
   position: absolute;
   left: 0;
   top: 50%;
@@ -4994,37 +4971,34 @@ tr.factory_item {
   height: 4%;
   z-index: 3;
 }
-
-/* line 454, ../../dev/sass/pages/cart.scss */
-.discount-container {
+/* line 433, ../../dev/sass/pages/cart.scss */
+.cart-page .discount-container {
   width: 90%;
   margin: auto;
   margin-top: 5rem;
   padding: 5rem 3.75rem 3rem;
   border-top: 1px solid #bebebe;
 }
-
-/* line 461, ../../dev/sass/pages/cart.scss */
-.discount-title {
+/* line 440, ../../dev/sass/pages/cart.scss */
+.cart-page .discount-title {
   font: normal 2.5rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
 }
-
-/* line 465, ../../dev/sass/pages/cart.scss */
-.discount-box {
+/* line 444, ../../dev/sass/pages/cart.scss */
+.cart-page .discount-box {
   display: -webkit-flex;
   display: flex;
   position: relative;
   width: 100%;
   margin-top: 3.125rem;
 }
-/* line 474, ../../dev/sass/pages/cart.scss */
-.discount-box.selected .discount-txt {
+/* line 451, ../../dev/sass/pages/cart.scss */
+.cart-page .discount-box.selected .discount-txt {
   background-color: #6ed44a;
   cursor: pointer;
 }
-/* line 477, ../../dev/sass/pages/cart.scss */
-.discount-box.selected .discount-txt:after {
+/* line 454, ../../dev/sass/pages/cart.scss */
+.cart-page .discount-box.selected .discount-txt:after {
   font: normal 7rem/9rem icons, sans-serif;
   position: absolute;
   top: 0.5rem;
@@ -5032,9 +5006,8 @@ tr.factory_item {
   color: #fff;
   content: "";
 }
-
-/* line 489, ../../dev/sass/pages/cart.scss */
-.discount-data {
+/* line 466, ../../dev/sass/pages/cart.scss */
+.cart-page .discount-data {
   display: -webkit-flex;
   display: flex;
   -webkit-justify-content: center;
@@ -5047,9 +5020,8 @@ tr.factory_item {
   background-color: #fff;
   color: #363636;
 }
-
-/* line 500, ../../dev/sass/pages/cart.scss */
-.disc-input-box {
+/* line 477, ../../dev/sass/pages/cart.scss */
+.cart-page .disc-input-box {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: column nowrap;
@@ -5057,23 +5029,20 @@ tr.factory_item {
   -webkit-justify-content: center;
   justify-content: center;
 }
-
-/* line 505, ../../dev/sass/pages/cart.scss */
-.disc-max {
+/* line 482, ../../dev/sass/pages/cart.scss */
+.cart-page .disc-max {
   font: normal 2rem/2rem roboto-light, sans-serif;
   color: #f74f2e;
 }
-
-/* line 509, ../../dev/sass/pages/cart.scss */
-.disc-input {
+/* line 486, ../../dev/sass/pages/cart.scss */
+.cart-page .disc-input {
   width: 7rem;
   padding: 0;
   margin: 0;
   outline: none;
 }
-
-/* line 515, ../../dev/sass/pages/cart.scss */
-.discounts-list {
+/* line 492, ../../dev/sass/pages/cart.scss */
+.cart-page .discounts-list {
   top: -5rem;
   left: 0rem;
   font: normal 2.25rem/5.4375rem roboto-light, sans-serif;
@@ -5087,16 +5056,14 @@ tr.factory_item {
   border-radius: 1rem;
   z-index: 5;
 }
-
-/* line 529, ../../dev/sass/pages/cart.scss */
-.discounts-item.active {
+/* line 506, ../../dev/sass/pages/cart.scss */
+.cart-page .discounts-item.active {
   border-top: 1px solid #bebebe;
   border-bottom: 1px solid #bebebe;
   color: #f98000;
 }
-
-/* line 535, ../../dev/sass/pages/cart.scss */
-.discount-txt {
+/* line 512, ../../dev/sass/pages/cart.scss */
+.cart-page .discount-txt {
   -webkit-flex-grow: 2;
   flex-grow: 2;
   -moz-transition: all 0.5s linear;
@@ -5108,15 +5075,13 @@ tr.factory_item {
   border-bottom-right-radius: 1rem;
   background-color: #fff;
 }
-
-/* line 543, ../../dev/sass/pages/cart.scss */
-.discounts-label {
+/* line 520, ../../dev/sass/pages/cart.scss */
+.cart-page .discounts-label {
   font: normal 2.25rem/5rem roboto-medium, sans-serif;
   color: #363636;
 }
-
-/* line 547, ../../dev/sass/pages/cart.scss */
-.discount-price-container {
+/* line 524, ../../dev/sass/pages/cart.scss */
+.cart-page .discount-price-container {
   display: -webkit-flex;
   display: flex;
   width: 100%;
@@ -5125,39 +5090,34 @@ tr.factory_item {
   border-radius: 1rem;
   background-color: #fff;
 }
-
-/* line 555, ../../dev/sass/pages/cart.scss */
-.discount-price-box {
+/* line 532, ../../dev/sass/pages/cart.scss */
+.cart-page .discount-price-box {
   padding: 0 3rem;
   -webkit-flex-grow: 1;
   flex-grow: 1;
 }
-/* line 558, ../../dev/sass/pages/cart.scss */
-.discount-price-box:last-child {
+/* line 535, ../../dev/sass/pages/cart.scss */
+.cart-page .discount-price-box:last-child {
   border-left: 1px dashed #363636;
 }
-
-/* line 562, ../../dev/sass/pages/cart.scss */
-.discount-price {
+/* line 539, ../../dev/sass/pages/cart.scss */
+.cart-page .discount-price {
   font: normal 3rem/6.25rem roboto-medium, sans-serif;
   color: #363636;
 }
-
-/* line 566, ../../dev/sass/pages/cart.scss */
-.discount-price-label {
+/* line 543, ../../dev/sass/pages/cart.scss */
+.cart-page .discount-price-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #8c8c8c;
 }
-
-/* line 575, ../../dev/sass/pages/cart.scss */
-.alladdelements-header {
+/* line 552, ../../dev/sass/pages/cart.scss */
+.cart-page .alladdelements-header {
   position: relative;
   width: 100%;
   height: 8rem;
 }
-
-/* line 580, ../../dev/sass/pages/cart.scss */
-.close-alladdelements {
+/* line 557, ../../dev/sass/pages/cart.scss */
+.cart-page .close-alladdelements {
   font: normal 3.125rem/1 icons, sans-serif;
   top: 0rem;
   left: -7rem;
@@ -5168,14 +5128,13 @@ tr.factory_item {
   border-top-right-radius: 2rem;
   border-bottom-right-radius: 2rem;
 }
-/* line 591, ../../dev/sass/pages/cart.scss */
-.close-alladdelements:before {
+/* line 568, ../../dev/sass/pages/cart.scss */
+.cart-page .close-alladdelements:before {
   color: #fff;
   content: "";
 }
-
-/* line 596, ../../dev/sass/pages/cart.scss */
-.alladdelements-block {
+/* line 573, ../../dev/sass/pages/cart.scss */
+.cart-page .alladdelements-block {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
   -o-overflow-scrolling: touch;
@@ -5187,91 +5146,90 @@ tr.factory_item {
   padding-right: 3rem;
   margin-right: -6rem;
 }
-/* line 606, ../../dev/sass/pages/cart.scss */
-.alladdelements-block .aux-list-block:last-child {
+/* line 583, ../../dev/sass/pages/cart.scss */
+.cart-page .alladdelements-block .aux-list-block:last-child {
   padding: 3.125rem 0 0 0;
 }
-/* line 610, ../../dev/sass/pages/cart.scss */
-.alladdelements-block .aux-block-inner {
+/* line 587, ../../dev/sass/pages/cart.scss */
+.cart-page .alladdelements-block .aux-block-inner {
   padding: 3.125rem 0;
   border-bottom: 1px solid #bebebe;
 }
-/* line 615, ../../dev/sass/pages/cart.scss */
-.alladdelements-block .aux-list-block-title,
-.alladdelements-block .aux-total-label {
+/* line 592, ../../dev/sass/pages/cart.scss */
+.cart-page .alladdelements-block .aux-list-block-title,
+.cart-page .alladdelements-block .aux-total-label {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
 }
-/* line 621, ../../dev/sass/pages/cart.scss */
-.alladdelements-block .aux-list-block-title:first-letter {
+/* line 598, ../../dev/sass/pages/cart.scss */
+.cart-page .alladdelements-block .aux-list-block-title:first-letter {
   text-transform: uppercase;
 }
-/* line 624, ../../dev/sass/pages/cart.scss */
-.alladdelements-block .aux-list-row {
+/* line 601, ../../dev/sass/pages/cart.scss */
+.cart-page .alladdelements-block .aux-list-row {
   margin-bottom: 1.25rem;
 }
-/* line 630, ../../dev/sass/pages/cart.scss */
-.alladdelements-block .aux-total-label {
+/* line 607, ../../dev/sass/pages/cart.scss */
+.cart-page .alladdelements-block .aux-total-label {
   min-width: 69%;
 }
-/* line 634, ../../dev/sass/pages/cart.scss */
-.alladdelements-block .aux-list-addellement {
+/* line 611, ../../dev/sass/pages/cart.scss */
+.cart-page .alladdelements-block .aux-list-addellement {
   width: 100%;
 }
-/* line 637, ../../dev/sass/pages/cart.scss */
-.alladdelements-block .aux-list-addellement .aux-tablecell-name {
+/* line 614, ../../dev/sass/pages/cart.scss */
+.cart-page .alladdelements-block .aux-list-addellement .aux-tablecell-name {
   width: 31.25rem;
 }
-/* line 639, ../../dev/sass/pages/cart.scss */
-.alladdelements-block .aux-list-addellement .aux-tablecell-name .aux-name {
+/* line 616, ../../dev/sass/pages/cart.scss */
+.cart-page .alladdelements-block .aux-list-addellement .aux-tablecell-name .aux-name {
   max-width: 100%;
 }
-/* line 643, ../../dev/sass/pages/cart.scss */
-.alladdelements-block .aux-list-addellement .aux-tablecell-total {
+/* line 620, ../../dev/sass/pages/cart.scss */
+.cart-page .alladdelements-block .aux-list-addellement .aux-tablecell-total {
   width: 75%;
 }
-/* line 646, ../../dev/sass/pages/cart.scss */
-.alladdelements-block .aux-list-addellement .aux-tablecell-qty {
+/* line 623, ../../dev/sass/pages/cart.scss */
+.cart-page .alladdelements-block .aux-list-addellement .aux-tablecell-qty {
   width: 6.25rem;
 }
-/* line 649, ../../dev/sass/pages/cart.scss */
-.alladdelements-block .aux-list-addellement .aux-tablecell-width,
-.alladdelements-block .aux-list-addellement .aux-tablecell-height {
+/* line 626, ../../dev/sass/pages/cart.scss */
+.cart-page .alladdelements-block .aux-list-addellement .aux-tablecell-width,
+.cart-page .alladdelements-block .aux-list-addellement .aux-tablecell-height {
   width: 9.375rem;
 }
-/* line 653, ../../dev/sass/pages/cart.scss */
-.alladdelements-block .aux-list-addellement .aux-tablecell-color {
+/* line 630, ../../dev/sass/pages/cart.scss */
+.cart-page .alladdelements-block .aux-list-addellement .aux-tablecell-color {
   width: 6.25rem;
 }
-/* line 656, ../../dev/sass/pages/cart.scss */
-.alladdelements-block .aux-list-addellement .aux-tablecell-price {
+/* line 633, ../../dev/sass/pages/cart.scss */
+.cart-page .alladdelements-block .aux-list-addellement .aux-tablecell-price {
   width: 12.5rem;
 }
-/* line 658, ../../dev/sass/pages/cart.scss */
-.alladdelements-block .aux-list-addellement .aux-tablecell-price .aux-price, .alladdelements-block .aux-list-addellement .aux-tablecell-price .aux-total-price {
+/* line 635, ../../dev/sass/pages/cart.scss */
+.cart-page .alladdelements-block .aux-list-addellement .aux-tablecell-price .aux-price, .cart-page .alladdelements-block .aux-list-addellement .aux-tablecell-price .aux-total-price {
   text-align: center;
 }
-/* line 662, ../../dev/sass/pages/cart.scss */
-.alladdelements-block .aux-list-addellement .aux-tablecell-delete {
+/* line 639, ../../dev/sass/pages/cart.scss */
+.cart-page .alladdelements-block .aux-list-addellement .aux-tablecell-delete {
   width: 6.25rem;
 }
-/* line 666, ../../dev/sass/pages/cart.scss */
-.alladdelements-block .aux-list-addellement .aux-params {
+/* line 643, ../../dev/sass/pages/cart.scss */
+.cart-page .alladdelements-block .aux-list-addellement .aux-params {
   text-align: center;
 }
-/* line 669, ../../dev/sass/pages/cart.scss */
-.alladdelements-block .aux-list-addellement .aux-params .aux-params-but {
+/* line 646, ../../dev/sass/pages/cart.scss */
+.cart-page .alladdelements-block .aux-list-addellement .aux-params .aux-params-but {
   border: none;
   cursor: default;
 }
-
-/* line 679, ../../dev/sass/pages/cart.scss */
-.product-selector {
+/* line 656, ../../dev/sass/pages/cart.scss */
+.cart-page .products-selector {
   position: relative;
   height: 20%;
 }
-/* line 683, ../../dev/sass/pages/cart.scss */
-.product-selector .product-selector-block {
+/* line 660, ../../dev/sass/pages/cart.scss */
+.cart-page .products-selector .products-selector-block {
   -moz-transition: top 0.5s linear;
   -o-transition: top 0.5s linear;
   -webkit-transition: top 0.5s linear;
@@ -5284,93 +5242,139 @@ tr.factory_item {
   padding: 3rem;
   background-color: #848484;
 }
-/* line 694, ../../dev/sass/pages/cart.scss */
-.product-selector .product-selector-block.active {
-  top: -38rem;
+/* line 670, ../../dev/sass/pages/cart.scss */
+.cart-page .products-selector .products-selector-block.active, .cart-page .products-selector .products-selector-block:hover {
+  top: -47rem;
 }
-/* line 699, ../../dev/sass/pages/cart.scss */
-.product-selector .product-selector-block .products-block .product {
+/* line 675, ../../dev/sass/pages/cart.scss */
+.cart-page .products-selector .products-selector-block .products-block {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: raw nowrap;
+  flex-flow: raw nowrap;
+}
+/* line 680, ../../dev/sass/pages/cart.scss */
+.cart-page .products-selector .products-selector-block .products-block .product {
+  min-width: 26.25rem;
+  margin-bottom: 1rem;
   text-align: left;
+  cursor: pointer;
 }
-/* line 704, ../../dev/sass/pages/cart.scss */
-.product-selector .product-selector-block .nav-products-block {
-  width: 20%;
+/* line 688, ../../dev/sass/pages/cart.scss */
+.cart-page .products-selector .products-selector-block .products-block .product.selected .order-footer, .cart-page .products-selector .products-selector-block .products-block .product.selected .addelements-detail-footer {
+  background-color: #f98000;
 }
-
-/* line 714, ../../dev/sass/pages/cart.scss */
-.addelementunique-header {
+/* line 691, ../../dev/sass/pages/cart.scss */
+.cart-page .products-selector .products-selector-block .products-block .product.selected .select-mark {
+  display: block;
+}
+/* line 696, ../../dev/sass/pages/cart.scss */
+.cart-page .products-selector .products-selector-block .products-block .product-header {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: raw nowrap;
+  flex-flow: raw nowrap;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  -webkit-align-items: center;
+  align-items: center;
+  padding: 2rem 0 0 2rem;
+}
+/* line 703, ../../dev/sass/pages/cart.scss */
+.cart-page .products-selector .products-selector-block .products-block .order-item {
+  padding-left: 2rem;
+}
+/* line 706, ../../dev/sass/pages/cart.scss */
+.cart-page .products-selector .products-selector-block .products-block .select-mark {
+  display: none;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  text-align: center;
+  background-color: #f98000;
+}
+/* line 718, ../../dev/sass/pages/cart.scss */
+.cart-page .products-selector .products-selector-block .products-block .select-mark:after {
+  font: normal 5rem/7rem icons, sans-serif;
+  color: #fff;
+  content: "";
+}
+/* line 731, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunique-header {
   position: relative;
   width: 100%;
   height: 6.25rem;
   background-color: #fff;
 }
-/* line 720, ../../dev/sass/pages/cart.scss */
-.addelementunique-header .aux-title {
+/* line 737, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunique-header .aux-title {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 725, ../../dev/sass/pages/cart.scss */
-.addelementunique-header .aux-label {
+/* line 742, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunique-header .aux-label {
   font: normal 1.375rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 729, ../../dev/sass/pages/cart.scss */
-.addelementunique-header .aux-params-but {
+/* line 746, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunique-header .aux-params-but {
   font: normal 2.25rem/1.42857 roboto-light, sans-serif;
   color: #363636;
 }
-/* line 733, ../../dev/sass/pages/cart.scss */
-.addelementunique-header .aux-list-row {
+/* line 750, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunique-header .aux-list-row {
   padding-top: 1%;
 }
-/* line 740, ../../dev/sass/pages/cart.scss */
-.addelementunique-header .aux-total-label {
+/* line 757, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunique-header .aux-total-label {
   min-width: 69%;
 }
-/* line 744, ../../dev/sass/pages/cart.scss */
-.addelementunique-header .aux-list-addellement {
+/* line 761, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunique-header .aux-list-addellement {
   width: 100%;
 }
-/* line 747, ../../dev/sass/pages/cart.scss */
-.addelementunique-header .aux-list-addellement .aux-tablecell-name {
+/* line 764, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunique-header .aux-list-addellement .aux-tablecell-name {
   width: 31.25rem;
 }
-/* line 749, ../../dev/sass/pages/cart.scss */
-.addelementunique-header .aux-list-addellement .aux-tablecell-name .aux-name {
+/* line 766, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunique-header .aux-list-addellement .aux-tablecell-name .aux-name {
   max-width: 100%;
 }
-/* line 753, ../../dev/sass/pages/cart.scss */
-.addelementunique-header .aux-list-addellement .aux-tablecell-total {
+/* line 770, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunique-header .aux-list-addellement .aux-tablecell-total {
   width: 75%;
 }
-/* line 756, ../../dev/sass/pages/cart.scss */
-.addelementunique-header .aux-list-addellement .aux-tablecell-qty {
+/* line 773, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunique-header .aux-list-addellement .aux-tablecell-qty {
   width: 6.25rem;
 }
-/* line 759, ../../dev/sass/pages/cart.scss */
-.addelementunique-header .aux-list-addellement .aux-tablecell-width,
-.addelementunique-header .aux-list-addellement .aux-tablecell-height {
+/* line 776, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunique-header .aux-list-addellement .aux-tablecell-width,
+.cart-page .addelementunique-header .aux-list-addellement .aux-tablecell-height {
   width: 9.375rem;
 }
-/* line 763, ../../dev/sass/pages/cart.scss */
-.addelementunique-header .aux-list-addellement .aux-tablecell-color {
+/* line 780, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunique-header .aux-list-addellement .aux-tablecell-color {
   width: 6.25rem;
 }
-/* line 766, ../../dev/sass/pages/cart.scss */
-.addelementunique-header .aux-list-addellement .aux-tablecell-price {
+/* line 783, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunique-header .aux-list-addellement .aux-tablecell-price {
   width: 12.5rem;
 }
-/* line 768, ../../dev/sass/pages/cart.scss */
-.addelementunique-header .aux-list-addellement .aux-tablecell-price .aux-price, .addelementunique-header .aux-list-addellement .aux-tablecell-price .aux-total-price {
+/* line 785, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunique-header .aux-list-addellement .aux-tablecell-price .aux-price, .cart-page .addelementunique-header .aux-list-addellement .aux-tablecell-price .aux-total-price {
   text-align: center;
 }
-/* line 772, ../../dev/sass/pages/cart.scss */
-.addelementunique-header .aux-list-addellement .aux-tablecell-delete {
+/* line 789, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunique-header .aux-list-addellement .aux-tablecell-delete {
   width: 6.25rem;
 }
-
-/* line 779, ../../dev/sass/pages/cart.scss */
-.addelementunit-header-fon {
+/* line 796, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-header-fon {
   top: -3.125rem;
   left: -6.25rem;
   position: absolute;
@@ -5379,64 +5383,50 @@ tr.factory_item {
   background-color: #fff;
   z-index: -1;
 }
-
-/* line 788, ../../dev/sass/pages/cart.scss */
-.addelementunits-container {
+/* line 805, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunits-container {
   margin: 2% 0 0 -3rem;
   padding-top: 3%;
 }
-
-/* line 794, ../../dev/sass/pages/cart.scss */
-.addelementunit-block {
+/* line 811, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-block {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
 }
-
-/* line 799, ../../dev/sass/pages/cart.scss */
-.addelementunit, .product-selector .product-selector-block .products-block .product {
-  width: 26.25rem;
+/* line 816, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit {
   min-width: 26.25rem;
-  margin-bottom: 3.125rem;
-  margin-right: 2.75rem;
-  border-radius: 1.25rem;
-  background-color: #fff;
-  text-align: center;
 }
-
-/* line 810, ../../dev/sass/pages/cart.scss */
-.addelementunit-header {
+/* line 821, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-header {
   position: relative;
   height: 13.125rem;
   padding-top: 2.5rem;
 }
-
-/* line 815, ../../dev/sass/pages/cart.scss */
-.addelementunit-delete {
+/* line 826, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-delete {
   position: absolute;
   top: -1.25rem;
   right: -1.25rem;
   left: initial;
   z-index: 9;
 }
-
-/* line 823, ../../dev/sass/pages/cart.scss */
-.addelementunit-content {
+/* line 834, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-content {
   padding: 2.5rem 1.25rem;
 }
-
-/* line 830, ../../dev/sass/pages/cart.scss */
-.addelementunit-footer {
+/* line 841, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-footer {
   font: normal 3rem/6.25rem roboto-medium, sans-serif;
   border-bottom-left-radius: 1.25rem;
   border-bottom-right-radius: 1.25rem;
   color: #363636;
   background-color: #4bd963;
 }
-
-/* line 840, ../../dev/sass/pages/cart.scss */
-.addelementunit-train {
+/* line 851, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-train {
   -webkit-overflow-scrolling: touch;
   -moz-overflow-scrolling: touch;
   -o-overflow-scrolling: touch;
@@ -5445,35 +5435,35 @@ tr.factory_item {
   overflow-x: auto;
   overflow-y: auto;
 }
-/* line 845, ../../dev/sass/pages/cart.scss */
-.addelementunit-train .addelementunit-train-inner {
+/* line 856, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-train .addelementunit-train-inner {
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 850, ../../dev/sass/pages/cart.scss */
-.addelementunit-train .addelementunit, .addelementunit-train .product-selector .product-selector-block .products-block .product, .product-selector .product-selector-block .products-block .addelementunit-train .product {
+/* line 861, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-train .addelementunit {
   margin-top: 1.5rem;
 }
-/* line 853, ../../dev/sass/pages/cart.scss */
-.addelementunit-train .addelementunit.unit-last .link-right, .addelementunit-train .product-selector .product-selector-block .products-block .unit-last.product .link-right, .product-selector .product-selector-block .products-block .addelementunit-train .unit-last.product .link-right {
+/* line 864, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-train .addelementunit.unit-last .link-right {
   display: none;
 }
-/* line 859, ../../dev/sass/pages/cart.scss */
-.addelementunit-train .addelementunit-link {
+/* line 870, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-train .addelementunit-link {
   position: absolute;
   bottom: 0;
   width: 3.75rem;
   height: 6rem;
   cursor: pointer;
 }
-/* line 865, ../../dev/sass/pages/cart.scss */
-.addelementunit-train .addelementunit-link.link-right {
+/* line 876, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-train .addelementunit-link.link-right {
   right: -3.4375rem;
 }
-/* line 868, ../../dev/sass/pages/cart.scss */
-.addelementunit-train .addelementunit-link:before {
+/* line 879, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-train .addelementunit-link:before {
   position: absolute;
   top: 50%;
   left: 0;
@@ -5481,8 +5471,8 @@ tr.factory_item {
   border-top: 1px solid #4bd963;
   content: ' ';
 }
-/* line 881, ../../dev/sass/pages/cart.scss */
-.addelementunit-train .link-explode-menu {
+/* line 892, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-train .link-explode-menu {
   font: normal 2.25rem/4.0625rem roboto-light, sans-serif;
   position: absolute;
   min-width: 32rem;
@@ -5493,8 +5483,8 @@ tr.factory_item {
   cursor: pointer;
   z-index: 999;
 }
-/* line 892, ../../dev/sass/pages/cart.scss */
-.addelementunit-train .link-explode-menu:before {
+/* line 903, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-train .link-explode-menu:before {
   position: absolute;
   z-index: 99;
   bottom: -1.25rem;
@@ -5506,14 +5496,14 @@ tr.factory_item {
   border-color: #242424 transparent;
   content: '';
 }
-/* line 906, ../../dev/sass/pages/cart.scss */
-.addelementunit-train ul.link-explode-list {
+/* line 917, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-train ul.link-explode-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 912, ../../dev/sass/pages/cart.scss */
-.addelementunit-train li.link-explode-item {
+/* line 923, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-train li.link-explode-item {
   display: inline-block;
   line-height: 5rem;
   padding-right: 0.9375rem;
@@ -5521,80 +5511,79 @@ tr.factory_item {
   text-align: center;
   color: #ddd;
 }
-/* line 920, ../../dev/sass/pages/cart.scss */
-.addelementunit-train li.link-explode-item:last-child {
+/* line 931, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-train li.link-explode-item:last-child {
   border-right: none;
   padding-left: 0.5rem;
   padding-right: 0;
 }
-
-/* line 933, ../../dev/sass/pages/cart.scss */
-.addelementunit-only .aux-list-block {
+/* line 944, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-only .aux-list-block {
   padding: 3.125rem 0;
   border-bottom: 1px solid #bebebe;
 }
-/* line 937, ../../dev/sass/pages/cart.scss */
-.addelementunit-only .aux-list-block:last-child {
+/* line 948, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-only .aux-list-block:last-child {
   padding: 3.125rem 0 0 0;
   border: none;
 }
-/* line 943, ../../dev/sass/pages/cart.scss */
-.addelementunit-only .aux-list-block-title,
-.addelementunit-only .aux-total-label {
+/* line 954, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-only .aux-list-block-title,
+.cart-page .addelementunit-only .aux-total-label {
   font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
   color: #363636;
 }
-/* line 949, ../../dev/sass/pages/cart.scss */
-.addelementunit-only .aux-list-block-title:first-letter {
+/* line 960, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-only .aux-list-block-title:first-letter {
   text-transform: uppercase;
 }
-/* line 952, ../../dev/sass/pages/cart.scss */
-.addelementunit-only .aux-list-row {
+/* line 963, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-only .aux-list-row {
   margin-bottom: 1.25rem;
 }
-/* line 958, ../../dev/sass/pages/cart.scss */
-.addelementunit-only .aux-total-label {
+/* line 969, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-only .aux-total-label {
   min-width: 69%;
 }
-/* line 962, ../../dev/sass/pages/cart.scss */
-.addelementunit-only .aux-list-addellement {
+/* line 973, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-only .aux-list-addellement {
   width: 100%;
 }
-/* line 965, ../../dev/sass/pages/cart.scss */
-.addelementunit-only .aux-list-addellement .aux-tablecell-name {
+/* line 976, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-only .aux-list-addellement .aux-tablecell-name {
   width: 31.25rem;
 }
-/* line 967, ../../dev/sass/pages/cart.scss */
-.addelementunit-only .aux-list-addellement .aux-tablecell-name .aux-name {
+/* line 978, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-only .aux-list-addellement .aux-tablecell-name .aux-name {
   max-width: 100%;
 }
-/* line 971, ../../dev/sass/pages/cart.scss */
-.addelementunit-only .aux-list-addellement .aux-tablecell-total {
+/* line 982, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-only .aux-list-addellement .aux-tablecell-total {
   width: 75%;
 }
-/* line 974, ../../dev/sass/pages/cart.scss */
-.addelementunit-only .aux-list-addellement .aux-tablecell-qty {
+/* line 985, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-only .aux-list-addellement .aux-tablecell-qty {
   width: 6.25rem;
 }
-/* line 977, ../../dev/sass/pages/cart.scss */
-.addelementunit-only .aux-list-addellement .aux-tablecell-width,
-.addelementunit-only .aux-list-addellement .aux-tablecell-height {
+/* line 988, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-only .aux-list-addellement .aux-tablecell-width,
+.cart-page .addelementunit-only .aux-list-addellement .aux-tablecell-height {
   width: 9.375rem;
 }
-/* line 981, ../../dev/sass/pages/cart.scss */
-.addelementunit-only .aux-list-addellement .aux-tablecell-color {
+/* line 992, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-only .aux-list-addellement .aux-tablecell-color {
   width: 6.25rem;
 }
-/* line 984, ../../dev/sass/pages/cart.scss */
-.addelementunit-only .aux-list-addellement .aux-tablecell-price {
+/* line 995, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-only .aux-list-addellement .aux-tablecell-price {
   width: 12.5rem;
 }
-/* line 986, ../../dev/sass/pages/cart.scss */
-.addelementunit-only .aux-list-addellement .aux-tablecell-price .aux-price, .addelementunit-only .aux-list-addellement .aux-tablecell-price .aux-total-price {
+/* line 997, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-only .aux-list-addellement .aux-tablecell-price .aux-price, .cart-page .addelementunit-only .aux-list-addellement .aux-tablecell-price .aux-total-price {
   text-align: center;
 }
-/* line 990, ../../dev/sass/pages/cart.scss */
-.addelementunit-only .aux-list-addellement .aux-tablecell-delete {
+/* line 1001, ../../dev/sass/pages/cart.scss */
+.cart-page .addelementunit-only .aux-list-addellement .aux-tablecell-delete {
   width: 6.25rem;
 }
 
@@ -8501,8 +8490,87 @@ tr.factory_item {
   padding: 3.125rem 5rem;
   z-index: 15;
 }
-/* line 6, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .aux-search-content {
+/* line 7, ../../dev/sass/panels/additional-elements-list.scss */
+.additional-list-container .search-element {
+  font: normal 2.25rem/2.25rem roboto-light, sans-serif;
+  margin: 1.25rem;
+  margin-left: 0;
+  padding: 1.125rem 1.25rem;
+  border-radius: 2rem;
+  color: #fff;
+}
+/* line 24, ../../dev/sass/panels/additional-elements-list.scss */
+.additional-list-container .aux-list-block {
+  padding: 3.125rem 0;
+  border-bottom: 1px solid #bebebe;
+}
+/* line 28, ../../dev/sass/panels/additional-elements-list.scss */
+.additional-list-container .aux-list-block:last-child {
+  padding: 3.125rem 0 0 0;
+  border: none;
+}
+/* line 34, ../../dev/sass/panels/additional-elements-list.scss */
+.additional-list-container .aux-list-block-title,
+.additional-list-container .aux-total-label {
+  font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
+  color: #363636;
+}
+/* line 40, ../../dev/sass/panels/additional-elements-list.scss */
+.additional-list-container .aux-list-block-title:first-letter {
+  text-transform: uppercase;
+}
+/* line 43, ../../dev/sass/panels/additional-elements-list.scss */
+.additional-list-container .aux-list-row {
+  margin-bottom: 1.25rem;
+}
+/* line 49, ../../dev/sass/panels/additional-elements-list.scss */
+.additional-list-container .aux-total-label {
+  min-width: 69%;
+}
+/* line 53, ../../dev/sass/panels/additional-elements-list.scss */
+.additional-list-container .aux-list-addellement {
+  width: 100%;
+}
+/* line 56, ../../dev/sass/panels/additional-elements-list.scss */
+.additional-list-container .aux-list-addellement .aux-tablecell-name {
+  width: 31.25rem;
+}
+/* line 58, ../../dev/sass/panels/additional-elements-list.scss */
+.additional-list-container .aux-list-addellement .aux-tablecell-name .aux-name {
+  max-width: 100%;
+}
+/* line 62, ../../dev/sass/panels/additional-elements-list.scss */
+.additional-list-container .aux-list-addellement .aux-tablecell-total {
+  width: 75%;
+}
+/* line 65, ../../dev/sass/panels/additional-elements-list.scss */
+.additional-list-container .aux-list-addellement .aux-tablecell-qty {
+  width: 6.25rem;
+}
+/* line 68, ../../dev/sass/panels/additional-elements-list.scss */
+.additional-list-container .aux-list-addellement .aux-tablecell-width,
+.additional-list-container .aux-list-addellement .aux-tablecell-height {
+  width: 9.375rem;
+}
+/* line 72, ../../dev/sass/panels/additional-elements-list.scss */
+.additional-list-container .aux-list-addellement .aux-tablecell-color {
+  width: 6.25rem;
+}
+/* line 75, ../../dev/sass/panels/additional-elements-list.scss */
+.additional-list-container .aux-list-addellement .aux-tablecell-price {
+  width: 12.5rem;
+}
+/* line 77, ../../dev/sass/panels/additional-elements-list.scss */
+.additional-list-container .aux-list-addellement .aux-tablecell-price .aux-price, .additional-list-container .aux-list-addellement .aux-tablecell-price .aux-total-price {
+  text-align: center;
+}
+/* line 81, ../../dev/sass/panels/additional-elements-list.scss */
+.additional-list-container .aux-list-addellement .aux-tablecell-delete {
+  width: 6.25rem;
+}
+
+/* line 88, ../../dev/sass/panels/additional-elements-list.scss */
+.aux-search-content {
   -moz-transition: left 0.5s linear;
   -o-transition: left 0.5s linear;
   -webkit-transition: left 0.5s linear;
@@ -8516,17 +8584,19 @@ tr.factory_item {
   background: rgba(255, 255, 255, 0.9);
   z-index: 10;
 }
-/* line 17, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .aux-search-content.active {
+/* line 99, ../../dev/sass/panels/additional-elements-list.scss */
+.aux-search-content.active {
   left: 0;
 }
-/* line 21, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .aux-list-groups {
+
+/* line 103, ../../dev/sass/panels/additional-elements-list.scss */
+.aux-list-groups {
   list-style: none;
   padding-left: 4.375rem;
 }
-/* line 25, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .aux-list-group {
+
+/* line 107, ../../dev/sass/panels/additional-elements-list.scss */
+.aux-list-group {
   font: normal 2.25rem/6.25rem roboto-light, sans-serif;
   -moz-transition: color 0.5s linear;
   -o-transition: color 0.5s linear;
@@ -8537,16 +8607,17 @@ tr.factory_item {
   color: #363636;
   cursor: pointer;
 }
-/* line 33, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .aux-list-group.selected {
+/* line 115, ../../dev/sass/panels/additional-elements-list.scss */
+.aux-list-group.selected {
   color: #fff;
 }
-/* line 36, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .aux-list-group.selected .group-indicator.active {
+/* line 118, ../../dev/sass/panels/additional-elements-list.scss */
+.aux-list-group.selected .group-indicator.active {
   width: 100%;
 }
-/* line 42, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .group-indicator {
+
+/* line 124, ../../dev/sass/panels/additional-elements-list.scss */
+.group-indicator {
   top: 0.625rem;
   left: -5.125rem;
   -moz-transition: width 0.5s linear;
@@ -8558,8 +8629,8 @@ tr.factory_item {
   height: 5rem;
   z-index: -1;
 }
-/* line 51, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .group-indicator:before {
+/* line 133, ../../dev/sass/panels/additional-elements-list.scss */
+.group-indicator:before {
   position: absolute;
   display: block;
   top: 0;
@@ -8569,8 +8640,9 @@ tr.factory_item {
   border-style: solid;
   content: '';
 }
-/* line 62, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .search-elements-block {
+
+/* line 144, ../../dev/sass/panels/additional-elements-list.scss */
+.search-elements-block {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: row wrap;
@@ -8578,87 +8650,9 @@ tr.factory_item {
   -webkit-align-items: flex-start;
   align-items: flex-start;
 }
-/* line 67, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .search-element {
-  font: normal 2.25rem/2.25rem roboto-light, sans-serif;
-  margin: 1.25rem;
-  margin-left: 0;
-  padding: 1.125rem 1.25rem;
-  border-radius: 2rem;
-  color: #fff;
-}
-/* line 84, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .aux-list-block {
-  padding: 3.125rem 0;
-  border-bottom: 1px solid #bebebe;
-}
-/* line 88, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .aux-list-block:last-child {
-  padding: 3.125rem 0 0 0;
-  border: none;
-}
-/* line 94, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .aux-list-block-title,
-.additional-list-container .aux-total-label {
-  font: normal 2.25rem/1.42857 roboto-bold, sans-serif;
-  color: #363636;
-}
-/* line 100, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .aux-list-block-title:first-letter {
-  text-transform: uppercase;
-}
-/* line 103, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .aux-list-row {
-  margin-bottom: 1.25rem;
-}
-/* line 109, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .aux-total-label {
-  min-width: 69%;
-}
-/* line 113, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .aux-list-addellement {
-  width: 100%;
-}
-/* line 116, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .aux-list-addellement .aux-tablecell-name {
-  width: 31.25rem;
-}
-/* line 118, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .aux-list-addellement .aux-tablecell-name .aux-name {
-  max-width: 100%;
-}
-/* line 122, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .aux-list-addellement .aux-tablecell-total {
-  width: 75%;
-}
-/* line 125, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .aux-list-addellement .aux-tablecell-qty {
-  width: 6.25rem;
-}
-/* line 128, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .aux-list-addellement .aux-tablecell-width,
-.additional-list-container .aux-list-addellement .aux-tablecell-height {
-  width: 9.375rem;
-}
-/* line 132, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .aux-list-addellement .aux-tablecell-color {
-  width: 6.25rem;
-}
-/* line 135, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .aux-list-addellement .aux-tablecell-price {
-  width: 12.5rem;
-}
-/* line 137, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .aux-list-addellement .aux-tablecell-price .aux-price, .additional-list-container .aux-list-addellement .aux-tablecell-price .aux-total-price {
-  text-align: center;
-}
-/* line 141, ../../dev/sass/panels/additional-elements-list.scss */
-.additional-list-container .aux-list-addellement .aux-tablecell-delete {
-  width: 6.25rem;
-}
 
 /* line 218, ../../dev/sass/base/_animations.scss */
-.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .alladdelements-block .aux-params-but, .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .addelementunit, .cart-page .product-selector .product-selector-block .products-block .product, .product-selector .product-selector-block .products-block .cart-page .product, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
+.splash, .avatar, .user-info-container .user-foto, .setting-container .setting-user-foto, .alert-sign, .user-info-container .icon-location, .room-info-container .select-rooms, .rooms-selector-dialog .room-img, .settings .back, .settings .save, .menu-right-general .cart-btn, .config-menu .cart-btn, .elements-menu .cart-btn, .cart-menu .cart-btn, .old-price-tab .cart-btn, .old-price-inst-tab .cart-btn, .cart-menu .order-btn, .config-section .box, .profile-container .profile-block .box, .glass-container .glass-block .box, .hardware-container .hardware-block .box, .aux-choose-but, .parameters-block .aux-params-but, .cart-page .alladdelements-block .aux-params-but, .cart-page .addelementunit-only .aux-params-but, .elements-list-container .aux-params-but, .auxiliaries-container .aux-params-but, .additional-list-container .aux-list-content .aux-params-but, .aux-color, .search-block .delete-search, .search-block .cancel-search, .cart-dialogs-container .cart-dialog-tool, .cart-dialogs-container .save, .close_dialog, .logo, .login-submit, .setting-back, .accounts-container .tool, .accounts-container .dropdown-tool-dialog, .accounts-container .account-block, .empty-search-result .result-icon, .cart-page .cart-tool, .cart-page .order, .cart-page .products-selector .products-selector-block .products-block .product, .cart-page .addelementunit, .cart-page .products-selector .products-selector-block .products-block .select-mark, .construction-left-menu .figure-icon, .construction-left-menu .project-default, .construct-tools, .door-config-btn, .nav-menu [class^='nav-icon-'],
 .nav-menu [class*=' nav-icon-'], .nav-menu .new-calc, .config-menu .icon, .config-menu .qty, .cart-menu .calendar-price, .cart-menu .measure-btn, .template-container .template-title, .template-container .other-template-img, .glass-container .glass-selector-dialog .set-glass-btn, .glass-container .glass-selector-dialog .set-glass-all-btn, .hardware-container .hardware-box, .lamination-container .lamination-img, .auxiliaries-container .aux-force-connect, .auxiliaries-container .aux-balcon-connect, .auxiliaries-container .scheme-info, .additional-list-container .search-element {
   -moz-animation: splashing 0.5s ease 0s 1;
   -webkit-animation: splashing 0.5s ease 0s 1;

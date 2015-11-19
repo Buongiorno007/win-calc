@@ -1,12 +1,16 @@
 //------- All AddElements Panel
-section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as elemCartPanel", ng-class="{'active': elemCartPanel.C.cart.isAllAddElems}")
+section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as elemCartPanel", ng-class="{'active': cartPage.C.cart.isAllAddElems}")
   .alladdelements-header
     button.close-alladdelements(hm-tap="elemCartPanel.closeAllAddElemsPanel()")
-    include ../parts/_search-block
+    div(ng-if="cartPage.C.cart.isSelectedProduct")
+      include ../parts/_search-block
+
+    include ../parts/_addelems-group-menu
+
   .alladdelements-block
 
     .aux-list-block(ng-repeat="elemType in elemCartPanel.config.addElemsTypes track by $index", ng-class="{'aux_color_connect': (!$index || $index === 6), 'aux_color_big': ($index === 1 || $index === 8), 'aux_color_middle': ($index === 2 || $index === 4 || $index === 9 || $index === 10), 'aux_color_slope': ($index === 3 || $index === 5), 'aux_color_small': $index === 7}")
-      .aux-block-inner(ng-if="(elemCartPanel.C.cart.allAddElemsOrder | filter: {list_group_id: elemType}).length", ng-switch="elemType")
+      .aux-block-inner(ng-if="(cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType}).length", ng-switch="elemType")
         .aux-list-block-title(ng-switch-when="20") {{ 'add_elements.GRID' | translate }}
         .aux-list-block-title(ng-switch-when="21") {{ 'add_elements.VISOR' | translate }}
         .aux-list-block-title(ng-switch-when="9") {{ 'add_elements.SPILLWAY' | translate }}
@@ -20,7 +24,7 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
         .aux-list-block-title(ng-switch-when="16") {{ 'add_elements.OTHERS' | translate }}
 
         table.aux-list-addellement
-          tr.aux-list-row(ng-repeat="addElem in elemCartPanel.C.cart.allAddElemsOrder | filter: {list_group_id: elemType} track by $index")
+          tr.aux-list-row(ng-repeat="addElem in cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType} track by $index")
             td.aux-tablecell-name
               .aux-name
                 button.aux-params-but.aux_connect_but.aux-title(ng-class="{'selected': addElem.id === elemCartPanel.config.selectedAddElemUnit.id}", hm-tap="elemCartPanel.showAddElemUnitDetail(addElem)") {{ addElem.name }}
@@ -38,7 +42,7 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
                 .aux-params-but {{ addElem.element_height }}
                 .aux-label {{ 'add_elements.HEIGHT_LABEL' | translate }}
             td.aux-tablecell-price
-              .aux-price + {{ addElem.element_qty * addElem.elementPriceDis }} {{ elemCartPanel.U.userInfo.currency }}
+              .aux-price + {{ addElem.element_qty * addElem.elementPriceDis }} {{ cartPage.U.userInfo.currency }}
             td.aux-tablecell-delete
               .aux-delete(hm-tap="elemCartPanel.deleteAddElemsItem(addElem)")
 
@@ -50,43 +54,44 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
           td.aux-tablecell-total
             .aux-total-label {{ 'add_elements.TOTAL_PRICE_TXT' | translate }}
           td.aux-tablecell-price
-            .aux-total-price {{ elemCartPanel.C.cart.addElemsOrderPriceTOTAL }} {{ elemCartPanel.U.userInfo.currency }}
+            .aux-total-price {{ cartPage.C.cart.addElemsOrderPriceTOTAL }} {{ cartPage.U.userInfo.currency }}
           td.aux-tablecell-delete
             .aux-delete(hm-tap="elemCartPanel.deleteAllAddElems()")
 
 
-  .product-selector
-    .product-selector-block
+  .products-selector
+    .products-selector-block(ng-class="{'active': elemCartPanel.config.isSwipeProdSelector}", hm-swipeup="elemCartPanel.swipeProductSelector()", hm-swipedown="elemCartPanel.swipeProductSelector()")
+
       .products-block
-
-        .product(ng-repeat="product in cartPage.O.order.products track by $index")
+        .product(ng-repeat="product in cartPage.O.order.products track by $index", ng-class="{'selected': cartPage.C.cart.selectedProducts[$index].length}", hm-tap="elemCartPanel.selectProductToAddElem($index)")
           .select-mark
-          .order-header
-            .product-icon-thumb
-              svg-template(template="cartPage.O.order.products[cartPage.config.detailProductIndex].templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="icon")
-              span.product-template-qty X {{ cartPage.O.order.products[cartPage.config.detailProductIndex].product_qty }}
+          .product-header
+            svg-template(template="cartPage.O.order.products[cartPage.config.detailProductIndex].templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="icon")
+            .order-value X {{ product.product_qty }}
           .order-content
-            ul.order-list
-              li.order-item
-                .order-value {{ product.template_width }} {{ 'mainpage.MM' | translate }}
-                .order-value {{ product.template_height }} {{ 'mainpage.MM' | translate }}
-                .order-label {{ 'mainpage.CONFIGMENU_SIZING' | translate }}
-              li.order-item
-                .order-value {{ product.profile.name }}
-                .order-label {{ 'mainpage.CONFIGMENU_PROFILE' | translate }}
-              li.order-item
-                .order-value {{ product.glass[0].sku }}
-                .order-label {{ 'mainpage.CONFIGMENU_GLASS' | translate }}
-              li.order-item
-                .order-value {{ product.hardware.name }}
-                .order-label {{ 'mainpage.CONFIGMENU_HARDWARE' | translate }}
-              li.order-item
-                .order-label {{ 'mainpage.CONFIGMENU_LAMINATION_TYPE' | translate }}
-                .order-value {{ product.laminationOutName }} / {{ product.laminationInName }}
-                .order-label {{ 'mainpage.CONFIGMENU_LAMINATION' | translate }}
+            .order-item
+              .order-value {{ product.template_width }} {{ 'mainpage.MM' | translate }}
+              .order-value {{ product.template_height }} {{ 'mainpage.MM' | translate }}
+              .order-label {{ 'mainpage.CONFIGMENU_SIZING' | translate }}
+            .order-item
+              .order-value {{ product.profile.name }}
+              .order-label {{ 'mainpage.CONFIGMENU_PROFILE' | translate }}
+            .order-item
+              .order-value {{ product.glass[0].sku }}
+              .order-label {{ 'mainpage.CONFIGMENU_GLASS' | translate }}
+            .order-item
+              .order-value {{ product.hardware.name }}
+              .order-label {{ 'mainpage.CONFIGMENU_HARDWARE' | translate }}
+            .order-item
+              .order-label {{ 'mainpage.CONFIGMENU_LAMINATION_TYPE' | translate }}
+              .order-value {{ product.laminationOutName }} / {{ product.laminationInName }}
+              .order-label {{ 'mainpage.CONFIGMENU_LAMINATION' | translate }}
+            .order-item.addelements-btn
+              .order-value {{cartPage.C.cart.allAddElements[$index].length}}
+                ng-pluralize(count="cartPage.C.cart.allAddElements[$index].length",
+                when="{'0': '{{ cartPage.config.elements }}', '1': '{{ cartPage.config.element }}', '2': '{{ cartPage.config.elementa }}', '3': '{{ cartPage.config.elementa }}', '4': '{{ cartPage.config.elementa }}', 'other': '{{ cartPage.config.elements }}'}")
+              .order-label {{ 'mainpage.CONFIGMENU_ADDITIONAL' | translate }}
           .order-footer(price-fixed="{{product.productPriceDis}}", qty-element="{{product.product_qty}}", currency-element="{{cartPage.U.userInfo.currency}}")
-
-      .nav-products-block
 
 
 
@@ -117,7 +122,7 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
               .aux-params-but {{elemCartPanel.config.selectedAddElemUnit.element_height }}
               .aux-label {{ 'add_elements.HEIGHT_LABEL' | translate }}
           td.aux-tablecell-price
-            .aux-price + {{ elemCartPanel.config.selectedAddElemUnit.element_qty * elemCartPanel.config.selectedAddElemUnit.elementPriceDis }} {{ elemCartPanel.U.userInfo.currency }}
+            .aux-price + {{ elemCartPanel.config.selectedAddElemUnit.element_qty * elemCartPanel.config.selectedAddElemUnit.elementPriceDis }} {{ cartPage.U.userInfo.currency }}
           td.aux-tablecell-delete
             .aux-delete(hm-tap="elemCartPanel.deleteAddElemsItem(elemCartPanel.config.selectedAddElemUnit)")
 
@@ -128,9 +133,9 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
           button.addelementunit-delete(hm-tap="elemCartPanel.deleteAddElemUnit(addElemUnit.productIndex)")
           .addelementunit-header
             .addelementunit-template
-              svg-template(template="elemCartPanel.O.order.products[addElemUnit.productIndex].templateIcon", template-width="elemCartPanel.constants.svgTemplateIconWidth", template-height="elemCartPanel.constants.svgTemplateIconHeight", type-construction="icon")
+              svg-template(template="cartPage.O.order.products[addElemUnit.productIndex].templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="icon")
           .addelementunit-content
-            .addelementunit-value {{ elemCartPanel.O.order.products[addElemUnit.productIndex].template_width }} * {{ elemCartPanel.O.order.products[addElemUnit.productIndex].template_height }} {{ 'mainpage.MM' | translate }}
+            .addelementunit-value {{ cartPage.O.order.products[addElemUnit.productIndex].template_width }} * {{ cartPage.O.order.products[addElemUnit.productIndex].template_height }} {{ 'mainpage.MM' | translate }}
           .addelementunit-footer {{ addElemUnit.element_qty }} {{ 'add_elements.QTY_LABEL' | translate }}
 
 
@@ -141,9 +146,9 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
             button.addelementunit-delete(hm-tap="elemCartPanel.deleteAddElemUnit(addElemUnit, 1)")
             .addelementunit-header
               .addelementunit-template
-                svg-template(template="elemCartPanel.O.order.products[addElemWagon.productIndex].templateIcon", template-width="elemCartPanel.constants.svgTemplateIconWidth", template-height="elemCartPanel.constants.svgTemplateIconHeight", type-construction="icon")
+                svg-template(template="cartPage.O.order.products[addElemWagon.productIndex].templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="icon")
             .addelementunit-content
-              .addelementunit-value {{ elemCartPanel.O.order.products[addElemWagon.productIndex].template_width }} * {{ elemCartPanel.O.order.products[addElemWagon.productIndex].template_height }} {{ 'mainpage.MM' | translate }}
+              .addelementunit-value {{ cartPage.O.order.products[addElemWagon.productIndex].template_width }} * {{ cartPage.O.order.products[addElemWagon.productIndex].template_height }} {{ 'mainpage.MM' | translate }}
             .addelementunit-footer {{ addElemWagon.element_qty }} {{ 'add_elements.QTY_LABEL' | translate }}
 
         .link-explode-menu(ng-show="elemCartPanel.config.isLinkExplodeMenu", ng-style="{'top': elemCartPanel.config.explodeMenuTop+'px', 'left': elemCartPanel.config.explodeMenuLeft+'px'}")
@@ -172,6 +177,6 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
                 .aux-params-but {{ addElemUnit.element_height }}
                 .aux-label {{ 'add_elements.HEIGHT_LABEL' | translate }}
             td.aux-tablecell-price
-              .aux-price + {{ addElemUnit.element_qty * addElemUnit.elementPriceDis }} {{ elemCartPanel.U.userInfo.currency }}
+              .aux-price + {{ addElemUnit.element_qty * addElemUnit.elementPriceDis }} {{ cartPage.U.userInfo.currency }}
             td.aux-tablecell-delete
               .aux-delete(hm-tap="elemCartPanel.deleteAddElemUnit(addElemUnit.productIndex)")

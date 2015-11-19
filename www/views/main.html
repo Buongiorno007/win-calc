@@ -563,17 +563,28 @@
             <input type="text" name="searching" ng-model="searchBox.searchingWord" ng-change="searchBox.checkChanges()" placeholder="{{searchBox.placeholder}}" class="search-input">
             <button hm-tap="searchBox.deleteSearchChart()" class="delete-search"></button>
             <button hm-tap="searchBox.cancelSearching()" class="cancel-search">{{ 'add_elements.CANCEL' | translate }}</button>
-            <!--button.cancel-search(ng-show="searchBox.global.isHistoryPage && searchBox.history.isOrderSearch", hm-tap="searchBox.cancelSearching()") {{ 'add_elements.CANCEL' | translate }}-->
           </div>
         </form>
-        <div ng-class="{'active': elementsListPanel.A.aux.showAddElementGroups}" class="aux-search-content">
+        <div ng-controller="AddElemGroupMenuCtrl as addElemGroups" ng-class="{'active': addElemGroups.A.aux.showAddElementGroups}" class="aux-search-content">
           <ul class="aux-list-groups">
-            <li ng-repeat="typeAddElement in elementsListPanel.A.aux.addElementGroups | filter: {groupName: elementsListPanel.A.aux.searchingWord } | orderBy:'groupName'" hm-tap="elementsListPanel.selectAddElement(typeAddElement.groupId)" ng-class="{'selected': elementsListPanel.A.aux.isFocusedAddElement == typeAddElement.groupId}" class="aux-list-group {{ typeAddElement.groupClass }}">{{ typeAddElement.groupName }}
-              <button ng-class="{'active': elementsListPanel.A.aux.isFocusedAddElement == typeAddElement.groupId}" class="group-indicator"></button>
+            <li ng-repeat="typeAddElement in addElemGroups.A.aux.addElementGroups | filter: {groupName: addElemGroups.A.aux.searchingWord } | orderBy:'groupName'" hm-tap="addElemGroups.selectAddElement(typeAddElement.groupId)" ng-class="{'selected': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.groupId}" class="aux-list-group {{ typeAddElement.groupClass }}">{{ typeAddElement.groupName }}
+              <button ng-class="{'active': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.groupId}" class="group-indicator"></button>
               <div class="search-elements-block"></div>
             </li>
           </ul>
         </div>
+        <!--.aux-search-content(ng-class="{'active': elementsListPanel.A.aux.showAddElementGroups}")
+        ul.aux-list-groups
+          li.aux-list-group(ng-repeat="typeAddElement in elementsListPanel.A.aux.addElementGroups | filter: {groupName: elementsListPanel.A.aux.searchingWord } | orderBy:'groupName'",
+            hm-tap="elementsListPanel.selectAddElement(typeAddElement.groupId)",
+            class="{{ typeAddElement.groupClass }}",
+            ng-class="{'selected': elementsListPanel.A.aux.isFocusedAddElement == typeAddElement.groupId}") {{ typeAddElement.groupName }}
+            
+            button.group-indicator(ng-class="{'active': elementsListPanel.A.aux.isFocusedAddElement == typeAddElement.groupId}")
+            .search-elements-block
+            
+            
+        -->
         <div class="aux-list-content">
           <div ng-repeat="elemType in elementsListPanel.P.product.chosenAddElements track by $index" class="aux-list-box">
             <div ng-if="elemType.length &gt; 0" ng-switch="$index" ng-class="{'aux_color_connect': (!$index || $index === 6), 'aux_color_big': ($index === 1 || $index === 8), 'aux_color_middle': ($index === 2 || $index === 4 || $index === 9 || $index === 10), 'aux_color_slope': ($index === 3 || $index === 5), 'aux_color_small': $index === 7}" class="aux-list-block">

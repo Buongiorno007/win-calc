@@ -166,6 +166,7 @@
     function showAllAddElements() {
       collectAllAddElems();
       getAddElemsPriceTotal();
+      initSelectedProductsArr();
       CartStor.cart.isAllAddElems = 1;
     }
 
@@ -213,6 +214,15 @@
         CartStor.cart.addElemsOrderPriceTOTAL += (OrderStor.order.products[productsQty].addelemPriceDis * OrderStor.order.products[productsQty].product_qty);
       }
       CartStor.cart.addElemsOrderPriceTOTAL = GeneralServ.roundingNumbers(CartStor.cart.addElemsOrderPriceTOTAL);
+    }
+
+
+
+    function initSelectedProductsArr() {
+      CartStor.cart.selectedProducts.length = 0;
+      CartStor.cart.selectedProducts = OrderStor.order.products.map(function() {
+        return [];
+      });
     }
 
 

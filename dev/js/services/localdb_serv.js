@@ -593,7 +593,7 @@
           27, // 7 - fans
           8, // 8 - windowSill
           24, // 9 - handles
-          16 // 10 - others
+          18 // 10 - others
         ];
 
 
