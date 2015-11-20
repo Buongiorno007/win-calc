@@ -7,7 +7,7 @@
     .module('CartModule')
     .factory('CartServ', cartFactory);
 
-  function cartFactory($location, $filter, GeneralServ, MainServ, CartMenuServ, GlobalStor, OrderStor, ProductStor, CartStor) {
+  function cartFactory($location, $filter, GeneralServ, MainServ, CartMenuServ, GlobalStor, OrderStor, ProductStor, CartStor, AuxStor) {
 
     var thisFactory = this;
 
@@ -168,6 +168,7 @@
       getAddElemsPriceTotal();
       initSelectedProductsArr();
       CartStor.cart.isAllAddElems = 1;
+      AuxStor.aux.isAddElementListView = 1;
     }
 
 
@@ -219,8 +220,8 @@
 
 
     function initSelectedProductsArr() {
-      CartStor.cart.selectedProducts.length = 0;
-      CartStor.cart.selectedProducts = OrderStor.order.products.map(function() {
+      AuxStor.aux.selectedProducts.length = 0;
+      AuxStor.aux.selectedProducts = OrderStor.order.products.map(function() {
         return [];
       });
     }

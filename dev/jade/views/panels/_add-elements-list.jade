@@ -1,23 +1,14 @@
 .config-panel.additional-list-container(ng-controller="AddElementsListCtrl as elementsListPanel", ng-class="{'active': elementsListPanel.A.aux.isAddElementListView}")
 
   include ../parts/_search-block
+
   include ../parts/_addelems-group-menu
-
-  //.aux-search-content(ng-class="{'active': elementsListPanel.A.aux.showAddElementGroups}")
-    ul.aux-list-groups
-      li.aux-list-group(ng-repeat="typeAddElement in elementsListPanel.A.aux.addElementGroups | filter: {groupName: elementsListPanel.A.aux.searchingWord } | orderBy:'groupName'",
-        hm-tap="elementsListPanel.selectAddElement(typeAddElement.groupId)",
-        class="{{ typeAddElement.groupClass }}",
-        ng-class="{'selected': elementsListPanel.A.aux.isFocusedAddElement == typeAddElement.groupId}") {{ typeAddElement.groupName }}
-
-        button.group-indicator(ng-class="{'active': elementsListPanel.A.aux.isFocusedAddElement == typeAddElement.groupId}")
-        .search-elements-block
 
 
   .aux-list-content
 
     .aux-list-box(ng-repeat="elemType in elementsListPanel.P.product.chosenAddElements track by $index")
-      .aux-list-block(ng-if="elemType.length > 0", ng-switch="$index", ng-class="{'aux_color_connect': (!$index || $index === 6), 'aux_color_big': ($index === 1 || $index === 8), 'aux_color_middle': ($index === 2 || $index === 4 || $index === 9 || $index === 10), 'aux_color_slope': ($index === 3 || $index === 5), 'aux_color_small': $index === 7}")
+      .aux-list-block(ng-if="elemType.length > 0", ng-switch="$index", ng-class="elementsListPanel.constants.addElementsGroupClass[$index]")
         .aux-list-block-title(ng-switch-when="0") {{ 'add_elements.GRID' | translate }}
         .aux-list-block-title(ng-switch-when="1") {{ 'add_elements.VISOR' | translate }}
         .aux-list-block-title(ng-switch-when="2") {{ 'add_elements.SPILLWAY' | translate }}

@@ -304,7 +304,7 @@
                 </div>
               </form>
             </div>
-            <div ng-controller="AddElemGroupMenuCtrl as addElemGroups" ng-class="{'active': addElemGroups.A.aux.showAddElementGroups}" class="aux-search-content">
+            <div ng-controller="AddElemGroupMenuCtrl as addElemGroups" ng-class="{'active': (addElemGroups.A.aux.addElementGroups | filter: {groupName: addElemGroups.A.aux.searchingWord }).length}" class="aux-search-content">
               <ul class="aux-list-groups">
                 <li ng-repeat="typeAddElement in addElemGroups.A.aux.addElementGroups | filter: {groupName: addElemGroups.A.aux.searchingWord } | orderBy:'groupName'" hm-tap="addElemGroups.selectAddElement(typeAddElement.groupId)" ng-class="{'selected': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.groupId}" class="aux-list-group {{ typeAddElement.groupClass }}">{{ typeAddElement.groupName }}
                   <button ng-class="{'active': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.groupId}" class="group-indicator"></button>
@@ -314,7 +314,7 @@
             </div>
           </div>
           <div class="alladdelements-block">
-            <div ng-repeat="elemType in elemCartPanel.config.addElemsTypes track by $index" ng-class="{'aux_color_connect': (!$index || $index === 6), 'aux_color_big': ($index === 1 || $index === 8), 'aux_color_middle': ($index === 2 || $index === 4 || $index === 9 || $index === 10), 'aux_color_slope': ($index === 3 || $index === 5), 'aux_color_small': $index === 7}" class="aux-list-block">
+            <div ng-repeat="elemType in elemCartPanel.config.addElemsTypes track by $index" ng-class="elemCartPanel.constants.addElementsGroupClass[$index]" class="aux-list-block">
               <div ng-if="(cartPage.C.cart.allAddElemsOrder | filter: {list_group_id: elemType}).length" ng-switch="elemType" class="aux-block-inner">
                 <div ng-switch-when="20" class="aux-list-block-title">{{ 'add_elements.GRID' | translate }}</div>
                 <div ng-switch-when="21" class="aux-list-block-title">{{ 'add_elements.VISOR' | translate }}</div>
@@ -655,6 +655,189 @@
         <div ng-class="{'active': cartMenu.O.order.is_old_price &amp;&amp; !cartMenu.O.order.is_instalment}" class="old-price-tab">
           <div class="name">{{ 'cart.TOTAL_PRICE_LABEL' | translate }} {{cartMenu.O.order.delivery_date | date:"dd.MM.yyyy"}}</div>
           <price price-value="cartMenu.O.order.orderPricePrimaryDis" price-currency="cartMenu.U.userInfo.currency"></price>
+        </div>
+      </div>
+      <div ng-controller="addElementMenuCtrl as elementsMenu" ng-class="[elementsMenu.A.aux.showAddElementsMenu, elementsMenu.A.aux.addElementsMenuStyle]" class="elements-list-container">
+        <div class="elements-menu">
+          <header class="menu-header">
+            <div data-output="{{ 'add_elements_menu.TIP' | translate }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="tip"></div>
+            <button hm-tap="elementsMenu.closeAddElementsMenu()" class="close-elements-menu"></button>
+          </header>
+          <div class="menu-lists">
+            <ul ng-if="elementsMenu.G.global.currOpenPage === 'main'" class="items-list">
+              <li ng-class="{'active': elementsMenu.A.aux.isAddElement == false}" hm-tap="elementsMenu.chooseAddElement()" class="item empty-element">
+                <div data-output="{{ 'add_elements_menu.EMPTY_ELEMENT' | translate }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="value"></div>
+              </li>
+            </ul>
+            <ul ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" class="items-list">
+              <div data-output="{{ elementsMenu.A.aux.addElementsType[$index].name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="title"></div>
+              <li ng-repeat="addElement in type track by $index" ng-class="{'active': elementsMenu.A.aux.isAddElement === $parent.$index+'-'+$index}" class="item">
+                <div hm-tap="elementsMenu.selectAddElement($parent.$index, $index, $event)" data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="value"></div>
+                <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" hm-tap="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
+              </li>
+            </ul>
+          </div>
+          <footer class="menu-footer">
+            <div ng-show="elementsMenu.A.aux.isAddElement" class="price-element">
+              <div class="price-value">+ {{ elementsMenu.A.aux.currAddElementPrice }} {{ elementsMenu.U.userInfo.currency }}</div>
+            </div>
+            <div ng-class="{'active': elementsMenu.G.global.isSizeCalculator}" class="elements-tools size-calculator">
+              <table ng-controller="sizeCalculatorCtrl as sizeCalc" class="size-calc-container">
+                <thead>
+                  <td>
+                    <button hm-tap="sizeCalc.deleteLastNumber()" class="cell calc-delete"></button>
+                  </td>
+                  <td colspan="2">
+                    <div class="calc-interval">
+                      <div class="interval">
+                        <div ng-hide="sizeCalc.isDesignPage" class="calc-value-limit">0</div>
+                        <div ng-show="sizeCalc.isDesignPage" ng-class="{'restriction': sizeCalc.D.design.isMinSizeRestriction}" class="calc-value-limit">{{ sizeCalc.D.design.minSizeLimit }}</div>
+                        <div class="calc-label-limit">{{ 'common_words.MIN' | translate }}</div>
+                      </div>
+                      <div class="interval">
+                        <div ng-hide="sizeCalc.isDesignPage" class="calc-value-limit">5000</div>
+                        <div ng-show="sizeCalc.isDesignPage" ng-class="{'restriction': sizeCalc.D.design.isMaxSizeRestriction}" class="calc-value-limit">{{ sizeCalc.D.design.maxSizeLimit }}</div>
+                        <div class="calc-label-limit">{{ 'common_words.MAX' | translate }}</div>
+                      </div>
+                    </div>
+                  </td>
+                </thead>
+                <tr>
+                  <td>
+                    <button hm-tap="sizeCalc.setValueSize(1)" class="cell calc-digit">1</button>
+                  </td>
+                  <td>
+                    <button hm-tap="sizeCalc.setValueSize(2)" class="cell calc-digit">2</button>
+                  </td>
+                  <td>
+                    <button hm-tap="sizeCalc.setValueSize(3)" class="cell calc-digit">3</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button hm-tap="sizeCalc.setValueSize(4)" class="cell calc-digit">4</button>
+                  </td>
+                  <td>
+                    <button hm-tap="sizeCalc.setValueSize(5)" class="cell calc-digit">5</button>
+                  </td>
+                  <td>
+                    <button hm-tap="sizeCalc.setValueSize(6)" class="cell calc-digit">6</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button hm-tap="sizeCalc.setValueSize(7)" class="cell calc-digit">7</button>
+                  </td>
+                  <td>
+                    <button hm-tap="sizeCalc.setValueSize(8)" class="cell calc-digit">8</button>
+                  </td>
+                  <td>
+                    <button hm-tap="sizeCalc.setValueSize(9)" class="cell calc-digit">9</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button hm-tap="sizeCalc.setValueSize(0)" class="cell calc-digit">0</button>
+                  </td>
+                  <td>
+                    <button hm-tap="sizeCalc.setValueSize('00')" class="cell calc-digit">00</button>
+                  </td>
+                  <td>
+                    <button hm-tap="sizeCalc.closeSizeCaclulator()" class="cell calc-equal">=</button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div ng-class="{'active': elementsMenu.G.global.isQtyCalculator}" class="elements-tools qty-calculator">
+              <table class="qty-calc-container">
+                <tr>
+                  <td>
+                    <button hm-tap="elementsMenu.setValueQty(-1)" class="cell calc-digit">-1</button>
+                  </td>
+                  <td>
+                    <div class="calc-interval">
+                      <div class="interval">
+                        <div class="calc-qty-limit">1000</div>
+                        <div class="calc-label-limit">{{ 'add_elements.QTY_LABEL' | translate }}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <button hm-tap="elementsMenu.setValueQty(+1)" class="cell calc-digit">+1</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button hm-tap="elementsMenu.setValueQty(-5)" class="cell calc-digit">-5</button>
+                  </td>
+                  <td>
+                    <button hm-tap="elementsMenu.closeQtyCaclulator()" class="cell calc-equal">=</button>
+                  </td>
+                  <td>
+                    <button hm-tap="elementsMenu.setValueQty(+5)" class="cell calc-digit">+5</button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </footer>
+        </div>
+        <div ng-show="elementsMenu.A.aux.isAddElementListView" ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" class="list-items">
+          <div ng-repeat="addElement in type track by $index" class="list-item">
+            <div ng-class="{'selected': elementsMenu.A.aux.isAddElement == $parent.$index +'-'+ $index}" ng-style="elementsMenu.coordinats" class="aux-list-item">
+              <div class="aux-list-row">
+                <div class="aux-name">
+                  <div class="aux-title">{{ addElement.name }}</div>
+                  <div class="aux-label">{{ 'add_elements.NAME_LABEL' | translate }}</div>
+                </div>
+                <div ng-if="addElement.element_qty" class="aux-params">
+                  <!--button.aux-params-but.aux_big_but(hm-tap="global.initAddElementTools(1, $index)") {{ addElement.element_qty }}-->
+                  <button class="aux-params-but aux_big_but">{{ addElement.element_qty }}</button>
+                  <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
+                </div>
+                <div ng-if="addElement.element_width" class="aux-params">
+                  <!--button.aux-params-but.aux_big_but(hm-tap="global.initAddElementTools(2, $index)") {{ addElement.element_width }}-->
+                  <button class="aux-params-but aux_big_but">{{ addElement.element_width }}</button>
+                  <div class="aux-label">{{ 'add_elements.SIZE_LABEL' | translate }}</div>
+                </div>
+                <div ng-if="addElement.element_height" class="aux-params">
+                  <button class="aux-params-but aux_big_but">{{ addElement.element_height }}</button>
+                  <div class="aux-label">{{ 'add_elements.SIZE_LABEL' | translate }}</div>
+                </div>
+                <div class="aux-price">+{{ addElement.elementPriceDis }} {{ elementsMenu.U.userInfo.currency }}</div>
+                <button hm-tap="elementsMenu.chooseAddElementList($parent.$index, $index)" class="aux-choose-but">{{ 'add_elements.ADD' | translate }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--======== Tabs-->
+        <div ng-repeat="addElemTab in elementsMenu.P.product.chosenAddElements track by $index" ng-if="elementsMenu.G.global.currOpenPage === 'main' &amp;&amp; elementsMenu.A.aux.isFocusedAddElement === ($index+1)" class="menu-right-tabs">
+          <div class="tab-block simple-frame">
+            <button ng-class="{'active': addElemTab.length == 1}" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}</button>
+          </div>
+          <div ng-class="{'active': elementsMenu.A.aux.isTabFrame}" class="tab-block hard-frame">
+            <button ng-class="{'active': addElemTab.length &gt; 1}" hm-tap="elementsMenu.showFrameTabs()" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}</button>
+            <div ng-if="addElemTab.length === 0" class="tab-content-empty">
+              <div class="tab-empty">{{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}</div>
+            </div>
+            <div ng-if="addElemTab.length &gt; 0" class="tab-content">
+              <div ng-repeat="addElement in addElemTab track by $index" class="tab-aux-row">
+                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
+                <div ng-show="addElement.element_qty" ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
+                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_qty }}</button>
+                  <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
+                </div>
+                <div ng-show="addElement.element_width" ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
+                  <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_width }}</button>
+                  <div class="aux-label">{{ 'add_elements.WIDTH_LABEL' | translate }}</div>
+                </div>
+                <div ng-show="addElement.element_height" ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-3-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
+                  <button hm-tap="elementsMenu.initAddElementTools(3, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_height }}</button>
+                  <div class="aux-label">{{ 'add_elements.HEIGHT_LABEL' | translate }}</div>
+                </div>
+                <div hm-tap="elementsMenu.deleteAddElement(($parent.$index+1), $index)" class="aux-delete"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

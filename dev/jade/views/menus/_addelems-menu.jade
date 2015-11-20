@@ -1,0 +1,73 @@
+.elements-list-container(ng-controller="addElementMenuCtrl as elementsMenu", ng-class="[elementsMenu.A.aux.showAddElementsMenu, elementsMenu.A.aux.addElementsMenuStyle]")
+  .elements-menu
+    header.menu-header
+      .tip(data-output="{{ 'add_elements_menu.TIP' | translate }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
+      button.close-elements-menu(hm-tap="elementsMenu.closeAddElementsMenu()")
+
+    .menu-lists
+      ul.items-list(ng-if="elementsMenu.G.global.currOpenPage === 'main'")
+        li.item.empty-element(ng-class="{'active': elementsMenu.A.aux.isAddElement == false}", hm-tap="elementsMenu.chooseAddElement()")
+          .value(data-output="{{ 'add_elements_menu.EMPTY_ELEMENT' | translate }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
+
+      ul.items-list(ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index")
+        .title(data-output="{{ elementsMenu.A.aux.addElementsType[$index].name }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
+
+        li.item(ng-repeat="addElement in type track by $index", ng-class="{'active': elementsMenu.A.aux.isAddElement === $parent.$index+'-'+$index}")
+          .value(hm-tap="elementsMenu.selectAddElement($parent.$index, $index, $event)", data-output="{{ addElement.name }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
+          button.element-info(ng-if="addElement.img.length || addElement.link.length || addElement.description.length", hm-tap="elementsMenu.showInfoBox(addElement.id, type)")
+
+    footer.menu-footer
+      .price-element(ng-show="elementsMenu.A.aux.isAddElement")
+        .price-value + {{ elementsMenu.A.aux.currAddElementPrice }} {{ elementsMenu.U.userInfo.currency }}
+
+      .elements-tools.size-calculator(ng-class="{'active': elementsMenu.G.global.isSizeCalculator}")
+        include ../parts/_size-calculator
+      .elements-tools.qty-calculator(ng-class="{'active': elementsMenu.G.global.isQtyCalculator}")
+        include ../parts/_qty-calculator
+
+
+  .list-items(ng-show="elementsMenu.A.aux.isAddElementListView", ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index")
+    .list-item(ng-repeat="addElement in type track by $index")
+      .aux-list-item(ng-class="{'selected': elementsMenu.A.aux.isAddElement == $parent.$index +'-'+ $index}", ng-style="elementsMenu.coordinats")
+        .aux-list-row
+          .aux-name
+            .aux-title {{ addElement.name }}
+            .aux-label {{ 'add_elements.NAME_LABEL' | translate }}
+          .aux-params(ng-if="addElement.element_qty")
+            //button.aux-params-but.aux_big_but(hm-tap="global.initAddElementTools(1, $index)") {{ addElement.element_qty }}
+            button.aux-params-but.aux_big_but {{ addElement.element_qty }}
+            .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
+          .aux-params(ng-if="addElement.element_width")
+            //button.aux-params-but.aux_big_but(hm-tap="global.initAddElementTools(2, $index)") {{ addElement.element_width }}
+            button.aux-params-but.aux_big_but {{ addElement.element_width }}
+            .aux-label {{ 'add_elements.SIZE_LABEL' | translate }}
+          .aux-params(ng-if="addElement.element_height")
+            button.aux-params-but.aux_big_but {{ addElement.element_height }}
+            .aux-label {{ 'add_elements.SIZE_LABEL' | translate }}
+
+          .aux-price +{{ addElement.elementPriceDis }} {{ elementsMenu.U.userInfo.currency }}
+          button.aux-choose-but(hm-tap="elementsMenu.chooseAddElementList($parent.$index, $index)") {{ 'add_elements.ADD' | translate }}
+
+
+
+  //======== Tabs
+  .menu-right-tabs(ng-repeat="addElemTab in elementsMenu.P.product.chosenAddElements track by $index", ng-if="elementsMenu.G.global.currOpenPage === 'main' && elementsMenu.A.aux.isFocusedAddElement === ($index+1)")
+    .tab-block.simple-frame
+      button.frame-tab(ng-class="{'active': addElemTab.length == 1}") {{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}
+    .tab-block.hard-frame(ng-class="{'active': elementsMenu.A.aux.isTabFrame}")
+      button.frame-tab(ng-class="{'active': addElemTab.length > 1}", hm-tap="elementsMenu.showFrameTabs()") {{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}
+      .tab-content-empty(ng-if="addElemTab.length === 0")
+        .tab-empty {{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}
+      .tab-content(ng-if="addElemTab.length > 0")
+        .tab-aux-row(ng-repeat="addElement in addElemTab track by $index")
+          .aux-title(data-output="{{ addElement.name }}", typing="{{ elementsMenu.config.typing }}", typing-delay="{{ elementsMenu.config.DELAY_START }}")
+          .aux-params(ng-show="addElement.element_qty", ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-1-'+$index && elementsMenu.A.aux.currentAddElementId === $index}")
+            button.aux-params-but.aux_middle_but(hm-tap="elementsMenu.initAddElementTools(1, $index)", ng-disabled="elementsMenu.G.global.isQtyCalculator") {{ addElement.element_qty }}
+            .aux-label {{ 'add_elements.QTY_LABEL' | translate }}
+          .aux-params(ng-show="addElement.element_width", ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-2-'+$index && elementsMenu.A.aux.currentAddElementId === $index}")
+            button.aux-params-but.aux_middle_but(hm-tap="elementsMenu.initAddElementTools(2, $index)", ng-disabled="elementsMenu.G.global.isSizeCalculator") {{ addElement.element_width }}
+            .aux-label {{ 'add_elements.WIDTH_LABEL' | translate }}
+          .aux-params(ng-show="addElement.element_height", ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-3-'+$index && elementsMenu.A.aux.currentAddElementId === $index}")
+            button.aux-params-but.aux_middle_but(hm-tap="elementsMenu.initAddElementTools(3, $index)", ng-disabled="elementsMenu.G.global.isSizeCalculator") {{ addElement.element_height }}
+            .aux-label {{ 'add_elements.HEIGHT_LABEL' | translate }}
+          .aux-delete(hm-tap="elementsMenu.deleteAddElement(($parent.$index+1), $index)")

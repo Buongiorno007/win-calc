@@ -27,9 +27,10 @@
         isAddElementListView: 0,
         isWindowSchemeDialog: 0,
 
-        showAddElementGroups: 0,
         addElementGroups: [],
-        searchingWord: ''
+        searchingWord: '',
+        //------- in cart
+        selectedProducts: []
       },
       setDefaultAuxiliary: setDefaultAuxiliary
     };

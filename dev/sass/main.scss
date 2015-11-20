@@ -30,6 +30,7 @@
 @import 'parts/cart-dialogs';
 @import 'parts/voice';
 @import "parts/info-box";
+@import "parts/addelems-group-menu";
 
 // PAGES
 @import 'pages/login';
@@ -44,7 +45,7 @@
 // MENUS
 @import 'menus/navigation-menu';
 @import 'menus/config-menu';
-@import 'menus/elements-list';
+@import 'menus/addelems-menu';
 @import 'menus/cart-menu';
 
 @import 'parts/calculator-general';
@@ -57,7 +58,8 @@
 @import 'panels/glass';
 @import 'panels/hardware-window';
 @import 'panels/lamination';
-@import 'panels/additional-elements';
-@import 'panels/additional-elements-list';
+@import 'panels/add-elements';
+@import 'panels/add-elements-list';
+@import 'panels/add-elements-cart';
 
 @import 'base/animations';

@@ -34,11 +34,12 @@
 
     function checkChanges() {
       if(thisCtrl.searchingWord !== '') {
-//        if(thisCtrl.searchingWord.length === 1) {
-//          AuxStor.aux.addElementGroups = AddElementsServ.createAddElementGroups();
-//        }
-        AuxStor.aux.showAddElementGroups = 1;
+        if(thisCtrl.searchingWord.length === 1) {
+          AddElementsServ.createAddElementGroups();
+        }
         AuxStor.aux.searchingWord = thisCtrl.searchingWord;
+      } else {
+        cancelSearching();
       }
     }
 
@@ -46,7 +47,6 @@
     function cancelSearching() {
       thisCtrl.searchingWord = '';
       AuxStor.aux.addElementGroups.length = 0;
-      AuxStor.aux.showAddElementGroups = 0;
       AuxStor.aux.searchingWord = thisCtrl.searchingWord;
       AddElementMenuServ.closeAddElementsMenu();
     }

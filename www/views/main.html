@@ -565,7 +565,7 @@
             <button hm-tap="searchBox.cancelSearching()" class="cancel-search">{{ 'add_elements.CANCEL' | translate }}</button>
           </div>
         </form>
-        <div ng-controller="AddElemGroupMenuCtrl as addElemGroups" ng-class="{'active': addElemGroups.A.aux.showAddElementGroups}" class="aux-search-content">
+        <div ng-controller="AddElemGroupMenuCtrl as addElemGroups" ng-class="{'active': (addElemGroups.A.aux.addElementGroups | filter: {groupName: addElemGroups.A.aux.searchingWord }).length}" class="aux-search-content">
           <ul class="aux-list-groups">
             <li ng-repeat="typeAddElement in addElemGroups.A.aux.addElementGroups | filter: {groupName: addElemGroups.A.aux.searchingWord } | orderBy:'groupName'" hm-tap="addElemGroups.selectAddElement(typeAddElement.groupId)" ng-class="{'selected': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.groupId}" class="aux-list-group {{ typeAddElement.groupClass }}">{{ typeAddElement.groupName }}
               <button ng-class="{'active': addElemGroups.A.aux.isFocusedAddElement == typeAddElement.groupId}" class="group-indicator"></button>
@@ -573,21 +573,9 @@
             </li>
           </ul>
         </div>
-        <!--.aux-search-content(ng-class="{'active': elementsListPanel.A.aux.showAddElementGroups}")
-        ul.aux-list-groups
-          li.aux-list-group(ng-repeat="typeAddElement in elementsListPanel.A.aux.addElementGroups | filter: {groupName: elementsListPanel.A.aux.searchingWord } | orderBy:'groupName'",
-            hm-tap="elementsListPanel.selectAddElement(typeAddElement.groupId)",
-            class="{{ typeAddElement.groupClass }}",
-            ng-class="{'selected': elementsListPanel.A.aux.isFocusedAddElement == typeAddElement.groupId}") {{ typeAddElement.groupName }}
-            
-            button.group-indicator(ng-class="{'active': elementsListPanel.A.aux.isFocusedAddElement == typeAddElement.groupId}")
-            .search-elements-block
-            
-            
-        -->
         <div class="aux-list-content">
           <div ng-repeat="elemType in elementsListPanel.P.product.chosenAddElements track by $index" class="aux-list-box">
-            <div ng-if="elemType.length &gt; 0" ng-switch="$index" ng-class="{'aux_color_connect': (!$index || $index === 6), 'aux_color_big': ($index === 1 || $index === 8), 'aux_color_middle': ($index === 2 || $index === 4 || $index === 9 || $index === 10), 'aux_color_slope': ($index === 3 || $index === 5), 'aux_color_small': $index === 7}" class="aux-list-block">
+            <div ng-if="elemType.length &gt; 0" ng-switch="$index" ng-class="elementsListPanel.constants.addElementsGroupClass[$index]" class="aux-list-block">
               <div ng-switch-when="0" class="aux-list-block-title">{{ 'add_elements.GRID' | translate }}</div>
               <div ng-switch-when="1" class="aux-list-block-title">{{ 'add_elements.VISOR' | translate }}</div>
               <div ng-switch-when="2" class="aux-list-block-title">{{ 'add_elements.SPILLWAY' | translate }}</div>
@@ -744,7 +732,7 @@
             <button hm-tap="elementsMenu.closeAddElementsMenu()" class="close-elements-menu"></button>
           </header>
           <div class="menu-lists">
-            <ul class="items-list">
+            <ul ng-if="elementsMenu.G.global.currOpenPage === 'main'" class="items-list">
               <li ng-class="{'active': elementsMenu.A.aux.isAddElement == false}" hm-tap="elementsMenu.chooseAddElement()" class="item empty-element">
                 <div data-output="{{ 'add_elements_menu.EMPTY_ELEMENT' | translate }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="value"></div>
               </li>
@@ -889,276 +877,32 @@
             </div>
           </div>
         </div>
-        <!-- Tabs Grids-->
-        <div ng-if="elementsMenu.A.aux.isFocusedAddElement === 1" class="menu-right-tabs">
+        <!--======== Tabs-->
+        <div ng-repeat="addElemTab in elementsMenu.P.product.chosenAddElements track by $index" ng-if="elementsMenu.G.global.currOpenPage === 'main' &amp;&amp; elementsMenu.A.aux.isFocusedAddElement === ($index+1)" class="menu-right-tabs">
           <div class="tab-block simple-frame">
-            <button ng-class="{'active': elementsMenu.P.product.chosenAddElements[0].length == 1}" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}</button>
+            <button ng-class="{'active': addElemTab.length == 1}" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}</button>
           </div>
           <div ng-class="{'active': elementsMenu.A.aux.isTabFrame}" class="tab-block hard-frame">
-            <button ng-class="{'active': elementsMenu.P.product.chosenAddElements[0].length &gt; 1}" hm-tap="elementsMenu.showFrameTabs()" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}</button>
-            <div ng-if="elementsMenu.P.product.chosenAddElements[0].length === 0" class="tab-content-empty">
+            <button ng-class="{'active': addElemTab.length &gt; 1}" hm-tap="elementsMenu.showFrameTabs()" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}</button>
+            <div ng-if="addElemTab.length === 0" class="tab-content-empty">
               <div class="tab-empty">{{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}</div>
             </div>
-            <div ng-if="elementsMenu.P.product.chosenAddElements[0].length &gt; 0" class="tab-content">
-              <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[0] track by $index" class="tab-aux-row">
+            <div ng-if="addElemTab.length &gt; 0" class="tab-content">
+              <div ng-repeat="addElement in addElemTab track by $index" class="tab-aux-row">
                 <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
-                <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '1-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_connect_but">{{ addElement.element_qty }}</button>
-                  <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
-                </div>
-                <div hm-tap="elementsMenu.deleteAddElement(1, $index)" class="aux-delete"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Tabs Visors-->
-        <div ng-if="elementsMenu.A.aux.isFocusedAddElement === 2" class="menu-right-tabs">
-          <div class="tab-block simple-frame">
-            <button ng-class="{'active': elementsMenu.P.product.chosenAddElements[1].length == 1}" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}</button>
-          </div>
-          <div ng-class="{'active': elementsMenu.A.aux.isTabFrame}" class="tab-block hard-frame">
-            <button ng-class="{'active': elementsMenu.P.product.chosenAddElements[1].length &gt; 1}" hm-tap="elementsMenu.showFrameTabs()" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}</button>
-            <div ng-if="elementsMenu.P.product.chosenAddElements[1].length === 0" class="tab-content-empty">
-              <div class="tab-empty">{{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}</div>
-            </div>
-            <div ng-if="elementsMenu.P.product.chosenAddElements[1].length &gt; 0" class="tab-content">
-              <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[1] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
-                <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '2-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_big_but">{{ addElement.element_qty }}</button>
-                  <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
-                </div>
-                <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '2-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_big_but">{{ addElement.element_width }}</button>
-                  <div class="aux-label">{{ 'add_elements.SIZE_LABEL' | translate }}</div>
-                </div>
-                <div hm-tap="elementsMenu.deleteAddElement(2, $index)" class="aux-delete"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Tabs Spillways-->
-        <div ng-if="elementsMenu.A.aux.isFocusedAddElement === 3" class="menu-right-tabs">
-          <div class="tab-block simple-frame">
-            <button ng-class="{'active': elementsMenu.P.product.chosenAddElements[2].length == 1}" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}</button>
-          </div>
-          <div ng-class="{'active': elementsMenu.A.aux.isTabFrame}" class="tab-block hard-frame">
-            <button ng-class="{'active': elementsMenu.P.product.chosenAddElements[2].length &gt; 1}" hm-tap="elementsMenu.showFrameTabs()" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}</button>
-            <div ng-if="elementsMenu.P.product.chosenAddElements[2].length === 0" class="tab-content-empty">
-              <div class="tab-empty">{{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}</div>
-            </div>
-            <div ng-if="elementsMenu.P.product.chosenAddElements[2].length &gt; 0" class="tab-content">
-              <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[2] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
-                <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '3-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
+                <div ng-show="addElement.element_qty" ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_qty }}</button>
                   <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
                 </div>
-                <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '3-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_width }}</button>
-                  <div class="aux-label">{{ 'add_elements.SIZE_LABEL' | translate }}</div>
-                </div>
-                <div hm-tap="elementsMenu.deleteAddElement(3, $index)" class="aux-delete"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Tabs OutsideSlope-->
-        <div ng-if="elementsMenu.A.aux.isFocusedAddElement === 4" class="menu-right-tabs">
-          <div class="tab-block simple-frame">
-            <button ng-class="{'active': elementsMenu.P.product.chosenAddElements[3].length == 1}" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}</button>
-          </div>
-          <div ng-class="{'active': elementsMenu.A.aux.isTabFrame}" class="tab-block hard-frame">
-            <button ng-class="{'active': elementsMenu.P.product.chosenAddElements[3].length &gt; 1}" hm-tap="elementsMenu.showFrameTabs()" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}</button>
-            <div ng-if="elementsMenu.P.product.chosenAddElements[3].length === 0" class="tab-content-empty">
-              <div class="tab-empty">{{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}</div>
-            </div>
-            <div ng-if="elementsMenu.P.product.chosenAddElements[3].length &gt; 0" class="tab-content">
-              <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[3] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
-                <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '4-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_slope_but">{{ addElement.element_qty }}</button>
-                  <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
-                </div>
-                <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '4-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_slope_but">{{ addElement.element_width }}</button>
-                  <div class="aux-label">{{ 'add_elements.SIZE_LABEL' | translate }}</div>
-                </div>
-                <div hm-tap="elementsMenu.deleteAddElement(4, $index)" class="aux-delete"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Tabs Louvers-->
-        <div ng-if="elementsMenu.A.aux.isFocusedAddElement === 5" class="menu-right-tabs">
-          <div class="tab-block simple-frame">
-            <button ng-class="{'active': elementsMenu.P.product.chosenAddElements[4].length == 1}" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}</button>
-          </div>
-          <div ng-class="{'active': elementsMenu.A.aux.isTabFrame}" class="tab-block hard-frame">
-            <button ng-class="{'active': elementsMenu.P.product.chosenAddElements[4].length &gt; 1}" hm-tap="elementsMenu.showFrameTabs()" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}</button>
-            <div ng-if="elementsMenu.P.product.chosenAddElements[4].length === 0" class="tab-content-empty">
-              <div class="tab-empty">{{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}</div>
-            </div>
-            <div ng-if="elementsMenu.P.product.chosenAddElements[4].length &gt; 0" class="tab-content">
-              <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[4] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
-                <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '5-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_qty }}</button>
-                  <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
-                </div>
-                <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '5-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
+                <div ng-show="addElement.element_width" ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_width }}</button>
                   <div class="aux-label">{{ 'add_elements.WIDTH_LABEL' | translate }}</div>
                 </div>
-                <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '5-3-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
+                <div ng-show="addElement.element_height" ng-class="{'selected': elementsMenu.A.aux.auxParameter === ($parent.$index+1)+'-3-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
                   <button hm-tap="elementsMenu.initAddElementTools(3, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_height }}</button>
                   <div class="aux-label">{{ 'add_elements.HEIGHT_LABEL' | translate }}</div>
                 </div>
-                <div hm-tap="elementsMenu.deleteAddElement(5, $index)" class="aux-delete"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Tabs InsideSlope-->
-        <div ng-if="elementsMenu.A.aux.isFocusedAddElement === 6" class="menu-right-tabs">
-          <div class="tab-block simple-frame">
-            <button ng-class="{'active': elementsMenu.P.product.chosenAddElements[5].length == 1}" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}</button>
-          </div>
-          <div ng-class="{'active': elementsMenu.A.aux.isTabFrame}" class="tab-block hard-frame">
-            <button ng-class="{'active': elementsMenu.P.product.chosenAddElements[5].length &gt; 1}" hm-tap="elementsMenu.showFrameTabs()" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}</button>
-            <div ng-if="elementsMenu.P.product.chosenAddElements[5].length === 0" class="tab-content-empty">
-              <div class="tab-empty">{{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}</div>
-            </div>
-            <div ng-if="elementsMenu.P.product.chosenAddElements[5].length &gt; 0" class="tab-content">
-              <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[5] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
-                <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '6-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_slope_but">{{ addElement.element_qty }}</button>
-                  <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
-                </div>
-                <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '6-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_slope_but">{{ addElement.element_width }}</button>
-                  <div class="aux-label">{{ 'add_elements.SIZE_LABEL' | translate }}</div>
-                </div>
-                <div hm-tap="elementsMenu.deleteAddElement(6, $index)" class="aux-delete"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Tabs Connectors-->
-        <div ng-if="elementsMenu.A.aux.isFocusedAddElement === 7" class="menu-right-tabs">
-          <div class="tab-block simple-frame">
-            <button ng-class="{'active': elementsMenu.P.product.chosenAddElements[6].length == 1}" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}</button>
-          </div>
-          <div ng-class="{'active': elementsMenu.A.aux.isTabFrame}" class="tab-block hard-frame">
-            <button ng-class="{'active': elementsMenu.P.product.chosenAddElements[6].length &gt; 1}" hm-tap="elementsMenu.showFrameTabs()" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}</button>
-            <div ng-if="elementsMenu.P.product.chosenAddElements[6].length === 0" class="tab-content-empty">
-              <div class="tab-empty">{{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}</div>
-            </div>
-            <div ng-if="elementsMenu.P.product.chosenAddElements[6].length &gt; 0" class="tab-content">
-              <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[6] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
-                <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '7-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_connect_but">{{ addElement.element_qty }}</button>
-                  <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
-                </div>
-                <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '7-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_connect_but">{{ addElement.element_width }}</button>
-                  <div class="aux-label">{{ 'add_elements.SIZE_LABEL' | translate }}</div>
-                </div>
-                <div hm-tap="elementsMenu.deleteAddElement(7, $index)" class="aux-delete"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Tabs Fans-->
-        <div ng-if="elementsMenu.A.aux.isFocusedAddElement === 8" class="menu-right-tabs">
-          <div class="tab-block simple-frame">
-            <button ng-class="{'active': elementsMenu.P.product.chosenAddElements[7].length == 1}" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}</button>
-          </div>
-          <div ng-class="{'active': elementsMenu.A.aux.isTabFrame}" class="tab-block hard-frame">
-            <button ng-class="{'active': elementsMenu.P.product.chosenAddElements[7].length &gt; 1}" hm-tap="elementsMenu.showFrameTabs()" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}</button>
-            <div ng-if="elementsMenu.P.product.chosenAddElements[7].length === 0" class="tab-content-empty">
-              <div class="tab-empty">{{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}</div>
-            </div>
-            <div ng-if="elementsMenu.P.product.chosenAddElements[7].length &gt; 0" class="tab-content">
-              <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[7] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
-                <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '8-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_small_but">{{ addElement.element_qty }}</button>
-                  <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
-                </div>
-                <div hm-tap="elementsMenu.deleteAddElement(8, $index)" class="aux-delete"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Tabs WindowSill-->
-        <div ng-if="elementsMenu.A.aux.isFocusedAddElement === 9" class="menu-right-tabs">
-          <div class="tab-block simple-frame">
-            <button ng-class="{'active': elementsMenu.P.product.chosenAddElements[8].length == 1}" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}</button>
-          </div>
-          <div ng-class="{'active': elementsMenu.A.aux.isTabFrame}" class="tab-block hard-frame">
-            <button ng-class="{'active': elementsMenu.P.product.chosenAddElements[8].length &gt; 1}" hm-tap="elementsMenu.showFrameTabs()" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}</button>
-            <div ng-if="elementsMenu.P.product.chosenAddElements[8].length === 0" class="tab-content-empty">
-              <div class="tab-empty">{{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}</div>
-            </div>
-            <div ng-if="elementsMenu.P.product.chosenAddElements[8].length &gt; 0" class="tab-content">
-              <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[8] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
-                <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '9-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_big_but">{{ addElement.element_qty }}</button>
-                  <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
-                </div>
-                <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '9-2-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(2, $index)" ng-disabled="elementsMenu.G.global.isSizeCalculator" class="aux-params-but aux_big_but">{{ addElement.element_width }}</button>
-                  <div class="aux-label">{{ 'add_elements.WIDTH_LABEL' | translate }}</div>
-                </div>
-                <div hm-tap="elementsMenu.deleteAddElement(9, $index)" class="aux-delete"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Tabs Handles-->
-        <div ng-if="elementsMenu.A.aux.isFocusedAddElement === 10" class="menu-right-tabs">
-          <div class="tab-block simple-frame">
-            <button ng-class="{'active': elementsMenu.P.product.chosenAddElements[9].length == 1}" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}</button>
-          </div>
-          <div ng-class="{'active': elementsMenu.A.aux.isTabFrame}" class="tab-block hard-frame">
-            <button ng-class="{'active': elementsMenu.P.product.chosenAddElements[9].length &gt; 1}" hm-tap="elementsMenu.showFrameTabs()" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}</button>
-            <div ng-if="elementsMenu.P.product.chosenAddElements[9].length === 0" class="tab-content-empty">
-              <div class="tab-empty">{{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}</div>
-            </div>
-            <div ng-if="elementsMenu.P.product.chosenAddElements[9].length &gt; 0" class="tab-content">
-              <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[9] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
-                <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '10-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_middle_but">{{ addElement.element_qty }}</button>
-                  <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
-                </div>
-                <div hm-tap="elementsMenu.deleteAddElement(10, $index)" class="aux-delete"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Tabs Others-->
-        <div ng-if="elementsMenu.A.aux.isFocusedAddElement === 11" class="menu-right-tabs">
-          <div class="tab-block simple-frame">
-            <button ng-class="{'active': elementsMenu.P.product.chosenAddElements[10].length == 1}" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_SIMPLE_FRAME' | translate }}</button>
-          </div>
-          <div ng-class="{'active': elementsMenu.A.aux.isTabFrame}" class="tab-block hard-frame">
-            <button ng-class="{'active': elementsMenu.P.product.chosenAddElements[10].length &gt; 1}" hm-tap="elementsMenu.showFrameTabs()" class="frame-tab">{{ 'add_elements_menu.TAB_NAME_HARD_FRAME' | translate }}</button>
-            <div ng-if="elementsMenu.P.product.chosenAddElements[10].length === 0" class="tab-content-empty">
-              <div class="tab-empty">{{ 'add_elements_menu.TAB_EMPTY_EXPLAIN' | translate }}</div>
-            </div>
-            <div ng-if="elementsMenu.P.product.chosenAddElements[10].length &gt; 0" class="tab-content">
-              <div ng-repeat="addElement in elementsMenu.P.product.chosenAddElements[10] track by $index" class="tab-aux-row">
-                <div data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="aux-title"></div>
-                <div ng-class="{'selected': elementsMenu.A.aux.auxParameter === '11-1-'+$index &amp;&amp; elementsMenu.A.aux.currentAddElementId === $index}" class="aux-params">
-                  <button hm-tap="elementsMenu.initAddElementTools(1, $index)" ng-disabled="elementsMenu.G.global.isQtyCalculator" class="aux-params-but aux_small_but">{{ addElement.element_qty }}</button>
-                  <div class="aux-label">{{ 'add_elements.QTY_LABEL' | translate }}</div>
-                </div>
-                <div hm-tap="elementsMenu.deleteAddElement(11, $index)" class="aux-delete"></div>
+                <div hm-tap="elementsMenu.deleteAddElement(($parent.$index+1), $index)" class="aux-delete"></div>
               </div>
             </div>
           </div>

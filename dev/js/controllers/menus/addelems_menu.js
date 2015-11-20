@@ -37,7 +37,6 @@
 
     thisCtrl.closeQtyCaclulator = closeQtyCaclulator;
     thisCtrl.setValueQty = AddElementMenuServ.setValueQty;
-    thisCtrl.selectAddElementColor = AddElementMenuServ.selectAddElementColor;
 
 
 

@@ -29,7 +29,6 @@
         allAddElemsOrder: [],
         addElemsOrderPriceTOTAL: 0,
         isSelectedProduct: 0,
-        selectedProducts: [],
 
         isMasterDialog: 0,
         isOrderDialog: 0,

@@ -3,7 +3,7 @@
   width: 100%;
   height: 100%;
 
-  //------ common Class
+  //======== common Class
   .product-light-container {
     width: rem(420px);
     margin-bottom: rem(50px);
@@ -13,7 +13,7 @@
     text-align: center;
   }
 
-
+  //======== main Cart Page
   .cart-container {
     @include background-image(linear-gradient(color-stops(#f7f7f7), #d7dbd8));
 
@@ -143,7 +143,7 @@
     color: $main_gray_txt;
   }
 
-  // order comment
+  //------- order comment
   .order-comment-btn {
     @extend .icon-setting;
     @include font-icon(3.5rem, 1.75);
@@ -191,8 +191,115 @@
     }
   }
 
+  //======== FULL VIEW main Cart Page
 
-  // AddElements Detail Block
+  .full-view {
+    .order-block {
+      display: -webkit-inline-flex;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      position: relative;
+      min-height: 45%;
+      z-index: 4;
+    }
+    .order {
+      width: rem(512px);
+      float: left;
+      border-bottom-right-radius: rem(20px);
+      border-bottom-left-radius: rem(20px);
+    }
+    .order-header {
+      height: rem(320px);
+    }
+    .order-header-fon {
+      width: rem(512px);
+      height: rem(320px);
+      cursor: pointer;
+    }
+    .order-template {
+      position: absolute;
+      bottom: rem(-73px);
+      left: rem(10px);
+      padding: rem(20px);
+      background-color: #fff;
+      border-radius: rem($radius_order-template);
+    }
+    .order-u-coeff {
+      @include roboto-lt(rem(42px));
+      bottom: rem(-60px);
+      right: 3.3rem;
+      position: absolute;
+      margin-left: rem(5px);
+      background-color: #fff;
+      color: $main_green;
+
+      &.u-coeff-low {
+        color: $error_color;
+      }
+    }
+    .order-content {
+      padding: rem(70px) rem(40px) 0 rem(50px);
+      background-color: #fff;
+    }
+    .order-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .order-qty {
+      @include flex-flow(row nowrap);
+      @include justify-content(space-between);
+      height: rem(100px);
+    }
+    .qty-label {
+      max-width: rem(170px);
+    }
+
+  }
+
+  //======== LIGHT VIEW main Cart Page
+
+  .light-view {
+    .order-block {
+      @include display-flex();
+      @include flex-flow(row wrap);
+    }
+    .order {
+      @extend .product-light-container;
+      max-height: 41.5rem;
+    }
+    .order-template {
+      cursor: pointer;
+    }
+    .order-header {
+      padding-top: rem(40px);
+    }
+    .order-content {
+      padding: rem(40px) rem(20px);
+    }
+    .order-value {
+      @extend .truncated;
+    }
+    .addelements-btn {
+      margin-top: rem(10px);
+      padding: rem(10px) 0;
+      border-top: 1px solid $main_gray_btn;
+      border-bottom: 1px solid $main_gray_btn;
+    }
+    .order-qty {
+      @include flex-flow(row wrap);
+      @include justify-content(space-around);
+      padding-top: rem(40px);
+    }
+    .order-label {
+      padding-top: rem(10px);
+    }
+  }
+
+
+
+  //=========== AddElements Detail Block
+
   .addelements-detail {
     position: absolute;
     //TODO ipad     top: 17rem;
@@ -318,109 +425,9 @@
   }
 
 
-  .full-view {
-    .order-block {
-      display: -webkit-inline-flex;
-      display: -ms-inline-flexbox;
-      display: inline-flex;
-      position: relative;
-      min-height: 45%;
-      z-index: 4;
-    }
-    .order {
-      width: rem(512px);
-      float: left;
-      border-bottom-right-radius: rem(20px);
-      border-bottom-left-radius: rem(20px);
-    }
-    .order-header {
-      height: rem(320px);
-    }
-    .order-header-fon {
-      width: rem(512px);
-      height: rem(320px);
-      cursor: pointer;
-    }
-    .order-template {
-      position: absolute;
-      bottom: rem(-73px);
-      left: rem(10px);
-      padding: rem(20px);
-      background-color: #fff;
-      border-radius: rem($radius_order-template);
-    }
-    .order-u-coeff {
-      @include roboto-lt(rem(42px));
-      bottom: rem(-60px);
-      right: 3.3rem;
-      position: absolute;
-      margin-left: rem(5px);
-      background-color: #fff;
-      color: $main_green;
-
-      &.u-coeff-low {
-        color: $error_color;
-      }
-    }
-    .order-content {
-      padding: rem(70px) rem(40px) 0 rem(50px);
-      background-color: #fff;
-    }
-    .order-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-    .order-qty {
-      @include flex-flow(row nowrap);
-      @include justify-content(space-between);
-      height: rem(100px);
-    }
-    .qty-label {
-      max-width: rem(170px);
-    }
-
-  }
-
-  .light-view {
-    .order-block {
-      @include display-flex();
-      @include flex-flow(row wrap);
-    }
-    .order {
-      @extend .product-light-container;
-      max-height: 41.5rem;
-    }
-    .order-template {
-      cursor: pointer;
-    }
-    .order-header {
-      padding-top: rem(40px);
-    }
-    .order-content {
-      padding: rem(40px) rem(20px);
-    }
-    .order-value {
-      @extend .truncated;
-    }
-    .addelements-btn {
-      margin-top: rem(10px);
-      padding: rem(10px) 0;
-      border-top: 1px solid $main_gray_btn;
-      border-bottom: 1px solid $main_gray_btn;
-    }
-    .order-qty {
-      @include flex-flow(row wrap);
-      @include justify-content(space-around);
-      padding-top: rem(40px);
-    }
-    .order-label {
-      padding-top: rem(10px);
-    }
-  }
-
 
 //======== DISCOUNT ========//
+
   .discount-swipe-up {
     position: absolute;
     left: 0;
@@ -545,464 +552,6 @@
     color: #8c8c8c;
   }
 
-
-
-//----- All AddElements panel
-
-  .alladdelements-header {
-    position: relative;
-    width: 100%;
-    height: 8rem;
-  }
-  .close-alladdelements {
-    @extend .button;
-    @extend .icon-setting;
-    @include font-icon(rem(50px), 1);
-    @include top_left_coord(0px, -112px);
-    position: absolute;
-    height: rem(110px);
-    width: rem(100px);
-    background-color: $main_orange;
-    border-top-right-radius: rem($radius_general-big_button);
-    border-bottom-right-radius: rem($radius_general-big_button);
-    &:before {
-      color: #fff;
-      content: $config_menu-arrow-icon;
-    }
-  }
-  .alladdelements-block{
-    @include overflow-scroll();
-    overflow-x: hidden;
-    overflow-y: auto;
-    height: 75%;
-    @extend .parameters-block;
-    padding-right: 3rem;
-    margin-right: -6rem;
-
-    .aux-list-block {
-      &:last-child {
-        padding: rem(50px) 0 0 0;
-      }
-    }
-    .aux-block-inner {
-      padding: rem(50px) 0;
-      border-bottom: 1px solid $main_gray_btn;
-    }
-
-    .aux-list-block-title,
-    .aux-total-label {
-      @include roboto-bd(rem(36px));
-
-      color: $main_gray_txt;
-    }
-    .aux-list-block-title:first-letter {
-      text-transform: uppercase;
-    }
-    .aux-list-row {
-      margin-bottom: rem(20px);
-    }
-    .aux-total-price {
-      @extend .aux-price;
-    }
-    .aux-total-label {
-      min-width: 69%;
-    }
-
-    .aux-list-addellement {
-      width: 100%;
-
-      .aux-tablecell-name {
-        width: rem(500px);
-        .aux-name {
-          max-width: 100%;
-        }
-      }
-      .aux-tablecell-total {
-        width: 75%;
-      }
-      .aux-tablecell-qty {
-        width: rem(100px);
-      }
-      .aux-tablecell-width,
-      .aux-tablecell-height {
-        width: rem(150px);
-      }
-      .aux-tablecell-color {
-        width: rem(100px);
-      }
-      .aux-tablecell-price {
-        width: rem(200px);
-        .aux-price {
-          text-align: center;
-        }
-      }
-      .aux-tablecell-delete {
-        width: rem(100px);
-      }
-
-      .aux-params {
-        text-align: center;
-
-        .aux-params-but {
-          border: none;
-          cursor: default;
-        }
-      }
-    }
-
-  }
-
-
-  .products-selector {
-    position: relative;
-    height: 20%;
-
-    .products-selector-block {
-      @include transition(top 0.5s linear);
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 112%;
-      margin-left: -7rem;
-      padding: 3rem;
-      background-color: #848484;
-
-      &.active,
-      &:hover {
-        top: -47rem;
-      }
-
-      .products-block {
-        @include display-flex();
-        @include flex-flow(raw nowrap);
-        @extend .scroll-hor;
-        @extend .scrolling-container;
-        .product {
-          @extend .order;
-          @extend .product-light-container;
-          min-width: rem(420px);
-          margin-bottom: 1rem;
-          text-align: left;
-          cursor: pointer;
-          &.selected {
-            .order-footer {
-              background-color: $main_orange;
-            }
-            .select-mark {
-              display: block;
-            }
-          }
-        }
-        .product-header {
-          @include display-flex();
-          @include flex-flow(raw nowrap);
-          @include justify-content(flex-start);
-          @include align-items(center);
-          padding: 2rem 0 0 2rem;
-        }
-        .order-item {
-          padding-left: 2rem;
-        }
-        .select-mark {
-          @extend .splash;
-          display: none;
-          position: absolute;
-          top: 2rem;
-          right: 2rem;
-          width: 7rem;
-          height: 7rem;
-          border-radius: 50%;
-          text-align: center;
-          background-color: $main_orange;
-
-          &:after {
-            @include font-icon(5rem, 7rem);
-            color: #fff;
-            content: $check-panel-icon;
-          }
-        }
-      }
-    }
-  }
-
-
-//----- AddElement Unit panel
-
-  .addelementunique-header {
-    position: relative;
-    width: 100%;
-    height: rem(100px);
-    background-color: #fff;
-
-    .aux-title {
-      @extend .truncated;
-      @include roboto-lt(rem(36px));
-      color: $main_gray_txt;
-    }
-    .aux-label {
-      @include roboto-lt(rem(22px));
-      color: $main_gray_txt;
-    }
-    .aux-params-but {
-      @include roboto-lt(rem(36px));
-      color: $main_gray_txt;
-    }
-    .aux-list-row {
-      padding-top: 1%;
-      //margin-bottom: rem(20px);
-    }
-    .aux-total-price {
-      @extend .aux-price;
-    }
-    .aux-total-label {
-      min-width: 69%;
-    }
-
-    .aux-list-addellement {
-      width: 100%;
-
-      .aux-tablecell-name {
-        width: rem(500px);
-        .aux-name {
-          max-width: 100%;
-        }
-      }
-      .aux-tablecell-total {
-        width: 75%;
-      }
-      .aux-tablecell-qty {
-        width: rem(100px);
-      }
-      .aux-tablecell-width,
-      .aux-tablecell-height {
-        width: rem(150px);
-      }
-      .aux-tablecell-color {
-        width: rem(100px);
-      }
-      .aux-tablecell-price {
-        width: rem(200px);
-        .aux-price {
-          text-align: center;
-        }
-      }
-      .aux-tablecell-delete {
-        width: rem(100px);
-      }
-    }
-
-  }
-
-  .addelementunit-header-fon {
-    @include top_left_coord(-50px, -100px);
-    position: absolute;
-    width: 112%;
-    height: rem(180px);
-    background-color: #fff;
-    z-index: -1;
-  }
-
-  .addelementunits-container {
-    @extend .scroll-vert-container;
-    margin: 2% 0 0 -3rem;
-    padding-top: 3%;
-  }
-
-  .addelementunit-block {
-    @include display-flex();
-    @include flex-flow(row wrap);
-  }
-
-  .addelementunit {
-    @extend .order;
-    @extend .product-light-container;
-    min-width: rem(420px);
-  }
-  .addelementunit-header {
-    position: relative;
-    height: rem(210px);
-    padding-top: rem(40px);
-  }
-  .addelementunit-delete {
-    @extend .aux-delete;
-    position: absolute;
-    top: rem(-20px);
-    right: rem(-20px);
-    left: initial;
-    z-index: 9;
-  }
-  .addelementunit-content {
-    padding: rem(40px) rem(20px);
-  }
-  .addelementunit-value {
-    @extend .order-value;
-    @extend .truncated;
-  }
-  .addelementunit-footer {
-    @include roboto-md(rem(48px), rem(100px));
-    border-bottom-left-radius: rem($radius_order);
-    border-bottom-right-radius: rem($radius_order);
-    color: $main_gray_txt;
-    background-color: $aux_big_color;
-  }
-
-
-
-  .addelementunit-train {
-    @include overflow-scroll();
-    overflow-x: auto;
-    overflow-y: auto;
-
-    .addelementunit-train-inner {
-      @include display-flex();
-      @include align-items(center);
-    }
-
-    .addelementunit {
-      margin-top: 1.5rem;
-      &.unit-last {
-        .link-right {
-          display: none;
-        }
-      }
-    }
-
-    .addelementunit-link {
-      position: absolute;
-      bottom: 0;
-      width: 3.75rem;
-      height: 6rem;
-      cursor: pointer;
-      &.link-right {
-        right: rem(-55px);
-      }
-      &:before {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        width: inherit;
-        border-top: 1px solid $aux_big_color;
-        content: ' ';
-      }
-    }
-
-
-    // Link Exploding Menu
-
-    .link-explode-menu {
-      @include roboto-lt(rem(36px), rem(65px));
-      position: absolute;
-      min-width: 32rem;
-      padding: 0 rem(20px);
-      border-radius: rem(16px);
-      background-color: #242424;
-      color: #fff;
-      cursor: pointer;
-      z-index: 999;
-
-      &:before {
-        position: absolute;
-        z-index: 99;
-        bottom: rem(-20px);
-        left: rem(30px);
-        display: block;
-        width: 0;
-        border-width: rem(20px) rem(20px) 0;
-        border-style: solid;
-        border-color: #242424 transparent;
-        content: '';
-      }
-    }
-
-    ul.link-explode-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    li.link-explode-item {
-      display: inline-block;
-      line-height: rem(80px);
-      padding-right: rem(15px);
-      border-right: 1px solid $main_gray_btn;
-      text-align: center;
-      color: #ddd;
-
-      &:last-child {
-        border-right: none;
-        padding-left: rem(8px);
-        padding-right: 0;
-      }
-    }
-
-  }
-
-
-  .addelementunit-only {
-    @extend .parameters-block;
-
-    .aux-list-block {
-      padding: rem(50px) 0;
-      border-bottom: 1px solid $main_gray_btn;
-
-      &:last-child {
-        padding: rem(50px) 0 0 0;
-        border: none;
-      }
-    }
-
-    .aux-list-block-title,
-    .aux-total-label {
-      @include roboto-bd(rem(36px));
-
-      color: $main_gray_txt;
-    }
-    .aux-list-block-title:first-letter {
-      text-transform: uppercase;
-    }
-    .aux-list-row {
-      margin-bottom: rem(20px);
-    }
-    .aux-total-price {
-      @extend .aux-price;
-    }
-    .aux-total-label {
-      min-width: 69%;
-    }
-
-    .aux-list-addellement {
-      width: 100%;
-
-      .aux-tablecell-name {
-        width: rem(500px);
-        .aux-name {
-          max-width: 100%;
-        }
-      }
-      .aux-tablecell-total {
-        width: 75%;
-      }
-      .aux-tablecell-qty {
-        width: rem(100px);
-      }
-      .aux-tablecell-width,
-      .aux-tablecell-height {
-        width: rem(150px);
-      }
-      .aux-tablecell-color {
-        width: rem(100px);
-      }
-      .aux-tablecell-price {
-        width: rem(200px);
-        .aux-price {
-          text-align: center;
-        }
-      }
-      .aux-tablecell-delete {
-        width: rem(100px);
-      }
-    }
-  }
 
 }
 

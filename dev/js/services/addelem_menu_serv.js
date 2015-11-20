@@ -36,15 +36,15 @@
 
     //-------- Close AddElements Menu
     function closeAddElementsMenu() {
-      AuxStor.aux.isFocusedAddElement = false;
-      AuxStor.aux.isTabFrame = false;
+      AuxStor.aux.isFocusedAddElement = 0;
+      AuxStor.aux.isTabFrame = 0;
       //playSound('swip');
-      AuxStor.aux.showAddElementsMenu = false;
+      AuxStor.aux.showAddElementsMenu = 0;
       AddElementsServ.desactiveAddElementParameters();
       $timeout(function() {
-        AuxStor.aux.isAddElement = false;
+        AuxStor.aux.isAddElement = 0;
         //playSound('swip');
-        AuxStor.aux.addElementsMenuStyle = false;
+        AuxStor.aux.addElementsMenuStyle = 0;
       }, delayShowElementsMenu);
     }
 
@@ -54,7 +54,7 @@
       if(typeIndex === undefined && elementIndex === undefined) {
         var index = (AuxStor.aux.isFocusedAddElement - 1);
         AddElementsServ.desactiveAddElementParameters();
-        AuxStor.aux.isAddElement = false;
+        AuxStor.aux.isAddElement = 0;
         //-------- clean all elements in selected Type
         ProductStor.product.chosenAddElements[index].length = 0;
 
@@ -76,9 +76,24 @@
 
     //--------- Select AddElement List
     function chooseAddElementList(typeIndex, elementIndex) {
-      pushSelectedAddElement(AuxStor.aux.addElementsList[typeIndex][elementIndex]);
-      //Set Total Product Price
-      setAddElementsTotalPrice();
+      if(GlobalStor.global.currOpenPage === 'main') {
+
+        pushSelectedAddElement(AuxStor.aux.addElementsList[typeIndex][elementIndex]);
+        //Set Total Product Price
+        setAddElementsTotalPrice();
+
+      } else if(GlobalStor.global.currOpenPage === 'cart') {
+        console.info('selectedProducts++++++++++', AuxStor.aux.selectedProducts);
+        var productsQty = AuxStor.aux.selectedProducts.length;
+        for(var p = 0; p < productsQty; p++) {
+          if(AuxStor.aux.selectedProducts[p].length) {
+            OrderStor.order.products[p];
+            pushSelectedAddElement(AuxStor.aux.addElementsList[typeIndex][elementIndex]);
+            //Set Total Product Price
+            setAddElementsTotalPrice();
+          }
+        }
+      }
       //----- hide element price in menu
       AuxStor.aux.currAddElementPrice = 0;
       //------ save analytics data

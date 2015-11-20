@@ -700,7 +700,10 @@
       AuxStor.aux.isAddElementListView = 0;
       AuxStor.aux.isFocusedAddElement = 0;
       AuxStor.aux.isTabFrame = 0;
+      AuxStor.aux.isAddElementListView = 0;
       AuxStor.aux.showAddElementsMenu = 0;
+      AuxStor.aux.addElementGroups.length = 0;
+      AuxStor.aux.searchingWord = '';
     }
 
 
@@ -715,6 +718,7 @@
       GlobalStor.global.tempAddElements.length = 0;
       GlobalStor.global.configMenuTips = 0;
       GlobalStor.global.isShowCommentBlock = 0;
+      setDefaultAuxParam();
 
       //============ if EDIT Product
       if(GlobalStor.global.productEditNumber) {

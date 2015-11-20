@@ -1,4 +1,4 @@
-.aux-search-content(ng-controller="AddElemGroupMenuCtrl as addElemGroups", ng-class="{'active': addElemGroups.A.aux.showAddElementGroups}")
+.aux-search-content(ng-controller="AddElemGroupMenuCtrl as addElemGroups", ng-class="{'active': (addElemGroups.A.aux.addElementGroups | filter: {groupName: addElemGroups.A.aux.searchingWord }).length}")
   ul.aux-list-groups
     li.aux-list-group(ng-repeat="typeAddElement in addElemGroups.A.aux.addElementGroups | filter: {groupName: addElemGroups.A.aux.searchingWord } | orderBy:'groupName'",
     hm-tap="addElemGroups.selectAddElement(typeAddElement.groupId)",

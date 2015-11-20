@@ -7,7 +7,7 @@
     .module('MainModule')
     .factory('AddElementsServ', addElemFactory);
 
-  function addElemFactory($filter, $timeout, globalConstants, GlobalStor, AuxStor, optionsServ) {
+  function addElemFactory($filter, $timeout, globalConstants, GlobalStor, AuxStor) {
 
     var thisFactory = this,
       delayShowElementsMenu = globalConstants.STEP * 12;
@@ -17,7 +17,8 @@
       initAddElementTools: initAddElementTools,
       desactiveAddElementParameters: desactiveAddElementParameters,
       openAddElementListView: openAddElementListView,
-      closeAddElementListView: closeAddElementListView
+      closeAddElementListView: closeAddElementListView,
+      createAddElementGroups: createAddElementGroups
     };
 
     return thisFactory.publicObj;
@@ -124,6 +125,35 @@
     }
 
 
+
+    //----------- create AddElement Groups for Searching
+    function createAddElementGroups() {
+      var groupNames = [
+            $filter('translate')('add_elements.GRIDS'),
+            $filter('translate')('add_elements.VISORS'),
+            $filter('translate')('add_elements.SPILLWAYS'),
+            $filter('translate')('add_elements.OUTSIDE'),
+            $filter('translate')('add_elements.INSIDE'),
+            $filter('translate')('add_elements.LOUVERS'),
+            $filter('translate')('add_elements.CONNECTORS'),
+            $filter('translate')('add_elements.FAN'),
+            $filter('translate')('add_elements.WINDOWSILLS'),
+            $filter('translate')('add_elements.HANDLELS'),
+            $filter('translate')('add_elements.OTHERS')
+          ],
+          groupNamesQty = groupNames.length,
+          g = 0;
+      AuxStor.aux.addElementGroups.length = 0;
+      for(; g < groupNamesQty; g++){
+        if(GlobalStor.global.addElementsAll[g].elementsList) {
+          var groupTempObj = {};
+          groupTempObj.groupId = (g+1);
+          groupTempObj.groupName = groupNames[g];
+          groupTempObj.groupClass = globalConstants.addElementsGroupClass[g];
+          AuxStor.aux.addElementGroups.push(groupTempObj);
+        }
+      }
+    }
 
 
   }

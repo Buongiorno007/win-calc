@@ -7,9 +7,10 @@
     .module('CartModule')
     .controller('AddElemCartCtrl', addElementsCartCtrl);
 
-  function addElementsCartCtrl(localDB, GeneralServ, MainServ, CartServ, CartMenuServ, OrderStor, CartStor) {
+  function addElementsCartCtrl(globalConstants, localDB, GeneralServ, MainServ, CartServ, CartMenuServ, OrderStor, CartStor, AuxStor) {
 
     var thisCtrl = this;
+    thisCtrl.constants = globalConstants;
     thisCtrl.config = {
       addElemsTypes: localDB.addElementDBId,
       selectedAddElemUnit: {id: 0},
@@ -49,6 +50,9 @@
       CartStor.cart.addElemsOrderPriceTOTAL = 0;
       //------ hide searching box
       CartStor.cart.isSelectedProduct = 0;
+      AuxStor.aux.showAddElementsMenu = 0;
+      AuxStor.aux.addElementGroups.length = 0;
+      AuxStor.aux.searchingWord = '';
     }
 
 
@@ -351,13 +355,13 @@
 
 
     function selectProductToAddElem(prodInd) {
-      var isSelected = CartStor.cart.selectedProducts[prodInd].length;
+      var isSelected = AuxStor.aux.selectedProducts[prodInd].length;
       if(isSelected) {
-        CartStor.cart.selectedProducts[prodInd].length = 0;
+        AuxStor.aux.selectedProducts[prodInd].length = 0;
         //------- check another products
         checkAllSelectedProducts();
       } else {
-        CartStor.cart.selectedProducts[prodInd].push(1);
+        AuxStor.aux.selectedProducts[prodInd].push(1);
         CartStor.cart.isSelectedProduct = 1;
       }
     }
@@ -366,9 +370,9 @@
 
     function checkAllSelectedProducts() {
       var isSelected = 0,
-          prodIndQty = CartStor.cart.selectedProducts.length;
+          prodIndQty = AuxStor.aux.selectedProducts.length;
       while(--prodIndQty > -1) {
-        if(CartStor.cart.selectedProducts[prodIndQty].length) {
+        if(AuxStor.aux.selectedProducts[prodIndQty].length) {
           isSelected++;
         }
       }
