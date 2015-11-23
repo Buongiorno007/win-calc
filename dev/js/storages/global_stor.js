@@ -37,6 +37,7 @@
         showRoomSelectorDialog: 0,
         showGlassSelectorDialog: 0,
         isShowCommentBlock: 0,
+        isTemplateTypeMenu: 0,
 
         //------- Templates
         templateLabel: '',

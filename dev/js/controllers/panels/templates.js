@@ -20,7 +20,6 @@
       DELAY_TEMPLATE_ELEMENT: 5 * globalConstants.STEP,
       typing: 'on'
     };
-    thisCtrl.switcherTemplate = true;
 
 
     //---------- download templates Img icons
@@ -47,7 +46,7 @@
 
     //---------- select new template and recalculate it price
     function selectNewTemplate(templateIndex) {
-        thisCtrl.switcherTemplate = false;
+      GlobalStor.global.isTemplateTypeMenu = 0;
 
       function goToNewTemplate() {
         //------ change last changed template to old one
@@ -72,19 +71,19 @@
 
     //------ click on top button to change template type
     function toggleTemplateType() {
-      thisCtrl.switcherTemplate = !thisCtrl.switcherTemplate;
+      GlobalStor.global.isTemplateTypeMenu = !GlobalStor.global.isTemplateTypeMenu;
     }
 
 
     //------- Select new Template Type
     function selectNewTemplateType(marker) {
-        thisCtrl.switcherTemplate = false;
+      GlobalStor.global.isTemplateTypeMenu = 0;
 
       function goToNewTemplateType() {
         if (marker === 4) {
           MainServ.setDefaultDoorConfig();
         }
-        GlobalStor.global.isChangedTemplate = false;
+        GlobalStor.global.isChangedTemplate = 0;
         TemplatesServ.initNewTemplateType(marker);
       }
 

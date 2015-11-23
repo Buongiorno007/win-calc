@@ -32,7 +32,8 @@
         PAGE_REFRESH: 'Das Neuladen der Seite zu Datenverlust führen!',
         SELECT: 'wählen',
         AND: 'und',
-        OK: 'OK'
+        OK: 'OK',
+        BACK: 'Back'
       },
       login: {
         ENTER: 'Einloggen',

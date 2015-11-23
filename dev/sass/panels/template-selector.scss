@@ -8,7 +8,6 @@
   .template-title {
     @extend .splash;
     @include roboto-lt(rem(80px), rem(80px));
-    position: relative;
     height: rem(92px);
     text-align: center;
     color: $main_green;
@@ -22,11 +21,15 @@
     }
   }
 
+  .tempate-type-box {
+    position: relative;
+    display: inline;
+  }
   .template-type {
     @include roboto-lt(rem(36px), rem(65px));
     position: absolute;
-    top: 0rem;
-    left: 115%;
+    top: -4rem;
+    left: 2rem;
     padding: rem(10px) rem(20px);
     border-radius: rem(16px);
     background-color: #242424;

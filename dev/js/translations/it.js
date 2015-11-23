@@ -32,7 +32,8 @@
         PAGE_REFRESH: "L'azzerramento della pagina porterà a perdita di dati!",
         SELECT: ' Scegliere ',
         AND: ' e ',
-        OK: 'OK'
+        OK: 'OK',
+        BACK: 'Back'
       },
       login: {
         ENTER: 'Entrare',

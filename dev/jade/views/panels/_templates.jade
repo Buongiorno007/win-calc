@@ -1,8 +1,9 @@
 .config-panel.template-container(ng-controller="TemplatesCtrl as templatesPanel", ng-class="{'active': templatesPanel.G.global.activePanel == 1}")
   .template-inner(ng-if="templatesPanel.G.global.activePanel == 1")
     .template-header
-      button.template-title.unvisible(ng-class="{'active': templatesPanel.switcherTemplate}", hm-tap="templatesPanel.toggleTemplateType()", show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templatesPanel.G.global.templateLabel }}
-        .template-type(ng-show="templatesPanel.switcherTemplate")
+      button.template-title.unvisible(ng-class="{'active': templatesPanel.G.global.isTemplateTypeMenu}", hm-tap="templatesPanel.toggleTemplateType()", show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}") {{ templatesPanel.G.global.templateLabel }}
+      .tempate-type-box
+        .template-type(ng-show="templatesPanel.G.global.isTemplateTypeMenu")
           .template-type-btn(hm-tap="templatesPanel.selectNewTemplateType(1)") {{ 'panels.TEMPLATE_WINDOW' | translate }}
           .template-type-btn(hm-tap="templatesPanel.selectNewTemplateType(2)") {{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}
           .template-type-btn(hm-tap="templatesPanel.selectNewTemplateType(3)") {{ 'panels.TEMPLATE_BALCONY' | translate }}

@@ -32,7 +32,8 @@
         PAGE_REFRESH: 'Reîncărcarea paginii va duce la pierderi de date!',
         SELECT: 'Select',
         AND: 'și',
-        OK: 'OK'
+        OK: 'OK',
+        BACK: 'Back'
       },
       login: {
         ENTER: 'autentificare',

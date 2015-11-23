@@ -32,7 +32,8 @@
         PAGE_REFRESH: 'Reloading the page will lead to data loss!',
         SELECT: 'Select',
         AND: 'and',
-        OK: 'OK'
+        OK: 'OK',
+        BACK: 'Back'
       },
       login: {
         ENTER: 'To enter',

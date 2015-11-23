@@ -97,14 +97,15 @@
       <div ng-controller="TemplatesCtrl as templatesPanel" ng-class="{'active': templatesPanel.G.global.activePanel == 1}" class="config-panel template-container">
         <div ng-if="templatesPanel.G.global.activePanel == 1" class="template-inner">
           <div class="template-header">
-            <button ng-class="{'active': templatesPanel.switcherTemplate}" hm-tap="templatesPanel.toggleTemplateType()" show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-title unvisible">{{ templatesPanel.G.global.templateLabel }}
-              <div ng-show="templatesPanel.switcherTemplate" class="template-type">
+            <button ng-class="{'active': templatesPanel.G.global.isTemplateTypeMenu}" hm-tap="templatesPanel.toggleTemplateType()" show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-title unvisible">{{ templatesPanel.G.global.templateLabel }}</button>
+            <div class="tempate-type-box">
+              <div ng-show="templatesPanel.G.global.isTemplateTypeMenu" class="template-type">
                 <div hm-tap="templatesPanel.selectNewTemplateType(1)" class="template-type-btn">{{ 'panels.TEMPLATE_WINDOW' | translate }}</div>
                 <div hm-tap="templatesPanel.selectNewTemplateType(2)" class="template-type-btn">{{ 'panels.TEMPLATE_BALCONY_ENTER' | translate }}</div>
                 <div hm-tap="templatesPanel.selectNewTemplateType(3)" class="template-type-btn">{{ 'panels.TEMPLATE_BALCONY' | translate }}</div>
                 <div hm-tap="templatesPanel.selectNewTemplateType(4)" class="template-type-btn">{{ 'panels.TEMPLATE_DOOR' | translate }}</div>
               </div>
-            </button>
+            </div>
             <div show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-discr unvisible">{{ templatesPanel.G.global.templates[templatesPanel.P.product.templateIndex].name }}</div>
           </div>
           <div hm-tap="templatesPanel.gotoConstructionPage();" show-delay="{{ templatesPanel.config.DELAY_TEMPLATE_ELEMENT }}" class="template-section unvisible">

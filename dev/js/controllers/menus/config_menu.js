@@ -56,9 +56,14 @@
 
     function selectConfigPanel(id) {
       GlobalStor.global.activePanel = (GlobalStor.global.activePanel === id) ? 0 : id;
+      //---- hide rooms if opened
       GlobalStor.global.showRoomSelectorDialog = 0;
+      //---- hide tips
       GlobalStor.global.configMenuTips = 0;
+      //---- hide comment if opened
       GlobalStor.global.isShowCommentBlock = 0;
+      //---- hide template type menu if opened
+      GlobalStor.global.isTemplateTypeMenu = 0;
       GeneralServ.stopStartProg();
       MainServ.setDefaultAuxParam();
       AddElementsServ.desactiveAddElementParameters();
