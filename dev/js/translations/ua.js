@@ -311,7 +311,8 @@
         DISCOUNT_WITHOUT: 'Без знижки',
         DISCOUNT_WINDOW: 'Знижка на виріб',
         DISCOUNT_ADDELEM: 'Знижка на додаткові елементи',
-        ORDER_COMMENT: 'Заметка о заказе'
+        ORDER_COMMENT: 'Заметка о заказе',
+        UNKNOWN: 'Не известно'
       },
       settings: {
         AUTHORIZATION: 'Авторизація:',

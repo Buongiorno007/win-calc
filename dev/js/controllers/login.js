@@ -59,36 +59,133 @@
 
 
     function entriyWithoutLogin() {
-      var url = $location.search();
-//      console.log('url = ', url); //{access: '5b1b68a9abf4d2cd155c81a9225fd158'}
-      switch(url.access) {
-        case '7d537b6746f925b1703aefa9b8a9a4bc':
-          thisCtrl.user.phone = '0950604425';
-          thisCtrl.user.password = '0950604425';
-          break;
-        case '3f5f0c7d46d318e026f9ba60dceffc65':
-          thisCtrl.user.phone = '0500505500';
-          thisCtrl.user.password = '0500505500';
-          break;
-        case '799e078b084c6d57cea0b0d53a7e3008':
-          thisCtrl.user.phone = '78124541170';
-          thisCtrl.user.password = '78124541170';
-          break;
-        case '9aefeef9c7e53f9de9bb36f32649dc3f':
-          thisCtrl.user.phone = '22274313';
-          thisCtrl.user.password = '22274313';
-          break;
-      }
-      if(thisCtrl.user.phone && thisCtrl.user.password) {
-        GlobalStor.global.isLoader = 1;
-        importDBProsses();
-      }
+      var url = $location.search(),
+          accessArr = [
+            '7d537b6746f925b1703aefa9b8a9a4bc',
+            '3f5f0c7d46d318e026f9ba60dceffc65',
+            '799e078b084c6d57cea0b0d53a7e3008',
+            '9aefeef9c7e53f9de9bb36f32649dc3f',
 
+            '04fc711301f3c784d66955d98d399afb',
+            '768c1c687efe184ae6dd2420710b8799',
+            'f7a5c99c58103f6b65c451efd0f81826',
+            '27701bd8dd141b953b94a5c9a44697c0',
+            '7f7d5f9f3a660f2b09e3aae62a15e29b',
+            '23ff17389acbfd020043268fb49e7048',
+            'cd714cc33cfd23e74f414cbb8b9787fe',
+            '2959f1aea8db0f7fbba61f0f8474d0ef',
+            'a28a19e19b283845c851b4876b97cef4',
+            '661e67f8ce5eaf9d63c1b5be6fce1afb',
+            '0653e359db756493450c3fb1fc6790b2',
+            'ec5fefce8d1d81849b47923d6d1b52c0',
+            'd4ccb0f347163d9ee1cd5a106e1ec48b',
+            'c500ea6c5baf3deb447be25b90cf5f1c',
+            '59a6670111970ede6a77e9b43a5c4787',
+            '266021e24dd0bfaaa96f2b5e21d7c800',
+            'b8c4b7f74db12fadbe2d979ed93f392b',
+            '2482b711a07d1da3efa733aa7014f947',
+            '573b8926f015aa477cb6604901b92aea',
+            'b54d11c86eb7c8955a50d20f6b3be2f2',
+            '3a55b7218a5ca395ac71b3ec9904b6ed',
+            '3615d9213b1b3d5fe760901f43a8405f',
+            'e50137601a90943ce98b03e90d73272e',
+            'd4651afb4e1c749f0bacc7ff5d101982',
+            '988a8fa4855bf7ea54057717655d3fc9'
+          ],
+          phoneArr = [
+            '0950604425',
+            '0500505500',
+            '78124541170',
+            '22274313',
+
+            '000001',
+            '000002',
+            '000003',
+            '000007',
+            '000008',
+            '000009',
+            '000010',
+            '000011',
+            '000012',
+            '000013',
+            '000014',
+            '000015',
+            '000016',
+            '000017',
+            '000018',
+            '000019',
+            '000020',
+            '000021',
+            '000022',
+            '000023',
+            '000024',
+            '000025',
+            '000026',
+            '000027',
+            '000028'
+          ],
+          passwordArr = [
+            '0950604425',
+            '0500505500',
+            '78124541170',
+            '22274313',
+
+            '000001',
+            '000002',
+            '000003',
+            '000007',
+            '000008',
+            '000009',
+            '000010',
+            '000011',
+            '000012',
+            '000013',
+            '000014',
+            '000015',
+            '000016',
+            '000017',
+            '000018',
+            '000019',
+            '000020',
+            '000021',
+            '000022',
+            '000023',
+            '000024',
+            '000025',
+            '000026',
+            '000027',
+            '000028'
+          ],
+          accessQty = accessArr.length,
+          isCustomer = 0;
+
+
+      if(url.access) {
+
+        while(--accessQty > -1) {
+          if(accessArr[accessQty] === url.access) {
+            thisCtrl.user.phone = phoneArr[accessQty];
+            thisCtrl.user.password = passwordArr[accessQty];
+            isCustomer = 1;
+          }
+        }
+
+        if(isCustomer) {
+          if(thisCtrl.user.phone && thisCtrl.user.password) {
+            GlobalStor.global.isLoader = 1;
+            checkingUser();
+          }
+        } else {
+          localDB.importUser(url.access, 1).then(function(result) {
+            GlobalStor.global.isLoader = 1;
+            importDBProsses(result.user);
+          });
+        }
+
+      }
     }
-//?access=7d537b6746f925b1703aefa9b8a9a4bc
-//?access=3f5f0c7d46d318e026f9ba60dceffc65
-//?access=799e078b084c6d57cea0b0d53a7e3008
-//?access=9aefeef9c7e53f9de9bb36f32649dc3f
+
+
 
 
     function closeOfflineAlert() {
@@ -144,7 +241,7 @@
                 } else {
                   //======== IMPORT
                   console.log('Sync IMPORT');
-                  importDBProsses();
+                  checkingUser();
                 }
 
               });
@@ -153,7 +250,7 @@
             } else {
               //======== IMPORT
               console.log('IMPORT');
-              importDBProsses();
+              checkingUser();
             }
           });
         //-------- check LocalDB
@@ -208,7 +305,7 @@
     }
 
 
-    function importDBProsses() {
+    function checkingUser() {
       localDB.importUser(thisCtrl.user.phone).then(function(result) {
 //        console.log('USER!!!!!!!!!!!!', thisCtrl.user.phone, result);
         if(result.status) {
@@ -216,43 +313,8 @@
           var newUserPassword = localDB.md5(thisCtrl.user.password);
           if(newUserPassword === result.user.password) {
 
-            //----- checking user activation
-            if(result.user.locked) {
-              //------- clean all tables in LocalDB
-//              console.log('CLEEN START!!!!');
-              localDB.cleanLocalDB(localDB.tablesLocalDB).then(function(data) {
-                if(data) {
-//                  console.log('CLEEN DONE!!!!');
-                  //------- creates all tables in LocalDB
-//                  console.log('CREATE START!!!!');
-                  localDB.createTablesLocalDB(localDB.tablesLocalDB).then(function(data) {
-                    if(data) {
-//                      console.log('CREATE DONE!!!!');
-                      //------- save user in LocalDB
-                      localDB.insertRowLocalDB(result.user, localDB.tablesLocalDB.users.tableName);
-                      //------- save user in Stor
-                      angular.extend(UserStor.userInfo, result.user);
+            importDBProsses(result.user);
 
-                      //------- import Location
-                      localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
-                        if(data) {
-                          //------ save Location Data in local obj
-                          loginServ.prepareLocationToUse().then(function (data) {
-                            thisCtrl.generalLocations = data;
-//                            console.log('generalLocations----------', thisCtrl.generalLocations);
-                            checkingFactory();
-                          });
-                        }
-                      });
-                    }
-                  });
-                }
-              });
-            } else {
-              GlobalStor.global.isLoader = 0;
-              //---- show attantion
-              thisCtrl.isUserNotActive = 1;
-            }
           } else {
             GlobalStor.global.isLoader = 0;
             //---- user not exists
@@ -266,6 +328,51 @@
 
       });
     }
+
+
+
+    function importDBProsses(user) {
+
+      //----- checking user activation
+      if(user.locked) {
+        //------- clean all tables in LocalDB
+        //              console.log('CLEEN START!!!!');
+        localDB.cleanLocalDB(localDB.tablesLocalDB).then(function(data) {
+          if(data) {
+            //                  console.log('CLEEN DONE!!!!');
+            //------- creates all tables in LocalDB
+            //                  console.log('CREATE START!!!!');
+            localDB.createTablesLocalDB(localDB.tablesLocalDB).then(function(data) {
+              if(data) {
+                //                      console.log('CREATE DONE!!!!');
+                //------- save user in LocalDB
+                localDB.insertRowLocalDB(user, localDB.tablesLocalDB.users.tableName);
+                //------- save user in Stor
+                angular.extend(UserStor.userInfo, user);
+
+                //------- import Location
+                localDB.importLocation(UserStor.userInfo.phone, UserStor.userInfo.device_code).then(function(data) {
+                  if(data) {
+                    //------ save Location Data in local obj
+                    loginServ.prepareLocationToUse().then(function (data) {
+                      thisCtrl.generalLocations = data;
+                      //                            console.log('generalLocations----------', thisCtrl.generalLocations);
+                      checkingFactory();
+                    });
+                  }
+                });
+              }
+            });
+          }
+        });
+      } else {
+        GlobalStor.global.isLoader = 0;
+        //---- show attantion
+        thisCtrl.isUserNotActive = 1;
+      }
+
+    }
+
 
 
     function checkingFactory() {

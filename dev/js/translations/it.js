@@ -311,7 +311,8 @@
         DISCOUNT_WITHOUT: 'Senza uno sconto',
         DISCOUNT_WINDOW: 'Sconto a un prodotto',
         DISCOUNT_ADDELEM: 'Sconto a elementi supplementari',
-        ORDER_COMMENT: 'Nota Order'
+        ORDER_COMMENT: 'Nota Order',
+        UNKNOWN: 'Sconosciuto'
       },
       settings: {
         AUTHORIZATION: 'Autorizzazione:',

@@ -28,9 +28,7 @@
         isWindowSchemeDialog: 0,
 
         addElementGroups: [],
-        searchingWord: '',
-        //------- in cart
-        selectedProducts: []
+        searchingWord: ''
       },
       setDefaultAuxiliary: setDefaultAuxiliary
     };

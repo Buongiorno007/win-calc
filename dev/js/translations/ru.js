@@ -311,7 +311,8 @@
         DISCOUNT_WITHOUT: 'Без учета скидки',
         DISCOUNT_WINDOW: 'Скидка на изделие',
         DISCOUNT_ADDELEM: 'Скидка на дополнительные элементы',
-        ORDER_COMMENT: 'Заметка о заказе'
+        ORDER_COMMENT: 'Заметка о заказе',
+        UNKNOWN: 'Не известно'
       },
       settings: {
         AUTHORIZATION: 'Авторизация:',

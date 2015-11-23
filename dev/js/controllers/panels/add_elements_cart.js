@@ -7,7 +7,7 @@
     .module('CartModule')
     .controller('AddElemCartCtrl', addElementsCartCtrl);
 
-  function addElementsCartCtrl(globalConstants, localDB, GeneralServ, MainServ, CartServ, CartMenuServ, OrderStor, CartStor, AuxStor) {
+  function addElementsCartCtrl(globalConstants, localDB, CartServ, CartMenuServ, OrderStor, CartStor, AuxStor) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -68,7 +68,7 @@
         CartServ.showAllAddElements();
       }
       //------ culculate AddElems Price in each Products
-      calculateAddElemsProductsPrice(1);
+      CartServ.calculateAddElemsProductsPrice(1);
       //------ change order Price
       CartMenuServ.calculateOrderPrice();
     }
@@ -79,7 +79,7 @@
       //------ delete all chosenAddElements in Products
       deleteAddElemsInOrder();
       //------ culculate AddElems Price in each Products
-      calculateAddElemsProductsPrice();
+      CartServ.calculateAddElemsProductsPrice();
       //------ change order Price
       CartMenuServ.calculateOrderPrice();
       CartServ.joinAllAddElements();
@@ -120,32 +120,7 @@
 
 
 
-    function calculateAddElemsProductsPrice(reculc) {
-      var productsQty = OrderStor.order.products.length,
-          addElemTypeQty, addElemQty;
-      while(--productsQty > -1) {
-        OrderStor.order.products[productsQty].addelem_price = 0;
-        OrderStor.order.products[productsQty].addelemPriceDis = 0;
 
-        //-------- if was delete only one AddElemItem
-        if(reculc) {
-          addElemTypeQty = OrderStor.order.products[productsQty].chosenAddElements.length;
-          while (--addElemTypeQty > -1) {
-            addElemQty = OrderStor.order.products[productsQty].chosenAddElements[addElemTypeQty].length;
-            if (addElemQty) {
-              while (--addElemQty > -1) {
-                OrderStor.order.products[productsQty].addelem_price += OrderStor.order.products[productsQty].chosenAddElements[addElemTypeQty][addElemQty].element_qty * OrderStor.order.products[productsQty].chosenAddElements[addElemTypeQty][addElemQty].element_price;
-              }
-              OrderStor.order.products[productsQty].addelem_price = GeneralServ.roundingNumbers(OrderStor.order.products[productsQty].addelem_price);
-              OrderStor.order.products[productsQty].addelemPriceDis = GeneralServ.setPriceDis(OrderStor.order.products[productsQty].addelem_price, OrderStor.order.discount_addelem);
-            }
-          }
-        }
-
-        //------ reculculate product price total
-        MainServ.setProductPriceTOTAL(OrderStor.order.products[productsQty]);
-      }
-    }
 
 
 
@@ -249,7 +224,7 @@
         reviewAddElemUnit();
       }
       //------ culculate AddElems Price in each Products
-      calculateAddElemsProductsPrice(1);
+      CartServ.calculateAddElemsProductsPrice(1);
       //------ change order Price
       CartMenuServ.calculateOrderPrice();
 
@@ -334,7 +309,7 @@
       reviewAddElemUnit();
 
       //------ culculate AddElems Price in each Products
-      calculateAddElemsProductsPrice(1);
+      CartServ.calculateAddElemsProductsPrice(1);
       //------ change order Price
       CartMenuServ.calculateOrderPrice();
 
@@ -355,13 +330,13 @@
 
 
     function selectProductToAddElem(prodInd) {
-      var isSelected = AuxStor.aux.selectedProducts[prodInd].length;
+      var isSelected = CartStor.cart.selectedProducts[prodInd].length;
       if(isSelected) {
-        AuxStor.aux.selectedProducts[prodInd].length = 0;
+        CartStor.cart.selectedProducts[prodInd].length = 0;
         //------- check another products
         checkAllSelectedProducts();
       } else {
-        AuxStor.aux.selectedProducts[prodInd].push(1);
+        CartStor.cart.selectedProducts[prodInd].push(1);
         CartStor.cart.isSelectedProduct = 1;
       }
     }
@@ -370,9 +345,9 @@
 
     function checkAllSelectedProducts() {
       var isSelected = 0,
-          prodIndQty = AuxStor.aux.selectedProducts.length;
+          prodIndQty = CartStor.cart.selectedProducts.length;
       while(--prodIndQty > -1) {
-        if(AuxStor.aux.selectedProducts[prodIndQty].length) {
+        if(CartStor.cart.selectedProducts[prodIndQty].length) {
           isSelected++;
         }
       }

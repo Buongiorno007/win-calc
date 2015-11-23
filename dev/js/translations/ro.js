@@ -311,7 +311,8 @@
         DISCOUNT_WITHOUT: 'Discount Excluderea',
         DISCOUNT_WINDOW: 'Discount pe un produs',
         DISCOUNT_ADDELEM: 'Discount pe elemente suplimentare',
-        ORDER_COMMENT: 'Nota Ordine'
+        ORDER_COMMENT: 'Nota Ordine',
+        UNKNOWN: 'Necunoscut'
       },
       settings: {
         AUTHORIZATION: 'Autentificare:',

@@ -29,6 +29,7 @@
         allAddElemsOrder: [],
         addElemsOrderPriceTOTAL: 0,
         isSelectedProduct: 0,
+        selectedProducts: [],
 
         isMasterDialog: 0,
         isOrderDialog: 0,
@@ -51,14 +52,16 @@
       optionEductaion: [
         {id: 1, name: $filter('translate')('cart.CLIENT_EDUC_MIDLE')},
         {id: 2, name: $filter('translate')('cart.CLIENT_EDUC_SPEC')},
-        {id: 3, name: $filter('translate')('cart.CLIENT_EDUC_HIGH')}
+        {id: 3, name: $filter('translate')('cart.CLIENT_EDUC_HIGH')},
+        {id: 4, name: $filter('translate')('cart.UNKNOWN')}
       ],
       optionOccupation: [
         {id: 1, name: $filter('translate')('cart.CLIENT_OCCUP_WORKER')},
         {id: 2, name: $filter('translate')('cart.CLIENT_OCCUP_HOUSE')},
         {id: 3, name: $filter('translate')('cart.CLIENT_OCCUP_BOSS')},
         {id: 4, name: $filter('translate')('cart.CLIENT_OCCUP_STUD')},
-        {id: 5, name: $filter('translate')('cart.CLIENT_OCCUP_PENSION')}
+        {id: 5, name: $filter('translate')('cart.CLIENT_OCCUP_PENSION')},
+        {id: 6, name: $filter('translate')('cart.UNKNOWN')}
       ],
       optionInfo: [
         {id: 1, name: 'TV'},

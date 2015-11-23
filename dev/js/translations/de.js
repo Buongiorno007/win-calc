@@ -311,7 +311,8 @@
         DISCOUNT_WITHOUT: 'Ohne Rabatte',
         DISCOUNT_WINDOW: 'Rabatt auf ein Produkt',
         DISCOUNT_ADDELEM: 'Discount auf zusätzliche Elemente',
-        ORDER_COMMENT: 'Anmerkung Bestellen'
+        ORDER_COMMENT: 'Anmerkung Bestellen',
+        UNKNOWN: 'unbekannt'
       },
       settings: {
         AUTHORIZATION: 'Autorisierung:',

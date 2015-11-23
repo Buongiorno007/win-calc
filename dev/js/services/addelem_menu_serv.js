@@ -7,7 +7,7 @@
     .module('MainModule')
     .factory('AddElementMenuServ', addElemMenuFactory);
 
-  function addElemMenuFactory($q, $timeout, globalConstants, GlobalStor, AuxStor, OrderStor, ProductStor, UserStor, localDB, GeneralServ, MainServ, AddElementsServ, AnalyticsServ) {
+  function addElemMenuFactory($q, $timeout, globalConstants, GlobalStor, AuxStor, OrderStor, ProductStor, CartStor, UserStor, localDB, GeneralServ, MainServ, AddElementsServ, AnalyticsServ, CartServ, CartMenuServ) {
 
     var thisFactory = this,
         delayShowElementsMenu = globalConstants.STEP * 12,
@@ -59,13 +59,13 @@
         ProductStor.product.chosenAddElements[index].length = 0;
 
         //-------- Set Total Product Price
-        setAddElementsTotalPrice();
+        setAddElementsTotalPrice(ProductStor.product);
 
       } else {
         getAddElementPrice(typeIndex, elementIndex).then(function(addElem) {
-          pushSelectedAddElement(addElem);
+          pushSelectedAddElement(ProductStor.product, addElem);
           //Set Total Product Price
-          setAddElementsTotalPrice();
+          setAddElementsTotalPrice(ProductStor.product);
 
           //------ save analytics data
           //TODO ??? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, addElem.id, typeIndex);
@@ -76,21 +76,26 @@
 
     //--------- Select AddElement List
     function chooseAddElementList(typeIndex, elementIndex) {
+      /** in main page */
       if(GlobalStor.global.currOpenPage === 'main') {
 
-        pushSelectedAddElement(AuxStor.aux.addElementsList[typeIndex][elementIndex]);
+        pushSelectedAddElement(ProductStor.product, AuxStor.aux.addElementsList[typeIndex][elementIndex]);
         //Set Total Product Price
-        setAddElementsTotalPrice();
+        setAddElementsTotalPrice(ProductStor.product);
 
       } else if(GlobalStor.global.currOpenPage === 'cart') {
-        console.info('selectedProducts++++++++++', AuxStor.aux.selectedProducts);
-        var productsQty = AuxStor.aux.selectedProducts.length;
+        /** in cart page */
+        var productsQty = CartStor.cart.selectedProducts.length;
         for(var p = 0; p < productsQty; p++) {
-          if(AuxStor.aux.selectedProducts[p].length) {
-            OrderStor.order.products[p];
-            pushSelectedAddElement(AuxStor.aux.addElementsList[typeIndex][elementIndex]);
+          if(CartStor.cart.selectedProducts[p].length) {
+            pushSelectedAddElement(OrderStor.order.products[p], AuxStor.aux.addElementsList[typeIndex][elementIndex]);
             //Set Total Product Price
-            setAddElementsTotalPrice();
+            CartServ.calculateAddElemsProductsPrice(1);
+            CartServ.joinAllAddElements();
+            CartServ.collectAllAddElems();
+            CartServ.getAddElemsPriceTotal();
+            //------ change order Price
+            CartMenuServ.calculateOrderPrice();
           }
         }
       }
@@ -135,11 +140,11 @@
 
 
 
-    function pushSelectedAddElement(currElement) {
+    function pushSelectedAddElement(currProduct, currElement) {
       var index = (AuxStor.aux.isFocusedAddElement - 1),
           existedElement;
 
-      existedElement = checkExistedSelectAddElement(ProductStor.product.chosenAddElements[index], currElement.id);
+      existedElement = checkExistedSelectAddElement(currProduct.chosenAddElements[index], currElement.id);
       if(existedElement === undefined) {
         var newElementSource = {
               element_type: index,
@@ -148,13 +153,13 @@
             },
             newElement = angular.extend(newElementSource, currElement);
 
-        ProductStor.product.chosenAddElements[index].push(newElement);
+        currProduct.chosenAddElements[index].push(newElement);
         //---- open TABFrame when second element selected
-        if(ProductStor.product.chosenAddElements[index].length === 2) {
+        if(currProduct.chosenAddElements[index].length === 2) {
           AuxStor.aux.isTabFrame = 1;
         }
       } else {
-        ProductStor.product.chosenAddElements[index][existedElement].element_qty += 1;
+        currProduct.chosenAddElements[index][existedElement].element_qty += 1;
       }
 
     }
@@ -170,22 +175,22 @@
     }
 
 
-    function setAddElementsTotalPrice() {
-      var elementTypeQty = ProductStor.product.chosenAddElements.length;
-      ProductStor.product.addelem_price = 0;
-      ProductStor.product.addelemPriceDis = 0;
+    function setAddElementsTotalPrice(currProduct) {
+      var elementTypeQty = currProduct.chosenAddElements.length;
+      currProduct.addelem_price = 0;
+      currProduct.addelemPriceDis = 0;
       for (var i = 0; i < elementTypeQty; i++) {
-        var elementQty = ProductStor.product.chosenAddElements[i].length;
+        var elementQty = currProduct.chosenAddElements[i].length;
         if (elementQty > 0) {
           for (var j = 0; j < elementQty; j++) {
-            ProductStor.product.addelem_price += ProductStor.product.chosenAddElements[i][j].element_qty * ProductStor.product.chosenAddElements[i][j].element_price;
-            ProductStor.product.addelem_price = GeneralServ.roundingNumbers(ProductStor.product.addelem_price);
+            currProduct.addelem_price += currProduct.chosenAddElements[i][j].element_qty * currProduct.chosenAddElements[i][j].element_price;
+            currProduct.addelem_price = GeneralServ.roundingNumbers(currProduct.addelem_price);
           }
         }
       }
-      ProductStor.product.addelemPriceDis = GeneralServ.setPriceDis(ProductStor.product.addelem_price, OrderStor.order.discount_addelem);
+      currProduct.addelemPriceDis = GeneralServ.setPriceDis(currProduct.addelem_price, OrderStor.order.discount_addelem);
       $timeout(function() {
-        MainServ.setProductPriceTOTAL(ProductStor.product);
+        MainServ.setProductPriceTOTAL(currProduct);
       }, 50);
     }
 
@@ -197,7 +202,7 @@
       ProductStor.product.chosenAddElements[index].splice(elementId, 1);
       AddElementsServ.desactiveAddElementParameters();
       //Set Total Product Price
-      setAddElementsTotalPrice();
+      setAddElementsTotalPrice(ProductStor.product);
     }
 
 
@@ -232,7 +237,7 @@
       }
 
       //--------- Set Total Product Price
-      setAddElementsTotalPrice();
+      setAddElementsTotalPrice(ProductStor.product);
     }
 
 
@@ -311,7 +316,7 @@
           ProductStor.product.chosenAddElements[index][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers( results.priceTotal ));
           ProductStor.product.chosenAddElements[index][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
           //------- Set Total Product Price
-          setAddElementsTotalPrice();
+          setAddElementsTotalPrice(ProductStor.product);
         } else {
           console.log(results);
         }

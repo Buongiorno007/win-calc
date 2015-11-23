@@ -311,7 +311,8 @@
         DISCOUNT_WITHOUT: 'Excluding discounts',
         DISCOUNT_WINDOW: 'Discount on a product',
         DISCOUNT_ADDELEM: 'Discount on additional elements',
-        ORDER_COMMENT: 'Order note'
+        ORDER_COMMENT: 'Order note',
+        UNKNOWN: 'Unknown'
       },
       settings: {
         AUTHORIZATION: 'Authorization:',

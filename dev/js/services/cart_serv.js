@@ -20,6 +20,9 @@
       editProduct: editProduct,
 
       showAllAddElements: showAllAddElements,
+      collectAllAddElems: collectAllAddElems,
+      getAddElemsPriceTotal: getAddElemsPriceTotal,
+      calculateAddElemsProductsPrice: calculateAddElemsProductsPrice,
       createProductCopy: createProductCopy,
       addCloneProductInOrder: addCloneProductInOrder
     };
@@ -220,11 +223,43 @@
 
 
     function initSelectedProductsArr() {
-      AuxStor.aux.selectedProducts.length = 0;
-      AuxStor.aux.selectedProducts = OrderStor.order.products.map(function() {
+      CartStor.cart.selectedProducts.length = 0;
+      CartStor.cart.selectedProducts = OrderStor.order.products.map(function() {
         return [];
       });
     }
+
+
+
+
+    function calculateAddElemsProductsPrice(reculc) {
+      var productsQty = OrderStor.order.products.length,
+          addElemTypeQty, addElemQty;
+      while(--productsQty > -1) {
+        OrderStor.order.products[productsQty].addelem_price = 0;
+        OrderStor.order.products[productsQty].addelemPriceDis = 0;
+
+        //-------- if was delete only one AddElemItem
+        if(reculc) {
+          addElemTypeQty = OrderStor.order.products[productsQty].chosenAddElements.length;
+          while (--addElemTypeQty > -1) {
+            addElemQty = OrderStor.order.products[productsQty].chosenAddElements[addElemTypeQty].length;
+            if (addElemQty) {
+              while (--addElemQty > -1) {
+                OrderStor.order.products[productsQty].addelem_price += OrderStor.order.products[productsQty].chosenAddElements[addElemTypeQty][addElemQty].element_qty * OrderStor.order.products[productsQty].chosenAddElements[addElemTypeQty][addElemQty].element_price;
+              }
+              OrderStor.order.products[productsQty].addelem_price = GeneralServ.roundingNumbers(OrderStor.order.products[productsQty].addelem_price);
+              OrderStor.order.products[productsQty].addelemPriceDis = GeneralServ.setPriceDis(OrderStor.order.products[productsQty].addelem_price, OrderStor.order.discount_addelem);
+            }
+          }
+        }
+
+        //------ reculculate product price total
+        MainServ.setProductPriceTOTAL(OrderStor.order.products[productsQty]);
+      }
+    }
+
+
 
 
 

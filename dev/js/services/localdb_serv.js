@@ -832,9 +832,10 @@
 
 
     /** get User from Server by login */
-    function importUser(login) {
-      var defer = $q.defer();
-      $http.post(globalConstants.serverIP + '/api/login', {login: login}).then(
+    function importUser(login, type) {
+      var defer = $q.defer(),
+        query = (type) ? '/api/login?type=1' : '/api/login';
+      $http.post(globalConstants.serverIP + query, {login: login}).then(
         function (result) {
           defer.resolve(result.data);
         },
