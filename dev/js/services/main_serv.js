@@ -7,7 +7,7 @@
     .module('MainModule')
     .factory('MainServ', navFactory);
 
-  function navFactory($location, $q, $filter, $timeout, globalConstants, localDB, GeneralServ, SVGServ, loginServ, optionsServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor, AuxStor) {
+  function navFactory($location, $q, $filter, $timeout, localDB, GeneralServ, SVGServ, loginServ, optionsServ, AnalyticsServ, GlobalStor, OrderStor, ProductStor, UserStor, AuxStor) {
 
     var thisFactory = this;
 
@@ -16,8 +16,9 @@
       createOrderData: createOrderData,
       createOrderID: createOrderID,
       setCurrDiscounts: setCurrDiscounts,
+      setCurrTemplate: setCurrTemplate,
       prepareTemplates: prepareTemplates,
-      //downloadAllTemplates: downloadAllTemplates,
+      downloadAllTemplates: downloadAllTemplates,
 
       setCurrentProfile: setCurrentProfile,
       setCurrentGlass: setCurrentGlass,
@@ -30,6 +31,7 @@
       preparePrice: preparePrice,
       setProductPriceTOTAL: setProductPriceTOTAL,
       showInfoBox: showInfoBox,
+      closeRoomSelectorDialog: closeRoomSelectorDialog,
 
       createNewProject: createNewProject,
       createNewProduct: createNewProduct,
@@ -100,6 +102,10 @@
     }
 
 
+    function setCurrTemplate() {
+      ProductStor.product.construction_type = GlobalStor.global.rooms[0].group_id;
+      ProductStor.product.template_id = (GlobalStor.global.rooms[0].template_id - 1);
+    }
 
 
     function prepareTemplates(type) {
@@ -614,6 +620,12 @@
     }
 
 
+    /**---------- Close Room Selector Dialog ---------*/
+    function closeRoomSelectorDialog() {
+      GlobalStor.global.showRoomSelectorDialog = 0;
+      GlobalStor.global.configMenuTips = (GlobalStor.global.startProgramm) ? 1 : 0;
+      //playSound('fly');
+    }
 
 
 
@@ -634,6 +646,7 @@
       GlobalStor.global.isCreatedNewProject = 1;
       GlobalStor.global.isCreatedNewProduct = 1;
       //------- set new templates
+      setCurrTemplate();
       prepareTemplates(ProductStor.product.construction_type).then(function() {
         GlobalStor.global.isLoader = 0;
         prepareMainPage();
@@ -661,6 +674,7 @@
       GlobalStor.global.isCreatedNewProduct = 1;
       GlobalStor.global.isChangedTemplate = 0;
       //------- set new templates
+      setCurrTemplate();
       prepareTemplates(ProductStor.product.construction_type).then(function() {
         prepareMainPage();
         if(GlobalStor.global.currOpenPage !== 'main') {

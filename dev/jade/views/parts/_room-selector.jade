@@ -1,9 +1,9 @@
 .rooms-selector-dialog(ng-controller="RoomSelectorCtrl as rooms", ng-class="{'active': rooms.G.global.showRoomSelectorDialog}")
   .rooms-inner(ng-if="rooms.G.global.showRoomSelectorDialog")
-    .room-block(ng-repeat="room in rooms.config.rooms")
-      .room-box.unvisible(ng-class="{'selected': rooms.P.product.room_id === room.id}", hm-tap="rooms.selectRoom(room.id)", show-delay="{{ ($index+1) * rooms.config.DELAY_SHOW_ROOM }}")
-        .room-img(ng-style="{'background-image':'url(img/rooms/'+room.id+'.jpg)'}")
+    .room-block(ng-repeat="room in rooms.G.global.rooms")
+      .room-box.unvisible(ng-class="{'selected': rooms.P.product.room_id === $index}", hm-tap="rooms.selectRoom($index)", show-delay="{{ ($index+1) * rooms.config.DELAY_SHOW_ROOM }}")
+        .room-img(ng-style="{'background-image':'url('+room.img+')'}")
           .room-title
-            .room-sizes(ng-show="room.width") {{room.width}}x{{room.height}}
-            .room-price(ng-show="room.price") {{room.price}} {{rooms.U.userInfo.currency}}
+            .room-sizes(ng-show="room.desc_1") {{room.desc_1}}
+            .room-price(ng-show="room.desc_2") {{room.desc_2}} {{rooms.U.userInfo.currency}}
   .close-dialog(hm-tap="rooms.closeRoomSelectorDialog()")

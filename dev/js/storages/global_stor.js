@@ -34,15 +34,19 @@
         isChangedTemplate: 0,
         isVoiceHelper: 0,
         voiceHelperLanguage: '',
-        showRoomSelectorDialog: 0,
         showGlassSelectorDialog: 0,
         isShowCommentBlock: 0,
         isTemplateTypeMenu: 0,
+
+        //------ Rooms background
+        showRoomSelectorDialog: 0,
+        rooms: [],
 
         //------- Templates
         templateLabel: '',
         templatesSource: [],
         templatesSourceSTORE: [],
+        //TODO templateIcons: [],
         isSashesInTemplate: 0,
 
         //------ Profiles

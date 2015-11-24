@@ -385,7 +385,7 @@
                 <div ng-repeat="product in cartPage.O.order.products track by $index" ng-class="{'selected': cartPage.C.cart.selectedProducts[$index].length}" hm-tap="elemCartPanel.selectProductToAddElem($index)" class="product">
                   <div class="select-mark"></div>
                   <div class="product-header">
-                    <svg-template template="cartPage.O.order.products[cartPage.config.detailProductIndex].templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
+                    <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
                     <div class="order-value">X {{ product.product_qty }}</div>
                   </div>
                   <div class="order-content">

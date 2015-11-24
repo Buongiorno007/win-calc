@@ -544,8 +544,17 @@
               'template_object TEXT',
             'foreignKey': ''
           },
-
-
+          'background_templates':{
+            'tableName': 'background_templates',
+            'prop': 'factory_id INTEGER,'+
+            'desc_1 VARCHAR(255),' +
+            'desc_2 VARCHAR(255),' +
+            'template_id INTEGER,' +
+            'group_id INTEGER,' +
+            'position INTEGER,' +
+            'img VARCHAR',
+            'foreignKey': ''
+          },
 
           //-------- inner temables
 //          'analytics': {

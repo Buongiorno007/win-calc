@@ -34,7 +34,7 @@
 
     //------ clicking
 
-    thisCtrl.selectNewTemplate = selectNewTemplate;
+    thisCtrl.selectNewTemplate = TemplatesServ.selectNewTemplate;
     thisCtrl.toggleTemplateType = toggleTemplateType;
     thisCtrl.selectNewTemplateType = selectNewTemplateType;
     thisCtrl.gotoConstructionPage = gotoConstructionPage;
@@ -43,30 +43,6 @@
 
 
     //============ methods ================//
-
-    //---------- select new template and recalculate it price
-    function selectNewTemplate(templateIndex) {
-      GlobalStor.global.isTemplateTypeMenu = 0;
-
-      function goToNewTemplate() {
-        //------ change last changed template to old one
-        TemplatesServ.backDefaultTemplate();
-        GlobalStor.global.isChangedTemplate = 0;
-        TemplatesServ.newPriceForNewTemplate(templateIndex);
-      }
-
-      if(GlobalStor.global.isChangedTemplate) {
-      //----- если выбран новый шаблон после изменения предыдущего
-        GeneralServ.confirmAlert(
-          $filter('translate')('common_words.NEW_TEMPLATE_TITLE'),
-          $filter('translate')('common_words.TEMPLATE_CHANGES_LOST'),
-          goToNewTemplate
-        );
-      } else {
-        TemplatesServ.newPriceForNewTemplate(templateIndex);
-      }
-    }
-
 
 
     //------ click on top button to change template type

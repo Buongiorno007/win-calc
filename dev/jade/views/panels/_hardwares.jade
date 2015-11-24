@@ -12,7 +12,7 @@
         .hardware-box-inner(hm-tap="hardwarePanel.selectHardware(hardware.id)")
           .hardware-box-view
             .hardware-logo
-              img(ng-src="http://windowscalculator.net:3002{{ hardware.img }}")
+              img(ng-src="{{ hardware.img }}")
           .hardware-box-data
             .hardware-data-txt
               .hardware-descr(data-output="{{ hardware.name }}", typing="{{ hardwarePanel.config.typing }}", typing-delay="{{ hardwarePanel.config.DELAY_START + (hardwarePanel.config.DELAY_TYPING * $index) }}")

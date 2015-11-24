@@ -34,6 +34,8 @@
       /** set Curr Discounts */
       MainServ.setCurrDiscounts();
 
+      /** set first Template */
+      MainServ.setCurrTemplate();
       /** set Templates */
       MainServ.prepareTemplates(ProductStor.product.construction_type).then(function() {
         MainServ.prepareMainPage();

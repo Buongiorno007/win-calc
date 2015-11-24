@@ -47,7 +47,7 @@
       </footer>
     </div>
   </section>
-  <section ng-class="{'main-page-bg': mainPage.G.global.currOpenPage === 'main', 'main-room-bg': mainPage.G.global.currOpenPage === 'main'}" ng-style="{'background-image':'url(img/rooms/'+mainPage.P.product.room_id+'.jpg)'}" class="right-side">
+  <section ng-class="{'main-page-bg': mainPage.G.global.currOpenPage === 'main', 'main-room-bg': mainPage.G.global.currOpenPage === 'main'}" ng-style="{'background-image':'url('+mainPage.G.global.rooms[mainPage.P.product.room_id].img+')'}" class="right-side">
     <section class="main-content">
       <div ng-controller="UserInfoCtrl as userBox" hm-swipeleft="userBox.swipeLeft($event)" hm-swiperight="userBox.swipeRight($event)" class="user-info-container">
         <button ng-class="{ 'show-navmenu': userBox.G.global.isNavMenu , 'orange-navmenu-btn': userBox.G.global.isOpenedHistoryPage || userBox.G.global.isOpenedCartPage}" hm-tap="userBox.swipeMainPage($event)" class="nav-menu-btn"></button><img ng-if="userBox.U.userInfo.avatar &amp;&amp; (userBox.U.userInfo.avatar!='null')" ng-src="{{userBox.U.userInfo.avatar}}" class="user-foto">
@@ -81,12 +81,12 @@
       </div>
       <div ng-controller="RoomSelectorCtrl as rooms" ng-class="{'active': rooms.G.global.showRoomSelectorDialog}" class="rooms-selector-dialog">
         <div ng-if="rooms.G.global.showRoomSelectorDialog" class="rooms-inner">
-          <div ng-repeat="room in rooms.config.rooms" class="room-block">
-            <div ng-class="{'selected': rooms.P.product.room_id === room.id}" hm-tap="rooms.selectRoom(room.id)" show-delay="{{ ($index+1) * rooms.config.DELAY_SHOW_ROOM }}" class="room-box unvisible">
-              <div ng-style="{'background-image':'url(img/rooms/'+room.id+'.jpg)'}" class="room-img">
+          <div ng-repeat="room in rooms.G.global.rooms" class="room-block">
+            <div ng-class="{'selected': rooms.P.product.room_id === $index}" hm-tap="rooms.selectRoom($index)" show-delay="{{ ($index+1) * rooms.config.DELAY_SHOW_ROOM }}" class="room-box unvisible">
+              <div ng-style="{'background-image':'url('+room.img+')'}" class="room-img">
                 <div class="room-title">
-                  <div ng-show="room.width" class="room-sizes">{{room.width}}x{{room.height}}</div>
-                  <div ng-show="room.price" class="room-price">{{room.price}} {{rooms.U.userInfo.currency}}</div>
+                  <div ng-show="room.desc_1" class="room-sizes">{{room.desc_1}}</div>
+                  <div ng-show="room.desc_2" class="room-price">{{room.desc_2}} {{rooms.U.userInfo.currency}}</div>
                 </div>
               </div>
             </div>
@@ -233,7 +233,7 @@
               <div ng-if="hardware.img.length || hardware.link.length || hardware.description.length" hm-tap="hardwarePanel.showInfoBox(hardware.id, producer)" class="info"></div>
               <div hm-tap="hardwarePanel.selectHardware(hardware.id)" class="hardware-box-inner">
                 <div class="hardware-box-view">
-                  <div class="hardware-logo"><img ng-src="http://windowscalculator.net:3002{{ hardware.img }}"></div>
+                  <div class="hardware-logo"><img ng-src="{{ hardware.img }}"></div>
                 </div>
                 <div class="hardware-box-data">
                   <div class="hardware-data-txt">

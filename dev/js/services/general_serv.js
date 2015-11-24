@@ -27,16 +27,16 @@
 
     //TODO desktop
     //------- IMG rooms preload
-    $document.ready(function() {
-      for(var i = 0; i < 16; i++) {
-        $("<img />").attr("src", "img/rooms/"+i+".jpg");
-      }
-    });
+    //$document.ready(function() {
+    //  for(var i = 0; i < 16; i++) {
+    //    $("<img />").attr("src", "img/rooms/"+i+".jpg");
+    //  }
+    //});
 
     //-------- blocking to refresh page
-//    $window.onbeforeunload = function (){
-//      return $filter('translate')('common_words.PAGE_REFRESH');
-//    };
+    $window.onbeforeunload = function (){
+      return $filter('translate')('common_words.PAGE_REFRESH');
+    };
 
 
     return thisFactory.publicObj;

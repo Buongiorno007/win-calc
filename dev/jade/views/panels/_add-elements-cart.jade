@@ -66,7 +66,7 @@ section.cart-container.alladdelements-view(ng-controller="AddElemCartCtrl as ele
         .product(ng-repeat="product in cartPage.O.order.products track by $index", ng-class="{'selected': cartPage.C.cart.selectedProducts[$index].length}", hm-tap="elemCartPanel.selectProductToAddElem($index)")
           .select-mark
           .product-header
-            svg-template(template="cartPage.O.order.products[cartPage.config.detailProductIndex].templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="icon")
+            svg-template(template="product.templateIcon", template-width="cartPage.constants.svgTemplateIconWidth", template-height="cartPage.constants.svgTemplateIconHeight", type-construction="icon")
             .order-value X {{ product.product_qty }}
           .order-content
             .order-item

@@ -293,29 +293,33 @@
                                 if(data) {
 //                                  console.log('HARDWARE ALL ++++++', GlobalStor.global.hardwareTypes, GlobalStor.global.hardwares);
 
-                                  /** download All AddElements */
-                                  downloadAllAddElements().then(function() {
-                                    /** download All Lamination */
-                                    downloadAllLamination().then(function(result) {
-                                      var lamins = angular.copy(result);
-//                                      console.log('LAMINATION++++', lamins);
-                                      if(lamins) {
-                                        var laminQty = lamins.length;
-                                        if(laminQty) {
-                                          /** change Images Path and save in device */
-                                          while(--laminQty > -1) {
-                                            lamins[laminQty].img = downloadElemImg(lamins[laminQty].img);
-                                          }
-                                          GlobalStor.global.laminationsIn = angular.copy(lamins);
-                                          GlobalStor.global.laminationsOut = angular.copy(lamins);
-                                        }
-                                      }
+                                  /** download All Templates and Backgrounds */
+                                  downloadAllBackgrounds().then(function() {
 
-                                      /** download Cart Menu Data */
-                                      downloadCartMenuData();
-                                      GlobalStor.global.isLoader = 0;
-                                      $location.path('/main');
-                                      console.log('FINISH DOWNLOAD !!!!!!', new Date(), new Date().getMilliseconds());
+                                    /** download All AddElements */
+                                    downloadAllAddElements().then(function() {
+                                      /** download All Lamination */
+                                      downloadAllLamination().then(function(result) {
+                                        var lamins = angular.copy(result);
+  //                                      console.log('LAMINATION++++', lamins);
+                                        if(lamins) {
+                                          var laminQty = lamins.length;
+                                          if(laminQty) {
+                                            /** change Images Path and save in device */
+                                            while(--laminQty > -1) {
+                                              lamins[laminQty].img = downloadElemImg(lamins[laminQty].img);
+                                            }
+                                            GlobalStor.global.laminationsIn = angular.copy(lamins);
+                                            GlobalStor.global.laminationsOut = angular.copy(lamins);
+                                          }
+                                        }
+
+                                        /** download Cart Menu Data */
+                                        downloadCartMenuData();
+                                        GlobalStor.global.isLoader = 0;
+                                        $location.path('/main');
+                                        console.log('FINISH DOWNLOAD !!!!!!', new Date(), new Date().getMilliseconds());
+                                      });
                                     });
                                   });
                                 }
@@ -716,6 +720,36 @@
         delete GlobalStor.global.glassesAll[g].glassLists;
       }
 
+    }
+
+    /** download all Templates */
+    function downloadAllTemplates() {
+//TODO
+    }
+
+
+    /** download all Backgrounds */
+    function downloadAllBackgrounds() {
+      var deff = $q.defer();
+      localDB.selectLocalDB(localDB.tablesLocalDB.background_templates.tableName).then(function(result) {
+        var rooms = angular.copy(result),
+            roomQty = rooms.length;
+        if(roomQty) {
+          /** sorting types by position */
+          rooms = rooms.sort(function(a, b) {
+            return GeneralServ.sorting(a.position, b.position);
+          });
+
+          while(--roomQty > -1) {
+            rooms[roomQty].img = downloadElemImg(rooms[roomQty].img);
+            //---- prerendering img
+            $("<img />").attr("src", rooms[roomQty].img);
+          }
+          GlobalStor.global.rooms = rooms;
+        }
+        deff.resolve(1);
+      });
+      return deff.promise;
     }
 
 
