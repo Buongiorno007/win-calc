@@ -839,7 +839,13 @@
               name: $filter('translate')('add_elements.OTHERS')
             };
 
-//        console.info('sorting====', GlobalStor.global.addElementsAll);
+        /** sorting types by position */
+        if(groups && groups.length) {
+          groups = groups.sort(function (a, b) {
+            return GeneralServ.sorting(a.position, b.position);
+          });
+        }
+        console.info('AddElems sorting====', GlobalStor.global.addElementsAll);
         while(--elemAllQty > -1) {
           if(GlobalStor.global.addElementsAll[elemAllQty].elementsList) {
             if(groups && groups.length) {
@@ -888,6 +894,10 @@
                 }
               }
               if(elements.length) {
+                /** sorting elements by position */
+                elements = elements.sort(function(a, b) {
+                  return GeneralServ.sorting(a.position, b.position);
+                });
                 newElemList.push(elements);
               } else {
                 typeDelete.push(t);

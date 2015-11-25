@@ -3,7 +3,8 @@
     .room-block(ng-repeat="room in rooms.G.global.rooms")
       .room-box.unvisible(ng-class="{'selected': rooms.P.product.room_id === $index}", hm-tap="rooms.selectRoom($index)", show-delay="{{ ($index+1) * rooms.config.DELAY_SHOW_ROOM }}")
         .room-img(ng-style="{'background-image':'url('+room.img+')'}")
+          .room-shadow
           .room-title
             .room-sizes(ng-show="room.desc_1") {{room.desc_1}}
-            .room-price(ng-show="room.desc_2") {{room.desc_2}} {{rooms.U.userInfo.currency}}
+            .room-price(ng-show="room.desc_2") {{room.desc_2}}
   .close-dialog(hm-tap="rooms.closeRoomSelectorDialog()")

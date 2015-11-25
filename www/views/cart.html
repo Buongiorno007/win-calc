@@ -67,7 +67,7 @@
             <div class="order-block">
               <div ng-repeat="product in cartPage.O.order.products track by $index" class="order">
                 <button hm-tap="cartPage.clickDeleteProduct($index)" class="order-delete"></button>
-                <div hm-tap="cartPage.editProduct($index, 'product')" class="order-header"><img ng-src="img/rooms/{{product.room_id}}.jpg" class="order-header-fon">
+                <div hm-tap="cartPage.editProduct($index, 'product')" class="order-header"><img ng-src="{{cartPage.G.global.rooms[product.room_id].img}}" class="order-header-fon">
                   <div class="order-template">
                     <svg-template template="product.templateIcon" template-width="cartPage.constants.svgTemplateIconWidth" template-height="cartPage.constants.svgTemplateIconHeight" type-construction="icon"></svg-template>
                   </div>
@@ -671,7 +671,7 @@
             </ul>
             <ul ng-repeat="type in elementsMenu.A.aux.addElementsList track by $index" class="items-list">
               <div data-output="{{ elementsMenu.A.aux.addElementsType[$index].name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="title"></div>
-              <li ng-repeat="addElement in type track by $index" ng-class="{'active': elementsMenu.A.aux.isAddElement === $parent.$index+'-'+$index}" class="item">
+              <li ng-repeat="addElement in type | orderBy:'name' track by $index" ng-class="{'active': elementsMenu.A.aux.isAddElement === $parent.$index+'-'+$index}" class="item">
                 <div hm-tap="elementsMenu.selectAddElement($parent.$index, $index, $event)" data-output="{{ addElement.name }}" typing="{{ elementsMenu.config.typing }}" typing-delay="{{ elementsMenu.config.DELAY_START }}" class="value"></div>
                 <button ng-if="addElement.img.length || addElement.link.length || addElement.description.length" hm-tap="elementsMenu.showInfoBox(addElement.id, type)" class="element-info"></button>
               </li>
