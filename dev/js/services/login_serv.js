@@ -64,8 +64,8 @@
       var langQty = globalConstants.languages.length;
       while(--langQty > -1) {
         if(lang.indexOf(globalConstants.languages[langQty].label)+1) {
-//          console.log(lang);
-//          console.log(globalConstants.languages[langQty].label);
+          //console.log(lang);
+          //console.log(globalConstants.languages[langQty].label);
           UserStor.userInfo.langLabel = globalConstants.languages[langQty].label;
           UserStor.userInfo.langName = globalConstants.languages[langQty].name;
         }

@@ -7,7 +7,7 @@
     .module('MainModule')
     .controller('AddElementsCtrl', addElementsCtrl);
 
-  function addElementsCtrl(globalConstants, GlobalStor, AuxStor, ProductStor, AddElementsServ) {
+  function addElementsCtrl(globalConstants, GlobalStor, AuxStor, ProductStor, AddElementsServ, AddElementMenuServ) {
 
     var thisCtrl = this;
     thisCtrl.constants = globalConstants;
@@ -44,6 +44,7 @@
     //------ clicking
     thisCtrl.selectAddElement = AddElementsServ.selectAddElement;
     thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
+    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
     thisCtrl.openAddElementListView = AddElementsServ.openAddElementListView;
     thisCtrl.showWindowScheme = showWindowScheme;
     thisCtrl.closeWindowScheme = closeWindowScheme;

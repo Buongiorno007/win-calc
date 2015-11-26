@@ -74,7 +74,7 @@
   stroke: $main_green;
   stroke-width: 3px;
   fill-opacity: 0;
-
+  cursor: pointer;
   &.active {
     fill: $main_green;
     fill-opacity: 1;
@@ -86,6 +86,7 @@
   stroke-width: 1px;
   text-anchor: middle;
   alignment-baseline: middle;
+  cursor: pointer;
 }
 .size-txt-edit {
   @extend .size-txt;
@@ -121,17 +122,7 @@
 //stroke-linecap: "round";
 //}
 
-//.size-rect-active {
-//  @extend .size-rect;
-//  fill: $main_green;
-//}
-//.size-value {
-//  font-size: rem(90px);
-//  stroke: #D2D2D2;
-//  stroke-width: 1px;
-//  text-anchor: middle;
-//  alignment-baseline: middle;
-//}
+
 /*
 .size-value-vertical {
   @extend .size-value;
@@ -142,20 +133,5 @@
   //@include rotate(180deg);
 }
 */
-//.size-value-edit {
-//  @extend .size-value;
-//  stroke: $main_green;
-//  fill: $main_green;
-//}
-/*
-.size-value-edit-vertical {
-  @extend .size-value-edit;
-  //text-anchor: end;
-}
-*/
-//.size-value-active {
-//  @extend .size-value;
-//  stroke: #fff;
-//  fill: #fff;
-//}
+
 

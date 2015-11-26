@@ -34,9 +34,15 @@
                   .x(function(d) { return d.x; })
                   .y(function(d) { return d.y; })
                   .interpolate("linear"),
-                padding = (scope.typeConstruction === 'icon') ? 1 : 0.7,
+                padding = 0.7,
                 position = {x: 0, y: 0},
                 mainSVG, mainGroup, elementsGroup, dimGroup, points, dimMaxMin, scale, blocksQty;
+
+            if(scope.typeConstruction === 'icon'){
+              padding = 1;
+            } else if(scope.typeConstruction === 'edit') {
+              padding = 0.63;
+            }
 
             mainSVG = d3.select(container).append('svg').attr({
               'width': widthSVG,

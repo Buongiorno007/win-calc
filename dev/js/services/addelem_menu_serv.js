@@ -10,8 +10,7 @@
   function addElemMenuFactory($q, $timeout, globalConstants, GlobalStor, AuxStor, OrderStor, ProductStor, CartStor, UserStor, localDB, GeneralServ, MainServ, AddElementsServ, AnalyticsServ, CartServ, CartMenuServ) {
 
     var thisFactory = this,
-        delayShowElementsMenu = globalConstants.STEP * 12,
-        tempSize = [];
+        delayShowElementsMenu = globalConstants.STEP * 12;
 
     thisFactory.publicObj = {
       closeAddElementsMenu: closeAddElementsMenu,
@@ -21,6 +20,7 @@
       deleteAddElement: deleteAddElement,
       deleteAllAddElements: deleteAllAddElements,
       //---- calculators:
+      pressCulculator: pressCulculator,
       setValueQty: setValueQty,
       setValueSize: setValueSize,
       deleteLastNumber: deleteLastNumber,
@@ -47,6 +47,9 @@
         AuxStor.aux.addElementsMenuStyle = 0;
       }, delayShowElementsMenu);
     }
+
+
+
 
 
     //--------- Select AddElement
@@ -244,29 +247,75 @@
 
     /** SIze Calculator */
 
-      //------- Change Size parameter
-    function setValueSize(newValue) {
-      //console.log($scope.addElementsMenu.tempSize);
-      if(tempSize.length == 1 && tempSize[0] === 0) {
-        tempSize.length = 0;
-      }
-      if(tempSize.length < 4) {
-        if(newValue === '00'){
-          tempSize.push(0, 0);
-        } else {
-          tempSize.push(newValue);
+
+    function pressCulculator(keyEvent) {
+      var newValue;
+      console.log(keyEvent);
+      console.log(AuxStor.aux.isFocusedAddElement);
+      if (keyEvent.which === 13) {
+        closeSizeCaclulator();
+      } else {
+        switch(keyEvent.which) {
+          case 48: newValue = 0;
+            break;
+          case 49: newValue = 1;
+            break;
+          case 50: newValue = 2;
+            break;
+          case 51: newValue = 3;
+            break;
+          case 52: newValue = 4;
+            break;
+          case 53: newValue = 5;
+            break;
+          case 54: newValue = 6;
+            break;
+          case 55: newValue = 7;
+            break;
+          case 56: newValue = 8;
+            break;
+          case 57: newValue = 9;
+        }
+        console.log('cuclulator ++2++',newValue);
+        if(newValue !== undefined) {
+          setValueSize(newValue);
         }
       }
-      changeElementSize();
+
+
+    }
+
+
+      //------- Change Size parameter
+    function setValueSize(newValue) {
+      console.info('tempSize====', AuxStor.aux.tempSize);
+      //---- clean tempSize if indicate only one 0
+      if(AuxStor.aux.tempSize.length === 1 && AuxStor.aux.tempSize[0] === 0) {
+        AuxStor.aux.tempSize.length = 0;
+      }
+      if(newValue === '00'){
+        if(AuxStor.aux.tempSize.length === 1 || AuxStor.aux.tempSize.length === 2) {
+          AuxStor.aux.tempSize.push(0, 0);
+          changeElementSize();
+        } else if(AuxStor.aux.tempSize.length === 3) {
+          AuxStor.aux.tempSize.push(0);
+          changeElementSize();
+        }
+      } else {
+        if(AuxStor.aux.tempSize.length < 4) {
+          AuxStor.aux.tempSize.push(newValue);
+          changeElementSize();
+        }
+      }
     }
 
 
 
     //------- Delete last number
     function deleteLastNumber() {
-      tempSize.pop();
-      if(tempSize.length < 1) {
-        tempSize.push(0);
+      AuxStor.aux.tempSize.pop();
+      if(AuxStor.aux.tempSize.length < 1) {
+        AuxStor.aux.tempSize.push(0);
       }
       changeElementSize();
     }
@@ -277,10 +326,8 @@
           elementIndex = AuxStor.aux.currentAddElementId,
           index = (AuxStor.aux.isFocusedAddElement - 1);
 
-      for(var numer = 0; numer < tempSize.length; numer++) {
-        newElementSize += tempSize[numer].toString();
-      }
-      newElementSize = parseInt(newElementSize, 10);
+      newElementSize = parseInt(AuxStor.aux.tempSize.join(''), 10);
+      console.info('#####', newElementSize);
 
       if(GlobalStor.global.isWidthCalculator) {
         ProductStor.product.chosenAddElements[index][elementIndex].element_width = newElementSize;
@@ -298,14 +345,14 @@
           index = (AuxStor.aux.isFocusedAddElement - 1);
 
       GlobalStor.global.isWidthCalculator = false;
-      tempSize.length = 0;
+      AuxStor.aux.tempSize.length = 0;
       AddElementsServ.desactiveAddElementParameters();
 
       //-------- recalculate add element price
       var objXAddElementPrice = {
         currencyId: UserStor.userInfo.currencyId,
         elementId: ProductStor.product.chosenAddElements[index][elementIndex].id,
-        elementWidth: (ProductStor.product.chosenAddElements[index][elementIndex].element_width/1000)
+        elementWidth: (ProductStor.product.chosenAddElements[index][elementIndex].element_width / 1000)
       };
 
       //      console.log('objXAddElementPrice change size ===== ', objXAddElementPrice);
@@ -313,7 +360,7 @@
         if (results) {
           //          console.log(results.data.price);
           AuxStor.aux.currAddElementPrice = GeneralServ.setPriceDis(results.priceTotal, OrderStor.order.discount_addelem);
-          ProductStor.product.chosenAddElements[index][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers( results.priceTotal ));
+          ProductStor.product.chosenAddElements[index][elementIndex].element_price = angular.copy(GeneralServ.roundingNumbers(results.priceTotal));
           ProductStor.product.chosenAddElements[index][elementIndex].elementPriceDis = angular.copy(AuxStor.aux.currAddElementPrice);
           //------- Set Total Product Price
           setAddElementsTotalPrice(ProductStor.product);
@@ -321,7 +368,6 @@
           console.log(results);
         }
       });
-
     }
 
 

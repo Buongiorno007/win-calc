@@ -1785,6 +1785,7 @@ div.drum figure {
   stroke: #6ed44a;
   stroke-width: 3px;
   fill-opacity: 0;
+  cursor: pointer;
 }
 /* line 78, ../../dev/sass/parts/svg.scss */
 .size-rect.active {
@@ -1799,31 +1800,32 @@ div.drum figure {
   stroke-width: 1px;
   text-anchor: middle;
   alignment-baseline: middle;
+  cursor: pointer;
 }
 
-/* line 90, ../../dev/sass/parts/svg.scss */
+/* line 91, ../../dev/sass/parts/svg.scss */
 .size-txt-edit {
   stroke: #6ed44a;
   fill: #6ed44a;
 }
-/* line 95, ../../dev/sass/parts/svg.scss */
+/* line 96, ../../dev/sass/parts/svg.scss */
 .size-txt-edit.active {
   stroke: #fff;
   fill: #fff;
 }
 
-/* line 101, ../../dev/sass/parts/svg.scss */
+/* line 102, ../../dev/sass/parts/svg.scss */
 .glass-txt {
   font-size: 7rem;
 }
 
-/* line 108, ../../dev/sass/parts/svg.scss */
+/* line 109, ../../dev/sass/parts/svg.scss */
 .doorstep {
   fill: #4f4f4f;
   stroke: #4f4f4f;
 }
 
-/* line 112, ../../dev/sass/parts/svg.scss */
+/* line 113, ../../dev/sass/parts/svg.scss */
 .main-line {
   fill: #363636;
 }
@@ -1836,12 +1838,6 @@ div.drum figure {
   //writing-mode: tb;
   //glyph-orientation-vertical: 190;
   //@include rotate(180deg);
-}
-*/
-/*
-.size-value-edit-vertical {
-  @extend .size-value-edit;
-  //text-anchor: end;
 }
 */
 /* line 1, ../../dev/sass/parts/_user-info.scss */

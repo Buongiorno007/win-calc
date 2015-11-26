@@ -682,7 +682,7 @@
               <div class="price-value">+ {{ elementsMenu.A.aux.currAddElementPrice }} {{ elementsMenu.U.userInfo.currency }}</div>
             </div>
             <div ng-class="{'active': elementsMenu.G.global.isSizeCalculator}" class="elements-tools size-calculator">
-              <table ng-controller="sizeCalculatorCtrl as sizeCalc" class="size-calc-container">
+              <table ng-controller="sizeCalculatorCtrl as sizeCalc" ng-keypress="sizeCalc.pressCulculator($event)" class="size-calc-container">
                 <thead>
                   <td>
                     <button hm-tap="sizeCalc.deleteLastNumber()" class="cell calc-delete"></button>

@@ -21,7 +21,7 @@
         isAddElement: 0,
         currentAddElementId: 0,
         auxParameter: 0,
-
+        tempSize: [],
         currAddElementPrice: 0,
         isTabFrame: 0,
         isAddElementListView: 0,

@@ -84,10 +84,10 @@
           <div ng-repeat="room in rooms.G.global.rooms" class="room-block">
             <div ng-class="{'selected': rooms.P.product.room_id === $index}" hm-tap="rooms.selectRoom($index)" show-delay="{{ ($index+1) * rooms.config.DELAY_SHOW_ROOM }}" class="room-box unvisible">
               <div ng-style="{'background-image':'url('+room.img+')'}" class="room-img">
-                <div class="room-shadow"></div>
+                <div ng-show="room.desc_1.length || room.desc_2.length" class="room-shadow"></div>
                 <div class="room-title">
-                  <div ng-show="room.desc_1" class="room-sizes">{{room.desc_1}}</div>
-                  <div ng-show="room.desc_2" class="room-price">{{room.desc_2}}</div>
+                  <div ng-show="room.desc_1.length" class="room-sizes">{{room.desc_1}}</div>
+                  <div ng-show="room.desc_2.length" class="room-price">{{room.desc_2}}</div>
                 </div>
               </div>
             </div>
@@ -335,11 +335,11 @@
                 </div>
                 <div class="aux-sizing-box">
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '2-1-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(1, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 2" class="aux-params-but aux_big_but">{{ elementsPanel.P.product.chosenAddElements[1][0].element_qty }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(1, 0)" ng-keypress="elementsPanel.pressCulculator($event)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 2" class="aux-params-but aux_big_but">{{ elementsPanel.P.product.chosenAddElements[1][0].element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '2-2-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(2, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 2" class="aux-params-but aux_big_but"> {{ elementsPanel.P.product.chosenAddElements[1][0].element_width }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(2, 0)" ng-keypress="elementsPanel.pressCulculator($event)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 2" class="aux-params-but aux_big_but"> {{ elementsPanel.P.product.chosenAddElements[1][0].element_width }}</button>
                     <div data-output="{{ 'add_elements.SIZE_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                 </div>
@@ -361,11 +361,11 @@
                 </div>
                 <div class="aux-sizing-box">
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '3-1-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(1, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 3" class="aux-params-but aux_middle_but">{{ elementsPanel.P.product.chosenAddElements[2][0].element_qty }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(1, 0)" ng-keypress="elementsPanel.pressCulculator($event)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 3" class="aux-params-but aux_middle_but">{{ elementsPanel.P.product.chosenAddElements[2][0].element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '3-2-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(2, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 3" class="aux-params-but aux_middle_but"> {{ elementsPanel.P.product.chosenAddElements[2][0].element_width }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(2, 0)" ng-keypress="elementsPanel.pressCulculator($event)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 3" class="aux-params-but aux_middle_but"> {{ elementsPanel.P.product.chosenAddElements[2][0].element_width }}</button>
                     <div data-output="{{ 'add_elements.SIZE_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                 </div>
@@ -410,15 +410,15 @@
                 </div>
                 <div class="aux-sizing-box">
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '5-1-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(1, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 5" class="aux-params-but aux_middle_but">{{ elementsPanel.P.product.chosenAddElements[4][0].element_qty }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(1, 0)" ng-keypress="elementsPanel.pressCulculator($event)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 5" class="aux-params-but aux_middle_but">{{ elementsPanel.P.product.chosenAddElements[4][0].element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '5-2-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(2, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 5" class="aux-params-but aux_middle_but"> {{ elementsPanel.P.product.chosenAddElements[4][0].element_width }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(2, 0)" ng-keypress="elementsPanel.pressCulculator($event)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 5" class="aux-params-but aux_middle_but"> {{ elementsPanel.P.product.chosenAddElements[4][0].element_width }}</button>
                     <div data-output="{{ 'add_elements.WIDTH_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '5-3-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(3, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 5" class="aux-params-but aux_middle_but"> {{ elementsPanel.P.product.chosenAddElements[4][0].element_height }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(3, 0)" ng-keypress="elementsPanel.pressCulculator($event)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 5" class="aux-params-but aux_middle_but"> {{ elementsPanel.P.product.chosenAddElements[4][0].element_height }}</button>
                     <div data-output="{{ 'add_elements.HEIGHT_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                 </div>
@@ -462,11 +462,11 @@
                 </div>
                 <div class="aux-sizing-box">
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '7-1-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(1, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 7" class="aux-params-but aux_connect_but"> {{ elementsPanel.P.product.chosenAddElements[6][0].element_qty }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(7, 1, 0)" ng-keypress="elementsPanel.pressCulculator($event)" class="aux-params-but aux_connect_but"> {{ elementsPanel.P.product.chosenAddElements[6][0].element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '7-2-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(2, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 7" class="aux-params-but aux_connect_but"> {{ elementsPanel.P.product.chosenAddElements[6][0].element_width }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(7, 2, 0)" ng-keypress="elementsPanel.pressCulculator($event)" class="aux-params-but aux_connect_but"> {{ elementsPanel.P.product.chosenAddElements[6][0].element_width }}</button>
                     <div data-output="{{ 'add_elements.SIZE_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                 </div>
@@ -503,11 +503,11 @@
                 </div>
                 <div class="aux-sizing-box">
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '9-1-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(1, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 9" class="aux-params-but aux_big_but"> {{ elementsPanel.P.product.chosenAddElements[8][0].element_qty }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(9, 1, 0)" ng-keypress="elementsPanel.pressCulculator($event)" class="aux-params-but aux_big_but"> {{ elementsPanel.P.product.chosenAddElements[8][0].element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '9-2-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(2, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 9" class="aux-params-but aux_big_but"> {{ elementsPanel.P.product.chosenAddElements[8][0].element_width }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(9, 2, 0)" ng-keypress="elementsPanel.pressCulculator($event)" class="aux-params-but aux_big_but"> {{ elementsPanel.P.product.chosenAddElements[8][0].element_width }}</button>
                     <div data-output="{{ 'add_elements.SIZE_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                 </div>
@@ -529,7 +529,7 @@
                 </div>
                 <div class="aux-sizing-box">
                   <div ng-class="{'selected': elementsPanel.A.aux.auxParameter === '10-1-0'}" class="aux-params">
-                    <button hm-tap="elementsPanel.initAddElementTools(1, 0)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 10" class="aux-params-but aux_middle_but"> {{ elementsPanel.P.product.chosenAddElements[9][0].element_qty }}</button>
+                    <button hm-tap="elementsPanel.initAddElementTools(1, 0)" ng-keypress="elementsPanel.pressCulculator($event)" ng-disabled="elementsPanel.A.aux.isFocusedAddElement !== 10" class="aux-params-but aux_middle_but"> {{ elementsPanel.P.product.chosenAddElements[9][0].element_qty }}</button>
                     <div data-output="{{ 'add_elements.QTY_LABEL' | translate }}" typing="{{ elementsPanel.config.typing }}" typing-delay="{{ elementsPanel.config.DELAY_SHOW_BUTTON }}" class="aux-label"></div>
                   </div>
                 </div>
@@ -752,7 +752,7 @@
               <div class="price-value">+ {{ elementsMenu.A.aux.currAddElementPrice }} {{ elementsMenu.U.userInfo.currency }}</div>
             </div>
             <div ng-class="{'active': elementsMenu.G.global.isSizeCalculator}" class="elements-tools size-calculator">
-              <table ng-controller="sizeCalculatorCtrl as sizeCalc" class="size-calc-container">
+              <table ng-controller="sizeCalculatorCtrl as sizeCalc" ng-keypress="sizeCalc.pressCulculator($event)" class="size-calc-container">
                 <thead>
                   <td>
                     <button hm-tap="sizeCalc.deleteLastNumber()" class="cell calc-delete"></button>

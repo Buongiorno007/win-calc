@@ -22,7 +22,7 @@
       thisCtrl.setValueSize = AddElementMenuServ.setValueSize;
       thisCtrl.deleteLastNumber = AddElementMenuServ.deleteLastNumber;
       thisCtrl.closeSizeCaclulator = AddElementMenuServ.closeSizeCaclulator;
-
+      thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
     //------ for Design Page
     } else {
       thisCtrl.isDesignPage = true;

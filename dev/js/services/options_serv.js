@@ -257,18 +257,14 @@
                   type:'skylight',
                   id:'block_4',
                   level: 3,
-                  blockType: 'sash',
+                  blockType: 'frame',
                   parent: 'block_3',
                   children: [],
                   pointsOut: [],
                   pointsIn: [],
                   parts: [],
                   glassId: 0,
-                  glassTxt: '',
-                  gridId: 0,
-                  sashType: 6,
-                  openDir: [1, 4],
-                  handlePos: 4
+                  glassTxt: ''
                 },
                 {
                   type:'skylight',

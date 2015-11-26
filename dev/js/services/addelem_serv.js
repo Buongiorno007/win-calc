@@ -31,29 +31,36 @@
 
     //--------- Select additional element
     function selectAddElement(id) {
-      if(AuxStor.aux.isFocusedAddElement !== id && AuxStor.aux.showAddElementsMenu) {
-        AuxStor.aux.isFocusedAddElement = id;
-        AuxStor.aux.isTabFrame = 0;
-        //playSound('swip');
-        AuxStor.aux.showAddElementsMenu = 0;
+      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
+        if (AuxStor.aux.isFocusedAddElement !== id && AuxStor.aux.showAddElementsMenu) {
+          AuxStor.aux.isFocusedAddElement = id;
+          AuxStor.aux.isTabFrame = 0;
+          //playSound('swip');
+          AuxStor.aux.showAddElementsMenu = 0;
 
-        desactiveAddElementParameters();
-        AuxStor.aux.isAddElement = 0;
-        $timeout(function() {
-          AuxStor.aux.addElementsMenuStyle = 0;
+          desactiveAddElementParameters();
+          AuxStor.aux.isAddElement = 0;
+          $timeout(function () {
+            AuxStor.aux.addElementsMenuStyle = 0;
+            //playSound('swip');
+            AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
+            downloadAddElementsData(id);
+          }, delayShowElementsMenu);
+        } else {
+          AuxStor.aux.isFocusedAddElement = id;
           //playSound('swip');
           AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
           downloadAddElementsData(id);
-        }, delayShowElementsMenu);
-      } else {
-        AuxStor.aux.isFocusedAddElement = id;
-        //playSound('swip');
-        AuxStor.aux.showAddElementsMenu = globalConstants.activeClass;
-        downloadAddElementsData(id);
+        }
       }
     }
 
-
+    function desactiveAddElementParameters() {
+      AuxStor.aux.auxParameter = 0;
+      GlobalStor.global.isQtyCalculator = 0;
+      GlobalStor.global.isSizeCalculator = 0;
+      GlobalStor.global.isWidthCalculator = 0;
+    }
 
 
     function downloadAddElementsData(id) {
@@ -65,36 +72,43 @@
 
 
     //------- Select Add Element Parameter
-    function initAddElementTools(toolsId, elementIndex) {
-//      console.log('Tools!+', toolsId, elementIndex);
-      if(AuxStor.aux.auxParameter === AuxStor.aux.isFocusedAddElement+'-'+toolsId+'-'+elementIndex) {
+    function initAddElementTools(groupId, toolsId, elementIndex) {
+      console.log('Tools!+', AuxStor.aux.auxParameter, '====', groupId, toolsId, elementIndex);
+      //----- close caclulator if opened
+      if(AuxStor.aux.auxParameter === groupId+'-'+toolsId+'-'+elementIndex && !AuxStor.aux.tempSize.length) {
         desactiveAddElementParameters();
         AuxStor.aux.currentAddElementId = 0;
         //console.log('close-'+$scope.global.auxParameter);
       } else {
-        desactiveAddElementParameters();
-        AuxStor.aux.auxParameter = AuxStor.aux.isFocusedAddElement+'-'+toolsId+'-'+elementIndex;
-        //console.log($scope.global.auxParameter);
-        AuxStor.aux.currentAddElementId = elementIndex;
-        switch(toolsId) {
-          case 1:
-            GlobalStor.global.isQtyCalculator = 1;
-            break;
-          case 2:
-            GlobalStor.global.isSizeCalculator = 1;
-            GlobalStor.global.isWidthCalculator = 1;
-            break;
-          case 3:
-            GlobalStor.global.isSizeCalculator = 1;
-            GlobalStor.global.isWidthCalculator = 0;
-            break;
+        if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
+          if(AuxStor.aux.isFocusedAddElement === groupId) {
+            desactiveAddElementParameters();
+            AuxStor.aux.auxParameter = groupId + '-' + toolsId + '-' + elementIndex;
+            //console.log($scope.global.auxParameter);
+            AuxStor.aux.currentAddElementId = elementIndex;
+            switch (toolsId) {
+              case 1:
+                GlobalStor.global.isQtyCalculator = 1;
+                break;
+              case 2:
+                GlobalStor.global.isSizeCalculator = 1;
+                GlobalStor.global.isWidthCalculator = 1;
+                break;
+              case 3:
+                GlobalStor.global.isSizeCalculator = 1;
+                GlobalStor.global.isWidthCalculator = 0;
+                break;
+            }
+          }
         }
       }
     }
 
     function openAddElementListView() {
-      AuxStor.aux.isAddElementListView = 1;
-      viewSwitching();
+      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
+        AuxStor.aux.isAddElementListView = 1;
+        viewSwitching();
+      }
     }
 
     function closeAddElementListView() {
@@ -115,15 +129,6 @@
         AuxStor.aux.addElementsMenuStyle = 0;
       }, delayShowElementsMenu);
     }
-
-
-    function desactiveAddElementParameters() {
-      AuxStor.aux.auxParameter = 0;
-      GlobalStor.global.isQtyCalculator = 0;
-      GlobalStor.global.isSizeCalculator = 0;
-      GlobalStor.global.isWidthCalculator = 0;
-    }
-
 
 
     //----------- create AddElement Groups for Searching
