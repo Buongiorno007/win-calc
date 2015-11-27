@@ -7,7 +7,7 @@
     .module('MainModule')
     .factory('AuxStor', auxStorageFactory);
 
-  function auxStorageFactory() {
+  function auxStorageFactory($filter) {
 
     var thisFactory = this;
 
@@ -28,7 +28,20 @@
         isWindowSchemeDialog: 0,
 
         addElementGroups: [],
-        searchingWord: ''
+        searchingWord: '',
+        groupNames: [
+          $filter('translate')('add_elements.GRIDS'),
+          $filter('translate')('add_elements.VISORS'),
+          $filter('translate')('add_elements.SPILLWAYS'),
+          $filter('translate')('add_elements.OUTSIDE'),
+          $filter('translate')('add_elements.INSIDE'),
+          $filter('translate')('add_elements.LOUVERS'),
+          $filter('translate')('add_elements.CONNECTORS'),
+          $filter('translate')('add_elements.FAN'),
+          $filter('translate')('add_elements.WINDOWSILLS'),
+          $filter('translate')('add_elements.HANDLELS'),
+          $filter('translate')('add_elements.OTHERS')
+        ]
       },
       setDefaultAuxiliary: setDefaultAuxiliary
     };

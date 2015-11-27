@@ -22,6 +22,7 @@
       //---- calculators:
       pressCulculator: pressCulculator,
       setValueQty: setValueQty,
+      closeQtyCaclulator: closeQtyCaclulator,
       setValueSize: setValueSize,
       deleteLastNumber: deleteLastNumber,
       closeSizeCaclulator: closeSizeCaclulator
@@ -36,16 +37,18 @@
 
     //-------- Close AddElements Menu
     function closeAddElementsMenu() {
-      AuxStor.aux.isFocusedAddElement = 0;
-      AuxStor.aux.isTabFrame = 0;
-      //playSound('swip');
-      AuxStor.aux.showAddElementsMenu = 0;
-      AddElementsServ.desactiveAddElementParameters();
-      $timeout(function() {
-        AuxStor.aux.isAddElement = 0;
+      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
+        AuxStor.aux.isFocusedAddElement = 0;
+        AuxStor.aux.isTabFrame = 0;
         //playSound('swip');
-        AuxStor.aux.addElementsMenuStyle = 0;
-      }, delayShowElementsMenu);
+        AuxStor.aux.showAddElementsMenu = 0;
+        AddElementsServ.desactiveAddElementParameters();
+        $timeout(function () {
+          AuxStor.aux.isAddElement = 0;
+          //playSound('swip');
+          AuxStor.aux.addElementsMenuStyle = 0;
+        }, delayShowElementsMenu);
+      }
     }
 
 
@@ -54,25 +57,27 @@
 
     //--------- Select AddElement
     function chooseAddElement(typeIndex, elementIndex) {
-      if(typeIndex === undefined && elementIndex === undefined) {
-        var index = (AuxStor.aux.isFocusedAddElement - 1);
-        AddElementsServ.desactiveAddElementParameters();
-        AuxStor.aux.isAddElement = 0;
-        //-------- clean all elements in selected Type
-        ProductStor.product.chosenAddElements[index].length = 0;
+      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
+        if (typeIndex === undefined && elementIndex === undefined) {
+          var index = (AuxStor.aux.isFocusedAddElement - 1);
+          AddElementsServ.desactiveAddElementParameters();
+          AuxStor.aux.isAddElement = 0;
+          //-------- clean all elements in selected Type
+          ProductStor.product.chosenAddElements[index].length = 0;
 
-        //-------- Set Total Product Price
-        setAddElementsTotalPrice(ProductStor.product);
-
-      } else {
-        getAddElementPrice(typeIndex, elementIndex).then(function(addElem) {
-          pushSelectedAddElement(ProductStor.product, addElem);
-          //Set Total Product Price
+          //-------- Set Total Product Price
           setAddElementsTotalPrice(ProductStor.product);
 
-          //------ save analytics data
-          //TODO ??? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, addElem.id, typeIndex);
-        });
+        } else {
+          getAddElementPrice(typeIndex, elementIndex).then(function (addElem) {
+            pushSelectedAddElement(ProductStor.product, addElem);
+            //Set Total Product Price
+            setAddElementsTotalPrice(ProductStor.product);
+
+            //------ save analytics data
+            //TODO ??? AnalyticsServ.saveAnalyticDB(UserStor.userInfo.id, OrderStor.order.id, ProductStor.product.profile.id, addElem.id, typeIndex);
+          });
+        }
       }
     }
 
@@ -230,18 +235,34 @@
     function setValueQty(newValue) {
       var elementIndex = AuxStor.aux.currentAddElementId,
           index = (AuxStor.aux.isFocusedAddElement - 1);
-
       if(ProductStor.product.chosenAddElements[index][elementIndex].element_qty < 2 && newValue < 0) {
         return false;
       } else if(ProductStor.product.chosenAddElements[index][elementIndex].element_qty < 6 && newValue == -5) {
         return false;
       } else {
-        ProductStor.product.chosenAddElements[index][elementIndex].element_qty += newValue;
+        if(AuxStor.aux.tempSize.length) {
+          ProductStor.product.chosenAddElements[index][elementIndex].element_qty =  parseInt(AuxStor.aux.tempSize.join(''), 10) + newValue;
+          AuxStor.aux.tempSize.length = 0;
+        } else {
+          ProductStor.product.chosenAddElements[index][elementIndex].element_qty += newValue;
+        }
       }
 
       //--------- Set Total Product Price
       setAddElementsTotalPrice(ProductStor.product);
     }
+
+
+    //--------- Close Qty Calculator
+    function closeQtyCaclulator() {
+      //------- close caclulators
+      AddElementsServ.desactiveAddElementParameters();
+      //------ clean tempSize
+      AuxStor.aux.tempSize.length = 0;
+      //--------- Set Total Product Price
+      setAddElementsTotalPrice(ProductStor.product);
+    }
+
 
 
 
@@ -250,10 +271,15 @@
 
     function pressCulculator(keyEvent) {
       var newValue;
-      console.log(keyEvent);
-      console.log(AuxStor.aux.isFocusedAddElement);
+      //console.log(keyEvent);
+      //console.log(AuxStor.aux.isFocusedAddElement);
       if (keyEvent.which === 13) {
-        closeSizeCaclulator();
+        if(GlobalStor.global.isQtyCalculator) {
+          closeQtyCaclulator();
+        } else if(GlobalStor.global.isSizeCalculator) {
+          closeSizeCaclulator();
+        }
+
       } else {
         switch(keyEvent.which) {
           case 48: newValue = 0;
@@ -276,7 +302,7 @@
             break;
           case 57: newValue = 9;
         }
-        console.log('cuclulator ++2++',newValue);
+        //console.log('cuclulator ++2++',newValue);
         if(newValue !== undefined) {
           setValueSize(newValue);
         }
@@ -329,13 +355,18 @@
       newElementSize = parseInt(AuxStor.aux.tempSize.join(''), 10);
       console.info('#####', newElementSize);
 
-      if(GlobalStor.global.isWidthCalculator) {
-        ProductStor.product.chosenAddElements[index][elementIndex].element_width = newElementSize;
-      } else {
-        if(index === 4) {
-          ProductStor.product.chosenAddElements[index][elementIndex].element_height = newElementSize;
+      if(GlobalStor.global.isQtyCalculator) {
+        ProductStor.product.chosenAddElements[index][elementIndex].element_qty = newElementSize;
+      } else if(GlobalStor.global.isSizeCalculator) {
+        if(GlobalStor.global.isWidthCalculator) {
+          ProductStor.product.chosenAddElements[index][elementIndex].element_width = newElementSize;
+        } else {
+          if(index === 4) {
+            ProductStor.product.chosenAddElements[index][elementIndex].element_height = newElementSize;
+          }
         }
       }
+
     }
 
 

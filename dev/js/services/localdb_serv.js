@@ -1530,6 +1530,8 @@
                       } else {
                         if(result3[i][0]) {
                           collectArr.push(result3[i][0]);
+                        } else {
+                          collectArr.push(result3[i]);
                         }
                       }
                     }
@@ -1778,13 +1780,17 @@
                 });
                 deff2.resolve($q.all(promConsistElem2));
               } else {
-                if(item2.child_type === 'element') {
-                  deff2.resolve(getElementByListId(0, item2.child_id));
+                if(item2) {
+                  if (item2.child_type === 'element') {
+                    deff2.resolve(getElementByListId(0, item2.child_id));
+                  } else {
+                    getKitByID(item2.child_id).then(function (data) {
+                      angular.extend(item2, data);
+                      deff2.resolve(getElementByListId(0, data.parent_element_id));
+                    });
+                  }
                 } else {
-                  getKitByID(item2.child_id).then(function(data) {
-                    angular.extend(item2, data);
-                    deff2.resolve(getElementByListId(0, data.parent_element_id));
-                  });
+                  deff2.resolve(0);
                 }
               }
               return deff2.promise;
@@ -1950,8 +1956,8 @@
 
       for(; group < groupQty; group++) {
         if(priceObj.consist[group]) {
-//          console.log('         ');
-//          console.log('Group  ---------------------', group);
+          //console.log('         ');
+          //console.log('Group  ---------------------', group);
           var sizeQty = construction.sizes[group].length,
               consistQty = priceObj.consist[group].length;
 
@@ -1998,7 +2004,7 @@
           }
 
         }
-//        console.log('Group - конец ---------------------');
+        //console.log('Group - конец ---------------------');
       }
 
     }
@@ -2009,10 +2015,10 @@
     function culcPriceConsistElem(group, currConsist, currConsistElem, currConstrSize, mainKit, priceObj) {
       /** if hardware */
       if(group === priceObj.consist.length-1) {
-//        console.warn('-------hardware------- currConsist', currConsist);
-//        console.warn('-------hardware------- currConsistElem', currConsistElem);
-//        console.warn('-------hardware------- mainKit', mainKit);
-//        console.warn('-------hardware------- currConstrSize', currConstrSize);
+        //console.warn('-------hardware------- currConsist', currConsist);
+        //console.warn('-------hardware------- currConsistElem', currConsistElem);
+        //console.warn('-------hardware------- mainKit', mainKit);
+        //console.warn('-------hardware------- currConstrSize', currConstrSize);
         if(Array.isArray(currConsistElem)) {
           var hwElemQty = currConsistElem.length,
               openDirQty = currConstrSize.openDir.length,
@@ -2053,7 +2059,7 @@
                   }
 
                   priceReal = objTmp.qty * currConsistElem[hwInd][hwInd2].price * wasteValue;
-//                  console.log('++++++', priceReal, objTmp.qty, currConsistElem[hwInd][hwInd2].price, wasteValue);
+                  //console.log('++++++', priceReal, objTmp.qty, currConsistElem[hwInd][hwInd2].price, wasteValue);
                   if (priceReal) {
                     /** currency conversion */
                     if (UserStor.userInfo.currencyId != currConsistElem[hwInd][hwInd2].currency_id) {
@@ -2077,10 +2083,10 @@
       } else {
 //        console.log('nooo hardware');
         if(Array.isArray(currConsistElem)) {
-//          console.log('array');
-//          console.info('1-----', group);
-//          console.info('2-----', currConstrSize);
-//          console.info('3-----', mainKit);
+          //console.log('array');
+          //console.info('1-----', group);
+          //console.info('2-----', currConstrSize);
+          //console.info('3-----', mainKit);
           var elemQty = currConsistElem.length, elemInd = 0;
           for (; elemInd < elemQty; elemInd++) {
 //            console.info('4-----', currConsist[elemInd], currConsistElem[elemInd]);
@@ -2230,13 +2236,13 @@
           sizeReal = 0,
           qtyReal = 1;
 
-//      console.log('id: ' + currConsist.id + '///' + currConsistElem.id);
-//      console.log('Название: ' + currConsistElem.name);
-//      console.log('Цена: ' + currConsistElem.price);
-//      console.log('% отхода : ' + wasteValue);
-//      console.log('Поправка на обрезку : ' + pruning);
-//      console.log('Размер: ' + currSize + ' m');
-//      console.log('parentValue: ' + parentValue);
+      //console.log('id: ' + currConsist.id + '///' + currConsistElem.id);
+      //console.log('Название: ' + currConsistElem.name);
+      //console.log('Цена: ' + currConsistElem.price);
+      //console.log('% отхода : ' + wasteValue);
+      //console.log('Поправка на обрезку : ' + pruning);
+      //console.log('Размер: ' + currSize + ' m');
+      //console.log('parentValue: ' + parentValue);
 
       /** if glass */
       if(objTmp.element_group_id === 9) {
@@ -2290,7 +2296,7 @@
       objTmp.priceReal = GeneralServ.roundingNumbers(priceReal, 3);
       objTmp.size = GeneralServ.roundingNumbers(sizeReal, 3);
       objTmp.qty = GeneralServ.roundingNumbers(qtyReal, 3);
-//      console.warn('finish -------------- priceTmp', objTmp.priceReal, objTmp);
+      //console.warn('finish -------------- priceTmp', objTmp.priceReal, objTmp);
       priceObj.constrElements.push(objTmp);
       priceObj.priceTotal += objTmp.priceReal;
     }
@@ -2311,20 +2317,20 @@
       console.info('START+++', construction);
 	  
 	    parseMainKit(construction).then(function(kits) {
-//        console.warn('kits!!!!!!+', kits);
+        //console.warn('kits!!!!!!+', kits);
         priceObj.kits = kits;
 
         /** collect Kit Children Elements*/
         parseKitConsist(priceObj.kits).then(function(consist){
-//          console.warn('consist!!!!!!+', consist);
+          //console.warn('consist!!!!!!+', consist);
           priceObj.consist = consist;
 
           parseKitElement(priceObj.kits).then(function(kitsElem) {
-//            console.warn('kitsElem!!!!!!+', kitsElem);
+            //console.warn('kitsElem!!!!!!+', kitsElem);
             priceObj.kitsElem = kitsElem;
 
             parseConsistElem(priceObj.consist).then(function(consistElem){
-//              console.warn('consistElem!!!!!!+', consistElem);
+              //console.warn('consistElem!!!!!!+', consistElem);
               priceObj.consistElem = consistElem;
               priceObj.constrElements = culcKitPrice(priceObj, construction.sizes);
               culcConsistPrice(priceObj, construction);

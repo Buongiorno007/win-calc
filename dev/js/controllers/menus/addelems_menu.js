@@ -35,8 +35,9 @@
     thisCtrl.initAddElementTools = AddElementsServ.initAddElementTools;
     thisCtrl.showInfoBox = MainServ.showInfoBox;
 
-    thisCtrl.closeQtyCaclulator = closeQtyCaclulator;
+    thisCtrl.closeQtyCaclulator = AddElementMenuServ.closeQtyCaclulator;
     thisCtrl.setValueQty = AddElementMenuServ.setValueQty;
+    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
 
 
@@ -53,19 +54,17 @@
       AuxStor.aux.isTabFrame = !AuxStor.aux.isTabFrame;
     }
 
-    //--------- Close Qty Calculator
-    function closeQtyCaclulator() {
-      AddElementsServ.desactiveAddElementParameters();
-    }
 
 
     /** common function to select addElem in 2 cases*/
     function selectAddElement(typeId, elementId, clickEvent) {
-      /** if isAddElementListView = 1 is list view otherwise is common view */
-      if(AuxStor.aux.isAddElementListView) {
-        selectAddElementList(typeId, elementId, clickEvent);
-      } else {
-        AddElementMenuServ.chooseAddElement(typeId, elementId);
+      if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
+        /** if isAddElementListView = 1 is list view otherwise is common view */
+        if (AuxStor.aux.isAddElementListView) {
+          selectAddElementList(typeId, elementId, clickEvent);
+        } else {
+          AddElementMenuServ.chooseAddElement(typeId, elementId);
+        }
       }
     }
 

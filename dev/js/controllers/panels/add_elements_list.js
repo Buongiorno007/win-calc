@@ -30,7 +30,7 @@
     thisCtrl.deleteAddElement = AddElementMenuServ.deleteAddElement;
     thisCtrl.deleteAllAddElements = AddElementMenuServ.deleteAllAddElements;
     thisCtrl.closeAddElementListView = AddElementsServ.closeAddElementListView;
-
+    thisCtrl.pressCulculator = AddElementMenuServ.pressCulculator;
 
   }
 })();

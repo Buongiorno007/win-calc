@@ -73,7 +73,7 @@
 
     //------- Select Add Element Parameter
     function initAddElementTools(groupId, toolsId, elementIndex) {
-      console.log('Tools!+', AuxStor.aux.auxParameter, '====', groupId, toolsId, elementIndex);
+      //console.log('Tools!+', AuxStor.aux.auxParameter, '====', groupId, toolsId, elementIndex);
       //----- close caclulator if opened
       if(AuxStor.aux.auxParameter === groupId+'-'+toolsId+'-'+elementIndex && !AuxStor.aux.tempSize.length) {
         desactiveAddElementParameters();
@@ -133,27 +133,14 @@
 
     //----------- create AddElement Groups for Searching
     function createAddElementGroups() {
-      var groupNames = [
-            $filter('translate')('add_elements.GRIDS'),
-            $filter('translate')('add_elements.VISORS'),
-            $filter('translate')('add_elements.SPILLWAYS'),
-            $filter('translate')('add_elements.OUTSIDE'),
-            $filter('translate')('add_elements.INSIDE'),
-            $filter('translate')('add_elements.LOUVERS'),
-            $filter('translate')('add_elements.CONNECTORS'),
-            $filter('translate')('add_elements.FAN'),
-            $filter('translate')('add_elements.WINDOWSILLS'),
-            $filter('translate')('add_elements.HANDLELS'),
-            $filter('translate')('add_elements.OTHERS')
-          ],
-          groupNamesQty = groupNames.length,
+      var groupNamesQty = AuxStor.aux.groupNames.length,
           g = 0;
       AuxStor.aux.addElementGroups.length = 0;
       for(; g < groupNamesQty; g++){
         if(GlobalStor.global.addElementsAll[g].elementsList) {
           var groupTempObj = {};
           groupTempObj.groupId = (g+1);
-          groupTempObj.groupName = groupNames[g];
+          groupTempObj.groupName = AuxStor.aux.groupNames[g];
           groupTempObj.groupClass = globalConstants.addElementsGroupClass[g];
           AuxStor.aux.addElementGroups.push(groupTempObj);
         }
