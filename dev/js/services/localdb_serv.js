@@ -1335,7 +1335,7 @@
                   }
                 });
               } else {
-                if(Array.isArray(construction.ids[index])) {
+                if(angular.isArray(construction.ids[index])) {
                   var promisKits = construction.ids[index].map(function(item2) {
                     var deff2 = $q.defer();
                     selectLocalDB(tablesLocalDB.lists.tableName, {id: item2}, 'id, parent_element_id, name, waste, amendment_pruning').then(function(result2) {
@@ -1490,12 +1490,12 @@
           promKits = kits.map(function(item, index, arr) {
             var deff1 = $q.defer();
             if(item) {
-              if(Array.isArray(item)) {
+              if(angular.isArray(item)) {
                 var promisElem = item.map(function(item2){
                   var deff2 = $q.defer();
                   /** if hardware */
                   if(index === arr.length-1) {
-                    if(Array.isArray(item2)) {
+                    if(angular.isArray(item2)) {
                       var promisHW = item2.map(function(item3) {
                         var deff3 = $q.defer();
                         parseListContent(item3.child_id).then(function (result4) {
@@ -1525,7 +1525,7 @@
                       collectArr = [];
                   if(resQty) {
                     for(var i = 0; i < resQty; i++) {
-                      if(Array.isArray(result3[i])) {
+                      if(angular.isArray(result3[i])) {
                         collectArr.push(result3[i]);
                       } else {
                         if(result3[i][0]) {
@@ -1577,7 +1577,7 @@
       var defer = $q.defer(),
           lists = [],
           elemLists = [];
-      if(Array.isArray(listId)) {
+      if(angular.isArray(listId)) {
         lists = listId;
       } else {
         lists.push(listId);
@@ -1628,13 +1628,13 @@
           promisesKitElem = kits.map(function(item, index, arr) {
             var deff1 = $q.defer();
             if(item) {
-              if(Array.isArray(item)) {
+              if(angular.isArray(item)) {
                 var promisElem = item.map(function(item2){
                   var deff2 = $q.defer();
 
                   /** if hardware */
                   if(index === arr.length-1) {
-                    if(Array.isArray(item2)) {
+                    if(angular.isArray(item2)) {
                       var promisHW = item2.map(function (item3) {
                         var deff3 = $q.defer();
                         if(item3.child_type === 'element') {
@@ -1665,7 +1665,7 @@
                     } else {
                       for (var i = 0; i < resQty; i++) {
                         if (result2[i]) {
-                          if (Array.isArray(result2[i])) {
+                          if (angular.isArray(result2[i])) {
                             var innerArr = [], innerQty = result2[i].length;
                             //                          console.info(result2[i]);
                             for (var j = 0; j < innerQty; j++) {
@@ -1741,11 +1741,11 @@
           if(item && item.length) {
             var promConsistElem = item.map(function(item2) {
               var deff2 = $q.defer();
-              if(Array.isArray(item2)) {
+              if(angular.isArray(item2)) {
                 var promConsistElem2 = item2.map(function(item3) {
                   var deff3 = $q.defer();
                   if(item3) {
-                    if(Array.isArray(item3)) {
+                    if(angular.isArray(item3)) {
                       var promConsistElem3 = item3.map(function(item4) {
                         var deff4 = $q.defer();
                         if(item4) {
@@ -1821,12 +1821,12 @@
       for(var ke = 0; ke < kitElemQty; ke++) {
         if(priceObj.kitsElem[ke]) {
           sizeQty = sizes[ke].length;
-          if(Array.isArray(priceObj.kitsElem[ke])) {
+          if(angular.isArray(priceObj.kitsElem[ke])) {
 //            console.info('culcKitPrice ===== array');
             var kitElemChildQty = priceObj.kitsElem[ke].length;
             for(var child = 0; child < kitElemChildQty; child++) {
               /** hardware */
-              if(Array.isArray(priceObj.kitsElem[ke][child])) {
+              if(angular.isArray(priceObj.kitsElem[ke][child])) {
 //                console.info('culcKitPrice ===== hardware');
                 var kitElemChildQty2 = priceObj.kitsElem[ke][child].length;
                 for(var child2 = 0; child2 < kitElemChildQty2; child2++) {
@@ -1963,7 +1963,7 @@
 
           if(consistQty) {
 
-            if(Array.isArray(priceObj.kits[group])) {
+            if(angular.isArray(priceObj.kits[group])) {
 //              console.info('culcConsistPrice ===== array');
 //                console.info('1-----', group);
 //                console.info('2-----', construction.sizes[group]);
@@ -2019,12 +2019,12 @@
         //console.warn('-------hardware------- currConsistElem', currConsistElem);
         //console.warn('-------hardware------- mainKit', mainKit);
         //console.warn('-------hardware------- currConstrSize', currConstrSize);
-        if(Array.isArray(currConsistElem)) {
+        if(angular.isArray(currConsistElem)) {
           var hwElemQty = currConsistElem.length,
               openDirQty = currConstrSize.openDir.length,
               hwInd = 0;
           for(; hwInd < hwElemQty; hwInd++) {
-            if(Array.isArray(currConsistElem[hwInd])) {
+            if(angular.isArray(currConsistElem[hwInd])) {
               var hwElemQty2 = currConsistElem[hwInd].length,
                   hwInd2 = 0;
               hwElemLoop: for(; hwInd2 < hwElemQty2; hwInd2++) {
@@ -2082,7 +2082,7 @@
 
       } else {
 //        console.log('nooo hardware');
-        if(Array.isArray(currConsistElem)) {
+        if(angular.isArray(currConsistElem)) {
           //console.log('array');
           //console.info('1-----', group);
           //console.info('2-----', currConstrSize);

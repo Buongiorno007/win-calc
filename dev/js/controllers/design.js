@@ -84,6 +84,7 @@
       if(id !== 4) {
         DesignServ.deselectAllArc();
       }
+      DesignServ.closeSizeCaclulator();
       //----- hide culculator
       DesignServ.hideSizeTools();
       if(DesignStor.design.activeMenuItem) {
@@ -332,6 +333,7 @@
     //---------- Show Door Configuration
     function toggleDoorConfig() {
       thisCtrl.config.isDoorConfig = 1;
+      DesignServ.closeSizeCaclulator();
       //----- set emplty index values
 //      DesignStor.design.doorConfig.doorShapeIndex = '';
 //      DesignStor.design.doorConfig.sashShapeIndex = '';

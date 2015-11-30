@@ -270,53 +270,77 @@
 
 
     function pressCulculator(keyEvent) {
+      console.info('PRESS KEY====', keyEvent.which);
       var newValue;
-      //console.log(keyEvent);
-      //console.log(AuxStor.aux.isFocusedAddElement);
+      //------ Enter
       if (keyEvent.which === 13) {
-        if(GlobalStor.global.isQtyCalculator) {
+        if (GlobalStor.global.isQtyCalculator) {
           closeQtyCaclulator();
-        } else if(GlobalStor.global.isSizeCalculator) {
+        } else if (GlobalStor.global.isSizeCalculator) {
           closeSizeCaclulator();
         }
-
+      } else if(keyEvent.which === 8) {
+        //-------- Backspace
+        deleteLastNumber();
       } else {
+        //-------- Numbers
         switch(keyEvent.which) {
-          case 48: newValue = 0;
+          case 48:
+          case 96:
+            newValue = 0;
             break;
-          case 49: newValue = 1;
+          case 49:
+          case 97:
+            newValue = 1;
             break;
-          case 50: newValue = 2;
+          case 50:
+          case 98:
+            newValue = 2;
             break;
-          case 51: newValue = 3;
+          case 51:
+          case 99:
+            newValue = 3;
             break;
-          case 52: newValue = 4;
+          case 52:
+          case 100:
+            newValue = 4;
             break;
-          case 53: newValue = 5;
+          case 53:
+          case 101:
+            newValue = 5;
             break;
-          case 54: newValue = 6;
+          case 54:
+          case 102:
+            newValue = 6;
             break;
-          case 55: newValue = 7;
+          case 55:
+          case 103:
+            newValue = 7;
             break;
-          case 56: newValue = 8;
+          case 56:
+          case 104:
+            newValue = 8;
             break;
-          case 57: newValue = 9;
+          case 57:
+          case 105:
+            newValue = 9;
+            break;
         }
-        //console.log('cuclulator ++2++',newValue);
         if(newValue !== undefined) {
           setValueSize(newValue);
         }
       }
-
-
     }
 
 
       //------- Change Size parameter
     function setValueSize(newValue) {
-      console.info('tempSize====', AuxStor.aux.tempSize);
+      //console.info('tempSize====', AuxStor.aux.tempSize);
       //---- clean tempSize if indicate only one 0
       if(AuxStor.aux.tempSize.length === 1 && AuxStor.aux.tempSize[0] === 0) {
+        AuxStor.aux.tempSize.length = 0;
+      }
+      if(AuxStor.aux.tempSize.length === 4) {
         AuxStor.aux.tempSize.length = 0;
       }
       if(newValue === '00'){
@@ -353,7 +377,6 @@
           index = (AuxStor.aux.isFocusedAddElement - 1);
 
       newElementSize = parseInt(AuxStor.aux.tempSize.join(''), 10);
-      console.info('#####', newElementSize);
 
       if(GlobalStor.global.isQtyCalculator) {
         ProductStor.product.chosenAddElements[index][elementIndex].element_qty = newElementSize;

@@ -7,7 +7,7 @@
     .module('MainModule')
     .factory('AddElementsServ', addElemFactory);
 
-  function addElemFactory($filter, $timeout, globalConstants, GlobalStor, AuxStor) {
+  function addElemFactory($filter, $timeout, globalConstants, GlobalStor, ProductStor, AuxStor) {
 
     var thisFactory = this,
       delayShowElementsMenu = globalConstants.STEP * 12;
@@ -74,6 +74,7 @@
     //------- Select Add Element Parameter
     function initAddElementTools(groupId, toolsId, elementIndex) {
       //console.log('Tools!+', AuxStor.aux.auxParameter, '====', groupId, toolsId, elementIndex);
+      AuxStor.aux.tempSize.length = 0;
       //----- close caclulator if opened
       if(AuxStor.aux.auxParameter === groupId+'-'+toolsId+'-'+elementIndex && !AuxStor.aux.tempSize.length) {
         desactiveAddElementParameters();
@@ -82,19 +83,28 @@
       } else {
         if(!GlobalStor.global.isQtyCalculator && !GlobalStor.global.isSizeCalculator) {
           if(AuxStor.aux.isFocusedAddElement === groupId) {
+            var currElem = ProductStor.product.chosenAddElements[groupId-1][elementIndex];
             desactiveAddElementParameters();
             AuxStor.aux.auxParameter = groupId + '-' + toolsId + '-' + elementIndex;
-            //console.log($scope.global.auxParameter);
             AuxStor.aux.currentAddElementId = elementIndex;
             switch (toolsId) {
               case 1:
+                if(currElem.element_qty) {
+                  AuxStor.aux.tempSize = currElem.element_qty.toString().split('');
+                }
                 GlobalStor.global.isQtyCalculator = 1;
                 break;
               case 2:
+                if(currElem.element_width) {
+                  AuxStor.aux.tempSize = currElem.element_width.toString().split('');
+                }
                 GlobalStor.global.isSizeCalculator = 1;
                 GlobalStor.global.isWidthCalculator = 1;
                 break;
               case 3:
+                if(currElem.element_height) {
+                  AuxStor.aux.tempSize = currElem.element_height.toString().split('');
+                }
                 GlobalStor.global.isSizeCalculator = 1;
                 GlobalStor.global.isWidthCalculator = 0;
                 break;

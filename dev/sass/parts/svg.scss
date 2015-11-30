@@ -5,6 +5,7 @@
   fill: #f9f9f9;
   stroke: $main_gray_txt;
   stroke-width: 2;
+  cursor: pointer;
 }
 .frame-icon {
   fill: #aaa;
@@ -14,6 +15,7 @@
 .glass {
   @include transition(all 0.1s linear);
   fill: rgba(155, 204, 255, 0.20);
+  cursor: pointer;
 }
 .glass-icon {
   fill: #94DEEE;
@@ -32,6 +34,7 @@
 .corner_mark {
   @extend .active_svg;
   stroke: none;
+  cursor: pointer;
 }
 .handle-mark {
   fill: #f9f9f9;

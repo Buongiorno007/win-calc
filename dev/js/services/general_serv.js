@@ -38,6 +38,13 @@
     //  return $filter('translate')('common_words.PAGE_REFRESH');
     //};
 
+    /** prevent Backspace back to previos Page */
+    $window.addEventListener('keydown', function(e){
+      console.info('main #####', e.keyCode);
+      if(e.keyCode === 8 && !$(e.target).is("input, textarea")){
+        e.preventDefault();
+      }
+    });
 
     return thisFactory.publicObj;
 
